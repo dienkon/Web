@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -998,7 +998,7 @@
       // We still keep backward-compat by falling back to old `loto_userid` if present.
       let userId =
         localStorage.getItem(
-          username ? `loto_userid__${username.trim().toLowerCase()}` : ""
+          username ? `loto_userid__${username.trim().toLowerCase()}` : "",
         ) ||
         localStorage.getItem("loto_userid") ||
         "user_" + Date.now();
@@ -1006,7 +1006,7 @@
       if (username) {
         localStorage.setItem(
           `loto_userid__${username.trim().toLowerCase()}`,
-          userId
+          userId,
         );
       }
 
@@ -1035,9 +1035,8 @@
       function initAppAfterLogin() {
         document.getElementById("modal-login").classList.add("hidden");
         document.getElementById("main-app").style.display = "block";
-        document.getElementById(
-          "user-display"
-        ).textContent = `Xin chào, ${username}`;
+        document.getElementById("user-display").textContent =
+          `Xin chào, ${username}`;
 
         // Admin tab visibility
         const adminTab = document.getElementById("tab-admin");
@@ -1098,7 +1097,7 @@
 
         // Update active button style
         const btns = document.querySelectorAll(
-          "#view-generate button[class*='h-10']"
+          "#view-generate button[class*='h-10']",
         );
         btns.forEach((btn) => {
           if (btn.onclick.toString().includes(theme)) {
@@ -1131,7 +1130,7 @@
           let fail = false;
           for (let r = 0; r < 9; r++) {
             let possibleCols = [0, 1, 2, 3, 4, 5, 6, 7, 8].filter(
-              (c) => colCounts[c] < 5
+              (c) => colCounts[c] < 5,
             );
             if (possibleCols.length < 5) {
               fail = true;
@@ -1457,7 +1456,7 @@
             return showToast(
               `Hàng ${
                 r + 1
-              } hiện có ${countRow} số. Mỗi hàng phải có đúng 5 số.`
+              } hiện có ${countRow} số. Mỗi hàng phải có đúng 5 số.`,
             );
           }
         }
@@ -1473,13 +1472,13 @@
             return showToast(
               `Cột ${c + 1} hiện có ${
                 colVals.length
-              } số. Mỗi cột phải có đúng 5 số.`
+              } số. Mỗi cột phải có đúng 5 số.`,
             );
           }
           for (let i = 1; i < colVals.length; i++) {
             if (colVals[i] <= colVals[i - 1]) {
               return showToast(
-                `Trong cột ${c + 1}, các số phải tăng dần từ trên xuống dưới.`
+                `Trong cột ${c + 1}, các số phải tăng dần từ trên xuống dưới.`,
               );
             }
           }
@@ -1503,7 +1502,7 @@
 
       // Gắn sự kiện cho nút "Xóa ô" trong popup chọn số (chỉ dùng cho Tự Tạo Vé)
       const pickerClearBtn = document.getElementById(
-        "custom-number-picker-clear"
+        "custom-number-picker-clear",
       );
       if (pickerClearBtn) {
         pickerClearBtn.onclick = (e) => {
@@ -1641,9 +1640,8 @@
             if (normName) return tName === normName;
             return t.userId === userId;
           });
-          document.getElementById(
-            "history-count"
-          ).textContent = `${myTickets.length} vé`;
+          document.getElementById("history-count").textContent =
+            `${myTickets.length} vé`;
 
           historyList.innerHTML = myTickets.length
             ? ""
@@ -1656,7 +1654,7 @@
             card.innerHTML = `
               <div class="flex justify-between items-center mb-3 ticket-header border-b pb-2">
                 <span class="text-[10px] font-mono opacity-70">${new Date(
-                  t.createdAt
+                  t.createdAt,
                 ).toLocaleDateString()}</span>
                 <div class="flex gap-2">
                     <button onclick="window.askDelete('${
@@ -1667,8 +1665,8 @@
                     <button onclick="window.downloadTicketImage('grid-${
                       t.id
                     }', 'Loto_${
-              t.id
-            }.png')" class="w-6 h-6 rounded flex items-center justify-center text-indigo-600 hover:bg-indigo-50 transition" title="Tải ảnh">
+                      t.id
+                    }.png')" class="w-6 h-6 rounded flex items-center justify-center text-indigo-600 hover:bg-indigo-50 transition" title="Tải ảnh">
                         <i class="fa-solid fa-download text-xs"></i>
                     </button>
                 </div>
@@ -1688,7 +1686,7 @@
         // Admin Table UI
         if (isAdmin) {
           window.filterAdminTable(
-            document.querySelector("#view-admin input").value
+            document.querySelector("#view-admin input").value,
           );
         }
       }
@@ -1700,7 +1698,7 @@
         const term = keyword.toLowerCase().trim();
 
         const filtered = allTickets.filter((t) =>
-          t.username.toLowerCase().includes(term)
+          t.username.toLowerCase().includes(term),
         );
 
         tbody.innerHTML = "";
@@ -1714,12 +1712,12 @@
               t.theme === "white"
                 ? "bg-gray-100 text-gray-800"
                 : t.theme === "blue"
-                ? "bg-blue-100 text-blue-800"
-                : t.theme === "green"
-                ? "bg-green-100 text-green-800"
-                : t.theme === "purple"
-                ? "bg-purple-100 text-purple-800"
-                : "bg-red-100 text-red-800";
+                  ? "bg-blue-100 text-blue-800"
+                  : t.theme === "green"
+                    ? "bg-green-100 text-green-800"
+                    : t.theme === "purple"
+                      ? "bg-purple-100 text-purple-800"
+                      : "bg-red-100 text-red-800";
 
             const tr = document.createElement("tr");
             tr.className = "hover:bg-gray-50 transition";
@@ -1796,7 +1794,7 @@
         XLSX.utils.book_append_sheet(
           wb,
           XLSX.utils.aoa_to_sheet(summaryRows),
-          "TONG_HOP"
+          "TONG_HOP",
         );
 
         Object.keys(groups).forEach((name) => {
@@ -1821,7 +1819,7 @@
           wb,
           `Loto_TongHop_${new Date()
             .toLocaleDateString()
-            .replace(/\//g, "-")}.xlsx`
+            .replace(/\//g, "-")}.xlsx`,
         );
         showToast("Đã tải xuống file Excel!");
       };
@@ -1850,7 +1848,7 @@
           await new Promise((r) => setTimeout(r, 150)); // Slightly faster
           const canvas = await html2canvas(
             container.querySelector("#bulk-temp"),
-            { scale: 2 }
+            { scale: 2 },
           );
           const link = document.createElement("a");
           link.download = `Loto_${t.username}_${t.id}.png`;
@@ -1881,7 +1879,7 @@
         setTimeout(async () => {
           const canvas = await html2canvas(
             container.querySelector("#bulk-temp"),
-            { scale: 2 }
+            { scale: 2 },
           );
           const link = document.createElement("a");
           link.download = `Loto_${ticket.username}.png`;

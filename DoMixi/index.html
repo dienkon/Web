@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Chủ - Bộ Tộc MixiGaming</title>
+    <style>
+      :root {
+        --main-red: #c62828;
+        --dark-red: #8e0000;
+        --bg-color: #121212;
+        --container-bg: #1e1e1e;
+        --text-color: #f5f5f5;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+      header {
+        background-color: var(--main-red);
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 5px solid var(--dark-red);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      nav {
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid #333;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      nav a:hover,
+      nav a.active {
+        background-color: var(--main-red);
+      }
+      .container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: var(--container-bg);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        color: var(--main-red);
+        border-bottom: 2px solid var(--main-red);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      .hero-img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 2px solid var(--main-red);
+      }
+      .intro-text {
+        font-size: 1.2rem;
+        text-align: justify;
+      }
+      footer {
+        background-color: #000;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top: 3px solid var(--main-red);
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Trang Chủ Bộ Tộc MixiGaming</h1>
+      <p>Hí Anh Em! Chào mừng đến với website chính thức của Bộ Tộc.</p>
+    </header>
+
+    <nav>
+      <a href="index.html" class="active">Trang Chủ</a>
+      <a href="gioithieu.html">Giới Thiệu</a>
+      <a href="lichstream.html">Lịch Stream</a>
+      <a href="hinhanh.html">Hình Ảnh</a>
+      <a href="dangky.html">Đăng Ký Thành Viên</a>
+    </nav>
+
+    <div class="container">
+      <h2>Xin chào anh em Bộ Tộc!</h2>
+      <img
+        src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"
+        alt="Gaming Setup"
+        class="hero-img"
+      />
+      <p class="intro-text">
+        Đây là ngôi nhà chung của tất cả anh em yêu mến Độ Mixi và Refund
+        Gaming. Tại đây, bạn có thể cập nhật những thông tin mới nhất về lịch
+        stream, những hình ảnh hài hước, và tham gia vào đại gia đình "Bộ Tộc
+        MixiGaming" - nơi mọi người giao lưu, giải trí sau những giờ làm việc
+        căng thẳng.
+      </p>
+      <p class="intro-text">
+        Màu đỏ này tượng trưng cho sự nhiệt huyết, niềm đam mê game và sự đoàn
+        kết của tất cả anh em trong nhóm. Hãy khám phá các menu bên trên để tìm
+        hiểu thêm nhé!
+      </p>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 MixiGaming. Thiết kế bởi một thành viên chân chính của Bộ
+        Tộc.
+      </p>
+    </footer>
+  </body>
+</html>

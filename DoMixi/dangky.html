@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký - Bộ Tộc MixiGaming</title>
+    <style>
+      :root {
+        --main-red: #c62828;
+        --dark-red: #8e0000;
+        --bg-color: #121212;
+        --container-bg: #1e1e1e;
+        --text-color: #f5f5f5;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+      header {
+        background-color: var(--main-red);
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 5px solid var(--dark-red);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      nav {
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid #333;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      nav a:hover,
+      nav a.active {
+        background-color: var(--main-red);
+      }
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: var(--container-bg);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        color: var(--main-red);
+        border-bottom: 2px solid var(--main-red);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      footer {
+        background-color: #000;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top: 3px solid var(--main-red);
+        color: #aaa;
+      }
+
+      /* CSS cho Form */
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #555;
+        background-color: #2a2a2a;
+        color: white;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1rem;
+      }
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--main-red);
+      }
+      .radio-group,
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 5px;
+      }
+      .radio-group label,
+      .checkbox-group label {
+        font-weight: normal;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 0;
+        cursor: pointer;
+      }
+      button[type="submit"] {
+        background-color: var(--main-red);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.3s;
+        text-transform: uppercase;
+      }
+      button[type="submit"]:hover {
+        background-color: #f44336;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Đăng Ký Tham Gia Nhóm</h1>
+    </header>
+
+    <nav>
+      <a href="index.html">Trang Chủ</a>
+      <a href="gioithieu.html">Giới Thiệu</a>
+      <a href="lichstream.html">Lịch Stream</a>
+      <a href="hinhanh.html">Hình Ảnh</a>
+      <a href="dangky.html" class="active">Đăng Ký Thành Viên</a>
+    </nav>
+
+    <div class="container">
+      <h2>Biểu Mẫu Gia Nhập Bộ Tộc</h2>
+
+      <!-- FORM ĐĂNG KÝ -->
+      <form action="#" method="get">
+        <div class="form-group">
+          <label for="fullname">Họ và Tên (Tên Facebook):</label>
+          <input
+            type="text"
+            id="fullname"
+            name="fullname"
+            placeholder="Nhập họ và tên của bạn..."
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email liên hệ:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="ví dụ: mixi@gmail.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mật khẩu tài khoản (dành cho website):</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label>Giới tính của bạn:</label>
+          <div class="radio-group">
+            <label
+              ><input type="radio" name="gender" value="nam" checked />
+              Nam</label
+            >
+            <label><input type="radio" name="gender" value="nu" /> Nữ</label>
+            <label
+              ><input type="radio" name="gender" value="khac" /> Khác</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="game">Tựa game bạn yêu thích nhất ở Refund:</label>
+          <select id="game" name="game">
+            <option value="gta5">GTA V Roleplay</option>
+            <option value="pubg">PUBG Battlegrounds</option>
+            <option value="cs2">CS2 / CS:GO</option>
+            <option value="fifa">Fifa Online 4</option>
+            <option value="party">
+              Các game Party (Pummel, Goose Goose Duck...)
+            </option>
+            <option value="other">Chỉ xem Talkshow</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Đôi lời gửi tới Tộc Trưởng:</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="Viết gì đó lươn lẹo vào đây..."
+          ></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" name="agree" required />
+            Tôi cam kết tuân thủ luật lệ của Group (Không spam, không cãi nhau,
+            văn minh lịch sự).
+          </label>
+        </div>
+
+        <button type="submit">Gửi Đơn Đăng Ký</button>
+      </form>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 MixiGaming. Thiết kế bởi một thành viên chân chính của Bộ
+        Tộc.
+      </p>
+    </footer>
+  </body>
+</html>
