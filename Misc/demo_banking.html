@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán 1k nhận HELO</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        background-color: #f4f4f9;
+        padding: 20px;
+      }
+      .container {
+        background: white;
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      #qr-code {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 15px;
+      }
+      .hidden {
+        display: none;
+      }
+      .btn-check {
+        background: #0050ff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+      h1 {
+        color: #0050ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="step-pay">
+      <h2>Ủng hộ 1,000đ</h2>
+      <p>Quét mã MB Bank bên dưới để tiếp tục</p>
+
+      <img
+        id="qr-code"
+        src="https://img.vietqr.io/image/MB-9987789
+-compact2.jpg?amount=1000&addInfo=HELO"
+        alt="QR MB Bank"
+      />
+
+      <p style="font-size: 13px; color: #666">Nội dung: <b>HELO</b></p>
+      <button class="btn-check" onclick="checkPayment()">
+        Tôi đã chuyển tiền
+      </button>
+    </div>
+
+    <div class="container hidden" id="step-success">
+      <h1 style="font-size: 80px; margin: 0">HELO</h1>
+      <p>Giao dịch thành công! Chào mừng bạn.</p>
+      <button class="btn-check" onclick="location.reload()">Quay lại</button>
+    </div>
+
+    <script>
+      function checkPayment() {
+        // Hiệu ứng chờ giả lập (Trong thực tế bạn cần API để check)
+        const btn = document.querySelector(".btn-check");
+        btn.innerText = "Đang kiểm tra...";
+
+        setTimeout(() => {
+          document.getElementById("step-pay").classList.add("hidden");
+          document.getElementById("step-success").classList.remove("hidden");
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>

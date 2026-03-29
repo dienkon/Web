@@ -1,0 +1,2094 @@
+<!doctype html>
+<html lang="vi" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tài Chính Thông Minh</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4f46e5",
+              secondary: "#10b981",
+              danger: "#f43f5e",
+              darkbg: "#0f172a",
+              darkcard: "#1e293b",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- SheetJS (Excel Export) -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      * {
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #475569;
+      }
+
+      /* Transitions */
+      .page-section {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Tab Styles */
+      .tab-btn {
+        position: relative;
+        transition: all 0.2s;
+      }
+      .tab-btn::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background-color: #4f46e5;
+        transition: width 0.3s;
+      }
+      .tab-btn.active {
+        color: #4f46e5;
+        font-weight: 600;
+      }
+      .dark .tab-btn.active {
+        color: #818cf8;
+      }
+      .tab-btn.active::after {
+        width: 100%;
+      }
+      .dark .tab-btn.active::after {
+        background-color: #818cf8;
+      }
+
+      /* Toast */
+      #toast-container {
+        z-index: 9999;
+      }
+      .toast {
+        animation:
+          slideInRight 0.3s ease-out forwards,
+          fadeOut 0.3s ease-in 2.7s forwards;
+      }
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 dark:bg-darkbg text-slate-800 dark:text-slate-200 transition-colors duration-300"
+  >
+    <!-- LOADING OVERLAY -->
+    <div
+      id="loadingOverlay"
+      class="fixed inset-0 bg-white dark:bg-darkbg z-[100] flex flex-col items-center justify-center"
+    >
+      <i class="fas fa-spinner fa-spin text-5xl text-primary mb-4"></i>
+      <h2 class="text-xl font-semibold">Đang tải dữ liệu...</h2>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div
+      id="loginScreen"
+      class="fixed inset-0 bg-slate-50 dark:bg-darkbg z-[60] flex flex-col items-center justify-center hidden"
+    >
+      <div
+        class="bg-white dark:bg-darkcard p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4 text-center border border-slate-100 dark:border-slate-800"
+      >
+        <div
+          class="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-2xl mx-auto flex items-center justify-center mb-6"
+        >
+          <i
+            class="fas fa-wallet text-4xl text-primary dark:text-indigo-400"
+          ></i>
+        </div>
+        <h1 class="text-2xl font-bold mb-2">Tài Chính Thông Minh</h1>
+        <p class="text-slate-500 dark:text-slate-400 mb-8">
+          Quản lý thu chi thông minh, đạt mục tiêu tài chính nhanh chóng.
+        </p>
+
+        <button
+          onclick="loginWithGoogle()"
+          class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition-all flex items-center justify-center gap-3"
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            class="w-6 h-6"
+          />
+          Đăng nhập bằng Google
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div
+      id="appContainer"
+      class="min-h-screen flex flex-col opacity-0 hidden transition-opacity duration-500"
+    >
+      <!-- HEADER & PC TABS -->
+      <header
+        class="bg-white dark:bg-darkcard shadow-sm sticky top-0 z-40 transition-colors duration-300"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <!-- Logo & Menu Btn -->
+            <div class="flex items-center gap-3">
+              <button
+                id="mobileMenuBtn"
+                class="md:hidden text-2xl text-slate-600 dark:text-slate-300 focus:outline-none"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+              <div
+                class="flex items-center gap-2 text-primary dark:text-indigo-400 font-bold text-xl"
+              >
+                <div
+                  class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center"
+                >
+                  <i class="fas fa-wallet"></i>
+                </div>
+                <span class="hidden sm:block">Tài Chính</span>
+              </div>
+            </div>
+
+            <!-- PC TABS -->
+            <nav class="hidden md:flex space-x-8 h-full items-center">
+              <button
+                class="tab-btn h-full px-1 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+                data-tab="dashboard"
+              >
+                <i class="fas fa-chart-line"></i> Tổng quan
+              </button>
+              <button
+                class="tab-btn h-full px-1 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+                data-tab="transactions"
+              >
+                <i class="fas fa-exchange-alt"></i> Giao dịch
+              </button>
+              <button
+                class="tab-btn h-full px-1 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+                data-tab="budgets"
+              >
+                <i class="fas fa-bullseye"></i> Ngân sách
+              </button>
+              <button
+                class="tab-btn h-full px-1 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+                data-tab="reports"
+              >
+                <i class="fas fa-chart-pie"></i> So sánh
+              </button>
+              <button
+                class="tab-btn h-full px-1 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+                data-tab="debts"
+              >
+                <i class="fas fa-hand-holding-usd"></i> Sổ nợ
+              </button>
+            </nav>
+
+            <!-- Right Actions & Profile -->
+            <div class="flex items-center gap-4">
+              <button
+                onclick="exportExcel()"
+                class="hidden sm:flex text-sm items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-600 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-400 transition-colors"
+                title="Xuất Excel"
+              >
+                <i class="fas fa-file-excel"></i> Xuất
+              </button>
+              <button
+                id="themeToggle"
+                class="text-xl text-slate-500 dark:text-amber-400 focus:outline-none p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+              </button>
+
+              <!-- User Profile Dropdown Placeholder -->
+              <div class="relative group cursor-pointer">
+                <img
+                  id="userAvatar"
+                  src="https://via.placeholder.com/40"
+                  class="w-8 h-8 rounded-full shadow-md object-cover border-2 border-primary"
+                  alt="User"
+                />
+                <div
+                  class="absolute right-0 mt-2 w-48 bg-white dark:bg-darkcard rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 hidden group-hover:block z-50 overflow-hidden"
+                >
+                  <div
+                    class="px-4 py-3 border-b border-slate-100 dark:border-slate-700"
+                  >
+                    <p id="userName" class="text-sm font-semibold truncate">
+                      Người dùng
+                    </p>
+                  </div>
+                  <button
+                    onclick="logout()"
+                    class="w-full text-left px-4 py-3 text-sm text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors flex items-center gap-2"
+                  >
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- MOBILE SIDEBAR -->
+      <div
+        id="mobileSidebarOverlay"
+        class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity opacity-0"
+      ></div>
+      <aside
+        id="mobileSidebar"
+        class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-darkcard shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col"
+      >
+        <div
+          class="p-6 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center"
+        >
+          <div class="flex items-center gap-2 text-primary font-bold text-lg">
+            <i class="fas fa-wallet"></i> Tài Chính
+          </div>
+          <button id="closeSidebarBtn" class="text-slate-500 text-xl p-2">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-2 flex flex-col">
+          <button
+            class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-primary transition-colors bg-indigo-50 dark:bg-indigo-900/20 text-primary dark:text-indigo-400"
+            data-tab="dashboard"
+          >
+            <i class="fas fa-chart-line w-5"></i> Tổng quan
+          </button>
+          <button
+            class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-primary transition-colors"
+            data-tab="transactions"
+          >
+            <i class="fas fa-exchange-alt w-5"></i> Giao dịch
+          </button>
+          <button
+            class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-primary transition-colors"
+            data-tab="budgets"
+          >
+            <i class="fas fa-bullseye w-5"></i> Ngân sách & Mục tiêu
+          </button>
+          <button
+            class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-primary transition-colors"
+            data-tab="reports"
+          >
+            <i class="fas fa-chart-pie w-5"></i> So sánh & Báo cáo
+          </button>
+          <button
+            class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-primary transition-colors"
+            data-tab="debts"
+          >
+            <i class="fas fa-hand-holding-usd w-5"></i> Sổ nợ
+          </button>
+
+          <div
+            class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-700 space-y-2"
+          >
+            <button
+              onclick="exportExcel()"
+              class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium text-green-600 hover:bg-green-50 dark:text-green-400 dark:hover:bg-green-900/20 transition-colors"
+            >
+              <i class="fas fa-file-excel w-5"></i> Xuất Excel
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT AREA -->
+      <main class="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8">
+        <!-- 1. DASHBOARD -->
+        <div id="dashboard" class="page-section space-y-6 block">
+          <!-- Summary Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden group"
+            >
+              <div
+                class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform"
+              >
+                <i class="fas fa-wallet text-6xl text-primary"></i>
+              </div>
+              <h3
+                class="text-slate-500 dark:text-slate-400 font-medium text-sm"
+              >
+                Tổng số dư (Tất cả ví)
+              </h3>
+              <div
+                id="totalBalance"
+                class="text-3xl font-bold mt-2 text-slate-800 dark:text-white"
+              >
+                0 ₫
+              </div>
+            </div>
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden group"
+            >
+              <div
+                class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform"
+              >
+                <i class="fas fa-arrow-down text-6xl text-secondary"></i>
+              </div>
+              <h3
+                class="text-slate-500 dark:text-slate-400 font-medium text-sm"
+              >
+                Thu nhập (Tháng này)
+              </h3>
+              <div
+                id="monthlyIncome"
+                class="text-3xl font-bold mt-2 text-secondary"
+              >
+                0 ₫
+              </div>
+            </div>
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden group"
+            >
+              <div
+                class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform"
+              >
+                <i class="fas fa-arrow-up text-6xl text-danger"></i>
+              </div>
+              <h3
+                class="text-slate-500 dark:text-slate-400 font-medium text-sm"
+              >
+                Chi tiêu (Tháng này)
+              </h3>
+              <div
+                id="monthlyExpense"
+                class="text-3xl font-bold mt-2 text-danger"
+              >
+                0 ₫
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Chart -->
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 lg:col-span-2"
+            >
+              <h3
+                class="font-semibold text-lg mb-4 text-slate-800 dark:text-white"
+              >
+                Biểu đồ Thu / Chi 7 ngày qua
+              </h3>
+              <div class="h-64 relative w-full">
+                <canvas id="mainChart"></canvas>
+              </div>
+            </div>
+            <!-- Recent Transactions -->
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col"
+            >
+              <div class="flex justify-between items-center mb-4">
+                <h3
+                  class="font-semibold text-lg text-slate-800 dark:text-white"
+                >
+                  Giao dịch gần đây
+                </h3>
+                <button
+                  onclick="switchTab('transactions')"
+                  class="text-sm text-primary hover:underline"
+                >
+                  Xem tất cả
+                </button>
+              </div>
+              <div
+                id="recentTransactions"
+                class="flex-1 overflow-y-auto space-y-3 pr-2"
+              >
+                <!-- Rendered by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. TRANSACTIONS -->
+        <div id="transactions" class="page-section space-y-6 hidden">
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+          >
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
+              Giao dịch
+            </h2>
+            <div class="flex gap-2 w-full sm:w-auto">
+              <input
+                type="month"
+                id="filterMonth"
+                class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 outline-none focus:border-primary text-slate-800 dark:text-white w-full sm:w-auto"
+              />
+              <button
+                onclick="openModal('txModal')"
+                class="bg-primary hover:bg-indigo-700 text-white px-5 py-2 rounded-xl transition-colors whitespace-nowrap shadow-md shadow-indigo-200 dark:shadow-none font-medium"
+              >
+                <i class="fas fa-plus mr-1"></i> Thêm mới
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="bg-white dark:bg-darkcard rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden"
+          >
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr
+                    class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-sm border-b border-slate-200 dark:border-slate-700"
+                  >
+                    <th class="py-4 px-6 font-medium">Thời gian</th>
+                    <th class="py-4 px-6 font-medium">Danh mục</th>
+                    <th class="py-4 px-6 font-medium">Ghi chú</th>
+                    <th class="py-4 px-6 font-medium">Từ Ví</th>
+                    <th class="py-4 px-6 font-medium text-right">Số tiền</th>
+                    <th class="py-4 px-6 font-medium text-center">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="transactionsList"
+                  class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300"
+                >
+                  <!-- Rendered by JS -->
+                </tbody>
+              </table>
+            </div>
+            <div
+              id="emptyTransactions"
+              class="hidden p-8 text-center text-slate-500 flex-col items-center"
+            >
+              <i
+                class="fas fa-box-open text-4xl mb-3 text-slate-300 dark:text-slate-600"
+              ></i>
+              <p>Chưa có giao dịch nào trong tháng này.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. BUDGETS & GOALS -->
+        <div id="budgets" class="page-section space-y-6 hidden">
+          <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
+            Ngân sách & Mục tiêu
+          </h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Budgets -->
+            <div class="space-y-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i class="fas fa-chart-line text-amber-500"></i> Ngân sách
+                  tháng này
+                </h3>
+                <button
+                  onclick="openModal('budgetModal')"
+                  class="text-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  <i class="fas fa-plus"></i> Tạo mới
+                </button>
+              </div>
+              <div id="budgetsList" class="space-y-4">
+                <!-- JS -->
+              </div>
+            </div>
+
+            <!-- Goals -->
+            <div class="space-y-4">
+              <div class="flex justify-between items-center">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <i class="fas fa-flag-checkered text-emerald-500"></i> Mục
+                  tiêu tiết kiệm
+                </h3>
+                <button
+                  onclick="openModal('goalModal')"
+                  class="text-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  <i class="fas fa-plus"></i> Thêm mục tiêu
+                </button>
+              </div>
+              <div id="goalsList" class="space-y-4">
+                <!-- JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. REPORTS & COMPARISON -->
+        <div id="reports" class="page-section space-y-6 hidden">
+          <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
+            So sánh & Báo cáo
+          </h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Comparison Chart -->
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
+            >
+              <h3
+                class="font-semibold text-lg mb-4 text-slate-800 dark:text-white text-center"
+              >
+                So sánh Tháng này vs Tháng trước
+              </h3>
+              <div class="h-72 w-full"><canvas id="compareChart"></canvas></div>
+            </div>
+
+            <!-- Spending By Category -->
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800"
+            >
+              <h3
+                class="font-semibold text-lg mb-4 text-slate-800 dark:text-white text-center"
+              >
+                Cơ cấu chi tiêu tháng này
+              </h3>
+              <div class="h-72 w-full flex justify-center">
+                <canvas id="doughnutChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. DEBTS -->
+        <div id="debts" class="page-section space-y-6 hidden">
+          <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-white">
+              Sổ nợ / Cho vay
+            </h2>
+            <button
+              onclick="openModal('debtModal')"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl transition-colors shadow-md font-medium"
+            >
+              <i class="fas fa-plus mr-1"></i> Ghi sổ mới
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden flex flex-col"
+            >
+              <div
+                class="bg-emerald-50 dark:bg-emerald-900/20 p-4 border-b border-emerald-100 dark:border-emerald-800/30"
+              >
+                <h3
+                  class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2"
+                >
+                  <i class="fas fa-hand-holding-usd"></i> Cho vay (Người ta nợ
+                  mình)
+                </h3>
+              </div>
+              <div id="lendList" class="p-4 flex-1 space-y-3"></div>
+            </div>
+
+            <div
+              class="bg-white dark:bg-darkcard rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden flex flex-col"
+            >
+              <div
+                class="bg-rose-50 dark:bg-rose-900/20 p-4 border-b border-rose-100 dark:border-rose-800/30"
+              >
+                <h3
+                  class="font-bold text-rose-600 dark:text-rose-400 flex items-center gap-2"
+                >
+                  <i class="fas fa-money-bill-wave"></i> Đi vay (Mình nợ người
+                  ta)
+                </h3>
+              </div>
+              <div id="borrowList" class="p-4 flex-1 space-y-3"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Modal Thêm Giao Dịch -->
+    <div
+      id="txModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onclick="closeModal('txModal')"
+      ></div>
+
+      <div
+        class="relative z-10 bg-white dark:bg-darkcard w-full max-w-md rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 page-section"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
+        >
+          <h3 class="text-lg font-bold">Thêm Giao Dịch</h3>
+          <button
+            onclick="closeModal('txModal')"
+            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="txForm" class="p-6 space-y-4">
+          <div
+            class="grid grid-cols-2 gap-3 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl"
+          >
+            <button
+              type="button"
+              id="btnTypeExpense"
+              onclick="setTxType('expense')"
+              class="py-2 rounded-lg bg-white dark:bg-darkcard shadow text-danger font-medium"
+            >
+              Chi tiêu
+            </button>
+
+            <button
+              type="button"
+              id="btnTypeIncome"
+              onclick="setTxType('income')"
+              class="py-2 rounded-lg text-slate-500 font-medium hover:text-slate-700"
+            >
+              Thu nhập
+            </button>
+          </div>
+
+          <input type="hidden" id="txType" value="expense" />
+
+          <div>
+            <label
+              class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+            >
+              Số tiền (VNĐ)
+            </label>
+
+            <input
+              type="number"
+              id="txAmount"
+              required
+              min="1"
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 text-lg font-bold outline-none focus:border-primary"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+              >
+                Danh mục
+              </label>
+
+              <select
+                id="txCategory"
+                required
+                class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:border-primary"
+              ></select>
+            </div>
+
+            <div>
+              <label
+                class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+              >
+                Từ Ví
+              </label>
+
+              <select
+                id="txWallet"
+                required
+                class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:border-primary"
+              ></select>
+            </div>
+          </div>
+
+          <div>
+            <label
+              class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+            >
+              Thời gian
+            </label>
+
+            <input
+              type="datetime-local"
+              id="txDate"
+              required
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label
+              class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+            >
+              Ghi chú
+            </label>
+
+            <input
+              type="text"
+              id="txNote"
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:border-primary"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-primary hover:bg-indigo-700 text-white py-3 rounded-xl font-bold"
+          >
+            Lưu giao dịch
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Ngân sách -->
+    <div
+      id="budgetModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onclick="closeModal('budgetModal')"
+      ></div>
+
+      <div
+        class="relative z-10 bg-white dark:bg-darkcard w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden page-section"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
+        >
+          <h3 class="text-lg font-bold">Tạo Ngân sách Tháng</h3>
+
+          <button
+            onclick="closeModal('budgetModal')"
+            class="text-slate-400 hover:text-slate-600"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="budgetForm" class="p-6 space-y-4">
+          <select
+            id="bgCategory"
+            class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3"
+          >
+            <option value="Tất cả">Tất cả chi tiêu</option>
+            <option value="Ăn uống">Ăn uống</option>
+            <option value="Mua sắm">Mua sắm</option>
+            <option value="Di chuyển">Di chuyển</option>
+            <option value="Hóa đơn">Hóa đơn</option>
+            <option value="Giải trí">Giải trí</option>
+          </select>
+
+          <input
+            type="number"
+            id="bgLimit"
+            min="1"
+            class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3"
+          />
+
+          <button
+            type="submit"
+            class="w-full bg-primary hover:bg-indigo-700 text-white py-3 rounded-xl font-bold"
+          >
+            Lưu ngân sách
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Mục tiêu -->
+    <div
+      id="goalModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onclick="closeModal('goalModal')"
+      ></div>
+
+      <div
+        class="relative z-10 bg-white dark:bg-darkcard w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden page-section"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
+        >
+          <h3 class="text-lg font-bold">Mục tiêu Tiết kiệm</h3>
+
+          <button
+            onclick="closeModal('goalModal')"
+            class="text-slate-400 hover:text-slate-600"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="goalForm" class="p-6 space-y-4">
+          <input
+            type="text"
+            id="gName"
+            placeholder="Vd: Mua xe, Du lịch..."
+            class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3"
+          />
+
+          <input
+            type="number"
+            id="gTarget"
+            min="1"
+            class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3"
+          />
+
+          <button
+            type="submit"
+            class="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-xl font-bold"
+          >
+            Thêm mục tiêu
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Sổ Nợ -->
+    <div
+      id="debtModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onclick="closeModal('debtModal')"
+      ></div>
+
+      <div
+        class="relative z-10 bg-white dark:bg-darkcard w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden page-section"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
+        >
+          <h3 class="text-lg font-bold">Ghi Sổ Nợ Mới</h3>
+
+          <button
+            onclick="closeModal('debtModal')"
+            class="text-slate-400 hover:text-slate-600"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="debtForm" class="p-6 space-y-4">
+          <input
+            type="text"
+            id="dPerson"
+            placeholder="Tên người"
+            class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3"
+          />
+
+          <input
+            type="number"
+            id="dAmount"
+            min="1"
+            class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3"
+          />
+
+          <button
+            type="submit"
+            class="w-full bg-primary hover:bg-indigo-700 text-white py-3 rounded-xl font-bold"
+          >
+            Lưu sổ
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- Modal Thêm Ví -->
+    <div
+      id="walletModal"
+      class="fixed inset-0 z-5000 hidden items-center justify-center p-4"
+    >
+      <!-- overlay -->
+      <div
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+        onclick="closeModal('walletModal')"
+      ></div>
+
+      <!-- modal box -->
+      <div
+        class="relative z-10 bg-white dark:bg-darkcard w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden page-section"
+      >
+        <div
+          class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center"
+        >
+          <h3 class="text-lg font-bold">Thêm Ví Mới</h3>
+          <button
+            onclick="closeModal('walletModal')"
+            class="text-slate-400 hover:text-slate-600"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="walletForm" class="p-6 space-y-4">
+          <div>
+            <label
+              class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+            >
+              Tên ví
+            </label>
+            <input
+              type="text"
+              id="walletName"
+              required
+              placeholder="Vd: Tiền mặt, Ngân hàng..."
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:border-primary"
+            />
+          </div>
+
+          <div>
+            <label
+              class="block text-sm font-medium mb-1 text-slate-600 dark:text-slate-400"
+            >
+              Số dư ban đầu (VNĐ)
+            </label>
+            <input
+              type="number"
+              id="walletBalance"
+              required
+              min="0"
+              value="0"
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-xl px-4 py-3 outline-none focus:border-primary"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-primary hover:bg-indigo-700 text-white py-3 rounded-xl font-bold transition-colors mt-2"
+          >
+            Thêm ví
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 flex flex-col gap-3 pointer-events-none"
+    ></div>
+
+    <!-- Firebase SDK (RTDB + Auth) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        push,
+        set,
+        remove,
+        update,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+      // APP STATE
+      const state = {
+        wallets: [],
+        transactions: [],
+        budgets: [],
+        goals: [],
+        debts: [],
+        user: null,
+      };
+      const expenseCategories = [
+        "Ăn uống",
+        "Di chuyển",
+        "Mua sắm",
+        "Hóa đơn",
+        "Giải trí",
+        "Sức khỏe",
+        "Giáo dục",
+        "Khác",
+      ];
+      const incomeCategories = [
+        "Lương",
+        "Thưởng",
+        "Đầu tư",
+        "Được tặng",
+        "Khác",
+      ];
+
+      let mainChartInstance = null;
+      let compareChartInstance = null;
+      let doughnutChartInstance = null;
+      let app, auth, db;
+
+      // --- FIREBASE INITIALIZATION ---
+      function initFirebase() {
+        try {
+          const firebaseConfig = {
+            apiKey: "AIzaSyAg6rMLtY_8GWYXtSu6L8sQ_CVPNd3kKCw",
+            authDomain: "mywallet-e1b68.firebaseapp.com",
+            projectId: "mywallet-e1b68",
+            storageBucket: "mywallet-e1b68.firebasestorage.app",
+            messagingSenderId: "362492240466",
+            appId: "1:362492240466:web:a13ef22c3706420ff7f58b",
+            measurementId: "G-04HFW06NB7",
+          };
+
+          app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getDatabase(app);
+
+          // Listen Auth State
+          onAuthStateChanged(auth, (user) => {
+            hideLoading();
+            if (user) {
+              state.user = user;
+              document.getElementById("userName").textContent =
+                user.displayName || "Người dùng";
+              document.getElementById("userAvatar").src =
+                user.photoURL || "https://via.placeholder.com/40";
+
+              document.getElementById("loginScreen").classList.add("hidden");
+              document
+                .getElementById("appContainer")
+                .classList.remove("hidden");
+              setTimeout(
+                () =>
+                  document
+                    .getElementById("appContainer")
+                    .classList.remove("opacity-0"),
+                100,
+              );
+
+              setupRealtimeListeners();
+            } else {
+              state.user = null;
+              document
+                .getElementById("appContainer")
+                .classList.add("hidden", "opacity-0");
+              document.getElementById("loginScreen").classList.remove("hidden");
+            }
+          });
+        } catch (err) {
+          console.error("Firebase Init Error:", err);
+          hideLoading();
+          loadDummyData();
+          showToast("Đang chạy ở chế độ demo", "info");
+        }
+      }
+
+      // Load dummy data for demo
+      function loadDummyData() {
+        state.wallets = [
+          { id: "wallet1", name: "Tiền mặt", balance: 5000000 },
+          { id: "wallet2", name: "Ngân hàng", balance: 15000000 },
+        ];
+        state.transactions = [];
+        state.budgets = [];
+        state.goals = [];
+        state.debts = [];
+
+        document.getElementById("userName").textContent = "Người dùng Demo";
+        document.getElementById("userAvatar").src =
+          "https://via.placeholder.com/40";
+        document.getElementById("loginScreen").classList.add("hidden");
+        document.getElementById("appContainer").classList.remove("hidden");
+        setTimeout(
+          () =>
+            document
+              .getElementById("appContainer")
+              .classList.remove("opacity-0"),
+          100,
+        );
+
+        updateWalletDropdowns();
+        renderAll();
+      }
+
+      // --- AUTH METHODS ---
+      const provider = new GoogleAuthProvider();
+      window.loginWithGoogle = () => {
+        signInWithPopup(auth, provider).catch((err) =>
+          showToast("Lỗi đăng nhập: " + err.message, "error"),
+        );
+      };
+      window.logout = () => signOut(auth);
+
+      // --- REALTIME LISTENERS (RTDB) ---
+      function setupRealtimeListeners() {
+        if (!state.user) return;
+
+        const uid = state.user.uid;
+
+        // Listen Wallets
+        onValue(ref(db, `users/${uid}/wallets`), (snapshot) => {
+          const data = snapshot.val();
+          state.wallets = data
+            ? Object.keys(data).map((k) => ({ id: k, ...data[k] }))
+            : [];
+
+          // Nếu chưa có ví nào, tự động tạo "Tiền mặt"
+          if (state.wallets.length === 0) {
+            const newWalletRef = push(ref(db, `users/${uid}/wallets`));
+            set(newWalletRef, { name: "Tiền mặt", balance: 0 });
+          }
+
+          updateWalletDropdowns();
+          updateUI();
+        });
+
+        // Listen Transactions
+        onValue(ref(db, `users/${uid}/transactions`), (snapshot) => {
+          const data = snapshot.val();
+          state.transactions = data
+            ? Object.keys(data)
+                .map((k) => ({ id: k, ...data[k] }))
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+            : [];
+          updateUI();
+        });
+
+        // Listen Budgets, Goals, Debts
+        onValue(ref(db, `users/${uid}/budgets`), (snapshot) => {
+          const data = snapshot.val();
+          state.budgets = data
+            ? Object.keys(data).map((k) => ({ id: k, ...data[k] }))
+            : [];
+          updateUI();
+        });
+        onValue(ref(db, `users/${uid}/goals`), (snapshot) => {
+          const data = snapshot.val();
+          state.goals = data
+            ? Object.keys(data).map((k) => ({ id: k, ...data[k] }))
+            : [];
+          updateUI();
+        });
+        onValue(ref(db, `users/${uid}/debts`), (snapshot) => {
+          const data = snapshot.val();
+          state.debts = data
+            ? Object.keys(data).map((k) => ({ id: k, ...data[k] }))
+            : [];
+          updateUI();
+        });
+      }
+
+      function updateUI() {
+        renderDashboard();
+        renderTransactions();
+        renderBudgetsAndGoals();
+        renderDebts();
+        renderCharts();
+      }
+
+      function renderAll() {
+        updateUI();
+      }
+
+      // --- CORE UI FUNCTIONS ---
+      const formatMoney = (amount) =>
+        new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }).format(amount);
+
+      function showToast(message, type = "success") {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        const icon =
+          type === "success"
+            ? "fa-check-circle text-green-500"
+            : "fa-exclamation-circle text-red-500";
+        toast.className = `toast flex items-center gap-3 bg-white dark:bg-darkcard px-4 py-3 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800 text-slate-800 dark:text-white`;
+        toast.innerHTML = `<i class="fas ${icon} text-xl"></i> <span class="font-medium">${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+
+      function hideLoading() {
+        document.getElementById("loadingOverlay").classList.add("hidden");
+      }
+
+      window.openModal = (id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+          if (id === "txModal") {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById("txDate").value = now
+              .toISOString()
+              .slice(0, 16);
+            setTxType("expense");
+          }
+        }
+      };
+
+      window.closeModal = (id) => {
+        const modal = document.getElementById(id);
+        if (modal) {
+          modal.classList.add("hidden");
+        }
+      };
+
+      // --- TAB LOGIC ---
+      window.switchTab = (tabId) => {
+        document
+          .querySelectorAll(".page-section")
+          .forEach((el) => el.classList.add("hidden"));
+        document.getElementById(tabId).classList.remove("hidden");
+        document.querySelectorAll(".tab-btn, .sidebar-btn").forEach((btn) => {
+          if (btn.dataset.tab === tabId) {
+            btn.classList.add(
+              "active",
+              "bg-indigo-50",
+              "text-primary",
+              "dark:bg-indigo-900/20",
+              "dark:text-indigo-400",
+            );
+            if (btn.classList.contains("tab-btn"))
+              btn.classList.remove("bg-indigo-50");
+          } else {
+            btn.classList.remove(
+              "active",
+              "bg-indigo-50",
+              "text-primary",
+              "dark:bg-indigo-900/20",
+              "dark:text-indigo-400",
+            );
+          }
+        });
+        if (window.innerWidth < 768) {
+          document
+            .getElementById("mobileSidebar")
+            .classList.add("-translate-x-full");
+          document
+            .getElementById("mobileSidebarOverlay")
+            .classList.add("hidden", "opacity-0");
+        }
+      };
+
+      // --- WALLET FUNCTIONS ---
+      window.openWalletModal = () => {
+        openModal("walletModal");
+      };
+
+      async function handleAddWallet(e) {
+        e.preventDefault();
+        const name = document.getElementById("walletName").value;
+        const balance = Number(document.getElementById("walletBalance").value);
+
+        if (!state.user) {
+          // Demo mode
+          const newWallet = {
+            id: "wallet" + Date.now(),
+            name: name,
+            balance: balance,
+          };
+          state.wallets.push(newWallet);
+          updateWalletDropdowns();
+          renderDashboard();
+          closeModal("walletModal");
+          document.getElementById("walletForm").reset();
+          showToast("Đã thêm ví mới (Demo)!");
+          return;
+        }
+
+        try {
+          const walletRef = push(ref(db, `users/${state.user.uid}/wallets`));
+          await set(walletRef, { name, balance });
+          closeModal("walletModal");
+          document.getElementById("walletForm").reset();
+          showToast("Đã thêm ví mới!");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+
+      window.deleteWallet = async (id) => {
+        const hasTransactions = state.transactions.some(
+          (t) => t.walletId === id,
+        );
+        if (hasTransactions) {
+          if (
+            !confirm(
+              "Ví này có giao dịch liên quan. Xóa ví sẽ ảnh hưởng đến các giao dịch. Bạn có chắc?",
+            )
+          ) {
+            return;
+          }
+        } else {
+          if (!confirm("Bạn có chắc muốn xóa ví này?")) return;
+        }
+
+        if (!state.user) {
+          state.wallets = state.wallets.filter((w) => w.id !== id);
+          updateWalletDropdowns();
+          renderDashboard();
+          showToast("Đã xóa ví");
+          return;
+        }
+
+        try {
+          await remove(ref(db, `users/${state.user.uid}/wallets/${id}`));
+          showToast("Đã xóa ví");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      };
+
+      function updateWalletDropdowns() {
+        const txWallet = document.getElementById("txWallet");
+        if (txWallet) {
+          txWallet.innerHTML = state.wallets
+            .map(
+              (w) =>
+                `<option value="${w.id}">${w.name} (${formatMoney(w.balance)})</option>`,
+            )
+            .join("");
+        }
+      }
+
+      // --- TRANSACTIONS LOGIC (With Wallet Balance Update) ---
+      window.setTxType = (type) => {
+        document.getElementById("txType").value = type;
+        const btnExp = document.getElementById("btnTypeExpense"),
+          btnInc = document.getElementById("btnTypeIncome");
+        if (type === "expense") {
+          btnExp.className =
+            "py-2 rounded-lg bg-white dark:bg-darkcard shadow text-danger font-medium transition-all";
+          btnInc.className =
+            "py-2 rounded-lg text-slate-500 font-medium transition-all hover:text-slate-700";
+        } else {
+          btnInc.className =
+            "py-2 rounded-lg bg-white dark:bg-darkcard shadow text-secondary font-medium transition-all";
+          btnExp.className =
+            "py-2 rounded-lg text-slate-500 font-medium transition-all hover:text-slate-700";
+        }
+        document.getElementById("txCategory").innerHTML = (
+          type === "expense" ? expenseCategories : incomeCategories
+        )
+          .map((c) => `<option value="${c}">${c}</option>`)
+          .join("");
+      };
+
+      async function handleAddTransaction(e) {
+        e.preventDefault();
+        const type = document.getElementById("txType").value;
+        const amount = Number(document.getElementById("txAmount").value);
+        const walletId = document.getElementById("txWallet").value;
+
+        const data = {
+          type,
+          amount,
+          walletId,
+          category: document.getElementById("txCategory").value,
+          date: document.getElementById("txDate").value,
+          note: document.getElementById("txNote").value,
+          createdAt: new Date().toISOString(),
+        };
+
+        if (!state.user) {
+          // Demo mode
+          const wallet = state.wallets.find((w) => w.id === walletId);
+          if (wallet) {
+            wallet.balance += type === "income" ? amount : -amount;
+          }
+          state.transactions.unshift({ id: "tx" + Date.now(), ...data });
+          closeModal("txModal");
+          document.getElementById("txForm").reset();
+          updateUI();
+          showToast("Thêm giao dịch thành công (Demo)!");
+          return;
+        }
+
+        try {
+          // 1. Lưu transaction vào RTDB
+          const txRef = push(ref(db, `users/${state.user.uid}/transactions`));
+          await set(txRef, data);
+
+          // 2. Cập nhật số dư Ví (Wallet)
+          const wallet = state.wallets.find((w) => w.id === walletId);
+          if (wallet) {
+            const newBalance =
+              wallet.balance + (type === "income" ? amount : -amount);
+            await update(
+              ref(db, `users/${state.user.uid}/wallets/${walletId}`),
+              { balance: newBalance },
+            );
+          }
+
+          closeModal("txModal");
+          document.getElementById("txForm").reset();
+          showToast("Thêm giao dịch thành công!");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+
+      window.deleteTx = async (id) => {
+        if (!confirm("Bạn có chắc muốn xóa giao dịch này?")) return;
+        const transaction = state.transactions.find((t) => t.id === id);
+        if (!transaction) return;
+
+        if (!state.user) {
+          // Demo mode
+          const wallet = state.wallets.find(
+            (w) => w.id === transaction.walletId,
+          );
+          if (wallet) {
+            wallet.balance +=
+              transaction.type === "income"
+                ? -transaction.amount
+                : transaction.amount;
+          }
+          state.transactions = state.transactions.filter((t) => t.id !== id);
+          updateUI();
+          showToast("Đã xóa giao dịch (Demo)");
+          return;
+        }
+
+        try {
+          // 1. Hoàn lại tiền vào Ví
+          const wallet = state.wallets.find(
+            (w) => w.id === transaction.walletId,
+          );
+          if (wallet) {
+            const revertBalance =
+              wallet.balance +
+              (transaction.type === "income"
+                ? -transaction.amount
+                : transaction.amount);
+            await update(
+              ref(db, `users/${state.user.uid}/wallets/${wallet.id}`),
+              { balance: revertBalance },
+            );
+          }
+
+          // 2. Xóa transaction khỏi RTDB
+          await remove(ref(db, `users/${state.user.uid}/transactions/${id}`));
+          showToast("Đã xóa giao dịch");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      };
+
+      // --- CRUD BUDGETS, GOALS, DEBTS (To RTDB) ---
+      async function handleAddBudget(e) {
+        e.preventDefault();
+        const data = {
+          category: document.getElementById("bgCategory").value,
+          limit: Number(document.getElementById("bgLimit").value),
+        };
+
+        if (!state.user) {
+          state.budgets.push({ id: "budget" + Date.now(), ...data });
+          closeModal("budgetModal");
+          document.getElementById("budgetForm").reset();
+          renderBudgetsAndGoals();
+          showToast("Đã thêm ngân sách (Demo)!");
+          return;
+        }
+
+        await set(push(ref(db, `users/${state.user.uid}/budgets`)), data);
+        closeModal("budgetModal");
+        document.getElementById("budgetForm").reset();
+        showToast("Đã thêm ngân sách!");
+      }
+
+      window.deleteBudget = async (id) => {
+        if (!state.user) {
+          state.budgets = state.budgets.filter((b) => b.id !== id);
+          renderBudgetsAndGoals();
+          showToast("Đã xóa ngân sách (Demo)");
+          return;
+        }
+        await remove(ref(db, `users/${state.user.uid}/budgets/${id}`));
+      };
+
+      async function handleAddGoal(e) {
+        e.preventDefault();
+        const data = {
+          name: document.getElementById("gName").value,
+          target: Number(document.getElementById("gTarget").value),
+          current: 0,
+        };
+
+        if (!state.user) {
+          state.goals.push({ id: "goal" + Date.now(), ...data });
+          closeModal("goalModal");
+          document.getElementById("goalForm").reset();
+          renderBudgetsAndGoals();
+          showToast("Đã thêm mục tiêu mới (Demo)!");
+          return;
+        }
+
+        await set(push(ref(db, `users/${state.user.uid}/goals`)), data);
+        closeModal("goalModal");
+        document.getElementById("goalForm").reset();
+        showToast("Đã thêm mục tiêu mới!");
+      }
+
+      window.addFundToGoal = async (id) => {
+        const amount = prompt("Nhập số tiền muốn nạp vào mục tiêu này:");
+        if (!amount || isNaN(amount) || amount <= 0) return;
+        const goal = state.goals.find((g) => g.id === id);
+        if (goal) {
+          if (!state.user) {
+            goal.current += Number(amount);
+            renderBudgetsAndGoals();
+            showToast("Đã cập nhật mục tiêu (Demo)!");
+            return;
+          }
+          await update(ref(db, `users/${state.user.uid}/goals/${id}`), {
+            current: goal.current + Number(amount),
+          });
+          showToast("Đã cập nhật mục tiêu!");
+        }
+      };
+
+      window.setDebtType = (type) => {
+        document.getElementById("dType").value = type;
+        const btnB = document.getElementById("btnDebtBorrow"),
+          btnL = document.getElementById("btnDebtLend");
+        if (type === "borrow") {
+          btnB.className =
+            "py-2 rounded-lg bg-white dark:bg-darkcard shadow text-rose-500 font-medium transition-all";
+          btnL.className =
+            "py-2 rounded-lg text-slate-500 font-medium transition-all hover:text-slate-700";
+        } else {
+          btnL.className =
+            "py-2 rounded-lg bg-white dark:bg-darkcard shadow text-emerald-500 font-medium transition-all";
+          btnB.className =
+            "py-2 rounded-lg text-slate-500 font-medium transition-all hover:text-slate-700";
+        }
+      };
+
+      async function handleAddDebt(e) {
+        e.preventDefault();
+        const data = {
+          type: document.getElementById("dType").value,
+          person: document.getElementById("dPerson").value,
+          amount: Number(document.getElementById("dAmount").value),
+          isPaid: false,
+        };
+
+        if (!state.user) {
+          state.debts.push({ id: "debt" + Date.now(), ...data });
+          closeModal("debtModal");
+          document.getElementById("debtForm").reset();
+          renderDebts();
+          showToast("Đã lưu sổ (Demo)!");
+          return;
+        }
+
+        await set(push(ref(db, `users/${state.user.uid}/debts`)), data);
+        closeModal("debtModal");
+        document.getElementById("debtForm").reset();
+        showToast("Đã lưu sổ!");
+      }
+
+      window.toggleDebt = async (id, currentStatus) => {
+        if (!state.user) {
+          const debt = state.debts.find((d) => d.id === id);
+          if (debt) {
+            debt.isPaid = !currentStatus;
+            renderDebts();
+            showToast("Đã cập nhật trạng thái (Demo)");
+          }
+          return;
+        }
+        await update(ref(db, `users/${state.user.uid}/debts/${id}`), {
+          isPaid: !currentStatus,
+        });
+      };
+
+      window.deleteDebt = async (id) => {
+        if (confirm("Xóa bản ghi này?")) {
+          if (!state.user) {
+            state.debts = state.debts.filter((d) => d.id !== id);
+            renderDebts();
+            showToast("Đã xóa bản ghi (Demo)");
+            return;
+          }
+          await remove(ref(db, `users/${state.user.uid}/debts/${id}`));
+        }
+      };
+
+      // --- EXPORT EXCEL ---
+      window.exportExcel = () => {
+        if (!state.transactions.length)
+          return showToast("Không có dữ liệu giao dịch!", "error");
+        const dataForExcel = state.transactions.map((t) => ({
+          "Ngày giờ": new Date(t.date).toLocaleString("vi-VN"),
+          Loại: t.type === "income" ? "Thu nhập" : "Chi tiêu",
+          "Danh mục": t.category,
+          "Số tiền (VNĐ)": t.amount,
+          "Ví nguồn":
+            state.wallets.find((w) => w.id === t.walletId)?.name || "Không rõ",
+          "Ghi chú": t.note || "",
+        }));
+        const ws = XLSX.utils.json_to_sheet(dataForExcel);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Giao Dịch");
+        XLSX.writeFile(
+          wb,
+          `SoGiaoDich_${new Date().toLocaleDateString("vi-VN").replace(/\//g, "-")}.xlsx`,
+        );
+        showToast("Đã tải xuống file Excel!");
+      };
+
+      // --- RENDERING ---
+      function renderDashboard() {
+        const now = new Date();
+        const currentMonthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        let monthInc = 0,
+          monthExp = 0;
+        state.transactions.forEach((t) => {
+          if (t.date && t.date.startsWith(currentMonthPrefix)) {
+            t.type === "income"
+              ? (monthInc += t.amount)
+              : (monthExp += t.amount);
+          }
+        });
+        // Total balance equals sum of all wallets
+        const total = state.wallets.reduce(
+          (sum, w) => sum + (w.balance || 0),
+          0,
+        );
+
+        document.getElementById("totalBalance").textContent =
+          formatMoney(total);
+        document.getElementById("monthlyIncome").textContent =
+          formatMoney(monthInc);
+        document.getElementById("monthlyExpense").textContent =
+          formatMoney(monthExp);
+
+        const recentHTML =
+          state.transactions
+            .slice(0, 5)
+            .map((t) => {
+              const isInc = t.type === "income";
+              return `
+                    <div class="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center ${isInc ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400" : "bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400"}">
+                                <i class="fas ${isInc ? "fa-arrow-down" : "fa-arrow-up"}"></i>
+                            </div>
+                            <div><p class="font-semibold text-sm text-slate-800 dark:text-white">${t.category}</p><p class="text-xs text-slate-500">${t.date ? new Date(t.date).toLocaleDateString("vi-VN") : ""}</p></div>
+                        </div>
+                        <div class="font-bold ${isInc ? "text-emerald-500" : "text-rose-500"}">${isInc ? "+" : "-"}${formatMoney(t.amount)}</div>
+                    </div>
+                `;
+            })
+            .join("") ||
+          '<p class="text-slate-500 text-sm italic">Chưa có giao dịch.</p>';
+        document.getElementById("recentTransactions").innerHTML = recentHTML;
+      }
+
+      function renderTransactions() {
+        const filter = document.getElementById("filterMonth").value;
+        const filtered = state.transactions.filter(
+          (t) => t.date && t.date.startsWith(filter),
+        );
+        const tbody = document.getElementById("transactionsList");
+        const emptyState = document.getElementById("emptyTransactions");
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          emptyState.classList.add("flex");
+        } else {
+          emptyState.classList.add("hidden");
+          emptyState.classList.remove("flex");
+          tbody.innerHTML = filtered
+            .map((t) => {
+              const isInc = t.type === "income";
+              const walletName =
+                state.wallets.find((w) => w.id === t.walletId)?.name ||
+                "Không rõ";
+              return `
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                            <td class="py-4 px-6 text-sm whitespace-nowrap">${t.date ? new Date(t.date).toLocaleString("vi-VN") : ""}</td>
+                            <td class="py-4 px-6 text-sm font-medium"><span class="px-2 py-1 rounded-md text-xs ${isInc ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400"}">${t.category}</span></td>
+                            <td class="py-4 px-6 text-sm text-slate-500">${t.note || "-"}</td>
+                            <td class="py-4 px-6 text-sm text-slate-500"><i class="fas fa-wallet mr-1"></i> ${walletName}</td>
+                            <td class="py-4 px-6 text-sm font-bold text-right ${isInc ? "text-emerald-500" : "text-rose-500"}">${isInc ? "+" : "-"}${formatMoney(t.amount)}</td>
+                            <td class="py-4 px-6 text-sm text-center"><button onclick="deleteTx('${t.id}')" class="text-rose-400 hover:text-rose-600 p-2"><i class="fas fa-trash"></i></button></td>
+                        </tr>
+                    `;
+            })
+            .join("");
+        }
+      }
+
+      function renderBudgetsAndGoals() {
+        const now = new Date();
+        const currentMonthPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        document.getElementById("budgetsList").innerHTML =
+          state.budgets
+            .map((b) => {
+              let spent = 0;
+              state.transactions.forEach((t) => {
+                if (
+                  t.type === "expense" &&
+                  t.date &&
+                  t.date.startsWith(currentMonthPrefix) &&
+                  (b.category === "Tất cả" || t.category === b.category)
+                )
+                  spent += t.amount;
+              });
+              const percent = Math.min(100, (spent / b.limit) * 100);
+              const isDanger = percent >= 90;
+              return `
+                    <div class="bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 p-4 rounded-xl shadow-sm relative group">
+                        <button onclick="deleteBudget('${b.id}')" class="absolute top-2 right-2 text-slate-300 hover:text-rose-500 hidden group-hover:block"><i class="fas fa-times"></i></button>
+                        <div class="flex justify-between text-sm mb-2"><span class="font-bold text-slate-700 dark:text-slate-200">${b.category}</span><span class="text-slate-500">${formatMoney(spent)} / ${formatMoney(b.limit)}</span></div>
+                        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden"><div class="${isDanger ? "bg-rose-500" : "bg-primary"} h-2.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div></div>
+                        ${isDanger ? `<p class="text-xs text-rose-500 mt-2"><i class="fas fa-exclamation-triangle"></i> Sắp vượt giới hạn!</p>` : ""}
+                    </div>
+                `;
+            })
+            .join("") ||
+          '<p class="text-sm text-slate-500 italic">Chưa thiết lập ngân sách.</p>';
+
+        document.getElementById("goalsList").innerHTML =
+          state.goals
+            .map((g) => {
+              const percent = Math.min(100, (g.current / g.target) * 100);
+              return `
+                    <div class="bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 p-4 rounded-xl shadow-sm relative group">
+                        <button onclick="addFundToGoal('${g.id}')" class="absolute top-2 right-2 text-xs bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 px-2 py-1 rounded">Nạp thêm</button>
+                        <div class="mb-2"><span class="font-bold text-slate-700 dark:text-slate-200">${g.name}</span></div>
+                        <div class="text-sm text-slate-500 mb-2 flex justify-between"><span>${formatMoney(g.current)}</span><span>Mục tiêu: ${formatMoney(g.target)}</span></div>
+                        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden"><div class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div></div>
+                    </div>
+                `;
+            })
+            .join("") ||
+          '<p class="text-sm text-slate-500 italic">Chưa có mục tiêu nào.</p>';
+      }
+
+      function renderDebts() {
+        const createDebtHTML = (d) => `
+                <div class="flex justify-between items-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <div><p class="font-bold text-slate-800 dark:text-white ${d.isPaid ? "line-through text-slate-400" : ""}">${d.person}</p><p class="text-sm ${d.type === "lend" ? "text-emerald-600" : "text-rose-600"} font-medium">${formatMoney(d.amount)}</p></div>
+                    <div class="flex gap-2">
+                        <button onclick="toggleDebt('${d.id}', ${d.isPaid})" class="w-8 h-8 rounded-full flex items-center justify-center ${d.isPaid ? "bg-emerald-500 text-white" : "bg-slate-200 text-slate-500 dark:bg-slate-700"}"><i class="fas fa-check"></i></button>
+                        <button onclick="deleteDebt('${d.id}')" class="w-8 h-8 rounded-full bg-rose-100 text-rose-500 dark:bg-rose-900/30"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+        document.getElementById("lendList").innerHTML =
+          state.debts
+            .filter((d) => d.type === "lend")
+            .map(createDebtHTML)
+            .join("") || '<p class="text-sm text-slate-500 italic">Trống.</p>';
+        document.getElementById("borrowList").innerHTML =
+          state.debts
+            .filter((d) => d.type === "borrow")
+            .map(createDebtHTML)
+            .join("") || '<p class="text-sm text-slate-500 italic">Trống.</p>';
+      }
+
+      function renderCharts() {
+        const isDark = document.documentElement.classList.contains("dark");
+        const gridColor = isDark ? "#334155" : "#e2e8f0";
+        Chart.defaults.color = isDark ? "#94a3b8" : "#64748b";
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        const dates = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          dates.push(d.toISOString().split("T")[0]);
+        }
+        const dataInc = dates.map((date) =>
+          state.transactions
+            .filter(
+              (t) => t.date && t.date.startsWith(date) && t.type === "income",
+            )
+            .reduce((s, t) => s + t.amount, 0),
+        );
+        const dataExp = dates.map((date) =>
+          state.transactions
+            .filter(
+              (t) => t.date && t.date.startsWith(date) && t.type === "expense",
+            )
+            .reduce((s, t) => s + t.amount, 0),
+        );
+
+        if (mainChartInstance) mainChartInstance.destroy();
+        mainChartInstance = new Chart(
+          document.getElementById("mainChart").getContext("2d"),
+          {
+            type: "line",
+            data: {
+              labels: dates.map((d) => d.split("-")[2] + "/" + d.split("-")[1]),
+              datasets: [
+                {
+                  label: "Thu nhập",
+                  data: dataInc,
+                  borderColor: "#10b981",
+                  backgroundColor: "#10b98120",
+                  fill: true,
+                  tension: 0.4,
+                },
+                {
+                  label: "Chi tiêu",
+                  data: dataExp,
+                  borderColor: "#f43f5e",
+                  backgroundColor: "#f43f5e20",
+                  fill: true,
+                  tension: 0.4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: { grid: { display: false } },
+                y: { grid: { color: gridColor } },
+              },
+            },
+          },
+        );
+
+        const now = new Date();
+        const curMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        const lastMonthDate = new Date(
+          now.getFullYear(),
+          now.getMonth() - 1,
+          1,
+        );
+        const lastMonth = `${lastMonthDate.getFullYear()}-${String(lastMonthDate.getMonth() + 1).padStart(2, "0")}`;
+        let curInc = 0,
+          curExp = 0,
+          lastInc = 0,
+          lastExp = 0;
+        state.transactions.forEach((t) => {
+          if (t.date && t.date.startsWith(curMonth)) {
+            t.type === "income" ? (curInc += t.amount) : (curExp += t.amount);
+          }
+          if (t.date && t.date.startsWith(lastMonth)) {
+            t.type === "income" ? (lastInc += t.amount) : (lastExp += t.amount);
+          }
+        });
+
+        if (compareChartInstance) compareChartInstance.destroy();
+        compareChartInstance = new Chart(
+          document.getElementById("compareChart").getContext("2d"),
+          {
+            type: "bar",
+            data: {
+              labels: ["Thu nhập", "Chi tiêu"],
+              datasets: [
+                {
+                  label: "Tháng này",
+                  data: [curInc, curExp],
+                  backgroundColor: ["#4f46e5", "#f43f5e"],
+                  borderRadius: 6,
+                },
+                {
+                  label: "Tháng trước",
+                  data: [lastInc, lastExp],
+                  backgroundColor: ["#818cf8", "#fb7185"],
+                  borderRadius: 6,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: { y: { grid: { color: gridColor } } },
+            },
+          },
+        );
+
+        const expByCategory = {};
+        state.transactions.forEach((t) => {
+          if (t.type === "expense" && t.date && t.date.startsWith(curMonth))
+            expByCategory[t.category] =
+              (expByCategory[t.category] || 0) + t.amount;
+        });
+        const dLabels = Object.keys(expByCategory),
+          dData = Object.values(expByCategory);
+        if (doughnutChartInstance) doughnutChartInstance.destroy();
+        doughnutChartInstance = new Chart(
+          document.getElementById("doughnutChart").getContext("2d"),
+          {
+            type: "doughnut",
+            data: {
+              labels: dLabels.length ? dLabels : ["Trống"],
+              datasets: [
+                {
+                  data: dData.length ? dData : [1],
+                  backgroundColor: dData.length
+                    ? [
+                        "#f43f5e",
+                        "#f97316",
+                        "#eab308",
+                        "#84cc16",
+                        "#06b6d4",
+                        "#8b5cf6",
+                        "#ec4899",
+                      ]
+                    : [isDark ? "#334155" : "#e2e8f0"],
+                  borderWidth: 0,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: "70%",
+              plugins: { legend: { position: "right" } },
+            },
+          },
+        );
+      }
+
+      // --- EVENT LISTENERS ---
+      document.addEventListener("DOMContentLoaded", () => {
+        // Set dark mode as default
+        document.documentElement.classList.add("dark");
+        localStorage.theme = "dark";
+
+        const themeBtn = document.getElementById("themeToggle");
+        themeBtn.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark");
+          localStorage.theme = document.documentElement.classList.contains(
+            "dark",
+          )
+            ? "dark"
+            : "light";
+          renderCharts();
+        });
+
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn"),
+          closeSidebarBtn = document.getElementById("closeSidebarBtn"),
+          mobileSidebar = document.getElementById("mobileSidebar"),
+          mobileSidebarOverlay = document.getElementById(
+            "mobileSidebarOverlay",
+          );
+        const toggleMenu = () => {
+          const isOpen = !mobileSidebar.classList.contains("-translate-x-full");
+          if (isOpen) {
+            mobileSidebar.classList.add("-translate-x-full");
+            mobileSidebarOverlay.classList.remove("opacity-100");
+            setTimeout(() => mobileSidebarOverlay.classList.add("hidden"), 300);
+          } else {
+            mobileSidebarOverlay.classList.remove("hidden");
+            setTimeout(
+              () => mobileSidebarOverlay.classList.add("opacity-100"),
+              10,
+            );
+            mobileSidebar.classList.remove("-translate-x-full");
+          }
+        };
+        mobileMenuBtn.addEventListener("click", toggleMenu);
+        closeSidebarBtn.addEventListener("click", toggleMenu);
+        mobileSidebarOverlay.addEventListener("click", toggleMenu);
+        document
+          .querySelectorAll(".tab-btn, .sidebar-btn")
+          .forEach((btn) =>
+            btn.addEventListener("click", (e) =>
+              switchTab(e.currentTarget.dataset.tab),
+            ),
+          );
+
+        // Add wallet button to header
+        const rightActions = document.querySelector(".flex.items-center.gap-4");
+        const walletBtn = document.createElement("button");
+        walletBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Ví';
+        walletBtn.className =
+          "hidden sm:flex text-sm items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-400 transition-colors";
+        walletBtn.onclick = () => openModal("walletModal");
+        rightActions.insertBefore(
+          walletBtn,
+          document.getElementById("themeToggle"),
+        );
+
+        const filterMonth = document.getElementById("filterMonth");
+        const now = new Date();
+        filterMonth.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        filterMonth.addEventListener("change", renderTransactions);
+
+        document
+          .getElementById("txForm")
+          .addEventListener("submit", handleAddTransaction);
+        document
+          .getElementById("budgetForm")
+          .addEventListener("submit", handleAddBudget);
+        document
+          .getElementById("goalForm")
+          .addEventListener("submit", handleAddGoal);
+        document
+          .getElementById("debtForm")
+          .addEventListener("submit", handleAddDebt);
+        document
+          .getElementById("walletForm")
+          .addEventListener("submit", handleAddWallet);
+
+        initFirebase();
+      });
+    </script>
+  </body>
+</html>
