@@ -57,7 +57,7 @@
     >
       <div class="loader mb-4"></div>
       <p class="text-slate-600 font-medium animate-pulse" id="loading-text">
-        Đang kết nối cơ sở dữ liệu Firebase...
+        Loading...
       </p>
     </div>
 
@@ -134,6 +134,12 @@
           class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-rose-100"
         >
           <i class="fa-solid fa-rotate-left"></i> Reset dữ liệu
+        </button>
+        <button
+          onclick="logoutAdmin()"
+          class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 text-sm font-semibold"
+        >
+          Đăng xuất
         </button>
       </div>
     </header>
@@ -1424,6 +1430,35 @@
           .join("");
       }
 
+      const ADMIN_PASSWORD = "Dienkon";
+      const ADMIN_KEY = "admin_auth_ok";
+
+      // Kiểm tra quyền admin
+      function checkAdminAccess() {
+        const isStudentView =
+          new URLSearchParams(window.location.search).get("view") === "student";
+        const isPublic =
+          new URLSearchParams(window.location.search).get("view") ===
+          "attendance";
+
+        // Nếu là link public thì bỏ qua
+        if (isStudentView || isPublic) return true;
+
+        const saved = localStorage.getItem(ADMIN_KEY);
+
+        if (saved === "true") return true;
+
+        let pass = prompt("Nhập mật khẩu admin:");
+
+        if (pass === ADMIN_PASSWORD) {
+          localStorage.setItem(ADMIN_KEY, "true");
+          return true;
+        } else {
+          alert("Sai mật khẩu!");
+          return false;
+        }
+      }
+
       async function initApp() {
         try {
           const app = initializeApp(firebaseConfig);
@@ -2363,6 +2398,11 @@
         showToast("Đã reset dữ liệu thành công.");
       };
 
+      window.logoutAdmin = function () {
+        localStorage.removeItem(ADMIN_KEY);
+        location.reload();
+      };
+
       // --- TAB 4: STATS ---
       window.renderStatsTable = function () {
         renderSubjectStatsTable(
@@ -2483,7 +2523,15 @@
         showToast("Đã copy link bảng chuyên cần công khai.");
       };
 
-      initApp();
+      if (checkAdminAccess()) {
+        initApp();
+      } else {
+        document.body.innerHTML = `
+    <div class="h-screen flex items-center justify-center text-red-500 font-bold text-xl">
+      Truy cập bị từ chối
+    </div>
+  `;
+      }
     </script>
   </body>
 </html>
