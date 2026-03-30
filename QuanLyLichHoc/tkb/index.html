@@ -1,0 +1,3157 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hệ Thống Quản Lý Học Viên & Học Phí</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+      }
+      .tab-active {
+        border-bottom-color: #2563eb;
+        color: #2563eb;
+        font-weight: 600;
+      }
+      .tab-inactive {
+        border-bottom-color: transparent;
+        color: #64748b;
+      }
+      .loader {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #2563eb;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .glass-header {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+  <body
+    class="text-slate-800 antialiased h-screen flex flex-col overflow-hidden"
+  >
+    <!-- Auth & Connection Overlay -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-white z-[60] flex flex-col items-center justify-center transition-opacity duration-500"
+    >
+      <div class="loader mb-4"></div>
+      <p class="text-slate-600 font-medium animate-pulse" id="loading-text">
+        Loading...
+      </p>
+    </div>
+
+    <!-- Error Overlay -->
+    <div
+      id="error-overlay"
+      class="fixed inset-0 bg-red-50 z-[70] hidden flex flex-col items-center justify-center p-6 text-center"
+    >
+      <div
+        class="bg-white p-8 rounded-2xl shadow-2xl border border-red-100 max-w-md"
+      >
+        <i
+          class="fa-solid fa-triangle-exclamation text-5xl text-red-500 mb-4"
+        ></i>
+        <h2 class="text-2xl font-bold text-slate-800 mb-2">
+          Lỗi Kết Nối Firebase
+        </h2>
+        <p class="text-slate-600 mb-6" id="error-message">
+          Không thể khởi tạo ứng dụng. Vui lòng kiểm tra cấu hình hoặc kết nối
+          mạng.
+        </p>
+        <button
+          onclick="location.reload()"
+          class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+        >
+          Thử lại ngay
+        </button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header
+      class="glass-header shadow-sm border-b px-6 py-3 flex justify-between items-center z-10 shrink-0"
+    >
+      <div class="flex items-center gap-3">
+        <div
+          class="bg-blue-600 text-white p-2 rounded-xl shadow-lg shadow-blue-200"
+        >
+          <i class="fa-solid fa-layer-group text-lg"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-slate-800 leading-tight">
+            Hệ Thống Quản Lý Học Tập
+          </h1>
+          <div class="flex items-center gap-2 mt-0.5">
+            <span
+              id="sync-status"
+              class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-slate-300"
+                id="sync-dot"
+              ></span>
+              Đang kiểm tra
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2 flex-wrap" id="header-actions">
+        <a
+          href="./tkb/"
+          class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-sky-100"
+        >
+          <i class="fa-solid fa-calendar-week"></i> TKB học sinh
+        </a>
+        <a
+          href="./diemdanh/"
+          class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-emerald-100"
+        >
+          <i class="fa-solid fa-check-double"></i> Điểm danh học sinh
+        </a>
+        <a
+          href="./xemlai/"
+          class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-indigo-100"
+        >
+          <i class="fa-solid fa-circle-play"></i> Xem lại bài giảng
+        </a>
+        <button
+          onclick="window.generateShareLink()"
+          class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-indigo-100"
+        >
+          <i class="fa-solid fa-share-nodes"></i> Link thời khóa biểu
+        </button>
+        <button
+          onclick="window.generateAttendanceShareLink()"
+          class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-emerald-100"
+        >
+          <i class="fa-solid fa-table-list"></i> Link chuyên cần
+        </button>
+        <button
+          onclick="window.resetAppData()"
+          class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition text-sm font-semibold flex items-center gap-2 shadow-md shadow-rose-100"
+        >
+          <i class="fa-solid fa-rotate-left"></i> Reset dữ liệu
+        </button>
+        <button
+          onclick="logoutAdmin()"
+          class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 text-sm font-semibold"
+        >
+          Đăng xuất
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <!-- Tab Navigation -->
+      <div
+        id="tab-nav"
+        class="bg-white px-6 border-b flex gap-8 shrink-0 overflow-x-auto no-scrollbar"
+      >
+        <button
+          onclick="window.switchTab('home')"
+          id="tab-home"
+          class="tab-active py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-house"></i> Trang Chủ
+        </button>
+        <button
+          onclick="window.switchTab('schedule')"
+          id="tab-schedule"
+          class="tab-inactive py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-calendar-week"></i> Thời Khóa Biểu
+        </button>
+        <button
+          onclick="window.switchTab('attendance')"
+          id="tab-attendance"
+          class="tab-inactive py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-check-double"></i> Điểm Danh
+        </button>
+        <button
+          onclick="window.switchTab('students')"
+          id="tab-students"
+          class="tab-inactive py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-user-graduate"></i> Học Viên
+        </button>
+        <button
+          onclick="window.switchTab('stats')"
+          id="tab-stats"
+          class="tab-inactive py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-file-invoice-dollar"></i> Thống Kê Học Phí
+        </button>
+        <button
+          onclick="window.switchTab('review')"
+          id="tab-review"
+          class="tab-inactive py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="fa-solid fa-circle-play"></i> Xem lại bài giảng
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="flex-1 overflow-hidden relative">
+        <!-- VIEW: HOME -->
+        <div
+          id="view-home"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div class="max-w-7xl mx-auto space-y-6">
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <h2 class="text-2xl font-black text-slate-800">
+                    Trang chủ quản trị
+                  </h2>
+                  <p class="text-sm text-slate-500 mt-1">
+                    Đi tới nhanh các khu vực quản lý và các đường dẫn công khai.
+                  </p>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                  <a
+                    href="./tkb/"
+                    class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-sm hover:bg-sky-700 transition"
+                    >Mở TKB học sinh</a
+                  >
+                  <a
+                    href="./diemdanh/"
+                    class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition"
+                    >Mở điểm danh</a
+                  >
+                  <a
+                    href="./xemlai/"
+                    class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700 transition"
+                    >Mở xem lại</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              <button
+                onclick="window.switchTab('schedule')"
+                class="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition"
+              >
+                <div
+                  class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4"
+                >
+                  <i class="fa-solid fa-calendar-week text-xl"></i>
+                </div>
+                <div class="font-bold text-slate-800">Thời khóa biểu</div>
+                <div class="text-sm text-slate-500 mt-1">
+                  Sắp xếp, chỉnh ngày và số tiết.
+                </div>
+              </button>
+              <button
+                onclick="window.switchTab('attendance')"
+                class="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition"
+              >
+                <div
+                  class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4"
+                >
+                  <i class="fa-solid fa-check-double text-xl"></i>
+                </div>
+                <div class="font-bold text-slate-800">Điểm danh</div>
+                <div class="text-sm text-slate-500 mt-1">
+                  Ghi nhận chuyên cần cho từng tiết.
+                </div>
+              </button>
+              <button
+                onclick="window.switchTab('review')"
+                class="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition"
+              >
+                <div
+                  class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4"
+                >
+                  <i class="fa-solid fa-circle-play text-xl"></i>
+                </div>
+                <div class="font-bold text-slate-800">Xem lại bài giảng</div>
+                <div class="text-sm text-slate-500 mt-1">
+                  Video bài giảng và tài liệu tải về.
+                </div>
+              </button>
+              <button
+                onclick="window.switchTab('students')"
+                class="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition"
+              >
+                <div
+                  class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center mb-4"
+                >
+                  <i class="fa-solid fa-user-graduate text-xl"></i>
+                </div>
+                <div class="font-bold text-slate-800">Học viên</div>
+                <div class="text-sm text-slate-500 mt-1">
+                  Quản lý hồ sơ học viên.
+                </div>
+              </button>
+              <button
+                onclick="window.switchTab('stats')"
+                class="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition"
+              >
+                <div
+                  class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4"
+                >
+                  <i class="fa-solid fa-file-invoice-dollar text-xl"></i>
+                </div>
+                <div class="font-bold text-slate-800">Thống kê học phí</div>
+                <div class="text-sm text-slate-500 mt-1">
+                  Tổng hợp chuyên cần và doanh thu.
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: SCHEDULE -->
+        <div
+          id="view-schedule"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div
+            class="max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
+          >
+            <div
+              class="p-4 border-b bg-slate-50/50 flex justify-between items-center"
+            >
+              <h3
+                class="font-bold text-slate-700 uppercase text-xs tracking-widest"
+              >
+                Lịch ôn tập chi tiết
+              </h3>
+              <button
+                id="schedule-export-btn"
+                onclick="
+                  window.exportCurrentTable(
+                    'schedule-table-body',
+                    'lich-on-tap',
+                    'Lịch ôn tập',
+                  )
+                "
+                class="px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2"
+              >
+                <i class="fa-solid fa-file-excel"></i> Xuất Excel
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr
+                    class="bg-slate-100/50 text-slate-500 text-[11px] uppercase font-bold tracking-wider"
+                  >
+                    <th class="p-4 border-b border-r w-24 text-center">Môn</th>
+                    <th class="p-4 border-b border-r">Chuyên đề bài học</th>
+                    <th class="p-4 border-b border-r w-28 text-center">
+                      Số tiết
+                    </th>
+                    <th class="p-4 border-b border-r w-48">Ngày dự kiến</th>
+                    <th class="p-4 border-b w-32 text-center">Tác vụ</th>
+                  </tr>
+                </thead>
+                <tbody id="schedule-table-body" class="text-sm"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: ATTENDANCE -->
+        <div
+          id="view-attendance"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div
+            class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6 h-full"
+          >
+            <div class="lg:col-span-1 space-y-4">
+              <div
+                class="bg-white p-5 rounded-xl shadow-sm border border-slate-200"
+              >
+                <label
+                  class="block text-[10px] font-bold text-slate-400 uppercase mb-2"
+                  >1. Chọn Môn học</label
+                >
+                <select
+                  id="att-subject"
+                  onchange="window.renderAttendanceTopics()"
+                  class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="Toán">Toán Học</option>
+                  <option value="Lý">Vật Lý</option>
+                </select>
+                <label
+                  class="block text-[10px] font-bold text-slate-400 uppercase mt-4 mb-2"
+                  >2. Chọn Chuyên đề</label
+                >
+                <select
+                  id="att-topic"
+                  onchange="window.loadAttendanceDetail()"
+                  class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                ></select>
+              </div>
+              <div
+                class="bg-white p-5 rounded-xl shadow-sm border border-slate-200"
+              >
+                <h3
+                  class="text-xs font-bold text-slate-700 uppercase mb-4 border-b pb-2"
+                >
+                  Ghi chú nội dung
+                </h3>
+                <div id="lesson-content-inputs" class="space-y-4"></div>
+              </div>
+            </div>
+            <div class="lg:col-span-3">
+              <div
+                class="bg-white rounded-xl shadow-sm border border-slate-200 h-full flex flex-col"
+              >
+                <div
+                  class="p-4 border-b flex justify-between items-center bg-slate-50/50"
+                >
+                  <span class="text-xs font-bold text-slate-500 uppercase"
+                    >Danh sách điểm danh</span
+                  >
+                  <div class="flex gap-2">
+                    <button
+                      onclick="
+                        window.exportCurrentTable(
+                          'att-table-body',
+                          'diem-danh',
+                          'Điểm danh',
+                        )
+                      "
+                      class="px-4 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                    </button>
+                    <button
+                      onclick="window.saveAttendance()"
+                      class="px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs font-bold flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-floppy-disk"></i> Lưu điểm danh
+                    </button>
+                  </div>
+                </div>
+                <div class="flex-1 overflow-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead
+                      id="att-table-header"
+                      class="sticky top-0 bg-white z-20"
+                    ></thead>
+                    <tbody id="att-table-body" class="text-sm"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: STUDENTS -->
+        <div
+          id="view-students"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1">
+              <div
+                class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sticky top-0"
+              >
+                <h2
+                  class="font-bold text-slate-800 mb-6 flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-plus-circle text-blue-500"></i> Hồ sơ
+                  học viên
+                </h2>
+                <div class="space-y-5">
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-1.5"
+                      >Họ và Tên</label
+                    >
+                    <input
+                      type="text"
+                      id="std-name"
+                      class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                      placeholder="VD: Nguyễn Văn A"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-1.5"
+                      >Lớp</label
+                    >
+                    <input
+                      type="text"
+                      id="std-class"
+                      class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                      placeholder="VD: 12A1"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-bold text-slate-500 uppercase mb-3"
+                      >Môn đăng ký</label
+                    >
+                    <div class="flex gap-6">
+                      <label
+                        class="flex items-center gap-2 text-sm cursor-pointer"
+                        ><input
+                          type="checkbox"
+                          id="std-sub-toan"
+                          checked
+                          class="w-4 h-4 rounded text-blue-600"
+                        />
+                        Toán</label
+                      >
+                      <label
+                        class="flex items-center gap-2 text-sm cursor-pointer"
+                        ><input
+                          type="checkbox"
+                          id="std-sub-ly"
+                          checked
+                          class="w-4 h-4 rounded text-blue-600"
+                        />
+                        Lý</label
+                      >
+                    </div>
+                  </div>
+                  <div class="pt-4 border-t border-slate-100">
+                    <div class="flex items-center justify-between gap-3 mb-2">
+                      <label
+                        class="block text-xs font-bold text-slate-500 uppercase"
+                        >Chính sách ưu đãi</label
+                      >
+                      <button
+                        type="button"
+                        onclick="window.addDiscountRow()"
+                        class="text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700"
+                      >
+                        + Thêm ưu đãi
+                      </button>
+                    </div>
+                    <div id="discount-list" class="space-y-2 mb-3"></div>
+                    <button
+                      type="button"
+                      onclick="window.addDiscountRow()"
+                      class="w-full py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100"
+                    >
+                      Thêm một loại chiết khấu
+                    </button>
+                  </div>
+                  <button
+                    onclick="window.addStudent()"
+                    class="w-full py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition text-sm font-bold shadow-lg"
+                  >
+                    Xác nhận thêm mới
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="lg:col-span-2">
+              <div
+                class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
+              >
+                <div
+                  class="p-4 border-b bg-slate-50/50 font-bold text-xs uppercase tracking-widest text-slate-500 flex justify-between items-center"
+                >
+                  <span>Danh sách quản lý</span>
+                  <button
+                    onclick="
+                      window.exportCurrentTable(
+                        'students-table-body',
+                        'hoc-vien',
+                        'Học viên',
+                      )
+                    "
+                    class="px-3 py-1.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2 normal-case tracking-normal"
+                  >
+                    <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                  </button>
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse">
+                    <thead>
+                      <tr
+                        class="bg-slate-50 text-slate-400 text-[10px] uppercase font-bold tracking-wider"
+                      >
+                        <th class="p-4 border-b text-center w-12">STT</th>
+                        <th class="p-4 border-b">Học viên</th>
+                        <th class="p-4 border-b text-center">Lớp</th>
+                        <th class="p-4 border-b">Ưu đãi</th>
+                        <th class="p-4 border-b w-16 text-center">Sửa</th>
+                        <th class="p-4 border-b w-16 text-center">Xóa</th>
+                      </tr>
+                    </thead>
+                    <tbody id="students-table-body" class="text-sm"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: STATS -->
+        <div
+          id="view-stats"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div class="max-w-7xl mx-auto space-y-6">
+            <div
+              class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden"
+            >
+              <div
+                class="p-5 border-b bg-emerald-600 text-white flex justify-between items-center"
+              >
+                <div>
+                  <h2 class="font-bold flex items-center gap-2 text-lg">
+                    <i class="fa-solid fa-chart-column"></i> Thống Kê Chuyên Cần
+                    Theo Môn
+                  </h2>
+                  <p
+                    class="text-[11px] opacity-80 uppercase font-bold tracking-widest mt-1"
+                  >
+                    Mỗi ô tương ứng 1 tiết học đã điểm danh
+                  </p>
+                </div>
+                <button
+                  onclick="window.renderStatsTable()"
+                  class="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition text-xs font-bold flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-sync-alt"></i> Làm mới
+                </button>
+              </div>
+
+              <div class="p-5 space-y-6">
+                <div
+                  class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden"
+                >
+                  <div
+                    class="p-4 border-b bg-white flex flex-wrap justify-between items-center gap-3"
+                  >
+                    <div>
+                      <h3
+                        class="font-bold text-slate-800 flex items-center gap-2"
+                      >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-blue-500"
+                        ></span>
+                        Bảng chuyên cần môn Toán
+                      </h3>
+                      <p class="text-xs text-slate-500 mt-1">
+                        Dấu ✓ nghĩa là học viên có mặt ở tiết đó.
+                      </p>
+                    </div>
+                    <button
+                      id="stats-edit-btn-toan"
+                      onclick="window.toggleStatsEditMode('Toán')"
+                      class="px-3 py-2 bg-amber-500 text-white hover:bg-amber-600 rounded-lg transition text-xs font-bold flex items-center gap-2 shadow-sm min-w-[110px] justify-center"
+                    >
+                      <i class="fa-solid fa-pen-to-square"></i> Sửa tick
+                    </button>
+                    <button
+                      onclick="
+                        window.exportCurrentTable(
+                          'stats-toan-body',
+                          'thong-ke-chuyen-can-toan',
+                          'Chuyên cần Toán',
+                        )
+                      "
+                      class="px-3 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                      <thead id="stats-toan-head"></thead>
+                      <tbody id="stats-toan-body" class="text-[13px]"></tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden"
+                >
+                  <div
+                    class="p-4 border-b bg-white flex flex-wrap justify-between items-center gap-3"
+                  >
+                    <div>
+                      <h3
+                        class="font-bold text-slate-800 flex items-center gap-2"
+                      >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-red-500"
+                        ></span>
+                        Bảng chuyên cần môn Lý
+                      </h3>
+                      <p class="text-xs text-slate-500 mt-1">
+                        Dấu ✓ nghĩa là học viên có mặt ở tiết đó.
+                      </p>
+                    </div>
+                    <button
+                      id="stats-edit-btn-ly"
+                      onclick="window.toggleStatsEditMode('Lý')"
+                      class="px-3 py-2 bg-amber-500 text-white hover:bg-amber-600 rounded-lg transition text-xs font-bold flex items-center gap-2 shadow-sm min-w-[110px] justify-center"
+                    >
+                      <i class="fa-solid fa-pen-to-square"></i> Sửa tick
+                    </button>
+                    <button
+                      onclick="
+                        window.exportCurrentTable(
+                          'stats-ly-body',
+                          'thong-ke-chuyen-can-ly',
+                          'Chuyên cần Lý',
+                        )
+                      "
+                      class="px-3 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                      <thead id="stats-ly-head"></thead>
+                      <tbody id="stats-ly-body" class="text-[13px]"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden"
+            >
+              <div
+                class="p-5 border-b bg-emerald-600 text-white flex justify-between items-center"
+              >
+                <div>
+                  <h2 class="font-bold flex items-center gap-2 text-lg">
+                    <i class="fa-solid fa-coins"></i> Báo Cáo Học Phí Tự Động
+                  </h2>
+                  <p
+                    class="text-[11px] opacity-80 uppercase font-bold tracking-widest mt-1"
+                  >
+                    Đơn giá: 3.000 VNĐ / Tiết học
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <button
+                    onclick="
+                      window.exportCurrentTable(
+                        'stats-table-body',
+                        'thong-ke-hoc-phi',
+                        'Thống kê học phí',
+                      )
+                    "
+                    class="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition text-xs font-bold flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                  </button>
+                  <button
+                    onclick="window.renderStatsTable()"
+                    class="bg-white/20 hover:bg-white/30 p-2 rounded-lg transition"
+                  >
+                    <i class="fa-solid fa-sync-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr
+                      class="bg-slate-50 text-slate-500 text-[10px] uppercase font-black tracking-tighter"
+                    >
+                      <th class="p-4 border-b border-r text-center">#</th>
+                      <th class="p-4 border-b border-r min-w-[180px]">
+                        Học viên
+                      </th>
+                      <th
+                        class="p-4 border-b border-r text-center bg-blue-50/30 text-blue-600"
+                      >
+                        Toán (T)
+                      </th>
+                      <th
+                        class="p-4 border-b border-r text-right bg-blue-50/30"
+                      >
+                        Tiền Toán
+                      </th>
+                      <th
+                        class="p-4 border-b border-r text-center bg-red-50/30 text-red-600"
+                      >
+                        Lý (T)
+                      </th>
+                      <th class="p-4 border-b border-r text-right bg-red-50/30">
+                        Tiền Lý
+                      </th>
+                      <th
+                        class="p-4 border-b border-r text-right text-slate-400"
+                      >
+                        Gốc
+                      </th>
+                      <th
+                        class="p-4 border-b border-r text-center text-orange-600"
+                      >
+                        Ưu đãi
+                      </th>
+                      <th
+                        class="p-4 border-b text-right font-bold text-emerald-700 bg-emerald-50"
+                      >
+                        Thành tiền
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="stats-table-body" class="text-[13px]"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: REVIEW -->
+        <div
+          id="view-review"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div class="max-w-7xl mx-auto space-y-6">
+            <div
+              class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
+            >
+              <div
+                class="p-5 border-b bg-indigo-600 text-white flex flex-wrap justify-between items-center gap-3"
+              >
+                <div>
+                  <h2 class="font-bold flex items-center gap-2 text-lg">
+                    <i class="fa-solid fa-circle-play"></i> Xem lại bài giảng
+                  </h2>
+                  <p
+                    class="text-[11px] opacity-80 uppercase font-bold tracking-widest mt-1"
+                  >
+                    Video bài giảng và tài liệu tải về
+                  </p>
+                </div>
+                <button
+                  id="review-refresh-btn"
+                  onclick="window.renderReviewView()"
+                  class="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg transition text-xs font-bold flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-rotate"></i> Làm mới
+                </button>
+              </div>
+              <div class="p-5" id="review-panel"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: ATTENDANCE PUBLIC -->
+        <div
+          id="view-attendance-public"
+          class="absolute inset-0 overflow-auto p-6 bg-slate-50 hidden"
+        >
+          <div class="max-w-7xl mx-auto space-y-6">
+            <div
+              class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden"
+            >
+              <div
+                class="p-5 border-b bg-emerald-600 text-white flex flex-wrap justify-between items-center gap-3"
+              >
+                <div>
+                  <h2 class="font-bold flex items-center gap-2 text-lg">
+                    <i class="fa-solid fa-check-double"></i> Bảng Chuyên Cần
+                    Công Khai
+                  </h2>
+                  <p
+                    class="text-[11px] opacity-80 uppercase font-bold tracking-widest mt-1"
+                  >
+                    Chỉ xem
+                  </p>
+                </div>
+                <div
+                  class="inline-flex rounded-xl bg-white/15 p-1 backdrop-blur-sm"
+                >
+                  <button
+                    id="public-att-tab-toan"
+                    onclick="window.switchPublicAttendanceTab('Toán')"
+                    class="px-4 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap"
+                  >
+                    Môn Toán
+                  </button>
+                  <button
+                    id="public-att-tab-ly"
+                    onclick="window.switchPublicAttendanceTab('Lý')"
+                    class="px-4 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap"
+                  >
+                    Môn Lý
+                  </button>
+                </div>
+              </div>
+
+              <div class="p-5">
+                <div id="public-att-pane-toan" class="space-y-3">
+                  <div
+                    class="flex items-center justify-between gap-3 flex-wrap"
+                  >
+                    <div>
+                      <h3
+                        class="font-bold text-slate-800 flex items-center gap-2"
+                      >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-blue-500"
+                        ></span>
+                        Bảng chuyên cần môn Toán
+                      </h3>
+                      <p class="text-xs text-slate-500 mt-1">
+                        Dấu ✓ nghĩa là học viên có mặt ở tiết đó.
+                      </p>
+                    </div>
+                    <button
+                      onclick="
+                        window.exportCurrentTable(
+                          'public-att-toan-body',
+                          'thong-ke-chuyen-can-toan-cong-khai',
+                          'Chuyên cần Toán',
+                        )
+                      "
+                      class="px-3 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                      <thead id="public-att-toan-head"></thead>
+                      <tbody
+                        id="public-att-toan-body"
+                        class="text-[13px]"
+                      ></tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div id="public-att-pane-ly" class="space-y-3 hidden">
+                  <div
+                    class="flex items-center justify-between gap-3 flex-wrap"
+                  >
+                    <div>
+                      <h3
+                        class="font-bold text-slate-800 flex items-center gap-2"
+                      >
+                        <span
+                          class="w-2.5 h-2.5 rounded-full bg-red-500"
+                        ></span>
+                        Bảng chuyên cần môn Lý
+                      </h3>
+                      <p class="text-xs text-slate-500 mt-1">
+                        Dấu ✓ nghĩa là học viên có mặt ở tiết đó.
+                      </p>
+                    </div>
+                    <button
+                      onclick="
+                        window.exportCurrentTable(
+                          'public-att-ly-body',
+                          'thong-ke-chuyen-can-ly-cong-khai',
+                          'Chuyên cần Lý',
+                        )
+                      "
+                      class="px-3 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 text-xs font-bold flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-file-excel"></i> Xuất Excel
+                    </button>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                      <thead id="public-att-ly-head"></thead>
+                      <tbody
+                        id="public-att-ly-body"
+                        class="text-[13px]"
+                      ></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal: Shift Schedule -->
+    <div
+      id="shift-modal"
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100]"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-[400px] p-8 transform transition-all border border-slate-200"
+      >
+        <div
+          class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-6 mx-auto"
+        >
+          <i class="fa-solid fa-calendar-day text-2xl text-blue-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 text-center mb-2">
+          Dịch chuyển lịch học?
+        </h3>
+        <p
+          class="text-sm text-slate-500 text-center leading-relaxed"
+          id="shift-modal-text"
+        ></p>
+        <div class="grid grid-cols-2 gap-3 mt-8">
+          <button
+            onclick="window.closeShiftModal(false)"
+            class="py-3 px-4 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-bold text-sm"
+          >
+            Chỉ bài này
+          </button>
+          <button
+            onclick="window.closeShiftModal(true)"
+            class="py-3 px-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold text-sm shadow-lg shadow-blue-100"
+          >
+            Đổi tất cả sau
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Edit Student -->
+    <div
+      id="student-edit-modal"
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[110]"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-[560px] max-w-[92vw] p-6 border border-slate-200 max-h-[90vh] overflow-auto"
+      >
+        <div class="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-xl font-bold text-slate-800">
+              Chỉnh sửa thông tin học viên
+            </h3>
+            <p class="text-sm text-slate-500 mt-1">
+              Cập nhật tên, lớp, môn đăng ký và ưu đãi.
+            </p>
+          </div>
+          <button
+            onclick="window.closeStudentEditModal()"
+            class="text-slate-400 hover:text-slate-700"
+          >
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label
+              class="block text-xs font-bold text-slate-500 uppercase mb-1.5"
+              >Họ và Tên</label
+            >
+            <input
+              type="text"
+              id="edit-std-name"
+              class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-xs font-bold text-slate-500 uppercase mb-1.5"
+              >Lớp</label
+            >
+            <input
+              type="text"
+              id="edit-std-class"
+              class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 uppercase mb-3"
+              >Môn đăng ký</label
+            >
+            <div class="flex gap-6">
+              <label class="flex items-center gap-2 text-sm cursor-pointer"
+                ><input
+                  type="checkbox"
+                  id="edit-std-sub-toan"
+                  class="w-4 h-4 rounded text-blue-600"
+                />
+                Toán</label
+              >
+              <label class="flex items-center gap-2 text-sm cursor-pointer"
+                ><input
+                  type="checkbox"
+                  id="edit-std-sub-ly"
+                  class="w-4 h-4 rounded text-blue-600"
+                />
+                Lý</label
+              >
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100">
+            <div class="flex items-center justify-between gap-3 mb-2">
+              <label class="block text-xs font-bold text-slate-500 uppercase"
+                >Chính sách ưu đãi</label
+              >
+              <button
+                type="button"
+                onclick="window.addDiscountRow(undefined, 'edit-discount-list')"
+                class="text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700"
+              >
+                + Thêm ưu đãi
+              </button>
+            </div>
+            <div id="edit-discount-list" class="space-y-2 mb-3"></div>
+            <button
+              type="button"
+              onclick="window.addDiscountRow(undefined, 'edit-discount-list')"
+              class="w-full py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100"
+            >
+              Thêm một loại chiết khấu
+            </button>
+          </div>
+
+          <div class="flex gap-3 pt-2">
+            <button
+              onclick="window.closeStudentEditModal()"
+              class="flex-1 py-3 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-bold text-sm"
+            >
+              Hủy
+            </button>
+            <button
+              onclick="window.saveStudentEdit()"
+              class="flex-1 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition text-sm font-bold shadow-lg"
+            >
+              Lưu thay đổi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl transform translate-y-32 opacity-0 transition-all duration-500 z-[150] text-sm font-medium flex items-center gap-3"
+    >
+      <i class="fa-solid fa-circle-check text-emerald-400"></i>
+      <span id="toast-msg">Thông báo</span>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+        onAuthStateChanged,
+        signInWithCustomToken,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // --- CẤU HÌNH CỦA BẠN ---
+      const firebaseConfig = {
+        apiKey: "AIzaSyAAK4b-SSXzKc6i7n5BxVUPTpD8dcrnV3o",
+        authDomain: "qaunlylichday.firebaseapp.com",
+        projectId: "qaunlylichday",
+        storageBucket: "qaunlylichday.firebasestorage.app",
+        messagingSenderId: "484700892312",
+        appId: "1:484700892312:web:70fce5b83e153a3150b4ed",
+        measurementId: "G-M7MDQV934S",
+      };
+
+      const PRICE_PER_PERIOD = 3000;
+      let db, auth, user, currentDocRef;
+      const appId = typeof __app_id !== "undefined" ? __app_id : "shared_v1";
+      const urlParams = new URLSearchParams(window.location.search);
+      let shareId = urlParams.get("id") || "main_data";
+
+      function detectPageMode() {
+        const pathParts = window.location.pathname
+          .replace(/\/+/g, "/")
+          .split("/")
+          .filter(Boolean)
+          .map((part) => {
+            try {
+              return decodeURIComponent(part);
+            } catch {
+              return part;
+            }
+          });
+
+        const last = pathParts[pathParts.length - 1] || "";
+        const prev = pathParts[pathParts.length - 2] || "";
+        const key = last === "index.html" ? prev : last;
+
+        if (key === "tkb") return "schedule";
+        if (key === "diemdanh") return "attendance";
+        if (key === "xemlai") return "review";
+        return "admin";
+      }
+
+      const pageParam = detectPageMode();
+      const isStudentView = pageParam === "schedule";
+      const isAttendancePublicView = pageParam === "attendance";
+      const isReviewPublicView = pageParam === "review";
+      const publicAttendanceDefaultSubject =
+        urlParams.get("subject") === "Lý" ? "Lý" : "Toán";
+      const publicOnly = urlParams.get("public") === "1";
+
+      const ADMIN_RESET_CODE = "Dienkon";
+
+      // Initial default data structure
+      let appData = {
+        schedule: [
+          // TOÁN
+          {
+            id: "t1",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "Phép lũy thừa, logarit",
+            periods: 1,
+            date: "2026-03-31",
+          },
+          {
+            id: "t2",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "Hs mũ, Hs logarit",
+            periods: 2,
+            date: "2026-03-31",
+          },
+          {
+            id: "t3",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "PT, BPT mũ và logarit",
+            periods: 2,
+            date: "2026-04-02",
+          },
+          {
+            id: "t4",
+            subject: "Toán",
+            chapter: "7. ĐẠO HÀM",
+            topic: "Định nghĩa đạo hàm",
+            periods: 1,
+            date: "2026-04-02",
+          },
+          {
+            id: "t5",
+            subject: "Toán",
+            chapter: "7. ĐẠO HÀM",
+            topic: "Quy tắc đạo hàm",
+            periods: 3,
+            date: "2026-04-04",
+          },
+          {
+            id: "t6",
+            subject: "Toán",
+            chapter: "8. HÌNH HỌC",
+            topic: "Đt, mp vuông góc",
+            periods: 2,
+            date: "2026-04-08",
+          },
+          {
+            id: "t7",
+            subject: "Toán",
+            chapter: "8. HÌNH HỌC",
+            topic: "Khoảng cách, góc đt&mp, góc nhị diện",
+            periods: 2,
+            date: "2026-04-11",
+          },
+          {
+            id: "t8",
+            subject: "Toán",
+            chapter: "9. XÁC SUẤT",
+            topic: "Biến cố giao và quy tắc nhân xs",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "t9",
+            subject: "Toán",
+            chapter: "9. XÁC SUẤT",
+            topic: "Biến cố hợp và quy tắc cộng xs",
+            periods: 2,
+            date: "",
+          },
+
+          // LÝ - CHƯƠNG 3
+          {
+            id: "l1",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Lực điện",
+            periods: 1,
+            date: "2026-04-01",
+          },
+          {
+            id: "l2",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Tổng hợp lực điện",
+            periods: 2,
+            date: "2026-04-01",
+          },
+          {
+            id: "l3",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện trường",
+            periods: 2,
+            date: "2026-04-03",
+          },
+          {
+            id: "l4",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Chống chất điện trường",
+            periods: 2,
+            date: "2026-04-05",
+          },
+          {
+            id: "l5",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện trường đều",
+            periods: 2,
+            date: "2026-04-06",
+          },
+          {
+            id: "l6",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Thế năng điện",
+            periods: 2,
+            date: "2026-04-07",
+          },
+          {
+            id: "l7",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện thế",
+            periods: 2,
+            date: "2026-04-09",
+          },
+          {
+            id: "l8",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Tụ điện",
+            periods: 3,
+            date: "2026-04-10",
+          },
+
+          // LÝ - CHƯƠNG 4
+          {
+            id: "l9",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Cường độ dòng điện",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l10",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Điện trở. Định luật Ôm",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l11",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Nguồn điện. Định luật Ôm toàn mạch",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l12",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Năng lượng. Công suất điện",
+            periods: 2,
+            date: "",
+          },
+        ],
+        students: [
+          {
+            id: "HV1",
+            name: "Nguyễn Thị Huyền Diệu",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV2",
+            name: "Trần Thị Trúc Đan",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV3", name: "toàn", class: "", subjects: ["Toán", "Lý"] },
+          {
+            id: "HV4",
+            name: "Lê Thị Tố Quyên",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV5",
+            name: "Nguyễn Hoàng Kim",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV6",
+            name: "Trần Hoàng Phúc",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV7",
+            name: "Nguyễn Hồng Thái",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV8",
+            name: "Nguyễn Thị Ngọc Hân",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV9", name: "Nguyễn Thị Mỹ Chi", class: "", subjects: ["Lý"] },
+          {
+            id: "HV10",
+            name: "Nguyễn Thị Ngọc Loan",
+            class: "",
+            subjects: ["Lý"],
+          },
+          {
+            id: "HV11",
+            name: "Đặng Bảo Thi",
+            class: "11A1",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV12",
+            name: "Trương Thị Cẩm Yến",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV13",
+            name: "Phan Thị Mộng Tuyền",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV14", name: "Lý Thị Hồng Cúc", class: "", subjects: ["Lý"] },
+          {
+            id: "HV15",
+            name: "Trương Gia Hân",
+            class: "",
+            subjects: ["Toán"],
+          },
+          {
+            id: "HV16",
+            name: "Nguyễn Thị Diễm Hằng",
+            class: "",
+            subjects: ["Toán"],
+          },
+          {
+            id: "HV17",
+            name: "Lê Quốc Huy",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV18",
+            name: "Trần Cao Hoàng Trân",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+        ],
+        attendance: {},
+        reviewLessons: [],
+      };
+      const DEFAULT_APP_DATA = JSON.parse(JSON.stringify(appData));
+      let editingStudentId = null;
+      let editingReviewId = null;
+      let lastAttendanceSubject = "Toán";
+      let lastAttendanceTopicId = null;
+      const statsEditMode = { Toán: false, Lý: false };
+
+      function cloneData(data) {
+        return JSON.parse(JSON.stringify(data));
+      }
+
+      function parseDateKey(dateStr) {
+        if (!dateStr) return null;
+        const parts = String(dateStr).split("-").map(Number);
+        if (parts.length !== 3 || parts.some((n) => Number.isNaN(n)))
+          return null;
+        const [year, month, day] = parts;
+        return new Date(year, month - 1, day);
+      }
+
+      function getTodayKey() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        const d = String(now.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+      }
+
+      function formatDateDisplay(dateStr, shortYear = true) {
+        if (!dateStr) return "---";
+        const d = parseDateKey(dateStr);
+        if (!d) return "---";
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = String(d.getFullYear());
+        return `${day}/${month}/${shortYear ? year.slice(-2) : year}`;
+      }
+
+      function sortScheduleForDisplay(items = appData.schedule) {
+        return items
+          .map((item, idx) => ({ item, idx }))
+          .sort((a, b) => {
+            const da = parseDateKey(a.item.date);
+            const db = parseDateKey(b.item.date);
+            if (da && db) {
+              const diff = da.getTime() - db.getTime();
+              if (diff !== 0) return diff;
+            } else if (da && !db) {
+              return -1;
+            } else if (!da && db) {
+              return 1;
+            }
+            return a.idx - b.idx;
+          })
+          .map(({ item }) => item);
+      }
+
+      function groupScheduleByDate(items = appData.schedule) {
+        const sorted = items
+          .map((item, idx) => ({ item, idx }))
+          .sort((a, b) => {
+            const da = parseDateKey(a.item.date);
+            const db = parseDateKey(b.item.date);
+            if (da && db) {
+              const diff = da.getTime() - db.getTime();
+              if (diff !== 0) return diff;
+            } else if (da && !db) {
+              return -1;
+            } else if (!da && db) {
+              return 1;
+            }
+            return a.idx - b.idx;
+          });
+
+        const groups = [];
+        let current = null;
+        sorted.forEach(({ item }) => {
+          const key = item.date || "__UNSCHEDULED__";
+          if (!current || current.key !== key) {
+            current = {
+              key,
+              date: item.date || "",
+              items: [],
+            };
+            groups.push(current);
+          }
+          current.items.push(item);
+        });
+        return groups;
+      }
+
+      function getDiscountUnitLabel(type) {
+        return type === "fixed" ? "VND" : "%";
+      }
+
+      function formatDiscountSummary(discount) {
+        if (!discount) return "-";
+        const value = Number(discount.value) || 0;
+        const label =
+          discount.type === "total"
+            ? "Tổng"
+            : discount.type === "toan"
+              ? "Toán"
+              : discount.type === "ly"
+                ? "Lý"
+                : discount.type === "fixed"
+                  ? "VND"
+                  : "Khác";
+        if (discount.type === "fixed")
+          return `-${value.toLocaleString()}đ (${label})`;
+        return `-${value}% (${label})`;
+      }
+
+      function buildDiscountRows(discounts = []) {
+        const rows = discounts.length
+          ? discounts
+          : [{ type: "none", value: 0 }];
+        return rows
+          .map(
+            (d, idx) => `
+                  <div class="grid grid-cols-[1fr_160px_auto] gap-2 items-center discount-row" data-index="${idx}">
+                    <select onchange="window.syncDiscountRowMode(this)" class="discount-type w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                      <option value="none" ${d.type === "none" ? "selected" : ""}>Không có ưu đãi</option>
+                      <option value="total" ${d.type === "total" ? "selected" : ""}>Giảm trên TỔNG tiền</option>
+                      <option value="toan" ${d.type === "toan" ? "selected" : ""}>Chỉ giảm trên môn TOÁN</option>
+                      <option value="ly" ${d.type === "ly" ? "selected" : ""}>Chỉ giảm trên môn LÝ</option>
+                      <option value="fixed" ${d.type === "fixed" ? "selected" : ""}>Ưu đãi giá trị thật (VNĐ)</option>
+                    </select>
+                    <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                      <span class="text-xs font-bold text-slate-400 ml-1">GIẢM:</span>
+                      <input type="number" min="0" value="${d.value || 0}" class="discount-value w-full bg-transparent border-none text-sm focus:ring-0 text-right font-bold text-blue-600" />
+                      <span class="discount-unit text-xs font-bold text-slate-400 mr-1">${getDiscountUnitLabel(d.type)}</span>
+                    </div>
+                    <button type="button" class="remove-discount text-slate-300 hover:text-red-500 text-sm font-bold" onclick="window.removeDiscountRow(this)">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                `,
+          )
+          .join("");
+      }
+
+      const ADMIN_PASSWORD = "Dienkon";
+      const ADMIN_KEY = "admin_auth_ok";
+
+      // Kiểm tra quyền admin
+      function checkAdminAccess() {
+        // Nếu là link public thì bỏ qua
+        if (isStudentView || isAttendancePublicView || isReviewPublicView)
+          return true;
+
+        const saved = localStorage.getItem(ADMIN_KEY);
+
+        if (saved === "true") return true;
+
+        let pass = prompt("Nhập mật khẩu admin:");
+
+        if (pass === ADMIN_PASSWORD) {
+          localStorage.setItem(ADMIN_KEY, "true");
+          return true;
+        } else {
+          alert("Sai mật khẩu!");
+          return false;
+        }
+      }
+
+      async function initApp() {
+        try {
+          const app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+
+          // Authentication
+          if (
+            typeof __initial_auth_token !== "undefined" &&
+            __initial_auth_token
+          ) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+
+          onAuthStateChanged(auth, (u) => {
+            if (u) {
+              user = u;
+              startSync();
+            } else {
+              showError("Không thể xác thực quyền truy cập.");
+            }
+          });
+        } catch (e) {
+          showError("Lỗi cấu hình Firebase: " + e.message);
+        }
+      }
+
+      function startSync() {
+        currentDocRef = doc(
+          db,
+          "artifacts",
+          appId,
+          "public",
+          "data",
+          "v1",
+          shareId,
+        );
+
+        onSnapshot(
+          currentDocRef,
+          (snap) => {
+            if (snap.exists()) {
+              appData = snap.data();
+              repairData();
+              updateUI();
+              setSyncStatus("online");
+            } else {
+              // Nếu là lần đầu tiên, khởi tạo dữ liệu mặc định
+              saveToFirebase();
+            }
+            hideLoading();
+          },
+          (err) => {
+            showError("Lỗi đồng bộ Firestore: " + err.message);
+          },
+        );
+      }
+
+      async function saveToFirebase() {
+        if (!user) return;
+        try {
+          await setDoc(currentDocRef, appData);
+          setSyncStatus("saved");
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      // --- UTILS ---
+      function repairData() {
+        if (!appData.attendance) appData.attendance = {};
+        if (!appData.students) appData.students = [];
+        if (!appData.schedule) appData.schedule = [];
+        if (!appData.reviewLessons) appData.reviewLessons = [];
+
+        appData.students.forEach((s) => {
+          if (!Array.isArray(s.discounts)) {
+            if (
+              s.discountType &&
+              s.discountType !== "none" &&
+              Number(s.discountValue) > 0
+            ) {
+              s.discounts = [
+                { type: s.discountType, value: Number(s.discountValue) || 0 },
+              ];
+            } else {
+              s.discounts = [];
+            }
+          }
+        });
+
+        appData.schedule.forEach((item) => {
+          if (!appData.attendance[item.id])
+            appData.attendance[item.id] = { contents: {}, records: {} };
+        });
+      }
+
+      let initialTabApplied = false;
+
+      function updateUI() {
+        renderScheduleTable();
+        renderStudentsTable();
+        renderStatsTable();
+        renderDiscountEditor();
+        renderReviewView();
+        applyViewMode();
+        applyPublicAttendanceView();
+
+        // Re-render attendance if open
+        if (
+          !document
+            .getElementById("view-attendance")
+            .classList.contains("hidden")
+        ) {
+          window.renderAttendanceTopics();
+        }
+
+        if (!initialTabApplied && pageParam !== "attendance") {
+          initialTabApplied = true;
+          const allowedPages = [
+            "home",
+            "schedule",
+            "attendance",
+            "students",
+            "stats",
+            "review",
+          ];
+          const startTab =
+            pageParam === "admin"
+              ? "home"
+              : allowedPages.includes(pageParam)
+                ? pageParam
+                : "home";
+          const visibleTab =
+            isStudentView && !["schedule", "review"].includes(startTab)
+              ? "schedule"
+              : startTab;
+          setTimeout(() => window.switchTab(visibleTab), 0);
+        }
+      }
+
+      function hideLoading() {
+        document.getElementById("loading-overlay").style.opacity = "0";
+        setTimeout(
+          () =>
+            (document.getElementById("loading-overlay").style.display = "none"),
+          500,
+        );
+      }
+
+      function applyViewMode() {
+        const tabNav = document.getElementById("tab-nav");
+        const headerActions = document.getElementById("header-actions");
+        const scheduleExportBtn = document.getElementById(
+          "schedule-export-btn",
+        );
+
+        if (pageParam === "admin") {
+          if (tabNav) tabNav.classList.remove("hidden");
+          return;
+        }
+
+        if (tabNav) tabNav.classList.add("hidden");
+        if (headerActions) headerActions.classList.add("hidden");
+        if (scheduleExportBtn) scheduleExportBtn.classList.add("hidden");
+
+        [
+          "home",
+          "schedule",
+          "attendance",
+          "students",
+          "stats",
+          "review",
+          "attendance-public",
+        ].forEach((t) => {
+          const view = document.getElementById(`view-${t}`);
+          const tab = document.getElementById(`tab-${t}`);
+          if (view) view.classList.add("hidden");
+          if (tab) tab.classList.add("hidden");
+        });
+
+        if (pageParam === "schedule") {
+          const view = document.getElementById("view-schedule");
+          if (view) view.classList.remove("hidden");
+        } else if (pageParam === "review") {
+          const view = document.getElementById("view-review");
+          if (view) view.classList.remove("hidden");
+        } else if (pageParam === "attendance") {
+          const publicView = document.getElementById("view-attendance-public");
+          if (publicView) publicView.classList.remove("hidden");
+        }
+      }
+
+      function applyPublicAttendanceView() {
+        if (!isAttendancePublicView) return;
+        window.renderPublicAttendanceView();
+      }
+
+      function showError(msg) {
+        document.getElementById("error-message").textContent = msg;
+        document.getElementById("error-overlay").classList.remove("hidden");
+        document.getElementById("loading-overlay").classList.add("hidden");
+      }
+
+      function setSyncStatus(state) {
+        const dot = document.getElementById("sync-dot");
+        const text = document.getElementById("sync-status");
+        if (state === "online") {
+          dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+          text.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" id="sync-dot"></span> Đã đồng bộ`;
+        } else if (state === "saved") {
+          text.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-500" id="sync-dot"></span> Vừa lưu`;
+          setTimeout(() => setSyncStatus("online"), 2000);
+        }
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toast-msg").textContent = msg;
+        t.classList.remove("translate-y-32", "opacity-0");
+        setTimeout(() => t.classList.add("translate-y-32", "opacity-0"), 3000);
+      }
+
+      // --- TAB LOGIC ---
+      window.switchTab = function (id) {
+        if (pageParam === "schedule" && id !== "schedule") return;
+        if (pageParam === "review" && id !== "review") return;
+        if (pageParam === "attendance") return;
+        [
+          "home",
+          "schedule",
+          "attendance",
+          "students",
+          "stats",
+          "review",
+        ].forEach((t) => {
+          const view = document.getElementById(`view-${t}`);
+          const tab = document.getElementById(`tab-${t}`);
+          if (view) view.classList.add("hidden");
+          if (tab) {
+            tab.className =
+              "tab-inactive py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap";
+          }
+        });
+        const viewEl = document.getElementById(`view-${id}`);
+        const tabEl = document.getElementById(`tab-${id}`);
+        if (viewEl) viewEl.classList.remove("hidden");
+        if (tabEl)
+          tabEl.className =
+            "tab-active py-4 px-1 border-b-2 transition-all flex items-center gap-2 whitespace-nowrap";
+
+        if (id === "attendance") window.renderAttendanceTopics();
+        if (id === "stats") window.renderStatsTable();
+        if (id === "schedule") renderScheduleTable();
+        if (id === "review") renderReviewView();
+      };
+
+      // --- TAB 1: SCHEDULE ---
+      function renderScheduleTable() {
+        const body = document.getElementById("schedule-table-body");
+        body.innerHTML = "";
+
+        const publicMode = isStudentView;
+        const table = document.querySelector("#view-schedule table thead tr");
+        if (table) {
+          table.innerHTML = `
+                          <th class="p-4 border-b border-r w-36 text-center">Ngày</th>
+                          <th class="p-4 border-b border-r">Toán</th>
+                          <th class="p-4 border-b">Lý</th>
+                      `;
+        }
+
+        const groups = groupScheduleByDate(appData.schedule);
+        const todayKey = getTodayKey();
+
+        if (!groups.length) {
+          body.innerHTML = `<tr><td colspan="3" class="p-10 text-center text-slate-300 italic font-bold">Chưa có dữ liệu lịch ôn tập</td></tr>`;
+          return;
+        }
+
+        const renderLessonCard = (item) => {
+          const isToan = item.subject === "Toán";
+          const color = isToan
+            ? "border-blue-100 bg-blue-50/40 text-blue-700"
+            : "border-red-100 bg-red-50/40 text-red-700";
+          const topicText = escapeHtml(item.topic || "(Chưa có chuyên đề)");
+          const chapterText = escapeHtml(item.chapter || "Không thuộc chương");
+          const dateValue = item.date || "";
+          const dateLabel = dateValue
+            ? formatDateDisplay(dateValue, true)
+            : "Chưa sắp xếp";
+          return `
+            <div class="rounded-2xl border ${color} bg-white p-3 shadow-sm">
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">${chapterText}</div>
+                  <div class="font-bold text-slate-800 leading-snug break-words">${topicText}</div>
+                </div>
+                ${
+                  publicMode
+                    ? `<span class="shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-black ${isToan ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700"}">${item.periods} tiết</span>`
+                    : `<label class="shrink-0 inline-flex items-center gap-2 rounded-full border ${isToan ? "border-blue-100 bg-blue-50 text-blue-700" : "border-red-100 bg-red-50 text-red-700"} px-2.5 py-1 text-[11px] font-black"><span>Tiết</span><input type="number" min="1" value="${item.periods}" onchange="window.updatePeriod('${item.id}', this.value)" class="w-12 bg-transparent text-right outline-none"></label>`
+                }
+              </div>
+              <div class="mt-3 space-y-2">
+                ${
+                  publicMode
+                    ? `<div class="text-[11px] font-semibold text-slate-500">${dateLabel}</div>`
+                    : `<input type="date" value="${dateValue}" onchange="window.handleDateChange('${item.id}', this.value, '${item.date || ""}')" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500">`
+                }
+                ${publicMode ? "" : `<button onclick="window.jumpToAtt('${item.id}')" class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:bg-slate-800 transition"><i class="fa-solid fa-arrow-right"></i> Điểm danh</button>`}
+              </div>
+            </div>
+          `;
+        };
+
+        groups.forEach((group) => {
+          const isUnscheduled = !group.date;
+          const isToday = group.date && group.date === todayKey;
+          const toanLessons = group.items.filter(
+            (item) => item.subject === "Toán",
+          );
+          const lyLessons = group.items.filter((item) => item.subject === "Lý");
+
+          const rowClass = isToday
+            ? "bg-amber-50/80 border-amber-200 ring-1 ring-amber-200"
+            : isUnscheduled
+              ? "bg-slate-50 border-slate-200"
+              : "bg-white border-slate-200";
+
+          const dateTitle = isUnscheduled
+            ? "Chưa sắp xếp"
+            : formatDateDisplay(group.date, true);
+          const badge = isToday
+            ? `<span class="inline-flex items-center rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-black text-white">Hôm nay</span>`
+            : isUnscheduled
+              ? `<span class="inline-flex items-center rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-black text-slate-600">Chưa xếp</span>`
+              : `<span class="text-[10px] font-semibold text-slate-400">${group.items.length} bài</span>`;
+
+          const renderCell = (items, subject) => {
+            if (!items.length) {
+              return `<div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-4 text-center text-xs italic text-slate-300">Không có bài ${subject}</div>`;
+            }
+            return `<div class="space-y-3">${items.map(renderLessonCard).join("")}</div>`;
+          };
+
+          const toanCell = renderCell(toanLessons, "Toán");
+          const lyCell = renderCell(lyLessons, "Lý");
+
+          const tr = document.createElement("tr");
+          tr.className = `border-b transition-colors ${rowClass}`;
+          if (isToday) {
+            tr.setAttribute("data-highlight", "today");
+          }
+          tr.innerHTML = `
+            <td class="p-4 align-top border-r ${isToday ? "bg-amber-100/70" : "bg-slate-50"}">
+              <div class="flex flex-col items-center justify-center gap-1">
+                <div class="text-sm font-black text-slate-800 leading-tight">${dateTitle}</div>
+                ${badge}
+              </div>
+            </td>
+            <td class="p-3 align-top border-r ${isToday ? "bg-amber-50/40" : "bg-white"}">${toanCell}</td>
+            <td class="p-3 align-top ${isToday ? "bg-amber-50/40" : "bg-white"}">${lyCell}</td>
+          `;
+          body.appendChild(tr);
+        });
+      }
+
+      window.updatePeriod = function (id, val) {
+        const item = appData.schedule.find((i) => i.id === id);
+        if (item && val > 0) {
+          item.periods = parseInt(val);
+          saveToFirebase();
+        }
+      };
+
+      let pendingShift = null;
+      window.handleDateChange = function (id, nDate, oDate) {
+        const item = appData.schedule.find((lesson) => lesson.id === id);
+        if (!item) return;
+
+        if (!nDate) {
+          item.date = "";
+          saveToFirebase();
+          return;
+        }
+
+        if (!oDate) {
+          item.date = nDate;
+          saveToFirebase();
+          return;
+        }
+
+        const diff = Math.round((new Date(nDate) - new Date(oDate)) / 86400000);
+        if (diff === 0) return;
+
+        const sortedIndex = sortScheduleForDisplay(appData.schedule).findIndex(
+          (lesson) => lesson.id === id,
+        );
+        pendingShift = {
+          id,
+          sortedIndex,
+          diff,
+          nDate,
+          subject: item.subject,
+        };
+        document.getElementById("shift-modal-text").textContent =
+          `Bạn vừa đổi ngày. Muốn đẩy toàn bộ các bài Môn ${pendingShift.subject} phía sau đi ${diff > 0 ? diff : Math.abs(diff)} ngày không?`;
+        document
+          .getElementById("shift-modal")
+          .classList.replace("hidden", "flex");
+      };
+
+      window.closeShiftModal = function (all) {
+        if (pendingShift) {
+          const currentItem = appData.schedule.find(
+            (lesson) => lesson.id === pendingShift.id,
+          );
+          if (currentItem) currentItem.date = pendingShift.nDate;
+
+          if (all) {
+            const sorted = sortScheduleForDisplay(appData.schedule);
+            const startIndex = sorted.findIndex(
+              (lesson) => lesson.id === pendingShift.id,
+            );
+
+            for (let i = startIndex + 1; i < sorted.length; i++) {
+              const lesson = sorted[i];
+              if (lesson.subject === pendingShift.subject && lesson.date) {
+                const d = parseDateKey(lesson.date);
+                if (d) {
+                  d.setDate(d.getDate() + pendingShift.diff);
+                  lesson.date = d.toISOString().split("T")[0];
+                }
+              }
+            }
+          }
+          saveToFirebase();
+        }
+        document
+          .getElementById("shift-modal")
+          .classList.replace("flex", "hidden");
+      };
+
+      window.jumpToAtt = function (id) {
+        const item = appData.schedule.find((i) => i.id === id);
+        window.switchTab("attendance");
+        document.getElementById("att-subject").value = item.subject;
+        window.renderAttendanceTopics();
+        setTimeout(() => {
+          document.getElementById("att-topic").value = id;
+          window.loadAttendanceDetail();
+        }, 50);
+      };
+
+      // --- TAB 2: ATTENDANCE ---
+      window.renderAttendanceTopics = function () {
+        const subEl = document.getElementById("att-subject");
+        const sel = document.getElementById("att-topic");
+        if (!subEl || !sel) return;
+
+        const sub = subEl.value;
+        const keepTopicId = sel.value || lastAttendanceTopicId;
+        lastAttendanceSubject = sub;
+        sel.innerHTML = "";
+
+        let matched = false;
+        sortScheduleForDisplay(
+          appData.schedule.filter((i) => i.subject === sub),
+        ).forEach((i) => {
+          const opt = document.createElement("option");
+          opt.value = i.id;
+          opt.textContent = `${formatDateDisplay(i.date, true)} | ${i.topic}`;
+          sel.appendChild(opt);
+          if (i.id === keepTopicId) matched = true;
+        });
+
+        if (matched) {
+          sel.value = keepTopicId;
+        } else if (sel.options.length) {
+          sel.selectedIndex = 0;
+        }
+
+        lastAttendanceTopicId = sel.value || null;
+        window.loadAttendanceDetail();
+      };
+
+      window.loadAttendanceDetail = function () {
+        const id = document.getElementById("att-topic").value;
+        const item = appData.schedule.find((i) => i.id === id);
+        lastAttendanceTopicId = id || null;
+        if (item) lastAttendanceSubject = item.subject;
+        const box = document.getElementById("lesson-content-inputs");
+        if (!item) return;
+
+        // Contents
+        box.innerHTML = "";
+        for (let i = 1; i <= item.periods; i++) {
+          box.innerHTML += `
+                          <div>
+                              <span class="text-[10px] font-black text-slate-400 uppercase">Tiết ${i}</span>
+                              <input type="text" value="${appData.attendance[id].contents[i] || ""}" onchange="window.saveContent('${id}', ${i}, this.value)" class="w-full border-none bg-slate-50 rounded-lg p-2 text-sm focus:ring-1 focus:ring-blue-500 outline-none">
+                          </div>
+                      `;
+        }
+
+        // Header
+        const head = document.getElementById("att-table-header");
+        let hHtml = `<tr class="bg-slate-50 border-b text-[10px] font-black text-slate-400 uppercase">
+                      <th class="p-4 text-center border-r w-12 bg-slate-50 sticky left-0 z-30">#</th>
+                      <th class="p-4 border-r min-w-[180px] bg-slate-50 sticky left-12 z-30 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Học viên</th>`;
+        for (let i = 1; i <= item.periods; i++) {
+          hHtml += `<th class="p-4 text-center border-r min-w-[80px]">T${i}<br><button onclick="window.checkAll('${id}', ${i})" class="text-[9px] text-blue-500 normal-case">All</button></th>`;
+        }
+        hHtml += `</tr>`;
+        head.innerHTML = hHtml;
+
+        // Body
+        const body = document.getElementById("att-table-body");
+        body.innerHTML = "";
+        const stds = appData.students.filter((s) =>
+          s.subjects.includes(item.subject),
+        );
+
+        if (stds.length === 0) {
+          body.innerHTML = `<tr><td colspan="${2 + item.periods}" class="p-10 text-center text-slate-300 font-bold italic">Chưa có học viên môn này</td></tr>`;
+          return;
+        }
+
+        stds.forEach((s, idx) => {
+          let rHtml = `<tr class="border-b border-slate-100 hover:bg-slate-50 group">
+                          <td class="p-4 text-center border-r bg-white group-hover:bg-slate-50 sticky left-0 z-10 text-slate-400 font-bold">${idx + 1}</td>
+                          <td class="p-4 border-r bg-white group-hover:bg-slate-50 sticky left-12 z-10 font-bold text-slate-700 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">${s.name}<br><span class="text-[10px] font-normal text-slate-400">${s.class}</span></td>`;
+          for (let i = 1; i <= item.periods; i++) {
+            const checked =
+              appData.attendance[id].records[s.id] &&
+              appData.attendance[id].records[s.id][i];
+            rHtml += `<td class="p-4 text-center border-r">
+                              <input type="checkbox" ${checked ? "checked" : ""} onchange="window.toggleAtt('${id}', '${s.id}', ${i}, this.checked)" class="w-5 h-5 text-blue-600 rounded cursor-pointer border-slate-300">
+                          </td>`;
+          }
+          rHtml += `</tr>`;
+          body.innerHTML += rHtml;
+        });
+      };
+
+      window.saveContent = (tid, p, val) => {
+        appData.attendance[tid].contents[p] = val;
+        saveToFirebase();
+      };
+
+      window.addDiscountRow = function (
+        discount = { type: "none", value: 0 },
+        listId = "discount-list",
+      ) {
+        const list = document.getElementById(listId);
+        if (!list) return;
+        const wrapper = document.createElement("div");
+        wrapper.className =
+          "grid grid-cols-[1fr_160px_auto] gap-2 items-center discount-row";
+        wrapper.innerHTML = `
+                <select onchange="window.syncDiscountRowMode(this)" class="discount-type w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                  <option value="none" ${discount.type === "none" ? "selected" : ""}>Không có ưu đãi</option>
+                  <option value="total" ${discount.type === "total" ? "selected" : ""}>Giảm trên TỔNG tiền</option>
+                  <option value="toan" ${discount.type === "toan" ? "selected" : ""}>Chỉ giảm trên môn TOÁN</option>
+                  <option value="ly" ${discount.type === "ly" ? "selected" : ""}>Chỉ giảm trên môn LÝ</option>
+                  <option value="fixed" ${discount.type === "fixed" ? "selected" : ""}>Ưu đãi giá trị thật (VNĐ)</option>
+                </select>
+                <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                  <span class="text-xs font-bold text-slate-400 ml-1">GIẢM:</span>
+                  <input type="number" min="0" value="${discount.value || 0}" class="discount-value w-full bg-transparent border-none text-sm focus:ring-0 text-right font-bold text-blue-600" />
+                  <span class="discount-unit text-xs font-bold text-slate-400 mr-1">${getDiscountUnitLabel(discount.type)}</span>
+                </div>
+                <button type="button" onclick="window.removeDiscountRow(this)" class="remove-discount text-slate-300 hover:text-red-500 text-sm font-bold"><i class="fa-solid fa-xmark"></i></button>
+              `;
+        list.appendChild(wrapper);
+        window.syncDiscountRowMode(wrapper.querySelector(".discount-type"));
+      };
+
+      window.syncDiscountRowMode = function (selectEl) {
+        const row = selectEl?.closest(".discount-row");
+        if (!row) return;
+        const unit = row.querySelector(".discount-unit");
+        const valueInput = row.querySelector(".discount-value");
+        const isFixed = selectEl.value === "fixed";
+        if (unit) unit.textContent = isFixed ? "VND" : "%";
+        if (valueInput) {
+          valueInput.min = "0";
+          valueInput.step = isFixed ? "1000" : "1";
+          valueInput.removeAttribute("max");
+          if (!isFixed) valueInput.setAttribute("max", "100");
+        }
+      };
+
+      window.removeDiscountRow = function (btn) {
+        const row = btn.closest(".discount-row");
+        const list = row?.parentElement;
+        const rows = list ? list.querySelectorAll(".discount-row") : [];
+        if (rows.length <= 1) {
+          if (list) list.innerHTML = "";
+          window.addDiscountRow(undefined, list?.id || "discount-list");
+          return;
+        }
+        row?.remove();
+      };
+
+      function renderDiscountEditor(existing = [], listId = "discount-list") {
+        const list = document.getElementById(listId);
+        if (!list) return;
+        list.innerHTML = "";
+        const rows = existing.length ? existing : [{ type: "none", value: 0 }];
+        rows.forEach((d) => window.addDiscountRow(d, listId));
+      }
+
+      function collectDiscounts(listId = "discount-list") {
+        const rows = Array.from(
+          document.querySelectorAll(`#${listId} .discount-row`),
+        );
+        return rows
+          .map((row) => ({
+            type: row.querySelector(".discount-type")?.value || "none",
+            value:
+              Number(row.querySelector(".discount-value")?.value || "0") || 0,
+          }))
+          .filter((d) => d.type !== "none" && d.value > 0);
+      }
+
+      function escapeHtml(str = "") {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function getSubjectLessonColumns(subject) {
+        const cols = [];
+        appData.schedule
+          .filter((i) => i.subject === subject)
+          .forEach((lesson) => {
+            for (let p = 1; p <= lesson.periods; p++) {
+              cols.push({ lesson, period: p });
+            }
+          });
+        return cols;
+      }
+
+      const isAdminMode = !isStudentView && !isAttendancePublicView;
+
+      function getReviewSourceLessons(subject) {
+        return sortScheduleForDisplay(
+          appData.schedule.filter((i) => i.subject === subject),
+        );
+      }
+
+      function escapeAttr(str = "") {
+        return escapeHtml(str).replaceAll("`", "&#96;");
+      }
+
+      function renderMaterialRows(
+        existing = [],
+        listId = "review-materials-list",
+      ) {
+        const list = document.getElementById(listId);
+        if (!list) return;
+        list.innerHTML = "";
+        const rows = existing.length ? existing : [{ name: "", url: "" }];
+        rows.forEach((m) => window.addReviewMaterialRow(m, listId));
+      }
+
+      window.addReviewMaterialRow = function (
+        material = { name: "", url: "" },
+        listId = "review-materials-list",
+      ) {
+        const list = document.getElementById(listId);
+        if (!list) return;
+        const wrapper = document.createElement("div");
+        wrapper.className =
+          "grid grid-cols-[1fr_1.4fr_auto] gap-2 items-center review-material-row";
+        wrapper.innerHTML = `
+          <input type="text" value="${escapeAttr(material.name || "")}" placeholder="Tên tài liệu" class="review-material-name w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" />
+          <input type="url" value="${escapeAttr(material.url || "")}" placeholder="https://..." class="review-material-url w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" />
+          <button type="button" onclick="window.removeReviewMaterialRow(this)" class="text-slate-300 hover:text-red-500 text-sm font-bold"><i class="fa-solid fa-xmark"></i></button>
+        `;
+        list.appendChild(wrapper);
+      };
+
+      window.removeReviewMaterialRow = function (btn) {
+        const row = btn.closest(".review-material-row");
+        const list = row?.parentElement;
+        const rows = list ? list.querySelectorAll(".review-material-row") : [];
+        if (rows.length <= 1) {
+          if (list) list.innerHTML = "";
+          window.addReviewMaterialRow(
+            undefined,
+            list?.id || "review-materials-list",
+          );
+          return;
+        }
+        row?.remove();
+      };
+
+      function collectReviewMaterials(listId = "review-materials-list") {
+        return Array.from(
+          document.querySelectorAll(`#${listId} .review-material-row`),
+        )
+          .map((row) => ({
+            name:
+              row.querySelector(".review-material-name")?.value.trim() || "",
+            url: row.querySelector(".review-material-url")?.value.trim() || "",
+          }))
+          .filter((m) => m.name || m.url);
+      }
+
+      function fillReviewForm(item = null) {
+        editingReviewId = item?.id || null;
+        const subject = item?.subject || "Toán";
+        const subjectEl = document.getElementById("review-subject");
+        const sourceEl = document.getElementById("review-source");
+        const titleEl = document.getElementById("review-title");
+        const videoEl = document.getElementById("review-video");
+        if (!subjectEl || !sourceEl || !titleEl || !videoEl) return;
+
+        subjectEl.value = subject;
+        populateReviewSourceLessons(subject, item?.sourceLessonId || "");
+        window.onReviewSubjectChange?.();
+        titleEl.value = item?.title || "";
+        videoEl.value = item?.videoUrl || "";
+        renderMaterialRows(
+          Array.isArray(item?.materials) ? item.materials : [],
+        );
+        const btn = document.getElementById("review-save-btn");
+        if (btn) {
+          btn.textContent = editingReviewId
+            ? "Cập nhật bài giảng"
+            : "Thêm bài giảng";
+        }
+      }
+
+      function populateReviewSourceLessons(subject, keepId = "") {
+        const sourceEl = document.getElementById("review-source");
+        if (!sourceEl) return;
+        sourceEl.innerHTML = `
+          <option value="">-- Chọn chuyên đề có sẵn --</option>
+          <option value="__custom__">-- Tự đặt tên bài giảng --</option>
+        `;
+        getReviewSourceLessons(subject).forEach((lesson) => {
+          const opt = document.createElement("option");
+          opt.value = lesson.id;
+          opt.textContent = `${lesson.chapter} | ${lesson.topic}`;
+          sourceEl.appendChild(opt);
+        });
+        if (keepId) sourceEl.value = keepId;
+        if (!sourceEl.value) sourceEl.value = "__custom__";
+      }
+
+      window.onReviewSubjectChange = function () {
+        const subject =
+          document.getElementById("review-subject")?.value || "Toán";
+        populateReviewSourceLessons(subject);
+        const firstLesson = getReviewSourceLessons(subject)[0];
+        const titleEl = document.getElementById("review-title");
+        if (titleEl)
+          titleEl.placeholder = firstLesson
+            ? `VD: ${firstLesson.topic}`
+            : "Tên bài giảng";
+      };
+
+      window.openReviewEditor = function (id = null) {
+        const item = id ? appData.reviewLessons.find((x) => x.id === id) : null;
+        fillReviewForm(item || null);
+        const section = document.getElementById("review-form-section");
+        if (section)
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+
+      window.cancelReviewEdit = function () {
+        editingReviewId = null;
+        fillReviewForm(null);
+      };
+
+      window.saveReviewLesson = function () {
+        const subject =
+          document.getElementById("review-subject")?.value || "Toán";
+        const sourceId = document.getElementById("review-source")?.value || "";
+        const titleRaw =
+          document.getElementById("review-title")?.value.trim() || "";
+        const videoUrl =
+          document.getElementById("review-video")?.value.trim() || "";
+        const materials = collectReviewMaterials("review-materials-list");
+
+        const sourceLesson = appData.schedule.find((x) => x.id === sourceId);
+        const resolvedTitle =
+          titleRaw ||
+          (sourceLesson
+            ? `${sourceLesson.chapter} - ${sourceLesson.topic}`
+            : "");
+        if (!resolvedTitle) {
+          showToast("Nhập tên bài giảng hoặc chọn chuyên đề có sẵn.");
+          return;
+        }
+
+        const payload = {
+          id: editingReviewId || `rv${Date.now()}`,
+          subject,
+          title: resolvedTitle,
+          sourceLessonId: sourceId === "__custom__" ? "" : sourceId,
+          sourceLabel: sourceLesson
+            ? `${sourceLesson.chapter} | ${sourceLesson.topic}`
+            : "",
+          videoUrl,
+          materials,
+          updatedAt: new Date().toISOString(),
+        };
+
+        if (editingReviewId) {
+          const idx = appData.reviewLessons.findIndex(
+            (x) => x.id === editingReviewId,
+          );
+          if (idx >= 0) appData.reviewLessons[idx] = payload;
+        } else {
+          appData.reviewLessons.unshift(payload);
+        }
+
+        const wasEditing = Boolean(editingReviewId);
+        saveToFirebase();
+        editingReviewId = null;
+        renderReviewView();
+        showToast(wasEditing ? "Đã cập nhật bài giảng" : "Đã thêm bài giảng");
+      };
+
+      window.delReviewLesson = function (id) {
+        if (!confirm("Xóa bài giảng này?")) return;
+        appData.reviewLessons = appData.reviewLessons.filter(
+          (x) => x.id !== id,
+        );
+        saveToFirebase();
+        renderReviewView();
+      };
+
+      window.openReviewVideo = function (url) {
+        if (!url) return;
+        window.open(url, "_blank", "noopener,noreferrer");
+      };
+
+      function renderReviewView() {
+        const panel = document.getElementById("review-panel");
+        if (!panel) return;
+
+        if (isAdminMode) {
+          panel.innerHTML = `
+            <div id="review-form-section" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div class="lg:col-span-1 bg-slate-50 rounded-2xl border border-slate-200 p-5">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-4">
+                  <i class="fa-solid fa-pen-to-square text-indigo-600"></i> Thêm / sửa bài giảng
+                </h3>
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">Môn</label>
+                    <select id="review-subject" onchange="window.onReviewSubjectChange()" class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                      <option value="Toán">Toán</option>
+                      <option value="Lý">Lý</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">Chọn chuyên đề có sẵn</label>
+                    <select id="review-source" class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"></select>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">Tên bài giảng</label>
+                    <input id="review-title" type="text" class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Nhập tên bài giảng" />
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">Link video</label>
+                    <input id="review-video" type="url" class="w-full border-slate-200 border rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="https://..." />
+                  </div>
+                  <div class="pt-3 border-t border-slate-200">
+                    <div class="flex items-center justify-between gap-3 mb-2">
+                      <label class="block text-[10px] font-bold text-slate-400 uppercase">Tài liệu tải về</label>
+                      <button type="button" onclick="window.addReviewMaterialRow()" class="text-[10px] font-bold uppercase tracking-widest text-indigo-600 hover:text-indigo-700">+ Thêm link</button>
+                    </div>
+                    <div id="review-materials-list" class="space-y-2"></div>
+                  </div>
+                  <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="window.cancelReviewEdit()" class="flex-1 py-3 border border-slate-200 rounded-xl text-slate-600 hover:bg-slate-50 font-bold text-sm">Làm mới</button>
+                    <button id="review-save-btn" type="button" onclick="window.saveReviewLesson()" class="flex-1 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition text-sm font-bold shadow-lg">Thêm bài giảng</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-2 space-y-4">
+                <div class="flex items-center justify-between gap-3 flex-wrap">
+                  <div>
+                    <h3 class="font-bold text-slate-800">Danh sách bài giảng</h3>
+                    <p class="text-xs text-slate-500 mt-1">Bấm sửa để cập nhật lại video hoặc tài liệu.</p>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-widest text-slate-400">${appData.reviewLessons.length} bài</span>
+                </div>
+                <div id="review-cards" class="space-y-3"></div>
+              </div>
+            </div>
+          `;
+        } else {
+          panel.innerHTML = `
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <h3 class="font-bold text-slate-800">Danh sách bài giảng</h3>
+                  <p class="text-xs text-slate-500 mt-1">Xem lại video và tải tài liệu đính kèm.</p>
+                </div>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-slate-400">${appData.reviewLessons.length} bài</span>
+              </div>
+              <div id="review-cards" class="space-y-3"></div>
+            </div>
+          `;
+        }
+
+        const cards = document.getElementById("review-cards");
+        if (!cards) return;
+
+        if (!appData.reviewLessons.length) {
+          cards.innerHTML = `
+            <div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-10 text-center text-slate-400 italic font-semibold">
+              Chưa có bài giảng nào
+            </div>
+          `;
+          if (isAdminMode) fillReviewForm(null);
+          return;
+        }
+
+        cards.innerHTML = appData.reviewLessons
+          .map((item) => {
+            const materials = Array.isArray(item.materials)
+              ? item.materials
+              : [];
+            const materialHtml = materials.length
+              ? materials
+                  .map(
+                    (m) => `
+                  <a href="${escapeAttr(m.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-indigo-200 hover:text-indigo-700">
+                    <i class="fa-solid fa-file-arrow-down"></i> ${escapeHtml(m.name || "Tài liệu")}
+                  </a>
+                `,
+                  )
+                  .join("")
+              : '<span class="text-xs text-slate-400 italic">Chưa có tài liệu</span>';
+
+            const adminBtns = isAdminMode
+              ? `
+              <div class="flex gap-2 mt-4">
+                <button onclick="window.openReviewEditor('${item.id}')" class="px-3 py-2 rounded-lg bg-amber-500 text-white text-xs font-bold hover:bg-amber-600">
+                  <i class="fa-solid fa-pen-to-square"></i> Sửa
+                </button>
+                <button onclick="window.delReviewLesson('${item.id}')" class="px-3 py-2 rounded-lg bg-rose-600 text-white text-xs font-bold hover:bg-rose-700">
+                  <i class="fa-solid fa-trash"></i> Xóa
+                </button>
+              </div>
+            `
+              : "";
+
+            const videoBtn = item.videoUrl
+              ? `
+              <button onclick="window.openReviewVideo('${escapeAttr(item.videoUrl)}')" class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white hover:bg-indigo-700">
+                <i class="fa-solid fa-circle-play"></i> Mở video
+              </button>
+            `
+              : '<span class="text-xs text-slate-400 italic">Chưa có link video</span>';
+
+            return `
+              <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap mb-2">
+                      <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-black ${item.subject === "Toán" ? "bg-blue-100 text-blue-700" : "bg-red-100 text-red-700"}">${escapeHtml(item.subject)}</span>
+                      ${item.sourceLabel ? `<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">${escapeHtml(item.sourceLabel)}</span>` : ""}
+                    </div>
+                    <h4 class="text-base font-bold text-slate-800 break-words">${escapeHtml(item.title || "")}</h4>
+                  </div>
+                  ${videoBtn}
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  ${materialHtml}
+                </div>
+                ${adminBtns}
+              </div>
+            `;
+          })
+          .join("");
+
+        if (isAdminMode) {
+          if (editingReviewId) {
+            fillReviewForm(
+              appData.reviewLessons.find((x) => x.id === editingReviewId) ||
+                null,
+            );
+          } else {
+            fillReviewForm(null);
+          }
+        }
+      }
+
+      let currentPublicAttendanceSubject = publicAttendanceDefaultSubject;
+
+      window.switchPublicAttendanceTab = function (subject) {
+        currentPublicAttendanceSubject = subject === "Lý" ? "Lý" : "Toán";
+        const tabToan = document.getElementById("public-att-tab-toan");
+        const tabLy = document.getElementById("public-att-tab-ly");
+        const paneToan = document.getElementById("public-att-pane-toan");
+        const paneLy = document.getElementById("public-att-pane-ly");
+
+        if (tabToan && tabLy) {
+          const activeToan = currentPublicAttendanceSubject === "Toán";
+          tabToan.className = activeToan
+            ? "px-4 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap bg-white text-emerald-700 shadow-sm"
+            : "px-4 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap text-white/85 hover:text-white";
+          tabLy.className = !activeToan
+            ? "px-4 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap bg-white text-emerald-700 shadow-sm"
+            : "px-4 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap text-white/85 hover:text-white";
+        }
+
+        if (paneToan)
+          paneToan.classList.toggle(
+            "hidden",
+            currentPublicAttendanceSubject !== "Toán",
+          );
+        if (paneLy)
+          paneLy.classList.toggle(
+            "hidden",
+            currentPublicAttendanceSubject !== "Lý",
+          );
+      };
+
+      window.renderPublicAttendanceView = function () {
+        renderSubjectStatsTable(
+          "Toán",
+          "public-att-toan-head",
+          "public-att-toan-body",
+          "text-blue-600",
+          true,
+        );
+        renderSubjectStatsTable(
+          "Lý",
+          "public-att-ly-head",
+          "public-att-ly-body",
+          "text-red-600",
+          true,
+        );
+        window.switchPublicAttendanceTab(currentPublicAttendanceSubject);
+      };
+
+      function renderSubjectStatsTable(
+        subject,
+        headId,
+        bodyId,
+        colorClass,
+        publicOnly = false,
+      ) {
+        const head = document.getElementById(headId);
+        const body = document.getElementById(bodyId);
+        if (!head || !body) return;
+
+        const lessons = appData.schedule.filter((i) => i.subject === subject);
+        const cols = getSubjectLessonColumns(subject);
+        const editing = !publicOnly && !!statsEditMode[subject];
+
+        if (!lessons.length || !cols.length) {
+          head.innerHTML = `<tr><th class="p-4 border-b text-slate-400 text-center">Chưa có chuyên đề</th></tr>`;
+          body.innerHTML = `<tr><td class="p-8 text-center text-slate-400 italic" colspan="3">Chưa có dữ liệu cho môn ${escapeHtml(subject)}</td></tr>`;
+          return;
+        }
+
+        let headHtml = `<tr class="bg-slate-50 text-slate-500 text-[10px] uppercase font-black tracking-tighter">`;
+        headHtml += `<th class="p-4 border-b border-r text-center w-16 sticky left-0 bg-slate-50 z-30">STT</th>`;
+        headHtml += `<th class="p-4 border-b border-r min-w-[220px] sticky left-16 bg-slate-50 z-30">Học viên</th>`;
+        cols.forEach(({ lesson, period }) => {
+          const title = `${lesson.chapter || "Chuyên đề"}<br>${lesson.topic}<br>T${period}`;
+          headHtml += `<th class="p-4 border-b border-r text-center min-w-[140px] align-top">${title}</th>`;
+        });
+        headHtml += `<th class="p-4 border-b text-center min-w-[110px] bg-emerald-50 text-emerald-700">${editing ? "Chăm chỉ (sửa)" : "Chăm chỉ"}</th>`;
+        headHtml += `</tr>`;
+        head.innerHTML = headHtml;
+
+        const students = appData.students.filter((s) =>
+          s.subjects.includes(subject),
+        );
+        if (!students.length) {
+          body.innerHTML = `<tr><td class="p-8 text-center text-slate-400 italic" colspan="${cols.length + 3}">Chưa có học viên đăng ký môn ${escapeHtml(subject)}</td></tr>`;
+          return;
+        }
+
+        body.innerHTML = students
+          .map((student, idx) => {
+            let attended = 0;
+            const cells = cols
+              .map(({ lesson, period }) => {
+                const checked = Boolean(
+                  appData.attendance[lesson.id]?.records?.[student.id]?.[
+                    period
+                  ],
+                );
+                if (checked) attended += 1;
+                const baseCellClass = checked ? "bg-emerald-50/70" : "bg-white";
+                const badgeClass = checked
+                  ? "bg-emerald-500 text-white hover:bg-emerald-600"
+                  : "bg-slate-100 text-slate-300 hover:bg-slate-200";
+                const cellContent = editing
+                  ? `<button type="button" onclick="window.toggleStatsAttendance('${lesson.id}', '${student.id}', ${period})" class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-black transition ${badgeClass}" title="${checked ? "Bỏ tick" : "Thêm tick"}">${checked ? "✓" : "+"}</button>`
+                  : `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-black ${checked ? "bg-emerald-500 text-white" : "bg-slate-100 text-slate-300"}">${checked ? "✓" : ""}</span>`;
+                return `<td class="p-3 border-r text-center ${baseCellClass}">${cellContent}</td>`;
+              })
+              .join("");
+            return `<tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+              <td class="p-4 border-r text-center text-slate-400 font-bold sticky left-0 bg-white z-10">${idx + 1}</td>
+              <td class="p-4 border-r font-bold text-slate-700 sticky left-16 bg-white z-10 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">${escapeHtml(student.name)}<br><span class="text-[9px] font-normal text-slate-400 uppercase tracking-widest">${escapeHtml(student.class || "")}</span></td>
+              ${cells}
+              <td class="p-4 text-center font-black ${colorClass} bg-slate-50">${attended}/${cols.length}</td>
+            </tr>`;
+          })
+          .join("");
+      }
+
+      function updateStatsEditButtons() {
+        const configs = [
+          ["Toán", "stats-edit-btn-toan"],
+          ["Lý", "stats-edit-btn-ly"],
+        ];
+        configs.forEach(([subject, id]) => {
+          const btn = document.getElementById(id);
+          if (!btn) return;
+          const editing = !publicOnly && !!statsEditMode[subject];
+          btn.classList.toggle("bg-emerald-600", editing);
+          btn.classList.toggle("hover:bg-emerald-700", editing);
+          btn.classList.toggle("bg-amber-500", !editing);
+          btn.classList.toggle("hover:bg-amber-600", !editing);
+          btn.classList.toggle("text-white", true);
+          btn.innerHTML = editing
+            ? '<i class="fa-solid fa-check"></i> Đang sửa'
+            : '<i class="fa-solid fa-pen-to-square"></i> Sửa tick';
+        });
+      }
+
+      function setAttendanceMark(tid, sid, p, val) {
+        if (!appData.attendance[tid]) {
+          appData.attendance[tid] = { contents: {}, records: {} };
+        }
+        if (!appData.attendance[tid].records[sid]) {
+          appData.attendance[tid].records[sid] = {};
+        }
+        if (val) {
+          appData.attendance[tid].records[sid][p] = true;
+        } else {
+          delete appData.attendance[tid].records[sid][p];
+          if (Object.keys(appData.attendance[tid].records[sid]).length === 0) {
+            delete appData.attendance[tid].records[sid];
+          }
+        }
+      }
+
+      window.toggleStatsEditMode = function (subject) {
+        statsEditMode[subject] = !statsEditMode[subject];
+        renderStatsTable();
+        showToast(
+          statsEditMode[subject]
+            ? `Đã bật chế độ sửa chuyên cần môn ${subject}`
+            : `Đã tắt chế độ sửa chuyên cần môn ${subject}`,
+        );
+      };
+
+      window.toggleStatsAttendance = function (lessonId, studentId, period) {
+        const current = Boolean(
+          appData.attendance[lessonId]?.records?.[studentId]?.[period],
+        );
+        setAttendanceMark(lessonId, studentId, period, !current);
+        saveToFirebase();
+        renderStatsTable();
+      };
+
+      function calcDiscountAmount(student, base, mc, lc) {
+        const discounts = Array.isArray(student.discounts)
+          ? student.discounts
+          : [];
+        let totalDiscount = 0;
+        discounts.forEach((d) => {
+          const value = Number(d.value) || 0;
+          if (d.type === "fixed") totalDiscount += value;
+          else {
+            const rate = value / 100;
+            if (d.type === "total") totalDiscount += base * rate;
+            else if (d.type === "toan") totalDiscount += mc * rate;
+            else if (d.type === "ly") totalDiscount += lc * rate;
+          }
+        });
+        return Math.min(totalDiscount, base);
+      }
+      window.toggleAtt = (tid, sid, p, val) => {
+        setAttendanceMark(tid, sid, p, val);
+        saveToFirebase();
+      };
+      window.checkAll = (tid, p) => {
+        const sub = appData.schedule.find((i) => i.id === tid).subject;
+        appData.students
+          .filter((s) => s.subjects.includes(sub))
+          .forEach((s) => {
+            setAttendanceMark(tid, s.id, p, true);
+          });
+        saveToFirebase();
+        window.loadAttendanceDetail();
+      };
+
+      window.saveAttendance = () => {
+        saveToFirebase();
+        showToast("Đã đồng bộ điểm danh!");
+      };
+
+      // --- TAB 3: STUDENTS ---
+      function renderStudentsTable() {
+        const body = document.getElementById("students-table-body");
+        body.innerHTML = "";
+        appData.students.forEach((s, idx) => {
+          const dStr =
+            Array.isArray(s.discounts) && s.discounts.length
+              ? s.discounts.map((d) => formatDiscountSummary(d)).join("<br>")
+              : "Không";
+          body.innerHTML += `<tr class="border-b hover:bg-slate-50">
+                          <td class="p-4 text-center text-slate-400">${idx + 1}</td>
+                          <td class="p-4 font-bold text-slate-700">${escapeHtml(s.name)}<br><div class="flex gap-1 mt-1">${s.subjects.map((m) => `<span class="text-[8px] border px-1 rounded uppercase ${m === "Toán" ? "text-blue-500 border-blue-200 bg-blue-50" : "text-red-500 border-red-200 bg-red-50"}">${m}</span>`).join("")}</div></td>
+                          <td class="p-4 text-center text-slate-500 font-bold">${escapeHtml(s.class || "")}</td>
+                          <td class="p-4 text-slate-600 italic font-medium">${dStr}</td>
+                          <td class="p-4 text-center"><button onclick="window.openStudentEditModal('${s.id}')" class="text-blue-500 hover:text-blue-700 transition" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></button></td>
+                          <td class="p-4 text-center"><button onclick="window.delStudent('${s.id}')" class="text-slate-300 hover:text-red-500 transition" title="Xóa"><i class="fa-solid fa-trash-can"></i></button></td>
+                      </tr>`;
+        });
+      }
+
+      window.openStudentEditModal = function (id) {
+        const s = appData.students.find((x) => x.id === id);
+        if (!s) return;
+        editingStudentId = id;
+        document.getElementById("edit-std-name").value = s.name || "";
+        document.getElementById("edit-std-class").value = s.class || "";
+        document.getElementById("edit-std-sub-toan").checked =
+          s.subjects.includes("Toán");
+        document.getElementById("edit-std-sub-ly").checked =
+          s.subjects.includes("Lý");
+        renderDiscountEditor(
+          Array.isArray(s.discounts) ? s.discounts : [],
+          "edit-discount-list",
+        );
+        document
+          .getElementById("student-edit-modal")
+          .classList.replace("hidden", "flex");
+      };
+
+      window.closeStudentEditModal = function () {
+        editingStudentId = null;
+        document
+          .getElementById("student-edit-modal")
+          .classList.replace("flex", "hidden");
+      };
+
+      window.saveStudentEdit = function () {
+        if (!editingStudentId) return;
+        const student = appData.students.find((x) => x.id === editingStudentId);
+        if (!student) return;
+
+        const name = document.getElementById("edit-std-name").value.trim();
+        const cls = document.getElementById("edit-std-class").value.trim();
+        const subs = [];
+        if (document.getElementById("edit-std-sub-toan").checked)
+          subs.push("Toán");
+        if (document.getElementById("edit-std-sub-ly").checked) subs.push("Lý");
+
+        if (!name) return showToast("Vui lòng nhập họ tên!");
+        if (subs.length === 0) return showToast("Chọn ít nhất 1 môn!");
+
+        student.name = name;
+        student.class = cls;
+        student.subjects = subs;
+        student.discounts = collectDiscounts("edit-discount-list");
+
+        saveToFirebase();
+        window.closeStudentEditModal();
+        updateUI();
+        showToast("Đã cập nhật thông tin học viên");
+      };
+
+      window.addStudent = function () {
+        const name = document.getElementById("std-name").value.trim();
+        const cls = document.getElementById("std-class").value.trim();
+        const subs = [];
+        if (document.getElementById("std-sub-toan").checked) subs.push("Toán");
+        if (document.getElementById("std-sub-ly").checked) subs.push("Lý");
+
+        if (!name) return showToast("Vui lòng nhập họ tên!");
+        if (subs.length === 0) return showToast("Chọn ít nhất 1 môn!");
+
+        const discounts = collectDiscounts("discount-list");
+
+        appData.students.push({
+          id: "HV" + Date.now(),
+          name,
+          class: cls,
+          subjects: subs,
+          discounts,
+        });
+        saveToFirebase();
+        showToast("Thêm học viên thành công");
+        document.getElementById("std-name").value = "";
+        renderDiscountEditor([], "discount-list");
+      };
+
+      window.delStudent = (id) => {
+        if (confirm("Xóa học viên sẽ mất điểm danh của học viên này?")) {
+          appData.students = appData.students.filter((s) => s.id !== id);
+          saveToFirebase();
+        }
+      };
+
+      window.resetAppData = async function () {
+        if (!confirm("Bạn có chắc muốn reset toàn bộ dữ liệu?")) return;
+        if (
+          !confirm(
+            "Xác nhận lần 2: hành động này sẽ xóa toàn bộ dữ liệu hiện tại.",
+          )
+        )
+          return;
+        const code = prompt("Nhập mã admin để reset dữ liệu:");
+        if (code !== ADMIN_RESET_CODE) {
+          showToast("Sai mã admin, không thể reset.");
+          return;
+        }
+        appData = cloneData(DEFAULT_APP_DATA);
+        repairData();
+        await saveToFirebase();
+        updateUI();
+        showToast("Đã reset dữ liệu thành công.");
+      };
+
+      window.logoutAdmin = function () {
+        localStorage.removeItem(ADMIN_KEY);
+        location.reload();
+      };
+
+      // --- TAB 4: STATS ---
+      window.renderStatsTable = function () {
+        renderSubjectStatsTable(
+          "Toán",
+          "stats-toan-head",
+          "stats-toan-body",
+          "text-blue-600",
+        );
+        renderSubjectStatsTable(
+          "Lý",
+          "stats-ly-head",
+          "stats-ly-body",
+          "text-red-600",
+        );
+        updateStatsEditButtons();
+
+        const body = document.getElementById("stats-table-body");
+        body.innerHTML = "";
+        let totalRevenue = 0;
+
+        appData.students.forEach((s, idx) => {
+          let mt = 0,
+            lt = 0;
+          appData.schedule.forEach((t) => {
+            if (appData.attendance[t.id]?.records[s.id]) {
+              for (let i = 1; i <= t.periods; i++) {
+                if (appData.attendance[t.id].records[s.id][i]) {
+                  if (t.subject === "Toán") mt++;
+                  else lt++;
+                }
+              }
+            }
+          });
+
+          const mc = mt * PRICE_PER_PERIOD;
+          const lc = lt * PRICE_PER_PERIOD;
+          const base = mc + lc;
+          const disc = calcDiscountAmount(s, base, mc, lc);
+          const final = Math.max(base - disc, 0);
+          totalRevenue += final;
+
+          const discountText =
+            Array.isArray(s.discounts) && s.discounts.length
+              ? s.discounts.map((d) => formatDiscountSummary(d)).join("<br>")
+              : "-";
+
+          body.innerHTML += `<tr class="border-b hover:bg-slate-50 transition-colors">
+                          <td class="p-4 border-r text-center text-slate-400 font-bold">${idx + 1}</td>
+                          <td class="p-4 border-r font-bold text-slate-700">${escapeHtml(s.name)}<br><span class="text-[9px] font-normal text-slate-400 uppercase tracking-widest">${escapeHtml(s.class || "")}</span></td>
+                          <td class="p-4 border-r text-center font-black ${mt > 0 ? "text-blue-600 bg-blue-50/20" : "text-slate-200"}">${mt}</td>
+                          <td class="p-4 border-r text-right font-medium text-slate-500">${mc.toLocaleString()}</td>
+                          <td class="p-4 border-r text-center font-black ${lt > 0 ? "text-red-600 bg-red-50/20" : "text-slate-200"}">${lt}</td>
+                          <td class="p-4 border-r text-right font-medium text-slate-500">${lc.toLocaleString()}</td>
+                          <td class="p-4 border-r text-right text-slate-400 italic">${base.toLocaleString()}</td>
+                          <td class="p-4 border-r text-center text-orange-600 font-bold">${disc > 0 ? `-${disc.toLocaleString()}<br><span class="text-[8px] uppercase">${discountText}</span>` : "-"}</td>
+                          <td class="p-4 text-right font-black text-emerald-600 bg-emerald-50/30 text-base">${final.toLocaleString()}</td>
+                      </tr>`;
+        });
+
+        body.innerHTML += `<tr class="bg-slate-900 text-white font-black">
+                      <td colspan="8" class="p-5 text-right uppercase text-xs tracking-widest">Doanh thu dự kiến tổng học viên:</td>
+                      <td class="p-5 text-right text-xl text-emerald-400">${totalRevenue.toLocaleString()} VNĐ</td>
+                  </tr>`;
+      };
+
+      window.exportCurrentTable = function (tbodyId, filename, sheetName) {
+        const table = document.getElementById(tbodyId)?.closest("table");
+        if (!table || typeof XLSX === "undefined") {
+          showToast("Không thể xuất Excel lúc này.");
+          return;
+        }
+
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.table_to_sheet(table, { raw: true });
+
+        const range = XLSX.utils.decode_range(ws["!ref"]);
+        const colWidths = [];
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          let maxLen = 10;
+          for (let R = range.s.r; R <= range.e.r; ++R) {
+            const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
+            const cell = ws[cellAddress];
+            if (!cell || cell.v == null) continue;
+
+            const rawValue = String(cell.v);
+            const lines = rawValue.split(/\r?\n/);
+            const lineMax = lines.reduce(
+              (m, line) => Math.max(m, line.length),
+              0,
+            );
+            maxLen = Math.max(maxLen, lineMax);
+          }
+
+          // Tăng độ rộng vừa đủ để nội dung gọn hơn nhưng không quá loe.
+          colWidths.push({ wch: Math.min(Math.max(maxLen + 2, 12), 45) });
+        }
+        ws["!cols"] = colWidths;
+
+        XLSX.utils.book_append_sheet(wb, ws, sheetName);
+        XLSX.writeFile(wb, `${filename}.xlsx`);
+      };
+
+      window.generateShareLink = () => {
+        const baseUrl = new URL(window.location.href);
+        baseUrl.pathname = baseUrl.pathname.replace(/[^/]*$/, "tkb/");
+        baseUrl.searchParams.set("id", shareId);
+        baseUrl.searchParams.delete("view");
+        baseUrl.searchParams.delete("subject");
+        baseUrl.searchParams.delete("public");
+        navigator.clipboard.writeText(baseUrl.toString());
+        showToast("Đã copy link học sinh xem thời khóa biểu.");
+      };
+
+      window.generateAttendanceShareLink = () => {
+        const baseUrl = new URL(window.location.href);
+        baseUrl.pathname = baseUrl.pathname.replace(/[^/]*$/, "diemdanh/");
+        baseUrl.searchParams.set("id", shareId);
+        baseUrl.searchParams.delete("view");
+        baseUrl.searchParams.delete("subject");
+        baseUrl.searchParams.delete("public");
+        navigator.clipboard.writeText(baseUrl.toString());
+        showToast("Đã copy link bảng chuyên cần học sinh.");
+      };
+
+      window.generateReviewShareLink = () => {
+        const baseUrl = new URL(window.location.href);
+        baseUrl.pathname = baseUrl.pathname.replace(/[^/]*$/, "xemlai/");
+        baseUrl.searchParams.set("id", shareId);
+        baseUrl.searchParams.delete("view");
+        baseUrl.searchParams.delete("subject");
+        baseUrl.searchParams.delete("public");
+        navigator.clipboard.writeText(baseUrl.toString());
+        showToast("Đã copy link xem lại bài giảng.");
+      };
+
+      if (checkAdminAccess()) {
+        initApp();
+      } else {
+        document.body.innerHTML = `
+    <div class="h-screen flex items-center justify-center text-red-500 font-bold text-xl">
+      Truy cập bị từ chối
+    </div>
+  `;
+      }
+    </script>
+  </body>
+</html>

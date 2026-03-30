@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="vi">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xem lại bài giảng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+  body { font-family: "Inter", sans-serif; background: #f8fafc; }
+  .card { box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06); }
+  .soft-scroll::-webkit-scrollbar { height: 10px; width: 10px; }
+  .soft-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+  .soft-scroll::-webkit-scrollbar-track { background: transparent; }
+</style>
+
+  </head>
+
+  <body class="min-h-screen text-slate-800">
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 space-y-5">
+      <div class="bg-white rounded-3xl card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-indigo-500 font-bold">Public</p>
+          <h1 class="text-2xl sm:text-3xl font-extrabold mt-2">Xem lại bài giảng</h1>
+          <p class="text-sm text-slate-500 mt-2">Chỉ hiển thị danh sách bài giảng và các link đã gán.</p>
+        </div>
+        <div id="status" class="text-sm font-semibold text-slate-500">Đang tải dữ liệu...</div>
+      </div>
+      <div class="bg-white rounded-3xl card p-4 sm:p-5">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 justify-between">
+          <div class="relative w-full md:max-w-xl">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input id="search" type="text" placeholder="Tìm theo tên bài giảng, môn, chuyên đề, link..." class="w-full rounded-2xl border border-slate-200 pl-11 pr-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div id="count" class="text-sm font-bold text-slate-500"></div>
+        </div>
+      </div>
+      <div id="review-list" class="space-y-4"></div>
+    </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAAK4b-SSXzKc6i7n5BxVUPTpD8dcrnV3o",
+        authDomain: "qaunlylichday.firebaseapp.com",
+        projectId: "qaunlylichday",
+        storageBucket: "qaunlylichday.firebasestorage.app",
+        messagingSenderId: "484700892312",
+        appId: "1:484700892312:web:70fce5b83e153a3150b4ed",
+        measurementId: "G-M7MDQV934S",
+      };
+
+    const APP_ID = typeof __app_id !== "undefined" ? __app_id : "shared_v1";
+    const urlParams = new URLSearchParams(window.location.search);
+    const shareId = urlParams.get("id") || "main_data";
+    let db, auth, user, currentDocRef;
+    let appData = {
+        schedule: [
+          // TOÁN
+          {
+            id: "t1",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "Phép lũy thừa, logarit",
+            periods: 1,
+            date: "2026-03-31",
+          },
+          {
+            id: "t2",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "Hs mũ, Hs logarit",
+            periods: 2,
+            date: "2026-03-31",
+          },
+          {
+            id: "t3",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "PT, BPT mũ và logarit",
+            periods: 2,
+            date: "2026-04-02",
+          },
+          {
+            id: "t4",
+            subject: "Toán",
+            chapter: "7. ĐẠO HÀM",
+            topic: "Định nghĩa đạo hàm",
+            periods: 1,
+            date: "2026-04-02",
+          },
+          {
+            id: "t5",
+            subject: "Toán",
+            chapter: "7. ĐẠO HÀM",
+            topic: "Quy tắc đạo hàm",
+            periods: 3,
+            date: "2026-04-04",
+          },
+          {
+            id: "t6",
+            subject: "Toán",
+            chapter: "8. HÌNH HỌC",
+            topic: "Đt, mp vuông góc",
+            periods: 2,
+            date: "2026-04-08",
+          },
+          {
+            id: "t7",
+            subject: "Toán",
+            chapter: "8. HÌNH HỌC",
+            topic: "Khoảng cách, góc đt&mp, góc nhị diện",
+            periods: 2,
+            date: "2026-04-11",
+          },
+          {
+            id: "t8",
+            subject: "Toán",
+            chapter: "9. XÁC SUẤT",
+            topic: "Biến cố giao và quy tắc nhân xs",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "t9",
+            subject: "Toán",
+            chapter: "9. XÁC SUẤT",
+            topic: "Biến cố hợp và quy tắc cộng xs",
+            periods: 2,
+            date: "",
+          },
+
+          // LÝ - CHƯƠNG 3
+          {
+            id: "l1",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Lực điện",
+            periods: 1,
+            date: "2026-04-01",
+          },
+          {
+            id: "l2",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Tổng hợp lực điện",
+            periods: 2,
+            date: "2026-04-01",
+          },
+          {
+            id: "l3",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện trường",
+            periods: 2,
+            date: "2026-04-03",
+          },
+          {
+            id: "l4",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Chống chất điện trường",
+            periods: 2,
+            date: "2026-04-05",
+          },
+          {
+            id: "l5",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện trường đều",
+            periods: 2,
+            date: "2026-04-06",
+          },
+          {
+            id: "l6",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Thế năng điện",
+            periods: 2,
+            date: "2026-04-07",
+          },
+          {
+            id: "l7",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện thế",
+            periods: 2,
+            date: "2026-04-09",
+          },
+          {
+            id: "l8",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Tụ điện",
+            periods: 3,
+            date: "2026-04-10",
+          },
+
+          // LÝ - CHƯƠNG 4
+          {
+            id: "l9",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Cường độ dòng điện",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l10",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Điện trở. Định luật Ôm",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l11",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Nguồn điện. Định luật Ôm toàn mạch",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l12",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Năng lượng. Công suất điện",
+            periods: 2,
+            date: "",
+          },
+        ],
+        students: [
+          {
+            id: "HV1",
+            name: "Nguyễn Thị Huyền Diệu",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV2",
+            name: "Trần Thị Trúc Đan",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV3", name: "toàn", class: "", subjects: ["Toán", "Lý"] },
+          {
+            id: "HV4",
+            name: "Lê Thị Tố Quyên",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV5",
+            name: "Nguyễn Hoàng Kim",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV6",
+            name: "Trần Hoàng Phúc",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV7",
+            name: "Nguyễn Hồng Thái",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV8",
+            name: "Nguyễn Thị Ngọc Hân",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV9", name: "Nguyễn Thị Mỹ Chi", class: "", subjects: ["Lý"] },
+          {
+            id: "HV10",
+            name: "Nguyễn Thị Ngọc Loan",
+            class: "",
+            subjects: ["Lý"],
+          },
+          {
+            id: "HV11",
+            name: "Đặng Bảo Thi",
+            class: "11A1",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV12",
+            name: "Trương Thị Cẩm Yến",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV13",
+            name: "Phan Thị Mộng Tuyền",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV14", name: "Lý Thị Hồng Cúc", class: "", subjects: ["Lý"] },
+          {
+            id: "HV15",
+            name: "Trương Gia Hân",
+            class: "",
+            subjects: ["Toán"],
+          },
+          {
+            id: "HV16",
+            name: "Nguyễn Thị Diễm Hằng",
+            class: "",
+            subjects: ["Toán"],
+          },
+          {
+            id: "HV17",
+            name: "Lê Quốc Huy",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV18",
+            name: "Trần Cao Hoàng Trân",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+        ],
+        attendance: {},
+        reviewLessons: [],
+      };
+
+    function clone(v) { return JSON.parse(JSON.stringify(v)); }
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+    function escapeAttr(str) { return escapeHtml(str).replace(/`/g, "&#96;"); }
+    function parseDateKey(dateStr) {
+      if (!dateStr) return null;
+      const parts = String(dateStr).split("-").map(Number);
+      if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null;
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+    function fmtDate(dateStr) {
+      const d = parseDateKey(dateStr);
+      if (!d) return "Chưa xếp lịch";
+      return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
+    }
+    function sortSchedule(items) {
+      return [...items].sort((a, b) => {
+        const da = parseDateKey(a.date);
+        const db = parseDateKey(b.date);
+        if (da && db && da.getTime() !== db.getTime()) return da - db;
+        if (da && !db) return -1;
+        if (!da && db) return 1;
+        return String(a.id).localeCompare(String(b.id));
+      });
+    }
+    function groupByDate(items) {
+      const sorted = sortSchedule(items);
+      const groups = [];
+      let current = null;
+      for (const item of sorted) {
+        const key = item.date || "__none__";
+        if (!current || current.key !== key) {
+          current = { key, date: item.date || "", items: [] };
+          groups.push(current);
+        }
+        current.items.push(item);
+      }
+      return groups;
+    }
+    function normalizeData() {
+      if (!appData || typeof appData !== "object") appData = clone({
+        schedule: [
+          // TOÁN
+          {
+            id: "t1",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "Phép lũy thừa, logarit",
+            periods: 1,
+            date: "2026-03-31",
+          },
+          {
+            id: "t2",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "Hs mũ, Hs logarit",
+            periods: 2,
+            date: "2026-03-31",
+          },
+          {
+            id: "t3",
+            subject: "Toán",
+            chapter: "6. HS MŨ & HS LOGARIT",
+            topic: "PT, BPT mũ và logarit",
+            periods: 2,
+            date: "2026-04-02",
+          },
+          {
+            id: "t4",
+            subject: "Toán",
+            chapter: "7. ĐẠO HÀM",
+            topic: "Định nghĩa đạo hàm",
+            periods: 1,
+            date: "2026-04-02",
+          },
+          {
+            id: "t5",
+            subject: "Toán",
+            chapter: "7. ĐẠO HÀM",
+            topic: "Quy tắc đạo hàm",
+            periods: 3,
+            date: "2026-04-04",
+          },
+          {
+            id: "t6",
+            subject: "Toán",
+            chapter: "8. HÌNH HỌC",
+            topic: "Đt, mp vuông góc",
+            periods: 2,
+            date: "2026-04-08",
+          },
+          {
+            id: "t7",
+            subject: "Toán",
+            chapter: "8. HÌNH HỌC",
+            topic: "Khoảng cách, góc đt&mp, góc nhị diện",
+            periods: 2,
+            date: "2026-04-11",
+          },
+          {
+            id: "t8",
+            subject: "Toán",
+            chapter: "9. XÁC SUẤT",
+            topic: "Biến cố giao và quy tắc nhân xs",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "t9",
+            subject: "Toán",
+            chapter: "9. XÁC SUẤT",
+            topic: "Biến cố hợp và quy tắc cộng xs",
+            periods: 2,
+            date: "",
+          },
+
+          // LÝ - CHƯƠNG 3
+          {
+            id: "l1",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Lực điện",
+            periods: 1,
+            date: "2026-04-01",
+          },
+          {
+            id: "l2",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Tổng hợp lực điện",
+            periods: 2,
+            date: "2026-04-01",
+          },
+          {
+            id: "l3",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện trường",
+            periods: 2,
+            date: "2026-04-03",
+          },
+          {
+            id: "l4",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Chống chất điện trường",
+            periods: 2,
+            date: "2026-04-05",
+          },
+          {
+            id: "l5",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện trường đều",
+            periods: 2,
+            date: "2026-04-06",
+          },
+          {
+            id: "l6",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Thế năng điện",
+            periods: 2,
+            date: "2026-04-07",
+          },
+          {
+            id: "l7",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Điện thế",
+            periods: 2,
+            date: "2026-04-09",
+          },
+          {
+            id: "l8",
+            subject: "Lý",
+            chapter: "3. ĐIỆN TRƯỜNG",
+            topic: "Tụ điện",
+            periods: 3,
+            date: "2026-04-10",
+          },
+
+          // LÝ - CHƯƠNG 4
+          {
+            id: "l9",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Cường độ dòng điện",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l10",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Điện trở. Định luật Ôm",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l11",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Nguồn điện. Định luật Ôm toàn mạch",
+            periods: 2,
+            date: "",
+          },
+          {
+            id: "l12",
+            subject: "Lý",
+            chapter: "4. DÒNG ĐIỆN",
+            topic: "Năng lượng. Công suất điện",
+            periods: 2,
+            date: "",
+          },
+        ],
+        students: [
+          {
+            id: "HV1",
+            name: "Nguyễn Thị Huyền Diệu",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV2",
+            name: "Trần Thị Trúc Đan",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV3", name: "toàn", class: "", subjects: ["Toán", "Lý"] },
+          {
+            id: "HV4",
+            name: "Lê Thị Tố Quyên",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV5",
+            name: "Nguyễn Hoàng Kim",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV6",
+            name: "Trần Hoàng Phúc",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV7",
+            name: "Nguyễn Hồng Thái",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV8",
+            name: "Nguyễn Thị Ngọc Hân",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV9", name: "Nguyễn Thị Mỹ Chi", class: "", subjects: ["Lý"] },
+          {
+            id: "HV10",
+            name: "Nguyễn Thị Ngọc Loan",
+            class: "",
+            subjects: ["Lý"],
+          },
+          {
+            id: "HV11",
+            name: "Đặng Bảo Thi",
+            class: "11A1",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV12",
+            name: "Trương Thị Cẩm Yến",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV13",
+            name: "Phan Thị Mộng Tuyền",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          { id: "HV14", name: "Lý Thị Hồng Cúc", class: "", subjects: ["Lý"] },
+          {
+            id: "HV15",
+            name: "Trương Gia Hân",
+            class: "",
+            subjects: ["Toán"],
+          },
+          {
+            id: "HV16",
+            name: "Nguyễn Thị Diễm Hằng",
+            class: "",
+            subjects: ["Toán"],
+          },
+          {
+            id: "HV17",
+            name: "Lê Quốc Huy",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+          {
+            id: "HV18",
+            name: "Trần Cao Hoàng Trân",
+            class: "",
+            subjects: ["Toán", "Lý"],
+          },
+        ],
+        attendance: {},
+        reviewLessons: [],
+      });
+      if (!Array.isArray(appData.schedule)) appData.schedule = [];
+      if (!Array.isArray(appData.students)) appData.students = [];
+      if (!Array.isArray(appData.reviewLessons)) appData.reviewLessons = [];
+      if (!appData.attendance || typeof appData.attendance !== "object") appData.attendance = {};
+      for (const lesson of appData.schedule) {
+        if (!appData.attendance[lesson.id]) appData.attendance[lesson.id] = { contents: {}, records: {} };
+        if (!appData.attendance[lesson.id].contents) appData.attendance[lesson.id].contents = {};
+        if (!appData.attendance[lesson.id].records) appData.attendance[lesson.id].records = {};
+      }
+    }
+    function startSync() {
+      currentDocRef = doc(db, "artifacts", APP_ID, "public", "data", "v1", shareId);
+      onSnapshot(currentDocRef, (snap) => {
+        if (snap.exists()) {
+          appData = snap.data();
+          normalizeData();
+          onData();
+        } else {
+          normalizeData();
+          saveData();
+          onData();
+        }
+      }, (err) => {
+        const st = document.getElementById("status");
+        if (st) st.textContent = "Lỗi tải dữ liệu: " + err.message;
+      });
+    }
+    async function saveData() {
+      if (!user) return;
+      normalizeData();
+      await setDoc(currentDocRef, appData);
+      const status = document.getElementById("status");
+      if (status) status.textContent = "Đã lưu";
+    }
+    async function boot() {
+      try {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+        await signInAnonymously(auth);
+        onAuthStateChanged(auth, (u) => {
+          user = u;
+          if (u) startSync();
+        });
+      } catch (e) {
+        const st = document.getElementById("status");
+        if (st) st.textContent = "Không thể khởi động Firebase: " + e.message;
+      }
+    }
+    function subjectBadge(subject) {
+      return subject === "Lý"
+        ? "bg-rose-100 text-rose-700"
+        : "bg-blue-100 text-blue-700";
+    }
+
+    const search = document.getElementById('search');
+    const reviewList = document.getElementById('review-list');
+    const count = document.getElementById('count');
+    let keyword = '';
+
+    function materialChip(label, url) {
+      return `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-link text-indigo-500"></i> ${escapeHtml(label)}</a>`;
+    }
+    function cardHtml(item) {
+      const materials = Array.isArray(item.materials) ? item.materials.filter((m) => m && m.url) : [];
+      return `<article class="bg-white rounded-3xl card p-5 sm:p-6"><div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4"><div class="min-w-0"><div class="flex flex-wrap items-center gap-2 mb-3"><span class="inline-flex rounded-full px-3 py-1 text-[11px] font-extrabold ${subjectBadge(item.subject)}">${escapeHtml(item.subject || '')}</span>${item.sourceLabel ? `<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">${escapeHtml(item.sourceLabel)}</span>` : ''}</div><h2 class="text-xl font-bold text-slate-800 break-words">${escapeHtml(item.title || '')}</h2><div class="text-xs text-slate-500 mt-2">Cập nhật: ${escapeHtml(item.updatedAt ? new Date(item.updatedAt).toLocaleString('vi-VN') : '—')}</div></div>${item.videoUrl ? `<a href="${escapeAttr(item.videoUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-bold text-white hover:bg-indigo-700"><i class="fa-solid fa-circle-play"></i> Mở video</a>` : '<div class="text-sm text-slate-400 italic">Chưa có video</div>'}</div>${materials.length ? `<div class="mt-5 flex flex-wrap gap-2">${materials.map((m) => materialChip(m.label || m.url, m.url)).join('')}</div>` : '<div class="mt-5 text-sm text-slate-400 italic">Chưa có tài liệu đính kèm</div>'}</article>`;
+    }
+    function matches(item, q) {
+      if (!q) return true;
+      const hay = [item.subject, item.title, item.sourceLabel, item.videoUrl, ...(Array.isArray(item.materials) ? item.materials.flatMap((m) => [m.label, m.url]) : [])].filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(q);
+    }
+    function onData() {
+      const lessons = Array.isArray(appData.reviewLessons) ? appData.reviewLessons : [];
+      const filtered = lessons.filter((x) => matches(x, keyword));
+      count.textContent = `${filtered.length}/${lessons.length} bài`;
+      if (!lessons.length) {
+        reviewList.innerHTML = `<div class="bg-white rounded-3xl card p-10 text-center text-slate-400 italic">Chưa có bài giảng nào</div>`;
+      } else if (!filtered.length) {
+        reviewList.innerHTML = `<div class="bg-white rounded-3xl card p-10 text-center text-slate-400 italic">Không tìm thấy kết quả phù hợp</div>`;
+      } else {
+        reviewList.innerHTML = filtered.map(cardHtml).join('');
+      }
+      document.getElementById('status').textContent = 'Đã tải';
+    }
+    search.addEventListener('input', () => { keyword = search.value.trim().toLowerCase(); onData(); });
+
+    window.addEventListener("DOMContentLoaded", boot);
+  </script>
+
+</body>
+</html>
