@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DkTEST Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    s
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f3f4f6;
+      }
+      .hidden-view {
+        display: none !important;
+      }
+      .view-container {
+        animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .modal-enter {
+        animation: modalFadeIn 0.3s ease-out forwards;
+      }
+      .modal-content-enter {
+        animation: modalScaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+          forwards;
+      }
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes modalScaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .toast {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      .image-preview {
+        max-height: 200px;
+        object-fit: contain;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+      }
+      .tab-active {
+        background: #2563eb;
+        color: white;
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+      }
+    </style>
+  </head>
+  <body class="text-gray-800 min-h-screen bg-slate-50">
+    <nav
+      class="bg-gradient-to-r from-blue-700 to-blue-600 text-white shadow-lg p-4 flex justify-between items-center z-10"
+    >
+      <a
+        href="index.html"
+        class="font-bold text-xl flex items-center gap-3 hover:opacity-90 transition"
+      >
+        <div
+          class="bg-white text-blue-600 w-8 h-8 rounded-lg flex items-center justify-center shadow-inner"
+        >
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        DkTEST
+      </a>
+      <div class="text-sm font-medium bg-blue-800/50 px-4 py-2 rounded-lg">
+        Trang chính
+      </div>
+    </nav>
+    <main class="max-w-5xl mx-auto px-6 py-12">
+      <div class="text-center mb-12">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-5 tracking-tight"
+        >
+          Hệ thống Đánh giá Năng lực
+        </h1>
+        <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+          Tách riêng khu vực Quản trị và khu vực Học sinh để sử dụng an toàn,
+          gọn gàng và dễ mở rộng.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <a
+          href="student.html"
+          class="bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-green-400 hover:shadow-green-100 transition-all duration-300 transform hover:-translate-y-1 group block"
+        >
+          <div
+            class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform"
+          >
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            Khu vực Học sinh
+          </h2>
+          <p class="text-gray-500 mb-6">
+            Làm bài thi, xem lại lịch sử bài đã nộp và theo dõi điểm số của
+            mình.
+          </p>
+          <span
+            class="text-green-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all"
+            >Vào phòng thi <i class="fa-solid fa-arrow-right"></i
+          ></span>
+        </a>
+        <a
+          href="admin.html"
+          class="bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-blue-400 hover:shadow-blue-100 transition-all duration-300 transform hover:-translate-y-1 group block"
+        >
+          <div
+            class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform"
+          >
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            Khu vực Quản trị
+          </h2>
+          <p class="text-gray-500 mb-6">
+            Tạo đề thi, chỉnh sửa/xóa đề, xem thống kê toàn diện và quản lý ảnh
+            đề thi.
+          </p>
+          <span
+            class="text-blue-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all"
+            >Truy cập quản lý <i class="fa-solid fa-arrow-right"></i
+          ></span>
+        </a>
+      </div>
+    </main>
+  </body>
+</html>
