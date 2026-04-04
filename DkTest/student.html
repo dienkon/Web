@@ -203,14 +203,14 @@
                 các bài đã làm.
               </p>
             </div>
-            <div class="flex gap-2">
+            <!-- <div class="flex gap-2">
               <button
                 onclick="studentLogout()"
                 class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl font-semibold transition"
               >
                 Đổi tài khoản
               </button>
-            </div>
+            </div> -->
           </div>
           <div class="grid lg:grid-cols-3 gap-6">
             <div
@@ -405,7 +405,16 @@
               class="font-bold text-base md:text-lg text-gray-800 truncate"
             ></h3>
           </div>
-          <div class="flex items-center gap-3 md:gap-6">
+          <div class="flex items-center gap-2 md:gap-3 lg:gap-6">
+            <button
+              id="btn-toggle-question-panel"
+              onclick="toggleQuestionPanel()"
+              class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition flex items-center justify-center shrink-0"
+              title="Ẩn/hiện danh sách câu hỏi"
+              aria-label="Ẩn/hiện danh sách câu hỏi"
+            >
+              <i class="fa-solid fa-list-check"></i>
+            </button>
             <div class="flex flex-col items-center">
               <span class="text-[10px] uppercase font-bold text-gray-400 mb-0.5"
                 >Thời gian còn lại</span
@@ -427,7 +436,8 @@
         </div>
         <div class="flex-1 overflow-hidden flex flex-col md:flex-row relative">
           <div
-            class="w-full md:w-80 bg-white border-r overflow-y-auto p-5 shrink-0 flex flex-col shadow-lg z-20"
+            id="question-panel"
+            class="w-full md:w-80 bg-white border-r overflow-y-auto p-5 shrink-0 flex flex-col shadow-lg z-20 transition-all duration-300"
           >
             <h4
               class="font-bold text-gray-800 mb-4 flex justify-between items-center"
@@ -564,9 +574,11 @@
     <!-- Floating Math Button & Modal -->
     <button
       onclick="openMathModal()"
-      class="fixed bottom-6 left-6 z-[90] bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-full shadow-xl shadow-indigo-300 font-bold transition flex items-center gap-2 transform hover:scale-105"
+      class="fixed bottom-6 left-6 z-[90] w-14 h-14 md:w-16 md:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-xl shadow-indigo-300 font-bold transition flex items-center justify-center transform hover:scale-105"
+      title="Bàn phím toán học"
+      aria-label="Bàn phím toán học"
     >
-      <i class="fa-solid fa-calculator"></i> Bàn Phím Toán Học
+      <i class="fa-solid fa-calculator text-lg md:text-xl"></i>
     </button>
     <div
       id="modal-math"
@@ -640,6 +652,52 @@
           </button>
         </div>
         <div class="flex-1 overflow-y-auto p-6" id="sd-content"></div>
+      </div>
+    </div>
+
+    <!-- Modal Bảng Xếp Hạng -->
+    <div
+      id="modal-leaderboard"
+      class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[110] flex items-center justify-center hidden-view"
+      onclick="if (event.target === this) closeLeaderboardModal();"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col mx-4 modal-content-enter overflow-hidden"
+      >
+        <div class="p-5 border-b flex justify-between items-center bg-white">
+          <div>
+            <h3 class="font-bold text-xl text-gray-800">Bảng xếp hạng</h3>
+            <p id="lb-info" class="text-sm text-gray-500 mt-1"></p>
+          </div>
+          <button
+            onclick="closeLeaderboardModal()"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition"
+          >
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6">
+          <div
+            class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+          >
+            <table class="w-full text-left text-sm text-gray-600">
+              <thead
+                class="bg-gray-50 text-gray-700 font-semibold uppercase text-xs"
+              >
+                <tr>
+                  <th class="px-4 py-3 w-16 text-center">Top</th>
+                  <th class="px-4 py-3">Học sinh</th>
+                  <th class="px-4 py-3" id="lb-score-head">Điểm</th>
+                  <th class="px-4 py-3">Thời gian</th>
+                </tr>
+              </thead>
+              <tbody
+                id="lb-modal-body"
+                class="divide-y divide-gray-100"
+              ></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -822,6 +880,36 @@
         return JSON.parse(JSON.stringify(obj));
       }
 
+      function shuffleArray(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function prepareQuestionsForAttempt(questions, shouldShuffle) {
+        const qs = deepClone(questions || []);
+        if (!shouldShuffle) return qs;
+        return shuffleArray(qs).map((q) => {
+          if (q.type === "mcq" && Array.isArray(q.options)) {
+            const pairs = q.options.map((opt, idx) => ({ opt, idx }));
+            const shuffled = shuffleArray(pairs);
+            return {
+              ...q,
+              options: shuffled.map((x) => x.opt),
+              correctIndex: Math.max(
+                0,
+                shuffled.findIndex((x) => x.idx === q.correctIndex),
+              ),
+              originalCorrectIndex: q.correctIndex,
+            };
+          }
+          return q;
+        });
+      }
+
       function computeAttemptScore(exam, answers) {
         const qs = exam?.questions || [];
         const totalQuestions = qs.length || 0;
@@ -900,6 +988,7 @@
       let cheatCount = 0;
       let attemptStartTime = 0;
       let userAttemptsCount = 0;
+      let questionPanelHidden = false;
 
       function updateNavbar() {
         const acts = document.getElementById("nav-actions");
@@ -1022,13 +1111,26 @@
           };
           const tr = document.createElement("tr");
           tr.className = "hover:bg-gray-50 transition";
-          let actionBtn = eInfo.showDetails
-            ? `<button onclick="viewSubmissionDetail('${r.id}', '${r.examId}')" class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg text-xs font-bold transition">Chi tiết</button>`
-            : `<span class="text-xs text-gray-400 italic">Đã ẩn</span>`;
+          const actionButtons = [];
+          if (eInfo.show) {
+            actionButtons.push(
+              `<button onclick="viewExamLeaderboard('${r.examId}')" class="text-amber-700 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg text-xs font-bold transition">BXH</button>`,
+            );
+          }
+          if (eInfo.showDetails) {
+            actionButtons.push(
+              `<button onclick="viewSubmissionDetail('${r.id}', '${r.examId}')" class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg text-xs font-bold transition">Chi tiết</button>`,
+            );
+          }
+          if (!actionButtons.length) {
+            actionButtons.push(
+              `<span class="text-xs text-gray-400 italic">Đã ẩn</span>`,
+            );
+          }
           tr.innerHTML = `<td class="px-5 py-4 font-medium text-gray-900">${window.renderTextToHtml(eInfo.title)}</td>
             <td class="px-5 py-4 font-bold ${eInfo.show ? "text-green-700" : "text-gray-400"}">${eInfo.show ? Number(r.score || 0).toFixed(1) + " đ" : '<i class="fa-solid fa-eye-slash"></i> Ẩn'}</td>
             <td class="px-5 py-4 text-sm text-gray-500">${toVnTime(r.submittedAt)}<br><span class="text-xs">Time: ${formatDuration(r.timeSpent || 0)}</span></td>
-            <td class="px-5 py-4">${actionBtn}</td>`;
+            <td class="px-5 py-4 flex flex-wrap gap-2">${actionButtons.join("")}</td>`;
           body.appendChild(tr);
         });
       }
@@ -1114,6 +1216,80 @@
           .getElementById("modal-submission-detail")
           .classList.add("hidden-view");
 
+      window.closeLeaderboardModal = () =>
+        document
+          .getElementById("modal-leaderboard")
+          .classList.add("hidden-view");
+
+      async function renderLeaderboardModal(exam, results) {
+        const lbInfo = document.getElementById("lb-info");
+        const lbBody = document.getElementById("lb-modal-body");
+        if (lbInfo)
+          lbInfo.innerHTML = `<b>${window.renderTextToHtml(exam.title || "")}</b>`;
+        if (lbBody) lbBody.innerHTML = "";
+        if (!exam || exam.showResults === false) {
+          if (document.getElementById("lb-score-head"))
+            document.getElementById("lb-score-head").classList.add("hidden");
+          if (lbBody)
+            lbBody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-500 italic">Bảng xếp hạng bị ẩn theo cài đặt của Giáo viên.</td></tr>`;
+        } else {
+          if (document.getElementById("lb-score-head"))
+            document.getElementById("lb-score-head").classList.remove("hidden");
+          const sorted = [...(results || [])].sort(
+            (a, b) =>
+              b.score - a.score || (a.timeSpent || 0) - (b.timeSpent || 0),
+          );
+          const topList = sorted.slice(0, 10);
+          if (!topList.length) {
+            if (lbBody)
+              lbBody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-400">Chưa có ai hoàn thành</td></tr>`;
+          } else {
+            topList.forEach((r, idx) => {
+              const badge =
+                idx === 0
+                  ? "bg-yellow-100 text-yellow-600"
+                  : idx === 1
+                    ? "bg-gray-200 text-gray-600"
+                    : idx === 2
+                      ? "bg-orange-100 text-orange-600"
+                      : "bg-gray-50 text-gray-500";
+              if (lbBody)
+                lbBody.innerHTML += `<tr class="hover:bg-gray-50">
+                   <td class="px-4 py-2 text-center"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full font-bold text-xs ${badge}">${idx + 1}</span></td>
+                   <td class="px-4 py-2 font-medium">${window.renderTextToHtml(r.studentName)}</td>
+                   <td class="px-4 py-2 font-bold text-green-600">${Number(r.score || 0).toFixed(1)}</td>
+                   <td class="px-4 py-2 text-xs text-gray-500">${formatDuration(r.timeSpent || 0)}</td>
+                </tr>`;
+            });
+          }
+        }
+        document
+          .getElementById("modal-leaderboard")
+          .classList.remove("hidden-view");
+      }
+
+      window.viewExamLeaderboard = async (examId) => {
+        setLoading(true);
+        try {
+          const exam = await loadExamById(examId);
+          if (!exam) throw new Error("Không tìm thấy bài thi");
+          const results = await getAllDocsFiltered(
+            "results",
+            (d) => d.examId === examId,
+          );
+          await renderLeaderboardModal(exam, results);
+        } catch (e) {
+          showToast(e.message || "Không mở được bảng xếp hạng", "error");
+        }
+        setLoading(false);
+      };
+
+      window.toggleQuestionPanel = () => {
+        questionPanelHidden = !questionPanelHidden;
+        const panel = document.getElementById("question-panel");
+        if (panel) panel.classList.toggle("hidden", questionPanelHidden);
+      };
+
       async function loadExamIntro(id) {
         setLoading(true);
         try {
@@ -1195,13 +1371,10 @@
             lbBody.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-gray-500 italic">Bảng xếp hạng bị ẩn theo cài đặt của Giáo viên.</td></tr>`;
           }
 
-          let qs = deepClone(data.questions || []);
-          if (data.shuffle) {
-            for (let i = qs.length - 1; i > 0; i--) {
-              const j = Math.floor(Math.random() * (i + 1));
-              [qs[i], qs[j]] = [qs[j], qs[i]];
-            }
-          }
+          const qs = prepareQuestionsForAttempt(
+            data.questions || [],
+            data.shuffle,
+          );
 
           currentExam = { id, ...data, questions: qs };
           answers = {};
@@ -1239,6 +1412,9 @@
 
       function renderActiveExam() {
         const ex = currentExam;
+        questionPanelHidden = false;
+        const panel = document.getElementById("question-panel");
+        if (panel) panel.classList.remove("hidden");
         document.getElementById("taking-title").innerText = ex.title;
         if (timerInterval) clearInterval(timerInterval);
         timeRemaining = (ex.timeLimit || 45) * 60;
