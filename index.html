@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -31,7 +31,8 @@
       body {
         font-family: "Inter", sans-serif;
         background-color: #f8fafc;
-        background-image: radial-gradient(
+        background-image:
+          radial-gradient(
             circle at 10% 20%,
             rgba(99, 102, 241, 0.1) 0%,
             transparent 20%
@@ -77,7 +78,8 @@
       /* Hiệu ứng Hover: Nổi lên và viền sáng */
       .repo-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
           0 8px 10px -6px rgba(0, 0, 0, 0.01);
         border-color: var(--primary);
       }
@@ -143,7 +145,7 @@
         <!-- Social / Contact Links (Github Top) -->
         <div class="flex gap-4">
           <a
-            href="https://github.com/GZEGM"
+            href="https://github.com/DIENKON"
             target="_blank"
             class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-700 transition shadow-lg"
           >
@@ -263,7 +265,7 @@
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
       // --- CẤU HÌNH ---
-      const GITHUB_USERNAME = "GZEGM";
+      const GITHUB_USERNAME = "DIENKON";
       const API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc`;
       const appId =
         typeof __app_id !== "undefined" ? __app_id : "default-app-id";
@@ -294,10 +296,10 @@
           document.body.classList.add("admin-mode");
           console.log(
             "%c ĐÃ KÍCH HOẠT QUYỀN ADMIN ",
-            "background: #10b981; color: white; padding: 4px; font-weight: bold;"
+            "background: #10b981; color: white; padding: 4px; font-weight: bold;",
           );
           console.log(
-            "Bây giờ bạn có thể chỉnh sửa và hệ thống sẽ THỰC HIỆN LỆNH GHI vào Database."
+            "Bây giờ bạn có thể chỉnh sửa và hệ thống sẽ THỰC HIỆN LỆNH GHI vào Database.",
           );
 
           // Render lại để hiện các nút bấm
@@ -322,7 +324,7 @@
         update(dbRef, data)
           .then(() => console.log(`[SAVED] ${path}`, data))
           .catch((err) =>
-            console.error("[SAVE FAILED] Có thể do Firebase Rules chặn:", err)
+            console.error("[SAVE FAILED] Có thể do Firebase Rules chặn:", err),
           );
       }
 
@@ -388,7 +390,7 @@
             } else {
               // Admin: Đưa bài ẩn xuống cuối
               displayRepos.sort((a, b) =>
-                a.isHidden === b.isHidden ? 0 : a.isHidden ? 1 : -1
+                a.isHidden === b.isHidden ? 0 : a.isHidden ? 1 : -1,
               );
             }
 
@@ -444,8 +446,8 @@
                 <div class="mt-3 pt-3 border-t border-dashed border-slate-300 grid grid-cols-1 gap-2">
                      <div class="flex items-center justify-between">
                         <button onclick="toggleHidden('${repo.name}', ${
-                  repo.isHidden
-                })" 
+                          repo.isHidden
+                        })" 
                             class="text-xs px-2 py-1 rounded border ${
                               repo.isHidden
                                 ? "bg-red-50 text-red-600 border-red-200"
@@ -461,8 +463,8 @@
                      <div class="flex items-center gap-2 bg-slate-50 p-1 rounded">
                         <i class="fas fa-link text-slate-400 text-xs pl-1"></i>
                         <div ${isEditable} onblur="updateField('${
-                  repo.name
-                }', 'customDemoUrl', this.innerText)" 
+                          repo.name
+                        }', 'customDemoUrl', this.innerText)" 
                              class="text-xs font-mono text-indigo-600 truncate flex-1 outline-none">
                             ${repo.demoUrl}
                         </div>
@@ -480,8 +482,8 @@
                         <!-- Header: Title & Language -->
                         <div class="flex justify-between items-start mb-3 pl-3">
                             <h2 ${isEditable} onblur="updateField('${
-              repo.name
-            }', 'customName', this.innerText)"
+                              repo.name
+                            }', 'customName', this.innerText)"
                                 class="text-xl font-bold text-slate-800 leading-tight hover:text-indigo-600 transition cursor-text">
                                 ${repo.displayName}
                             </h2>
@@ -497,8 +499,8 @@
                         <!-- Description -->
                         <div class="flex-grow pl-3 mb-6">
                             <p ${isEditable} onblur="updateField('${
-              repo.name
-            }', 'customDescription', this.innerText)"
+                              repo.name
+                            }', 'customDescription', this.innerText)"
                                class="text-slate-600 text-sm leading-relaxed line-clamp-3">
                                ${
                                  repo.displayDesc ||
