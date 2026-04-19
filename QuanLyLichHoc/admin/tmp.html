@@ -124,18 +124,6 @@
           <i class="fa-solid fa-rotate-left"></i> Reset dữ liệu
         </button> -->
         <button
-          onclick="window.downloadFirebaseData()"
-          class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 text-sm font-semibold flex items-center gap-2"
-        >
-          <i class="fa-solid fa-file-arrow-down"></i> Tải về data
-        </button>
-        <button
-          onclick="window.openFirebaseUpload()"
-          class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm font-semibold flex items-center gap-2"
-        >
-          <i class="fa-solid fa-file-arrow-up"></i> Tải lên data
-        </button>
-        <button
           onclick="logoutAdmin()"
           class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 text-sm font-semibold"
         >
@@ -1257,13 +1245,6 @@
       <span id="toast-msg">Thông báo</span>
     </div>
 
-    <input
-      id="firebase-import-input"
-      type="file"
-      accept="application/json,.json"
-      class="hidden"
-    />
-
     <!-- SCRIPTS -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -1840,41 +1821,6 @@
         } catch (e) {
           console.error(e);
         }
-      }
-
-      function buildFirebaseDataPayload() {
-        return {
-          exportedAt: new Date().toISOString(),
-          appId,
-          shareId,
-          version: 1,
-          data: cloneData(appData),
-        };
-      }
-
-      function normalizeImportedFirebaseData(raw) {
-        const payload = raw && typeof raw === "object" ? raw : null;
-        if (!payload) throw new Error("File không hợp lệ");
-
-        // Hỗ trợ cả 2 dạng: export full appData, hoặc export dạng wrapper { data: ... }
-        const data =
-          payload.data && typeof payload.data === "object"
-            ? payload.data
-            : payload;
-        if (!data || typeof data !== "object")
-          throw new Error("Không tìm thấy dữ liệu bên trong file");
-
-        return cloneData(data);
-      }
-
-      async function importFirebaseDataFromFile(file) {
-        const text = await file.text();
-        const parsed = JSON.parse(text);
-        const imported = normalizeImportedFirebaseData(parsed);
-        appData = imported;
-        repairData();
-        await saveToFirebase();
-        updateUI();
       }
 
       // --- UTILS ---
@@ -3262,60 +3208,6 @@
         localStorage.removeItem(ADMIN_KEY);
         location.reload();
       };
-
-      window.downloadFirebaseData = function () {
-        try {
-          const payload = buildFirebaseDataPayload();
-          const blob = new Blob([JSON.stringify(payload, null, 2)], {
-            type: "application/json;charset=utf-8",
-          });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          const stamp = new Date().toISOString().replaceAll(":", "-");
-          a.href = url;
-          a.download = `firebase-data-${shareId}-${stamp}.json`;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
-          showToast("Đã tải về file dữ liệu Firebase.");
-        } catch (e) {
-          console.error(e);
-          showToast("Không thể tải file dữ liệu.");
-        }
-      };
-
-      window.openFirebaseUpload = function () {
-        if (!checkAdminAccess()) return;
-        const input = document.getElementById("firebase-import-input");
-        if (!input) return;
-        input.value = "";
-        input.click();
-      };
-
-      window.handleFirebaseImport = async function (event) {
-        const file = event.target.files?.[0];
-        if (!file) return;
-        try {
-          const confirmMsg =
-            "File này sẽ ghi đè toàn bộ dữ liệu hiện tại trên Firebase. Bạn có chắc muốn tiếp tục?";
-          if (!confirm(confirmMsg)) {
-            event.target.value = "";
-            return;
-          }
-          await importFirebaseDataFromFile(file);
-          showToast("Đã tải lên dữ liệu Firebase thành công.");
-        } catch (e) {
-          console.error(e);
-          showToast("File không hợp lệ hoặc tải lên thất bại.");
-        } finally {
-          event.target.value = "";
-        }
-      };
-
-      document
-        .getElementById("firebase-import-input")
-        ?.addEventListener("change", window.handleFirebaseImport);
 
       // --- TAB 4: STATS ---
       window.renderStatsTable = function () {
