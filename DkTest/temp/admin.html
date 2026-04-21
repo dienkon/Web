@@ -1281,6 +1281,13 @@
         updateDoc,
         query,
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        remove,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4",
@@ -1295,6 +1302,7 @@
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
       const db = getFirestore(app);
+      const rtdb = getDatabase(app);
       const basePath = `artifacts/${appId}/public/data`;
 
       window.loadedExams = {};
@@ -1369,6 +1377,29 @@
       function examDoc(name, id) {
         return doc(db, `${basePath}/${name}`, id);
       }
+      function rtdbDoc(name, id) {
+        return ref(rtdb, `${basePath}/${name}/${id}`);
+      }
+      function rtdbCollection(name) {
+        return ref(rtdb, `${basePath}/${name}`);
+      }
+      function snapshotToArray(snap) {
+        const val = snap?.val?.() || {};
+        return Object.entries(val || {}).map(([id, data]) => ({
+          id,
+          ...(data && typeof data === "object" ? data : {}),
+        }));
+      }
+      async function mirrorDocToRtdb(name, id, data) {
+        try {
+          await set(rtdbDoc(name, id), { id, ...deepClone(data || {}) });
+        } catch (e) {}
+      }
+      async function removeDocFromRtdb(name, id) {
+        try {
+          await remove(rtdbDoc(name, id));
+        } catch (e) {}
+      }
       function toVnTime(value) {
         if (!value) return "";
         return new Date(value).toLocaleString("vi-VN");
@@ -1389,7 +1420,32 @@
           .trim();
       }
 
+      function getStableStudentKey(record) {
+        if (!record) return "";
+        const candidates = [
+          record.userId,
+          record.studentId,
+          record.docId,
+          record.id,
+        ];
+        for (const candidate of candidates) {
+          const value = String(candidate ?? "").trim();
+          if (value) return value;
+        }
+        const fallbackName = String(
+          record.studentName || record.name || record.displayName || "",
+        ).trim();
+        return fallbackName;
+      }
 
+      function getStableStudentName(record) {
+        if (!record) return "";
+        const name = String(
+          record.studentName || record.name || record.displayName || "",
+        ).trim();
+        if (name) return name;
+        return getStableStudentKey(record);
+      }
 
       function normalizeShortAnswerText(value) {
         return String(value ?? "")
@@ -1544,11 +1600,16 @@
           : raw;
 
         const tfLineMarkers = [
-          ...withoutAnswer.matchAll(/(?:^|\n)\s*([a-d])[\.\:\)\-]\s*/gi),
+          ...withoutAnswer.matchAll(/(?:^|\n)\s*([a-d])[\.\)]\s*/gi),
         ];
 
         const parseTfAnswerMap = (text) => {
-          const map = { a: undefined, b: undefined, c: undefined, d: undefined };
+          const map = {
+            a: undefined,
+            b: undefined,
+            c: undefined,
+            d: undefined,
+          };
           const tokenRegex =
             /([a-d])\s*[\.\:\)\-]?\s*(ĐÚNG|SAI|Đ|S|TRUE|FALSE|T|F|1|0)/gi;
           let m;
@@ -1565,8 +1626,11 @@
           const statements = { a: "", b: "", c: "", d: "" };
           let currentKey = null;
 
-          for (const line of withoutAnswer.split(/\n+/).map((l) => l.trim()).filter(Boolean)) {
-            const lineMatch = line.match(/^([a-d])[\.\:\)\-]?\s*(.*)$/i);
+          for (const line of withoutAnswer
+            .split(/\n+/)
+            .map((l) => l.trim())
+            .filter(Boolean)) {
+            const lineMatch = line.match(/^([a-d])[\.\)]?\s*(.*)$/i);
             if (lineMatch) {
               currentKey = lineMatch[1].toLowerCase();
               statements[currentKey] = stripOptionPrefix(
@@ -1607,7 +1671,9 @@
         }
 
         if (answerText && tfLineMarkers.length === 0) {
-          const questionText = stripQuestionPrefix(normalizeText(withoutAnswer));
+          const questionText = stripQuestionPrefix(
+            normalizeText(withoutAnswer),
+          );
           const exactAnswers = splitAcceptedShortAnswers(answerText);
           if (questionText && exactAnswers.length) {
             return {
@@ -1676,7 +1742,8 @@
             normalizeText(qTextParts.join(" ")),
           );
           const optionList = [options.A, options.B, options.C, options.D].map(
-            (opt, idx) => stripOptionPrefix(normalizeText(opt), ["A", "B", "C", "D"][idx]),
+            (opt, idx) =>
+              stripOptionPrefix(normalizeText(opt), ["A", "B", "C", "D"][idx]),
           );
           if (!questionText || optionList.some((opt) => !normalizeText(opt)))
             return null;
@@ -1854,6 +1921,7 @@
       let examDraft = { questions: [] };
       let editingExamId = null;
       let statsDataCache = null;
+      let statsRealtimeUnsubs = [];
       let activeStatsTab = "summary";
       let currentViewingResultId = null;
       let currentExamStatsDetailId = null;
@@ -1895,6 +1963,67 @@
         showView("view-dashboard");
         loadAdminDashboard();
       };
+      function stopStatsRealtimeListeners() {
+        statsRealtimeUnsubs.forEach((fn) => {
+          try {
+            fn && fn();
+          } catch (e) {}
+        });
+        statsRealtimeUnsubs = [];
+      }
+
+      function startStatsRealtimeListeners() {
+        stopStatsRealtimeListeners();
+        ["exams", "results", "attempts", "students"].forEach((name) => {
+          const unsub = onValue(
+            rtdbCollection(name),
+            (snap) => {
+              if (!statsDataCache) {
+                statsDataCache = {
+                  exams: [],
+                  results: [],
+                  attempts: [],
+                  students: [],
+                };
+              }
+              statsDataCache[name] = snapshotToArray(snap);
+              if (
+                !document
+                  .getElementById("view-stats")
+                  ?.classList.contains("hidden-view")
+              ) {
+                refreshStatsUi();
+              }
+            },
+            () => {},
+          );
+          if (typeof unsub === "function") statsRealtimeUnsubs.push(unsub);
+        });
+      }
+
+      function refreshStatsUi() {
+        if (!statsDataCache) return;
+        document.getElementById("st-total-exams").innerText =
+          statsDataCache.exams.length;
+        document.getElementById("st-total-submissions").innerText =
+          statsDataCache.results.length;
+        document.getElementById("st-cheat").innerText =
+          statsDataCache.results.reduce(
+            (s, r) => s + (r.cheatViolations || 0),
+            0,
+          );
+        const avg = statsDataCache.results.length
+          ? (
+              statsDataCache.results.reduce((s, r) => s + (r.score || 0), 0) /
+              statsDataCache.results.length
+            ).toFixed(1)
+          : "0.0";
+        document.getElementById("st-avg-score").innerText = avg;
+        if (currentExamStatsDetailId)
+          openExamStatsDetail(currentExamStatsDetailId);
+        else window.renderStatsTables();
+      }
+
       window.openStatsTab = () => {
         history.replaceState({}, "", "admin.html?view=stats");
         showView("view-stats");
@@ -2378,13 +2507,15 @@
             updatedAt: Date.now(),
           };
           let examId = editingExamId;
-          if (examId)
+          if (examId) {
             await setDoc(examDoc("exams", examId), payload, { merge: true });
-          else {
+            await mirrorDocToRtdb("exams", examId, payload);
+          } else {
             payload.createdAt = Date.now();
             const ref = doc(collection(db, `${basePath}/exams`));
             examId = ref.id;
             await setDoc(ref, payload);
+            await mirrorDocToRtdb("exams", examId, payload);
           }
           showToast(
             editingExamId ? "Đã cập nhật bài thi." : "Xuất bản thành công!",
@@ -2423,8 +2554,18 @@
           );
           for (const r of relatedResults) {
             await deleteDoc(examDoc("results", r.id));
+            await removeDocFromRtdb("results", r.id);
+          }
+          const relatedAttempts = await getAllDocsFiltered(
+            "attempts",
+            (d) => d.examId === id,
+          );
+          for (const a of relatedAttempts) {
+            await deleteDoc(examDoc("attempts", a.id));
+            await removeDocFromRtdb("attempts", a.id);
           }
           await deleteDoc(examDoc("exams", id));
+          await removeDocFromRtdb("exams", id);
           showToast(
             `Đã xóa bài thi và ${relatedResults.length} bài nộp`,
             "success",
@@ -2506,7 +2647,7 @@
               <div class="grid grid-cols-2 gap-2 pt-4 border-t border-gray-100">
                 <button onclick="editExam('${ex.id}')" class="bg-amber-50 text-amber-700 hover:bg-amber-100 py-2.5 rounded-xl text-sm font-bold transition">Sửa</button>
                 <button onclick="deleteExam('${ex.id}')" class="bg-red-50 text-red-600 hover:bg-red-100 py-2.5 rounded-xl text-sm font-bold transition">Xóa</button>
-                <button onclick="openStatsTab()" class="bg-purple-50 text-purple-600 hover:bg-purple-100 py-2.5 rounded-xl text-sm font-bold transition">Thống kê</button>
+                <button onclick="viewExamStatsDetail('${ex.id}')" class="bg-purple-50 text-purple-600 hover:bg-purple-100 py-2.5 rounded-xl text-sm font-bold transition">Thống kê</button>
                 <button onclick="copyLink('${link}')" class="bg-blue-50 text-blue-600 hover:bg-blue-100 py-2.5 rounded-xl text-sm font-bold transition"><i class="fa-solid fa-link"></i> Copy</button>
               </div>
             </div>`;
@@ -2551,42 +2692,39 @@
         window.renderStatsTables();
       };
 
+      async function refreshStatsCache(silent = false) {
+        const [exams, results, attempts, students] = await Promise.all([
+          getAllDocsFiltered("exams"),
+          getAllDocsFiltered("results"),
+          getAllDocsFiltered("attempts"),
+          getAllDocsFiltered("students"),
+        ]);
+        statsDataCache = {
+          exams,
+          results,
+          attempts,
+          students,
+        };
+        refreshStatsUi();
+      }
+
       async function loadComprehensiveStats(silent = false) {
         if (!silent) setLoading(true);
-        statsDataCache = {
-          exams: await getAllDocsFiltered("exams"),
-          results: await getAllDocsFiltered("results"),
-          attempts: await getAllDocsFiltered("attempts"),
-          students: await getAllDocsFiltered("students"),
-        };
-        document.getElementById("st-total-exams").innerText =
-          statsDataCache.exams.length;
-        document.getElementById("st-total-submissions").innerText =
-          statsDataCache.results.length;
-        document.getElementById("st-cheat").innerText =
-          statsDataCache.results.reduce(
-            (s, r) => s + (r.cheatViolations || 0),
-            0,
-          );
-        const avg = statsDataCache.results.length
-          ? (
-              statsDataCache.results.reduce((s, r) => s + (r.score || 0), 0) /
-              statsDataCache.results.length
-            ).toFixed(1)
-          : "0.0";
-        document.getElementById("st-avg-score").innerText = avg;
-        window.switchStatsTab(activeStatsTab || "summary");
-        if (window.statsRefreshInterval)
+        if (window.statsRefreshInterval) {
           clearInterval(window.statsRefreshInterval);
+          window.statsRefreshInterval = null;
+        }
+        await refreshStatsCache(true);
+        startStatsRealtimeListeners();
         window.statsRefreshInterval = setInterval(() => {
           if (
             !document
               .getElementById("view-stats")
               ?.classList.contains("hidden-view")
           ) {
-            loadComprehensiveStats(true);
+            void refreshStatsCache(true);
           }
-        }, 10000);
+        }, 4000);
         if (!silent) setLoading(false);
       }
 
@@ -2595,8 +2733,13 @@
         const exams = statsDataCache?.exams || [];
         const results = statsDataCache?.results || [];
         const attempts = statsDataCache?.attempts || [];
-        const exam = exams.find((e) => e.id === examId) || null;
-        const examResults = results.filter((r) => r.examId === examId);
+        const exam =
+          exams.find((e) => e.id === examId) ||
+          (window.loadedExams || []).find((e) => e.id === examId) ||
+          null;
+        const examResults = results
+          .filter((r) => r.examId === examId)
+          .sort((a, b) => (b.submittedAt || 0) - (a.submittedAt || 0));
         const activeAttempts = attempts.filter((a) => {
           if (!a || a.examId !== examId) return false;
           if (a.status === "submitted") return false;
@@ -2605,8 +2748,7 @@
         });
         const activeMap = new Map();
         activeAttempts.forEach((a) => {
-          const key =
-            String(a.userId || a.studentName || a.id || "").trim() || a.id;
+          const key = getStableStudentKey(a) || a.id;
           if (
             !activeMap.has(key) ||
             Number(activeMap.get(key).lastSeenAt || 0) <
@@ -2615,45 +2757,30 @@
             activeMap.set(key, a);
           }
         });
-        const resultMap = new Map();
-        examResults.forEach((r) => {
-          const key =
-            String(r.userId || r.studentName || r.id || "").trim() || r.id;
-          if (
-            !resultMap.has(key) ||
-            Number(resultMap.get(key).submittedAt || 0) <
-              Number(r.submittedAt || 0)
-          ) {
-            resultMap.set(key, r);
-          }
-        });
-        const latestResults = [...resultMap.values()].sort(
-          (a, b) => (b.submittedAt || 0) - (a.submittedAt || 0),
-        );
-        const scores = latestResults.map((r) => Number(r.score || 0));
+        const scores = examResults.map((r) => Number(r.score || 0));
         return {
-          exam,
-          results: latestResults,
+          exam: exam || {
+            id: examId,
+            title: "Bài thi đã bị xóa hoặc chưa đồng bộ",
+            questions: [],
+          },
+          results: examResults,
           activeAttempts: [...activeMap.values()].sort(
             (a, b) => (b.lastSeenAt || 0) - (a.lastSeenAt || 0),
           ),
           activeCount: activeMap.size,
-          resultCount: latestResults.length,
+          resultCount: examResults.length,
           studentCount: new Set(
-            latestResults.map((r) => r.userId || r.studentName || r.id || ""),
+            examResults.map((r) => getStableStudentKey(r) || r.id || ""),
           ).size,
-          avgScore: latestResults.length
-            ? (
-                scores.reduce((s, n) => s + n, 0) / latestResults.length
-              ).toFixed(1)
+          avgScore: examResults.length
+            ? (scores.reduce((s, n) => s + n, 0) / examResults.length).toFixed(
+                1,
+              )
             : "0.0",
-          maxScore: latestResults.length
-            ? Math.max(...scores).toFixed(1)
-            : "0.0",
-          minScore: latestResults.length
-            ? Math.min(...scores).toFixed(1)
-            : "0.0",
-          cheatCount: latestResults.reduce(
+          maxScore: examResults.length ? Math.max(...scores).toFixed(1) : "0.0",
+          minScore: examResults.length ? Math.min(...scores).toFixed(1) : "0.0",
+          cheatCount: examResults.reduce(
             (s, r) => s + (r.cheatViolations || 0),
             0,
           ),
@@ -2663,8 +2790,10 @@
       function openExamStatsDetail(examId) {
         const snap = getExamLiveSnapshot(examId);
         if (!snap.exam) {
-          showToast("Không tìm thấy bài thi", "error");
-          return;
+          showToast(
+            "Không đồng bộ được thông tin bài thi, nhưng vẫn mở thống kê từ dữ liệu đang có",
+            "warning",
+          );
         }
         currentExamStatsDetailId = examId;
         const info = document.getElementById("esd-info");
@@ -2721,16 +2850,8 @@
 
       function getStudentIdentity(student) {
         if (!student) return { id: "", name: "" };
-        const id = String(
-          student.id || student.userId || student.studentId || "",
-        ).trim();
-        const name = String(
-          student.name ||
-            student.studentName ||
-            student.displayName ||
-            id ||
-            "",
-        ).trim();
+        const id = String(getStableStudentKey(student)).trim();
+        const name = String(getStableStudentName(student)).trim();
         return { id, name };
       }
 
@@ -2761,11 +2882,10 @@
         });
 
         results.forEach((r) => {
-          const key =
-            String(r.userId || r.studentName || r.studentId || "").trim() ||
-            String(r.studentName || "Không rõ").trim();
+          const key = getStableStudentKey(r);
+          if (!key) return;
+          const name = getStableStudentName(r) || key;
           if (!map.has(key)) {
-            const name = String(r.studentName || key || "Không rõ").trim();
             map.set(key, {
               id: key,
               docId: key,
@@ -2836,6 +2956,12 @@
             },
             { merge: true },
           );
+          await mirrorDocToRtdb("students", studentDocId, {
+            name: clean,
+            studentName: clean,
+            userId: student.userId || studentDocId,
+            updatedAt: Date.now(),
+          });
 
           const updateTargets = [
             ...(statsDataCache?.results || []),
@@ -2851,6 +2977,10 @@
               ? "results"
               : "attempts";
             await updateDoc(doc(db, `${basePath}/${col}`, item.id), {
+              studentName: clean,
+            });
+            await mirrorDocToRtdb(col, item.id, {
+              ...item,
               studentName: clean,
             });
             item.studentName = clean;
@@ -2931,14 +3061,9 @@
           <div class="bg-amber-50 border border-amber-100 rounded-2xl p-4"><div class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">Cao nhất</div><div class="text-2xl font-black text-gray-800">${Number(student.maxScore || 0).toFixed(1)}</div></div>
         `;
 
+        const studentKey = getStableStudentKey(student);
         const studentResults = (statsDataCache?.results || [])
-          .filter(
-            (r) =>
-              String(r.userId || r.studentName || "").trim() ===
-              String(
-                student.userId || student.docId || student.name || "",
-              ).trim(),
-          )
+          .filter((r) => getStableStudentKey(r) === studentKey)
           .sort((a, b) => (b.submittedAt || 0) - (a.submittedAt || 0));
         if (!studentResults.length) {
           empty.classList.remove("hidden");
@@ -2985,8 +3110,9 @@
         const filteredExams = exams.filter((ex) => {
           if (!search) return true;
           const exRes = results.filter((r) => r.examId === ex.id);
-          const studentCount = new Set(exRes.map((r) => r.studentName || ""))
-            .size;
+          const studentCount = new Set(
+            exRes.map((r) => getStableStudentKey(r) || r.id || ""),
+          ).size;
           const hay = [
             ex.title,
             ex.id,
@@ -3014,7 +3140,9 @@
             (a, b) => a + (b.cheatViolations || 0),
             0,
           );
-          const students = new Set(exRes.map((r) => r.studentName || "")).size;
+          const students = new Set(
+            exRes.map((r) => getStableStudentKey(r) || r.id || ""),
+          ).size;
           sumBody.innerHTML += `<tr class="hover:bg-gray-50"><td class="px-6 py-4 font-medium">${escapeHtml(ex.title)}</td><td class="px-6 py-4">${subs}</td><td class="px-6 py-4">${students}</td><td class="px-6 py-4 text-blue-600 font-bold">${avg}</td><td class="px-6 py-4 text-green-600 font-bold">${max}</td><td class="px-6 py-4 text-red-500">${cheats}</td></tr>`;
         });
         document.getElementById("stats-summary-empty").style.display =

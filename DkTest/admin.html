@@ -791,7 +791,7 @@
               Nhập từ Word
             </button>
 
-            <div class="mt-auto pt-6">
+            <div class="mt-auto pt-6 space-y-3">
               <button
                 onclick="saveExam()"
                 id="btn-save-exam"
@@ -799,9 +799,23 @@
               >
                 <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Lưu Xuất Bản
               </button>
+              <div class="grid grid-cols-2 gap-2">
+                <button
+                  onclick="exportExam('word')"
+                  class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-semibold transition flex items-center justify-center"
+                >
+                  <i class="fa-solid fa-file-word mr-2"></i> Xuất Word
+                </button>
+                <button
+                  onclick="exportExam('pdf')"
+                  class="w-full bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-xl font-semibold transition flex items-center justify-center"
+                >
+                  <i class="fa-solid fa-file-pdf mr-2"></i> Xuất PDF
+                </button>
+              </div>
               <button
                 onclick="openDashboard()"
-                class="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl font-semibold transition"
+                class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl font-semibold transition"
               >
                 Hủy bỏ
               </button>
@@ -1157,18 +1171,34 @@
             <i class="fa-solid fa-xmark text-lg"></i>
           </button>
         </div>
-        <div class="p-6 flex-1 overflow-y-auto bg-white">
-          <p class="text-sm text-gray-500 mb-3">
-            Định dạng hỗ trợ:<br />
-            <b>Câu 1:</b> Nội dung câu hỏi<br />
-            <b>A.</b> Đáp án A<br />...<br /><b>Đáp án: A</b>
+        <div class="p-6 flex-1 overflow-y-auto bg-white space-y-4">
+          <p class="text-sm text-gray-500">
+            Hỗ trợ dán nội dung Word như cũ hoặc nhập trực tiếp dữ liệu dạng
+            <code class="px-1.5 py-0.5 rounded bg-gray-100">{...}</code> /
+            <code class="px-1.5 py-0.5 rounded bg-gray-100">[...]</code>.
           </p>
+          <div class="flex flex-wrap gap-2">
+            <button
+              onclick="openImportFilePicker()"
+              class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold transition flex items-center"
+            >
+              <i class="fa-solid fa-file-arrow-up mr-2 text-blue-500"></i> Tải
+              file bài kiểm tra
+            </button>
+            <button
+              onclick="fillStructuredImportExample()"
+              class="px-4 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold transition flex items-center"
+            >
+              <i class="fa-regular fa-lightbulb mr-2"></i> Mẫu định dạng
+            </button>
+          </div>
           <textarea
             id="import-text"
             class="w-full h-64 border border-gray-300 rounded-xl p-4 text-sm font-mono outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition resize-none"
-            placeholder="Dán nội dung vào đây..."
+            placeholder="Dán nội dung hoặc JSON vào đây..."
           ></textarea>
         </div>
+
         <div
           class="p-5 border-t bg-gray-50 rounded-b-2xl flex justify-end gap-3 shrink-0"
         >
@@ -1550,6 +1580,409 @@
         return blocks.filter(Boolean);
       }
 
+      function safeFileName(name) {
+        return (
+          String(name || "de-thi")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "")
+            .toLowerCase() || "de-thi"
+        );
+      }
+
+      function downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function escapeHtmlText(value) {
+        return String(value || "").replace(/[&<>"']/g, function (ch) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          }[ch];
+        });
+      }
+
+      function parseStructuredImportPayload(raw) {
+        const text = String(raw || "").trim();
+        if (!text) return null;
+        if (!(text.startsWith("{") || text.startsWith("["))) return null;
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function normalizeImportedQuestionObject(raw) {
+        if (!raw || typeof raw !== "object") return null;
+        const type = String(raw.type || raw.kind || raw.questionType || "")
+          .trim()
+          .toLowerCase();
+        const text = normalizeMathInput(
+          raw.text ?? raw.question ?? raw.content ?? raw.title ?? "",
+        );
+        if (!type || !text) return null;
+
+        if (
+          ["mcq", "multiple_choice", "choice", "single-choice"].includes(type)
+        ) {
+          const sourceOptions = Array.isArray(raw.options)
+            ? raw.options
+            : Array.isArray(raw.answers)
+              ? raw.answers
+              : Array.isArray(raw.choices)
+                ? raw.choices
+                : [];
+          const options = sourceOptions
+            .slice(0, 4)
+            .map((opt) =>
+              normalizeMathInput(
+                typeof opt === "object" && opt !== null
+                  ? (opt.text ?? opt.content ?? opt.value ?? opt.label ?? "")
+                  : opt,
+              ),
+            );
+          while (options.length < 4) options.push("");
+          const correctRaw =
+            raw.correctIndex ?? raw.answerIndex ?? raw.correct ?? raw.answer;
+          let correctIndex = Number(correctRaw);
+          if (!Number.isFinite(correctIndex)) {
+            const letter = String(
+              raw.correctOption ?? raw.correctAnswer ?? raw.key ?? "",
+            )
+              .trim()
+              .toUpperCase();
+            if (/^[A-D]$/.test(letter))
+              correctIndex = letter.charCodeAt(0) - 65;
+            else correctIndex = 0;
+          }
+          correctIndex = Math.max(0, Math.min(3, correctIndex));
+          return {
+            id: generateId(),
+            type: "mcq",
+            text,
+            options,
+            correctIndex,
+            originalOptions: deepClone(options),
+            originalCorrectIndex: correctIndex,
+            optionOrder: [0, 1, 2, 3],
+            imageUrl: raw.imageUrl || raw.image || null,
+          };
+        }
+
+        if (["tf", "truefalse", "true_false", "truth"].includes(type)) {
+          const sourceStatements = Array.isArray(raw.statements)
+            ? raw.statements
+            : Array.isArray(raw.items)
+              ? raw.items
+              : [];
+          if (!sourceStatements.length) return null;
+          const statements = sourceStatements.slice(0, 4).map((s, idx) => {
+            const obj = typeof s === "object" && s !== null ? s : { text: s };
+            const truthRaw =
+              obj.isTrue ?? obj.answer ?? obj.correct ?? obj.value ?? obj.key;
+            return {
+              id: generateId(),
+              text: normalizeMathInput(
+                obj.text ??
+                  obj.statement ??
+                  obj.content ??
+                  obj.label ??
+                  obj.value ??
+                  "",
+              ),
+              isTrue:
+                typeof truthRaw === "boolean"
+                  ? truthRaw
+                  : parseTruthToken(truthRaw ?? obj.truth ?? idx),
+            };
+          });
+          if (statements.some((s) => !s.text)) return null;
+          return {
+            id: generateId(),
+            type: "tf",
+            text,
+            statements,
+            imageUrl: raw.imageUrl || raw.image || null,
+          };
+        }
+
+        if (
+          [
+            "short",
+            "short_answer",
+            "fill",
+            "fill_blank",
+            "essay-short",
+          ].includes(type)
+        ) {
+          const answersRaw =
+            raw.exactAnswers ?? raw.answers ?? raw.answer ?? raw.key ?? [];
+          const exactAnswers = splitAcceptedShortAnswers(answersRaw).map((a) =>
+            normalizeMathInput(a),
+          );
+          return {
+            id: generateId(),
+            type: "short",
+            text,
+            exactAnswers: exactAnswers.length ? exactAnswers : [""],
+            imageUrl: raw.imageUrl || raw.image || null,
+          };
+        }
+
+        return null;
+      }
+
+      function parseStructuredExamPayload(raw) {
+        const data =
+          typeof raw === "string"
+            ? parseStructuredImportPayload(raw)
+            : raw && typeof raw === "object"
+              ? raw
+              : null;
+        if (!data) return null;
+        if (Array.isArray(data)) {
+          return { title: "", questions: data };
+        }
+        const questions = Array.isArray(data.questions)
+          ? data.questions
+          : Array.isArray(data.items)
+            ? data.items
+            : Array.isArray(data.data?.questions)
+              ? data.data.questions
+              : [];
+        return {
+          title: String(data.title || data.name || data.examTitle || "").trim(),
+          timeLimit: Number(data.timeLimit ?? data.time ?? data.duration ?? 45),
+          expiresAt: data.expiresAt || data.expireAt || data.deadline || "",
+          shuffle: !!data.shuffle,
+          showResults: data.showResults !== false,
+          showDetails: !!data.showDetails,
+          maxAttempts: Number(data.maxAttempts ?? data.attempts ?? 1),
+          questions,
+        };
+      }
+
+      function importStructuredExamData(raw, options) {
+        options = options || {};
+        const applyMeta = options.applyMeta !== false;
+        const payload = parseStructuredExamPayload(raw);
+        if (!payload) {
+          return { addedCount: 0, errors: [], metaImported: false };
+        }
+        const errors = [];
+        let addedCount = 0;
+        if (applyMeta && payload.title) {
+          const titleEl = document.getElementById("ce-title");
+          if (titleEl && !titleEl.value.trim()) titleEl.value = payload.title;
+          examDraft.title =
+            titleEl && titleEl.value ? titleEl.value.trim() : payload.title;
+        }
+        if (
+          applyMeta &&
+          Number.isFinite(Number(payload.timeLimit)) &&
+          !document.getElementById("ce-time").value.trim()
+        ) {
+          document.getElementById("ce-time").value = String(
+            Math.max(1, Number(payload.timeLimit) || 45),
+          );
+        }
+        if (
+          applyMeta &&
+          payload.expiresAt &&
+          !document.getElementById("ce-expire").value
+        ) {
+          document.getElementById("ce-expire").value = payload.expiresAt;
+        }
+        if (applyMeta && typeof payload.shuffle === "boolean") {
+          document.getElementById("ce-shuffle").checked = payload.shuffle;
+          examDraft.shuffle = payload.shuffle;
+        }
+        if (applyMeta && typeof payload.showResults === "boolean") {
+          document.getElementById("ce-show-results").checked =
+            payload.showResults;
+          examDraft.showResults = payload.showResults;
+        }
+        if (applyMeta && typeof payload.showDetails === "boolean") {
+          document.getElementById("ce-show-details").checked =
+            payload.showDetails;
+          examDraft.showDetails = payload.showDetails;
+        }
+        if (
+          applyMeta &&
+          Number.isFinite(Number(payload.maxAttempts)) &&
+          !document.getElementById("ce-attempts").value.trim()
+        ) {
+          document.getElementById("ce-attempts").value = String(
+            Math.max(0, Number(payload.maxAttempts) || 1),
+          );
+        }
+        (payload.questions || []).forEach((rawQ, idx) => {
+          const q = normalizeImportedQuestionObject(rawQ);
+          if (q) {
+            examDraft.questions.push(q);
+            addedCount++;
+          } else {
+            errors.push(idx + 1);
+          }
+        });
+        return { addedCount: addedCount, errors: errors, metaImported: true };
+      }
+
+      function buildStructuredExamExport() {
+        return {
+          version: 1,
+          title: String(
+            document.getElementById("ce-title")?.value || examDraft.title || "",
+          ).trim(),
+          timeLimit: parseInt(
+            document.getElementById("ce-time")?.value ||
+              examDraft.timeLimit ||
+              45,
+          ),
+          expiresAt:
+            document.getElementById("ce-expire")?.value ||
+            examDraft.expiresAt ||
+            null,
+          shuffle: !!document.getElementById("ce-shuffle")?.checked,
+          showResults: !!document.getElementById("ce-show-results")?.checked,
+          showDetails: !!document.getElementById("ce-show-details")?.checked,
+          maxAttempts:
+            parseInt(
+              document.getElementById("ce-attempts")?.value ||
+                examDraft.maxAttempts ||
+                1,
+            ) || 0,
+          questions: normalizeQuestionsForSave(examDraft.questions || []),
+        };
+      }
+
+      function getAnswerKeyRows(exportData) {
+        const rows = [];
+        (exportData.questions || []).forEach((q, idx) => {
+          let answer = "";
+          if (q.type === "mcq") {
+            answer = ["A", "B", "C", "D"][Number(q.correctIndex) || 0] || "A";
+          } else if (q.type === "tf") {
+            answer = (q.statements || [])
+              .map(
+                (s, sIdx) =>
+                  String.fromCharCode(97 + sIdx) +
+                  ") " +
+                  (s && s.isTrue ? "Đúng" : "Sai"),
+              )
+              .join("; ");
+          } else if (q.type === "short") {
+            answer = splitAcceptedShortAnswers(q.exactAnswers).join(" | ");
+          }
+          rows.push([String(idx + 1), answer || "-"]);
+        });
+        return rows;
+      }
+
+      function buildExportHtml(exportData, forPrint) {
+        const styles = [
+          "body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#111827;}",
+          ".title{text-align:center;font-size:24px;font-weight:700;margin-bottom:6px;}",
+          ".sub{text-align:center;color:#6b7280;margin-bottom:16px;}",
+          ".q{margin:14px 0 6px;font-weight:700;}",
+          ".opt{margin-left:18px;margin-bottom:2px;}",
+          ".answer-title{margin-top:24px;text-align:center;font-size:20px;font-weight:700;}",
+          "table{width:100%;border-collapse:collapse;margin-top:10px;}",
+          "th,td{border:1px solid #d1d5db;padding:8px;vertical-align:top;text-align:left;}",
+          "th{background:#f9fafb;}",
+        ].join("");
+        const parts = [];
+        parts.push(
+          "<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>" +
+            escapeHtmlText(exportData.title || "De thi") +
+            "</title><style>" +
+            styles +
+            "@media print{body{margin:0}}" +
+            (forPrint ? "" : "") +
+            "</style></head><body>",
+        );
+        parts.push(
+          "<div class='title'>" +
+            escapeHtmlText(exportData.title || "ĐỀ KIỂM TRA") +
+            "</div>",
+        );
+        parts.push(
+          "<div class='sub'>Thời gian: " +
+            escapeHtmlText(exportData.timeLimit || 45) +
+            " phút" +
+            (exportData.expiresAt
+              ? " | Hạn chót: " + escapeHtmlText(exportData.expiresAt)
+              : "") +
+            "</div>",
+        );
+        (exportData.questions || []).forEach((q, idx) => {
+          parts.push(
+            "<div class='q'>Câu " +
+              (idx + 1) +
+              ". " +
+              escapeHtmlText(q.text || "") +
+              "</div>",
+          );
+          if (q.type === "mcq") {
+            (q.options || []).forEach((opt, oI) => {
+              parts.push(
+                "<div class='opt'>" +
+                  ["A", "B", "C", "D"][oI] +
+                  ". " +
+                  escapeHtmlText(opt || "") +
+                  "</div>",
+              );
+            });
+          } else if (q.type === "tf") {
+            (q.statements || []).forEach((s, sI) => {
+              parts.push(
+                "<div class='opt'>" +
+                  String.fromCharCode(97 + sI) +
+                  ") " +
+                  escapeHtmlText(s && s.text ? s.text : "") +
+                  "</div>",
+              );
+            });
+          } else if (q.type === "short") {
+            parts.push(
+              "<div class='opt'>Đáp án: " +
+                escapeHtmlText(
+                  (splitAcceptedShortAnswers(q.exactAnswers) || []).join(" | "),
+                ) +
+                "</div>",
+            );
+          }
+        });
+        parts.push("<div class='answer-title'>ĐÁP ÁN</div>");
+        parts.push(
+          "<table><thead><tr><th style='width:80px'>Câu</th><th>Đáp án</th></tr></thead><tbody>",
+        );
+        getAnswerKeyRows(exportData).forEach(([no, ans]) => {
+          parts.push(
+            "<tr><td>" +
+              escapeHtmlText(no) +
+              "</td><td>" +
+              escapeHtmlText(ans) +
+              "</td></tr>",
+          );
+        });
+        parts.push("</tbody></table>");
+
+        return parts.join("");
+      }
       function stripQuestionPrefix(text) {
         return String(text || "")
           .replace(/^\s*(?:Câu\s*)?\d+\s*[:\.)\-–]?\s*/i, "")
@@ -2190,10 +2623,61 @@
       };
       window.closeSmartImport = () =>
         document.getElementById("modal-import").classList.add("hidden-view");
+      window.openImportFilePicker = () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json,.txt,application/json,text/plain";
+        input.onchange = async (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          try {
+            const text = await file.text();
+            document.getElementById("import-text").value = text;
+            showToast("Đã nạp file " + file.name, "success");
+          } catch (err) {
+            showToast("Không đọc được file: " + err.message, "error");
+          }
+        };
+        input.click();
+      };
+
+      window.fillStructuredImportExample = () => {
+        document.getElementById("import-text").value =
+          '{\n  "title": "Kiểm tra mẫu",\n  "timeLimit": 45,\n  "questions": [\n    {\n      "type": "mcq",\n      "text": "2 + 2 = ?",\n      "options": ["3", "4", "5", "6"],\n      "correctIndex": 1\n    }\n  ]\n}';
+      };
+
       window.processSmartImport = () => {
         const text = document.getElementById("import-text").value;
         if (!text.trim())
           return showToast("Vui lòng nhập nội dung!", "warning");
+
+        const structured = parseStructuredImportPayload(text);
+        if (structured) {
+          const result = importStructuredExamData(structured, {
+            applyMeta: true,
+          });
+          if (result.addedCount > 0) {
+            showToast(
+              "Đã thêm " +
+                result.addedCount +
+                " câu hỏi" +
+                (result.errors.length
+                  ? ", bỏ qua " + result.errors.length + " mục chưa nhận dạng"
+                  : "") +
+                "!",
+              "success",
+            );
+            renderEditorQuestions();
+            closeSmartImport();
+            setTimeout(() => {
+              const cvs = document.getElementById("ce-questions-canvas");
+              cvs.scrollTop = cvs.scrollHeight;
+            }, 50);
+            return;
+          }
+          return showToast("File JSON không có câu hỏi hợp lệ!", "error");
+        }
+
         const blocks = splitSmartImportBlocks(text);
         let addedCount = 0;
         const errors = [];
@@ -2225,7 +2709,13 @@
         });
         if (addedCount > 0) {
           showToast(
-            `Đã thêm ${addedCount} câu hỏi${errors.length ? `, bỏ qua ${errors.length} khối chưa nhận dạng` : ""}!`,
+            "Đã thêm " +
+              addedCount +
+              " câu hỏi" +
+              (errors.length
+                ? ", bỏ qua " + errors.length + " khối chưa nhận dạng"
+                : "") +
+              "!",
             "success",
           );
           renderEditorQuestions();
@@ -2490,7 +2980,8 @@
         if (!title || !examDraft.questions.length)
           return showToast("Cần nhập tên và câu hỏi", "error");
         const btn = document.getElementById("btn-save-exam");
-        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang lưu...`;
+        btn.innerHTML =
+          '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang lưu...';
         btn.disabled = true;
         try {
           const payload = {
@@ -2526,8 +3017,62 @@
         } catch (e) {
           showToast("Lỗi: " + e.message, "error");
         } finally {
-          btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Lưu Xuất Bản`;
+          btn.innerHTML =
+            '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Lưu Xuất Bản';
           btn.disabled = false;
+        }
+      };
+
+      function exportHtmlFile(exportData) {
+        const html = buildExportHtml(exportData, false);
+        return new Blob([html], { type: "application/msword;charset=utf-8" });
+      }
+
+      async function exportExamAsWord(exportData) {
+        const blob = exportHtmlFile(exportData);
+        const filename = safeFileName(exportData.title || "de-thi") + ".doc";
+        downloadBlob(blob, filename);
+      }
+
+      async function exportExamAsPdf(exportData) {
+        const html = buildExportHtml(exportData, true);
+        const popup = window.open("", "_blank", "width=1100,height=900");
+        if (!popup) throw new Error("Trình duyệt đã chặn cửa sổ xuất PDF");
+        popup.document.open();
+        popup.document.write(html);
+        popup.document.close();
+        popup.focus();
+        setTimeout(() => {
+          try {
+            popup.print();
+          } catch (e) {}
+        }, 500);
+      }
+
+      window.exportExam = async (format) => {
+        try {
+          const exportData = buildStructuredExamExport();
+          if (!exportData.title || !exportData.questions.length) {
+            showToast(
+              "Cần có tên bài thi và câu hỏi trước khi xuất file",
+              "warning",
+            );
+            return;
+          }
+          if (format === "word") {
+            await exportExamAsWord(exportData);
+            showToast("Đã xuất file Word!", "success");
+          } else if (format === "pdf") {
+            await exportExamAsPdf(exportData);
+            showToast(
+              "Đã mở bản in PDF. Hãy lưu thành PDF trong hộp thoại in.",
+              "success",
+            );
+          } else {
+            showToast("Định dạng xuất không hợp lệ", "error");
+          }
+        } catch (e) {
+          showToast("Lỗi xuất file: " + e.message, "error");
         }
       };
 
