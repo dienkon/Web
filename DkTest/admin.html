@@ -1522,6 +1522,7 @@
       const db = getFirestore(app);
       const rtdb = getDatabase(app);
       const basePath = `artifacts/${appId}/public/data`;
+      let explanationText = null;
 
       window.loadedExams = {};
       window.State = {
@@ -4218,9 +4219,12 @@
         if (q?.type === "mcq") {
           const originalOrder = getAttemptOptionOrder(snap);
           const attemptOptions = snap.options || q.options || [];
-          const originalOptions = q.originalOptions || q.options || attemptOptions;
+          const originalOptions =
+            q.originalOptions || q.options || attemptOptions;
           const selectedAttemptIndex =
-            stuAns === undefined || stuAns === null ? undefined : Number(stuAns);
+            stuAns === undefined || stuAns === null
+              ? undefined
+              : Number(stuAns);
           const selectedOriginalIndex =
             mode === "original" && selectedAttemptIndex !== undefined
               ? originalOrder[selectedAttemptIndex]
@@ -4234,9 +4238,7 @@
             ? Number(q.originalCorrectIndex)
             : Number(q.correctIndex || 0);
           const selectedIndex =
-            mode === "original"
-              ? selectedOriginalIndex
-              : selectedAttemptIndex;
+            mode === "original" ? selectedOriginalIndex : selectedAttemptIndex;
           const correctIndex =
             mode === "original" ? correctOriginalIndex : correctAttemptIndex;
           const reviewOptions =
@@ -4310,7 +4312,10 @@
       }
 
       function getAttemptOptionOrder(question) {
-        if (Array.isArray(question?.optionOrder) && question.optionOrder.length) {
+        if (
+          Array.isArray(question?.optionOrder) &&
+          question.optionOrder.length
+        ) {
           return question.optionOrder;
         }
         const optionCount = Array.isArray(question?.options)
@@ -4510,8 +4515,7 @@
             correct,
             type: "tf",
             details:
-              detailRows ||
-              `${correctStatements}/${statements.length} ý đúng`,
+              detailRows || `${correctStatements}/${statements.length} ý đúng`,
           };
         }
         if (q.type === "short") {
@@ -4557,9 +4561,11 @@
             const currentCorrectOriginalIndex = getOriginalCorrectIndex(q);
             const prevCorrectOriginalIndex = getOriginalCorrectIndex(attemptQ);
             const curCorrect =
-              Number(selectedOriginalIndex) === Number(currentCorrectOriginalIndex);
+              Number(selectedOriginalIndex) ===
+              Number(currentCorrectOriginalIndex);
             const prevCorrect =
-              Number(selectedOriginalIndex) === Number(prevCorrectOriginalIndex);
+              Number(selectedOriginalIndex) ===
+              Number(prevCorrectOriginalIndex);
             const curScore = curCorrect ? pointsPerQuestion : 0;
             const prevScore = prevCorrect ? pointsPerQuestion : 0;
             score += curScore;
@@ -4636,7 +4642,9 @@
             const baseTitle =
               log.questionLabel ||
               log.text ||
-              (log.questionId ? `Câu ${log.questionId}` : log.type || "Thao tác");
+              (log.questionId
+                ? `Câu ${log.questionId}`
+                : log.type || "Thao tác");
             const title = `${baseTitle}${log.questionId ? ` (ID: ${log.questionId})` : ""}`;
             const beforeText =
               log.beforeDetail ||
