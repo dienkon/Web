@@ -26,6 +26,7 @@
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
     <script src="https://unpkg.com/mathlive"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@9.5.1/build/index.umd.js"></script>
 
     <style>
       :root {
@@ -156,6 +157,12 @@
       @media (max-width: 768px) {
         body {
           overflow-x: hidden;
+        }
+        #modal-attempt-log .bg-white,
+        #modal-manual-grade .bg-white,
+        #modal-manual-grade .bg-gray-50 {
+          max-width: calc(100vw - 1rem) !important;
+          margin: 0.5rem !important;
         }
         .view-container {
           margin-top: 1rem !important;
@@ -799,7 +806,7 @@
               >
                 <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Lưu Xuất Bản
               </button>
-              <div class="grid grid-cols-2 gap-2">
+              <div class="grid grid-cols-3 gap-2">
                 <button
                   onclick="exportExam('word')"
                   class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-semibold transition flex items-center justify-center"
@@ -811,6 +818,12 @@
                   class="w-full bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-xl font-semibold transition flex items-center justify-center"
                 >
                   <i class="fa-solid fa-file-pdf mr-2"></i> Xuất PDF
+                </button>
+                <button
+                  onclick="exportExam('json')"
+                  class="w-full bg-slate-700 hover:bg-slate-800 text-white py-2.5 rounded-xl font-semibold transition flex items-center justify-center"
+                >
+                  <i class="fa-solid fa-brackets-curly mr-2"></i> JSON
                 </button>
               </div>
               <button
@@ -901,6 +914,7 @@
                       <th class="px-4 py-3">Bắt đầu</th>
                       <th class="px-4 py-3">Cập nhật</th>
                       <th class="px-4 py-3">Còn lại</th>
+                      <th class="px-4 py-3">Thao tác</th>
                     </tr>
                   </thead>
                   <tbody
@@ -946,8 +960,145 @@
 
     <div
       id="toast-container"
-      class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"
+      class="fixed bottom-6 right-6 z-[9900] flex flex-col gap-3 pointer-events-none"
     ></div>
+
+    <div
+      id="modal-attempt-log"
+      class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[1111] flex items-center justify-center hidden-view"
+      onclick="if (event.target === this) closeAttemptLogModal();"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col mx-4 modal-content-enter overflow-hidden"
+      >
+        <div
+          class="p-5 border-b flex flex-col md:flex-row md:justify-between md:items-center gap-3 bg-white"
+        >
+          <div>
+            <h3 class="font-bold text-xl text-gray-800">Nhật ký làm bài</h3>
+            <p
+              id="admin-attempt-log-info"
+              class="text-sm text-gray-500 mt-1"
+            ></p>
+          </div>
+          <button
+            onclick="closeAttemptLogModal()"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition"
+          >
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </button>
+        </div>
+        <div
+          class="flex-1 overflow-y-auto p-6"
+          id="admin-attempt-log-content"
+        ></div>
+      </div>
+    </div>
+
+    <div
+      id="modal-manual-grade"
+      class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[1112] flex items-center justify-center hidden-view"
+      onclick="if (event.target === this) closeManualGradeModal();"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-[92vh] flex flex-col mx-4 modal-content-enter overflow-hidden"
+      >
+        <div
+          class="p-5 border-b flex flex-col md:flex-row md:justify-between md:items-center gap-3 bg-white"
+        >
+          <div>
+            <h3 class="font-bold text-xl text-gray-800">Chấm tay bài thi</h3>
+            <p id="manual-grade-info" class="text-sm text-gray-500 mt-1"></p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              onclick="fillManualFromCurrent()"
+              class="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold transition"
+            >
+              Nạp dữ liệu hiện tại
+            </button>
+            <button
+              onclick="closeManualGradeModal()"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition"
+            >
+              <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+          </div>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6 bg-slate-50">
+          <div
+            class="bg-white rounded-2xl border border-gray-200 p-5 space-y-5"
+          >
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <label class="text-sm font-semibold text-gray-700"
+                >Điểm<input
+                  id="manual-score"
+                  type="number"
+                  step="0.1"
+                  class="mt-1 w-full border border-gray-300 rounded-xl px-3 py-2"
+              /></label>
+              <label class="text-sm font-semibold text-gray-700"
+                >Số câu đúng<input
+                  id="manual-correct"
+                  type="number"
+                  step="1"
+                  class="mt-1 w-full border border-gray-300 rounded-xl px-3 py-2"
+              /></label>
+              <label class="text-sm font-semibold text-gray-700"
+                >Số câu sai<input
+                  id="manual-wrong"
+                  type="number"
+                  step="1"
+                  class="mt-1 w-full border border-gray-300 rounded-xl px-3 py-2"
+              /></label>
+              <label class="text-sm font-semibold text-gray-700"
+                >Tổng câu<input
+                  id="manual-total"
+                  type="number"
+                  step="1"
+                  class="mt-1 w-full border border-gray-300 rounded-xl px-3 py-2"
+                  disabled
+              /></label>
+            </div>
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+              <div class="text-xs text-gray-500" id="manual-grade-auto-note">
+                Khi chọn lại đáp án, điểm sẽ tự cập nhật. Có thể sửa điểm cuối
+                cùng bằng tay.
+              </div>
+              <div class="flex gap-2 flex-wrap">
+                <button
+                  onclick="syncManualGradePreview()"
+                  class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                >
+                  Tính lại theo đáp án
+                </button>
+                <button
+                  onclick="saveManualGrade()"
+                  class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                >
+                  Lưu chấm tay
+                </button>
+              </div>
+            </div>
+            <div id="manual-grade-body" class="space-y-4"></div>
+            <details class="bg-slate-50 border border-gray-200 rounded-2xl p-4">
+              <summary class="cursor-pointer font-bold text-gray-700">
+                JSON đáp án nâng cao
+              </summary>
+              <textarea
+                id="manual-answers"
+                oninput="syncManualGradeFromJson()"
+                class="mt-3 w-full min-h-[220px] border border-gray-300 rounded-2xl px-4 py-3 font-mono text-sm"
+              ></textarea>
+              <p class="text-xs text-gray-500 mt-2">
+                Có thể sửa trực tiếp JSON đáp án. Phần giao diện bên trên sẽ tự
+                đồng bộ theo.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Modal Xem Chi Tiết Bài Nộp -->
     <div
@@ -984,12 +1135,49 @@
                 Gốc
               </button>
             </div>
+            <div
+              class="inline-flex rounded-xl border border-gray-200 bg-gray-100 p-1 shadow-sm"
+            >
+              <button
+                id="btn-filter-all"
+                onclick="setSubmissionQuestionFilter('all')"
+                class="px-3 py-1.5 text-sm font-bold rounded-lg transition bg-white text-slate-700 shadow-sm"
+              >
+                Tất cả
+              </button>
+              <button
+                id="btn-filter-correct"
+                onclick="setSubmissionQuestionFilter('correct')"
+                class="px-3 py-1.5 text-sm font-bold rounded-lg transition text-gray-500"
+              >
+                Đúng
+              </button>
+              <button
+                id="btn-filter-wrong"
+                onclick="setSubmissionQuestionFilter('wrong')"
+                class="px-3 py-1.5 text-sm font-bold rounded-lg transition text-gray-500"
+              >
+                Sai
+              </button>
+            </div>
             <button
               id="btn-regrade-current"
               onclick="regradeSubmission(currentViewingResultId)"
               class="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold transition disabled:opacity-50 disabled:cursor-not-allowed hidden"
             >
               <i class="fa-solid fa-rotate-right mr-1"></i> Chấm điểm lại
+            </button>
+            <button
+              onclick="openManualGradeModal()"
+              class="px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold transition"
+            >
+              <i class="fa-solid fa-pen-to-square mr-1"></i> Chấm tay
+            </button>
+            <button
+              onclick="openAttemptLogModal(currentViewingResultId)"
+              class="px-4 py-2 rounded-full bg-slate-700 hover:bg-slate-800 text-white text-sm font-bold transition"
+            >
+              <i class="fa-regular fa-clock mr-1"></i> Nhật ký
             </button>
             <button
               onclick="closeSubmissionDetail()"
@@ -1440,13 +1628,20 @@
         return `${m}p ${s}s`;
       }
       function deepClone(obj) {
-        return JSON.parse(JSON.stringify(obj));
+        if (obj === undefined) return undefined;
+        if (obj === null) return null;
+        try {
+          return JSON.parse(JSON.stringify(obj));
+        } catch {
+          return obj;
+        }
       }
 
       function normalizeText(value) {
         return String(value ?? "")
           .replace(/\r/g, "")
           .replace(/[ \t]+/g, " ")
+          .replace(/\n{3,}/g, "\n\n")
           .trim();
       }
 
@@ -1554,6 +1749,9 @@
           q.exactAnswers = q.exactAnswers.map((a) => normalizeMathInput(a));
         }
         q.text = normalizeMathInput(q.text);
+        q.explanation = normalizeMathInput(q.explanation || "");
+        q.imageWidth = q.imageWidth ? Number(q.imageWidth) : null;
+        q.imageHeight = q.imageHeight ? Number(q.imageHeight) : null;
         return q;
       }
 
@@ -1678,7 +1876,12 @@
             originalOptions: deepClone(options),
             originalCorrectIndex: correctIndex,
             optionOrder: [0, 1, 2, 3],
+            explanation: normalizeMathInput(
+              raw.explanation || raw.explain || raw.solution || "",
+            ),
             imageUrl: raw.imageUrl || raw.image || null,
+            imageWidth: raw.imageWidth ? Number(raw.imageWidth) : null,
+            imageHeight: raw.imageHeight ? Number(raw.imageHeight) : null,
           };
         }
 
@@ -1715,7 +1918,12 @@
             type: "tf",
             text,
             statements,
+            explanation: normalizeMathInput(
+              raw.explanation || raw.explain || raw.solution || "",
+            ),
             imageUrl: raw.imageUrl || raw.image || null,
+            imageWidth: raw.imageWidth ? Number(raw.imageWidth) : null,
+            imageHeight: raw.imageHeight ? Number(raw.imageHeight) : null,
           };
         }
 
@@ -1738,7 +1946,12 @@
             type: "short",
             text,
             exactAnswers: exactAnswers.length ? exactAnswers : [""],
+            explanation: normalizeMathInput(
+              raw.explanation || raw.explain || raw.solution || "",
+            ),
             imageUrl: raw.imageUrl || raw.image || null,
+            imageWidth: raw.imageWidth ? Number(raw.imageWidth) : null,
+            imageHeight: raw.imageHeight ? Number(raw.imageHeight) : null,
           };
         }
 
@@ -1843,7 +2056,7 @@
 
       function buildStructuredExamExport() {
         return {
-          version: 1,
+          version: 2,
           title: String(
             document.getElementById("ce-title")?.value || examDraft.title || "",
           ).trim(),
@@ -1865,7 +2078,12 @@
                 examDraft.maxAttempts ||
                 1,
             ) || 0,
-          questions: normalizeQuestionsForSave(examDraft.questions || []),
+          questions: normalizeQuestionsForSave(examDraft.questions || []).map(
+            (q) => ({
+              ...q,
+              explanation: q.explanation || "",
+            }),
+          ),
         };
       }
 
@@ -1899,6 +2117,7 @@
           ".sub{text-align:center;color:#6b7280;margin-bottom:16px;}",
           ".q{margin:14px 0 6px;font-weight:700;}",
           ".opt{margin-left:18px;margin-bottom:2px;}",
+          ".exp{margin:6px 0 10px 18px;color:#4b5563;font-style:italic;}",
           ".answer-title{margin-top:24px;text-align:center;font-size:20px;font-weight:700;}",
           "table{width:100%;border-collapse:collapse;margin-top:10px;}",
           "th,td{border:1px solid #d1d5db;padding:8px;vertical-align:top;text-align:left;}",
@@ -1911,7 +2130,6 @@
             "</title><style>" +
             styles +
             "@media print{body{margin:0}}" +
-            (forPrint ? "" : "") +
             "</style></head><body>",
         );
         parts.push(
@@ -1936,6 +2154,16 @@
               escapeHtmlText(q.text || "") +
               "</div>",
           );
+          if (q.imageUrl) {
+            const style = [
+              q.imageWidth ? `width:${Number(q.imageWidth)}px;` : "",
+              q.imageHeight ? `height:${Number(q.imageHeight)}px;` : "",
+              "max-width:100%;object-fit:contain;",
+            ].join("");
+            parts.push(
+              `<div class='opt'><img src='${escapeHtmlText(q.imageUrl)}' style='${style}' /></div>`,
+            );
+          }
           if (q.type === "mcq") {
             (q.options || []).forEach((opt, oI) => {
               parts.push(
@@ -1965,6 +2193,13 @@
                 "</div>",
             );
           }
+          if (q.explanation) {
+            parts.push(
+              "<div class='exp'>Giải thích: " +
+                escapeHtmlText(q.explanation) +
+                "</div>",
+            );
+          }
         });
         parts.push("<div class='answer-title'>ĐÁP ÁN</div>");
         parts.push(
@@ -1983,6 +2218,7 @@
 
         return parts.join("");
       }
+
       function stripQuestionPrefix(text) {
         return String(text || "")
           .replace(/^\s*(?:Câu\s*)?\d+\s*[:\.)\-–]?\s*/i, "")
@@ -2098,6 +2334,7 @@
               type: "tf",
               text: questionText,
               statements: statementList,
+              explanation: explanationText,
               imageUrl: null,
             };
           }
@@ -2114,6 +2351,7 @@
               type: "short",
               text: questionText,
               exactAnswers,
+              explanation: explanationText,
               imageUrl: null,
             };
           }
@@ -2191,6 +2429,7 @@
             ),
             originalCorrectIndex: correctIndex,
             optionOrder: [0, 1, 2, 3],
+            explanation: explanationText,
             imageUrl: null,
           };
         }
@@ -2225,6 +2464,7 @@
           originalOptions: deepClone(cleaned),
           originalCorrectIndex: correctIndex,
           optionOrder: [0, 1, 2, 3],
+          explanation: explanationText,
           imageUrl: null,
         };
       }
@@ -2268,7 +2508,11 @@
             else res += window.extractText(node);
           }
         }
-        return res.replace(/\n$/, "");
+        return res
+          .replace(/\n{3,}/g, "\n\n")
+          .replace(/[ \t]+\n/g, "\n")
+          .replace(/\n[ \t]+/g, "\n")
+          .replace(/\n$/, "");
       };
 
       window.renderTextToWysiwyg = (text) => {
@@ -2356,7 +2600,8 @@
       let statsDataCache = null;
       let statsRealtimeUnsubs = [];
       let activeStatsTab = "summary";
-      let currentViewingResultId = null;
+      var currentViewingResultId = null;
+      window.currentViewingResultId = currentViewingResultId;
       let currentExamStatsDetailId = null;
       let currentViewingStudentId = null;
       let currentStudentContext = null;
@@ -2786,7 +3031,15 @@
       }
 
       window.addQuestion = (type) => {
-        const q = { id: generateId(), type, text: "", imageUrl: null };
+        const q = {
+          id: generateId(),
+          type,
+          text: "",
+          imageUrl: null,
+          explanation: "",
+          imageWidth: null,
+          imageHeight: null,
+        };
         if (type === "mcq") {
           q.options = ["", "", "", ""];
           q.correctIndex = 0;
@@ -2848,6 +3101,7 @@
         if (q) {
           const s = q.statements.find((x) => x.id === sId);
           if (s) s.isTrue = v;
+          renderEditorQuestions();
         }
       };
       window.updSh = (qId, v) => {
@@ -2860,6 +3114,20 @@
           typesetMath();
         }
       };
+      window.updExp = (qId, v) => {
+        const q = examDraft.questions.find((x) => x.id === qId);
+        if (q) q.explanation = normalizeMathInput(v);
+      };
+      window.setImageSize = (qId, field, v) => {
+        const q = examDraft.questions.find((x) => x.id === qId);
+        if (!q) return;
+        const n = Number(v);
+        if (field === "width")
+          q.imageWidth = Number.isFinite(n) && n > 0 ? n : null;
+        if (field === "height")
+          q.imageHeight = Number.isFinite(n) && n > 0 ? n : null;
+        renderEditorQuestions();
+      };
 
       function renderEditorQuestions() {
         const container = document.getElementById("ce-questions-canvas");
@@ -2871,6 +3139,8 @@
           ? qs.filter((q, idx) => {
               const hay = [
                 idx + 1,
+                `câu ${idx + 1}`,
+                `cau ${idx + 1}`,
                 q.text,
                 ...(q.options || []),
                 ...(q.statements || []).map((s) => s.text),
@@ -2931,7 +3201,8 @@
           }
 
           if (q.imageUrl)
-            h += `<div class="pl-14 mb-4 relative inline-block group/img"><img src="${q.imageUrl}" class="image-preview" /><button onclick="removeImage('${q.id}')" class="absolute -top-2 -right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs opacity-0 group-hover/img:opacity-100 transition"><i class="fa-solid fa-xmark"></i></button></div>`;
+            h += `<div class="pl-14 mb-4 relative inline-block group/img"><img src="${q.imageUrl}" class="image-preview" style="${q.imageWidth ? `width:${q.imageWidth}px;max-width:100%;` : "max-width:100%;"}${q.imageHeight ? `height:${q.imageHeight}px;object-fit:contain;` : ""}" /><button onclick="removeImage('${q.id}')" class="absolute -top-2 -right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs opacity-0 group-hover/img:opacity-100 transition"><i class="fa-solid fa-xmark"></i></button></div>`;
+          h += `<div class="pl-14 mb-4 grid grid-cols-1 md:grid-cols-3 gap-3"><label class="text-xs font-semibold text-gray-500">Rộng ảnh (px)<input type="number" min="40" step="10" value="${q.imageWidth || ""}" oninput="setImageSize('${q.id}', 'width', this.value)" class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2"></label><label class="text-xs font-semibold text-gray-500">Cao ảnh (px)<input type="number" min="40" step="10" value="${q.imageHeight || ""}" oninput="setImageSize('${q.id}', 'height', this.value)" class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2"></label><label class="text-xs font-semibold text-gray-500">Giải thích<input type="text" value="${escapeHtml(q.explanation || "")}" oninput="updExp('${q.id}', this.value)" class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Giải thích: ..."></label></div>`;
 
           if (q.type === "mcq") {
             h += `<div class="pl-14 space-y-3">`;
@@ -2973,6 +3244,7 @@
         });
         typesetMath();
       }
+      window.renderEditorQuestions = renderEditorQuestions;
 
       window.saveExam = async () => {
         const title = document.getElementById("ce-title").value.trim();
@@ -3028,13 +3300,124 @@
         return new Blob([html], { type: "application/msword;charset=utf-8" });
       }
 
+      function buildLatexExport(exportData) {
+        const esc = (s) =>
+          String(s || "")
+            .replace(/\\/g, "\\textbackslash{}")
+            .replace(/([#$%&~_^{}])/g, "\$1");
+        const qLatex = (q) => {
+          let body = `\item ${esc(q.text || "")}`;
+          if (q.explanation)
+            body += `\\textit{Giải thích: ${esc(q.explanation)}}`;
+          if (q.imageUrl) body += `\\textit{[Ảnh được đính kèm trong bản gốc]}`;
+          if (q.type === "mcq") {
+            body += "\n\begin{enumerate}[A.]";
+            (q.options || []).forEach((opt) => {
+              body += `\item ${esc(opt || "")}`;
+            });
+            body += "\end{enumerate}";
+          } else if (q.type === "tf") {
+            body += "\n\begin{itemize}";
+            (q.statements || []).forEach((s, i) => {
+              body += `\item ${String.fromCharCode(97 + i)}) ${esc(s?.text || "")}`;
+            });
+            body += "\end{itemize}";
+          } else if (q.type === "short") {
+            body += `\\textbf{Đáp án:} ${esc((splitAcceptedShortAnswers(q.exactAnswers) || []).join(" | "))}`;
+          }
+          return body;
+        };
+        return [
+          "\\documentclass[12pt]{article}",
+          "\\usepackage[utf8]{inputenc}",
+          "\\usepackage[T5]{fontenc}",
+          "\\usepackage[vietnamese]{babel}",
+          "\\usepackage{enumitem}",
+          "\\usepackage{geometry}",
+          "\\geometry{margin=2cm}",
+          "\\begin{document}",
+          "\\begin{center}",
+          `{\\LARGE ${esc(exportData.title || "ĐỀ KIỂM TRA")}}\\`,
+          `{\\small Thời gian: ${esc(exportData.timeLimit || 45)} phút}`,
+          "\\end{center}",
+          "\\begin{enumerate}",
+          ...(exportData.questions || []).map(qLatex),
+          "\end{enumerate}",
+          "\end{document}",
+        ].join("\n");
+      }
+
       async function exportExamAsWord(exportData) {
+        if (window.docx && window.docx.Document) {
+          const { Document, Packer, Paragraph, TextRun, HeadingLevel } =
+            window.docx;
+          const children = [
+            new Paragraph({
+              text: exportData.title || "ĐỀ KIỂM TRA",
+              heading: HeadingLevel.TITLE,
+            }),
+            new Paragraph({
+              text: `Thời gian: ${exportData.timeLimit || 45} phút`,
+            }),
+          ];
+          (exportData.questions || []).forEach((q, idx) => {
+            children.push(
+              new Paragraph({
+                text: `Câu ${idx + 1}. ${q.text || ""}`,
+                heading: HeadingLevel.HEADING_2,
+              }),
+            );
+            if (q.explanation)
+              children.push(
+                new Paragraph({ text: `Giải thích: ${q.explanation}` }),
+              );
+            if (q.type === "mcq") {
+              (q.options || []).forEach((opt, oI) =>
+                children.push(
+                  new Paragraph({
+                    text: `${["A", "B", "C", "D"][oI]}. ${opt || ""}`,
+                  }),
+                ),
+              );
+            } else if (q.type === "tf") {
+              (q.statements || []).forEach((s, sI) =>
+                children.push(
+                  new Paragraph({
+                    text: `${String.fromCharCode(97 + sI)}) ${s?.text || ""}`,
+                  }),
+                ),
+              );
+            } else if (q.type === "short") {
+              children.push(
+                new Paragraph({
+                  text: `Đáp án: ${(splitAcceptedShortAnswers(q.exactAnswers) || []).join(" | ")}`,
+                }),
+              );
+            }
+          });
+          const docx = new Document({
+            sections: [{ properties: {}, children }],
+          });
+          const blob = await Packer.toBlob(docx);
+          downloadBlob(
+            blob,
+            safeFileName(exportData.title || "de-thi") + ".docx",
+          );
+          return;
+        }
         const blob = exportHtmlFile(exportData);
-        const filename = safeFileName(exportData.title || "de-thi") + ".doc";
-        downloadBlob(blob, filename);
+        downloadBlob(
+          blob,
+          safeFileName(exportData.title || "de-thi") + ".docx",
+        );
       }
 
       async function exportExamAsPdf(exportData) {
+        const latex = buildLatexExport(exportData);
+        const blob = new Blob([latex], {
+          type: "application/x-tex;charset=utf-8",
+        });
+        downloadBlob(blob, safeFileName(exportData.title || "de-thi") + ".tex");
         const html = buildExportHtml(exportData, true);
         const popup = window.open("", "_blank", "width=1100,height=900");
         if (!popup) throw new Error("Trình duyệt đã chặn cửa sổ xuất PDF");
@@ -3064,10 +3447,16 @@
             showToast("Đã xuất file Word!", "success");
           } else if (format === "pdf") {
             await exportExamAsPdf(exportData);
-            showToast(
-              "Đã mở bản in PDF. Hãy lưu thành PDF trong hộp thoại in.",
-              "success",
+            showToast("Đã xuất LaTeX và mở bản in PDF.", "success");
+          } else if (format === "json") {
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+              type: "application/json;charset=utf-8",
+            });
+            downloadBlob(
+              blob,
+              safeFileName(exportData.title || "de-thi") + ".json",
             );
+            showToast("Đã xuất JSON!", "success");
           } else {
             showToast("Định dạng xuất không hợp lệ", "error");
           }
@@ -3138,6 +3527,19 @@
             res(true);
           };
         });
+      }
+
+      function normalizeLoggedValue(value) {
+        if (value === undefined) return "—";
+        if (value === null) return "null";
+        if (typeof value === "object") {
+          try {
+            return JSON.stringify(value);
+          } catch (e) {
+            return String(value);
+          }
+        }
+        return String(value);
       }
 
       function escapeHtml(str) {
@@ -3780,56 +4182,441 @@
           cheats.length ? "none" : "block";
       };
 
-      function recomputeResultScore(exam, res) {
-        const qs =
-          Array.isArray(res?.attemptQuestions) && res.attemptQuestions.length
-            ? res.attemptQuestions
-            : exam.questions || [];
-        let correctCount = 0;
-        const totalQuestions = qs.length || 0;
-        let score = 0;
-        const pointsPerQuestion = totalQuestions > 0 ? 10 / totalQuestions : 0;
+      function setSubmissionQuestionFilter(filter) {
+        currentSubmissionFilter =
+          filter === "correct" || filter === "wrong" ? filter : "all";
+        updateSubmissionFilterButtons(currentSubmissionFilter);
+        if (currentSubmissionContext) {
+          renderSubmissionDetailView(
+            currentSubmissionContext.exam,
+            currentSubmissionContext.res,
+            currentSubmissionReviewMode,
+          );
+        }
+      }
 
-        qs.forEach((q) => {
+      function updateSubmissionFilterButtons(filter) {
+        const map = {
+          all: "btn-filter-all",
+          correct: "btn-filter-correct",
+          wrong: "btn-filter-wrong",
+        };
+        Object.entries(map).forEach(([key, id]) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.className =
+            key === filter
+              ? "px-3 py-1.5 text-sm font-bold rounded-lg transition bg-white text-slate-700 shadow-sm"
+              : "px-3 py-1.5 text-sm font-bold rounded-lg transition text-gray-500";
+        });
+      }
+
+      function getSubmissionQuestionState(q, res, mode = "attempt") {
+        const stuAns = res?.answers?.[q?.id];
+        const snap =
+          res?.attemptQuestions?.find((x) => x.id === q?.id) || q || {};
+        if (q?.type === "mcq") {
+          const originalOrder = getAttemptOptionOrder(snap);
+          const attemptOptions = snap.options || q.options || [];
+          const originalOptions = q.originalOptions || q.options || attemptOptions;
+          const selectedAttemptIndex =
+            stuAns === undefined || stuAns === null ? undefined : Number(stuAns);
+          const selectedOriginalIndex =
+            mode === "original" && selectedAttemptIndex !== undefined
+              ? originalOrder[selectedAttemptIndex]
+              : selectedAttemptIndex;
+          const correctAttemptIndex = Number.isFinite(Number(snap.correctIndex))
+            ? Number(snap.correctIndex)
+            : Number(q.correctIndex || 0);
+          const correctOriginalIndex = Number.isFinite(
+            Number(q.originalCorrectIndex),
+          )
+            ? Number(q.originalCorrectIndex)
+            : Number(q.correctIndex || 0);
+          const selectedIndex =
+            mode === "original"
+              ? selectedOriginalIndex
+              : selectedAttemptIndex;
+          const correctIndex =
+            mode === "original" ? correctOriginalIndex : correctAttemptIndex;
+          const reviewOptions =
+            mode === "original" ? originalOptions : attemptOptions;
+          const selectedText =
+            selectedIndex === undefined
+              ? "Trống"
+              : window.renderTextToWysiwyg(reviewOptions[selectedIndex] || "");
+          const correctText = window.renderTextToWysiwyg(
+            reviewOptions[correctIndex] ||
+              reviewOptions[correctOriginalIndex] ||
+              "",
+          );
+          return {
+            type: "mcq",
+            selectedIndex,
+            correctIndex,
+            selectedText,
+            correctText,
+            options: reviewOptions,
+            isCorrect: Number(selectedIndex) === Number(correctIndex),
+          };
+        }
+        if (q?.type === "tf") {
+          const statements = Array.isArray(q.statements) ? q.statements : [];
+          const rows = statements.map((s, sI) => {
+            const chosen = stuAns?.[s.id];
+            const correct = !!s.isTrue;
+            const isAnswered = chosen !== undefined;
+            return {
+              id: s.id,
+              label: String.fromCharCode(97 + sI),
+              text: window.renderTextToWysiwyg(s.text || ""),
+              chosen,
+              correct,
+              isCorrect: chosen === correct,
+              isAnswered,
+            };
+          });
+          return {
+            type: "tf",
+            rows,
+            isCorrect: rows.length > 0 && rows.every((r) => r.isCorrect),
+            selectedText: rows
+              .map(
+                (r) =>
+                  `${r.label}) ${r.chosen === undefined ? "Trống" : r.chosen ? "Đúng" : "Sai"}`,
+              )
+              .join("; "),
+            correctText: rows
+              .map((r) => `${r.label}) ${r.correct ? "Đúng" : "Sai"}`)
+              .join("; "),
+          };
+        }
+        if (q?.type === "short") {
+          const text = String(stuAns || "");
+          const exactList = splitAcceptedShortAnswers(q.exactAnswers);
+          return {
+            type: "short",
+            selectedText: text || "Bỏ trống",
+            correctText: exactList.join(" | ") || "—",
+            isCorrect: isShortAnswerCorrect(text, q),
+          };
+        }
+        return {
+          type: q?.type || "unknown",
+          selectedText: normalizeLoggedValue(stuAns),
+          correctText: "—",
+          isCorrect: false,
+        };
+      }
+
+      function getAttemptOptionOrder(question) {
+        if (Array.isArray(question?.optionOrder) && question.optionOrder.length) {
+          return question.optionOrder;
+        }
+        const optionCount = Array.isArray(question?.options)
+          ? question.options.length
+          : 0;
+        return Array.from({ length: optionCount }, (_, idx) => idx);
+      }
+
+      function getOriginalCorrectIndex(question) {
+        if (!question) return 0;
+        const originalIndex = Number(question.originalCorrectIndex);
+        if (Number.isFinite(originalIndex)) return originalIndex;
+        const currentIndex = Number(question.correctIndex);
+        return Number.isFinite(currentIndex) ? currentIndex : 0;
+      }
+
+      function getMappedAttemptCorrectIndex(attemptQuestion, originalQuestion) {
+        const order = getAttemptOptionOrder(attemptQuestion);
+        const originalCorrect = getOriginalCorrectIndex(originalQuestion);
+        const mapped = order.indexOf(originalCorrect);
+        if (mapped >= 0) return mapped;
+        const fallback = Number(attemptQuestion?.correctIndex);
+        return Number.isFinite(fallback) ? fallback : 0;
+      }
+
+      function syncAttemptQuestionsToOriginalExam(exam, res) {
+        const attemptQuestions = deepClone(
+          res?.attemptQuestions || exam?.questions || [],
+        );
+        const originalById = new Map(
+          (exam?.questions || []).map((q) => [q.id, q]),
+        );
+        return attemptQuestions.map((attemptQ) => {
+          if (attemptQ?.type !== "mcq") return attemptQ;
+          const originalQ = originalById.get(attemptQ.id) || attemptQ;
+          return {
+            ...attemptQ,
+            originalOptions:
+              originalQ.originalOptions ||
+              originalQ.options ||
+              attemptQ.originalOptions ||
+              attemptQ.options ||
+              [],
+            originalCorrectIndex: getOriginalCorrectIndex(originalQ),
+            correctIndex: getMappedAttemptCorrectIndex(attemptQ, originalQ),
+          };
+        });
+      }
+
+      function setManualGradeAnswer(
+        questionId,
+        kind,
+        value,
+        statementId = null,
+      ) {
+        if (!manualGradeState) return;
+        const { answers } = manualGradeState;
+        if (kind === "mcq") {
+          answers[questionId] =
+            value === "" || value === null || value === undefined
+              ? null
+              : Number(value);
+        } else if (kind === "short") {
+          answers[questionId] = String(value || "");
+        } else if (kind === "tf") {
+          const current =
+            answers[questionId] &&
+            typeof answers[questionId] === "object" &&
+            !Array.isArray(answers[questionId])
+              ? { ...answers[questionId] }
+              : {};
+          current[statementId] = value === "true" || value === true;
+          answers[questionId] = current;
+        }
+        syncManualGradePreview();
+      }
+
+      function renderManualGradeBody() {
+        const holder = document.getElementById("manual-grade-body");
+        if (!holder || !manualGradeState?.exam) return;
+        const exam = manualGradeState.exam;
+        const answers = manualGradeState.answers || {};
+        holder.innerHTML = (exam.questions || [])
+          .map((q, idx) => {
+            const state = getSubmissionQuestionState(q, { answers }, "attempt");
+            let body = `
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="font-bold text-gray-800"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-lg mr-2">Câu ${idx + 1}</span>${window.renderTextToWysiwyg(q.text || "")}</div>
+              <div class="text-xs font-bold px-2 py-1 rounded-full ${state.isCorrect ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}">${state.isCorrect ? "Đúng" : "Sai"}</div>
+            </div>`;
+            if (q.imageUrl)
+              body += `<img src="${q.imageUrl}" class="image-preview mb-4" style="${q.imageWidth ? `width:${q.imageWidth}px;max-width:100%;` : "max-width:100%;"}${q.imageHeight ? `height:${q.imageHeight}px;object-fit:contain;` : ""}" />`;
+            if (q.type === "mcq") {
+              body += `<div class="grid gap-2">${(q.options || []).map((opt, oI) => `<label class="flex items-start gap-3 p-3 rounded-xl border ${Number(answers[q.id]) === oI ? "border-blue-400 bg-blue-50" : "border-gray-200 bg-gray-50"} cursor-pointer"><input type="radio" name="manual_mcq_${q.id}" value="${oI}" ${Number(answers[q.id]) === oI ? "checked" : ""} onchange="setManualGradeAnswer('${q.id}', 'mcq', this.value)" class="mt-1"><span class="font-bold text-gray-500 w-6">${["A", "B", "C", "D"][oI]}.</span><div class="flex-1">${window.renderTextToWysiwyg(opt)}</div></label>`).join("")}</div>`;
+              body += `<div class="mt-3 text-sm text-gray-500">HS đã chọn: <b>${state.selectedIndex === undefined ? "Trống" : ["A", "B", "C", "D"][state.selectedIndex] || state.selectedIndex}</b> | Đáp án đúng: <b>${state.correctIndex === undefined ? "—" : ["A", "B", "C", "D"][state.correctIndex] || state.correctIndex}</b></div>`;
+            } else if (q.type === "tf") {
+              body += `<div class="space-y-2">${(q.statements || [])
+                .map((s, sI) => {
+                  const cur =
+                    answers[q.id] && typeof answers[q.id] === "object"
+                      ? answers[q.id][s.id]
+                      : undefined;
+                  return `<div class="p-3 rounded-xl border border-gray-200 bg-gray-50"><div class="mb-2 text-sm"><span class="font-bold text-gray-500 mr-2">${String.fromCharCode(97 + sI)})</span>${window.renderTextToWysiwyg(s.text || "")}</div><div class="flex flex-wrap gap-2"><label class="px-3 py-1.5 rounded-lg border ${cur === true ? "border-green-400 bg-green-50 text-green-700" : "border-gray-200 bg-white text-gray-600"} cursor-pointer"><input type="radio" name="manual_tf_${q.id}_${s.id}" value="true" ${cur === true ? "checked" : ""} onchange="setManualGradeAnswer('${q.id}', 'tf', this.value, '${s.id}')" class="mr-1">Đúng</label><label class="px-3 py-1.5 rounded-lg border ${cur === false ? "border-red-400 bg-red-50 text-red-700" : "border-gray-200 bg-white text-gray-600"} cursor-pointer"><input type="radio" name="manual_tf_${q.id}_${s.id}" value="false" ${cur === false ? "checked" : ""} onchange="setManualGradeAnswer('${q.id}', 'tf', this.value, '${s.id}')" class="mr-1">Sai</label></div></div>`;
+                })
+                .join("")}</div>`;
+              body += `<div class="mt-3 text-sm text-gray-500">HS làm đúng: <b>${state.rows.filter((r) => r.isCorrect).length}/${state.rows.length}</b> ý</div>`;
+            } else if (q.type === "short") {
+              const cur = String(answers[q.id] || "");
+              body += `<div class="grid gap-3 md:grid-cols-2"><div class="p-3 rounded-xl border border-gray-200 bg-gray-50"><div class="text-xs font-bold text-gray-400 mb-1">HS nhập</div><input type="text" value="${escapeHtml(cur)}" oninput="setManualGradeAnswer('${q.id}', 'short', this.value)" class="w-full border border-gray-300 rounded-xl px-3 py-2"></div><div class="p-3 rounded-xl border border-green-200 bg-green-50"><div class="text-xs font-bold text-green-600 mb-1">Đáp án đúng</div><div class="font-semibold text-green-800">${window.renderTextToWysiwyg(state.correctText)}</div></div></div>`;
+            } else {
+              body += `<div class="text-sm text-gray-500">Loại câu này chưa có giao diện sửa riêng.</div>`;
+            }
+            return `<div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">${body}</div>`;
+          })
+          .join("");
+        typesetMath();
+      }
+
+      function syncManualGradePreview() {
+        if (!manualGradeState?.exam) return;
+        const tempRes = {
+          ...manualGradeState.res,
+          answers: deepClone(manualGradeState.answers || {}),
+        };
+        const recalculated = recomputeResultScore(
+          manualGradeState.exam,
+          tempRes,
+        );
+        const scoreEl = document.getElementById("manual-score");
+        const correctEl = document.getElementById("manual-correct");
+        const wrongEl = document.getElementById("manual-wrong");
+        const totalEl = document.getElementById("manual-total");
+        const jsonEl = document.getElementById("manual-answers");
+        if (scoreEl) scoreEl.value = recalculated.score;
+        if (correctEl) correctEl.value = recalculated.correctCount;
+        if (wrongEl) wrongEl.value = recalculated.wrongCount;
+        if (totalEl) totalEl.value = recalculated.totalQuestions;
+        if (jsonEl)
+          jsonEl.value = JSON.stringify(
+            manualGradeState.answers || {},
+            null,
+            2,
+          );
+        const note = document.getElementById("manual-grade-auto-note");
+        if (note)
+          note.textContent = `Tự tính theo đáp án hiện tại: ${recalculated.score.toFixed(1)} điểm, ${recalculated.correctCount}/${recalculated.totalQuestions} câu đúng.`;
+        renderManualGradeBody();
+      }
+
+      function syncManualGradeFromJson() {
+        if (!manualGradeState) return;
+        const ta = document.getElementById("manual-answers");
+        if (!ta) return;
+        try {
+          const parsed = JSON.parse(ta.value || "{}");
+          manualGradeState.answers =
+            parsed && typeof parsed === "object" ? parsed : {};
+          syncManualGradePreview();
+        } catch (e) {
+          showToast("JSON đáp án không hợp lệ", "error");
+        }
+      }
+
+      window.setSubmissionQuestionFilter = setSubmissionQuestionFilter;
+      window.setManualGradeAnswer = setManualGradeAnswer;
+      window.syncManualGradePreview = syncManualGradePreview;
+
+      function evaluateQuestionDetail(q, ans, pointsPerQuestion) {
+        if (!q)
+          return { score: 0, correct: false, type: "unknown", details: "" };
+        if (q.type === "mcq") {
+          const correct = Number(ans) === Number(q.correctIndex);
+          return {
+            score: correct ? pointsPerQuestion : 0,
+            correct,
+            type: "mcq",
+            details: `HS: ${normalizeLoggedValue(ans)} | Đúng: ${q.correctIndex}`,
+          };
+        }
+        if (q.type === "tf") {
+          const statements = q.statements || [];
+          const correctStatements = statements.filter(
+            (s) => ans?.[s.id] === s.isTrue,
+          ).length;
+          const correct =
+            statements.length > 0 && correctStatements === statements.length;
+          const detailRows = statements
+            .map(
+              (s, idx) =>
+                `${String.fromCharCode(97 + idx)}) HS: ${normalizeLoggedValue(ans?.[s.id])} | Đúng: ${s.isTrue ? "Đúng" : "Sai"}`,
+            )
+            .join(" ; ");
+          return {
+            score:
+              pointsPerQuestion *
+              (statements.length ? correctStatements / statements.length : 0),
+            correct,
+            type: "tf",
+            details:
+              detailRows ||
+              `${correctStatements}/${statements.length} ý đúng`,
+          };
+        }
+        if (q.type === "short") {
+          const correct = isShortAnswerCorrect(String(ans || ""), q);
+          return {
+            score: correct ? pointsPerQuestion : 0,
+            correct,
+            type: "short",
+            details: `HS: ${normalizeLoggedValue(ans)} | Đáp án: ${(splitAcceptedShortAnswers(q.exactAnswers) || []).join(" | ")}`,
+          };
+        }
+        return {
+          score: 0,
+          correct: false,
+          type: q.type || "unknown",
+          details: "",
+        };
+      }
+
+      function recomputeResultScore(exam, res) {
+        const currentQs = Array.isArray(exam?.questions) ? exam.questions : [];
+        const oldQs = Array.isArray(res?.attemptQuestions)
+          ? res.attemptQuestions
+          : [];
+        const oldQMap = new Map(oldQs.map((x) => [x.id, x]));
+        const totalQuestions = currentQs.length || 0;
+        const pointsPerQuestion = totalQuestions > 0 ? 10 / totalQuestions : 0;
+        let score = 0;
+        let correctCount = 0;
+        const questionChanges = [];
+        currentQs.forEach((q) => {
           const ans = res.answers?.[q.id];
+          const attemptQ = oldQMap.get(q.id) || q;
+
           if (q.type === "mcq") {
-            const isCorrect = Number(ans) === Number(q.correctIndex);
-            if (isCorrect) {
-              correctCount += 1;
-              score += pointsPerQuestion;
+            const attemptOrder = getAttemptOptionOrder(attemptQ);
+            const selectedAttemptIndex =
+              ans === undefined || ans === null ? undefined : Number(ans);
+            const selectedOriginalIndex =
+              selectedAttemptIndex === undefined
+                ? undefined
+                : attemptOrder[selectedAttemptIndex];
+            const currentCorrectOriginalIndex = getOriginalCorrectIndex(q);
+            const prevCorrectOriginalIndex = getOriginalCorrectIndex(attemptQ);
+            const curCorrect =
+              Number(selectedOriginalIndex) === Number(currentCorrectOriginalIndex);
+            const prevCorrect =
+              Number(selectedOriginalIndex) === Number(prevCorrectOriginalIndex);
+            const curScore = curCorrect ? pointsPerQuestion : 0;
+            const prevScore = prevCorrect ? pointsPerQuestion : 0;
+            score += curScore;
+            if (curCorrect) correctCount += 1;
+            if (
+              Math.abs((curScore || 0) - (prevScore || 0)) > 0.0001 ||
+              curCorrect !== prevCorrect
+            ) {
+              questionChanges.push({
+                questionId: q.id,
+                text: q.text || "",
+                beforeScore: Number((prevScore || 0).toFixed(2)),
+                afterScore: Number((curScore || 0).toFixed(2)),
+                beforeCorrect: !!prevCorrect,
+                afterCorrect: !!curCorrect,
+                beforeDetail: `HS: ${normalizeLoggedValue(selectedOriginalIndex)} | Đúng: ${prevCorrectOriginalIndex}`,
+                afterDetail: `HS: ${normalizeLoggedValue(selectedOriginalIndex)} | Đúng: ${currentCorrectOriginalIndex}`,
+              });
             }
-          } else if (q.type === "tf") {
-            const statements = q.statements || [];
-            const isCorrect = statements.every((s) => {
-              const sAns = ans?.[s.id];
-              return sAns === s.isTrue;
+            return;
+          }
+
+          const cur = evaluateQuestionDetail(q, ans, pointsPerQuestion);
+          const prev = evaluateQuestionDetail(attemptQ, ans, pointsPerQuestion);
+          score += cur.score;
+          if (cur.correct) correctCount += 1;
+          if (
+            Math.abs((cur.score || 0) - (prev.score || 0)) > 0.0001 ||
+            cur.correct !== prev.correct
+          ) {
+            questionChanges.push({
+              questionId: q.id,
+              text: q.text || "",
+              beforeScore: Number((prev.score || 0).toFixed(2)),
+              afterScore: Number((cur.score || 0).toFixed(2)),
+              beforeCorrect: !!prev.correct,
+              afterCorrect: !!cur.correct,
+              beforeDetail: prev.details || "",
+              afterDetail: cur.details || "",
             });
-            if (isCorrect) {
-              correctCount += 1;
-              score += pointsPerQuestion;
-            }
-          } else if (q.type === "short") {
-            const stTxt = String(ans || "");
-            const exactList = splitAcceptedShortAnswers(q.exactAnswers);
-            const exact = exactList.join(" | ");
-            const isCorrect = isShortAnswerCorrect(stTxt, q);
-            if (isCorrect) {
-              correctCount += 1;
-              score += pointsPerQuestion;
-            }
           }
         });
-
+        const wrongCount = Math.max(0, totalQuestions - correctCount);
         return {
           score: Number(score.toFixed(1)),
           correctCount,
+          wrongCount,
           totalQuestions,
+          questionChanges,
         };
       }
 
       // --- XEM CHI TIẾT BÀI LÀM ---
       let currentSubmissionReviewMode = "attempt";
+      let currentSubmissionFilter = "all";
       let currentSubmissionContext = null;
+      let manualGradeState = null;
 
       function updateReviewModeButtons(mode) {
         const a = document.getElementById("btn-review-mode-attempt");
@@ -3838,6 +4625,200 @@
         a.className = `px-3 py-1.5 text-sm font-bold rounded-lg transition ${mode === "attempt" ? "bg-white text-green-700 shadow-sm" : "text-gray-500"}`;
         o.className = `px-3 py-1.5 text-sm font-bold rounded-lg transition ${mode === "original" ? "bg-white text-green-700 shadow-sm" : "text-gray-500"}`;
       }
+
+      function renderAdminLogEntries(entries) {
+        if (!Array.isArray(entries) || !entries.length)
+          return '<div class="text-center py-8 text-gray-500 italic">Chưa có nhật ký.</div>';
+        return `<div class="space-y-3">${entries
+          .slice()
+          .sort((a, b) => Number(b.at || 0) - Number(a.at || 0))
+          .map((log, idx) => {
+            const baseTitle =
+              log.questionLabel ||
+              log.text ||
+              (log.questionId ? `Câu ${log.questionId}` : log.type || "Thao tác");
+            const title = `${baseTitle}${log.questionId ? ` (ID: ${log.questionId})` : ""}`;
+            const beforeText =
+              log.beforeDetail ||
+              (log.beforeScore !== undefined
+                ? `Điểm trước: ${Number(log.beforeScore || 0).toFixed(1)}`
+                : log.before);
+            const afterText =
+              log.afterDetail ||
+              (log.afterScore !== undefined
+                ? `Điểm sau: ${Number(log.afterScore || 0).toFixed(1)}`
+                : log.after);
+            const scoreLine =
+              log.beforeScore !== undefined || log.afterScore !== undefined
+                ? `<div class="mt-2 text-xs text-blue-700 font-semibold">Điểm: ${Number(log.beforeScore ?? 0).toFixed(1)} → ${Number(log.afterScore ?? 0).toFixed(1)} | Đúng: ${log.beforeCorrect ?? 0} → ${log.afterCorrect ?? 0}</div>`
+                : "";
+            return `<div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm"><div class="flex justify-between gap-3 mb-2"><div><div class="font-bold text-gray-800">${idx + 1}. ${escapeHtml(title)}</div><div class="text-xs text-gray-500">${toVnTime(log.at)}</div></div><span class="text-xs font-bold px-2 py-1 rounded-full bg-blue-50 text-blue-700">${escapeHtml(log.type || "log")}</span></div><div class="grid md:grid-cols-2 gap-3 text-sm"><div class="p-3 rounded-xl bg-gray-50 border border-gray-100"><div class="text-xs font-bold text-gray-400 mb-1">Trước</div><div class="break-words">${escapeHtml(String(beforeText === undefined ? "—" : typeof beforeText === "object" ? JSON.stringify(beforeText) : String(beforeText)))}</div></div><div class="p-3 rounded-xl bg-green-50 border border-green-100"><div class="text-xs font-bold text-green-600 mb-1">Sau</div><div class="break-words">${escapeHtml(String(afterText === undefined ? "—" : typeof afterText === "object" ? JSON.stringify(afterText) : String(afterText)))}</div></div></div>${scoreLine}</div>`;
+          })
+          .join("")}</div>`;
+      }
+
+      window.closeAttemptLogModal = () => {
+        document
+          .getElementById("modal-attempt-log")
+          ?.classList.add("hidden-view");
+      };
+      window.openAttemptLogModal = (attemptId = null) => {
+        const modal = document.getElementById("modal-attempt-log");
+        const info = document.getElementById("admin-attempt-log-info");
+        const content = document.getElementById("admin-attempt-log-content");
+        const attempt = attemptId
+          ? (statsDataCache?.attempts || []).find((a) => a.id === attemptId) ||
+            (statsDataCache?.results || []).find((r) => r.id === attemptId) ||
+            currentSubmissionContext?.res ||
+            null
+          : currentSubmissionContext?.res || null;
+        if (info) {
+          info.innerHTML = attempt
+            ? `<b>${escapeHtml(attempt.studentName || "Không rõ")}</b> | ${escapeHtml(attempt.examTitle || "")} | Bắt đầu: ${toVnTime(attempt.startedAt)} | Cập nhật: ${toVnTime(attempt.lastSeenAt || attempt.updatedAt)}`
+            : "Không có dữ liệu nhật ký";
+        }
+        if (content) {
+          content.innerHTML = renderAdminLogEntries(attempt?.activityLog || []);
+        }
+        modal?.classList.remove("hidden-view");
+      };
+      window.closeManualGradeModal = () => {
+        document
+          .getElementById("modal-manual-grade")
+          ?.classList.add("hidden-view");
+      };
+      window.fillManualFromCurrent = () => {
+        const res = currentSubmissionContext?.res;
+        const exam = currentSubmissionContext?.exam;
+        if (!res || !exam) return;
+        manualGradeState = {
+          exam,
+          res,
+          answers: deepClone(res.answers || {}),
+        };
+        document.getElementById("manual-grade-info").innerHTML =
+          `<b>${escapeHtml(res.studentName || "")}</b> | ${escapeHtml(res.examTitle || "")}`;
+        document.getElementById("manual-answers").value = JSON.stringify(
+          manualGradeState.answers || {},
+          null,
+          2,
+        );
+        syncManualGradePreview();
+      };
+      window.openManualGradeModal = () => {
+        if (!currentSubmissionContext?.res) {
+          showToast("Mở chi tiết bài nộp trước", "warning");
+          return;
+        }
+        fillManualFromCurrent();
+        document
+          .getElementById("modal-manual-grade")
+          ?.classList.remove("hidden-view");
+      };
+      window.saveManualGrade = async () => {
+        const res = currentSubmissionContext?.res;
+        const exam = currentSubmissionContext?.exam;
+        if (!res || !exam) return;
+        let parsedAnswers = deepClone(
+          manualGradeState?.answers || res.answers || {},
+        );
+        const answersText = document.getElementById("manual-answers")?.value;
+        if (answersText && answersText.trim()) {
+          try {
+            const parsed = JSON.parse(answersText || "{}");
+            if (parsed && typeof parsed === "object") parsedAnswers = parsed;
+          } catch (e) {
+            showToast("JSON đáp án không hợp lệ", "error");
+            return;
+          }
+        }
+        const auto = recomputeResultScore(exam, {
+          ...res,
+          answers: parsedAnswers,
+        });
+        const score = Number(
+          document.getElementById("manual-score").value || auto.score || 0,
+        );
+        const correctCount = Number(
+          document.getElementById("manual-correct").value ||
+            auto.correctCount ||
+            0,
+        );
+        const wrongCount = Number(
+          document.getElementById("manual-wrong").value || auto.wrongCount || 0,
+        );
+        const totalQuestions = Number(
+          document.getElementById("manual-total").value ||
+            auto.totalQuestions ||
+            0,
+        );
+        const historyEntry = {
+          id: `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+          at: Date.now(),
+          type: "manual-edit",
+          scoreBefore: Number(res.score || 0),
+          scoreAfter: score,
+          correctBefore: Number(res.correctCount || 0),
+          correctAfter: correctCount,
+          wrongBefore: Number(res.wrongCount || 0),
+          wrongAfter: wrongCount,
+          changes: auto.questionChanges,
+        };
+        const nextHistory = Array.isArray(res.gradeHistory)
+          ? [...res.gradeHistory, historyEntry]
+          : [historyEntry];
+        setLoading(true);
+        try {
+          const syncedAttemptQuestions = syncAttemptQuestionsToOriginalExam(
+            exam,
+            {
+              ...res,
+              answers: parsedAnswers,
+            },
+          );
+          await updateDoc(examDoc("results", res.id), {
+            answers: parsedAnswers,
+            score,
+            correctCount,
+            wrongCount,
+            totalQuestions,
+            gradeHistory: nextHistory,
+            manualGradedAt: Date.now(),
+            attemptQuestions: syncedAttemptQuestions,
+          });
+          await mirrorDocToRtdb("results", res.id, {
+            ...res,
+            answers: parsedAnswers,
+            score,
+            correctCount,
+            wrongCount,
+            totalQuestions,
+            gradeHistory: nextHistory,
+            manualGradedAt: Date.now(),
+            attemptQuestions: syncedAttemptQuestions,
+          });
+          Object.assign(res, {
+            answers: parsedAnswers,
+            score,
+            correctCount,
+            wrongCount,
+            totalQuestions,
+            gradeHistory: nextHistory,
+            manualGradedAt: Date.now(),
+            attemptQuestions: syncedAttemptQuestions,
+          });
+          if (manualGradeState)
+            manualGradeState.answers = deepClone(parsedAnswers);
+          showToast("Đã lưu chấm tay", "success");
+          window.renderStatsTables();
+          if (currentViewingResultId === res.id)
+            window.viewSubmissionDetail(res.id);
+          closeManualGradeModal();
+        } catch (e) {
+          showToast("Không lưu được chấm tay: " + e.message, "error");
+        }
+        setLoading(false);
+      };
 
       function renderSubmissionDetailView(exam, res, mode = "attempt") {
         const container = document.getElementById("sd-content");
@@ -3849,111 +4830,140 @@
             : deepClone(res.attemptQuestions || exam.questions || []);
 
         questions.forEach((q, i) => {
+          const state = getSubmissionQuestionState(q, res, mode);
+          if (
+            (currentSubmissionFilter === "correct" && !state.isCorrect) ||
+            (currentSubmissionFilter === "wrong" && state.isCorrect)
+          ) {
+            return;
+          }
           const qDiv = document.createElement("div");
           qDiv.className =
             "mb-8 p-6 bg-white border border-gray-200 rounded-xl shadow-sm";
-          const stuAns = res.answers?.[q.id];
-          let html = `<div class="font-bold text-lg mb-4 text-gray-800"><span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg mr-2">Câu ${i + 1}</span> ${window.renderTextToWysiwyg(q.text)}</div>`;
+          let html = `<div class="flex items-start justify-between gap-4 mb-4"><div class="font-bold text-lg text-gray-800"><span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg mr-2">Câu ${i + 1}</span>${window.renderTextToWysiwyg(q.text)}</div><div class="text-xs font-bold px-2 py-1 rounded-full ${state.isCorrect ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}">${state.isCorrect ? "Đúng" : "Sai"}</div></div>`;
           if (q.imageUrl)
-            html += `<img src="${q.imageUrl}" class="image-preview mb-4"/>`;
-
+            html += `<img src="${q.imageUrl}" class="image-preview mb-4" style="${q.imageWidth ? `width:${q.imageWidth}px;max-width:100%;` : "max-width:100%;"}${q.imageHeight ? `height:${q.imageHeight}px;object-fit:contain;` : ""}"/>`;
+          html += `<div class="grid gap-3 md:grid-cols-2"><div class="p-4 rounded-xl border border-gray-200 bg-gray-50"><div class="text-xs font-bold text-gray-400 mb-2">HS đã chọn</div><div class="prose max-w-none">${state.selectedText || '<span class="text-gray-400 italic">Bỏ trống</span>'}</div></div><div class="p-4 rounded-xl border border-green-200 bg-green-50"><div class="text-xs font-bold text-green-600 mb-2">Đáp án đúng</div><div class="prose max-w-none text-green-800">${state.correctText || '<span class="text-green-600 italic">—</span>'}</div></div></div>`;
           if (q.type === "mcq") {
             const snap = res.attemptQuestions?.find((x) => x.id === q.id) || q;
-            const originalOrder = Array.isArray(snap.optionOrder)
-              ? snap.optionOrder
-              : (q.options || []).map((_, idx) => idx);
-            const selectedOriginalIndex =
-              stuAns === undefined || stuAns === null
-                ? undefined
-                : originalOrder[Number(stuAns)];
-            const reviewOptions =
+            const options =
               mode === "original"
                 ? q.originalOptions || q.options || []
                 : snap.options || q.options || [];
-            const correctIndex =
-              mode === "original"
-                ? Number.isFinite(Number(q.originalCorrectIndex))
-                  ? Number(q.originalCorrectIndex)
-                  : Number(q.correctIndex || 0)
-                : Number.isFinite(Number(snap.correctIndex))
-                  ? Number(snap.correctIndex)
-                  : Number(q.correctIndex || 0);
-            const selectedIndex =
-              mode === "original"
-                ? selectedOriginalIndex
-                : stuAns === undefined || stuAns === null
-                  ? undefined
-                  : Number(stuAns);
-            reviewOptions.forEach((opt, oI) => {
-              const isCorrect = oI === correctIndex;
-              const isSelected = Number(selectedIndex) === oI;
-              let bg = "bg-gray-50 border-gray-200 text-gray-700";
-              let icon = "";
-              if (isCorrect) {
-                bg = "bg-green-50 border-green-400 text-green-800 font-bold";
-                icon = `<i class="fa-solid fa-check text-green-600 ml-auto"></i>`;
-              } else if (isSelected) {
-                bg = "bg-red-50 border-red-400 text-red-800 font-bold";
-                icon = `<i class="fa-solid fa-xmark text-red-600 ml-auto"></i>`;
-              }
-              html += `<div class="flex items-center p-3 border rounded-lg mb-2 ${bg}"> <span class="w-6 font-bold text-gray-500">${["A", "B", "C", "D"][oI]}.</span> ${window.renderTextToWysiwyg(opt)} ${icon}</div>`;
-            });
+            html += `<div class="mt-4 space-y-2">${options
+              .map((opt, oI) => {
+                const isSelected = Number(state.selectedIndex) === oI;
+                const isCorrect = Number(state.correctIndex) === oI;
+                const badge = isCorrect
+                  ? '<span class="ml-auto text-xs font-bold text-green-700">Đúng</span>'
+                  : isSelected
+                    ? '<span class="ml-auto text-xs font-bold text-red-700">HS chọn</span>'
+                    : "";
+                return `<div class="flex items-center gap-3 p-3 border rounded-xl ${isCorrect ? "border-green-400 bg-green-50" : isSelected ? "border-red-400 bg-red-50" : "border-gray-200 bg-white"}" ><span class="font-bold text-gray-500 w-6">${["A", "B", "C", "D"][oI] || oI + 1}.</span><div class="flex-1">${window.renderTextToWysiwyg(opt)}</div>${badge}</div>`;
+              })
+              .join("")}</div>`;
           } else if (q.type === "tf") {
-            q.statements.forEach((s, sI) => {
-              const sAns = stuAns?.[s.id];
-              const isCorrect = sAns === s.isTrue;
-              const bg =
-                sAns === undefined
-                  ? "bg-gray-50"
-                  : isCorrect
-                    ? "bg-green-50 border-green-400 text-green-800"
-                    : "bg-red-50 border-red-400 text-red-800";
-              html += `<div class="p-3 border rounded-lg mb-2 flex justify-between ${bg}"><span>${String.fromCharCode(97 + sI)}) ${window.renderTextToWysiwyg(s.text)}</span> <span class="font-bold shrink-0">HS Chọn: ${sAns === undefined ? "Trống" : sAns ? "Đúng" : "Sai"} (Chuẩn: ${s.isTrue ? "Đúng" : "Sai"})</span></div>`;
-            });
+            html += `<div class="mt-4 space-y-2">${(state.rows || []).map((r) => `<div class="p-3 border rounded-xl ${r.isCorrect ? "border-green-400 bg-green-50" : "border-red-400 bg-red-50"}"><div class="flex items-start gap-3"><span class="font-bold text-gray-500 w-6">${r.label})</span><div class="flex-1">${r.text}</div></div><div class="mt-2 text-sm flex flex-wrap gap-3"><span class="font-semibold">HS: <b>${r.chosen === undefined ? "Trống" : r.chosen ? "Đúng" : "Sai"}</b></span><span class="font-semibold">Đúng: <b>${r.correct ? "Đúng" : "Sai"}</b></span></div></div>`).join("")}</div>`;
           } else if (q.type === "short") {
-            const stTxt = String(stuAns || "");
-            const exactList = splitAcceptedShortAnswers(q.exactAnswers);
-            const exact = exactList.join(" | ");
-            const isCorrect = isShortAnswerCorrect(stTxt, q);
-            html += `<div class="grid grid-cols-2 gap-4">
-                  <div class="p-4 bg-gray-50 border rounded-lg"><div class="text-xs text-gray-500 font-bold mb-1">HỌC SINH NHẬP</div><div class="${isCorrect ? "text-green-600" : "text-red-600"} font-bold">${window.renderTextToWysiwyg(stTxt) || '<i class="text-gray-400">Bỏ trống</i>'}</div></div>
-                  <div class="p-4 bg-green-50 border border-green-200 rounded-lg"><div class="text-xs text-green-600 font-bold mb-1">ĐÁP ÁN ĐÚNG</div><div class="text-green-800 font-bold">${window.renderTextToWysiwyg(exact)}</div></div>
-               </div>`;
+            html += `<div class="mt-4 text-sm text-gray-600"><b>HS nhập:</b> ${state.selectedText || '<i class="text-gray-400">Bỏ trống</i>'}</div><div class="mt-2 text-sm text-green-700"><b>Đáp án đúng:</b> ${state.correctText || "—"}</div>`;
           }
           qDiv.innerHTML = html;
           container.appendChild(qDiv);
         });
+        if (Array.isArray(res.gradeHistory) && res.gradeHistory.length) {
+          container.innerHTML += `<div class="mt-8 p-5 bg-slate-50 border border-gray-200 rounded-2xl"><div class="flex items-center justify-between mb-4"><h4 class="font-bold text-gray-800">Lịch sử thay đổi điểm</h4><span class="text-xs text-gray-500">${res.gradeHistory.length} mục</span></div><div class="space-y-3">${res.gradeHistory
+            .slice()
+            .sort((a, b) => Number(b.at || 0) - Number(a.at || 0))
+            .map(
+              (h) =>
+                `<div class="bg-white border border-gray-200 rounded-2xl p-4"><div class="flex justify-between gap-3 mb-2"><div><div class="font-bold text-gray-800">${escapeHtml(h.type || "update")}</div><div class="text-xs text-gray-500">${toVnTime(h.at)}</div></div><div class="text-sm font-bold text-blue-600">${Number(h.scoreBefore || 0).toFixed(1)} → ${Number(h.scoreAfter || 0).toFixed(1)}</div></div><div class="text-xs text-gray-500 mb-2">Đúng ${h.correctBefore || 0} → ${h.correctAfter || 0} | Sai ${h.wrongBefore || 0} → ${h.wrongAfter || 0}</div><div class="text-sm text-gray-600">${renderAdminLogEntries(h.changes || [])}</div></div>`,
+            )
+            .join("")}</div></div>`;
+        }
+        if (Array.isArray(res.activityLog) && res.activityLog.length) {
+          container.innerHTML += `<div class="mt-8 p-5 bg-slate-50 border border-gray-200 rounded-2xl"><div class="flex items-center justify-between mb-4"><h4 class="font-bold text-gray-800">Nhật ký làm bài</h4><span class="text-xs text-gray-500">${res.activityLog.length} lần</span></div>${renderAdminLogEntries(res.activityLog)}</div>`;
+        }
         typesetMath();
         updateReviewModeButtons(mode);
+        updateSubmissionFilterButtons(currentSubmissionFilter);
       }
 
       window.regradeSubmission = async (resultId) => {
         if (!resultId) return;
-        const res =
-          statsDataCache?.results?.find((r) => r.id === resultId) || null;
-        const exam =
-          statsDataCache?.exams?.find((e) => e.id === res?.examId) || null;
-        if (!res || !exam) {
+        const resDoc = await getDoc(examDoc("results", resultId));
+        const res = resDoc.exists()
+          ? { id: resDoc.id, ...resDoc.data() }
+          : statsDataCache?.results?.find((r) => r.id === resultId) || null;
+        if (!res) {
           showToast("Không tìm thấy dữ liệu để chấm lại", "error");
           return;
         }
+        const liveExam = await loadExamById(res.examId);
+        const exam =
+          liveExam ||
+          statsDataCache?.exams?.find((e) => e.id === res?.examId) ||
+          null;
+        if (!exam) {
+          showToast("Không tìm thấy bài gốc trên server để chấm lại", "error");
+          return;
+        }
         const ok = await customConfirm(
-          `Chấm điểm lại bài làm của ${res.studentName || "học sinh này"}?`,
+          `Chấm điểm lại bài làm của ${res.studentName || "học sinh này"} theo đáp án bài gốc hiện tại?`,
         );
         if (!ok) return;
         setLoading(true);
         try {
           const recalculated = recomputeResultScore(exam, res);
+          const historyEntry = {
+            id: `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+            at: Date.now(),
+            type: "auto-regrade",
+            sourceExamUpdatedAt: Number(
+              exam.updatedAt || exam.createdAt || Date.now(),
+            ),
+            scoreBefore: Number(res.score || 0),
+            scoreAfter: recalculated.score,
+            correctBefore: Number(res.correctCount || 0),
+            correctAfter: recalculated.correctCount,
+            wrongBefore: Number(res.wrongCount || 0),
+            wrongAfter: recalculated.wrongCount,
+            changes: recalculated.questionChanges,
+          };
+          const nextHistory = Array.isArray(res.gradeHistory)
+            ? [...res.gradeHistory, historyEntry]
+            : [historyEntry];
+          const syncedAttemptQuestions = syncAttemptQuestionsToOriginalExam(
+            exam,
+            res,
+          );
           await updateDoc(examDoc("results", resultId), {
             score: recalculated.score,
             correctCount: recalculated.correctCount,
+            wrongCount: recalculated.wrongCount,
             totalQuestions: recalculated.totalQuestions,
             regradedAt: Date.now(),
+            gradeHistory: nextHistory,
+            attemptQuestions: syncedAttemptQuestions,
           });
-          res.score = recalculated.score;
-          res.correctCount = recalculated.correctCount;
-          res.totalQuestions = recalculated.totalQuestions;
-          res.regradedAt = Date.now();
+          await mirrorDocToRtdb("results", resultId, {
+            ...res,
+            score: recalculated.score,
+            correctCount: recalculated.correctCount,
+            wrongCount: recalculated.wrongCount,
+            totalQuestions: recalculated.totalQuestions,
+            regradedAt: Date.now(),
+            gradeHistory: nextHistory,
+            attemptQuestions: syncedAttemptQuestions,
+          });
+          Object.assign(res, {
+            score: recalculated.score,
+            correctCount: recalculated.correctCount,
+            wrongCount: recalculated.wrongCount,
+            totalQuestions: recalculated.totalQuestions,
+            regradedAt: Date.now(),
+            gradeHistory: nextHistory,
+            attemptQuestions: syncedAttemptQuestions,
+          });
           showToast("Đã chấm điểm lại thành công!", "success");
           window.renderStatsTables();
           if (currentViewingResultId === resultId) {
@@ -3969,7 +4979,9 @@
       window.viewSubmissionDetail = async (resultId) => {
         setLoading(true);
         currentSubmissionReviewMode = "attempt";
+        currentSubmissionFilter = "all";
         currentViewingResultId = resultId;
+        window.currentViewingResultId = currentViewingResultId;
         const res = statsDataCache.results.find((r) => r.id === resultId);
         const exam = res
           ? statsDataCache.exams.find((e) => e.id === res.examId)
@@ -3984,6 +4996,7 @@
         document.getElementById("sd-info").innerHTML =
           `<b>${escapeHtml(res.studentName)}</b> | Điểm: <span class="text-blue-600 font-bold">${res.score}</span> | Đúng: ${res.correctCount}/${res.totalQuestions} | Vi phạm: ${res.cheatViolations || 0} | Thời gian: ${formatDuration(res.timeSpent || 0)}`;
         renderSubmissionDetailView(exam, res, currentSubmissionReviewMode);
+        updateSubmissionFilterButtons(currentSubmissionFilter);
         document
           .getElementById("btn-regrade-current")
           .classList.remove("hidden");
@@ -4005,6 +5018,7 @@
       };
       window.closeSubmissionDetail = () => {
         currentViewingResultId = null;
+        window.currentViewingResultId = currentViewingResultId;
         currentSubmissionContext = null;
         document
           .getElementById("modal-submission-detail")
