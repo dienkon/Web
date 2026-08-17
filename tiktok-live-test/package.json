@@ -1,0 +1,13 @@
+{
+  "name": "tiktok-live-test",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "tiktok-live-connector": "^2.4.2",
+    "ws": "^8.21.1"
+  }
+}

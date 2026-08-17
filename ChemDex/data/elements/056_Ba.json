@@ -1,0 +1,24 @@
+{
+  "number": 56,
+  "symbol": "Ba",
+  "nameVi": "Barium",
+  "nameEn": "Barium",
+  "mass": 137.327,
+  "structureType": "bcc",
+  "category": "kiem-tho",
+  "general": {
+    "shells": [],
+    "electronConfig": "Đang cập nhật",
+    "englishName": "Barium",
+    "latinName": "Barium"
+  },
+  "history": {},
+  "structure": {},
+  "occurrence": {},
+  "physical": "Đang cập nhật dữ liệu.",
+  "chemical": "Đang cập nhật dữ liệu.",
+  "reactions": [],
+  "images": {},
+  "hasData": true,
+  "file": "elements/056_Ba.json"
+}

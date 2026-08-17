@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chemdex Arena</title>
+    <script>
+      // Apply default light theme immediately
+      try {
+        const theme = localStorage.getItem('chem_theme') || 'light';
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light-mode');
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light-mode');
+        }
+      } catch (e) {}
+
+      // Prevent "Cannot set property fetch of #<Window> which has only a getter" error
+      // when polyfills try to overwrite fetch in the sandboxed environment.
+      try {
+        const originalFetch = window.fetch;
+        Object.defineProperty(window, 'fetch', {
+          get: () => originalFetch,
+          set: (v) => { console.warn('Ignored attempt to overwrite window.fetch'); },
+          configurable: true
+        });
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

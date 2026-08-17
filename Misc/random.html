@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random 8 Ký Tự</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 100px;
+      }
+
+      #result {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 20px;
+        letter-spacing: 3px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Tạo chuỗi ngẫu nhiên 8 ký tự</h2>
+
+    <div id="result">--------</div>
+
+    <button onclick="generateCode()">Random</button>
+
+    <script>
+      function generateCode() {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let code = "";
+
+        for (let i = 0; i < 8; i++) {
+          const randomIndex = Math.floor(Math.random() * chars.length);
+          code += chars[randomIndex];
+        }
+
+        document.getElementById("result").innerText = code;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khóa Ôn Thi Cuối Kỳ 2 | Toán & Vật Lý</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              primary: "#4f46e5",
+              secondary: "#ec4899",
+              dark: "#1e293b",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom styles for smooth scrolling and animations */
+      html {
+        scroll-behavior: smooth;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .gradient-text {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-primary selection:text-white"
+  >
+    <!-- Hero Section -->
+    <header class="relative bg-dark text-white overflow-hidden">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-primary to-secondary mix-blend-multiply"
+        ></div>
+        <!-- Decorative circles -->
+        <div
+          class="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"
+        ></div>
+        <div
+          class="absolute top-0 right-0 w-64 h-64 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"
+        ></div>
+      </div>
+
+      <div
+        class="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center sm:py-28 text-white"
+      >
+        <span
+          class="inline-block py-1 px-3 rounded-full bg-white/20 text-sm font-semibold tracking-wider mb-4 border border-white/30 backdrop-blur-sm"
+        >
+          🔥 CHUYÊN ĐỀ CUỐI HỌC KỲ 2
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
+          Bứt Phá Điểm Số Môn <br class="hidden sm:block" />
+          <span
+            class="bg-gradient-to-r from-blue-400 to-emerald-400 gradient-text"
+            >Toán & Vật Lý</span
+          >
+        </h1>
+        <p
+          class="mt-4 text-xl sm:text-2xl text-slate-300 max-w-2xl mx-auto font-light"
+        >
+          Khóa ôn lai rai kiến thức, củng cố nền tảng, tự tin bước vào kỳ thi
+          cuối kỳ với điểm số ấn tượng nhất.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#links"
+            class="px-8 py-4 bg-primary hover:bg-indigo-500 text-white rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-primary/50 flex items-center justify-center gap-2 transform hover:-translate-y-1"
+          >
+            <i data-lucide="zap" class="w-5 h-5"></i>
+            Xem các link
+          </a>
+          <a
+            href="#uudai"
+            class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 rounded-full font-bold text-lg transition-all backdrop-blur-sm flex items-center justify-center gap-2 text-white"
+          >
+            <i data-lucide="gift" class="w-5 h-5"></i>
+            Xem ưu đãi
+          </a>
+        </div>
+      </div>
+
+      <!-- Wave Divider -->
+      <div
+        class="absolute bottom-0 w-full overflow-hidden leading-none z-10 text-slate-50 flex items-end"
+      >
+        <svg
+          class="relative block w-full h-[50px] sm:h-[100px]"
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.9,132.85,204.2,129.12,254.45,126.54,302.58,118.84,321.39,56.44Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-24 relative z-20">
+      <!-- Thông tin chung & Nội dung -->
+      <section id="noidung" class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <div
+            class="inline-flex items-center gap-2 text-primary font-bold tracking-wide uppercase"
+          >
+            <i data-lucide="info" class="w-5 h-5"></i> Thông tin khóa học
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-dark">
+            Nội dung chương trình học
+          </h2>
+          <p class="text-slate-600 text-lg leading-relaxed">
+            Khóa học được thiết kế đặc biệt để giúp các bạn ôn tập kiến thức
+            chuẩn bị cho kỳ thi cuối học kỳ 2 (HK2) hai môn Lý và Toán. Mỗi môn
+            sẽ có số lượng tiết khác nhau tùy thuộc vào từng chuyên đề cụ thể.
+          </p>
+
+          <ul class="space-y-4 mt-6">
+            <li
+              class="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm border border-slate-100"
+            >
+              <div class="p-2 bg-blue-100 text-blue-600 rounded-lg shrink-0">
+                <i data-lucide="clock" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-dark text-lg">
+                  Học phí siêu hạt dẻ
+                </h4>
+                <p class="text-slate-600 mt-1">
+                  1 tiết = 1 tiếng học. Chỉ với
+                  <strong class="text-primary text-xl">3k/tiết</strong>.
+                </p>
+              </div>
+            </li>
+            <li
+              class="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm border border-slate-100"
+            >
+              <div class="p-2 bg-green-100 text-green-600 rounded-lg shrink-0">
+                <i data-lucide="file-check-2" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-dark text-lg">
+                  Miễn phí ôn đề cương
+                </h4>
+                <p class="text-slate-600 mt-1">
+                  Hỗ trợ ôn luyện và giải chi tiết đề cương thi hoàn toàn
+                  <span class="text-green-600 font-bold uppercase"
+                    >Miễn phí</span
+                  >.
+                </p>
+              </div>
+            </li>
+          </ul>
+          <div class="text-sm text-slate-500 italic flex items-center gap-2">
+            <i data-lucide="alert-circle" class="w-4 h-4"></i>
+            Lưu ý: Số lượng tiết trên hình ảnh giới thiệu chỉ là ước tính (thực
+            tế có thể ít hoặc nhiều hơn tùy tiến độ).
+          </div>
+        </div>
+
+        <div class="relative">
+          <div
+            class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-3xl transform rotate-3 opacity-20"
+          ></div>
+          <div
+            class="bg-white p-8 rounded-3xl shadow-xl relative border border-slate-100 z-10 flex flex-col gap-6"
+          >
+            <h3 class="text-2xl font-bold border-b pb-4">Đặc quyền khóa học</h3>
+
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0"
+              >
+                <i data-lucide="play-circle" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-dark">Học thử Miễn Phí</h4>
+                <p class="text-sm text-slate-600">
+                  Tiết đầu tiên của mỗi học viên sẽ không tính phí để trải
+                  nghiệm phương pháp học.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 shrink-0"
+              >
+                <i data-lucide="video" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-dark">Record Bài Giảng</h4>
+                <p class="text-sm text-slate-600">
+                  Toán bộ quá trình học được ghi hình lại, dễ dàng xem lại bất
+                  cứ lúc nào để ôn tập.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ưu đãi & Giảm giá -->
+      <section
+        id="uudai"
+        class="bg-gradient-to-br from-indigo-900 via-dark to-slate-900 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden"
+      >
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 text-white/5">
+          <i data-lucide="gift" class="w-64 h-64 transform rotate-12"></i>
+        </div>
+
+        <div class="relative z-10 text-center mb-12">
+          <h2
+            class="text-3xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-500"
+          >
+            Siêu Ưu Đãi & Quà Tặng
+          </h2>
+          <p class="text-slate-300 text-lg">
+            Phần thưởng xứng đáng cho những nỗ lực của bạn!
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 relative z-10">
+          <!-- Quà tặng cứng -->
+          <div
+            class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20"
+          >
+            <h3
+              class="text-xl font-bold text-yellow-300 mb-6 flex items-center gap-2"
+            >
+              <i data-lucide="sparkles" class="w-6 h-6"></i> Quà tặng kèm theo
+            </h3>
+            <ul class="space-y-5">
+              <li class="flex items-start gap-3">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-6 h-6 text-green-400 shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <p class="font-semibold text-lg">
+                    Tặng 5 tờ A4 nháp (có kẻ sẵn)
+                  </p>
+                  <p class="text-slate-400 text-sm mt-1">
+                    Gặp <span class="text-white font-bold">Dienkon</span> để
+                    nhận ngay nhé!
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-6 h-6 text-green-400 shrink-0 mt-0.5"
+                ></i>
+                <div class="w-full">
+                  <p class="font-semibold text-lg">
+                    Cẩm nang công thức Toán 11 chương 6,7
+                  </p>
+                  <a
+                    href="https://drive.google.com/file/d/1_Fp61ZlJWoXNuimwUBAAhhJYHyFFEt04/view?usp=drive_link"
+                    class="inline-flex mt-2 items-center gap-2 text-sm bg-primary hover:bg-indigo-500 transition-colors px-4 py-2 rounded-lg font-medium"
+                  >
+                    <i data-lucide="download" class="w-4 h-4"></i> Tải tại đây
+                  </a>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-6 h-6 text-green-400 shrink-0 mt-0.5"
+                ></i>
+                <div>
+                  <p class="font-semibold text-lg">Giảm 5% tổng học phí</p>
+                  <p class="text-slate-400 text-sm mt-1">
+                    Dành riêng cho các bạn học Lý
+                    <strong class="text-yellow-300 uppercase"
+                      >đã từng in sách</strong
+                    >
+                    "VỀ ĐÍCH 10 ĐIỂM".
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Giảm giá theo điểm -->
+          <div
+            class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20"
+          >
+            <h3
+              class="text-xl font-bold text-emerald-400 mb-6 flex items-center gap-2"
+            >
+              <i data-lucide="trending-up" class="w-6 h-6"></i> Học Bổng Điểm Số
+              (CK2)
+            </h3>
+            <p class="text-sm text-slate-300 mb-4 italic">
+              (*) Học phí được giảm tính theo từng môn học.
+            </p>
+
+            <div class="space-y-3">
+              <div
+                class="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <div class="font-semibold flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-slate-300"></span> Điểm
+                  từ [8 ; 9)
+                </div>
+                <div
+                  class="font-bold text-emerald-300 text-lg bg-emerald-900/50 px-3 py-1 rounded-lg"
+                >
+                  Giảm 10%
+                </div>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <div class="font-semibold flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-yellow-300"></span> Điểm
+                  từ [9 ; 10)
+                </div>
+                <div
+                  class="font-bold text-yellow-300 text-lg bg-yellow-900/50 px-3 py-1 rounded-lg"
+                >
+                  Giảm 20%
+                </div>
+              </div>
+              <div
+                class="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-orange-500/20 to-rose-500/20 border border-rose-500/30"
+              >
+                <div
+                  class="font-semibold flex items-center gap-2 text-rose-300"
+                >
+                  <i data-lucide="crown" class="w-5 h-5"></i> Trọn vẹn 10 Điểm
+                </div>
+                <div
+                  class="font-bold text-rose-300 text-xl bg-rose-900/50 px-3 py-1 rounded-lg"
+                >
+                  Giảm 50%
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-6 p-4 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 rounded-xl border border-amber-500/20 flex items-start gap-3"
+            >
+              <i
+                data-lucide="award"
+                class="w-6 h-6 text-amber-400 shrink-0"
+              ></i>
+              <p class="text-sm text-amber-100 leading-relaxed">
+                <strong class="text-amber-300">Đặc biệt:</strong> Ai có điểm số
+                cao nhất trong môn học đó sẽ được nhận mức giảm ưu đãi đặc biệt
+                kèm theo
+                <span class="text-white font-bold">quà tặng bí mật</span>!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bảng điều khiển Links -->
+      <section id="links" class="pb-12">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold text-dark">Khu Vực Học Tập</h2>
+          <p class="text-slate-500 mt-2">
+            Tổng hợp các liên kết quan trọng của khóa học
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Zalo -->
+          <a
+            href="https://zalo.me/g/dlmvbdh5pdztbupdym19"
+            class="group flex items-center p-5 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all"
+          >
+            <div
+              class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+            >
+              <i data-lucide="message-circle" class="w-7 h-7"></i>
+            </div>
+            <div class="ml-4">
+              <h4
+                class="font-bold text-lg text-dark group-hover:text-blue-600 transition-colors"
+              >
+                Nhóm Zalo
+              </h4>
+              <p class="text-sm text-slate-500">Trao đổi & thông báo</p>
+            </div>
+          </a>
+
+          <!-- Google Meet -->
+          <a
+            href="https://meet.google.com/atq-yvqd-ucj"
+            class="group flex items-center p-5 bg-white rounded-2xl border-2 border-slate-100 hover:border-teal-500 hover:shadow-xl hover:shadow-teal-500/10 transition-all"
+          >
+            <div
+              class="w-14 h-14 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+            >
+              <i data-lucide="video" class="w-7 h-7"></i>
+            </div>
+            <div class="ml-4">
+              <h4
+                class="font-bold text-lg text-dark group-hover:text-teal-600 transition-colors"
+              >
+                Google Meet
+              </h4>
+              <p class="text-sm text-slate-500">Phòng học trực tuyến</p>
+            </div>
+          </a>
+
+          <!-- Thời khóa biểu -->
+          <a
+            href="https://gzegm.github.io/Web/QuanLyLichHoc/tkb"
+            class="group flex items-center p-5 bg-white rounded-2xl border-2 border-slate-100 hover:border-purple-500 hover:shadow-xl hover:shadow-purple-500/10 transition-all"
+          >
+            <div
+              class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+            >
+              <i data-lucide="calendar-days" class="w-7 h-7"></i>
+            </div>
+            <div class="ml-4">
+              <h4
+                class="font-bold text-lg text-dark group-hover:text-purple-600 transition-colors"
+              >
+                Thời Khóa Biểu
+              </h4>
+              <p class="text-sm text-slate-500">Lịch học chi tiết</p>
+            </div>
+          </a>
+
+          <!-- Bảng điểm danh -->
+          <a
+            href="https://gzegm.github.io/Web/QuanLyLichHoc/diemdanh"
+            class="group flex items-center p-5 bg-white rounded-2xl border-2 border-slate-100 hover:border-orange-500 hover:shadow-xl hover:shadow-orange-500/10 transition-all lg:col-start-1 lg:col-end-2 lg:translate-x-1/2"
+          >
+            <div
+              class="w-14 h-14 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+            >
+              <i data-lucide="clipboard-check" class="w-7 h-7"></i>
+            </div>
+            <div class="ml-4">
+              <h4
+                class="font-bold text-lg text-dark group-hover:text-orange-600 transition-colors"
+              >
+                Bảng Điểm Danh
+              </h4>
+              <p class="text-sm text-slate-500">Theo dõi chuyên cần</p>
+            </div>
+          </a>
+
+          <!-- Xem lại bài giảng -->
+          <a
+            href="https://gzegm.github.io/Web/QuanLyLichHoc/xemlai"
+            class="group flex items-center p-5 bg-white rounded-2xl border-2 border-slate-100 hover:border-rose-500 hover:shadow-xl hover:shadow-rose-500/10 transition-all lg:col-start-2 lg:col-end-3 lg:translate-x-1/2"
+          >
+            <div
+              class="w-14 h-14 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+            >
+              <i data-lucide="folder-video" class="w-7 h-7"></i>
+            </div>
+            <div class="ml-4">
+              <h4
+                class="font-bold text-lg text-dark group-hover:text-rose-600 transition-colors"
+              >
+                Record Bài Giảng
+              </h4>
+              <p class="text-sm text-slate-500">Kho video học liệu</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+
+    <!-- Khởi tạo Lucide Icons -->
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

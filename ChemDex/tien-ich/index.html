@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChemDex - Tiện Ích Hóa Học</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: "#0f172a",
+              darker: "#0b1120",
+              panel: "#1e293b",
+              primary: "#3b82f6",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background-color: #1e293b;
+        color: #e2e8f0;
+        overflow: hidden;
+      }
+
+      .glass {
+        background: rgba(30, 41, 59, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+
+      .tool-hidden { display: none !important; }
+
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .tool-card {
+        background: rgba(30, 41, 59, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(71, 85, 105, 0.5);
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        text-decoration: none;
+      }
+
+      .tool-card:hover {
+        border-color: rgba(59, 130, 246, 0.5);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .tool-icon-wrap {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex: 0 0 3rem;
+        margin-bottom: 0;
+        box-shadow: inset 0 1px 2px rgba(255,255,255,0.04);
+      }
+
+      .sidebar {
+        transition: width 0.25s ease, transform 0.25s ease, opacity 0.2s ease;
+      }
+
+      .sidebar-collapsed {
+        width: 0 !important;
+        overflow: hidden;
+        border-right-width: 0 !important;
+        opacity: 0;
+      }
+
+      .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.62);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        z-index: 40;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .sidebar-toggle {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 0.7rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .sidebar-toggle:hover {
+        background: rgba(51, 65, 85, 0.7);
+      }
+
+      @media (max-width: 767px) {
+        body {
+          overflow: hidden;
+        }
+
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: min(82vw, 19rem) !important;
+          transform: translateX(-105%);
+          opacity: 1;
+          border-right-width: 1px !important;
+          z-index: 50;
+        }
+
+        .sidebar.mobile-open {
+          transform: translateX(0);
+        }
+
+        .sidebar-collapsed {
+          width: min(82vw, 19rem) !important;
+          opacity: 1;
+        }
+
+        header {
+          min-height: 4rem;
+          height: auto;
+          padding: 0.7rem 0.75rem;
+          gap: 0.65rem;
+        }
+
+        header h2 {
+          min-width: 0;
+          font-size: 0.95rem;
+          white-space: nowrap;
+        }
+
+        header h2 i {
+          margin-right: 0.35rem !important;
+        }
+
+        header > div.relative {
+          width: 100%;
+          max-width: 13rem;
+        }
+
+        #toolSearch {
+          padding-top: 0.55rem;
+          padding-bottom: 0.55rem;
+        }
+
+        #main-scroll {
+          padding: 0.9rem;
+        }
+
+        .fade-in.max-w-7xl {
+          padding-bottom: 1rem;
+        }
+
+        .fade-in.max-w-7xl > section {
+          margin-bottom: 1.5rem;
+        }
+
+        .fade-in.max-w-7xl > section > h3 {
+          font-size: 1rem;
+          margin-bottom: 0.75rem;
+          padding-bottom: 0.5rem;
+        }
+
+        .fade-in.max-w-7xl > section > div.grid {
+          grid-template-columns: 1fr !important;
+          gap: 0.65rem;
+        }
+
+        .tool-card {
+          min-height: 0;
+          padding: 0.8rem;
+          border-radius: 0.8rem;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.8rem;
+        }
+
+        .tool-card:hover {
+          transform: none;
+        }
+
+        .tool-card > div.tool-icon-wrap {
+          width: 2.7rem;
+          height: 2.7rem;
+          flex-basis: 2.7rem;
+          font-size: 1.05rem;
+          border-radius: 0.65rem;
+        }
+
+        .tool-card > div:not(.tool-icon-wrap) {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .tool-card h4 {
+          margin: 0 0 0.2rem;
+          font-size: 0.9rem;
+          line-height: 1.3;
+        }
+
+        .tool-card p {
+          font-size: 0.72rem;
+          line-height: 1.4;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .tool-search-status {
+          text-align: left !important;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .tool-card {
+          display: grid;
+          grid-template-columns: 3rem minmax(0, 1fr);
+          grid-template-rows: auto 1fr;
+          column-gap: 0.9rem;
+          align-items: start;
+        }
+
+        .tool-card > .tool-icon-wrap {
+          grid-row: 1 / span 2;
+          grid-column: 1;
+        }
+
+        .tool-card > h4 {
+          grid-column: 2;
+          margin-bottom: 0.15rem;
+        }
+
+        .tool-card > p {
+          grid-column: 2;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="flex h-screen text-slate-200 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-fixed"
+  >
+    <!-- SIDEBAR -->
+    <aside
+      id="sidebar"
+      class="sidebar w-64 glass flex flex-col h-full border-r border-slate-700/50 z-50 shrink-0 hidden md:flex"
+      aria-label="Thanh điều hướng"
+    >
+      <div class="p-5 flex items-center gap-3 border-b border-slate-700/50">
+        <div
+          class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30"
+        >
+          <i class="fa-solid fa-atom"></i>
+        </div>
+        <h1
+          class="font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"
+        >
+          ChemDex
+        </h1>
+      </div>
+
+      <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <a
+          href="../"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-table-cells text-blue-400 w-5"></i>
+          <span class="font-medium">Bảng tuần hoàn</span>
+        </a>
+
+        <a
+          href="../trung-tam/tai-lieu-so"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-book-open text-emerald-400 w-5"></i>
+          <span class="font-medium">Tài Liệu Số</span>
+        </a>
+
+        <a
+  href="../trung-tam/cong-dong"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+>
+  <i class="fa-solid fa-users text-sky-400 w-5"></i>
+  <span class="font-medium">Cộng đồng</span>
+</a>
+
+        <a
+  href="./"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+>
+  <i class="fa-solid fa-toolbox text-blue-400 w-5"></i>
+  <span class="font-medium">Tiện Ích Học Tập</span>
+</a>
+        <a
+          href="https://antoanphongthinghiem.ai.studio"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-flask text-purple-400 w-5"></i>
+          <span class="font-medium">Thí Nghiệm</span>
+        </a>
+
+        <a
+  href="../dau-truong/"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+>
+  <i class="fa-solid fa-trophy text-yellow-400 w-5"></i>
+  <span class="font-medium">Đấu Trường</span>
+</a>
+
+      </nav>
+    </aside>
+
+    <div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+      <header
+        class="h-16 glass border-b border-slate-700/50 flex items-center justify-between px-6 z-10 shrink-0"
+      >
+        <div class="flex items-center gap-2 min-w-0">
+          <button
+            id="sidebarToggle"
+            type="button"
+            class="sidebar-toggle text-slate-300"
+            aria-label="Hiện/ẩn thanh điều hướng"
+            aria-controls="sidebar"
+            aria-expanded="true"
+            title="Hiện/ẩn sidebar"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <h2 class="text-lg font-bold text-white min-w-0">
+            <i class="fa-solid fa-toolbox text-purple-400 mr-2"></i>
+            <span>Tiện ích</span>
+          </h2>
+        </div>
+
+        <div class="relative w-64 max-w-[45vw]">
+          <i
+            class="fa-solid fa-search absolute left-3 top-1/3 -translate-y-1/2 text-slate-400 text-sm"
+          ></i>
+          <input
+            type="text"
+            id="toolSearch"
+            placeholder="Tìm tiện ích..."
+            class="w-full bg-slate-800/80 border border-slate-600 text-slate-200 text-sm rounded-full focus:ring-2 focus:ring-purple-500 block pl-9 p-1.5 transition-all"
+          />
+        </div>
+      </header>
+
+      <div class="flex-1 overflow-y-auto p-6 relative" id="main-scroll">
+        <div class="fade-in max-w-7xl mx-auto pb-10">
+          
+
+        </div>
+      </div>
+    </main>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const FEATURES_URL = "../data/features/main.json";
+        const dashboardRoot = document.querySelector(".fade-in.max-w-7xl");
+        const searchInput = document.getElementById("toolSearch");
+        const toolGridRoot = dashboardRoot;
+        const baseSections = [...document.querySelectorAll(".fade-in.max-w-7xl > section")];
+
+        if (!dashboardRoot || !searchInput) return;
+
+        const CATEGORY_META = {
+          "Phương trình": { icon: "fa-bolt", color: "pink", order: 0 },
+          "Lý thuyết": { icon: "fa-book-bookmark", color: "emerald", order: 1 },
+          "Tính toán cơ bản": { icon: "fa-calculator", color: "blue", order: 2 },
+          "Tính toán nâng cao": { icon: "fa-gears", color: "amber", order: 3 },
+        };
+
+        const COLOR_META = {
+          pink: { text: "text-pink-400", bg: "bg-pink-500/20", border: "border-pink-500/30" },
+          blue: { text: "text-blue-400", bg: "bg-blue-500/20", border: "border-blue-500/30" },
+          emerald: { text: "text-emerald-400", bg: "bg-emerald-500/20", border: "border-emerald-500/30" },
+          amber: { text: "text-amber-400", bg: "bg-amber-500/20", border: "border-amber-500/30" },
+          cyan: { text: "text-cyan-400", bg: "bg-cyan-500/20", border: "border-cyan-500/30" },
+          purple: { text: "text-purple-400", bg: "bg-purple-500/20", border: "border-purple-500/30" },
+          orange: { text: "text-orange-400", bg: "bg-orange-500/20", border: "border-orange-500/30" },
+          red: { text: "text-red-400", bg: "bg-red-500/20", border: "border-red-500/30" },
+          slate: { text: "text-slate-400", bg: "bg-slate-500/20", border: "border-slate-500/30" },
+        };
+
+        function normalize(value) {
+          return String(value ?? "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+        }
+
+        function escapeHtml(value) {
+          return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        function safeHref(value) {
+          const href = String(value ?? "").trim();
+          if (!href) return "#";
+          if (/^(javascript|data|vbscript):/i.test(href)) return "#";
+          return href;
+        }
+
+        function safeIcon(value, fallback = "fa-toolbox") {
+          const raw = String(value ?? fallback).trim();
+          const icon = raw.replace(/^fa-solid\s+/, "").replace(/^fas\s+/, "");
+          return /^[a-z0-9- ]+$/i.test(icon) ? icon : fallback;
+        }
+
+        function resolveColor(value, fallback = "blue") {
+          const key = normalize(value).replace(/\s+/g, "");
+          return COLOR_META[key] ? key : fallback;
+        }
+
+        function extractFeatureArray(payload) {
+          if (Array.isArray(payload)) return payload;
+          if (!payload || typeof payload !== "object") return [];
+
+          const candidates = [
+            payload.features,
+            payload.tools,
+            payload.items,
+            payload.data,
+            payload.list,
+          ];
+
+          for (const candidate of candidates) {
+            if (Array.isArray(candidate)) return candidate;
+          }
+
+          // Support object maps: { "feature-id": {...}, ... }
+          const values = Object.values(payload);
+          if (values.length && values.every((v) => v && typeof v === "object" && !Array.isArray(v))) {
+            return values;
+          }
+
+          return [];
+        }
+
+        function normalizeFeature(raw, index) {
+          if (!raw || typeof raw !== "object") return null;
+
+          const title = raw.title ?? raw.name ?? raw.label ?? raw.text ?? `Tính năng ${index + 1}`;
+          const description = raw.description ?? raw.desc ?? raw.subtitle ?? raw.summary ?? "";
+          const href = raw.href ?? raw.path ?? raw.url ?? raw.link ?? raw.route ?? (raw.id ? `./${raw.id}/` : "#");
+          const category = raw.category ?? raw.group ?? raw.section ?? raw.type ?? "Tính năng mới";
+          const icon = raw.icon ?? raw.faIcon ?? raw.iconClass ?? "fa-toolbox";
+          const color = raw.color ?? raw.theme ?? raw.accent ?? "blue";
+          const id = raw.id ?? raw.slug ?? normalize(title).replace(/[^a-z0-9]+/g, "-");
+
+          return {
+            id: String(id),
+            title: String(title),
+            description: String(description),
+            href: safeHref(href),
+            category: String(category || "Tính năng mới"),
+            icon: safeIcon(icon),
+            color: resolveColor(color),
+            keywords: [raw.keywords, raw.tags, raw.search].flatMap((v) => Array.isArray(v) ? v : [v]).filter(Boolean).join(" "),
+          };
+        }
+
+        function getSection(category) {
+          return [...dashboardRoot.querySelectorAll(":scope > section")]
+            .find((section) => normalize(section.dataset.category) === normalize(category));
+        }
+
+        function createSection(category, meta = {}) {
+          const color = resolveColor(meta.color || "blue");
+          const palette = COLOR_META[color];
+          const icon = safeIcon(meta.icon || "fa-toolbox");
+
+          const section = document.createElement("section");
+          section.className = "mb-10";
+          section.dataset.category = category;
+          section.dataset.dynamicSection = "true";
+          section.innerHTML = `
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+              <span class="${palette.text}"><i class="fa-solid ${icon}"></i></span>
+              ${escapeHtml(category)}
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+          `;
+
+          const allSections = [...dashboardRoot.querySelectorAll(":scope > section")];
+          const order = Number.isFinite(Number(meta.order)) ? Number(meta.order) : 999;
+          section.dataset.order = String(order);
+
+          const insertBefore = allSections.find((node) => Number(node.dataset.order ?? 999) > order);
+          if (insertBefore) dashboardRoot.insertBefore(section, insertBefore);
+          else dashboardRoot.appendChild(section);
+
+          return section;
+        }
+
+        function createFeatureCard(feature) {
+          const palette = COLOR_META[feature.color] || COLOR_META.blue;
+
+          const searchText = [
+            feature.id,
+            feature.title,
+            feature.description,
+            feature.category,
+            feature.keywords,
+            feature.href,
+          ].join(" ");
+
+          const card = document.createElement("a");
+          card.href = feature.href;
+          card.className = "tool-card";
+          card.dataset.featureId = feature.id;
+          card.dataset.dynamicFeature = "true";
+          card.setAttribute("aria-label", feature.title);
+          card.innerHTML = `
+            <div class="tool-icon-wrap ${palette.bg} ${palette.text} border ${palette.border}">
+              <i class="fa-solid ${safeIcon(feature.icon)}"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+              <h4 class="font-bold text-white mb-1">${escapeHtml(feature.title)}</h4>
+              <p class="text-xs text-slate-400">${escapeHtml(feature.description)}</p>
+            </div>
+          `;
+          card.dataset.search = normalize(searchText);
+          return card;
+        }
+
+        let status = document.getElementById("toolSearchStatus");
+        if (!status) {
+          status = document.createElement("div");
+          status.id = "toolSearchStatus";
+          status.className = "tool-search-status text-xs text-slate-500 mt-2 text-right";
+          searchInput.parentElement.appendChild(status);
+        }
+
+        function collectCards() {
+          return [...dashboardRoot.querySelectorAll(".tool-card")].map((card) => {
+            const title = card.querySelector("h4")?.textContent || "";
+            const description = card.querySelector("p")?.textContent || "";
+            const label = card.getAttribute("aria-label") || "";
+            const href = card.getAttribute("href") || "";
+            const extra = card.dataset.search || "";
+
+            return {
+              card,
+              section: card.closest("section"),
+              text: normalize(`${title} ${description} ${label} ${href} ${extra}`),
+            };
+          });
+        }
+
+        let index = [];
+
+        function runSearch(rawValue = "") {
+          const query = normalize(rawValue);
+          const terms = query.split(/\s+/).filter(Boolean);
+          let visibleCount = 0;
+
+          index = collectCards();
+
+          for (const item of index) {
+            const matched = !terms.length || terms.every((term) => item.text.includes(term));
+            item.card.classList.toggle("tool-hidden", !matched);
+            if (matched) visibleCount++;
+          }
+
+          for (const section of dashboardRoot.querySelectorAll(":scope > section")) {
+            const visibleCards = section.querySelectorAll(".tool-card:not(.tool-hidden)").length;
+            section.classList.toggle("tool-hidden", visibleCards === 0);
+          }
+
+          // status.textContent = query
+          //   ? `${visibleCount} / ${index.length} tiện ích`
+          //   : `${index.length} tiện ích`;
+        }
+
+        function debounce(fn, delay = 100) {
+          let timer;
+          return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), delay);
+          };
+        }
+
+        async function loadFeatures() {
+          try {
+            const response = await fetch(FEATURES_URL, {
+              method: "GET",
+              headers: { Accept: "application/json" },
+              cache: "no-store",
+            });
+
+            if (!response.ok) {
+              throw new Error(`Không tải được ${FEATURES_URL} (${response.status})`);
+            }
+
+            const payload = await response.json();
+            const source = extractFeatureArray(payload);
+            const features = source.map(normalizeFeature).filter(Boolean);
+
+            if (!features.length) {
+              runSearch(searchInput.value);
+              return;
+            }
+
+            const existingHrefs = new Set(
+              [...dashboardRoot.querySelectorAll(".tool-card")].map((card) => safeHref(card.getAttribute("href")))
+            );
+            const existingIds = new Set(
+              [...dashboardRoot.querySelectorAll("[data-feature-id]")].map((card) => card.dataset.featureId)
+            );
+
+            for (const feature of features) {
+              if (feature.href === "#" || existingHrefs.has(feature.href) || existingIds.has(feature.id)) continue;
+
+              const meta = CATEGORY_META[feature.category] || {
+                icon: feature.icon,
+                color: feature.color,
+                order: 500,
+              };
+
+              const section = getSection(feature.category) || createSection(feature.category, meta);
+              const grid = section.querySelector(":scope > div.grid");
+              if (!grid) continue;
+
+              grid.appendChild(createFeatureCard(feature));
+              existingHrefs.add(feature.href);
+              existingIds.add(feature.id);
+            }
+
+            // Reflect the actual number of tools in the page heading.
+            const countText = dashboardRoot.querySelector(".glass p");
+            if (countText) {
+              const total = dashboardRoot.querySelectorAll(".tool-card").length;
+              countText.textContent = `${total} tiện ích học tập, tra cứu và giải bài tập — cùng một giao diện.`;
+            }
+
+            runSearch(searchInput.value);
+          } catch (error) {
+            console.warn("[ChemDex] Không thể tải feature data:", error);
+            runSearch(searchInput.value);
+          }
+        }
+
+        const sidebar = document.getElementById("sidebar");
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+        function isMobileSidebar() {
+          return window.matchMedia("(max-width: 767px)").matches;
+        }
+
+        function setSidebarState(open) {
+          if (!sidebar || !sidebarToggle || !sidebarOverlay) return;
+
+          if (isMobileSidebar()) {
+            sidebar.classList.toggle("mobile-open", open);
+            sidebarOverlay.classList.toggle("active", open);
+            sidebarOverlay.setAttribute("aria-hidden", String(!open));
+            sidebarToggle.setAttribute("aria-expanded", String(open));
+            sidebarToggle.innerHTML = `<i class="fa-solid ${open ? "fa-xmark" : "fa-bars"}"></i>`;
+            document.body.style.overflow = open ? "hidden" : "hidden";
+          } else {
+            sidebar.classList.toggle("sidebar-collapsed", !open);
+            sidebar.classList.remove("mobile-open");
+            sidebarOverlay.classList.remove("active");
+            sidebarOverlay.setAttribute("aria-hidden", "true");
+            sidebarToggle.setAttribute("aria-expanded", String(open));
+            sidebarToggle.innerHTML = `<i class="fa-solid ${open ? "fa-bars" : "fa-angles-right"}"></i>`;
+            document.body.style.overflow = "hidden";
+          }
+        }
+
+        function syncSidebarLayout() {
+          const mobile = isMobileSidebar();
+          if (mobile) {
+            setSidebarState(false);
+          } else {
+            setSidebarState(!sidebar.classList.contains("sidebar-collapsed"));
+          }
+        }
+
+        sidebarToggle?.addEventListener("click", () => {
+          if (isMobileSidebar()) {
+            setSidebarState(!sidebar.classList.contains("mobile-open"));
+          } else {
+            setSidebarState(sidebar.classList.contains("sidebar-collapsed"));
+          }
+        });
+
+        sidebarOverlay?.addEventListener("click", () => setSidebarState(false));
+
+        window.addEventListener("resize", debounce(syncSidebarLayout, 120));
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            if (isMobileSidebar() && sidebar?.classList.contains("mobile-open")) {
+              setSidebarState(false);
+            }
+          }
+        });
+
+        searchInput.addEventListener("input", debounce((event) => {
+          runSearch(event.target.value);
+        }));
+
+        searchInput.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && searchInput.value) {
+            searchInput.value = "";
+            runSearch("");
+            searchInput.focus();
+          }
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const initialQuery = params.get("q") || "";
+        if (initialQuery) searchInput.value = initialQuery;
+
+        // Sidebar starts visible on desktop and closed on mobile.
+        syncSidebarLayout();
+
+        // Search works immediately for the static list, then automatically
+        // reindexes after ../data/features/main.json adds more tools.
+        runSearch(initialQuery);
+        loadFeatures();
+      })();
+    </script>
+  </body>
+</html>

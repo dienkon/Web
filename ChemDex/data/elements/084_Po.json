@@ -1,0 +1,193 @@
+{
+  "number": 84,
+  "symbol": "Po",
+  "mass": 209,
+  "category": "a-kim",
+  "hasData": true,
+  "general": {
+    "latinName": "Polonium",
+    "englishName": "Polonium",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴",
+    "isotope": "²⁰⁸Po, ²⁰⁹Po, ²¹⁰Po",
+    "group": 16,
+    "period": 6,
+    "block": "p",
+    "state": "Rắn",
+    "oxidation": "-2, +2, +4, +6",
+    "electronegativity": "2,0",
+    "density": "9,32 g/cm³",
+    "meltingPoint": "254°C",
+    "boilingPoint": "962°C",
+    "crystalStructure": "Lập phương đơn giản"
+  },
+  "history": {
+    "discoverer": "Marie Curie, Pierre Curie",
+    "discovererUrl": "https://en.wikipedia.org/wiki/Marie_Curie",
+    "discoverers": [
+      {
+        "name": "Marie Curie",
+        "url": "https://en.wikipedia.org/wiki/Marie_Curie"
+      },
+      {
+        "name": "Pierre Curie",
+        "url": "https://en.wikipedia.org/wiki/Pierre_Curie"
+      }
+    ],
+    "year": 1898,
+    "discoveryLocation": "Paris, Pháp",
+    "description": "Polonium được Marie Curie và Pierre Curie phát hiện năm 1898 khi nghiên cứu quặng pitchblende. Nguyên tố được đặt tên theo Ba Lan (Poland), quê hương của Marie Curie."
+  },
+  "structure": {
+    "protons": 84,
+    "neutrons": 125,
+    "electrons": 84,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      6
+    ],
+    "valenceElectrons": 6,
+    "lattice": "lap-phuong-don-gian",
+    "nucleus": {
+      "proton": 84,
+      "neutron": 125
+    },
+    "orbitalDistribution": {
+      "s": 2,
+      "p": 4,
+      "d": 10,
+      "f": 14
+    }
+  },
+  "occurrence": {
+    "description": "Polonium là nguyên tố cực hiếm trong tự nhiên. Nó xuất hiện với lượng rất nhỏ trong quặng uranium và thorium, hình thành từ chuỗi phân rã phóng xạ tự nhiên.",
+    "simple": [
+      "Po"
+    ],
+    "compounds": [
+      "PoO₂",
+      "PoCl₂",
+      "PoCl₄",
+      "PoH₂"
+    ],
+    "ores": [
+      "Pitchblende",
+      "Quặng uranium",
+      "Quặng thorium"
+    ]
+  },
+  "naturalState": {
+    "title": "Polonium trong tự nhiên",
+    "description": "Polonium tồn tại với lượng cực nhỏ trong các quặng chứa uranium và thorium, là sản phẩm của các chuỗi phân rã phóng xạ tự nhiên."
+  },
+  "mediaBlocks": [
+    {
+      "section": "history",
+      "type": "video",
+      "title": "Khám phá Polonium",
+      "src": "https://www.youtube.com/watch?v=lFwM0s0qQWQ",
+      "questions": [
+        {
+          "time": "00:35",
+          "question": "Ai là người đồng phát hiện ra nguyên tố Polonium?",
+          "options": [
+            "Marie Curie",
+            "Niels Bohr",
+            "Ernest Rutherford",
+            "Mendeleev"
+          ],
+          "correct": 0
+        },
+        {
+          "time": "01:10",
+          "question": "Polonium được đặt tên để vinh danh quốc gia nào?",
+          "options": [
+            "Pháp",
+            "Nga",
+            "Ba Lan",
+            "Đức"
+          ],
+          "correct": 2
+        }
+      ]
+    },
+    {
+      "section": "occurrence",
+      "type": "3d",
+      "model": "./assets/elements/084_polonium/model/84_Po.glb",
+      "title": "Tinh thể Polonium",
+      "description": "Mô hình cấu trúc tinh thể của polonium ở trạng thái rắn."
+    }
+  ],
+  "physical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là kim loại phóng xạ màu bạc.</li>\n  <li>Thuộc nhóm chalcogen cùng với oxygen và sulfur.</li>\n  <li>Tự phát nhiệt do phân rã phóng xạ.</li>\n  <li>Có mật độ tương đối cao: <b>9,32 g/cm³</b>.</li>\n  <li>Dẫn điện và dẫn nhiệt tương đối tốt.</li>\n  <li>Phát ra chủ yếu bức xạ alpha.</li>\n  <li>Phát quang yếu trong bóng tối do phóng xạ mạnh.</li>\n</ul>\n",
+  "chemical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Hoạt động hóa học mạnh hơn tellurium.</li>\n  <li>Dễ bị oxy hóa trong không khí tạo PoO₂.</li>\n  <li>Phản ứng với halogen tạo các muối polonium.</li>\n  <li>Tạo các hợp chất ở số oxi hóa +2 và +4 phổ biến.</li>\n  <li>Có thể tạo hydride PoH₂.</li>\n  <li>Tất cả hợp chất của polonium đều có tính phóng xạ.</li>\n</ul>\n",
+  "preparation": "\n<div class=\"space-y-3\">\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Tách từ quặng uranium\n    </h4>\n\n    <p>\n      Polonium được phát hiện lần đầu từ cặn phóng xạ của quặng pitchblende.\n    </p>\n  </div>\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Chiếu xạ bismuth\n    </h4>\n\n    <p>\n      Polonium công nghiệp được sản xuất bằng cách chiếu neutron vào bismuth-209 trong lò phản ứng hạt nhân.\n    </p>\n  </div>\n\n</div>\n",
+  "reactions": [
+    {
+      "type": "Oxy hóa",
+      "equation": "Po + O₂ → PoO₂",
+      "related": "O",
+      "condition": "đun nóng",
+      "desc": "Polonium phản ứng với oxygen tạo polonium dioxide."
+    },
+    {
+      "type": "Tác dụng với chlorine",
+      "equation": "Po + 2Cl₂ → PoCl₄",
+      "related": "Cl",
+      "condition": "nhiệt độ thích hợp",
+      "desc": "Polonium phản ứng với chlorine tạo polonium tetrachloride."
+    },
+    {
+      "type": "Tạo hydride",
+      "equation": "Po + H₂ → PoH₂",
+      "related": "H",
+      "condition": "nhiệt độ cao",
+      "desc": "Polonium có thể tạo hợp chất hydride tương tự các nguyên tố nhóm 16 khác."
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nguồn phát alpha",
+      "desc": "Dùng làm nguồn phát hạt alpha trong nghiên cứu khoa học."
+    },
+    {
+      "title": "Khử tĩnh điện",
+      "desc": "Được dùng trong các thiết bị loại bỏ điện tích tĩnh trong công nghiệp."
+    },
+    {
+      "title": "Nguồn nhiệt phóng xạ",
+      "desc": "Được sử dụng làm nguồn nhiệt trong một số thiết bị đặc biệt."
+    },
+    {
+      "title": "Nghiên cứu hạt nhân",
+      "desc": "Quan trọng trong nghiên cứu vật lý hạt nhân và phóng xạ."
+    }
+  ],
+  "simulation": {
+    "title": "Oxy hóa Polonium",
+    "reagents": [
+      {
+        "id": "Po",
+        "name": "Polonium",
+        "icon": "fa-radiation"
+      },
+      {
+        "id": "O",
+        "name": "Oxygen",
+        "icon": "fa-wind"
+      }
+    ],
+    "expected": [
+      "Po",
+      "O"
+    ],
+    "resultText": "☢️ Polonium phản ứng với oxygen tạo polonium dioxide.\n\nPo + O₂ → PoO₂"
+  },
+  "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 84 trong bảng tuần hoàn.</li>\n  <li>Được Marie Curie và Pierre Curie phát hiện năm 1898.</li>\n  <li>Được đặt tên theo Ba Lan (Poland).</li>\n  <li>Là một trong những nguyên tố phóng xạ độc hại nhất được biết đến.</li>\n  <li>²¹⁰Po là đồng vị nổi tiếng và được nghiên cứu nhiều nhất.</li>\n  <li>Trong tự nhiên chỉ tồn tại với lượng cực kỳ nhỏ.</li>\n</ul>\n",
+  "nameVi": "Polonium",
+  "nameEn": "Polonium",
+  "file": "elements/084_Po.json"
+}

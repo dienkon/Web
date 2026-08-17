@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/trung-tam/(.*)",
+      "destination": "/trung-tam/index.html"
+    },
+    {
+      "source": "/dau-truong/(.*)",
+      "destination": "/dau-truong/index.html"
+    }
+  ]
+}

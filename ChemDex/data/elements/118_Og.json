@@ -1,0 +1,171 @@
+{
+  "number": 118,
+  "symbol": "Og",
+  "mass": 294,
+  "category": "khi-hiem",
+  "hasData": true,
+  "general": {
+    "latinName": "Oganesson",
+    "englishName": "Oganesson",
+    "electronConfig": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶",
+    "isotope": "²⁹⁴Og",
+    "group": 18,
+    "period": 7,
+    "block": "p",
+    "state": "Rắn (dự đoán)",
+    "oxidation": "0 (dự đoán)",
+    "electronegativity": "Không xác định",
+    "density": "Chưa xác định",
+    "meltingPoint": "Chưa xác định",
+    "boilingPoint": "Chưa xác định",
+    "crystalStructure": "Chưa xác định"
+  },
+  "history": {
+    "discoverer": "Nhóm JINR–LLNL",
+    "discovererUrl": "https://iupac.org/iupac-announces-the-names-of-the-elements-113-115-117-and-118/",
+    "discoverers": [
+      {
+        "name": "JINR (Dubna)",
+        "url": "https://www.jinr.ru/"
+      },
+      {
+        "name": "Lawrence Livermore National Laboratory",
+        "url": "https://www.llnl.gov/"
+      },
+      {
+        "name": "IUPAC",
+        "url": "https://iupac.org/"
+      }
+    ],
+    "year": 2002,
+    "discoveryLocation": "Dubna / Nga",
+    "description": "Oganesson được tổng hợp lần đầu vào năm 2002 trong các thí nghiệm va chạm hạt nhân siêu nặng. Năm 2016, IUPAC chính thức công nhận và đặt tên nguyên tố này là oganesson (Og), theo tên nhà vật lý hạt nhân Yuri Oganessian."
+  },
+  "structure": {
+    "protons": 118,
+    "neutrons": 176,
+    "electrons": 118,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      32,
+      18,
+      8
+    ],
+    "valenceElectrons": 8,
+    "lattice": "Chưa xác định",
+    "nucleus": {
+      "proton": 118,
+      "neutron": 176
+    },
+    "orbitalDistribution": {
+      "s": 2,
+      "p": 6,
+      "d": 10,
+      "f": 14
+    }
+  },
+  "occurrence": {
+    "description": "Oganesson không tồn tại tự nhiên với lượng đáng kể trên Trái Đất. Đây là nguyên tố nhân tạo, chỉ được tạo ra trong các máy gia tốc hạt và tồn tại trong thời gian cực ngắn.",
+    "simple": [
+      "Og"
+    ],
+    "compounds": [],
+    "ores": []
+  },
+  "naturalState": {
+    "title": "Oganesson trong tự nhiên",
+    "description": "Oganesson không có nguồn gốc tự nhiên bền vững. Mọi nguyên tử đã biết đều là sản phẩm nhân tạo trong nghiên cứu hạt nhân."
+  },
+  "mediaBlocks": [
+    {
+      "section": "history",
+      "type": "video",
+      "title": "Lịch sử phát hiện Oganesson",
+      "src": "https://www.youtube.com/watch?v=YbfeDnQbHLo",
+      "questions": [
+        {
+          "time": "00:20",
+          "question": "Oganesson là nguyên tố số mấy?",
+          "options": [
+            "116",
+            "117",
+            "118",
+            "119"
+          ],
+          "correct": 2
+        },
+        {
+          "time": "00:40",
+          "question": "Og thuộc nhóm nào trong bảng tuần hoàn?",
+          "options": [
+            "Nhóm 17",
+            "Nhóm 18",
+            "Nhóm 1",
+            "Nhóm 2"
+          ],
+          "correct": 1
+        }
+      ]
+    }
+  ],
+  "physical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là nguyên tố siêu nặng, tổng hợp nhân tạo.</li>\n  <li>Thuộc nhóm khí hiếm, nhưng tính chất thực nghiệm còn rất hạn chế.</li>\n  <li>Trạng thái ở nhiệt độ phòng được dự đoán là <b>rắn</b>.</li>\n  <li>Có số nguyên tử lớn nhất trong các nguyên tố đã biết.</li>\n  <li>Thời gian sống của các đồng vị đã tạo ra là cực ngắn.</li>\n  <li>Các tính chất vật lý chi tiết hiện vẫn chủ yếu là dự đoán lý thuyết.</li>\n</ul>\n",
+  "chemical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Oganesson là khí hiếm siêu nặng, nhưng có thể không “trơ” hoàn toàn như các khí hiếm nhẹ hơn.</li>\n  <li>Các tính chất hóa học của nó chủ yếu mới dừng ở mức dự đoán.</li>\n  <li>Có thể có độ phân cực lớn và hành vi khác thường do hiệu ứng tương đối tính.</li>\n  <li>Chưa có nhiều hợp chất bền được xác nhận thực nghiệm.</li>\n  <li>Phần lớn nghiên cứu hiện nay tập trung vào mô hình hóa lý thuyết và chuỗi phân rã hạt nhân.</li>\n</ul>\n",
+  "preparation": "\n<div class=\"space-y-3\">\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Tổng hợp trong máy gia tốc hạt\n    </h4>\n\n    <p>\n      Oganesson được tạo ra bằng cách bắn phá hạt nhân rất nặng trong các thí nghiệm va chạm hạt nhân.\n    </p>\n  </div>\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Quan sát chuỗi phân rã\n    </h4>\n\n    <p>\n      Nguyên tử Og được nhận diện thông qua các hạt nhân con sinh ra từ chuỗi phân rã alpha.\n    </p>\n  </div>\n\n</div>\n",
+  "reactions": [
+    {
+      "type": "Tổng hợp oganesson-294",
+      "equation": "²⁴⁹Cf + ⁴⁸Ca → ²⁹⁴Og + 3n",
+      "related": "Cf",
+      "condition": "máy gia tốc hạt / thí nghiệm hạt nhân siêu nặng",
+      "desc": "Đây là con đường đã dùng để tạo ra các nguyên tử oganesson đầu tiên."
+    },
+    {
+      "type": "Phân rã alpha",
+      "equation": "²⁹⁴Og → ²⁹⁰Lv + ⁴He",
+      "related": "Lv",
+      "condition": "tự phát",
+      "desc": "Oganesson không bền và phân rã rất nhanh qua chuỗi hạt nhân con."
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nghiên cứu hạt nhân siêu nặng",
+      "desc": "Dùng để khảo sát giới hạn của bảng tuần hoàn và độ bền hạt nhân."
+    },
+    {
+      "title": "Mô hình hóa lượng tử",
+      "desc": "Giúp kiểm tra các hiệu ứng tương đối tính trong nguyên tử cực nặng."
+    },
+    {
+      "title": "Nghiên cứu chuỗi phân rã",
+      "desc": "Được dùng để nhận diện và truy vết các hạt nhân con trong vật lý hạt nhân."
+    }
+  ],
+  "simulation": {
+    "title": "Tổng hợp Oganesson",
+    "reagents": [
+      {
+        "id": "Cf",
+        "name": "Californium-249",
+        "icon": "fa-atom"
+      },
+      {
+        "id": "Ca",
+        "name": "Calcium-48",
+        "icon": "fa-circle-nodes"
+      }
+    ],
+    "expected": [
+      "Cf",
+      "Ca"
+    ],
+    "resultText": "Oganesson là nguyên tố siêu nặng được tổng hợp trong máy gia tốc hạt. Các nguyên tử đã tạo ra tồn tại rất ngắn và thường được nhận diện qua chuỗi phân rã alpha."
+  },
+  "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 118 trong bảng tuần hoàn.</li>\n  <li>Là nguyên tố cuối cùng của chu kỳ 7.</li>\n  <li>Thuộc nhóm khí hiếm nhưng có tính chất dự đoán rất bất thường.</li>\n  <li>Phần lớn dữ liệu hiện nay là từ mô hình lý thuyết và thí nghiệm hạt nhân siêu nặng.</li>\n</ul>\n",
+  "nameVi": "Oganesson",
+  "nameEn": "Oganesson",
+  "file": "elements/118_Og.json"
+}

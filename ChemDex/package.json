@@ -1,0 +1,19 @@
+{
+  "name": "chemdex",
+  "private": true,
+  "scripts": {
+    "build-pthh": "cd tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh && npm install && npm run build",
+    "build-chuoi-phan-ung": "cd tien-ich/phuong-trinh/chuoi-phan-ung && npm install && npm run build",
+    "build-trung-tam": "cd trung-tam && npm install && npm run build",
+    "build-dau-truong": "cd dau-truong && npm install && npm run build",
+    "copy": "node build.js",
+    "build": "npm run build-pthh && npm run build-chuoi-phan-ung && npm run build-trung-tam && npm run build-dau-truong && npm run copy"
+  },
+  "dependencies": {
+    "@google/genai": "^1.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  }
+}

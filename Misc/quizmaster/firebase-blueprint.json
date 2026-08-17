@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "firestore": {
+      "collections": {
+        "users": {
+          "permissions": {
+            "read": "request.auth != null",
+            "write": "request.auth != null && request.auth.uid == documentId"
+          }
+        },
+        "exams": {
+          "permissions": {
+            "read": "request.auth != null && (resource == null || resource.data.published == true || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')",
+            "write": "request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'"
+          }
+        },
+        "examAnswers": {
+          "permissions": {
+            "read": "request.auth != null && (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' || (exists(/databases/$(database)/documents/attempts/$(request.auth.uid + '_' + documentId)) && get(/databases/$(database)/documents/attempts/$(request.auth.uid + '_' + documentId)).data.isFinished == true))",
+            "write": "request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'"
+          }
+        },
+        "attempts": {
+          "permissions": {
+            "read": "request.auth != null && (resource == null || resource.data.uid == request.auth.uid || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')",
+            "write": "request.auth != null && ((request.resource.data.uid == request.auth.uid && request.auth.uid == documentId.split('_')[0]) || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')"
+          }
+        }
+      }
+    }
+  }
+}

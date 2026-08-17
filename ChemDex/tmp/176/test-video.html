@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Quiz Popup Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      .glass {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.78);
+      }
+      .scrollbar::-webkit-scrollbar {
+        width: 10px;
+      }
+      .scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 999px;
+      }
+      .scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #playerHost {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+      }
+      #playerHost iframe,
+      #playerHost > div,
+      #playerHost > div > iframe {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        border: 0 !important;
+        background: #000 !important;
+      }
+      .control-btn {
+        @apply rounded-xl border border-slate-300 px-4 py-2 font-medium hover:bg-slate-100;
+      }
+
+      .loader-ring {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #ffffff;
+        animation: spin 0.8s linear infinite;
+        display: inline-block;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-900 min-h-screen">
+    <div class="max-w-7xl mx-auto p-4 md:p-6">
+      <header class="mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold">
+          YouTube Quiz Popup Player
+        </h1>
+        <p class="text-slate-600 mt-1">
+          Nhúng video YouTube trong web và bật popup câu hỏi ở mốc thời gian đã
+          đặt.
+        </p>
+      </header>
+
+      <div class="grid lg:grid-cols-[360px_minmax(0,1fr)] gap-6 items-start">
+        <aside
+          class="glass border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5 sticky top-4"
+        >
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Link video YouTube</label
+              >
+              <input
+                id="videoUrl"
+                type="text"
+                placeholder="https://www.youtube.com/watch?v=..."
+                class="w-full rounded-xl border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-slate-400"
+              />
+              <p class="text-xs text-slate-500 mt-1">
+                Chỉ hiện video trên web, không chuyển người xem sang YouTube.
+              </p>
+            </div>
+
+            <div class="flex gap-2">
+              <button
+                id="loadBtn"
+                class="flex-1 rounded-xl bg-slate-900 text-white px-4 py-2 font-medium hover:bg-slate-800"
+              >
+                Tải video
+              </button>
+              <button
+                id="saveBtn"
+                class="rounded-xl border border-slate-300 px-4 py-2 font-medium hover:bg-slate-100"
+              >
+                Lưu
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                id="exportBtn"
+                class="rounded-xl border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100"
+              >
+                Xuất JSON
+              </button>
+              <label
+                class="rounded-xl border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 cursor-pointer text-center"
+              >
+                Nhập JSON
+                <input
+                  id="importFile"
+                  type="file"
+                  accept="application/json"
+                  class="hidden"
+                />
+              </label>
+            </div>
+
+            <div
+              id="statusText"
+              class="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-600"
+            >
+              Sẵn sàng.
+            </div>
+
+            <div class="border-t pt-4">
+              <div class="flex items-center justify-between mb-2">
+                <h2 class="font-semibold">Mốc popup</h2>
+                <button
+                  id="addPopupBtn"
+                  class="text-sm rounded-lg bg-slate-900 text-white px-3 py-1.5 hover:bg-slate-800"
+                >
+                  + Thêm
+                </button>
+              </div>
+              <div
+                id="popupList"
+                class="space-y-3 max-h-[52vh] overflow-auto scrollbar pr-1"
+              ></div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="space-y-4">
+          <section
+            class="glass border border-slate-200 rounded-2xl shadow-sm p-3 md:p-4"
+          >
+            <div
+              id="playerShell"
+              class="aspect-video rounded-xl overflow-hidden bg-black relative group"
+            >
+              <div id="playerHost"></div>
+              <div
+                id="overlayHint"
+                class="absolute inset-0 flex items-center justify-center text-white/80 text-sm pointer-events-none z-10"
+              >
+                Chưa tải video
+              </div>
+
+              <div
+                id="tapLayer"
+                class="absolute inset-0 z-10 cursor-pointer"
+                title="Nhấn để phát hoặc tạm dừng"
+                aria-label="Nhấn để phát hoặc tạm dừng"
+              ></div>
+
+              <div
+                id="loadingOverlay"
+                class="absolute inset-0 z-20 hidden items-center justify-center bg-black/35 text-white"
+              >
+                <div
+                  class="flex items-center gap-3 rounded-2xl bg-black/55 px-4 py-3 backdrop-blur-sm shadow-lg"
+                >
+                  <span class="loader-ring" aria-hidden="true"></span>
+                  <span id="loadingText" class="text-sm font-medium"
+                    >Đang tải video...</span
+                  >
+                </div>
+              </div>
+
+              <div
+                id="ytControls"
+                class="absolute inset-x-0 bottom-0 z-30 pointer-events-none opacity-100 transition-all duration-300 ease-out"
+              >
+                <div
+                  class="h-24 bg-gradient-to-t from-black/85 via-black/40 to-transparent"
+                ></div>
+                <div
+                  class="absolute inset-x-0 bottom-0 px-3 md:px-4 pb-3 pointer-events-auto text-white"
+                >
+                  <input
+                    id="seekBar"
+                    type="range"
+                    min="0"
+                    max="1000"
+                    value="0"
+                    class="w-full accent-white mb-2"
+                  />
+                  <div
+                    class="flex items-center justify-between gap-2 flex-wrap"
+                  >
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <button
+                        id="playBtn"
+                        class="rounded-full bg-white/10 hover:bg-white/20 w-10 h-10 inline-flex items-center justify-center"
+                        aria-label="Play"
+                      >
+                        ▶
+                      </button>
+
+                      <button
+                        id="back10Btn"
+                        class="rounded-full bg-white/10 hover:bg-white/20 w-10 h-10 inline-flex items-center justify-center"
+                        aria-label="Back 10 seconds"
+                      >
+                        ↺
+                      </button>
+                      <button
+                        id="forward10Btn"
+                        class="rounded-full bg-white/10 hover:bg-white/20 w-10 h-10 inline-flex items-center justify-center"
+                        aria-label="Forward 10 seconds"
+                      >
+                        ↻
+                      </button>
+
+                      <label
+                        class="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2"
+                      >
+                      </label>
+                      <span
+                        id="timeLabel"
+                        class="text-sm font-medium tabular-nums"
+                        >0:00 / 0:00</span
+                      >
+                    </div>
+
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <label
+                        class="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2"
+                      >
+                        <select
+                          id="speedSelect"
+                          class="rounded-lg bg-transparent border border-white/20 px-2 py-1 text-sm outline-none"
+                        >
+                          <option value="0.5">0.5x</option>
+                          <option value="0.75">0.75x</option>
+                          <option value="1" selected>1x</option>
+                          <option value="1.25">1.25x</option>
+                          <option value="1.5">1.5x</option>
+                          <option value="1.75">1.75x</option>
+                          <option value="2">2x</option>
+                        </select>
+                      </label>
+                      <button
+                        id="fsBtn"
+                        class="rounded-full bg-white/10 hover:bg-white/20 w-10 h-10 inline-flex items-center justify-center"
+                        aria-label="Full screen"
+                      >
+                        ⛶
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="modalBackdrop"
+                class="absolute inset-0 bg-black/60 hidden items-center justify-center p-4 z-50"
+              >
+                <div
+                  class="w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200"
+                >
+                  <div
+                    class="px-5 py-4 border-b bg-slate-50 flex items-start justify-between gap-4"
+                  >
+                    <div>
+                      <h3 class="text-xl font-bold">Câu hỏi trắc nghiệm</h3>
+                      <p id="modalMeta" class="text-sm text-slate-600 mt-1"></p>
+                    </div>
+                    <button
+                      id="closeModalBtn"
+                      class="rounded-full w-10 h-10 inline-flex items-center justify-center hover:bg-slate-200 text-slate-600 text-xl"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div class="p-5 space-y-4">
+                    <div>
+                      <p
+                        id="questionText"
+                        class="text-lg font-medium leading-relaxed"
+                      ></p>
+                    </div>
+                    <div id="optionsWrap" class="grid gap-2"></div>
+                    <div
+                      id="feedback"
+                      class="hidden rounded-xl px-4 py-3 text-sm"
+                    ></div>
+                    <div class="flex items-center justify-end gap-2 pt-2">
+                      <button
+                        id="skipBtn"
+                        class="rounded-xl border border-slate-300 px-4 py-2 font-medium hover:bg-slate-100"
+                      >
+                        Bỏ qua
+                      </button>
+                      <button
+                        id="nextBtn"
+                        class="rounded-xl bg-slate-900 text-white px-4 py-2 font-medium hover:bg-slate-800"
+                      >
+                        Tiếp tục
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="flex justify-end">
+            <button
+              id="resetBtn"
+              class="rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-100"
+            >
+              Reset popup
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <template id="popupItemTemplate">
+      <div class="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <strong class="text-sm">Popup</strong>
+          <button class="deletePopup text-red-600 text-sm font-medium">
+            Xóa
+          </button>
+        </div>
+        <div class="grid gap-2">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-600">Thời điểm (giây)</span>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              class="popup-time w-full rounded-xl border border-slate-300 px-3 py-2"
+              placeholder="Ví dụ: 30"
+            />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-600">Câu hỏi</span>
+            <textarea
+              rows="3"
+              class="popup-question w-full rounded-xl border border-slate-300 px-3 py-2 resize-none"
+              placeholder="Nhập câu hỏi..."
+            ></textarea>
+          </label>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-slate-600">Đáp án</span>
+              <button
+                class="addOption text-xs rounded-lg border border-slate-300 px-2 py-1 hover:bg-slate-100"
+              >
+                + Thêm đáp án
+              </button>
+            </div>
+            <div class="options-list space-y-2"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template id="optionRowTemplate">
+      <div class="flex items-center gap-2">
+        <input type="radio" name="correctAnswer" class="correct-radio mt-0.5" />
+        <input
+          type="text"
+          class="option-text flex-1 rounded-xl border border-slate-300 px-3 py-2"
+          placeholder="Đáp án"
+        />
+        <button
+          class="removeOption rounded-xl border border-slate-300 px-3 py-2 hover:bg-slate-100"
+        >
+          ×
+        </button>
+      </div>
+    </template>
+
+    <script>
+      let player = null;
+      let apiReady = false;
+      let apiInitPromise = null;
+      let fallbackMode = false;
+      let currentVideoId = "";
+      let currentVideoUrl = "";
+      let monitoringTimer = null;
+      let fallbackTimer = null;
+      let pausedForPopup = false;
+      let activePopupIndex = -1;
+      let controlsHideTimer = null;
+      let controlsVisible = true;
+
+      const defaultState = {
+        videoUrl: "",
+        popups: [
+          {
+            time: 15,
+            question: "Câu hỏi mẫu: Video đang nói về chủ đề gì?",
+            options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
+            correctIndex: 1,
+            shown: false,
+          },
+        ],
+      };
+
+      let state = loadState();
+
+      const els = {
+        videoUrl: document.getElementById("videoUrl"),
+        loadBtn: document.getElementById("loadBtn"),
+        saveBtn: document.getElementById("saveBtn"),
+        exportBtn: document.getElementById("exportBtn"),
+        importFile: document.getElementById("importFile"),
+        addPopupBtn: document.getElementById("addPopupBtn"),
+        popupList: document.getElementById("popupList"),
+        statusText: document.getElementById("statusText"),
+        overlayHint: document.getElementById("overlayHint"),
+        timeLabel: document.getElementById("timeLabel"),
+        seekBar: document.getElementById("seekBar"),
+        playBtn: document.getElementById("playBtn"),
+
+        // stopBtn: document.getElementById("stopBtn"),
+        back10Btn: document.getElementById("back10Btn"),
+        forward10Btn: document.getElementById("forward10Btn"),
+        // muteBtn: document.getElementById("muteBtn"),
+
+        speedSelect: document.getElementById("speedSelect"),
+        fsBtn: document.getElementById("fsBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        tapLayer: document.getElementById("tapLayer"),
+        loadingOverlay: document.getElementById("loadingOverlay"),
+        loadingText: document.getElementById("loadingText"),
+        modalBackdrop: document.getElementById("modalBackdrop"),
+        closeModalBtn: document.getElementById("closeModalBtn"),
+        skipBtn: document.getElementById("skipBtn"),
+        nextBtn: document.getElementById("nextBtn"),
+        modalMeta: document.getElementById("modalMeta"),
+        questionText: document.getElementById("questionText"),
+        optionsWrap: document.getElementById("optionsWrap"),
+        feedback: document.getElementById("feedback"),
+      };
+
+      const popupItemTemplate = document.getElementById("popupItemTemplate");
+      const optionRowTemplate = document.getElementById("optionRowTemplate");
+
+      function setStatus(msg) {
+        if (els.statusText) els.statusText.textContent = msg;
+      }
+
+      function showLoading(message = "Đang tải video...") {
+        if (els.loadingText) els.loadingText.textContent = message;
+        if (els.loadingOverlay) els.loadingOverlay.classList.remove("hidden");
+        if (els.loadingOverlay) els.loadingOverlay.classList.add("flex");
+      }
+
+      function hideLoading() {
+        if (els.loadingOverlay) els.loadingOverlay.classList.add("hidden");
+        if (els.loadingOverlay) els.loadingOverlay.classList.remove("flex");
+      }
+
+      function showControls() {
+        if (!els.ytControls) return;
+        controlsVisible = true;
+        if (controlsHideTimer) {
+          clearTimeout(controlsHideTimer);
+          controlsHideTimer = null;
+        }
+        els.ytControls.classList.remove(
+          "opacity-0",
+          "translate-y-2",
+          "pointer-events-none",
+        );
+        els.ytControls.classList.add("opacity-100", "translate-y-0");
+      }
+
+      function hideControls() {
+        if (!els.ytControls) return;
+        controlsVisible = false;
+        els.ytControls.classList.add(
+          "opacity-0",
+          "translate-y-2",
+          "pointer-events-none",
+        );
+        els.ytControls.classList.remove("opacity-100", "translate-y-0");
+      }
+
+      function scheduleControlsHide() {
+        if (!els.ytControls) return;
+        showControls();
+        if (controlsHideTimer) clearTimeout(controlsHideTimer);
+        controlsHideTimer = setTimeout(() => {
+          if (
+            els.modalBackdrop &&
+            !els.modalBackdrop.classList.contains("hidden")
+          )
+            return;
+          hideControls();
+        }, 1800);
+      }
+
+      function isPlaying() {
+        try {
+          return (
+            player &&
+            typeof player.getPlayerState === "function" &&
+            player.getPlayerState() === YT.PlayerState.PLAYING
+          );
+        } catch {
+          return false;
+        }
+      }
+
+      function togglePlayPause() {
+        if (fallbackMode) {
+          setStatus(
+            "Chế độ dự phòng chỉ hiển thị video. Tải lại để dùng nút phát/tạm dừng.",
+          );
+          return;
+        }
+        if (!player) return;
+        try {
+          if (isPlaying() && typeof player.pauseVideo === "function") {
+            player.pauseVideo();
+          } else if (typeof player.playVideo === "function") {
+            player.playVideo();
+          }
+        } catch {}
+        syncControlsUI();
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function formatTime(seconds) {
+        const s = Math.max(0, Number(seconds) || 0);
+        const m = Math.floor(s / 60);
+        const r = Math.floor(s % 60);
+        return `${m}:${String(r).padStart(2, "0")}`;
+      }
+
+      function getVideoIdFromUrl(url) {
+        if (!url) return "";
+        try {
+          const u = new URL(url);
+          if (u.hostname.includes("youtu.be"))
+            return u.pathname.replace("/", "");
+          if (u.searchParams.get("v")) return u.searchParams.get("v");
+          const match = url.match(
+            /(?:embed\/|v\/|watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/,
+          );
+          return match ? match[1] : "";
+        } catch {
+          const match = url.match(
+            /(?:embed\/|v\/|watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/,
+          );
+          return match ? match[1] : "";
+        }
+      }
+
+      function loadState() {
+        const raw = localStorage.getItem("yt-quiz-popup-state");
+        if (!raw) return structuredClone(defaultState);
+        try {
+          const parsed = JSON.parse(raw);
+          return {
+            videoUrl: parsed.videoUrl || "",
+            popups: sanitizePopups(
+              parsed.popups && parsed.popups.length
+                ? parsed.popups
+                : defaultState.popups,
+            ),
+          };
+        } catch {
+          return structuredClone(defaultState);
+        }
+      }
+
+      function sanitizePopups(popups) {
+        return (Array.isArray(popups) ? popups : [])
+          .map((p) => ({
+            time: Number(p.time) || 0,
+            question: String(p.question || "").trim(),
+            options: Array.isArray(p.options)
+              ? p.options.map((x) => String(x || "").trim()).filter(Boolean)
+              : [],
+            correctIndex: Number.isInteger(p.correctIndex) ? p.correctIndex : 0,
+            shown: Boolean(p.shown),
+          }))
+          .filter((p) => p.question && p.options.length >= 2);
+      }
+
+      function readPopupsFromUI() {
+        const cards = [...els.popupList.children].filter((n) =>
+          n.classList.contains("rounded-2xl"),
+        );
+        const popups = [];
+        cards.forEach((card, idx) => {
+          const time = Number(card.querySelector(".popup-time")?.value || 0);
+          const question =
+            card.querySelector(".popup-question")?.value?.trim() || "";
+          const optionInputs = [...card.querySelectorAll(".option-text")];
+          const radioInputs = [...card.querySelectorAll(".correct-radio")];
+          const options = optionInputs
+            .map((i) => i.value.trim())
+            .filter(Boolean);
+          const correctIndex = Math.max(
+            0,
+            radioInputs.findIndex((r) => r.checked),
+          );
+          popups.push({
+            time,
+            question,
+            options,
+            correctIndex,
+            shown: state.popups?.[idx]?.shown || false,
+          });
+        });
+        return popups;
+      }
+
+      function updateStateFromUI() {
+        state.videoUrl = els.videoUrl.value.trim();
+        state.popups = readPopupsFromUI();
+      }
+
+      function saveState() {
+        updateStateFromUI();
+        localStorage.setItem("yt-quiz-popup-state", JSON.stringify(state));
+        setStatus("Đã lưu cấu hình.");
+      }
+
+      function renderPopups() {
+        els.popupList.innerHTML = "";
+        const popups = state.popups || [];
+        popups.forEach((popup, index) => {
+          const node = popupItemTemplate.content.cloneNode(true);
+          const timeInput = node.querySelector(".popup-time");
+          const questionInput = node.querySelector(".popup-question");
+          const optionsList = node.querySelector(".options-list");
+          const addOptionBtn = node.querySelector(".addOption");
+          const deleteBtn = node.querySelector(".deletePopup");
+
+          timeInput.value = popup.time ?? 0;
+          questionInput.value = popup.question ?? "";
+
+          function renderOptions() {
+            optionsList.innerHTML = "";
+            const options =
+              popup.options && popup.options.length ? popup.options : [""];
+            options.forEach((opt, optIndex) => {
+              const optNode = optionRowTemplate.content.cloneNode(true);
+              const radio = optNode.querySelector(".correct-radio");
+              const text = optNode.querySelector(".option-text");
+              const remove = optNode.querySelector(".removeOption");
+
+              radio.name = `correctAnswer-${index}`;
+              radio.checked = (popup.correctIndex ?? 0) === optIndex;
+              radio.addEventListener("change", () => {
+                popup.correctIndex = optIndex;
+                saveState();
+              });
+
+              text.value = opt;
+              text.addEventListener("input", () => {
+                popup.options[optIndex] = text.value;
+                saveState();
+              });
+
+              remove.addEventListener("click", () => {
+                popup.options.splice(optIndex, 1);
+                if (popup.correctIndex >= popup.options.length)
+                  popup.correctIndex = Math.max(0, popup.options.length - 1);
+                renderPopups();
+                saveState();
+              });
+
+              optionsList.appendChild(optNode);
+            });
+          }
+
+          timeInput.addEventListener("input", () => {
+            popup.time = Number(timeInput.value) || 0;
+            saveState();
+          });
+          questionInput.addEventListener("input", () => {
+            popup.question = questionInput.value;
+            saveState();
+          });
+          addOptionBtn.addEventListener("click", () => {
+            if (!Array.isArray(popup.options)) popup.options = [];
+            popup.options.push(`Đáp án ${popup.options.length + 1}`);
+            renderPopups();
+            saveState();
+          });
+          deleteBtn.addEventListener("click", () => {
+            state.popups.splice(index, 1);
+            renderPopups();
+            saveState();
+          });
+
+          renderOptions();
+          els.popupList.appendChild(node);
+        });
+
+        if (!popups.length) {
+          els.popupList.innerHTML =
+            '<div class="text-sm text-slate-500 p-3 border border-dashed rounded-2xl bg-white">Chưa có mốc popup nào. Nhấn “+ Thêm”.</div>';
+        }
+      }
+
+      function syncControlsUI() {
+        if (!player || typeof player.getCurrentTime !== "function") return;
+        const current = player.getCurrentTime();
+        const duration =
+          typeof player.getDuration === "function" ? player.getDuration() : 0;
+        els.timeLabel.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+        if (duration > 0 && !els.seekBar.matches(":active")) {
+          els.seekBar.value = String(
+            Math.max(
+              0,
+              Math.min(1000, Math.round((current / duration) * 1000)),
+            ),
+          );
+        }
+
+        if (typeof player.getPlaybackRate === "function") {
+          const rate = String(player.getPlaybackRate());
+          if (rate) els.speedSelect.value = rate;
+        }
+
+        if (els.playBtn) {
+          els.playBtn.textContent = isPlaying() ? "⏸" : "▶";
+          els.playBtn.setAttribute(
+            "aria-label",
+            isPlaying() ? "Pause" : "Play",
+          );
+        }
+      }
+
+      function startMonitoring() {
+        if (monitoringTimer) clearInterval(monitoringTimer);
+        monitoringTimer = setInterval(() => {
+          if (!player || typeof player.getCurrentTime !== "function") return;
+          const t = player.getCurrentTime();
+          const duration = player.getDuration ? player.getDuration() : 0;
+          setStatus(
+            `Đang phát ở ${t.toFixed(1)}s${duration ? ` / ${duration.toFixed(1)}s` : ""}${fallbackMode ? " · chế độ dự phòng" : ""}`,
+          );
+          els.timeLabel.textContent = `${formatTime(t)} / ${formatTime(duration)}`;
+          syncControlsUI();
+
+          if (pausedForPopup || !state.popups?.length) return;
+          const nextIndex = state.popups.findIndex(
+            (p) => !p.shown && t >= Number(p.time || 0),
+          );
+          if (nextIndex !== -1) openPopup(nextIndex);
+        }, 350);
+      }
+
+      function openPopup(index) {
+        const popup = state.popups[index];
+        if (!popup) return;
+        pausedForPopup = true;
+        activePopupIndex = index;
+        popup.shown = true;
+
+        try {
+          if (player && typeof player.pauseVideo === "function")
+            player.pauseVideo();
+        } catch {}
+
+        els.modalMeta.textContent = `Mốc ${popup.time}s`;
+        els.questionText.textContent = popup.question;
+        els.optionsWrap.innerHTML = "";
+        els.feedback.className = "hidden rounded-xl px-4 py-3 text-sm";
+        els.feedback.textContent = "";
+
+        popup.options.forEach((opt, optIndex) => {
+          const btn = document.createElement("button");
+          btn.className =
+            "text-left rounded-2xl border border-slate-200 px-4 py-3 hover:bg-slate-50 transition";
+          btn.innerHTML = `<span class="font-medium mr-2">${String.fromCharCode(65 + optIndex)}.</span>${escapeHtml(opt)}`;
+          btn.addEventListener("click", () => chooseAnswer(optIndex));
+          els.optionsWrap.appendChild(btn);
+        });
+
+        els.modalBackdrop.classList.remove("hidden");
+        els.modalBackdrop.classList.add("flex");
+        showControls();
+      }
+
+      function chooseAnswer(selectedIndex) {
+        const popup = state.popups[activePopupIndex];
+        if (!popup) return;
+        const correct = Number(popup.correctIndex || 0);
+        const buttons = [...els.optionsWrap.querySelectorAll("button")];
+        buttons.forEach((btn, idx) => {
+          btn.disabled = true;
+          if (idx === correct)
+            btn.classList.add("ring-2", "ring-emerald-500", "bg-emerald-50");
+          if (idx === selectedIndex && selectedIndex !== correct)
+            btn.classList.add("ring-2", "ring-red-400", "bg-red-50");
+        });
+
+        const isCorrect = selectedIndex === correct;
+        els.feedback.classList.remove("hidden");
+        els.feedback.className = `rounded-xl px-4 py-3 text-sm ${isCorrect ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-red-50 text-red-700 border border-red-200"}`;
+        els.feedback.textContent = isCorrect
+          ? "Đúng rồi. Video sẽ tiếp tục."
+          : "Chưa đúng. Bạn vẫn có thể tiếp tục video.";
+        els.nextBtn.textContent = "Tiếp tục video";
+      }
+
+      function closePopupAndResume() {
+        els.modalBackdrop.classList.add("hidden");
+        els.modalBackdrop.classList.remove("flex");
+        showControls();
+        pausedForPopup = false;
+        activePopupIndex = -1;
+        els.nextBtn.textContent = "Tiếp tục";
+        try {
+          if (player && typeof player.playVideo === "function")
+            player.playVideo();
+        } catch {}
+      }
+
+      function resetPopupFlags() {
+        state.popups = state.popups.map((p) => ({ ...p, shown: false }));
+        renderPopups();
+        saveState();
+        setStatus("Đã reset trạng thái popup.");
+      }
+
+      function buildEmbedUrl(videoId, autoplay = false) {
+        const params = new URLSearchParams({
+          enablejsapi: "1",
+          rel: "0",
+          modestbranding: "1",
+          iv_load_policy: "3",
+          playsinline: "1",
+          controls: "0",
+          disablekb: "1",
+          fs: "0",
+          origin: location.origin || "",
+        });
+        if (autoplay) params.set("autoplay", "1");
+        return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?${params.toString()}`;
+      }
+
+      function mountFallbackIframe(videoId) {
+        fallbackMode = true;
+        const host = document.getElementById("playerHost");
+        host.innerHTML = `<iframe src="${buildEmbedUrl(videoId, true)}" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+        els.overlayHint.style.display = "none";
+        hideLoading();
+        setStatus("Video đang chạy ở chế độ nhúng dự phòng.");
+        if (monitoringTimer) clearInterval(monitoringTimer);
+        monitoringTimer = setInterval(() => {
+          setStatus(
+            "Video đang ở chế độ dự phòng. Nút tua/tốc độ chỉ hoạt động đầy đủ khi chế độ API tải được.",
+          );
+        }, 3000);
+      }
+
+      function destroyPlayer() {
+        try {
+          if (player && typeof player.destroy === "function") player.destroy();
+        } catch {}
+        player = null;
+        const host = document.getElementById("playerHost");
+        if (host) host.innerHTML = "";
+        fallbackMode = false;
+        if (controlsHideTimer) {
+          clearTimeout(controlsHideTimer);
+          controlsHideTimer = null;
+        }
+      }
+
+      function createPlayer(videoId) {
+        currentVideoId = videoId;
+        currentVideoUrl = buildEmbedUrl(videoId, false);
+        els.overlayHint.style.display = "none";
+        setStatus(`Đang tải video: ${videoId}`);
+        showLoading("Đang tạo player...");
+        showControls();
+
+        destroyPlayer();
+        const host = document.getElementById("playerHost");
+        if (!host) return;
+
+        if (!apiReady) {
+          host.innerHTML =
+            '<div class="absolute inset-0 flex items-center justify-center text-white/80 text-sm">Đang khởi tạo player...</div>';
+          if (fallbackTimer) clearTimeout(fallbackTimer);
+          fallbackTimer = setTimeout(() => {
+            if (!apiReady) mountFallbackIframe(videoId);
+          }, 2500);
+          return;
+        }
+
+        host.innerHTML = "<div></div>";
+        const mountId = "yt-player-mount";
+        host.firstElementChild.id = mountId;
+
+        try {
+          player = new YT.Player(mountId, {
+            videoId,
+            playerVars: {
+              autoplay: 0,
+              controls: 0,
+              modestbranding: 1,
+              rel: 0,
+              playsinline: 1,
+              iv_load_policy: 3,
+              disablekb: 1,
+              fs: 0,
+            },
+            events: {
+              onReady: () => {
+                try {
+                  player.unMute();
+                } catch {}
+                try {
+                  player.setPlaybackRate(Number(els.speedSelect.value || 1));
+                } catch {}
+                hideLoading();
+                setStatus("Video sẵn sàng.");
+                startMonitoring();
+                syncControlsUI();
+                scheduleControlsHide();
+              },
+              onStateChange: onPlayerStateChange,
+              onError: (e) => {
+                showLoading("Đang chuyển sang chế độ dự phòng...");
+                setStatus(
+                  `Lỗi player (${e.data}). Chuyển sang chế độ dự phòng...`,
+                );
+                mountFallbackIframe(videoId);
+              },
+            },
+          });
+        } catch (err) {
+          console.error(err);
+          mountFallbackIframe(videoId);
+        }
+      }
+
+      function onPlayerStateChange(event) {
+        const stateMap = {
+          [-1]: "Chưa bắt đầu",
+          0: "Đã kết thúc",
+          1: "Đang phát",
+          2: "Đang tạm dừng",
+          3: "Đang tải",
+          5: "Đã dừng",
+        };
+        const label = stateMap[event.data] ?? "Không rõ";
+        if (
+          event.data === YT.PlayerState.BUFFERING ||
+          event.data === YT.PlayerState.UNSTARTED ||
+          event.data === YT.PlayerState.CUED
+        ) {
+          showLoading("Đang tải...");
+        }
+        if (event.data === YT.PlayerState.PLAYING) {
+          hideLoading();
+          startMonitoring();
+          scheduleControlsHide();
+        }
+        if (event.data === YT.PlayerState.PAUSED && !pausedForPopup) {
+          hideLoading();
+          setStatus(`Đã tạm dừng. (${label})`);
+        }
+        if (event.data === YT.PlayerState.ENDED) {
+          hideLoading();
+          setStatus("Video đã kết thúc.");
+        }
+        syncControlsUI();
+      }
+
+      function ensureApiReady() {
+        if (apiInitPromise) return apiInitPromise;
+        apiInitPromise = new Promise((resolve) => {
+          if (window.YT && typeof YT.Player === "function" && YT.Player) {
+            apiReady = true;
+            resolve(true);
+            return;
+          }
+          const prev = window.onYouTubeIframeAPIReady;
+          window.onYouTubeIframeAPIReady = function () {
+            apiReady = true;
+            if (typeof prev === "function") prev();
+            resolve(true);
+          };
+        });
+        return apiInitPromise;
+      }
+
+      function loadVideo() {
+        const videoId = getVideoIdFromUrl(els.videoUrl.value.trim());
+        if (!videoId) {
+          setStatus("Link YouTube không hợp lệ.");
+          return;
+        }
+        updateStateFromUI();
+        state.videoUrl = els.videoUrl.value.trim();
+        localStorage.setItem("yt-quiz-popup-state", JSON.stringify(state));
+        destroyPlayer();
+        ensureApiReady().then(() => {
+          if (fallbackTimer) clearTimeout(fallbackTimer);
+          createPlayer(videoId);
+        });
+      }
+
+      els.loadBtn.addEventListener("click", loadVideo);
+      els.saveBtn.addEventListener("click", () => {
+        saveState();
+        renderPopups();
+      });
+      els.exportBtn.addEventListener("click", () => {
+        updateStateFromUI();
+        const blob = new Blob([JSON.stringify(state, null, 2)], {
+          type: "application/json",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "yt-quiz-popup-config.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+
+      els.importFile.addEventListener("change", async () => {
+        const file = els.importFile.files?.[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          state.videoUrl = data.videoUrl || "";
+          state.popups = sanitizePopups(data.popups);
+          els.videoUrl.value = state.videoUrl;
+          renderPopups();
+          localStorage.setItem("yt-quiz-popup-state", JSON.stringify(state));
+          setStatus("Đã nhập cấu hình.");
+        } catch {
+          setStatus("File JSON không hợp lệ.");
+        } finally {
+          els.importFile.value = "";
+        }
+      });
+
+      els.addPopupBtn.addEventListener("click", () => {
+        state.popups.push({
+          time: 0,
+          question: "Nhập câu hỏi ở đây",
+          options: ["Đáp án 1", "Đáp án 2"],
+          correctIndex: 0,
+          shown: false,
+        });
+        renderPopups();
+        localStorage.setItem("yt-quiz-popup-state", JSON.stringify(state));
+      });
+
+      els.tapLayer?.addEventListener("click", () => {
+        showControls();
+        scheduleControlsHide();
+        togglePlayPause();
+      });
+      els.playBtn.addEventListener("click", () => {
+        showControls();
+        scheduleControlsHide();
+        if (fallbackMode) {
+          setStatus(
+            "Chế độ dự phòng chỉ hiển thị video. Hãy tải lại để dùng điều khiển đầy đủ.",
+          );
+          return;
+        }
+        togglePlayPause();
+      });
+
+      els.back10Btn.addEventListener("click", () => {
+        showControls();
+        scheduleControlsHide();
+        if (fallbackMode) return;
+        if (
+          !player ||
+          typeof player.getCurrentTime !== "function" ||
+          typeof player.seekTo !== "function"
+        )
+          return;
+        player.seekTo(Math.max(0, player.getCurrentTime() - 10), true);
+        syncControlsUI();
+      });
+
+      els.forward10Btn.addEventListener("click", () => {
+        showControls();
+        scheduleControlsHide();
+        if (fallbackMode) return;
+        if (
+          !player ||
+          typeof player.getCurrentTime !== "function" ||
+          typeof player.getDuration !== "function" ||
+          typeof player.seekTo !== "function"
+        )
+          return;
+        player.seekTo(
+          Math.min(player.getDuration(), player.getCurrentTime() + 10),
+          true,
+        );
+        syncControlsUI();
+      });
+
+      //   els.volumeBar.addEventListener("input", () => {
+      //     if (fallbackMode) return;
+      //     if (player && typeof player.setVolume === "function")
+      //       player.setVolume(Number(els.volumeBar.value));
+      //     if (player && typeof player.unMute === "function") player.unMute();
+      //     syncControlsUI();
+      //   });
+
+      els.speedSelect.addEventListener("change", () => {
+        showControls();
+        scheduleControlsHide();
+        if (fallbackMode) return;
+        if (player && typeof player.setPlaybackRate === "function")
+          player.setPlaybackRate(Number(els.speedSelect.value));
+        syncControlsUI();
+      });
+
+      els.fsBtn.addEventListener("click", async () => {
+        const shell = document.getElementById("playerShell");
+        if (!shell) return;
+        try {
+          if (!document.fullscreenElement) {
+            await shell.requestFullscreen?.();
+          } else {
+            await document.exitFullscreen?.();
+          }
+        } catch {}
+        scheduleControlsHide();
+      });
+
+      document.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement) {
+          scheduleControlsHide();
+        } else {
+          showControls();
+        }
+      });
+
+      const playerShell = document.getElementById("playerShell");
+      if (playerShell) {
+        [
+          "mousemove",
+          "pointermove",
+          "mouseenter",
+          "focusin",
+          "touchstart",
+          "keydown",
+        ].forEach((evt) => {
+          playerShell.addEventListener(evt, () => scheduleControlsHide(), {
+            passive: true,
+          });
+        });
+        playerShell.addEventListener("mouseleave", () => {
+          if (controlsHideTimer) clearTimeout(controlsHideTimer);
+          hideControls();
+        });
+      }
+
+      els.seekBar.addEventListener("input", () => {
+        showControls();
+        scheduleControlsHide();
+        if (fallbackMode) return;
+        if (
+          !player ||
+          typeof player.getDuration !== "function" ||
+          typeof player.seekTo !== "function"
+        )
+          return;
+        const duration = player.getDuration();
+        const target = (Number(els.seekBar.value) / 1000) * duration;
+        player.seekTo(target, true);
+      });
+
+      els.resetBtn.addEventListener("click", resetPopupFlags);
+      els.closeModalBtn.addEventListener("click", closePopupAndResume);
+      els.skipBtn.addEventListener("click", closePopupAndResume);
+      els.nextBtn.addEventListener("click", closePopupAndResume);
+      els.modalBackdrop.addEventListener("click", (e) => {
+        if (e.target === els.modalBackdrop) closePopupAndResume();
+      });
+
+      els.videoUrl.value = state.videoUrl || "";
+      renderPopups();
+      setStatus(
+        "Sẵn sàng. Dán link YouTube rồi bấm “Tải video”. Nhấn vào màn hình để phát/tạm dừng.",
+      );
+      showControls();
+      scheduleControlsHide();
+      ensureApiReady();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1430 @@
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8C5F3B" />
+    <link rel="manifest" href="manifest.webmanifest?v=5.33.4" />
+    <link rel="icon" href="assets/pnd-icon.svg?v=5.33.4" type="image/svg+xml" />
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="dns-prefetch" href="https://www.google.com" />
+    <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+    <link rel="dns-prefetch" href="https://apis.google.com" />
+    <script src="assets/head-init.js?v=5.33.4"></script>
+    <script src="assets/pwa-register.js?v=5.33.4" defer></script>
+    <title>PND Team - Học tập trực tuyến</title>
+    <link rel="stylesheet" href="assets/tailwind.production.css?v=5.33.4" />
+    <!-- Font ngoài không nằm trên đường dẫn quan trọng; fallback hệ thống hiển thị ngay. -->
+    <link
+      rel="stylesheet"
+      id="pnd-icons-stylesheet"
+      href="assets/vendor/fontawesome/css/all.min.css?v=6.4.0"
+      media="print"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="assets/vendor/fontawesome/css/all.min.css?v=6.4.0"
+    /></noscript>
+    <link rel="stylesheet" href="assets/app.css?v=5.33.4" />
+    <!-- Thư viện hiển thị thông báo đẹp SweetAlert2 -->
+    <script
+      defer
+      src="assets/vendor/sweetalert2/sweetalert2.all.min.js?v=11.26.25"
+    ></script>
+    <script src="assets/exam-schedule-config.js?v=5.33.4" defer></script>
+    <script src="assets/bootstrap.js?v=5.33.4" defer></script>
+  </head>
+  <body class="text-slate-800">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Lớp phủ bóng mờ khi mở menu trên điện thoại -->
+      <div
+        id="mobile-overlay"
+        data-pnd-action="toggle-mobile-menu"
+        class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity"
+      ></div>
+
+      <!-- Sidebar Navigation -->
+      <aside
+        id="mobile-sidebar"
+        class="sidebar fixed inset-y-0 left-0 z-50 transform -translate-x-full md:relative md:translate-x-0 transition duration-300 ease-in-out flex flex-col p-6 shrink-0 shadow-2xl md:shadow-none h-full bg-[#FAF2E7]"
+      >
+        <!-- Nút đóng (Chỉ hiện trên mobile) -->
+        <button
+          id="mobile-menu-close"
+          type="button"
+          data-pnd-action="toggle-mobile-menu"
+          aria-label="Đóng menu điều hướng"
+          aria-controls="mobile-sidebar"
+          class="md:hidden absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-2xl"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+
+        <div
+          class="text-2xl font-bold text-[#4A3320] mb-10 flex items-center gap-3"
+        >
+          <i class="fas fa-book-reader"></i> PND
+          <span class="text-[10px] bg-[#8C5F3B] text-white px-2 py-0.5 rounded"
+            >TEAM</span
+          >
+        </div>
+
+        <nav class="flex-1">
+          <ul class="space-y-1">
+            <li>
+              <button
+                type="button"
+                data-pnd-action="navigate"
+                data-route="dashboard"
+                id="menu-dashboard"
+                class="nav-item active"
+                aria-current="page"
+              >
+                <i class="fas fa-home w-5" aria-hidden="true"></i> Tổng quan
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-pnd-action="navigate"
+                data-route="events"
+                id="menu-events"
+                class="nav-item"
+              >
+                <i class="fas fa-bolt w-5 text-red-500" aria-hidden="true"></i> Khảo sát chất lượng
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-pnd-action="navigate"
+                data-route="exams"
+                id="menu-exams"
+                class="nav-item"
+              >
+                <i class="fas fa-edit w-5" aria-hidden="true"></i> Kho đề thi
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-pnd-action="navigate"
+                data-route="ranking"
+                id="menu-ranking"
+                class="nav-item"
+              >
+                <i class="fas fa-chart-line w-5" aria-hidden="true"></i> Bảng xếp hạng
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-pnd-action="navigate"
+                data-route="account"
+                id="menu-account"
+                class="nav-item"
+              >
+                <i class="fas fa-user-circle w-5" aria-hidden="true"></i> Tài khoản
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-pnd-action="navigate"
+                data-route="admin-grading"
+                id="menu-admin-grading"
+                class="nav-item mt-4 hidden"
+              >
+                <i class="fas fa-user-check w-5" aria-hidden="true"></i> Chấm bài thi
+                <span
+                  id="admin-pending-count"
+                  class="ml-auto hidden min-w-6 h-6 px-1.5 rounded-full bg-red-600 text-white text-[10px] font-black items-center justify-center"
+                  >0</span
+                >
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="mt-auto p-4 bg-[#EFE4D7] rounded-2xl">
+          <div class="mb-2 flex items-center justify-between gap-2">
+            <p class="text-[10px] font-bold text-[#8C5F3B] uppercase">
+              Tỉ lệ chính xác
+            </p>
+            <span id="study-progress-label" class="text-[10px] font-black text-[#704729]">0%</span>
+          </div>
+          <div
+            class="w-full bg-white/60 h-1.5 rounded-full overflow-hidden"
+            role="progressbar"
+            aria-label="Tỉ lệ trả lời chính xác"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <div
+              id="study-progress-bar"
+              class="bg-[#8C5F3B] h-full transition-all duration-500"
+            ></div>
+          </div>
+          <p class="mt-2 text-[9px] font-bold leading-relaxed text-[#8B725F]">
+            Kết quả từ các bài đã chấm
+          </p>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main
+        class="flex-1 min-w-0 w-full flex flex-col h-full overflow-hidden bg-white md:rounded-l-[40px] shadow-2xl"
+      >
+        <!-- Global Header -->
+        <header
+          id="global-header"
+          class="h-20 flex items-center justify-between px-4 md:px-10 shrink-0 border-b border-slate-50 relative z-10"
+        >
+          <div class="flex min-w-0 items-center gap-3 md:gap-4">
+            <!-- Nút Hamburger (Chỉ hiện trên mobile) -->
+            <button
+            id="mobile-menu-button"
+            type="button"
+            data-pnd-action="toggle-mobile-menu"
+              aria-label="Mở menu điều hướng"
+              aria-controls="mobile-sidebar"
+              aria-expanded="false"
+              class="md:hidden shrink-0 text-slate-500 hover:text-[#8C5F3B] text-2xl transition"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <h2
+              id="page-title"
+              class="min-w-0 text-lg md:text-xl font-bold text-slate-800 line-clamp-1"
+            >
+              Tổng quan học tập
+            </h2>
+          </div>
+          <div class="flex shrink-0 items-center gap-2 md:gap-4">
+            <button
+            id="header-auth-button"
+            type="button"
+            data-pnd-action="open-login"
+              class="header-auth-cta hidden px-4 py-2 rounded-xl bg-[#8C5F3B] text-white text-xs font-black shadow-sm hover:bg-[#704729] transition"
+            >
+              <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
+              <span>ĐĂNG NHẬP</span>
+            </button>
+            <div id="notification-wrapper" class="relative">
+              <button
+              id="notification-button"
+              type="button"
+              data-pnd-action="toggle-notifications"
+                class="relative w-10 h-10 rounded-full border border-slate-100 bg-white text-slate-500 hover:text-[#8C5F3B] hover:bg-amber-50 transition flex items-center justify-center"
+                aria-label="Mở trung tâm thông báo"
+                aria-expanded="false"
+              >
+                <i class="fas fa-bell"></i>
+                <span
+                  id="notification-unread-count"
+                  class="hidden absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-[9px] font-black items-center justify-center ring-2 ring-white"
+                  >0</span
+                >
+              </button>
+              <div
+                id="notification-panel"
+                class="hidden absolute right-0 top-12 z-50 w-96 max-w-[calc(100vw-24px)] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-2xl"
+              >
+                <div
+                  class="flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3"
+                >
+                  <div>
+                    <h3 class="font-black text-slate-800">Thông báo</h3>
+                    <p class="text-[10px] text-slate-400">
+                      Kết quả chấm và đáp án mới
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <button
+                  type="button"
+                  data-pnd-action="refresh-notifications"
+                      class="w-8 h-8 rounded-lg text-slate-400 hover:text-[#8C5F3B] hover:bg-amber-50 transition"
+                      aria-label="Làm mới thông báo"
+                    >
+                      <i class="fas fa-rotate"></i>
+                    </button>
+                    <button
+                  type="button"
+                  data-pnd-action="mark-all-notifications-read"
+                      class="px-2 py-1.5 rounded-lg text-[10px] font-bold text-[#8C5F3B] hover:bg-amber-50 transition"
+                    >
+                      Đọc tất cả
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="notification-list"
+                  class="max-h-[min(420px,65vh)] overflow-y-auto custom-scrollbar"
+                >
+                  <div class="p-8 text-center text-sm text-slate-400">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Đang tải...
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Ẩn tên và chữ sĩ tử trên mobile cho đỡ chật -->
+            <button
+              id="account-avatar-button"
+              type="button"
+              data-pnd-action="navigate"
+              data-route="account"
+              class="text-right hidden md:block hover:opacity-70 transition"
+            >
+              <p id="tenHienThi" class="text-sm font-bold leading-none">
+                Đang tải...
+              </p>
+              <span class="text-[10px] text-slate-400 uppercase font-bold"
+                >sĩ tử pndteamer</span
+              >
+            </button>
+            <button
+              type="button"
+              data-pnd-action="navigate"
+              data-route="account"
+              class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-xl shadow-inner border-2 border-white shrink-0 hover:scale-105 transition"
+              aria-label="Mở tài khoản"
+            >
+              🐻
+            </button>
+          </div>
+        </header>
+        <!-- Scrollable View Container -->
+        <div
+          id="main-scroll-container"
+          class="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar p-4 md:p-8"
+        >
+          <!-- SECTION: DASHBOARD -->
+          <section id="view-dashboard" class="view-section active">
+            <div
+              id="guest-welcome"
+              class="guest-welcome-card hidden mb-8 rounded-[28px] border border-amber-200 bg-gradient-to-r from-[#FFF8EE] to-[#FFFDF8] p-6 md:p-8 shadow-sm"
+            >
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between gap-5"
+              >
+                <div>
+                  <span
+                    class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-black text-[#8C5F3B]"
+                    ><i class="fas fa-door-open"></i> CHÀO MỪNG BẠN ĐẾN
+                    PND</span
+                  >
+                  <h3
+                    class="mt-3 text-xl md:text-2xl font-black text-slate-800"
+                  >
+                    Tham quan hệ thống trước khi bắt đầu
+                  </h3>
+                  <p class="mt-2 text-sm text-slate-500">
+                    Bạn có thể xem giao diện và các tính năng. Đăng nhập để mở
+                    kho đề, tham gia khảo sát và làm bài thi.
+                  </p>
+                </div>
+                <button
+                type="button"
+                data-pnd-action="open-register"
+                  class="guest-register-cta shrink-0 rounded-xl bg-[#8C5F3B] px-5 py-3 text-xs font-black text-white shadow-sm hover:bg-[#704729] transition"
+                >
+                  TẠO TÀI KHOẢN
+                </button>
+              </div>
+            </div>
+            <!-- WIDGET ĐẾM NGƯỢC THPT QG 2027 -->
+            <div
+              id="exam-countdown-widget"
+              class="mb-10 bg-[#FFFDF8] rounded-[32px] p-8 border border-[#F2E8D9] shadow-sm"
+            >
+              <div class="countdown-heading flex items-center justify-between mb-8">
+                <div class="flex min-w-0 items-start sm:items-center gap-3">
+                  <div
+                    class="w-10 h-10 shrink-0 bg-[#FFF4E5] rounded-xl flex items-center justify-center text-[#D98A49] shadow-sm"
+                  >
+                    <i class="fas fa-calendar-alt text-xl"></i>
+                  </div>
+                  <div>
+                    <h3 id="exam-schedule-heading" class="text-lg md:text-xl font-bold leading-snug text-slate-800">
+                      Đếm ngược ngày thi tốt nghiệp THPT 2027
+                    </h3>
+                    <p id="exam-schedule-subtitle" class="text-xs font-bold text-slate-400 mt-1">
+                      Lịch dự kiến • Khối A00
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="countdown-main-layout"
+                class="flex flex-col xl:flex-row gap-8"
+              >
+                <!-- Cột Trái (Đếm ngược + Tiến trình) -->
+                <div class="flex-1 min-w-0 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center gap-2 mb-4">
+                      <i class="fas fa-clock text-[#D98A49]"></i>
+                      <span class="text-sm font-bold text-slate-600 uppercase"
+                        >MÔN THI TIẾP THEO</span
+                      >
+                    </div>
+                    <div id="next-exam-row" class="flex items-center gap-3 mb-6">
+                      <h4 id="next-exam-name" class="text-2xl font-black text-slate-800">
+                        Ngữ văn
+                      </h4>
+                      <span
+                        id="next-exam-date"
+                        class="px-3 py-1 bg-[#FFF4E5] text-[#D98A49] font-bold text-xs rounded-full"
+                        >11/6/2027 - 07:30</span
+                      >
+                    </div>
+
+                    <p id="next-exam-countdown-label" class="text-xs font-bold text-slate-400 mb-3">
+                      Thời gian còn lại đến môn thi Ngữ văn
+                    </p>
+                    <div id="exam-countdown-values" class="flex gap-4 mb-8">
+                      <div
+                        class="countdown-card flex-1 bg-white border border-[#F2E8D9] rounded-2xl py-6 flex flex-col items-center justify-center shadow-sm"
+                      >
+                        <span
+                          id="cd-days"
+                          class="countdown-number text-5xl font-black text-slate-800"
+                          >0</span
+                        >
+                        <span
+                          class="text-[10px] font-bold text-[#D98A49] uppercase mt-2"
+                          >Ngày</span
+                        >
+                      </div>
+                      <div
+                        class="countdown-card flex-1 bg-white border border-[#F2E8D9] rounded-2xl py-6 flex flex-col items-center justify-center shadow-sm"
+                      >
+                        <span
+                          id="cd-hours"
+                          class="countdown-number text-5xl font-black text-slate-800"
+                          >00</span
+                        >
+                        <span
+                          class="text-[10px] font-bold text-[#D98A49] uppercase mt-2"
+                          >Giờ</span
+                        >
+                      </div>
+                      <div
+                        class="countdown-card flex-1 bg-white border border-[#F2E8D9] rounded-2xl py-6 flex flex-col items-center justify-center shadow-sm"
+                      >
+                        <span
+                          id="cd-mins"
+                          class="countdown-number text-5xl font-black text-slate-800"
+                          >00</span
+                        >
+                        <span
+                          class="text-[10px] font-bold text-[#D98A49] uppercase mt-2"
+                          >Phút</span
+                        >
+                      </div>
+                      <div
+                        class="countdown-card flex-1 bg-white border border-[#F2E8D9] rounded-2xl py-6 flex flex-col items-center justify-center shadow-sm"
+                      >
+                        <span
+                          id="cd-secs"
+                          class="countdown-number text-5xl font-black text-slate-800"
+                          >00</span
+                        >
+                        <span
+                          class="text-[10px] font-bold text-[#D98A49] uppercase mt-2"
+                          >Giây</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="countdown-support-card bg-white p-6 rounded-2xl border border-[#F2E8D9] shadow-sm mb-4"
+                  >
+                    <div class="flex justify-between items-end mb-3">
+                      <span class="text-sm font-bold text-slate-700"
+                        >Tiến trình</span
+                      >
+                      <span
+                        id="cd-percent"
+                        class="text-sm font-black text-[#D98A49]"
+                        >0%</span
+                      >
+                    </div>
+                    <div
+                      class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"
+                    >
+                      <div
+                        id="cd-progress"
+                        class="bg-[#EADDCD] h-full rounded-full transition-all duration-1000"
+                      ></div>
+                    </div>
+                    <p
+                      id="cd-text-progress"
+                      class="text-[10px] text-slate-400 mt-3"
+                    >
+                      0% thời gian đã qua từ đầu năm học (05/09/2026) đến kỳ thi
+                      THPT 2027
+                    </p>
+                  </div>
+
+                  <div
+                    class="countdown-support-card bg-white p-5 rounded-2xl border border-[#F2E8D9] shadow-sm flex items-start gap-3"
+                  >
+                    <i class="fas fa-sparkles text-[#D98A49] mt-1"></i>
+                    <div>
+                      <p class="text-sm font-bold text-slate-700 mb-1">
+                        Đôi lời nhắn nhủ đến bạn
+                      </p>
+                      <p class="text-xs text-slate-500">
+                        Nghỉ ngơi đúng lúc cũng là một phần của việc học hiệu
+                        quả. Chuẩn bị tinh thần thật tốt cho mục tiêu Bách Khoa
+                        nhé!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Cột Phải (Lịch thi) -->
+                <div
+                  class="countdown-schedule-card xl:w-[350px] bg-white rounded-3xl p-6 border border-[#F2E8D9] shadow-sm h-fit"
+                >
+                  <div class="flex items-center gap-2 mb-6">
+                    <i class="far fa-calendar-alt text-[#D98A49]"></i>
+                    <h4 id="exam-schedule-list-heading" class="font-bold text-slate-800">
+                      Lịch thi tổng quan 2027 (Dự kiến)
+                    </h4>
+                  </div>
+
+                  <div id="exam-schedule-list" class="space-y-3">
+                    <div
+                      class="p-4 rounded-2xl border border-[#D98A49] bg-[#FFF4E5]/50 flex gap-4 items-center relative overflow-hidden"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-lg bg-white flex flex-col items-center justify-center text-[10px] font-black text-slate-700 shadow-sm shrink-0"
+                      >
+                        <span class="text-red-500 mb-[-2px]">11</span>
+                        <span class="text-[8px] text-slate-400">TH6</span>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold text-slate-800">Ngữ văn</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">
+                          11/6/2027 | 07:30 | 120 phút
+                        </p>
+                      </div>
+                      <div
+                        class="absolute top-2 right-2 px-2 py-0.5 bg-[#FFE4C4] text-[#D98A49] text-[8px] font-bold rounded-full"
+                      >
+                        Đang đếm ngược
+                      </div>
+                    </div>
+
+                    <div
+                      class="p-4 rounded-2xl border border-slate-100 bg-slate-50 flex gap-4 items-center"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-lg bg-white flex flex-col items-center justify-center text-[10px] font-black text-slate-700 shadow-sm shrink-0"
+                      >
+                        <span class="text-blue-500 mb-[-2px]">11</span>
+                        <span class="text-[8px] text-slate-400">TH6</span>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold text-slate-800">Toán</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">
+                          11/6/2027 | 14:20 | 90 phút
+                        </p>
+                      </div>
+                    </div>
+
+                    <div
+                      class="p-4 rounded-2xl border border-slate-100 bg-slate-50 flex gap-4 items-center"
+                    >
+                      <div
+                        class="w-8 h-8 rounded-lg bg-white flex flex-col items-center justify-center text-[10px] font-black text-slate-700 shadow-sm shrink-0"
+                      >
+                        <span class="text-emerald-500 mb-[-2px]">12</span>
+                        <span class="text-[8px] text-slate-400">TH6</span>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold text-slate-800">
+                          Bài thi Tự chọn (Vật lý/Hóa học)
+                        </p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">
+                          12/6/2027 | 07:30 | 50 phút/môn
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              <div class="bg-amber-50 p-6 rounded-3xl border border-amber-100">
+                <p class="text-[10px] font-bold text-amber-600 uppercase mb-2">
+                  Điểm
+                </p>
+                <h3 class="text-3xl font-black text-amber-900" id="dash-avg">
+                  0
+                </h3>
+              </div>
+              <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100">
+                <p class="text-[10px] font-bold text-blue-600 uppercase mb-2">
+                  Số đề đã giải
+                </p>
+                <h3 class="text-3xl font-black text-blue-900" id="dash-count">
+                  0
+                </h3>
+              </div>
+              <div
+                class="bg-emerald-50 p-6 rounded-3xl border border-emerald-100"
+              >
+                <p
+                  class="text-[10px] font-bold text-emerald-600 uppercase mb-2"
+                >
+                  Tỉ lệ chính xác
+                </p>
+                <h3
+                  class="text-3xl font-black text-emerald-900"
+                  id="dash-percent"
+                >
+                  0%
+                </h3>
+              </div>
+            </div>
+
+            <div class="dashboard-insights-grid grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div
+                class="dashboard-insight-card bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm"
+              >
+                <h4 class="font-bold mb-6 flex justify-between items-center">
+                  Phân tích phong độ
+                  <span class="text-[10px] text-slate-400"
+                    >Dựa trên 5 bài gần nhất</span
+                  >
+                </h4>
+                <div id="performance-empty" class="dashboard-empty-state">
+                  <div class="dashboard-empty-icon" aria-hidden="true">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <h5 id="performance-empty-title">Chưa có dữ liệu phong độ</h5>
+                  <p id="performance-empty-copy">
+                    Hoàn thành bài thi đầu tiên để xem biểu đồ tiến bộ của bạn.
+                  </p>
+                  <button type="button" data-pnd-action="navigate" data-route="exams" class="dashboard-empty-cta">
+                    CHỌN ĐỀ ĐỂ BẮT ĐẦU
+                  </button>
+                </div>
+                <div id="performance-chart-wrap" class="chart-container hidden">
+                  <canvas id="performanceChart"></canvas>
+                </div>
+              </div>
+              <div
+                class="dashboard-insight-card bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm"
+              >
+                <h4 class="font-bold mb-6">Lịch sử làm bài mới nhất</h4>
+                <div id="history-empty" class="dashboard-empty-state">
+                  <div class="dashboard-empty-icon" aria-hidden="true">
+                    <i class="fas fa-clock-rotate-left"></i>
+                  </div>
+                  <h5>Bạn chưa làm đề nào</h5>
+                  <p>Lịch sử và kết quả gần nhất sẽ xuất hiện tại đây.</p>
+                  <button type="button" data-pnd-action="navigate" data-route="exams" class="dashboard-empty-cta dashboard-empty-cta-secondary">
+                    KHÁM PHÁ KHO ĐỀ
+                  </button>
+                </div>
+                <div id="history-list" class="space-y-4 hidden">
+                  <!-- JS items here -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION: PHÒNG THI ẢO (DOING EXAM) -->
+          <section id="view-doing-exam" class="view-section">
+            <div class="h-[calc(100vh-140px)] flex flex-col">
+              <!-- Header Phòng Thi -->
+              <div class="flex justify-between items-center mb-3 md:mb-4 gap-2">
+                <button
+                  id="btn-exit-exam"
+                  type="button"
+                  data-pnd-action="exit-exam"
+                  class="px-3 md:px-4 py-2 bg-slate-100 text-slate-500 font-bold rounded-xl hover:bg-slate-200 transition shrink-0 flex items-center"
+                >
+                  <i class="fas fa-arrow-left md:mr-2"></i
+                  ><span class="hidden md:inline">Thoát</span
+                  ><span class="ml-1 text-[8px] text-amber-700">V5.32.0</span>
+                </button>
+                <h3
+                  class="text-base md:text-xl font-bold text-slate-800 text-center line-clamp-1"
+                  id="exam-doing-title"
+                >
+                  Đang làm bài...
+                </h3>
+                <div
+                  class="px-3 md:px-4 py-2 bg-red-50 text-red-600 text-sm md:text-base font-black rounded-xl border border-red-100 flex items-center gap-1.5 shrink-0"
+                >
+                  <i class="fas fa-clock"></i>
+                  <span id="exam-timer">60:00</span>
+                </div>
+              </div>
+
+              <!-- Khu vực nội dung Web Native -->
+              <div
+                class="flex-1 flex flex-col md:flex-row gap-4 md:gap-6 overflow-hidden relative"
+              >
+                <!-- Cột Trái: Đọc đề thi (Thay cho PDF) -->
+                <div
+                  id="native-question-container"
+                  class="flex-1 bg-white rounded-[24px] md:rounded-[32px] overflow-y-auto custom-scrollbar p-6 md:p-10 border border-slate-200 shadow-sm relative"
+                >
+                  <!-- JS sẽ vẽ câu hỏi và công thức Toán vào đây -->
+                  <div class="text-center text-slate-400 mt-10">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-2"></i
+                    ><br />Đang tải dữ liệu...
+                  </div>
+                </div>
+
+                <div
+                  id="exam-sheet-overlay"
+                  class="exam-sheet-overlay"
+                  data-pnd-action="close-answer-sheet"
+                ></div>
+
+                <!-- Cột Phải: Sticky desktop, bottom sheet trên điện thoại -->
+                <div
+                  id="exam-answer-panel"
+                  class="exam-answer-panel w-full md:w-80 flex-none bg-slate-50 md:bg-white p-4 md:p-6 rounded-[24px] md:rounded-[32px] border border-slate-200 md:border-slate-100 shadow-inner md:shadow-sm flex flex-col"
+                >
+                  <button
+                    type="button"
+                    class="answer-sheet-handle font-black text-center mb-3 md:mb-4 text-[#8C5F3B] border-b-2 border-slate-200 md:border-slate-50 pb-3 md:pb-4 shrink-0"
+                    data-pnd-action="toggle-answer-sheet"
+                  >
+                    <span id="answer-sheet-title">PHIẾU TRẢ LỜI</span>
+                    <span
+                      id="answer-sheet-progress"
+                      class="md:hidden ml-2 px-2 py-1 rounded-full bg-amber-100 text-[10px]"
+                      >0 câu</span
+                    >
+                  </button>
+
+                  <div
+                    id="answer-sheet"
+                    class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-2"
+                  >
+                    <!-- Nút bấm chèn tự động -->
+                  </div>
+
+                  <button
+                    data-pnd-action="submit-exam"
+                    id="btnSubmitExam"
+                    class="w-full mt-4 md:mt-6 py-3 md:py-4 bg-[#8C5F3B] text-white font-black text-base md:text-lg rounded-xl md:rounded-2xl shadow-lg shadow-amber-900/20 hover:-translate-y-1 transition-transform shrink-0"
+                  >
+                    NỘP BÀI
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION: EXAMS -->
+          <!-- SECTION: EVENTS -->
+          <section id="view-events" class="view-section">
+            <div class="mb-8 flex justify-between items-end">
+              <div>
+                <h3 class="text-2xl font-bold text-slate-800">
+                  Khảo sát chất lượng
+                </h3>
+                <p class="text-slate-500 text-sm mt-1">
+                  Tham gia thi trước hạn chót để được vinh danh trên Bảng xếp
+                  hạng.
+                </p>
+              </div>
+            </div>
+            <div id="event-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- JS sẽ đổ dữ liệu đề thi khảo sát vào đây -->
+            </div>
+          </section>
+
+          <section id="view-exams" class="view-section">
+            <div class="mb-8 space-y-4">
+              <div
+                id="exam-filter-bar"
+                class="flex gap-2 overflow-x-auto pb-2"
+                aria-label="Lọc kho đề"
+              >
+                <button
+                  type="button"
+                  data-exam-filter="all"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-[#8C5F3B] text-white rounded-xl text-xs font-bold"
+                >
+                  TẤT CẢ
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="subject:math"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  TOÁN
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="subject:physics"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  VẬT LÝ
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="subject:chemistry"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  HÓA HỌC
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="subject:english"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  TIẾNG ANH
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="format:vact"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  V-ACT
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="format:hsa"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  HSA
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="format:tsa"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  TSA
+                </button>
+                <button
+                  type="button"
+                  data-exam-filter="subject:other"
+                  class="exam-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-500 rounded-xl text-xs font-bold"
+                >
+                  KHÁC
+                </button>
+                <a
+                  href="admin.html"
+                  class="px-5 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold shadow-sm hover:bg-slate-900 transition inline-flex items-center"
+                >
+                  <i class="fas fa-plus-circle mr-1"></i> QUẢN LÝ ĐỀ
+                </a>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-3 justify-end">
+                <div class="relative w-full sm:w-80">
+                  <i
+                    class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                  ></i>
+                  <input
+                    id="exam-search-input"
+                    type="search"
+                    placeholder="Tìm tên đề, môn hoặc mã đề..."
+                    class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-[#8C5F3B]/20 transition"
+                  />
+                </div>
+                <select
+                  id="exam-sort-select"
+                  class="w-full sm:w-52 px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-sm font-semibold text-slate-600 outline-none focus:ring-2 focus:ring-[#8C5F3B]/20"
+                >
+                  <option value="newest">Mới nhất</option>
+                  <option value="title">Tên A–Z</option>
+                  <option value="duration">Thời gian ngắn nhất</option>
+                  <option value="questions">Ít câu nhất</option>
+                </select>
+              </div>
+            </div>
+            <div
+              id="exam-grid"
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <!-- Code Firebase sẽ đổ dữ liệu thật vào đây -->
+            </div>
+            <div class="flex justify-center pt-8">
+              <button
+                id="exam-load-more"
+                type="button"
+                data-pnd-action="load-more-exams"
+                class="hidden px-6 py-3 rounded-xl bg-white border border-[#E8D4BF] text-[#8C5F3B] text-xs font-black shadow-sm hover:bg-[#FFF8EE] transition"
+              >
+                <i class="fas fa-chevron-down mr-2"></i>XEM THÊM ĐỀ
+              </button>
+            </div>
+          </section>
+
+          <!-- SECTION: RANKING -->
+          <section id="view-ranking" class="view-section">
+            <div class="space-y-6">
+              <header
+                class="bg-gradient-to-br from-[#FFF8EE] to-[#F2E2D0] rounded-[28px] border border-[#E8D4BF] p-6 md:p-8 shadow-sm"
+              >
+                <div
+                  class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"
+                >
+                  <div>
+                    <div
+                      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 text-[#8C5F3B] text-[10px] font-black mb-3"
+                    >
+                      <i class="fas fa-trophy"></i> BẢNG VÀNG KHẢO SÁT
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-black text-slate-800">
+                      Thành tích nổi bật
+                    </h3>
+                    <p
+                      id="ranking-event-description"
+                      class="text-sm text-slate-500 mt-2"
+                    >
+                      Điểm cao hơn xếp trước, bằng điểm sẽ xét thời gian ngắn
+                      hơn.
+                    </p>
+                  </div>
+                  <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto lg:items-end">
+                    <div class="ranking-event-control w-full lg:w-80">
+                      <label class="ranking-event-label" for="ranking-event-select">
+                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                        Chọn khảo sát
+                      </label>
+                      <div class="ranking-event-select-shell">
+                        <span class="ranking-event-select-icon" aria-hidden="true"><i class="fas fa-list-check"></i></span>
+                        <select
+                          id="ranking-event-select"
+                          data-pnd-action="ranking-event-change"
+                          class="ranking-event-select"
+                          aria-describedby="ranking-event-helper"
+                        >
+                          <option value="">Đang tải danh sách khảo sát…</option>
+                        </select>
+                        <span class="ranking-event-chevron" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
+                      </div>
+                      <p id="ranking-event-helper" class="ranking-event-helper" aria-live="polite">Đang tải danh sách khảo sát…</p>
+                    </div>
+                    <button
+                      id="ranking-sync-btn"
+                      type="button"
+                      data-pnd-action="sync-ranking"
+                      class="hidden px-4 py-3 bg-slate-800 text-white border border-slate-800 rounded-xl text-xs font-black hover:bg-slate-900 transition"
+                    >
+                      <i class="fas fa-wand-magic-sparkles mr-1"></i> ĐỒNG BỘ CŨ
+                    </button>
+                    <button
+                      type="button"
+                      data-pnd-action="refresh-ranking"
+                      class="px-4 py-3 bg-white text-[#8C5F3B] border border-amber-900/10 rounded-xl text-xs font-black hover:bg-amber-50 transition"
+                    >
+                      <i class="fas fa-rotate-right mr-1"></i> LÀM MỚI
+                    </button>
+                  </div>
+                </div>
+                <div class="mt-5 flex flex-wrap gap-3 text-xs">
+                  <span
+                    id="ranking-event-status"
+                    class="px-3 py-1.5 rounded-full bg-white/70 text-slate-600 font-bold"
+                    >Đang kiểm tra khảo sát</span
+                  >
+                  <span
+                    id="ranking-participant-count"
+                    class="px-3 py-1.5 rounded-full bg-white/70 text-slate-600 font-bold"
+                    >0 thí sinh</span
+                  >
+                  <span
+                    id="ranking-updated-at"
+                    class="px-3 py-1.5 rounded-full bg-white/70 text-slate-500 font-bold"
+                    >Chưa cập nhật</span
+                  >
+                </div>
+              </header>
+
+              <div
+                id="ranking-podium"
+                class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"
+              ></div>
+
+              <div
+                id="ranking-me-card"
+                class="hidden rounded-2xl border border-emerald-200 bg-emerald-50 p-4 md:p-5"
+              ></div>
+
+              <div
+                class="bg-white rounded-[28px] border border-slate-100 overflow-hidden shadow-sm"
+              >
+                <div class="overflow-x-auto">
+                  <table class="w-full min-w-[680px] text-left">
+                    <thead
+                      class="bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-wider"
+                    >
+                      <tr>
+                        <th class="px-5 md:px-7 py-4">Hạng</th>
+                        <th class="px-5 md:px-7 py-4">Thí sinh</th>
+                        <th class="px-5 md:px-7 py-4 text-center">Thời gian</th>
+                        <th class="px-5 md:px-7 py-4 text-center">Nộp bài</th>
+                        <th class="px-5 md:px-7 py-4 text-right">Điểm</th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      id="ranking-table"
+                      class="divide-y divide-slate-50"
+                    ></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION: ACCOUNT -->
+          <section id="view-account" class="view-section">
+            <div class="max-w-5xl mx-auto space-y-6">
+              <div
+                id="account-demo-notice"
+                class="hidden p-4 rounded-2xl bg-amber-50 border border-amber-200 text-sm text-amber-900"
+              >
+                <b>Chế độ khách local:</b> chưa có tài khoản Firebase nên không
+                thể đổi tên, mật khẩu hoặc xác minh email.
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+                <aside
+                  class="bg-gradient-to-br from-[#FFF8EE] to-[#F4E5D5] rounded-[28px] border border-[#EAD7C3] p-7 text-center shadow-sm"
+                >
+                  <div
+                    id="account-avatar"
+                    class="w-24 h-24 mx-auto rounded-full bg-[#8C5F3B] text-white flex items-center justify-center text-4xl font-black shadow-lg shadow-amber-900/20"
+                  >
+                    P
+                  </div>
+                  <h3
+                    id="account-name-card"
+                    class="mt-5 text-xl font-black text-slate-800"
+                  >
+                    Đang tải...
+                  </h3>
+                  <p
+                    id="account-email-card"
+                    class="mt-1 text-xs text-slate-500 break-all"
+                  >
+                    —
+                  </p>
+                  <span
+                    id="account-verified-badge"
+                    class="inline-flex mt-4 px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black"
+                    >ĐANG KIỂM TRA</span
+                  >
+                  <div
+                    class="mt-6 pt-5 border-t border-amber-900/10 text-left space-y-2 text-xs"
+                  >
+                    <div class="flex justify-between gap-3">
+                      <span class="text-slate-500">Loại tài khoản</span
+                      ><b
+                        id="account-provider"
+                        class="text-slate-700 text-right"
+                        >—</b
+                      >
+                    </div>
+                    <div class="flex justify-between gap-3">
+                      <span class="text-slate-500">Mã người dùng</span
+                      ><b id="account-uid" class="text-slate-700 text-right"
+                        >—</b
+                      >
+                    </div>
+                  </div>
+                </aside>
+
+                <div class="space-y-6">
+                  <section
+                    class="bg-white rounded-[28px] border border-slate-100 p-6 md:p-8 shadow-sm"
+                  >
+                    <div class="flex items-center gap-3 mb-6">
+                      <div
+                        class="w-11 h-11 rounded-2xl bg-amber-50 text-[#8C5F3B] flex items-center justify-center"
+                      >
+                        <i class="fas fa-id-card"></i>
+                      </div>
+                      <div>
+                        <h3 class="font-black text-slate-800">
+                          Thông tin cá nhân
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">
+                          Tên này xuất hiện trên bài thi và bảng xếp hạng.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="space-y-4">
+                      <div>
+                        <label
+                          for="account-display-name"
+                          class="block text-xs font-bold text-slate-600 mb-2"
+                          >Tên hiển thị</label
+                        >
+                        <input
+                          id="account-display-name"
+                          type="text"
+                          maxlength="60"
+                          autocomplete="name"
+                          class="w-full p-3.5 rounded-xl border border-slate-200 outline-none focus:border-[#8C5F3B] focus:ring-4 focus:ring-amber-900/5"
+                          placeholder="Họ và tên"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="account-email"
+                          class="block text-xs font-bold text-slate-600 mb-2"
+                          >Email đăng nhập</label
+                        >
+                        <input
+                          id="account-email"
+                          type="email"
+                          readonly
+                          class="w-full p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 cursor-not-allowed"
+                        />
+                        <p class="text-[10px] text-slate-400 mt-2">
+                          Email không được hiển thị công khai trên bảng xếp
+                          hạng.
+                        </p>
+                      </div>
+                      <div class="flex flex-wrap gap-3 pt-1">
+                        <button
+                          id="btn-save-account-name"
+                          type="button"
+                        data-pnd-action="save-account-name"
+                          class="px-5 py-3 rounded-xl bg-[#8C5F3B] text-white text-xs font-black hover:bg-[#704729] transition"
+                        >
+                          <i class="fas fa-save mr-1"></i> LƯU TÊN
+                        </button>
+                        <button
+                          id="btn-verify-email"
+                          type="button"
+                      data-pnd-action="verify-email"
+                          class="px-5 py-3 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-black border border-emerald-100 hover:bg-emerald-100 transition"
+                        >
+                          <i class="fas fa-envelope-circle-check mr-1"></i> XÁC
+                          MINH EMAIL
+                        </button>
+                        <button
+                          id="btn-refresh-account"
+                          type="button"
+                      data-pnd-action="refresh-account"
+                          class="px-4 py-3 rounded-xl bg-slate-50 text-slate-600 text-xs font-black border border-slate-100 hover:bg-slate-100 transition"
+                        >
+                          <i class="fas fa-rotate mr-1"></i> TẢI LẠI
+                        </button>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section
+                    class="bg-white rounded-[28px] border border-slate-100 p-6 md:p-8 shadow-sm"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center"
+                        >
+                          <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div>
+                          <h3 class="font-black text-slate-800">
+                            Mật khẩu & bảo mật
+                          </h3>
+                          <p class="text-xs text-slate-400 mt-1">
+                            Mật khẩu hiện tại luôn được Firebase mã hóa và không
+                            thể xem lại.
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        id="btn-change-password"
+                        type="button"
+                      data-pnd-action="change-password"
+                        class="px-5 py-3 rounded-xl bg-blue-50 text-blue-700 text-xs font-black border border-blue-100 hover:bg-blue-100 transition"
+                      >
+                        <i class="fas fa-key mr-1"></i> ĐỔI MẬT KHẨU
+                      </button>
+                    </div>
+                  </section>
+
+                  <section
+                    class="bg-red-50/60 rounded-[28px] border border-red-100 p-6 md:p-8"
+                  >
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                    >
+                      <div>
+                        <h3 class="font-black text-red-800">
+                          Đăng xuất khỏi thiết bị
+                        </h3>
+                        <p class="text-xs text-red-500 mt-1">
+                          Bản nháp bài thi của tài khoản trên máy này sẽ được
+                          dọn để bảo vệ riêng tư.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                      data-pnd-action="sign-out"
+                        class="px-5 py-3 rounded-xl bg-red-600 text-white text-xs font-black hover:bg-red-700 transition"
+                      >
+                        <i class="fas fa-right-from-bracket mr-1"></i> ĐĂNG XUẤT
+                      </button>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="view-admin-grading" class="view-section">
+            <div
+              class="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm"
+            >
+              <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6"
+              >
+                <div>
+                  <h3 class="text-xl font-bold text-[#8C5F3B]">
+                    Danh sách bài cần chấm
+                  </h3>
+                  <p
+                    id="admin-pending-detail"
+                    class="text-xs text-slate-400 mt-1"
+                  >
+                    Đang cập nhật số bài chờ chấm...
+                  </p>
+                </div>
+                <div class="flex flex-wrap items-center justify-end gap-3">
+                  <button
+                    type="button"
+                    data-pnd-action="delete-submissions"
+                    class="admin-danger-action"
+                    title="Xóa toàn bộ bài nộp trong khu vực chấm bài"
+                  >
+                    <i class="fas fa-trash-can" aria-hidden="true"></i>
+                    <span>Xóa bài nộp</span>
+                  </button>
+                  <div
+                    class="flex items-center gap-3 rounded-2xl bg-amber-50 border border-amber-100 px-5 py-3"
+                  >
+                  <div
+                    class="w-10 h-10 rounded-xl bg-white text-amber-600 flex items-center justify-center"
+                  >
+                    <i class="fas fa-hourglass-half"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] font-bold uppercase text-amber-600">
+                      Đang chờ chấm
+                    </p>
+                    <p
+                      id="admin-pending-total"
+                      class="text-2xl leading-none font-black text-amber-800"
+                    >
+                      0
+                    </p>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div id="admin-grading-list" class="space-y-4">
+                <!-- JS sẽ đổ danh sách bài thi từ Firestore vào đây -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div
+      id="modal-result"
+      class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-[40px] p-10 max-w-sm w-full text-center">
+        <div class="text-6xl mb-4">✨</div>
+        <h3 class="text-2xl font-bold mb-1">Hoàn tất!</h3>
+        <p class="text-slate-400 text-sm mb-6">
+          Kết quả của bạn đã được cập nhật vào trang Tổng quan.
+        </p>
+        <div class="bg-slate-50 p-6 rounded-3xl mb-8">
+          <span class="text-xs font-bold text-slate-400 uppercase"
+            >Điểm đạt được</span
+          >
+          <div class="text-5xl font-black text-[#8C5F3B]" id="modal-score">
+            0
+          </div>
+        </div>
+        <button
+          type="button"
+          data-pnd-action="close-result-modal"
+          class="w-full py-4 bg-[#8C5F3B] text-white rounded-2xl font-bold shadow-lg shadow-amber-900/20"
+        >
+          XEM KẾT QUẢ TỔNG HỢP
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="auth-modal"
+      class="auth-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="auth-modal-title"
+      data-pnd-action="close-auth-backdrop"
+    >
+      <section class="auth-card">
+        <div class="auth-card-head">
+          <div>
+            <span class="auth-eyebrow">PND TEAM</span>
+            <h2
+              id="auth-modal-title"
+              class="auth-title"
+            >
+              Đăng nhập để tiếp tục
+            </h2>
+            <p
+              id="auth-modal-reason"
+              class="auth-reason"
+            >
+              Tài khoản giúp lưu bài làm và bảo vệ kết quả của bạn.
+            </p>
+          </div>
+          <button
+            type="button"
+            data-pnd-action="close-auth-modal"
+            aria-label="Đóng"
+            class="auth-close"
+          >
+            ×
+          </button>
+        </div>
+        <div class="auth-tabs">
+          <button
+            id="auth-tab-login"
+            type="button"
+            class="auth-switch"
+          >
+            Đăng nhập
+          </button>
+          <button
+            id="auth-tab-register"
+            type="button"
+            class="auth-switch"
+          >
+            Tạo tài khoản
+          </button>
+        </div>
+        <div class="auth-card-body">
+          <form id="auth-login-form">
+            <div class="auth-field">
+              <label for="auth-login-email">Email</label
+              ><input
+                id="auth-login-email"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="email@example.com"
+              />
+            </div>
+            <div class="auth-field">
+              <label for="auth-login-password">Mật khẩu</label
+              ><input
+                id="auth-login-password"
+                type="password"
+                autocomplete="current-password"
+                required
+                placeholder="Mật khẩu của bạn"
+              />
+            </div>
+            <button id="auth-login-submit" class="auth-submit" type="submit">
+              ĐĂNG NHẬP
+            </button>
+            <button
+              id="auth-forgot"
+              type="button"
+              class="auth-forgot"
+            >
+              Quên mật khẩu?
+            </button>
+          </form>
+          <form id="auth-register-form" hidden>
+            <div class="auth-field">
+              <label for="auth-register-name">Tên hiển thị</label
+              ><input
+                id="auth-register-name"
+                type="text"
+                autocomplete="name"
+                required
+                minlength="2"
+                maxlength="60"
+                placeholder="Nguyễn Văn A"
+              />
+            </div>
+            <div class="auth-field">
+              <label for="auth-register-email">Email</label
+              ><input
+                id="auth-register-email"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="email@example.com"
+              />
+            </div>
+            <div class="auth-field">
+              <label for="auth-register-password">Mật khẩu</label
+              ><input
+                id="auth-register-password"
+                type="password"
+                autocomplete="new-password"
+                required
+                minlength="8"
+                placeholder="Tối thiểu 8 ký tự"
+              />
+            </div>
+            <div class="auth-field">
+              <label for="auth-register-confirm">Nhập lại mật khẩu</label
+              ><input
+                id="auth-register-confirm"
+                type="password"
+                autocomplete="new-password"
+                required
+                minlength="8"
+                placeholder="Nhập lại mật khẩu"
+              />
+            </div>
+            <button id="auth-register-submit" class="auth-submit" type="submit">
+              TẠO TÀI KHOẢN
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- SCRIPT 1: ĐIỀU HƯỚNG VÀ DỮ LIỆU ẢO CHO DASHBOARD -->
+
+    <!-- SCRIPT 2: KẾT NỐI FIREBASE & CHỨC NĂNG LÀM BÀI TRẮC NGHIỆM -->
+    <!-- ĐOẠN CODE KẾT NỐI FIREBASE & PHÒNG THI ĐA ĐỊNH DẠNG -->
+    <script type="module" src="assets/app-loader.js?v=5.33.4"></script>
+
+    <!-- Cổng ẩn để chọn ảnh -->
+    <!-- Thêm thuộc tính multiple vào đây -->
+    <input
+      type="file"
+      id="fileUploader"
+      accept="image/*"
+      multiple
+      class="hidden"
+    />
+  </body>
+</html>

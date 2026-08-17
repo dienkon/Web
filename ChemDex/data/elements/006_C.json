@@ -1,0 +1,56 @@
+{
+  "number": 6,
+  "symbol": "C",
+  "nameVi": "Carbon",
+  "nameEn": "Carbon",
+  "mass": 12.011,
+  "category": "phi-kim",
+  "general": {
+    "latinName": "Carbonium",
+    "englishName": "Carbon",
+    "electronConfig": "1s2 2s2 2p2",
+    "group": 14,
+    "period": 2,
+    "isotope": "184Bi, 185Bi, 186Bi, 187Bi, 188Bi, 189Bi, 190Bi, 191Bi, 192Bi, 193Bi, 194Bi, 195Bi, 196Bi, 197Bi, 198Bi, 199Bi, 200Bi, 201Bi, 202Bi, 203Bi, 204Bi, 205Bi, 206Bi, 207Bi, 208Bi, 209Bi, 210Bi, 211Bi, 212Bi, 213Bi, 214Bi, 215Bi, 216Bi, 217Bi, 218Bi",
+    "oxidation": "-4, +2, +4",
+    "electronegativity": "2.55",
+    "shells": [
+      2,
+      4
+    ]
+  },
+  "history": {
+    "discoverer": "Cổ đại",
+    "year": "Từ rất sớm",
+    "discoveryLocation": "Nhiều nơi"
+  },
+  "structure": {
+    "electrons": 6,
+    "protons": 6,
+    "neutrons": 6
+  },
+  "occurrence": {
+    "description": "Có trong than, đá vôi, sinh vật sống và nhiều hợp chất hữu cơ.",
+    "simple": [
+      "Kim cương",
+      "Than chì"
+    ],
+    "compounds": [
+      "CO2",
+      "CaCO3"
+    ]
+  },
+  "physical": "Tồn tại ở nhiều dạng thù hình như kim cương, than chì, graphene.",
+  "chemical": "Thể hiện tính phi kim, tạo liên kết cộng hóa trị bền.",
+  "reactions": [
+    {
+      "type": "Oxi hóa",
+      "eq": "C + O2 → CO2",
+      "desc": "Phản ứng cháy hoàn toàn."
+    }
+  ],
+  "structureType": "diamond",
+  "images": {},
+  "hasData": true,
+  "file": "elements/006_C.json"
+}

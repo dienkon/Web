@@ -1,0 +1,6 @@
+{
+  "name": "DkTEST - Hệ Thống Thi Trực Tuyến & Soạn Đề",
+  "description": "Nền tảng thi trắc nghiệm trực tuyến, soạn thảo đề thi LaTeX chuyên nghiệp, quản lý học sinh và thống kê chi tiết.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

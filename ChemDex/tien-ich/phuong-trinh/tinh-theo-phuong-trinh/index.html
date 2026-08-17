@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Tỉ Lượng Phương Trình Hóa Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3b82f6', // Màu xanh lam nhẹ nhàng
+                        secondary: '#f3f4f6', // Nền phụ
+                        textMain: '#1f2937', // Màu chữ chính
+                        textMuted: '#6b7280', // Màu chữ phụ
+                        borderLight: '#e5e7eb' // Viền sáng
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff; /* Giao diện trắng sáng */
+            color: #1f2937;
+        }
+        
+        /* Ẩn thanh cuộn số của input type="number" */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+        
+        /* Hiệu ứng focus chung cho input */
+        .input-field {
+            transition: all 0.2s ease;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Bảng hiển thị đẹp trên mobile */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        table {
+            width: 100%;
+            min-width: 600px; /* Đảm bảo không quá nén trên mobile */
+        }
+        
+        th {
+            background-color: #f9fafb;
+            font-weight: 500;
+            color: #4b5563;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- Header với nút quay lại -->
+    <div class="w-full max-w-4xl flex items-center justify-between mb-8">
+        <a href="../../" class="group flex items-center text-textMuted hover:text-primary transition-colors text-sm font-medium bg-secondary hover:bg-blue-50 px-3 py-2 rounded-lg border border-borderLight hover:border-blue-200">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
+            Quay lại
+        </a>
+        <div class="text-right">
+            <!-- Dành chỗ nếu cần thêm menu/actions sau này -->
+        </div>
+    </div>
+
+    <!-- Container chính -->
+    <main class="w-full max-w-4xl bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-borderLight p-6 sm:p-8">
+        
+        <!-- Tiêu đề -->
+        <header class="mb-8 text-center sm:text-left border-b border-borderLight pb-6">
+            <h1 class="text-2xl sm:text-3xl font-semibold text-textMain tracking-tight">Máy Tính Tỉ Lượng</h1>
+            <p class="text-textMuted mt-2 text-sm sm:text-base">Tính toán số mol, khối lượng dựa trên phương trình phản ứng hóa học.</p>
+        </header>
+
+        <!-- Nhập Phương Trình -->
+        <section class="mb-8">
+            <label for="equation" class="block text-sm font-medium text-textMain mb-2">Phương trình phản ứng (Ví dụ: 2H2 + O2 -> 2H2O)</label>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="equation" placeholder="Nhập phương trình hóa học..." 
+                       class="input-field flex-1 px-4 py-3 bg-secondary border border-borderLight rounded-xl text-textMain placeholder-gray-400 focus:bg-white"
+                       value="2H2 + O2 -> 2H2O">
+                <button id="btn-parse" class="bg-primary hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-xl transition-colors shadow-sm hover:shadow active:scale-95 flex items-center justify-center">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2"></i>
+                    Phân tích
+                </button>
+            </div>
+            <p id="equation-error" class="text-red-500 text-sm mt-2 hidden">Vui lòng nhập phương trình hợp lệ có dấu '->' hoặc '='.</p>
+        </section>
+
+        <!-- Bảng Tính Toán -->
+        <section id="calculation-section" class="hidden">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-medium text-textMain">Bảng Tính Toán</h2>
+                <button id="btn-reset" class="text-textMuted hover:text-red-500 text-sm font-medium transition-colors flex items-center">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4 mr-1"></i>
+                    Làm mới
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-borderLight">
+                            <th class="py-3 px-4 w-1/4">Chất</th>
+                            <th class="py-3 px-4 w-1/6">Hệ số</th>
+                            <th class="py-3 px-4 w-1/4">Khối lượng Mol (g/mol)</th>
+                            <th class="py-3 px-4 w-1/5">Số Mol (mol)</th>
+                            <th class="py-3 px-4 w-1/5">Khối lượng (g)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="substance-body" class="divide-y divide-borderLight">
+                        <!-- Dữ liệu các chất sẽ được render ở đây -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Nút Calculate -->
+            <div class="mt-6 flex justify-end">
+                <button id="btn-calculate" class="bg-gray-900 hover:bg-gray-800 text-white font-medium py-2.5 px-6 rounded-xl transition-colors shadow-sm active:scale-95 flex items-center">
+                    <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+                    Tính Toán
+                </button>
+            </div>
+            
+            <!-- Message thông báo -->
+            <div id="status-message" class="mt-4 p-3 rounded-lg text-sm hidden"></div>
+        </section>
+        
+        <!-- Hướng dẫn sử dụng rút gọn -->
+        <div class="mt-12 p-4 bg-secondary rounded-xl border border-borderLight">
+            <h3 class="text-sm font-semibold text-textMain mb-2 flex items-center">
+                <i data-lucide="info" class="w-4 h-4 mr-1 text-primary"></i>
+                Hướng dẫn nhanh
+            </h3>
+            <ul class="text-xs text-textMuted list-disc pl-5 space-y-1">
+                <li>Nhập phương trình và nhấn <strong>Phân tích</strong>. (Dùng `->` hoặc `=` để ngăn cách).</li>
+                <li>Nhập <strong>Khối lượng mol</strong> cho các chất (nếu cần quy đổi khối lượng).</li>
+                <li>Nhập ít nhất <strong>1 giá trị Số mol</strong> (hoặc Khối lượng) của 1 chất đã biết.</li>
+                <li>Nhấn <strong>Tính Toán</strong> để tìm các giá trị còn lại theo tỉ lệ hệ số.</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        // Khởi tạo icon Lucide
+        lucide.createIcons();
+
+        // Biến toàn cục lưu trữ danh sách các chất
+        let substances = [];
+
+        // DOM Elements
+        const equationInput = document.getElementById('equation');
+        const btnParse = document.getElementById('btn-parse');
+        const equationError = document.getElementById('equation-error');
+        const calculationSection = document.getElementById('calculation-section');
+        const substanceBody = document.getElementById('substance-body');
+        const btnCalculate = document.getElementById('btn-calculate');
+        const btnReset = document.getElementById('btn-reset');
+        const statusMessage = document.getElementById('status-message');
+
+        // Hàm tiện ích hiển thị thông báo
+        function showMessage(msg, type = 'error') {
+            statusMessage.textContent = msg;
+            statusMessage.className = `mt-4 p-3 rounded-lg text-sm ${
+                type === 'error' ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-green-50 text-green-700 border border-green-100'
+            } block`;
+            
+            setTimeout(() => {
+                statusMessage.classList.add('hidden');
+            }, 5000);
+        }
+
+        // 1. Phân tích phương trình hóa học
+        function parseEquation(eqString) {
+            // Thay thế = bằng -> nếu có
+            let normalizedEq = eqString.replace('=', '->');
+            
+            if (!normalizedEq.includes('->')) {
+                return null;
+            }
+
+            const parts = normalizedEq.split('->');
+            if (parts.length !== 2) return null;
+
+            const reactants = parts[0].split('+').map(s => s.trim()).filter(s => s);
+            const products = parts[1].split('+').map(s => s.trim()).filter(s => s);
+
+            if (reactants.length === 0 || products.length === 0) return null;
+
+            const parseSubstanceList = (list, type) => {
+                return list.map(item => {
+                    // Tách hệ số và công thức (VD: "2H2O" -> hệ số 2, công thức H2O)
+                    const match = item.match(/^(\d*)(.+)$/);
+                    let coefficient = 1;
+                    let formula = item;
+
+                    if (match) {
+                        coefficient = match[1] ? parseInt(match[1]) : 1;
+                        formula = match[2].trim();
+                    }
+
+                    return {
+                        formula: formula,
+                        coefficient: coefficient,
+                        type: type, // 'reactant' hoặc 'product'
+                        molarMass: null,
+                        moles: null,
+                        mass: null,
+                        id: Math.random().toString(36).substr(2, 9)
+                    };
+                });
+            };
+
+            const parsedReactants = parseSubstanceList(reactants, 'reactant');
+            const parsedProducts = parseSubstanceList(products, 'product');
+
+            return [...parsedReactants, ...parsedProducts];
+        }
+
+        // Xử lý sự kiện nút Phân tích
+        btnParse.addEventListener('click', () => {
+            const eqText = equationInput.value;
+            substances = parseEquation(eqText);
+
+            if (!substances) {
+                equationError.classList.remove('hidden');
+                calculationSection.classList.add('hidden');
+            } else {
+                equationError.classList.add('hidden');
+                renderTable();
+                calculationSection.classList.remove('hidden');
+                statusMessage.classList.add('hidden');
+            }
+        });
+
+        // Hỗ trợ Enter trên ô input
+        equationInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                btnParse.click();
+            }
+        });
+
+        // 2. Render Bảng dữ liệu
+        function renderTable() {
+            substanceBody.innerHTML = '';
+            
+            substances.forEach((sub, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 transition-colors group";
+                
+                // Ký hiệu màu sắc cho chất tham gia / sản phẩm
+                const badgeColor = sub.type === 'reactant' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700';
+                const badgeText = sub.type === 'reactant' ? 'T.Gia' : 'S.Phẩm';
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-medium text-textMain">
+                        <div class="flex items-center gap-2">
+                            ${sub.formula}
+                            <span class="text-[10px] px-1.5 py-0.5 rounded-md font-semibold ${badgeColor}">${badgeText}</span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4 text-textMuted">${sub.coefficient}</td>
+                    <td class="py-3 px-4">
+                        <input type="number" step="any" min="0" 
+                               data-id="${sub.id}" data-field="molarMass" 
+                               class="input-field w-full px-3 py-1.5 bg-white border border-borderLight rounded-lg text-sm"
+                               placeholder="M (g/mol)"
+                               value="${sub.molarMass || ''}">
+                    </td>
+                    <td class="py-3 px-4">
+                        <input type="number" step="any" min="0" 
+                               data-id="${sub.id}" data-field="moles" 
+                               class="input-field w-full px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900 font-medium focus:bg-white"
+                               placeholder="n (mol)"
+                               value="${sub.moles || ''}">
+                    </td>
+                    <td class="py-3 px-4">
+                        <input type="number" step="any" min="0" 
+                               data-id="${sub.id}" data-field="mass" 
+                               class="input-field w-full px-3 py-1.5 bg-white border border-borderLight rounded-lg text-sm"
+                               placeholder="m (g)"
+                               value="${sub.mass || ''}">
+                    </td>
+                `;
+                substanceBody.appendChild(tr);
+            });
+
+            // Gắn sự kiện thay đổi giá trị cho các input
+            document.querySelectorAll('#substance-body input').forEach(input => {
+                input.addEventListener('input', handleInputChange);
+            });
+        }
+
+        // Xử lý khi người dùng gõ vào ô input (lưu lại vào biến state)
+        function handleInputChange(e) {
+            const id = e.target.getAttribute('data-id');
+            const field = e.target.getAttribute('data-field');
+            const val = parseFloat(e.target.value);
+
+            const substance = substances.find(s => s.id === id);
+            if (substance) {
+                substance[field] = isNaN(val) ? null : val;
+            }
+        }
+
+        // Làm mới dữ liệu
+        btnReset.addEventListener('click', () => {
+            substances.forEach(sub => {
+                sub.molarMass = null;
+                sub.moles = null;
+                sub.mass = null;
+            });
+            renderTable();
+            statusMessage.classList.add('hidden');
+        });
+
+        // 3. Logic Tính Toán Chính
+        btnCalculate.addEventListener('click', () => {
+            // Bước 1: Tính số mol từ khối lượng nếu có (n = m/M)
+            substances.forEach(sub => {
+                if (sub.mass !== null && sub.molarMass !== null && sub.moles === null) {
+                    sub.moles = sub.mass / sub.molarMass;
+                }
+            });
+
+            // Bước 2: Tìm chất cơ sở (base substance) đã biết số mol
+            let baseSubstance = substances.find(s => s.moles !== null && s.moles > 0);
+
+            if (!baseSubstance) {
+                showMessage('Vui lòng nhập ít nhất số mol (hoặc khối lượng + khối lượng mol) của một chất để tính toán.');
+                return;
+            }
+
+            // Tỉ lệ cơ bản: (số mol đã biết) / (hệ số của chất đó)
+            const baseRatio = baseSubstance.moles / baseSubstance.coefficient;
+
+            // Bước 3: Tính số mol cho các chất còn lại và khối lượng nếu có M
+            substances.forEach(sub => {
+                // Tính số mol theo tỉ lệ
+                if (sub.id !== baseSubstance.id) {
+                    sub.moles = baseRatio * sub.coefficient;
+                }
+
+                // Tính khối lượng nếu đã biết M (m = n * M)
+                if (sub.moles !== null && sub.molarMass !== null) {
+                    sub.mass = sub.moles * sub.molarMass;
+                }
+            });
+
+            // Làm tròn kết quả để hiển thị đẹp (vd 4 chữ số thập phân)
+            substances.forEach(sub => {
+                if (sub.moles !== null) sub.moles = parseFloat(sub.moles.toFixed(4));
+                if (sub.mass !== null) sub.mass = parseFloat(sub.mass.toFixed(4));
+            });
+
+            // Render lại bảng với giá trị mới
+            renderTable();
+            showMessage('Đã tính toán thành công!', 'success');
+        });
+
+        // Khởi chạy mặc định lần đầu
+        btnParse.click();
+
+    </script>
+</body>
+</html>

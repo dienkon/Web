@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Xác định Số Oxi Hóa - Công cụ Hóa Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* Light slate background */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Smooth fade and slide up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 text-slate-800 selection:bg-blue-100 selection:text-blue-900">
+
+    <a href="../../" class="fixed top-4 left-4 md:top-6 md:left-6 z-50 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-[0_2px_10px_rgb(0,0,0,0.06)] border border-slate-100 text-slate-400 hover:text-slate-800 hover:scale-105 active:scale-95 transition-all duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+    </a>
+
+    <main class="w-full max-w-md">
+        <div class="glass-effect rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white p-6 sm:p-8">
+            
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 text-blue-600 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                        <line x1="2" y1="2" x2="22" y2="22"></line>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-900">Tính Số Oxi Hóa</h1>
+
+            </div>
+
+            <form id="calcForm" class="space-y-4">
+                <div>
+                    <label for="formula" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 ml-1">Công thức hóa học</label>
+                    <input type="text" id="formula" required placeholder="VD: H2SO4, KMnO4, Fe3O4..." 
+                           class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium text-slate-800 placeholder-slate-400 text-lg">
+
+                </div>
+
+                <div>
+                    <label for="charge" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 ml-1">Điện tích (Nếu là ion)</label>
+                    <input type="number" id="charge" placeholder="Mặc định: 0 (Phân tử trung hòa)" value="0"
+                           class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium text-slate-700 placeholder-slate-400">
+                </div>
+
+                <button type="submit" class="w-full py-4 mt-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-2xl shadow-lg shadow-slate-900/15 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                    Xác định ngay
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </form>
+
+            <div id="resultContainer" class="mt-6 hidden">
+                <div class="h-px w-full bg-slate-100 mb-6"></div>
+                <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 ml-1">Kết quả chi tiết</h3>
+                <div id="resultBox" class="bg-blue-50/50 rounded-2xl border border-blue-100/50 p-2 space-y-1">
+                    <!-- Kết quả sẽ được render bằng JS tại đây -->
+                </div>
+            </div>
+
+            <!-- Khu vực Hiển thị Lỗi -->
+            <div id="errorContainer" class="mt-4 hidden animate-fade-in-up">
+                <div class="px-4 py-3 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm font-medium flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    <span id="errorText">Lỗi định dạng.</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Cơ sở dữ liệu toàn bộ 118 nguyên tố hóa học kèm độ âm điện (Pauling) và số oxi hóa phổ biến
+        const PERIODIC_TABLE = {
+            'H': { z: 1, name: 'Hidro', group: 1, electronegativity: 2.20, commonStates: [1, -1] },
+            'He': { z: 2, name: 'Heli', group: 18, electronegativity: null, commonStates: [0] },
+            'Li': { z: 3, name: 'Liti', group: 1, electronegativity: 0.98, commonStates: [1] },
+            'Be': { z: 4, name: 'Beri', group: 2, electronegativity: 1.57, commonStates: [2] },
+            'B': { z: 5, name: 'Bo', group: 13, electronegativity: 2.04, commonStates: [3] },
+            'C': { z: 6, name: 'Cacbon', group: 14, electronegativity: 2.55, commonStates: [4, 2, 0, -2, -4] },
+            'N': { z: 7, name: 'Nitơ', group: 15, electronegativity: 3.04, commonStates: [5, 4, 3, 2, 1, 0, -1, -2, -3] },
+            'O': { z: 8, name: 'Oxi', group: 16, electronegativity: 3.44, commonStates: [-2, -1, 2] },
+            'F': { z: 9, name: 'Flo', group: 17, electronegativity: 3.98, commonStates: [-1] },
+            'Ne': { z: 10, name: 'Neon', group: 18, electronegativity: null, commonStates: [0] },
+            'Na': { z: 11, name: 'Natri', group: 1, electronegativity: 0.93, commonStates: [1] },
+            'Mg': { z: 12, name: 'Magie', group: 2, electronegativity: 1.31, commonStates: [2] },
+            'Al': { z: 13, name: 'Nhôm', group: 13, electronegativity: 1.61, commonStates: [3] },
+            'Si': { z: 14, name: 'Silic', group: 14, electronegativity: 1.90, commonStates: [4, -4] },
+            'P': { z: 15, name: 'Photpho', group: 15, electronegativity: 2.19, commonStates: [5, 3, -3] },
+            'S': { z: 16, name: 'Lưu huỳnh', group: 16, electronegativity: 2.58, commonStates: [6, 4, 2, 0, -2] },
+            'Cl': { z: 17, name: 'Clo', group: 17, electronegativity: 3.16, commonStates: [7, 5, 3, 1, -1] },
+            'Ar': { z: 18, name: 'A-gôn', group: 18, electronegativity: null, commonStates: [0] },
+            'K': { z: 19, name: 'Kali', group: 1, electronegativity: 0.82, commonStates: [1] },
+            'Ca': { z: 20, name: 'Canxi', group: 2, electronegativity: 1.00, commonStates: [2] },
+            'Sc': { z: 21, name: 'Scandi', group: 3, electronegativity: 1.36, commonStates: [3] },
+            'Ti': { z: 22, name: 'Titan', group: 4, electronegativity: 1.54, commonStates: [4, 3, 2] },
+            'V': { z: 23, name: 'Vanadi', group: 5, electronegativity: 1.63, commonStates: [5, 4, 3, 2] },
+            'Cr': { z: 24, name: 'Crom', group: 6, electronegativity: 1.66, commonStates: [6, 3, 2] },
+            'Mn': { z: 25, name: 'Mangan', group: 7, electronegativity: 1.55, commonStates: [7, 6, 4, 2, 3] },
+            'Fe': { z: 26, name: 'Sắt', group: 8, electronegativity: 1.83, commonStates: [3, 2, 6, 8] },
+            'Co': { z: 27, name: 'Coban', group: 9, electronegativity: 1.88, commonStates: [2, 3] },
+            'Ni': { z: 28, name: 'Niken', group: 10, electronegativity: 1.91, commonStates: [2, 3, 0] },
+            'Cu': { z: 29, name: 'Đồng', group: 11, electronegativity: 1.90, commonStates: [2, 1] },
+            'Zn': { z: 30, name: 'Kẽm', group: 12, electronegativity: 1.65, commonStates: [2] },
+            'Ga': { z: 31, name: 'Gali', group: 13, electronegativity: 1.81, commonStates: [3] },
+            'Ge': { z: 32, name: 'Tecmani', group: 14, electronegativity: 2.01, commonStates: [4, 2] },
+            'As': { z: 33, name: 'Asen', group: 15, electronegativity: 2.18, commonStates: [5, 3, -3] },
+            'Se': { z: 34, name: 'Selen', group: 16, electronegativity: 2.55, commonStates: [6, 4, -2] },
+            'Br': { z: 35, name: 'Brom', group: 17, electronegativity: 2.96, commonStates: [5, 1, -1] },
+            'Kr': { z: 36, name: 'Kripton', group: 18, electronegativity: 3.00, commonStates: [2, 0] },
+            'Rb': { z: 37, name: 'Rubiđi', group: 1, electronegativity: 0.82, commonStates: [1] },
+            'Sr': { z: 38, name: 'Stronti', group: 2, electronegativity: 0.95, commonStates: [2] },
+            'Y': { z: 39, name: 'Ytri', group: 3, electronegativity: 1.22, commonStates: [3] },
+            'Zr': { z: 40, name: 'Ziriconi', group: 4, electronegativity: 1.33, commonStates: [4] },
+            'Nb': { z: 41, name: 'Niobi', group: 5, electronegativity: 1.6, commonStates: [5, 3] },
+            'Mo': { z: 42, name: 'Molipden', group: 6, electronegativity: 2.16, commonStates: [6, 4, 3] },
+            'Tc': { z: 43, name: 'Tecneti', group: 7, electronegativity: 1.9, commonStates: [7, 4] },
+            'Ru': { z: 44, name: 'Ruteni', group: 8, electronegativity: 2.2, commonStates: [4, 3, 6, 8] },
+            'Rh': { z: 45, name: 'Rodi', group: 9, electronegativity: 2.28, commonStates: [3, 4] },
+            'Pd': { z: 46, name: 'Palađi', group: 10, electronegativity: 2.20, commonStates: [2, 4] },
+            'Ag': { z: 47, name: 'Bạc', group: 11, electronegativity: 1.93, commonStates: [1] },
+            'Cd': { z: 48, name: 'Cadimi', group: 12, electronegativity: 1.69, commonStates: [2] },
+            'In': { z: 49, name: 'Indi', group: 13, electronegativity: 1.78, commonStates: [3] },
+            'Sn': { z: 50, name: 'Thiếc', group: 14, electronegativity: 1.96, commonStates: [4, 2] },
+            'Sb': { z: 51, name: 'Antimon', group: 15, electronegativity: 2.05, commonStates: [5, 3, -3] },
+            'Te': { z: 52, name: 'Telu', group: 16, electronegativity: 2.1, commonStates: [6, 4, -2] },
+            'I': { z: 53, name: 'Iốt', group: 17, electronegativity: 2.66, commonStates: [7, 5, 1, -1] },
+            'Xe': { z: 54, name: 'Xenon', group: 18, electronegativity: 2.60, commonStates: [6, 4, 0] },
+            'Cs': { z: 55, name: 'Xêsi', group: 1, electronegativity: 0.79, commonStates: [1] },
+            'Ba': { z: 56, name: 'Bari', group: 2, electronegativity: 0.89, commonStates: [2] },
+            'La': { z: 57, name: 'Lantan', group: 3, electronegativity: 1.10, commonStates: [3] },
+            'Ce': { z: 58, name: 'Xeri', group: 3, electronegativity: 1.12, commonStates: [4, 3] },
+            'Pr': { z: 59, name: 'Praseodim', group: 3, electronegativity: 1.13, commonStates: [3, 4] },
+            'Nd': { z: 60, name: 'Neodim', group: 3, electronegativity: 1.14, commonStates: [3] },
+            'Pm': { z: 61, name: 'Promethi', group: 3, electronegativity: 1.13, commonStates: [3] },
+            'Sm': { z: 62, name: 'Samari', group: 3, electronegativity: 1.17, commonStates: [3, 2] },
+            'Eu': { z: 63, name: 'Euriopi', group: 3, electronegativity: 1.2, commonStates: [3, 2] },
+            'Gd': { z: 64, name: 'Gadolini', group: 3, electronegativity: 1.2, commonStates: [3] },
+            'Tb': { z: 65, name: 'Tecbi', group: 3, electronegativity: 1.1, commonStates: [3, 4] },
+            'Dy': { z: 66, name: 'Đisprosi', group: 3, electronegativity: 1.22, commonStates: [3] },
+            'Ho': { z: 67, name: 'Honmi', group: 3, electronegativity: 1.23, commonStates: [3] },
+            'Er': { z: 68, name: 'Ebi', group: 3, electronegativity: 1.24, commonStates: [3] },
+            'Tm': { z: 69, name: 'Tuli', group: 3, electronegativity: 1.25, commonStates: [3, 2] },
+            'Yb': { z: 70, name: 'Ytbi', group: 3, electronegativity: 1.1, commonStates: [3, 2] },
+            'Lu': { z: 71, name: 'Lutexi', group: 3, electronegativity: 1.27, commonStates: [3] },
+            'Hf': { z: 72, name: 'Hafni', group: 4, electronegativity: 1.3, commonStates: [4] },
+            'Ta': { z: 73, name: 'Tantan', group: 5, electronegativity: 1.5, commonStates: [5] },
+            'W': { z: 74, name: 'Vonfram', group: 6, electronegativity: 2.36, commonStates: [6] },
+            'Re': { z: 75, name: 'Reni', group: 7, electronegativity: 1.9, commonStates: [7, 4, 2, -1] },
+            'Os': { z: 76, name: 'Osmi', group: 8, electronegativity: 2.2, commonStates: [4, 8, 3] },
+            'Ir': { z: 77, name: 'Iriđi', group: 9, electronegativity: 2.20, commonStates: [4, 3] },
+            'Pt': { z: 78, name: 'Bạch kim', group: 10, electronegativity: 2.28, commonStates: [2, 4] },
+            'Au': { z: 79, name: 'Vàng', group: 11, electronegativity: 2.54, commonStates: [3, 1] },
+            'Hg': { z: 80, name: 'Thủy ngân', group: 12, electronegativity: 2.00, commonStates: [2, 1] },
+            'Tl': { z: 81, name: 'Thali', group: 13, electronegativity: 1.62, commonStates: [1, 3] },
+            'Pb': { z: 82, name: 'Chì', group: 14, electronegativity: 2.33, commonStates: [2, 4] },
+            'Bi': { z: 83, name: 'Bismut', group: 15, electronegativity: 2.02, commonStates: [3, 5] },
+            'Po': { z: 84, name: 'Poloni', group: 16, electronegativity: 2.0, commonStates: [4, 2, -2] },
+            'At': { z: 85, name: 'Astatin', group: 17, electronegativity: 2.2, commonStates: [-1, 1, 3, 5, 7] },
+            'Rn': { z: 86, name: 'Radon', group: 18, electronegativity: 2.2, commonStates: [2, 0] },
+            'Fr': { z: 87, name: 'Franxi', group: 1, electronegativity: 0.7, commonStates: [1] },
+            'Ra': { z: 88, name: 'Radi', group: 2, electronegativity: 0.9, commonStates: [2] },
+            'Ac': { z: 89, name: 'Actini', group: 3, electronegativity: 1.1, commonStates: [3] },
+            'Th': { z: 90, name: 'Thori', group: 3, electronegativity: 1.3, commonStates: [4] },
+            'Pa': { z: 91, name: 'Protactini', group: 3, electronegativity: 1.5, commonStates: [5, 4] },
+            'U': { z: 92, name: 'Urani', group: 3, electronegativity: 1.38, commonStates: [6, 4, 5, 3] },
+            'Np': { z: 93, name: 'Neptuni', group: 3, electronegativity: 1.36, commonStates: [5, 6, 4] },
+            'Pu': { z: 94, name: 'Plutoni', group: 3, electronegativity: 1.28, commonStates: [4, 6, 3, 5] },
+            'Am': { z: 95, name: 'Ameri', group: 3, electronegativity: 1.3, commonStates: [3, 4] },
+            'Cm': { z: 96, name: 'Curi', group: 3, electronegativity: 1.3, commonStates: [3] },
+            'Bk': { z: 97, name: 'Berkeli', group: 3, electronegativity: 1.3, commonStates: [3, 4] },
+            'Cf': { z: 98, name: 'Californi', group: 3, electronegativity: 1.3, commonStates: [3] },
+            'Es': { z: 99, name: 'Einsteini', group: 3, electronegativity: 1.3, commonStates: [3] },
+            'Fm': { z: 100, name: 'Fecmi', group: 3, electronegativity: 1.3, commonStates: [3] },
+            'Md': { z: 101, name: 'Mendelevi', group: 3, electronegativity: 1.3, commonStates: [3, 2] },
+            'No': { z: 102, name: 'Nobeli', group: 3, electronegativity: 1.3, commonStates: [2, 3] },
+            'Lr': { z: 103, name: 'Lawrenci', group: 3, electronegativity: 1.3, commonStates: [3] },
+            'Rf': { z: 104, name: 'Rutherfordi', group: 4, electronegativity: null, commonStates: [4] },
+            'Db': { z: 105, name: 'Dubni', group: 5, electronegativity: null, commonStates: [5] },
+            'Sg': { z: 106, name: 'Seaborgi', group: 6, electronegativity: null, commonStates: [6] },
+            'Bh': { z: 107, name: 'Bohri', group: 7, electronegativity: null, commonStates: [7] },
+            'Hs': { z: 108, name: 'Hassi', group: 8, electronegativity: null, commonStates: [8] },
+            'Mt': { z: 109, name: 'Meitneri', group: 9, electronegativity: null, commonStates: [3] },
+            'Ds': { z: 110, name: 'Darmstadti', group: 10, electronegativity: null, commonStates: [0] },
+            'Rg': { z: 111, name: 'Roentgeni', group: 11, electronegativity: null, commonStates: [3] },
+            'Cn': { z: 112, name: 'Coperni', group: 12, electronegativity: null, commonStates: [2, 0] },
+            'Nh': { z: 113, name: 'Nihoni', group: 13, electronegativity: null, commonStates: [1] },
+            'Fl': { z: 114, name: 'Flerovi', group: 14, electronegativity: null, commonStates: [2, 4] },
+            'Mc': { z: 115, name: 'Moscovi', group: 15, electronegativity: null, commonStates: [1, 3] },
+            'Lv': { z: 116, name: 'Livermori', group: 16, electronegativity: null, commonStates: [2] },
+            'Ts': { z: 117, name: 'Tenessin', group: 17, electronegativity: null, commonStates: [-1, 1] },
+            'Og': { z: 118, name: 'Oganeson', group: 18, electronegativity: null, commonStates: [0, 2] }
+        };
+
+        function formatOxidationState(num) {
+            if (Number.isInteger(num)) {
+                return (num > 0 ? '+' : '') + num;
+            }
+            for (let i = 2; i <= 12; i++) {
+                let check = num * i;
+                if (Math.abs(Math.round(check) - check) < 0.0001) {
+                    let top = Math.round(check);
+                    return (top > 0 ? '+' : '') + top + '/' + i;
+                }
+            }
+            return (num > 0 ? '+' : '') + num.toFixed(2);
+        }
+
+        function flattenFormula(formula) {
+            formula = formula.replace(/\[/g, '(').replace(/\]/g, ')');
+            let maxDepth = 15;
+            let regex = /\(([^()]+)\)(\d*)/;
+            
+            while (regex.test(formula) && maxDepth > 0) {
+                formula = formula.replace(regex, (match, inner, numStr) => {
+                    let multiplier = numStr ? parseInt(numStr) : 1;
+                    return inner.replace(/([A-Z][a-z]?)(\d*)/g, (m, el, countStr) => {
+                        let count = countStr ? parseInt(countStr) : 1;
+                        return el + (count * multiplier);
+                    });
+                });
+                maxDepth--;
+            }
+            return formula;
+        }
+
+        function parseElements(flatFormula) {
+            let regex = /([A-Z][a-z]?)(\d*)/g;
+            let counts = {};
+            let match;
+            let totalMatchedLength = 0;
+
+            while ((match = regex.exec(flatFormula)) !== null) {
+                let el = match[1];
+                if (!PERIODIC_TABLE[el]) {
+                    return { error: `Nguyên tố '${el}' không tồn tại trong hệ thống bảng tuần hoàn 118 nguyên tố.` };
+                }
+                let num = match[2] ? parseInt(match[2]) : 1;
+                counts[el] = (counts[el] || 0) + num;
+                totalMatchedLength += match[0].length;
+            }
+
+            if (totalMatchedLength !== flatFormula.length) {
+                return { error: "Công thức chứa ký tự không hợp lệ hoặc sai định dạng chữ hoa/thường (Ví dụ: dùng Na thay vì na)." };
+            }
+
+            return { counts };
+        }
+
+        // ======== BỘ GIẢI SỐ OXI HÓA ========
+        // Không còn "đoán rồi dồn phần dư". Thuật toán mới:
+        // 1) Parse đúng công thức lồng nhau: (), [], nhiều cấp + hydrate.
+        // 2) Nhận diện các ion/nhóm đa nguyên tử phổ biến và điện tích của chúng.
+        // 3) Gắn số oxi hóa cố định cho các nguyên tố có quy tắc chắc chắn.
+        // 4) Dùng hệ ràng buộc điện tích + tập số oxi hóa phổ biến để tìm nghiệm hợp lý.
+        // 5) Nếu hợp chất có nhiều nghiệm hợp lệ, ưu tiên nghiệm phù hợp quy tắc độ âm điện
+        //    và báo giá trị trung bình thay vì bịa một số oxi hóa vô lý.
+
+        const POLYATOMIC_GROUPS = {
+            'CN':  { charge: -1, states: { C: 2, N: -3 } },
+            'SCN': { charge: -1, states: { S: -2, C: 4, N: -3 } },
+            'OH':  { charge: -1, states: { O: -2, H: 1 } },
+
+            'NO3': { charge: -1, states: { N: 5, O: -2 } },
+            'NO2': { charge: -1, states: { N: 3, O: -2 } },
+
+            'SO4': { charge: -2, states: { S: 6, O: -2 } },
+            'SO3': { charge: -2, states: { S: 4, O: -2 } },
+
+            'CO3': { charge: -2, states: { C: 4, O: -2 } },
+            'HCO3': { charge: -1, states: { H: 1, C: 4, O: -2 } },
+            'NH4':  { charge: 1, states: { N: -3, H: 1 } },
+
+            'PO4': { charge: -3, states: { P: 5, O: -2 } },
+            'PO3': { charge: -3, states: { P: 5, O: -2 } },
+            'HPO4': { charge: -2, states: { H: 1, P: 5, O: -2 } },
+            'H2PO4': { charge: -1, states: { H: 1, P: 5, O: -2 } },
+
+            'ClO4': { charge: -1, states: { Cl: 7, O: -2 } },
+            'ClO3': { charge: -1, states: { Cl: 5, O: -2 } },
+            'ClO2': { charge: -1, states: { Cl: 3, O: -2 } },
+            'ClO':  { charge: -1, states: { Cl: 1, O: -2 } },
+
+            'BrO4': { charge: -1, states: { Br: 7, O: -2 } },
+            'BrO3': { charge: -1, states: { Br: 5, O: -2 } },
+            'BrO2': { charge: -1, states: { Br: 3, O: -2 } },
+            'BrO':  { charge: -1, states: { Br: 1, O: -2 } },
+
+            'IO4': { charge: -1, states: { I: 7, O: -2 } },
+            'IO3': { charge: -1, states: { I: 5, O: -2 } },
+            'IO2': { charge: -1, states: { I: 3, O: -2 } },
+            'IO':  { charge: -1, states: { I: 1, O: -2 } },
+
+            'MnO4': { charge: -1, states: { Mn: 7, O: -2 } },
+            'MnO4^2': { charge: -2, states: { Mn: 6, O: -2 } },
+            'CrO4': { charge: -2, states: { Cr: 6, O: -2 } },
+            'Cr2O7': { charge: -2, states: { Cr: 6, O: -2 } },
+
+            'C2O4': { charge: -2, states: { C: 3, O: -2 } },
+            'O2': { charge: -2, states: { O: -1 } },
+
+            // Các nhóm này không đủ để xác định từng nguyên tử nếu không có
+            // thêm thông tin cấu trúc, nhưng giá trị trung bình là xác định được.
+            'S2O3': { charge: -2, averageStates: { S: 2, O: -2 } },
+            'S2O4': { charge: -2, averageStates: { S: 3, O: -2 } },
+            'S2O5': { charge: -2, averageStates: { S: 2, O: -2 } },
+            'S2O7': { charge: -2, averageStates: { S: 6, O: -2 } }
+        };
+
+        const SIMPLE_FIXED_STATES = {
+            Li: 1, Na: 1, K: 1, Rb: 1, Cs: 1, Fr: 1,
+            Be: 2, Mg: 2, Ca: 2, Sr: 2, Ba: 2, Ra: 2,
+            Al: 3, F: -1
+        };
+
+        const HYDRIDE_METALS = new Set([
+            'Li','Na','K','Rb','Cs','Fr',
+            'Be','Mg','Ca','Sr','Ba','Ra'
+        ]);
+
+        function gcd(a, b) {
+            a = Math.abs(a); b = Math.abs(b);
+            while (b) [a, b] = [b, a % b];
+            return a || 1;
+        }
+
+        function simplifyFormulaPart(node) {
+            const counts = {};
+            function walk(items, multiplier = 1) {
+                for (const item of items) {
+                    if (item.type === 'element') {
+                        counts[item.element] = (counts[item.element] || 0) + item.count * multiplier;
+                    } else {
+                        walk(item.items, multiplier * item.multiplier);
+                    }
+                }
+            }
+            walk(node.items);
+            return counts;
+        }
+
+        function canonicalFromCounts(counts) {
+            return Object.entries(counts)
+                .sort((a, b) => {
+                    // Hill-like order: C, H trước, sau đó alphabet.
+                    const rank = el => el === 'C' ? 0 : el === 'H' ? 1 : 2;
+                    const r = rank(a[0]) - rank(b[0]);
+                    return r || a[0].localeCompare(b[0]);
+                })
+                .map(([el, n]) => el + (n === 1 ? '' : n))
+                .join('');
+        }
+
+        // Parser thật: hỗ trợ (), [], {}, hydrate bằng dấu . / ·
+        function parseFormulaTree(formula) {
+            let i = 0;
+
+            function parseSequence(stopChar = null) {
+                const items = [];
+
+                while (i < formula.length) {
+                    if (stopChar && formula[i] === stopChar) {
+                        i++;
+                        return items;
+                    }
+
+                    // Bỏ qua dấu hydrate / dấu phân tách
+                    if (formula[i] === '.' || formula[i] === '·') {
+                        i++;
+                        continue;
+                    }
+
+                    // Group
+                    if (formula[i] === '(' || formula[i] === '[' || formula[i] === '{') {
+                        const open = formula[i++];
+                        const close = open === '(' ? ')' : open === '[' ? ']' : '}';
+                        const inner = parseSequence(close);
+                        if (!inner) return null;
+
+                        let digits = '';
+                        while (i < formula.length && /\d/.test(formula[i])) digits += formula[i++];
+                        const multiplier = digits ? parseInt(digits, 10) : 1;
+
+                        items.push({
+                            type: 'group',
+                            items: inner,
+                            multiplier,
+                            bracket: open + close
+                        });
+                        continue;
+                    }
+
+                    // Unexpected closing bracket
+                    if (formula[i] === ')' || formula[i] === ']' || formula[i] === '}') {
+                        return null;
+                    }
+
+                    // Element symbol
+                    if (/[A-Z]/.test(formula[i])) {
+                        let el = formula[i++];
+                        if (i < formula.length && /[a-z]/.test(formula[i])) {
+                            el += formula[i++];
+                        }
+
+                        if (!PERIODIC_TABLE[el]) {
+                            throw new Error(`Nguyên tố '${el}' không tồn tại trong hệ thống bảng tuần hoàn.`);
+                        }
+
+                        let digits = '';
+                        while (i < formula.length && /\d/.test(formula[i])) digits += formula[i++];
+                        const count = digits ? parseInt(digits, 10) : 1;
+
+                        items.push({ type: 'element', element: el, count });
+                        continue;
+                    }
+
+                    throw new Error(`Ký tự '${formula[i]}' không hợp lệ trong công thức.`);
+                }
+
+                if (stopChar) return null;
+                return items;
+            }
+
+            try {
+                const items = parseSequence();
+                if (!items) return { error: "Thiếu hoặc sai dấu đóng ngoặc trong công thức." };
+                return { items };
+            } catch (err) {
+                return { error: err.message };
+            }
+        }
+
+        function collectGroups(items, out = [], inSquareBracket = false) {
+            for (const item of items) {
+                if (item.type !== 'group') continue;
+
+                const counts = simplifyFormulaPart(item);
+                const canonical = canonicalFromCounts(counts);
+
+                out.push({
+                    canonical,
+                    counts,
+                    multiplier: item.multiplier,
+                    chargeInfo: POLYATOMIC_GROUPS[canonical] || null,
+                    inSquareBracket
+                });
+
+                collectGroups(item.items, out, inSquareBracket || item.bracket === '[]');
+            }
+            return out;
+        }
+
+        function getTotalCounts(items, result = {}) {
+            for (const item of items) {
+                if (item.type === 'element') {
+                    result[item.element] = (result[item.element] || 0) + item.count;
+                } else {
+                    const subCounts = getTotalCounts(item.items, {});
+                    for (const [el, n] of Object.entries(subCounts)) {
+                        result[el] = (result[el] || 0) + n * item.multiplier;
+                    }
+                }
+            }
+            return result;
+        }
+
+        function getDirectFormulaText(items) {
+            return items.map(item => {
+                if (item.type === 'element') {
+                    return item.element + (item.count === 1 ? '' : item.count);
+                }
+                const open = item.bracket[0];
+                const close = item.bracket[1];
+                const inner = getDirectFormulaText(item.items);
+                return open + inner + close + (item.multiplier === 1 ? '' : item.multiplier);
+            }).join('');
+        }
+
+        function uniqueStatesForElement(el, preferred = null) {
+            const data = PERIODIC_TABLE[el];
+            let states = Array.isArray(data?.commonStates) ? [...data.commonStates] : [];
+
+            if (preferred !== null && !states.includes(preferred)) states.unshift(preferred);
+
+            // Tách trùng
+            states = [...new Set(states)].filter(Number.isInteger);
+
+            // Ưu tiên trạng thái có độ lớn vừa phải trước
+            states.sort((a, b) => Math.abs(a) - Math.abs(b) || b - a);
+            return states;
+        }
+
+        function weightedScore(states, elements) {
+            let score = 0;
+
+            for (const el of elements) {
+                const st = states[el];
+                const en = PERIODIC_TABLE[el]?.electronegativity;
+
+                if (st === undefined) continue;
+
+                // Ưu tiên số oxi hóa thuộc commonStates và hợp lý theo độ âm điện:
+                // nguyên tố âm điện hơn có xu hướng âm hơn.
+                if (en != null) {
+                    if (st < 0) score += en * 2;
+                    if (st > 0) score += Math.max(0, 4 - en) * 0.15;
+                }
+
+                // Trạng thái phổ biến được cộng điểm.
+                if (PERIODIC_TABLE[el]?.commonStates?.includes(st)) score += 0.5;
+
+                // Hạn chế nghiệm cực đoan do lỗi dữ liệu.
+                score -= Math.abs(st) * 0.01;
+            }
+
+            return score;
+        }
+
+        function solveIntegerOxidationStates(elements, counts, fixed, equations, charge) {
+            const unknowns = elements.filter(el => fixed[el] === undefined);
+            const states = { ...fixed };
+
+            if (unknowns.length === 0) {
+                const sum = elements.reduce((s, el) => s + states[el] * counts[el], 0);
+                return Math.abs(sum - charge) < 1e-9 ? states : null;
+            }
+
+            // Một ẩn -> giải chính xác.
+            if (unknowns.length === 1) {
+                const u = unknowns[0];
+                let knownTotal = 0;
+                for (const el of elements) {
+                    if (el !== u) knownTotal += states[el] * counts[el];
+                }
+
+                const value = (charge - knownTotal) / counts[u];
+                if (Number.isInteger(value)) {
+                    const allowed = uniqueStatesForElement(u);
+                    if (allowed.length === 0 || allowed.includes(value)) {
+                        states[u] = value;
+                        return states;
+                    }
+                }
+                return null;
+            }
+
+            // Backtracking có cắt nhánh. Bộ số oxi hóa thông thường nhỏ nên đủ nhanh.
+            let best = null;
+            let bestScore = -Infinity;
+            const candidateStates = {};
+
+            for (const el of unknowns) {
+                candidateStates[el] = uniqueStatesForElement(el);
+                if (candidateStates[el].length === 0) candidateStates[el] = [-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8];
+            }
+
+            const remainingOrder = [...unknowns].sort((a, b) => {
+                return candidateStates[a].length - candidateStates[b].length;
+            });
+
+            function equationsStillPossible(partial) {
+                for (const eq of equations) {
+                    let known = 0;
+                    let min = 0;
+                    let max = 0;
+
+                    for (const [el, coef] of Object.entries(eq.coeffs)) {
+                        if (partial[el] !== undefined) {
+                            known += partial[el] * coef;
+                        } else {
+                            const cand = candidateStates[el] || [0];
+                            min += Math.min(...cand) * coef;
+                            max += Math.max(...cand) * coef;
+                        }
+                    }
+
+                    const targetRemainingMin = eq.target - known - max;
+                    const targetRemainingMax = eq.target - known - min;
+
+                    if (targetRemainingMin > 1e-9 || targetRemainingMax < -1e-9) return false;
+                }
+                return true;
+            }
+
+            function visit(index, partial, totalCharge) {
+                if (index === remainingOrder.length) {
+                    if (Math.abs(totalCharge - charge) > 1e-9) return;
+
+                    for (const eq of equations) {
+                        let sum = 0;
+                        for (const [el, coef] of Object.entries(eq.coeffs)) {
+                            sum += (partial[el] ?? states[el] ?? 0) * coef;
+                        }
+                        if (Math.abs(sum - eq.target) > 1e-9) return;
+                    }
+
+                    const score = weightedScore({ ...states, ...partial }, elements);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        best = { ...states, ...partial };
+                    }
+                    return;
+                }
+
+                const el = remainingOrder[index];
+                for (const candidate of candidateStates[el]) {
+                    const next = { ...partial, [el]: candidate };
+                    const nextTotal = totalCharge + candidate * counts[el];
+
+                    // Kiểm tra tổng điện tích có thể đạt tới charge.
+                    let minRest = 0, maxRest = 0;
+                    for (let j = index + 1; j < remainingOrder.length; j++) {
+                        const e = remainingOrder[j];
+                        const vals = candidateStates[e];
+                        minRest += Math.min(...vals) * counts[e];
+                        maxRest += Math.max(...vals) * counts[e];
+                    }
+
+                    if (nextTotal + minRest > charge + 1e-9) continue;
+                    if (nextTotal + maxRest < charge - 1e-9) continue;
+
+                    if (!equationsStillPossible(next)) continue;
+                    visit(index + 1, next, nextTotal);
+                }
+            }
+
+            visit(0, {}, elements.reduce((s, el) => {
+                return s + (states[el] !== undefined ? states[el] * counts[el] : 0);
+            }, 0));
+
+            return best;
+        }
+
+        function calculateStates(formula, charge) {
+            formula = formula.replace(/\s/g, '');
+            if (!formula) return { error: "Vui lòng nhập công thức hóa học." };
+
+            // Chuẩn hóa các dấu thường gặp khi copy từ Word/PDF.
+            formula = formula
+                .replace(/[−–—]/g, '-')
+                .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, ch => "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(ch));
+
+            const parsed = parseFormulaTree(formula);
+            if (parsed.error) return { error: parsed.error };
+
+            const counts = getTotalCounts(parsed.items);
+            const elements = Object.keys(counts);
+
+            if (elements.length === 0) {
+                return { error: "Không tìm thấy nguyên tố nào trong công thức." };
+            }
+
+            const groups = collectGroups(parsed.items);
+
+            // Số oxi hóa cố định theo quy tắc nền.
+            const fixed = {};
+
+            // Đơn chất: số oxi hóa = 0.
+            if (elements.length === 1) {
+                fixed[elements[0]] = charge / counts[elements[0]];
+                const single = {};
+                single[elements[0]] = fixed[elements[0]];
+                return single;
+            }
+
+            for (const el of elements) {
+                if (SIMPLE_FIXED_STATES[el] !== undefined) fixed[el] = SIMPLE_FIXED_STATES[el];
+            }
+
+            // Oxi.
+            if (counts.O) {
+                // Nếu công thức chỉ chứa O-F hoặc là các peroxit/superoxit kinh điển.
+                if (elements.length === 2 && counts.F && !counts.H) {
+                    fixed.O = 2;
+                } else if (/^(H2O2|Na2O2|K2O2|Li2O2|Rb2O2|Cs2O2|BaO2|CaO2|SrO2)$/.test(formula)) {
+                    fixed.O = -1;
+                } else {
+                    fixed.O = -2;
+                }
+            }
+
+            // Hidro.
+            if (counts.H) {
+                const hasMetal = [...HYDRIDE_METALS].some(el => counts[el]);
+                fixed.H = (hasMetal && elements.length <= 3) ? -1 : 1;
+            }
+
+            // Khi có nhóm đa nguyên tử đã biết, tạo ràng buộc điện tích
+            // và thu thập số oxi hóa theo từng vị trí nhóm.
+            const equations = [];
+            const groupAssignments = [];
+            const statesSeenByElement = {};
+
+            for (const group of groups) {
+                const info = group.chargeInfo;
+                if (!info) continue;
+
+                const multiplier = group.multiplier || 1;
+                const localStates = info.states || info.averageStates || {};
+
+                if (info.states) {
+                    for (const [el, st] of Object.entries(info.states)) {
+                        statesSeenByElement[el] ??= new Set();
+                        statesSeenByElement[el].add(st);
+
+                        groupAssignments.push({
+                            group: group.canonical,
+                            element: el,
+                            state: st,
+                            multiplier
+                        });
+                    }
+                } else if (info.averageStates) {
+                    for (const [el, st] of Object.entries(info.averageStates)) {
+                        statesSeenByElement[el] ??= new Set();
+                        statesSeenByElement[el].add(st);
+
+                        groupAssignments.push({
+                            group: group.canonical,
+                            element: el,
+                            state: st,
+                            multiplier,
+                            average: true
+                        });
+                    }
+                }
+
+                // Gán cố định chỉ khi nguyên tố không xuất hiện trong các
+                // nhóm đã biết với nhiều số oxi hóa khác nhau.
+                for (const [el, st] of Object.entries(localStates)) {
+                    if (fixed[el] === undefined) fixed[el] = st;
+                }
+
+                equations.push({
+                    coeffs: Object.fromEntries(
+                        Object.entries(group.counts).map(([el, n]) => [el, n * multiplier])
+                    ),
+                    target: info.charge * multiplier
+                });
+            }
+
+            // Nếu cùng nguyên tố xuất hiện trong nhiều nhóm với số oxi hóa
+            // khác nhau (NH4NO3, NH4ClO4...), không được ép một giá trị chung.
+            // Ta bỏ fixed đó khỏi bộ giải và sẽ trả về kết quả nhiều vị trí.
+            for (const [el, set] of Object.entries(statesSeenByElement)) {
+                if (set.size > 1) {
+                    delete fixed[el];
+                }
+            }
+
+            // Halogen trong halogenua đơn giản thường -1. Chỉ gán sau khi
+            // đã xử lý các oxoanion như ClO3-, ClO4- để không ghi đè Cl = +5/+7.
+            for (const el of ['Cl', 'Br', 'I']) {
+                if (counts[el] && fixed[el] === undefined) fixed[el] = -1;
+            }
+
+            // Ràng buộc điện tích toàn công thức.
+            const allCoeffs = Object.fromEntries(elements.map(el => [el, counts[el]]));
+            equations.unshift({ coeffs: allCoeffs, target: charge });
+
+            // Một số quy tắc đặc biệt:
+            // Fe3O4 và Pb3O4 là hợp chất có hai trạng thái oxi hóa,
+            // vì giá trị theo công thức nguyên chỉ là số oxi hóa trung bình.
+            const mixedValence = {
+                Fe3O4: 'Fe có cả +2 và +3 (số oxi hóa trung bình của Fe là +8/3).',
+                Pb3O4: 'Pb có cả +2 và +4 (số oxi hóa trung bình của Pb là +8/3).'
+            };
+
+            // Xóa các ràng buộc nhóm bị trùng hoàn toàn để solver nhẹ hơn.
+            const seenEq = new Set();
+            const uniqueEquations = equations.filter(eq => {
+                const key = JSON.stringify({
+                    coeffs: Object.entries(eq.coeffs).sort(),
+                    target: eq.target
+                });
+                if (seenEq.has(key)) return false;
+                seenEq.add(key);
+                return true;
+            });
+
+            const solved = solveIntegerOxidationStates(
+                elements,
+                counts,
+                fixed,
+                uniqueEquations,
+                charge
+            );
+
+            if (!solved) {
+                // Fallback cho hợp chất có cùng nguyên tố ở nhiều nhóm khác nhau
+                // (ví dụ NH4NO3: N trong NH4+ là -3, N trong NO3- là +5).
+                // Không thể biểu diễn hai vị trí bằng một biến duy nhất trong hệ
+                // phương trình toàn công thức, nên ta tính trực tiếp theo từng nhóm.
+                const fallback = {};
+                let canFallback = true;
+
+                for (const el of elements) {
+                    const arr = groupAssignments.filter(x => x.element === el);
+                    const distinct = [...new Set(arr.map(x => x.state))];
+
+                    if (distinct.length > 0 && distinct.length > 1) {
+                        let weighted = 0;
+                        let covered = 0;
+
+                        for (const x of arr) {
+                            const g = groups.find(g => g.canonical === x.group && g.chargeInfo);
+                            const n = g?.counts?.[el] || 1;
+                            weighted += x.state * n * (x.multiplier || 1);
+                            covered += n * (x.multiplier || 1);
+                        }
+
+                        if (covered === counts[el]) {
+                            fallback[el] = weighted / covered;
+                            continue;
+                        }
+                    }
+
+                    if (fixed[el] !== undefined) {
+                        fallback[el] = fixed[el];
+                    } else {
+                        canFallback = false;
+                        break;
+                    }
+                }
+
+                if (canFallback) {
+                    const sum = elements.reduce((s, el) => s + fallback[el] * counts[el], 0);
+                    if (Math.abs(sum - charge) < 1e-9) {
+                        const parts = {};
+                        for (const x of groupAssignments) {
+                            parts[x.element] ??= [];
+                            if (!parts[x.element].some(v => v === x.state)) parts[x.element].push(x.state);
+                        }
+
+                        Object.defineProperty(fallback, '__note', {
+                            value: mixedValence[formula] ||
+                                (Object.entries(parts)
+                                    .filter(([, states]) => states.length > 1)
+                                    .map(([el, states]) => `${el}: ${states.map(formatOxidationState).join(', ')}`)
+                                    .length
+                                    ? `Có nhiều vị trí số oxi hóa: ${Object.entries(parts).filter(([, states]) => states.length > 1).map(([el, states]) => `${el}: ${states.map(formatOxidationState).join(', ')}`).join(' | ')}. Giá trị hàng nguyên tố là trung bình.`
+                                    : 'Giá trị được suy ra từ các nhóm đa nguyên tử đã nhận diện.'),
+                            enumerable: false
+                        });
+                        return fallback;
+                    }
+                }
+
+                // Trường hợp chỉ có đúng một nguyên tố chưa cố định nhưng không thuộc commonStates:
+                // trả về nghiệm toán học nếu là số nguyên.
+                const unknown = elements.filter(el => fixed[el] === undefined);
+                if (unknown.length === 1) {
+                    const u = unknown[0];
+                    const known = elements.reduce((sum, el) => {
+                        return el === u ? sum : sum + (fixed[el] ?? 0) * counts[el];
+                    }, 0);
+                    const value = (charge - known) / counts[u];
+                    if (Number.isFinite(value)) {
+                        const fallback = { ...fixed, [u]: value };
+                        Object.defineProperty(fallback, '__note', {
+                            value: 'Giá trị được suy ra trực tiếp từ tổng điện tích.',
+                            enumerable: false
+                        });
+                        return fallback;
+                    }
+                }
+
+                return {
+                    error: "Không tìm được nghiệm số oxi hóa nguyên trong dữ liệu hiện có. " +
+                           "Công thức có thể chứa trạng thái đặc biệt, hỗn hợp nhiều hóa trị hoặc cấu trúc cần thông tin thêm."
+                };
+            }
+
+            const result = { ...solved };
+
+            // Với các nguyên tố có nhiều vị trí oxi hóa, giữ cả từng trạng thái
+            // thay vì ép thành một số duy nhất.
+            const distinctByElement = {};
+            for (const item of groupAssignments) {
+                distinctByElement[item.element] ??= [];
+                if (!distinctByElement[item.element].some(x => x.state === item.state && x.group === item.group)) {
+                    distinctByElement[item.element].push({
+                        state: item.state,
+                        group: item.group,
+                        multiplier: item.multiplier
+                    });
+                }
+            }
+
+            // Tính giá trị trung bình theo đúng số nguyên tử đã được mô tả trong nhóm.
+            for (const [el, arr] of Object.entries(distinctByElement)) {
+                if (arr.length > 1 && counts[el]) {
+                    let weighted = 0;
+                    let covered = 0;
+
+                    for (const a of arr) {
+                        const groupData = groups.find(g => g.canonical === a.group && g.chargeInfo);
+                        const n = groupData?.counts?.[el] || 1;
+                        weighted += a.state * n * (a.multiplier || 1);
+                        covered += n * (a.multiplier || 1);
+                    }
+
+                    if (covered === counts[el]) {
+                        result[el] = weighted / covered;
+                    }
+                }
+            }
+
+            if (Object.keys(distinctByElement).some(el => distinctByElement[el].length > 1)) {
+                const parts = Object.entries(distinctByElement)
+                    .filter(([, arr]) => arr.length > 1)
+                    .map(([el, arr]) => `${el}: ${arr.map(x => formatOxidationState(x.state)).join(', ')}`)
+                    .join(' | ');
+
+                Object.defineProperty(result, '__note', {
+                    value: `Có nhiều vị trí số oxi hóa: ${parts}. Giá trị hiển thị cho nguyên tố là giá trị trung bình nếu cần.`,
+                    enumerable: false
+                });
+            } else if (mixedValence[formula]) {
+                Object.defineProperty(result, '__note', {
+                    value: mixedValence[formula],
+                    enumerable: false
+                });
+            }
+
+            return result;
+        }
+
+
+        document.getElementById('calcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formulaInput = document.getElementById('formula').value.trim();
+            const chargeInput = document.getElementById('charge').value;
+            
+            const resultContainer = document.getElementById('resultContainer');
+            const resultBox = document.getElementById('resultBox');
+            const errorContainer = document.getElementById('errorContainer');
+            const errorText = document.getElementById('errorText');
+
+            resultContainer.classList.add('hidden');
+            errorContainer.classList.add('hidden');
+            resultBox.innerHTML = '';
+            
+            const charge = chargeInput === '' ? 0 : parseFloat(chargeInput);
+
+            const result = calculateStates(formulaInput, charge);
+
+            if (result.error) {
+                errorText.textContent = result.error;
+                errorContainer.classList.remove('hidden');
+                errorContainer.classList.remove('animate-fade-in-up');
+                void errorContainer.offsetWidth; 
+                errorContainer.classList.add('animate-fade-in-up');
+            } else {
+                for (const [element, state] of Object.entries(result)) {
+                    const formattedState = formatOxidationState(state);
+                    const elData = PERIODIC_TABLE[element] || { name: element };
+                    
+                    const item = document.createElement('div');
+                    item.className = 'flex justify-between items-center py-3 px-4 bg-white rounded-xl shadow-sm border border-slate-100/50 mb-2 last:mb-0 hover:border-blue-200 transition-colors';
+                    
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700 text-sm">
+                                ${element}
+                            </div>
+                            <div>
+                                <span class="block font-semibold text-slate-800 text-sm">${elData.name}</span>
+                                <span class="block text-[11px] text-slate-400">Nhóm ${elData.group || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div class="px-3.5 py-1.5 bg-blue-50 text-blue-700 font-bold font-mono text-lg rounded-lg border border-blue-100/50 shadow-inner">
+                            ${formattedState}
+                        </div>
+                    `;
+                    resultBox.appendChild(item);
+                }
+                
+                const resultNote = Object.getOwnPropertyDescriptor(result, '__note')?.value;
+                if (resultNote) {
+                    const note = document.createElement('div');
+                    note.className = 'mt-3 px-4 py-3 bg-amber-50 border border-amber-100 text-amber-800 rounded-xl text-xs leading-relaxed';
+                    note.textContent = resultNote;
+                    resultBox.appendChild(note);
+                }
+
+                resultContainer.classList.remove('hidden');
+                resultContainer.classList.remove('animate-fade-in-up');
+                void resultContainer.offsetWidth; 
+                resultContainer.classList.add('animate-fade-in-up');
+            }
+        });
+    </script>
+</body>
+</html>

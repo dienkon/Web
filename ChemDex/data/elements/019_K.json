@@ -1,0 +1,56 @@
+{
+  "number": 19,
+  "symbol": "K",
+  "nameVi": "Potassium",
+  "nameEn": "Potassium",
+  "mass": 39.098,
+  "category": "kiem",
+  "general": {
+    "latinName": "Kalium",
+    "englishName": "Potassium",
+    "electronConfig": "[Ar] 4s1",
+    "group": 1,
+    "period": 4,
+    "oxidation": "+1",
+    "electronegativity": "0.82",
+    "shells": [
+      2,
+      8,
+      8,
+      1
+    ]
+  },
+  "history": {
+    "discoverer": "Humphry Davy",
+    "year": 1807,
+    "discoveryLocation": "Anh"
+  },
+  "structure": {
+    "electrons": 19,
+    "protons": 19,
+    "neutrons": 20
+  },
+  "occurrence": {
+    "description": "Có trong silicat và muối khoáng.",
+    "simple": [
+      "K"
+    ],
+    "compounds": [
+      "KCl",
+      "K2SO4"
+    ]
+  },
+  "physical": "Kim loại rất mềm và hoạt động mạnh.",
+  "chemical": "Phản ứng mạnh với nước, cần bảo quản trong dầu.",
+  "reactions": [
+    {
+      "type": "Với nước",
+      "eq": "2K + 2H2O → 2KOH + H2",
+      "desc": "Phản ứng rất mạnh."
+    }
+  ],
+  "structureType": "bcc",
+  "images": {},
+  "hasData": true,
+  "file": "elements/019_K.json"
+}

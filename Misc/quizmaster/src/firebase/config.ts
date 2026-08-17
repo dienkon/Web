@@ -1,0 +1,20 @@
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA6N4GH6kN2looYdd_Qq8N2RY0qKSEzq4w",
+  authDomain: "exam-test-hack.firebaseapp.com",
+  projectId: "exam-test-hack",
+  storageBucket: "exam-test-hack.firebasestorage.app",
+  messagingSenderId: "771585520110",
+  appId: "1:771585520110:web:915102fd493cf4ae6c5eff",
+  measurementId: "G-Z6PD6S3Z43"
+};
+
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);

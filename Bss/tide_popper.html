@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tide Popper Calculator - BSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- SheetJS for Excel handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f9ff; /* Light Blue background */
+      }
+      .item-card {
+        transition: all 0.2s;
+      }
+      .item-card:focus-within {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border-color: #3b82f6;
+      }
+      /* Tree View Styles */
+      .tree-node {
+        border-left: 2px solid #e2e8f0;
+        margin-left: 12px;
+        padding-left: 12px;
+        position: relative;
+      }
+      .tree-content {
+        padding: 8px;
+        border-radius: 6px;
+        background: white;
+        margin-bottom: 4px;
+        border: 1px solid #e2e8f0;
+        transition: background-color 0.2s;
+      }
+      .tree-content:hover {
+        background-color: #f8fafc;
+      }
+      .tree-toggle {
+        cursor: pointer;
+        user-select: none;
+      }
+      .tree-toggle i {
+        transition: transform 0.2s;
+      }
+      .tree-toggle.expanded i {
+        transform: rotate(90deg);
+      }
+      .hidden-children {
+        display: none;
+      }
+      .clickable-item {
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        text-underline-offset: 4px;
+        transition: color 0.2s;
+      }
+      .clickable-item:hover {
+        color: #60a5fa; /* blue-400 */
+      }
+      /* Modal Styles */
+      .modal {
+        transition: opacity 0.25s ease;
+      }
+      body.modal-active {
+        overflow-x: hidden;
+        overflow-y: hidden !important;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #93c5fd;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3b82f6;
+      }
+    </style>
+  </head>
+  <body class="text-slate-800 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white p-6 shadow-lg sticky top-0 z-50"
+    >
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <div class="flex items-center gap-3 self-start md:self-center">
+          <i class="fa-solid fa-water text-3xl"></i>
+          <div>
+            <h1 class="text-2xl font-bold">Tide Popper Calculator</h1>
+            <p class="text-blue-100 text-sm">Interactive Crafting Tree</p>
+          </div>
+        </div>
+
+        <div class="flex gap-2 flex-wrap justify-center">
+          <!-- Hidden File Input -->
+          <input
+            type="file"
+            id="import-file"
+            accept=".xlsx, .xls"
+            class="hidden"
+            onchange="importData(this)"
+          />
+
+          <button
+            onclick="document.getElementById('import-file').click()"
+            class="bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg text-sm font-semibold transition backdrop-blur-sm flex items-center"
+          >
+            <i class="fa-solid fa-file-import mr-2"></i>Import Excel
+          </button>
+
+          <button
+            onclick="exportData()"
+            class="bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg text-sm font-semibold transition backdrop-blur-sm flex items-center"
+          >
+            <i class="fa-solid fa-file-export mr-2"></i>Export Excel
+          </button>
+
+          <button
+            onclick="resetData()"
+            class="bg-red-500/30 hover:bg-red-500/50 text-white px-3 py-2 rounded-lg text-sm font-semibold transition backdrop-blur-sm flex items-center ml-2"
+          >
+            <i class="fa-solid fa-rotate-right mr-2"></i>Reset
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main
+      class="flex-grow p-4 md:p-6 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6"
+    >
+      <!-- Left Column: Input Inventory -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-white rounded-xl shadow-md p-6 border border-blue-100">
+          <h2 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+            <i class="fa-solid fa-box-open mr-2"></i> Your Inventory
+          </h2>
+          <p class="text-gray-500 text-sm mb-4">
+            Nhập số lượng bạn đang có hoặc Import file Excel.
+          </p>
+
+          <!-- Search/Filter -->
+          <div class="relative mb-4">
+            <input
+              type="text"
+              id="search-item"
+              placeholder="Tìm kiếm vật phẩm..."
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <i
+              class="fa-solid fa-search absolute left-3 top-3 text-gray-400"
+            ></i>
+          </div>
+
+          <div
+            id="inventory-grid"
+            class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[70vh] overflow-y-auto pr-2"
+          >
+            <!-- Items generated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Analysis Tree & Stats -->
+      <div class="lg:col-span-7 space-y-6">
+        <!-- Recursive Tree View -->
+        <div
+          class="bg-white rounded-xl shadow-md p-6 border-t-4 border-blue-500 min-h-[300px]"
+        >
+          <h2 class="text-xl font-bold text-gray-800 mb-2">
+            Cây Chế Tạo (Crafting Tree)
+          </h2>
+          <p class="text-xs text-gray-500 mb-4">
+            Nhấn vào vật phẩm để xem công thức chi tiết.
+          </p>
+
+          <div id="tree-container" class="space-y-2">
+            <!-- Tree generated by JS -->
+          </div>
+        </div>
+        <!-- Total Missing Stats -->
+        <div
+          class="bg-indigo-900 text-white rounded-xl shadow-xl p-6 border border-indigo-700"
+        >
+          <h2 class="text-lg font-bold text-cyan-300 mb-2 flex items-center">
+            <i class="fa-solid fa-clipboard-list mr-2"></i>
+            Bảng Thống Kê Thiếu Hụt (Total Missing)
+          </h2>
+          <p class="text-indigo-200 text-xs mb-4">
+            Bấm vào tên vật phẩm để xem chi tiết mục đích sử dụng.
+          </p>
+
+          <div class="overflow-x-auto max-h-[400px]">
+            <table class="w-full text-sm text-left relative">
+              <thead
+                class="text-xs text-indigo-300 uppercase bg-indigo-800 border-b border-indigo-700 sticky top-0"
+              >
+                <tr>
+                  <th class="px-4 py-2">Item Name</th>
+                  <th class="px-4 py-2 text-right">Missing Qty</th>
+                  <th class="px-4 py-2 text-center">Type</th>
+                </tr>
+              </thead>
+              <tbody
+                id="total-missing-table-body"
+                class="divide-y divide-indigo-800"
+              >
+                <!-- Rows generated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Total Raw Materials Summary -->
+        <div class="bg-slate-800 text-white rounded-xl shadow-xl p-6">
+          <h2 class="text-lg font-bold text-yellow-400 mb-2">
+            <i class="fa-solid fa-cubes mr-2"></i>Tổng Nguyên Liệu Thô (Raw
+            Base)
+          </h2>
+          <p class="text-slate-400 text-xs mb-4">
+            Bấm vào tên nguyên liệu để xem chúng được dùng để chế cái gì.
+          </p>
+
+          <div
+            id="raw-materials-list"
+            class="space-y-2 max-h-[300px] overflow-y-auto pr-2 text-sm"
+          >
+            <!-- Raw materials list generated by JS -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Usage Detail Modal -->
+    <div
+      id="usage-modal"
+      class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50"
+    >
+      <div
+        class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
+        onclick="closeModal()"
+      ></div>
+
+      <div
+        class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto animate-fade-in-down"
+      >
+        <div class="modal-content py-4 text-left px-6">
+          <!-- Title -->
+          <div class="flex justify-between items-center pb-3 border-b">
+            <p class="text-2xl font-bold text-blue-600" id="modal-title">
+              Item Details
+            </p>
+            <div class="modal-close cursor-pointer z-50" onclick="closeModal()">
+              <i
+                class="fa-solid fa-times text-gray-500 hover:text-red-500 text-xl"
+              ></i>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="my-5">
+            <p class="text-sm text-gray-600 mb-3">
+              Vật phẩm này được dùng để chế tạo:
+            </p>
+            <div class="bg-gray-100 rounded-lg p-2 max-h-60 overflow-y-auto">
+              <table class="w-full text-sm">
+                <thead class="text-xs text-gray-500 border-b border-gray-300">
+                  <tr>
+                    <th class="py-2 text-left">Chế tạo cho (Parent)</th>
+                    <th class="py-2 text-right">Số lượng cần</th>
+                  </tr>
+                </thead>
+                <tbody id="modal-usage-list" class="divide-y divide-gray-200">
+                  <!-- Content here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="flex justify-end pt-2">
+            <button
+              onclick="closeModal()"
+              class="px-4 py-2 bg-blue-500 p-3 rounded-lg text-white hover:bg-blue-400"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-slate-100 py-6 text-center text-gray-500 text-sm mt-auto">
+      <p>Data is auto-saved in your browser. Use Export/Import to backup.</p>
+    </footer>
+
+    <script>
+      // --- 1. Recipe Configuration ---
+      const recipes = {
+        "Tide Popper": {
+          "Blue Extract": 1500,
+          Stinger: 150,
+          "Tropical Drink": 150,
+          "Swirled Wax": 75,
+          "Super Smoothie": 50,
+          "Comforting Vial": 3,
+        },
+        "Swirled Wax": {
+          "Hard Wax": 3,
+          "Soft Wax": 9,
+          "Purple Potion": 6,
+          "Royal Jelly": 3333,
+        },
+        "Super Smoothie": {
+          Neonberry: 3,
+          "Star Jelly": 3,
+          "Purple Potion": 3,
+          "Tropical Drink": 6,
+        },
+        "Purple Potion": {
+          Neonberry: 3,
+          "Red Extract": 3,
+          "Blue Extract": 3,
+          Glue: 3,
+        },
+        "Tropical Drink": {
+          Coconut: 10,
+          Oil: 2,
+          Enzymes: 2,
+        },
+        "Blue Extract": {
+          Blueberry: 50,
+          "Royal Jelly": 10,
+        },
+        "Red Extract": {
+          Strawberry: 50,
+          "Royal Jelly": 10,
+        },
+        Glue: {
+          Gumdrops: 50,
+          "Royal Jelly": 10,
+        },
+        Oil: {
+          "Sunflower Seed": 50,
+          "Royal Jelly": 10,
+        },
+        Enzymes: {
+          Pineapple: 50,
+          "Royal Jelly": 10,
+        },
+        "Hard Wax": {
+          Bitterberry: 33,
+          "Soft Wax": 3,
+          Enzymes: 3,
+          "Royal Jelly": 33,
+        },
+        "Soft Wax": {
+          Honeysuckle: 5,
+          Oil: 1,
+          Enzymes: 1,
+          "Royal Jelly": 10,
+        },
+        "Star Jelly": {
+          "Royal Jelly": 100,
+          Glitter: 3,
+        },
+        Glitter: {
+          "Moon Charm": 25,
+          "Magic Bean": 1,
+        },
+        Gumdrops: {
+          Pineapple: 3,
+          Strawberry: 3,
+          Blueberry: 3,
+        },
+        "Moon Charm": {
+          Pineapple: 5,
+          Gumdrops: 1,
+          "Royal Jelly": 5,
+        },
+      };
+
+      const allItems = [
+        "Blue Extract",
+        "Red Extract",
+        "Super Smoothie",
+        "Swirled Wax",
+        "Stinger",
+        "Tropical Drink",
+        "Comforting Vial",
+        "Hard Wax",
+        "Soft Wax",
+        "Purple Potion",
+        "Glue",
+        "Oil",
+        "Enzymes",
+        "Blueberry",
+        "Strawberry",
+        "Sunflower Seed",
+        "Pineapple",
+        "Coconut",
+        "Royal Jelly",
+        "Neonberry",
+        "Star Jelly",
+        "Glitter",
+        "Moon Charm",
+        "Magic Bean",
+        "Gumdrops",
+        "Honeysuckle",
+        "Bitterberry",
+      ];
+
+      // --- 2. State Management ---
+
+      let userInventory = {};
+      let globalUsageTracker = {}; // Stores usage data: { "ItemName": { "Parent1": qty, "Parent2": qty } }
+
+      function init() {
+        loadData();
+        renderInventoryInputs();
+        calculateAndRender();
+      }
+
+      function loadData() {
+        const saved = localStorage.getItem("bss_inventory_v2");
+        if (saved) {
+          userInventory = JSON.parse(saved);
+        } else {
+          allItems.forEach((item) => (userInventory[item] = 0));
+        }
+      }
+
+      function saveData() {
+        localStorage.setItem("bss_inventory_v2", JSON.stringify(userInventory));
+      }
+
+      function resetData() {
+        if (confirm("Reset all inventory data to 0?")) {
+          allItems.forEach((item) => (userInventory[item] = 0));
+          saveData();
+          renderInventoryInputs();
+          calculateAndRender();
+        }
+      }
+
+      function updateInventory(item, value) {
+        userInventory[item] = parseInt(value) || 0;
+        saveData();
+        calculateAndRender();
+      }
+
+      // --- 3. Excel Export/Import Logic ---
+
+      function exportData() {
+        try {
+          const data = allItems.map((item) => ({
+            "Item Name": item,
+            Quantity: userInventory[item] || 0,
+          }));
+          const ws = XLSX.utils.json_to_sheet(data);
+          const wscols = [{ wch: 30 }, { wch: 15 }];
+          ws["!cols"] = wscols;
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "BSS Inventory");
+          XLSX.writeFile(wb, "BSS_Inventory_Data.xlsx");
+        } catch (error) {
+          alert("Error exporting data: " + error.message);
+        }
+      }
+
+      function importData(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: "array" });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet);
+            let count = 0;
+            jsonData.forEach((row) => {
+              const itemName = row["Item Name"] || row["Item"] || row["name"];
+              const qty = parseInt(
+                row["Quantity"] || row["Qty"] || row["quantity"]
+              );
+              if (itemName && allItems.includes(itemName) && !isNaN(qty)) {
+                userInventory[itemName] = qty;
+                count++;
+              }
+            });
+            saveData();
+            renderInventoryInputs();
+            calculateAndRender();
+            alert(`Successfully imported ${count} items!`);
+          } catch (error) {
+            alert("Error parsing file.");
+            console.error(error);
+          }
+          input.value = "";
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      // --- 4. Rendering UI ---
+
+      function renderInventoryInputs() {
+        const grid = document.getElementById("inventory-grid");
+        grid.innerHTML = "";
+        const sortedItems = allItems.sort((a, b) => {
+          const isCraftableA = !!recipes[a];
+          const isCraftableB = !!recipes[b];
+          if (isCraftableA !== isCraftableB) return isCraftableB ? 1 : -1;
+          return a.localeCompare(b);
+        });
+
+        sortedItems.forEach((item) => {
+          const div = document.createElement("div");
+          div.className =
+            "item-card flex items-center justify-between p-3 bg-slate-50 border border-gray-200 rounded-lg";
+          div.innerHTML = `
+                    <label class="text-sm font-medium text-gray-700 flex-1 cursor-pointer truncate" title="${item}" for="input-${item}">
+                        ${item}
+                    </label>
+                    <input type="number" id="input-${item}" min="0" 
+                        class="w-20 px-2 py-1 border border-gray-300 rounded text-right focus:outline-none focus:border-blue-500 font-mono text-blue-600 font-bold"
+                        value="${userInventory[item] || 0}"
+                        onchange="updateInventory('${item}', this.value)"
+                        oninput="updateInventory('${item}', this.value)"
+                    >
+                `;
+          grid.appendChild(div);
+        });
+
+        const searchInput = document.getElementById("search-item");
+        const newSearchInput = searchInput.cloneNode(true);
+        searchInput.parentNode.replaceChild(newSearchInput, searchInput);
+        newSearchInput.addEventListener("keyup", function (e) {
+          const term = e.target.value.toLowerCase();
+          const cards = document.querySelectorAll(".item-card");
+          cards.forEach((card) => {
+            const text = card.querySelector("label").innerText.toLowerCase();
+            card.style.display = text.includes(term) ? "flex" : "none";
+          });
+        });
+      }
+
+      // --- 5. Calculation Logic ---
+
+      function calculateAndRender() {
+        let simInventory = { ...userInventory };
+        let rawTotals = {};
+        let allMissingTotals = {};
+        globalUsageTracker = {}; // Reset usage tracker
+
+        const treeData = buildTreeData(
+          "Tide Popper",
+          1,
+          simInventory,
+          rawTotals,
+          allMissingTotals
+        );
+
+        // Render Tree
+        const treeContainer = document.getElementById("tree-container");
+        treeContainer.innerHTML = "";
+        if (treeData.children && treeData.children.length > 0) {
+          treeData.children.forEach((child) => {
+            treeContainer.appendChild(createTreeElement(child));
+          });
+        } else {
+          treeContainer.innerHTML = `<div class="text-green-600 font-bold p-4 text-center">You have everything for the Tide Popper!</div>`;
+        }
+
+        // Render Stats
+        renderRawMaterials(rawTotals);
+        renderTotalMissing(allMissingTotals);
+      }
+
+      function buildTreeData(
+        itemName,
+        qtyNeeded,
+        currentInventory,
+        rawTotals,
+        allMissingTotals
+      ) {
+        const available = currentInventory[itemName] || 0;
+        const used = Math.min(available, qtyNeeded);
+        const missing = qtyNeeded - used;
+
+        currentInventory[itemName] = Math.max(0, available - used);
+
+        // Update All Missing Totals
+        if (missing > 0) {
+          if (!allMissingTotals[itemName]) allMissingTotals[itemName] = 0;
+          allMissingTotals[itemName] += missing;
+        }
+
+        const node = {
+          item: itemName,
+          required: qtyNeeded,
+          have: available,
+          used: used,
+          missing: missing,
+          children: [],
+        };
+
+        if (missing > 0 && recipes[itemName]) {
+          for (const [subItem, subQty] of Object.entries(recipes[itemName])) {
+            const subNeeded = subQty * missing;
+
+            // Track Usage: Record that 'subItem' is used by 'itemName'
+            if (!globalUsageTracker[subItem]) globalUsageTracker[subItem] = {};
+            if (!globalUsageTracker[subItem][itemName])
+              globalUsageTracker[subItem][itemName] = 0;
+            globalUsageTracker[subItem][itemName] += subNeeded;
+
+            node.children.push(
+              buildTreeData(
+                subItem,
+                subNeeded,
+                currentInventory,
+                rawTotals,
+                allMissingTotals
+              )
+            );
+          }
+        } else if (missing > 0 && !recipes[itemName]) {
+          // It's a raw material (no recipe)
+          if (!rawTotals[itemName]) rawTotals[itemName] = 0;
+          rawTotals[itemName] += missing;
+        }
+
+        return node;
+      }
+
+      // --- 6. Usage Modal Logic ---
+
+      function showUsage(itemName) {
+        const modal = document.getElementById("usage-modal");
+        const title = document.getElementById("modal-title");
+        const list = document.getElementById("modal-usage-list");
+
+        title.innerText = `Sử dụng của: ${itemName}`;
+        list.innerHTML = "";
+
+        const usageData = globalUsageTracker[itemName];
+
+        if (!usageData || Object.keys(usageData).length === 0) {
+          list.innerHTML = `<tr><td colspan="2" class="py-4 text-center text-gray-500">Item này không được dùng làm nguyên liệu cho món nào đang thiếu (hoặc là món cuối cùng).</td></tr>`;
+        } else {
+          for (const [parent, qty] of Object.entries(usageData)) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                    <td class="py-2 font-medium text-gray-800">${parent}</td>
+                    <td class="py-2 text-right font-mono text-blue-600 font-bold">${formatNumber(
+                      qty
+                    )}</td>
+                `;
+            list.appendChild(tr);
+          }
+        }
+
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        document.body.classList.add("modal-active");
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("usage-modal");
+        modal.classList.add("opacity-0", "pointer-events-none");
+        document.body.classList.remove("modal-active");
+      }
+
+      // --- 7. Updated Renderers with Click Handlers ---
+
+      function renderTotalMissing(missingMap) {
+        const tbody = document.getElementById("total-missing-table-body");
+        tbody.innerHTML = "";
+
+        const entries = Object.entries(missingMap).sort((a, b) => b[1] - a[1]);
+
+        if (entries.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="3" class="px-4 py-4 text-center text-green-300">You have everything!</td></tr>`;
+          return;
+        }
+
+        entries.forEach(([item, qty]) => {
+          const isIntermediate = !!recipes[item];
+          const typeLabel = isIntermediate
+            ? '<span class="px-2 py-0.5 rounded text-xs bg-blue-900 text-blue-200 border border-blue-700">Craft</span>'
+            : '<span class="px-2 py-0.5 rounded text-xs bg-yellow-900 text-yellow-200 border border-yellow-700">Raw</span>';
+
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-indigo-800/50 transition-colors";
+          tr.innerHTML = `
+                <td class="px-4 py-2 font-medium text-indigo-100">
+                    <span class="clickable-item" onclick="showUsage('${item}')" title="Click to see what this is used for">${item}</span>
+                </td>
+                <td class="px-4 py-2 text-right font-mono text-cyan-300 font-bold">${formatNumber(
+                  qty
+                )}</td>
+                <td class="px-4 py-2 text-center">${typeLabel}</td>
+            `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function createTreeElement(node) {
+        const container = document.createElement("div");
+        container.className = "mb-1";
+
+        const percent = Math.min(100, (node.used / node.required) * 100);
+        const isComplete = node.missing <= 0;
+        const hasChildren = node.children.length > 0;
+
+        const contentDiv = document.createElement("div");
+        contentDiv.className =
+          "tree-content flex flex-col cursor-pointer " +
+          (hasChildren ? "tree-toggle" : "");
+
+        let statusColor = isComplete ? "text-green-600" : "text-blue-600";
+        let barColor = isComplete ? "bg-green-500" : "bg-blue-500";
+
+        let html = `
+                <div class="flex justify-between items-center w-full">
+                    <div class="flex items-center gap-2">
+                        ${
+                          hasChildren
+                            ? '<i class="fa-solid fa-chevron-right text-gray-400 text-xs w-4"></i>'
+                            : '<span class="w-4"></span>'
+                        }
+                        <span class="font-semibold text-sm ${
+                          isComplete ? "text-gray-500" : "text-gray-800"
+                        }">${node.item}</span>
+                    </div>
+                    <div class="text-xs font-mono ${statusColor}">
+                        ${formatNumber(node.used)} / ${formatNumber(
+          node.required
+        )}
+                    </div>
+                </div>
+            `;
+
+        if (!isComplete) {
+          html += `
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mt-2 overflow-hidden">
+                        <div class="${barColor} h-1.5 rounded-full" style="width: ${percent}%"></div>
+                    </div>
+                    <div class="flex justify-end mt-1">
+                        <span class="text-xs text-red-500 font-bold">Missing: ${formatNumber(
+                          node.missing
+                        )}</span>
+                    </div>
+                `;
+        }
+
+        contentDiv.innerHTML = html;
+        container.appendChild(contentDiv);
+
+        if (hasChildren) {
+          const childrenContainer = document.createElement("div");
+          childrenContainer.className = "tree-node hidden-children";
+          node.children.forEach((child) => {
+            childrenContainer.appendChild(createTreeElement(child));
+          });
+          container.appendChild(childrenContainer);
+          contentDiv.addEventListener("click", (e) => {
+            childrenContainer.classList.toggle("hidden-children");
+            contentDiv.classList.toggle("expanded");
+          });
+        }
+        return container;
+      }
+
+      function renderRawMaterials(rawMap) {
+        const container = document.getElementById("raw-materials-list");
+        container.innerHTML = "";
+        const entries = Object.entries(rawMap).sort((a, b) => b[1] - a[1]);
+        if (entries.length === 0) {
+          container.innerHTML =
+            '<div class="text-center text-green-400 py-4">No raw materials needed!</div>';
+          return;
+        }
+        entries.forEach(([item, qty]) => {
+          const row = document.createElement("div");
+          row.className =
+            "flex justify-between border-b border-slate-700 py-1 last:border-0";
+          row.innerHTML = `
+                    <span class="text-slate-300 clickable-item" onclick="showUsage('${item}')">${item}</span>
+                    <span class="font-mono text-yellow-400 font-bold">${formatNumber(
+                      qty
+                    )}</span>
+                `;
+          container.appendChild(row);
+        });
+      }
+
+      function formatNumber(num) {
+        return num.toLocaleString("en-US");
+      }
+
+      // Close modal on Escape key
+      document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+          closeModal();
+        }
+      };
+
+      init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "number": 57,
+  "symbol": "La",
+  "nameVi": "Lanthanum",
+  "nameEn": "Lanthanum",
+  "mass": 138.905,
+  "category": "lanthanide",
+  "general": {
+    "latinName": "Lanthanum",
+    "englishName": "Lanthanum",
+    "electronConfig": "[Xe] 5d1 6s2",
+    "group": 3,
+    "period": 6,
+    "oxidation": "+3",
+    "electronegativity": "1.10",
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      9,
+      2
+    ]
+  },
+  "history": {
+    "discoverer": "Carl Gustaf Mosander",
+    "year": 1839,
+    "discoveryLocation": "Thụy Điển"
+  },
+  "structure": {
+    "electrons": 57,
+    "protons": 57,
+    "neutrons": 82
+  },
+  "occurrence": {
+    "description": "Có trong quặng đất hiếm.",
+    "simple": [
+      "La"
+    ],
+    "compounds": [
+      "La2O3"
+    ]
+  },
+  "physical": "Kim loại đất hiếm.",
+  "chemical": "Dễ bị oxi hóa.",
+  "reactions": [
+    {
+      "type": "Oxi hóa",
+      "eq": "4La + 3O2 → 2La2O3",
+      "desc": "Tạo oxit lanthanum."
+    }
+  ],
+  "structureType": "perovskite",
+  "images": {},
+  "hasData": true,
+  "file": "elements/057_La.json"
+}

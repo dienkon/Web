@@ -1,0 +1,27 @@
+{
+  "periodic": [
+    {
+      "answer": "**Vị trí trong bảng tuần hoàn**\n\nHãy mở chi tiết một nguyên tố bất kỳ bằng cách bấm vào ô của nguyên tố đó.\n\n- Số hiệu nguyên tử cho biết thứ tự của nguyên tố.\n- Nhóm là cột dọc trong bảng tuần hoàn.\n- Chu kỳ là hàng ngang trong bảng tuần hoàn."
+    },
+    {
+      "answer": "**Tìm theo số hiệu nguyên tử**\n\nBạn có thể dùng số hiệu nguyên tử để xác định nhanh nguyên tố cần xem. Ví dụ:\n\n- 1 là Hydrogen.\n- 2 là Helium.\n- 8 là Oxygen.\n- 26 là Iron.\n\nNếu nguyên tố đã có dữ liệu chi tiết, bấm vào ô nguyên tố để xem cấu hình electron, trạng thái tự nhiên, tính chất và ứng dụng."
+    },
+    {
+      "answer": "**Lọc theo nhóm nguyên tố**\n\nBạn có thể dùng các bộ lọc nhóm trên giao diện để làm nổi bật nhóm cần học, như phi kim, khí hiếm, kim loại kiềm, halogen hoặc kim loại chuyển tiếp.\n\nCách học nhanh: lọc từng nhóm, quan sát vị trí của chúng trong bảng, rồi mở một vài nguyên tố tiêu biểu để xem tính chất chung."
+    }
+  ],
+  "element": [
+    {
+      "answer": "**Tóm tắt nhanh về {{nameVi}} ({{symbol}})**\n\n- Số hiệu nguyên tử: {{number}}\n- Tên tiếng Anh: {{nameEn}}\n- Nhóm: {{group}}\n- Chu kỳ: {{period}}\n- Trạng thái thường gặp: {{state}}\n- Cấu hình electron: {{electronConfig}}\n- Hóa trị/số oxi hóa: {{oxidation}}\n\n{{occurrenceDescription}}"
+    },
+    {
+      "answer": "**Cấu hình electron của {{symbol}}**\n\nCấu hình electron: **{{electronConfig}}**\n\nThông tin hạt cơ bản:\n\n- Proton: {{protons}}\n- Electron: {{electrons}}\n- Neutron: {{neutrons}}\n- Electron hóa trị: {{valenceElectrons}}."
+    },
+    {
+      "answer": "**Ứng dụng của {{symbol}}**\n\n{{applicationsList}}"
+    },
+    {
+      "answer": "__REACTIONS__"
+    }
+  ]
+}

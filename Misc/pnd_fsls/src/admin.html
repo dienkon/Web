@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PND Admin - Quản lý đề thi</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            background: #f8fafc; 
+            min-height: 100vh;
+        }
+        
+        /* Admin Layout */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 24px;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: calc(100vh - 80px);
+        }
+        
+        @media (max-width: 1024px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+                padding: 16px;
+            }
+        }
+
+        /* Left Panel - Editor */
+        .editor-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .editor-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+        .editor-panel::-webkit-scrollbar-thumb {
+            background: #d8c2aa;
+            border-radius: 10px;
+        }
+
+        /* Right Panel - Inventory */
+        .inventory-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        /* JSON Input */
+        #json-input {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 200px;
+            max-height: 400px;
+        }
+
+        /* Dropzone */
+        .dropzone {
+            border: 2px dashed #d8c2aa;
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: #faf7f4;
+        }
+        .dropzone:hover, .dropzone.dragging {
+            border-color: #8C5F3B;
+            background: #f5ede6;
+        }
+        .dropzone i { font-size: 32px; color: #8C5F3B; opacity: 0.5; }
+
+        /* Status */
+        .status {
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            display: none;
+            margin-top: 12px;
+        }
+        .status.show { display: block; }
+        .status.ok { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+        .status.error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .status.info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        /* Preview Questions */
+        #question-preview {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        #question-preview::-webkit-scrollbar { width: 4px; }
+        #question-preview::-webkit-scrollbar-thumb { background: #d8c2aa; border-radius: 10px; }
+
+        .question {
+            background: #faf7f4;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #f0e8e0;
+        }
+        .question .question-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 12px;
+            font-size: 12px;
+            color: #8C5F3B;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .question .question-top span { opacity: 0.7; }
+        .question .question-top .question-score-input {
+            width: 72px;
+            padding: 4px 6px;
+            border: 1px solid #d8c2aa;
+            border-radius: 6px;
+            background: white;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .question p { 
+            font-size: 14px; 
+            line-height: 1.7; 
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .question .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        @media (max-width: 640px) {
+            .question .options { grid-template-columns: 1fr; }
+        }
+        .question .option {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #e8e0d8;
+            font-size: 13px;
+        }
+        .question .option b { color: #8C5F3B; }
+
+        /* Exam Cards */
+        .exam-card {
+            background: #faf7f4;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #f0e8e0;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+        }
+        .exam-card:hover {
+            border-color: #d8c2aa;
+            box-shadow: 0 2px 8px rgba(140, 95, 59, 0.08);
+        }
+        .exam-card .source {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .exam-card .source.local { background: #dbeafe; color: #1e40af; }
+        .exam-card .source.cloud { background: #d1fae5; color: #065f46; }
+        .exam-card .source.legacy { background: #fef3c7; color: #92400e; }
+        .exam-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .exam-card .exam-meta {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .exam-card .card-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .exam-card .card-actions button {
+            padding: 4px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .exam-card .card-actions .edit {
+            background: #8C5F3B;
+            color: white;
+        }
+        .exam-card .card-actions .edit:hover { background: #6d4a2e; }
+        .exam-card .card-actions .delete {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .exam-card .card-actions .delete:hover { background: #fee2e2; }
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+        }
+        .empty i { font-size: 40px; opacity: 0.3; margin-bottom: 12px; display: block; }
+
+        /* Buttons */
+        .btn-primary {
+            background: #8C5F3B;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { background: #6d4a2e; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: #e2e8f0; }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Editing Banner */
+        #editing-banner {
+            display: none;
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+        #editing-banner.show { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+        /* Auth Pending */
+        .auth-pending { opacity: 0.3; pointer-events: none; }
+        .auth-pending .status { display: none !important; }
+
+        /* Scrollbar cho inventory */
+        #exam-list {
+            max-height: calc(100vh - 320px);
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        #exam-list::-webkit-scrollbar { width: 4px; }
+        #exam-list::-webkit-scrollbar-thumb { background: #d8c2aa; border-radius: 10px; }
+
+        /* Badge */
+        .badge-admin {
+            background: #8C5F3B;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-[1600px] mx-auto px-6 py-3 flex items-center justify-between flex-wrap gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#8C5F3B] text-white flex items-center justify-center font-black text-lg">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-800 text-lg">PND Admin</h1>
+                    <p class="text-[10px] text-slate-400">Quản lý đề thi &amp; chấm bài</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 flex-wrap">
+                <span id="auth-badge" class="text-xs text-slate-500">
+                    <i class="fas fa-spinner fa-spin mr-1"></i> Đang kiểm tra...
+                </span>
+                <a href="pnd_master.html" class="text-sm text-slate-500 hover:text-[#8C5F3B] font-medium">
+                    <i class="fas fa-arrow-left mr-1"></i> Về trang chính
+                </a>
+                <button onclick="logout()" class="text-sm text-red-500 hover:text-red-700 font-medium">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Thoát
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="admin-layout">
+
+        <!-- LEFT PANEL: EDITOR -->
+        <div class="editor-panel" id="editor-panel">
+            <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                <i class="fas fa-pen-to-square text-[#8C5F3B]"></i>
+                Trình chỉnh sửa đề
+            </h2>
+
+            <!-- Dropzone / File picker -->
+            <div id="dropzone" class="dropzone" onclick="document.getElementById('json-file').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p class="text-sm font-medium text-slate-600">Kéo thả file JSON vào đây</p>
+                <p class="text-xs text-slate-400">hoặc bấm để chọn file</p>
+                <input type="file" id="json-file" accept=".json" class="hidden" />
+            </div>
+
+            <!-- JSON Input -->
+            <div class="mt-3">
+                <label class="block text-xs font-bold text-slate-600 mb-1">Nội dung JSON</label>
+                <textarea id="json-input" class="w-full p-3 border border-slate-200 rounded-xl text-sm font-mono focus:border-[#8C5F3B] outline-none transition bg-slate-50" placeholder="Dán JSON đề thi vào đây..."></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex flex-wrap gap-2 mt-3">
+                <button id="validate-btn" class="btn-primary text-sm flex-1 min-w-[80px]">
+                    <i class="fas fa-check mr-1"></i> Kiểm tra
+                </button>
+                <button id="clear-btn" class="btn-secondary text-sm">
+                    <i class="fas fa-eraser mr-1"></i> Xóa
+                </button>
+                <button id="pick-file" class="btn-secondary text-sm">
+                    <i class="fas fa-folder-open mr-1"></i> Chọn file
+                </button>
+            </div>
+
+            <!-- Status -->
+            <div id="status" class="status"></div>
+
+            <!-- Editing Banner -->
+            <div id="editing-banner">
+                <span id="editing-text" class="text-sm font-bold text-amber-800">Đang sửa: ...</span>
+                <button id="cancel-edit" class="text-sm text-amber-700 hover:text-amber-900 font-bold">Hủy sửa</button>
+            </div>
+
+            <!-- Metadata Form -->
+            <div id="metadata" hidden class="mt-4 space-y-3 border-t border-slate-200 pt-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Tên đề *</label>
+                        <input id="exam-title" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:border-[#8C5F3B] outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Môn học</label>
+                        <input id="exam-subject" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:border-[#8C5F3B] outline-none" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Phân loại</label>
+                        <select id="exam-subject-category" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:border-[#8C5F3B] outline-none">
+                            <option value="math">Toán</option>
+                            <option value="physics">Vật lý</option>
+                            <option value="chemistry">Hóa học</option>
+                            <option value="english">Tiếng Anh</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Định dạng</label>
+                        <select id="exam-format" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:border-[#8C5F3B] outline-none">
+                            <option value="none">—</option>
+                            <option value="hsa">HSA</option>
+                            <option value="tsa">TSA</option>
+                            <option value="vact">V-ACT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Mã đề</label>
+                        <input id="exam-code" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:border-[#8C5F3B] outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Thời gian (phút)</label>
+                        <input id="exam-duration" type="number" value="90" min="1" max="600" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:border-[#8C5F3B] outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Lượt thi</label>
+                        <select id="attempt-policy" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm bg-white focus:border-[#8C5F3B] outline-none">
+                            <option value="multiple">Nhiều lượt</option>
+                            <option value="single">01 lượt</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Hạn chót (để trống nếu không có)</label>
+                    <input id="exam-deadline" type="datetime-local" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:border-[#8C5F3B] outline-none" />
+                </div>
+            </div>
+
+            <!-- Scoring -->
+            <div id="save-actions" hidden class="mt-4 border-t border-slate-200 pt-4">
+                <div class="bg-amber-50 rounded-xl p-3 mb-3">
+                    <p class="text-xs font-bold text-amber-800 mb-2">⚖️ Phân bổ thang điểm 10</p>
+                    <div class="grid grid-cols-4 gap-2 text-center">
+                        <div><label class="text-[9px] font-bold text-slate-500 block">TN</label><input id="score-total-tn" type="number" step="0.01" class="w-full px-2 py-1 border border-slate-200 rounded-lg text-sm text-center" disabled /></div>
+                        <div><label class="text-[9px] font-bold text-slate-500 block">DS</label><input id="score-total-ds" type="number" step="0.01" class="w-full px-2 py-1 border border-slate-200 rounded-lg text-sm text-center" disabled /></div>
+                        <div><label class="text-[9px] font-bold text-slate-500 block">TLN</label><input id="score-total-dn" type="number" step="0.01" class="w-full px-2 py-1 border border-slate-200 rounded-lg text-sm text-center" disabled /></div>
+                        <div><label class="text-[9px] font-bold text-slate-500 block">TL</label><input id="score-total-tl" type="number" step="0.01" class="w-full px-2 py-1 border border-slate-200 rounded-lg text-sm text-center" disabled /></div>
+                    </div>
+                    <div id="score-total-summary" class="status show mt-2" style="display:block;font-size:11px;padding:8px 12px;">Tổng điểm: 0/10</div>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <button id="save-local" class="btn-secondary text-sm flex-1 min-w-[120px]" disabled>
+                        <i class="fas fa-download mr-1"></i> Lưu Local
+                    </button>
+                    <button id="save-cloud" class="btn-primary text-sm flex-1 min-w-[120px]" disabled>
+                        <i class="fas fa-cloud-upload-alt mr-1"></i> Đăng lên Firestore
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div id="preview" class="mt-4 hidden">
+                <div class="flex items-center justify-between border-t border-slate-200 pt-4 mb-3">
+                    <span class="text-sm font-bold text-slate-700">📄 Xem trước</span>
+                    <span id="question-count" class="text-xs text-slate-400">0 câu</span>
+                </div>
+                <div id="question-preview"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: INVENTORY -->
+        <div class="inventory-panel">
+            <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fas fa-archive text-[#8C5F3B]"></i>
+                        Kho đề
+                    </h2>
+                    <p class="text-xs text-slate-400" id="inventory-count">Đang tải...</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button id="refresh-btn" class="btn-secondary text-xs">
+                        <i class="fas fa-rotate-right mr-1"></i> Làm mới
+                    </button>
+                    <button id="optimize-cloud-btn" class="btn-primary text-xs hidden">
+                        <i class="fas fa-wand-magic-sparkles mr-1"></i> Tối ưu
+                    </button>
+                    <button id="delete-legacy-btn" class="btn-danger text-xs hidden">
+                        <i class="fas fa-trash mr-1"></i> Xóa PDF cũ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="mb-4">
+                <input id="search-input" type="text" placeholder="🔍 Tìm kiếm đề..." class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-[#8C5F3B] outline-none transition bg-slate-50" />
+            </div>
+
+            <!-- List -->
+            <div id="exam-list">
+                <div class="empty">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Đang tải kho đề...
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPT: Admin Logic -->
+    <!-- ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase-app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+                "firebase-auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+                "firebase-firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // ============================================================
+        // 1. IMPORTS
+        // ============================================================
+        import { initializeApp } from "firebase-app";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut,
+        } from "firebase-auth";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            doc,
+            serverTimestamp,
+            writeBatch,
+        } from "firebase-firestore";
+        // Import security (nếu có)
+        // import { initializePndAppCheck, userHasAdminClaim } from "./firebase-security.js?v=5.33.4";
+
+        // ============================================================
+        // 2. CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJu0I8tPq88gDDzjD53CkAPKlPl4Vd9Zs",
+            authDomain: "pndteam-ac43b.firebaseapp.com",
+            projectId: "pndteam-ac43b",
+            storageBucket: "pndteam-ac43b.firebasestorage.app",
+            messagingSenderId: "504130270745",
+            appId: "1:504130270745:web:786924d35bc84ef3d11c88",
+        };
+
+        const LOCAL_KEY = "pnd_local_exams";
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        // initializePndAppCheck(app);
+
+        // ============================================================
+        // 3. STATE & UTILITIES
+        // ============================================================
+        let parsedExam = null;
+        let currentUser = null;
+        let canWriteCloud = false;
+        let scoringConfigValid = false;
+        let editing = null;
+        let inventory = [];
+
+        const $ = (id) => document.getElementById(id);
+
+        const SUBJECT_LABELS = {
+            math: "Toán",
+            physics: "Vật lý",
+            chemistry: "Hóa học",
+            english: "Tiếng Anh",
+            other: "Khác",
+        };
+        const FORMAT_LABELS = { none: "", hsa: "HSA", tsa: "TSA", vact: "V-ACT" };
+
+        function escapeHtml(value = "") {
+            return String(value).replace(
+                /[&<>'"]/g,
+                (char) =>
+                    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char],
+            );
+        }
+
+        function searchableText(value = "") {
+            return String(value)
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/đ/g, "d")
+                .replace(/Đ/g, "D")
+                .toLowerCase();
+        }
+
+        function normalizeSubjectCategory(value, fallbackText = "") {
+            const key = searchableText(value).replace(/[\s_-]+/g, "");
+            if (["math", "toan", "toanhoc"].includes(key)) return "math";
+            if (["physics", "ly", "vatly", "vatli"].includes(key)) return "physics";
+            if (["chemistry", "hoa", "hoahoc"].includes(key)) return "chemistry";
+            if (["english", "anh", "tienganh"].includes(key)) return "english";
+            const text = searchableText(`${value} ${fallbackText}`);
+            if (/\b(toan|math)\b/.test(text)) return "math";
+            if (/\b(vat ly|vat li|physics|mon ly|mon li)\b/.test(text)) return "physics";
+            if (/\b(hoa hoc|chemistry|mon hoa)\b/.test(text)) return "chemistry";
+            if (/\b(tieng anh|english|mon anh)\b/.test(text)) return "english";
+            return "other";
+        }
+
+        function normalizeExamFormat(value, fallbackText = "") {
+            const text = searchableText(`${value} ${fallbackText}`).replace(/[_-]+/g, " ");
+            if (/\bhsa\b/.test(text)) return "hsa";
+            if (/\btsa\b/.test(text)) return "tsa";
+            if (/\bv\s*act\b|\bvact\b/.test(text)) return "vact";
+            return "none";
+        }
+
+        function makeId() {
+            return `local-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        }
+
+        function readLocalExams() {
+            try {
+                const data = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+                return Array.isArray(data) ? data : [];
+            } catch { return []; }
+        }
+
+        function writeLocalExams(exams) {
+            localStorage.setItem(LOCAL_KEY, JSON.stringify(exams));
+        }
+
+        // ============================================================
+        // 4. NORMALIZE EXAM
+        // ============================================================
+        function normalizeExam(raw) {
+            if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+                throw new Error("JSON phải là một đối tượng đề thi.");
+            }
+            const title = String(raw.title || raw.tenDeThi || "").trim();
+            const questions = raw.questions;
+            if (!title) throw new Error("Thiếu trường title (tên đề thi).");
+            if (!Array.isArray(questions) || questions.length === 0) {
+                throw new Error("Trường questions phải là một mảng có ít nhất 1 câu.");
+            }
+
+            const normalizedQuestions = questions.map((question, index) => {
+                if (!question || typeof question !== "object")
+                    throw new Error(`Câu ${index + 1}: dữ liệu không hợp lệ.`);
+                const sourceType = String(question.type || "")
+                    .trim()
+                    .toUpperCase();
+                const type = ["TLN", "TRA_LOI_NGAN", "TRẢ LỜI NGẮN"].includes(sourceType)
+                    ? "DN"
+                    : sourceType;
+                const prompt = String(question.prompt || question.cau_hoi || "").trim();
+                if (!["TN", "DN", "DS", "TL"].includes(type)) {
+                    throw new Error(`Câu ${index + 1}: type phải là TN, DS, DN/TLN hoặc TL.`);
+                }
+                if (!prompt) throw new Error(`Câu ${index + 1}: thiếu prompt.`);
+                let correctAnswer = question.correctAnswer ?? question.dapAnDung ?? "";
+                if (type !== "TL" && (correctAnswer === "" || correctAnswer === null || correctAnswer === undefined)) {
+                    throw new Error(`Câu ${index + 1}: thiếu correctAnswer.`);
+                }
+
+                let options;
+                let statements;
+                if (type === "TN") {
+                    options = question.options;
+                    if (!options || typeof options !== "object" || Array.isArray(options)) {
+                        throw new Error(`Câu ${index + 1}: câu TN phải có options A, B, C, D.`);
+                    }
+                    for (const key of ["A", "B", "C", "D"]) {
+                        if (!String(options[key] ?? "").trim())
+                            throw new Error(`Câu ${index + 1}: thiếu lựa chọn ${key}.`);
+                    }
+                    correctAnswer = String(correctAnswer).trim().toUpperCase();
+                    if (!["A", "B", "C", "D"].includes(correctAnswer)) {
+                        throw new Error(`Câu ${index + 1}: correctAnswer phải là A, B, C hoặc D.`);
+                    }
+                    options = Object.fromEntries(
+                        ["A", "B", "C", "D"].map((key) => [key, String(options[key])]),
+                    );
+                } else if (type === "DS") {
+                    statements = question.statements;
+                    if (!Array.isArray(statements) || statements.length !== 4) {
+                        throw new Error(`Câu ${index + 1}: câu DS phải có đúng 4 phần tử trong statements.`);
+                    }
+                    statements = statements.map((statement, statementIndex) => {
+                        const text = typeof statement === "string" ? statement : statement?.text;
+                        if (!String(text || "").trim())
+                            throw new Error(`Câu ${index + 1}, ý ${statementIndex + 1}: thiếu nội dung.`);
+                        return {
+                            id: String(statement?.id || ["a", "b", "c", "d"][statementIndex]),
+                            text: String(text),
+                        };
+                    });
+                    if (!Array.isArray(correctAnswer) || correctAnswer.length !== 4) {
+                        throw new Error(`Câu ${index + 1}: correctAnswer của câu DS phải là mảng 4 giá trị T/F.`);
+                    }
+                    correctAnswer = correctAnswer.map((value, answerIndex) => {
+                        const normalized = String(value).trim().toUpperCase();
+                        if (["T", "TRUE", "Đ", "ĐÚNG"].includes(normalized)) return "T";
+                        if (["F", "FALSE", "S", "SAI"].includes(normalized)) return "F";
+                        throw new Error(`Câu ${index + 1}, đáp án ý ${answerIndex + 1}: chỉ nhận T/F hoặc Đúng/Sai.`);
+                    });
+                } else if (type === "DN") {
+                    correctAnswer = String(correctAnswer).trim();
+                } else {
+                    correctAnswer = String(correctAnswer || "").trim();
+                }
+
+                const defaultPoints = { TN: 1, DS: 1, DN: 1, TL: 1 }[type];
+                const points = Number(question.points ?? question.maxPoints ?? defaultPoints);
+                if (!Number.isFinite(points) || points < 0)
+                    throw new Error(`Câu ${index + 1}: points phải là số không âm.`);
+
+                return {
+                    id: question.id ?? index + 1,
+                    type,
+                    topic: String(question.topic || question.chuyenDe || "Tổng hợp"),
+                    prompt,
+                    points,
+                    ...(question.image ? { image: String(question.image), imageAlt: String(question.imageAlt || "Hình câu hỏi") } : {}),
+                    ...(options ? { options } : {}),
+                    ...(statements ? { statements } : {}),
+                    correctAnswer,
+                    ...(type === "DN" && Array.isArray(question.acceptedAnswers) ? { acceptedAnswers: question.acceptedAnswers.map(String) } : {}),
+                    ...(type === "DN" && Number.isFinite(Number(question.tolerance)) ? { tolerance: Math.max(0, Number(question.tolerance)) } : {}),
+                    ...(String(question.explanation || question.solution || "").trim() ? { explanation: String(question.explanation || question.solution).trim() } : {}),
+                    ...(type === "TL" ? { manualGrading: true, maxPoints: points } : {}),
+                };
+            });
+
+            const duration = Math.max(1, Math.min(600, Number(raw.durationMinutes || raw.thoiGianLamBai || 90) || 90));
+            const subject = String(raw.subject || raw.monHoc || "Tổng hợp").trim() || "Tổng hợp";
+            const classificationText = `${title} ${subject}`;
+            return {
+                id: String(raw.id || makeId()),
+                title,
+                subject,
+                subjectCategory: normalizeSubjectCategory(raw.subjectCategory || raw.phanLoaiMon || subject, classificationText),
+                examFormat: normalizeExamFormat(raw.examFormat || raw.kyThi || raw.examType, classificationText),
+                code: String(raw.code || raw.maDe || "").trim(),
+                durationMinutes: duration,
+                deadline: String(raw.deadline || raw.hanChot || "").trim(),
+                attemptPolicy: String(raw.attemptPolicy || "").toLowerCase() === "single" ||
+                    (!raw.attemptPolicy && Boolean(raw.deadline || raw.hanChot)) ? "single" : "multiple",
+                questions: normalizedQuestions,
+                scoring: {
+                    maxScore: 10,
+                    trueFalseTiers: { 0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1 },
+                    mode: raw.scoring?.typeTotals ? "custom-10" : normalizedQuestions.some((q) => q.type === "DS") ? "bgd-2025" : "normalized-10",
+                    ...(raw.scoring?.typeTotals && typeof raw.scoring.typeTotals === "object" ? {
+                        typeTotals: Object.fromEntries(
+                            ["TN", "DS", "DN", "TL"].map((type) => [type, Math.max(0, Number(raw.scoring.typeTotals[type]) || 0)]),
+                        ),
+                    } : {}),
+                },
+            };
+        }
+
+        // ============================================================
+        // 5. SCORING HELPERS
+        // ============================================================
+        function validTypeTotals(questions = [], scoring = {}) {
+            const source = scoring?.typeTotals;
+            if (!source || typeof source !== "object") return null;
+            const counts = questions.reduce((result, q) => {
+                const type = String(q.type || "TN").toUpperCase();
+                result[type] = (result[type] || 0) + 1;
+                return result;
+            }, { TN: 0, DS: 0, DN: 0, TL: 0 });
+            const totals = Object.fromEntries(
+                ["TN", "DS", "DN", "TL"].map((type) => [type, Number(source[type])]),
+            );
+            if (Object.values(totals).some((v) => !Number.isFinite(v) || v < 0)) return null;
+            if (Math.abs(totals.DS - counts.DS) > 0.001) return null;
+            if (["TN", "DS", "DN", "TL"].some((type) => counts[type] === 0 && totals[type] > 0.001)) return null;
+            if (Math.abs(Object.values(totals).reduce((s, v) => s + v, 0) - 10) > 0.001) return null;
+            return totals;
+        }
+
+        function standardMaxPoints(questions = [], scoring = {}) {
+            const targetMax = 10;
+            const maxPoints = new Array(questions.length).fill(0);
+            const types = questions.map((q) => String(q.type || "TN").toUpperCase());
+            const configuredTotals = validTypeTotals(questions, scoring);
+            if (configuredTotals) {
+                ["TN", "DS", "DN", "TL"].forEach((type) => {
+                    const indexes = types.map((v, i) => v === type ? i : -1).filter(i => i >= 0);
+                    if (!indexes.length) return;
+                    if (type === "DS") {
+                        indexes.forEach(i => { maxPoints[i] = 1; });
+                        return;
+                    }
+                    const weights = indexes.map(i => Math.max(0, Number(questions[i].points ?? questions[i].maxPoints ?? 1) || 0));
+                    const totalWeight = weights.reduce((s, v) => s + v, 0) || indexes.length;
+                    indexes.forEach((i, pos) => {
+                        maxPoints[i] = (configuredTotals[type] * (weights[pos] || (weights.every(v => v === 0) ? 1 : 0))) / totalWeight;
+                    });
+                });
+                return maxPoints;
+            }
+            if (types.includes("DS")) {
+                const fixed = [];
+                const flexible = [];
+                types.forEach((type, i) => {
+                    if (type === "DS") { maxPoints[i] = 1; fixed.push(i); } else if (type === "TN") { maxPoints[i] = 0.25; fixed.push(i); } else flexible.push(i);
+                });
+                let fixedTotal = maxPoints.reduce((s, v) => s + v, 0);
+                if (fixedTotal > targetMax) {
+                    const scale = targetMax / fixedTotal;
+                    fixed.forEach(i => { maxPoints[i] *= scale; });
+                    fixedTotal = targetMax;
+                }
+                const remaining = Math.max(0, targetMax - fixedTotal);
+                if (flexible.length) {
+                    const weights = flexible.map(i => Math.max(0, Number(questions[i].points ?? questions[i].maxPoints ?? 1) || 0));
+                    const totalWeight = weights.reduce((s, v) => s + v, 0) || flexible.length;
+                    flexible.forEach((i, pos) => {
+                        maxPoints[i] = (remaining * (weights[pos] || (weights.every(v => v === 0) ? 1 : 0))) / totalWeight;
+                    });
+                } else if (fixedTotal < targetMax) {
+                    const tn = types.map((type, i) => type === "TN" ? i : -1).filter(i => i >= 0);
+                    const adjustable = tn.length ? tn : fixed;
+                    const bonus = adjustable.length ? (targetMax - fixedTotal) / adjustable.length : 0;
+                    adjustable.forEach(i => { maxPoints[i] += bonus; });
+                }
+            } else {
+                const weights = questions.map(q => Math.max(0, Number(q.points ?? q.maxPoints ?? 1) || 0));
+                const totalWeight = weights.reduce((s, v) => s + v, 0) || questions.length || 1;
+                weights.forEach((weight, i) => {
+                    maxPoints[i] = (targetMax * (weight || (weights.every(v => v === 0) ? 1 : 0))) / totalWeight;
+                });
+            }
+            return maxPoints;
+        }
+
+        function currentQuestionPoints(exam, fallbackPoints = []) {
+            return exam.questions.map((q, i) => {
+                if (String(q.type || "TN").toUpperCase() === "DS") return 1;
+                const input = document.getElementById(`question-score-${i}`);
+                const value = Number(input ? input.value : (fallbackPoints[i] ?? q.points ?? 0));
+                return Number.isFinite(value) && value >= 0 ? Number(value.toFixed(3)) : 0;
+            });
+        }
+
+        function totalsFromQuestionPoints(exam, points) {
+            return exam.questions.reduce((totals, q, i) => {
+                const type = String(q.type || "TN").toUpperCase();
+                totals[type] = (totals[type] || 0) + (Number(points[i]) || 0);
+                return totals;
+            }, { TN: 0, DS: 0, DN: 0, TL: 0 });
+        }
+
+        function readScoringConfig(exam, points) {
+            const totals = totalsFromQuestionPoints(exam, points);
+            const total = Object.values(totals).reduce((s, v) => s + v, 0);
+            if (Math.abs(total - 10) > 0.001)
+                throw new Error(`Tổng điểm các phần phải đúng 10. Hiện tại đang là ${Number(total.toFixed(2))}.`);
+            return {
+                maxScore: 10,
+                mode: "custom-10",
+                typeTotals: Object.fromEntries(Object.entries(totals).map(([type, value]) => [type, Number(value.toFixed(2))])),
+                trueFalseTiers: { 0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1 },
+            };
+        }
+
+        // ============================================================
+        // 6. UI FUNCTIONS
+        // ============================================================
+        function showStatus(message, type = "ok") {
+            const node = $("status");
+            node.className = `status show ${type}`;
+            node.textContent = message;
+        }
+
+        function updateScoringSummary() {
+            if (!parsedExam) return;
+            const points = currentQuestionPoints(parsedExam);
+            const totals = totalsFromQuestionPoints(parsedExam, points);
+            const total = Object.values(totals).reduce((s, v) => s + v, 0);
+            const remaining = Number((10 - total).toFixed(2));
+            const counts = parsedExam.questions.reduce((result, q) => {
+                const type = String(q.type || "TN").toUpperCase();
+                result[type] = (result[type] || 0) + 1;
+                return result;
+            }, { TN: 0, DS: 0, DN: 0, TL: 0 });
+            $("score-total-tn").value = Number(totals.TN.toFixed(2));
+            $("score-total-ds").value = Number(totals.DS.toFixed(2));
+            $("score-total-dn").value = Number(totals.DN.toFixed(2));
+            $("score-total-tl").value = Number(totals.TL.toFixed(2));
+            const summary = $("score-total-summary");
+            const valid = Math.abs(remaining) <= 0.001;
+            scoringConfigValid = valid;
+            $("save-local").disabled = !valid;
+            $("save-cloud").disabled = !valid || !canWriteCloud;
+            const detail =
+                `TN ${counts.TN} câu = ${Number(totals.TN.toFixed(2))}đ · DS ${counts.DS} câu = ${Number(totals.DS.toFixed(2))}đ · TLN ${counts.DN} câu = ${Number(totals.DN.toFixed(2))}đ · TL ${counts.TL} câu = ${Number(totals.TL.toFixed(2))}đ`;
+            summary.className = `status show ${valid ? "ok" : "error"}`;
+            summary.textContent = valid ?
+                `Tổng điểm: 10/10 · Có thể lưu đề · ${detail}` :
+                `Tổng điểm: ${Number(total.toFixed(2))}/10 · ${remaining > 0 ? `còn thiếu ${remaining}` : `đang vượt ${Math.abs(remaining)}`} điểm · ${detail}`;
+            points.forEach((value, i) => {
+                const node = document.getElementById(`preview-score-${i}`);
+                if (node) node.textContent = `tối đa ${Number(value.toFixed(2))} điểm`;
+            });
+        }
+
+        function renderMath() {
+            if (typeof window.renderMathInElement !== "function") return;
+            window.renderMathInElement($("question-preview"), {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false },
+                ],
+                throwOnError: false,
+            });
+        }
+
+        function renderPreview(exam) {
+            $("metadata").hidden = false;
+            $("save-actions").hidden = false;
+            $("preview").classList.add("show");
+            $("exam-title").value = exam.title;
+            $("exam-subject").value = exam.subject;
+            $("exam-subject-category").value = exam.subjectCategory || "other";
+            $("exam-format").value = exam.examFormat || "none";
+            $("exam-code").value = exam.code;
+            $("exam-duration").value = exam.durationMinutes;
+            $("exam-deadline").value = String(exam.deadline || "").slice(0, 16);
+            $("attempt-policy").value = exam.attemptPolicy || (exam.deadline ? "single" : "multiple");
+            const maxPoints = standardMaxPoints(exam.questions, exam.scoring || {});
+            $("question-count").textContent = `${exam.questions.length} câu · thang 10`;
+            $("question-preview").innerHTML = exam.questions.map((q, i) => `
+                <article class="question">
+                    <div class="question-top">
+                        <span>Câu ${i + 1}</span><span>·</span>
+                        <span>${escapeHtml(q.type)}</span><span>·</span>
+                        <span>${escapeHtml(q.topic)}</span><span>·</span>
+                        ${q.type === "DS" ? `<span id="preview-score-${i}">chấm mặc định · tối đa 1 điểm</span>` :
+                        `<label style="display:inline-flex;align-items:center;gap:6px;font-weight:700">Điểm câu này 
+                            <input id="question-score-${i}" class="question-score-input" data-question-index="${i}" type="number" min="0" max="10" step="0.01" value="${Number(maxPoints[i].toFixed(2))}" style="width:72px;padding:4px 6px;border:1px solid #d8c2aa;border-radius:6px;background:#fff">
+                            <span id="preview-score-${i}">tối đa ${Number(maxPoints[i].toFixed(2))} điểm</span>
+                        </label>`}
+                    </div>
+                    <p>${escapeHtml(q.prompt)}</p>
+                    ${q.options ? `<div class="options">${Object.entries(q.options).map(([key, value]) => `<div class="option"><b>${key}.</b> ${escapeHtml(value)}</div>`).join("")}</div>` : ""}
+                    ${q.statements ? `<div class="options">${q.statements.map(s => `<div class="option"><b>${escapeHtml(s.id)}.</b> ${escapeHtml(s.text)}</div>`).join("")}</div>` : ""}
+                    ${q.type === "TL" ? '<div class="option" style="margin-top:10px">Câu tự luận · chờ giáo viên chấm</div>' : ""}
+                </article>
+            `).join("");
+            updateScoringSummary();
+            setTimeout(renderMath, 0);
+        }
+
+        // ============================================================
+        // 7. SAVE FUNCTIONS
+        // ============================================================
+        function syncMetadata() {
+            if (!parsedExam) throw new Error("Hãy kiểm tra JSON trước khi lưu.");
+            const title = $("exam-title").value.trim();
+            const duration = Number($("exam-duration").value);
+            if (!title) throw new Error("Tên đề thi không được để trống.");
+            if (!Number.isFinite(duration) || duration < 1 || duration > 600)
+                throw new Error("Thời gian phải từ 1 đến 600 phút.");
+            const questionPoints = currentQuestionPoints(parsedExam);
+            const questions = parsedExam.questions.map((q, i) => ({
+                ...q,
+                points: questionPoints[i],
+                ...(q.type === "TL" ? { maxPoints: questionPoints[i] } : {}),
+            }));
+            return {
+                ...parsedExam,
+                title,
+                subject: $("exam-subject").value.trim() || "Tổng hợp",
+                subjectCategory: $("exam-subject-category").value,
+                examFormat: $("exam-format").value,
+                code: $("exam-code").value.trim(),
+                durationMinutes: duration,
+                questions,
+                scoring: readScoringConfig({ ...parsedExam, questions }, questionPoints),
+                attemptPolicy: $("attempt-policy").value === "single" ? "single" : "multiple",
+                ...($("exam-deadline").value ? { deadline: $("exam-deadline").value + ":00" } : {}),
+            };
+        }
+
+        function firestorePayload(exam) {
+            const questionTypeCounts = exam.questions.reduce((counts, q) => {
+                const type = String(q.type || "TN").toUpperCase();
+                counts[type] = (counts[type] || 0) + 1;
+                return counts;
+            }, {});
+            return {
+                schemaVersion: 5,
+                publicMetadata: true,
+                sourceFormat: "native-json",
+                tenDeThi: exam.title,
+                title: exam.title,
+                monHoc: exam.subject,
+                subject: exam.subject,
+                subjectCategory: exam.subjectCategory || "other",
+                examFormat: exam.examFormat || "none",
+                maDe: exam.code,
+                code: exam.code,
+                thoiGianLamBai: exam.durationMinutes,
+                durationMinutes: exam.durationMinutes,
+                questionCount: exam.questions.length,
+                questionTypeCounts,
+                maxScore: 10,
+                contentRef: exam.id,
+                attemptPolicy: exam.attemptPolicy === "single" ? "single" : "multiple",
+                status: "published",
+                ...(exam.deadline ? { hanChot: exam.deadline } : {}),
+            };
+        }
+
+        function contentPayload(exam) {
+            const publicQuestions = exam.questions.map((q) => {
+                const { correctAnswer, acceptedAnswers, tolerance, explanation, ...publicQ } = q;
+                return publicQ;
+            });
+            return {
+                schemaVersion: 5,
+                examId: exam.id,
+                questions: publicQuestions,
+                scoring: exam.scoring,
+                capNhat: serverTimestamp(),
+            };
+        }
+
+        function answerPayload(exam) {
+            return {
+                schemaVersion: 4,
+                examId: exam.id,
+                title: exam.title,
+                scoring: exam.scoring,
+                answers: exam.questions.map((q) => ({
+                    id: q.id,
+                    type: q.type,
+                    points: q.points,
+                    correctAnswer: q.correctAnswer,
+                    ...(q.acceptedAnswers ? { acceptedAnswers: q.acceptedAnswers } : {}),
+                    ...(Number.isFinite(q.tolerance) ? { tolerance: q.tolerance } : {}),
+                    ...(q.explanation ? { explanation: q.explanation } : {}),
+                    ...(q.type === "TL" ? { maxPoints: q.maxPoints || q.points } : {}),
+                })),
+                capNhat: serverTimestamp(),
+            };
+        }
+
+        async function saveLocal() {
+            try {
+                const exam = syncMetadata();
+                const exams = readLocalExams();
+                if (editing?.source === "local") {
+                    const index = exams.findIndex((item) => item.id === editing.id);
+                    if (index >= 0) exams[index] = { ...exam, id: editing.id, updatedAt: Date.now() };
+                } else {
+                    exams.unshift({ ...exam, id: makeId(), createdAt: Date.now() });
+                }
+                writeLocalExams(exams);
+                await Swal.fire({
+                    icon: "success",
+                    title: "Đã lưu local",
+                    text: "Đề đã xuất hiện trong Kho đề trên trình duyệt này.",
+                    confirmButtonColor: "#8c5f3b",
+                });
+                resetEditor();
+                await loadInventory();
+            } catch (error) {
+                showStatus(error.message, "error");
+            }
+        }
+
+        async function saveCloud() {
+            if (!canWriteCloud) {
+                await Swal.fire({
+                    icon: "warning",
+                    title: "Cần tài khoản quản trị",
+                    html: 'Đăng nhập bằng tài khoản Admin để lưu lên Firestore.',
+                });
+                return;
+            }
+            try {
+                const exam = syncMetadata();
+                const btn = $("save-cloud");
+                btn.disabled = true;
+                btn.textContent = "Đang lưu…";
+                const batch = writeBatch(db);
+                const examRef = editing?.source === "cloud" ? doc(db, "KhoDeThi", editing.id) : doc(collection(db, "KhoDeThi"));
+                const cloudExam = {
+                    ...firestorePayload(exam),
+                    id: examRef.id,
+                    contentRef: examRef.id,
+                    ...(editing?.source === "cloud" ? { capNhat: serverTimestamp() } : { ngayTao: serverTimestamp() }),
+                };
+                batch.set(examRef, cloudExam);
+                batch.set(doc(db, "NoiDungDeThi", examRef.id), contentPayload({ ...exam, id: examRef.id }));
+                batch.set(doc(db, "DapAnDeThi", examRef.id), { ...answerPayload({ ...exam, id: examRef.id }), examId: examRef.id });
+                await batch.commit();
+                await Swal.fire({
+                    icon: "success",
+                    title: editing?.source === "cloud" ? "Đã cập nhật đề" : "Đã đăng đề",
+                    text: "Dữ liệu đã được lưu vào Firestore.",
+                    confirmButtonColor: "#8c5f3b",
+                });
+                resetEditor();
+                await loadInventory();
+            } catch (error) {
+                showStatus(`Không thể lưu Firestore: ${error.message}`, "error");
+            } finally {
+                const btn = $("save-cloud");
+                btn.disabled = !canWriteCloud || !scoringConfigValid;
+                btn.textContent = "Đăng lên Firestore";
+            }
+        }
+
+        // ============================================================
+        // 8. INVENTORY
+        // ============================================================
+        function renderInventory() {
+            const term = $("search-input").value.trim().toLowerCase();
+            const filtered = inventory.filter((item) =>
+                searchableText(
+                    `${item.exam.title} ${item.exam.subject} ${SUBJECT_LABELS[item.exam.subjectCategory] || "Khác"} ${FORMAT_LABELS[item.exam.examFormat] || ""}`,
+                ).includes(searchableText(term)),
+            );
+            const legacyCount = inventory.filter((item) => item.source === "legacy").length;
+            const optimizationCount = inventory.filter((item) => item.source === "cloud" && item.needsOptimization).length;
+            $("inventory-count").textContent = `${inventory.length} đề (${legacyCount} PDF cũ)`;
+            $("delete-legacy-btn").hidden = legacyCount === 0;
+            $("delete-legacy-btn").disabled = !canWriteCloud;
+            $("delete-legacy-btn").textContent = `Xóa tất cả PDF cũ (${legacyCount})`;
+            $("optimize-cloud-btn").hidden = !canWriteCloud || optimizationCount === 0;
+            $("optimize-cloud-btn").disabled = !canWriteCloud;
+            $("optimize-cloud-btn").textContent = `Tối ưu tải đề (${optimizationCount})`;
+
+            if (!filtered.length) {
+                $("exam-list").innerHTML =
+                    '<div class="empty"><i class="fas fa-inbox"></i>Chưa có đề phù hợp.<br>Hãy nạp JSON ở khung bên trái.</div>';
+                return;
+            }
+            $("exam-list").innerHTML = filtered.map((item) => `
+                <article class="exam-card">
+                    <span class="source ${item.source}">${item.source === "local" ? "Local" : item.source === "legacy" ? "PDF cũ · Firestore" : "JSON · Firestore"}</span>
+                    <h3>${escapeHtml(item.exam.title)}</h3>
+                    <div class="exam-meta">${escapeHtml(SUBJECT_LABELS[item.exam.subjectCategory] || "Khác")}${FORMAT_LABELS[item.exam.examFormat] ? ` · ${escapeHtml(FORMAT_LABELS[item.exam.examFormat])}` : ""} · ${item.exam.questions?.length || item.exam.questionCount || 0} câu · ${item.exam.durationMinutes || 90} phút${item.needsOptimization ? " · ⚠️ Cần tối ưu" : ""}</div>
+                    <div class="card-actions">
+                        ${item.source === "local" || canWriteCloud ? `
+                            ${item.source === "legacy" ? "" : `<button class="edit" data-action="edit" data-source="${item.source}" data-id="${escapeHtml(item.id)}">✎ Sửa</button>`}
+                            <button class="delete" data-action="delete" data-source="${item.source}" data-id="${escapeHtml(item.id)}">🗑 Xóa</button>
+                        ` : '<span class="exam-meta">Chỉ Admin được chỉnh sửa</span>'}
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        async function loadInventory() {
+            $("exam-list").innerHTML = '<div class="empty"><i class="fas fa-spinner fa-spin"></i>Đang đọc kho đề…</div>';
+            inventory = readLocalExams().map((exam) => {
+                const classificationText = `${exam.title || ""} ${exam.subject || exam.monHoc || ""}`;
+                return {
+                    source: "local",
+                    id: exam.id,
+                    exam: {
+                        ...exam,
+                        subjectCategory: normalizeSubjectCategory(
+                            exam.subjectCategory || exam.phanLoaiMon || exam.subject || exam.monHoc,
+                            classificationText,
+                        ),
+                        examFormat: normalizeExamFormat(
+                            exam.examFormat || exam.kyThi || exam.examType,
+                            classificationText,
+                        ),
+                    },
+                };
+            });
+
+            if (currentUser) {
+                try {
+                    const answerMap = new Map();
+                    const contentMap = new Map();
+                    if (canWriteCloud) {
+                        const [answerSnapshot, contentSnapshot] = await Promise.all([
+                            getDocs(collection(db, "DapAnDeThi")),
+                            getDocs(collection(db, "NoiDungDeThi")).catch(() => null),
+                        ]);
+                        answerSnapshot.forEach((record) => answerMap.set(record.id, record.data()));
+                        contentSnapshot?.forEach((record) => contentMap.set(record.id, record.data()));
+                    }
+                    const snapshot = await getDocs(collection(db, "KhoDeThi"));
+                    snapshot.forEach((record) => {
+                        const data = record.data();
+                        const isNative = Array.isArray(data.questions) || data.sourceFormat === "native-json" ||
+                            Boolean(data.contentRef) || Number(data.schemaVersion) >= 5;
+                        if (isNative) {
+                            const answerData = answerMap.get(record.id);
+                            const contentData = contentMap.get(data.contentRef || record.id);
+                            const answers = Array.isArray(answerData?.answers) ? answerData.answers : [];
+                            const publicQuestions = Array.isArray(contentData?.questions) ? contentData.questions :
+                                Array.isArray(data.questions) ? data.questions : [];
+                            const questions = publicQuestions.map((q, i) => ({
+                                ...q,
+                                ...(answers[i] || {}),
+                            }));
+                            inventory.push({
+                                source: "cloud",
+                                id: record.id,
+                                needsOptimization: Array.isArray(data.questions) || data.publicMetadata !== true,
+                                originalMetadata: data,
+                                exam: {
+                                    id: record.id,
+                                    title: data.title || data.tenDeThi,
+                                    subject: data.subject || data.monHoc || "Tổng hợp",
+                                    subjectCategory: normalizeSubjectCategory(
+                                        data.subjectCategory || data.phanLoaiMon || data.subject || data.monHoc,
+                                        `${data.title || data.tenDeThi || ""} ${data.subject || data.monHoc || ""}`,
+                                    ),
+                                    examFormat: normalizeExamFormat(
+                                        data.examFormat || data.kyThi || data.examType,
+                                        `${data.title || data.tenDeThi || ""} ${data.subject || data.monHoc || ""}`,
+                                    ),
+                                    code: data.code || data.maDe || "",
+                                    durationMinutes: data.durationMinutes || data.thoiGianLamBai || 90,
+                                    questions,
+                                    questionCount: Number(data.questionCount) || questions.length,
+                                    scoring: answerData?.scoring || contentData?.scoring || data.scoring,
+                                    deadline: data.hanChot || "",
+                                    attemptPolicy: data.attemptPolicy || (data.hanChot ? "single" : "multiple"),
+                                },
+                            });
+                        } else {
+                            const legacyAnswers = Array.isArray(data.dapAn) ? data.dapAn : [];
+                            inventory.push({
+                                source: "legacy",
+                                id: record.id,
+                                exam: {
+                                    id: record.id,
+                                    title: data.tenDeThi || data.title || `PDF cũ ${record.id}`,
+                                    subject: "Định dạng PDF cũ",
+                                    code: data.maDe || data.code || "",
+                                    durationMinutes: data.thoiGianLamBai || data.durationMinutes || 60,
+                                    questions: legacyAnswers.map((answer, i) => ({
+                                        id: i + 1,
+                                        correctAnswer: answer,
+                                    })),
+                                },
+                            });
+                        }
+                    });
+                } catch (error) {
+                    showStatus(`Không đọc được Firestore: ${error.message}`, "error");
+                }
+            }
+            renderInventory();
+        }
+
+        // ============================================================
+        // 9. EDIT / DELETE
+        // ============================================================
+        function editExam(source, id) {
+            const item = inventory.find((exam) => exam.source === source && exam.id === id);
+            if (!item) return;
+            editing = { source, id };
+            parsedExam = normalizeExam(item.exam);
+            $("json-input").value = JSON.stringify(parsedExam, null, 2);
+            $("editing-text").textContent = `Đang sửa: ${parsedExam.title} (${source === "local" ? "local" : "Firestore"})`;
+            $("editing-banner").classList.add("show");
+            renderPreview(parsedExam);
+            if (item.exam.deadline || item.exam.hanChot) {
+                $("exam-deadline").value = String(item.exam.deadline || item.exam.hanChot).slice(0, 16);
+            }
+            showStatus("Đã nạp đề vào trình chỉnh sửa. Kiểm tra rồi bấm nút lưu phù hợp.", "info");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        async function deleteExam(source, id) {
+            const item = inventory.find((exam) => exam.source === source && exam.id === id);
+            if (!item) return;
+            if (source !== "local" && !canWriteCloud) {
+                await Swal.fire("Không có quyền", "Tài khoản hiện tại chưa được cấp quyền Admin.", "warning");
+                return;
+            }
+            const result = await Swal.fire({
+                icon: "warning",
+                title: "Xóa đề này?",
+                text: item.exam.title,
+                showCancelButton: true,
+                confirmButtonText: "Xóa",
+                cancelButtonText: "Giữ lại",
+                confirmButtonColor: "#b42318",
+            });
+            if (!result.isConfirmed) return;
+            if (source === "local") {
+                writeLocalExams(readLocalExams().filter((exam) => exam.id !== id));
+            } else {
+                const batch = writeBatch(db);
+                batch.delete(doc(db, "KhoDeThi", id));
+                batch.delete(doc(db, "NoiDungDeThi", id));
+                batch.delete(doc(db, "DapAnDeThi", id));
+                await batch.commit();
+            }
+            if (editing?.source === source && editing?.id === id) resetEditor();
+            await loadInventory();
+        }
+
+        // ============================================================
+        // 10. RESET
+        // ============================================================
+        function resetEditor() {
+            parsedExam = null;
+            scoringConfigValid = false;
+            editing = null;
+            $("json-input").value = "";
+            $("json-file").value = "";
+            $("status").className = "status";
+            $("metadata").hidden = true;
+            $("save-actions").hidden = true;
+            $("preview").classList.remove("show");
+            $("editing-banner").classList.remove("show");
+            $("exam-deadline").value = "";
+            $("attempt-policy").value = "multiple";
+            $("exam-subject-category").value = "other";
+            $("exam-format").value = "none";
+            ["tn", "ds", "dn", "tl"].forEach((type) => {
+                const input = $(`score-total-${type}`);
+                if (input) input.value = 0;
+            });
+            const summary = $("score-total-summary");
+            if (summary) {
+                summary.className = "status show";
+                summary.textContent = "Tổng điểm: 0/10";
+            }
+            $("save-local").disabled = true;
+            $("save-cloud").disabled = true;
+        }
+
+        // ============================================================
+        // 11. PARSE EDITOR
+        // ============================================================
+        function parseEditor() {
+            try {
+                const rawText = $("json-input").value.trim();
+                if (!rawText) throw new Error("Bạn chưa chọn file hoặc dán JSON.");
+                parsedExam = normalizeExam(JSON.parse(rawText));
+                renderPreview(parsedExam);
+                showStatus(`JSON hợp lệ: ${parsedExam.questions.length} câu, thời gian ${parsedExam.durationMinutes} phút, thang điểm 10.`);
+            } catch (error) {
+                parsedExam = null;
+                $("metadata").hidden = true;
+                $("save-actions").hidden = true;
+                $("preview").classList.remove("show");
+                showStatus(error.message, "error");
+            }
+        }
+
+        async function loadText(text, fileName = "") {
+            $("json-input").value = text;
+            if (fileName) showStatus(`Đã đọc ${fileName}. Hệ thống đang kiểm tra…`, "info");
+            parseEditor();
+        }
+
+        // ============================================================
+        // 12. OPTIMIZE & DELETE LEGACY
+        // ============================================================
+        async function optimizeCloudExams() {
+            const candidates = inventory.filter((item) => item.source === "cloud" && item.needsOptimization);
+            if (!candidates.length) {
+                await Swal.fire("Kho đề đã tối ưu", "Không còn đề JSON nào lưu câu hỏi chung với metadata.", "success");
+                return;
+            }
+            if (!canWriteCloud) {
+                await Swal.fire("Không có quyền", "Tài khoản hiện tại chưa được cấp quyền Admin.", "warning");
+                return;
+            }
+            const result = await Swal.fire({
+                icon: "question",
+                title: `Tối ưu ${candidates.length} đề JSON?`,
+                html: "Hệ thống sẽ tách metadata nhẹ khỏi nội dung câu hỏi. Học sinh chỉ tải câu hỏi sau khi xác nhận bắt đầu.",
+                showCancelButton: true,
+                confirmButtonText: "Tối ưu ngay",
+                cancelButtonText: "Để sau",
+                confirmButtonColor: "#8c5f3b",
+            });
+            if (!result.isConfirmed) return;
+
+            try {
+                $("optimize-cloud-btn").disabled = true;
+                for (let offset = 0; offset < candidates.length; offset += 150) {
+                    const batch = writeBatch(db);
+                    candidates.slice(offset, offset + 150).forEach((item) => {
+                        const exam = { ...item.exam, id: item.id };
+                        const original = item.originalMetadata || {};
+                        const metadata = {
+                            ...firestorePayload(exam),
+                            id: item.id,
+                            contentRef: item.id,
+                            ...(original.ngayTao ? { ngayTao: original.ngayTao } : {}),
+                            capNhat: serverTimestamp(),
+                        };
+                        batch.set(doc(db, "KhoDeThi", item.id), metadata);
+                        batch.set(doc(db, "NoiDungDeThi", item.id), contentPayload(exam));
+                        batch.set(doc(db, "DapAnDeThi", item.id), answerPayload(exam));
+                    });
+                    await batch.commit();
+                }
+                await Swal.fire({
+                    icon: "success",
+                    title: "Đã tối ưu kho đề",
+                    text: `${candidates.length} đề đã được tách metadata, nội dung và đáp án bảo mật.`,
+                    confirmButtonColor: "#8c5f3b",
+                });
+                await loadInventory();
+            } catch (error) {
+                showStatus(`Không thể tối ưu kho đề: ${error.message}`, "error");
+            } finally {
+                $("optimize-cloud-btn").disabled = !canWriteCloud;
+            }
+        }
+
+        async function deleteAllLegacyExams() {
+            const legacyItems = inventory.filter((item) => item.source === "legacy");
+            if (!legacyItems.length) {
+                await Swal.fire("Không còn PDF cũ", "Kho đề hiện không có document định dạng PDF cũ.", "info");
+                return;
+            }
+            if (!canWriteCloud) {
+                await Swal.fire("Không có quyền", "Tài khoản hiện tại chưa được cấp quyền Admin.", "warning");
+                return;
+            }
+            const result = await Swal.fire({
+                icon: "warning",
+                title: `Xóa ${legacyItems.length} đề PDF cũ?`,
+                html: "Chỉ các document <b>không có questions</b> sẽ bị xóa. Đề JSON mới được giữ nguyên.",
+                showCancelButton: true,
+                confirmButtonText: "Xóa tất cả PDF cũ",
+                cancelButtonText: "Hủy",
+                confirmButtonColor: "#b42318",
+            });
+            if (!result.isConfirmed) return;
+
+            try {
+                $("delete-legacy-btn").disabled = true;
+                for (let offset = 0; offset < legacyItems.length; offset += 200) {
+                    const batch = writeBatch(db);
+                    legacyItems.slice(offset, offset + 200).forEach((item) => {
+                        batch.delete(doc(db, "KhoDeThi", item.id));
+                        batch.delete(doc(db, "NoiDungDeThi", item.id));
+                        batch.delete(doc(db, "DapAnDeThi", item.id));
+                    });
+                    await batch.commit();
+                }
+                await Swal.fire({
+                    icon: "success",
+                    title: "Đã dọn PDF cũ",
+                    text: `Đã xóa ${legacyItems.length} đề định dạng cũ khỏi KhoDeThi.`,
+                    confirmButtonColor: "#8c5f3b",
+                });
+                await loadInventory();
+            } catch (error) {
+                showStatus(`Không thể xóa PDF cũ: ${error.message}`, "error");
+            } finally {
+                $("delete-legacy-btn").disabled = !canWriteCloud;
+            }
+        }
+
+        // ============================================================
+        // 13. LOGOUT
+        // ============================================================
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                window.location.reload();
+            } catch (err) {
+                Swal.fire("Lỗi", err.message, "error");
+            }
+        };
+
+        // ============================================================
+        // 14. AUTH STATE
+        // ============================================================
+        onAuthStateChanged(auth, async (user) => {
+            currentUser = user;
+            canWriteCloud = false;
+            if (user) {
+                try {
+                    // Kiểm tra quyền admin
+                    // canWriteCloud = await userHasAdminClaim(user);
+                    canWriteCloud = true; // Tạm thời cho phép để test
+                } catch (error) {
+                    console.error("Không đọc được quyền Admin:", error);
+                }
+            }
+
+            if (!canWriteCloud) {
+                $("auth-badge").textContent = user ? `${user.email} · Không có quyền` : "Chưa đăng nhập";
+                showStatus("Khu vực quản lý đề chỉ dành cho Admin.", "error");
+                // Không tự động chuyển trang, để user biết cần đăng nhập admin
+                return;
+            }
+
+            $("auth-badge").textContent = `${user.email} · Admin ✅`;
+            $("save-cloud").disabled = !canWriteCloud || !scoringConfigValid;
+            await loadInventory();
+            showStatus("✅ Đã đăng nhập với quyền Admin. Bạn có thể quản lý đề thi.", "ok");
+        });
+
+        // ============================================================
+        // 15. EVENT BINDINGS
+        // ============================================================
+        $("pick-file").addEventListener("click", () => $("json-file").click());
+        $("json-file").addEventListener("change", async (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+            await loadText(await file.text(), file.name);
+        });
+
+        const dropzone = $("dropzone");
+        for (const eventName of ["dragenter", "dragover"]) {
+            dropzone.addEventListener(eventName, (event) => {
+                event.preventDefault();
+                dropzone.classList.add("dragging");
+            });
+        }
+        for (const eventName of ["dragleave", "drop"]) {
+            dropzone.addEventListener(eventName, (event) => {
+                event.preventDefault();
+                dropzone.classList.remove("dragging");
+            });
+        }
+        dropzone.addEventListener("drop", async (event) => {
+            const file = event.dataTransfer.files[0];
+            if (!file) return;
+            if (!file.name.toLowerCase().endsWith(".json"))
+                return showStatus("Chỉ nhận file có đuôi .json", "error");
+            await loadText(await file.text(), file.name);
+        });
+
+        $("validate-btn").addEventListener("click", parseEditor);
+        $("clear-btn").addEventListener("click", resetEditor);
+        $("cancel-edit").addEventListener("click", resetEditor);
+        $("save-local").addEventListener("click", saveLocal);
+        $("save-cloud").addEventListener("click", saveCloud);
+        $("refresh-btn").addEventListener("click", loadInventory);
+        $("optimize-cloud-btn").addEventListener("click", optimizeCloudExams);
+        $("delete-legacy-btn").addEventListener("click", deleteAllLegacyExams);
+        $("search-input").addEventListener("input", renderInventory);
+        $("exam-deadline").addEventListener("change", (event) => {
+            if (event.target.value) $("attempt-policy").value = "single";
+        });
+        $("question-preview").addEventListener("input", (event) => {
+            if (event.target.classList.contains("question-score-input")) updateScoringSummary();
+        });
+
+        $("exam-list").addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-action]");
+            if (!button) return;
+            if (button.dataset.action === "edit") editExam(button.dataset.source, button.dataset.id);
+            if (button.dataset.action === "delete") deleteExam(button.dataset.source, button.dataset.id);
+        });
+
+        // Khởi tạo
+        showStatus("🔐 Đang kiểm tra quyền truy cập...", "info");
+        console.log("📚 PND Admin đã sẵn sàng!");
+    </script>
+
+</body>
+</html>

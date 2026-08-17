@@ -1,0 +1,58 @@
+{
+  "number": 82,
+  "symbol": "Pb",
+  "nameVi": "Lead",
+  "nameEn": "Lead",
+  "mass": 207.2,
+  "category": "unknown",
+  "general": {
+    "latinName": "Plumbum",
+    "englishName": "Lead",
+    "electronConfig": "[Xe] 4f14 5d10 6s2 6p2",
+    "group": 14,
+    "period": 6,
+    "oxidation": "+2, +4",
+    "electronegativity": "2.33",
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      4
+    ]
+  },
+  "history": {
+    "discoverer": "Cổ đại",
+    "year": "Cổ đại",
+    "discoveryLocation": "Nhiều nơi"
+  },
+  "structure": {
+    "electrons": 82,
+    "protons": 82,
+    "neutrons": 125
+  },
+  "occurrence": {
+    "description": "Trong galenit và nhiều khoáng vật chì.",
+    "simple": [
+      "Pb"
+    ],
+    "compounds": [
+      "PbS",
+      "PbO"
+    ]
+  },
+  "physical": "Kim loại nặng, mềm, màu xám.",
+  "chemical": "Có thể tạo oxit và muối chì(II), chì(IV).",
+  "reactions": [
+    {
+      "type": "Oxi hóa",
+      "eq": "2Pb + O2 → 2PbO",
+      "desc": "Tạo oxit chì(II)."
+    }
+  ],
+  "structureType": "fcc",
+  "images": {},
+  "hasData": true,
+  "file": "elements/082_Pb.json"
+}

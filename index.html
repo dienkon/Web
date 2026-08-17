@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dienkon Project Showcase</title>
+    <!-- Tải Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Link Font Awesome CDN dự phòng nếu link trên lỗi -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts: Space Grotesk cho tiêu đề, Inter cho nội dung -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap");
+
+      :root {
+        --primary: #6366f1; /* Indigo */
+        --secondary: #ec4899; /* Pink */
+        --dark: #0f172a; /* Slate 900 */
+        --card-bg: rgba(255, 255, 255, 0.9);
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+        background-image:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(99, 102, 241, 0.1) 0%,
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(236, 72, 153, 0.1) 0%,
+            transparent 20%
+          );
+        color: #334155;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      /* Style cho ô chỉnh sửa */
+      [contenteditable="true"]:focus {
+        outline: none;
+        background-color: rgba(99, 102, 241, 0.1);
+        border-bottom: 2px solid var(--primary);
+        color: var(--primary);
+        padding: 0 4px;
+        border-radius: 4px;
+      }
+
+      /* Card Style - Glassmorphism nhẹ + Border Gradient */
+      .repo-card {
+        background: white;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Hiệu ứng Hover: Nổi lên và viền sáng */
+      .repo-card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        border-color: var(--primary);
+      }
+
+      /* Thanh màu trang trí bên trái card */
+      .card-accent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(
+          to bottom,
+          var(--primary),
+          var(--secondary)
+        );
+        opacity: 0.8;
+      }
+
+      /* Admin Mode Styles */
+      .admin-mode .repo-card {
+        border-style: dashed;
+        border-width: 2px;
+        border-color: #cbd5e1;
+      }
+      .admin-mode .repo-card:hover {
+        border-color: var(--primary);
+        border-style: solid;
+      }
+
+      .repo-card.is-hidden {
+        opacity: 0.6;
+        filter: grayscale(100%);
+        background: #f1f5f9;
+      }
+
+      /* Footer Social Icons Hover Effects */
+      .social-link {
+        transition: all 0.3s ease;
+      }
+      .social-link:hover {
+        transform: translateY(-3px);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col p-4 md:p-10">
+    <div class="max-w-7xl mx-auto w-full flex-grow">
+      <!-- Header -->
+      <header
+        class="flex flex-col md:flex-row justify-between items-center mb-12"
+      >
+        <div class="text-center md:text-left mb-6 md:mb-0">
+          <h1
+            class="text-4xl md:text-5xl font-bold text-slate-900 mb-2 tracking-tight"
+          >
+            Dienkon <span class="text-indigo-600">Project Hub</span>
+          </h1>
+          <p class="text-lg text-slate-500 font-light">
+            Các dự án mã nguồn mở và thử nghiệm gần đây của tôi.
+          </p>
+        </div>
+
+        <!-- Social / Contact Links (Github Top) -->
+        <div class="flex gap-4">
+          <a
+            href="https://github.com/DIENKON"
+            target="_blank"
+            class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-700 transition shadow-lg"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </header>
+
+      <!-- Grid Layout -->
+      <div
+        id="repos-container"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Loading State -->
+        <div id="loading-spinner" class="col-span-full py-20 text-center">
+          <div
+            class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-indigo-500 border-t-transparent"
+          ></div>
+          <p class="mt-4 text-slate-500 font-medium">Đang tải dữ liệu...</p>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div
+        id="error-message"
+        class="hidden max-w-2xl mx-auto mt-8 p-6 bg-red-50 rounded-xl border border-red-100 text-center"
+      >
+        <i class="fas fa-exclamation-circle text-3xl text-red-500 mb-3"></i>
+        <h3 class="text-lg font-bold text-red-700">Không thể tải dữ liệu</h3>
+        <p id="error-details" class="text-red-600 mt-1"></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="mt-24 border-t border-slate-200 pt-12 pb-8 bg-white/50 backdrop-blur-sm -mx-4 md:-mx-10 px-4 md:px-10"
+    >
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-2xl font-bold text-slate-800 mb-2 font-space-grotesk">
+          Liên hệ
+        </h3>
+
+        <!-- Social Links Grid -->
+        <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-10">
+          <!-- Youtube -->
+          <a
+            href="https://www.youtube.com/@dien3456"
+            target="_blank"
+            class="social-link flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 shadow-sm text-slate-700 hover:text-red-600 hover:border-red-200 hover:shadow-red-100 hover:shadow-md"
+          >
+            <i class="fab fa-youtube text-xl text-red-600"></i>
+          </a>
+
+          <!-- Facebook -->
+          <a
+            href="https://www.facebook.com/share/1Cyc7j7Jpm/"
+            target="_blank"
+            class="social-link flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 shadow-sm text-slate-700 hover:text-blue-600 hover:border-blue-200 hover:shadow-blue-100 hover:shadow-md"
+          >
+            <i class="fab fa-facebook text-xl text-blue-600"></i>
+          </a>
+
+          <!-- TikTok -->
+          <a
+            href="https://www.tiktok.com/@dien3456"
+            target="_blank"
+            class="social-link flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 shadow-sm text-slate-700 hover:text-black hover:border-slate-400 hover:shadow-slate-200 hover:shadow-md"
+          >
+            <i class="fab fa-tiktok text-xl text-black"></i>
+          </a>
+
+          <!-- Zalo -->
+          <a
+            href="https://zalo.me/0971431683"
+            target="_blank"
+            class="social-link flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 shadow-sm text-slate-700 hover:text-blue-500 hover:border-blue-200 hover:shadow-blue-100 hover:shadow-md"
+          >
+            <!-- Zalo Text Logo simulation using SVG text or simple styling since fontawesome doesn't have it -->
+            <div
+              class="bg-blue-500 text-white text-[10px] font-bold px-1 rounded"
+            >
+              Zalo
+            </div>
+          </a>
+
+          <!-- Discord -->
+          <div class="group relative">
+            <a
+              href="https://discord.com/users/1055343570657235036"
+              target="_blank"
+              class="social-link flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 shadow-sm text-slate-700 hover:text-indigo-500 hover:border-indigo-200 hover:shadow-indigo-100 hover:shadow-md cursor-pointer"
+            >
+              <i class="fab fa-discord text-xl text-indigo-500"></i>
+            </a>
+            <!-- Tooltip -->
+          </div>
+        </div>
+
+        <div class="text-sm text-slate-400">
+          &copy; 2025 Dienkon. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        get,
+        update,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+      import {
+        getAuth,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+      // --- CẤU HÌNH ---
+      const GITHUB_USERNAME = "DIENKON";
+      const API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc`;
+      const appId =
+        typeof __app_id !== "undefined" ? __app_id : "default-app-id";
+
+      // --- BIẾN TOÀN CỤC ---
+      let db;
+      let isAdmin = false; // Biến này giờ là TRÙM
+      window._cachedRepos = [];
+
+      // --- LẤY CONFIG FIREBASE ---
+      function getFirebaseConfig() {
+        if (typeof __firebase_config !== "undefined") {
+          try {
+            return JSON.parse(__firebase_config);
+          } catch (e) {}
+        }
+        return {
+          apiKey: "AIzaSyAKk-2dwDATm0ONwQG_H006ZA8J9TPHn5U", // Dummy fallback
+          projectId: "dienkon-6ebc3",
+          databaseURL: "https://dienkon-6ebc3-default-rtdb.firebaseio.com",
+        };
+      }
+
+      // --- HÀM ADMIN "QUYỀN LỰC TỐI CAO" ---
+      window.checkAdminStatus = function (passkey) {
+        if (passkey === "Admin") {
+          isAdmin = true;
+          document.body.classList.add("admin-mode");
+          console.log(
+            "%c ĐÃ KÍCH HOẠT QUYỀN ADMIN ",
+            "background: #10b981; color: white; padding: 4px; font-weight: bold;",
+          );
+          console.log(
+            "Bây giờ bạn có thể chỉnh sửa và hệ thống sẽ THỰC HIỆN LỆNH GHI vào Database.",
+          );
+
+          // Render lại để hiện các nút bấm
+          if (window._cachedRepos.length > 0) fetchRepos(true);
+        } else {
+          console.warn("Sai passkey.");
+        }
+      };
+
+      // --- HÀM LƯU DB (BỎ CHECK AUTH TOKEN) ---
+      function saveToDb(path, data) {
+        if (!isAdmin) return; // Chỉ cần check biến isAdmin cục bộ
+
+        if (!db) {
+          console.error("Database chưa kết nối.");
+          return;
+        }
+
+        const fullPath = `artifacts/${appId}/public/data/repo_customizations/${path}`;
+        const dbRef = ref(db, fullPath);
+
+        update(dbRef, data)
+          .then(() => console.log(`[SAVED] ${path}`, data))
+          .catch((err) =>
+            console.error("[SAVE FAILED] Có thể do Firebase Rules chặn:", err),
+          );
+      }
+
+      // Các hàm wrapper cho giao diện gọi
+      window.updateField = (repoName, field, value) => {
+        saveToDb(repoName, { [field]: value.trim() });
+      };
+
+      window.toggleHidden = (repoName, currentStatus) => {
+        saveToDb(repoName, { isHidden: !currentStatus });
+        // Cập nhật UI ngay lập tức cho mượt
+        fetchRepos(true);
+      };
+
+      // --- FETCH DATA ---
+      async function fetchRepos(forceRender = false) {
+        const container = document.getElementById("repos-container");
+        const spinner = document.getElementById("loading-spinner");
+
+        if (!forceRender) spinner.classList.remove("hidden");
+
+        // 1. Lấy Repos từ GitHub (nếu chưa có cache)
+        if (window._cachedRepos.length === 0 || forceRender) {
+          try {
+            // Fetch GitHub
+            if (window._cachedRepos.length === 0) {
+              const res = await fetch(API_URL);
+              if (!res.ok) throw new Error("GitHub API Error");
+              window._cachedRepos = await res.json();
+            }
+
+            // 2. Lấy Custom Data từ Firebase
+            let customizations = {};
+            if (db) {
+              try {
+                const dbPath = `artifacts/${appId}/public/data/repo_customizations`;
+                const snapshot = await get(ref(db, dbPath));
+                if (snapshot.exists()) customizations = snapshot.val();
+              } catch (e) {
+                console.warn("Lỗi đọc DB:", e);
+              }
+            }
+
+            // 3. Merge Data
+            let displayRepos = window._cachedRepos.map((repo) => {
+              const custom = customizations[repo.name] || {};
+              return {
+                ...repo,
+                displayName: custom.customName || repo.name,
+                displayDesc: custom.customDescription || repo.description,
+                demoUrl:
+                  custom.customDemoUrl ||
+                  `https://${GITHUB_USERNAME.toLowerCase()}.github.io/${
+                    repo.name
+                  }`,
+                isHidden: custom.isHidden || false,
+              };
+            });
+
+            // 4. Filter & Sort
+            if (!isAdmin) {
+              displayRepos = displayRepos.filter((r) => !r.isHidden);
+            } else {
+              // Admin: Đưa bài ẩn xuống cuối
+              displayRepos.sort((a, b) =>
+                a.isHidden === b.isHidden ? 0 : a.isHidden ? 1 : -1,
+              );
+            }
+
+            renderRepos(displayRepos);
+            spinner.classList.add("hidden");
+          } catch (err) {
+            spinner.classList.add("hidden");
+            document.getElementById("error-message").classList.remove("hidden");
+            document.getElementById("error-details").textContent = err.message;
+          }
+        } else {
+          // Re-render từ cache (khi toggle admin mode)
+          // Cần chạy lại logic merge để đảm bảo đúng state ẩn/hiện
+          fetchRepos(true);
+        }
+      }
+
+      // --- RENDER CARD (GIAO DIỆN MỚI) ---
+      function renderRepos(repos) {
+        const container = document.getElementById("repos-container");
+
+        if (repos.length === 0) {
+          container.innerHTML = `<div class="col-span-full text-center text-slate-400">Chưa có dự án nào.</div>`;
+          return;
+        }
+
+        container.innerHTML = repos
+          .map((repo) => {
+            // Màu sắc theo ngôn ngữ
+            const colors = {
+              JavaScript: "text-yellow-600 bg-yellow-100",
+              TypeScript: "text-blue-600 bg-blue-100",
+              HTML: "text-orange-600 bg-orange-100",
+              CSS: "text-sky-600 bg-sky-100",
+              Python: "text-green-600 bg-green-100",
+              Java: "text-red-600 bg-red-100",
+              Other: "text-slate-600 bg-slate-100",
+            };
+            const langClass = colors[repo.language] || colors.Other;
+
+            const date = new Date(repo.updated_at).toLocaleDateString("vi-VN");
+            const isEditable = isAdmin ? 'contenteditable="true"' : "";
+
+            // Xử lý nút Demo/GitHub
+            const demoBtn = `
+                <a href="${repo.demoUrl}" target="_blank" 
+                   class="flex-1 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition shadow-sm hover:shadow-md">
+                   <i class="fas fa-rocket mr-2"></i> Web
+                </a>`;
+
+            const adminControls = isAdmin
+              ? `
+                <div class="mt-3 pt-3 border-t border-dashed border-slate-300 grid grid-cols-1 gap-2">
+                     <div class="flex items-center justify-between">
+                        <button onclick="toggleHidden('${repo.name}', ${
+                          repo.isHidden
+                        })" 
+                            class="text-xs px-2 py-1 rounded border ${
+                              repo.isHidden
+                                ? "bg-red-50 text-red-600 border-red-200"
+                                : "bg-green-50 text-green-600 border-green-200"
+                            }">
+                            <i class="fas ${
+                              repo.isHidden ? "fa-eye-slash" : "fa-eye"
+                            } mr-1"></i>
+                            ${repo.isHidden ? "Đang Ẩn" : "Đang Hiện"}
+                        </button>
+                        <span class="text-xs text-slate-400">Sửa trực tiếp text</span>
+                     </div>
+                     <div class="flex items-center gap-2 bg-slate-50 p-1 rounded">
+                        <i class="fas fa-link text-slate-400 text-xs pl-1"></i>
+                        <div ${isEditable} onblur="updateField('${
+                          repo.name
+                        }', 'customDemoUrl', this.innerText)" 
+                             class="text-xs font-mono text-indigo-600 truncate flex-1 outline-none">
+                            ${repo.demoUrl}
+                        </div>
+                     </div>
+                </div>
+            `
+              : "";
+
+            return `
+                <div class="repo-card ${repo.isHidden ? "is-hidden" : ""}">
+                    <!-- Accent Bar -->
+                    <div class="card-accent"></div>
+                    
+                    <div class="p-6 flex flex-col h-full">
+                        <!-- Header: Title & Language -->
+                        <div class="flex justify-between items-start mb-3 pl-3">
+                            <h2 ${isEditable} onblur="updateField('${
+                              repo.name
+                            }', 'customName', this.innerText)"
+                                class="text-xl font-bold text-slate-800 leading-tight hover:text-indigo-600 transition cursor-text">
+                                ${repo.displayName}
+                            </h2>
+                        </div>
+
+                        <!-- Language Badge -->
+                        <div class="pl-3 mb-4">
+                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${langClass}">
+                                ${repo.language || "Code"}
+                            </span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="flex-grow pl-3 mb-6">
+                            <p ${isEditable} onblur="updateField('${
+                              repo.name
+                            }', 'customDescription', this.innerText)"
+                               class="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                               ${
+                                 repo.displayDesc ||
+                                 "Chưa có mô tả cho dự án này."
+                               }
+                            </p>
+                        </div>
+
+                        <!-- Footer Actions -->
+                        <div class="pl-3 mt-auto">
+                            <div class="flex items-center gap-3 mb-4 text-xs text-slate-400 font-medium">
+                                
+                                <span class="flex items-center">Cập nhật: ${date}</span>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                ${demoBtn}
+                                <a href="${repo.html_url}" target="_blank" 
+                                   class="w-10 flex items-center justify-center rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                                   <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+
+                            ${adminControls}
+                        </div>
+                    </div>
+                </div>
+            `;
+          })
+          .join("");
+      }
+
+      // --- INIT APP ---
+      const app = initializeApp(getFirebaseConfig());
+      db = getDatabase(app);
+      const auth = getAuth(app);
+      signInAnonymously(auth).catch((e) => console.log("Auth anon failed", e)); // Vẫn login ẩn danh để kết nối DB được
+
+      // Start
+      fetchRepos();
+    </script>
+  </body>
+</html>

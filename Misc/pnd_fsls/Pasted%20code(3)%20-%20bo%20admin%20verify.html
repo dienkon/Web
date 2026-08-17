@@ -1,0 +1,793 @@
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8C5F3B" />
+    <link rel="manifest" href="manifest.webmanifest?v=5.33.4" />
+    <link rel="icon" href="assets/pnd-icon.svg?v=5.33.4" type="image/svg+xml" />
+    <script src="assets/pwa-register.js?v=5.33.4" defer></script>
+    <title>PND Team · Quản lý kho đề</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/auto-render.min.js"
+    ></script>
+    <script
+      defer
+      src="assets/vendor/sweetalert2/sweetalert2.all.min.js?v=11.26.25"
+    ></script>
+    <style>
+      :root {
+        --brown: #8c5f3b;
+        --brown-dark: #684226;
+        --cream: #fffaf3;
+        --ink: #27231f;
+        --muted: #77716b;
+        --line: #eadfd4;
+        --green: #18794e;
+        --red: #b42318;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 0%, #f7dfc4 0, transparent 28%),
+          radial-gradient(circle at 100% 20%, #f1e7da 0, transparent 32%),
+          #f6f4f1;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .shell {
+        width: min(1440px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+      }
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        display: grid;
+        place-items: center;
+        background: var(--brown);
+        color: white;
+        font-weight: 800;
+        box-shadow: 0 10px 24px #8c5f3b35;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(21px, 3vw, 30px);
+      }
+      .sub {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .auth-badge,
+      .back-link {
+        padding: 9px 13px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(330px, 0.75fr);
+        gap: 22px;
+        align-items: start;
+      }
+      .panel {
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(234, 223, 212, 0.95);
+        border-radius: 26px;
+        box-shadow: 0 18px 50px rgba(60, 42, 29, 0.08);
+        overflow: hidden;
+      }
+      .panel-head {
+        padding: 22px 24px 16px;
+        border-bottom: 1px solid #f0e8e0;
+      }
+      .panel-head h2 {
+        margin: 0 0 5px;
+        font-size: 18px;
+      }
+      .panel-head p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .panel-body {
+        padding: 22px 24px 26px;
+      }
+      .dropzone {
+        border: 2px dashed #d8c2ad;
+        border-radius: 18px;
+        padding: 24px 18px;
+        text-align: center;
+        color: var(--muted);
+        background: var(--cream);
+        transition: 0.2s;
+      }
+      .dropzone.dragging {
+        border-color: var(--brown);
+        background: #fff3e5;
+        transform: translateY(-2px);
+      }
+      .dropzone strong {
+        display: block;
+        color: var(--ink);
+        margin-bottom: 5px;
+      }
+      .dropzone button {
+        border: 0;
+        color: var(--brown);
+        background: transparent;
+        font-weight: 800;
+        text-decoration: underline;
+      }
+      #json-file {
+        display: none;
+      }
+      .or {
+        text-align: center;
+        color: #aaa19a;
+        font-size: 11px;
+        font-weight: 800;
+        margin: 14px 0;
+      }
+      textarea,
+      input,
+      select {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: white;
+        padding: 12px 13px;
+        color: var(--ink);
+        outline: none;
+        transition: 0.2s;
+      }
+      textarea:focus,
+      input:focus {
+        border-color: var(--brown);
+        box-shadow: 0 0 0 3px #8c5f3b18;
+      }
+      textarea {
+        min-height: 220px;
+        resize: vertical;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 12px;
+        line-height: 1.55;
+      }
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #514a44;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 13px;
+      }
+      .grid.three {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .field {
+        margin-top: 14px;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 13px;
+      }
+      .btn {
+        border: 0;
+        border-radius: 12px;
+        min-height: 42px;
+        padding: 10px 15px;
+        font-size: 12px;
+        font-weight: 800;
+        transition:
+          transform 0.15s,
+          opacity 0.15s,
+          background 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .btn-primary {
+        color: white;
+        background: var(--brown);
+      }
+      .btn-primary:hover {
+        background: var(--brown-dark);
+      }
+      .btn-soft {
+        color: var(--brown);
+        background: #f8ede3;
+      }
+      .btn-dark {
+        color: white;
+        background: #25211e;
+      }
+      .btn-ghost {
+        color: #665f58;
+        background: #f3f0ed;
+      }
+      .status {
+        display: none;
+        margin-top: 15px;
+        padding: 12px 14px;
+        border-radius: 13px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+      .status.show {
+        display: block;
+      }
+      .status.ok {
+        color: var(--green);
+        background: #ecfdf3;
+        border: 1px solid #abefc6;
+      }
+      .status.error {
+        color: var(--red);
+        background: #fef3f2;
+        border: 1px solid #fecdca;
+      }
+      .preview {
+        display: none;
+        margin-top: 18px;
+        border-top: 1px solid #f0e8e0;
+        padding-top: 18px;
+      }
+      .preview.show {
+        display: block;
+      }
+      .preview-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .preview-title h3 {
+        margin: 0;
+        font-size: 15px;
+      }
+      .count {
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--brown);
+        background: #f8ede3;
+        padding: 5px 9px;
+        border-radius: 999px;
+      }
+      .question-preview {
+        max-height: 420px;
+        overflow: auto;
+        padding-right: 5px;
+      }
+      .question {
+        border: 1px solid #eee5dd;
+        background: #fff;
+        border-radius: 15px;
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+      .question-top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--brown);
+        text-transform: uppercase;
+      }
+      .question p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.65;
+      }
+      .options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        margin-top: 10px;
+      }
+      .option {
+        background: #f8f6f3;
+        border-radius: 9px;
+        padding: 7px 9px;
+        font-size: 11px;
+      }
+      .inventory-tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 13px;
+      }
+      .inventory-tools input {
+        min-width: 0;
+      }
+      .exam-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 760px;
+        overflow: auto;
+      }
+      .empty {
+        padding: 32px 15px;
+        text-align: center;
+        color: #9a928b;
+        font-size: 12px;
+        line-height: 1.7;
+      }
+      .exam-card {
+        border: 1px solid #eee5dd;
+        border-radius: 16px;
+        padding: 14px;
+        background: white;
+      }
+      .exam-card h3 {
+        margin: 7px 0 4px;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      .exam-meta {
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.5;
+      }
+      .source {
+        display: inline-flex;
+        border-radius: 999px;
+        padding: 4px 8px;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .source.local {
+        color: #6941c6;
+        background: #f4f3ff;
+      }
+      .source.cloud {
+        color: #067647;
+        background: #ecfdf3;
+      }
+      .source.legacy {
+        color: #b54708;
+        background: #fffaeb;
+      }
+      .card-actions {
+        display: flex;
+        gap: 7px;
+        margin-top: 11px;
+      }
+      .card-actions button {
+        flex: 1;
+        border: 0;
+        padding: 8px;
+        border-radius: 9px;
+        font-size: 10px;
+        font-weight: 800;
+      }
+      .edit {
+        color: var(--brown);
+        background: #f8ede3;
+      }
+      .delete {
+        color: var(--red);
+        background: #fef3f2;
+      }
+      .editing-banner {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding: 11px 13px;
+        border-radius: 13px;
+        color: #6941c6;
+        background: #f4f3ff;
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .editing-banner.show {
+        display: flex;
+      }
+      .editing-banner button {
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font-weight: 800;
+      }
+      .note {
+        margin-top: 13px;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.6;
+      }
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .topbar {
+          align-items: flex-start;
+        }
+        .auth-badge {
+          display: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 18px, 1440px);
+          padding-top: 14px;
+        }
+        .topbar {
+          gap: 8px;
+        }
+        .brand-mark {
+          width: 42px;
+          height: 42px;
+        }
+        .back-link {
+          padding: 8px 10px;
+        }
+        .panel {
+          border-radius: 20px;
+        }
+        .panel-head,
+        .panel-body {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+        .grid,
+        .grid.three {
+          grid-template-columns: 1fr;
+        }
+        .options {
+          grid-template-columns: 1fr;
+        }
+        .toolbar .btn {
+          flex: 1 1 calc(50% - 5px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">PND</div>
+          <div>
+            <h1>Cổng nạp đề JSON</h1>
+            <p class="sub">
+              Thêm, kiểm tra, sửa và xóa đề mà không cần mở code.
+            </p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <span id="auth-badge" class="auth-badge">Sẵn sàng</span>
+          <a class="back-link" href="pnd_master.html">← Kho đề</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Nhập dữ liệu đề</h2>
+            <p>
+              Chọn file <b>.json</b> do công cụ AI tạo, hoặc dán nguyên nội dung
+              JSON vào ô bên dưới.
+            </p>
+          </div>
+          <div class="panel-body">
+            <div id="editing-banner" class="editing-banner">
+              <span id="editing-text">Đang sửa đề</span>
+              <button id="cancel-edit" type="button">Hủy sửa ×</button>
+            </div>
+
+            <div id="dropzone" class="dropzone">
+              <strong>Thả file JSON vào đây</strong>
+              <span
+                >hoặc
+                <button id="pick-file" type="button">
+                  chọn file từ máy
+                </button></span
+              >
+              <input
+                id="json-file"
+                type="file"
+                accept="application/json,.json"
+              />
+            </div>
+
+            <div class="or">HOẶC DÁN NỘI DUNG</div>
+            <textarea
+              id="json-input"
+              spellcheck="false"
+              placeholder='{"title":"Đề Toán số 01","durationMinutes":90,"questions":[...]}'
+            ></textarea>
+
+            <div class="toolbar">
+              <button id="validate-btn" class="btn btn-primary" type="button">
+                Kiểm tra & xem trước
+              </button>
+              <button id="clear-btn" class="btn btn-ghost" type="button">
+                Làm trống
+              </button>
+            </div>
+            <div id="status" class="status" role="status"></div>
+
+            <div id="metadata" class="field" hidden>
+              <div class="grid">
+                <div>
+                  <label for="exam-title">Tên đề thi</label>
+                  <input
+                    id="exam-title"
+                    type="text"
+                    placeholder="Đề thi thử Toán số 01"
+                  />
+                </div>
+                <div>
+                  <label for="exam-subject">Môn học</label>
+                  <input id="exam-subject" type="text" placeholder="Toán" />
+                </div>
+              </div>
+              <div class="grid">
+                <div class="field">
+                  <label for="exam-subject-category">Nhóm môn học</label>
+                  <select id="exam-subject-category">
+                    <option value="math">Toán</option>
+                    <option value="physics">Vật lý</option>
+                    <option value="chemistry">Hóa học</option>
+                    <option value="english">Tiếng Anh</option>
+                    <option value="other">Khác</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="exam-format">Kỳ thi</label>
+                  <select id="exam-format">
+                    <option value="none">Không áp dụng</option>
+                    <option value="hsa">HSA</option>
+                    <option value="tsa">TSA</option>
+                    <option value="vact">V-ACT</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid three">
+                <div class="field">
+                  <label for="exam-code">Mã đề</label>
+                  <input id="exam-code" type="text" placeholder="101" />
+                </div>
+                <div class="field">
+                  <label for="exam-duration">Thời gian (phút)</label>
+                  <input
+                    id="exam-duration"
+                    type="number"
+                    min="1"
+                    max="600"
+                    value="90"
+                  />
+                </div>
+                <div class="field">
+                <label for="exam-deadline">Hạn khảo sát (tùy chọn)</label>
+                  <input id="exam-deadline" type="datetime-local" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="attempt-policy">Số lượt làm bài</label>
+                <select id="attempt-policy">
+                  <option value="multiple">
+                    Luyện tập · được làm lại nhiều lần
+                  </option>
+                  <option value="single">
+                    Khảo sát · mỗi tài khoản chỉ 1 lượt
+                  </option>
+                </select>
+                <small style="color: var(--muted)"
+                  >Khi đặt hạn khảo sát, hệ thống sẽ tự chọn chế độ 1
+                  lượt.</small
+                >
+              </div>
+              <div
+                class="field"
+                style="
+                  margin-top: 18px;
+                  padding: 16px;
+                  border: 1px solid #ead7c2;
+                  border-radius: 16px;
+                  background: #fffaf4;
+                "
+              >
+                <label style="font-size: 13px; color: #6f431f"
+                  >Tổng điểm tự tính từ từng câu</label
+                >
+                <div class="grid" style="margin-top: 10px">
+                  <div class="field">
+                    <label for="score-total-tn">Trắc nghiệm (TN)</label>
+                    <input
+                      id="score-total-tn"
+                      data-score-type="TN"
+                      type="number"
+                      value="0"
+                      readonly
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="score-total-ds">Đúng/Sai (chấm mặc định)</label>
+                    <input
+                      id="score-total-ds"
+                      data-score-type="DS"
+                      type="number"
+                      value="0"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="field">
+                    <label for="score-total-dn">Trả lời ngắn (DN/TLN)</label>
+                    <input
+                      id="score-total-dn"
+                      data-score-type="DN"
+                      type="number"
+                      value="0"
+                      readonly
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="score-total-tl">Tự luận dài (TL)</label>
+                    <input
+                      id="score-total-tl"
+                      data-score-type="TL"
+                      type="number"
+                      value="0"
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div
+                  id="score-total-summary"
+                  class="status show"
+                  style="margin-top: 10px"
+                >
+                  Tổng điểm: 0/10
+                </div>
+                <small style="color: var(--muted)"
+                  >Sửa điểm ngay trên từng thẻ câu hỏi ở phần xem trước. Câu
+                  Đúng/Sai được khóa tối đa 1 điểm/câu, theo các mức 0 · 0,1 ·
+                  0,25 · 0,5 · 1.</small
+                >
+              </div>
+            </div>
+
+            <section id="preview" class="preview">
+              <div class="preview-title">
+                <h3>Xem trước nội dung</h3>
+                <span id="question-count" class="count">0 câu</span>
+              </div>
+              <div id="question-preview" class="question-preview"></div>
+            </section>
+
+            <div id="save-actions" class="toolbar" hidden>
+              <button id="save-local" class="btn btn-dark" type="button">
+                Lưu đề local
+              </button>
+              <button
+                id="save-cloud"
+                class="btn btn-primary"
+                type="button"
+                disabled
+              >
+                Đăng lên Firestore
+              </button>
+            </div>
+            <p class="note">
+              <b>Lưu local</b> dùng để thử trên máy này. <b>Firestore</b> dùng
+              cho tài khoản thật và chỉ mở khi bạn đăng nhập bằng email quản
+              trị.
+            </p>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <div class="panel-head">
+            <h2>Kho đề đã lưu</h2>
+            <p>
+              Đề local nằm trong trình duyệt hiện tại; đề Firestore dùng chung
+              cho hệ thống.
+            </p>
+            <div class="inventory-tools">
+              <input
+                id="search-input"
+                type="search"
+                placeholder="Tìm theo tên hoặc môn…"
+              />
+              <button id="refresh-btn" class="btn btn-soft" type="button">
+                Tải lại
+              </button>
+              <button
+                id="optimize-cloud-btn"
+                class="btn btn-primary"
+                type="button"
+                hidden
+              >
+                Tối ưu tải đề
+              </button>
+              <button
+                id="delete-legacy-btn"
+                class="btn btn-ghost"
+                type="button"
+                hidden
+              >
+                Xóa tất cả PDF cũ
+              </button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div id="exam-list" class="exam-list">
+              <div class="empty">Đang đọc kho đề…</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>

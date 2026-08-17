@@ -1,0 +1,58 @@
+{
+  "number": 55,
+  "symbol": "Cs",
+  "nameVi": "Cesium",
+  "nameEn": "Cesium",
+  "mass": 132.905,
+  "category": "kiem",
+  "general": {
+    "latinName": "Caesium",
+    "englishName": "Cesium",
+    "electronConfig": "[Xe] 6s1",
+    "group": 1,
+    "period": 6,
+    "oxidation": "+1",
+    "electronegativity": "0.79",
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      8,
+      1
+    ]
+  },
+  "history": {
+    "discoverer": "Robert Bunsen & Gustav Kirchhoff",
+    "year": 1860,
+    "discoveryLocation": "Đức"
+  },
+  "structure": {
+    "electrons": 55,
+    "protons": 55,
+    "neutrons": 78
+  },
+  "occurrence": {
+    "description": "Có trong pollucit.",
+    "simple": [
+      "Cs"
+    ],
+    "compounds": [
+      "CsCl",
+      "Cs2SO4"
+    ]
+  },
+  "physical": "Kim loại rất mềm, dễ nóng chảy.",
+  "chemical": "Hoạt động rất mạnh.",
+  "reactions": [
+    {
+      "type": "Với nước",
+      "eq": "2Cs + 2H2O → 2CsOH + H2",
+      "desc": "Phản ứng cực mạnh."
+    }
+  ],
+  "structureType": "cscl",
+  "images": {},
+  "hasData": true,
+  "file": "elements/055_Cs.json"
+}

@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    match /exams/{examId} {
+      allow read: if isAuthenticated() && (resource == null || resource.data.published == true || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    match /examAnswers/{examId} {
+      allow read: if isAuthenticated() && (isAdmin() || (exists(/databases/$(database)/documents/attempts/$(request.auth.uid + '_' + examId)) && get(/databases/$(database)/documents/attempts/$(request.auth.uid + '_' + examId)).data.isFinished == true));
+      allow write: if isAdmin();
+    }
+
+    match /attempts/{attemptId} {
+      allow read: if isAuthenticated() && (resource == null || resource.data.uid == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid && attemptId == request.auth.uid + '_' + request.resource.data.examId;
+      allow update: if isAuthenticated() && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+  }
+}

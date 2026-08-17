@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Model Viewer</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0b1020;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #app {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      canvas {
+        display: block;
+      }
+
+      .ui {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        z-index: 10;
+        width: min(92vw, 440px);
+        color: #fff;
+        background: rgba(10, 14, 28, 0.72);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      .ui h1 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        line-height: 1.25;
+      }
+
+      .ui p {
+        margin: 0 0 12px;
+        font-size: 13px;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"] {
+        flex: 1 1 240px;
+        min-width: 0;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        outline: none;
+      }
+
+      button {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 0;
+        background: #4f7cff;
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      button.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .status {
+        margin-top: 8px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        word-break: break-word;
+        min-height: 16px;
+      }
+
+      .hint {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        z-index: 10;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        max-width: min(92vw, 320px);
+      }
+    </style>
+
+    <!-- Fix bare module specifier "three" bằng importmap -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div class="ui">
+      <h1>3D Model Viewer</h1>
+
+      <div class="row">
+        <input id="modelPath" type="text" value="assets/model/model.glb" />
+      </div>
+      <div class="row">
+        <button id="loadBtn">Tải model</button>
+        <button id="pickBtn" class="secondary">Chọn file</button>
+        <button id="resetBtn" class="secondary">Reset góc nhìn</button>
+      </div>
+
+      <input
+        id="fileInput"
+        type="file"
+        hidden
+        accept=".glb,.gltf,.obj,.fbx,.png,.jpg,.jpeg,.webp,.mtl,.bin"
+      />
+      <div class="status" id="status">Sẵn sàng.</div>
+    </div>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+      import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+      import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+
+      const app = document.getElementById("app");
+      const statusEl = document.getElementById("status");
+      const modelPathInput = document.getElementById("modelPath");
+      const loadBtn = document.getElementById("loadBtn");
+      const pickBtn = document.getElementById("pickBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const fileInput = document.getElementById("fileInput");
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0b1020);
+
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        5000,
+      );
+      camera.position.set(0, 1.5, 4);
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: false,
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.shadowMap.enabled = true;
+      app.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.target.set(0, 1, 0);
+
+      const ambient = new THREE.AmbientLight(0xffffff, 1.4);
+      scene.add(ambient);
+
+      const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.0);
+      dirLight1.position.set(5, 8, 5);
+      dirLight1.castShadow = true;
+      scene.add(dirLight1);
+
+      const dirLight2 = new THREE.DirectionalLight(0x9bb7ff, 1.0);
+      dirLight2.position.set(-4, 2, -3);
+      scene.add(dirLight2);
+
+      const grid = new THREE.GridHelper(20, 20, 0x324055, 0x243042);
+      grid.position.y = -1;
+      scene.add(grid);
+
+      let currentModel = null;
+      let currentObjectURL = null;
+
+      function setStatus(msg) {
+        statusEl.textContent = msg;
+      }
+
+      function disposeNode(node) {
+        if (!node) return;
+        if (node.geometry) node.geometry.dispose?.();
+        if (node.material) {
+          const materials = Array.isArray(node.material)
+            ? node.material
+            : [node.material];
+          for (const mat of materials) {
+            for (const key of Object.keys(mat)) {
+              const value = mat[key];
+              if (value && value.isTexture) value.dispose?.();
+            }
+            mat.dispose?.();
+          }
+        }
+      }
+
+      function clearModel() {
+        if (currentModel) {
+          scene.remove(currentModel);
+          currentModel.traverse(disposeNode);
+          currentModel = null;
+        }
+
+        if (currentObjectURL) {
+          URL.revokeObjectURL(currentObjectURL);
+          currentObjectURL = null;
+        }
+      }
+
+      function frameObject(object3d) {
+        const box = new THREE.Box3().setFromObject(object3d);
+        const size = new THREE.Vector3();
+        const center = new THREE.Vector3();
+        box.getSize(size);
+        box.getCenter(center);
+
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const fov = THREE.MathUtils.degToRad(camera.fov);
+        let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+        cameraZ *= 1.8;
+
+        const direction = new THREE.Vector3(0, 0, 1);
+        camera.position.copy(center).add(direction.multiplyScalar(cameraZ));
+        camera.near = Math.max(cameraZ / 100, 0.01);
+        camera.far = cameraZ * 100;
+        camera.updateProjectionMatrix();
+
+        controls.target.copy(center);
+        controls.update();
+
+        grid.position.y = center.y - size.y / 2 - 0.02;
+      }
+
+      function normalizeLoadedObject(object3d) {
+        object3d.traverse((child) => {
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            if (child.material && child.material.map) {
+              child.material.map.colorSpace = THREE.SRGBColorSpace;
+            }
+          }
+        });
+
+        scene.add(object3d);
+        currentModel = object3d;
+        frameObject(object3d);
+      }
+
+      async function loadFromPath(path) {
+        const cleanPath = (path || "").trim();
+        if (!cleanPath) {
+          setStatus("Vui lòng nhập đường dẫn model.");
+          return;
+        }
+
+        clearModel();
+        setStatus(`Đang tải: ${cleanPath}`);
+
+        const lower = cleanPath.toLowerCase();
+
+        try {
+          if (lower.endsWith(".glb") || lower.endsWith(".gltf")) {
+            const loader = new GLTFLoader();
+            loader.load(
+              cleanPath,
+              (gltf) => {
+                normalizeLoadedObject(gltf.scene);
+                setStatus(`Đã tải model: ${cleanPath}`);
+              },
+              undefined,
+              (err) => {
+                console.error(err);
+                setStatus(`Không tải được model: ${cleanPath}`);
+              },
+            );
+            return;
+          }
+
+          if (lower.endsWith(".obj")) {
+            const loader = new OBJLoader();
+            loader.load(
+              cleanPath,
+              (obj) => {
+                normalizeLoadedObject(obj);
+                setStatus(`Đã tải model: ${cleanPath}`);
+              },
+              undefined,
+              (err) => {
+                console.error(err);
+                setStatus(`Không tải được model: ${cleanPath}`);
+              },
+            );
+            return;
+          }
+
+          if (lower.endsWith(".fbx")) {
+            const loader = new FBXLoader();
+            loader.load(
+              cleanPath,
+              (obj) => {
+                obj.scale.setScalar(0.01);
+                normalizeLoadedObject(obj);
+                setStatus(`Đã tải model: ${cleanPath}`);
+              },
+              undefined,
+              (err) => {
+                console.error(err);
+                setStatus(`Không tải được model: ${cleanPath}`);
+              },
+            );
+            return;
+          }
+
+          setStatus(
+            "Định dạng chưa hỗ trợ. Hãy dùng .glb, .gltf, .obj hoặc .fbx.",
+          );
+        } catch (error) {
+          console.error(error);
+          setStatus("Có lỗi khi tải model. Kiểm tra lại file và đường dẫn.");
+        }
+      }
+
+      async function loadFromFile(file) {
+        if (!file) return;
+        clearModel();
+        const name = file.name.toLowerCase();
+        setStatus(`Đang mở file: ${file.name}`);
+
+        try {
+          currentObjectURL = URL.createObjectURL(file);
+
+          if (name.endsWith(".glb") || name.endsWith(".gltf")) {
+            const loader = new GLTFLoader();
+            loader.load(
+              currentObjectURL,
+              (gltf) => {
+                normalizeLoadedObject(gltf.scene);
+                setStatus(`Đã mở file: ${file.name}`);
+              },
+              undefined,
+              (err) => {
+                console.error(err);
+                setStatus(`Không mở được file: ${file.name}`);
+              },
+            );
+            return;
+          }
+
+          if (name.endsWith(".obj")) {
+            const loader = new OBJLoader();
+            loader.load(
+              currentObjectURL,
+              (obj) => {
+                normalizeLoadedObject(obj);
+                setStatus(`Đã mở file: ${file.name}`);
+              },
+              undefined,
+              (err) => {
+                console.error(err);
+                setStatus(`Không mở được file: ${file.name}`);
+              },
+            );
+            return;
+          }
+
+          if (name.endsWith(".fbx")) {
+            const loader = new FBXLoader();
+            loader.load(
+              currentObjectURL,
+              (obj) => {
+                obj.scale.setScalar(0.01);
+                normalizeLoadedObject(obj);
+                setStatus(`Đã mở file: ${file.name}`);
+              },
+              undefined,
+              (err) => {
+                console.error(err);
+                setStatus(`Không mở được file: ${file.name}`);
+              },
+            );
+            return;
+          }
+
+          if (name.endsWith(".mtl")) {
+            setStatus(
+              "MTL cần đi kèm OBJ. Hãy chọn OBJ trước, hoặc load OBJ từ folder assets/model/.",
+            );
+            return;
+          }
+
+          setStatus("File này chưa hỗ trợ.");
+        } catch (error) {
+          console.error(error);
+          setStatus("Có lỗi khi mở file.");
+        }
+      }
+
+      function resetView() {
+        if (!currentModel) {
+          camera.position.set(0, 1.5, 4);
+          controls.target.set(0, 1, 0);
+          controls.update();
+          return;
+        }
+        frameObject(currentModel);
+      }
+
+      loadBtn.addEventListener("click", () =>
+        loadFromPath(modelPathInput.value),
+      );
+      resetBtn.addEventListener("click", resetView);
+
+      pickBtn.addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", (e) => {
+        const file = e.target.files?.[0];
+        if (file) loadFromFile(file);
+        fileInput.value = "";
+      });
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      });
+
+      loadFromPath(modelPathInput.value);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

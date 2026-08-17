@@ -1,0 +1,2613 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thời Gian Biểu</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #475569;
+      }
+      .transition-all-200 {
+        transition: all 0.2s ease-in-out;
+      }
+      .timetable-grid {
+        grid-template-columns: 80px repeat(7, minmax(140px, 1fr));
+      }
+
+      /* CSS cho việc In ấn (Chỉ in bảng) */
+      @media print {
+        @page {
+          size: landscape;
+          margin: 1cm;
+        }
+        body {
+          background: white !important;
+        }
+        .print\:hidden {
+          display: none !important;
+        }
+        .print\:block {
+          display: block !important;
+        }
+        .print\:p-0 {
+          padding: 0 !important;
+        }
+        main {
+          overflow: visible !important;
+          width: 100% !important;
+        }
+        .timetable-grid {
+          border: 1px solid #e2e8f0;
+          break-inside: avoid;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        #current-time-indicator {
+          display: none !important;
+        }
+      }
+
+      /* Responsive upgrades */
+      @media (max-width: 1024px) {
+        .timetable-grid {
+          grid-template-columns: 72px repeat(7, minmax(120px, 1fr));
+        }
+      }
+      @media (max-width: 640px) {
+        .timetable-grid {
+          grid-template-columns: 64px repeat(7, minmax(108px, 1fr));
+        }
+      }
+      .mobile-stack {
+        display: grid;
+        gap: 12px;
+      }
+      .analytics-card {
+        border: 1px solid rgba(148, 163, 184, 0.18);
+      }
+      .slot-pill {
+        min-height: 34px;
+      }
+      .day-chip-active {
+        box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.35);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 h-full flex flex-col transition-colors duration-200"
+  >
+    <!-- HEADER (Ẩn khi in) -->
+    <header
+      class="print:hidden bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-sm"
+    >
+      <div class="flex items-center gap-3">
+        <!-- Nút Toggle Sidebar -->
+        <button
+          id="btn-toggle-sidebar"
+          class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 transition-colors"
+        >
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <div
+          class="bg-brand-600 text-white p-2 rounded-xl shadow-lg shadow-brand-500/30 hidden sm:block"
+        >
+          <i data-lucide="calendar-clock" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1
+            class="text-lg font-bold tracking-tight bg-gradient-to-r from-brand-600 to-indigo-600 dark:from-brand-500 dark:to-indigo-400 bg-clip-text text-transparent leading-tight"
+          >
+            Lịch Hoạt Động Hè
+          </h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">
+            Từ 1/6 - 1/9
+          </p>
+        </div>
+      </div>
+
+      <!-- Công cụ trung tâm -->
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Xem hoạt động hiện tại -->
+        <button
+          id="btn-current-activity"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-100 dark:hover:bg-emerald-800/40 text-emerald-600 dark:text-emerald-400 font-medium text-xs rounded-lg transition-colors border border-emerald-200 dark:border-emerald-800"
+        >
+          <i data-lucide="clock-4" class="w-4 h-4"></i>
+          <span class="hidden md:inline">Đang diễn ra</span>
+        </button>
+
+        <!-- Phân tích thống kê -->
+        <button
+          onclick="openAnalyticsModal()"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-800/40 text-indigo-600 dark:text-indigo-400 font-medium text-xs rounded-lg transition-colors border border-indigo-200 dark:border-indigo-800"
+        >
+          <i data-lucide="pie-chart" class="w-4 h-4"></i>
+          <span class="hidden md:inline">Phân tích</span>
+        </button>
+
+        <!-- Cài đặt khung giờ -->
+        <button
+          onclick="openSettingsModal()"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 font-medium text-xs rounded-lg transition-colors border border-slate-200 dark:border-slate-600"
+        >
+          <i data-lucide="settings-2" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Công cụ hiển thị & Xuất file -->
+      <div class="flex items-center gap-2">
+        <button
+          id="btn-theme-toggle"
+          class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 transition-colors"
+          title="Đổi giao diện"
+        >
+          <i data-lucide="sun" id="theme-icon-light" class="w-4 h-4 hidden"></i>
+          <i data-lucide="moon" id="theme-icon-dark" class="w-4 h-4"></i>
+        </button>
+
+        <button
+          id="btn-reset"
+          class="p-2 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-rose-500 rounded-lg transition-colors"
+          title="Khôi phục mặc định"
+        >
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Xuất Excel -->
+        <button
+          onclick="exportExcel()"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs rounded-lg transition-colors shadow-sm"
+        >
+          <i data-lucide="sheet" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Excel</span>
+        </button>
+
+        <!-- In / PDF -->
+        <button
+          onclick="window.print()"
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs rounded-lg transition-colors shadow-sm"
+        >
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">In/PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+      <!-- SIDEBAR TRÁI (Ẩn khi in) -->
+      <aside
+        id="main-sidebar"
+        class="print:hidden w-full lg:w-72 bg-white dark:bg-slate-800 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-700 flex flex-col overflow-y-auto shrink-0 transition-all duration-300 z-20"
+      >
+        <div class="p-4 flex flex-col gap-5 h-full">
+          <!-- Tạo Bài Học Mới -->
+          <div>
+            <h2
+              class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center gap-2"
+            >
+              <i
+                data-lucide="plus-circle"
+                class="w-3.5 h-3.5 text-brand-500"
+              ></i>
+              Tạo Hoạt Động
+            </h2>
+            <form
+              id="form-create-lesson"
+              class="space-y-2.5 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700"
+            >
+              <div>
+                <input
+                  id="input-subject"
+                  type="text"
+                  required
+                  placeholder="Tên hoạt động..."
+                  class="w-full px-2.5 py-1.5 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md focus:ring-2 focus:ring-brand-500 focus:outline-none"
+                />
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <input
+                  id="input-teacher"
+                  type="text"
+                  placeholder="Phụ trách..."
+                  class="w-full px-2.5 py-1.5 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md focus:ring-2 focus:ring-brand-500 focus:outline-none"
+                />
+                <input
+                  id="input-room"
+                  type="text"
+                  placeholder="Vị trí..."
+                  class="w-full px-2.5 py-1.5 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md focus:ring-2 focus:ring-brand-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <div class="flex flex-wrap gap-1.5" id="color-picker">
+                  <!-- Render by JS -->
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="w-full py-1.5 bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs rounded-md transition-colors flex items-center justify-center gap-1 shadow-sm mt-1"
+              >
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Thêm vào khay
+              </button>
+            </form>
+          </div>
+
+          <!-- Ngăn chứa Bài học kéo thả -->
+          <div class="flex-1 flex flex-col min-h-[200px]">
+            <div class="flex items-center justify-between mb-2">
+              <h2
+                class="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2"
+              >
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-brand-500"></i>
+                Khay chờ
+              </h2>
+              <span
+                id="lesson-pool-count"
+                class="text-[10px] bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded-full text-slate-500"
+                >0</span
+              >
+            </div>
+
+            <div
+              id="lesson-pool"
+              class="flex-1 space-y-2 p-2 bg-slate-100 dark:bg-slate-900/60 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 overflow-y-auto"
+            >
+              <!-- Kéo thả -->
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- KHU VỰC THỜI KHÓA BIỂU CHÍNH -->
+      <main
+        class="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900 p-2 md:p-4 print:p-0"
+      >
+        <div
+          class="min-w-[900px] bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden print:border-none print:shadow-none print:rounded-none"
+        >
+          <!-- TIÊU ĐỀ -->
+          <div
+            class="grid timetable-grid bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 font-medium text-xs text-center select-none sticky top-0 z-20 print:bg-white print:text-black"
+          >
+            <div
+              class="p-3 flex flex-col items-center justify-center text-slate-500 font-bold border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              <span>Giờ / Thứ</span>
+              <div
+                id="live-clock-small"
+                class="text-[9px] font-mono mt-1 text-brand-500 print:hidden"
+              >
+                --:--
+              </div>
+            </div>
+
+            <!-- Headers -->
+            <div
+              id="day-header-1"
+              data-day="1"
+              class="p-3 border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              Thứ 2
+              <div class="text-[9px] text-slate-400" id="date-label-0"></div>
+            </div>
+            <div
+              id="day-header-2"
+              data-day="2"
+              class="p-3 border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              Thứ 3
+              <div class="text-[9px] text-slate-400" id="date-label-1"></div>
+            </div>
+            <div
+              id="day-header-3"
+              data-day="3"
+              class="p-3 border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              Thứ 4
+              <div class="text-[9px] text-slate-400" id="date-label-2"></div>
+            </div>
+            <div
+              id="day-header-4"
+              data-day="4"
+              class="p-3 border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              Thứ 5
+              <div class="text-[9px] text-slate-400" id="date-label-3"></div>
+            </div>
+            <div
+              id="day-header-5"
+              data-day="5"
+              class="p-3 border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              Thứ 6
+              <div class="text-[9px] text-slate-400" id="date-label-4"></div>
+            </div>
+            <div
+              id="day-header-6"
+              data-day="6"
+              class="p-3 border-r border-slate-200 dark:border-slate-700 print:border-black"
+            >
+              Thứ 7
+              <div class="text-[9px] text-slate-400" id="date-label-5"></div>
+            </div>
+            <div id="day-header-0" data-day="0" class="p-3 print:border-black">
+              Chủ nhật
+              <div class="text-[9px] text-slate-400" id="date-label-6"></div>
+            </div>
+          </div>
+
+          <!-- LƯỚI KHUNG GIỜ -->
+          <div class="relative" id="timetable-body">
+            <!-- Tracker -->
+            <div
+              id="current-time-indicator"
+              class="absolute left-0 w-full h-[2px] bg-rose-500 shadow-md z-10 pointer-events-none hidden print:hidden"
+              style="top: 0px"
+            >
+              <div
+                class="absolute -top-1.5 -left-1 w-3 h-3 bg-rose-500 rounded-full ring-2 ring-rose-100"
+              ></div>
+            </div>
+            <!-- Render by JS -->
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- MODAL HIỆN TẠI ĐANG LÀM GÌ -->
+    <div
+      id="current-activity-modal"
+      class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-[60] hidden print:hidden px-3"
+    >
+      <div
+        class="bg-white dark:bg-slate-800 w-full max-w-sm p-6 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 text-center animate-bounce-short"
+      >
+        <div
+          class="w-16 h-16 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <i data-lucide="bell-ring" class="w-8 h-8"></i>
+        </div>
+        <h3
+          class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1"
+        >
+          Hoạt động hiện tại của bạn:
+        </h3>
+        <div
+          id="current-activity-content"
+          class="text-2xl font-bold text-slate-900 dark:text-white mb-2 text-brand-600"
+        >
+          Đang tải...
+        </div>
+        <p
+          id="current-activity-time"
+          class="text-sm text-slate-500 dark:text-slate-400 mb-2"
+        ></p>
+        <p
+          id="current-activity-note"
+          class="text-[11px] text-slate-400 dark:text-slate-500 mb-6"
+        ></p>
+        <button
+          onclick="closeCurrentActivity()"
+          class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-white font-medium rounded-xl transition-colors"
+        >
+          Đã hiểu
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL PHÂN TÍCH & THỐNG KÊ NÂNG CAO -->
+    <div
+      id="analytics-modal"
+      class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-50 hidden print:hidden overflow-y-auto py-4 px-3"
+    >
+      <div
+        class="bg-white dark:bg-slate-800 w-full max-w-5xl p-5 md:p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 relative m-auto"
+      >
+        <button
+          onclick="closeAnalyticsModal()"
+          class="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition-colors bg-slate-100 dark:bg-slate-700 rounded-full p-1.5"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <div class="pr-10">
+          <h2
+            class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2"
+          >
+            <i data-lucide="pie-chart" class="text-indigo-500"></i> Phân Tích
+            Lịch Trình
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Tự động tính theo thời lượng từng khung giờ, tách riêng tổng quan
+            tuần và từng ngày.
+          </p>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+          <button
+            id="analytics-tab-week"
+            type="button"
+            class="analytics-tab-btn px-4 py-2 rounded-xl text-sm font-semibold border border-indigo-200 dark:border-indigo-800 bg-indigo-600 text-white"
+            onclick="switchAnalyticsTab('week')"
+          >
+            Tổng quan tuần
+          </button>
+          <button
+            id="analytics-tab-day"
+            type="button"
+            class="analytics-tab-btn px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200"
+            onclick="switchAnalyticsTab('day')"
+          >
+            Theo từng ngày
+          </button>
+        </div>
+
+        <div id="analytics-week-view" class="mt-6 space-y-6">
+          <div class="grid lg:grid-cols-[320px_1fr] gap-6 items-start">
+            <div
+              class="analytics-card bg-slate-50 dark:bg-slate-900/40 rounded-2xl p-4 md:p-5"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <h3
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-200"
+                >
+                  Tổng quan theo thời lượng
+                </h3>
+                <span
+                  id="weekly-total-hours"
+                  class="text-[11px] px-2 py-1 rounded-full bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300"
+                ></span>
+              </div>
+              <div class="relative w-full aspect-square max-w-[290px] mx-auto">
+                <canvas id="scheduleChart"></canvas>
+              </div>
+              <p class="text-xs text-slate-400 mt-3 text-center">
+                Biểu đồ đang hiển thị theo giờ và % chiếm dụng của từng hoạt
+                động
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div
+                class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3"
+                id="weekly-summary-cards"
+              ></div>
+              <div
+                class="analytics-card bg-white dark:bg-slate-900/30 rounded-2xl p-4 md:p-5"
+              >
+                <div class="flex items-center justify-between mb-4">
+                  <h3
+                    class="text-sm font-semibold text-slate-700 dark:text-slate-200"
+                  >
+                    Top hoạt động theo giờ
+                  </h3>
+                  <span class="text-[11px] text-slate-400"
+                    >xếp theo thời lượng</span
+                  >
+                </div>
+                <div id="top-activity-list" class="space-y-2"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4" id="weekly-insight-grid"></div>
+          <div id="ai-evaluations" class="space-y-3"></div>
+        </div>
+
+        <div id="analytics-day-view" class="mt-6 hidden space-y-4">
+          <div class="flex flex-wrap items-center gap-2 justify-between">
+            <div>
+              <h3
+                class="text-sm font-semibold text-slate-700 dark:text-slate-200"
+              >
+                Chi tiết từng ngày
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">
+                Chọn một ngày để xem phần chiếm dụng theo giờ, phần nghỉ, và
+                hoạt động nổi bật.
+              </p>
+            </div>
+            <select
+              id="day-analytics-select"
+              class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm"
+            ></select>
+          </div>
+
+          <div class="grid lg:grid-cols-[320px_1fr] gap-6 items-start">
+            <div
+              class="analytics-card bg-slate-50 dark:bg-slate-900/40 rounded-2xl p-4 md:p-5"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <h3
+                  class="text-sm font-semibold text-slate-700 dark:text-slate-200"
+                >
+                  Biểu đồ ngày
+                </h3>
+                <span class="text-[11px] text-slate-400"
+                  >theo giờ hoạt động</span
+                >
+              </div>
+              <div class="relative w-full aspect-square max-w-[290px] mx-auto">
+                <canvas id="dayScheduleChart"></canvas>
+              </div>
+              <p class="text-xs text-slate-400 mt-3 text-center">
+                Biểu đồ này cũng tính cả phần nghỉ ngơi để đủ 24 giờ/ngày.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div
+                id="day-analytics-cards"
+                class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"
+              ></div>
+              <div
+                id="selected-day-detail"
+                class="analytics-card bg-slate-50 dark:bg-slate-900/40 rounded-2xl p-4 md:p-5"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            onclick="generateEvaluations()"
+            class="w-full sm:w-auto px-4 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-medium rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition border border-indigo-200 dark:border-indigo-800"
+          >
+            <i data-lucide="refresh-cw" class="w-4 h-4 inline-block mr-1"></i>
+            Phân tích lại
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CÀI ĐẶT KHUNG GIỜ -->
+    <div
+      id="settings-modal"
+      class="fixed inset-0 bg-slate-950/50 backdrop-blur-sm flex items-center justify-center z-50 hidden print:hidden py-4 px-3"
+    >
+      <div
+        class="bg-white dark:bg-slate-800 w-full max-w-3xl p-5 md:p-6 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 max-h-[92vh] flex flex-col"
+      >
+        <div
+          class="flex items-center justify-between mb-4 border-b dark:border-slate-700 pb-3 gap-3"
+        >
+          <div>
+            <h3
+              class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2"
+            >
+              <i data-lucide="clock" class="w-5 h-5 text-brand-500"></i> Cấu
+              hình Khung Giờ (Ca)
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">
+              Có thể thêm, xóa hoặc sửa từng khung giờ rồi lưu lại.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              onclick="addTimeSlotRow()"
+              class="px-3 py-2 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 border border-brand-200 dark:bg-brand-900/20 dark:text-brand-300 dark:border-brand-800"
+            >
+              <i data-lucide="plus" class="w-4 h-4 inline-block mr-1"></i> Thêm
+              ca
+            </button>
+            <button
+              type="button"
+              onclick="closeSettingsModal()"
+              class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            >
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-1 overflow-y-auto pr-1 custom-scrollbar space-y-2"
+          id="time-slots-container"
+        >
+          <!-- Inputs sẽ được render qua JS -->
+        </div>
+        <div
+          class="pt-4 mt-2 border-t dark:border-slate-700 flex justify-end gap-2"
+        >
+          <button
+            onclick="closeSettingsModal()"
+            class="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 font-medium text-sm rounded-xl"
+          >
+            Hủy
+          </button>
+          <button
+            onclick="saveTimeSettings()"
+            class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm rounded-xl shadow-sm"
+          >
+            Lưu Thay Đổi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CHỈNH SỬA / CHI TIẾT BÀI HỌC (Đã có sẵn, giữ nguyên logic) -->
+    <div
+      id="edit-modal"
+      class="fixed inset-0 bg-slate-950/50 backdrop-blur-sm flex items-center justify-center z-[55] hidden print:hidden px-3"
+    >
+      <div
+        class="bg-white dark:bg-slate-800 w-full max-w-md p-6 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
+        id="modal-container"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3
+            class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2"
+          >
+            <i data-lucide="edit-3" class="w-5 h-5 text-brand-500"></i> Chi tiết
+            hoạt động
+          </h3>
+          <button
+            type="button"
+            onclick="closeModal()"
+            class="text-slate-400 hover:text-slate-600"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <form id="form-edit-lesson" class="space-y-4">
+          <input type="hidden" id="edit-lesson-id" />
+          <div>
+            <label
+              class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+              >Hoạt động</label
+            >
+            <input
+              id="edit-subject"
+              type="text"
+              required
+              class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+                >Phụ trách</label
+              >
+              <input
+                id="edit-teacher"
+                type="text"
+                class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+                >Vị trí</label
+              >
+              <input
+                id="edit-room"
+                type="text"
+                class="w-full px-3 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-500"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+              >Màu hiển thị</label
+            >
+            <div class="flex flex-wrap gap-2.5" id="edit-color-picker"></div>
+          </div>
+
+          <div class="flex items-center gap-2 pt-2">
+            <button
+              type="button"
+              id="btn-delete-lesson"
+              class="px-4 py-2 bg-rose-50 text-rose-600 text-sm font-medium rounded-xl flex items-center justify-center gap-1.5"
+            >
+              <i data-lucide="trash-2" class="w-4 h-4"></i> Xóa
+            </button>
+            <button
+              type="submit"
+              class="flex-1 px-4 py-2 bg-brand-600 text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-1.5"
+            >
+              <i data-lucide="save" class="w-4 h-4"></i> Lưu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- SCRIPT CHÍNH XỬ LÝ TOÀN BỘ LOGIC -->
+    <script>
+      // CẤU HÌNH KHUNG GIỜ MẶC ĐỊNH
+      const DEFAULT_TIMETABLE_HOURS = [
+        { id: 0, label: "Sáng", start: "07:00", end: "08:00" },
+        { id: 1, label: "Ca Sáng 1", start: "08:00", end: "09:30" },
+        { id: 2, label: "Nghỉ", start: "09:30", end: "10:00" },
+        { id: 3, label: "Ca Sáng 2", start: "10:00", end: "12:00" },
+        { id: 4, label: "Ngủ trưa", start: "12:00", end: "13:00" },
+        { id: 5, label: "Ca Chiều 1", start: "13:00", end: "14:30" },
+        { id: 6, label: "Nghỉ", start: "14:30", end: "15:00" },
+        { id: 7, label: "Ca Chiều 2", start: "15:00", end: "17:00" },
+        { id: 8, label: "Thể thao", start: "17:00", end: "18:00" },
+        { id: 9, label: "Nghỉ", start: "18:00", end: "19:30" },
+        { id: 10, label: "Ca Tối 1", start: "19:30", end: "21:00" },
+        { id: 11, label: "Nghỉ", start: "21:00", end: "21:30" },
+        { id: 12, label: "Ca Tối 2", start: "21:30", end: "23:00" },
+        { id: 13, label: "Ngủ", start: "23:00", end: "07:00" },
+      ];
+
+      const COLOR_MAP = {
+        blue: {
+          bg: "bg-blue-50 dark:bg-blue-950/20",
+          border: "border-blue-200 dark:border-blue-900/50",
+          text: "text-blue-800 dark:text-blue-200",
+          accent: "bg-blue-500",
+          hex: "#3b82f6",
+        },
+        emerald: {
+          bg: "bg-emerald-50 dark:bg-emerald-950/20",
+          border: "border-emerald-200 dark:border-emerald-900/50",
+          text: "text-emerald-800 dark:text-emerald-200",
+          accent: "bg-emerald-500",
+          hex: "#10b981",
+        },
+        amber: {
+          bg: "bg-amber-50 dark:bg-amber-950/20",
+          border: "border-amber-200 dark:border-amber-900/50",
+          text: "text-amber-800 dark:text-amber-200",
+          accent: "bg-amber-500",
+          hex: "#f59e0b",
+        },
+        rose: {
+          bg: "bg-rose-50 dark:bg-rose-950/20",
+          border: "border-rose-200 dark:border-rose-900/50",
+          text: "text-rose-800 dark:text-rose-200",
+          accent: "bg-rose-500",
+          hex: "#f43f5e",
+        },
+        purple: {
+          bg: "bg-purple-50 dark:bg-purple-950/20",
+          border: "border-purple-200 dark:border-purple-900/50",
+          text: "text-purple-800 dark:text-purple-200",
+          accent: "bg-purple-500",
+          hex: "#a855f7",
+        },
+        indigo: {
+          bg: "bg-indigo-50 dark:bg-indigo-950/20",
+          border: "border-indigo-200 dark:border-indigo-900/50",
+          text: "text-indigo-800 dark:text-indigo-200",
+          accent: "bg-indigo-500",
+          hex: "#6366f1",
+        },
+        slate: {
+          bg: "bg-slate-100 dark:bg-slate-800",
+          border: "border-slate-300 dark:border-slate-600",
+          text: "text-slate-800 dark:text-slate-300",
+          accent: "bg-slate-500",
+          hex: "#64748b",
+        },
+      };
+
+      const DEFAULT_LESSONS = [
+        {
+          id: "dgnl",
+          subject: "ĐGNL",
+          teacher: "Luyện đề",
+          room: "Bàn học",
+          color: "amber",
+        },
+        {
+          id: "ielts",
+          subject: "IELTS",
+          teacher: "Tự học",
+          room: "Bàn học",
+          color: "rose",
+        },
+        {
+          id: "code",
+          subject: "CODE",
+          teacher: "Thực hành",
+          room: "PC",
+          color: "blue",
+        },
+        {
+          id: "ly",
+          subject: "Vật Lý",
+          teacher: "Ôn thi",
+          room: "Bàn học",
+          color: "indigo",
+        },
+        {
+          id: "nghi",
+          subject: "Nghỉ ngơi",
+          teacher: "Thư giãn",
+          room: "Tự do",
+          color: "emerald",
+        },
+        {
+          id: "theduc",
+          subject: "Thể Dục & SH",
+          teacher: "Vận động",
+          room: "Ngoài trời",
+          color: "blue",
+        },
+        {
+          id: "ngutrua",
+          subject: "Ngủ Trưa",
+          teacher: "-",
+          room: "Giường",
+          color: "slate",
+        },
+        {
+          id: "xemlai",
+          subject: "Xem Lại & Ngủ",
+          teacher: "-",
+          room: "Giường",
+          color: "slate",
+        },
+        {
+          id: "ansang",
+          subject: "Ăn sáng, Chill",
+          teacher: "-",
+          room: "Phòng khách",
+          color: "slate",
+        },
+      ];
+
+      const RAW_MAP = [
+        // Sáng
+        [1, 0, "ansang"],
+        [2, 0, "ansang"],
+        [3, 0, "ansang"],
+        [4, 0, "ansang"],
+        [5, 0, "ansang"],
+        [6, 0, "ansang"],
+        [0, 0, "ansang"],
+
+        // Ca Sáng 1
+        [1, 1, "dgnl"],
+        [2, 1, "code"],
+        [3, 1, "ielts"],
+        [4, 1, "nghi"],
+        [5, 1, "dgnl"],
+        [6, 1, "code"],
+        [0, 1, "ielts"],
+
+        // Nghỉ (slot 2) => bỏ trống
+
+        // Ca Sáng 2
+        [1, 3, "code"],
+        [2, 3, "ly"],
+        [3, 3, "dgnl"],
+        [4, 3, "ielts"],
+        [5, 3, "code"],
+        [6, 3, "ielts"],
+        [0, 3, "dgnl"],
+
+        // Ca Chiều 1
+        [1, 5, "ielts"],
+        [2, 5, "dgnl"],
+        [3, 5, "ly"],
+        [4, 5, "dgnl"],
+        [5, 5, "ielts"],
+        [6, 5, "dgnl"],
+        [0, 5, "ly"],
+
+        // Nghỉ (slot 6) => bỏ trống
+
+        // Ca Chiều 2
+        [1, 7, "ly"],
+        [2, 7, "ielts"],
+        [3, 7, "code"],
+        [4, 7, "nghi"],
+        [5, 7, "ly"],
+        [6, 7, "ly"],
+        [0, 7, "dgnl"],
+
+        // Thể thao
+        [1, 8, "theduc"],
+        [2, 8, "theduc"],
+        [3, 8, "theduc"],
+        [4, 8, "theduc"],
+        [5, 8, "theduc"],
+        [6, 8, "theduc"],
+        [0, 8, "theduc"],
+
+        // Nghỉ (slot 9) => bỏ trống
+
+        // Ca Tối 1
+        [1, 10, "dgnl"],
+        [2, 10, "dgnl"],
+        [3, 10, "dgnl"],
+        [4, 10, "dgnl"],
+        [5, 10, "dgnl"],
+        [6, 10, "dgnl"],
+        [0, 10, "dgnl"],
+
+        // Nghỉ (slot 11) => bỏ trống
+
+        // Ca Tối 2
+        [1, 12, "dgnl"],
+        [2, 12, "dgnl"],
+        [3, 12, "dgnl"],
+        [4, 12, "dgnl"],
+        [5, 12, "dgnl"],
+        [6, 12, "dgnl"],
+        [0, 12, "dgnl"],
+
+        // Slot 13 (Ngủ) để trống
+      ];
+      const DEFAULT_TIMETABLE_DATA = RAW_MAP.map((item) => {
+        const lessonObj =
+          DEFAULT_LESSONS.find((lesson) => lesson.id === item[2]) ||
+          DEFAULT_LESSONS[0];
+        return {
+          slotId: `${item[0]}-${item[1]}`,
+          ...lessonObj,
+          id: lessonObj.id,
+        };
+      });
+
+      const DAY_ORDER = [1, 2, 3, 4, 5, 6, 0];
+      const DAY_NAMES = [
+        "Chủ nhật",
+        "Thứ 2",
+        "Thứ 3",
+        "Thứ 4",
+        "Thứ 5",
+        "Thứ 6",
+        "Thứ 7",
+      ];
+      const DAY_TOTAL_MINUTES = 24 * 60;
+      const REST_LABEL = "Nghỉ ngơi";
+      const REST_COLOR = "#cbd5e1";
+
+      const state = {
+        lessons: [],
+        schedule: [],
+        timeSlots: [],
+        selectedColor: "blue",
+        editSelectedColor: "blue",
+        draggingElement: null,
+        dragSource: null,
+      };
+
+      let analyticsTab = "week";
+      let selectedDayForAnalytics = new Date().getDay();
+
+      function parseTimeToMinutes(time) {
+        if (!time || typeof time !== "string" || !time.includes(":")) return 0;
+        const [hRaw, mRaw] = time.split(":");
+        const h = Math.max(0, Math.min(24, parseInt(hRaw, 10) || 0));
+        const m = Math.max(0, Math.min(59, parseInt(mRaw, 10) || 0));
+        return h * 60 + m;
+      }
+
+      function formatMinutesShort(mins) {
+        const m = Math.max(0, Math.round(mins));
+        const h = Math.floor(m / 60);
+        const mm = m % 60;
+        if (h === 0) return `${mm} phút`;
+        if (mm === 0) return `${h} giờ`;
+        return `${h} giờ ${mm} phút`;
+      }
+
+      function formatHoursOnly(mins, digits = 1) {
+        const hours = Math.max(0, mins) / 60;
+        let text = hours.toFixed(digits);
+        if (digits > 0) {
+          text = text.replace(new RegExp(`\\.0{1,${digits}}$`), "");
+        }
+        return `${text} giờ`;
+      }
+
+      function formatPercent(value, digits = 1) {
+        const num = Number.isFinite(value) ? value : 0;
+        return `${num.toFixed(digits).replace(/\.0+$/, "")}%`;
+      }
+
+      function getPercentLabel(part, whole, digits = 1) {
+        if (!whole || whole <= 0) return "0%";
+        return formatPercent((part / whole) * 100, digits);
+      }
+
+      function formatAnalysisDuration(mins) {
+        return formatHoursOnly(mins, 1);
+      }
+
+      function generateSlotId() {
+        return `slot_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`;
+      }
+
+      function normalizeActivityName(name) {
+        const text = String(name ?? "").trim();
+        return text || REST_LABEL;
+      }
+
+      function isRestActivityName(name) {
+        const normalized = normalizeActivityName(name).toLowerCase();
+        return (
+          !String(name ?? "").trim() ||
+          /(^|\b)(nghỉ|ngủ|thư giãn|chill|rest|break)($|\b)/i.test(normalized)
+        );
+      }
+
+      function getSlotDuration(slot) {
+        const start = parseTimeToMinutes(slot.start);
+        const end = parseTimeToMinutes(slot.end);
+        return Math.max(0, end - start);
+      }
+
+      function getSortedTimeSlots() {
+        return [...state.timeSlots].sort(
+          (a, b) => parseTimeToMinutes(a.start) - parseTimeToMinutes(b.start),
+        );
+      }
+
+      function getScheduleItemBySlotKey(slotKey) {
+        return state.schedule.find((item) => item.slotId === slotKey);
+      }
+
+      function createRestEntry(minutes, source = "gap", slotKey = "") {
+        return {
+          subject: REST_LABEL,
+          minutes: Math.max(0, minutes),
+          color: "slate",
+          hex: REST_COLOR,
+          isRest: true,
+          source,
+          slotKey,
+        };
+      }
+
+      function createActivityEntry(item, minutes, source = "activity") {
+        const normalizedSubject = normalizeActivityName(item?.subject);
+        const colorKey = item?.color || "slate";
+        return {
+          subject: normalizedSubject,
+          minutes: Math.max(0, minutes),
+          color: colorKey,
+          hex: COLOR_MAP[colorKey]?.hex || "#94a3b8",
+          isRest: isRestActivityName(normalizedSubject),
+          source,
+          slotKey: item?.slotId || "",
+          teacher: item?.teacher || "",
+          room: item?.room || "",
+        };
+      }
+
+      function mergeTimelineEntries(entries) {
+        const grouped = new Map();
+        entries.forEach((entry) => {
+          if (!entry || entry.minutes <= 0) return;
+          const key = entry.isRest ? REST_LABEL : entry.subject;
+          if (!grouped.has(key)) {
+            grouped.set(key, {
+              subject: key,
+              minutes: 0,
+              color: entry.isRest ? "slate" : entry.color,
+              hex: entry.isRest ? REST_COLOR : entry.hex,
+              isRest: !!entry.isRest,
+              source: entry.source || "",
+            });
+          }
+          const current = grouped.get(key);
+          current.minutes += entry.minutes;
+          if (!current.isRest && entry.hex) {
+            current.hex = entry.hex;
+            current.color = entry.color;
+          }
+        });
+        return Array.from(grouped.values()).sort((a, b) => {
+          if (a.isRest !== b.isRest) return a.isRest ? 1 : -1;
+          return b.minutes - a.minutes;
+        });
+      }
+
+      function buildDayTimeline(day) {
+        const slots = getSortedTimeSlots();
+        const entries = [];
+        let cursor = 0;
+
+        slots.forEach((slot) => {
+          const start = parseTimeToMinutes(slot.start);
+          const end = parseTimeToMinutes(slot.end);
+          const slotMinutes = Math.max(0, end - start);
+          const slotKey = `${day}-${slot.id}`;
+          const item = getScheduleItemBySlotKey(slotKey);
+
+          if (start > cursor) {
+            entries.push(createRestEntry(start - cursor, "gap"));
+          }
+
+          if (item && !isRestActivityName(item.subject)) {
+            entries.push(createActivityEntry(item, slotMinutes, "slot"));
+          } else {
+            entries.push(
+              createRestEntry(
+                slotMinutes,
+                item ? "rest-slot" : "empty-slot",
+                slotKey,
+              ),
+            );
+          }
+
+          cursor = Math.max(cursor, end);
+        });
+
+        if (cursor < DAY_TOTAL_MINUTES) {
+          entries.push(createRestEntry(DAY_TOTAL_MINUTES - cursor, "gap"));
+        }
+
+        return entries.filter((entry) => entry.minutes > 0);
+      }
+
+      function getWeeklyStats() {
+        const dayMinutes = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+        const dayRestMinutes = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+        const dayItems = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+        const weeklyEntries = [];
+        const subjectMinutes = {};
+        const subjectColors = {};
+
+        for (let day = 0; day < 7; day++) {
+          const mergedDayEntries = mergeTimelineEntries(buildDayTimeline(day));
+          dayItems[day] = mergedDayEntries;
+
+          const restMinutes = mergedDayEntries
+            .filter((entry) => entry.isRest)
+            .reduce((sum, entry) => sum + entry.minutes, 0);
+          const activeMinutes = Math.max(0, DAY_TOTAL_MINUTES - restMinutes);
+
+          dayMinutes[day] = activeMinutes;
+          dayRestMinutes[day] = restMinutes;
+
+          mergedDayEntries.forEach((entry) => {
+            weeklyEntries.push({ ...entry, day });
+            if (!entry.isRest) {
+              subjectMinutes[entry.subject] =
+                (subjectMinutes[entry.subject] || 0) + entry.minutes;
+              if (!subjectColors[entry.subject] && entry.hex) {
+                subjectColors[entry.subject] = entry.hex;
+              }
+            }
+          });
+        }
+
+        const totalPossible = DAY_TOTAL_MINUTES * 7;
+        const totalRest = Object.values(dayRestMinutes).reduce(
+          (a, b) => a + b,
+          0,
+        );
+        const totalOccupied = Math.max(0, totalPossible - totalRest);
+
+        const subjectEntries = Object.entries(subjectMinutes)
+          .sort((a, b) => b[1] - a[1])
+          .map(([subject, minutes]) => ({
+            subject,
+            minutes,
+            color: subjectColors[subject] || "#94a3b8",
+          }));
+
+        const chartEntries = mergeTimelineEntries(weeklyEntries).map(
+          (entry) => ({
+            subject: entry.subject,
+            minutes: entry.minutes,
+            color: entry.color,
+            hex: entry.hex,
+            isRest: entry.isRest,
+          }),
+        );
+
+        const activeDayEntries = Object.entries(dayMinutes).sort(
+          (a, b) => b[1] - a[1],
+        );
+        const quietDayEntries = Object.entries(dayMinutes).sort(
+          (a, b) => a[1] - b[1],
+        );
+        const busiestDay = activeDayEntries[0] || ["0", 0];
+        const quietestDay = quietDayEntries[0] || ["0", 0];
+
+        return {
+          totalPossible,
+          totalOccupied,
+          totalRest,
+          totalFree: totalRest,
+          totalSlotMinutesPerDay: DAY_TOTAL_MINUTES,
+          subjectMinutes,
+          subjectEntries,
+          chartEntries,
+          dayMinutes,
+          dayRestMinutes,
+          dayItems,
+          busiestDay: parseInt(busiestDay[0], 10),
+          quietestDay: parseInt(quietestDay[0], 10),
+        };
+      }
+
+      function saveData() {
+        localStorage.setItem(
+          "v2_timetable_lessons",
+          JSON.stringify(state.lessons),
+        );
+        localStorage.setItem(
+          "v2_timetable_schedule",
+          JSON.stringify(state.schedule),
+        );
+        localStorage.setItem(
+          "v2_timetable_slots",
+          JSON.stringify(state.timeSlots),
+        );
+      }
+
+      function loadData() {
+        const lLessons = localStorage.getItem("v2_timetable_lessons");
+        const lSchedule = localStorage.getItem("v2_timetable_schedule");
+        const lSlots = localStorage.getItem("v2_timetable_slots");
+
+        state.lessons = lLessons ? JSON.parse(lLessons) : [...DEFAULT_LESSONS];
+        state.schedule = lSchedule
+          ? JSON.parse(lSchedule)
+          : [...DEFAULT_TIMETABLE_DATA];
+        state.timeSlots = lSlots
+          ? JSON.parse(lSlots)
+          : JSON.parse(JSON.stringify(DEFAULT_TIMETABLE_HOURS));
+
+        if (!Array.isArray(state.timeSlots) || state.timeSlots.length === 0) {
+          state.timeSlots = JSON.parse(JSON.stringify(DEFAULT_TIMETABLE_HOURS));
+        }
+
+        saveData();
+      }
+
+      function updateWeekLabels() {
+        const now = new Date();
+        const currentDay = now.getDay();
+        const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
+        const monday = new Date(now);
+        monday.setDate(now.getDate() + mondayOffset);
+
+        for (let d = 0; d < 7; d++) {
+          const dt = new Date(monday);
+          dt.setDate(monday.getDate() + d);
+          const label = `${String(dt.getDate()).padStart(2, "0")}/${String(dt.getMonth() + 1).padStart(2, "0")}`;
+          const labelEl = document.getElementById(`date-label-${d}`);
+          if (labelEl) labelEl.textContent = label;
+
+          const header = document.getElementById(`day-header-${d}`);
+          if (header) {
+            header.classList.toggle("day-chip-active", d === currentDay);
+            header.classList.toggle("bg-brand-50/40", d === currentDay);
+            header.classList.toggle("dark:bg-brand-900/10", d === currentDay);
+          }
+        }
+      }
+
+      function toggleSidebarMobile() {
+        const sidebar = document.getElementById("main-sidebar");
+        if (window.innerWidth < 1024) {
+          sidebar.classList.toggle("hidden");
+        } else {
+          sidebar.classList.toggle("w-0");
+          sidebar.classList.toggle("overflow-hidden");
+          sidebar.classList.toggle("border-0");
+          sidebar.classList.toggle("p-0");
+          sidebar.classList.toggle("lg:w-72");
+          sidebar.classList.toggle("border-r");
+          sidebar.classList.toggle("w-full");
+        }
+      }
+
+      function initTimetableGrid() {
+        const body = document.getElementById("timetable-body");
+        const indicator = document.getElementById("current-time-indicator");
+        body.innerHTML = "";
+        body.appendChild(indicator);
+
+        state.timeSlots.forEach((slot) => {
+          const row = document.createElement("div");
+          row.className =
+            "grid timetable-grid border-b border-slate-200 dark:border-slate-700/60 min-h-[70px] print:border-black print:min-h-0";
+
+          const timeCell = document.createElement("div");
+          timeCell.className =
+            "p-2 flex flex-col justify-center items-center text-center bg-slate-50/80 dark:bg-slate-800/60 border-r border-slate-200 dark:border-slate-700 text-xs select-none print:border-black print:bg-white";
+          timeCell.innerHTML = `
+            <div class="font-bold text-slate-700 dark:text-slate-300 print:text-black print:text-[10px]">${slot.label}</div>
+            <div class="text-[9px] text-slate-500 font-mono mt-0.5 print:text-black">${slot.start} - ${slot.end}</div>
+          `;
+          row.appendChild(timeCell);
+
+          DAY_ORDER.forEach((day, index) => {
+            const slotId = `${day}-${slot.id}`;
+            const cell = document.createElement("div");
+            cell.dataset.slotId = slotId;
+            cell.dataset.day = day;
+            cell.dataset.hour = slot.id;
+            cell.className = `p-1 border-r border-slate-200 dark:border-slate-700/60 transition-colors timetable-slot-cell print:border-black ${index === DAY_ORDER.length - 1 ? "border-r-0 print:border-r-0" : ""}`;
+            if (day === new Date().getDay()) {
+              cell.classList.add("bg-brand-50/30", "dark:bg-brand-900/10");
+            }
+            cell.addEventListener("dragover", handleDragOver);
+            cell.addEventListener("dragleave", handleDragLeave);
+            cell.addEventListener("drop", handleDrop);
+            row.appendChild(cell);
+          });
+
+          body.appendChild(row);
+        });
+      }
+
+      function renderLessonPool() {
+        const pool = document.getElementById("lesson-pool");
+        pool.innerHTML = "";
+        document.getElementById("lesson-pool-count").textContent = String(
+          state.lessons.length,
+        );
+
+        state.lessons.forEach((lesson) => {
+          const col = COLOR_MAP[lesson.color] || COLOR_MAP.blue;
+          const card = document.createElement("div");
+          card.className = `p-2 rounded-lg border ${col.bg} ${col.border} ${col.text} cursor-grab select-none hover:shadow-sm relative group`;
+          card.draggable = true;
+          card.dataset.lessonId = lesson.id;
+          card.innerHTML = `
+            <div class="flex justify-between items-center mb-1">
+              <div class="font-bold text-xs truncate">${lesson.subject}</div>
+              <button class="btn-delete-from-pool opacity-0 group-hover:opacity-100 text-rose-500 p-0.5"><i data-lucide="x" class="w-3 h-3"></i></button>
+            </div>
+            <div class="text-[10px] opacity-80">${lesson.teacher || "-"} | ${lesson.room || "-"}</div>
+          `;
+
+          card.addEventListener("dragstart", (e) => {
+            state.draggingElement = lesson;
+            state.dragSource = "pool";
+            card.classList.add("opacity-50");
+            e.dataTransfer.effectAllowed = "copy";
+            e.dataTransfer.setData("text/plain", lesson.id);
+          });
+
+          card.addEventListener("dragend", () => {
+            card.classList.remove("opacity-50");
+            state.draggingElement = null;
+            state.dragSource = null;
+          });
+
+          card
+            .querySelector(".btn-delete-from-pool")
+            .addEventListener("click", (e) => {
+              e.stopPropagation();
+              deleteLessonFromPool(lesson.id);
+            });
+
+          pool.appendChild(card);
+        });
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function renderScheduleGrid() {
+        const cells = document.querySelectorAll(".timetable-slot-cell");
+        cells.forEach((cell) => (cell.innerHTML = ""));
+
+        state.schedule.forEach((item) => {
+          const cell = document.querySelector(
+            `[data-slot-id="${item.slotId}"]`,
+          );
+          if (!cell) return;
+          const col = COLOR_MAP[item.color] || COLOR_MAP.blue;
+
+          const card = document.createElement("div");
+          card.className = `w-full h-full p-1.5 rounded border ${col.bg} ${col.border} ${col.text} flex flex-col justify-center cursor-grab select-none group text-left text-xs relative overflow-hidden print:border-none print:p-0.5 print:bg-transparent print:text-black`;
+          card.draggable = true;
+          card.dataset.slotId = item.slotId;
+
+          const accentBar = document.createElement("div");
+          accentBar.className = `absolute left-0 top-0 bottom-0 w-1 ${col.accent} print:hidden`;
+          card.appendChild(accentBar);
+
+          const content = document.createElement("div");
+          content.className =
+            "pl-1.5 print:pl-0 h-full flex flex-col justify-center print:items-center";
+          content.innerHTML = `
+            <div class="font-bold tracking-tight leading-tight truncate print:text-[10px] print:text-center">${item.subject}</div>
+            <div class="text-[9px] opacity-80 truncate print:hidden">${item.teacher || "-"}</div>
+          `;
+          card.appendChild(content);
+
+          card.addEventListener("dragstart", (e) => {
+            state.draggingElement = item;
+            state.dragSource = "grid";
+            card.classList.add("opacity-40");
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/plain", item.slotId);
+          });
+
+          card.addEventListener("dragend", () => {
+            card.classList.remove("opacity-40");
+            state.draggingElement = null;
+            state.dragSource = null;
+          });
+
+          card.addEventListener("dblclick", () => openEditModal(item));
+          cell.appendChild(card);
+        });
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function updateLiveClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        const clock = document.getElementById("live-clock-small");
+        if (clock) clock.textContent = `${h}:${m}`;
+
+        const timetableBody = document.getElementById("timetable-body");
+        const indicator = document.getElementById("current-time-indicator");
+        if (!timetableBody || state.timeSlots.length === 0) return;
+
+        const sorted = getSortedTimeSlots();
+        const firstStart = parseTimeToMinutes(sorted[0].start);
+        const lastEnd = parseTimeToMinutes(sorted[sorted.length - 1].end);
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        const totalDuration = lastEnd - firstStart;
+        const totalHeight = timetableBody.clientHeight;
+
+        if (
+          currentMinutes >= firstStart &&
+          currentMinutes <= lastEnd &&
+          totalDuration > 0
+        ) {
+          const ratio = (currentMinutes - firstStart) / totalDuration;
+          indicator.style.top = `${ratio * totalHeight}px`;
+          indicator.classList.remove("hidden");
+        } else {
+          indicator.classList.add("hidden");
+        }
+      }
+
+      function getSettingsRowsOrder(container) {
+        return Array.from(container.querySelectorAll(".time-slot-row"));
+      }
+
+      function moveSettingsRow(draggedRow, targetRow, before = true) {
+        const container = document.getElementById("time-slots-container");
+        if (!draggedRow || !targetRow || draggedRow === targetRow) return;
+        if (before) {
+          container.insertBefore(draggedRow, targetRow);
+        } else {
+          container.insertBefore(draggedRow, targetRow.nextSibling);
+        }
+      }
+
+      function createTimeSlotRow(
+        slot = {
+          id: generateSlotId(),
+          label: "",
+          start: "08:00",
+          end: "09:00",
+        },
+      ) {
+        const row = document.createElement("div");
+        row.dataset.slotId = slot.id;
+        row.draggable = true;
+        row.className =
+          "time-slot-row flex flex-col sm:flex-row gap-2 items-stretch sm:items-center bg-slate-50 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700";
+        row.innerHTML = `
+          <div class="flex items-center gap-2 sm:w-28 shrink-0">
+            <button type="button" title="Kéo để đổi vị trí" class="drag-handle flex items-center justify-center w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-grab active:cursor-grabbing" aria-label="Kéo đổi vị trí">
+              <i data-lucide="grip-vertical" class="w-4 h-4"></i>
+            </button>
+            <input type="text" value="${slot.label || ""}" data-field="label" placeholder="Tên ca" class="flex-1 sm:flex-none sm:w-full px-2 py-2 text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-1 focus:ring-brand-500">
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-[110px_20px_110px] gap-2 items-center flex-1">
+            <input type="time" value="${slot.start || "08:00"}" data-field="start" class="w-full px-2 py-2 text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-1 focus:ring-brand-500">
+            <span class="text-center text-slate-400 hidden sm:block">-</span>
+            <input type="time" value="${slot.end || "09:00"}" data-field="end" class="w-full px-2 py-2 text-sm bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-1 focus:ring-brand-500">
+          </div>
+          <button type="button" class="btn-remove-slot px-3 py-2 rounded-xl text-sm font-medium bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-900/20 dark:text-rose-300 dark:border-rose-800 self-start sm:self-auto">
+            <i data-lucide="trash-2" class="w-4 h-4 inline-block mr-1"></i>Xóa
+          </button>
+        `;
+
+        row.addEventListener("dragstart", (e) => {
+          if (
+            !e.target.classList.contains("drag-handle") &&
+            !e.target.closest(".drag-handle")
+          ) {
+            e.preventDefault();
+            return;
+          }
+          state.draggingElement = row;
+          state.dragSource = "settings";
+          row.classList.add("opacity-50", "ring-2", "ring-brand-500");
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", row.dataset.slotId || "");
+        });
+
+        row.addEventListener("dragend", () => {
+          row.classList.remove("opacity-50", "ring-2", "ring-brand-500");
+          state.draggingElement = null;
+          state.dragSource = null;
+        });
+
+        row.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          const target = e.currentTarget;
+          const rect = target.getBoundingClientRect();
+          const before = e.clientY < rect.top + rect.height / 2;
+          target.classList.add("ring-1", "ring-brand-300");
+          const draggingRow = document.querySelector(
+            ".time-slot-row.opacity-50",
+          );
+          moveSettingsRow(draggingRow, target, before);
+        });
+
+        row.addEventListener("dragleave", (e) => {
+          e.currentTarget.classList.remove("ring-1", "ring-brand-300");
+        });
+
+        row
+          .querySelector(".btn-remove-slot")
+          .addEventListener("click", () => row.remove());
+        return row;
+      }
+
+      function openSettingsModal() {
+        const container = document.getElementById("time-slots-container");
+        container.innerHTML = "";
+        state.timeSlots.forEach((slot) =>
+          container.appendChild(createTimeSlotRow(slot)),
+        );
+        document.getElementById("settings-modal").classList.remove("hidden");
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function closeSettingsModal() {
+        document.getElementById("settings-modal").classList.add("hidden");
+      }
+
+      function addTimeSlotRow() {
+        const container = document.getElementById("time-slots-container");
+        container.appendChild(
+          createTimeSlotRow({
+            id: generateSlotId(),
+            label: "Ca mới",
+            start: "08:00",
+            end: "09:00",
+          }),
+        );
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function saveTimeSettings() {
+        const rows = Array.from(
+          document.querySelectorAll("#time-slots-container .time-slot-row"),
+        );
+        const newSlots = rows
+          .map((row, idx) => {
+            const label =
+              row.querySelector('[data-field="label"]').value.trim() ||
+              `Ca ${idx + 1}`;
+            const start =
+              row.querySelector('[data-field="start"]').value || "08:00";
+            const end =
+              row.querySelector('[data-field="end"]').value || "09:00";
+            return {
+              id: row.dataset.slotId || generateSlotId(),
+              label,
+              start,
+              end,
+            };
+          })
+          .filter(
+            (slot) =>
+              parseTimeToMinutes(slot.end) > parseTimeToMinutes(slot.start),
+          );
+
+        const validIds = new Set(newSlots.map((slot) => String(slot.id)));
+        state.schedule = state.schedule.filter((item) =>
+          validIds.has(String(String(item.slotId).split("-")[1])),
+        );
+
+        state.timeSlots = newSlots;
+        state.draggingElement = null;
+        state.dragSource = null;
+        saveData();
+        initTimetableGrid();
+        renderScheduleGrid();
+        updateWeekLabels();
+        closeSettingsModal();
+        renderAnalytics();
+      }
+
+      function currentActivityText() {
+        const now = new Date();
+        const currentDay = now.getDay();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        const slots = getSortedTimeSlots();
+
+        for (let i = 0; i < slots.length; i++) {
+          const slot = slots[i];
+          const startMins = parseTimeToMinutes(slot.start);
+          const endMins = parseTimeToMinutes(slot.end);
+          if (currentMinutes >= startMins && currentMinutes < endMins) {
+            const item = getScheduleItemBySlotKey(`${currentDay}-${slot.id}`);
+            if (item && !isRestActivityName(item.subject)) {
+              return {
+                title: item.subject,
+                time: `${slot.start} - ${slot.end}`,
+                note: `${item.teacher || "-"} • ${item.room || "-"} • ${formatMinutesShort(getSlotDuration(slot))}`,
+              };
+            }
+            return {
+              title: "Nghỉ ngơi / trống",
+              time: `${slot.start} - ${slot.end}`,
+              note: `${slot.label} • ${formatMinutesShort(getSlotDuration(slot))}`,
+            };
+          }
+        }
+
+        const nextSlot = slots.find(
+          (slot) => currentMinutes < parseTimeToMinutes(slot.start),
+        );
+        if (nextSlot) {
+          return {
+            title: "Chưa vào ca",
+            time: `Ca kế tiếp: ${nextSlot.label}`,
+            note: `${nextSlot.start} - ${nextSlot.end}`,
+          };
+        }
+
+        return {
+          title: "Đã xong khung giờ",
+          time: "Không còn ca nào trong ngày",
+          note: "Hôm nay không còn hoạt động theo khung giờ hiện tại.",
+        };
+      }
+
+      function openCurrentActivity() {
+        const data = currentActivityText();
+        document.getElementById("current-activity-content").textContent =
+          data.title;
+        document.getElementById("current-activity-time").textContent =
+          data.time;
+        document.getElementById("current-activity-note").textContent =
+          data.note;
+        document
+          .getElementById("current-activity-modal")
+          .classList.remove("hidden");
+      }
+
+      function closeCurrentActivity() {
+        document
+          .getElementById("current-activity-modal")
+          .classList.add("hidden");
+      }
+
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.currentTarget.classList.add(
+          "bg-brand-100/50",
+          "dark:bg-slate-700/80",
+        );
+      }
+
+      function handleDragLeave(e) {
+        e.currentTarget.classList.remove(
+          "bg-brand-100/50",
+          "dark:bg-slate-700/80",
+        );
+      }
+
+      function handleDrop(e) {
+        e.preventDefault();
+        const cell = e.currentTarget;
+        cell.classList.remove("bg-brand-100/50", "dark:bg-slate-700/80");
+        const targetSlotId = cell.dataset.slotId;
+        if (!targetSlotId) return;
+
+        if (state.dragSource === "pool" && state.draggingElement) {
+          const existIndex = state.schedule.findIndex(
+            (item) => item.slotId === targetSlotId,
+          );
+          const newItem = { ...state.draggingElement, slotId: targetSlotId };
+          if (existIndex !== -1) state.schedule[existIndex] = newItem;
+          else state.schedule.push(newItem);
+        } else if (state.dragSource === "grid" && state.draggingElement) {
+          const sourceSlotId = state.draggingElement.slotId;
+          if (sourceSlotId !== targetSlotId) {
+            const targetItemIndex = state.schedule.findIndex(
+              (item) => item.slotId === targetSlotId,
+            );
+            const sourceItemIndex = state.schedule.findIndex(
+              (item) => item.slotId === sourceSlotId,
+            );
+            if (sourceItemIndex === -1) return;
+            if (targetItemIndex !== -1) {
+              state.schedule[targetItemIndex].slotId = sourceSlotId;
+              state.schedule[sourceItemIndex].slotId = targetSlotId;
+            } else {
+              state.schedule[sourceItemIndex].slotId = targetSlotId;
+            }
+          }
+        }
+
+        saveData();
+        renderScheduleGrid();
+        renderAnalytics();
+      }
+
+      function openEditModal(item) {
+        document.getElementById("edit-modal").classList.remove("hidden");
+        document.getElementById("edit-lesson-id").value = item.slotId;
+        document.getElementById("edit-subject").value = item.subject;
+        document.getElementById("edit-teacher").value = item.teacher || "";
+        document.getElementById("edit-room").value = item.room || "";
+        state.editSelectedColor = item.color || "blue";
+        initColorPickers();
+      }
+
+      function closeModal() {
+        document.getElementById("edit-modal").classList.add("hidden");
+      }
+
+      function deleteLessonFromPool(id) {
+        state.lessons = state.lessons.filter((lesson) => lesson.id !== id);
+        saveData();
+        renderLessonPool();
+      }
+
+      function initColorPickers() {
+        const colors = [
+          "blue",
+          "emerald",
+          "amber",
+          "rose",
+          "purple",
+          "indigo",
+          "slate",
+        ];
+        const picker = document.getElementById("color-picker");
+        const editPicker = document.getElementById("edit-color-picker");
+
+        function renderPicker(container, selected, onSelect, size = "w-6 h-6") {
+          if (!container) return;
+          container.innerHTML = "";
+          colors.forEach((col) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.dataset.color = col;
+            btn.className = `${size} rounded-full transition-all border-2 border-transparent`;
+            btn.style.backgroundColor = COLOR_MAP[col].hex;
+            if (selected === col) {
+              btn.style.boxShadow =
+                "0 0 0 2px rgba(148, 163, 184, 0.95), 0 0 0 6px rgba(255,255,255,1)";
+              btn.style.transform = "scale(1.08)";
+            }
+            btn.addEventListener("click", () => onSelect(col));
+            container.appendChild(btn);
+          });
+        }
+
+        renderPicker(
+          picker,
+          state.selectedColor,
+          (col) => {
+            state.selectedColor = col;
+            initColorPickers();
+          },
+          "w-6 h-6",
+        );
+
+        renderPicker(
+          editPicker,
+          state.editSelectedColor,
+          (col) => {
+            state.editSelectedColor = col;
+            initColorPickers();
+          },
+          "w-7 h-7",
+        );
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function renderSummaryCard(title, value, subtitle, icon, tone) {
+        const toneMap = {
+          indigo:
+            "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300",
+          blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300",
+          emerald:
+            "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300",
+          amber:
+            "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300",
+        };
+        return `
+          <div class="analytics-card rounded-2xl p-4 bg-slate-50 dark:bg-slate-900/40">
+            <div class="flex items-center justify-between gap-2">
+              <p class="text-xs text-slate-500">${title}</p>
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center ${toneMap[tone] || toneMap.indigo}">
+                <i data-lucide="${icon}" class="w-4 h-4"></i>
+              </span>
+            </div>
+            <div class="mt-3 text-lg font-bold text-slate-900 dark:text-white">${value}</div>
+            <p class="mt-1 text-[11px] text-slate-400">${subtitle || ""}</p>
+          </div>
+        `;
+      }
+
+      function renderInsightCard(title, body, icon) {
+        return `
+          <div class="analytics-card rounded-2xl p-4 bg-white dark:bg-slate-900/30 border border-slate-100 dark:border-slate-700">
+            <div class="flex items-center gap-2 mb-2">
+              <i data-lucide="${icon}" class="w-4 h-4 text-brand-500"></i>
+              <h4 class="text-sm font-semibold text-slate-800 dark:text-slate-100">${title}</h4>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${body}</p>
+          </div>
+        `;
+      }
+
+      function renderWeeklyChart(stats) {
+        const canvas = document.getElementById("scheduleChart");
+        if (!canvas) return;
+        const entries = stats.chartEntries.filter((entry) => entry.minutes > 0);
+        const labels = entries.map((entry) => entry.subject);
+        const data = entries.map((entry) => entry.minutes);
+        const bgColors = entries.map((entry) =>
+          entry.isRest
+            ? REST_COLOR
+            : entry.hex || COLOR_MAP[entry.color]?.hex || "#94a3b8",
+        );
+        const ctx = canvas.getContext("2d");
+
+        if (window.__weeklyChart) window.__weeklyChart.destroy();
+        window.__weeklyChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels,
+            datasets: [
+              {
+                data,
+                backgroundColor: bgColors,
+                borderWidth: 2,
+                borderColor: "#ffffff",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  boxWidth: 12,
+                  font: { size: 10 },
+                  generateLabels(chart) {
+                    const values = chart.data.datasets[0].data || [];
+                    const total = values.reduce((a, b) => a + b, 0);
+                    return Chart.overrides.doughnut.plugins.legend.labels
+                      .generateLabels(chart)
+                      .map((item) => {
+                        const value = values[item.index] || 0;
+                        const pct =
+                          total > 0
+                            ? ` (${getPercentLabel(value, total)})`
+                            : "";
+                        return { ...item, text: `${item.text}${pct}` };
+                      });
+                  },
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label(context) {
+                    const value = context.raw || 0;
+                    const total = context.dataset.data.reduce(
+                      (a, b) => a + b,
+                      0,
+                    );
+                    return `${context.label}: ${formatAnalysisDuration(value)} (${getPercentLabel(value, total)})`;
+                  },
+                },
+              },
+            },
+            cutout: "62%",
+          },
+        });
+      }
+
+      function renderDayChart(stats) {
+        const canvas = document.getElementById("dayScheduleChart");
+        if (!canvas) return;
+        const day = selectedDayForAnalytics;
+        const entries = (stats.dayItems[day] || [])
+          .filter((entry) => entry.minutes > 0)
+          .slice()
+          .sort((a, b) => b.minutes - a.minutes);
+
+        const labels = entries.map((entry) => entry.subject);
+        const data = entries.map((entry) => entry.minutes);
+        const bgColors = entries.map((entry) =>
+          entry.isRest
+            ? REST_COLOR
+            : entry.hex || COLOR_MAP[entry.color]?.hex || "#94a3b8",
+        );
+        const ctx = canvas.getContext("2d");
+
+        if (window.__dayChart) window.__dayChart.destroy();
+        window.__dayChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels,
+            datasets: [
+              {
+                data,
+                backgroundColor: bgColors,
+                borderWidth: 2,
+                borderColor: "#ffffff",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  boxWidth: 12,
+                  font: { size: 10 },
+                  generateLabels(chart) {
+                    const values = chart.data.datasets[0].data || [];
+                    const total = values.reduce((a, b) => a + b, 0);
+                    return Chart.overrides.doughnut.plugins.legend.labels
+                      .generateLabels(chart)
+                      .map((item) => {
+                        const value = values[item.index] || 0;
+                        const pct =
+                          total > 0
+                            ? ` (${getPercentLabel(value, total)})`
+                            : "";
+                        return { ...item, text: `${item.text}${pct}` };
+                      });
+                  },
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label(context) {
+                    const value = context.raw || 0;
+                    const total = context.dataset.data.reduce(
+                      (a, b) => a + b,
+                      0,
+                    );
+                    return `${context.label}: ${formatAnalysisDuration(value)} (${getPercentLabel(value, total)})`;
+                  },
+                },
+              },
+            },
+            cutout: "62%",
+          },
+        });
+      }
+
+      function renderTopActivityList(stats) {
+        const topList = document.getElementById("top-activity-list");
+        if (!topList) return;
+
+        const activeEntries = stats.subjectEntries
+          .slice()
+          .filter((entry) => entry.subject !== REST_LABEL);
+        topList.innerHTML = "";
+
+        if (activeEntries.length === 0) {
+          topList.innerHTML = `<p class="text-sm text-slate-500">Chưa có dữ liệu hoạt động để phân tích.</p>`;
+          return;
+        }
+
+        activeEntries.slice(0, 8).forEach((entry, index) => {
+          const percentOfWeek = getPercentLabel(
+            entry.minutes,
+            stats.totalPossible,
+          );
+          const percentOfActive = getPercentLabel(
+            entry.minutes,
+            stats.totalOccupied,
+          );
+          topList.innerHTML += `
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-700">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold" style="background:${entry.color}">
+                ${index + 1}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-2">
+                  <p class="font-medium text-sm text-slate-800 dark:text-slate-100 truncate">${entry.subject}</p>
+                  <span class="text-[11px] text-slate-500">${percentOfActive}</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1">
+                  ${formatAnalysisDuration(entry.minutes)} • ${percentOfWeek} của toàn tuần
+                </p>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      function renderWeeklySummary(stats) {
+        const summaryGrid = document.getElementById("weekly-summary-cards");
+        if (!summaryGrid) return;
+
+        const topSubject = stats.subjectEntries.find(
+          (entry) => entry.subject !== REST_LABEL,
+        );
+        const busiestDayName = DAY_NAMES[stats.busiestDay] || "N/A";
+        const quietestDayName = DAY_NAMES[stats.quietestDay] || "N/A";
+
+        summaryGrid.innerHTML = `
+          ${renderSummaryCard(
+            "Tổng hoạt động",
+            formatAnalysisDuration(stats.totalOccupied),
+            `Chiếm ${getPercentLabel(stats.totalOccupied, stats.totalPossible)} toàn tuần`,
+            "clock-3",
+            "indigo",
+          )}
+          ${renderSummaryCard(
+            "Ngày bận nhất",
+            busiestDayName,
+            `Lấp đầy ${getPercentLabel(stats.dayMinutes[stats.busiestDay] || 0, stats.totalSlotMinutesPerDay)}`,
+            "calendar-range",
+            "blue",
+          )}
+          ${renderSummaryCard(
+            "Ngày nhẹ nhất",
+            quietestDayName,
+            `Lấp đầy ${getPercentLabel(stats.dayMinutes[stats.quietestDay] || 0, stats.totalSlotMinutesPerDay)}`,
+            "sun-medium",
+            "emerald",
+          )}
+          ${renderSummaryCard(
+            "Nổi bật nhất",
+            topSubject ? topSubject.subject : "Chưa có",
+            topSubject
+              ? `${formatAnalysisDuration(topSubject.minutes)} • ${getPercentLabel(topSubject.minutes, stats.totalOccupied)}`
+              : "0 giờ",
+            "star",
+            "amber",
+          )}
+        `;
+      }
+
+      function renderWeeklyInsights(stats) {
+        const insightGrid = document.getElementById("weekly-insight-grid");
+        if (!insightGrid) return;
+
+        insightGrid.innerHTML = `
+          ${renderInsightCard(
+            "Tỷ lệ lấp đầy tuần",
+            `Toàn bộ lịch đang có <b>${formatAnalysisDuration(stats.totalOccupied)}</b>, tương đương <b>${getPercentLabel(stats.totalOccupied, stats.totalPossible)}</b> so với 7 ngày.`,
+            "bar-chart-3",
+          )}
+          ${renderInsightCard(
+            "Phần nghỉ tuần",
+            `Tổng phần nghỉ / trống là <b>${formatAnalysisDuration(stats.totalRest)}</b>, tương đương <b>${getPercentLabel(stats.totalRest, stats.totalPossible)}</b> toàn tuần.`,
+            "calendar-days",
+          )}
+        `;
+      }
+
+      function renderDayCards(stats) {
+        const dayCards = document.getElementById("day-analytics-cards");
+        if (!dayCards) return;
+
+        dayCards.innerHTML = "";
+        DAY_ORDER.forEach((day) => {
+          const total = stats.dayMinutes[day] || 0;
+          const rest = stats.dayRestMinutes[day] || 0;
+          const activeItems = (stats.dayItems[day] || [])
+            .filter((entry) => !entry.isRest)
+            .slice()
+            .sort((a, b) => b.minutes - a.minutes);
+          const topItem = activeItems[0];
+          const fillPct = getPercentLabel(total, stats.totalSlotMinutesPerDay);
+          const restPct = getPercentLabel(rest, stats.totalSlotMinutesPerDay);
+
+          dayCards.innerHTML += `
+            <button type="button" onclick="selectAnalyticsDay(${day})" class="text-left analytics-card rounded-2xl p-4 bg-white dark:bg-slate-900/30 border border-slate-100 dark:border-slate-700 hover:border-brand-300 dark:hover:border-brand-700 transition">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-semibold text-slate-800 dark:text-slate-100">${DAY_NAMES[day]}</p>
+                  <p class="text-[11px] text-slate-400 mt-1">${formatAnalysisDuration(total)} • lấp đầy ${fillPct}</p>
+                </div>
+                <span class="text-[11px] px-2 py-1 rounded-full ${day === new Date().getDay() ? "bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300" : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"}">${day === new Date().getDay() ? "Hôm nay" : "Xem"}</span>
+              </div>
+              <div class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                Nghỉ: ${formatAnalysisDuration(rest)} • ${restPct}
+              </div>
+              <div class="mt-3 text-xs font-medium text-slate-700 dark:text-slate-200 truncate">
+                ${topItem ? `Nổi bật: ${topItem.subject} • ${formatPercent((topItem.minutes / Math.max(1, total)) * 100)}` : "Chưa có mục nào"}
+              </div>
+            </button>
+          `;
+        });
+      }
+
+      function selectAnalyticsDay(day) {
+        selectedDayForAnalytics = day;
+        const select = document.getElementById("day-analytics-select");
+        if (select) select.value = String(day);
+        renderAnalytics();
+        switchAnalyticsTab("day");
+      }
+
+      function renderDayAnalytics(stats) {
+        const selectedDayDetail = document.getElementById(
+          "selected-day-detail",
+        );
+        if (!selectedDayDetail) return;
+
+        const day = selectedDayForAnalytics;
+        const items = (stats.dayItems[day] || [])
+          .slice()
+          .sort((a, b) => b.minutes - a.minutes);
+        const activeItems = items.filter((item) => !item.isRest);
+        const total = stats.dayMinutes[day] || 0;
+        const rest =
+          stats.dayRestMinutes[day] ||
+          Math.max(0, stats.totalSlotMinutesPerDay - total);
+        const fillPct = getPercentLabel(total, stats.totalSlotMinutesPerDay);
+        const restPct = getPercentLabel(rest, stats.totalSlotMinutesPerDay);
+        const top = activeItems[0];
+        const topPct = top
+          ? getPercentLabel(top.minutes, Math.max(1, total))
+          : "0%";
+
+        const breakdown = items.length
+          ? items
+              .map((item) => {
+                const itemColor = item.isRest
+                  ? REST_COLOR
+                  : COLOR_MAP[item.color]?.hex || "#94a3b8";
+                const itemPctOfDay = getPercentLabel(
+                  item.minutes,
+                  stats.totalSlotMinutesPerDay,
+                );
+                const itemPctOfUsed = getPercentLabel(
+                  item.minutes,
+                  Math.max(1, total),
+                );
+                return `
+                  <div class="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700">
+                    <span class="w-3 h-3 rounded-full shrink-0" style="background:${itemColor}"></span>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <p class="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">${item.subject}</p>
+                        <span class="text-[11px] text-slate-500">${formatAnalysisDuration(item.minutes)} • ${itemPctOfDay}</span>
+                      </div>
+                      <p class="text-[11px] text-slate-400 truncate">
+                        ${item.isRest ? "Phần nghỉ / trống" : `${item.teacher || "-"} • ${item.room || "-"}`} • ${itemPctOfUsed} của ngày đã lấp đầy
+                      </p>
+                    </div>
+                  </div>
+                `;
+              })
+              .join("")
+          : `<p class="text-sm text-slate-500">Ngày này chưa có hoạt động nào.</p>`;
+
+        selectedDayDetail.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">${DAY_NAMES[day]}</h4>
+              <p class="text-xs text-slate-400 mt-1">${day === new Date().getDay() ? "Đây là ngày hiện tại của bạn." : "Ngày đang được chọn để phân tích."}</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300">Lấp đầy: ${fillPct}</span>
+              <span class="px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">Nghỉ: ${restPct}</span>
+              <span class="px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300">Khung: ${items.length}</span>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-3 mt-4">
+            <div class="analytics-card rounded-2xl p-4 bg-white dark:bg-slate-900/30 border border-slate-100 dark:border-slate-700">
+              <p class="text-xs text-slate-400">Hoạt động nổi bật</p>
+              <div class="mt-2 font-semibold text-slate-900 dark:text-white">${top ? top.subject : "Chưa có"}</div>
+              <p class="text-[11px] text-slate-500 mt-1">${top ? `${formatAnalysisDuration(top.minutes)} • ${topPct}` : "0 giờ"}</p>
+            </div>
+            <div class="analytics-card rounded-2xl p-4 bg-white dark:bg-slate-900/30 border border-slate-100 dark:border-slate-700">
+              <p class="text-xs text-slate-400">Tỷ lệ lấp đầy</p>
+              <div class="mt-2 font-semibold text-slate-900 dark:text-white">${fillPct}</div>
+              <p class="text-[11px] text-slate-500 mt-1">so với 24 giờ của ngày</p>
+            </div>
+            <div class="analytics-card rounded-2xl p-4 bg-white dark:bg-slate-900/30 border border-slate-100 dark:border-slate-700">
+              <p class="text-xs text-slate-400">Phần nghỉ</p>
+              <div class="mt-2 font-semibold text-slate-900 dark:text-white">${formatAnalysisDuration(rest)}</div>
+              <p class="text-[11px] text-slate-500 mt-1">${restPct} của ngày</p>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-2">
+            ${breakdown}
+          </div>
+        `;
+      }
+
+      function buildDayEvaluation(day, stats) {
+        const active = stats.dayMinutes[day] || 0;
+        const rest = stats.dayRestMinutes[day] || 0;
+        const activePct = (active / stats.totalSlotMinutesPerDay) * 100;
+        const restPct = (rest / stats.totalSlotMinutesPerDay) * 100;
+        const activeItems = (stats.dayItems[day] || [])
+          .filter((entry) => !entry.isRest)
+          .slice()
+          .sort((a, b) => b.minutes - a.minutes);
+        const top = activeItems[0];
+        let tone = "slate";
+        let verdict = "Ngày thoáng, dễ linh hoạt";
+        if (activePct >= 75) {
+          tone = "indigo";
+          verdict = "Lịch dày và tập trung cao";
+        } else if (activePct >= 55) {
+          tone = "blue";
+          verdict = "Nhịp lịch cân bằng";
+        } else if (activePct >= 35) {
+          tone = "emerald";
+          verdict = "Có khung hoạt động vừa phải";
+        } else {
+          tone = "amber";
+          verdict = "Ngày nhẹ, nhiều khoảng trống";
+        }
+
+        const toneMap = {
+          indigo:
+            "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300",
+          blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300",
+          emerald:
+            "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300",
+          amber:
+            "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300",
+          slate:
+            "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+        };
+
+        return `
+          <div class="analytics-card rounded-2xl p-4 bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-700">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">${DAY_NAMES[day]}</p>
+                <p class="text-[11px] text-slate-400 mt-1">${verdict}</p>
+              </div>
+              <span class="text-[11px] px-2 py-1 rounded-full ${toneMap[tone]}">${formatPercent(activePct)}</span>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+              <div class="rounded-xl bg-white dark:bg-slate-800/70 p-3 border border-slate-100 dark:border-slate-700">
+                <p class="text-slate-400">Lấp đầy</p>
+                <p class="mt-1 font-semibold text-slate-800 dark:text-slate-100">${formatAnalysisDuration(active)} • ${formatPercent(activePct)}</p>
+              </div>
+              <div class="rounded-xl bg-white dark:bg-slate-800/70 p-3 border border-slate-100 dark:border-slate-700">
+                <p class="text-slate-400">Nghỉ</p>
+                <p class="mt-1 font-semibold text-slate-800 dark:text-slate-100">${formatAnalysisDuration(rest)} • ${formatPercent(restPct)}</p>
+              </div>
+            </div>
+            <div class="mt-3 text-xs text-slate-600 dark:text-slate-300">
+              ${top ? `Nổi bật: <b>${top.subject}</b> • ${formatAnalysisDuration(top.minutes)} • ${getPercentLabel(top.minutes, Math.max(1, active))}` : "Không có hoạt động nổi bật."}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderDayEvaluations(stats) {
+        const container = document.getElementById("ai-evaluations");
+        if (!container) return;
+
+        container.innerHTML = `
+          <div class="flex items-center justify-between gap-3 mb-2">
+            <div>
+              <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-200">Đánh giá riêng từng ngày</h3>
+              <p class="text-xs text-slate-400 mt-1">Hiển thị theo % lấp đầy, % nghỉ và hoạt động nổi bật của từng ngày.</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
+            ${DAY_ORDER.map((day) => buildDayEvaluation(day, stats)).join("")}
+          </div>
+        `;
+      }
+
+      function renderAnalytics() {
+        const stats = getWeeklyStats();
+        window.__latestAnalyticsStats = stats;
+
+        const weeklyTotal = document.getElementById("weekly-total-hours");
+        if (weeklyTotal) {
+          weeklyTotal.textContent = `${formatAnalysisDuration(stats.totalOccupied)} • ${getPercentLabel(stats.totalOccupied, stats.totalPossible)} lấp đầy`;
+        }
+
+        renderWeeklyChart(stats);
+        renderWeeklySummary(stats);
+        renderTopActivityList(stats);
+        renderWeeklyInsights(stats);
+        renderDayCards(stats);
+        renderDayAnalytics(stats);
+        renderDayEvaluations(stats);
+
+        const daySelect = document.getElementById("day-analytics-select");
+        if (daySelect) {
+          daySelect.innerHTML = DAY_ORDER.map(
+            (day) =>
+              `<option value="${day}" ${day === selectedDayForAnalytics ? "selected" : ""}>${DAY_NAMES[day]}</option>`,
+          ).join("");
+          daySelect.onchange = (e) => {
+            selectedDayForAnalytics = parseInt(e.target.value, 10);
+            renderAnalytics();
+          };
+        }
+
+        if (analyticsTab === "day") {
+          requestAnimationFrame(() => renderDayChart(stats));
+        } else if (window.__dayChart) {
+          window.__dayChart.destroy();
+          window.__dayChart = null;
+        }
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function openAnalyticsModal() {
+        document.getElementById("analytics-modal").classList.remove("hidden");
+        renderAnalytics();
+        if (analyticsTab === "day") {
+          requestAnimationFrame(() => {
+            const latest = window.__latestAnalyticsStats || getWeeklyStats();
+            renderDayChart(latest);
+          });
+        }
+      }
+
+      function closeAnalyticsModal() {
+        document.getElementById("analytics-modal").classList.add("hidden");
+      }
+
+      function switchAnalyticsTab(tab) {
+        analyticsTab = tab;
+        const weekBtn = document.getElementById("analytics-tab-week");
+        const dayBtn = document.getElementById("analytics-tab-day");
+        const weekView = document.getElementById("analytics-week-view");
+        const dayView = document.getElementById("analytics-day-view");
+
+        if (weekBtn && dayBtn && weekView && dayView) {
+          const isWeek = tab === "week";
+          weekView.classList.toggle("hidden", !isWeek);
+          dayView.classList.toggle("hidden", isWeek);
+
+          weekBtn.className = isWeek
+            ? "analytics-tab-btn px-4 py-2 rounded-xl text-sm font-semibold border border-indigo-200 dark:border-indigo-800 bg-indigo-600 text-white"
+            : "analytics-tab-btn px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200";
+
+          dayBtn.className = !isWeek
+            ? "analytics-tab-btn px-4 py-2 rounded-xl text-sm font-semibold border border-indigo-200 dark:border-indigo-800 bg-indigo-600 text-white"
+            : "analytics-tab-btn px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200";
+        }
+
+        renderAnalytics();
+      }
+
+      function generateEvaluations() {
+        renderAnalytics();
+      }
+
+      function exportExcel() {
+        const data = [];
+        const headerRow = [
+          "Giờ / Thứ",
+          "Thứ 2",
+          "Thứ 3",
+          "Thứ 4",
+          "Thứ 5",
+          "Thứ 6",
+          "Thứ 7",
+          "Chủ nhật",
+        ];
+        data.push(headerRow);
+
+        state.timeSlots.forEach((slot) => {
+          const row = [`${slot.label}\n(${slot.start} - ${slot.end})`];
+          DAY_ORDER.forEach((day) => {
+            const slotId = `${day}-${slot.id}`;
+            const activity = state.schedule.find((s) => s.slotId === slotId);
+            row.push(activity ? activity.subject : "");
+          });
+          data.push(row);
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        ws["!cols"] = [
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+        ];
+        XLSX.utils.book_append_sheet(wb, ws, "Lich_Hoat_Dong");
+        XLSX.writeFile(wb, "ThoiKhoaBieu_Xuat.xlsx");
+      }
+
+      function renderAll() {
+        updateWeekLabels();
+        initTimetableGrid();
+        renderLessonPool();
+        renderScheduleGrid();
+      }
+
+      document
+        .getElementById("btn-toggle-sidebar")
+        .addEventListener("click", toggleSidebarMobile);
+      document
+        .getElementById("btn-current-activity")
+        .addEventListener("click", openCurrentActivity);
+      document.getElementById("btn-reset").addEventListener("click", () => {
+        if (confirm("Khôi phục cấu hình và lịch học về mặc định?")) {
+          state.lessons = [...DEFAULT_LESSONS];
+          state.schedule = [...DEFAULT_TIMETABLE_DATA];
+          state.timeSlots = JSON.parse(JSON.stringify(DEFAULT_TIMETABLE_HOURS));
+          saveData();
+          renderAll();
+          updateWeekLabels();
+          renderAnalytics();
+        }
+      });
+
+      document
+        .getElementById("form-create-lesson")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const newLesson = {
+            id: `l_${Date.now()}`,
+            subject: document.getElementById("input-subject").value.trim(),
+            teacher: document.getElementById("input-teacher").value.trim(),
+            room: document.getElementById("input-room").value.trim(),
+            color: state.selectedColor,
+          };
+          if (!newLesson.subject) return;
+          state.lessons.push(newLesson);
+          saveData();
+          renderLessonPool();
+          document.getElementById("input-subject").value = "";
+          document.getElementById("input-teacher").value = "";
+          document.getElementById("input-room").value = "";
+        });
+
+      document
+        .getElementById("form-edit-lesson")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const slotId = document.getElementById("edit-lesson-id").value;
+          const index = state.schedule.findIndex(
+            (item) => item.slotId === slotId,
+          );
+          if (index !== -1) {
+            state.schedule[index].subject = document
+              .getElementById("edit-subject")
+              .value.trim();
+            state.schedule[index].teacher = document
+              .getElementById("edit-teacher")
+              .value.trim();
+            state.schedule[index].room = document
+              .getElementById("edit-room")
+              .value.trim();
+            state.schedule[index].color = state.editSelectedColor;
+            saveData();
+            renderScheduleGrid();
+            renderAnalytics();
+            closeModal();
+          }
+        });
+
+      document
+        .getElementById("btn-delete-lesson")
+        .addEventListener("click", () => {
+          const slotId = document.getElementById("edit-lesson-id").value;
+          state.schedule = state.schedule.filter(
+            (item) => item.slotId !== slotId,
+          );
+          saveData();
+          renderScheduleGrid();
+          renderAnalytics();
+          closeModal();
+        });
+
+      document
+        .getElementById("btn-theme-toggle")
+        .addEventListener("click", () => {
+          const isDark = document.documentElement.classList.toggle("dark");
+          localStorage.setItem("theme", isDark ? "dark" : "light");
+          document
+            .getElementById("theme-icon-light")
+            .classList.toggle("hidden", !isDark);
+          document
+            .getElementById("theme-icon-dark")
+            .classList.toggle("hidden", isDark);
+        });
+
+      window.onload = function () {
+        const isDark =
+          localStorage.getItem("theme") === "dark" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+        if (isDark) {
+          document.documentElement.classList.add("dark");
+          document
+            .getElementById("theme-icon-light")
+            .classList.remove("hidden");
+          document.getElementById("theme-icon-dark").classList.add("hidden");
+        }
+
+        loadData();
+        initColorPickers();
+        renderAll();
+        renderAnalytics();
+        updateLiveClock();
+        setInterval(updateLiveClock, 30000);
+        setInterval(() => {
+          const modal = document.getElementById("current-activity-modal");
+          if (modal && !modal.classList.contains("hidden")) {
+            openCurrentActivity();
+          }
+        }, 60000);
+      };
+    </script>
+  </body>
+</html>

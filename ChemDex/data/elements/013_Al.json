@@ -1,0 +1,55 @@
+{
+  "number": 13,
+  "symbol": "Al",
+  "nameVi": "Aluminium",
+  "nameEn": "Aluminium",
+  "mass": 26.982,
+  "category": "unknown",
+  "general": {
+    "latinName": "Aluminium",
+    "englishName": "Aluminium",
+    "electronConfig": "[Ne] 3s2 3p1",
+    "group": 13,
+    "period": 3,
+    "oxidation": "+3",
+    "electronegativity": "1.61",
+    "shells": [
+      2,
+      8,
+      3
+    ]
+  },
+  "history": {
+    "discoverer": "Hans Christian Ørsted",
+    "year": 1825,
+    "discoveryLocation": "Đan Mạch"
+  },
+  "structure": {
+    "electrons": 13,
+    "protons": 13,
+    "neutrons": 14
+  },
+  "occurrence": {
+    "description": "Có trong bauxite và nhiều silicat.",
+    "simple": [
+      "Al"
+    ],
+    "compounds": [
+      "Al2O3",
+      "Al(OH)3"
+    ]
+  },
+  "physical": "Nhẹ, dẫn nhiệt tốt, có lớp oxit bảo vệ.",
+  "chemical": "Lưỡng tính, phản ứng với axit và bazơ mạnh.",
+  "reactions": [
+    {
+      "type": "Oxit hóa",
+      "eq": "4Al + 3O2 → 2Al2O3",
+      "desc": "Tạo lớp oxit bền trên bề mặt."
+    }
+  ],
+  "structureType": "fcc",
+  "images": {},
+  "hasData": true,
+  "file": "elements/013_Al.json"
+}

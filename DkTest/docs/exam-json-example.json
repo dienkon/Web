@@ -1,0 +1,69 @@
+{
+  "version": 3,
+  "source": "DkTEST",
+  "exportedAt": "2026-08-15T00:00:00.000Z",
+  "exportType": "exam",
+  "exam": {
+    "title": "Đề cương Toán 12 Cuối Kỳ",
+    "timeLimit": 90,
+    "shuffleQuestions": true,
+    "showResults": true,
+    "description": "Bao gồm 50 câu trắc nghiệm"
+  },
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Phần I - Trắc nghiệm khách quan",
+      "description": "Chọn 1 đáp án đúng",
+      "order": 0
+    },
+    {
+      "id": "section-2",
+      "title": "Phần II - Trắc nghiệm nhiều lựa chọn",
+      "description": "Chọn nhiều đáp án đúng",
+      "order": 1
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single_choice",
+      "text": "Đạo hàm của $y = x^2$ là gì?",
+      "options": [
+        { "id": "opt1", "text": "$2x$" },
+        { "id": "opt2", "text": "$x$" },
+        { "id": "opt3", "text": "$x^2$" },
+        { "id": "opt4", "text": "2" }
+      ],
+      "correctOptionIds": ["opt1"],
+      "explanation": "Áp dụng công thức đạo hàm cơ bản.",
+      "points": 1,
+      "sectionId": "section-1",
+      "order": 0
+    },
+    {
+      "id": "q2",
+      "type": "multiple_choice",
+      "text": "Các số nào sau đây là số nguyên tố?",
+      "options": [
+        { "id": "opt1", "text": "2" },
+        { "id": "opt2", "text": "3" },
+        { "id": "opt3", "text": "4" },
+        { "id": "opt4", "text": "9" }
+      ],
+      "correctOptionIds": ["opt1", "opt2"],
+      "points": 2,
+      "sectionId": "section-2",
+      "order": 0
+    },
+    {
+      "id": "q3",
+      "type": "short_answer",
+      "text": "Tính: $1 + 1 = ?$",
+      "acceptedAnswers": ["2", "Hai", "hai"],
+      "points": 1,
+      "sectionId": "section-1",
+      "order": 1
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "number": 28,
+  "symbol": "Ni",
+  "nameVi": "Nickel",
+  "nameEn": "Nickel",
+  "mass": 58.693,
+  "category": "chuyen-tiep",
+  "general": {
+    "latinName": "Niccolum",
+    "englishName": "Nickel",
+    "electronConfig": "[Ar] 3d8 4s2",
+    "group": 10,
+    "period": 4,
+    "oxidation": "+2, +3",
+    "electronegativity": "1.91",
+    "shells": [
+      2,
+      8,
+      16,
+      2
+    ]
+  },
+  "history": {
+    "discoverer": "Axel Fredrik Cronstedt",
+    "year": 1751,
+    "discoveryLocation": "Thụy Điển"
+  },
+  "structure": {
+    "electrons": 28,
+    "protons": 28,
+    "neutrons": 31
+  },
+  "occurrence": {
+    "description": "Có trong quặng pentlandit, laterit.",
+    "simple": [
+      "Ni"
+    ],
+    "compounds": [
+      "NiO",
+      "NiSO4"
+    ]
+  },
+  "physical": "Kim loại sáng, bền, chống ăn mòn tốt.",
+  "chemical": "Dùng nhiều trong hợp kim và mạ kim loại.",
+  "reactions": [
+    {
+      "type": "Oxi hóa",
+      "eq": "2Ni + O2 → 2NiO",
+      "desc": "Tạo lớp oxit bền."
+    }
+  ],
+  "structureType": "fcc",
+  "images": {},
+  "hasData": true,
+  "file": "elements/028_Ni.json"
+}

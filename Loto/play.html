@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lô Tô Realtime - Chơi Cùng Bạn Bè</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      .font-hand {
+        font-family: "Patrick Hand", cursive;
+      }
+      .loto-cell {
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        cursor: default;
+        transition: all 0.2s;
+        font-size: 0.9rem; /* Mặc định nhỏ hơn xíu cho vé 9x9 */
+      }
+      @media (min-width: 768px) {
+        .loto-cell {
+          font-size: 1.1rem;
+        }
+      }
+      .loto-cell.empty {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .loto-cell.number {
+        background: white;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .loto-cell.hit {
+        background: #ef4444; /* red-500 */
+        color: white;
+        border-color: #b91c1c;
+        transform: scale(1.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+      /* Animation quay số */
+      @keyframes spin-ball {
+        0% {
+          transform: rotate(0deg) scale(1);
+        }
+        50% {
+          transform: rotate(180deg) scale(1.1);
+        }
+        100% {
+          transform: rotate(360deg) scale(1);
+        }
+      }
+      .spinning {
+        animation: spin-ball 0.5s infinite linear;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 min-h-screen text-white overflow-x-hidden"
+  >
+    <!-- Loading Overlay -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-black/90 z-50 flex flex-col items-center justify-center transition-opacity duration-500"
+    >
+      <div
+        class="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full animate-spin mb-4"
+      ></div>
+      <p class="text-xl font-hand animate-pulse">
+        Đang kết nối Lô Tô Server...
+      </p>
+    </div>
+
+    <!-- Header -->
+    <header
+      class="fixed top-0 w-full bg-black/20 backdrop-blur-md border-b border-white/10 z-40 px-4 py-3 flex justify-between items-center"
+    >
+      <div
+        class="flex items-center gap-2"
+        onclick="location.href = 'index.html'"
+        style="cursor: pointer"
+      >
+        <div
+          class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center font-bold shadow-lg"
+        >
+          L
+        </div>
+        <span class="font-hand text-xl font-bold tracking-wider"
+          >Lô Tô Pro</span
+        >
+      </div>
+      <div class="flex items-center gap-3">
+        <div
+          id="user-badge"
+          class="hidden md:flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-sm"
+        >
+          <i class="fa-solid fa-user"></i>
+          <span id="display-username">Guest</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main
+      class="pt-20 pb-10 container mx-auto px-4 min-h-screen flex flex-col items-center justify-center"
+    >
+      <!-- SCREEN 1: MENU (Tạo/Vào phòng) -->
+      <div id="screen-menu" class="w-full max-w-md animate-fade-in hidden">
+        <div
+          class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl border border-white/20 shadow-2xl"
+        >
+          <h1 class="text-4xl font-hand text-center mb-2 text-yellow-300">
+            Sẵn Sàng Chưa?
+          </h1>
+          <p class="text-center text-gray-300 mb-8 text-sm">
+            Chơi Lô Tô Realtime cùng bạn bè ngay!
+          </p>
+
+          <div class="space-y-4">
+            <div>
+              <label
+                class="block text-xs font-bold text-gray-400 uppercase mb-1"
+                >Tên hiển thị</label
+              >
+              <input
+                type="text"
+                id="input-name"
+                class="w-full bg-black/40 border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white font-bold"
+                placeholder="Nhập tên bạn..."
+              />
+            </div>
+
+            <button
+              onclick="app.createRoom()"
+              class="w-full group bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-400 hover:to-pink-500 py-4 rounded-xl font-bold text-lg shadow-lg transition-all transform hover:scale-[1.02]"
+            >
+              <div class="flex items-center justify-center gap-2">
+                <i
+                  class="fa-solid fa-plus-circle group-hover:rotate-90 transition-transform"
+                ></i>
+                TẠO PHÒNG MỚI
+              </div>
+            </button>
+
+            <div class="relative py-2">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-600"></div>
+              </div>
+              <div class="relative flex justify-center">
+                <span class="bg-transparent px-2 text-sm text-gray-500"
+                  >HOẶC</span
+                >
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="input-room-code"
+                class="flex-1 bg-black/40 border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white font-mono uppercase text-center tracking-widest"
+                placeholder="MÃ PHÒNG"
+              />
+              <button
+                onclick="app.joinRoom()"
+                class="bg-indigo-600 hover:bg-indigo-500 px-6 rounded-xl font-bold shadow-lg transition-colors"
+              >
+                VÀO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: LOBBY (Phòng chờ) -->
+      <div
+        id="screen-lobby"
+        class="w-full max-w-lg animate-fade-in hidden text-center"
+      >
+        <div
+          class="bg-white/10 backdrop-blur-lg p-6 rounded-3xl border border-white/20 shadow-2xl relative"
+        >
+          <div
+            class="absolute -top-10 left-1/2 -translate-x-1/2 bg-yellow-400 text-black font-bold px-4 py-1 rounded-full shadow-lg text-sm"
+          >
+            PHÒNG CHỜ
+          </div>
+
+          <div class="mt-4 mb-6">
+            <div class="text-gray-400 text-xs uppercase tracking-widest mb-1">
+              Mã Phòng
+            </div>
+            <div class="flex items-center justify-center gap-3">
+              <span
+                id="lobby-room-code"
+                class="text-5xl font-mono font-black text-white tracking-widest drop-shadow-lg"
+                >---</span
+              >
+              <button
+                onclick="app.copyRoomLink()"
+                class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition"
+                title="Copy Link"
+              >
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="text-left bg-black/20 rounded-xl p-4 mb-6 max-h-64 overflow-y-auto"
+          >
+            <h3
+              class="text-xs font-bold text-gray-400 uppercase mb-3 flex justify-between"
+            >
+              <span
+                >Danh sách người chơi (<span id="player-count">0</span>)</span
+              >
+              <i class="fa-solid fa-users"></i>
+            </h3>
+            <div id="lobby-player-list" class="space-y-2">
+              <!-- Player Items injected here -->
+            </div>
+          </div>
+
+          <div id="host-controls" class="hidden space-y-3">
+            <button
+              onclick="app.startSelection()"
+              class="w-full bg-green-600 hover:bg-green-500 py-4 rounded-xl font-bold text-xl shadow-lg animate-pulse"
+            >
+              BẮT ĐẦU CHỌN VÉ
+            </button>
+            <p class="text-xs text-gray-400 italic">
+              Chỉ chủ phòng mới thấy nút này
+            </p>
+          </div>
+          <div id="guest-waiting" class="hidden">
+            <p class="text-indigo-300 animate-pulse font-medium">
+              <i class="fa-solid fa-spinner fa-spin mr-2"></i>Đang chờ chủ phòng
+              bắt đầu...
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 3: SELECTION (Chọn vé) -->
+      <div
+        id="screen-selection"
+        class="w-full max-w-6xl animate-fade-in hidden"
+      >
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-hand font-bold text-yellow-300 mb-2">
+            Chọn Vé Số May Mắn (9x9)
+          </h2>
+          <div
+            class="inline-flex items-center gap-2 bg-red-600/80 px-4 py-1 rounded-full text-sm font-bold shadow-lg"
+          >
+            <i class="fa-regular fa-clock"></i>
+            Còn lại:
+            <span id="selection-timer" class="font-mono text-xl">30</span>s
+          </div>
+        </div>
+
+        <div
+          id="ticket-options-container"
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <!-- 3 Vé random sẽ hiện ở đây -->
+        </div>
+      </div>
+
+      <!-- SCREEN 4: GAMEPLAY -->
+      <div
+        id="screen-game"
+        class="w-full max-w-7xl flex flex-col lg:flex-row gap-6 hidden h-full"
+      >
+        <!-- LEFT: Game Board & Status -->
+        <div class="flex-1 flex flex-col gap-4">
+          <!-- HUD -->
+          <div
+            class="bg-black/40 backdrop-blur p-4 rounded-2xl border border-white/10 flex justify-between items-center shadow-lg"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-inner border border-white/20"
+              >
+                <span id="current-number" class="text-4xl font-bold font-mono"
+                  >--</span
+                >
+              </div>
+              <div>
+                <div class="text-xs text-gray-400 uppercase">Số vừa quay</div>
+                <div
+                  id="game-status"
+                  class="text-sm font-bold text-yellow-400 animate-pulse"
+                >
+                  ĐANG CHỜ...
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button
+                id="btn-kinh"
+                onclick="app.claimWin()"
+                disabled
+                class="px-6 py-3 bg-gray-600 text-gray-300 rounded-xl font-black text-xl uppercase tracking-widest transition-all shadow-lg transform scale-95 opacity-50 cursor-not-allowed border-2 border-transparent"
+              >
+                KINH RỒI!
+              </button>
+            </div>
+          </div>
+
+          <!-- TICKET -->
+          <div
+            class="flex-1 bg-white p-2 md:p-4 rounded-2xl shadow-2xl relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500"
+            ></div>
+            <div
+              id="my-game-ticket"
+              class="w-full h-full flex flex-col justify-center gap-1 bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-2 md:p-4"
+            >
+              <!-- Ticket Render Here -->
+            </div>
+          </div>
+
+          <!-- History Bar -->
+          <div class="bg-black/20 p-3 rounded-xl overflow-hidden">
+            <div class="text-[10px] text-gray-400 uppercase mb-1 font-bold">
+              Lịch sử số ra (Mới nhất trước)
+            </div>
+            <div
+              id="number-history"
+              class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide"
+            >
+              <!-- History balls -->
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Controls & Social -->
+        <div class="w-full lg:w-80 flex flex-col gap-4 h-auto lg:h-[80vh]">
+          <!-- Host Controls -->
+          <div
+            id="host-game-controls"
+            class="hidden bg-indigo-900/80 p-4 rounded-2xl border border-indigo-500/50 shadow-xl"
+          >
+            <h3
+              class="text-xs font-bold text-indigo-300 uppercase mb-3 border-b border-indigo-700 pb-2"
+            >
+              Điều khiển Host
+            </h3>
+            <button
+              onclick="app.drawNumber()"
+              id="btn-draw"
+              class="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 py-4 rounded-xl font-bold text-xl shadow-lg transition-all flex items-center justify-center gap-2 group"
+            >
+              <i class="fa-solid fa-dice group-hover:spin-slow"></i> QUAY SỐ
+            </button>
+            <button
+              onclick="app.resetGame()"
+              class="w-full mt-2 bg-white/10 hover:bg-white/20 py-2 rounded-lg text-xs font-medium"
+            >
+              <i class="fa-solid fa-rotate-right mr-1"></i> Ván Mới
+            </button>
+          </div>
+
+          <!-- Mic & Players -->
+          <div
+            class="flex-1 bg-black/40 backdrop-blur rounded-2xl p-4 flex flex-col border border-white/10 overflow-hidden min-h-[200px]"
+          >
+            <!-- Mic Control -->
+            <div class="mb-4 bg-black/20 p-3 rounded-xl">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-xs font-bold text-gray-400 uppercase"
+                  >Voice Chat</span
+                >
+                <div
+                  id="mic-status-indicator"
+                  class="w-2 h-2 rounded-full bg-red-500"
+                ></div>
+              </div>
+              <button
+                id="btn-mic-request"
+                onclick="app.toggleMicRequest()"
+                class="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-bold transition flex items-center justify-center gap-2"
+              >
+                <i class="fa-solid fa-microphone-slash"></i> Xin Mở Mic
+              </button>
+            </div>
+
+            <!-- Player List -->
+            <div
+              class="flex-1 overflow-y-auto space-y-2 pr-1"
+              id="game-player-list"
+            >
+              <!-- Players -->
+            </div>
+          </div>
+
+          <!-- Chat (Mini) -->
+          <div
+            class="h-40 bg-black/40 backdrop-blur rounded-2xl p-3 flex flex-col border border-white/10"
+          >
+            <div
+              id="chat-messages"
+              class="flex-1 overflow-y-auto text-xs space-y-1 mb-2 pr-1"
+            >
+              <div class="text-yellow-500 italic">Chào mừng vào phòng!</div>
+            </div>
+            <form onsubmit="app.sendChat(event)" class="flex gap-2">
+              <input
+                type="text"
+                id="chat-input"
+                class="flex-1 bg-white/10 rounded px-2 py-1 text-sm border border-transparent focus:border-white/30 focus:outline-none"
+                placeholder="Chat..."
+              />
+              <button
+                type="submit"
+                class="bg-blue-600 px-3 rounded text-xs font-bold"
+              >
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Firebase Script -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+        signInWithCustomToken,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        update,
+        onValue,
+        push,
+        child,
+        onDisconnect,
+        serverTimestamp,
+        increment,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+      // --- CẤU HÌNH ---
+      const firebaseConfig = {
+        apiKey: "AIzaSyDZK2CCPs323te_V6eq1osLdopV_yjtQp0",
+        authDomain: "loto-e2b48.firebaseapp.com",
+        databaseURL: "https://loto-e2b48-default-rtdb.firebaseio.com",
+        projectId: "loto-e2b48",
+        storageBucket: "loto-e2b48.firebasestorage.app",
+        messagingSenderId: "537298300448",
+        appId: "1:537298300448:web:b61879cd5a4aee5ac8d645",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getDatabase(app);
+
+      // --- STATE ---
+      const state = {
+        user: null,
+        username: localStorage.getItem("loto_username") || "",
+        roomCode: null,
+        isHost: false,
+        ticket: null,
+        micStream: null,
+        currentView: "menu",
+        drawing: false,
+      };
+
+      // --- DOM ELEMENTS ---
+      const els = {
+        screens: {
+          menu: document.getElementById("screen-menu"),
+          lobby: document.getElementById("screen-lobby"),
+          selection: document.getElementById("screen-selection"),
+          game: document.getElementById("screen-game"),
+        },
+        inputs: {
+          name: document.getElementById("input-name"),
+          roomCode: document.getElementById("input-room-code"),
+        },
+        loading: document.getElementById("loading-overlay"),
+        displayName: document.getElementById("display-username"),
+      };
+
+      // --- HELPER FUNCTIONS ---
+      const showScreen = (name) => {
+        state.currentView = name;
+        Object.values(els.screens).forEach((el) => el.classList.add("hidden"));
+        els.screens[name].classList.remove("hidden");
+      };
+
+      const generateRoomCode = () => {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let res = "";
+        for (let i = 0; i < 6; i++)
+          res += chars.charAt(Math.floor(Math.random() * chars.length));
+        return res;
+      };
+
+      // --- AUTH & INIT ---
+      const init = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomFromUrl = urlParams.get("room");
+        if (roomFromUrl) {
+          els.inputs.roomCode.value = roomFromUrl;
+        }
+
+        if (state.username) {
+          els.inputs.name.value = state.username;
+          els.displayName.innerText = state.username;
+        }
+
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            state.user = user;
+            els.loading.classList.add("opacity-0");
+            setTimeout(() => els.loading.classList.add("hidden"), 500);
+            showScreen("menu");
+
+            if (roomFromUrl && state.username) {
+              window.app.joinRoom();
+            }
+          } else {
+            signInAnonymously(auth).catch(alert);
+          }
+        });
+      };
+
+      // --- CORE LOGIC ---
+      window.app = {
+        createRoom: async () => {
+          const name = els.inputs.name.value.trim();
+          if (!name) return alert("Vui lòng nhập tên!");
+
+          state.username = name;
+          localStorage.setItem("loto_username", name);
+
+          const code = generateRoomCode();
+          const roomRef = ref(db, `rooms/${code}`);
+
+          await set(roomRef, {
+            hostId: state.user.uid,
+            hostName: name,
+            status: "waiting",
+            currentNumber: 0,
+            numbersHistory: [],
+            createdAt: serverTimestamp(),
+          });
+
+          const playerRef = ref(db, `rooms/${code}/players/${state.user.uid}`);
+          await set(playerRef, {
+            name: name,
+            isHost: true,
+            micRequested: false,
+            micAllowed: false,
+            win: false,
+            joinedAt: serverTimestamp(),
+          });
+
+          state.roomCode = code;
+          state.isHost = true;
+          enterLobby(code);
+        },
+
+        joinRoom: async () => {
+          const name = els.inputs.name.value.trim();
+          const code = els.inputs.roomCode.value.trim().toUpperCase();
+
+          if (!name || !code) return alert("Thiếu tên hoặc mã phòng!");
+
+          state.username = name;
+          localStorage.setItem("loto_username", name);
+
+          const roomRef = ref(db, `rooms/${code}`);
+          const snapshot = await get(roomRef);
+
+          if (!snapshot.exists()) return alert("Phòng không tồn tại!");
+
+          const playerRef = ref(db, `rooms/${code}/players/${state.user.uid}`);
+          await set(playerRef, {
+            name: name,
+            isHost: false,
+            micRequested: false,
+            micAllowed: false,
+            win: false,
+            joinedAt: serverTimestamp(),
+          });
+
+          onDisconnect(playerRef).remove();
+
+          state.roomCode = code;
+          state.isHost = snapshot.val().hostId === state.user.uid;
+          enterLobby(code);
+        },
+
+        copyRoomLink: () => {
+          const url = `${window.location.origin}${window.location.pathname}?room=${state.roomCode}`;
+          navigator.clipboard.writeText(url).then(() => alert("Đã copy link!"));
+        },
+
+        startSelection: () => {
+          if (!state.isHost) return;
+          update(ref(db, `rooms/${state.roomCode}`), { status: "selecting" });
+        },
+
+        confirmTicket: (ticketMatrix) => {
+          state.ticket = ticketMatrix;
+          update(ref(db, `rooms/${state.roomCode}/players/${state.user.uid}`), {
+            ticket: JSON.stringify(ticketMatrix),
+          });
+
+          document.getElementById("ticket-options-container").innerHTML = `
+                    <div class="col-span-1 md:col-span-3 text-center py-20 text-white animate-pulse">
+                        <i class="fa-solid fa-check-circle text-6xl text-green-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold">Đã chọn vé!</h3>
+                        <p>Chờ những người khác...</p>
+                    </div>
+                `;
+        },
+
+        drawNumber: async () => {
+          if (!state.isHost || state.drawing) return;
+
+          state.drawing = true;
+          const btn = document.getElementById("btn-draw");
+          const originalText = btn.innerHTML;
+          btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Quay...`;
+          btn.disabled = true;
+
+          const roomSnapshot = await get(ref(db, `rooms/${state.roomCode}`));
+          const roomData = roomSnapshot.val();
+          const history = roomData.numbersHistory || [];
+
+          if (history.length >= 90) {
+            alert("Hết số!");
+            state.drawing = false;
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            return;
+          }
+
+          setTimeout(async () => {
+            let newNum;
+            do {
+              newNum = Math.floor(Math.random() * 90) + 1;
+            } while (history.includes(newNum));
+
+            const updates = {};
+            updates[`rooms/${state.roomCode}/currentNumber`] = newNum;
+            updates[`rooms/${state.roomCode}/numbersHistory`] = [
+              ...history,
+              newNum,
+            ];
+
+            await update(ref(db), updates);
+
+            state.drawing = false;
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }, 1500);
+        },
+
+        resetGame: async () => {
+          if (!confirm("Chơi ván mới? Dữ liệu ván cũ sẽ mất.")) return;
+          await update(ref(db, `rooms/${state.roomCode}`), {
+            status: "selecting",
+            currentNumber: 0,
+            numbersHistory: [],
+          });
+        },
+
+        toggleMicRequest: () => {
+          const currentReq =
+            document.getElementById("btn-mic-request").dataset.requested ===
+            "true";
+          update(ref(db, `rooms/${state.roomCode}/players/${state.user.uid}`), {
+            micRequested: !currentReq,
+          });
+        },
+
+        hostToggleMic: (targetUid, currentAllowed) => {
+          if (!state.isHost) return;
+          update(ref(db, `rooms/${state.roomCode}/players/${targetUid}`), {
+            micAllowed: !currentAllowed,
+            micRequested: false,
+          });
+        },
+
+        claimWin: () => {
+          if (confirm("Bạn chắc chắn đã đủ 5 số trên 1 hàng ngang?")) {
+            update(
+              ref(db, `rooms/${state.roomCode}/players/${state.user.uid}`),
+              { win: true },
+            );
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+          }
+        },
+
+        sendChat: (e) => {
+          e.preventDefault();
+          const input = document.getElementById("chat-input");
+          const text = input.value.trim();
+          if (!text) return;
+
+          const chatRef = ref(db, `rooms/${state.roomCode}/chat`);
+          push(chatRef, {
+            name: state.username,
+            text: text,
+            ts: serverTimestamp(),
+          });
+          input.value = "";
+        },
+      };
+
+      // --- REALTIME LISTENERS ---
+
+      function enterLobby(code) {
+        document.getElementById("lobby-room-code").innerText = code;
+
+        onValue(ref(db, `rooms/${code}`), (snap) => {
+          const data = snap.val();
+          if (!data) {
+            alert("Phòng đã bị giải tán");
+            location.reload();
+            return;
+          }
+
+          if (data.status === "waiting") {
+            showScreen("lobby");
+            document
+              .getElementById("host-controls")
+              .classList.toggle("hidden", !state.isHost);
+            document
+              .getElementById("guest-waiting")
+              .classList.toggle("hidden", state.isHost);
+          } else if (data.status === "selecting") {
+            if (
+              state.currentView !== "selection" &&
+              state.currentView !== "game"
+            ) {
+              startSelectionPhase();
+            }
+          } else if (data.status === "playing") {
+            showScreen("game");
+            updateGameBoard(data);
+          }
+
+          if (!window.chatListening) {
+            window.chatListening = true;
+            onValue(ref(db, `rooms/${code}/chat`), (chatSnap) => {
+              const msgs = chatSnap.val();
+              const div = document.getElementById("chat-messages");
+              div.innerHTML = "";
+              if (msgs) {
+                Object.values(msgs).forEach((m) => {
+                  const p = document.createElement("div");
+                  p.className = "mb-1";
+                  p.innerHTML = `<span class="font-bold text-yellow-400">${m.name}:</span> <span class="text-white">${m.text}</span>`;
+                  div.appendChild(p);
+                });
+                div.scrollTop = div.scrollHeight;
+              }
+            });
+          }
+        });
+
+        onValue(ref(db, `rooms/${code}/players`), (snap) => {
+          const players = snap.val() || {};
+          renderLobbyPlayers(players);
+          renderGamePlayers(players);
+
+          const me = players[state.user.uid];
+          if (me) {
+            handleMyMicState(me);
+          }
+
+          const winners = Object.values(players).filter((p) => p.win);
+          if (winners.length > 0 && state.currentView === "game") {
+            const statusEl = document.getElementById("game-status");
+            statusEl.innerText = `${winners[0].name} ĐÃ KINH!`;
+            statusEl.classList.add("text-red-500");
+          }
+        });
+      }
+
+      // --- RENDER FUNCTIONS ---
+
+      function renderLobbyPlayers(playersObj) {
+        const list = document.getElementById("lobby-player-list");
+        const players = Object.values(playersObj);
+        document.getElementById("player-count").innerText = players.length;
+
+        list.innerHTML = players
+          .map(
+            (p) => `
+                <div class="flex items-center justify-between bg-white/5 p-2 rounded">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-user-astronaut ${
+                          p.isHost ? "text-yellow-400" : "text-gray-400"
+                        }"></i>
+                        <span class="${
+                          p.isHost
+                            ? "font-bold text-yellow-300"
+                            : "text-gray-200"
+                        }">${p.name}</span>
+                    </div>
+                    ${
+                      p.isHost
+                        ? '<span class="text-[10px] bg-yellow-500 text-black px-1 rounded font-bold">HOST</span>'
+                        : ""
+                    }
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function renderGamePlayers(playersObj) {
+        const list = document.getElementById("game-player-list");
+        list.innerHTML = "";
+
+        Object.entries(playersObj).forEach(([uid, p]) => {
+          const isMe = uid === state.user.uid;
+          const div = document.createElement("div");
+          div.className =
+            "flex items-center justify-between bg-white/5 p-2 rounded hover:bg-white/10 transition";
+
+          let micIcon = `<i class="fa-solid fa-microphone-slash text-gray-500 text-xs"></i>`;
+          if (p.micAllowed)
+            micIcon = `<i class="fa-solid fa-microphone text-green-400 animate-pulse text-xs"></i>`;
+          else if (p.micRequested)
+            micIcon = `<i class="fa-solid fa-hand text-yellow-400 animate-bounce text-xs" title="Xin phát biểu"></i>`;
+
+          let actionBtn = "";
+          if (state.isHost && !isMe) {
+            if (p.micRequested && !p.micAllowed) {
+              actionBtn = `<button onclick="window.app.hostToggleMic('${uid}', false)" class="ml-2 bg-green-600 px-2 py-0.5 rounded text-[10px]">DUYỆT</button>`;
+            } else if (p.micAllowed) {
+              actionBtn = `<button onclick="window.app.hostToggleMic('${uid}', true)" class="ml-2 bg-red-600 px-2 py-0.5 rounded text-[10px]">TẮT</button>`;
+            }
+          }
+
+          div.innerHTML = `
+                    <div class="flex items-center gap-2 truncate">
+                        ${
+                          p.win
+                            ? '<i class="fa-solid fa-trophy text-yellow-400"></i>'
+                            : ""
+                        }
+                        <span class="text-sm ${
+                          isMe ? "text-blue-300 font-bold" : "text-gray-300"
+                        } truncate">${p.name}</span>
+                    </div>
+                    <div class="flex items-center">
+                        ${micIcon}
+                        ${actionBtn}
+                    </div>
+                `;
+          list.appendChild(div);
+        });
+      }
+
+      function startSelectionPhase() {
+        showScreen("selection");
+        const container = document.getElementById("ticket-options-container");
+        container.innerHTML = "";
+
+        // Generate 3 random tickets
+        for (let i = 0; i < 3; i++) {
+          const ticket = generateTicketData();
+          const div = document.createElement("div");
+          div.className =
+            "bg-white p-2 rounded-xl cursor-pointer hover:ring-4 ring-indigo-500 transition shadow-lg transform hover:scale-[1.01]";
+          div.onclick = () => window.app.confirmTicket(ticket);
+
+          let gridHtml = `<div class="grid grid-cols-9 gap-px bg-gray-300 border border-gray-400 p-px">`;
+          ticket.forEach((row) => {
+            row.forEach((num) => {
+              gridHtml += `<div class="w-full aspect-square flex items-center justify-center text-[10px] sm:text-xs font-bold ${
+                num
+                  ? "bg-yellow-50 text-black border border-gray-200"
+                  : "bg-white"
+              }">${num || ""}</div>`;
+            });
+          });
+          gridHtml += `</div>`;
+
+          div.innerHTML =
+            `<div class="text-center font-bold mb-1 text-indigo-900">Vé Số ${
+              i + 1
+            } (9x9)</div>` + gridHtml;
+          container.appendChild(div);
+        }
+
+        let timeLeft = 5;
+        const timerEl = document.getElementById("selection-timer");
+        const interval = setInterval(() => {
+          timeLeft--;
+          if (timerEl) timerEl.innerText = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(interval);
+            if (!state.ticket) {
+              const firstTicket = generateTicketData();
+              window.app.confirmTicket(firstTicket);
+            }
+            // --- THÊM ĐOẠN NÀY VÀO ---
+            if (state.isHost) {
+              update(ref(db, `rooms/${state.roomCode}`), { status: "playing" });
+            }
+          }
+        }, 1000);
+      }
+
+      function updateGameBoard(roomData) {
+        const currentNum = roomData.currentNumber;
+        const history = roomData.numbersHistory || [];
+
+        const numDisplay = document.getElementById("current-number");
+        numDisplay.innerText = currentNum || "--";
+        if (currentNum > 0) {
+          numDisplay.classList.remove("spinning");
+          void numDisplay.offsetWidth;
+          numDisplay.classList.add("animate-bounce");
+        }
+
+        document.getElementById("game-status").innerText =
+          history.length > 0 ? `VÒNG QUAY THỨ ${history.length}` : "SẴN SÀNG";
+        document
+          .getElementById("host-game-controls")
+          .classList.toggle("hidden", !state.isHost);
+
+        const histContainer = document.getElementById("number-history");
+        histContainer.innerHTML = [...history]
+          .reverse()
+          .map(
+            (n) =>
+              `<div class="flex-shrink-0 w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center text-xs border border-gray-300">${n}</div>`,
+          )
+          .join("");
+
+        if (state.ticket) {
+          const board = document.getElementById("my-game-ticket");
+          board.innerHTML = "";
+          let isWinner = false;
+
+          state.ticket.forEach((row) => {
+            const rowNums = row.filter((n) => n !== 0);
+            const rowFull = rowNums.every((n) => history.includes(n));
+            if (rowFull) isWinner = true;
+
+            const rowDiv = document.createElement("div");
+            rowDiv.className = `grid grid-cols-9 gap-1 mb-1 ${
+              rowFull ? "bg-yellow-200/50 p-1 rounded animate-pulse" : ""
+            }`;
+
+            row.forEach((num) => {
+              const cell = document.createElement("div");
+              if (num === 0) {
+                cell.className = "loto-cell empty rounded-sm";
+              } else {
+                const isHit = history.includes(num);
+                cell.className = `loto-cell number rounded-sm ${
+                  isHit ? "hit" : ""
+                }`;
+                cell.innerText = num;
+              }
+              rowDiv.appendChild(cell);
+            });
+            board.appendChild(rowDiv);
+          });
+
+          const btnKinh = document.getElementById("btn-kinh");
+          if (isWinner) {
+            btnKinh.disabled = false;
+            btnKinh.classList.remove(
+              "opacity-50",
+              "cursor-not-allowed",
+              "bg-gray-600",
+              "text-gray-300",
+            );
+            btnKinh.classList.add(
+              "bg-yellow-400",
+              "text-red-600",
+              "animate-bounce",
+              "cursor-pointer",
+              "border-red-500",
+            );
+          }
+        }
+      }
+
+      async function handleMyMicState(me) {
+        const btn = document.getElementById("btn-mic-request");
+        const indicator = document.getElementById("mic-status-indicator");
+
+        btn.dataset.requested = me.micRequested;
+
+        if (me.micAllowed) {
+          indicator.className =
+            "w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse";
+          btn.innerHTML = `<i class="fa-solid fa-microphone"></i> MIC ĐANG BẬT`;
+          btn.className =
+            "w-full py-2 bg-green-600 rounded-lg text-sm font-bold text-white shadow-lg animate-pulse";
+          btn.disabled = true;
+
+          if (!state.micStream) {
+            try {
+              state.micStream = await navigator.mediaDevices.getUserMedia({
+                audio: true,
+              });
+            } catch (e) {
+              console.error("Mic error", e);
+              alert("Không thể truy cập Mic! Hãy kiểm tra quyền trình duyệt.");
+            }
+          }
+        } else {
+          if (state.micStream) {
+            state.micStream.getTracks().forEach((t) => t.stop());
+            state.micStream = null;
+          }
+
+          if (me.micRequested) {
+            indicator.className =
+              "w-3 h-3 rounded-full bg-yellow-400 animate-bounce";
+            btn.innerHTML = `<i class="fa-solid fa-hourglass-half"></i> Đang chờ Host...`;
+            btn.className =
+              "w-full py-2 bg-yellow-600/50 text-yellow-200 rounded-lg text-sm font-bold cursor-wait";
+            btn.disabled = false;
+          } else {
+            indicator.className = "w-3 h-3 rounded-full bg-red-500";
+            btn.innerHTML = `<i class="fa-solid fa-microphone-slash"></i> Xin Mở Mic`;
+            btn.className =
+              "w-full py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-bold transition";
+            btn.disabled = false;
+          }
+        }
+      }
+
+      // --- TICKET GENERATOR (Logic 9x9) ---
+      function generateTicketData() {
+        // 1. Tạo mask 9x9 (mỗi hàng 5 số, mỗi cột 5 số)
+        let mask = null;
+        while (!mask) {
+          mask = tryGenerateMask();
+        }
+
+        // 2. Điền số
+        const ticket = Array(9)
+          .fill(null)
+          .map(() => Array(9).fill(0));
+
+        // Ranges: Cột 0: 1-9, Cột 1: 10-19, ..., Cột 8: 80-90
+        const ranges = [
+          { min: 1, max: 9 },
+          { min: 10, max: 19 },
+          { min: 20, max: 29 },
+          { min: 30, max: 39 },
+          { min: 40, max: 49 },
+          { min: 50, max: 59 },
+          { min: 60, max: 69 },
+          { min: 70, max: 79 },
+          { min: 80, max: 90 },
+        ];
+
+        for (let c = 0; c < 9; c++) {
+          // Tìm các hàng có số ở cột này
+          let rowIndices = [];
+          for (let r = 0; r < 9; r++) {
+            if (mask[r][c] === 1) rowIndices.push(r);
+          }
+
+          // Tạo 5 số ngẫu nhiên không trùng cho cột này
+          let nums = [];
+          const { min, max } = ranges[c];
+          const count = rowIndices.length; // Nên là 5
+
+          while (nums.length < count) {
+            let n = Math.floor(Math.random() * (max - min + 1)) + min;
+            if (!nums.includes(n)) nums.push(n);
+          }
+          // Sắp xếp tăng dần từ trên xuống dưới
+          nums.sort((a, b) => a - b);
+
+          // Gán vào ma trận
+          rowIndices.forEach((rowIndex, i) => {
+            ticket[rowIndex][c] = nums[i];
+          });
+        }
+
+        return ticket;
+      }
+
+      function tryGenerateMask() {
+        let grid = Array(9)
+          .fill(null)
+          .map(() => Array(9).fill(0));
+        let colCounts = Array(9).fill(0);
+
+        for (let r = 0; r < 9; r++) {
+          // Cần chọn 5 cột cho hàng này
+          // Chỉ chọn các cột chưa đủ 5 số
+          let candidates = [];
+          for (let c = 0; c < 9; c++) {
+            if (colCounts[c] < 5) candidates.push(c);
+          }
+
+          // Nếu không đủ 5 cột khả dụng -> fail, thử lại
+          if (candidates.length < 5) return null;
+
+          // Random chọn 5
+          candidates.sort(() => Math.random() - 0.5);
+          let picked = candidates.slice(0, 5);
+
+          picked.forEach((c) => {
+            grid[r][c] = 1;
+            colCounts[c]++;
+          });
+        }
+        return grid;
+      }
+
+      // Run Init
+      init();
+    </script>
+  </body>
+</html>

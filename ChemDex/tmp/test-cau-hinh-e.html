@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mô Phỏng Cấu Hình Electron</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          Segoe UI,
+          sans-serif;
+      }
+
+      body {
+        background: #0f172a;
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px;
+      }
+
+      .card {
+        background: #1e293b;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .search {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      input {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #3b82f6;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #2563eb;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 20px;
+      }
+
+      .info {
+        background: #0f172a;
+        padding: 15px;
+        border-radius: 15px;
+      }
+
+      .info p {
+        margin: 10px 0;
+      }
+
+      canvas {
+        width: 100%;
+        height: 650px;
+        background: #020617;
+        border-radius: 15px;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        canvas {
+          height: 450px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>⚛️ Mô Phỏng Cấu Hình Electron</h1>
+
+        <div class="search">
+          <input
+            id="elementInput"
+            placeholder="Ví dụ: Oxygen, O, Sodium, Na..."
+          />
+          <button onclick="searchElement()">Tra cứu</button>
+        </div>
+
+        <div class="layout">
+          <div class="info">
+            <h2 id="name">-</h2>
+
+            <p><b>Ký hiệu:</b> <span id="symbol">-</span></p>
+
+            <p><b>Số hiệu nguyên tử:</b> <span id="atomic">-</span></p>
+
+            <p><b>Cấu hình e:</b></p>
+
+            <p id="config">-</p>
+
+            <p><b>Phân bố lớp:</b></p>
+
+            <p id="shells">-</p>
+          </div>
+
+          <canvas id="bohr"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const elements = {
+        H: { name: "Hydrogen", atomic: 1, shells: [1], config: "1s¹" },
+        He: { name: "Helium", atomic: 2, shells: [2], config: "1s²" },
+        Li: { name: "Lithium", atomic: 3, shells: [2, 1], config: "1s² 2s¹" },
+        Be: { name: "Beryllium", atomic: 4, shells: [2, 2], config: "1s² 2s²" },
+        B: { name: "Boron", atomic: 5, shells: [2, 3], config: "1s² 2s² 2p¹" },
+        C: { name: "Carbon", atomic: 6, shells: [2, 4], config: "1s² 2s² 2p²" },
+        N: {
+          name: "Nitrogen",
+          atomic: 7,
+          shells: [2, 5],
+          config: "1s² 2s² 2p³",
+        },
+        O: { name: "Oxygen", atomic: 8, shells: [2, 6], config: "1s² 2s² 2p⁴" },
+        F: {
+          name: "Fluorine",
+          atomic: 9,
+          shells: [2, 7],
+          config: "1s² 2s² 2p⁵",
+        },
+        Ne: { name: "Neon", atomic: 10, shells: [2, 8], config: "1s² 2s² 2p⁶" },
+        Na: {
+          name: "Sodium",
+          atomic: 11,
+          shells: [2, 8, 1],
+          config: "1s² 2s² 2p⁶ 3s¹",
+        },
+        Mg: {
+          name: "Magnesium",
+          atomic: 12,
+          shells: [2, 8, 2],
+          config: "1s² 2s² 2p⁶ 3s²",
+        },
+        Al: {
+          name: "Aluminium",
+          atomic: 13,
+          shells: [2, 8, 3],
+          config: "1s² 2s² 2p⁶ 3s² 3p¹",
+        },
+        Si: {
+          name: "Silicon",
+          atomic: 14,
+          shells: [2, 8, 4],
+          config: "1s² 2s² 2p⁶ 3s² 3p²",
+        },
+        P: {
+          name: "Phosphorus",
+          atomic: 15,
+          shells: [2, 8, 5],
+          config: "1s² 2s² 2p⁶ 3s² 3p³",
+        },
+        S: {
+          name: "Sulfur",
+          atomic: 16,
+          shells: [2, 8, 6],
+          config: "1s² 2s² 2p⁶ 3s² 3p⁴",
+        },
+        Cl: {
+          name: "Chlorine",
+          atomic: 17,
+          shells: [2, 8, 7],
+          config: "1s² 2s² 2p⁶ 3s² 3p⁵",
+        },
+        Ar: {
+          name: "Argon",
+          atomic: 18,
+          shells: [2, 8, 8],
+          config: "1s² 2s² 2p⁶ 3s² 3p⁶",
+        },
+      };
+
+      let currentElement = null;
+
+      const canvas = document.getElementById("bohr");
+      const ctx = canvas.getContext("2d");
+
+      function resize() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      function searchElement() {
+        const value = document.getElementById("elementInput").value.trim();
+
+        let found = null;
+
+        for (let key in elements) {
+          if (
+            key.toLowerCase() === value.toLowerCase() ||
+            elements[key].name.toLowerCase() === value.toLowerCase()
+          ) {
+            found = elements[key];
+            found.symbol = key;
+            break;
+          }
+        }
+
+        if (!found) {
+          alert("Không tìm thấy nguyên tố.");
+          return;
+        }
+
+        currentElement = found;
+
+        document.getElementById("name").innerText = found.name;
+        document.getElementById("symbol").innerText = found.symbol;
+        document.getElementById("atomic").innerText = found.atomic;
+        document.getElementById("config").innerText = found.config;
+        document.getElementById("shells").innerText = found.shells.join(" - ");
+      }
+
+      function draw(time) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (currentElement) {
+          const cx = canvas.width / 2;
+          const cy = canvas.height / 2;
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, 25, 0, Math.PI * 2);
+          ctx.fillStyle = "#ef4444";
+          ctx.fill();
+
+          ctx.fillStyle = "white";
+          ctx.font = "16px sans-serif";
+          ctx.fillText(currentElement.symbol, cx - 10, cy + 5);
+
+          currentElement.shells.forEach((count, index) => {
+            const radius = 70 + index * 50;
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = "#475569";
+            ctx.stroke();
+
+            for (let i = 0; i < count; i++) {
+              const angle =
+                ((Math.PI * 2) / count) * i + time * 0.0005 * (index + 1);
+
+              const ex = cx + Math.cos(angle) * radius;
+
+              const ey = cy + Math.sin(angle) * radius;
+
+              ctx.beginPath();
+              ctx.arc(ex, ey, 7, 0, Math.PI * 2);
+              ctx.fillStyle = "#38bdf8";
+              ctx.fill();
+            }
+          });
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      requestAnimationFrame(draw);
+
+      searchElement = searchElement;
+    </script>
+  </body>
+</html>

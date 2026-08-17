@@ -1,0 +1,6 @@
+{
+  "name": "Thư viện số & Cộng đồng Hóa học",
+  "description": "Nền tảng chia sẻ tài liệu số, trao đổi học tập và thảo luận môn Hóa học tích hợp trợ lý ảo thông minh Gemini AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

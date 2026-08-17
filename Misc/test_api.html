@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat</title>
+    <style>
+      :root {
+        --bg: #f7f7f8;
+        --panel: #ffffff;
+        --panel-2: #fbfbfc;
+        --border: #e5e7eb;
+        --text: #111827;
+        --muted: #6b7280;
+        --accent: #111827;
+        --accent-soft: #f3f4f6;
+        --shadow: 0 18px 45px rgba(17, 24, 39, 0.08);
+        --radius: 22px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 20px;
+      }
+
+      .app {
+        width: min(1180px, 100%);
+        height: calc(100vh - 40px);
+        margin: 0 auto;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 14px;
+      }
+
+      .header,
+      .chat,
+      .sidebar,
+      .composer {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: center;
+        padding: 18px;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+      }
+
+      .title p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .config {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 0.9fr auto auto;
+        gap: 10px;
+        width: min(100%, 980px);
+      }
+
+      .config input,
+      .config select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text);
+        padding: 12px 14px;
+        border-radius: 14px;
+        outline: none;
+        font-size: 14px;
+      }
+
+      .config input::placeholder,
+      textarea::placeholder {
+        color: #9ca3af;
+      }
+      .config input:focus,
+      .config select:focus,
+      textarea:focus {
+        border-color: #c7cbd1;
+        box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.06);
+      }
+
+      .btn {
+        border: 1px solid transparent;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          opacity 0.15s ease,
+          background 0.15s ease;
+        white-space: nowrap;
+        font-size: 14px;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(0);
+      }
+      .btn.primary {
+        background: #111827;
+        color: #fff;
+      }
+      .btn.soft {
+        background: var(--accent-soft);
+        color: var(--text);
+        border-color: var(--border);
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .main {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 14px;
+        min-height: 0;
+      }
+
+      .sidebar {
+        padding: 16px;
+        display: grid;
+        gap: 14px;
+        min-height: 0;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 14px;
+        background: #fff;
+      }
+
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 14px;
+      }
+
+      .card .small {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.65;
+      }
+
+      .stat {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .stat-item {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 12px 13px;
+        background: #fff;
+      }
+      .stat-item span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .stat-item strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 14px;
+      }
+
+      .chat {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-width: 0;
+        min-height: 0;
+      }
+
+      .chat-top {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        background: var(--panel-2);
+        border-top-left-radius: 22px;
+        border-top-right-radius: 22px;
+      }
+
+      .chat-top h2 {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      .status {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      .messages {
+        padding: 18px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 0;
+        background: #fafafa;
+      }
+
+      .bubble {
+        max-width: min(780px, 92%);
+        padding: 14px 15px;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        white-space: pre-wrap;
+        line-height: 1.65;
+        word-break: break-word;
+        font-size: 14px;
+      }
+
+      .bubble.user {
+        margin-left: auto;
+        background: #111827;
+        color: #fff;
+        border-top-right-radius: 6px;
+        border-color: #111827;
+      }
+
+      .bubble.assistant {
+        margin-right: auto;
+        background: #fff;
+        border-top-left-radius: 6px;
+      }
+
+      .bubble.system {
+        margin: 0 auto;
+        max-width: 100%;
+        background: #f3f4f6;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .composer {
+        padding: 16px;
+        display: grid;
+        gap: 10px;
+        background: #fff;
+      }
+
+      .composer-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: end;
+      }
+
+      textarea {
+        resize: none;
+        min-height: 54px;
+        max-height: 180px;
+        line-height: 1.5;
+      }
+
+      .composer-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .toggle {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .toggle input {
+        transform: scale(1.05);
+      }
+
+      .hint {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 1060px) {
+        .config {
+          grid-template-columns: 1fr 1fr;
+        }
+        .main {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 920px) {
+        body {
+          padding: 12px;
+        }
+        .app {
+          height: calc(100vh - 24px);
+        }
+        .config {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <div class="title">
+          <h1>AI Chat</h1>
+          <p>Giao diện trắng, tối giản, tự lấy model từ endpoint /v1/models.</p>
+        </div>
+
+        <div class="config">
+          <input id="endpoint" type="url" placeholder="Endpoint" />
+          <input id="apiKey" type="password" placeholder="API key" />
+          <select id="authMode">
+            <option value="bearer">Authorization: Bearer</option>
+            <option value="x-api-key">x-api-key</option>
+            <option value="none">Không gửi key</option>
+          </select>
+          <select id="modelSelect"></select>
+          <button class="btn soft" id="loadModelsBtn">Lấy model</button>
+          <button class="btn primary" id="saveBtn">Lưu</button>
+        </div>
+      </div>
+
+      <div class="main">
+        <aside class="sidebar">
+          <div class="card">
+            <h2>Cấu hình cố định</h2>
+            <div class="small">
+              Endpoint mặc định theo ảnh là OpenAI-compatible. Trang này sẽ gọi
+              <code>/v1/models</code> để lấy danh sách model hợp lệ rồi đổ vào ô
+              chọn.
+            </div>
+            <div class="stat">
+              <div class="stat-item">
+                <span>Trạng thái</span>
+                <strong id="connState">Chưa lưu</strong>
+              </div>
+              <div class="stat-item">
+                <span>Số tin nhắn</span>
+                <strong id="msgCount">0</strong>
+              </div>
+              <div class="stat-item">
+                <span>Model đang chọn</span>
+                <strong id="modelLabel">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Lưu ý</h2>
+            <div class="small">
+              Nếu trình duyệt bị CORS chặn, cần proxy backend. Dùng key ở
+              frontend chỉ nên thử local.
+            </div>
+          </div>
+        </aside>
+
+        <section class="chat">
+          <div class="chat-top">
+            <div>
+              <h2>Khung chat</h2>
+              <div class="status" id="status">Sẵn sàng.</div>
+            </div>
+            <button class="btn soft" id="clearBtn">Xóa chat</button>
+          </div>
+
+          <div class="messages" id="messages"></div>
+
+          <div class="composer">
+            <div class="composer-row">
+              <textarea
+                id="prompt"
+                placeholder="Nhập tin nhắn... (Enter để gửi, Shift+Enter xuống dòng)"
+              ></textarea>
+              <button class="btn primary" id="sendBtn">Gửi</button>
+            </div>
+            <div class="composer-actions">
+              <label class="toggle">
+                <input type="checkbox" id="rememberToggle" checked />
+                Ghi nhớ cấu hình
+              </label>
+              <div class="hint">
+                Model được lấy tự động từ API, không hard-code GPT.
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const DEFAULT_ENDPOINT = "https://token-plan-sgp.xiaomimimo.com/v1";
+      const STORAGE_KEY = "ai_chat_config_xiaomi_v2";
+
+      const endpointEl = document.getElementById("endpoint");
+      const apiKeyEl = document.getElementById("apiKey");
+      const authModeEl = document.getElementById("authMode");
+      const modelSelectEl = document.getElementById("modelSelect");
+      const loadModelsBtn = document.getElementById("loadModelsBtn");
+      const saveBtn = document.getElementById("saveBtn");
+      const sendBtn = document.getElementById("sendBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const promptEl = document.getElementById("prompt");
+      const messagesEl = document.getElementById("messages");
+      const statusEl = document.getElementById("status");
+      const connStateEl = document.getElementById("connState");
+      const msgCountEl = document.getElementById("msgCount");
+      const modelLabelEl = document.getElementById("modelLabel");
+      const rememberToggle = document.getElementById("rememberToggle");
+
+      let messages = [
+        {
+          role: "system",
+          content: "Chào bạn. Hãy lấy model rồi bắt đầu chat.",
+        },
+      ];
+
+      const state = {
+        endpoint: DEFAULT_ENDPOINT,
+        apiKey: "",
+        authMode: "bearer",
+        model: "",
+        remember: true,
+        busy: false,
+      };
+
+      function render() {
+        messagesEl.innerHTML = "";
+        for (const msg of messages) {
+          const div = document.createElement("div");
+          div.className = `bubble ${msg.role}`;
+          div.textContent = msg.content;
+          messagesEl.appendChild(div);
+        }
+        msgCountEl.textContent = messages.filter(
+          (m) => m.role !== "system",
+        ).length;
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function pushSystem(text) {
+        messages.push({ role: "system", content: text });
+        render();
+      }
+
+      function addMessage(role, content) {
+        messages.push({ role, content });
+        render();
+      }
+
+      function setBusy(flag) {
+        state.busy = flag;
+        sendBtn.disabled = flag;
+        saveBtn.disabled = flag;
+        loadModelsBtn.disabled = flag;
+        clearBtn.disabled = flag;
+        statusEl.textContent = flag ? "Đang gọi API..." : "Sẵn sàng.";
+      }
+
+      function syncUI() {
+        endpointEl.value = state.endpoint;
+        apiKeyEl.value = state.apiKey;
+        authModeEl.value = state.authMode;
+        rememberToggle.checked = state.remember;
+        connStateEl.textContent = state.endpoint
+          ? "Đã cài sẵn"
+          : "Chưa có endpoint";
+        modelLabelEl.textContent = state.model || "-";
+      }
+
+      function loadConfig() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          syncUI();
+          return;
+        }
+        try {
+          const cfg = JSON.parse(raw);
+          state.endpoint = cfg.endpoint || DEFAULT_ENDPOINT;
+          state.apiKey = cfg.apiKey || "";
+          state.authMode = cfg.authMode || "bearer";
+          state.model = cfg.model || "";
+          state.remember = cfg.remember !== false;
+        } catch {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+        syncUI();
+      }
+
+      function saveConfig() {
+        state.endpoint = endpointEl.value.trim() || DEFAULT_ENDPOINT;
+        state.apiKey = apiKeyEl.value.trim();
+        state.authMode = authModeEl.value;
+        state.model = modelSelectEl.value || state.model;
+        state.remember = rememberToggle.checked;
+
+        if (state.remember) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+
+        connStateEl.textContent = "Đã lưu";
+        modelLabelEl.textContent = state.model || "-";
+        pushSystem("Đã lưu cấu hình.");
+      }
+
+      function getBaseUrl() {
+        return endpointEl.value.trim().replace(/\/$/, "");
+      }
+
+      function getAuthHeaders() {
+        const headers = { "Content-Type": "application/json" };
+        const key = apiKeyEl.value.trim();
+        const mode = authModeEl.value;
+        if (mode === "bearer" && key)
+          headers["Authorization"] = `Bearer ${key}`;
+        if (mode === "x-api-key" && key) headers["x-api-key"] = key;
+        return headers;
+      }
+
+      function parseModelsPayload(data) {
+        const items = Array.isArray(data?.data)
+          ? data.data
+          : Array.isArray(data)
+            ? data
+            : [];
+        const models = items
+          .map((x) =>
+            typeof x === "string" ? x : x?.id || x?.name || x?.model || "",
+          )
+          .filter(Boolean);
+        return [...new Set(models)];
+      }
+
+      async function loadModels() {
+        const base = getBaseUrl();
+        if (!base) {
+          pushSystem("Chưa có endpoint.");
+          return;
+        }
+        setBusy(true);
+        statusEl.textContent = "Đang lấy danh sách model...";
+        try {
+          const res = await fetch(`${base}/models`, {
+            headers: getAuthHeaders(),
+          });
+          if (!res.ok) {
+            const text = await res.text().catch(() => "");
+            throw new Error(`HTTP ${res.status}: ${text || res.statusText}`);
+          }
+          const data = await res.json();
+          const models = parseModelsPayload(data);
+
+          modelSelectEl.innerHTML = "";
+          if (!models.length) {
+            const opt = document.createElement("option");
+            opt.value = "";
+            opt.textContent = "Không có model";
+            modelSelectEl.appendChild(opt);
+            state.model = "";
+            modelLabelEl.textContent = "-";
+            pushSystem("API trả về nhưng không thấy danh sách model.");
+            return;
+          }
+
+          for (const m of models) {
+            const opt = document.createElement("option");
+            opt.value = m;
+            opt.textContent = m;
+            modelSelectEl.appendChild(opt);
+          }
+
+          const preferred =
+            models.find((m) => /deepseek|qwen|glm|kimi|claude|gpt/i.test(m)) ||
+            models[0];
+          modelSelectEl.value = preferred;
+          state.model = preferred;
+          modelLabelEl.textContent = preferred;
+          pushSystem(`Đã lấy ${models.length} model.`);
+        } catch (err) {
+          pushSystem(`Không lấy được model: ${err.message}`);
+        } finally {
+          setBusy(false);
+          statusEl.textContent = "Sẵn sàng.";
+        }
+      }
+
+      function buildPayload() {
+        const selectedModel = modelSelectEl.value || state.model;
+        const chatMessages = messages
+          .filter((m) => m.role === "user" || m.role === "assistant")
+          .map((m) => ({ role: m.role, content: m.content }));
+
+        return {
+          model: selectedModel,
+          messages: chatMessages.length
+            ? chatMessages
+            : [{ role: "user", content: promptEl.value.trim() }],
+          temperature: 0.7,
+        };
+      }
+
+      async function callAI() {
+        const base = getBaseUrl();
+        if (!base) throw new Error("Bạn chưa nhập endpoint.");
+        const model = modelSelectEl.value || state.model;
+        if (!model)
+          throw new Error('Chưa có model. Hãy bấm "Lấy model" trước.');
+
+        const response = await fetch(`${base}/chat/completions`, {
+          method: "POST",
+          headers: getAuthHeaders(),
+          body: JSON.stringify(buildPayload()),
+        });
+
+        if (!response.ok) {
+          const text = await response.text().catch(() => "");
+          throw new Error(
+            `HTTP ${response.status}: ${text || response.statusText}`,
+          );
+        }
+
+        const data = await response.json();
+        const answer =
+          data?.choices?.[0]?.message?.content ||
+          data?.reply ||
+          data?.output ||
+          data?.message ||
+          data?.text;
+        return typeof answer === "string" && answer.trim()
+          ? answer.trim()
+          : JSON.stringify(data, null, 2);
+      }
+
+      async function send() {
+        const text = promptEl.value.trim();
+        if (!text || state.busy) return;
+
+        addMessage("user", text);
+        promptEl.value = "";
+        setBusy(true);
+
+        messages.push({ role: "assistant", content: "Đang trả lời..." });
+        render();
+
+        try {
+          const reply = await callAI();
+          messages = messages.filter((m) => m.content !== "Đang trả lời...");
+          addMessage("assistant", reply);
+          statusEl.textContent = "Đã nhận phản hồi.";
+        } catch (err) {
+          messages = messages.filter((m) => m.content !== "Đang trả lời...");
+          addMessage("assistant", `Lỗi: ${err.message}`);
+          statusEl.textContent = "Có lỗi khi gọi API.";
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      saveBtn.addEventListener("click", saveConfig);
+      loadModelsBtn.addEventListener("click", loadModels);
+      sendBtn.addEventListener("click", send);
+      clearBtn.addEventListener("click", () => {
+        messages = [
+          { role: "system", content: "Đã xóa chat. Bạn có thể tiếp tục." },
+        ];
+        render();
+      });
+
+      promptEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          send();
+        }
+      });
+
+      rememberToggle.addEventListener("change", () => {
+        state.remember = rememberToggle.checked;
+        if (!state.remember) localStorage.removeItem(STORAGE_KEY);
+      });
+
+      endpointEl.addEventListener("input", () => {
+        state.endpoint = endpointEl.value.trim() || DEFAULT_ENDPOINT;
+      });
+      apiKeyEl.addEventListener("input", () => {
+        state.apiKey = apiKeyEl.value.trim();
+      });
+      authModeEl.addEventListener("change", () => {
+        state.authMode = authModeEl.value;
+      });
+      modelSelectEl.addEventListener("change", () => {
+        state.model = modelSelectEl.value;
+        modelLabelEl.textContent = state.model || "-";
+      });
+
+      loadConfig();
+      render();
+      syncUI();
+      if (!modelSelectEl.options.length || !modelSelectEl.value) {
+        loadModels();
+      }
+    </script>
+  </body>
+</html>

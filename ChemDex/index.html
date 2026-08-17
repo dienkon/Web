@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChemDex - Bảng Tuần Hoàn & Thư Viện Hóa Học Tương Tác</title>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+          "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.165.0/examples/jsm/controls/OrbitControls.js",
+          "three/examples/jsm/loaders/GLTFLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/GLTFLoader.js",
+          "three/examples/jsm/loaders/OBJLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/OBJLoader.js",
+          "three/examples/jsm/loaders/FBXLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/FBXLoader.js",
+          "three/examples/jsm/loaders/MTLLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/MTLLoader.js"
+        }
+      }
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="./assets/icon/logo.png"
+    />
+    <link rel="shortcut icon" href="./assets/icon/logo.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: "#0f172a",
+              darker: "#0b1120",
+              panel: "#1e293b",
+              primary: "#3b82f6",
+            },
+            scrollBehavior: ["smooth"],
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="./css/app.css" />
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </head>
+  <body class="flex h-screen text-slate-200">
+    <!-- Mobile Overlay -->
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"
+      onclick="toggleSidebar()"
+    ></div>
+
+    <!-- SIDEBAR -->
+    <aside
+      id="sidebar"
+      class="w-64 glass flex flex-col h-full border-r border-slate-700/50 z-50 shrink-0 absolute md:relative transform -translate-x-full md:translate-x-0"
+    >
+      <div
+        class="p-5 flex items-center justify-between border-b border-slate-700/50"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30"
+          >
+            <i class="fa-solid fa-atom"></i>
+          </div>
+          <h1
+            class="font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"
+          >
+            ChemDex
+          </h1>
+        </div>
+        <button
+          class="md:hidden text-slate-400 hover:text-white"
+          onclick="toggleSidebar()"
+        >
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <button
+          onclick="nav('view-periodic')"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 bg-slate-800 text-white shadow-md active-nav transition-all"
+        >
+          <i class="fa-solid fa-table-cells text-blue-400 w-5"></i
+          ><span class="font-medium">Bảng Tuần Hoàn</span>
+        </button>
+        <a
+          href="/trung-tam/tai-lieu-so"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-book-open text-emerald-400 w-5"></i>
+          <span class="font-medium">Tài Liệu Số</span>
+        </a>
+
+        <a
+  href="/trung-tam/cong-dong"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+>
+  <i class="fa-solid fa-users text-sky-400 w-5"></i>
+  <span class="font-medium">Cộng đồng</span>
+</a>
+
+       <a
+  href="./tien-ich/"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+>
+  <i class="fa-solid fa-toolbox text-blue-400 w-5"></i>
+  <span class="font-medium">Tiện Ích Học Tập</span>
+</a>
+
+        <a
+          href="https://antoanphongthinghiem.ai.studio"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-flask text-purple-400 w-5"></i>
+          <span class="font-medium">Thí Nghiệm</span>
+        </a>
+
+        <a
+  href="./dau-truong/"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+>
+  <i class="fa-solid fa-trophy text-yellow-400 w-5"></i>
+  <span class="font-medium">Đấu Trường</span>
+</a>
+        
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+      <!-- TOPBAR -->
+      <header
+        class="h-16 glass border-b border-slate-700/50 flex items-center justify-between px-4 md:px-6 z-10 shrink-0"
+      >
+        <div class="flex items-center gap-4 flex-1">
+          <button
+            id="sidebarToggle"
+            class="md:hidden text-slate-400 hover:text-white"
+            onclick="toggleSidebar()"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+
+          <div class="relative w-full max-w-md flex items-center">
+            <i
+              class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            ></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm nguyên tố..."
+              class="w-full bg-slate-800/80 border border-slate-600 text-slate-200 text-sm rounded-l-full focus:ring-2 focus:ring-blue-500 block pl-10 p-2 transition-all"
+            />
+            <button
+              id="clearSearchBtn"
+              class="absolute right-12 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white hidden"
+            >
+              <i class="fa-solid fa-times"></i>
+            </button>
+
+            <!-- Nút Lọc (Filter/Sort) -->
+            <button
+              onclick="toggleFilter()"
+              class="bg-slate-700 hover:bg-slate-600 border border-l-0 border-slate-600 rounded-r-full px-4 py-2 text-slate-300 transition-colors"
+              title="Lọc dữ liệu"
+            >
+              <i class="fa-solid fa-filter"></i>
+            </button>
+
+            <!-- Menu Dropdown Lọc -->
+            <div
+              id="filter-menu"
+              class="absolute top-full right-0 mt-2 w-64 glass rounded-xl shadow-2xl hidden z-50 p-4 border border-slate-700"
+            >
+              <div class="flex justify-between items-center mb-3">
+                <h4 class="text-white font-bold text-sm">
+                  Lọc nhanh
+                  <i class="fa-solid fa-filter text-blue-400 ml-1 text-xs"></i>
+                </h4>
+                <button
+                  onclick="toggleFilter()"
+                  class="text-slate-400 hover:text-white"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <select
+                id="filter-select"
+                onchange="applyFilter()"
+                class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-slate-300 mb-3 focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer"
+              >
+                <option value="all">Tất cả nguyên tố</option>
+                <optgroup label="Phân loại">
+                  <option value="cat-kiem">Kim loại kiềm</option>
+                  <option value="cat-kiem-tho">Kim loại kiềm thổ</option>
+                  <option value="cat-chuyen-tiep">Kim loại chuyển tiếp</option>
+                  <option value="cat-chuyen-tiep">Kim loại yếu</option>
+                  <option value="cat-phi-kim">Phi kim</option>
+                  <option value="cat-a-kim">Á kim</option>
+                  <option value="cat-halogen">Halogen</option>
+                  <option value="cat-khi-hiem">Khí hiếm</option>
+                  <option value="cat-lanthanide">Họ Lantan</option>
+                  <option value="cat-actinide">Họ Actini</option>
+                </optgroup>
+                <optgroup label="Chu kỳ">
+                  <option value="per-1">Chu kỳ 1</option>
+                  <option value="per-2">Chu kỳ 2</option>
+                  <option value="per-3">Chu kỳ 3</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Dropdown Kết quả Tìm kiếm -->
+            <div
+              id="search-results"
+              class="absolute top-full left-0 w-full mt-2 glass rounded-xl shadow-2xl hidden z-50 flex-col max-h-64 overflow-y-auto border border-slate-700"
+            ></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT AREA -->
+      <div
+        id="content-container"
+        class="flex-1 overflow-y-auto relative bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"
+      >
+        <!-- VIEW: PERIODIC TABLE -->
+<div id="view-periodic" class="h-full flex flex-col relative">
+  <div
+    class="px-4 pt-4 pb-2 flex flex-nowrap gap-3 overflow-x-auto lg:overflow-visible lg:flex-wrap lg:justify-center text-xs z-3 sticky top-0 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700/50 shadow-md scrollbar-hide"
+  >
+    <!-- Legends -->
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('phi-kim')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-green-500 shadow-[0_0_5px_#22c55e]"
+      ></span>
+      Phi kim
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('khi-hiem')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-purple-500 shadow-[0_0_5px_#a855f7]"
+      ></span>
+      Khí hiếm
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('kiem')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-orange-500 shadow-[0_0_5px_#f97316]"
+      ></span>
+      KL kiềm
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('kiem-tho')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-yellow-500 shadow-[0_0_5px_#eab308]"
+      ></span>
+      KL kiềm thổ
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('chuyen-tiep')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-red-500 shadow-[0_0_5px_#ef4444]"
+      ></span>
+      KL chuyển tiếp
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('kim-loai-yeu')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-rose-500 shadow-[0_0_5px_#fb7185]"
+      ></span>
+      KL yếu
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('a-kim')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-cyan-400 shadow-[0_0_5px_#22d3ee]"
+      ></span>
+      Á kim
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('halogen')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-teal-400 shadow-[0_0_5px_#2dd4bf]"
+      ></span>
+      Halogen
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('lanthanide')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-pink-500 shadow-[0_0_5px_#ec4899]"
+      ></span>
+      Họ Lantan
+    </span>
+
+    <span
+      class="flex-shrink-0 flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+      onmouseenter="highlightCategory('actinide')"
+      onmouseleave="removeHighlight()"
+    >
+      <span
+        class="w-3 h-3 rounded-sm bg-fuchsia-500 shadow-[0_0_5px_#d946ef]"
+      ></span>
+      Họ Actini
+    </span>
+  </div>
+
+  <div
+    class="periodic-table-wrapper flex-1 flex justify-start lg:justify-center items-start overflow-x-auto overflow-y-hidden"
+    id="dragContainer"
+  >
+    <div id="periodic-table" class="periodic-table relative">
+      <!-- Grid Header Labels & Elements render by JS -->
+    </div>
+  </div>
+</div>
+
+        <!-- VIEW: ELEMENT NO DATA -->
+        <div
+          id="view-nodata"
+          class="hidden h-full flex items-center justify-center p-6 fade-in"
+        >
+          <div
+            class="text-center glass p-10 rounded-2xl max-w-md border border-slate-700"
+          >
+            <i class="fa-solid fa-eye-slash text-6xl text-slate-500 mb-4"></i>
+            <h2 class="text-2xl font-bold text-white mb-2">Thông tin bị ẩn</h2>
+            <p class="text-slate-400 mb-6">
+              Dữ liệu chi tiết về nguyên tố
+              <span
+                id="nodata-name"
+                class="font-bold text-blue-400 text-lg"
+              ></span>
+              hiện chưa được cập nhật trong phiên bản này.
+            </p>
+            <div class="flex gap-4 justify-center">
+              <button
+                onclick="nav('view-periodic')"
+                class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-lg transition-colors"
+              >
+                <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: ELEMENT DETAILS (ARTICLE STYLE) -->
+        <div id="view-details" class="hidden min-h-full fade-in pb-10">
+          <!-- Header Hero -->
+          <div
+            id="detail-hero"
+            class="relative pt-10 pb-16 px-6 md:px-12 border-b border-slate-700/50 overflow-hidden"
+          >
+            <!-- Background blur injected by JS -->
+          </div>
+
+          <div
+            class="max-w-7xl mx-auto px-4 md:px-6 mt-8 flex flex-col lg:flex-row gap-8 relative"
+          >
+            <!-- TOC Sidebar (Mục lục) -->
+            <div class="lg:w-1/4 shrink-0">
+              <div
+                class="glass p-5 rounded-2xl sticky top-6 border border-slate-700/80"
+              >
+                <h3
+                  class="text-lg font-bold text-white mb-4 flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-list text-blue-400"></i> Mục lục
+                </h3>
+                <ul class="space-y-1 text-sm text-slate-400" id="article-toc">
+                  <li>
+                    <a
+                      href="#sec-general"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >1. Thông tin chung</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-history"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >2. Lịch sử khám phá</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-structure"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >3. Cấu tạo</a
+                    >
+                  </li>
+
+                  <li>
+                    <a
+                      href="#sec-properties"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >4. Tính chất</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-preparation"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >5. Điều chế</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-recognition"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >6. Nhận biết</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-reactions"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >7. Phương trình & Mô phỏng</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-applications"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >8. Ứng dụng thực tế</a
+                    >
+                  </li>
+
+                  <li>
+                    <a
+                      href="#sec-overview"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >9. Tổng quan</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-notes"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >10. Ghi chú cá nhân</a
+                    >
+                  </li>
+                </ul>
+                <button
+                  onclick="nav('view-periodic')"
+                  class="mt-6 w-full py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-700 transition-colors flex items-center justify-center gap-2"
+                >
+                  <i class="fa-solid fa-table-cells"></i> Về bảng tuần hoàn
+                </button>
+              </div>
+            </div>
+
+            <!-- Main Content (Bài viết) -->
+            <div class="lg:w-3/4 flex flex-col">
+              <div class="space-y-12" id="article-content">
+                <!-- Injected by JS -->
+              </div>
+
+              <!-- Nút Điều hướng Tới/Lùi Cuối Bài -->
+              <div
+                class="mt-16 pt-8 border-t border-slate-700/50 flex justify-between items-center"
+                id="nav-buttons-container"
+              >
+                <!-- Nút lùi/tới được chèn bằng JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["\\(", "\\)"],
+            ["$", "$"],
+          ],
+          displayMath: [["\\[", "\\]"]],
+        },
+        svg: { fontCache: "global" },
+      };
+    </script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+
+    <!-- MAIN LOGIC JAVASCRIPT -->
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

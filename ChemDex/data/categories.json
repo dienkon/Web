@@ -1,0 +1,42 @@
+{
+  "phi-kim": {
+    "name": "Phi kim",
+    "color": "#22c55e"
+  },
+  "khi-hiem": {
+    "name": "Khí hiếm",
+    "color": "#a855f7"
+  },
+  "kiem": {
+    "name": "Kim loại kiềm",
+    "color": "#f97316"
+  },
+  "kiem-tho": {
+    "name": "Kim loại kiềm thổ",
+    "color": "#eab308"
+  },
+  "a-kim": {
+    "name": "Á kim",
+    "color": "#22d3ee"
+  },
+  "halogen": {
+    "name": "Halogen",
+    "color": "#14b8a6"
+  },
+  "chuyen-tiep": {
+    "name": "Kim loại chuyển tiếp",
+    "color": "#ef4444"
+  },
+  "lanthanide": {
+    "name": "Họ Lanthanide",
+    "color": "#ec4899"
+  },
+  "actinide": {
+    "name": "Họ Actinide",
+    "color": "#d946ef"
+  },
+  "unknown": {
+    "name": "Chưa phân loại",
+    "color": "#475569"
+  }
+}

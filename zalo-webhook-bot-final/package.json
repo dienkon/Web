@@ -1,0 +1,21 @@
+{
+  "name": "zalo-webhook-bot-final",
+  "version": "1.0.0",
+  "description": "Complete Zalo Bot webhook server with auto-reply and setWebhook helper",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "set:webhook": "node setWebhook.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "firebase-admin": "^14.1.0"
+  }
+}

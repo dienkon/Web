@@ -1,0 +1,100 @@
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    limit,
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+     apiKey: "AIzaSyDJu0I8tPq88gDDzjD53CkAPKlPl4Vd9Zs",
+  authDomain: "pndteam-ac43b.firebaseapp.com",
+  projectId: "pndteam-ac43b",
+  storageBucket: "pndteam-ac43b.firebasestorage.app",
+  messagingSenderId: "504130270745",
+  appId: "1:504130270745:web:786924d35bc84ef3d11c88",
+  measurementId: "G-E205P0Q75Q"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const el = (id) => document.getElementById(id);
+
+  function row(user) {
+    return `
+      <tr>
+        <td>${user.displayName || "-"}</td>
+        <td>${user.email || "-"}</td>
+        <td>${user.role || "user"}</td>
+        <td>${user.uid || "-"}</td>
+      </tr>
+    `;
+  }
+
+  async function ensureProfile(user) {
+    const ref = doc(db, "users", user.uid);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists()) {
+      await setDoc(ref, {
+        uid: user.uid,
+        email: user.email || "",
+        displayName: user.displayName || "",
+        photoURL: user.photoURL || "",
+        role: "user",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      }, { merge: true });
+    }
+  }
+
+  async function loadAllUsers() {
+    const q = query(collection(db, "users"), orderBy("createdAt", "desc"), limit(500));
+    const snap = await getDocs(q);
+
+    const users = [];
+    snap.forEach((d) => {
+      users.push({ id: d.id, ...d.data() });
+    });
+
+    el("count").textContent = String(users.length);
+    el("tbody").innerHTML = users.map(row).join("");
+    el("raw").textContent = JSON.stringify(users, null, 2);
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+
+    await ensureProfile(user);
+    await loadAllUsers();
+  });
+</script>
+
+<div>
+  <h2>Danh sách user: <span id="count">0</span></h2>
+  <table border="1" cellspacing="0" cellpadding="8">
+    <thead>
+      <tr>
+        <th>Tên</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>UID</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <pre id="raw"></pre>
+</div>

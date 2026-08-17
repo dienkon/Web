@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch Stream - Bộ Tộc MixiGaming</title>
+    <style>
+      :root {
+        --main-red: #c62828;
+        --dark-red: #8e0000;
+        --bg-color: #121212;
+        --container-bg: #1e1e1e;
+        --text-color: #f5f5f5;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+      header {
+        background-color: var(--main-red);
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 5px solid var(--dark-red);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      nav {
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid #333;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      nav a:hover,
+      nav a.active {
+        background-color: var(--main-red);
+      }
+      .container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: var(--container-bg);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        color: var(--main-red);
+        border-bottom: 2px solid var(--main-red);
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      footer {
+        background-color: #000;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top: 3px solid var(--main-red);
+        color: #aaa;
+      }
+
+      /* CSS cho bảng (Yêu cầu đề bài) */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 1.1rem;
+      }
+      th,
+      td {
+        border: 1px solid #555;
+        padding: 15px;
+        text-align: center;
+      }
+      th {
+        background-color: var(--dark-red);
+        color: white;
+        text-transform: uppercase;
+      }
+      tr:nth-child(even) {
+        background-color: #2a2a2a;
+      }
+      tr:hover {
+        background-color: #444;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Lịch Stream Của Tộc Trưởng</h1>
+    </header>
+
+    <nav>
+      <a href="index.html">Trang Chủ</a>
+      <a href="gioithieu.html">Giới Thiệu</a>
+      <a href="lichstream.html" class="active">Lịch Stream</a>
+      <a href="hinhanh.html">Hình Ảnh</a>
+      <a href="dangky.html">Đăng Ký Thành Viên</a>
+    </nav>
+
+    <div class="container">
+      <h2>Khung Giờ Lên Sóng Dự Kiến</h2>
+      <p>
+        <em
+          >Lưu ý: Lịch có thể thay đổi tùy thuộc vào tình hình sức khỏe và lịch
+          cá nhân của Tộc Trưởng (Lươn Thanh Độ).</em
+        >
+      </p>
+
+      <!-- BẢNG CÓ ROWSPAN VÀ COLSPAN -->
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Ca / Buổi</th>
+            <th rowspan="2">Ngày trong tuần</th>
+            <th colspan="2">Nội dung Stream</th>
+          </tr>
+          <tr>
+            <th>Tựa Game / Chủ đề</th>
+            <th>Khách mời / Cùng chơi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- Rowspan gộp 6 dòng cho cột Buổi Tối -->
+            <td rowspan="6">
+              <strong>Buổi Tối<br />(22:00 - 02:00)</strong>
+            </td>
+            <td>Thứ 2</td>
+            <td>GTA V Roleplay (MixiCity)</td>
+            <td>Anh em Refund Gaming</td>
+          </tr>
+          <tr>
+            <td>Thứ 3</td>
+            <td>CS:GO / Valorant / CS2</td>
+            <td>Snake, Nhism, Rambo</td>
+          </tr>
+          <tr>
+            <td>Thứ 4</td>
+            <td>PUBG - Ao làng</td>
+            <td>Giải trí cùng Viewer</td>
+          </tr>
+          <tr>
+            <td>Thứ 5</td>
+            <td>Talkshow / Tâm sự mỏng / React</td>
+            <td>Chỉ mình Tộc Trưởng</td>
+          </tr>
+          <tr>
+            <td>Thứ 6</td>
+            <td>Fifa Online 4 / Mở thẻ</td>
+            <td>Cris Devil Gamer (thỉnh thoảng)</td>
+          </tr>
+          <tr>
+            <td>Thứ 7</td>
+            <td>Game Kinh Dị / Cốt truyện</td>
+            <td>Chơi một mình gánh sợ</td>
+          </tr>
+          <tr>
+            <td><strong>Nghỉ ngơi</strong></td>
+            <td>Chủ Nhật</td>
+            <!-- Colspan gộp 2 cột -->
+            <td colspan="2" style="background-color: #b71c1c; color: white">
+              <strong
+                >Nghỉ stream dành thời gian cho Gia đình nhỏ, Hạnh phúc
+                to!</strong
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 MixiGaming. Thiết kế bởi một thành viên chân chính của Bộ
+        Tộc.
+      </p>
+    </footer>
+  </body>
+</html>

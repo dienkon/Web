@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DkTEST Exam Export V3",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 3
+    },
+    "source": {
+      "type": "string",
+      "const": "DkTEST"
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "exportType": {
+      "type": "string",
+      "enum": ["exam", "question_bank", "section"]
+    },
+    "exam": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "timeLimit": { "type": "number" },
+        "shuffleQuestions": { "type": "boolean" },
+        "showResults": { "type": "boolean" },
+        "description": { "type": "string" }
+      },
+      "required": ["title", "timeLimit"]
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "order": { "type": "number" }
+        },
+        "required": ["id", "title"]
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["single_choice", "multiple_choice", "true_false", "short_answer"]
+          },
+          "text": { "type": "string" },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "text": { "type": "string" }
+              },
+              "required": ["id", "text"]
+            }
+          },
+          "correctOptionIds": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "statements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "text": { "type": "string" },
+                "correctAnswer": { "type": "boolean" }
+              }
+            }
+          },
+          "acceptedAnswers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "explanation": { "type": "string" },
+          "imageUrl": { "type": ["string", "null"] },
+          "points": { "type": "number" },
+          "sectionId": { "type": "string" },
+          "order": { "type": "number" }
+        },
+        "required": ["id", "type", "text"]
+      }
+    }
+  },
+  "required": ["version", "exportType", "questions"]
+}

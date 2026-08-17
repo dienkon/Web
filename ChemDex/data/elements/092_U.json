@@ -1,0 +1,24 @@
+{
+  "number": 92,
+  "symbol": "U",
+  "nameVi": "Uranium",
+  "nameEn": "Uranium",
+  "mass": 238.029,
+  "category": "actinide",
+  "structureType": "fluorite",
+  "general": {
+    "shells": [],
+    "electronConfig": "Đang cập nhật",
+    "englishName": "Uranium",
+    "latinName": "Uranium"
+  },
+  "history": {},
+  "structure": {},
+  "occurrence": {},
+  "physical": "Đang cập nhật dữ liệu.",
+  "chemical": "Đang cập nhật dữ liệu.",
+  "reactions": [],
+  "images": {},
+  "hasData": true,
+  "file": "elements/092_U.json"
+}

@@ -1,0 +1,2133 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tra số phòng thi</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: #111827;
+        --card2: #1f2937;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --line: #334155;
+        --accent: #38bdf8;
+        --accent2: #22c55e;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        --radius: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .topbar {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+      }
+      .sub {
+        color: var(--muted);
+        margin-top: 6px;
+        font-size: 14px;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      input,
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 10px 12px;
+        font: inherit;
+      }
+      input {
+        background: #0b1220;
+        color: var(--text);
+        border: 1px solid var(--line);
+        outline: none;
+      }
+      input::placeholder {
+        color: #64748b;
+      }
+      button {
+        cursor: pointer;
+        background: var(--card2);
+        color: var(--text);
+        font-weight: 700;
+        box-shadow: var(--shadow);
+      }
+      button:hover {
+        filter: brightness(1.08);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      }
+      .btn-success {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+      }
+      .btn-danger {
+        background: linear-gradient(135deg, #dc2626, #ef4444);
+      }
+      .btn-warn {
+        background: linear-gradient(135deg, #d97706, #f59e0b);
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+      .card {
+        background: rgba(17, 24, 39, 0.88);
+        border: 1px solid rgba(51, 65, 85, 0.75);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-hd {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(15, 23, 42, 0.35);
+      }
+      .card-hd h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .card-bd {
+        padding: 16px 18px;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .status {
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid var(--line);
+      }
+      .ok {
+        color: #86efac;
+        background: rgba(34, 197, 94, 0.12);
+        border-color: rgba(34, 197, 94, 0.3);
+      }
+      .warn {
+        color: #fcd34d;
+        background: rgba(245, 158, 11, 0.12);
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+      .bad {
+        color: #fca5a5;
+        background: rgba(239, 68, 68, 0.12);
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+      .rooms {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 12px;
+      }
+      .room {
+        background: linear-gradient(
+          180deg,
+          rgba(31, 41, 55, 0.95),
+          rgba(17, 24, 39, 0.95)
+        );
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        cursor: pointer;
+        transition:
+          0.15s transform ease,
+          0.15s filter ease;
+      }
+      .room:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+      }
+      .room.active {
+        outline: 2px solid var(--accent);
+      }
+      .room .name {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .room .info {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.12);
+        color: #7dd3fc;
+        border: 1px solid rgba(56, 189, 248, 0.22);
+        font-size: 12px;
+        margin-right: 6px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 10px 8px;
+        text-align: left;
+        vertical-align: middle;
+        font-size: 14px;
+      }
+      th {
+        color: #bfdbfe;
+        position: sticky;
+        top: 0;
+        background: #0f172a;
+        z-index: 1;
+      }
+      tbody tr:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .table-wrap {
+        max-height: 62vh;
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+      .row-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .small {
+        padding: 7px 10px;
+        border-radius: 10px;
+        font-size: 13px;
+      }
+      .form {
+        display: grid;
+        gap: 10px;
+      }
+      .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .note {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+        background: rgba(15, 23, 42, 0.35);
+        border: 1px dashed var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        margin-top: 12px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .sticky-actions {
+        position: sticky;
+        bottom: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(15, 23, 42, 0.1),
+          rgba(15, 23, 42, 0.95)
+        );
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .footer-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .right-tools {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 26px;
+        height: 26px;
+        padding: 0 8px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.15);
+        color: #86efac;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .class-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .tab {
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: #0b1220;
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .tab.active {
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        border-color: transparent;
+      }
+      .split-note {
+        margin-top: 8px;
+      }
+      @media (max-width: 1100px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 700px) {
+        .wrap {
+          padding: 14px;
+        }
+        h1 {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div>
+          <h1>Tra số phòng thi</h1>
+          <div class="sub">
+            Ưu tiên chia phòng sao cho mỗi phòng không dưới 24 thí sinh khi có
+            thể. Danh sách được trộn giữa các lớp và sắp xếp theo tên tăng dần.
+          </div>
+        </div>
+        <div class="controls">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Tìm tên hoặc lớp..."
+          />
+          <button class="btn-primary" id="regenBtn">Tạo lại phòng thi</button>
+          <button class="btn-success" id="exportBtn">Tải JSON</button>
+          <button class="btn-warn" id="uploadJsonBtn">Tải JSON lên</button>
+          <input
+            id="jsonUploadInput"
+            type="file"
+            accept=".json,application/json"
+            class="hidden"
+          />
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <div class="card-hd">
+            <h2>Toàn bộ phòng thi</h2>
+            <div class="right-tools">
+              <div class="meta" id="summaryText"></div>
+              <span id="firebaseStatus" class="status warn"
+                >Firebase: đang chờ</span
+              >
+            </div>
+          </div>
+          <div class="card-bd">
+            <div id="rooms" class="rooms"></div>
+
+            <div
+              class="card"
+              style="margin-top: 16px; background: rgba(15, 23, 42, 0.25)"
+            >
+              <div class="card-hd">
+                <h2>Xem toàn bộ học sinh theo lớp</h2>
+                <div class="meta" id="classSummary"></div>
+              </div>
+              <div class="card-bd">
+                <div id="classTabs" class="class-tabs"></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style="width: 60px">STT</th>
+                        <th>Họ và tên</th>
+                        <th style="width: 100px">Lớp</th>
+                        <th style="width: 130px">Phòng thi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="classBody"></tbody>
+                  </table>
+                </div>
+                <div class="note split-note" id="classNote"></div>
+              </div>
+            </div>
+
+            <div class="note">
+              <b>Lưu ý:</b> Tên được sắp theo tên gọi. Danh sách có thể thêm,
+              xóa, sửa trực tiếp rồi bấm lưu để đẩy lên Firebase.
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-hd">
+            <h2 id="detailTitle">Chi tiết phòng thi</h2>
+            <div class="right-tools">
+              <span class="pill" id="detailCountPill">0 thí sinh</span>
+              <button class="btn-ghost small" id="prevRoomBtn">←</button>
+              <button class="btn-ghost small" id="nextRoomBtn">→</button>
+            </div>
+          </div>
+          <div class="card-bd">
+            <div id="detailEmpty" class="note">
+              Chọn một phòng thi bên trái để xem danh sách dạng bảng.
+            </div>
+            <div id="detailArea" class="hidden">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width: 60px">STT</th>
+                      <th>Họ và tên</th>
+                      <th style="width: 100px">Lớp</th>
+                      <th style="width: 130px">Phòng thi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="detailBody"></tbody>
+                </table>
+              </div>
+              <div class="sticky-actions">
+                <div
+                  class="card"
+                  style="background: rgba(15, 23, 42, 0.45); margin-top: 12px"
+                >
+                  <div class="card-hd">
+                    <h2>Thêm / sửa / xóa thí sinh</h2>
+                    <div class="meta">Tên cần nhập đúng họ và tên đầy đủ</div>
+                  </div>
+                  <div class="card-bd">
+                    <div class="form">
+                      <div class="form-row-2">
+                        <input
+                          id="studentName"
+                          type="text"
+                          placeholder="Họ và tên"
+                        />
+                        <input
+                          id="studentClass"
+                          type="text"
+                          placeholder="Lớp (ví dụ 11A1)"
+                        />
+                      </div>
+                      <input id="editIndex" type="hidden" value="" />
+                      <div class="footer-actions">
+                        <div class="row-actions">
+                          <button class="btn-success" id="saveStudentBtn">
+                            Lưu
+                          </button>
+                          <button class="btn-warn" id="resetFormBtn">
+                            Làm mới
+                          </button>
+                        </div>
+                        <div class="row-actions">
+                          <button class="btn-danger" id="deleteSelectedBtn">
+                            Xóa thí sinh đang chọn
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="note" id="formHint">
+                      Bấm vào dòng trong phòng thi để chọn thí sinh cần chỉnh
+                      sửa.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAg6rMLtY_8GWYXtSu6L8sQ_CVPNd3kKCw",
+        authDomain: "mywallet-e1b68.firebaseapp.com",
+        projectId: "mywallet-e1b68",
+        storageBucket: "mywallet-e1b68.firebasestorage.app",
+        messagingSenderId: "362492240466",
+        appId: "1:362492240466:web:a13ef22c3706420ff7f58b",
+        measurementId: "G-04HFW06NB7",
+      };
+
+      const DB_PATH = "examRooms/students";
+      const MAX_CAPACITY = 30;
+      const MIN_CAPACITY = 27;
+      const IDEAL_CAPACITY = 29;
+      const rawData = [
+        {
+          name: "Thí sinh bị thiếu",
+          class: "Rỗng",
+        },
+        {
+          id: "a5a3f77c-d859-495f-af95-ea1d8f57b846",
+          name: "Nguyễn Thị Tuyết Anh",
+          class: "11A1",
+        },
+        {
+          id: "f6e63bd9-6426-48dc-a69c-96bc47df4e23",
+          name: "Trần Thị Ngọc Châu",
+          class: "11A1",
+        },
+        {
+          id: "62c428d2-2299-444f-ba4f-2696571da497",
+          name: "Nguyễn Thị Mỹ Chi",
+          class: "11A1",
+        },
+        {
+          id: "b7cce665-43f7-478e-852f-84c28b196e76",
+          name: "Trần Thị Kim Chi",
+          class: "11A1",
+        },
+        {
+          id: "37d10d06-e1c9-42c9-8374-ca04584c5c8e",
+          name: "Lý Thị Hồng Cúc",
+          class: "11A1",
+        },
+        {
+          id: "cfcc6808-ec75-4b45-a138-036a4d153951",
+          name: "Nguyễn Thị Huyền Diệu",
+          class: "11A1",
+        },
+        {
+          id: "2197d2e3-4612-401c-a2bc-e4b63c6ba2ab",
+          name: "Trần Thị Trúc Đan",
+          class: "11A1",
+        },
+        {
+          id: "eb6239d7-c96e-430e-babb-01554b8d67af",
+          name: "Nguyễn Tiến Đạt",
+          class: "11A1",
+        },
+        {
+          id: "06ebcd16-e462-4778-9284-dcbd78ce0c30",
+          name: "Dương Thanh Điền",
+          class: "11A1",
+        },
+        {
+          id: "7254e31b-bed0-421c-b871-eb47bb10eb4c",
+          name: "Phạm Trường Giang",
+          class: "11A1",
+        },
+        {
+          id: "d55d9748-c4eb-4ae8-92cc-1b2a7b8c2853",
+          name: "Lê Chí Hảo",
+          class: "11A1",
+        },
+        {
+          id: "8d3e9fbb-d3b9-43bf-b204-0c2369c317ed",
+          name: "Nguyễn Thị Diễm Hằng",
+          class: "11A1",
+        },
+        {
+          id: "030f547a-cf0a-47e6-8af0-01950fced277",
+          name: "Nguyễn Thị Ngọc Hân",
+          class: "11A1",
+        },
+        {
+          id: "13d6ef55-18fd-4f89-b744-abc8a9b0028e",
+          name: "Trương Gia Hân",
+          class: "11A1",
+        },
+        {
+          id: "6e14e71e-338d-4bf0-b3e7-47da79cd80d5",
+          name: "Mai Trung Hiếu",
+          class: "11A1",
+        },
+        {
+          id: "0dc6de1e-d0d3-4792-b189-744365bec7a1",
+          name: "Nguyễn Huỳnh Thanh Huy",
+          class: "11A1",
+        },
+        {
+          id: "23cc9b3e-ce44-4d91-a707-bd480d3fb456",
+          name: "Trương Thị Bích Huyền",
+          class: "11A1",
+        },
+        {
+          id: "48c4814a-4aec-4208-82c1-d724c2b20f0e",
+          name: "Trần Trọng Hữu",
+          class: "11A1",
+        },
+        {
+          id: "496a3b43-b064-45c9-b5d9-ee48bdfd6b5e",
+          name: "Đỗ Nguyễn Khải",
+          class: "11A1",
+        },
+        {
+          id: "df3b4f4b-f71b-4d1c-a980-ef2176cb5c17",
+          name: "Nguyễn Binh Khiêm",
+          class: "11A1",
+        },
+        {
+          id: "119aef95-40df-49ac-a5aa-195661ce5b99",
+          name: "Nguyễn Thị Diễm Kiều",
+          class: "11A1",
+        },
+        {
+          id: "ab33c708-0a3c-407c-8784-bf7f45fd39f4",
+          name: "Nguyễn Hoàng Kim",
+          class: "11A1",
+        },
+        {
+          id: "e869f553-0b0c-4ef6-9e45-b028678630f3",
+          name: "Tăng Thị Trúc Lam",
+          class: "11A1",
+        },
+        {
+          id: "25247bf1-822b-4c61-be46-dca06853e2b5",
+          name: "Nguyễn Thị Ngọc Loan",
+          class: "11A1",
+        },
+        {
+          id: "43dc88b8-fc0d-448f-ad85-ec4e50e5c533",
+          name: "Hồ Thị Cẩm Ly",
+          class: "11A1",
+        },
+        {
+          id: "2f8b5460-3ccc-40c9-921e-b3c2a4950cf4",
+          name: "Nguyễn Thiện Nghĩa",
+          class: "11A1",
+        },
+        {
+          id: "7d1cac60-3598-4f3e-b669-40231a4da44c",
+          name: "Nguyễn Trung Nhân",
+          class: "11A1",
+        },
+        {
+          id: "1834c487-654c-4e86-b8b0-ea0d1aa426d4",
+          name: "Lê Minh Phú",
+          class: "11A1",
+        },
+        {
+          id: "17af554a-155a-4d39-afeb-b6155f640ae9",
+          name: "Trần Triệu Phú",
+          class: "11A1",
+        },
+        {
+          id: "81e6d439-5be9-42ae-b3dd-c99666d151f7",
+          name: "Trần Hoàng Phúc",
+          class: "11A1",
+        },
+        {
+          id: "ad6f569b-fe36-46ee-a6cf-7b529d6d202e",
+          name: "Lê Thị Tố Quyên",
+          class: "11A1",
+        },
+        {
+          id: "e4931021-7285-4be0-b79a-016d92b5cc86",
+          name: "Nguyễn Hồng Thái",
+          class: "11A1",
+        },
+        {
+          id: "9495ea9a-18ba-4449-a798-825f6bdaebff",
+          name: "Nguyễn Hữu Thắng",
+          class: "11A1",
+        },
+        {
+          id: "b7181ba1-3f02-4bd8-a6e2-f7fb1e3dec05",
+          name: "Đặng Bảo Thi",
+          class: "11A1",
+        },
+        {
+          id: "0c8aad85-9803-46d1-88db-e8361d22f171",
+          name: "Lê Nguyễn Anh Thư",
+          class: "11A1",
+        },
+        {
+          id: "4b3b7789-2081-427f-a52c-63d92c8a6697",
+          name: "Nguyễn Thị Anh Thư",
+          class: "11A1",
+        },
+        {
+          id: "5172790d-9443-4dbe-b105-7cb1d110576b",
+          name: "Nhan Thanh Thương",
+          class: "11A1",
+        },
+        {
+          id: "0b8468c7-cb27-4a07-8773-b14189007bdd",
+          name: "Phạm Thị Cẩm Tiên",
+          class: "11A1",
+        },
+        {
+          id: "3f9c4b25-c5cd-4593-a84e-49eb7d6e24cc",
+          name: "Phạm Văn Quốc Toàn",
+          class: "11A1",
+        },
+        {
+          id: "90ee6d23-d854-4821-8893-22bb132acf3c",
+          name: "Trần Cao Hoàng Trân",
+          class: "11A1",
+        },
+        {
+          id: "6107384b-062c-419a-9822-4f4f12ae87a5",
+          name: "Nguyễn Văn Trọng",
+          class: "11A1",
+        },
+        {
+          id: "19f0ac77-7d71-4914-9c9c-257430d603ba",
+          name: "Phan Thị Mộng Tuyền",
+          class: "11A1",
+        },
+        {
+          id: "b4399fe2-213c-4038-87c5-212181eab93d",
+          name: "Trương Đỗ Ngọc Tuyết",
+          class: "11A1",
+        },
+        {
+          id: "49d16337-222e-473d-8ce4-4be4de9afba8",
+          name: "Nguyễn Hữu Vinh",
+          class: "11A1",
+        },
+        {
+          id: "a6edcde9-43a4-48ed-8a92-ca00f39b2e95",
+          name: "Trương Thị Cẩm Yến",
+          class: "11A1",
+        },
+        {
+          id: "2003dcf4-70fe-4534-b76b-9fa4a4ccbce2",
+          name: "Lê Quốc Huy",
+          class: "11A1",
+        },
+        {
+          id: "28cb9510-4170-425c-9b2e-20718dffe5ec",
+          name: "Trần Thị Trúc An",
+          class: "11A2",
+        },
+        {
+          id: "eaa966c5-03f0-4314-b662-e76409df655c",
+          name: "Võ Thị Ngọc Diệp",
+          class: "11A2",
+        },
+        {
+          id: "34fbffad-38e5-4c24-b243-96ce80d88687",
+          name: "Phạm Duy Đăng",
+          class: "11A2",
+        },
+        {
+          id: "193c3dba-b97f-433a-b43c-b7496bb8ff6e",
+          name: "Nguyễn Thị Thuý Hằng",
+          class: "11A2",
+        },
+        {
+          id: "bd5f0b9d-7a87-43cc-8a80-21d6a079a90c",
+          name: "Trần Minh Hiếu",
+          class: "11A2",
+        },
+        {
+          id: "ebf1ebde-149a-4c38-b98a-1b26c3832088",
+          name: "Trần Anh Khôi",
+          class: "11A2",
+        },
+        {
+          id: "8d55a2ed-5f8e-4106-b481-dfdc953bfe9d",
+          name: "Lê Thị Ngọc Mai",
+          class: "11A2",
+        },
+        {
+          id: "c6f611d8-8258-48eb-86f3-5a40966b9eb9",
+          name: "Phạm Thị Thảo My",
+          class: "11A2",
+        },
+        {
+          id: "c04f2d10-a780-4b91-8a38-ab51d48a69b5",
+          name: "Bùi Thanh Ngân",
+          class: "11A2",
+        },
+        {
+          id: "f9388405-a902-41e1-a33b-9e83020af707",
+          name: "Nguyễn Đặng Huỳnh Như",
+          class: "11A2",
+        },
+        {
+          id: "34df2f24-1ec2-45ee-9c5e-9ff0c36b4f81",
+          name: "Cao Đức Phát",
+          class: "11A2",
+        },
+        {
+          id: "87e98ca6-05f6-4e49-958b-1a92a013efbb",
+          name: "Bùi Thị Hồng Phúc",
+          class: "11A2",
+        },
+        {
+          id: "7b5a8f77-fb12-496b-824e-bff944d571aa",
+          name: "Nguyễn Thị Bích Thùy",
+          class: "11A2",
+        },
+        {
+          id: "3fcecf34-9916-4a37-a2b8-bbf5484008c3",
+          name: "Phan Nguyễn Trung Kiên",
+          class: "11A2",
+        },
+        {
+          id: "89d5c5d4-8685-43d7-96ac-b9e463cee64c",
+          name: "Trần Văn Của",
+          class: "11A2",
+        },
+        {
+          id: "bc266b0c-d91c-45c2-bd23-2ac7eb87b580",
+          name: "Đỗ Phúc Đạt",
+          class: "11A2",
+        },
+        {
+          id: "b8929b01-09a7-4cd6-9ce5-5d6e0aee71f4",
+          name: "Phạm Thị Ngọc Hân",
+          class: "11A2",
+        },
+        {
+          id: "33cb3a37-6bdd-46dc-80c8-80a8d3d10230",
+          name: "Võ Thị Ngọc Hân",
+          class: "11A2",
+        },
+        {
+          id: "86b665a7-bcd6-4b9e-9caf-a47b91cad763",
+          name: "Nguyễn Quốc Minh",
+          class: "11A2",
+        },
+        {
+          id: "de412d8b-9470-4e93-8107-388472465d39",
+          name: "Lê Thành Nam",
+          class: "11A2",
+        },
+        {
+          id: "73f65713-7216-4bfa-8bf3-18a4fbd1a414",
+          name: "Võ Thị Như Quỳnh",
+          class: "11A3",
+        },
+        {
+          id: "3d450d7c-ce9a-46db-909d-4da0ca51ac5b",
+          name: "Lê Nguyễn Mỹ Trâm",
+          class: "11A2",
+        },
+        {
+          id: "58ea93ff-f1d4-4c95-89e5-5d68da5caf91",
+          name: "Phạm Khánh Hưng",
+          class: "11A2",
+        },
+        {
+          id: "f691e51d-aba4-4761-abf2-d05b7eac9335",
+          name: "Lê Ngọc Diễm My",
+          class: "11A2",
+        },
+        {
+          id: "0838b65a-ebbb-4586-8d89-620f69785053",
+          name: "Phan Đình Tuyết Ngân",
+          class: "11A2",
+        },
+        {
+          id: "b919c449-526b-4389-92bf-7dd1f53ee1b8",
+          name: "Võ Thị Yến Nhi",
+          class: "11A2",
+        },
+        {
+          id: "06d1304d-81a7-4ac6-8923-c36f4d37e296",
+          name: "Võ Như Quỳnh",
+          class: "11A2",
+        },
+        {
+          id: "12c45ed5-e6fd-4b0f-8b37-54c4cc13ed29",
+          name: "Đỗ Thị Minh Thư",
+          class: "11A2",
+        },
+        {
+          id: "14c26361-09c7-4bb3-9707-bcd9d007bb0d",
+          name: "Lê Thị Kiều Tiên",
+          class: "11A2",
+        },
+        {
+          id: "411829e3-daca-4a48-9783-1b1c910389b2",
+          name: "Phan Thị Kim Trúc",
+          class: "11A2",
+        },
+        {
+          id: "22f9a8e4-35c8-44e0-9d61-93724e3c8101",
+          name: "Phan Thị Ái Vy",
+          class: "11A2",
+        },
+        {
+          id: "cc9ef480-873e-4db5-a9fd-38b2ade4d3d6",
+          name: "Mai Thị Tuyết Anh",
+          class: "11A2",
+        },
+        {
+          id: "cc3dd76f-aaab-475d-ad79-baf293be1591",
+          name: "Nguyễn Thị Trâm Anh",
+          class: "11A2",
+        },
+        {
+          id: "de8c3d11-6f4f-4874-a70d-0b798c90bfd4",
+          name: "Nguyễn Ngọc Đắc Lộc",
+          class: "11A2",
+        },
+        {
+          id: "43c1f831-518b-4e04-bd41-14ef33e8d3bd",
+          name: "Võ Huỳnh Duy Hào",
+          class: "11A2",
+        },
+        {
+          id: "80336fb6-fcae-4602-b80b-10318dbca314",
+          name: "Trương Lê Khang",
+          class: "11A2",
+        },
+        {
+          id: "c108d1af-3119-496e-82c1-456906a8dbed",
+          name: "Trương Quốc Nam",
+          class: "11A2",
+        },
+        {
+          id: "aedcfab8-c3d1-4807-8443-8937cf46b72c",
+          name: "Nguyễn Trần Trọng Khiêm",
+          class: "11A2",
+        },
+        {
+          id: "5d8785b6-f30c-4b18-89fe-3d67967b84ba",
+          name: "Thạch Thị Trà My",
+          class: "11A3",
+        },
+        {
+          id: "01674cfa-0a1d-41ce-a976-0032c67507a1",
+          name: "Lê Quang Vinh",
+          class: "11A2",
+        },
+        {
+          id: "c1287057-7af2-48fd-b7df-27f23be600f7",
+          name: "Trần Minh Bảo",
+          class: "11A2",
+        },
+        {
+          id: "9b49d916-0edb-4637-8bd4-aec75af00a5e",
+          name: "Nguyễn Thị Phương Nghi",
+          class: "11A2",
+        },
+        {
+          id: "f6883749-3ad6-4ffa-afa6-e99aea4713f9",
+          name: "Trần Văn Sự",
+          class: "11A3",
+        },
+        {
+          id: "c27af7d1-5e24-4ad6-b532-98b7f37e0e5a",
+          name: "Phan Phúc Thịnh",
+          class: "11A3",
+        },
+        {
+          id: "842f440b-d20d-4ae0-9c09-88cb721d1452",
+          name: "Phạm Thị Kim Thoa",
+          class: "11A2",
+        },
+        {
+          id: "3a52c04f-0596-480c-834a-1be70315d499",
+          name: "Nguyễn Thị Mộng Thúy",
+          class: "11A3",
+        },
+        {
+          id: "754e1818-0c11-4b9d-9757-79f7e10a513c",
+          name: "Nguyễn Hồ Bảo Thy",
+          class: "11A3",
+        },
+        {
+          id: "ccb69cb0-4ebf-4492-9094-9f9675813889",
+          name: "Trương Thị Thanh Tuyền",
+          class: "11A3",
+        },
+        {
+          id: "8d737c65-1cd2-4798-9072-f88af707cebb",
+          name: "Trần Thị Diễm Trúc",
+          class: "11A3",
+        },
+        {
+          id: "f85889ec-af6b-4042-a2f3-4cfc9dc3fb1b",
+          name: "Trần Trí Thanh",
+          class: "11A3",
+        },
+        {
+          id: "a6b0ca7a-d443-45bf-ba3c-c2ec224acc80",
+          name: "Trịnh Ngọc Lan Anh",
+          class: "11A3",
+        },
+        {
+          id: "7123d50d-19e8-4d36-a22f-104782f39132",
+          name: "Trương Thị Khánh Băng",
+          class: "11A3",
+        },
+        {
+          id: "08b4f08a-6eab-4a0f-818c-51aa97e293cc",
+          name: "Võ Trường Giang",
+          class: "11A3",
+        },
+        {
+          id: "c9ba9c04-6168-4d9e-a36e-0d091e92db50",
+          name: "Nguyễn Văn Hậu",
+          class: "11A3",
+        },
+        {
+          id: "a2632bd4-ef19-4986-b120-7211c1067c67",
+          name: "Trần Thị Ngọc Giàu",
+          class: "11A3",
+        },
+        {
+          id: "56cd7a09-81f4-4be3-972a-2702706a5112",
+          name: "Nguyễn Thị Kiều Oanh",
+          class: "11A3",
+        },
+        {
+          id: "5f21412a-a70a-4c05-b552-c97b854731eb",
+          name: "Nguyễn Thị Tố Quyên",
+          class: "11A3",
+        },
+        {
+          id: "885a3af1-8e22-43ad-87d0-adc391e7ce8d",
+          name: "Võ Thị Tú Sương",
+          class: "11A3",
+        },
+        {
+          id: "f3683598-27a9-4dd0-8a37-2431908991ca",
+          name: "Lê Thị Thanh Thảo",
+          class: "11A2",
+        },
+        {
+          id: "9ac499de-49f6-438f-a17b-2bd17757e380",
+          name: "Lâm Thị Cẩm Thơ",
+          class: "11A3",
+        },
+        {
+          id: "28358c7c-3a2f-4124-9146-877ace7c1cc3",
+          name: "Nguyễn Phạm Anh Thư",
+          class: "11A3",
+        },
+        {
+          id: "96aea7fa-3ee8-4fc0-8b8c-a1e47f379df2",
+          name: "Lê Thị Ngọc Trúc",
+          class: "11A3",
+        },
+        {
+          id: "7d2ecae6-5c78-4536-80db-8ec423c38747",
+          name: "Nguyễn Thị Ngọc Trúc",
+          class: "11A3",
+        },
+        {
+          id: "27a26242-de47-47f1-8aef-a0ce537f3ea6",
+          name: "Huỳnh Thị Cát Tường",
+          class: "11A3",
+        },
+        {
+          id: "c6e69546-3ea9-4f12-9540-98ea8bfaae0f",
+          name: "Huỳnh Kim Vàng",
+          class: "11A3",
+        },
+        {
+          id: "45311dcf-4e92-4a9a-8f76-90cf6293c0a1",
+          name: "Nguyễn Thị Như Ý",
+          class: "11A3",
+        },
+        {
+          id: "41483601-8b46-4e19-bb18-c9a8568fed03",
+          name: "Nguyễn Thị Bảo Yến",
+          class: "11A3",
+        },
+        {
+          id: "99a0b2aa-d932-40ac-937f-90138e27891f",
+          name: "Hồ Thị Kim Cương",
+          class: "11A3",
+        },
+        {
+          id: "aa3a8b42-0c7c-492a-87cf-95807b80de9b",
+          name: "Trần Thị Quỳnh Thy",
+          class: "11A3",
+        },
+        {
+          id: "b273c630-c7aa-4f8b-9dfb-f4e4f500bf11",
+          name: "Nguyễn Phúc Khang",
+          class: "11A3",
+        },
+        {
+          id: "3dcb528f-a4a4-4d8c-8e0d-e502d4173071",
+          name: "Nguyễn Phú Gia Bảo",
+          class: "11A3",
+        },
+        {
+          id: "23e7d98b-80d3-490b-ba2d-1154820b46ab",
+          name: "Nguyễn Công Hậu",
+          class: "11A3",
+        },
+        {
+          id: "1bb9567e-ff30-4556-92d9-c597c983d17d",
+          name: "Lê Dương Hoài",
+          class: "11A3",
+        },
+        {
+          id: "189ea588-a7f0-43b6-9a26-faf641588f13",
+          name: "Trương Thị Thu Hương",
+          class: "11A3",
+        },
+        {
+          id: "302a6abe-9dc6-488a-b284-6a052fb99ae9",
+          name: "Nguyễn Quốc Khánh",
+          class: "11A3",
+        },
+        {
+          id: "4edd4f52-35e6-49c8-a326-6d2fa967f4a1",
+          name: "Nguyễn Thị Kim Mỹ",
+          class: "11A3",
+        },
+        {
+          id: "e1f17eb6-6f57-4232-9879-3a630a2fc7d2",
+          name: "Huỳnh Thanh Phong",
+          class: "11A3",
+        },
+        {
+          id: "ded7a5f2-6fc5-4ae1-9495-0b935b7db91d",
+          name: "Nguyễn Hoài Nam",
+          class: "11A3",
+        },
+        {
+          id: "b5e5a3c1-7a8c-4f2b-829a-6c7528df4cdb",
+          name: "Lê Trương Như Ngọc",
+          class: "11A3",
+        },
+
+        {
+          id: "b5b9fb10-83a9-4508-8cdb-8cd8757fc050",
+          name: "Nguyễn Huỳnh Thiện Như",
+          class: "11A2",
+        },
+
+        {
+          id: "5775fd48-fb04-421a-ba53-b6396a278c8b",
+          name: "Lê Nguyễn Tường Anh",
+          class: "11A3",
+        },
+        {
+          id: "976e458f-bf99-4046-b713-0cf7f72726de",
+          name: "Lê Nguyễn Quốc Anh",
+          class: "11A3",
+        },
+        {
+          id: "96ac2741-50e3-4ae4-9768-5308b80ac0fe",
+          name: "Lê Minh Nam",
+          class: "11A3",
+        },
+        {
+          id: "b15a7bd0-a4c1-49a7-9a1f-4f1fcf9c20ba",
+          name: "Nguyễn Thị Thanh Thảo",
+          class: "11A4",
+        },
+        {
+          id: "eb04e84f-5daa-479a-947d-fbb5b8f5a35f",
+          name: "Trần Nguyễn Hải Đăng",
+          class: "11A4",
+        },
+        {
+          id: "cf3295f5-adb7-4d85-b9b9-6745f1ac69d6",
+          name: "Lê Thị Nghi Thường",
+          class: "11A3",
+        },
+        {
+          id: "92e56b9e-910b-4cae-8c24-1554c0207785",
+          name: "Dương Huỳnh Châu",
+          class: "11A4",
+        },
+        {
+          id: "a92d9afd-ae0c-4068-9388-18ecbbd8c546",
+          name: "Lê Hiếu Nghĩa",
+          class: "11A4",
+        },
+        {
+          id: "6425e717-7f4b-46f5-9aad-05711c3a0935",
+          name: "Ngô Thị Ngọc Quyền",
+          class: "11A4",
+        },
+        {
+          id: "d04b6320-edad-4ea8-a7ed-990f4348ad1d",
+          name: "Huỳnh Kim Tuyền",
+          class: "11A4",
+        },
+        {
+          id: "9468c2b1-b8fb-4a63-b276-ee092304a25b",
+          name: "Lâm Ngọc Tường Vy",
+          class: "11A4",
+        },
+        {
+          id: "98b37e83-b2e0-4a9c-b5cd-024a28297de0",
+          name: "Trần Tường Vy",
+          class: "11A4",
+        },
+        {
+          id: "b6a3af4b-774e-4a9c-8b8e-6c9b68c4c8c8",
+          name: "Trần Nguyễn Quốc Đại",
+          class: "11A4",
+        },
+        {
+          id: "bd8c422e-7ea8-4a70-8b31-e57fbd23f25a",
+          name: "Nguyễn Phước Sang",
+          class: "11A4",
+        },
+        {
+          id: "929557d4-b699-4e6b-917b-749fe81400c6",
+          name: "Nguyễn Văn Tây",
+          class: "11A4",
+        },
+        {
+          id: "a4c5866c-ef85-46be-880f-9d2aa59a398e",
+          name: "Đoàn Zi Danl",
+          class: "11A4",
+        },
+        {
+          id: "1474c306-2a78-4f5f-9f81-1fbe1fdd0d00",
+          name: "Nguyễn Văn Tâm",
+          class: "11A4",
+        },
+        {
+          id: "b0a025e7-8158-4fea-adab-a4e7cf0f0902",
+          name: "Lê Văn Tường",
+          class: "11A4",
+        },
+        {
+          id: "eb1185e3-9062-4875-bfdd-89e68f48e777",
+          name: "Nguyễn Văn Hập",
+          class: "11A4",
+        },
+        {
+          id: "692417e8-b4d2-4185-9766-a3bda16f6eda",
+          name: "Từ Bảo Ngọc",
+          class: "11A4",
+        },
+        {
+          id: "a3da76ee-64d0-43f6-ae7e-3115f0499cd9",
+          name: "Trần Hữu Nghĩa",
+          class: "11A4",
+        },
+        {
+          id: "140081ff-b830-4703-bd55-134da77e68aa",
+          name: "Trần Vũ Trọng",
+          class: "11A4",
+        },
+        {
+          id: "502fc73b-19e8-4ed8-88e3-0046da8c0ba1",
+          name: "Nguyễn Thị Thúy An",
+          class: "11A4",
+        },
+        {
+          id: "77701583-9dd6-4b30-8668-ec8ce63770c5",
+          name: "Lê Nguyễn Kim Hương",
+          class: "11A4",
+        },
+        {
+          id: "f0aa5454-b9ff-49c2-a1d1-cc0e45262f03",
+          name: "Phạm Nhân Nghĩa",
+          class: "11A4",
+        },
+        {
+          id: "e27af9dd-a763-4929-bc31-4ce96e28784e",
+          name: "Trần Nguyễn Quốc Thắng",
+          class: "11A4",
+        },
+        {
+          id: "6a0526c5-850a-47ef-a586-d499f1dcc18d",
+          name: "Trần Hiếu Nghĩa",
+          class: "11A4",
+        },
+        {
+          id: "ef062c00-2303-4f7c-9bee-61e6a85b370f",
+          name: "Lâm Văn Khang",
+          class: "11A4",
+        },
+        {
+          id: "461d7abe-ac5f-4e84-8a2c-6296eaed76b8",
+          name: "Huỳnh Văn Trọng",
+          class: "11A4",
+        },
+        {
+          id: "57d39bb6-d6de-4e70-8447-c4a094d681c5",
+          name: "Dương Hữu Còn",
+          class: "11A4",
+        },
+        {
+          id: "d0ba000d-6527-4152-bc8f-0620473fe55f",
+          name: "Trần Văn Trường Vũ",
+          class: "11A4",
+        },
+        {
+          id: "e21f110e-5e39-447c-bca2-aa71bbd3ca58",
+          name: "Lê Nguyễn Cẩm Ly",
+          class: "11A4",
+        },
+        {
+          id: "3d611149-ca86-4222-bd4f-6d19d56717bf",
+          name: "Nguyễn Thị Như Ý",
+          class: "11A4",
+        },
+        {
+          id: "eb8d8fd0-c954-4145-8466-cdbb5b14e8e5",
+          name: "Lê Hoàng Sang",
+          class: "11A4",
+        },
+        {
+          id: "63ecd32d-f416-444e-9955-c356699ab48e",
+          name: "Nguyễn Thị Phi Yến",
+          class: "11A4",
+        },
+        {
+          id: "35c4bf14-93d7-420c-886c-9fd2d10102de",
+          name: "Mỹ Huyên",
+          class: "11A1",
+        },
+        {
+          id: "d1d15b67-2539-4914-bb8b-93ab986dc310",
+          name: "Nguyễn Thị Mỹ Huyền",
+          class: "11A3",
+        },
+        {
+          id: "d9526a19-6b71-4b94-a988-bd79958fade3",
+          name: "Kim Chi",
+          class: "11A4",
+        },
+        {
+          id: "d9526a19-6b71-4b94-a988-bd79958fade2",
+          name: "Đoàn Thiện Bảo",
+          class: "11A2",
+        },
+      ];
+      const roomsEl = document.getElementById("rooms");
+      const classTabsEl = document.getElementById("classTabs");
+      const classBodyEl = document.getElementById("classBody");
+      const classSummaryEl = document.getElementById("classSummary");
+      const classNoteEl = document.getElementById("classNote");
+      const firebaseStatusEl = document.getElementById("firebaseStatus");
+      const detailTitle = document.getElementById("detailTitle");
+      const detailBody = document.getElementById("detailBody");
+      const detailEmpty = document.getElementById("detailEmpty");
+      const detailArea = document.getElementById("detailArea");
+      const detailCountPill = document.getElementById("detailCountPill");
+      const summaryText = document.getElementById("summaryText");
+      const searchInput = document.getElementById("searchInput");
+      const jsonUploadInput = document.getElementById("jsonUploadInput");
+      const uploadJsonBtn = document.getElementById("uploadJsonBtn");
+      const studentName = document.getElementById("studentName");
+      const studentClass = document.getElementById("studentClass");
+      const editIndex = document.getElementById("editIndex");
+      const formHint = document.getElementById("formHint");
+
+      let students = rawData.map((s, index) => ({
+        id: makeId(index),
+        name: normalizeSpaces(s.name),
+        class: normalizeSpaces(s.class),
+      }));
+
+      let rooms = [];
+      let selectedRoomIndex = 0;
+      let selectedStudentId = "";
+      let selectedClassFilter = "all";
+      let db = null;
+      let studentsRef = null;
+      let isFirebaseReady = false;
+      let isApplyingRemote = false;
+      let syncTimer = null;
+
+      function makeId(index) {
+        if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+        return (
+          "stu_" +
+          Date.now() +
+          "_" +
+          index +
+          "_" +
+          Math.random().toString(16).slice(2)
+        );
+      }
+
+      function normalizeSpaces(text) {
+        return String(text || "")
+          .trim()
+          .split(" ")
+          .filter(Boolean)
+          .join(" ");
+      }
+
+      function normalizeText(text) {
+        return normalizeSpaces(text).toLowerCase();
+      }
+
+      function getLastName(fullName) {
+        const parts = normalizeSpaces(fullName).split(" ").filter(Boolean);
+        return parts.length ? parts[parts.length - 1] : "";
+      }
+
+      function compareStudents(a, b) {
+        const lastA = normalizeText(getLastName(a.name));
+        const lastB = normalizeText(getLastName(b.name));
+        if (lastA !== lastB) return lastA.localeCompare(lastB, "vi");
+        const fullA = normalizeText(a.name);
+        const fullB = normalizeText(b.name);
+        if (fullA !== fullB) return fullA.localeCompare(fullB, "vi");
+        return normalizeText(a.class).localeCompare(
+          normalizeText(b.class),
+          "vi",
+        );
+      }
+
+      function shuffle(list) {
+        const arr = [...list];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+        return arr;
+      }
+
+      function toRemoteObject(list) {
+        const out = {};
+        list.forEach((student) => {
+          out[student.id] = {
+            id: student.id,
+            name: student.name,
+            class: student.class,
+          };
+        });
+        return out;
+      }
+
+      function fromRemoteValue(value) {
+        if (!value) return [];
+        const list = Array.isArray(value)
+          ? value.filter(Boolean)
+          : Object.values(value);
+        return list
+          .map((student, index) => ({
+            id: student.id || makeId(index),
+            name: normalizeSpaces(student.name),
+            class: normalizeSpaces(student.class),
+          }))
+          .filter((student) => student.name && student.class);
+      }
+
+      function validateStudent(name, cls) {
+        const n = normalizeSpaces(name);
+        const c = normalizeSpaces(cls);
+        if (!n || !c) return "Vui lòng nhập đầy đủ họ và tên, lớp.";
+        if (n.split(" ").filter(Boolean).length < 2)
+          return "Họ và tên phải có ít nhất 2 từ.";
+        if (!c) return "Lớp không hợp lệ.";
+        return null;
+      }
+
+      function classSort(a, b) {
+        return a.localeCompare(b, "vi");
+      }
+
+      function isNaturalClass(cls) {
+        return normalizeSpaces(cls) === "11A1";
+      }
+
+      function getRoomStats(room) {
+        const total = room.length;
+        const natural = room.filter((student) =>
+          isNaturalClass(student.class),
+        ).length;
+        const social = total - natural;
+        const naturalPct = total ? Math.round((natural / total) * 100) : 0;
+        const socialPct = total ? Math.round((social / total) * 100) : 0;
+        return { total, natural, social, naturalPct, socialPct };
+      }
+
+      function formatPercent(n) {
+        return (Number.isFinite(n) ? n : 0) + "%";
+      }
+
+      function getClassList() {
+        const seen = new Set();
+        students.forEach((s) => seen.add(s.class));
+        return Array.from(seen).sort(classSort);
+      }
+
+      function buildRoomSizes(count) {
+        if (count <= 0) return [];
+        if (count <= MIN_CAPACITY) return [count];
+
+        let best = null;
+
+        for (let roomCount = 1; roomCount <= count; roomCount++) {
+          const base = Math.floor(count / roomCount);
+          const rem = count % roomCount;
+          const sizes = Array.from(
+            { length: roomCount },
+            (_, index) => base + (index < rem ? 1 : 0),
+          );
+
+          const minSize = Math.min(...sizes);
+          const maxSize = Math.max(...sizes);
+          const avg = count / roomCount;
+
+          let score = 0;
+          score += sizes.reduce((sum, size) => {
+            if (size < MIN_CAPACITY) return sum + (MIN_CAPACITY - size) * 10000;
+            if (size > MAX_CAPACITY) return sum + (size - MAX_CAPACITY) * 100;
+            return sum + Math.abs(size - IDEAL_CAPACITY);
+          }, 0);
+
+          score += Math.abs(avg - IDEAL_CAPACITY) * 10;
+          score += maxSize - minSize;
+
+          if (!best || score < best.score) {
+            best = { roomCount, sizes, score };
+          }
+        }
+
+        return best ? best.sizes : [count];
+      }
+
+      function buildRooms() {
+        const mixed = shuffle(students);
+        mixed.sort(compareStudents);
+
+        rooms = [];
+        const sizes = buildRoomSizes(mixed.length);
+        let cursor = 0;
+
+        sizes.forEach((size) => {
+          rooms.push(mixed.slice(cursor, cursor + size));
+          cursor += size;
+        });
+
+        if (selectedRoomIndex >= rooms.length)
+          selectedRoomIndex = rooms.length - 1;
+        if (selectedRoomIndex < 0) selectedRoomIndex = 0;
+      }
+
+      function getSearchQuery() {
+        return normalizeText(searchInput.value);
+      }
+
+      function matchStudent(student) {
+        const q = getSearchQuery();
+        if (!q) return true;
+        return (
+          normalizeText(student.name).includes(q) ||
+          normalizeText(student.class).includes(q)
+        );
+      }
+
+      function renderAll() {
+        buildRooms();
+        renderRooms();
+        renderDetail();
+        renderClassView();
+        const totalNatural = students.filter((s) =>
+          isNaturalClass(s.class),
+        ).length;
+        const totalSocial = students.length - totalNatural;
+        const naturalPct = students.length
+          ? Math.round((totalNatural / students.length) * 100)
+          : 0;
+        const socialPct = students.length
+          ? Math.round((totalSocial / students.length) * 100)
+          : 0;
+        summaryText.textContent =
+          students.length +
+          " thí sinh • " +
+          rooms.length +
+          " phòng thi • ưu tiên 24-25 người/phòng";
+        if (!isFirebaseReady) {
+          firebaseStatusEl.className = "status bad";
+          firebaseStatusEl.textContent = "Firebase: chưa cấu hình";
+        }
+      }
+
+      function renderRooms() {
+        const q = getSearchQuery();
+        const filtered = rooms
+          .map((room, index) => ({
+            index: index,
+            room: room,
+            matched: !q || room.some(matchStudent),
+          }))
+          .filter((entry) => entry.matched);
+
+        roomsEl.innerHTML = "";
+        if (!filtered.length) {
+          roomsEl.innerHTML =
+            '<div class="note">Không tìm thấy phòng hoặc thí sinh phù hợp.</div>';
+          return;
+        }
+
+        filtered.forEach((entry) => {
+          const room = entry.room;
+          const div = document.createElement("div");
+          div.className =
+            "room" + (entry.index === selectedRoomIndex ? " active" : "");
+          const stats = getRoomStats(room);
+          div.innerHTML =
+            '<div class="name">Phòng ' +
+            (entry.index + 1) +
+            "</div>" +
+            '<div class="info">' +
+            '<div><span class="badge">' +
+            room.length +
+            "</span> thí sinh</div>" +
+            '<div style="margin-top:8px">Từ <b>' +
+            escapeHtml(room[0] ? room[0].name : "-") +
+            "</b></div>" +
+            "<div>Đến <b>" +
+            escapeHtml(
+              room[room.length - 1] ? room[room.length - 1].name : "-",
+            ) +
+            "</b></div>" +
+            '<div style="margin-top:8px"><b>Tự nhiên:</b> ' +
+            stats.natural +
+            "/" +
+            stats.total +
+            " (" +
+            formatPercent(stats.naturalPct) +
+            ")</div>" +
+            "<div><b>Xã hội:</b> " +
+            stats.social +
+            "/" +
+            stats.total +
+            " (" +
+            formatPercent(stats.socialPct) +
+            ")</div>" +
+            "</div>";
+          div.addEventListener("click", () => {
+            selectedRoomIndex = entry.index;
+            selectedStudentId = "";
+            clearForm();
+            renderAll();
+          });
+          roomsEl.appendChild(div);
+        });
+      }
+
+      function renderDetail() {
+        const room = rooms[selectedRoomIndex];
+        if (!room || !room.length) {
+          detailEmpty.classList.remove("hidden");
+          detailArea.classList.add("hidden");
+          detailTitle.textContent = "Chi tiết phòng thi";
+          detailCountPill.textContent = "0 thí sinh";
+          return;
+        }
+        detailEmpty.classList.add("hidden");
+        detailArea.classList.remove("hidden");
+        detailTitle.textContent = "Phòng thi " + (selectedRoomIndex + 1);
+        const stats = getRoomStats(room);
+        detailCountPill.textContent =
+          room.length +
+          " thí sinh • TN " +
+          formatPercent(stats.naturalPct) +
+          " • XH " +
+          formatPercent(stats.socialPct);
+        detailBody.innerHTML = "";
+
+        room.forEach((student, index) => {
+          const tr = document.createElement("tr");
+          if (selectedStudentId === student.id)
+            tr.style.background = "rgba(56,189,248,.08)";
+          tr.innerHTML =
+            "<td>" +
+            (index + 1) +
+            "</td>" +
+            "<td>" +
+            escapeHtml(student.name) +
+            "</td>" +
+            "<td>" +
+            escapeHtml(student.class) +
+            "</td>" +
+            "<td>Phòng " +
+            (selectedRoomIndex + 1) +
+            "</td>";
+          tr.addEventListener("click", () => {
+            selectedStudentId = student.id;
+            studentName.value = student.name;
+            studentClass.value = student.class;
+            editIndex.value = student.id;
+            formHint.innerHTML =
+              "Đang sửa: <b>" +
+              escapeHtml(student.name) +
+              "</b> (" +
+              escapeHtml(student.class) +
+              ")";
+            renderDetail();
+          });
+          detailBody.appendChild(tr);
+        });
+      }
+
+      function renderClassView() {
+        const classList = getClassList();
+        const buttons = [
+          { value: "all", label: "Tất cả", count: students.length },
+        ].concat(
+          classList.map((cls) => ({
+            value: cls,
+            label: cls,
+            count: students.filter((s) => s.class === cls).length,
+          })),
+        );
+
+        classTabsEl.innerHTML = "";
+        buttons.forEach((item) => {
+          const btn = document.createElement("button");
+          btn.className =
+            "tab" + (selectedClassFilter === item.value ? " active" : "");
+          btn.textContent = item.label + " (" + item.count + ")";
+          btn.addEventListener("click", () => {
+            selectedClassFilter = item.value;
+            renderClassView();
+          });
+          classTabsEl.appendChild(btn);
+        });
+
+        classSummaryEl.textContent = classList.length + " lớp";
+        const q = getSearchQuery();
+        const classFiltered = students
+          .filter(
+            (student) =>
+              selectedClassFilter === "all" ||
+              student.class === selectedClassFilter,
+          )
+          .filter(matchStudent)
+          .slice()
+          .sort(compareStudents);
+
+        classBodyEl.innerHTML = "";
+        if (!classFiltered.length) {
+          classBodyEl.innerHTML =
+            '<tr><td colspan="4">Không có dữ liệu phù hợp.</td></tr>';
+        } else {
+          classFiltered.forEach((student, index) => {
+            const roomIndex = findStudentRoomIndex(student.id);
+            const tr = document.createElement("tr");
+            tr.innerHTML =
+              "<td>" +
+              (index + 1) +
+              "</td>" +
+              "<td>" +
+              escapeHtml(student.name) +
+              "</td>" +
+              "<td>" +
+              escapeHtml(student.class) +
+              "</td>" +
+              "<td>" +
+              (roomIndex >= 0 ? "Phòng " + (roomIndex + 1) : "-") +
+              "</td>";
+            tr.addEventListener("click", () => {
+              openStudentById(student.id);
+            });
+            classBodyEl.appendChild(tr);
+          });
+        }
+
+        classNoteEl.textContent =
+          "Đang xem " +
+          (selectedClassFilter === "all"
+            ? "toàn bộ các lớp"
+            : "lớp " + selectedClassFilter) +
+          ". " +
+          (q ? "Đang lọc theo từ khóa: " + searchInput.value : "");
+      }
+
+      function findStudentRoomIndex(studentId) {
+        for (let i = 0; i < rooms.length; i++) {
+          if (rooms[i].some((student) => student.id === studentId)) return i;
+        }
+        return -1;
+      }
+
+      function openStudentById(studentId) {
+        const idx = students.findIndex((student) => student.id === studentId);
+        if (idx < 0) return;
+        const student = students[idx];
+        const roomIndex = findStudentRoomIndex(studentId);
+        if (roomIndex >= 0) selectedRoomIndex = roomIndex;
+        selectedStudentId = studentId;
+        studentName.value = student.name;
+        studentClass.value = student.class;
+        editIndex.value = student.id;
+        formHint.innerHTML =
+          "Đang sửa: <b>" +
+          escapeHtml(student.name) +
+          "</b> (" +
+          escapeHtml(student.class) +
+          ")";
+        renderAll();
+      }
+
+      function clearForm() {
+        studentName.value = "";
+        studentClass.value = "";
+        editIndex.value = "";
+        selectedStudentId = "";
+        formHint.textContent =
+          "Bấm vào dòng trong bảng để chọn thí sinh cần chỉnh sửa.";
+        renderDetail();
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function showFirebaseStatus(kind, text) {
+        firebaseStatusEl.className = "status " + kind;
+        firebaseStatusEl.textContent = text;
+      }
+
+      function syncToFirebase() {
+        if (!isFirebaseReady || !studentsRef || isApplyingRemote) return;
+        return set(studentsRef, toRemoteObject(students));
+      }
+
+      function ensureFirebaseSeed(snapshotExists, remoteStudents) {
+        if (!snapshotExists || !remoteStudents.length) {
+          return set(studentsRef, toRemoteObject(students));
+        }
+        return Promise.resolve();
+      }
+
+      function saveStudent() {
+        const name = normalizeSpaces(studentName.value);
+        const cls = normalizeSpaces(studentClass.value);
+        const error = validateStudent(name, cls);
+        if (error) {
+          alert(error);
+          return;
+        }
+
+        const id = editIndex.value.trim();
+        if (id) {
+          const idx = students.findIndex((student) => student.id === id);
+          if (idx >= 0) {
+            students[idx] = { id: students[idx].id, name: name, class: cls };
+          } else {
+            students.push({ id: id, name: name, class: cls });
+          }
+        } else {
+          students.push({
+            id: makeId(students.length),
+            name: name,
+            class: cls,
+          });
+        }
+
+        renderAll();
+        clearForm();
+        syncToFirebase();
+      }
+
+      function deleteStudent() {
+        const id = editIndex.value.trim();
+        if (!id) {
+          alert("Hãy chọn một thí sinh trong bảng trước khi xóa.");
+          return;
+        }
+        const idx = students.findIndex((student) => student.id === id);
+        if (idx < 0) return;
+        const ok = confirm(
+          'Xóa thí sinh "' +
+            students[idx].name +
+            '" (' +
+            students[idx].class +
+            ")?",
+        );
+        if (!ok) return;
+        students.splice(idx, 1);
+        renderAll();
+        clearForm();
+        syncToFirebase();
+      }
+
+      function parseImportedStudents(input) {
+        let raw = input;
+        if (typeof raw === "string") {
+          try {
+            raw = JSON.parse(raw);
+          } catch (error) {
+            throw new Error("File không phải JSON hợp lệ.");
+          }
+        }
+
+        let list = [];
+        if (Array.isArray(raw)) {
+          list = raw;
+        } else if (raw && typeof raw === "object") {
+          const candidates = [
+            raw.students,
+            raw.data,
+            raw.items,
+            raw.list,
+            raw.danhSachHocSinh,
+            raw.danhSachThiSinh,
+            raw.dsHocSinh,
+          ].filter(Array.isArray);
+          if (candidates.length) {
+            list = candidates[0];
+          } else {
+            list = Object.values(raw);
+          }
+        }
+
+        const normalized = list
+          .map((student, index) => ({
+            id: normalizeSpaces(student?.id) || makeId(index),
+            name: normalizeSpaces(
+              student?.name ??
+                student?.hoTen ??
+                student?.hoten ??
+                student?.fullName,
+            ),
+            class: normalizeSpaces(
+              student?.class ??
+                student?.lop ??
+                student?.lopHoc ??
+                student?.className,
+            ),
+          }))
+          .filter(
+            (student) =>
+              student.name &&
+              student.class &&
+              validateStudent(student.name, student.class) === null,
+          );
+
+        if (!normalized.length) {
+          throw new Error(
+            "Không tìm thấy danh sách học sinh hợp lệ trong file.",
+          );
+        }
+        return normalized;
+      }
+
+      function replaceStudentsFromUploadedJson(text) {
+        const imported = parseImportedStudents(text);
+        students = imported.map((student, index) => ({
+          id: student.id || makeId(index),
+          name: normalizeSpaces(student.name),
+          class: normalizeSpaces(student.class),
+        }));
+        selectedRoomIndex = 0;
+        selectedStudentId = "";
+        buildClassFilterDefault();
+        renderAll();
+        clearForm();
+        syncToFirebase();
+        return imported.length;
+      }
+
+      function exportJson() {
+        const blob = new Blob([JSON.stringify(students, null, 2)], {
+          type: "application/json;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "danh-sach-thi-sinh.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function initFirebase() {
+        const configOk =
+          firebaseConfig.apiKey &&
+          firebaseConfig.authDomain &&
+          firebaseConfig.databaseURL &&
+          firebaseConfig.projectId &&
+          firebaseConfig.appId;
+        if (!configOk) {
+          showFirebaseStatus("bad", "Firebase: chưa cấu hình");
+          return;
+        }
+
+        try {
+          const app = initializeApp(firebaseConfig);
+          db = getDatabase(app);
+          studentsRef = ref(db, DB_PATH);
+          isFirebaseReady = true;
+          showFirebaseStatus("warn", "Firebase: đang kết nối");
+
+          onValue(
+            studentsRef,
+            (snapshot) => {
+              isApplyingRemote = true;
+              const remoteStudents = fromRemoteValue(snapshot.val());
+              if (snapshot.exists() && remoteStudents.length) {
+                students = remoteStudents;
+                showFirebaseStatus("ok", "Firebase: online");
+              } else {
+                showFirebaseStatus(
+                  "warn",
+                  "Firebase trống, đang đẩy dữ liệu hiện tại",
+                );
+                ensureFirebaseSeed(snapshot.exists(), remoteStudents)
+                  .then(() => {
+                    showFirebaseStatus("ok", "Firebase: online");
+                  })
+                  .catch((error) => {
+                    console.error("Seed error:", error);
+                    showFirebaseStatus("bad", "Firebase: lỗi ghi dữ liệu");
+                  });
+              }
+              isApplyingRemote = false;
+              renderAll();
+            },
+            (error) => {
+              console.error("Firebase RTDB error:", error);
+              isFirebaseReady = false;
+              showFirebaseStatus("bad", "Firebase: lỗi kết nối");
+            },
+          );
+
+          if (syncTimer) clearInterval(syncTimer);
+          syncTimer = setInterval(() => {
+            syncToFirebase();
+          }, 10000);
+        } catch (error) {
+          console.error(error);
+          isFirebaseReady = false;
+          showFirebaseStatus("bad", "Firebase: lỗi khởi tạo");
+        }
+      }
+
+      function buildClassFilterDefault() {
+        selectedClassFilter = "all";
+      }
+
+      document.getElementById("regenBtn").addEventListener("click", () => {
+        renderAll();
+        syncToFirebase();
+      });
+      document
+        .getElementById("saveStudentBtn")
+        .addEventListener("click", saveStudent);
+      document
+        .getElementById("resetFormBtn")
+        .addEventListener("click", clearForm);
+      document
+        .getElementById("deleteSelectedBtn")
+        .addEventListener("click", deleteStudent);
+      document
+        .getElementById("exportBtn")
+        .addEventListener("click", exportJson);
+      uploadJsonBtn.addEventListener("click", () => jsonUploadInput.click());
+      jsonUploadInput.addEventListener("change", async () => {
+        const file = jsonUploadInput.files && jsonUploadInput.files[0];
+        if (!file) return;
+        const ok = confirm(
+          "Tải file JSON này lên sẽ xóa toàn bộ danh sách học sinh cũ và thay bằng dữ liệu mới. Tiếp tục?",
+        );
+        if (!ok) {
+          jsonUploadInput.value = "";
+          return;
+        }
+        try {
+          const text = await file.text();
+          const count = replaceStudentsFromUploadedJson(text);
+          alert("Đã tải lên " + count + " học sinh.");
+        } catch (error) {
+          console.error(error);
+          alert(error?.message || "Không đọc được file JSON.");
+        } finally {
+          jsonUploadInput.value = "";
+        }
+      });
+      searchInput.addEventListener("input", renderAll);
+      document.getElementById("prevRoomBtn").addEventListener("click", () => {
+        if (!rooms.length) return;
+        selectedRoomIndex =
+          (selectedRoomIndex - 1 + rooms.length) % rooms.length;
+        clearForm();
+        renderAll();
+      });
+      document.getElementById("nextRoomBtn").addEventListener("click", () => {
+        if (!rooms.length) return;
+        selectedRoomIndex = (selectedRoomIndex + 1) % rooms.length;
+        clearForm();
+        renderAll();
+      });
+
+      [studentName, studentClass].forEach((el) => {
+        el.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") saveStudent();
+        });
+      });
+
+      buildClassFilterDefault();
+      renderAll();
+      initFirebase();
+    </script>
+  </body>
+</html>

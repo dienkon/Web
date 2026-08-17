@@ -1,0 +1,56 @@
+{
+  "number": 44,
+  "symbol": "Ru",
+  "nameVi": "Ruthenium",
+  "nameEn": "Ruthenium",
+  "mass": 101.07,
+  "category": "chuyen-tiep",
+  "general": {
+    "latinName": "Ruthenium",
+    "englishName": "Ruthenium",
+    "electronConfig": "[Kr] 4d7 5s1",
+    "group": 8,
+    "period": 5,
+    "oxidation": "+2, +3, +4, +8",
+    "electronegativity": "2.20",
+    "shells": [
+      2,
+      8,
+      18,
+      15,
+      1
+    ]
+  },
+  "history": {
+    "discoverer": "Karl Ernst Claus",
+    "year": 1844,
+    "discoveryLocation": "Nga"
+  },
+  "structure": {
+    "electrons": 44,
+    "protons": 44,
+    "neutrons": 57
+  },
+  "occurrence": {
+    "description": "Hiếm trong quặng platin.",
+    "simple": [
+      "Ru"
+    ],
+    "compounds": [
+      "RuO2"
+    ]
+  },
+  "physical": "Kim loại bạch kim cứng.",
+  "chemical": "Tạo nhiều oxit và phức chất.",
+  "reactions": [
+    {
+      "type": "Oxi hóa",
+      "eq": "Ru + O2 → RuO2",
+      "desc": "Tạo ruthenium dioxide."
+    }
+  ],
+  "structureType": "rutile",
+  "images": {},
+  "hasData": true,
+  "file": "elements/044_Ru.json"
+}

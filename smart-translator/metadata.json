@@ -1,0 +1,6 @@
+{
+  "name": "Smart Translator",
+  "description": "Dịch truyện Trung sang tiếng Việt thông minh với Gemini AI, tối ưu hóa ngữ cảnh và xưng hô",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,55 @@
+{
+  "number": 11,
+  "symbol": "Na",
+  "nameVi": "Sodium",
+  "nameEn": "Sodium",
+  "mass": 22.99,
+  "category": "kiem",
+  "general": {
+    "latinName": "Natrium",
+    "englishName": "Sodium",
+    "electronConfig": "[Ne] 3s1",
+    "group": 1,
+    "period": 3,
+    "oxidation": "+1",
+    "electronegativity": "0.93",
+    "shells": [
+      2,
+      8,
+      1
+    ]
+  },
+  "history": {
+    "discoverer": "Humphry Davy",
+    "year": 1807,
+    "discoveryLocation": "Anh"
+  },
+  "structure": {
+    "electrons": 11,
+    "protons": 11,
+    "neutrons": 12
+  },
+  "occurrence": {
+    "description": "Có nhiều trong muối ăn và khoáng vật halite.",
+    "simple": [
+      "Na"
+    ],
+    "compounds": [
+      "NaCl",
+      "Na2CO3"
+    ]
+  },
+  "physical": "Kim loại mềm, màu bạc, phản ứng mạnh với nước.",
+  "chemical": "Thể hiện tính khử mạnh, tạo muối ion điển hình.",
+  "reactions": [
+    {
+      "type": "Phản ứng với nước",
+      "eq": "2Na + 2H2O → 2NaOH + H2",
+      "desc": "Tạo dung dịch kiềm và giải phóng khí hidro."
+    }
+  ],
+  "structureType": "bcc",
+  "images": {},
+  "hasData": true,
+  "file": "elements/011_Na.json"
+}

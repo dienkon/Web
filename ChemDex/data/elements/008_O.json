@@ -1,0 +1,24 @@
+{
+  "number": 8,
+  "symbol": "O",
+  "nameVi": "Oxygen",
+  "nameEn": "Oxygen",
+  "mass": 15.999,
+  "structureType": "bcc",
+  "category": "phi-kim",
+  "general": {
+    "shells": [],
+    "electronConfig": "Đang cập nhật",
+    "englishName": "Oxygen",
+    "latinName": "Oxygen"
+  },
+  "history": {},
+  "structure": {},
+  "occurrence": {},
+  "physical": "Đang cập nhật dữ liệu.",
+  "chemical": "Đang cập nhật dữ liệu.",
+  "reactions": [],
+  "images": {},
+  "hasData": true,
+  "file": "elements/008_O.json"
+}

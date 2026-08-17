@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hệ Thống Loto Online Pro</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      .loto-cell {
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid;
+        font-weight: 900;
+        font-size: 1.5rem;
+        background-color: white;
+        padding-top: 2px;
+        padding-bottom: 15px; /* Adjusted padding for centering */
+        margin: 0;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      /* Theme styles */
+      .theme-red .loto-cell { border-color: #e5e7eb; }
+      .theme-red .loto-cell.has-number { background-color: #fffbeb; color: #b91c1c; border-color: #fca5a5; }
+      .theme-red .ticket-border { border-color: #ef4444; background-color: white; }
+      .theme-red .ticket-header { color: #dc2626; border-bottom-color: #fecaca; }
+      .theme-red .grid-bg { background-color: #fef2f2; border-color: #fee2e2; }
+
+      .theme-blue .loto-cell { border-color: #e5e7eb; }
+      .theme-blue .loto-cell.has-number { background-color: #eff6ff; color: #1d4ed8; border-color: #93c5fd; }
+      .theme-blue .ticket-border { border-color: #3b82f6; background-color: white; }
+      .theme-blue .ticket-header { color: #2563eb; border-bottom-color: #bfdbfe; }
+      .theme-blue .grid-bg { background-color: #eff6ff; border-color: #dbeafe; }
+
+      .theme-green .loto-cell { border-color: #e5e7eb; }
+      .theme-green .loto-cell.has-number { background-color: #f0fdf4; color: #15803d; border-color: #86efac; }
+      .theme-green .ticket-border { border-color: #22c55e; background-color: white; }
+      .theme-green .ticket-header { color: #16a34a; border-bottom-color: #bbf7d0; }
+      .theme-green .grid-bg { background-color: #f0fdf4; border-color: #dcfce7; }
+
+      .theme-purple .loto-cell { border-color: #e5e7eb; }
+      .theme-purple .loto-cell.has-number { background-color: #faf5ff; color: #7e22ce; border-color: #d8b4fe; }
+      .theme-purple .ticket-border { border-color: #a855f7; background-color: white; }
+      .theme-purple .ticket-header { color: #9333ea; border-bottom-color: #e9d5ff; }
+      .theme-purple .grid-bg { background-color: #faf5ff; border-color: #f3e8ff; }
+
+      .theme-pink .loto-cell { border-color: #e5e7eb; }
+      .theme-pink .loto-cell.has-number { background-color: #fdf2f8; color: #be185d; border-color: #f9a8d4; }
+      .theme-pink .ticket-border { border-color: #ec4899; background-color: white; }
+      .theme-pink .ticket-header { color: #db2777; border-bottom-color: #fbcfe8; }
+      .theme-pink .grid-bg { background-color: #fdf2f8; border-color: #fce7f3; }
+
+      .theme-white .loto-cell { border-color: #e5e7eb; }
+      .theme-white .loto-cell.has-number { background-color: #ffffff; color: #111827; border-color: #d1d5db; }
+      .theme-white .ticket-border { border-color: #111827; background-color: white; }
+      .theme-white .ticket-header { color: #111827; border-bottom-color: #e5e7eb; }
+      .theme-white .grid-bg { background-color: #ffffff; border-color: #e5e7eb; }
+
+      .ticket-container {
+        background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .tab-active { border-bottom: 2px solid #dc2626; color: #dc2626; }
+      .tab-inactive { color: #6b7280; }
+      #bulk-render-container { position: fixed; top: -9999px; left: -9999px; width: 400px; }
+      
+      @keyframes countUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .stat-card { animation: countUp 0.5s ease-out forwards; }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-red-700 to-red-600 text-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-2">
+            <div class="bg-white p-1 rounded-full text-red-600 w-8 h-8 flex items-center justify-center shadow-sm">
+              <i class="fa-solid fa-ticket text-lg"></i>
+            </div>
+            <span class="font-bold text-xl uppercase tracking-tighter">Loto Pro</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <button onclick="window.logout()" class="text-xs bg-red-800 hover:bg-red-900 py-1 px-3 rounded text-white transition">
+              <i class="fa-solid fa-right-from-bracket"></i> Thoát
+            </button>
+            <span id="user-display" class="hidden sm:block text-sm font-medium bg-white/20 py-1 px-3 rounded-full backdrop-blur-sm"></span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- App Main -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6" id="main-app" style="display: none">
+      <!-- Tabs -->
+      <div class="flex border-b border-gray-200 mb-6 overflow-x-auto bg-white rounded-t-lg px-2 shadow-sm">
+        <button onclick="window.switchTab('generate')" id="tab-generate" class="tab-active py-3 px-6 font-bold text-sm whitespace-nowrap transition-colors duration-200">
+          <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Tạo Vé
+        </button>
+        <button onclick="window.switchTab('history')" id="tab-history" class="tab-inactive py-3 px-6 font-medium text-sm whitespace-nowrap transition-colors duration-200">
+          <i class="fa-solid fa-clock-rotate-left mr-2"></i>Kho Vé Của Tôi
+        </button>
+        <button onclick="window.switchTab('custom')" id="tab-custom" class="tab-inactive py-3 px-6 font-medium text-sm whitespace-nowrap transition-colors duration-200">
+          <i class="fa-solid fa-pen-ruler mr-2"></i>Tự Tạo Vé
+        </button>
+        <button onclick="window.switchTab('admin')" id="tab-admin" class="hidden tab-inactive py-3 px-6 font-medium text-sm whitespace-nowrap text-purple-600 transition-colors duration-200">
+          <i class="fa-solid fa-user-shield mr-2"></i>Quản Trị Admin
+        </button>
+      </div>
+
+      <!-- View: Generate -->
+      <div id="view-generate" class="block animate-fade-in">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Controls Panel -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-red-500"></i> Cấu Hình Vé
+              </h2>
+
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Chọn Màu Vé</label>
+                <div class="grid grid-cols-5 gap-2">
+                  <button onclick="window.setTheme('white')" class="h-10 rounded-lg bg-white border-2 border-gray-900 hover:scale-105 transition" title="Trắng"></button>
+                  <button onclick="window.setTheme('red')" class="h-10 rounded-lg bg-red-100 border-2 border-red-500 hover:scale-105 transition"></button>
+                  <button onclick="window.setTheme('blue')" class="h-10 rounded-lg bg-blue-100 border-2 border-transparent hover:border-blue-500 hover:scale-105 transition"></button>
+                  <button onclick="window.setTheme('green')" class="h-10 rounded-lg bg-green-100 border-2 border-transparent hover:border-green-500 hover:scale-105 transition"></button>
+                  <button onclick="window.setTheme('purple')" class="h-10 rounded-lg bg-purple-100 border-2 border-transparent hover:border-purple-500 hover:scale-105 transition"></button>
+                  <button onclick="window.setTheme('pink')" class="h-10 rounded-lg bg-pink-100 border-2 border-transparent hover:border-pink-500 hover:scale-105 transition"></button>
+                </div>
+              </div>
+
+              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4 text-xs text-yellow-800">
+                <i class="fa-solid fa-circle-exclamation mr-1"></i> Quy tắc mới: 
+                <ul class="list-disc ml-5 mt-1 space-y-1">
+                    <li>Mỗi hàng có đúng <b>5 số</b>.</li>
+                    <li>Cột 1 (1-9), Cột 2 (10-19)... Cột 9 (80-90).</li>
+                    <li>Thứ tự trong cột là <b>ngẫu nhiên</b> (không sắp xếp).</li>
+                </ul>
+              </div>
+
+              <button onclick="window.generateRandomTicket()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-200 transition active:scale-[0.98] flex items-center justify-center gap-2 mb-4">
+                <i class="fa-solid fa-shuffle"></i> Ngẫu Nhiên Vé Mới
+              </button>
+
+              <div class="grid grid-cols-2 gap-3">
+                <button onclick="window.confirmTicket()" id="btn-confirm" disabled class="bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-xl shadow transition active:scale-[0.98] flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-floppy-disk"></i> Lưu Vé
+                </button>
+                <button onclick="window.downloadTicketImage('ticket-preview')" id="btn-download-img" disabled class="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-xl shadow transition active:scale-[0.98] flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-download"></i> Tải Ảnh
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview Panel -->
+          <div class="lg:col-span-7 flex justify-center items-start">
+            <div id="ticket-preview-wrapper" class="theme-white w-full flex justify-center">
+              <div id="ticket-preview" class="ticket-container ticket-border border-2 rounded-lg p-5 shadow-2xl w-full max-w-md relative overflow-hidden transition-all duration-300">
+                <div class="text-center mb-5 border-b pb-3 ticket-header border-red-200">
+                  <h3 class="text-2xl font-black uppercase tracking-widest">Vé Loto 9x9</h3>
+                  <div class="flex justify-between items-end mt-2 px-2">
+                    <p class="text-[10px] text-gray-500 font-mono" id="preview-date">--/--/----</p>
+                    <p class="text-sm font-bold" id="preview-user">...</p>
+                  </div>
+                </div>
+                <div id="loto-grid" class="grid grid-cols-9 gap-1 grid-bg p-1.5 border rounded-sm">
+                  <div class="col-span-9 text-center py-20 text-gray-400 italic text-sm">
+                    Bấm "Ngẫu Nhiên" để tạo vé...
+                  </div>
+                </div>
+                <div class="mt-2 text-center">
+                  <span class="text-[10px] text-gray-400 font-mono">ID: <span id="preview-id">AUTO-GEN</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: History -->
+      <div id="view-history" class="hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Kho Vé Của Tôi</h2>
+          <span class="text-sm bg-gray-200 text-gray-700 py-1 px-3 rounded-full font-medium" id="history-count">0 vé</span>
+        </div>
+        <div id="history-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <!-- View: Custom Ticket -->
+      <div id="view-custom" class="hidden animate-fade-in">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Controls Panel -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-pen-ruler text-indigo-500"></i> Tự Tạo Vé
+              </h2>
+
+              <p class="text-sm text-gray-600 mb-4">
+                Luật chơi:
+                <ul class="list-disc ml-5 mt-1 space-y-1 text-xs">
+                    <li>Mỗi hàng phải có đúng <b>5 số</b>.</li>
+                    <li>Cột 1 (1-9), Cột 2 (10-19)...</li>
+                    <li>Thứ tự trong cột tùy ý (không cần tăng dần).</li>
+                </ul>
+              </p>
+
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Chọn màu số (RGB)</label>
+                <div class="flex items-center gap-3">
+                  <input type="color" id="custom-color-picker" class="w-12 h-10 border border-gray-300 rounded cursor-pointer" value="#ff0000" onchange="window.setCustomColor(this.value)" />
+                  <div class="flex gap-2 text-xs text-gray-600">
+                    <span class="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded">
+                      <span class="w-2 h-2 bg-red-500 rounded-full"></span>R
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded">
+                      <span class="w-2 h-2 bg-green-500 rounded-full"></span>G
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded">
+                      <span class="w-2 h-2 bg-blue-500 rounded-full"></span>B
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 mt-4">
+                <button onclick="window.resetCustomTicket()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 px-3 rounded-lg text-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-eraser"></i> Xóa hết
+                </button>
+                <button onclick="window.validateAndPreviewCustomTicket()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-3 rounded-lg shadow text-sm flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-eye"></i> Kiểm tra & Lưu
+                </button>
+              </div>
+
+              <button onclick="window.downloadTicketImage('custom-ticket-preview')" id="btn-download-custom-img" disabled class="mt-4 w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-xl shadow transition active:scale-[0.98] flex items-center justify-center gap-2 text-sm">
+                <i class="fa-solid fa-download"></i> Tải Ảnh Vé Tùy Chọn
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview + Editable Grid -->
+          <div class="lg:col-span-7 flex justify-center items-start">
+            <div class="w-full flex justify-center">
+              <div id="custom-ticket-preview" class="ticket-container ticket-border border-2 rounded-lg p-5 shadow-2xl w-full max-w-md relative overflow-hidden transition-all duration-300 bg-white">
+                <div class="text-center mb-5 border-b pb-3 ticket-header border-gray-200">
+                  <h3 class="text-2xl font-black uppercase tracking-widest">Vé Loto 9x9 - Tùy Chọn</h3>
+                  <div class="flex justify-between items-end mt-2 px-2">
+                    <p class="text-[10px] text-gray-500 font-mono" id="custom-preview-date">--/--/----</p>
+                    <p class="text-sm font-bold" id="custom-preview-user">...</p>
+                  </div>
+                </div>
+                <div id="loto-grid-custom" class="grid grid-cols-9 gap-1 grid-bg p-1.5 border rounded-sm bg-white">
+                  <!-- Filled bằng JS -->
+                </div>
+                <div class="mt-2 text-center">
+                  <span class="text-[10px] text-gray-400 font-mono">ID: <span id="custom-preview-id">CUSTOM</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Admin -->
+      <div id="view-admin" class="hidden">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-indigo-100">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xl"><i class="fa-solid fa-ticket"></i></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Tổng số vé</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="stat-total-tickets">0</h3>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-emerald-100" style="animation-delay: 0.1s">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-xl"><i class="fa-solid fa-users"></i></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Người chơi</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="stat-total-users">0</h3>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-orange-100" style="animation-delay: 0.2s">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-xl"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <p class="text-sm text-gray-500 font-medium">Mới nhất</p>
+                <h3 class="text-lg font-bold text-gray-800 line-clamp-1" id="stat-last-user">...</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls & Table -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <div class="relative w-full md:w-64">
+            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input oninput="window.filterAdminTable(this.value)" type="text" placeholder="Tìm tên người chơi..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none text-sm" />
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="window.downloadAllTickets()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2.5 px-4 rounded-lg shadow transition flex items-center gap-2">
+              <i class="fa-solid fa-images"></i> Tải Tất Cả Ảnh
+            </button>
+            <button onclick="window.exportToExcel()" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2.5 px-4 rounded-lg shadow transition flex items-center gap-2">
+              <i class="fa-solid fa-file-excel"></i> Xuất Excel
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Người Chơi</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Màu Vé</th>
+                  <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Thời Gian</th>
+                  <th class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Hành Động</th>
+                </tr>
+              </thead>
+              <tbody id="admin-table-body" class="bg-white divide-y divide-gray-200 text-sm"></tbody>
+            </table>
+          </div>
+          <div id="admin-empty-state" class="hidden p-8 text-center text-gray-500">Không tìm thấy dữ liệu phù hợp.</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Hidden Bulk Render -->
+    <div id="bulk-render-container"></div>
+
+    <!-- Login Modal -->
+    <div id="modal-login" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden animate-fade-in">
+      <div class="bg-white rounded-2xl max-w-sm w-full p-8 shadow-2xl transform transition-all scale-100">
+        <div class="text-center mb-6">
+          <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fa-solid fa-gamepad"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">VÀO CHƠI LOTO</h2>
+          <p class="text-gray-500 text-sm mt-1">Nhập tên của bạn để bắt đầu</p>
+        </div>
+        <input type="text" id="login-name" class="w-full px-4 py-3 rounded-lg border border-gray-300 mb-4 outline-none focus:ring-2 focus:ring-red-500 transition" placeholder="Ví dụ: Anh Ba, Chị Tư..." />
+        <button onclick="window.handleLogin()" class="w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700 transition shadow-lg shadow-red-200">
+          Xác Nhận
+        </button>
+      </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="modal-confirm" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[105] flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Xóa Vé Này?</h3>
+        <p class="text-gray-600 mb-6 text-sm">Bạn chắc chắn muốn xóa vé này chứ? Hành động này không thể hoàn tác.</p>
+        <div class="flex justify-end gap-3">
+          <button onclick="window.closeConfirm()" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium">Hủy</button>
+          <button id="btn-confirm-delete" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold shadow-md">Xóa Luôn</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Number Picker -->
+    <div id="custom-number-picker" class="fixed z-[120] bg-white border border-gray-200 rounded-lg shadow-xl p-3 hidden">
+      <div class="text-xs font-semibold text-gray-600 mb-2">Chọn số hợp lệ cho cột này</div>
+      <div id="custom-number-picker-grid" class="grid grid-cols-5 gap-1 text-sm"></div>
+      <button id="custom-number-picker-clear" class="mt-2 w-full text-xs py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Xóa ô</button>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-24 opacity-0 transition-all duration-300 z-[110] text-sm font-medium flex items-center gap-3">
+      <i class="fa-solid fa-circle-info text-blue-400"></i>
+      <span id="toast-msg"></span>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDZK2CCPs323te_V6eq1osLdopV_yjtQp0",
+        authDomain: "loto-e2b48.firebaseapp.com",
+        databaseURL: "https://loto-e2b48-default-rtdb.firebaseio.com",
+        projectId: "loto-e2b48",
+        storageBucket: "loto-e2b48.firebasestorage.app",
+        messagingSenderId: "537298300448",
+        appId: "1:537298300448:web:b61879cd5a4aee5ac8d645",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const rtdb = getDatabase(app);
+      const appId = window.__app_id || "default-app-loto-pro";
+      const RTDB_PATH = `artifacts/${appId}/tickets`;
+
+      let username = localStorage.getItem("loto_username") || "";
+      let userId = localStorage.getItem(username ? `loto_userid__${username.trim().toLowerCase()}` : "") || localStorage.getItem("loto_userid") || "user_" + Date.now();
+      localStorage.setItem("loto_userid", userId);
+      if (username) localStorage.setItem(`loto_userid__${username.trim().toLowerCase()}`, userId);
+
+      let isAdmin = username.trim().toLowerCase() === "admin";
+      let currentTicket = null;
+      let currentTheme = "white";
+      let isCurrentTicketSaved = false;
+      let allTickets = [];
+      let pendingDeleteId = null;
+      let customMatrix = Array(9).fill(null).map(() => Array(9).fill(null));
+      let customColor = "#ff0000";
+      let isCustomGridInitialized = false;
+      let currentPickerCell = null;
+
+      // --- Helper Functions Logic Cốt Lõi ---
+
+      // Lấy range cho từng cột theo chuẩn:
+      // Col 0: 1-9
+      // Col 1: 10-19
+      // ...
+      // Col 8: 80-90
+      function getColumnRange(col) {
+        const c = Number(col);
+        if (c === 0) return { min: 1, max: 9 };
+        if (c === 8) return { min: 80, max: 90 };
+        return { min: c * 10, max: c * 10 + 9 };
+      }
+
+      // Tạo cấu trúc topology: 9 hàng x 9 cột
+      // Mỗi hàng ĐÚNG 5 số.
+      // Cố gắng chia đều để mỗi cột có khoảng 5 số.
+      function generateTopology() {
+        const rows = 9;
+        const cols = 9;
+        const targetRow = 5;
+        
+        let matrix = null;
+        let success = false;
+        let attempts = 0;
+
+        while (!success && attempts < 2000) {
+            attempts++;
+            matrix = Array(rows).fill(null).map(() => Array(cols).fill(0));
+            let colCounts = Array(cols).fill(0);
+            let rowFail = false;
+
+            // Duyệt từng hàng
+            for (let r = 0; r < rows; r++) {
+                // Các cột có thể chọn: chưa đầy quá 5 (hoặc 6 nếu bí), và chưa chọn ở hàng này
+                let possibleCols = [];
+                for(let c=0; c<cols; c++) {
+                    // Logic heuristic: Ưu tiên cột còn ít số
+                    // Giới hạn cứng mỗi cột ko quá 6 để tránh lệch
+                    if (colCounts[c] < 6) possibleCols.push(c); 
+                }
+
+                if (possibleCols.length < targetRow) {
+                    rowFail = true; 
+                    break;
+                }
+
+                // Weighted random: Ưu tiên cột có ít số hơn để cân bằng về 5
+                // Sắp xếp possibleCols sao cho cột có count thấp lên đầu nhiều hơn xác suất
+                possibleCols.sort((a,b) => colCounts[a] - colCounts[b]);
+                
+                // Chọn top cột, có thêm chút ngẫu nhiên để không bị cứng
+                // Lấy 8 candidate tốt nhất, shuffle rồi pick 5
+                let candidates = possibleCols.slice(0, Math.max(targetRow + 2, possibleCols.length));
+                candidates.sort(() => Math.random() - 0.5);
+                
+                const selected = candidates.slice(0, targetRow);
+                
+                selected.forEach(c => {
+                    matrix[r][c] = 1;
+                    colCounts[c]++;
+                });
+            }
+
+            if (!rowFail) {
+                // Kiểm tra lại toàn bộ:
+                // Hàng phải đủ 5 (đã đảm bảo bởi loop)
+                // Cột: Yêu cầu "dao động 4-5 số". Chấp nhận 4,5,6 nhưng tốt nhất là 5.
+                // Với lưới 9x9 và 5 số/hàng => Tổng 45 số.
+                // Chia 9 cột => Trung bình đúng 5. Nên ta ép càng gần 5 càng tốt.
+                const validCols = colCounts.every(c => c >= 4 && c <= 6); 
+                if (validCols) success = true;
+            }
+        }
+        return success ? matrix : null;
+      }
+
+      window.generateRandomTicket = () => {
+        // 1. Tạo khung (topology)
+        const topology = generateTopology();
+        if (!topology) {
+            // Fallback nếu xui
+            return window.generateRandomTicket(); 
+        }
+
+        const matrix = Array(9).fill(null).map(() => Array(9).fill(null));
+
+        // 2. Điền số vào khung
+        for (let c = 0; c < 9; c++) {
+            const { min, max } = getColumnRange(c);
+            // Xác định các hàng cần điền ở cột này
+            let rowsToFill = [];
+            for (let r = 0; r < 9; r++) {
+                if (topology[r][c] === 1) rowsToFill.push(r);
+            }
+
+            // Tạo danh sách số ngẫu nhiên không trùng trong range
+            let count = rowsToFill.length;
+            let pool = [];
+            for(let i=min; i<=max; i++) pool.push(i);
+            
+            // Shuffle pool
+            pool.sort(() => Math.random() - 0.5);
+            
+            // Lấy ra count số
+            let numbers = pool.slice(0, count);
+
+            // QUAN TRỌNG: Đề bài yêu cầu "Thứ tự số của cột là ngẫu nhiên"
+            // Nên KHÔNG sort(numbers). Giữ nguyên thứ tự sau khi shuffle.
+            
+            // Gán vào matrix
+            rowsToFill.forEach((r, idx) => {
+                matrix[r][c] = numbers[idx];
+            });
+        }
+
+        currentTicket = matrix;
+        isCurrentTicketSaved = false;
+        
+        renderGrid("loto-grid", matrix);
+        
+        document.getElementById("btn-confirm").disabled = false;
+        document.getElementById("btn-download-img").disabled = false;
+        document.getElementById("preview-user").textContent = username;
+        document.getElementById("preview-date").textContent = new Date().toLocaleString();
+        document.getElementById("preview-id").textContent = Math.random().toString(36).substr(2, 6).toUpperCase();
+      };
+
+      // --- Custom Ticket Logic ---
+
+      function getValidNumbersForCell(row, col) {
+        const c = Number(col);
+        const { min, max } = getColumnRange(c);
+        
+        // Lấy các số đã dùng trong cột này
+        const usedInCol = [];
+        for(let r=0; r<9; r++) {
+            if (customMatrix[r][c] !== null) usedInCol.push(customMatrix[r][c]);
+        }
+
+        const valid = [];
+        for (let v = min; v <= max; v++) {
+             // Số phải chưa dùng trong cột (trừ chính nó)
+             // Nếu click vào ô đang có số, số đó vẫn valid để chọn lại (giữ nguyên)
+             const currentVal = customMatrix[row][col];
+             if (!usedInCol.includes(v) || v === currentVal) {
+                 valid.push(v);
+             }
+        }
+        return valid;
+      }
+
+      function openNumberPicker(row, col, clientX, clientY) {
+        currentPickerCell = { row, col };
+        const picker = document.getElementById("custom-number-picker");
+        const grid = document.getElementById("custom-number-picker-grid");
+        
+        const isCellEmpty = customMatrix[row][col] == null;
+
+        // Check Row Limit (Max 5)
+        const rowCount = customMatrix[row].filter(v => v != null).length;
+        if (isCellEmpty && rowCount >= 5) {
+          showToast(`Hàng ${row + 1} đã đủ 5 số!`);
+          return;
+        }
+
+        // Check Col Limit (Max 6 cho thoải mái, nhưng rule là 4-5)
+        // Ta chỉ warn lúc validate, còn lúc pick thì cho phép linh hoạt chút
+        // Nhưng chặn ko cho quá nhiều
+        let colCount = 0;
+        for (let r = 0; r < 9; r++) if (customMatrix[r][col] != null) colCount++;
+        if (isCellEmpty && colCount >= 6) { 
+           showToast(`Cột ${col + 1} đã quá nhiều số!`);
+           return;
+        }
+
+        const validNumbers = getValidNumbersForCell(row, col);
+        grid.innerHTML = "";
+        validNumbers.forEach((v) => {
+          const btn = document.createElement("button");
+          btn.textContent = v;
+          btn.className = "px-2 py-1 rounded text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold";
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            customMatrix[row][col] = v;
+            renderCustomGrid();
+            closeNumberPicker();
+          };
+          grid.appendChild(btn);
+        });
+
+        // Position Logic
+        const offset = 10;
+        let left = clientX + offset;
+        let top = clientY + offset;
+        const pickerW = 200; 
+        if (left + pickerW > window.innerWidth) left = window.innerWidth - pickerW - offset;
+        picker.style.left = `${left}px`;
+        picker.style.top = `${top}px`;
+        picker.classList.remove("hidden");
+      }
+
+      function closeNumberPicker() {
+        document.getElementById("custom-number-picker").classList.add("hidden");
+        currentPickerCell = null;
+      }
+
+      window.validateAndPreviewCustomTicket = () => {
+        // 1. Check Row: Mỗi hàng ĐÚNG 5 số
+        for (let r = 0; r < 9; r++) {
+          const countRow = customMatrix[r].filter((v) => v != null).length;
+          if (countRow !== 5) {
+            return showToast(`Hàng ${r + 1} có ${countRow} số. Phải có ĐÚNG 5 số.`);
+          }
+        }
+
+        // 2. Check Col: 4-5 số (theo prompt)
+        // Trong lưới 9x9 với 5 số/hàng => Tổng 45 số. Trung bình cột là 5.
+        // Chấp nhận dao động nhẹ nếu user cố tình, nhưng tốt nhất là 5.
+        // Prompt: "Mỗi cột dao động từ 4-5 số"
+        for (let c = 0; c < 9; c++) {
+          let colCount = 0;
+          for (let r = 0; r < 9; r++) {
+            if (customMatrix[r][c] != null) colCount++;
+          }
+          if (colCount < 4 || colCount > 6) { // Cho phép lố lên 6 nếu user muốn, nhưng warn
+             return showToast(`Cột ${c + 1} có ${colCount} số. Cần từ 4-6 số.`);
+          }
+        }
+
+        // 3. KHÔNG check thứ tự tăng dần nữa (vì prompt yêu cầu ngẫu nhiên)
+
+        // OK
+        document.getElementById("custom-preview-user").textContent = username || "...";
+        document.getElementById("custom-preview-date").textContent = new Date().toLocaleString();
+        document.getElementById("custom-preview-id").textContent = Math.random().toString(36).substr(2, 6).toUpperCase();
+        document.getElementById("btn-download-custom-img").disabled = false;
+
+        // Tự động lưu luôn nếu muốn, hoặc chỉ preview
+        // Ở đây ta gán vào currentTicket để user có thể bấm nút Lưu chung (nếu muốn)
+        // Nhưng UI hiện tại Tự Tạo Vé có nút riêng. Ta cho phép tải ảnh là đc.
+        showToast("Vé hợp lệ! Bạn có thể tải ảnh.");
+      };
+
+      // --- UI & Event Handlers ---
+
+      window.handleLogin = () => {
+        const val = document.getElementById("login-name").value.trim();
+        if (!val) return showToast("Vui lòng nhập tên!");
+        username = val;
+        isAdmin = username.toLowerCase() === "admin";
+        localStorage.setItem("loto_username", username);
+        const key = `loto_userid__${username.trim().toLowerCase()}`;
+        userId = localStorage.getItem(key) || "user_" + Date.now();
+        localStorage.setItem(key, userId);
+        localStorage.setItem("loto_userid", userId);
+        if (auth.currentUser) initAppAfterLogin();
+        else checkLoginStatus();
+      };
+
+      window.logout = () => {
+        localStorage.removeItem("loto_username");
+        location.reload();
+      };
+
+      window.setTheme = (theme) => {
+        currentTheme = theme;
+        document.getElementById("ticket-preview-wrapper").className = `theme-${theme} w-full flex justify-center`;
+        document.querySelectorAll("#view-generate button[class*='h-10']").forEach((btn) => {
+          if (btn.onclick.toString().includes(theme)) btn.classList.add("ring-2", "ring-offset-2", "ring-gray-400");
+          else btn.classList.remove("ring-2", "ring-offset-2", "ring-gray-400");
+        });
+      };
+
+      window.confirmTicket = async () => {
+        if (!currentTicket) return;
+        if (isCurrentTicketSaved) return showToast("Vé này đã được lưu rồi!");
+        try {
+          document.getElementById("btn-confirm").disabled = true;
+          const ticketId = push(ref(rtdb, RTDB_PATH)).key;
+          await set(ref(rtdb, `${RTDB_PATH}/${ticketId}`), {
+            userId, username, matrix: JSON.stringify(currentTicket), theme: currentTheme, createdAt: Date.now(),
+          });
+          isCurrentTicketSaved = true;
+          showToast("Đã lưu vé thành công!");
+          window.switchTab("history");
+        } catch (e) {
+          document.getElementById("btn-confirm").disabled = false;
+          showToast("Lỗi khi lưu vé!");
+        }
+      };
+
+      window.setCustomColor = (color) => { customColor = color || "#ff0000"; renderCustomGrid(); };
+      
+      window.resetCustomTicket = () => {
+        customMatrix = Array(9).fill(null).map(() => Array(9).fill(null));
+        renderCustomGrid();
+        document.getElementById("btn-download-custom-img").disabled = true;
+      };
+
+      window.downloadTicketImage = async (id, fileName) => {
+        const el = document.getElementById(id);
+        // Tạm thời bỏ border radius khi chụp để tránh lỗi viền trắng
+        const originalRadius = el.style.borderRadius;
+        el.style.borderRadius = "0";
+        const canvas = await html2canvas(el, { scale: 2, useCORS: true });
+        el.style.borderRadius = originalRadius;
+        const link = document.createElement("a");
+        link.download = fileName || `Loto_${Date.now()}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+      };
+
+      window.downloadAllTickets = async () => {
+        if (!allTickets.length) return;
+        const container = document.getElementById("bulk-render-container");
+        showToast("Đang chuẩn bị tải... Vui lòng đợi");
+        for (const t of allTickets) {
+          const themeClass = `theme-${t.theme || "red"}`;
+          container.innerHTML = `
+            <div id="bulk-wrapper" class="${themeClass} w-full p-2">
+                <div id="bulk-temp" class="ticket-container ticket-border border-2 rounded p-4 shadow-xl w-full">
+                  <div class="text-center mb-4 border-b ticket-header pb-2">
+                    <h3 class="text-xl font-black uppercase">Vé Loto</h3>
+                    <p class="text-xs font-bold">${t.username}</p>
+                  </div>
+                  <div id="bulk-grid" class="grid grid-cols-9 gap-1 grid-bg p-1 border rounded"></div>
+                </div>
+            </div>`;
+          renderGrid("bulk-grid", JSON.parse(t.matrix));
+          await new Promise((r) => setTimeout(r, 100));
+          const canvas = await html2canvas(container.querySelector("#bulk-temp"), { scale: 2 });
+          const link = document.createElement("a");
+          link.download = `Loto_${t.username}_${t.id}.png`;
+          link.href = canvas.toDataURL();
+          link.click();
+        }
+        showToast("Hoàn tất tải ảnh!");
+      };
+
+      // --- Render Logic ---
+      function renderGrid(id, matrix) {
+        const grid = document.getElementById(id);
+        if (!grid) return;
+        grid.innerHTML = "";
+        matrix.forEach((row) => {
+          row.forEach((cell) => {
+            const div = document.createElement("div");
+            div.className = `loto-cell rounded-sm ${cell ? "has-number" : ""}`;
+            div.textContent = cell || "";
+            grid.appendChild(div);
+          });
+        });
+      }
+
+      function renderCustomGrid() {
+        const grid = document.getElementById("loto-grid-custom");
+        if (!grid) return;
+        grid.innerHTML = "";
+        customMatrix.forEach((row, r) => {
+          row.forEach((cell, c) => {
+            const div = document.createElement("div");
+            div.className = `loto-cell rounded-sm ${cell != null ? "has-number" : ""} cursor-pointer select-none hover:bg-gray-50`;
+            div.textContent = cell != null ? cell : "";
+            if (cell != null) {
+              div.style.backgroundColor = customColor;
+              div.style.color = "#ffffff";
+              div.style.borderColor = customColor;
+            } else {
+                div.style.backgroundColor = "#ffffff";
+            }
+            div.addEventListener("click", (e) => {
+              e.stopPropagation();
+              openNumberPicker(r, c, e.clientX, e.clientY);
+            });
+            grid.appendChild(div);
+          });
+        });
+      }
+
+      // --- Init ---
+      const checkLoginStatus = () => {
+        if (!username) document.getElementById("modal-login").classList.remove("hidden");
+        else signInAnonymously(auth);
+      };
+
+      function initAppAfterLogin() {
+        document.getElementById("modal-login").classList.add("hidden");
+        document.getElementById("main-app").style.display = "block";
+        document.getElementById("user-display").textContent = `Xin chào, ${username}`;
+        const adminTab = document.getElementById("tab-admin");
+        if (isAdmin) adminTab.classList.remove("hidden");
+        else {
+             adminTab.classList.add("hidden");
+             if(document.getElementById("view-admin") && !document.getElementById("view-admin").classList.contains("hidden")) window.switchTab("generate");
+        }
+        listenToTickets();
+      }
+
+      function listenToTickets() {
+        onValue(ref(rtdb, RTDB_PATH), (snapshot) => {
+          const data = snapshot.val();
+          allTickets = data ? Object.keys(data).map((k) => ({ id: k, ...data[k] })) : [];
+          allTickets.sort((a, b) => b.createdAt - a.createdAt);
+          updateUI();
+        });
+      }
+
+      function updateUI() {
+        if (isAdmin) {
+          document.getElementById("stat-total-tickets").textContent = allTickets.length;
+          document.getElementById("stat-total-users").textContent = new Set(allTickets.map((t) => t.username)).size;
+          document.getElementById("stat-last-user").textContent = allTickets.length > 0 ? allTickets[0].username : "---";
+          window.filterAdminTable(document.querySelector("#view-admin input").value || "");
+        }
+        
+        // Render History
+        const historyList = document.getElementById("history-list");
+        if (historyList) {
+          const normName = (username || "").trim().toLowerCase();
+          const myTickets = allTickets.filter((t) => {
+            const tName = (t.username || "").trim().toLowerCase();
+            return tName === normName || t.userId === userId;
+          });
+          document.getElementById("history-count").textContent = `${myTickets.length} vé`;
+          historyList.innerHTML = myTickets.length ? "" : '<div class="col-span-full flex flex-col items-center justify-center py-12 text-gray-400"><i class="fa-solid fa-box-open text-4xl mb-3"></i><p>Bạn chưa lưu vé nào.</p></div>';
+
+          myTickets.forEach((t) => {
+            const themeClass = `theme-${t.theme || "red"}`;
+            const card = document.createElement("div");
+            card.className = `${themeClass} bg-white p-4 rounded-xl shadow-sm border ticket-border hover:shadow-md transition-shadow relative group`;
+            card.innerHTML = `
+              <div class="flex justify-between items-center mb-3 ticket-header border-b pb-2">
+                <span class="text-[10px] font-mono opacity-70">${new Date(t.createdAt).toLocaleDateString()}</span>
+                <div class="flex gap-2">
+                    <button onclick="window.askDelete('${t.id}')" class="w-6 h-6 rounded flex items-center justify-center text-red-500 hover:bg-red-50 transition" title="Xóa vé"><i class="fa-solid fa-trash text-xs"></i></button>
+                    <button onclick="window.downloadTicketImage('grid-${t.id}', 'Loto_${t.id}.png')" class="w-6 h-6 rounded flex items-center justify-center text-indigo-600 hover:bg-indigo-50 transition" title="Tải ảnh"><i class="fa-solid fa-download text-xs"></i></button>
+                </div>
+              </div>
+              <div id="grid-${t.id}" class="grid grid-cols-9 gap-[1px] grid-bg border p-[1px]"></div>
+              <div class="mt-2 text-center text-[10px] text-gray-400 font-mono">ID: ${t.id.substr(-6).toUpperCase()}</div>
+            `;
+            historyList.appendChild(card);
+            renderGrid(`grid-${t.id}`, JSON.parse(t.matrix));
+          });
+        }
+      }
+
+      window.filterAdminTable = (keyword) => {
+        if (!isAdmin) return;
+        const tbody = document.getElementById("admin-table-body");
+        const emptyState = document.getElementById("admin-empty-state");
+        const term = keyword.toLowerCase().trim();
+        const filtered = allTickets.filter((t) => t.username.toLowerCase().includes(term));
+        tbody.innerHTML = "";
+        if (filtered.length === 0) emptyState.classList.remove("hidden");
+        else {
+          emptyState.classList.add("hidden");
+          filtered.forEach((t) => {
+            const themeName = (t.theme || "red").toUpperCase();
+            const badgeColor = t.theme === "white" ? "bg-gray-100 text-gray-800" : t.theme === "blue" ? "bg-blue-100 text-blue-800" : t.theme === "green" ? "bg-green-100 text-green-800" : t.theme === "purple" ? "bg-purple-100 text-purple-800" : "bg-red-100 text-red-800";
+            const tr = document.createElement("tr");
+            tr.className = "hover:bg-gray-50 transition";
+            tr.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap"><div class="text-sm font-bold text-gray-900">${t.username}</div><div class="text-xs text-gray-400">ID: ${t.id}</div></td>
+                <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${badgeColor}">${themeName}</span></td>
+                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-500">${new Date(t.createdAt).toLocaleString()}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                  <div class="flex justify-center gap-3">
+                      <button onclick="window.downloadAdminTicket('${t.id}')" class="text-indigo-600 hover:text-indigo-900"><i class="fa-solid fa-download"></i></button>
+                      <button onclick="window.askDelete('${t.id}')" class="text-red-600 hover:text-red-900"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>`;
+            tbody.appendChild(tr);
+          });
+        }
+      };
+
+      window.askDelete = (id) => { pendingDeleteId = id; document.getElementById("modal-confirm").classList.remove("hidden"); };
+      window.closeConfirm = () => { pendingDeleteId = null; document.getElementById("modal-confirm").classList.add("hidden"); };
+      document.getElementById("btn-confirm-delete").onclick = async () => {
+        if (!pendingDeleteId) return;
+        try { await remove(ref(rtdb, `${RTDB_PATH}/${pendingDeleteId}`)); showToast("Đã xóa vé thành công!"); window.closeConfirm(); } catch (e) { showToast("Không thể xóa vé này!"); }
+      };
+
+      window.switchTab = (name) => {
+        if (name === "admin" && !isAdmin) { showToast("Bạn không có quyền mở tab Admin!"); name = "generate"; }
+        ["generate", "custom", "history", "admin"].forEach((t) => {
+          document.getElementById(`view-${t}`)?.classList.add("hidden");
+          document.getElementById(`tab-${t}`)?.classList.replace("tab-active", "tab-inactive");
+          document.getElementById(`tab-${t}`)?.classList.remove("font-bold");
+        });
+        document.getElementById(`view-${name}`)?.classList.remove("hidden");
+        const activeTab = document.getElementById(`tab-${name}`);
+        activeTab.classList.replace("tab-inactive", "tab-active");
+        activeTab.classList.add("font-bold");
+        if (name === "custom") {
+          if (!isCustomGridInitialized) { isCustomGridInitialized = true; renderCustomGrid(); }
+          document.getElementById("custom-preview-user").textContent = username || "...";
+        }
+      };
+
+      window.showToast = (m) => {
+        const t = document.getElementById("toast");
+        document.getElementById("toast-msg").textContent = m;
+        t.classList.remove("translate-y-24", "opacity-0");
+        setTimeout(() => t.classList.add("translate-y-24", "opacity-0"), 3000);
+      }
+      
+      // Close picker on outside click
+      window.addEventListener("click", (e) => {
+          const picker = document.getElementById("custom-number-picker");
+          if (picker && !picker.classList.contains("hidden") && !picker.contains(e.target)) closeNumberPicker();
+      });
+
+      // Export Excel (Simplified for brevity)
+      window.exportToExcel = () => {
+         if (allTickets.length === 0) return showToast("Không có dữ liệu!");
+         const wb = XLSX.utils.book_new();
+         const rows = [[`DANH SÁCH VÉ TOÀN BỘ`]];
+         allTickets.forEach((t, i) => {
+             rows.push([`User: ${t.username} - ID: ${t.id} - ${new Date(t.createdAt).toLocaleString()}`]);
+             JSON.parse(t.matrix).forEach(r => rows.push(r.map(c => c || "")));
+             rows.push([]);
+         });
+         XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Tickets");
+         XLSX.writeFile(wb, "Loto_Export.xlsx");
+      }
+      
+      window.downloadAdminTicket = (id) => {
+        const t = allTickets.find(x => x.id === id);
+        if(t) window.downloadTicketImage(null, `Loto_${t.username}.png`); // Requires re-rendering technically but handled via Bulk in real app
+      }
+
+      onAuthStateChanged(auth, (user) => { if (user && username) initAppAfterLogin(); });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "number": 26,
+  "symbol": "Fe",
+  "nameVi": "Iron",
+  "nameEn": "Iron",
+  "mass": 55.845,
+  "category": "chuyen-tiep",
+  "general": {
+    "latinName": "Ferrum",
+    "englishName": "Iron",
+    "electronConfig": "[Ar] 3d6 4s2",
+    "group": 8,
+    "period": 4,
+    "oxidation": "+2, +3",
+    "electronegativity": "1.83",
+    "shells": [
+      2,
+      8,
+      14,
+      2
+    ]
+  },
+  "history": {
+    "discoverer": "Cổ đại",
+    "year": "Từ rất sớm",
+    "discoveryLocation": "Nhiều nơi"
+  },
+  "structure": {
+    "electrons": 26,
+    "protons": 26,
+    "neutrons": 30
+  },
+  "occurrence": {
+    "description": "Có trong quặng hematit, magnetit và rất phổ biến trong lõi Trái Đất.",
+    "simple": [
+      "Fe"
+    ],
+    "compounds": [
+      "Fe2O3",
+      "Fe3O4"
+    ]
+  },
+  "physical": "Kim loại cứng, có từ tính.",
+  "chemical": "Bị oxi hóa trong không khí ẩm tạo gỉ sắt.",
+  "reactions": [
+    {
+      "type": "Tạo oxit",
+      "eq": "4Fe + 3O2 → 2Fe2O3",
+      "desc": "Phản ứng oxi hóa chậm trong điều kiện thường."
+    }
+  ],
+  "structureType": "bcc",
+  "images": {},
+  "hasData": true,
+  "file": "elements/026_Fe.json"
+}

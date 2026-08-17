@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kỷ Niệm Thanh Xuân - Lớp Chúng Mình</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Quicksand", sans-serif;
+        background-color: #fcfcfd;
+        overflow-x: hidden;
+      }
+      .font-cursive {
+        font-family: "Dancing Script", cursive;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      /* Animations */
+      .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      .slide-up {
+        animation: slideUp 0.6s ease-out;
+      }
+      .pop-in {
+        animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Glassmorphism */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Avatar Hover Effect in Map */
+      .desk-avatar {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+      .desk-avatar:hover {
+        transform: scale(1.15) translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+        z-index: 10;
+      }
+
+      /* Wave Graphic */
+      .wave-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: translateY(2px);
+      }
+      .wave-container svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 120px;
+      }
+      .wave-container .shape-fill {
+        fill: #fcfcfd;
+      }
+    </style>
+  </head>
+  <body class="text-gray-700 antialiased">
+    <!-- Hero Section with Curves -->
+    <header
+      class="relative pt-20 pb-40 bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200 overflow-hidden text-center"
+    >
+      <!-- Floating shapes background -->
+      <div
+        class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"
+      ></div>
+      <div
+        class="absolute top-20 right-20 w-40 h-40 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"
+        style="animation-delay: 2s"
+      ></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto px-6 slide-up">
+        <h1
+          class="text-5xl md:text-7xl font-cursive text-indigo-900 mb-4 drop-shadow-md"
+        >
+          Thanh Xuân Của Chúng Ta
+        </h1>
+        <p class="text-lg md:text-xl text-indigo-800/80 mb-12 font-medium">
+          Những năm tháng cấp 3 rực rỡ nhất, cất giữ tại đây...
+        </p>
+
+        <!-- 3 Years Logos -->
+        <div class="flex justify-center items-center gap-6 md:gap-16">
+          <!-- Lớp 10 -->
+          <button
+            onclick="selectYear(10)"
+            id="btn-year-10"
+            class="group relative w-24 h-24 md:w-32 md:h-32 rounded-full glass-panel shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent hover:ring-blue-300 year-btn"
+          >
+            <span
+              class="text-2xl md:text-4xl font-bold text-blue-500 group-hover:text-blue-600 transition-colors"
+              >10</span
+            >
+            <span
+              class="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold text-indigo-900"
+              >Bỡ ngỡ</span
+            >
+          </button>
+          <!-- Lớp 11 -->
+          <button
+            onclick="selectYear(11)"
+            id="btn-year-11"
+            class="group relative w-24 h-24 md:w-32 md:h-32 rounded-full glass-panel shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent hover:ring-purple-300 year-btn"
+          >
+            <span
+              class="text-2xl md:text-4xl font-bold text-purple-500 group-hover:text-purple-600 transition-colors"
+              >11</span
+            >
+            <span
+              class="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold text-indigo-900"
+              >Nổi loạn</span
+            >
+          </button>
+          <!-- Lớp 12 -->
+          <button
+            onclick="selectYear(12)"
+            id="btn-year-12"
+            class="group relative w-24 h-24 md:w-32 md:h-32 rounded-full glass-panel shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:bg-white focus:outline-none ring-4 ring-transparent hover:ring-pink-300 year-btn active-year"
+          >
+            <span
+              class="text-2xl md:text-4xl font-bold text-pink-500 group-hover:text-pink-600 transition-colors"
+              >12</span
+            >
+            <span
+              class="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold text-indigo-900"
+              >Chia xa</span
+            >
+          </button>
+        </div>
+      </div>
+
+      <!-- SVG Curve / Wave -->
+      <div class="wave-container">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.3,191.73,109.95,236.4,103.11,279.31,80.12,321.39,56.44Z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-8 -mt-10 relative z-20 pb-24">
+      <!-- Timeline Section -->
+      <section
+        class="bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 mb-16 slide-up"
+      >
+        <div class="text-center mb-10">
+          <h2
+            id="timeline-title"
+            class="text-3xl font-bold text-indigo-900 mb-2"
+          >
+            Hành trình Lớp 12
+          </h2>
+          <div
+            class="w-24 h-1 bg-gradient-to-r from-blue-400 to-pink-400 mx-auto rounded-full"
+          ></div>
+          <p id="timeline-desc" class="text-gray-500 mt-4 italic">
+            Năm cuối cấp nhiều áp lực nhưng cũng đầy ắp tiếng cười.
+          </p>
+        </div>
+
+        <!-- Vertical Timeline structure populated by JS -->
+        <div
+          class="relative border-l-4 border-purple-100 ml-4 md:ml-12"
+          id="timeline-content"
+        >
+          <!-- Content injected here -->
+        </div>
+      </section>
+
+      <!-- Class Map Section -->
+      <section class="mb-16">
+        <div class="text-center mb-12 slide-up">
+          <h2 class="text-4xl font-cursive text-indigo-900 mb-2">
+            Sơ Đồ Lớp Mình
+          </h2>
+          <div
+            class="w-32 h-1 bg-gradient-to-r from-purple-400 to-indigo-400 mx-auto rounded-full"
+          ></div>
+          <p class="text-gray-500 mt-4">
+            Nơi chất chứa những trò "nhất quỷ nhì ma". Click vào từng thành viên
+            để xem bí mật nhé!
+          </p>
+        </div>
+
+        <!-- Bục giảng (Teacher's Desk) -->
+        <div
+          class="w-full max-w-4xl mx-auto mb-12 flex justify-center slide-up"
+        >
+          <div
+            class="bg-indigo-50 border-2 border-indigo-200 text-indigo-800 px-8 py-3 rounded-2xl font-bold tracking-widest shadow-sm"
+          >
+            BỤC GIẢNG
+          </div>
+        </div>
+
+        <!-- Grid Sơ đồ lớp (Mock 3 rows x 4 columns) -->
+        <div
+          class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-[3rem] shadow-xl slide-up"
+        >
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12"
+            id="class-map-grid"
+          >
+            <!-- Avatars injected here -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-900 text-indigo-200 text-center py-8">
+      <p class="font-cursive text-2xl mb-2">Mãi nhớ 12A1</p>
+      <p class="text-sm">Made with ❤️ for our memories</p>
+    </footer>
+
+    <!-- Student Profile Modal -->
+    <div
+      id="student-modal"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center p-4"
+    >
+      <!-- Backdrop -->
+      <div
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+        onclick="closeModal()"
+      ></div>
+
+      <!-- Modal Content -->
+      <div
+        class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden transform transition-all pop-in flex flex-col max-h-[90vh]"
+      >
+        <!-- Modal Header / Cover -->
+        <div
+          class="h-32 md:h-40 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 relative"
+        >
+          <button
+            onclick="closeModal()"
+            class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 backdrop-blur rounded-full p-2 text-white transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          class="px-6 pb-6 md:px-10 md:pb-10 overflow-y-auto flex-1 custom-scrollbar"
+        >
+          <!-- Avatar & Basic Info -->
+          <div
+            class="relative flex flex-col md:flex-row items-center md:items-end -mt-16 md:-mt-20 mb-6 gap-4 text-center md:text-left"
+          >
+            <img
+              id="modal-avatar"
+              src=""
+              alt="Avatar"
+              class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-xl object-cover bg-white"
+            />
+            <div class="pt-2 md:pt-0">
+              <h3 id="modal-name" class="text-3xl font-bold text-gray-800"></h3>
+              <p
+                id="modal-role"
+                class="text-blue-600 font-semibold uppercase tracking-wider text-sm mt-1"
+              ></p>
+            </div>
+          </div>
+
+          <!-- Info Grid -->
+          <div class="grid md:grid-cols-2 gap-4 mb-8">
+            <div class="bg-blue-50 p-4 rounded-2xl">
+              <h4 class="text-sm text-blue-400 font-bold uppercase mb-1">
+                Đặc điểm nhận dạng
+              </h4>
+              <p id="modal-personality" class="text-gray-700 font-medium"></p>
+            </div>
+            <div class="bg-pink-50 p-4 rounded-2xl">
+              <h4 class="text-sm text-pink-400 font-bold uppercase mb-1">
+                Câu nói cửa miệng
+              </h4>
+              <p id="modal-quote" class="text-gray-700 font-medium italic">
+                ""
+              </p>
+            </div>
+          </div>
+
+          <!-- Gallery Section -->
+          <div>
+            <h4
+              class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-purple-500"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Khoảnh khắc đáng nhớ
+            </h4>
+            <div
+              class="grid grid-cols-2 md:grid-cols-3 gap-3"
+              id="modal-gallery"
+            >
+              <!-- Photos injected here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data & Logic -->
+    <script>
+      // --- MOCK DATA ---
+
+      // Dữ liệu các năm học
+      const yearsData = {
+        10: {
+          title: "Lớp 10 - Sự Bắt Đầu Bỡ Ngỡ",
+          desc: "Ngày đầu tiên bước vào trường cấp 3, ai cũng rụt rè, lạ lẫm.",
+          events: [
+            {
+              date: "Tháng 9, 2021",
+              title: "Lễ Khai Giảng Đầu Tiên",
+              content:
+                "Mặc áo dài/áo sơ mi mới, ngơ ngác tìm đúng lớp của mình ở sân trường.",
+            },
+            {
+              date: "Tháng 11, 2021",
+              title: "20/11 - Hội diễn văn nghệ",
+              content:
+                "Lần đầu tiên cả lớp tập múa cùng nhau, cãi nhau chí chóe nhưng cuối cùng cũng đạt giải Khuyến khích.",
+            },
+            {
+              date: "Tháng 5, 2022",
+              title: "Bế giảng năm lớp 10",
+              content:
+                "Nhận ra tập thể này thật sự rất vui và đáng yêu. Hẹn gặp lại vào năm sau!",
+            },
+          ],
+        },
+        11: {
+          title: "Lớp 11 - Tuổi Trẻ Nổi Loạn",
+          desc: "Năm quậy nhất, vui nhất, không vướng bận thi cử quá nhiều.",
+          events: [
+            {
+              date: "Tháng 10, 2022",
+              title: "Giải Bóng Đá Khối",
+              content:
+                "Đội tuyển nam lớp mình xuất sắc lọt vào bán kết. Con gái cổ vũ khản cả cổ.",
+            },
+            {
+              date: "Tháng 3, 2023",
+              title: "Cắm trại 26/3",
+              content:
+                "Đêm lửa trại không thể quên. Lén mang đồ ăn vặt và thức trắng đêm tâm sự.",
+            },
+            {
+              date: "Tháng 5, 2023",
+              title: "Chụp ảnh kỷ yếu cơ bản",
+              content:
+                "Bắt đầu thấy thời gian trôi nhanh hơn, chớp mắt đã hết 2/3 quãng đường.",
+            },
+          ],
+        },
+        12: {
+          title: "Lớp 12 - Áp Lực & Chia Xa",
+          desc: "Năm cuối cấp nhiều áp lực thi cử nhưng cũng đầy ắp tình yêu thương.",
+          events: [
+            {
+              date: "Tháng 9, 2023",
+              title: "Khai giảng cuối cùng",
+              content:
+                "Cảm xúc lâng lâng khó tả, tự nhiên thấy yêu từng gốc cây, ghế đá của trường.",
+            },
+            {
+              date: "Tháng 4, 2024",
+              title: "Chụp Kỷ Yếu Chính Thức",
+              content:
+                "Đầu tư hoành tráng, concept thanh xuân. Khóc sưng cả mắt lúc viết lưu bút.",
+            },
+            {
+              date: "Tháng 6, 2024",
+              title: "Lễ Tri Ân & Trưởng Thành",
+              content:
+                "Ôm nhau khóc nức nở. Thanh xuân cấp 3 chính thức khép lại, mở ra hành trình mới.",
+            },
+          ],
+        },
+      };
+
+      // Dữ liệu học sinh (Sơ đồ lớp)
+      // Tạo một số data mẫu, sử dụng https://ui-avatars.com và unsplash source
+      const studentsData = [
+        {
+          id: 1,
+          name: "Nguyễn Văn A",
+          role: "Lớp Trưởng",
+          avatar:
+            "https://ui-avatars.com/api/?name=Van+A&background=0D8ABC&color=fff&size=128",
+          personality: "Nghiêm túc nhưng hay hùa theo lớp",
+          quote: "Tuần này lớp mình lại bét bảng thi đua nhé!",
+          photos: [
+            "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&h=300&fit=crop",
+          ],
+        },
+        {
+          id: 2,
+          name: "Trần Thị B",
+          role: "Lớp Phó Học Tập",
+          avatar:
+            "https://ui-avatars.com/api/?name=Thi+B&background=F472B6&color=fff&size=128",
+          personality: "Con nhà người ta, hay cho chép bài",
+          quote: "Đề này dễ mà mấy đứa?",
+          photos: [
+            "https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop",
+          ],
+        },
+        {
+          id: 3,
+          name: "Lê Hoàng C",
+          role: "Thành viên",
+          avatar:
+            "https://ui-avatars.com/api/?name=Hoang+C&background=10B981&color=fff&size=128",
+          personality: "Chuyên gia ngủ gật, thánh ăn vụng",
+          quote: "Sắp trống chưa mày?",
+          photos: [
+            "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=300&h=300&fit=crop",
+          ],
+        },
+        {
+          id: 4,
+          name: "Phạm D",
+          role: "Bí Thư",
+          avatar:
+            "https://ui-avatars.com/api/?name=Pham+D&background=F59E0B&color=fff&size=128",
+          personality: "Nhiệt tình, MC của mọi sự kiện",
+          quote: "Các bạn ơi đóng quỹ lớp!!!",
+          photos: [
+            "https://images.unsplash.com/photo-1528892952291-009c663ce843?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
+          ],
+        },
+        {
+          id: 5,
+          name: "Vũ E",
+          role: "Tổ trưởng tổ 1",
+          avatar:
+            "https://ui-avatars.com/api/?name=Vu+E&background=6366F1&color=fff&size=128",
+          personality: "Mọt sách, hướng nội",
+          quote: "Đừng ồn nữa để tôi làm bài.",
+          photos: [],
+        },
+        {
+          id: 6,
+          name: "Hoàng F",
+          role: "Thành viên",
+          avatar:
+            "https://ui-avatars.com/api/?name=Hoang+F&background=EC4899&color=fff&size=128",
+          personality: "Fashionista của lớp",
+          quote: "Hôm nay tao mặc bộ này hợp không?",
+          photos: [
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=300&h=300&fit=crop",
+          ],
+        },
+        {
+          id: 7,
+          name: "Ngô G",
+          role: "Thành viên",
+          avatar:
+            "https://ui-avatars.com/api/?name=Ngo+G&background=8B5CF6&color=fff&size=128",
+          personality: "Chúa tể tấu hài",
+          quote: "Cô gọi lên bảng kìa (Đùa đấy)!",
+          photos: [
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop",
+          ],
+        },
+        {
+          id: 8,
+          name: "Bùi H",
+          role: "Thành viên",
+          avatar:
+            "https://ui-avatars.com/api/?name=Bui+H&background=EF4444&color=fff&size=128",
+          personality: "Nghệ sĩ đàn hát",
+          quote: "Để tôi đánh cho một bản.",
+          photos: [
+            "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop",
+          ],
+        },
+        // Có thể thêm tối đa theo số lượng lớp
+      ];
+
+      // --- LOGIC GIAO DIỆN ---
+
+      // Khởi tạo
+      document.addEventListener("DOMContentLoaded", () => {
+        selectYear(12); // Mặc định mở năm lớp 12
+        renderClassMap();
+      });
+
+      // Đổi năm học
+      function selectYear(year) {
+        // Cập nhật UI nút
+        document.querySelectorAll(".year-btn").forEach((btn) => {
+          btn.classList.remove(
+            "ring-offset-2",
+            "ring-4",
+            "bg-white",
+            "scale-110",
+          );
+        });
+        const activeBtn = document.getElementById(`btn-year-${year}`);
+
+        // Setup màu viền theo năm
+        let ringColor =
+          year === 10
+            ? "ring-blue-400"
+            : year === 11
+              ? "ring-purple-400"
+              : "ring-pink-400";
+        activeBtn.classList.add(
+          "ring-offset-2",
+          ringColor,
+          "bg-white",
+          "scale-110",
+        );
+
+        // Render dữ liệu
+        const data = yearsData[year];
+        const contentDiv = document.getElementById("timeline-content");
+
+        // Hiệu ứng mờ dần
+        contentDiv.classList.remove("fade-in");
+        void contentDiv.offsetWidth; // trigger reflow
+
+        document.getElementById("timeline-title").innerText = data.title;
+        document.getElementById("timeline-desc").innerText = data.desc;
+
+        let html = "";
+        data.events.forEach((event, index) => {
+          html += `
+                    <div class="relative pl-6 pb-10 group">
+                        <!-- Vòng tròn timeline -->
+                        <div class="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-white border-4 border-indigo-400 group-hover:bg-indigo-400 transition-colors"></div>
+                        <div class="bg-gray-50 rounded-2xl p-5 shadow-sm border border-gray-100 transition-all hover:shadow-md hover:-translate-y-1">
+                            <span class="text-sm font-bold text-pink-500 mb-1 block">${event.date}</span>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">${event.title}</h3>
+                            <p class="text-gray-600">${event.content}</p>
+                        </div>
+                    </div>
+                `;
+        });
+        contentDiv.innerHTML = html;
+        contentDiv.classList.add("fade-in");
+      }
+
+      // Render Sơ đồ lớp (Ghế ngồi)
+      function renderClassMap() {
+        const mapContainer = document.getElementById("class-map-grid");
+        let html = "";
+
+        // Loop qua danh sách học sinh để tạo bàn học
+        studentsData.forEach((student) => {
+          html += `
+                    <div class="flex flex-col items-center justify-center relative cursor-pointer desk-avatar group" onclick="openModal(${student.id})">
+                        <!-- Bàn học mô phỏng -->
+                        <div class="absolute bottom-0 w-20 h-4 bg-gray-200 rounded-t-lg -z-10 group-hover:bg-indigo-100 transition-colors"></div>
+                        
+                        <!-- Avatar -->
+                        <div class="relative">
+                            <img src="${student.avatar}" alt="${student.name}" class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white shadow-md object-cover bg-gray-100">
+                            <!-- Chức vụ badge (nếu có) -->
+                            ${student.role !== "Thành viên" ? `<span class="absolute -top-2 -right-2 bg-pink-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">${student.role.charAt(0)}</span>` : ""}
+                        </div>
+                        
+                        <!-- Tên -->
+                        <span class="mt-3 text-sm font-bold text-gray-700 bg-white px-2 py-1 rounded shadow-sm whitespace-nowrap">${student.name}</span>
+                    </div>
+                `;
+        });
+
+        // Thêm ghế trống cho đủ form 3x4 (12 chỗ) nếu ít người
+        const emptyDesks = 12 - studentsData.length;
+        for (let i = 0; i < emptyDesks; i++) {
+          html += `
+                    <div class="flex flex-col items-center justify-center opacity-40">
+                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-dashed border-gray-300 flex items-center justify-center text-gray-400 text-2xl">+</div>
+                        <span class="mt-3 text-sm text-gray-400 bg-gray-100 px-2 py-1 rounded">Bàn trống</span>
+                    </div>
+                `;
+        }
+
+        mapContainer.innerHTML = html;
+      }
+
+      // Mở Modal Profile
+      function openModal(id) {
+        const student = studentsData.find((s) => s.id === id);
+        if (!student) return;
+
+        document.getElementById("modal-avatar").src = student.avatar;
+        document.getElementById("modal-name").innerText = student.name;
+        document.getElementById("modal-role").innerText = student.role;
+        document.getElementById("modal-personality").innerText =
+          student.personality;
+        document.getElementById("modal-quote").innerText = `"${student.quote}"`;
+
+        // Render thư viện ảnh cá nhân
+        const galleryDiv = document.getElementById("modal-gallery");
+        if (student.photos && student.photos.length > 0) {
+          let photosHtml = "";
+          student.photos.forEach((url) => {
+            photosHtml += `<img src="${url}" class="w-full h-24 md:h-32 object-cover rounded-xl shadow-sm hover:scale-105 transition-transform cursor-pointer" alt="photo">`;
+          });
+          galleryDiv.innerHTML = photosHtml;
+        } else {
+          galleryDiv.innerHTML = `<p class="text-gray-400 text-sm col-span-2 italic">Thành viên này chưa có ảnh cá nhân nào.</p>`;
+        }
+
+        // Hiển thị modal
+        const modal = document.getElementById("student-modal");
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden"; // Ngăn cuộn trang phía sau
+      }
+
+      // Đóng Modal Profile
+      function closeModal() {
+        const modal = document.getElementById("student-modal");
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto"; // Cho phép cuộn trang trở lại
+      }
+
+      // Hỗ trợ nhấn phím ESC để đóng Modal
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+    </script>
+  </body>
+</html>

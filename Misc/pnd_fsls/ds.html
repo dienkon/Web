@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firestore Manager - PND</title>
+    
+    <!-- Tailwind + Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        .domain-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+        .domain-card:hover {
+            border-color: #8C5F3B;
+            box-shadow: 0 4px 12px rgba(140, 95, 59, 0.1);
+        }
+        
+        .data-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 120px;
+            gap: 12px;
+            padding: 10px 14px;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+        .data-row:hover { background: #f8fafc; }
+        
+        .badge {
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .btn-primary {
+            background: #8C5F3B;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { background: #6d4a2e; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-danger:hover { background: #b91c1c; }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #8C5F3B;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .tree-node {
+            padding-left: 24px;
+            border-left: 2px solid #e2e8f0;
+            margin-left: 12px;
+        }
+        .tree-node.collapsed { display: none; }
+        .tree-toggle {
+            cursor: pointer;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tree-toggle:hover { color: #8C5F3B; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="container flex items-center justify-between py-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#8C5F3B] text-white flex items-center justify-center font-black text-lg">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-800 text-lg">Firestore Manager</h1>
+                    <p class="text-[10px] text-slate-400">Quản lý dữ liệu &amp; Bảng xếp hạng</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <span id="user-status" class="text-xs text-slate-500">
+                    <i class="fas fa-circle text-green-500 text-[8px] mr-1"></i>
+                    Đã kết nối
+                </span>
+                <button onclick="logout()" class="text-sm text-red-500 hover:text-red-700 font-medium">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Thoát
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container py-6">
+        
+        <!-- TABS -->
+        <div class="flex gap-2 mb-6 border-b border-slate-200">
+            <button onclick="switchTab('ranking')" id="tab-ranking" class="tab-btn px-6 py-3 font-bold text-sm border-b-2 border-[#8C5F3B] text-[#8C5F3B] transition">
+                <i class="fas fa-trophy mr-2"></i> Bảng xếp hạng
+            </button>
+            <button onclick="switchTab('domains')" id="tab-domains" class="tab-btn px-6 py-3 font-bold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-700 transition">
+                <i class="fas fa-sitemap mr-2"></i> Domain Firestore
+            </button>
+            <button onclick="switchTab('browser')" id="tab-browser" class="tab-btn px-6 py-3 font-bold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-700 transition">
+                <i class="fas fa-folder-tree mr-2"></i> Duyệt dữ liệu
+            </button>
+        </div>
+
+        <!-- TAB: RANKING -->
+        <div id="panel-ranking" class="tab-panel">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">🏆 Bảng xếp hạng</h2>
+                    <p class="text-xs text-slate-400 mt-1">Từ collection <code class="bg-slate-100 px-2 py-0.5 rounded">BangXepHang</code></p>
+                </div>
+                <div class="flex gap-2">
+                    <select id="ranking-filter" onchange="loadRanking()" class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium bg-white">
+                        <option value="">📋 Tất cả đề</option>
+                    </select>
+                    <button onclick="loadRanking(true)" class="btn-primary text-sm">
+                        <i class="fas fa-rotate-right mr-1"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Ranking Table -->
+            <div id="ranking-container" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="p-8 text-center text-slate-400">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-3 block"></i>
+                    Đang tải dữ liệu...
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: DOMAINS -->
+        <div id="panel-domains" class="tab-panel hidden">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">🗂️ Domain Firestore</h2>
+                    <p class="text-xs text-slate-400 mt-1">Thêm đường dẫn collection để xem dữ liệu</p>
+                </div>
+                <button onclick="showAddDomainModal()" class="btn-primary">
+                    <i class="fas fa-plus mr-1"></i> Thêm domain
+                </button>
+            </div>
+
+            <!-- Danh sách domain -->
+            <div id="domain-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Domains sẽ được render ở đây -->
+            </div>
+        </div>
+
+        <!-- TAB: BROWSER -->
+        <div id="panel-browser" class="tab-panel hidden">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800">📂 Duyệt dữ liệu</h2>
+                    <p class="text-xs text-slate-400 mt-1">Chọn một domain ở tab trên để xem dữ liệu</p>
+                </div>
+                <div class="flex gap-2">
+                    <select id="browser-domain-select" onchange="browseDomain(this.value)" class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium bg-white min-w-[200px]">
+                        <option value="">-- Chọn domain --</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="browser-container" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm min-h-[400px]">
+                <div class="text-center text-slate-400 py-12">
+                    <i class="fas fa-folder-open text-4xl mb-4 block opacity-30"></i>
+                    <p>Chọn một domain để xem dữ liệu</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL: Thêm domain -->
+    <div id="add-domain-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-slate-800">📁 Thêm domain Firestore</h3>
+                <button onclick="closeAddDomainModal()" class="text-slate-400 hover:text-slate-600 text-xl">&times;</button>
+            </div>
+            
+            <p class="text-sm text-slate-500 mb-4">Nhập đường dẫn collection, ví dụ: <code class="bg-slate-100 px-2 py-0.5 rounded">Users</code> hoặc <code class="bg-slate-100 px-2 py-0.5 rounded">KhoDeThi</code></p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Tên hiển thị</label>
+                    <input id="domain-name" type="text" placeholder="Ví dụ: Người dùng" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-[#8C5F3B] outline-none transition" />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Đường dẫn collection <span class="text-red-500">*</span></label>
+                    <input id="domain-path" type="text" placeholder="Ví dụ: Users" class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-[#8C5F3B] outline-none transition" />
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Mô tả (không bắt buộc)</label>
+                    <input id="domain-desc" type="text" placeholder="Mô tả ngắn..." class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-[#8C5F3B] outline-none transition" />
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="addDomain()" class="btn-primary flex-1">
+                    <i class="fas fa-save mr-1"></i> Lưu domain
+                </button>
+                <button onclick="closeAddDomainModal()" class="px-6 py-2 border border-slate-200 rounded-xl font-medium text-slate-600 hover:bg-slate-50 transition">
+                    Hủy
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script type="module">
+        // ============================================================
+        // 1. IMPORTS FIREBASE (giống code gốc)
+        // ============================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            getDoc,
+            doc,
+            query,
+            where,
+            orderBy,
+            limit,
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJu0I8tPq88gDDzjD53CkAPKlPl4Vd9Zs",
+            authDomain: "pndteam-ac43b.firebaseapp.com",
+            projectId: "pndteam-ac43b",
+            storageBucket: "pndteam-ac43b.firebasestorage.app",
+            messagingSenderId: "504130270745",
+            appId: "1:504130270745:web:786924d35bc84ef3d11c88",
+            measurementId: "G-E205P0Q75Q",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ============================================================
+        // 2. STATE
+        // ============================================================
+        const state = {
+            domains: [], // { id, name, path, desc }
+            rankingData: [],
+            examNames: {},
+        };
+
+        // ============================================================
+        // 3. UTILITY
+        // ============================================================
+        function formatDate(ts) {
+            if (!ts) return "—";
+            if (ts.toMillis) return new Date(ts.toMillis()).toLocaleString("vi-VN");
+            if (ts.seconds) return new Date(ts.seconds * 1000).toLocaleString("vi-VN");
+            return new Date(ts).toLocaleString("vi-VN");
+        }
+
+        function formatTime(seconds) {
+            if (!seconds || seconds === Infinity) return "—";
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+            return h > 0 ? `${h}g ${m}p ${s}s` : `${m}p ${s}s`;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return "";
+            return String(text).replace(/[&<>'"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c]));
+        }
+
+        // ============================================================
+        // 4. DOMAIN MANAGEMENT (lưu trong localStorage)
+        // ============================================================
+        function loadDomains() {
+            try {
+                const data = JSON.parse(localStorage.getItem("firestore_domains") || "[]");
+                state.domains = data;
+                return data;
+            } catch { return []; }
+        }
+
+        function saveDomains() {
+            localStorage.setItem("firestore_domains", JSON.stringify(state.domains));
+        }
+
+        function addDomain(name, path, desc = "") {
+            if (!path.trim()) throw new Error("Vui lòng nhập đường dẫn collection.");
+            const id = `domain_${Date.now()}`;
+            const domain = { id, name: name.trim() || path.trim(), path: path.trim(), desc: desc.trim() };
+            state.domains.push(domain);
+            saveDomains();
+            renderDomains();
+            updateDomainSelect();
+            return domain;
+        }
+
+        function removeDomain(id) {
+            state.domains = state.domains.filter(d => d.id !== id);
+            saveDomains();
+            renderDomains();
+            updateDomainSelect();
+        }
+
+        // ============================================================
+        // 5. RENDER DOMAINS
+        // ============================================================
+        function renderDomains() {
+            const container = document.getElementById("domain-list");
+            const domains = state.domains;
+
+            if (!domains.length) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-200">
+                        <i class="fas fa-folder-plus text-3xl text-slate-300 mb-3 block"></i>
+                        <p class="text-slate-500">Chưa có domain nào.</p>
+                        <p class="text-xs text-slate-400 mt-1">Bấm "Thêm domain" để bắt đầu.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = domains.map(d => `
+                <div class="domain-card">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800">${escapeHtml(d.name)}</h4>
+                            <p class="text-xs text-slate-400 mt-0.5">
+                                <code class="bg-slate-100 px-2 py-0.5 rounded">${escapeHtml(d.path)}</code>
+                                ${d.desc ? `· ${escapeHtml(d.desc)}` : ""}
+                            </p>
+                            <p class="text-[10px] text-slate-400 mt-2">
+                                <i class="fas fa-database mr-1"></i>
+                                <span class="domain-count" id="count-${d.id}">Đang tải...</span>
+                            </p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="window.browseDomain('${d.id}')" class="text-[#8C5F3B] hover:text-[#6d4a2e] text-sm font-medium">
+                                <i class="fas fa-eye mr-1"></i> Xem
+                            </button>
+                            <button onclick="window.removeDomain('${d.id}')" class="text-red-400 hover:text-red-600 text-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join("");
+
+            // Đếm số document cho mỗi domain
+            domains.forEach(d => {
+                countDocuments(d.path).then(count => {
+                    const el = document.getElementById(`count-${d.id}`);
+                    if (el) el.textContent = `${count} document${count !== 1 ? "s" : ""}`;
+                }).catch(() => {
+                    const el = document.getElementById(`count-${d.id}`);
+                    if (el) el.textContent = "⚠️ Lỗi";
+                });
+            });
+        }
+
+        async function countDocuments(path) {
+            try {
+                const snap = await getDocs(collection(db, path));
+                return snap.size;
+            } catch (e) {
+                console.warn("Không đếm được:", e.message);
+                return "?";
+            }
+        }
+
+        function updateDomainSelect() {
+            const select = document.getElementById("browser-domain-select");
+            const currentValue = select.value;
+            select.innerHTML = `<option value="">-- Chọn domain --</option>` +
+                state.domains.map(d => `<option value="${d.id}">${escapeHtml(d.name)} (${escapeHtml(d.path)})</option>`).join("");
+            if (currentValue && state.domains.some(d => d.id === currentValue)) {
+                select.value = currentValue;
+            }
+        }
+
+        // ============================================================
+        // 6. BROWSE DOMAIN DATA
+        // ============================================================
+        window.browseDomain = async function(domainId) {
+            const container = document.getElementById("browser-container");
+            const domain = state.domains.find(d => d.id === domainId);
+            if (!domain) {
+                container.innerHTML = `<div class="text-center text-slate-400 py-12"><i class="fas fa-folder-open text-4xl mb-4 block opacity-30"></i><p>Domain không tồn tại.</p></div>`;
+                return;
+            }
+
+            // Chuyển tab
+            switchTab("browser");
+            document.getElementById("browser-domain-select").value = domainId;
+
+            container.innerHTML = `
+                <div class="text-center py-8 text-slate-400">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-3 block"></i>
+                    Đang tải dữ liệu từ <b>${escapeHtml(domain.path)}</b>...
+                </div>
+            `;
+
+            try {
+                const snap = await getDocs(collection(db, domain.path));
+                if (snap.empty) {
+                    container.innerHTML = `
+                        <div class="text-center py-12 text-slate-400">
+                            <i class="fas fa-inbox text-4xl mb-4 block opacity-30"></i>
+                            <p>Collection <b>${escapeHtml(domain.path)}</b> trống.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = `
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800">${escapeHtml(domain.name)}</h3>
+                            <p class="text-xs text-slate-400">${snap.size} document${snap.size !== 1 ? "s" : ""}</p>
+                        </div>
+                        <button onclick="browseDomain('${domainId}')" class="btn-primary text-xs">
+                            <i class="fas fa-rotate-right mr-1"></i> Làm mới
+                        </button>
+                    </div>
+                    <div class="border rounded-xl overflow-hidden">
+                `;
+
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    const json = JSON.stringify(data, null, 2);
+                    html += `
+                        <details class="border-b border-slate-100 last:border-0">
+                            <summary class="px-4 py-3 cursor-pointer hover:bg-slate-50 font-mono text-sm text-slate-700">
+                                <i class="fas fa-file text-slate-400 mr-2"></i>
+                                ${escapeHtml(doc.id)}
+                                <span class="text-xs text-slate-400 ml-2">${Object.keys(data).length} field${Object.keys(data).length !== 1 ? "s" : ""}</span>
+                            </summary>
+                            <pre class="px-4 py-3 bg-slate-50 text-xs overflow-auto max-h-[300px] rounded-b-xl">${escapeHtml(json)}</pre>
+                        </details>
+                    `;
+                });
+
+                html += `</div>`;
+                container.innerHTML = html;
+            } catch (err) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-red-500">
+                        <i class="fas fa-exclamation-triangle text-4xl mb-4 block opacity-50"></i>
+                        <p class="font-bold">Không thể tải dữ liệu</p>
+                        <p class="text-sm text-slate-400 mt-1">${escapeHtml(err.message)}</p>
+                        <button onclick="browseDomain('${domainId}')" class="mt-4 btn-primary text-xs">Thử lại</button>
+                    </div>
+                `;
+            }
+        };
+
+        // ============================================================
+        // 7. RANKING
+        // ============================================================
+        async function loadRanking(force = false) {
+            const container = document.getElementById("ranking-container");
+            const filterSelect = document.getElementById("ranking-filter");
+
+            container.innerHTML = `
+                <div class="p-8 text-center text-slate-400">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-3 block"></i>
+                    Đang tải bảng xếp hạng...
+                </div>
+            `;
+
+            try {
+                // Lấy danh sách đề thi để lọc
+                const examSnap = await getDocs(collection(db, "KhoDeThi"));
+                const examMap = {};
+                const examOptions = [];
+                examSnap.forEach(doc => {
+                    const data = doc.data();
+                    const name = data.title || data.tenDeThi || doc.id;
+                    examMap[doc.id] = name;
+                    examOptions.push({ id: doc.id, name });
+                });
+                state.examNames = examMap;
+
+                // Cập nhật filter
+                const currentFilter = filterSelect.value;
+                filterSelect.innerHTML = `<option value="">📋 Tất cả đề (${examOptions.length})</option>` +
+                    examOptions.map(e => `<option value="${e.id}">${escapeHtml(e.name)}</option>`).join("");
+                if (currentFilter && examOptions.some(e => e.id === currentFilter)) {
+                    filterSelect.value = currentFilter;
+                }
+
+                // Lấy dữ liệu bảng xếp hạng
+                let q = collection(db, "BangXepHang");
+                const selectedExam = filterSelect.value;
+                if (selectedExam) {
+                    q = query(q, where("deThiID", "==", selectedExam));
+                }
+
+                const snap = await getDocs(q);
+                const results = [];
+
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.laSuKien !== true) return;
+                    results.push({
+                        id: doc.id,
+                        ...data,
+                        tenDeThi: data.tenDeThi || examMap[data.deThiID] || data.deThiID || "Không rõ",
+                    });
+                });
+
+                // Sắp xếp: điểm cao -> thời gian ngắn -> nộp sớm
+                results.sort((a, b) => {
+                    if (a.diemSo !== b.diemSo) return (b.diemSo || 0) - (a.diemSo || 0);
+                    if (a.thoiGianLamBai !== b.thoiGianLamBai) return (a.thoiGianLamBai || Infinity) - (b.thoiGianLamBai || Infinity);
+                    return (a.thoiGianNop?.toMillis?.() || 0) - (b.thoiGianNop?.toMillis?.() || 0);
+                });
+
+                state.rankingData = results;
+
+                // Render
+                if (!results.length) {
+                    container.innerHTML = `
+                        <div class="p-12 text-center text-slate-400">
+                            <i class="fas fa-trophy text-4xl mb-4 block opacity-30"></i>
+                            <p>Chưa có dữ liệu xếp hạng.</p>
+                            <p class="text-xs mt-1">Đảm bảo collection <code class="bg-slate-100 px-2 py-0.5 rounded">BangXepHang</code> có dữ liệu.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Podium (top 3)
+                let podiumHtml = "";
+                if (results.length >= 3) {
+                    const top3 = results.slice(0, 3);
+                    const medals = ["🥇", "🥈", "🥉"];
+                    const heights = ["md:min-h-[220px]", "md:min-h-[190px]", "md:min-h-[170px]"];
+                    const orders = ["md:order-2", "md:order-1", "md:order-3"];
+                    
+                    podiumHtml = `
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            ${top3.map((r, i) => `
+                                <div class="${orders[i]} ${heights[i]} bg-white rounded-2xl border border-slate-200 p-5 text-center shadow-sm flex flex-col justify-center">
+                                    <div class="text-3xl mb-2">${medals[i]}</div>
+                                    <div class="w-14 h-14 mx-auto rounded-full bg-[#8C5F3B] text-white flex items-center justify-center text-xl font-black shadow-md">
+                                        ${escapeHtml((r.tenNguoiDung || "H").charAt(0).toUpperCase())}
+                                    </div>
+                                    <p class="mt-3 text-[9px] font-black tracking-widest text-slate-400">${["QUÁN QUÂN", "Á QUÂN", "HẠNG BA"][i]}</p>
+                                    <h4 class="mt-1 font-black text-slate-800">${escapeHtml(r.tenNguoiDung || "Học sinh")}</h4>
+                                    <div class="mt-3 text-2xl font-black text-[#8C5F3B]">${r.diemSo || 0}<span class="text-xs text-slate-400">/${r.diemToiDa || "?"}</span></div>
+                                    <p class="text-[11px] text-slate-400 mt-1"><i class="fas fa-clock mr-1"></i>${formatTime(r.thoiGianLamBai)}</p>
+                                </div>
+                            `).join("")}
+                        </div>
+                    `;
+                }
+
+                // Bảng
+                let tableHtml = `
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-600 text-xs uppercase">#</th>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-600 text-xs uppercase">Thí sinh</th>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-600 text-xs uppercase">Đề thi</th>
+                                    <th class="px-4 py-3 text-center font-bold text-slate-600 text-xs uppercase">Thời gian</th>
+                                    <th class="px-4 py-3 text-center font-bold text-slate-600 text-xs uppercase">Điểm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${results.map((r, i) => `
+                                    <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition">
+                                        <td class="px-4 py-3 font-bold ${i < 3 ? "text-[#8C5F3B]" : "text-slate-400"}">${i < 3 ? ["🥇", "🥈", "🥉"][i] : `#${i + 1}`}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center gap-2">
+                                                <span class="w-7 h-7 rounded-full bg-[#8C5F3B]/10 text-[#8C5F3B] flex items-center justify-center font-black text-xs">${escapeHtml((r.tenNguoiDung || "H").charAt(0).toUpperCase())}</span>
+                                                ${escapeHtml(r.tenNguoiDung || "Học sinh")}
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 text-slate-600 text-xs">${escapeHtml(r.tenDeThi)}</td>
+                                        <td class="px-4 py-3 text-center text-slate-500 text-xs">${formatTime(r.thoiGianLamBai)}</td>
+                                        <td class="px-4 py-3 text-center font-bold text-[#8C5F3B]">${r.diemSo || 0}${r.diemToiDa ? `/${r.diemToiDa}` : ""}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                container.innerHTML = `
+                    <div class="p-4">
+                        ${podiumHtml}
+                        ${tableHtml}
+                        <div class="mt-4 text-xs text-slate-400 text-right">
+                            ${results.length} thí sinh · Cập nhật ${new Date().toLocaleTimeString("vi-VN")}
+                        </div>
+                    </div>
+                `;
+
+            } catch (err) {
+                container.innerHTML = `
+                    <div class="p-8 text-center text-red-500">
+                        <i class="fas fa-exclamation-triangle text-3xl mb-3 block"></i>
+                        <p class="font-bold">Không thể tải bảng xếp hạng</p>
+                        <p class="text-sm text-slate-400 mt-1">${escapeHtml(err.message)}</p>
+                        <button onclick="loadRanking(true)" class="mt-4 btn-primary text-xs">Thử lại</button>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================
+        // 8. TAB SWITCHING
+        // ============================================================
+        window.switchTab = function(tab) {
+            // Cập nhật tab buttons
+            document.querySelectorAll(".tab-btn").forEach(el => {
+                el.classList.remove("border-[#8C5F3B]", "text-[#8C5F3B]");
+                el.classList.add("border-transparent", "text-slate-400");
+            });
+            const btn = document.getElementById(`tab-${tab}`);
+            if (btn) {
+                btn.classList.remove("border-transparent", "text-slate-400");
+                btn.classList.add("border-[#8C5F3B]", "text-[#8C5F3B]");
+            }
+
+            // Cập nhật panels
+            document.querySelectorAll(".tab-panel").forEach(el => el.classList.add("hidden"));
+            const panel = document.getElementById(`panel-${tab}`);
+            if (panel) panel.classList.remove("hidden");
+
+            // Tải dữ liệu nếu cần
+            if (tab === "ranking") loadRanking();
+            if (tab === "domains") renderDomains();
+        };
+
+        // ============================================================
+        // 9. MODAL
+        // ============================================================
+        window.showAddDomainModal = function() {
+            document.getElementById("add-domain-modal").classList.remove("hidden");
+            document.getElementById("domain-name").focus();
+        };
+
+        window.closeAddDomainModal = function() {
+            document.getElementById("add-domain-modal").classList.add("hidden");
+            document.getElementById("domain-name").value = "";
+            document.getElementById("domain-path").value = "";
+            document.getElementById("domain-desc").value = "";
+        };
+
+        window.addDomain = function() {
+            const name = document.getElementById("domain-name").value.trim();
+            const path = document.getElementById("domain-path").value.trim();
+            const desc = document.getElementById("domain-desc").value.trim();
+
+            try {
+                addDomain(name || path, path, desc);
+                closeAddDomainModal();
+                Swal.fire({
+                    icon: "success",
+                    title: "Đã thêm domain",
+                    text: `Đường dẫn: ${path}`,
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+            } catch (err) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: err.message,
+                });
+            }
+        };
+
+        // ============================================================
+        // 10. AUTH
+        // ============================================================
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                window.location.reload();
+            } catch (err) {
+                Swal.fire("Lỗi", err.message, "error");
+            }
+        };
+
+        // ============================================================
+        // 11. INIT
+        // ============================================================
+        function init() {
+            loadDomains();
+            renderDomains();
+            updateDomainSelect();
+            loadRanking();
+
+            // Chọn tab mặc định
+            switchTab("ranking");
+        }
+
+        // Theo dõi auth state
+        onAuthStateChanged(auth, (user) => {
+            const status = document.getElementById("user-status");
+            if (user) {
+                status.innerHTML = `<i class="fas fa-circle text-green-500 text-[8px] mr-1"></i> ${escapeHtml(user.email || "Đã đăng nhập")}`;
+                init();
+            } else {
+                status.innerHTML = `<i class="fas fa-circle text-amber-500 text-[8px] mr-1"></i> Chưa đăng nhập`;
+                // Cho phép xem dữ liệu public, nhưng có thể thêm nút đăng nhập
+                init();
+            }
+        });
+
+        // Expose functions to window
+        window.loadRanking = loadRanking;
+        window.browseDomain = window.browseDomain;
+        window.removeDomain = removeDomain;
+        window.addDomain = addDomain;
+        window.closeAddDomainModal = closeAddDomainModal;
+        window.showAddDomainModal = showAddDomainModal;
+        window.switchTab = switchTab;
+
+        console.log("✅ Firestore Manager đã sẵn sàng!");
+        console.log("📁 Domains:", state.domains);
+
+    </script>
+</body>
+</html>

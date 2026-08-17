@@ -1,0 +1,146 @@
+{
+  "number": 1,
+  "symbol": "H",
+  "mass": 1.008,
+  "category": "phi-kim",
+  "hasData": true,
+  "general": {
+    "latinName": "Hydrogenium",
+    "englishName": "Hydrogen",
+    "electronConfig": "1s¹",
+    "isotope": "¹H , ²H (D), ³H (T)",
+    "group": 1,
+    "period": 1,
+    "block": "s",
+    "state": "Khí",
+    "oxidation": "+1, -1",
+    "electronegativity": 2.2,
+    "density": "0,08988 g/L (0°C, 1 atm)",
+    "meltingPoint": "-259,16°C",
+    "boilingPoint": "-252,87°C",
+    "crystalStructure": "Lục giác đơn giản"
+  },
+  "history": {
+    "discoverer": "Henry Cavendish",
+    "year": 1766,
+    "discoveryLocation": "Anh",
+    "link": true,
+    "description": "Năm 1766, Henry Cavendish nghiên cứu loại khí sinh ra khi kim loại tác dụng với axit và xác định đây là một chất hoàn toàn mới. Antoine Lavoisier sau đó đặt tên là Hydrogen, nghĩa là 'sinh ra nước'."
+  },
+  "structure": {
+    "protons": 1,
+    "neutrons": 0,
+    "electrons": 1,
+    "electronShells": [1],
+    "valenceElectrons": 1,
+    "lattice": "sh",
+    "nucleus": {
+      "proton": 1,
+      "neutron": 0
+    }
+  },
+  "occurrence": {
+    "description": "Hydrogen là nguyên tố phổ biến nhất trong vũ trụ. Trên Trái Đất hydrogen chủ yếu tồn tại dưới dạng hợp chất như nước và các hợp chất hữu cơ.",
+    "simple": ["H₂"],
+    "compounds": ["H₂O", "HCl", "NH₃", "CH₄", "C₂H₂", "H₂SO₄", "NaOH"],
+    "ores": ["Nước biển", "Nước ngọt", "Dầu mỏ", "Khí thiên nhiên", "Sinh khối"]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí không màu, không mùi, không vị.</li>\n      <li>Là nguyên tố nhẹ nhất trong bảng tuần hoàn.</li>\n      <li>Khối lượng riêng: <b>0,08988 g/L</b>.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Tốc độ khuếch tán rất lớn.</li>\n      <li>Nhiệt độ nóng chảy: <b>-259,16°C</b>.</li>\n      <li>Nhiệt độ sôi: <b>-252,87°C</b>.</li>\n      <li>Dẫn nhiệt tốt hơn hầu hết các chất khí khác.</li>\n      <li>Hydrogen lỏng được bảo quản ở nhiệt độ cực thấp.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Hydrogen là phi kim hoạt động hóa học.</li>\n      <li>Thể hiện tính khử mạnh ở nhiệt độ cao.</li>\n      <li>Phản ứng với Oxygen tạo nước.</li>\n      <li>Khử được nhiều oxide kim loại như CuO, Fe₂O₃, PbO...</li>\n      <li>Phản ứng với halogen tạo hydrogen halides.</li>\n      <li>Phản ứng với Nitrogen tạo ammonia (NH₃) trong điều kiện thích hợp.</li>\n      <li>Có thể đóng vai trò chất Oxygen hóa khi tác dụng với kim loại mạnh tạo hydride.</li>\n      <li>Cháy trong không khí tạo ngọn lửa màu xanh nhạt.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Cháy trong Oxygen",
+      "equation": "2H₂ + O₂ → 2H₂O",
+      "related": "O",
+      "desc": "Hydro cháy mãnh liệt trong Oxygen tạo nước và tỏa nhiều nhiệt."
+    },
+    {
+      "type": "Khử CuO",
+      "equation": "CuO + H₂ → Cu + H₂O",
+      "condition": "t°",
+      "related": "Cu",
+      "desc": "Hydro thể hiện tính khử."
+    },
+    {
+      "type": "Khử Fe₂O₃",
+      "equation": "Fe₂O₃ + 3H₂ → 2Fe + 3H₂O",
+      "condition": "t°",
+      "related": "Fe",
+      "desc": "Điều chế kim loại từ oxide."
+    },
+    {
+      "type": "Tác dụng với chlorine",
+      "equation": "H₂ + Cl₂ → 2HCl",
+      "condition": "as",
+      "related": "Cl",
+      "desc": "Tạo khí hydrogen chloride."
+    },
+    {
+      "type": "Tổng hợp ammonia",
+      "equation": "N₂ + 3H₂ ⇌ 2NH₃",
+      "condition": "t°, p, xt",
+      "related": "N",
+      "desc": "Phản ứng Haber-Bosch."
+    }
+  ],
+  "applications": [
+    {
+      "title": "Nhiên liệu tên lửa",
+      "desc": "Hydro lỏng là nhiên liệu có hiệu suất rất cao."
+    },
+    {
+      "title": "Pin nhiên liệu Hydrogen",
+      "desc": "Nguồn năng lượng sạch cho ô tô và thiết bị điện."
+    },
+    {
+      "title": "Sản xuất NH₃",
+      "desc": "Nguyên liệu chính trong quy trình Haber."
+    },
+    {
+      "title": "Sản xuất HCl",
+      "desc": "Nguyên liệu công nghiệp hóa chất."
+    },
+    {
+      "title": "Khử oxide kim loại",
+      "desc": "Luyện kim và tinh chế kim loại."
+    },
+    {
+      "title": "Hydrogenation dầu thực vật",
+      "desc": "Sản xuất bơ thực vật."
+    },
+    {
+      "title": "Lọc dầu",
+      "desc": "Loại bỏ lưu huỳnh trong nhiên liệu."
+    },
+    {
+      "title": "Khí bảo vệ",
+      "desc": "Dùng trong công nghiệp điện tử và luyện kim."
+    },
+    {
+      "title": "Khinh khí cầu",
+      "desc": "Do là khí nhẹ nhất."
+    }
+  ],
+  "simulation": {
+    "title": "Đốt cháy khí Hydrogen",
+    "reagents": [
+      {
+        "id": "H2",
+        "name": "Khí H₂",
+        "icon": "fa-cloud"
+      },
+      {
+        "id": "O2",
+        "name": "Khí O₂",
+        "icon": "fa-wind"
+      }
+    ],
+    "expected": ["H2", "O2"],
+    "resultText": "🔥 Hydrogen cháy trong Oxygen tạo thành nước và giải phóng nhiều nhiệt.\n\n2H₂ + O₂ → 2H₂O"
+  },
+  "notes": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Nguyên tố số 1 trong bảng tuần hoàn.</li>\n      <li>Chiếm khoảng 75% khối lượng vật chất thông thường của vũ trụ.</li>\n      <li>Là thành phần chính của Mặt Trời và các sao.</li>\n      <li>Là nguyên tố quan trọng trong nước và mọi hợp chất hữu cơ.</li>\n      <li>Được xem là nhiên liệu của tương lai trong nền kinh tế hydrogen.</li>\n    </ul>\n  ",
+  "nameVi": "Hydrogen",
+  "nameEn": "Hydrogen",
+  "file": "elements/001_H.json"
+}

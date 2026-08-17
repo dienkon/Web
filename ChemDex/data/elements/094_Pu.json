@@ -1,0 +1,24 @@
+{
+  "number": 94,
+  "symbol": "Pu",
+  "nameVi": "Plutonium",
+  "nameEn": "Plutonium",
+  "mass": 244,
+  "category": "actinide",
+  "structureType": "antifluorite",
+  "general": {
+    "shells": [],
+    "electronConfig": "Đang cập nhật",
+    "englishName": "Plutonium",
+    "latinName": "Plutonium"
+  },
+  "history": {},
+  "structure": {},
+  "occurrence": {},
+  "physical": "Đang cập nhật dữ liệu.",
+  "chemical": "Đang cập nhật dữ liệu.",
+  "reactions": [],
+  "images": {},
+  "hasData": true,
+  "file": "elements/094_Pu.json"
+}

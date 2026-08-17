@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mô Phỏng Mạch Khuếch Đại Thuật Toán | Team Project</title>
+
+    <!-- Tailwind CSS cho layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js cho đồ thị sóng -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+      :root {
+          font-family: 'Poppins', sans-serif;
+      }
+
+      /* Animated Background */
+      body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #064e3b);
+          background-size: 400% 400%;
+          animation: gradientBG 15s ease infinite;a
+          color: #e2e8f0;
+      }
+
+      @keyframes gradientBG {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+      }
+
+      /* Glassmorphism Classes */
+      .glass-panel {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 1.5rem;
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      }
+
+      .glass-button {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(4px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          transition: all 0.3s ease;
+      }
+      .glass-button:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+      }
+
+      /* Custom Range Slider */
+      input[type=range] {
+          -webkit-appearance: none;
+          width: 100%;
+          background: transparent;
+      }
+      input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          background: #10b981;
+          cursor: pointer;
+          margin-top: -8px;
+          box-shadow: 0 0 10px #10b981;
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 6px;
+          cursor: pointer;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 3px;
+      }
+
+      .text-glow {
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body class="p-4 md:p-8 flex flex-col items-center">
+    <!-- Header -->
+    <header class="text-center mb-10 mt-4 w-full max-w-7xl animate-fade-in">
+      <div class="inline-block glass-panel px-8 py-4 mb-4">
+        <h1
+          class="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 text-glow"
+        >
+          <i class="ph ph-cpu text-emerald-400 mr-2"></i>Mạch Khuếch Đại Đảo
+          (Inverting Op-Amp)
+        </h1>
+      </div>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+        Mô phỏng tương tác thông số điện áp và điện trở. Quan sát sự thay đổi
+        pha và biên độ tín hiệu theo thời gian thực.
+      </p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main
+      class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10"
+    >
+      <!-- Left Column: Controls & Circuit -->
+      <div class="lg:col-span-4 space-y-6">
+        <!-- Circuit Diagram Panel -->
+        <div class="glass-panel p-6 flex flex-col items-center">
+          <h2
+            class="text-xl font-semibold mb-4 text-emerald-300 flex items-center"
+          >
+            <i class="ph ph-circuit-line mr-2"></i> Sơ đồ mạch
+          </h2>
+          <!-- SVG Mạch điện -->
+          <svg
+            viewBox="0 0 400 250"
+            class="w-full max-w-xs drop-shadow-xl"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              stroke="white"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <!-- OpAmp Triangle -->
+              <polygon
+                points="180,80 180,180 280,130"
+                fill="rgba(16, 185, 129, 0.1)"
+                stroke="#10b981"
+                stroke-width="3"
+              />
+              <!-- Minus & Plus -->
+              <text x="190" y="115" fill="white" font-size="20" stroke="none">
+                -
+              </text>
+              <text x="190" y="160" fill="white" font-size="20" stroke="none">
+                +
+              </text>
+              <!-- Inputs -->
+              <line x1="50" y1="110" x2="100" y2="110" />
+              <!-- Vin to Rin -->
+              <path
+                d="M100,110 L110,100 L120,120 L130,100 L140,120 L150,110"
+                stroke="#38bdf8"
+              />
+              <!-- Rin -->
+              <line x1="150" y1="110" x2="180" y2="110" />
+              <!-- Rin to Minus -->
+
+              <!-- Ground to Plus -->
+              <line x1="150" y1="155" x2="180" y2="155" />
+              <line x1="150" y1="155" x2="150" y2="200" />
+              <line x1="135" y1="200" x2="165" y2="200" />
+              <line x1="142" y1="206" x2="158" y2="206" />
+              <line x1="148" y1="212" x2="152" y2="212" />
+
+              <!-- Feedback Loop -->
+              <line x1="165" y1="110" x2="165" y2="40" />
+              <line x1="165" y1="40" x2="200" y2="40" />
+              <path
+                d="M200,40 L210,30 L220,50 L230,30 L240,50 L250,40"
+                stroke="#f472b6"
+              />
+              <!-- Rf -->
+              <line x1="250" y1="40" x2="300" y2="40" />
+              <line x1="300" y1="40" x2="300" y2="130" />
+
+              <!-- Output -->
+              <line x1="280" y1="130" x2="350" y2="130" />
+
+              <!-- Labels -->
+              <text
+                x="30"
+                y="115"
+                fill="#38bdf8"
+                font-size="16"
+                stroke="none"
+                font-weight="bold"
+              >
+                Vin
+              </text>
+              <text x="110" y="90" fill="#38bdf8" font-size="16" stroke="none">
+                R in
+              </text>
+              <text x="215" y="20" fill="#f472b6" font-size="16" stroke="none">
+                R f
+              </text>
+              <text
+                x="355"
+                y="135"
+                fill="#10b981"
+                font-size="16"
+                stroke="none"
+                font-weight="bold"
+              >
+                Vout
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="glass-panel p-6">
+          <h2
+            class="text-xl font-semibold mb-6 text-emerald-300 flex items-center"
+          >
+            <i class="ph ph-sliders-horizontal mr-2"></i> Bảng điều khiển
+          </h2>
+
+          <!-- Vin Slider -->
+          <div class="mb-6">
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-sky-400"
+                >Điện áp vào (Vin - Biên độ)</label
+              >
+              <span
+                id="vin-val"
+                class="text-sm font-bold bg-sky-900/50 px-2 py-1 rounded text-sky-300"
+                >1 V</span
+              >
+            </div>
+            <input
+              type="range"
+              id="vin"
+              min="0.1"
+              max="5"
+              step="0.1"
+              value="1"
+            />
+          </div>
+
+          <!-- Rin Slider -->
+          <div class="mb-6">
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-sky-400"
+                >Điện trở vào (R in)</label
+              >
+              <span
+                id="rin-val"
+                class="text-sm font-bold bg-sky-900/50 px-2 py-1 rounded text-sky-300"
+                >10 kΩ</span
+              >
+            </div>
+            <input type="range" id="rin" min="1" max="50" step="1" value="10" />
+          </div>
+
+          <!-- Rf Slider -->
+          <div class="mb-6">
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-pink-400"
+                >Điện trở hồi tiếp (R f)</label
+              >
+              <span
+                id="rf-val"
+                class="text-sm font-bold bg-pink-900/50 px-2 py-1 rounded text-pink-300"
+                >20 kΩ</span
+              >
+            </div>
+            <input type="range" id="rf" min="1" max="100" step="1" value="20" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Visualization & Theory -->
+      <div class="lg:col-span-8 space-y-6">
+        <!-- Oscilloscope Panel -->
+        <div class="glass-panel p-4 md:p-6 relative">
+          <h2
+            class="text-xl font-semibold mb-2 text-emerald-300 flex justify-between items-center"
+          >
+            <span class="flex items-center"
+              ><i class="ph ph-wave-sine mr-2"></i> Máy hiện sóng
+              (Oscilloscope)</span
+            >
+            <span
+              class="text-xs font-normal text-gray-400 bg-black/30 px-3 py-1 rounded-full border border-gray-600"
+              >Nguồn cấp (Vcc) = ±15V</span
+            >
+          </h2>
+
+          <!-- Live Stats -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="glass-panel p-3 text-center border-emerald-500/30">
+              <p class="text-xs text-gray-400 uppercase tracking-wider">
+                Hệ số khuếch đại (Av)
+              </p>
+              <p id="gain-val" class="text-2xl font-bold text-white text-glow">
+                -2.0
+              </p>
+            </div>
+            <div
+              class="glass-panel p-3 text-center border-emerald-500/30 relative overflow-hidden"
+            >
+              <p class="text-xs text-gray-400 uppercase tracking-wider">
+                Vout Max
+              </p>
+              <p id="vout-val" class="text-2xl font-bold text-white text-glow">
+                -2.0 V
+              </p>
+              <!-- Warning saturation -->
+              <div
+                id="warn-clip"
+                class="absolute bottom-0 left-0 w-full bg-red-500/80 text-white text-[10px] font-bold py-0.5 hidden"
+              >
+                CẢNH BÁO: BÃO HÒA (CLIPPING)
+              </div>
+            </div>
+          </div>
+
+          <!-- Canvas for Chart -->
+          <div class="w-full h-[300px] md:h-[400px] relative">
+            <canvas id="waveChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Theory and Application Tabs -->
+        <div class="glass-panel p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Theory -->
+            <div>
+              <h3
+                class="text-lg font-bold text-emerald-400 mb-3 border-b border-emerald-500/30 pb-2"
+              >
+                <i class="ph ph-book-open text-xl align-middle mr-1"></i> Nguyên
+                lý hoạt động
+              </h3>
+              <p class="text-sm text-gray-300 mb-3 leading-relaxed">
+                Mạch khuếch đại đảo sử dụng hồi tiếp âm (negative feedback). Tín
+                hiệu đầu vào được đưa vào chân đảo (-), trong khi chân không đảo
+                (+) được nối đất.
+              </p>
+              <div
+                class="bg-black/30 rounded-lg p-4 font-mono text-center border border-white/10 mb-3"
+              >
+                <p class="text-emerald-300 font-bold mb-1">
+                  Công thức tính Vout:
+                </p>
+                <p class="text-xl">
+                  V<sub class="text-xs">out</sub> = - V<sub class="text-xs"
+                    >in</sub
+                  >
+                  × (R<sub class="text-xs">f</sub> / R<sub class="text-xs"
+                    >in</sub
+                  >)
+                </p>
+              </div>
+              <ul class="text-sm text-gray-300 space-y-2 list-disc pl-5">
+                <li>
+                  Dấu trừ (-) thể hiện **sự đảo pha 180°** (tín hiệu ra ngược
+                  chiều tín hiệu vào).
+                </li>
+                <li>
+                  Hệ số khuếch đại
+                  <span class="text-emerald-300 font-bold"
+                    >Av = - (Rf / Rin)</span
+                  >.
+                </li>
+                <li>
+                  Nếu |Vout| vượt quá điện áp nguồn (Vcc = ±15V), Op-Amp sẽ bị
+                  **bão hòa**, làm biến dạng cắt chóp tín hiệu.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Applications -->
+            <div>
+              <h3
+                class="text-lg font-bold text-pink-400 mb-3 border-b border-pink-500/30 pb-2"
+              >
+                <i class="ph ph-rocket-launch text-xl align-middle mr-1"></i>
+                Công dụng thực tế
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div
+                    class="bg-pink-500/20 p-2 rounded-lg mr-3 text-pink-400 mt-1"
+                  >
+                    <i class="ph ph-faders text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">
+                      Bộ trộn âm thanh (Audio Mixer)
+                    </h4>
+                    <p class="text-sm text-gray-400">
+                      Sử dụng nhiều điện trở ngõ vào để cộng và khuếch đại nhiều
+                      tín hiệu audio riêng biệt mà không bị nhiễu chéo.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="bg-pink-500/20 p-2 rounded-lg mr-3 text-pink-400 mt-1"
+                  >
+                    <i class="ph ph-wave-triangle text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">
+                      Chuyển đổi tín hiệu cảm biến
+                    </h4>
+                    <p class="text-sm text-gray-400">
+                      Khuếch đại các tín hiệu điện áp rất nhỏ (như từ cảm biến
+                      nhiệt độ, quang trở) lên mức điện áp tiêu chuẩn cho vi
+                      điều khiển.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div
+                    class="bg-pink-500/20 p-2 rounded-lg mr-3 text-pink-400 mt-1"
+                  >
+                    <i class="ph ph-speaker-hifi text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">
+                      Mạch đệm & Lọc (Active Filters)
+                    </h4>
+                    <p class="text-sm text-gray-400">
+                      Kết hợp với tụ điện để tạo ra các bộ lọc thông thấp
+                      (Low-pass) hoặc thông cao (High-pass) dùng trong amply.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="mt-12 text-center text-gray-500 text-sm z-10 relative pb-8">
+      <p>Bản quyền thuộc về Nhóm [Tên Nhóm Của Bạn]</p>
+      <p class="mt-1">Đồ án môn học Kỹ Thuật Điện Tử / Mạch Điện</p>
+    </footer>
+
+    <!-- Simulation Script -->
+    <script>
+      // Cấu hình thông số cố định
+      const VCC = 15; // Điện áp nguồn bão hòa (+- 15V)
+
+      // Lấy các element
+      const elVin = document.getElementById("vin");
+      const elRin = document.getElementById("rin");
+      const elRf = document.getElementById("rf");
+
+      const textVin = document.getElementById("vin-val");
+      const textRin = document.getElementById("rin-val");
+      const textRf = document.getElementById("rf-val");
+      const textGain = document.getElementById("gain-val");
+      const textVout = document.getElementById("vout-val");
+      const warnClip = document.getElementById("warn-clip");
+
+      // Cấu hình mảng dữ liệu cho Chart
+      const dataPoints = 200;
+      let timeArray = [];
+      for (let i = 0; i <= dataPoints; i++) {
+        timeArray.push((i / dataPoints) * 4 * Math.PI); // Tạo 2 chu kỳ sóng
+      }
+
+      // Khởi tạo Chart.js
+      const ctx = document.getElementById("waveChart").getContext("2d");
+      Chart.defaults.color = "#94a3b8";
+      Chart.defaults.font.family = "'Poppins', sans-serif";
+
+      const chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: timeArray,
+          datasets: [
+            {
+              label: "Vin (Điện áp vào)",
+              data: [],
+              borderColor: "#38bdf8", // Xanh dương nhạt
+              borderWidth: 2,
+              tension: 0.4,
+              pointRadius: 0,
+              borderDash: [5, 5],
+            },
+            {
+              label: "Vout (Điện áp ra)",
+              data: [],
+              borderColor: "#10b981", // Xanh lá ngọc
+              backgroundColor: "rgba(16, 185, 129, 0.1)",
+              borderWidth: 3,
+              tension: 0.4,
+              pointRadius: 0,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {
+            duration: 0, // Tắt animation để update mượt hơn khi kéo slider
+          },
+          interaction: {
+            intersect: false,
+            mode: "index",
+          },
+          plugins: {
+            legend: {
+              position: "top",
+              labels: { color: "#e2e8f0", usePointStyle: true, boxWidth: 8 },
+            },
+            tooltip: { enabled: false },
+          },
+          scales: {
+            x: {
+              display: false, // Ẩn trục X (thời gian) cho giống máy hiện sóng
+            },
+            y: {
+              min: -20,
+              max: 20,
+              grid: {
+                color: "rgba(255, 255, 255, 0.1)",
+                tickColor: "transparent",
+              },
+              title: {
+                display: true,
+                text: "Điện áp (V)",
+                color: "#94a3b8",
+              },
+            },
+          },
+        },
+      });
+
+      // Hàm tính toán và cập nhật mô phỏng
+      function updateSimulation() {
+        const vin = parseFloat(elVin.value);
+        const rin = parseFloat(elRin.value);
+        const rf = parseFloat(elRf.value);
+
+        // Cập nhật text hiển thị
+        textVin.innerText = `${vin.toFixed(1)} V`;
+        textRin.innerText = `${rin} kΩ`;
+        textRf.innerText = `${rf} kΩ`;
+
+        // Tính toán Gain (Av = - Rf / Rin)
+        const gain = -(rf / rin);
+        const voutMax = vin * gain;
+
+        textGain.innerText = gain.toFixed(2);
+        textVout.innerText = `${voutMax.toFixed(2)} V`;
+
+        // Đổi màu text dựa theo Gain (để trông ngầu hơn)
+        if (Math.abs(gain) > 1) {
+          textGain.className = "text-2xl font-bold text-emerald-400 text-glow";
+        } else {
+          textGain.className = "text-2xl font-bold text-gray-300";
+        }
+
+        // Kiểm tra bão hòa (Clipping)
+        let isClipping = false;
+        if (Math.abs(voutMax) > VCC) {
+          warnClip.classList.remove("hidden");
+          textVout.classList.replace("text-white", "text-red-400");
+          isClipping = true;
+        } else {
+          warnClip.classList.add("hidden");
+          textVout.classList.replace("text-red-400", "text-white");
+        }
+
+        // Tạo lại mảng dữ liệu sóng
+        const inData = [];
+        const outData = [];
+
+        timeArray.forEach((t) => {
+          const currentVin = vin * Math.sin(t);
+          let currentVout = currentVin * gain;
+
+          // Xử lý cắt chóp nếu bão hòa (Mô phỏng thực tế)
+          if (currentVout > VCC) currentVout = VCC;
+          if (currentVout < -VCC) currentVout = -VCC;
+
+          inData.push(currentVin);
+          outData.push(currentVout);
+        });
+
+        // Cập nhật biểu đồ
+        chart.data.datasets[0].data = inData;
+        chart.data.datasets[1].data = outData;
+
+        // Nếu bị bão hòa, đổi màu sóng đầu ra sang đỏ cảnh báo
+        if (isClipping) {
+          chart.data.datasets[1].borderColor = "#f87171"; // Red
+          chart.data.datasets[1].backgroundColor = "rgba(248, 113, 113, 0.1)";
+        } else {
+          chart.data.datasets[1].borderColor = "#10b981"; // Emerald
+          chart.data.datasets[1].backgroundColor = "rgba(16, 185, 129, 0.1)";
+        }
+
+        chart.update();
+      }
+
+      // Gắn sự kiện lắng nghe cho các thanh trượt
+      [elVin, elRin, elRf].forEach((el) => {
+        el.addEventListener("input", updateSimulation);
+      });
+
+      // Khởi chạy lần đầu
+      updateSimulation();
+    </script>
+  </body>
+</html>

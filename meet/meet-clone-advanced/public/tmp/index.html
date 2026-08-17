@@ -1,0 +1,1493 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet Clone Advanced</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --panel:#111827;
+      --panel2:#1f2937;
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --line:#334155;
+      --accent:#60a5fa;
+      --accent2:#22c55e;
+      --danger:#ef4444;
+      --warn:#f59e0b;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(96,165,250,.18), transparent 40%),
+        radial-gradient(900px 500px at 80% 20%, rgba(34,197,94,.12), transparent 35%),
+        linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color:var(--text);
+    }
+    button,input{
+      font:inherit;
+    }
+    .hidden{display:none !important}
+    .shell{
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 24px;
+      border-bottom:1px solid rgba(148,163,184,.18);
+      backdrop-filter: blur(16px);
+      background: rgba(2,6,23,.45);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .brand-badge{
+      width:38px;height:38px;border-radius:14px;
+      background: linear-gradient(135deg, #60a5fa, #22c55e);
+      box-shadow: var(--shadow);
+    }
+    .top-actions{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .pill{
+      padding:8px 12px;
+      border:1px solid rgba(148,163,184,.18);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(15,23,42,.55);
+    }
+    .wrap{
+      width:min(1480px, 100%);
+      margin:0 auto;
+      padding:24px;
+      flex:1;
+      display:grid;
+      gap:20px;
+    }
+    .card{
+      background: rgba(17,24,39,.86);
+      border:1px solid rgba(148,163,184,.16);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .landing{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:20px;
+      align-items:stretch;
+      min-height: calc(100vh - 110px);
+    }
+    .hero{
+      padding:34px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:18px;
+      background:
+        linear-gradient(180deg, rgba(96,165,250,.10), transparent 40%),
+        radial-gradient(800px 400px at 70% 0%, rgba(34,197,94,.10), transparent 35%);
+    }
+    h1{font-size:clamp(34px,5vw,58px); margin:0; line-height:1.02}
+    .lead{color:var(--muted); font-size:18px; line-height:1.6; max-width:62ch}
+    .grid{
+      display:grid;
+      gap:16px;
+    }
+    .form-card{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+    .field{
+      display:grid;
+      gap:8px;
+    }
+    .field label{font-size:14px; color:var(--muted)}
+    .field input{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,.18);
+      background:#0b1220;
+      color:var(--text);
+      outline:none;
+    }
+    .field input:focus{border-color: rgba(96,165,250,.7)}
+    .row{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      border:0;
+      border-radius:16px;
+      padding:13px 16px;
+      cursor:pointer;
+      color:#fff;
+      background:#334155;
+      transition:.16s transform ease, .16s opacity ease, .16s background ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background: linear-gradient(135deg, #2563eb, #22c55e)}
+    .btn.secondary{background:#1f2937}
+    .btn.danger{background:#991b1b}
+    .btn.soft{
+      background:#0f172a;
+      border:1px solid rgba(148,163,184,.18);
+    }
+    .mini{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+    .feature-list{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top:8px;
+    }
+    .feature{
+      padding:14px;
+      border:1px solid rgba(148,163,184,.12);
+      border-radius:18px;
+      background: rgba(15,23,42,.46);
+      min-height:92px;
+    }
+    .feature b{display:block; margin-bottom:6px}
+    .feature span{color:var(--muted); font-size:14px; line-height:1.4}
+    .workspace{
+      display:grid;
+      grid-template-columns: 1.45fr .75fr;
+      gap:20px;
+      min-height: calc(100vh - 110px);
+    }
+    .stage{
+      display:grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 0;
+    }
+    .stage-header{
+      padding:18px 20px;
+      border-bottom:1px solid rgba(148,163,184,.12);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .stage-title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .stage-title h2{margin:0; font-size:20px}
+    .stage-title small{color:var(--muted)}
+    .video-grid{
+      padding:18px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:14px;
+      align-content:start;
+      overflow:auto;
+    }
+    .tile{
+      position:relative;
+      min-height:220px;
+      background:#060b16;
+      border:1px solid rgba(148,163,184,.14);
+      border-radius:20px;
+      overflow:hidden;
+    }
+    .tile video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      background:#050816;
+    }
+    .tile .placeholder{
+      position:absolute; inset:0;
+      display:grid; place-items:center;
+      color:#cbd5e1;
+      background:
+        radial-gradient(500px 260px at 30% 20%, rgba(96,165,250,.18), transparent 55%),
+        linear-gradient(180deg, rgba(15,23,42,.9), rgba(2,6,23,.95));
+      padding:20px;
+      text-align:center;
+    }
+    .avatar{
+      width:76px;height:76px;border-radius:50%;
+      background:linear-gradient(135deg, #2563eb, #22c55e);
+      display:grid;place-items:center;
+      font-size:28px;font-weight:800;
+      margin-bottom:10px;
+    }
+    .badge{
+      position:absolute;
+      left:12px;
+      top:12px;
+      background: rgba(2,6,23,.7);
+      border:1px solid rgba(148,163,184,.18);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      z-index:2;
+      max-width: calc(100% - 24px);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .status{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--accent)}
+    .dot.green{background:var(--accent2)}
+    .dot.red{background:var(--danger)}
+    .toolbar{
+      padding:14px 16px;
+      border-top:1px solid rgba(148,163,184,.12);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      background: rgba(2,6,23,.32);
+    }
+    .tool{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:11px 14px;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.15);
+      background:#111827;
+      color:var(--text);
+      cursor:pointer;
+    }
+    .tool.active{background:#0b2a16; border-color: rgba(34,197,94,.4)}
+    .tool.warn{background:#281a08; border-color: rgba(245,158,11,.35)}
+    .tool.danger{background:#2a1010; border-color: rgba(239,68,68,.35)}
+    .side{
+      min-height:0;
+      display:grid;
+      grid-template-rows: auto auto 1fr;
+    }
+    .panel{
+      padding:18px;
+      border-bottom:1px solid rgba(148,163,184,.12);
+    }
+    .panel h3{margin:0 0 12px}
+    .list{
+      display:grid;
+      gap:10px;
+      max-height: 260px;
+      overflow:auto;
+    }
+    .item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 13px;
+      border-radius:14px;
+      background:#0b1220;
+      border:1px solid rgba(148,163,184,.12);
+    }
+    .item .meta{display:grid; gap:3px}
+    .item .meta small{color:var(--muted)}
+    .chat{
+      display:grid;
+      grid-template-rows: 1fr auto;
+      min-height:0;
+    }
+    .messages{
+      padding:14px;
+      overflow:auto;
+      display:grid;
+      gap:10px;
+    }
+    .msg{
+      padding:10px 12px;
+      border-radius:16px;
+      background:#0b1220;
+      border:1px solid rgba(148,163,184,.12);
+    }
+    .msg .name{font-size:12px; color:var(--accent); margin-bottom:4px}
+    .msg .time{font-size:11px; color:var(--muted); margin-top:4px}
+    .composer{
+      padding:14px;
+      border-top:1px solid rgba(148,163,184,.12);
+      display:flex;
+      gap:10px;
+      background: rgba(2,6,23,.22);
+    }
+    .composer input{
+      flex:1;
+      padding:13px 14px;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.14);
+      background:#0b1220;
+      color:var(--text);
+      outline:none;
+    }
+    .note{
+      padding:12px 14px;
+      border-radius:14px;
+      background:#0b1220;
+      border:1px solid rgba(148,163,184,.12);
+      color:var(--muted);
+      line-height:1.5;
+      font-size:14px;
+    }
+    .lobby-preview{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+    .preview-box{
+      min-height:320px;
+      background:#050816;
+      border:1px solid rgba(148,163,184,.12);
+      border-radius:20px;
+      overflow:hidden;
+      position:relative;
+    }
+    .preview-box video{width:100%; height:100%; object-fit:cover; display:block;}
+    .preview-box .placeholder{position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:24px; background:linear-gradient(180deg, rgba(15,23,42,.82), rgba(2,6,23,.95));}
+    .banner{
+      padding:12px 14px;
+      border-radius:16px;
+      background: rgba(96,165,250,.12);
+      border:1px solid rgba(96,165,250,.24);
+      color:#dbeafe;
+    }
+    .waiting{
+      display:grid;
+      gap:12px;
+    }
+    .pending-card{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px;
+      border-radius:14px;
+      background:#0b1220;
+      border:1px solid rgba(148,163,184,.12);
+    }
+    .pending-card .name{font-weight:700}
+    .pending-card .actions{display:flex; gap:8px; flex-wrap:wrap}
+    .muted{color:var(--muted)}
+    .tiny{font-size:12px}
+    .toast{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:100;
+      padding:12px 14px;
+      background:#0b1220;
+      border:1px solid rgba(148,163,184,.18);
+      box-shadow: var(--shadow);
+      border-radius:14px;
+      min-width:240px;
+      max-width:min(400px, calc(100vw - 40px));
+    }
+    @media (max-width: 1050px){
+      .landing,.workspace{grid-template-columns:1fr}
+      .hero{min-height:auto}
+    }
+    @media (max-width: 700px){
+      .wrap{padding:14px}
+      .topbar{padding:14px 16px}
+      .feature-list{grid-template-columns:1fr}
+      .toolbar{justify-content:flex-start}
+      .composer{flex-direction:column}
+      .composer button{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div>
+          <div>Meet Clone Advanced</div>
+          <div class="tiny muted">Lobby • Waiting room • Screen share • Chat</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="pill" id="roomPill">Chưa vào phòng</div>
+        <div class="pill" id="rolePill">Khách</div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <section id="landingView" class="landing">
+        <div class="card hero">
+          <h1>Meet clone có lobby chờ, mic/cam mặc định tắt, và chia sẻ màn hình.</h1>
+          <div class="lead">
+            Bản này có flow kiểu Google Meet: tạo phòng hoặc xin vào phòng, vào phòng chờ để tự bật mic/cam trước,
+            host duyệt mới cho vô meeting, có chat realtime và screen share.
+          </div>
+          <div class="feature-list">
+            <div class="feature"><b>Tạo / join phòng</b><span>Room code tự tạo hoặc nhập tay, chạy bằng Socket.IO + WebRTC.</span></div>
+            <div class="feature"><b>Phòng chờ</b><span>Mic/cam mặc định tắt. Người dùng tự bật trước khi bấm tham gia.</span></div>
+            <div class="feature"><b>Duyệt người vào</b><span>Host nhận yêu cầu và bấm chấp nhận hoặc từ chối ngay trong meeting.</span></div>
+            <div class="feature"><b>Screen share + chat</b><span>Chia sẻ màn hình, nhắn chat nhóm, quản lý người tham gia.</span></div>
+          </div>
+        </div>
+
+        <div class="card form-card">
+          <div class="field">
+            <label>Tên hiển thị</label>
+            <input id="nameInput" maxlength="40" placeholder="Ví dụ: Dien" />
+          </div>
+          <div class="field">
+            <label>Mã phòng</label>
+            <input id="roomInput" maxlength="20" placeholder="Để trống để tạo mới" />
+          </div>
+          <div class="row">
+            <button class="btn primary" id="createBtn">Tạo phòng</button>
+            <button class="btn secondary" id="joinBtn">Join phòng</button>
+          </div>
+          <div class="mini">
+            Khi vào lobby, mic/cam sẽ ở trạng thái tắt. Bấm vào nút mở mic/cam để cấp quyền và xem trước trước khi tham gia.
+          </div>
+          <div class="note">
+            Chạy bằng <b>npm install</b> rồi <b>npm start</b>. Mở <b>http://localhost:3000</b>.
+          </div>
+        </div>
+      </section>
+
+      <section id="lobbyView" class="card hidden">
+        <div class="stage-header">
+          <div class="stage-title">
+            <h2>Phòng chờ</h2>
+            <small id="lobbySubtitle">Chuẩn bị trước khi vào phòng</small>
+          </div>
+          <div class="status"><span class="dot" id="lobbyDot"></span><span id="lobbyStatus">Đang chờ</span></div>
+        </div>
+        <div class="workspace" style="min-height:auto">
+          <div class="stage">
+            <div class="video-grid" style="grid-template-columns:1fr">
+              <div class="tile" style="min-height:360px">
+                <div class="badge" id="lobbyBadge">Preview của bạn</div>
+                <video id="lobbyVideo" playsinline autoplay muted class="hidden"></video>
+                <div class="placeholder" id="lobbyPlaceholder">
+                  <div>
+                    <div class="avatar" id="lobbyAvatar">D</div>
+                    <div id="lobbyPlaceholderText">Mic và cam đang tắt</div>
+                    <div class="mini" style="margin-top:8px">Bật mic hoặc cam để xem trước.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="toolbar">
+              <button class="tool" id="toggleLobbyMic">Mic: Off</button>
+              <button class="tool" id="toggleLobbyCam">Cam: Off</button>
+              <button class="tool primary" id="lobbyProceedBtn">Xác nhận tham gia</button>
+              <button class="tool danger hidden" id="cancelPendingBtn">Hủy yêu cầu</button>
+            </div>
+          </div>
+          <div class="card" style="min-height:0">
+            <div class="panel">
+              <h3>Thông tin phòng</h3>
+              <div class="note">
+                Phòng: <b id="lobbyRoomCode">-</b><br>
+                Vai trò: <b id="lobbyRole">-</b><br>
+                Trạng thái: <b id="lobbyFlow">Chưa sẵn sàng</b>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>Hướng dẫn</h3>
+              <div class="mini">
+                1. Bật mic/cam nếu cần.<br>
+                2. Bấm “Xác nhận tham gia”.<br>
+                3. Nếu bạn là người join, chờ host duyệt.<br>
+                4. Sau khi được duyệt, bạn sẽ vào meeting.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="meetingView" class="workspace hidden">
+        <div class="card stage">
+          <div class="stage-header">
+            <div class="stage-title">
+              <h2 id="meetingTitle">Meeting</h2>
+              <small id="meetingSubtitle">0 người tham gia</small>
+            </div>
+            <div class="status"><span class="dot green"></span><span id="meetingStatus">Đang kết nối</span></div>
+          </div>
+
+          <div class="video-grid" id="videoGrid">
+            <div class="tile" id="selfTile">
+              <div class="badge">Bạn</div>
+              <video id="selfVideo" autoplay playsinline muted class="hidden"></video>
+              <div class="placeholder" id="selfPlaceholder">
+                <div>
+                  <div class="avatar" id="selfAvatar">D</div>
+                  <div id="selfLabel">Cam đang tắt</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <button class="tool" id="micBtn">Bật mic</button>
+            <button class="tool" id="camBtn">Bật cam</button>
+            <button class="tool warn" id="shareBtn">Chia sẻ màn hình</button>
+            <button class="tool" id="copyRoomBtn">Copy mã phòng</button>
+            <button class="tool danger" id="leaveBtn">Rời phòng</button>
+          </div>
+        </div>
+
+        <div class="card side">
+          <div class="panel">
+            <h3>Người tham gia</h3>
+            <div class="list" id="participantsList"></div>
+          </div>
+          <div class="panel hidden" id="pendingPanel">
+            <h3>Yêu cầu vào phòng</h3>
+            <div class="waiting" id="pendingList"></div>
+          </div>
+          <div class="chat">
+            <div class="panel" style="border-bottom:0">
+              <h3>Chat</h3>
+            </div>
+            <div class="messages" id="chatMessages"></div>
+            <div class="composer">
+              <input id="chatInput" placeholder="Nhắn tin..." maxlength="1000" />
+              <button class="btn primary" id="sendChatBtn">Gửi</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const state = {
+      socket: null,
+      roomId: '',
+      name: '',
+      mode: 'join', // create | join
+      role: 'guest',
+      approved: false,
+      inLobby: false,
+      inMeeting: false,
+      isHost: false,
+      localPrefs: { audio: false, video: false },
+      localStream: null,
+      screenStream: null,
+      screenSharing: false,
+      peers: new Map(), // socketId -> { pc, videoEl, stream, audioSender, videoSender, name }
+      participants: new Map(),
+      pending: new Map(),
+      joinedRequested: false,
+    };
+
+    const ui = {
+      landingView: $('landingView'),
+      lobbyView: $('lobbyView'),
+      meetingView: $('meetingView'),
+      roomPill: $('roomPill'),
+      rolePill: $('rolePill'),
+      nameInput: $('nameInput'),
+      roomInput: $('roomInput'),
+      createBtn: $('createBtn'),
+      joinBtn: $('joinBtn'),
+      lobbyRoomCode: $('lobbyRoomCode'),
+      lobbyRole: $('lobbyRole'),
+      lobbyFlow: $('lobbyFlow'),
+      lobbyStatus: $('lobbyStatus'),
+      lobbyDot: $('lobbyDot'),
+      lobbySubtitle: $('lobbySubtitle'),
+      lobbyProceedBtn: $('lobbyProceedBtn'),
+      cancelPendingBtn: $('cancelPendingBtn'),
+      toggleLobbyMic: $('toggleLobbyMic'),
+      toggleLobbyCam: $('toggleLobbyCam'),
+      lobbyVideo: $('lobbyVideo'),
+      lobbyPlaceholder: $('lobbyPlaceholder'),
+      lobbyPlaceholderText: $('lobbyPlaceholderText'),
+      lobbyAvatar: $('lobbyAvatar'),
+      lobbyBadge: $('lobbyBadge'),
+      meetingTitle: $('meetingTitle'),
+      meetingSubtitle: $('meetingSubtitle'),
+      meetingStatus: $('meetingStatus'),
+      participantsList: $('participantsList'),
+      pendingPanel: $('pendingPanel'),
+      pendingList: $('pendingList'),
+      chatMessages: $('chatMessages'),
+      chatInput: $('chatInput'),
+      sendChatBtn: $('sendChatBtn'),
+      micBtn: $('micBtn'),
+      camBtn: $('camBtn'),
+      shareBtn: $('shareBtn'),
+      copyRoomBtn: $('copyRoomBtn'),
+      leaveBtn: $('leaveBtn'),
+      selfVideo: $('selfVideo'),
+      selfPlaceholder: $('selfPlaceholder'),
+      selfAvatar: $('selfAvatar'),
+      selfLabel: $('selfLabel'),
+      toast: $('toast'),
+      videoGrid: $('videoGrid'),
+    };
+
+    function showToast(text) {
+      ui.toast.textContent = text;
+      ui.toast.classList.remove('hidden');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => ui.toast.classList.add('hidden'), 2600);
+    }
+
+    function setView(name) {
+      ui.landingView.classList.toggle('hidden', name !== 'landing');
+      ui.lobbyView.classList.toggle('hidden', name !== 'lobby');
+      ui.meetingView.classList.toggle('hidden', name !== 'meeting');
+    }
+
+    function initials(name) {
+      const cleaned = (name || '?').trim();
+      const parts = cleaned.split(/\s+/).filter(Boolean);
+      return (parts[0]?.[0] || '?').toUpperCase() + (parts[1]?.[0] || '').toUpperCase();
+    }
+
+    function generateRoomId() {
+      return Math.random().toString(36).slice(2, 8).toUpperCase();
+    }
+
+    function fmtTime(ts) {
+      const d = new Date(ts);
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function appendMessage({ name, text, at }) {
+      const el = document.createElement('div');
+      el.className = 'msg';
+      el.innerHTML = `
+        <div class="name">${escapeHtml(name)}</div>
+        <div>${escapeHtml(text)}</div>
+        <div class="time">${fmtTime(at || Date.now())}</div>
+      `;
+      ui.chatMessages.appendChild(el);
+      ui.chatMessages.scrollTop = ui.chatMessages.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function updateTopPills() {
+      ui.roomPill.textContent = state.roomId ? `Phòng: ${state.roomId}` : 'Chưa vào phòng';
+      ui.rolePill.textContent = state.role === 'host' ? 'Host' : 'Khách';
+    }
+
+    function updateLobbyUI() {
+      ui.lobbyRoomCode.textContent = state.roomId || '-';
+      ui.lobbyRole.textContent = state.mode === 'create' ? 'Người tạo phòng' : 'Người tham gia';
+      ui.lobbyFlow.textContent = state.joinedRequested ? 'Đã gửi yêu cầu' : (state.mode === 'create' ? 'Sẵn sàng tạo phòng' : 'Sẵn sàng gửi yêu cầu');
+      ui.lobbySubtitle.textContent = `${state.name || 'Bạn'} • ${state.roomId || ''}`;
+      ui.lobbyBadge.textContent = state.name ? `${state.name} • Preview` : 'Preview của bạn';
+      ui.lobbyAvatar.textContent = initials(state.name);
+      ui.toggleLobbyMic.textContent = `Mic: ${state.localPrefs.audio ? 'On' : 'Off'}`;
+      ui.toggleLobbyCam.textContent = `Cam: ${state.localPrefs.video ? 'On' : 'Off'}`;
+      ui.lobbyProceedBtn.textContent = state.mode === 'create' ? 'Xác nhận tạo & vào phòng' : 'Xác nhận tham gia';
+      ui.cancelPendingBtn.classList.toggle('hidden', !(state.mode === 'join' && state.joinedRequested && !state.inMeeting));
+      ui.lobbyPlaceholderText.textContent = state.localPrefs.audio || state.localPrefs.video ? 'Đang chuẩn bị thiết bị...' : 'Mic và cam đang tắt';
+      ui.lobbyVideo.classList.toggle('hidden', !state.localPrefs.video);
+      ui.lobbyPlaceholder.classList.toggle('hidden', state.localPrefs.video);
+      ui.lobbyStatus.textContent = state.joinedRequested ? 'Đang chờ host duyệt' : 'Sẵn sàng';
+      ui.lobbyDot.className = 'dot' + (state.joinedRequested ? ' red' : ' green');
+    }
+
+    function updateMeetingUI() {
+      ui.meetingTitle.textContent = `Phòng ${state.roomId}`;
+      ui.meetingSubtitle.textContent = `${Math.max(1, (state.participants.size || 0) + 1)} người tham gia`;
+      ui.selfAvatar.textContent = initials(state.name);
+      ui.selfLabel.textContent = state.localPrefs.video ? 'Cam đang bật' : 'Cam đang tắt';
+      ui.micBtn.textContent = state.localPrefs.audio ? 'Tắt mic' : 'Bật mic';
+      ui.camBtn.textContent = state.localPrefs.video ? 'Tắt cam' : 'Bật cam';
+      ui.shareBtn.textContent = state.screenSharing ? 'Dừng chia sẻ' : 'Chia sẻ màn hình';
+      ui.shareBtn.classList.toggle('active', state.screenSharing);
+      ui.micBtn.classList.toggle('active', state.localPrefs.audio);
+      ui.camBtn.classList.toggle('active', state.localPrefs.video);
+      ui.meetingStatus.textContent = state.screenSharing ? 'Đang chia sẻ màn hình' : 'Đang họp';
+      ui.pendingPanel.classList.toggle('hidden', !(state.isHost && state.pending.size > 0));
+      renderParticipants();
+      renderPending();
+    }
+
+    function renderParticipants() {
+      ui.participantsList.innerHTML = '';
+      const rows = Array.from(state.participants.values());
+      if (rows.length === 0) {
+        ui.participantsList.innerHTML = '<div class="note">Chưa có ai trong phòng.</div>';
+        return;
+      }
+      for (const p of rows) {
+        const item = document.createElement('div');
+        item.className = 'item';
+        const left = document.createElement('div');
+        left.className = 'meta';
+        left.innerHTML = `<div>${escapeHtml(p.name)} ${p.role === 'host' ? '👑' : ''}</div><small>${p.id === state.socket?.id ? 'Bạn' : (p.micEnabled ? 'Mic on' : 'Mic off')} • ${p.camEnabled ? 'Cam on' : 'Cam off'}</small>`;
+        const right = document.createElement('div');
+        right.className = 'tiny muted';
+        right.textContent = p.screenSharing ? 'Share' : '';
+        item.appendChild(left);
+        item.appendChild(right);
+        ui.participantsList.appendChild(item);
+      }
+    }
+
+    function renderPending() {
+      ui.pendingList.innerHTML = '';
+      const pending = Array.from(state.pending.values());
+      if (pending.length === 0) {
+        ui.pendingPanel.classList.add('hidden');
+        return;
+      }
+      ui.pendingPanel.classList.remove('hidden');
+      for (const p of pending) {
+        const wrap = document.createElement('div');
+        wrap.className = 'pending-card';
+        wrap.innerHTML = `
+          <div>
+            <div class="name">${escapeHtml(p.name)}</div>
+            <div class="tiny muted">Muốn vào phòng</div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" data-accept="${p.id}">Chấp nhận</button>
+            <button class="btn danger" data-reject="${p.id}">Từ chối</button>
+          </div>
+        `;
+        ui.pendingList.appendChild(wrap);
+      }
+      ui.pendingList.querySelectorAll('[data-accept]').forEach(btn => {
+        btn.addEventListener('click', () => approveRequest(btn.dataset.accept, true));
+      });
+      ui.pendingList.querySelectorAll('[data-reject]').forEach(btn => {
+        btn.addEventListener('click', () => approveRequest(btn.dataset.reject, false));
+      });
+    }
+
+    function approveRequest(socketId, accept) {
+      if (!state.socket || !state.roomId) return;
+      state.socket.emit('approve-join', { roomId: state.roomId, socketId, accept });
+      if (accept) {
+        state.pending.delete(socketId);
+      } else {
+        state.pending.delete(socketId);
+      }
+      updateMeetingUI();
+    }
+
+    function createSocket() {
+      if (state.socket) return;
+      state.socket = io();
+
+      state.socket.on('connect', () => {
+        updateTopPills();
+      });
+
+      state.socket.on('room-error', ({ message }) => {
+        showToast(message || 'Có lỗi xảy ra.');
+      });
+
+      state.socket.on('room-created', ({ roomId }) => {
+        state.roomId = roomId;
+        state.role = 'host';
+        state.isHost = true;
+        updateTopPills();
+        showToast('Đã tạo phòng. Đang vào meeting...');
+      });
+
+      state.socket.on('waiting-for-approval', ({ roomId }) => {
+        state.roomId = roomId;
+        state.joinedRequested = true;
+        state.role = 'guest';
+        updateTopPills();
+        ui.lobbyStatus.textContent = 'Đã gửi yêu cầu vào phòng';
+        ui.lobbyDot.className = 'dot red';
+        ui.lobbyFlow.textContent = 'Đang chờ host duyệt';
+        ui.cancelPendingBtn.classList.remove('hidden');
+        showToast('Đã gửi yêu cầu. Chờ host duyệt.');
+      });
+
+      state.socket.on('join-approved', async ({ roomId }) => {
+        if (roomId !== state.roomId) return;
+        showToast('Đã được duyệt. Đang vào phòng...');
+        await enterMeeting(state.mode === 'create' ? 'host' : 'guest');
+      });
+
+      state.socket.on('join-rejected', ({ message }) => {
+        state.joinedRequested = false;
+        updateLobbyUI();
+        showToast(message || 'Yêu cầu bị từ chối.');
+      });
+
+      state.socket.on('host-promoted', () => {
+        state.isHost = true;
+        state.role = 'host';
+        updateTopPills();
+        showToast('Bạn đã trở thành host.');
+      });
+
+      state.socket.on('host-changed', ({ hostId, hostName }) => {
+        const isMe = hostId === state.socket.id;
+        state.isHost = isMe;
+        state.role = isMe ? 'host' : 'guest';
+        updateTopPills();
+        if (hostName) showToast(`Host mới: ${hostName}`);
+      });
+
+      state.socket.on('room-state', (payload) => {
+        if (!payload || !payload.roomId) return;
+        if (payload.roomId !== state.roomId) return;
+        state.participants = new Map((payload.participants || []).map(p => [p.id, p]));
+        state.pending = new Map((payload.pending || []).map(p => [p.id, p]));
+        if (payload.hostId) {
+          state.isHost = payload.hostId === state.socket.id;
+          state.role = state.isHost ? 'host' : 'guest';
+        }
+        updateTopPills();
+        if (state.inMeeting) updateMeetingUI();
+      });
+
+      state.socket.on('participant-joined', (p) => {
+        if (!p) return;
+        state.participants.set(p.id, p);
+        updateMeetingUI();
+        showToast(`${p.name} đã vào phòng.`);
+      });
+
+      state.socket.on('participant-left', ({ id }) => {
+        const p = state.participants.get(id);
+        state.participants.delete(id);
+        updateMeetingUI();
+        if (p) showToast(`${p.name} đã rời phòng.`);
+        const peer = state.peers.get(id);
+        if (peer) {
+          try { peer.pc.close(); } catch {}
+          if (peer.videoEl) peer.videoEl.remove();
+          state.peers.delete(id);
+        }
+      });
+
+      state.socket.on('pending-join', ({ id, name }) => {
+        state.pending.set(id, { id, name, requestedAt: Date.now() });
+        updateMeetingUI();
+        showToast(`Có người chờ duyệt: ${name}`);
+      });
+
+      state.socket.on('chat-message', (msg) => appendMessage(msg));
+
+      state.socket.on('participant-status', (data) => {
+        const p = state.participants.get(data.id);
+        if (p) {
+          p.micEnabled = data.micEnabled;
+          p.camEnabled = data.camEnabled;
+          p.screenSharing = data.screenSharing;
+          state.participants.set(data.id, p);
+          updateMeetingUI();
+        }
+      });
+
+      state.socket.on('signal', async ({ from, type, data, name }) => {
+        if (type === 'offer') {
+          await onOffer(from, data, name);
+        } else if (type === 'answer') {
+          const peer = state.peers.get(from);
+          if (!peer) return;
+          try {
+            await peer.pc.setRemoteDescription(new RTCSessionDescription(data));
+          } catch (e) {
+            console.error(e);
+          }
+        } else if (type === 'ice-candidate') {
+          const peer = state.peers.get(from);
+          if (!peer) return;
+          try {
+            await peer.pc.addIceCandidate(data ? new RTCIceCandidate(data) : null);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      });
+    }
+
+    function stopStream(stream) {
+      if (!stream) return;
+      for (const t of stream.getTracks()) t.stop();
+    }
+
+    function attachLocalPreview(stream) {
+      const video = ui.lobbyVideo;
+      const selfVideo = ui.selfVideo;
+
+      if (stream && stream.getVideoTracks().length) {
+        video.srcObject = stream;
+        selfVideo.srcObject = stream;
+        video.classList.remove('hidden');
+        selfVideo.classList.remove('hidden');
+        ui.lobbyPlaceholder.classList.add('hidden');
+        ui.selfPlaceholder.classList.add('hidden');
+        video.play().catch(()=>{});
+        selfVideo.play().catch(()=>{});
+      } else {
+        video.srcObject = null;
+        selfVideo.srcObject = null;
+        video.classList.add('hidden');
+        selfVideo.classList.add('hidden');
+        ui.lobbyPlaceholder.classList.remove('hidden');
+        ui.selfPlaceholder.classList.remove('hidden');
+      }
+    }
+
+    async function rebuildLobbyPreview() {
+      stopStream(state.localStream);
+      state.localStream = null;
+
+      if (!state.localPrefs.audio && !state.localPrefs.video) {
+        attachLocalPreview(null);
+        updateLobbyUI();
+        return;
+      }
+
+      try {
+        state.localStream = await navigator.mediaDevices.getUserMedia({
+          audio: state.localPrefs.audio,
+          video: state.localPrefs.video ? { width: { ideal: 1280 }, height: { ideal: 720 } } : false,
+        });
+        attachLocalPreview(state.localStream);
+        updateLobbyUI();
+      } catch (err) {
+        console.error(err);
+        showToast('Không lấy được camera/mic. Hãy kiểm tra quyền hoặc thiết bị đang bị app khác dùng.');
+        state.localPrefs.audio = false;
+        state.localPrefs.video = false;
+        attachLocalPreview(null);
+        updateLobbyUI();
+      }
+    }
+
+    function getMeetingVideoSource() {
+      if (state.screenSharing && state.screenStream && state.screenStream.getVideoTracks()[0]) {
+        return state.screenStream.getVideoTracks()[0];
+      }
+      return state.localStream?.getVideoTracks?.()[0] || null;
+    }
+
+    function getMeetingAudioSource() {
+      return state.localStream?.getAudioTracks?.()[0] || null;
+    }
+
+    function ensurePeer(socketId, peerName) {
+      let peer = state.peers.get(socketId);
+      if (peer) return peer;
+
+      const pc = new RTCPeerConnection({
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }
+        ]
+      });
+
+      peer = {
+        pc,
+        name: peerName || '',
+        stream: new MediaStream(),
+        videoEl: null,
+        audioSender: null,
+        videoSender: null,
+      };
+
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.id = `tile-${socketId}`;
+      tile.innerHTML = `
+        <div class="badge">${escapeHtml(peerName || 'Người tham gia')}</div>
+        <video autoplay playsinline></video>
+        <div class="placeholder hidden">
+          <div>
+            <div class="avatar">${initials(peerName || '?')}</div>
+            <div>Cam đang tắt</div>
+          </div>
+        </div>
+      `;
+      const video = tile.querySelector('video');
+      const placeholder = tile.querySelector('.placeholder');
+      video.srcObject = peer.stream;
+      ui.videoGrid.appendChild(tile);
+      peer.videoEl = video;
+      peer.placeholder = placeholder;
+      state.peers.set(socketId, peer);
+
+      pc.onicecandidate = (event) => {
+        if (event.candidate) {
+          state.socket.emit('signal', {
+            roomId: state.roomId,
+            to: socketId,
+            type: 'ice-candidate',
+            data: event.candidate,
+          });
+        }
+      };
+
+      pc.ontrack = (event) => {
+        const [stream] = event.streams;
+        if (stream) {
+          peer.stream = stream;
+          peer.videoEl.srcObject = stream;
+          peer.videoEl.play().catch(()=>{});
+        }
+      };
+
+      pc.onconnectionstatechange = () => {
+        const st = pc.connectionState;
+        if (st === 'failed' || st === 'disconnected' || st === 'closed') {
+          showToast(`Kết nối với ${peerName || socketId.slice(0, 4)} có vấn đề.`);
+        }
+      };
+
+      syncTrackToPeer(peer);
+      return peer;
+    }
+
+    function syncTrackToPeer(peer) {
+      if (!peer || !peer.pc) return;
+
+      const audioTrack = getMeetingAudioSource();
+      const videoTrack = getMeetingVideoSource();
+
+      if (peer.audioSender && peer.audioSender.track !== audioTrack) {
+        peer.audioSender.replaceTrack(audioTrack || null).catch(()=>{});
+        if (!audioTrack) peer.audioSender = null;
+      }
+      if (peer.videoSender && peer.videoSender.track !== videoTrack) {
+        peer.videoSender.replaceTrack(videoTrack || null).catch(()=>{});
+        if (!videoTrack) peer.videoSender = null;
+      }
+
+      const senders = peer.pc.getSenders();
+      if (audioTrack && !peer.audioSender) {
+        peer.audioSender = peer.pc.addTrack(audioTrack, state.localStream || new MediaStream([audioTrack]));
+      }
+      if (videoTrack && !peer.videoSender) {
+        peer.videoSender = peer.pc.addTrack(videoTrack, (state.screenSharing && state.screenStream) ? state.screenStream : (state.localStream || new MediaStream([videoTrack])));
+      }
+
+      // If screen sharing is on and cam is on, keep video sender on the display stream.
+      if (state.screenSharing && videoTrack && peer.videoSender && peer.videoSender.track !== videoTrack) {
+        peer.videoSender.replaceTrack(videoTrack).catch(()=>{});
+      }
+
+      // Clean up senders when track is disabled.
+      if (!audioTrack && peer.audioSender) {
+        peer.audioSender.replaceTrack(null).catch(()=>{});
+      }
+      if (!videoTrack && peer.videoSender) {
+        peer.videoSender.replaceTrack(null).catch(()=>{});
+      }
+    }
+
+    async function syncAllPeers() {
+      for (const peer of state.peers.values()) {
+        syncTrackToPeer(peer);
+      }
+      await renegotiateAll();
+    }
+
+    async function renegotiateAll() {
+      for (const [socketId, peer] of state.peers.entries()) {
+        try {
+          const offer = await peer.pc.createOffer();
+          await peer.pc.setLocalDescription(offer);
+          state.socket.emit('signal', {
+            roomId: state.roomId,
+            to: socketId,
+            type: 'offer',
+            data: offer,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+
+    async function onOffer(from, offer, peerName) {
+      const peer = ensurePeer(from, peerName);
+      try {
+        await peer.pc.setRemoteDescription(new RTCSessionDescription(offer));
+        syncTrackToPeer(peer);
+        const answer = await peer.pc.createAnswer();
+        await peer.pc.setLocalDescription(answer);
+        state.socket.emit('signal', {
+          roomId: state.roomId,
+          to: from,
+          type: 'answer',
+          data: answer,
+        });
+      } catch (err) {
+        console.error(err);
+        showToast('Kết nối WebRTC gặp lỗi.');
+      }
+    }
+
+    async function connectToExistingPeers(peers) {
+      for (const p of peers || []) {
+        if (p.id === state.socket.id) continue;
+        const peer = ensurePeer(p.id, p.name);
+        try {
+          const offer = await peer.pc.createOffer();
+          await peer.pc.setLocalDescription(offer);
+          state.socket.emit('signal', {
+            roomId: state.roomId,
+            to: p.id,
+            type: 'offer',
+            data: offer,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+
+    async function enterMeeting(role = 'guest') {
+      if (!state.socket || !state.roomId) return;
+      state.role = role;
+      state.isHost = role === 'host';
+      state.inLobby = false;
+      state.inMeeting = true;
+      ui.meetingStatus.textContent = 'Đang kết nối';
+
+      const payload = { roomId: state.roomId, name: state.name, role };
+      state.socket.emit('enter-room', payload);
+
+      setView('meeting');
+      updateTopPills();
+      updateMeetingUI();
+
+      state.socket.once('room-state', async (payload) => {
+        state.participants = new Map((payload.participants || []).map(p => [p.id, p]));
+        state.pending = new Map((payload.pending || []).map(p => [p.id, p]));
+        state.isHost = payload.hostId === state.socket.id;
+        state.role = state.isHost ? 'host' : 'guest';
+        updateTopPills();
+        updateMeetingUI();
+        await connectToExistingPeers(payload.participants || []);
+        ui.meetingStatus.textContent = 'Đã vào phòng';
+      });
+    }
+
+    async function goToLobby(mode) {
+      state.mode = mode;
+      state.name = ui.nameInput.value.trim() || 'Guest';
+      state.roomId = (ui.roomInput.value.trim() || (mode === 'create' ? generateRoomId() : '')).toUpperCase();
+      if (!state.roomId) {
+        showToast('Nhập mã phòng trước.');
+        return;
+      }
+      createSocket();
+      updateTopPills();
+
+      state.inLobby = true;
+      state.inMeeting = false;
+      state.joinedRequested = false;
+      state.role = mode === 'create' ? 'host' : 'guest';
+      state.isHost = mode === 'create';
+      ui.roomInput.value = state.roomId;
+      ui.nameInput.value = state.name;
+      setView('lobby');
+      updateLobbyUI();
+      updateMeetingUI();
+
+      if (mode === 'create') {
+        ui.lobbyFlow.textContent = 'Sẵn sàng tạo phòng';
+      } else {
+        ui.lobbyFlow.textContent = 'Sẵn sàng gửi yêu cầu';
+      }
+
+      await rebuildLobbyPreview();
+    }
+
+    async function proceedFromLobby() {
+      if (!state.socket) createSocket();
+      if (!state.roomId) return;
+
+      if (state.mode === 'create') {
+        state.socket.emit('create-room', { roomId: state.roomId, name: state.name });
+        // give socket a beat to register room before entering
+        setTimeout(() => {
+          enterMeeting('host');
+        }, 120);
+      } else {
+        state.socket.emit('request-join', { roomId: state.roomId, name: state.name });
+      }
+    }
+
+    async function setLobbyMic(enabled) {
+      state.localPrefs.audio = enabled;
+      await rebuildLobbyPreview();
+    }
+
+    async function setLobbyCam(enabled) {
+      state.localPrefs.video = enabled;
+      await rebuildLobbyPreview();
+    }
+
+    async function toggleMeetingMic() {
+      state.localPrefs.audio = !state.localPrefs.audio;
+      if (state.localPrefs.audio) {
+        try {
+          const next = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+          const old = state.localStream;
+          if (!state.localStream) state.localStream = new MediaStream();
+          const track = next.getAudioTracks()[0];
+          state.localStream.addTrack(track);
+          attachLocalPreview(state.localStream);
+          stopStream(next);
+          if (old) {
+            old.getAudioTracks().forEach(t => {
+              if (t !== track) t.stop();
+            });
+          }
+        } catch (err) {
+          console.error(err);
+          state.localPrefs.audio = false;
+          showToast('Không bật được mic.');
+        }
+      } else {
+        if (state.localStream) {
+          for (const t of state.localStream.getAudioTracks()) {
+            t.stop();
+            state.localStream.removeTrack(t);
+          }
+        }
+        attachLocalPreview(state.localStream);
+      }
+      updateMeetingUI();
+      await syncAllPeers();
+      emitStatus();
+    }
+
+    async function toggleMeetingCam() {
+      const turningOn = !state.localPrefs.video;
+      state.localPrefs.video = turningOn;
+      if (turningOn) {
+        try {
+          const next = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
+          if (!state.localStream) state.localStream = new MediaStream();
+          const track = next.getVideoTracks()[0];
+          const existing = state.localStream.getVideoTracks()[0];
+          if (existing) {
+            state.localStream.removeTrack(existing);
+            existing.stop();
+          }
+          state.localStream.addTrack(track);
+          attachLocalPreview(state.localStream);
+          stopStream(next);
+        } catch (err) {
+          console.error(err);
+          state.localPrefs.video = false;
+          showToast('Không bật được cam.');
+        }
+      } else {
+        if (state.localStream) {
+          for (const t of state.localStream.getVideoTracks()) {
+            t.stop();
+            state.localStream.removeTrack(t);
+          }
+        }
+        attachLocalPreview(state.localStream);
+      }
+      updateMeetingUI();
+      await syncAllPeers();
+      emitStatus();
+    }
+
+    function emitStatus() {
+      if (!state.socket || !state.roomId) return;
+      state.socket.emit('participant-status', {
+        roomId: state.roomId,
+        micEnabled: state.localPrefs.audio,
+        camEnabled: state.localPrefs.video,
+        screenSharing: state.screenSharing,
+      });
+    }
+
+    async function toggleScreenShare() {
+      if (!state.inMeeting) return;
+      if (!state.screenSharing) {
+        try {
+          state.screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
+          state.screenSharing = true;
+          const screenTrack = state.screenStream.getVideoTracks()[0];
+          screenTrack.onended = async () => {
+            if (state.screenSharing) {
+              await stopScreenShare();
+            }
+          };
+          await syncAllPeers();
+          emitStatus();
+          updateMeetingUI();
+          showToast('Đang chia sẻ màn hình.');
+        } catch (err) {
+          console.error(err);
+          showToast('Không thể chia sẻ màn hình.');
+          state.screenSharing = false;
+          state.screenStream = null;
+        }
+      } else {
+        await stopScreenShare();
+      }
+    }
+
+    async function stopScreenShare() {
+      if (!state.screenSharing) return;
+      state.screenSharing = false;
+      stopStream(state.screenStream);
+      state.screenStream = null;
+      await syncAllPeers();
+      emitStatus();
+      updateMeetingUI();
+      showToast('Đã dừng chia sẻ màn hình.');
+    }
+
+    async function leaveRoom() {
+      if (state.socket && state.roomId) {
+        state.socket.emit('leave-room', { roomId: state.roomId });
+      }
+      for (const peer of state.peers.values()) {
+        try { peer.pc.close(); } catch {}
+        if (peer.videoEl) {
+          const t = peer.videoEl.closest('.tile');
+          if (t) t.remove();
+        }
+      }
+      state.peers.clear();
+      if (state.localStream) stopStream(state.localStream);
+      if (state.screenStream) stopStream(state.screenStream);
+      state.localStream = null;
+      state.screenStream = null;
+      state.screenSharing = false;
+      state.joinedRequested = false;
+      state.pending.clear();
+      state.participants.clear();
+      state.inMeeting = false;
+      state.inLobby = false;
+      state.roomId = '';
+      state.role = 'guest';
+      updateTopPills();
+      ui.chatMessages.innerHTML = '';
+      ui.videoGrid.querySelectorAll('.tile:not(#selfTile)').forEach(el => el.remove());
+      ui.selfVideo.srcObject = null;
+      ui.selfVideo.classList.add('hidden');
+      ui.selfPlaceholder.classList.remove('hidden');
+      setView('landing');
+      showToast('Đã rời phòng.');
+    }
+
+    async function copyRoomCode() {
+      if (!state.roomId) return;
+      try {
+        await navigator.clipboard.writeText(state.roomId);
+        showToast('Đã copy mã phòng.');
+      } catch {
+        showToast('Không copy được. Hãy copy thủ công.');
+      }
+    }
+
+    // Lobby controls
+    ui.toggleLobbyMic.addEventListener('click', async () => {
+      await setLobbyMic(!state.localPrefs.audio);
+    });
+    ui.toggleLobbyCam.addEventListener('click', async () => {
+      await setLobbyCam(!state.localPrefs.video);
+    });
+    ui.lobbyProceedBtn.addEventListener('click', proceedFromLobby);
+    ui.cancelPendingBtn.addEventListener('click', async () => {
+      if (state.socket && state.roomId) {
+        state.socket.emit('cancel-request', { roomId: state.roomId });
+      }
+      state.joinedRequested = false;
+      updateLobbyUI();
+      showToast('Đã hủy yêu cầu.');
+    });
+
+    // Landing controls
+    ui.createBtn.addEventListener('click', async () => {
+      state.mode = 'create';
+      await goToLobby('create');
+    });
+    ui.joinBtn.addEventListener('click', async () => {
+      state.mode = 'join';
+      await goToLobby('join');
+    });
+
+    // Meeting controls
+    ui.micBtn.addEventListener('click', toggleMeetingMic);
+    ui.camBtn.addEventListener('click', toggleMeetingCam);
+    ui.shareBtn.addEventListener('click', toggleScreenShare);
+    ui.copyRoomBtn.addEventListener('click', copyRoomCode);
+    ui.leaveBtn.addEventListener('click', leaveRoom);
+
+    ui.sendChatBtn.addEventListener('click', () => {
+      const text = ui.chatInput.value.trim();
+      if (!text || !state.socket || !state.roomId) return;
+      state.socket.emit('chat-message', { roomId: state.roomId, text });
+      ui.chatInput.value = '';
+    });
+    ui.chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') ui.sendChatBtn.click();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      if (state.socket && state.roomId) {
+        state.socket.emit('leave-room', { roomId: state.roomId });
+      }
+    });
+
+    // Initial state
+    ui.nameInput.value = 'Dien';
+    ui.roomInput.value = '';
+    setView('landing');
+    updateTopPills();
+    updateLobbyUI();
+    updateMeetingUI();
+  </script>
+</body>
+</html>

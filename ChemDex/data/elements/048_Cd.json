@@ -1,0 +1,57 @@
+{
+  "number": 48,
+  "symbol": "Cd",
+  "nameVi": "Cadmium",
+  "nameEn": "Cadmium",
+  "mass": 112.414,
+  "category": "chuyen-tiep",
+  "general": {
+    "latinName": "Cadmium",
+    "englishName": "Cadmium",
+    "electronConfig": "[Kr] 4d10 5s2",
+    "group": 12,
+    "period": 5,
+    "oxidation": "+2",
+    "electronegativity": "1.69",
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      2
+    ]
+  },
+  "history": {
+    "discoverer": "Friedrich Stromeyer",
+    "year": 1817,
+    "discoveryLocation": "Đức"
+  },
+  "structure": {
+    "electrons": 48,
+    "protons": 48,
+    "neutrons": 64
+  },
+  "occurrence": {
+    "description": "Thường đi kèm quặng kẽm.",
+    "simple": [
+      "Cd"
+    ],
+    "compounds": [
+      "CdS",
+      "CdO"
+    ]
+  },
+  "physical": "Kim loại mềm, màu bạc.",
+  "chemical": "Tạo hợp chất Cd2+.",
+  "reactions": [
+    {
+      "type": "Với lưu huỳnh",
+      "eq": "Cd + S → CdS",
+      "desc": "Tạo cadmium sulfide."
+    }
+  ],
+  "structureType": "hcp",
+  "images": {},
+  "hasData": true,
+  "file": "elements/048_Cd.json"
+}

@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "Player": {
+      "title": "Player",
+      "description": "Information about a player character in the game",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User ID of the player" },
+        "name": { "type": "string", "description": "Character display name" },
+        "gender": { "type": "string", "description": "Nam or Nữ" },
+        "appearanceId": { "type": "integer", "description": "Avatar index" },
+        "origin": { "type": "string", "description": "Origin description" },
+        "realmIndex": { "type": "integer", "description": "Current realm index (0-11)" },
+        "realmLevel": { "type": "integer", "description": "Current realm level (1-10)" },
+        "cultivation": { "type": "number", "description": "Current EXP" },
+        "cultivationNeeded": { "type": "number", "description": "Needed EXP for breakthrough" },
+        "gold": { "type": "integer", "description": "Gold balance" },
+        "spiritStones": { "type": "integer", "description": "Spirit Stones balance" },
+        "immortalJade": { "type": "integer", "description": "Immortal Jade balance" },
+        "reputation": { "type": "integer", "description": "Reputation points" },
+        "sectContribution": { "type": "integer", "description": "Sect Contribution points" },
+        "pvpPoints": { "type": "integer", "description": "PvP rating points" },
+        "isOnline": { "type": "boolean", "description": "Is player currently online" },
+        "lastActive": { "type": "integer", "description": "Timestamp of last activity" },
+        "currentActivity": { "type": "string", "description": "Active action of player" },
+        "email": { "type": "string", "description": "Google Auth Email" }
+      },
+      "required": ["uid", "name", "realmIndex", "realmLevel", "cultivation"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "A chat message in the village sect",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderRealm": { "type": "string" },
+        "text": { "type": "string" },
+        "timestamp": { "type": "integer" }
+      },
+      "required": ["id", "senderId", "senderName", "text", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/players/{playerId}": {
+      "schema": "Player",
+      "description": "List of game players synced in real-time"
+    },
+    "/village_chats/{chatId}": {
+      "schema": "ChatMessage",
+      "description": "Messages sent in the village common area"
+    }
+  }
+}

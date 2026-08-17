@@ -1,0 +1,214 @@
+{
+  "number": 2,
+  "symbol": "He",
+  "mass": 4.0026,
+  "category": "khi-hiem",
+  "hasData": true,
+  "general": {
+    "latinName": "Helium",
+    "englishName": "Helium",
+    "electronConfig": "1s²",
+    "isotope": "³He, ⁴He",
+    "group": 18,
+    "period": 1,
+    "block": "s",
+    "state": "Khí",
+    "oxidation": "0",
+    "electronegativity": "Không xác định",
+    "density": "0,1786 g/L (0°C, 1 atm)",
+    "meltingPoint": "-272,20°C (ở ~2,5 MPa)",
+    "boilingPoint": "-268,93°C",
+    "crystalStructure": "hcp (khi rắn, áp suất cao)"
+  },
+  "history": {
+    "discoverer": "Jules Janssen, Norman Lockyer",
+    "discovererUrl": "https://en.wikipedia.org/wiki/Jules_Janssen",
+    "discoverers": [
+      {
+        "name": "Jules Janssen",
+        "url": "https://en.wikipedia.org/wiki/Jules_Janssen"
+      },
+      {
+        "name": "Norman Lockyer",
+        "url": "https://en.wikipedia.org/wiki/Norman_Lockyer"
+      },
+      {
+        "name": "William Ramsay",
+        "url": "https://en.wikipedia.org/wiki/William_Ramsay"
+      }
+    ],
+    "year": 1868,
+    "discoveryLocation": "Ấn Độ / Anh",
+    "description": "Năm 1868, helium được phát hiện lần đầu qua vạch phổ màu vàng trong quang phổ Mặt Trời trong một lần nhật thực toàn phần. Sau đó, năm 1895, William Ramsay đã tách được helium trên Trái Đất từ quặng cleveite, xác nhận đây là một nguyên tố riêng biệt."
+  },
+  "structure": {
+    "protons": 2,
+    "neutrons": 2,
+    "electrons": 2,
+    "electronShells": [2],
+    "valenceElectrons": 2,
+    "lattice": "khong co",
+    "nucleus": {
+      "proton": 2,
+      "neutron": 2
+    },
+    "orbitalDistribution": {
+      "s": 2,
+      "p": 0,
+      "d": 0,
+      "f": 0
+    }
+  },
+  "occurrence": {
+    "description": "Helium là nguyên tố phổ biến thứ hai trong vũ trụ sau hydrogen. Trên Trái Đất, helium rất hiếm và chủ yếu có trong khí tự nhiên; nó cũng được tạo ra từ phân rã phóng xạ của các nguyên tố nặng trong lòng đất.",
+    "simple": ["He"],
+    "compounds": [],
+    "ores": ["Khí thiên nhiên", "Mỏ uranium", "Mỏ thorium", "Khí mỏ dầu"]
+  },
+  "naturalState": {
+    "title": "Helium trong tự nhiên",
+    "description": "Helium tồn tại chủ yếu trong khí thiên nhiên và được tạo thành từ quá trình phân rã phóng xạ của uranium và thorium trong vỏ Trái Đất."
+  },
+  "mediaBlocks": [
+    {
+      "section": "history",
+      "type": "video",
+      "title": "Lịch sử phát hiện Helium",
+      "src": "https://www.youtube.com/watch?v=YbfeDnQbHLo&list=RDYbfeDnQbHLo&start_radio=1",
+      "questions": [
+        {
+          "time": "00:45",
+          "question": "Helium được phát hiện đầu tiên trong quang phổ của thiên thể nào?",
+          "options": ["Mặt Trời", "Mặt Trăng", "Sao Hỏa", "Sao Mộc"],
+          "correct": 0
+        },
+        {
+          "time": "01:52",
+          "question": "Ai là người tách được Helium trên Trái Đất?",
+          "options": [
+            "Henry Cavendish",
+            "William Ramsay",
+            "Dalton",
+            "Mendeleev"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "section": "occurrence",
+      "type": "3d",
+      "model": "./assets/elements/002_helium/model/2_He.glb",
+      "title": "Mô hình bình chứa Helium công nghiệp",
+      "description": "Mô hình hệ thống lưu trữ helium lỏng sử dụng trong công nghiệp cryogenic."
+    }
+  ],
+  "physical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Là chất khí không màu, không mùi, không vị.</li>\n  <li>Là nguyên tố nhẹ thứ hai sau hydrogen.</li>\n  <li>Khối lượng riêng: <b>0,1786 g/L</b>.</li>\n  <li>Khí hiếm, đơn nguyên tử, rất ít tan trong nước.</li>\n  <li>Có nhiệt độ sôi thấp nhất trong các nguyên tố.</li>\n  <li>Không có nhiệt độ nóng chảy ở áp suất thường.</li>\n  <li>Dẫn nhiệt tốt và tốc độ khuếch tán lớn.</li>\n  <li>Ở trạng thái lỏng, helium là chất làm lạnh cực mạnh.</li>\n</ul>\n",
+  "chemical": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Helium là khí hiếm, hầu như trơ hóa học trong điều kiện thường.</li>\n  <li>Không cháy và không duy trì sự cháy.</li>\n  <li>Có thể bị ion hóa trong phóng điện hoặc plasma.</li>\n  <li>Có thể tạo các excimer và cụm ion rất không bền trong điều kiện đặc biệt.</li>\n  <li>HeH⁺ là ion helium-hydrogen bền trong pha khí nhưng rất phản ứng.</li>\n  <li>Ở áp suất rất cao, helium có thể tạo một số hợp chất hiếm như Na₂He.</li>\n</ul>\n",
+  "preparation": "\n<div class=\"space-y-3\">\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Khai thác từ khí thiên nhiên\n    </h4>\n\n    <p>\n      Helium được tách từ khí thiên nhiên bằng phương pháp hóa lỏng phân đoạn\n      ở nhiệt độ cực thấp.\n    </p>\n  </div>\n\n  <div>\n    <h4 class=\"font-bold text-cyan-400\">\n      Tách cryogenic\n    </h4>\n\n    <p>\n      Sau khi loại bỏ methane, nitrogen và các khí khác, helium được tinh chế\n      đạt độ tinh khiết trên 99,99%.\n    </p>\n  </div>\n\n</div>\n",
+  "reactions": [
+    {
+      "type": "Ion hóa helium",
+      "equation": "He + hν → He⁺ + e⁻",
+      "related": "He",
+      "condition": "năng lượng cao / UV / plasma",
+      "desc": "Helium chỉ phản ứng rõ rệt khi bị ion hóa trong môi trường năng lượng cao.",
+      "mediaBlocks": [
+        {
+          "type": "video",
+          "title": "Ion hóa helium trong plasma",
+          "src": "https://www.youtube.com/watch?v=Z1Yd7upQsXY",
+          "questions": [
+            {
+              "time": "00:30",
+              "question": "Trong video, helium được ion hóa bằng cách nào?",
+              "options": [
+                "Năng lượng nhiệt",
+                "Năng lượng điện",
+                "Năng lượng ánh sáng",
+                "Năng lượng cơ học"
+              ],
+              "correct": 1
+            },
+            {
+              "time": "01:15",
+              "question": "He⁺ là gì?",
+              "options": [
+                "Một nguyên tử helium trung hòa",
+                "Một ion helium dương",
+                "Một ion helium âm",
+                "Một phân tử helium"
+              ],
+              "correct": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Tạo helium hydride ion",
+      "equation": "He⁺ + H₂ → HeH⁺ + H",
+      "related": "H",
+      "condition": "plasma / thiên văn",
+      "desc": "HeH⁺ là một ion rất quan trọng trong hóa học vũ trụ và khí plasma."
+    },
+    {
+      "type": "Tạo sodium helide",
+      "equation": "2Na + He → Na₂He",
+      "related": "Na",
+      "condition": "áp suất rất cao (>113 GPa)",
+      "desc": "Đây là một hợp chất hiếm của helium, chỉ bền trong điều kiện áp suất cực lớn."
+    }
+  ],
+  "applications": [
+    {
+      "title": "Làm lạnh siêu dẫn",
+      "desc": "Helium lỏng được dùng trong các hệ cryogenic và nam châm siêu dẫn."
+    },
+    {
+      "title": "MRI / NMR",
+      "desc": "Được dùng để làm lạnh hệ nam châm siêu dẫn trong máy MRI và NMR."
+    },
+    {
+      "title": "Khí nâng",
+      "desc": "Dùng trong bóng bay và khí cầu vì nhẹ hơn không khí và không cháy."
+    },
+    {
+      "title": "Khí bảo vệ",
+      "desc": "Dùng trong hàn và môi trường khí trơ để hạn chế phản ứng với không khí."
+    },
+    {
+      "title": "Kiểm tra rò rỉ",
+      "desc": "Helium là khí dò rò rỉ rất tốt trong hệ chân không và thiết bị kín."
+    },
+    {
+      "title": "Nạp áp suất",
+      "desc": "Dùng để nén và đẩy chất lỏng trong tên lửa và hệ kỹ thuật đặc biệt."
+    },
+    {
+      "title": "Hô hấp hỗn hợp",
+      "desc": "Trộn với oxygen trong một số môi trường áp suất cao."
+    }
+  ],
+  "simulation": {
+    "title": "Ion hóa helium",
+    "reagents": [
+      {
+        "id": "He",
+        "name": "Khí He",
+        "icon": "fa-wind"
+      },
+      {
+        "id": "energy",
+        "name": "Năng lượng cao",
+        "icon": "fa-bolt"
+      }
+    ],
+    "expected": ["He", "energy"],
+    "resultText": "⚡ Helium rất trơ ở điều kiện thường, nhưng trong môi trường năng lượng cao có thể bị ion hóa.\n\nHe + hν → He⁺ + e⁻"
+  },
+  "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 2 trong bảng tuần hoàn.</li>\n  <li>Là khí hiếm nhẹ nhất.</li>\n  <li>Có nhiệt độ sôi thấp nhất trong mọi nguyên tố.</li>\n  <li>Trên Trái Đất, helium rất hiếm nhưng lại cực kỳ quan trọng trong công nghệ cryogenic.</li>\n  <li>Trong điều kiện thường, helium gần như không tạo hợp chất bền.</li>\n</ul>\n",
+  "nameVi": "Helium",
+  "nameEn": "Helium",
+  "file": "elements/002_He.json"
+}

@@ -1,0 +1,4216 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChemDex - Bảng Tuần Hoàn & Thư Viện Hóa Học Tương Tác</title>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+          "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.165.0/examples/jsm/controls/OrbitControls.js",
+          "three/examples/jsm/loaders/GLTFLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/GLTFLoader.js",
+          "three/examples/jsm/loaders/OBJLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/OBJLoader.js",
+          "three/examples/jsm/loaders/FBXLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/FBXLoader.js",
+          "three/examples/jsm/loaders/MTLLoader.js": "https://unpkg.com/three@0.165.0/examples/jsm/loaders/MTLLoader.js"
+        }
+      }
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="./assets/logo.png"
+    />
+    <link rel="shortcut icon" href="./assets/logo.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: "#0f172a",
+              darker: "#0b1120",
+              panel: "#1e293b",
+              primary: "#3b82f6",
+            },
+            scrollBehavior: ["smooth"],
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --cat-phi-kim: #22c55e;
+        --cat-khi-hiem: #a855f7;
+        --cat-kiem: #f97316;
+        --cat-kiem-tho: #eab308;
+        --cat-a-kim: #06b6d4;
+        --cat-halogen: #14b8a6;
+        --cat-chuyen-tiep: #ef4444;
+        --cat-lanthanide: #ec4899;
+        --cat-actinide: #d946ef;
+        --cat-unknown: #475569;
+      }
+
+      body {
+        background-color: #1e293b;
+        color: #e2e8f0;
+        overflow: hidden;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .glass {
+        background: rgba(30, 41, 59, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+
+      /* Draggable Periodic Table */
+      .periodic-table-wrapper {
+        overflow: auto;
+        padding: 20px 40px 40px 40px;
+        cursor: grab;
+        user-select: none;
+      }
+      .periodic-table-wrapper:active {
+        cursor: grabbing;
+      }
+
+      .periodic-table {
+        display: grid;
+        /* Thêm cột/hàng đầu tiên cho Header */
+        grid-template-columns: 20px repeat(18, minmax(65px, 1fr));
+        grid-template-rows: 20px repeat(10, minmax(70px, 1fr));
+        gap: 6px;
+        min-width: 1250px;
+        pointer-events: none; /* Let wrapper handle drag */
+      }
+
+      /* Nhãn Hàng & Cột */
+      .grid-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #64748b;
+        pointer-events: auto;
+        cursor: crosshair;
+        transition: color 0.2s;
+      }
+      .grid-label:hover {
+        color: #fff;
+        text-shadow: 0 0 5px #fff;
+      }
+
+      .element {
+        position: relative;
+        background: #1e293b;
+        border-radius: 8px;
+        padding: 4px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        pointer-events: auto; /* Re-enable clicks on elements */
+      }
+
+      .element::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--color);
+        opacity: 0.8;
+      }
+
+      /* Hover & Highlight Effects */
+      .element:hover {
+        transform: scale(1.15) !important;
+        z-index: 10;
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.5),
+          0 0 15px var(--color) !important;
+        border-color: var(--color) !important;
+        opacity: 1 !important;
+        filter: none !important;
+      }
+
+      .element.no-data {
+        opacity: 0.4;
+        filter: grayscale(100%);
+      }
+      .element.no-data:hover {
+        transform: scale(1.05) !important;
+        border-color: #94a3b8 !important;
+        box-shadow: none !important;
+        filter: grayscale(50%) !important;
+      }
+
+      .element.dimmed {
+        opacity: 0.1 !important;
+        transform: scale(0.95);
+        pointer-events: none;
+        filter: grayscale(100%);
+      }
+      .element.highlight-active {
+        transform: scale(1.08);
+        z-index: 5;
+        box-shadow: 0 0 15px var(--color);
+        border-color: var(--color);
+        opacity: 1 !important;
+        filter: none !important;
+      }
+
+      .el-number {
+        font-size: 0.7rem;
+        color: #94a3b8;
+      }
+      .el-symbol {
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-align: center;
+        color: #f8fafc;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .el-name {
+        font-size: 0.65rem;
+        text-align: center;
+        color: #cbd5e1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Sidebar transition */
+      #sidebar {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .sidebar-open {
+        transform: translateX(0) !important;
+      }
+
+      /* Article sticky TOC */
+      .toc-link {
+        transition: all 0.2s;
+      }
+      .toc-link:hover {
+        color: white;
+        border-left-color: var(--primary);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      /* Drag Drop Simulation */
+      .draggable-item {
+        cursor: grab;
+      }
+      .draggable-item:active {
+        cursor: grabbing;
+      }
+      .dropzone {
+        transition: all 0.3s;
+      }
+
+      .dropzone.dragover {
+        background: rgba(59, 130, 246, 0.3);
+        border-color: #60a5fa;
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+      }
+
+      .chat-fab {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 70;
+        width: 60px;
+        height: 60px;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .chat-panel {
+        position: fixed;
+        right: 18px;
+        bottom: 88px;
+        width: min(380px, calc(100vw - 36px));
+        height: min(560px, calc(100vh - 120px));
+        z-index: 70;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 24px;
+      }
+
+      .chat-panel.open {
+        display: flex;
+      }
+
+      .chat-drag-handle {
+        cursor: grab;
+        user-select: none;
+      }
+
+      .chat-drag-handle:active {
+        cursor: grabbing;
+      }
+
+      .chat-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 9999px;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        background: rgba(15, 23, 42, 0.75);
+        color: #e2e8f0;
+        padding: 8px 10px;
+        font-size: 12px;
+        transition: all 0.2s;
+      }
+
+      .chat-chip:hover {
+        background: rgba(30, 41, 59, 0.92);
+        border-color: rgba(96, 165, 250, 0.45);
+      }
+
+      .toast-notice {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        z-index: 90;
+        background: rgba(15, 23, 42, 0.96);
+        color: #fff;
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+        padding: 10px 16px;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+        display: none;
+        max-width: calc(100vw - 32px);
+      }
+
+      .suggestion-card {
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        background: linear-gradient(
+          180deg,
+          rgba(15, 23, 42, 0.82),
+          rgba(2, 6, 23, 0.92)
+        );
+        border-radius: 18px;
+      }
+
+      .suggestion-card a {
+        color: #93c5fd;
+      }
+
+      .structure-visual-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .visual-card {
+        background: linear-gradient(
+          180deg,
+          rgba(15, 23, 42, 0.88),
+          rgba(2, 6, 23, 0.92)
+        );
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+      .electron-canvas-wrap,
+      .crystal-scene-wrap {
+        position: relative;
+        width: 100%;
+        min-height: 250px;
+        height: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .electron-canvas-wrap canvas,
+      .crystal-scene-wrap canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .visual-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #cbd5e1;
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-radius: 999px;
+        padding: 6px 10px;
+      }
+      .equation-latex {
+        line-height: 1.8;
+        overflow-x: auto;
+        white-space: normal;
+      }
+
+      .detail-media-block {
+        background: linear-gradient(
+          180deg,
+          rgba(15, 23, 42, 0.9),
+          rgba(2, 6, 23, 0.95)
+        );
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .detail-media-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 16px 0;
+      }
+
+      .detail-media-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .detail-media-desc {
+        font-size: 0.875rem;
+        color: #94a3b8;
+        margin-top: 4px;
+        line-height: 1.6;
+      }
+
+      .detail-media-body {
+        padding: 16px;
+      }
+
+      .detail-media-note {
+        font-size: 12px;
+        color: #cbd5e1;
+        margin-top: 8px;
+      }
+
+      .video-shell,
+      .model-shell {
+        position: relative;
+        width: 100%;
+        min-height: 280px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: #020617;
+      }
+
+      .video-shell iframe,
+      .video-shell video,
+      .model-shell canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      @media (max-width: 768px) {
+        .structure-visual-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </head>
+  <body class="flex h-screen text-slate-200">
+    <!-- Mobile Overlay -->
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"
+      onclick="toggleSidebar()"
+    ></div>
+
+    <!-- SIDEBAR -->
+    <aside
+      id="sidebar"
+      class="w-64 glass flex flex-col h-full border-r border-slate-700/50 z-50 shrink-0 absolute md:relative transform -translate-x-full md:translate-x-0"
+    >
+      <div
+        class="p-5 flex items-center justify-between border-b border-slate-700/50"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30"
+          >
+            <i class="fa-solid fa-atom"></i>
+          </div>
+          <h1
+            class="font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"
+          >
+            ChemDex
+          </h1>
+        </div>
+        <button
+          class="md:hidden text-slate-400 hover:text-white"
+          onclick="toggleSidebar()"
+        >
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <button
+          onclick="nav('view-periodic')"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 bg-slate-800 text-white shadow-md active-nav transition-all"
+        >
+          <i class="fa-solid fa-table-cells text-blue-400 w-5"></i
+          ><span class="font-medium">Bảng Tuần Hoàn</span>
+        </button>
+        <a
+          href="tai-lieu-so.html"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-book-open text-emerald-400 w-5"></i>
+          <span class="font-medium">Tài Liệu Số</span>
+        </a>
+
+        <a
+          href="tien-ich.html"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-flask text-purple-400 w-5"></i>
+          <span class="font-medium">Tiện Ích Học Tập</span>
+        </a>
+
+        <a
+          href="thi-nghiem.html"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-flask text-purple-400 w-5"></i>
+          <span class="font-medium">Thí Nghiệm</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+      <!-- TOPBAR -->
+      <header
+        class="h-16 glass border-b border-slate-700/50 flex items-center justify-between px-4 md:px-6 z-10 shrink-0"
+      >
+        <div class="flex items-center gap-4 flex-1">
+          <button
+            id="sidebarToggle"
+            class="md:hidden text-slate-400 hover:text-white"
+            onclick="toggleSidebar()"
+          >
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+
+          <div class="relative w-full max-w-md flex items-center">
+            <i
+              class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            ></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm nguyên tố..."
+              class="w-full bg-slate-800/80 border border-slate-600 text-slate-200 text-sm rounded-l-full focus:ring-2 focus:ring-blue-500 block pl-10 p-2 transition-all"
+            />
+            <button
+              id="clearSearchBtn"
+              class="absolute right-12 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white hidden"
+            >
+              <i class="fa-solid fa-times"></i>
+            </button>
+
+            <!-- Nút Lọc (Filter/Sort) -->
+            <button
+              onclick="toggleFilter()"
+              class="bg-slate-700 hover:bg-slate-600 border border-l-0 border-slate-600 rounded-r-full px-4 py-2 text-slate-300 transition-colors"
+              title="Lọc dữ liệu"
+            >
+              <i class="fa-solid fa-filter"></i>
+            </button>
+
+            <!-- Menu Dropdown Lọc -->
+            <div
+              id="filter-menu"
+              class="absolute top-full right-0 mt-2 w-64 glass rounded-xl shadow-2xl hidden z-50 p-4 border border-slate-700"
+            >
+              <div class="flex justify-between items-center mb-3">
+                <h4 class="text-white font-bold text-sm">
+                  Lọc nhanh
+                  <i class="fa-solid fa-filter text-blue-400 ml-1 text-xs"></i>
+                </h4>
+                <button
+                  onclick="toggleFilter()"
+                  class="text-slate-400 hover:text-white"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <select
+                id="filter-select"
+                onchange="applyFilter()"
+                class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-slate-300 mb-3 focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer"
+              >
+                <option value="all">Tất cả nguyên tố</option>
+                <optgroup label="Phân loại">
+                  <option value="cat-kiem">Kim loại kiềm</option>
+                  <option value="cat-kiem-tho">Kim loại kiềm thổ</option>
+                  <option value="cat-chuyen-tiep">Kim loại chuyển tiếp</option>
+                  <option value="cat-chuyen-tiep">Kim loại yếu</option>
+                  <option value="cat-phi-kim">Phi kim</option>
+                  <option value="cat-a-kim">Á kim</option>
+                  <option value="cat-halogen">Halogen</option>
+                  <option value="cat-khi-hiem">Khí hiếm</option>
+                  <option value="cat-lanthanide">Họ Lantan</option>
+                  <option value="cat-actinide">Họ Actini</option>
+                </optgroup>
+                <optgroup label="Chu kỳ">
+                  <option value="per-1">Chu kỳ 1</option>
+                  <option value="per-2">Chu kỳ 2</option>
+                  <option value="per-3">Chu kỳ 3</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <!-- Dropdown Kết quả Tìm kiếm -->
+            <div
+              id="search-results"
+              class="absolute top-full left-0 w-full mt-2 glass rounded-xl shadow-2xl hidden z-50 flex-col max-h-64 overflow-y-auto border border-slate-700"
+            ></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT AREA -->
+      <div
+        id="content-container"
+        class="flex-1 overflow-y-auto relative bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"
+      >
+        <!-- VIEW: PERIODIC TABLE -->
+        <div id="view-periodic" class="h-full flex flex-col relative">
+          <div
+            class="px-6 pt-4 pb-2 flex flex-wrap gap-3 justify-center text-xs z-3 sticky top-0 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700/50 shadow-md"
+          >
+            <!-- Legends (Gắn event hover) -->
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('phi-kim')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-green-500 shadow-[0_0_5px_#22c55e]"
+              ></span>
+              Phi kim</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('khi-hiem')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-purple-500 shadow-[0_0_5px_#a855f7]"
+              ></span>
+              Khí hiếm</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('kiem')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-orange-500 shadow-[0_0_5px_#f97316]"
+              ></span>
+              KL kiềm</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('kiem-tho')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-yellow-500 shadow-[0_0_5px_#eab308]"
+              ></span>
+              KL kiềm thổ</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('chuyen-tiep')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-red-500 shadow-[0_0_5px_#ef4444]"
+              ></span>
+              KL chuyển tiếp</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('kim-loai-yeu')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-rose-500 shadow-[0_0_5px_#fb7185]"
+              ></span>
+              KL yếu</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('a-kim')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-cyan-400 shadow-[0_0_5px_#22d3ee]"
+              ></span>
+              Á kim</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('halogen')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-teal-400 shadow-[0_0_5px_#2dd4bf]"
+              ></span>
+              Halogen</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('lanthanide')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-pink-500 shadow-[0_0_5px_#ec4899]"
+              ></span>
+              Họ Lantan</span
+            >
+            <span
+              class="flex items-center gap-1 cursor-pointer hover:text-white transition-colors"
+              onmouseenter="highlightCategory('actinide')"
+              onmouseleave="removeHighlight()"
+              ><span
+                class="w-3 h-3 rounded-sm bg-fuchsia-500 shadow-[0_0_5px_#d946ef]"
+              ></span>
+              Họ Actini</span
+            >
+          </div>
+
+          <div
+            class="periodic-table-wrapper flex-1 flex justify-start lg:justify-center items-start"
+            id="dragContainer"
+          >
+            <div id="periodic-table" class="periodic-table relative">
+              <!-- Grid Header Labels & Elements render by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: ELEMENT NO DATA -->
+        <div
+          id="view-nodata"
+          class="hidden h-full flex items-center justify-center p-6 fade-in"
+        >
+          <div
+            class="text-center glass p-10 rounded-2xl max-w-md border border-slate-700"
+          >
+            <i class="fa-solid fa-eye-slash text-6xl text-slate-500 mb-4"></i>
+            <h2 class="text-2xl font-bold text-white mb-2">Thông tin bị ẩn</h2>
+            <p class="text-slate-400 mb-6">
+              Dữ liệu chi tiết về nguyên tố
+              <span
+                id="nodata-name"
+                class="font-bold text-blue-400 text-lg"
+              ></span>
+              hiện chưa được cập nhật trong phiên bản này.
+            </p>
+            <div class="flex gap-4 justify-center">
+              <button
+                onclick="nav('view-periodic')"
+                class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-lg transition-colors"
+              >
+                <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: ELEMENT DETAILS (ARTICLE STYLE) -->
+        <div id="view-details" class="hidden min-h-full fade-in pb-10">
+          <!-- Header Hero -->
+          <div
+            id="detail-hero"
+            class="relative pt-10 pb-16 px-6 md:px-12 border-b border-slate-700/50 overflow-hidden"
+          >
+            <!-- Background blur injected by JS -->
+          </div>
+
+          <div
+            class="max-w-7xl mx-auto px-4 md:px-6 mt-8 flex flex-col lg:flex-row gap-8 relative"
+          >
+            <!-- TOC Sidebar (Mục lục) -->
+            <div class="lg:w-1/4 shrink-0">
+              <div
+                class="glass p-5 rounded-2xl sticky top-6 border border-slate-700/80"
+              >
+                <h3
+                  class="text-lg font-bold text-white mb-4 flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-list text-blue-400"></i> Mục lục
+                </h3>
+                <ul class="space-y-1 text-sm text-slate-400" id="article-toc">
+                  <li>
+                    <a
+                      href="#sec-general"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >1. Thông tin chung</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-history"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >2. Lịch sử khám phá</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-structure"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >3. Cấu tạo</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-properties"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >4. Tính chất</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-preparation"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >5. Điều chế</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-reactions"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >6. Phương trình & Mô phỏng</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-applications"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >7. Ứng dụng thực tế</a
+                    >
+                  </li>
+
+                  <li>
+                    <a
+                      href="#sec-overview"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >8. Tổng quan</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#sec-notes"
+                      class="block py-2 px-3 rounded-lg toc-link border-l-2 border-transparent"
+                      >9. Ghi chú cá nhân</a
+                    >
+                  </li>
+                </ul>
+                <button
+                  onclick="nav('view-periodic')"
+                  class="mt-6 w-full py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-700 transition-colors flex items-center justify-center gap-2"
+                >
+                  <i class="fa-solid fa-table-cells"></i> Về bảng tuần hoàn
+                </button>
+              </div>
+            </div>
+
+            <!-- Main Content (Bài viết) -->
+            <div class="lg:w-3/4 flex flex-col">
+              <div class="space-y-12" id="article-content">
+                <!-- Injected by JS -->
+              </div>
+
+              <!-- Nút Điều hướng Tới/Lùi Cuối Bài -->
+              <div
+                class="mt-16 pt-8 border-t border-slate-700/50 flex justify-between items-center"
+                id="nav-buttons-container"
+              >
+                <!-- Nút lùi/tới được chèn bằng JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["\\(", "\\)"],
+            ["$", "$"],
+          ],
+          displayMath: [["\\[", "\\]"]],
+        },
+        svg: { fontCache: "global" },
+      };
+    </script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+
+    <!-- MAIN LOGIC JAVASCRIPT -->
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+      import {
+        buildCrystalGroup,
+        createCubeOutline,
+      } from "./crystal-structures.js";
+      import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+      import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+      import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+      import { detailedData, elNames, elSymbols, categories } from "./data.js";
+
+      // Khởi tạo 118 nguyên tố với layout logic & data cơ bản
+      const allElements = elNames.map((name, i) => {
+        let z = i + 1;
+        let el = {
+          number: z,
+          symbol: elSymbols[i],
+          nameVi: name,
+          nameEn: elSymbols[i],
+          mass: 0,
+          category: "unknown",
+          hasData: false,
+        };
+
+        // Layout Algorithm & Category Basic Setup
+        if (z >= 1 && z <= 2) {
+          el.ypos = 1;
+          el.xpos = z === 1 ? 1 : 18;
+          el.category = z === 1 ? "phi-kim" : "khi-hiem";
+        } else if (z >= 3 && z <= 10) {
+          el.ypos = 2;
+          el.xpos = z <= 4 ? z - 2 : z + 8;
+        } else if (z >= 11 && z <= 18) {
+          el.ypos = 3;
+          el.xpos = z <= 12 ? z - 10 : z;
+        } else if (z >= 19 && z <= 36) {
+          el.ypos = 4;
+          el.xpos = z - 18;
+        } else if (z >= 37 && z <= 54) {
+          el.ypos = 5;
+          el.xpos = z - 36;
+        } else if (z >= 55 && z <= 86) {
+          if (z >= 55 && z <= 56) {
+            el.ypos = 6;
+            el.xpos = z - 54;
+          } else if (z >= 57 && z <= 71) {
+            el.ypos = 9;
+            el.xpos = z - 57 + 4;
+            el.category = "lanthanide";
+          } else {
+            el.ypos = 6;
+            el.xpos = z - 71 + 3;
+          }
+        } else if (z >= 87 && z <= 118) {
+          if (z >= 87 && z <= 88) {
+            el.ypos = 7;
+            el.xpos = z - 86;
+          } else if (z >= 89 && z <= 103) {
+            el.ypos = 10;
+            el.xpos = z - 89 + 4;
+            el.category = "actinide";
+          } else {
+            el.ypos = 7;
+            el.xpos = z - 103 + 3;
+          }
+        }
+        // Shift Grid to make room for row/col labels (labels take row 1 and col 1)
+        if (el.xpos) el.xpos += 1;
+        if (el.ypos) el.ypos += 1;
+        return el;
+      });
+      // Data chi tiết một số chất (Mock Data with rich HTML to demonstrate styling capabilities)
+      // Map detailed data into allElements
+      detailedData.forEach((d) => {
+        let target = allElements.find((e) => e.number === d.number);
+        if (target) Object.assign(target, d);
+      });
+
+      let elementsMap = new Map();
+      allElements.forEach((el) => elementsMap.set(el.symbol, el));
+
+      const SUBSCRIPT_MAP = {
+        "₀": "0",
+        "₁": "1",
+        "₂": "2",
+        "₃": "3",
+        "₄": "4",
+        "₅": "5",
+        "₆": "6",
+        "₇": "7",
+        "₈": "8",
+        "₉": "9",
+      };
+
+      const SUPERSCRIPT_MAP = {
+        "⁰": "0",
+        "¹": "1",
+        "²": "2",
+        "³": "3",
+        "⁴": "4",
+        "⁵": "5",
+        "⁶": "6",
+        "⁷": "7",
+        "⁸": "8",
+        "⁹": "9",
+      };
+
+      const NOBLE_GAS_SHELLS = {
+        He: [2],
+        Ne: [2, 8],
+        Ar: [2, 8, 8],
+        Kr: [2, 8, 18, 8],
+        Xe: [2, 8, 18, 18, 8],
+        Rn: [2, 8, 18, 32, 18, 8],
+        Og: [2, 8, 18, 32, 32, 18, 8],
+      };
+
+      function normalizeText(value = "") {
+        return String(value)
+          .replace(/[₀₁₂₃₄₅₆₇₈₉]/g, (m) => SUBSCRIPT_MAP[m] || m)
+          .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (m) => SUPERSCRIPT_MAP[m] || m);
+      }
+
+      function escapeLatexText(text = "") {
+        return String(text)
+          .replace(/\\/g, "\\\\")
+          .replace(/([{}_#%&$])/g, "\\$1")
+          .replace(/\^/g, "\\^{}");
+      }
+
+      function chemToLatexFormula(text = "") {
+        return normalizeText(text)
+          .replace(/\s+/g, " ")
+          .replace(/([A-Z][a-z]?)(\d+)/g, "$1_{$2}")
+          .replace(/([)\]])(\d+)/g, "$1_{$2}")
+          .replace(/\^([0-9+-]+)/g, "^{$1}");
+      }
+
+      function getReactionLabels(r = {}) {
+        const above = r.catalyst || r.condition || r.cat || "";
+        const below =
+          r.conditionBelow || r.temperature || r.pressure || r.solvent || "";
+        return {
+          above: escapeLatexText(normalizeText(above)),
+          below: escapeLatexText(normalizeText(below)),
+        };
+      }
+
+      function buildReactionLatex(r = {}) {
+        const rawInput = normalizeReactionText(r.eq || r.equation || "");
+        const raw = rawInput
+          .replace(/\\xrightleftharpoons(?:\[[^\]]*\])?\{[^}]*\}/g, "⇌")
+          .replace(/\\xrightarrow(?:\[[^\]]*\])?\{[^}]*\}/g, "→")
+          .replace(/\\rightleftharpoons|\\leftrightarrow|\\rightarrow/g, "→")
+          .replace(/^[\[\(]\s*|\s*[\]\)]$/g, "");
+
+        const splitArrow = raw.split(/(?:→|->|⇌|↔|=)/, 2);
+        const leftRaw = (splitArrow[0] || "").trim();
+        const rightRaw = (splitArrow[1] || "").trim();
+        const left = formatChemicalFormulaHtml(leftRaw);
+        const right = formatChemicalFormulaHtml(rightRaw);
+        const above = escapeHtml(
+          normalizeText(r.catalyst || r.condition || r.cat || ""),
+        );
+        const below = escapeHtml(
+          normalizeText(
+            r.conditionBelow || r.temperature || r.pressure || r.solvent || "",
+          ),
+        );
+
+        const arrowSymbol = raw.includes("⇌") || raw.includes("↔") ? "⇌" : "→";
+        const hasLabels = Boolean(above || below);
+        const arrowHtml = hasLabels
+          ? `<span class="inline-flex flex-col items-center justify-center mx-2 align-middle text-center leading-none"><span class="text-[11px] text-slate-300 min-h-[1em]">${above || "&nbsp;"}</span><span class="text-2xl leading-none">${arrowSymbol}</span><span class="text-[11px] text-slate-300 min-h-[1em]">${below || "&nbsp;"}</span></span>`
+          : `<span class="mx-2 text-2xl leading-none align-middle">${arrowSymbol}</span>`;
+
+        return `${left} ${arrowHtml} ${right}`.trim();
+      }
+
+      function parseElectronShellsFromConfig(config = "", atomicNumber = 0) {
+        if (Array.isArray(config)) return config.slice();
+        if (!config) return fillShellsByAtomicNumber(atomicNumber);
+
+        const named = config.match(/\[(He|Ne|Ar|Kr|Xe|Rn|Og)\]/);
+        let shells = named ? (NOBLE_GAS_SHELLS[named[1]] || []).slice() : [];
+        const parsed = {};
+        const parts = normalizeText(config).split(/\s+/).filter(Boolean);
+        for (const part of parts) {
+          const m = part.match(/^(\d+)[spdfg](\d+)$/i);
+          if (!m) continue;
+          const shell = Number(m[1]);
+          const count = Number(m[2]);
+          parsed[shell] = (parsed[shell] || 0) + count;
+        }
+
+        const maxShell = Math.max(
+          ...Object.keys(parsed).map(Number),
+          shells.length,
+          0,
+        );
+        for (let i = shells.length + 1; i <= maxShell; i++) shells[i - 1] = 0;
+        Object.keys(parsed).forEach((k) => {
+          shells[Number(k) - 1] = parsed[k];
+        });
+
+        if (
+          !shells.length ||
+          shells.reduce((a, b) => a + b, 0) < atomicNumber
+        ) {
+          return fillShellsByAtomicNumber(atomicNumber);
+        }
+        return shells;
+      }
+
+      function fillShellsByAtomicNumber(z = 0) {
+        const caps = [2, 8, 18, 32, 32, 18, 8];
+        const shells = [];
+        let remaining = Math.max(0, z);
+        for (const cap of caps) {
+          if (!remaining) break;
+          const count = Math.min(cap, remaining);
+          shells.push(count);
+          remaining -= count;
+        }
+        return shells.length ? shells : [1];
+      }
+
+      function getElectronConfigText(el) {
+        return (
+          el?.general?.electronConfig ||
+          el?.general?.electron ||
+          el?.electronConfig ||
+          el?.structure?.electronConfig ||
+          "Đang cập nhật"
+        );
+      }
+
+      function getElementElectronShells(el) {
+        return (
+          el?.structure?.shells ||
+          el?.general?.shells ||
+          parseElectronShellsFromConfig(
+            getElectronConfigText(el),
+            el?.number || 0,
+          )
+        );
+      }
+
+      function inferLatticeKey(el) {
+        const raw = [
+          el?.structure?.lattice,
+          el?.structure?.latticeType,
+          el?.structure?.crystal,
+          el?.structure?.crystalType,
+          el?.general?.crystalStructure,
+          el?.general?.lattice,
+          el?.lattice,
+          el?.solid?.lattice,
+        ]
+          .filter(Boolean)
+          .map((v) => String(v).toLowerCase())
+          .join(" ");
+
+        if (/nacl|rock\s*salt|muối|halite/.test(raw)) return "nacl";
+        if (/cscl/.test(raw)) return "cscl";
+        if (/diamond|kim cương/.test(raw)) return "diamond";
+        if (/bcc|body|tâm khối/.test(raw)) return "bcc";
+        if (/fcc|face|tâm diện/.test(raw)) return "fcc";
+        if (/hcp|hexagonal close packed|lục giác/.test(raw)) return "hcp";
+        if (/sc|simple cubic|lập phương đơn/.test(raw)) return "sc";
+        return raw ? raw.split(/\s+/)[0] : "bcc";
+      }
+
+      function inferLatticeTitle(el, key) {
+        const labels = {
+          sc: "Lập phương đơn",
+          bcc: "Lập phương tâm khối",
+          fcc: "Lập phương tâm diện",
+          hcp: "Lục giác xếp chặt",
+          diamond: "Cấu trúc kim cương",
+          nacl: "Muối ăn (NaCl)",
+          cscl: "CsCl",
+        };
+        return (
+          el?.structure?.latticeLabel ||
+          el?.structure?.crystalLabel ||
+          el?.general?.crystalStructure ||
+          labels[key] ||
+          "Mạng tinh thể"
+        );
+      }
+
+      function normalizeReactionText(text = "") {
+        return String(text)
+          .replace(/&rarr;|→/g, "→")
+          .replace(/&harr;|⇌/g, "⇌")
+          .replace(/&uarr;|↑/g, "↑")
+          .replace(/&darr;|↓/g, "↓")
+          .replace(/<[^>]*>/g, "")
+          .trim();
+      }
+
+      function addAtomMesh(group, position, color, radius = 0.24) {
+        const mat = new THREE.MeshPhysicalMaterial({
+          color,
+          roughness: 0.3,
+          metalness: 0.08,
+          clearcoat: 0.45,
+        });
+        const sphere = new THREE.Mesh(
+          new THREE.SphereGeometry(radius, 28, 28),
+          mat,
+        );
+        sphere.position.copy(position);
+        group.add(sphere);
+
+        const glow = new THREE.Mesh(
+          new THREE.SphereGeometry(radius * 1.18, 18, 18),
+          new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: 0.12,
+          }),
+        );
+        glow.position.copy(position);
+        group.add(glow);
+        return sphere;
+      }
+
+      function addBond(group, from, to, color = 0x8cc7ff, opacity = 0.28) {
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([from, to]);
+        const line = new THREE.Line(
+          lineGeo,
+          new THREE.LineBasicMaterial({
+            color,
+            transparent: true,
+            opacity,
+          }),
+        );
+        group.add(line);
+        return line;
+      }
+
+      function addFaceDots(group, positions, color, radius = 0.2) {
+        positions.forEach((p) =>
+          addAtomMesh(group, new THREE.Vector3(...p), color, radius),
+        );
+      }
+
+      function createFrame(
+        group,
+        size = 4.2,
+        color = 0x8cc7ff,
+        opacity = 0.28,
+      ) {
+        group.add(createCubeOutline(size, color, opacity));
+      }
+
+      function addOctahedralConnectors(
+        group,
+        points,
+        center,
+        color = 0x6fb6ff,
+      ) {
+        points.forEach((p) =>
+          addBond(group, new THREE.Vector3(...p), center, color, 0.12),
+        );
+      }
+
+      function buildLatticeGroup(key, el) {
+        return buildCrystalGroup(key, el);
+      }
+
+      function guessMediaKind(value = "", fallback = "image") {
+        const text = String(value || "")
+          .toLowerCase()
+          .trim();
+        if (!text) return fallback;
+        if (
+          /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(text) ||
+          /(^|[?&])type=video/i.test(text) ||
+          /^(blob:|data:video)/i.test(text) ||
+          /youtube\.com|youtu\.be|vimeo\.com/i.test(text)
+        ) {
+          return "video";
+        }
+        return fallback;
+      }
+
+      function getYouTubeEmbedUrl(url = "") {
+        const s = String(url || "").trim();
+        const m =
+          s.match(/youtu\.be\/([\w-]+)/i) ||
+          s.match(/[?&]v=([\w-]+)/i) ||
+          s.match(/youtube\.com\/shorts\/([\w-]+)/i) ||
+          s.match(/youtube\.com\/embed\/([\w-]+)/i);
+        if (!m) return "";
+        return `https://www.youtube.com/embed/${m[1]}`;
+      }
+
+      function renderMediaPreview(src = "", alt = "", kindHint = "image") {
+        const kind = guessMediaKind(src, kindHint);
+        const safeSrc = escapeHtml(src);
+        const safeAlt = escapeHtml(alt || "Media");
+        if (kind === "video") {
+          const yt = getYouTubeEmbedUrl(src);
+          if (yt) {
+            return `<iframe class="w-full h-full" src="${escapeHtml(yt)}" title="${safeAlt}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          }
+          return `<video controls playsinline preload="metadata" class="w-full h-full object-cover bg-black"><source src="${safeSrc}"></video>`;
+        }
+        return `<img src="${safeSrc}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="${safeAlt}" loading="lazy" onerror="this.closest('.media-fallback')?.classList.remove('hidden'); this.classList.add('hidden');"><div class="media-fallback hidden w-full h-full flex items-center justify-center bg-slate-800 text-slate-400">Không tải được media</div>`;
+      }
+
+      function escapeHtml(value = "") {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatChemicalFormulaHtml(text = "") {
+        let s = normalizeReactionText(text).replace(
+          /^[\[\(]\s*|\s*[\]\)]$/g,
+          "",
+        );
+        s = escapeHtml(s);
+        s = s
+          .replace(/_\{([^}]+)\}/g, "<sub>$1</sub>")
+          .replace(/_([0-9]+)/g, "<sub>$1</sub>")
+          .replace(/\^\{([^}]+)\}/g, "<sup>$1</sup>")
+          .replace(/\^([0-9+-]+)/g, "<sup>$1</sup>")
+          .replace(/([A-Za-z\)])([0-9]+)/g, "$1<sub>$2</sub>");
+        return s;
+      }
+
+      function mediaToCards(source, options = {}) {
+        const {
+          defaultTitle = "Hình ảnh / video",
+          emptyText = "Chưa có dữ liệu.",
+          kindHint = null,
+        } = options;
+
+        const items = [];
+
+        const pushItem = (item, titleFallback) => {
+          if (!item) return;
+          if (typeof item === "string") {
+            items.push({
+              title: titleFallback || defaultTitle,
+              src: item,
+              kind: guessMediaKind(item, kindHint || "image"),
+            });
+            return;
+          }
+          if (typeof item !== "object") return;
+          const src = item.src || item.url || item.media || item.link || "";
+          if (!src) return;
+          items.push({
+            title: item.title || item.name || titleFallback || defaultTitle,
+            desc: item.desc || item.note || item.caption || "",
+            src,
+            kind:
+              item.kind ||
+              item.type ||
+              guessMediaKind(src, kindHint || "image"),
+          });
+        };
+
+        if (!source) {
+          return {
+            html: `<p class="text-slate-500 italic">${escapeHtml(emptyText)}</p>`,
+            count: 0,
+          };
+        }
+
+        if (Array.isArray(source)) {
+          source.forEach((item, idx) =>
+            pushItem(item, `${defaultTitle} ${idx + 1}`),
+          );
+        } else if (typeof source === "object") {
+          if (source.items && Array.isArray(source.items)) {
+            source.items.forEach((item, idx) =>
+              pushItem(item, `${defaultTitle} ${idx + 1}`),
+            );
+          } else if (source.src || source.url || source.media) {
+            pushItem(source, defaultTitle);
+          } else {
+            Object.entries(source).forEach(([key, value]) => {
+              if (!value) return;
+              if (Array.isArray(value)) {
+                value.forEach((item, idx) =>
+                  pushItem(item, `${key} ${idx + 1}`),
+                );
+                return;
+              }
+              if (typeof value === "string") {
+                pushItem(
+                  {
+                    title: key.replace(/_/g, " "),
+                    src: value,
+                  },
+                  key.replace(/_/g, " "),
+                );
+              }
+            });
+          }
+        } else if (typeof source === "string") {
+          pushItem(source, defaultTitle);
+        }
+
+        if (!items.length) {
+          return {
+            html: `<p class="text-slate-500 italic">${escapeHtml(emptyText)}</p>`,
+            count: 0,
+          };
+        }
+
+        const html = items
+          .map((item) => {
+            const preview = renderMediaPreview(item.src, item.title, item.kind);
+            return `
+  <div class="glass overflow-hidden rounded-2xl border border-slate-700 group">
+    <div class="h-[300px] bg-slate-800 overflow-hidden media-fallback relative">
+      ${preview}
+    </div>
+    <div class="p-4 border-t border-slate-700/60 bg-slate-900/60">
+      <div class="font-semibold text-white text-sm">${escapeHtml(item.title || defaultTitle)}</div>
+      ${item.desc ? `<p class="text-slate-400 text-xs leading-relaxed mt-1">${escapeHtml(item.desc)}</p>` : ""}
+    </div>
+  </div>
+`;
+          })
+          .join("");
+
+        return { html, count: items.length };
+      }
+
+      function renderEquationBlock(r = {}) {
+        const eqHtml = buildReactionLatex(r);
+        const relatedBtn = r.related
+          ? `<button onclick="interlinkElement('${escapeHtml(r.related)}')" class="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-blue-300 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-3 py-2 rounded-full transition-colors">Xem ${escapeHtml(r.related)}</button>`
+          : "";
+        const videoHtml = mediaToCards(r.video || r.media || r.videos, {
+          defaultTitle: r.type || "Video minh họa",
+          emptyText: "",
+          kindHint: "video",
+        });
+        return `
+          <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700 mb-4">
+            <span class="text-xs font-bold px-3 py-1 bg-slate-700 rounded-full text-slate-300 mb-3 inline-block">${escapeHtml(r.type || "Phản ứng")}</span>
+            <div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto">${eqHtml}</div>
+            <p class="text-slate-400 mb-2">${escapeHtml(r.desc || "")}</p>
+            ${relatedBtn}
+            ${videoHtml.count ? `<div class="mt-4 rounded-xl overflow-hidden border border-slate-700">${videoHtml.html}</div>` : ""}
+          </div>
+        `;
+      }
+
+      function createElectronWidget(container, el) {
+        const shellCounts = getElementElectronShells(el).filter((n) => n > 0);
+        const configText = getElectronConfigText(el);
+        const wrap = container;
+        wrap.innerHTML = "";
+        wrap.style.position = "relative";
+        wrap.style.overflow = "hidden";
+
+        const canvas = document.createElement("canvas");
+        canvas.style.position = "absolute";
+        canvas.style.inset = "0";
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.zIndex = "0";
+
+        const toolbar = document.createElement("div");
+        toolbar.className =
+          "absolute right-3 top-3 z-20 flex items-center gap-2 flex-wrap justify-end";
+
+        const zoomOutBtn = document.createElement("button");
+        zoomOutBtn.className = "visual-badge px-3 py-2";
+        zoomOutBtn.innerHTML =
+          '<i class="fa-solid fa-magnifying-glass-minus"></i>';
+
+        const zoomInBtn = document.createElement("button");
+        zoomInBtn.className = "visual-badge px-3 py-2";
+        zoomInBtn.innerHTML =
+          '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+
+        const resetBtn = document.createElement("button");
+        resetBtn.className = "visual-badge px-3 py-2";
+        resetBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i>';
+
+        const zoomLabel = document.createElement("span");
+        zoomLabel.className = "visual-badge px-3 py-2";
+        zoomLabel.textContent = "100%";
+
+        toolbar.append(zoomOutBtn, zoomLabel, zoomInBtn, resetBtn);
+
+        const badge = document.createElement("div");
+        badge.className =
+          "absolute left-3 top-3 z-10 visual-badge max-w-[calc(100%-220px)]";
+        badge.innerHTML = `<i class="fa-solid fa-bolt text-blue-300"></i> ${escapeHtml(configText)}`;
+
+        const info = document.createElement("div");
+        info.className =
+          "absolute left-3 right-3 bottom-3 z-10 flex flex-wrap gap-2 max-h-[96px] overflow-y-auto pr-1";
+
+        wrap.appendChild(canvas);
+        wrap.appendChild(badge);
+        wrap.appendChild(toolbar);
+        wrap.appendChild(info);
+
+        const ctx = canvas.getContext("2d");
+        let raf = 0;
+        let zoom = 1;
+        const MIN_ZOOM = 0.72;
+        const MAX_ZOOM = 1.8;
+        let wheelHandler = null;
+
+        const clampZoom = () => {
+          zoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoom));
+          zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+        };
+
+        const resize = () => {
+          const rect = wrap.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+          canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+          canvas.style.width = "100%";
+          canvas.style.height = "100%";
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+
+        const orbitalsByShell = getElectronOrbitalLayout(el);
+        const shellKeys = [...orbitalsByShell.keys()].sort((a, b) => a - b);
+        const shellMeta = shellKeys.map((shell, idx) => ({
+          shell,
+          label: ELECTRON_SHELL_LABELS[idx] || `N${idx + 1}`,
+          segments: orbitalsByShell.get(shell) || [],
+        }));
+
+        const drawLegend = () => {
+          const chips = [
+            ["s", ORBITAL_COLORS.s],
+            ["p", ORBITAL_COLORS.p],
+            ["d", ORBITAL_COLORS.d],
+            ["f", ORBITAL_COLORS.f],
+          ]
+            .map(
+              ([label, color]) => `
+                <span class="visual-badge px-1 py-4" style="border-color: ${color}55">
+                  <span class="w-1.5 h-1.5 rounded-full inline-block mr-2" style="background:${color}"></span>${label}
+                </span>
+              `,
+            )
+            .join("");
+
+          info.innerHTML = `
+            <div class="flex flex-wrap gap-2 w-full">
+              ${chips}
+            </div>
+          `;
+        };
+
+        const draw = (t) => {
+          const w = wrap.clientWidth;
+          const h = wrap.clientHeight;
+          ctx.clearRect(0, 0, w, h);
+
+          const cx = w * 0.5;
+          const cy = h * 0.5;
+          const available = Math.min(w, h) * 0.42;
+          const ringStep = Math.max(
+            20,
+            available / Math.max(shellCounts.length + 1, 3),
+          );
+          const nucleusRadius = Math.max(10, Math.min(w, h) * 0.06);
+
+          const grad = ctx.createRadialGradient(
+            cx,
+            cy,
+            nucleusRadius * 0.5,
+            cx,
+            cy,
+            Math.min(w, h) * 0.46,
+          );
+          grad.addColorStop(0, "rgba(59,130,246,0.24)");
+          grad.addColorStop(1, "rgba(15,23,42,0)");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          shellMeta.forEach((item, idx) => {
+            const segments = item.segments.length
+              ? item.segments
+              : [{ orbital: "s", count: shellCounts[idx] || 0 }];
+            const electronTotal = segments.reduce(
+              (sum, seg) => sum + Math.max(0, Number(seg.count) || 0),
+              0,
+            );
+            const radius = ringStep * (idx + 1) * zoom;
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle =
+              idx % 2 === 0
+                ? "rgba(148,163,184,0.42)"
+                : "rgba(125,211,252,0.28)";
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+
+            const labelAngle = -Math.PI / 10;
+            const lx = cx + Math.cos(labelAngle) * (radius + 18);
+            const ly = cy + Math.sin(labelAngle) * (radius + 18);
+            ctx.save();
+            ctx.font = "600 11px Inter, sans-serif";
+            ctx.fillStyle = "rgba(226,232,240,0.86)";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(item.label, lx, ly);
+            ctx.restore();
+
+            const expanded = segments.flatMap((seg) =>
+              Array.from(
+                { length: Math.max(0, Number(seg.count) || 0) },
+                () => ({
+                  orbital: String(seg.orbital || "s").toLowerCase(),
+                }),
+              ),
+            );
+
+            const speed = 0.55 / (idx + 1);
+            const total = Math.max(1, electronTotal || expanded.length || 1);
+            for (let i = 0; i < total; i++) {
+              const source = expanded[i] || { orbital: "s" };
+              const palette =
+                ORBITAL_COLORS[source.orbital] || ORBITAL_COLORS.default;
+              const angle = (Math.PI * 2 * i) / total + t * 0.0015 * speed;
+              const ex = cx + Math.cos(angle) * radius;
+              const ey = cy + Math.sin(angle) * radius;
+              ctx.beginPath();
+              ctx.arc(ex, ey, Math.max(3, 4.8 - idx * 0.35), 0, Math.PI * 2);
+              ctx.fillStyle = palette;
+              ctx.fill();
+            }
+          });
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, nucleusRadius, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(248,113,113,0.94)";
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, nucleusRadius * 1.15, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(59,130,246,0.12)";
+          ctx.fill();
+
+          ctx.fillStyle = "rgba(255,255,255,0.96)";
+          ctx.font = "700 14px Inter, sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(String(el.symbol || el.number || "•"), cx, cy);
+
+          drawLegend();
+        };
+
+        const loop = (t) => {
+          draw(t || 0);
+          raf = requestAnimationFrame(loop);
+        };
+
+        const ro = new ResizeObserver(resize);
+        ro.observe(wrap);
+
+        const applyZoom = (delta) => {
+          zoom = zoom + delta;
+          clampZoom();
+        };
+
+        wheelHandler = (ev) => {
+          ev.preventDefault();
+          applyZoom(ev.deltaY > 0 ? -0.06 : 0.06);
+        };
+        wrap.addEventListener("wheel", wheelHandler, { passive: false });
+
+        zoomOutBtn.addEventListener("click", () => applyZoom(-0.12));
+        zoomInBtn.addEventListener("click", () => applyZoom(0.12));
+        resetBtn.addEventListener("click", () => {
+          zoom = 1;
+          clampZoom();
+        });
+
+        clampZoom();
+        resize();
+        loop();
+
+        return {
+          destroy() {
+            cancelAnimationFrame(raf);
+            ro.disconnect();
+            if (wheelHandler) wrap.removeEventListener("wheel", wheelHandler);
+            wrap.innerHTML = "";
+          },
+        };
+      }
+
+      function createCrystalWidget(container, el) {
+        const latticeKey = inferLatticeKey(el);
+        const title = inferLatticeTitle(el, latticeKey);
+
+        const wrap = container;
+        wrap.innerHTML = "";
+        wrap.style.position = "relative";
+        wrap.style.overflow = "hidden";
+
+        const label = document.createElement("div");
+        label.className = "absolute left-3 top-3 z-10 visual-badge";
+        label.innerHTML = `<i class="fa-solid fa-cube"></i> ${title}`;
+        wrap.appendChild(label);
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x06101d);
+        scene.fog = new THREE.Fog(0x06101d, 10, 24);
+
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+        camera.position.set(7, 5.5, 7);
+
+        const renderer = new THREE.WebGLRenderer({
+          antialias: true,
+          alpha: true,
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.domElement.style.position = "absolute";
+        renderer.domElement.style.inset = "0";
+        renderer.domElement.style.width = "100%";
+        renderer.domElement.style.height = "100%";
+        renderer.domElement.style.zIndex = "0";
+        wrap.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enablePan = false;
+        controls.enableZoom = true;
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.8;
+        controls.target.set(0, 0, 0);
+
+        scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+        const hemi = new THREE.HemisphereLight(0xcfefff, 0x08111d, 1.2);
+        scene.add(hemi);
+        const dir = new THREE.DirectionalLight(0xffffff, 1.5);
+        dir.position.set(8, 10, 6);
+        scene.add(dir);
+
+        const root = new THREE.Group();
+        root.add(buildLatticeGroup(latticeKey, el));
+        scene.add(root);
+
+        const sizeFit = () => {
+          const rect = wrap.getBoundingClientRect();
+          renderer.setSize(rect.width, rect.height, false);
+          camera.aspect = rect.width / Math.max(rect.height, 1);
+          camera.updateProjectionMatrix();
+        };
+        const ro = new ResizeObserver(sizeFit);
+        ro.observe(wrap);
+        sizeFit();
+
+        let raf = 0;
+        const loop = () => {
+          root.rotation.y += 0.003;
+          controls.update();
+          renderer.render(scene, camera);
+          raf = requestAnimationFrame(loop);
+        };
+        loop();
+
+        return {
+          destroy() {
+            cancelAnimationFrame(raf);
+            ro.disconnect();
+            controls.dispose();
+            renderer.dispose();
+            wrap.innerHTML = "";
+          },
+        };
+      }
+
+      function mountDetailVisuals(el) {
+        if (window.__electronWidget) {
+          window.__electronWidget.destroy();
+          window.__electronWidget = null;
+        }
+        if (window.__crystalWidget) {
+          window.__crystalWidget.destroy();
+          window.__crystalWidget = null;
+        }
+
+        const electronContainer = document.getElementById("electron-widget");
+        const crystalContainer = document.getElementById("crystal-widget");
+        if (electronContainer)
+          window.__electronWidget = createElectronWidget(electronContainer, el);
+        if (crystalContainer)
+          window.__crystalWidget = createCrystalWidget(crystalContainer, el);
+
+        const article = document.getElementById("article-content");
+        const typeset = () => {
+          if (window.MathJax?.typesetPromise && article) {
+            return window.MathJax.typesetPromise([article]).catch(() => {});
+          }
+          return Promise.resolve();
+        };
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            typeset();
+          });
+        });
+      }
+
+      const ELECTRON_SHELL_LABELS = ["K", "L", "M", "N", "O", "P", "Q"];
+      const ORBITAL_COLORS = {
+        s: "#60a5fa",
+        p: "#34d399",
+        d: "#f59e0b",
+        f: "#f472b6",
+        g: "#a78bfa",
+        default: "#93c5fd",
+      };
+
+      function normalizeSectionKey(value = "") {
+        return String(value || "")
+          .toLowerCase()
+          .replace(/[_\s]+/g, "-")
+          .replace(/^sec-/, "")
+          .trim();
+      }
+
+      function parseTimecodeToSeconds(value) {
+        if (typeof value === "number" && Number.isFinite(value)) return value;
+        const raw = String(value || "").trim();
+        if (!raw) return null;
+        if (/^\d+(?:\.\d+)?$/.test(raw)) return Number(raw);
+
+        const hmsMatch = raw.match(
+          /^(?:(\d+)\s*h)?\s*(?:(\d+)\s*m)?\s*(?:(\d+)\s*s)?$/i,
+        );
+        if (hmsMatch && (hmsMatch[1] || hmsMatch[2] || hmsMatch[3])) {
+          const h = Number(hmsMatch[1] || 0);
+          const m = Number(hmsMatch[2] || 0);
+          const s = Number(hmsMatch[3] || 0);
+          return h * 3600 + m * 60 + s;
+        }
+
+        const parts = raw.split(":").map((p) => p.trim());
+        if (
+          parts.length >= 2 &&
+          parts.length <= 3 &&
+          parts.every((p) => p !== "" && !Number.isNaN(Number(p)))
+        ) {
+          return parts.reduce((total, part) => total * 60 + Number(part), 0);
+        }
+
+        const compact = raw.match(
+          /^(\d+)\s*h(?:\s*(\d+)\s*m)?(?:\s*(\d+)\s*s)?$/i,
+        );
+        if (compact) {
+          return (
+            Number(compact[1] || 0) * 3600 +
+            Number(compact[2] || 0) * 60 +
+            Number(compact[3] || 0)
+          );
+        }
+
+        return null;
+      }
+
+      function formatDurationShort(seconds = 0) {
+        const s = Math.max(0, Math.floor(seconds));
+        const h = Math.floor(s / 3600);
+        const m = Math.floor((s % 3600) / 60);
+        const sec = s % 60;
+        if (h > 0)
+          return `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+        return `${m}:${String(sec).padStart(2, "0")}`;
+      }
+
+      const QUIZ_TYPE_LABELS = {
+        single: "Trắc nghiệm 1 đáp án đúng",
+        multiple: "Trắc nghiệm nhiều đáp án đúng",
+        boolean: "Câu hỏi đúng/sai",
+        short: "Câu hỏi trả lời ngắn",
+      };
+
+      function normalizeQuizType(value = "") {
+        const v = String(value || "")
+          .trim()
+          .toLowerCase();
+        if (
+          [
+            "multiple",
+            "multi",
+            "multi-select",
+            "checkbox",
+            "many",
+            "multi_answer",
+          ].includes(v)
+        )
+          return "multiple";
+        if (
+          [
+            "boolean",
+            "truefalse",
+            "true-false",
+            "true_false",
+            "dung-sai",
+            "đúng/sai",
+            "đúng sai",
+          ].includes(v)
+        )
+          return "boolean";
+        if (
+          [
+            "short",
+            "short-answer",
+            "short_answer",
+            "text",
+            "answer",
+            "ngan",
+            "ngắn",
+          ].includes(v)
+        )
+          return "short";
+        return "single";
+      }
+
+      function normalizeAnswerText(value = "") {
+        return String(value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, " ")
+          .trim()
+          .replace(/\s+/g, " ");
+      }
+
+      function normalizeQuizAnswers(value) {
+        if (Array.isArray(value)) return value;
+        if (value == null || value === "") return [];
+        return [value];
+      }
+
+      function quizAnswerToIndices(answer, optionTexts = []) {
+        const list = normalizeQuizAnswers(answer);
+        if (!list.length) return [];
+        return list
+          .map((item) => {
+            if (typeof item === "number" && Number.isFinite(item)) return item;
+            if (typeof item === "string" && /^\d+$/.test(item.trim()))
+              return Number(item);
+            const normalized = normalizeAnswerText(item);
+            const idx = optionTexts.findIndex(
+              (opt) => normalizeAnswerText(opt) === normalized,
+            );
+            return idx;
+          })
+          .filter((idx) => Number.isInteger(idx) && idx >= 0);
+      }
+
+      function isQuizAnswerCorrect(cue, selectedValues) {
+        const type = normalizeQuizType(cue.type);
+        const optionTexts = Array.isArray(cue.options) ? cue.options : [];
+        const rawAnswer =
+          cue.answer ??
+          cue.correct ??
+          cue.correctAnswer ??
+          cue.correctIndex ??
+          cue.correctIndexes ??
+          cue.correctAnswers ??
+          cue.expected ??
+          cue.rightAnswer;
+
+        if (type === "single" || type === "boolean") {
+          const selectedIndex = Number(selectedValues?.[0]);
+          const selectedText = normalizeAnswerText(
+            selectedValues?.[1] ?? selectedValues?.[0],
+          );
+
+          if (typeof rawAnswer === "boolean") {
+            return (
+              selectedIndex === (rawAnswer ? 0 : 1) ||
+              selectedText ===
+                normalizeAnswerText(rawAnswer ? "đúng" : "sai") ||
+              selectedText === normalizeAnswerText(rawAnswer ? "true" : "false")
+            );
+          }
+          if (typeof rawAnswer === "number" && Number.isFinite(rawAnswer)) {
+            return Number(selectedValues?.[0]) === rawAnswer;
+          }
+          if (typeof rawAnswer === "string" && /^\d+$/.test(rawAnswer.trim())) {
+            return Number(selectedValues?.[0]) === Number(rawAnswer.trim());
+          }
+          const expectedText = normalizeAnswerText(rawAnswer);
+          return (
+            selectedText === expectedText ||
+            Number(selectedValues?.[0]) === Number(rawAnswer)
+          );
+        }
+
+        if (type === "multiple") {
+          const expectedIndices = quizAnswerToIndices(rawAnswer, optionTexts);
+          const selectedIndices = normalizeQuizAnswers(selectedValues)
+            .map((v) => Number(v))
+            .filter((v) => Number.isInteger(v) && v >= 0)
+            .sort((a, b) => a - b);
+          return (
+            expectedIndices.length > 0 &&
+            expectedIndices.sort((a, b) => a - b).join(",") ===
+              selectedIndices.join(",")
+          );
+        }
+
+        const accepted = normalizeQuizAnswers(
+          cue.acceptedAnswers ??
+            cue.accepted ??
+            cue.answers ??
+            cue.correctTexts ??
+            rawAnswer,
+        ).map((x) => normalizeAnswerText(x));
+        const selected = normalizeAnswerText(selectedValues?.[0]);
+        return (
+          accepted.includes(selected) ||
+          accepted.includes(normalizeAnswerText(rawAnswer))
+        );
+      }
+
+      function formatQuizAnswerHint(cue) {
+        const type = normalizeQuizType(cue.type);
+        if (type === "multiple")
+          return "Chọn tất cả đáp án đúng rồi bấm Kiểm tra.";
+        if (type === "short") return "Nhập câu trả lời ngắn rồi bấm Kiểm tra.";
+        return "Chọn một đáp án đúng.";
+      }
+
+      function getDetailMediaBlocks(el) {
+        const raw = [
+          ...(Array.isArray(el?.mediaBlocks) ? el.mediaBlocks : []),
+          ...(Array.isArray(el?.media) ? el.media : []),
+          ...(Array.isArray(el?.blocks) ? el.blocks : []),
+        ];
+        return raw
+          .map((block, idx) => {
+            if (!block) return null;
+            const type =
+              String(block.type || block.kind || "").toLowerCase() || "image";
+            const section = normalizeSectionKey(
+              block.section ||
+                block.anchor ||
+                block.insertAfter ||
+                block.position ||
+                "general",
+            );
+            const title =
+              block.title || block.name || `${type.toUpperCase()} ${idx + 1}`;
+            const desc = block.desc || block.description || block.note || "";
+            const src =
+              block.src ||
+              block.url ||
+              block.link ||
+              block.media ||
+              block.modelPath ||
+              block.path ||
+              "";
+            return {
+              ...block,
+              _idx: idx,
+              type,
+              section,
+              title,
+              desc,
+              src,
+            };
+          })
+          .filter(
+            (block) =>
+              block &&
+              (block.src || block.type === "text" || block.type === "html"),
+          );
+      }
+
+      function renderDetailMediaBlocks(el, sectionKey) {
+        const blocks = getDetailMediaBlocks(el).filter(
+          (block) => block.section === normalizeSectionKey(sectionKey),
+        );
+        if (!blocks.length) return "";
+        return blocks
+          .map((block) => {
+            const id = `detail-media-${el.symbol}-${block._idx}`;
+            return `
+              <section class="scroll-mt-24 mt-6" data-detail-media="${id}">
+                <div class="detail-media-block">
+                  <div class="detail-media-head">
+                    <div>
+                      <div class="detail-media-title">${escapeHtml(block.title)}</div>
+                      ${block.desc ? `<div class="detail-media-desc">${escapeHtml(block.desc)}</div>` : ""}
+                    </div>
+                    <span class="visual-badge shrink-0">${escapeHtml(block.type.toUpperCase())}</span>
+                  </div>
+                  <div class="detail-media-body">
+                    <div id="${id}"></div>
+                  </div>
+                </div>
+              </section>
+            `;
+          })
+          .join("");
+      }
+
+      function resolveModelPath(el, block = {}) {
+        const direct =
+          block.modelPath ||
+          block.model ||
+          block.src ||
+          block.url ||
+          block.path ||
+          "";
+        if (direct) return direct;
+        const z = String(el?.number || "").padStart(3, "0");
+        const symbol = String(el?.symbol || "").toLowerCase();
+        const name = String(el?.nameVi || el?.nameEn || "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-");
+        const candidates = [
+          `./assets/model/${z}_${symbol}.glb`,
+          `./assets/model/${z}_${symbol}.gltf`,
+          `./assets/model/${z}.glb`,
+          `./assets/model/${z}.gltf`,
+          `./assets/model/${symbol}.glb`,
+          `./assets/model/${symbol}.gltf`,
+          `./assets/model/${name}.glb`,
+          `./assets/model/${name}.gltf`,
+        ];
+        return candidates[0];
+      }
+
+      function getElectronOrbitalLayout(el) {
+        const config = normalizeText(getElectronConfigText(el));
+        const segments = [];
+        const re = /(\d+)([spdfg])(\d+)/gi;
+        let m;
+        while ((m = re.exec(config))) {
+          segments.push({
+            shell: Number(m[1]),
+            orbital: String(m[2]).toLowerCase(),
+            count: Number(m[3]),
+          });
+        }
+        if (!segments.length) {
+          const shellCounts = getElementElectronShells(el).filter((n) => n > 0);
+          shellCounts.forEach((count, idx) => {
+            segments.push({
+              shell: idx + 1,
+              orbital: idx === 0 ? "s" : "p",
+              count,
+            });
+          });
+        }
+
+        const map = new Map();
+        for (const seg of segments) {
+          if (!map.has(seg.shell)) map.set(seg.shell, []);
+          map.get(seg.shell).push(seg);
+        }
+        return map;
+      }
+
+      function renderSectionVideoHints(block) {
+        const cues = Array.isArray(block.cues)
+          ? block.cues
+          : Array.isArray(block.questions)
+            ? block.questions
+            : Array.isArray(block.popups)
+              ? block.popups
+              : [];
+        if (!cues.length) return "";
+        return `
+          <div class="mt-4 grid gap-2">
+            ${cues
+              .map((cue) => {
+                const at =
+                  cue.at ??
+                  cue.time ??
+                  cue.start ??
+                  cue.timestamp ??
+                  cue.timecode ??
+                  cue.mark;
+                const secs = parseTimecodeToSeconds(at);
+                const type =
+                  QUIZ_TYPE_LABELS[
+                    normalizeQuizType(cue.type || cue.questionType || cue.kind)
+                  ] || "Câu hỏi";
+                return `
+                 
+                `;
+              })
+              .join("")}
+          </div>
+        `;
+      }
+
+      function ensureYoutubeApi() {
+        if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+        if (window.__ytPromise) return window.__ytPromise;
+        window.__ytPromise = new Promise((resolve) => {
+          const prev = window.onYouTubeIframeAPIReady;
+          window.onYouTubeIframeAPIReady = () => {
+            if (typeof prev === "function") prev();
+            resolve(window.YT);
+          };
+          if (window.YT && window.YT.Player) resolve(window.YT);
+        });
+        return window.__ytPromise;
+      }
+
+      function getYoutubeId(url = "") {
+        const s = String(url || "").trim();
+        const m =
+          s.match(/youtu\.be\/([\w-]+)/i) ||
+          s.match(/[?&]v=([\w-]+)/i) ||
+          s.match(/youtube\.com\/shorts\/([\w-]+)/i) ||
+          s.match(/youtube\.com\/embed\/([\w-]+)/i);
+        return m ? m[1] : "";
+      }
+
+      function createVideoQuizBlock(container, block, el) {
+        const src = String(block.src || block.url || block.link || "").trim();
+        const cues = (
+          Array.isArray(block.cues)
+            ? block.cues
+            : Array.isArray(block.questions)
+              ? block.questions
+              : Array.isArray(block.popups)
+                ? block.popups
+                : []
+        )
+          .map((cue, idx) => {
+            const seconds = parseTimecodeToSeconds(
+              cue.at ??
+                cue.time ??
+                cue.start ??
+                cue.timestamp ??
+                cue.timecode ??
+                cue.mark,
+            );
+            const options = Array.isArray(cue.options)
+              ? cue.options.map((opt) =>
+                  typeof opt === "object"
+                    ? String(opt.text || opt.label || opt.title || "").trim()
+                    : String(opt || "").trim(),
+                )
+              : [];
+            return {
+              id: cue.id || `cue-${idx}`,
+              seconds,
+              type: normalizeQuizType(cue.type || cue.questionType || cue.kind),
+              question: String(
+                cue.question || cue.text || cue.prompt || "",
+              ).trim(),
+              options: options.filter(Boolean),
+              answer:
+                cue.answer ??
+                cue.correct ??
+                cue.correctIndex ??
+                cue.correctIndices ??
+                cue.correctAnswers ??
+                cue.expected ??
+                cue.rightAnswer ??
+                cue.solution ??
+                "",
+              acceptedAnswers:
+                cue.acceptedAnswers || cue.accepted || cue.answers || [],
+              explain: cue.explain || cue.feedback || cue.note || "",
+              shown: false,
+              done: false,
+            };
+          })
+          .filter((cue) => cue.seconds != null && cue.question);
+
+        const youtubeId = getYoutubeId(src);
+        const isYoutube = Boolean(youtubeId);
+        const isDirectVideo =
+          /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(src) ||
+          src.startsWith("blob:") ||
+          src.startsWith("data:video");
+
+        container.innerHTML = `
+          <div class="grid gap-4">
+            <div class="video-shell">
+              <div id="video-host-${el.symbol}-${block._idx}" class="w-full h-full"></div>
+              <div id="video-overlay-${el.symbol}-${block._idx}" class="hidden absolute inset-0 z-20 bg-black/70 items-center justify-center p-3 md:p-4">
+                <div class="w-full max-w-[min(92vw,48rem)] max-h-[calc(100%-1rem)] overflow-auto rounded-3xl bg-slate-950 border border-slate-700 shadow-2xl">
+                  <div class="px-4 md:px-5 py-4 border-b border-slate-800 flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                      <div class="text-lg md:text-xl font-bold text-white">Câu hỏi theo mốc thời gian</div>
+                      <div class="text-xs md:text-sm text-slate-400 mt-1 break-words" id="video-overlay-meta-${el.symbol}-${block._idx}"></div>
+                    </div>
+                    <button class="shrink-0 text-slate-300 hover:text-white text-2xl leading-none" id="video-overlay-close-${el.symbol}-${block._idx}" aria-label="Đóng">×</button>
+                  </div>
+                  <div class="p-4 md:p-5 space-y-4">
+                    <p class="text-slate-100 text-base md:text-lg leading-relaxed" id="video-question-${el.symbol}-${block._idx}"></p>
+                    <p class="text-slate-400 text-xs md:text-sm" id="video-hint-${el.symbol}-${block._idx}"></p>
+                    <div class="grid gap-2" id="video-options-${el.symbol}-${block._idx}"></div>
+                    <div class="hidden rounded-xl px-4 py-3 text-sm" id="video-feedback-${el.symbol}-${block._idx}"></div>
+                    <div class="flex items-center justify-end gap-2 pt-2">
+                      <button class="rounded-xl border border-slate-700 px-4 py-2 text-slate-200 hover:bg-slate-800" id="video-skip-${el.symbol}-${block._idx}">Bỏ qua</button>
+                      <button class="rounded-xl bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-400" id="video-next-${el.symbol}-${block._idx}">Tiếp tục</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ${block.desc ? `<div class="detail-media-note">${escapeHtml(block.desc)}</div>` : ""}
+            ${renderSectionVideoHints(block)}
+          </div>
+        `;
+
+        const host = container.querySelector(
+          `#video-host-${el.symbol}-${block._idx}`,
+        );
+        const overlay = container.querySelector(
+          `#video-overlay-${el.symbol}-${block._idx}`,
+        );
+        const meta = container.querySelector(
+          `#video-overlay-meta-${el.symbol}-${block._idx}`,
+        );
+        const qText = container.querySelector(
+          `#video-question-${el.symbol}-${block._idx}`,
+        );
+        const hintText = container.querySelector(
+          `#video-hint-${el.symbol}-${block._idx}`,
+        );
+        const optsWrap = container.querySelector(
+          `#video-options-${el.symbol}-${block._idx}`,
+        );
+        const feedback = container.querySelector(
+          `#video-feedback-${el.symbol}-${block._idx}`,
+        );
+        const skipBtn = container.querySelector(
+          `#video-skip-${el.symbol}-${block._idx}`,
+        );
+        const nextBtn = container.querySelector(
+          `#video-next-${el.symbol}-${block._idx}`,
+        );
+        const closeBtn = container.querySelector(
+          `#video-overlay-close-${el.symbol}-${block._idx}`,
+        );
+
+        let currentCue = null;
+        let checker = null;
+        let player = null;
+        const played = new Set();
+
+        const pausePlayback = () => {
+          if (player?.pauseVideo) player.pauseVideo();
+          if (player?.pause) player.pause();
+        };
+
+        const resumePlayback = () => {
+          if (player?.playVideo) player.playVideo();
+          if (player?.play) player.play();
+        };
+
+        const hideOverlay = () => {
+          overlay.classList.add("hidden");
+          overlay.classList.remove("flex");
+          feedback.classList.add("hidden");
+          feedback.textContent = "";
+          feedback.className = "hidden rounded-xl px-4 py-3 text-sm";
+          optsWrap.innerHTML = "";
+          hintText.textContent = "";
+          currentCue = null;
+        };
+
+        const setFeedback = (isCorrect, message) => {
+          feedback.className = `rounded-xl px-4 py-3 text-sm ${
+            isCorrect
+              ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-300"
+              : "bg-rose-500/10 border border-rose-500/30 text-rose-300"
+          }`;
+          feedback.textContent = message;
+          feedback.classList.remove("hidden");
+        };
+
+        const collectSelected = (type) => {
+          if (type === "multiple") {
+            return [...optsWrap.querySelectorAll('input[type="checkbox"]')]
+              .map((input, idx) => (input.checked ? idx : -1))
+              .filter((idx) => idx >= 0);
+          }
+          if (type === "short") {
+            return [
+              optsWrap.querySelector("input[data-short-answer]")?.value || "",
+            ];
+          }
+          const checked = optsWrap.querySelector('input[type="radio"]:checked');
+          return [checked ? checked.value : ""];
+        };
+
+        const renderOptions = (cue) => {
+          const type = normalizeQuizType(cue.type);
+          const options = cue.options.length
+            ? cue.options
+            : type === "boolean"
+              ? ["Đúng", "Sai"]
+              : [];
+
+          if (type === "short") {
+            optsWrap.innerHTML = `
+              <label class="block">
+                <span class="block text-sm text-slate-400 mb-2">Nhập câu trả lời</span>
+                <input data-short-answer class="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Câu trả lời ngắn..." />
+              </label>
+              <div class="flex justify-end">
+                <button type="button" id="video-check-${el.symbol}-${block._idx}" class="rounded-xl bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-400">Kiểm tra</button>
+              </div>
+            `;
+            optsWrap.querySelector(
+              `#video-check-${el.symbol}-${block._idx}`,
+            ).onclick = () => {
+              const selected = collectSelected(type);
+              const ok = isQuizAnswerCorrect(cue, selected);
+              setFeedback(
+                ok,
+                cue.explain || (ok ? "Chính xác." : "Chưa đúng."),
+              );
+            };
+            return;
+          }
+
+          if (type === "multiple") {
+            optsWrap.innerHTML = `
+              <div class="grid gap-2">
+                ${options
+                  .map(
+                    (opt, idx) => `
+                      <label class="flex items-start gap-3 rounded-xl border border-slate-700 px-4 py-3 text-left text-slate-200 hover:bg-slate-800 transition-colors cursor-pointer">
+                        <input type="checkbox" value="${escapeHtml(String(idx))}" class="mt-1 accent-blue-500" />
+                        <span class="flex-1 break-words">${escapeHtml(opt)}</span>
+                      </label>
+                    `,
+                  )
+                  .join("")}
+              </div>
+              <div class="flex justify-end">
+                <button type="button" id="video-check-${el.symbol}-${block._idx}" class="rounded-xl bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-400">Kiểm tra</button>
+              </div>
+            `;
+            optsWrap.querySelector(
+              `#video-check-${el.symbol}-${block._idx}`,
+            ).onclick = () => {
+              const selected = collectSelected(type);
+              const ok = isQuizAnswerCorrect(cue, selected);
+              setFeedback(
+                ok,
+                cue.explain || (ok ? "Chính xác." : "Chưa đúng."),
+              );
+            };
+            return;
+          }
+
+          optsWrap.innerHTML = `
+            <div class="grid gap-2">
+              ${options
+                .map(
+                  (opt, idx) => `
+                    <button type="button" data-option-index="${idx}" class="rounded-xl border border-slate-700 px-4 py-3 text-left text-slate-200 hover:bg-slate-800 transition-colors break-words">${escapeHtml(opt)}</button>
+                  `,
+                )
+                .join("")}
+            </div>
+          `;
+
+          optsWrap.querySelectorAll("[data-option-index]").forEach((btn) => {
+            btn.onclick = () => {
+              const selected = [
+                btn.getAttribute("data-option-index") || "",
+                btn.textContent || "",
+              ];
+              const ok = isQuizAnswerCorrect(cue, selected);
+              setFeedback(
+                ok,
+                cue.explain || (ok ? "Chính xác." : "Chưa đúng."),
+              );
+            };
+          });
+        };
+
+        const showOverlay = (cue) => {
+          currentCue = cue;
+          overlay.classList.remove("hidden");
+          overlay.classList.add("flex");
+          const type = normalizeQuizType(cue.type);
+          meta.textContent = `Mốc: ${
+            cue.seconds == null ? "" : formatDurationShort(cue.seconds)
+          } • ${block.title} • ${QUIZ_TYPE_LABELS[type]}`;
+          qText.textContent = cue.question;
+          hintText.textContent = formatQuizAnswerHint(cue);
+          feedback.classList.add("hidden");
+          feedback.textContent = "";
+          feedback.className = "hidden rounded-xl px-4 py-3 text-sm";
+          renderOptions(cue);
+          pausePlayback();
+        };
+
+        closeBtn.onclick = hideOverlay;
+        skipBtn.onclick = hideOverlay;
+        nextBtn.onclick = () => {
+          hideOverlay();
+          resumePlayback();
+        };
+
+        const checkCues = () => {
+          let current = 0;
+          if (player?.getCurrentTime) current = player.getCurrentTime() || 0;
+          else if (player?.currentTime != null)
+            current = player.currentTime || 0;
+          for (const cue of cues) {
+            if (cue.done || played.has(cue.id) || current < cue.seconds)
+              continue;
+            played.add(cue.id);
+            showOverlay(cue);
+            break;
+          }
+        };
+
+        const cleanup = () => {
+          if (checker) clearInterval(checker);
+          checker = null;
+          if (player?.destroy) {
+            try {
+              player.destroy();
+            } catch {}
+          }
+          player = null;
+        };
+
+        if (isYoutube) {
+          ensureYoutubeApi().then(() => {
+            player = new YT.Player(host, {
+              videoId: youtubeId,
+              playerVars: {
+                rel: 0,
+                modestbranding: 1,
+                playsinline: 1,
+                controls: 1,
+              },
+              events: {
+                onReady: () => {
+                  checker = setInterval(checkCues, 400);
+                },
+                onStateChange: () => {
+                  if (
+                    player?.getPlayerState &&
+                    player.getPlayerState() === YT.PlayerState.PLAYING
+                  ) {
+                    checker ||= setInterval(checkCues, 400);
+                  }
+                },
+              },
+            });
+          });
+        } else if (isDirectVideo) {
+          host.innerHTML = `
+            <video class="w-full h-full object-cover bg-black" controls playsinline preload="metadata" src="${escapeHtml(src)}"></video>
+          `;
+          const video = host.querySelector("video");
+          video.addEventListener("timeupdate", checkCues);
+          video.addEventListener("play", () => {
+            if (!checker) checker = setInterval(checkCues, 400);
+          });
+          video.addEventListener("pause", () => {
+            if (checker) {
+              clearInterval(checker);
+              checker = null;
+            }
+          });
+          player = video;
+        } else {
+          host.innerHTML = `
+            <div class="absolute inset-0 flex items-center justify-center text-slate-300 text-sm p-4 text-center">
+              Nguồn video chưa đúng định dạng. Hãy dùng link YouTube hoặc file .mp4 / .webm / .ogg.
+            </div>
+          `;
+        }
+
+        return {
+          destroy() {
+            cleanup();
+            container.innerHTML = "";
+          },
+        };
+      }
+
+      function createModelViewerBlock(container, block, el) {
+        const modelPath = resolveModelPath(el, block);
+        container.innerHTML = `
+          <div class="grid gap-3">
+            <div class="detail-media-note flex flex-wrap items-center gap-2">
+              <span class="visual-badge"><i class="fa-solid fa-cube"></i> 3D theo dữ liệu</span>
+              <span class="visual-badge">${escapeHtml(el?.symbol || "")} • Nhóm ${escapeHtml(el?.general?.group || "?")} • Chu kì ${escapeHtml(el?.general?.period || "?")}</span>
+            </div>
+            <div class="model-shell" id="model-shell-${el.symbol}-${block._idx}"></div>
+            ${block.desc ? `<div class="detail-media-note">${escapeHtml(block.desc)}</div>` : ""}
+            <div class="detail-media-note" id="model-status-${el.symbol}-${block._idx}">Đang khởi tạo mô hình 3D...</div>
+          </div>
+        `;
+
+        const shell = container.querySelector(
+          `#model-shell-${el.symbol}-${block._idx}`,
+        );
+        const status = container.querySelector(
+          `#model-status-${el.symbol}-${block._idx}`,
+        );
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x08111d);
+        scene.fog = new THREE.Fog(0x08111d, 8, 32);
+
+        const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
+        camera.position.set(0, 1.5, 4);
+
+        const renderer = new THREE.WebGLRenderer({
+          antialias: true,
+          alpha: false,
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.shadowMap.enabled = true;
+        renderer.domElement.style.position = "absolute";
+        renderer.domElement.style.inset = "0";
+        renderer.domElement.style.width = "100%";
+        renderer.domElement.style.height = "100%";
+        shell.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.target.set(0, 1, 0);
+
+        scene.add(new THREE.AmbientLight(0xffffff, 1.35));
+        const dir1 = new THREE.DirectionalLight(0xffffff, 2.0);
+        dir1.position.set(6, 8, 5);
+        scene.add(dir1);
+        const dir2 = new THREE.DirectionalLight(0x9bb7ff, 0.8);
+        dir2.position.set(-4, 2, -3);
+        scene.add(dir2);
+        const grid = new THREE.GridHelper(20, 20, 0x324055, 0x243042);
+        grid.position.y = -1;
+        scene.add(grid);
+
+        let current = null;
+        let currentURL = null;
+        let raf = 0;
+        let resizeObserver = null;
+
+        function setStatus(msg) {
+          if (status) status.textContent = msg;
+        }
+
+        function disposeNode(node) {
+          if (!node) return;
+          if (node.geometry) node.geometry.dispose?.();
+          if (node.material) {
+            const materials = Array.isArray(node.material)
+              ? node.material
+              : [node.material];
+            for (const mat of materials) {
+              for (const key of Object.keys(mat)) {
+                const value = mat[key];
+                if (value && value.isTexture) value.dispose?.();
+              }
+              mat.dispose?.();
+            }
+          }
+        }
+
+        function clearModel() {
+          if (current) {
+            scene.remove(current);
+            current.traverse(disposeNode);
+            current = null;
+          }
+          if (currentURL) {
+            URL.revokeObjectURL(currentURL);
+            currentURL = null;
+          }
+        }
+
+        function fit(object3d) {
+          const box = new THREE.Box3().setFromObject(object3d);
+          const size = new THREE.Vector3();
+          const center = new THREE.Vector3();
+          box.getSize(size);
+          box.getCenter(center);
+
+          const maxDim = Math.max(size.x, size.y, size.z) || 1;
+          const fov = THREE.MathUtils.degToRad(camera.fov);
+          let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+          cameraZ *= 1.8;
+
+          const direction = new THREE.Vector3(0, 0, 1);
+          camera.position.copy(center).add(direction.multiplyScalar(cameraZ));
+          camera.near = Math.max(cameraZ / 100, 0.01);
+          camera.far = cameraZ * 100;
+          camera.updateProjectionMatrix();
+
+          controls.target.copy(center);
+          controls.update();
+          grid.position.y = center.y - size.y / 2 - 0.02;
+        }
+
+        function finalize(object3d) {
+          clearModel();
+          object3d.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              if (child.material && child.material.map) {
+                child.material.map.colorSpace = THREE.SRGBColorSpace;
+              }
+            }
+          });
+          scene.add(object3d);
+          current = object3d;
+          fit(object3d);
+          setStatus(`Đã tải mô hình: ${modelPath}`);
+        }
+
+        async function loadModel() {
+          clearModel();
+          setStatus(`Đang tải: ${modelPath}`);
+          const lower = modelPath.toLowerCase();
+
+          try {
+            if (lower.endsWith(".glb") || lower.endsWith(".gltf")) {
+              const loader = new GLTFLoader();
+              loader.load(
+                modelPath,
+                (gltf) => finalize(gltf.scene || gltf.scenes?.[0]),
+                undefined,
+                (err) =>
+                  setStatus(`Không tải được GLB/GLTF: ${err?.message || err}`),
+              );
+            } else if (lower.endsWith(".obj")) {
+              const loader = new OBJLoader();
+              loader.load(
+                modelPath,
+                (obj) => finalize(obj),
+                undefined,
+                (err) =>
+                  setStatus(`Không tải được OBJ: ${err?.message || err}`),
+              );
+            } else if (lower.endsWith(".fbx")) {
+              const loader = new FBXLoader();
+              loader.load(
+                modelPath,
+                (obj) => finalize(obj),
+                undefined,
+                (err) =>
+                  setStatus(`Không tải được FBX: ${err?.message || err}`),
+              );
+            } else {
+              setStatus(
+                "Định dạng model chưa được hỗ trợ. Hãy dùng GLB/GLTF/OBJ/FBX.",
+              );
+            }
+          } catch (err) {
+            setStatus(`Lỗi tải model: ${err?.message || err}`);
+          }
+        }
+
+        const resize = () => {
+          const rect = shell.getBoundingClientRect();
+          const width = Math.max(1, rect.width);
+          const height = Math.max(1, rect.height);
+          renderer.setSize(width, height, false);
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+        };
+
+        resizeObserver = new ResizeObserver(resize);
+        resizeObserver.observe(shell);
+        resize();
+        loadModel();
+
+        const loop = () => {
+          if (current) current.rotation.y += 0.0025;
+          controls.update();
+          renderer.render(scene, camera);
+          raf = requestAnimationFrame(loop);
+        };
+        loop();
+
+        return {
+          destroy() {
+            cancelAnimationFrame(raf);
+            resizeObserver?.disconnect();
+            controls.dispose();
+            clearModel();
+            renderer.dispose();
+            container.innerHTML = "";
+          },
+        };
+      }
+
+      function mountMediaBlocks(el) {
+        if (window.__detailMediaWidgets) {
+          window.__detailMediaWidgets.forEach((item) => {
+            try {
+              item?.destroy?.();
+            } catch {}
+          });
+        }
+        window.__detailMediaWidgets = [];
+
+        const blocks = getDetailMediaBlocks(el);
+        blocks.forEach((block) => {
+          const id = `detail-media-${el.symbol}-${block._idx}`;
+          const container = document.getElementById(id);
+          if (!container) return;
+          let widget = null;
+          if (block.type === "video")
+            widget = createVideoQuizBlock(container, block, el);
+          else if (block.type === "3d" || block.type === "model")
+            widget = createModelViewerBlock(container, block, el);
+          else if (block.type === "image" || block.type === "gallery") {
+            const media = mediaToCards(
+              block.items || block.src || block.images || block,
+              {
+                defaultTitle: block.title,
+                emptyText: "Chưa có hình ảnh minh hoạ.",
+                kindHint: "image",
+              },
+            );
+            container.innerHTML = media.html || "";
+          }
+          if (widget) window.__detailMediaWidgets.push(widget);
+        });
+      }
+
+      // --- RENDER BẢNG TUẦN HOÀN KÈM HEADER CỘT/HÀNG ---
+      // --- RENDER BẢNG TUẦN HOÀN KÈM HEADER CỘT/HÀNG ---
+      const tableContainer = document.getElementById("periodic-table");
+
+      function renderPeriodicTable() {
+        tableContainer.innerHTML = "";
+
+        // 1. Render Column Labels (Cột 1->18 tương ứng grid-column 2->19, grid-row 1)
+        for (let col = 1; col <= 18; col++) {
+          let label = document.createElement("div");
+          label.className = `grid-label col-label-${col}`;
+          label.innerText = col;
+          label.style.gridColumn = col + 1;
+          label.style.gridRow = 1;
+          // Hover logic: Highlight cột
+          label.onmouseenter = () => highlightGrid("col", col + 1);
+          label.onmouseleave = () => removeHighlight();
+          tableContainer.appendChild(label);
+        }
+
+        // 2. Render Row Labels (Chu kỳ 1->7 tương ứng grid-row 2->8, grid-column 1)
+        for (let row = 1; row <= 7; row++) {
+          let label = document.createElement("div");
+          label.className = `grid-label row-label-${row}`;
+          label.innerText = row;
+          label.style.gridColumn = 1;
+          label.style.gridRow = row + 1;
+          // Hover logic: Highlight hàng
+          label.onmouseenter = () => highlightGrid("row", row + 1);
+          label.onmouseleave = () => removeHighlight();
+          tableContainer.appendChild(label);
+        }
+
+        // 3. Render Elements
+        allElements.forEach((el) => {
+          if (!el.xpos) return;
+
+          const div = document.createElement("div");
+          // Lưu data attr để filter/highlight dễ dàng
+          div.className = `element el-cell ${el.hasData ? "" : "no-data"} cat-${el.category}`;
+          div.dataset.col = el.xpos;
+          div.dataset.row = el.ypos;
+          div.dataset.cat = el.category;
+
+          div.style.gridColumn = el.xpos;
+          div.style.gridRow = el.ypos;
+
+          let color =
+            categories[el.category]?.color || categories["unknown"].color;
+          div.style.setProperty("--color", color);
+
+          div.innerHTML = `
+                      <div class="el-number">${el.number}</div>
+                      <div class="el-symbol">${el.symbol}</div>
+                      <div class="el-name" title="${el.nameVi}">${el.nameVi}</div>
+                  `;
+
+          div.addEventListener("click", () => {
+            if (el.hasData) showElementDetails(el);
+            else showNoData(el);
+          });
+          tableContainer.appendChild(div);
+        });
+      }
+
+      // --- LOGIC HIGHLIGHT (Rê chuột Cột/Hàng/Nhóm) ---
+      function highlightGrid(type, value) {
+        const cells = document.querySelectorAll(".el-cell");
+        cells.forEach((c) => {
+          c.classList.add("dimmed");
+          if (c.dataset[type] == value) {
+            c.classList.remove("dimmed");
+            c.classList.add("highlight-active");
+          }
+        });
+      }
+
+      function highlightCategory(catCode) {
+        const cells = document.querySelectorAll(".el-cell");
+        cells.forEach((c) => {
+          c.classList.add("dimmed");
+          if (c.dataset.cat === catCode) {
+            c.classList.remove("dimmed");
+            c.classList.add("highlight-active");
+          }
+        });
+      }
+
+      function removeHighlight() {
+        document.querySelectorAll(".el-cell").forEach((c) => {
+          c.classList.remove("dimmed", "highlight-active");
+        });
+      }
+
+      // --- LOGIC GIAO DIỆN CHUNG & ĐIỀU HƯỚNG ---
+      function nav(viewId) {
+        document
+          .querySelectorAll("main > div > div[id^='view-']")
+          .forEach((el) => {
+            el.classList.add("hidden");
+            el.classList.remove("fade-in");
+          });
+        const target = document.getElementById(viewId);
+        if (target) {
+          target.classList.remove("hidden");
+          void target.offsetWidth;
+          target.classList.add("fade-in");
+        }
+        document.getElementById("content-container").scrollTop = 0;
+        if (window.innerWidth < 768) toggleSidebar(false);
+      }
+
+      function toggleSidebar(forceState) {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("mobile-overlay");
+        if (forceState !== undefined) {
+          if (forceState) {
+            sidebar.classList.add("sidebar-open");
+            overlay.classList.remove("hidden");
+          } else {
+            sidebar.classList.remove("sidebar-open");
+            overlay.classList.add("hidden");
+          }
+        } else {
+          sidebar.classList.toggle("sidebar-open");
+          overlay.classList.toggle("hidden");
+        }
+      }
+
+      // --- DRAGGABLE BẢNG TUẦN HOÀN ---
+      const dragContainer = document.getElementById("dragContainer");
+      let isDown = false,
+        startX,
+        startY,
+        scrollLeft,
+        scrollTop;
+
+      dragContainer.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - dragContainer.offsetLeft;
+        startY = e.pageY - dragContainer.offsetTop;
+        scrollLeft = dragContainer.scrollLeft;
+        scrollTop = dragContainer.scrollTop;
+      });
+      dragContainer.addEventListener("mouseleave", () => {
+        isDown = false;
+        removeHighlight();
+      });
+      dragContainer.addEventListener("mouseup", () => (isDown = false));
+      dragContainer.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - dragContainer.offsetLeft;
+        const y = e.pageY - dragContainer.offsetTop;
+        dragContainer.scrollLeft = scrollLeft - (x - startX);
+        dragContainer.scrollTop = scrollTop - (y - startY);
+      });
+
+      // --- NO DATA & BÀI BÁO CHI TIẾT ---
+      function showNoData(el) {
+        document.getElementById("nodata-name").innerText =
+          el.nameVi + ` (${el.symbol})`;
+        nav("view-nodata");
+      }
+
+      function showElementDetails(el) {
+        nav("view-details");
+        const catColor = categories[el.category]?.color || "#475569";
+        const sectionMedia = (key) => renderDetailMediaBlocks(el, key);
+
+        const hero = document.getElementById("detail-hero");
+        hero.innerHTML = `
+          <div class="absolute inset-0 bg-gradient-to-b from-[${catColor}20] to-transparent" style="background: linear-gradient(to bottom, ${catColor}30, transparent);"></div>
+          <div class="absolute top-0 right-10 w-96 h-96 rounded-full blur-[120px] opacity-20" style="background-color: ${catColor}"></div>
+          <div class="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end gap-6">
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-3xl flex flex-col items-center justify-center shadow-2xl border-2 bg-slate-900/90 backdrop-blur" style="border-color: ${catColor}">
+              <span class="text-slate-400 font-bold mb-1">${el.number}</span>
+              <span class="text-6xl font-bold font-mono text-white">${el.symbol}</span>
+            </div>
+            <div class="flex-1 text-center md:text-left">
+              <span class="px-3 py-1 rounded-full text-xs font-bold border inline-block mb-3" style="color: ${catColor}; border-color: ${catColor}; background: rgba(0,0,0,0.3)">
+                ${categories[el.category]?.name.toUpperCase() || "CHƯA XÁC ĐỊNH"}
+              </span>
+              <h2 class="text-5xl font-bold text-white mb-2">${el.nameVi}</h2>
+              <p class="text-xl text-slate-300">${el.nameEn} • ${el.mass} g/mol</p>
+            </div>
+          </div>
+        `;
+
+        const discovererList = Array.isArray(el.history?.discoverers)
+          ? el.history.discoverers
+          : Array.isArray(el.history?.discoverer)
+            ? el.history.discoverer
+            : [];
+        const discoverer =
+          !discovererList.length && typeof el.history?.discoverer === "string"
+            ? el.history.discoverer
+            : "";
+        const discovererUrl =
+          el.history?.discovererUrl ||
+          el.history?.href ||
+          discovererList[0]?.url ||
+          "";
+        let discovererMarkup = "Khuyết danh";
+        if (discovererList.length) {
+          discovererMarkup = discovererList
+            .map((person) =>
+              person?.url
+                ? `<a href="${escapeHtml(person.url)}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">${escapeHtml(person.name || person.label || "Người phát hiện")}</a>`
+                : escapeHtml(
+                    person?.name || person?.label || "Người phát hiện",
+                  ),
+            )
+            .join(", ");
+        } else if (discovererUrl && discoverer) {
+          discovererMarkup = `<a href="${escapeHtml(discovererUrl)}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">${escapeHtml(discoverer)} <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>`;
+        } else if (discoverer) {
+          discovererMarkup = escapeHtml(discoverer);
+        }
+
+        const occurrence = el.occurrence || {};
+        const structure = el.structure || {};
+        const imageGallery = mediaToCards(el.images, {
+          defaultTitle: "Hình ảnh",
+          emptyText: "Chưa có hình ảnh minh họa.",
+          kindHint: "image",
+        });
+        const appCards =
+          (el.applications && el.applications.length ? el.applications : [])
+            .map((app) => {
+              const previewHtml = mediaToCards(
+                app.image || app.images || app.media,
+                {
+                  defaultTitle: app.title || "Ứng dụng",
+                  emptyText: "",
+                  kindHint: "image",
+                },
+              ).html;
+              return `
+              <div class="glass overflow-hidden rounded-2xl border border-slate-700 group">
+                ${previewHtml ? `<div class="h-40 bg-slate-800 overflow-hidden">${previewHtml}</div>` : ""}
+                <div class="p-5">
+                  <h4 class="font-bold text-white mb-2 text-lg">${escapeHtml(app.title || "")}</h4>
+                  <p class="text-slate-400 text-sm leading-relaxed">${escapeHtml(app.desc || "")}</p>
+                </div>
+              </div>
+            `;
+            })
+            .join("") ||
+          '<p class="text-slate-500 italic col-span-2">Đang cập nhật dữ liệu ứng dụng...</p>';
+
+        const prepSource =
+          el.preparation ||
+          el.preparations ||
+          el.manufacture ||
+          el.production ||
+          [];
+        const preparationHtml = (() => {
+          if (!prepSource) {
+            return '<p class="text-slate-500 italic">Đang cập nhật dữ liệu điều chế...</p>';
+          }
+          if (typeof prepSource === "string")
+            return `<div class="text-slate-300 leading-relaxed">${prepSource}</div>`;
+          const list = Array.isArray(prepSource) ? prepSource : [prepSource];
+          return `
+            <div class="grid gap-4">
+              ${list
+                .map((item, idx) => {
+                  if (!item) return "";
+                  const eq = item.equation || item.eq || "";
+                  const desc = item.desc || item.description || "";
+                  return `
+                    <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
+                      <div class="flex items-center justify-between gap-3 mb-3">
+                        <h4 class="text-white font-bold text-lg">${escapeHtml(item.title || item.name || `Phương pháp ${idx + 1}`)}</h4>
+                        ${item.condition ? `<span class="visual-badge">${escapeHtml(item.condition)}</span>` : ""}
+                      </div>
+                      ${eq ? `<div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-950 p-4 rounded-lg overflow-x-auto">${buildReactionLatex({ equation: eq, condition: item.condition })}</div>` : ""}
+                      ${desc ? `<p class="text-slate-400 leading-relaxed">${escapeHtml(desc)}</p>` : ""}
+                    </div>
+                  `;
+                })
+                .join("")}
+            </div>
+          `;
+        })();
+
+        const notesHtml =
+          el.notes ||
+          '<p class="text-slate-500 italic">Chưa có ghi chú tổng quan.</p>';
+        const savedNote =
+          localStorage.getItem(`chemdex_note_${el.symbol}`) || "";
+
+        let html = "";
+
+        html += `
+          <section id="sec-general" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <span class="w-8 h-8 rounded bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm"><i class="fa-solid fa-info"></i></span>
+              1. Thông tin chung
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Tên Latin</p><p class="text-lg font-mono text-yellow-300 font-bold">${escapeHtml(el.general?.latinName || "...")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Tên Tiếng Anh</p><p class="text-lg font-mono text-green-300 font-bold">${escapeHtml(el.general?.englishName || "...")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Đồng vị</p><p class="text-lg font-mono text-blue-300 font-bold">${escapeHtml(el.general?.isotope || "...")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Vị trí</p><p class="text-lg text-white">Nhóm ${escapeHtml(el.general?.group || "?")} | Chu kì ${escapeHtml(el.general?.period || "?")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Số Oxy hóa</p><p class="text-lg text-white">${escapeHtml(el.general?.oxidation || "...")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Độ âm điện</p><p class="text-lg text-white">${escapeHtml(el.general?.electronegativity || "...")}</p></div>
+            </div>
+            ${sectionMedia("general")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-history" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-orange-500/20 text-orange-400 flex items-center justify-center text-sm"><i class="fa-solid fa-landmark"></i></span> 2. Lịch sử khám phá</h3>
+            <div class="glass p-6 rounded-2xl border border-slate-700">
+              <p class="text-lg text-slate-300 mb-2">Phát hiện bởi: <strong>${discovererMarkup}</strong></p>
+              <p class="text-lg text-slate-300 mb-2">Năm công bố: <span class="text-white bg-slate-800 px-2 py-1 rounded">${escapeHtml(el.history?.year || "Cổ đại / Chưa rõ")}</span></p>
+              <p class="text-lg text-slate-300 mb-2">Nơi khám phá: <strong>${escapeHtml(el.history?.discoveryLocation || "Chưa rõ")}</strong></p>
+              <p class="text-lg text-slate-300 mb-2">Mô tả: <span class="text-white bg-slate-800 px-2 py-1 rounded">${escapeHtml(el.history?.description || "")}</span></p>
+            </div>
+            ${sectionMedia("history")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-structure" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <span class="w-8 h-8 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm"><i class="fa-solid fa-cubes"></i></span>
+              3. Cấu tạo
+            </h3>
+
+            <div class="flex flex-col gap-6">
+
+              <div class="glass p-5 rounded-2xl border border-slate-700">
+              <h4 class="text-white font-semibold mb-4">a. Cấu tạo</h4>
+
+              <div class="structure-visual-grid mb-4">
+                <div class="visual-card p-4">
+                  <div class="flex items-center justify-between mb-3">
+                    <p class="text-slate-200 font-medium">Hoạt họa cấu hình e</p>
+                    <span class="visual-badge"><i class="fa-solid fa-bolt text-blue-300"></i> ${getElectronConfigText(el)}</span>
+                  </div>
+                  <div id="electron-widget" class="electron-canvas-wrap"></div>
+                </div>
+
+                <div class="visual-card p-4">
+                  <div class="flex items-center justify-between mb-3">
+                    <p class="text-slate-200 font-medium">Mô hình mạng tinh thể</p>
+                    <span class="visual-badge"><i class="fa-solid fa-cube text-cyan-300"></i> ${inferLatticeTitle(el, inferLatticeKey(el))}</span>
+                  </div>
+                  <div id="crystal-widget" class="crystal-scene-wrap"></div>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-3 gap-3 text-sm text-slate-200">
+                <div class="glass p-4 rounded-xl border border-slate-700/50">
+                  <p class="text-slate-400 text-sm mb-1">Số hiệu nguyên tử</p>
+                  <p class="text-lg font-bold text-white">${el.number ?? "Chưa có dữ liệu"}</p>
+                </div>
+                <div class="glass p-4 rounded-xl border border-slate-700/50">
+                  <p class="text-slate-400 text-sm mb-1">Nguyên tử khối</p>
+                  <p class="text-lg font-bold text-white">${el.mass ?? "Chưa có dữ liệu"} g/mol</p>
+                </div>
+                <div class="glass p-4 rounded-xl border border-slate-700/50">
+                  <p class="text-slate-400 text-sm mb-1">Vỏ nguyên tử</p>
+                  <p class="text-lg font-bold text-white">${structure.electrons ?? "?"} electron</p>
+                </div>
+                <div class="glass p-4 rounded-xl border border-slate-700/50">
+                  <p class="text-slate-400 text-sm mb-1">Hạt nhân</p>
+                  <p class="text-lg font-bold text-white">${structure.protons ?? "?"} proton, ${structure.neutrons ?? "?"} neutron</p>
+                </div>
+                <div class="glass p-4 rounded-xl border border-slate-700/50">
+                  <p class="text-slate-400 text-sm mb-1">Cấu hình e</p>
+                  <p class="text-lg font-mono text-blue-300 font-bold">${getElectronConfigText(el)}</p>
+                </div>
+                <div class="glass p-4 rounded-xl border border-slate-700/50">
+                  <p class="text-slate-400 text-sm mb-1">Loại mạng</p>
+                  <p class="text-lg font-bold text-white">${inferLatticeTitle(el, inferLatticeKey(el))}</p>
+                </div>
+              </div>
+            </div>
+
+
+              <div class="glass p-5 rounded-2xl border border-slate-700">
+              <h4 class="text-white font-semibold mb-4">b. Trạng thái tự nhiên</h4>
+
+              <div class="grid md:grid-cols-[180px_1fr] gap-4">
+                <div class="h-44 bg-slate-900/50 rounded-xl flex items-center justify-center overflow-hidden">
+                  ${
+                    el.naturalState?.image
+                      ? `<img src="${el.naturalState.image}" class="w-full h-full object-cover" alt="Trạng thái">`
+                      : `<i class="fa-solid fa-gem text-4xl text-slate-600"></i>`
+                  }
+                </div>
+
+                <div class="space-y-3 text-slate-200">
+
+                  <p>
+                    ${occurrence.description ?? "Chưa có dữ liệu"}
+                  </p>
+
+                  <div>
+                    <p class="text-emerald-400 font-medium">Đơn chất</p>
+                    <p>
+                      ${(occurrence.simple || []).join(", ") || "Chưa có dữ liệu"}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p class="text-sky-400 font-medium">Hợp chất</p>
+                    <p>
+                      ${(occurrence.compounds || []).join(", ") || "Chưa có dữ liệu"}
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+             
+
+                </div>
+              </div>
+
+              <div class="mt-5">
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                  ${imageGallery.html}
+                </div>
+              </div>
+            </div>
+            </div>
+            ${sectionMedia("structure")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-properties" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm"><i class="fa-solid fa-flask"></i></span> 4. Tính chất</h3>
+            <div class="grid lg:grid-cols-2 gap-6">
+              <div class="glass p-6 rounded-2xl border border-slate-700">
+                <h4 class="text-lg font-bold text-white mb-3 border-l-4 border-cyan-500 pl-3">Tính chất vật lý</h4>
+                <div class="text-slate-300 leading-relaxed">${el.physical || '<p class="text-slate-500 italic">Đang cập nhật dữ liệu vật lí...</p>'}</div>
+              </div>
+              <div class="glass p-6 rounded-2xl border border-slate-700">
+                <h4 class="text-lg font-bold text-white mb-3 border-l-4 border-red-500 pl-3">Tính chất hóa học</h4>
+                <div class="text-slate-300 leading-relaxed">${el.chemical || '<p class="text-slate-500 italic">Đang cập nhật dữ liệu hoá học...</p>'}</div>
+              </div>
+            </div>
+            ${sectionMedia("properties")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-preparation" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm"><i class="fa-solid fa-vial-circle-check"></i></span> 5. Điều chế</h3>
+            <div class="glass p-6 rounded-2xl border border-slate-700">
+              ${preparationHtml}
+            </div>
+            ${sectionMedia("preparation")}
+          </section>
+        `;
+
+        const reactHtml =
+          el.reactions && el.reactions.length
+            ? el.reactions.map((r) => renderEquationBlock(r)).join("")
+            : '<p class="text-slate-500 italic">Đang cập nhật dữ liệu phản ứng...</p>';
+
+        const simHtml = el.simulation
+          ? `
+            <div class="mt-8 p-6 glass border-2 border-dashed border-blue-500/30 rounded-3xl bg-blue-900/10">
+              <h4 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-flask-vial text-blue-400"></i> Mô phỏng: ${escapeHtml(el.simulation.title || "")}</h4>
+              <p class="text-sm text-slate-400 mb-6"><i class="fa-solid fa-hand-pointer text-blue-400 mr-1"></i> <strong>Kéo và thả</strong> các hóa chất bên dưới vào Cốc thủy tinh.</p>
+              <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+                <div class="flex md:flex-col gap-4">
+                  ${(el.simulation.reagents || [])
+                    .map(
+                      (re) => `
+                      <div draggable="true" ondragstart="simDragStart(event, '${escapeHtml(re.id)}')" class="draggable-item bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-2xl flex flex-col items-center gap-2 transition-all w-24">
+                        <i class="fa-solid ${escapeHtml(re.icon || "fa-flask")} text-3xl text-slate-300 pointer-events-none"></i>
+                        <span class="text-xs font-bold pointer-events-none">${escapeHtml(re.name || re.id || "")}</span>
+                      </div>
+                    `,
+                    )
+                    .join("")}
+                </div>
+                <div id="sim-beaker" ondragover="simDragOver(event)" ondragleave="simDragLeave(event)" ondrop="simDrop(event)" class="dropzone relative w-44 h-72 bg-slate-900/70 border-4 border-slate-600 rounded-b-[3rem] rounded-t-3xl overflow-hidden shadow-2xl flex items-end justify-center p-4">
+                  <div id="sim-content" class="absolute bottom-0 left-0 w-full bg-blue-500/50 transition-all duration-300" style="height: 10%;"></div>
+                  <div id="sim-items" class="relative z-10 text-3xl space-x-2"></div>
+                </div>
+              </div>
+              <div id="sim-result" class="hidden mt-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-medium">${escapeHtml(el.simulation.resultText || "")}</div>
+            </div>
+          `
+          : "";
+
+        html += `
+          <section id="sec-reactions" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center text-sm"><i class="fa-solid fa-arrow-right-arrow-left"></i></span> 6. Phương trình & Mô phỏng</h3>
+            <div class="space-y-4">${reactHtml}</div>
+            ${simHtml}
+            ${sectionMedia("reactions")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-applications" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-pink-500/20 text-pink-400 flex items-center justify-center text-sm"><i class="fa-solid fa-rocket"></i></span> 7. Ứng dụng thực tế</h3>
+            <div class="grid md:grid-cols-2 gap-6">${appCards}</div>
+            ${sectionMedia("applications")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-overview" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <span class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm"><i class="fa-solid fa-book"></i></span>
+              8. Tổng quan
+            </h3>
+            <div class="bg-slate-800/70 backdrop-blur border border-slate-700 rounded-2xl p-6 text-slate-300 shadow-lg">
+              ${notesHtml}
+            </div>
+            ${sectionMedia("overview")}
+          </section>
+        `;
+
+        html += `
+          <section id="sec-notes" class="scroll-mt-24">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-sm"><i class="fa-solid fa-pen"></i></span> 9. Ghi chú cá nhân</h3>
+            <textarea id="personal-note" onkeyup="saveNote('${escapeHtml(el.symbol)}')" class="w-full h-40 bg-slate-900 border border-slate-700 rounded-2xl p-5 text-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Nhập ghi chú của bạn về ${escapeHtml(el.nameVi)} tại đây. Dữ liệu sẽ tự động lưu vào trình duyệt...">${escapeHtml(savedNote)}</textarea>
+            <p class="text-xs text-slate-500 mt-2 text-right"><i class="fa-solid fa-cloud-arrow-up"></i> Đã đồng bộ</p>
+            ${sectionMedia("notes")}
+          </section>
+        `;
+
+        document.getElementById("article-content").innerHTML = html;
+        mountDetailVisuals(el);
+        mountMediaBlocks(el);
+        enhanceDetailPage(el);
+
+        const prevEl = allElements.find((e) => e.number === el.number - 1);
+        const nextEl = allElements.find((e) => e.number === el.number + 1);
+        let navHtml = "";
+        navHtml += prevEl
+          ? `<button onclick="interlinkElement('${prevEl.symbol}')" class="px-5 py-3 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> ${escapeHtml(prevEl.nameVi)}</button>`
+          : `<div></div>`;
+        navHtml += nextEl
+          ? `<button onclick="interlinkElement('${nextEl.symbol}')" class="px-5 py-3 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors flex items-center gap-2">${escapeHtml(nextEl.nameVi)} <i class="fa-solid fa-arrow-right"></i></button>`
+          : `<div></div>`;
+        document.getElementById("nav-buttons-container").innerHTML = navHtml;
+      }
+
+      Object.assign(window, {
+        nav,
+        toggleSidebar,
+        showNoData,
+        showElementDetails,
+        interlinkElement,
+        saveNote,
+        toggleFilter,
+        applyFilter,
+        clearSearch,
+        highlightCategory,
+        removeHighlight,
+        scrollToSection,
+        copyElementLink,
+        openChatbot,
+        closeChatbot,
+        toggleChatbot,
+        sendChatMessage,
+        simDragStart,
+        simDragOver,
+        simDragLeave,
+        simDrop,
+      });
+
+      // --- HTML5 DRAG & DROP CHO THÍ NGHIỆM ---
+      function simDragStart(ev, id) {
+        ev.dataTransfer.setData("text", id);
+        ev.dataTransfer.effectAllowed = "copyMove";
+      }
+      function simDragOver(ev) {
+        ev.preventDefault(); // Cần thiết để cho phép Drop
+        ev.currentTarget.classList.add("dragover");
+      }
+      function simDragLeave(ev) {
+        ev.currentTarget.classList.remove("dragover");
+      }
+      function simDrop(ev) {
+        ev.preventDefault();
+        ev.currentTarget.classList.remove("dragover");
+        let id = ev.dataTransfer.getData("text");
+        if (id) processSimDrop(id);
+      }
+
+      function processSimDrop(id) {
+        if (!window.currentSimData || window.addedReagents.includes(id)) return;
+
+        window.addedReagents.push(id);
+        const beakerItems = document.getElementById("sim-items");
+        const beakerLiquid = document.getElementById("sim-content");
+        const resultBox = document.getElementById("sim-result");
+        const simBeaker = document.getElementById("sim-beaker");
+
+        // Thêm Icon vào bình
+        const iconClass = window.currentSimData.reagents.find(
+          (r) => r.id === id,
+        ).icon;
+        beakerItems.innerHTML += `<i class="fa-solid ${iconClass} animate-bounce text-white"></i>`;
+
+        // Dâng nước
+        beakerLiquid.style.height = window.addedReagents.length * 30 + "%";
+        simBeaker.classList.add("border-blue-400");
+        setTimeout(() => simBeaker.classList.remove("border-blue-400"), 300);
+
+        // Kiểm tra kết quả
+        const expected = window.currentSimData.expected;
+        if (expected.every((val) => window.addedReagents.includes(val))) {
+          setTimeout(() => {
+            beakerLiquid.classList.replace("bg-blue-500/50", "bg-pink-500/60");
+            resultBox.classList.remove("hidden");
+            resultBox.classList.add("fade-in");
+            beakerItems.innerHTML =
+              '<i class="fa-solid fa-star text-yellow-400 text-4xl animate-spin"></i>';
+          }, 600);
+        }
+      }
+
+      // --- UTILS & FILTER LOGIC ---
+      const searchState = {
+        filter: "all",
+        query: "",
+      };
+
+      function saveNote(symbol) {
+        const val = document.getElementById("personal-note").value;
+        localStorage.setItem(`chemdex_note_${symbol}`, val);
+      }
+
+      function setCurrentElementInUrl(symbol) {
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.set("element", symbol);
+          window.history.replaceState({}, "", url.toString());
+        } catch {
+          // Bỏ qua nếu môi trường không hỗ trợ history/url
+        }
+      }
+
+      function getCurrentElementFromUrl() {
+        try {
+          const url = new URL(window.location.href);
+          return url.searchParams.get("element");
+        } catch {
+          return null;
+        }
+      }
+
+      function updateShareButtonState(symbol) {
+        const shareBtn = document.getElementById("share-element-btn");
+        const copyBtn = document.getElementById("copy-link-btn");
+        if (shareBtn) shareBtn.dataset.symbol = symbol || "";
+        if (copyBtn) copyBtn.dataset.symbol = symbol || "";
+      }
+
+      async function copyElementLink(symbol) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("element", symbol);
+        const finalUrl = url.toString();
+        try {
+          await navigator.clipboard.writeText(finalUrl);
+          showToast("Đã sao chép liên kết nguyên tố");
+        } catch {
+          const temp = document.createElement("input");
+          temp.value = finalUrl;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          temp.remove();
+          showToast("Đã sao chép liên kết nguyên tố");
+        }
+      }
+
+      function scrollToSection(sectionId) {
+        const container = document.getElementById("content-container");
+        const target = document.getElementById(sectionId);
+        if (!container || !target) return;
+        const containerRect = container.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const headerOffset = 104;
+        const top =
+          targetRect.top -
+          containerRect.top +
+          container.scrollTop -
+          headerOffset;
+        container.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
+      function buildRelatedSuggestions(el) {
+        const symbol = el.symbol;
+        const name =
+          el.general.englishName || el.general.latinName || el.symbol;
+        const searchUrl = encodeURIComponent(name);
+        const wiki = `https://en.wikipedia.org/wiki/${name}`;
+        const pubchem = `https://pubchem.ncbi.nlm.nih.gov/#query=${searchUrl}`;
+        const brit = `https://www.britannica.com/search?query=${searchUrl}`;
+
+        const quickFacts = [
+          { label: `Số hiệu ${el.number}`, value: `Z = ${el.number}` },
+          { label: "Nhóm", value: `Nhóm ${el.general?.group || "?"}` },
+          { label: "Chu kì", value: `Chu kì ${el.general?.period || "?"}` },
+          {
+            label: "Cấu hình e",
+            value: el.general?.electronConfig || "Đang cập nhật",
+          },
+        ];
+
+        return `
+          <section id="sec-suggestions" class="scroll-mt-24 mt-12">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <span class="w-8 h-8 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-link"></i>
+              </span>
+              9. 
+            </h3>
+            <div class="grid lg:grid-cols-2 gap-6">
+              <div class="suggestion-card p-5">
+                <h4 class="text-white font-semibold mb-3">Liên kết mở rộng</h4>
+                <div class="space-y-3">
+                  <a href="${wiki}" target="_blank" rel="noopener noreferrer" class="block glass p-3 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+                    <div class="font-medium text-white">Wikipedia</div>
+                    <div class="text-slate-400 text-sm">Tra cứu tổng quan về ${escapeHtml(name)}</div>
+                  </a>
+                  <a href="${pubchem}" target="_blank" rel="noopener noreferrer" class="block glass p-3 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+                    <div class="font-medium text-white">PubChem</div>
+                    <div class="text-slate-400 text-sm">Tìm kiếm dữ liệu hoá học liên quan</div>
+                  </a>
+                  <a href="${brit}" target="_blank" rel="noopener noreferrer" class="block glass p-3 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+                    <div class="font-medium text-white">Britannica</div>
+                    <div class="text-slate-400 text-sm">Xem mô tả kiến thức nền</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      function enhanceDetailPage(el) {
+        updateShareButtonState(el.symbol);
+
+        const hero = document.getElementById("detail-hero");
+        if (hero) {
+          const actions = document.createElement("div");
+          actions.className =
+            "relative z-10 max-w-7xl mx-auto mt-6 flex flex-wrap justify-center md:justify-start gap-3";
+          actions.innerHTML = `
+            <button id="share-element-btn" data-symbol="${escapeHtml(el.symbol)}" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-600 bg-slate-900/70 hover:bg-slate-800 transition-colors">
+              <i class="fa-solid fa-share-nodes text-sky-300"></i> Chia sẻ
+            </button>
+            
+          `;
+          if (!hero.querySelector("#share-element-btn")) {
+            hero.appendChild(actions);
+          }
+        }
+
+        const article = document.getElementById("article-content");
+        if (article && !document.getElementById("sec-suggestions")) {
+          article.insertAdjacentHTML("beforeend", buildRelatedSuggestions(el));
+        }
+
+        const toc = document.getElementById("article-toc");
+        if (toc && !toc.dataset.bound) {
+          toc.dataset.bound = "1";
+          toc.querySelectorAll("a").forEach((a) => {
+            a.addEventListener("click", (ev) => {
+              ev.preventDefault();
+              const target = a.getAttribute("href")?.replace("#", "");
+              if (target) scrollToSection(target);
+            });
+          });
+        }
+
+        const shareBtn = document.getElementById("share-element-btn");
+        const copyBtn = document.getElementById("copy-link-btn");
+        if (shareBtn && !shareBtn.dataset.bound) {
+          shareBtn.dataset.bound = "1";
+          shareBtn.addEventListener("click", () => copyElementLink(el.symbol));
+        }
+        if (copyBtn && !copyBtn.dataset.bound) {
+          copyBtn.dataset.bound = "1";
+          copyBtn.addEventListener("click", () => copyElementLink(el.symbol));
+        }
+
+        setupChatbotContext(el);
+      }
+
+      function interlinkElement(symbol) {
+        const el = elementsMap.get(symbol);
+        if (!el) return;
+        setCurrentElementInUrl(symbol);
+        if (el && el.hasData) showElementDetails(el);
+        else showNoData(el);
+      }
+
+      function toggleFilter() {
+        const menu = document.getElementById("filter-menu");
+        if (menu) menu.classList.toggle("hidden");
+      }
+
+      function applyFilter() {
+        const select = document.getElementById("filter-select");
+        const val = select?.value || "all";
+        searchState.filter = val;
+
+        const cells = document.querySelectorAll(".el-cell");
+        cells.forEach((c) => c.classList.remove("dimmed"));
+
+        const hasQuery =
+          searchState.query && searchState.query.trim().length > 0;
+        const searchMatches = new Set(
+          hasQuery
+            ? getSearchMatches(searchState.query).map((el) => el.symbol)
+            : [],
+        );
+
+        if (val === "all") {
+          if (hasQuery) {
+            cells.forEach((c) => {
+              if (
+                !searchMatches.has(
+                  c.querySelector(".el-symbol")?.textContent?.trim(),
+                )
+              ) {
+                c.classList.add("dimmed");
+              }
+            });
+          }
+          return;
+        }
+
+        const map = {
+          "cat-kiem": ["kiem"],
+          "cat-kiem-tho": ["kiem-tho"],
+          "cat-chuyen-tiep": ["chuyen-tiep", "kim-loai-yeu"],
+          "cat-phi-kim": ["phi-kim"],
+          "cat-a-kim": ["a-kim"],
+          "cat-halogen": ["halogen"],
+          "cat-khi-hiem": ["khi-hiem"],
+          "cat-lanthanide": ["lanthanide"],
+          "cat-actinide": ["actinide"],
+          "per-1": ["row:2"],
+          "per-2": ["row:3"],
+          "per-3": ["row:4"],
+          "per-4": ["row:5"],
+          "per-5": ["row:6"],
+          "per-6": ["row:7"],
+          "per-7": ["row:8"],
+        };
+
+        const accepted = map[val] || [];
+        cells.forEach((c) => {
+          const okByFilter = val.startsWith("per-")
+            ? accepted.includes(`row:${c.dataset.row}`)
+            : accepted.includes(c.dataset.cat);
+          const okBySearch =
+            !hasQuery ||
+            searchMatches.has(
+              c.querySelector(".el-symbol")?.textContent?.trim(),
+            );
+          if (!(okByFilter && okBySearch)) c.classList.add("dimmed");
+        });
+      }
+      // --- TÌM KIẾM ---
+      const searchInput = document.getElementById("searchInput");
+      const searchResults = document.getElementById("search-results");
+      const clearSearchBtn = document.getElementById("clearSearchBtn");
+
+      function normalizeSearchText(value = "") {
+        return String(value)
+          .toLowerCase()
+          .trim()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      }
+
+      function getSearchNames(el) {
+        return {
+          symbol: normalizeSearchText(el.symbol),
+          vi: normalizeSearchText(el.nameVi || ""),
+          en: normalizeSearchText(el.general?.englishName || el.nameEn || ""),
+          number: String(el.number || ""),
+        };
+      }
+
+      function scoreSearchElement(el, rawQuery) {
+        const query = normalizeSearchText(rawQuery);
+        if (!query) return 0;
+
+        const { symbol, vi, en, number } = getSearchNames(el);
+        const isNumberQuery = /^\d+$/.test(query);
+
+        if (isNumberQuery) {
+          const qn = parseInt(query, 10);
+          if (qn === el.number) return 10000;
+          if (String(el.number).startsWith(query)) return 9000;
+        }
+
+        if (symbol === query) return 8000;
+        if (symbol.startsWith(query)) return 7000;
+        if (symbol.includes(query)) return 6000;
+
+        if (vi === query || en === query) return 5000;
+        if (vi.startsWith(query) || en.startsWith(query)) return 4000;
+        if (vi.includes(query) || en.includes(query)) return 3000;
+
+        if (String(el.number) === query) return 4500;
+        if (String(el.number).startsWith(query)) return 3500;
+
+        const compact = `${symbol} ${vi} ${en} ${number}`;
+        if (compact.includes(query)) return 2000;
+
+        return 0;
+      }
+
+      function getSearchMatches(rawQuery) {
+        const query = normalizeSearchText(rawQuery);
+        if (!query) return [];
+        return allElements
+          .map((el) => ({ el, score: scoreSearchElement(el, query) }))
+          .filter((item) => item.score > 0)
+          .sort((a, b) => b.score - a.score || a.el.number - b.el.number)
+          .slice(0, 10)
+          .map((item) => item.el);
+      }
+
+      function renderSearchResults(matches) {
+        if (!matches.length) {
+          searchResults.innerHTML =
+            '<div class="p-4 text-slate-500 text-sm text-center">Không tìm thấy.</div>';
+          searchResults.classList.remove("hidden");
+          return;
+        }
+
+        searchResults.innerHTML = matches
+          .map(
+            (m) => `
+              <div onclick="interlinkElement('${m.symbol}'); clearSearch();" class="p-3 hover:bg-slate-700/50 cursor-pointer flex items-center gap-4 border-b border-slate-700/50 last:border-0">
+                <div class="w-12 h-12 rounded-xl flex flex-col items-center justify-center font-bold border shrink-0" style="color: ${categories[m.category]?.color || "#888"}; border-color: ${categories[m.category]?.color || "#888"}">
+                  <span class="text-xs">${m.number}</span>
+                  <span class="text-lg leading-none">${m.symbol}</span>
+                </div>
+                <div class="min-w-0">
+                  <p class="font-bold text-slate-200">${m.nameVi}</p>
+                  <p class="text-xs text-slate-400">${m.general?.englishName || m.nameEn || ""}</p>
+                </div>
+              </div>
+            `,
+          )
+          .join("");
+        searchResults.classList.remove("hidden");
+      }
+
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value;
+        searchState.query = query;
+        if (query.trim().length > 0) {
+          clearSearchBtn.classList.remove("hidden");
+          renderSearchResults(getSearchMatches(query));
+        } else {
+          clearSearch();
+        }
+        applyFilter();
+      });
+
+      function clearSearch() {
+        searchState.query = "";
+        searchInput.value = "";
+        clearSearchBtn.classList.add("hidden");
+        searchResults.classList.add("hidden");
+        applyFilter();
+      }
+
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const matches = getSearchMatches(searchInput.value);
+          if (matches.length) interlinkElement(matches[0].symbol);
+        }
+        if (e.key === "Escape") clearSearch();
+      });
+
+      clearSearchBtn.addEventListener("click", clearSearch);
+
+      document.addEventListener("click", (e) => {
+        if (
+          !searchInput.contains(e.target) &&
+          !searchResults.contains(e.target)
+        ) {
+          searchResults.classList.add("hidden");
+        }
+      });
+
+      function showToast(message) {
+        let toast = document.getElementById("toast-notice");
+        if (!toast) {
+          toast = document.createElement("div");
+          toast.id = "toast-notice";
+          toast.className = "toast-notice";
+          document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.style.display = "block";
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.style.display = "none";
+        }, 1800);
+      }
+
+      const GEMINI_API_KEY =
+        window.GEMINI_API_KEY ||
+        "AQ.Ab8RN6Juy3ij9wnROTLohZ6cT9lXzBHml2WO_iR62y9QYyycOg";
+      const GEMINI_MODEL = window.GEMINI_MODEL || "gemini-2.5-flash";
+      const GEMINI_ENDPOINT =
+        window.GEMINI_ENDPOINT ||
+        "https://generativelanguage.googleapis.com/v1beta/models/";
+
+      function getChatbotContext(el = null) {
+        const viewDetails = !document
+          .getElementById("view-details")
+          .classList.contains("hidden");
+        if (el) {
+          return {
+            page: "element",
+            title: `${el.nameVi} (${el.symbol})`,
+            element: {
+              number: el.number,
+              symbol: el.symbol,
+              nameVi: el.nameVi,
+              nameEn: el.general?.englishName || el.nameEn,
+              group: el.general?.group || "?",
+              period: el.general?.period || "?",
+              electronConfig: el.general?.electronConfig || "Đang cập nhật",
+              oxidation: el.general?.oxidation || "Đang cập nhật",
+              electronegativity:
+                el.general?.electronegativity || "Đang cập nhật",
+              applications: (el.applications || [])
+                .slice(0, 4)
+                .map((a) => a.title || a.desc || ""),
+            },
+          };
+        }
+        return {
+          page: viewDetails ? "details" : "periodic",
+          title: viewDetails
+            ? "Trang chi tiết nguyên tố"
+            : "Trang bảng tuần hoàn",
+          element: null,
+        };
+      }
+
+      function buildChatSuggestions(el = null) {
+        if (!el) {
+          return [
+            "Nguyên tố này nằm ở đâu trong bảng tuần hoàn?",
+            "Tôi muốn tìm nguyên tố theo số hiệu nguyên tử.",
+            "Cách lọc nguyên tố theo nhóm là gì?",
+          ];
+        }
+        return [
+          `Tóm tắt nhanh về ${el.nameVi}`,
+          `Cho tôi biết cấu hình electron của ${el.symbol}`,
+          `Nguyên tố ${el.symbol} có ứng dụng gì?`,
+        ];
+      }
+
+      function setupChatbotContext(el = null) {
+        window.__currentChatElement = el || null;
+        renderChatSuggestions();
+      }
+
+      function renderChatSuggestions() {
+        const list = document.getElementById("chat-suggestions");
+        if (!list) return;
+        const el = window.__currentChatElement || null;
+        const suggestions = buildChatSuggestions(el);
+        list.innerHTML = suggestions
+          .map(
+            (q) =>
+              `<button class="chat-chip text-left" type="button" data-chat-q="${escapeHtml(q)}">${escapeHtml(q)}</button>`,
+          )
+          .join("");
+        list.querySelectorAll("[data-chat-q]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            openChatbot();
+            const input = document.getElementById("chat-input");
+            if (input) input.value = btn.getAttribute("data-chat-q") || "";
+          });
+        });
+      }
+
+      function openChatbot() {
+        const panel = document.getElementById("chat-panel");
+        if (!panel) return;
+        panel.classList.add("open");
+        panel.style.display = "flex";
+        renderChatSuggestions();
+      }
+
+      function closeChatbot() {
+        const panel = document.getElementById("chat-panel");
+        if (!panel) return;
+        panel.classList.remove("open");
+        panel.style.display = "none";
+      }
+
+      function toggleChatbot() {
+        const panel = document.getElementById("chat-panel");
+        if (!panel) return;
+        const open = panel.classList.contains("open");
+        if (open) closeChatbot();
+        else openChatbot();
+      }
+
+      async function sendChatMessage() {
+        const input = document.getElementById("chat-input");
+        const output = document.getElementById("chat-messages");
+        if (!input || !output) return;
+
+        const userMsg = input.value.trim();
+        if (!userMsg) return;
+
+        const apiKey = String(
+          window.GEMINI_API_KEY || GEMINI_API_KEY || "",
+        ).trim();
+        const model = String(
+          window.GEMINI_MODEL || GEMINI_MODEL || "gemini-2.5-flash",
+        ).trim();
+        const endpoint = String(
+          window.GEMINI_ENDPOINT ||
+            GEMINI_ENDPOINT ||
+            "https://generativelanguage.googleapis.com/v1beta/models/",
+        ).trim();
+
+        output.insertAdjacentHTML(
+          "beforeend",
+          `<div class="self-end max-w-[85%] rounded-2xl rounded-br-md bg-blue-500/20 border border-blue-500/20 p-3 text-sm text-slate-100">${escapeHtml(userMsg)}</div>`,
+        );
+        input.value = "";
+        output.insertAdjacentHTML(
+          "beforeend",
+          `<div id="chat-loading" class="text-slate-400 text-sm">Đang trả lời...</div>`,
+        );
+        output.scrollTop = output.scrollHeight;
+
+        const ctx = getChatbotContext(window.__currentChatElement);
+        const systemPrompt = [
+          "Bạn là botchat chuyên giải quyết vấn đề liên quan đến hóa học.",
+          "Trả lời ngắn gọn, chính xác, dễ hiểu.",
+          "Nếu dữ liệu trên trang có sẵn, ưu tiên dùng dữ liệu đó.",
+          `Ngữ cảnh trang: ${ctx.title}`,
+          ctx.element
+            ? `Nguyên tố hiện tại: ${JSON.stringify(ctx.element)}`
+            : "",
+        ]
+          .filter(Boolean)
+          .join("\n");
+
+        const payload = {
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: `${systemPrompt}\n\nCâu hỏi: ${userMsg}` }],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.4,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          },
+        };
+
+        let answer = "";
+        try {
+          if (!apiKey || apiKey === "PASTE_GEMINI_API_KEY_HERE") {
+            answer =
+              "Chưa có Gemini API key trong biến GEMINI_API_KEY. Hãy gán key vào biến này trong file để bot trả lời bằng Gemini.";
+          } else {
+            const res = await fetch(
+              `${endpoint}${encodeURIComponent(model)}:generateContent`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-goog-api-key": apiKey,
+                },
+                body: JSON.stringify(payload),
+              },
+            );
+            const data = await res.json();
+            if (!res.ok) {
+              throw new Error(data?.error?.message || `HTTP ${res.status}`);
+            }
+            answer =
+              data.candidates?.[0]?.content?.parts
+                ?.map((p) => p.text || "")
+                .join("") ||
+              data?.output_text ||
+              "Mình chưa đọc được phản hồi từ Gemini API.";
+          }
+        } catch (err) {
+          answer = `Không gọi được Gemini API: ${err.message}`;
+        }
+
+        const loading = document.getElementById("chat-loading");
+        if (loading) loading.remove();
+        output.insertAdjacentHTML(
+          "beforeend",
+          `<div class="max-w-[85%] rounded-2xl rounded-bl-md bg-slate-800/90 border border-slate-700 p-3 text-sm text-slate-200">${escapeHtml(answer)}</div>`,
+        );
+        output.scrollTop = output.scrollHeight;
+      }
+
+      function mountChatbotWidget() {
+        if (document.getElementById("chat-panel")) return;
+
+        const panel = document.createElement("div");
+        panel.id = "chat-panel";
+        panel.className = "chat-panel glass border border-slate-700 shadow-2xl";
+        panel.innerHTML = `
+          <div id="chat-handle" class="chat-drag-handle p-4 border-b border-slate-700/50 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <div class="text-white font-semibold">Botchat Hóa học</div>
+              <div class="text-xs text-slate-400">Kéo để di chuyển.</div>
+            </div>
+            <button type="button" id="chat-close-btn" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="p-4 space-y-3 overflow-y-auto flex-1">
+            
+            <div id="chat-suggestions" class="flex flex-wrap gap-2"></div>
+            <div id="chat-messages" class="space-y-3"></div>
+          </div>
+          <div class="p-3 border-t border-slate-700/50 bg-slate-950/40">
+            <div class="flex gap-2">
+              <input id="chat-input" class="flex-1 bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-slate-100 outline-none" placeholder="Cân bằng phương trình...." />
+              <button id="chat-send-btn" class="px-4 py-3 rounded-2xl bg-blue-500 hover:bg-blue-400 text-white font-semibold">Gửi</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(panel);
+
+        const fab = document.createElement("button");
+        fab.id = "chat-fab";
+        fab.className = "chat-fab glass border border-slate-700 text-white";
+        fab.innerHTML = '<i class="fa-solid fa-comments text-xl"></i>';
+        fab.title = "Mở botchat";
+        document.body.appendChild(fab);
+
+        fab.addEventListener("click", toggleChatbot);
+        panel
+          .querySelector("#chat-close-btn")
+          ?.addEventListener("click", closeChatbot);
+        panel
+          .querySelector("#chat-send-btn")
+          ?.addEventListener("click", sendChatMessage);
+        panel.querySelector("#chat-input")?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") sendChatMessage();
+        });
+
+        // Drag support
+        const handle = panel.querySelector("#chat-handle");
+        let dragging = false,
+          offsetX = 0,
+          offsetY = 0;
+
+        const movePanel = (x, y) => {
+          const maxX = window.innerWidth - panel.offsetWidth - 8;
+          const maxY = window.innerHeight - panel.offsetHeight - 8;
+          panel.style.left = `${Math.max(8, Math.min(x, maxX))}px`;
+          panel.style.top = `${Math.max(8, Math.min(y, maxY))}px`;
+          panel.style.right = "auto";
+          panel.style.bottom = "auto";
+        };
+
+        const onDown = (e) => {
+          dragging = true;
+          const rect = panel.getBoundingClientRect();
+          offsetX = (e.clientX || e.touches?.[0]?.clientX || 0) - rect.left;
+          offsetY = (e.clientY || e.touches?.[0]?.clientY || 0) - rect.top;
+          movePanel(rect.left, rect.top);
+          e.preventDefault();
+        };
+        const onMove = (e) => {
+          if (!dragging) return;
+          const clientX = e.clientX || e.touches?.[0]?.clientX || 0;
+          const clientY = e.clientY || e.touches?.[0]?.clientY || 0;
+          movePanel(clientX - offsetX, clientY - offsetY);
+        };
+        const onUp = () => (dragging = false);
+
+        handle?.addEventListener("mousedown", onDown);
+        handle?.addEventListener("touchstart", onDown, { passive: false });
+        window.addEventListener("mousemove", onMove);
+        window.addEventListener("touchmove", onMove, { passive: false });
+        window.addEventListener("mouseup", onUp);
+        window.addEventListener("touchend", onUp);
+      }
+
+      Object.assign(window, {
+        nav,
+        toggleSidebar,
+        toggleFilter,
+        applyFilter,
+        highlightCategory,
+        removeHighlight,
+        interlinkElement,
+        saveNote,
+        simDragStart,
+        simDragOver,
+        simDrop,
+        simDragLeave,
+        renderPeriodicTable,
+        showNoData,
+        showElementDetails,
+      });
+
+      renderPeriodicTable();
+      nav("view-periodic");
+      mountChatbotWidget();
+
+      const initialSymbol = getCurrentElementFromUrl();
+      if (initialSymbol && elementsMap.has(initialSymbol)) {
+        interlinkElement(initialSymbol);
+      }
+    </script>
+  </body>
+</html>

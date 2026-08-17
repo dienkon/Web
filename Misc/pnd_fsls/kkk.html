@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📝 PND - Tạo đề thi mới</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body { background: #f8fafc; font-family: system-ui, sans-serif; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .card { background: white; border-radius: 20px; padding: 28px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .dropzone { border: 2px dashed #d8c2aa; border-radius: 14px; padding: 30px; text-align: center; transition: all 0.3s; cursor: pointer; background: #faf7f4; }
+        .dropzone:hover, .dropzone.dragging { border-color: #8C5F3B; background: #f5ede6; }
+        .dropzone i { font-size: 40px; color: #8C5F3B; opacity: 0.5; }
+        .status { padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 500; display: none; margin-top: 12px; }
+        .status.show { display: block; }
+        .status.ok { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+        .status.error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .status.info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+        .btn-primary { background: #8C5F3B; color: white; padding: 10px 28px; border-radius: 12px; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-primary:hover { background: #6d4a2e; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-secondary { background: #f1f5f9; color: #475569; padding: 10px 28px; border-radius: 12px; font-weight: 600; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s; }
+        .btn-secondary:hover { background: #e2e8f0; }
+        textarea { font-family: 'Monaco', 'Menlo', monospace; font-size: 13px; line-height: 1.6; resize: vertical; min-height: 200px; }
+        .exam-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 600px) { .exam-meta { grid-template-columns: 1fr; } }
+        .question-preview-item { background: #faf7f4; border-radius: 12px; padding: 16px; border: 1px solid #f0e8e0; }
+        .question-preview-item .q-type { font-size: 11px; font-weight: 700; color: #8C5F3B; }
+        .admin-badge { background: #8C5F3B; color: white; padding: 2px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-[#8C5F3B] text-white flex items-center justify-center text-2xl font-black">
+                <i class="fas fa-pen-fancy"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-black text-slate-800">Tạo đề thi mới</h1>
+                <p class="text-xs text-slate-400">Nhập JSON và đăng lên Firestore</p>
+            </div>
+        </div>
+        <div id="auth-status" class="text-sm font-medium px-4 py-2 rounded-xl bg-slate-100 text-slate-600">
+            <i class="fas fa-spinner fa-spin mr-2"></i> Đang kiểm tra...
+        </div>
+    </div>
+
+    <!-- Card chính -->
+    <div class="card">
+        
+        <!-- Dropzone -->
+        <div id="dropzone" class="dropzone" onclick="document.getElementById('json-file').click()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p class="text-sm font-medium text-slate-600 mt-2">Kéo thả file JSON vào đây</p>
+            <p class="text-xs text-slate-400">hoặc bấm để chọn file</p>
+            <input type="file" id="json-file" accept=".json" class="hidden" />
+        </div>
+
+        <!-- JSON Input -->
+        <div class="mt-4">
+            <label class="block text-xs font-bold text-slate-600 mb-1">Nội dung JSON đề thi</label>
+            <textarea id="json-input" class="w-full p-4 border border-slate-200 rounded-xl focus:border-[#8C5F3B] outline-none transition bg-slate-50" placeholder="Dán JSON đề thi vào đây..."></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-3 mt-4">
+            <button id="validate-btn" class="btn-primary">
+                <i class="fas fa-check mr-2"></i> Kiểm tra đề
+            </button>
+            <button id="clear-btn" class="btn-secondary">
+                <i class="fas fa-eraser mr-2"></i> Xóa
+            </button>
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="status"></div>
+
+        <!-- Metadata & Preview -->
+        <div id="metadata-section" class="hidden mt-6 border-t border-slate-200 pt-6">
+            <h3 class="font-bold text-slate-700 mb-4">📋 Thông tin đề</h3>
+            
+            <div class="exam-meta">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Tên đề *</label>
+                    <input id="exam-title" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-[#8C5F3B] outline-none" />
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Môn học</label>
+                    <input id="exam-subject" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-[#8C5F3B] outline-none" />
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Phân loại</label>
+                    <select id="exam-subject-category" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-[#8C5F3B] outline-none">
+                        <option value="math">Toán</option>
+                        <option value="physics">Vật lý</option>
+                        <option value="chemistry">Hóa học</option>
+                        <option value="english">Tiếng Anh</option>
+                        <option value="other">Khác</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Định dạng</label>
+                    <select id="exam-format" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-[#8C5F3B] outline-none">
+                        <option value="none">—</option>
+                        <option value="hsa">HSA</option>
+                        <option value="tsa">TSA</option>
+                        <option value="vact">V-ACT</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Mã đề</label>
+                    <input id="exam-code" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-[#8C5F3B] outline-none" />
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Thời gian (phút)</label>
+                    <input id="exam-duration" type="number" value="90" min="1" max="600" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-[#8C5F3B] outline-none" />
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Lượt thi</label>
+                    <select id="attempt-policy" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm bg-white focus:border-[#8C5F3B] outline-none">
+                        <option value="multiple">Nhiều lượt</option>
+                        <option value="single">01 lượt</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Hạn chót</label>
+                    <input id="exam-deadline" type="datetime-local" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-[#8C5F3B] outline-none" />
+                </div>
+            </div>
+
+            <!-- Scoring -->
+            <div class="mt-6 bg-amber-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-amber-800 mb-2">⚖️ Phân bổ thang điểm 10</p>
+                <div class="grid grid-cols-4 gap-3 text-center">
+                    <div><label class="text-[9px] font-bold text-slate-500 block">TN</label><input id="score-total-tn" type="number" step="0.01" class="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm text-center bg-white" disabled /></div>
+                    <div><label class="text-[9px] font-bold text-slate-500 block">DS</label><input id="score-total-ds" type="number" step="0.01" class="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm text-center bg-white" disabled /></div>
+                    <div><label class="text-[9px] font-bold text-slate-500 block">TLN</label><input id="score-total-dn" type="number" step="0.01" class="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm text-center bg-white" disabled /></div>
+                    <div><label class="text-[9px] font-bold text-slate-500 block">TL</label><input id="score-total-tl" type="number" step="0.01" class="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm text-center bg-white" disabled /></div>
+                </div>
+                <div id="score-summary" class="text-xs font-bold text-amber-800 mt-2">Tổng điểm: 0/10</div>
+            </div>
+
+            <!-- Preview -->
+            <div class="mt-6">
+                <p class="text-xs font-bold text-slate-500 uppercase mb-2">📄 Xem trước câu hỏi</p>
+                <div id="question-preview" class="max-h-[400px] overflow-y-auto space-y-3 pr-1"></div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="mt-6 pt-4 border-t border-slate-200">
+                <button id="save-cloud" class="btn-primary w-full py-4 text-base" disabled>
+                    <i class="fas fa-cloud-upload-alt mr-2"></i> Đăng lên Firestore
+                </button>
+                <p class="text-[10px] text-slate-400 text-center mt-2">Đề sẽ được lưu vào 3 collection: KhoDeThi, NoiDungDeThi, DapAnDeThi</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-xs text-slate-400 mt-6">
+        PND Team &bull; Dùng Firestore để lưu đề thi
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCRIPT - Dùng importmap giống admin.js -->
+<!-- ============================================================ -->
+<script type="importmap">
+{
+    "imports": {
+        "firebase-app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+        "firebase-auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+        "firebase-firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+    }
+}
+</script>
+
+<script type="module">
+// ============================================================
+// 1. IMPORTS
+// ============================================================
+import { initializeApp } from "firebase-app";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase-auth";
+import {
+  getFirestore,
+  collection,
+  doc,
+  serverTimestamp,
+  writeBatch,
+} from "firebase-firestore";
+
+// ============================================================
+// 2. CONFIG
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyDJu0I8tPq88gDDzjD53CkAPKlPl4Vd9Zs",
+  authDomain: "pndteam-ac43b.firebaseapp.com",
+  projectId: "pndteam-ac43b",
+  storageBucket: "pndteam-ac43b.firebasestorage.app",
+  messagingSenderId: "504130270745",
+  appId: "1:504130270745:web:786924d35bc84ef3d11c88",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ============================================================
+// 3. STATE
+// ============================================================
+let parsedExam = null;
+let currentUser = null;
+let canWriteCloud = false;
+let scoringValid = false;
+const $ = id => document.getElementById(id);
+
+// ============================================================
+// 4. UTILITIES
+// ============================================================
+function escapeHtml(text) {
+    return String(text).replace(/[&<>'"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c]));
+}
+
+function showStatus(message, type = "ok") {
+    const el = $("status");
+    el.className = `status show ${type}`;
+    el.textContent = message;
+}
+
+function makeId() {
+    return `exam-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
+// ============================================================
+// 5. NORMALIZE EXAM - GIỐNG admin.js
+// ============================================================
+function normalizeExam(raw) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+        throw new Error("JSON phải là một đối tượng đề thi.");
+    }
+    const title = String(raw.title || raw.tenDeThi || "").trim();
+    const questions = raw.questions;
+    if (!title) throw new Error("Thiếu trường title (tên đề thi).");
+    if (!Array.isArray(questions) || questions.length === 0) {
+        throw new Error("Trường questions phải là một mảng có ít nhất 1 câu.");
+    }
+
+    const normalizedQuestions = questions.map((q, i) => {
+        if (!q || typeof q !== "object") throw new Error(`Câu ${i+1}: dữ liệu không hợp lệ.`);
+        const type = String(q.type || "").trim().toUpperCase();
+        const prompt = String(q.prompt || q.cau_hoi || "").trim();
+        if (!["TN", "DS", "DN", "TL"].includes(type)) {
+            throw new Error(`Câu ${i+1}: type phải là TN, DS, DN hoặc TL.`);
+        }
+        if (!prompt) throw new Error(`Câu ${i+1}: thiếu prompt.`);
+        let correctAnswer = q.correctAnswer ?? q.dapAnDung ?? "";
+        if (type !== "TL" && (correctAnswer === "" || correctAnswer === null || correctAnswer === undefined)) {
+            throw new Error(`Câu ${i+1}: thiếu correctAnswer.`);
+        }
+
+        let options, statements;
+        if (type === "TN") {
+            options = q.options;
+            if (!options || typeof options !== "object" || Array.isArray(options)) {
+                throw new Error(`Câu ${i+1}: câu TN phải có options A, B, C, D.`);
+            }
+            for (const key of ["A", "B", "C", "D"]) {
+                if (!String(options[key] ?? "").trim()) throw new Error(`Câu ${i+1}: thiếu lựa chọn ${key}.`);
+            }
+            correctAnswer = String(correctAnswer).trim().toUpperCase();
+            if (!["A", "B", "C", "D"].includes(correctAnswer)) {
+                throw new Error(`Câu ${i+1}: correctAnswer phải là A, B, C hoặc D.`);
+            }
+            options = Object.fromEntries(["A", "B", "C", "D"].map(k => [k, String(options[k])]));
+        } else if (type === "DS") {
+            statements = q.statements;
+            if (!Array.isArray(statements) || statements.length !== 4) {
+                throw new Error(`Câu ${i+1}: câu DS phải có đúng 4 phần tử trong statements.`);
+            }
+            statements = statements.map((s, si) => {
+                const text = typeof s === "string" ? s : s?.text;
+                if (!String(text || "").trim()) throw new Error(`Câu ${i+1}, ý ${si+1}: thiếu nội dung.`);
+                return { id: String(s?.id || ["a","b","c","d"][si]), text: String(text) };
+            });
+            if (!Array.isArray(correctAnswer) || correctAnswer.length !== 4) {
+                throw new Error(`Câu ${i+1}: correctAnswer của câu DS phải là mảng 4 giá trị T/F.`);
+            }
+            correctAnswer = correctAnswer.map((v, vi) => {
+                const n = String(v).trim().toUpperCase();
+                if (["T","TRUE","Đ","ĐÚNG"].includes(n)) return "T";
+                if (["F","FALSE","S","SAI"].includes(n)) return "F";
+                throw new Error(`Câu ${i+1}, đáp án ý ${vi+1}: chỉ nhận T/F hoặc Đúng/Sai.`);
+            });
+        } else if (type === "DN") {
+            correctAnswer = String(correctAnswer).trim();
+        } else {
+            correctAnswer = String(correctAnswer || "").trim();
+        }
+
+        const points = Number(q.points ?? q.maxPoints ?? 1);
+        if (!Number.isFinite(points) || points < 0) throw new Error(`Câu ${i+1}: points phải là số không âm.`);
+
+        return {
+            id: q.id ?? i+1,
+            type,
+            topic: String(q.topic || q.chuyenDe || "Tổng hợp"),
+            prompt,
+            points,
+            ...(q.image ? { image: String(q.image), imageAlt: String(q.imageAlt || "Hình câu hỏi") } : {}),
+            ...(options ? { options } : {}),
+            ...(statements ? { statements } : {}),
+            correctAnswer,
+            ...(type === "DN" && Array.isArray(q.acceptedAnswers) ? { acceptedAnswers: q.acceptedAnswers.map(String) } : {}),
+            ...(type === "DN" && Number.isFinite(Number(q.tolerance)) ? { tolerance: Math.max(0, Number(q.tolerance)) } : {}),
+            ...(String(q.explanation || q.solution || "").trim() ? { explanation: String(q.explanation || q.solution).trim() } : {}),
+            ...(type === "TL" ? { manualGrading: true, maxPoints: points } : {}),
+        };
+    });
+
+    const duration = Math.max(1, Math.min(600, Number(raw.durationMinutes || raw.thoiGianLamBai || 90) || 90));
+    const subject = String(raw.subject || raw.monHoc || "Tổng hợp").trim() || "Tổng hợp";
+    
+    return {
+        id: String(raw.id || makeId()),
+        title,
+        subject,
+        subjectCategory: raw.subjectCategory || "other",
+        examFormat: raw.examFormat || "none",
+        code: String(raw.code || raw.maDe || "").trim(),
+        durationMinutes: duration,
+        deadline: String(raw.deadline || raw.hanChot || "").trim(),
+        attemptPolicy: String(raw.attemptPolicy || "").toLowerCase() === "single" ? "single" : "multiple",
+        questions: normalizedQuestions,
+        scoring: {
+            maxScore: 10,
+            trueFalseTiers: { 0: 0, 1: 0.1, 2: 0.25, 3: 0.5, 4: 1 },
+            mode: "normalized-10",
+        },
+    };
+}
+
+// ============================================================
+// 6. SCORING
+// ============================================================
+function calculateScoring(exam) {
+    const totals = { TN: 0, DS: 0, DN: 0, TL: 0 };
+    exam.questions.forEach(q => {
+        const type = String(q.type || "TN").toUpperCase();
+        totals[type] = (totals[type] || 0) + (Number(q.points) || 0);
+    });
+    const total = Object.values(totals).reduce((s, v) => s + v, 0);
+    return { totals, total, valid: Math.abs(total - 10) <= 0.001 };
+}
+
+function updateScoringUI(exam) {
+    const { totals, total, valid } = calculateScoring(exam);
+    $("score-total-tn").value = Number(totals.TN.toFixed(2));
+    $("score-total-ds").value = Number(totals.DS.toFixed(2));
+    $("score-total-dn").value = Number(totals.DN.toFixed(2));
+    $("score-total-tl").value = Number(totals.TL.toFixed(2));
+    
+    const summary = $("score-summary");
+    scoringValid = valid;
+    if (valid) {
+        summary.textContent = `✅ Tổng điểm: 10/10 · Có thể lưu đề`;
+        summary.className = "text-xs font-bold text-emerald-700 mt-2";
+    } else {
+        summary.textContent = `❌ Tổng điểm: ${Number(total.toFixed(2))}/10 · ${total < 10 ? `còn thiếu ${Number((10-total).toFixed(2))}` : `vượt ${Number((total-10).toFixed(2))}`} điểm`;
+        summary.className = "text-xs font-bold text-red-600 mt-2";
+    }
+    
+    // Nếu đã đăng nhập thì luôn cho phép lưu (auto admin)
+    $("save-cloud").disabled = !valid || !currentUser;
+}
+
+// ============================================================
+// 7. RENDER PREVIEW
+// ============================================================
+function renderPreview(exam) {
+    $("metadata-section").classList.remove("hidden");
+    $("exam-title").value = exam.title;
+    $("exam-subject").value = exam.subject;
+    $("exam-subject-category").value = exam.subjectCategory || "other";
+    $("exam-format").value = exam.examFormat || "none";
+    $("exam-code").value = exam.code;
+    $("exam-duration").value = exam.durationMinutes;
+    $("exam-deadline").value = String(exam.deadline || "").slice(0, 16);
+    $("attempt-policy").value = exam.attemptPolicy || "multiple";
+
+    $("question-preview").innerHTML = exam.questions.map((q, i) => `
+        <div class="question-preview-item">
+            <div class="flex items-center gap-2 text-xs text-[#8C5F3B] font-bold mb-2">
+                <span>Câu ${i+1}</span>
+                <span>·</span>
+                <span>${escapeHtml(q.type)}</span>
+                <span>·</span>
+                <span>${escapeHtml(q.topic)}</span>
+                <span>·</span>
+                <span>${Number(q.points || 0)} điểm</span>
+            </div>
+            <p class="text-sm text-slate-700">${escapeHtml(q.prompt)}</p>
+            ${q.options ? `<div class="mt-2 grid grid-cols-2 gap-1 text-xs">
+                ${Object.entries(q.options).map(([k,v]) => `<div class="bg-white px-3 py-1.5 rounded border border-slate-200"><b>${k}.</b> ${escapeHtml(v)}</div>`).join("")}
+            </div>` : ""}
+            ${q.statements ? `<div class="mt-2 text-xs space-y-1">
+                ${q.statements.map(s => `<div class="bg-white px-3 py-1.5 rounded border border-slate-200"><b>${escapeHtml(s.id)}.</b> ${escapeHtml(s.text)}</div>`).join("")}
+            </div>` : ""}
+            ${q.type === "TL" ? `<div class="mt-2 text-xs text-amber-600">📝 Tự luận - chờ giáo viên chấm</div>` : ""}
+            ${q.explanation ? `<div class="mt-2 text-xs text-emerald-600 bg-emerald-50 p-2 rounded">💡 ${escapeHtml(q.explanation)}</div>` : ""}
+        </div>
+    `).join("");
+
+    updateScoringUI(exam);
+}
+
+// ============================================================
+// 8. PARSE & VALIDATE
+// ============================================================
+function parseEditor() {
+    try {
+        const raw = $("json-input").value.trim();
+        if (!raw) throw new Error("Bạn chưa dán JSON hoặc chọn file.");
+        parsedExam = normalizeExam(JSON.parse(raw));
+        renderPreview(parsedExam);
+        showStatus(`✅ Hợp lệ: ${parsedExam.questions.length} câu, ${parsedExam.durationMinutes} phút`, "ok");
+    } catch (err) {
+        parsedExam = null;
+        $("metadata-section").classList.add("hidden");
+        $("save-cloud").disabled = true;
+        showStatus(`❌ Lỗi: ${err.message}`, "error");
+    }
+}
+
+async function loadFileContent(text, fileName = "") {
+    $("json-input").value = text;
+    if (fileName) showStatus(`📄 Đã đọc ${fileName}, đang kiểm tra...`, "info");
+    parseEditor();
+}
+
+// ============================================================
+// 9. FIRESTORE PAYLOAD - GIỐNG admin.js
+// ============================================================
+function firestorePayload(exam) {
+    const questionTypeCounts = exam.questions.reduce((counts, q) => {
+        const type = String(q.type || "TN").toUpperCase();
+        counts[type] = (counts[type] || 0) + 1;
+        return counts;
+    }, {});
+    return {
+        schemaVersion: 5,
+        publicMetadata: true,
+        sourceFormat: "native-json",
+        tenDeThi: exam.title,
+        title: exam.title,
+        monHoc: exam.subject,
+        subject: exam.subject,
+        subjectCategory: exam.subjectCategory || "other",
+        examFormat: exam.examFormat || "none",
+        maDe: exam.code,
+        code: exam.code,
+        thoiGianLamBai: exam.durationMinutes,
+        durationMinutes: exam.durationMinutes,
+        questionCount: exam.questions.length,
+        questionTypeCounts,
+        maxScore: 10,
+        contentRef: exam.id,
+        attemptPolicy: exam.attemptPolicy === "single" ? "single" : "multiple",
+        status: "published",
+        ...(exam.deadline ? { hanChot: exam.deadline } : {}),
+    };
+}
+
+function contentPayload(exam) {
+    const publicQuestions = exam.questions.map((q) => {
+        const { correctAnswer, acceptedAnswers, tolerance, explanation, ...publicQ } = q;
+        return publicQ;
+    });
+    return {
+        schemaVersion: 5,
+        examId: exam.id,
+        questions: publicQuestions,
+        scoring: exam.scoring,
+        capNhat: serverTimestamp(),
+    };
+}
+
+function answerPayload(exam) {
+    return {
+        schemaVersion: 4,
+        examId: exam.id,
+        title: exam.title,
+        scoring: exam.scoring,
+        answers: exam.questions.map((q) => ({
+            id: q.id,
+            type: q.type,
+            points: q.points,
+            correctAnswer: q.correctAnswer,
+            ...(q.acceptedAnswers ? { acceptedAnswers: q.acceptedAnswers } : {}),
+            ...(Number.isFinite(q.tolerance) ? { tolerance: q.tolerance } : {}),
+            ...(q.explanation ? { explanation: q.explanation } : {}),
+            ...(q.type === "TL" ? { maxPoints: q.maxPoints || q.points } : {}),
+        })),
+        capNhat: serverTimestamp(),
+    };
+}
+
+// ============================================================
+// 10. SAVE TO FIRESTORE - AUTO ADMIN
+// ============================================================
+async function saveToFirestore() {
+    if (!parsedExam) {
+        await Swal.fire("Lỗi", "Chưa có dữ liệu đề hợp lệ.", "error");
+        return;
+    }
+    if (!currentUser) {
+        await Swal.fire("Chưa đăng nhập", "Cần đăng nhập để lưu lên Firestore.", "warning");
+        return;
+    }
+
+    const { valid } = calculateScoring(parsedExam);
+    if (!valid) {
+        await Swal.fire("Tổng điểm chưa đúng", "Tổng điểm các câu hỏi phải bằng 10.", "warning");
+        return;
+    }
+
+    try {
+        const btn = $("save-cloud");
+        btn.disabled = true;
+        btn.textContent = "⏳ Đang lưu...";
+
+        const exam = { ...parsedExam, id: makeId() };
+        const batch = writeBatch(db);
+        const examRef = doc(collection(db, "KhoDeThi"));
+        const examId = examRef.id;
+
+        const meta = {
+            ...firestorePayload({ ...exam, id: examId }),
+            id: examId,
+            contentRef: examId,
+            ngayTao: serverTimestamp(),
+        };
+        batch.set(examRef, meta);
+        batch.set(doc(db, "NoiDungDeThi", examId), contentPayload({ ...exam, id: examId }));
+        batch.set(doc(db, "DapAnDeThi", examId), { ...answerPayload({ ...exam, id: examId }), examId: examId });
+
+        await batch.commit();
+
+        await Swal.fire({
+            icon: "success",
+            title: "✅ Đã lưu lên Firestore!",
+            html: `Đề <b>${escapeHtml(exam.title)}</b> đã được lưu với ID: <code>${examId}</code><br><br>Đã lưu vào 3 collection:<br>• KhoDeThi<br>• NoiDungDeThi<br>• DapAnDeThi`,
+            confirmButtonColor: "#8C5F3B",
+        });
+
+        // Reset
+        $("json-input").value = "";
+        $("metadata-section").classList.add("hidden");
+        $("save-cloud").disabled = true;
+        parsedExam = null;
+        showStatus("✅ Đã lưu thành công!", "ok");
+
+    } catch (err) {
+        console.error("Firestore error:", err);
+        
+        // Hiển thị lỗi chi tiết hơn
+        let errorMsg = err.message;
+        
+        await Swal.fire("Lỗi", `Không thể lưu: ${errorMsg}`, "error");
+        showStatus(`❌ Lỗi: ${errorMsg}`, "error");
+    } finally {
+        const btn = $("save-cloud");
+        btn.disabled = !scoringValid || !currentUser;
+        btn.textContent = "🚀 Đăng lên Firestore";
+    }
+}
+
+// ============================================================
+// 11. AUTH STATE - AUTO ADMIN CHO MỌI USER
+// ============================================================
+onAuthStateChanged(auth, async (user) => {
+    currentUser = user;
+    const statusEl = $("auth-status");
+    
+    if (user) {
+        // 🔥 AUTO ADMIN: Mọi user đăng nhập đều có quyền Admin
+        canWriteCloud = true;
+        
+        statusEl.innerHTML = `
+            <i class="fas fa-check-circle text-emerald-500 mr-2"></i>
+            ${escapeHtml(user.email)} · <span class="admin-badge">ADMIN</span>
+        `;
+        statusEl.className = "text-sm font-medium px-4 py-2 rounded-xl bg-emerald-50 text-emerald-700";
+        showStatus(`✅ Đã đăng nhập với quyền Admin (auto)`, "ok");
+        
+        if (parsedExam && scoringValid) {
+            $("save-cloud").disabled = false;
+        }
+    } else {
+        canWriteCloud = false;
+        statusEl.innerHTML = `
+            <i class="fas fa-sign-in-alt mr-2"></i>
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="window.promptLogin()" class="text-[#8C5F3B] hover:underline font-bold">
+                    Đăng nhập
+                </button>
+                <span class="text-slate-400 text-xs">|</span>
+                <button onclick="window.promptRegister()" class="text-[#8C5F3B] hover:underline font-bold">
+                    Đăng ký
+                </button>
+                <span class="text-xs text-slate-400">(auto admin)</span>
+            </div>
+        `;
+        statusEl.className = "text-sm font-medium px-4 py-2 rounded-xl bg-amber-50 text-amber-700";
+        $("save-cloud").disabled = true;
+        showStatus("🔐 Cần đăng nhập để lưu lên Firestore (auto admin)", "info");
+    }
+});
+
+// ============================================================
+// 12. ĐĂNG NHẬP & ĐĂNG KÝ - AUTO ADMIN
+// ============================================================
+window.promptLogin = async function() {
+    const { value: form } = await Swal.fire({
+        title: "🔐 Đăng nhập",
+        html: `
+            <input id="login-email" class="swal2-input" type="email" placeholder="Email" value="admin@pndteam.com">
+            <input id="login-password" class="swal2-input" type="password" placeholder="Mật khẩu">
+            <p class="text-xs text-emerald-600 mt-2">✅ Auto Admin - Mọi user đăng nhập đều có quyền Admin</p>
+        `,
+        confirmButtonText: "Đăng nhập",
+        confirmButtonColor: "#8C5F3B",
+        showCancelButton: true,
+        cancelButtonText: "Hủy",
+        preConfirm: () => {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+            if (!email || !password) {
+                Swal.showValidationMessage("Vui lòng nhập đầy đủ");
+                return;
+            }
+            return { email, password };
+        }
+    });
+    
+    if (form) {
+        try {
+            await signInWithEmailAndPassword(auth, form.email, form.password);
+            await Swal.fire("✅ Thành công", "Đã đăng nhập với quyền Admin!", "success");
+        } catch (err) {
+            await Swal.fire("Lỗi", err.message, "error");
+        }
+    }
+};
+
+window.promptRegister = async function() {
+    const { value: form } = await Swal.fire({
+        title: "📝 Đăng ký tài khoản",
+        html: `
+            <input id="register-email" class="swal2-input" type="email" placeholder="Email">
+            <input id="register-password" class="swal2-input" type="password" placeholder="Mật khẩu (tối thiểu 6 ký tự)">
+            <p class="text-xs text-emerald-600 mt-2">✅ Auto Admin - Tài khoản mới sẽ có quyền Admin ngay sau khi đăng nhập</p>
+        `,
+        confirmButtonText: "Đăng ký",
+        confirmButtonColor: "#8C5F3B",
+        showCancelButton: true,
+        cancelButtonText: "Hủy",
+        preConfirm: () => {
+            const email = document.getElementById("register-email").value;
+            const password = document.getElementById("register-password").value;
+            if (!email || !password) {
+                Swal.showValidationMessage("Vui lòng nhập đầy đủ");
+                return;
+            }
+            if (password.length < 6) {
+                Swal.showValidationMessage("Mật khẩu tối thiểu 6 ký tự");
+                return;
+            }
+            return { email, password };
+        }
+    });
+    
+    if (form) {
+        try {
+            await createUserWithEmailAndPassword(auth, form.email, form.password);
+            await Swal.fire("✅ Thành công", "Đã tạo tài khoản và đăng nhập với quyền Admin!", "success");
+        } catch (err) {
+            await Swal.fire("Lỗi", err.message, "error");
+        }
+    }
+};
+
+// ============================================================
+// 13. EVENT BINDINGS
+// ============================================================
+$("validate-btn").addEventListener("click", parseEditor);
+$("clear-btn").addEventListener("click", () => {
+    $("json-input").value = "";
+    $("metadata-section").classList.add("hidden");
+    $("save-cloud").disabled = true;
+    parsedExam = null;
+    $("status").className = "status";
+    showStatus("Đã xóa dữ liệu", "info");
+});
+
+$("save-cloud").addEventListener("click", saveToFirestore);
+
+// File picker
+$("json-file").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    await loadFileContent(await file.text(), file.name);
+});
+
+// Dropzone
+const dropzone = $("dropzone");
+["dragenter", "dragover"].forEach(ev => {
+    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add("dragging"); });
+});
+["dragleave", "drop"].forEach(ev => {
+    dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove("dragging"); });
+});
+dropzone.addEventListener("drop", async (e) => {
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith(".json")) {
+        showStatus("Chỉ nhận file .json", "error");
+        return;
+    }
+    await loadFileContent(await file.text(), file.name);
+});
+
+// Update scoring when metadata changes
+["exam-title", "exam-subject", "exam-subject-category", "exam-format", "exam-code", "exam-duration", "attempt-policy", "exam-deadline"]
+    .forEach(id => {
+        $(id)?.addEventListener("change", () => {
+            if (parsedExam) updateScoringUI(parsedExam);
+        });
+    });
+
+// ============================================================
+// 14. INIT
+// ============================================================
+showStatus("📝 Dán JSON đề thi hoặc kéo thả file vào", "info");
+console.log("✅ PND Exam Creator đã sẵn sàng!");
+console.log("🔥 AUTO ADMIN: Mọi user đăng nhập đều có quyền Admin!");
+console.log("📌 Đăng nhập bằng bất kỳ tài khoản Firebase nào để lưu đề lên Firestore");
+
+</script>
+</body>
+</html>

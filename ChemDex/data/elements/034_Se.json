@@ -1,0 +1,24 @@
+{
+  "number": 34,
+  "symbol": "Se",
+  "nameVi": "Selenium",
+  "nameEn": "Selenium",
+  "mass": 78.971,
+  "structureType": "bcc",
+  "category": "phi-kim",
+  "general": {
+    "shells": [],
+    "electronConfig": "Đang cập nhật",
+    "englishName": "Selenium",
+    "latinName": "Selenium"
+  },
+  "history": {},
+  "structure": {},
+  "occurrence": {},
+  "physical": "Đang cập nhật dữ liệu.",
+  "chemical": "Đang cập nhật dữ liệu.",
+  "reactions": [],
+  "images": {},
+  "hasData": true,
+  "file": "elements/034_Se.json"
+}

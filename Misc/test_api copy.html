@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MiMo AI Chat Pro</title>
+    <style>
+      :root {
+        --bg: #f4f6fb;
+        --panel: #ffffff;
+        --panel-2: #f8fafc;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+        --accent: #ff6b35;
+        --accent-2: #f7931e;
+        --accent-3: #ef4444;
+        --shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+        --radius: 22px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family:
+          Inter,
+          Segoe UI,
+          Tahoma,
+          Geneva,
+          Verdana,
+          sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #fff 0%,
+          #f3f5fb 42%,
+          #e9eef8 100%
+        );
+        color: var(--text);
+      }
+      .app {
+        height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 16px;
+        padding: 16px;
+      }
+      .topbar {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(229, 231, 235, 0.8);
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 220px;
+      }
+      .logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-size: 22px;
+        box-shadow: 0 10px 24px rgba(255, 107, 53, 0.25);
+      }
+      .brand h1 {
+        font-size: 18px;
+        line-height: 1.2;
+      }
+      .brand p {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .controls {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .control,
+      .btn,
+      select,
+      input,
+      textarea {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text);
+        border-radius: 14px;
+        outline: none;
+        font: inherit;
+      }
+      .control,
+      select,
+      input {
+        height: 42px;
+        padding: 0 14px;
+      }
+      .btn {
+        height: 42px;
+        padding: 0 14px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn-primary {
+        border: none;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(255, 107, 53, 0.18);
+      }
+      .btn-danger {
+        border: none;
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .btn-ghost {
+        background: #fff;
+      }
+      .workspace {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 16px;
+      }
+      .panel {
+        min-height: 0;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(229, 231, 235, 0.8);
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .panel-head {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(180deg, #fff, #fbfcfe);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .panel-title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .panel-sub {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .messages {
+        flex: 1;
+        overflow: auto;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background:
+          linear-gradient(transparent, transparent),
+          radial-gradient(
+            circle at right top,
+            rgba(247, 147, 30, 0.08),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at left bottom,
+            rgba(255, 107, 53, 0.05),
+            transparent 24%
+          );
+      }
+      .message {
+        max-width: 84%;
+        padding: 12px 14px;
+        border-radius: 18px;
+        line-height: 1.55;
+        word-break: break-word;
+        white-space: pre-wrap;
+        animation: fadeIn 0.18s ease;
+        border: 1px solid transparent;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        border-bottom-right-radius: 6px;
+      }
+      .assistant {
+        align-self: flex-start;
+        background: #f3f4f6;
+        color: #111827;
+        border-color: #eceff3;
+        border-bottom-left-radius: 6px;
+      }
+      .assistant code,
+      .assistant pre,
+      .code-area code,
+      .code-area pre {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+      .assistant pre {
+        background: #111827;
+        color: #e5e7eb;
+        padding: 12px;
+        border-radius: 14px;
+        overflow: auto;
+        margin-top: 8px;
+      }
+      .typing {
+        align-self: flex-start;
+        background: #f3f4f6;
+        border: 1px solid #eceff3;
+        padding: 12px 14px;
+        border-radius: 18px;
+        border-bottom-left-radius: 6px;
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .typing span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #9ca3af;
+        animation: bounce 1.2s infinite ease-in-out;
+      }
+      .typing span:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .typing span:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-7px);
+        }
+      }
+      .composer {
+        padding: 14px;
+        border-top: 1px solid var(--border);
+        background: #fcfdff;
+        display: grid;
+        gap: 10px;
+      }
+      .composer-top {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .toggle-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--muted);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 9px 12px;
+      }
+      .toggle input {
+        width: 16px;
+        height: 16px;
+      }
+      .input-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+      }
+      .textarea-wrap {
+        display: none;
+        gap: 10px;
+        grid-template-rows: auto auto;
+      }
+      textarea {
+        width: 100%;
+        min-height: 88px;
+        resize: vertical;
+        padding: 12px 14px;
+        line-height: 1.5;
+      }
+      .status {
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10b981;
+        display: inline-block;
+      }
+      .sidebar {
+        min-height: 0;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 16px;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(229, 231, 235, 0.8);
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .tab {
+        height: 36px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: #fff;
+        cursor: pointer;
+      }
+      .tab.active {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        border-color: transparent;
+      }
+      .code-area {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .code-toolbar {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .code-toolbar .left,
+      .code-toolbar .right {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .code-editor {
+        flex: 1;
+        min-height: 0;
+        padding: 14px;
+        background: #0f172a;
+        color: #e2e8f0;
+        border: none;
+        border-radius: 0;
+        resize: none;
+        outline: none;
+        line-height: 1.5;
+        font-size: 13px;
+      }
+      .code-preview {
+        flex: 1;
+        min-height: 0;
+        border: none;
+        width: 100%;
+        background: #fff;
+      }
+      .code-empty {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        text-align: center;
+        color: var(--muted);
+      }
+      .history {
+        padding: 14px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .history-item {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 12px;
+        background: #fff;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .history-item strong {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+      .history-item small {
+        color: var(--muted);
+      }
+      .mini-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .mini-actions button {
+        height: 32px;
+        padding: 0 10px;
+        border-radius: 10px;
+      }
+      .error {
+        border: 1px solid #fecaca;
+        background: #fff1f2;
+        color: #991b1b;
+        padding: 10px 12px;
+        border-radius: 14px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #eef2f7;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 999px;
+      }
+      @media (max-width: 1100px) {
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          grid-template-rows: auto auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo">🤖</div>
+          <div>
+            <h1>MiMo AI Chat Pro</h1>
+            <p>
+              Giao diện trắng tối giản, có khung code riêng, lưu lịch sử, đổi
+              model nhanh
+            </p>
+          </div>
+        </div>
+        <div class="controls">
+          <select id="modelSelect" title="Chọn model"></select>
+          <button class="btn btn-ghost" id="refreshModelsBtn">
+            Tải lại model
+          </button>
+          <button class="btn btn-ghost" id="exportBtn">Xuất chat</button>
+          <button class="btn btn-danger" id="clearBtn">Xóa chat</button>
+        </div>
+      </div>
+
+      <div class="workspace">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Chat</div>
+              <div class="panel-sub" id="chatSub">Sẵn sàng</div>
+            </div>
+            <div class="tabs">
+              <button class="tab active" data-mode="chat">Chat</button>
+              <button class="tab" data-mode="code">Code</button>
+            </div>
+          </div>
+
+          <div class="messages" id="chatMessages">
+            <div class="message assistant" id="welcomeMsg">
+              Xin chào! 👋 Tôi là MiMo AI. Hãy gửi câu hỏi, yêu cầu viết code,
+              hoặc bật chế độ Code để làm việc với đoạn mã riêng.
+            </div>
+          </div>
+
+          <div class="composer">
+            <div class="composer-top">
+              <div class="toggle-row">
+                <label class="toggle"
+                  ><input type="checkbox" id="codeModeToggle" /> Hỗ trợ
+                  code</label
+                >
+                <label class="toggle"
+                  ><input type="checkbox" id="autoSaveToggle" checked /> Tự lưu
+                  lịch sử</label
+                >
+              </div>
+              <div class="status">
+                <span class="status-dot"></span
+                ><span id="apiStatus">Đã kết nối giao diện</span>
+              </div>
+            </div>
+
+            <div class="input-row" id="chatInputRow">
+              <input
+                type="text"
+                id="userInput"
+                placeholder="Nhập tin nhắn của bạn..."
+                autocomplete="off"
+              />
+              <button class="btn btn-primary" id="sendButton">Gửi ➤</button>
+            </div>
+
+            <div class="textarea-wrap hidden" id="codeInputWrap">
+              <textarea
+                id="codePrompt"
+                placeholder="Nhập yêu cầu code hoặc dán code ở đây..."
+              ></textarea>
+              <div class="input-row">
+                <input
+                  type="text"
+                  id="codeTitle"
+                  placeholder="Tên file / tiêu đề khung code..."
+                />
+                <button class="btn btn-primary" id="sendCodeButton">
+                  Gửi yêu cầu code ➤
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <div class="card">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Khung Code riêng</div>
+                <div class="panel-sub">
+                  Xem và chỉnh code tách biệt với chat
+                </div>
+              </div>
+              <div class="mini-actions">
+                <button class="btn btn-ghost" id="formatBtn">Format</button>
+                <button class="btn btn-ghost" id="copyCodeBtn">Copy</button>
+              </div>
+            </div>
+            <div class="code-area">
+              <div class="code-toolbar">
+                <div class="left">
+                  <select id="languageSelect" title="Ngôn ngữ">
+                    <option value="html">HTML</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="css">CSS</option>
+                    <option value="python">Python</option>
+                    <option value="json">JSON</option>
+                    <option value="markdown">Markdown</option>
+                    <option value="text">Text</option>
+                  </select>
+                  <button class="btn btn-ghost" id="loadSampleBtn">Mẫu</button>
+                </div>
+                <div class="right">
+                  <button class="btn btn-ghost" id="openPreviewBtn">
+                    Preview
+                  </button>
+                  <button class="btn btn-ghost" id="clearCodeBtn">
+                    Xóa code
+                  </button>
+                </div>
+              </div>
+              <textarea
+                class="code-editor"
+                id="codeEditor"
+                spellcheck="false"
+                placeholder="Code sẽ hiển thị ở đây..."
+              ></textarea>
+              <iframe
+                class="code-preview hidden"
+                id="codePreview"
+                sandbox="allow-scripts allow-forms allow-modals allow-popups"
+              ></iframe>
+              <div class="code-empty" id="codeEmpty">
+                Chưa có code nào. Bấm “Mẫu” hoặc yêu cầu AI tạo code để mở khung
+                riêng.
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="panel-head">
+              <div>
+                <div class="panel-title">Lịch sử & phiên làm việc</div>
+                <div class="panel-sub">Lưu cục bộ trong trình duyệt</div>
+              </div>
+            </div>
+            <div class="history" id="historyList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // === CẤU HÌNH ===
+      // Không nên để lộ API key trên giao diện public. Hãy thay bằng key của bạn ở đây.
+      const API_URL =
+        "https://token-plan-sgp.xiaomimimo.com/v1/chat/completions";
+      const API_KEY = "PASTE_YOUR_API_KEY_HERE";
+
+      // Nếu API hỗ trợ list models theo OpenAI style, trang sẽ tự load.
+      const MODEL_LIST_ENDPOINT = API_URL.replace(
+        /\/chat\/completions\/?$/,
+        "/models",
+      );
+
+      const STORAGE_KEY = "mimo_chat_pro_state_v1";
+      const DEFAULT_MODELS = [
+        "mimo-v2.5",
+        "mimo-v2",
+        "mimo-lite",
+        "mimo-code",
+        "mimo-reasoning",
+      ];
+
+      const el = {
+        modelSelect: document.getElementById("modelSelect"),
+        refreshModelsBtn: document.getElementById("refreshModelsBtn"),
+        exportBtn: document.getElementById("exportBtn"),
+        clearBtn: document.getElementById("clearBtn"),
+        chatMessages: document.getElementById("chatMessages"),
+        userInput: document.getElementById("userInput"),
+        sendButton: document.getElementById("sendButton"),
+        codeModeToggle: document.getElementById("codeModeToggle"),
+        autoSaveToggle: document.getElementById("autoSaveToggle"),
+        chatInputRow: document.getElementById("chatInputRow"),
+        codeInputWrap: document.getElementById("codeInputWrap"),
+        codePrompt: document.getElementById("codePrompt"),
+        codeTitle: document.getElementById("codeTitle"),
+        sendCodeButton: document.getElementById("sendCodeButton"),
+        chatSub: document.getElementById("chatSub"),
+        apiStatus: document.getElementById("apiStatus"),
+        tabs: Array.from(document.querySelectorAll(".tab")),
+        codeEditor: document.getElementById("codeEditor"),
+        codePreview: document.getElementById("codePreview"),
+        codeEmpty: document.getElementById("codeEmpty"),
+        languageSelect: document.getElementById("languageSelect"),
+        formatBtn: document.getElementById("formatBtn"),
+        copyCodeBtn: document.getElementById("copyCodeBtn"),
+        loadSampleBtn: document.getElementById("loadSampleBtn"),
+        openPreviewBtn: document.getElementById("openPreviewBtn"),
+        clearCodeBtn: document.getElementById("clearCodeBtn"),
+        historyList: document.getElementById("historyList"),
+      };
+
+      let state = {
+        messages: [],
+        model: DEFAULT_MODELS[0],
+        code: "",
+        language: "html",
+        activeTab: "chat",
+        codePreviewOpen: false,
+        codeMode: false,
+        autoSave: true,
+        models: [...DEFAULT_MODELS],
+      };
+
+      function loadState() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (!saved) return;
+          const parsed = JSON.parse(saved);
+          state = {
+            ...state,
+            ...parsed,
+            models:
+              Array.isArray(parsed.models) && parsed.models.length
+                ? parsed.models
+                : [...DEFAULT_MODELS],
+          };
+        } catch (_) {}
+      }
+
+      function saveState() {
+        if (!state.autoSave) return;
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            messages: state.messages,
+            model: state.model,
+            code: state.code,
+            language: state.language,
+            activeTab: state.activeTab,
+            codePreviewOpen: state.codePreviewOpen,
+            codeMode: state.codeMode,
+            autoSave: state.autoSave,
+            models: state.models,
+          }),
+        );
+      }
+
+      function renderModelOptions() {
+        const seen = new Set();
+        const options = [...state.models, state.model].filter(
+          (m) => m && !seen.has(m) && seen.add(m),
+        );
+        el.modelSelect.innerHTML = options
+          .map(
+            (m) => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`,
+          )
+          .join("");
+        el.modelSelect.value = state.model;
+      }
+
+      function setStatus(text) {
+        el.apiStatus.textContent = text;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function formatMessageContent(content) {
+        const raw = String(content || "");
+        if (!raw.includes("```")) return escapeHtml(raw).replace(/\n/g, "<br>");
+
+        const parts = raw.split(/```/g);
+        return parts
+          .map((part, idx) => {
+            if (idx % 2 === 0) return escapeHtml(part).replace(/\n/g, "<br>");
+            const lines = part.split("\n");
+            const maybeLang = lines[0].trim();
+            const code = lines.slice(maybeLang ? 1 : 0).join("\n");
+            return `<pre><code>${escapeHtml(code)}</code></pre>`;
+          })
+          .join("");
+      }
+
+      function addMessage(content, role = "assistant") {
+        const div = document.createElement("div");
+        div.className = `message ${role === "user" ? "user" : "assistant"}`;
+        div.innerHTML = formatMessageContent(content);
+        el.chatMessages.appendChild(div);
+        scrollChat();
+        state.messages.push({ role, content });
+        saveState();
+        renderHistory();
+      }
+
+      function addTyping() {
+        const d = document.createElement("div");
+        d.className = "typing";
+        d.id = "typingIndicator";
+        d.innerHTML = "<span></span><span></span><span></span>";
+        el.chatMessages.appendChild(d);
+        scrollChat();
+      }
+
+      function removeTyping() {
+        const t = document.getElementById("typingIndicator");
+        if (t) t.remove();
+      }
+
+      function scrollChat() {
+        el.chatMessages.scrollTop = el.chatMessages.scrollHeight;
+      }
+
+      function renderHistory() {
+        const recent = [...state.messages].slice(-8).reverse();
+        if (!recent.length) {
+          el.historyList.innerHTML = `<div class="panel-sub" style="padding:10px 4px">Chưa có lịch sử.</div>`;
+          return;
+        }
+        el.historyList.innerHTML = recent
+          .map((m, i) => {
+            const preview = String(m.content).replace(/\s+/g, " ").slice(0, 78);
+            return `
+          <div class="history-item">
+            <div>
+              <strong>${m.role === "user" ? "Bạn" : "AI"}</strong>
+              <small>${escapeHtml(preview)}${m.content.length > 78 ? "…" : ""}</small>
+            </div>
+            <div class="mini-actions">
+              <button class="btn btn-ghost" data-history-copy="${i}">Copy</button>
+            </div>
+          </div>`;
+          })
+          .join("");
+
+        el.historyList
+          .querySelectorAll("[data-history-copy]")
+          .forEach((btn) => {
+            btn.addEventListener("click", async () => {
+              const idx = Number(btn.getAttribute("data-history-copy"));
+              const item = recent[idx];
+              await navigator.clipboard.writeText(item.content);
+              setStatus("Đã copy lịch sử");
+            });
+          });
+      }
+
+      function setTab(tab) {
+        state.activeTab = tab;
+        el.tabs.forEach((t) =>
+          t.classList.toggle("active", t.dataset.mode === tab),
+        );
+        el.chatInputRow.classList.toggle(
+          "hidden",
+          tab !== "chat" && !state.codeMode,
+        );
+        el.codeInputWrap.classList.toggle(
+          "hidden",
+          !(tab === "code" || state.codeMode),
+        );
+        el.chatSub.textContent =
+          tab === "code" || state.codeMode
+            ? "Chế độ code đang bật"
+            : "Sẵn sàng";
+        saveState();
+      }
+
+      function syncCodeEditor() {
+        el.codeEditor.value = state.code;
+        el.languageSelect.value = state.language;
+        updateCodePreview();
+      }
+
+      function updateCodePreview() {
+        const code = el.codeEditor.value.trim();
+        state.code = code;
+        if (!code) {
+          el.codePreview.classList.add("hidden");
+          el.codeEmpty.classList.remove("hidden");
+          return;
+        }
+        el.codeEmpty.classList.add("hidden");
+        if (state.codePreviewOpen && el.languageSelect.value === "html") {
+          el.codePreview.classList.remove("hidden");
+          el.codePreview.srcdoc = code;
+        } else {
+          el.codePreview.classList.add("hidden");
+        }
+        saveState();
+      }
+
+      function setPreviewOpen(open) {
+        state.codePreviewOpen = open;
+        el.openPreviewBtn.textContent = open ? "Tắt Preview" : "Preview";
+        updateCodePreview();
+      }
+
+      function applyCodeFormatting() {
+        const lang = el.languageSelect.value;
+        let code = el.codeEditor.value;
+        if (!code.trim()) return;
+        if (lang === "html") {
+          code = code.replace(/>\s*</g, "><").replace(/></g, ">\n<");
+        } else if (lang === "json") {
+          try {
+            code = JSON.stringify(JSON.parse(code), null, 2);
+          } catch (_) {}
+        } else if (
+          lang === "css" ||
+          lang === "javascript" ||
+          lang === "typescript"
+        ) {
+          code = code
+            .replace(/;\s*/g, ";\n")
+            .replace(/\{\s*/g, "{\n")
+            .replace(/\s*\}/g, "\n}")
+            .replace(/\n{3,}/g, "\n\n");
+        }
+        el.codeEditor.value = code;
+        updateCodePreview();
+        setStatus("Đã format code");
+      }
+
+      async function copyCode() {
+        await navigator.clipboard.writeText(el.codeEditor.value || "");
+        setStatus("Đã copy code");
+      }
+
+      function loadSampleCode() {
+        const sample = `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample</title>
+  <style>
+    body { font-family: system-ui; padding: 24px; }
+    .box { max-width: 520px; margin: 0 auto; padding: 24px; border: 1px solid #e5e7eb; border-radius: 20px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>MiMo Code Canvas</h1>
+    <p>Khung code riêng đã sẵn sàng.</p>
+  </div>
+</body>
+</html>`;
+        el.codeEditor.value = sample;
+        el.languageSelect.value = "html";
+        state.language = "html";
+        setPreviewOpen(true);
+        updateCodePreview();
+        setTab("code");
+      }
+
+      function clearChat() {
+        state.messages = [];
+        el.chatMessages.innerHTML = `<div class="message assistant">Xin chào! 👋 Tôi là MiMo AI. Tôi có thể giúp gì cho bạn hôm nay?</div>`;
+        saveState();
+        renderHistory();
+        setStatus("Đã xóa chat");
+      }
+
+      function clearCode() {
+        el.codeEditor.value = "";
+        state.code = "";
+        updateCodePreview();
+        setStatus("Đã xóa code");
+      }
+
+      function exportChat() {
+        const data = {
+          model: state.model,
+          messages: state.messages,
+          code: state.code,
+          language: state.language,
+          exportedAt: new Date().toISOString(),
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `mimo-chat-${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      async function loadModels() {
+        setStatus("Đang tải model...");
+        try {
+          const res = await fetch(MODEL_LIST_ENDPOINT, {
+            headers: { Authorization: `Bearer ${API_KEY}` },
+          });
+          if (!res.ok)
+            throw new Error(`Không tải được danh sách model (${res.status})`);
+          const data = await res.json();
+          const list = Array.isArray(data?.data)
+            ? data.data.map((x) => x.id || x.model || x.name).filter(Boolean)
+            : Array.isArray(data?.models)
+              ? data.models
+              : [];
+
+          if (list.length) {
+            state.models = [...new Set([...DEFAULT_MODELS, ...list])];
+            if (!state.models.includes(state.model))
+              state.model = state.models[0];
+            renderModelOptions();
+            saveState();
+            setStatus(`Đã tải ${state.models.length} model`);
+            return;
+          }
+          throw new Error("API không trả về danh sách model hợp lệ");
+        } catch (err) {
+          state.models = [...DEFAULT_MODELS];
+          renderModelOptions();
+          setStatus("Dùng danh sách model mặc định");
+        }
+      }
+
+      async function sendMessage(kind = "chat") {
+        const isCode =
+          kind === "code" || state.codeMode || state.activeTab === "code";
+        const message = isCode
+          ? el.codePrompt.value.trim()
+          : el.userInput.value.trim();
+        if (!message) return;
+
+        if (isCode) {
+          addMessage(`Yêu cầu code: ${message}`, "user");
+          el.codePrompt.value = "";
+        } else {
+          addMessage(message, "user");
+          el.userInput.value = "";
+        }
+
+        const messages = [...state.messages];
+        if (isCode && state.codeEditor.value.trim()) {
+          messages.push({
+            role: "user",
+            content: `Đây là khung code hiện tại:\n\n\`\`\`${state.language}\n${state.codeEditor.value}\n\`\`\`\n\nHãy hỗ trợ, chỉnh sửa hoặc tạo tiếp dựa trên ngữ cảnh này.`,
+          });
+        }
+
+        sendButtonsDisable(true);
+        addTyping();
+        setStatus("Đang tạo phản hồi...");
+
+        try {
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: state.model,
+              messages,
+              temperature: 0.7,
+              max_tokens: 2048,
+            }),
+          });
+
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          const ai = data?.choices?.[0]?.message?.content;
+          if (!ai) throw new Error("Phản hồi không hợp lệ");
+
+          removeTyping();
+          addMessage(ai, "assistant");
+
+          // Tự đẩy code vào khung riêng nếu có block code đầu tiên.
+          const codeMatch = ai.match(/```(\w+)?\n([\s\S]*?)```/);
+          if (codeMatch) {
+            const lang = (codeMatch[1] || "text").toLowerCase();
+            const code = codeMatch[2].trim();
+            el.languageSelect.value = lang;
+            state.language = lang;
+            el.codeEditor.value = code;
+            state.code = code;
+            setTab("code");
+            setPreviewOpen(lang === "html");
+            updateCodePreview();
+          }
+
+          if (isCode) {
+            el.codeTitle.value = el.codeTitle.value || "Code từ AI";
+          }
+          setStatus("Sẵn sàng");
+        } catch (error) {
+          removeTyping();
+          const err = document.createElement("div");
+          err.className = "error";
+          err.textContent = `Lỗi: ${error.message}`;
+          el.chatMessages.appendChild(err);
+          scrollChat();
+          setStatus("Có lỗi khi gọi API");
+        } finally {
+          sendButtonsDisable(false);
+        }
+      }
+
+      function sendButtonsDisable(disabled) {
+        el.sendButton.disabled = disabled;
+        el.sendCodeButton.disabled = disabled;
+        el.modelSelect.disabled = disabled;
+        el.refreshModelsBtn.disabled = disabled;
+      }
+
+      // === EVENTS ===
+      el.userInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage("chat");
+        }
+      });
+
+      el.codePrompt.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage("code");
+        }
+      });
+
+      el.sendButton.addEventListener("click", () => sendMessage("chat"));
+      el.sendCodeButton.addEventListener("click", () => sendMessage("code"));
+      el.refreshModelsBtn.addEventListener("click", loadModels);
+      el.exportBtn.addEventListener("click", exportChat);
+      el.clearBtn.addEventListener("click", clearChat);
+      el.modelSelect.addEventListener("change", () => {
+        state.model = el.modelSelect.value;
+        saveState();
+        setStatus(`Đã chọn model: ${state.model}`);
+      });
+      el.codeModeToggle.addEventListener("change", () => {
+        state.codeMode = el.codeModeToggle.checked;
+        if (state.codeMode) setTab("code");
+        else setTab("chat");
+        saveState();
+      });
+      el.autoSaveToggle.addEventListener("change", () => {
+        state.autoSave = el.autoSaveToggle.checked;
+        saveState();
+        setStatus(state.autoSave ? "Đã bật tự lưu" : "Đã tắt tự lưu");
+      });
+      el.tabs.forEach((tab) =>
+        tab.addEventListener("click", () => setTab(tab.dataset.mode)),
+      );
+      el.codeEditor.addEventListener("input", updateCodePreview);
+      el.languageSelect.addEventListener("change", () => {
+        state.language = el.languageSelect.value;
+        setPreviewOpen(
+          el.languageSelect.value === "html" && state.codePreviewOpen,
+        );
+        updateCodePreview();
+        saveState();
+      });
+      el.formatBtn.addEventListener("click", applyCodeFormatting);
+      el.copyCodeBtn.addEventListener("click", copyCode);
+      el.loadSampleBtn.addEventListener("click", loadSampleCode);
+      el.openPreviewBtn.addEventListener("click", () =>
+        setPreviewOpen(!state.codePreviewOpen),
+      );
+      el.clearCodeBtn.addEventListener("click", clearCode);
+
+      // === INIT ===
+      loadState();
+      renderModelOptions();
+      el.modelSelect.value = state.model;
+      el.codeModeToggle.checked = !!state.codeMode;
+      el.autoSaveToggle.checked = state.autoSave !== false;
+      el.languageSelect.value = state.language || "html";
+      el.codeEditor.value = state.code || "";
+      if (state.messages?.length) {
+        el.chatMessages.innerHTML = "";
+        state.messages.forEach((m) => {
+          const div = document.createElement("div");
+          div.className = `message ${m.role === "user" ? "user" : "assistant"}`;
+          div.innerHTML = formatMessageContent(m.content);
+          el.chatMessages.appendChild(div);
+        });
+      }
+
+      setTab(state.activeTab || "chat");
+      setPreviewOpen(!!state.codePreviewOpen);
+      syncCodeEditor();
+      renderHistory();
+      loadModels();
+      setStatus("Đã tải giao diện");
+    </script>
+  </body>
+</html>

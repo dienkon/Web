@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hệ Thống Cập Nhật Tiến Độ Lớp Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .card-shadow {
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Custom Scrollbar */
+      .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen font-sans pb-10">
+    <div class="max-w-2xl mx-auto p-4 sm:p-6">
+      <!-- Header & Tổng tiến độ -->
+      <header
+        class="text-center mb-8 sticky top-0 bg-gray-50/95 backdrop-blur-sm py-4 z-10 border-b flex flex-col items-center"
+      >
+        <div class="flex items-center justify-between w-full mb-2">
+          <div class="w-10"></div>
+          <!-- Spacer -->
+          <h1 class="text-2xl font-bold text-gray-800 uppercase tracking-tight">
+            Tiến Độ 11A1
+          </h1>
+          <button
+            onclick="toggleLog(true)"
+            class="p-2 bg-white border border-gray-200 rounded-full hover:bg-gray-100 transition-all shadow-sm relative group"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-gray-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span
+              class="absolute -bottom-8 right-0 bg-gray-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity"
+              >Xem lịch sử</span
+            >
+          </button>
+        </div>
+
+        <div
+          class="bg-white rounded-2xl p-6 card-shadow inline-block min-w-[200px] border border-blue-50"
+        >
+          <p class="text-gray-500 text-xs uppercase tracking-widest font-bold">
+            Trung bình cả lớp
+          </p>
+          <div
+            id="class-average"
+            class="text-5xl font-black text-blue-600 mt-1"
+          >
+            0%
+          </div>
+        </div>
+      </header>
+
+      <!-- Form tìm kiếm -->
+      <div
+        class="bg-white rounded-xl p-6 card-shadow mb-6 border border-blue-100"
+      >
+        <h2
+          class="text-lg font-semibold mb-4 border-l-4 border-blue-500 pl-3 text-blue-900"
+        >
+          Tìm kiếm học sinh
+        </h2>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Gõ tên để tìm và cập nhật nhanh:</label
+            >
+            <div class="relative">
+              <input
+                type="text"
+                id="name-search"
+                placeholder="Ví dụ: Nguyễn Văn A..."
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+              <div
+                id="search-results"
+                class="absolute w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-y-auto hidden z-20"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Công cụ Lọc và Sắp xếp -->
+      <div
+        class="bg-white rounded-xl p-4 card-shadow mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between border border-gray-200"
+      >
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <label class="text-xs font-bold text-gray-500 uppercase"
+            >Sắp xếp:</label
+          >
+          <select
+            id="sort-select"
+            onchange="handleSortChange()"
+            class="p-2 border border-gray-300 rounded-lg text-sm w-full sm:w-auto outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+          >
+            <option value="name-vn">Tên (A-Z)</option>
+            <option value="prog-asc">Tiến độ tăng dần</option>
+            <option value="prog-desc">Tiến độ giảm dần</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <label class="text-xs font-bold text-gray-500 uppercase">Lọc:</label>
+          <select
+            id="filter-operator"
+            class="p-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+          >
+            <option value="all">Tất cả</option>
+            <option value=">=">≥</option>
+            <option value="<=">≤</option>
+            <option value="=">=</option>
+          </select>
+          <input
+            type="number"
+            id="filter-value"
+            min="0"
+            max="100"
+            placeholder="%"
+            class="p-2 border border-gray-300 rounded-lg text-sm w-16 outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 disabled:opacity-50 disabled:bg-gray-100"
+            disabled
+          />
+          <button
+            onclick="applyFilter()"
+            class="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors font-bold shadow-sm"
+          >
+            Lọc
+          </button>
+          <button
+            onclick="clearFilter()"
+            class="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm hover:bg-gray-300 transition-colors shadow-sm"
+          >
+            Xóa
+          </button>
+        </div>
+      </div>
+
+      <!-- Danh sách hiển thị -->
+      <div
+        class="bg-white rounded-xl overflow-hidden card-shadow border border-gray-200"
+      >
+        <div
+          class="p-4 bg-gray-800 text-white font-bold grid grid-cols-12 text-sm items-center"
+        >
+          <div class="col-span-8 uppercase tracking-widest">
+            Danh sách học sinh
+            <span
+              id="list-count"
+              class="font-normal text-gray-400 text-xs ml-1 lowercase"
+            ></span>
+          </div>
+          <div class="col-span-4 text-center">Tiến độ</div>
+        </div>
+        <div id="student-list" class="divide-y divide-gray-100">
+          <div class="p-8 text-center text-gray-500 italic">
+            Đang tải dữ liệu...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Cập Nhật Tiến Độ -->
+    <div
+      id="update-modal"
+      class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm transition-opacity"
+    >
+      <div
+        class="bg-white w-full max-w-md rounded-2xl shadow-2xl flex flex-col animate-fade-in border border-blue-100 overflow-hidden"
+      >
+        <!-- Header Modal Cập nhật -->
+        <div class="p-4 border-b flex justify-between items-center bg-blue-50">
+          <h3 class="font-bold text-blue-900 flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-blue-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+              />
+            </svg>
+            Cập nhật cá nhân
+          </h3>
+          <button
+            onclick="closeUpdateModal()"
+            class="text-gray-400 hover:text-gray-800 transition-colors p-1 bg-gray-100 rounded-full hover:bg-gray-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Nội dung Modal Cập nhật -->
+        <div class="p-6 space-y-5">
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Học sinh được chọn:</p>
+            <div
+              id="modal-selected-name"
+              class="font-bold text-2xl text-blue-700"
+            ></div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              onclick="copyToClipboard('username')"
+              class="flex flex-col items-center justify-center bg-gray-50 p-3 rounded-lg border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all group relative"
+            >
+              <span
+                class="text-gray-400 text-[10px] uppercase font-bold tracking-wider mb-1"
+                >Tài khoản</span
+              >
+              <span
+                id="modal-display-user"
+                class="font-mono font-bold text-gray-800"
+              ></span>
+              <div
+                class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+              >
+                Copy
+              </div>
+            </button>
+            <button
+              onclick="copyToClipboard('password')"
+              class="flex flex-col items-center justify-center bg-gray-50 p-3 rounded-lg border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all group relative"
+            >
+              <span
+                class="text-gray-400 text-[10px] uppercase font-bold tracking-wider mb-1"
+                >Mật khẩu</span
+              >
+              <span
+                id="modal-display-pass"
+                class="font-mono font-bold text-gray-800"
+              ></span>
+              <div
+                class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+              >
+                Copy
+              </div>
+            </button>
+          </div>
+
+          <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+            <label
+              class="block text-sm font-bold text-gray-700 mb-2 text-center"
+              >Tiến độ hiện tại (%)</label
+            >
+            <div class="flex gap-2">
+              <input
+                type="number"
+                id="modal-progress-input"
+                min="0"
+                max="100"
+                class="w-full p-3 border border-blue-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none font-black text-3xl text-center text-blue-600 transition-all"
+                placeholder="0-100"
+              />
+            </div>
+          </div>
+
+          <button
+            id="btn-save"
+            onclick="updateProgress()"
+            class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all transform active:scale-[0.98] shadow-lg shadow-blue-200 flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            LƯU THAY ĐỔI
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Nhật ký (Log) -->
+    <div
+      id="log-modal"
+      class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm"
+    >
+      <div
+        class="bg-white w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[80vh] animate-fade-in"
+      >
+        <div
+          class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-2xl"
+        >
+          <h3 class="font-bold text-gray-800 flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-blue-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            LỊCH SỬ CẬP NHẬT
+          </h3>
+          <button
+            onclick="toggleLog(false)"
+            class="text-gray-400 hover:text-gray-600 p-1 bg-gray-200 rounded-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          id="activity-log"
+          class="flex-1 overflow-y-auto p-4 space-y-3 custom-scroll"
+        >
+          <div class="text-center py-10 text-gray-400 italic">
+            Đang tải lịch sử...
+          </div>
+        </div>
+        <div class="p-4 border-t bg-gray-50 rounded-b-2xl text-center">
+          <p class="text-[10px] text-gray-400 uppercase font-semibold">
+            Tự động cập nhật thời gian thực
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thông báo Toast -->
+    <div
+      id="toast"
+      class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-gray-900/90 text-white px-6 py-3 rounded-full text-sm font-medium opacity-0 transition-all pointer-events-none z-50 shadow-2xl border border-white/10"
+    ></div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        doc,
+        setDoc,
+        onSnapshot,
+        updateDoc,
+        addDoc,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      import {
+        getAuth,
+        signInAnonymously,
+        signInWithCustomToken,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+      const firebaseConfig = JSON.parse(
+        '{"apiKey":"AIzaSyAKk-2dwDATm0ONwQG_H006ZA8J9TPHn5U","authDomain":"dienkon-6ebc3.firebaseapp.com","databaseURL":"https://dienkon-6ebc3-default-rtdb.firebaseio.com","projectId":"dienkon-6ebc3","storageBucket":"dienkon-6ebc3.firebasestorage.app","messagingSenderId":"63131460738","appId":"1:63131460738:web:8025bc717a1602213c809b","measurementId":"G-3907PZCGPX"}',
+      );
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const appId =
+        typeof __app_id !== "undefined" ? __app_id : "default-app-id";
+
+      let students = [];
+      let currentSort = "name-vn";
+      let currentFilter = { op: "all", val: 0 };
+      let selectedStudentId = null;
+
+      // DOM Elements
+      const searchInput = document.getElementById("name-search");
+      const resultsBox = document.getElementById("search-results");
+      const listDiv = document.getElementById("student-list");
+      const activityLogDiv = document.getElementById("activity-log");
+      const logModal = document.getElementById("log-modal");
+      const updateModal = document.getElementById("update-modal");
+      const modalProgressInp = document.getElementById("modal-progress-input");
+
+      // Toggle Log Modal
+      window.toggleLog = (show) => {
+        logModal.classList.toggle("hidden", !show);
+      };
+
+      // Mở Modal Cập nhật
+      window.openUpdateModal = (id) => {
+        selectedStudentId = id;
+        const s = students.find((x) => x.id === id);
+
+        // Cập nhật thông tin vào Modal
+        document.getElementById("modal-selected-name").innerText = s.name;
+        document.getElementById("modal-display-user").innerText = s.user;
+        document.getElementById("modal-display-pass").innerText = s.pass;
+        modalProgressInp.value = s.progress;
+
+        // Hiển thị modal, ẩn kết quả tìm kiếm (nếu đang mở)
+        updateModal.classList.remove("hidden");
+        resultsBox.classList.add("hidden");
+        searchInput.value = "";
+      };
+
+      // Đóng Modal Cập nhật
+      window.closeUpdateModal = () => {
+        selectedStudentId = null;
+        updateModal.classList.add("hidden");
+      };
+
+      // Đóng modal khi bấm ra ngoài (vùng tối)
+      updateModal.addEventListener("click", (e) => {
+        if (e.target === updateModal) {
+          window.closeUpdateModal();
+        }
+      });
+
+      // Logic sắp xếp tên kiểu Việt Nam
+      function parseFullName(fullName) {
+        const parts = fullName.trim().split(/\s+/);
+        if (parts.length === 1)
+          return { first: parts[0], middle: "", last: "" };
+        const first = parts.pop();
+        const last = parts.shift();
+        const middle = parts.join(" ");
+        return { first, middle, last };
+      }
+
+      function compareVNName(a, b) {
+        const nameA = parseFullName(a.name);
+        const nameB = parseFullName(b.name);
+        let res = nameA.first.localeCompare(nameB.first, "vi");
+        if (res !== 0) return res;
+        res = nameA.middle.localeCompare(nameB.middle, "vi");
+        if (res !== 0) return res;
+        return nameA.last.localeCompare(nameB.last, "vi");
+      }
+
+      async function initAuth() {
+        if (
+          typeof __initial_auth_token !== "undefined" &&
+          __initial_auth_token
+        ) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+      }
+
+      onAuthStateChanged(auth, (user) => {
+        if (!user) return;
+        setupSync();
+      });
+
+      function setupSync() {
+        const studentCol = collection(
+          db,
+          "artifacts",
+          appId,
+          "public",
+          "data",
+          "students",
+        );
+        const logCol = collection(
+          db,
+          "artifacts",
+          appId,
+          "public",
+          "data",
+          "logs",
+        );
+
+        onSnapshot(studentCol, (snapshot) => {
+          students = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          updateAvg();
+          renderList();
+        });
+
+        onSnapshot(logCol, (snapshot) => {
+          const logs = snapshot.docs
+            .map((doc) => doc.data())
+            .filter((l) => l.timestamp)
+            .sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds)
+            .slice(0, 50);
+
+          if (logs.length === 0) {
+            activityLogDiv.innerHTML = `<div class="text-center py-10 italic text-gray-400">Chưa có hoạt động nào.</div>`;
+            return;
+          }
+
+          activityLogDiv.innerHTML = logs
+            .map((l) => {
+              const date = l.timestamp?.toDate ? l.timestamp.toDate() : null;
+              const timeStr = date
+                ? date.toLocaleTimeString("vi-VN", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : "...";
+              const dateStr = date
+                ? date.toLocaleDateString("vi-VN", {
+                    day: "2-digit",
+                    month: "2-digit",
+                  })
+                : "";
+
+              return `
+              <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl flex flex-col gap-1 shadow-sm">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-blue-700">${l.studentName}</span>
+                    <span class="text-[10px] text-gray-400 font-mono">${timeStr} - ${dateStr}</span>
+                </div>
+                <div class="text-xs text-gray-600">
+                    Đã thay đổi tiến độ: <span class="line-through text-gray-400">${l.oldVal}%</span> ➔ <span class="font-bold text-gray-800">${l.newVal}%</span>
+                </div>
+              </div>
+            `;
+            })
+            .join("");
+        });
+      }
+
+      function updateAvg() {
+        if (!students.length) return;
+        const avg =
+          students.reduce((a, b) => a + b.progress, 0) / students.length;
+        document.getElementById("class-average").innerText =
+          avg.toFixed(1) + "%";
+      }
+
+      function getBgClass(val) {
+        if (val === 100) return "bg-green-500 text-white font-bold";
+        if (val >= 90) return "bg-yellow-400 text-black font-semibold";
+        if (val <= 10) return "bg-red-500 text-white font-semibold";
+        return "bg-white text-gray-800 hover:bg-gray-50";
+      }
+
+      function renderList() {
+        let result = [...students];
+        if (currentFilter.op !== "all") {
+          result = result.filter((s) => {
+            const v = currentFilter.val;
+            if (currentFilter.op === ">=") return s.progress >= v;
+            if (currentFilter.op === "<=") return s.progress <= v;
+            if (currentFilter.op === "=") return s.progress === v;
+            return true;
+          });
+        }
+        result.sort((a, b) => {
+          if (currentSort === "name-vn") return compareVNName(a, b);
+          if (currentSort === "prog-asc") return a.progress - b.progress;
+          if (currentSort === "prog-desc") return b.progress - a.progress;
+          return 0;
+        });
+        document.getElementById("list-count").innerText =
+          `(${result.length}/${students.length})`;
+
+        // Thêm onclick="openUpdateModal" vào từng dòng của danh sách
+        listDiv.innerHTML = result.length
+          ? result
+              .map(
+                (s) => `
+            <div onclick="window.openUpdateModal('${s.id}')" class="grid grid-cols-12 p-3 text-sm items-center transition-all ${getBgClass(s.progress)} border-b border-gray-100/10 cursor-pointer hover:opacity-80">
+                <div class="col-span-8 truncate font-medium flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                    ${s.name}
+                </div>
+                <div class="col-span-4 text-center font-bold text-lg">${s.progress}%</div>
+            </div>
+        `,
+              )
+              .join("")
+          : `<div class="p-8 text-center text-gray-400">Không có dữ liệu phù hợp.</div>`;
+      }
+
+      window.handleSortChange = () => {
+        currentSort = document.getElementById("sort-select").value;
+        renderList();
+      };
+      window.applyFilter = () => {
+        const op = document.getElementById("filter-operator").value;
+        const val = parseInt(document.getElementById("filter-value").value);
+        if (op !== "all" && isNaN(val)) return showToast("Vui lòng nhập số!");
+        currentFilter = { op, val };
+        renderList();
+      };
+      window.clearFilter = () => {
+        document.getElementById("filter-operator").value = "all";
+        document.getElementById("filter-value").value = "";
+        document.getElementById("filter-value").disabled = true;
+        currentFilter = { op: "all", val: 0 };
+        renderList();
+      };
+      document.getElementById("filter-operator").onchange = (e) => {
+        document.getElementById("filter-value").disabled =
+          e.target.value === "all";
+      };
+
+      searchInput.oninput = (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (!query) return resultsBox.classList.add("hidden");
+        const matches = students
+          .filter((s) => s.name.toLowerCase().includes(query))
+          .slice(0, 5);
+
+        // Khi chọn tên từ tìm kiếm, gọi openUpdateModal
+        resultsBox.innerHTML = matches
+          .map(
+            (m) =>
+              `<div class="p-3 hover:bg-blue-100 cursor-pointer border-b text-sm flex justify-between" onclick="window.openUpdateModal('${m.id}')">
+                <span>${m.name}</span>
+                <span class="text-xs font-bold text-gray-500">${m.progress}%</span>
+               </div>`,
+          )
+          .join("");
+        resultsBox.classList.toggle("hidden", matches.length === 0);
+      };
+
+      window.copyToClipboard = (type) => {
+        const s = students.find((x) => x.id === selectedStudentId);
+        const text = type === "username" ? s.user : s.pass;
+        const el = document.createElement("textarea");
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        showToast("Đã copy: " + text);
+      };
+
+      window.updateProgress = async () => {
+        const newVal = parseInt(modalProgressInp.value);
+        if (isNaN(newVal) || newVal < 0 || newVal > 100)
+          return showToast("Tiến độ phải từ 0 đến 100!");
+
+        const s = students.find((x) => x.id === selectedStudentId);
+        const oldVal = s.progress;
+        const btn = document.getElementById("btn-save");
+        btn.disabled = true;
+
+        try {
+          const studentRef = doc(
+            db,
+            "artifacts",
+            appId,
+            "public",
+            "data",
+            "students",
+            selectedStudentId,
+          );
+          await updateDoc(studentRef, { progress: newVal });
+          const logCol = collection(
+            db,
+            "artifacts",
+            appId,
+            "public",
+            "data",
+            "logs",
+          );
+          await addDoc(logCol, {
+            studentName: s.name,
+            oldVal: oldVal,
+            newVal: newVal,
+            timestamp: serverTimestamp(),
+          });
+          showToast("Xong! Đã cập nhật tiến độ.");
+          window.closeUpdateModal(); // Đóng modal sau khi lưu thành công
+        } catch (e) {
+          showToast("Lỗi kết nối máy chủ!");
+        } finally {
+          btn.disabled = false;
+        }
+      };
+
+      function showToast(m) {
+        const t = document.getElementById("toast");
+        t.innerText = m;
+        t.classList.remove("opacity-0");
+        setTimeout(() => t.classList.add("opacity-0"), 2000);
+      }
+
+      initAuth();
+    </script>
+  </body>
+</html>

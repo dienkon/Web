@@ -1,0 +1,6 @@
+{
+  "name": "QuizMaster",
+  "description": "An online quiz platform with Firebase, supporting KaTeX, rich HTML, and admin management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

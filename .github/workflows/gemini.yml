@@ -1,0 +1,29 @@
+name: Gemini API Secure Call
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  run-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Call Gemini API
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$GEMINI_API_KEY" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "contents":[
+              {
+                "parts":[
+                  {"text":"Giải thích phản ứng oxi hóa khử"}
+                ]
+              }
+            ]
+          }'

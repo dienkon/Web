@@ -1,0 +1,1799 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TBM Học Kỳ - Gợi ý điểm chi tiết</title>
+    <style>
+      :root {
+        --bg: #eef4ff;
+        --bg2: #f9fbff;
+        --card: rgba(255, 255, 255, 0.88);
+        --card2: #fff;
+        --text: #132238;
+        --muted: #66758b;
+        --border: rgba(88, 118, 176, 0.18);
+        --primary: #4778ff;
+        --primary2: #7b61ff;
+        --success: #1f9d63;
+        --warn: #c88a11;
+        --danger: #d54d4d;
+        --shadow: 0 18px 42px rgba(30, 58, 105, 0.1);
+        --soft: 0 10px 22px rgba(30, 58, 105, 0.07);
+        --r: 22px;
+      }
+      [data-theme="dark"] {
+        --bg: #09111d;
+        --bg2: #0f1726;
+        --card: rgba(16, 24, 38, 0.88);
+        --card2: #111b2d;
+        --text: #eef4ff;
+        --muted: #9ab0c8;
+        --border: rgba(145, 168, 214, 0.15);
+        --primary: #7ca2ff;
+        --primary2: #9f8cff;
+        --success: #3dc780;
+        --warn: #f2c152;
+        --danger: #ff7171;
+        --shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+        --soft: 0 10px 22px rgba(0, 0, 0, 0.18);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Arial,
+          sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(71, 120, 255, 0.12),
+            transparent 26%
+          ),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .app {
+        max-width: 1540px;
+        margin: 0 auto;
+        padding: 18px;
+      }
+      .topbar {
+        display: flex;
+        gap: 14px;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+      .brand {
+        max-width: 980px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(26px, 4vw, 42px);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+      .brand p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 15px;
+      }
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .btn {
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--text);
+        border-radius: 16px;
+        padding: 11px 14px;
+        box-shadow: var(--soft);
+        transition: 0.18s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        border-color: rgba(71, 120, 255, 0.45);
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary2));
+        color: #fff;
+        border-color: transparent;
+      }
+      .btn.danger {
+        background: rgba(213, 77, 77, 0.08);
+        border-color: rgba(213, 77, 77, 0.2);
+        color: var(--danger);
+      }
+      .btn.active {
+        border-color: rgba(71, 120, 255, 0.5);
+        background: rgba(71, 120, 255, 0.08);
+      }
+      .notice {
+        background: linear-gradient(
+          135deg,
+          rgba(71, 120, 255, 0.1),
+          rgba(123, 97, 255, 0.06)
+        );
+        border: 1px solid rgba(71, 120, 255, 0.18);
+        border-radius: var(--r);
+        padding: 14px 16px;
+        box-shadow: var(--soft);
+        margin-bottom: 16px;
+        line-height: 1.55;
+      }
+      .hero-grid,
+      .grid2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .hero-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-bottom: 16px;
+      }
+      .stat,
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--r);
+        box-shadow: var(--soft);
+        backdrop-filter: blur(10px);
+      }
+      .stat {
+        padding: 16px;
+        min-height: 112px;
+      }
+      .stat .label {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+      .stat .value {
+        font-size: clamp(24px, 3vw, 36px);
+        font-weight: 850;
+        letter-spacing: -0.04em;
+      }
+      .stat .sub {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      .tabs,
+      .subject-tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 12px 0 14px;
+      }
+      .subject-tabs {
+        overflow: auto;
+        padding-bottom: 2px;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .section-title {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 18px 0 12px;
+      }
+      .section-title h2 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+      }
+      .section-title .hint {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .panel {
+        padding: 16px;
+      }
+      .panel h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+      .panel p,
+      .panel li {
+        color: var(--muted);
+        line-height: 1.58;
+      }
+      .summary-card,
+      .subject-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+      .summary-card {
+        padding: 16px;
+        overflow: hidden;
+      }
+      .summary-top,
+      .subject-head,
+      .term-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .summary-top h3,
+      .subject-head h3 {
+        margin: 0 0 6px;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+      }
+      .chip-row,
+      .pill-row,
+      .small-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .chip,
+      .pill,
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        background: rgba(127, 127, 127, 0.03);
+      }
+      .pill.ok,
+      .tag.good {
+        color: var(--success);
+        border-color: rgba(31, 157, 99, 0.25);
+        background: rgba(31, 157, 99, 0.08);
+      }
+      .pill.warn,
+      .tag.mid {
+        color: var(--warn);
+        border-color: rgba(200, 138, 17, 0.25);
+        background: rgba(200, 138, 17, 0.08);
+      }
+      .pill.bad,
+      .tag.low {
+        color: var(--danger);
+        border-color: rgba(213, 77, 77, 0.25);
+        background: rgba(213, 77, 77, 0.08);
+      }
+      .subject-head {
+        padding: 16px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(
+          180deg,
+          rgba(71, 120, 255, 0.06),
+          transparent
+        );
+      }
+      .subject-body {
+        padding: 14px 16px 16px;
+      }
+      .subject-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+      }
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        user-select: none;
+      }
+      .term-block {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 14px;
+        margin-bottom: 14px;
+        background: linear-gradient(
+          180deg,
+          rgba(127, 127, 127, 0.03),
+          transparent
+        );
+      }
+      .term-score {
+        display: flex;
+        gap: 8px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .term-score .small {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .progress {
+        width: 100%;
+        height: 10px;
+        background: rgba(127, 127, 127, 0.12);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+      .progress > div {
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), var(--primary2));
+        width: 0%;
+        transition: width 0.18s ease;
+      }
+      .grid-inputs {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .field {
+        grid-column: span 3;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field.tx {
+        grid-column: span 2;
+      }
+      .field.manual {
+        grid-column: span 12;
+      }
+      .field label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .input {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: var(--card2);
+        color: var(--text);
+        border-radius: 14px;
+        padding: 10px 12px;
+        outline: none;
+        transition: 0.15s ease;
+      }
+      .input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(71, 120, 255, 0.12);
+      }
+      .input[readonly] {
+        opacity: 0.72;
+        background: rgba(127, 127, 127, 0.08);
+      }
+      .term-foot {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .mini-note {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .score-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 60px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 12px;
+      }
+      .score-tag.good {
+        background: rgba(31, 157, 99, 0.12);
+        color: var(--success);
+      }
+      .score-tag.mid {
+        background: rgba(200, 138, 17, 0.12);
+        color: var(--warn);
+      }
+      .score-tag.low {
+        background: rgba(213, 77, 77, 0.12);
+        color: var(--danger);
+      }
+      .suggestions {
+        margin-top: 10px;
+        display: grid;
+        gap: 8px;
+      }
+      .suggestion-box {
+        border: 1px dashed var(--border);
+        border-radius: 16px;
+        padding: 10px 12px;
+        background: rgba(127, 127, 127, 0.03);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .checklist {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .check-item {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 10px 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        background: rgba(127, 127, 127, 0.03);
+      }
+      .check-item b {
+        font-size: 14px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .selected-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .rank-card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 12px;
+        background: rgba(127, 127, 127, 0.03);
+      }
+      .rank-card .rlabel {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .rank-card .rvalue {
+        font-size: 20px;
+        font-weight: 850;
+        margin-top: 4px;
+      }
+      .subject-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(127, 127, 127, 0.03);
+        flex-wrap: wrap;
+      }
+      .subject-line strong {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .subject-line span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .bottom-panels {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 14px;
+        margin-top: 18px;
+        margin-bottom: 34px;
+      }
+      .file-input {
+        display: none;
+      }
+      .subject-tab-btn {
+        flex: 0 0 auto;
+      }
+      .subject-tab-btn small {
+        opacity: 0.8;
+        font-weight: 600;
+      }
+      .hide {
+        display: none !important;
+      }
+      @media (max-width: 1180px) {
+        .hero-grid,
+        .selected-grid,
+        .bottom-panels,
+        .grid2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 780px) {
+        .hero-grid,
+        .selected-grid,
+        .bottom-panels,
+        .grid2 {
+          grid-template-columns: 1fr;
+        }
+        .field {
+          grid-column: span 12;
+        }
+        .field.tx {
+          grid-column: span 6;
+        }
+        .toolbar {
+          justify-content: flex-start;
+        }
+        .btn {
+          width: 100%;
+        }
+        .subject-head {
+          flex-direction: column;
+        }
+        .subject-actions {
+          align-items: flex-start;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app" id="app" data-theme="light">
+      <div class="topbar">
+        <div class="brand">
+          <h1>Tính TBM học kỳ, cả năm và gợi ý điểm còn thiếu</h1>
+          <p>
+            Nhập điểm TX, GK, CK; hệ thống tự tính TBM học kì 1, học kì 2, TBM
+            cả năm, thống kê học lực và gợi ý chi tiết từng cột còn thiếu để
+            chạm mốc 8.0 hoặc 9.0.
+          </p>
+        </div>
+        <div class="toolbar">
+          <button class="btn" id="themeBtn">🌙 Giao diện</button>
+          <button class="btn primary" id="exportBtn">⬇️ Xuất JSON</button>
+          <button class="btn" id="importBtn">⬆️ Nhập JSON</button>
+          <button class="btn" id="demoBtn">✨ Nạp mẫu</button>
+          <button class="btn danger" id="resetBtn">🗑️ Xóa dữ liệu</button>
+          <input
+            class="file-input"
+            type="file"
+            id="fileInput"
+            accept="application/json"
+          />
+        </div>
+      </div>
+
+      <div class="notice">
+        <b>Lưu ý:</b> Hệ thống xét tất cả các môn trong danh sách. Chỉ cần trong
+        n môn có ít nhất 6 môn đạt chuẩn là được. Phần gợi ý sẽ chỉ rõ môn nào
+        kéo điểm xuống, cột nào còn thiếu và nếu chia đều phần thiếu thì mỗi cột
+        cần bao nhiêu.
+      </div>
+
+      <div class="hero-grid" id="heroGrid"></div>
+
+      <div class="tabs" id="mainTabs"></div>
+      <div class="subject-tabs" id="subjectTabs"></div>
+
+      <section class="tab-content" data-tab="overview">
+        <div class="section-title">
+          <h2>Tổng quan học lực</h2>
+          <div class="hint">
+            Tóm tắt nhanh số môn đạt 8.0 / 9.0 và môn đang dưới 6.5.
+          </div>
+        </div>
+        <div class="summary-card" id="statsBox"></div>
+      </section>
+
+      <section class="tab-content" data-tab="input">
+        <div class="section-title">
+          <h2>Nhập điểm từng môn</h2>
+          <div class="hint">
+            Chọn môn bằng tab phía trên. Mọi môn đều được đưa vào diện xét.
+          </div>
+        </div>
+        <div id="subjectInputBox"></div>
+      </section>
+
+      <section class="tab-content" data-tab="suggestions">
+        <div class="section-title">
+          <h2>Gợi ý chi tiết từng cột</h2>
+          <div class="hint">
+            Xem môn đang chọn, từng cột còn thiếu và mức điểm tối thiểu cần đạt.
+          </div>
+        </div>
+        <div id="subjectSuggestBox"></div>
+      </section>
+
+      <section class="tab-content" data-tab="tools">
+        <div class="bottom-panels">
+          <div class="panel">
+            <h3>Công thức đang dùng</h3>
+            <p><b>TBM học kì:</b> (Tổng TX + 2×GK + 3×CK) / (số cột TX + 5)</p>
+            <p><b>TBM năm:</b> (TBM HK1 × 1 + TBM HK2 × 2) / 3</p>
+            <p>
+              HK1 TX mặc định: Toán 4, Lí 3, Văn 4, Hóa 3, Sinh 3, Tin 3, Sử 3,
+              Anh 4, ANQP 2.
+            </p>
+            <p>HK2: Toán, Hóa, Lí tăng thêm 1 TX.</p>
+          </div>
+          <div class="panel">
+            <h3>Thao tác nhanh</h3>
+            <div class="small-actions">
+              <button class="btn primary" id="gotoInputBtn">
+                Đến nhập điểm
+              </button>
+              <button class="btn" id="gotoSuggestBtn">
+                Đến gợi ý chi tiết
+              </button>
+              <button class="btn" id="gotoOverviewBtn">Đến tổng quan</button>
+            </div>
+            <p style="margin-top: 12px">
+              Dùng tab để tránh màn hình quá dài. Mọi thay đổi sẽ được lưu ngay
+              vào localStorage.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const STORAGE_KEY = "tbm_hoc_ky_app_v4";
+
+      const SUBJECT_META = [
+        { id: "toan", name: "Toán", tx1: 4, tx2: 5 },
+        { id: "li", name: "Lí", tx1: 3, tx2: 4 },
+        { id: "van", name: "Văn", tx1: 4, tx2: 4 },
+        { id: "hoa", name: "Hóa", tx1: 3, tx2: 4 },
+        { id: "sinh", name: "Sinh", tx1: 3, tx2: 3 },
+        { id: "tin", name: "Tin", tx1: 3, tx2: 3 },
+        { id: "su", name: "Sử", tx1: 3, tx2: 3 },
+        { id: "anh", name: "Anh", tx1: 4, tx2: 4 },
+        { id: "anqp", name: "ANQP", tx1: 2, tx2: 2 },
+      ];
+
+      const TAB_META = [
+        { id: "overview", label: "📊 Tổng quan" },
+        { id: "input", label: "📝 Nhập điểm" },
+        { id: "suggestions", label: "🎯 Gợi ý chi tiết" },
+        { id: "tools", label: "🧰 Công cụ" },
+      ];
+
+      const appEl = document.getElementById("app");
+      const heroGridEl = document.getElementById("heroGrid");
+      const mainTabsEl = document.getElementById("mainTabs");
+      const subjectTabsEl = document.getElementById("subjectTabs");
+      const subjectInputBox = document.getElementById("subjectInputBox");
+      const subjectSuggestBox = document.getElementById("subjectSuggestBox");
+      const statsBoxEl = document.getElementById("statsBox");
+      const themeBtn = document.getElementById("themeBtn");
+      const exportBtn = document.getElementById("exportBtn");
+      const importBtn = document.getElementById("importBtn");
+      const demoBtn = document.getElementById("demoBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const fileInput = document.getElementById("fileInput");
+      const gotoInputBtn = document.getElementById("gotoInputBtn");
+      const gotoSuggestBtn = document.getElementById("gotoSuggestBtn");
+      const gotoOverviewBtn = document.getElementById("gotoOverviewBtn");
+
+      const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+      const num = (v) => {
+        if (v === "" || v === null || v === undefined) return null;
+        const n = Number(String(v).replace(",", "."));
+        return Number.isFinite(n) ? n : null;
+      };
+      const fmt = (n) =>
+        n === null || n === undefined || Number.isNaN(n)
+          ? "—"
+          : (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, "");
+      const fmt2 = (n) =>
+        n === null || n === undefined || Number.isNaN(n)
+          ? "—"
+          : (Math.round(n * 100) / 100).toFixed(2);
+      const scoreClass = (score) => {
+        if (score === null || score === undefined) return "mid";
+        if (score >= 9) return "good";
+        if (score >= 8) return "good";
+        if (score >= 6.5) return "mid";
+        return "low";
+      };
+
+      function emptyTerm(txCount) {
+        return {
+          manual: false,
+          manualValue: "",
+          tx: Array.from({ length: txCount }, () => ""),
+          gk: "",
+          ck: "",
+        };
+      }
+
+      function createDefaultState() {
+        const state = {
+          theme: "light",
+          ui: { activeTab: "overview", activeSubject: SUBJECT_META[0].id },
+          subjects: {},
+        };
+        SUBJECT_META.forEach((meta) => {
+          state.subjects[meta.id] = {
+            id: meta.id,
+            name: meta.name,
+            tx1: meta.tx1,
+            tx2: meta.tx2,
+            terms: {
+              hk1: emptyTerm(meta.tx1),
+              hk2: emptyTerm(meta.tx2),
+              year: { manual: false, manualValue: "" },
+            },
+          };
+        });
+        return state;
+      }
+
+      function loadState() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (!saved) return createDefaultState();
+          return JSON.parse(saved);
+        } catch {
+          return createDefaultState();
+        }
+      }
+      function saveState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function ensureStateShape() {
+        const defaults = createDefaultState();
+        state.theme = state.theme === "dark" ? "dark" : "light";
+        state.ui = state.ui || {
+          activeTab: "overview",
+          activeSubject: SUBJECT_META[0].id,
+        };
+        state.ui.activeTab = TAB_META.some((t) => t.id === state.ui.activeTab)
+          ? state.ui.activeTab
+          : "overview";
+        state.ui.activeSubject = SUBJECT_META.some(
+          (s) => s.id === state.ui.activeSubject,
+        )
+          ? state.ui.activeSubject
+          : SUBJECT_META[0].id;
+        state.subjects = state.subjects || {};
+
+        SUBJECT_META.forEach((meta) => {
+          if (!state.subjects[meta.id])
+            state.subjects[meta.id] = defaults.subjects[meta.id];
+          const s = state.subjects[meta.id];
+          s.id = meta.id;
+          s.name = meta.name;
+          s.tx1 = Number.isFinite(s.tx1) ? s.tx1 : meta.tx1;
+          s.tx2 = Number.isFinite(s.tx2) ? s.tx2 : meta.tx2;
+          s.terms = s.terms || {};
+          ["hk1", "hk2"].forEach((termKey) => {
+            const expected = termKey === "hk1" ? s.tx1 : s.tx2;
+            const t = s.terms[termKey] || emptyTerm(expected);
+            t.manual = !!t.manual;
+            t.manualValue = t.manualValue ?? "";
+            t.gk = t.gk ?? "";
+            t.ck = t.ck ?? "";
+            if (!Array.isArray(t.tx)) t.tx = [];
+            if (t.tx.length < expected)
+              t.tx = t.tx.concat(
+                Array.from({ length: expected - t.tx.length }, () => ""),
+              );
+            if (t.tx.length > expected) t.tx = t.tx.slice(0, expected);
+            s.terms[termKey] = t;
+          });
+          if (!s.terms.year) s.terms.year = { manual: false, manualValue: "" };
+          s.terms.year.manual = !!s.terms.year.manual;
+          s.terms.year.manualValue = s.terms.year.manualValue ?? "";
+        });
+        saveState();
+      }
+
+      function applyTheme() {
+        appEl.setAttribute("data-theme", state.theme);
+        themeBtn.textContent =
+          state.theme === "dark" ? "☀️ Giao diện" : "🌙 Giao diện";
+      }
+
+      function getSubject(id) {
+        return state.subjects[id];
+      }
+      function allSubjects() {
+        return SUBJECT_META.map((m) => getSubject(m.id)).filter(Boolean);
+      }
+      function activeSubject() {
+        return (
+          getSubject(state.ui.activeSubject) || getSubject(SUBJECT_META[0].id)
+        );
+      }
+
+      function computeTerm(subject, termKey) {
+        const t = subject.terms[termKey];
+        const txCount = termKey === "hk1" ? subject.tx1 : subject.tx2;
+        const totalWeight = txCount + 5;
+        const manualValue = num(t.manualValue);
+
+        if (t.manual && manualValue !== null) {
+          return {
+            mode: "manual",
+            value: clamp(manualValue, 0, 10),
+            complete: true,
+            totalWeight,
+            knownPoints: null,
+            knownWeight: null,
+            missingWeight: 0,
+            missingFields: [],
+            txCount,
+          };
+        }
+
+        let knownPoints = 0,
+          knownWeight = 0;
+        const missingFields = [];
+        for (let i = 0; i < txCount; i++) {
+          const n = num(t.tx[i]);
+          if (n === null)
+            missingFields.push({
+              label: `TX${i + 1}`,
+              field: "tx",
+              index: i,
+              weight: 1,
+            });
+          else {
+            knownPoints += n;
+            knownWeight += 1;
+          }
+        }
+        const gk = num(t.gk);
+        if (gk === null)
+          missingFields.push({
+            label: "GK",
+            field: "gk",
+            index: null,
+            weight: 2,
+          });
+        else {
+          knownPoints += gk * 2;
+          knownWeight += 2;
+        }
+        const ck = num(t.ck);
+        if (ck === null)
+          missingFields.push({
+            label: "CK",
+            field: "ck",
+            index: null,
+            weight: 3,
+          });
+        else {
+          knownPoints += ck * 3;
+          knownWeight += 3;
+        }
+
+        const missingWeight = totalWeight - knownWeight;
+        const complete = missingWeight === 0;
+        const value = complete
+          ? knownPoints / totalWeight
+          : knownWeight > 0
+            ? knownPoints / knownWeight
+            : null;
+        return {
+          mode: complete ? "official" : "partial",
+          value,
+          complete,
+          totalWeight,
+          knownPoints,
+          knownWeight,
+          missingWeight,
+          missingFields,
+          txCount,
+        };
+      }
+
+      function computeYear(subject) {
+        const y = subject.terms.year;
+        const manualValue = num(y.manualValue);
+        if (y.manual && manualValue !== null) {
+          return {
+            mode: "manual",
+            value: clamp(manualValue, 0, 10),
+            complete: true,
+          };
+        }
+        const hk1 = computeTerm(subject, "hk1");
+        const hk2 = computeTerm(subject, "hk2");
+        if (hk1.value === null || hk2.value === null)
+          return { mode: "partial", value: null, complete: false, hk1, hk2 };
+        return {
+          mode: "calculated",
+          value: (hk1.value + hk2.value * 2) / 3,
+          complete: hk1.complete && hk2.complete,
+          hk1,
+          hk2,
+        };
+      }
+
+      function requirementFromKnown(term, target) {
+        const knownPoints = term.knownPoints ?? 0;
+        const totalWeight = term.totalWeight ?? 0;
+        const missingWeight = term.missingWeight ?? 0;
+        const neededContribution = target * totalWeight - knownPoints;
+        const requiredAvg =
+          missingWeight > 0 ? neededContribution / missingWeight : null;
+        const maxPossible =
+          totalWeight > 0
+            ? (knownPoints + missingWeight * 10) / totalWeight
+            : null;
+        const alreadyReached =
+          missingWeight === 0
+            ? term.value !== null && term.value >= target
+            : requiredAvg <= 0;
+        const impossible = missingWeight > 0 ? requiredAvg > 10 : false;
+        const byField = (term.missingFields || [])
+          .map((f) => {
+            const exactIfOnlyThisMissing =
+              f.weight > 0 ? neededContribution / f.weight : null;
+            const needIfOthers10 =
+              f.weight > 0
+                ? (neededContribution - (missingWeight - f.weight) * 10) /
+                  f.weight
+                : null;
+            return {
+              ...f,
+              exactIfOnlyThisMissing,
+              needIfOthers10,
+            };
+          })
+          .sort(
+            (a, b) => b.weight - a.weight || a.label.localeCompare(b.label),
+          );
+        return {
+          target,
+          neededContribution,
+          requiredAvg,
+          maxPossible,
+          alreadyReached,
+          impossible,
+          byField,
+        };
+      }
+
+      function needTextForTerm(term, target) {
+        if (term.mode === "manual") {
+          if (term.value >= target) return `Đã đạt mốc ${target.toFixed(1)}.`;
+          return `Đang nhập thủ công. Còn thiếu ${fmt2(target - term.value)} để chạm ${target.toFixed(1)}.`;
+        }
+        if (term.complete) {
+          if (term.value >= target) return `Đã đạt mốc ${target.toFixed(1)}.`;
+          return `TBM hiện tại còn thiếu ${fmt2(target - term.value)} để đạt ${target.toFixed(1)}.`;
+        }
+        const req = requirementFromKnown(term, target);
+        if (term.knownWeight === 0)
+          return `Chưa có đủ dữ liệu để tính mốc ${target.toFixed(1)}.`;
+        if (req.alreadyReached)
+          return `Chỉ với phần đã nhập, mục tiêu ${target.toFixed(1)} đã có thể chạm tới.`;
+        if (req.impossible)
+          return `Không thể đạt ${target.toFixed(1)} nếu các phần còn lại không khá hơn; cần trung bình ${fmt2(req.requiredAvg)} điểm, vượt quá 10.`;
+        return `Phần còn thiếu cần trung bình ${fmt2(req.requiredAvg)} điểm.`;
+      }
+
+      function yearlyNeedText(subject, target) {
+        const hk1 = computeTerm(subject, "hk1");
+        const hk2 = computeTerm(subject, "hk2");
+        if (hk1.value === null)
+          return `Chưa thể tính vì HK1 còn thiếu dữ liệu.`;
+        const requiredHK2 = (target * 3 - hk1.value) / 2;
+        if (requiredHK2 > 10)
+          return `Không thể đạt TBM năm ${target.toFixed(1)} vì HK2 cần TBM ${fmt2(requiredHK2)}, vượt quá 10.`;
+        if (hk2.mode === "manual") {
+          if (hk2.value >= requiredHK2)
+            return `Đã đạt TBM năm ${target.toFixed(1)}.`;
+          return `TBM HK2 còn thiếu ${fmt2(requiredHK2 - hk2.value)} để đạt TBM năm ${target.toFixed(1)}.`;
+        }
+        if (hk2.complete) {
+          const year = (hk1.value + hk2.value * 2) / 3;
+          if (year >= target) return `Đã đạt TBM năm ${target.toFixed(1)}.`;
+          return `TBM năm hiện tại còn thiếu ${fmt2(target - year)} để đạt ${target.toFixed(1)}.`;
+        }
+        const reqHK2 = requirementFromKnown(hk2, requiredHK2);
+        if (reqHK2.impossible)
+          return `Để đạt năm ${target.toFixed(1)}, HK2 cần TBM ${fmt2(requiredHK2)} và các cột còn lại đang chưa đủ.`;
+        return `Để đạt năm ${target.toFixed(1)}, HK2 cần TBM ${fmt2(requiredHK2)}. Phần HK2 còn thiếu cần trung bình ${fmt2(reqHK2.requiredAvg)}.`;
+      }
+
+      function renderMainTabs() {
+        mainTabsEl.innerHTML = TAB_META.map(
+          (tab) =>
+            `<button class="btn ${state.ui.activeTab === tab.id ? "primary active" : ""}" data-action="switch-tab" data-tab="${tab.id}">${tab.label}</button>`,
+        ).join("");
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((sec) =>
+            sec.classList.toggle(
+              "active",
+              sec.dataset.tab === state.ui.activeTab,
+            ),
+          );
+      }
+
+      function renderSubjectTabs() {
+        subjectTabsEl.innerHTML = SUBJECT_META.map((meta) => {
+          const s = getSubject(meta.id);
+          const year = computeYear(s);
+          const cls = year.value === null ? "mid" : scoreClass(year.value);
+          const active =
+            state.ui.activeSubject === meta.id ? "primary active" : "";
+          return `<button class="btn subject-tab-btn ${active}" data-action="switch-subject" data-id="${meta.id}">
+          ${meta.name} <small class="tag ${cls}">${year.value === null ? "—" : fmt(year.value)}</small>
+        </button>`;
+        }).join("");
+      }
+
+      function renderHero() {
+        const subjects = allSubjects();
+        const yearValues = subjects
+          .map((s) => computeYear(s).value)
+          .filter((v) => v !== null);
+        const avg = yearValues.length
+          ? yearValues.reduce((a, b) => a + b, 0) / yearValues.length
+          : null;
+        const min = yearValues.length ? Math.min(...yearValues) : null;
+        const onTrack = yearValues.filter((v) => v >= 8).length;
+        heroGridEl.innerHTML = `
+        <div class="stat"><div class="label">Môn trong hệ thống</div><div class="value">${subjects.length}</div><div class="sub">Tất cả môn đều được tính vào thống kê.</div></div>
+        <div class="stat"><div class="label">TBM năm trung bình</div><div class="value">${avg === null ? "—" : fmt(avg)}</div><div class="sub">Tính trên ${yearValues.length} môn có TBM năm.</div></div>
+        <div class="stat"><div class="label">Môn từ 8.0 trở lên</div><div class="value">${onTrack}</div><div class="sub">Cần ít nhất 6 môn đạt để xếp loại giỏi/xuất sắc.</div></div>
+        <div class="stat"><div class="label">Môn thấp nhất</div><div class="value">${min === null ? "—" : fmt(min)}</div><div class="sub">Môn thấp nhất đang kéo điểm xuống.</div></div>
+      `;
+      }
+
+      function renderStats() {
+        const subjects = allSubjects();
+        const yearData = subjects
+          .map((s) => ({ subject: s, value: computeYear(s).value }))
+          .filter((x) => x.value !== null);
+        const count8 = yearData.filter((x) => x.value >= 8).length;
+        const count9 = yearData.filter((x) => x.value >= 9).length;
+        const below65 = yearData.filter((x) => x.value < 6.5);
+        const min = yearData.length
+          ? Math.min(...yearData.map((x) => x.value))
+          : null;
+        const avg = yearData.length
+          ? yearData.reduce((a, b) => a + b.value, 0) / yearData.length
+          : null;
+        const eligible = yearData.length >= 6 && count8 >= 6 && min >= 6.5;
+        const eligible9 = yearData.length >= 6 && count9 >= 6 && min >= 6.5;
+        let verdict =
+          "Hệ thống xét toàn bộ môn. Cần có ít nhất 6 môn đạt chuẩn trong số n môn có dữ liệu.";
+        let verdictPill = '<span class="pill warn">Chưa đủ dữ liệu</span>';
+        if (yearData.length >= 6) {
+          if (eligible9) {
+            verdict =
+              "Xuất sắc: có ít nhất 6 môn từ 9.0 trở lên và không môn nào dưới 6.5.";
+            verdictPill = '<span class="pill ok">Xuất sắc</span>';
+          } else if (eligible) {
+            verdict =
+              "Giỏi: có ít nhất 6 môn từ 8.0 trở lên và không môn nào dưới 6.5.";
+            verdictPill = '<span class="pill ok">Giỏi</span>';
+          } else {
+            verdict =
+              "Chưa đạt giỏi/xuất sắc. Xem các môn đang dưới 6.5 hoặc chưa chạm 8.0.";
+            verdictPill = '<span class="pill bad">Chưa đạt</span>';
+          }
+        }
+        const detailList = yearData
+          .sort((a, b) => a.value - b.value)
+          .map((x) => {
+            const n8 = Math.max(0, 8 - x.value);
+            const n9 = Math.max(0, 9 - x.value);
+            const cls = scoreClass(x.value);
+            return `<div class="subject-line"><strong>${x.subject.name} <span class="score-tag ${cls}">${fmt(x.value)}</span></strong><span>${n8 <= 0 ? "Đạt 8.0" : `Thiếu ${fmt2(n8)} để đạt 8.0`} · ${n9 <= 0 ? "Đạt 9.0" : `Thiếu ${fmt2(n9)} để đạt 9.0`}</span></div>`;
+          })
+          .join("");
+
+        statsBoxEl.innerHTML = `
+        <div class="selected-grid">
+          <div class="rank-card"><div class="rlabel">TBM năm trung bình</div><div class="rvalue">${avg === null ? "—" : fmt(avg)}</div></div>
+          <div class="rank-card"><div class="rlabel">Số môn ≥ 8.0</div><div class="rvalue">${count8}</div></div>
+          <div class="rank-card"><div class="rlabel">Số môn ≥ 9.0</div><div class="rvalue">${count9}</div></div>
+          <div class="rank-card"><div class="rlabel">Môn dưới 6.5</div><div class="rvalue">${below65.length}</div></div>
+          <div class="rank-card"><div class="rlabel">Tổng môn có dữ liệu</div><div class="rvalue">${yearData.length}</div></div>
+          <div class="rank-card"><div class="rlabel">Kết luận</div><div class="rvalue">${yearData.length < 6 ? "Chưa đủ" : eligible9 ? "Xuất sắc" : eligible ? "Giỏi" : "Chưa đạt"}</div></div>
+        </div>
+        <div class="checklist" style="margin-top:14px;">
+          <div class="check-item"><b>${verdictPill} ${verdict}</b><span class="muted">Xét tất cả các môn trong hệ thống.</span></div>
+          <div class="check-item"><b>Môn dưới 6.5</b><span class="muted">${below65.length ? below65.map((x) => x.subject.name).join(", ") : "Không có"}</span></div>
+          ${detailList || '<div class="check-item"><b>Chưa có TBM năm</b><span class="muted">Nhập điểm để hiển thị thống kê.</span></div>'}
+        </div>
+      `;
+      }
+
+      function renderSubjectInput() {
+        const subject = activeSubject();
+        if (!subject) return;
+        const hk1 = computeTerm(subject, "hk1");
+        const hk2 = computeTerm(subject, "hk2");
+        const year = computeYear(subject);
+        subjectInputBox.innerHTML = renderSubjectCard(subject, hk1, hk2, year);
+      }
+
+      function renderSubjectSuggestions() {
+        const subject = activeSubject();
+        if (!subject) return;
+        subjectSuggestBox.innerHTML = renderSubjectSuggestionCard(subject);
+      }
+
+      function renderSubjectCard(subject, hk1, hk2, year) {
+        return `
+        <article class="subject-card" data-subject-card="${subject.id}">
+          <div class="subject-head">
+            <div>
+              <h3>${subject.name}</h3>
+              <div class="chip-row">
+                <span class="chip">HK1 TX: ${subject.tx1}</span>
+                <span class="chip">HK2 TX: ${subject.tx2}</span>
+                <span class="chip ok">Môn luôn được xét</span>
+              </div>
+            </div>
+            <div class="subject-actions">
+              <div class="small-actions">
+                <button class="btn" data-action="add-tx" data-id="${subject.id}" data-term="hk1">+ TX HK1</button>
+                <button class="btn" data-action="remove-tx" data-id="${subject.id}" data-term="hk1">− TX HK1</button>
+                <button class="btn" data-action="add-tx" data-id="${subject.id}" data-term="hk2">+ TX HK2</button>
+                <button class="btn" data-action="remove-tx" data-id="${subject.id}" data-term="hk2">− TX HK2</button>
+              </div>
+            </div>
+          </div>
+          <div class="subject-body">
+            ${renderTermBlock(subject, "hk1", hk1)}
+            ${renderTermBlock(subject, "hk2", hk2)}
+            ${renderYearBlock(subject, year, hk1, hk2)}
+          </div>
+        </article>
+      `;
+      }
+
+      function renderTermBlock(subject, termKey, summary) {
+        const t = subject.terms[termKey];
+        const label = termKey === "hk1" ? "Học kì 1" : "Học kì 2";
+        const txCount = termKey === "hk1" ? subject.tx1 : subject.tx2;
+        const manualChecked = t.manual ? "checked" : "";
+        const txInputs = Array.from(
+          { length: txCount },
+          (_, i) => `
+        <div class="field tx">
+          <label>TX ${i + 1}</label>
+          <input class="input" inputmode="decimal" type="number" min="0" max="10" step="0.1"
+            data-action="score-input" data-id="${subject.id}" data-term="${termKey}" data-field="tx" data-index="${i}"
+            value="${t.tx[i] ?? ""}" placeholder="—" />
+        </div>
+      `,
+        ).join("");
+        const missingLabel = summary.complete
+          ? "Hoàn chỉnh"
+          : `Thiếu ${summary.missingFields.map((x) => x.label).join(", ")}`;
+
+        return `
+        <section class="term-block">
+          <div class="term-top">
+            <div class="term-score">
+              <h4>${label}</h4>
+              <span class="score-tag ${scoreClass(summary.value)}" data-live="${subject.id}-${termKey}-score">${summary.value === null ? "—" : fmt(summary.value)}</span>
+              <span class="small" data-live="${subject.id}-${termKey}-status">${summary.complete ? "Đủ dữ liệu" : "Thiếu dữ liệu"}</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">TX: ${txCount}</span>
+              <span class="pill">Tổng hệ số: ${summary.totalWeight}</span>
+              <span class="pill ${summary.complete ? "ok" : "warn"}" data-live="${subject.id}-${termKey}-missing">${missingLabel}</span>
+            </div>
+          </div>
+
+          <div class="progress"><div data-live="${subject.id}-${termKey}-progress" style="width:${summary.value === null ? 0 : clamp((summary.value / 10) * 100, 0, 100)}%"></div></div>
+
+          <div class="grid-inputs">
+            ${txInputs}
+            <div class="field">
+              <label>GK (hệ số 2)</label>
+              <input class="input" inputmode="decimal" type="number" min="0" max="10" step="0.1"
+                data-action="score-input" data-id="${subject.id}" data-term="${termKey}" data-field="gk" value="${t.gk}" placeholder="—" />
+            </div>
+            <div class="field">
+              <label>CK (hệ số 3)</label>
+              <input class="input" inputmode="decimal" type="number" min="0" max="10" step="0.1"
+                data-action="score-input" data-id="${subject.id}" data-term="${termKey}" data-field="ck" value="${t.ck}" placeholder="—" />
+            </div>
+            <div class="field manual">
+              <label class="toggle-row"><input type="checkbox" data-action="toggle-manual" data-id="${subject.id}" data-term="${termKey}" ${manualChecked}/> Nhập TBM ${label} thủ công</label>
+              <div style="height:8px"></div>
+              <input class="input" inputmode="decimal" type="number" min="0" max="10" step="0.1"
+                data-action="score-input" data-id="${subject.id}" data-term="${termKey}" data-field="manualValue"
+                value="${t.manualValue ?? ""}" placeholder="Nhập TBM nếu muốn bỏ qua chi tiết" ${t.manual ? "" : "readonly"} />
+            </div>
+          </div>
+
+          <div class="term-foot">
+            <div class="mini-note" data-live="${subject.id}-${termKey}-note">${summary.complete ? `TBM ${label} chính thức: <b>${summary.value === null ? "—" : fmt(summary.value)}</b>.` : `TBM ${label} tạm tính theo phần đã nhập: <b>${summary.value === null ? "—" : fmt(summary.value)}</b>.`}</div>
+            <div class="small-actions">
+              <button class="btn" data-action="fill-demo" data-id="${subject.id}" data-term="${termKey}">Nạp mẫu term</button>
+              <button class="btn danger" data-action="clear-term" data-id="${subject.id}" data-term="${termKey}">Xóa term</button>
+            </div>
+          </div>
+
+          <div class="suggestions">
+            <div class="suggestion-box" data-live="${subject.id}-${termKey}-need8"><b>Đạt 8.0:</b> ${termNeedExplanation(summary, 8)}</div>
+            <div class="suggestion-box" data-live="${subject.id}-${termKey}-need9"><b>Đạt 9.0:</b> ${termNeedExplanation(summary, 9)}</div>
+          </div>
+        </section>
+      `;
+      }
+
+      function termNeedExplanation(term, target) {
+        if (term.mode === "manual") {
+          if (term.value >= target) return `Đã đạt mốc ${target.toFixed(1)}.`;
+          return `Đang nhập thủ công. Còn thiếu ${fmt2(target - term.value)} để chạm ${target.toFixed(1)}.`;
+        }
+        if (term.complete) {
+          if (term.value >= target) return `Đã đạt mốc ${target.toFixed(1)}.`;
+          return `TBM hiện tại còn thiếu ${fmt2(target - term.value)} để đạt ${target.toFixed(1)}.`;
+        }
+        const req = requirementFromKnown(term, target);
+        if (term.knownWeight === 0)
+          return `Chưa có đủ dữ liệu để tính mốc ${target.toFixed(1)}.`;
+        if (req.alreadyReached)
+          return `Chỉ với phần đã nhập, mục tiêu ${target.toFixed(1)} đã có thể chạm tới.`;
+        if (req.impossible)
+          return `Không thể đạt ${target.toFixed(1)} nếu các phần còn lại không khá hơn; cần trung bình ${fmt2(req.requiredAvg)} điểm, vượt quá 10.`;
+        return `Phần còn thiếu cần trung bình ${fmt2(req.requiredAvg)} điểm.`;
+      }
+
+      function renderYearBlock(subject, year, hk1, hk2) {
+        const y = subject.terms.year;
+        const manualChecked = y.manual ? "checked" : "";
+        const hk1Value = hk1.value;
+        const hk2Need8 = hk1Value === null ? null : (8 * 3 - hk1Value) / 2;
+        const hk2Need9 = hk1Value === null ? null : (9 * 3 - hk1Value) / 2;
+        return `
+        <section class="term-block">
+          <div class="term-top">
+            <div class="term-score">
+              <h4>TBM cả năm</h4>
+              <span class="score-tag ${scoreClass(year.value)}" data-live="${subject.id}-year-score">${year.value === null ? "—" : fmt(year.value)}</span>
+              <span class="small" data-live="${subject.id}-year-status">Từ HK1 và HK2</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">HK1: ${hk1Value === null ? "—" : fmt(hk1Value)}</span>
+              <span class="pill">HK2: ${hk2.value === null ? "—" : fmt(hk2.value)}</span>
+            </div>
+          </div>
+
+          <div class="progress"><div data-live="${subject.id}-year-progress" style="width:${year.value === null ? 0 : clamp((year.value / 10) * 100, 0, 100)}%"></div></div>
+
+          <div class="grid-inputs">
+            <div class="field manual">
+              <label class="toggle-row"><input type="checkbox" data-action="toggle-manual" data-id="${subject.id}" data-term="year" ${manualChecked}/> Nhập TBM cả năm thủ công</label>
+              <div style="height:8px"></div>
+              <input class="input" inputmode="decimal" type="number" min="0" max="10" step="0.1"
+                data-action="score-input" data-id="${subject.id}" data-term="year" data-field="manualValue"
+                value="${y.manualValue ?? ""}" placeholder="Nhập TBM năm nếu muốn bỏ qua công thức" ${y.manual ? "" : "readonly"} />
+            </div>
+          </div>
+
+          <div class="suggestions">
+            <div class="suggestion-box" data-live="${subject.id}-year-need8"><b>Đạt 8.0 cả năm:</b> ${yearlyNeedText(subject, 8)}</div>
+            <div class="suggestion-box" data-live="${subject.id}-year-need9"><b>Đạt 9.0 cả năm:</b> ${yearlyNeedText(subject, 9)}</div>
+            <div class="suggestion-box" data-live="${subject.id}-year-hk2need">Muốn đạt 8.0 thì HK2 cần TBM <b>${hk2Need8 === null ? "—" : hk2Need8 > 10 ? `Không thể (${fmt2(hk2Need8)})` : fmt2(hk2Need8)}</b>. Muốn đạt 9.0 thì HK2 cần TBM <b>${hk2Need9 === null ? "—" : hk2Need9 > 10 ? `Không thể (${fmt2(hk2Need9)})` : fmt2(hk2Need9)}</b>.</div>
+          </div>
+        </section>
+      `;
+      }
+
+      function renderSubjectSuggestionCard(subject) {
+        const hk1 = computeTerm(subject, "hk1");
+        const hk2 = computeTerm(subject, "hk2");
+        const year = computeYear(subject);
+        return `
+        <div class="summary-card">
+          <div class="summary-top">
+            <div>
+              <h3>${subject.name}</h3>
+              <div class="chip-row">
+                <span class="chip">HK1: ${hk1.value === null ? "—" : fmt(hk1.value)}</span>
+                <span class="chip">HK2: ${hk2.value === null ? "—" : fmt(hk2.value)}</span>
+                <span class="chip">Năm: ${year.value === null ? "—" : fmt(year.value)}</span>
+              </div>
+            </div>
+            <div class="pill-row">
+              <span class="pill ${year.value !== null && year.value >= 9 ? "ok" : "warn"}">${year.value !== null && year.value >= 9 ? "Rất mạnh" : "Cần tối ưu"}</span>
+            </div>
+          </div>
+          ${renderTermSuggestionBlock(subject, "hk1")}
+          ${renderTermSuggestionBlock(subject, "hk2")}
+          ${renderYearSuggestionBlock(subject)}
+        </div>
+      `;
+      }
+
+      function renderTermSuggestionBlock(subject, termKey) {
+        const term = computeTerm(subject, termKey);
+        const label = termKey === "hk1" ? "Học kì 1" : "Học kì 2";
+        const req8 = requirementFromKnown(term, 8);
+        const req9 = requirementFromKnown(term, 9);
+
+        const missing = term.missingFields.length
+          ? term.missingFields
+              .map((f) => `${f.label}(hs${f.weight})`)
+              .join(", ")
+          : "Không còn cột trống";
+
+        const fieldRows = (target) => {
+          if (term.missingFields.length === 0) {
+            return '<div class="check-item"><b>Không còn cột thiếu</b><span class="muted">Đã nhập đủ.</span></div>';
+          }
+          return term.missingFields
+            .map((f) => {
+              const exact =
+                target === 8
+                  ? requirementFromKnown(term, 8).byField.find(
+                      (x) => x.label === f.label,
+                    )
+                  : requirementFromKnown(term, 9).byField.find(
+                      (x) => x.label === f.label,
+                    );
+              const exactNeed = exact ? exact.exactIfOnlyThisMissing : null;
+              const minIfOthers10 = exact ? exact.needIfOthers10 : null;
+              let message = "";
+              if (term.missingFields.length === 1) {
+                message = `Cột này cần ít nhất ${fmt2(exactNeed)} điểm để chạm ${target.toFixed(1)}.`;
+              } else {
+                message = `Nếu các cột còn thiếu khác đạt 10, cột này cần ít nhất ${fmt2(minIfOthers10)} điểm để chạm ${target.toFixed(1)}.`;
+              }
+              return `
+            <div class="check-item">
+              <b>${f.label} <span class="tag ${f.weight === 3 ? "good" : f.weight === 2 ? "mid" : "low"}">hs${f.weight}</span></b>
+              <span class="muted">${message}</span>
+            </div>
+          `;
+            })
+            .join("");
+        };
+
+        return `
+        <div class="term-block" style="margin-top:12px;">
+          <div class="term-top">
+            <div class="term-score">
+              <h4>${label} - gợi ý chi tiết</h4>
+              <span class="score-tag ${scoreClass(term.value)}">${term.value === null ? "—" : fmt(term.value)}</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill ${term.complete ? "ok" : "warn"}">${term.complete ? "Đủ dữ liệu" : `Thiếu: ${missing}`}</span>
+              <span class="pill">Thiếu hệ số: ${term.missingWeight}</span>
+            </div>
+          </div>
+          <div class="suggestions">
+            <div class="suggestion-box"><b>Để đạt 8.0:</b> ${termNeedExplanation(term, 8)}</div>
+            <div class="suggestion-box"><b>Để đạt 9.0:</b> ${termNeedExplanation(term, 9)}</div>
+            <div class="checklist">
+              <div class="check-item"><b>Những cột còn thiếu</b><span class="muted">${missing}</span></div>
+              <div class="check-item"><b>Nếu chia đều phần thiếu</b><span class="muted">Mỗi cột cần khoảng ${req8.requiredAvg === null ? "—" : fmt2(req8.requiredAvg)} điểm cho 8.0; ${req9.requiredAvg === null ? "—" : fmt2(req9.requiredAvg)} cho 9.0.</span></div>
+            </div>
+            <div class="checklist">
+              <div class="check-item"><b>Chi tiết cột cho mục tiêu 8.0</b><span class="muted">Ưu tiên cột hệ số lớn trước.</span></div>
+              ${fieldRows(8)}
+            </div>
+            <div class="checklist">
+              <div class="check-item"><b>Chi tiết cột cho mục tiêu 9.0</b><span class="muted">Ưu tiên cột hệ số lớn trước.</span></div>
+              ${fieldRows(9)}
+            </div>
+          </div>
+        </div>
+      `;
+      }
+
+      function renderYearSuggestionBlock(subject) {
+        const hk1 = computeTerm(subject, "hk1");
+        const hk2 = computeTerm(subject, "hk2");
+        const year = computeYear(subject);
+        const hk1Value = hk1.value;
+        const needHK2_8 = hk1Value === null ? null : (8 * 3 - hk1Value) / 2;
+        const needHK2_9 = hk1Value === null ? null : (9 * 3 - hk1Value) / 2;
+        return `
+        <div class="term-block" style="margin-top:12px;">
+          <div class="term-top">
+            <div class="term-score">
+              <h4>TBM cả năm - gợi ý chi tiết</h4>
+              <span class="score-tag ${scoreClass(year.value)}">${year.value === null ? "—" : fmt(year.value)}</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill">HK1: ${hk1.value === null ? "—" : fmt(hk1.value)}</span>
+              <span class="pill">HK2: ${hk2.value === null ? "—" : fmt(hk2.value)}</span>
+            </div>
+          </div>
+          <div class="suggestions">
+            <div class="suggestion-box"><b>Để đạt 8.0 cả năm:</b> ${yearlyNeedText(subject, 8)}</div>
+            <div class="suggestion-box"><b>Để đạt 9.0 cả năm:</b> ${yearlyNeedText(subject, 9)}</div>
+            <div class="suggestion-box">Muốn đạt 8.0 thì HK2 cần TBM <b>${needHK2_8 === null ? "—" : needHK2_8 > 10 ? `Không thể (${fmt2(needHK2_8)})` : fmt2(needHK2_8)}</b>. Muốn đạt 9.0 thì HK2 cần TBM <b>${needHK2_9 === null ? "—" : needHK2_9 > 10 ? `Không thể (${fmt2(needHK2_9)})` : fmt2(needHK2_9)}</b>.</div>
+          </div>
+        </div>`;
+      }
+
+      function render() {
+        applyTheme();
+        renderMainTabs();
+        renderSubjectTabs();
+        renderHero();
+        renderStats();
+        renderSubjectInput();
+        renderSubjectSuggestions();
+      }
+
+      function refreshAfterTyping(subjectId) {
+        renderHero();
+        renderStats();
+        renderSubjectSuggestions();
+        patchSubjectDisplay(subjectId);
+        renderSubjectTabs();
+      }
+
+      function patchSubjectDisplay(subjectId) {
+        const subject = getSubject(subjectId);
+        if (!subject) return;
+        const card = document.querySelector(
+          `[data-subject-card="${subjectId}"]`,
+        );
+        if (!card) return;
+
+        const hk1 = computeTerm(subject, "hk1");
+        const hk2 = computeTerm(subject, "hk2");
+        const year = computeYear(subject);
+
+        patchTerm(card, subjectId, "hk1", hk1);
+        patchTerm(card, subjectId, "hk2", hk2);
+
+        const yearScore = card.querySelector(
+          `[data-live="${subjectId}-year-score"]`,
+        );
+        if (yearScore) {
+          yearScore.textContent = year.value === null ? "—" : fmt(year.value);
+          yearScore.className = `score-tag ${scoreClass(year.value)}`;
+        }
+        const yearStatus = card.querySelector(
+          `[data-live="${subjectId}-year-status"]`,
+        );
+        if (yearStatus) yearStatus.textContent = "Từ HK1 và HK2";
+        const yearProgress = card.querySelector(
+          `[data-live="${subjectId}-year-progress"]`,
+        );
+        if (yearProgress)
+          yearProgress.style.width =
+            year.value === null
+              ? "0%"
+              : clamp((year.value / 10) * 100, 0, 100) + "%";
+        const yearNeed8 = card.querySelector(
+          `[data-live="${subjectId}-year-need8"]`,
+        );
+        if (yearNeed8)
+          yearNeed8.innerHTML = `<b>Đạt 8.0 cả năm:</b> ${yearlyNeedText(subject, 8)}`;
+        const yearNeed9 = card.querySelector(
+          `[data-live="${subjectId}-year-need9"]`,
+        );
+        if (yearNeed9)
+          yearNeed9.innerHTML = `<b>Đạt 9.0 cả năm:</b> ${yearlyNeedText(subject, 9)}`;
+        const yearHk2Need = card.querySelector(
+          `[data-live="${subjectId}-year-hk2need"]`,
+        );
+        if (yearHk2Need) {
+          const hk1Value = hk1.value;
+          const needHK2_8 = hk1Value === null ? null : (8 * 3 - hk1Value) / 2;
+          const needHK2_9 = hk1Value === null ? null : (9 * 3 - hk1Value) / 2;
+          yearHk2Need.innerHTML = `Muốn đạt 8.0 thì HK2 cần TBM <b>${needHK2_8 === null ? "—" : needHK2_8 > 10 ? `Không thể (${fmt2(needHK2_8)})` : fmt2(needHK2_8)}</b>. Muốn đạt 9.0 thì HK2 cần TBM <b>${needHK2_9 === null ? "—" : needHK2_9 > 10 ? `Không thể (${fmt2(needHK2_9)})` : fmt2(needHK2_9)}</b>.`;
+        }
+      }
+
+      function patchTerm(card, subjectId, termKey, term) {
+        const score = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-score"]`,
+        );
+        if (score) {
+          score.textContent = term.value === null ? "—" : fmt(term.value);
+          score.className = `score-tag ${scoreClass(term.value)}`;
+        }
+        const status = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-status"]`,
+        );
+        if (status)
+          status.textContent = term.complete ? "Đủ dữ liệu" : "Thiếu dữ liệu";
+        const missing = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-missing"]`,
+        );
+        if (missing) {
+          missing.textContent = term.complete
+            ? "Hoàn chỉnh"
+            : `Thiếu ${term.missingFields.map((x) => x.label).join(", ")}`;
+          missing.className = `pill ${term.complete ? "ok" : "warn"}`;
+        }
+        const progress = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-progress"]`,
+        );
+        if (progress)
+          progress.style.width =
+            term.value === null
+              ? "0%"
+              : clamp((term.value / 10) * 100, 0, 100) + "%";
+        const note = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-note"]`,
+        );
+        if (note)
+          note.innerHTML = term.complete
+            ? `TBM ${termKey === "hk1" ? "Học kì 1" : "Học kì 2"} chính thức: <b>${term.value === null ? "—" : fmt(term.value)}</b>.`
+            : `TBM ${termKey === "hk1" ? "Học kì 1" : "Học kì 2"} tạm tính theo phần đã nhập: <b>${term.value === null ? "—" : fmt(term.value)}</b>.`;
+        const need8 = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-need8"]`,
+        );
+        if (need8)
+          need8.innerHTML = `<b>Đạt 8.0:</b> ${termNeedExplanation(term, 8)}`;
+        const need9 = card.querySelector(
+          `[data-live="${subjectId}-${termKey}-need9"]`,
+        );
+        if (need9)
+          need9.innerHTML = `<b>Đạt 9.0:</b> ${termNeedExplanation(term, 9)}`;
+      }
+
+      function updateInput({ id, term, field, index, value, checked }) {
+        const subject = getSubject(id);
+        if (!subject) return;
+        if (term === "year") {
+          if (field === "manualValue") subject.terms.year.manualValue = value;
+          if (field === "manual") subject.terms.year.manual = checked;
+        } else {
+          const t = subject.terms[term];
+          if (!t) return;
+          if (field === "manualValue") t.manualValue = value;
+          else if (field === "manual") t.manual = checked;
+          else if (field === "gk" || field === "ck") t[field] = value;
+          else if (field === "tx" && index !== undefined) t.tx[index] = value;
+        }
+        saveState();
+        refreshAfterTyping(id);
+      }
+
+      function setTermTxCount(id, term, delta) {
+        const subject = getSubject(id);
+        if (!subject) return;
+        const key = term === "hk1" ? "tx1" : "tx2";
+        const next = Math.max(0, subject[key] + delta);
+        subject[key] = next;
+        const t = subject.terms[term];
+        if (delta > 0) t.tx.push("");
+        else t.tx.pop();
+        saveState();
+        render();
+      }
+
+      function clearTerm(id, term) {
+        const subject = getSubject(id);
+        if (!subject) return;
+        if (
+          !confirm(
+            `Xóa toàn bộ dữ liệu ${subject.name} - ${term.toUpperCase()}?`,
+          )
+        )
+          return;
+        if (term === "year")
+          subject.terms.year = { manual: false, manualValue: "" };
+        else {
+          const txCount = term === "hk1" ? subject.tx1 : subject.tx2;
+          subject.terms[term] = emptyTerm(txCount);
+        }
+        saveState();
+        render();
+      }
+
+      function fillDemo(id, term) {
+        const subject = getSubject(id);
+        if (!subject || term === "year") return;
+        const t = subject.terms[term];
+        const txCount = term === "hk1" ? subject.tx1 : subject.tx2;
+        t.manual = false;
+        t.manualValue = "";
+        t.tx = Array.from({ length: txCount }, (_, i) =>
+          (6.5 + ((i + 1) % 4) * 0.6).toFixed(1),
+        );
+        t.gk = "7.5";
+        t.ck = "8.0";
+        saveState();
+        render();
+      }
+
+      function switchSubject(id) {
+        state.ui.activeSubject = id;
+        saveState();
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      document.addEventListener("input", (e) => {
+        const el = e.target;
+        if (el.dataset.action !== "score-input") return;
+        updateInput({
+          id: el.dataset.id,
+          term: el.dataset.term,
+          field: el.dataset.field,
+          index:
+            el.dataset.index !== undefined
+              ? Number(el.dataset.index)
+              : undefined,
+          value: el.value,
+        });
+      });
+
+      document.addEventListener("change", (e) => {
+        const el = e.target;
+        if (el.dataset.action === "toggle-manual")
+          updateInput({
+            id: el.dataset.id,
+            term: el.dataset.term,
+            field: "manual",
+            checked: el.checked,
+          });
+      });
+
+      document.addEventListener("click", (e) => {
+        const el = e.target.closest("[data-action]");
+        if (!el) return;
+        const action = el.dataset.action;
+        if (action === "add-tx")
+          setTermTxCount(el.dataset.id, el.dataset.term, 1);
+        if (action === "remove-tx")
+          setTermTxCount(el.dataset.id, el.dataset.term, -1);
+        if (action === "clear-term") clearTerm(el.dataset.id, el.dataset.term);
+        if (action === "fill-demo") fillDemo(el.dataset.id, el.dataset.term);
+        if (action === "switch-tab") {
+          state.ui.activeTab = el.dataset.tab;
+          saveState();
+          render();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        if (action === "switch-subject") switchSubject(el.dataset.id);
+      });
+
+      themeBtn.addEventListener("click", () => {
+        state.theme = state.theme === "dark" ? "light" : "dark";
+        saveState();
+        render();
+      });
+
+      exportBtn.addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "tbm-hoc-ky-du-lieu.json";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 800);
+      });
+
+      importBtn.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", async () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          state = JSON.parse(text);
+          ensureStateShape();
+          render();
+        } catch {
+          alert("File JSON không hợp lệ.");
+        } finally {
+          fileInput.value = "";
+        }
+      });
+
+      demoBtn.addEventListener("click", () => {
+        if (!confirm("Nạp dữ liệu mẫu sẽ ghi đè phần điểm hiện tại. Tiếp tục?"))
+          return;
+        state = createDefaultState();
+        const set = (id, term, tx, gk, ck, manual = null) => {
+          const s = getSubject(id);
+          const t = s.terms[term];
+          if (manual !== null) {
+            t.manual = true;
+            t.manualValue = manual;
+            return;
+          }
+          t.manual = false;
+          t.manualValue = "";
+          t.tx = tx;
+          t.gk = gk;
+          t.ck = ck;
+        };
+        set("toan", "hk1", ["8.5", "8.0", "7.5", "9.0"], "8.0", "8.5");
+        set("toan", "hk2", ["8.0", "8.5", "8.5", "9.0", "8.0"], "8.5", "8.7");
+        set("li", "hk1", ["7.5", "8.0", "7.0"], "7.5", "8.0");
+        set("li", "hk2", ["8.0", "8.0", "7.5", "8.5"], "8.0", "8.5");
+        set("van", "hk1", ["8.0", "8.0", "7.5", "8.5"], "8.0", "8.5");
+        set("van", "hk2", ["8.5", "8.5", "8.0", "8.5"], "8.5", "8.5");
+        set("hoa", "hk1", ["7.5", "8.0", "7.5"], "7.5", "8.0");
+        set("hoa", "hk2", ["8.0", "8.0", "8.5", "8.0"], "8.0", "8.5");
+        set("sinh", "hk1", ["8.0", "8.0", "8.0"], "8.5", "8.5");
+        set("sinh", "hk2", ["8.5", "8.0", "8.0"], "8.5", "8.5");
+        set("anh", "hk1", ["8.5", "8.0", "8.5", "8.0"], "8.5", "8.5");
+        set("anh", "hk2", ["8.5", "8.5", "8.5", "9.0"], "8.5", "9.0");
+        set("tin", "hk1", ["7.5", "7.5", "8.0"], "7.5", "8.0");
+        set("su", "hk1", ["7.0", "7.5", "7.0"], "7.0", "7.5");
+        set("anqp", "hk1", ["8.0", "8.0"], "8.5", "8.5");
+        state.ui.activeTab = "input";
+        state.ui.activeSubject = "toan";
+        saveState();
+        render();
+      });
+
+      resetBtn.addEventListener("click", () => {
+        if (!confirm("Xóa toàn bộ dữ liệu đã lưu và trở về mặc định?")) return;
+        state = createDefaultState();
+        saveState();
+        render();
+      });
+
+      gotoInputBtn.addEventListener("click", () => {
+        state.ui.activeTab = "input";
+        saveState();
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      gotoSuggestBtn.addEventListener("click", () => {
+        state.ui.activeTab = "suggestions";
+        saveState();
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      gotoOverviewBtn.addEventListener("click", () => {
+        state.ui.activeTab = "overview";
+        saveState();
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      let state = loadState();
+      ensureStateShape();
+      render();
+    </script>
+  </body>
+</html>

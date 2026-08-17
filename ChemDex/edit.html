@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hệ Sinh Thái Dữ Liệu Hóa Học</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fadeInUp 0.4s ease-out forwards;
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+      .prose ul {
+        list-style-type: disc;
+        margin-left: 1.5rem;
+      }
+      .prose li {
+        margin-bottom: 0.5rem;
+      }
+      .prose b {
+        font-weight: 700;
+        color: #1e293b;
+      }
+
+      /* Custom scrollbar for textarea */
+      textarea::-webkit-scrollbar {
+        width: 8px;
+      }
+      textarea::-webkit-scrollbar-track {
+        background: #1e293b;
+        border-radius: 4px;
+      }
+      textarea::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 4px;
+      }
+      textarea::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-100 text-slate-800 font-sans pb-20">
+    <!-- HEADER -->
+    <header
+      class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center gap-3">
+        <i data-lucide="atom" class="text-blue-600 w-8 h-8"></i>
+        <h1
+          class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600"
+        >
+          Hệ Sinh Thái Dữ Liệu Hóa Học
+        </h1>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 mt-8 flex flex-col lg:flex-row gap-8">
+      <!-- CỘT TRÁI: NHẬP CODE -->
+      <div class="lg:w-1/3 flex flex-col gap-4">
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-bold text-lg flex items-center gap-2">
+              <i data-lucide="book-open" class="text-indigo-500 w-5 h-5"></i>
+              Dán JS Object
+            </h2>
+          </div>
+          <p class="text-xs text-slate-500 mb-4">
+            Nhập object JavaScript chứa thông tin nguyên tố vào đây để hệ thống
+            tạo giao diện.
+          </p>
+          <textarea
+            id="input-code"
+            class="w-full h-80 p-4 font-mono text-sm bg-slate-900 text-green-400 rounded-lg border-2 border-slate-700 focus:border-indigo-500 focus:outline-none resize-y"
+            spellcheck="false"
+          ></textarea>
+          <button
+            id="export-js-btn"
+            class="mt-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-lg transition-colors"
+          >
+            Xuất file JS
+          </button>
+
+          <div
+            id="error-msg"
+            class="mt-2 text-sm text-red-500 bg-red-50 p-2 rounded hidden"
+          ></div>
+          <button
+            id="parse-btn"
+            class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex justify-center items-center gap-2"
+          >
+            <i data-lucide="zap" class="w-5 h-5"></i> Khởi tạo Giao diện
+          </button>
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI: HIỂN THỊ DỮ LIỆU -->
+      <div class="lg:w-2/3" id="right-column">
+        <!-- Nội dung sẽ được render bằng JS -->
+      </div>
+    </main>
+
+    <script>
+      // --- TỪ ĐIỂN DỊCH THUẬT ANH - VIỆT ---
+      const viDict = {
+        number: "Số hiệu nguyên tử",
+        symbol: "Ký hiệu",
+        mass: "Nguyên tử khối",
+        category: "Nhóm chất",
+        latinName: "Tên Latinh",
+        englishName: "Tên tiếng Anh",
+        electronConfig: "Cấu hình electron",
+        isotope: "Đồng vị",
+        group: "Nhóm",
+        period: "Chu kỳ",
+        block: "Khối",
+        state: "Trạng thái",
+        oxidation: "Trạng thái oxi hóa",
+        electronegativity: "Độ âm điện",
+        density: "Khối lượng riêng",
+        meltingPoint: "Nhiệt độ nóng chảy",
+        boilingPoint: "Nhiệt độ sôi",
+        crystalStructure: "Cấu trúc tinh thể",
+        discoverer: "Người phát hiện",
+        year: "Năm",
+        discoveryLocation: "Nơi phát hiện",
+        description: "Mô tả",
+        protons: "Số Proton",
+        neutrons: "Số Neutron",
+        electrons: "Số Electron",
+        electronShells: "Lớp Electron",
+        valenceElectrons: "Electron hóa trị",
+        lattice: "Mạng tinh thể",
+        simple: "Đơn chất",
+        compounds: "Hợp chất phổ biến",
+        ores: "Nguồn/Quặng",
+        type: "Loại phản ứng",
+        equation: "Phương trình",
+        condition: "Điều kiện",
+        desc: "Giải thích",
+        title: "Tiêu đề",
+        related: "Nguyên tố liên quan",
+      };
+
+      function translate(key) {
+        return viDict[key] || key;
+      }
+
+      function escapeHtml(unsafe) {
+        return (unsafe || "")
+          .toString()
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // --- TRẠNG THÁI ỨNG DỤNG ---
+      let currentData = null;
+
+      const defaultData = `{\n  number: 1,\n  symbol: "H",\n  mass: 1.008,\n  category: "phi-kim",\n  general: {\n    latinName: "Hydrogenium",\n    englishName: "Hydrogen",\n    state: "Khí",\n    boilingPoint: "-252,87°C"\n  },\n  physical: "<ul class=\\"list-disc ml-5 space-y-2\\">\\n  <li>Là chất khí không màu, không mùi, không vị.</li>\\n  <li>Ít tan trong nước.</li>\\n</ul>",\n  simulation: {\n    title: "Đốt cháy khí Hydrogen",\n    reagents: [{id: "H2", name: "Khí H₂"}, {id: "O2", name: "Khí O₂"}],\n    resultText: "🔥 Hydrogen cháy trong Oxygen tạo thành nước.\\n2H₂ + O₂ → 2H₂O"\n  }\n}`;
+
+      // --- KHỞI TẠO ---
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+        document.getElementById("input-code").value = defaultData;
+        renderRightColumn();
+
+        document
+          .getElementById("parse-btn")
+          .addEventListener("click", handleParse);
+        setupEventDelegation();
+      });
+
+      function handleParse() {
+        const inputCode = document.getElementById("input-code").value;
+        const errorDiv = document.getElementById("error-msg");
+
+        try {
+          errorDiv.classList.add("hidden");
+          errorDiv.innerText = "";
+
+          // Xóa comment //
+          const cleaned = inputCode.replace(/\/\/.*$/gm, "");
+
+          // Parse object
+          const parsedData = new Function(`
+      return (
+        ${cleaned}
+      );
+    `)();
+
+          if (
+            typeof parsedData !== "object" ||
+            parsedData === null ||
+            Array.isArray(parsedData)
+          ) {
+            throw new Error("Mã không trả về object hợp lệ.");
+          }
+
+          currentData = parsedData;
+          renderRightColumn();
+        } catch (err) {
+          console.error(err);
+
+          errorDiv.innerText = "Lỗi cú pháp JS:\n" + err.message;
+
+          errorDiv.classList.remove("hidden");
+        }
+      }
+      // Cập nhật dữ liệu từ cây path (Deep update)
+      function updateData(pathArray, newValue) {
+        if (!currentData) return;
+        let current = currentData;
+        for (let i = 0; i < pathArray.length - 1; i++) {
+          if (current[pathArray[i]] === undefined) current[pathArray[i]] = {};
+          current = current[pathArray[i]];
+        }
+        current[pathArray[pathArray.length - 1]] = newValue;
+        renderRightColumn(); // Cập nhật lại UI sau khi sửa Data
+      }
+
+      // --- RENDER GIAO DIỆN ---
+      function renderRightColumn() {
+        const container = document.getElementById("right-column");
+
+        if (!currentData) {
+          container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center p-20 bg-white rounded-xl border border-dashed border-slate-300 text-slate-400">
+                        <i data-lucide="box" class="w-12 h-12 mb-4 opacity-50"></i>
+                        <p>Chưa có dữ liệu. Vui lòng dán code và nhấn Khởi tạo.</p>
+                    </div>
+                `;
+          lucide.createIcons();
+          return;
+        }
+
+        const d = currentData;
+        let html = `<div class="space-y-6 animate-fade-in">`;
+
+        // Card Tiêu đề
+        html += `
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex items-center gap-8 bg-gradient-to-br from-white to-slate-50">
+                    <div class="w-32 h-32 min-w-[128px] rounded-2xl bg-indigo-600 text-white flex flex-col items-center justify-center shadow-lg relative overflow-hidden group">
+                        <div class="absolute top-2 left-2 text-sm font-bold opacity-80">${escapeHtml(d.number)}</div>
+                        <div class="absolute top-2 right-2 text-xs opacity-80">${escapeHtml(d.mass)}</div>
+                        <div class="text-6xl font-bold mt-2">${escapeHtml(d.symbol)}</div>
+                        <div class="absolute bottom-2 text-xs font-medium uppercase tracking-widest opacity-80">${escapeHtml(d.category)}</div>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-4xl font-extrabold text-slate-800 mb-2">
+                            ${escapeHtml(d.general?.englishName || "Chưa có tên")}
+                        </h2>
+                        <div class="grid grid-cols-2 gap-4 mt-4">
+                            ${buildEditableField("Tên Latinh", d.general?.latinName, ["general", "latinName"])}
+                            ${buildEditableField("Cấu hình electron", d.general?.electronConfig, ["general", "electronConfig"])}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        // Lưới phần thông tin chung / Cấu trúc / Lịch sử / Tự nhiên
+        html += `<div class="grid md:grid-cols-2 gap-6">`;
+        if (d.general)
+          html += buildSection(
+            "Thông tin chung",
+            "info",
+            "text-blue-500",
+            d.general,
+            ["general"],
+          );
+        if (d.structure)
+          html += buildSection(
+            "Cấu trúc nguyên tử",
+            "atom",
+            "text-indigo-500",
+            d.structure,
+            ["structure"],
+          );
+        if (d.history)
+          html += buildSection(
+            "Lịch sử phát hiện",
+            "history",
+            "text-amber-500",
+            d.history,
+            ["history"],
+          );
+        if (d.occurrence) {
+          html += `
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-lg font-bold border-b pb-2 mb-4 flex items-center gap-2">
+                            <i data-lucide="globe" class="w-5 h-5 text-green-500"></i> Trạng thái tự nhiên
+                        </h3>
+                        <div class="space-y-1">
+                            ${buildEditableField("Mô tả", d.occurrence.description, ["occurrence", "description"], "textarea")}
+                            ${buildObjectSection(d.occurrence, ["occurrence"])}
+                        </div>
+                    </div>
+                `;
+        }
+        html += `</div>`;
+
+        // Lý / Hóa HTML - Đã chuyển sang loại 'html-list'
+        html += `<div class="grid md:grid-cols-2 gap-6">`;
+        if (d.physical) {
+          html += `
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-blue-400">
+                        <h3 class="text-lg font-bold mb-4">Tính chất vật lý</h3>
+                        ${buildEditableField("", d.physical, ["physical"], "html-list")}
+                    </div>
+                `;
+        }
+        if (d.chemical) {
+          html += `
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-red-400">
+                        <h3 class="text-lg font-bold mb-4">Tính chất hóa học</h3>
+                        ${buildEditableField("", d.chemical, ["chemical"], "html-list")}
+                    </div>
+                `;
+        }
+        html += `</div>`;
+
+        // Mô phỏng
+        if (d.simulation) html += buildSimulationBox(d.simulation);
+
+        // Các phản ứng (Array)
+        if (d.reactions && d.reactions.length > 0) {
+          html += `
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-bold border-b pb-3 mb-4 flex items-center gap-2">
+                            <i data-lucide="flame" class="w-6 h-6 text-orange-500"></i> Các phản ứng tiêu biểu
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            ${d.reactions
+                              .map(
+                                (rx, idx) => `
+                                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                                    ${buildEditableField(translate("type"), rx.type, ["reactions", idx, "type"])}
+                                    <div class="my-2 p-3 bg-white text-blue-800 font-bold font-mono text-center rounded border border-blue-100">
+                                        ${buildEditableField("", rx.equation, ["reactions", idx, "equation"])}
+                                    </div>
+                                    ${buildEditableField(translate("desc"), rx.desc, ["reactions", idx, "desc"], "textarea")}
+                                </div>
+                            `,
+                              )
+                              .join("")}
+                        </div>
+                    </div>
+                `;
+        }
+
+        // Ứng dụng (Array)
+        if (d.applications && d.applications.length > 0) {
+          html += `
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-bold border-b pb-3 mb-4 flex items-center gap-2">
+                            <i data-lucide="list" class="w-6 h-6 text-emerald-500"></i> Ứng dụng
+                        </h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            ${d.applications
+                              .map(
+                                (app, idx) => `
+                                <div class="p-4 bg-emerald-50/50 rounded-lg border border-emerald-100">
+                                    ${buildEditableField(translate("title"), app.title, ["applications", idx, "title"])}
+                                    ${buildEditableField(translate("desc"), app.desc, ["applications", idx, "desc"], "textarea")}
+                                </div>
+                            `,
+                              )
+                              .join("")}
+                        </div>
+                    </div>
+                `;
+        }
+
+        // Ghi chú HTML
+        if (d.notes) {
+          html += `
+                    <div class="bg-yellow-50 p-6 rounded-xl shadow-sm border border-yellow-200">
+                        <h3 class="text-lg font-bold mb-4 text-yellow-800">Ghi chú thêm</h3>
+                        ${buildEditableField("", d.notes, ["notes"], "html-list")}
+                    </div>
+                `;
+        }
+
+        html += `</div>`;
+        container.innerHTML = html;
+        lucide.createIcons();
+      }
+
+      // Hàm hỗ trợ tạo Section chung
+      function buildSection(title, icon, iconColorClass, obj, pathArray) {
+        return `
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold border-b pb-2 mb-4 flex items-center gap-2">
+                        <i data-lucide="${icon}" class="w-5 h-5 ${iconColorClass}"></i> ${title}
+                    </h3>
+                    <div class="space-y-1">
+                        ${buildObjectSection(obj, pathArray)}
+                    </div>
+                </div>
+            `;
+      }
+
+      // Lặp qua object để tạo danh sách field
+      function buildObjectSection(obj, parentPath) {
+        if (!obj) return "";
+        let html = "";
+        for (const [key, val] of Object.entries(obj)) {
+          // Bỏ qua object con hoặc mảng con phức tạp (nếu có, tự custom)
+          if (typeof val === "object" && val !== null && !Array.isArray(val))
+            continue;
+          // Nếu là occurrence.description đã render riêng thì bỏ qua
+          if (parentPath[0] === "occurrence" && key === "description") continue;
+
+          const editType =
+            typeof val === "string" && val.length > 50 ? "textarea" : "text";
+          html += buildEditableField(
+            translate(key),
+            val,
+            [...parentPath, key],
+            editType,
+          );
+        }
+        return html;
+      }
+
+      // Tạo Editable Field (Khung có nút Edit ẩn)
+      function buildEditableField(label, value, pathArray, editType = "text") {
+        const pathStr = JSON.stringify(pathArray).replace(/"/g, "&quot;");
+        let displayValue = Array.isArray(value) ? value.join(", ") : value;
+        if (displayValue == null) displayValue = "";
+
+        let contentHtml = "";
+        if (editType === "html-list" || editType === "html") {
+          contentHtml = `<div class="text-slate-800 text-sm prose prose-sm max-w-none">${value || ""}</div>`;
+        } else {
+          contentHtml = `<span class="text-slate-800 font-medium">${escapeHtml(displayValue)}</span>`;
+        }
+
+        return `
+                <div class="group flex items-start justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200 relative editable-container" data-path="${pathStr}" data-type="${editType}">
+                    <div class="flex-1 pr-6 field-view">
+                        ${label ? `<span class="text-sm font-semibold text-slate-500 block mb-1">${label}</span>` : ""}
+                        ${contentHtml}
+                    </div>
+                    <button class="opacity-0 group-hover:opacity-100 absolute right-2 top-2 p-1.5 text-blue-600 hover:bg-blue-100 rounded-md transition-all edit-btn" title="Chỉnh sửa">
+                        <i data-lucide="edit-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            `;
+      }
+
+      // Tạo khối Mô phỏng
+      function buildSimulationBox(simData) {
+        const reagentsHtml = simData.reagents
+          .map(
+            (r, idx) => `
+                <div class="flex flex-col items-center gap-2 transition-transform duration-500 sim-reagent">
+                    <div class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20 backdrop-blur-sm">
+                        <span class="text-2xl font-bold text-blue-200">${escapeHtml(r.name.replace("Khí ", ""))}</span>
+                    </div>
+                    <span class="text-sm text-blue-200">${escapeHtml(r.name)}</span>
+                </div>
+                ${idx < simData.reagents.length - 1 ? `<div class="text-2xl font-bold text-blue-400">+</div>` : ""}
+            `,
+          )
+          .join("");
+
+        return `
+                <div class="bg-gradient-to-br from-indigo-900 to-blue-900 rounded-xl p-6 text-white shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="beaker" class="w-7 h-7 text-blue-300"></i>
+                        <h3 class="text-xl font-bold">${escapeHtml(simData.title || "Phòng thí nghiệm ảo")}</h3>
+                    </div>
+                    
+                    <div class="flex justify-center items-center gap-8 mb-8 relative">
+                        ${reagentsHtml}
+                    </div>
+
+                    <div class="text-center" id="sim-action-area">
+                        <button class="px-6 py-3 rounded-full font-bold flex items-center gap-2 mx-auto transition-all bg-green-500 hover:bg-green-400 text-white hover:scale-105 sim-run-btn">
+                            <i data-lucide="play" class="w-5 h-5"></i> Bắt đầu thí nghiệm
+                        </button>
+                    </div>
+                </div>
+            `;
+      }
+
+      // --- EVENT DELEGATION (Xử lý Edit, Save, Simulation click) ---
+      function setupEventDelegation() {
+        document
+          .getElementById("right-column")
+          .addEventListener("click", (e) => {
+            // 1. NHẤN NÚT SỬA (EDIT)
+            const editBtn = e.target.closest(".edit-btn");
+            if (editBtn) {
+              const container = editBtn.closest(".editable-container");
+              const pathStr = container.getAttribute("data-path");
+              const type = container.getAttribute("data-type");
+              const path = JSON.parse(pathStr.replace(/&quot;/g, '"'));
+
+              // Lấy value hiện tại
+              let val = currentData;
+              path.forEach((p) => {
+                if (val) val = val[p];
+              });
+              let displayVal = Array.isArray(val) ? val.join(", ") : val;
+              if (displayVal == null) displayVal = "";
+
+              const label = translate(path[path.length - 1]);
+
+              // Xử lý riêng cho HTML List: Chuyển thẻ <li> thành các dòng text thuần
+              let valForInput = displayVal;
+              if (type === "html-list") {
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = displayVal;
+                const lis = tempDiv.querySelectorAll("li");
+                if (lis.length > 0) {
+                  valForInput = Array.from(lis)
+                    .map((li) => li.textContent.trim())
+                    .join("\n");
+                } else {
+                  // Dự phòng nếu không có <li>
+                  valForInput = tempDiv.innerHTML
+                    .replace(/<br\s*[\/]?>/gi, "\n")
+                    .replace(/<\/p>/gi, "\n")
+                    .replace(/<[^>]+>/g, "")
+                    .trim();
+                }
+              }
+
+              let inputHtml = "";
+              if (
+                type === "textarea" ||
+                type === "html-list" ||
+                type === "html"
+              ) {
+                inputHtml = `<textarea class="flex-1 p-2 text-sm border rounded-md focus:ring-2 focus:ring-blue-500 min-h-[150px] font-mono edit-input whitespace-pre-wrap">${escapeHtml(valForInput)}</textarea>`;
+              } else {
+                inputHtml = `<input type="text" class="flex-1 p-2 text-sm border rounded-md focus:ring-2 focus:ring-blue-500 edit-input" value="${escapeHtml(valForInput)}" />`;
+              }
+
+              container.innerHTML = `
+                        <div class="flex flex-col gap-2 p-2 bg-blue-50/50 rounded-lg border border-blue-200 shadow-inner w-full">
+                            <span class="text-xs font-semibold text-blue-800">${escapeHtml(label || "Danh sách (Mỗi dòng một mục)")}</span>
+                            <div class="flex gap-2 w-full">
+                                ${inputHtml}
+                                <div class="flex flex-col gap-1">
+                                    <button class="p-2 text-white bg-green-500 rounded-md hover:bg-green-600 transition-colors save-btn">
+                                        <i data-lucide="check" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="p-2 text-white bg-red-400 rounded-md hover:bg-red-500 transition-colors cancel-btn">
+                                        <i data-lucide="x" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+              lucide.createIcons({ root: container });
+
+              // Xử lý Enter với thẻ input thường
+              if (type === "text") {
+                const inputEl = container.querySelector(".edit-input");
+                inputEl.focus();
+                inputEl.addEventListener("keydown", (ke) => {
+                  if (ke.key === "Enter") {
+                    container.querySelector(".save-btn").click();
+                  }
+                });
+              }
+              return;
+            }
+
+            // 2. NHẤN NÚT LƯU (SAVE)
+            const saveBtn = e.target.closest(".save-btn");
+            if (saveBtn) {
+              const container = saveBtn.closest(".editable-container");
+              const input = container.querySelector(".edit-input");
+              let newValueStr = input.value;
+              const pathStr = container.getAttribute("data-path");
+              const type = container.getAttribute("data-type");
+              const path = JSON.parse(pathStr.replace(/&quot;/g, '"'));
+
+              // Xử lý bọc lại mã HTML List cho từng dòng text
+              if (type === "html-list") {
+                if (newValueStr.trim()) {
+                  const lines = newValueStr
+                    .split("\n")
+                    .map((l) => l.trim())
+                    .filter((l) => l);
+                  const liHtml = lines
+                    .map((l) => `<li>${escapeHtml(l)}</li>`)
+                    .join("\n  ");
+                  newValueStr = `<ul class="list-disc ml-5 space-y-2">\n  ${liHtml}\n</ul>`;
+                } else {
+                  newValueStr = "";
+                }
+              }
+
+              // Check type cũ để ép kiểu cho đúng (đặc biệt là mảng và số)
+              let parent = currentData;
+              for (let i = 0; i < path.length - 1; i++) {
+                parent = parent[path[i]];
+              }
+              const key = path[path.length - 1];
+              const oldVal = parent[key];
+
+              let finalValue = newValueStr;
+              if (type !== "html-list") {
+                if (Array.isArray(oldVal)) {
+                  finalValue = newValueStr.split(",").map((s) => s.trim());
+                } else if (typeof oldVal === "number") {
+                  finalValue = Number(newValueStr);
+                  if (isNaN(finalValue)) finalValue = newValueStr;
+                }
+              }
+
+              updateData(path, finalValue);
+              return;
+            }
+
+            // 3. NHẤN NÚT HỦY (CANCEL)
+            const cancelBtn = e.target.closest(".cancel-btn");
+            if (cancelBtn) {
+              renderRightColumn();
+              return;
+            }
+
+            // 4. NHẤN RUN SIMULATION
+            const runSimBtn = e.target.closest(".sim-run-btn");
+            if (runSimBtn) {
+              const actionArea = document.getElementById("sim-action-area");
+
+              // Đổi trạng thái nút
+              runSimBtn.classList.remove(
+                "bg-green-500",
+                "hover:bg-green-400",
+                "hover:scale-105",
+              );
+              runSimBtn.classList.add(
+                "bg-yellow-500",
+                "text-yellow-900",
+                "animate-pulse",
+              );
+              runSimBtn.innerHTML = `<i data-lucide="zap" class="w-5 h-5"></i> Đang phản ứng...`;
+              runSimBtn.disabled = true;
+              lucide.createIcons({ root: actionArea });
+
+              // Hiệu ứng phóng to
+              document
+                .querySelectorAll(".sim-reagent")
+                .forEach((el) => el.classList.add("scale-110"));
+
+              setTimeout(() => {
+                actionArea.innerHTML = `
+                            <div class="bg-white/10 p-5 rounded-lg border border-white/20 backdrop-blur-md animate-fade-in-up text-left inline-block w-full">
+                                <h4 class="font-bold text-yellow-300 mb-2 flex items-center justify-center gap-2">
+                                    <i data-lucide="flame" class="w-5 h-5"></i> Kết quả
+                                </h4>
+                                <p class="text-lg leading-relaxed whitespace-pre-line text-center">${escapeHtml(currentData.simulation.resultText)}</p>
+                                <div class="text-center mt-4">
+                                    <button class="text-sm text-blue-300 hover:text-white underline sim-retry-btn">
+                                        Thử lại
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                lucide.createIcons({ root: actionArea });
+                document
+                  .querySelectorAll(".sim-reagent")
+                  .forEach((el) => el.classList.remove("scale-110"));
+              }, 1500);
+              return;
+            }
+
+            // 5. NHẤN THỬ LẠI SIMULATION
+            const retrySimBtn = e.target.closest(".sim-retry-btn");
+            if (retrySimBtn) {
+              renderRightColumn();
+              return;
+            }
+          });
+      }
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("export-js-btn");
+        if (!btn) return;
+        btn.addEventListener("click", () => {
+          if (typeof currentData === "undefined" || !currentData) {
+            alert("Chưa có dữ liệu");
+            return;
+          }
+          const content =
+            "const data = " + JSON.stringify(currentData, null, 2) + ";";
+          const blob = new Blob([content], { type: "application/javascript" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "data.js";
+          a.click();
+          URL.revokeObjectURL(a.href);
+        });
+      });
+    </script>
+  </body>
+</html>

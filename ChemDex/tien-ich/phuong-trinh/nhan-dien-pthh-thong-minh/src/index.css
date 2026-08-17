@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: #f8fafc; /* Slate-50 background for Professional Polish theme */
+  color: #0f172a; /* Slate-900 default text color */
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.animate-gradient-bg {
+  background: linear-gradient(-45deg, #f1f5f9, #eff6ff, #f0fdf4, #faf5ff, #f5f3ff);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+}
+

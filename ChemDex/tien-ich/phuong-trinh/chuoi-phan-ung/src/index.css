@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import "katex/dist/katex.min.css";
+
+/* Custom utility classes for responsive transitions */
+.transition-all-300 {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbars for a clean look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
+}
+
+/* Global body styles for perfect light/dark transitions */
+html {
+  background-color: #f8fafc; /* slate-50 */
+}
+html.dark {
+  background-color: #1e293b; /* slate-800, exactly #1E293B */
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
+}
+
+html.dark body {
+  background-color: #1e293b;
+  color: #f1f5f9;
+}

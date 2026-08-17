@@ -1,0 +1,323 @@
+{
+  "features": [
+    {
+      "id": "nhan-dien-pthh-thong-minh",
+      "title": "Nhận diện phương trình hóa học thông minh",
+      "description": "Nhận diện pthh từ hình ảnh, cân bằng, xác định chất oxi hóa và chất khử.",
+      "href": "./phuong-trinh/nhan-dien-pthh-thong-minh/",
+      "category": "Phương trình",
+      "icon": "fa-microscope",
+      "color": "pink",
+      "keywords": [
+        "nhận diện phương trình hóa học",
+        "cân bằng phương trình",
+        "xác định chất oxi hóa",
+        "xác định chất khử",
+        "phân tích phương trình hóa học",
+        "pthh",
+        "phương trình hóa học"
+      ]
+    },
+    {
+      "id": "chuoi-phan-ung",
+      "title": "Chuỗi phản ứng hóa học",
+      "description": "Tạo và phân tích chuỗi phản ứng hóa học.",
+      "href": "./phuong-trinh/chuoi-phan-ung/",
+      "category": "Phương trình",
+      "icon": "fa-diagram-project",
+      "color": "pink",
+      "keywords": [
+        "chuỗi phản ứng hóa học",
+        "tạo chuỗi phản ứng",
+        "phân tích chuỗi phản ứng",
+        "phản ứng hóa học",
+        "pthh",
+        "phương trình hóa học"
+      ]
+    },
+    {
+      "id": "xac-dinh-so-oxi-hoa",
+      "title": "Xác định số oxi hóa",
+      "description": "Xác định số oxi hóa của các nguyên tố trong hợp chất.",
+      "href": "./phuong-trinh/so-oxi-hoa/",
+      "category": "Phương trình",
+      "icon": "fa-calculator",
+      "color": "pink",
+      "keywords": [
+        "xác định số oxi hóa",
+        "số oxi hóa",
+        "tính số oxi hóa",
+        "phản ứng oxi hóa khử",
+        "pthh",
+        "phương trình hóa học"
+      ]
+    },
+    {
+      "id": "phuong-trinh-ion-rut-gon",
+      "title": "Phương trình ion rút gọn",
+      "description": "Cân bằng phương trình ion rút gọn và xác định chất oxi hóa, chất khử.",
+      "href": "./phuong-trinh/phuong-trinh-ion-rut-gon/",
+      "category": "Phương trình",
+      "icon": "fa-flask",
+      "color": "pink",
+      "keywords": [
+        "phương trình ion rút gọn",
+        "cân bằng phương trình ion",
+        "xác định chất oxi hóa",
+        "xác định chất khử",
+        "phản ứng oxi hóa khử",
+        "pthh",
+        "phương trình hóa học"
+      ]
+    },
+    {
+      "id": "tinh-theo-phuong-trinh",
+      "title": "Tỉ lượng theo phương trình",
+      "description": "Tính toán tỉ lệ giữa các chất trong phản ứng hóa học.",
+      "href": "./phuong-trinh/tinh-theo-phuong-trinh/",
+      "category": "Phương trình",
+      "icon": "fa-calculator",
+      "color": "pink",
+      "keywords": [
+        "tỉ lượng theo phương trình",
+        "tính toán hóa học",
+        "phản ứng hóa học",
+        "pthh",
+        "phương trình hóa học"
+      ]
+    },
+    
+
+    {
+      "id": "chemical-search",
+      "title": "Tra cứu chất hóa học",
+      "description": "Tra cứu tính chất, công thức và thông tin của chất.",
+      "href": "./chemical-search/",
+      "category": "Lý thuyết",
+      "icon": "fa-magnifying-glass",
+      "color": "emerald",
+      "keywords": ["tra cứu", "chất hóa học", "tính chất", "công thức"]
+    },
+
+    {
+      "id": "ph-calculator",
+      "title": "Tính pH",
+      "description": "Tính nhanh pH và pOH của dung dịch.",
+      "href": "./ph-calculator/",
+      "category": "Tính toán cơ bản",
+      "icon": "fa-vial",
+      "color": "cyan",
+      "keywords": ["pH", "pOH", "axit", "bazơ", "dung dịch"]
+    },
+
+    {
+      "id": "stoichiometry-calculator",
+      "title": "Tính toán hóa học",
+      "description": "Tính toán hóa học nâng cao, bao gồm phản ứng, mol, khối lượng.",
+      "href": "./stoichiometry-calculator/",
+      "category": "Tính toán nâng cao",
+      "icon": "fa-flask-vial",
+      "color": "amber",
+      "keywords": ["tính toán hóa học", "phản ứng", "mol", "khối lượng"]
+    },
+
+    {
+      "category": "Lý thuyết",
+      "name": "Tra cứu nguyên tố",
+      "folder": "tra-cuu-nguyen-to",
+      "href": "ly-thuyet/tra-cuu-nguyen-to/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Độ tan nhanh",
+      "folder": "quy-tac-do-tan",
+      "href": "ly-thuyet/quy-tac-do-tan/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Axit hay bazơ",
+      "folder": "phan-loai-axit-bazo",
+      "href": "ly-thuyet/phan-loai-axit-bazo/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Dãy hoạt động kim loại",
+      "folder": "day-hoat-dong-kim-loai",
+      "href": "ly-thuyet/day-hoat-dong-kim-loai/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Dãy điện hóa",
+      "folder": "day-dien-hoa",
+      "href": "ly-thuyet/day-dien-hoa/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Màu ngọn lửa",
+      "folder": "mau-ngon-lua",
+      "href": "ly-thuyet/mau-ngon-lua/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Nhận biết kết tủa",
+      "folder": "nhan-biet-ket-tua",
+      "href": "ly-thuyet/nhan-biet-ket-tua/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Nhóm chức hữu cơ",
+      "folder": "nhom-chuc-huu-co",
+      "href": "ly-thuyet/nhom-chuc-huu-co/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Điều kiện phản ứng",
+      "folder": "bang-dieu-kien-phan-ung",
+      "href": "ly-thuyet/bang-dieu-kien-phan-ung/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Chỉ thị axit-bazơ",
+      "folder": "chi-thi-axit-bazo",
+      "href": "ly-thuyet/chi-thi-axit-bazo/index.html"
+    },
+    {
+      "category": "Lý thuyết",
+      "name": "Gợi ý danh pháp",
+      "folder": "danh-phap-co-ban",
+      "href": "ly-thuyet/danh-phap-co-ban/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Khối lượng mol",
+      "folder": "khoi-luong-mol",
+      "href": "tinh-toan-co-ban/khoi-luong-mol/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Khối lượng → mol",
+      "folder": "khoi-luong-sang-so-mol",
+      "href": "tinh-toan-co-ban/khoi-luong-sang-so-mol/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Mol → khối lượng",
+      "folder": "so-mol-sang-khoi-luong",
+      "href": "tinh-toan-co-ban/so-mol-sang-khoi-luong/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Mol ↔ số hạt",
+      "folder": "mol-sang-so-hat",
+      "href": "tinh-toan-co-ban/mol-sang-so-hat/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Nồng độ mol",
+      "folder": "nong-do-mol",
+      "href": "tinh-toan-co-ban/nong-do-mol/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Nồng độ phần trăm",
+      "folder": "nong-do-phan-tram",
+      "href": "tinh-toan-co-ban/nong-do-phan-tram/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Thể tích khí đktc",
+      "folder": "the-tich-khi-dktc",
+      "href": "tinh-toan-co-ban/the-tich-khi-dktc/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Khối lượng riêng",
+      "folder": "khoi-luong-rieng",
+      "href": "tinh-toan-co-ban/khoi-luong-rieng/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "Pha loãng dung dịch",
+      "folder": "pha-loang-dung-dich",
+      "href": "tinh-toan-co-ban/pha-loang-dung-dich/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "pH axit mạnh",
+      "folder": "ph-axit-manh",
+      "href": "tinh-toan-co-ban/ph-axit-manh/index.html"
+    },
+    {
+      "category": "Tính toán cơ bản",
+      "name": "pOH bazơ mạnh",
+      "folder": "poh-bazo-manh",
+      "href": "tinh-toan-co-ban/poh-bazo-manh/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Hiệu suất phản ứng",
+      "folder": "hieu-suat-phan-ung",
+      "href": "tinh-toan-nang-cao/hieu-suat-phan-ung/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Hiệu suất nhiều bước",
+      "folder": "hieu-suat-nhieu-buoc",
+      "href": "tinh-toan-nang-cao/hieu-suat-nhieu-buoc/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Chất giới hạn",
+      "folder": "chat-gioi-han",
+      "href": "tinh-toan-nang-cao/chat-gioi-han/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Hằng số cân bằng Kc",
+      "folder": "hang-so-can-bang-kc",
+      "href": "tinh-toan-nang-cao/hang-so-can-bang-kc/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Phương trình Arrhenius",
+      "folder": "phuong-trinh-arrhenius",
+      "href": "tinh-toan-nang-cao/phuong-trinh-arrhenius/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Phương trình Nernst",
+      "folder": "phuong-trinh-nernst",
+      "href": "tinh-toan-nang-cao/phuong-trinh-nernst/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Năng lượng Gibbs",
+      "folder": "nang-luong-gibbs",
+      "href": "tinh-toan-nang-cao/nang-luong-gibbs/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Beer–Lambert",
+      "folder": "dinh-luat-beer-lambert",
+      "href": "tinh-toan-nang-cao/dinh-luat-beer-lambert/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "pH axit yếu",
+      "folder": "ph-axit-yeu",
+      "href": "tinh-toan-nang-cao/ph-axit-yeu/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Dung dịch đệm",
+      "folder": "dung-dich-dem",
+      "href": "tinh-toan-nang-cao/dung-dich-dem/index.html"
+    },
+    {
+      "category": "Tính toán nâng cao",
+      "name": "Chuẩn độ axit–bazơ",
+      "folder": "chuan-do-axit-bazo",
+      "href": "tinh-toan-nang-cao/chuan-do-axit-bazo/index.html"
+    }
+  ]
+}

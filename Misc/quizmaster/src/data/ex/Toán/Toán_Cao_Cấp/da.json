@@ -1,0 +1,17 @@
+{
+  "errorCode": 0,
+  "answers": [
+    {
+      "questionId": "q-1",
+      "sectionId": "sec-1",
+      "correctAnswer": "C",
+      "explanation": "<p>Ta có \\(x^2 - 4 = 0 \\iff x^2 = 4 \\iff x = \\pm 2\\).</p>"
+    },
+    {
+      "questionId": "q-2",
+      "sectionId": "sec-1",
+      "correctAnswer": "e^x * (ln(x) + 1/x)",
+      "explanation": "<p>Sử dụng quy tắc nhân đạo hàm: \\((uv)' = u'v + uv'\\). Với \\(u = e^x, v = \\ln(x)\\). Đạo hàm của \\(e^x\\) là \\(e^x\\), của \\(\\ln(x)\\) là \\(\\frac{1}{x}\\).</p>"
+    }
+  ]
+}

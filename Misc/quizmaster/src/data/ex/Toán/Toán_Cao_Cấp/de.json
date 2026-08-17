@@ -1,0 +1,39 @@
+{
+  "errorCode": 0,
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "Toán Đại Số",
+      "isMandatory": true,
+      "duration": 600,
+      "numberOfQuestions": 2,
+      "order": 1,
+      "questions": [
+        {
+          "id": "q-1",
+          "examId": "mock-1",
+          "sectionId": "sec-1",
+          "text": "<p>Nghiệm của phương trình \\(x^2 - 4 = 0\\) là:</p>",
+          "type": "multiple-choice",
+          "points": 10,
+          "order": 1,
+          "options": [
+            { "text": "\\(x = 2\\)", "value": "A" },
+            { "text": "\\(x = -2\\)", "value": "B" },
+            { "text": "\\(x = \\pm 2\\)", "value": "C" },
+            { "text": "\\(x = 4\\)", "value": "D" }
+          ]
+        },
+        {
+          "id": "q-2",
+          "examId": "mock-1",
+          "sectionId": "sec-1",
+          "text": "<p>Tính đạo hàm của hàm số \\(f(x) = e^x \\ln(x)\\)</p>",
+          "type": "short-answer",
+          "points": 15,
+          "order": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "AI Hóa Học",
+  "description": "Phân tích và tạo chuỗi phản ứng hóa học bằng Gemini AI",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

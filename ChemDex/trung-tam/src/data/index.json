@@ -1,0 +1,172 @@
+[
+  {
+    "id": "001_H",
+    "title": "Hydrogen (H) - Nguyên tố đầu tiên",
+    "author": "ChemDex Team",
+    "category": "nguyento",
+    "summary": "Khám phá nguyên tố nhẹ nhất và phổ biến nhất trong vũ trụ, nền tảng của nước và sự sống.",
+    "image": "https://images.unsplash.com/photo-1633526543814-9718c8922b7a?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Phi kim",
+      "Khí",
+      "Năng lượng",
+      "Nguyên tử"
+    ]
+  },
+  {
+    "id": "002_He",
+    "title": "Helium (He) - Khí hiếm nhẹ nhất",
+    "author": "Dr. Minh Vu",
+    "category": "nguyento",
+    "summary": "Khí hiếm nhẹ nhất, không cháy, được dùng nhiều trong y tế, làm lạnh và nghiên cứu khoa học.",
+    "image": "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Khí hiếm",
+      "Bóng bay",
+      "Làm lạnh"
+    ]
+  },
+  {
+    "id": "003_Li",
+    "title": "Lithium (Li) - Kim loại nhẹ nhất",
+    "author": "ChemDex Team",
+    "category": "nguyento",
+    "summary": "Kim loại kiềm nhẹ nhất, cốt lõi của công nghệ pin sạc hiện đại và xe điện.",
+    "image": "https://images.unsplash.com/photo-1620283085068-5aab14e76d33?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Kim loại kiềm",
+      "Pin Lithium",
+      "Năng lượng"
+    ]
+  },
+  {
+    "id": "004_C",
+    "title": "Carbon (C) - Cột sống của sự sống",
+    "author": "GS. Phạm V.",
+    "category": "nguyento",
+    "summary": "Nguyên tố có khả năng tạo ra vô số hợp chất phức tạp, nền tảng của hóa học hữu cơ và sinh học.",
+    "image": "https://images.unsplash.com/photo-1587310065842-83ffb246a482?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Phi kim",
+      "Kim cương",
+      "Hữu cơ"
+    ]
+  },
+  {
+    "id": "005_N",
+    "title": "Nitrogen (N) - Khí duy trì sự sống thực vật",
+    "author": "ThS. Hoàng T.",
+    "category": "nguyento",
+    "summary": "Chiếm 78% bầu khí quyển, Nitrogen vô cùng quan trọng đối với thực vật và công nghiệp phân bón.",
+    "image": "https://images.unsplash.com/photo-1534063879986-773a4d8dbbd3?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Khí quyển",
+      "Phân bón",
+      "Phi kim"
+    ]
+  },
+  {
+    "id": "006_O",
+    "title": "Oxygen (O) - Hơi thở của Trái Đất",
+    "author": "Dr. Minh Vu",
+    "category": "nguyento",
+    "summary": "Nguyên tố duy trì sự cháy và sự sống, chất oxi hóa mạnh mẽ và quan trọng nhất.",
+    "image": "https://images.unsplash.com/photo-1516629080649-74e2d3122c19?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Khí quyển",
+      "Sự sống",
+      "Oxi hóa"
+    ]
+  },
+  {
+    "id": "007_Na",
+    "title": "Sodium (Na) - Kim loại mạnh mẽ",
+    "author": "ChemDex Team",
+    "category": "nguyento",
+    "summary": "Kim loại kiềm phản ứng mãnh liệt với nước, thành phần chính của muối ăn hàng ngày.",
+    "image": "https://images.unsplash.com/photo-1606822452097-f542fa79075e?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Kim loại kiềm",
+      "Muối",
+      "Phản ứng mạnh"
+    ]
+  },
+  {
+    "id": "008_Fe",
+    "title": "Iron (Fe) - Kỷ nguyên đồ sắt",
+    "author": "TS. Nguyễn K.",
+    "category": "nguyento",
+    "summary": "Kim loại chuyển tiếp phổ biến nhất, nền tảng của ngành công nghiệp luyện kim và xây dựng.",
+    "image": "https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Kim loại chuyển tiếp",
+      "Từ tính",
+      "Xây dựng"
+    ]
+  },
+  {
+    "id": "009_Cu",
+    "title": "Copper (Cu) - Dòng chảy năng lượng",
+    "author": "ChemDex Team",
+    "category": "nguyento",
+    "summary": "Kim loại màu đỏ cam dẫn điện cực tốt, linh hồn của các thiết bị điện tử và truyền tải điện.",
+    "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Kim loại chuyển tiếp",
+      "Dẫn điện",
+      "Hợp kim"
+    ]
+  },
+  {
+    "id": "010_Ag",
+    "title": "Silver (Ag) - Vẻ đẹp và tính diệt khuẩn",
+    "author": "ThS. Trần Lê",
+    "category": "nguyento",
+    "summary": "Kim loại quý có độ dẫn điện, dẫn nhiệt cao nhất và khả năng kháng khuẩn tự nhiên tuyệt vời.",
+    "image": "https://images.unsplash.com/photo-1622323869279-d2b380bf9d4c?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Kim loại quý",
+      "Trang sức",
+      "Kháng khuẩn"
+    ]
+  },
+  {
+    "id": "011_HistoryPT",
+    "title": "Sự ra đời của Bảng Tuần Hoàn",
+    "author": "Dmitri Mendeleev Foundation",
+    "category": "tieusu",
+    "summary": "Câu chuyện lịch sử về cách Mendeleev sắp xếp các nguyên tố và dự đoán thành công những nguyên tố chưa được khám phá.",
+    "image": "https://images.unsplash.com/photo-1574689049814-7e040b2a343b?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "Lịch sử",
+      "Mendeleev",
+      "Định luật tuần hoàn"
+    ]
+  },
+  {
+    "id": "012_SafetyRules",
+    "title": "Quy Tắc An Toàn Phòng Thí Nghiệm",
+    "author": "Safety Council",
+    "category": "khainiem",
+    "summary": "Bộ quy tắc sống còn khi làm việc với hóa chất, dụng cụ thủy tinh và thiết bị phân tích.",
+    "image": "https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "An toàn",
+      "Thực hành",
+      "Cấp cứu"
+    ]
+  },
+  {
+    "id": "013_HTML_Sample",
+    "title": "Mẫu Bài Viết Đầy Đủ Định Dạng HTML",
+    "author": "ChemDex Team",
+    "category": "khainiem",
+    "summary": "Tài liệu mẫu chứa đầy đủ các loại định dạng HTML, bảng biểu, hình ảnh, video, và liên kết để làm template.",
+    "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800",
+    "tags": [
+      "HTML",
+      "Template",
+      "Mẫu"
+    ]
+  }
+]

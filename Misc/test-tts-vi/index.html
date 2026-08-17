@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trình đọc văn bản tiếng Việt</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #dbe4f0;
+      --accent: #2563eb;
+      --accent-2: #0ea5e9;
+      --soft: #eff6ff;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --danger: #ef4444;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, #ffffff 0%, #eef4ff 45%, var(--bg) 100%);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .wrap {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 300px;
+      resize: vertical;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      padding: 16px;
+      font-size: 17px;
+      line-height: 1.7;
+      outline: none;
+    }
+
+    textarea:focus, select:focus, input[type="range"]:focus {
+      border-color: rgba(37, 99, 235, 0.6);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      background: #fff;
+      color: var(--text);
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); opacity: 0.92; }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+    }
+
+    .ghost {
+      border-color: var(--line);
+      background: #fff;
+    }
+
+    .danger {
+      border-color: rgba(239, 68, 68, 0.25);
+      color: var(--danger);
+      background: #fff;
+    }
+
+    .ok {
+      border-color: rgba(22, 163, 74, 0.25);
+      color: var(--success);
+      background: #fff;
+    }
+
+    .panel {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    select, input[type="range"] {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 11px 12px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .range-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .range-value {
+      min-width: 42px;
+      text-align: right;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .stat {
+      background: var(--soft);
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 12px;
+    }
+
+    .stat .name {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .stat .value {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .status {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      line-height: 1.5;
+      min-height: 48px;
+    }
+
+    .tip {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Trình đọc văn bản tiếng Việt</h1>
+      <p class="subtitle">Nhập đoạn văn bản rồi dùng các nút bên dưới để đọc, tạm dừng, tiếp tục hoặc dừng lại. Có thêm chỉnh tốc độ, cao độ và âm lượng cho hợp lý.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Văn bản</h2>
+        <textarea id="textInput" placeholder="Nhập văn bản tiếng Việt ở đây..."></textarea>
+
+        <div class="actions">
+          <button class="primary" id="readBtn">Run đọc</button>
+          <button class="ghost" id="pauseBtn">Tạm dừng</button>
+          <button class="ghost" id="resumeBtn">Tiếp tục</button>
+          <button class="danger" id="stopBtn">Dừng</button>
+          <button class="ok" id="exampleBtn">Điền ví dụ</button>
+          <button class="ghost" id="clearBtn">Xóa</button>
+          <button class="ghost" id="copyBtn">Copy văn bản</button>
+        </div>
+
+        <div class="status" id="status">Sẵn sàng.</div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="name">Ký tự</div>
+            <div class="value" id="charCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="name">Từ</div>
+            <div class="value" id="wordCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="name">Trạng thái</div>
+            <div class="value" id="voiceState">Chờ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <h2>Cài đặt đọc</h2>
+
+        <div class="field">
+          <label for="voiceSelect">Giọng đọc</label>
+          <select id="voiceSelect"></select>
+        </div>
+
+        <div class="field">
+          <label for="rateRange">Tốc độ đọc</label>
+          <div class="range-row">
+            <input id="rateRange" type="range" min="0.5" max="2" step="0.1" value="1" />
+            <div class="range-value" id="rateValue">1.0x</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pitchRange">Cao độ</label>
+          <div class="range-row">
+            <input id="pitchRange" type="range" min="0" max="2" step="0.1" value="1" />
+            <div class="range-value" id="pitchValue">1.0</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="volumeRange">Âm lượng</label>
+          <div class="range-row">
+            <input id="volumeRange" type="range" min="0" max="1" step="0.1" value="1" />
+            <div class="range-value" id="volumeValue">100%</div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button class="ghost" id="reloadVoicesBtn">Tải lại giọng</button>
+          <button class="ghost" id="testBtn">Test giọng</button>
+        </div>
+
+        <div class="tip">
+          Mẹo: trình duyệt thường có giọng tiếng Việt khi hệ thống đã cài ngôn ngữ/voice tương ứng. Nếu không có, trang vẫn đọc bằng giọng gần nhất.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const textInput = document.getElementById('textInput');
+    const readBtn = document.getElementById('readBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resumeBtn = document.getElementById('resumeBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const exampleBtn = document.getElementById('exampleBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const testBtn = document.getElementById('testBtn');
+    const reloadVoicesBtn = document.getElementById('reloadVoicesBtn');
+    const statusEl = document.getElementById('status');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const rateRange = document.getElementById('rateRange');
+    const pitchRange = document.getElementById('pitchRange');
+    const volumeRange = document.getElementById('volumeRange');
+    const rateValue = document.getElementById('rateValue');
+    const pitchValue = document.getElementById('pitchValue');
+    const volumeValue = document.getElementById('volumeValue');
+    const charCount = document.getElementById('charCount');
+    const wordCount = document.getElementById('wordCount');
+    const voiceState = document.getElementById('voiceState');
+
+    let currentUtterance = null;
+    let voicesCache = [];
+
+    function supportsSpeech() {
+      return 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+    }
+
+    function updateCounts() {
+      const text = textInput.value.trim();
+      charCount.textContent = textInput.value.length;
+      wordCount.textContent = text ? text.split(/\s+/).filter(Boolean).length : 0;
+    }
+
+    function updateRangeLabels() {
+      rateValue.textContent = `${Number(rateRange.value).toFixed(1)}x`;
+      pitchValue.textContent = Number(pitchRange.value).toFixed(1);
+      volumeValue.textContent = `${Math.round(Number(volumeRange.value) * 100)}%`;
+    }
+
+    function pickBestVoice() {
+      const selectedIndex = voiceSelect.value;
+      if (selectedIndex !== '') {
+        return voicesCache[Number(selectedIndex)] || null;
+      }
+      return voicesCache.find(v => /vi|vietnamese/i.test(v.lang) || /việt/i.test(v.name)) || voicesCache[0] || null;
+    }
+
+    function fillVoiceSelect() {
+      const voices = window.speechSynthesis.getVoices();
+      voicesCache = voices;
+
+      const previous = voiceSelect.value;
+      voiceSelect.innerHTML = '';
+
+      if (!voices.length) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = 'Đang tải giọng...';
+        voiceSelect.appendChild(opt);
+        return;
+      }
+
+      voices.forEach((voice, index) => {
+        const opt = document.createElement('option');
+        opt.value = String(index);
+        opt.textContent = `${voice.name} (${voice.lang})${voice.default ? ' — mặc định' : ''}`;
+        voiceSelect.appendChild(opt);
+      });
+
+      if (previous !== '' && Number(previous) < voices.length) {
+        voiceSelect.value = previous;
+      } else {
+        const viIndex = voices.findIndex(v => /vi|vietnamese/i.test(v.lang) || /việt/i.test(v.name));
+        voiceSelect.value = viIndex >= 0 ? String(viIndex) : '0';
+      }
+    }
+
+    function setState(text, state = 'Chờ') {
+      statusEl.textContent = text;
+      voiceState.textContent = state;
+    }
+
+    function stopSpeaking(message = 'Đã dừng đọc.') {
+      if (!supportsSpeech()) return;
+      window.speechSynthesis.cancel();
+      currentUtterance = null;
+      setState(message, 'Dừng');
+    }
+
+    function speakText(text) {
+      if (!supportsSpeech()) {
+        setState('Trình duyệt này không hỗ trợ đọc giọng nói.', 'Lỗi');
+        return;
+      }
+
+      if (!text) {
+        setState('Vui lòng nhập văn bản trước khi đọc.', 'Thiếu');
+        textInput.focus();
+        return;
+      }
+
+      stopSpeaking('Đang chuẩn bị đọc...');
+
+      currentUtterance = new SpeechSynthesisUtterance(text);
+      currentUtterance.lang = 'vi-VN';
+      currentUtterance.rate = Number(rateRange.value);
+      currentUtterance.pitch = Number(pitchRange.value);
+      currentUtterance.volume = Number(volumeRange.value);
+
+      const voice = pickBestVoice();
+      if (voice) currentUtterance.voice = voice;
+
+      currentUtterance.onstart = () => {
+        setState(
+          voice ? `Đang đọc bằng: ${voice.name}` : 'Đang đọc văn bản tiếng Việt...',
+          'Đọc'
+        );
+      };
+
+      currentUtterance.onpause = () => setState('Đã tạm dừng.', 'Tạm dừng');
+      currentUtterance.onresume = () => setState('Tiếp tục đọc...', 'Đọc');
+      currentUtterance.onend = () => setState('Đã đọc xong.', 'Xong');
+      currentUtterance.onerror = () => setState('Có lỗi khi đọc văn bản.', 'Lỗi');
+
+      window.speechSynthesis.speak(currentUtterance);
+    }
+
+    textInput.addEventListener('input', updateCounts);
+    rateRange.addEventListener('input', updateRangeLabels);
+    pitchRange.addEventListener('input', updateRangeLabels);
+    volumeRange.addEventListener('input', updateRangeLabels);
+
+    readBtn.addEventListener('click', () => speakText(textInput.value.trim()));
+    pauseBtn.addEventListener('click', () => {
+      if (supportsSpeech() && window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+      }
+    });
+    resumeBtn.addEventListener('click', () => {
+      if (supportsSpeech() && window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
+    });
+    stopBtn.addEventListener('click', () => stopSpeaking());
+
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
+      updateCounts();
+      textInput.focus();
+      setState('Đã xóa văn bản.', 'Chờ');
+    });
+
+    exampleBtn.addEventListener('click', () => {
+      textInput.value = 'Xin chào! Đây là trang web đọc văn bản tiếng Việt. Bạn có thể dán nội dung vào đây rồi bấm Run đọc để nghe.';
+      updateCounts();
+      textInput.focus();
+      setState('Đã điền văn bản ví dụ.', 'Chờ');
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(textInput.value);
+        setState('Đã copy văn bản vào clipboard.', 'Chờ');
+      } catch {
+        setState('Không copy được trên trình duyệt này.', 'Lỗi');
+      }
+    });
+
+    testBtn.addEventListener('click', () => {
+      speakText('Xin chào. Đây là giọng đọc thử cho tiếng Việt.');
+    });
+
+    reloadVoicesBtn.addEventListener('click', () => {
+      fillVoiceSelect();
+      setState('Đã tải lại danh sách giọng đọc.', 'Chờ');
+    });
+
+    voiceSelect.addEventListener('change', () => {
+      const selected = pickBestVoice();
+      if (selected) setState(`Đã chọn giọng: ${selected.name}`, 'Chờ');
+    });
+
+    if (supportsSpeech()) {
+      fillVoiceSelect();
+      window.speechSynthesis.onvoiceschanged = fillVoiceSelect;
+    } else {
+      voiceSelect.innerHTML = '<option>Trình duyệt không hỗ trợ</option>';
+      setState('Trình duyệt này không hỗ trợ speech synthesis.', 'Lỗi');
+    }
+
+    updateCounts();
+    updateRangeLabels();
+  </script>
+</body>
+</html>

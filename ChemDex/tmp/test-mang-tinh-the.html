@@ -1,0 +1,1493 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.165.0/build/three.module.js"
+        }
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mô Phỏng Mạng Tinh Thể 3D</title>
+    <style>
+      :root {
+        --bg: #06101d;
+        --panel: rgba(10, 17, 31, 0.88);
+        --panel2: rgba(7, 12, 22, 0.92);
+        --text: #eaf3ff;
+        --muted: #9eb4ce;
+        --accent: #68b7ff;
+        --line: rgba(255, 255, 255, 0.08);
+        --shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
+        --r: 20px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(104, 183, 255, 0.12),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 80% 10%,
+            rgba(155, 219, 255, 0.08),
+            transparent 18%
+          ),
+          linear-gradient(180deg, #06101d 0%, #040b14 100%);
+        color: var(--text);
+        font-family:
+          Inter,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+      }
+      #app {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+      }
+      #sceneWrap {
+        position: absolute;
+        inset: 0;
+      }
+      #hud {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        width: min(370px, calc(100vw - 32px));
+        max-height: calc(100vh - 32px);
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        pointer-events: none;
+      }
+      .panel {
+        pointer-events: auto;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+        border-radius: var(--r);
+      }
+      .header {
+        padding: 16px;
+      }
+      .titleRow {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      h1 {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+      .subtitle {
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.45;
+        color: var(--muted);
+      }
+      .badge {
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(104, 183, 255, 0.12);
+        border: 1px solid rgba(104, 183, 255, 0.22);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .controls {
+        padding: 14px;
+        display: grid;
+        gap: 12px;
+      }
+      .controlGroup {
+        display: grid;
+        gap: 8px;
+      }
+      .label {
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      select,
+      button,
+      input[type="range"] {
+        width: 100%;
+      }
+      select,
+      button {
+        border: none;
+        outline: none;
+        border-radius: 14px;
+        padding: 12px 14px;
+        background: var(--panel2);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 14px;
+      }
+      button {
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          border-color 0.15s ease,
+          background 0.15s ease;
+      }
+      button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(104, 183, 255, 0.25);
+      }
+      button:active {
+        transform: translateY(0);
+      }
+      .btnGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .btnPrimary {
+        background: linear-gradient(
+          180deg,
+          rgba(104, 183, 255, 0.24),
+          rgba(104, 183, 255, 0.12)
+        );
+        border-color: rgba(104, 183, 255, 0.28);
+      }
+      .rangeRow {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 10px;
+      }
+      input[type="range"] {
+        appearance: none;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e9f7ff;
+        border: 4px solid #68b7ff;
+        box-shadow: 0 0 0 6px rgba(104, 183, 255, 0.12);
+        cursor: pointer;
+      }
+      .valuePill {
+        min-width: 72px;
+        text-align: right;
+        font-size: 13px;
+        color: #d9e9ff;
+      }
+      .info {
+        padding: 14px 16px 16px;
+        max-height: 46vh;
+        overflow: auto;
+      }
+      .info h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+      .infoGrid {
+        display: grid;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      .infoItem {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 10px;
+        padding: 8px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .infoItem:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+      .key {
+        color: var(--muted);
+      }
+      .val {
+        word-break: break-word;
+      }
+      .tip {
+        padding: 12px 16px 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        color: #bfd4ee;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      #toast {
+        position: absolute;
+        left: 50%;
+        bottom: 18px;
+        transform: translateX(-50%);
+        z-index: 20;
+        pointer-events: none;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(8, 14, 25, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #e5f3ff;
+        font-size: 13px;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-4px);
+      }
+      #loading {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        z-index: 30;
+        background: radial-gradient(
+          circle at center,
+          rgba(10, 18, 32, 0.72),
+          rgba(4, 8, 16, 0.96)
+        );
+        transition: opacity 0.35s ease;
+      }
+      #loading.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .loadingCard {
+        width: min(440px, calc(100vw - 32px));
+        padding: 22px;
+        border-radius: 24px;
+        background: rgba(10, 17, 31, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+      .spinner {
+        width: 46px;
+        height: 46px;
+        margin: 0 auto 14px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.12);
+        border-top-color: var(--accent);
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .small {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      @media (max-width: 900px) {
+        #hud {
+          width: calc(100vw - 24px);
+          left: 12px;
+          top: 12px;
+          gap: 10px;
+        }
+        .info {
+          max-height: 34vh;
+        }
+        .infoItem {
+          grid-template-columns: 104px 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="sceneWrap"></div>
+
+      <div id="hud">
+        <div class="panel header">
+          <div class="titleRow">
+            <div>
+              <h1>⚛️ Mạng tinh thể 3D</h1>
+              <div class="subtitle">
+                Xoay bằng chuột hoặc ngón tay, lăn chuột để zoom, kéo để đổi góc
+                nhìn.
+              </div>
+            </div>
+            <div class="badge">3D • interactive</div>
+          </div>
+        </div>
+
+        <div class="panel controls">
+          <div class="controlGroup">
+            <div class="label">Chọn mạng tinh thể</div>
+            <select id="latticeSelect"></select>
+          </div>
+
+          <div class="btnGrid">
+            <button id="toggleWire" class="btnGhost">Bật khung</button>
+            <button id="toggleAxes" class="btnGhost">Bật trục</button>
+          </div>
+
+          <div class="btnGrid">
+            <button id="resetView" class="btnPrimary">Reset góc nhìn</button>
+            <button id="toggleAutoRotate" class="btnGhost">Tự xoay: Bật</button>
+          </div>
+
+          <div class="controlGroup">
+            <div class="label">Kích thước mô hình</div>
+            <div class="rangeRow">
+              <input
+                id="scaleRange"
+                type="range"
+                min="0.6"
+                max="1.8"
+                step="0.01"
+                value="1"
+              />
+              <div id="scaleValue" class="valuePill">1.00×</div>
+            </div>
+          </div>
+
+          <div class="controlGroup">
+            <div class="label">Độ chi tiết</div>
+            <div class="rangeRow">
+              <input
+                id="detailRange"
+                type="range"
+                min="0.6"
+                max="2.2"
+                step="0.01"
+                value="1"
+              />
+              <div id="detailValue" class="valuePill">1.00×</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel info">
+          <h2 id="infoTitle">—</h2>
+          <div class="infoGrid" id="infoGrid"></div>
+        </div>
+
+        <div class="panel tip">
+          Gợi ý: chuột trái để xoay, chuột phải để pan, lăn chuột để zoom. Trên
+          điện thoại: chạm-kéo để xoay, pinch để zoom.
+        </div>
+      </div>
+
+      <div id="toast">Đã đổi mô hình</div>
+
+      <div id="loading">
+        <div class="loadingCard">
+          <div class="spinner"></div>
+          <div style="font-size: 18px; font-weight: 700; margin-bottom: 8px">
+            Đang tải mô hình 3D
+          </div>
+          <div class="small">
+            Nếu trình duyệt chặn import từ file local, hãy mở bằng Live Server
+            hoặc một web server local.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "https://unpkg.com/three@0.165.0/examples/jsm/controls/OrbitControls.js";
+
+      const latticeSelect = document.getElementById("latticeSelect");
+      const infoTitle = document.getElementById("infoTitle");
+      const infoGrid = document.getElementById("infoGrid");
+      const scaleRange = document.getElementById("scaleRange");
+      const scaleValue = document.getElementById("scaleValue");
+      const detailRange = document.getElementById("detailRange");
+      const detailValue = document.getElementById("detailValue");
+      const toggleWireBtn = document.getElementById("toggleWire");
+      const toggleAxesBtn = document.getElementById("toggleAxes");
+      const resetViewBtn = document.getElementById("resetView");
+      const toggleAutoRotateBtn = document.getElementById("toggleAutoRotate");
+      const toast = document.getElementById("toast");
+      const loading = document.getElementById("loading");
+      const sceneWrap = document.getElementById("sceneWrap");
+
+      const latticeData = {
+        sc: {
+          name: "Simple Cubic (SC) - Lập phương đơn",
+          system: "Hệ lập phương",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Số phối trí: 6",
+          packing: "Hệ số xếp chặt: 0.52",
+          examples: "Po (hiếm), mô hình minh họa cơ bản",
+          description: "Các nguyên tử nằm ở 8 đỉnh của khối lập phương.",
+          build: "Dùng 8 đỉnh của ô cơ sở.",
+          color: 0x66b3ff,
+        },
+        bcc: {
+          name: "Body-Centered Cubic (BCC) - Lập phương tâm khối",
+          system: "Hệ lập phương",
+          atoms: "2 nguyên tử/ô cơ sở",
+          coordination: "Số phối trí: 8",
+          packing: "Hệ số xếp chặt: 0.68",
+          examples: "Fe(α), Cr, W, Mo",
+          description: "8 nguyên tử ở đỉnh và 1 nguyên tử ở tâm khối.",
+          build: "8 đỉnh + 1 tâm khối.",
+          color: 0x8ee3ff,
+        },
+        fcc: {
+          name: "Face-Centered Cubic (FCC) - Lập phương tâm diện",
+          system: "Hệ lập phương",
+          atoms: "4 nguyên tử/ô cơ sở",
+          coordination: "Số phối trí: 12",
+          packing: "Hệ số xếp chặt: 0.74",
+          examples: "Cu, Al, Ag, Au, Ni",
+          description: "8 đỉnh và 6 tâm mặt.",
+          build: "8 đỉnh + 6 tâm mặt.",
+          color: 0xffcf66,
+        },
+        hcp: {
+          name: "Hexagonal Close-Packed (HCP) - Lục giác xếp chặt",
+          system: "Hệ lục giác",
+          atoms: "6 nguyên tử/ô cơ sở (quy ước)",
+          coordination: "Số phối trí: 12",
+          packing: "Hệ số xếp chặt: 0.74",
+          examples: "Mg, Ti, Zn, Co",
+          description: "Ô cơ sở lục giác xếp chặt theo lớp ABAB...",
+          build: "Lăng trụ lục giác với 2 lớp xếp chặt.",
+          color: 0x9bdbff,
+        },
+        diamond: {
+          name: "Diamond Cubic - Cấu trúc kim cương",
+          system: "Hệ lập phương",
+          atoms: "8 nguyên tử/ô cơ sở (quy ước)",
+          coordination: "Số phối trí: 4",
+          packing: "Xếp chặt thấp hơn FCC",
+          examples: "C, Si, Ge",
+          description: "Mạng FCC kèm nguyên tử lệch vị trí bên trong.",
+          build: "FCC + các vị trí nội bộ lệch.",
+          color: 0xe0f2ff,
+        },
+        nacl: {
+          name: "NaCl - Cấu trúc muối ăn",
+          system: "Hệ lập phương",
+          atoms: "8 ion/ô quy ước",
+          coordination: "Số phối trí: 6:6",
+          packing: "Cấu trúc ion điển hình",
+          examples: "NaCl, KBr, MgO",
+          description: "Hai mạng FCC xen kẽ của cation và anion.",
+          build: "Hiển thị hai màu ion xen kẽ.",
+          color: 0xa6ffcb,
+        },
+        cscl: {
+          name: "CsCl - Cấu trúc CsCl",
+          system: "Hệ lập phương",
+          atoms: "1 ion tâm + 8 ion đỉnh",
+          coordination: "Số phối trí: 8:8",
+          packing: "Cấu trúc ion đơn giản",
+          examples: "CsCl",
+          description: "Một ion ở tâm khối, ion còn lại ở 8 đỉnh.",
+          build: "8 đỉnh + 1 tâm khối khác màu.",
+          color: 0xff9bd6,
+        },
+        zincblende: {
+          name: "Zinc Blende - Kẽm blende / sphalerite",
+          system: "Hệ lập phương",
+          atoms: "8 nguyên tử/ô quy ước",
+          coordination: "Số phối trí: 4:4",
+          packing: "Cấu trúc bán dẫn quan trọng",
+          examples: "ZnS, GaAs, InP",
+          description: "Hai mạng FCC xen kẽ, lệch nhau một nửa đường chéo.",
+          build: "Hai lớp FCC lệch vị trí.",
+          color: 0xffb36b,
+        },
+        perovskite: {
+          name: "Perovskite - ABO3",
+          system: "Hệ lập phương biến thể",
+          atoms: "Mô hình quy ước",
+          coordination: "Tùy vật liệu",
+          packing: "Mạng phổ biến trong vật liệu hiện đại",
+          examples: "CaTiO3, nhiều perovskite",
+          description: "Mô hình minh họa mạng ABO3 điển hình.",
+          build: "A ở góc, B ở tâm, O ở tâm mặt.",
+          color: 0xb7a8ff,
+        },
+        tetragonal: {
+          name: "Tetragonal - Tứ phương",
+          system: "Hệ tứ phương",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Tùy vật liệu",
+          packing: "a = b ≠ c",
+          examples: "Sn trắng, TiO2 (rutile)",
+          description: "Hai cạnh bằng nhau, cạnh còn lại khác.",
+          build: "Hộp vuông kéo theo trục z.",
+          color: 0x6ee7ff,
+        },
+        orthorhombic: {
+          name: "Orthorhombic - Trực thoi",
+          system: "Hệ trực thoi",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Tùy vật liệu",
+          packing: "3 cạnh vuông góc, độ dài khác nhau",
+          examples: "Lưu huỳnh, olivine",
+          description: "3 trục vuông góc nhưng chiều dài khác nhau.",
+          build: "Hộp chữ nhật kéo giãn khác trục.",
+          color: 0x60a5fa,
+        },
+        monoclinic: {
+          name: "Monoclinic - Đơn tà",
+          system: "Hệ đơn tà",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Tùy vật liệu",
+          packing: "Một góc lệch, hai góc vuông",
+          examples: "Gypsum, một số oxit",
+          description: "Hai góc 90°, một góc lệch.",
+          build: "Khối hộp bị nghiêng một chiều.",
+          color: 0x7dd3fc,
+        },
+        triclinic: {
+          name: "Triclinic - Ba nghiêng",
+          system: "Hệ tam tà",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Tùy vật liệu",
+          packing: "Mạng ít đối xứng nhất",
+          examples: "Một số khoáng vật",
+          description: "Ô cơ sở có 3 cạnh khác nhau và 3 góc khác nhau.",
+          build: "Khối nghiêng cả 3 trục.",
+          color: 0x93c5fd,
+        },
+        hexagonal: {
+          name: "Hexagonal - Lục giác",
+          system: "Hệ lục giác",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Tùy vật liệu",
+          packing: "a = b ≠ c, góc 120° ở mặt đáy",
+          examples: "Graphite, Zn, Mg",
+          description: "Mặt đáy là hình lục giác.",
+          build: "Lăng trụ lục giác cơ bản.",
+          color: 0xa8d8ff,
+        },
+        rhombohedral: {
+          name: "Rhombohedral - Tam phương",
+          system: "Hệ tam phương",
+          atoms: "1 nguyên tử/ô cơ sở",
+          coordination: "Tùy vật liệu",
+          packing: "3 cạnh bằng nhau, góc không vuông",
+          examples: "Calcite, Bi, Sb",
+          description: "Ô cơ sở hình hộp nghiêng đều.",
+          build: "Khối lập phương bị xiên đều.",
+          color: 0xf0abfc,
+        },
+      };
+
+      const order = [
+        "sc",
+        "bcc",
+        "fcc",
+        "hcp",
+        "diamond",
+        "nacl",
+        "cscl",
+        "zincblende",
+        "perovskite",
+        "tetragonal",
+        "orthorhombic",
+        "monoclinic",
+        "triclinic",
+        "hexagonal",
+        "rhombohedral",
+      ];
+      order.forEach((key) => {
+        const opt = document.createElement("option");
+        opt.value = key;
+        opt.textContent = latticeData[key].name;
+        latticeSelect.appendChild(opt);
+      });
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x06101d, 12, 40);
+      scene.background = new THREE.Color(0x06101d);
+
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      );
+      camera.position.set(8, 6, 8);
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      sceneWrap.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.07;
+      controls.enablePan = true;
+      controls.minDistance = 3;
+      controls.maxDistance = 26;
+      controls.target.set(0, 0, 0);
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.8;
+
+      scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+      scene.add(new THREE.HemisphereLight(0xbddfff, 0x0b1120, 1.2));
+      const dir = new THREE.DirectionalLight(0xffffff, 1.5);
+      dir.position.set(8, 12, 6);
+      scene.add(dir);
+      const dir2 = new THREE.DirectionalLight(0x7ecbff, 0.5);
+      dir2.position.set(-8, -3, -6);
+      scene.add(dir2);
+
+      const grid = new THREE.GridHelper(40, 40, 0x1e3550, 0x102038);
+      grid.position.y = -4.9;
+      grid.material.transparent = true;
+      grid.material.opacity = 0.35;
+      scene.add(grid);
+
+      const axes = new THREE.AxesHelper(4.5);
+      axes.visible = false;
+      scene.add(axes);
+
+      const root = new THREE.Group();
+      scene.add(root);
+
+      const ringGroup = new THREE.Group();
+      ringGroup.add(
+        new THREE.Mesh(
+          new THREE.TorusGeometry(4.6, 0.03, 10, 120),
+          new THREE.MeshBasicMaterial({
+            color: 0x78c6ff,
+            transparent: true,
+            opacity: 0.08,
+          }),
+        ),
+      );
+      const ring2 = new THREE.Mesh(
+        new THREE.TorusGeometry(5.6, 0.028, 10, 120),
+        new THREE.MeshBasicMaterial({
+          color: 0xcfefff,
+          transparent: true,
+          opacity: 0.05,
+        }),
+      );
+      ring2.rotation.y = Math.PI / 3;
+      ringGroup.add(ring2);
+      ringGroup.children[0].rotation.x = Math.PI / 2;
+      scene.add(ringGroup);
+
+      let currentGroup = null;
+      let wireframeVisible = false;
+      let autoRotateVisible = true;
+      let currentScale = 1;
+      let currentDetail = 1;
+
+      function toastMsg(text) {
+        toast.textContent = text;
+        toast.classList.add("show");
+        clearTimeout(toastMsg._t);
+        toastMsg._t = setTimeout(() => toast.classList.remove("show"), 1300);
+      }
+
+      function setInfo(key) {
+        const d = latticeData[key];
+        infoTitle.textContent = d.name;
+        infoGrid.innerHTML = `
+      <div class="infoItem"><div class="key">Hệ tinh thể</div><div class="val">${d.system}</div></div>
+      <div class="infoItem"><div class="key">Số nguyên tử</div><div class="val">${d.atoms}</div></div>
+      <div class="infoItem"><div class="key">Phối trí</div><div class="val">${d.coordination}</div></div>
+      <div class="infoItem"><div class="key">Đóng gói</div><div class="val">${d.packing}</div></div>
+      <div class="infoItem"><div class="key">Ví dụ</div><div class="val">${d.examples}</div></div>
+      <div class="infoItem"><div class="key">Mô tả</div><div class="val">${d.description}</div></div>
+      <div class="infoItem"><div class="key">Cách dựng</div><div class="val">${d.build}</div></div>
+    `;
+      }
+
+      function makeSphere(radius, color, opacity = 1) {
+        const mat = new THREE.MeshPhongMaterial({
+          color,
+          shininess: 80,
+          transparent: opacity < 1,
+          opacity,
+        });
+        return new THREE.Mesh(new THREE.SphereGeometry(radius, 28, 28), mat);
+      }
+      function addAtom(
+        group,
+        position,
+        color,
+        radius = 0.24,
+        glow = 0.07,
+        opacity = 1,
+      ) {
+        const atom = new THREE.Group();
+        atom.add(makeSphere(radius, color, opacity));
+        atom.add(
+          new THREE.Mesh(
+            new THREE.SphereGeometry(radius + glow, 20, 20),
+            new THREE.MeshBasicMaterial({
+              color,
+              transparent: true,
+              opacity: 0.18,
+            }),
+          ),
+        );
+        atom.position.copy(position);
+        group.add(atom);
+        return atom;
+      }
+      function makeWireCube(size, color = 0xffffff, opacity = 0.3) {
+        const edges = new THREE.EdgesGeometry(
+          new THREE.BoxGeometry(size, size, size),
+        );
+        return new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({ color, transparent: true, opacity }),
+        );
+      }
+      function makeCylinderBetween(p1, p2, radius, color, opacity = 1) {
+        const dirVec = new THREE.Vector3().subVectors(p2, p1);
+        const len = dirVec.length();
+        const mesh = new THREE.Mesh(
+          new THREE.CylinderGeometry(radius, radius, len, 16, 1, false),
+          new THREE.MeshPhongMaterial({
+            color,
+            transparent: opacity < 1,
+            opacity,
+          }),
+        );
+        mesh.position.copy(
+          new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5),
+        );
+        mesh.quaternion.setFromUnitVectors(
+          new THREE.Vector3(0, 1, 0),
+          dirVec.clone().normalize(),
+        );
+        return mesh;
+      }
+      function addLine(group, p1, p2, color = 0xffffff, opacity = 0.28) {
+        const geo = new THREE.BufferGeometry().setFromPoints([p1, p2]);
+        const line = new THREE.Line(
+          geo,
+          new THREE.LineBasicMaterial({ color, transparent: true, opacity }),
+        );
+        group.add(line);
+        return line;
+      }
+      function connectPairs(
+        group,
+        points,
+        pairs,
+        color = 0xffffff,
+        opacity = 0.28,
+      ) {
+        pairs.forEach(([a, b]) =>
+          addLine(group, points[a], points[b], color, opacity),
+        );
+      }
+      function addFrameWithEdges(
+        group,
+        sx,
+        sy,
+        sz,
+        color = 0xffffff,
+        opacity = 0.24,
+      ) {
+        const edges = new THREE.EdgesGeometry(
+          new THREE.BoxGeometry(sx, sy, sz),
+        );
+        group.add(
+          new THREE.LineSegments(
+            edges,
+            new THREE.LineBasicMaterial({ color, transparent: true, opacity }),
+          ),
+        );
+      }
+
+      function clearRoot() {
+        while (root.children.length) root.remove(root.children[0]);
+      }
+
+      function buildSC(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0x7ea8d6, 0.36);
+        const p = s / 2;
+        const pts = [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].map(([x, y, z]) => new THREE.Vector3(x, y, z));
+        pts.forEach((pt) =>
+          addAtom(group, pt, latticeData.sc.color, 0.21 * detail),
+        );
+        connectPairs(
+          group,
+          pts,
+          [
+            [0, 1],
+            [1, 3],
+            [3, 2],
+            [2, 0],
+            [4, 5],
+            [5, 7],
+            [7, 6],
+            [6, 4],
+            [0, 4],
+            [1, 5],
+            [2, 6],
+            [3, 7],
+          ],
+          0x7ea8d6,
+          0.24,
+        );
+      }
+      function buildBCC(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0x9bcfff, 0.32);
+        const p = s / 2;
+        const pts = [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].map(([x, y, z]) => new THREE.Vector3(x, y, z));
+        pts.forEach((pt) => addAtom(group, pt, 0x7ccfff, 0.2 * detail));
+        const c = new THREE.Vector3(0, 0, 0);
+        addAtom(group, c, 0xff8f8f, 0.26 * detail, 0.08, 1);
+        pts.forEach((pt) => addLine(group, pt, c, 0xff8f8f, 0.34));
+      }
+      function buildFCC(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0xffd38b, 0.32);
+        const p = s / 2;
+        const corners = [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].map(([x, y, z]) => new THREE.Vector3(x, y, z));
+        corners.forEach((pt) => addAtom(group, pt, 0xffcf66, 0.19 * detail));
+        const faces = [
+          new THREE.Vector3(0, 0, p),
+          new THREE.Vector3(0, 0, -p),
+          new THREE.Vector3(0, p, 0),
+          new THREE.Vector3(0, -p, 0),
+          new THREE.Vector3(p, 0, 0),
+          new THREE.Vector3(-p, 0, 0),
+        ];
+        faces.forEach((pt) =>
+          addAtom(group, pt, 0xff9b66, 0.23 * detail, 0.06, 1),
+        );
+        connectPairs(
+          group,
+          corners,
+          [
+            [0, 1],
+            [1, 3],
+            [3, 2],
+            [2, 0],
+            [4, 5],
+            [5, 7],
+            [7, 6],
+            [6, 4],
+            [0, 4],
+            [1, 5],
+            [2, 6],
+            [3, 7],
+          ],
+          0xffd38b,
+          0.2,
+        );
+        faces.forEach((pt) =>
+          corners.forEach((corner) => {
+            if (Math.abs(pt.x) === p && corner.x === pt.x)
+              addLine(group, pt, corner, 0xff9b66, 0.12);
+            if (Math.abs(pt.y) === p && corner.y === pt.y)
+              addLine(group, pt, corner, 0xff9b66, 0.12);
+            if (Math.abs(pt.z) === p && corner.z === pt.z)
+              addLine(group, pt, corner, 0xff9b66, 0.12);
+          }),
+        );
+      }
+      function buildHCP(group, scale, detail) {
+        const r = 1.15 * scale,
+          h = 2.0 * scale;
+        const top = [],
+          bottom = [];
+        for (let i = 0; i < 6; i++) {
+          const a = (Math.PI / 3) * i + Math.PI / 6;
+          top.push(new THREE.Vector3(Math.cos(a) * r, h / 2, Math.sin(a) * r));
+          bottom.push(
+            new THREE.Vector3(Math.cos(a) * r, -h / 2, Math.sin(a) * r),
+          );
+        }
+        for (let i = 0; i < 6; i++) {
+          group.add(
+            makeCylinderBetween(
+              top[i],
+              top[(i + 1) % 6],
+              0.03 * detail,
+              0x9ddaff,
+              0.28,
+            ),
+          );
+          group.add(
+            makeCylinderBetween(
+              bottom[i],
+              bottom[(i + 1) % 6],
+              0.03 * detail,
+              0x9ddaff,
+              0.28,
+            ),
+          );
+          group.add(
+            makeCylinderBetween(
+              top[i],
+              bottom[i],
+              0.03 * detail,
+              0x9ddaff,
+              0.22,
+            ),
+          );
+        }
+        top.forEach((p) => addAtom(group, p, 0x8fe8ff, 0.18 * detail));
+        bottom.forEach((p) => addAtom(group, p, 0x8fe8ff, 0.18 * detail));
+        addAtom(group, new THREE.Vector3(0, 0, 0), 0xffb56b, 0.22 * detail);
+        addAtom(
+          group,
+          new THREE.Vector3(0, h * 0.32, 0.66 * r),
+          0xffb56b,
+          0.18 * detail,
+          0.05,
+          0.9,
+        );
+      }
+      function buildDiamond(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0xd5f1ff, 0.26);
+        const p = s / 2;
+        [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0xe9fbff, 0.17 * detail),
+        );
+        [
+          [0, 0, 0],
+          [p * 0.5, p * 0.5, 0],
+          [p * 0.5, 0, p * 0.5],
+          [0, p * 0.5, p * 0.5],
+          [-p * 0.5, -p * 0.5, 0],
+          [-p * 0.5, 0, -p * 0.5],
+          [0, -p * 0.5, -p * 0.5],
+        ].forEach(([x, y, z]) =>
+          addAtom(
+            group,
+            new THREE.Vector3(x, y, z),
+            0xaadfff,
+            0.15 * detail,
+            0.05,
+            0.95,
+          ),
+        );
+      }
+      function buildNaCl(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0xa8ffd1, 0.25);
+        const p = s / 2;
+        [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0x7ef7b8, 0.18 * detail),
+        );
+        [
+          [0, 0, p],
+          [0, 0, -p],
+          [0, p, 0],
+          [0, -p, 0],
+          [p, 0, 0],
+          [-p, 0, 0],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0xff8fb2, 0.22 * detail),
+        );
+      }
+      function buildCsCl(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0xffb4df, 0.3);
+        const p = s / 2;
+        [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0xff9bd6, 0.19 * detail),
+        );
+        addAtom(group, new THREE.Vector3(0, 0, 0), 0x8fe8ff, 0.3 * detail);
+      }
+      function buildZincBlende(group, scale, detail) {
+        const s = 3.2 * scale;
+        addFrameWithEdges(group, s, s, s, 0xffc088, 0.28);
+        const p = s / 2;
+        const points = [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+          [0, 0, p],
+          [0, 0, -p],
+          [0, p, 0],
+          [0, -p, 0],
+          [p, 0, 0],
+          [-p, 0, 0],
+        ];
+        points.forEach(([x, y, z], i) =>
+          addAtom(
+            group,
+            new THREE.Vector3(x, y, z),
+            i < 8 ? 0xffb36b : 0x9ae9ff,
+            i < 8 ? 0.17 * detail : 0.14 * detail,
+          ),
+        );
+        const o = p * 0.5;
+        [
+          [o, o, o],
+          [-o, -o, o],
+          [-o, o, -o],
+          [o, -o, -o],
+        ].forEach(([x, y, z]) =>
+          addAtom(
+            group,
+            new THREE.Vector3(x, y, z),
+            0x9ae9ff,
+            0.16 * detail,
+            0.05,
+            0.95,
+          ),
+        );
+      }
+      function buildPerovskite(group, scale, detail) {
+        const s = 3.3 * scale;
+        addFrameWithEdges(group, s, s, s, 0xb8a8ff, 0.25);
+        const p = s / 2;
+        [
+          [-p, -p, -p],
+          [p, -p, -p],
+          [-p, p, -p],
+          [p, p, -p],
+          [-p, -p, p],
+          [p, -p, p],
+          [-p, p, p],
+          [p, p, p],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0x9f8bff, 0.16 * detail),
+        );
+        addAtom(group, new THREE.Vector3(0, 0, 0), 0x7df0ff, 0.26 * detail);
+        [
+          [0, 0, p],
+          [0, 0, -p],
+          [0, p, 0],
+          [0, -p, 0],
+          [p, 0, 0],
+          [-p, 0, 0],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0xffb36b, 0.18 * detail),
+        );
+      }
+      function buildTetragonal(group, scale, detail) {
+        const sx = 3.2 * scale,
+          sy = 3.2 * scale,
+          sz = 4.6 * scale;
+        group.add(
+          new THREE.LineSegments(
+            new THREE.EdgesGeometry(new THREE.BoxGeometry(sx, sy, sz)),
+            new THREE.LineBasicMaterial({
+              color: 0x76d7ff,
+              transparent: true,
+              opacity: 0.32,
+            }),
+          ),
+        );
+        const px = sx / 2,
+          py = sy / 2,
+          pz = sz / 2;
+        [
+          [-px, -py, -pz],
+          [px, -py, -pz],
+          [-px, py, -pz],
+          [px, py, -pz],
+          [-px, -py, pz],
+          [px, -py, pz],
+          [-px, py, pz],
+          [px, py, pz],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0x76d7ff, 0.18 * detail),
+        );
+      }
+      function buildOrthorhombic(group, scale, detail) {
+        const sx = 4.2 * scale,
+          sy = 3.0 * scale,
+          sz = 2.8 * scale;
+        group.add(
+          new THREE.LineSegments(
+            new THREE.EdgesGeometry(new THREE.BoxGeometry(sx, sy, sz)),
+            new THREE.LineBasicMaterial({
+              color: 0x60a5fa,
+              transparent: true,
+              opacity: 0.3,
+            }),
+          ),
+        );
+        const px = sx / 2,
+          py = sy / 2,
+          pz = sz / 2;
+        [
+          [-px, -py, -pz],
+          [px, -py, -pz],
+          [-px, py, -pz],
+          [px, py, -pz],
+          [-px, -py, pz],
+          [px, -py, pz],
+          [-px, py, pz],
+          [px, py, pz],
+        ].forEach(([x, y, z]) =>
+          addAtom(group, new THREE.Vector3(x, y, z), 0x60a5fa, 0.18 * detail),
+        );
+      }
+      function buildMonoclinic(group, scale, detail) {
+        const sx = 4.0 * scale,
+          sy = 2.9 * scale,
+          sz = 3.0 * scale,
+          sh = 0.95 * scale;
+        const pts = [
+          new THREE.Vector3(-sx / 2 - sh, -sy / 2, -sz / 2),
+          new THREE.Vector3(sx / 2 - sh, -sy / 2, -sz / 2),
+          new THREE.Vector3(sx / 2 + sh, sy / 2, -sz / 2),
+          new THREE.Vector3(-sx / 2 + sh, sy / 2, -sz / 2),
+          new THREE.Vector3(-sx / 2 - sh, -sy / 2, sz / 2),
+          new THREE.Vector3(sx / 2 - sh, -sy / 2, sz / 2),
+          new THREE.Vector3(sx / 2 + sh, sy / 2, sz / 2),
+          new THREE.Vector3(-sx / 2 + sh, sy / 2, sz / 2),
+        ];
+        const e = [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 0],
+          [4, 5],
+          [5, 6],
+          [6, 7],
+          [7, 4],
+          [0, 4],
+          [1, 5],
+          [2, 6],
+          [3, 7],
+        ];
+        e.forEach(([a, b]) =>
+          group.add(
+            makeCylinderBetween(pts[a], pts[b], 0.03 * detail, 0x7dd3fc, 0.28),
+          ),
+        );
+        pts.forEach((p) => addAtom(group, p, 0x7dd3fc, 0.17 * detail));
+      }
+      function buildTriclinic(group, scale, detail) {
+        const pts = [
+          new THREE.Vector3(-1.8 * scale, -1.0 * scale, -1.2 * scale),
+          new THREE.Vector3(1.5 * scale, -0.9 * scale, -1.0 * scale),
+          new THREE.Vector3(2.0 * scale, 1.1 * scale, -0.8 * scale),
+          new THREE.Vector3(-1.2 * scale, 1.0 * scale, -1.1 * scale),
+          new THREE.Vector3(-1.5 * scale, -0.8 * scale, 1.3 * scale),
+          new THREE.Vector3(1.7 * scale, -0.7 * scale, 1.1 * scale),
+          new THREE.Vector3(2.2 * scale, 1.2 * scale, 1.2 * scale),
+          new THREE.Vector3(-1.0 * scale, 1.1 * scale, 1.4 * scale),
+        ];
+        [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 0],
+          [4, 5],
+          [5, 6],
+          [6, 7],
+          [7, 4],
+          [0, 4],
+          [1, 5],
+          [2, 6],
+          [3, 7],
+        ].forEach(([a, b]) =>
+          group.add(
+            makeCylinderBetween(pts[a], pts[b], 0.03 * detail, 0x93c5fd, 0.28),
+          ),
+        );
+        pts.forEach((p) => addAtom(group, p, 0x93c5fd, 0.16 * detail));
+      }
+      function buildHexagonal(group, scale, detail) {
+        const r = 1.55 * scale,
+          h = 3.0 * scale;
+        const top = [],
+          bottom = [];
+        for (let i = 0; i < 6; i++) {
+          const ang = (Math.PI / 3) * i;
+          top.push(
+            new THREE.Vector3(Math.cos(ang) * r, h / 2, Math.sin(ang) * r),
+          );
+          bottom.push(
+            new THREE.Vector3(Math.cos(ang) * r, -h / 2, Math.sin(ang) * r),
+          );
+        }
+        for (let i = 0; i < 6; i++) {
+          group.add(
+            makeCylinderBetween(
+              top[i],
+              top[(i + 1) % 6],
+              0.03 * detail,
+              0xa8d8ff,
+              0.3,
+            ),
+          );
+          group.add(
+            makeCylinderBetween(
+              bottom[i],
+              bottom[(i + 1) % 6],
+              0.03 * detail,
+              0xa8d8ff,
+              0.3,
+            ),
+          );
+          group.add(
+            makeCylinderBetween(
+              top[i],
+              bottom[i],
+              0.03 * detail,
+              0xa8d8ff,
+              0.22,
+            ),
+          );
+        }
+        top.forEach((p) => addAtom(group, p, 0xa8d8ff, 0.17 * detail));
+        bottom.forEach((p) => addAtom(group, p, 0xa8d8ff, 0.17 * detail));
+      }
+      function buildRhombohedral(group, scale, detail) {
+        const pts = [
+          new THREE.Vector3(-1.5 * scale, -1.2 * scale, -1.0 * scale),
+          new THREE.Vector3(1.7 * scale, -1.0 * scale, -0.8 * scale),
+          new THREE.Vector3(1.9 * scale, 1.1 * scale, -0.7 * scale),
+          new THREE.Vector3(-1.3 * scale, 0.9 * scale, -0.9 * scale),
+          new THREE.Vector3(-1.2 * scale, -1.1 * scale, 1.2 * scale),
+          new THREE.Vector3(1.8 * scale, -0.9 * scale, 1.4 * scale),
+          new THREE.Vector3(2.0 * scale, 1.2 * scale, 1.5 * scale),
+          new THREE.Vector3(-1.0 * scale, 1.0 * scale, 1.3 * scale),
+        ];
+        [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 0],
+          [4, 5],
+          [5, 6],
+          [6, 7],
+          [7, 4],
+          [0, 4],
+          [1, 5],
+          [2, 6],
+          [3, 7],
+        ].forEach(([a, b]) =>
+          group.add(
+            makeCylinderBetween(pts[a], pts[b], 0.03 * detail, 0xf0abfc, 0.28),
+          ),
+        );
+        pts.forEach((p) => addAtom(group, p, 0xf0abfc, 0.16 * detail));
+      }
+
+      function buildLattice(key) {
+        clearRoot();
+        currentGroup = new THREE.Group();
+        currentGroup.scale.setScalar(currentScale);
+        root.add(currentGroup);
+        switch (key) {
+          case "sc":
+            buildSC(currentGroup, currentScale, currentDetail);
+            break;
+          case "bcc":
+            buildBCC(currentGroup, currentScale, currentDetail);
+            break;
+          case "fcc":
+            buildFCC(currentGroup, currentScale, currentDetail);
+            break;
+          case "hcp":
+            buildHCP(currentGroup, currentScale, currentDetail);
+            break;
+          case "diamond":
+            buildDiamond(currentGroup, currentScale, currentDetail);
+            break;
+          case "nacl":
+            buildNaCl(currentGroup, currentScale, currentDetail);
+            break;
+          case "cscl":
+            buildCsCl(currentGroup, currentScale, currentDetail);
+            break;
+          case "zincblende":
+            buildZincBlende(currentGroup, currentScale, currentDetail);
+            break;
+          case "perovskite":
+            buildPerovskite(currentGroup, currentScale, currentDetail);
+            break;
+          case "tetragonal":
+            buildTetragonal(currentGroup, currentScale, currentDetail);
+            break;
+          case "orthorhombic":
+            buildOrthorhombic(currentGroup, currentScale, currentDetail);
+            break;
+          case "monoclinic":
+            buildMonoclinic(currentGroup, currentScale, currentDetail);
+            break;
+          case "triclinic":
+            buildTriclinic(currentGroup, currentScale, currentDetail);
+            break;
+          case "hexagonal":
+            buildHexagonal(currentGroup, currentScale, currentDetail);
+            break;
+          case "rhombohedral":
+            buildRhombohedral(currentGroup, currentScale, currentDetail);
+            break;
+          default:
+            buildFCC(currentGroup, currentScale, currentDetail);
+        }
+        setInfo(key);
+        toastMsg("Đã đổi sang: " + latticeData[key].name);
+      }
+
+      function setWireframeVisible(visible) {
+        wireframeVisible = visible;
+        if (currentGroup) {
+          currentGroup.traverse((obj) => {
+            if (obj.isMesh && obj.material && "wireframe" in obj.material)
+              obj.material.wireframe = visible;
+          });
+        }
+        toggleWireBtn.textContent = visible ? "Tắt khung" : "Bật khung";
+      }
+      function setAxesVisible(visible) {
+        axes.visible = visible;
+        toggleAxesBtn.textContent = visible ? "Tắt trục" : "Bật trục";
+      }
+      function resetView() {
+        camera.position.set(8, 6, 8);
+        controls.target.set(0, 0, 0);
+        controls.update();
+        toastMsg("Đã reset góc nhìn");
+      }
+
+      function applyScale() {
+        currentScale = parseFloat(scaleRange.value);
+        scaleValue.textContent = currentScale.toFixed(2) + "×";
+        buildLattice(latticeSelect.value);
+      }
+      function applyDetail() {
+        currentDetail = parseFloat(detailRange.value);
+        detailValue.textContent = currentDetail.toFixed(2) + "×";
+        buildLattice(latticeSelect.value);
+      }
+
+      latticeSelect.addEventListener("change", () =>
+        buildLattice(latticeSelect.value),
+      );
+      scaleRange.addEventListener("input", applyScale);
+      detailRange.addEventListener("input", applyDetail);
+      toggleWireBtn.addEventListener("click", () =>
+        setWireframeVisible(!wireframeVisible),
+      );
+      toggleAxesBtn.addEventListener("click", () =>
+        setAxesVisible(!axes.visible),
+      );
+      resetViewBtn.addEventListener("click", resetView);
+      toggleAutoRotateBtn.addEventListener("click", () => {
+        autoRotateVisible = !autoRotateVisible;
+        controls.autoRotate = autoRotateVisible;
+        toggleAutoRotateBtn.textContent =
+          "Tự xoay: " + (autoRotateVisible ? "Bật" : "Tắt");
+      });
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      });
+
+      latticeSelect.value = "fcc";
+      buildLattice("fcc");
+      setWireframeVisible(false);
+      setAxesVisible(false);
+      loading.classList.add("hidden");
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        ringGroup.rotation.z += 0.0015;
+        ringGroup.rotation.x += 0.0008;
+        if (currentGroup) currentGroup.rotation.y += 0.0012;
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
+</html>

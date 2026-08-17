@@ -1,0 +1,6 @@
+{
+  "name": "Nghiện Tu Tiên 5.0",
+  "description": "Game tu tiên 2D top-down nhập vai kết hợp rảnh tay (Idle) hấp dẫn. Đột phá cảnh giới, săn lùng yêu thú, luyện đan rèn khí, gia nhập tông môn và phi thăng!",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

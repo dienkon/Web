@@ -1,0 +1,6 @@
+{
+  "name": "Chemistry Equation Recognizer",
+  "description": "Nhận diện, sửa lỗi OCR, hoàn thành và cân bằng phương trình hóa học bằng thuật toán cục bộ kết hợp với kiểm chứng AI Gemini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

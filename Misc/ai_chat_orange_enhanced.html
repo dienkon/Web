@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Tối ưu viewport cho mobile, ngăn zoom khi input focus -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>AI Chat Orange - Premium Edition</title>
+
+    <!-- Phông chữ Inter thanh lịch -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Thư viện biểu tượng Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Thư viện Marked.js để render Markdown xịn như Gemini -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Cấu hình MathJax cho công thức Toán học (LaTeX) -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          processEscapes: true,
+          processEnvironments: true,
+        },
+        options: {
+          skipHtmlTags: [
+            "script",
+            "noscript",
+            "style",
+            "textarea",
+            "pre",
+            "code",
+          ],
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      :root {
+        --bg: #ffffff;
+        --surface-1: #f3f4f6;
+        --surface-2: #e5e7eb;
+        --border: #e5e7eb;
+        --border-focus: #f97316;
+        --text: #1f2937;
+        --text-muted: #6b7280;
+        --accent-1: #f97316;
+        --accent-2: #fb923c;
+        --accent-light: #fff7ed;
+        --radius-lg: 24px;
+        --radius-md: 16px;
+        --radius-sm: 8px;
+        --max-chat-width: 840px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        /* Sử dụng dvh để fix lỗi chiều cao trên safari mobile */
+        height: 100dvh;
+        display: flex;
+        overflow: hidden;
+      }
+
+      /* LAYOUT CHÍNH */
+      .app-layout {
+        display: flex;
+        width: 100vw;
+        height: 100dvh;
+        position: relative;
+      }
+
+      /* SIDEBAR TRÁI */
+      .sidebar {
+        width: 280px;
+        background-color: var(--surface-1);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        border-right: 1px solid var(--border);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 50;
+      }
+
+      .sidebar-header {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .new-chat-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .new-chat-btn:hover {
+        background-color: var(--surface-2);
+      }
+
+      .history-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .history-item {
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .history-item:hover {
+        background-color: var(--surface-2);
+      }
+
+      .history-item.active {
+        background-color: var(--accent-light);
+        color: var(--accent-1);
+        font-weight: 500;
+      }
+
+      .history-item span.title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .history-item span.date {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .sidebar-footer {
+        padding: 16px;
+        border-top: 1px solid var(--border);
+      }
+
+      /* KHU VỰC CHAT CHÍNH */
+      .main-chat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        background-color: var(--bg);
+        position: relative;
+      }
+
+      .top-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        flex-shrink: 0;
+      }
+
+      .top-bar-left,
+      .top-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .icon-btn {
+        background: transparent;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: background 0.2s;
+      }
+
+      .icon-btn:hover {
+        background-color: var(--surface-1);
+        color: var(--text);
+      }
+
+      /* MODEL SELECTOR THEO PHONG CÁCH GEMINI */
+      .model-selector {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .model-selector:hover {
+        background-color: var(--surface-1);
+      }
+
+      .model-selector select {
+        appearance: none;
+        background: transparent;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        cursor: pointer;
+        outline: none;
+        padding-right: 16px;
+      }
+
+      /* KHU VỰC HIỂN THỊ TIN NHẮN */
+      .messages-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 24px 16px;
+        scroll-behavior: smooth;
+      }
+
+      .message-wrapper {
+        max-width: var(--max-chat-width);
+        margin: 0 auto 24px;
+        display: flex;
+        gap: 16px;
+      }
+
+      .message-wrapper.user {
+        flex-direction: row-reverse;
+      }
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .avatar.ai {
+        background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+        color: white;
+      }
+
+      .avatar.user {
+        background: var(--surface-2);
+        color: var(--text);
+      }
+
+      .message-content {
+        max-width: calc(100% - 52px);
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .message-wrapper.user .message-content {
+        background-color: var(--surface-1);
+        padding: 12px 18px;
+        border-radius: 20px;
+        border-bottom-right-radius: 4px;
+      }
+
+      .message-wrapper.ai .message-content {
+        padding: 6px 0; /* AI message tràn lề giống Gemini */
+      }
+
+      /* ĐỊNH DẠNG MARKDOWN & CODE */
+      .markdown-body p {
+        margin-bottom: 12px;
+      }
+      .markdown-body p:last-child {
+        margin-bottom: 0;
+      }
+      .markdown-body pre {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 16px;
+        border-radius: var(--radius-sm);
+        overflow-x: auto;
+        margin: 12px 0;
+        font-size: 13px;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .markdown-body code {
+        background-color: var(--surface-2);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .markdown-body pre code {
+        background: none;
+        padding: 0;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+      }
+      .markdown-body th,
+      .markdown-body td {
+        border: 1px solid var(--border);
+        padding: 8px 12px;
+      }
+      .markdown-body th {
+        background-color: var(--surface-1);
+      }
+
+      /* MEDIA HIỂN THỊ ĐÍNH KÈM TRONG TIN NHẮN */
+      .msg-media-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .msg-media-grid img {
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 1px solid var(--border);
+      }
+
+      /* COMPOSER (THANH NHẬP LIỆU GOM GỌN) */
+      .composer-container {
+        padding: 0 16px 24px;
+        max-width: var(--max-chat-width);
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .composer-box {
+        background-color: var(--surface-1);
+        border-radius: var(--radius-lg);
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition:
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .composer-box:focus-within {
+        background-color: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border);
+      }
+
+      /* KHU VỰC PREVIEW FILE ĐÍNH KÈM */
+      .attachments-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 8px;
+      }
+
+      .attachment-chip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background-color: var(--bg);
+        border: 1px solid var(--border);
+        padding: 6px 10px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        color: var(--text);
+      }
+
+      .attachment-chip button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        display: flex;
+      }
+
+      .attachment-chip button:hover {
+        color: #ef4444;
+      }
+
+      /* HÀNG INPUT */
+      .input-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+      }
+
+      .attach-btn-wrapper {
+        position: relative;
+      }
+
+      .plus-btn {
+        background: var(--surface-2);
+        color: var(--text);
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .plus-btn:hover {
+        background: #d1d5db;
+      }
+
+      .composer-textarea {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        color: var(--text);
+        resize: none;
+        max-height: 150px;
+        padding: 8px 4px;
+        line-height: 1.5;
+      }
+
+      .send-btn {
+        background: var(--text);
+        color: white;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+
+      .send-btn:hover:not(:disabled) {
+        transform: scale(1.05);
+        background: var(--accent-1);
+      }
+      .send-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      /* CANVAS BÊN PHẢI */
+      .canvas-panel {
+        width: 320px;
+        background-color: var(--surface-1);
+        border-left: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 45;
+      }
+
+      .canvas-header {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        font-weight: 600;
+      }
+
+      .canvas-body {
+        padding: 16px;
+        overflow-y: auto;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .codearea {
+        width: 100%;
+        height: 200px;
+        resize: vertical;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        font-family: monospace;
+        font-size: 13px;
+        background: var(--bg);
+        outline: none;
+      }
+      .codearea:focus {
+        border-color: var(--accent-1);
+      }
+
+      /* ĐIỀU HƯỚNG RESPONSIVE MOBILE */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+      }
+
+      @media (max-width: 900px) {
+        .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          transform: translateX(-100%);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+
+        .canvas-panel {
+          position: fixed;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          transform: translateX(100%);
+        }
+        .canvas-panel.open {
+          transform: translateX(0);
+        }
+
+        .mobile-overlay.active {
+          display: block;
+        }
+
+        .message-wrapper {
+          padding: 0 8px;
+          gap: 10px;
+        }
+        .avatar {
+          width: 30px;
+          height: 30px;
+        }
+        .message-content {
+          max-width: calc(100% - 40px);
+          font-size: 14.5px;
+        }
+      }
+
+      @media (min-width: 901px) {
+        .menu-toggle-btn {
+          display: none;
+        }
+        /* Mặc định có thể ẩn canvasPanel, click nút mới hiện */
+        .canvas-panel.hidden {
+          display: none;
+        }
+        .sidebar.hidden {
+          display: none;
+        }
+      }
+
+      /* LOADING ANIMATION */
+      .typing-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 0;
+      }
+      .typing-indicator span {
+        width: 6px;
+        height: 6px;
+        background: var(--accent-1);
+        border-radius: 50%;
+        animation: typing 1s infinite;
+      }
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes typing {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.4;
+        }
+        50% {
+          transform: translateY(-4px);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- OVERLAY ĐIỆN THOẠI -->
+      <div class="mobile-overlay" id="mobileOverlay"></div>
+
+      <!-- SIDEBAR TRÁI (LỊCH SỬ) -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button class="new-chat-btn" id="newChatBtn">
+            <i data-lucide="plus" style="width: 18px"></i> Hội thoại mới
+          </button>
+        </div>
+        <div class="history-list" id="historyList">
+          <!-- Item render qua JS -->
+        </div>
+        <div class="sidebar-footer">
+          <button
+            class="new-chat-btn"
+            id="clearHistoryBtn"
+            style="width: 100%; border: none; color: #ef4444"
+          >
+            <i data-lucide="trash-2" style="width: 16px"></i> Xóa toàn bộ lịch
+            sử
+          </button>
+        </div>
+      </aside>
+
+      <!-- KHU VỰC CHAT -->
+      <main class="main-chat">
+        <!-- HEADER TOP -->
+        <header class="top-bar">
+          <div class="top-bar-left">
+            <button class="icon-btn menu-toggle-btn" id="toggleMenuBtn">
+              <i data-lucide="menu"></i>
+            </button>
+            <button
+              class="icon-btn"
+              id="desktopToggleSidebarBtn"
+              style="display: none"
+            >
+              <i data-lucide="panel-left"></i>
+            </button>
+
+            <div class="model-selector">
+              <select id="modelSelect">
+                <option value="">Đang kết nối...</option>
+              </select>
+              <i
+                data-lucide="chevron-down"
+                style="width: 16px; margin-left: -8px; pointer-events: none"
+              ></i>
+            </div>
+          </div>
+
+          <div class="top-bar-right">
+            <span
+              id="statusIndicator"
+              style="
+                font-size: 12px;
+                color: var(--text-muted);
+                margin-right: 8px;
+              "
+              >Sẵn sàng</span
+            >
+            <button class="icon-btn" id="toggleCanvasBtn">
+              <i data-lucide="layout-panel-right"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- DANH SÁCH TIN NHẮN -->
+        <div class="messages-container" id="messagesContainer">
+          <!-- Render tin nhắn qua JS -->
+        </div>
+
+        <!-- THANH NHẬP LIỆU -->
+        <div class="composer-container">
+          <div class="composer-box">
+            <!-- Hiển thị tệp đính kèm -->
+            <div
+              class="attachments-preview"
+              id="attachmentsPreview"
+              style="display: none"
+            ></div>
+
+            <div class="input-row">
+              <div class="attach-btn-wrapper">
+                <button
+                  class="plus-btn"
+                  id="attachTriggerBtn"
+                  title="Đính kèm (Ảnh, Tệp, Code)"
+                >
+                  <i data-lucide="plus"></i>
+                </button>
+                <!-- Input file ẩn -->
+                <input
+                  type="file"
+                  id="fileInput"
+                  multiple
+                  accept="image/*, text/*, .txt, .js, .py, .html, .css, .json, .md"
+                  style="display: none"
+                />
+              </div>
+
+              <textarea
+                class="composer-textarea"
+                id="promptInput"
+                placeholder="Hỏi AI bất kỳ điều gì..."
+                rows="1"
+              ></textarea>
+
+              <button class="send-btn" id="sendBtn">
+                <i data-lucide="arrow-up" style="width: 20px"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- CANVAS PHẢI (CODE NGỮ CẢNH) -->
+      <aside class="canvas-panel hidden" id="canvasPanel">
+        <div class="canvas-header">
+          <span>Khung Code Ngữ Cảnh</span>
+          <button
+            class="icon-btn"
+            id="closeCanvasBtn"
+            style="width: 30px; height: 30px"
+          >
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="canvas-body">
+          <p style="font-size: 13px; color: var(--text-muted)">
+            Dán mã nguồn tại đây. Nội dung sẽ được tự động gộp vào tin nhắn gửi
+            AI.
+          </p>
+          <textarea
+            class="codearea"
+            id="codeCanvas"
+            placeholder="// Dán code vào đây..."
+          ></textarea>
+          <button
+            class="new-chat-btn"
+            id="clearCanvasBtn"
+            style="justify-content: center"
+          >
+            Xóa Code
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <script>
+      // ================= CẤU HÌNH API =================
+      const API_BASE_URL = "https://token-plan-sgp.xiaomimimo.com/v1";
+      const API_KEY = "tp-sba1w8pzujcxs330ifcrvnq0wh6kem7mz3ld15t5qn4bxzzn";
+      const AUTH_MODE = "bearer";
+      const DEFAULT_MODEL = "";
+
+      const STORAGE_KEY = "gemini_orange_sessions_v2";
+      const MODEL_CACHE_KEY = "gemini_orange_model_v2";
+      const SESSION_ID = `session_${Date.now()}`;
+
+      // ================= DOM ELEMENTS =================
+      const messagesContainer = document.getElementById("messagesContainer");
+      const promptInput = document.getElementById("promptInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const modelSelect = document.getElementById("modelSelect");
+      const historyList = document.getElementById("historyList");
+      const statusIndicator = document.getElementById("statusIndicator");
+
+      const fileInput = document.getElementById("fileInput");
+      const attachTriggerBtn = document.getElementById("attachTriggerBtn");
+      const attachmentsPreview = document.getElementById("attachmentsPreview");
+
+      const sidebar = document.getElementById("sidebar");
+      const canvasPanel = document.getElementById("canvasPanel");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const toggleMenuBtn = document.getElementById("toggleMenuBtn");
+      const toggleCanvasBtn = document.getElementById("toggleCanvasBtn");
+      const closeCanvasBtn = document.getElementById("closeCanvasBtn");
+      const desktopToggleSidebarBtn = document.getElementById(
+        "desktopToggleSidebarBtn",
+      );
+      const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+      const newChatBtn = document.getElementById("newChatBtn");
+
+      const codeCanvas = document.getElementById("codeCanvas");
+      const clearCanvasBtn = document.getElementById("clearCanvasBtn");
+
+      // ================= STATE =================
+      let attachedFiles = [];
+      let sessions = loadStoredSessions();
+      let activeSessionId = sessions[0]?.id || SESSION_ID;
+      let isBusy = false;
+
+      // ================= KHỞI TẠO =================
+      lucide.createIcons();
+
+      // Auto resize textarea
+      promptInput.addEventListener("input", function () {
+        this.style.height = "auto";
+        this.style.height = this.scrollHeight + "px";
+        if (this.value.trim() === "") this.style.height = "auto";
+      });
+
+      // Show Desktop Sidebar toggle button if screen is wide
+      if (window.innerWidth > 900) {
+        desktopToggleSidebarBtn.style.display = "flex";
+      }
+
+      const activeSession = () => {
+        let s = sessions.find((x) => x.id === activeSessionId);
+        if (!s) {
+          s = {
+            id: activeSessionId,
+            title: "Hội thoại mới",
+            messages: [],
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            model: DEFAULT_MODEL || getStoredModel() || "",
+          };
+          sessions.unshift(s);
+        }
+        return s;
+      };
+
+      // ================= HÀM TIỆN ÍCH =================
+      function getStoredModel() {
+        try {
+          return localStorage.getItem(MODEL_CACHE_KEY) || "";
+        } catch {
+          return "";
+        }
+      }
+      function setStoredModel(val) {
+        try {
+          localStorage.setItem(MODEL_CACHE_KEY, val || "");
+        } catch {}
+      }
+      function loadStoredSessions() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch {
+          return [];
+        }
+      }
+      function persistSessions() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+        } catch {}
+      }
+
+      function authHeaders() {
+        const headers = { "Content-Type": "application/json" };
+        if (AUTH_MODE === "bearer" && API_KEY)
+          headers.Authorization = `Bearer ${API_KEY}`;
+        if (AUTH_MODE === "x-api-key" && API_KEY)
+          headers["x-api-key"] = API_KEY;
+        return headers;
+      }
+
+      // ================= GỌI MODEL API =================
+      async function loadModels() {
+        statusIndicator.textContent = "Đang kết nối...";
+        try {
+          const res = await fetch(`${API_BASE_URL.replace(/\/$/, "")}/models`, {
+            headers: authHeaders(),
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          let models = Array.isArray(data.data)
+            ? data.data.map((item) => item.id || item.name || item)
+            : Array.isArray(data)
+              ? data
+              : [];
+
+          const chosen = DEFAULT_MODEL || getStoredModel() || models[0] || "";
+          activeSession().model = chosen;
+          setStoredModel(chosen);
+
+          modelSelect.innerHTML = models
+            .map((m) => `<option value="${m}">${m}</option>`)
+            .join("");
+          if (chosen) modelSelect.value = chosen;
+          statusIndicator.textContent = "Sẵn sàng";
+        } catch (err) {
+          statusIndicator.textContent = "Lỗi kết nối API";
+          const fallback = DEFAULT_MODEL || getStoredModel() || "";
+          modelSelect.innerHTML = fallback
+            ? `<option value="${fallback}">${fallback}</option>`
+            : `<option value="">Trống</option>`;
+        }
+      }
+
+      modelSelect.addEventListener("change", (e) => {
+        const val = e.target.value;
+        activeSession().model = val;
+        setStoredModel(val);
+        persistSessions();
+      });
+
+      // ================= RENDER UI CHAT & HISTORY =================
+      function renderHistory() {
+        historyList.innerHTML = "";
+        sessions.forEach((session) => {
+          if (session.messages.length === 0 && session.id !== activeSessionId)
+            return; // Ẩn phiên rỗng
+
+          const div = document.createElement("div");
+          div.className = `history-item ${session.id === activeSessionId ? "active" : ""}`;
+
+          const date = new Date(session.updatedAt).toLocaleDateString("vi-VN", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          div.innerHTML = `
+            <span class="title">${session.title}</span>
+            <span class="date">${date}</span>
+          `;
+          div.onclick = () => {
+            activeSessionId = session.id;
+            if (window.innerWidth <= 900) toggleMobileMenu(false);
+            renderChat();
+            renderHistory();
+          };
+          historyList.appendChild(div);
+        });
+      }
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function renderChat() {
+        messagesContainer.innerHTML = "";
+        const session = activeSession();
+
+        if (session.messages.length === 0) {
+          messagesContainer.innerHTML = `
+            <div style="height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; opacity: 0.5;">
+              <i data-lucide="sparkles" style="width: 48px; height: 48px; color: var(--accent-1); margin-bottom: 16px;"></i>
+              <h3>Hôm nay tôi có thể giúp gì cho bạn?</h3>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        session.messages.forEach((msg) => {
+          const wrapper = document.createElement("div");
+          wrapper.className = `message-wrapper ${msg.role === "user" ? "user" : "ai"}`;
+
+          const avatarIcon = msg.role === "user" ? "user" : "sparkles";
+          const avatarClass = msg.role === "user" ? "user" : "ai";
+
+          let contentHtml = "";
+
+          if (msg.pending) {
+            contentHtml = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+          } else {
+            // Render text with Markdown
+            const textToRender = msg.content || "";
+            // Cấu hình marked.js an toàn
+            contentHtml = `<div class="markdown-body">${marked.parse(textToRender)}</div>`;
+
+            // Render hình ảnh & file đính kèm dưới dạng giao diện
+            let mediaHtml = "";
+            if (msg.images && msg.images.length > 0) {
+              mediaHtml += `<div class="msg-media-grid">`;
+              msg.images.forEach(
+                (img) => (mediaHtml += `<img src="${img}" />`),
+              );
+              mediaHtml += `</div>`;
+            }
+            if (msg.files && msg.files.length > 0) {
+              mediaHtml += `<div class="msg-media-grid">`;
+              msg.files.forEach((f) => {
+                mediaHtml += `<div class="attachment-chip"><i data-lucide="file-text" style="width:14px;"></i> ${escapeHtml(f)}</div>`;
+              });
+              mediaHtml += `</div>`;
+            }
+            contentHtml += mediaHtml;
+          }
+
+          wrapper.innerHTML = `
+            <div class="avatar ${avatarClass}">
+              <i data-lucide="${avatarIcon}" style="width: 20px;"></i>
+            </div>
+            <div class="message-content">
+              ${contentHtml}
+            </div>
+          `;
+          messagesContainer.appendChild(wrapper);
+        });
+
+        lucide.createIcons();
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Render Toán học MathJax
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise([messagesContainer]).catch(() => {});
+        }
+      }
+
+      // ================= XỬ LÝ FILE & ẢNH ĐÍNH KÈM =================
+      attachTriggerBtn.onclick = () => fileInput.click();
+
+      fileInput.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach((file) => {
+          const reader = new FileReader();
+          const isImg = file.type.startsWith("image/");
+
+          reader.onload = (evt) => {
+            attachedFiles.push({
+              name: file.name,
+              type: file.type,
+              isImage: isImg,
+              data: evt.target.result, // Base64 cho ảnh, text cho tệp thường
+            });
+            renderAttachmentsUI();
+          };
+
+          if (isImg) reader.readAsDataURL(file);
+          else reader.readAsText(file);
+        });
+        fileInput.value = "";
+      });
+
+      function renderAttachmentsUI() {
+        attachmentsPreview.innerHTML = "";
+        if (attachedFiles.length === 0) {
+          attachmentsPreview.style.display = "none";
+          return;
+        }
+        attachmentsPreview.style.display = "flex";
+        attachedFiles.forEach((file, idx) => {
+          const chip = document.createElement("div");
+          chip.className = "attachment-chip";
+          const icon = file.isImage ? "image" : "file-text";
+          chip.innerHTML = `
+            <i data-lucide="${icon}" style="width: 14px;"></i>
+            <span>${escapeHtml(file.name).substring(0, 20)}</span>
+            <button onclick="removeFile(${idx})"><i data-lucide="x" style="width:14px;"></i></button>
+          `;
+          attachmentsPreview.appendChild(chip);
+        });
+        lucide.createIcons();
+      }
+
+      window.removeFile = (idx) => {
+        attachedFiles.splice(idx, 1);
+        renderAttachmentsUI();
+      };
+
+      // ================= LOGIC GỬI TIN NHẮN (FIX LỖI 404 IMAGE API) =================
+
+      // Xây dựng Payload gửi đi dạng Text thuần (Ép chuỗi Base64 ảnh vào văn bản để lách luật 404)
+      function buildPayloadContent(userText) {
+        let finalStr = userText || "";
+
+        // Gộp Text files
+        const textFiles = attachedFiles.filter((f) => !f.isImage);
+        textFiles.forEach((tf) => {
+          finalStr += `\n\n[Tệp đính kèm: ${tf.name}]\n\`\`\`\n${tf.data}\n\`\`\``;
+        });
+
+        // Gộp Code Canvas
+        const canvasCode = codeCanvas.value.trim();
+        if (canvasCode) {
+          finalStr += `\n\n[Mã nguồn đính kèm từ Canvas]\n\`\`\`\n${canvasCode}\n\`\`\``;
+        }
+
+        // TỰ ĐỘNG CHUYỂN ẢNH SANG BASE64 DẠNG TEXT ĐỂ TRÁNH LỖI 404 API KHÔNG HỖ TRỢ VISION
+        const imageFiles = attachedFiles.filter((f) => f.isImage);
+        if (imageFiles.length > 0) {
+          finalStr += `\n\n[Dữ liệu hình ảnh được chuyển thành Base64 để phân tích]:\n`;
+          imageFiles.forEach((img, i) => {
+            finalStr += `Ảnh ${i + 1} (${img.name}): ${img.data}\n`;
+          });
+        }
+
+        return finalStr.trim();
+      }
+
+      async function callAI(text) {
+        const session = activeSession();
+        const model = session.model || DEFAULT_MODEL || getStoredModel();
+
+        // Chuẩn bị mảng lịch sử chat (chỉ lấy role và content dạng text)
+        const history = session.messages
+          .filter(
+            (m) => !m.pending && (m.role === "user" || m.role === "assistant"),
+          )
+          .map((m) => ({ role: m.role, content: m.content }));
+
+        const newContent = buildPayloadContent(text);
+        history.push({ role: "user", content: newContent });
+
+        const res = await fetch(
+          `${API_BASE_URL.replace(/\/$/, "")}/chat/completions`,
+          {
+            method: "POST",
+            headers: authHeaders(),
+            body: JSON.stringify({
+              model,
+              messages: history,
+              temperature: 0.7,
+            }),
+          },
+        );
+
+        if (!res.ok) throw new Error(await res.text().catch(() => ""));
+        const data = await res.json();
+        return (
+          data?.choices?.[0]?.message?.content ||
+          data?.reply ||
+          "Không có phản hồi từ AI"
+        );
+      }
+
+      async function handleSend() {
+        const text = promptInput.value.trim();
+        const hasAttach =
+          attachedFiles.length > 0 || codeCanvas.value.trim() !== "";
+
+        if ((!text && !hasAttach) || isBusy) return;
+
+        // Reset UI
+        promptInput.value = "";
+        promptInput.style.height = "auto";
+
+        // Lưu thông tin phục vụ UI
+        const imageSrcs = attachedFiles
+          .filter((f) => f.isImage)
+          .map((f) => f.data);
+        const fileNames = attachedFiles
+          .filter((f) => !f.isImage)
+          .map((f) => f.name);
+        if (codeCanvas.value.trim()) fileNames.push("Code Canvas");
+
+        const session = activeSession();
+        if (session.messages.length === 0) {
+          session.title = text ? text.substring(0, 30) : "Phân tích tài liệu";
+        }
+
+        session.messages.push({
+          role: "user",
+          content: text || "Vui lòng phân tích dữ liệu đính kèm",
+          images: imageSrcs,
+          files: fileNames,
+        });
+
+        const pendingId = Date.now();
+        session.messages.push({
+          role: "assistant",
+          content: "",
+          pending: true,
+          id: pendingId,
+        });
+
+        isBusy = true;
+        sendBtn.disabled = true;
+        renderChat();
+        renderHistory();
+
+        try {
+          const reply = await callAI(text);
+          const pIdx = session.messages.findIndex((m) => m.id === pendingId);
+          if (pIdx >= 0) session.messages.splice(pIdx, 1);
+
+          session.messages.push({ role: "assistant", content: reply });
+        } catch (err) {
+          const pIdx = session.messages.findIndex((m) => m.id === pendingId);
+          if (pIdx >= 0) session.messages.splice(pIdx, 1);
+          session.messages.push({
+            role: "assistant",
+            content: `**Lỗi Hệ Thống:** \n\`\`\`json\n${err.message}\n\`\`\``,
+          });
+        } finally {
+          session.updatedAt = Date.now();
+          attachedFiles = [];
+          renderAttachmentsUI();
+          isBusy = false;
+          sendBtn.disabled = false;
+          persistSessions();
+          renderChat();
+          renderHistory();
+        }
+      }
+
+      sendBtn.onclick = handleSend;
+      promptInput.onkeydown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          handleSend();
+        }
+      };
+
+      // ================= ĐIỀU HƯỚNG BẢNG ĐIỀU KHIỂN & MOBILE =================
+      function toggleMobileMenu(forceState) {
+        const isOpen = sidebar.classList.contains("open");
+        const newState = forceState !== undefined ? forceState : !isOpen;
+        if (newState) {
+          sidebar.classList.add("open");
+          mobileOverlay.classList.add("active");
+          canvasPanel.classList.remove("open");
+        } else {
+          sidebar.classList.remove("open");
+          mobileOverlay.classList.remove("active");
+        }
+      }
+
+      function toggleCanvas(forceState) {
+        if (window.innerWidth <= 900) {
+          const isOpen = canvasPanel.classList.contains("open");
+          const newState = forceState !== undefined ? forceState : !isOpen;
+          if (newState) {
+            canvasPanel.classList.add("open");
+            mobileOverlay.classList.add("active");
+            sidebar.classList.remove("open");
+          } else {
+            canvasPanel.classList.remove("open");
+            mobileOverlay.classList.remove("active");
+          }
+        } else {
+          canvasPanel.classList.toggle("hidden");
+        }
+      }
+
+      toggleMenuBtn.onclick = () => toggleMobileMenu();
+      desktopToggleSidebarBtn.onclick = () =>
+        sidebar.classList.toggle("hidden");
+      toggleCanvasBtn.onclick = () => toggleCanvas();
+      closeCanvasBtn.onclick = () => toggleCanvas(false);
+      mobileOverlay.onclick = () => {
+        toggleMobileMenu(false);
+        toggleCanvas(false);
+      };
+
+      clearCanvasBtn.onclick = () => {
+        codeCanvas.value = "";
+      };
+
+      newChatBtn.onclick = () => {
+        activeSessionId = `session_${Date.now()}`;
+        activeSession();
+        if (window.innerWidth <= 900) toggleMobileMenu(false);
+        renderChat();
+        renderHistory();
+      };
+
+      clearHistoryBtn.onclick = () => {
+        if (confirm("Bạn chắc chắn muốn xóa toàn bộ lịch sử?")) {
+          sessions = [];
+          activeSessionId = `session_${Date.now()}`;
+          localStorage.removeItem(STORAGE_KEY);
+          activeSession();
+          renderChat();
+          renderHistory();
+        }
+      };
+
+      // ================= KHỞI TẠO CHƯƠNG TRÌNH =================
+      loadModels();
+      renderHistory();
+      renderChat();
+    </script>
+  </body>
+</html>

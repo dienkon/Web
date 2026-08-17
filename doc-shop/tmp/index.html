@@ -1,0 +1,4541 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DkDocShop - Nền tảng Tài Liệu Số</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+            colors: {
+              primary: {
+                50: "#f0fdf4",
+                100: "#dcfce7",
+                500: "#22c55e",
+                600: "#16a34a",
+                700: "#15803d",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+        overflow: hidden;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .hide-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+      .glass {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+  <body class="text-gray-800 flex h-screen w-screen">
+    <aside
+      id="sidebar"
+      class="fixed md:static inset-y-0 left-0 z-40 w-72 md:w-64 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:flex shadow-lg md:shadow-sm"
+    >
+      <div class="p-5 border-b border-gray-100 flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-xl bg-primary-500 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-primary-500/30"
+        >
+          <i class="fas fa-book-open"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800 tracking-tight"
+          >DkDocShop</span
+        >
+      </div>
+      <nav
+        class="flex-1 overflow-y-auto py-4 px-3 space-y-1 hide-scroll"
+        id="nav-menu"
+      >
+        <!-- Nav items injected via JS -->
+      </nav>
+      <div class="p-4 border-t border-gray-100" id="sidebar-auth-section">
+        <!-- Auth section injected via JS -->
+      </div>
+    </aside>
+
+    <div
+      id="mobile-sidebar-overlay"
+      class="fixed inset-0 bg-black/40 z-30 hidden md:hidden"
+    ></div>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+      <header
+        class="h-16 bg-white glass border-b border-gray-200 flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0 shadow-sm"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden text-gray-500 hover:text-primary-600 focus:outline-none"
+            onclick="openSidebar()"
+          >
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+          <div class="relative sm:block w-64 lg:w-96">
+            <i
+              class="fas fa-search absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400"
+            ></i>
+            <input
+              type="text"
+              id="global-search"
+              placeholder="Tìm tài liệu, môn học..."
+              class="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all"
+            />
+          </div>
+        </div>
+        <div class="flex items-center gap-4" id="header-user-info">
+          <!-- Wallet & Avatar injected via JS -->
+        </div>
+      </header>
+
+      <div
+        id="content-area"
+        class="flex-1 overflow-y-auto p-4 lg:p-8 relative bg-gray-50"
+      >
+        <!-- View: Landing -->
+        <div id="view-landing" class="view-section fade-in hidden">
+          <div
+            class="bg-gradient-to-r from-primary-600 to-primary-500 rounded-3xl p-8 lg:p-16 text-white shadow-xl mb-8 relative overflow-hidden"
+          >
+            <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
+              <i
+                class="fas fa-graduation-cap text-[15rem] -mt-10 -mr-10 transform rotate-12"
+              ></i>
+            </div>
+            <div class="relative z-10 max-w-2xl">
+              <h1 class="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                Kho Tài Liệu Số Học Tập Chất Lượng Cao
+              </h1>
+              <p class="text-primary-50 text-lg mb-8">
+                Tìm kiếm, tải xuống và chia sẻ hàng ngàn tài liệu, đề thi, giáo
+                trình được kiểm duyệt kỹ lưỡng.
+              </p>
+              <button
+                onclick="nav('home')"
+                class="bg-white text-primary-600 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-gray-50 transition-all transform hover:-translate-y-1"
+              >
+                Khám phá ngay
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div
+              class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-xl shrink-0"
+              >
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-1">
+                  Kiểm duyệt kỹ lưỡng
+                </h3>
+                <p class="text-sm text-gray-500">
+                  Mọi tài liệu đều được admin duyệt thủ công.
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center text-xl shrink-0"
+              >
+                <i class="fas fa-wallet"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-1">
+                  Thanh toán tiện lợi
+                </h3>
+                <p class="text-sm text-gray-500">
+                  Ví nội bộ thông minh, nạp rút nhanh chóng.
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-purple-50 text-purple-500 flex items-center justify-center text-xl shrink-0"
+              >
+                <i class="fas fa-bolt"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-1">Tải xuống tức thì</h3>
+                <p class="text-sm text-gray-500">
+                  Truy cập file gốc ngay sau khi thanh toán.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View: Home -->
+        <div id="view-home" class="view-section fade-in hidden">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4"
+          >
+            <h2 class="text-2xl font-bold text-gray-800">Khám phá tài liệu</h2>
+            <div
+              id="keyword-filter-bar"
+              class="flex gap-2 w-full md:w-auto overflow-x-auto hide-scroll pb-2"
+            ></div>
+          </div>
+          
+        <div id="featured-docs-section" class="mb-8 hidden">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-xl font-bold text-gray-800">Tài liệu nổi bật</h3>
+             
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="featured-docs-prev" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-700 shadow-sm hover:bg-gray-50"><i class="fas fa-chevron-left"></i></button>
+              <button type="button" id="featured-docs-next" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-700 shadow-sm hover:bg-gray-50"><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-primary-700 shadow-2xl">
+            <div id="featured-docs-track" class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scroll"></div>
+          </div>
+          <div id="featured-docs-dots" class="flex justify-center gap-2 mt-4"></div>
+        </div>
+
+        <div
+            id="docs-grid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            <!-- Docs injected via JS -->
+          </div>
+        </div>
+
+        <!-- View: Document Detail -->
+        <div
+          id="view-doc-detail"
+          class="view-section fade-in hidden max-w-5xl mx-auto"
+        >
+          <button
+            onclick="nav('home')"
+            class="mb-4 text-gray-500 hover:text-primary-600 flex items-center gap-2"
+          >
+            <i class="fas fa-arrow-left"></i> Quay lại
+          </button>
+          <div
+            id="doc-detail-content"
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+          >
+            <!-- Content injected via JS -->
+          </div>
+        </div>
+
+        <!-- View: Profile & Setup -->
+        <div
+          id="view-profile"
+          class="view-section fade-in hidden max-w-2xl mx-auto"
+        >
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Hồ sơ cá nhân</h2>
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8"
+          >
+            <div
+              id="profile-status-banner"
+              class="mb-6 p-4 rounded-xl text-sm font-medium"
+            ></div>
+            <form id="profile-form" class="space-y-4">
+              <div class="flex items-center gap-4 mb-6">
+                <img
+                  id="profile-avatar"
+                  src="https://placehold.co/100"
+                  class="w-20 h-20 rounded-full border-2 border-primary-100 object-cover"
+                />
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Ảnh đại diện (upload)</label
+                  >
+                  <input
+                    type="file"
+                    id="prof-avatar-file"
+                    accept="image/*"
+                    class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-primary-500 focus:border-primary-500"
+                  />
+                  <input type="hidden" id="prof-avatar-url" />
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Họ và tên <span class="text-red-500">*</span></label
+                >
+                <input
+                  type="text"
+                  id="prof-name"
+                  required
+                  class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+                />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Lớp/Khối <span class="text-red-500">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="prof-class"
+                    placeholder="VD: 12A1"
+                    required
+                    class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Trường</label
+                  >
+                  <input
+                    type="text"
+                    id="prof-school"
+                    class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-primary-600 text-white font-medium py-3 rounded-lg hover:bg-primary-700 transition mt-4"
+              >
+                Cập nhật hồ sơ & Yêu cầu duyệt
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- View: Wallet -->
+        <div
+          id="view-wallet"
+          class="view-section fade-in hidden max-w-4xl mx-auto"
+        >
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Ví của tôi</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div
+              class="bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden"
+            >
+              <i
+                class="fas fa-wallet absolute -right-4 -bottom-4 text-7xl opacity-20"
+              ></i>
+              <p class="text-primary-100 text-sm font-medium mb-1">
+                Số dư hiện tại
+              </p>
+              <h3 class="text-3xl font-bold" id="wallet-balance-display">
+                0 đ
+              </h3>
+            </div>
+            <div
+              class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-center"
+            >
+              <h3 class="font-bold text-gray-800 mb-4">Nạp tiền vào ví</h3>
+              <form id="deposit-form" class="flex gap-4">
+                <div class="flex-1">
+                  <input
+                    type="number"
+                    id="deposit-amount"
+                    min="1000"
+                    step="1000"
+                    placeholder="Nhập số tiền"
+                    required
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-primary-500 focus:border-primary-500"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="bg-gray-800 text-white px-6 py-3 rounded-xl hover:bg-gray-900 transition whitespace-nowrap font-medium"
+                >
+                  Nạp
+                </button>
+              </form>
+              <!-- <p class="text-xs text-gray-500 mt-2">
+                <i class="fas fa-info-circle"></i> Yêu cầu nạp sẽ được gửi tới
+                Admin để duyệt thủ công qua Discord.
+              </p> -->
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+          >
+            <div class="px-6 py-4 border-b border-gray-100">
+              <h3 class="font-bold text-gray-800">Lịch sử giao dịch</h3>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50 text-gray-600">
+                  <tr>
+                    <th class="px-6 py-3">Mã GD</th>
+                    <th class="px-6 py-3">Loại</th>
+                    <th class="px-6 py-3">Số tiền</th>
+                    <th class="px-6 py-3">Thời gian</th>
+                    <th class="px-6 py-3">Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="tx-history-body"
+                  class="divide-y divide-gray-100"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- View: Admin Dashboard -->
+        <div id="view-admin" class="view-section fade-in hidden">
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4"
+          >
+            <h2 class="text-2xl font-bold text-gray-800">Admin Dashboard</h2>
+            <div class="flex flex-col md:items-end gap-3 w-full md:w-auto">
+              <div class="flex gap-2 bg-white p-1 rounded-lg shadow-sm border border-gray-100 w-full md:w-auto overflow-x-auto">
+                <button class="admin-tab-btn active px-4 py-2 rounded-md text-sm font-medium bg-primary-50 text-primary-600" data-target="admin-overview">Tổng quan</button>
+                <button class="admin-tab-btn px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50" data-target="admin-docs">Tài liệu</button>
+                <button class="admin-tab-btn px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50" data-target="admin-users">Người dùng</button>
+                <button class="admin-tab-btn px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50" data-target="admin-tx">Giao dịch</button>
+                <button class="admin-tab-btn px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50" data-target="admin-reports">Báo cáo</button>
+              </div>
+              <div class="w-full md:w-96">
+                <div class="relative">
+                  <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                  <input id="admin-search-input" type="text" placeholder="Tìm kiếm trong tab admin hiện tại..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Admin: Overview -->
+          <div id="admin-overview" class="admin-panel block">
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8"
+            >
+              <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm">Tổng người dùng</p>
+                <h3 class="text-2xl font-bold text-gray-800 mt-1" id="stat-users">0</h3>
+              </div>
+              <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm">Tổng tài liệu</p>
+                <h3 class="text-2xl font-bold text-gray-800 mt-1" id="stat-docs">0</h3>
+              </div>
+              <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm">Tổng doanh thu</p>
+                <h3 class="text-2xl font-bold text-primary-600 mt-1" id="stat-revenue">0đ</h3>
+              </div>
+              <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm">Nạp chờ duyệt</p>
+                <h3 class="text-2xl font-bold text-orange-500 mt-1" id="stat-pending-tx">0</h3>
+              </div>
+              <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm">Lượt click key</p>
+                <h3 class="text-2xl font-bold text-blue-600 mt-1" id="stat-key-clicks">0</h3>
+              </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-3">
+                <h3 class="font-bold text-gray-800">Thống kê click / sử dụng key</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                  <thead class="bg-gray-50 text-gray-600">
+                    <tr>
+                      <th class="px-4 py-3">Thời gian</th>
+                      <th class="px-4 py-3">User</th>
+                      <th class="px-4 py-3">Tài liệu</th>
+                      <th class="px-4 py-3">Loại</th>
+                      <th class="px-4 py-3">Key</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-key-logs-body" class="divide-y divide-gray-100"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Admin: Documents -->
+          <div id="admin-docs" class="admin-panel hidden">
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6"
+            >
+              <h3 id="admin-doc-form-title" class="font-bold text-gray-800 mb-4">Đăng tài liệu mới</h3>
+              <form
+                id="admin-doc-form"
+                class="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                <div class="md:col-span-2">
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Tên tài liệu *</label
+                  ><input
+                    type="text"
+                    id="adoc-title"
+                    required
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Mô tả ngắn</label
+                  ><textarea
+                    id="adoc-desc"
+                    rows="2"
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  ></textarea>
+                </div>
+<div class="md:col-span-2">
+                  <div class="flex items-center justify-between mb-2">
+                    <label class="block text-xs text-gray-500">Tên phân loại</label>
+                    <button type="button" id="add-doc-category-row" class="px-3 py-1.5 rounded-lg bg-primary-50 text-primary-600 text-xs font-medium"><i class="fas fa-plus"></i> Thêm phân loại</button>
+                  </div>
+                  <div id="adoc-categories-list" class="space-y-2"></div>
+                  <datalist id="doc-category-options"></datalist>
+                  <p class="mt-2 text-xs text-gray-400">Mỗi tài liệu có thể gắn nhiều phân loại, dùng để lọc và hiển thị trên banner.</p>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Lớp/Khối</label
+                  ><input
+                    type="text"
+                    id="adoc-grade"
+                    placeholder="10, 11, 12, Đại học..."
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Giá (VND) * - Để 0 nếu miễn phí</label
+                  ><input
+                    type="number"
+                    id="adoc-price"
+                    value="0"
+                    min="0"
+                    required
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Ảnh bìa (upload trực tiếp)</label
+                  ><input
+                    type="file"
+                    id="adoc-thumb-file"
+                    accept="image/*"
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  />
+                  <input type="hidden" id="adoc-thumb" />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Ảnh xem trước / watermark (upload)</label
+                  ><input
+                    type="file"
+                    id="adoc-preview-file"
+                    accept="image/*"
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  />
+                  <input type="hidden" id="adoc-preview" />
+                </div>
+                <div class="md:col-span-2">
+                  <div class="flex items-center justify-between mb-2">
+                    <label class="block text-xs text-gray-500">Link tài liệu</label>
+                    <button type="button" id="add-doc-link-row" class="px-3 py-1.5 rounded-lg bg-primary-50 text-primary-600 text-xs font-medium"><i class="fas fa-plus"></i> Thêm link</button>
+                  </div>
+                  <div id="adoc-links-list" class="space-y-2"></div>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1"
+                    >Mã key pool (UniqueKey)</label
+                  ><input
+                    type="text"
+                    id="adoc-key-pool"
+                    placeholder="default"
+                    class="w-full px-3 py-2 border rounded-lg text-sm"
+                  />
+                </div>
+                <div class="md:col-span-2 flex flex-wrap justify-end gap-2">
+                  <button
+                    type="button"
+                    id="clone-admin-form"
+                    class="bg-gray-100 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-200"
+                  >
+                    Clone bản nhập
+                  </button>
+                  <button
+                    type="submit"
+                    id="admin-doc-submit-btn"
+                    class="bg-primary-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-primary-700"
+                  >
+                    Đăng tài liệu
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+            >
+              <div class="px-6 py-4 border-b border-gray-100">
+                <h3 class="font-bold text-gray-800">Quản lý tài liệu</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-4 py-3">Tài liệu</th>
+                      <th class="px-4 py-3">Phân loại / Từ khóa</th>
+                      <th class="px-4 py-3">Giá</th>
+                      <th class="px-4 py-3">Lượt mua</th>
+                      <th class="px-4 py-3">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="admin-docs-body"
+                    class="divide-y divide-gray-100"
+                  ></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Admin: Users -->
+          <div
+            id="admin-users"
+            class="admin-panel hidden bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+          >
+            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-3">
+              <h3 class="font-bold text-gray-800">Kiểm duyệt người dùng</h3>
+              <div class="text-xs text-gray-500">Tìm theo tên, email, lớp, trường</div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-4 py-3">User</th>
+                    <th class="px-4 py-3">Avatar</th>
+                    <th class="px-4 py-3">Email</th>
+                    <th class="px-4 py-3">Lớp/Trường</th>
+                    <th class="px-4 py-3">Ví</th>
+                    <th class="px-4 py-3">Còn thiếu</th>
+                    <th class="px-4 py-3">Trạng thái</th>
+                    <th class="px-4 py-3">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="admin-users-body"
+                  class="divide-y divide-gray-100"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Admin: Transactions -->
+          <div id="admin-tx" class="admin-panel hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div class="px-6 py-4 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3">
+                <h3 class="font-bold text-gray-800">Giao dịch</h3>
+                <div class="flex gap-2 bg-gray-50 p-1 rounded-lg border border-gray-100">
+                  <button type="button" class="tx-tab-btn active px-4 py-2 rounded-md text-sm font-medium bg-primary-50 text-primary-600" data-target="admin-tx-deposit">Nạp tiền</button>
+                  <button type="button" class="tx-tab-btn px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100" data-target="admin-tx-consume">Tiêu dùng</button>
+                </div>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-4 py-3">Mã/Ngày</th>
+                      <th class="px-4 py-3">User</th>
+                      <th class="px-4 py-3">Số tiền</th>
+                      <th class="px-4 py-3">Trạng thái</th>
+                      <th class="px-4 py-3">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-tx-deposit" class="divide-y divide-gray-100"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hidden">
+              <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-3">
+                <h3 class="font-bold text-gray-800">Tiêu dùng</h3>
+                <div class="flex gap-2 bg-gray-50 p-1 rounded-lg border border-gray-100">
+                  <button type="button" class="tx-tab-btn px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-100" data-target="admin-tx-deposit">Nạp tiền</button>
+                  <button type="button" class="tx-tab-btn active px-4 py-2 rounded-md text-sm font-medium bg-primary-50 text-primary-600" data-target="admin-tx-consume">Tiêu dùng</button>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">Mua tài liệu</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-4 py-3">Mã/Ngày</th>
+                      <th class="px-4 py-3">User</th>
+                      <th class="px-4 py-3">Tài liệu</th>
+                      <th class="px-4 py-3">Số tiền</th>
+                      <th class="px-4 py-3">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-tx-consume" class="divide-y divide-gray-100"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        <!-- Admin: Reports -->
+        <div
+          id="admin-reports"
+          class="admin-panel hidden bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+        >
+          <div class="px-6 py-4 border-b border-gray-100">
+            <h3 class="font-bold text-gray-800">Báo cáo tài liệu / lỗi key</h3>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-4 py-3">User</th>
+                  <th class="px-4 py-3">Tài liệu</th>
+                  <th class="px-4 py-3">Loại</th>
+                  <th class="px-4 py-3">Trạng thái</th>
+                  <th class="px-4 py-3">Hành động</th>
+                </tr>
+              </thead>
+              <tbody
+                id="admin-reports-body"
+                class="divide-y divide-gray-100"
+              ></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- View: Purchased -->
+        <div id="view-purchased" class="view-section fade-in hidden">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Tài liệu đã mua</h2>
+          <div
+            id="purchased-grid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <button
+      id="chatbot-launcher"
+      class="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-primary-600 text-white shadow-2xl shadow-primary-600/30 flex items-center justify-center hover:bg-primary-700 transition"
+    >
+      <i class="fas fa-headset text-xl"></i>
+    </button>
+
+    <div
+      id="chatbot-panel"
+      class="fixed bottom-24 right-5 z-40 w-[min(92vw,380px)] max-h-[70vh] hidden"
+    >
+      <div
+        class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col min-h-0"
+      >
+        <div
+          class="p-4 bg-primary-600 text-white flex items-center justify-between"
+        >
+          <div>
+            <p class="font-semibold">Trợ lý DkDocShop</p>
+            <p class="text-xs text-primary-100">
+              Tư vấn mua, nạp, key, báo lỗi
+            </p>
+          </div>
+          <button id="chatbot-close" class="text-white/90 hover:text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div
+          id="chatbot-messages"
+          class="p-4 space-y-3 overflow-y-auto bg-gray-50 flex-1 min-h-0 max-h-[48vh]"
+        ></div>
+        <div class="p-3 border-t border-gray-100 bg-white">
+          <div class="flex gap-2">
+            <input
+              id="chatbot-input"
+              type="text"
+              placeholder="Nhập câu hỏi..."
+              class="flex-1 px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+            />
+            <button
+              id="chatbot-send"
+              class="px-4 py-2 rounded-xl bg-primary-600 text-white font-medium text-sm"
+            >
+              Gửi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="custom-modal"
+      class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 transform scale-95 transition-transform"
+        id="modal-content-box"
+      >
+        <div
+          id="modal-icon"
+          class="w-16 h-16 rounded-full mx-auto flex items-center justify-center text-2xl mb-4"
+        ></div>
+        <h3
+          id="modal-title"
+          class="text-xl font-bold text-center text-gray-800 mb-2"
+        ></h3>
+        <div
+          id="modal-message"
+          class="text-left text-gray-600 text-sm mb-6"
+        ></div>
+        <div class="flex justify-center gap-3" id="modal-actions">
+          <button
+            onclick="closeModal()"
+            class="px-6 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        signInWithCustomToken,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        update,
+        push,
+        onValue,
+        query,
+        orderByChild,
+        equalTo,
+        remove,
+        limitToLast,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+      const appId =
+        typeof __app_id !== "undefined" ? __app_id : "default-app-id-uniquekey";
+
+      // Firebase chính cho web doc-shop
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxmiftXIFryutSJJFnRQtqE5NsIuswbj8",
+        authDomain: "dienkon-doc-shop.firebaseapp.com",
+        databaseURL: "https://dienkon-doc-shop-default-rtdb.firebaseio.com",
+        projectId: "dienkon-doc-shop",
+        storageBucket: "dienkon-doc-shop.firebasestorage.app",
+        messagingSenderId: "711883976718",
+        appId: "1:711883976718:web:9dce1c4d823f5e743d4c5f",
+        measurementId: "G-BZFV9FD6LE",
+      };
+
+      // Firebase riêng cho hệ thống key/UniqueKey
+      const keyFirebaseConfig = {
+        apiKey: "AIzaSyDnSzYda3CUXNtWrW8ytW2Wnx3mFunC9Ig",
+        authDomain: "uniquekey-a0912.firebaseapp.com",
+        databaseURL: "https://uniquekey-a0912-default-rtdb.firebaseio.com",
+        projectId: "uniquekey-a0912",
+        storageBucket: "uniquekey-a0912.firebasestorage.app",
+        messagingSenderId: "440795775727",
+        appId: "1:440795775727:web:1c59c88d5039f47a88d11a",
+      };
+
+      const DISCORD_WEBHOOK_URL =
+        "https://discord.com/api/webhooks/1502354251249356995/EGYOmejUXHgZZ5PVe6f8z1x-V6TaFNeB27_ybmlizbaJht-PRijWmqRcXhJewtESUCvG";
+      const CLOUDINARY_CLOUD_NAME = "dys3wgutz";
+      const CLOUDINARY_UPLOAD_PRESET = "comic_raw_files_preset";
+      const UNIQUE_KEY_SOURCE_URL = null;
+      const UNIQUE_KEY_REDEEM_BASE =
+        "https://dienkon.github.io/UniqueKey/#redeem?key=";
+
+      const app = initializeApp(firebaseConfig);
+      const keyApp = initializeApp(keyFirebaseConfig, "key-app");
+
+      const auth = getAuth(app);
+      const keyAuth = getAuth(keyApp);
+      const db = getDatabase(app);
+      const keyDb = getDatabase(keyApp);
+
+const CHATBOT_API_KEY = window.CHATBOT_API_KEY || window.OPENAI_API_KEY || "";
+const CHATBOT_API_MODEL = window.CHATBOT_API_MODEL || "gpt-4o-mini";
+
+let activeDocViewTracker = null;
+let chatbotHistory = [];
+
+      let currentUser = null;
+      let userData = null;
+      let dbUnsubscribers = [];
+      let globalData = {
+        docs: {},
+        users: {},
+        tx: {},
+        purchases: {},
+        reports: {},
+        keyAllocations: {},
+        keyPools: {},
+        keywords: {},
+        keyUsageLogs: {},
+      };
+      let currentFilter = "all";
+      let adminTxFilter = "deposit";
+      let adminSearchTerm = "";
+      let pendingDocId = null;
+      let editingDocId = null;
+      let editingUserId = null;
+      let currentDocId = null;
+
+      const dbPath = (collection, docId = null) => {
+        let path = `artifacts/${appId}/public/data/${collection}`;
+        if (docId) path += `/${docId}`;
+        return path;
+      };
+
+      const keyDbPath = (collection, docId = null) => {
+        let path = `artifacts/${appId}/public/data/${collection}`;
+        if (docId) path += `/${docId}`;
+        return path;
+      };
+
+      const formatVND = (amount) =>
+        new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }).format(Number(amount || 0));
+
+      const formatDate = (ts) => {
+        const d = ts ? new Date(ts) : new Date();
+        return d.toLocaleString("vi-VN");
+      };
+
+      const safe = (v) =>
+        String(v ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+
+      const slugify = (text) =>
+        String(text || "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+
+      const normalizeDocKeywords = (doc) => {
+        if (Array.isArray(doc?.keywords)) {
+          return doc.keywords
+            .map((k) => String(k || "").trim())
+            .filter(Boolean);
+        }
+        if (typeof doc?.keywords === "string") {
+          return String(doc.keywords)
+            .split(/[,;\n]+/)
+            .map((k) => k.trim())
+            .filter(Boolean);
+        }
+        if (typeof doc?.keyword === "string" && doc.keyword.trim()) {
+          return [doc.keyword.trim()];
+        }
+        return [];
+      };
+
+      const getKnownCategories = () => {
+        const set = new Set();
+        getKeywordEntries().forEach((kw) => {
+          const name = getKeywordName(kw);
+          if (name) set.add(name);
+        });
+        Object.values(globalData.docs || {}).forEach((doc) => {
+          normalizeDocKeywords(doc).forEach((tag) => {
+            if (tag) set.add(tag);
+          });
+        });
+        return Array.from(set).sort((a, b) => a.localeCompare(b, "vi"));
+      };
+
+      const refreshDocCategorySuggestions = () => {
+        const list = document.getElementById("doc-category-options");
+        if (!list) return;
+        const categories = getKnownCategories();
+        list.innerHTML = categories
+          .map((name) => `<option value="${safe(name)}"></option>`)
+          .join("");
+      };
+
+      const startDocViewTracker = (docId) => {
+        stopDocViewTracker();
+        if (!currentUser || !docId) return;
+
+        const session = {
+          docId,
+          moved: false,
+          counted: false,
+          timer: null,
+          markMoved: () => {
+            session.moved = true;
+          },
+        };
+
+        const onMove = () => session.markMoved();
+        const cleanupListeners = () => {
+          window.removeEventListener("mousemove", onMove);
+          window.removeEventListener("scroll", onMove);
+          window.removeEventListener("touchmove", onMove);
+          window.removeEventListener("pointermove", onMove);
+        };
+
+        session.timer = setTimeout(async () => {
+          if (session.counted) return;
+          session.counted = true;
+          cleanupListeners();
+
+          if (
+            !session.moved ||
+            currentDocId !== docId ||
+            document.getElementById("view-doc-detail")?.classList.contains("hidden")
+          ) {
+            return;
+          }
+
+          const doc = globalData.docs?.[docId];
+          if (!doc) return;
+          const nextViews = Number(doc.views || 0) + 1;
+          try {
+            await update(ref(db, dbPath("documents", docId)), {
+              views: nextViews,
+              updatedAt: Date.now(),
+            });
+          } catch {}
+        }, 3000);
+
+        window.addEventListener("mousemove", onMove, { passive: true });
+        window.addEventListener("scroll", onMove, { passive: true });
+        window.addEventListener("touchmove", onMove, { passive: true });
+        window.addEventListener("pointermove", onMove, { passive: true });
+
+        activeDocViewTracker = {
+          docId,
+          timer: session.timer,
+          cleanup: () => {
+            clearTimeout(session.timer);
+            cleanupListeners();
+          },
+        };
+      };
+
+      const stopDocViewTracker = () => {
+        if (!activeDocViewTracker) return;
+        activeDocViewTracker.cleanup();
+        activeDocViewTracker = null;
+      };
+
+      window.setDocTagFilter = (tag) => {
+        currentFilter = String(tag || "");
+        const homeBtn = document.getElementById("nav-btn-home");
+        if (homeBtn) homeBtn.click();
+        renderHome(document.getElementById("global-search")?.value?.toLowerCase() || "");
+      };
+
+      window.trackDocumentLinkClick = (docId, url, label = "", source = "link") => {
+        if (!currentUser || !docId || !url) return true;
+        const doc = globalData.docs?.[docId] || {};
+        const normalizedSource = String(source || "link");
+        const action =
+          normalizedSource === "key"
+            ? "open_key"
+            : normalizedSource === "doc" || normalizedSource === "open_doc"
+              ? "open_doc"
+              : "open_link";
+        logKeyUsage({
+          userId: currentUser.uid,
+          userName: userData?.name || currentUser.email || currentUser.uid,
+          email: userData?.email || currentUser.email || "",
+          docId,
+          docTitle: doc.title || "",
+          purchaseId: "",
+          key: action === "open_key" ? String(label || url) : "",
+          action,
+          keyPoolId: doc.keyPoolId || "",
+          linkLabel: label || "",
+          linkUrl: url || "",
+        });
+        return true;
+      };
+
+      const getDocCategoriesFromForm = () =>
+        Array.from(document.querySelectorAll("#adoc-categories-list .category-row"))
+          .map((row) => row.querySelector(".doc-category-input")?.value?.trim() || "")
+          .filter(Boolean);
+
+      const getFeaturedDocs = () =>
+        Object.entries(globalData.docs || {})
+          .map(([id, data]) => ({ id, ...data }))
+          .filter((doc) => doc.status === "active" && doc.featured)
+          .sort((a, b) => {
+            const featuredDelta = Number(!!b.featured) - Number(!!a.featured);
+            if (featuredDelta !== 0) return featuredDelta;
+            const orderDelta = Number(b.featuredOrder || 0) - Number(a.featuredOrder || 0);
+            if (orderDelta !== 0) return orderDelta;
+            return (b.createdAt || 0) - (a.createdAt || 0);
+          });
+
+      const getKeywordName = (item) =>
+        String(item?.name ?? item?.label ?? item ?? "").trim();
+
+      const getKeywordEntries = () => {
+        const raw = globalData.keywords || {};
+        if (Array.isArray(raw)) {
+          return raw
+            .map((item) =>
+              typeof item === "string"
+                ? { id: slugify(item), name: item, createdAt: 0, updatedAt: 0 }
+                : item,
+            )
+            .filter((item) => getKeywordName(item))
+            .sort((a, b) =>
+              String(a.name || "").localeCompare(String(b.name || ""), "vi"),
+            );
+        }
+        return Object.entries(raw)
+          .map(([id, val]) => ({
+            id,
+            ...(val || {}),
+            name: getKeywordName(val) || id,
+          }))
+          .filter((item) => getKeywordName(item))
+          .sort((a, b) =>
+            String(a.name || "").localeCompare(String(b.name || ""), "vi"),
+          );
+      };
+
+      const requiresProfileCompletion = () =>
+        !!currentUser &&
+        !!userData &&
+        (!String(userData.name || "").trim() ||
+          !String(userData.class || "").trim() ||
+          !userData.profileCompleted);
+
+      const ensureProfilePrompt = () => {
+        if (!currentUser || !requiresProfileCompletion()) return;
+        showModal(
+          "Hoàn tất hồ sơ",
+          "Vui lòng nhập Họ tên và Lớp để mở khóa toàn bộ chức năng.",
+          "warning",
+          `<button onclick="closeModal(); nav('profile')" class="px-6 py-2 bg-primary-600 text-white rounded-xl font-medium">Điền hồ sơ ngay</button>`,
+        );
+        if (
+          document.getElementById("view-profile") &&
+          document.getElementById("view-profile").classList.contains("hidden")
+        ) {
+          nav("profile");
+        }
+      };
+
+      const renderKeywordFilters = () => {
+        const host = document.getElementById("keyword-filter-bar");
+        if (!host) return;
+        const keywords = getKeywordEntries();
+        const activeClass =
+          "px-4 py-2 rounded-full bg-primary-50 text-primary-600 font-medium text-sm whitespace-nowrap";
+        const inactiveClass =
+          "px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 text-sm whitespace-nowrap";
+        const makeBtn = (label, filter) => `
+          <button
+            class="filter-btn ${currentFilter === filter ? activeClass : inactiveClass}"
+            data-filter="${safe(filter)}"
+          >
+            ${safe(label)}
+          </button>
+        `;
+        host.innerHTML = [
+          makeBtn("Tất cả", "all"),
+          makeBtn("Miễn phí", "free"),
+          ...keywords.map((kw) => makeBtn(kw.name || kw.id, kw.name || kw.id)),
+        ].join("");
+        host.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            document.querySelectorAll(".filter-btn").forEach((b) => {
+              b.classList.remove(
+                "bg-primary-50",
+                "text-primary-600",
+                "font-semibold",
+                "border-transparent",
+              );
+              b.classList.add("bg-white", "text-gray-600");
+            });
+            e.currentTarget.classList.remove("bg-white", "text-gray-600");
+            e.currentTarget.classList.add(
+              "bg-primary-50",
+              "text-primary-600",
+              "border-transparent",
+            );
+            currentFilter = e.currentTarget.dataset.filter;
+            renderHome(
+              document.getElementById("global-search")?.value?.toLowerCase() || "",
+            );
+          });
+        });
+      };
+
+      const getDocLinksFromForm = () =>
+        Array.from(document.querySelectorAll("#adoc-links-list .link-row"))
+          .map((row) => ({
+            label: row.querySelector(".doc-link-label")?.value?.trim() || "",
+            url: row.querySelector(".doc-link-url")?.value?.trim() || "",
+          }))
+          .filter((item) => item.url);
+
+      const fillDocCategoryRows = (categories = []) => {
+        const container = document.getElementById("adoc-categories-list");
+        if (!container) return;
+        container.innerHTML = "";
+        const source = Array.isArray(categories) && categories.length ? categories : [""];
+        source.forEach((name) => {
+          const row = document.createElement("div");
+          row.className = "grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 category-row";
+          row.innerHTML = `
+            <input
+              type="text"
+              list="doc-category-options"
+              autocomplete="off"
+              class="doc-category-input w-full px-3 py-2 border rounded-lg text-sm"
+              placeholder="VD: Toán 12, Đề thi, Hóa hữu cơ..."
+              value="${safe(name || "")}"
+            />
+            <button type="button" class="remove-category-row px-3 py-2 rounded-lg bg-red-50 text-red-600 text-sm">
+              <i class="fas fa-trash"></i>
+            </button>
+          `;
+          row.querySelector(".remove-category-row").addEventListener("click", () => {
+            if (container.querySelectorAll(".category-row").length <= 1) {
+              const input = row.querySelector(".doc-category-input");
+              if (input) input.value = "";
+              return;
+            }
+            row.remove();
+          });
+          row.querySelector(".doc-category-input")?.addEventListener("focus", refreshDocCategorySuggestions);
+          row.querySelector(".doc-category-input")?.addEventListener("click", refreshDocCategorySuggestions);
+          container.appendChild(row);
+        });
+        const addBtn = document.getElementById("add-doc-category-row");
+        if (addBtn && !addBtn.dataset.bound) {
+          addBtn.dataset.bound = "1";
+          addBtn.addEventListener("click", () => {
+            const row = document.createElement("div");
+            row.className = "grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 category-row";
+            row.innerHTML = `
+              <input
+                type="text"
+                list="doc-category-options"
+                autocomplete="off"
+                class="doc-category-input w-full px-3 py-2 border rounded-lg text-sm"
+                placeholder="VD: Toán 12, Đề thi, Hóa hữu cơ..."
+              />
+              <button type="button" class="remove-category-row px-3 py-2 rounded-lg bg-red-50 text-red-600 text-sm">
+                <i class="fas fa-trash"></i>
+              </button>
+            `;
+            row.querySelector(".remove-category-row").addEventListener("click", () => row.remove());
+            row.querySelector(".doc-category-input")?.addEventListener("focus", refreshDocCategorySuggestions);
+            row.querySelector(".doc-category-input")?.addEventListener("click", refreshDocCategorySuggestions);
+            container.appendChild(row);
+          });
+        }
+        refreshDocCategorySuggestions();
+      };
+
+      const fillDocLinkRows = (links = []) => {
+        const container = document.getElementById("adoc-links-list");
+        if (!container) return;
+        container.innerHTML = "";
+        const source = Array.isArray(links) && links.length ? links : [{}];
+        source.forEach((link) => {
+          const row = document.createElement("div");
+          row.className =
+            "grid grid-cols-1 md:grid-cols-[1fr_1.5fr_auto] gap-2 link-row";
+          row.innerHTML = `
+            <input type="text" class="doc-link-label w-full px-3 py-2 border rounded-lg text-sm" placeholder="Tên link" value="${safe(link?.label || "")}" />
+            <input type="url" class="doc-link-url w-full px-3 py-2 border rounded-lg text-sm" placeholder="https://..." value="${safe(link?.url || "")}" />
+            <button type="button" class="remove-link-row px-3 py-2 rounded-lg bg-red-50 text-red-600 text-sm"><i class="fas fa-trash"></i></button>
+          `;
+          row.querySelector(".remove-link-row").addEventListener("click", () => {
+            if (container.querySelectorAll(".link-row").length <= 1) {
+              row.querySelector(".doc-link-label").value = "";
+              row.querySelector(".doc-link-url").value = "";
+              return;
+            }
+            row.remove();
+          });
+          container.appendChild(row);
+        });
+        const addBtn = document.getElementById("add-doc-link-row");
+        if (addBtn && !addBtn.dataset.bound) {
+          addBtn.dataset.bound = "1";
+          addBtn.addEventListener("click", () => {
+            const row = document.createElement("div");
+            row.className =
+              "grid grid-cols-1 md:grid-cols-[1fr_1.5fr_auto] gap-2 link-row";
+            row.innerHTML = `
+              <input type="text" class="doc-link-label w-full px-3 py-2 border rounded-lg text-sm" placeholder="Tên link" />
+              <input type="url" class="doc-link-url w-full px-3 py-2 border rounded-lg text-sm" placeholder="https://..." />
+              <button type="button" class="remove-link-row px-3 py-2 rounded-lg bg-red-50 text-red-600 text-sm"><i class="fas fa-trash"></i></button>
+            `;
+            row.querySelector(".remove-link-row").addEventListener("click", () => row.remove());
+            container.appendChild(row);
+          });
+        }
+      };
+
+      const logKeyUsage = async (payload) => {
+        try {
+          const refObj = push(ref(db, dbPath("keyUsageLogs")));
+          await set(refObj, {
+            ...payload,
+            createdAt: Date.now(),
+          });
+        } catch (err) {
+          console.error("logKeyUsage failed", err);
+        }
+      };
+      window.showModal = (
+        title,
+        message,
+        type = "info",
+        extraActions = null,
+      ) => {
+        const modal = document.getElementById("custom-modal");
+        const box = document.getElementById("modal-content-box");
+        const icon = document.getElementById("modal-icon");
+        document.getElementById("modal-title").innerText = title;
+        const messageBox = document.getElementById("modal-message");
+        messageBox.innerHTML = message;
+        icon.className =
+          "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl mb-4 ";
+        if (type === "success") {
+          icon.className += "bg-green-100 text-green-500";
+          icon.innerHTML = '<i class="fas fa-check"></i>';
+        } else if (type === "error") {
+          icon.className += "bg-red-100 text-red-500";
+          icon.innerHTML = '<i class="fas fa-times"></i>';
+        } else if (type === "warning") {
+          icon.className += "bg-yellow-100 text-yellow-600";
+          icon.innerHTML = '<i class="fas fa-triangle-exclamation"></i>';
+        } else {
+          icon.className += "bg-blue-100 text-blue-500";
+          icon.innerHTML = '<i class="fas fa-info"></i>';
+        }
+        const actionsDiv = document.getElementById("modal-actions");
+        actionsDiv.innerHTML =
+          '<button onclick="closeModal()" class="px-6 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">Đóng</button>';
+        if (extraActions) actionsDiv.innerHTML += extraActions;
+        modal.classList.remove("hidden");
+        setTimeout(() => box.classList.remove("scale-95"), 10);
+      };
+
+      window.closeModal = () => {
+        const modal = document.getElementById("custom-modal");
+        const box = document.getElementById("modal-content-box");
+        box.classList.add("scale-95");
+        setTimeout(() => modal.classList.add("hidden"), 150);
+      };
+const openFormModal = (
+  title,
+  htmlContent,
+  onSubmit,
+  submitLabel = "Lưu",
+) => {
+  showModal(
+    title,
+    `
+      <div class="max-h-[65vh] overflow-y-auto pr-1">
+        <form id="dynamic-form" class="space-y-3">
+          ${htmlContent}
+
+          <div class="pt-2 flex justify-end gap-2 sticky bottom-0 bg-white py-3">
+            <button
+              type="button"
+              onclick="closeModal()"
+              class="px-4 py-2 rounded-lg bg-gray-100"
+            >
+              Hủy
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 rounded-lg bg-primary-600 text-white"
+            >
+              ${submitLabel}
+            </button>
+          </div>
+        </form>
+      </div>
+    `,
+    "info",
+  );
+
+  setTimeout(() => {
+    const form = document.getElementById("dynamic-form");
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await onSubmit(new FormData(form));
+      });
+    }
+  }, 0);
+};     const askConfirm = (title, message, confirmLabel = "Xác nhận") =>
+        new Promise((resolve) => {
+          let settled = false;
+          const originalClose = window.closeModal;
+          const finish = (value) => {
+            if (settled) return;
+            settled = true;
+            window.closeModal = originalClose;
+            resolve(value);
+          };
+
+          window.closeModal = () => {
+            originalClose();
+            finish(false);
+          };
+
+          const confirmId =
+            "confirm-btn-" + Math.random().toString(36).slice(2, 8);
+          const cancelId =
+            "cancel-btn-" + Math.random().toString(36).slice(2, 8);
+
+          showModal(
+            title,
+            `<div class="text-sm text-gray-600 whitespace-pre-wrap">${safe(
+              message,
+            )}</div>`,
+            "warning",
+            `<div class="flex gap-2 justify-center"><button id="${cancelId}" type="button" class="px-5 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">Hủy</button><button id="${confirmId}" type="button" class="px-5 py-2 bg-primary-600 text-white rounded-xl font-medium hover:bg-primary-700">${confirmLabel}</button></div>`,
+          );
+
+          setTimeout(() => {
+            const confirmBtn = document.getElementById(confirmId);
+            const cancelBtn = document.getElementById(cancelId);
+            if (confirmBtn)
+              confirmBtn.addEventListener("click", () => {
+                originalClose();
+                finish(true);
+              });
+            if (cancelBtn)
+              cancelBtn.addEventListener("click", () => {
+                originalClose();
+                finish(false);
+              });
+          }, 0);
+        });
+
+      const copyText = async (text) => {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          return false;
+        }
+      };
+
+      window.copyDocLink = async (url) => {
+        const ok = await copyText(url);
+        showModal(
+  ok ? "Đã sao chép" : "Sao chép link",
+  ok
+    ? `Đã copy link tài liệu.<br>
+       <span class="text-red-500 font-semibold">
+         Vui lòng không leak, mọi hành vi lộ tài liệu sẽ khóa tài liệu!
+       </span>`
+    : `Link: <span class="font-mono break-all">${safe(url)}</span>`,
+  ok ? "success" : "info",
+);
+      };
+
+      const uploadToCloudinary = async (file, folder = "edumarket") => {
+        if (!file) return "";
+        if (
+          CLOUDINARY_CLOUD_NAME.includes("YOUR_") ||
+          CLOUDINARY_UPLOAD_PRESET.includes("YOUR_")
+        ) {
+          throw new Error("Chưa cấu hình Cloudinary");
+        }
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+        formData.append("folder", folder);
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error?.message || "Upload lỗi");
+        return data.secure_url || data.url || "";
+      };
+
+      const notifyDiscord = async (content) => {
+        if (!DISCORD_WEBHOOK_URL.startsWith("http")) return;
+        try {
+          await fetch(DISCORD_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ content }),
+          });
+        } catch {}
+      };
+
+      const parseLinksInput = (text) => {
+        const lines = String(text || "")
+          .split("\n")
+          .map((s) => s.trim())
+          .filter(Boolean);
+        return lines
+          .map((line, idx) => {
+            const [labelRaw, urlRaw] = line.includes("|")
+              ? line.split("|")
+              : [`Link ${idx + 1}`, line];
+            return {
+              label: labelRaw.trim() || `Link ${idx + 1}`,
+              url: urlRaw.trim(),
+            };
+          })
+          .filter((x) => x.url);
+      };
+
+      const getDocLinks = (doc) => {
+        if (Array.isArray(doc?.links) && doc.links.length) return doc.links;
+        if (doc?.fileLink) return [{ label: "Tài liệu", url: doc.fileLink }];
+        return [];
+      };
+
+      const getUserPurchases = () =>
+        Object.values(globalData.purchases || {}).filter(
+          (p) => p.userId === currentUser?.uid,
+        );
+
+      const buildKeyRedeemUrl = (key) =>
+        `${UNIQUE_KEY_REDEEM_BASE}${encodeURIComponent(String(key || ""))}`;
+
+      const getLatestPurchaseForDoc = (docId) => {
+        return Object.values(globalData.purchases || {})
+          .filter((p) => p.documentId === docId || p.docId === docId)
+          .sort(
+            (a, b) => Number(b.purchasedAt || 0) - Number(a.purchasedAt || 0),
+          )[0];
+      };
+
+      const getPurchaseKeyLink = (purchase) => {
+        const key = String(purchase?.assignedKey || "").trim();
+        return key ? buildKeyRedeemUrl(key) : "";
+      };
+
+      const getAdminSearchTerm = () =>
+        String(document.getElementById("admin-search-input")?.value || adminSearchTerm || "")
+          .trim()
+          .toLowerCase();
+
+      const adminMatches = (...parts) => {
+        const term = getAdminSearchTerm();
+        if (!term) return true;
+        return parts.flat().join(" ").toLowerCase().includes(term);
+      };
+
+      const getUserDepositTotal = (uid) =>
+        Object.values(globalData.tx || {})
+          .filter(
+            (t) =>
+              t.userId === uid &&
+              t.type === "deposit" &&
+              (t.status === "verified" || t.status === "success"),
+          )
+          .reduce((sum, t) => sum + Number(t.amount || 0), 0);
+
+      const getUserPurchaseTotal = (uid) =>
+        Object.values(globalData.tx || {})
+          .filter(
+            (t) =>
+              t.userId === uid &&
+              t.type === "purchase" &&
+              (t.status === "verified" || t.status === "success"),
+          )
+          .reduce((sum, t) => sum + Number(t.amount || 0), 0);
+
+      const getUserPaidOfflineTotal = (user) => Number(user?.offlinePaidAmount || 0);
+
+      const getUserRemainingCash = (user) =>
+        Math.max(getUserDepositTotal(user?.id || user?.uid) - getUserPaidOfflineTotal(user), 0);
+
+      const getUserTxHistory = (uid) =>
+        Object.values(globalData.tx || {})
+          .filter((tx) => tx.userId === uid)
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+      const getUserKeyLogs = (uid) =>
+        Object.values(globalData.keyUsageLogs || {})
+          .filter((log) => log.userId === uid)
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+      window.openUserDetail = (uid) => {
+        const u = globalData.users?.[uid];
+        if (!u) return;
+
+        const deposits = getUserTxHistory(uid).filter((tx) => tx.type === "deposit");
+        const consumes = getUserTxHistory(uid).filter((tx) => tx.type === "purchase");
+        const keyLogs = getUserKeyLogs(uid);
+        const remaining = getUserRemainingCash({ ...u, id: uid });
+
+        openFormModal(
+          "Chi tiết người dùng",
+          `
+      <div class="space-y-4">
+        <div class="flex items-center gap-4">
+          <img src="${safe(u.avatar || "https://placehold.co/100")}" class="w-16 h-16 rounded-full object-cover border border-gray-200" onerror="this.src='https://placehold.co/100'">
+          <div class="min-w-0">
+            <div class="font-bold text-gray-800">${safe(u.name || u.uid || "")}</div>
+            <div class="text-xs text-gray-400 break-all">${safe(u.email || "")}</div>
+            <div class="text-xs text-gray-400">${safe(u.class || "Chưa có lớp")} · ${safe(u.school || "Chưa có trường")}</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="rounded-xl border border-gray-100 p-3 bg-gray-50">
+            <div class="text-xs text-gray-500">Ví</div>
+            <div class="text-lg font-bold text-primary-600">${formatVND(u.walletBalance || 0)}</div>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-3 bg-gray-50">
+            <div class="text-xs text-gray-500">Đã thu ngoài đời</div>
+            <div class="text-lg font-bold text-gray-800">${formatVND(getUserPaidOfflineTotal(u))}</div>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-3 bg-gray-50">
+            <div class="text-xs text-gray-500">Còn thiếu</div>
+            <div class="text-lg font-bold text-red-600">${formatVND(remaining)}</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="rounded-xl border border-gray-100 p-3">
+            <div class="text-xs text-gray-500">Tổng nạp</div>
+            <div class="font-semibold">${formatVND(getUserDepositTotal(uid))}</div>
+          </div>
+          <div class="rounded-xl border border-gray-100 p-3">
+            <div class="text-xs text-gray-500">Tổng tiêu</div>
+            <div class="font-semibold">${formatVND(getUserPurchaseTotal(uid))}</div>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-gray-100 p-3 bg-white">
+          <div class="font-semibold text-gray-800 mb-2">Đánh dấu đã thu thêm</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Số tiền thu thêm</label>
+              <input name="paidAmountAdd" type="number" min="0" step="1000" value="0" class="w-full px-3 py-2 border rounded-lg">
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Ghi chú</label>
+              <input name="paidNote" class="w-full px-3 py-2 border rounded-lg" placeholder="VD: Thu tiền mặt">
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <div class="font-semibold text-gray-800 mb-2">Lịch sử nạp</div>
+            <div class="max-h-56 overflow-auto border border-gray-100 rounded-xl">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-gray-50 sticky top-0">
+                  <tr>
+                    <th class="px-3 py-2">Thời gian</th>
+                    <th class="px-3 py-2">Số tiền</th>
+                    <th class="px-3 py-2">Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${deposits.length ? deposits.map((tx) => `
+                      <tr class="border-t border-gray-100">
+                        <td class="px-3 py-2">${formatDate(tx.createdAt)}</td>
+                        <td class="px-3 py-2 font-medium text-green-600">${formatVND(tx.amount)}</td>
+                        <td class="px-3 py-2">${safe(tx.status || "")}</td>
+                      </tr>`).join("") : '<tr><td colspan="3" class="px-3 py-4 text-center text-gray-500">Chưa có nạp tiền.</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="font-semibold text-gray-800 mb-2">Lịch sử tiêu dùng</div>
+            <div class="max-h-56 overflow-auto border border-gray-100 rounded-xl">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-gray-50 sticky top-0">
+                  <tr>
+                    <th class="px-3 py-2">Thời gian</th>
+                    <th class="px-3 py-2">Tài liệu</th>
+                    <th class="px-3 py-2">Số tiền</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${consumes.length ? consumes.map((tx) => `
+                      <tr class="border-t border-gray-100">
+                        <td class="px-3 py-2">${formatDate(tx.createdAt)}</td>
+                        <td class="px-3 py-2">${safe((globalData.docs[tx.docId] || {}).title || tx.docId || "")}</td>
+                        <td class="px-3 py-2 font-medium text-red-600">${formatVND(tx.amount)}</td>
+                      </tr>`).join("") : '<tr><td colspan="3" class="px-3 py-4 text-center text-gray-500">Chưa có tiêu dùng.</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="font-semibold text-gray-800 mb-2">Key click / sử dụng</div>
+            <div class="max-h-56 overflow-auto border border-gray-100 rounded-xl">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-gray-50 sticky top-0">
+                  <tr>
+                    <th class="px-3 py-2">Thời gian</th>
+                    <th class="px-3 py-2">Hành động</th>
+                    <th class="px-3 py-2">Tài liệu</th>
+                    <th class="px-3 py-2">Key</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${keyLogs.length ? keyLogs.map((log) => `
+                      <tr class="border-t border-gray-100">
+                        <td class="px-3 py-2">${formatDate(log.createdAt)}</td>
+                        <td class="px-3 py-2">${safe(log.action || "open_key")}</td>
+                        <td class="px-3 py-2">${safe(log.docTitle || log.docId || "")}</td>
+                        <td class="px-3 py-2 font-mono break-all">${safe(log.key || "")}</td>
+                      </tr>`).join("") : '<tr><td colspan="4" class="px-3 py-4 text-center text-gray-500">Chưa có log key.</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+          async (fd) => {
+            const addPaid = Math.max(Number(fd.get("paidAmountAdd") || 0), 0);
+            const note = String(fd.get("paidNote") || "").trim();
+            const nextPaid = Number(u.offlinePaidAmount || 0) + addPaid;
+            await update(ref(db, dbPath("users", uid)), {
+              offlinePaidAmount: nextPaid,
+              offlinePaidUpdatedAt: Date.now(),
+              offlinePaidNote: note || null,
+            });
+            closeModal();
+            updateAdminStats();
+            renderAdminUsers();
+          },
+          "Lưu",
+        );
+      };
+
+      const hasAccessToDoc = (docId) => {
+        const doc = globalData.docs[docId];
+        if (!doc) return false;
+        if (Number(doc.price) === 0) return true;
+        if (!currentUser || !userData) return false;
+        if (userData.role === "admin") return true;
+        return getUserPurchases().some((p) => p.documentId === docId);
+      };
+
+      const loginPrompt = (reason = "Chức năng này cần đăng nhập.") =>
+        showModal(
+          "Cần đăng nhập",
+          `${reason}<div class="mt-4 flex justify-end"><button onclick="closeModal(); loginGoogleUI()" class="px-4 py-2 rounded-xl bg-primary-600 text-white font-medium">Đăng nhập ngay</button></div>`,
+          "warning",
+        );
+
+      const jsQuote = (value) => JSON.stringify(String(value ?? ""));
+
+      const firstKey = (obj) => {
+        const entries = Object.entries(obj || {});
+        return entries.length
+          ? { key: entries[0][0], value: entries[0][1] }
+          : null;
+      };
+
+      const buildSidebar = () => {
+        const menu = document.getElementById("nav-menu");
+        const authSec = document.getElementById("sidebar-auth-section");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("mobile-sidebar-overlay");
+
+        const closeDrawer = () => {
+          sidebar.classList.add("-translate-x-full");
+          overlay.classList.add("hidden");
+        };
+        window.openSidebar = () => {
+          sidebar.classList.remove("-translate-x-full");
+          overlay.classList.remove("hidden");
+        };
+        window.closeSidebar = closeDrawer;
+        overlay.onclick = closeDrawer;
+
+        if (!currentUser) {
+          menu.innerHTML = `<button id="nav-btn-landing" onclick="nav('landing'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-home w-5"></i> Trang chủ</button>`;
+          authSec.innerHTML = `<button onclick="loginGoogleUI()" class="w-full bg-primary-600 text-white font-medium py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-primary-700"><i class="fab fa-google"></i> Đăng nhập Google</button>`;
+          return;
+        }
+
+        let html = `
+      <button id="nav-btn-home" onclick="nav('home'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-store w-5"></i> Cửa hàng</button>
+      <button id="nav-btn-purchased" onclick="nav('purchased'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-download w-5"></i> Đã mua</button>
+      <button id="nav-btn-wallet" onclick="nav('wallet'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-wallet w-5"></i> Ví tiền</button>
+      <button id="nav-btn-profile" onclick="nav('profile'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-user-cog w-5"></i> Hồ sơ</button>
+    `;
+        if (requiresProfileCompletion()) {
+          html = `
+      <div class="mb-3 p-3 rounded-xl bg-orange-50 text-orange-700 text-xs leading-relaxed border border-orange-100">
+        Hãy hoàn tất Họ tên và Lớp để mở khóa toàn bộ chức năng.
+      </div>
+      <button id="nav-btn-profile" onclick="nav('profile'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-orange-700 bg-orange-50 hover:bg-orange-100 flex items-center gap-3"><i class="fas fa-user-check w-5"></i> Hoàn tất hồ sơ</button>
+      <button id="nav-btn-home" onclick="nav('home'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-store w-5"></i> Cửa hàng</button>
+    `;
+        }
+        if (userData?.role === "admin") {
+          html += `<div class="my-2 border-t border-gray-100"></div><button id="nav-btn-admin" onclick="nav('admin'); closeSidebar?.()" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center gap-3"><i class="fas fa-chart-pie w-5"></i> Quản trị Admin</button>`;
+        }
+        menu.innerHTML = html;
+        authSec.innerHTML = `<button onclick="logout()" class="w-full text-red-500 font-medium py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-red-50"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>`;
+      };
+
+      const updateHeader = () => {
+        const header = document.getElementById("header-user-info");
+        if (!currentUser || !userData) {
+          header.innerHTML = `<button onclick="loginGoogleUI()" class="bg-primary-100 text-primary-700 px-4 py-2 rounded-full font-medium text-sm">Đăng nhập</button>`;
+          return;
+        }
+        const verifiedBadge =
+          userData.role === "admin"
+            ? '<i class="fas fa-star text-yellow-400" title="Admin"></i>'
+            : requiresProfileCompletion()
+              ? '<i class="fas fa-exclamation-triangle text-orange-400" title="Cần bổ sung hồ sơ"></i>'
+              : userData.verified
+                ? '<i class="fas fa-check-circle text-blue-500" title="Đã duyệt"></i>'
+                : '<i class="fas fa-clock text-orange-400" title="Chờ duyệt"></i>';
+
+        header.innerHTML = `
+      <div class="hidden sm:flex items-center bg-gray-100 rounded-full px-3 py-1 mr-2 cursor-pointer hover:bg-gray-200 transition" onclick="nav('wallet')">
+        <span class="text-xs text-gray-500 mr-2">Số dư</span>
+        <span class="font-bold text-primary-600">${formatVND(userData.walletBalance)}</span>
+      </div>
+      <div class="flex items-center gap-2 cursor-pointer hover:opacity-80" onclick="nav('profile')">
+        <div class="text-right hidden sm:block">
+          <p class="text-sm font-bold text-gray-800 leading-none">${safe(userData.name)} ${verifiedBadge}</p>
+          <p class="text-xs text-gray-500 mt-1">${safe(userData.class || "Chưa cập nhật")}</p>
+        </div>
+        <img src="${safe(userData.avatar || "")}" class="w-10 h-10 rounded-full border border-gray-200 object-cover" onerror="this.src='https://placehold.co/100'">
+      </div>
+    `;
+      };
+
+      const ensureUserRecord = async (user) => {
+        const userRef = ref(db, dbPath("users", user.uid));
+        const snap = await get(userRef);
+        const allUsersSnap = await get(ref(db, dbPath("users")));
+        const isFirstUser =
+          !allUsersSnap.exists() ||
+          Object.keys(allUsersSnap.val() || {}).length === 0;
+
+        const defaultUser = {
+          uid: user.uid,
+          email: user.email || "",
+          name: user.displayName || "",
+          avatar: user.photoURL || "https://placehold.co/100",
+          role: isFirstUser ? "admin" : "user",
+          verified: true,
+          verificationMethod: "auto",
+          verifiedAt: Date.now(),
+          profileCompleted: false,
+          walletBalance: 0,
+          class: "",
+          school: "",
+          createdAt: Date.now(),
+        };
+
+        if (!snap.exists()) {
+          await set(userRef, defaultUser);
+          userData = defaultUser;
+        } else {
+          userData = {
+            ...defaultUser,
+            ...snap.val(),
+          };
+        }
+
+        const profileCompleted =
+          !!String(userData.name || "").trim() &&
+          !!String(userData.class || "").trim();
+        userData.profileCompleted = profileCompleted;
+
+        await update(userRef, {
+          profileCompleted,
+          verified: true,
+          verificationMethod: "auto",
+          verifiedAt: userData.verifiedAt || Date.now(),
+        });
+
+        updateHeader();
+      };
+
+      const renderProfileForm = async () => {
+        if (!userData) return;
+        document.getElementById("prof-name").value = userData.name || "";
+        document.getElementById("prof-class").value = userData.class || "";
+        document.getElementById("prof-school").value = userData.school || "";
+        document.getElementById("prof-avatar-url").value =
+          userData.avatar || "";
+        document.getElementById("profile-avatar").src =
+          userData.avatar || "https://placehold.co/100";
+        const banner = document.getElementById("profile-status-banner");
+        if (userData.role === "admin") {
+          banner.className =
+            "mb-6 p-4 rounded-xl text-sm font-medium bg-purple-50 text-purple-700";
+          banner.innerHTML =
+            '<i class="fas fa-crown"></i> Tài khoản Admin Quản trị.';
+        } else if (requiresProfileCompletion()) {
+          banner.className =
+            "mb-6 p-4 rounded-xl text-sm font-medium bg-orange-50 text-orange-700";
+          banner.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Vui lòng nhập đủ Họ tên và Lớp để mở khóa toàn bộ tính năng.';
+        } else if (userData.verified) {
+          banner.className =
+            "mb-6 p-4 rounded-xl text-sm font-medium bg-green-50 text-green-700";
+          banner.innerHTML =
+            '<i class="fas fa-check-circle"></i> Tài khoản học viên đã được xác thực. Bạn có thể mua tài liệu.';
+        } else {
+          banner.className =
+            "mb-6 p-4 rounded-xl text-sm font-medium bg-orange-50 text-orange-700";
+          banner.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Tài khoản chưa xác thực. Vui lòng cập nhật đúng thông tin để Admin duyệt.';
+        }
+      };
+
+      
+      const renderFeaturedBanner = () => {
+        const section = document.getElementById("featured-docs-section");
+        const track = document.getElementById("featured-docs-track");
+        const dots = document.getElementById("featured-docs-dots");
+        const prevBtn = document.getElementById("featured-docs-prev");
+        const nextBtn = document.getElementById("featured-docs-next");
+        if (!section || !track || !dots) return;
+
+        const featured = getFeaturedDocs();
+        track.innerHTML = "";
+        dots.innerHTML = "";
+
+        if (!featured.length) {
+          section.classList.add("hidden");
+          return;
+        }
+
+        section.classList.remove("hidden");
+
+        track.innerHTML = featured.slice(0, 6).map((doc) => {
+          const labels = normalizeDocKeywords(doc).slice(0, 2);
+          return `
+            <article class="snap-start shrink-0 w-full">
+              <div class="grid md:grid-cols-[1.05fr_0.95fr] gap-0 min-h-[16rem]">
+                <div class="p-5 md:p-8 flex flex-col justify-between text-white">
+                  <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/90 text-[11px] font-medium mb-3">
+                      <i class="fas fa-star"></i> Nổi bật hàng đầu
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold leading-tight mb-3">${safe(doc.title || "Tài liệu nổi bật")}</h3>
+                    <p class="text-white/80 text-sm leading-relaxed max-w-2xl mb-4 line-clamp-3">${safe(doc.description || "Tài liệu được admin ghim lên top để người dùng xem nhanh hơn.")}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-3 py-1 rounded-full bg-white/10 text-white text-[11px]">${safe(doc.category || doc.subject || "Phân loại")}</span>
+                      <span class="px-3 py-1 rounded-full bg-white/10 text-white text-[11px]">Lớp ${safe(doc.grade || "Chung")}</span>
+                      ${labels.map((k) => `<span class="px-3 py-1 rounded-full bg-white/10 text-white text-[11px]">${safe(k)}</span>`).join("")}
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 flex-wrap">
+                    <div class="text-white/90">
+                      <div class="text-[10px] uppercase tracking-[0.2em] text-white/60">Giá</div>
+                      <div class="text-xl font-bold">${Number(doc.price || 0) === 0 ? "Miễn phí" : formatVND(doc.price)}</div>
+                    </div>
+                    <button onclick="nav('doc-detail', '${doc.id}')" class="ml-auto bg-white text-primary-700 px-4 py-2 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transition">
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+                <div class="relative min-h-[16rem]">
+                  <img src="${safe(doc.thumbnail || "https://placehold.co/900x600/e2e8f0/64748b?text=Tài+Liệu+Nổi+Bật")}" class="absolute inset-0 w-full h-full object-cover">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+                  <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3">
+                    <div class="bg-white/90 backdrop-blur px-3 py-2 rounded-xl text-gray-800 shadow-lg">
+                      <div class="text-[10px] text-gray-500">Lượt mua</div>
+                      <div class="font-bold text-base">${Number(doc.buys || 0)}</div>
+                    </div>
+                    <button onclick="shareDoc('${doc.id}')" class="bg-white/90 backdrop-blur px-3 py-2 rounded-xl text-gray-800 shadow-lg hover:bg-white">
+                      <i class="fas fa-share-nodes"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        const slideCount = featured.slice(0, 6).length;
+        for (let i = 0; i < slideCount; i++) {
+          const dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = `w-2.5 h-2.5 rounded-full transition ${i === 0 ? "bg-primary-600" : "bg-gray-300"}`;
+          dot.addEventListener("click", () => scrollFeaturedTo(i));
+          dots.appendChild(dot);
+        }
+
+        let currentIndex = 0;
+        const slidesEls = () => Array.from(track.children);
+        const updateDots = (activeIndex = currentIndex) => {
+          Array.from(dots.children).forEach((dot, idx) => {
+            dot.className = `w-2.5 h-2.5 rounded-full transition ${idx === activeIndex ? "bg-primary-600" : "bg-gray-300"}`;
+          });
+        };
+        const scrollFeaturedTo = (index) => {
+          const els = slidesEls();
+          if (!els.length) return;
+          currentIndex = (index + els.length) % els.length;
+          const target = els[currentIndex];
+          const left = Math.max(target.offsetLeft - track.offsetLeft, 0);
+          track.scrollTo({ left, behavior: "smooth" });
+          updateDots(currentIndex);
+        };
+        if (prevBtn) prevBtn.onclick = () => scrollFeaturedTo(currentIndex - 1);
+        if (nextBtn) nextBtn.onclick = () => scrollFeaturedTo(currentIndex + 1);
+        if (window.__featuredCarouselTimer) clearInterval(window.__featuredCarouselTimer);
+        window.__featuredCarouselTimer = setInterval(() => {
+          if (document.getElementById("view-home")?.classList.contains("hidden")) return;
+          const els = slidesEls();
+          if (!els.length) return;
+          scrollFeaturedTo(currentIndex + 1);
+        }, 5000);
+        track.addEventListener("scroll", () => {
+          const els = slidesEls();
+          if (!els.length) return;
+          const mid = track.scrollLeft + track.clientWidth / 2;
+          let best = 0;
+          let bestDist = Infinity;
+          els.forEach((el, idx) => {
+            const center = el.offsetLeft + el.clientWidth / 2;
+            const dist = Math.abs(center - mid);
+            if (dist < bestDist) {
+              bestDist = dist;
+              best = idx;
+            }
+          });
+          if (best !== currentIndex) {
+            currentIndex = best;
+            updateDots(currentIndex);
+          }
+        }, { passive: true });
+        scrollFeaturedTo(0);
+      };
+
+const renderHome = (searchQuery = "") => {
+        const grid = document.getElementById("docs-grid");
+        const hasSearch = !!String(searchQuery || "").trim();
+        renderKeywordFilters();
+        if (currentFilter === "all" && !hasSearch) {
+          renderFeaturedBanner();
+        } else {
+          const section = document.getElementById("featured-docs-section");
+          const track = document.getElementById("featured-docs-track");
+          const dots = document.getElementById("featured-docs-dots");
+          if (section) section.classList.add("hidden");
+          if (track) track.innerHTML = "";
+          if (dots) dots.innerHTML = "";
+          if (window.__featuredCarouselTimer) {
+            clearInterval(window.__featuredCarouselTimer);
+            window.__featuredCarouselTimer = null;
+          }
+        }
+        grid.innerHTML = "";
+        const docs = Object.entries(globalData.docs || {}).map(
+          ([id, data]) => ({ id, ...data }),
+        );
+        let filtered = docs.filter((d) => d.status === "active");
+        if (currentFilter === "free") {
+          filtered = filtered.filter((d) => Number(d.price) === 0);
+        } else if (currentFilter !== "all") {
+          filtered = filtered.filter((d) => {
+            const keywords = normalizeDocKeywords(d);
+            const category = String(d.category || d.subject || "").trim();
+            return keywords.includes(currentFilter) || category === currentFilter;
+          });
+        }
+        if (hasSearch)
+          filtered = filtered.filter((d) =>
+            `${d.title || ""} ${d.category || d.subject || ""} ${normalizeDocKeywords(d).join(" ")} ${d.grade || ""}`
+              .toLowerCase()
+              .includes(searchQuery),
+          );
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500">Không tìm thấy tài liệu nào.</div>`;
+          return;
+        }
+        filtered
+          .sort((a, b) => {
+            const featuredDelta = Number(!!b.featured) - Number(!!a.featured);
+            if (featuredDelta !== 0) return featuredDelta;
+            const orderDelta = Number(b.featuredOrder || 0) - Number(a.featuredOrder || 0);
+            if (orderDelta !== 0) return orderDelta;
+            return (b.createdAt || 0) - (a.createdAt || 0);
+          })
+          .forEach((doc) => {
+            const isFree = Number(doc.price) === 0;
+            const priceTag = isFree
+              ? `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Miễn phí</span>`
+              : `<span class="font-bold text-primary-600">${formatVND(doc.price)}</span>`;
+            const docKeywords = normalizeDocKeywords(doc);
+            const purchasedBadge = hasAccessToDoc(doc.id)
+              ? '<span class="absolute top-2 left-2 bg-green-600 text-white text-[10px] px-2 py-1 rounded-full shadow">Đã mua</span>'
+              : "";
+            grid.innerHTML += `
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition cursor-pointer flex flex-col h-full" onclick="nav('doc-detail', '${doc.id}')">
+          <div class="h-40 bg-gray-200 relative">
+            <img src="${safe(doc.thumbnail || "https://placehold.co/400x200/e2e8f0/64748b?text=Tài+Liệu")}" class="w-full h-full object-cover">
+            ${purchasedBadge}
+            <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-xs font-semibold shadow">${safe(doc.category || doc.subject || "Khác")}</div>
+            <div class="absolute bottom-2 left-2 bg-black/60 text-white px-2 py-1 rounded text-[11px]"><i class="fas fa-eye"></i> ${Number(doc.views || 0)} lượt xem</div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="font-bold text-gray-800 line-clamp-2 mb-1">${safe(doc.title || "")}</h3>
+            <p class="text-xs text-gray-500 mb-3">Lớp: ${safe(doc.grade || "Chung")} • ${Number(doc.buys || 0)} lượt mua</p>
+            ${docKeywords.length ? `<div class="flex flex-wrap gap-1 mb-2">${docKeywords.slice(0, 3).map((k) => `<button type="button" onclick="event.stopPropagation(); setDocTagFilter('${jsQuote(k)}')" class="text-[11px] px-2 py-1 rounded-full bg-gray-100 text-gray-600 hover:bg-primary-50 hover:text-primary-600">${safe(k)}</button>`).join("")}</div>` : ""}
+            <div class="mt-auto pt-3 border-t border-gray-50 flex justify-between items-center">
+              ${priceTag}
+              <button class="text-primary-600 bg-primary-50 w-8 h-8 rounded-full flex items-center justify-center hover:bg-primary-100"><i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>`;
+          });
+      };
+      const allocateKeyFromPool = async (poolId, docId, userId) => {
+        try {
+          if (!poolId) return null;
+
+          let poolData = globalData.keyPools?.[poolId];
+
+          if (!poolData) {
+            const poolSnap = await get(
+              ref(keyDb, keyDbPath("uniqueKeyPools", poolId)),
+            );
+
+            poolData = poolSnap.val();
+          }
+
+          if (!poolData) return null;
+
+          const keys = Array.isArray(poolData?.keys)
+            ? poolData.keys
+            : Array.isArray(poolData)
+              ? poolData
+              : Object.values(poolData || {}).filter(
+                  (v) => typeof v === "string",
+                );
+
+          const usedSnap = await get(
+            ref(keyDb, keyDbPath("keyAllocations", poolId)),
+          );
+
+          const used = usedSnap.val() || {};
+
+          const encodeKey = (key) =>
+            btoa(key)
+              .replace(/\./g, "_")
+              .replace(/\#/g, "_")
+              .replace(/\$/g, "_")
+              .replace(/\[/g, "_")
+              .replace(/\]/g, "_")
+              .replace(/\//g, "_");
+
+          const available = keys.filter((k) => {
+            if (!k) return false;
+
+            return !used[encodeKey(k)];
+          });
+          if (!available.length) return null;
+
+          const chosen =
+            available[Math.floor(Math.random() * available.length)];
+
+          const safeChosen = encodeKey(chosen);
+
+          await set(
+            ref(keyDb, `${keyDbPath("keyAllocations", poolId)}/${safeChosen}`),
+            {
+              docId,
+              userId,
+              assignedAt: Date.now(),
+              status: "active",
+              mode: "permanent_user",
+              redeemUrl: buildKeyRedeemUrl(chosen),
+              loginCount: 0,
+              lastLoginAt: null,
+            },
+          );
+
+          return chosen;
+        } catch (err) {
+          console.error("Allocate key failed:", err);
+          return null;
+        }
+      };
+      const renderDocDetail = (docId) => {
+        const hasActiveTrackerForDoc = activeDocViewTracker?.docId === docId;
+        if (!hasActiveTrackerForDoc) stopDocViewTracker();
+        currentDocId = docId;
+        const doc = globalData.docs[docId];
+        const container = document.getElementById("doc-detail-content");
+        if (!doc) {
+          container.innerHTML =
+            Object.keys(globalData.docs || {}).length === 0
+              ? '<div class="p-8 text-center text-gray-500">Đang tải tài liệu...</div>'
+              : '<div class="p-8 text-center text-red-500">Không tìm thấy tài liệu</div>';
+          return;
+        }
+        const purchased = hasAccessToDoc(docId);
+        const purchase = getLatestPurchaseForDoc(docId);
+        const links =
+          purchase?.accessLinks && purchase.accessLinks.length
+            ? purchase.accessLinks
+            : getDocLinks(doc);
+
+        const hasKeyPool = !!doc.keyPoolId;
+        const finalRedeemUrl =
+          purchase?.redeemUrl ||
+          (purchase?.assignedKey
+            ? buildKeyRedeemUrl(purchase.assignedKey)
+            : null);
+        const makeLinkRow = (url, label, className, sourceType = "open_doc") => `
+            <div class="flex gap-2">
+              <a
+                href="${safe(url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                onclick="return trackDocumentLinkClick(${jsQuote(docId)}, ${jsQuote(url)}, ${jsQuote(label || "")}, ${jsQuote(sourceType)})"
+                class="flex-1 text-center ${className} py-3 rounded-xl font-medium shadow-lg"
+              >
+                ${safe(label || "Mở tài liệu")}
+              </a>
+              <button
+                onclick='copyDocLink(${jsQuote(url)}); return trackDocumentLinkClick(${jsQuote(docId)}, ${jsQuote(url)}, ${jsQuote(label || "")}, ${jsQuote(sourceType)})'
+                class="px-4 py-3 rounded-xl bg-gray-100 text-gray-700 font-medium hover:bg-gray-200"
+              >
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+          `;
+
+        const redeemButton = purchase?.redeemUrl
+          ? `
+      ${makeLinkRow(purchase.redeemUrl, "Mở Key Truy Cập", "bg-blue-600 text-white hover:bg-blue-700", "key")}
+    `
+          : "";
+
+        const openLinkRows = `
+  ${redeemButton}
+
+  ${
+    links.length
+      ? links
+          .map(
+            (l) => makeLinkRow(l.url, l.label || "Mở tài liệu", "bg-green-600 text-white hover:bg-green-700", "open_doc"),
+          )
+          .join("")
+      : hasKeyPool
+        ? `
+          <div class="bg-blue-50 text-blue-700 p-4 rounded-xl text-sm border border-blue-100">
+            Hệ thống sẽ tự động cấp key truy cập sau khi mua.
+          </div>
+        `
+        : `
+          <div class="bg-gray-50 text-gray-600 p-4 rounded-xl text-sm">
+            Tài liệu chưa có link đính kèm.
+          </div>
+        `
+  }
+`;
+        const accessBlock = (() => {
+          if (Number(doc.price) === 0 || purchased) {
+            return `
+  <div class="bg-green-50 border border-green-200 p-4 rounded-xl mt-4 space-y-3">
+
+    <p class="text-green-700 font-bold flex items-center gap-2">
+      <i class="fas fa-check-circle"></i>
+      Bạn đã có quyền truy cập tài liệu này
+      <span class="text-[10px] px-2 py-1 rounded-full bg-green-100 text-green-700">Đã mua</span>
+    </p>
+
+    ${
+      finalRedeemUrl
+        ? `
+          <div class="flex gap-2">
+
+            <a
+              href="${safe(finalRedeemUrl)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="return trackDocumentLinkClick(${jsQuote(docId)}, ${jsQuote(finalRedeemUrl)}, ${jsQuote("Mở Key Truy Cập")}, ${jsQuote("key")})"
+              class="flex-1 text-center bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 shadow-lg"
+            >
+              <i class="fas fa-key"></i>
+              Mở Key Truy Cập
+            </a>
+
+            <button
+              onclick="return trackDocumentLinkClick(${jsQuote(docId)}, ${jsQuote(finalRedeemUrl)}, ${jsQuote("Mở Key Truy Cập")}, ${jsQuote("key")})"
+              class="px-4 py-3 rounded-xl bg-gray-100 text-gray-700 font-medium hover:bg-gray-200"
+            >
+              <i class="fas fa-copy"></i>
+            </button>
+
+          </div>
+        `
+        : ""
+    }
+
+    <div class="space-y-2">
+      ${openLinkRows}
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+
+      <button
+        onclick='shareDoc(${jsQuote(docId)})'
+        class="px-4 py-2 rounded-lg bg-gray-800 text-white text-sm"
+      >
+        <i class="fas fa-share-nodes"></i>
+        Chia sẻ
+      </button>
+
+      <button
+        onclick='openReportDoc(${jsQuote(docId)})'
+        class="px-4 py-2 rounded-lg bg-red-50 text-red-600 text-sm"
+      >
+        <i class="fas fa-bug"></i>
+        Báo lỗi
+      </button>
+
+    </div>
+
+  </div>
+`;
+          }
+          if (!currentUser) {
+            return `
+              <div class="mt-6 flex flex-col md:flex-row md:items-center justify-between border-t border-gray-100 pt-6 gap-3">
+                <div><p class="text-gray-500 text-sm">Giá bán:</p><p class="text-3xl font-bold text-primary-600">${formatVND(doc.price)}</p></div>
+                <div class="flex gap-2">
+                  <button onclick="shareDoc(${jsQuote(docId)})" class="bg-gray-100 text-gray-700 px-4 py-4 rounded-xl font-medium"><i class="fas fa-share-nodes"></i></button>
+                  <button onclick="loginGoogleUI()" class="bg-primary-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-primary-700 transition transform hover:-translate-y-1"><i class="fas fa-right-to-bracket"></i> Đăng nhập để mở</button>
+                </div>
+              </div>`;
+          }
+          return `
+  <div class="mt-6 flex flex-col md:flex-row md:items-center justify-between border-t border-gray-100 pt-6 gap-3">
+
+    <div>
+      <p class="text-gray-500 text-sm">Giá bán:</p>
+
+      <p class="text-3xl font-bold text-primary-600">
+        ${formatVND(doc.price)}
+      </p>
+    </div>
+
+    <div class="flex gap-2">
+
+      <button
+        onclick='shareDoc(${JSON.stringify(docId)})'
+        class="bg-gray-100 text-gray-700 px-4 py-4 rounded-xl font-medium"
+      >
+        <i class="fas fa-share-nodes"></i>
+      </button>
+
+      <button
+        onclick='buyDocument(${JSON.stringify(docId)})'
+        class="bg-primary-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-primary-700 transition transform hover:-translate-y-1"
+      >
+        <i class="fas fa-shopping-cart"></i> Mua Ngay
+      </button>
+
+    </div>
+
+  </div>
+`;
+        })();
+        container.innerHTML = `
+      <div class="flex flex-col md:flex-row">
+        <div class="md:w-2/5 relative">
+          <img src="${safe(doc.thumbnail || "https://placehold.co/600x800/e2e8f0/64748b?text=Hi")}" class="w-full h-full object-cover min-h-[300px]">
+          ${doc.previewLink ? `<a href="${safe(doc.previewLink)}" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur text-gray-800 py-2 rounded-lg text-center font-medium shadow hover:bg-white transition"><i class="fas fa-eye"></i> Xem trước</a>` : ""}
+        </div>
+        <div class="p-6 md:p-8 md:w-3/5 flex flex-col">
+          <div class="flex items-center justify-between gap-3 mb-3 flex-wrap">
+            <div class="flex gap-2 flex-wrap">
+              <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-semibold">${safe(doc.category || doc.subject || "Phân loại")}</span>
+              <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-semibold">Lớp ${safe(doc.grade || "Chung")}</span>
+              ${hasAccessToDoc(docId) ? '<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">Đã mua</span>' : ""}
+            </div>
+            <div class="text-xs text-gray-500 flex items-center gap-3">
+              <span><i class="fas fa-eye"></i> ${Number(doc.views || 0)} lượt xem</span>
+              <span><i class="fas fa-shopping-bag"></i> ${Number(doc.buys || 0)} lượt mua</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            ${normalizeDocKeywords(doc).map((k) => `<button type="button" onclick='setDocTagFilter(${jsQuote(k)})' class="bg-primary-50 text-primary-600 px-3 py-1 rounded-full text-xs font-semibold hover:bg-primary-100">${safe(k)}</button>`).join("")}
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">${safe(doc.title || "")}</h2>
+          <p class="text-gray-500 text-sm mb-6 flex gap-4 flex-wrap"><span><i class="fas fa-shopping-bag"></i> ${Number(doc.buys || 0)} lượt mua</span> <span><i class="fas fa-eye"></i> ${Number(doc.views || 0)} lượt xem</span> <span><i class="fas fa-clock"></i> ${formatDate(doc.createdAt)}</span></p>
+          <h3 class="font-bold text-gray-800 mb-2">Mô tả chi tiết</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1 whitespace-pre-wrap">${safe(doc.description || "Chưa có mô tả chi tiết cho tài liệu này.")}</p>
+          ${accessBlock}
+        </div>
+      </div>`;
+        if (!hasActiveTrackerForDoc) startDocViewTracker(docId);
+      };
+
+      window.shareDoc = async (docId) => {
+        const url = `${location.origin}${location.pathname}?doc=${encodeURIComponent(docId)}`;
+        const ok = await copyText(url);
+        showModal(
+          ok ? "Đã sao chép" : "Chia sẻ tài liệu",
+          ok
+            ? "Link chia sẻ đã được copy."
+            : `Link: <span class="font-mono break-all">${safe(url)}</span>`,
+          ok ? "success" : "info",
+        );
+      };
+
+      window.shareDoc = async (docId) => {
+        const url = `${location.origin}${location.pathname}?doc=${encodeURIComponent(docId)}`;
+        const ok = await copyText(url);
+        showModal(
+          ok ? "Đã sao chép" : "Chia sẻ tài liệu",
+          ok
+            ? "Link chia sẻ đã được copy."
+            : `Link: <span class="font-mono break-all">${safe(url)}</span>`,
+          ok ? "success" : "info",
+        );
+      };
+
+      window.openPurchaseKeyLink = (docId) => {
+        if (!currentUser)
+          return loginPrompt("Bạn cần đăng nhập để mở link key.");
+        const doc = globalData.docs[docId];
+        const purchase = getLatestPurchaseForDoc(docId);
+        if (!doc || !purchase?.assignedKey) {
+          showModal(
+            "Không có link key",
+            "Đơn mua này chưa được gắn key hoặc key chưa sẵn sàng.",
+            "warning",
+          );
+          return;
+        }
+
+        const keyLink = getPurchaseKeyLink(purchase);
+        if (!keyLink) {
+          showModal(
+            "Không có link key",
+            "Không thể tạo đường dẫn key cho đơn mua này.",
+            "warning",
+          );
+          return;
+        }
+
+        const allocationRef = ref(
+          keyDb,
+          `${keyDbPath("keyAllocations", doc.keyPoolId)}/${purchase.assignedKey}`,
+        );
+        const currentCount = Number(
+          globalData.keyAllocations?.[doc.keyPoolId]?.[purchase.assignedKey]
+            ?.loginCount || 0,
+        );
+        update(allocationRef, {
+          loginCount: currentCount + 1,
+          lastLoginAt: Date.now(),
+          lastOpenedBy: currentUser.uid,
+          lastOpenedName: userData?.name || currentUser.email || currentUser.uid,
+        }).catch(() => {});
+        logKeyUsage({
+          userId: currentUser.uid,
+          userName: userData?.name || currentUser.email || currentUser.uid,
+          email: userData?.email || currentUser.email || "",
+          docId,
+          docTitle: doc?.title || "",
+          purchaseId: purchase?.id || "",
+          key: purchase?.assignedKey || "",
+          action: "open_key",
+          keyPoolId: doc?.keyPoolId || "",
+        });
+        window.open(keyLink, "_blank", "noopener,noreferrer");
+      };
+
+      window.openReportDoc = (docId) => {
+        if (!currentUser) {
+          return loginGoogleUI();
+        }
+
+        const doc = globalData?.docs?.[docId];
+
+        openFormModal(
+          "Báo cáo tài liệu / lỗi key",
+          `
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Tài liệu</label>
+        <input
+          class="w-full px-3 py-2 border rounded-lg bg-gray-50"
+          value="${safe(doc?.title || "")}"
+          readonly
+        >
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Loại báo cáo</label>
+        <select id="report-type" class="w-full px-3 py-2 border rounded-lg">
+          <option>Lỗi link</option>
+          <option>Lỗi key</option>
+          <option>Nội dung sai</option>
+          <option>Vi phạm</option>
+          <option>Khác</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Mô tả</label>
+        <textarea
+          id="report-desc"
+          rows="4"
+          class="w-full px-3 py-2 border rounded-lg"
+          placeholder="Mô tả chi tiết vấn đề..."
+        ></textarea>
+      </div>
+    `,
+          async () => {
+            try {
+              const reportType =
+                document.getElementById("report-type")?.value || "";
+
+              const reportDesc =
+                document.getElementById("report-desc")?.value || "";
+
+              const report = {
+                userId: currentUser.uid,
+                docId,
+                type: reportType,
+                details: reportDesc,
+                createdAt: Date.now(),
+                status: "new",
+              };
+
+              // Save report
+              const reportRef = push(ref(db, dbPath("reports")));
+              await set(reportRef, report);
+
+              // Find purchase
+              const myPurchase = Object.entries(globalData?.purchases || {})
+                .map(([id, val]) => ({
+                  id,
+                  ...val,
+                }))
+                .find(
+                  (p) => p.userId === currentUser.uid && p.documentId === docId,
+                );
+
+              // Conditions for replacing key
+              const canReplaceKey =
+                myPurchase &&
+                /key/i.test(reportType) &&
+                userData?.name &&
+                userData?.class &&
+                userData?.school &&
+                doc?.keyPoolId &&
+                myPurchase?.assignedKey;
+
+              if (canReplaceKey) {
+                const oldKey = myPurchase.assignedKey;
+
+                const allocationSnap = await get(
+                  ref(
+                    keyDb,
+                    `${keyDbPath("keyAllocations", doc.keyPoolId)}/${oldKey}`,
+                  ),
+                );
+
+                const allocation = allocationSnap.val() || {};
+
+                const loginCount = Number(allocation?.loginCount || 0);
+
+                if (loginCount < 1) {
+                  showModal(
+                    "Chưa đủ điều kiện",
+                    "Key này chưa ghi nhận lượt đăng nhập nào nên chưa thể cấp lại key mới.",
+                    "warning",
+                  );
+                } else {
+                  const newKey = await allocateKeyFromPool(
+                    doc.keyPoolId,
+                    docId,
+                    currentUser.uid,
+                  );
+
+                  if (newKey && myPurchase?.id) {
+                    await update(ref(db, dbPath("purchases", myPurchase.id)), {
+                      assignedKey: newKey,
+                      accessLinks: [
+                        {
+                          label: "Mở link key",
+                          url: buildKeyRedeemUrl(newKey),
+                        },
+                      ],
+                      keyReissuedAt: Date.now(),
+                    });
+                  }
+
+                  // Remove old key allocation
+                  if (oldKey) {
+                    await remove(
+                      ref(
+                        keyDb,
+                        `${keyDbPath(
+                          "keyAllocations",
+                          doc.keyPoolId,
+                        )}/${oldKey}`,
+                      ),
+                    );
+                  }
+
+                  // Notify Discord
+                  await notifyDiscord(
+                    [
+                      "🔁 **Cấp lại key do báo lỗi**",
+                      `- User: ${userData?.name || "Unknown"} (${userData?.email || "No email"})`,
+                      `- Doc: ${doc?.title || docId}`,
+                      `- Old Key: ${oldKey}`,
+                      `- New Key: ${newKey || "Không còn key trống"}`,
+                      `- Login count cũ: ${loginCount}`,
+                    ].join("\n"),
+                  );
+                }
+              }
+
+              // General report notification
+              await notifyDiscord(
+                [
+                  "🚨 **Báo cáo tài liệu**",
+                  `- User: ${userData?.name || "Unknown"} (${userData?.email || "No email"})`,
+                  `- Doc: ${doc?.title || docId}`,
+                  `- Type: ${report.type}`,
+                  `- Details: ${report.details || "Không có mô tả"}`,
+                ].join("\n"),
+              );
+
+              closeModal();
+
+              showModal(
+                "Đã gửi báo cáo",
+                "Thông tin báo cáo đã được chuyển về Discord.",
+                "success",
+              );
+            } catch (error) {
+              console.error("openReportDoc error:", error);
+
+              showModal(
+                "Có lỗi xảy ra",
+                error?.message || "Không thể gửi báo cáo.",
+                "error",
+              );
+            }
+          },
+          "Gửi báo cáo",
+        );
+      };
+      const renderWallet = () => {
+        document.getElementById("wallet-balance-display").innerText = formatVND(
+          userData?.walletBalance || 0,
+        );
+        const tbody = document.getElementById("tx-history-body");
+        tbody.innerHTML = "";
+        const userTxs = Object.entries(globalData.tx || {})
+          .map(([id, val]) => ({ id, ...val }))
+          .filter((tx) => tx.userId === currentUser.uid)
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        if (userTxs.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">Chưa có giao dịch nào</td></tr>';
+          return;
+        }
+        userTxs.forEach((tx) => {
+          const typeStr =
+            tx.type === "deposit"
+              ? '<span class="text-green-600 bg-green-50 px-2 py-1 rounded text-xs font-bold">Nạp tiền</span>'
+              : '<span class="text-orange-600 bg-orange-50 px-2 py-1 rounded text-xs font-bold">Mua hàng</span>';
+          const statusStr =
+            tx.status === "success" || tx.status === "verified"
+              ? '<span class="text-green-500"><i class="fas fa-check-circle"></i> Thành công</span>'
+              : tx.status === "pending"
+                ? '<span class="text-orange-500"><i class="fas fa-clock"></i> Chờ duyệt</span>'
+                : '<span class="text-red-500"><i class="fas fa-times-circle"></i> Từ chối</span>';
+          tbody.innerHTML += `
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4 text-xs font-mono text-gray-500">${safe(tx.id.substring(1, 8).toUpperCase())}</td>
+          <td class="px-6 py-4">${typeStr}</td>
+          <td class="px-6 py-4 font-bold ${tx.type === "deposit" ? "text-green-600" : "text-red-500"}">${tx.type === "deposit" ? "+" : "-"}${formatVND(tx.amount)}</td>
+          <td class="px-6 py-4 text-sm">${formatDate(tx.createdAt)}</td>
+          <td class="px-6 py-4">${statusStr}</td>
+        </tr>`;
+        });
+      };
+function showConfirmPopup(message, confirmText = "Xác nhận") {
+  return new Promise((resolve) => {
+    const old = document.getElementById("custom-confirm-popup");
+    if (old) old.remove();
+
+    const overlay = document.createElement("div");
+    overlay.id = "custom-confirm-popup";
+    overlay.className =
+      "fixed inset-0 z-[99999] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4";
+
+    overlay.innerHTML = `
+      <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden animate-[popup_.2s_ease]">
+        <div class="p-6">
+          <div class="w-14 h-14 mx-auto rounded-full bg-primary-100 flex items-center justify-center mb-4">
+            <i class="fa-solid fa-triangle-exclamation text-primary-600 text-2xl"></i>
+          </div>
+
+          <h3 class="text-xl font-bold text-center text-gray-800 mb-2">
+            Xác nhận thao tác
+          </h3>
+
+          <p class="text-sm text-gray-600 text-center leading-6">
+            ${safe(message)}
+          </p>
+
+          <div class="flex gap-3 mt-6">
+            <button
+              id="confirm-cancel-btn"
+              class="flex-1 h-11 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold transition"
+            >
+              Hủy
+            </button>
+
+            <button
+              id="confirm-ok-btn"
+              class="flex-1 h-11 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-lg shadow-primary-200 transition"
+            >
+              ${safe(confirmText)}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const close = (value) => {
+      overlay.style.opacity = "0";
+      overlay.querySelector("div").style.transform = "scale(.95)";
+
+      setTimeout(() => {
+        overlay.remove();
+        resolve(value);
+      }, 150);
+    };
+
+    document
+      .getElementById("confirm-cancel-btn")
+      .addEventListener("click", () => close(false));
+
+    document
+      .getElementById("confirm-ok-btn")
+      .addEventListener("click", () => close(true));
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) close(false);
+    });
+  });
+}
+      async function processDeposit(amount) {
+        if (!currentUser)
+          throw new Error("Bạn cần đăng nhập trước khi nạp tiền.");
+        if (!Number.isFinite(amount) || amount <= 0)
+          throw new Error("Số tiền nạp không hợp lệ.");
+
+        const confirmQuestions = [
+  `Bạn xác nhận muốn nạp ${formatVND(amount)}?`,
+  `Bạn nhập ${formatVND(amount)} thì admin sẽ thu bạn đúng ${formatVND(amount)}.`,
+  `Sau khi gửi yêu cầu nạp bạn sẽ không thể hoàn tác. Tiếp tục?`,
+];
+
+for (let i = 0; i < confirmQuestions.length; i++) {
+  const ok = await showConfirmPopup(
+    confirmQuestions[i],
+    `Xác nhận (${i + 1}/3)`,
+  );
+
+  if (!ok) {
+    throw new Error("Đã hủy yêu cầu nạp.");
+  }
+}
+
+        const txRef = push(ref(db, dbPath("transactions")));
+        const txId = txRef.key;
+        const tx = {
+          userId: currentUser.uid,
+          type: "deposit",
+          amount,
+          status: "verified",
+          verification: {
+            confirmed: true,
+            confirmSteps: 3,
+          },
+          createdAt: Date.now(),
+        };
+        await set(txRef, tx);
+        await update(ref(db, dbPath("users", currentUser.uid)), {
+          walletBalance: Number(userData.walletBalance || 0) + amount,
+        });
+        await notifyDiscord(
+          `✅ **Nạp tiền đã xác minh**
+- User: ${userData.name} (${userData.email})
+- Amount: ${formatVND(amount)}
+- Tx: ${txId}`,
+        );
+      }
+
+  const renderPurchased = () => {
+  const grid = document.getElementById("purchased-grid");
+  if (!grid) return;
+
+  try {
+    grid.innerHTML = "";
+
+    if (!currentUser) {
+      grid.innerHTML = `
+        <div class="col-span-full text-center py-10 text-gray-500">
+          Bạn cần đăng nhập để xem tài liệu đã mua.
+        </div>
+      `;
+      return;
+    }
+
+    const myPurchases = Object.values(globalData.purchases || {})
+      .filter((p) => p.userId === currentUser.uid)
+      .sort((a, b) => (b.purchasedAt || 0) - (a.purchasedAt || 0));
+
+    if (!myPurchases.length) {
+      grid.innerHTML = `
+        <div class="col-span-full text-center py-10 text-gray-500">
+          Bạn chưa mua tài liệu nào.
+        </div>
+      `;
+      return;
+    }
+
+    const renderedDocs = new Set();
+    const cards = [];
+
+    myPurchases.forEach((pur) => {
+      const docId = String(pur.documentId || pur.docId || "").trim();
+      if (!docId || renderedDocs.has(docId)) return;
+      renderedDocs.add(docId);
+
+      const doc = globalData.docs?.[docId];
+      const resolvedDoc = doc || {
+        id: docId,
+        title: "Tài liệu đã mua",
+        grade: "Chung",
+        views: 0,
+        buys: 0,
+        thumbnail: "https://placehold.co/400x200/e2e8f0/64748b?text=Tài+Liệu",
+      };
+
+      const rawLinks =
+        Array.isArray(pur.accessLinks) && pur.accessLinks.length
+          ? pur.accessLinks
+          : getDocLinks(resolvedDoc);
+
+      const linksSource = rawLinks
+        .map((l) => ({
+          ...l,
+          url: l?.url || (pur.assignedKey ? buildKeyRedeemUrl(pur.assignedKey) : ""),
+        }))
+        .filter((l) => l?.url);
+
+      const linksHtml = linksSource.length
+        ? linksSource
+            .map((l) => `
+              <div class="flex gap-2">
+                <a
+                  href="${safe(l.url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onclick="return trackDocumentLinkClick(${jsQuote(docId)}, ${jsQuote(l.url)}, ${jsQuote(l.label || 'Mở tài liệu')}, ${jsQuote(pur.assignedKey ? 'key' : 'open_doc')})"
+                  class="flex-1 text-center w-full bg-green-50 text-green-700 py-2 rounded-lg font-medium text-sm hover:bg-green-100"
+                >
+                  ${safe(l.label || 'Mở tài liệu')}
+                </a>
+
+                <button
+                  onclick='copyDocLink(${jsQuote(l.url)}); return trackDocumentLinkClick(${jsQuote(docId)}, ${jsQuote(l.url)}, ${jsQuote(l.label || 'Mở tài liệu')}, ${jsQuote(pur.assignedKey ? 'key' : 'open_doc')})'
+                  class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm hover:bg-gray-200"
+                  title="Copy link"
+                >
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            `)
+            .join("")
+        : `<div class="text-xs text-gray-400">Chưa có link truy cập.</div>`;
+
+      cards.push(`
+        <div class="bg-white rounded-2xl shadow-sm border border-green-100 overflow-hidden flex flex-col h-full">
+          <div class="h-36 bg-gray-200 relative">
+            <img
+              src="${safe(resolvedDoc.thumbnail || 'https://placehold.co/400x200/e2e8f0/64748b?text=Tài+Liệu')}"
+              class="w-full h-full object-cover"
+              onerror="this.src='https://placehold.co/400x200/e2e8f0/64748b?text=Tài+Liệu'"
+            >
+
+            <span class="absolute top-2 left-2 bg-green-600 text-white text-[10px] px-2 py-1 rounded-full shadow">
+              Đã mua
+            </span>
+
+            <div class="absolute bottom-2 left-2 bg-black/60 text-white px-2 py-1 rounded text-[11px]">
+              <i class="fas fa-eye"></i>
+              ${Number(resolvedDoc.views || 0)} lượt xem
+            </div>
+          </div>
+
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="font-bold text-gray-800 line-clamp-2 mb-1">
+              ${safe(resolvedDoc.title || '')}
+            </h3>
+
+            <p class="text-xs text-gray-500 mb-3">
+              Lớp: ${safe(resolvedDoc.grade || 'Chung')}
+              •
+              ${Number(resolvedDoc.buys || 0)} lượt mua
+            </p>
+
+            <div class="mt-auto space-y-2">
+              ${linksHtml}
+            </div>
+          </div>
+        </div>
+      `);
+    });
+
+    grid.innerHTML = cards.join("");
+
+    if (!grid.innerHTML.trim()) {
+      grid.innerHTML = `
+        <div class="col-span-full text-center py-10 text-gray-500">
+          Không tìm thấy tài liệu đã mua.
+        </div>
+      `;
+    }
+  } catch (err) {
+    console.error("renderPurchased failed:", err);
+    grid.innerHTML = `
+      <div class="col-span-full text-center py-10 text-red-500">
+        Không thể tải danh sách tài liệu đã mua.
+      </div>
+    `;
+  }
+};
+    const renderKeywordManager = async () => {
+        const host = document.getElementById("admin-docs");
+        if (!host) return;
+
+        let card = document.getElementById("keyword-manager");
+        if (!card) {
+          card = document.createElement("div");
+          card.id = "keyword-manager";
+          card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6";
+          card.innerHTML = `
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+              <div>
+                <h3 class="font-bold text-gray-800">Quản lý từ khóa / phân loại</h3>
+                <p class="text-xs text-gray-500">Từ khóa hiển thị trên web và dùng để lọc tài liệu.</p>
+              </div>
+              <form id="keyword-add-form" class="flex gap-2">
+                <input id="keyword-new-name" class="px-3 py-2 border rounded-lg text-sm" placeholder="Thêm từ khóa mới">
+                <button type="submit" class="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium">Thêm</button>
+              </form>
+            </div>
+            <div id="keyword-manager-list" class="flex flex-wrap gap-2"></div>
+          `;
+          host.insertBefore(card, host.firstChild);
+          card.querySelector("#keyword-add-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const name = card.querySelector("#keyword-new-name").value.trim();
+            if (!name) return;
+            const id = slugify(name);
+            await update(ref(db, dbPath("keywords", id)), {
+              id,
+              name,
+              createdAt: globalData.keywords?.[id]?.createdAt || Date.now(),
+              updatedAt: Date.now(),
+            });
+            card.querySelector("#keyword-new-name").value = "";
+          });
+        }
+
+        const list = card.querySelector("#keyword-manager-list");
+        const items = getKeywordEntries();
+        if (!items.length) {
+          list.innerHTML = '<div class="text-sm text-gray-500">Chưa có từ khóa nào.</div>';
+          return;
+        }
+        list.innerHTML = items
+          .map((kw) => `
+              <div class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-50 border border-gray-200">
+                <input data-keyword-id="${safe(kw.id)}" class="keyword-name-input bg-transparent outline-none text-sm w-28" value="${safe(kw.name || kw.id)}">
+                <button type="button" data-save="${safe(kw.id)}" class="text-xs px-2 py-1 rounded bg-primary-600 text-white">Lưu</button>
+                <button type="button" data-delete="${safe(kw.id)}" class="text-xs px-2 py-1 rounded bg-red-50 text-red-600">Xóa</button>
+              </div>
+            `)
+          .join("");
+
+        list.querySelectorAll("[data-save]").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const id = btn.dataset.save;
+            const input = list.querySelector(`[data-keyword-id="${CSS.escape(id)}"]`);
+            const name = input?.value.trim();
+            if (!name) return;
+            await update(ref(db, dbPath("keywords", id)), {
+              id,
+              name,
+              createdAt: globalData.keywords?.[id]?.createdAt || Date.now(),
+              updatedAt: Date.now(),
+            });
+          });
+        });
+
+        list.querySelectorAll("[data-delete]").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const id = btn.dataset.delete;
+            if (!id) return;
+            if (!confirm("Xóa từ khóa này?")) return;
+            await remove(ref(db, dbPath("keywords", id)));
+          });
+        });
+      };
+
+ 
+      
+      const renderAdminDocs = () => {
+        renderKeywordManager();
+        const tbody = document.getElementById("admin-docs-body");
+        tbody.innerHTML = "";
+        const docs = Object.entries(globalData.docs || {})
+          .map(([id, val]) => ({ id, ...val }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        const filtered = docs.filter((doc) =>
+          adminMatches(
+            doc.title,
+            doc.category,
+            doc.subject,
+            doc.grade,
+            doc.description,
+            normalizeDocKeywords(doc).join(" "),
+          ),
+        );
+        if (!filtered.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="px-4 py-5 text-center text-gray-500">Không tìm thấy tài liệu phù hợp.</td></tr>';
+          return;
+        }
+        filtered.forEach((doc) => {
+          const docKeywords = normalizeDocKeywords(doc);
+          tbody.innerHTML += `
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-3">
+            <div class="font-medium text-gray-800 line-clamp-1 flex items-center gap-2">${safe(doc.title || "")}${doc.featured ? '<span class="text-[10px] px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 font-bold">Nổi bật</span>' : ""}</div>
+            <p class="text-xs text-gray-400">${safe(doc.category || doc.subject || "")}</p>
+          </td>
+          <td class="px-4 py-3 text-gray-600">${safe(doc.grade || "")}<div class="text-xs text-gray-400">${docKeywords.map((k) => safe(k)).join(", ")}</div></td>
+          <td class="px-4 py-3 font-medium text-primary-600">${formatVND(doc.price)}</td>
+          <td class="px-4 py-3 text-gray-600">${Number(doc.buys || 0)}</td>
+          <td class="px-4 py-3 flex flex-wrap gap-2">
+            <button onclick="editDoc('${doc.id}')" class="text-blue-600 hover:text-blue-800 bg-blue-50 p-2 rounded" title="Sửa"><i class="fas fa-pen"></i></button>
+            <button onclick="cloneDoc('${doc.id}')" class="text-emerald-600 hover:text-emerald-800 bg-emerald-50 p-2 rounded" title="Clone"><i class="fas fa-clone"></i></button>
+            <button onclick="toggleFeaturedDoc('${doc.id}')" class="${doc.featured ? 'text-yellow-700 bg-yellow-100' : 'text-yellow-600 bg-yellow-50'} p-2 rounded" title="Ghim top"><i class="fas fa-star"></i></button>
+            <button onclick="deleteDoc('${doc.id}')" class="text-red-500 hover:text-red-700 bg-red-50 p-2 rounded" title="Xóa"><i class="fas fa-trash"></i></button>
+            <button onclick="shareDoc('${doc.id}')" class="text-gray-700 hover:text-gray-900 bg-gray-100 p-2 rounded" title="Chia sẻ"><i class="fas fa-share-nodes"></i></button>
+          </td>
+        </tr>`;
+        });
+      };
+
+      const renderAdminUsers = () => {
+        const tbody = document.getElementById("admin-users-body");
+        if (!tbody) return;
+        const users = Object.entries(globalData.users || {})
+          .map(([id, val]) => ({ id, ...val }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        const filtered = users.filter((u) =>
+          adminMatches(u.name, u.email, u.class, u.school, u.uid),
+        );
+        if (!filtered.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="8" class="px-4 py-5 text-center text-gray-500">Không tìm thấy người dùng phù hợp.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = filtered
+          .map((u) => {
+            const remaining = getUserRemainingCash({ ...u, id: u.id });
+            return `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-3">
+              <div class="font-medium text-gray-800">${safe(u.name || u.uid || "")}</div>
+              <div class="text-xs text-gray-400 font-mono">${safe(u.uid || "")}</div>
+            </td>
+            <td class="px-4 py-3">
+              <img src="${safe(u.avatar || "https://placehold.co/100")}" class="w-10 h-10 rounded-full object-cover border border-gray-200" onerror="this.src='https://placehold.co/100'">
+            </td>
+            <td class="px-4 py-3 text-gray-600">${safe(u.email || "")}</td>
+            <td class="px-4 py-3 text-gray-600">${safe(u.class || "")}<div class="text-xs text-gray-400">${safe(u.school || "")}</div></td>
+            <td class="px-4 py-3 font-medium text-primary-600">${formatVND(u.walletBalance || 0)}</td>
+            <td class="px-4 py-3 font-medium ${remaining > 0 ? "text-red-600" : "text-green-600"}">${formatVND(remaining)}</td>
+            <td class="px-4 py-3">${u.role === "admin" ? '<span class="px-2 py-1 rounded-full bg-purple-50 text-purple-700 text-xs">Admin</span>' : (u.verified ? '<span class="px-2 py-1 rounded-full bg-green-50 text-green-700 text-xs">Đã duyệt</span>' : '<span class="px-2 py-1 rounded-full bg-orange-50 text-orange-700 text-xs">Chờ duyệt</span>')}</td>
+            <td class="px-4 py-3 flex flex-wrap gap-2">
+              <button onclick="openUserDetail('${u.id}')" class="text-purple-600 bg-purple-50 px-3 py-1.5 rounded-lg text-xs font-medium">Chi tiết</button>
+              <button onclick="editUser('${u.id}')" class="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-medium">Sửa</button>
+              <button onclick="toggleVerify('${u.id}', ${!u.verified})" class="text-green-600 bg-green-50 px-3 py-1.5 rounded-lg text-xs font-medium">${u.verified ? "Bỏ duyệt" : "Duyệt"}</button>
+              <button onclick="deleteUser('${u.id}')" class="text-red-600 bg-red-50 px-3 py-1.5 rounded-lg text-xs font-medium">Xóa</button>
+            </td>
+          </tr>
+        `;
+          })
+          .join("");
+      };
+
+      const renderAdminTx = () => {
+        const depositBody = document.getElementById("admin-tx-deposit");
+        const consumeBody = document.getElementById("admin-tx-consume");
+        if (!depositBody || !consumeBody) return;
+        const txs = Object.entries(globalData.tx || {})
+          .map(([id, val]) => ({ id, ...val }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        const usersById = globalData.users || {};
+        const docsById = globalData.docs || {};
+        const deposits = txs.filter((t) => t.type === "deposit");
+        const consumes = txs.filter((t) => t.type === "purchase");
+
+        const rowStatus = (tx) =>
+          tx.status === "verified" || tx.status === "success"
+            ? '<span class="px-2 py-1 rounded-full bg-green-50 text-green-700 text-xs">Thành công</span>'
+            : tx.status === "pending"
+              ? '<span class="px-2 py-1 rounded-full bg-orange-50 text-orange-700 text-xs">Chờ duyệt</span>'
+              : '<span class="px-2 py-1 rounded-full bg-red-50 text-red-700 text-xs">Từ chối</span>';
+
+        const depFiltered = deposits.filter((tx) => {
+          const user = usersById[tx.userId] || {};
+          return adminMatches(tx.id, tx.userId, user.name, user.email, tx.amount, tx.status);
+        });
+
+        const conFiltered = consumes.filter((tx) => {
+          const user = usersById[tx.userId] || {};
+          const doc = docsById[tx.docId] || {};
+          return adminMatches(tx.id, tx.userId, user.name, user.email, doc.title, tx.docId, tx.amount, tx.status);
+        });
+
+        depositBody.innerHTML = depFiltered.length
+          ? depFiltered
+              .map((tx) => {
+                const user = usersById[tx.userId] || {};
+                return `<tr class="hover:bg-gray-50"><td class="px-4 py-3 text-xs font-mono">${safe(tx.id)}<div class="text-gray-400">${formatDate(tx.createdAt)}</div></td><td class="px-4 py-3 text-sm">${safe(user.name || tx.userId || "")}<div class="text-xs text-gray-400">${safe(user.email || "")}</div></td><td class="px-4 py-3 font-medium text-primary-600">${formatVND(tx.amount)}</td><td class="px-4 py-3">${rowStatus(tx)}</td><td class="px-4 py-3 flex flex-wrap gap-2"><button onclick="approveTx('${tx.id}')" class="px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-xs font-medium">Duyệt</button><button onclick="rejectTx('${tx.id}')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-700 text-xs font-medium">Từ chối</button><button onclick="editTx('${tx.id}')" class="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">Sửa</button><button onclick="deleteTx('${tx.id}')" class="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">Xóa</button></td></tr>`;
+              })
+              .join("")
+          : '<tr><td colspan="5" class="px-4 py-5 text-center text-gray-500">Không tìm thấy giao dịch nạp tiền.</td></tr>';
+
+        consumeBody.innerHTML = conFiltered.length
+          ? conFiltered
+              .map((tx) => {
+                const user = usersById[tx.userId] || {};
+                const doc = docsById[tx.docId] || {};
+                return `<tr class="hover:bg-gray-50"><td class="px-4 py-3 text-xs font-mono">${safe(tx.id)}<div class="text-gray-400">${formatDate(tx.createdAt)}</div></td><td class="px-4 py-3 text-sm">${safe(user.name || tx.userId || "")}<div class="text-xs text-gray-400">${safe(user.email || "")}</div></td><td class="px-4 py-3 text-sm text-gray-600">${safe(doc.title || tx.docId || "")}</td><td class="px-4 py-3 font-medium text-primary-600">${formatVND(tx.amount)}</td><td class="px-4 py-3 flex flex-wrap gap-2"><button onclick="editTx('${tx.id}')" class="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">Sửa</button><button onclick="deleteTx('${tx.id}')" class="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">Xóa</button></td></tr>`;
+              })
+              .join("")
+          : '<tr><td colspan="5" class="px-4 py-5 text-center text-gray-500">Không tìm thấy giao dịch tiêu dùng.</td></tr>';
+
+        const depositPanel = document.getElementById("admin-tx-deposit")?.closest(".bg-white.rounded-2xl.shadow-sm.border.border-gray-100.overflow-hidden");
+        const consumePanel = document.getElementById("admin-tx-consume")?.closest(".bg-white.rounded-2xl.shadow-sm.border.border-gray-100.overflow-hidden");
+        if (depositPanel && consumePanel) {
+          if (adminTxFilter === "deposit") {
+            depositPanel.classList.remove("hidden");
+            consumePanel.classList.add("hidden");
+          } else {
+            depositPanel.classList.add("hidden");
+            consumePanel.classList.remove("hidden");
+          }
+        }
+      };
+
+      const renderAdminReports = () => {
+        const tbody = document.getElementById("admin-reports-body");
+        if (!tbody) return;
+        const reports = Object.entries(globalData.reports || {})
+          .map(([id, val]) => ({ id, ...val }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        const filtered = reports.filter((r) =>
+          adminMatches(
+            r.id,
+            r.userId,
+            (globalData.users[r.userId] || {}).name,
+            (globalData.users[r.userId] || {}).email,
+            (globalData.docs[r.docId] || {}).title,
+            r.docId,
+            r.type,
+            r.details,
+            r.status,
+          ),
+        );
+        if (!filtered.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="px-4 py-5 text-center text-gray-500">Không tìm thấy báo cáo nào.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = filtered
+          .map((r) => {
+            const u = globalData.users[r.userId] || {};
+            const d = globalData.docs[r.docId] || {};
+            return `
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-3">${safe(u.name || r.userId || "")}<div class="text-xs text-gray-400">${formatDate(r.createdAt)}</div></td>
+          <td class="px-4 py-3">${safe(d.title || r.docId || "")}</td>
+          <td class="px-4 py-3">${safe(r.type || "")}</td>
+          <td class="px-4 py-3"><span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs font-bold">${safe(r.status || "new")}</span></td>
+          <td class="px-4 py-3">
+            <button onclick="resolveReport('${r.id}')" class="text-blue-600 text-xs font-medium border border-blue-600 px-2 py-1 rounded hover:bg-blue-50">Xử lý</button>
+          </td>
+        </tr>`;
+          })
+          .join("");
+      };
+
+      const renderKeyUsageLogs = () => {
+        const body = document.getElementById("admin-key-logs-body");
+        if (!body) return;
+        const logs = Object.entries(globalData.keyUsageLogs || {})
+          .map(([id, val]) => ({ id, ...val }))
+          .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        const filtered = logs.filter((log) =>
+          adminMatches(log.id, log.userId, log.userName, log.email, log.docId, log.docTitle, log.key, log.action),
+        );
+        if (!filtered.length) {
+          body.innerHTML =
+            '<tr><td colspan="5" class="px-4 py-5 text-center text-gray-500">Không tìm thấy log key.</td></tr>';
+          return;
+        }
+        body.innerHTML = filtered.slice(0, 50).map((log) => {
+          const u = globalData.users[log.userId] || {};
+          const d = globalData.docs[log.docId] || {};
+          const actionLabel =
+            log.action === "open_key" ? "Click key" :
+            log.action === "open_doc" ? "Mở tài liệu" :
+            log.action === "open_link" ? "Click link" :
+            log.action === "view_doc" ? "Xem tài liệu" :
+            log.action === "issued" ? "Đã cấp key" :
+            safe(log.action || "Log");
+          const keyValue = String(log.key || log.linkUrl || "").trim();
+          return `
+              <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3 text-xs">${formatDate(log.createdAt)}</td>
+                <td class="px-4 py-3 text-sm font-medium text-gray-700">${safe(log.userName || u.name || log.userId || "")}<div class="text-xs text-gray-400">${safe(log.email || u.email || "")}</div></td>
+                <td class="px-4 py-3 text-sm text-gray-600">${safe(d.title || log.docTitle || log.docId || "")}</td>
+                <td class="px-4 py-3 text-xs"><span class="px-2 py-1 rounded-full bg-blue-50 text-blue-700">${actionLabel}</span></td>
+                <td class="px-4 py-3 text-xs font-mono text-gray-500 break-all">${safe(keyValue)}</td>
+              </tr>
+            `;
+        }).join("");
+      };
+
+      const renderAdmin = () => {
+        if (userData?.role !== "admin") return nav("home");
+        renderKeyPoolManager();
+        updateAdminStats();
+        renderAdminDocs();
+        renderAdminUsers();
+        renderAdminTx();
+        renderAdminReports();
+        renderKeyUsageLogs();
+      };
+
+      const renderKeyPoolManager = async () => {
+        const host = document.getElementById("admin-docs");
+        if (!host) return;
+
+        let card = document.getElementById("key-pool-manager");
+        if (!card) {
+          card = document.createElement("div");
+          card.id = "key-pool-manager";
+          card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6";
+          card.innerHTML = `
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+        <div>
+          <h3 class="font-bold text-gray-800">Tạo link gốc / kho key</h3>
+          <p class="text-xs text-gray-500">Admin thêm nhiều link key riêng, rồi chọn vào tài liệu để cấp key vĩnh viễn theo từng kho.</p>
+        </div>
+        <button id="refresh-key-pools-btn" type="button" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm hover:bg-gray-200">Tải lại</button>
+      </div>
+      <form id="key-pool-form" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Tên hiển thị</label>
+          <input id="key-pool-name" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="VD: Toán 12 - Link gốc">
+        </div>
+        <div>
+          <label class="block text-xs text-gray-500 mb-1">Mã pool</label>
+          <input id="key-pool-id" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="VD: toan12-core">
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-xs text-gray-500 mb-1">Key gốc (mỗi dòng 1 key hoặc URL)</label>
+          <textarea id="key-pool-keys" rows="4" class="w-full px-3 py-2 border rounded-lg text-sm" placeholder="KEY1
+KEY2
+KEY3"></textarea>
+        </div>
+        <div class="md:col-span-3 flex justify-end">
+          <button type="submit" class="bg-primary-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-primary-700">Lưu link gốc</button>
+        </div>
+      </form>
+      <div id="key-pools-list" class="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-3"></div>
+    `;
+          host.insertBefore(card, host.firstChild);
+
+          card.querySelector("#key-pool-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            try {
+              const name = document.getElementById("key-pool-name").value.trim();
+              const poolId = document.getElementById("key-pool-id").value.trim();
+              const keys = String(document.getElementById("key-pool-keys").value || "")
+                .split(/\n+/)
+                .map((s) => s.trim())
+                .filter(Boolean);
+
+              if (!poolId || !name || keys.length === 0) {
+                showModal("Thiếu dữ liệu", "Vui lòng nhập tên, mã pool và ít nhất một key.", "warning");
+                return;
+              }
+
+              await set(ref(keyDb, keyDbPath("uniqueKeyPools", poolId)), {
+                id: poolId,
+                name,
+                keys,
+                count: keys.length,
+                createdAt: globalData.keyPools?.[poolId]?.createdAt || Date.now(),
+                updatedAt: Date.now(),
+              });
+
+              document.getElementById("key-pool-name").value = "";
+              document.getElementById("key-pool-id").value = "";
+              document.getElementById("key-pool-keys").value = "";
+              showModal("Thành công", "Đã lưu kho link gốc.", "success");
+              renderKeyPoolManager();
+            } catch (err) {
+              console.error("Save key pool failed:", err);
+              showModal("Không thể lưu kho key", "Firebase đang từ chối quyền truy cập vào kho key.", "warning");
+            }
+          });
+
+          card.querySelector("#refresh-key-pools-btn").addEventListener("click", renderKeyPoolManager);
+        }
+
+        const list = document.getElementById("key-pools-list");
+        list.innerHTML = "";
+
+        try {
+          const snap = await get(ref(keyDb, keyDbPath("uniqueKeyPools")));
+          const pools = snap.val() || {};
+          globalData.keyPools = pools;
+
+          const entries = Object.entries(pools).sort((a, b) => (b[1]?.createdAt || 0) - (a[1]?.createdAt || 0));
+
+          if (!entries.length) {
+            list.innerHTML = '<div class="text-center text-gray-500 text-sm py-6 border border-dashed rounded-xl">Chưa có link gốc nào.</div>';
+            return;
+          }
+
+          list.innerHTML = entries.map(([id, pool]) => `
+        <div class="border rounded-xl p-4 bg-gray-50 flex flex-col gap-2">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="font-semibold text-gray-800">${safe(pool.name || id)}</p>
+              <p class="text-xs text-gray-500 font-mono">${safe(id)}</p>
+            </div>
+            <span class="text-xs bg-white px-2 py-1 rounded-full text-gray-600 border">${Array.isArray(pool.keys) ? pool.keys.length : pool.count || 0} key</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" data-pool="${safe(id)}" class="select-pool-btn px-3 py-2 rounded-lg bg-primary-600 text-white text-xs font-medium">Chọn vào tài liệu</button>
+            <button type="button" data-edit="${safe(id)}" class="edit-pool-btn px-3 py-2 rounded-lg bg-blue-50 text-blue-700 text-xs font-medium">Sửa</button>
+            <button type="button" data-delete="${safe(id)}" class="delete-pool-btn px-3 py-2 rounded-lg bg-red-50 text-red-600 text-xs font-medium">Xóa</button>
+            <button type="button" data-copy="${safe(id)}" class="copy-pool-btn px-3 py-2 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">Copy mã</button>
+          </div>
+        </div>
+      `).join("");
+
+          list.querySelectorAll(".select-pool-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              document.getElementById("adoc-key-pool").value = btn.dataset.pool || "";
+            });
+          });
+
+          list.querySelectorAll(".edit-pool-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              window.editKeyPool(btn.dataset.edit || "");
+            });
+          });
+
+          list.querySelectorAll(".delete-pool-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              window.deleteKeyPool(btn.dataset.delete || "");
+            });
+          });
+
+          list.querySelectorAll(".copy-pool-btn").forEach((btn) => {
+            btn.addEventListener("click", async () => {
+              try {
+                await navigator.clipboard.writeText(btn.dataset.copy || "");
+                showModal("Đã copy", "Đã sao chép mã pool.", "success");
+              } catch {
+                showModal("Lỗi", "Không thể copy mã pool.", "error");
+              }
+            });
+          });
+        } catch (err) {
+          console.error("Load key pools failed:", err);
+          globalData.keyPools = globalData.keyPools || {};
+          list.innerHTML = '<div class="text-center text-red-500 text-sm py-6 border border-dashed rounded-xl">Không thể tải kho key do Firebase từ chối quyền truy cập.</div>';
+        }
+      };
+
+      window.editKeyPool = (poolId) => {
+        const pool = globalData.keyPools?.[poolId];
+        if (!pool) return;
+
+        openFormModal(
+          "Chỉnh sửa kho key",
+          `
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Mã pool</label>
+        <input class="w-full px-3 py-2 border rounded-lg bg-gray-50" value="${safe(poolId)}" readonly>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Tên hiển thị</label>
+        <input id="edit-key-pool-name" class="w-full px-3 py-2 border rounded-lg" value="${safe(pool.name || poolId)}">
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-1">Key gốc (mỗi dòng 1 key hoặc URL)</label>
+        <textarea id="edit-key-pool-keys" rows="5" class="w-full px-3 py-2 border rounded-lg">${Array.isArray(pool.keys) ? pool.keys.map((k) => String(k || "")).join("") : ""}</textarea>
+      </div>
+    `,
+          async () => {
+            const name = document.getElementById("edit-key-pool-name")?.value?.trim();
+            const keys = String(document.getElementById("edit-key-pool-keys")?.value || "")
+              .split(/\n+/)
+              .map((s) => s.trim())
+              .filter(Boolean);
+            if (!name || !keys.length) {
+              showModal("Thiếu dữ liệu", "Vui lòng nhập tên và ít nhất một key.", "warning");
+              return;
+            }
+            await set(ref(keyDb, keyDbPath("uniqueKeyPools", poolId)), {
+              id: poolId,
+              name,
+              keys,
+              count: keys.length,
+              createdAt: pool.createdAt || Date.now(),
+              updatedAt: Date.now(),
+            });
+            closeModal();
+            renderKeyPoolManager();
+          },
+          "Lưu",
+        );
+      };
+
+      window.deleteKeyPool = async (poolId) => {
+        const pool = globalData.keyPools?.[poolId];
+        if (!pool) return;
+        const confirmed = await askConfirm(
+          "Xóa kho key",
+          `Xóa kho key "${pool.name || poolId}" sẽ xóa toàn bộ key gốc và key allocations của kho này.`,
+          "Xóa",
+        );
+        if (!confirmed) return;
+
+        await remove(ref(keyDb, keyDbPath("uniqueKeyPools", poolId)));
+        await remove(ref(keyDb, keyDbPath("keyAllocations", poolId)));
+
+        const docs = Object.entries(globalData.docs || {})
+          .map(([id, doc]) => ({ id, ...doc }))
+          .filter((doc) => doc.keyPoolId === poolId);
+
+        for (const doc of docs) {
+          try {
+            await update(ref(db, dbPath("documents", doc.id)), { keyPoolId: "" });
+          } catch {}
+        }
+
+        showModal("Đã xóa", "Đã xóa kho key.", "success");
+        renderKeyPoolManager();
+      };
+
+      const updateAdminStats = () => {
+        const users = Object.values(globalData.users || {});
+        const docs = Object.values(globalData.docs || {});
+        const txs = Object.values(globalData.tx || {});
+        const logs = Object.values(globalData.keyUsageLogs || {});
+        document.getElementById("stat-users").innerText = users.length;
+        document.getElementById("stat-docs").innerText = docs.length;
+        const rev = txs
+          .filter(
+            (t) =>
+              t.type === "purchase" &&
+              (t.status === "success" || t.status === "verified"),
+          )
+          .reduce((sum, t) => sum + Number(t.amount || 0), 0);
+        document.getElementById("stat-revenue").innerText = formatVND(rev);
+        const pending = txs.filter(
+          (t) => t.type === "deposit" && t.status === "pending",
+        ).length;
+        document.getElementById("stat-pending-tx").innerText = pending;
+        const statClicks = document.getElementById("stat-key-clicks");
+        if (statClicks) statClicks.innerText = logs.filter((l) => ["open_key", "open_link"].includes(l.action)).length;
+      };
+
+      const nav = (window.nav = (viewId, params = null) => {
+        document
+          .querySelectorAll(".view-section")
+          .forEach((el) => el.classList.add("hidden"));
+        const target = document.getElementById(`view-${viewId}`);
+        if (target) target.classList.remove("hidden");
+        document
+          .querySelectorAll("#nav-menu button")
+          .forEach((el) =>
+            el.classList.remove(
+              "bg-primary-50",
+              "text-primary-600",
+              "font-semibold",
+            ),
+          );
+        const activeBtn = document.getElementById(`nav-btn-${viewId}`);
+        if (activeBtn)
+          activeBtn.classList.add(
+            "bg-primary-50",
+            "text-primary-600",
+            "font-semibold",
+          );
+        stopDocViewTracker();
+        if (viewId === "home") renderHome();
+        if (viewId === "doc-detail" && params) { currentDocId = params; renderDocDetail(params); }
+        if (viewId === "wallet") renderWallet();
+        if (viewId === "admin") renderAdmin();
+        if (viewId === "profile") renderProfileForm();
+        if (viewId === "purchased") renderPurchased();
+      });
+
+      window.loginGoogleUI = async () => {
+        try {
+          const provider = new GoogleAuthProvider();
+          await signInWithPopup(auth, provider);
+          await signInWithPopup(keyAuth, provider);
+        } catch (e) {
+          showModal(
+            "Đăng nhập Google",
+            "Không thể mở cửa sổ đăng nhập. Hãy bật popup hoặc cho phép đăng nhập Google để tiếp tục.",
+            "warning",
+          );
+        }
+      };
+
+      window.logout = async () => {
+        await signOut(auth);
+        window.location.reload();
+      };
+
+      const setupRealtimeListeners = () => {
+        dbUnsubscribers.forEach((u) => u && u());
+        dbUnsubscribers = [];
+
+        dbUnsubscribers.push(
+          onValue(ref(db, dbPath("documents")), (snap) => {
+            globalData.docs = snap.val() || {};
+            if (!document.getElementById("view-home").classList.contains("hidden")) renderHome();
+            refreshDocCategorySuggestions();
+            if (!document.getElementById("view-doc-detail").classList.contains("hidden") && currentDocId) renderDocDetail(currentDocId);
+            if (!document.getElementById("view-purchased").classList.contains("hidden")) renderPurchased();
+            if (!document.getElementById("view-admin").classList.contains("hidden")) renderAdminDocs();
+          }),
+        );
+
+        dbUnsubscribers.push(
+          onValue(ref(db, dbPath("purchases")), (snap) => {
+            globalData.purchases = snap.val() || {};
+            if (!document.getElementById("view-purchased").classList.contains("hidden")) renderPurchased();
+          }),
+        );
+
+        dbUnsubscribers.push(
+          onValue(ref(db, dbPath("reports")), (snap) => {
+            globalData.reports = snap.val() || {};
+            if (!document.getElementById("view-admin").classList.contains("hidden")) renderAdminReports();
+          }),
+        );
+
+        dbUnsubscribers.push(
+          onValue(ref(db, dbPath("transactions")), (snap) => {
+            globalData.tx = snap.val() || {};
+            if (!document.getElementById("view-wallet").classList.contains("hidden")) renderWallet();
+            if (!document.getElementById("view-admin").classList.contains("hidden")) {
+              renderAdminTx();
+              updateAdminStats();
+            }
+          }),
+        );
+
+        dbUnsubscribers.push(
+          onValue(ref(db, dbPath("keywords")), (snap) => {
+            globalData.keywords = snap.val() || {};
+            renderKeywordFilters();
+            if (!document.getElementById("view-admin").classList.contains("hidden")) renderKeywordManager();
+            if (!document.getElementById("view-home").classList.contains("hidden")) renderHome();
+            refreshDocCategorySuggestions();
+          }),
+        );
+
+        dbUnsubscribers.push(
+          onValue(ref(db, dbPath("keyUsageLogs")), (snap) => {
+            globalData.keyUsageLogs = snap.val() || {};
+            if (!document.getElementById("view-admin").classList.contains("hidden")) renderKeyUsageLogs();
+            updateAdminStats();
+          }),
+        );
+
+        dbUnsubscribers.push(
+          onValue(ref(keyDb, keyDbPath("uniqueKeyPools")), (snap) => {
+            globalData.keyPools = snap.val() || {};
+            if (!document.getElementById("view-admin").classList.contains("hidden")) renderKeyPoolManager();
+          }),
+        );
+
+        if (currentUser) {
+          dbUnsubscribers.push(
+            onValue(ref(db, dbPath("users", currentUser.uid)), (snap) => {
+              if (snap.exists()) {
+                userData = snap.val();
+                updateHeader();
+                if (!document.getElementById("view-wallet").classList.contains("hidden")) renderWallet();
+                if (!document.getElementById("view-profile").classList.contains("hidden")) renderProfileForm();
+              }
+            }),
+          );
+
+          if (userData?.role === "admin") {
+            dbUnsubscribers.push(
+              onValue(ref(db, dbPath("users")), (snap) => {
+                globalData.users = snap.val() || {};
+                if (!document.getElementById("admin-users").classList.contains("hidden")) renderAdminUsers();
+                updateAdminStats();
+              }),
+            );
+          }
+        }
+      };
+      window.toggleVerify = async (uid, status) => {
+        try {
+          await update(ref(db, dbPath("users", uid)), { verified: status, profileCompleted: status ? true : false });
+        } catch {}
+      };
+
+      window.deleteUser = async (uid) => {
+        if (!confirm("Xóa user này?")) return;
+        try {
+          await remove(ref(db, dbPath("users", uid)));
+        } catch {}
+      };
+
+      window.editUser = (uid) => {
+        const u = globalData.users[uid];
+        if (!u) return;
+        openFormModal(
+          "Chỉnh sửa user",
+          `
+      <div><label class="block text-xs text-gray-500 mb-1">Tên</label><input name="name" class="w-full px-3 py-2 border rounded-lg" value="${safe(u.name || "")}"></div>
+      <div><label class="block text-xs text-gray-500 mb-1">Email</label><input name="email" class="w-full px-3 py-2 border rounded-lg" value="${safe(u.email || "")}"></div>
+      <div><label class="block text-xs text-gray-500 mb-1">Lớp</label><input name="class" class="w-full px-3 py-2 border rounded-lg" value="${safe(u.class || "")}"></div>
+      <div><label class="block text-xs text-gray-500 mb-1">Trường</label><input name="school" class="w-full px-3 py-2 border rounded-lg" value="${safe(u.school || "")}"></div>
+      <div><label class="block text-xs text-gray-500 mb-1">Số dư</label><input name="walletBalance" type="number" class="w-full px-3 py-2 border rounded-lg" value="${Number(u.walletBalance || 0)}"></div>
+      <div><label class="block text-xs text-gray-500 mb-1">Ảnh đại diện URL</label><input name="avatar" class="w-full px-3 py-2 border rounded-lg" value="${safe(u.avatar || "")}"></div>
+      <div class="flex items-center gap-2"><input name="verified" type="checkbox" ${u.verified ? "checked" : ""}><span class="text-sm">Đã duyệt</span></div>
+    `,
+          async (fd) => {
+            await update(ref(db, dbPath("users", uid)), {
+              name: fd.get("name"),
+              email: fd.get("email"),
+              class: fd.get("class"),
+              school: fd.get("school"),
+              avatar: fd.get("avatar"),
+              walletBalance: Number(fd.get("walletBalance") || 0),
+              verified: fd.get("verified") === "on",
+            });
+            closeModal();
+          },
+          "Cập nhật",
+        );
+      };
+
+      window.deleteDoc = async (id) => {
+        if (!confirm("Xóa tài liệu này?")) return;
+        try {
+          await remove(ref(db, dbPath("documents", id)));
+        } catch {}
+      };
+
+      window.cloneDoc = async (id) => {
+        const doc = globalData.docs[id];
+        if (!doc) return;
+        const newId = push(ref(db, dbPath("documents"))).key;
+        const payload = {
+          ...doc,
+          title: `${doc.title || "Tài liệu"} (bản sao)`,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          buys: 0,
+        };
+        delete payload.id;
+        await set(ref(db, dbPath("documents", newId)), payload);
+        showModal("Đã clone", `Đã tạo bản sao mới: <span class="font-mono">${safe(newId)}</span>`, "success");
+      };
+
+      window.toggleFeaturedDoc = async (id) => {
+        const doc = globalData.docs[id];
+        if (!doc) return;
+        const nextFeatured = !doc.featured;
+        try {
+          const featuredOrder = nextFeatured ? Date.now() : 0;
+          await update(ref(db, dbPath("documents", id)), {
+            featured: nextFeatured,
+            featuredOrder,
+            updatedAt: Date.now(),
+          });
+          if (globalData.docs[id]) {
+            globalData.docs[id] = {
+              ...globalData.docs[id],
+              featured: nextFeatured,
+              featuredOrder,
+              updatedAt: Date.now(),
+            };
+          }
+          if (!document.getElementById("view-admin").classList.contains("hidden")) renderAdminDocs();
+          if (!document.getElementById("view-home").classList.contains("hidden")) renderHome(document.getElementById("global-search")?.value?.toLowerCase() || "");
+        } catch (err) {
+          showModal("Lỗi", err?.message || "Không thể cập nhật tài liệu nổi bật.", "error");
+        }
+      };
+
+      const setAdminDocFormMode = (isEditing, docTitle = "") => {
+        const titleEl = document.getElementById("admin-doc-form-title");
+        const submitBtn = document.getElementById("admin-doc-submit-btn");
+        if (titleEl) {
+          titleEl.textContent = isEditing
+            ? `Chỉnh sửa tài liệu${docTitle ? `: ${docTitle}` : ""}`
+            : "Đăng tài liệu mới";
+        }
+        if (submitBtn) {
+          submitBtn.textContent = isEditing ? "Chỉnh tài liệu" : "Đăng tài liệu";
+        }
+      };
+
+      const resetAdminDocForm = () => {
+        const form = document.getElementById("admin-doc-form");
+        if (form) form.reset();
+        const thumb = document.getElementById("adoc-thumb");
+        const preview = document.getElementById("adoc-preview");
+        if (thumb) thumb.value = "";
+        if (preview) preview.value = "";
+        fillDocLinkRows([]);
+        fillDocCategoryRows([]);
+        setAdminDocFormMode(false);
+        editingDocId = null;
+      };
+
+      window.editDoc = (id) => {
+        const doc = globalData.docs[id];
+        if (!doc) return;
+        editingDocId = id;
+        setAdminDocFormMode(true, doc.title || "");
+
+        const setValue = (selector, value) => {
+          const el = document.querySelector(selector);
+          if (el) el.value = value ?? "";
+        };
+
+        setValue("#adoc-title", doc.title || "");
+        setValue("#adoc-desc", doc.description || "");
+        setValue("#adoc-grade", doc.grade || "");
+        setValue("#adoc-price", Number(doc.price || 0));
+        setValue("#adoc-thumb", doc.thumbnail || "");
+        setValue("#adoc-preview", doc.previewLink || "");
+        setValue("#adoc-key-pool", doc.keyPoolId || "");
+
+        fillDocCategoryRows(
+          Array.isArray(doc.keywords) && doc.keywords.length
+            ? doc.keywords
+            : [doc.category || doc.subject || ""],
+        );
+        fillDocLinkRows(Array.isArray(doc.links) && doc.links.length ? doc.links : []);
+        refreshDocCategorySuggestions();
+
+        const formWrap = document.getElementById("admin-doc-form")?.closest(".bg-white");
+        if (formWrap) {
+          formWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      };
+
+      window.editTx = async (txId) => {
+        const tx = globalData.tx?.[txId];
+        if (!tx) return;
+        openFormModal(
+          "Chỉnh sửa giao dịch",
+          `
+            <div><label class="block text-xs text-gray-500 mb-1">Loại</label><input name="type" class="w-full px-3 py-2 border rounded-lg" value="${safe(tx.type || "")}"></div>
+            <div><label class="block text-xs text-gray-500 mb-1">Số tiền</label><input name="amount" type="number" class="w-full px-3 py-2 border rounded-lg" value="${Number(tx.amount || 0)}"></div>
+            <div><label class="block text-xs text-gray-500 mb-1">Trạng thái</label><input name="status" class="w-full px-3 py-2 border rounded-lg" value="${safe(tx.status || "")}"></div>
+            <div><label class="block text-xs text-gray-500 mb-1">Ghi chú</label><textarea name="note" rows="3" class="w-full px-3 py-2 border rounded-lg">${safe(tx.note || "")}</textarea></div>
+          `,
+          async (fd) => {
+            await update(ref(db, dbPath("transactions", txId)), {
+              type: fd.get("type"),
+              amount: Number(fd.get("amount") || 0),
+              status: fd.get("status"),
+              note: fd.get("note"),
+            });
+            closeModal();
+          },
+          "Lưu",
+        );
+      };
+      window.approveTx = async (txId) => {
+        try {
+          await update(ref(db, dbPath("transactions", txId)), { status: "verified" });
+        } catch {}
+      };
+      window.rejectTx = async (txId) => {
+        try {
+          await update(ref(db, dbPath("transactions", txId)), { status: "rejected" });
+        } catch {}
+      };
+      window.deleteTx = async (txId) => {
+        if (!confirm("Xóa giao dịch này?")) return;
+        try {
+          await remove(ref(db, dbPath("transactions", txId)));
+        } catch {}
+      };
+
+      window.resolveReport = async (reportId) => {
+        try {
+          await update(ref(db, dbPath("reports", reportId)), {
+            status: "resolved",
+          });
+        } catch {}
+      };
+
+      window.deleteUserDataAndRelations = async (uid) => {
+        await remove(ref(db, dbPath("users", uid)));
+      };
+
+      window.buyDocument = async (docId) => {
+        if (!currentUser) {
+          loginPrompt("Bạn cần đăng nhập để mua hoặc nhận tài liệu.");
+          return;
+        }
+
+        const doc = globalData.docs[docId];
+        if (!doc) return;
+
+        const confirmed = await askConfirm(
+          "Xác nhận mua tài liệu",
+          `Bạn sắp mua "${doc.title || "tài liệu này"}" với giá ${formatVND(doc.price || 0)}.`,
+          "Mua ngay",
+        );
+
+        if (!confirmed) return;
+
+        const price = Number(doc.price || 0);
+
+        if (userData.walletBalance < price && price > 0) {
+          setTimeout(() => {
+            showModal(
+              "Số dư không đủ",
+              `Bạn cần thêm ${formatVND(price - userData.walletBalance)} để mua tài liệu này.`,
+              "error",
+              `<button onclick="closeModal(); nav('wallet')" class="px-6 py-2 bg-primary-600 text-white rounded-xl font-medium">
+      Đến ví nạp tiền
+    </button>`,
+            );
+          }, 500); // 1 giây
+          return;
+        }
+
+        try {
+          if (price > 0) {
+            await update(ref(db, dbPath("users", currentUser.uid)), {
+              walletBalance: Number(userData.walletBalance || 0) - price,
+            });
+
+            await set(push(ref(db, dbPath("transactions"))), {
+              userId: currentUser.uid,
+              type: "purchase",
+              amount: price,
+              docId,
+              status: "success",
+              createdAt: Date.now(),
+            });
+          }
+
+          const assignedKey = doc.keyPoolId
+            ? await allocateKeyFromPool(doc.keyPoolId, docId, currentUser.uid)
+            : null;
+
+          const redeemUrl = assignedKey ? buildKeyRedeemUrl(assignedKey) : null;
+
+          const accessLinks = assignedKey
+            ? [
+                {
+                  label: "Mở key truy cập",
+                  url: redeemUrl,
+                },
+              ]
+            : getDocLinks(doc);
+
+          const purchaseRef = push(ref(db, dbPath("purchases")));
+          const purchaseData = {
+            userId: currentUser.uid,
+            documentId: docId,
+            price,
+            purchasedAt: Date.now(),
+            accessLinks,
+            assignedKey,
+            redeemUrl,
+          };
+
+          await set(purchaseRef, purchaseData);
+
+          // đẩy ngay vào cache local để render ra liền
+          globalData.purchases[purchaseRef.key] = purchaseData;
+
+          // nếu rules còn chặn update documents/buys thì dòng này sẽ fail
+          // khi đó phải sửa rules hoặc bỏ update này ra khỏi client
+          await update(ref(db, dbPath("documents", docId)), {
+            buys: Number(doc.buys || 0) + 1,
+          });
+
+          if (assignedKey) {
+            await notifyDiscord(
+              `🎫 **Gán key mới**
+- User: ${userData.name}
+- Doc: ${doc.title}
+- Key: \`${assignedKey}\`
+- Link: ${redeemUrl}`,
+            );
+          }
+
+          showModal(
+            "Thành công!",
+            assignedKey
+              ? `Mua tài liệu thành công. Key của bạn: <div class="mt-2 p-3 bg-gray-50 rounded-lg break-all font-mono text-sm">${safe(
+                  redeemUrl,
+                )}</div>`
+              : "Mua tài liệu thành công. Bạn đã có quyền truy cập.",
+            "success",
+          );
+
+          renderDocDetail(docId);
+          updateHeader();
+        } catch (err) {
+          console.error(err);
+          showModal("Lỗi", "Đã xảy ra lỗi khi xử lý giao dịch.", "error");
+        }
+      };
+      document
+        .getElementById("profile-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!currentUser) return;
+          let avatar =
+            document.getElementById("prof-avatar-url").value ||
+            userData.avatar ||
+            "https://placehold.co/100";
+          const avatarFile =
+            document.getElementById("prof-avatar-file").files[0];
+          try {
+            if (avatarFile)
+              avatar = await uploadToCloudinary(avatarFile, "avatars");
+            const nextProfile = {
+              name: document.getElementById("prof-name").value,
+              class: document.getElementById("prof-class").value,
+              school: document.getElementById("prof-school").value,
+              avatar,
+            };
+            await update(ref(db, dbPath("users", currentUser.uid)), nextProfile);
+            userData = {
+              ...(userData || {}),
+              ...nextProfile,
+              profileCompleted: !!String(nextProfile.name || "").trim() && !!String(nextProfile.class || "").trim(),
+            };
+            buildSidebar();
+            updateHeader();
+            if (!document.getElementById("view-profile").classList.contains("hidden")) renderProfileForm();
+            if (!document.getElementById("view-home").classList.contains("hidden")) renderHome(document.getElementById("global-search")?.value?.toLowerCase() || "");
+            if (!document.getElementById("view-purchased").classList.contains("hidden")) renderPurchased();
+            showModal("Thành công", "Đã cập nhật hồ sơ.", "success");
+          } catch (err) {
+            showModal(
+              "Lỗi",
+              err.message || "Không thể cập nhật hồ sơ.",
+              "error",
+            );
+          }
+        });
+
+      document
+        .getElementById("admin-doc-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          try {
+            const isEditing = !!editingDocId;
+            const existingDoc = isEditing ? (globalData.docs[editingDocId] || {}) : {};
+
+            let thumbnail = document.getElementById("adoc-thumb").value || existingDoc.thumbnail || "";
+            let previewLink = document.getElementById("adoc-preview").value || existingDoc.previewLink || "";
+            const thumbFile =
+              document.getElementById("adoc-thumb-file").files[0];
+            const previewFile =
+              document.getElementById("adoc-preview-file").files[0];
+            if (thumbFile)
+              thumbnail = await uploadToCloudinary(
+                thumbFile,
+                "documents/thumbnails",
+              );
+            if (previewFile)
+              previewLink = await uploadToCloudinary(
+                previewFile,
+                "documents/previews",
+              );
+            const links = getDocLinksFromForm();
+            const categories = getDocCategoriesFromForm();
+            const subject =
+              categories[0] ||
+              document.getElementById("adoc-subject")?.value ||
+              existingDoc.subject ||
+              existingDoc.category ||
+              "Khác";
+
+            if (isEditing) {
+              await update(ref(db, dbPath("documents", editingDocId)), {
+                title: String(document.getElementById("adoc-title").value || "").trim(),
+                description: String(document.getElementById("adoc-desc").value || "").trim(),
+                subject,
+                category: subject,
+                keywords: categories,
+                grade: String(document.getElementById("adoc-grade").value || "").trim() || "Chung",
+                price: Number(document.getElementById("adoc-price").value || 0),
+                thumbnail,
+                previewLink,
+                links,
+                keyPoolId: String(document.getElementById("adoc-key-pool").value || "").trim(),
+                status: existingDoc.status || "active",
+                createdBy: existingDoc.createdBy || currentUser.uid,
+                createdAt: existingDoc.createdAt || Date.now(),
+                updatedAt: Date.now(),
+                views: Number(existingDoc.views || 0),
+                buys: Number(existingDoc.buys || 0),
+                featured: !!existingDoc.featured,
+                featuredOrder: Number(existingDoc.featuredOrder || 0),
+              });
+            } else {
+              const docPayload = {
+                title: String(document.getElementById("adoc-title").value || "").trim(),
+                description: String(document.getElementById("adoc-desc").value || "").trim(),
+                subject,
+                category: subject,
+                keywords: categories,
+                grade: String(document.getElementById("adoc-grade").value || "").trim() || "Chung",
+                price: Number(document.getElementById("adoc-price").value || 0),
+                thumbnail,
+                previewLink,
+                links,
+                keyPoolId: String(document.getElementById("adoc-key-pool").value || "").trim(),
+                status: "active",
+                createdBy: currentUser.uid,
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+                views: 0,
+                buys: 0,
+                featured: false,
+                featuredOrder: 0,
+              };
+              await set(push(ref(db, dbPath("documents"))), docPayload);
+            }
+
+            resetAdminDocForm();
+            showModal(
+              "Thành công",
+              isEditing ? "Đã cập nhật tài liệu." : "Lưu tài liệu thành công",
+              "success",
+            );
+            if (!document.getElementById("view-admin").classList.contains("hidden")) {
+              renderAdminDocs();
+              renderAdminTx();
+              renderAdminReports();
+            }
+            if (!document.getElementById("view-home").classList.contains("hidden")) renderHome(document.getElementById("global-search")?.value?.toLowerCase() || "");
+          } catch (err) {
+            showModal("Lỗi", err.message || "Không thể lưu tài liệu", "error");
+          }
+        });
+
+      document
+        .getElementById("deposit-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!currentUser) {
+            loginPrompt("Bạn cần đăng nhập trước khi nạp tiền.");
+            return;
+          }
+          const amount = Number(
+            document.getElementById("deposit-amount").value || 0,
+          );
+          try {
+            await processDeposit(amount);
+            document.getElementById("deposit-amount").value = "";
+            showModal(
+              "Đã xác minh",
+              "Nạp tiền đã được xác nhận 3 lần và cộng vào ví ngay.",
+              "success",
+            );
+          } catch (err) {
+            showModal(
+              "Lỗi",
+              err.message || "Không thể xử lý nạp tiền.",
+              "error",
+            );
+          }
+        });
+
+      document
+        .getElementById("global-search")
+        .addEventListener("input", (e) =>
+          renderHome(e.target.value.toLowerCase()),
+        );
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) =>
+              b.classList.remove(
+                "bg-primary-50",
+                "text-primary-600",
+                "border-transparent",
+              ),
+            );
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.add("bg-white", "text-gray-600"));
+          e.target.classList.remove("bg-white", "text-gray-600");
+          e.target.classList.add(
+            "bg-primary-50",
+            "text-primary-600",
+            "border-transparent",
+          );
+          currentFilter = e.target.dataset.filter;
+          renderHome();
+        });
+      });
+
+      document.querySelectorAll(".admin-tab-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          document.querySelectorAll(".admin-tab-btn").forEach((b) => {
+            b.classList.remove("bg-primary-50", "text-primary-600", "active");
+            b.classList.add("text-gray-600");
+          });
+          e.target.classList.add("bg-primary-50", "text-primary-600", "active");
+          e.target.classList.remove("text-gray-600");
+          document
+            .querySelectorAll(".admin-panel")
+            .forEach((p) => p.classList.add("hidden"));
+          const panel = document.getElementById(e.target.dataset.target);
+          if (panel) panel.classList.remove("hidden");
+          if (e.target.dataset.target === "admin-docs") {
+            renderAdminDocs();
+            fillDocLinkRows([]);
+            fillDocCategoryRows([]);
+          }
+          if (e.target.dataset.target === "admin-users") renderAdminUsers();
+          if (e.target.dataset.target === "admin-tx") renderAdminTx();
+          if (e.target.dataset.target === "admin-reports") renderAdminReports();
+        });
+      });
+      const adminSearchInput = document.getElementById("admin-search-input");
+      if (adminSearchInput) {
+        adminSearchInput.addEventListener("input", () => {
+          if (!document.getElementById("view-admin").classList.contains("hidden")) {
+            renderAdminDocs();
+            renderAdminUsers();
+            renderAdminTx();
+            renderAdminReports();
+            renderKeyUsageLogs();
+          }
+        });
+      }
+
+      document.querySelectorAll(".tx-tab-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          document.querySelectorAll(".tx-tab-btn").forEach((b) => {
+            b.classList.remove("bg-primary-50", "text-primary-600", "active");
+            b.classList.add("text-gray-600");
+          });
+          e.target.classList.add("bg-primary-50", "text-primary-600", "active");
+          e.target.classList.remove("text-gray-600");
+          const depositWrap = document.getElementById("admin-tx-deposit")?.closest(".bg-white");
+          const consumeWrap = document.getElementById("admin-tx-consume")?.closest(".bg-white");
+          if (depositWrap) depositWrap.classList.toggle("hidden", e.target.dataset.target !== "admin-tx-deposit");
+          if (consumeWrap) consumeWrap.classList.toggle("hidden", e.target.dataset.target !== "admin-tx-consume");
+        });
+      });
+
+      window.editDoc = window.editDoc;
+      window.editUser = window.editUser;
+      window.deleteUser = window.deleteUser;
+
+      const botHints = ["Nạp tiền", "Mua tài liệu", "Lỗi key", "Chia sẻ link"];
+
+      const keyPattern = /[A-Z0-9]{6,}/i;
+
+      const appendBotMessage = (text, from = "bot") => {
+        const box = document.getElementById("chatbot-messages");
+        const div = document.createElement("div");
+        div.className =
+          from === "bot"
+            ? "bg-white rounded-2xl p-3 text-sm shadow-sm border border-gray-100 whitespace-pre-wrap"
+            : "bg-primary-600 text-white rounded-2xl p-3 text-sm ml-auto max-w-[85%] whitespace-pre-wrap";
+        div.textContent = text;
+        box.appendChild(div);
+        requestAnimationFrame(() => {
+          box.scrollTo({ top: box.scrollHeight, behavior: "smooth" });
+        });
+      };
+
+      const appendBotSuggestions = () => {
+        const box = document.getElementById("chatbot-messages");
+        if (document.getElementById("bot-suggestions")) return;
+        const wrap = document.createElement("div");
+        wrap.id = "bot-suggestions";
+        wrap.className =
+          "bg-white rounded-2xl p-3 text-sm shadow-sm border border-gray-100";
+        wrap.innerHTML = `
+  <p class="text-xs text-gray-500 mb-2">Gợi ý nhanh</p>
+  <div class="flex flex-wrap gap-2">
+    ${botHints
+      .map(
+        (hint) => `
+          <button
+            type="button"
+            class="px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-xs hover:bg-gray-200"
+            onclick='document.getElementById("chatbot-input").value = ${JSON.stringify(hint)}; document.getElementById("chatbot-send").click();'
+          >
+            ${safe(hint)}
+          </button>
+        `,
+      )
+      .join("")}
+  </div>
+`;
+        box.appendChild(wrap);
+        box.scrollTop = box.scrollHeight;
+      };
+
+      const answerBot = async (msg) => {
+        const q = String(msg || "").trim();
+        const lower = q.toLowerCase();
+
+        if (/[đd]ăng nhập|login|đăng nhập/i.test(lower)) {
+          return "Bạn bấm Đăng nhập Google ở góc trái hoặc nút trong tài liệu để vào hệ thống.";
+        }
+        if (/nạp|deposit|ví/i.test(lower)) {
+          return "Bạn vào Ví tiền, nhập số tiền và xác nhận 3 lần. Sau đó hệ thống sẽ cộng ví ngay.";
+        }
+        if (/mua|tài liệu|mở tài liệu|mở link/i.test(lower)) {
+          return "Chọn tài liệu, bấm Mua ngay nếu cần, sau đó vào Đã mua để mở trực tiếp và copy link.";
+        }
+        if (/share|chia sẻ|copy|copylink/i.test(lower)) {
+          return "Nút Chia sẻ sẽ copy link tài liệu. Trong mục Đã mua còn có thêm nút Copy link bên cạnh mỗi link mở.";
+        }
+        if (/lỗi key|reissue|cấp lại key|đổi key|key lỗi/i.test(lower)) {
+          const foundKey = q.match(keyPattern)?.[0];
+          if (!currentUser) return "Bạn cần đăng nhập để mình kiểm tra và cấp lại key.";
+          if (!foundKey) return "Hãy gửi kèm key bị lỗi để mình kiểm tra và cấp lại key mới.";
+          const purchases = Object.entries(globalData.purchases || {})
+            .map(([id, val]) => ({ id, ...val }))
+            .filter((p) => p.userId === currentUser.uid);
+          const purchase = purchases.find(
+            (p) =>
+              String(p.assignedKey || "").toLowerCase() === String(foundKey).toLowerCase(),
+          );
+          if (!purchase) return "Mình chưa tìm thấy key đó trong đơn hàng của bạn.";
+          const doc = globalData.docs[purchase.documentId];
+          if (!doc?.keyPoolId) return "Tài liệu này chưa cấu hình kho link gốc để cấp lại key.";
+          const oldKey = purchase.assignedKey;
+          const newKey = await allocateKeyFromPool(doc.keyPoolId, purchase.documentId, currentUser.uid);
+          if (!newKey) return "Kho key gốc hiện không còn key trống.";
+          await update(ref(db, dbPath("purchases", purchase.id)), {
+            assignedKey: newKey,
+            reissuedAt: Date.now(),
+          });
+          if (oldKey) {
+            await update(
+              ref(keyDb, `${keyDbPath("keyAllocations", doc.keyPoolId)}/${oldKey}`),
+              { status: "replaced", replacedAt: Date.now() },
+            );
+          }
+          await notifyDiscord(`🔁 **Cấp lại key tự động**
+- User: ${userData?.name || currentUser.uid}
+- Doc: ${doc?.title || purchase.documentId}
+- Old: ${oldKey || ""}
+- New: ${newKey}`);
+          return `Đã cấp lại key mới cho bạn: ${newKey}`;
+        }
+
+        const docs = Object.values(globalData.docs || {});
+        const matchDoc = docs.find((d) =>
+          String(d.title || "")
+            .toLowerCase()
+            .includes(lower),
+        );
+        if (matchDoc) {
+          return `Mình tìm thấy tài liệu gần đúng: ${matchDoc.title}. Bạn có thể mở chi tiết tài liệu để xem giá, hoặc mua rồi vào mục Đã mua để mở link.`;
+        }
+
+        return `Mình có thể giúp bạn về nạp tiền, mua tài liệu, báo lỗi key, chia sẻ link, hoặc tìm tài liệu theo tên. Nếu bạn gửi key bị lỗi, mình sẽ kiểm tra và cấp lại key mới khi đủ điều kiện.`;
+      };
+
+      const callBotApi = async (msg) => {
+        if (!CHATBOT_API_KEY) return null;
+        const systemPrompt = {
+          role: "system",
+          content:
+            "Bạn là trợ lý ngắn gọn, thân thiện cho một web bán tài liệu. Trả lời bằng tiếng Việt, ưu tiên hướng dẫn thao tác rõ ràng, không bịa đặt, không dài dòng.",
+        };
+
+        try {
+          const res = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${CHATBOT_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: CHATBOT_API_MODEL,
+              messages: [systemPrompt, ...chatbotHistory.slice(-10), { role: "user", content: msg }],
+              temperature: 0.4,
+            }),
+          });
+
+          const data = await res.json();
+          const content = data?.choices?.[0]?.message?.content?.trim() || data?.error?.message || "";
+          return content || null;
+        } catch {
+          return null;
+        }
+      };
+
+      const answerBotSmart = async (msg) => {
+        const apiReply = await callBotApi(msg);
+        if (apiReply) return apiReply;
+        return answerBot(msg);
+      };
+
+      const sendBot = async () => {
+        const input = document.getElementById("chatbot-input");
+        const msg = input.value.trim();
+        if (!msg) return;
+        appendBotMessage(msg, "me");
+        chatbotHistory.push({ role: "user", content: msg });
+        input.value = "";
+        appendBotMessage("Đang kiểm tra...");
+        const box = document.getElementById("chatbot-messages");
+        const typing = box.lastElementChild;
+        try {
+          const reply = await answerBotSmart(msg);
+          if (typing && typing.textContent === "Đang kiểm tra...") typing.remove();
+          appendBotMessage(reply, "bot");
+          chatbotHistory.push({ role: "assistant", content: reply });
+        } catch (err) {
+          if (typing && typing.textContent === "Đang kiểm tra...") typing.remove();
+          appendBotMessage("Mình gặp lỗi khi xử lý câu hỏi này. Hãy thử lại nhé.");
+        }
+      };
+
+      document.getElementById("chatbot-launcher").addEventListener("click", () => {
+        document.getElementById("chatbot-panel").classList.toggle("hidden");
+        if (!document.getElementById("chatbot-messages").childElementCount) {
+          appendBotMessage("Xin chào! Mình là trợ lý DkDocShop.");
+          appendBotSuggestions();
+        }
+      });
+      document.getElementById("chatbot-close").addEventListener("click", () =>
+        document.getElementById("chatbot-panel").classList.add("hidden"),
+      );
+      document.getElementById("chatbot-send").addEventListener("click", sendBot);
+      document.getElementById("chatbot-input").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendBot();
+      });
+
+      window.editUser = window.editUser;
+      window.deleteDoc = window.deleteDoc;
+      window.shareDoc = window.shareDoc;
+      window.openReportDoc = window.openReportDoc;
+      window.resolveReport = window.resolveReport;
+
+      const handleAuth = async () => {
+        if (typeof __initial_auth_token !== "undefined") {
+          await signInWithCustomToken(auth, __initial_auth_token);
+          await signInWithCustomToken(keyAuth, __initial_auth_token);
+        }
+      };
+
+      onAuthStateChanged(auth, async (user) => {
+        const params = new URLSearchParams(location.search);
+        if (user) {
+          currentUser = user;
+          await ensureUserRecord(user);
+          buildSidebar();
+          setupRealtimeListeners();
+          ensureProfilePrompt();
+          if (params.get("doc")) {
+            nav("doc-detail", params.get("doc"));
+          } else {
+            nav("home");
+          }
+        } else {
+          currentUser = null;
+          userData = null;
+          buildSidebar();
+          setupRealtimeListeners();
+          if (params.get("doc")) {
+            nav("doc-detail", params.get("doc"));
+          } else {
+            nav("landing");
+          }
+        }
+      });
+
+      const bindAdminDocCloneButton = () => {
+        const btn = document.getElementById("clone-admin-form");
+        if (!btn || btn.dataset.bound) return;
+        btn.dataset.bound = "1";
+        btn.addEventListener("click", () => {
+          const title = document.getElementById("adoc-title");
+          const desc = document.getElementById("adoc-desc");
+          const subject = document.getElementById("adoc-subject");
+          const grade = document.getElementById("adoc-grade");
+          const price = document.getElementById("adoc-price");
+          const thumb = document.getElementById("adoc-thumb");
+          const preview = document.getElementById("adoc-preview");
+          const pool = document.getElementById("adoc-key-pool");
+          if (title) title.value = "";
+          if (desc) desc.value = "";
+          if (subject) subject.value = "";
+          if (grade) grade.value = "";
+          if (price) price.value = "0";
+          if (thumb) thumb.value = "";
+          if (preview) preview.value = "";
+          if (pool) pool.value = "";
+          fillDocLinkRows([]);
+          fillDocCategoryRows([]);
+          fillDocCategoryRows([]);
+        });
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        bindAdminDocCloneButton();
+        resetAdminDocForm();
+        const params = new URLSearchParams(location.search);
+        if (params.get("doc")) {
+          setTimeout(() => nav("doc-detail", params.get("doc")), 100);
+        }
+      });
+
+      handleAuth();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân Tích Phương Trình Ion</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        
+        .glass-panel {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-panel:hover {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+        }
+
+        .input-focus-ring:focus-within {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        /* Custom scrollbar for equation blocks */
+        .overflow-x-auto::-webkit-scrollbar {
+            height: 6px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #d1d5db; 
+            border-radius: 4px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af; 
+        }
+
+        /* Latex container base font size */
+        .katex-display {
+            margin: 0 !important;
+            padding: 1rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- Back Button -->
+    <a href="../../" class="absolute top-4 left-4 sm:top-8 sm:left-8 text-gray-400 hover:text-gray-900 font-medium flex items-center gap-2 transition-colors duration-200 z-10 bg-white/80 backdrop-blur-sm py-2 px-3 rounded-lg border border-transparent hover:border-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        <span>Quay lại</span>
+    </a>
+
+    <main class="flex-grow flex flex-col items-center pt-24 pb-12 px-4 sm:px-6 w-full max-w-4xl mx-auto">
+        
+        <!-- Header Text -->
+        <div class="text-center mb-10 w-full">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-gray-900">Phân Tích Ion</h1>
+        </div>
+
+        <!-- Input Section -->
+        <div class="glass-panel w-full p-2 sm:p-3 mb-8">
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="relative w-full flex-grow border border-gray-200 rounded-lg input-focus-ring bg-gray-50 transition-all">
+                    <input type="text" id="equationInput" 
+                        class="w-full bg-transparent px-5 py-4 outline-none text-gray-800 text-lg font-mono placeholder-gray-400"
+                        placeholder="VD: 2AgNO3(aq) + BaCl2(aq) -> 2AgCl(s) + Ba(NO3)2(aq)"
+                        autocomplete="off">
+                </div>
+                <button id="analyzeBtn" class="w-full sm:w-auto shrink-0 bg-gray-900 hover:bg-black text-white font-semibold py-4 px-8 rounded-lg transition-all transform active:scale-95 shadow-md flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd" />
+                    </svg>
+                    Phân Tích
+                </button>
+            </div>
+            
+            <!-- Quick Examples -->
+            <div class="mt-4 px-2">
+                <div class="flex flex-wrap gap-2">
+                    <button class="example-btn text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-full transition-colors" data-eq="AgNO3 + NaCl -> AgCl + NaNO3">Tạo kết tủa AgCl</button>
+                    <button class="example-btn text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-full transition-colors" data-eq="2HCl + Na2CO3 -> 2NaCl + H2O + CO2">Phản ứng tạo khí</button>
+                    <button class="example-btn text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-full transition-colors" data-eq="BaCl2 + Na2SO4 -> BaSO4 + 2NaCl">Kết tủa BaSO4</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message (Hidden by default) -->
+        <div id="errorMessage" class="hidden w-full bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm flex items-start gap-3">
+            <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span id="errorText">Có lỗi xảy ra.</span>
+        </div>
+
+        <!-- Results Section (Hidden by default) -->
+        <div id="resultsArea" class="w-full flex flex-col gap-6 hidden opacity-0 transition-opacity duration-500">
+            
+            <!-- Original Equation -->
+            <div class="glass-panel w-full p-6 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gray-300"></div>
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">1. Phương trình phân tử</h3>
+                <div id="outOriginal" class="text-lg w-full text-center"></div>
+            </div>
+
+            <!-- Full Ionic Equation -->
+            <div class="glass-panel w-full p-6 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-blue-400"></div>
+                <h3 class="text-sm font-semibold text-blue-500 uppercase tracking-widest mb-4">2. Phương trình ion đầy đủ</h3>
+                <div id="outFullIonic" class="text-lg w-full text-center"></div>
+            </div>
+
+            <!-- Net Ionic Equation -->
+            <div class="glass-panel w-full p-6 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
+                <h3 class="text-sm font-semibold text-green-600 uppercase tracking-widest mb-4">3. Phương trình ion rút gọn</h3>
+                <div id="outNetIonic" class="text-lg text-center w-full min-h-[4rem] flex items-center justify-center"></div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Data dictionaries for splitting strong electrolytes
+        // Common Anions with their charges
+        const anionCharges = {
+            'PO4': -3, 'SO4': -2, 'SO3': -2, 'CO3': -2, 'CrO4': -2, 'Cr2O7': -2, 'S': -2, 'O': -2,
+            'NO3': -1, 'NO2': -1, 'HCO3': -1, 'OH': -1, 'CH3COO': -1, 'C2H3O2': -1, 'MnO4': -1, 'ClO4': -1, 'ClO3': -1,
+            'Cl': -1, 'Br': -1, 'I': -1, 'F': -1
+        };
+        // Sort anions by length descending to match longest possible string first (e.g., SO4 before S)
+        const sortedAnions = Object.keys(anionCharges).sort((a, b) => b.length - a.length);
+
+        // Strong acid anions (used to determine if a Hydrogen-starting compound should split)
+        const strongAcidAnions = ['Cl', 'Br', 'I', 'NO3', 'SO4', 'ClO4', 'ClO3'];
+
+        // Database 200+ chất hóa học phổ biến và trạng thái mặc định của chúng
+        const substanceStates = {
+            // Khí (Gases)
+            'H2': 'g', 'O2': 'g', 'N2': 'g', 'Cl2': 'g', 'F2': 'g', 'CO2': 'g', 'SO2': 'g', 'SO3': 'g', 'H2S': 'g', 'NH3': 'g', 
+            'NO': 'g', 'NO2': 'g', 'N2O': 'g', 'CH4': 'g', 'CO': 'g', 'He': 'g', 'Ne': 'g', 'Ar': 'g',
+            // Chất lỏng (Liquids)
+            'H2O': 'l', 'Br2': 'l', 'Hg': 'l', 'H2O2': 'l',
+            // Chất rắn cơ bản (Metals & Non-metals)
+            'Na': 's', 'K': 's', 'Li': 's', 'Mg': 's', 'Ca': 's', 'Ba': 's', 'Fe': 's', 'Cu': 's', 'Zn': 's', 'Al': 's', 
+            'Ag': 's', 'Au': 's', 'Pt': 's', 'Pb': 's', 'C': 's', 'S': 's', 'P': 's', 'I2': 's', 'Ni': 's', 'Sn': 's', 
+            'Mn': 's', 'Cr': 's', 'Co': 's', 'Cd': 's', 'Bi': 's',
+            // Oxit không tan (Insoluble Oxides)
+            'CuO': 's', 'Cu2O': 's', 'FeO': 's', 'Fe2O3': 's', 'Fe3O4': 's', 'ZnO': 's', 'Al2O3': 's', 'MgO': 's', 'CaO': 's', 
+            'BaO': 's', 'Na2O': 's', 'K2O': 's', 'Li2O': 's', 'Ag2O': 's', 'PbO': 's', 'PbO2': 's', 'MnO2': 's', 'SiO2': 's',
+            // Bazơ không tan (Insoluble Bases - Precipitates)
+            'Mg(OH)2': 's', 'Al(OH)3': 's', 'Fe(OH)2': 's', 'Fe(OH)3': 's', 'Cu(OH)2': 's', 'Zn(OH)2': 's', 'Pb(OH)2': 's', 
+            'Ni(OH)2': 's', 'Mn(OH)2': 's', 'Cr(OH)3': 's', 'AgOH': 's', 'Co(OH)2': 's', 'Cd(OH)2': 's', 'Sn(OH)2': 's',
+            // Bazơ mạnh (Strong Bases - aq)
+            'NaOH': 'aq', 'KOH': 'aq', 'LiOH': 'aq', 'Ba(OH)2': 'aq', 'Ca(OH)2': 'aq', 'Sr(OH)2': 'aq', 'RbOH': 'aq', 'CsOH': 'aq',
+            // Axit (Acids - aq)
+            'HCl': 'aq', 'HBr': 'aq', 'HI': 'aq', 'HNO3': 'aq', 'H2SO4': 'aq', 'HClO4': 'aq', 'HClO3': 'aq', 
+            'HF': 'aq', 'HNO2': 'aq', 'H2SO3': 'aq', 'H3PO4': 'aq', 'CH3COOH': 'aq', 'H2CO3': 'aq', 'HCN': 'aq', 'HClO': 'aq',
+            // Muối tan (Soluble Salts - aq)
+            'NaCl': 'aq', 'NaBr': 'aq', 'NaI': 'aq', 'NaF': 'aq', 'NaNO3': 'aq', 'Na2SO4': 'aq', 'Na2CO3': 'aq', 'Na3PO4': 'aq', 
+            'Na2S': 'aq', 'NaCH3COO': 'aq', 'NaHCO3': 'aq', 'NaHSO4': 'aq', 'Na2SO3': 'aq', 'NaH2PO4': 'aq', 'Na2HPO4': 'aq',
+            'KCl': 'aq', 'KBr': 'aq', 'KI': 'aq', 'KF': 'aq', 'KNO3': 'aq', 'K2SO4': 'aq', 'K2CO3': 'aq', 'K3PO4': 'aq', 
+            'K2S': 'aq', 'KCH3COO': 'aq', 'KHCO3': 'aq', 'KMnO4': 'aq', 'K2Cr2O7': 'aq', 'K2CrO4': 'aq', 'K2SO3': 'aq',
+            'LiCl': 'aq', 'LiBr': 'aq', 'LiI': 'aq', 'LiNO3': 'aq', 'Li2SO4': 'aq',
+            'NH4Cl': 'aq', 'NH4Br': 'aq', 'NH4I': 'aq', 'NH4NO3': 'aq', '(NH4)2SO4': 'aq', '(NH4)2CO3': 'aq', '(NH4)3PO4': 'aq', '(NH4)2S': 'aq',
+            'MgCl2': 'aq', 'MgBr2': 'aq', 'MgI2': 'aq', 'Mg(NO3)2': 'aq', 'MgSO4': 'aq', 'Mg(CH3COO)2': 'aq',
+            'CaCl2': 'aq', 'CaBr2': 'aq', 'CaI2': 'aq', 'Ca(NO3)2': 'aq', 'Ca(CH3COO)2': 'aq',
+            'BaCl2': 'aq', 'BaBr2': 'aq', 'BaI2': 'aq', 'Ba(NO3)2': 'aq', 'Ba(CH3COO)2': 'aq',
+            'AlCl3': 'aq', 'AlBr3': 'aq', 'AlI3': 'aq', 'Al(NO3)3': 'aq', 'Al2(SO4)3': 'aq',
+            'FeCl2': 'aq', 'FeBr2': 'aq', 'Fe(NO3)2': 'aq', 'FeSO4': 'aq',
+            'FeCl3': 'aq', 'FeBr3': 'aq', 'Fe(NO3)3': 'aq', 'Fe2(SO4)3': 'aq',
+            'CuCl2': 'aq', 'CuBr2': 'aq', 'Cu(NO3)2': 'aq', 'CuSO4': 'aq', 'Cu(CH3COO)2': 'aq',
+            'ZnCl2': 'aq', 'ZnBr2': 'aq', 'ZnI2': 'aq', 'Zn(NO3)2': 'aq', 'ZnSO4': 'aq', 'Zn(CH3COO)2': 'aq',
+            'Pb(NO3)2': 'aq', 'Pb(CH3COO)2': 'aq',
+            'AgNO3': 'aq', 'AgCH3COO': 'aq', 'AgF': 'aq', 'AgClO4': 'aq',
+            'MnCl2': 'aq', 'Mn(NO3)2': 'aq', 'MnSO4': 'aq',
+            'NiCl2': 'aq', 'Ni(NO3)2': 'aq', 'NiSO4': 'aq',
+            'CrCl3': 'aq', 'Cr(NO3)3': 'aq', 'Cr2(SO4)3': 'aq',
+            'SnCl2': 'aq', 'Sn(NO3)2': 'aq', 'SnSO4': 'aq', 'SnCl4': 'aq', 'CoCl2': 'aq', 'Co(NO3)2': 'aq', 'CoSO4': 'aq',
+            // Muối không tan - Kết tủa (Insoluble Salts - s)
+            'AgCl': 's', 'AgBr': 's', 'AgI': 's', 'Ag2S': 's', 'Ag2CO3': 's', 'Ag3PO4': 's', 'Ag2SO4': 's', 'Ag2CrO4': 's',
+            'PbCl2': 's', 'PbBr2': 's', 'PbI2': 's', 'PbSO4': 's', 'PbS': 's', 'PbCO3': 's', 'PbCrO4': 's', 'Pb3(PO4)2': 's',
+            'BaSO4': 's', 'BaCO3': 's', 'Ba3(PO4)2': 's', 'BaCrO4': 's', 'BaSO3': 's', 'BaC2O4': 's',
+            'CaCO3': 's', 'Ca3(PO4)2': 's', 'CaF2': 's', 'CaSO3': 's', 'CaSO4': 's', 'CaC2O4': 's',
+            'MgCO3': 's', 'Mg3(PO4)2': 's', 'MgF2': 's', 'MgSO3': 's', 'MgC2O4': 's',
+            'FeCO3': 's', 'FeS': 's', 'FePO4': 's', 'Fe2S3': 's',
+            'CuCO3': 's', 'CuS': 's', 'Cu2S': 's', 'Cu3(PO4)2': 's',
+            'ZnCO3': 's', 'ZnS': 's', 'Zn3(PO4)2': 's',
+            'AlPO4': 's', 'Al2(CO3)3': 's', 'Al2S3': 's',
+            'MnS': 's', 'MnCO3': 's', 'Mn3(PO4)2': 's',
+            'NiS': 's', 'NiCO3': 's', 'Ni3(PO4)2': 's',
+            'CdS': 's', 'CdCO3': 's',
+            'Hg2Cl2': 's', 'HgS': 's', 'Hg2S': 's',
+            'SrSO4': 's', 'SrCO3': 's', 'Sr3(PO4)2': 's', 'SrCrO4': 's'
+        };
+
+        function guessState(formula) {
+            let cleanFormula = formula.trim();
+            // Nếu có trong thư viện 200+ chất thì lấy luôn
+            if (substanceStates[cleanFormula]) {
+                return substanceStates[cleanFormula];
+            }
+
+            // Fallback: Quy tắc tính tan thông minh nếu chưa có trong DB
+            // 1. Kim loại kiềm & amoni luôn tan (aq)
+            if (/^(Na|K|Li|Rb|Cs|NH4)/.test(cleanFormula)) return 'aq';
+            // 2. Gốc Nitrat, Axetat, Clorat luôn tan (aq)
+            if (/(NO3|ClO3|ClO4|CH3COO|C2H3O2)(\d*)?$/.test(cleanFormula)) return 'aq';
+            // 3. Gốc Cl, Br, I tan trừ Ag, Pb, Hg2
+            if (/(Cl|Br|I)(\d*)?$/.test(cleanFormula)) {
+                if (/^(Ag|Pb|Hg2)/.test(cleanFormula)) return 's';
+                return 'aq';
+            }
+            // 4. Gốc SO4 tan trừ Ba, Pb, Ca, Sr
+            if (/(SO4)(\d*)?$/.test(cleanFormula)) {
+                if (/^(Ba|Pb|Ca|Sr|Ag2)/.test(cleanFormula)) return 's';
+                return 'aq';
+            }
+            // 5. Các gốc CO3, PO4, SO3, S, OH, O phần lớn không tan (đã loại kiềm ở trên)
+            if (/(CO3|PO4|SO3|S|OH|O)(\d*)?$/.test(cleanFormula)) {
+                return 's';
+            }
+
+            // Mặc định cho là tan để hệ thống có thể bóc tách ion
+            return 'aq';
+        }
+
+        /**
+         * Parses a single term like "2AgNO3(aq)" or "2AgNO3" into an array of its constituent species.
+         */
+        function ionizeTerm(termString) {
+            // Regex to extract: coeff, formula, state (state is now optional)
+            const termRegex = /^(\d*)\s*([A-Za-z0-9\(\)\[\]]+)(?:\s*\((aq|s|l|g)\))?$/;
+            let match = termString.match(termRegex);
+            
+            if (!match) {
+                throw new Error(`Không thể phân tích chất: "${termString}". Vui lòng kiểm tra lại cú pháp (VD: 2AgNO3 hoặc 2AgNO3(aq)).`);
+            }
+
+            let coeff = match[1] ? parseInt(match[1]) : 1;
+            let formula = match[2];
+            let state = match[3];
+
+            // Nếu người dùng không nhập trạng thái, hệ thống sẽ tự động gán dựa trên Database 200+ chất
+            if (!state) {
+                state = guessState(formula);
+            }
+
+            // If not (aq), we don't ionize it (treat as solid/liquid/gas)
+            if (state !== 'aq') {
+                return [{ isIon: false, formula: formula, count: coeff, state: state }];
+            }
+
+            // Attempt to split into cation and anion
+            let anionFormula = null;
+            let anionCount = 1;
+            let cationPart = null;
+
+            for (let an of sortedAnions) {
+                // Case 1: Polyatomic in parentheses with a count, e.g., (NO3)2
+                let parenMatch = formula.match(new RegExp(`\\((${an})\\)(\\d+)$`));
+                if (parenMatch) {
+                    anionFormula = parenMatch[1];
+                    anionCount = parseInt(parenMatch[2]);
+                    cationPart = formula.slice(0, parenMatch.index);
+                    break;
+                }
+                
+                // Case 2: Ends with Anion and optional count, e.g., SO4 or Cl2
+                let endMatch = formula.match(new RegExp(`(${an})(\\d*)$`));
+                if (endMatch) {
+                    anionFormula = endMatch[1];
+                    let numStr = endMatch[2];
+                    
+                    if (numStr === "") {
+                        anionCount = 1;
+                    } else if (isNaN(parseInt(an.slice(-1)))) {
+                        // If anion doesn't end with a number (like Cl), then trailing number is count (Cl2 -> 2)
+                        anionCount = parseInt(numStr);
+                    } else {
+                        // Invalid match: e.g., matched SO4 and has trailing number like SO42 without parens. Skip.
+                        continue; 
+                    }
+                    cationPart = formula.slice(0, endMatch.index);
+                    break;
+                }
+            }
+
+            // If we couldn't find a standard anion, we assume it doesn't ionize cleanly (e.g. organic molecules)
+            if (!anionFormula || !cationPart) {
+                return [{ isIon: false, formula: formula, count: coeff, state: state }];
+            }
+
+            // Parse Cation Part
+            let cationFormula = null;
+            let cationCount = 1;
+            
+            // Cation might be in parentheses like (NH4)2
+            let catParenMatch = cationPart.match(/^\((.+)\)(\d+)$/);
+            if (catParenMatch) {
+                cationFormula = catParenMatch[1];
+                cationCount = parseInt(catParenMatch[2]);
+            } else {
+                // Or just Element + optional number, e.g., Na2 or Fe
+                let catNormalMatch = cationPart.match(/^([A-Z][a-z]?|NH4)(\d*)$/);
+                if (catNormalMatch) {
+                    cationFormula = catNormalMatch[1];
+                    cationCount = catNormalMatch[2] ? parseInt(catNormalMatch[2]) : 1;
+                } else {
+                    // Cannot parse cation, abort splitting
+                    return [{ isIon: false, formula: formula, count: coeff, state: state }];
+                }
+            }
+
+            // Calculate charges
+            let anionChg = anionCharges[anionFormula];
+            let totalAnionCharge = anionChg * anionCount;
+            let cationChg = -totalAnionCharge / cationCount;
+
+            // Integrity check: cation charge should be an integer. If not, it's a parse error or invalid compound.
+            if (!Number.isInteger(cationChg)) {
+                return [{ isIon: false, formula: formula, count: coeff, state: state }];
+            }
+
+            // Weak Acid Check: If cation is H+ but anion is NOT a strong acid anion, don't split (e.g. CH3COOH or HF)
+            if (cationFormula === 'H' && !strongAcidAnions.includes(anionFormula)) {
+                return [{ isIon: false, formula: formula, count: coeff, state: state }];
+            }
+
+            // Return the split ions
+            return [
+                { isIon: true, formula: cationFormula, charge: cationChg, count: coeff * cationCount, state: state },
+                { isIon: true, formula: anionFormula, charge: anionChg, count: coeff * anionCount, state: state }
+            ];
+        }
+
+        function parseEquationSide(sideString) {
+            // Split by '+' but handle spacing
+            let terms = sideString.split('+').map(s => s.trim()).filter(s => s.length > 0);
+            let ionizedTerms = [];
+            for (let t of terms) {
+                let parsed = ionizeTerm(t);
+                ionizedTerms.push(...parsed);
+            }
+            return ionizedTerms;
+        }
+
+        function getTermKey(t) {
+            return t.isIon ? `${t.formula}_${t.charge}_${t.state}` : `${t.formula}_${t.state}`;
+        }
+
+        function gcd(a, b) {
+            return b ? gcd(b, a % b) : Math.abs(a);
+        }
+
+        function computeNetIonic(rTerms, pTerms) {
+            // Count frequencies of each species on both sides
+            let rCounts = {};
+            let pCounts = {};
+            
+            rTerms.forEach(t => {
+                let k = getTermKey(t);
+                rCounts[k] = (rCounts[k] || 0) + t.count;
+            });
+            
+            pTerms.forEach(t => {
+                let k = getTermKey(t);
+                pCounts[k] = (pCounts[k] || 0) + t.count;
+            });
+
+            // Cancel out spectator ions
+            for (let k in rCounts) {
+                if (pCounts[k]) {
+                    let minCount = Math.min(rCounts[k], pCounts[k]);
+                    rCounts[k] -= minCount;
+                    pCounts[k] -= minCount;
+                }
+            }
+
+            // Rebuild arrays
+            let netR = [];
+            let netP = [];
+
+            // Helper to find original object template
+            let findTemplate = (arr, key) => arr.find(t => getTermKey(t) === key);
+
+            for (let k in rCounts) {
+                if (rCounts[k] > 0) {
+                    let template = findTemplate(rTerms, k);
+                    netR.push({ ...template, count: rCounts[k] });
+                }
+            }
+            for (let k in pCounts) {
+                if (pCounts[k] > 0) {
+                    let template = findTemplate(pTerms, k);
+                    netP.push({ ...template, count: pCounts[k] });
+                }
+            }
+
+            // Simplify coefficients (divide by Greatest Common Divisor)
+            let allCounts = [...netR.map(t=>t.count), ...netP.map(t=>t.count)];
+            if (allCounts.length > 0) {
+                let commonDivisor = allCounts.reduce((acc, val) => gcd(acc, val), allCounts[0]);
+                if (commonDivisor > 1) {
+                    netR.forEach(t => t.count /= commonDivisor);
+                    netP.forEach(t => t.count /= commonDivisor);
+                }
+            }
+
+            return { netR, netP };
+        }
+
+        function formatTermLaTeX(t) {
+            let coeffStr = (t.count > 1) ? `${t.count}` : "";
+            let stateStr = t.state ? `(${t.state})` : "";
+            
+            if (!t.isIon) {
+                return `${coeffStr}${t.formula}${stateStr}`;
+            } else {
+                let chargeAbs = Math.abs(t.charge);
+                let chargeSign = t.charge > 0 ? "+" : "-";
+                // mhchem can understand just + or - or 2+ or 2- automatically if we use standard notation
+                // but to be explicit inside \ce:
+                let chargeStr = chargeAbs > 1 ? `${chargeAbs}${chargeSign}` : `${chargeSign}`;
+                return `${coeffStr}${t.formula}^{${chargeStr}}${stateStr}`;
+            }
+        }
+
+        function formatSideLaTeX(terms) {
+            if (terms.length === 0) return "";
+            return terms.map(formatTermLaTeX).join(" + ");
+        }
+
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const equationInput = document.getElementById('equationInput');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const resultsArea = document.getElementById('resultsArea');
+        const outOriginal = document.getElementById('outOriginal');
+        const outFullIonic = document.getElementById('outFullIonic');
+        const outNetIonic = document.getElementById('outNetIonic');
+
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorMessage.classList.remove('hidden');
+            resultsArea.classList.add('hidden');
+            resultsArea.classList.remove('opacity-100');
+            resultsArea.classList.add('opacity-0');
+        }
+
+        function hideError() {
+            errorMessage.classList.add('hidden');
+        }
+
+        function processEquation() {
+            hideError();
+            let input = equationInput.value.trim();
+            if (!input) {
+                showError("Vui lòng nhập phương trình hóa học.");
+                return;
+            }
+
+            // Split into reactants and products
+            let parts = input.split(/->|=/);
+            if (parts.length !== 2) {
+                showError("Phương trình cần có dấu mũi tên (->) hoặc dấu bằng (=) phân cách chất tham gia và sản phẩm.");
+                return;
+            }
+
+            let rStr = parts[0].trim();
+            let pStr = parts[1].trim();
+
+            try {
+                // 1. Analyze Full Ionic
+                let rTerms = parseEquationSide(rStr);
+                let pTerms = parseEquationSide(pStr);
+
+                // 2. Analyze Net Ionic
+                let { netR, netP } = computeNetIonic(rTerms, pTerms);
+
+                // 3. Format as LaTeX strings for mhchem
+                // We use \ce{ ... } wrapper for mhchem
+                let latexOriginal = `\\ce{ ${rStr} -> ${pStr} }`;
+                let latexFullIonic = `\\ce{ ${formatSideLaTeX(rTerms)} -> ${formatSideLaTeX(pTerms)} }`;
+                
+                let latexNetIonic = "";
+                if (netR.length === 0 && netP.length === 0) {
+                    latexNetIonic = `\\text{Không có phản ứng hóa học xảy ra (Tất cả đều là ion khán giả)}`;
+                } else {
+                    latexNetIonic = `\\ce{ ${formatSideLaTeX(netR)} -> ${formatSideLaTeX(netP)} }`;
+                }
+
+                // 4. Render using KaTeX
+                // Wait for KaTeX to be fully loaded
+                if (typeof katex !== 'undefined') {
+                    katex.render(latexOriginal, outOriginal, { throwOnError: false, displayMode: true });
+                    katex.render(latexFullIonic, outFullIonic, { throwOnError: false, displayMode: true });
+                    katex.render(latexNetIonic, outNetIonic, { throwOnError: false, displayMode: true });
+
+                    // Show Results
+                    resultsArea.classList.remove('hidden');
+                    // Small delay to allow display block to apply before transitioning opacity
+                    setTimeout(() => {
+                        resultsArea.classList.remove('opacity-0');
+                        resultsArea.classList.add('opacity-100');
+                    }, 50);
+                } else {
+                    showError("Hệ thống đang tải thư viện toán học. Vui lòng thử lại sau giây lát.");
+                }
+
+            } catch (err) {
+                showError(err.message || "Đã xảy ra lỗi trong quá trình phân tích phương trình. Vui lòng kiểm tra lại cú pháp.");
+            }
+        }
+
+        // Event listeners
+        analyzeBtn.addEventListener('click', processEquation);
+        equationInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                processEquation();
+            }
+        });
+
+        // Example buttons setup
+        document.querySelectorAll('.example-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                equationInput.value = this.getAttribute('data-eq');
+                processEquation();
+            });
+        });
+
+    </script>
+</body>
+</html>

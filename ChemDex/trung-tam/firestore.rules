@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Posts
+    match /posts/{postId} {
+      allow read: if true;
+
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+
+      allow update, delete: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // Stories
+    match /stories/{storyId} {
+      allow read: if true;
+
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+
+      allow update, delete: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+
+      allow create: if request.auth != null;
+
+      allow update, delete: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // Mặc định chặn mọi collection khác
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

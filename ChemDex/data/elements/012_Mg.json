@@ -1,0 +1,55 @@
+{
+  "number": 12,
+  "symbol": "Mg",
+  "nameVi": "Magnesium",
+  "nameEn": "Magnesium",
+  "mass": 24.305,
+  "category": "kiem-tho",
+  "general": {
+    "latinName": "Magnesium",
+    "englishName": "Magnesium",
+    "electronConfig": "[Ne] 3s2",
+    "group": 2,
+    "period": 3,
+    "oxidation": "+2",
+    "electronegativity": "1.31",
+    "shells": [
+      2,
+      8,
+      2
+    ]
+  },
+  "history": {
+    "discoverer": "Joseph Black",
+    "year": 1755,
+    "discoveryLocation": "Scotland"
+  },
+  "structure": {
+    "electrons": 12,
+    "protons": 12,
+    "neutrons": 12
+  },
+  "occurrence": {
+    "description": "Có trong dolomit, magnesit, nước biển.",
+    "simple": [
+      "Mg"
+    ],
+    "compounds": [
+      "MgO",
+      "MgCO3"
+    ]
+  },
+  "physical": "Kim loại nhẹ, sáng bạc.",
+  "chemical": "Dễ cháy trong không khí tạo oxit và nitrua.",
+  "reactions": [
+    {
+      "type": "Cháy",
+      "eq": "2Mg + O2 → 2MgO",
+      "desc": "Tạo ngọn lửa trắng sáng."
+    }
+  ],
+  "structureType": "hcp",
+  "images": {},
+  "hasData": true,
+  "file": "elements/012_Mg.json"
+}
