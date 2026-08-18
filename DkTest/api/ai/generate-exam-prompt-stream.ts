@@ -1,6 +1,6 @@
 
 import { processExamFromPromptStream } from "../../src/services/ai/aiExamGenerator.js";
-import { initSse, sendSse, sendSseError } from "../../src/server/sse";
+import { initSse, sendSse, sendSseError } from "../../src/server/sse.js";
 
 export const maxDuration = 300;
 

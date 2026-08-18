@@ -1,6 +1,6 @@
 
 import { askTutor } from "../../src/services/ai/aiTutor.js";
-import { initSse, sendSse, sendSseError, sendSseRaw } from "../../src/server/sse";
+import { initSse, sendSse, sendSseError, sendSseRaw } from "../../src/server/sse.js";
 
 export const maxDuration = 300;
 
