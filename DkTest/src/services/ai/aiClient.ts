@@ -4,7 +4,7 @@ let aiInstance: GoogleGenAI | null = null;
 
 export function getAiClient(): GoogleGenAI {
   if (!aiInstance) {
-    const apiKey = process.env.GEMINI_API_KEY || "AQ.Ab8RN6Lo-4xs9_RfWvddPFrc8sGSCjlwIjq-RmBDEtWev-hplA";
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       console.warn("GEMINI_API_KEY is missing.");
     }
