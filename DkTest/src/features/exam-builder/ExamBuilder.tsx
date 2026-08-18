@@ -6,15 +6,17 @@ import ExamToolbar from "./components/ExamToolbar";
 import ExamOutline from "./components/ExamOutline";
 import ExamMetaEditor from "./components/ExamMetaEditor";
 import QuestionList from "./components/QuestionList";
+import ExamVisualPreviewEditor from "./components/ExamVisualPreviewEditor";
 import {
   Loader2,
   PanelLeftClose,
   PanelLeftOpen,
   FileQuestion,
   Settings2,
+  CheckSquare,
 } from "lucide-react";
 
-type EditorTab = "questions" | "settings";
+type EditorTab = "questions" | "preview_edit" | "settings";
 
 function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
   const { examId } = useParams();
@@ -92,12 +94,12 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
             </button>
           )}
 
-          {/* Editor Tabs: 2 clean tabs for Questions & Settings */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl">
+          {/* Editor Tabs: 3 clean tabs for Questions, Visual Preview & Rapid Answer Editor, Settings */}
+          <div className="flex items-center bg-slate-100 p-1 rounded-xl gap-1">
             <button
               type="button"
               onClick={() => setActiveTab("questions")}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === "questions"
                   ? "bg-white text-blue-700 shadow-2xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -112,8 +114,21 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
 
             <button
               type="button"
+              onClick={() => setActiveTab("preview_edit")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeTab === "preview_edit"
+                  ? "bg-emerald-600 text-white shadow-2xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <CheckSquare className="w-3.5 h-3.5" />
+              <span>Sửa xem trước (Azota)</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setActiveTab("settings")}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === "settings"
                   ? "bg-white text-blue-700 shadow-2xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -150,6 +165,17 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
           {activeTab === "questions" && (
             <div className="max-w-4xl mx-auto space-y-6 pb-32">
               <QuestionList />
+            </div>
+          )}
+
+          {activeTab === "preview_edit" && (
+            <div className="w-full mx-auto space-y-6 pb-32">
+              <ExamVisualPreviewEditor
+                onSwitchToQuestionEditor={(qId) => {
+                  actions.setActiveQuestion(qId);
+                  setActiveTab("questions");
+                }}
+              />
             </div>
           )}
 

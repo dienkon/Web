@@ -1,10 +1,13 @@
 import { useExamEditorContext } from "../context/ExamEditorContext";
-import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2, Sparkles } from "lucide-react";
+import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2, Sparkles, FileText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { exportJson } from "../../../utils/json/exportExamJson";
 import { parseExamFile } from "../../../utils/json/importExamJson";
 import React, { useRef, useState } from "react";
 import ExamPreviewModal from "./ExamPreviewModal";
+import ExamExportModal from "./ExamExportModal";
+import JsonImportModal from "./JsonImportModal";
+import PublishVisibilityModal from "./PublishVisibilityModal";
 import { deleteExam } from "../../../services/examService";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
 import { useToast } from "../../../components/ui/ToastNotification";
@@ -14,15 +17,69 @@ export default function ExamToolbar() {
   const { showToast, error: showErrorToast, success: showSuccessToast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showValidationModal, setShowValidationModal] = useState(false);
+  const [showJsonImportModal, setShowJsonImportModal] = useState(false);
+  const [showPublishModal, setShowPublishModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
 
-  const handlePublish = async () => {
+  const processImportedJsonData = (data: any) => {
+    try {
+      const examId = state.examMeta.id || "temp-exam-id";
+      const mappedSections = (data.sections || []).map((s: any, idx: number) => ({
+        id: s.id || `section_${idx}`,
+        examId,
+        title: s.title || `Phần ${idx + 1}`,
+        description: s.description || "",
+        order: s.order ?? idx,
+        questionCount: 0,
+        enabled: true,
+      }));
+
+      const mappedQuestions = (data.questions || []).map((q: any, idx: number) => ({
+        id: q.id || `q_${idx}`,
+        examId,
+        sectionId: q.sectionId || mappedSections[0]?.id || undefined,
+        type: q.type || "single_choice",
+        text: q.text || "",
+        points: q.points ?? 1,
+        order: q.order ?? idx,
+        explanation: q.explanation || "",
+        options: q.options || [],
+        correctOptionIds: q.correctOptionIds || [],
+        statements: q.statements || [],
+        acceptedAnswers: q.acceptedAnswers || [],
+      }));
+
+      actions.importExam({
+        examMeta: data.exam ? { ...state.examMeta, ...data.exam } : state.examMeta,
+        sections: mappedSections.length > 0 ? mappedSections : state.sections,
+        questions: mappedQuestions.length > 0 ? mappedQuestions : state.questions,
+      });
+
+      showSuccessToast("Nhập dữ liệu đề thi JSON thành công!");
+    } catch (err: any) {
+      showErrorToast("Lỗi nhập JSON: Cấu trúc file không tương thích!");
+    }
+  };
+
+  const handlePublishClick = () => {
+    // Open visibility choice modal before publishing
+    setShowPublishModal(true);
+  };
+
+  const handleConfirmPublish = async (isPublic: boolean) => {
+    setShowPublishModal(false);
+    actions.setExamMeta({ isPublic, visibility: isPublic ? "public" : "private" });
     const success = await actions.saveExam(true);
     if (success) {
-      showSuccessToast("Đã xuất bản bài thi thành công!");
+      showSuccessToast(
+        isPublic
+          ? "Đã xuất bản bài thi CÔNG KHAI thành công!"
+          : "Đã xuất bản bài thi KHÔNG CÔNG KHAI thành công!"
+      );
     } else {
       setShowValidationModal(true);
     }
@@ -152,6 +209,15 @@ export default function ExamToolbar() {
 
           <button
             type="button"
+            onClick={() => setShowExportModal(true)}
+            className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+            title="Xuất đề thi dạng PDF & LaTeX"
+          >
+            <FileText className="w-4 h-4" /> Xuất PDF / LaTeX
+          </button>
+
+          <button
+            type="button"
             onClick={handleExport}
             className="p-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors hidden sm:flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
             title="Xuất JSON đề thi"
@@ -161,19 +227,12 @@ export default function ExamToolbar() {
 
           <button
             type="button"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => setShowJsonImportModal(true)}
             className="p-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors hidden sm:flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
-            title="Nhập JSON đề thi"
+            title="Nhập JSON đề thi (Dán hoặc Tải file)"
           >
             <Upload className="w-4 h-4" /> Nhập JSON
           </button>
-          <input
-            type="file"
-            accept=".json"
-            ref={fileInputRef}
-            onChange={handleImport}
-            className="hidden"
-          />
 
           <button
             type="button"
@@ -235,7 +294,7 @@ export default function ExamToolbar() {
 
           <button
             type="button"
-            onClick={handlePublish}
+            onClick={handlePublishClick}
             disabled={state.isSaving}
             className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all text-xs font-bold shadow-xs flex items-center gap-1.5 cursor-pointer"
           >
@@ -244,12 +303,39 @@ export default function ExamToolbar() {
         </div>
       </header>
 
+      {showPublishModal && (
+        <PublishVisibilityModal
+          isOpen={showPublishModal}
+          onClose={() => setShowPublishModal(false)}
+          onConfirm={handleConfirmPublish}
+          initialIsPublic={state.examMeta.isPublic ?? true}
+        />
+      )}
+
       {showPreview && (
         <ExamPreviewModal
           exam={state.examMeta}
           sections={state.sections}
           questions={state.questions}
           onClose={() => setShowPreview(false)}
+        />
+      )}
+
+      {showExportModal && (
+        <ExamExportModal
+          isOpen={showExportModal}
+          exam={state.examMeta}
+          sections={state.sections}
+          questions={state.questions}
+          onClose={() => setShowExportModal(false)}
+        />
+      )}
+
+      {showJsonImportModal && (
+        <JsonImportModal
+          isOpen={showJsonImportModal}
+          onClose={() => setShowJsonImportModal(false)}
+          onImport={processImportedJsonData}
         />
       )}
 

@@ -1,11 +1,8 @@
-import { processExamFromPromptStream } from "../../src/services/ai/aiExamGenerator.js";
 
-function setSseHeaders(res: any) {
-  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-  res.setHeader("Cache-Control", "no-cache, no-transform");
-  res.setHeader("Connection", "keep-alive");
-  res.setHeader("X-Accel-Buffering", "no");
-}
+import { processExamFromPromptStream } from "../../src/services/ai/aiExamGenerator.js";
+import { initSse, sendSse, sendSseError } from "../../src/server/sse";
+
+export const maxDuration = 300;
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -14,47 +11,29 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const body =
-      typeof req.body === "string"
-        ? JSON.parse(req.body)
-        : (req.body ?? {});
-
-    const { prompt } = body;
-
+    const prompt = typeof req.body?.prompt === "string" ? req.body.prompt.trim() : "";
     if (!prompt) {
       return res.status(400).json({ error: "No prompt provided" });
     }
 
-    setSseHeaders(res);
-    res.write(`data: ${JSON.stringify({
-      type: "info",
-      message: "Đang tạo đề bằng AI..."
-    })}\n\n`);
-
+    initSse(res);
     const result = await processExamFromPromptStream(prompt, (progressMsg) => {
-      res.write(`data: ${JSON.stringify(progressMsg)}\n\n`);
+      try {
+        sendSse(res, JSON.parse(progressMsg));
+      } catch {
+        sendSse(res, { type: "info", message: progressMsg });
+      }
     });
 
-    res.write(`data: ${JSON.stringify({
-      type: "done",
-      result
-    })}\n\n`);
-
-    res.end();
-  } catch (error: any) {
+    sendSse(res, { type: "done", result });
+    return res.end();
+  } catch (error) {
     console.error("[AI Exam Prompt]", error);
-
-    if (res.headersSent) {
-      res.write(`data: ${JSON.stringify({
-        type: "error",
-        message: error?.message || "Failed to generate exam from prompt"
-      })}\n\n`);
-      res.end();
-      return;
+    if (!res.headersSent) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Failed to generate exam from prompt",
+      });
     }
-
-    res.status(500).json({
-      error: error?.message || "Failed to generate exam from prompt"
-    });
+    sendSseError(res, error);
   }
 }

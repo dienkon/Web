@@ -44,14 +44,7 @@ export default function AiTutorPage() {
       });
 
       if (!response.ok) {
-        let detail = "";
-        try {
-          const errorBody = await response.json();
-          detail = errorBody?.error ? `: ${errorBody.error}` : "";
-        } catch {
-          // Ignore non-JSON error responses.
-        }
-        throw new Error(`API ${response.status}${detail}`);
+        throw new Error("Lỗi kết nối");
       }
 
       if (!response.body) throw new Error("No readable stream");

@@ -42,6 +42,28 @@ export default function ExamIntro() {
   const [sections, setSections] = useState<Section[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{ username?: string; displayName?: string } | null>(null);
+
+  useEffect(() => {
+    const role = localStorage.getItem("auth_role");
+    const savedInfo = localStorage.getItem("student_info");
+    if ((role === "student" || role === "admin") && savedInfo) {
+      setIsLoggedIn(true);
+      try {
+        const parsed = JSON.parse(savedInfo);
+        setCurrentUser(parsed);
+        if (parsed.displayName) setStudentName(parsed.displayName);
+        if (parsed.username) setStudentCode(parsed.username);
+      } catch (e) {}
+    } else if (role === "admin") {
+      setIsLoggedIn(true);
+      setStudentName("Quản trị viên");
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
   useEffect(() => {
     const fetchExam = async () => {
       if (!examId) return;
@@ -105,16 +127,22 @@ export default function ExamIntro() {
       }
     }
 
-    // If no name entered, generate an anonymous candidate name
+    // Check authentication
+    if (!isLoggedIn) {
+      navigate(`/student/login?redirect=${encodeURIComponent(`/student/exam/${exam.id}`)}`);
+      return;
+    }
+
+    // If no name entered, generate candidate name
     const finalName =
-      studentName.trim() || `Thí sinh #${Math.floor(1000 + Math.random() * 9000)}`;
+      studentName.trim() || currentUser?.displayName || currentUser?.username || `Thí sinh #${Math.floor(1000 + Math.random() * 9000)}`;
 
     // Save student session info for taking exam
     localStorage.setItem(
       "current_student_session",
       JSON.stringify({
         name: finalName,
-        code: studentCode.trim() || undefined,
+        code: studentCode.trim() || currentUser?.username || undefined,
         startTime: Date.now(),
       })
     );

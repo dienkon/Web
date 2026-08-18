@@ -27,7 +27,9 @@ export default function LatexPreview({ content, className = "" }: Props) {
     }
   }, [content]);
 
-  return <div ref={containerRef} className={`latex-preview text-slate-800 leading-relaxed ${className}`} />;
+  const defaultColorClass = className.includes("text-") ? "" : "text-slate-800";
+
+  return <div ref={containerRef} className={`latex-preview leading-relaxed ${defaultColorClass} ${className}`} />;
 }
 
 /**
@@ -37,6 +39,9 @@ export function normalizeLatexText(input: string): string {
   if (!input) return "";
 
   let text = input;
+
+  // Convert literal '\n' and '\r\n' text strings (two characters '\' and 'n') into actual newline characters
+  text = text.replace(/\\r\\n/g, "\n").replace(/\\n/g, "\n");
 
   // 1. Fix control characters caused by single-backslash JSON or string escapes:
   // \x0c (form feed \f) -> \f (e.g. \x0crac -> \frac, \x0c -> \f)

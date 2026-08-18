@@ -24,6 +24,7 @@ import { db } from "../../services/firebase/config";
 import type { Exam, Section, Question } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import ExamPreviewModal from "../../features/exam-builder/components/ExamPreviewModal";
+import ExamExportModal from "../../features/exam-builder/components/ExamExportModal";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import { useToast } from "../../components/ui/ToastNotification";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
@@ -39,6 +40,7 @@ export default function ExamDetail() {
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -133,6 +135,15 @@ export default function ExamDetail() {
         </Link>
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowExportModal(true)}
+            className="px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl transition-colors text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+            title="Xuất đề thi dạng PDF & LaTeX"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            Xuất PDF / LaTeX
+          </button>
+
           <button
             onClick={() => setShowPreview(true)}
             className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-colors text-xs font-semibold flex items-center gap-1.5"
@@ -330,6 +341,16 @@ export default function ExamDetail() {
           sections={sections}
           questions={questions}
           onClose={() => setShowPreview(false)}
+        />
+      )}
+
+      {showExportModal && exam && (
+        <ExamExportModal
+          isOpen={showExportModal}
+          exam={exam}
+          sections={sections}
+          questions={questions}
+          onClose={() => setShowExportModal(false)}
         />
       )}
 

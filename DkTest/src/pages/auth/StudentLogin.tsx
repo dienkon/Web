@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { User, Loader2 } from "lucide-react";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { User, Loader2, ArrowLeft, GraduationCap, ShieldCheck } from "lucide-react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 
 export default function StudentLogin() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectPath = searchParams.get("redirect") || "/";
+
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
     if (role === "student") {
-      navigate("/", { replace: true });
+      navigate(redirectPath, { replace: true });
     } else if (role === "admin") {
-      navigate("/admin/exams", { replace: true });
+      navigate(redirectPath !== "/" ? redirectPath : "/admin/exams", { replace: true });
     }
-  }, [navigate]);
+  }, [navigate, redirectPath]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username || (!isLogin && !displayName)) {
+    if (!username.trim() || (!isLogin && !displayName.trim())) {
       setError("Vui lòng điền đầy đủ thông tin");
       return;
     }
@@ -33,41 +36,41 @@ export default function StudentLogin() {
     setError("");
 
     try {
-      const userRef = doc(db, "users", username.toLowerCase());
+      const userRef = doc(db, "users", username.trim().toLowerCase());
       const userSnap = await getDoc(userRef);
 
       if (isLogin) {
         if (!userSnap.exists()) {
-          throw new Error("Tài khoản không tồn tại");
+          throw new Error("Tài khoản không tồn tại. Nếu bạn chưa có tài khoản, vui lòng chọn 'Đăng ký ngay'.");
         }
         const userData = userSnap.data();
         
-        // Log in success - no password check
+        // Log in success
         localStorage.setItem("auth_role", "student");
         localStorage.setItem("student_info", JSON.stringify({
-          username: username.toLowerCase(),
-          displayName: userData.displayName
+          username: username.trim().toLowerCase(),
+          displayName: userData.displayName || username.trim()
         }));
-        navigate("/", { replace: true });
+        navigate(redirectPath, { replace: true });
       } else {
         if (userSnap.exists()) {
-          throw new Error("Username này đã được sử dụng. Vui lòng chọn username khác.");
+          throw new Error("Username này đã được sử dụng. Vui lòng chọn username khác hoặc đăng nhập.");
         }
         
-        // Register success - no password field
+        // Register success
         await setDoc(userRef, {
-          username: username.toLowerCase(),
-          displayName,
+          username: username.trim().toLowerCase(),
+          displayName: displayName.trim(),
           role: "student",
           createdAt: new Date().toISOString()
         });
 
         localStorage.setItem("auth_role", "student");
         localStorage.setItem("student_info", JSON.stringify({
-          username: username.toLowerCase(),
-          displayName
+          username: username.trim().toLowerCase(),
+          displayName: displayName.trim()
         }));
-        navigate("/", { replace: true });
+        navigate(redirectPath, { replace: true });
       }
     } catch (err: any) {
       setError(err.message || "Lỗi đăng nhập");

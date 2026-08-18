@@ -14,8 +14,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Sparkles,
+  Clock,
+  Play,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
+import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 
 export default function StudentLayout() {
   const navigate = useNavigate();
@@ -31,10 +34,29 @@ export default function StudentLayout() {
     if (role === "admin") {
       setIsAdmin(true);
     } else if (role === "student") {
-      const infoStr = localStorage.getItem("student_info");
+      const infoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
       if (infoStr) {
         try {
-          setStudentInfo(JSON.parse(infoStr));
+          const parsed = JSON.parse(infoStr);
+          setStudentInfo(parsed);
+
+          // Fetch fresh avatar and profile from Firestore to ensure permanent sync
+          const username = parsed.username || parsed.name || parsed.displayName;
+          if (username) {
+            import("../../services/studentService").then(({ getStudent }) => {
+              getStudent(username).then((studentDoc) => {
+                if (studentDoc && studentDoc.avatarUrl) {
+                  const updated = {
+                    ...parsed,
+                    avatarUrl: studentDoc.avatarUrl,
+                    displayName: studentDoc.name || parsed.displayName || parsed.name,
+                  };
+                  setStudentInfo(updated);
+                  localStorage.setItem("student_info", JSON.stringify(updated));
+                }
+              });
+            });
+          }
         } catch (e) {
           // ignore
         }
@@ -47,7 +69,18 @@ export default function StudentLayout() {
     setIsMobileDrawerOpen(false);
   }, [location.pathname]);
 
+  // Check for active in-progress exam session and redirect student back immediately
+  useEffect(() => {
+    if (!location.pathname.includes("/take") && !location.pathname.includes("/result/")) {
+      const activeSession = hasActiveExamInProgress();
+      if (activeSession) {
+        navigate(`/student/exam/${activeSession.examId}/take`, { replace: true });
+      }
+    }
+  }, [location.pathname, navigate]);
+
   const handleConfirmLogout = () => {
+    clearActiveExamSession();
     localStorage.removeItem("auth_role");
     localStorage.removeItem("student_info");
     localStorage.removeItem("admin_token");

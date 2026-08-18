@@ -14,15 +14,26 @@ import {
   Search,
   Shuffle,
   FileText,
+  RotateCw,
+  RefreshCw,
+  Sparkles,
+  AlertCircle,
 } from "lucide-react";
 import { doc, getDoc, collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam, Question } from "../../types";
 import { formatDate } from "../../utils/date";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+import { useToast } from "../../components/ui/ToastNotification";
+import {
+  regradeSingleSubmission,
+  regradeExamSubmissions,
+  RegradeResult,
+} from "../../services/regradeService";
 
 export default function SubmissionDetail() {
   const { examId, submissionId } = useParams<{ examId: string; submissionId: string }>();
+  const { showToast, error: showErrorToast } = useToast();
 
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [exam, setExam] = useState<Exam | null>(null);
@@ -33,47 +44,118 @@ export default function SubmissionDetail() {
   const [filterStatus, setFilterStatus] = useState<"all" | "correct" | "incorrect" | "unanswered">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const loadData = async () => {
-      if (!submissionId) return;
-      setLoading(true);
-      try {
-        // 1. Fetch submission
-        let subDoc = await getDoc(doc(db, "submissions", submissionId));
-        if (!subDoc.exists() && examId) {
-          subDoc = await getDoc(doc(db, `exams/${examId}/submissions`, submissionId));
-        }
+  // Regrading state
+  const [isRegradingSingle, setIsRegradingSingle] = useState(false);
+  const [isRegradingBatch, setIsRegradingBatch] = useState(false);
+  const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(null);
+  const [regradeModalData, setRegradeModalData] = useState<{
+    type: "single" | "batch";
+    singleResult?: RegradeResult;
+    batchSummary?: { totalSubmissions: number; changedCount: number; averageScore: number };
+  } | null>(null);
 
-        if (subDoc.exists()) {
-          const subData = { id: subDoc.id, ...subDoc.data() } as Submission;
-          setSubmission(subData);
-
-          const targetExamId = examId || subData.examId;
-
-          // 2. Fetch exam info
-          if (targetExamId) {
-            const eDoc = await getDoc(doc(db, "exams", targetExamId));
-            if (eDoc.exists()) {
-              setExam({ id: eDoc.id, ...eDoc.data() } as Exam);
-            }
-
-            // 3. Fetch questions
-            const qSnap = await getDocs(
-              query(collection(db, `exams/${targetExamId}/questions`), orderBy("order", "asc"))
-            );
-            const qList = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
-            setQuestions(qList);
-          }
-        }
-      } catch (err) {
-        console.error("Lỗi khi tải chi tiết bài nộp:", err);
-      } finally {
-        setLoading(false);
+  const loadData = async () => {
+    if (!submissionId) return;
+    try {
+      // 1. Fetch submission
+      let subDoc = await getDoc(doc(db, "submissions", submissionId));
+      if (!subDoc.exists() && examId) {
+        subDoc = await getDoc(doc(db, `exams/${examId}/submissions`, submissionId));
       }
-    };
 
+      if (subDoc.exists()) {
+        const subData = { id: subDoc.id, ...subDoc.data() } as Submission;
+        setSubmission(subData);
+
+        const targetExamId = examId || subData.examId;
+
+        // 2. Fetch exam info
+        if (targetExamId) {
+          const eDoc = await getDoc(doc(db, "exams", targetExamId));
+          if (eDoc.exists()) {
+            setExam({ id: eDoc.id, ...eDoc.data() } as Exam);
+          }
+
+          // 3. Fetch questions
+          const qSnap = await getDocs(
+            query(collection(db, `exams/${targetExamId}/questions`), orderBy("order", "asc"))
+          );
+          const qList = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+          setQuestions(qList);
+        }
+      }
+    } catch (err) {
+      console.error("Lỗi khi tải chi tiết bài nộp:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
     loadData();
   }, [examId, submissionId]);
+
+  const handleRegradeSingle = async () => {
+    if (!submission) return;
+    setIsRegradingSingle(true);
+    try {
+      const res = await regradeSingleSubmission(submission.id, examId || submission.examId);
+      setSubmission(res.submission);
+      setRegradeModalData({
+        type: "single",
+        singleResult: res.regradeResult,
+      });
+      showToast(
+        res.regradeResult.changed
+          ? `Đã chấm lại thành công! Điểm mới: ${res.regradeResult.newScore.toFixed(2)}`
+          : "Kết quả chấm lại khớp với điểm hiện tại."
+      );
+    } catch (err: any) {
+      console.error("Lỗi khi chấm lại:", err);
+      showErrorToast(err.message || "Không thể chấm lại bài nộp này.");
+    } finally {
+      setIsRegradingSingle(false);
+    }
+  };
+
+  const handleRegradeBatch = async () => {
+    const targetExamId = examId || submission?.examId;
+    if (!targetExamId) return;
+
+    if (!window.confirm("Bạn có chắc muốn chấm lại toàn bộ các bài nộp của đề thi này theo đáp án mới nhất?")) {
+      return;
+    }
+
+    setIsRegradingBatch(true);
+    setBatchProgress({ current: 0, total: 0 });
+
+    try {
+      const res = await regradeExamSubmissions(targetExamId, (current, total) => {
+        setBatchProgress({ current, total });
+      });
+
+      setRegradeModalData({
+        type: "batch",
+        batchSummary: {
+          totalSubmissions: res.totalSubmissions,
+          changedCount: res.changedCount,
+          averageScore: res.averageScore,
+        },
+      });
+
+      // Reload current submission data
+      await loadData();
+
+      showToast(`Đã chấm lại toàn bộ ${res.totalSubmissions} bài nộp. Có ${res.changedCount} bài thay đổi điểm.`);
+    } catch (err: any) {
+      console.error("Lỗi khi chấm lại toàn bộ bài:", err);
+      showErrorToast(err.message || "Không thể chấm lại toàn bộ bài thi.");
+    } finally {
+      setIsRegradingBatch(false);
+      setBatchProgress(null);
+    }
+  };
 
   const handlePrint = () => {
     window.print();
@@ -99,8 +181,8 @@ export default function SubmissionDetail() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto pb-12">
-      {/* Top navigation & Print action */}
-      <div className="flex items-center justify-between no-print">
+      {/* Top navigation & Action Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
         <Link
           to={examId ? `/admin/exams/${examId}/submissions` : "/admin/submissions"}
           className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
@@ -109,12 +191,38 @@ export default function SubmissionDetail() {
           Quay lại danh sách bài nộp
         </Link>
 
-        <button
-          onClick={handlePrint}
-          className="px-3.5 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shadow-2xs"
-        >
-          <Printer className="w-4 h-4 text-slate-500" /> In bài làm / Xuất PDF
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Re-grade Single Button */}
+          <button
+            onClick={handleRegradeSingle}
+            disabled={isRegradingSingle || isRegradingBatch}
+            className="px-3.5 py-2 bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 disabled:opacity-50 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            title="Chấm lại bài nộp này theo đáp án và thang điểm mới nhất của đề thi"
+          >
+            <RotateCw className={`w-3.5 h-3.5 ${isRegradingSingle ? "animate-spin" : ""}`} />
+            {isRegradingSingle ? "Đang chấm lại..." : "Chấm lại bài này"}
+          </button>
+
+          {/* Re-grade All Submissions in Exam Group */}
+          <button
+            onClick={handleRegradeBatch}
+            disabled={isRegradingSingle || isRegradingBatch}
+            className="px-3.5 py-2 bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100 disabled:opacity-50 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            title="Chấm lại toàn bộ các bài nộp của đề thi này theo đáp án mới nhất"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isRegradingBatch ? "animate-spin" : ""}`} />
+            {isRegradingBatch
+              ? `Đang chấm lại (${batchProgress?.current || 0}/${batchProgress?.total || 0})...`
+              : "Chấm lại toàn bộ bài thi"}
+          </button>
+
+          <button
+            onClick={handlePrint}
+            className="px-3.5 py-2 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+          >
+            <Printer className="w-4 h-4 text-slate-500" /> In / Xuất PDF
+          </button>
+        </div>
       </div>
 
       {/* Submission Overview Card */}
@@ -544,6 +652,116 @@ export default function SubmissionDetail() {
           </div>
         );
       })()}
+
+      {/* Regrade Result Comparison Modal */}
+      {regradeModalData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  {regradeModalData.type === "single" ? "Kết quả chấm lại bài thi" : "Kết quả chấm lại toàn bộ"}
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Đã so khớp với đáp án & biểu điểm mới nhất của đề thi
+                </p>
+              </div>
+            </div>
+
+            {regradeModalData.type === "single" && regradeModalData.singleResult && (
+              <div className="space-y-4">
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                  <div className="flex items-center justify-between text-xs text-slate-500 pb-2 border-b border-slate-200">
+                    <span>Thí sinh</span>
+                    <span className="font-bold text-slate-800">{regradeModalData.singleResult.studentName}</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 text-center">
+                    <div className="p-3 bg-white rounded-xl border border-slate-200">
+                      <span className="text-[11px] text-slate-400 font-semibold block">Điểm trước đó</span>
+                      <span className="text-xl font-extrabold text-slate-600 mt-1 block">
+                        {regradeModalData.singleResult.oldScore.toFixed(2)}
+                      </span>
+                      <span className="text-[11px] text-slate-400">
+                        ({regradeModalData.singleResult.oldCorrectCount}/{regradeModalData.singleResult.totalCount} câu)
+                      </span>
+                    </div>
+
+                    <div className={`p-3 rounded-xl border ${
+                      regradeModalData.singleResult.newScore >= regradeModalData.singleResult.oldScore
+                        ? "bg-emerald-50 border-emerald-300"
+                        : "bg-amber-50 border-amber-300"
+                    }`}>
+                      <span className="text-[11px] text-slate-500 font-semibold block">Điểm sau khi chấm lại</span>
+                      <span className={`text-xl font-extrabold mt-1 block ${
+                        regradeModalData.singleResult.newScore >= regradeModalData.singleResult.oldScore
+                          ? "text-emerald-700"
+                          : "text-amber-700"
+                      }`}>
+                        {regradeModalData.singleResult.newScore.toFixed(2)}
+                      </span>
+                      <span className="text-[11px] text-slate-500">
+                        ({regradeModalData.singleResult.newCorrectCount}/{regradeModalData.singleResult.totalCount} câu)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-blue-50 text-blue-900 text-xs flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                  <span>
+                    {regradeModalData.singleResult.changed
+                      ? "Điểm số và trạng thái đúng/sai của bài thi đã được cập nhật thành công vào cơ sở dữ liệu."
+                      : "Điểm số không thay đổi do đáp án thí sinh đã trùng khớp với biểu điểm."}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {regradeModalData.type === "batch" && regradeModalData.batchSummary && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-3 gap-2.5 text-center">
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase block">Tổng bài nộp</span>
+                    <span className="text-lg font-black text-slate-800 mt-1 block">
+                      {regradeModalData.batchSummary.totalSubmissions}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                    <span className="text-[10px] text-emerald-600 font-bold uppercase block">Thay đổi điểm</span>
+                    <span className="text-lg font-black text-emerald-700 mt-1 block">
+                      {regradeModalData.batchSummary.changedCount}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-blue-50 rounded-xl border border-blue-200">
+                    <span className="text-[10px] text-blue-600 font-bold uppercase block">Điểm TB mới</span>
+                    <span className="text-lg font-black text-blue-700 mt-1 block">
+                      {regradeModalData.batchSummary.averageScore.toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  Đã cập nhật lại toàn bộ điểm số, số câu đúng và thống kê chung của đề thi thành công.
+                </p>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setRegradeModalData(null)}
+              className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+            >
+              Đóng thông báo
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

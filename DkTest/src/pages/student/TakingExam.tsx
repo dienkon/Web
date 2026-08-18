@@ -20,7 +20,9 @@ import {
   FileText,
   Layers,
   X,
+  Pencil,
 } from "lucide-react";
+import ScratchpadModal from "../../features/student-exam/components/ScratchpadModal";
 import { getExam } from "../../services/examService";
 import { createSubmission } from "../../services/submissionService";
 import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExamAttempt";
@@ -33,6 +35,12 @@ import {
 } from "../../services/realtimeProctoringService";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import {
+  saveActiveExamSession,
+  updateActiveExamSessionAnswers,
+  getActiveExamSession,
+  clearActiveExamSession,
+} from "../../services/examSessionService";
 import type { Exam, Question, Section } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -72,6 +80,7 @@ export default function TakingExam() {
   const [displayMode, setDisplayMode] = useState<"paging" | "scroll">(
     window.innerWidth < 1024 ? "scroll" : "paging"
   );
+  const [showScratchpad, setShowScratchpad] = useState(false);
   
   // Force scroll mode on resize if mobile
   useEffect(() => {
@@ -88,6 +97,7 @@ export default function TakingExam() {
   const sessionIdRef = useRef<string>("sess_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7));
   const isSessionActiveRef = useRef<boolean>(true);
   const isSubmittingRef = useRef<boolean>(false);
+  const hasAutoSubmittedRef = useRef<boolean>(false);
   const subExamConfigUsedRef = useRef<any>(null);
   const isSubExamUsedRef = useRef<boolean>(false);
 
@@ -144,6 +154,16 @@ export default function TakingExam() {
   useEffect(() => {
     const loadExamAndPrepare = async () => {
       if (!examId) return;
+
+      // 1. Enforce Student Login Authentication
+      const authRole = localStorage.getItem("auth_role");
+      const studentInfoStr = localStorage.getItem("student_info");
+      if ((authRole !== "student" && authRole !== "admin") || !studentInfoStr) {
+        showErrorToast("Vui lòng đăng nhập tài khoản học sinh để làm bài thi!");
+        navigate(`/student/login?redirect=${encodeURIComponent(`/student/exam/${examId}`)}`, { replace: true });
+        return;
+      }
+
       setLoading(true);
       try {
         const examData = await getExam(examId);
@@ -153,7 +173,6 @@ export default function TakingExam() {
           return;
         }
         setExam(examData);
-        setTimeLeft((examData.timeLimit || 45) * 60);
 
         // Retrieve student session name or profile
         const sessionStr = localStorage.getItem("current_student_session");
@@ -162,16 +181,13 @@ export default function TakingExam() {
             const parsed = JSON.parse(sessionStr);
             if (parsed.name) setStudentName(parsed.name);
           } catch (e) {}
-        } else {
-          const infoStr = localStorage.getItem("student_info");
-          if (infoStr) {
-            try {
-              const parsed = JSON.parse(infoStr);
-              if (parsed.displayName || parsed.username) {
-                setStudentName(parsed.displayName || parsed.username);
-              }
-            } catch (e) {}
-          }
+        } else if (studentInfoStr) {
+          try {
+            const parsed = JSON.parse(studentInfoStr);
+            if (parsed.displayName || parsed.username) {
+              setStudentName(parsed.displayName || parsed.username);
+            }
+          } catch (e) {}
         }
 
         // Fetch questions from subcollection
@@ -194,7 +210,6 @@ export default function TakingExam() {
         setSections(rawSections);
 
         // Student Info & Snapshot Storage Key
-        const studentInfoStr = localStorage.getItem("student_info");
         const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
         const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "unknown";
         const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
@@ -209,14 +224,46 @@ export default function TakingExam() {
           if (snapshotStr) activeSnapshot = JSON.parse(snapshotStr);
         } catch (e) {}
 
-        if (activeSnapshot) {
-          // Restore from snapshot
+        if (activeSnapshot && activeSnapshot.shuffledQuestions && activeSnapshot.shuffledQuestions.length > 0) {
+          // Full restore with frozen shuffled questions & options
+          allQuestions = activeSnapshot.shuffledQuestions;
+          isSubExamUsedRef.current = !!activeSnapshot.configSnapshot;
+          subExamConfigUsedRef.current = activeSnapshot.configSnapshot || null;
+        } else if (activeSnapshot) {
+          // Restore question sequence from snapshot
           const questionMap = new Map(rawQuestions.map((q) => [q.id, q]));
           allQuestions = activeSnapshot.selectedQuestionIds
             .map((id: string) => questionMap.get(id))
             .filter(Boolean) as Question[];
           isSubExamUsedRef.current = !!activeSnapshot.configSnapshot;
           subExamConfigUsedRef.current = activeSnapshot.configSnapshot || null;
+          
+          allQuestions = allQuestions.map((q) => {
+            let processed = { ...q };
+            if (
+              q.shuffleOptions !== false &&
+              examData.shuffleOptions !== false &&
+              (q.type === "single_choice" || q.type === "multiple_choice") &&
+              q.options
+            ) {
+              processed.options = shuffleArray(q.options);
+            }
+            if (
+              q.shuffleStatements !== false &&
+              examData.shuffleStatements !== false &&
+              q.type === "true_false" &&
+              q.statements
+            ) {
+              processed.statements = shuffleArray(q.statements);
+            }
+            return processed;
+          });
+
+          // Update snapshot with frozen questions
+          localStorage.setItem(snapshotKey, JSON.stringify({
+            ...activeSnapshot,
+            shuffledQuestions: allQuestions,
+          }));
         } else {
           // Check for student's custom sub-exam config
           let studentSubExamConfig = null;
@@ -241,80 +288,113 @@ export default function TakingExam() {
             allQuestions = attempt.questions;
             isSubExamUsedRef.current = true;
             subExamConfigUsedRef.current = attempt.config || null;
-            
-            // Save snapshot
-            const newSnapshot = {
-              examId,
-              attemptId: sessionIdRef.current,
-              selectedQuestionIds: attempt.selectedQuestionIds,
-              questionOrder: attempt.questionOrder,
-              configSnapshot: attempt.config,
-              createdAt: Date.now()
-            };
-            localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
           } else {
             isSubExamUsedRef.current = false;
             subExamConfigUsedRef.current = null;
-            // Standard Exam Loading Logic: Sections and Standalone Questions are intermixed and shuffled together
             const organized = organizeAndShuffleExam(examData, rawQuestions, rawSections);
             allQuestions = organized.orderedQuestions;
-            
-            // Save standard snapshot so order doesn't change on reload
-            localStorage.setItem(snapshotKey, JSON.stringify({
-              examId,
-              attemptId: sessionIdRef.current,
-              selectedQuestionIds: allQuestions.map(q => q.id),
-              questionOrder: allQuestions.map(q => q.id),
-              configSnapshot: null,
-              createdAt: Date.now()
-            }));
           }
-        }
 
-        allQuestions = allQuestions.map((q) => {
-          let processed = { ...q };
-          if (
-            q.shuffleOptions !== false &&
-            examData.shuffleOptions !== false &&
-            (q.type === "single_choice" || q.type === "multiple_choice") &&
-            q.options
-          ) {
-            processed.options = shuffleArray(q.options);
-          }
-          if (
-            q.shuffleStatements !== false &&
-            examData.shuffleStatements !== false &&
-            q.type === "true_false" &&
-            q.statements
-          ) {
-            processed.statements = shuffleArray(q.statements);
-          }
-          return processed;
-        });
+          allQuestions = allQuestions.map((q) => {
+            let processed = { ...q };
+            if (
+              q.shuffleOptions !== false &&
+              examData.shuffleOptions !== false &&
+              (q.type === "single_choice" || q.type === "multiple_choice") &&
+              q.options
+            ) {
+              processed.options = shuffleArray(q.options);
+            }
+            if (
+              q.shuffleStatements !== false &&
+              examData.shuffleStatements !== false &&
+              q.type === "true_false" &&
+              q.statements
+            ) {
+              processed.statements = shuffleArray(q.statements);
+            }
+            return processed;
+          });
+
+          // Save snapshot with frozen questions & options
+          const newSnapshot = {
+            examId,
+            attemptId: sessionIdRef.current,
+            selectedQuestionIds: allQuestions.map(q => q.id),
+            questionOrder: allQuestions.map(q => q.id),
+            shuffledQuestions: allQuestions,
+            configSnapshot: subExamConfigUsedRef.current,
+            createdAt: Date.now()
+          };
+          localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
+        }
 
         setQuestions(allQuestions);
         
-        // Timer Logic
-        const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
-        
+        // Active Exam Session & Timer Logic
+        const activeSession = getActiveExamSession(examId);
         let startTime = Date.now();
-        const storedStart = localStorage.getItem(storageKey);
-        if (storedStart) {
-          startTime = parseInt(storedStart, 10);
+        const durationMinutes = examData.timeLimit || 45;
+
+        if (activeSession && activeSession.status === "in-progress") {
+          // Restore in-progress answers and proctoring info
+          if (activeSession.answers && Object.keys(activeSession.answers).length > 0) {
+            setAnswers(activeSession.answers);
+          }
+          if (activeSession.flagged) {
+            setFlagged(activeSession.flagged);
+          }
+          if (typeof activeSession.activeQuestionIdx === "number") {
+            setActiveQuestionIdx(activeSession.activeQuestionIdx);
+          }
+          if (typeof activeSession.warnings === "number") {
+            setWarnings(activeSession.warnings);
+          }
+
+          startTime = activeSession.startTime;
+          startTimeRef.current = startTime;
+          const remainingMs = activeSession.endTime - Date.now();
+
+          if (remainingMs <= 0) {
+            setTimeLeft(0);
+          } else {
+            setTimeLeft(Math.floor(remainingMs / 1000));
+            showInfoToast("Đã khôi phục bài làm dở và thời gian làm bài của bạn!");
+          }
         } else {
-          localStorage.setItem(storageKey, startTime.toString());
-        }
-        startTimeRef.current = startTime;
-        
-        const limitMs = (examData.timeLimit || 45) * 60 * 1000;
-        const elapsedMs = Date.now() - startTime;
-        const remainingMs = limitMs - elapsedMs;
-        
-        if (remainingMs <= 0) {
-           setTimeLeft(0);
-           // will auto submit
-        } else {
-           setTimeLeft(Math.floor(remainingMs / 1000));
+          // New Attempt Session
+          const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
+          const storedStart = localStorage.getItem(storageKey);
+          if (storedStart) {
+            startTime = parseInt(storedStart, 10);
+          } else {
+            localStorage.setItem(storageKey, startTime.toString());
+          }
+          startTimeRef.current = startTime;
+
+          const limitMs = durationMinutes * 60 * 1000;
+          const elapsedMs = Date.now() - startTime;
+          const remainingMs = limitMs - elapsedMs;
+
+          if (remainingMs <= 0) {
+            setTimeLeft(0);
+          } else {
+            setTimeLeft(Math.floor(remainingMs / 1000));
+          }
+
+          saveActiveExamSession({
+            examId,
+            examTitle: examData.title,
+            examCode: examData.code,
+            studentUsername: studentIdentifier,
+            studentName: studentName || "Thí sinh",
+            startTime,
+            durationMinutes,
+            answers: {},
+            flagged: {},
+            activeQuestionIdx: 0,
+            warnings: 0,
+          });
         }
 
       } catch (err) {
@@ -327,9 +407,18 @@ export default function TakingExam() {
     loadExamAndPrepare();
   }, [examId, navigate]);
 
-  // Timer countdown
+  // Timer countdown & auto-submit when remaining time expires
   useEffect(() => {
-    if (loading || timeLeft <= 0) return;
+    if (loading || !exam) return;
+    
+    // If timer is already at 0, trigger auto submit immediately
+    if (timeLeft <= 0) {
+      if (!hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
+        hasAutoSubmittedRef.current = true;
+        handleAutoSubmit();
+      }
+      return;
+    }
     
     const timer = setInterval(() => {
       const studentInfoStr = localStorage.getItem("student_info");
@@ -338,9 +427,11 @@ export default function TakingExam() {
       const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
       
       const storedStart = localStorage.getItem(storageKey);
-      if (!storedStart) return;
+      let startTime = startTimeRef.current;
+      if (storedStart) {
+        startTime = parseInt(storedStart, 10);
+      }
       
-      const startTime = parseInt(storedStart, 10);
       const limitMs = (exam?.timeLimit || 45) * 60 * 1000;
       const elapsedMs = Date.now() - startTime;
       const remainingMs = limitMs - elapsedMs;
@@ -348,13 +439,35 @@ export default function TakingExam() {
       if (remainingMs <= 0) {
         clearInterval(timer);
         setTimeLeft(0);
-        handleAutoSubmit();
+        if (!hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
+          hasAutoSubmittedRef.current = true;
+          handleAutoSubmit();
+        }
       } else {
         setTimeLeft(Math.floor(remainingMs / 1000));
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [loading, timeLeft, exam, examId]);
+  }, [loading, timeLeft, exam, examId, submitting]);
+
+  // Guaranteed safeguard auto-submit when timeLeft is 0
+  useEffect(() => {
+    if (!loading && exam && timeLeft <= 0 && !hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
+      hasAutoSubmittedRef.current = true;
+      handleAutoSubmit();
+    }
+  }, [loading, exam, timeLeft, submitting]);
+
+  // Continuously sync in-progress answers & state to localStorage
+  useEffect(() => {
+    if (!loading && exam && examId && !submitting && isSessionActiveRef.current) {
+      updateActiveExamSessionAnswers(examId, answers, {
+        flagged,
+        activeQuestionIdx,
+        warnings,
+      });
+    }
+  }, [answers, flagged, activeQuestionIdx, warnings, loading, exam, examId, submitting]);
 
   // Anti-cheat detection: visibilitychange & window blur
   useEffect(() => {
@@ -509,7 +622,7 @@ export default function TakingExam() {
         console.warn("Could not remove active RTDB session:", sessErr);
       }
       
-      localStorage.removeItem(`exam_startTime_${examId}_${studentUsername}`);
+      clearActiveExamSession(examId);
 
       // Save submission ID to local submission history
       try {
@@ -863,6 +976,17 @@ export default function TakingExam() {
               Lướt xuống
             </button>
           </div>
+
+          {/* Scratchpad Note Button */}
+          <button
+            type="button"
+            onClick={() => setShowScratchpad(true)}
+            className="px-3 py-2 text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            title="Mở bảng vẽ nháp cho câu hỏi đang chọn"
+          >
+            <Pencil className="w-4 h-4 text-blue-600" />
+            <span className="hidden sm:inline">Bảng nháp</span>
+          </button>
 
           {/* Toggle Map Sidebar */}
           <button
@@ -1333,6 +1457,16 @@ export default function TakingExam() {
           </div>
         </div>
       )}
+      {/* Student Scratchpad Modal Drawing Board */}
+      <ScratchpadModal
+        isOpen={showScratchpad}
+        onClose={() => setShowScratchpad(false)}
+        questions={questions}
+        activeQuestionIdx={activeQuestionIdx}
+        onSelectQuestion={(idx) => setActiveQuestionIdx(idx)}
+        answers={answers}
+        onAnswerChange={(qId, val) => setAnswers((prev) => ({ ...prev, [qId]: val }))}
+      />
     </div>
   );
 }

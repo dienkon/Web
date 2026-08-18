@@ -1,4 +1,7 @@
+
 import { analyzeExamPerformance } from "../../src/services/ai/aiAnalytics.js";
+
+export const maxDuration = 300;
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -7,23 +10,17 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const body =
-      typeof req.body === "string"
-        ? JSON.parse(req.body)
-        : (req.body ?? {});
-
-    const { analyticsInput } = body;
-
+    const analyticsInput = req.body?.analyticsInput;
     if (!analyticsInput) {
       return res.status(400).json({ error: "Analytics input is required" });
     }
 
     const analysis = await analyzeExamPerformance(analyticsInput);
     return res.status(200).json(analysis);
-  } catch (error: any) {
+  } catch (error) {
     console.error("[AI Analytics]", error);
     return res.status(500).json({
-      error: error?.message || "Failed to analyze performance"
+      error: error instanceof Error ? error.message : "Failed to analyze performance",
     });
   }
 }

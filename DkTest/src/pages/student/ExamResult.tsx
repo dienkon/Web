@@ -20,6 +20,9 @@ import {
   Search,
   RotateCcw,
   X,
+  Flag,
+  Send,
+  Loader2,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -50,6 +53,93 @@ export default function ExamResult() {
   const [showDetails, setShowDetails] = useState(false);
   const [filterStatus, setFilterStatus] = useState<"all" | "correct" | "incorrect" | "unanswered">("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Report Question via Discord Webhook State
+  const [reportingQuestion, setReportingQuestion] = useState<{
+    question: Question;
+    currentIndex: number;
+    originalIndex: number;
+  } | null>(null);
+  const [reportReason, setReportReason] = useState("");
+  const [isSubmittingReport, setIsSubmittingReport] = useState(false);
+
+  // Auto prompt for Gia sư AI
+  const [autoAiPrompt, setAutoAiPrompt] = useState<string | null>(null);
+
+  const DISCORD_WEBHOOK_URL =
+    "https://discord.com/api/webhooks/1500812404190085120/R1oclYbsjomTS5AUdbVkCD1hw1FqZZhb8LzvrfsyJVozADVmXWDlf4Mk3HlGUKqRI8zn";
+
+  const handleSendReport = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reportingQuestion || !reportReason.trim()) return;
+
+    setIsSubmittingReport(true);
+    try {
+      const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+      let studentEmail = "Thí sinh";
+      if (studentInfoStr) {
+        try {
+          const parsed = JSON.parse(studentInfoStr);
+          studentEmail = parsed.email || parsed.displayName || parsed.name || "Thí sinh";
+        } catch (e) {}
+      }
+
+      const payload = {
+        embeds: [
+          {
+            title: "🚩 BÁO CÁO CÂU HỎI BÀI THI CÓ LỖI",
+            color: 15158332,
+            fields: [
+              {
+                name: "📌 Thông tin bài thi",
+                value: `**Tên:** ${exam?.title || "N/A"}\n**Mã đề:** \`${exam?.code || submission?.examId || "N/A"}\``,
+                inline: false,
+              },
+              {
+                name: "👤 Thí sinh báo cáo",
+                value: `\`${studentEmail}\``,
+                inline: true,
+              },
+              {
+                name: "🔢 Vị trí câu hỏi",
+                value: `Đề hiện tại: **Câu ${reportingQuestion.currentIndex + 1}**\nĐề gốc: **Câu ${reportingQuestion.originalIndex + 1}**`,
+                inline: true,
+              },
+              {
+                name: "❓ Nội dung câu hỏi",
+                value: reportingQuestion.question.text ? reportingQuestion.question.text.substring(0, 300) : "(Trống)",
+                inline: false,
+              },
+              {
+                name: "📝 Lý do báo cáo từ thí sinh",
+                value: reportReason.trim(),
+                inline: false,
+              },
+            ],
+            footer: {
+              text: "Hệ thống báo cáo tự động DkTEST",
+            },
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      };
+
+      await fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      setReportingQuestion(null);
+      setReportReason("");
+      showErrorToast("Đã gửi báo cáo thành công tới quản trị viên qua Discord!");
+    } catch (err) {
+      console.error("Lỗi gửi Discord webhook:", err);
+      showErrorToast("Gửi báo cáo thất bại. Vui lòng kiểm tra lại đường truyền!");
+    } finally {
+      setIsSubmittingReport(false);
+    }
+  };
 
   useEffect(() => {
     const loadResult = async () => {
@@ -525,15 +615,53 @@ export default function ExamResult() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 shrink-0">
+                      <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
+                        {/* Red Flag Report Button */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const origIdx = originalQuestions.findIndex((item) => item.id === q.id);
+                            setReportingQuestion({
+                              question: q,
+                              currentIndex: qIdx,
+                              originalIndex: origIdx >= 0 ? origIdx : qIdx,
+                            });
+                          }}
+                          className="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer"
+                          title="Báo cáo câu hỏi bị lỗi"
+                        >
+                          <Flag className="w-3.5 h-3.5 text-red-600 fill-red-600" />
+                          <span className="hidden sm:inline">Báo cáo</span>
+                        </button>
+
+                        {/* Ask AI Tutor Button */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const promptMsg = `Chào Gia Sư AI, nhờ bạn hướng dẫn và giải thích giúp mình Câu ${
+                              qIdx + 1
+                            } trong bài thi "${exam?.title || ""}":\n- Đề bài: ${
+                              q.text
+                            }\n- Đáp án của mình: ${JSON.stringify(studentAns || "Chưa chọn")}\n- Lời giải gốc: ${
+                              q.explanation || "Chưa có"
+                            }\nTại sao đáp án đó đúng/sai và làm thế nào để hiểu rõ dạng bài này?`;
+                            setAutoAiPrompt(promptMsg);
+                          }}
+                          className="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer"
+                          title="Hỏi Gia sư AI về câu hỏi này"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                          <span></span>
+                        </button>
+
                         {q.type !== "true_false" ? (
                           isQuestionCorrect ? (
                             <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
-                              <CheckCircle2 className="w-3.5 h-3.5" /> Đúng
+                              <CheckCircle2 className="w-3.5 h-3.5" /> 
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 text-xs font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-1 rounded-lg">
-                              <XCircle className="w-3.5 h-3.5" /> Chưa đúng
+                              <XCircle className="w-3.5 h-3.5" /> 
                             </span>
                           )
                         ) : null}
@@ -796,8 +924,90 @@ export default function ExamResult() {
         )}
       </div>
 
+      {/* Question Report Modal (Discord Webhook) */}
+      {reportingQuestion && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-red-100 text-red-600 rounded-xl">
+                  <Flag className="w-5 h-5 fill-red-600" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base">
+                    Báo cáo sự cố câu hỏi
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Câu {reportingQuestion.currentIndex + 1} (Đề gốc: Câu {reportingQuestion.originalIndex + 1})
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setReportingQuestion(null)}
+                className="p-1 text-slate-400 hover:text-slate-700 rounded-lg cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-800 leading-relaxed max-h-32 overflow-y-auto">
+              <span className="font-bold text-slate-500 block mb-1">Trích đoạn câu hỏi:</span>
+              <LatexPreview content={reportingQuestion.question.text} />
+            </div>
+
+            <form onSubmit={handleSendReport} className="space-y-3">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Mô tả chi tiết nội dung báo cáo lỗi:
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={reportReason}
+                  onChange={(e) => setReportReason(e.target.value)}
+                  placeholder="Ví dụ: Sai đáp án đúng, lỗi gõ công thức LaTeX, sai chính tả, hình ảnh không hiển thị..."
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setReportingQuestion(null)}
+                  className="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 cursor-pointer"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingReport || !reportReason.trim()}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition-all disabled:opacity-50 cursor-pointer shadow-xs"
+                >
+                  {isSubmittingReport ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Đang gửi...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Gửi báo cáo qua Discord</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* AI Tutor Chat Widget */}
-      <AiTutorChat examTitle={exam?.title} />
+      <AiTutorChat
+        examTitle={exam?.title}
+        autoPrompt={autoAiPrompt}
+        onClearAutoPrompt={() => setAutoAiPrompt(null)}
+      />
     </div>
   );
 }

@@ -28,6 +28,8 @@ export interface Exam {
   maxAttempts: number;
 
   status: ExamStatus;
+  isPublic?: boolean;
+  visibility?: "public" | "private" | "unlisted";
 
   questionCount: number;
 
@@ -123,9 +125,11 @@ export interface Student {
   name: string;
   username?: string;
   email?: string;
-  searchName: string;
-  searchNameLower: string;
-  createdAt: Timestamp;
+  avatarUrl?: string;
+  studentClass?: string;
+  searchName?: string;
+  searchNameLower?: string;
+  createdAt?: any;
 }
 
 export interface Submission {

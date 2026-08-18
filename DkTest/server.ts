@@ -1,8 +1,6 @@
 import express from "express";
 import path from "path";
-import multer from "multer";
 import { createServer as createViteServer } from "vite";
-import fs from "fs";
 import { aiRouter } from "./src/services/ai/aiRouter";
 
 async function startServer() {

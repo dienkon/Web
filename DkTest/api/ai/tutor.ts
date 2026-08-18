@@ -1,11 +1,8 @@
-import { askTutor } from "../../src/services/ai/aiTutor.js";
 
-function setSseHeaders(res: any) {
-  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-  res.setHeader("Cache-Control", "no-cache, no-transform");
-  res.setHeader("Connection", "keep-alive");
-  res.setHeader("X-Accel-Buffering", "no");
-}
+import { askTutor } from "../../src/services/ai/aiTutor.js";
+import { initSse, sendSse, sendSseError, sendSseRaw } from "../../src/server/sse";
+
+export const maxDuration = 300;
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -14,42 +11,31 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const body =
-      typeof req.body === "string"
-        ? JSON.parse(req.body)
-        : (req.body ?? {});
-
-    const { messages, context } = body;
+    const body = req.body ?? {};
+    const messages = body.messages;
+    const context = body.context;
 
     if (!Array.isArray(messages)) {
       return res.status(400).json({ error: "Messages array is required" });
     }
 
-    setSseHeaders(res);
-
+    initSse(res);
     const stream = await askTutor(messages, context);
 
     for await (const chunk of stream) {
-      if (chunk.text) {
-        res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
-      }
+      const text = chunk.text ?? "";
+      if (text) sendSse(res, { text });
     }
 
-    res.write("data: [DONE]\n\n");
-    res.end();
-  } catch (error: any) {
+    sendSseRaw(res, "[DONE]");
+    return res.end();
+  } catch (error) {
     console.error("[AI Tutor]", error);
-
-    if (res.headersSent) {
-      res.write(`data: ${JSON.stringify({
-        error: error?.message || "Failed to respond"
-      })}\n\n`);
-      res.end();
-      return;
+    if (!res.headersSent) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Failed to respond",
+      });
     }
-
-    res.status(500).json({
-      error: error?.message || "Failed to respond"
-    });
+    sendSseError(res, error);
   }
 }

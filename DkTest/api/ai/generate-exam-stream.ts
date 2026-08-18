@@ -1,68 +1,61 @@
+
 import multer from "multer";
+import { parseDocxFile, processExamInChunks } from "../../src/services/ai/aiExamGenerator.js";
+import { initSse, sendSse, sendSseError } from "../../src/server/sse";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024 },
 });
 
-import {
-  parseDocxFile,
-  processExamInChunks,
-} from "../../src/services/ai/aiExamGenerator";
-
-function setSseHeaders(res: any) {
-  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-  res.setHeader("Cache-Control", "no-cache, no-transform");
-  res.setHeader("Connection", "keep-alive");
-  res.setHeader("X-Accel-Buffering", "no");
+function parseMultipart(req: any, res: any) {
+  return new Promise<void>((resolve, reject) => {
+    upload.single("file")(req as any, res as any, (error: unknown) => {
+      if (error) reject(error);
+      else resolve();
+    });
+  });
 }
 
-export default function handler(req: any, res: any) {
+export const maxDuration = 300;
+
+export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  return upload.single("file")(req, res, async (uploadError: any) => {
-    if (uploadError) {
-      console.error("[AI Word Import]", uploadError);
-      return res.status(400).json({
-        error: uploadError?.message || "File upload failed"
-      });
+  initSse(res);
+
+  try {
+    await parseMultipart(req, res);
+
+    const uploadedFile = (req as any & { file?: Express.Multer.File }).file;
+    if (!uploadedFile) {
+      return sendSseError(res, new Error("No file uploaded"));
     }
 
-    if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
-    }
+    sendSse(res, { type: "info", message: "Đang đọc nội dung file Word..." });
 
-    setSseHeaders(res);
+    const htmlContent = await parseDocxFile(uploadedFile.buffer);
+    const result = await processExamInChunks(htmlContent, (progressMsg) => {
+      try {
+        sendSse(res, JSON.parse(progressMsg));
+      } catch {
+        sendSse(res, { type: "info", message: progressMsg });
+      }
+    });
 
-    try {
-      res.write(`data: ${JSON.stringify({
-        type: "info",
-        message: "Đang đọc nội dung file Word..."
-      })}\n\n`);
-
-      const htmlContent = await parseDocxFile(req.file.buffer);
-
-      const result = await processExamInChunks(htmlContent, (progressMsg) => {
-        res.write(`data: ${JSON.stringify(progressMsg)}\n\n`);
-      });
-
-      res.write(`data: ${JSON.stringify({
-        type: "done",
-        result
-      })}\n\n`);
-
-      res.end();
-    } catch (error: any) {
-      console.error("[AI Word Import]", error);
-
-      res.write(`data: ${JSON.stringify({
-        type: "error",
-        message: error?.message || "Failed to generate exam"
-      })}\n\n`);
-      res.end();
-    }
-  });
+    sendSse(res, { type: "done", result });
+    return res.end();
+  } catch (error) {
+    console.error("[AI Word Import]", error);
+    sendSseError(res, error);
+  }
 }

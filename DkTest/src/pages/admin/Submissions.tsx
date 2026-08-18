@@ -10,12 +10,15 @@ import {
   ArrowUpDown,
   CheckCircle2,
   FileText,
+  RefreshCw,
+  Sparkles,
 } from "lucide-react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
 import { useToast } from "../../components/ui/ToastNotification";
+import { regradeExamSubmissions } from "../../services/regradeService";
 
 export default function Submissions() {
   const { examId } = useParams<{ examId?: string }>();
@@ -28,37 +31,69 @@ export default function Submissions() {
   const [loading, setLoading] = useState(true);
   const [displayLimit, setDisplayLimit] = useState(5);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // Fetch all exams for filter dropdown
-        const exSnap = await getDocs(collection(db, "exams"));
-        const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-        setExams(exList);
+  const [isRegrading, setIsRegrading] = useState(false);
+  const [regradeProgress, setRegradeProgress] = useState<{ current: number; total: number } | null>(null);
 
-        // Fetch submissions
-        let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"));
-        if (selectedExamId !== "all") {
-          subQuery = query(
-            collection(db, "submissions"),
-            where("examId", "==", selectedExamId),
-            orderBy("submittedAt", "desc")
-          );
-        }
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      // Fetch all exams for filter dropdown
+      const exSnap = await getDocs(collection(db, "exams"));
+      const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+      setExams(exList);
 
-        const subSnap = await getDocs(subQuery);
-        const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-        setSubmissions(subList);
-      } catch (err) {
-        console.error("Lỗi khi tải danh sách bài nộp:", err);
-      } finally {
-        setLoading(false);
+      // Fetch submissions
+      let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"));
+      if (selectedExamId !== "all") {
+        subQuery = query(
+          collection(db, "submissions"),
+          where("examId", "==", selectedExamId),
+          orderBy("submittedAt", "desc")
+        );
       }
-    };
 
+      const subSnap = await getDocs(subQuery);
+      const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+      setSubmissions(subList);
+    } catch (err) {
+      console.error("Lỗi khi tải danh sách bài nộp:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [selectedExamId]);
+
+  const handleBatchRegrade = async () => {
+    if (selectedExamId === "all") {
+      showErrorToast("Vui lòng chọn một đề thi cụ thể trong bộ lọc để chấm lại toàn bộ.");
+      return;
+    }
+
+    if (!window.confirm("Bạn có chắc muốn chấm lại toàn bộ bài thi này theo đáp án mới nhất?")) {
+      return;
+    }
+
+    setIsRegrading(true);
+    setRegradeProgress({ current: 0, total: 0 });
+
+    try {
+      const res = await regradeExamSubmissions(selectedExamId, (current, total) => {
+        setRegradeProgress({ current, total });
+      });
+
+      await fetchData();
+      showToast(`Chấm lại thành công ${res.totalSubmissions} bài nộp. Có ${res.changedCount} bài thay đổi điểm.`);
+    } catch (err: any) {
+      console.error("Lỗi khi chấm lại toàn bộ:", err);
+      showErrorToast(err.message || "Không thể chấm lại.");
+    } finally {
+      setIsRegrading(false);
+      setRegradeProgress(null);
+    }
+  };
 
   const handleExportCSV = () => {
     if (submissions.length === 0) {
@@ -124,13 +159,28 @@ export default function Submissions() {
           </p>
         </div>
 
-        <button
-          onClick={handleExportCSV}
-          className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors text-sm font-semibold shadow-2xs"
-        >
-          <Download className="w-4 h-4 text-slate-500" />
-          Xuất bảng điểm (CSV/Excel)
-        </button>
+        <div className="flex items-center gap-2">
+          {selectedExamId !== "all" && (
+            <button
+              onClick={handleBatchRegrade}
+              disabled={isRegrading}
+              className="flex items-center gap-1.5 px-3.5 py-2.5 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl hover:bg-amber-100 transition-colors text-xs sm:text-sm font-bold shadow-2xs cursor-pointer disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 text-amber-600 ${isRegrading ? "animate-spin" : ""}`} />
+              {isRegrading
+                ? `Đang chấm lại (${regradeProgress?.current || 0}/${regradeProgress?.total || 0})...`
+                : "Chấm lại toàn bộ đề này"}
+            </button>
+          )}
+
+          <button
+            onClick={handleExportCSV}
+            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors text-sm font-semibold shadow-2xs cursor-pointer"
+          >
+            <Download className="w-4 h-4 text-slate-500" />
+            Xuất bảng điểm (CSV)
+          </button>
+        </div>
       </div>
 
       {/* Filters & Search */}
