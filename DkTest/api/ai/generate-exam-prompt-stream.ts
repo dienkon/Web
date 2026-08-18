@@ -1,4 +1,4 @@
-import { processExamFromPromptStream } from "../../src/services/ai/aiExamGenerator";
+import { processExamFromPromptStream } from "../../src/services/ai/aiExamGenerator.js";
 
 function setSseHeaders(res: any) {
   res.setHeader("Content-Type", "text/event-stream; charset=utf-8");

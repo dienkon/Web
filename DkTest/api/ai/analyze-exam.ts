@@ -1,4 +1,4 @@
-import { analyzeExamPerformance } from "../../src/services/ai/aiAnalytics";
+import { analyzeExamPerformance } from "../../src/services/ai/aiAnalytics.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {

@@ -1,4 +1,4 @@
-import { askTutor } from "../../src/services/ai/aiTutor";
+import { askTutor } from "../../src/services/ai/aiTutor.js";
 
 function setSseHeaders(res: any) {
   res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
