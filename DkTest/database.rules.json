@@ -1,0 +1,39 @@
+{
+  "rules": {
+    "active_sessions": {
+      ".read": true,
+      ".indexOn": ["examId", "studentUsername", "status", "lastActiveAt"],
+      "$sessionId": {
+        ".write": true,
+        ".validate": "newData.hasChildren(['sessionId', 'examId', 'studentName', 'status'])",
+        "sessionId": {
+          ".validate": "newData.isString() && newData.val() === $sessionId"
+        },
+        "examId": {
+          ".validate": "newData.isString()"
+        },
+        "studentName": {
+          ".validate": "newData.isString()"
+        },
+        "status": {
+          ".validate": "newData.val() === 'taking' || newData.val() === 'warning' || newData.val() === 'submitted'"
+        },
+        "timeLeft": {
+          ".validate": "newData.isNumber()"
+        },
+        "answeredCount": {
+          ".validate": "newData.isNumber()"
+        },
+        "totalQuestions": {
+          ".validate": "newData.isNumber()"
+        },
+        "warnings": {
+          ".validate": "newData.isNumber()"
+        },
+        "lastActiveAt": {
+          ".validate": "newData.isNumber() || newData.isString()"
+        }
+      }
+    }
+  }
+}

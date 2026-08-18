@@ -19,6 +19,7 @@ import {
   FileText,
   Search,
   RotateCcw,
+  X,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -28,6 +29,8 @@ import { db } from "../../services/firebase/config";
 import type { Submission, Exam, Question, Section } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
+import AiTutorChat from "../../components/exam/AiTutorChat";
+import AiAnalyticsWidget from "../../components/exam/AiAnalyticsWidget";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export default function ExamResult() {
@@ -37,6 +40,7 @@ export default function ExamResult() {
 
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [exam, setExam] = useState<Exam | null>(null);
+  const [sections, setSections] = useState<Section[]>([]);
   const [originalQuestions, setOriginalQuestions] = useState<Question[]>([]);
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [viewMode, setViewMode] = useState<"shuffled" | "original">("shuffled");
@@ -61,24 +65,36 @@ export default function ExamResult() {
 
         const currentExamId = examId || subData.examId;
         if (currentExamId) {
-          const examData = await getExam(currentExamId);
+          const [examData, secs] = await Promise.all([
+            getExam(currentExamId),
+            getExamSections(currentExamId).catch(() => []),
+          ]);
           setExam(examData);
+          setSections(secs || []);
 
           // 1. Fetch master original questions
           const qSnap = await getDocs(
             query(collection(db, `exams/${currentExamId}/questions`), orderBy("order", "asc"))
           );
-          const masterQs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
-          setOriginalQuestions(masterQs);
+          let masterQs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
 
           // 2. Set shuffled questions from snapshot if exists, or fallback to masterQs
           if (subData.shuffledQuestionsSnapshot && subData.shuffledQuestionsSnapshot.length > 0) {
             setShuffledQuestions(subData.shuffledQuestionsSnapshot);
             setViewMode("shuffled");
+            
+            // If it's a sub-exam, the student should only see the subset of questions they took, 
+            // even in "original order" mode.
+            if (subData.subExam || subData.subExamConfigSnapshot?.enabled) {
+              const snapshotIds = new Set(subData.shuffledQuestionsSnapshot.map(q => q.id));
+              masterQs = masterQs.filter(q => snapshotIds.has(q.id));
+            }
           } else {
             setShuffledQuestions(masterQs);
             setViewMode("original");
           }
+          
+          setOriginalQuestions(masterQs);
         }
 
         // Trigger confetti effect if score is high
@@ -196,14 +212,14 @@ export default function ExamResult() {
               to="/"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition-colors shadow-2xs"
             >
-              <ArrowLeft className="w-4 h-4" /> Trang chủ
+              <ArrowLeft className="w-4 h-4" /> 
             </Link>
 
             <Link
               to="/student/history"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-800 bg-blue-50 border border-blue-200/80 px-3.5 py-2 rounded-xl transition-colors shadow-2xs"
             >
-              <History className="w-4 h-4" /> Lịch sử bài làm
+              <History className="w-4 h-4" /> 
             </Link>
           </div>
 
@@ -218,7 +234,7 @@ export default function ExamResult() {
               }`}
             >
               <FileText className="w-4 h-4" />
-              <span>{showDetails ? "Ẩn chi tiết" : "Xem chi tiết"}</span>
+              <span>{showDetails ? "Ẩn" : "chi tiết"}</span>
             </button>
 
             <Link
@@ -226,7 +242,6 @@ export default function ExamResult() {
               className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-3.5 py-2 rounded-xl transition-colors shadow-2xs cursor-pointer"
             >
               <RotateCcw className="w-4 h-4 text-emerald-600" />
-              <span>Làm bài lại</span>
             </Link>
 
             <button
@@ -235,7 +250,7 @@ export default function ExamResult() {
               className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-50 border border-amber-200/80 px-3.5 py-2 rounded-xl transition-colors shadow-2xs cursor-pointer"
             >
               <Trophy className="w-4 h-4 text-amber-600" />
-              <span>{showLeaderboard ? "Ẩn BXH" : "Bảng Xếp Hạng Top 10"}</span>
+              <span>{showLeaderboard ? "Ẩn BXH" : "BXH"}</span>
             </button>
           </div>
         </div>
@@ -332,384 +347,457 @@ export default function ExamResult() {
           </div>
         </div>
 
-        {/* View Mode Toggle: Azota style (Đề đã làm vs Đề gốc) */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3 print:hidden">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-slate-700">Chế độ xem bài làm:</span>
-          </div>
-
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl w-full sm:w-auto">
-            <button
-              type="button"
-              onClick={() => setViewMode("shuffled")}
-              className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                viewMode === "shuffled"
-                  ? "bg-white text-blue-700 shadow-2xs"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <Shuffle className="w-3.5 h-3.5" />
-              <span>Đề thi đã làm (Đã xáo)</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setViewMode("original")}
-              className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                viewMode === "original"
-                  ? "bg-white text-blue-700 shadow-2xs"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Đề thi & Đáp án gốc</span>
-            </button>
-          </div>
-        </div>
+        {/* AI Analytics Widget */}
+        <AiAnalyticsWidget 
+          examId={examId!} 
+          currentSubmission={submission}
+          exam={exam}
+          questions={originalQuestions}
+          sections={sections}
+        />
 
         {showDetails && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-top-3 duration-200">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-              <span>Chi tiết câu hỏi & Lời giải</span>
-              <span className="text-xs font-normal normal-case text-slate-500">
-                ({viewMode === "shuffled" ? "Theo thứ tự phòng thi" : "Theo thứ tự đề gốc"})
-              </span>
-            </h2>
-            <span className="text-xs text-slate-400 font-medium">{activeQuestions.length} / {rawActiveQuestions.length} câu hỏi</span>
-          </div>
+          <div className="space-y-6 animate-in fade-in slide-in-from-top-3 duration-200">
+            {/* Unified Sticky Header for Mobile and PC */}
+            <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-3 print:hidden">
+              {/* Row 1: View mode (Đề đã làm / Đề gốc) & Count */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <div className="flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto border border-slate-200/80">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("shuffled")}
+                    className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      viewMode === "shuffled"
+                        ? "bg-white text-blue-700 shadow-xs ring-1 ring-slate-200/50"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <Shuffle className="w-3.5 h-3.5" />
+                    <span>Đề trộn</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("original")}
+                    className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      viewMode === "original"
+                        ? "bg-white text-blue-700 shadow-xs ring-1 ring-slate-200/50"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>Đề gốc</span>
+                  </button>
+                </div>
 
-          {/* Search & Filter Toolbar */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-2xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 print:hidden">
-            {/* Filter Tabs */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
-              <button
-                type="button"
-                onClick={() => setFilterStatus("all")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                  filterStatus === "all"
-                    ? "bg-slate-900 text-white shadow-2xs"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
-              >
-                Tất cả
-              </button>
-              <button
-                type="button"
-                onClick={() => setFilterStatus("correct")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                  filterStatus === "correct"
-                    ? "bg-emerald-600 text-white shadow-2xs"
-                    : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200/60"
-                }`}
-              >
-                Câu đúng
-              </button>
-              <button
-                type="button"
-                onClick={() => setFilterStatus("incorrect")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                  filterStatus === "incorrect"
-                    ? "bg-red-600 text-white shadow-2xs"
-                    : "bg-red-50 text-red-700 hover:bg-red-100 border border-red-200/60"
-                }`}
-              >
-                Câu sai
-              </button>
-              <button
-                type="button"
-                onClick={() => setFilterStatus("unanswered")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                  filterStatus === "unanswered"
-                    ? "bg-amber-600 text-white shadow-2xs"
-                    : "bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200/60"
-                }`}
-              >
-                Chưa làm
-              </button>
+              </div>
+
+              {/* Row 2: Filter Tabs & Search Bar */}
+              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5 pt-1 border-t border-slate-100">
+                {/* Filter Tabs */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+                  <button
+                    type="button"
+                    onClick={() => setFilterStatus("all")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      filterStatus === "all"
+                        ? "bg-slate-900 text-white shadow-xs"
+                        : "bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    Tất cả ({rawActiveQuestions.length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFilterStatus("correct")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      filterStatus === "correct"
+                        ? "bg-emerald-600 text-white shadow-xs"
+                        : "bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                    }`}
+                  >
+                    Câu đúng ({submission.correctCount})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFilterStatus("incorrect")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      filterStatus === "incorrect"
+                        ? "bg-red-600 text-white shadow-xs"
+                        : "bg-white border border-red-200 text-red-700 hover:bg-red-50"
+                    }`}
+                  >
+                    Câu sai
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFilterStatus("unanswered")}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      filterStatus === "unanswered"
+                        ? "bg-amber-600 text-white shadow-xs"
+                        : "bg-white border border-amber-200 text-amber-700 hover:bg-amber-50"
+                    }`}
+                  >
+                    Chưa làm
+                  </button>
+                </div>
+
+                {/* Search Box */}
+                <div className="relative w-full md:w-64">
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Tìm nội dung câu hỏi..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-2xs"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
 
-            {/* Search Box */}
-            <div className="relative w-full md:w-64">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Tìm nội dung câu hỏi..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
+            <div className="space-y-6">
+            {(() => {
+              const groups: {
+                sectionId: string | null;
+                section: Section | null;
+                items: { question: Question; index: number }[];
+              }[] = [];
 
-          <div className="space-y-4">
-            {activeQuestions.map((q, qIdx) => {
-              const studentAns = submission.answers?.[q.id];
-              let isQuestionCorrect = false;
+              activeQuestions.forEach((q, idx) => {
+                const secId = q.sectionId || null;
+                const lastGroup = groups[groups.length - 1];
+                if (lastGroup && lastGroup.sectionId === secId) {
+                  lastGroup.items.push({ question: q, index: idx });
+                } else {
+                  const sec = secId ? sections.find((s) => s.id === secId) || null : null;
+                  groups.push({
+                    sectionId: secId,
+                    section: sec,
+                    items: [{ question: q, index: idx }],
+                  });
+                }
+              });
 
-              if (q.type === "single_choice") {
-                isQuestionCorrect = q.correctOptionIds?.includes(studentAns);
-              } else if (q.type === "multiple_choice") {
-                const correctSet = new Set<string>(q.correctOptionIds || []);
-                const ansSet = new Set<string>((studentAns as string[]) || []);
-                isQuestionCorrect =
-                  correctSet.size > 0 &&
-                  correctSet.size === ansSet.size &&
-                  [...correctSet].every((id: string) => ansSet.has(id));
-              } else if (q.type === "short_answer") {
-                const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
-                isQuestionCorrect = accepted.includes(String(studentAns || "").trim().toLowerCase());
-              }
+              const renderQuestionBox = (q: Question, qIdx: number) => {
+                const studentAns = submission.answers?.[q.id];
+                let isQuestionCorrect = false;
 
-              const isExpanded = expandedExplanations[q.id];
+                if (q.type === "single_choice") {
+                  isQuestionCorrect = q.correctOptionIds?.includes(studentAns);
+                } else if (q.type === "multiple_choice") {
+                  const correctSet = new Set<string>(q.correctOptionIds || []);
+                  const ansSet = new Set<string>((studentAns as string[]) || []);
+                  isQuestionCorrect =
+                    correctSet.size > 0 &&
+                    correctSet.size === ansSet.size &&
+                    [...correctSet].every((id: string) => ansSet.has(id));
+                } else if (q.type === "short_answer") {
+                  const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
+                  isQuestionCorrect = accepted.includes(String(studentAns || "").trim().toLowerCase());
+                }
 
-              return (
-                <div
-                  key={`${viewMode}-${q.id}-${qIdx}`}
-                  className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-6 shadow-2xs space-y-4"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2.5 py-1 bg-slate-100 text-slate-700 font-bold text-xs rounded-lg">
-                        Câu {qIdx + 1}
-                      </span>
-                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                        {q.type === "single_choice" && "Trắc nghiệm 1 đáp án"}
-                        {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
-                        {q.type === "true_false" && "Đúng / Sai theo ý"}
-                        {q.type === "short_answer" && "Câu trả lời ngắn"}
-                      </span>
+                const isExpanded = expandedExplanations[q.id];
+
+                return (
+                  <div
+                    key={`${viewMode}-${q.id}-${qIdx}`}
+                    className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-6 shadow-2xs space-y-4"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="px-2.5 py-1 bg-slate-100 text-slate-700 font-bold text-xs rounded-lg">
+                          Câu {qIdx + 1}
+                        </span>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                          {q.type === "single_choice" && "Trắc nghiệm 1 đáp án"}
+                          {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
+                          {q.type === "true_false" && "Đúng / Sai theo ý"}
+                          {q.type === "short_answer" && "Câu trả lời ngắn"}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {q.type !== "true_false" ? (
+                          isQuestionCorrect ? (
+                            <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
+                              <CheckCircle2 className="w-3.5 h-3.5" /> Đúng
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-xs font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-1 rounded-lg">
+                              <XCircle className="w-3.5 h-3.5" /> Chưa đúng
+                            </span>
+                          )
+                        ) : null}
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {q.type !== "true_false" ? (
-                        isQuestionCorrect ? (
-                          <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">
-                            <CheckCircle2 className="w-3.5 h-3.5" /> Đúng
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-xs font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-1 rounded-lg">
-                            <XCircle className="w-3.5 h-3.5" /> Chưa đúng
-                          </span>
-                        )
-                      ) : null}
+                    {/* Question Content */}
+                    <div className="text-sm lg:text-base font-medium text-slate-900 leading-relaxed">
+                      <LatexPreview content={q.text} />
                     </div>
-                  </div>
 
-                  {/* Question Content */}
-                  <div className="text-sm lg:text-base font-medium text-slate-900 leading-relaxed">
-                    <LatexPreview content={q.text} />
-                  </div>
+                    {/* Summary Comparison Bar */}
+                    <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-bold text-slate-500">Đáp án của bạn:</span>
+                        <span
+                          className={`font-bold px-2 py-0.5 rounded-md ${
+                            isQuestionCorrect
+                              ? "bg-emerald-100 text-emerald-800"
+                              : studentAns
+                              ? "bg-red-100 text-red-800"
+                              : "bg-slate-200 text-slate-600"
+                          }`}
+                        >
+                          {q.type === "single_choice" &&
+                            (q.options?.findIndex((o) => o.id === studentAns) !== -1
+                              ? String.fromCharCode(
+                                  65 + (q.options?.findIndex((o) => o.id === studentAns) ?? 0)
+                                )
+                              : "Chưa chọn")}
+                          {q.type === "multiple_choice" &&
+                            (Array.isArray(studentAns) && studentAns.length > 0
+                              ? studentAns
+                                  .map((id) => {
+                                    const idx = q.options?.findIndex((o) => o.id === id) ?? -1;
+                                    return idx !== -1 ? String.fromCharCode(65 + idx) : "";
+                                  })
+                                  .filter(Boolean)
+                                  .join(", ")
+                              : "Chưa chọn")}
+                          {q.type === "true_false" && "Xem bảng bên dưới"}
+                          {q.type === "short_answer" && (studentAns || "Bỏ trống")}
+                        </span>
+                      </div>
 
-                  {/* Summary Comparison Bar */}
-                  <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="font-bold text-slate-500">Đáp án của bạn:</span>
-                      <span
-                        className={`font-bold px-2 py-0.5 rounded-md ${
-                          isQuestionCorrect
-                            ? "bg-emerald-100 text-emerald-800"
-                            : studentAns
-                            ? "bg-red-100 text-red-800"
-                            : "bg-slate-200 text-slate-600"
-                        }`}
-                      >
-                        {q.type === "single_choice" &&
-                          (q.options?.findIndex((o) => o.id === studentAns) !== -1
-                            ? String.fromCharCode(
-                                65 + (q.options?.findIndex((o) => o.id === studentAns) ?? 0)
-                              )
-                            : "Chưa chọn")}
-                        {q.type === "multiple_choice" &&
-                          (Array.isArray(studentAns) && studentAns.length > 0
-                            ? studentAns
-                                .map((id) => {
+                      {q.type !== "true_false" && (
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="font-bold text-slate-500">Đáp án đúng:</span>
+                          <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                            {q.type === "single_choice" &&
+                              q.correctOptionIds
+                                ?.map((id) => {
                                   const idx = q.options?.findIndex((o) => o.id === id) ?? -1;
                                   return idx !== -1 ? String.fromCharCode(65 + idx) : "";
                                 })
                                 .filter(Boolean)
-                                .join(", ")
-                            : "Chưa chọn")}
-                        {q.type === "true_false" && "Xem bảng bên dưới"}
-                        {q.type === "short_answer" && (studentAns || "Bỏ trống")}
-                      </span>
-                    </div>
-
-                    {q.type !== "true_false" && (
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-bold text-slate-500">Đáp án đúng:</span>
-                        <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                          {q.type === "single_choice" &&
-                            q.correctOptionIds
-                              ?.map((id) => {
-                                const idx = q.options?.findIndex((o) => o.id === id) ?? -1;
-                                return idx !== -1 ? String.fromCharCode(65 + idx) : "";
-                              })
-                              .filter(Boolean)
-                              .join(", ")}
-                          {q.type === "multiple_choice" &&
-                            q.correctOptionIds
-                              ?.map((id) => {
-                                const idx = q.options?.findIndex((o) => o.id === id) ?? -1;
-                                return idx !== -1 ? String.fromCharCode(65 + idx) : "";
-                              })
-                              .filter(Boolean)
-                              .join(", ")}
-                          {q.type === "short_answer" && (q.acceptedAnswers?.join(" hoặc ") || "Chưa thiết lập")}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Options Review */}
-                  {(q.type === "single_choice" || q.type === "multiple_choice") && (
-                    <div className="space-y-2 pt-1">
-                      {q.options?.map((opt, optIdx) => {
-                        const letter = String.fromCharCode(65 + optIdx);
-                        const isStudentPicked =
-                          q.type === "single_choice"
-                            ? studentAns === opt.id
-                            : ((studentAns as string[]) || []).includes(opt.id);
-                        const isCorrectOpt = q.correctOptionIds?.includes(opt.id);
-
-                        let optBorder = "border-slate-200 bg-slate-50/60 text-slate-700";
-                        if (isCorrectOpt) {
-                          optBorder = "border-emerald-500 bg-emerald-50/80 text-emerald-950 font-semibold";
-                        } else if (isStudentPicked && !isCorrectOpt) {
-                          optBorder = "border-red-400 bg-red-50/80 text-red-950 font-semibold";
-                        }
-
-                        return (
-                          <div
-                            key={opt.id}
-                            className={`p-3 rounded-xl border flex items-start gap-2.5 text-xs lg:text-sm ${optBorder}`}
-                          >
-                            <span
-                              className={`w-5 h-5 rounded-md text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5 ${
-                                isCorrectOpt
-                                  ? "bg-emerald-600 text-white"
-                                  : isStudentPicked
-                                  ? "bg-red-600 text-white"
-                                  : "bg-white text-slate-500 border border-slate-200"
-                              }`}
-                            >
-                              {letter}
-                            </span>
-                            <div className="flex-1 pt-0.5">
-                              <LatexPreview content={opt.text} />
-                            </div>
-                            {isCorrectOpt && (
-                              <span className="text-[11px] font-bold text-emerald-700 shrink-0 self-center">
-                                (Đáp án đúng)
-                              </span>
-                            )}
-                            {isStudentPicked && !isCorrectOpt && (
-                              <span className="text-[11px] font-bold text-red-600 shrink-0 self-center">
-                                (Đáp án của bạn)
-                              </span>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-
-                  {/* True / False Review */}
-                  {q.type === "true_false" && (
-                    <div className="space-y-2 pt-1">
-                      {q.statements?.map((stmt, sIdx) => {
-                        const letter = String.fromCharCode(97 + sIdx);
-                        const studentChoice = studentAns?.[stmt.id];
-                        const isStmtCorrect = studentChoice === stmt.correctAnswer;
-
-                        return (
-                          <div
-                            key={stmt.id}
-                            className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs lg:text-sm"
-                          >
-                            <div className="flex items-start gap-2 flex-1">
-                              <span className="font-bold text-xs bg-white text-blue-700 px-1.5 py-0.5 rounded border border-slate-200 shrink-0 mt-0.5">
-                                {letter})
-                              </span>
-                              <div className="text-slate-800">
-                                <LatexPreview content={stmt.text} />
-                              </div>
-                            </div>
-
-                            <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
-                              <span className="text-xs text-slate-500">
-                                Đáp án của bạn:{" "}
-                                <strong
-                                  className={
-                                    studentChoice === undefined
-                                      ? "text-slate-400"
-                                      : isStmtCorrect
-                                      ? "text-emerald-700"
-                                      : "text-red-600"
-                                  }
-                                >
-                                  {studentChoice === true
-                                    ? "Đúng"
-                                    : studentChoice === false
-                                    ? "Sai"
-                                    : "Chưa chọn"}
-                                </strong>
-                              </span>
-                              <span className="text-xs bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md font-bold text-emerald-800">
-                                Đáp án đúng: {stmt.correctAnswer ? "Đúng" : "Sai"}
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-
-                  {/* Short Answer Review */}
-                  {q.type === "short_answer" && (
-                    <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
-                      <div>
-                        <span className="text-slate-500 font-semibold">Đáp án của bạn: </span>
-                        <strong className={isQuestionCorrect ? "text-emerald-700" : "text-red-600"}>
-                          {studentAns || "(Bỏ trống)"}
-                        </strong>
-                      </div>
-                      <div>
-                        <span className="text-slate-500 font-semibold">Đáp án đúng: </span>
-                        <strong className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                          {q.acceptedAnswers?.join(" hoặc ")}
-                        </strong>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step by step LaTeX explanation */}
-                  {q.explanation && (
-                    <div className="border-t border-slate-100 pt-3">
-                      <button
-                        type="button"
-                        onClick={() => toggleExplanation(q.id)}
-                        className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 cursor-pointer"
-                      >
-                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                        {isExpanded ? "Thu gọn lời giải chi tiết" : "Xem lời giải chi tiết"}
-                      </button>
-
-                      {isExpanded && (
-                        <div className="mt-2.5 p-4 bg-blue-50/60 border border-blue-100 rounded-2xl text-xs sm:text-sm text-slate-800 space-y-2">
-                          <p className="font-bold text-blue-900">Hướng dẫn giải chi tiết:</p>
-                          <LatexPreview content={q.explanation} />
+                                .join(", ")}
+                            {q.type === "multiple_choice" &&
+                              q.correctOptionIds
+                                ?.map((id) => {
+                                  const idx = q.options?.findIndex((o) => o.id === id) ?? -1;
+                                  return idx !== -1 ? String.fromCharCode(65 + idx) : "";
+                                })
+                                .filter(Boolean)
+                                .join(", ")}
+                            {q.type === "short_answer" && (q.acceptedAnswers?.join(" hoặc ") || "Chưa thiết lập")}
+                          </span>
                         </div>
                       )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
+
+                    {/* Options Review */}
+                    {(q.type === "single_choice" || q.type === "multiple_choice") && (
+                      <div className="space-y-2 pt-1">
+                        {q.options?.map((opt, optIdx) => {
+                          const letter = String.fromCharCode(65 + optIdx);
+                          const isStudentPicked =
+                            q.type === "single_choice"
+                              ? studentAns === opt.id
+                              : ((studentAns as string[]) || []).includes(opt.id);
+                          const isCorrectOpt = q.correctOptionIds?.includes(opt.id);
+
+                          let optBorder = "border-slate-200 bg-slate-50/60 text-slate-700";
+                          if (isCorrectOpt) {
+                            optBorder = "border-emerald-500 bg-emerald-50/80 text-emerald-950 font-semibold";
+                          } else if (isStudentPicked && !isCorrectOpt) {
+                            optBorder = "border-red-400 bg-red-50/80 text-red-950 font-semibold";
+                          }
+
+                          return (
+                            <div
+                              key={opt.id}
+                              className={`p-3 rounded-xl border flex items-start gap-2.5 text-xs lg:text-sm ${optBorder}`}
+                            >
+                              <span
+                                className={`w-5 h-5 rounded-md text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5 ${
+                                  isCorrectOpt
+                                    ? "bg-emerald-600 text-white"
+                                    : isStudentPicked
+                                    ? "bg-red-600 text-white"
+                                    : "bg-white text-slate-500 border border-slate-200"
+                                }`}
+                              >
+                                {letter}
+                              </span>
+                              <div className="flex-1 pt-0.5">
+                                <LatexPreview content={opt.text} />
+                              </div>
+                              {isCorrectOpt && (
+                                <span className="text-[11px] font-bold text-emerald-700 shrink-0 self-center">
+                                  (Đáp án đúng)
+                                </span>
+                              )}
+                              {isStudentPicked && !isCorrectOpt && (
+                                <span className="text-[11px] font-bold text-red-600 shrink-0 self-center">
+                                  (Đáp án của bạn)
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* True / False Review */}
+                    {q.type === "true_false" && (
+                      <div className="space-y-2 pt-1">
+                        {q.statements?.map((stmt, sIdx) => {
+                          const letter = String.fromCharCode(97 + sIdx);
+                          const studentChoice = studentAns?.[stmt.id];
+                          const isStmtCorrect = studentChoice === stmt.correctAnswer;
+
+                          return (
+                            <div
+                              key={stmt.id}
+                              className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs lg:text-sm"
+                            >
+                              <div className="flex items-start gap-2 flex-1">
+                                <span className="font-bold text-xs bg-white text-blue-700 px-1.5 py-0.5 rounded border border-slate-200 shrink-0 mt-0.5">
+                                  {letter})
+                                </span>
+                                <div className="text-slate-800">
+                                  <LatexPreview content={stmt.text} />
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
+                                <span className="text-xs text-slate-500">
+                                  Đáp án của bạn:{" "}
+                                  <strong
+                                    className={
+                                      studentChoice === undefined
+                                        ? "text-slate-400"
+                                        : isStmtCorrect
+                                        ? "text-emerald-700"
+                                        : "text-red-600"
+                                    }
+                                  >
+                                    {studentChoice === true
+                                      ? "Đúng"
+                                      : studentChoice === false
+                                      ? "Sai"
+                                      : "Chưa chọn"}
+                                  </strong>
+                                </span>
+                                <span className="text-xs bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md font-bold text-emerald-800">
+                                  Đáp án đúng: {stmt.correctAnswer ? "Đúng" : "Sai"}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Short Answer Review */}
+                    {q.type === "short_answer" && (
+                      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+                        <div>
+                          <span className="text-slate-500 font-semibold">Đáp án của bạn: </span>
+                          <strong className={isQuestionCorrect ? "text-emerald-700" : "text-red-600"}>
+                            {studentAns || "(Bỏ trống)"}
+                          </strong>
+                        </div>
+                        <div>
+                          <span className="text-slate-500 font-semibold">Đáp án đúng: </span>
+                          <strong className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            {q.acceptedAnswers?.join(" hoặc ")}
+                          </strong>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step by step LaTeX explanation */}
+                    {q.explanation && (
+                      <div className="border-t border-slate-100 pt-3">
+                        <button
+                          type="button"
+                          onClick={() => toggleExplanation(q.id)}
+                          className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 cursor-pointer"
+                        >
+                          {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                          {isExpanded ? "Thu gọn lời giải chi tiết" : "Xem lời giải chi tiết"}
+                        </button>
+
+                        {isExpanded && (
+                          <div className="mt-2.5 p-4 bg-blue-50/60 border border-blue-100 rounded-2xl text-xs sm:text-sm text-slate-800 space-y-2">
+                            <p className="font-bold text-blue-900">Hướng dẫn giải chi tiết:</p>
+                            <LatexPreview content={q.explanation} />
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              };
+
+              return groups.map((group, gIdx) => {
+                if (group.section) {
+                  const secIndex = sections.findIndex((s) => s.id === group.section?.id);
+                  return (
+                    <div
+                      key={`group-${group.section.id}-${gIdx}`}
+                      className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5"
+                    >
+                      {/* Section Header */}
+                      <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
+                        <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
+                          <span className="px-3 py-1 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider">
+                            Phần {secIndex >= 0 ? secIndex + 1 : ""}
+                          </span>
+                          <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
+                            {group.section.title}
+                          </h3>
+                        </div>
+                        {group.section.description && (
+                          <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
+                            <LatexPreview content={group.section.description} />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Enclosed Child Questions */}
+                      <div className="space-y-4">
+                        {group.items.map(({ question: q, index: qIdx }) => renderQuestionBox(q, qIdx))}
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={`group-outside-${gIdx}`} className="space-y-4">
+                    {group.items.map(({ question: q, index: qIdx }) => renderQuestionBox(q, qIdx))}
+                  </div>
+                );
+              });
+            })()}
           </div>
         </div>
         )}
       </div>
+
+      {/* AI Tutor Chat Widget */}
+      <AiTutorChat examTitle={exam?.title} />
     </div>
   );
 }

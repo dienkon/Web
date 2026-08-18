@@ -9,6 +9,8 @@ import StudentLogin from "../../pages/auth/StudentLogin";
 // Admin Pages
 import Dashboard from "../../pages/admin/Dashboard";
 import ExamList from "../../pages/admin/ExamList";
+import AiWordImport from "../../pages/admin/AiWordImport";
+import AiPromptImport from "../../pages/admin/AiPromptImport";
 import ExamBuilder from "../../features/exam-builder/ExamBuilder";
 import ExamDetail from "../../pages/admin/ExamDetail";
 import Submissions from "../../pages/admin/Submissions";
@@ -25,6 +27,7 @@ import ExamResult from "../../pages/student/ExamResult";
 import StudentHistory from "../../pages/student/StudentHistory";
 import StudentProfile from "../../pages/student/StudentProfile";
 import Community from "../../pages/student/Community";
+import AiTutorPage from "../../pages/student/AiTutorPage";
 import Home from "../../pages/home/Home";
 
 const router = createBrowserRouter([
@@ -43,6 +46,8 @@ const router = createBrowserRouter([
       { path: "", element: <Navigate to="exams" replace /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "exams", element: <ExamList /> },
+      { path: "exams/import-word", element: <AiWordImport /> },
+      { path: "exams/import-prompt", element: <AiPromptImport /> },
       { path: "exams/new", element: <ExamBuilder isNew /> },
       { path: "exams/:examId/edit", element: <ExamBuilder /> },
       { path: "exams/:examId", element: <ExamDetail /> },
@@ -63,6 +68,7 @@ const router = createBrowserRouter([
       { path: "", element: <Home /> },
       { path: "student", element: <Navigate to="/student/history" replace /> },
       { path: "student/community", element: <Community /> },
+      { path: "student/ai-tutor", element: <AiTutorPage /> },
       { path: "student/history", element: <StudentHistory /> },
       { path: "student/profile", element: <StudentProfile /> },
       { path: "student/exam/:examId", element: <ExamIntro /> },

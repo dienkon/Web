@@ -514,6 +514,8 @@ function sanitizeForFirestore(obj: any): any {
         examMeta: { ...s.examMeta, ...data.examMeta },
         sections: data.sections,
         questions: data.questions,
+        activeQuestionId: data.questions[0]?.id || null,
+        activeSectionId: data.sections[0]?.id || null,
         isDirty: true
       }));
     }

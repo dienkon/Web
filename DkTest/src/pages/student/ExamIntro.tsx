@@ -13,12 +13,15 @@ import {
   Layers,
   Sparkles,
   Trophy,
+  Wand2,
 } from "lucide-react";
 import { getExam } from "../../services/examService";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
-import type { Exam } from "../../types";
+import type { Exam, Section, Question } from "../../types";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
+import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
+import StudentSubExamConfig from "../../features/sub-exam/components/StudentSubExamConfig";
 
 export default function ExamIntro() {
   const { examId } = useParams<{ examId: string }>();
@@ -32,6 +35,12 @@ export default function ExamIntro() {
   const [passwordError, setPasswordError] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(true);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+  // Sub-exam states
+  const [useSubExam, setUseSubExam] = useState(false);
+  const [subExamConfig, setSubExamConfig] = useState<SubExamConfig | null>(null);
+  const [sections, setSections] = useState<Section[]>([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
 
   useEffect(() => {
     const fetchExam = async () => {
@@ -52,6 +61,17 @@ export default function ExamIntro() {
         }
 
         setExam(foundExam);
+
+        if (foundExam?.allowSubExam && foundExam?.subExamConfig?.enabled) {
+          const [secSnap, qSnap] = await Promise.all([
+            getDocs(query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc"))),
+            getDocs(query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc"))),
+          ]);
+          setSections(secSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section)));
+          setQuestions(qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question)));
+          setSubExamConfig(foundExam.subExamConfig);
+          setUseSubExam(true);
+        }
 
         // Prepopulate student name from localStorage if exists
         const savedInfo = localStorage.getItem("student_info");
@@ -98,6 +118,14 @@ export default function ExamIntro() {
         startTime: Date.now(),
       })
     );
+
+    // Save sub-exam preference
+    if (exam.allowSubExam) {
+      localStorage.setItem(`custom_sub_exam_config_${exam.id}`, JSON.stringify({
+        useSubExam,
+        config: subExamConfig
+      }));
+    }
 
     navigate(`/student/exam/${exam.id}/take`);
   };
@@ -186,6 +214,18 @@ export default function ExamIntro() {
                 <span className="text-xs font-extrabold text-emerald-700 block mt-1">Đang kích hoạt</span>
               </div>
             </div>
+
+            {/* Student Custom Sub-Exam */}
+            {exam.allowSubExam && (
+              <StudentSubExamConfig
+                useSubExam={useSubExam}
+                setUseSubExam={setUseSubExam}
+                config={subExamConfig}
+                setConfig={setSubExamConfig as any}
+                questions={questions}
+                sections={sections}
+              />
+            )}
 
             {/* Rules & Notice */}
             <div className="p-4 bg-amber-50/60 border border-amber-200 rounded-2xl space-y-2 text-xs text-amber-950">

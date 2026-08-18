@@ -57,10 +57,24 @@ export const getSubmission = async (submissionId: string): Promise<Submission | 
   return null;
 };
 
+const removeUndefinedValues = (obj: any): any => {
+  if (obj === undefined) return null;
+  if (obj === null || typeof obj !== "object") return obj;
+  if (Array.isArray(obj)) return obj.map(removeUndefinedValues);
+  const result: Record<string, any> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (value !== undefined) {
+      result[key] = removeUndefinedValues(value);
+    }
+  }
+  return result;
+};
+
 export const createSubmission = async (submissionData: Omit<Submission, "id" | "submittedAt">): Promise<Submission> => {
   const docRef = doc(collection(db, SUBMISSIONS_COLLECTION));
+  const sanitized = removeUndefinedValues(submissionData);
   const newSubmission = {
-    ...submissionData,
+    ...sanitized,
     submittedAt: serverTimestamp(),
   };
   await setDoc(docRef, newSubmission);

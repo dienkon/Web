@@ -13,6 +13,7 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Sparkles,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 
@@ -62,15 +63,16 @@ export default function StudentLayout() {
 
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen },
+    { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500" },
     { to: "/student/history", label: "Lịch sử bài làm", icon: History },
     { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col">
+    <div className="h-screen w-screen overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
       {!isTakingExam && (
-        <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 sticky top-0 z-30">
+        <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30">
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile Hamburger Drawer Button */}
             <button
@@ -154,11 +156,11 @@ export default function StudentLayout() {
         </header>
       )}
 
-      {/* Main Container with Collapsible Sidebar on Desktop */}
-      <div className="flex-1 flex overflow-hidden">
+      {/* Main Container with Isolated Layer Collapsible Sidebar on Desktop */}
+      <div className="flex-1 flex overflow-hidden relative">
         {!isTakingExam && (
           <aside
-            className={`bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out relative ${
+            className={`bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out z-20 shadow-xs select-none ${
               isSidebarCollapsed ? "w-18 p-3" : "w-60 p-4"
             }`}
           >
@@ -343,7 +345,7 @@ export default function StudentLayout() {
 
       {/* Modern Mobile Bottom Navigation Bar */}
       {!isTakingExam && (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-1.5 flex items-center justify-around shadow-lg z-30">
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2 flex items-center justify-around shadow-lg z-30">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.to;
@@ -351,18 +353,15 @@ export default function StudentLayout() {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${
-                  isActive ? "text-blue-600 font-bold" : "text-slate-400 hover:text-slate-700 font-medium"
+                title={item.label}
+                aria-label={item.label}
+                className={`p-2.5 rounded-2xl transition-all flex items-center justify-center cursor-pointer ${
+                  isActive
+                    ? "bg-blue-50 text-blue-600 shadow-2xs border border-blue-100 scale-105"
+                    : "text-slate-400 hover:text-slate-700 hover:bg-slate-50"
                 }`}
               >
-                <div
-                  className={`p-1 rounded-xl transition-all ${
-                    isActive ? "bg-blue-50 text-blue-600 scale-105" : ""
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive && item.iconColor ? item.iconColor : ""}`} />
-                </div>
-                <span className="text-[10px] tracking-tight">{item.label}</span>
+                <Icon className={`w-5 h-5 ${isActive && item.iconColor ? item.iconColor : ""}`} />
               </Link>
             );
           })}

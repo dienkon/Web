@@ -23,8 +23,15 @@ import {
 } from "lucide-react";
 import { getExam } from "../../services/examService";
 import { createSubmission } from "../../services/submissionService";
+import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExamAttempt";
+import { organizeAndShuffleExam } from "../../utils/examShuffler";
 import { saveStudentProfile } from "../../services/studentService";
-import { collection, getDocs, query, orderBy, doc, setDoc, deleteDoc } from "firebase/firestore";
+import {
+  syncRealtimeSession,
+  updateRealtimeSessionMetrics,
+  removeRealtimeSession,
+} from "../../services/realtimeProctoringService";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Exam, Question, Section } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
@@ -81,18 +88,20 @@ export default function TakingExam() {
   const sessionIdRef = useRef<string>("sess_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7));
   const isSessionActiveRef = useRef<boolean>(true);
   const isSubmittingRef = useRef<boolean>(false);
+  const subExamConfigUsedRef = useRef<any>(null);
+  const isSubExamUsedRef = useRef<boolean>(false);
 
   // Cleanup session on unmount
   useEffect(() => {
     return () => {
       isSessionActiveRef.current = false;
       try {
-        deleteDoc(doc(db, "active_sessions", sessionIdRef.current)).catch(() => {});
+        removeRealtimeSession(sessionIdRef.current);
       } catch (e) {}
     };
   }, []);
 
-  // Realtime Active Session Sync to Firestore for Admin Live Proctoring
+  // Realtime Active Session Sync via Realtime Database (zero Firestore write costs!)
   useEffect(() => {
     if (!examId || loading || !exam || !isSessionActiveRef.current || isSubmittingRef.current) return;
 
@@ -107,28 +116,23 @@ export default function TakingExam() {
       } catch (e) {}
     }
 
-    const sessionDocRef = doc(db, "active_sessions", sessionIdRef.current);
     const updateSession = async () => {
       if (!isSessionActiveRef.current || isSubmittingRef.current) return;
       try {
-        await setDoc(
-          sessionDocRef,
-          {
-            sessionId: sessionIdRef.current,
-            examId,
-            examTitle: exam.title || "Bài thi",
-            studentName,
-            studentUsername,
-            studentClass,
-            timeLeft,
-            answeredCount: Object.keys(answers).length,
-            totalQuestions: questions.length,
-            warnings,
-            status: warnings > 0 ? "warning" : "taking",
-            lastActiveAt: new Date().toISOString(),
-          },
-          { merge: true }
-        );
+        await syncRealtimeSession({
+          sessionId: sessionIdRef.current,
+          examId,
+          examTitle: exam.title || "Bài thi",
+          studentName,
+          studentUsername,
+          studentClass,
+          timeLeft,
+          answeredCount: Object.keys(answers).length,
+          totalQuestions: questions.length,
+          warnings,
+          status: warnings > 0 ? "warning" : "taking",
+          lastActiveAt: Date.now(),
+        });
       } catch (e) {
         console.warn("Realtime session sync error:", e);
       }
@@ -183,47 +187,88 @@ export default function TakingExam() {
         let rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
 
         if (examData.shuffleSections && rawSections.length > 0) {
-          const pinnedSections = rawSections.filter((s) => s.pinOrder);
-          const unpinnedSections = shuffleArray(rawSections.filter((s) => !s.pinOrder));
-          rawSections = [...pinnedSections, ...unpinnedSections].sort(
-            (a, b) => (a.order || 0) - (b.order || 0)
-          );
+          const unpinned = shuffleArray(rawSections.filter((s) => !s.pinOrder));
+          let unpinnedIdx = 0;
+          rawSections = rawSections.map((sec) => (sec.pinOrder ? sec : unpinned[unpinnedIdx++]));
         }
         setSections(rawSections);
+
+        // Student Info & Snapshot Storage Key
+        const studentInfoStr = localStorage.getItem("student_info");
+        const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
+        const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "unknown";
+        const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
 
         // Organize and shuffle questions
         let allQuestions: Question[] = [];
 
-        if (rawSections.length > 0) {
-          for (const sec of rawSections) {
-            let secQs = rawQuestions.filter((q) => q.sectionId === sec.id);
+        // Check for active Attempt Snapshot
+        let activeSnapshot = null;
+        try {
+          const snapshotStr = localStorage.getItem(snapshotKey);
+          if (snapshotStr) activeSnapshot = JSON.parse(snapshotStr);
+        } catch (e) {}
 
-            if (examData.shuffleQuestions && !sec.disableQuestionShuffle) {
-              const pinnedQs = secQs.filter((q) => q.pinQuestion);
-              const unpinnedQs = shuffleArray(secQs.filter((q) => !q.pinQuestion));
-              secQs = [...pinnedQs, ...unpinnedQs];
-            }
-
-            allQuestions.push(...secQs);
-          }
-
-          let orphanQs = rawQuestions.filter(
-            (q) => !q.sectionId || !rawSections.some((s) => s.id === q.sectionId)
-          );
-          if (examData.shuffleQuestions && orphanQs.length > 0) {
-            const pinnedQs = orphanQs.filter((q) => q.pinQuestion);
-            const unpinnedQs = shuffleArray(orphanQs.filter((q) => !q.pinQuestion));
-            orphanQs = [...pinnedQs, ...unpinnedQs];
-          }
-          allQuestions.push(...orphanQs);
+        if (activeSnapshot) {
+          // Restore from snapshot
+          const questionMap = new Map(rawQuestions.map((q) => [q.id, q]));
+          allQuestions = activeSnapshot.selectedQuestionIds
+            .map((id: string) => questionMap.get(id))
+            .filter(Boolean) as Question[];
+          isSubExamUsedRef.current = !!activeSnapshot.configSnapshot;
+          subExamConfigUsedRef.current = activeSnapshot.configSnapshot || null;
         } else {
-          let qs = [...rawQuestions];
-          if (examData.shuffleQuestions) {
-            const pinnedQs = qs.filter((q) => q.pinQuestion);
-            const unpinnedQs = shuffleArray(qs.filter((q) => !q.pinQuestion));
-            qs = [...pinnedQs, ...unpinnedQs];
+          // Check for student's custom sub-exam config
+          let studentSubExamConfig = null;
+          let useSubExam = examData.allowSubExam && examData.subExamConfig?.enabled;
+          try {
+            const storedConfigStr = localStorage.getItem(`custom_sub_exam_config_${examId}`);
+            if (storedConfigStr) {
+              const storedConfig = JSON.parse(storedConfigStr);
+              if (storedConfig.useSubExam !== undefined) {
+                useSubExam = storedConfig.useSubExam;
+                if (useSubExam && storedConfig.config) {
+                   studentSubExamConfig = storedConfig.config;
+                }
+              }
+            }
+          } catch(e) {}
+
+          // Normal load or build sub-exam
+          if (useSubExam && (studentSubExamConfig || examData.subExamConfig)) {
+            const finalConfig = studentSubExamConfig || examData.subExamConfig;
+            const attempt = buildSubExamAttempt(examData, rawQuestions, rawSections, finalConfig);
+            allQuestions = attempt.questions;
+            isSubExamUsedRef.current = true;
+            subExamConfigUsedRef.current = attempt.config || null;
+            
+            // Save snapshot
+            const newSnapshot = {
+              examId,
+              attemptId: sessionIdRef.current,
+              selectedQuestionIds: attempt.selectedQuestionIds,
+              questionOrder: attempt.questionOrder,
+              configSnapshot: attempt.config,
+              createdAt: Date.now()
+            };
+            localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
+          } else {
+            isSubExamUsedRef.current = false;
+            subExamConfigUsedRef.current = null;
+            // Standard Exam Loading Logic: Sections and Standalone Questions are intermixed and shuffled together
+            const organized = organizeAndShuffleExam(examData, rawQuestions, rawSections);
+            allQuestions = organized.orderedQuestions;
+            
+            // Save standard snapshot so order doesn't change on reload
+            localStorage.setItem(snapshotKey, JSON.stringify({
+              examId,
+              attemptId: sessionIdRef.current,
+              selectedQuestionIds: allQuestions.map(q => q.id),
+              questionOrder: allQuestions.map(q => q.id),
+              configSnapshot: null,
+              createdAt: Date.now()
+            }));
           }
-          allQuestions = qs;
         }
 
         allQuestions = allQuestions.map((q) => {
@@ -250,9 +295,6 @@ export default function TakingExam() {
         setQuestions(allQuestions);
         
         // Timer Logic
-        const studentInfoStr = localStorage.getItem("student_info");
-        const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
-        const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "unknown";
         const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
         
         let startTime = Date.now();
@@ -316,6 +358,8 @@ export default function TakingExam() {
 
   // Anti-cheat detection: visibilitychange & window blur
   useEffect(() => {
+    if (!exam || !exam.antiCheatEnabled) return;
+
     const handleVisibility = () => {
       if (document.hidden) {
         setWarnings((w) => w + 1);
@@ -333,7 +377,7 @@ export default function TakingExam() {
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("blur", handleBlur);
     };
-  }, []);
+  }, [exam]);
 
   // System Point Calculation: Total max score is 10.0 points.
   // Each question counts as (10 / totalQuestions) points.
@@ -447,6 +491,8 @@ export default function TakingExam() {
         cheatViolations: warnings,
         answers,
         shuffledQuestionsSnapshot: questions,
+        subExam: isSubExamUsedRef.current,
+        subExamConfigSnapshot: subExamConfigUsedRef.current || (exam.allowSubExam && exam.subExamConfig ? exam.subExamConfig : null),
       });
 
       // Save or update student profile in Firestore
@@ -456,11 +502,11 @@ export default function TakingExam() {
         console.warn("Could not save student profile:", profileErr);
       }
 
-      // Clean up active session from real-time monitoring upon submission immediately
+      // Clean up active session from real-time monitoring upon submission immediately via RTDB
       try {
-        await deleteDoc(doc(db, "active_sessions", sessionIdRef.current));
+        await removeRealtimeSession(sessionIdRef.current);
       } catch (sessErr) {
-        console.warn("Could not delete active session doc:", sessErr);
+        console.warn("Could not remove active RTDB session:", sessErr);
       }
       
       localStorage.removeItem(`exam_startTime_${examId}_${studentUsername}`);
@@ -509,6 +555,10 @@ export default function TakingExam() {
       const el = document.getElementById(`q-card-${index}`);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.classList.add("ring-4", "ring-blue-400", "ring-offset-2", "transition-all", "duration-300");
+        setTimeout(() => {
+          el.classList.remove("ring-4", "ring-blue-400", "ring-offset-2");
+        }, 1800);
       }
     }
   };
@@ -535,6 +585,8 @@ export default function TakingExam() {
 
   // Single Question Card Component Render
   const renderQuestionCard = (q: Question, qIdx: number) => {
+    const qSection = q.sectionId ? sections.find((s) => s.id === q.sectionId) : null;
+
     return (
       <div
         id={`q-card-${qIdx}`}
@@ -542,11 +594,16 @@ export default function TakingExam() {
         className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-8 shadow-2xs space-y-6 scroll-mt-20"
       >
         {/* Question Header */}
-        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-4 gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="px-3 py-1 bg-blue-600 text-white font-bold text-xs rounded-lg">
               Câu {qIdx + 1}
             </span>
+            {qSection && (
+              <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-lg text-xs font-bold truncate max-w-[220px]">
+                {qSection.title}
+              </span>
+            )}
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               {q.type === "single_choice" && "Trắc nghiệm 1 đáp án"}
               {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
@@ -763,9 +820,9 @@ export default function TakingExam() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none pt-16">
       {/* Header Bar */}
-      <header className="h-16 bg-white border-b border-slate-200 px-4 lg:px-6 flex items-center justify-between sticky top-0 z-30 shadow-2xs">
+      <header className="h-16 bg-white border-b border-slate-200 px-4 lg:px-6 flex items-center justify-between fixed top-0 left-0 right-0 z-50 shadow-2xs">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">
             Dk
@@ -855,7 +912,39 @@ export default function TakingExam() {
           {displayMode === "paging" ? (
             currentQ ? (
               <div className="space-y-4">
-                {renderQuestionCard(currentQ, activeQuestionIdx)}
+                {(() => {
+                  const currentSection = currentQ.sectionId
+                    ? sections.find((s) => s.id === currentQ.sectionId)
+                    : null;
+                  const secIndex = currentSection
+                    ? sections.findIndex((s) => s.id === currentSection.id)
+                    : -1;
+
+                  if (currentSection) {
+                    return (
+                      <div className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5">
+                        <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
+                          <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
+                            <span className="px-3 py-1 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider">
+                              Phần {secIndex >= 0 ? secIndex + 1 : ""}
+                            </span>
+                            <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
+                              {currentSection.title}
+                            </h3>
+                          </div>
+                          {currentSection.description && (
+                            <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
+                              <LatexPreview content={currentSection.description} />
+                            </div>
+                          )}
+                        </div>
+                        {renderQuestionCard(currentQ, activeQuestionIdx)}
+                      </div>
+                    );
+                  }
+
+                  return renderQuestionCard(currentQ, activeQuestionIdx);
+                })()}
 
                 {/* Navigation Controls in Paging mode */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between shadow-2xs">
@@ -892,7 +981,68 @@ export default function TakingExam() {
           ) : (
             /* Scroll All Questions Mode */
             <div className="space-y-6 pb-12">
-              {questions.map((q, qIdx) => renderQuestionCard(q, qIdx))}
+              {(() => {
+                const groups: {
+                  sectionId: string | null;
+                  section: Section | null;
+                  items: { question: Question; index: number }[];
+                }[] = [];
+
+                questions.forEach((q, idx) => {
+                  const secId = q.sectionId || null;
+                  const lastGroup = groups[groups.length - 1];
+                  if (lastGroup && lastGroup.sectionId === secId) {
+                    lastGroup.items.push({ question: q, index: idx });
+                  } else {
+                    const sec = secId ? sections.find((s) => s.id === secId) || null : null;
+                    groups.push({
+                      sectionId: secId,
+                      section: sec,
+                      items: [{ question: q, index: idx }],
+                    });
+                  }
+                });
+
+                return groups.map((group, gIdx) => {
+                  if (group.section) {
+                    const secIndex = sections.findIndex((s) => s.id === group.section?.id);
+                    return (
+                      <div
+                        key={`take-sec-${group.section.id}-${gIdx}`}
+                        className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5"
+                      >
+                        {/* Section Header */}
+                        <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
+                          <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
+                            <span className="px-3 py-1 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider">
+                              Phần {secIndex >= 0 ? secIndex + 1 : ""}
+                            </span>
+                            <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
+                              {group.section.title}
+                            </h3>
+                          </div>
+                          {group.section.description && (
+                            <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
+                              <LatexPreview content={group.section.description} />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Enclosed Child Questions */}
+                        <div className="space-y-4">
+                          {group.items.map(({ question: q, index: qIdx }) => renderQuestionCard(q, qIdx))}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={`take-outside-${gIdx}`} className="space-y-4">
+                      {group.items.map(({ question: q, index: qIdx }) => renderQuestionCard(q, qIdx))}
+                    </div>
+                  );
+                });
+              })()}
 
               <div className="bg-white border border-slate-200 rounded-3xl p-6 text-center space-y-3">
                 <p className="text-xs font-bold text-slate-600">
@@ -934,43 +1084,174 @@ export default function TakingExam() {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto pr-1">
-                <div className="grid grid-cols-5 gap-2">
-                  {questions.map((q, i) => {
-                    const ans = answers[q.id];
-                    const isAnswered =
-                      ans !== undefined &&
-                      ans !== null &&
-                      ans !== "" &&
-                      (!Array.isArray(ans) || ans.length > 0) &&
-                      (typeof ans !== "object" || Object.keys(ans).length > 0);
-                    const isFlag = flagged[q.id];
-                    const isActive = i === activeQuestionIdx;
+              <div className="flex-1 overflow-y-auto pr-1 space-y-4">
+                {sections.length > 0 ? (
+                  <>
+                    {sections.map((sec) => {
+                      const secQuestions = questions
+                        .map((q, i) => ({ q, originalIndex: i }))
+                        .filter((item) => item.q.sectionId === sec.id);
 
-                    let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100";
-                    if (isActive) {
-                      btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
-                    } else if (isFlag) {
-                      btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
-                    } else if (isAnswered) {
-                      btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
-                    }
+                      if (secQuestions.length === 0) return null;
 
-                    return (
-                      <button
-                        key={q.id}
-                        type="button"
-                        onClick={() => {
-                          handleQuestionSelectInMap(i);
-                          if (window.innerWidth < 1024) setShowMap(false);
-                        }}
-                        className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
-                      >
-                        {i + 1}
-                      </button>
-                    );
-                  })}
-                </div>
+                      const secAnswered = secQuestions.filter((item) => {
+                        const v = answers[item.q.id];
+                        if (v === undefined || v === null || v === "") return false;
+                        if (Array.isArray(v) && v.length === 0) return false;
+                        if (typeof v === "object" && Object.keys(v).length === 0) return false;
+                        return true;
+                      }).length;
+
+                      return (
+                        <div key={sec.id} className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+                          <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                            <span className="truncate pr-2">{sec.title}</span>
+                            <span className="text-[11px] font-semibold text-slate-400 shrink-0">
+                              {secAnswered}/{secQuestions.length}
+                            </span>
+                          </div>
+                          <div className="grid grid-cols-5 gap-2">
+                            {secQuestions.map(({ q, originalIndex: i }) => {
+                              const ans = answers[q.id];
+                              const isAnswered =
+                                ans !== undefined &&
+                                ans !== null &&
+                                ans !== "" &&
+                                (!Array.isArray(ans) || ans.length > 0) &&
+                                (typeof ans !== "object" || Object.keys(ans).length > 0);
+                              const isFlag = flagged[q.id];
+                              const isActive = i === activeQuestionIdx;
+
+                              let btnStyle = "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
+                              if (isActive) {
+                                btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
+                              } else if (isFlag) {
+                                btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
+                              } else if (isAnswered) {
+                                btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
+                              }
+
+                              return (
+                                <button
+                                  key={q.id}
+                                  type="button"
+                                  onClick={() => {
+                                    handleQuestionSelectInMap(i);
+                                    if (window.innerWidth < 1024) setShowMap(false);
+                                  }}
+                                  className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
+                                >
+                                  {i + 1}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* Unsectioned / General Questions */}
+                    {(() => {
+                      const orphanQuestions = questions
+                        .map((q, i) => ({ q, originalIndex: i }))
+                        .filter((item) => !item.q.sectionId || !sections.some((s) => s.id === item.q.sectionId));
+
+                      if (orphanQuestions.length === 0) return null;
+
+                      const orphanAnswered = orphanQuestions.filter((item) => {
+                        const v = answers[item.q.id];
+                        if (v === undefined || v === null || v === "") return false;
+                        if (Array.isArray(v) && v.length === 0) return false;
+                        if (typeof v === "object" && Object.keys(v).length === 0) return false;
+                        return true;
+                      }).length;
+
+                      return (
+                        <div className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+                          <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                            <span>Câu hỏi chung</span>
+                            <span className="text-[11px] font-semibold text-slate-400">
+                              {orphanAnswered}/{orphanQuestions.length}
+                            </span>
+                          </div>
+                          <div className="grid grid-cols-5 gap-2">
+                            {orphanQuestions.map(({ q, originalIndex: i }) => {
+                              const ans = answers[q.id];
+                              const isAnswered =
+                                ans !== undefined &&
+                                ans !== null &&
+                                ans !== "" &&
+                                (!Array.isArray(ans) || ans.length > 0) &&
+                                (typeof ans !== "object" || Object.keys(ans).length > 0);
+                              const isFlag = flagged[q.id];
+                              const isActive = i === activeQuestionIdx;
+
+                              let btnStyle = "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
+                              if (isActive) {
+                                btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
+                              } else if (isFlag) {
+                                btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
+                              } else if (isAnswered) {
+                                btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
+                              }
+
+                              return (
+                                <button
+                                  key={q.id}
+                                  type="button"
+                                  onClick={() => {
+                                    handleQuestionSelectInMap(i);
+                                    if (window.innerWidth < 1024) setShowMap(false);
+                                  }}
+                                  className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
+                                >
+                                  {i + 1}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </>
+                ) : (
+                  <div className="grid grid-cols-5 gap-2">
+                    {questions.map((q, i) => {
+                      const ans = answers[q.id];
+                      const isAnswered =
+                        ans !== undefined &&
+                        ans !== null &&
+                        ans !== "" &&
+                        (!Array.isArray(ans) || ans.length > 0) &&
+                        (typeof ans !== "object" || Object.keys(ans).length > 0);
+                      const isFlag = flagged[q.id];
+                      const isActive = i === activeQuestionIdx;
+
+                      let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100";
+                      if (isActive) {
+                        btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
+                      } else if (isFlag) {
+                        btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
+                      } else if (isAnswered) {
+                        btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
+                      }
+
+                      return (
+                        <button
+                          key={q.id}
+                          type="button"
+                          onClick={() => {
+                            handleQuestionSelectInMap(i);
+                            if (window.innerWidth < 1024) setShowMap(false);
+                          }}
+                          className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
+                        >
+                          {i + 1}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* Legend */}

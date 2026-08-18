@@ -224,11 +224,17 @@ export default function AdminLayout() {
         </header>
 
         {/* Scrollable View Container */}
-        <div className="flex-1 p-4 lg:p-8 overflow-y-auto">
-          <div className="max-w-7xl mx-auto w-full">
+        {location.pathname.includes("/admin/exams/new") || location.pathname.includes("/edit") ? (
+          <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
             <Outlet />
           </div>
-        </div>
+        ) : (
+          <div className="flex-1 p-4 lg:p-8 overflow-y-auto">
+            <div className="max-w-7xl mx-auto w-full">
+              <Outlet />
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Logout Confirmation Dialog */}

@@ -209,7 +209,7 @@ export default function ExamStructureEditor({ examId }: { examId: string }) {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 max-h-[650px] overflow-y-auto pr-1.5 scrollbar-thin">
         {sections.map((section) => {
           const isExpanded = expandedSections[section.id];
           const sectionQs = questions[section.id] || [];

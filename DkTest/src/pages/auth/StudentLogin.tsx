@@ -8,7 +8,6 @@ export default function StudentLogin() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
@@ -25,7 +24,7 @@ export default function StudentLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username || (!isLogin && !displayName) || !password) {
+    if (!username || (!isLogin && !displayName)) {
       setError("Vui lòng điền đầy đủ thông tin");
       return;
     }
@@ -42,11 +41,8 @@ export default function StudentLogin() {
           throw new Error("Tài khoản không tồn tại");
         }
         const userData = userSnap.data();
-        if (userData.password !== password) {
-          throw new Error("Mật khẩu không đúng");
-        }
         
-        // Log in success
+        // Log in success - no password check
         localStorage.setItem("auth_role", "student");
         localStorage.setItem("student_info", JSON.stringify({
           username: username.toLowerCase(),
@@ -58,11 +54,10 @@ export default function StudentLogin() {
           throw new Error("Username này đã được sử dụng. Vui lòng chọn username khác.");
         }
         
-        // Register success
+        // Register success - no password field
         await setDoc(userRef, {
           username: username.toLowerCase(),
           displayName,
-          password,
           role: "student",
           createdAt: new Date().toISOString()
         });
@@ -113,15 +108,6 @@ export default function StudentLogin() {
               />
             </div>
           )}
-          <div>
-            <input 
-              type="password" 
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="Mật khẩu..."
-              className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-          </div>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <button 
             type="submit"

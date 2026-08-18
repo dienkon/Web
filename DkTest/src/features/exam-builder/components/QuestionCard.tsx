@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import QuestionEditor from "../questions/QuestionEditor";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
+import LatexPreview from "../editor/LatexPreview";
 
 export default function QuestionCard({ question }: { question: Question }) {
   const { state, actions } = useExamEditorContext();
@@ -198,12 +199,9 @@ export default function QuestionCard({ question }: { question: Question }) {
             </span>
           </div>
 
-          <div
-            className="text-xs text-slate-600 line-clamp-2 leading-relaxed"
-            dangerouslySetInnerHTML={{
-              __html: question.text || "<em class='text-slate-400'>Chưa có nội dung câu hỏi...</em>",
-            }}
-          />
+          <div className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+            <LatexPreview content={question.text || "Chưa có nội dung câu hỏi..."} />
+          </div>
         </div>
 
         {/* Quick actions on hover */}

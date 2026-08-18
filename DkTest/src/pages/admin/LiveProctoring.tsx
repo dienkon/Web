@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Users, Clock, AlertTriangle, ShieldAlert, CheckCircle2, Loader2, Sparkles, RefreshCw, Eye, Flame, BookOpen, Trash2 } from "lucide-react";
-import { collection, query, onSnapshot, orderBy, doc, deleteDoc, writeBatch } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
+import {
+  ActiveSession,
+  subscribeToActiveSessions,
+  removeRealtimeSession,
+  clearSubmittedSessions,
+} from "../../services/realtimeProctoringService";
 import { formatDate } from "../../utils/date";
-
-export interface ActiveSession {
-  sessionId: string;
-  examId: string;
-  examTitle: string;
-  studentName: string;
-  studentUsername?: string;
-  studentClass?: string;
-  timeLeft: number;
-  answeredCount: number;
-  totalQuestions: number;
-  warnings: number;
-  status: "taking" | "warning" | "submitted";
-  lastActiveAt: any;
-  submittedAt?: any;
-}
 
 export default function LiveProctoring() {
   const [sessions, setSessions] = useState<ActiveSession[]>([]);
@@ -27,59 +15,39 @@ export default function LiveProctoring() {
   const [statusTab, setStatusTab] = useState<"active" | "all">("active");
   const [isClearing, setIsClearing] = useState(false);
 
-  // Realtime listener for active examinee sessions
+  // Realtime Database listener for active examinee sessions
   useEffect(() => {
     setLoading(true);
-    const q = query(collection(db, "active_sessions"));
-
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const list: ActiveSession[] = snapshot.docs.map((d) => {
-          const data = d.data();
-          return {
-            sessionId: d.id,
-            examId: data.examId || "",
-            examTitle: data.examTitle || "Bài thi",
-            studentName: data.studentName || "Thí sinh",
-            studentUsername: data.studentUsername || "",
-            studentClass: data.studentClass || "Chưa cập nhật",
-            timeLeft: typeof data.timeLeft === "number" ? data.timeLeft : 0,
-            answeredCount: typeof data.answeredCount === "number" ? data.answeredCount : 0,
-            totalQuestions: typeof data.totalQuestions === "number" ? data.totalQuestions : 0,
-            warnings: typeof data.warnings === "number" ? data.warnings : 0,
-            status: data.status || "taking",
-            lastActiveAt: data.lastActiveAt,
-            submittedAt: data.submittedAt,
-          };
-        });
-
+    const unsubscribe = subscribeToActiveSessions(
+      (list) => {
         // Sort: active taking first, then by warnings desc, then lastActiveAt desc
-        list.sort((a, b) => {
+        const sorted = [...list].sort((a, b) => {
           if (a.status !== b.status) {
             if (a.status === "warning") return -1;
             if (b.status === "warning") return 1;
             if (a.status === "taking") return -1;
             if (b.status === "taking") return 1;
           }
-          return b.warnings - a.warnings;
+          return (b.warnings || 0) - (a.warnings || 0);
         });
 
-        setSessions(list);
+        setSessions(sorted);
         setLoading(false);
       },
       (err) => {
-        console.error("Lỗi khi tải phiên giám sát trực tuyến:", err);
+        console.error("Lỗi khi tải phiên giám sát trực tuyến từ Realtime DB:", err);
         setLoading(false);
       }
     );
 
-    return () => unsubscribe();
+    return () => {
+      if (typeof unsubscribe === "function") unsubscribe();
+    };
   }, []);
 
   const handleDeleteSession = async (sessionId: string) => {
     try {
-      await deleteDoc(doc(db, "active_sessions", sessionId));
+      await removeRealtimeSession(sessionId);
     } catch (e) {
       console.error("Lỗi khi xóa phiên:", e);
     }
@@ -88,11 +56,9 @@ export default function LiveProctoring() {
   const handleClearSubmittedSessions = async () => {
     setIsClearing(true);
     try {
-      const submitted = sessions.filter((s) => s.status === "submitted");
-      if (submitted.length === 0) return;
-      const batch = writeBatch(db);
-      submitted.forEach((s) => batch.delete(doc(db, "active_sessions", s.sessionId)));
-      await batch.commit();
+      const submittedIds = sessions.filter((s) => s.status === "submitted").map((s) => s.sessionId);
+      if (submittedIds.length === 0) return;
+      await clearSubmittedSessions(submittedIds);
     } catch (e) {
       console.error("Lỗi khi dọn dẹp:", e);
     } finally {

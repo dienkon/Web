@@ -120,12 +120,30 @@ export default function ExamList() {
             <Upload className="w-4 h-4 text-slate-500" />
             Nhập JSON
           </button>
+          <button
+            onClick={() => {
+              navigate("/admin/exams/import-prompt");
+            }}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-purple-50 border border-purple-200 text-purple-700 rounded-xl hover:bg-purple-100 transition-colors text-sm font-bold shadow-2xs"
+          >
+            <Sparkles className="w-4 h-4 text-purple-500" />
+            AI tạo đề bằng Prompt
+          </button>
+          <button
+            onClick={() => {
+              navigate("/admin/exams/import-word");
+            }}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-xl hover:bg-indigo-100 transition-colors text-sm font-bold shadow-2xs"
+          >
+            <Upload className="w-4 h-4 text-indigo-500" />
+            AI tạo đề từ Word
+          </button>
           <Link
             to="/admin/exams/new"
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-semibold shadow-xs"
           >
             <Plus className="w-4 h-4" />
-            Tạo bài thi mới
+            Tạo bài thi
           </Link>
         </div>
       </div>

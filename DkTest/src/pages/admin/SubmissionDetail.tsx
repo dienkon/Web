@@ -219,10 +219,16 @@ export default function SubmissionDetail() {
 
       {/* Question Details List */}
       {(() => {
+        let originalQuestions = questions;
+        if (submission.subExam || submission.subExamConfigSnapshot?.enabled) {
+          const snapshotIds = new Set(submission.shuffledQuestionsSnapshot?.map(q => q.id) || []);
+          originalQuestions = questions.filter(q => snapshotIds.has(q.id));
+        }
+
         const rawActiveQuestions =
           viewMode === "shuffled" && submission.shuffledQuestionsSnapshot && submission.shuffledQuestionsSnapshot.length > 0
             ? submission.shuffledQuestionsSnapshot
-            : questions;
+            : originalQuestions;
 
         const filteredQuestions = rawActiveQuestions.filter((q) => {
           const studentAns = submission.answers?.[q.id];

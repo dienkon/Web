@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import React, { useState, useRef } from "react";
 
+import SubExamSettings from "../../sub-exam/components/SubExamSettings";
+
 const generateExamCode = (title: string, suffix: string) => {
   let str = title.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   str = str.replace(/đ/g, "d").replace(/Đ/g, "D");
@@ -209,22 +211,31 @@ export default function ExamMetaEditor() {
               </span>
             </div>
           </label>
-
-          <label className="flex items-start gap-3 p-3.5 bg-slate-50 hover:bg-blue-50/50 border border-slate-200 hover:border-blue-300 rounded-xl cursor-pointer transition-colors">
-            <input
-              type="checkbox"
-              checked={state.examMeta.allowSubExam || false}
-              onChange={(e) => actions.setExamMeta({ allowSubExam: e.target.checked })}
-              className="w-4 h-4 mt-0.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
-            />
-            <div>
-              <span className="text-xs font-bold text-slate-800 block">Chia nhỏ đề con theo phần</span>
-              <span className="text-[11px] text-slate-500 mt-0.5 block">
-                Cho phép thí sinh nộp bài từng phần hoặc mở khóa từng phần theo thứ tự.
-              </span>
-            </div>
-          </label>
         </div>
+      </div>
+
+      <SubExamSettings />
+
+      {/* Anti-Cheat Feature */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+        <h3 className="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-slate-600" />
+          Chế độ giám sát (Anti-Cheat)
+        </h3>
+        <label className="flex items-start gap-3 p-3.5 bg-slate-50 hover:bg-red-50/50 border border-slate-200 hover:border-red-300 rounded-xl cursor-pointer transition-colors">
+          <input
+            type="checkbox"
+            checked={state.examMeta.antiCheatEnabled || false}
+            onChange={(e) => actions.setExamMeta({ antiCheatEnabled: e.target.checked })}
+            className="w-4 h-4 mt-0.5 text-red-600 rounded border-slate-300 focus:ring-red-500"
+          />
+          <div>
+            <span className="text-xs font-bold text-slate-800 block">Bật giám sát gian lận</span>
+            <span className="text-[11px] text-slate-500 mt-0.5 block">
+              Phát hiện khi học sinh chuyển tab, thoát toàn màn hình hoặc mở công cụ nhà phát triển. Hệ thống sẽ ghi nhận số lần cảnh báo gian lận. (Mặc định tắt).
+            </span>
+          </div>
+        </label>
       </div>
 
       {/* 3. Display & Results Rules */}

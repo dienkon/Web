@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase/firestore";
+import type { SubExamConfig } from "../features/sub-exam/types/subExam";
 
 export type ExamStatus = "draft" | "published" | "unlisted" | "archived";
 
@@ -16,10 +17,13 @@ export interface Exam {
   shuffleSections?: boolean;
   shuffleStatements?: boolean;
 
+  antiCheatEnabled?: boolean;
+
   showResults: boolean;
   showDetails: boolean;
 
   allowSubExam: boolean;
+  subExamConfig?: SubExamConfig;
 
   maxAttempts: number;
 
@@ -142,6 +146,8 @@ export interface Submission {
   submittedAt: Timestamp;
   answers: Record<string, any>; // questionId -> answer
   shuffledQuestionsSnapshot?: Question[]; // Snapshot of questions order & shuffled options during the exam session
+  subExam?: boolean;
+  subExamConfigSnapshot?: SubExamConfig;
 }
 
 export interface PaginatedResult<T> {

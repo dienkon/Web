@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ExamEditorProvider, useExamEditorContext } from "./context/ExamEditorContext";
 import { useExamAutosave } from "./hooks/useExamAutosave";
 import ExamToolbar from "./components/ExamToolbar";
@@ -19,6 +19,7 @@ type EditorTab = "questions" | "settings";
 function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
   const { examId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { state, actions } = useExamEditorContext();
   const [activeTab, setActiveTab] = useState<EditorTab>("questions");
   const [isOutlineOpen, setIsOutlineOpen] = useState(true);
@@ -29,11 +30,24 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
     if (examId) {
       actions.loadExam(examId);
     } else if (isNew) {
-      actions.initNewExam();
+      const importedData = location.state?.importedExam;
+      if (importedData) {
+        actions.initNewExam();
+        // Delay import slightly to ensure init is processed
+        setTimeout(() => {
+           actions.importExam({
+             examMeta: importedData.exam || {},
+             sections: importedData.sections || [],
+             questions: importedData.questions || []
+           });
+        }, 50);
+      } else {
+        actions.initNewExam();
+      }
     } else {
       navigate("/admin/exams");
     }
-  }, [examId, isNew]);
+  }, [examId, isNew, location.state]);
 
   if (state.isLoading) {
     return (

@@ -1,5 +1,5 @@
 import { useExamEditorContext } from "../context/ExamEditorContext";
-import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2 } from "lucide-react";
+import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { exportJson } from "../../../utils/json/exportExamJson";
 import { parseExamFile } from "../../../utils/json/importExamJson";
@@ -174,6 +174,23 @@ export default function ExamToolbar() {
             onChange={handleImport}
             className="hidden"
           />
+
+          <button
+            type="button"
+            onClick={() => navigate("/admin/exams/import-prompt")}
+            className="p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-xl transition-colors hidden sm:flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+            title="AI tạo đề từ Prompt"
+          >
+            <Sparkles className="w-4 h-4" /> Tạo từ Prompt
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/admin/exams/import-word")}
+            className="p-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors hidden sm:flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+            title="AI tạo đề từ file Word"
+          >
+            <Upload className="w-4 h-4" /> Nhập Word
+          </button>
 
           {/* Unified Preview Button */}
           <button
