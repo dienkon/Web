@@ -1,6 +1,6 @@
 import mammoth from "mammoth";
-import { getAiClient, defaultModel } from "./aiClient";
-import { aiExamImportResultSchema } from "./aiSchema";
+import { getAiClient, defaultModel } from "./aiClient.js";
+import { aiExamImportResultSchema } from "./aiSchema.js";
 import { Type } from "@google/genai";
 
 export async function parseDocxFile(buffer: Buffer): Promise<string> {

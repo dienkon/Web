@@ -1,4 +1,4 @@
-import { getAiClient, defaultModel } from "./aiClient";
+import { getAiClient, defaultModel } from "./aiClient.js";
 
 export async function askTutor(
   messages: Array<{ role: "user" | "model"; text: string }>,
