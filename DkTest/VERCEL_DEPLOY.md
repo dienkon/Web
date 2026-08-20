@@ -1,34 +1,27 @@
 # DkTEST V3 - Vercel deployment
 
-## Environment Variables
+## Environment variables
+Set these in Vercel Production (and Preview if needed):
 
-Set these in Vercel for Production (and Preview if needed):
+- `GEMINI_API_KEY` = Gemini credential accepted by the Gemini API for your Google project.
+- `GEMINI_MODEL` = `gemini-3.5-flash-lite` (or another model available to the credential/project).
 
-- `GEMINI_API_KEY` = Gemini credential của project
-- `GEMINI_MODEL` = `gemini-3.5-flash-lite`
+Do not commit `.env` or API keys to Git.
 
-Also set the existing Firebase `VITE_*` variables used by the frontend.
+## API functions
+Vercel discovers these directly under `/api`:
 
-## Deploy
-
-1. Push the entire project to GitHub.
-2. Import the repository into Vercel.
-3. Keep the project root at the folder containing `package.json` and `vercel.json`.
-4. Deploy with the default Node.js settings.
-
-`vercel.json` builds the Vite frontend into `dist` and keeps `/api/*` out of the SPA fallback.
-
-## API endpoints
-
+- `GET /api/health`
 - `POST /api/ai/tutor`
 - `POST /api/ai/analyze-exam`
+- `POST /api/ai/generate-exam`
+- `POST /api/ai/generate-exam-stream`
 - `POST /api/ai/generate-exam-prompt-stream`
-- `POST /api/ai/generate-exam-stream` (multipart field: `file`, max 10 MB)
-- `POST /api/ai/generate-exam` (multipart field: `file`, max 10 MB)
-- `GET /api/health`
 
-Word import accepts `.docx`. Mammoth is a DOCX-to-HTML converter; legacy `.doc` binaries are intentionally rejected by the UI instead of failing later in the server.
+The handlers intentionally use plain `req`/`res` and do not import `@vercel/node`.
 
-## Important
+## ESM imports
+Backend-relative imports use explicit `.js` extensions so Node ESM can resolve the compiled modules on Vercel.
 
-Never put `GEMINI_API_KEY` in frontend code or commit it to Git. The AI client reads it only from `process.env.GEMINI_API_KEY` on the server.
+## Deploy
+Push the project to the connected Git repository and redeploy the latest production commit. If environment variables were changed, create a new deployment so the function receives the new values.

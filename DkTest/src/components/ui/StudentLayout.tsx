@@ -16,6 +16,7 @@ import {
   Sparkles,
   Clock,
   Play,
+  HeartHandshake,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
@@ -31,36 +32,41 @@ export default function StudentLayout() {
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
-    if (role === "admin") {
+    const adminToken = localStorage.getItem("admin_token");
+    if (role === "admin" || adminToken) {
       setIsAdmin(true);
-    } else if (role === "student") {
-      const infoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
-      if (infoStr) {
-        try {
-          const parsed = JSON.parse(infoStr);
-          setStudentInfo(parsed);
+    } else {
+      setIsAdmin(false);
+    }
 
-          // Fetch fresh avatar and profile from Firestore to ensure permanent sync
-          const username = parsed.username || parsed.name || parsed.displayName;
-          if (username) {
-            import("../../services/studentService").then(({ getStudent }) => {
-              getStudent(username).then((studentDoc) => {
-                if (studentDoc && studentDoc.avatarUrl) {
-                  const updated = {
-                    ...parsed,
-                    avatarUrl: studentDoc.avatarUrl,
-                    displayName: studentDoc.name || parsed.displayName || parsed.name,
-                  };
-                  setStudentInfo(updated);
-                  localStorage.setItem("student_info", JSON.stringify(updated));
-                }
-              });
+    const infoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+    if (infoStr) {
+      try {
+        const parsed = JSON.parse(infoStr);
+        setStudentInfo(parsed);
+
+        // Fetch fresh avatar and profile from Firestore to ensure permanent sync
+        const username = parsed.username || parsed.name || parsed.displayName;
+        if (username) {
+          import("../../services/studentService").then(({ getStudent }) => {
+            getStudent(username).then((studentDoc) => {
+              if (studentDoc && studentDoc.avatarUrl) {
+                const updated = {
+                  ...parsed,
+                  avatarUrl: studentDoc.avatarUrl,
+                  displayName: studentDoc.name || parsed.displayName || parsed.name,
+                };
+                setStudentInfo(updated);
+                localStorage.setItem("student_info", JSON.stringify(updated));
+              }
             });
-          }
-        } catch (e) {
-          // ignore
+          });
         }
+      } catch (e) {
+        // ignore
       }
+    } else {
+      setStudentInfo(null);
     }
   }, [location.pathname]);
 
@@ -93,6 +99,9 @@ export default function StudentLayout() {
   };
 
   const isTakingExam = location.pathname.includes("/take");
+  const isExamResult = location.pathname.includes("/result/");
+  const isParentViewing = isExamResult && localStorage.getItem("auth_role") === "parent";
+  const hideStudentNav = isTakingExam || isExamResult;
 
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen },
@@ -104,7 +113,7 @@ export default function StudentLayout() {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
-      {!isTakingExam && (
+      {!hideStudentNav && (
         <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30">
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile Hamburger Drawer Button */}
@@ -134,13 +143,33 @@ export default function StudentLayout() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Quick Portal Switcher */}
+            <div className="hidden sm:flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
+              <Link
+                to="/parent/dashboard"
+                className="px-2.5 py-1 text-slate-600 hover:text-indigo-700 hover:bg-white/60 rounded-lg transition-all flex items-center gap-1.5"
+                title="Cổng Phụ huynh & Soạn đề ChatGPT"
+              >
+                <HeartHandshake className="w-3.5 h-3.5 text-indigo-600" />
+                <span className="hidden md:inline">Phụ huynh</span>
+              </Link>
+              <Link
+                to="/admin/exams"
+                className="px-2.5 py-1 text-slate-600 hover:text-blue-700 hover:bg-white/60 rounded-lg transition-all flex items-center gap-1.5"
+                title="Cổng Quản trị Viên"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                <span className="hidden md:inline">Quản trị</span>
+              </Link>
+            </div>
+
             {isAdmin && (
               <Link
                 to="/admin/exams"
-                className="text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 px-2.5 py-1.5 rounded-xl transition-colors border border-blue-200 flex items-center gap-1"
+                className="sm:hidden text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 p-2 rounded-xl transition-colors border border-blue-200 flex items-center justify-center"
+                title="Trang quản trị"
               >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Quản trị</span>
+                <ShieldCheck className="w-4 h-4" />
               </Link>
             )}
 
@@ -191,7 +220,7 @@ export default function StudentLayout() {
 
       {/* Main Container with Isolated Layer Collapsible Sidebar on Desktop */}
       <div className="flex-1 flex overflow-hidden relative">
-        {!isTakingExam && (
+        {!hideStudentNav && (
           <aside
             className={`bg-white border-r border-slate-200 hidden md:flex flex-col shrink-0 transition-all duration-200 ease-in-out z-20 shadow-xs select-none ${
               isSidebarCollapsed ? "w-18 p-3" : "w-60 p-4"
@@ -265,7 +294,7 @@ export default function StudentLayout() {
         )}
 
         {/* Mobile Slide-Over Drawer */}
-        {!isTakingExam && isMobileDrawerOpen && (
+        {!hideStudentNav && isMobileDrawerOpen && (
           <div className="fixed inset-0 z-50 md:hidden animate-in fade-in duration-200">
             {/* Backdrop */}
             <div
@@ -377,7 +406,7 @@ export default function StudentLayout() {
       </div>
 
       {/* Modern Mobile Bottom Navigation Bar */}
-      {!isTakingExam && (
+      {!hideStudentNav && (
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2 flex items-center justify-around shadow-lg z-30">
           {navItems.map((item) => {
             const Icon = item.icon;

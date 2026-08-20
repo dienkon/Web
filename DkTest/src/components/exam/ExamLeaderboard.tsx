@@ -10,10 +10,12 @@ import {
   Users,
   Award,
 } from "lucide-react";
-import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
-import type { Submission } from "../../types";
-import { getTimestampMillis } from "../../utils/date";
+
+// We'll map the leaderboard entry to a partial Submission-like structure 
+// so we don't have to rewrite the entire UI.
+import type { Submission } from "../../types"; 
 import PublicStudentProfileModal, { StudentPublicData } from "../student/PublicStudentProfileModal";
 
 interface ExamLeaderboardProps {
@@ -29,7 +31,7 @@ export default function ExamLeaderboard({
   className = "",
   maxItems = 10,
 }: ExamLeaderboardProps) {
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [submissions, setSubmissions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStudent, setSelectedStudent] = useState<StudentPublicData | null>(null);
   const [displayLimit, setDisplayLimit] = useState(maxItems);
@@ -39,62 +41,27 @@ export default function ExamLeaderboard({
       if (!examId) return;
       setLoading(true);
       try {
-        // Query submissions for this exam
-        const q = query(
-          collection(db, "submissions"),
-          where("examId", "==", examId)
-        );
-        const snap = await getDocs(q);
-        const all = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-
-        // Deduplicate: keep only the best submission per student
-        const bestSubmissionsMap = new Map<string, Submission>();
-        
-        all.forEach((sub) => {
-          const studentId = sub.studentUsername || sub.studentId || sub.studentNameSnapshot || sub.id;
-          if (!bestSubmissionsMap.has(studentId)) {
-            bestSubmissionsMap.set(studentId, sub);
-          } else {
-            const existing = bestSubmissionsMap.get(studentId)!;
-            // Compare and keep the better one
-            if (sub.score > existing.score) {
-              bestSubmissionsMap.set(studentId, sub);
-            } else if (sub.score === existing.score) {
-              const timeSub = sub.timeSpent || 999999;
-              const timeExisting = existing.timeSpent || 999999;
-              if (timeSub < timeExisting) {
-                bestSubmissionsMap.set(studentId, sub);
-              } else if (timeSub === timeExisting) {
-                const dateSub = getTimestampMillis(sub.submittedAt);
-                const dateExisting = getTimestampMillis(existing.submittedAt);
-                if (dateSub < dateExisting) {
-                  bestSubmissionsMap.set(studentId, sub);
-                }
-              }
-            }
-          }
-        });
-        
-        const deduplicated = Array.from(bestSubmissionsMap.values());
-
-        // Sort by Score (descending) -> Time Spent (ascending / faster is better) -> SubmittedAt (earlier is better)
-        deduplicated.sort((a, b) => {
-          if (b.score !== a.score) {
-            return b.score - a.score;
-          }
-          // Same score: compare timeSpent (less time = higher rank)
-          const timeA = a.timeSpent || 999999;
-          const timeB = b.timeSpent || 999999;
-          if (timeA !== timeB) {
-            return timeA - timeB;
-          }
-          // If still same, compare submission timestamp
-          const dateA = getTimestampMillis(a.submittedAt);
-          const dateB = getTimestampMillis(b.submittedAt);
-          return dateA - dateB;
-        });
-
-        setSubmissions(deduplicated);
+        const lbDoc = await getDoc(doc(db, "leaderboards", examId));
+        if (lbDoc.exists()) {
+          const data = lbDoc.data();
+          const top = data.top || [];
+          
+          // Map to match the previous Submission structure for the UI
+          const mappedSubmissions = top.map((entry: any) => ({
+            id: entry.submissionId || entry.userId, // use submissionId to match currentSubmissionId highlight
+            studentUsername: entry.userId,
+            studentNameSnapshot: entry.name,
+            score: entry.score,
+            timeSpent: entry.time,
+            submittedAt: entry.submittedAt, // can be passed through if available
+            maxScore: entry.maxScore || 10,
+            studentClassSnapshot: entry.className,
+          }));
+          
+          setSubmissions(mappedSubmissions);
+        } else {
+          setSubmissions([]);
+        }
       } catch (err) {
         console.error("Lỗi khi tải bảng xếp hạng:", err);
       } finally {

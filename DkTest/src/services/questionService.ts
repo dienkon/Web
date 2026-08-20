@@ -22,6 +22,7 @@ export const getQuestionsBySection = async (examId: string, sectionId: string): 
     where("sectionId", "==", sectionId),
     orderBy("order", "asc")
   );
+  console.log(`[Firestore] READ_MANY: exams/${examId}/questions (sectionId: ${sectionId})`);
   const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Question));
 };
@@ -45,6 +46,7 @@ export const getQuestionsByExam = async ({
     q = query(q, startAfter(cursor));
   }
 
+  console.log(`[Firestore] READ_MANY: exams/${examId}/questions (paginated)`);
   const snapshot = await getDocs(q);
   const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Question));
   const nextCursor = snapshot.docs[snapshot.docs.length - 1] || null;
@@ -58,21 +60,25 @@ export const getQuestionsByExam = async ({
 
 export const createQuestion = async (examId: string, questionData: Omit<Question, "id">): Promise<Question> => {
   const docRef = doc(collection(db, `exams/${examId}/questions`));
+  console.log(`[Firestore] WRITE: exams/${examId}/questions/${docRef.id}`);
   await setDoc(docRef, questionData);
   return { id: docRef.id, ...questionData } as Question;
 };
 
 export const updateQuestion = async (examId: string, questionId: string, updates: Partial<Question>): Promise<void> => {
   const docRef = doc(db, `exams/${examId}/questions`, questionId);
+  console.log(`[Firestore] UPDATE: exams/${examId}/questions/${questionId}`);
   await updateDoc(docRef, updates);
 };
 
 export const deleteQuestion = async (examId: string, questionId: string): Promise<void> => {
   const docRef = doc(db, `exams/${examId}/questions`, questionId);
+  console.log(`[Firestore] DELETE: exams/${examId}/questions/${questionId}`);
   await deleteDoc(docRef);
 };
 
 export const updateQuestionOrders = async (examId: string, questions: { id: string; order: number; sectionId?: string }[]): Promise<void> => {
+  console.log(`[Firestore] UPDATE_BATCH: exams/${examId}/questions (${questions.length} docs)`);
   const batch = writeBatch(db);
   questions.forEach((q) => {
     const docRef = doc(db, `exams/${examId}/questions`, q.id);

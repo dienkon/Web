@@ -7,10 +7,12 @@ import {
   clearSubmittedSessions,
 } from "../../services/realtimeProctoringService";
 import { formatDate } from "../../utils/date";
+import LiveSessionDetailModal from "../../components/admin/LiveSessionDetailModal";
 
 export default function LiveProctoring() {
   const [sessions, setSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(true);
+  const [viewSession, setViewSession] = useState<ActiveSession | null>(null);
   const [filterExam, setFilterExam] = useState<string>("all");
   const [statusTab, setStatusTab] = useState<"active" | "all">("active");
   const [isClearing, setIsClearing] = useState(false);
@@ -199,7 +201,8 @@ export default function LiveProctoring() {
             return (
               <div
                 key={session.sessionId}
-                className={`bg-white rounded-3xl p-5 border transition-all space-y-4 shadow-xs relative overflow-hidden ${
+                onClick={() => setViewSession(session)}
+                className={`bg-white rounded-3xl p-5 border transition-all space-y-4 shadow-xs relative overflow-hidden cursor-pointer ${
                   isWarning
                     ? "border-amber-300 ring-2 ring-amber-400/20 bg-amber-50/20"
                     : session.status === "submitted"
@@ -235,7 +238,7 @@ export default function LiveProctoring() {
                     )}
 
                     <button
-                      onClick={() => handleDeleteSession(session.sessionId)}
+                      onClick={(e) => { e.stopPropagation(); handleDeleteSession(session.sessionId); }}
                       className="p-1 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                       title="Xóa phiên này"
                     >

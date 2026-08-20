@@ -23,6 +23,7 @@ import {
   Pencil,
 } from "lucide-react";
 import ScratchpadModal from "../../features/student-exam/components/ScratchpadModal";
+import CasioCalculator from "../../components/exam/CasioCalculator";
 import { getExam } from "../../services/examService";
 import { createSubmission } from "../../services/submissionService";
 import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExamAttempt";
@@ -33,7 +34,7 @@ import {
   updateRealtimeSessionMetrics,
   removeRealtimeSession,
 } from "../../services/realtimeProctoringService";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, getDoc, doc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import {
   saveActiveExamSession,
@@ -81,6 +82,7 @@ export default function TakingExam() {
     window.innerWidth < 1024 ? "scroll" : "paging"
   );
   const [showScratchpad, setShowScratchpad] = useState(false);
+  const [showCasio, setShowCasio] = useState(false);
   
   // Force scroll mode on resize if mobile
   useEffect(() => {
@@ -97,6 +99,7 @@ export default function TakingExam() {
   const sessionIdRef = useRef<string>("sess_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7));
   const isSessionActiveRef = useRef<boolean>(true);
   const isSubmittingRef = useRef<boolean>(false);
+  const isManualScrollingRef = useRef<boolean>(false);
   const hasAutoSubmittedRef = useRef<boolean>(false);
   const subExamConfigUsedRef = useRef<any>(null);
   const isSubExamUsedRef = useRef<boolean>(false);
@@ -142,6 +145,8 @@ export default function TakingExam() {
           warnings,
           status: warnings > 0 ? "warning" : "taking",
           lastActiveAt: Date.now(),
+          answers: answers,
+          activeQuestionIdx: activeQuestionIdx,
         });
       } catch (e) {
         console.warn("Realtime session sync error:", e);
@@ -149,7 +154,7 @@ export default function TakingExam() {
     };
 
     updateSession();
-  }, [timeLeft, answers, warnings, loading, exam, examId, studentName, questions.length]);
+  }, [timeLeft, answers, warnings, activeQuestionIdx, loading, exam, examId, studentName, questions.length]);
 
   useEffect(() => {
     const loadExamAndPrepare = async () => {
@@ -166,12 +171,19 @@ export default function TakingExam() {
 
       setLoading(true);
       try {
-        const examData = await getExam(examId);
-        if (!examData) {
+        console.log(`[Firestore] Loading exam for taking: ${examId}`);
+        console.log("[Firestore] READ: exams/" + examId); const examDoc = await getDoc(doc(db, "exams", examId));
+        if (!examDoc.exists()) {
           showErrorToast("Không tìm thấy bài thi!");
           navigate("/", { replace: true });
           return;
         }
+        
+        console.log(`[Firestore] Exam loaded with 1 document read: ${examId}`);
+        const data = examDoc.data();
+        const { sections: docSections, questions: docQuestions, ...meta } = data;
+        const examData = meta as Exam;
+        
         setExam(examData);
 
         // Retrieve student session name or profile
@@ -190,17 +202,21 @@ export default function TakingExam() {
           } catch (e) {}
         }
 
-        // Fetch questions from subcollection
-        const qSnap = await getDocs(
-          query(collection(db, `exams/${examId}/questions`), orderBy("order", "asc"))
-        );
-        const rawQuestions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+        // Fetch questions from document or fallback to subcollection if missing (legacy)
+        let rawQuestions: Question[] = Array.isArray(docQuestions) ? docQuestions : [];
+        if (!Array.isArray(docQuestions)) {
+          console.log("[Firestore] READ_MANY: exams/" + examId + "/questions (fallback)"); const qSnap = await getDocs(query(collection(db, `exams/${examId}/questions`)));
+          rawQuestions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+        }
+        rawQuestions.sort((a,b) => (a.order || 0) - (b.order || 0));
 
-        // Fetch sections
-        const secSnap = await getDocs(
-          query(collection(db, `exams/${examId}/sections`), orderBy("order", "asc"))
-        );
-        let rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+        // Fetch sections from document or fallback to subcollection if missing (legacy)
+        let rawSections: Section[] = Array.isArray(docSections) ? docSections : [];
+        if (!Array.isArray(docSections)) {
+          console.log("[Firestore] READ_MANY: exams/" + examId + "/sections (fallback)"); const secSnap = await getDocs(query(collection(db, `exams/${examId}/sections`)));
+          rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+        }
+        rawSections.sort((a,b) => (a.order || 0) - (b.order || 0));
 
         if (examData.shuffleSections && rawSections.length > 0) {
           const unpinned = shuffleArray(rawSections.filter((s) => !s.pinOrder));
@@ -492,6 +508,48 @@ export default function TakingExam() {
     };
   }, [exam]);
 
+  // ScrollSpy for Active Question Tracking in Scroll Mode
+  useEffect(() => {
+    if (displayMode === "paging" || questions.length === 0 || loading || submitting) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isManualScrollingRef.current) return; // Prevent overwriting active index during click-scroll
+
+        // Find the most visible question card
+        let maxRatio = 0;
+        let mostVisibleIdx = -1;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            const idParts = entry.target.id.split("-");
+            const idx = parseInt(idParts[idParts.length - 1], 10);
+            if (!isNaN(idx)) {
+              mostVisibleIdx = idx;
+            }
+          }
+        });
+
+        if (mostVisibleIdx !== -1) {
+          setActiveQuestionIdx(mostVisibleIdx);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-20% 0px -40% 0px", // Trigger active when it passes the top 20%
+        threshold: [0.1, 0.5, 0.9],
+      }
+    );
+
+    questions.forEach((_, idx) => {
+      const el = document.getElementById(`q-card-${idx}`);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [displayMode === "paging", questions.length, loading, submitting]);
+
   // System Point Calculation: Total max score is 10.0 points.
   // Each question counts as (10 / totalQuestions) points.
   // For true/false, each statement counts as (pointPerQuestion / statements.length).
@@ -610,7 +668,7 @@ export default function TakingExam() {
 
       // Save or update student profile in Firestore
       try {
-        await saveStudentProfile({ name: studentName });
+        await saveStudentProfile({ name: studentName, username: studentUsername, studentClass: studentClassSnapshot });
       } catch (profileErr) {
         console.warn("Could not save student profile:", profileErr);
       }
@@ -665,6 +723,7 @@ export default function TakingExam() {
   const handleQuestionSelectInMap = (index: number) => {
     setActiveQuestionIdx(index);
     if (displayMode === "scroll") {
+      isManualScrollingRef.current = true;
       const el = document.getElementById(`q-card-${index}`);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -672,6 +731,11 @@ export default function TakingExam() {
         setTimeout(() => {
           el.classList.remove("ring-4", "ring-blue-400", "ring-offset-2");
         }, 1800);
+        setTimeout(() => {
+          isManualScrollingRef.current = false;
+        }, 1000); // Re-enable observer after smooth scroll finishes
+      } else {
+        isManualScrollingRef.current = false;
       }
     }
   };
@@ -981,11 +1045,25 @@ export default function TakingExam() {
           <button
             type="button"
             onClick={() => setShowScratchpad(true)}
-            className="px-3 py-2 text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            className="px-3 py-2 text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs animate-pulse hover:animate-none"
             title="Mở bảng vẽ nháp cho câu hỏi đang chọn"
           >
             <Pencil className="w-4 h-4 text-blue-600" />
             <span className="hidden sm:inline">Bảng nháp</span>
+          </button>
+
+          {/* Casio fx-580 VN X Toggle Button */}
+          <button
+            type="button"
+            onClick={() => setShowCasio(!showCasio)}
+            className={`px-3 py-2 border rounded-xl transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs ${
+              showCasio
+                ? "bg-amber-100 border-amber-300 text-amber-900 ring-2 ring-amber-500/20"
+                : "bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800"
+            }`}
+            title="Mở giả lập máy tính CASIO fx-580 VN X"
+          >
+            <span className="font-extrabold text-[10px] tracking-tighter px-1 py-0.5 bg-amber-800 text-white rounded">casio</span>
           </button>
 
           {/* Toggle Map Sidebar */}
@@ -1024,7 +1102,6 @@ export default function TakingExam() {
             className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             {submitting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-            <span>Nộp bài</span>
           </button>
         </div>
       </header>
@@ -1049,9 +1126,6 @@ export default function TakingExam() {
                       <div className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5">
                         <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
                           <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
-                            <span className="px-3 py-1 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider">
-                              Phần {secIndex >= 0 ? secIndex + 1 : ""}
-                            </span>
                             <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
                               {currentSection.title}
                             </h3>
@@ -1138,9 +1212,6 @@ export default function TakingExam() {
                         {/* Section Header */}
                         <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
                           <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
-                            <span className="px-3 py-1 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider">
-                              Phần {secIndex >= 0 ? secIndex + 1 : ""}
-                            </span>
                             <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
                               {group.section.title}
                             </h3>
@@ -1209,173 +1280,86 @@ export default function TakingExam() {
               </div>
 
               <div className="flex-1 overflow-y-auto pr-1 space-y-4">
-                {sections.length > 0 ? (
-                  <>
-                    {sections.map((sec) => {
-                      const secQuestions = questions
-                        .map((q, i) => ({ q, originalIndex: i }))
-                        .filter((item) => item.q.sectionId === sec.id);
+                {(() => {
+                  const orderedGroups: {
+                    section: Section | null;
+                    items: { q: Question; originalIndex: number }[];
+                  }[] = [];
 
-                      if (secQuestions.length === 0) return null;
+                  questions.forEach((q, idx) => {
+                    const secId = q.sectionId;
+                    const sec = secId ? sections.find((s) => s.id === secId) || null : null;
+                    const lastGroup = orderedGroups[orderedGroups.length - 1];
+                    if (lastGroup && lastGroup.section?.id === (sec?.id || null)) {
+                      lastGroup.items.push({ q, originalIndex: idx });
+                    } else {
+                      orderedGroups.push({
+                        section: sec,
+                        items: [{ q, originalIndex: idx }]
+                      });
+                    }
+                  });
 
-                      const secAnswered = secQuestions.filter((item) => {
-                        const v = answers[item.q.id];
-                        if (v === undefined || v === null || v === "") return false;
-                        if (Array.isArray(v) && v.length === 0) return false;
-                        if (typeof v === "object" && Object.keys(v).length === 0) return false;
-                        return true;
-                      }).length;
+                  return orderedGroups.map((group, groupIdx) => {
+                    const secQuestions = group.items;
+                    const sec = group.section;
 
-                      return (
-                        <div key={sec.id} className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
-                          <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                            <span className="truncate pr-2">{sec.title}</span>
-                            <span className="text-[11px] font-semibold text-slate-400 shrink-0">
-                              {secAnswered}/{secQuestions.length}
-                            </span>
-                          </div>
-                          <div className="grid grid-cols-5 gap-2">
-                            {secQuestions.map(({ q, originalIndex: i }) => {
-                              const ans = answers[q.id];
-                              const isAnswered =
-                                ans !== undefined &&
-                                ans !== null &&
-                                ans !== "" &&
-                                (!Array.isArray(ans) || ans.length > 0) &&
-                                (typeof ans !== "object" || Object.keys(ans).length > 0);
-                              const isFlag = flagged[q.id];
-                              const isActive = i === activeQuestionIdx;
+                    const secAnswered = secQuestions.filter((item) => {
+                      const v = answers[item.q.id];
+                      if (v === undefined || v === null || v === "") return false;
+                      if (Array.isArray(v) && v.length === 0) return false;
+                      if (typeof v === "object" && Object.keys(v).length === 0) return false;
+                      return true;
+                    }).length;
 
-                              let btnStyle = "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
-                              if (isActive) {
-                                btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
-                              } else if (isFlag) {
-                                btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
-                              } else if (isAnswered) {
-                                btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
-                              }
-
-                              return (
-                                <button
-                                  key={q.id}
-                                  type="button"
-                                  onClick={() => {
-                                    handleQuestionSelectInMap(i);
-                                    if (window.innerWidth < 1024) setShowMap(false);
-                                  }}
-                                  className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
-                                >
-                                  {i + 1}
-                                </button>
-                              );
-                            })}
-                          </div>
+                    return (
+                      <div key={sec ? sec.id : `no-sec-map-${groupIdx}`} className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
+                        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                          <span className="truncate pr-2">{sec ? sec.title : "Câu hỏi khác"}</span>
+                          <span className="text-[11px] font-semibold text-slate-400 shrink-0">
+                            {secAnswered}/{secQuestions.length}
+                          </span>
                         </div>
-                      );
-                    })}
+                        <div className="grid grid-cols-5 gap-2">
+                          {secQuestions.map(({ q, originalIndex: i }) => {
+                            const ans = answers[q.id];
+                            const isAnswered =
+                              ans !== undefined &&
+                              ans !== null &&
+                              ans !== "" &&
+                              (!Array.isArray(ans) || ans.length > 0) &&
+                              (typeof ans !== "object" || Object.keys(ans).length > 0);
+                            const isFlag = flagged[q.id];
+                            const isActive = i === activeQuestionIdx;
 
-                    {/* Unsectioned / General Questions */}
-                    {(() => {
-                      const orphanQuestions = questions
-                        .map((q, i) => ({ q, originalIndex: i }))
-                        .filter((item) => !item.q.sectionId || !sections.some((s) => s.id === item.q.sectionId));
+                            let btnStyle = "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
+                            if (isActive) {
+                              btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
+                            } else if (isFlag) {
+                              btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
+                            } else if (isAnswered) {
+                              btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
+                            }
 
-                      if (orphanQuestions.length === 0) return null;
-
-                      const orphanAnswered = orphanQuestions.filter((item) => {
-                        const v = answers[item.q.id];
-                        if (v === undefined || v === null || v === "") return false;
-                        if (Array.isArray(v) && v.length === 0) return false;
-                        if (typeof v === "object" && Object.keys(v).length === 0) return false;
-                        return true;
-                      }).length;
-
-                      return (
-                        <div className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
-                          <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                            <span>Câu hỏi chung</span>
-                            <span className="text-[11px] font-semibold text-slate-400">
-                              {orphanAnswered}/{orphanQuestions.length}
-                            </span>
-                          </div>
-                          <div className="grid grid-cols-5 gap-2">
-                            {orphanQuestions.map(({ q, originalIndex: i }) => {
-                              const ans = answers[q.id];
-                              const isAnswered =
-                                ans !== undefined &&
-                                ans !== null &&
-                                ans !== "" &&
-                                (!Array.isArray(ans) || ans.length > 0) &&
-                                (typeof ans !== "object" || Object.keys(ans).length > 0);
-                              const isFlag = flagged[q.id];
-                              const isActive = i === activeQuestionIdx;
-
-                              let btnStyle = "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
-                              if (isActive) {
-                                btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
-                              } else if (isFlag) {
-                                btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
-                              } else if (isAnswered) {
-                                btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
-                              }
-
-                              return (
-                                <button
-                                  key={q.id}
-                                  type="button"
-                                  onClick={() => {
-                                    handleQuestionSelectInMap(i);
-                                    if (window.innerWidth < 1024) setShowMap(false);
-                                  }}
-                                  className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
-                                >
-                                  {i + 1}
-                                </button>
-                              );
-                            })}
-                          </div>
+                            return (
+                              <button
+                                key={q.id}
+                                type="button"
+                                onClick={() => {
+                                  handleQuestionSelectInMap(i);
+                                  if (window.innerWidth < 1024) setShowMap(false);
+                                }}
+                                className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
+                              >
+                                {i + 1}
+                              </button>
+                            );
+                          })}
                         </div>
-                      );
-                    })()}
-                  </>
-                ) : (
-                  <div className="grid grid-cols-5 gap-2">
-                    {questions.map((q, i) => {
-                      const ans = answers[q.id];
-                      const isAnswered =
-                        ans !== undefined &&
-                        ans !== null &&
-                        ans !== "" &&
-                        (!Array.isArray(ans) || ans.length > 0) &&
-                        (typeof ans !== "object" || Object.keys(ans).length > 0);
-                      const isFlag = flagged[q.id];
-                      const isActive = i === activeQuestionIdx;
-
-                      let btnStyle = "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100";
-                      if (isActive) {
-                        btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
-                      } else if (isFlag) {
-                        btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
-                      } else if (isAnswered) {
-                        btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
-                      }
-
-                      return (
-                        <button
-                          key={q.id}
-                          type="button"
-                          onClick={() => {
-                            handleQuestionSelectInMap(i);
-                            if (window.innerWidth < 1024) setShowMap(false);
-                          }}
-                          className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
-                        >
-                          {i + 1}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
+                      </div>
+                    );
+                  });
+                })()}
               </div>
 
               {/* Legend */}
@@ -1466,6 +1450,23 @@ export default function TakingExam() {
         onSelectQuestion={(idx) => setActiveQuestionIdx(idx)}
         answers={answers}
         onAnswerChange={(qId, val) => setAnswers((prev) => ({ ...prev, [qId]: val }))}
+        timeLeft={timeLeft}
+        onSubmitExam={() => setShowSubmitConfirm(true)}
+        onScratchpadUpdate={(dataUrl) => {
+          if (isSessionActiveRef.current && sessionIdRef.current) {
+            updateRealtimeSessionMetrics(sessionIdRef.current, { scratchpadImage: dataUrl });
+          }
+        }}
+      />
+
+      {/* Floating Draggable Casio fx-580 Calculator */}
+      <CasioCalculator
+        isOpen={showCasio}
+        onClose={() => setShowCasio(false)}
+        onSendToScratchpad={(val) => {
+          navigator.clipboard.writeText(val);
+          showInfoToast(`Đã sao chép kết quả ${val} vào bộ nhớ để nháp!`);
+        }}
       />
     </div>
   );

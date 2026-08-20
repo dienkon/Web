@@ -5,17 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "preview": "vite preview",
-    "start": "tsx server.ts",
+    "start": "node dist/server.cjs",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@cortex-js/compute-engine": "^0.116.1",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@google/genai": "^2.15.0",
+    "@google/genai": "^2.18.0",
     "@tailwindcss/vite": "^4.1.14",
     "@types/canvas-confetti": "^1.9.0",
     "@types/file-saver": "^2.0.7",
@@ -30,21 +31,26 @@
     "html2pdf.js": "^0.14.0",
     "katex": "^0.18.4",
     "lucide-react": "^1.31.0",
+    "mammoth": "^1.12.1",
+    "mathjs": "^15.2.0",
     "mathlive": "^0.110.0",
     "motion": "^12.23.24",
+    "multer": "^2.2.0",
+    "nerdamer": "^1.1.13",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "react-katex": "^3.1.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.2",
+    "recharts": "^3.10.1",
     "tailwind-merge": "^3.6.0",
     "uuid": "^14.0.1",
     "vite": "^6.2.3",
-    "zod": "^4.4.3",
-    "mammoth": "^1.12.0",
-    "multer": "^2.0.2"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/multer": "^2.2.0",
     "@types/node": "^22.14.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
@@ -53,8 +59,6 @@
     "esbuild": "^0.25.0",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.3",
-    "@vercel/node": "^5.9.5"
+    "typescript": "~5.8.2"
   }
 }

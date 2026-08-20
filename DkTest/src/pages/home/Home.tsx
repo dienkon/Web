@@ -17,6 +17,10 @@ import {
   X,
   Flame,
   Zap,
+  HeartHandshake,
+  Copy,
+  Check,
+  Code,
 } from "lucide-react";
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
@@ -28,6 +32,7 @@ export default function Home() {
   const [studentInfo, setStudentInfo] = useState<{ username: string; displayName: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [copiedHomePrompt, setCopiedHomePrompt] = useState(false);
 
   const [publicExams, setPublicExams] = useState<Exam[]>([]);
   const [loadingExams, setLoadingExams] = useState(true);
@@ -36,6 +41,29 @@ export default function Home() {
   // Auth required modal
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [targetExamId, setTargetExamId] = useState<string | null>(null);
+
+  const HOME_MASTER_PROMPT = `Bạn là trợ lý soạn đề thi trắc nghiệm. Hãy tạo đề thi theo cấu trúc JSON sau và trả về DUY NHẤT một khối mã JSON hợp lệ:
+{
+  "title": "Tên đề thi",
+  "timeLimit": 45,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single_choice",
+      "text": "Nội dung câu hỏi (hỗ trợ công thức $...$)",
+      "points": 1,
+      "options": [
+        { "id": "opt_a", "text": "Phương án A" },
+        { "id": "opt_b", "text": "Phương án B" },
+        { "id": "opt_c", "text": "Phương án C" },
+        { "id": "opt_d", "text": "Phương án D" }
+      ],
+      "correctOptionIds": ["opt_a"],
+      "explanation": "Lời giải chi tiết..."
+    }
+  ]
+}
+Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`;
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
@@ -277,6 +305,47 @@ export default function Home() {
         )}
       </div>
 
+      {/* Dành cho Phụ huynh & Giáo viên: Tạo đề ChatGPT Section */}
+      <div className="bg-linear-to-r from-indigo-900 via-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-6 border border-indigo-500/30 relative overflow-hidden">
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] font-bold border border-indigo-500/30">
+              <HeartHandshake className="w-3.5 h-3.5" />
+              <span>Dành cho Phụ huynh & Thầy cô</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight">
+              Tạo đề thi tự luyện siêu tốc với ChatGPT & Nạp JSON
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              Copy prompt mẫu, gửi cho ChatGPT kèm nội dung/ảnh bài tập, sau đó dán kết quả JSON vào Cổng Phụ huynh để chỉnh sửa dạng Azota và xuất đề luyện tập cho con.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(HOME_MASTER_PROMPT);
+                setCopiedHomePrompt(true);
+                setTimeout(() => setCopiedHomePrompt(false), 2000);
+              }}
+              className="w-full sm:w-auto px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            >
+              {copiedHomePrompt ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              <span>{copiedHomePrompt ? "Đã copy Prompt!" : "Copy Prompt ChatGPT"}</span>
+            </button>
+
+            <Link
+              to="/parent/dashboard"
+              className="w-full sm:w-auto px-4 py-2.5 bg-white text-indigo-900 hover:bg-slate-100 rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <HeartHandshake className="w-4 h-4 text-indigo-600" />
+              <span>Vào Cổng Phụ Huynh</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Auth Required Modal */}
       {showAuthModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
@@ -299,7 +368,7 @@ export default function Home() {
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              Hệ thống DkTEST yêu cầu thí sinh hoặc giáo viên đăng nhập tài khoản để lưu trữ kết quả và ghi danh lên Bảng xếp hạng.
+              Hệ thống DkTEST yêu cầu thí sinh hoặc phụ huynh đăng nhập tài khoản để lưu trữ kết quả và giám sát bài thi.
             </p>
 
             <div className="space-y-2 pt-2">
@@ -309,6 +378,14 @@ export default function Home() {
               >
                 <LogIn className="w-4 h-4" />
                 <span>Đăng nhập Tài khoản Thí sinh</span>
+              </Link>
+
+              <Link
+                to="/parent/login"
+                className="w-full py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 border border-indigo-200 cursor-pointer"
+              >
+                <HeartHandshake className="w-4 h-4" />
+                <span>Đăng nhập Cổng Phụ Huynh</span>
               </Link>
 
               <Link

@@ -1,8 +1,18 @@
-
 import { askTutor } from "../../src/services/ai/aiTutor.js";
-import { initSse, sendSse, sendSseError, sendSseRaw } from "../../src/server/sse.js";
 
 export const maxDuration = 300;
+
+function initSse(res: any) {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("X-Accel-Buffering", "no");
+}
+
+function sendSse(res: any, payload: unknown) {
+  res.write(`data: ${JSON.stringify(payload)}\n\n`);
+}
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -12,8 +22,7 @@ export default async function handler(req: any, res: any) {
 
   try {
     const body = req.body ?? {};
-    const messages = body.messages;
-    const context = body.context;
+    const { messages, context } = body;
 
     if (!Array.isArray(messages)) {
       return res.status(400).json({ error: "Messages array is required" });
@@ -27,7 +36,7 @@ export default async function handler(req: any, res: any) {
       if (text) sendSse(res, { text });
     }
 
-    sendSseRaw(res, "[DONE]");
+    res.write("data: [DONE]\n\n");
     return res.end();
   } catch (error) {
     console.error("[AI Tutor]", error);
@@ -36,6 +45,7 @@ export default async function handler(req: any, res: any) {
         error: error instanceof Error ? error.message : "Failed to respond",
       });
     }
-    sendSseError(res, error);
+    res.write(`data: ${JSON.stringify({ type: "error", message: error instanceof Error ? error.message : "Failed to respond" })}\n\n`);
+    return res.end();
   }
 }

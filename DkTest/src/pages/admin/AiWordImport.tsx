@@ -20,8 +20,8 @@ export default function AiWordImport() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
-      if (!selectedFile.name.toLowerCase().endsWith(".docx")) {
-        showErrorToast("Chỉ hỗ trợ file Word .docx");
+      if (!selectedFile.name.endsWith(".docx") && !selectedFile.name.endsWith(".doc")) {
+        showErrorToast("Chỉ hỗ trợ file Word (.docx, .doc)");
         return;
       }
       setFile(selectedFile);
@@ -32,8 +32,8 @@ export default function AiWordImport() {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const droppedFile = e.dataTransfer.files[0];
-      if (!droppedFile.name.toLowerCase().endsWith(".docx")) {
-        showErrorToast("Chỉ hỗ trợ file Word .docx");
+      if (!droppedFile.name.endsWith(".docx") && !droppedFile.name.endsWith(".doc")) {
+        showErrorToast("Chỉ hỗ trợ file Word (.docx, .doc)");
         return;
       }
       setFile(droppedFile);

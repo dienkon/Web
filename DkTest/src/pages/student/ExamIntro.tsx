@@ -75,7 +75,7 @@ export default function ExamIntro() {
         // 2. If not found by ID, try searching by exam code
         if (!foundExam) {
           const q = query(collection(db, "exams"), where("code", "==", examId.trim().toUpperCase()));
-          const snap = await getDocs(q);
+          console.log("[Firestore] READ_MANY: exams (by code)"); const snap = await getDocs(q);
           if (!snap.empty) {
             const docData = snap.docs[0];
             foundExam = { id: docData.id, ...docData.data() } as Exam;
@@ -85,12 +85,23 @@ export default function ExamIntro() {
         setExam(foundExam);
 
         if (foundExam?.allowSubExam && foundExam?.subExamConfig?.enabled) {
-          const [secSnap, qSnap] = await Promise.all([
-            getDocs(query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc"))),
-            getDocs(query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc"))),
-          ]);
-          setSections(secSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section)));
-          setQuestions(qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question)));
+          // If questions/sections are embedded in the exam doc
+          if (Array.isArray((foundExam as any).questions) && Array.isArray((foundExam as any).sections)) {
+            let qs = (foundExam as any).questions as Question[];
+            let ss = (foundExam as any).sections as Section[];
+            qs.sort((a,b) => (a.order || 0) - (b.order || 0));
+            ss.sort((a,b) => (a.order || 0) - (b.order || 0));
+            setSections(ss);
+            setQuestions(qs);
+          } else {
+             // Fallback for legacy
+            const [secSnap, qSnap] = await Promise.all([
+              getDocs(query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc"))),
+              getDocs(query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc"))),
+            ]);
+            setSections(secSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section)));
+            setQuestions(qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question)));
+          }
           setSubExamConfig(foundExam.subExamConfig);
           setUseSubExam(true);
         }
@@ -311,7 +322,7 @@ export default function ExamIntro() {
                 </label>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="flex items-center gap-3 pt-2">
                 <button
                   type="submit"
                   disabled={!acceptedTerms}
@@ -323,10 +334,14 @@ export default function ExamIntro() {
                 <button
                   type="button"
                   onClick={() => setShowLeaderboard(!showLeaderboard)}
-                  className="px-4 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className={`p-3.5 rounded-xl transition-all flex items-center justify-center cursor-pointer shadow-2xs border ${
+                    showLeaderboard
+                      ? "bg-amber-500 text-white border-amber-600"
+                      : "bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200"
+                  }`}
+                  title={showLeaderboard ? "Ẩn bảng xếp hạng" : "Xem bảng xếp hạng Top 10"}
                 >
-                  <Trophy className="w-4 h-4 text-amber-500" />
-                  <span>{showLeaderboard ? "Ẩn BXH" : "Xem BXH Top 10"}</span>
+                  <Trophy className="w-5 h-5" />
                 </button>
               </div>
             </form>

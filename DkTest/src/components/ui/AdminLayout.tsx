@@ -39,7 +39,8 @@ export default function AdminLayout() {
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
-    if (role !== "admin") {
+    const adminToken = localStorage.getItem("admin_token");
+    if (role !== "admin" && !adminToken) {
       navigate("/admin/login", { replace: true });
     }
   }, [navigate, location.pathname]);
@@ -212,14 +213,27 @@ export default function AdminLayout() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/"
-              className="text-xs font-medium text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              Trang thí sinh & Khảo thí
-            </Link>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Quick Role Switcher */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
+              <span className="px-2.5 py-1 bg-white text-blue-700 rounded-lg shadow-2xs flex items-center gap-1">
+                <span>👨‍🏫 Giáo viên</span>
+              </span>
+              <Link
+                to="/parent/dashboard"
+                className="px-2.5 py-1 hover:text-indigo-700 rounded-lg transition-colors flex items-center gap-1"
+                title="Chuyển sang Cổng Phụ huynh"
+              >
+                <span>👨‍👩‍👧 Phụ huynh</span>
+              </Link>
+              <Link
+                to="/"
+                className="px-2.5 py-1 hover:text-slate-900 rounded-lg transition-colors hidden sm:flex items-center gap-1"
+                title="Về Cổng Thí sinh / Trang chủ"
+              >
+                <span>🎓 Học sinh</span>
+              </Link>
+            </div>
           </div>
         </header>
 

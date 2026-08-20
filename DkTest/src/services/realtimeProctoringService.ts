@@ -15,6 +15,9 @@ export interface ActiveSession {
   status: "taking" | "warning" | "submitted";
   lastActiveAt: string | number;
   submittedAt?: string | number;
+  answers?: Record<string, any>;
+  activeQuestionIdx?: number;
+  scratchpadImage?: string | null;
 }
 
 /**
@@ -25,6 +28,7 @@ export async function syncRealtimeSession(session: ActiveSession) {
   if (!rtdb || !session.sessionId) return;
   try {
     const sessionRef = ref(rtdb, `active_sessions/${session.sessionId}`);
+    console.log(`[RTDB] SET: active_sessions/${session.sessionId}`);
     await set(sessionRef, {
       ...session,
       lastActiveAt: Date.now(),
@@ -46,6 +50,7 @@ export async function updateRealtimeSessionMetrics(
   if (!rtdb || !sessionId) return;
   try {
     const sessionRef = ref(rtdb, `active_sessions/${sessionId}`);
+    console.log(`[RTDB] UPDATE: active_sessions/${sessionId}`);
     await update(sessionRef, {
       ...updates,
       lastActiveAt: Date.now(),
@@ -64,6 +69,7 @@ export async function removeRealtimeSession(sessionId: string) {
     const sessionRef = ref(rtdb, `active_sessions/${sessionId}`);
     // Cancel onDisconnect first to prevent race condition
     onDisconnect(sessionRef).cancel().catch(() => {});
+    console.log(`[RTDB] REMOVE: active_sessions/${sessionId}`);
     await remove(sessionRef);
   } catch (err) {
     console.warn("RTDB removeRealtimeSession error:", err);
@@ -81,11 +87,12 @@ export function subscribeToActiveSessions(
     callback([]);
     return () => {};
   }
-
   const sessionsRef = ref(rtdb, "active_sessions");
+  console.log(`[RTDB] SUBSCRIBE: active_sessions`);
   const unsubscribe = onValue(
     sessionsRef,
     (snapshot) => {
+      console.log(`[RTDB] ON_VALUE: active_sessions`);
       const val = snapshot.val();
       if (!val) {
         callback([]);
@@ -102,9 +109,9 @@ export function subscribeToActiveSessions(
       if (onError) onError(err);
     }
   );
-
   return () => {
     try {
+      console.log(`[RTDB] UNSUBSCRIBE: active_sessions`);
       off(sessionsRef);
     } catch (e) {}
   };
@@ -116,6 +123,7 @@ export function subscribeToActiveSessions(
 export async function clearSubmittedSessions(sessionIds: string[]) {
   if (!rtdb || sessionIds.length === 0) return;
   try {
+    console.log(`[RTDB] REMOVE_BATCH: active_sessions (${sessionIds.length} docs)`);
     for (const id of sessionIds) {
       await remove(ref(rtdb, `active_sessions/${id}`));
     }

@@ -1,8 +1,18 @@
-
 import { processExamFromPromptStream } from "../../src/services/ai/aiExamGenerator.js";
-import { initSse, sendSse, sendSseError } from "../../src/server/sse.js";
 
 export const maxDuration = 300;
+
+function initSse(res: any) {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("X-Accel-Buffering", "no");
+}
+
+function sendSse(res: any, payload: unknown) {
+  res.write(`data: ${JSON.stringify(payload)}\n\n`);
+}
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -11,8 +21,8 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const prompt = typeof req.body?.prompt === "string" ? req.body.prompt.trim() : "";
-    if (!prompt) {
+    const { prompt } = req.body ?? {};
+    if (!prompt || typeof prompt !== "string") {
       return res.status(400).json({ error: "No prompt provided" });
     }
 
@@ -28,12 +38,11 @@ export default async function handler(req: any, res: any) {
     sendSse(res, { type: "done", result });
     return res.end();
   } catch (error) {
-    console.error("[AI Exam Prompt]", error);
+    console.error("[AI Generate Prompt]", error);
     if (!res.headersSent) {
-      return res.status(500).json({
-        error: error instanceof Error ? error.message : "Failed to generate exam from prompt",
-      });
+      return res.status(500).json({ error: error instanceof Error ? error.message : "Failed to generate exam" });
     }
-    sendSseError(res, error);
+    sendSse(res, { type: "error", message: error instanceof Error ? error.message : "Failed to generate exam" });
+    return res.end();
   }
 }

@@ -81,13 +81,34 @@ export default function StudentLogin() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-        <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <User className="w-6 h-6 text-green-600" />
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+        <div className="flex items-center justify-between">
+          <Link
+            to="/"
+            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+            title="Về trang chủ"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </Link>
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
+            <span className="px-2.5 py-1 bg-white text-emerald-700 rounded-lg shadow-2xs">
+              Học sinh
+            </span>
+            <Link to="/parent/login" className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors">
+              Phụ huynh
+            </Link>
+            <Link to="/admin/login" className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors">
+              Giáo viên
+            </Link>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Học sinh</h1>
-          <p className="text-slate-500 mt-2">{isLogin ? "Đăng nhập để tiếp tục" : "Đăng ký tài khoản học sinh"}</p>
+        </div>
+
+        <div className="text-center space-y-2">
+          <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xs">
+            <User className="w-7 h-7" />
+          </div>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Cổng Thí Sinh</h1>
+          <p className="text-xs text-slate-500 font-medium">{isLogin ? "Đăng nhập để vào phòng thi và lưu lịch sử" : "Đăng ký tài khoản học sinh mới"}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

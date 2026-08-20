@@ -5,6 +5,8 @@ import StudentLayout from "../../components/ui/StudentLayout";
 // Auth Pages
 import AdminLogin from "../../pages/auth/AdminLogin";
 import StudentLogin from "../../pages/auth/StudentLogin";
+import ParentLogin from "../../pages/auth/ParentLogin";
+import ParentDashboard from "../../pages/parent/ParentDashboard";
 
 // Admin Pages
 import Dashboard from "../../pages/admin/Dashboard";
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: "/student/login",
     element: <StudentLogin />,
+  },
+  {
+    path: "/parent/login",
+    element: <ParentLogin />,
+  },
+  {
+    path: "/parent/dashboard",
+    element: <ParentDashboard />,
   },
   {
     path: "/admin",

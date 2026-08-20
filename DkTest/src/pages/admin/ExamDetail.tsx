@@ -50,6 +50,7 @@ export default function ExamDetail() {
     const loadFullExam = async () => {
       setLoading(true);
       try {
+        console.log(`[Firestore] Loading exam detail: ${examId}`);
         const examDoc = await getExam(examId);
         if (!examDoc) {
           toast.error("Không tìm thấy bài thi này!");
@@ -59,17 +60,25 @@ export default function ExamDetail() {
         setExam(examDoc);
 
         // Fetch sections
-        const secSnap = await getDocs(
-          query(collection(db, `exams/${examId}/sections`), orderBy("order", "asc"))
-        );
-        const secList = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+        let secList: Section[] = Array.isArray((examDoc as any).sections) ? (examDoc as any).sections : [];
+        if (!Array.isArray((examDoc as any).sections)) {
+           console.log("[Firestore] READ_MANY: fallback sections query"); const secSnap = await getDocs(
+             query(collection(db, `exams/${examId}/sections`), orderBy("order", "asc"))
+           );
+           secList = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+        }
+        secList.sort((a,b) => (a.order || 0) - (b.order || 0));
         setSections(secList);
 
         // Fetch questions
-        const qSnap = await getDocs(
-          query(collection(db, `exams/${examId}/questions`), orderBy("order", "asc"))
-        );
-        const qList = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+        let qList: Question[] = Array.isArray((examDoc as any).questions) ? (examDoc as any).questions : [];
+        if (!Array.isArray((examDoc as any).questions)) {
+           console.log("[Firestore] READ_MANY: fallback questions query"); const qSnap = await getDocs(
+             query(collection(db, `exams/${examId}/questions`), orderBy("order", "asc"))
+           );
+           qList = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+        }
+        qList.sort((a,b) => (a.order || 0) - (b.order || 0));
         setQuestions(qList);
       } catch (err) {
         console.error("Lỗi khi tải chi tiết bài thi:", err);

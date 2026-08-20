@@ -102,26 +102,40 @@ export const ExamEditorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const loadExam = useCallback(async (id: string) => {
     setState(s => ({ ...s, isLoading: true, examId: id }));
     try {
-      const examSnap = await getDoc(doc(db, "exams", id));
+      console.log(`[Firestore] Loading exam: ${id}`);
+      console.log("[Firestore] READ: exams/" + id); const examSnap = await getDoc(doc(db, "exams", id));
       if (!examSnap.exists()) {
         setState(s => ({ ...s, isLoading: false }));
         return; // handle new exam
       }
       
-      const meta = examSnap.data() as Exam;
+      const data = examSnap.data();
+      console.log(`[Firestore] Exam loaded with 1 document read: ${id}`);
       
-      // Load sections
-      const sectionsSnap = await getDocs(collection(db, `exams/${id}/sections`));
-      const sections = sectionsSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section)).sort((a,b) => a.order - b.order);
+      const { sections: rawSections, questions: rawQuestions, ...meta } = data;
       
-      // Load questions
-      const questionsSnap = await getDocs(collection(db, `exams/${id}/questions`));
-      const questions = questionsSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question)).sort((a,b) => a.order - b.order);
+      // Support legacy schema by falling back to subcollection reads if they are not in the main doc,
+      // but ideally this is handled by migration or handled in the TakingExam side.
+      // We'll just read them if they don't exist in the document, to support legacy exams without breaking.
+      let sections: Section[] = Array.isArray(rawSections) ? rawSections : [];
+      let questions: Question[] = Array.isArray(rawQuestions) ? rawQuestions : [];
+
+      if (!Array.isArray(rawSections)) {
+        console.log("[Firestore] READ_MANY: exams/" + id + "/sections"); const sectionsSnap = await getDocs(collection(db, `exams/${id}/sections`));
+        sections = sectionsSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section));
+      }
+      if (!Array.isArray(rawQuestions)) {
+        console.log("[Firestore] READ_MANY: exams/" + id + "/questions"); const questionsSnap = await getDocs(collection(db, `exams/${id}/questions`));
+        questions = questionsSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question));
+      }
+      
+      sections.sort((a,b) => a.order - b.order);
+      questions.sort((a,b) => a.order - b.order);
       
       setState(s => ({
         ...s,
         isLoading: false,
-        examMeta: meta,
+        examMeta: meta as Exam,
         sections,
         questions,
         deletedSectionIds: [],
@@ -188,7 +202,7 @@ function sanitizeForFirestore(obj: any): any {
 }
 
   const saveExam = useCallback(async (isPublish = false) => {
-    let { examId, examMeta, sections, questions, deletedSectionIds, deletedQuestionIds } = stateRef.current;
+    let { examId, examMeta, sections, questions } = stateRef.current;
     
     if (!examId) {
       examId = doc(collection(db, "exams")).id;
@@ -202,44 +216,46 @@ function sanitizeForFirestore(obj: any): any {
 
     setState(s => ({ ...s, isSaving: true, saveStatus: "saving" }));
     try {
-      const batch = writeBatch(db);
+      console.log(`[Firestore] Saving exam: ${examId}`);
       
+      const cleanSections = sections.map((sec, idx) => sanitizeForFirestore({ ...sec, order: idx, examId }));
+      const cleanQuestions = questions.map((q, idx) => {
+        const qData: any = { ...q, order: idx, examId };
+        if (qData.sectionId === undefined) qData.sectionId = null;
+        return sanitizeForFirestore(qData);
+      });
+
       const examRef = doc(db, "exams", examId);
-      const cleanExamMeta = sanitizeForFirestore({
+      const cleanExamDoc = sanitizeForFirestore({
         ...examMeta,
         id: examId,
         questionCount: questions.length,
         sectionCount: sections.length,
         status: isPublish ? "published" : (examMeta.status || "draft"),
         createdAt: examMeta.createdAt || serverTimestamp(),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
+        sections: cleanSections,
+        questions: cleanQuestions
       });
 
-      batch.set(examRef, cleanExamMeta, { merge: true });
-      
-      // Delete removed sections
-      deletedSectionIds.forEach((secId) => {
-        batch.delete(doc(db, `exams/${examId}/sections`, secId));
-      });
+      // Calculate approximate JSON size to warn if it's getting too big
+      const estimatedSize = new Blob([JSON.stringify(cleanExamDoc)]).size;
+      if (estimatedSize > 900000) {
+        console.warn(`[Firestore] Warning: Exam document size is ${estimatedSize} bytes, close to 1MiB limit.`);
+      }
+      if (estimatedSize > 1048000) {
+         setState(s => ({
+            ...s, 
+            isSaving: false, 
+            saveStatus: "error", 
+            validationIssues: [{id: "root", type: "error", message: "Kích thước đề thi quá lớn (vượt quá 1MB). Hãy giảm bớt hình ảnh, nội dung hoặc chia nhỏ đề."}]
+         }));
+         return false;
+      }
 
-      // Delete removed questions
-      deletedQuestionIds.forEach((qId) => {
-        batch.delete(doc(db, `exams/${examId}/questions`, qId));
-      });
+      const { setDoc } = await import("firebase/firestore");
+      console.log("[Firestore] WRITE: exams/" + examRef.id); await setDoc(examRef, cleanExamDoc, { merge: true });
       
-      sections.forEach((sec, idx) => {
-        const cleanSec = sanitizeForFirestore({ ...sec, order: idx, examId });
-        batch.set(doc(db, `exams/${examId}/sections`, sec.id), cleanSec, { merge: true });
-      });
-      
-      questions.forEach((q, idx) => {
-        const qData: any = { ...q, order: idx, examId };
-        if (qData.sectionId === undefined) qData.sectionId = null;
-        const cleanQ = sanitizeForFirestore(qData);
-        batch.set(doc(db, `exams/${examId}/questions`, q.id), cleanQ, { merge: true });
-      });
-      
-      await batch.commit();
       setState(s => ({
         ...s,
         examId,

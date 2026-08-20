@@ -34,6 +34,7 @@ import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import AiTutorChat from "../../components/exam/AiTutorChat";
 import AiAnalyticsWidget from "../../components/exam/AiAnalyticsWidget";
+import ExamResultCharts from "../../components/exam/ExamResultCharts";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export default function ExamResult() {
@@ -155,18 +156,25 @@ export default function ExamResult() {
 
         const currentExamId = examId || subData.examId;
         if (currentExamId) {
-          const [examData, secs] = await Promise.all([
-            getExam(currentExamId),
-            getExamSections(currentExamId).catch(() => []),
-          ]);
+          const examData = await getExam(currentExamId);
           setExam(examData);
+          
+          let secs: Section[] = Array.isArray((examData as any)?.sections) ? (examData as any).sections : [];
+          if (!Array.isArray((examData as any)?.sections)) {
+            secs = await getExamSections(currentExamId).catch(() => []);
+          }
+          secs.sort((a,b) => (a.order || 0) - (b.order || 0));
           setSections(secs || []);
 
           // 1. Fetch master original questions
-          const qSnap = await getDocs(
-            query(collection(db, `exams/${currentExamId}/questions`), orderBy("order", "asc"))
-          );
-          let masterQs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+          let masterQs: Question[] = Array.isArray((examData as any)?.questions) ? (examData as any).questions : [];
+          if (!Array.isArray((examData as any)?.questions)) {
+            console.log("[Firestore] READ_MANY: exams/" + currentExamId + "/questions (fallback)"); const qSnap = await getDocs(
+              query(collection(db, `exams/${currentExamId}/questions`), orderBy("order", "asc"))
+            );
+            masterQs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+          }
+          masterQs.sort((a,b) => (a.order || 0) - (b.order || 0));
 
           // 2. Set shuffled questions from snapshot if exists, or fallback to masterQs
           if (subData.shuffledQuestionsSnapshot && subData.shuffledQuestionsSnapshot.length > 0) {
@@ -295,66 +303,6 @@ export default function ExamResult() {
   return (
     <div className="min-h-screen bg-slate-50/70 py-8 px-4 font-sans print:bg-white print:p-0">
       <div className="max-w-4xl w-full mx-auto space-y-6">
-        {/* Top bar with back button & Print */}
-        <div className="flex items-center justify-between print:hidden flex-wrap gap-2">
-          <div className="flex items-center gap-2">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3.5 py-2 rounded-xl transition-colors shadow-2xs"
-            >
-              <ArrowLeft className="w-4 h-4" /> 
-            </Link>
-
-            <Link
-              to="/student/history"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-800 bg-blue-50 border border-blue-200/80 px-3.5 py-2 rounded-xl transition-colors shadow-2xs"
-            >
-              <History className="w-4 h-4" /> 
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setShowDetails(!showDetails)}
-              className={`inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl transition-colors shadow-2xs cursor-pointer ${
-                showDetails 
-                  ? "bg-slate-900 text-white hover:bg-slate-800" 
-                  : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200"
-              }`}
-            >
-              <FileText className="w-4 h-4" />
-              <span>{showDetails ? "Ẩn" : "chi tiết"}</span>
-            </button>
-
-            <Link
-              to={`/student/exam/${exam?.id || submission.examId}`}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-3.5 py-2 rounded-xl transition-colors shadow-2xs cursor-pointer"
-            >
-              <RotateCcw className="w-4 h-4 text-emerald-600" />
-            </Link>
-
-            <button
-              type="button"
-              onClick={() => setShowLeaderboard(!showLeaderboard)}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-50 border border-amber-200/80 px-3.5 py-2 rounded-xl transition-colors shadow-2xs cursor-pointer"
-            >
-              <Trophy className="w-4 h-4 text-amber-600" />
-              <span>{showLeaderboard ? "Ẩn BXH" : "BXH"}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Optional Leaderboard Card */}
-        {showLeaderboard && (
-          <div className="animate-in fade-in slide-in-from-top-3 duration-200 print:hidden">
-            <ExamLeaderboard
-              examId={exam?.id || submission.examId}
-              currentSubmissionId={submission.id}
-              maxItems={10}
-            />
-          </div>
-        )}
 
         {/* Score Card Hero */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 lg:p-8 shadow-xs overflow-hidden relative">
@@ -438,6 +386,7 @@ export default function ExamResult() {
         </div>
 
         {/* AI Analytics Widget */}
+        <ExamResultCharts submission={submission} questions={originalQuestions} sections={sections} />
         <AiAnalyticsWidget 
           examId={examId!} 
           currentSubmission={submission}
@@ -445,6 +394,87 @@ export default function ExamResult() {
           questions={originalQuestions}
           sections={sections}
         />
+
+        {/* Action buttons bar moved under AI Analytics Widget */}
+        <div className="flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/70 border border-slate-200/50 p-2.5 rounded-2xl shadow-2xs">
+          <div className="flex items-center gap-1.5">
+            {localStorage.getItem("auth_role") === "parent" || localStorage.getItem("parent_info") ? (
+              <Link
+                to="/parent/dashboard"
+                className="px-3 py-2 text-indigo-700 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5"
+                title="Quay lại Bảng Phụ Huynh"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Bảng Phụ Huynh</span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/"
+                  className="p-2.5 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs"
+                  title="Quay lại danh sách đề thi"
+                >
+                  <ArrowLeft className="w-4 h-4" /> 
+                </Link>
+
+                <Link
+                  to="/student/history"
+                  className="p-2.5 text-blue-700 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 rounded-xl transition-all shadow-2xs"
+                  title="Lịch sử làm bài"
+                >
+                  <History className="w-4 h-4" /> 
+                </Link>
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setShowDetails(!showDetails)}
+              className={`p-2.5 rounded-xl transition-all shadow-2xs cursor-pointer ${
+                showDetails 
+                  ? "bg-slate-900 text-white hover:bg-slate-800" 
+                  : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:bg-slate-50"
+              }`}
+              title={showDetails ? "Ẩn chi tiết bài làm" : "Xem chi tiết bài làm"}
+            >
+              <FileText className="w-4 h-4" />
+            </button>
+
+            <Link
+              to={`/student/exam/${exam?.id || submission.examId}`}
+              className="p-2.5 text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-xl transition-all shadow-2xs cursor-pointer"
+              title="Làm lại đề thi"
+            >
+              <RotateCcw className="w-4 h-4 text-emerald-600" />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setShowLeaderboard(!showLeaderboard)}
+              className={`p-2.5 rounded-xl transition-all shadow-2xs cursor-pointer ${
+                showLeaderboard
+                  ? "bg-amber-500 text-white"
+                  : "bg-amber-50 text-amber-700 hover:text-amber-800 border border-amber-200/80 hover:bg-amber-100"
+              }`}
+              title={showLeaderboard ? "Ẩn bảng xếp hạng" : "Xem bảng xếp hạng"}
+            >
+              <Trophy className="w-4 h-4 text-current" />
+            </button>
+          </div>
+        </div>
+
+        {/* Optional Leaderboard Card placed here below action buttons bar */}
+        {showLeaderboard && (
+          <div className="animate-in fade-in slide-in-from-top-3 duration-200 print:hidden">
+            <ExamLeaderboard
+              examId={exam?.id || submission.examId}
+              currentSubmissionId={submission.id}
+              maxItems={10}
+            />
+          </div>
+        )}
 
         {showDetails && (
           <div className="space-y-6 animate-in fade-in slide-in-from-top-3 duration-200">

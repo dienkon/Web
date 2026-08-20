@@ -16,6 +16,8 @@ import {
   Sliders,
   Sparkles,
   GripVertical,
+  Clock,
+  Send,
 } from "lucide-react";
 
 interface Props {
@@ -26,6 +28,9 @@ interface Props {
   onSelectQuestion: (idx: number) => void;
   answers: Record<string, any>;
   onAnswerChange?: (questionId: string, answer: any) => void;
+  timeLeft?: number;
+  onSubmitExam?: () => void;
+  onScratchpadUpdate?: (dataUrl: string | null) => void;
 }
 
 interface StrokePoint {
@@ -59,6 +64,9 @@ export default function ScratchpadModal({
   onSelectQuestion,
   answers,
   onAnswerChange,
+  timeLeft,
+  onSubmitExam,
+  onScratchpadUpdate,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -150,6 +158,7 @@ export default function ScratchpadModal({
       ctx.scale(dpr, dpr);
     }
     redrawCanvas();
+    notifyUpdate();
   };
 
   useEffect(() => {
@@ -259,6 +268,24 @@ export default function ScratchpadModal({
     redrawCanvas();
   };
 
+
+  const notifyUpdate = () => {
+    if (onScratchpadUpdate && canvasRef.current) {
+      const canvas = canvasRef.current;
+      const thumbCanvas = document.createElement("canvas");
+      thumbCanvas.width = canvas.width / 2;
+      thumbCanvas.height = canvas.height / 2;
+      const ctx = thumbCanvas.getContext("2d");
+      if (ctx) {
+        // Fill white background for jpeg
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, thumbCanvas.width, thumbCanvas.height);
+        ctx.drawImage(canvas, 0, 0, thumbCanvas.width, thumbCanvas.height);
+        onScratchpadUpdate(thumbCanvas.toDataURL("image/jpeg", 0.4));
+      }
+    }
+  };
+
   const handleEnd = () => {
     if (!isDrawing) return;
     setIsDrawing(false);
@@ -270,6 +297,7 @@ export default function ScratchpadModal({
         [currentQ.id]: [...currentStrokesRef.current],
       };
       saveDrawingsToStorage(updated);
+      notifyUpdate();
     }
   };
 
@@ -328,22 +356,38 @@ export default function ScratchpadModal({
     onAnswerChange(currentQ.id, val);
   };
 
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  };
+
   if (!isOpen || !currentQ) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex flex-col overflow-hidden animate-in fade-in duration-200">
       {/* Top Action Header */}
       <div className="bg-slate-900 text-white px-4 py-2.5 border-b border-slate-800 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30">
-            <Pencil className="w-4 h-4" />
+       
+
+        {/* Real-time Timer Counter & Submit Button */}
+        {timeLeft !== undefined && (
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600/20 border border-blue-500/30 text-blue-400 rounded-xl font-mono text-xs font-bold shadow-xs">
+              <Clock className="w-4 h-4 animate-pulse text-blue-400" />
+              <span>{formatTime(timeLeft)}</span>
+            </div>
+            {onSubmitExam && (
+              <button
+                type="button"
+                onClick={onSubmitExam}
+                className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shadow-emerald-500/20"
+              >
+                <Send className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
-          <div>
-            <h2 className="font-extrabold text-sm sm:text-base text-white tracking-wide">
-              Nháp
-            </h2>
-          </div>
-        </div>
+        )}
 
         {/* Question Switcher Controls */}
         <div className="flex items-center gap-2">

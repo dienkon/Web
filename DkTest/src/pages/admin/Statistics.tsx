@@ -219,10 +219,16 @@ export default function Statistics() {
       const loadQuestions = async () => {
         setLoadingQuestions(true);
         try {
-          const qSnap = await getDocs(
-            query(collection(db, `exams/${selectedExamId}/questions`), orderBy("order", "asc"))
-          );
-          setExamQuestions(qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question)));
+          if (selectedExamDoc && Array.isArray((selectedExamDoc as any).questions)) {
+            let qs = (selectedExamDoc as any).questions as Question[];
+            qs.sort((a,b) => (a.order || 0) - (b.order || 0));
+            setExamQuestions(qs);
+          } else {
+            const qSnap = await getDocs(
+              query(collection(db, `exams/${selectedExamId}/questions`), orderBy("order", "asc"))
+            );
+            setExamQuestions(qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question)));
+          }
           setQuestionsExamIdLoaded(selectedExamId);
         } catch (err) {
           console.warn("Lỗi khi tải câu hỏi bài thi:", err);
@@ -233,7 +239,7 @@ export default function Statistics() {
       };
       loadQuestions();
     }
-  }, [selectedExamId, examDetailTab, questionsExamIdLoaded]);
+  }, [selectedExamId, examDetailTab, questionsExamIdLoaded, selectedExamDoc]);
 
   const selectedExam = useMemo(() => {
     if (selectedExamId === "all") return null;

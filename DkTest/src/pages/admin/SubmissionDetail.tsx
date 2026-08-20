@@ -58,9 +58,9 @@ export default function SubmissionDetail() {
     if (!submissionId) return;
     try {
       // 1. Fetch submission
-      let subDoc = await getDoc(doc(db, "submissions", submissionId));
+      console.log("[Firestore] READ: submissions/" + submissionId); let subDoc = await getDoc(doc(db, "submissions", submissionId));
       if (!subDoc.exists() && examId) {
-        subDoc = await getDoc(doc(db, `exams/${examId}/submissions`, submissionId));
+        console.log("[Firestore] READ: exams/" + examId + "/submissions/" + submissionId); subDoc = await getDoc(doc(db, `exams/${examId}/submissions`, submissionId));
       }
 
       if (subDoc.exists()) {
@@ -71,17 +71,22 @@ export default function SubmissionDetail() {
 
         // 2. Fetch exam info
         if (targetExamId) {
-          const eDoc = await getDoc(doc(db, "exams", targetExamId));
+          console.log("[Firestore] READ: exams/" + targetExamId); const eDoc = await getDoc(doc(db, "exams", targetExamId));
           if (eDoc.exists()) {
-            setExam({ id: eDoc.id, ...eDoc.data() } as Exam);
+            const eData = { id: eDoc.id, ...eDoc.data() } as Exam;
+            setExam(eData);
+            
+            // 3. Fetch questions
+            let qList: Question[] = Array.isArray((eData as any).questions) ? (eData as any).questions : [];
+            if (!Array.isArray((eData as any).questions)) {
+              console.log("[Firestore] READ_MANY: fallback questions query"); const qSnap = await getDocs(
+                query(collection(db, `exams/${targetExamId}/questions`), orderBy("order", "asc"))
+              );
+              qList = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+            }
+            qList.sort((a,b) => (a.order || 0) - (b.order || 0));
+            setQuestions(qList);
           }
-
-          // 3. Fetch questions
-          const qSnap = await getDocs(
-            query(collection(db, `exams/${targetExamId}/questions`), orderBy("order", "asc"))
-          );
-          const qList = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
-          setQuestions(qList);
         }
       }
     } catch (err) {

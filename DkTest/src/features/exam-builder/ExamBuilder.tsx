@@ -161,7 +161,13 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
         )}
 
         {/* Main Editor Area */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth relative">
+        <main
+          className={`flex-1 min-h-0 relative ${
+            activeTab === "preview_edit"
+              ? "overflow-hidden flex flex-col"
+              : "overflow-y-auto p-4 md:p-8 scroll-smooth"
+          }`}
+        >
           {activeTab === "questions" && (
             <div className="max-w-4xl mx-auto space-y-6 pb-32">
               <QuestionList />
@@ -169,7 +175,7 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
           )}
 
           {activeTab === "preview_edit" && (
-            <div className="w-full mx-auto space-y-6 pb-32">
+            <div className="w-full h-full min-h-0 flex-1 flex flex-col overflow-hidden">
               <ExamVisualPreviewEditor
                 onSwitchToQuestionEditor={(qId) => {
                   actions.setActiveQuestion(qId);

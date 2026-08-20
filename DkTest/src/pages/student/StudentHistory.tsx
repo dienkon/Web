@@ -18,6 +18,7 @@ import {
   BarChart3,
   User,
   ShieldCheck,
+  Eye,
 } from "lucide-react";
 import {
   collection,
@@ -357,10 +358,10 @@ export default function StudentHistory() {
                   <div className="flex items-center gap-2 w-full sm:w-auto justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
                     <Link
                       to={`/student/exam/${sub.examId}/result/${sub.id}`}
-                      className="px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+                      className="p-2.5 bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-2xs"
+                      title="Xem chi tiết & lời giải bài thi"
                     >
-                      <span>Xem chi tiết & Lời giải</span>
-                      <ChevronRight className="w-4 h-4" />
+                      <Eye className="w-4 h-4" />
                     </Link>
                   </div>
                 </div>
