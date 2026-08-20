@@ -38,6 +38,7 @@ import {
   Lock,
   Globe,
   Trash2,
+  AlertTriangle,
 } from "lucide-react";
 import {
   sendParentLinkRequest,
@@ -46,6 +47,10 @@ import {
   type LinkedChildInfo,
   type ParentLinkRequest,
 } from "../../services/parentService";
+import {
+  subscribeToActiveSessions,
+  type ActiveSession,
+} from "../../services/realtimeProctoringService";
 import {
   saveParentExam,
   getParentCreatedExams,
@@ -185,6 +190,37 @@ export default function ParentDashboard() {
       } catch (e) {}
     }
   }, [navigate]);
+
+  // Realtime Live Proctoring Listener for Linked Children
+  useEffect(() => {
+    if (!parentInfo) return;
+
+    const unsubscribe = subscribeToActiveSessions(
+      (activeList) => {
+        setLinkedChildren((prevChildren) => {
+          if (!prevChildren || prevChildren.length === 0) return prevChildren;
+          return prevChildren.map((child) => {
+            const cleanChild = child.username.trim().toLowerCase();
+            const matched = activeList.find((s) => {
+              const u = (s.studentUsername || s.studentId || "").trim().toLowerCase();
+              return u === cleanChild || s.sessionId.toLowerCase().includes(cleanChild);
+            });
+            return {
+              ...child,
+              activeSession: matched || null,
+            };
+          });
+        });
+      },
+      (err) => {
+        console.warn("Parent active sessions subscription warning:", err);
+      }
+    );
+
+    return () => {
+      if (typeof unsubscribe === "function") unsubscribe();
+    };
+  }, [parentInfo]);
 
   const loadMonitoringData = async (pUsername: string) => {
     setLoadingMonitor(true);
@@ -710,9 +746,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
 
                       {/* Live Session Pill */}
                       {child.activeSession ? (
-                        <div className="flex items-center gap-2 px-3.5 py-2 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-2xl text-xs font-bold animate-pulse">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                          <span>Đang làm bài: {child.activeSession.examTitle || "Khảo thí trực tuyến"}</span>
+                        <div className="flex items-center gap-2 px-3.5 py-2 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-2xl text-xs font-bold shadow-2xs">
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                          <span>🟢 Đang làm bài trực tiếp</span>
                         </div>
                       ) : (
                         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-500 rounded-xl text-xs font-semibold">
@@ -720,6 +756,91 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         </div>
                       )}
                     </div>
+
+                    {/* Active Live Session Highlight Card for Parent */}
+                    {child.activeSession && (
+                      <div className="bg-gradient-to-br from-emerald-50 via-teal-50/60 to-blue-50 border-2 border-emerald-300 rounded-2xl p-4.5 space-y-3.5 shadow-sm">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200/70 pb-3">
+                          <div className="flex items-center gap-2.5">
+                            <span className="flex h-3 w-3 relative">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                            </span>
+                            <h4 className="font-extrabold text-slate-900 text-sm">
+                              {child.activeSession.examTitle || "Khảo thí trực tuyến"}
+                            </h4>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-emerald-800 bg-white/80 px-2.5 py-1 rounded-lg border border-emerald-200">
+                              Đang diễn ra
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between">
+                            <span className="font-semibold text-slate-600 flex items-center gap-1.5">
+                              <Clock className="w-4 h-4 text-blue-600" /> Còn lại:
+                            </span>
+                            <span className="font-mono font-black text-blue-700 text-sm">
+                              {Math.floor((child.activeSession.timeLeft || 0) / 60)}:
+                              {((child.activeSession.timeLeft || 0) % 60).toString().padStart(2, "0")}
+                            </span>
+                          </div>
+
+                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between">
+                            <span className="font-semibold text-slate-600 flex items-center gap-1.5">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Tiến độ:
+                            </span>
+                            <span className="font-bold text-slate-800">
+                              {child.activeSession.answeredCount || 0} / {child.activeSession.totalQuestions || "?"} câu
+                            </span>
+                          </div>
+
+                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between">
+                            <span className="font-semibold text-slate-600 flex items-center gap-1.5">
+                              <AlertTriangle className={`w-4 h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`} />
+                              Rời tab:
+                            </span>
+                            <span className={`font-bold ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded-md" : "text-slate-500"}`}>
+                              {child.activeSession.warnings || 0} lần
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Progress bar */}
+                        {child.activeSession.totalQuestions > 0 && (
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-[11px] font-semibold text-slate-500">
+                              <span>Tiến độ hoàn thành bài</span>
+                              <span>
+                                {Math.round(
+                                  ((child.activeSession.answeredCount || 0) /
+                                    Math.max(1, child.activeSession.totalQuestions || 1)) *
+                                    100
+                                )}
+                                %
+                              </span>
+                            </div>
+                            <div className="w-full bg-emerald-100/80 rounded-full h-2 overflow-hidden">
+                              <div
+                                className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                                style={{
+                                  width: `${Math.min(
+                                    100,
+                                    Math.round(
+                                      ((child.activeSession.answeredCount || 0) /
+                                        Math.max(1, child.activeSession.totalQuestions || 1)) *
+                                        100
+                                    )
+                                  )}%`,
+                                }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     {/* Submissions History for this Child */}
                     <div className="space-y-3">

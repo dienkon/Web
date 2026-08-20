@@ -17,11 +17,20 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
+import {
+  subscribeToActiveSessions,
+  type ActiveSession,
+} from "../../services/realtimeProctoringService";
 
 const navItems = [
   { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Bài thi", path: "/admin/exams", icon: FileText },
-  { name: "Giám sát Live", path: "/admin/live-proctoring", icon: Eye },
+  {
+    name: "Giám sát Live",
+    path: "/admin/live-proctoring",
+    icon: Eye,
+    hasLiveBadge: true,
+  },
   { name: "Học sinh", path: "/admin/students", icon: Users },
   { name: "Bài nộp", path: "/admin/submissions", icon: GraduationCap },
   { name: "Thống kê", path: "/admin/stats", icon: BarChart3 },
@@ -36,6 +45,18 @@ export default function AdminLayout() {
   });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [activeLiveCount, setActiveLiveCount] = useState(0);
+
+  // Subscribe to live sessions for navigation badge
+  useEffect(() => {
+    const unsub = subscribeToActiveSessions((list) => {
+      const active = list.filter(
+        (s) => s.status === "taking" || s.status === "warning",
+      );
+      setActiveLiveCount(active.length);
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
@@ -82,13 +103,18 @@ export default function AdminLayout() {
         className={clsx(
           "bg-white border-r border-slate-200 flex flex-col h-full shrink-0 transition-all duration-300 z-50",
           "fixed lg:static inset-y-0 left-0",
-          mobileOpen ? "translate-x-0 w-64 shadow-2xl" : "-translate-x-full lg:translate-x-0",
-          collapsed ? "lg:w-20" : "lg:w-64"
+          mobileOpen
+            ? "translate-x-0 w-64 shadow-2xl"
+            : "-translate-x-full lg:translate-x-0",
+          collapsed ? "lg:w-20" : "lg:w-64",
         )}
       >
         {/* Sidebar Header */}
         <div className="h-16 px-4 border-b border-slate-100 flex items-center justify-between">
-          <Link to="/admin/dashboard" className="flex items-center gap-3 overflow-hidden">
+          <Link
+            to="/admin/dashboard"
+            className="flex items-center gap-3 overflow-hidden"
+          >
             <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
               D
             </div>
@@ -100,7 +126,9 @@ export default function AdminLayout() {
                     ADMIN
                   </span>
                 </h1>
-                <p className="text-[11px] text-slate-400 font-medium">Hệ thống khảo thí</p>
+                <p className="text-[11px] text-slate-400 font-medium">
+                  Hệ thống khảo thí
+                </p>
               </div>
             )}
           </Link>
@@ -128,16 +156,32 @@ export default function AdminLayout() {
                   isActive
                     ? "bg-blue-50 text-blue-700 font-semibold shadow-xs"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900",
-                  collapsed && "justify-center px-2"
+                  collapsed && "justify-center px-2",
                 )}
               >
-                <Icon
-                  className={clsx(
-                    "w-5 h-5 shrink-0 transition-transform",
-                    isActive ? "text-blue-600 scale-105" : "text-slate-400 group-hover:text-slate-600"
+                <div className="relative">
+                  <Icon
+                    className={clsx(
+                      "w-5 h-5 shrink-0 transition-transform",
+                      isActive
+                        ? "text-blue-600 scale-105"
+                        : "text-slate-400 group-hover:text-slate-600",
+                    )}
+                  />
+                  {item.hasLiveBadge && activeLiveCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white animate-ping" />
                   )}
-                />
-                {!collapsed && <span className="truncate">{item.name}</span>}
+                </div>
+                {!collapsed && (
+                  <div className="flex items-center justify-between flex-1 truncate">
+                    <span className="truncate">{item.name}</span>
+                    {item.hasLiveBadge && activeLiveCount > 0 && (
+                      <span className="px-2 py-0.5 text-[10px] font-black bg-emerald-500 text-white rounded-full shadow-xs animate-pulse">
+                        {activeLiveCount} Live
+                      </span>
+                    )}
+                  </div>
+                )}
               </Link>
             );
           })}
@@ -150,19 +194,25 @@ export default function AdminLayout() {
             onClick={toggleCollapse}
             className={clsx(
               "hidden lg:flex items-center gap-2 w-full p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-xl transition-colors text-xs font-medium",
-              collapsed ? "justify-center" : "justify-between"
+              collapsed ? "justify-center" : "justify-between",
             )}
             title={collapsed ? "Mở rộng thanh bên" : "Thu gọn thanh bên"}
           >
             {!collapsed && <span>Thu gọn menu</span>}
-            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+            {collapsed ? (
+              <ChevronRight className="w-4 h-4" />
+            ) : (
+              <ChevronLeft className="w-4 h-4" />
+            )}
           </button>
 
           {/* Admin profile & logout */}
           <div
             className={clsx(
               "flex items-center p-2 bg-slate-50 border border-slate-100 rounded-xl",
-              collapsed ? "justify-center cursor-pointer hover:bg-slate-100" : "justify-between"
+              collapsed
+                ? "justify-center cursor-pointer hover:bg-slate-100"
+                : "justify-between",
             )}
             onClick={collapsed ? () => setShowLogoutModal(true) : undefined}
             title={collapsed ? "Nhấp để đăng xuất" : undefined}
@@ -173,7 +223,9 @@ export default function AdminLayout() {
               </div>
               {!collapsed && (
                 <div className="overflow-hidden">
-                  <p className="text-xs font-bold truncate text-slate-800">Quản trị viên</p>
+                  <p className="text-xs font-bold truncate text-slate-800">
+                    Quản trị viên
+                  </p>
                   <p className="text-[10px] text-slate-400 truncate">Dienkon</p>
                 </div>
               )}
@@ -205,7 +257,9 @@ export default function AdminLayout() {
             </button>
 
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-slate-400 hidden sm:inline">Quản trị DkTEST</span>
+              <span className="text-slate-400 hidden sm:inline">
+                Quản trị DkTEST
+              </span>
               <span className="text-slate-300 hidden sm:inline">/</span>
               <span className="font-semibold text-slate-800 uppercase tracking-tight">
                 {currentNav?.name || "Hệ thống"}
@@ -238,7 +292,8 @@ export default function AdminLayout() {
         </header>
 
         {/* Scrollable View Container */}
-        {location.pathname.includes("/admin/exams/new") || location.pathname.includes("/edit") ? (
+        {location.pathname.includes("/admin/exams/new") ||
+        location.pathname.includes("/edit") ? (
           <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
             <Outlet />
           </div>

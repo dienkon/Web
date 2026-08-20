@@ -39,7 +39,7 @@ export interface LinkedChildInfo {
 export async function sendParentLinkRequest(
   parentUsername: string,
   parentDisplayName: string,
-  childUsername: string
+  childUsername: string,
 ): Promise<{ success: boolean; message: string }> {
   try {
     const cleanChild = childUsername.trim().toLowerCase();
@@ -59,7 +59,7 @@ export async function sendParentLinkRequest(
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
-      where("childUsername", "==", cleanChild)
+      where("childUsername", "==", cleanChild),
     );
     const existingSnap = await getDocs(q);
     if (!existingSnap.empty) {
@@ -73,7 +73,8 @@ export async function sendParentLinkRequest(
       if (existingData.status === "pending") {
         return {
           success: false,
-          message: "Yêu cầu liên kết đã được gửi trước đó và đang chờ học sinh xác nhận.",
+          message:
+            "Yêu cầu liên kết đã được gửi trước đó và đang chờ học sinh xác nhận.",
         };
       }
     }
@@ -105,16 +106,20 @@ export async function sendParentLinkRequest(
 /**
  * Get all connection requests for a student
  */
-export async function getPendingRequestsForStudent(childUsername: string): Promise<ParentLinkRequest[]> {
+export async function getPendingRequestsForStudent(
+  childUsername: string,
+): Promise<ParentLinkRequest[]> {
   try {
     const cleanChild = childUsername.trim().toLowerCase();
     const q = query(
       collection(db, "parent_link_requests"),
       where("childUsername", "==", cleanChild),
-      where("status", "==", "pending")
+      where("status", "==", "pending"),
     );
     const snap = await getDocs(q);
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
+    return snap.docs.map(
+      (d) => ({ id: d.id, ...d.data() }) as ParentLinkRequest,
+    );
   } catch (err) {
     console.error("Error fetching pending requests for student:", err);
     return [];
@@ -126,7 +131,7 @@ export async function getPendingRequestsForStudent(childUsername: string): Promi
  */
 export async function respondToParentLinkRequest(
   requestId: string,
-  accept: boolean
+  accept: boolean,
 ): Promise<boolean> {
   try {
     const docRef = doc(db, "parent_link_requests", requestId);
@@ -144,13 +149,15 @@ export async function respondToParentLinkRequest(
 /**
  * Get all linked children for a parent
  */
-export async function getLinkedChildrenForParent(parentUsername: string): Promise<LinkedChildInfo[]> {
+export async function getLinkedChildrenForParent(
+  parentUsername: string,
+): Promise<LinkedChildInfo[]> {
   try {
     const cleanParent = parentUsername.trim().toLowerCase();
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
-      where("status", "==", "accepted")
+      where("status", "==", "accepted"),
     );
     const snap = await getDocs(q);
     const requests = snap.docs.map((d) => d.data() as ParentLinkRequest);
@@ -173,10 +180,12 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
       // Fetch student's submissions
       const subQuery = query(
         collection(db, "submissions"),
-        where("studentId", "==", req.childUsername)
+        where("studentId", "==", req.childUsername),
       );
       const subSnap = await getDocs(subQuery);
-      const subs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+      const subs = subSnap.docs.map(
+        (d) => ({ id: d.id, ...d.data() }) as Submission,
+      );
 
       // Sort newest first
       subs.sort((a: any, b: any) => {
@@ -192,22 +201,54 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
       // Check active proctoring / taking session
       let activeSession = null;
       try {
-        const sessQuery = query(
-          collection(db, "taking_sessions"),
-          where("studentId", "==", req.childUsername)
+        // Query active_sessions first
+        const actQuery = query(
+          collection(db, "active_sessions"),
+          where("studentUsername", "==", req.childUsername),
         );
-        const sessSnap = await getDocs(sessQuery);
-        if (!sessSnap.empty) {
-          const sessData = sessSnap.docs[0].data();
-          // If session was updated within last 5 minutes, consider active
-          const lastActive = sessData.lastHeartbeat || sessData.startTime;
-          const diffMin = (Date.now() - new Date(lastActive).getTime()) / 60000;
+        const actSnap = await getDocs(actQuery);
+        let foundDoc = null;
+        if (!actSnap.empty) {
+          foundDoc = actSnap.docs[0].data();
+        } else {
+          // Fallback query with studentId
+          const actQuery2 = query(
+            collection(db, "active_sessions"),
+            where("studentId", "==", req.childUsername),
+          );
+          const actSnap2 = await getDocs(actQuery2);
+          if (!actSnap2.empty) {
+            foundDoc = actSnap2.docs[0].data();
+          } else {
+            // Check taking_sessions fallback
+            const sessQuery = query(
+              collection(db, "taking_sessions"),
+              where("studentId", "==", req.childUsername),
+            );
+            const sessSnap = await getDocs(sessQuery);
+            if (!sessSnap.empty) {
+              foundDoc = sessSnap.docs[0].data();
+            }
+          }
+        }
+
+        if (foundDoc && foundDoc.status !== "submitted") {
+          const lastActive =
+            typeof foundDoc.lastActiveAt === "number"
+              ? foundDoc.lastActiveAt
+              : foundDoc.lastHeartbeat
+                ? new Date(foundDoc.lastHeartbeat).getTime()
+                : foundDoc.startTime
+                  ? new Date(foundDoc.startTime).getTime()
+                  : 0;
+
+          const diffMin = (Date.now() - lastActive) / 60000;
           if (diffMin < 10) {
-            activeSession = sessData;
+            activeSession = foundDoc;
           }
         }
       } catch (sessErr) {
-        // ignore
+        console.warn("Error querying active session for child:", sessErr);
       }
 
       children.push({
@@ -230,16 +271,20 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
 /**
  * Get list of pending sent requests by parent
  */
-export async function getPendingRequestsSentByParent(parentUsername: string): Promise<ParentLinkRequest[]> {
+export async function getPendingRequestsSentByParent(
+  parentUsername: string,
+): Promise<ParentLinkRequest[]> {
   try {
     const cleanParent = parentUsername.trim().toLowerCase();
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
-      where("status", "==", "pending")
+      where("status", "==", "pending"),
     );
     const snap = await getDocs(q);
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
+    return snap.docs.map(
+      (d) => ({ id: d.id, ...d.data() }) as ParentLinkRequest,
+    );
   } catch (err) {
     console.error("Error fetching pending requests for parent:", err);
     return [];
