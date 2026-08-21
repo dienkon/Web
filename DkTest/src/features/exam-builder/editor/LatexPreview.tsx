@@ -38,564 +38,77 @@ export default function LatexPreview({ content, className = "" }: Props) {
 export function normalizeLatexText(input: string): string {
   if (!input) return "";
 
-  let text = String(input);
+  let text = input;
 
-  // =========================================================
-  // 0. Normalize line breaks
-  // =========================================================
-  text = text
-    .replace(/\\r\\n/g, "\n")
-    .replace(/\\n/g, "\n")
-    .replace(/\r\n/g, "\n")
-    .replace(/\r/g, "\n");
+  // Convert literal '\n' and '\r\n' text strings (two characters '\' and 'n') into actual newline characters
+  text = text.replace(/\\r\\n/g, "\n").replace(/\\n/g, "\n");
 
-  // =========================================================
-  // 1. Restore ASCII control-character corruption
-  //    caused by malformed JS / JSON escaping
-  // =========================================================
+  // 1. Fix ASCII control character corruptions caused by single-backslash JSON/JS string parsing:
+  // Tab \x09
+  text = text.replace(/\x09imes/g, "\\times");
+  text = text.replace(/\x09heta/g, "\\theta");
+  text = text.replace(/\x09an/g, "\\tan");
+  text = text.replace(/\x09ext/g, "\\text");
+  text = text.replace(/\x09o\b/g, "\\to");
+  text = text.replace(/\x09au/g, "\\tau");
+  text = text.replace(/\x09riangle/g, "\\triangle");
+  text = text.replace(/\x09ilde/g, "\\tilde");
+  text = text.replace(/\x09op/g, "\\top");
+  text = text.replace(/\x09frac/g, "\\tfrac");
+  text = text.replace(/\\t\s*x\s*(\d+|[a-zA-Z]+|\$)/g, "\\times $1");
 
-  // Tab (\t) corruption
-  text = text
-    .replace(/\x09imes/g, "\\times")
-    .replace(/\x09heta/g, "\\theta")
-    .replace(/\x09an/g, "\\tan")
-    .replace(/\x09ext/g, "\\text")
-    .replace(/\x09o\b/g, "\\to")
-    .replace(/\x09au/g, "\\tau")
-    .replace(/\x09riangle/g, "\\triangle")
-    .replace(/\x09ilde/g, "\\tilde")
-    .replace(/\x09op/g, "\\top")
-    .replace(/\x09frac/g, "\\tfrac")
-    .replace(/\x09imes/g, "\\times");
+  // Newline \x0A
+  text = text.replace(/\x0Aotin/g, "\\notin");
+  text = text.replace(/\x0Aearrow/g, "\\nearrow");
+  text = text.replace(/\x0Aeq/g, "\\neq");
+  text = text.replace(/\x0Aexists/g, "\\nexists");
+  text = text.replace(/\x0Aeg/g, "\\neg");
+  text = text.replace(/\x0Aabla/g, "\\nabla");
+  text = text.replace(/\x0Aocite/g, "\\nocite");
+  text = text.replace(/\x0Aoindent/g, "\\noindent");
 
-  // Newline (\n) corruption
-  text = text
-    .replace(/\x0Aotin/g, "\\notin")
-    .replace(/\x0Aearrow/g, "\\nearrow")
-    .replace(/\x0Aeq/g, "\\neq")
-    .replace(/\x0Aexists/g, "\\nexists")
-    .replace(/\x0Aeg/g, "\\neg")
-    .replace(/\x0Aabla/g, "\\nabla")
-    .replace(/\x0Aocite/g, "\\nocite")
-    .replace(/\x0Aoindent/g, "\\noindent")
-    .replace(/\x0Aeqslant/g, "\\neqslant")
-    .replace(/\x0Aot/g, "\\not");
+  // Formfeed \x0C
+  text = text.replace(/\x0Crac/g, "\\frac");
+  text = text.replace(/\x0Cforall/g, "\\forall");
+  text = text.replace(/\x0Cflat/g, "\\flat");
+  text = text.replace(/\x0C/g, "\\f");
 
-  // Form feed (\f)
-  text = text
-    .replace(/\x0Crac/g, "\\frac")
-    .replace(/\x0Cforall/g, "\\forall")
-    .replace(/\x0Cflat/g, "\\flat")
-    .replace(/\x0Cgamma/g, "\\fgamma")
-    .replace(/\x0C/g, "\\f");
+  // Backspace \x08
+  text = text.replace(/\x08eta/g, "\\beta");
+  text = text.replace(/\x08ar/g, "\\bar");
+  text = text.replace(/\x08egin/g, "\\begin");
+  text = text.replace(/\x08ig/g, "\\big");
+  text = text.replace(/\x08ullet/g, "\\bullet");
+  text = text.replace(/\x08ox/g, "\\box");
+  text = text.replace(/\x08/g, "\\b");
 
-  // Backspace (\b)
-  text = text
-    .replace(/\x08eta/g, "\\beta")
-    .replace(/\x08ar/g, "\\bar")
-    .replace(/\x08egin/g, "\\begin")
-    .replace(/\x08ig/g, "\\big")
-    .replace(/\x08ullet/g, "\\bullet")
-    .replace(/\x08ox/g, "\\box")
-    .replace(/\x08frown/g, "\\frown")
-    .replace(/\x08/g, "\\b");
+  // Carriage Return \x0D
+  text = text.replace(/\x0Dho/g, "\\rho");
+  text = text.replace(/\x0Dight/g, "\\right");
+  text = text.replace(/\x0Dreal/g, "\\real");
 
-  // Carriage return (\r)
-  text = text
-    .replace(/\x0Dho/g, "\\rho")
-    .replace(/\x0Dight/g, "\\right")
-    .replace(/\x0Dreal/g, "\\real")
-    .replace(/\x0Dangle/g, "\\rangle");
+  // Vertical Tab \x0B
+  text = text.replace(/\x0Bec/g, "\\vec");
+  text = text.replace(/\x0Bspace/g, "\\vspace");
+  text = text.replace(/\x0Bdots/g, "\\vdots");
 
-  // Vertical tab (\v)
-  text = text
-    .replace(/\x0Bec/g, "\\vec")
-    .replace(/\x0Bspace/g, "\\vspace")
-    .replace(/\x0Bdots/g, "\\vdots")
-    .replace(/\x0Bdash/g, "\\vDash");
-
-  // =========================================================
-  // 2. Common backslash-stripped LaTeX commands
-  // =========================================================
-
-  const commands = [
-    // Fractions / roots
-    "frac",
-    "dfrac",
-    "tfrac",
-    "cfrac",
-    "sqrt",
-
-    // Superscript / delimiters
-    "left",
-    "right",
-    "middle",
-
-    // Text
-    "text",
-    "mathrm",
-    "mathbf",
-    "mathit",
-    "mathsf",
-    "mathtt",
-    "mathbb",
-    "mathcal",
-    "mathscr",
-    "boldsymbol",
-
-    // Greek
-    "alpha",
-    "beta",
-    "gamma",
-    "delta",
-    "epsilon",
-    "varepsilon",
-    "zeta",
-    "eta",
-    "theta",
-    "vartheta",
-    "iota",
-    "kappa",
-    "lambda",
-    "mu",
-    "nu",
-    "xi",
-    "pi",
-    "varpi",
-    "rho",
-    "varrho",
-    "sigma",
-    "varsigma",
-    "tau",
-    "upsilon",
-    "phi",
-    "varphi",
-    "chi",
-    "psi",
-    "omega",
-
-    "Gamma",
-    "Delta",
-    "Theta",
-    "Lambda",
-    "Xi",
-    "Pi",
-    "Sigma",
-    "Upsilon",
-    "Phi",
-    "Psi",
-    "Omega",
-
-    // Arithmetic
-    "times",
-    "cdot",
-    "div",
-    "pm",
-    "mp",
-    "ast",
-    "star",
-    "circ",
-    "bullet",
-
-    // Relations
-    "neq",
-    "ne",
-    "le",
-    "leq",
-    "ge",
-    "geq",
-    "ll",
-    "gg",
-    "approx",
-    "sim",
-    "simeq",
-    "cong",
-    "equiv",
-    "propto",
-    "parallel",
-    "perp",
-    "mid",
-    "nmid",
-
-    // Sets
-    "in",
-    "notin",
-    "ni",
-    "subset",
-    "subseteq",
-    "supset",
-    "supseteq",
-    "subsetneq",
-    "supsetneq",
-    "cup",
-    "cap",
-    "setminus",
-    "emptyset",
-    "varnothing",
-
-    // Logic
-    "forall",
-    "exists",
-    "nexists",
-    "neg",
-    "land",
-    "lor",
-    "wedge",
-    "vee",
-    "implies",
-    "iff",
-
-    // Arrows
-    "to",
-    "rightarrow",
-    "leftarrow",
-    "leftrightarrow",
-    "Rightarrow",
-    "Leftarrow",
-    "Leftrightarrow",
-    "mapsto",
-    "longrightarrow",
-    "longleftarrow",
-    "longleftrightarrow",
-    "uparrow",
-    "downarrow",
-    "updownarrow",
-    "Uparrow",
-    "Downarrow",
-    "Updownarrow",
-    "nearrow",
-    "searrow",
-    "swarrow",
-    "nwarrow",
-
-    // Calculus
-    "sum",
-    "prod",
-    "coprod",
-    "int",
-    "iint",
-    "iiint",
-    "oint",
-    "lim",
-    "inf",
-    "sup",
-    "max",
-    "min",
-    "argmax",
-    "argmin",
-    "partial",
-    "nabla",
-
-    // Trigonometry
-    "sin",
-    "cos",
-    "tan",
-    "cot",
-    "sec",
-    "csc",
-    "arcsin",
-    "arccos",
-    "arctan",
-    "sinh",
-    "cosh",
-    "tanh",
-    "coth",
-
-    // Logs / exponentials
-    "log",
-    "ln",
-    "lg",
-    "exp",
-
-    // Vectors / accents
-    "vec",
-    "overrightarrow",
-    "overleftarrow",
-    "overline",
-    "underline",
-    "bar",
-    "hat",
-    "widehat",
-    "tilde",
-    "widetilde",
-    "dot",
-    "ddot",
-    "breve",
-    "check",
-    "acute",
-    "grave",
-
-    // Brackets / symbols
-    "langle",
-    "rangle",
-    "lfloor",
-    "rfloor",
-    "lceil",
-    "rceil",
-    "lvert",
-    "rvert",
-    "Vert",
-    "vert",
-
-    // Misc mathematical symbols
-    "infty",
-    "partial",
-    "degree",
-    "prime",
-    "angle",
-    "triangle",
-    "square",
-    "diamond",
-    "parallel",
-    "perp",
-    "top",
-    "bot",
-    "aleph",
-    "Re",
-    "Im",
-
-    // Ellipsis
-    "cdots",
-    "ldots",
-    "vdots",
-    "ddots",
-
-    // Matrix
-    "begin",
-    "end",
-
-    // Spacing
-    "quad",
-    "qquad",
-    "hspace",
-    "vspace",
-    "!",
-    ",",
-    ":",
-    ";",
-    " ",
-  ];
-
-  for (const command of commands) {
-    const escaped = command.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-    // Only restore when it looks like a standalone command.
-    const regex = new RegExp(
-      `(^|[\\s({[=+\\-*/,:;<>|])${escaped}(?=\\b|\\s|\\{|\\[|\\(|\\^|_)`,
-      "g"
-    );
-
-    text = text.replace(regex, `$1\\${command}`);
-  }
-
-  // =========================================================
-  // 3. Explicit high-priority fixes
-  // =========================================================
-
-  text = text
-    .replace(/(^|[\s=+\-*/(;,:])\s*rac\s*\{/g, "$1\\frac{")
-    .replace(/(^|[\s=+\-*/(;,:])\s*dfrac\s*\{/g, "$1\\dfrac{")
-    .replace(/(^|[\s=+\-*/(;,:])\s*tfrac\s*\{/g, "$1\\tfrac{")
-    .replace(/(^|[\s=+\-*/(;,:])\s*cfrac\s*\{/g, "$1\\cfrac{")
-    .replace(/(^|[\s=+\-*/(;,:])\s*sqrt\s*\{/g, "$1\\sqrt{");
-
-  // =========================================================
-  // 4. Fix common "2times3", "3cdot4", etc.
-  // =========================================================
-
-  text = text
-    .replace(/(\d)\s*times\s*(\d|[a-zA-Z])/g, "$1\\times $2")
-    .replace(/(\d)\s*cdot\s*(\d|[a-zA-Z])/g, "$1\\cdot $2")
-    .replace(/([a-zA-Z])\s*times\s*(\d|[a-zA-Z])/g, "$1\\times $2")
-    .replace(/([a-zA-Z])\s*cdot\s*(\d|[a-zA-Z])/g, "$1\\cdot $2");
-
-  // =========================================================
-  // 5. Set symbols
-  // =========================================================
-
-  text = text
-    .replace(
-      /(^|[\s({[=+\-*/,:;])\s*notin\b/g,
-      "$1 \\notin "
-    )
-    .replace(
-      /(^|[\s({[=+\-*/,:;])\s*in\b/g,
-      "$1 \\in "
-    )
-    .replace(
-      /(^|[\s({[=+\-*/,:;])\s*subseteq\b/g,
-      "$1 \\subseteq "
-    )
-    .replace(
-      /(^|[\s({[=+\-*/,:;])\s*subset\b/g,
-      "$1 \\subset "
-    )
-    .replace(
-      /(^|[\s({[=+\-*/,:;])\s*supseteq\b/g,
-      "$1 \\supseteq "
-    )
-    .replace(
-      /(^|[\s({[=+\-*/,:;])\s*supset\b/g,
-      "$1 \\supset "
-    );
-
-  // =========================================================
-  // 6. Relations accidentally typed as plain text
-  // =========================================================
-
-  text = text
-    .replace(/(^|[\s(])neq(?=[\s),.;:+\-*/]|$)/g, "$1\\neq")
-    .replace(/(^|[\s(])leq(?=[\s),.;:+\-*/]|$)/g, "$1\\leq")
-    .replace(/(^|[\s(])geq(?=[\s),.;:+\-*/]|$)/g, "$1\\geq")
-    .replace(/(^|[\s(])le(?=[\s),.;:+\-*/]|$)/g, "$1\\le")
-    .replace(/(^|[\s(])ge(?=[\s),.;:+\-*/]|$)/g, "$1\\ge");
-
-  // =========================================================
-  // 7. Common plain-text math aliases
-  // =========================================================
-
-  text = text
-    .replace(/\bInfinity\b/g, "\\infty")
-    .replace(/\binfinity\b/g, "\\infty")
-    .replace(/\bpi\b/g, "\\pi")
-    .replace(/\btheta\b/g, "\\theta")
-    .replace(/\balpha\b/g, "\\alpha")
-    .replace(/\bbeta\b/g, "\\beta")
-    .replace(/\bgamma\b/g, "\\gamma")
-    .replace(/\bdelta\b/g, "\\delta")
-    .replace(/\blambda\b/g, "\\lambda")
-    .replace(/\bmu\b/g, "\\mu")
-    .replace(/\bsigma\b/g, "\\sigma")
-    .replace(/\bomega\b/g, "\\omega");
-
-  // =========================================================
-  // 8. Common Unicode → LaTeX
-  // =========================================================
-
-  const unicodeMap: Record<string, string> = {
-    "×": "\\times",
-    "÷": "\\div",
-    "±": "\\pm",
-    "∓": "\\mp",
-    "≤": "\\le",
-    "≥": "\\ge",
-    "≠": "\\neq",
-    "≈": "\\approx",
-    "≡": "\\equiv",
-    "∼": "\\sim",
-    "∞": "\\infty",
-
-    "∈": "\\in",
-    "∉": "\\notin",
-    "∋": "\\ni",
-    "⊂": "\\subset",
-    "⊆": "\\subseteq",
-    "⊃": "\\supset",
-    "⊇": "\\supseteq",
-    "∅": "\\varnothing",
-
-    "∪": "\\cup",
-    "∩": "\\cap",
-    "∖": "\\setminus",
-
-    "∀": "\\forall",
-    "∃": "\\exists",
-    "¬": "\\neg",
-    "∧": "\\land",
-    "∨": "\\lor",
-
-    "→": "\\rightarrow",
-    "←": "\\leftarrow",
-    "↔": "\\leftrightarrow",
-    "⇒": "\\Rightarrow",
-    "⇐": "\\Leftarrow",
-    "⇔": "\\Leftrightarrow",
-
-    "∂": "\\partial",
-    "∇": "\\nabla",
-    "∑": "\\sum",
-    "∏": "\\prod",
-    "∫": "\\int",
-
-    "√": "\\sqrt",
-    "∠": "\\angle",
-    "△": "\\triangle",
-    "°": "^\\circ",
-
-    "·": "\\cdot",
-    "⋅": "\\cdot",
-
-    "α": "\\alpha",
-    "β": "\\beta",
-    "γ": "\\gamma",
-    "δ": "\\delta",
-    "ε": "\\epsilon",
-    "θ": "\\theta",
-    "λ": "\\lambda",
-    "μ": "\\mu",
-    "π": "\\pi",
-    "ρ": "\\rho",
-    "σ": "\\sigma",
-    "τ": "\\tau",
-    "φ": "\\phi",
-    "ψ": "\\psi",
-    "ω": "\\omega",
-
-    "Γ": "\\Gamma",
-    "Δ": "\\Delta",
-    "Θ": "\\Theta",
-    "Λ": "\\Lambda",
-    "Π": "\\Pi",
-    "Σ": "\\Sigma",
-    "Φ": "\\Phi",
-    "Ψ": "\\Psi",
-    "Ω": "\\Omega",
-  };
-
-  for (const [unicode, latex] of Object.entries(unicodeMap)) {
-    text = text.split(unicode).join(latex);
-  }
-
-  // =========================================================
-  // 9. Normalize spacing around operators
-  // =========================================================
-
-  text = text
-    .replace(/\\times\s+/g, "\\times ")
-    .replace(/\\cdot\s+/g, "\\cdot ")
-    .replace(/\s+\{/g, " {")
-    .replace(/\{\s+/g, "{")
-    .replace(/\s+\}/g, "}")
-    .replace(/\(\s+/g, "(")
-    .replace(/\s+\)/g, ")");
-
-  // =========================================================
-  // 10. Repair accidental double escaping
-  // =========================================================
-
-  text = text.replace(/\\\\([a-zA-Z]+)/g, "\\$1");
-
-  // =========================================================
-  // 11. Remove unsupported control chars
-  //    while preserving \n and \t
-  // =========================================================
-
+  // 2. Fix unescaped keywords when backslash was stripped:
   text = text.replace(
-    /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,
-    ""
+    /(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*rac\s*\{/g,
+    "$1\\frac{",
+  );
+  text = text.replace(
+    /(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*sqrt\s*\{/g,
+    "$1\\sqrt{",
   );
 
-  // =========================================================
-  // 12. Normalize whitespace
-  // =========================================================
-
-  text = text
-    .replace(/[ \t]+/g, " ")
-    .replace(/ *\n */g, "\n")
-    .trim();
+  // 3. Fix unescaped math symbol words like "notin A", "times", "2times3"
+  text = text.replace(/(^|[\s({[,=+\-*/])\s*notin\b/g, "$1 \\notin ");
+  text = text.replace(/(^|[\s({[,=+\-*/])\s*times\b/g, "$1 \\times ");
 
   return text;
 }
+
 export function renderMarkdownWithLatex(rawText: string): string {
   if (!rawText) return "";
 
