@@ -64,10 +64,14 @@ const router = createBrowserRouter([
       { path: "exams/:examId", element: <ExamDetail /> },
       { path: "exams/:examId/stats", element: <Statistics /> },
       { path: "exams/:examId/submissions", element: <Submissions /> },
-      { path: "exams/:examId/submissions/:submissionId", element: <SubmissionDetail /> },
+      {
+        path: "exams/:examId/submissions/:submissionId",
+        element: <SubmissionDetail />,
+      },
       { path: "submissions", element: <Submissions /> },
       { path: "students", element: <Students /> },
       { path: "live-proctoring", element: <LiveProctoring /> },
+      { path: "live-monitor/:sessionId", element: <LiveMonitor /> },
       { path: "stats", element: <Statistics /> },
       { path: "settings", element: <Settings /> },
     ],
@@ -84,7 +88,10 @@ const router = createBrowserRouter([
       { path: "student/profile", element: <StudentProfile /> },
       { path: "student/exam/:examId", element: <ExamIntro /> },
       { path: "student/exam/:examId/take", element: <TakingExam /> },
-      { path: "student/exam/:examId/result/:submissionId", element: <ExamResult /> },
+      {
+        path: "student/exam/:examId/result/:submissionId",
+        element: <ExamResult />,
+      },
     ],
   },
 ]);
