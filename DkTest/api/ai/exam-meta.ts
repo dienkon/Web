@@ -1,4 +1,4 @@
-import { renderExamPageHtml } from "../src/services/server/examMetadata";
+import { renderExamPageHtml } from "../../src/services/server/examMetadata";
 
 export default async function handler(req: any, res: any) {
   try {
