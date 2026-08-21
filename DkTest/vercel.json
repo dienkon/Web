@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/student/exam/:examId",
-      "destination": "/api/exam-meta?examId=:examId"
+      "destination": "/api/ai/exam-meta?examId=:examId"
     },
     {
       "source": "/((?!api/).*)",
