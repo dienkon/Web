@@ -38,12 +38,17 @@ export default function ExamIntro() {
 
   // Sub-exam states
   const [useSubExam, setUseSubExam] = useState(false);
-  const [subExamConfig, setSubExamConfig] = useState<SubExamConfig | null>(null);
+  const [subExamConfig, setSubExamConfig] = useState<SubExamConfig | null>(
+    null,
+  );
   const [sections, setSections] = useState<Section[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState<{ username?: string; displayName?: string } | null>(null);
+  const [currentUser, setCurrentUser] = useState<{
+    username?: string;
+    displayName?: string;
+  } | null>(null);
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
@@ -74,8 +79,12 @@ export default function ExamIntro() {
 
         // 2. If not found by ID, try searching by exam code
         if (!foundExam) {
-          const q = query(collection(db, "exams"), where("code", "==", examId.trim().toUpperCase()));
-          console.log("[Firestore] READ_MANY: exams (by code)"); const snap = await getDocs(q);
+          const q = query(
+            collection(db, "exams"),
+            where("code", "==", examId.trim().toUpperCase()),
+          );
+          console.log("[Firestore] READ_MANY: exams (by code)");
+          const snap = await getDocs(q);
           if (!snap.empty) {
             const docData = snap.docs[0];
             foundExam = { id: docData.id, ...docData.data() } as Exam;
@@ -84,23 +93,47 @@ export default function ExamIntro() {
 
         setExam(foundExam);
 
+        if (foundExam?.title) {
+          const t = foundExam.title.trim();
+          document.title = t.toLowerCase().includes("dktest")
+            ? t
+            : `${t} | DkTEST`;
+        }
+
         if (foundExam?.allowSubExam && foundExam?.subExamConfig?.enabled) {
           // If questions/sections are embedded in the exam doc
-          if (Array.isArray((foundExam as any).questions) && Array.isArray((foundExam as any).sections)) {
+          if (
+            Array.isArray((foundExam as any).questions) &&
+            Array.isArray((foundExam as any).sections)
+          ) {
             let qs = (foundExam as any).questions as Question[];
             let ss = (foundExam as any).sections as Section[];
-            qs.sort((a,b) => (a.order || 0) - (b.order || 0));
-            ss.sort((a,b) => (a.order || 0) - (b.order || 0));
+            qs.sort((a, b) => (a.order || 0) - (b.order || 0));
+            ss.sort((a, b) => (a.order || 0) - (b.order || 0));
             setSections(ss);
             setQuestions(qs);
           } else {
-             // Fallback for legacy
+            // Fallback for legacy
             const [secSnap, qSnap] = await Promise.all([
-              getDocs(query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc"))),
-              getDocs(query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc"))),
+              getDocs(
+                query(
+                  collection(db, `exams/${foundExam.id}/sections`),
+                  orderBy("order", "asc"),
+                ),
+              ),
+              getDocs(
+                query(
+                  collection(db, `exams/${foundExam.id}/questions`),
+                  orderBy("order", "asc"),
+                ),
+              ),
             ]);
-            setSections(secSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section)));
-            setQuestions(qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question)));
+            setSections(
+              secSnap.docs.map((d) => ({ id: d.id, ...d.data() }) as Section),
+            );
+            setQuestions(
+              qSnap.docs.map((d) => ({ id: d.id, ...d.data() }) as Question),
+            );
           }
           setSubExamConfig(foundExam.subExamConfig);
           setUseSubExam(true);
@@ -140,13 +173,18 @@ export default function ExamIntro() {
 
     // Check authentication
     if (!isLoggedIn) {
-      navigate(`/student/login?redirect=${encodeURIComponent(`/student/exam/${exam.id}`)}`);
+      navigate(
+        `/student/login?redirect=${encodeURIComponent(`/student/exam/${exam.id}`)}`,
+      );
       return;
     }
 
     // If no name entered, generate candidate name
     const finalName =
-      studentName.trim() || currentUser?.displayName || currentUser?.username || `Thí sinh #${Math.floor(1000 + Math.random() * 9000)}`;
+      studentName.trim() ||
+      currentUser?.displayName ||
+      currentUser?.username ||
+      `Thí sinh #${Math.floor(1000 + Math.random() * 9000)}`;
 
     // Save student session info for taking exam
     localStorage.setItem(
@@ -155,15 +193,18 @@ export default function ExamIntro() {
         name: finalName,
         code: studentCode.trim() || currentUser?.username || undefined,
         startTime: Date.now(),
-      })
+      }),
     );
 
     // Save sub-exam preference
     if (exam.allowSubExam) {
-      localStorage.setItem(`custom_sub_exam_config_${exam.id}`, JSON.stringify({
-        useSubExam,
-        config: subExamConfig
-      }));
+      localStorage.setItem(
+        `custom_sub_exam_config_${exam.id}`,
+        JSON.stringify({
+          useSubExam,
+          config: subExamConfig,
+        }),
+      );
     }
 
     navigate(`/student/exam/${exam.id}/take`);
@@ -174,7 +215,9 @@ export default function ExamIntro() {
       <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
         <div className="text-center space-y-3">
           <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm font-semibold text-slate-600">Đang chuẩn bị phòng thi...</p>
+          <p className="text-sm font-semibold text-slate-600">
+            Đang chuẩn bị phòng thi...
+          </p>
         </div>
       </div>
     );
@@ -187,7 +230,9 @@ export default function ExamIntro() {
           <div className="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mx-auto">
             <AlertTriangle className="w-7 h-7" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Không tìm thấy bài thi</h2>
+          <h2 className="text-xl font-bold text-slate-900">
+            Không tìm thấy bài thi
+          </h2>
           <p className="text-sm text-slate-500">
             Mã bài thi hoặc đường liên kết không tồn tại hoặc đã bị gỡ bỏ.
           </p>
@@ -237,20 +282,32 @@ export default function ExamIntro() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
                 <Clock className="w-5 h-5 text-blue-600 mx-auto mb-1" />
-                <span className="text-[11px] text-slate-400 font-semibold block">Thời gian thi</span>
-                <span className="text-base font-extrabold text-slate-800">{exam.timeLimit || 45} phút</span>
+                <span className="text-[11px] text-slate-400 font-semibold block">
+                  Thời gian thi
+                </span>
+                <span className="text-base font-extrabold text-slate-800">
+                  {exam.timeLimit || 45} phút
+                </span>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
                 <FileText className="w-5 h-5 text-indigo-600 mx-auto mb-1" />
-                <span className="text-[11px] text-slate-400 font-semibold block">Số lượng câu</span>
-                <span className="text-base font-extrabold text-slate-800">{exam.questionCount || 0} câu</span>
+                <span className="text-[11px] text-slate-400 font-semibold block">
+                  Số lượng câu
+                </span>
+                <span className="text-base font-extrabold text-slate-800">
+                  {exam.questionCount || 0} câu
+                </span>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center col-span-2 sm:col-span-1">
                 <ShieldAlert className="w-5 h-5 text-amber-600 mx-auto mb-1" />
-                <span className="text-[11px] text-slate-400 font-semibold block">Chống gian lận</span>
-                <span className="text-xs font-extrabold text-emerald-700 block mt-1">Đang kích hoạt</span>
+                <span className="text-[11px] text-slate-400 font-semibold block">
+                  Chống gian lận
+                </span>
+                <span className="text-xs font-extrabold text-emerald-700 block mt-1">
+                  Đang kích hoạt
+                </span>
               </div>
             </div>
 
@@ -274,11 +331,21 @@ export default function ExamIntro() {
               </p>
               <ul className="list-disc pl-5 space-y-1 text-amber-900/90 leading-relaxed">
                 <li>
-                  Thí sinh tham gia: <strong>{studentName || "Thí sinh tự do"}</strong>
+                  Thí sinh tham gia:{" "}
+                  <strong>{studentName || "Thí sinh tự do"}</strong>
                 </li>
-                <li>Đồng hồ đếm ngược sẽ bắt đầu chạy ngay khi bạn nhấn <strong>"Bắt đầu làm bài"</strong>.</li>
-                <li>Hệ thống tự động ghi nhận hành vi chuyển tab hoặc thu nhỏ cửa sổ.</li>
-                <li>Khi hết thời gian, bài thi sẽ được tự động nộp và chấm điểm tức thì.</li>
+                <li>
+                  Đồng hồ đếm ngược sẽ bắt đầu chạy ngay khi bạn nhấn{" "}
+                  <strong>"Bắt đầu làm bài"</strong>.
+                </li>
+                <li>
+                  Hệ thống tự động ghi nhận hành vi chuyển tab hoặc thu nhỏ cửa
+                  sổ.
+                </li>
+                <li>
+                  Khi hết thời gian, bài thi sẽ được tự động nộp và chấm điểm
+                  tức thì.
+                </li>
               </ul>
             </div>
 
@@ -304,7 +371,9 @@ export default function ExamIntro() {
                     />
                   </div>
                   {passwordError && (
-                    <p className="text-xs text-red-600 font-bold mt-1">{passwordError}</p>
+                    <p className="text-xs text-red-600 font-bold mt-1">
+                      {passwordError}
+                    </p>
                   )}
                 </div>
               )}
@@ -317,7 +386,10 @@ export default function ExamIntro() {
                   onChange={(e) => setAcceptedTerms(e.target.checked)}
                   className="w-4 h-4 rounded text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer"
                 />
-                <label htmlFor="terms" className="text-xs text-slate-600 font-medium cursor-pointer">
+                <label
+                  htmlFor="terms"
+                  className="text-xs text-slate-600 font-medium cursor-pointer"
+                >
                   Tôi đã sẵn sàng và cam kết làm bài nghiêm túc.
                 </label>
               </div>
@@ -339,7 +411,11 @@ export default function ExamIntro() {
                       ? "bg-amber-500 text-white border-amber-600"
                       : "bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200"
                   }`}
-                  title={showLeaderboard ? "Ẩn bảng xếp hạng" : "Xem bảng xếp hạng Top 10"}
+                  title={
+                    showLeaderboard
+                      ? "Ẩn bảng xếp hạng"
+                      : "Xem bảng xếp hạng Top 10"
+                  }
                 >
                   <Trophy className="w-5 h-5" />
                 </button>
@@ -358,4 +434,3 @@ export default function ExamIntro() {
     </div>
   );
 }
-
