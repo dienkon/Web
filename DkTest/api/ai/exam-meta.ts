@@ -34,7 +34,7 @@ export default async function handler(req: any, res: any) {
 
     const baseUrl = `${proto}://${hostClean}`;
 
-    // 3. Render dynamic HTML with real Open Graph / Twitter metadata
+    // 3. Render dynamic HTML with real Open Graph / Twitter metadata and production assets
     const { html, status } = await renderExamPageHtml({
       examId,
       baseUrl,
@@ -49,25 +49,15 @@ export default async function handler(req: any, res: any) {
     );
     return res.status(status).send(html);
   } catch (err: any) {
-    console.error("[api/exam-meta] Error processing request:", err);
+    console.error("[api/ai/exam-meta] Error processing request:", err);
 
-    // Fallback safe HTML on unexpected error
+    // Fallback safe production HTML on unexpected error
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    return res.status(500).send(`<!doctype html>
-<html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <title>DkTEST - Bài kiểm tra</title>
-    <meta name="description" content="Tham gia bài kiểm tra trên DkTEST" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="DkTEST - Bài kiểm tra" />
-    <meta property="og:description" content="Tham gia bài kiểm tra trên DkTEST" />
-    <meta property="og:site_name" content="DkTEST" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>`);
+    const { html } = await renderExamPageHtml({
+      examId: "",
+      baseUrl: "https://dktest.vn",
+      isDev: false,
+    });
+    return res.status(500).send(html);
   }
 }

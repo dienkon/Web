@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmlTemplate.js";
 
 export interface ExamMeta {
   id: string;
@@ -109,8 +110,7 @@ function parseFirestoreExamFields(docId: string, fields: any): ExamMeta {
   return {
     id: docId,
     title: rawTitle.trim() || "DkTEST - Bài kiểm tra",
-    description:
-      rawDesc.trim() || "Tham gia bài kiểm tra trên DkTEST",
+    description: rawDesc.trim() || "Tham gia bài kiểm tra trên DkTEST",
     code,
     imageUrl: validImageUrl,
     timeLimit,
@@ -124,7 +124,7 @@ function parseFirestoreExamFields(docId: string, fields: any): ExamMeta {
  * private credentials or heavy SDK initialization.
  */
 export async function fetchExamMetadata(
-  examId: string
+  examId: string,
 ): Promise<{ found: boolean; exam: ExamMeta | null }> {
   if (!examId || typeof examId !== "string") {
     return { found: false, exam: null };
@@ -139,7 +139,7 @@ export async function fetchExamMetadata(
   try {
     // 1. Direct document get by ID
     const docUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/exams/${encodeURIComponent(
-      cleanId
+      cleanId,
     )}`;
     const res = await fetch(docUrl, {
       headers: { Accept: "application/json" },
@@ -184,7 +184,9 @@ export async function fetchExamMetadata(
       const results = await queryRes.json();
       const firstDoc = results?.[0]?.document;
       if (firstDoc && firstDoc.fields) {
-        const foundId = firstDoc.name ? firstDoc.name.split("/").pop() : cleanId;
+        const foundId = firstDoc.name
+          ? firstDoc.name.split("/").pop()
+          : cleanId;
         return {
           found: true,
           exam: parseFirestoreExamFields(foundId || cleanId, firstDoc.fields),
@@ -259,7 +261,7 @@ export function buildExamMetaTags({
     tags.push(
       `<meta property="og:image" content="${escapedImage}">`,
       `<meta name="twitter:image" content="${escapedImage}">`,
-      `<meta property="og:image:alt" content="${escapedTitle}">`
+      `<meta property="og:image:alt" content="${escapedTitle}">`,
     );
   }
 
@@ -282,14 +284,14 @@ export function injectExamMetaIntoHtml(
     escapedTitle: string;
     escapedDescription: string;
     metaTagsHtml: string;
-  }
+  },
 ): string {
   let html = templateHtml;
 
   // Replace <title>...</title>
   html = html.replace(
     /<title>.*?<\/title>/is,
-    `<title>${metaInfo.escapedTitle}</title>`
+    `<title>${metaInfo.escapedTitle}</title>`,
   );
 
   // Remove existing static meta description, og:*, twitter:*, canonical tags to prevent duplicates
@@ -301,14 +303,11 @@ export function injectExamMetaIntoHtml(
 
   // Inject dynamic tags right after <title>...</title> or before </head>
   if (html.includes("</title>")) {
-    html = html.replace(
-      "</title>",
-      `</title>\n    ${metaInfo.metaTagsHtml}`
-    );
+    html = html.replace("</title>", `</title>\n    ${metaInfo.metaTagsHtml}`);
   } else if (html.includes("</head>")) {
     html = html.replace(
       "</head>",
-      `    <title>${metaInfo.escapedTitle}</title>\n    ${metaInfo.metaTagsHtml}\n  </head>`
+      `    <title>${metaInfo.escapedTitle}</title>\n    ${metaInfo.metaTagsHtml}\n  </head>`,
     );
   }
 
@@ -316,9 +315,14 @@ export function injectExamMetaIntoHtml(
 }
 
 /**
- * Fallback standalone base HTML template if index.html cannot be read on disk.
+ * Fallback standalone base HTML template.
+ * In production, it ALWAYS returns PRODUCTION_HTML_TEMPLATE with compiled /assets/*.js.
+ * In development, it uses the development entry /src/main.tsx.
  */
-export function getFallbackBaseHtml(scriptSrc: string = "/src/main.tsx"): string {
+export function getFallbackBaseHtml(isDev: boolean = false): string {
+  if (!isDev && PRODUCTION_HTML_TEMPLATE) {
+    return PRODUCTION_HTML_TEMPLATE;
+  }
   return `<!doctype html>
 <html lang="vi">
   <head>
@@ -330,7 +334,7 @@ export function getFallbackBaseHtml(scriptSrc: string = "/src/main.tsx"): string
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="${scriptSrc}"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>`;
 }
@@ -360,25 +364,35 @@ export async function renderExamPageHtml({
   let rawTemplate = customTemplate || "";
 
   if (!rawTemplate) {
-    // Try reading from dist/index.html (production) or index.html (development/root)
-    const distIndexPath = path.join(process.cwd(), "dist", "index.html");
-    const rootIndexPath = path.join(process.cwd(), "index.html");
-
-    if (!isDev && fs.existsSync(distIndexPath)) {
-      try {
-        rawTemplate = fs.readFileSync(distIndexPath, "utf-8");
-      } catch (e) {}
+    if (!isDev) {
+      // Production mode (Vercel serverless function or Express production)
+      const distIndexPath = path.join(process.cwd(), "dist", "index.html");
+      if (fs.existsSync(distIndexPath)) {
+        try {
+          rawTemplate = fs.readFileSync(distIndexPath, "utf-8");
+        } catch (e) {
+          rawTemplate = PRODUCTION_HTML_TEMPLATE;
+        }
+      } else {
+        rawTemplate = PRODUCTION_HTML_TEMPLATE;
+      }
+    } else {
+      // Development mode
+      const rootIndexPath = path.join(process.cwd(), "index.html");
+      if (fs.existsSync(rootIndexPath)) {
+        try {
+          rawTemplate = fs.readFileSync(rootIndexPath, "utf-8");
+        } catch (e) {}
+      }
+      if (!rawTemplate) {
+        rawTemplate = getFallbackBaseHtml(true);
+      }
     }
+  }
 
-    if (!rawTemplate && fs.existsSync(rootIndexPath)) {
-      try {
-        rawTemplate = fs.readFileSync(rootIndexPath, "utf-8");
-      } catch (e) {}
-    }
-
-    if (!rawTemplate) {
-      rawTemplate = getFallbackBaseHtml(isDev ? "/src/main.tsx" : "/src/main.tsx");
-    }
+  // Final safety check: if production and somehow empty, ensure PRODUCTION_HTML_TEMPLATE is used
+  if (!rawTemplate) {
+    rawTemplate = getFallbackBaseHtml(isDev);
   }
 
   const finalHtml = injectExamMetaIntoHtml(rawTemplate, metaInfo);

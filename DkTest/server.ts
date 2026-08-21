@@ -20,6 +20,37 @@ async function startServer() {
   // AI Router
   app.use("/api/ai", aiRouter);
 
+  // Direct API handler for /api/ai/exam-meta and /api/exam-meta
+  const directApiExamMetaHandler = async (
+    req: express.Request,
+    res: express.Response,
+  ) => {
+    let examId = (req.query?.examId || req.query?.id || "") as string;
+    const proto = req.headers["x-forwarded-proto"] || req.protocol || "https";
+    const host =
+      req.headers["x-forwarded-host"] ||
+      req.headers["host"] ||
+      "localhost:3000";
+    const baseUrl = `${proto}://${host}`;
+
+    const { html, status } = await renderExamPageHtml({
+      examId,
+      baseUrl,
+      isDev: process.env.NODE_ENV !== "production",
+    });
+
+    res.status(status);
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=60, stale-while-revalidate=300",
+    );
+    return res.send(html);
+  };
+
+  app.get("/api/ai/exam-meta", directApiExamMetaHandler);
+  app.get("/api/exam-meta", directApiExamMetaHandler);
+
   // Dynamic Exam Open Graph & Social Preview Route handler
   const handleExamMetaRoute = async (
     req: express.Request,
