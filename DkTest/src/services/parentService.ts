@@ -9,6 +9,8 @@ import {
   query,
   where,
   orderBy,
+  limit,
+  startAfter,
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
@@ -39,7 +41,7 @@ export interface LinkedChildInfo {
 export async function sendParentLinkRequest(
   parentUsername: string,
   parentDisplayName: string,
-  childUsername: string,
+  childUsername: string
 ): Promise<{ success: boolean; message: string }> {
   try {
     const cleanChild = childUsername.trim().toLowerCase();
@@ -59,7 +61,7 @@ export async function sendParentLinkRequest(
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
-      where("childUsername", "==", cleanChild),
+      where("childUsername", "==", cleanChild)
     );
     const existingSnap = await getDocs(q);
     if (!existingSnap.empty) {
@@ -73,8 +75,7 @@ export async function sendParentLinkRequest(
       if (existingData.status === "pending") {
         return {
           success: false,
-          message:
-            "Yêu cầu liên kết đã được gửi trước đó và đang chờ học sinh xác nhận.",
+          message: "Yêu cầu liên kết đã được gửi trước đó và đang chờ học sinh xác nhận.",
         };
       }
     }
@@ -106,20 +107,16 @@ export async function sendParentLinkRequest(
 /**
  * Get all connection requests for a student
  */
-export async function getPendingRequestsForStudent(
-  childUsername: string,
-): Promise<ParentLinkRequest[]> {
+export async function getPendingRequestsForStudent(childUsername: string): Promise<ParentLinkRequest[]> {
   try {
     const cleanChild = childUsername.trim().toLowerCase();
     const q = query(
       collection(db, "parent_link_requests"),
       where("childUsername", "==", cleanChild),
-      where("status", "==", "pending"),
+      where("status", "==", "pending")
     );
     const snap = await getDocs(q);
-    return snap.docs.map(
-      (d) => ({ id: d.id, ...d.data() }) as ParentLinkRequest,
-    );
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
   } catch (err) {
     console.error("Error fetching pending requests for student:", err);
     return [];
@@ -131,7 +128,7 @@ export async function getPendingRequestsForStudent(
  */
 export async function respondToParentLinkRequest(
   requestId: string,
-  accept: boolean,
+  accept: boolean
 ): Promise<boolean> {
   try {
     const docRef = doc(db, "parent_link_requests", requestId);
@@ -149,15 +146,13 @@ export async function respondToParentLinkRequest(
 /**
  * Get all linked children for a parent
  */
-export async function getLinkedChildrenForParent(
-  parentUsername: string,
-): Promise<LinkedChildInfo[]> {
+export async function getLinkedChildrenForParent(parentUsername: string): Promise<LinkedChildInfo[]> {
   try {
     const cleanParent = parentUsername.trim().toLowerCase();
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
-      where("status", "==", "accepted"),
+      where("status", "==", "accepted")
     );
     const snap = await getDocs(q);
     const requests = snap.docs.map((d) => d.data() as ParentLinkRequest);
@@ -177,26 +172,15 @@ export async function getLinkedChildrenForParent(
         studentClass = udata.studentClass || "";
       }
 
-      // Fetch student's submissions
+      // Fetch at most 3 recent submissions for summary view
       const subQuery = query(
         collection(db, "submissions"),
         where("studentId", "==", req.childUsername),
+        orderBy("submittedAt", "desc"),
+        limit(3)
       );
       const subSnap = await getDocs(subQuery);
-      const subs = subSnap.docs.map(
-        (d) => ({ id: d.id, ...d.data() }) as Submission,
-      );
-
-      // Sort newest first
-      subs.sort((a: any, b: any) => {
-        const getMs = (val: any) => {
-          if (!val) return 0;
-          if (typeof val.toDate === "function") return val.toDate().getTime();
-          if (val instanceof Date) return val.getTime();
-          return new Date(val).getTime() || 0;
-        };
-        return getMs(b.submittedAt) - getMs(a.submittedAt);
-      });
+      const subs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
 
       // Check active proctoring / taking session
       let activeSession = null;
@@ -204,7 +188,7 @@ export async function getLinkedChildrenForParent(
         // Query active_sessions first
         const actQuery = query(
           collection(db, "active_sessions"),
-          where("studentUsername", "==", req.childUsername),
+          where("studentUsername", "==", req.childUsername)
         );
         const actSnap = await getDocs(actQuery);
         let foundDoc = null;
@@ -214,7 +198,7 @@ export async function getLinkedChildrenForParent(
           // Fallback query with studentId
           const actQuery2 = query(
             collection(db, "active_sessions"),
-            where("studentId", "==", req.childUsername),
+            where("studentId", "==", req.childUsername)
           );
           const actSnap2 = await getDocs(actQuery2);
           if (!actSnap2.empty) {
@@ -223,7 +207,7 @@ export async function getLinkedChildrenForParent(
             // Check taking_sessions fallback
             const sessQuery = query(
               collection(db, "taking_sessions"),
-              where("studentId", "==", req.childUsername),
+              where("studentId", "==", req.childUsername)
             );
             const sessSnap = await getDocs(sessQuery);
             if (!sessSnap.empty) {
@@ -233,14 +217,13 @@ export async function getLinkedChildrenForParent(
         }
 
         if (foundDoc && foundDoc.status !== "submitted") {
-          const lastActive =
-            typeof foundDoc.lastActiveAt === "number"
-              ? foundDoc.lastActiveAt
-              : foundDoc.lastHeartbeat
-                ? new Date(foundDoc.lastHeartbeat).getTime()
-                : foundDoc.startTime
-                  ? new Date(foundDoc.startTime).getTime()
-                  : 0;
+          const lastActive = typeof foundDoc.lastActiveAt === "number"
+            ? foundDoc.lastActiveAt
+            : foundDoc.lastHeartbeat
+            ? new Date(foundDoc.lastHeartbeat).getTime()
+            : foundDoc.startTime
+            ? new Date(foundDoc.startTime).getTime()
+            : 0;
 
           const diffMin = (Date.now() - lastActive) / 60000;
           if (diffMin < 10) {
@@ -271,22 +254,54 @@ export async function getLinkedChildrenForParent(
 /**
  * Get list of pending sent requests by parent
  */
-export async function getPendingRequestsSentByParent(
-  parentUsername: string,
-): Promise<ParentLinkRequest[]> {
+export async function getPendingRequestsSentByParent(parentUsername: string): Promise<ParentLinkRequest[]> {
   try {
     const cleanParent = parentUsername.trim().toLowerCase();
     const q = query(
       collection(db, "parent_link_requests"),
       where("parentUsername", "==", cleanParent),
-      where("status", "==", "pending"),
+      where("status", "==", "pending")
     );
     const snap = await getDocs(q);
-    return snap.docs.map(
-      (d) => ({ id: d.id, ...d.data() }) as ParentLinkRequest,
-    );
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
   } catch (err) {
     console.error("Error fetching pending requests for parent:", err);
     return [];
+  }
+}
+
+/**
+ * Fetch child submissions with pagination and limit on demand
+ */
+export async function getChildSubmissions(
+  childUsername: string,
+  pageSize: number = 10,
+  cursor: any = null
+): Promise<{ submissions: Submission[]; nextCursor: any; hasMore: boolean }> {
+  try {
+    const cleanChild = childUsername.trim().toLowerCase();
+    let q = query(
+      collection(db, "submissions"),
+      where("studentId", "==", cleanChild),
+      orderBy("submittedAt", "desc"),
+      limit(pageSize)
+    );
+
+    if (cursor) {
+      q = query(q, startAfter(cursor));
+    }
+
+    const subSnap = await getDocs(q);
+    const submissions = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+    const nextCursor = subSnap.docs.length > 0 ? subSnap.docs[subSnap.docs.length - 1] : null;
+
+    return {
+      submissions,
+      nextCursor,
+      hasMore: subSnap.docs.length === pageSize,
+    };
+  } catch (err) {
+    console.error("Error fetching child submissions:", err);
+    return { submissions: [], nextCursor: null, hasMore: false };
   }
 }

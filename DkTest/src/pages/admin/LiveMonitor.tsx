@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import { doc, getDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import {
@@ -28,13 +29,41 @@ function formatSeconds(s: number) {
 
 export default function LiveMonitor() {
   const { sessionId } = useParams();
+  const role = localStorage.getItem("auth_role");
+  const isParent = role === "parent";
+  const isAdmin = role === "admin";
+  const user = localStorage.getItem("user_id");
+  const parentChildren: string[] = JSON.parse(
+    localStorage.getItem("parent_children") || "[]",
+  );
   const navigate = useNavigate();
-
+  const [authChecked, setAuthChecked] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [session, setSession] = useState<ActiveSession | null>(null);
   const [exam, setExam] = useState<(Exam & { questions: Question[] }) | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    if (session && user) {
+      if (isAdmin) {
+        setIsAuthorized(true);
+      } else if (isParent && parentChildren) {
+        const hasChild = parentChildren.includes(session.studentId);
+        setIsAuthorized(hasChild);
+      } else {
+        setIsAuthorized(false);
+      }
+      setAuthChecked(true);
+    }
+  }, [session, user, isAdmin, isParent, parentChildren]);
 
   // Follow student's active question
   const [inspectQuestionIdx, setInspectQuestionIdx] = useState<number>(0);
@@ -65,15 +94,24 @@ export default function LiveMonitor() {
 
   useEffect(() => {
     const loadExam = async () => {
-      if (!session?.examId || exam) return;
+      if (!session?.examId) return;
       try {
         const docRef = doc(db, "exams", session.examId);
         const snap = await getDoc(docRef);
         if (snap.exists()) {
           const data = snap.data();
           let questionsList: Question[] = [];
-          if (Array.isArray(data.questions) && data.questions.length > 0) {
+          if (
+            Array.isArray(session.shuffledQuestions) &&
+            session.shuffledQuestions.length > 0
+          ) {
+            questionsList = session.shuffledQuestions;
+          } else if (
+            Array.isArray(data.questions) &&
+            data.questions.length > 0
+          ) {
             questionsList = data.questions;
+            questionsList.sort((a, b) => (a.order || 0) - (b.order || 0));
           } else {
             try {
               const qSnap = await getDocs(
@@ -82,9 +120,9 @@ export default function LiveMonitor() {
               questionsList = qSnap.docs.map(
                 (d) => ({ id: d.id, ...d.data() }) as Question,
               );
+              questionsList.sort((a, b) => (a.order || 0) - (b.order || 0));
             } catch (e) {}
           }
-          questionsList.sort((a, b) => (a.order || 0) - (b.order || 0));
           setExam({ id: snap.id, ...data, questions: questionsList } as Exam & {
             questions: Question[];
           });
@@ -98,7 +136,7 @@ export default function LiveMonitor() {
     if (session) {
       loadExam();
     }
-  }, [session, exam]);
+  }, [session?.examId, session?.shuffledQuestions]);
 
   if (!sessionId) return <div>Invalid Session</div>;
   if (!session && loading)
@@ -107,6 +145,12 @@ export default function LiveMonitor() {
     return (
       <div className="p-8 text-center text-slate-500">
         Phiên làm bài đã kết thúc hoặc không tồn tại.
+      </div>
+    );
+  if (session && authChecked && !isAuthorized)
+    return (
+      <div className="p-8 text-center text-red-500 font-bold">
+        Lỗi: Bạn không có quyền truy cập phiên thi này.
       </div>
     );
   if (!exam)
@@ -219,23 +263,25 @@ export default function LiveMonitor() {
               </span>
             </label>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handlePauseExam}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold transition-colors ${isPaused ? "bg-amber-100 text-amber-700 hover:bg-amber-200" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
-              >
-                <PauseCircle className="w-4 h-4" />
-                {isPaused ? "Tiếp tục thi" : "Tạm dừng thi"}
-              </button>
-              <button
-                onClick={handleSuspendExam}
-                disabled={isSuspended}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold bg-red-100 text-red-700 hover:bg-red-200 transition-colors disabled:opacity-50"
-              >
-                <XCircle className="w-4 h-4" />
-                Đình chỉ thi
-              </button>
-            </div>
+            {isAdmin && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handlePauseExam}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold transition-colors ${isPaused ? "bg-amber-100 text-amber-700 hover:bg-amber-200" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
+                >
+                  <PauseCircle className="w-4 h-4" />
+                  {isPaused ? "Tiếp tục thi" : "Tạm dừng thi"}
+                </button>
+                <button
+                  onClick={handleSuspendExam}
+                  disabled={isSuspended}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold bg-red-100 text-red-700 hover:bg-red-200 transition-colors disabled:opacity-50"
+                >
+                  <XCircle className="w-4 h-4" />
+                  Đình chỉ thi
+                </button>
+              </div>
+            )}
           </div>
 
           <div

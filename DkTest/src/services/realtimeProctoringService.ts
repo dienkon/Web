@@ -41,6 +41,8 @@ export interface ActiveSession {
   scratchpadImage?: string | null;
   adminAction?: "pause" | "suspend" | null;
   adminMessage?: string | null;
+  shuffledQuestions?: any[];
+  questionOrder?: string[];
 }
 
 /**

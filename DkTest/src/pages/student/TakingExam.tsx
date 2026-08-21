@@ -192,6 +192,8 @@ export default function TakingExam() {
         lastActiveAt: now,
         answers: answers,
         activeQuestionIdx: activeQuestionIdx,
+        shuffledQuestions: questions,
+        questionOrder: questions.map((q) => q.id),
       });
     } catch (e) {
       console.warn("Realtime session sync error:", e);

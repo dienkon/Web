@@ -44,6 +44,7 @@ import {
   sendParentLinkRequest,
   getLinkedChildrenForParent,
   getPendingRequestsSentByParent,
+  getChildSubmissions,
   type LinkedChildInfo,
   type ParentLinkRequest,
 } from "../../services/parentService";
@@ -55,7 +56,7 @@ import {
   saveParentExam,
   getParentCreatedExams,
 } from "../../services/parentExamService";
-import type { Question, Exam } from "../../types";
+import type { Question, Exam, Submission } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
 import ChatGPTMasterPromptModal from "../../components/ui/ChatGPTMasterPromptModal";
@@ -78,6 +79,61 @@ export default function ParentDashboard() {
 
   // Monitoring State
   const [linkedChildren, setLinkedChildren] = useState<LinkedChildInfo[]>([]);
+
+  // Pagination state for child submissions history
+  const [childHistoryMap, setChildHistoryMap] = useState<
+    Record<string, { cursor: any; hasMore: boolean; loading: boolean }>
+  >({});
+
+  const handleFetchMoreChildSubmissions = async (childUsername: string) => {
+    const curState = childHistoryMap[childUsername] || {
+      cursor: null,
+      hasMore: true,
+      loading: false,
+    };
+    if (curState.loading) return;
+
+    setChildHistoryMap((prev) => ({
+      ...prev,
+      [childUsername]: { ...curState, loading: true },
+    }));
+
+    try {
+      const res = await getChildSubmissions(childUsername, 10, curState.cursor);
+      setLinkedChildren((prev) =>
+        prev.map((c) => {
+          if (c.username === childUsername) {
+            const existing = c.recentSubmissions || [];
+            // filter duplicates
+            const existingIds = new Set(existing.map((s) => s.id));
+            const newSubs = res.submissions.filter(
+              (s) => !existingIds.has(s.id),
+            );
+            return {
+              ...c,
+              recentSubmissions: [...existing, ...newSubs],
+            };
+          }
+          return c;
+        }),
+      );
+
+      setChildHistoryMap((prev) => ({
+        ...prev,
+        [childUsername]: {
+          cursor: res.nextCursor,
+          hasMore: res.hasMore,
+          loading: false,
+        },
+      }));
+    } catch (err) {
+      console.error("Error loading child history:", err);
+      setChildHistoryMap((prev) => ({
+        ...prev,
+        [childUsername]: { ...curState, loading: false },
+      }));
+    }
+  };
   const [pendingSentRequests, setPendingSentRequests] = useState<
     ParentLinkRequest[]
   >([]);
@@ -987,7 +1043,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         </p>
                       ) : (
                         <div className="space-y-2.5">
-                          {child.recentSubmissions.slice(0, 5).map((sub) => {
+                          {child.recentSubmissions.map((sub) => {
                             const isGood = (sub.score || 0) >= 7.0;
                             return (
                               <div
@@ -1042,6 +1098,28 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                               </div>
                             );
                           })}
+
+                          {childHistoryMap[child.username]?.hasMore !==
+                            false && (
+                            <div className="text-center pt-2">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleFetchMoreChildSubmissions(
+                                    child.username,
+                                  )
+                                }
+                                disabled={
+                                  childHistoryMap[child.username]?.loading
+                                }
+                                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all cursor-pointer disabled:opacity-50"
+                              >
+                                {childHistoryMap[child.username]?.loading
+                                  ? "Đang tải thêm..."
+                                  : "Xem thêm lịch sử bài làm của con"}
+                              </button>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
