@@ -59,6 +59,7 @@ import type { Question, Exam } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
 import ChatGPTMasterPromptModal from "../../components/ui/ChatGPTMasterPromptModal";
+import LiveSessionDetailModal from "../../components/admin/LiveSessionDetailModal";
 import {
   MASTER_SCHEMA_JSON_STRING,
   FULL_DKTEST_JSON_SCHEMA_TEXT,
@@ -68,16 +69,26 @@ export default function ParentDashboard() {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const [parentInfo, setParentInfo] = useState<{ username: string; displayName: string } | null>(null);
-  const [activeTab, setActiveTab] = useState<"monitor" | "create" | "guide">("monitor");
+  const [parentInfo, setParentInfo] = useState<{
+    username: string;
+    displayName: string;
+  } | null>(null);
+  const [activeTab, setActiveTab] = useState<"monitor" | "create" | "guide">(
+    "monitor",
+  );
 
   // Monitoring State
   const [linkedChildren, setLinkedChildren] = useState<LinkedChildInfo[]>([]);
-  const [pendingSentRequests, setPendingSentRequests] = useState<ParentLinkRequest[]>([]);
+  const [pendingSentRequests, setPendingSentRequests] = useState<
+    ParentLinkRequest[]
+  >([]);
   const [loadingMonitor, setLoadingMonitor] = useState(true);
   const [childUsernameInput, setChildUsernameInput] = useState("");
   const [isSendingRequest, setIsSendingRequest] = useState(false);
   const [showAddChildModal, setShowAddChildModal] = useState(false);
+  const [viewLiveSession, setViewLiveSession] = useState<ActiveSession | null>(
+    null,
+  );
 
   // Exam Creator State
   const [createMode, setCreateMode] = useState<"json" | "prompt">("json");
@@ -90,7 +101,9 @@ export default function ParentDashboard() {
   const [examTitle, setExamTitle] = useState("Đề thi tự luyện cho con");
   const [examTimeLimit, setExamTimeLimit] = useState(45);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
+  const [editingQuestionId, setEditingQuestionId] = useState<string | null>(
+    null,
+  );
   const [isMatrixOpen, setIsMatrixOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -143,7 +156,9 @@ export default function ParentDashboard() {
     }
     if (q.type === "true_false") {
       if (!q.statements || q.statements.length === 0) return "?";
-      const answered = q.statements.filter((s) => typeof s.correctAnswer === "boolean").length;
+      const answered = q.statements.filter(
+        (s) => typeof s.correctAnswer === "boolean",
+      ).length;
       return `${answered}/${q.statements.length}`;
     }
     if (q.type === "short_answer") {
@@ -159,14 +174,21 @@ export default function ParentDashboard() {
       const container = rightPaperRef.current;
       const containerRect = container.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
-      const targetScrollTop = elRect.top - containerRect.top + container.scrollTop - 20;
+      const targetScrollTop =
+        elRect.top - containerRect.top + container.scrollTop - 20;
 
       container.scrollTo({
         top: Math.max(0, targetScrollTop),
         behavior: "smooth",
       });
 
-      el.classList.add("ring-4", "ring-indigo-500", "ring-offset-2", "transition-all", "duration-300");
+      el.classList.add(
+        "ring-4",
+        "ring-indigo-500",
+        "ring-offset-2",
+        "transition-all",
+        "duration-300",
+      );
       setTimeout(() => {
         el.classList.remove("ring-4", "ring-indigo-500", "ring-offset-2");
       }, 1500);
@@ -202,8 +224,13 @@ export default function ParentDashboard() {
           return prevChildren.map((child) => {
             const cleanChild = child.username.trim().toLowerCase();
             const matched = activeList.find((s) => {
-              const u = (s.studentUsername || s.studentId || "").trim().toLowerCase();
-              return u === cleanChild || s.sessionId.toLowerCase().includes(cleanChild);
+              const u = (s.studentUsername || s.studentId || "")
+                .trim()
+                .toLowerCase();
+              return (
+                u === cleanChild ||
+                s.sessionId.toLowerCase().includes(cleanChild)
+              );
             });
             return {
               ...child,
@@ -214,7 +241,7 @@ export default function ParentDashboard() {
       },
       (err) => {
         console.warn("Parent active sessions subscription warning:", err);
-      }
+      },
     );
 
     return () => {
@@ -259,7 +286,7 @@ export default function ParentDashboard() {
       const res = await sendParentLinkRequest(
         parentInfo.username,
         parentInfo.displayName,
-        childUsernameInput.trim()
+        childUsernameInput.trim(),
       );
       if (res.success) {
         showToast(res.message, "success");
@@ -305,7 +332,10 @@ export default function ParentDashboard() {
       }
 
       if (parsedQs.length === 0) {
-        showToast("Không tìm thấy danh sách câu hỏi hợp lệ trong JSON!", "error");
+        showToast(
+          "Không tìm thấy danh sách câu hỏi hợp lệ trong JSON!",
+          "error",
+        );
         return;
       }
 
@@ -314,11 +344,18 @@ export default function ParentDashboard() {
         id: q.id || `q_${Date.now()}_${idx}`,
         examId: q.examId || "",
         order: idx,
-        type: q.type || (q.statements ? "true_false" : q.options ? "single_choice" : "short_answer"),
+        type:
+          q.type ||
+          (q.statements
+            ? "true_false"
+            : q.options
+              ? "single_choice"
+              : "short_answer"),
         text: q.text || `Câu hỏi ${idx + 1}`,
         points: q.points || 1,
         options: q.options || [],
-        correctOptionIds: q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
+        correctOptionIds:
+          q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
         statements: q.statements || [],
         acceptedAnswers: q.acceptedAnswers || [],
         explanation: q.explanation || "",
@@ -402,28 +439,46 @@ export default function ParentDashboard() {
         }
       }
 
-      if (finalResult && finalResult.questions && finalResult.questions.length > 0) {
+      if (
+        finalResult &&
+        finalResult.questions &&
+        finalResult.questions.length > 0
+      ) {
         const title = finalResult.exam?.title || promptInput.trim();
         const timeLimit = finalResult.exam?.timeLimit || 45;
-        const normalized: Question[] = finalResult.questions.map((q: any, idx: number) => ({
-          id: q.id || `q_${Date.now()}_${idx}`,
-          examId: q.examId || "",
-          order: idx,
-          type: q.type || (q.statements ? "true_false" : q.options ? "single_choice" : "short_answer"),
-          text: q.text || `Câu hỏi ${idx + 1}`,
-          points: q.points || 1,
-          options: q.options || [],
-          correctOptionIds: q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
-          statements: q.statements || [],
-          acceptedAnswers: q.acceptedAnswers || [],
-          explanation: q.explanation || "",
-        }));
+        const normalized: Question[] = finalResult.questions.map(
+          (q: any, idx: number) => ({
+            id: q.id || `q_${Date.now()}_${idx}`,
+            examId: q.examId || "",
+            order: idx,
+            type:
+              q.type ||
+              (q.statements
+                ? "true_false"
+                : q.options
+                  ? "single_choice"
+                  : "short_answer"),
+            text: q.text || `Câu hỏi ${idx + 1}`,
+            points: q.points || 1,
+            options: q.options || [],
+            correctOptionIds:
+              q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
+            statements: q.statements || [],
+            acceptedAnswers: q.acceptedAnswers || [],
+            explanation: q.explanation || "",
+          }),
+        );
 
         setQuestions(normalized);
         setExamTitle(title);
         setExamTimeLimit(timeLimit);
-        setJsonInput(JSON.stringify({ title, timeLimit, questions: normalized }, null, 2));
-        showToast(`Đã tạo thành công ${normalized.length} câu hỏi từ AI!`, "success");
+        setJsonInput(
+          JSON.stringify({ title, timeLimit, questions: normalized }, null, 2),
+        );
+        showToast(
+          `Đã tạo thành công ${normalized.length} câu hỏi từ AI!`,
+          "success",
+        );
       } else {
         throw new Error("Không trích xuất được câu hỏi từ phản hồi AI");
       }
@@ -443,18 +498,26 @@ export default function ParentDashboard() {
         q.correctOptionIds = [optId];
       } else if (q.type === "multiple_choice") {
         const cur = q.correctOptionIds || [];
-        q.correctOptionIds = cur.includes(optId) ? cur.filter((id) => id !== optId) : [...cur, optId];
+        q.correctOptionIds = cur.includes(optId)
+          ? cur.filter((id) => id !== optId)
+          : [...cur, optId];
       }
       next[qIndex] = q;
       return next;
     });
   };
 
-  const handleToggleStatement = (qIndex: number, stmtId: string, val: boolean) => {
+  const handleToggleStatement = (
+    qIndex: number,
+    stmtId: string,
+    val: boolean,
+  ) => {
     setQuestions((prev) => {
       const next = [...prev];
       const q = { ...next[qIndex] };
-      q.statements = (q.statements || []).map((s) => (s.id === stmtId ? { ...s, correctAnswer: val } : s));
+      q.statements = (q.statements || []).map((s) =>
+        s.id === stmtId ? { ...s, correctAnswer: val } : s,
+      );
       next[qIndex] = q;
       return next;
     });
@@ -483,10 +546,16 @@ export default function ParentDashboard() {
 
       setSavedShareLink(result.shareLink);
       setShowShareModal(true);
-      showToast("Đã lưu đề thi thành công ở chế độ Không Công Khai (Chỉ ai có link mới xem được)!", "success");
+      showToast(
+        "Đã lưu đề thi thành công ở chế độ Không Công Khai (Chỉ ai có link mới xem được)!",
+        "success",
+      );
       loadParentExams(parentInfo.username);
     } catch (err: any) {
-      showToast("Lỗi khi lưu đề thi: " + (err.message || "Không xác định"), "error");
+      showToast(
+        "Lỗi khi lưu đề thi: " + (err.message || "Không xác định"),
+        "error",
+      );
     } finally {
       setIsSavingExam(false);
     }
@@ -500,7 +569,9 @@ export default function ParentDashboard() {
       createdAt: new Date().toISOString(),
       questions,
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -528,7 +599,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-xl font-black text-indigo-600 tracking-tight">DkTEST</span>
+              <span className="text-xl font-black text-indigo-600 tracking-tight">
+                DkTEST
+              </span>
               <span className="text-xs font-extrabold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-xl border border-indigo-100 flex items-center gap-1">
                 <HeartHandshake className="w-3.5 h-3.5" /> Cổng Phụ Huynh
               </span>
@@ -641,18 +714,23 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   Danh sách con em đang liên kết
                 </h2>
                 <p className="text-xs text-slate-500 font-medium">
-                  Xem trực tiếp con đang làm đề nào, theo dõi điểm số và xem chi tiết bài làm.
+                  Xem trực tiếp con đang làm đề nào, theo dõi điểm số và xem chi
+                  tiết bài làm.
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => parentInfo && loadMonitoringData(parentInfo.username)}
+                  onClick={() =>
+                    parentInfo && loadMonitoringData(parentInfo.username)
+                  }
                   className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
                   title="Làm mới dữ liệu"
                 >
-                  <RefreshCw className={`w-4 h-4 ${loadingMonitor ? "animate-spin" : ""}`} />
+                  <RefreshCw
+                    className={`w-4 h-4 ${loadingMonitor ? "animate-spin" : ""}`}
+                  />
                 </button>
 
                 <button
@@ -671,7 +749,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
               <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
                 <div className="flex items-center gap-2 text-amber-900 text-xs font-bold">
                   <Clock className="w-4 h-4 text-amber-600" />
-                  <span>Đang chờ con xác nhận ({pendingSentRequests.length} yêu cầu)</span>
+                  <span>
+                    Đang chờ con xác nhận ({pendingSentRequests.length} yêu cầu)
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {pendingSentRequests.map((req) => (
@@ -690,16 +770,22 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
             {loadingMonitor ? (
               <div className="py-16 text-center text-slate-400 flex flex-col items-center justify-center space-y-3 bg-white border border-slate-200 rounded-3xl">
                 <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-                <span className="text-xs font-semibold text-slate-600">Đang tải thông tin học tập của con...</span>
+                <span className="text-xs font-semibold text-slate-600">
+                  Đang tải thông tin học tập của con...
+                </span>
               </div>
             ) : linkedChildren.length === 0 ? (
               <div className="bg-white border border-slate-200 rounded-3xl p-10 text-center space-y-4 shadow-xs">
                 <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xs">
                   <HeartHandshake className="w-8 h-8" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">Chưa có tài khoản con nào được liên kết</h3>
+                <h3 className="text-base font-bold text-slate-900">
+                  Chưa có tài khoản con nào được liên kết
+                </h3>
                 <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                  Nhập mã username tài khoản học sinh của con để gửi yêu cầu. Khi con đăng nhập và bấm xác nhận, bạn sẽ xem được toàn bộ tiến độ làm bài thi.
+                  Nhập mã username tài khoản học sinh của con để gửi yêu cầu.
+                  Khi con đăng nhập và bấm xác nhận, bạn sẽ xem được toàn bộ
+                  tiến độ làm bài thi.
                 </p>
                 <button
                   type="button"
@@ -721,14 +807,20 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       <div className="flex items-center gap-3.5">
                         <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg overflow-hidden shrink-0 shadow-2xs">
                           {child.avatarUrl ? (
-                            <img src={child.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                            <img
+                              src={child.avatarUrl}
+                              alt="Avatar"
+                              className="w-full h-full object-cover"
+                            />
                           ) : (
                             child.displayName.charAt(0).toUpperCase()
                           )}
                         </div>
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="text-base font-extrabold text-slate-900">{child.displayName}</h3>
+                            <h3 className="text-base font-extrabold text-slate-900">
+                              {child.displayName}
+                            </h3>
                             <span className="text-xs font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md border border-slate-200">
                               @{child.username}
                             </span>
@@ -739,7 +831,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             )}
                           </div>
                           <p className="text-xs text-slate-400 font-medium mt-0.5">
-                            Tổng số bài đã làm: <strong>{child.recentSubmissions?.length || 0} bài</strong>
+                            Tổng số bài đã làm:{" "}
+                            <strong>
+                              {child.recentSubmissions?.length || 0} bài
+                            </strong>
                           </p>
                         </div>
                       </div>
@@ -767,42 +862,69 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                             </span>
                             <h4 className="font-extrabold text-slate-900 text-sm">
-                              {child.activeSession.examTitle || "Khảo thí trực tuyến"}
+                              {child.activeSession.examTitle ||
+                                "Khảo thí trực tuyến"}
                             </h4>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-emerald-800 bg-white/80 px-2.5 py-1 rounded-lg border border-emerald-200">
-                              Đang diễn ra
-                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setViewLiveSession(child.activeSession || null)
+                              }
+                              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer animate-pulse"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                              <span>
+                                Xem trực tiếp màn hình & nháp vẽ của con
+                              </span>
+                            </button>
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between">
+                        <div
+                          onClick={() =>
+                            setViewLiveSession(child.activeSession || null)
+                          }
+                          className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs cursor-pointer"
+                        >
+                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between hover:bg-white transition-colors">
                             <span className="font-semibold text-slate-600 flex items-center gap-1.5">
-                              <Clock className="w-4 h-4 text-blue-600" /> Còn lại:
+                              <Clock className="w-4 h-4 text-blue-600" /> Còn
+                              lại:
                             </span>
                             <span className="font-mono font-black text-blue-700 text-sm">
-                              {Math.floor((child.activeSession.timeLeft || 0) / 60)}:
-                              {((child.activeSession.timeLeft || 0) % 60).toString().padStart(2, "0")}
+                              {Math.floor(
+                                (child.activeSession.timeLeft || 0) / 60,
+                              )}
+                              :
+                              {((child.activeSession.timeLeft || 0) % 60)
+                                .toString()
+                                .padStart(2, "0")}
                             </span>
                           </div>
 
-                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between">
+                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between hover:bg-white transition-colors">
                             <span className="font-semibold text-slate-600 flex items-center gap-1.5">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Tiến độ:
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600" />{" "}
+                              Tiến độ:
                             </span>
                             <span className="font-bold text-slate-800">
-                              {child.activeSession.answeredCount || 0} / {child.activeSession.totalQuestions || "?"} câu
+                              {child.activeSession.answeredCount || 0} /{" "}
+                              {child.activeSession.totalQuestions || "?"} câu
                             </span>
                           </div>
 
-                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between">
+                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between hover:bg-white transition-colors">
                             <span className="font-semibold text-slate-600 flex items-center gap-1.5">
-                              <AlertTriangle className={`w-4 h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`} />
+                              <AlertTriangle
+                                className={`w-4 h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`}
+                              />
                               Rời tab:
                             </span>
-                            <span className={`font-bold ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded-md" : "text-slate-500"}`}>
+                            <span
+                              className={`font-bold ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded-md" : "text-slate-500"}`}
+                            >
                               {child.activeSession.warnings || 0} lần
                             </span>
                           </div>
@@ -816,8 +938,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                               <span>
                                 {Math.round(
                                   ((child.activeSession.answeredCount || 0) /
-                                    Math.max(1, child.activeSession.totalQuestions || 1)) *
-                                    100
+                                    Math.max(
+                                      1,
+                                      child.activeSession.totalQuestions || 1,
+                                    )) *
+                                    100,
                                 )}
                                 %
                               </span>
@@ -829,10 +954,15 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                   width: `${Math.min(
                                     100,
                                     Math.round(
-                                      ((child.activeSession.answeredCount || 0) /
-                                        Math.max(1, child.activeSession.totalQuestions || 1)) *
-                                        100
-                                    )
+                                      ((child.activeSession.answeredCount ||
+                                        0) /
+                                        Math.max(
+                                          1,
+                                          child.activeSession.totalQuestions ||
+                                            1,
+                                        )) *
+                                        100,
+                                    ),
                                   )}%`,
                                 }}
                               />
@@ -848,8 +978,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         Lịch sử bài thi gần đây
                       </h4>
 
-                      {!child.recentSubmissions || child.recentSubmissions.length === 0 ? (
-                        <p className="text-xs text-slate-400 italic py-2">Con chưa hoàn thành bài thi nào.</p>
+                      {!child.recentSubmissions ||
+                      child.recentSubmissions.length === 0 ? (
+                        <p className="text-xs text-slate-400 italic py-2">
+                          Con chưa hoàn thành bài thi nào.
+                        </p>
                       ) : (
                         <div className="space-y-2.5">
                           {child.recentSubmissions.slice(0, 5).map((sub) => {
@@ -862,11 +995,17 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                   <div
                                     className={`w-10 h-10 rounded-xl flex flex-col items-center justify-center shrink-0 font-bold ${
-                                      isGood ? "bg-emerald-100 text-emerald-800" : "bg-blue-100 text-blue-800"
+                                      isGood
+                                        ? "bg-emerald-100 text-emerald-800"
+                                        : "bg-blue-100 text-blue-800"
                                     }`}
                                   >
-                                    <span className="text-sm font-black leading-none">{sub.score}</span>
-                                    <span className="text-[8px] opacity-75">/{sub.maxScore || 10}</span>
+                                    <span className="text-sm font-black leading-none">
+                                      {sub.score}
+                                    </span>
+                                    <span className="text-[8px] opacity-75">
+                                      /{sub.maxScore || 10}
+                                    </span>
                                   </div>
 
                                   <div className="min-w-0 space-y-0.5">
@@ -876,11 +1015,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                     <div className="flex items-center gap-3 text-[11px] text-slate-400 font-medium flex-wrap">
                                       <span className="text-emerald-700 font-semibold flex items-center gap-1">
                                         <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                                        {sub.correctCount}/{sub.totalCount} câu đúng
+                                        {sub.correctCount}/{sub.totalCount} câu
+                                        đúng
                                       </span>
                                       <span className="flex items-center gap-1">
                                         <Clock className="w-3 h-3" />
-                                        {Math.floor((sub.timeSpent || 0) / 60)}p {(sub.timeSpent || 0) % 60}s
+                                        {Math.floor(
+                                          (sub.timeSpent || 0) / 60,
+                                        )}p {(sub.timeSpent || 0) % 60}s
                                       </span>
                                     </div>
                                   </div>
@@ -917,16 +1059,22 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                 </div>
                 <button
                   type="button"
-                  onClick={() => parentInfo && loadParentExams(parentInfo.username)}
+                  onClick={() =>
+                    parentInfo && loadParentExams(parentInfo.username)
+                  }
                   className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1"
                 >
-                  <RefreshCw className={`w-3 h-3 ${loadingMyExams ? "animate-spin" : ""}`} /> Làm mới
+                  <RefreshCw
+                    className={`w-3 h-3 ${loadingMyExams ? "animate-spin" : ""}`}
+                  />{" "}
+                  Làm mới
                 </button>
               </div>
 
               {myCreatedExams.length === 0 ? (
                 <p className="text-xs text-slate-400 italic py-2">
-                  Phụ huynh chưa lưu đề thi nào. Hãy sang tab "Tạo đề & Sửa Azota" để nạp JSON và lưu đề gửi cho con!
+                  Phụ huynh chưa lưu đề thi nào. Hãy sang tab "Tạo đề & Sửa
+                  Azota" để nạp JSON và lưu đề gửi cho con!
                 </p>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -940,12 +1088,19 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         <div className="space-y-1">
                           <div className="flex items-center justify-between">
                             <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 bg-amber-100 text-amber-800 rounded-md border border-amber-200 flex items-center gap-1">
-                              <Lock className="w-2.5 h-2.5" /> Không công khai (Chỉ ai có link)
+                              <Lock className="w-2.5 h-2.5" /> Không công khai
+                              (Chỉ ai có link)
                             </span>
-                            <span className="text-xs font-mono font-bold text-slate-500">{ex.timeLimit || 45}p</span>
+                            <span className="text-xs font-mono font-bold text-slate-500">
+                              {ex.timeLimit || 45}p
+                            </span>
                           </div>
-                          <h4 className="font-bold text-slate-900 text-sm truncate">{ex.title}</h4>
-                          <p className="text-xs text-slate-500">{ex.questionCount || 0} câu hỏi</p>
+                          <h4 className="font-bold text-slate-900 text-sm truncate">
+                            {ex.title}
+                          </h4>
+                          <p className="text-xs text-slate-500">
+                            {ex.questionCount || 0} câu hỏi
+                          </p>
                         </div>
 
                         <div className="flex items-center gap-2 pt-2 border-t border-slate-200/60">
@@ -953,11 +1108,15 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             type="button"
                             onClick={() => {
                               navigator.clipboard.writeText(shareUrl);
-                              showToast(`Đã sao chép link đề "${ex.title}"!`, "success");
+                              showToast(
+                                `Đã sao chép link đề "${ex.title}"!`,
+                                "success",
+                              );
                             }}
                             className="flex-1 py-1.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
                           >
-                            <Share2 className="w-3.5 h-3.5" /> Sao chép link gửi con
+                            <Share2 className="w-3.5 h-3.5" /> Sao chép link gửi
+                            con
                           </button>
                           <Link
                             to={`/student/exam/${ex.id}`}
@@ -988,7 +1147,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     Tạo đề & Chỉnh sửa giao diện Azota
                   </h2>
                   <p className="text-xs text-slate-500 font-medium">
-                    Phụ huynh có thể nạp nhanh đề qua mã JSON hoặc sinh đề tự động bằng AI, sau đó chỉnh sửa và xuất đề.
+                    Phụ huynh có thể nạp nhanh đề qua mã JSON hoặc sinh đề tự
+                    động bằng AI, sau đó chỉnh sửa và xuất đề.
                   </p>
                 </div>
 
@@ -1035,7 +1195,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
               <div className="space-y-1.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-amber-500" /> Mẫu prompt ChatGPT chuẩn cấu trúc (Click để nạp nhanh):
+                    <Sparkles className="w-3 h-3 text-amber-500" /> Mẫu prompt
+                    ChatGPT chuẩn cấu trúc (Click để nạp nhanh):
                   </span>
                   <button
                     type="button"
@@ -1054,9 +1215,12 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         setPromptInput(preset.prompt);
                         setCreateMode("prompt");
                         navigator.clipboard.writeText(
-                          `\`json\n${MASTER_SCHEMA_JSON_STRING}\n\`\n\n${preset.prompt}`
+                          `\`json\n${MASTER_SCHEMA_JSON_STRING}\n\`\n\n${preset.prompt}`,
                         );
-                        showToast(`Đã nạp prompt và copy vào Clipboard: "${preset.label}"!`, "success");
+                        showToast(
+                          `Đã nạp prompt và copy vào Clipboard: "${preset.label}"!`,
+                          "success",
+                        );
                       }}
                       className="px-2.5 py-1 bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 border border-slate-200 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                       title="Click để chọn và copy prompt đầy đủ"
@@ -1102,7 +1266,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       onClick={() => setShowGptModal(true)}
                       className="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1 cursor-pointer"
                     >
-                      <Sparkles className="w-3.5 h-3.5" /> Xem prompt mẫu cho ChatGPT để lấy JSON
+                      <Sparkles className="w-3.5 h-3.5" /> Xem prompt mẫu cho
+                      ChatGPT để lấy JSON
                     </button>
 
                     <button
@@ -1119,7 +1284,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                 /* Mode B: Prompt input */
                 <form onSubmit={handleGenerateAiPrompt} className="space-y-3">
                   <label className="block text-xs font-bold text-slate-700">
-                    Nhập yêu cầu đề thi cho AI (Ví dụ: "Tạo 5 câu trắc nghiệm Toán 9 Hình học đường tròn có lời giải"):
+                    Nhập yêu cầu đề thi cho AI (Ví dụ: "Tạo 5 câu trắc nghiệm
+                    Toán 9 Hình học đường tròn có lời giải"):
                   </label>
                   <textarea
                     rows={4}
@@ -1175,7 +1341,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                           ? "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200"
                           : "bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 shadow-2xs"
                       }`}
-                      title={isMatrixOpen ? "Ẩn ma trận đáp án" : "Hiện ma trận đáp án"}
+                      title={
+                        isMatrixOpen
+                          ? "Ẩn ma trận đáp án"
+                          : "Hiện ma trận đáp án"
+                      }
                     >
                       {isMatrixOpen ? (
                         <>
@@ -1200,7 +1370,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         </h3>
                       </div>
                       <p className="text-xs text-slate-400">
-                        {questions.length} câu • Click đáp án/sửa trực tiếp từng câu • Lưu đề lấy link gửi con
+                        {questions.length} câu • Click đáp án/sửa trực tiếp từng
+                        câu • Lưu đề lấy link gửi con
                       </p>
                     </div>
                   </div>
@@ -1243,7 +1414,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                 {/* Exam Title & Time editor inline */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-4 rounded-2xl border border-slate-200 text-xs">
                   <div className="sm:col-span-2 space-y-1">
-                    <label className="font-bold text-slate-600">Tiêu đề đề thi:</label>
+                    <label className="font-bold text-slate-600">
+                      Tiêu đề đề thi:
+                    </label>
                     <input
                       type="text"
                       value={examTitle}
@@ -1252,11 +1425,15 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="font-bold text-slate-600">Thời gian (phút):</label>
+                    <label className="font-bold text-slate-600">
+                      Thời gian (phút):
+                    </label>
                     <input
                       type="number"
                       value={examTimeLimit}
-                      onChange={(e) => setExamTimeLimit(parseInt(e.target.value) || 45)}
+                      onChange={(e) =>
+                        setExamTimeLimit(parseInt(e.target.value) || 45)
+                      }
                       className="w-full px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
                   </div>
@@ -1296,13 +1473,16 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         <div className="grid grid-cols-2 gap-1.5">
                           {questions.map((q, idx) => {
                             const filtered = searchTerm
-                              ? `câu ${idx + 1}`.includes(searchTerm.toLowerCase()) || `${idx + 1}`.includes(searchTerm)
+                              ? `câu ${idx + 1}`.includes(
+                                  searchTerm.toLowerCase(),
+                                ) || `${idx + 1}`.includes(searchTerm)
                               : true;
                             if (!filtered) return null;
 
                             const summary = getQuestionSummary(q);
                             const isUnanswered = summary === "?";
-                            const isCurrentlyEditing = editingQuestionId === q.id;
+                            const isCurrentlyEditing =
+                              editingQuestionId === q.id;
 
                             return (
                               <button
@@ -1313,20 +1493,22 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                   isCurrentlyEditing
                                     ? "bg-indigo-50 border-indigo-500 ring-2 ring-indigo-500/30 shadow-xs"
                                     : isUnanswered
-                                    ? "bg-red-50 text-red-900 border-red-200 hover:bg-red-100"
-                                    : "bg-emerald-50/80 text-emerald-950 border-emerald-300 hover:bg-emerald-100/90 shadow-2xs"
+                                      ? "bg-red-50 text-red-900 border-red-200 hover:bg-red-100"
+                                      : "bg-emerald-50/80 text-emerald-950 border-emerald-300 hover:bg-emerald-100/90 shadow-2xs"
                                 }`}
                                 title={`Câu ${idx + 1}: Click để nhảy tới câu này`}
                               >
                                 <div className="flex items-center justify-between font-bold">
-                                  <span className="text-slate-800 font-extrabold text-[11px]">Câu {idx + 1}</span>
+                                  <span className="text-slate-800 font-extrabold text-[11px]">
+                                    Câu {idx + 1}
+                                  </span>
                                   <span
                                     className={`px-1.5 py-0.2 rounded text-[10px] font-mono font-bold ${
                                       isCurrentlyEditing
                                         ? "bg-indigo-600 text-white"
                                         : isUnanswered
-                                        ? "bg-red-200 text-red-900"
-                                        : "bg-emerald-600 text-white"
+                                          ? "bg-red-200 text-red-900"
+                                          : "bg-emerald-600 text-white"
                                     }`}
                                   >
                                     {summary}
@@ -1358,9 +1540,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         {examTitle || "BÀI THI CHƯA ĐẶT TÊN"}
                       </h2>
                       <div className="flex items-center justify-center gap-3 text-xs font-semibold text-slate-600 pt-0.5">
-                        <span>Thời gian làm bài: <strong>{examTimeLimit} phút</strong></span>
+                        <span>
+                          Thời gian làm bài:{" "}
+                          <strong>{examTimeLimit} phút</strong>
+                        </span>
                         <span>•</span>
-                        <span>Số câu hỏi: <strong>{questions.length} câu</strong></span>
+                        <span>
+                          Số câu hỏi: <strong>{questions.length} câu</strong>
+                        </span>
                       </div>
                     </div>
 
@@ -1382,21 +1569,32 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                   Câu {qIdx + 1}
                                 </span>
                                 <span className="text-xs font-bold text-slate-500 uppercase">
-                                  {q.type === "single_choice" && "Trắc nghiệm 1 đáp án"}
-                                  {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
+                                  {q.type === "single_choice" &&
+                                    "Trắc nghiệm 1 đáp án"}
+                                  {q.type === "multiple_choice" &&
+                                    "Trắc nghiệm nhiều đáp án"}
                                   {q.type === "true_false" && "Đúng / Sai 4 ý"}
-                                  {q.type === "short_answer" && "Điền đáp án ngắn"}
+                                  {q.type === "short_answer" &&
+                                    "Điền đáp án ngắn"}
                                 </span>
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <button
                                   type="button"
-                                  onClick={() => setEditingQuestionId(isEditing ? null : q.id)}
+                                  onClick={() =>
+                                    setEditingQuestionId(
+                                      isEditing ? null : q.id,
+                                    )
+                                  }
                                   className="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
                                 >
                                   <Edit2 className="w-3 h-3 text-indigo-600" />
-                                  <span>{isEditing ? "Đóng sửa" : "Sửa trực tiếp (Đề & Lời giải & Đáp án)"}</span>
+                                  <span>
+                                    {isEditing
+                                      ? "Đóng sửa"
+                                      : "Sửa trực tiếp (Đề & Lời giải & Đáp án)"}
+                                  </span>
                                 </button>
                               </div>
                             </div>
@@ -1415,7 +1613,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                       const val = e.target.value;
                                       setQuestions((prev) => {
                                         const next = [...prev];
-                                        next[qIdx] = { ...next[qIdx], text: val };
+                                        next[qIdx] = {
+                                          ...next[qIdx],
+                                          text: val,
+                                        };
                                         return next;
                                       });
                                     }}
@@ -1424,11 +1625,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                 </div>
 
                                 {/* EDIT OPTIONS FOR SINGLE & MULTIPLE CHOICE */}
-                                {(q.type === "single_choice" || q.type === "multiple_choice") && (
+                                {(q.type === "single_choice" ||
+                                  q.type === "multiple_choice") && (
                                   <div className="space-y-2 border-t border-slate-100 pt-3">
                                     <div className="flex items-center justify-between">
                                       <label className="text-xs font-bold text-slate-700">
-                                        Chỉnh sửa nội dung các phương án & chọn đáp án đúng:
+                                        Chỉnh sửa nội dung các phương án & chọn
+                                        đáp án đúng:
                                       </label>
                                       <button
                                         type="button"
@@ -1439,7 +1642,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                             const newOptId = `opt_${Date.now()}`;
                                             targetQ.options = [
                                               ...(targetQ.options || []),
-                                              { id: newOptId, text: `Phương án mới` },
+                                              {
+                                                id: newOptId,
+                                                text: `Phương án mới`,
+                                              },
                                             ];
                                             next[qIdx] = targetQ;
                                             return next;
@@ -1447,14 +1653,18 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                         }}
                                         className="text-[11px] font-bold text-indigo-600 hover:underline flex items-center gap-1"
                                       >
-                                        <Plus className="w-3 h-3" /> Thêm phương án
+                                        <Plus className="w-3 h-3" /> Thêm phương
+                                        án
                                       </button>
                                     </div>
 
                                     <div className="space-y-2">
                                       {q.options?.map((opt, oIdx) => {
-                                        const letter = String.fromCharCode(65 + oIdx);
-                                        const isCorrect = q.correctOptionIds?.includes(opt.id);
+                                        const letter = String.fromCharCode(
+                                          65 + oIdx,
+                                        );
+                                        const isCorrect =
+                                          q.correctOptionIds?.includes(opt.id);
 
                                         return (
                                           <div
@@ -1463,13 +1673,19 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                           >
                                             <button
                                               type="button"
-                                              onClick={() => handleToggleOption(qIdx, opt.id)}
+                                              onClick={() =>
+                                                handleToggleOption(qIdx, opt.id)
+                                              }
                                               className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors cursor-pointer ${
                                                 isCorrect
                                                   ? "bg-emerald-600 text-white shadow-2xs"
                                                   : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-100"
                                               }`}
-                                              title={isCorrect ? "Đáp án ĐÚNG (Click để bỏ)" : "Click để đặt làm đáp án ĐÚNG"}
+                                              title={
+                                                isCorrect
+                                                  ? "Đáp án ĐÚNG (Click để bỏ)"
+                                                  : "Click để đặt làm đáp án ĐÚNG"
+                                              }
                                             >
                                               {letter}
                                             </button>
@@ -1481,9 +1697,15 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                                 const val = e.target.value;
                                                 setQuestions((prev) => {
                                                   const next = [...prev];
-                                                  const targetQ = { ...next[qIdx] };
-                                                  targetQ.options = (targetQ.options || []).map((o) =>
-                                                    o.id === opt.id ? { ...o, text: val } : o
+                                                  const targetQ = {
+                                                    ...next[qIdx],
+                                                  };
+                                                  targetQ.options = (
+                                                    targetQ.options || []
+                                                  ).map((o) =>
+                                                    o.id === opt.id
+                                                      ? { ...o, text: val }
+                                                      : o,
                                                   );
                                                   next[qIdx] = targetQ;
                                                   return next;
@@ -1498,10 +1720,19 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                               onClick={() => {
                                                 setQuestions((prev) => {
                                                   const next = [...prev];
-                                                  const targetQ = { ...next[qIdx] };
-                                                  targetQ.options = (targetQ.options || []).filter((o) => o.id !== opt.id);
-                                                  targetQ.correctOptionIds = (targetQ.correctOptionIds || []).filter(
-                                                    (id) => id !== opt.id
+                                                  const targetQ = {
+                                                    ...next[qIdx],
+                                                  };
+                                                  targetQ.options = (
+                                                    targetQ.options || []
+                                                  ).filter(
+                                                    (o) => o.id !== opt.id,
+                                                  );
+                                                  targetQ.correctOptionIds = (
+                                                    targetQ.correctOptionIds ||
+                                                    []
+                                                  ).filter(
+                                                    (id) => id !== opt.id,
                                                   );
                                                   next[qIdx] = targetQ;
                                                   return next;
@@ -1523,11 +1754,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                 {q.type === "true_false" && (
                                   <div className="space-y-2 border-t border-slate-100 pt-3">
                                     <label className="text-xs font-bold text-slate-700">
-                                      Chỉnh sửa nội dung từng ý và chọn Đúng/Sai:
+                                      Chỉnh sửa nội dung từng ý và chọn
+                                      Đúng/Sai:
                                     </label>
                                     <div className="space-y-2">
                                       {q.statements?.map((stmt, sIdx) => {
-                                        const letter = String.fromCharCode(97 + sIdx);
+                                        const letter = String.fromCharCode(
+                                          97 + sIdx,
+                                        );
                                         return (
                                           <div
                                             key={stmt.id}
@@ -1544,9 +1778,15 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                                 const val = e.target.value;
                                                 setQuestions((prev) => {
                                                   const next = [...prev];
-                                                  const targetQ = { ...next[qIdx] };
-                                                  targetQ.statements = (targetQ.statements || []).map((s) =>
-                                                    s.id === stmt.id ? { ...s, text: val } : s
+                                                  const targetQ = {
+                                                    ...next[qIdx],
+                                                  };
+                                                  targetQ.statements = (
+                                                    targetQ.statements || []
+                                                  ).map((s) =>
+                                                    s.id === stmt.id
+                                                      ? { ...s, text: val }
+                                                      : s,
                                                   );
                                                   next[qIdx] = targetQ;
                                                   return next;
@@ -1558,7 +1798,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                             <div className="flex items-center gap-1 shrink-0">
                                               <button
                                                 type="button"
-                                                onClick={() => handleToggleStatement(qIdx, stmt.id, true)}
+                                                onClick={() =>
+                                                  handleToggleStatement(
+                                                    qIdx,
+                                                    stmt.id,
+                                                    true,
+                                                  )
+                                                }
                                                 className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-colors cursor-pointer ${
                                                   stmt.correctAnswer === true
                                                     ? "bg-emerald-600 text-white border-emerald-600"
@@ -1569,7 +1815,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                               </button>
                                               <button
                                                 type="button"
-                                                onClick={() => handleToggleStatement(qIdx, stmt.id, false)}
+                                                onClick={() =>
+                                                  handleToggleStatement(
+                                                    qIdx,
+                                                    stmt.id,
+                                                    false,
+                                                  )
+                                                }
                                                 className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-colors cursor-pointer ${
                                                   stmt.correctAnswer === false
                                                     ? "bg-red-600 text-white border-red-600"
@@ -1590,11 +1842,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                 {q.type === "short_answer" && (
                                   <div className="space-y-1.5 border-t border-slate-100 pt-3">
                                     <label className="text-xs font-bold text-slate-700">
-                                      Các đáp án chấp nhận (ngăn cách bởi dấu phẩy):
+                                      Các đáp án chấp nhận (ngăn cách bởi dấu
+                                      phẩy):
                                     </label>
                                     <input
                                       type="text"
-                                      value={(q.acceptedAnswers || []).join(", ")}
+                                      value={(q.acceptedAnswers || []).join(
+                                        ", ",
+                                      )}
                                       onChange={(e) => {
                                         const parts = e.target.value
                                           .split(",")
@@ -1602,7 +1857,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                           .filter(Boolean);
                                         setQuestions((prev) => {
                                           const next = [...prev];
-                                          next[qIdx] = { ...next[qIdx], acceptedAnswers: parts };
+                                          next[qIdx] = {
+                                            ...next[qIdx],
+                                            acceptedAnswers: parts,
+                                          };
                                           return next;
                                         });
                                       }}
@@ -1623,7 +1881,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                       const val = e.target.value;
                                       setQuestions((prev) => {
                                         const next = [...prev];
-                                        next[qIdx] = { ...next[qIdx], explanation: val };
+                                        next[qIdx] = {
+                                          ...next[qIdx],
+                                          explanation: val,
+                                        };
                                         return next;
                                       });
                                     }}
@@ -1642,17 +1903,23 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             {/* Options / Statements selector (Azota click to pick correct) */}
                             {!isEditing && (
                               <div className="space-y-2 pt-1">
-                                {(q.type === "single_choice" || q.type === "multiple_choice") && (
+                                {(q.type === "single_choice" ||
+                                  q.type === "multiple_choice") && (
                                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     {q.options?.map((opt, optIdx) => {
-                                      const letter = String.fromCharCode(65 + optIdx);
-                                      const isCorrect = q.correctOptionIds?.includes(opt.id);
+                                      const letter = String.fromCharCode(
+                                        65 + optIdx,
+                                      );
+                                      const isCorrect =
+                                        q.correctOptionIds?.includes(opt.id);
 
                                       return (
                                         <button
                                           key={opt.id}
                                           type="button"
-                                          onClick={() => handleToggleOption(qIdx, opt.id)}
+                                          onClick={() =>
+                                            handleToggleOption(qIdx, opt.id)
+                                          }
                                           className={`p-2.5 rounded-xl border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
                                             isCorrect
                                               ? "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold shadow-2xs"
@@ -1661,7 +1928,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                         >
                                           <span
                                             className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 ${
-                                              isCorrect ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-700 border"
+                                              isCorrect
+                                                ? "bg-emerald-600 text-white"
+                                                : "bg-slate-100 text-slate-700 border"
                                             }`}
                                           >
                                             {letter}
@@ -1683,7 +1952,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                 {q.type === "true_false" && (
                                   <div className="space-y-2">
                                     {q.statements?.map((stmt, sIdx) => {
-                                      const letter = String.fromCharCode(97 + sIdx);
+                                      const letter = String.fromCharCode(
+                                        97 + sIdx,
+                                      );
                                       return (
                                         <div
                                           key={stmt.id}
@@ -1694,13 +1965,21 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                               {letter})
                                             </span>
                                             <div className="text-slate-800 font-medium">
-                                              <LatexPreview content={stmt.text} />
+                                              <LatexPreview
+                                                content={stmt.text}
+                                              />
                                             </div>
                                           </div>
                                           <div className="flex items-center gap-1.5 shrink-0">
                                             <button
                                               type="button"
-                                              onClick={() => handleToggleStatement(qIdx, stmt.id, true)}
+                                              onClick={() =>
+                                                handleToggleStatement(
+                                                  qIdx,
+                                                  stmt.id,
+                                                  true,
+                                                )
+                                              }
                                               className={`px-2.5 py-1 rounded-lg font-bold border transition-colors cursor-pointer ${
                                                 stmt.correctAnswer === true
                                                   ? "bg-emerald-600 text-white border-emerald-600"
@@ -1711,7 +1990,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                             </button>
                                             <button
                                               type="button"
-                                              onClick={() => handleToggleStatement(qIdx, stmt.id, false)}
+                                              onClick={() =>
+                                                handleToggleStatement(
+                                                  qIdx,
+                                                  stmt.id,
+                                                  false,
+                                                )
+                                              }
                                               className={`px-2.5 py-1 rounded-lg font-bold border transition-colors cursor-pointer ${
                                                 stmt.correctAnswer === false
                                                   ? "bg-red-600 text-white border-red-600"
@@ -1729,9 +2014,12 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
 
                                 {q.type === "short_answer" && (
                                   <div className="p-3 bg-amber-50/60 border border-amber-200 rounded-xl text-xs space-y-1">
-                                    <span className="font-bold text-amber-900">Đáp án chấp nhận:</span>
+                                    <span className="font-bold text-amber-900">
+                                      Đáp án chấp nhận:
+                                    </span>
                                     <span className="font-mono font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-amber-300 ml-2">
-                                      {(q.acceptedAnswers || []).join(", ") || "Chưa thiết lập"}
+                                      {(q.acceptedAnswers || []).join(", ") ||
+                                        "Chưa thiết lập"}
                                     </span>
                                   </div>
                                 )}
@@ -1741,7 +2029,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             {/* Explanation section */}
                             {q.explanation && !isEditing && (
                               <div className="p-3 bg-indigo-50/60 border border-indigo-100 rounded-xl text-xs space-y-1 text-slate-800">
-                                <span className="font-bold text-indigo-900 block">Lời giải chi tiết:</span>
+                                <span className="font-bold text-indigo-900 block">
+                                  Lời giải chi tiết:
+                                </span>
                                 <LatexPreview content={q.explanation} />
                               </div>
                             )}
@@ -1768,10 +2058,12 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   </div>
                   <div>
                     <h2 className="text-lg sm:text-xl font-black text-slate-900">
-                      Hướng dẫn tạo đề chi tiết cho Phụ huynh qua mã Code & Prompt mẫu
+                      Hướng dẫn tạo đề chi tiết cho Phụ huynh qua mã Code &
+                      Prompt mẫu
                     </h2>
                     <p className="text-xs text-slate-500 font-medium">
-                      Cách nhanh nhất để tạo một bộ đề kiểm tra hoàn chỉnh chuẩn 100% định dạng DkTEST.
+                      Cách nhanh nhất để tạo một bộ đề kiểm tra hoàn chỉnh chuẩn
+                      100% định dạng DkTEST.
                     </p>
                   </div>
                 </div>
@@ -1793,10 +2085,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     <span className="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                       1
                     </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">Copy Prompt & Schema</h4>
+                    <h4 className="font-extrabold text-slate-900 text-sm">
+                      Copy Prompt & Schema
+                    </h4>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Bấm nút <strong>"Copy Prompt Mẫu kèm Schema"</strong> ở khung bên dưới. Khối mã chứa đầy đủ quy chuẩn 4 dạng câu hỏi trắc nghiệm.
+                    Bấm nút <strong>"Copy Prompt Mẫu kèm Schema"</strong> ở
+                    khung bên dưới. Khối mã chứa đầy đủ quy chuẩn 4 dạng câu hỏi
+                    trắc nghiệm.
                   </p>
                 </div>
 
@@ -1805,10 +2101,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     <span className="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                       2
                     </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">Dán vào ChatGPT / AI</h4>
+                    <h4 className="font-extrabold text-slate-900 text-sm">
+                      Dán vào ChatGPT / AI
+                    </h4>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Mở ChatGPT, Claude hoặc Gemini, dán prompt vào và thay đổi thông tin môn học, lớp, hoặc chụp ảnh bài tập SGK gửi kèm.
+                    Mở ChatGPT, Claude hoặc Gemini, dán prompt vào và thay đổi
+                    thông tin môn học, lớp, hoặc chụp ảnh bài tập SGK gửi kèm.
                   </p>
                 </div>
 
@@ -1817,10 +2116,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     <span className="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                       3
                     </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">Dán JSON & Lưu đề</h4>
+                    <h4 className="font-extrabold text-slate-900 text-sm">
+                      Dán JSON & Lưu đề
+                    </h4>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Copy khối mã JSON mà ChatGPT phản hồi, sang tab <strong>"Tạo đề & Sửa Azota"</strong> để nạp đề tức thì và lấy link gửi con!
+                    Copy khối mã JSON mà ChatGPT phản hồi, sang tab{" "}
+                    <strong>"Tạo đề & Sửa Azota"</strong> để nạp đề tức thì và
+                    lấy link gửi con!
                   </p>
                 </div>
               </div>
@@ -1840,12 +2143,21 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       navigator.clipboard.writeText(GUIDE_PROMPT_TEMPLATE);
                       setCopiedPrompt(true);
                       setTimeout(() => setCopiedPrompt(false), 2000);
-                      showToast("Đã sao chép prompt mẫu kèm Schema vào bộ nhớ tạm!", "success");
+                      showToast(
+                        "Đã sao chép prompt mẫu kèm Schema vào bộ nhớ tạm!",
+                        "success",
+                      );
                     }}
                     className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                   >
-                    {copiedPrompt ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-                    <span>{copiedPrompt ? "Đã copy!" : "Copy Prompt Mẫu kèm Schema"}</span>
+                    {copiedPrompt ? (
+                      <Check className="w-4 h-4 text-emerald-300" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                    <span>
+                      {copiedPrompt ? "Đã copy!" : "Copy Prompt Mẫu kèm Schema"}
+                    </span>
                   </button>
                 </div>
 
@@ -1862,19 +2174,32 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium">
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">1. single_choice:</span>
+                    <span className="font-bold text-indigo-600 shrink-0">
+                      1. single_choice:
+                    </span>
                     <span>Trắc nghiệm 1 đáp án đúng (A, B, C, D)</span>
                   </div>
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">2. multiple_choice:</span>
-                    <span>Trắc nghiệm nhiều đáp án đúng (chọn nhiều đáp án)</span>
+                    <span className="font-bold text-indigo-600 shrink-0">
+                      2. multiple_choice:
+                    </span>
+                    <span>
+                      Trắc nghiệm nhiều đáp án đúng (chọn nhiều đáp án)
+                    </span>
                   </div>
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">3. true_false:</span>
-                    <span>Trắc nghiệm Đúng / Sai 4 ý a, b, c, d (chuẩn thi tốt nghiệp mới)</span>
+                    <span className="font-bold text-indigo-600 shrink-0">
+                      3. true_false:
+                    </span>
+                    <span>
+                      Trắc nghiệm Đúng / Sai 4 ý a, b, c, d (chuẩn thi tốt
+                      nghiệp mới)
+                    </span>
                   </div>
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">4. short_answer:</span>
+                    <span className="font-bold text-indigo-600 shrink-0">
+                      4. short_answer:
+                    </span>
                     <span>Điền đáp án số hoặc biểu thức ngắn</span>
                   </div>
                 </div>
@@ -1904,7 +2229,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
 
             <form onSubmit={handleSendLink} className="space-y-4">
               <p className="text-xs text-slate-600 leading-relaxed">
-                Nhập <strong>tên đăng nhập (username)</strong> của con trên hệ thống DkTEST. Hệ thống sẽ gửi thông báo tới con để yêu cầu xác nhận.
+                Nhập <strong>tên đăng nhập (username)</strong> của con trên hệ
+                thống DkTEST. Hệ thống sẽ gửi thông báo tới con để yêu cầu xác
+                nhận.
               </p>
 
               <div>
@@ -1915,7 +2242,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   type="text"
                   required
                   value={childUsernameInput}
-                  onChange={(e) => setChildUsernameInput(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
+                  onChange={(e) =>
+                    setChildUsernameInput(
+                      e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""),
+                    )
+                  }
                   placeholder="Ví dụ: hs123456"
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
@@ -1934,7 +2265,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   disabled={isSendingRequest}
                   className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                 >
-                  {isSendingRequest ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                  {isSendingRequest ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
                   <span>Gửi yêu cầu liên kết</span>
                 </button>
               </div>
@@ -1968,10 +2303,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
             <div className="space-y-3">
               <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl text-xs space-y-1 text-amber-900">
                 <div className="font-extrabold flex items-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5" /> Chế độ: Không công khai (Chỉ ai có link mới xem được)
+                  <Lock className="w-3.5 h-3.5" /> Chế độ: Không công khai (Chỉ
+                  ai có link mới xem được)
                 </div>
                 <p className="text-amber-800/90 leading-relaxed">
-                  Đề thi này không xuất hiện trên trang chủ công khai của học sinh khác. Phụ huynh chỉ cần copy link dưới đây gửi cho con để làm bài.
+                  Đề thi này không xuất hiện trên trang chủ công khai của học
+                  sinh khác. Phụ huynh chỉ cần copy link dưới đây gửi cho con để
+                  làm bài.
                 </p>
               </div>
 
@@ -1992,11 +2330,18 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       navigator.clipboard.writeText(savedShareLink);
                       setCopiedShareLink(true);
                       setTimeout(() => setCopiedShareLink(false), 2000);
-                      showToast("Đã sao chép link đề thi vào Clipboard!", "success");
+                      showToast(
+                        "Đã sao chép link đề thi vào Clipboard!",
+                        "success",
+                      );
                     }}
                     className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
                   >
-                    {copiedShareLink ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+                    {copiedShareLink ? (
+                      <Check className="w-4 h-4 text-emerald-300" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                     <span>{copiedShareLink ? "Đã copy!" : "Copy link"}</span>
                   </button>
                 </div>
@@ -2020,6 +2365,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
       <ChatGPTMasterPromptModal
         isOpen={showGptModal}
         onClose={() => setShowGptModal(false)}
+      />
+
+      {/* Live Proctoring & Scratchpad Mirror Modal for Parents */}
+      <LiveSessionDetailModal
+        session={viewLiveSession}
+        onClose={() => setViewLiveSession(null)}
+        viewerRole="parent"
       />
     </div>
   );

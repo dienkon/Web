@@ -320,7 +320,8 @@ export default function TakingExam() {
         // Student Info & Snapshot Storage Key
         const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
         const studentIdentifier =
-          studentInfo?.username || studentInfo?.displayName || "unknown";
+          studentInfo?.username || studentInfo?.displayName || "student";
+        sessionIdRef.current = `sess_${studentIdentifier.toLowerCase().replace(/[^a-z0-9]/g, "_")}_${examId}`;
         const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
 
         // Organize and shuffle questions

@@ -29,7 +29,10 @@ import type { Exam } from "../../types";
 export default function Home() {
   const navigate = useNavigate();
   const [examCode, setExamCode] = useState("");
-  const [studentInfo, setStudentInfo] = useState<{ username: string; displayName: string } | null>(null);
+  const [studentInfo, setStudentInfo] = useState<{
+    username: string;
+    displayName: string;
+  } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [copiedHomePrompt, setCopiedHomePrompt] = useState(false);
@@ -37,7 +40,7 @@ export default function Home() {
   const [publicExams, setPublicExams] = useState<Exam[]>([]);
   const [loadingExams, setLoadingExams] = useState(true);
   const [searchError, setSearchError] = useState("");
-  
+
   // Auth required modal
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [targetExamId, setTargetExamId] = useState<string | null>(null);
@@ -80,8 +83,13 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           // ignore
         }
       }
+    } else if (role === "parent") {
+      setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
+      // Unauthenticated first visit: direct user to registration/login
+      navigate("/student/login?mode=register", { replace: true });
+      return;
     }
 
     // Load active published exams for students to browse
@@ -90,10 +98,10 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
-          limit(12)
+          limit(12),
         );
         const snap = await getDocs(q);
-        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Exam);
         setPublicExams(list);
       } catch (err) {
         console.error("Lỗi khi tải danh sách đề thi:", err);
@@ -119,12 +127,15 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
     setSearchError("");
     const trimmed = examCode.trim();
     if (!trimmed) {
-      setSearchError("Vui lòng nhập mã bài thi hoặc chọn đề thi từ danh sách bên dưới!");
+      setSearchError(
+        "Vui lòng nhập mã bài thi hoặc chọn đề thi từ danh sách bên dưới!",
+      );
       return;
     }
 
     const found = publicExams.find(
-      (ex) => ex.id === trimmed || ex.code?.toUpperCase() === trimmed.toUpperCase()
+      (ex) =>
+        ex.id === trimmed || ex.code?.toUpperCase() === trimmed.toUpperCase(),
     );
 
     const codeToUse = found ? found.id : trimmed;
@@ -147,7 +158,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           </h1>
 
           <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed font-medium">
-            Giải pháp thi trắc nghiệm hiện đại cho học sinh và giáo viên. Đề thi chuẩn hóa, tự động chấm điểm, hỗ trợ công thức Toán/Lý/Hóa LaTeX và giám sát thời gian thực.
+            Giải pháp thi trắc nghiệm hiện đại cho học sinh và giáo viên. Đề thi
+            chuẩn hóa, tự động chấm điểm, hỗ trợ công thức Toán/Lý/Hóa LaTeX và
+            giám sát thời gian thực.
           </p>
 
           {/* Quick Search Exam Code Form */}
@@ -189,9 +202,12 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
             <Shield className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-base">Giám Sát Chống Gian Lận</h3>
+          <h3 className="font-bold text-slate-900 text-base">
+            Giám Sát Chống Gian Lận
+          </h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Hệ thống tự động ghi nhận lượt chuyển tab, cảnh báo mất tập trung và thống kê chi tiết cho giáo viên.
+            Hệ thống tự động ghi nhận lượt chuyển tab, cảnh báo mất tập trung và
+            thống kê chi tiết cho giáo viên.
           </p>
         </div>
 
@@ -199,9 +215,12 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
             <Zap className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-base">Chấm Điểm & Báo Cáo Instant</h3>
+          <h3 className="font-bold text-slate-900 text-base">
+            Chấm Điểm & Báo Cáo Instant
+          </h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Biết kết quả ngay lập tức sau khi nộp bài kèm lời giải chi tiết, bảng xếp hạng Top 10 và thống kê điểm số.
+            Biết kết quả ngay lập tức sau khi nộp bài kèm lời giải chi tiết,
+            bảng xếp hạng Top 10 và thống kê điểm số.
           </p>
         </div>
 
@@ -209,9 +228,12 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
             <Flame className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-base">Cộng Đồng Học Tập</h3>
+          <h3 className="font-bold text-slate-900 text-base">
+            Cộng Đồng Học Tập
+          </h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Thí sinh có thể giao lưu, thảo luận kinh nghiệm làm bài, thả tim, bình luận bài viết và khoe thành tích.
+            Thí sinh có thể giao lưu, thảo luận kinh nghiệm làm bài, thả tim,
+            bình luận bài viết và khoe thành tích.
           </p>
         </div>
       </div>
@@ -224,7 +246,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               <BookOpen className="w-5 h-5 text-blue-600" />
               Thư Viện Đề Thi Công Khai
             </h2>
-            <p className="text-xs text-slate-500">Các bài thi sẵn sàng cho học sinh mở đề thi và thử sức</p>
+            <p className="text-xs text-slate-500">
+              Các bài thi sẵn sàng cho học sinh mở đề thi và thử sức
+            </p>
           </div>
           <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
             {publicExams.length} đề thi
@@ -234,7 +258,10 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
         {loadingExams ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-36 bg-white rounded-3xl border border-slate-200 animate-pulse" />
+              <div
+                key={i}
+                className="h-36 bg-white rounded-3xl border border-slate-200 animate-pulse"
+              />
             ))}
           </div>
         ) : publicExams.length === 0 ? (
@@ -242,9 +269,12 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
             <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto text-slate-400">
               <BookOpen className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-slate-800 text-sm">Chưa có bài thi nào được xuất bản</h3>
+            <h3 className="font-bold text-slate-800 text-sm">
+              Chưa có bài thi nào được xuất bản
+            </h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Giáo viên có thể xuất bản bài thi từ trang quản trị để hiển thị tại đây.
+              Giáo viên có thể xuất bản bài thi từ trang quản trị để hiển thị
+              tại đây.
             </p>
             {isAdmin && (
               <Link
@@ -269,7 +299,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                     </span>
                     <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-slate-400" />
-                      {exam.timeLimit ? `${exam.timeLimit} phút` : "Không giới hạn"}
+                      {exam.timeLimit
+                        ? `${exam.timeLimit} phút`
+                        : "Không giới hạn"}
                     </span>
                   </div>
 
@@ -317,7 +349,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               Tạo đề thi tự luyện siêu tốc với ChatGPT & Nạp JSON
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Copy prompt mẫu, gửi cho ChatGPT kèm nội dung/ảnh bài tập, sau đó dán kết quả JSON vào Cổng Phụ huynh để chỉnh sửa dạng Azota và xuất đề luyện tập cho con.
+              Copy prompt mẫu, gửi cho ChatGPT kèm nội dung/ảnh bài tập, sau đó
+              dán kết quả JSON vào Cổng Phụ huynh để chỉnh sửa dạng Azota và
+              xuất đề luyện tập cho con.
             </p>
           </div>
 
@@ -331,8 +365,14 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               }}
               className="w-full sm:w-auto px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
             >
-              {copiedHomePrompt ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-              <span>{copiedHomePrompt ? "Đã copy Prompt!" : "Copy Prompt ChatGPT"}</span>
+              {copiedHomePrompt ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
+              <span>
+                {copiedHomePrompt ? "Đã copy Prompt!" : "Copy Prompt ChatGPT"}
+              </span>
             </button>
 
             <Link
@@ -362,13 +402,18 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                 <AlertCircle className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-extrabold text-slate-900 text-base">Yêu cầu Đăng nhập</h3>
-                <p className="text-xs text-slate-500">Bạn cần đăng nhập để tham gia làm bài thi</p>
+                <h3 className="font-extrabold text-slate-900 text-base">
+                  Yêu cầu Đăng nhập
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Bạn cần đăng nhập để tham gia làm bài thi
+                </p>
               </div>
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              Hệ thống DkTEST yêu cầu thí sinh hoặc phụ huynh đăng nhập tài khoản để lưu trữ kết quả và giám sát bài thi.
+              Hệ thống DkTEST yêu cầu thí sinh hoặc phụ huynh đăng nhập tài
+              khoản để lưu trữ kết quả và giám sát bài thi.
             </p>
 
             <div className="space-y-2 pt-2">

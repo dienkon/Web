@@ -42,7 +42,7 @@ export interface ActiveSession {
 }
 
 /**
- * Register and sync student taking exam session in Firestore and Realtime Database.
+ * Register and sync student taking exam session in Realtime Database and Firestore.
  */
 export async function syncRealtimeSession(session: ActiveSession) {
   if (!session.sessionId) return;
@@ -55,7 +55,20 @@ export async function syncRealtimeSession(session: ActiveSession) {
     lastHeartbeat: new Date(now).toISOString(),
   };
 
-  // 1. Sync to Firestore (guaranteed reliable persistence & real-time onSnapshot)
+  // 1. Sync to RTDB (Firebase Realtime Database)
+  if (rtdb) {
+    try {
+      const sessionRef = ref(rtdb, `active_sessions/${session.sessionId}`);
+      await set(sessionRef, sessionData);
+      onDisconnect(sessionRef)
+        .remove()
+        .catch(() => {});
+    } catch (err) {
+      console.warn("RTDB sync error:", err);
+    }
+  }
+
+  // 2. Sync to Firestore (guaranteed reliable persistence & real-time onSnapshot)
   try {
     const fsRef = doc(db, "active_sessions", session.sessionId);
     await setDoc(fsRef, sessionData, { merge: true });
@@ -66,23 +79,10 @@ export async function syncRealtimeSession(session: ActiveSession) {
   } catch (fsErr) {
     console.warn("Firestore syncRealtimeSession error:", fsErr);
   }
-
-  // 2. Sync to RTDB if available
-  if (rtdb) {
-    try {
-      const sessionRef = ref(rtdb, `active_sessions/${session.sessionId}`);
-      await set(sessionRef, sessionData);
-      onDisconnect(sessionRef)
-        .remove()
-        .catch(() => {});
-    } catch (err) {
-      // RTDB optional fallback
-    }
-  }
 }
 
 /**
- * Update quick metrics (timeLeft, answers, warnings) in Firestore & Realtime Database.
+ * Update quick metrics (timeLeft, answers, warnings, scratchpadImage) in Realtime Database & Firestore.
  */
 export async function updateRealtimeSessionMetrics(
   sessionId: string,
@@ -96,25 +96,25 @@ export async function updateRealtimeSessionMetrics(
     lastHeartbeat: new Date(now).toISOString(),
   };
 
-  // 1. Update Firestore
-  try {
-    const fsRef = doc(db, "active_sessions", sessionId);
-    await updateDoc(fsRef, updateData);
-
-    const takingRef = doc(db, "taking_sessions", sessionId);
-    await updateDoc(takingRef, updateData);
-  } catch (fsErr) {
-    // Ignore update doc errors if doc does not exist
-  }
-
-  // 2. Update RTDB if available
+  // 1. Update RTDB
   if (rtdb) {
     try {
       const sessionRef = ref(rtdb, `active_sessions/${sessionId}`);
       await update(sessionRef, updateData);
     } catch (err) {
-      // RTDB optional fallback
+      console.warn("RTDB update error:", err);
     }
+  }
+
+  // 2. Update Firestore with setDoc merge to guarantee success
+  try {
+    const fsRef = doc(db, "active_sessions", sessionId);
+    await setDoc(fsRef, updateData, { merge: true });
+
+    const takingRef = doc(db, "taking_sessions", sessionId);
+    await setDoc(takingRef, updateData, { merge: true });
+  } catch (fsErr) {
+    console.warn("Firestore update error:", fsErr);
   }
 }
 
@@ -124,7 +124,20 @@ export async function updateRealtimeSessionMetrics(
 export async function removeRealtimeSession(sessionId: string) {
   if (!sessionId) return;
 
-  // 1. Mark as submitted / delete from Firestore
+  // 1. Remove from RTDB
+  if (rtdb) {
+    try {
+      const sessionRef = ref(rtdb, `active_sessions/${sessionId}`);
+      onDisconnect(sessionRef)
+        .cancel()
+        .catch(() => {});
+      await remove(sessionRef);
+    } catch (err) {
+      // RTDB optional fallback
+    }
+  }
+
+  // 2. Mark as submitted / delete from Firestore
   try {
     const fsRef = doc(db, "active_sessions", sessionId);
     await deleteDoc(fsRef);
@@ -137,97 +150,141 @@ export async function removeRealtimeSession(sessionId: string) {
   } catch (fsErr) {
     console.warn("Firestore removeRealtimeSession error:", fsErr);
   }
-
-  // 2. Remove from RTDB if available
-  if (rtdb) {
-    try {
-      const sessionRef = ref(rtdb, `active_sessions/${sessionId}`);
-      onDisconnect(sessionRef)
-        .cancel()
-        .catch(() => {});
-      await remove(sessionRef);
-    } catch (err) {
-      // RTDB optional fallback
-    }
-  }
 }
 
 /**
- * Subscribe to all active sessions via Firestore real-time listener (with fallback to RTDB).
+ * Subscribe to all active sessions via combined Realtime Database & Firestore listeners.
  */
 export function subscribeToActiveSessions(
   callback: (sessions: ActiveSession[]) => void,
   onError?: (error: Error) => void,
 ) {
-  // Listen directly from Firestore collection active_sessions
-  try {
-    const activeSessionsCol = collection(db, "active_sessions");
-    const unsubscribeFs = onSnapshot(
-      activeSessionsCol,
-      (snapshot) => {
-        const now = Date.now();
-        const list: ActiveSession[] = [];
+  const sessionsMap = new Map<string, ActiveSession>();
 
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data() as ActiveSession;
-          // Filter out submitted sessions or stale sessions older than 10 minutes without heartbeat
-          const lastActive =
-            typeof data.lastActiveAt === "number"
-              ? data.lastActiveAt
-              : data.lastHeartbeat
-                ? new Date(data.lastHeartbeat).getTime()
-                : 0;
+  const emitMerged = () => {
+    const now = Date.now();
+    const list: ActiveSession[] = [];
+    for (const session of sessionsMap.values()) {
+      const lastActive =
+        typeof session.lastActiveAt === "number"
+          ? session.lastActiveAt
+          : session.lastHeartbeat
+            ? new Date(session.lastHeartbeat).getTime()
+            : 0;
 
-          const isStale = now - lastActive > 10 * 60 * 1000;
-          if (data.status !== "submitted" && !isStale) {
-            list.push({
-              sessionId: docSnap.id,
-              ...data,
-            });
-          }
-        });
+      const isStale = now - lastActive > 15 * 60 * 1000;
+      if (session.status !== "submitted" && !isStale) {
+        list.push(session);
+      }
+    }
+    callback(list);
+  };
 
-        callback(list);
-      },
-      (err) => {
-        console.warn(
-          "Firestore subscribeToActiveSessions error, falling back to RTDB:",
-          err,
-        );
-        if (rtdb) {
-          try {
-            const sessionsRef = ref(rtdb, "active_sessions");
-            onValue(sessionsRef, (snapshot) => {
-              const val = snapshot.val();
-              if (!val) {
-                callback([]);
-                return;
-              }
-              const list: ActiveSession[] = Object.keys(val).map((key) => ({
+  // 1. Realtime Database Subscription
+  let rtdbRef: any = null;
+  if (rtdb) {
+    try {
+      rtdbRef = ref(rtdb, "active_sessions");
+      onValue(
+        rtdbRef,
+        (snapshot) => {
+          const val = snapshot.val();
+          if (val) {
+            Object.keys(val).forEach((key) => {
+              sessionsMap.set(key, {
                 sessionId: key,
                 ...val[key],
-              }));
-              callback(list);
+              });
             });
-          } catch (rtdbErr) {
-            if (onError) onError(err);
           }
-        } else if (onError) {
-          onError(err);
-        }
+          emitMerged();
+        },
+        (err) => {
+          console.warn("RTDB subscribe warning:", err);
+        },
+      );
+    } catch (e) {
+      console.warn("RTDB init listener warning:", e);
+    }
+  }
+
+  // 2. Firestore Subscription
+  let unsubscribeFs = () => {};
+  try {
+    const activeSessionsCol = collection(db, "active_sessions");
+    unsubscribeFs = onSnapshot(
+      activeSessionsCol,
+      (snapshot) => {
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data() as ActiveSession;
+          sessionsMap.set(docSnap.id, {
+            sessionId: docSnap.id,
+            ...data,
+          });
+        });
+        emitMerged();
+      },
+      (err) => {
+        console.warn("Firestore subscribe warning:", err);
+        if (onError && !rtdb) onError(err);
       },
     );
-
-    return () => {
-      try {
-        unsubscribeFs();
-      } catch (e) {}
-    };
   } catch (err: any) {
-    console.error("Failed to subscribe to active sessions:", err);
-    if (onError) onError(err);
-    return () => {};
+    console.error("Failed to subscribe to active sessions in Firestore:", err);
   }
+
+  return () => {
+    try {
+      unsubscribeFs();
+      if (rtdb && rtdbRef) {
+        off(rtdbRef);
+      }
+    } catch (e) {}
+  };
+}
+
+/**
+ * Subscribe to a single live session in real-time from both RTDB & Firestore.
+ */
+export function subscribeToSingleSession(
+  sessionId: string,
+  callback: (session: ActiveSession | null) => void,
+) {
+  if (!sessionId) return () => {};
+
+  // 1. RTDB listener
+  let rtdbSessionRef: any = null;
+  if (rtdb) {
+    try {
+      rtdbSessionRef = ref(rtdb, `active_sessions/${sessionId}`);
+      onValue(rtdbSessionRef, (snapshot) => {
+        const val = snapshot.val();
+        if (val) {
+          callback({ sessionId, ...val });
+        }
+      });
+    } catch (e) {}
+  }
+
+  // 2. Firestore listener
+  let unsubscribeFs = () => {};
+  try {
+    const docRef = doc(db, "active_sessions", sessionId);
+    unsubscribeFs = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        callback({ sessionId: docSnap.id, ...docSnap.data() } as ActiveSession);
+      }
+    });
+  } catch (e) {}
+
+  return () => {
+    try {
+      unsubscribeFs();
+      if (rtdb && rtdbSessionRef) {
+        off(rtdbSessionRef);
+      }
+    } catch (e) {}
+  };
 }
 
 /**

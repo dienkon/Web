@@ -127,7 +127,10 @@ export default function ScratchpadModal({
   const saveDrawingsToStorage = (updated: Record<string, Stroke[]>) => {
     setDrawings(updated);
     try {
-      localStorage.setItem("student_exam_scratchpad_drawings", JSON.stringify(updated));
+      localStorage.setItem(
+        "student_exam_scratchpad_drawings",
+        JSON.stringify(updated),
+      );
     } catch (e) {}
   };
 
@@ -217,7 +220,9 @@ export default function ScratchpadModal({
     ctx.globalCompositeOperation = "source-over";
   };
 
-  const getCoordinates = (e: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent): StrokePoint | null => {
+  const getCoordinates = (
+    e: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent,
+  ): StrokePoint | null => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
     const rect = canvas.getBoundingClientRect();
@@ -268,20 +273,20 @@ export default function ScratchpadModal({
     redrawCanvas();
   };
 
-
   const notifyUpdate = () => {
     if (onScratchpadUpdate && canvasRef.current) {
       const canvas = canvasRef.current;
       const thumbCanvas = document.createElement("canvas");
-      thumbCanvas.width = canvas.width / 2;
-      thumbCanvas.height = canvas.height / 2;
+      // Scale appropriately for fast real-time sync while maintaining high legibility
+      thumbCanvas.width = Math.min(canvas.width, 1000);
+      thumbCanvas.height = Math.min(canvas.height, 700);
       const ctx = thumbCanvas.getContext("2d");
       if (ctx) {
-        // Fill white background for jpeg
+        // Fill white background for clean visibility
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, thumbCanvas.width, thumbCanvas.height);
         ctx.drawImage(canvas, 0, 0, thumbCanvas.width, thumbCanvas.height);
-        onScratchpadUpdate(thumbCanvas.toDataURL("image/jpeg", 0.4));
+        onScratchpadUpdate(thumbCanvas.toDataURL("image/jpeg", 0.6));
       }
     }
   };
@@ -311,6 +316,7 @@ export default function ScratchpadModal({
         [currentQ.id]: [...currentStrokesRef.current],
       };
       saveDrawingsToStorage(updated);
+      notifyUpdate();
     }
   };
 
@@ -323,6 +329,7 @@ export default function ScratchpadModal({
         [currentQ.id]: [],
       };
       saveDrawingsToStorage(updated);
+      notifyUpdate();
     }
   };
 
@@ -333,7 +340,9 @@ export default function ScratchpadModal({
     if (currentQ.type === "single_choice" || !currentQ.type) {
       onAnswerChange(currentQ.id, optId);
     } else if (currentQ.type === "multiple_choice") {
-      const curr: string[] = Array.isArray(answers[currentQ.id]) ? answers[currentQ.id] : [];
+      const curr: string[] = Array.isArray(answers[currentQ.id])
+        ? answers[currentQ.id]
+        : [];
       const updated = curr.includes(optId)
         ? curr.filter((id) => id !== optId)
         : [...curr, optId];
@@ -344,7 +353,8 @@ export default function ScratchpadModal({
   const handleToggleStatement = (stmtId: string, val: boolean) => {
     if (!currentQ || !onAnswerChange) return;
     const currMap: Record<string, boolean> =
-      typeof answers[currentQ.id] === "object" && !Array.isArray(answers[currentQ.id])
+      typeof answers[currentQ.id] === "object" &&
+      !Array.isArray(answers[currentQ.id])
         ? answers[currentQ.id]
         : {};
     const updated = { ...currMap, [stmtId]: val };
@@ -368,8 +378,6 @@ export default function ScratchpadModal({
     <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex flex-col overflow-hidden animate-in fade-in duration-200">
       {/* Top Action Header */}
       <div className="bg-slate-900 text-white px-4 py-2.5 border-b border-slate-800 flex items-center justify-between shrink-0">
-       
-
         {/* Real-time Timer Counter & Submit Button */}
         {timeLeft !== undefined && (
           <div className="flex items-center gap-2">
@@ -407,7 +415,11 @@ export default function ScratchpadModal({
 
           <button
             type="button"
-            onClick={() => onSelectQuestion(Math.min(questions.length - 1, activeQuestionIdx + 1))}
+            onClick={() =>
+              onSelectQuestion(
+                Math.min(questions.length - 1, activeQuestionIdx + 1),
+              )
+            }
             disabled={activeQuestionIdx === questions.length - 1}
             className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 disabled:opacity-30 transition-colors cursor-pointer"
             title="Câu tiếp theo"
@@ -468,49 +480,54 @@ export default function ScratchpadModal({
             </div>
 
             {/* Interactive Options Area */}
-            {(currentQ.type === "single_choice" || currentQ.type === "multiple_choice" || !currentQ.type) && currentQ.options && (
-              <div className="space-y-2 pt-2 border-t border-slate-100">
-                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  Chọn đáp án trực tiếp:
-                </p>
-                {currentQ.options.map((opt, idx) => {
-                  const letter = String.fromCharCode(65 + idx);
-                  const isSingle = currentQ.type === "single_choice" || !currentQ.type;
-                  const isUserAns = isSingle
-                    ? answers[currentQ.id] === opt.id
-                    : Array.isArray(answers[currentQ.id]) && answers[currentQ.id].includes(opt.id);
+            {(currentQ.type === "single_choice" ||
+              currentQ.type === "multiple_choice" ||
+              !currentQ.type) &&
+              currentQ.options && (
+                <div className="space-y-2 pt-2 border-t border-slate-100">
+                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    Chọn đáp án trực tiếp:
+                  </p>
+                  {currentQ.options.map((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx);
+                    const isSingle =
+                      currentQ.type === "single_choice" || !currentQ.type;
+                    const isUserAns = isSingle
+                      ? answers[currentQ.id] === opt.id
+                      : Array.isArray(answers[currentQ.id]) &&
+                        answers[currentQ.id].includes(opt.id);
 
-                  return (
-                    <button
-                      key={opt.id}
-                      type="button"
-                      onClick={() => handleSelectOption(opt.id)}
-                      className={`w-full p-2.5 rounded-xl text-xs border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
-                        isUserAns
-                          ? "bg-blue-50 border-blue-500 ring-2 ring-blue-500/20 text-blue-950 font-bold shadow-2xs"
-                          : "bg-slate-50/80 border-slate-200 hover:bg-slate-100 text-slate-800"
-                      }`}
-                    >
-                      <span
-                        className={`w-5 h-5 rounded font-black text-[11px] flex items-center justify-center shrink-0 ${
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => handleSelectOption(opt.id)}
+                        className={`w-full p-2.5 rounded-xl text-xs border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
                           isUserAns
-                            ? "bg-blue-600 text-white"
-                            : "bg-white text-slate-700 border border-slate-300"
+                            ? "bg-blue-50 border-blue-500 ring-2 ring-blue-500/20 text-blue-950 font-bold shadow-2xs"
+                            : "bg-slate-50/80 border-slate-200 hover:bg-slate-100 text-slate-800"
                         }`}
                       >
-                        {letter}
-                      </span>
-                      <div className="flex-1 pt-0.5 leading-relaxed">
-                        <LatexPreview content={opt.text} />
-                      </div>
-                      {isUserAns && (
-                        <Check className="w-4 h-4 text-blue-600 shrink-0 self-center" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+                        <span
+                          className={`w-5 h-5 rounded font-black text-[11px] flex items-center justify-center shrink-0 ${
+                            isUserAns
+                              ? "bg-blue-600 text-white"
+                              : "bg-white text-slate-700 border border-slate-300"
+                          }`}
+                        >
+                          {letter}
+                        </span>
+                        <div className="flex-1 pt-0.5 leading-relaxed">
+                          <LatexPreview content={opt.text} />
+                        </div>
+                        {isUserAns && (
+                          <Check className="w-4 h-4 text-blue-600 shrink-0 self-center" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
 
             {/* True/False Statements Interactive */}
             {currentQ.type === "true_false" && currentQ.statements && (
@@ -530,7 +547,9 @@ export default function ScratchpadModal({
                       className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs"
                     >
                       <div className="flex items-start gap-1.5 font-medium text-slate-800">
-                        <span className="font-bold text-blue-700">{letter})</span>
+                        <span className="font-bold text-blue-700">
+                          {letter})
+                        </span>
                         <LatexPreview content={stmt.text} />
                       </div>
                       <div className="flex items-center gap-2 justify-end">
@@ -593,7 +612,10 @@ export default function ScratchpadModal({
         )}
 
         {/* Canvas Area Container */}
-        <div ref={containerRef} className="flex-1 bg-white relative touch-none overflow-hidden">
+        <div
+          ref={containerRef}
+          className="flex-1 bg-white relative touch-none overflow-hidden"
+        >
           <canvas
             ref={canvasRef}
             onMouseDown={handleStart}
@@ -614,7 +636,9 @@ export default function ScratchpadModal({
                 type="button"
                 onClick={() => setTool("pen")}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  tool === "pen" ? "bg-blue-600 text-white shadow-xs" : "text-slate-400 hover:text-white"
+                  tool === "pen"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
                 <Pencil className="w-3.5 h-3.5" />
@@ -625,7 +649,9 @@ export default function ScratchpadModal({
                 type="button"
                 onClick={() => setTool("eraser")}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  tool === "eraser" ? "bg-amber-600 text-white shadow-xs" : "text-slate-400 hover:text-white"
+                  tool === "eraser"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
                 <Eraser className="w-3.5 h-3.5" />
