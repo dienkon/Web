@@ -26,6 +26,7 @@ import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
 import { useToast } from "../../components/ui/ToastNotification";
 import { regradeExamSubmissions } from "../../services/regradeService";
+import ConfirmModal from "../../components/ui/ConfirmModal";
 
 export default function Submissions() {
   const location = useLocation();
@@ -88,22 +89,20 @@ export default function Submissions() {
     fetchData();
   }, [selectedExamId]);
 
-  const handleBatchRegrade = async () => {
+  const [showRegradeConfirm, setShowRegradeConfirm] = useState(false);
+
+  const handleBatchRegrade = () => {
     if (selectedExamId === "all") {
       showErrorToast(
         "Vui lòng chọn một đề thi cụ thể trong bộ lọc để chấm lại toàn bộ.",
       );
       return;
     }
+    setShowRegradeConfirm(true);
+  };
 
-    if (
-      !window.confirm(
-        "Bạn có chắc muốn chấm lại toàn bộ bài thi này theo đáp án mới nhất?",
-      )
-    ) {
-      return;
-    }
-
+  const executeBatchRegrade = async () => {
+    setShowRegradeConfirm(false);
     setIsRegrading(true);
     setRegradeProgress({ current: 0, total: 0 });
 
@@ -370,6 +369,18 @@ export default function Submissions() {
           </div>
         )}
       </div>
+
+      {/* Regrade Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showRegradeConfirm}
+        onClose={() => setShowRegradeConfirm(false)}
+        onConfirm={executeBatchRegrade}
+        title="Xác nhận chấm lại bài thi"
+        message="Bạn có chắc chắn muốn chấm lại toàn bộ các bài nộp của đề thi này theo đáp án mới nhất?"
+        confirmText="Chấm lại toàn bộ"
+        cancelText="Hủy bỏ"
+        variant="warning"
+      />
     </div>
   );
 }

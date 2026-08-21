@@ -40,6 +40,10 @@ export default function Home() {
   const [publicExams, setPublicExams] = useState<Exam[]>([]);
   const [loadingExams, setLoadingExams] = useState(true);
   const [searchError, setSearchError] = useState("");
+  const [selectedSubjectFilter, setSelectedSubjectFilter] =
+    useState<string>("all");
+  const [selectedGradeFilter, setSelectedGradeFilter] = useState<string>("all");
+  const [examSearchText, setExamSearchText] = useState<string>("");
 
   // Auth required modal
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -239,22 +243,152 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
       </div>
 
       {/* Available Published Exams Section */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-blue-600" />
               Thư Viện Đề Thi Công Khai
             </h2>
             <p className="text-xs text-slate-500">
-              Các bài thi sẵn sàng cho học sinh mở đề thi và thử sức
+              Tìm kiếm theo môn học, cấp thi hoặc từ khóa bài thi
             </p>
           </div>
-          <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-            {publicExams.length} đề thi
+          <span className="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+            {publicExams.length} bài thi tổng cộng
           </span>
         </div>
 
+        {/* Filters Bar for Students */}
+        <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={examSearchText}
+                onChange={(e) => setExamSearchText(e.target.value)}
+                placeholder="Tìm tên bài thi hoặc mã đề (Vd: TOAN12, GK1)..."
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="flex items-center gap-2 overflow-x-auto">
+              <select
+                value={selectedSubjectFilter}
+                onChange={(e) => setSelectedSubjectFilter(e.target.value)}
+                className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              >
+                <option value="all">Môn học: Tất cả</option>
+                {[
+                  "Toán",
+                  "Vật Lý",
+                  "Hóa Học",
+                  "Tiếng Anh",
+                  "Ngữ Văn",
+                  "Sinh Học",
+                  "Lịch Sử",
+                  "Địa Lý",
+                  "Tin Học",
+                  "GDCD",
+                  "Khác",
+                ].map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                value={selectedGradeFilter}
+                onChange={(e) => setSelectedGradeFilter(e.target.value)}
+                className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              >
+                <option value="all">Kỳ thi/Cấp: Tất cả</option>
+                {[
+                  "Cấp 1",
+                  "Cấp 2",
+                  "Cấp 3",
+                  "THPT Quốc Gia",
+                  "Đánh Giá Năng Lực",
+                ].map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Featured Exams Banner (if any) */}
+        {!loadingExams &&
+          publicExams.filter((e) => e.isFeatured).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="text-sm font-extrabold text-amber-900 flex items-center gap-1.5 uppercase tracking-wider">
+                <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
+                <span>Đề Thi Nổi Bật Được Yêu Thích</span>
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {publicExams
+                  .filter((e) => e.isFeatured)
+                  .map((exam) => (
+                    <div
+                      key={exam.id}
+                      className="bg-gradient-to-br from-amber-50/80 via-orange-50/40 to-white rounded-3xl border border-amber-200 p-5 hover:shadow-md transition-all flex flex-col justify-between group space-y-3 relative overflow-hidden"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-black text-amber-800 bg-amber-200/80 px-2.5 py-0.5 rounded-lg border border-amber-300 flex items-center gap-1">
+                            <Flame className="w-3.5 h-3.5 text-amber-600 fill-amber-600" />
+                            <span>ĐỀ NỔI BẬT</span>
+                          </span>
+                          <span className="text-xs text-amber-800 font-bold flex items-center gap-1 bg-white/80 px-2 py-0.5 rounded-lg border border-amber-200 font-mono">
+                            Mã: {exam.code || "EXAM"}
+                          </span>
+                        </div>
+
+                        <h4 className="font-black text-slate-900 text-base group-hover:text-amber-700 transition-colors line-clamp-1">
+                          {exam.title || "Bài thi chưa có tên"}
+                        </h4>
+
+                        {exam.description && (
+                          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-medium">
+                            {exam.description}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="pt-3 border-t border-amber-200/60 flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                          {exam.subject && (
+                            <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200 text-amber-800">
+                              {exam.subject}
+                            </span>
+                          )}
+                          <span>{exam.questionCount || 0} câu</span>
+                          <span>•</span>
+                          <span>
+                            {exam.timeLimit ? `${exam.timeLimit}p` : "45p"}
+                          </span>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleStartExamFlow(exam.id)}
+                          className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                        >
+                          <span>Vào thi ngay</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+
+        {/* Regular Public Exams */}
         {loadingExams ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[1, 2, 3, 4].map((i) => (
@@ -264,76 +398,101 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               />
             ))}
           </div>
-        ) : publicExams.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-3">
-            <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto text-slate-400">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <h3 className="font-bold text-slate-800 text-sm">
-              Chưa có bài thi nào được xuất bản
-            </h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Giáo viên có thể xuất bản bài thi từ trang quản trị để hiển thị
-              tại đây.
-            </p>
-            {isAdmin && (
-              <Link
-                to="/admin/exams/new"
-                className="inline-block px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition-colors"
-              >
-                Tạo bài thi mới
-              </Link>
-            )}
-          </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {publicExams.map((exam) => (
-              <div
-                key={exam.id}
-                className="bg-white rounded-3xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-3"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100 font-mono">
-                      {exam.code || "EXAM"}
-                    </span>
-                    <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-slate-400" />
-                      {exam.timeLimit
-                        ? `${exam.timeLimit} phút`
-                        : "Không giới hạn"}
-                    </span>
+          (() => {
+            const displayExams = publicExams.filter((exam) => {
+              const matchText =
+                !examSearchText.trim() ||
+                exam.title
+                  .toLowerCase()
+                  .includes(examSearchText.toLowerCase()) ||
+                (exam.code &&
+                  exam.code
+                    .toLowerCase()
+                    .includes(examSearchText.toLowerCase()));
+              const matchSubject =
+                selectedSubjectFilter === "all" ||
+                exam.subject === selectedSubjectFilter;
+              const matchGrade =
+                selectedGradeFilter === "all" ||
+                exam.gradeCategory === selectedGradeFilter;
+              return matchText && matchSubject && matchGrade;
+            });
+
+            if (displayExams.length === 0) {
+              return (
+                <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-3">
+                  <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto text-slate-400">
+                    <BookOpen className="w-6 h-6" />
                   </div>
-
-                  <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors line-clamp-1">
-                    {exam.title || "Bài thi chưa có tên"}
+                  <h3 className="font-bold text-slate-800 text-sm">
+                    Không tìm thấy bài thi phù hợp
                   </h3>
-
-                  {exam.description && (
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {exam.description}
-                    </p>
-                  )}
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                    Hãy thử thay đổi từ khóa hoặc bộ lọc môn học.
+                  </p>
                 </div>
+              );
+            }
 
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-slate-400" />
-                    {exam.questionCount || 0} câu hỏi
-                  </span>
-
-                  <button
-                    type="button"
-                    onClick={() => handleStartExamFlow(exam.id)}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {displayExams.map((exam) => (
+                  <div
+                    key={exam.id}
+                    className="bg-white rounded-3xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-3"
                   >
-                    <span>Vào làm bài</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100 font-mono">
+                            {exam.code || "EXAM"}
+                          </span>
+                          {exam.subject && (
+                            <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg">
+                              {exam.subject}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          {exam.timeLimit
+                            ? `${exam.timeLimit} phút`
+                            : "Không giới hạn"}
+                        </span>
+                      </div>
+
+                      <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors line-clamp-1">
+                        {exam.title || "Bài thi chưa có tên"}
+                      </h3>
+
+                      {exam.description && (
+                        <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                          {exam.description}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-slate-500 flex items-center gap-1.5">
+                        <Layers className="w-3.5 h-3.5 text-slate-400" />
+                        {exam.questionCount || 0} câu hỏi
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() => handleStartExamFlow(exam.id)}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                      >
+                        <span>Vào làm bài</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            );
+          })()
         )}
       </div>
 

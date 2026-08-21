@@ -17,8 +17,26 @@ export interface ExportExamOptions {
 export function escapeLatexText(text: string): string {
   if (!text) return "";
 
-  // Split by math environments ($...$ or $$...$$)
-  const parts = text.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
+  // 1. Fix control character corruption & unescaped math commands
+  let sanitized = fixLatexFormatting(text);
+
+  // 2. Wrap un-delimited math commands (like \frac{...}{...}, \sqrt{...}, \notin, \times) into inline math $...$
+  const fracRegex =
+    /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{[^{}]*\}\s*\{[^{}]*\})/g;
+  sanitized = sanitized.replace(fracRegex, (m) =>
+    m.startsWith("$") ? m : `$${m}$`,
+  );
+
+  const sqrtRegex = /((?:[a-zA-Z]\s*=\s*)?\\sqrt(?:\[[^\]]*\])?\{[^{}]*\})/g;
+  sanitized = sanitized.replace(sqrtRegex, (m) =>
+    m.startsWith("$") ? m : `$${m}$`,
+  );
+
+  const commonLatexRegex =
+    /(\\(?:vec|bar|hat|overline|underline)\s*\{[^{}]*\}|\\(?:int|sum|prod|lim)(?:_\{[^{}]*\}|_[\w\d])?(?:\^\{[^{}]*\}|\^[\w\d])?|\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)\b)/g;
+
+  // Protect existing math mode blocks
+  const parts = sanitized.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
 
   return parts
     .map((part) => {
@@ -26,12 +44,20 @@ export function escapeLatexText(text: string): string {
         // Math content: preserve as is
         return part;
       }
-      // Text content: escape LaTeX special characters
-      return part
-        .replace(/\\/g, "\\textbackslash{}")
-        .replace(/([&%#_{}])/g, "\\$1")
-        .replace(/~/g, "\\textasciitilde{}")
-        .replace(/\^/g, "\\textasciicircum{}");
+      // Text content: wrap un-delimited LaTeX commands in math mode first
+      let processedText = part.replace(commonLatexRegex, (cmd) => `$${cmd}$`);
+
+      // Now split by any newly introduced $...$
+      const innerParts = processedText.split(/(\$[\s\S]*?\$)/g);
+      return innerParts
+        .map((ip) => {
+          if (ip.startsWith("$") && ip.endsWith("$")) return ip;
+          return ip
+            .replace(/([&%#_])/g, "\\$1")
+            .replace(/~/g, "\\textasciitilde{}")
+            .replace(/\^/g, "\\textasciicircum{}");
+        })
+        .join("");
     })
     .join("");
 }
@@ -47,7 +73,10 @@ export function renderLatexToHtml(text: string): string {
   // Replace $$...$$ block math
   let result = sanitized.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
     try {
-      return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
+      return katex.renderToString(math.trim(), {
+        displayMode: true,
+        throwOnError: false,
+      });
     } catch {
       return `<code>${math}</code>`;
     }
@@ -56,7 +85,10 @@ export function renderLatexToHtml(text: string): string {
   // Replace $...$ inline math
   result = result.replace(/\$([\s\S]*?)\$/g, (_, math) => {
     try {
-      return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
+      return katex.renderToString(math.trim(), {
+        displayMode: false,
+        throwOnError: false,
+      });
     } catch {
       return `<code>${math}</code>`;
     }
@@ -75,7 +107,7 @@ export function generateExamLatex(
   exam: Partial<Exam>,
   sections: Section[],
   questions: Question[],
-  options: ExportExamOptions
+  options: ExportExamOptions,
 ): string {
   const {
     includeAnswers,
@@ -160,7 +192,7 @@ export function generateExamLatex(
 
     // 1. Single & Multiple choice answers
     const choiceQuestions = questions.filter(
-      (q) => q.type === "single_choice" || q.type === "multiple_choice"
+      (q) => q.type === "single_choice" || q.type === "multiple_choice",
     );
 
     if (choiceQuestions.length > 0) {
@@ -173,7 +205,7 @@ export function generateExamLatex(
       const chunkSize = 10;
       for (let i = 0; i < choiceQuestions.length; i += chunkSize) {
         const chunk = choiceQuestions.slice(i, i + chunkSize);
-        
+
         // Header row: Câu 1, Câu 2...
         const headers = chunk.map((_, idx) => `\\textbf{${i + idx + 1}}`);
         while (headers.length < chunkSize) headers.push("");
@@ -279,7 +311,8 @@ export function generateExamLatex(
       tex += `\\begin{tasks}(${numCols})\n`;
       opts.forEach((opt) => {
         const isCorrect = q.correctOptionIds?.includes(opt.id);
-        const prefix = includeAnswers && isCorrect ? "\\textbf{\\color{blue}" : "";
+        const prefix =
+          includeAnswers && isCorrect ? "\\textbf{\\color{blue}" : "";
         const suffix = includeAnswers && isCorrect ? "}" : "";
         tex += `  \\task ${prefix}${escapeLatexText(opt.text)}${suffix}\n`;
       });
@@ -288,7 +321,9 @@ export function generateExamLatex(
       const stmts = q.statements || [];
       tex += `\\begin{enumerate}[label=\\textbf{\\alph*)}, leftmargin=20pt, itemsep=2pt]\n`;
       stmts.forEach((stmt) => {
-        const ansTag = includeAnswers ? ` \\textbf{[${stmt.correctAnswer ? "ĐÚNG" : "SAI"}]}` : "";
+        const ansTag = includeAnswers
+          ? ` \\textbf{[${stmt.correctAnswer ? "ĐÚNG" : "SAI"}]}`
+          : "";
         tex += `  \\item ${escapeLatexText(stmt.text)}${ansTag}\n`;
       });
       tex += `\\end{enumerate}\n`;
@@ -320,7 +355,7 @@ export function generateExamHtmlForPrint(
   exam: Partial<Exam>,
   sections: Section[],
   questions: Question[],
-  options: ExportExamOptions
+  options: ExportExamOptions,
 ): string {
   const {
     includeAnswers,
@@ -335,7 +370,7 @@ export function generateExamHtmlForPrint(
   const timeLimit = exam.timeLimit || 45;
 
   const choiceQuestions = questions.filter(
-    (q) => q.type === "single_choice" || q.type === "multiple_choice"
+    (q) => q.type === "single_choice" || q.type === "multiple_choice",
   );
   const tfQuestions = questions.filter((q) => q.type === "true_false");
   const saQuestions = questions.filter((q) => q.type === "short_answer");
@@ -748,7 +783,7 @@ export async function exportExamToPdf(
   sections: Section[],
   questions: Question[],
   options: ExportExamOptions,
-  filename?: string
+  filename?: string,
 ): Promise<void> {
   const html = generateExamHtmlForPrint(exam, sections, questions, options);
 
@@ -759,7 +794,10 @@ export async function exportExamToPdf(
     ? `${exam.title || "De_Thi"}_Dap_An_Chi_Tiet.pdf`
     : `${exam.title || "De_Thi"}_De_Thi.pdf`;
 
-  const finalFileName = (filename || defaultName).replace(/[\/\\:*?"<>|]/g, "_");
+  const finalFileName = (filename || defaultName).replace(
+    /[\/\\:*?"<>|]/g,
+    "_",
+  );
 
   const container = document.createElement("div");
   container.id = "pdf-export-container";
@@ -817,7 +855,11 @@ export async function exportExamToPdf(
         windowHeight: container.scrollHeight,
         logging: false,
       },
-      jsPDF: { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
+      jsPDF: {
+        unit: "mm" as const,
+        format: "a4" as const,
+        orientation: "portrait" as const,
+      },
       pagebreak: { mode: ["avoid-all", "css", "legacy"] },
     };
 
@@ -840,7 +882,7 @@ export function printExamDocument(
   exam: Partial<Exam>,
   sections: Section[],
   questions: Question[],
-  options: ExportExamOptions
+  options: ExportExamOptions,
 ) {
   const html = generateExamHtmlForPrint(exam, sections, questions, options);
 
@@ -880,7 +922,7 @@ export function downloadLatexSource(
   exam: Partial<Exam>,
   sections: Section[],
   questions: Question[],
-  options: ExportExamOptions
+  options: ExportExamOptions,
 ) {
   const texContent = generateExamLatex(exam, sections, questions, options);
   const blob = new Blob([texContent], { type: "text/plain;charset=utf-8" });

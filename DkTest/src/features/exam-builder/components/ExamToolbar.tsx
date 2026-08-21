@@ -1,5 +1,17 @@
 import { useExamEditorContext } from "../context/ExamEditorContext";
-import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2, Sparkles, FileText } from "lucide-react";
+import {
+  ArrowLeft,
+  Save,
+  Play,
+  Download,
+  Upload,
+  CheckCircle2,
+  Loader2,
+  AlertCircle,
+  Trash2,
+  Sparkles,
+  FileText,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { exportJson } from "../../../utils/json/exportExamJson";
 import { parseExamFile } from "../../../utils/json/importExamJson";
@@ -14,7 +26,11 @@ import { useToast } from "../../../components/ui/ToastNotification";
 
 export default function ExamToolbar() {
   const { state, actions } = useExamEditorContext();
-  const { showToast, error: showErrorToast, success: showSuccessToast } = useToast();
+  const {
+    showToast,
+    error: showErrorToast,
+    success: showSuccessToast,
+  } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
@@ -28,35 +44,42 @@ export default function ExamToolbar() {
   const processImportedJsonData = (data: any) => {
     try {
       const examId = state.examMeta.id || "temp-exam-id";
-      const mappedSections = (data.sections || []).map((s: any, idx: number) => ({
-        id: s.id || `section_${idx}`,
-        examId,
-        title: s.title || `Phần ${idx + 1}`,
-        description: s.description || "",
-        order: s.order ?? idx,
-        questionCount: 0,
-        enabled: true,
-      }));
+      const mappedSections = (data.sections || []).map(
+        (s: any, idx: number) => ({
+          id: s.id || `section_${idx}`,
+          examId,
+          title: s.title || `Phần ${idx + 1}`,
+          description: s.description || "",
+          order: s.order ?? idx,
+          questionCount: 0,
+          enabled: true,
+        }),
+      );
 
-      const mappedQuestions = (data.questions || []).map((q: any, idx: number) => ({
-        id: q.id || `q_${idx}`,
-        examId,
-        sectionId: q.sectionId || mappedSections[0]?.id || undefined,
-        type: q.type || "single_choice",
-        text: q.text || "",
-        points: q.points ?? 1,
-        order: q.order ?? idx,
-        explanation: q.explanation || "",
-        options: q.options || [],
-        correctOptionIds: q.correctOptionIds || [],
-        statements: q.statements || [],
-        acceptedAnswers: q.acceptedAnswers || [],
-      }));
+      const mappedQuestions = (data.questions || []).map(
+        (q: any, idx: number) => ({
+          id: q.id || `q_${idx}`,
+          examId,
+          sectionId: q.sectionId || mappedSections[0]?.id || undefined,
+          type: q.type || "single_choice",
+          text: q.text || "",
+          points: q.points ?? 1,
+          order: q.order ?? idx,
+          explanation: q.explanation || "",
+          options: q.options || [],
+          correctOptionIds: q.correctOptionIds || [],
+          statements: q.statements || [],
+          acceptedAnswers: q.acceptedAnswers || [],
+        }),
+      );
 
       actions.importExam({
-        examMeta: data.exam ? { ...state.examMeta, ...data.exam } : state.examMeta,
+        examMeta: data.exam
+          ? { ...state.examMeta, ...data.exam }
+          : state.examMeta,
         sections: mappedSections.length > 0 ? mappedSections : state.sections,
-        questions: mappedQuestions.length > 0 ? mappedQuestions : state.questions,
+        questions:
+          mappedQuestions.length > 0 ? mappedQuestions : state.questions,
       });
 
       showSuccessToast("Nhập dữ liệu đề thi JSON thành công!");
@@ -72,13 +95,16 @@ export default function ExamToolbar() {
 
   const handleConfirmPublish = async (isPublic: boolean) => {
     setShowPublishModal(false);
-    actions.setExamMeta({ isPublic, visibility: isPublic ? "public" : "private" });
+    actions.setExamMeta({
+      isPublic,
+      visibility: isPublic ? "public" : "private",
+    });
     const success = await actions.saveExam(true);
     if (success) {
       showSuccessToast(
         isPublic
           ? "Đã xuất bản bài thi CÔNG KHAI thành công!"
-          : "Đã xuất bản bài thi KHÔNG CÔNG KHAI thành công!"
+          : "Đã xuất bản bài thi KHÔNG CÔNG KHAI thành công!",
       );
     } else {
       setShowValidationModal(true);
@@ -129,11 +155,18 @@ export default function ExamToolbar() {
       });
       showSuccessToast("Import bài thi thành công!");
     } else {
-      showErrorToast("Lỗi import: " + (result.errors?.[0] || "Định dạng file không hợp lệ"));
+      showErrorToast(
+        "Lỗi import: " + (result.errors?.[0] || "Định dạng file không hợp lệ"),
+      );
     }
 
     e.target.value = "";
   };
+
+  const isParentMode =
+    location.pathname.startsWith("/parent/") ||
+    localStorage.getItem("auth_role") === "parent";
+  const backUrl = isParentMode ? "/parent/dashboard" : "/admin/exams";
 
   const handleConfirmDelete = async () => {
     if (!state.examMeta.id) return;
@@ -141,7 +174,7 @@ export default function ExamToolbar() {
     try {
       await deleteExam(state.examMeta.id);
       setShowDeleteModal(false);
-      navigate("/admin/exams", { replace: true });
+      navigate(backUrl, { replace: true });
     } catch (e) {
       console.error(e);
       showErrorToast("Không thể xóa bài thi. Vui lòng thử lại!");
@@ -154,7 +187,7 @@ export default function ExamToolbar() {
       <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-6 shrink-0 shadow-2xs">
         <div className="flex items-center gap-3 md:gap-4 overflow-hidden">
           <Link
-            to="/admin/exams"
+            to={backUrl}
             className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors shrink-0"
             title="Quay lại danh sách đề thi"
           >
@@ -171,15 +204,15 @@ export default function ExamToolbar() {
                   state.examMeta.status === "published"
                     ? "bg-emerald-100 text-emerald-700"
                     : state.examMeta.status === "unlisted"
-                    ? "bg-indigo-100 text-indigo-700"
-                    : "bg-slate-100 text-slate-600"
+                      ? "bg-indigo-100 text-indigo-700"
+                      : "bg-slate-100 text-slate-600"
                 }`}
               >
                 {state.examMeta.status === "published"
                   ? "Công khai"
                   : state.examMeta.status === "unlisted"
-                  ? "Không công khai"
-                  : "Bản nháp"}
+                    ? "Không công khai"
+                    : "Bản nháp"}
               </span>
               <span className="text-[11px] text-slate-400 font-mono font-medium">
                 {state.questions.length} câu • {state.sections.length} phần
@@ -192,7 +225,8 @@ export default function ExamToolbar() {
           <div className="hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-500 mr-1">
             {state.saveStatus === "saving" && (
               <>
-                <Loader2 className="w-4 h-4 animate-spin text-blue-600" /> Đang lưu...
+                <Loader2 className="w-4 h-4 animate-spin text-blue-600" /> Đang
+                lưu...
               </>
             )}
             {state.saveStatus === "saved" && (
@@ -347,9 +381,11 @@ export default function ExamToolbar() {
         title="Xác nhận xóa bài thi"
         message={
           <div>
-            Bạn có chắc chắn muốn xóa bài thi <strong>"{state.examMeta.title || "Bài thi này"}"</strong>?
+            Bạn có chắc chắn muốn xóa bài thi{" "}
+            <strong>"{state.examMeta.title || "Bài thi này"}"</strong>?
             <p className="text-red-600 font-semibold text-xs mt-2">
-              ⚠️ Toàn bộ câu hỏi, phần thi và bài làm liên quan sẽ bị xóa vĩnh viễn.
+              ⚠️ Toàn bộ câu hỏi, phần thi và bài làm liên quan sẽ bị xóa vĩnh
+              viễn.
             </p>
           </div>
         }
@@ -366,8 +402,12 @@ export default function ExamToolbar() {
                 <AlertCircle className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-base">Bài thi chưa đủ điều kiện xuất bản</h3>
-                <p className="text-xs text-slate-500">Vui lòng kiểm tra và sửa các lỗi bên dưới</p>
+                <h3 className="font-bold text-slate-900 text-base">
+                  Bài thi chưa đủ điều kiện xuất bản
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Vui lòng kiểm tra và sửa các lỗi bên dưới
+                </p>
               </div>
             </div>
 
@@ -386,7 +426,9 @@ export default function ExamToolbar() {
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                       {issue.message}
                     </span>
-                    <span className="text-[10px] text-blue-600 font-bold hover:underline">Đến câu này →</span>
+                    <span className="text-[10px] text-blue-600 font-bold hover:underline">
+                      Đến câu này →
+                    </span>
                   </div>
                 ))
               ) : (

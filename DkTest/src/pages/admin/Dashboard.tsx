@@ -17,7 +17,14 @@ import {
   Sparkles,
   ShieldAlert,
 } from "lucide-react";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getCountFromServer,
+  limit,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Exam, Submission, Student } from "../../types";
 import { deleteExam } from "../../services/examService";
@@ -64,7 +71,7 @@ export default function Dashboard() {
           const examSnap = await getDocs(
             query(
               collection(db, "exams"),
-              orderBy("createdAt", "desc"),
+              orderBy("updatedAt", "desc"),
               limit(10),
             ),
           );
@@ -85,21 +92,18 @@ export default function Dashboard() {
           );
         }
 
+        const getMs = (val: any) => {
+          if (!val) return 0;
+          if (typeof val.toMillis === "function") return val.toMillis();
+          if (typeof val.toDate === "function") return val.toDate().getTime();
+          if (typeof val.seconds === "number") return val.seconds * 1000;
+          if (val instanceof Date) return val.getTime();
+          return new Date(val).getTime() || 0;
+        };
+
         examList.sort((a, b) => {
-          const timeA = (a.createdAt as any)?.toMillis
-            ? (a.createdAt as any).toMillis()
-            : (a.updatedAt as any)?.toMillis
-              ? (a.updatedAt as any).toMillis()
-              : a.createdAt
-                ? new Date(a.createdAt as any).getTime()
-                : 0;
-          const timeB = (b.createdAt as any)?.toMillis
-            ? (b.createdAt as any).toMillis()
-            : (b.updatedAt as any)?.toMillis
-              ? (b.updatedAt as any).toMillis()
-              : b.createdAt
-                ? new Date(b.createdAt as any).getTime()
-                : 0;
+          const timeA = getMs(a.updatedAt) || getMs(a.createdAt);
+          const timeB = getMs(b.updatedAt) || getMs(b.createdAt);
           return timeB - timeA;
         });
 
@@ -119,16 +123,21 @@ export default function Dashboard() {
             (d) => ({ id: d.id, ...d.data() }) as Submission,
           );
         } catch (subErr) {
-          const fallbackSubSnap = await getDocs(collection(db, "submissions"));
-          subList = fallbackSubSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Submission,
-          );
+          console.error("Error fetching recent submissions", subErr);
         }
         setRecentSubmissions(subList);
 
         // 3. Fetch students count
-        const studentSnap = await getDocs(collection(db, "students"));
-        setTotalStudents(studentSnap.size);
+        try {
+          const { getCountFromServer } = require("firebase/firestore");
+          const countSnap = await getCountFromServer(
+            collection(db, "students"),
+          );
+          setTotalStudents(countSnap.data().count);
+        } catch (err) {
+          console.error("Error fetching student count", err);
+          setTotalStudents(0);
+        }
       } catch (err) {
         console.error("Lỗi khi tải dữ liệu Dashboard:", err);
       } finally {

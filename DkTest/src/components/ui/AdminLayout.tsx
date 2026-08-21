@@ -14,6 +14,7 @@ import {
   GraduationCap,
   Sparkles,
   Eye,
+  ShieldCheck,
 } from "lucide-react";
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
@@ -35,6 +36,11 @@ const navItems = [
   { name: "Bài nộp", path: "/admin/submissions", icon: GraduationCap },
   { name: "Thống kê", path: "/admin/stats", icon: BarChart3 },
   { name: "Cài đặt", path: "/admin/settings", icon: Settings },
+  {
+    name: "Bản quyền & Pháp lý",
+    path: "/admin/legal-policy",
+    icon: ShieldCheck,
+  },
 ];
 
 export default function AdminLayout() {

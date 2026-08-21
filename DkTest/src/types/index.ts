@@ -3,12 +3,33 @@ import type { SubExamConfig } from "../features/sub-exam/types/subExam";
 
 export type ExamStatus = "draft" | "published" | "unlisted" | "archived";
 
+export interface Folder {
+  id: string;
+  ownerId?: string | null;
+  parentId?: string | null;
+  name: string;
+  description?: string;
+  color?: string; // e.g., "blue", "indigo", "emerald", "amber", "purple", "rose"
+  icon?: string;
+  createdAt?: Timestamp | any;
+  updatedAt?: Timestamp | any;
+  examCount?: number;
+}
+
 export interface Exam {
   id: string;
+  ownerId?: string;
   title: string;
   code: string;
   description?: string;
   password?: string;
+
+  // Folder & Category Classification
+  folderId?: string | null;
+  subject?: string; // "Toán", "Vật Lý", "Hóa Học", "Tiếng Anh", "Ngữ Văn", "Sinh Học", "Lịch Sử", "Địa Lý", "Tin Học", "GDCD", "Khác"
+  gradeCategory?: string; // "Cấp 1", "Cấp 2", "Cấp 3", "THPT Quốc Gia", "Đánh Giá Năng Lực"
+  isFeatured?: boolean; // Đánh dấu bài thi nổi bật
+  attemptCount?: number;
 
   timeLimit: number; // in minutes
 
@@ -48,6 +69,7 @@ export interface Exam {
 
 export interface Section {
   id: string;
+  ownerId?: string;
   examId: string;
   title: string;
   description?: string;
@@ -57,7 +79,7 @@ export interface Section {
   enabled: boolean;
   totalPoints?: number;
   pointsPerQuestion?: number;
-  
+
   // Shuffling controls
   disableQuestionShuffle?: boolean; // Không xáo trộn các câu hỏi trong phần này
   pinOrder?: boolean; // Cố định vị trí phần này trong đề thi
@@ -78,17 +100,20 @@ export type Difficulty = "easy" | "medium" | "hard";
 
 export interface QuestionOption {
   id: string;
+  ownerId?: string;
   text: string;
 }
 
 export interface TrueFalseStatement {
   id: string;
+  ownerId?: string;
   text: string;
   correctAnswer: boolean;
 }
 
 export interface Question {
   id: string;
+  ownerId?: string;
   examId: string;
   sectionId?: string | null;
   type: QuestionType;
@@ -122,6 +147,7 @@ export interface Question {
 
 export interface Student {
   id: string;
+  ownerId?: string;
   name: string;
   username?: string;
   email?: string;
@@ -134,6 +160,7 @@ export interface Student {
 
 export interface Submission {
   id: string;
+  ownerId?: string;
   examId: string;
   examTitleSnapshot: string;
   examCodeSnapshot?: string;

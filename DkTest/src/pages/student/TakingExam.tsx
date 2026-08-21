@@ -581,7 +581,7 @@ export default function TakingExam() {
 
   // Timer countdown & auto-submit when remaining time expires
   useEffect(() => {
-    if (loading || !exam) return;
+    if (loading || !exam || isPaused) return;
 
     // If timer is already at 0, trigger auto submit immediately
     if (timeLeft <= 0) {

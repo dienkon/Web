@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import AdminLayout from "../../components/ui/AdminLayout";
 import StudentLayout from "../../components/ui/StudentLayout";
 
@@ -22,6 +26,7 @@ import Statistics from "../../pages/admin/Statistics";
 import Settings from "../../pages/admin/Settings";
 import LiveProctoring from "../../pages/admin/LiveProctoring";
 import LiveMonitor from "../../pages/admin/LiveMonitor";
+import LegalPolicy from "../../pages/LegalPolicy";
 
 // Student Pages
 import ExamIntro from "../../pages/student/ExamIntro";
@@ -34,6 +39,7 @@ import AiTutorPage from "../../pages/student/AiTutorPage";
 import Home from "../../pages/home/Home";
 
 const router = createBrowserRouter([
+  { path: "/admin/live-monitor/:sessionId", element: <LiveMonitor /> },
   {
     path: "/admin/login",
     element: <AdminLogin />,
@@ -49,6 +55,50 @@ const router = createBrowserRouter([
   {
     path: "/parent/dashboard",
     element: <ParentDashboard />,
+  },
+  {
+    path: "/parent/exams",
+    element: <ExamList />,
+  },
+  {
+    path: "/parent/exams/new",
+    element: <ExamBuilder isNew />,
+  },
+  {
+    path: "/parent/exams/:examId/edit",
+    element: <ExamBuilder />,
+  },
+  {
+    path: "/parent/exams/:examId",
+    element: <ExamDetail />,
+  },
+  {
+    path: "/parent/exams/:examId/submissions",
+    element: <Submissions />,
+  },
+  {
+    path: "/parent/exams/:examId/submissions/:submissionId",
+    element: <SubmissionDetail />,
+  },
+  {
+    path: "/parent/exams/:examId/stats",
+    element: <Statistics />,
+  },
+  {
+    path: "/parent/exams",
+    element: <ExamList />,
+  },
+  {
+    path: "/parent/exams/new",
+    element: <ExamBuilder isNew />,
+  },
+  {
+    path: "/parent/exams/:examId/edit",
+    element: <ExamBuilder />,
+  },
+  {
+    path: "/parent/exams/:examId",
+    element: <ExamDetail />,
   },
   {
     path: "/admin",
@@ -71,9 +121,9 @@ const router = createBrowserRouter([
       { path: "submissions", element: <Submissions /> },
       { path: "students", element: <Students /> },
       { path: "live-proctoring", element: <LiveProctoring /> },
-      { path: "live-monitor/:sessionId", element: <LiveMonitor /> },
       { path: "stats", element: <Statistics /> },
       { path: "settings", element: <Settings /> },
+      { path: "legal-policy", element: <LegalPolicy /> },
     ],
   },
   {
@@ -86,6 +136,7 @@ const router = createBrowserRouter([
       { path: "student/ai-tutor", element: <AiTutorPage /> },
       { path: "student/history", element: <StudentHistory /> },
       { path: "student/profile", element: <StudentProfile /> },
+      { path: "legal-policy", element: <LegalPolicy /> },
       { path: "student/exam/:examId", element: <ExamIntro /> },
       { path: "student/exam/:examId/take", element: <TakingExam /> },
       {

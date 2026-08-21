@@ -83,6 +83,14 @@ export default function LiveMonitor() {
   const [inspectQuestionIdx, setInspectQuestionIdx] = useState<number>(0);
   const [autoFollowStudent, setAutoFollowStudent] = useState<boolean>(true);
   const [isScratchpadZoomed, setIsScratchpadZoomed] = useState<boolean>(false);
+  const [showPauseModal, setShowPauseModal] = useState(false);
+  const [pauseReasonInput, setPauseReasonInput] = useState(
+    "Giám thị/Phụ huynh yêu cầu tạm dừng bài thi để kiểm tra.",
+  );
+  const [showSuspendModal, setShowSuspendModal] = useState(false);
+  const [suspendReasonInput, setSuspendReasonInput] = useState(
+    "Phát hiện vi phạm quy chế thi. Hệ thống thu bài bắt buộc.",
+  );
 
   useEffect(() => {
     if (!sessionId) return;
@@ -174,7 +182,7 @@ export default function LiveMonitor() {
   const qType = currentQ?.type || "multiple-choice";
   const studentAns = session?.answers?.[currentQ?.id || ""];
 
-  // Admin Actions
+  // Admin / Parent Actions
   const handlePauseExam = async () => {
     if (session?.adminAction === "pause") {
       await updateRealtimeSessionMetrics(sessionId, {
@@ -182,30 +190,37 @@ export default function LiveMonitor() {
         adminMessage: null,
       });
     } else {
-      const msg = window.prompt(
-        "Nhập lý do tạm dừng thi:",
-        "Giám thị yêu cầu tạm dừng để kiểm tra.",
+      setPauseReasonInput(
+        "Giám thị/Phụ huynh yêu cầu tạm dừng bài thi để kiểm tra.",
       );
-      if (msg !== null) {
-        await updateRealtimeSessionMetrics(sessionId, {
-          adminAction: "pause",
-          adminMessage: msg,
-        });
-      }
+      setShowPauseModal(true);
     }
   };
 
+  const handleConfirmPause = async () => {
+    if (!sessionId) return;
+    await updateRealtimeSessionMetrics(sessionId, {
+      adminAction: "pause",
+      adminMessage:
+        pauseReasonInput || "Giám thị/Phụ huynh yêu cầu tạm dừng bài thi.",
+    });
+    setShowPauseModal(false);
+  };
+
   const handleSuspendExam = async () => {
-    const msg = window.prompt(
-      "Nhập lý do ĐÌNH CHỈ thi (sẽ nộp bài lập tức):",
-      "Phát hiện gian lận. Hệ thống thu bài bắt buộc.",
+    setSuspendReasonInput(
+      "Phát hiện vi phạm quy chế thi. Hệ thống thu bài bắt buộc.",
     );
-    if (msg !== null) {
-      await updateRealtimeSessionMetrics(sessionId, {
-        adminAction: "suspend",
-        adminMessage: msg,
-      });
-    }
+    setShowSuspendModal(true);
+  };
+
+  const handleConfirmSuspend = async () => {
+    if (!sessionId) return;
+    await updateRealtimeSessionMetrics(sessionId, {
+      adminAction: "suspend",
+      adminMessage: suspendReasonInput || "Bạn đã bị đình chỉ thi.",
+    });
+    setShowSuspendModal(false);
   };
 
   const isPaused = session?.adminAction === "pause";
@@ -264,7 +279,17 @@ export default function LiveMonitor() {
         <div className="flex-1 flex flex-col min-w-0 xl:border-r border-slate-200 bg-white relative">
           {/* Top toolbar: auto-follow & actions */}
           <div className="flex items-center justify-between p-4 border-b border-slate-100 bg-slate-50/50 shrink-0">
-            <label className="flex items-center gap-2 cursor-pointer group">
+            <button
+              type="button"
+              onClick={() => {
+                const nextVal = !autoFollowStudent;
+                setAutoFollowStudent(nextVal);
+                if (nextVal && typeof session?.activeQuestionIdx === "number") {
+                  setInspectQuestionIdx(session.activeQuestionIdx);
+                }
+              }}
+              className="flex items-center gap-2 cursor-pointer group bg-transparent border-0 text-left"
+            >
               <div
                 className={`w-10 h-5.5 rounded-full p-1 transition-colors ${autoFollowStudent ? "bg-blue-600" : "bg-slate-300"}`}
               >
@@ -275,13 +300,13 @@ export default function LiveMonitor() {
               <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900 transition-colors">
                 Theo dõi vị trí học sinh đang xem
               </span>
-            </label>
+            </button>
 
-            {isAdmin && (
+            {(isAdmin || isParent) && (
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePauseExam}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold transition-colors ${isPaused ? "bg-amber-100 text-amber-700 hover:bg-amber-200" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold transition-colors cursor-pointer ${isPaused ? "bg-amber-100 text-amber-700 hover:bg-amber-200 ring-2 ring-amber-400" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
                 >
                   <PauseCircle className="w-4 h-4" />
                   {isPaused ? "Tiếp tục thi" : "Tạm dừng thi"}
@@ -289,7 +314,7 @@ export default function LiveMonitor() {
                 <button
                   onClick={handleSuspendExam}
                   disabled={isSuspended}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold bg-red-100 text-red-700 hover:bg-red-200 transition-colors disabled:opacity-50"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-bold bg-red-100 text-red-700 hover:bg-red-200 transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   <XCircle className="w-4 h-4" />
                   Đình chỉ thi
@@ -323,14 +348,17 @@ export default function LiveMonitor() {
                   <LatexPreview content={currentQ.text} />
                 </div>
 
-                {qType === "single_choice" && currentQ.options && (
-                  <div className="grid grid-cols-1 gap-3 sm:gap-4">
-                    {currentQ.options.map((opt, i) => {
-                      const isSelected = studentAns === opt.id;
-                      return (
-                        <div
-                          key={opt.id}
-                          className={`
+                {(qType === "single_choice" || qType === "multiple_choice") &&
+                  currentQ.options && (
+                    <div className="grid grid-cols-1 gap-3 sm:gap-4">
+                      {currentQ.options.map((opt, i) => {
+                        const isSelected = Array.isArray(studentAns)
+                          ? studentAns.includes(opt.id)
+                          : studentAns === opt.id;
+                        return (
+                          <div
+                            key={opt.id}
+                            className={`
                             relative overflow-hidden
                             flex items-center gap-4 p-4 sm:p-5 rounded-2xl border-2 transition-all
                             ${
@@ -339,25 +367,30 @@ export default function LiveMonitor() {
                                 : "border-slate-200 bg-white opacity-70"
                             }
                           `}
-                        >
-                          <div
-                            className={`
+                          >
+                            <div
+                              className={`
                             flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-sm sm:text-base font-bold
                             ${isSelected ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"}
                           `}
-                          >
-                            {String.fromCharCode(65 + i)}
+                            >
+                              {String.fromCharCode(65 + i)}
+                            </div>
+                            <div
+                              className={`flex-1 text-sm sm:text-base ${isSelected ? "font-semibold text-blue-900" : "font-medium text-slate-700"}`}
+                            >
+                              <LatexPreview content={opt.text} />
+                            </div>
+                            {isSelected && (
+                              <span className="px-2.5 py-1 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-2xs">
+                                Đã chọn
+                              </span>
+                            )}
                           </div>
-                          <div
-                            className={`flex-1 text-sm sm:text-base ${isSelected ? "font-semibold text-blue-900" : "font-medium text-slate-700"}`}
-                          >
-                            <LatexPreview content={opt.text} />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                        );
+                      })}
+                    </div>
+                  )}
 
                 {qType === "true_false" && currentQ.statements && (
                   <div className="space-y-3 sm:space-y-4">
@@ -509,6 +542,153 @@ export default function LiveMonitor() {
             alt="Zoomed Scratchpad"
             className="max-w-full max-h-full object-contain rounded-xl bg-white/5"
           />
+        </div>
+      )}
+
+      {/* Pause Modal */}
+      {showPauseModal && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
+            <div className="flex items-center gap-3 text-amber-600">
+              <div className="w-10 h-10 rounded-2xl bg-amber-100 flex items-center justify-center shrink-0">
+                <PauseCircle className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-slate-900 text-base">
+                  Tạm dừng thi
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Màn hình làm bài của học sinh sẽ bị tạm khóa
+                </p>
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Lý do thông báo tới học sinh:
+              </label>
+              <textarea
+                value={pauseReasonInput}
+                onChange={(e) => setPauseReasonInput(e.target.value)}
+                rows={3}
+                className="w-full p-3 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="Nhập lý do tạm dừng..."
+              />
+            </div>
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowPauseModal(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Hủy
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmPause}
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              >
+                Xác nhận Tạm dừng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Suspend Modal */}
+      {showSuspendModal && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
+            <div className="flex items-center gap-3 text-red-600">
+              <div className="w-10 h-10 rounded-2xl bg-red-100 flex items-center justify-center shrink-0">
+                <XCircle className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-slate-900 text-base">
+                  Đình chỉ bài thi
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Hệ thống sẽ ép thu bài lập tức
+                </p>
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Lý do đình chỉ thi:
+              </label>
+              <textarea
+                value={suspendReasonInput}
+                onChange={(e) => setSuspendReasonInput(e.target.value)}
+                rows={3}
+                className="w-full p-3 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                placeholder="Nhập lý do đình chỉ thi..."
+              />
+            </div>
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowSuspendModal(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Hủy
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmSuspend}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              >
+                Xác nhận Đình chỉ
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Student Submitted Notification Modal */}
+      {session?.status === "submitted" && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-5 text-center border-t-4 border-emerald-500 relative">
+            <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+              <CheckCircle2 className="w-10 h-10 animate-bounce" />
+            </div>
+
+            <div className="space-y-1">
+              <h3 className="text-xl font-extrabold text-slate-900">
+                Học sinh đã nộp bài thi!
+              </h3>
+              <p className="text-xs text-slate-500 font-medium">
+                Thí sinh{" "}
+                <span className="font-bold text-slate-800">
+                  {session.studentName}
+                </span>{" "}
+                đã hoàn tất và nộp bài thi.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-600 space-y-2 text-left">
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Tiến độ trả lời:</span>
+                <span className="font-extrabold text-slate-900">
+                  {session.answeredCount || 0} / {session.totalQuestions || 0}{" "}
+                  câu
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="font-medium">Số lần cảnh báo/rời tab:</span>
+                <span className="font-bold text-amber-600">
+                  {session.warnings || 0} lần
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleExit}
+              className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Thoát xem trực tiếp</span>
+            </button>
+          </div>
         </div>
       )}
     </div>
