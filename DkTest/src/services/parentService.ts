@@ -172,15 +172,41 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
         studentClass = udata.studentClass || "";
       }
 
-      // Fetch at most 3 recent submissions for summary view
-      const subQuery = query(
-        collection(db, "submissions"),
-        where("studentId", "==", req.childUsername),
-        orderBy("submittedAt", "desc"),
-        limit(3)
-      );
-      const subSnap = await getDocs(subQuery);
-      const subs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+      // Fetch at most 3 recent submissions for summary view with index fallback
+      let subs: Submission[] = [];
+      try {
+        const subQuery = query(
+          collection(db, "submissions"),
+          where("studentId", "==", req.childUsername),
+          orderBy("submittedAt", "desc"),
+          limit(3)
+        );
+        const subSnap = await getDocs(subQuery);
+        subs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+      } catch (subErr) {
+        // Fallback if index is not ready yet: query without orderBy and sort in JS
+        try {
+          const fallbackQuery = query(
+            collection(db, "submissions"),
+            where("studentId", "==", req.childUsername),
+            limit(15)
+          );
+          const subSnap = await getDocs(fallbackQuery);
+          subs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+          subs.sort((a: any, b: any) => {
+            const getMs = (val: any) => {
+              if (!val) return 0;
+              if (typeof val.toDate === "function") return val.toDate().getTime();
+              if (val instanceof Date) return val.getTime();
+              return new Date(val).getTime() || 0;
+            };
+            return getMs(b.submittedAt) - getMs(a.submittedAt);
+          });
+          subs = subs.slice(0, 3);
+        } catch (e2) {
+          console.warn("Could not fetch submissions for child:", req.childUsername, e2);
+        }
+      }
 
       // Check active proctoring / taking session
       let activeSession = null;
@@ -301,7 +327,33 @@ export async function getChildSubmissions(
       hasMore: subSnap.docs.length === pageSize,
     };
   } catch (err) {
-    console.error("Error fetching child submissions:", err);
-    return { submissions: [], nextCursor: null, hasMore: false };
+    console.warn("Error fetching child submissions with index, using fallback:", err);
+    try {
+      const cleanChild = childUsername.trim().toLowerCase();
+      const fallbackQ = query(
+        collection(db, "submissions"),
+        where("studentId", "==", cleanChild),
+        limit(50)
+      );
+      const subSnap = await getDocs(fallbackQ);
+      let submissions = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+      submissions.sort((a: any, b: any) => {
+        const getMs = (val: any) => {
+          if (!val) return 0;
+          if (typeof val.toDate === "function") return val.toDate().getTime();
+          if (val instanceof Date) return val.getTime();
+          return new Date(val).getTime() || 0;
+        };
+        return getMs(b.submittedAt) - getMs(a.submittedAt);
+      });
+      return {
+        submissions: submissions.slice(0, pageSize),
+        nextCursor: null,
+        hasMore: false,
+      };
+    } catch (e2) {
+      console.error("Error fetching child submissions fallback:", e2);
+      return { submissions: [], nextCursor: null, hasMore: false };
+    }
   }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Users,
   Clock,
@@ -22,6 +23,7 @@ import {
 import { formatDate } from "../../utils/date";
 
 export default function LiveProctoring() {
+  const navigate = useNavigate();
   const [sessions, setSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterExam, setFilterExam] = useState<string>("all");
@@ -242,10 +244,7 @@ export default function LiveProctoring() {
               <div
                 key={session.sessionId}
                 onClick={() =>
-                  window.open(
-                    `/admin/live-monitor/${session.sessionId}`,
-                    "_blank",
-                  )
+                  navigate(`/admin/live-monitor/${session.sessionId}`)
                 }
                 className={`bg-white rounded-3xl p-5 border transition-all space-y-4 shadow-xs relative overflow-hidden cursor-pointer ${
                   isWarning

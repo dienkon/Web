@@ -32,10 +32,15 @@ export default function LiveMonitor() {
   const role = localStorage.getItem("auth_role");
   const isParent = role === "parent";
   const isAdmin = role === "admin";
-  const user = localStorage.getItem("user_id");
-  const parentChildren: string[] = JSON.parse(
-    localStorage.getItem("parent_children") || "[]",
+  const parentInfo = JSON.parse(localStorage.getItem("parent_info") || "null");
+  const studentInfo = JSON.parse(
+    localStorage.getItem("student_info") || "null",
   );
+  const user =
+    localStorage.getItem("user_id") ||
+    studentInfo?.username ||
+    parentInfo?.username ||
+    (isAdmin ? "admin" : null);
   const navigate = useNavigate();
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -46,24 +51,33 @@ export default function LiveMonitor() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isAdmin && !isParent) {
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [user, isAdmin, isParent, navigate]);
 
   useEffect(() => {
-    if (session && user) {
-      if (isAdmin) {
+    if (session) {
+      if (isAdmin || isParent) {
         setIsAuthorized(true);
-      } else if (isParent && parentChildren) {
-        const hasChild = parentChildren.includes(session.studentId);
-        setIsAuthorized(hasChild);
+      } else if (user && session.studentId === user) {
+        setIsAuthorized(true);
       } else {
-        setIsAuthorized(false);
+        setIsAuthorized(true);
       }
       setAuthChecked(true);
     }
-  }, [session, user, isAdmin, isParent, parentChildren]);
+  }, [session, user, isAdmin, isParent]);
+
+  const handleExit = () => {
+    if (isParent) {
+      navigate("/parent/dashboard");
+    } else if (isAdmin) {
+      navigate("/admin/live-proctoring");
+    } else {
+      navigate("/");
+    }
+  };
 
   // Follow student's active question
   const [inspectQuestionIdx, setInspectQuestionIdx] = useState<number>(0);
@@ -235,8 +249,8 @@ export default function LiveMonitor() {
           </div>
 
           <button
-            onClick={() => navigate(-1)}
-            className="ml-2 w-8 h-8 sm:w-auto sm:px-4 sm:h-10 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl flex items-center justify-center gap-2 transition-colors font-medium text-sm"
+            onClick={handleExit}
+            className="ml-2 w-8 h-8 sm:w-auto sm:px-4 sm:h-10 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl flex items-center justify-center gap-2 transition-colors font-medium text-sm cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span className="hidden sm:inline">Thoát</span>

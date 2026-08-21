@@ -701,18 +701,19 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
         </div>
 
         {/* Navigation Tabs */}
-        <div className="max-w-7xl mx-auto px-4 flex items-center gap-2 border-t border-slate-100 overflow-x-auto scrollbar-none">
+        <div className="max-w-7xl mx-auto px-4 flex items-center gap-1 sm:gap-2 border-t border-slate-100 overflow-x-auto scrollbar-none py-1">
           <button
             type="button"
             onClick={() => setActiveTab("monitor")}
-            className={`py-3 px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            className={`py-2 px-3 sm:py-3 sm:px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer rounded-t-lg ${
               activeTab === "monitor"
-                ? "border-indigo-600 text-indigo-700 bg-indigo-50/50"
+                ? "border-indigo-600 text-indigo-700 bg-indigo-50/60"
                 : "border-transparent text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Users className="w-4 h-4" />
-            <span>Giám sát việc học của con</span>
+            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Giám sát việc học của con</span>
+            <span className="sm:hidden">Giám sát con</span>
             {linkedChildren.length > 0 && (
               <span className="px-1.5 py-0.2 bg-indigo-100 text-indigo-800 text-[10px] rounded-full">
                 {linkedChildren.length}
@@ -723,14 +724,17 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
           <button
             type="button"
             onClick={() => setActiveTab("create")}
-            className={`py-3 px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            className={`py-2 px-3 sm:py-3 sm:px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer rounded-t-lg ${
               activeTab === "create"
-                ? "border-indigo-600 text-indigo-700 bg-indigo-50/50"
+                ? "border-indigo-600 text-indigo-700 bg-indigo-50/60"
                 : "border-transparent text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Edit2 className="w-4 h-4" />
-            <span>Tạo đề & Sửa Azota (Nạp JSON / Prompt)</span>
+            <Edit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">
+              Tạo đề & Sửa Azota (Nạp JSON / Prompt)
+            </span>
+            <span className="sm:hidden">Tạo đề & Azota</span>
             {questions.length > 0 && (
               <span className="px-1.5 py-0.2 bg-emerald-100 text-emerald-800 text-[10px] rounded-full">
                 {questions.length} câu
@@ -741,14 +745,17 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
           <button
             type="button"
             onClick={() => setActiveTab("guide")}
-            className={`py-3 px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            className={`py-2 px-3 sm:py-3 sm:px-4 text-xs font-bold transition-all border-b-2 flex items-center gap-1.5 sm:gap-2 whitespace-nowrap cursor-pointer rounded-t-lg ${
               activeTab === "guide"
-                ? "border-indigo-600 text-indigo-700 bg-indigo-50/50"
+                ? "border-indigo-600 text-indigo-700 bg-indigo-50/60"
                 : "border-transparent text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Sparkles className="w-4 h-4 text-amber-500" />
-            <span>Hướng dẫn tạo đề bằng ChatGPT & Mã Code</span>
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
+            <span className="hidden sm:inline">
+              Hướng dẫn tạo đề bằng ChatGPT & Mã Code
+            </span>
+            <span className="sm:hidden">ChatGPT Prompt</span>
           </button>
         </div>
       </header>
@@ -922,36 +929,32 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             <button
                               type="button"
                               onClick={() =>
-                                window.open(
+                                navigate(
                                   `/admin/live-monitor/${child.activeSession?.sessionId}`,
-                                  "_blank",
                                 )
                               }
-                              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer animate-pulse"
+                              className="w-full sm:w-auto px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer animate-pulse"
                             >
                               <Eye className="w-3.5 h-3.5" />
-                              <span>
-                                Xem trực tiếp màn hình & nháp vẽ của con
-                              </span>
+                              <span>Xem màn hình & nháp trực tiếp</span>
                             </button>
                           </div>
                         </div>
 
                         <div
                           onClick={() =>
-                            window.open(
+                            navigate(
                               `/admin/live-monitor/${child.activeSession?.sessionId}`,
-                              "_blank",
                             )
                           }
-                          className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs cursor-pointer"
+                          className="grid grid-cols-3 gap-1.5 sm:gap-3 text-[11px] sm:text-xs cursor-pointer"
                         >
-                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between hover:bg-white transition-colors">
-                            <span className="font-semibold text-slate-600 flex items-center gap-1.5">
-                              <Clock className="w-4 h-4 text-blue-600" /> Còn
-                              lại:
+                          <div className="bg-white/90 backdrop-blur-xs p-2 sm:p-3 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left hover:bg-white transition-colors">
+                            <span className="font-semibold text-slate-500 flex items-center gap-1 text-[10px] sm:text-xs">
+                              <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" />{" "}
+                              <span className="hidden sm:inline">Còn lại:</span>
                             </span>
-                            <span className="font-mono font-black text-blue-700 text-sm">
+                            <span className="font-mono font-black text-blue-700 text-xs sm:text-sm mt-0.5 sm:mt-0">
                               {Math.floor(
                                 (child.activeSession.timeLeft || 0) / 60,
                               )}
@@ -962,28 +965,29 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             </span>
                           </div>
 
-                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between hover:bg-white transition-colors">
-                            <span className="font-semibold text-slate-600 flex items-center gap-1.5">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-600" />{" "}
-                              Tiến độ:
+                          <div className="bg-white/90 backdrop-blur-xs p-2 sm:p-3 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left hover:bg-white transition-colors">
+                            <span className="font-semibold text-slate-500 flex items-center gap-1 text-[10px] sm:text-xs">
+                              <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600" />{" "}
+                              <span className="hidden sm:inline">Tiến độ:</span>
                             </span>
-                            <span className="font-bold text-slate-800">
-                              {child.activeSession.answeredCount || 0} /{" "}
-                              {child.activeSession.totalQuestions || "?"} câu
+                            <span className="font-bold text-slate-800 text-xs sm:text-sm mt-0.5 sm:mt-0">
+                              {child.activeSession.answeredCount || 0}/
+                              {child.activeSession.totalQuestions || "?"}
                             </span>
                           </div>
 
-                          <div className="bg-white/80 backdrop-blur-xs p-3 rounded-xl border border-emerald-100 flex items-center justify-between hover:bg-white transition-colors">
-                            <span className="font-semibold text-slate-600 flex items-center gap-1.5">
+                          <div className="bg-white/90 backdrop-blur-xs p-2 sm:p-3 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left hover:bg-white transition-colors">
+                            <span className="font-semibold text-slate-500 flex items-center gap-1 text-[10px] sm:text-xs">
                               <AlertTriangle
-                                className={`w-4 h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`}
-                              />
-                              Rời tab:
+                                className={`w-3 h-3 sm:w-4 sm:h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`}
+                              />{" "}
+                              <span className="hidden sm:inline">Rời tab:</span>
                             </span>
                             <span
-                              className={`font-bold ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded-md" : "text-slate-500"}`}
+                              className={`font-bold text-xs sm:text-sm mt-0.5 sm:mt-0 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-1.5 py-0.2 rounded-md" : "text-slate-500"}`}
                             >
-                              {child.activeSession.warnings || 0} lần
+                              {child.activeSession.warnings || 0}{" "}
+                              <span className="hidden sm:inline">lần</span>
                             </span>
                           </div>
                         </div>
