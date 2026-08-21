@@ -20,12 +20,10 @@ import {
   clearSubmittedSessions,
 } from "../../services/realtimeProctoringService";
 import { formatDate } from "../../utils/date";
-import LiveSessionDetailModal from "../../components/admin/LiveSessionDetailModal";
 
 export default function LiveProctoring() {
   const [sessions, setSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(true);
-  const [viewSession, setViewSession] = useState<ActiveSession | null>(null);
   const [filterExam, setFilterExam] = useState<string>("all");
   const [statusTab, setStatusTab] = useState<"active" | "all">("active");
   const [isClearing, setIsClearing] = useState(false);
@@ -243,7 +241,12 @@ export default function LiveProctoring() {
             return (
               <div
                 key={session.sessionId}
-                onClick={() => setViewSession(session)}
+                onClick={() =>
+                  window.open(
+                    `/admin/live-monitor/${session.sessionId}`,
+                    "_blank",
+                  )
+                }
                 className={`bg-white rounded-3xl p-5 border transition-all space-y-4 shadow-xs relative overflow-hidden cursor-pointer ${
                   isWarning
                     ? "border-amber-300 ring-2 ring-amber-400/20 bg-amber-50/20"
@@ -352,15 +355,6 @@ export default function LiveProctoring() {
             );
           })}
         </div>
-      )}
-
-      {/* Live Examinee Screen & Scratchpad Mirror Modal */}
-      {viewSession && (
-        <LiveSessionDetailModal
-          session={viewSession}
-          onClose={() => setViewSession(null)}
-          viewerRole="admin"
-        />
       )}
     </div>
   );

@@ -59,7 +59,6 @@ import type { Question, Exam } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
 import ChatGPTMasterPromptModal from "../../components/ui/ChatGPTMasterPromptModal";
-import LiveSessionDetailModal from "../../components/admin/LiveSessionDetailModal";
 import {
   MASTER_SCHEMA_JSON_STRING,
   FULL_DKTEST_JSON_SCHEMA_TEXT,
@@ -86,9 +85,6 @@ export default function ParentDashboard() {
   const [childUsernameInput, setChildUsernameInput] = useState("");
   const [isSendingRequest, setIsSendingRequest] = useState(false);
   const [showAddChildModal, setShowAddChildModal] = useState(false);
-  const [viewLiveSession, setViewLiveSession] = useState<ActiveSession | null>(
-    null,
-  );
 
   // Exam Creator State
   const [createMode, setCreateMode] = useState<"json" | "prompt">("json");
@@ -870,7 +866,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             <button
                               type="button"
                               onClick={() =>
-                                setViewLiveSession(child.activeSession || null)
+                                window.open(
+                                  `/admin/live-monitor/${child.activeSession?.sessionId}`,
+                                  "_blank",
+                                )
                               }
                               className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center gap-1.5 cursor-pointer animate-pulse"
                             >
@@ -884,7 +883,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
 
                         <div
                           onClick={() =>
-                            setViewLiveSession(child.activeSession || null)
+                            window.open(
+                              `/admin/live-monitor/${child.activeSession?.sessionId}`,
+                              "_blank",
+                            )
                           }
                           className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs cursor-pointer"
                         >
@@ -2365,13 +2367,6 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
       <ChatGPTMasterPromptModal
         isOpen={showGptModal}
         onClose={() => setShowGptModal(false)}
-      />
-
-      {/* Live Proctoring & Scratchpad Mirror Modal for Parents */}
-      <LiveSessionDetailModal
-        session={viewLiveSession}
-        onClose={() => setViewLiveSession(null)}
-        viewerRole="parent"
       />
     </div>
   );

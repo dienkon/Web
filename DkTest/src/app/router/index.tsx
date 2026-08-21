@@ -21,6 +21,7 @@ import Students from "../../pages/admin/Students";
 import Statistics from "../../pages/admin/Statistics";
 import Settings from "../../pages/admin/Settings";
 import LiveProctoring from "../../pages/admin/LiveProctoring";
+import LiveMonitor from "../../pages/admin/LiveMonitor";
 
 // Student Pages
 import ExamIntro from "../../pages/student/ExamIntro";

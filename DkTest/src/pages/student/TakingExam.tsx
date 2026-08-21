@@ -33,6 +33,7 @@ import {
   syncRealtimeSession,
   updateRealtimeSessionMetrics,
   removeRealtimeSession,
+  subscribeToSingleSession,
 } from "../../services/realtimeProctoringService";
 import {
   collection,
@@ -74,6 +75,10 @@ export default function TakingExam() {
   const [flagged, setFlagged] = useState<Record<string, boolean>>({});
 
   const [loading, setLoading] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isSuspended, setIsSuspended] = useState(false);
+  const [adminMessage, setAdminMessage] = useState("");
+
   const [submitting, setSubmitting] = useState(false);
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
@@ -219,6 +224,38 @@ export default function TakingExam() {
       syncCurrentSession(false);
     }
   }, [timeLeft]);
+
+  // Listen for admin actions (pause, suspend)
+  useEffect(() => {
+    if (!sessionIdRef.current || loading || !exam) return;
+
+    const unsubscribe = subscribeToSingleSession(
+      sessionIdRef.current,
+      (liveSession) => {
+        if (liveSession) {
+          if (liveSession.adminAction === "pause") {
+            // Maybe we show a modal overlay in TakingExam
+            setIsPaused(true);
+            setAdminMessage(
+              liveSession.adminMessage ||
+                "Bài thi của bạn đang bị tạm dừng bởi Giám thị.",
+            );
+          } else if (liveSession.adminAction === "suspend" && !isSuspended) {
+            setIsSuspended(true);
+            setAdminMessage(
+              liveSession.adminMessage || "Bạn đã bị đình chỉ thi.",
+            );
+            // Force submit
+            executeSubmit();
+          } else {
+            setIsPaused(false);
+          }
+        }
+      },
+    );
+
+    return () => unsubscribe();
+  }, [loading, exam]);
 
   useEffect(() => {
     const loadExamAndPrepare = async () => {
@@ -1190,6 +1227,42 @@ export default function TakingExam() {
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none pt-16">
+      {/* Admin Action Overlays */}
+      {isPaused && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-amber-500">
+            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="w-8 h-8 text-amber-600" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              Bài thi bị tạm dừng
+            </h2>
+            <p className="text-slate-600 mb-6">{adminMessage}</p>
+            <div className="animate-pulse flex gap-2 justify-center text-sm font-medium text-amber-600">
+              <div className="w-2 h-2 bg-amber-500 rounded-full" />
+              <div className="w-2 h-2 bg-amber-500 rounded-full" />
+              <div className="w-2 h-2 bg-amber-500 rounded-full" />
+            </div>
+          </div>
+        </div>
+      )}
+      {isSuspended && (
+        <div className="fixed inset-0 z-[100] bg-red-900/90 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-red-600">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="w-8 h-8 text-red-600" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              Đình chỉ thi
+            </h2>
+            <p className="text-slate-600 font-medium">{adminMessage}</p>
+            <p className="text-red-500 text-sm mt-4 font-bold uppercase tracking-wide">
+              Hệ thống đã tự động nộp bài
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Header Bar */}
       <header className="h-16 bg-white border-b border-slate-200 px-4 lg:px-6 flex items-center justify-between fixed top-0 left-0 right-0 z-50 shadow-2xs">
         <div className="flex items-center gap-3 overflow-hidden">
