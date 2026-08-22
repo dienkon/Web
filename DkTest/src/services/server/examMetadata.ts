@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmmlTemplate.js";
+import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmlTemplate.js";
 
 export interface ExamMeta {
   id: string;
