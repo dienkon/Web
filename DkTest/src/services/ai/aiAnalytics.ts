@@ -1,5 +1,5 @@
-import { getAiClient, defaultModel } from "./aiClient";
-import { aiAnalyticsSchema } from "./aiSchema";
+import { getAiClient, defaultModel } from "./aiClient.js";
+import { aiAnalyticsSchema } from "./aiSchema.js";
 import { Type } from "@google/genai";
 
 export async function analyzeExamPerformance(analyticsInput: any) {
