@@ -17,45 +17,29 @@ import {
   Sparkles,
   ShieldAlert,
 } from "lucide-react";
-import {
-  collection,
-  getDocs,
-  getCountFromServer,
-  limit,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, getDocs, getCountFromServer, limit, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Exam, Submission, Student } from "../../types";
 import { deleteExam } from "../../services/examService";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import { useToast } from "../../components/ui/ToastNotification";
-import {
-  subscribeToActiveSessions,
-  type ActiveSession,
-} from "../../services/realtimeProctoringService";
+import { subscribeToActiveSessions, type ActiveSession } from "../../services/realtimeProctoringService";
 
 export default function Dashboard() {
   const toast = useToast();
   const [exams, setExams] = useState<Exam[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<Submission[]>([]);
   const [totalStudents, setTotalStudents] = useState<number>(0);
-  const [activeLiveSessions, setActiveLiveSessions] = useState<ActiveSession[]>(
-    [],
-  );
+  const [totalParents, setTotalParents] = useState<number>(0);
+  const [activeLiveSessions, setActiveLiveSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(true);
-  const [deletingExamInfo, setDeletingExamInfo] = useState<{
-    id: string;
-    title: string;
-  } | null>(null);
+  const [deletingExamInfo, setDeletingExamInfo] = useState<{ id: string; title: string } | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Subscribe to live examinees
   useEffect(() => {
     const unsub = subscribeToActiveSessions((list) => {
-      const active = list.filter(
-        (s) => s.status === "taking" || s.status === "warning",
-      );
+      const active = list.filter((s) => s.status === "taking" || s.status === "warning");
       setActiveLiveSessions(active);
     });
     return () => unsub();
@@ -69,27 +53,17 @@ export default function Dashboard() {
         let examList: Exam[] = [];
         try {
           const examSnap = await getDocs(
-            query(
-              collection(db, "exams"),
-              orderBy("updatedAt", "desc"),
-              limit(10),
-            ),
+            query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(10))
           );
-          examList = examSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Exam,
-          );
+          examList = examSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         } catch (e) {
           const fallbackSnap = await getDocs(collection(db, "exams"));
-          examList = fallbackSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Exam,
-          );
+          examList = fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         }
 
         if (examList.length === 0) {
           const fallbackSnap = await getDocs(collection(db, "exams"));
-          examList = fallbackSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Exam,
-          );
+          examList = fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         }
 
         const getMs = (val: any) => {
@@ -113,15 +87,9 @@ export default function Dashboard() {
         let subList: Submission[] = [];
         try {
           const subSnap = await getDocs(
-            query(
-              collection(db, "submissions"),
-              orderBy("submittedAt", "desc"),
-              limit(8),
-            ),
+            query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(8))
           );
-          subList = subSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Submission,
-          );
+          subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
         } catch (subErr) {
           console.error("Error fetching recent submissions", subErr);
         }
@@ -129,11 +97,11 @@ export default function Dashboard() {
 
         // 3. Fetch students count
         try {
-          const { getCountFromServer } = require("firebase/firestore");
-          const countSnap = await getCountFromServer(
-            collection(db, "students"),
-          );
+          const { getCountFromServer } = require('firebase/firestore');
+          const countSnap = await getCountFromServer(collection(db, "students"));
           setTotalStudents(countSnap.data().count);
+          const parSnap = await getCountFromServer(query(collection(db, "users"), where("role", "==", "parent")));
+          setTotalParents(parSnap.data().count);
         } catch (err) {
           console.error("Error fetching student count", err);
           setTotalStudents(0);
@@ -186,8 +154,7 @@ export default function Dashboard() {
             Chào mừng trở lại, Quản trị viên
           </h1>
           <p className="text-blue-100 text-sm leading-relaxed">
-            Hệ thống DkTEST sẵn sàng tổ chức thi trắc nghiệm, xáo đề chi tiết,
-            bảo mật chống gian lận và chấm điểm tức thì.
+            Hệ thống DkTEST sẵn sàng tổ chức thi trắc nghiệm, xáo đề chi tiết, bảo mật chống gian lận và chấm điểm tức thì.
           </p>
         </div>
 
@@ -212,78 +179,64 @@ export default function Dashboard() {
 
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex items-start gap-4">
+          <div className="p-3 bg-purple-100 text-purple-600 rounded-xl">
+            <Users className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="text-2xl font-extrabold text-slate-800">{totalParents}</div>
+            <p className="text-xs text-slate-400 mt-0.5">Phụ huynh</p>
+          </div>
+        </div>
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Tổng số đề thi
-            </span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Tổng số đề thi</span>
             <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
               <FileText className="w-5 h-5" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-extrabold text-slate-800">
-              {exams.length}
-            </div>
-            <p className="text-xs text-slate-400 mt-0.5">
-              {publishedCount} đề đã xuất bản
-            </p>
+            <div className="text-2xl font-extrabold text-slate-800">{exams.length}</div>
+            <p className="text-xs text-slate-400 mt-0.5">{publishedCount} đề đã xuất bản</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Học sinh đăng ký
-            </span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Học sinh đăng ký</span>
             <div className="p-2 bg-purple-50 text-purple-600 rounded-xl">
               <Users className="w-5 h-5" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-extrabold text-slate-800">
-              {totalStudents}
-            </div>
+            <div className="text-2xl font-extrabold text-slate-800">{totalStudents}</div>
             <p className="text-xs text-slate-400 mt-0.5">Tài khoản thí sinh</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Lượt nộp bài
-            </span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Lượt nộp bài</span>
             <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
               <GraduationCap className="w-5 h-5" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-extrabold text-slate-800">
-              {totalSubmissions}
-            </div>
-            <p className="text-xs text-emerald-600 mt-0.5 font-semibold">
-              Tự động chấm điểm
-            </p>
+            <div className="text-2xl font-extrabold text-slate-800">{totalSubmissions}</div>
+            <p className="text-xs text-emerald-600 mt-0.5 font-semibold">Tự động chấm điểm</p>
           </div>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Điểm trung bình
-            </span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Điểm trung bình</span>
             <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
               <TrendingUp className="w-5 h-5" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-extrabold text-slate-800">
-              {avgScore}{" "}
-              <span className="text-sm font-normal text-slate-400">/ 10</span>
-            </div>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Dựa trên các bài đã nộp
-            </p>
+            <div className="text-2xl font-extrabold text-slate-800">{avgScore} <span className="text-sm font-normal text-slate-400">/ 10</span></div>
+            <p className="text-xs text-slate-400 mt-0.5">Dựa trên các bài đã nộp</p>
           </div>
         </div>
       </div>
@@ -296,12 +249,9 @@ export default function Dashboard() {
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
               Đang có {activeLiveSessions.length} thí sinh làm bài thi trực tiếp
             </div>
-            <h3 className="text-lg sm:text-xl font-black text-white">
-              Giám sát khảo thí thời gian thực
-            </h3>
+            <h3 className="text-lg sm:text-xl font-black text-white">Giám sát khảo thí thời gian thực</h3>
             <p className="text-xs text-slate-300">
-              Hệ thống đang theo dõi thời gian làm bài, tiến độ trả lời và phát
-              hiện vi phạm chuyển tab của thí sinh.
+              Hệ thống đang theo dõi thời gian làm bài, tiến độ trả lời và phát hiện vi phạm chuyển tab của thí sinh.
             </p>
           </div>
 
@@ -313,9 +263,7 @@ export default function Dashboard() {
                   className="inline-block h-9 w-9 rounded-full ring-2 ring-emerald-400 bg-emerald-700 text-white font-black text-xs flex items-center justify-center"
                   title={s.studentName || s.studentUsername}
                 >
-                  {(s.studentName || s.studentUsername || "S")
-                    .charAt(0)
-                    .toUpperCase()}
+                  {(s.studentName || s.studentUsername || "S").charAt(0).toUpperCase()}
                 </div>
               ))}
               {activeLiveSessions.length > 4 && (
@@ -342,12 +290,8 @@ export default function Dashboard() {
         <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col">
           <div className="p-5 border-b border-slate-100 flex items-center justify-between">
             <div>
-              <h2 className="font-bold text-slate-900 text-base">
-                Bài thi gần đây
-              </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Quản lý và theo dõi trạng thái các đề thi
-              </p>
+              <h2 className="font-bold text-slate-900 text-base">Bài thi gần đây</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Quản lý và theo dõi trạng thái các đề thi</p>
             </div>
             <Link
               to="/admin/exams"
@@ -359,15 +303,11 @@ export default function Dashboard() {
 
           <div className="p-4 flex-1">
             {loading ? (
-              <div className="p-8 text-center text-slate-400 text-xs">
-                Đang tải danh sách bài thi...
-              </div>
+              <div className="p-8 text-center text-slate-400 text-xs">Đang tải danh sách bài thi...</div>
             ) : exams.length === 0 ? (
               <div className="text-center py-10">
                 <FileText className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-slate-700">
-                  Chưa có bài thi nào
-                </p>
+                <p className="text-sm font-semibold text-slate-700">Chưa có bài thi nào</p>
                 <Link
                   to="/admin/exams/new"
                   className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:underline"
@@ -426,12 +366,7 @@ export default function Dashboard() {
                       </Link>
                       <button
                         type="button"
-                        onClick={() =>
-                          setDeletingExamInfo({
-                            id: exam.id,
-                            title: exam.title || "Bài thi này",
-                          })
-                        }
+                        onClick={() => setDeletingExamInfo({ id: exam.id, title: exam.title || "Bài thi này" })}
                         className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                         title="Xóa bài thi"
                       >
@@ -449,12 +384,8 @@ export default function Dashboard() {
         <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col">
           <div className="p-5 border-b border-slate-100 flex items-center justify-between">
             <div>
-              <h2 className="font-bold text-slate-900 text-base">
-                Bài nộp mới
-              </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Kết quả làm bài của thí sinh
-              </p>
+              <h2 className="font-bold text-slate-900 text-base">Bài nộp mới</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Kết quả làm bài của thí sinh</p>
             </div>
             <Link
               to="/admin/submissions"
@@ -466,15 +397,11 @@ export default function Dashboard() {
 
           <div className="p-4 flex-1 overflow-y-auto max-h-[420px]">
             {loading ? (
-              <div className="p-8 text-center text-slate-400 text-xs">
-                Đang tải bài nộp...
-              </div>
+              <div className="p-8 text-center text-slate-400 text-xs">Đang tải bài nộp...</div>
             ) : recentSubmissions.length === 0 ? (
               <div className="text-center py-10">
                 <GraduationCap className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-                <p className="text-xs font-semibold text-slate-600">
-                  Chưa có bài nộp nào
-                </p>
+                <p className="text-xs font-semibold text-slate-600">Chưa có bài nộp nào</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">
                   Chia sẻ link đề thi cho học sinh để bắt đầu thu thập bài làm.
                 </p>
@@ -492,20 +419,14 @@ export default function Dashboard() {
                         {sub.studentNameSnapshot || "Thí sinh"}
                       </p>
                       <span className="font-extrabold text-sm text-blue-700">
-                        {sub.score.toFixed(1)}{" "}
-                        <span className="text-[10px] text-slate-400 font-normal">
-                          / {sub.maxScore}
-                        </span>
+                        {sub.score.toFixed(1)} <span className="text-[10px] text-slate-400 font-normal">/ {sub.maxScore}</span>
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-slate-400 mt-1">
-                      <span className="truncate max-w-[140px]">
-                        {sub.examTitleSnapshot || "Bài thi"}
-                      </span>
+                      <span className="truncate max-w-[140px]">{sub.examTitleSnapshot || "Bài thi"}</span>
                       {sub.cheatViolations > 0 && (
                         <span className="text-red-600 font-bold flex items-center gap-0.5">
-                          <ShieldAlert className="w-3 h-3" />{" "}
-                          {sub.cheatViolations} cảnh báo
+                          <ShieldAlert className="w-3 h-3" /> {sub.cheatViolations} cảnh báo
                         </span>
                       )}
                     </div>
@@ -527,11 +448,9 @@ export default function Dashboard() {
         message={
           deletingExamInfo ? (
             <div>
-              Bạn có chắc chắn muốn xóa bài thi{" "}
-              <strong>"{deletingExamInfo.title}"</strong>?
+              Bạn có chắc chắn muốn xóa bài thi <strong>"{deletingExamInfo.title}"</strong>?
               <p className="text-red-600 font-semibold text-xs mt-2">
-                ⚠️ Thao tác này sẽ xóa vĩnh viễn toàn bộ phần thi, câu hỏi và
-                tất cả bài nộp của học sinh.
+                ⚠️ Thao tác này sẽ xóa vĩnh viễn toàn bộ phần thi, câu hỏi và tất cả bài nộp của học sinh.
               </p>
             </div>
           ) : (

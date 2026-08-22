@@ -105,6 +105,54 @@ export async function sendParentLinkRequest(
 }
 
 /**
+ * Auto-link a child to a parent with accepted status (e.g. when parent creates or logs into a student account on the same device)
+ */
+export async function autoLinkChildToParent(
+  parentUsername: string,
+  parentDisplayName: string,
+  childUsername: string
+): Promise<boolean> {
+  try {
+    const cleanChild = childUsername.trim().toLowerCase();
+    const cleanParent = parentUsername.trim().toLowerCase();
+    if (!cleanChild || !cleanParent) return false;
+
+    // Check if link request already exists
+    const q = query(
+      collection(db, "parent_link_requests"),
+      where("parentUsername", "==", cleanParent),
+      where("childUsername", "==", cleanChild)
+    );
+    const existingSnap = await getDocs(q);
+    if (!existingSnap.empty) {
+      const docRef = existingSnap.docs[0].ref;
+      await updateDoc(docRef, {
+        status: "accepted",
+        parentDisplayName: parentDisplayName || cleanParent,
+        updatedAt: new Date().toISOString(),
+      });
+      return true;
+    }
+
+    // Create a new accepted link
+    const newDocRef = doc(collection(db, "parent_link_requests"));
+    await setDoc(newDocRef, {
+      id: newDocRef.id,
+      parentUsername: cleanParent,
+      parentDisplayName: parentDisplayName || cleanParent,
+      childUsername: cleanChild,
+      status: "accepted",
+      createdAt: new Date().toISOString(),
+      autoLinked: true,
+    });
+    return true;
+  } catch (err) {
+    console.error("Error auto-linking child to parent:", err);
+    return false;
+  }
+}
+
+/**
  * Get all connection requests for a student
  */
 export async function getPendingRequestsForStudent(childUsername: string): Promise<ParentLinkRequest[]> {

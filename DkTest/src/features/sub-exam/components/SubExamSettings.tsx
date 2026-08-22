@@ -101,19 +101,19 @@ export default function SubExamSettings() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs text-slate-600 mb-1">Trắc nghiệm 1 đáp án (Có: {singleChoiceTotal})</label>
-                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.singleChoiceCount ?? ""} onChange={e => updateConfig({ singleChoiceCount: parseInt(e.target.value) || 0 })} placeholder="-1: Tất cả, 0: Bỏ qua" />
+                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.singleChoiceCount ?? ""} onChange={e => updateConfig({ singleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })} placeholder="-1: Tất cả, 0: Bỏ qua" />
               </div>
               <div>
                 <label className="block text-xs text-slate-600 mb-1">Trắc nghiệm nhiều đáp án (Có: {multipleChoiceTotal})</label>
-                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.multipleChoiceCount ?? ""} onChange={e => updateConfig({ multipleChoiceCount: parseInt(e.target.value) || 0 })} placeholder="-1: Tất cả, 0: Bỏ qua" />
+                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.multipleChoiceCount ?? ""} onChange={e => updateConfig({ multipleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })} placeholder="-1: Tất cả, 0: Bỏ qua" />
               </div>
               <div>
                 <label className="block text-xs text-slate-600 mb-1">Đúng/Sai (Có: {trueFalseTotal})</label>
-                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.trueFalseCount ?? ""} onChange={e => updateConfig({ trueFalseCount: parseInt(e.target.value) || 0 })} placeholder="-1: Tất cả, 0: Bỏ qua" />
+                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.trueFalseCount ?? ""} onChange={e => updateConfig({ trueFalseCount: e.target.value === "" ? undefined : parseInt(e.target.value) })} placeholder="-1: Tất cả, 0: Bỏ qua" />
               </div>
               <div>
                 <label className="block text-xs text-slate-600 mb-1">Trả lời ngắn (Có: {shortAnswerTotal})</label>
-                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.shortAnswerCount ?? ""} onChange={e => updateConfig({ shortAnswerCount: parseInt(e.target.value) || 0 })} placeholder="-1: Tất cả, 0: Bỏ qua" />
+                <input type="number" min="-1" className="w-full px-3 py-2 border rounded-lg text-xs" value={config.shortAnswerCount ?? ""} onChange={e => updateConfig({ shortAnswerCount: e.target.value === "" ? undefined : parseInt(e.target.value) })} placeholder="-1: Tất cả, 0: Bỏ qua" />
               </div>
             </div>
             <p className="text-[11px] text-slate-500 italic">* Nhập -1 để lấy toàn bộ câu của loại đó, 0 để không lấy, hoặc N &gt; 0 để lấy tối đa N câu ngẫu nhiên.</p>
@@ -138,7 +138,7 @@ export default function SubExamSettings() {
                   value={config.randomSectionsCount ?? ""}
                   onChange={(e) =>
                     updateConfig({
-                      randomSectionsCount: e.target.value === "" ? undefined : parseInt(e.target.value) || 0,
+                      randomSectionsCount: e.target.value === "" ? undefined : e.target.value === "" ? undefined : parseInt(e.target.value),
                     })
                   }
                   placeholder="-1: Tất cả"
@@ -184,7 +184,7 @@ export default function SubExamSettings() {
                           className="w-full sm:w-1/2 px-3 py-1.5 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-purple-500"
                           value={secConfig.questionCount ?? ""}
                           onChange={(e) =>
-                            updateSectionSubExam(sec.id, { questionCount: parseInt(e.target.value) || 0 })
+                            updateSectionSubExam(sec.id, { questionCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                           }
                           placeholder="-1: Tất cả, 0: Bỏ qua"
                         />
@@ -203,7 +203,7 @@ export default function SubExamSettings() {
                             className="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-xs"
                             value={secConfig.singleChoiceCount ?? ""}
                             onChange={(e) =>
-                              updateSectionSubExam(sec.id, { singleChoiceCount: parseInt(e.target.value) || 0 })
+                              updateSectionSubExam(sec.id, { singleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                             }
                             placeholder="-1"
                           />
@@ -218,7 +218,7 @@ export default function SubExamSettings() {
                             className="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-xs"
                             value={secConfig.multipleChoiceCount ?? ""}
                             onChange={(e) =>
-                              updateSectionSubExam(sec.id, { multipleChoiceCount: parseInt(e.target.value) || 0 })
+                              updateSectionSubExam(sec.id, { multipleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                             }
                             placeholder="-1"
                           />
@@ -233,7 +233,7 @@ export default function SubExamSettings() {
                             className="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-xs"
                             value={secConfig.trueFalseCount ?? ""}
                             onChange={(e) =>
-                              updateSectionSubExam(sec.id, { trueFalseCount: parseInt(e.target.value) || 0 })
+                              updateSectionSubExam(sec.id, { trueFalseCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                             }
                             placeholder="-1"
                           />
@@ -248,7 +248,7 @@ export default function SubExamSettings() {
                             className="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-xs"
                             value={secConfig.shortAnswerCount ?? ""}
                             onChange={(e) =>
-                              updateSectionSubExam(sec.id, { shortAnswerCount: parseInt(e.target.value) || 0 })
+                              updateSectionSubExam(sec.id, { shortAnswerCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                             }
                             placeholder="-1"
                           />

@@ -11,6 +11,8 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
       shuffleQuestions: data.exam?.shuffleQuestions || false,
       showResults: data.exam?.showResults ?? true,
       description: data.exam?.description || "",
+      subject: data.exam?.subject || "",
+      gradeCategory: data.exam?.gradeCategory || "",
       status: "draft" as const
     };
     

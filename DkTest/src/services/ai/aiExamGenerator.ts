@@ -1,6 +1,6 @@
 import mammoth from "mammoth";
-import { getAiClient, defaultModel } from "./aiClient.js";
-import { aiExamImportResultSchema } from "./aiSchema.js";
+import { getAiClient, defaultModel } from "./aiClient";
+import { aiExamImportResultSchema } from "./aiSchema";
 import { Type } from "@google/genai";
 
 export async function parseDocxFile(buffer: Buffer): Promise<string> {
@@ -9,9 +9,7 @@ export async function parseDocxFile(buffer: Buffer): Promise<string> {
     return result.value || "";
   } catch (err: any) {
     console.error("Mammoth DOCX parse error:", err);
-    throw new Error(
-      `Không thể đọc định dạng file Word. Hãy đảm bảo file ở định dạng .docx chuẩn. (${err.message || ""})`,
-    );
+    throw new Error(`Không thể đọc định dạng file Word. Hãy đảm bảo file ở định dạng .docx chuẩn. (${err.message || ""})`);
   }
 }
 
@@ -47,8 +45,7 @@ const schema = {
           id: { type: Type.STRING },
           type: {
             type: Type.STRING,
-            description:
-              "Must be 'single_choice', 'multiple_choice', 'true_false', or 'short_answer'",
+            description: "Must be 'single_choice', 'multiple_choice', 'true_false', or 'short_answer'",
           },
           text: { type: Type.STRING },
           explanation: { type: Type.STRING },
@@ -112,7 +109,8 @@ export function fixLatexFormatting(str: string): string {
   fixed = fixed.replace(/\x09au/g, "\\tau");
   fixed = fixed.replace(/\x09riangle/g, "\\triangle");
   fixed = fixed.replace(/\x09ilde/g, "\\tilde");
-  fixed = fixed.replace(/\\t\s*x\s*(\d+|[a-zA-Z]+|\$)/g, "\\times $1");
+  fixed = fixed.replace(/(?:\\t|\x09|t)\s*x\s*(\d+|[a-zA-Z]+|\$)/g, "\\times $1");
+  fixed = fixed.replace(/\\tx\s*(\d+)/g, "\\times $1");
 
   fixed = fixed.replace(/\x0Aotin/g, "\\notin");
   fixed = fixed.replace(/\x0Aearrow/g, "\\nearrow");
@@ -136,87 +134,17 @@ export function fixLatexFormatting(str: string): string {
   fixed = fixed.replace(/\x0Dight/g, "\\right");
 
   // 2. Fix "2imes4" or "2 times 4" or "times" attached directly to numbers
-  fixed = fixed.replace(
-    /(\d|[a-zA-Z])\s*imes\s*(\d|[a-zA-Z])/g,
-    "$1 \\times $2",
-  );
-  fixed = fixed.replace(
-    /(\d|[a-zA-Z])\s*times\s*(\d|[a-zA-Z])/g,
-    "$1 \\times $2",
-  );
+  fixed = fixed.replace(/(\d|[a-zA-Z])\s*imes\s*(\d|[a-zA-Z])/g, "$1 \\times $2");
+  fixed = fixed.replace(/(\d|[a-zA-Z])\s*times\s*(\d|[a-zA-Z])/g, "$1 \\times $2");
 
   // 3. Fix unescaped math keywords
   const keywords = [
-    "frac",
-    "dfrac",
-    "sqrt",
-    "alpha",
-    "beta",
-    "gamma",
-    "delta",
-    "epsilon",
-    "theta",
-    "lambda",
-    "mu",
-    "nu",
-    "pi",
-    "sigma",
-    "omega",
-    "Delta",
-    "Gamma",
-    "Lambda",
-    "Sigma",
-    "Omega",
-    "infty",
-    "lim",
-    "int",
-    "sum",
-    "prod",
-    "vec",
-    "hat",
-    "bar",
-    "tilde",
-    "mathbf",
-    "mathrm",
-    "mathbb",
-    "mathcal",
-    "left",
-    "right",
-    "begin",
-    "end",
-    "cdot",
-    "times",
-    "div",
-    "pm",
-    "mp",
-    "neq",
-    "le",
-    "ge",
-    "leq",
-    "geq",
-    "approx",
-    "equiv",
-    "subset",
-    "subseteq",
-    "in",
-    "notin",
-    "cup",
-    "cap",
-    "emptyset",
-    "forall",
-    "exists",
-    "to",
-    "rightarrow",
-    "Rightarrow",
-    "leftarrow",
-    "Leftarrow",
-    "leftrightarrow",
-    "sin",
-    "cos",
-    "tan",
-    "cot",
-    "log",
-    "ln",
+    "frac", "dfrac", "sqrt", "alpha", "beta", "gamma", "delta", "epsilon", "theta", "lambda", "mu", "nu", "pi", "sigma", "omega",
+    "Delta", "Gamma", "Lambda", "Sigma", "Omega",
+    "infty", "lim", "int", "sum", "prod", "vec", "hat", "bar", "tilde", "mathbf", "mathrm", "mathbb", "mathcal",
+    "left", "right", "begin", "end", "cdot", "times", "div", "pm", "mp", "neq", "le", "ge", "leq", "geq", "approx",
+    "equiv", "subset", "subseteq", "in", "notin", "cup", "cap", "emptyset", "forall", "exists", "to", "rightarrow",
+    "Rightarrow", "leftarrow", "Leftarrow", "leftrightarrow", "sin", "cos", "tan", "cot", "log", "ln"
   ];
 
   keywords.forEach((kw) => {
@@ -464,6 +392,7 @@ Trước khi trả JSON, bắt buộc kiểm tra:
 Chỉ được output sau khi hoàn tất toàn bộ quá trình kiểm tra.
 `;
 
+
 const systemInstructionDocument = `
 Bạn là Chuyên gia Nhận diện, Chuẩn hóa và Kiểm định Đề thi cho hệ thống DkTEST.
 
@@ -511,6 +440,7 @@ Không có Markdown.
 Không có \`\`\`json.
 Không có văn bản bên ngoài JSON.
 `;
+
 
 const systemInstructionPrompt = `
 Bạn là Chuyên gia Soạn thảo và Kiểm định Đề thi Chuẩn Quốc gia cho hệ thống DkTEST.
@@ -593,14 +523,8 @@ Không có \`\`\`json.
 Không có văn bản bên ngoài JSON.
 `;
 
-function normalizeQuestionsAndExam(
-  rawData: any,
-  defaultTitle: string,
-  defaultDesc: string,
-) {
-  const rawQuestions = Array.isArray(rawData?.questions)
-    ? rawData.questions
-    : [];
+function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDesc: string) {
+  const rawQuestions = Array.isArray(rawData?.questions) ? rawData.questions : [];
   const rawSections = Array.isArray(rawData?.sections) ? rawData.sections : [];
 
   const normalizedSections = rawSections.map((sec: any, idx: number) => ({
@@ -616,18 +540,9 @@ function normalizeQuestionsAndExam(
     if (!q || (!q.text && !q.options?.length)) return;
 
     let type = String(q.type || "single_choice").toLowerCase();
-    if (
-      type.includes("true") ||
-      type.includes("false") ||
-      type.includes("tf")
-    ) {
+    if (type.includes("true") || type.includes("false") || type.includes("tf")) {
       type = "true_false";
-    } else if (
-      type.includes("short") ||
-      type.includes("fill") ||
-      type.includes("essay") ||
-      type.includes("text")
-    ) {
+    } else if (type.includes("short") || type.includes("fill") || type.includes("essay") || type.includes("text")) {
       type = "short_answer";
     } else if (type.includes("multi")) {
       type = "multiple_choice";
@@ -653,13 +568,12 @@ function normalizeQuestionsAndExam(
       points: typeof q.points === "number" && q.points > 0 ? q.points : 1,
       order: idx,
       answerSource: q.answerSource === "document" ? "document" : "ai_generated",
-      answerConfidence:
-        typeof q.answerConfidence === "number" ? q.answerConfidence : 0.95,
+      answerConfidence: typeof q.answerConfidence === "number" ? q.answerConfidence : 0.95,
     };
 
     if (type === "single_choice" || type === "multiple_choice") {
       let rawOptions = Array.isArray(q.options) ? q.options : [];
-
+      
       // If options are missing, create fallback options A, B, C, D
       if (rawOptions.length < 2) {
         rawOptions = [
@@ -712,9 +626,7 @@ function normalizeQuestionsAndExam(
         const itemLower = itemStr.toLowerCase();
 
         // 1. Direct ID match
-        const direct = opts.find(
-          (o: any) => o.id === itemStr || o.id.toLowerCase() === itemLower,
-        );
+        const direct = opts.find((o: any) => o.id === itemStr || o.id.toLowerCase() === itemLower);
         if (direct && !matchedCorrectIds.includes(direct.id)) {
           matchedCorrectIds.push(direct.id);
           continue;
@@ -724,11 +636,7 @@ function normalizeQuestionsAndExam(
         const letterMatch = itemStr.match(/^[A-Ea-e]$/);
         if (letterMatch) {
           const letterIdx = letterMatch[0].toUpperCase().charCodeAt(0) - 65;
-          if (
-            letterIdx >= 0 &&
-            letterIdx < opts.length &&
-            !matchedCorrectIds.includes(opts[letterIdx].id)
-          ) {
+          if (letterIdx >= 0 && letterIdx < opts.length && !matchedCorrectIds.includes(opts[letterIdx].id)) {
             matchedCorrectIds.push(opts[letterIdx].id);
             continue;
           }
@@ -738,11 +646,7 @@ function normalizeQuestionsAndExam(
         const optNumMatch = itemStr.match(/(?:opt|option)[-_ ]?(\d+)/i);
         if (optNumMatch) {
           const idxVal = parseInt(optNumMatch[1], 10);
-          if (
-            idxVal >= 0 &&
-            idxVal < opts.length &&
-            !matchedCorrectIds.includes(opts[idxVal].id)
-          ) {
+          if (idxVal >= 0 && idxVal < opts.length && !matchedCorrectIds.includes(opts[idxVal].id)) {
             matchedCorrectIds.push(opts[idxVal].id);
             continue;
           }
@@ -751,18 +655,10 @@ function normalizeQuestionsAndExam(
         // 4. Numeric index (0-based or 1-based)
         if (/^\d+$/.test(itemStr)) {
           const num = parseInt(itemStr, 10);
-          if (
-            num >= 0 &&
-            num < opts.length &&
-            !matchedCorrectIds.includes(opts[num].id)
-          ) {
+          if (num >= 0 && num < opts.length && !matchedCorrectIds.includes(opts[num].id)) {
             matchedCorrectIds.push(opts[num].id);
             continue;
-          } else if (
-            num >= 1 &&
-            num <= opts.length &&
-            !matchedCorrectIds.includes(opts[num - 1].id)
-          ) {
+          } else if (num >= 1 && num <= opts.length && !matchedCorrectIds.includes(opts[num - 1].id)) {
             matchedCorrectIds.push(opts[num - 1].id);
             continue;
           }
@@ -771,10 +667,7 @@ function normalizeQuestionsAndExam(
         // 5. Content text match
         const textMatch = opts.find((o: any) => {
           const t = o.text.trim().toLowerCase();
-          return (
-            t &&
-            (t === itemLower || itemLower.includes(t) || t.includes(itemLower))
-          );
+          return t && (t === itemLower || itemLower.includes(t) || t.includes(itemLower));
         });
         if (textMatch && !matchedCorrectIds.includes(textMatch.id)) {
           matchedCorrectIds.push(textMatch.id);
@@ -784,12 +677,9 @@ function normalizeQuestionsAndExam(
 
       // Check if explanation has an explicit conclusion (e.g. "Do đó chọn đáp án C" or "chọn C")
       if (opts.length > 0 && explanation) {
-        const expMatch =
-          explanation.match(
-            /(?:do đó|suy ra|kết luận|chọn|đáp án|phương án)\s*(?:chọn|là)?\s*[:\-–—]?\s*(?:đáp án|phương án)?\s*[\*\`"]?([A-D])[\*\`"]?/i,
-          ) ||
-          explanation.match(/\bchọn\s+([A-D])\b/i) ||
-          explanation.match(/\b([A-D])\s+(?:là đáp án đúng|chính xác)\b/i);
+        const expMatch = explanation.match(/(?:do đó|suy ra|kết luận|chọn|đáp án|phương án)\s*(?:chọn|là)?\s*[:\-–—]?\s*(?:đáp án|phương án)?\s*[\*\`"]?([A-D])[\*\`"]?/i) ||
+                         explanation.match(/\bchọn\s+([A-D])\b/i) ||
+                         explanation.match(/\b([A-D])\s+(?:là đáp án đúng|chính xác)\b/i);
         if (expMatch) {
           const letter = expMatch[1].toUpperCase();
           const letterIdx = letter.charCodeAt(0) - 65;
@@ -819,28 +709,16 @@ function normalizeQuestionsAndExam(
           { id: "stmt-3", text: "Mệnh đề D", correctAnswer: false },
         ];
       } else {
-        normalizedQ.statements = rawStatements.map(
-          (stmt: any, sIdx: number) => ({
-            id: String(stmt?.id || `stmt-${sIdx}`),
-            text:
-              fixLatexFormatting(String(stmt?.text || "").trim()) ||
-              `Mệnh đề ${String.fromCharCode(97 + sIdx)})`,
-            correctAnswer:
-              stmt?.correctAnswer !== undefined
-                ? Boolean(stmt.correctAnswer)
-                : true,
-          }),
-        );
+        normalizedQ.statements = rawStatements.map((stmt: any, sIdx: number) => ({
+          id: String(stmt?.id || `stmt-${sIdx}`),
+          text: fixLatexFormatting(String(stmt?.text || "").trim()) || `Mệnh đề ${String.fromCharCode(97 + sIdx)})`,
+          correctAnswer: stmt?.correctAnswer !== undefined ? Boolean(stmt.correctAnswer) : true,
+        }));
       }
     } else if (type === "short_answer") {
-      const rawAnswers = Array.isArray(q.acceptedAnswers)
-        ? q.acceptedAnswers
-        : [];
-      const cleaned = rawAnswers
-        .map((ans: any) => fixLatexFormatting(String(ans).trim()))
-        .filter(Boolean);
-      normalizedQ.acceptedAnswers =
-        cleaned.length > 0 ? cleaned : ["Đáp án đúng"];
+      const rawAnswers = Array.isArray(q.acceptedAnswers) ? q.acceptedAnswers : [];
+      const cleaned = rawAnswers.map((ans: any) => fixLatexFormatting(String(ans).trim())).filter(Boolean);
+      normalizedQ.acceptedAnswers = cleaned.length > 0 ? cleaned : ["Đáp án đúng"];
     }
 
     normalizedQuestions.push(normalizedQ);
@@ -851,71 +729,47 @@ function normalizeQuestionsAndExam(
     exam: {
       title: rawData?.exam?.title || defaultTitle,
       description: rawData?.exam?.description || defaultDesc,
-      timeLimit:
-        typeof rawData?.exam?.timeLimit === "number"
-          ? rawData.exam.timeLimit
-          : 60,
+      timeLimit: typeof rawData?.exam?.timeLimit === "number" ? rawData.exam.timeLimit : 60,
     },
     sections: normalizedSections,
     questions: normalizedQuestions,
     statistics: {
       totalQuestions: normalizedQuestions.length,
       byType: {
-        singleChoice: normalizedQuestions.filter(
-          (q) => q.type === "single_choice",
-        ).length,
-        multipleChoice: normalizedQuestions.filter(
-          (q) => q.type === "multiple_choice",
-        ).length,
-        trueFalse: normalizedQuestions.filter((q) => q.type === "true_false")
-          .length,
-        shortAnswer: normalizedQuestions.filter(
-          (q) => q.type === "short_answer",
-        ).length,
+        singleChoice: normalizedQuestions.filter((q) => q.type === "single_choice").length,
+        multipleChoice: normalizedQuestions.filter((q) => q.type === "multiple_choice").length,
+        trueFalse: normalizedQuestions.filter((q) => q.type === "true_false").length,
+        shortAnswer: normalizedQuestions.filter((q) => q.type === "short_answer").length,
       },
-      answersFromDocument: normalizedQuestions.filter(
-        (q) => q.answerSource === "document",
-      ).length,
-      answersGeneratedByAI: normalizedQuestions.filter(
-        (q) => q.answerSource === "ai_generated",
-      ).length,
-      answersUnknown: normalizedQuestions.filter(
-        (q) => q.answerSource === "unknown",
-      ).length,
+      answersFromDocument: normalizedQuestions.filter((q) => q.answerSource === "document").length,
+      answersGeneratedByAI: normalizedQuestions.filter((q) => q.answerSource === "ai_generated").length,
+      answersUnknown: normalizedQuestions.filter((q) => q.answerSource === "unknown").length,
     },
   };
 
   return aiExamImportResultSchema.parse(finalExam);
 }
 
-export async function processExamFromPromptStream(
-  prompt: string,
-  onProgress: (msg: string) => void,
-) {
+export async function processExamFromPromptStream(prompt: string, onProgress: (msg: string) => void) {
   const ai = getAiClient();
   const startTime = Date.now();
-
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "info",
-      percent: 15,
-      message: "Khởi động mô hình Gemini AI để phân tích yêu cầu...",
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
-
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "info",
-      percent: 30,
-      message:
-        "Đang xây dựng ngân hàng câu hỏi và nhận diện công thức toán/hóa học chuẩn LaTeX ($...$)...",
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
-
+  
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "info",
+    percent: 15,
+    message: "Khởi động mô hình Gemini AI để phân tích yêu cầu...",
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
+  
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "info",
+    percent: 30,
+    message: "Đang xây dựng ngân hàng câu hỏi và nhận diện công thức toán/hóa học chuẩn LaTeX ($...$)...",
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
+  
   const response = await ai.models.generateContent({
     model: defaultModel,
     contents: `Tạo đề thi đầy đủ, chính xác, định dạng LaTeX chuẩn cho công thức toán học/hóa học theo yêu cầu sau:\n"${prompt}"`,
@@ -926,81 +780,63 @@ export async function processExamFromPromptStream(
     },
   });
 
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "success",
-      percent: 75,
-      message:
-        "Gemini AI đã tạo xong nội dung thô. Đang kiểm tra cấu trúc dữ liệu JSON...",
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "success",
+    percent: 75,
+    message: "Gemini AI đã tạo xong nội dung thô. Đang kiểm tra cấu trúc dữ liệu JSON...",
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
 
   try {
     const jsonStr = response.text || "{}";
     const rawData = JSON.parse(jsonStr);
+    
+    onProgress(JSON.stringify({ 
+      type: "log", 
+      level: "info",
+      percent: 90,
+      message: `Đang chuẩn hóa các câu hỏi (${rawData?.questions?.length || 0} câu) và kiểm tra công thức LaTeX...`,
+      timestamp: new Date().toLocaleTimeString("vi-VN")
+    }));
 
-    onProgress(
-      JSON.stringify({
-        type: "log",
-        level: "info",
-        percent: 90,
-        message: `Đang chuẩn hóa các câu hỏi (${rawData?.questions?.length || 0} câu) và kiểm tra công thức LaTeX...`,
-        timestamp: new Date().toLocaleTimeString("vi-VN"),
-      }),
-    );
+    const validatedData = normalizeQuestionsAndExam(rawData, "Đề thi tự động từ AI", prompt);
 
-    const validatedData = normalizeQuestionsAndExam(
-      rawData,
-      "Đề thi tự động từ AI",
-      prompt,
-    );
-
-    onProgress(
-      JSON.stringify({
-        type: "log",
-        level: "success",
-        percent: 100,
-        message: `Hoàn tất tạo đề thành công trong ${((Date.now() - startTime) / 1000).toFixed(1)}s! Sẵn sàng xuất đề.`,
-        timestamp: new Date().toLocaleTimeString("vi-VN"),
-      }),
-    );
+    onProgress(JSON.stringify({ 
+      type: "log", 
+      level: "success",
+      percent: 100,
+      message: `Hoàn tất tạo đề thành công trong ${((Date.now() - startTime) / 1000).toFixed(1)}s! Sẵn sàng xuất đề.`,
+      timestamp: new Date().toLocaleTimeString("vi-VN")
+    }));
 
     return validatedData;
   } catch (e: any) {
     console.error("Prompt parse error:", e);
-    throw new Error(
-      `Không thể tạo đề từ yêu cầu này. (${e.message || ""}). Vui lòng thử lại.`,
-    );
+    throw new Error(`Không thể tạo đề từ yêu cầu này. (${e.message || ""}). Vui lòng thử lại.`);
   }
 }
 
-export async function processExamInChunks(
-  htmlContent: string,
-  onProgress: (msg: string) => void,
-) {
+export async function processExamInChunks(htmlContent: string, onProgress: (msg: string) => void) {
   const ai = getAiClient();
   const startTime = Date.now();
-
+  
   if (!htmlContent || htmlContent.trim().length === 0) {
     throw new Error("File Word không có nội dung văn bản để phân tích.");
   }
 
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "info",
-      percent: 10,
-      message: `Đã đọc thành công nội dung Word (${htmlContent.length.toLocaleString()} ký tự). Đang phân đoạn tài liệu...`,
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "info",
+    percent: 10,
+    message: `Đã đọc thành công nội dung Word (${htmlContent.length.toLocaleString()} ký tự). Đang phân đoạn tài liệu...`,
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
 
   // Split HTML into reasonable chunks (15000 chars)
   const CHUNK_SIZE = 15000;
   const chunks: string[] = [];
-
+  
   let currentPos = 0;
   while (currentPos < htmlContent.length) {
     let nextPos = currentPos + CHUNK_SIZE;
@@ -1018,35 +854,31 @@ export async function processExamInChunks(
     chunks.push(htmlContent);
   }
 
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "info",
-      percent: 20,
-      message: `Tài liệu được chia thành ${chunks.length} phần để xử lý song song & chuẩn hóa LaTeX...`,
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "info",
+    percent: 20,
+    message: `Tài liệu được chia thành ${chunks.length} phần để xử lý song song & chuẩn hóa LaTeX...`,
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
 
   const combinedRawData: { exam?: any; sections: any[]; questions: any[] } = {
     sections: [],
     questions: [],
   };
-
+  
   for (let i = 0; i < chunks.length; i++) {
     const chunkPercent = Math.round(20 + ((i + 1) / chunks.length) * 65);
-    onProgress(
-      JSON.stringify({
-        type: "log",
-        level: "info",
-        current: i + 1,
-        total: chunks.length,
-        percent: chunkPercent,
-        message: `Đang gửi phần ${i + 1}/${chunks.length} tới Gemini AI: nhận diện câu hỏi, tách đáp án & chuyển đổi công thức Toán/Lý/Hóa sang LaTeX...`,
-        timestamp: new Date().toLocaleTimeString("vi-VN"),
-      }),
-    );
-
+    onProgress(JSON.stringify({
+      type: "log",
+      level: "info",
+      current: i + 1,
+      total: chunks.length,
+      percent: chunkPercent,
+      message: `Đang gửi phần ${i + 1}/${chunks.length} tới Gemini AI: nhận diện câu hỏi, tách đáp án & chuyển đổi công thức Toán/Lý/Hóa sang LaTeX...`,
+      timestamp: new Date().toLocaleTimeString("vi-VN")
+    }));
+    
     try {
       const response = await ai.models.generateContent({
         model: defaultModel,
@@ -1060,23 +892,17 @@ export async function processExamInChunks(
 
       const jsonStr = response.text || "{}";
       const rawChunk = JSON.parse(jsonStr);
+      
+      const foundQuestions = Array.isArray(rawChunk.questions) ? rawChunk.questions.length : 0;
+      const foundSections = Array.isArray(rawChunk.sections) ? rawChunk.sections.length : 0;
 
-      const foundQuestions = Array.isArray(rawChunk.questions)
-        ? rawChunk.questions.length
-        : 0;
-      const foundSections = Array.isArray(rawChunk.sections)
-        ? rawChunk.sections.length
-        : 0;
-
-      onProgress(
-        JSON.stringify({
-          type: "log",
-          level: "success",
-          percent: chunkPercent,
-          message: `Phần ${i + 1}/${chunks.length}: Phát hiện thành công ${foundQuestions} câu hỏi và ${foundSections} phần thi.`,
-          timestamp: new Date().toLocaleTimeString("vi-VN"),
-        }),
-      );
+      onProgress(JSON.stringify({
+        type: "log",
+        level: "success",
+        percent: chunkPercent,
+        message: `Phần ${i + 1}/${chunks.length}: Phát hiện thành công ${foundQuestions} câu hỏi và ${foundSections} phần thi.`,
+        timestamp: new Date().toLocaleTimeString("vi-VN")
+      }));
 
       if (rawChunk.exam && !combinedRawData.exam) {
         combinedRawData.exam = rawChunk.exam;
@@ -1089,50 +915,37 @@ export async function processExamInChunks(
       }
     } catch (e: any) {
       console.error(`Error processing chunk ${i + 1}:`, e);
-      onProgress(
-        JSON.stringify({
-          type: "log",
-          level: "warning",
-          percent: chunkPercent,
-          message: `Cảnh báo phần ${i + 1}: ${e.message || "Lỗi xử lý nhẹ, đang tiếp tục..."}`,
-          timestamp: new Date().toLocaleTimeString("vi-VN"),
-        }),
-      );
+      onProgress(JSON.stringify({
+        type: "log",
+        level: "warning",
+        percent: chunkPercent,
+        message: `Cảnh báo phần ${i + 1}: ${e.message || "Lỗi xử lý nhẹ, đang tiếp tục..."}`,
+        timestamp: new Date().toLocaleTimeString("vi-VN")
+      }));
     }
   }
 
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "info",
-      percent: 92,
-      message:
-        "Tổng hợp toàn bộ câu hỏi, chuẩn hóa LaTeX ($...$), gán ID và tạo thống kê đề thi...",
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "info",
+    percent: 92,
+    message: "Tổng hợp toàn bộ câu hỏi, chuẩn hóa LaTeX ($...$), gán ID và tạo thống kê đề thi...",
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
 
   if (combinedRawData.questions.length === 0) {
-    throw new Error(
-      "AI không tìm thấy câu hỏi hợp lệ nào trong file Word. Vui lòng kiểm tra lại nội dung file.",
-    );
+    throw new Error("AI không tìm thấy câu hỏi hợp lệ nào trong file Word. Vui lòng kiểm tra lại nội dung file.");
   }
 
-  const validatedData = normalizeQuestionsAndExam(
-    combinedRawData,
-    "Đề thi tự động từ file Word",
-    "Được tạo tự động từ tài liệu Word tải lên.",
-  );
-
-  onProgress(
-    JSON.stringify({
-      type: "log",
-      level: "success",
-      percent: 100,
-      message: `Đã hoàn tất trích xuất ${validatedData.questions.length} câu hỏi thành công trong ${((Date.now() - startTime) / 1000).toFixed(1)}s!`,
-      timestamp: new Date().toLocaleTimeString("vi-VN"),
-    }),
-  );
+  const validatedData = normalizeQuestionsAndExam(combinedRawData, "Đề thi tự động từ file Word", "Được tạo tự động từ tài liệu Word tải lên.");
+  
+  onProgress(JSON.stringify({ 
+    type: "log", 
+    level: "success",
+    percent: 100,
+    message: `Đã hoàn tất trích xuất ${validatedData.questions.length} câu hỏi thành công trong ${((Date.now() - startTime) / 1000).toFixed(1)}s!`,
+    timestamp: new Date().toLocaleTimeString("vi-VN")
+  }));
 
   return validatedData;
 }

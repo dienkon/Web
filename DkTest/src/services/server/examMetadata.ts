@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmlTemplate.js";
+import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmlTemplate";
 
 export interface ExamMeta {
   id: string;
@@ -110,7 +110,8 @@ function parseFirestoreExamFields(docId: string, fields: any): ExamMeta {
   return {
     id: docId,
     title: rawTitle.trim() || "DkTEST - Bài kiểm tra",
-    description: rawDesc.trim() || "Tham gia bài kiểm tra trên DkTEST",
+    description:
+      rawDesc.trim() || "Tham gia bài kiểm tra trên DkTEST",
     code,
     imageUrl: validImageUrl,
     timeLimit,
@@ -124,7 +125,7 @@ function parseFirestoreExamFields(docId: string, fields: any): ExamMeta {
  * private credentials or heavy SDK initialization.
  */
 export async function fetchExamMetadata(
-  examId: string,
+  examId: string
 ): Promise<{ found: boolean; exam: ExamMeta | null }> {
   if (!examId || typeof examId !== "string") {
     return { found: false, exam: null };
@@ -139,7 +140,7 @@ export async function fetchExamMetadata(
   try {
     // 1. Direct document get by ID
     const docUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/exams/${encodeURIComponent(
-      cleanId,
+      cleanId
     )}`;
     const res = await fetch(docUrl, {
       headers: { Accept: "application/json" },
@@ -184,9 +185,7 @@ export async function fetchExamMetadata(
       const results = await queryRes.json();
       const firstDoc = results?.[0]?.document;
       if (firstDoc && firstDoc.fields) {
-        const foundId = firstDoc.name
-          ? firstDoc.name.split("/").pop()
-          : cleanId;
+        const foundId = firstDoc.name ? firstDoc.name.split("/").pop() : cleanId;
         return {
           found: true,
           exam: parseFirestoreExamFields(foundId || cleanId, firstDoc.fields),
@@ -261,7 +260,7 @@ export function buildExamMetaTags({
     tags.push(
       `<meta property="og:image" content="${escapedImage}">`,
       `<meta name="twitter:image" content="${escapedImage}">`,
-      `<meta property="og:image:alt" content="${escapedTitle}">`,
+      `<meta property="og:image:alt" content="${escapedTitle}">`
     );
   }
 
@@ -284,14 +283,14 @@ export function injectExamMetaIntoHtml(
     escapedTitle: string;
     escapedDescription: string;
     metaTagsHtml: string;
-  },
+  }
 ): string {
   let html = templateHtml;
 
   // Replace <title>...</title>
   html = html.replace(
     /<title>.*?<\/title>/is,
-    `<title>${metaInfo.escapedTitle}</title>`,
+    `<title>${metaInfo.escapedTitle}</title>`
   );
 
   // Remove existing static meta description, og:*, twitter:*, canonical tags to prevent duplicates
@@ -303,11 +302,14 @@ export function injectExamMetaIntoHtml(
 
   // Inject dynamic tags right after <title>...</title> or before </head>
   if (html.includes("</title>")) {
-    html = html.replace("</title>", `</title>\n    ${metaInfo.metaTagsHtml}`);
+    html = html.replace(
+      "</title>",
+      `</title>\n    ${metaInfo.metaTagsHtml}`
+    );
   } else if (html.includes("</head>")) {
     html = html.replace(
       "</head>",
-      `    <title>${metaInfo.escapedTitle}</title>\n    ${metaInfo.metaTagsHtml}\n  </head>`,
+      `    <title>${metaInfo.escapedTitle}</title>\n    ${metaInfo.metaTagsHtml}\n  </head>`
     );
   }
 

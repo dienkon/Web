@@ -1,12 +1,4 @@
-import {
-  ref,
-  set,
-  update,
-  onValue,
-  remove,
-  onDisconnect,
-  off,
-} from "firebase/database";
+import { ref, set, update, onValue, remove, onDisconnect, off } from "firebase/database";
 import {
   collection,
   doc,
@@ -65,9 +57,7 @@ export async function syncRealtimeSession(session: ActiveSession) {
     try {
       const sessionRef = ref(rtdb, `active_sessions/${session.sessionId}`);
       await set(sessionRef, sessionData);
-      onDisconnect(sessionRef)
-        .remove()
-        .catch(() => {});
+      onDisconnect(sessionRef).remove().catch(() => {});
     } catch (err) {
       console.warn("RTDB sync error:", err);
     }
@@ -79,7 +69,7 @@ export async function syncRealtimeSession(session: ActiveSession) {
  */
 export async function updateRealtimeSessionMetrics(
   sessionId: string,
-  updates: Partial<ActiveSession>,
+  updates: Partial<ActiveSession>
 ) {
   if (!sessionId) return;
 
@@ -111,9 +101,7 @@ export async function removeRealtimeSession(sessionId: string) {
   if (rtdb) {
     try {
       const sessionRef = ref(rtdb, `active_sessions/${sessionId}`);
-      onDisconnect(sessionRef)
-        .cancel()
-        .catch(() => {});
+      onDisconnect(sessionRef).cancel().catch(() => {});
       await remove(sessionRef);
     } catch (err) {
       // RTDB optional fallback
@@ -126,7 +114,7 @@ export async function removeRealtimeSession(sessionId: string) {
  */
 export function subscribeToActiveSessions(
   callback: (sessions: ActiveSession[]) => void,
-  onError?: (error: Error) => void,
+  onError?: (error: Error) => void
 ) {
   const sessionsMap = new Map<string, ActiveSession>();
 
@@ -138,8 +126,8 @@ export function subscribeToActiveSessions(
         typeof session.lastActiveAt === "number"
           ? session.lastActiveAt
           : session.lastHeartbeat
-            ? new Date(session.lastHeartbeat).getTime()
-            : 0;
+          ? new Date(session.lastHeartbeat).getTime()
+          : 0;
 
       const isStale = now - lastActive > 15 * 60 * 1000;
       if (session.status !== "submitted" && !isStale) {
@@ -174,7 +162,7 @@ export function subscribeToActiveSessions(
         (err) => {
           console.warn("RTDB subscribe warning:", err);
           if (onError) onError(err);
-        },
+        }
       );
     } catch (e) {
       console.warn("RTDB init listener warning:", e);
@@ -195,7 +183,7 @@ export function subscribeToActiveSessions(
  */
 export function subscribeToSingleSession(
   sessionId: string,
-  callback: (session: ActiveSession | null) => void,
+  callback: (session: ActiveSession | null) => void
 ) {
   if (!sessionId) return () => {};
 
@@ -238,3 +226,5 @@ export async function clearSubmittedSessions(sessionIds: string[]) {
     } catch (err) {}
   }
 }
+
+

@@ -83,8 +83,8 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
               <div className="space-y-1">
                 <label className="font-bold text-slate-700">Môn học:</label>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   value={config.subject}
                   onChange={(e) => setConfig({ ...config, subject: e.target.value })}
                   placeholder="VD: Toán học, Tiếng Anh, Vật lý..."
@@ -94,8 +94,8 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
 
               <div className="space-y-1">
                 <label className="font-bold text-slate-700">Khối lớp / Cấp học:</label>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   value={config.grade}
                   onChange={(e) => setConfig({ ...config, grade: e.target.value })}
                   placeholder="VD: Lớp 10, Lớp 12, Ôn thi Đại học..."
@@ -105,8 +105,8 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
 
               <div className="sm:col-span-2 space-y-1">
                 <label className="font-bold text-slate-700">Chủ đề & Nội dung kiểm tra chi tiết:</label>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   value={config.topic}
                   onChange={(e) => setConfig({ ...config, topic: e.target.value })}
                   placeholder="VD: Khảo sát hàm số, Bất đẳng thức, Di truyền Men-đen, Thì quá khứ hoàn thành..."
@@ -116,8 +116,8 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
 
               <div className="sm:col-span-2 space-y-1">
                 <label className="font-bold text-slate-700">Đối tượng học sinh / Mục đích thi:</label>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   value={config.audience}
                   onChange={(e) => setConfig({ ...config, audience: e.target.value })}
                   placeholder="VD: Ôn tập kiểm tra 1 tiết, Thi học kỳ, Luyện thi THPTQG..."
@@ -130,10 +130,8 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
                   <Clock className="w-3.5 h-3.5 text-slate-500" />
                   <span>Thời gian làm bài (phút):</span>
                 </label>
-                <input
-                  type="number"
-                  value={config.timeLimit}
-                  onChange={(e) => setConfig({ ...config, timeLimit: parseInt(e.target.value) || 45 })}
+                <input type="number" value={config.timeLimit === 0 ? "" : config.timeLimit}
+                  onChange={(e) => setConfig({ ...config, timeLimit: e.target.value === "" ? 0 : (parseInt(e.target.value) || 0) })}
                   className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
@@ -143,18 +141,16 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
                   <GraduationCap className="w-3.5 h-3.5 text-slate-500" />
                   <span>Số lượng câu hỏi:</span>
                 </label>
-                <input
-                  type="number"
-                  value={config.questionCount}
-                  onChange={(e) => setConfig({ ...config, questionCount: parseInt(e.target.value) || 20 })}
+                <input type="number" value={config.questionCount === 0 ? "" : config.questionCount}
+                  onChange={(e) => setConfig({ ...config, questionCount: e.target.value === "" ? 0 : (parseInt(e.target.value) || 0) })}
                   className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
               <div className="sm:col-span-2 space-y-1">
                 <label className="font-bold text-slate-700">Mức độ phân hóa:</label>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   value={config.difficulty}
                   onChange={(e) => setConfig({ ...config, difficulty: e.target.value })}
                   placeholder="VD: 50% Thông hiểu, 30% Vận dụng, 20% Vận dụng cao"
@@ -164,8 +160,8 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
 
               <div className="sm:col-span-2 space-y-1">
                 <label className="font-bold text-slate-700">Yêu cầu đặc biệt (tùy chọn):</label>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   value={config.additionalInfo || ""}
                   onChange={(e) => setConfig({ ...config, additionalInfo: e.target.value })}
                   placeholder="VD: Kèm theo bài đọc đoạn văn tiếng Anh, hoặc có câu hỏi thực tế..."
@@ -192,7 +188,7 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
             <div className="p-3.5 bg-emerald-50/80 border border-emerald-200 rounded-2xl space-y-1">
               <span className="font-extrabold text-emerald-900">Bước 3: Nạp JSON vào DkTEST</span>
               <p className="text-emerald-800 font-medium">
-                Dán JSON vào mục <strong>Nhập mã JSON</strong> để rà soát theo dạng Azota và xuất đề.
+                Dán JSON vào mục <strong>Nhập mã JSON</strong> để rà soát theo dạng  và xuất đề.
               </p>
             </div>
           </div>

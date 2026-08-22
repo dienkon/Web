@@ -15,10 +15,14 @@ export default function ParentLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
+    const adminToken = localStorage.getItem("admin_token");
+    setIsAdmin(role === "admin" || !!adminToken);
+
     if (role === "parent") {
       navigate(redirectPath, { replace: true });
     }
@@ -102,9 +106,11 @@ export default function ParentLogin() {
             <span className="px-2.5 py-1 bg-white text-indigo-700 rounded-lg shadow-2xs">
               Phụ huynh
             </span>
-            <Link to="/admin/login" className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors">
-              Giáo viên
-            </Link>
+            {isAdmin && (
+              <Link to="/admin/login" className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors">
+                Giáo viên
+              </Link>
+            )}
           </div>
         </div>
 

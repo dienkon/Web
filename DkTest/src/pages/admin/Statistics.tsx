@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import {
   BarChart,
   Users,
@@ -43,6 +43,9 @@ type GeneralTab = "overview" | "exams" | "students" | "cheat";
 type ExamDetailTab = "score_dist" | "questions_analysis" | "submissions_list" | "cheat_logs";
 
 export default function Statistics() {
+  const location = useLocation();
+  const isParentMode = location.pathname.startsWith('/parent/');
+
   const { examId: routeExamId } = useParams<{ examId?: string }>();
   const navigate = useNavigate();
   const { showToast, error: showErrorToast } = useToast();
@@ -126,9 +129,10 @@ export default function Statistics() {
       if (tab === "exams" && !allExamsLoaded) {
         setTabLoading(true);
         try {
+          // Tối ưu: Chỉ lấy 20 bài thi gần nhất để so sánh
           const [exSnap, subSnap] = await Promise.all([
-            getDocs(collection(db, "exams")),
-            getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"))),
+            getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(20))),
+            getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(200))),
           ]);
           setAllExamsList(exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
           setAllExamsSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
@@ -543,13 +547,13 @@ export default function Statistics() {
 
                       <div className="flex items-center gap-2">
                         <Link
-                          to={`/admin/exams/${selectedExam.id}/edit`}
+                          to={`/${isParentMode ? "parent" : "admin"}/exams/${selectedExam.id}/edit`}
                           className="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold backdrop-blur-sm transition-colors"
                         >
                           Chỉnh sửa đề
                         </Link>
                         <Link
-                          to={`/admin/exams/${selectedExam.id}`}
+                          to={`/${isParentMode ? "parent" : "admin"}/exams/${selectedExam.id}`}
                           className="px-3.5 py-2 bg-white text-blue-900 hover:bg-blue-50 rounded-xl text-xs font-bold shadow-xs transition-colors"
                         >
                           Xem chi tiết đề
@@ -1040,7 +1044,7 @@ export default function Statistics() {
                                 </td>
                                 <td className="px-5 py-3.5 text-right">
                                   <Link
-                                    to={`/admin/exams/${selectedExam.id}/submissions/${sub.id}`}
+                                    to={`/${isParentMode ? "parent" : "admin"}/exams/${selectedExam.id}/submissions/${sub.id}`}
                                     className="text-blue-600 font-bold hover:underline"
                                   >
                                     Xem bài thi →
@@ -1104,7 +1108,7 @@ export default function Statistics() {
                                   </td>
                                   <td className="px-6 py-3.5 text-right">
                                     <Link
-                                      to={`/admin/exams/${selectedExam.id}/submissions/${sub.id}`}
+                                      to={`/${isParentMode ? "parent" : "admin"}/exams/${selectedExam.id}/submissions/${sub.id}`}
                                       className="text-xs font-bold text-blue-600 hover:text-blue-800"
                                     >
                                       Xem chi tiết bài làm

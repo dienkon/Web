@@ -248,7 +248,7 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
 
       {/* 2-Column Split Workspace with Independent Scrollbars */}
       <div className="flex-1 flex overflow-hidden gap-4 p-3 sm:p-5 min-h-0 bg-slate-100/70">
-        {/* SIDEBAR MA TRẬN ĐÁP ÁN AZOTA (Left Column like Question Outline) */}
+        {/* SIDEBAR MA TRẬN ĐÁP ÁN  (Left Column like Question Outline) */}
         {isOutlineOpen && (
           <aside className="w-80 h-full flex flex-col bg-white border border-slate-200 rounded-3xl p-4 shadow-sm shrink-0 overflow-hidden space-y-3 animate-in fade-in slide-in-from-left-2 duration-200">
             {/* Sidebar Header */}
@@ -268,7 +268,7 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
               </div>
 
               <span className="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded-full">
-                Azota Sync
+                 Sync
               </span>
             </div>
 
@@ -366,7 +366,7 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
           {/* Exam Header Sheet */}
           <div className="border-b-2 border-slate-800 pb-6 text-center space-y-2">
             <div className="text-xs font-extrabold uppercase tracking-widest text-slate-500">
-              ĐỀ THI KIỂM TRA PHONG CÁCH AZOTA
+              ĐỀ THI KIỂM TRA 
             </div>
             <h1 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight">
               {examMeta.title || "BÀI THI CHƯA ĐẶT TÊN"}
@@ -643,7 +643,7 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
                               <LatexPreview content={q.text || "(Chưa nhập nội dung câu hỏi)"} />
                             </div>
 
-                            {/* INTERACTIVE ANSWER SELECTOR (AZOTA STYLE) */}
+                            {/* INTERACTIVE ANSWER SELECTOR ( STYLE) */}
                             <div className="pt-2 bg-white p-4 rounded-2xl border border-slate-200/90 space-y-3 shadow-2xs">
                               <div className="flex items-center justify-between text-xs font-bold text-slate-600 uppercase tracking-wider border-b border-slate-100 pb-2">
                                 <span>Đáp án & chọn nhanh:</span>

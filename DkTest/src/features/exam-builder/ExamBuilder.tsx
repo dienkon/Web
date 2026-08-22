@@ -122,7 +122,7 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
               }`}
             >
               <CheckSquare className="w-3.5 h-3.5" />
-              <span>Sửa xem trước (Azota)</span>
+              <span>Sửa xem trước </span>
             </button>
 
             <button
@@ -197,6 +197,8 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
 }
 
 export default function ExamBuilder({ isNew = false }: { isNew?: boolean }) {
+  const location = useLocation();
+  const isParentMode = location.pathname.startsWith('/parent/');
   return (
     <ExamEditorProvider>
       <ExamBuilderInner isNew={isNew} />

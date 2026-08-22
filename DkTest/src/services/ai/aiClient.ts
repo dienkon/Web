@@ -4,12 +4,12 @@ let aiInstance: GoogleGenAI | null = null;
 
 export function getAiClient(): GoogleGenAI {
   if (!aiInstance) {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY ;
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY is not configured on the server.");
+      console.warn("GEMINI_API_KEY is missing.");
     }
     aiInstance = new GoogleGenAI({
-      apiKey,
+      apiKey: apiKey || "",
       httpOptions: {
         headers: {
           "User-Agent": "aistudio-build",

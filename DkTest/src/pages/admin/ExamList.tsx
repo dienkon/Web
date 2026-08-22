@@ -66,38 +66,18 @@ const GRADE_CATEGORIES = [
 ];
 
 const FOLDER_COLORS = [
-  {
-    label: "Xanh lá",
-    value: "emerald",
-    bg: "bg-emerald-100 text-emerald-800 border-emerald-300",
-  },
-  {
-    label: "Xanh dương",
-    value: "blue",
-    bg: "bg-blue-100 text-blue-800 border-blue-300",
-  },
-  {
-    label: "Tím",
-    value: "indigo",
-    bg: "bg-indigo-100 text-indigo-800 border-indigo-300",
-  },
-  {
-    label: "Hổ phách",
-    value: "amber",
-    bg: "bg-amber-100 text-amber-800 border-amber-300",
-  },
-  {
-    label: "Hồng",
-    value: "rose",
-    bg: "bg-rose-100 text-rose-800 border-rose-300",
-  },
+  { label: "Xanh lá", value: "emerald", bg: "bg-emerald-100 text-emerald-800 border-emerald-300" },
+  { label: "Xanh dương", value: "blue", bg: "bg-blue-100 text-blue-800 border-blue-300" },
+  { label: "Tím", value: "indigo", bg: "bg-indigo-100 text-indigo-800 border-indigo-300" },
+  { label: "Hổ phách", value: "amber", bg: "bg-amber-100 text-amber-800 border-amber-300" },
+  { label: "Hồng", value: "rose", bg: "bg-rose-100 text-rose-800 border-rose-300" },
 ];
 
 // Helper to build nested tree options for select dropdowns
 const buildFolderTreeOptions = (
   folderList: Folder[],
   parentId: string | null = null,
-  depth = 0,
+  depth = 0
 ): { id: string; name: string; depth: number }[] => {
   const result: { id: string; name: string; depth: number }[] = [];
   const children = folderList.filter((f) => (f.parentId || null) === parentId);
@@ -112,7 +92,7 @@ const buildFolderTreeOptions = (
 // Helper to calculate breadcrumbs path
 const getBreadcrumbs = (
   currentId: string | null,
-  folderList: Folder[],
+  folderList: Folder[]
 ): { id: string | null; name: string }[] => {
   const crumbs: { id: string | null; name: string }[] = [];
   let curr: string | null = currentId;
@@ -144,15 +124,11 @@ export default function ExamList() {
   const [hasMore, setHasMore] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<
-    "all" | "published" | "unlisted" | "draft"
-  >("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "published" | "unlisted" | "draft">("all");
 
   // Google Drive Style Folder Hierarchy State
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null); // null = Root
-  const [viewFolderMode, setViewFolderMode] = useState<"current" | "all">(
-    "current",
-  ); // "current" folder or "all" exams
+  const [viewFolderMode, setViewFolderMode] = useState<"current" | "all">("current"); // "current" folder or "all" exams
 
   const [selectedSubject, setSelectedSubject] = useState<string>("all");
   const [selectedGrade, setSelectedGrade] = useState<string>("all");
@@ -229,7 +205,7 @@ export default function ExamList() {
         description: newFolderDesc.trim(),
         color: newFolderColor,
         parentId: currentFolderId || null,
-        ownerId: isParentMode ? userId || null : null,
+        ownerId: isParentMode ? (userId || null) : null,
       });
       setFolders((prev) => [created, ...prev]);
       setNewFolderName("");
@@ -274,9 +250,7 @@ export default function ExamList() {
       const destFolder = targetFolderId === "root" ? null : targetFolderId;
       await moveExamToFolder(movingExam.id, destFolder);
       setExams((prev) =>
-        prev.map((ex) =>
-          ex.id === movingExam.id ? { ...ex, folderId: destFolder } : ex,
-        ),
+        prev.map((ex) => (ex.id === movingExam.id ? { ...ex, folderId: destFolder } : ex))
       );
       toast.success("Đã chuyển thư mục bài thi!");
       setMovingExam(null);
@@ -291,19 +265,14 @@ export default function ExamList() {
     if (selectedExamIds.length === 0) return;
     setIsBulkProcessing(true);
     try {
-      const destFolder =
-        bulkTargetFolderId === "root" ? null : bulkTargetFolderId;
+      const destFolder = bulkTargetFolderId === "root" ? null : bulkTargetFolderId;
       await bulkMoveExamsToFolder(selectedExamIds, destFolder);
       setExams((prev) =>
         prev.map((ex) =>
-          selectedExamIds.includes(ex.id)
-            ? { ...ex, folderId: destFolder }
-            : ex,
-        ),
+          selectedExamIds.includes(ex.id) ? { ...ex, folderId: destFolder } : ex
+        )
       );
-      toast.success(
-        `Đã di chuyển ${selectedExamIds.length} bài thi vào thư mục!`,
-      );
+      toast.success(`Đã di chuyển ${selectedExamIds.length} bài thi vào thư mục!`);
       setSelectedExamIds([]);
       setShowBulkMoveModal(false);
     } catch (e) {
@@ -320,9 +289,7 @@ export default function ExamList() {
     try {
       await bulkDeleteExams(selectedExamIds);
       setExams((prev) => prev.filter((ex) => !selectedExamIds.includes(ex.id)));
-      toast.success(
-        `Đã xóa vĩnh viễn ${selectedExamIds.length} bài thi đã chọn!`,
-      );
+      toast.success(`Đã xóa vĩnh viễn ${selectedExamIds.length} bài thi đã chọn!`);
       setSelectedExamIds([]);
       setShowBulkDeleteModal(false);
     } catch (e) {
@@ -338,13 +305,9 @@ export default function ExamList() {
       const nextVal = !exam.isFeatured;
       await toggleExamFeatured(exam.id, nextVal);
       setExams((prev) =>
-        prev.map((e) => (e.id === exam.id ? { ...e, isFeatured: nextVal } : e)),
+        prev.map((e) => (e.id === exam.id ? { ...e, isFeatured: nextVal } : e))
       );
-      toast.success(
-        nextVal
-          ? "Đã ghim bài thi thành ĐỀ NỔI BẬT!"
-          : "Đã bỏ ghim đề nổi bật.",
-      );
+      toast.success(nextVal ? "Đã ghim bài thi thành ĐỀ NỔI BẬT!" : "Đã bỏ ghim đề nổi bật.");
     } catch (e) {
       console.error(e);
       toast.error("Thao tác thất bại.");
@@ -364,9 +327,7 @@ export default function ExamList() {
       await deleteExam(deletingExam.id);
       setExams((prev) => prev.filter((e) => e.id !== deletingExam.id));
       setSelectedExamIds((prev) => prev.filter((id) => id !== deletingExam.id));
-      toast.success(
-        `Đã xóa vĩnh viễn bài thi "${deletingExam.title}" thành công!`,
-      );
+      toast.success(`Đã xóa vĩnh viễn bài thi "${deletingExam.title}" thành công!`);
       setDeletingExam(null);
     } catch (err) {
       console.error("Lỗi khi xóa bài thi:", err);
@@ -385,7 +346,7 @@ export default function ExamList() {
 
   // Subfolders inside current view folder
   const currentSubfolders = folders.filter(
-    (f) => (f.parentId || null) === currentFolderId,
+    (f) => (f.parentId || null) === currentFolderId
   );
 
   // Filter exams according to search, folder, subject, grade, status
@@ -400,14 +361,10 @@ export default function ExamList() {
       matchFolder = (e.folderId || null) === currentFolderId;
     }
 
-    const matchSubject =
-      selectedSubject === "all" || e.subject === selectedSubject;
-    const matchGrade =
-      selectedGrade === "all" || e.gradeCategory === selectedGrade;
+    const matchSubject = selectedSubject === "all" || e.subject === selectedSubject;
+    const matchGrade = selectedGrade === "all" || e.gradeCategory === selectedGrade;
 
-    return (
-      matchQuery && matchStatus && matchFolder && matchSubject && matchGrade
-    );
+    return matchQuery && matchStatus && matchFolder && matchSubject && matchGrade;
   });
 
   // Select all checkbox state
@@ -425,7 +382,7 @@ export default function ExamList() {
 
   const toggleSelectExam = (id: string) => {
     setSelectedExamIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   };
 
@@ -435,10 +392,7 @@ export default function ExamList() {
   return (
     <div className="space-y-6 pb-20">
       {showImportModal && (
-        <JsonImportModal
-          onClose={() => setShowImportModal(false)}
-          onImport={handleImport}
-        />
+        <JsonImportModal onClose={() => setShowImportModal(false)} onImport={handleImport} />
       )}
 
       {/* Header & Main Actions */}
@@ -448,8 +402,7 @@ export default function ExamList() {
             Quản lý bài thi & Thư mục cây
           </h1>
           <p className="text-sm text-slate-500 mt-0.5">
-            Quản lý đề thi lồng thư mục dạng Google Drive, di chuyển và xóa hàng
-            loạt tiện lợi.
+            Quản lý đề thi lồng thư mục dạng Google Drive, di chuyển và xóa hàng loạt tiện lợi.
           </p>
         </div>
 
@@ -458,7 +411,8 @@ export default function ExamList() {
             onClick={() => setShowCreateFolderModal(true)}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl hover:bg-emerald-100 transition-colors text-sm font-bold shadow-2xs cursor-pointer"
           >
-            <FolderPlus className="w-4 h-4 text-emerald-600" />+ Thư mục mới
+            <FolderPlus className="w-4 h-4 text-emerald-600" />
+            + Thư mục mới
           </button>
           <button
             onClick={() => setShowImportModal(true)}
@@ -556,7 +510,8 @@ export default function ExamList() {
                 onClick={() => setShowCreateFolderModal(true)}
                 className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
               >
-                <FolderPlus className="w-3.5 h-3.5" />+ Tạo thư mục con tại đây
+                <FolderPlus className="w-3.5 h-3.5" />
+                + Tạo thư mục con tại đây
               </button>
             </div>
 
@@ -568,14 +523,9 @@ export default function ExamList() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {currentSubfolders.map((f) => {
                   const colorObj =
-                    FOLDER_COLORS.find((c) => c.value === f.color) ||
-                    FOLDER_COLORS[0];
-                  const childFolderCount = folders.filter(
-                    (child) => child.parentId === f.id,
-                  ).length;
-                  const childExamCount = exams.filter(
-                    (e) => e.folderId === f.id,
-                  ).length;
+                    FOLDER_COLORS.find((c) => c.value === f.color) || FOLDER_COLORS[0];
+                  const childFolderCount = folders.filter((child) => child.parentId === f.id).length;
+                  const childExamCount = exams.filter((e) => e.folderId === f.id).length;
 
                   return (
                     <div
@@ -669,9 +619,7 @@ export default function ExamList() {
             <button
               onClick={() => setStatusFilter("all")}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                statusFilter === "all"
-                  ? "bg-white text-slate-900 shadow-2xs"
-                  : "text-slate-600"
+                statusFilter === "all" ? "bg-white text-slate-900 shadow-2xs" : "text-slate-600"
               }`}
             >
               Tất cả
@@ -679,9 +627,7 @@ export default function ExamList() {
             <button
               onClick={() => setStatusFilter("published")}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                statusFilter === "published"
-                  ? "bg-emerald-600 text-white shadow-2xs"
-                  : "text-slate-600"
+                statusFilter === "published" ? "bg-emerald-600 text-white shadow-2xs" : "text-slate-600"
               }`}
             >
               Công khai
@@ -689,9 +635,7 @@ export default function ExamList() {
             <button
               onClick={() => setStatusFilter("draft")}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                statusFilter === "draft"
-                  ? "bg-amber-600 text-white shadow-2xs"
-                  : "text-slate-600"
+                statusFilter === "draft" ? "bg-amber-600 text-white shadow-2xs" : "text-slate-600"
               }`}
             >
               Nháp
@@ -750,13 +694,10 @@ export default function ExamList() {
               <FileText className="w-7 h-7" />
             </div>
             <h3 className="text-base font-bold text-slate-900 mb-1">
-              {searchQuery
-                ? "Không tìm thấy bài thi phù hợp"
-                : "Chưa có bài thi nào ở thư mục này"}
+              {searchQuery ? "Không tìm thấy bài thi phù hợp" : "Chưa có bài thi nào ở thư mục này"}
             </h3>
             <p className="text-sm text-slate-500 mb-6 max-w-sm mx-auto">
-              Hãy chọn thư mục khác, mở chế độ xem "Tất cả đề thi" hoặc tạo đề
-              thi mới.
+              Hãy chọn thư mục khác, mở chế độ xem "Tất cả đề thi" hoặc tạo đề thi mới.
             </p>
             <Link
               to={isParentMode ? "/parent/exams/new" : "/admin/exams/new"}
@@ -818,15 +759,9 @@ export default function ExamList() {
                               ? "bg-amber-100 text-amber-600 border-amber-300 shadow-2xs"
                               : "bg-slate-50 text-slate-300 border-slate-200 hover:text-amber-500"
                           }`}
-                          title={
-                            exam.isFeatured
-                              ? "Đề Nổi bật (Đã ghim)"
-                              : "Ghim làm đề nổi bật"
-                          }
+                          title={exam.isFeatured ? "Đề Nổi bật (Đã ghim)" : "Ghim làm đề nổi bật"}
                         >
-                          <Star
-                            className={`w-4 h-4 ${exam.isFeatured ? "fill-amber-500" : ""}`}
-                          />
+                          <Star className={`w-4 h-4 ${exam.isFeatured ? "fill-amber-500" : ""}`} />
                         </button>
                       </td>
 
@@ -854,9 +789,7 @@ export default function ExamList() {
                               className="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded-md text-slate-700 font-bold text-[11px] transition-colors cursor-pointer"
                               title="Thay đổi thư mục chứa"
                             >
-                              <span>
-                                📁 {folder ? folder.name : "Thư mục gốc"}
-                              </span>
+                              <span>📁 {folder ? folder.name : "Thư mục gốc"}</span>
                               <Move className="w-3 h-3 text-slate-400" />
                             </button>
                             <span>•</span>
@@ -894,15 +827,15 @@ export default function ExamList() {
                                 exam.status === "published"
                                   ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                                   : exam.status === "unlisted"
-                                    ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
-                                    : "bg-slate-100 text-slate-700 border border-slate-200"
+                                  ? "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                                  : "bg-slate-100 text-slate-700 border border-slate-200"
                               }`}
                             >
                               {exam.status === "published"
                                 ? "Công khai"
                                 : exam.status === "unlisted"
-                                  ? "Không công khai"
-                                  : "Bản nháp"}
+                                ? "Không công khai"
+                                : "Bản nháp"}
                             </span>
                           </div>
                         </div>
@@ -1008,11 +941,7 @@ export default function ExamList() {
               </label>
               <select
                 value={currentFolderId || "root"}
-                onChange={(e) =>
-                  setCurrentFolderId(
-                    e.target.value === "root" ? null : e.target.value,
-                  )
-                }
+                onChange={(e) => setCurrentFolderId(e.target.value === "root" ? null : e.target.value)}
                 className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800"
               >
                 <option value="root">📁 Drive Gốc (Thư mục ngoài cùng)</option>
@@ -1025,9 +954,7 @@ export default function ExamList() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Tên thư mục *
-              </label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Tên thư mục *</label>
               <input
                 type="text"
                 required
@@ -1039,9 +966,7 @@ export default function ExamList() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Mô tả thư mục
-              </label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Mô tả thư mục</label>
               <input
                 type="text"
                 value={newFolderDesc}
@@ -1052,9 +977,7 @@ export default function ExamList() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Thẻ màu nhận diện
-              </label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Thẻ màu nhận diện</label>
               <div className="flex items-center gap-2 flex-wrap">
                 {FOLDER_COLORS.map((col) => (
                   <button
@@ -1110,9 +1033,7 @@ export default function ExamList() {
             </div>
 
             <p className="text-xs text-slate-600 font-medium">
-              Chuyển bài thi{" "}
-              <strong className="text-slate-900">{movingExam.title}</strong> vào
-              thư mục:
+              Chuyển bài thi <strong className="text-slate-900">{movingExam.title}</strong> vào thư mục:
             </p>
 
             <select
@@ -1120,9 +1041,7 @@ export default function ExamList() {
               onChange={(e) => setTargetFolderId(e.target.value)}
               className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
-              <option value="root">
-                📁 Drive Gốc (Không thuộc thư mục nào)
-              </option>
+              <option value="root">📁 Drive Gốc (Không thuộc thư mục nào)</option>
               {folderTreeOptions.map((f) => (
                 <option key={f.id} value={f.id}>
                   {"\u00A0".repeat(f.depth * 4)}📁 {f.name}
@@ -1169,8 +1088,7 @@ export default function ExamList() {
             </div>
 
             <p className="text-xs text-slate-600 font-medium">
-              Chọn thư mục đích để di chuyển toàn bộ {selectedExamIds.length}{" "}
-              bài thi đã chọn:
+              Chọn thư mục đích để di chuyển toàn bộ {selectedExamIds.length} bài thi đã chọn:
             </p>
 
             <select
@@ -1178,9 +1096,7 @@ export default function ExamList() {
               onChange={(e) => setBulkTargetFolderId(e.target.value)}
               className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
-              <option value="root">
-                📁 Drive Gốc (Không thuộc thư mục nào)
-              </option>
+              <option value="root">📁 Drive Gốc (Không thuộc thư mục nào)</option>
               {folderTreeOptions.map((f) => (
                 <option key={f.id} value={f.id}>
                   {"\u00A0".repeat(f.depth * 4)}📁 {f.name}
@@ -1218,11 +1134,9 @@ export default function ExamList() {
         title="Xác nhận xóa hàng loạt"
         message={
           <div>
-            Bạn có chắc chắn muốn xóa vĩnh viễn{" "}
-            <strong>{selectedExamIds.length} bài thi</strong> đã chọn?
+            Bạn có chắc chắn muốn xóa vĩnh viễn <strong>{selectedExamIds.length} bài thi</strong> đã chọn?
             <p className="text-red-600 font-semibold text-xs mt-2">
-              ⚠️ Cảnh báo: Toàn bộ cấu trúc câu hỏi, bài làm và lịch sử thi của
-              các đề thi này sẽ bị xóa vĩnh viễn.
+              ⚠️ Cảnh báo: Toàn bộ cấu trúc câu hỏi, bài làm và lịch sử thi của các đề thi này sẽ bị xóa vĩnh viễn.
             </p>
           </div>
         }
@@ -1241,15 +1155,10 @@ export default function ExamList() {
         message={
           deletingExam ? (
             <div>
-              Bạn có chắc chắn muốn xóa bài thi{" "}
-              <strong>"{deletingExam.title}"</strong> (Mã:{" "}
-              <span className="font-mono text-blue-600">
-                {deletingExam.code}
-              </span>
-              )?
+              Bạn có chắc chắn muốn xóa bài thi <strong>"{deletingExam.title}"</strong> (Mã:{" "}
+              <span className="font-mono text-blue-600">{deletingExam.code}</span>)?
               <p className="text-red-600 font-semibold text-xs mt-2">
-                ⚠️ Cảnh báo: Thao tác này sẽ xóa vĩnh viễn toàn bộ phần thi, câu
-                hỏi và tất cả bài nộp của học sinh.
+                ⚠️ Cảnh báo: Thao tác này sẽ xóa vĩnh viễn toàn bộ phần thi, câu hỏi và tất cả bài nộp của học sinh.
               </p>
             </div>
           ) : (
@@ -1271,11 +1180,9 @@ export default function ExamList() {
         message={
           folderToDelete ? (
             <div>
-              Bạn có chắc chắn muốn xóa thư mục{" "}
-              <strong>"{folderToDelete.name}"</strong>?
+              Bạn có chắc chắn muốn xóa thư mục <strong>"{folderToDelete.name}"</strong>?
               <p className="text-slate-600 text-xs mt-2">
-                Các thư mục con và bài thi bên trong sẽ được tự động chuyển lên
-                thư mục cha.
+                Các thư mục con và bài thi bên trong sẽ được tự động chuyển lên thư mục cha.
               </p>
             </div>
           ) : (

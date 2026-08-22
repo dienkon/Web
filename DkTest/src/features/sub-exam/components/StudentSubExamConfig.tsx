@@ -112,7 +112,7 @@ export default function StudentSubExamConfig({
                     onChange={(e) =>
                       updateConfig({
                         randomSectionsCount:
-                          e.target.value === "" ? undefined : parseInt(e.target.value) || 0,
+                          e.target.value === "" ? undefined : parseInt(e.target.value),
                       })
                     }
                     placeholder={`Tất cả (${sections.length})`}
@@ -148,7 +148,7 @@ export default function StudentSubExamConfig({
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
                     value={config.singleChoiceCount ?? ""}
                     onChange={(e) =>
-                      updateConfig({ singleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) || 0 })
+                      updateConfig({ singleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
                     placeholder={`Tất cả (${singleChoiceTotal})`}
                   />
@@ -166,7 +166,7 @@ export default function StudentSubExamConfig({
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
                     value={config.multipleChoiceCount ?? ""}
                     onChange={(e) =>
-                      updateConfig({ multipleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) || 0 })
+                      updateConfig({ multipleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
                     placeholder={`Tất cả (${multipleChoiceTotal})`}
                   />
@@ -184,7 +184,7 @@ export default function StudentSubExamConfig({
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
                     value={config.trueFalseCount ?? ""}
                     onChange={(e) =>
-                      updateConfig({ trueFalseCount: e.target.value === "" ? undefined : parseInt(e.target.value) || 0 })
+                      updateConfig({ trueFalseCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
                     placeholder={`Tất cả (${trueFalseTotal})`}
                   />
@@ -202,7 +202,7 @@ export default function StudentSubExamConfig({
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
                     value={config.shortAnswerCount ?? ""}
                     onChange={(e) =>
-                      updateConfig({ shortAnswerCount: e.target.value === "" ? undefined : parseInt(e.target.value) || 0 })
+                      updateConfig({ shortAnswerCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
                     placeholder={`Tất cả (${shortAnswerTotal})`}
                   />
@@ -258,7 +258,7 @@ export default function StudentSubExamConfig({
                           onChange={(e) =>
                             updateSectionSubExam(sec.id, {
                               questionCount:
-                                e.target.value === "" ? undefined : parseInt(e.target.value) || 0,
+                                e.target.value === "" ? undefined : parseInt(e.target.value),
                             })
                           }
                           placeholder={`Tất cả (${secQs.length})`}

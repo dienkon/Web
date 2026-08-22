@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .responsive-table-container {
+    @apply w-full overflow-x-auto;
+  }
+  
+  .responsive-table-container table {
+    @apply min-w-full divide-y divide-slate-200;
+  }
+  
+  .responsive-table-container th,
+  .responsive-table-container td {
+    @apply px-4 py-2 border border-slate-200 text-sm;
+  }
+  
+  .responsive-table-container th {
+    @apply bg-slate-50 font-bold text-slate-700 text-left;
+  }
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}

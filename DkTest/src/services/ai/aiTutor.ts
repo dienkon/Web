@@ -1,12 +1,8 @@
-import { getAiClient, defaultModel } from "./aiClient.js";
+import { getAiClient, defaultModel } from "./aiClient";
 
 export async function askTutor(
   messages: Array<{ role: "user" | "model"; text: string }>,
-  context?: {
-    examTitle?: string;
-    currentQuestionText?: string;
-    studentAnswer?: any;
-  },
+  context?: { examTitle?: string; currentQuestionText?: string; studentAnswer?: any }
 ) {
   const ai = getAiClient();
 
@@ -29,7 +25,7 @@ QUY TẮC BẮT BUỘC KHI GIẢI ĐÁP:
 5. TRUNG THỰC & CHÍNH XÁC: Không tự bịa đặt kiến thức. Nếu câu hỏi chưa đủ dữ kiện, hãy chỉ rõ thông tin nào còn thiếu. Sử dụng tiếng Việt chuẩn mực, sư phạm, thân thiện và động viên học sinh.`;
 
   if (context && context.currentQuestionText) {
-    systemInstruction += `\n\nBỐI CẢNH CÂU HỎI:\nHọc sinh đang xem đề thi: "${context.examTitle || "Chưa xác định"}".\nCâu hỏi hiện tại:\n${context.currentQuestionText}\n`;
+    systemInstruction += `\n\nBỐI CẢNH CÂU HỎI:\nHọc sinh đang xem đề thi: "${context.examTitle || 'Chưa xác định'}".\nCâu hỏi hiện tại:\n${context.currentQuestionText}\n`;
     if (context.studentAnswer !== undefined) {
       systemInstruction += `Lựa chọn hiện tại của học sinh: ${JSON.stringify(context.studentAnswer)}\n`;
     }
@@ -43,25 +39,25 @@ QUY TẮC BẮT BUỘC KHI GIẢI ĐÁP:
     },
   });
 
-  // Since ai.chats.create starts a new chat, we need to feed the history if any,
+  // Since ai.chats.create starts a new chat, we need to feed the history if any, 
   // but `@google/genai` manages history differently.
-  // Actually, we can just send the messages as a single prompt with history formatted,
+  // Actually, we can just send the messages as a single prompt with history formatted, 
   // or use the history param in create() if supported. Let's just concatenate or use the SDK properly.
   // The SDK doesn't natively expose a simple `history` array in `ai.chats.create` like the old one,
-  // wait, the new SDK `ai.chats.create({ history: [...] })` might be supported, but let's just pass
+  // wait, the new SDK `ai.chats.create({ history: [...] })` might be supported, but let's just pass 
   // the conversation manually to `ai.models.generateContentStream` to be safe.
 
-  const contents = messages.map((msg) => ({
+  const contents = messages.map(msg => ({
     role: msg.role,
-    parts: [{ text: msg.text }],
+    parts: [{ text: msg.text }]
   }));
-  console.log("[AI Tutor] Model:", defaultModel);
+console.log("[AI Tutor] Model:", defaultModel);
   const stream = await ai.models.generateContentStream({
     model: defaultModel,
     contents,
     config: {
-      systemInstruction,
-    },
+      systemInstruction
+    }
   });
 
   return stream;

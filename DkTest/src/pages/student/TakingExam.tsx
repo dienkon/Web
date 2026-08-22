@@ -29,20 +29,8 @@ import { createSubmission } from "../../services/submissionService";
 import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExamAttempt";
 import { organizeAndShuffleExam } from "../../utils/examShuffler";
 import { saveStudentProfile } from "../../services/studentService";
-import {
-  syncRealtimeSession,
-  updateRealtimeSessionMetrics,
-  removeRealtimeSession,
-  subscribeToSingleSession,
-} from "../../services/realtimeProctoringService";
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy,
-  getDoc,
-  doc,
-} from "firebase/firestore";
+import { syncRealtimeSession, updateRealtimeSessionMetrics, removeRealtimeSession, subscribeToSingleSession } from "../../services/realtimeProctoringService";
+import { collection, getDocs, query, orderBy, getDoc, doc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import {
   saveActiveExamSession,
@@ -78,7 +66,7 @@ export default function TakingExam() {
   const [isPaused, setIsPaused] = useState(false);
   const [isSuspended, setIsSuspended] = useState(false);
   const [adminMessage, setAdminMessage] = useState("");
-
+  
   const [submitting, setSubmitting] = useState(false);
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
@@ -91,11 +79,11 @@ export default function TakingExam() {
   // New UI controls: Show/Hide Map & Paging vs Scroll view
   const [showMap, setShowMap] = useState<boolean>(window.innerWidth >= 1024);
   const [displayMode, setDisplayMode] = useState<"paging" | "scroll">(
-    window.innerWidth < 1024 ? "scroll" : "paging",
+    window.innerWidth < 1024 ? "scroll" : "paging"
   );
   const [showScratchpad, setShowScratchpad] = useState(false);
   const [showCasio, setShowCasio] = useState(false);
-
+  
   // Force scroll mode on resize if mobile
   useEffect(() => {
     const handleResize = () => {
@@ -108,24 +96,15 @@ export default function TakingExam() {
   }, []);
 
   const startTimeRef = useRef<number>(Date.now());
-  const sessionIdRef = useRef<string>(
-    (() => {
-      try {
-        const sInfo =
-          localStorage.getItem("student_info") ||
-          localStorage.getItem("current_student_session");
-        const u = sInfo ? JSON.parse(sInfo).username : "student";
-        return `sess_${u}_${window.location.pathname.split("/")[3] || Date.now()}`;
-      } catch (e) {
-        return (
-          "sess_" +
-          Date.now() +
-          "_" +
-          Math.random().toString(36).substring(2, 7)
-        );
-      }
-    })(),
-  );
+  const sessionIdRef = useRef<string>((() => {
+    try {
+      const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+      const u = sInfo ? JSON.parse(sInfo).username : "student";
+      return `sess_${u}_${window.location.pathname.split("/")[3] || Date.now()}`;
+    } catch (e) {
+      return "sess_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
+    }
+  })());
   const isSessionActiveRef = useRef<boolean>(true);
   const isSubmittingRef = useRef<boolean>(false);
   const isManualScrollingRef = useRef<boolean>(false);
@@ -136,14 +115,7 @@ export default function TakingExam() {
 
   // Realtime Active Session Sync to Firestore and RTDB
   const syncCurrentSession = async (force: boolean = false) => {
-    if (
-      !examId ||
-      loading ||
-      !exam ||
-      !isSessionActiveRef.current ||
-      isSubmittingRef.current
-    )
-      return;
+    if (!examId || loading || !exam || !isSessionActiveRef.current || isSubmittingRef.current) return;
 
     const now = Date.now();
     // Throttle automatic timer updates to once every 5 seconds unless forced
@@ -152,9 +124,7 @@ export default function TakingExam() {
     }
     lastSyncTimeRef.current = now;
 
-    const studentInfoStr =
-      localStorage.getItem("student_info") ||
-      localStorage.getItem("current_student_session");
+    const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
     let studentUsername = "student";
     let studentClass = "Học sinh";
     let currentDisplayName = studentName;
@@ -162,12 +132,8 @@ export default function TakingExam() {
       try {
         const parsed = JSON.parse(studentInfoStr);
         if (parsed.username) studentUsername = parsed.username;
-        if (parsed.studentClass || parsed.class)
-          studentClass = parsed.studentClass || parsed.class;
-        if (
-          parsed.displayName &&
-          (!currentDisplayName || currentDisplayName === "Thí sinh")
-        ) {
+        if (parsed.studentClass || parsed.class) studentClass = parsed.studentClass || parsed.class;
+        if (parsed.displayName && (!currentDisplayName || currentDisplayName === "Thí sinh")) {
           currentDisplayName = parsed.displayName;
         }
       } catch (e) {}
@@ -230,31 +196,23 @@ export default function TakingExam() {
   // Listen for admin actions (pause, suspend)
   useEffect(() => {
     if (!sessionIdRef.current || loading || !exam) return;
-
-    const unsubscribe = subscribeToSingleSession(
-      sessionIdRef.current,
-      (liveSession) => {
-        if (liveSession) {
-          if (liveSession.adminAction === "pause") {
-            // Maybe we show a modal overlay in TakingExam
-            setIsPaused(true);
-            setAdminMessage(
-              liveSession.adminMessage ||
-                "Bài thi của bạn đang bị tạm dừng bởi Giám thị.",
-            );
-          } else if (liveSession.adminAction === "suspend" && !isSuspended) {
-            setIsSuspended(true);
-            setAdminMessage(
-              liveSession.adminMessage || "Bạn đã bị đình chỉ thi.",
-            );
-            // Force submit
-            executeSubmit();
-          } else {
-            setIsPaused(false);
-          }
+    
+    const unsubscribe = subscribeToSingleSession(sessionIdRef.current, (liveSession) => {
+      if (liveSession) {
+        if (liveSession.adminAction === 'pause') {
+           // Maybe we show a modal overlay in TakingExam
+           setIsPaused(true);
+           setAdminMessage(liveSession.adminMessage || 'Bài thi của bạn đang bị tạm dừng bởi Giám thị.');
+        } else if (liveSession.adminAction === 'suspend' && !isSuspended) {
+           setIsSuspended(true);
+           setAdminMessage(liveSession.adminMessage || 'Bạn đã bị đình chỉ thi.');
+           // Force submit
+           executeSubmit();
+        } else {
+           setIsPaused(false);
         }
-      },
-    );
+      }
+    });
 
     return () => unsubscribe();
   }, [loading, exam]);
@@ -268,33 +226,25 @@ export default function TakingExam() {
       const studentInfoStr = localStorage.getItem("student_info");
       if ((authRole !== "student" && authRole !== "admin") || !studentInfoStr) {
         showErrorToast("Vui lòng đăng nhập tài khoản học sinh để làm bài thi!");
-        navigate(
-          `/student/login?redirect=${encodeURIComponent(`/student/exam/${examId}`)}`,
-          { replace: true },
-        );
+        navigate(`/student/login?redirect=${encodeURIComponent(`/student/exam/${examId}`)}`, { replace: true });
         return;
       }
 
       setLoading(true);
       try {
         console.log(`[Firestore] Loading exam for taking: ${examId}`);
-        console.log("[Firestore] READ: exams/" + examId);
-        const examDoc = await getDoc(doc(db, "exams", examId));
+        console.log("[Firestore] READ: exams/" + examId); const examDoc = await getDoc(doc(db, "exams", examId));
         if (!examDoc.exists()) {
           showErrorToast("Không tìm thấy bài thi!");
           navigate("/", { replace: true });
           return;
         }
-
+        
         console.log(`[Firestore] Exam loaded with 1 document read: ${examId}`);
         const data = examDoc.data();
-        const {
-          sections: docSections,
-          questions: docQuestions,
-          ...meta
-        } = data;
+        const { sections: docSections, questions: docQuestions, ...meta } = data;
         const examData = meta as Exam;
-
+        
         setExam(examData);
 
         // Retrieve student session name or profile
@@ -314,52 +264,31 @@ export default function TakingExam() {
         }
 
         // Fetch questions from document or fallback to subcollection if missing (legacy)
-        let rawQuestions: Question[] = Array.isArray(docQuestions)
-          ? docQuestions
-          : [];
+        let rawQuestions: Question[] = Array.isArray(docQuestions) ? docQuestions : [];
         if (!Array.isArray(docQuestions)) {
-          console.log(
-            "[Firestore] READ_MANY: exams/" + examId + "/questions (fallback)",
-          );
-          const qSnap = await getDocs(
-            query(collection(db, `exams/${examId}/questions`)),
-          );
-          rawQuestions = qSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Question,
-          );
+          console.log("[Firestore] READ_MANY: exams/" + examId + "/questions (fallback)"); const qSnap = await getDocs(query(collection(db, `exams/${examId}/questions`)));
+          rawQuestions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
         }
-        rawQuestions.sort((a, b) => (a.order || 0) - (b.order || 0));
+        rawQuestions.sort((a,b) => (a.order || 0) - (b.order || 0));
 
         // Fetch sections from document or fallback to subcollection if missing (legacy)
-        let rawSections: Section[] = Array.isArray(docSections)
-          ? docSections
-          : [];
+        let rawSections: Section[] = Array.isArray(docSections) ? docSections : [];
         if (!Array.isArray(docSections)) {
-          console.log(
-            "[Firestore] READ_MANY: exams/" + examId + "/sections (fallback)",
-          );
-          const secSnap = await getDocs(
-            query(collection(db, `exams/${examId}/sections`)),
-          );
-          rawSections = secSnap.docs.map(
-            (d) => ({ id: d.id, ...d.data() }) as Section,
-          );
+          console.log("[Firestore] READ_MANY: exams/" + examId + "/sections (fallback)"); const secSnap = await getDocs(query(collection(db, `exams/${examId}/sections`)));
+          rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
         }
-        rawSections.sort((a, b) => (a.order || 0) - (b.order || 0));
+        rawSections.sort((a,b) => (a.order || 0) - (b.order || 0));
 
         if (examData.shuffleSections && rawSections.length > 0) {
           const unpinned = shuffleArray(rawSections.filter((s) => !s.pinOrder));
           let unpinnedIdx = 0;
-          rawSections = rawSections.map((sec) =>
-            sec.pinOrder ? sec : unpinned[unpinnedIdx++],
-          );
+          rawSections = rawSections.map((sec) => (sec.pinOrder ? sec : unpinned[unpinnedIdx++]));
         }
         setSections(rawSections);
 
         // Student Info & Snapshot Storage Key
         const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
-        const studentIdentifier =
-          studentInfo?.username || studentInfo?.displayName || "student";
+        const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "student";
         sessionIdRef.current = `sess_${studentIdentifier.toLowerCase().replace(/[^a-z0-9]/g, "_")}_${examId}`;
         const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
 
@@ -373,11 +302,7 @@ export default function TakingExam() {
           if (snapshotStr) activeSnapshot = JSON.parse(snapshotStr);
         } catch (e) {}
 
-        if (
-          activeSnapshot &&
-          activeSnapshot.shuffledQuestions &&
-          activeSnapshot.shuffledQuestions.length > 0
-        ) {
+        if (activeSnapshot && activeSnapshot.shuffledQuestions && activeSnapshot.shuffledQuestions.length > 0) {
           // Full restore with frozen shuffled questions & options
           allQuestions = activeSnapshot.shuffledQuestions;
           isSubExamUsedRef.current = !!activeSnapshot.configSnapshot;
@@ -390,7 +315,7 @@ export default function TakingExam() {
             .filter(Boolean) as Question[];
           isSubExamUsedRef.current = !!activeSnapshot.configSnapshot;
           subExamConfigUsedRef.current = activeSnapshot.configSnapshot || null;
-
+          
           allQuestions = allQuestions.map((q) => {
             let processed = { ...q };
             if (
@@ -413,53 +338,38 @@ export default function TakingExam() {
           });
 
           // Update snapshot with frozen questions
-          localStorage.setItem(
-            snapshotKey,
-            JSON.stringify({
-              ...activeSnapshot,
-              shuffledQuestions: allQuestions,
-            }),
-          );
+          localStorage.setItem(snapshotKey, JSON.stringify({
+            ...activeSnapshot,
+            shuffledQuestions: allQuestions,
+          }));
         } else {
           // Check for student's custom sub-exam config
           let studentSubExamConfig = null;
-          let useSubExam =
-            examData.allowSubExam && examData.subExamConfig?.enabled;
+          let useSubExam = examData.allowSubExam && examData.subExamConfig?.enabled;
           try {
-            const storedConfigStr = localStorage.getItem(
-              `custom_sub_exam_config_${examId}`,
-            );
+            const storedConfigStr = localStorage.getItem(`custom_sub_exam_config_${examId}`);
             if (storedConfigStr) {
               const storedConfig = JSON.parse(storedConfigStr);
               if (storedConfig.useSubExam !== undefined) {
                 useSubExam = storedConfig.useSubExam;
                 if (useSubExam && storedConfig.config) {
-                  studentSubExamConfig = storedConfig.config;
+                   studentSubExamConfig = storedConfig.config;
                 }
               }
             }
-          } catch (e) {}
+          } catch(e) {}
 
           // Normal load or build sub-exam
           if (useSubExam && (studentSubExamConfig || examData.subExamConfig)) {
             const finalConfig = studentSubExamConfig || examData.subExamConfig;
-            const attempt = buildSubExamAttempt(
-              examData,
-              rawQuestions,
-              rawSections,
-              finalConfig,
-            );
+            const attempt = buildSubExamAttempt(examData, rawQuestions, rawSections, finalConfig);
             allQuestions = attempt.questions;
             isSubExamUsedRef.current = true;
             subExamConfigUsedRef.current = attempt.config || null;
           } else {
             isSubExamUsedRef.current = false;
             subExamConfigUsedRef.current = null;
-            const organized = organizeAndShuffleExam(
-              examData,
-              rawQuestions,
-              rawSections,
-            );
+            const organized = organizeAndShuffleExam(examData, rawQuestions, rawSections);
             allQuestions = organized.orderedQuestions;
           }
 
@@ -488,17 +398,17 @@ export default function TakingExam() {
           const newSnapshot = {
             examId,
             attemptId: sessionIdRef.current,
-            selectedQuestionIds: allQuestions.map((q) => q.id),
-            questionOrder: allQuestions.map((q) => q.id),
+            selectedQuestionIds: allQuestions.map(q => q.id),
+            questionOrder: allQuestions.map(q => q.id),
             shuffledQuestions: allQuestions,
             configSnapshot: subExamConfigUsedRef.current,
-            createdAt: Date.now(),
+            createdAt: Date.now()
           };
           localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
         }
 
         setQuestions(allQuestions);
-
+        
         // Active Exam Session & Timer Logic
         const activeSession = getActiveExamSession(examId);
         let startTime = Date.now();
@@ -506,10 +416,7 @@ export default function TakingExam() {
 
         if (activeSession && activeSession.status === "in-progress") {
           // Restore in-progress answers and proctoring info
-          if (
-            activeSession.answers &&
-            Object.keys(activeSession.answers).length > 0
-          ) {
+          if (activeSession.answers && Object.keys(activeSession.answers).length > 0) {
             setAnswers(activeSession.answers);
           }
           if (activeSession.flagged) {
@@ -530,9 +437,7 @@ export default function TakingExam() {
             setTimeLeft(0);
           } else {
             setTimeLeft(Math.floor(remainingMs / 1000));
-            showInfoToast(
-              "Đã khôi phục bài làm dở và thời gian làm bài của bạn!",
-            );
+            showInfoToast("Đã khôi phục bài làm dở và thời gian làm bài của bạn!");
           }
         } else {
           // New Attempt Session
@@ -569,6 +474,7 @@ export default function TakingExam() {
             warnings: 0,
           });
         }
+
       } catch (err) {
         console.error("Lỗi khi chuẩn bị phòng thi:", err);
       } finally {
@@ -582,45 +488,36 @@ export default function TakingExam() {
   // Timer countdown & auto-submit when remaining time expires
   useEffect(() => {
     if (loading || !exam || isPaused) return;
-
+    
     // If timer is already at 0, trigger auto submit immediately
     if (timeLeft <= 0) {
-      if (
-        !hasAutoSubmittedRef.current &&
-        !isSubmittingRef.current &&
-        !submitting
-      ) {
+      if (!hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
         hasAutoSubmittedRef.current = true;
         handleAutoSubmit();
       }
       return;
     }
-
+    
     const timer = setInterval(() => {
       const studentInfoStr = localStorage.getItem("student_info");
       const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
-      const studentIdentifier =
-        studentInfo?.username || studentInfo?.displayName || "unknown";
+      const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "unknown";
       const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
-
+      
       const storedStart = localStorage.getItem(storageKey);
       let startTime = startTimeRef.current;
       if (storedStart) {
         startTime = parseInt(storedStart, 10);
       }
-
+      
       const limitMs = (exam?.timeLimit || 45) * 60 * 1000;
       const elapsedMs = Date.now() - startTime;
       const remainingMs = limitMs - elapsedMs;
-
+      
       if (remainingMs <= 0) {
         clearInterval(timer);
         setTimeLeft(0);
-        if (
-          !hasAutoSubmittedRef.current &&
-          !isSubmittingRef.current &&
-          !submitting
-        ) {
+        if (!hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
           hasAutoSubmittedRef.current = true;
           handleAutoSubmit();
         }
@@ -633,14 +530,7 @@ export default function TakingExam() {
 
   // Guaranteed safeguard auto-submit when timeLeft is 0
   useEffect(() => {
-    if (
-      !loading &&
-      exam &&
-      timeLeft <= 0 &&
-      !hasAutoSubmittedRef.current &&
-      !isSubmittingRef.current &&
-      !submitting
-    ) {
+    if (!loading && exam && timeLeft <= 0 && !hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
       hasAutoSubmittedRef.current = true;
       handleAutoSubmit();
     }
@@ -648,29 +538,14 @@ export default function TakingExam() {
 
   // Continuously sync in-progress answers & state to localStorage
   useEffect(() => {
-    if (
-      !loading &&
-      exam &&
-      examId &&
-      !submitting &&
-      isSessionActiveRef.current
-    ) {
+    if (!loading && exam && examId && !submitting && isSessionActiveRef.current) {
       updateActiveExamSessionAnswers(examId, answers, {
         flagged,
         activeQuestionIdx,
         warnings,
       });
     }
-  }, [
-    answers,
-    flagged,
-    activeQuestionIdx,
-    warnings,
-    loading,
-    exam,
-    examId,
-    submitting,
-  ]);
+  }, [answers, flagged, activeQuestionIdx, warnings, loading, exam, examId, submitting]);
 
   // Anti-cheat detection: visibilitychange & window blur
   useEffect(() => {
@@ -697,13 +572,7 @@ export default function TakingExam() {
 
   // ScrollSpy for Active Question Tracking in Scroll Mode
   useEffect(() => {
-    if (
-      displayMode === "paging" ||
-      questions.length === 0 ||
-      loading ||
-      submitting
-    )
-      return;
+    if (displayMode === "paging" || questions.length === 0 || loading || submitting) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -732,7 +601,7 @@ export default function TakingExam() {
         root: null,
         rootMargin: "-20% 0px -40% 0px", // Trigger active when it passes the top 20%
         threshold: [0.1, 0.5, 0.9],
-      },
+      }
     );
 
     questions.forEach((_, idx) => {
@@ -749,13 +618,7 @@ export default function TakingExam() {
   const calculateScore = () => {
     const totalQ = questions.length;
     if (totalQ === 0) {
-      return {
-        rawScore: 0,
-        score: 0,
-        correctCount: 0,
-        maxScore: 10,
-        totalCount: 0,
-      };
+      return { rawScore: 0, score: 0, correctCount: 0, maxScore: 10, totalCount: 0 };
     }
 
     const pointPerQuestion = 10 / totalQ;
@@ -800,8 +663,7 @@ export default function TakingExam() {
           }
         }
       } else if (q.type === "short_answer") {
-        const accepted =
-          q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
+        const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
         const isCorrect = accepted.includes(String(ans).trim().toLowerCase());
         if (isCorrect) {
           totalEarnedPoints += pointPerQuestion;
@@ -822,9 +684,7 @@ export default function TakingExam() {
   };
 
   const handleAutoSubmit = async () => {
-    showInfoToast(
-      "Thời gian làm bài đã kết thúc! Hệ thống đang tự động nộp bài thi của bạn.",
-    );
+    showInfoToast("Thời gian làm bài đã kết thúc! Hệ thống đang tự động nộp bài thi của bạn.");
     await executeSubmit();
   };
 
@@ -835,22 +695,16 @@ export default function TakingExam() {
     setSubmitting(true);
     try {
       const { score, correctCount, maxScore, totalCount } = calculateScore();
-      const timeSpent = Math.max(
-        1,
-        Math.floor((Date.now() - startTimeRef.current) / 1000),
-      );
+      const timeSpent = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
 
-      const studentInfoStr =
-        localStorage.getItem("student_info") ||
-        localStorage.getItem("current_student_session");
+      const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
       let studentUsername = "student";
       let studentClassSnapshot = "Học sinh";
       if (studentInfoStr) {
         try {
           const parsed = JSON.parse(studentInfoStr);
           if (parsed.username) studentUsername = parsed.username;
-          if (parsed.studentClass || parsed.class)
-            studentClassSnapshot = parsed.studentClass || parsed.class;
+          if (parsed.studentClass || parsed.class) studentClassSnapshot = parsed.studentClass || parsed.class;
         } catch (e) {}
       }
 
@@ -871,31 +725,24 @@ export default function TakingExam() {
         answers,
         shuffledQuestionsSnapshot: questions,
         subExam: isSubExamUsedRef.current,
-        subExamConfigSnapshot:
-          subExamConfigUsedRef.current ||
-          (exam.allowSubExam && exam.subExamConfig ? exam.subExamConfig : null),
+        subExamConfigSnapshot: subExamConfigUsedRef.current || (exam.allowSubExam && exam.subExamConfig ? exam.subExamConfig : null),
       });
 
       // Save or update student profile in Firestore
       try {
-        await saveStudentProfile({
-          name: studentName,
-          username: studentUsername,
-          studentClass: studentClassSnapshot,
-        });
+        await saveStudentProfile({ name: studentName, username: studentUsername, studentClass: studentClassSnapshot });
       } catch (profileErr) {
         console.warn("Could not save student profile:", profileErr);
       }
 
       // Clean up active session from real-time monitoring upon submission immediately
       try {
-        const sessId =
-          sessionIdRef.current || `sess_${studentUsername}_${examId}`;
+        const sessId = sessionIdRef.current || `sess_${studentUsername}_${examId}`;
         await removeRealtimeSession(sessId);
       } catch (sessErr) {
         console.warn("Could not remove active session:", sessErr);
       }
-
+      
       clearActiveExamSession(examId);
 
       // Save submission ID to local submission history
@@ -904,10 +751,7 @@ export default function TakingExam() {
         const historyArr: string[] = historyStr ? JSON.parse(historyStr) : [];
         if (!historyArr.includes(sub.id)) {
           historyArr.unshift(sub.id);
-          localStorage.setItem(
-            "student_submission_history",
-            JSON.stringify(historyArr.slice(0, 100)),
-          );
+          localStorage.setItem("student_submission_history", JSON.stringify(historyArr.slice(0, 100)));
         }
       } catch (histErr) {
         console.warn("Could not save local submission history", histErr);
@@ -946,13 +790,7 @@ export default function TakingExam() {
       const el = document.getElementById(`q-card-${index}`);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
-        el.classList.add(
-          "ring-4",
-          "ring-blue-400",
-          "ring-offset-2",
-          "transition-all",
-          "duration-300",
-        );
+        el.classList.add("ring-4", "ring-blue-400", "ring-offset-2", "transition-all", "duration-300");
         setTimeout(() => {
           el.classList.remove("ring-4", "ring-blue-400", "ring-offset-2");
         }, 1800);
@@ -970,9 +808,7 @@ export default function TakingExam() {
       <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
         <div className="text-center space-y-3">
           <Loader2 className="w-8 h-8 text-blue-600 animate-spin mx-auto" />
-          <p className="text-sm font-semibold text-slate-700">
-            Đang tải và chuẩn bị đề thi...
-          </p>
+          <p className="text-sm font-semibold text-slate-700">Đang tải và chuẩn bị đề thi...</p>
         </div>
       </div>
     );
@@ -989,9 +825,7 @@ export default function TakingExam() {
 
   // Single Question Card Component Render
   const renderQuestionCard = (q: Question, qIdx: number) => {
-    const qSection = q.sectionId
-      ? sections.find((s) => s.id === q.sectionId)
-      : null;
+    const qSection = q.sectionId ? sections.find((s) => s.id === q.sectionId) : null;
 
     return (
       <div
@@ -1033,9 +867,7 @@ export default function TakingExam() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              <Flag
-                className={`w-3.5 h-3.5 ${flagged[q.id] ? "fill-amber-600 text-amber-600" : ""}`}
-              />
+              <Flag className={`w-3.5 h-3.5 ${flagged[q.id] ? "fill-amber-600 text-amber-600" : ""}`} />
               {flagged[q.id] ? "Đã đánh dấu" : "Đánh dấu xem lại"}
             </button>
           </div>
@@ -1236,9 +1068,7 @@ export default function TakingExam() {
             <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-8 h-8 text-amber-600" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">
-              Bài thi bị tạm dừng
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Bài thi bị tạm dừng</h2>
             <p className="text-slate-600 mb-6">{adminMessage}</p>
             <div className="animate-pulse flex gap-2 justify-center text-sm font-medium text-amber-600">
               <div className="w-2 h-2 bg-amber-500 rounded-full" />
@@ -1254,13 +1084,9 @@ export default function TakingExam() {
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-8 h-8 text-red-600" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">
-              Đình chỉ thi
-            </h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Đình chỉ thi</h2>
             <p className="text-slate-600 font-medium">{adminMessage}</p>
-            <p className="text-red-500 text-sm mt-4 font-bold uppercase tracking-wide">
-              Hệ thống đã tự động nộp bài
-            </p>
+            <p className="text-red-500 text-sm mt-4 font-bold uppercase tracking-wide">Hệ thống đã tự động nộp bài</p>
           </div>
         </div>
       )}
@@ -1276,8 +1102,7 @@ export default function TakingExam() {
               {exam?.title}
             </h1>
             <p className="text-[11px] text-slate-500 font-medium truncate">
-              Thí sinh:{" "}
-              <strong className="text-slate-800">{studentName}</strong>
+              Thí sinh: <strong className="text-slate-800">{studentName}</strong>
             </p>
           </div>
         </div>
@@ -1331,9 +1156,7 @@ export default function TakingExam() {
             }`}
             title="Mở giả lập máy tính CASIO fx-580 VN X"
           >
-            <span className="font-extrabold text-[10px] tracking-tighter px-1 py-0.5 bg-amber-800 text-white rounded">
-              casio
-            </span>
+            <span className="font-extrabold text-[10px] tracking-tighter px-1 py-0.5 bg-amber-800 text-white rounded">casio</span>
           </button>
 
           {/* Toggle Map Sidebar */}
@@ -1343,14 +1166,8 @@ export default function TakingExam() {
             className="p-2 text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors text-xs font-bold flex items-center gap-1 cursor-pointer"
             title={showMap ? "Ẩn sơ đồ câu hỏi" : "Hiện sơ đồ câu hỏi"}
           >
-            {showMap ? (
-              <EyeOff className="w-4 h-4" />
-            ) : (
-              <Eye className="w-4 h-4" />
-            )}
-            <span className="hidden md:inline">
-              {showMap ? "Ẩn sơ đồ" : "Hiện sơ đồ"}
-            </span>
+            {showMap ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <span className="hidden md:inline">{showMap ? "Ẩn sơ đồ" : "Hiện sơ đồ"}</span>
           </button>
 
           {warnings > 0 && (
@@ -1377,11 +1194,7 @@ export default function TakingExam() {
             disabled={submitting}
             className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            {submitting ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
-            ) : (
-              <Send className="w-3.5 h-3.5" />
-            )}
+            {submitting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
           </button>
         </div>
       </header>
@@ -1412,9 +1225,7 @@ export default function TakingExam() {
                           </div>
                           {currentSection.description && (
                             <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
-                              <LatexPreview
-                                content={currentSection.description}
-                              />
+                              <LatexPreview content={currentSection.description} />
                             </div>
                           )}
                         </div>
@@ -1430,9 +1241,7 @@ export default function TakingExam() {
                 <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between shadow-2xs">
                   <button
                     type="button"
-                    onClick={() =>
-                      setActiveQuestionIdx((prev) => Math.max(0, prev - 1))
-                    }
+                    onClick={() => setActiveQuestionIdx((prev) => Math.max(0, prev - 1))}
                     disabled={activeQuestionIdx === 0}
                     className="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold transition-all disabled:opacity-40 flex items-center gap-1 shadow-2xs cursor-pointer"
                   >
@@ -1446,9 +1255,7 @@ export default function TakingExam() {
                   <button
                     type="button"
                     onClick={() =>
-                      setActiveQuestionIdx((prev) =>
-                        Math.min(questions.length - 1, prev + 1),
-                      )
+                      setActiveQuestionIdx((prev) => Math.min(questions.length - 1, prev + 1))
                     }
                     disabled={activeQuestionIdx === questions.length - 1}
                     className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all disabled:opacity-40 flex items-center gap-1 shadow-xs cursor-pointer"
@@ -1478,9 +1285,7 @@ export default function TakingExam() {
                   if (lastGroup && lastGroup.sectionId === secId) {
                     lastGroup.items.push({ question: q, index: idx });
                   } else {
-                    const sec = secId
-                      ? sections.find((s) => s.id === secId) || null
-                      : null;
+                    const sec = secId ? sections.find((s) => s.id === secId) || null : null;
                     groups.push({
                       sectionId: secId,
                       section: sec,
@@ -1491,9 +1296,7 @@ export default function TakingExam() {
 
                 return groups.map((group, gIdx) => {
                   if (group.section) {
-                    const secIndex = sections.findIndex(
-                      (s) => s.id === group.section?.id,
-                    );
+                    const secIndex = sections.findIndex((s) => s.id === group.section?.id);
                     return (
                       <div
                         key={`take-sec-${group.section.id}-${gIdx}`}
@@ -1508,18 +1311,14 @@ export default function TakingExam() {
                           </div>
                           {group.section.description && (
                             <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
-                              <LatexPreview
-                                content={group.section.description}
-                              />
+                              <LatexPreview content={group.section.description} />
                             </div>
                           )}
                         </div>
 
                         {/* Enclosed Child Questions */}
                         <div className="space-y-4">
-                          {group.items.map(({ question: q, index: qIdx }) =>
-                            renderQuestionCard(q, qIdx),
-                          )}
+                          {group.items.map(({ question: q, index: qIdx }) => renderQuestionCard(q, qIdx))}
                         </div>
                       </div>
                     );
@@ -1527,9 +1326,7 @@ export default function TakingExam() {
 
                   return (
                     <div key={`take-outside-${gIdx}`} className="space-y-4">
-                      {group.items.map(({ question: q, index: qIdx }) =>
-                        renderQuestionCard(q, qIdx),
-                      )}
+                      {group.items.map(({ question: q, index: qIdx }) => renderQuestionCard(q, qIdx))}
                     </div>
                   );
                 });
@@ -1555,7 +1352,7 @@ export default function TakingExam() {
         {showMap && (
           <>
             {/* Mobile Overlay */}
-            <div
+            <div 
               className="lg:hidden fixed inset-0 bg-slate-900/50 z-40 backdrop-blur-sm"
               onClick={() => setShowMap(false)}
             />
@@ -1567,7 +1364,7 @@ export default function TakingExam() {
                   Sơ đồ câu hỏi ({answeredCount}/{questions.length})
                 </div>
                 {/* Close Button for Mobile */}
-                <button
+                <button 
                   onClick={() => setShowMap(false)}
                   className="lg:hidden p-1 text-slate-400 hover:text-slate-600 rounded-lg bg-slate-100 cursor-pointer"
                 >
@@ -1584,19 +1381,14 @@ export default function TakingExam() {
 
                   questions.forEach((q, idx) => {
                     const secId = q.sectionId;
-                    const sec = secId
-                      ? sections.find((s) => s.id === secId) || null
-                      : null;
+                    const sec = secId ? sections.find((s) => s.id === secId) || null : null;
                     const lastGroup = orderedGroups[orderedGroups.length - 1];
-                    if (
-                      lastGroup &&
-                      lastGroup.section?.id === (sec?.id || null)
-                    ) {
+                    if (lastGroup && lastGroup.section?.id === (sec?.id || null)) {
                       lastGroup.items.push({ q, originalIndex: idx });
                     } else {
                       orderedGroups.push({
                         section: sec,
-                        items: [{ q, originalIndex: idx }],
+                        items: [{ q, originalIndex: idx }]
                       });
                     }
                   });
@@ -1607,23 +1399,16 @@ export default function TakingExam() {
 
                     const secAnswered = secQuestions.filter((item) => {
                       const v = answers[item.q.id];
-                      if (v === undefined || v === null || v === "")
-                        return false;
+                      if (v === undefined || v === null || v === "") return false;
                       if (Array.isArray(v) && v.length === 0) return false;
-                      if (typeof v === "object" && Object.keys(v).length === 0)
-                        return false;
+                      if (typeof v === "object" && Object.keys(v).length === 0) return false;
                       return true;
                     }).length;
 
                     return (
-                      <div
-                        key={sec ? sec.id : `no-sec-map-${groupIdx}`}
-                        className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80"
-                      >
+                      <div key={sec ? sec.id : `no-sec-map-${groupIdx}`} className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
                         <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                          <span className="truncate pr-2">
-                            {sec ? sec.title : "Câu hỏi khác"}
-                          </span>
+                          <span className="truncate pr-2">{sec ? sec.title : "Câu hỏi khác"}</span>
                           <span className="text-[11px] font-semibold text-slate-400 shrink-0">
                             {secAnswered}/{secQuestions.length}
                           </span>
@@ -1636,22 +1421,17 @@ export default function TakingExam() {
                               ans !== null &&
                               ans !== "" &&
                               (!Array.isArray(ans) || ans.length > 0) &&
-                              (typeof ans !== "object" ||
-                                Object.keys(ans).length > 0);
+                              (typeof ans !== "object" || Object.keys(ans).length > 0);
                             const isFlag = flagged[q.id];
                             const isActive = i === activeQuestionIdx;
 
-                            let btnStyle =
-                              "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
+                            let btnStyle = "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-2xs";
                             if (isActive) {
-                              btnStyle =
-                                "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
+                              btnStyle = "bg-blue-600 text-white font-bold ring-2 ring-blue-600/30";
                             } else if (isFlag) {
-                              btnStyle =
-                                "bg-amber-100 border-amber-300 text-amber-900 font-bold";
+                              btnStyle = "bg-amber-100 border-amber-300 text-amber-900 font-bold";
                             } else if (isAnswered) {
-                              btnStyle =
-                                "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
+                              btnStyle = "bg-emerald-50 border-emerald-300 text-emerald-800 font-bold";
                             }
 
                             return (
@@ -1660,8 +1440,7 @@ export default function TakingExam() {
                                 type="button"
                                 onClick={() => {
                                   handleQuestionSelectInMap(i);
-                                  if (window.innerWidth < 1024)
-                                    setShowMap(false);
+                                  if (window.innerWidth < 1024) setShowMap(false);
                                 }}
                                 className={`aspect-square rounded-xl text-xs flex items-center justify-center border transition-all cursor-pointer ${btnStyle}`}
                               >
@@ -1684,10 +1463,7 @@ export default function TakingExam() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-3.5 h-3.5 rounded bg-amber-100 border border-amber-300 inline-block shrink-0" />
-                  <span>
-                    Đã đánh dấu ({Object.values(flagged).filter(Boolean).length}
-                    )
-                  </span>
+                  <span>Đã đánh dấu ({Object.values(flagged).filter(Boolean).length})</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-3.5 h-3.5 rounded bg-slate-50 border border-slate-200 inline-block shrink-0" />
@@ -1712,35 +1488,26 @@ export default function TakingExam() {
 
       {/* Submit Confirmation Modal */}
       {showSubmitConfirm && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[60] bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-xl space-y-4">
-            <h3 className="text-lg font-bold text-slate-900">
-              Xác nhận nộp bài thi?
-            </h3>
+            <h3 className="text-lg font-bold text-slate-900">Xác nhận nộp bài thi?</h3>
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2 text-xs text-slate-600">
               <div className="flex justify-between">
                 <span>Số câu đã hoàn thành:</span>
-                <strong className="text-emerald-700 font-bold">
-                  {answeredCount} / {questions.length}
-                </strong>
+                <strong className="text-emerald-700 font-bold">{answeredCount} / {questions.length}</strong>
               </div>
               <div className="flex justify-between">
                 <span>Số câu chưa làm:</span>
-                <strong className="text-red-600 font-bold">
-                  {questions.length - answeredCount}
-                </strong>
+                <strong className="text-red-600 font-bold">{questions.length - answeredCount}</strong>
               </div>
               <div className="flex justify-between">
                 <span>Thời gian còn lại:</span>
-                <strong className="text-blue-600 font-bold">
-                  {formatTime(timeLeft)}
-                </strong>
+                <strong className="text-blue-600 font-bold">{formatTime(timeLeft)}</strong>
               </div>
             </div>
 
             <p className="text-xs text-slate-500">
-              Sau khi nộp bài, bạn sẽ không thể chỉnh sửa câu trả lời. Hệ thống
-              sẽ tiến hành chấm điểm tự động.
+              Sau khi nộp bài, bạn sẽ không thể chỉnh sửa câu trả lời. Hệ thống sẽ tiến hành chấm điểm tự động.
             </p>
 
             <div className="flex items-center justify-end gap-2 pt-2">
@@ -1775,16 +1542,12 @@ export default function TakingExam() {
         activeQuestionIdx={activeQuestionIdx}
         onSelectQuestion={(idx) => setActiveQuestionIdx(idx)}
         answers={answers}
-        onAnswerChange={(qId, val) =>
-          setAnswers((prev) => ({ ...prev, [qId]: val }))
-        }
+        onAnswerChange={(qId, val) => setAnswers((prev) => ({ ...prev, [qId]: val }))}
         timeLeft={timeLeft}
         onSubmitExam={() => setShowSubmitConfirm(true)}
         onScratchpadUpdate={(dataUrl) => {
           if (isSessionActiveRef.current && sessionIdRef.current) {
-            updateRealtimeSessionMetrics(sessionIdRef.current, {
-              scratchpadImage: dataUrl,
-            });
+            updateRealtimeSessionMetrics(sessionIdRef.current, { scratchpadImage: dataUrl });
           }
         }}
       />

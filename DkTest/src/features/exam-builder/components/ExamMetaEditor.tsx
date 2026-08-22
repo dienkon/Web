@@ -100,6 +100,39 @@ export default function ExamMetaEditor() {
             />
           </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                Môn học
+              </label>
+              <select
+                value={state.examMeta.subject || ""}
+                onChange={(e) => actions.setExamMeta({ subject: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all cursor-pointer"
+              >
+                <option value="">Chọn môn học</option>
+                {["Toán", "Vật Lý", "Hóa Học", "Tiếng Anh", "Ngữ Văn", "Sinh Học", "Lịch Sử", "Địa Lý", "Tin Học", "GDCD", "Ngoại Ngữ Khác", "Khác"].map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                Cấp / Khối thi
+              </label>
+              <select
+                value={state.examMeta.gradeCategory || ""}
+                onChange={(e) => actions.setExamMeta({ gradeCategory: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all cursor-pointer"
+              >
+                <option value="">Chọn khối / kỳ thi</option>
+                {["Tiểu học (Cấp 1)", "THCS (Cấp 2)", "THPT (Cấp 3)", "Ôn thi THPT Quốc Gia", "Đánh Giá Năng Lực", "Đại Học / Cao Đẳng", "Chứng Chỉ (IELTS, TOEIC...)", "Khác"].map((g) => (
+                  <option key={g} value={g}>{g}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1.5">
@@ -123,8 +156,8 @@ export default function ExamMetaEditor() {
                 type="number"
                 min={1}
                 max={300}
-                value={state.examMeta.timeLimit || 45}
-                onChange={(e) => actions.setExamMeta({ timeLimit: parseInt(e.target.value) || 45 })}
+                value={state.examMeta.timeLimit ?? ""}
+                onChange={(e) => actions.setExamMeta({ timeLimit: e.target.value === "" ? undefined : parseInt(e.target.value) })}
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
               />
             </div>

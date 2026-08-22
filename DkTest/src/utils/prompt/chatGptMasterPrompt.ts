@@ -29,6 +29,8 @@ export const FULL_DKTEST_JSON_SCHEMA_TEXT = `{
   "exportedAt": "2026-08-20T00:00:00.000Z",
   "exam": {
     "title": "Tên bài thi (VD: Kiểm tra chuyên đề Toán 12)",
+    "subject": "Môn học (Toán, Vật Lý, Hóa Học, Tiếng Anh...)",
+    "gradeCategory": "Cấp/Khối (THPT Quốc Gia, THCS...)",
     "timeLimit": 45,
     "shuffleQuestions": false,
     "shuffleOptions": false,

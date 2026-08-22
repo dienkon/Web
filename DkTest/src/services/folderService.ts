@@ -18,6 +18,47 @@ import { deleteExam } from "./examService";
 const FOLDERS_COLLECTION = "folders";
 const EXAMS_COLLECTION = "exams";
 
+export const getOrCreateParentFolder = async (parentUsername: string, parentDisplayName: string): Promise<string> => {
+  // Try to find the "Phụ huynh" root folder
+  let rootFolderId: string | null = null;
+  const rootQuery = query(
+    collection(db, FOLDERS_COLLECTION),
+    where("name", "==", "Phụ huynh"),
+    where("parentId", "==", null)
+  );
+  const rootSnap = await getDocs(rootQuery);
+  if (rootSnap.empty) {
+    const newRoot = await createFolder({
+      name: "Phụ huynh",
+      color: "bg-amber-500",
+      description: "Thư mục gốc chứa đề thi của các phụ huynh",
+    });
+    rootFolderId = newRoot.id;
+  } else {
+    rootFolderId = rootSnap.docs[0].id;
+  }
+
+  // Try to find the specific parent's folder
+  const parentFolderName = `${parentDisplayName} (${parentUsername})`;
+  const parentFolderQuery = query(
+    collection(db, FOLDERS_COLLECTION),
+    where("name", "==", parentFolderName),
+    where("parentId", "==", rootFolderId)
+  );
+  const parentSnap = await getDocs(parentFolderQuery);
+  if (parentSnap.empty) {
+    const newParentFolder = await createFolder({
+      name: parentFolderName,
+      parentId: rootFolderId,
+      color: "bg-blue-500",
+      description: `Thư mục đề thi của phụ huynh ${parentDisplayName}`,
+    });
+    return newParentFolder.id;
+  } else {
+    return parentSnap.docs[0].id;
+  }
+};
+
 // Helper to sanitize payload and remove any undefined fields before Firestore operations
 const sanitizePayload = (data: Record<string, any>) => {
   const sanitized: Record<string, any> = {};
@@ -29,9 +70,7 @@ const sanitizePayload = (data: Record<string, any>) => {
   return sanitized;
 };
 
-export const getFolders = async (
-  ownerId?: string | null,
-): Promise<Folder[]> => {
+export const getFolders = async (ownerId?: string | null): Promise<Folder[]> => {
   try {
     let q = collection(db, FOLDERS_COLLECTION) as any;
     if (ownerId) {
@@ -39,9 +78,7 @@ export const getFolders = async (
     }
     console.log(`[Firestore] READ_MANY: ${FOLDERS_COLLECTION}`);
     const snap = await getDocs(q);
-    const folders = snap.docs.map(
-      (d) => ({ id: d.id, ...(d.data() as any) }) as Folder,
-    );
+    const folders = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as Folder));
 
     folders.sort((a, b) => {
       const timeA = a.createdAt?.seconds || 0;
@@ -57,7 +94,7 @@ export const getFolders = async (
 };
 
 export const createFolder = async (
-  folderData: Omit<Folder, "id" | "createdAt" | "updatedAt">,
+  folderData: Omit<Folder, "id" | "createdAt" | "updatedAt">
 ): Promise<Folder> => {
   const docRef = doc(collection(db, FOLDERS_COLLECTION));
   const rawPayload = {
@@ -85,7 +122,7 @@ export const createFolder = async (
 
 export const updateFolder = async (
   folderId: string,
-  updates: Partial<Folder>,
+  updates: Partial<Folder>
 ): Promise<void> => {
   const docRef = doc(db, FOLDERS_COLLECTION, folderId);
   console.log(`[Firestore] UPDATE: ${FOLDERS_COLLECTION}/${folderId}`);
@@ -98,45 +135,31 @@ export const updateFolder = async (
 
 export const deleteFolder = async (
   folderId: string,
-  moveExamsToParent: boolean = true,
+  moveExamsToParent: boolean = true
 ): Promise<void> => {
   // Get folder details to find parent
   const folderDoc = await getDoc(doc(db, FOLDERS_COLLECTION, folderId));
-  const parentId = folderDoc.exists()
-    ? folderDoc.data()?.parentId || null
-    : null;
+  const parentId = folderDoc.exists() ? (folderDoc.data()?.parentId || null) : null;
 
   // Move subfolders to parent folder
-  const subfoldersQuery = query(
-    collection(db, FOLDERS_COLLECTION),
-    where("parentId", "==", folderId),
-  );
+  const subfoldersQuery = query(collection(db, FOLDERS_COLLECTION), where("parentId", "==", folderId));
   const subfoldersSnap = await getDocs(subfoldersQuery);
   if (!subfoldersSnap.empty) {
     const batch = writeBatch(db);
     subfoldersSnap.docs.forEach((docItem) => {
-      batch.update(docItem.ref, {
-        parentId: parentId,
-        updatedAt: serverTimestamp(),
-      });
+      batch.update(docItem.ref, { parentId: parentId, updatedAt: serverTimestamp() });
     });
     await batch.commit();
   }
 
   // Move exams inside folder to parent or root
   if (moveExamsToParent) {
-    const q = query(
-      collection(db, EXAMS_COLLECTION),
-      where("folderId", "==", folderId),
-    );
+    const q = query(collection(db, EXAMS_COLLECTION), where("folderId", "==", folderId));
     const snap = await getDocs(q);
     if (!snap.empty) {
       const batch = writeBatch(db);
       snap.docs.forEach((docItem) => {
-        batch.update(docItem.ref, {
-          folderId: parentId,
-          updatedAt: serverTimestamp(),
-        });
+        batch.update(docItem.ref, { folderId: parentId, updatedAt: serverTimestamp() });
       });
       await batch.commit();
     }
@@ -149,12 +172,10 @@ export const deleteFolder = async (
 
 export const moveExamToFolder = async (
   examId: string,
-  folderId: string | null,
+  folderId: string | null
 ): Promise<void> => {
   const docRef = doc(db, EXAMS_COLLECTION, examId);
-  console.log(
-    `[Firestore] UPDATE_EXAM_FOLDER: ${EXAMS_COLLECTION}/${examId} -> ${folderId}`,
-  );
+  console.log(`[Firestore] UPDATE_EXAM_FOLDER: ${EXAMS_COLLECTION}/${examId} -> ${folderId}`);
   await updateDoc(docRef, {
     folderId: folderId || null,
     updatedAt: serverTimestamp(),
@@ -163,7 +184,7 @@ export const moveExamToFolder = async (
 
 export const bulkMoveExamsToFolder = async (
   examIds: string[],
-  folderId: string | null,
+  folderId: string | null
 ): Promise<void> => {
   if (examIds.length === 0) return;
   const batch = writeBatch(db);
@@ -174,9 +195,7 @@ export const bulkMoveExamsToFolder = async (
       updatedAt: serverTimestamp(),
     });
   });
-  console.log(
-    `[Firestore] BULK_UPDATE_EXAM_FOLDER: ${examIds.length} items -> ${folderId}`,
-  );
+  console.log(`[Firestore] BULK_UPDATE_EXAM_FOLDER: ${examIds.length} items -> ${folderId}`);
   await batch.commit();
 };
 
@@ -188,7 +207,7 @@ export const bulkDeleteExams = async (examIds: string[]): Promise<void> => {
 
 export const toggleExamFeatured = async (
   examId: string,
-  isFeatured: boolean,
+  isFeatured: boolean
 ): Promise<void> => {
   const docRef = doc(db, EXAMS_COLLECTION, examId);
   await updateDoc(docRef, {
@@ -196,3 +215,4 @@ export const toggleExamFeatured = async (
     updatedAt: serverTimestamp(),
   });
 };
+

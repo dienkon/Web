@@ -159,9 +159,13 @@ export default function AiPromptImport() {
     }
   };
 
+  const isParent = location.pathname.startsWith("/parent") || localStorage.getItem("auth_role") === "parent";
+  const backUrl = isParent ? "/parent/dashboard" : "/admin/exams";
+  const newExamUrl = isParent ? "/parent/exams/new" : "/admin/exams/new";
+
   const handleImportToEditor = () => {
     if (!result) return;
-    navigate("/admin/exams/new", { state: { importedExam: result } });
+    navigate(newExamUrl, { state: { importedExam: result } });
   };
 
   return (
@@ -180,7 +184,7 @@ export default function AiPromptImport() {
             </div>
           </div>
           <button
-            onClick={() => navigate("/admin/exams")}
+            onClick={() => navigate(backUrl)}
             className="p-2 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-50 transition"
           >
             <X className="w-5 h-5" />

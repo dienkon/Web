@@ -93,14 +93,8 @@ export function normalizeLatexText(input: string): string {
   text = text.replace(/\x0Bdots/g, "\\vdots");
 
   // 2. Fix unescaped keywords when backslash was stripped:
-  text = text.replace(
-    /(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*rac\s*\{/g,
-    "$1\\frac{",
-  );
-  text = text.replace(
-    /(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*sqrt\s*\{/g,
-    "$1\\sqrt{",
-  );
+  text = text.replace(/(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*rac\s*\{/g, "$1\\frac{");
+  text = text.replace(/(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*sqrt\s*\{/g, "$1\\sqrt{");
 
   // 3. Fix unescaped math symbol words like "notin A", "times", "2times3"
   text = text.replace(/(^|[\s({[,=+\-*/])\s*notin\b/g, "$1 \\notin ");
@@ -108,7 +102,6 @@ export function normalizeLatexText(input: string): string {
 
   return text;
 }
-
 export function renderMarkdownWithLatex(rawText: string): string {
   if (!rawText) return "";
 

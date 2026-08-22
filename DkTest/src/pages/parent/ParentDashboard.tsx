@@ -46,6 +46,7 @@ import {
   getLinkedChildrenForParent,
   getPendingRequestsSentByParent,
   getChildSubmissions,
+  autoLinkChildToParent,
   type LinkedChildInfo,
   type ParentLinkRequest,
 } from "../../services/parentService";
@@ -72,13 +73,8 @@ export default function ParentDashboard() {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const [parentInfo, setParentInfo] = useState<{
-    username: string;
-    displayName: string;
-  } | null>(null);
-  const [activeTab, setActiveTab] = useState<"monitor" | "create" | "guide">(
-    "monitor",
-  );
+  const [parentInfo, setParentInfo] = useState<{ username: string; displayName: string } | null>(null);
+  const [activeTab, setActiveTab] = useState<"monitor" | "create" | "guide">("monitor");
 
   // Exam deletion state for parent
   const [examToDelete, setExamToDelete] = useState<Exam | null>(null);
@@ -108,11 +104,7 @@ export default function ParentDashboard() {
   >({});
 
   const handleFetchMoreChildSubmissions = async (childUsername: string) => {
-    const curState = childHistoryMap[childUsername] || {
-      cursor: null,
-      hasMore: true,
-      loading: false,
-    };
+    const curState = childHistoryMap[childUsername] || { cursor: null, hasMore: true, loading: false };
     if (curState.loading) return;
 
     setChildHistoryMap((prev) => ({
@@ -128,16 +120,14 @@ export default function ParentDashboard() {
             const existing = c.recentSubmissions || [];
             // filter duplicates
             const existingIds = new Set(existing.map((s) => s.id));
-            const newSubs = res.submissions.filter(
-              (s) => !existingIds.has(s.id),
-            );
+            const newSubs = res.submissions.filter((s) => !existingIds.has(s.id));
             return {
               ...c,
               recentSubmissions: [...existing, ...newSubs],
             };
           }
           return c;
-        }),
+        })
       );
 
       setChildHistoryMap((prev) => ({
@@ -156,14 +146,12 @@ export default function ParentDashboard() {
       }));
     }
   };
-  const [pendingSentRequests, setPendingSentRequests] = useState<
-    ParentLinkRequest[]
-  >([]);
+  const [pendingSentRequests, setPendingSentRequests] = useState<ParentLinkRequest[]>([]);
   const [loadingMonitor, setLoadingMonitor] = useState(true);
   const [childUsernameInput, setChildUsernameInput] = useState("");
   const [isSendingRequest, setIsSendingRequest] = useState(false);
   const [showAddChildModal, setShowAddChildModal] = useState(false);
-
+  
   // Exam Creator State
   const [createMode, setCreateMode] = useState<"json" | "prompt">("json");
   const [jsonInput, setJsonInput] = useState("");
@@ -171,13 +159,11 @@ export default function ParentDashboard() {
   const [isGeneratingAi, setIsGeneratingAi] = useState(false);
   const [showGptModal, setShowGptModal] = useState(false);
 
-  // Created Exam Data (Azota preview & direct edit)
+  // Created Exam Data ( preview & direct edit)
   const [examTitle, setExamTitle] = useState("Đề thi tự luyện cho con");
   const [examTimeLimit, setExamTimeLimit] = useState(45);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [editingQuestionId, setEditingQuestionId] = useState<string | null>(
-    null,
-  );
+  const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
   const [isMatrixOpen, setIsMatrixOpen] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -230,9 +216,7 @@ export default function ParentDashboard() {
     }
     if (q.type === "true_false") {
       if (!q.statements || q.statements.length === 0) return "?";
-      const answered = q.statements.filter(
-        (s) => typeof s.correctAnswer === "boolean",
-      ).length;
+      const answered = q.statements.filter((s) => typeof s.correctAnswer === "boolean").length;
       return `${answered}/${q.statements.length}`;
     }
     if (q.type === "short_answer") {
@@ -248,29 +232,27 @@ export default function ParentDashboard() {
       const container = rightPaperRef.current;
       const containerRect = container.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
-      const targetScrollTop =
-        elRect.top - containerRect.top + container.scrollTop - 20;
+      const targetScrollTop = elRect.top - containerRect.top + container.scrollTop - 20;
 
       container.scrollTo({
         top: Math.max(0, targetScrollTop),
         behavior: "smooth",
       });
 
-      el.classList.add(
-        "ring-4",
-        "ring-indigo-500",
-        "ring-offset-2",
-        "transition-all",
-        "duration-300",
-      );
+      el.classList.add("ring-4", "ring-indigo-500", "ring-offset-2", "transition-all", "duration-300");
       setTimeout(() => {
         el.classList.remove("ring-4", "ring-indigo-500", "ring-offset-2");
       }, 1500);
     }
   };
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
+    const adminToken = localStorage.getItem("admin_token");
+    setIsAdmin(role === "admin" || !!adminToken);
+
     const pStr = localStorage.getItem("parent_info");
     if (role !== "parent" && !pStr) {
       navigate("/parent/login", { replace: true });
@@ -281,6 +263,20 @@ export default function ParentDashboard() {
       try {
         const parsed = JSON.parse(pStr);
         setParentInfo(parsed);
+
+        // Auto-link existing local student account if present on this device
+        const sStr = localStorage.getItem("student_info");
+        if (sStr && parsed.username) {
+          try {
+            const sObj = JSON.parse(sStr);
+            if (sObj.username && sObj.username.toLowerCase() !== parsed.username.toLowerCase()) {
+              autoLinkChildToParent(parsed.username, parsed.displayName || parsed.username, sObj.username)
+                .then(() => loadMonitoringData(parsed.username))
+                .catch(() => {});
+            }
+          } catch (e) {}
+        }
+
         loadMonitoringData(parsed.username);
         loadParentExams(parsed.username);
       } catch (e) {}
@@ -298,13 +294,8 @@ export default function ParentDashboard() {
           return prevChildren.map((child) => {
             const cleanChild = child.username.trim().toLowerCase();
             const matched = activeList.find((s) => {
-              const u = (s.studentUsername || s.studentId || "")
-                .trim()
-                .toLowerCase();
-              return (
-                u === cleanChild ||
-                s.sessionId.toLowerCase().includes(cleanChild)
-              );
+              const u = (s.studentUsername || s.studentId || "").trim().toLowerCase();
+              return u === cleanChild || s.sessionId.toLowerCase().includes(cleanChild);
             });
             return {
               ...child,
@@ -315,7 +306,7 @@ export default function ParentDashboard() {
       },
       (err) => {
         console.warn("Parent active sessions subscription warning:", err);
-      },
+      }
     );
 
     return () => {
@@ -360,7 +351,7 @@ export default function ParentDashboard() {
       const res = await sendParentLinkRequest(
         parentInfo.username,
         parentInfo.displayName,
-        childUsernameInput.trim(),
+        childUsernameInput.trim()
       );
       if (res.success) {
         showToast(res.message, "success");
@@ -381,6 +372,44 @@ export default function ParentDashboard() {
     localStorage.removeItem("auth_role");
     localStorage.removeItem("parent_info");
     navigate("/", { replace: true });
+  };
+
+  const handleSwitchToStudent = () => {
+    // 1. If student_info already exists in localStorage, activate it and go straight to student portal
+    const studentInfoStr = localStorage.getItem("student_info");
+    if (studentInfoStr) {
+      try {
+        const parsed = JSON.parse(studentInfoStr);
+        if (parsed.username) {
+          localStorage.setItem("auth_role", "student");
+          navigate("/");
+          return;
+        }
+      } catch (e) {}
+    }
+
+    // 2. If parent has linked children, activate the first child
+    if (linkedChildren && linkedChildren.length > 0) {
+      handleSwitchToChild(linkedChildren[0]);
+      return;
+    }
+
+    // 3. Otherwise open login / register
+    navigate("/student/login?switch=true");
+  };
+
+  const handleSwitchToChild = (child: LinkedChildInfo) => {
+    localStorage.setItem("auth_role", "student");
+    localStorage.setItem(
+      "student_info",
+      JSON.stringify({
+        username: child.username,
+        displayName: child.displayName || child.username,
+        studentClass: child.studentClass || "",
+        avatarUrl: child.avatarUrl || "",
+      })
+    );
+    navigate("/");
   };
 
   // Parse JSON into Questions
@@ -406,10 +435,7 @@ export default function ParentDashboard() {
       }
 
       if (parsedQs.length === 0) {
-        showToast(
-          "Không tìm thấy danh sách câu hỏi hợp lệ trong JSON!",
-          "error",
-        );
+        showToast("Không tìm thấy danh sách câu hỏi hợp lệ trong JSON!", "error");
         return;
       }
 
@@ -418,18 +444,11 @@ export default function ParentDashboard() {
         id: q.id || `q_${Date.now()}_${idx}`,
         examId: q.examId || "",
         order: idx,
-        type:
-          q.type ||
-          (q.statements
-            ? "true_false"
-            : q.options
-              ? "single_choice"
-              : "short_answer"),
+        type: q.type || (q.statements ? "true_false" : q.options ? "single_choice" : "short_answer"),
         text: q.text || `Câu hỏi ${idx + 1}`,
         points: q.points || 1,
         options: q.options || [],
-        correctOptionIds:
-          q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
+        correctOptionIds: q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
         statements: q.statements || [],
         acceptedAnswers: q.acceptedAnswers || [],
         explanation: q.explanation || "",
@@ -513,46 +532,28 @@ export default function ParentDashboard() {
         }
       }
 
-      if (
-        finalResult &&
-        finalResult.questions &&
-        finalResult.questions.length > 0
-      ) {
+      if (finalResult && finalResult.questions && finalResult.questions.length > 0) {
         const title = finalResult.exam?.title || promptInput.trim();
         const timeLimit = finalResult.exam?.timeLimit || 45;
-        const normalized: Question[] = finalResult.questions.map(
-          (q: any, idx: number) => ({
-            id: q.id || `q_${Date.now()}_${idx}`,
-            examId: q.examId || "",
-            order: idx,
-            type:
-              q.type ||
-              (q.statements
-                ? "true_false"
-                : q.options
-                  ? "single_choice"
-                  : "short_answer"),
-            text: q.text || `Câu hỏi ${idx + 1}`,
-            points: q.points || 1,
-            options: q.options || [],
-            correctOptionIds:
-              q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
-            statements: q.statements || [],
-            acceptedAnswers: q.acceptedAnswers || [],
-            explanation: q.explanation || "",
-          }),
-        );
+        const normalized: Question[] = finalResult.questions.map((q: any, idx: number) => ({
+          id: q.id || `q_${Date.now()}_${idx}`,
+          examId: q.examId || "",
+          order: idx,
+          type: q.type || (q.statements ? "true_false" : q.options ? "single_choice" : "short_answer"),
+          text: q.text || `Câu hỏi ${idx + 1}`,
+          points: q.points || 1,
+          options: q.options || [],
+          correctOptionIds: q.correctOptionIds || (q.correctAnswer ? [q.correctAnswer] : []),
+          statements: q.statements || [],
+          acceptedAnswers: q.acceptedAnswers || [],
+          explanation: q.explanation || "",
+        }));
 
         setQuestions(normalized);
         setExamTitle(title);
         setExamTimeLimit(timeLimit);
-        setJsonInput(
-          JSON.stringify({ title, timeLimit, questions: normalized }, null, 2),
-        );
-        showToast(
-          `Đã tạo thành công ${normalized.length} câu hỏi từ AI!`,
-          "success",
-        );
+        setJsonInput(JSON.stringify({ title, timeLimit, questions: normalized }, null, 2));
+        showToast(`Đã tạo thành công ${normalized.length} câu hỏi từ AI!`, "success");
       } else {
         throw new Error("Không trích xuất được câu hỏi từ phản hồi AI");
       }
@@ -563,7 +564,126 @@ export default function ParentDashboard() {
     }
   };
 
-  // Direct toggle question option in Azota view
+  const handleAddQuestion = (type: "single_choice" | "multiple_choice" | "true_false" | "short_answer" = "single_choice") => {
+    const newQ: Question = {
+      id: `q_${Date.now()}_${questions.length}`,
+      examId: "",
+      order: questions.length,
+      type,
+      text: "Nhập nội dung câu hỏi tại đây...",
+      points: 1,
+      options:
+        type === "single_choice" || type === "multiple_choice"
+          ? [
+              { id: "opt_1", text: "Phương án A" },
+              { id: "opt_2", text: "Phương án B" },
+              { id: "opt_3", text: "Phương án C" },
+              { id: "opt_4", text: "Phương án D" },
+            ]
+          : [],
+      correctOptionIds: type === "single_choice" ? ["opt_1"] : [],
+      statements:
+        type === "true_false"
+          ? [
+              { id: "stmt_1", text: "Mệnh đề a", correctAnswer: true },
+              { id: "stmt_2", text: "Mệnh đề b", correctAnswer: false },
+              { id: "stmt_3", text: "Mệnh đề c", correctAnswer: true },
+              { id: "stmt_4", text: "Mệnh đề d", correctAnswer: false },
+            ]
+          : [],
+      acceptedAnswers: type === "short_answer" ? ["10"] : [],
+      explanation: "",
+    };
+    setQuestions((prev) => [...prev, newQ]);
+    showToast("Đã thêm câu hỏi mới!", "success");
+    setTimeout(() => {
+      scrollToQuestion(questions.length);
+    }, 100);
+  };
+
+  const handleDeleteQuestion = (idx: number) => {
+    setQuestions((prev) => {
+      const next = prev.filter((_, i) => i !== idx);
+      return next.map((q, i) => ({ ...q, order: i }));
+    });
+    showToast("Đã xóa câu hỏi!", "success");
+  };
+
+  const handleDuplicateQuestion = (idx: number) => {
+    const target = questions[idx];
+    if (!target) return;
+    const cloned: Question = {
+      ...target,
+      id: `q_${Date.now()}_copy`,
+      order: idx + 1,
+      text: `${target.text} (Bản sao)`,
+    };
+    setQuestions((prev) => {
+      const next = [...prev.slice(0, idx + 1), cloned, ...prev.slice(idx + 1)];
+      return next.map((q, i) => ({ ...q, order: i }));
+    });
+    showToast("Đã nhân bản câu hỏi!", "success");
+  };
+
+  const handleMoveQuestion = (idx: number, direction: "up" | "down") => {
+    const targetIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (targetIdx < 0 || targetIdx >= questions.length) return;
+    setQuestions((prev) => {
+      const next = [...prev];
+      const temp = next[idx];
+      next[idx] = next[targetIdx];
+      next[targetIdx] = temp;
+      return next.map((q, i) => ({ ...q, order: i }));
+    });
+  };
+
+  const handleUpdateQuestionText = (idx: number, text: string) => {
+    setQuestions((prev) => {
+      const next = [...prev];
+      next[idx] = { ...next[idx], text };
+      return next;
+    });
+  };
+
+  const handleUpdateOptionText = (qIndex: number, optId: string, text: string) => {
+    setQuestions((prev) => {
+      const next = [...prev];
+      const q = { ...next[qIndex] };
+      q.options = (q.options || []).map((o) => (o.id === optId ? { ...o, text } : o));
+      next[qIndex] = q;
+      return next;
+    });
+  };
+
+  const handleUpdateStatementText = (qIndex: number, stmtId: string, text: string) => {
+    setQuestions((prev) => {
+      const next = [...prev];
+      const q = { ...next[qIndex] };
+      q.statements = (q.statements || []).map((s) => (s.id === stmtId ? { ...s, text } : s));
+      next[qIndex] = q;
+      return next;
+    });
+  };
+
+  const handleUpdateAcceptedAnswer = (qIndex: number, ans: string) => {
+    setQuestions((prev) => {
+      const next = [...prev];
+      const q = { ...next[qIndex] };
+      q.acceptedAnswers = [ans];
+      next[qIndex] = q;
+      return next;
+    });
+  };
+
+  const handleUpdateExplanation = (qIndex: number, explanation: string) => {
+    setQuestions((prev) => {
+      const next = [...prev];
+      next[qIndex] = { ...next[qIndex], explanation };
+      return next;
+    });
+  };
+
+  // Direct toggle question option in  view
   const handleToggleOption = (qIndex: number, optId: string) => {
     setQuestions((prev) => {
       const next = [...prev];
@@ -572,26 +692,18 @@ export default function ParentDashboard() {
         q.correctOptionIds = [optId];
       } else if (q.type === "multiple_choice") {
         const cur = q.correctOptionIds || [];
-        q.correctOptionIds = cur.includes(optId)
-          ? cur.filter((id) => id !== optId)
-          : [...cur, optId];
+        q.correctOptionIds = cur.includes(optId) ? cur.filter((id) => id !== optId) : [...cur, optId];
       }
       next[qIndex] = q;
       return next;
     });
   };
 
-  const handleToggleStatement = (
-    qIndex: number,
-    stmtId: string,
-    val: boolean,
-  ) => {
+  const handleToggleStatement = (qIndex: number, stmtId: string, val: boolean) => {
     setQuestions((prev) => {
       const next = [...prev];
       const q = { ...next[qIndex] };
-      q.statements = (q.statements || []).map((s) =>
-        s.id === stmtId ? { ...s, correctAnswer: val } : s,
-      );
+      q.statements = (q.statements || []).map((s) => (s.id === stmtId ? { ...s, correctAnswer: val } : s));
       next[qIndex] = q;
       return next;
     });
@@ -620,16 +732,10 @@ export default function ParentDashboard() {
 
       setSavedShareLink(result.shareLink);
       setShowShareModal(true);
-      showToast(
-        "Đã lưu đề thi thành công ở chế độ Không Công Khai (Chỉ ai có link mới xem được)!",
-        "success",
-      );
+      showToast("Đã lưu đề thi thành công ở chế độ Không Công Khai (Chỉ ai có link mới xem được)!", "success");
       loadParentExams(parentInfo.username);
     } catch (err: any) {
-      showToast(
-        "Lỗi khi lưu đề thi: " + (err.message || "Không xác định"),
-        "error",
-      );
+      showToast("Lỗi khi lưu đề thi: " + (err.message || "Không xác định"), "error");
     } finally {
       setIsSavingExam(false);
     }
@@ -643,9 +749,7 @@ export default function ParentDashboard() {
       createdAt: new Date().toISOString(),
       questions,
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -673,9 +777,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-xl font-black text-indigo-600 tracking-tight">
-                DkTEST
-              </span>
+              <span className="text-xl font-black text-indigo-600 tracking-tight">DkTEST</span>
               <span className="text-xs font-extrabold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-xl border border-indigo-100 flex items-center gap-1">
                 <HeartHandshake className="w-3.5 h-3.5" /> Cổng Phụ Huynh
               </span>
@@ -688,20 +790,23 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
               <span className="px-2.5 py-1 bg-white text-indigo-700 rounded-lg shadow-2xs flex items-center gap-1">
                 <span>👨‍👩‍👧 Phụ huynh</span>
               </span>
-              <Link
-                to="/admin/dashboard"
-                className="px-2.5 py-1 hover:text-blue-700 rounded-lg transition-colors flex items-center gap-1"
-                title="Chuyển sang Quản trị Giáo viên"
-              >
-                <span>👨‍🏫 Giáo viên</span>
-              </Link>
-              <Link
-                to="/"
-                className="px-2.5 py-1 hover:text-slate-900 rounded-lg transition-colors hidden sm:flex items-center gap-1"
-                title="Về Cổng Thí sinh / Trang chủ"
+              {isAdmin && (
+                <Link
+                  to="/admin/dashboard"
+                  className="px-2.5 py-1 hover:text-blue-700 rounded-lg transition-colors flex items-center gap-1"
+                  title="Chuyển sang Quản trị Giáo viên"
+                >
+                  <span>👨‍🏫 Giáo viên</span>
+                </Link>
+              )}
+              <button
+                type="button"
+                onClick={handleSwitchToStudent}
+                className="px-2.5 py-1 hover:text-slate-900 rounded-lg transition-colors hidden sm:flex items-center gap-1 cursor-pointer"
+                title="Chuyển sang Cổng Thí sinh / Học sinh"
               >
                 <span>🎓 Học sinh</span>
-              </Link>
+              </button>
             </div>
 
             <div className="h-4 w-px bg-slate-200 hidden sm:block" />
@@ -752,16 +857,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                 : "border-transparent text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Edit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">
-              Tạo đề & Sửa Azota (Nạp JSON / Prompt)
-            </span>
-            <span className="sm:hidden">Tạo đề & Azota</span>
-            {questions.length > 0 && (
-              <span className="px-1.5 py-0.2 bg-emerald-100 text-emerald-800 text-[10px] rounded-full">
-                {questions.length} câu
-              </span>
-            )}
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600" />
+            <span className="hidden sm:inline">Tạo đề thi & Soạn đề (AI / JSON / Word)</span>
+            <span className="sm:hidden">Tạo đề thi</span>
           </button>
 
           <button
@@ -774,9 +872,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
-            <span className="hidden sm:inline">
-              Hướng dẫn tạo đề bằng ChatGPT & Mã Code
-            </span>
+            <span className="hidden sm:inline">Hướng dẫn tạo đề bằng ChatGPT & Mã Code</span>
             <span className="sm:hidden">ChatGPT Prompt</span>
           </button>
         </div>
@@ -795,23 +891,18 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   Danh sách con em đang liên kết
                 </h2>
                 <p className="text-xs text-slate-500 font-medium">
-                  Xem trực tiếp con đang làm đề nào, theo dõi điểm số và xem chi
-                  tiết bài làm.
+                  Xem trực tiếp con đang làm đề nào, theo dõi điểm số và xem chi tiết bài làm.
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() =>
-                    parentInfo && loadMonitoringData(parentInfo.username)
-                  }
+                  onClick={() => parentInfo && loadMonitoringData(parentInfo.username)}
                   className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
                   title="Làm mới dữ liệu"
                 >
-                  <RefreshCw
-                    className={`w-4 h-4 ${loadingMonitor ? "animate-spin" : ""}`}
-                  />
+                  <RefreshCw className={`w-4 h-4 ${loadingMonitor ? "animate-spin" : ""}`} />
                 </button>
 
                 <button
@@ -830,9 +921,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
               <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
                 <div className="flex items-center gap-2 text-amber-900 text-xs font-bold">
                   <Clock className="w-4 h-4 text-amber-600" />
-                  <span>
-                    Đang chờ con xác nhận ({pendingSentRequests.length} yêu cầu)
-                  </span>
+                  <span>Đang chờ con xác nhận ({pendingSentRequests.length} yêu cầu)</span>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
                   {pendingSentRequests.map((req) => (
@@ -851,22 +940,16 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
             {loadingMonitor ? (
               <div className="py-16 text-center text-slate-400 flex flex-col items-center justify-center space-y-3 bg-white border border-slate-200 rounded-3xl">
                 <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-                <span className="text-xs font-semibold text-slate-600">
-                  Đang tải thông tin học tập của con...
-                </span>
+                <span className="text-xs font-semibold text-slate-600">Đang tải thông tin học tập của con...</span>
               </div>
             ) : linkedChildren.length === 0 ? (
               <div className="bg-white border border-slate-200 rounded-3xl p-10 text-center space-y-4 shadow-xs">
                 <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xs">
                   <HeartHandshake className="w-8 h-8" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">
-                  Chưa có tài khoản con nào được liên kết
-                </h3>
+                <h3 className="text-base font-bold text-slate-900">Chưa có tài khoản con nào được liên kết</h3>
                 <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                  Nhập mã username tài khoản học sinh của con để gửi yêu cầu.
-                  Khi con đăng nhập và bấm xác nhận, bạn sẽ xem được toàn bộ
-                  tiến độ làm bài thi.
+                  Nhập mã username tài khoản học sinh của con để gửi yêu cầu. Khi con đăng nhập và bấm xác nhận, bạn sẽ xem được toàn bộ tiến độ làm bài thi.
                 </p>
                 <button
                   type="button"
@@ -888,20 +971,14 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       <div className="flex items-center gap-3.5">
                         <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-lg overflow-hidden shrink-0 shadow-2xs">
                           {child.avatarUrl ? (
-                            <img
-                              src={child.avatarUrl}
-                              alt="Avatar"
-                              className="w-full h-full object-cover"
-                            />
+                            <img src={child.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                           ) : (
                             child.displayName.charAt(0).toUpperCase()
                           )}
                         </div>
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="text-base font-extrabold text-slate-900">
-                              {child.displayName}
-                            </h3>
+                            <h3 className="text-base font-extrabold text-slate-900">{child.displayName}</h3>
                             <span className="text-xs font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md border border-slate-200">
                               @{child.username}
                             </span>
@@ -912,25 +989,34 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             )}
                           </div>
                           <p className="text-xs text-slate-400 font-medium mt-0.5">
-                            Tổng số bài đã làm:{" "}
-                            <strong>
-                              {child.recentSubmissions?.length || 0} bài
-                            </strong>
+                            Tổng số bài đã làm: <strong>{child.recentSubmissions?.length || 0} bài</strong>
                           </p>
                         </div>
                       </div>
 
-                      {/* Live Session Pill */}
-                      {child.activeSession ? (
-                        <div className="flex items-center gap-2 px-3.5 py-2 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-2xl text-xs font-bold shadow-2xs">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-                          <span>🟢 Đang làm bài trực tiếp</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-500 rounded-xl text-xs font-semibold">
-                          <span>Trạng thái: Đã nộp bài gần nhất</span>
-                        </div>
-                      )}
+                      {/* Actions & Live Session Pill */}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <button
+                          type="button"
+                          onClick={() => handleSwitchToChild(child)}
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition-all border border-indigo-200 cursor-pointer shadow-2xs"
+                          title={`Chuyển sang tài khoản học sinh @${child.username} để làm bài thi`}
+                        >
+                          <GraduationCap className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>Vào thi với tài khoản này</span>
+                        </button>
+
+                        {child.activeSession ? (
+                          <div className="flex items-center gap-2 px-3.5 py-2 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-2xl text-xs font-bold shadow-2xs">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                            <span>🟢 Đang làm bài trực tiếp</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-500 rounded-xl text-xs font-semibold">
+                            <span>Trạng thái: Đã nộp bài</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
                     {/* Active Live Session Highlight Card for Parent */}
@@ -943,18 +1029,13 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                             </span>
                             <h4 className="font-extrabold text-slate-900 text-sm">
-                              {child.activeSession.examTitle ||
-                                "Khảo thí trực tuyến"}
+                              {child.activeSession.examTitle || "Khảo thí trực tuyến"}
                             </h4>
                           </div>
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
-                              onClick={() =>
-                                navigate(
-                                  `/admin/live-monitor/${child.activeSession?.sessionId}`,
-                                )
-                              }
+                              onClick={() => navigate(`/admin/live-monitor/${child.activeSession?.sessionId}`)}
                               className="w-full sm:w-auto px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer animate-pulse"
                             >
                               <Eye className="w-3.5 h-3.5" />
@@ -964,52 +1045,34 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         </div>
 
                         <div
-                          onClick={() =>
-                            navigate(
-                              `/admin/live-monitor/${child.activeSession?.sessionId}`,
-                            )
-                          }
+                          onClick={() => navigate(`/admin/live-monitor/${child.activeSession?.sessionId}`)}
                           className="grid grid-cols-3 gap-1.5 sm:gap-3 text-[11px] sm:text-xs cursor-pointer"
                         >
                           <div className="bg-white/90 backdrop-blur-xs p-2 sm:p-3 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left hover:bg-white transition-colors">
                             <span className="font-semibold text-slate-500 flex items-center gap-1 text-[10px] sm:text-xs">
-                              <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" />{" "}
-                              <span className="hidden sm:inline">Còn lại:</span>
+                              <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" /> <span className="hidden sm:inline">Còn lại:</span>
                             </span>
                             <span className="font-mono font-black text-blue-700 text-xs sm:text-sm mt-0.5 sm:mt-0">
-                              {Math.floor(
-                                (child.activeSession.timeLeft || 0) / 60,
-                              )}
-                              :
-                              {((child.activeSession.timeLeft || 0) % 60)
-                                .toString()
-                                .padStart(2, "0")}
+                              {Math.floor((child.activeSession.timeLeft || 0) / 60)}:
+                              {((child.activeSession.timeLeft || 0) % 60).toString().padStart(2, "0")}
                             </span>
                           </div>
 
                           <div className="bg-white/90 backdrop-blur-xs p-2 sm:p-3 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left hover:bg-white transition-colors">
                             <span className="font-semibold text-slate-500 flex items-center gap-1 text-[10px] sm:text-xs">
-                              <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600" />{" "}
-                              <span className="hidden sm:inline">Tiến độ:</span>
+                              <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600" /> <span className="hidden sm:inline">Tiến độ:</span>
                             </span>
                             <span className="font-bold text-slate-800 text-xs sm:text-sm mt-0.5 sm:mt-0">
-                              {child.activeSession.answeredCount || 0}/
-                              {child.activeSession.totalQuestions || "?"}
+                              {child.activeSession.answeredCount || 0}/{child.activeSession.totalQuestions || "?"}
                             </span>
                           </div>
 
                           <div className="bg-white/90 backdrop-blur-xs p-2 sm:p-3 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left hover:bg-white transition-colors">
                             <span className="font-semibold text-slate-500 flex items-center gap-1 text-[10px] sm:text-xs">
-                              <AlertTriangle
-                                className={`w-3 h-3 sm:w-4 sm:h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`}
-                              />{" "}
-                              <span className="hidden sm:inline">Rời tab:</span>
+                              <AlertTriangle className={`w-3 h-3 sm:w-4 sm:h-4 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-500" : "text-slate-400"}`} /> <span className="hidden sm:inline">Rời tab:</span>
                             </span>
-                            <span
-                              className={`font-bold text-xs sm:text-sm mt-0.5 sm:mt-0 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-1.5 py-0.2 rounded-md" : "text-slate-500"}`}
-                            >
-                              {child.activeSession.warnings || 0}{" "}
-                              <span className="hidden sm:inline">lần</span>
+                            <span className={`font-bold text-xs sm:text-sm mt-0.5 sm:mt-0 ${(child.activeSession.warnings || 0) > 0 ? "text-amber-700 bg-amber-100/70 px-1.5 py-0.2 rounded-md" : "text-slate-500"}`}>
+                              {child.activeSession.warnings || 0} <span className="hidden sm:inline">lần</span>
                             </span>
                           </div>
                         </div>
@@ -1022,11 +1085,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                               <span>
                                 {Math.round(
                                   ((child.activeSession.answeredCount || 0) /
-                                    Math.max(
-                                      1,
-                                      child.activeSession.totalQuestions || 1,
-                                    )) *
-                                    100,
+                                    Math.max(1, child.activeSession.totalQuestions || 1)) *
+                                    100
                                 )}
                                 %
                               </span>
@@ -1038,15 +1098,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                   width: `${Math.min(
                                     100,
                                     Math.round(
-                                      ((child.activeSession.answeredCount ||
-                                        0) /
-                                        Math.max(
-                                          1,
-                                          child.activeSession.totalQuestions ||
-                                            1,
-                                        )) *
-                                        100,
-                                    ),
+                                      ((child.activeSession.answeredCount || 0) /
+                                        Math.max(1, child.activeSession.totalQuestions || 1)) *
+                                        100
+                                    )
                                   )}%`,
                                 }}
                               />
@@ -1062,11 +1117,8 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                         Lịch sử bài thi gần đây
                       </h4>
 
-                      {!child.recentSubmissions ||
-                      child.recentSubmissions.length === 0 ? (
-                        <p className="text-xs text-slate-400 italic py-2">
-                          Con chưa hoàn thành bài thi nào.
-                        </p>
+                      {!child.recentSubmissions || child.recentSubmissions.length === 0 ? (
+                        <p className="text-xs text-slate-400 italic py-2">Con chưa hoàn thành bài thi nào.</p>
                       ) : (
                         <div className="space-y-2.5">
                           {child.recentSubmissions.map((sub) => {
@@ -1079,17 +1131,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
                                   <div
                                     className={`w-10 h-10 rounded-xl flex flex-col items-center justify-center shrink-0 font-bold ${
-                                      isGood
-                                        ? "bg-emerald-100 text-emerald-800"
-                                        : "bg-blue-100 text-blue-800"
+                                      isGood ? "bg-emerald-100 text-emerald-800" : "bg-blue-100 text-blue-800"
                                     }`}
                                   >
-                                    <span className="text-sm font-black leading-none">
-                                      {sub.score}
-                                    </span>
-                                    <span className="text-[8px] opacity-75">
-                                      /{sub.maxScore || 10}
-                                    </span>
+                                    <span className="text-sm font-black leading-none">{sub.score}</span>
+                                    <span className="text-[8px] opacity-75">/{sub.maxScore || 10}</span>
                                   </div>
 
                                   <div className="min-w-0 space-y-0.5">
@@ -1099,14 +1145,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                                     <div className="flex items-center gap-3 text-[11px] text-slate-400 font-medium flex-wrap">
                                       <span className="text-emerald-700 font-semibold flex items-center gap-1">
                                         <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                                        {sub.correctCount}/{sub.totalCount} câu
-                                        đúng
+                                        {sub.correctCount}/{sub.totalCount} câu đúng
                                       </span>
                                       <span className="flex items-center gap-1">
                                         <Clock className="w-3 h-3" />
-                                        {Math.floor(
-                                          (sub.timeSpent || 0) / 60,
-                                        )}p {(sub.timeSpent || 0) % 60}s
+                                        {Math.floor((sub.timeSpent || 0) / 60)}p {(sub.timeSpent || 0) % 60}s
                                       </span>
                                     </div>
                                   </div>
@@ -1125,19 +1168,12 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             );
                           })}
 
-                          {childHistoryMap[child.username]?.hasMore !==
-                            false && (
+                          {childHistoryMap[child.username]?.hasMore !== false && (
                             <div className="text-center pt-2">
                               <button
                                 type="button"
-                                onClick={() =>
-                                  handleFetchMoreChildSubmissions(
-                                    child.username,
-                                  )
-                                }
-                                disabled={
-                                  childHistoryMap[child.username]?.loading
-                                }
+                                onClick={() => handleFetchMoreChildSubmissions(child.username)}
+                                disabled={childHistoryMap[child.username]?.loading}
                                 className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all cursor-pointer disabled:opacity-50"
                               >
                                 {childHistoryMap[child.username]?.loading
@@ -1172,23 +1208,17 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   </Link>
                   <button
                     type="button"
-                    onClick={() =>
-                      parentInfo && loadParentExams(parentInfo.username)
-                    }
+                    onClick={() => parentInfo && loadParentExams(parentInfo.username)}
                     className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1 p-1.5"
                   >
-                    <RefreshCw
-                      className={`w-3.5 h-3.5 ${loadingMyExams ? "animate-spin" : ""}`}
-                    />{" "}
-                    Làm mới
+                    <RefreshCw className={`w-3.5 h-3.5 ${loadingMyExams ? "animate-spin" : ""}`} /> Làm mới
                   </button>
                 </div>
               </div>
 
               {myCreatedExams.length === 0 ? (
                 <p className="text-xs text-slate-400 italic py-2">
-                  Phụ huynh chưa lưu đề thi nào. Hãy sang tab "Tạo đề & Sửa
-                  Azota" để nạp JSON và lưu đề gửi cho con!
+                  Phụ huynh chưa lưu đề thi nào. Hãy sang tab "Tạo đề & Sửa " để nạp JSON và lưu đề gửi cho con!
                 </p>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1204,16 +1234,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 bg-amber-100 text-amber-800 rounded-md border border-amber-200 flex items-center gap-1">
                               <Lock className="w-2.5 h-2.5" /> Không công khai
                             </span>
-                            <span className="text-xs font-mono font-bold text-slate-500">
-                              {ex.timeLimit || 45} phút
-                            </span>
+                            <span className="text-xs font-mono font-bold text-slate-500">{ex.timeLimit || 45} phút</span>
                           </div>
-                          <h4 className="font-bold text-slate-900 text-sm truncate">
-                            {ex.title}
-                          </h4>
-                          <p className="text-xs text-slate-500">
-                            {ex.questionCount || 0} câu hỏi
-                          </p>
+                          <h4 className="font-bold text-slate-900 text-sm truncate">{ex.title}</h4>
+                          <p className="text-xs text-slate-500">{ex.questionCount || 0} câu hỏi</p>
                         </div>
 
                         <div className="space-y-2 pt-2 border-t border-slate-200/60">
@@ -1221,15 +1245,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                             type="button"
                             onClick={() => {
                               navigator.clipboard.writeText(shareUrl);
-                              showToast(
-                                `Đã sao chép link đề "${ex.title}"!`,
-                                "success",
-                              );
+                              showToast(`Đã sao chép link đề "${ex.title}"!`, "success");
                             }}
                             className="w-full py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs"
                           >
-                            <Share2 className="w-3.5 h-3.5" /> Sao chép link gửi
-                            con
+                            <Share2 className="w-3.5 h-3.5" /> Sao chép link gửi con
                           </button>
 
                           <div className="flex items-center gap-1.5 justify-between bg-white p-1 rounded-xl border border-slate-200">
@@ -1238,32 +1258,28 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                               className="p-1.5 text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg text-xs font-bold transition-colors flex items-center gap-1"
                               title="Xem trang làm bài thử"
                             >
-                              <Eye className="w-3.5 h-3.5" />{" "}
-                              <span className="hidden sm:inline">Làm thử</span>
+                              <Eye className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Làm thử</span>
                             </Link>
                             <Link
                               to={`/parent/exams/${ex.id}/edit`}
                               className="p-1.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg text-xs font-bold transition-colors flex items-center gap-1"
                               title="Sửa đề thi (Thêm/Sửa/Xóa câu hỏi)"
                             >
-                              <Edit2 className="w-3.5 h-3.5" />{" "}
-                              <span className="hidden sm:inline">Sửa câu</span>
+                              <Edit2 className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Sửa câu</span>
                             </Link>
                             <Link
                               to={`/parent/exams/${ex.id}/submissions`}
                               className="p-1.5 text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg text-xs font-bold transition-colors flex items-center gap-1"
                               title="Bài nộp & Chấm lại"
                             >
-                              <GraduationCap className="w-3.5 h-3.5" />{" "}
-                              <span className="hidden sm:inline">Bài nộp</span>
+                              <GraduationCap className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Bài nộp</span>
                             </Link>
                             <Link
                               to={`/parent/exams/${ex.id}/stats`}
                               className="p-1.5 text-slate-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg text-xs font-bold transition-colors flex items-center gap-1"
                               title="Thống kê kết quả"
                             >
-                              <BarChart2 className="w-3.5 h-3.5" />{" "}
-                              <span className="hidden sm:inline">Thống kê</span>
+                              <BarChart2 className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Thống kê</span>
                             </Link>
                             <button
                               type="button"
@@ -1284,918 +1300,646 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
           </div>
         )}
 
-        {/* =================== TAB 2: TẠO ĐỀ & SỬA AZOTA (JSON / PROMPT) =================== */}
+        {/* =================== TAB 2: TẠO ĐỀ & SOẠN ĐỀ (AI / JSON / WORD) =================== */}
         {activeTab === "create" && (
           <div className="space-y-6 animate-in fade-in duration-150">
-            {/* Input Switcher & Master Prompt Action */}
-            <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-2xs space-y-4">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            {/* Top Toolbar & Methods */}
+            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs space-y-4">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-slate-100 pb-4">
                 <div>
                   <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
-                    <Edit2 className="w-5 h-5 text-indigo-600" />
-                    Tạo đề & Chỉnh sửa giao diện Azota
+                    <Sparkles className="w-5 h-5 text-indigo-600" />
+                    Tạo đề & Soạn đề thi cho con
                   </h2>
                   <p className="text-xs text-slate-500 font-medium">
-                    Phụ huynh có thể nạp nhanh đề qua mã JSON hoặc sinh đề tự
-                    động bằng AI, sau đó chỉnh sửa và xuất đề.
+                    Tạo đề nhanh bằng Prompt AI, dán mã JSON từ ChatGPT, nạp file Word hoặc soạn trực tiếp.
                   </p>
                 </div>
 
+                {/* External Tools / Special Modes */}
                 <div className="flex items-center gap-2 flex-wrap">
                   <button
                     type="button"
-                    onClick={() => setShowGptModal(true)}
-                    className="px-3.5 py-1.5 bg-linear-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                    onClick={() => navigate("/parent/exams/import-word")}
+                    className="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition-all border border-indigo-200 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    title="Nhập đề từ file Microsoft Word (.docx)"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Tạo Prompt ChatGPT (Full Schema v3)</span>
+                    <Upload className="w-4 h-4 text-indigo-600" />
+                    <span>AI Nhập file Word</span>
                   </button>
 
-                  <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-                    <button
-                      type="button"
-                      onClick={() => setCreateMode("json")}
-                      className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                        createMode === "json"
-                          ? "bg-white text-indigo-700 shadow-2xs"
-                          : "text-slate-600 hover:text-slate-900"
-                      }`}
-                    >
-                      <Code className="w-3.5 h-3.5" />
-                      <span>Nạp JSON</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCreateMode("prompt")}
-                      className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                        createMode === "prompt"
-                          ? "bg-white text-indigo-700 shadow-2xs"
-                          : "text-slate-600 hover:text-slate-900"
-                      }`}
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Tạo bằng AI Prompt</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/parent/exams/import-prompt")}
+                    className="px-3.5 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold transition-all border border-purple-200 flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    title="AI Studio tạo đề từ Prompt tự do"
+                  >
+                    <Sparkles className="w-4 h-4 text-purple-600" />
+                    <span>AI Prompt Studio</span>
+                  </button>
 
-              {/* Sample Prompt Presets Chips */}
-              <div className="space-y-1.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-amber-500" /> Mẫu prompt
-                    ChatGPT chuẩn cấu trúc (Click để nạp nhanh):
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/parent/exams/new")}
+                    className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+                    title="Soạn đề chuyên sâu toàn màn hình"
+                  >
+                    <Edit2 className="w-4 h-4 text-slate-600" />
+                    <span className="hidden sm:inline">Soạn đề chuyên sâu</span>
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => setShowGptModal(true)}
-                    className="text-[11px] font-bold text-indigo-600 hover:underline cursor-pointer"
+                    className="px-3.5 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 rounded-xl text-xs font-bold transition-all border border-amber-200 flex items-center gap-1.5 cursor-pointer"
+                    title="Mở bảng tùy biến Prompt mẫu ChatGPT (Schema v3)"
                   >
-                    Tùy biến chi tiết ➔
+                    <Code className="w-4 h-4 text-amber-600" />
+                    <span className="hidden sm:inline">Mẫu ChatGPT</span>
                   </button>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap pt-1">
-                  {SAMPLE_PROMPT_PRESETS.map((preset, pIdx) => (
-                    <button
-                      key={`preset-${pIdx}`}
-                      type="button"
-                      onClick={() => {
-                        setPromptInput(preset.prompt);
-                        setCreateMode("prompt");
-                        navigator.clipboard.writeText(
-                          `\`json\n${MASTER_SCHEMA_JSON_STRING}\n\`\n\n${preset.prompt}`,
-                        );
-                        showToast(
-                          `Đã nạp prompt và copy vào Clipboard: "${preset.label}"!`,
-                          "success",
-                        );
-                      }}
-                      className="px-2.5 py-1 bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 border border-slate-200 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
-                      title="Click để chọn và copy prompt đầy đủ"
-                    >
-                      <span>📌 {preset.label}</span>
-                    </button>
-                  ))}
                 </div>
               </div>
 
-              {/* Mode A: JSON input */}
-              {createMode === "json" ? (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                    <span>Dán nội dung JSON vào đây (hoặc tải tệp .json):</span>
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="text-indigo-600 hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      <Upload className="w-3.5 h-3.5" /> Tải tệp JSON từ máy
-                    </button>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileUpload}
-                      accept=".json"
-                      className="hidden"
+              {/* Mode Selector */}
+              <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+                <button
+                  type="button"
+                  onClick={() => setCreateMode("prompt")}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    createMode === "prompt"
+                      ? "bg-indigo-600 text-white shadow-xs"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>1. Nhập Prompt AI trực tiếp</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setCreateMode("json")}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    createMode === "json"
+                      ? "bg-indigo-600 text-white shadow-xs"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                  }`}
+                >
+                  <Code className="w-3.5 h-3.5" />
+                  <span>2. Dán mã JSON (từ ChatGPT)</span>
+                </button>
+              </div>
+
+              {/* MODE 1: PROMPT INPUT */}
+              {createMode === "prompt" && (
+                <div className="space-y-4 pt-2">
+                  <div className="space-y-2">
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                      Nhập yêu cầu đề thi cho AI (Môn, lớp, số lượng câu, chủ đề...):
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={promptInput}
+                      onChange={(e) => setPromptInput(e.target.value)}
+                      placeholder="Ví dụ: Tạo cho tôi đề kiểm tra 15 phút Toán lớp 12 phần Khảo sát hàm số gồm 10 câu trắc nghiệm 1 đáp án và 2 câu đúng sai có lời giải chi tiết..."
+                      className="w-full p-4 bg-slate-50 border border-slate-300 rounded-2xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition leading-relaxed"
                     />
                   </div>
 
-                  <textarea
-                    rows={6}
-                    value={jsonInput}
-                    onChange={(e) => setJsonInput(e.target.value)}
-                    placeholder='{"title": "Đề ôn tập", "questions": [...]}'
-                    className="w-full p-3.5 bg-slate-50 border border-slate-300 rounded-2xl text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
-                  />
-
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowGptModal(true)}
-                      className="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      <Sparkles className="w-3.5 h-3.5" /> Xem prompt mẫu cho
-                      ChatGPT để lấy JSON
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleParseJson(jsonInput)}
-                      className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <Check className="w-4 h-4" />
-                      <span>Nạp đề & Mở xem trước Azota</span>
-                    </button>
+                  {/* Preset prompt pills */}
+                  <div className="space-y-1.5">
+                    <span className="text-[11px] font-bold text-slate-500">Gợi ý chủ đề nhanh:</span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {SAMPLE_PROMPT_PRESETS.map((p, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setPromptInput(p.prompt)}
+                          className="px-3 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 rounded-xl text-[11px] font-semibold transition cursor-pointer"
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                /* Mode B: Prompt input */
-                <form onSubmit={handleGenerateAiPrompt} className="space-y-3">
-                  <label className="block text-xs font-bold text-slate-700">
-                    Nhập yêu cầu đề thi cho AI (Ví dụ: "Tạo 5 câu trắc nghiệm
-                    Toán 9 Hình học đường tròn có lời giải"):
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    value={promptInput}
-                    onChange={(e) => setPromptInput(e.target.value)}
-                    placeholder="Nhập nội dung hoặc dán bài tập SGK tại đây..."
-                    className="w-full p-3.5 bg-slate-50 border border-slate-300 rounded-2xl text-xs sm:text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
-                  />
-                  <div className="flex justify-between items-center flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowGptModal(true)}
-                      className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                      Mở bảng tùy biến prompt nâng cao
-                    </button>
+
+                  <div className="flex items-center justify-between gap-3 pt-2">
+                    <p className="text-[11px] text-slate-400">
+                      AI sẽ tự động nhận diện công thức LaTeX, phân loại dạng câu và sinh lời giải chi tiết.
+                    </p>
 
                     <button
-                      type="submit"
-                      disabled={isGeneratingAi}
-                      className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                      type="button"
+                      disabled={isGeneratingAi || !promptInput.trim()}
+                      onClick={handleGenerateAiPrompt}
+                      className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer disabled:opacity-50"
                     >
                       {isGeneratingAi ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
-                          <span>AI đang tạo đề...</span>
+                          <span>AI đang tạo câu hỏi...</span>
                         </>
                       ) : (
                         <>
                           <Sparkles className="w-4 h-4 text-amber-300" />
-                          <span>Tạo đề ngay với AI</span>
+                          <span>AI Tạo đề ngay</span>
                         </>
                       )}
                     </button>
                   </div>
-                </form>
+                </div>
+              )}
+
+              {/* MODE 2: JSON INPUT */}
+              {createMode === "json" && (
+                <div className="space-y-4 pt-2">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                        Dán mã JSON đề thi:
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <Upload className="w-3.5 h-3.5" /> Nạp từ file .json
+                      </button>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".json"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </div>
+                    <textarea
+                      rows={6}
+                      value={jsonInput}
+                      onChange={(e) => setJsonInput(e.target.value)}
+                      placeholder={`{\n  "title": "Đề kiểm tra Toán 12",\n  "timeLimit": 45,\n  "questions": [...]\n}`}
+                      className="w-full p-4 bg-slate-900 text-emerald-400 font-mono text-xs rounded-2xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed scrollbar-thin"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const sampleData = {
+                          title: "Đề kiểm tra ôn tập Toán 12",
+                          timeLimit: 45,
+                          questions: [
+                            {
+                              id: `q_sample_1`,
+                              order: 0,
+                              type: "single_choice",
+                              text: "Cho hàm số $y = f(x)$ có bảng biến thiên như hình vẽ. Hàm số đồng biến trên khoảng nào dưới đây?",
+                              points: 1,
+                              options: [
+                                { id: "a", text: "$(-\\infty; -1)$" },
+                                { id: "b", text: "$(-1; 1)$" },
+                                { id: "c", text: "$(1; +\\infty)$" },
+                                { id: "d", text: "$(0; 2)$" },
+                              ],
+                              correctOptionIds: ["a"],
+                              explanation: "Dựa vào bảng biến thiên, đạo hàm mang dấu dương trên khoảng $(-\\infty; -1)$.",
+                            },
+                            {
+                              id: `q_sample_2`,
+                              order: 1,
+                              type: "true_false",
+                              text: "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông cạnh $a$, $SA \\perp (ABCD)$ và $SA = a\\sqrt{2}$.",
+                              points: 1,
+                              statements: [
+                                { id: "s1", text: "$BD \\perp (SAC)$", correctAnswer: true },
+                                { id: "s2", text: "Góc giữa $(SBD)$ và $(ABCD)$ là $45^\\circ$", correctAnswer: false },
+                                { id: "s3", text: "Thể tích khối chóp là $V = \\frac{a^3\\sqrt{2}}{3}$", correctAnswer: true },
+                                { id: "s4", text: "Khoảng cách từ $A$ đến $(SBD)$ bằng $\\frac{a}{\\sqrt{3}}$", correctAnswer: false },
+                              ],
+                              explanation: "Lời giải chi tiết từng ý a, b, c, d hình học không gian.",
+                            },
+                          ],
+                        };
+                        const str = JSON.stringify(sampleData, null, 2);
+                        setJsonInput(str);
+                        handleParseJson(str);
+                      }}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer"
+                    >
+                      Dán mẫu đề ví dụ
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={!jsonInput.trim()}
+                      onClick={() => handleParseJson(jsonInput)}
+                      className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                    >
+                      <Check className="w-4 h-4" />
+                      <span>Nạp JSON & Phân tích câu hỏi</span>
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
 
-            {/* AZOTA-STYLE VISUAL PREVIEW & DIRECT EDITOR FOR PARENT (SPLIT-VIEW) */}
-            {questions.length > 0 && (
-              <div className="space-y-4">
-                {/* Action bar for Parent: Save/Publish & Copy Link & Export */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs">
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setIsMatrixOpen(!isMatrixOpen)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 border cursor-pointer ${
-                        isMatrixOpen
-                          ? "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200"
-                          : "bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 shadow-2xs"
-                      }`}
-                      title={
-                        isMatrixOpen
-                          ? "Ẩn ma trận đáp án"
-                          : "Hiện ma trận đáp án"
-                      }
-                    >
-                      {isMatrixOpen ? (
-                        <>
-                          <PanelLeftClose className="w-3.5 h-3.5" />
-                          <span>Ẩn ma trận</span>
-                        </>
-                      ) : (
-                        <>
-                          <PanelLeftOpen className="w-3.5 h-3.5" />
-                          <span>Hiện ma trận</span>
-                        </>
-                      )}
-                    </button>
+            {/* Exam Meta & Security Guarantee */}
+            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-2xs space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2 space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Tiêu đề đề thi:
+                  </label>
+                  <input
+                    type="text"
+                    value={examTitle}
+                    onChange={(e) => setExamTitle(e.target.value)}
+                    placeholder="Nhập tên đề thi..."
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
 
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-extrabold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-lg">
-                          Xem trước Azota
-                        </span>
-                        <h3 className="font-extrabold text-slate-900 text-sm sm:text-base truncate max-w-xs sm:max-w-md">
-                          {examTitle}
-                        </h3>
-                      </div>
-                      <p className="text-xs text-slate-400">
-                        {questions.length} câu • Click đáp án/sửa trực tiếp từng
-                        câu • Lưu đề lấy link gửi con
-                      </p>
-                    </div>
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Thời gian làm bài (Phút):
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={300}
+                    value={examTimeLimit}
+                    onChange={(e) => setExamTimeLimit(parseInt(e.target.value) || 45)}
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+
+              {/* Security & Folder Path Badge */}
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-2.5 text-xs text-emerald-900 font-medium">
+                <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+                <div>
+                  <span className="font-bold">Đảm bảo bảo mật: </span>
+                  Bài thi được lưu ở chế độ <strong className="text-emerald-950 font-black">Không công khai (Private)</strong> và tự động gom vào thư mục ảo:{" "}
+                  <code className="px-2 py-0.5 bg-emerald-100/80 rounded-md font-mono text-emerald-900 font-bold">
+                    Drive gốc/Phụ huynh/{parentInfo?.displayName || "Tên phụ huynh"}
+                  </code>
+                </div>
+              </div>
+            </div>
+
+            {/* Questions Management & Live Exam Paper */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className="px-3 py-1.5 bg-indigo-100 text-indigo-800 font-black text-xs rounded-xl">
+                    {questions.length} câu hỏi
                   </div>
+                  <span className="text-xs text-slate-500 font-medium">
+                    Click vào phương án để đổi đáp án đúng. Công thức Toán $...$ hiển thị trực tiếp.
+                  </span>
+                </div>
 
-                  <div className="flex items-center gap-2 flex-wrap">
+                {/* Quick Add Question buttons */}
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => handleAddQuestion("single_choice")}
+                    className="px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> 1 Đáp án
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleAddQuestion("multiple_choice")}
+                    className="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Nhiều đáp án
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleAddQuestion("true_false")}
+                    className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Đúng/Sai 4 ý
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleAddQuestion("short_answer")}
+                    className="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Trả lời ngắn
+                  </button>
+                </div>
+              </div>
+
+              {/* Question Number Matrix Bar */}
+              {questions.length > 0 && (
+                <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-2 overflow-x-auto scrollbar-thin">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 shrink-0 mr-1">
+                    Mục lục câu:
+                  </span>
+                  {questions.map((q, idx) => (
                     <button
+                      key={q.id}
                       type="button"
-                      onClick={handlePrint}
-                      className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+                      onClick={() => scrollToQuestion(idx)}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 hover:border-indigo-300 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1"
                     >
-                      <Printer className="w-4 h-4" />
-                      <span className="hidden sm:inline">In / Xuất PDF</span>
+                      <span>C{idx + 1}</span>
+                      <span className="text-[9px] opacity-70">({getQuestionSummary(q)})</span>
                     </button>
+                  ))}
+                </div>
+              )}
 
+              {/* Questions Paper Preview */}
+              {questions.length === 0 ? (
+                <div className="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-12 text-center space-y-4">
+                  <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xs">
+                    <FileText className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900">Chưa có câu hỏi nào trong đề</h3>
+                  <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                    Hãy nhập Prompt AI, dán mã JSON hoặc bấm các nút "+ Thêm câu hỏi" ở trên để bắt đầu soạn đề.
+                  </p>
+                </div>
+              ) : (
+                <div
+                  ref={rightPaperRef}
+                  className="space-y-4 max-h-[75vh] overflow-y-auto pr-1 scrollbar-thin"
+                >
+                  {questions.map((q, idx) => (
+                    <div
+                      id={`parent-preview-q-${idx}`}
+                      key={q.id}
+                      className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-2xs space-y-4 transition hover:border-indigo-200"
+                    >
+                      {/* Question Top Header */}
+                      <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center shadow-2xs">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                            {q.type === "single_choice"
+                              ? "Trắc nghiệm 1 đáp án"
+                              : q.type === "multiple_choice"
+                              ? "Trắc nghiệm nhiều đáp án"
+                              : q.type === "true_false"
+                              ? "Đúng / Sai 4 ý"
+                              : "Điền đáp án ngắn"}
+                          </span>
+                        </div>
+
+                        {/* Action buttons */}
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => handleMoveQuestion(idx, "up")}
+                            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 disabled:opacity-30 cursor-pointer"
+                            title="Di chuyển lên"
+                          >
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === questions.length - 1}
+                            onClick={() => handleMoveQuestion(idx, "down")}
+                            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 disabled:opacity-30 cursor-pointer"
+                            title="Di chuyển xuống"
+                          >
+                            ↓
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDuplicateQuestion(idx)}
+                            className="p-1.5 text-slate-400 hover:text-indigo-600 rounded-lg hover:bg-indigo-50 cursor-pointer"
+                            title="Nhân bản câu hỏi"
+                          >
+                            <Copy className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteQuestion(idx)}
+                            className="p-1.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 cursor-pointer"
+                            title="Xóa câu hỏi"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Question Text */}
+                      <div className="space-y-2">
+                        <textarea
+                          rows={2}
+                          value={q.text}
+                          onChange={(e) => handleUpdateQuestionText(idx, e.target.value)}
+                          placeholder="Nội dung câu hỏi..."
+                          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"
+                        />
+                        {/* Rendered Preview */}
+                        <div className="p-3 bg-slate-50/50 rounded-xl text-xs font-medium text-slate-800 leading-relaxed border border-slate-100">
+                          <LatexPreview content={q.text} />
+                        </div>
+                      </div>
+
+                      {/* Question Options (Single / Multiple Choice) */}
+                      {(q.type === "single_choice" || q.type === "multiple_choice") && q.options && (
+                        <div className="space-y-2.5">
+                          <span className="text-[11px] font-bold text-slate-400 uppercase">
+                            Phương án lựa chọn (Click chọn đáp án đúng):
+                          </span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            {q.options.map((opt, oIdx) => {
+                              const letter = String.fromCharCode(65 + oIdx);
+                              const isSelected = q.correctOptionIds?.includes(opt.id);
+                              return (
+                                <div
+                                  key={opt.id}
+                                  className={`p-3 rounded-2xl border transition flex items-start gap-2.5 ${
+                                    isSelected
+                                      ? "bg-emerald-50/80 border-emerald-400 ring-2 ring-emerald-200"
+                                      : "bg-white border-slate-200 hover:border-slate-300"
+                                  }`}
+                                >
+                                  <button
+                                    type="button"
+                                    onClick={() => handleToggleOption(idx, opt.id)}
+                                    className={`w-7 h-7 rounded-xl font-bold text-xs flex items-center justify-center shrink-0 transition cursor-pointer ${
+                                      isSelected
+                                        ? "bg-emerald-600 text-white shadow-2xs"
+                                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    }`}
+                                  >
+                                    {letter}
+                                  </button>
+
+                                  <div className="flex-1 min-w-0 space-y-1">
+                                    <input
+                                      type="text"
+                                      value={opt.text}
+                                      onChange={(e) => handleUpdateOptionText(idx, opt.id, e.target.value)}
+                                      className="w-full text-xs font-medium text-slate-900 bg-transparent border-b border-transparent focus:border-indigo-400 focus:outline-none"
+                                    />
+                                    <div className="text-[11px] text-slate-700">
+                                      <LatexPreview content={opt.text} />
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Question Statements (True / False 4 items) */}
+                      {q.type === "true_false" && q.statements && (
+                        <div className="space-y-2.5">
+                          <span className="text-[11px] font-bold text-slate-400 uppercase">
+                            Mệnh đề Đúng / Sai 4 ý:
+                          </span>
+                          <div className="space-y-2">
+                            {q.statements.map((st, sIdx) => {
+                              const letter = String.fromCharCode(97 + sIdx);
+                              return (
+                                <div
+                                  key={st.id}
+                                  className="p-3 bg-white border border-slate-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                                >
+                                  <div className="flex items-start gap-2.5 flex-1 min-w-0">
+                                    <span className="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs flex items-center justify-center shrink-0">
+                                      {letter})
+                                    </span>
+                                    <div className="flex-1 space-y-1">
+                                      <input
+                                        type="text"
+                                        value={st.text}
+                                        onChange={(e) => handleUpdateStatementText(idx, st.id, e.target.value)}
+                                        className="w-full text-xs font-medium text-slate-900 bg-transparent border-b border-transparent focus:border-indigo-400 focus:outline-none"
+                                      />
+                                      <div className="text-[11px] text-slate-700">
+                                        <LatexPreview content={st.text} />
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleToggleStatement(idx, st.id, true)}
+                                      className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                                        st.correctAnswer === true
+                                          ? "bg-emerald-600 text-white shadow-2xs"
+                                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                      }`}
+                                    >
+                                      Đúng
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleToggleStatement(idx, st.id, false)}
+                                      className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                                        st.correctAnswer === false
+                                          ? "bg-red-600 text-white shadow-2xs"
+                                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                      }`}
+                                    >
+                                      Sai
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Question Short Answer */}
+                      {q.type === "short_answer" && (
+                        <div className="space-y-1.5">
+                          <label className="block text-[11px] font-bold text-slate-400 uppercase">
+                            Đáp án chấp nhận (Số hoặc biểu thức ngắn):
+                          </label>
+                          <input
+                            type="text"
+                            value={q.acceptedAnswers?.[0] || ""}
+                            onChange={(e) => handleUpdateAcceptedAnswer(idx, e.target.value)}
+                            placeholder="Ví dụ: 12.5 hoặc -3"
+                            className="w-full max-w-sm px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          />
+                        </div>
+                      )}
+
+                      {/* Explanation */}
+                      <div className="space-y-1.5 pt-1">
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase">
+                          Lời giải chi tiết:
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={q.explanation || ""}
+                          onChange={(e) => handleUpdateExplanation(idx, e.target.value)}
+                          placeholder="Lời giải chi tiết cho câu hỏi này..."
+                          className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"
+                        />
+                        {q.explanation && (
+                          <div className="p-2.5 bg-amber-50/50 rounded-xl text-[11px] text-amber-900 leading-relaxed border border-amber-100">
+                            <LatexPreview content={q.explanation} />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Bottom Action Buttons */}
+              {questions.length > 0 && (
+                <div className="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3 sticky bottom-4 z-20">
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={handleExportJson}
-                      className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+                      className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5"
                     >
-                      <Download className="w-4 h-4" />
-                      <span className="hidden sm:inline">Xuất JSON</span>
+                      <Download className="w-4 h-4" /> Xuất JSON
                     </button>
-
                     <button
                       type="button"
-                      onClick={handleSaveAndPublishExam}
-                      disabled={isSavingExam}
-                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                      onClick={handlePrint}
+                      className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5"
                     >
-                      {isSavingExam ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Share2 className="w-4 h-4" />
-                      )}
-                      <span>Lưu đề & Lấy link gửi con</span>
+                      <Printer className="w-4 h-4" /> In / PDF
                     </button>
                   </div>
-                </div>
 
-                {/* Exam Title & Time editor inline */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-4 rounded-2xl border border-slate-200 text-xs">
-                  <div className="sm:col-span-2 space-y-1">
-                    <label className="font-bold text-slate-600">
-                      Tiêu đề đề thi:
-                    </label>
-                    <input
-                      type="text"
-                      value={examTitle}
-                      onChange={(e) => setExamTitle(e.target.value)}
-                      className="w-full px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="font-bold text-slate-600">
-                      Thời gian (phút):
-                    </label>
-                    <input
-                      type="number"
-                      value={examTimeLimit}
-                      onChange={(e) =>
-                        setExamTimeLimit(parseInt(e.target.value) || 45)
-                      }
-                      className="w-full px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-
-                {/* 2-Column Split Workspace with Independent Scrollbars */}
-                <div className="h-[780px] max-h-[82vh] flex flex-col lg:flex-row overflow-hidden rounded-3xl border border-slate-200 bg-slate-100/70 p-3 sm:p-4 gap-4">
-                  {/* Left Column: Ma trận đáp án Azota with independent scrolling */}
-                  {isMatrixOpen && (
-                    <aside className="w-full lg:w-72 h-48 lg:h-full flex flex-col bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 shadow-sm shrink-0 overflow-hidden space-y-3 animate-in fade-in slide-in-from-left-2 duration-200">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 shrink-0">
-                        <div className="flex items-center gap-1.5">
-                          <CheckSquare className="w-4 h-4 text-emerald-600" />
-                          <h4 className="font-extrabold text-xs uppercase tracking-wide text-slate-900">
-                            Ma trận đáp án
-                          </h4>
-                        </div>
-                        <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
-                          {questions.length} câu
-                        </span>
-                      </div>
-
-                      {/* Search */}
-                      <div className="relative shrink-0">
-                        <Search className="w-3.5 h-3.5 absolute left-2.5 top-2 text-slate-400" />
-                        <input
-                          type="text"
-                          placeholder="Tìm câu số..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="w-full pl-7 pr-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                        />
-                      </div>
-
-                      {/* Scrollable Questions Matrix Grid */}
-                      <div className="flex-1 overflow-y-auto space-y-2 pr-1 scrollbar-thin min-h-0">
-                        <div className="grid grid-cols-2 gap-1.5">
-                          {questions.map((q, idx) => {
-                            const filtered = searchTerm
-                              ? `câu ${idx + 1}`.includes(
-                                  searchTerm.toLowerCase(),
-                                ) || `${idx + 1}`.includes(searchTerm)
-                              : true;
-                            if (!filtered) return null;
-
-                            const summary = getQuestionSummary(q);
-                            const isUnanswered = summary === "?";
-                            const isCurrentlyEditing =
-                              editingQuestionId === q.id;
-
-                            return (
-                              <button
-                                key={`parent-side-q-${q.id}`}
-                                type="button"
-                                onClick={() => scrollToQuestion(idx)}
-                                className={`p-2 rounded-xl text-xs border transition-all text-left flex flex-col justify-between cursor-pointer group hover:scale-[1.02] ${
-                                  isCurrentlyEditing
-                                    ? "bg-indigo-50 border-indigo-500 ring-2 ring-indigo-500/30 shadow-xs"
-                                    : isUnanswered
-                                      ? "bg-red-50 text-red-900 border-red-200 hover:bg-red-100"
-                                      : "bg-emerald-50/80 text-emerald-950 border-emerald-300 hover:bg-emerald-100/90 shadow-2xs"
-                                }`}
-                                title={`Câu ${idx + 1}: Click để nhảy tới câu này`}
-                              >
-                                <div className="flex items-center justify-between font-bold">
-                                  <span className="text-slate-800 font-extrabold text-[11px]">
-                                    Câu {idx + 1}
-                                  </span>
-                                  <span
-                                    className={`px-1.5 py-0.2 rounded text-[10px] font-mono font-bold ${
-                                      isCurrentlyEditing
-                                        ? "bg-indigo-600 text-white"
-                                        : isUnanswered
-                                          ? "bg-red-200 text-red-900"
-                                          : "bg-emerald-600 text-white"
-                                    }`}
-                                  >
-                                    {summary}
-                                  </span>
-                                </div>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      <div className="p-2 bg-indigo-50/70 border border-indigo-100 rounded-xl text-[10px] text-indigo-900 font-medium shrink-0">
-                        💡 Click câu hỏi để cuộn nhanh đến câu đó trên trang đề.
-                      </div>
-                    </aside>
-                  )}
-
-                  {/* Right Column: Independent Scrolling Paper Document (Only this area scrolls) */}
-                  <div
-                    ref={rightPaperRef}
-                    className="flex-1 h-full overflow-y-auto bg-white border border-slate-200 rounded-2xl p-5 sm:p-8 shadow-xs space-y-6 min-h-0 scroll-smooth scrollbar-thin"
+                  <button
+                    type="button"
+                    disabled={isSavingExam}
+                    onClick={handleSaveAndPublishExam}
+                    className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
-                    {/* Exam Header */}
-                    <div className="border-b-2 border-slate-800 pb-5 text-center space-y-1.5">
-                      <div className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">
-                        ĐỀ THI TỰ LUYỆN DÀNH CHO CON
-                      </div>
-                      <h2 className="text-lg sm:text-xl font-black text-slate-900 uppercase tracking-tight">
-                        {examTitle || "BÀI THI CHƯA ĐẶT TÊN"}
-                      </h2>
-                      <div className="flex items-center justify-center gap-3 text-xs font-semibold text-slate-600 pt-0.5">
-                        <span>
-                          Thời gian làm bài:{" "}
-                          <strong>{examTimeLimit} phút</strong>
-                        </span>
-                        <span>•</span>
-                        <span>
-                          Số câu hỏi: <strong>{questions.length} câu</strong>
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Questions List */}
-                    <div className="space-y-6">
-                      {questions.map((q, qIdx) => {
-                        const isEditing = editingQuestionId === q.id;
-
-                        return (
-                          <div
-                            id={`parent-preview-q-${qIdx}`}
-                            key={q.id}
-                            className="bg-slate-50/50 border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs space-y-3 transition-all"
-                          >
-                            {/* Question Header */}
-                            <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5 flex-wrap gap-2">
-                              <div className="flex items-center gap-2">
-                                <span className="px-2.5 py-0.5 bg-indigo-600 text-white font-black text-xs rounded-md">
-                                  Câu {qIdx + 1}
-                                </span>
-                                <span className="text-xs font-bold text-slate-500 uppercase">
-                                  {q.type === "single_choice" &&
-                                    "Trắc nghiệm 1 đáp án"}
-                                  {q.type === "multiple_choice" &&
-                                    "Trắc nghiệm nhiều đáp án"}
-                                  {q.type === "true_false" && "Đúng / Sai 4 ý"}
-                                  {q.type === "short_answer" &&
-                                    "Điền đáp án ngắn"}
-                                </span>
-                              </div>
-
-                              <div className="flex items-center gap-2">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    setEditingQuestionId(
-                                      isEditing ? null : q.id,
-                                    )
-                                  }
-                                  className="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
-                                >
-                                  <Edit2 className="w-3 h-3 text-indigo-600" />
-                                  <span>
-                                    {isEditing
-                                      ? "Đóng sửa"
-                                      : "Sửa trực tiếp (Đề & Lời giải & Đáp án)"}
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-
-                            {/* In-place Comprehensive Edit Form */}
-                            {isEditing ? (
-                              <div className="space-y-4 bg-white p-4 rounded-xl border border-indigo-200 shadow-2xs">
-                                <div>
-                                  <label className="block text-xs font-bold text-slate-700 mb-1">
-                                    Nội dung câu hỏi (hỗ trợ công thức $...$):
-                                  </label>
-                                  <textarea
-                                    rows={3}
-                                    value={q.text}
-                                    onChange={(e) => {
-                                      const val = e.target.value;
-                                      setQuestions((prev) => {
-                                        const next = [...prev];
-                                        next[qIdx] = {
-                                          ...next[qIdx],
-                                          text: val,
-                                        };
-                                        return next;
-                                      });
-                                    }}
-                                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-900 focus:bg-white"
-                                  />
-                                </div>
-
-                                {/* EDIT OPTIONS FOR SINGLE & MULTIPLE CHOICE */}
-                                {(q.type === "single_choice" ||
-                                  q.type === "multiple_choice") && (
-                                  <div className="space-y-2 border-t border-slate-100 pt-3">
-                                    <div className="flex items-center justify-between">
-                                      <label className="text-xs font-bold text-slate-700">
-                                        Chỉnh sửa nội dung các phương án & chọn
-                                        đáp án đúng:
-                                      </label>
-                                      <button
-                                        type="button"
-                                        onClick={() => {
-                                          setQuestions((prev) => {
-                                            const next = [...prev];
-                                            const targetQ = { ...next[qIdx] };
-                                            const newOptId = `opt_${Date.now()}`;
-                                            targetQ.options = [
-                                              ...(targetQ.options || []),
-                                              {
-                                                id: newOptId,
-                                                text: `Phương án mới`,
-                                              },
-                                            ];
-                                            next[qIdx] = targetQ;
-                                            return next;
-                                          });
-                                        }}
-                                        className="text-[11px] font-bold text-indigo-600 hover:underline flex items-center gap-1"
-                                      >
-                                        <Plus className="w-3 h-3" /> Thêm phương
-                                        án
-                                      </button>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                      {q.options?.map((opt, oIdx) => {
-                                        const letter = String.fromCharCode(
-                                          65 + oIdx,
-                                        );
-                                        const isCorrect =
-                                          q.correctOptionIds?.includes(opt.id);
-
-                                        return (
-                                          <div
-                                            key={opt.id}
-                                            className="flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200"
-                                          >
-                                            <button
-                                              type="button"
-                                              onClick={() =>
-                                                handleToggleOption(qIdx, opt.id)
-                                              }
-                                              className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors cursor-pointer ${
-                                                isCorrect
-                                                  ? "bg-emerald-600 text-white shadow-2xs"
-                                                  : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-100"
-                                              }`}
-                                              title={
-                                                isCorrect
-                                                  ? "Đáp án ĐÚNG (Click để bỏ)"
-                                                  : "Click để đặt làm đáp án ĐÚNG"
-                                              }
-                                            >
-                                              {letter}
-                                            </button>
-
-                                            <input
-                                              type="text"
-                                              value={opt.text}
-                                              onChange={(e) => {
-                                                const val = e.target.value;
-                                                setQuestions((prev) => {
-                                                  const next = [...prev];
-                                                  const targetQ = {
-                                                    ...next[qIdx],
-                                                  };
-                                                  targetQ.options = (
-                                                    targetQ.options || []
-                                                  ).map((o) =>
-                                                    o.id === opt.id
-                                                      ? { ...o, text: val }
-                                                      : o,
-                                                  );
-                                                  next[qIdx] = targetQ;
-                                                  return next;
-                                                });
-                                              }}
-                                              className="flex-1 px-2.5 py-1 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-800"
-                                              placeholder={`Nội dung đáp án ${letter}...`}
-                                            />
-
-                                            <button
-                                              type="button"
-                                              onClick={() => {
-                                                setQuestions((prev) => {
-                                                  const next = [...prev];
-                                                  const targetQ = {
-                                                    ...next[qIdx],
-                                                  };
-                                                  targetQ.options = (
-                                                    targetQ.options || []
-                                                  ).filter(
-                                                    (o) => o.id !== opt.id,
-                                                  );
-                                                  targetQ.correctOptionIds = (
-                                                    targetQ.correctOptionIds ||
-                                                    []
-                                                  ).filter(
-                                                    (id) => id !== opt.id,
-                                                  );
-                                                  next[qIdx] = targetQ;
-                                                  return next;
-                                                });
-                                              }}
-                                              className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
-                                              title="Xóa phương án"
-                                            >
-                                              <Trash2 className="w-3.5 h-3.5" />
-                                            </button>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {/* EDIT STATEMENTS FOR TRUE/FALSE */}
-                                {q.type === "true_false" && (
-                                  <div className="space-y-2 border-t border-slate-100 pt-3">
-                                    <label className="text-xs font-bold text-slate-700">
-                                      Chỉnh sửa nội dung từng ý và chọn
-                                      Đúng/Sai:
-                                    </label>
-                                    <div className="space-y-2">
-                                      {q.statements?.map((stmt, sIdx) => {
-                                        const letter = String.fromCharCode(
-                                          97 + sIdx,
-                                        );
-                                        return (
-                                          <div
-                                            key={stmt.id}
-                                            className="flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200"
-                                          >
-                                            <span className="font-bold text-indigo-700 text-xs px-2 py-1 bg-white rounded-lg border border-slate-200 shrink-0">
-                                              {letter})
-                                            </span>
-
-                                            <input
-                                              type="text"
-                                              value={stmt.text}
-                                              onChange={(e) => {
-                                                const val = e.target.value;
-                                                setQuestions((prev) => {
-                                                  const next = [...prev];
-                                                  const targetQ = {
-                                                    ...next[qIdx],
-                                                  };
-                                                  targetQ.statements = (
-                                                    targetQ.statements || []
-                                                  ).map((s) =>
-                                                    s.id === stmt.id
-                                                      ? { ...s, text: val }
-                                                      : s,
-                                                  );
-                                                  next[qIdx] = targetQ;
-                                                  return next;
-                                                });
-                                              }}
-                                              className="flex-1 px-2.5 py-1 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-800"
-                                            />
-
-                                            <div className="flex items-center gap-1 shrink-0">
-                                              <button
-                                                type="button"
-                                                onClick={() =>
-                                                  handleToggleStatement(
-                                                    qIdx,
-                                                    stmt.id,
-                                                    true,
-                                                  )
-                                                }
-                                                className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-colors cursor-pointer ${
-                                                  stmt.correctAnswer === true
-                                                    ? "bg-emerald-600 text-white border-emerald-600"
-                                                    : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
-                                                }`}
-                                              >
-                                                Đúng
-                                              </button>
-                                              <button
-                                                type="button"
-                                                onClick={() =>
-                                                  handleToggleStatement(
-                                                    qIdx,
-                                                    stmt.id,
-                                                    false,
-                                                  )
-                                                }
-                                                className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-colors cursor-pointer ${
-                                                  stmt.correctAnswer === false
-                                                    ? "bg-red-600 text-white border-red-600"
-                                                    : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
-                                                }`}
-                                              >
-                                                Sai
-                                              </button>
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {/* EDIT ACCEPTED ANSWERS FOR SHORT ANSWER */}
-                                {q.type === "short_answer" && (
-                                  <div className="space-y-1.5 border-t border-slate-100 pt-3">
-                                    <label className="text-xs font-bold text-slate-700">
-                                      Các đáp án chấp nhận (ngăn cách bởi dấu
-                                      phẩy):
-                                    </label>
-                                    <input
-                                      type="text"
-                                      value={(q.acceptedAnswers || []).join(
-                                        ", ",
-                                      )}
-                                      onChange={(e) => {
-                                        const parts = e.target.value
-                                          .split(",")
-                                          .map((p) => p.trim())
-                                          .filter(Boolean);
-                                        setQuestions((prev) => {
-                                          const next = [...prev];
-                                          next[qIdx] = {
-                                            ...next[qIdx],
-                                            acceptedAnswers: parts,
-                                          };
-                                          return next;
-                                        });
-                                      }}
-                                      placeholder="Ví dụ: 9, 9.0, 9.00"
-                                      className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-900"
-                                    />
-                                  </div>
-                                )}
-
-                                <div className="border-t border-slate-100 pt-3">
-                                  <label className="block text-xs font-bold text-slate-700 mb-1">
-                                    Lời giải chi tiết & hướng dẫn chấm:
-                                  </label>
-                                  <textarea
-                                    rows={2}
-                                    value={q.explanation || ""}
-                                    onChange={(e) => {
-                                      const val = e.target.value;
-                                      setQuestions((prev) => {
-                                        const next = [...prev];
-                                        next[qIdx] = {
-                                          ...next[qIdx],
-                                          explanation: val,
-                                        };
-                                        return next;
-                                      });
-                                    }}
-                                    placeholder="Hướng dẫn giải từng bước..."
-                                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-900 focus:bg-white"
-                                  />
-                                </div>
-                              </div>
-                            ) : (
-                              /* Question Text Preview */
-                              <div className="text-slate-900 text-sm sm:text-base font-semibold leading-relaxed">
-                                <LatexPreview content={q.text} />
-                              </div>
-                            )}
-
-                            {/* Options / Statements selector (Azota click to pick correct) */}
-                            {!isEditing && (
-                              <div className="space-y-2 pt-1">
-                                {(q.type === "single_choice" ||
-                                  q.type === "multiple_choice") && (
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {q.options?.map((opt, optIdx) => {
-                                      const letter = String.fromCharCode(
-                                        65 + optIdx,
-                                      );
-                                      const isCorrect =
-                                        q.correctOptionIds?.includes(opt.id);
-
-                                      return (
-                                        <button
-                                          key={opt.id}
-                                          type="button"
-                                          onClick={() =>
-                                            handleToggleOption(qIdx, opt.id)
-                                          }
-                                          className={`p-2.5 rounded-xl border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
-                                            isCorrect
-                                              ? "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold shadow-2xs"
-                                              : "bg-white border-slate-200 hover:bg-slate-100 text-slate-800"
-                                          }`}
-                                        >
-                                          <span
-                                            className={`w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 ${
-                                              isCorrect
-                                                ? "bg-emerald-600 text-white"
-                                                : "bg-slate-100 text-slate-700 border"
-                                            }`}
-                                          >
-                                            {letter}
-                                          </span>
-                                          <div className="flex-1 text-xs sm:text-sm pt-0.5">
-                                            <LatexPreview content={opt.text} />
-                                          </div>
-                                          {isCorrect && (
-                                            <span className="text-[10px] bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded shrink-0 self-center">
-                                              ĐÚNG
-                                            </span>
-                                          )}
-                                        </button>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-
-                                {q.type === "true_false" && (
-                                  <div className="space-y-2">
-                                    {q.statements?.map((stmt, sIdx) => {
-                                      const letter = String.fromCharCode(
-                                        97 + sIdx,
-                                      );
-                                      return (
-                                        <div
-                                          key={stmt.id}
-                                          className="p-2.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between gap-3 text-xs"
-                                        >
-                                          <div className="flex items-start gap-2 flex-1">
-                                            <span className="font-bold text-indigo-700 bg-slate-100 px-1.5 py-0.5 rounded border">
-                                              {letter})
-                                            </span>
-                                            <div className="text-slate-800 font-medium">
-                                              <LatexPreview
-                                                content={stmt.text}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex items-center gap-1.5 shrink-0">
-                                            <button
-                                              type="button"
-                                              onClick={() =>
-                                                handleToggleStatement(
-                                                  qIdx,
-                                                  stmt.id,
-                                                  true,
-                                                )
-                                              }
-                                              className={`px-2.5 py-1 rounded-lg font-bold border transition-colors cursor-pointer ${
-                                                stmt.correctAnswer === true
-                                                  ? "bg-emerald-600 text-white border-emerald-600"
-                                                  : "bg-white text-slate-700 border-slate-300"
-                                              }`}
-                                            >
-                                              Đúng
-                                            </button>
-                                            <button
-                                              type="button"
-                                              onClick={() =>
-                                                handleToggleStatement(
-                                                  qIdx,
-                                                  stmt.id,
-                                                  false,
-                                                )
-                                              }
-                                              className={`px-2.5 py-1 rounded-lg font-bold border transition-colors cursor-pointer ${
-                                                stmt.correctAnswer === false
-                                                  ? "bg-red-600 text-white border-red-600"
-                                                  : "bg-white text-slate-700 border-slate-300"
-                                              }`}
-                                            >
-                                              Sai
-                                            </button>
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                )}
-
-                                {q.type === "short_answer" && (
-                                  <div className="p-3 bg-amber-50/60 border border-amber-200 rounded-xl text-xs space-y-1">
-                                    <span className="font-bold text-amber-900">
-                                      Đáp án chấp nhận:
-                                    </span>
-                                    <span className="font-mono font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-amber-300 ml-2">
-                                      {(q.acceptedAnswers || []).join(", ") ||
-                                        "Chưa thiết lập"}
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-
-                            {/* Explanation section */}
-                            {q.explanation && !isEditing && (
-                              <div className="p-3 bg-indigo-50/60 border border-indigo-100 rounded-xl text-xs space-y-1 text-slate-800">
-                                <span className="font-bold text-indigo-900 block">
-                                  Lời giải chi tiết:
-                                </span>
-                                <LatexPreview content={q.explanation} />
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                    {isSavingExam ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Đang lưu đề thi & tạo thư mục...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lock className="w-4 h-4 text-amber-300" />
+                        <span>Lưu đề thi (Không công khai - Lấy link gửi con)</span>
+                      </>
+                    )}
+                  </button>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
 
-        {/* =================== TAB 3: HƯỚNG DẪN TẠO ĐỀ CHATGPT =================== */}
+        {/* =================== TAB 3: HƯỚNG DẪN CHATGPT & MÃ CODE =================== */}
         {activeTab === "guide" && (
           <div className="space-y-6 animate-in fade-in duration-150">
             {/* Guide Card */}
@@ -2207,12 +1951,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   </div>
                   <div>
                     <h2 className="text-lg sm:text-xl font-black text-slate-900">
-                      Hướng dẫn tạo đề chi tiết cho Phụ huynh qua mã Code &
-                      Prompt mẫu
+                      Hướng dẫn tạo đề chi tiết cho Phụ huynh qua mã Code & Prompt mẫu
                     </h2>
                     <p className="text-xs text-slate-500 font-medium">
-                      Cách nhanh nhất để tạo một bộ đề kiểm tra hoàn chỉnh chuẩn
-                      100% định dạng DkTEST.
+                      Cách nhanh nhất để tạo một bộ đề kiểm tra hoàn chỉnh chuẩn 100% định dạng DkTEST.
                     </p>
                   </div>
                 </div>
@@ -2234,14 +1976,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     <span className="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                       1
                     </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">
-                      Copy Prompt & Schema
-                    </h4>
+                    <h4 className="font-extrabold text-slate-900 text-sm">Copy Prompt & Schema</h4>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Bấm nút <strong>"Copy Prompt Mẫu kèm Schema"</strong> ở
-                    khung bên dưới. Khối mã chứa đầy đủ quy chuẩn 4 dạng câu hỏi
-                    trắc nghiệm.
+                    Bấm nút <strong>"Copy Prompt Mẫu kèm Schema"</strong> ở khung bên dưới. Khối mã chứa đầy đủ quy chuẩn 4 dạng câu hỏi trắc nghiệm.
                   </p>
                 </div>
 
@@ -2250,13 +1988,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     <span className="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                       2
                     </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">
-                      Dán vào ChatGPT / AI
-                    </h4>
+                    <h4 className="font-extrabold text-slate-900 text-sm">Dán vào ChatGPT / AI</h4>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Mở ChatGPT, Claude hoặc Gemini, dán prompt vào và thay đổi
-                    thông tin môn học, lớp, hoặc chụp ảnh bài tập SGK gửi kèm.
+                    Mở ChatGPT, Claude hoặc Gemini, dán prompt vào và thay đổi thông tin môn học, lớp, hoặc chụp ảnh bài tập SGK gửi kèm.
                   </p>
                 </div>
 
@@ -2265,14 +2000,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                     <span className="w-7 h-7 rounded-xl bg-indigo-600 text-white font-black text-xs flex items-center justify-center">
                       3
                     </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">
-                      Dán JSON & Lưu đề
-                    </h4>
+                    <h4 className="font-extrabold text-slate-900 text-sm">Dán JSON & Lưu đề</h4>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Copy khối mã JSON mà ChatGPT phản hồi, sang tab{" "}
-                    <strong>"Tạo đề & Sửa Azota"</strong> để nạp đề tức thì và
-                    lấy link gửi con!
+                    Copy khối mã JSON mà ChatGPT phản hồi, sang tab <strong>"Tạo đề & Sửa "</strong> để nạp đề tức thì và lấy link gửi con!
                   </p>
                 </div>
               </div>
@@ -2292,21 +2023,12 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       navigator.clipboard.writeText(GUIDE_PROMPT_TEMPLATE);
                       setCopiedPrompt(true);
                       setTimeout(() => setCopiedPrompt(false), 2000);
-                      showToast(
-                        "Đã sao chép prompt mẫu kèm Schema vào bộ nhớ tạm!",
-                        "success",
-                      );
+                      showToast("Đã sao chép prompt mẫu kèm Schema vào bộ nhớ tạm!", "success");
                     }}
                     className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
                   >
-                    {copiedPrompt ? (
-                      <Check className="w-4 h-4 text-emerald-300" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                    <span>
-                      {copiedPrompt ? "Đã copy!" : "Copy Prompt Mẫu kèm Schema"}
-                    </span>
+                    {copiedPrompt ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+                    <span>{copiedPrompt ? "Đã copy!" : "Copy Prompt Mẫu kèm Schema"}</span>
                   </button>
                 </div>
 
@@ -2323,32 +2045,19 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium">
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">
-                      1. single_choice:
-                    </span>
+                    <span className="font-bold text-indigo-600 shrink-0">1. single_choice:</span>
                     <span>Trắc nghiệm 1 đáp án đúng (A, B, C, D)</span>
                   </div>
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">
-                      2. multiple_choice:
-                    </span>
-                    <span>
-                      Trắc nghiệm nhiều đáp án đúng (chọn nhiều đáp án)
-                    </span>
+                    <span className="font-bold text-indigo-600 shrink-0">2. multiple_choice:</span>
+                    <span>Trắc nghiệm nhiều đáp án đúng (chọn nhiều đáp án)</span>
                   </div>
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">
-                      3. true_false:
-                    </span>
-                    <span>
-                      Trắc nghiệm Đúng / Sai 4 ý a, b, c, d (chuẩn thi tốt
-                      nghiệp mới)
-                    </span>
+                    <span className="font-bold text-indigo-600 shrink-0">3. true_false:</span>
+                    <span>Trắc nghiệm Đúng / Sai 4 ý a, b, c, d (chuẩn thi tốt nghiệp mới)</span>
                   </div>
                   <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
-                    <span className="font-bold text-indigo-600 shrink-0">
-                      4. short_answer:
-                    </span>
+                    <span className="font-bold text-indigo-600 shrink-0">4. short_answer:</span>
                     <span>Điền đáp án số hoặc biểu thức ngắn</span>
                   </div>
                 </div>
@@ -2378,9 +2087,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
 
             <form onSubmit={handleSendLink} className="space-y-4">
               <p className="text-xs text-slate-600 leading-relaxed">
-                Nhập <strong>tên đăng nhập (username)</strong> của con trên hệ
-                thống DkTEST. Hệ thống sẽ gửi thông báo tới con để yêu cầu xác
-                nhận.
+                Nhập <strong>tên đăng nhập (username)</strong> của con trên hệ thống DkTEST. Hệ thống sẽ gửi thông báo tới con để yêu cầu xác nhận.
               </p>
 
               <div>
@@ -2391,11 +2098,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   type="text"
                   required
                   value={childUsernameInput}
-                  onChange={(e) =>
-                    setChildUsernameInput(
-                      e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""),
-                    )
-                  }
+                  onChange={(e) => setChildUsernameInput(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
                   placeholder="Ví dụ: hs123456"
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
@@ -2414,11 +2117,7 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                   disabled={isSendingRequest}
                   className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                 >
-                  {isSendingRequest ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Send className="w-4 h-4" />
-                  )}
+                  {isSendingRequest ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   <span>Gửi yêu cầu liên kết</span>
                 </button>
               </div>
@@ -2452,13 +2151,10 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
             <div className="space-y-3">
               <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl text-xs space-y-1 text-amber-900">
                 <div className="font-extrabold flex items-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5" /> Chế độ: Không công khai (Chỉ
-                  ai có link mới xem được)
+                  <Lock className="w-3.5 h-3.5" /> Chế độ: Không công khai (Chỉ ai có link mới xem được)
                 </div>
                 <p className="text-amber-800/90 leading-relaxed">
-                  Đề thi này không xuất hiện trên trang chủ công khai của học
-                  sinh khác. Phụ huynh chỉ cần copy link dưới đây gửi cho con để
-                  làm bài.
+                  Đề thi này không xuất hiện trên trang chủ công khai của học sinh khác. Phụ huynh chỉ cần copy link dưới đây gửi cho con để làm bài.
                 </p>
               </div>
 
@@ -2479,18 +2175,11 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
                       navigator.clipboard.writeText(savedShareLink);
                       setCopiedShareLink(true);
                       setTimeout(() => setCopiedShareLink(false), 2000);
-                      showToast(
-                        "Đã sao chép link đề thi vào Clipboard!",
-                        "success",
-                      );
+                      showToast("Đã sao chép link đề thi vào Clipboard!", "success");
                     }}
                     className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
                   >
-                    {copiedShareLink ? (
-                      <Check className="w-4 h-4 text-emerald-300" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
+                    {copiedShareLink ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
                     <span>{copiedShareLink ? "Đã copy!" : "Copy link"}</span>
                   </button>
                 </div>
@@ -2526,11 +2215,9 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
         message={
           examToDelete ? (
             <div>
-              Bạn có chắc chắn muốn xóa bài thi{" "}
-              <strong>"{examToDelete.title}"</strong>?
+              Bạn có chắc chắn muốn xóa bài thi <strong>"{examToDelete.title}"</strong>?
               <p className="text-red-600 font-semibold text-xs mt-2">
-                ⚠️ Cảnh báo: Thao tác này sẽ xóa vĩnh viễn toàn bộ cấu trúc câu
-                hỏi và tất cả bài nộp của bài thi này.
+                ⚠️ Cảnh báo: Thao tác này sẽ xóa vĩnh viễn toàn bộ cấu trúc câu hỏi và tất cả bài nộp của bài thi này.
               </p>
             </div>
           ) : (

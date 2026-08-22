@@ -19,19 +19,12 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
-import {
-  hasActiveExamInProgress,
-  clearActiveExamSession,
-} from "../../services/examSessionService";
+import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 
 export default function StudentLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [studentInfo, setStudentInfo] = useState<{
-    username?: string;
-    displayName?: string;
-    avatarUrl?: string;
-  } | null>(null);
+  const [studentInfo, setStudentInfo] = useState<{ username?: string; displayName?: string; avatarUrl?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -46,9 +39,7 @@ export default function StudentLayout() {
       setIsAdmin(false);
     }
 
-    const infoStr =
-      localStorage.getItem("student_info") ||
-      localStorage.getItem("current_student_session");
+    const infoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
     if (infoStr) {
       try {
         const parsed = JSON.parse(infoStr);
@@ -63,8 +54,7 @@ export default function StudentLayout() {
                 const updated = {
                   ...parsed,
                   avatarUrl: studentDoc.avatarUrl,
-                  displayName:
-                    studentDoc.name || parsed.displayName || parsed.name,
+                  displayName: studentDoc.name || parsed.displayName || parsed.name,
                 };
                 setStudentInfo(updated);
                 localStorage.setItem("student_info", JSON.stringify(updated));
@@ -87,15 +77,10 @@ export default function StudentLayout() {
 
   // Check for active in-progress exam session and redirect student back immediately
   useEffect(() => {
-    if (
-      !location.pathname.includes("/take") &&
-      !location.pathname.includes("/result/")
-    ) {
+    if (!location.pathname.includes("/take") && !location.pathname.includes("/result/")) {
       const activeSession = hasActiveExamInProgress();
       if (activeSession) {
-        navigate(`/student/exam/${activeSession.examId}/take`, {
-          replace: true,
-        });
+        navigate(`/student/exam/${activeSession.examId}/take`, { replace: true });
       }
     }
   }, [location.pathname, navigate]);
@@ -115,24 +100,13 @@ export default function StudentLayout() {
 
   const isTakingExam = location.pathname.includes("/take");
   const isExamResult = location.pathname.includes("/result/");
-  const isParentViewing =
-    isExamResult && localStorage.getItem("auth_role") === "parent";
+  const isParentViewing = isExamResult && localStorage.getItem("auth_role") === "parent";
   const hideStudentNav = isTakingExam || isExamResult;
 
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen },
-    {
-      to: "/student/ai-tutor",
-      label: "Hỏi Gia sư AI",
-      icon: Sparkles,
-      iconColor: "text-indigo-500",
-    },
-    {
-      to: "/student/community",
-      label: "Cộng đồng",
-      icon: Flame,
-      iconColor: "text-amber-500",
-    },
+    { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500" },
+    { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500" },
     { to: "/student/history", label: "Lịch sử bài làm", icon: History },
     { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User },
     { to: "/legal-policy", label: "Bản quyền & Pháp lý", icon: ShieldCheck },
@@ -162,9 +136,7 @@ export default function StudentLayout() {
             </Link>
 
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-lg sm:text-xl font-black text-blue-600 tracking-tight">
-                DkTEST
-              </span>
+              <span className="text-lg sm:text-xl font-black text-blue-600 tracking-tight">DkTEST</span>
               <span className="hidden xs:inline-block text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-lg">
                 Thi Trực Tuyến
               </span>
@@ -182,14 +154,16 @@ export default function StudentLayout() {
                 <HeartHandshake className="w-3.5 h-3.5 text-indigo-600" />
                 <span className="hidden md:inline">Phụ huynh</span>
               </Link>
-              <Link
-                to="/admin/exams"
-                className="px-2.5 py-1 text-slate-600 hover:text-blue-700 hover:bg-white/60 rounded-lg transition-all flex items-center gap-1.5"
-                title="Cổng Quản trị Viên"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-                <span className="hidden md:inline">Quản trị</span>
-              </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin/exams"
+                  className="px-2.5 py-1 text-slate-600 hover:text-blue-700 hover:bg-white/60 rounded-lg transition-all flex items-center gap-1.5"
+                  title="Cổng Quản trị Viên"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                  <span className="hidden md:inline">Quản trị</span>
+                </Link>
+              )}
             </div>
 
             {isAdmin && (
@@ -262,11 +236,7 @@ export default function StudentLayout() {
               className="absolute -right-3 top-6 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-300 shadow-xs z-20 cursor-pointer"
               title={isSidebarCollapsed ? "Mở rộng sidebar" : "Thu gọn sidebar"}
             >
-              {isSidebarCollapsed ? (
-                <ChevronRight className="w-3.5 h-3.5" />
-              ) : (
-                <ChevronLeft className="w-3.5 h-3.5" />
-              )}
+              {isSidebarCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
             </button>
 
             <div className="space-y-1.5">
@@ -290,9 +260,7 @@ export default function StudentLayout() {
                         : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                     } ${isSidebarCollapsed ? "justify-center px-2" : ""}`}
                   >
-                    <Icon
-                      className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`}
-                    />
+                    <Icon className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`} />
                     {!isSidebarCollapsed && <span>{item.label}</span>}
                   </Link>
                 );
@@ -311,23 +279,15 @@ export default function StudentLayout() {
                 >
                   <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold overflow-hidden shrink-0 shadow-2xs">
                     {studentInfo.avatarUrl ? (
-                      <img
-                        src={studentInfo.avatarUrl}
-                        alt="Avatar"
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={studentInfo.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
                       (studentInfo.displayName || "S").charAt(0).toUpperCase()
                     )}
                   </div>
                   {!isSidebarCollapsed && (
                     <div className="truncate flex-1">
-                      <div className="text-xs font-bold text-slate-800 truncate">
-                        {studentInfo.displayName || "Thí sinh"}
-                      </div>
-                      <div className="text-[10px] text-slate-400 truncate">
-                        @{studentInfo.username || "student"}
-                      </div>
+                      <div className="text-xs font-bold text-slate-800 truncate">{studentInfo.displayName || "Thí sinh"}</div>
+                      <div className="text-[10px] text-slate-400 truncate">@{studentInfo.username || "student"}</div>
                     </div>
                   )}
                 </Link>
@@ -349,9 +309,7 @@ export default function StudentLayout() {
             <div className="fixed inset-y-0 left-0 max-w-xs w-3/4 bg-white shadow-2xl z-10 p-5 flex flex-col space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <span className="text-xl font-black text-blue-600">
-                    DkTEST
-                  </span>
+                  <span className="text-xl font-black text-blue-600">DkTEST</span>
                   <span className="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md">
                     Phòng thi
                   </span>
@@ -374,22 +332,14 @@ export default function StudentLayout() {
                 >
                   <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold overflow-hidden shrink-0 shadow-2xs">
                     {studentInfo.avatarUrl ? (
-                      <img
-                        src={studentInfo.avatarUrl}
-                        alt="Avatar"
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={studentInfo.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
                       (studentInfo.displayName || "S").charAt(0).toUpperCase()
                     )}
                   </div>
                   <div className="truncate flex-1">
-                    <div className="text-sm font-bold text-slate-900 truncate">
-                      {studentInfo.displayName || "Thí sinh"}
-                    </div>
-                    <div className="text-xs text-slate-500 truncate">
-                      @{studentInfo.username || "student"}
-                    </div>
+                    <div className="text-sm font-bold text-slate-900 truncate">{studentInfo.displayName || "Thí sinh"}</div>
+                    <div className="text-xs text-slate-500 truncate">@{studentInfo.username || "student"}</div>
                   </div>
                 </Link>
               ) : (
@@ -418,9 +368,7 @@ export default function StudentLayout() {
                           : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                       }`}
                     >
-                      <Icon
-                        className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`}
-                      />
+                      <Icon className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`} />
                       <span>{item.label}</span>
                     </Link>
                   );
@@ -478,9 +426,7 @@ export default function StudentLayout() {
                     : "text-slate-400 hover:text-slate-700 hover:bg-slate-50"
                 }`}
               >
-                <Icon
-                  className={`w-5 h-5 ${isActive && item.iconColor ? item.iconColor : ""}`}
-                />
+                <Icon className={`w-5 h-5 ${isActive && item.iconColor ? item.iconColor : ""}`} />
               </Link>
             );
           })}

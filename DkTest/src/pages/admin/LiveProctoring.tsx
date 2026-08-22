@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Users,
-  Clock,
-  AlertTriangle,
-  ShieldAlert,
-  CheckCircle2,
-  Loader2,
-  Sparkles,
-  RefreshCw,
-  Eye,
-  Flame,
-  BookOpen,
-  Trash2,
-} from "lucide-react";
+import { Users, Clock, AlertTriangle, ShieldAlert, CheckCircle2, Loader2, Sparkles, RefreshCw, Eye, Flame, BookOpen, Trash2 } from "lucide-react";
 import {
   ActiveSession,
   subscribeToActiveSessions,
@@ -26,7 +13,7 @@ export default function LiveProctoring() {
   const navigate = useNavigate();
   const [sessions, setSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterExam, setFilterExam] = useState<string>("all");
+    const [filterExam, setFilterExam] = useState<string>("all");
   const [statusTab, setStatusTab] = useState<"active" | "all">("active");
   const [isClearing, setIsClearing] = useState(false);
 
@@ -50,12 +37,9 @@ export default function LiveProctoring() {
         setLoading(false);
       },
       (err) => {
-        console.error(
-          "Lỗi khi tải phiên giám sát trực tuyến từ Realtime DB:",
-          err,
-        );
+        console.error("Lỗi khi tải phiên giám sát trực tuyến từ Realtime DB:", err);
         setLoading(false);
-      },
+      }
     );
 
     return () => {
@@ -74,9 +58,7 @@ export default function LiveProctoring() {
   const handleClearSubmittedSessions = async () => {
     setIsClearing(true);
     try {
-      const submittedIds = sessions
-        .filter((s) => s.status === "submitted")
-        .map((s) => s.sessionId);
+      const submittedIds = sessions.filter((s) => s.status === "submitted").map((s) => s.sessionId);
       if (submittedIds.length === 0) return;
       await clearSubmittedSessions(submittedIds);
     } catch (e) {
@@ -93,12 +75,8 @@ export default function LiveProctoring() {
     return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
-  const activeSessions = sessions.filter(
-    (s) => s.status === "taking" || s.status === "warning",
-  );
-  const warningCount = sessions.filter(
-    (s) => s.warnings > 0 && s.status !== "submitted",
-  ).length;
+  const activeSessions = sessions.filter((s) => s.status === "taking" || s.status === "warning");
+  const warningCount = sessions.filter((s) => s.warnings > 0 && s.status !== "submitted").length;
   const examTitles = Array.from(new Set(sessions.map((s) => s.examTitle)));
 
   const filteredList = sessions
@@ -111,34 +89,24 @@ export default function LiveProctoring() {
       <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 relative overflow-hidden">
         <div className="relative z-10 space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider border border-blue-400/30">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />{" "}
-            Giám Sát Trực Tuyến Realtime
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" /> Giám Sát Trực Tuyến Realtime
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
-            Theo Dõi Thí Sinh Realtime
-          </h2>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight">Theo Dõi Thí Sinh Realtime</h2>
           <p className="text-xs text-slate-300 font-medium max-w-xl">
-            Cập nhật tiến độ làm bài, thời gian còn lại và phát hiện hành vi rời
-            màn hình/chuyển tab theo thời gian thực.
+            Cập nhật tiến độ làm bài, thời gian còn lại và phát hiện hành vi rời màn hình/chuyển tab theo thời gian thực.
           </p>
         </div>
 
         {/* Status Counters */}
         <div className="flex items-center gap-3 relative z-10">
           <div className="bg-white/10 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl text-center min-w-[100px]">
-            <div className="text-2xl font-black text-emerald-400">
-              {activeSessions.length}
-            </div>
+            <div className="text-2xl font-black text-emerald-400">{activeSessions.length}</div>
             <div className="text-[11px] font-bold text-slate-300">Đang thi</div>
           </div>
 
           <div className="bg-white/10 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl text-center min-w-[100px]">
-            <div className="text-2xl font-black text-amber-400">
-              {warningCount}
-            </div>
-            <div className="text-[11px] font-bold text-slate-300">
-              Cảnh báo vi phạm
-            </div>
+            <div className="text-2xl font-black text-amber-400">{warningCount}</div>
+            <div className="text-[11px] font-bold text-slate-300">Cảnh báo vi phạm</div>
           </div>
         </div>
       </div>
@@ -211,47 +179,35 @@ export default function LiveProctoring() {
       {loading ? (
         <div className="py-16 text-center space-y-3 bg-white rounded-3xl border border-slate-200">
           <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto" />
-          <p className="text-xs font-bold text-slate-500">
-            Đang kết nối luồng giám sát thời gian thực...
-          </p>
+          <p className="text-xs font-bold text-slate-500">Đang kết nối luồng giám sát thời gian thực...</p>
         </div>
       ) : filteredList.length === 0 ? (
         <div className="py-16 text-center bg-white rounded-3xl border border-dashed border-slate-200 space-y-2">
           <Users className="w-10 h-10 text-slate-300 mx-auto" />
           <h4 className="font-bold text-slate-700 text-sm">
-            {statusTab === "active"
-              ? "Không có thí sinh nào đang làm bài"
-              : "Chưa có phiên thi nào"}
+            {statusTab === "active" ? "Không có thí sinh nào đang làm bài" : "Chưa có phiên thi nào"}
           </h4>
-          <p className="text-xs text-slate-400">
-            Khi thí sinh vào làm bài, tiến độ sẽ tự động xuất hiện ở đây theo
-            thời gian thực.
-          </p>
+          <p className="text-xs text-slate-400">Khi thí sinh vào làm bài, tiến độ sẽ tự động xuất hiện ở đây theo thời gian thực.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredList.map((session) => {
-            const isWarning =
-              session.warnings > 0 && session.status !== "submitted";
+            const isWarning = session.warnings > 0 && session.status !== "submitted";
             const progressPct =
               session.totalQuestions > 0
-                ? Math.round(
-                    (session.answeredCount / session.totalQuestions) * 100,
-                  )
+                ? Math.round((session.answeredCount / session.totalQuestions) * 100)
                 : 0;
 
             return (
               <div
                 key={session.sessionId}
-                onClick={() =>
-                  navigate(`/admin/live-monitor/${session.sessionId}`)
-                }
+                onClick={() => navigate(`/admin/live-monitor/${session.sessionId}`)}
                 className={`bg-white rounded-3xl p-5 border transition-all space-y-4 shadow-xs relative overflow-hidden cursor-pointer ${
                   isWarning
                     ? "border-amber-300 ring-2 ring-amber-400/20 bg-amber-50/20"
                     : session.status === "submitted"
-                      ? "border-slate-200 bg-slate-50/50 opacity-80"
-                      : "border-slate-200 hover:border-blue-400"
+                    ? "border-slate-200 bg-slate-50/50 opacity-80"
+                    : "border-slate-200 hover:border-blue-400"
                 }`}
               >
                 {/* Status Badge Top Right */}
@@ -261,38 +217,28 @@ export default function LiveProctoring() {
                       {session.studentName.charAt(0).toUpperCase()}
                     </div>
                     <div className="truncate">
-                      <h4 className="font-bold text-slate-900 text-xs truncate">
-                        {session.studentName}
-                      </h4>
-                      <p className="text-[10px] text-slate-400 truncate">
-                        {session.studentClass}
-                      </p>
+                      <h4 className="font-bold text-slate-900 text-xs truncate">{session.studentName}</h4>
+                      <p className="text-[10px] text-slate-400 truncate">{session.studentClass}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-1.5">
                     {session.status === "submitted" ? (
                       <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold border border-slate-200 flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-slate-500" /> Đã
-                        nộp bài
+                        <CheckCircle2 className="w-3 h-3 text-slate-500" /> Đã nộp bài
                       </span>
                     ) : isWarning ? (
                       <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold border border-amber-200 flex items-center gap-1 animate-pulse">
-                        <AlertTriangle className="w-3 h-3 text-amber-600" />{" "}
-                        Cảnh báo ({session.warnings})
+                        <AlertTriangle className="w-3 h-3 text-amber-600" /> Cảnh báo ({session.warnings})
                       </span>
                     ) : (
                       <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping" />{" "}
-                        Đang thi
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping" /> Đang thi
                       </span>
                     )}
 
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteSession(session.sessionId);
-                      }}
+                      onClick={(e) => { e.stopPropagation(); handleDeleteSession(session.sessionId); }}
                       className="p-1 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                       title="Xóa phiên này"
                     >
@@ -303,23 +249,16 @@ export default function LiveProctoring() {
 
                 {/* Exam Title */}
                 <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-                  <span className="text-[10px] text-slate-400 font-bold block uppercase">
-                    Bài thi
-                  </span>
-                  <span className="text-xs font-bold text-slate-800 line-clamp-1">
-                    {session.examTitle}
-                  </span>
+                  <span className="text-[10px] text-slate-400 font-bold block uppercase">Bài thi</span>
+                  <span className="text-xs font-bold text-slate-800 line-clamp-1">{session.examTitle}</span>
                 </div>
 
                 {/* Progress bar & Question Count */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs font-bold">
-                    <span className="text-slate-500 text-[11px]">
-                      Tiến độ trả lời:
-                    </span>
+                    <span className="text-slate-500 text-[11px]">Tiến độ trả lời:</span>
                     <span className="text-blue-700">
-                      {session.answeredCount}/{session.totalQuestions} câu (
-                      {progressPct}%)
+                      {session.answeredCount}/{session.totalQuestions} câu ({progressPct}%)
                     </span>
                   </div>
                   <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
@@ -335,9 +274,7 @@ export default function LiveProctoring() {
                   <div className="flex items-center gap-1 text-slate-600 font-semibold">
                     <Clock className="w-3.5 h-3.5 text-blue-600" />
                     <span>Còn lại: </span>
-                    <span className="font-mono font-bold text-blue-700">
-                      {formatSeconds(session.timeLeft)}
-                    </span>
+                    <span className="font-mono font-bold text-blue-700">{formatSeconds(session.timeLeft)}</span>
                   </div>
 
                   {session.warnings > 0 ? (
@@ -355,6 +292,8 @@ export default function LiveProctoring() {
           })}
         </div>
       )}
+
+      
     </div>
   );
 }

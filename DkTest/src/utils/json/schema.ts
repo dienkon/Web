@@ -40,6 +40,8 @@ export const ExamSchemaV3 = z.object({
   shuffleQuestions: z.boolean().default(false),
   showResults: z.boolean().default(true),
   description: z.string().optional(),
+  subject: z.string().optional(),
+  gradeCategory: z.string().optional(),
 });
 
 export const FullExportSchemaV3 = z.object({

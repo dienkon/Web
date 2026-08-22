@@ -13,14 +13,7 @@ import {
   RefreshCw,
   Sparkles,
 } from "lucide-react";
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  where,
-  limit,
-} from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
@@ -30,7 +23,7 @@ import ConfirmModal from "../../components/ui/ConfirmModal";
 
 export default function Submissions() {
   const location = useLocation();
-  const isParentMode = location.pathname.startsWith("/parent/");
+  const isParentMode = location.pathname.startsWith('/parent/');
 
   const { examId } = useParams<{ examId?: string }>();
   const { showToast, error: showErrorToast } = useToast();
@@ -43,40 +36,29 @@ export default function Submissions() {
   const [displayLimit, setDisplayLimit] = useState(5);
 
   const [isRegrading, setIsRegrading] = useState(false);
-  const [regradeProgress, setRegradeProgress] = useState<{
-    current: number;
-    total: number;
-  } | null>(null);
+  const [regradeProgress, setRegradeProgress] = useState<{ current: number; total: number } | null>(null);
 
   const fetchData = async () => {
     setLoading(true);
     try {
       // Fetch exams for filter dropdown (limit to top 50)
       const exSnap = await getDocs(query(collection(db, "exams"), limit(50)));
-      const exList = exSnap.docs.map(
-        (d) => ({ id: d.id, ...d.data() }) as Exam,
-      );
+      const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
       setExams(exList);
 
       // Fetch submissions (limit to top 50)
-      let subQuery = query(
-        collection(db, "submissions"),
-        orderBy("submittedAt", "desc"),
-        limit(50),
-      );
+      let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(50));
       if (selectedExamId !== "all") {
         subQuery = query(
           collection(db, "submissions"),
           where("examId", "==", selectedExamId),
           orderBy("submittedAt", "desc"),
-          limit(50),
+          limit(50)
         );
       }
 
       const subSnap = await getDocs(subQuery);
-      const subList = subSnap.docs.map(
-        (d) => ({ id: d.id, ...d.data() }) as Submission,
-      );
+      const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       setSubmissions(subList);
     } catch (err) {
       console.error("Lỗi khi tải danh sách bài nộp:", err);
@@ -93,9 +75,7 @@ export default function Submissions() {
 
   const handleBatchRegrade = () => {
     if (selectedExamId === "all") {
-      showErrorToast(
-        "Vui lòng chọn một đề thi cụ thể trong bộ lọc để chấm lại toàn bộ.",
-      );
+      showErrorToast("Vui lòng chọn một đề thi cụ thể trong bộ lọc để chấm lại toàn bộ.");
       return;
     }
     setShowRegradeConfirm(true);
@@ -107,17 +87,12 @@ export default function Submissions() {
     setRegradeProgress({ current: 0, total: 0 });
 
     try {
-      const res = await regradeExamSubmissions(
-        selectedExamId,
-        (current, total) => {
-          setRegradeProgress({ current, total });
-        },
-      );
+      const res = await regradeExamSubmissions(selectedExamId, (current, total) => {
+        setRegradeProgress({ current, total });
+      });
 
       await fetchData();
-      showToast(
-        `Chấm lại thành công ${res.totalSubmissions} bài nộp. Có ${res.changedCount} bài thay đổi điểm.`,
-      );
+      showToast(`Chấm lại thành công ${res.totalSubmissions} bài nộp. Có ${res.changedCount} bài thay đổi điểm.`);
     } catch (err: any) {
       console.error("Lỗi khi chấm lại toàn bộ:", err);
       showErrorToast(err.message || "Không thể chấm lại.");
@@ -157,16 +132,11 @@ export default function Submissions() {
       formatDate(s.submittedAt, true),
     ]);
 
-    const csvContent =
-      "data:text/csv;charset=utf-8,\uFEFF" +
-      [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+    const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute(
-      "download",
-      `DkTEST_KetQua_${new Date().toISOString().slice(0, 10)}.csv`,
-    );
+    link.setAttribute("download", `DkTEST_KetQua_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -175,21 +145,14 @@ export default function Submissions() {
   const filteredSubmissions = submissions
     .filter((s) => {
       const matchName =
-        s.studentNameSnapshot
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
+        s.studentNameSnapshot?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         s.examTitleSnapshot?.toLowerCase().includes(searchQuery.toLowerCase());
       return matchName;
     })
     .sort((a, b) => {
       if (sortBy === "score") return b.score - a.score;
-      if (sortBy === "name")
-        return (a.studentNameSnapshot || "").localeCompare(
-          b.studentNameSnapshot || "",
-        );
-      return (
-        getTimestampMillis(b.submittedAt) - getTimestampMillis(a.submittedAt)
-      );
+      if (sortBy === "name") return (a.studentNameSnapshot || "").localeCompare(b.studentNameSnapshot || "");
+      return getTimestampMillis(b.submittedAt) - getTimestampMillis(a.submittedAt);
     });
 
   return (
@@ -197,9 +160,7 @@ export default function Submissions() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Quản lý bài nộp
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Quản lý bài nộp</h1>
           <p className="text-sm text-slate-500 mt-0.5">
             Theo dõi kết quả làm bài, điểm số và vi phạm của học sinh.
           </p>
@@ -212,9 +173,7 @@ export default function Submissions() {
               disabled={isRegrading}
               className="flex items-center gap-1.5 px-3.5 py-2.5 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl hover:bg-amber-100 transition-colors text-xs sm:text-sm font-bold shadow-2xs cursor-pointer disabled:opacity-50"
             >
-              <RefreshCw
-                className={`w-4 h-4 text-amber-600 ${isRegrading ? "animate-spin" : ""}`}
-              />
+              <RefreshCw className={`w-4 h-4 text-amber-600 ${isRegrading ? "animate-spin" : ""}`} />
               {isRegrading
                 ? `Đang chấm lại (${regradeProgress?.current || 0}/${regradeProgress?.total || 0})...`
                 : "Chấm lại toàn bộ đề này"}
@@ -281,9 +240,7 @@ export default function Submissions() {
         ) : filteredSubmissions.length === 0 ? (
           <div className="p-16 text-center">
             <GraduationCap className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-slate-800 mb-1">
-              Chưa có bài nộp nào
-            </h3>
+            <h3 className="text-base font-bold text-slate-800 mb-1">Chưa có bài nộp nào</h3>
             <p className="text-sm text-slate-400 max-w-sm mx-auto">
               Chưa có học sinh nào nộp bài thi theo bộ lọc hiện tại.
             </p>
@@ -305,10 +262,7 @@ export default function Submissions() {
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm">
                 {filteredSubmissions.slice(0, displayLimit).map((sub) => (
-                  <tr
-                    key={sub.id}
-                    className="hover:bg-slate-50/70 transition-colors"
-                  >
+                  <tr key={sub.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="px-6 py-4 font-bold text-slate-900">
                       {sub.studentNameSnapshot || "Học sinh"}
                     </td>
@@ -319,9 +273,7 @@ export default function Submissions() {
                       <span className="font-extrabold text-blue-700 text-base">
                         {sub.score.toFixed(2)}
                       </span>
-                      <span className="text-slate-400 text-xs ml-1">
-                        / {sub.maxScore}
-                      </span>
+                      <span className="text-slate-400 text-xs ml-1">/ {sub.maxScore}</span>
                     </td>
                     <td className="px-6 py-4 text-slate-700 font-medium">
                       {sub.correctCount} / {sub.totalCount}
@@ -332,13 +284,10 @@ export default function Submissions() {
                     <td className="px-6 py-4">
                       {sub.cheatViolations > 0 ? (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-red-50 text-red-700 border border-red-200">
-                          <ShieldAlert className="w-3 h-3" />{" "}
-                          {sub.cheatViolations}
+                          <ShieldAlert className="w-3 h-3" /> {sub.cheatViolations}
                         </span>
                       ) : (
-                        <span className="text-xs text-emerald-600 font-medium">
-                          Không
-                        </span>
+                        <span className="text-xs text-emerald-600 font-medium">Không</span>
                       )}
                     </td>
                     <td className="px-6 py-4 text-slate-500 text-xs">

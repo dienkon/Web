@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
   Edit2,
@@ -30,6 +30,9 @@ import { useToast } from "../../components/ui/ToastNotification";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 
 export default function ExamDetail() {
+  const location = useLocation();
+  const isParentMode = location.pathname.startsWith('/parent/');
+
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
   const toast = useToast();
@@ -136,7 +139,7 @@ export default function ExamDetail() {
       {/* Top navigation */}
       <div className="flex items-center justify-between">
         <Link
-          to="/admin/exams"
+          to={isParentMode ? "/parent/exams" : "/admin/exams"}
           className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -162,7 +165,7 @@ export default function ExamDetail() {
           </button>
 
           <Link
-            to={`/admin/exams/${exam.id}/edit`}
+            to={`/${isParentMode ? "parent" : "admin"}/exams/${exam.id}/edit`}
             className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors text-xs font-semibold flex items-center gap-1.5 shadow-xs"
           >
             <Edit2 className="w-3.5 h-3.5" />
@@ -215,14 +218,14 @@ export default function ExamDetail() {
           {/* Quick link to stats & submissions */}
           <div className="flex items-center gap-2 w-full md:w-auto">
             <Link
-              to={`/admin/exams/${exam.id}/submissions`}
+              to={`/${isParentMode ? "parent" : "admin"}/exams/${exam.id}/submissions`}
               className="flex-1 md:flex-none px-4 py-2.5 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100/70 text-emerald-800 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5"
             >
               <GraduationCap className="w-4 h-4" />
               Xem bài nộp
             </Link>
             <Link
-              to={`/admin/exams/${exam.id}/stats`}
+              to={`/${isParentMode ? "parent" : "admin"}/exams/${exam.id}/stats`}
               className="flex-1 md:flex-none px-4 py-2.5 bg-purple-50 border border-purple-200 hover:bg-purple-100/70 text-purple-800 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5"
             >
               <BarChart2 className="w-4 h-4" />

@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  X,
-  Award,
-  BookOpen,
-  ShieldCheck,
-  User,
-  Calendar,
-  Star,
-  Sparkles,
-  Trophy,
-  CheckCircle2,
-} from "lucide-react";
+import { X, Award, BookOpen, ShieldCheck, User, Calendar, Star, Sparkles, Trophy, CheckCircle2 } from "lucide-react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission } from "../../types";
@@ -30,11 +19,7 @@ interface Props {
   student: StudentPublicData | null;
 }
 
-export default function PublicStudentProfileModal({
-  isOpen,
-  onClose,
-  student,
-}: Props) {
+export default function PublicStudentProfileModal({ isOpen, onClose, student }: Props) {
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState({
     totalExams: 0,
@@ -42,9 +27,7 @@ export default function PublicStudentProfileModal({
     avgScore: 0,
     perfectTens: 0,
   });
-  const [recentExams, setRecentExams] = useState<
-    { examTitle: string; score: number; date: any }[]
-  >([]);
+  const [recentExams, setRecentExams] = useState<{ examTitle: string; score: number; date: any }[]>([]);
 
   useEffect(() => {
     if (!isOpen || !student) return;
@@ -59,7 +42,7 @@ export default function PublicStudentProfileModal({
           const qByUsername = query(
             collection(db, "submissions"),
             where("studentUsername", "==", username),
-            limit(1),
+            limit(1)
           );
           snap = await getDocs(qByUsername);
         } catch (e) {
@@ -72,15 +55,13 @@ export default function PublicStudentProfileModal({
             const qByName = query(
               collection(db, "submissions"),
               where("studentNameSnapshot", "==", student.displayName),
-              limit(1),
+              limit(1)
             );
             snap = await getDocs(qByName);
           } catch (e) {}
         }
 
-        const subs: Submission[] = snap?.docs
-          ? snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Submission)
-          : [];
+        const subs: Submission[] = snap?.docs ? snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)) : [];
 
         if (subs.length > 0) {
           const s = subs[0];
@@ -136,24 +117,18 @@ export default function PublicStudentProfileModal({
         {/* Top Header Banner */}
         <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-6 pt-8 text-white relative overflow-hidden">
           <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none" />
-
+          
           <div className="flex flex-col items-center text-center space-y-3 relative z-10">
             <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md border-2 border-white/40 shadow-lg overflow-hidden flex items-center justify-center text-2xl font-extrabold uppercase">
               {student.avatarUrl ? (
-                <img
-                  src={student.avatarUrl}
-                  alt={displayName}
-                  className="w-full h-full object-cover"
-                />
+                <img src={student.avatarUrl} alt={displayName} className="w-full h-full object-cover" />
               ) : (
                 displayName.charAt(0)
               )}
             </div>
 
             <div>
-              <h3 className="text-xl font-extrabold tracking-tight">
-                {displayName}
-              </h3>
+              <h3 className="text-xl font-extrabold tracking-tight">{displayName}</h3>
               <p className="text-blue-100 text-xs font-medium flex items-center justify-center gap-2 mt-0.5">
                 <span>{studentClass}</span>
               </p>
@@ -166,30 +141,18 @@ export default function PublicStudentProfileModal({
           {/* Stats Grid */}
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-blue-50/70 border border-blue-100 p-3 rounded-2xl text-center">
-              <div className="text-xl font-black text-blue-700">
-                {stats.totalExams}
-              </div>
-              <div className="text-[11px] font-bold text-blue-600/80">
-                Bài đã làm
-              </div>
+              <div className="text-xl font-black text-blue-700">{stats.totalExams}</div>
+              <div className="text-[11px] font-bold text-blue-600/80">Bài đã làm</div>
             </div>
 
             <div className="bg-emerald-50/70 border border-emerald-100 p-3 rounded-2xl text-center">
-              <div className="text-xl font-black text-emerald-700">
-                {stats.highestScore.toFixed(1)}
-              </div>
-              <div className="text-[11px] font-bold text-emerald-600/80">
-                Điểm cao nhất
-              </div>
+              <div className="text-xl font-black text-emerald-700">{stats.highestScore.toFixed(1)}</div>
+              <div className="text-[11px] font-bold text-emerald-600/80">Điểm cao nhất</div>
             </div>
 
             <div className="bg-purple-50/70 border border-purple-100 p-3 rounded-2xl text-center">
-              <div className="text-xl font-black text-purple-700">
-                {stats.avgScore.toFixed(1)}
-              </div>
-              <div className="text-[11px] font-bold text-purple-600/80">
-                Điểm trung bình
-              </div>
+              <div className="text-xl font-black text-purple-700">{stats.avgScore.toFixed(1)}</div>
+              <div className="text-[11px] font-bold text-purple-600/80">Điểm trung bình</div>
             </div>
           </div>
 
@@ -230,33 +193,18 @@ export default function PublicStudentProfileModal({
             </div>
 
             {loading ? (
-              <div className="text-center py-4 text-xs text-slate-400">
-                Đang tải dữ liệu...
-              </div>
+              <div className="text-center py-4 text-xs text-slate-400">Đang tải dữ liệu...</div>
             ) : recentExams.length > 0 ? (
               <div className="space-y-2">
                 {recentExams.map((ex, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-between"
-                  >
+                  <div key={idx} className="p-3 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-bold text-slate-800 line-clamp-1">
-                        {ex.examTitle}
-                      </div>
-                      <div className="text-[10px] text-slate-400">
-                        {formatDate(ex.date)}
-                      </div>
+                      <div className="text-xs font-bold text-slate-800 line-clamp-1">{ex.examTitle}</div>
+                      <div className="text-[10px] text-slate-400">{formatDate(ex.date)}</div>
                     </div>
-                    <div
-                      className={`px-2.5 py-1 rounded-lg text-xs font-black ${
-                        ex.score >= 8
-                          ? "bg-emerald-100 text-emerald-800"
-                          : ex.score >= 5
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-slate-200 text-slate-700"
-                      }`}
-                    >
+                    <div className={`px-2.5 py-1 rounded-lg text-xs font-black ${
+                      ex.score >= 8 ? "bg-emerald-100 text-emerald-800" : ex.score >= 5 ? "bg-blue-100 text-blue-800" : "bg-slate-200 text-slate-700"
+                    }`}>
                       {ex.score.toFixed(1)} điểm
                     </div>
                   </div>

@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import AdminLayout from "../../components/ui/AdminLayout";
 import StudentLayout from "../../components/ui/StudentLayout";
 
@@ -40,6 +36,7 @@ import Home from "../../pages/home/Home";
 
 const router = createBrowserRouter([
   { path: "/admin/live-monitor/:sessionId", element: <LiveMonitor /> },
+  { path: "/parent/live-monitor/:sessionId", element: <LiveMonitor /> },
   {
     path: "/admin/login",
     element: <AdminLogin />,
@@ -52,13 +49,21 @@ const router = createBrowserRouter([
     path: "/parent/login",
     element: <ParentLogin />,
   },
-  {
+    {
     path: "/parent/dashboard",
     element: <ParentDashboard />,
   },
   {
     path: "/parent/exams",
     element: <ExamList />,
+  },
+  {
+    path: "/parent/exams/import-word",
+    element: <AiWordImport />,
+  },
+  {
+    path: "/parent/exams/import-prompt",
+    element: <AiPromptImport />,
   },
   {
     path: "/parent/exams/new",
@@ -114,10 +119,7 @@ const router = createBrowserRouter([
       { path: "exams/:examId", element: <ExamDetail /> },
       { path: "exams/:examId/stats", element: <Statistics /> },
       { path: "exams/:examId/submissions", element: <Submissions /> },
-      {
-        path: "exams/:examId/submissions/:submissionId",
-        element: <SubmissionDetail />,
-      },
+      { path: "exams/:examId/submissions/:submissionId", element: <SubmissionDetail /> },
       { path: "submissions", element: <Submissions /> },
       { path: "students", element: <Students /> },
       { path: "live-proctoring", element: <LiveProctoring /> },
@@ -139,10 +141,7 @@ const router = createBrowserRouter([
       { path: "legal-policy", element: <LegalPolicy /> },
       { path: "student/exam/:examId", element: <ExamIntro /> },
       { path: "student/exam/:examId/take", element: <TakingExam /> },
-      {
-        path: "student/exam/:examId/result/:submissionId",
-        element: <ExamResult />,
-      },
+      { path: "student/exam/:examId/result/:submissionId", element: <ExamResult /> },
     ],
   },
 ]);

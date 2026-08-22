@@ -19,6 +19,8 @@ export interface Folder {
 export interface Exam {
   id: string;
   ownerId?: string;
+  creatorUsername?: string;
+  creatorRole?: string;
   title: string;
   code: string;
   description?: string;
@@ -79,7 +81,7 @@ export interface Section {
   enabled: boolean;
   totalPoints?: number;
   pointsPerQuestion?: number;
-
+  
   // Shuffling controls
   disableQuestionShuffle?: boolean; // Không xáo trộn các câu hỏi trong phần này
   pinOrder?: boolean; // Cố định vị trí phần này trong đề thi

@@ -29,10 +29,7 @@ import type { Exam } from "../../types";
 export default function Home() {
   const navigate = useNavigate();
   const [examCode, setExamCode] = useState("");
-  const [studentInfo, setStudentInfo] = useState<{
-    username: string;
-    displayName: string;
-  } | null>(null);
+  const [studentInfo, setStudentInfo] = useState<{ username: string; displayName: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [copiedHomePrompt, setCopiedHomePrompt] = useState(false);
@@ -40,11 +37,10 @@ export default function Home() {
   const [publicExams, setPublicExams] = useState<Exam[]>([]);
   const [loadingExams, setLoadingExams] = useState(true);
   const [searchError, setSearchError] = useState("");
-  const [selectedSubjectFilter, setSelectedSubjectFilter] =
-    useState<string>("all");
+  const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string>("all");
   const [selectedGradeFilter, setSelectedGradeFilter] = useState<string>("all");
   const [examSearchText, setExamSearchText] = useState<string>("");
-
+  
   // Auth required modal
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [targetExamId, setTargetExamId] = useState<string | null>(null);
@@ -102,10 +98,10 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
-          limit(12),
+          limit(12)
         );
         const snap = await getDocs(q);
-        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Exam);
+        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         setPublicExams(list);
       } catch (err) {
         console.error("Lỗi khi tải danh sách đề thi:", err);
@@ -131,15 +127,12 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
     setSearchError("");
     const trimmed = examCode.trim();
     if (!trimmed) {
-      setSearchError(
-        "Vui lòng nhập mã bài thi hoặc chọn đề thi từ danh sách bên dưới!",
-      );
+      setSearchError("Vui lòng nhập mã bài thi hoặc chọn đề thi từ danh sách bên dưới!");
       return;
     }
 
     const found = publicExams.find(
-      (ex) =>
-        ex.id === trimmed || ex.code?.toUpperCase() === trimmed.toUpperCase(),
+      (ex) => ex.id === trimmed || ex.code?.toUpperCase() === trimmed.toUpperCase()
     );
 
     const codeToUse = found ? found.id : trimmed;
@@ -162,9 +155,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           </h1>
 
           <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed font-medium">
-            Giải pháp thi trắc nghiệm hiện đại cho học sinh và giáo viên. Đề thi
-            chuẩn hóa, tự động chấm điểm, hỗ trợ công thức Toán/Lý/Hóa LaTeX và
-            giám sát thời gian thực.
+            Giải pháp thi trắc nghiệm hiện đại cho học sinh và giáo viên. Đề thi chuẩn hóa, tự động chấm điểm, hỗ trợ công thức Toán/Lý/Hóa LaTeX và giám sát thời gian thực.
           </p>
 
           {/* Quick Search Exam Code Form */}
@@ -206,12 +197,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
             <Shield className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-base">
-            Giám Sát Chống Gian Lận
-          </h3>
+          <h3 className="font-bold text-slate-900 text-base">Giám Sát Chống Gian Lận</h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Hệ thống tự động ghi nhận lượt chuyển tab, cảnh báo mất tập trung và
-            thống kê chi tiết cho giáo viên.
+            Hệ thống tự động ghi nhận lượt chuyển tab, cảnh báo mất tập trung và thống kê chi tiết cho giáo viên.
           </p>
         </div>
 
@@ -219,12 +207,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
             <Zap className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-base">
-            Chấm Điểm & Báo Cáo Instant
-          </h3>
+          <h3 className="font-bold text-slate-900 text-base">Chấm Điểm & Báo Cáo Instant</h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Biết kết quả ngay lập tức sau khi nộp bài kèm lời giải chi tiết,
-            bảng xếp hạng Top 10 và thống kê điểm số.
+            Biết kết quả ngay lập tức sau khi nộp bài kèm lời giải chi tiết, bảng xếp hạng Top 10 và thống kê điểm số.
           </p>
         </div>
 
@@ -232,12 +217,9 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
           <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
             <Flame className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 text-base">
-            Cộng Đồng Học Tập
-          </h3>
+          <h3 className="font-bold text-slate-900 text-base">Cộng Đồng Học Tập</h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            Thí sinh có thể giao lưu, thảo luận kinh nghiệm làm bài, thả tim,
-            bình luận bài viết và khoe thành tích.
+            Thí sinh có thể giao lưu, thảo luận kinh nghiệm làm bài, thả tim, bình luận bài viết và khoe thành tích.
           </p>
         </div>
       </div>
@@ -250,9 +232,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               <BookOpen className="w-5 h-5 text-blue-600" />
               Thư Viện Đề Thi Công Khai
             </h2>
-            <p className="text-xs text-slate-500">
-              Tìm kiếm theo môn học, cấp thi hoặc từ khóa bài thi
-            </p>
+            <p className="text-xs text-slate-500">Tìm kiếm theo môn học, cấp thi hoặc từ khóa bài thi</p>
           </div>
           <span className="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
             {publicExams.length} bài thi tổng cộng
@@ -280,19 +260,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                 className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
               >
                 <option value="all">Môn học: Tất cả</option>
-                {[
-                  "Toán",
-                  "Vật Lý",
-                  "Hóa Học",
-                  "Tiếng Anh",
-                  "Ngữ Văn",
-                  "Sinh Học",
-                  "Lịch Sử",
-                  "Địa Lý",
-                  "Tin Học",
-                  "GDCD",
-                  "Khác",
-                ].map((s) => (
+                {["Toán", "Vật Lý", "Hóa Học", "Tiếng Anh", "Ngữ Văn", "Sinh Học", "Lịch Sử", "Địa Lý", "Tin Học", "GDCD", "Khác"].map((s) => (
                   <option key={s} value={s}>
                     {s}
                   </option>
@@ -305,13 +273,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                 className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
               >
                 <option value="all">Kỳ thi/Cấp: Tất cả</option>
-                {[
-                  "Cấp 1",
-                  "Cấp 2",
-                  "Cấp 3",
-                  "THPT Quốc Gia",
-                  "Đánh Giá Năng Lực",
-                ].map((g) => (
+                {["Cấp 1", "Cấp 2", "Cấp 3", "THPT Quốc Gia", "Đánh Giá Năng Lực"].map((g) => (
                   <option key={g} value={g}>
                     {g}
                   </option>
@@ -322,80 +284,74 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
         </div>
 
         {/* Featured Exams Banner (if any) */}
-        {!loadingExams &&
-          publicExams.filter((e) => e.isFeatured).length > 0 && (
-            <div className="space-y-3">
-              <h3 className="text-sm font-extrabold text-amber-900 flex items-center gap-1.5 uppercase tracking-wider">
-                <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
-                <span>Đề Thi Nổi Bật Được Yêu Thích</span>
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {publicExams
-                  .filter((e) => e.isFeatured)
-                  .map((exam) => (
-                    <div
-                      key={exam.id}
-                      className="bg-gradient-to-br from-amber-50/80 via-orange-50/40 to-white rounded-3xl border border-amber-200 p-5 hover:shadow-md transition-all flex flex-col justify-between group space-y-3 relative overflow-hidden"
-                    >
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-black text-amber-800 bg-amber-200/80 px-2.5 py-0.5 rounded-lg border border-amber-300 flex items-center gap-1">
-                            <Flame className="w-3.5 h-3.5 text-amber-600 fill-amber-600" />
-                            <span>ĐỀ NỔI BẬT</span>
-                          </span>
-                          <span className="text-xs text-amber-800 font-bold flex items-center gap-1 bg-white/80 px-2 py-0.5 rounded-lg border border-amber-200 font-mono">
-                            Mã: {exam.code || "EXAM"}
-                          </span>
-                        </div>
-
-                        <h4 className="font-black text-slate-900 text-base group-hover:text-amber-700 transition-colors line-clamp-1">
-                          {exam.title || "Bài thi chưa có tên"}
-                        </h4>
-
-                        {exam.description && (
-                          <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-medium">
-                            {exam.description}
-                          </p>
-                        )}
+        {!loadingExams && publicExams.filter((e) => e.isFeatured).length > 0 && (
+          <div className="space-y-3">
+            <h3 className="text-sm font-extrabold text-amber-900 flex items-center gap-1.5 uppercase tracking-wider">
+              <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
+              <span>Đề Thi Nổi Bật Được Yêu Thích</span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {publicExams
+                .filter((e) => e.isFeatured)
+                .map((exam) => (
+                  <div
+                    key={exam.id}
+                    className="bg-gradient-to-br from-amber-50/80 via-orange-50/40 to-white rounded-3xl border border-amber-200 p-5 hover:shadow-md transition-all flex flex-col justify-between group space-y-3 relative overflow-hidden"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-black text-amber-800 bg-amber-200/80 px-2.5 py-0.5 rounded-lg border border-amber-300 flex items-center gap-1">
+                          <Flame className="w-3.5 h-3.5 text-amber-600 fill-amber-600" />
+                          <span>ĐỀ NỔI BẬT</span>
+                        </span>
+                        <span className="text-xs text-amber-800 font-bold flex items-center gap-1 bg-white/80 px-2 py-0.5 rounded-lg border border-amber-200 font-mono">
+                          Mã: {exam.code || "EXAM"}
+                        </span>
                       </div>
 
-                      <div className="pt-3 border-t border-amber-200/60 flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
-                          {exam.subject && (
-                            <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200 text-amber-800">
-                              {exam.subject}
-                            </span>
-                          )}
-                          <span>{exam.questionCount || 0} câu</span>
-                          <span>•</span>
-                          <span>
-                            {exam.timeLimit ? `${exam.timeLimit}p` : "45p"}
-                          </span>
-                        </div>
+                      <h4 className="font-black text-slate-900 text-base group-hover:text-amber-700 transition-colors line-clamp-1">
+                        {exam.title || "Bài thi chưa có tên"}
+                      </h4>
 
-                        <button
-                          type="button"
-                          onClick={() => handleStartExamFlow(exam.id)}
-                          className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
-                        >
-                          <span>Vào thi ngay</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                      {exam.description && (
+                        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-medium">
+                          {exam.description}
+                        </p>
+                      )}
                     </div>
-                  ))}
-              </div>
+
+                    <div className="pt-3 border-t border-amber-200/60 flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                        {exam.subject && (
+                          <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200 text-amber-800">
+                            {exam.subject}
+                          </span>
+                        )}
+                        <span>{exam.questionCount || 0} câu</span>
+                        <span>•</span>
+                        <span>{exam.timeLimit ? `${exam.timeLimit}p` : "45p"}</span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleStartExamFlow(exam.id)}
+                        className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                      >
+                        <span>Vào thi ngay</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
             </div>
-          )}
+          </div>
+        )}
 
         {/* Regular Public Exams */}
         {loadingExams ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-36 bg-white rounded-3xl border border-slate-200 animate-pulse"
-              />
+              <div key={i} className="h-36 bg-white rounded-3xl border border-slate-200 animate-pulse" />
             ))}
           </div>
         ) : (
@@ -403,19 +359,12 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
             const displayExams = publicExams.filter((exam) => {
               const matchText =
                 !examSearchText.trim() ||
-                exam.title
-                  .toLowerCase()
-                  .includes(examSearchText.toLowerCase()) ||
-                (exam.code &&
-                  exam.code
-                    .toLowerCase()
-                    .includes(examSearchText.toLowerCase()));
+                exam.title.toLowerCase().includes(examSearchText.toLowerCase()) ||
+                (exam.code && exam.code.toLowerCase().includes(examSearchText.toLowerCase()));
               const matchSubject =
-                selectedSubjectFilter === "all" ||
-                exam.subject === selectedSubjectFilter;
+                selectedSubjectFilter === "all" || exam.subject === selectedSubjectFilter;
               const matchGrade =
-                selectedGradeFilter === "all" ||
-                exam.gradeCategory === selectedGradeFilter;
+                selectedGradeFilter === "all" || exam.gradeCategory === selectedGradeFilter;
               return matchText && matchSubject && matchGrade;
             });
 
@@ -425,9 +374,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                   <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto text-slate-400">
                     <BookOpen className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold text-slate-800 text-sm">
-                    Không tìm thấy bài thi phù hợp
-                  </h3>
+                  <h3 className="font-bold text-slate-800 text-sm">Không tìm thấy bài thi phù hợp</h3>
                   <p className="text-xs text-slate-500 max-w-sm mx-auto">
                     Hãy thử thay đổi từ khóa hoặc bộ lọc môn học.
                   </p>
@@ -456,9 +403,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                         </div>
                         <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
                           <Clock className="w-3.5 h-3.5 text-slate-400" />
-                          {exam.timeLimit
-                            ? `${exam.timeLimit} phút`
-                            : "Không giới hạn"}
+                          {exam.timeLimit ? `${exam.timeLimit} phút` : "Không giới hạn"}
                         </span>
                       </div>
 
@@ -508,9 +453,7 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               Tạo đề thi tự luyện siêu tốc với ChatGPT & Nạp JSON
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              Copy prompt mẫu, gửi cho ChatGPT kèm nội dung/ảnh bài tập, sau đó
-              dán kết quả JSON vào Cổng Phụ huynh để chỉnh sửa dạng Azota và
-              xuất đề luyện tập cho con.
+              Copy prompt mẫu, gửi cho ChatGPT kèm nội dung/ảnh bài tập, sau đó dán kết quả JSON vào Cổng Phụ huynh để chỉnh sửa dạng  và xuất đề luyện tập cho con.
             </p>
           </div>
 
@@ -524,14 +467,8 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
               }}
               className="w-full sm:w-auto px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
             >
-              {copiedHomePrompt ? (
-                <Check className="w-4 h-4" />
-              ) : (
-                <Copy className="w-4 h-4" />
-              )}
-              <span>
-                {copiedHomePrompt ? "Đã copy Prompt!" : "Copy Prompt ChatGPT"}
-              </span>
+              {copiedHomePrompt ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              <span>{copiedHomePrompt ? "Đã copy Prompt!" : "Copy Prompt ChatGPT"}</span>
             </button>
 
             <Link
@@ -561,18 +498,13 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                 <AlertCircle className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-extrabold text-slate-900 text-base">
-                  Yêu cầu Đăng nhập
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Bạn cần đăng nhập để tham gia làm bài thi
-                </p>
+                <h3 className="font-extrabold text-slate-900 text-base">Yêu cầu Đăng nhập</h3>
+                <p className="text-xs text-slate-500">Bạn cần đăng nhập để tham gia làm bài thi</p>
               </div>
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              Hệ thống DkTEST yêu cầu thí sinh hoặc phụ huynh đăng nhập tài
-              khoản để lưu trữ kết quả và giám sát bài thi.
+              Hệ thống DkTEST yêu cầu thí sinh hoặc phụ huynh đăng nhập tài khoản để lưu trữ kết quả và giám sát bài thi.
             </p>
 
             <div className="space-y-2 pt-2">
@@ -592,13 +524,15 @@ Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`
                 <span>Đăng nhập Cổng Phụ Huynh</span>
               </Link>
 
-              <Link
-                to="/admin/login"
-                className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Shield className="w-4 h-4 text-slate-600" />
-                <span>Đăng nhập Quản trị Giáo viên</span>
-              </Link>
+              {isAdmin && (
+                <Link
+                  to="/admin/exams"
+                  className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Shield className="w-4 h-4 text-slate-600" />
+                  <span>Quản trị Giáo viên</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
