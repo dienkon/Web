@@ -17,6 +17,7 @@ import {
   Clock,
   Play,
   HeartHandshake,
+  BrainCircuit,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
@@ -105,6 +106,7 @@ export default function StudentLayout() {
 
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen },
+    { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500" },
     { to: "/student/history", label: "Lịch sử bài làm", icon: History },

@@ -64,6 +64,18 @@ export function renderLatexToHtml(text: string): string {
 
   let sanitized = fixLatexFormatting(text);
 
+  // Convert markdown image syntax ![alt](url) to <img> tag
+  sanitized = sanitized.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^\s)]+)\)/gi, (_, alt, src) => {
+    return `<div style="text-align: center; margin: 8px 0;"><img src="${src}" alt="${alt || 'Hình ảnh'}" style="max-width: 100%; max-height: 380px; object-fit: contain; display: inline-block; border-radius: 4px;" crossorigin="anonymous" /></div>`;
+  });
+
+  // Convert markdown bold **...** and italic *...*
+  sanitized = sanitized.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  sanitized = sanitized.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+  // Format fill-in-the-blank placeholders [_] or [blank]
+  sanitized = sanitized.replace(/\[_\]|\[blank\]/gi, `<span style="display: inline-block; min-width: 80px; border-bottom: 1.5px solid #334155; margin: 0 4px; vertical-align: bottom;">&nbsp;</span>`);
+
   // Auto-wrap common unwrapped math commands in $...$
   const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{[^{}]*\}\s*\{[^{}]*\})/g;
   sanitized = sanitized.replace(fracRegex, (m) => (m.startsWith("$") ? m : `$${m}$`));
@@ -711,6 +723,14 @@ export function generateExamHtmlForPrint(
     </div>
 `;
 
+    if (q.imageUrl) {
+      html += `
+    <div style="text-align: center; margin: 8px 0;">
+      <img src="${q.imageUrl}" alt="Hình câu ${questionNumber}" style="max-width: 100%; max-height: 380px; object-fit: contain; display: inline-block; border-radius: 4px;" crossorigin="anonymous" />
+    </div>
+`;
+    }
+
     if (q.type === "single_choice" || q.type === "multiple_choice") {
       const opts = q.options || [];
       // Calculate column count based on option text length
@@ -752,6 +772,32 @@ export function generateExamHtmlForPrint(
         html += `<div style="margin-left: 14px; font-weight: bold; color: #1e3a8a;">Đáp số: ${escapeLatexText(q.acceptedAnswers?.join(", ") || "")}</div>`;
       } else {
         html += `<div style="margin: 12px 0 12px 14px; font-style: italic;">Đáp số: .................................................................................</div>`;
+      }
+    } else if (q.type === "ordering") {
+      const items = q.orderingItems || [];
+      const correctOrder = q.correctOrder || items.map((it) => it.id);
+      html += `<div style="margin-left: 14px; margin-bottom: 6px;">`;
+      html += `<div style="font-style: italic; margin-bottom: 4px; font-size: 11pt; color: #475569;">Các mục cần sắp xếp:</div>`;
+      items.forEach((item, itIdx) => {
+        html += `<div style="margin-bottom: 3px;"><strong>(${itIdx + 1})</strong> ${renderLatexToHtml(item.text)}</div>`;
+      });
+      if (includeAnswers) {
+        const orderLabels = correctOrder.map((cid) => {
+          const itemIdx = items.findIndex((it) => it.id === cid);
+          return itemIdx !== -1 ? `(${itemIdx + 1})` : cid;
+        });
+        html += `<div style="margin-top: 6px; font-weight: bold; color: #1d4ed8;">Thứ tự đúng: ${orderLabels.join(" → ")}</div>`;
+      } else {
+        html += `<div style="margin-top: 6px; font-style: italic;">Thứ tự sắp xếp: ................................................................</div>`;
+      }
+      html += `</div>`;
+    } else if (q.type === "fill_blank") {
+      if (includeAnswers) {
+        const acceptedMap = q.acceptedAnswersPerBlank || {};
+        const blanksSummary = Object.entries(acceptedMap)
+          .map(([k, ansList]) => `[Ô trống ${Number(k) + 1}]: ${(ansList as string[]).join(" hoặc ")}`)
+          .join(" | ");
+        html += `<div style="margin-left: 14px; font-weight: bold; color: #1e3a8a;">Đáp án điền từ: ${escapeLatexText(blanksSummary || "")}</div>`;
       }
     }
 

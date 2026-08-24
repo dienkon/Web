@@ -34,8 +34,8 @@ type QuestionStatus = "correct" | "incorrect" | "partial" | "unanswered";
 
 function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatus; scoreRatio: number } {
   if (studentAns === undefined || studentAns === null || studentAns === "") {
-    if (q.type === "true_false") {
-      if (!studentAns || typeof studentAns !== "object" || Object.keys(studentAns).length === 0) {
+    if (q.type === "true_false" || q.type === "fill_blank" || q.type === "ordering") {
+      if (!studentAns || (typeof studentAns === "object" && Object.keys(studentAns).length === 0)) {
         return { status: "unanswered", scoreRatio: 0 };
       }
     } else {
@@ -45,7 +45,7 @@ function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatu
 
   const qType = q.type || "single_choice";
 
-  if (qType === "single_choice" || (qType as any) === "multiple-choice") {
+  if (qType === "single_choice") {
     const correctIds = q.correctOptionIds || [];
     const selected = typeof studentAns === "string" ? studentAns : (Array.isArray(studentAns) ? studentAns[0] : "");
     if (!selected) return { status: "unanswered", scoreRatio: 0 };
@@ -53,7 +53,7 @@ function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatu
     return { status: isCorrect ? "correct" : "incorrect", scoreRatio: isCorrect ? 1 : 0 };
   }
 
-  if (qType === "multiple_choice") {
+  if (qType === "multiple_choice" || (qType as any) === "multiple-choice") {
     const correctIds = q.correctOptionIds || [];
     const selectedArr = Array.isArray(studentAns) ? studentAns : (studentAns ? [studentAns] : []);
     if (selectedArr.length === 0) return { status: "unanswered", scoreRatio: 0 };
@@ -65,7 +65,10 @@ function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatu
     const hasWrong = selectedArr.some((id) => !correctIds.includes(id));
 
     if (isAllCorrect) return { status: "correct", scoreRatio: 1 };
-    if (hasSomeCorrect && !hasWrong) return { status: "partial", scoreRatio: 0.5 };
+    if (hasSomeCorrect && !hasWrong) {
+      const ratio = correctIds.length > 0 ? (selectedArr.length / correctIds.length) : 0.5;
+      return { status: "partial", scoreRatio: Math.min(0.75, ratio) };
+    }
     return { status: "incorrect", scoreRatio: 0 };
   }
 
@@ -82,18 +85,13 @@ function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatu
       }
     });
 
-    // Scoring table: 1 item = 0.1, 2 items = 0.25, 3 items = 0.5, 4 items = 1.0
-    let ratio = 0;
-    if (correctCount === 1) ratio = 0.1;
-    else if (correctCount === 2) ratio = 0.25;
-    else if (correctCount === 3) ratio = 0.5;
-    else if (correctCount === 4) ratio = 1.0;
+    if (statements.length === 0) return { status: "unanswered", scoreRatio: 0 };
 
-    if (correctCount === statements.length && statements.length > 0) {
+    if (correctCount === statements.length) {
       return { status: "correct", scoreRatio: 1 };
     }
     if (correctCount > 0) {
-      return { status: "partial", scoreRatio: ratio };
+      return { status: "partial", scoreRatio: correctCount / statements.length };
     }
     return { status: "incorrect", scoreRatio: 0 };
   }
@@ -109,6 +107,60 @@ function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatu
       return textAns.toLowerCase() === acc.trim().toLowerCase();
     });
     return { status: isMatch ? "correct" : "incorrect", scoreRatio: isMatch ? 1 : 0 };
+  }
+
+  if (qType === "ordering") {
+    const items = q.orderingItems || [];
+    const correctOrder = q.correctOrder || items.map((it) => it.id);
+    const studentOrder = Array.isArray(studentAns) ? studentAns : [];
+
+    if (studentOrder.length === 0) return { status: "unanswered", scoreRatio: 0 };
+
+    let matchCount = 0;
+    correctOrder.forEach((id, idx) => {
+      if (studentOrder[idx] === id) matchCount++;
+    });
+
+    if (matchCount === correctOrder.length && correctOrder.length > 0) {
+      return { status: "correct", scoreRatio: 1 };
+    }
+    if (matchCount > 0) {
+      return { status: "partial", scoreRatio: matchCount / correctOrder.length };
+    }
+    return { status: "incorrect", scoreRatio: 0 };
+  }
+
+  if (qType === "fill_blank") {
+    const acceptedMap = q.acceptedAnswersPerBlank || {};
+    const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+    const keys = Object.keys(acceptedMap);
+
+    if (keys.length === 0) return { status: "unanswered", scoreRatio: 0 };
+
+    let answeredCount = 0;
+    let correctCount = 0;
+
+    keys.forEach((k) => {
+      const idx = Number(k);
+      const userVal = String(ansMap[idx] || "").trim();
+      if (userVal) answeredCount++;
+
+      const valToCheck = q.trimWhitespace !== false ? userVal : String(ansMap[idx] || "");
+      const validOptions = acceptedMap[idx] || [];
+
+      const isCorrect = validOptions.some((opt) => {
+        const target = q.trimWhitespace !== false ? opt.trim() : opt;
+        if (q.caseSensitive) return target === valToCheck;
+        return target.toLowerCase() === valToCheck.toLowerCase();
+      });
+
+      if (isCorrect) correctCount++;
+    });
+
+    if (answeredCount === 0) return { status: "unanswered", scoreRatio: 0 };
+    if (correctCount === keys.length) return { status: "correct", scoreRatio: 1 };
+    if (correctCount > 0) return { status: "partial", scoreRatio: correctCount / keys.length };
+    return { status: "incorrect", scoreRatio: 0 };
   }
 
   return { status: "unanswered", scoreRatio: 0 };
@@ -712,6 +764,141 @@ export default function LiveMonitor() {
                         </div>
                       </div>
                     )}
+                  </div>
+                )}
+
+                {/* 5. Ordering */}
+                {qType === "ordering" && (
+                  <div className="space-y-4">
+                    <div className="bg-white border-2 border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3">
+                      <div className="flex items-center justify-between text-xs font-bold text-slate-600 uppercase tracking-wider">
+                        <span>Thứ tự học sinh đang sắp xếp:</span>
+                        <span className="text-slate-400 font-normal lowercase">(từ trên xuống dưới)</span>
+                      </div>
+                      <div className="space-y-2">
+                        {(() => {
+                          const items = currentQ.orderingItems || [];
+                          const studentOrder = Array.isArray(studentAns) ? studentAns : [];
+                          const correctOrder = currentQ.correctOrder || items.map((it) => it.id);
+
+                          if (studentOrder.length === 0) {
+                            return <p className="text-xs text-slate-400 italic py-2">Học sinh chưa thao tác sắp xếp...</p>;
+                          }
+
+                          return studentOrder.map((itemId, idx) => {
+                            const item = items.find((it) => it.id === itemId);
+                            const isCorrectPosition = correctOrder[idx] === itemId;
+
+                            return (
+                              <div
+                                key={itemId}
+                                className={`p-3 rounded-xl border flex items-center gap-3 text-xs sm:text-sm font-medium ${
+                                  showAnswerKey
+                                    ? isCorrectPosition
+                                      ? "bg-emerald-50 border-emerald-300 text-emerald-950"
+                                      : "bg-rose-50 border-rose-300 text-rose-950"
+                                    : "bg-slate-50 border-slate-200 text-slate-800"
+                                }`}
+                              >
+                                <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shrink-0">
+                                  {idx + 1}
+                                </span>
+                                <div className="flex-1 truncate">
+                                  <LatexPreview content={item?.text || itemId} />
+                                </div>
+                                {showAnswerKey && (
+                                  <span className="text-[11px] font-bold shrink-0">
+                                    {isCorrectPosition ? "✓ Đúng vị trí" : "✗ Sai vị trí"}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          });
+                        })()}
+                      </div>
+                    </div>
+
+                    {showAnswerKey && (
+                      <div className="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl space-y-2">
+                        <div className="flex items-center gap-2 text-emerald-900 font-extrabold text-xs uppercase tracking-wider">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <span>Thứ tự chuẩn xác (Đáp án đúng):</span>
+                        </div>
+                        <div className="space-y-1.5">
+                          {(() => {
+                            const items = currentQ.orderingItems || [];
+                            const correctOrder = currentQ.correctOrder || items.map((it) => it.id);
+                            return correctOrder.map((id, idx) => {
+                              const it = items.find((x) => x.id === id);
+                              return (
+                                <div key={id} className="text-xs text-emerald-900 font-semibold flex items-center gap-2">
+                                  <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center">
+                                    {idx + 1}
+                                  </span>
+                                  <span>{it?.text || id}</span>
+                                </div>
+                              );
+                            });
+                          })()}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 6. Fill in Blank */}
+                {qType === "fill_blank" && (
+                  <div className="space-y-4">
+                    <div className="bg-white border-2 border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3">
+                      <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider">
+                        Các ô điền từ học sinh đã nhập:
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {(() => {
+                          const acceptedMap = currentQ.acceptedAnswersPerBlank || {};
+                          const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+                          const totalBlanks = Math.max(
+                            Object.keys(acceptedMap).length,
+                            (currentQ.text?.match(/\[_\]|\[blank\]/gi) || []).length
+                          );
+
+                          return Array.from({ length: totalBlanks || 1 }).map((_, bIdx) => {
+                            const val = ansMap[bIdx] || "";
+                            const accepted = acceptedMap[bIdx] || [];
+                            const isCorrect = accepted.some((opt) =>
+                              currentQ.caseSensitive
+                                ? opt === val.trim()
+                                : opt.toLowerCase() === val.trim().toLowerCase()
+                            );
+
+                            return (
+                              <div
+                                key={bIdx}
+                                className={`p-3 rounded-xl border space-y-1 ${
+                                  showAnswerKey && val
+                                    ? isCorrect
+                                      ? "bg-emerald-50 border-emerald-300"
+                                      : "bg-rose-50 border-rose-300"
+                                    : "bg-slate-50 border-slate-200"
+                                }`}
+                              >
+                                <div className="text-[11px] font-bold text-slate-500">
+                                  Ô trống #{bIdx + 1}
+                                </div>
+                                <div className="font-mono font-bold text-sm text-slate-900">
+                                  {val || <span className="text-slate-400 italic text-xs">Chưa điền</span>}
+                                </div>
+                                {showAnswerKey && accepted.length > 0 && (
+                                  <div className="text-[11px] text-emerald-800 font-semibold pt-1 border-t border-emerald-200/50">
+                                    Đ/A chấp nhận: {accepted.join(", ")}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          });
+                        })()}
+                      </div>
+                    </div>
                   </div>
                 )}
 

@@ -281,6 +281,34 @@ export default function ExamResult() {
         });
         isCorrect = correctCount === stmts.length;
       }
+    } else if (q.type === "ordering") {
+      const items = q.orderingItems || [];
+      const correctOrder = q.correctOrder || items.map((it) => it.id);
+      const studentOrder = Array.isArray(studentAns) ? studentAns : [];
+      let matches = 0;
+      correctOrder.forEach((id, idx) => {
+        if (studentOrder[idx] === id) matches++;
+      });
+      isCorrect = matches === correctOrder.length && correctOrder.length > 0;
+    } else if (q.type === "fill_blank") {
+      const acceptedMap = q.acceptedAnswersPerBlank || {};
+      const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+      const keys = Object.keys(acceptedMap);
+      if (keys.length > 0) {
+        let correctBlanks = 0;
+        keys.forEach((k) => {
+          const idx = Number(k);
+          const userVal = String(ansMap[idx] || "").trim();
+          const validOptions = acceptedMap[idx] || [];
+          const isMatch = validOptions.some((opt) => {
+            const target = q.trimWhitespace !== false ? opt.trim() : opt;
+            if (q.caseSensitive) return target === (q.trimWhitespace !== false ? userVal : String(ansMap[idx] || ""));
+            return target.toLowerCase() === userVal.toLowerCase();
+          });
+          if (isMatch) correctBlanks++;
+        });
+        isCorrect = correctBlanks === keys.length;
+      }
     }
 
     if (filterStatus === "correct" && !isCorrect) return false;
@@ -881,6 +909,118 @@ export default function ExamResult() {
                           <strong className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                             {q.acceptedAnswers?.join(" hoặc ")}
                           </strong>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Ordering Review */}
+                    {q.type === "ordering" && (
+                      <div className="space-y-3 pt-1 text-xs">
+                        <div className="space-y-1.5">
+                          <p className="font-semibold text-slate-500">Thứ tự bạn đã chọn:</p>
+                          {(() => {
+                            const items = q.orderingItems || [];
+                            const correctOrder = q.correctOrder || items.map((it) => it.id);
+                            const studentOrder = Array.isArray(studentAns) ? studentAns : [];
+
+                            if (studentOrder.length === 0) {
+                              return <p className="text-slate-400 italic">Chưa sắp xếp</p>;
+                            }
+
+                            return studentOrder.map((itemId, idx) => {
+                              const it = items.find((x) => x.id === itemId);
+                              const isPosMatch = correctOrder[idx] === itemId;
+                              return (
+                                <div
+                                  key={itemId}
+                                  className={`p-2.5 rounded-xl border flex items-center gap-2 ${
+                                    isPosMatch
+                                      ? "bg-emerald-50 border-emerald-200 text-emerald-950"
+                                      : "bg-red-50 border-red-200 text-red-950"
+                                  }`}
+                                >
+                                  <span className="w-5 h-5 rounded-full bg-slate-700 text-white text-[10px] font-bold flex items-center justify-center">
+                                    {idx + 1}
+                                  </span>
+                                  <div className="flex-1">
+                                    <LatexPreview content={it?.text || itemId} />
+                                  </div>
+                                  <span className="font-bold text-[11px]">
+                                    {isPosMatch ? "✓ Đúng vị trí" : "✗ Sai vị trí"}
+                                  </span>
+                                </div>
+                              );
+                            });
+                          })()}
+                        </div>
+
+                        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1.5">
+                          <p className="font-bold text-emerald-900">Thứ tự đúng chuẩn:</p>
+                          {(() => {
+                            const items = q.orderingItems || [];
+                            const correctOrder = q.correctOrder || items.map((it) => it.id);
+                            return correctOrder.map((id, idx) => {
+                              const it = items.find((x) => x.id === id);
+                              return (
+                                <div key={id} className="text-emerald-800 font-medium flex items-center gap-2">
+                                  <span className="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center">
+                                    {idx + 1}
+                                  </span>
+                                  <span>{it?.text || id}</span>
+                                </div>
+                              );
+                            });
+                          })()}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Fill in Blank Review */}
+                    {q.type === "fill_blank" && (
+                      <div className="space-y-3 pt-1 text-xs">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          {(() => {
+                            const acceptedMap = q.acceptedAnswersPerBlank || {};
+                            const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+                            const totalBlanks = Math.max(
+                              Object.keys(acceptedMap).length,
+                              (q.text?.match(/\[_\]|\[blank\]/gi) || []).length
+                            );
+
+                            return Array.from({ length: totalBlanks || 1 }).map((_, bIdx) => {
+                              const val = ansMap[bIdx] || "";
+                              const accepted = acceptedMap[bIdx] || [];
+                              const isMatch = accepted.some((opt) =>
+                                q.caseSensitive
+                                  ? opt === val.trim()
+                                  : opt.toLowerCase() === val.trim().toLowerCase()
+                              );
+
+                              return (
+                                <div
+                                  key={bIdx}
+                                  className={`p-3 rounded-xl border space-y-1 ${
+                                    isMatch
+                                      ? "bg-emerald-50 border-emerald-200"
+                                      : "bg-red-50 border-red-200"
+                                  }`}
+                                >
+                                  <div className="font-bold text-slate-600">Ô trống #{bIdx + 1}</div>
+                                  <div>
+                                    <span className="text-slate-500">Đã điền: </span>
+                                    <strong className={isMatch ? "text-emerald-800 font-mono" : "text-red-700 font-mono"}>
+                                      {val || "(Chưa điền)"}
+                                    </strong>
+                                  </div>
+                                  {accepted.length > 0 && (
+                                    <div className="text-emerald-800 text-[11px] font-medium pt-1 border-t border-emerald-200/50">
+                                      Đáp án: {accepted.join(", ")}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            });
+                          })()}
                         </div>
                       </div>
                     )}

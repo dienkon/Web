@@ -4,7 +4,7 @@ export const CURRENT_EXAM_JSON_VERSION = 3;
 
 export const QuestionSchemaV3 = z.object({
   id: z.string(),
-  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer"]),
+  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank"]),
   text: z.string(),
   options: z.array(z.object({
     id: z.string(),
@@ -17,6 +17,14 @@ export const QuestionSchemaV3 = z.object({
     correctAnswer: z.boolean()
   })).optional(),
   acceptedAnswers: z.array(z.string()).optional(),
+  orderingItems: z.array(z.object({
+    id: z.string(),
+    text: z.string()
+  })).optional(),
+  correctOrder: z.array(z.string()).optional(),
+  acceptedAnswersPerBlank: z.record(z.string(), z.array(z.string())).optional(),
+  caseSensitive: z.boolean().optional(),
+  trimWhitespace: z.boolean().optional(),
   explanation: z.string().optional(),
   imageUrl: z.string().nullable().optional(),
   imageWidth: z.number().nullable().optional(),

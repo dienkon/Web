@@ -416,6 +416,24 @@ function sanitizeForFirestore(obj: any): any {
         newQuestion.acceptedAnswers = ["Đáp án đúng"];
         newQuestion.caseSensitive = false;
         newQuestion.trimWhitespace = true;
+      } else if (type === "ordering") {
+        const id1 = uuidv4();
+        const id2 = uuidv4();
+        const id3 = uuidv4();
+        newQuestion.text = "Sắp xếp các mục sau theo đúng thứ tự logic hoặc thời gian:";
+        newQuestion.orderingItems = [
+          { id: id1, text: "Mục 1: Mở đầu" },
+          { id: id2, text: "Mục 2: Diễn biến" },
+          { id: id3, text: "Mục 3: Kết luận" },
+        ];
+        newQuestion.correctOrder = [id1, id2, id3];
+      } else if (type === "fill_blank") {
+        newQuestion.text = "Thủ đô của nước Cộng hòa Xã hội chủ nghĩa Việt Nam là [_].";
+        newQuestion.acceptedAnswersPerBlank = {
+          0: ["Hà Nội", "Ha Noi", "ha noi"],
+        };
+        newQuestion.caseSensitive = false;
+        newQuestion.trimWhitespace = true;
       }
       
       setState(s => ({

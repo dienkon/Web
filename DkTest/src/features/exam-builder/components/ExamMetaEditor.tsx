@@ -177,6 +177,54 @@ export default function ExamMetaEditor() {
             </div>
           </div>
 
+          {/* Number of Attempts & Open/Close Schedule */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
+                <Layers className="w-3.5 h-3.5 text-slate-500" />
+                Số lần làm tối đa
+              </label>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={state.examMeta.maxAttempts ?? 0}
+                onChange={(e) => actions.setExamMeta({ maxAttempts: e.target.value === "" ? 0 : Math.max(0, parseInt(e.target.value)) })}
+                placeholder="0 = Vô hạn"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
+              />
+              <p className="text-[10px] text-slate-400 mt-1 font-medium">Nhập 0 để cho phép làm bài không giới hạn số lần</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                Thời gian mở đề (Tùy chọn)
+              </label>
+              <input
+                type="datetime-local"
+                value={state.examMeta.openTime || ""}
+                onChange={(e) => actions.setExamMeta({ openTime: e.target.value || undefined })}
+                className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
+              />
+              <p className="text-[10px] text-slate-400 mt-1">Chỉ bắt đầu được sau thời điểm này</p>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                Thời gian đóng đề (Tùy chọn)
+              </label>
+              <input
+                type="datetime-local"
+                value={state.examMeta.closeTime || ""}
+                onChange={(e) => actions.setExamMeta({ closeTime: e.target.value || undefined })}
+                className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
+              />
+              <p className="text-[10px] text-slate-400 mt-1">Đóng không nhận bài sau thời điểm này</p>
+            </div>
+          </div>
+
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1.5">
               Mô tả / Hướng dẫn chung cho thí sinh

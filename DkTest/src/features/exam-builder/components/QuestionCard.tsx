@@ -84,6 +84,8 @@ export default function QuestionCard({ question }: { question: Question }) {
                 {question.type === "multiple_choice" && "Nhiều đáp án"}
                 {question.type === "true_false" && "Đúng / Sai"}
                 {question.type === "short_answer" && "Trả lời ngắn"}
+                {question.type === "ordering" && "Sắp xếp thứ tự"}
+                {question.type === "fill_blank" && "Điền lỗ"}
               </span>
             </div>
 
@@ -196,6 +198,8 @@ export default function QuestionCard({ question }: { question: Question }) {
               {question.type === "multiple_choice" && "• nhiều đáp án"}
               {question.type === "true_false" && "• đúng/sai"}
               {question.type === "short_answer" && "• điền ngắn"}
+              {question.type === "ordering" && "• sắp xếp"}
+              {question.type === "fill_blank" && "• điền lỗ"}
             </span>
           </div>
 

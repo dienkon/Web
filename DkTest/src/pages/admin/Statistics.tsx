@@ -42,6 +42,17 @@ import { useToast } from "../../components/ui/ToastNotification";
 type GeneralTab = "overview" | "exams" | "students" | "cheat";
 type ExamDetailTab = "score_dist" | "questions_analysis" | "submissions_list" | "cheat_logs";
 
+// Client-side cache to eliminate excessive Firestore reads
+const STATS_CACHE = {
+  overview: null as { exams: Exam[]; submissions: Submission[]; students: Student[]; timestamp: number } | null,
+  examsTab: null as { exams: Exam[]; submissions: Submission[]; timestamp: number } | null,
+  studentsTab: null as { submissions: Submission[]; timestamp: number } | null,
+  cheatTab: null as { submissions: Submission[]; timestamp: number } | null,
+  examSubmissions: {} as Record<string, { submissions: Submission[]; timestamp: number }>,
+  questions: {} as Record<string, Question[]>,
+};
+const CACHE_TTL_MS = 3 * 60 * 1000; // 3 minutes TTL
+
 export default function Statistics() {
   const location = useLocation();
   const isParentMode = location.pathname.startsWith('/parent/');
@@ -93,9 +104,18 @@ export default function Statistics() {
     }
   }, [routeExamId]);
 
-  // 1. INITIAL MINIMAL LOAD: Only load 5 items per type to minimize Firestore reads
+  // 1. INITIAL MINIMAL LOAD: Cached or light 5 items
   useEffect(() => {
     const loadInitialOverview = async () => {
+      const now = Date.now();
+      if (STATS_CACHE.overview && now - STATS_CACHE.overview.timestamp < CACHE_TTL_MS) {
+        setExams(STATS_CACHE.overview.exams);
+        setSubmissions(STATS_CACHE.overview.submissions);
+        setStudents(STATS_CACHE.overview.students);
+        setInitialLoading(false);
+        return;
+      }
+
       setInitialLoading(true);
       try {
         const [exSnap, subSnap, stuSnap] = await Promise.all([
@@ -107,6 +127,13 @@ export default function Statistics() {
         const loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         const loadedSubs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
         const loadedStus = stuSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
+
+        STATS_CACHE.overview = {
+          exams: loadedExams,
+          submissions: loadedSubs,
+          students: loadedStus,
+          timestamp: Date.now(),
+        };
 
         setExams(loadedExams);
         setSubmissions(loadedSubs);
@@ -121,83 +148,146 @@ export default function Statistics() {
     loadInitialOverview();
   }, []);
 
-  // 2. ON-DEMAND LOAD: When user switches tabs in General view
+  // 2. ON-DEMAND LOAD: When user switches tabs in General view (with Cache)
   const handleTabChange = useCallback(
     async (tab: GeneralTab) => {
       setGeneralTab(tab);
+      const now = Date.now();
 
-      if (tab === "exams" && !allExamsLoaded) {
-        setTabLoading(true);
-        try {
-          // Tối ưu: Chỉ lấy 20 bài thi gần nhất để so sánh
-          const [exSnap, subSnap] = await Promise.all([
-            getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(20))),
-            getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(200))),
-          ]);
-          setAllExamsList(exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
-          setAllExamsSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
+      if (tab === "exams") {
+        if (STATS_CACHE.examsTab && now - STATS_CACHE.examsTab.timestamp < CACHE_TTL_MS) {
+          setAllExamsList(STATS_CACHE.examsTab.exams);
+          setAllExamsSubmissions(STATS_CACHE.examsTab.submissions);
           setAllExamsLoaded(true);
-        } catch (err) {
-          console.error("Lỗi khi tải danh sách bài thi so sánh:", err);
-        } finally {
-          setTabLoading(false);
+          return;
         }
-      } else if (tab === "students" && !studentsTabLoaded) {
-        setTabLoading(true);
-        try {
-          const subSnap = await getDocs(
-            query(collection(db, "submissions"), orderBy("score", "desc"), limit(50))
-          );
-          setTopStudentSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
+
+        if (!allExamsLoaded) {
+          setTabLoading(true);
+          try {
+            // Tối ưu: Chỉ lấy 15 bài thi & 30 bài nộp gần nhất
+            const [exSnap, subSnap] = await Promise.all([
+              getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(15))),
+              getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(30))),
+            ]);
+            const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+            const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+            
+            STATS_CACHE.examsTab = {
+              exams: exList,
+              submissions: subList,
+              timestamp: Date.now(),
+            };
+
+            setAllExamsList(exList);
+            setAllExamsSubmissions(subList);
+            setAllExamsLoaded(true);
+          } catch (err) {
+            console.error("Lỗi khi tải danh sách bài thi so sánh:", err);
+          } finally {
+            setTabLoading(false);
+          }
+        }
+      } else if (tab === "students") {
+        if (STATS_CACHE.studentsTab && now - STATS_CACHE.studentsTab.timestamp < CACHE_TTL_MS) {
+          setTopStudentSubmissions(STATS_CACHE.studentsTab.submissions);
           setStudentsTabLoaded(true);
-        } catch (err) {
-          console.error("Lỗi khi tải xếp hạng học sinh:", err);
-        } finally {
-          setTabLoading(false);
+          return;
         }
-      } else if (tab === "cheat" && !cheatTabLoaded) {
-        setTabLoading(true);
-        try {
-          const subSnap = await getDocs(
-            query(collection(db, "submissions"), where("cheatViolations", ">", 0), limit(50))
-          );
-          setCheatSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
+
+        if (!studentsTabLoaded) {
+          setTabLoading(true);
+          try {
+            const subSnap = await getDocs(
+              query(collection(db, "submissions"), orderBy("score", "desc"), limit(25))
+            );
+            const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+            
+            STATS_CACHE.studentsTab = {
+              submissions: subList,
+              timestamp: Date.now(),
+            };
+
+            setTopStudentSubmissions(subList);
+            setStudentsTabLoaded(true);
+          } catch (err) {
+            console.error("Lỗi khi tải xếp hạng học sinh:", err);
+          } finally {
+            setTabLoading(false);
+          }
+        }
+      } else if (tab === "cheat") {
+        if (STATS_CACHE.cheatTab && now - STATS_CACHE.cheatTab.timestamp < CACHE_TTL_MS) {
+          setCheatSubmissions(STATS_CACHE.cheatTab.submissions);
           setCheatTabLoaded(true);
-        } catch (err) {
-          console.error("Lỗi khi tải nhật ký gian lận:", err);
-        } finally {
-          setTabLoading(false);
+          return;
+        }
+
+        if (!cheatTabLoaded) {
+          setTabLoading(true);
+          try {
+            const subSnap = await getDocs(
+              query(collection(db, "submissions"), where("cheatViolations", ">", 0), limit(30))
+            );
+            const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+
+            STATS_CACHE.cheatTab = {
+              submissions: subList,
+              timestamp: Date.now(),
+            };
+
+            setCheatSubmissions(subList);
+            setCheatTabLoaded(true);
+          } catch (err) {
+            console.error("Lỗi khi tải nhật ký gian lận:", err);
+          } finally {
+            setTabLoading(false);
+          }
         }
       }
     },
     [allExamsLoaded, studentsTabLoaded, cheatTabLoaded]
   );
 
-  // 3. ON-DEMAND LOAD: When a specific exam is selected for drilldown
+  // 3. ON-DEMAND LOAD: Specific exam drilldown with per-exam caching
   useEffect(() => {
     if (selectedExamId && selectedExamId !== "all") {
       const loadExamData = async () => {
+        const now = Date.now();
+        const cached = STATS_CACHE.examSubmissions[selectedExamId];
+
+        // Fetch exam doc if not already present
+        let currentExam = exams.find((e) => e.id === selectedExamId) || null;
+        if (!currentExam) {
+          const exDoc = await getDoc(doc(db, "exams", selectedExamId));
+          if (exDoc.exists()) {
+            currentExam = { id: exDoc.id, ...exDoc.data() } as Exam;
+          }
+        }
+        setSelectedExamDoc(currentExam);
+
+        if (cached && now - cached.timestamp < CACHE_TTL_MS) {
+          setExamSubmissions(cached.submissions);
+          return;
+        }
+
         setLoadingExamSubmissions(true);
         try {
-          // Fetch exam doc if not already present
-          let currentExam = exams.find((e) => e.id === selectedExamId) || null;
-          if (!currentExam) {
-            const exDoc = await getDoc(doc(db, "exams", selectedExamId));
-            if (exDoc.exists()) {
-              currentExam = { id: exDoc.id, ...exDoc.data() } as Exam;
-            }
-          }
-          setSelectedExamDoc(currentExam);
-
-          // Fetch only submissions for this exam
+          // Fetch only submissions for this exam (limit 50)
           const subSnap = await getDocs(
             query(
               collection(db, "submissions"),
               where("examId", "==", selectedExamId),
-              orderBy("submittedAt", "desc")
+              orderBy("submittedAt", "desc"),
+              limit(50)
             )
           );
-          setExamSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
+          const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+          STATS_CACHE.examSubmissions[selectedExamId] = {
+            submissions: subList,
+            timestamp: Date.now(),
+          };
+          setExamSubmissions(subList);
         } catch (err) {
           console.error("Lỗi khi tải bài nộp bài thi cụ thể:", err);
         } finally {
@@ -212,7 +302,7 @@ export default function Statistics() {
     }
   }, [selectedExamId, exams]);
 
-  // 4. ON-DEMAND LOAD: Questions for Item Analysis when tab is active
+  // 4. ON-DEMAND LOAD: Questions with cache
   useEffect(() => {
     if (
       selectedExamId &&
@@ -220,18 +310,27 @@ export default function Statistics() {
       examDetailTab === "questions_analysis" &&
       questionsExamIdLoaded !== selectedExamId
     ) {
+      if (STATS_CACHE.questions[selectedExamId]) {
+        setExamQuestions(STATS_CACHE.questions[selectedExamId]);
+        setQuestionsExamIdLoaded(selectedExamId);
+        return;
+      }
+
       const loadQuestions = async () => {
         setLoadingQuestions(true);
         try {
           if (selectedExamDoc && Array.isArray((selectedExamDoc as any).questions)) {
             let qs = (selectedExamDoc as any).questions as Question[];
             qs.sort((a,b) => (a.order || 0) - (b.order || 0));
+            STATS_CACHE.questions[selectedExamId] = qs;
             setExamQuestions(qs);
           } else {
             const qSnap = await getDocs(
               query(collection(db, `exams/${selectedExamId}/questions`), orderBy("order", "asc"))
             );
-            setExamQuestions(qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question)));
+            const qs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+            STATS_CACHE.questions[selectedExamId] = qs;
+            setExamQuestions(qs);
           }
           setQuestionsExamIdLoaded(selectedExamId);
         } catch (err) {
@@ -241,6 +340,7 @@ export default function Statistics() {
           setLoadingQuestions(false);
         }
       };
+
       loadQuestions();
     }
   }, [selectedExamId, examDetailTab, questionsExamIdLoaded, selectedExamDoc]);

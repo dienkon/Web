@@ -48,13 +48,17 @@ export interface Exam {
   allowSubExam: boolean;
   subExamConfig?: SubExamConfig;
 
-  maxAttempts: number;
+  maxAttempts: number; // 0 = vô hạn
+  openTime?: string; // ISO string / datetime: thời gian bắt đầu mở đề
+  closeTime?: string; // ISO string / datetime: thời gian khóa/đóng đề
 
   status: ExamStatus;
   isPublic?: boolean;
   visibility?: "public" | "private" | "unlisted";
 
   questionCount: number;
+  questions?: Question[];
+  sections?: Section[];
 
   stats?: {
     submissionCount: number;
@@ -96,7 +100,9 @@ export type QuestionType =
   | "single_choice"
   | "multiple_choice"
   | "true_false"
-  | "short_answer";
+  | "short_answer"
+  | "ordering"
+  | "fill_blank";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
@@ -113,6 +119,11 @@ export interface TrueFalseStatement {
   correctAnswer: boolean;
 }
 
+export interface OrderingItem {
+  id: string;
+  text: string;
+}
+
 export interface Question {
   id: string;
   ownerId?: string;
@@ -120,7 +131,7 @@ export interface Question {
   sectionId?: string | null;
   type: QuestionType;
 
-  text: string; // supports rich text/math
+  text: string; // supports rich text/math, with [_] for fill_blank
   imageUrl?: string | null;
   imageWidth?: number | null;
   imageHeight?: number | null;
@@ -133,6 +144,14 @@ export interface Question {
   acceptedAnswers?: string[]; // for short_answer
   caseSensitive?: boolean;
   trimWhitespace?: boolean;
+
+  // for ordering questions
+  orderingItems?: OrderingItem[];
+  correctOrder?: string[]; // Array of ordering item IDs in correct sequence
+
+  // for fill_blank questions
+  acceptedAnswersPerBlank?: Record<number, string[]>; // blank index (0-indexed) -> array of valid accepted answers
+  blankAnswers?: string[][]; // alternative format: array of answer arrays per blank
 
   explanation?: string;
 

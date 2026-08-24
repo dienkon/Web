@@ -21,6 +21,9 @@ import {
   Layers,
   X,
   Pencil,
+  ArrowUp,
+  ArrowDown,
+  GripVertical,
 } from "lucide-react";
 import ScratchpadModal from "../../features/student-exam/components/ScratchpadModal";
 import CasioCalculator from "../../components/exam/CasioCalculator";
@@ -669,6 +672,44 @@ export default function TakingExam() {
           totalEarnedPoints += pointPerQuestion;
           correctCount++;
         }
+      } else if (q.type === "ordering") {
+        const items = q.orderingItems || [];
+        const correctOrder = q.correctOrder || items.map((it) => it.id);
+        const studentOrder = Array.isArray(ans) ? ans : [];
+        let matches = 0;
+        correctOrder.forEach((id, idx) => {
+          if (studentOrder[idx] === id) matches++;
+        });
+        if (matches === correctOrder.length && correctOrder.length > 0) {
+          totalEarnedPoints += pointPerQuestion;
+          correctCount++;
+        } else if (matches > 0 && correctOrder.length > 0) {
+          totalEarnedPoints += (matches / correctOrder.length) * pointPerQuestion;
+        }
+      } else if (q.type === "fill_blank") {
+        const acceptedMap = q.acceptedAnswersPerBlank || {};
+        const ansMap = typeof ans === "object" && ans ? ans : {};
+        const keys = Object.keys(acceptedMap);
+        if (keys.length > 0) {
+          let correctBlanks = 0;
+          keys.forEach((k) => {
+            const idx = Number(k);
+            const userVal = String(ansMap[idx] || "").trim();
+            const validOptions = acceptedMap[idx] || [];
+            const isMatch = validOptions.some((opt) => {
+              const target = q.trimWhitespace !== false ? opt.trim() : opt;
+              if (q.caseSensitive) return target === (q.trimWhitespace !== false ? userVal : String(ansMap[idx] || ""));
+              return target.toLowerCase() === userVal.toLowerCase();
+            });
+            if (isMatch) correctBlanks++;
+          });
+          if (correctBlanks === keys.length) {
+            totalEarnedPoints += pointPerQuestion;
+            correctCount++;
+          } else if (correctBlanks > 0) {
+            totalEarnedPoints += (correctBlanks / keys.length) * pointPerQuestion;
+          }
+        }
       }
     });
 
@@ -849,6 +890,8 @@ export default function TakingExam() {
               {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
               {q.type === "true_false" && "Đúng / Sai theo ý"}
               {q.type === "short_answer" && "Điền câu trả lời ngắn"}
+              {q.type === "ordering" && "Sắp xếp thứ tự"}
+              {q.type === "fill_blank" && "Điền vào chỗ trống"}
             </span>
           </div>
 
@@ -1052,6 +1095,128 @@ export default function TakingExam() {
                 }
                 className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+          )}
+
+          {/* 5. Ordering (Sắp xếp thứ tự) */}
+          {q.type === "ordering" && (
+            <div className="space-y-3">
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Dùng mũi tên lên/xuống để sắp xếp các mục theo đúng thứ tự logic:
+              </label>
+              {(() => {
+                const items = q.orderingItems || [];
+                const currentOrder: string[] = Array.isArray(answers[q.id]) && answers[q.id].length === items.length
+                  ? answers[q.id]
+                  : items.map((it) => it.id);
+
+                const handleMove = (index: number, direction: "up" | "down") => {
+                  const targetIndex = direction === "up" ? index - 1 : index + 1;
+                  if (targetIndex < 0 || targetIndex >= currentOrder.length) return;
+                  const newOrder = [...currentOrder];
+                  const temp = newOrder[index];
+                  newOrder[index] = newOrder[targetIndex];
+                  newOrder[targetIndex] = temp;
+                  setAnswers((prev) => ({
+                    ...prev,
+                    [q.id]: newOrder,
+                  }));
+                };
+
+                return (
+                  <div className="space-y-2">
+                    {currentOrder.map((itemId, idx) => {
+                      const item = items.find((it) => it.id === itemId);
+                      return (
+                        <div
+                          key={itemId}
+                          className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 hover:border-blue-300 transition-all"
+                        >
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <span className="w-7 h-7 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0">
+                              {idx + 1}
+                            </span>
+                            <div className="text-sm font-medium text-slate-800 flex-1">
+                              <LatexPreview content={item?.text || ""} />
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-1 shrink-0">
+                            <button
+                              type="button"
+                              onClick={() => handleMove(idx, "up")}
+                              disabled={idx === 0}
+                              className="p-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg text-slate-600 disabled:opacity-30 cursor-pointer"
+                              title="Di chuyển lên"
+                            >
+                              <ArrowUp className="w-4 h-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleMove(idx, "down")}
+                              disabled={idx === currentOrder.length - 1}
+                              className="p-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg text-slate-600 disabled:opacity-30 cursor-pointer"
+                              title="Di chuyển xuống"
+                            >
+                              <ArrowDown className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* 6. Fill in Blank (Điền lỗ) */}
+          {q.type === "fill_blank" && (
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Điền từ/số thích hợp vào các ô trống bên dưới:
+              </label>
+              {(() => {
+                const totalBlanks = Math.max(
+                  Object.keys(q.acceptedAnswersPerBlank || {}).length,
+                  (q.text?.match(/\[_\]|\[blank\]/gi) || []).length
+                );
+                const currentAnsMap = typeof answers[q.id] === "object" && answers[q.id] ? answers[q.id] : {};
+
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {Array.from({ length: totalBlanks || 1 }).map((_, bIdx) => (
+                      <div
+                        key={bIdx}
+                        className="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-1.5"
+                      >
+                        <div className="text-xs font-bold text-blue-700 flex items-center gap-1.5">
+                          <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-800 text-[11px] font-extrabold flex items-center justify-center">
+                            #{bIdx + 1}
+                          </span>
+                          <span>Vị trí ô trống [{bIdx + 1}]</span>
+                        </div>
+                        <input
+                          type="text"
+                          placeholder={`Nhập từ điền vào ô [${bIdx + 1}]...`}
+                          value={currentAnsMap[bIdx] || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setAnswers((prev) => ({
+                              ...prev,
+                              [q.id]: {
+                                ...(typeof prev[q.id] === "object" && prev[q.id] ? prev[q.id] : {}),
+                                [bIdx]: val,
+                              },
+                            }));
+                          }}
+                          className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
           )}
         </div>

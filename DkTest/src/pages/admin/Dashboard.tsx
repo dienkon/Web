@@ -49,21 +49,20 @@ export default function Dashboard() {
     const loadDashboardData = async () => {
       setLoading(true);
       try {
-        // 1. Fetch recent exams
+        // 1. Fetch recent exams (capped to 8)
         let examList: Exam[] = [];
         try {
           const examSnap = await getDocs(
-            query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(10))
+            query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(8))
           );
           examList = examSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         } catch (e) {
-          const fallbackSnap = await getDocs(collection(db, "exams"));
-          examList = fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-        }
-
-        if (examList.length === 0) {
-          const fallbackSnap = await getDocs(collection(db, "exams"));
-          examList = fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+          try {
+            const fallbackSnap = await getDocs(query(collection(db, "exams"), limit(8)));
+            examList = fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+          } catch (e2) {
+            console.error("Error fetching exams fallback", e2);
+          }
         }
 
         const getMs = (val: any) => {
@@ -83,7 +82,7 @@ export default function Dashboard() {
 
         setExams(examList.slice(0, 6));
 
-        // 2. Fetch recent submissions
+        // 2. Fetch recent submissions (limit 8)
         let subList: Submission[] = [];
         try {
           const subSnap = await getDocs(
@@ -95,16 +94,20 @@ export default function Dashboard() {
         }
         setRecentSubmissions(subList);
 
-        // 3. Fetch students count
+        // 3. Fetch students & parents count efficiently via getCountFromServer
         try {
-          const { getCountFromServer } = require('firebase/firestore');
-          const countSnap = await getCountFromServer(collection(db, "students"));
-          setTotalStudents(countSnap.data().count);
-          const parSnap = await getCountFromServer(query(collection(db, "users"), where("role", "==", "parent")));
-          setTotalParents(parSnap.data().count);
+          const [countSnap, parSnap] = await Promise.allSettled([
+            getCountFromServer(collection(db, "students")),
+            getCountFromServer(query(collection(db, "users"), where("role", "==", "parent"))),
+          ]);
+          if (countSnap.status === "fulfilled") {
+            setTotalStudents(countSnap.value.data().count);
+          }
+          if (parSnap.status === "fulfilled") {
+            setTotalParents(parSnap.value.data().count);
+          }
         } catch (err) {
-          console.error("Error fetching student count", err);
-          setTotalStudents(0);
+          console.error("Error fetching counts", err);
         }
       } catch (err) {
         console.error("Lỗi khi tải dữ liệu Dashboard:", err);

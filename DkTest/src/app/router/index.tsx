@@ -32,6 +32,9 @@ import StudentHistory from "../../pages/student/StudentHistory";
 import StudentProfile from "../../pages/student/StudentProfile";
 import Community from "../../pages/student/Community";
 import AiTutorPage from "../../pages/student/AiTutorPage";
+import PracticePage from "../../pages/student/PracticePage";
+import PracticeSessionPage from "../../practice/pages/PracticeSessionPage";
+import PracticeLobbyPage from "../../practice/pages/PracticeLobbyPage";
 import Home from "../../pages/home/Home";
 
 const router = createBrowserRouter([
@@ -134,6 +137,10 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Home /> },
       { path: "student", element: <Navigate to="/student/history" replace /> },
+      { path: "student/practice", element: <PracticePage /> },
+      { path: "student/practice/:modeId", element: <PracticeSessionPage /> },
+      { path: "practice", element: <PracticePage /> },
+      { path: "practice/:modeId", element: <PracticeSessionPage /> },
       { path: "student/community", element: <Community /> },
       { path: "student/ai-tutor", element: <AiTutorPage /> },
       { path: "student/history", element: <StudentHistory /> },

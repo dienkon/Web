@@ -4,6 +4,8 @@ import SingleChoiceEditor from "./SingleChoiceEditor";
 import MultipleChoiceEditor from "./MultipleChoiceEditor";
 import TrueFalseEditor from "./TrueFalseEditor";
 import ShortAnswerEditor from "./ShortAnswerEditor";
+import OrderingEditor from "./OrderingEditor";
+import FillBlankEditor from "./FillBlankEditor";
 import RichTextEditor from "../editor/RichTextEditor";
 import { Pin, Shuffle } from "lucide-react";
 
@@ -34,6 +36,8 @@ export default function QuestionEditor({ question }: { question: Question }) {
         {question.type === "multiple_choice" && <MultipleChoiceEditor question={question} update={update} />}
         {question.type === "true_false" && <TrueFalseEditor question={question} update={update} />}
         {question.type === "short_answer" && <ShortAnswerEditor question={question} update={update} />}
+        {question.type === "ordering" && <OrderingEditor question={question} update={update} />}
+        {question.type === "fill_blank" && <FillBlankEditor question={question} update={update} />}
       </div>
 
       {/* Points & Difficulty & Specific Shuffling Controls */}
