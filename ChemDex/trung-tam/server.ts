@@ -9,10 +9,12 @@ import cors from "cors";
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = 5500;
 
   app.use(express.json());
   app.use(cors());
+
+  const rootPath = path.resolve(process.cwd(), "..");
 
   /// Initialize Gemini AI
   let ai: GoogleGenAI | null = null;
@@ -187,18 +189,59 @@ Trả về DUY NHẤT JSON theo định dạng:
     }
   });
 
-  // Vite middleware for development
+  // Handle serving the frontend
   if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
+    // 1. Vite middlewares for SPAs (Must come FIRST to inject dev scripts into HTML)
+    const viteTrungTam = await createViteServer({
+      server: { middlewareMode: true, hmr: { port: 24678 } },
       appType: "spa",
+      root: path.join(rootPath, "trung-tam"),
+      base: "/trung-tam/",
     });
-    app.use(vite.middlewares);
+    app.use("/trung-tam", viteTrungTam.middlewares);
+
+    const viteDauTruong = await createViteServer({
+      server: { middlewareMode: true, hmr: { port: 24679 } },
+      appType: "spa",
+      root: path.join(rootPath, "dau-truong"),
+      base: "/dau-truong/",
+    });
+    app.use("/dau-truong", viteDauTruong.middlewares);
+
+    const viteNhanDien = await createViteServer({
+      server: { middlewareMode: true, hmr: { port: 24680 } },
+      appType: "spa",
+      root: path.join(rootPath, "tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh"),
+      base: "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/",
+    });
+    app.use("/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh", viteNhanDien.middlewares);
+
+    const viteChuoi = await createViteServer({
+      server: { middlewareMode: true, hmr: { port: 24681 } },
+      appType: "spa",
+      root: path.join(rootPath, "tien-ich/phuong-trinh/chuoi-phan-ung"),
+      base: "/tien-ich/phuong-trinh/chuoi-phan-ung/",
+    });
+    app.use("/tien-ich/phuong-trinh/chuoi-phan-ung", viteChuoi.middlewares);
+
+    // 2. Serve static files from root for non-SPA paths (index.html, css, js)
+    app.use(express.static(rootPath));
   } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+    // Production: serve static files from rootPath (since build.js copied dist contents to their respective root directories)
+    app.use(express.static(rootPath));
+
+    // Fallback routes for SPAs to handle client-side routing
+    app.get("/trung-tam/*", (req, res) => {
+      res.sendFile(path.join(rootPath, "trung-tam/index.html"));
+    });
+    app.get("/dau-truong/*", (req, res) => {
+      res.sendFile(path.join(rootPath, "dau-truong/index.html"));
+    });
+    app.get("/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/*", (req, res) => {
+      res.sendFile(path.join(rootPath, "tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/index.html"));
+    });
+    app.get("/tien-ich/phuong-trinh/chuoi-phan-ung/*", (req, res) => {
+      res.sendFile(path.join(rootPath, "tien-ich/phuong-trinh/chuoi-phan-ung/index.html"));
     });
   }
 

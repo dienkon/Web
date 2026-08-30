@@ -40,17 +40,81 @@
       "CaCO3"
     ]
   },
-  "physical": "Tồn tại ở nhiều dạng thù hình như kim cương, than chì, graphene.",
-  "chemical": "Thể hiện tính phi kim, tạo liên kết cộng hóa trị bền.",
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Carbon là chất rắn ở điều kiện thường.</li>\n  <li>Không tan trong nước và hầu hết các dung môi.</li>\n  <li>Nhiệt độ nóng chảy khoảng 3500 (tùy trạng thái)</li>\n  <li>Nhiệt độ sôi khoảng</li>\n  <li>Khối lượng riêng:</li>\n  <li>khoảng 3,51 g/cm³ (đối với kim cương)</li>\n  <li>khoảng 2,26 g/cm³ (đối với than chì )</li>\n  <li>khoảng 1,65 g/cm³ (đối với fullerene)</li>\n  <li>Carbon có ba dạng thù hình chính: Kim cương, than chì và fullerene:</li>\n  <li>Kim cương là tinh thể trong suốt, không màu, không dẫn điện, dẫn nhiệt kém. Kim cương có cấu trúc tinh thể cứng nhất trong tất cả các chất.</li>\n  <li>Than chì là tinh thể màu xám đen, có ánh kim, dẫn điện và dẫn nhiệt tốt nhưng kém kim loại.</li>\n  <li>Fullerene là tinh thể màu đen, mềm, có tính bán dẫn, tan trong dung môi hữu cơ</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tính khử</li>\n  <li>Tính oxi hóa</li>\n</ul>\n",
   "reactions": [
     {
-      "type": "Oxi hóa",
-      "eq": "C + O2 → CO2",
-      "desc": "Phản ứng cháy hoàn toàn."
+      "type": "Phản ứng đặc trưng",
+      "eq": "C+O2​→CO2​",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2C+O2​→2CO",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2CuO+C→2Cu+CO2​",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "C+H2​O→CO+H2​",
+      "desc": ""
     }
   ],
-  "structureType": "diamond",
+  "structureType": "",
   "images": {},
   "hasData": true,
-  "file": "elements/006_C.json"
+  "file": "elements/006_C.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Chưng khô than đá",
+        "equation": "Than đá → Than cốc (~80% C) + Hắc ín + Khí lò cốc",
+        "condition": "1000°C - 1100°C, không có không khí"
+      },
+      {
+        "title": "Nhiệt phân khí metan",
+        "equation": "CH4 → C (rắn, mịn) + 2H2↑",
+        "condition": "t° ≥ 1000°C"
+      },
+      {
+        "title": "Lắng đọng hơi hóa học (CVD)",
+        "equation": "CH4 → C (kim cương) + 4H•",
+        "condition": "Năng lượng Plasma"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Carbon dạng than chì có nhiều ứng dụng trong đời sống như: Làm ruột bút chì. Làm điện cực trong pin và lò điện. Làm chất bôi trơn."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Carbon dạng kim cương được dùng làm đồ trang sức. Trong kĩ thuật, kim cương được dùng làm mũi khoan, dao cắt thuỷ tinh, bột mài."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Carbon dạng than cốc, than khô và than hoạt tính được dùng làm chất khử trong luyện kim để luyện kim loại từ quặng, làm nhiên liệu đốt cháy như than đá, than củi được đốt cháy để cung cấp nhiệt lượng cho các hộ gia đình, các nhà máy nhiệt điện và nhà máy công nghiệp. Ngoài ra chúng còn có khả năng khử mùi, khử độc. Dùng trong y học để hấp phụ một số chất độc."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Carbon là nguyên tố phi kim thuộc nhóm IVA (ô số 6, chu kỳ 2), có cấu hình electron lớp ngoài cùng là 2s2 2p2. Ở điều kiện thường, Carbon khá trơ về mặt hóa học, nhưng khi nung nóng nó trở nên hoạt động và thể hiện tính chất đặc trưng là vừa có tính khử (chủ đạo), vừa có tính oxi hóa, dễ dàng thay đổi số oxi hóa từ 0 sang các trạng thái -4, +2 hoặc +4.</li>\n  <li>Trong tự nhiên, Carbon tồn tại ở cả dạng đơn chất tự do lẫn hợp chất. Các dạng đơn chất tự nhiên bao gồm Kim cương (cấu trúc mạng nguyên tử 3D siêu cứng) và Than chì (cấu trúc lớp bền nhiệt, dẫn điện tốt). Ngoài ra, Carbon tích tụ khổng lồ trong các hợp chất vô cơ như đá vôi, đá hoa (CaCO3), quặng Dolomite (), khí carbon dioxide (CO2) trong khí quyển, và là \"xương sống\" cấu tạo nên toàn bộ sinh khối hữu cơ cùng các nhiên liệu hóa thạch (than đá, dầu mỏ).</li>\n  <li>Trong công nghiệp, tùy thuộc vào thù hình mong muốn mà Carbon được điều chế bằng các phương pháp khác nhau: Than cốc được sản xuất bằng cách chưng khô than đá ở nhiệt độ cao thiếu khí; Than muội thu được từ quá trình nhiệt phân khí methane, Than hoạt tính được tạo ra qua quá trình than hóa kết hợp hoạt hóa bằng hơi nước để tạo lỗ xốp, trong khi Kim cương nhân tạo được nuôi cấy bằng công nghệ cao áp - cao nhiệt (HPHT) hoặc lắng đọng hơi hóa học (CVD).</li>\n  <li>Trong thực tế, Carbon là nền tảng của đời sống và sản xuất: Than cốc là chất khử không thể thiếu trong ngành luyện kim lò cao; Than hoạt tính là lõi lọc cốt lõi trong y tế, mặt nạ phòng độc và hệ thống lọc nước; Than chì được ứng dụng làm ruột bút chì, chất bôi trơn khô và điện cực pin; Kim cương là mũi nhọn trong ngành trang sức cao cấp và dụng cụ cắt gọt công nghiệp; đặc biệt, các thù hình thế hệ mới như Graphene hay Fullerene (C60) đang mở ra kỷ nguyên mới cho vật liệu siêu bền và công nghệ nano tương lai.</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Thử tính chất cháy",
+      "reagent": "Nung nóng mẫu bột đen trong Oxi, sau đó dẫn khí sinh ra vào dung dịch nước vôi trong (Ca(OH)2) dư.",
+      "result": "Mẫu bột cháy sáng sinh ra khí. Khí này làm vẩn đục nước vôi trong (tạo kết tủa trắng).",
+      "equation": "C + O2 → CO2 <br> CO2 + Ca(OH)2 → CaCO3↓ + H2O",
+      "condition": "t°"
+    }
+  ]
 }

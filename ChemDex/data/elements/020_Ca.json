@@ -31,26 +31,114 @@
     "neutrons": 20
   },
   "occurrence": {
-    "description": "Có trong đá vôi, thạch cao và xương.",
+    "description": "Calsium hầu như không tồn tại ở dạng đơn chất.",
     "simple": [
       "Ca"
     ],
     "compounds": [
       "CaCO3",
-      "CaSO4"
+      "CaSO4​⋅2H2​O",
+      "CaF₂",
+      "Ca₃(PO₄)₂…"
     ]
   },
-  "physical": "Kim loại bạc, tương đối mềm.",
-  "chemical": "Dễ tạo ion Ca2+ và hợp chất ion.",
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Calsium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Calsium là kim loại kiềm thổ có màu trắng bạc.</li>\n  <li>Khối lượng riêng khoảng 1,55 g/cm³.</li>\n  <li>Tương đối mềm và có tính dẻo.</li>\n  <li>Dẫn điện và dẫn nhiệt tốt.</li>\n  <li>Nhiệt độ nóng chảy khoảng 842°C.</li>\n  <li>Nhiệt độ sôi khoảng 1484,0°C.</li>\n  <li>Dễ bị oxi hóa trong không khí ẩm.</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Ca là kim loại có tính khử mạnh.</li>\n  <li>Tác dụng với phi kim.- Tác dụng với acid loãng.</li>\n  <li>Tác dụng với nước.</li>\n  <li>Tác dụng với dung dịch muối của kim loại yếu hơn.</li>\n</ul>\n",
   "reactions": [
     {
-      "type": "Với nước",
-      "eq": "Ca + 2H2O → Ca(OH)2 + H2",
-      "desc": "Tạo bazơ ít tan."
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Ca+O2​→2CaO",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ca+Cl2​→CaCl2​",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ca+S→CaS",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ca+2H2​O→Ca(OH)2​+H2​↑",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ca+2HCl(loãng)→CaCl2​+H2​↑",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ca+H2​SO4​(loa˜ng)→CaSO4​+H2​↑",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ca+CuSO4​→CaSO4​+Cu",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "CaCl2 ​Ca+Cl2​↑",
+      "desc": ""
     }
   ],
-  "structureType": "fcc",
+  "structureType": "lập phương tâm diện",
   "images": {},
   "hasData": true,
-  "file": "elements/020_Ca.json"
+  "file": "elements/020_Ca.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nóng chảy Calcium chloride (CaCl2)",
+        "equation": "CaCl2 → Ca + Cl2↑",
+        "condition": "đpnc"
+      },
+      {
+        "title": "Phương pháp Nhiệt nhôm",
+        "equation": "CaCO3 → CaO + CO2↑ (Giai đoạn 1) <br> 6CaO + 2Al → 3Ca↑ + 3CaO⋅Al2O3 (Giai đoạn 2)",
+        "condition": "t°, chân không"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Sản xuất vật liệu xây dựng như xi măng, vôi, gạch từ CaCO3 và tráng trí từ CaSO₄·2H₂O."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "làm chất khử trong việc điều chế các kim loại khác như uran, ziriconi hay thori."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Chế tạo hợp kim với chì, nhôm và một số kim loại khác để cải thiện tính chất cơ học."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Các loại thuốc bồi bổ xương khớp, thực phẩm chức năng chứa Calcium carbonate (CaCO3) hoặc Calcium gluconate được dùng để điều trị bệnh loãng xương ở người già, còi xương ở trẻ em và bổ sung cho phụ nữ mang thai."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Vôi sống (CaO) và vôi tôi [Ca(OH)2] được rải xuống ruộng để khử chua (hạ phèn) cho đất rất hiệu quả, đồng thời dùng để tiêu độc, sát trùng chuồng trại chăn nuôi hoặc ao nuôi thủy sản."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Calcium là kim loại kiềm thổ hoạt động mạnh (ô số 20, nhóm IIA, chu kỳ 4), có cấu hình electron là [Ar]4s2. Trong các phản ứng, Calcium luôn nhường 2e để đạt cấu hình vỏ khí hiếm bền vững và thể hiện tính khử rất mạnh Ca2+</li>\n  <li>Do có tính khử mạnh, Calcium hầu như không tồn tại dạng đơn chất trong tự nhiên. Tuy nhiên, nó là nguyên tố phổ biến thứ 5 trong vỏ Trái Đất, tích tụ thành những dãy núi đá vôi khổng lồ (CaCO3), các mỏ thạch cao , quặng fluorite (CaF2) hoặc nằm trong cấu trúc xương, răng, vỏ của sinh vật.</li>\n  <li>Trong công nghiệp, Calcium được sản xuất chủ yếu bằng cách điện phân nóng chảy muối Calcium chloride (CaCl2) khan hoặc dùng bột Aluminium khử (CaO) trong môi trường chân không cao (nhiệt nhôm). Trong phòng thí nghiệm, người ta dùng sẵn kim loại bảo quản trong dầu hỏa chứ không tự điều chế.</li>\n  <li>Kim loại Calcium được dùng làm chất khử oxy, lưu huỳnh trong luyện kim thép và chế tạo hợp kim Lead-Calcium làm vỏ ắc quy cực bền. Ở dạng hợp chất, nó là xương sống của ngành xây dựng (sản xuất xi măng, vôi, thạch cao) và là vi chất tối quan trọng cho sức khỏe con người.</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Thử màu ngọn lửa",
+      "reagent": "Đốt cháy các hợp chất của Calcium.",
+      "result": "Calcium cháy với ngọn lửa màu đỏ gạch.",
+      "equation": ""
+    }
+  ]
 }

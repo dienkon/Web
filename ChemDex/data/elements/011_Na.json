@@ -17,7 +17,8 @@
       2,
       8,
       1
-    ]
+    ],
+    "isotope": "22Na, 23Na,  24Na….."
   },
   "history": {
     "discoverer": "Humphry Davy",
@@ -30,26 +31,114 @@
     "neutrons": 12
   },
   "occurrence": {
-    "description": "Có nhiều trong muối ăn và khoáng vật halite.",
+    "description": "Trong tự nhiên, Na hầu như không có đơn chất do có tính khử mạnh",
     "simple": [
       "Na"
     ],
     "compounds": [
-      "NaCl",
-      "Na2CO3"
+      "Na₂CO₃",
+      "NaHCO₃…"
     ]
   },
-  "physical": "Kim loại mềm, màu bạc, phản ứng mạnh với nước.",
-  "chemical": "Thể hiện tính khử mạnh, tạo muối ion điển hình.",
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Sodium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Có màu trắng bạc.</li>\n  <li>Dẫn điện dẫn nhiệt tốt.</li>\n  <li>Khối lượng riêng: 0,968g/cm3</li>\n  <li>Nhiệt độ nóng chảy: 97,794oC</li>\n  <li>Nhiệt độ sôi: 882,94oC</li>\n  <li>Có độ cứng thấp.</li>\n  <li>Dễ bị oxi hóa ngoài không khí.</li>\n  <li>Không tan trong các dung môi hữu cơ thông thường</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Có tính khử mạnh</li>\n  <li>Tác dụng với phi kim như O2, Cl2, S….</li>\n  <li>Tác dụng với acid loãng</li>\n  <li>Tác dụng với hidrogen</li>\n  <li>Phản ứng mạnh với H2O ở điều kiện thường, tạo ra dung dịch bazo và giải phóng khí hydro.</li>\n</ul>\n",
   "reactions": [
     {
-      "type": "Phản ứng với nước",
-      "eq": "2Na + 2H2O → 2NaOH + H2",
-      "desc": "Tạo dung dịch kiềm và giải phóng khí hidro."
+      "type": "Phản ứng đặc trưng",
+      "eq": "4Na + O2 →  2Na2O",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Na + Cl2 → 2NaCl",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Na + S  → Na2S",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Na + H2O  → NaOH + H2",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Na + HCl(loãng)   → 2NaCl + H2O",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Na + H2SO4(loãng)  → Na2SO4 + H2",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Na + H2 → 2NaH",
+      "desc": ""
     }
   ],
-  "structureType": "bcc",
+  "structureType": "Lập phương tâm khối.",
   "images": {},
   "hasData": true,
-  "file": "elements/011_Na.json"
+  "file": "elements/011_Na.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nóng chảy Sodium chloride (NaCl)",
+        "equation": "2NaCl → 2Na + Cl2↑",
+        "condition": "đpnc"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Natri là thành phần quan trọng trong sản xuất este và các hợp chất hữu cơ. Kim loại kiềm này là thành phần của Sodium chloride (NaCl) (muối ăn) là một chất quan trọng cho sự sống."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Trong một số hợp kim để cải thiện cấu trúc của chúng."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Trong xà phòng (trong hợp chất với các acid béo)."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Để làm trơn bề mặt kim loại."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Để làm tinh khiết kim loại nóng chảy."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Trong các đèn hơi natri, một thiết bị cung cấp ánh sáng từ điện năng có hiệu quả."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Natri lỏng dẫn nhiệt tốt nên được dùng làm chất truyền nhiệt trong một số lò phản ứng hạt nhân."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Điều chế Sodium hydroxide (xút)."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Na là kim loại kiềm điển hình (ô số 11, nhóm IA, chu kỳ 3), có cấu hình electron lớp ngoài cùng là [Ne]3s1.</li>\n  <li>Do có tính khử cực kỳ mạnh và hung hãn, nên Na hoàn toàn không tồn tại dạng đơn chất trong tự nhiên mà chỉ tồn tại dưới dạng hợp chất (phổ biến nhất là muối ăn NaCl trong nước biển và các mỏ muối ngầm).</li>\n  <li>Trong tự nhiên Na không có sẵn, con người phải tự điều chế đơn chất Na bằng cách điện phân nóng chảy NaCl. Các hợp chất quan trọng như NaOH (xút) được điều chế bằng cách điện phân dung dịch có màng ngăn, và Na2CO3(soda) được sản xuất qua quy trình Solvay.</li>\n  <li>Na là nguyên liệu cốt lõi trong công nghiệp hóa chất (giấy, xà phòng, thủy tinh) và là ion vi lượng thiết yếu (Na+) giúp duy trì sự sống, điều hòa áp suất thẩm thấu trong cơ thể sinh vật.</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Thử màu ngọn lửa",
+      "reagent": "Đốt cháy các hợp chất của Natri trên ngọn lửa đèn cồn.",
+      "result": "Hợp chất của Sodium cháy với ngọn lửa có màu vàng đặc trưng.",
+      "equation": ""
+    }
+  ]
 }

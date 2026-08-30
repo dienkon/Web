@@ -39,17 +39,77 @@
       "Al(OH)3"
     ]
   },
-  "physical": "Nhẹ, dẫn nhiệt tốt, có lớp oxit bảo vệ.",
-  "chemical": "Lưỡng tính, phản ứng với axit và bazơ mạnh.",
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Aluminium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Aluminium là kim loại có màu trắng bạc.</li>\n  <li>Khối lượng riêng lớn khoảng 2,70 g/cm³.</li>\n  <li>Mềm và dẻo.</li>\n  <li>Dẫn điện và dẫn nhiệt tốt.</li>\n  <li>Nhiệt độ nóng chảy khoảng 660,32°C.</li>\n  <li>Nhiệt độ sôi khoảng 2470°C.</li>\n  <li>Dễ bị oxi hóa trong không khí.</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tác dụng với phi kim.</li>\n  <li>Tác dụng với acid loãng và đặc nóng.</li>\n  <li>Tác dụng với dung dịch kiềm.</li>\n  <li>Tác dụng với dung dịch muối.</li>\n  <li>Tác dụng với oxit kim loại.</li>\n  <li>Tác dụng với nước.</li>\n</ul>\n",
   "reactions": [
     {
-      "type": "Oxit hóa",
-      "eq": "4Al + 3O2 → 2Al2O3",
-      "desc": "Tạo lớp oxit bền trên bề mặt."
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Al + 2NaOH + 2H2O → 2NaAlO2 + 3H2↑",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Al + 3CuSO4 → Al2(SO4)3 + 3Cu",
+      "desc": ""
     }
   ],
-  "structureType": "fcc",
+  "structureType": "lập phương tâm diện.",
   "images": {},
   "hasData": true,
-  "file": "elements/013_Al.json"
+  "file": "elements/013_Al.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nóng chảy Al2O3",
+        "equation": "2Al2O3 → 4Al + 3O2↑",
+        "condition": "đpnc, criolit"
+      },
+      {
+        "title": "Tinh chế quặng Bauxite",
+        "equation": "Al2O3 + 2NaOH → 2NaAlO2 + H2O (Giai đoạn 1) <br> NaAlO2 + CO2 + 2H2O → Al(OH)3↓ + NaHCO3 (Giai đoạn 2) <br> 2Al(OH)3 → Al2O3 + 3H2O (Giai đoạn 3)",
+        "condition": "t°"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Aluminium được dùng để chế tạo máy bay, ô tô, tàu thuyền do có tính nhẹ và bền."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Sản xuất dây dẫn điện vì nhôm dẫn điện tốt và giá thành thấp hơn đồng."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Làm vật liệu xây dựng: cửa, khung nhà, mái lợp,..."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Chế tạo đồ dùng gia đình: nồi, chảo, hộp đựng thực phẩm, giấy nhôm."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Dùng trong công nghiệp luyện kim để điều chế một số kim loại bằng phản ứng nhiệt nhôm."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Bột nhôm trộn với bột Iron (II) oxide (hỗn hợp Thermite) được dùng để hàn đường ray."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Aluminium là nguyên tố kim loại thuộc nhóm IIIA (ô số 13, chu kỳ 3), có cấu hình electron lớp ngoài cùng là 3s23p1. Trong các phản ứng hóa học, Aluminium dễ dàng nhường đi 3e để đạt cấu hình vỏ bền vững của khí hiếm Neon và thể hiện tính khử mạnh (Al3+), chỉ đứng sau nhóm kim loại kiềm và kiềm thổ.</li>\n  <li>Trong tự nhiên Aluminium là kim loại phổ biến nhất trong vỏ Trái Đất (chiếm khoảng 8%). Vì có tính khử mạnh, nó không tồn tại dạng đơn chất tự do mà tích tụ trong các hợp chất như: Quặng Bauxite (khoáng vật Corundum (khan - tiền thân của Ruby và Sapphire), đất sét Kaolinite và băng thạch Cryolite ().</li>\n  <li>Trong công nghiệp, Aluminium được điều chế bằng phương pháp điện phân nóng chảy Al2O3 tinh chế từ quặng bauxite, sử dụng dòng điện cực lớn và chất trợ chảy Cryolite để hạ nhiệt độ bể điện phân.</li>\n  <li>Trong thực tế Aluminium và hợp kim Duralumin là xương sống của ngành hàng không vũ trụ (vỏ máy bay, tên lửa), hệ thống lưới điện cao thế trên không, khung nhôm kính xây dựng và bao bì thực phẩm (lon nước, giấy bạc).</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Phản ứng với kiềm",
+      "reagent": "Cho Aluminium phản ứng với dung dịch NaOH hoặc KOH.",
+      "result": "Aluminium tan dần, sinh ra khí không màu sủi bọt.",
+      "equation": "2Al + 2NaOH + 2H2O → 2NaAlO2 + 3H2↑"
+    }
+  ]
 }

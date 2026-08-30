@@ -1,5 +1,5 @@
 import React from 'react';
-import { Beaker, BookOpen, Clock, Bookmark, Grid, ExternalLink, FlaskConical, Users, Trophy, Wrench } from 'lucide-react';
+import { Beaker, BookOpen, Clock, Bookmark, Grid, ExternalLink, FlaskConical, Users, Trophy, Wrench, Atom } from 'lucide-react';
 import { categories, CategoryConfig } from '../utils/config';
 
 interface SidebarProps {
@@ -28,119 +28,80 @@ export function Sidebar({ currentView = 'library', onNavigate = () => {},
 
   const content = (
     <>
-      <div className="flex items-center gap-3 px-6 py-6 mb-4">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-900/20">
-          <Beaker className="text-white" size={24} />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">
+      <div className="p-5 flex items-center justify-between border-b border-slate-700/50">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30">
+            <i className="fa-solid fa-atom"></i>
+          </div>
+          <h1 className="font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
             ChemDex
           </h1>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 space-y-8 no-scrollbar">
-        {/* Main Nav */}
-        <div className="space-y-1">
-          <a
-            href="../../"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium text-sm hover:bg-slate-800 text-slate-400 border border-transparent group"
-          >
-            <div className="flex items-center gap-3">
-              <Grid size={18} />
-              <span>Bảng tuần hoàn</span>
-            </div>
-            <ExternalLink
-              size={14}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-slate-500"
-            />
-          </a>
+      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <a
+          href="/"
+          className="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i className="fa-solid fa-table-cells text-blue-400 w-5"></i>
+          <span className="font-medium">Bảng Tuần Hoàn</span>
+        </a>
 
-          <button
-            onClick={() => {
-              onSelectCategory(null);
-              onNavigate("library");
-            }}
-            className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium text-sm ${
-              currentView === "library" && activeCategory === null
-                ? "bg-blue-600/10 text-blue-400 border border-blue-500/20"
-                : "hover:bg-slate-800 text-slate-400 border border-transparent"
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <BookOpen size={18} />
-              <span>Thư viện số</span>
-            </div>
-          </button>
+        <button
+          onClick={() => {
+            onSelectCategory(null);
+            onNavigate("library");
+          }}
+          className={`nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+            currentView === "library" && activeCategory === null
+              ? "text-slate-300 bg-slate-800 text-white shadow-md active-nav"
+              : "text-slate-400 hover:bg-slate-800 hover:text-white"
+          }`}
+        >
+          <i className="fa-solid fa-book-open text-emerald-400 w-5"></i>
+          <span className="font-medium">Tài Liệu Số</span>
+        </button>
 
-          <button
-            onClick={() => onNavigate("community")}
-            className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium text-sm ${
-              currentView === "community"
-                ? "bg-blue-600/10 text-blue-400 border border-blue-500/20"
-                : "hover:bg-slate-800 text-slate-400 border border-transparent"
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <Users size={18} />
-              <span>Cộng đồng</span>
-            </div>
-          </button>
+        <button
+          onClick={() => onNavigate("community")}
+          className={`nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+            currentView === "community"
+              ? "text-slate-300 bg-slate-800 text-white shadow-md active-nav"
+              : "text-slate-400 hover:bg-slate-800 hover:text-white"
+          }`}
+        >
+          <i className="fa-solid fa-users text-sky-400 w-5"></i>
+          <span className="font-medium">Cộng đồng</span>
+        </button>
 
-          <a
-            href="https://chem-dex.vercel.app/tien-ich/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium text-sm hover:bg-slate-800 text-slate-400 border border-transparent group"
-          >
-            <div className="flex items-center gap-3">
-              <Wrench size={18} className="text-blue-400" />
-              <span>Tiện ích</span>
-            </div>
-            <ExternalLink
-              size={14}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-slate-500"
-            />
-          </a>
+        <a
+          href="/tien-ich/"
+          className="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i className="fa-solid fa-toolbox text-blue-400 w-5"></i>
+          <span className="font-medium">Tiện Ích Học Tập</span>
+        </a>
 
-          <a
-            href="https://antoanphongthinghiem.ai.studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium text-sm hover:bg-slate-800 text-slate-400 border border-transparent group"
-          >
-            <div className="flex items-center gap-3">
-              <FlaskConical size={18} />
-              <span>Phòng thí nghiệm</span>
-            </div>
-            <ExternalLink
-              size={14}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-slate-500"
-            />
-          </a>
+        <a
+          href="https://antoanphongthinghiem.ai.studio"
+          className="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i className="fa-solid fa-flask text-purple-400 w-5"></i>
+          <span className="font-medium">Thí Nghiệm</span>
+        </a>
 
-          <a
-            href="https://chem-dex.vercel.app/dau-truong"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium text-sm hover:bg-slate-800 text-slate-400 border border-transparent group"
-          >
-            <div className="flex items-center gap-3">
-              <Trophy size={18} className="text-yellow-400" />
-              <span>Đấu trường</span>
-            </div>
-            <ExternalLink
-              size={14}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-slate-500"
-            />
-          </a>
-        </div>
+        <a
+          href="/dau-truong/"
+          className="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i className="fa-solid fa-trophy text-yellow-400 w-5"></i>
+          <span className="font-medium">Đấu Trường</span>
+        </a>
 
         {/* Categories - Only show in Library view */}
         {!isSimplified && (
-          <div className="pt-4">
+          <div className="pt-4 mt-4 border-t border-slate-700/50">
             <p className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mb-3 px-2">
               Danh mục
             </p>
@@ -149,24 +110,20 @@ export function Sidebar({ currentView = 'library', onNavigate = () => {},
                 <button
                   key={cat.id}
                   onClick={() => onSelectCategory(cat.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors font-medium text-sm ${
+                  className={`nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     activeCategory === cat.id
-                      ? "bg-blue-600/10 text-blue-400 border border-blue-500/20"
-                      : "hover:bg-slate-800 text-slate-400 border border-transparent"
+                      ? "text-slate-300 bg-slate-800 text-white shadow-md active-nav"
+                      : "text-slate-400 hover:bg-slate-800 hover:text-white"
                   }`}
                 >
-                  <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center">
-                    <div className={cat.iconClass}>
-                      <div className="w-2 h-2 rounded-full bg-current"></div>
-                    </div>
-                  </div>
-                  <span>{cat.label}</span>
+                  <i className={`${cat.iconClass} text-slate-400 w-5`}></i>
+                  <span className="font-medium">{cat.label}</span>
                 </button>
               ))}
             </div>
           </div>
         )}
-      </div>
+      </nav>
     </>
   );
 
@@ -183,8 +140,8 @@ export function Sidebar({ currentView = 'library', onNavigate = () => {},
   }
 
   return (
-    <div className="hidden lg:flex flex-col w-64 h-screen fixed left-0 top-0 bg-slate-900/40 backdrop-blur-xl border-r border-slate-700/50 no-print transition-all duration-300">
+    <aside className="hidden lg:flex w-64 glass flex-col h-screen fixed left-0 top-0 border-r border-slate-700/50 z-50 shrink-0 transition-all duration-300">
       {content}
-    </div>
+    </aside>
   );
 }

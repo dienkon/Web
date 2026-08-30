@@ -4,7 +4,7 @@
   "nameVi": "Barium",
   "nameEn": "Barium",
   "mass": 137.327,
-  "structureType": "bcc",
+  "structureType": "lập phương tâm khối.",
   "category": "kiem-tho",
   "general": {
     "shells": [],
@@ -14,11 +14,86 @@
   },
   "history": {},
   "structure": {},
-  "occurrence": {},
-  "physical": "Đang cập nhật dữ liệu.",
-  "chemical": "Đang cập nhật dữ liệu.",
-  "reactions": [],
+  "occurrence": {
+    "description": "Barium hầu như không tồn tại ở dạng đơn chất.",
+    "compounds": []
+  },
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Barium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Barium là kim loại có màu trắng bạc.</li>\n  <li>Khối lượng riêng lớn khoảng 3,62 g/cm³.</li>\n  <li>Khá mềm.</li>\n  <li>Dẫn điện và dẫn nhiệt tốt.</li>\n  <li>Nhiệt độ nóng chảy khoảng 727°C.</li>\n  <li>Nhiệt độ sôi khoảng 1897°C.</li>\n  <li>Dễ bị oxi hóa trong không khí.</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Có tính khử mạnh.</li>\n  <li>Tác dụng với phi kim.</li>\n  <li>Tác dụng với acid.</li>\n  <li>Tác dụng với nước.</li>\n  <li>Tác dụng với dung dịch muối của kim loại yếu hơn.</li>\n</ul>\n",
+  "reactions": [
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2Ba+O2​→2BaO",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ba+Cl2​→BaCl2​",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ba+2H2​O→Ba(OH)2​+H2​↑",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "Ba+CuSO4​→BaSO4​↓+Cu",
+      "desc": ""
+    }
+  ],
   "images": {},
   "hasData": true,
-  "file": "elements/056_Ba.json"
+  "file": "elements/056_Ba.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nóng chảy Barium chloride (BaCl2)",
+        "equation": "BaCl2 → Ba + Cl2↑",
+        "condition": "đpnc"
+      },
+      {
+        "title": "Phương pháp nhiệt nhôm trong chân không",
+        "equation": "BaCO3 → BaO + CO2↑ (Giai đoạn 1) <br> 3BaO + 2Al → 3Ba↑ + Al2O3 (Giai đoạn 2)",
+        "condition": "t°, chân không"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Barium được dùng để làm chất thu khí trong ống chân không, phụ gia luyện kim."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Hợp chất Barium sulfate có màu trắng và được sử dụng trong sản xuất sơn, trong chẩn đoán bằng tia X-quang, và trong sản xuất thủy tinh. Ngoài ra Barium sulfate còn được dùng làm chất tăng khối lượng cho dung dịch khoan, giúp ổn định áp suất trong quá trình khoan giếng dầu và khí."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Hợp kim Barium-Nickel được dùng để chế tạo cực điện trong bugi động cơ đốt trong nhờ khả năng phát xạ electron rất tốt khi bị đốt nóng."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Barium nitrate và Barium chloride được sử dụng để tạo màu xanh lá cây trong sản xuất pháo hoa."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Các hợp chất của barium được dùng để chế tạo thủy tinh chất lượng cao, thủy tinh quang học và men gốm, giúp tăng độ bền và độ bóng."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Barium là kim loại kiềm thổ có điện tích hạt nhân lớn (ô số 56, nhóm IIA, chu kỳ 6), cấu hình electron lớp ngoài cùng là [Xe]6s2. Trong các phản ứng hóa học, Ba luôn nhường đi 2e để đạt cấu hình vỏ khí hiếm bền vững và thể hiện tính khử cực kỳ mạnh ({Ba2+), mạnh nhất trong số các kim loại nhóm IIA thông dụng.</li>\n  <li>Do có tính khử mạnh, nên Barium hoàn toàn không tồn tại dạng đơn chất trong tự nhiên. Nó chiếm khoảng 0,0425% khối lượng vỏ Trái Đất, tích tụ chủ yếu ở hai khoáng vật quặng lớn là Barite (BaSO4) và Witherite (BaCO3).</li>\n  <li>Trong công nghiệp hiện đại, Barium được sản xuất chủ yếu bằng phương pháp nhiệt nhôm trong chân không (dùng bộtAl khử BaO}ở nhiệt độ cao) hoặc điện phân nóng chảy muối BaCl2 khan. Trong phòng thí nghiệm, người ta dùng sẵn kim loại bảo quản ngập trong dầu hỏa khan.</li>\n  <li>Kim loại Barium được dùng làm chất thu khí để hút sạch oxy, nitơ còn sót lại trong các ống chân không cao cấp. Ở dạng hợp chất, muối BaSO}4 là xương sống của ngành dầu khí (làm nặng bùn khoan) và y tế (chất cản quang chụp X-quang đường tiêu hóa), còn Ba(NO3)2 chuyên dùng để tạo ngọn lửa màu xanh lục táo cho pháo hoa.</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Thử màu ngọn lửa",
+      "reagent": "Đốt muối Barium trên ngọn lửa đèn cồn hoặc đèn Bunsen.",
+      "result": "Ngọn lửa có màu xanh lục (xanh táo) đặc trưng.",
+      "equation": ""
+    }
+  ]
 }

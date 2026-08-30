@@ -24,61 +24,42 @@ function createModelViewerBlock(container, block, el) {
               <span class="visual-badge"><i class="fa-solid fa-cube"></i> 3D theo dữ liệu</span>
               <span class="visual-badge">${escapeHtml(el?.symbol || "")} • Nhóm ${escapeHtml(el?.general?.group || "?")} • Chu kì ${escapeHtml(el?.general?.period || "?")}</span>
             </div>
-            <div class="model-shell" id="model-shell-${el.symbol}-${block._idx}"></div>
+            <div class="model-shell group relative cursor-pointer min-h-[300px] bg-slate-900 border border-slate-700 rounded-xl overflow-hidden" id="model-shell-${el.symbol}-${block._idx}">
+              <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 hover:bg-slate-800 transition-colors z-10" id="model-overlay-${el.symbol}-${block._idx}">
+                 <i class="fa-solid fa-cube text-4xl text-blue-400 mb-3 group-hover:scale-110 transition-transform duration-300"></i>
+                 <span class="text-white font-semibold">Nhấn để xem mô hình 3D</span>
+                 <span class="text-xs text-slate-400 mt-1">Giúp tối ưu hiệu suất trình duyệt</span>
+              </div>
+            </div>
             ${block.desc ? `<div class="detail-media-note">${escapeHtml(block.desc)}</div>` : ""}
-            <div class="detail-media-note" id="model-status-${el.symbol}-${block._idx}">Đang khởi tạo mô hình 3D...</div>
+            <div class="detail-media-note hidden" id="model-status-${el.symbol}-${block._idx}"></div>
           </div>
         `;
 
   const shell = container.querySelector(
     `#model-shell-${el.symbol}-${block._idx}`,
   );
+  const overlay = container.querySelector(
+    `#model-overlay-${el.symbol}-${block._idx}`,
+  );
   const status = container.querySelector(
     `#model-status-${el.symbol}-${block._idx}`,
   );
 
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x08111d);
-  scene.fog = new THREE.Fog(0x08111d, 8, 32);
-
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
-  camera.position.set(0, 1.5, 4);
-
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: false,
-  });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.shadowMap.enabled = true;
-  renderer.domElement.style.position = "absolute";
-  renderer.domElement.style.inset = "0";
-  renderer.domElement.style.width = "100%";
-  renderer.domElement.style.height = "100%";
-  shell.appendChild(renderer.domElement);
-
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.target.set(0, 1, 0);
-
-  scene.add(new THREE.AmbientLight(0xffffff, 1.35));
-  const dir1 = new THREE.DirectionalLight(0xffffff, 2.0);
-  dir1.position.set(6, 8, 5);
-  scene.add(dir1);
-  const dir2 = new THREE.DirectionalLight(0x9bb7ff, 0.8);
-  dir2.position.set(-4, 2, -3);
-  scene.add(dir2);
-  const grid = new THREE.GridHelper(20, 20, 0x324055, 0x243042);
-  grid.position.y = -1;
-  scene.add(grid);
-
+  let scene, camera, renderer, controls, grid;
   let current = null;
   let currentURL = null;
   let raf = 0;
   let resizeObserver = null;
+  let visibilityObserver = null;
+  let isIntersecting = false;
+  let isInitialized = false;
 
   function setStatus(msg) {
-    if (status) status.textContent = msg;
+    if (status) {
+      status.textContent = msg;
+      status.classList.remove("hidden");
+    }
   }
 
   function disposeNode(node) {
@@ -99,7 +80,7 @@ function createModelViewerBlock(container, block, el) {
   }
 
   function clearModel() {
-    if (current) {
+    if (current && scene) {
       scene.remove(current);
       current.traverse(disposeNode);
       current = null;
@@ -148,6 +129,7 @@ function createModelViewerBlock(container, block, el) {
     current = object3d;
     fit(object3d);
     setStatus(`Đã tải mô hình: ${modelPath}`);
+    setTimeout(() => { if (status) status.classList.add("hidden"); }, 2000);
   }
 
   async function loadModel() {
@@ -191,6 +173,7 @@ function createModelViewerBlock(container, block, el) {
   }
 
   const resize = () => {
+    if (!isInitialized) return;
     const rect = shell.getBoundingClientRect();
     const width = Math.max(1, rect.width);
     const height = Math.max(1, rect.height);
@@ -199,26 +182,78 @@ function createModelViewerBlock(container, block, el) {
     camera.updateProjectionMatrix();
   };
 
-  resizeObserver = new ResizeObserver(resize);
-  resizeObserver.observe(shell);
-  resize();
-  loadModel();
-
   const loop = () => {
-    if (current) current.rotation.y += 0.0025;
-    controls.update();
-    renderer.render(scene, camera);
+    if (isIntersecting && isInitialized) {
+      if (current) current.rotation.y += 0.0025;
+      controls.update();
+      renderer.render(scene, camera);
+    }
     raf = requestAnimationFrame(loop);
   };
-  loop();
+
+  overlay.addEventListener("click", () => {
+    if (isInitialized) return;
+    overlay.style.display = "none";
+    isInitialized = true;
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x08111d);
+    scene.fog = new THREE.Fog(0x08111d, 8, 32);
+
+    camera = new THREE.PerspectiveCamera(50, 1, 0.1, 5000);
+    camera.position.set(0, 1.5, 4);
+
+    renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: false,
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.inset = "0";
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+    shell.appendChild(renderer.domElement);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 1, 0);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.35));
+    const dir1 = new THREE.DirectionalLight(0xffffff, 2.0);
+    dir1.position.set(6, 8, 5);
+    scene.add(dir1);
+    const dir2 = new THREE.DirectionalLight(0x9bb7ff, 0.8);
+    dir2.position.set(-4, 2, -3);
+    scene.add(dir2);
+    grid = new THREE.GridHelper(20, 20, 0x324055, 0x243042);
+    grid.position.y = -1;
+    scene.add(grid);
+
+    resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(shell);
+    resize();
+    loadModel();
+    loop();
+
+    visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        isIntersecting = entries[0].isIntersecting;
+      },
+      { threshold: 0.01 },
+    );
+    visibilityObserver.observe(shell);
+  });
 
   return {
     destroy() {
       cancelAnimationFrame(raf);
       resizeObserver?.disconnect();
-      controls.dispose();
+      visibilityObserver?.disconnect();
+      if (controls) controls.dispose();
       clearModel();
-      renderer.dispose();
+      if (renderer) renderer.dispose();
       container.innerHTML = "";
     },
   };

@@ -1,0 +1,413 @@
+HYDROGEN
+* Thêm vào phần tính chất vật lí- Hydrogen là chất khí ở nhiệt độ phòng.
+* sửa khối lượng riêng thành : 0,00008988 g/cm3
+- Mạng tinh thể: Lục phương xếp chặt.
+Đồng vị: 1H, 2H, 3H
+Đơn chất: H2 tồn tại rất ít trong tự nhiên
+Hợp chất: H₂O, HCl, CH₄, C6H12O6, H₂SO₄, NaOH.
+5. Điều chế
+a. Trong phòng thí nghiệm:
+- kim loại tác dụng với dung dịch acid loãng.
+Zn + HCl(loãng) →  ZnCl2 + H2↑
+Fe + H2SO4(loãng) → FeSO4 + H2↑
+b. Trong công nghiệp:
+- Điện phân nước.
+2H2O → 2H2 + O2
+- Công nghệ chuyển hóa hydrocarbon.
+CH4 + H2O to, Ni  CO + 3H2 ( giai đoạn 1)
+CO + H2O xt,  to CO2 + H2O ( giai đoạn 2)
+- Dùng than khử oxi của H2O ở nhiệt độ cao.
+C + H2O to CO + H2
+8. Tổng quan
+- Hydrogen là nguyên tố đầu tiên trong bảng tuần hoàn (ô số 1, chu kỳ 1, nhóm IA), có cấu tạo đơn giản nhất vũ trụ chỉ gồm 1 proton và 1 electron và cấu hình e là 1s1
+- Trên Trái Đất, gần như không có đơn chất khí h2 tự do (do quá nhẹ nên bị bay vào vũ trụ và bị sấm sét cổ đại đốt thành nước), nó chủ có trong hợp chất như nước và hợp chất hữu cơ. Ngược lại, trong Vũ Trụ, đơn chất H2lại là "bá chủ" chiếm 75% khối lượng vật chất, cấu tạo nên các ngôi sao (Mặt Trời) và các tinh vân.
+- Trong công nghiệp, đơn chất khí H2được sản xuất quy mô lớn bằng cách cải tạt khí tự nhiên (methane) bằng hơi nước hoặc điện phân nước. Trong phòng thí nghiệm, nó được điều chế nhanh bằng cách cho kim loại như Zn, Fe tác dụng với dung dịch acid loãng HCl và H2SO4
+- Hydrogen là nhiên liệu sạch lý tưởng của tương lai (năng lượng xanh, không phát thải khí nhà kính), làm nguyên liệu sản xuất ammonia NH3, chất béo nhân tạo và luyện kim. Ở dạng hợp chất, Hydrogen là thành phần không thể thiếu cấu tạo nên nước và mọi tế bào sinh học của sinh vật sống.
+*Nhận biết
+Cách 1
+- Cách nhận biết: Cho đi qua CuO, đun nóng.
+- Hiện tượng: Chất rắn màu đen chuyển dần sang màu đỏ
+- Phương trình hóa học:
+CuO + H2 to Cu↓ + H2O
+Cách 2
+- Cách nhận biết: Thử bằng que đốm
+- Hiện tượng: Khí H2 cháy trong không khí cho ngọn lửa có màu xanh nhạt và tỏa nhiều nhiệt.
+- Phương trình hóa học: 
+2H2 + O2 to 2H2O
+SODIUM
+- Mạng tinh thể: Lập phương tâm khối.
+Đồng vị: 22Na, 23Na,  24Na…..
+Đơn chất: Trong tự nhiên, Na hầu như không có đơn chất do có tính khử mạnh
+Hợp chất:NaCl,NaNO3, Na₂CO₃, NaHCO₃….
+4. Tính chất
+a. Tính chất vật lí.
+- Sodium là chất rắn ở nhiệt độ phòng.
+- Có màu trắng bạc.
+- Dẫn điện dẫn nhiệt tốt.
+- Khối lượng riêng: 0,968g/cm3
+- Nhiệt độ nóng chảy: 97,794oC
+- Nhiệt độ sôi: 882,94oC 
+- Có độ cứng thấp.
+- Dễ bị oxi hóa ngoài không khí.
+- Không tan trong các dung môi hữu cơ thông thường
+b. Tính chất hóa học.
+- Có tính khử mạnh
+- Tác dụng với phi kim như O2, Cl2, S….
+- Tác dụng với acid loãng
+-  Tác dụng với hidrogen
+- Phản ứng mạnh với H2O ở điều kiện thường, tạo ra dung dịch bazo và giải phóng khí hydro.
+5. Điều chế
+a. Trong phòng thí nghiệm
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp
+- Điện phân nóng chảy sodium chloride (NaCl).
+2NaCl  2Na + Cl2
+6. Phương trình mô phỏng.
+4Na + O2 →  2Na2O 
+2Na + Cl2 → 2NaCl
+2Na + S  → Na2S
+Na + H2O  → NaOH + H2
+2Na + HCl(loãng)   → 2NaCl + H2O
+Na + H2SO4(loãng)  → Na2SO4 + H2
+2Na + H2 to 2NaH 
+7. Ứng dụng thực tế.
+- Natri là thành phần quan trọng trong sản xuất este và các hợp chất hữu cơ. Kim loại kiềm này là thành phần của Sodium chloride (NaCl) (muối ăn) là một chất quan trọng cho sự sống.
+- Trong một số hợp kim để cải thiện cấu trúc của chúng.
+- Trong xà phòng (trong hợp chất với các acid béo).
+- Để làm trơn bề mặt kim loại.
+- Để làm tinh khiết kim loại nóng chảy.
+- Trong các đèn hơi natri, một thiết bị cung cấp ánh sáng từ điện năng có hiệu quả.
+- Natri lỏng dẫn nhiệt tốt nên được dùng làm chất truyền nhiệt trong một số lò phản ứng hạt nhân.
+- Điều chế Sodium hydroxide (xút).
+8. Tổng quan
+- Na là kim loại kiềm điển hình (ô số 11, nhóm IA, chu kỳ 3), có cấu hình electron lớp ngoài cùng là [Ne]3s1.
+- Do có tính khử cực kỳ mạnh và hung hãn, nên Na hoàn toàn không tồn tại dạng đơn chất trong tự nhiên mà chỉ tồn tại dưới dạng hợp chất (phổ biến nhất là muối ăn NaCl trong nước biển và các mỏ muối ngầm).
+- Trong tự nhiên Na không có sẵn, con người phải tự điều chế đơn chất Na bằng cách điện phân nóng chảy NaCl. Các hợp chất quan trọng như NaOH (xút) được điều chế bằng cách điện phân dung dịch có màng ngăn, và Na2CO3(soda) được sản xuất qua quy trình Solvay.
+- Na là nguyên liệu cốt lõi trong công nghiệp hóa chất (giấy, xà phòng, thủy tinh) và là ion vi lượng thiết yếu (Na+) giúp duy trì sự sống, điều hòa áp suất thẩm thấu trong cơ thể sinh vật.
+* Nhận biết
+- Cách nhận biết: Đốt cháy các hợp chất của Natri
+- Hiện tượng: Hợp chất của Sodium cháy với ngọn lửa có màu vàng.
+POTASSIUM
+- Mạng tinh thể: Lập phương tâm khối.
+Đồng vị ổn định: 39K, 40k, 41K.
+Đơn chất: Trong tự nhiên, K hầu như không tồn tại ở dạng đơn chất do có tính khử mạnh.
+Hợp chất: KCl, KNO3​, K2SO4, KCl⋅MgCl2​⋅6H2​O, K2Mg2SO43…
+4. Tính chất.
+a. Tính chất vật lí
+- Potassium là chất rắn ở nhiệt độ phòng.
+- Là kim loại màu trắng bạc.
+- Khối lượng riêng: 0,86 g/cm³
+- Rất mềm.
+- Dẫn điện và dẫn nhiệt tốt.
+- Nhiệt độ nóng chảy thấp, khoảng 63,5°C.
+- Nhiệt độ sôi khoảng 759°C.
+- Dễ bị oxi hóa ngoài không khí.
+- Không tan trong các dung môi hữu cơ thông thường.        
+b. Tính chất hóa học
+- Có tính khử mạnh
+- Tác dụng với phi kim.
+- Tác dụng với axit.
+- Tác dụng với nước.
+-  Tác dụng với hidro.               
+5. Điều chế
+a. Trong phòng thí nghiệm
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp
+- Điện phân nóng chảy potassium hydroxide (KOH).
+4KOH dpnc 4K + O2↑ + 2H2O
+- Điện phân nóng chảy potassium chloride (KCl).
+2KCl dpnc 2K + Cl2↑
+- Khử KCl bằng natri ở nhiệt độ cao.
+KCl + Na to NaCl + K↑
+6. Phương trình mô phỏng.
+2K + 2HCl → 2KCl + H2
+2K + 2H2O → 2KOH + H2
+2K + H2 → 2KH 
+2KCl dpnc 2K + Cl2↑
+4K + O2 to2K2O
+2K + Cl2 to 2KCl
+7. Ứng dụng.
+- Sản xuất phân bón, Potassium giúp cây hấp thụ nước tốt hơn, tăng cường khả năng chống chịu hạn hán, giá rét và sâu bệnh. Ngoài ra, nó kích thích quá trình quang hợp, giúp cây ra hoa, kết quả to, ngọt và đẹp mã hơn.
+- Ion K+ giúp duy trì áp suất thẩm thấu, giúp truyền dẫn các xung thần kinh và điều hòa nhịp tim.
+- Các hợp chất khác nhau của Potassium còn có những ứng dụng rất đa dạng trong công nghiệp như sản xuất xà phòng lỏng và các chất tẩy rửa mạnh, chế tạo thuốc súng đen, pháo hoa, và thuốc nổ, sản xuất thủy tinh chất lượng cao, Chất sát trùng, khử trùng nguồn nước.
+- Hợp kim Na-K làm chất tản nhiệt trong các lò phản ứng hạt nhân thế hệ mới hoặc một số hệ thống công nghệ cao.
+8. Tổng quan
+- Potassium là kim loại kiềm điển hình, có hoạt động mạnh (ô số 19, nhóm IA, chu kỳ 4), có cấu hình electron lớp ngoài cùng là [Ar]4s1
+- trong tự nhiên Potassium yếu tồn tại ở dạng đồng vị bền 39K (93,3%). Potassium có tính khử cực kỳ mạnh và hung hãn, Potassium hầu như không tồn tại dạng đơn chất trong tự nhiên mà chỉ có trong các hợp chất (phổ biến nhất là khoáng vật Sylvite KCl, Carnallite KCl.MgCl2.nH2O và trong đất đá silicat).
+- Do đơn chất của Potassium không có sẵn trong tự nhiên, con người phải tự điều chế bằng cách cho Sodium lỏng khử KCl nóng chảy ở nhiệt độ cao (850oC) rồi chưng cất thu hơi Potassium, hoặc điện phân nóng chảy KOH hoặc KCl.
+- Potassium là nguyên liệu cốt lõi để sản xuất phân bón kali (phân chloride, phân sulfate) trong nông nghiệp, sản xuất thủy tinh chuyên dụng, bánh pháo. Ở góc độ sinh học, ion K+ là ion nội bào quan trọng nhất, giữ vai trò quyết định trong việc vận hành cơ tim, cân bằng nước và dẫn truyền thần kinh ở tế bào sống.
+* Nhận biết
+- Cách nhận biết: Đốt cháy các hợp chất của Potassium.
+- Hiện tượng:  Hợp chất của Potassium cháy với ngọn lửa màu tím.
+MAGNESIUM
+- Mạng tinh thể: lục phươnh xếp chặt
+- Đồng vị: 24Mg, 25Mg, 26Mg.
+- Đơn chất: Magnesium hầu như không tồn tại ở dạng đơn chất.
+- Hợp chất: CaCO3⋅MgCO3, MgCO3, MgCl2, MgSO4…
+4. Tính chất
+a. Tính chất vật lí
+- Magnesium là chất rắn ở nhiệt độ phòng.
+- Là kim kiềm thổ loại có màu trắng bạc.
+- Khối lượng riêng: 1,738 g/cm3
+- Khá mềm và có tính dẻo.
+- dẫn điện và dẫn nhiệt tốt
+- Nhiệt độ nóng chảy khoảng 650∘C
+- Nhiệt độ sôi khoảng  1090∘C
+b. Tính chất hóa học
+- Có tính khử mạnh
+- Tác dụng với Phi kim.
+- Tác dụng với Acid loãng.
+- Tác dụng với Nước
+- Tác dụng với dung dịch muối của kim loại yếu hơn.
+5. Điều chế
+a. Trong phòng thí nghiệm
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp
+- Điện phân nóng chảy Magnesium chloride ( MgCl2)
+2MgCl2 dpnc 2Mg + Cl2↑
+- Phương pháp Pidgeon
++ Giai đoạn 1 (Nung quặng)
+CaCO3⋅MgCO3t∘CaO⋅MgO+2CO2↑
++ Giai đoạn 2 (Khử bằng Silicon trong chân không)
+2MgO+2CaO+Si1200∘C, chân không2Mg↑+Ca2SiO4
+6. Phương trình mô phỏng
+2Mg+O2to2MgO
+Mg+Cl2toMgCl2
+Mg+2HCl→MgCl2+H2↑
+4Mg+10HNO3 (loãng)→4Mg(NO3)2+NH4NO3+3H2O
+Mg+H2O (hơi)t∘MgO+H2↑
+Mg+CuSO4→MgSO4+Cu↓
+7. Ứng dụng
+- Magnesium đặc biệt được sử dụng cho ngành công nghiệp hàng không vũ trụ, chúng được dùng để làm cho hợp kim bền hơn. 
+- Magnesium còn được dùng trong sản xuất pháo hoa vì khi đốt cháy sẽ tạo ngọn lửa trắng rực rỡ.
+- Trong các lò sản xuất sắt, thép, kim loại màu, xi măng hay thủy tinh, các hợp chất của Magnesium được sử dụng như vật liệu chịu lửa.
+- Các magnesium oxide và các hợp chất khác cũng được dùng nhiều trong xây dựng, nông nghiệp, công nghiệp hóa chất.
+- Magnesium còn được dùng để khử lưu huỳnh từ sắt thép hoặc tạo các hợp kim của Al - Mg sử dụng trong sản xuất vỏ hộp, cấu trúc của xe máy, ô tô.
+- Tạo các tấm khắc quang học trong công nghệ in, là tác nhân bổ sung trong các chất nổ thông thường và sử dụng trong sản xuất gang cầu, nằm trong hợp kim của kết cấu máy bay, tên lửa.
+- Trong ngành dược phẩm, Mg  được sử dụng để sản xuất các viên thuốc nén, ngăn cho thuốc không bị dính vào thiết bị trong quá trình nén thuốc,...
+8. Tổng quan
+- Magnesium là kim loại kiềm thổ điển hình (ô số 12, nhóm IIA, chu kỳ 3), có cấu hình electron lớp ngoài cùng là [Ne]3s2. Khi tham gia phản ứng, nó luôn có xu hướng nhường 2e để đạt cấu hình bền vững Mg2+.
+- Trong tự nhiên Magnesium có tính chất hóa học mạnh nên hoàn toàn không tồn tại dạng đơn chất trong tự nhiên. Tuy nhiên, Magnesium lại là nguyên tố phổ biến thứ 8 trong vỏ Trái Đất, nó có trong mỏ đá lớn như đá Dolomite : CaCO3⋅MgCO3 và hòa tan trong đại dương dưới dạng muối đắng MgCl2 và MgSO4.
+- Trong công nghiệp, Magnesium được sản xuất hàng loạt bằng phương pháp điện phân nóng chảy Magnesium chloride ( MgCl2) tách từ nước biển, hoặc dùng Silicon khử quặng Dolomite ở nhiệt độ cao (phương pháp Pidgeon). Trong phòng thí nghiệm, người ta mua sẵn đơn chất chứ không tự điều chế.
+- Magnesium là "kim loại cấu trúc" nhờ đặc tính siêu nhẹ và bền bỉ, chuyên dùng làm hợp kim chế tạo vỏ máy bay, ô tô, laptop và điện thoại. Ở góc độ sinh học, Magnesium chính là trái tim của chất diệp lục (Chlorophyll) giúp cây xanh quang hợp, và là nguyên tố vi lượng cốt lõi vận hành hơn 300 phản ứng sinh hóa trong cơ thể con người.
+* Nhận biết
+- Cách nhận biết: Đốt cháy trên ngọn lửa đèn cồn.
+- Hiện tượng: Magnesium cháy với ngọn lửa màu trắng chói lòa.
+- Phương trình hóa học:
+2Mg+O2t∘2MgO
+CALSIUM
++ Mạng tinh thể: lập phương tâm diện
++ Đồng vị: 40Ca, 42Ca, 43Ca, 44Ca, 46Ca, 48Ca.
++ Đơn chất: Calsium hầu như không tồn tại ở dạng đơn chất.
++ Hợp chất: CaCO3, CaSO4​⋅2H2​O, CaF₂, CaCO3⋅MgCO3, Ca₃(PO₄)₂….
+4. Tính chất
+a. Tính chất vật lí
+- Calsium là chất rắn ở nhiệt độ phòng.
+- Calsium là kim loại kiềm thổ có màu trắng bạc.
+- Khối lượng riêng khoảng 1,55 g/cm³.
+- Tương đối mềm và có tính dẻo.
+- Dẫn điện và dẫn nhiệt tốt.
+- Nhiệt độ nóng chảy khoảng 842°C. 
+- Nhiệt độ sôi khoảng 1484,0°C.
+- Dễ bị oxi hóa trong không khí ẩm.
+b. Tính chất hóa học.
+- Ca là kim loại có tính khử mạnh.
+- Tác dụng với phi kim.- Tác dụng với acid loãng. 
+- Tác dụng với nước.
+- Tác dụng với dung dịch muối của kim loại yếu hơn.
+5. Điều chế.
+a. Trong phòng thí nghiệm.
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp.
+- Điện phân nóng chảy Calsium chloride (CaCl2).
+CaCl2đpncCa+Cl2↑
+- Phương pháp Nhiệt nhôm
+CaCO3t∘CaO+CO2↑ (giai đoạn 1)
+6CaO+2Alt∘, chân không3Ca↑+3CaO⋅Al2O3 (giai đoạn 2)
+6. Phương trình mô phỏng
+2Ca+O2​→2CaO
+Ca+Cl2​→CaCl2​
+Ca+S→CaS
+Ca+2H2​O→Ca(OH)2​+H2​↑
+Ca+2HCl(loãng)→CaCl2​+H2​↑
+Ca+H2​SO4​(loa˜ng)→CaSO4​+H2​↑
+Ca+CuSO4​→CaSO4​+Cu
+CaCl2dpnc ​Ca+Cl2​↑
+7. Ứng dụng
+- Sản xuất vật liệu xây dựng như xi măng, vôi, gạch từ CaCO3 và tráng trí từ CaSO₄·2H₂O.
+- làm chất khử trong việc điều chế các kim loại khác như uran, ziriconi hay thori.
+- Chế tạo hợp kim với chì, nhôm và một số kim loại khác để cải thiện tính chất cơ học.
+- Các loại thuốc bồi bổ xương khớp, thực phẩm chức năng chứa Calcium carbonate (CaCO3) hoặc Calcium gluconate được dùng để điều trị bệnh loãng xương ở người già, còi xương ở trẻ em và bổ sung cho phụ nữ mang thai.
+- Vôi sống (CaO) và vôi tôi [Ca(OH)2] được rải xuống ruộng để khử chua (hạ phèn) cho đất rất hiệu quả, đồng thời dùng để tiêu độc, sát trùng chuồng trại chăn nuôi hoặc ao nuôi thủy sản.
+8. Tổng quan
+- Calsium là kim loại kiềm thổ hoạt động mạnh (ô số 20, nhóm IIA, chu kỳ 4), có cấu hình electron là [Ar]4s2. Trong các phản ứng, Calsium luôn nhường 2e để đạt cấu hình vỏ khí hiếm bền vững và thể hiện tính khử rất mạnh Ca2+
+- Do có tính khử mạnh, Calcium hầu như không tồn tại dạng đơn chất trong tự nhiên. Tuy nhiên, nó là nguyên tố phổ biến thứ 5 trong vỏ Trái Đất, tích tụ thành những dãy núi đá vôi khổng lồ (CaCO3), các mỏ thạch cao (CaSO4⋅2H2O), quặng fluorite (CaF2) hoặc nằm trong cấu trúc xương, răng, vỏ của sinh vật.
+- Trong công nghiệp, Calsium được sản xuất chủ yếu bằng cách điện phân nóng chảy muối Calcium chloride (CaCl2) khan hoặc dùng bột Aluminium khử (CaO) trong môi trường chân không cao (nhiệt nhôm). Trong phòng thí nghiệm, người ta dùng sẵn kim loại bảo quản trong dầu hỏa chứ không tự điều chế.
+- Kim loại Calsium được dùng làm chất khử oxy, lưu huỳnh trong luyện kim thép và chế tạo hợp kim Lead-Calcium làm vỏ ắc quy cực bền. Ở dạng hợp chất, nó là xương sống của ngành xây dựng (sản xuất xi măng, vôi, thạch cao) và là vi chất tối quan trọng cho sức khỏe con người.
+* Nhận biết
+- Cách nhận biết: Đốt cháy các hợp chất của Calsium.
+- Hiện tượng: Calsium cháy với ngọn lửa màu đỏ gạch.
+BARIUM
++ Mạng tinh thể: lập phương tâm khối.
++ Đồng vị: 130Ba, 132Ba, 134Ba, 135Ba, 136Ba, 137Ba, 138Ba.
++ Đơn chất: Barium hầu như không tồn tại ở dạng đơn chất.
++ Hợp chất: BaSO4, BaCO3.
+4. Tính chất
+a. Tính chất vật lí
+- Barium là chất rắn ở nhiệt độ phòng.
+- Barium là kim loại có màu trắng bạc.
+- Khối lượng riêng lớn khoảng 3,62 g/cm³.
+- Khá mềm.
+- Dẫn điện và dẫn nhiệt tốt.
+- Nhiệt độ nóng chảy khoảng 727°C.
+- Nhiệt độ sôi khoảng 1897°C.
+- Dễ bị oxi hóa trong không khí.
+b. Tính chất hóa học.
+- Có tính khử mạnh.
+- Tác dụng với phi kim.
+- Tác dụng với acid.
+- Tác dụng với nước.
+- Tác dụng với dung dịch muối của kim loại yếu hơn.
+5. Điều chế.
+a. Trong phòng thí nghiệm
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp
+- Điện phân nóng chảy Barium chloride (BaCl₂).
+BaCl2​dpnc ​Ba+Cl2
+- Phương pháp nhiệt nhôm trong chân không.
+BaCO3t∘BaO+CO2↑ (giai đoạn 1)
+3BaO+2Alt∘, chân không3Ba↑+Al2O3 (giai đoạn 2)
+6. Phương trình mô phỏng
+2Ba+O2​→2BaO
+Ba+Cl2​→BaCl2​
+Ba+2H2​O→Ba(OH)2​+H2​↑
+Ba+H2SO4→BaSO4↓+H2↑Ba+ZnCl2→BaCl2+ZnBa+CuSO4​→BaSO4​↓+Cu
+7. Ứng dụng
+- Barium được dùng để làm chất thu khí trong ống chân không, phụ gia luyện kim.
+- Hợp chất Barium sulfate có màu trắng và được sử dụng trong sản xuất sơn, trong chẩn đoán bằng tia X-quang, và trong sản xuất thủy tinh. Ngoài ra Barium sulfate còn được dùng làm chất tăng khối lượng cho dung dịch khoan, giúp ổn định áp suất trong quá trình khoan giếng dầu và khí.
+- Hợp kim Barium-Nickel được dùng để chế tạo cực điện trong bugi động cơ đốt trong nhờ khả năng phát xạ electron rất tốt khi bị đốt nóng.
+- Barium nitrate và Barium chloride được sử dụng để tạo màu xanh lá cây trong sản xuất pháo hoa.
+- Các hợp chất của barium được dùng để chế tạo thủy tinh chất lượng cao, thủy tinh quang học và men gốm, giúp tăng độ bền và độ bóng.
+8. Tổng quan 
+- Barium là kim loại kiềm thổ có điện tích hạt nhân lớn (ô số 56, nhóm IIA, chu kỳ 6), cấu hình electron lớp ngoài cùng là [Xe]6s2. Trong các phản ứng hóa học, Ba luôn nhường đi 2e để đạt cấu hình vỏ khí hiếm bền vững và thể hiện tính khử cực kỳ mạnh ({Ba2+), mạnh nhất trong số các kim loại nhóm IIA thông dụng.
+- Do có tính khử mạnh, nên Barium hoàn toàn không tồn tại dạng đơn chất trong tự nhiên. Nó chiếm khoảng 0,0425% khối lượng vỏ Trái Đất, tích tụ chủ yếu ở hai khoáng vật quặng lớn là Barite (BaSO4) và Witherite (BaCO3).
+- Trong công nghiệp hiện đại, Barium được sản xuất chủ yếu bằng phương pháp nhiệt nhôm trong chân không (dùng bộtAl khử BaO}ở nhiệt độ cao) hoặc điện phân nóng chảy muối BaCl2 khan. Trong phòng thí nghiệm, người ta dùng sẵn kim loại bảo quản ngập trong dầu hỏa khan.
+- Kim loại Barium được dùng làm chất thu khí để hút sạch oxy, nitơ còn sót lại trong các ống chân không cao cấp. Ở dạng hợp chất, muối BaSO}4 là xương sống của ngành dầu khí (làm nặng bùn khoan) và y tế (chất cản quang chụp X-quang đường tiêu hóa), còn Ba(NO3)2 chuyên dùng để tạo ngọn lửa màu xanh lục táo cho pháo hoa.
+* Nhận biết
+- Cách nhận biết: Đốt muối Barium trên ngọn lửa đèn cồn hoặc đèn Bunsen.
+- Hiện tượng: ngọn lửa màu xanh lục (xanh táo) đặc trưng.
+ALUMINIUM
+- Mạng tinh thể: lập phương tâm diện.
+- Đồng vị: 26Al, 27Al.
+- Đơn chất: Aluminium hầu như không tồn tại dạng đơn chất.
+- Hợp chất: Al₂O₃·nH₂O, Al₂O₃, Al2Si2O5(OH)4, Na3AlF6.
+4. Tính chất
+a. tính chất vật lí.
+- Aluminium là chất rắn ở nhiệt độ phòng.
+- Aluminium là kim loại có màu trắng bạc.
+- Khối lượng riêng lớn khoảng 2,70 g/cm³.
+- Mềm và dẻo.
+- Dẫn điện và dẫn nhiệt tốt.
+- Nhiệt độ nóng chảy khoảng 660,32°C.
+- Nhiệt độ sôi khoảng 2470°C.
+- Dễ bị oxi hóa trong không khí.
+b. Tính chất hóa học
+- Tác dụng với phi kim.
+- Tác dụng với acid loãng và đặc nóng.
+- Tác dụng với dung dịch kiềm.
+- Tác dụng với dung dịch muối.
+- Tác dụng với oxit kim loại.
+- Tác dụng với nước.
+5. Điều chế.
+a. Trong phòng thí nghiệm
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp
+- Điện phân Al2O3.
+2Al2O3đpnc4Al+3O2↑
+- Tinh chế quặng Bauxite.
+Al2O3+2NaOH→2NaAlO2+H2O (giai đoạn 1)
+NaAlO2+CO2+2H2O→Al(OH)3↓+NaHCO3 (giai đoạn 2)
+2Al(OH)3t∘Al2O3+3H2O (giai đoạn 3)
+6. Phương trình và mô phỏng
+4Al+3O2t∘2Al2O3+Q  
+2Al+3Cl2→2AlCl3 
+2Al+3St∘Al2S3 
+2Al+6HCl(loãng)→2AlCl3+3H2↑ 
+2Al+6H2SO4 (đặc, nóng)→Al2SO43+3SO2↑+6H2O 
+2Al + 2NaOH + 2H2O → 2NaAlO2 + 3H2↑
+2Al+Fe2O3t∘Al2O3+2Fe 
+2Al + 3CuSO4 → Al2(SO4)3 + 3Cu
+7. Ứng dụng
+- Aluminium được dùng để chế tạo máy bay, ô tô, tàu thuyền do có tính nhẹ và bền. 
+-  Sản xuất dây dẫn điện vì nhôm dẫn điện tốt và giá thành thấp hơn đồng. 
+- Làm vật liệu xây dựng: cửa, khung nhà, mái lợp,... 
+-  Chế tạo đồ dùng gia đình: nồi, chảo, hộp đựng thực phẩm, giấy nhôm. 
+-  Dùng trong công nghiệp luyện kim để điều chế một số kim loại bằng phản ứng nhiệt nhôm.
+- Bột nhôm trộn với bột Iron (II) oxide (hỗn hợp Thermite) được dùng để hàn đường ray.
+8. Tổng quan
+- Aluminium là nguyên tố kim loại thuộc nhóm IIIA (ô số 13, chu kỳ 3), có cấu hình electron lớp ngoài cùng là 3s23p1. Trong các phản ứng hóa học, Aluminium dễ dàng nhường đi 3e để đạt cấu hình vỏ bền vững của khí hiếm Neon và thể hiện tính khử mạnh (Al3+), chỉ đứng sau nhóm kim loại kiềm và kiềm thổ.
+- Trong tự nhiên Aluminium là kim loại phổ biến nhất trong vỏ Trái Đất (chiếm khoảng 8%). Vì có tính khử mạnh, nó không tồn tại dạng đơn chất tự do mà tích tụ trong các hợp chất như: Quặng Bauxite (Al2O3⋅nH2O)khoáng vật Corundum (Al2O3 khan - tiền thân của Ruby và Sapphire), đất sét Kaolinite và băng thạch Cryolite (Na3AlF6).
+- Trong công nghiệp, Aluminium được điều chế bằng phương pháp điện phân nóng chảy Al2O3 tinh chế từ quặng bauxite, sử dụng dòng điện cực lớn và chất trợ chảy Cryolite để hạ nhiệt độ bể điện phân.
+- Trong thực tế Aluminium và hợp kim Duralumin là xương sống của ngành hàng không vũ trụ (vỏ máy bay, tên lửa), hệ thống lưới điện cao thế trên không, khung nhôm kính xây dựng và bao bì thực phẩm (lon nước, giấy bạc).
+* Nhận biết
+- Cách nhận biết: Cho Aluminium phản ứng với dung dịch NaOH hoặc KOH.
+- Hiện tượng: Aluminium tan dần, sinh ra khí không màu.
+- Phương trình hóa học:2Al+2NaOH+2H2O→2NaAlO2+3H2↑ 
+CARBON
+- Mạng tinh thể:
++ Kim cương: lập phương
++ Than chì (Graphit): lớp lục giác
++ Fullerene C60 : lập phương tâm diện
+- Đồng vị: 12C, 13C, 14C.
+- Đơn chất: Kim cương (Diamond), Than chì (Graphite - Graphit).
+- Hợp chất: CO2, CaCO3, CH4, C6H12O6, FeCO3…
+4. Tính chất
+a. Tính chất vật lí
+- Carbon là chất rắn ở điều kiện thường.
+- Không tan trong nước và hầu hết các dung môi.
+- Nhiệt độ nóng chảy khoảng 3500-3652∘C (tùy trạng thái)
+ - Nhiệt độ sôi khoảng 4827∘C
+- Khối lượng riêng:
++ khoảng 3,51 g/cm³ (đối với kim cương)
++ khoảng 2,26 g/cm³ (đối với than chì )
++ khoảng 1,65 g/cm³ (đối với fullerene)
+- Carbon có ba dạng thù hình chính: Kim cương, than chì và fullerene:
++ Kim cương là tinh thể trong suốt, không màu, không dẫn điện, dẫn nhiệt kém. Kim cương có cấu trúc tinh thể cứng nhất trong tất cả các chất.
++ Than chì là tinh thể màu xám đen, có ánh kim, dẫn điện và dẫn nhiệt tốt nhưng kém kim loại.
++ Fullerene là tinh thể màu đen, mềm, có tính bán dẫn, tan trong dung môi hữu cơ
+b. Tính chất hóa học
+- Tính khử
+- Tính oxi hóa
+5. Điều chế
+a. Trong phòng thí nghiệm
+- Hầu như không được điều chế trong phòng thí nghiệm.
+b. Trong công nghiệp
+- Chưng khô than đá
+Than đá→1000∘C-1100∘CChưng khô (Không có không khí)Than cốc≈80% Carbon+Hắc ín (Dầu than đá)+Khí lò cốc CH4,H2,CO... 
+- Nhiệt phân khí metan
+CH4t∘≥1000∘CCrắn, mịn+2H2↑  
+- Lắng đọng hơi hóa học
+CH4Năng lượng PlasmaCkim cương+4H∙ 
+6. Phương trình mô phỏng
+C+O2​→CO2​
+2C+O2​→2CO 
+Fe2O3+3C→2Fe+3CO 
+2CuO+C→2Cu+CO2​
+C+H2​O→CO+H2​
+C+4HNO3 (đặc)t∘CO2+4NO2+2H2O  
+7. Ứng dụng
+- Carbon dạng than chì có nhiều ứng dụng trong đời sống như: Làm ruột bút chì. Làm điện cực trong pin và lò điện. Làm chất bôi trơn.
+- Carbon dạng kim cương được dùng làm đồ trang sức. Trong kĩ thuật, kim cương được dùng làm mũi khoan, dao cắt thuỷ tinh, bột mài.
+- Carbon dạng than cốc, than khô và than hoạt tính được dùng làm chất khử trong luyện kim để luyện kim loại từ quặng, làm nhiên liệu đốt cháy như than đá, than củi được đốt cháy để cung cấp nhiệt lượng cho các hộ gia đình, các nhà máy nhiệt điện và nhà máy công nghiệp. Ngoài ra chúng còn có khả năng khử mùi, khử độc. Dùng trong y học để hấp phụ một số chất độc.
+8. Tóm lại 
+-  Carbon là nguyên tố phi kim thuộc nhóm IVA (ô số 6, chu kỳ 2), có cấu hình electron lớp ngoài cùng là 2s2 2p2. Ở điều kiện thường, Carbon khá trơ về mặt hóa học, nhưng khi nung nóng nó trở nên hoạt động và thể hiện tính chất đặc trưng là vừa có tính khử (chủ đạo), vừa có tính oxi hóa, dễ dàng thay đổi số oxi hóa từ 0 sang các trạng thái -4, +2 hoặc +4.
+- Trong tự nhiên, Carbon tồn tại ở cả dạng đơn chất tự do lẫn hợp chất. Các dạng đơn chất tự nhiên bao gồm Kim cương (cấu trúc mạng nguyên tử 3D siêu cứng) và Than chì (cấu trúc lớp bền nhiệt, dẫn điện tốt). Ngoài ra, Carbon tích tụ khổng lồ trong các hợp chất vô cơ như đá vôi, đá hoa (CaCO3), quặng Dolomite (CaCO3⋅MgCO3), khí carbon dioxide (CO2) trong khí quyển, và là "xương sống" cấu tạo nên toàn bộ sinh khối hữu cơ cùng các nhiên liệu hóa thạch (than đá, dầu mỏ).
+- Trong công nghiệp, tùy thuộc vào thù hình mong muốn mà Carbon được điều chế bằng các phương pháp khác nhau: Than cốc được sản xuất bằng cách chưng khô than đá ở nhiệt độ cao thiếu khí; Than muội thu được từ quá trình nhiệt phân khí methane, Than hoạt tính được tạo ra qua quá trình than hóa kết hợp hoạt hóa bằng hơi nước để tạo lỗ xốp, trong khi Kim cương nhân tạo được nuôi cấy bằng công nghệ cao áp - cao nhiệt (HPHT) hoặc lắng đọng hơi hóa học (CVD).
+- Trong thực tế, Carbon là nền tảng của đời sống và sản xuất: Than cốc là chất khử không thể thiếu trong ngành luyện kim lò cao; Than hoạt tính là lõi lọc cốt lõi trong y tế, mặt nạ phòng độc và hệ thống lọc nước; Than chì được ứng dụng làm ruột bút chì, chất bôi trơn khô và điện cực pin; Kim cương là mũi nhọn trong ngành trang sức cao cấp và dụng cụ cắt gọt công nghiệp; đặc biệt, các thù hình thế hệ mới như Graphene hay Fullerene (C60) đang mở ra kỷ nguyên mới cho vật liệu siêu bền và công nghệ nano tương lai.
+* Nhận biết carbon
+- Cách nhận biết: Cho mẫu thử bột đen vào ống nghiệm, nung nóng trên ngọn lửa đèn cồn rồi thổi khí Oxi (O2) vào. Sau đó, dẫn toàn bộ lượng khí sinh ra vào cốc đựng dung dịch nước vôi trong (Ca(OH)2) dư.
+- Hiện tượng: Mẫu bột màu đen cháy sáng trong Oxi tạo thành khí không màu, không mùi. Khi dẫn khí này vào nước vôi trong, xuất hiện kết tủa màu trắng làm dung dịch bị vẩn đục.
+- Phươnh trình: 
+C+O2t∘CO2  
+CO2+Ca(OH)2→CaCO3↓ (trắng)+H2O 
+ 

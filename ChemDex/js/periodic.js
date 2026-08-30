@@ -4,6 +4,7 @@ import {
   categories,
   escapeHtml,
   formatChemicalFormulaHtml,
+  formatIsotopeText,
   buildReactionLatex,
   renderEquationBlock,
   renderDetailMediaBlocks,
@@ -86,13 +87,41 @@ function renderPeriodicTable() {
     tableContainer.appendChild(label);
   }
 
+  // Render Placeholders for Lanthanides and Actinides
+  const createPlaceholder = (row, col, text, targetClass, categoryKey) => {
+    const ph = document.createElement("div");
+    ph.className = `element el-cell cat-placeholder cat-${categoryKey} text-[10px] sm:text-xs flex items-center justify-center font-bold text-slate-700 cursor-pointer transition-colors hover:brightness-95`;
+    ph.style.gridColumn = col;
+    ph.style.gridRow = row;
+    let color = categories[categoryKey]?.color || "#cbd5e1";
+    ph.style.setProperty("--color", color);
+    ph.innerHTML = `<span class="text-center leading-tight">${text} <i class="fa-solid fa-chevron-down ml-1 text-[9px]"></i></span>`;
+    
+    ph.addEventListener("click", () => {
+        const els = document.querySelectorAll(`.${targetClass}`);
+        // Check state using first element that HAS data
+        const dataEls = [...els].filter(e => !e.classList.contains("no-data"));
+        const isHidden = dataEls[0]?.classList.contains("hidden-series") ?? true;
+        els.forEach(el => el.classList.toggle("hidden-series", !isHidden));
+        ph.querySelector("i").className = isHidden ? "fa-solid fa-chevron-up ml-1 text-[9px]" : "fa-solid fa-chevron-down ml-1 text-[9px]";
+    });
+    tableContainer.appendChild(ph);
+  };
+
+  createPlaceholder(7, 4, "57-71<br>La-Lu", "el-lanthanide", "lanthanide");
+  createPlaceholder(8, 4, "89-103<br>Ac-Lr", "el-actinide", "actinide");
+
   // 3. Render Elements
   allElements.forEach((el) => {
     if (!el.xpos) return;
 
     const div = document.createElement("div");
     // Lưu data attr để filter/highlight dễ dàng
-    div.className = `element el-cell ${el.hasData ? "" : "no-data"} cat-${el.category}`;
+    let extraClasses = "";
+    if (el.category === "lanthanide") extraClasses = "el-lanthanide hidden-series";
+    if (el.category === "actinide") extraClasses = "el-actinide hidden-series";
+
+    div.className = `element el-cell ${el.hasData ? "" : "no-data"} cat-${el.category} ${extraClasses}`;
     div.dataset.col = el.xpos;
     div.dataset.row = el.ypos;
     div.dataset.cat = el.category;
@@ -231,7 +260,7 @@ function renderMethodCard(item = {}, idx = 0, fallback = "Phương pháp") {
         ${item.condition ? `<span class="visual-badge">${escapeHtml(item.condition)}</span>` : ""}
       </div>
       ${reagent ? `<p class="text-sm text-cyan-300 mb-2"><span class="text-slate-400">Thuốc thử/chất dùng:</span> ${escapeHtml(Array.isArray(reagent) ? reagent.join(", ") : reagent)}</p>` : ""}
-      ${eq ? `<div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-950 p-4 rounded-lg overflow-x-auto">${buildReactionLatex({ equation: eq, condition: item.condition })}</div>` : ""}
+      ${eq ? `<div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto whitespace-nowrap flex items-center">${buildReactionLatex({ equation: eq, condition: item.condition })}</div>` : ""}
       ${result ? `<p class="text-amber-200 mb-2"><span class="text-slate-400">Hiện tượng:</span> ${escapeHtml(result)}</p>` : ""}
       ${desc ? `<p class="text-slate-400 leading-relaxed">${escapeHtml(desc)}</p>` : ""}
     </div>
@@ -383,11 +412,12 @@ function showElementDetails(el) {
   const appCards =
     (el.applications && el.applications.length ? el.applications : [])
       .map((app) => {
-        const previewHtml = mediaToCards(app.image || app.images || app.media, {
+        const mediaData = mediaToCards(app.image || app.images || app.media, {
           defaultTitle: app.title || "Ứng dụng",
           emptyText: "",
           kindHint: "image",
-        }).html;
+        });
+        const previewHtml = mediaData.count > 0 ? mediaData.html : "";
         return `
               <div class="glass overflow-hidden rounded-2xl border border-slate-700 group">
                 ${previewHtml ? `<div class="h-40 bg-slate-800 overflow-hidden">${previewHtml}</div>` : ""}
@@ -426,7 +456,7 @@ function showElementDetails(el) {
                         <h4 class="text-white font-bold text-lg">${escapeHtml(item.title || item.name || `Phương pháp ${idx + 1}`)}</h4>
                         ${item.condition ? `<span class="visual-badge">${escapeHtml(item.condition)}</span>` : ""}
                       </div>
-                      ${eq ? `<div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-950 p-4 rounded-lg overflow-x-auto">${buildReactionLatex({ equation: eq, condition: item.condition })}</div>` : ""}
+                      ${eq ? `<div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto">${buildReactionLatex({ equation: eq, condition: item.condition })}</div>` : ""}
                       ${desc ? `<p class="text-slate-400 leading-relaxed">${escapeHtml(desc)}</p>` : ""}
                     </div>
                   `;
@@ -444,7 +474,7 @@ function showElementDetails(el) {
   let html = "";
 
   html += `
-          <section id="sec-general" class="scroll-mt-24">
+          <section id="sec-general" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <span class="w-8 h-8 rounded bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm"><i class="fa-solid fa-info"></i></span>
               1. Thông tin chung
@@ -452,7 +482,7 @@ function showElementDetails(el) {
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Tên Latin</p><p class="text-lg font-mono text-yellow-300 font-bold">${escapeHtml(el.general?.latinName || "...")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Tên Tiếng Anh</p><p class="text-lg font-mono text-green-300 font-bold">${escapeHtml(el.general?.englishName || "...")}</p></div>
-              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Đồng vị</p><p class="text-lg font-mono text-blue-300 font-bold">${escapeHtml(el.general?.isotope || "...")}</p></div>
+              <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Đồng vị</p><p class="text-lg font-mono text-blue-300 font-bold">${formatIsotopeText(el.general?.isotope || "...")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Vị trí</p><p class="text-lg text-white">Nhóm ${escapeHtml(el.general?.group || "?")} | Chu kì ${escapeHtml(el.general?.period || "?")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Số Oxy hóa</p><p class="text-lg text-white">${escapeHtml(el.general?.oxidation || "...")}</p></div>
               <div class="glass p-4 rounded-xl border border-slate-700/50"><p class="text-slate-400 text-sm mb-1">Độ âm điện</p><p class="text-lg text-white">${escapeHtml(el.general?.electronegativity || "...")}</p></div>
@@ -462,7 +492,7 @@ function showElementDetails(el) {
         `;
 
   html += `
-          <section id="sec-history" class="scroll-mt-24">
+          <section id="sec-history" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-orange-500/20 text-orange-400 flex items-center justify-center text-sm"><i class="fa-solid fa-landmark"></i></span> 2. Lịch sử khám phá</h3>
             <div class="glass p-6 rounded-2xl border border-slate-700">
               <p class="text-lg text-slate-300 mb-2">Phát hiện bởi: <strong>${discovererMarkup}</strong></p>
@@ -475,7 +505,7 @@ function showElementDetails(el) {
         `;
 
   html += `
-          <section id="sec-structure" class="scroll-mt-24">
+          <section id="sec-structure" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <span class="w-8 h-8 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm"><i class="fa-solid fa-cubes"></i></span>
               3. Cấu tạo
@@ -485,8 +515,8 @@ function showElementDetails(el) {
               <div class="glass p-5 rounded-2xl border border-slate-700">
                 <h4 class="text-white font-semibold mb-4">a. Cấu tạo</h4>
 
-                <div class="structure-visual-grid mb-4">
-                  <div class="visual-card p-4">
+                <div class="structure-visual-grid mb-4 animate-stagger">
+                  <div class="visual-card p-4 hover-glow">
                     <div class="flex items-center justify-between mb-3 gap-3">
                       <p class="text-slate-200 font-medium">Hoạt họa cấu hình e</p>
                       <span class="visual-badge"><i class="fa-solid fa-bolt text-blue-300"></i> ${getElectronConfigText(el)}</span>
@@ -494,7 +524,7 @@ function showElementDetails(el) {
                     <div id="electron-widget" class="electron-canvas-wrap"></div>
                   </div>
 
-                  <div class="visual-card p-4">
+                  <div class="visual-card p-4 hover-glow">
                     <div class="flex items-center justify-between mb-3 gap-3">
                       <p class="text-slate-200 font-medium">Mô hình mạng tinh thể</p>
                       <span class="visual-badge"><i class="fa-solid fa-cube text-cyan-300"></i> ${inferLatticeTitle(el, inferLatticeKey(el))}</span>
@@ -561,38 +591,7 @@ function showElementDetails(el) {
 
               <div id="sec-structure-isotopes" class="glass p-5 rounded-2xl border border-slate-700 scroll-mt-24">
                 <h4 class="text-white font-semibold mb-4">c. Đồng vị</h4>
-                <div class="grid md:grid-cols-[180px_1fr] gap-4">
-                  <div class="h-44 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center border border-slate-700/70">
-                   
-                  </div>
-                  <div class="space-y-4 text-slate-200">
-                    <p class="text-slate-300 leading-relaxed">
-                      ${escapeHtml(
-                        el.general?.isotope ||
-                          "Chưa có dữ liệu đồng vị trong phiên bản này.",
-                      )}
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                      ${
-                        String(el.general?.isotope || "")
-                          .split(/[,;]+/)
-                          .map((s) => s.trim())
-                          .filter(Boolean).length
-                          ? String(el.general?.isotope || "")
-                              .split(/[,;]+/)
-                              .map((item) => item.trim())
-                              .filter(Boolean)
-                              .map(
-                                (item) =>
-                                  `<span class="inline-flex items-center rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-sm text-slate-100">${escapeHtml(item)}</span>`,
-                              )
-                              .join("")
-                          : `<span class="text-slate-500 italic">Chưa có danh sách đồng vị riêng.</span>`
-                      }
-                    </div>
-                    
-                  </div>
-                </div>
+                <div class="text-slate-300 leading-relaxed whitespace-pre-wrap font-sans text-[15px] tracking-wide" style="line-height: 1.8;">${formatIsotopeText(el.general?.isotope || "Chưa có dữ liệu đồng vị trong phiên bản này.")}</div>
               </div>
 
               <div class="mt-5">
@@ -606,7 +605,7 @@ function showElementDetails(el) {
           </section>
         `;
   html += `
-          <section id="sec-properties" class="scroll-mt-24">
+          <section id="sec-properties" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm"><i class="fa-solid fa-flask"></i></span> 4. Tính chất</h3>
             <div class="grid lg:grid-cols-2 gap-6">
               <div class="glass p-6 rounded-2xl border border-slate-700">
@@ -623,7 +622,7 @@ function showElementDetails(el) {
         `;
 
   html += `
-          <section id="sec-preparation" class="scroll-mt-24">
+          <section id="sec-preparation" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm"><i class="fa-solid fa-vial-circle-check"></i></span> 5. Điều chế</h3>
             <div class="glass p-6 rounded-2xl border border-slate-700">
               ${preparationHtml}
@@ -633,7 +632,7 @@ function showElementDetails(el) {
         `;
 
   html += `
-          <section id="sec-recognition" class="scroll-mt-24">
+          <section id="sec-recognition" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-lime-500/20 text-lime-400 flex items-center justify-center text-sm"><i class="fa-solid fa-magnifying-glass-chart"></i></span> 6. Nhận biết</h3>
             <div class="glass p-6 rounded-2xl border border-slate-700">
               ${recognitionHtml}
@@ -649,45 +648,16 @@ function showElementDetails(el) {
           .join("")
       : '<p class="text-slate-500 italic">Đang cập nhật dữ liệu phản ứng...</p>';
 
-  const simHtml = el.simulation
-    ? `
-            <div class="mt-8 p-6 glass border-2 border-dashed border-blue-500/30 rounded-3xl bg-blue-900/10">
-              <h4 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-flask-vial text-blue-400"></i> Mô phỏng: ${escapeHtml(el.simulation.title || "")}</h4>
-              <p class="text-sm text-slate-400 mb-6"><i class="fa-solid fa-hand-pointer text-blue-400 mr-1"></i> <strong>Kéo và thả</strong> các hóa chất bên dưới vào Cốc thủy tinh.</p>
-              <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
-                <div class="flex md:flex-col gap-4">
-                  ${(el.simulation.reagents || [])
-                    .map(
-                      (re) => `
-                      <div draggable="true" ondragstart="simDragStart(event, '${escapeHtml(re.id)}')" class="draggable-item bg-slate-800 hover:bg-slate-700 border border-slate-600 p-4 rounded-2xl flex flex-col items-center gap-2 transition-all w-24">
-                        <i class="fa-solid ${escapeHtml(re.icon || "fa-flask")} text-3xl text-slate-300 pointer-events-none"></i>
-                        <span class="text-xs font-bold pointer-events-none">${escapeHtml(re.name || re.id || "")}</span>
-                      </div>
-                    `,
-                    )
-                    .join("")}
-                </div>
-                <div id="sim-beaker" ondragover="simDragOver(event)" ondragleave="simDragLeave(event)" ondrop="simDrop(event)" class="dropzone relative w-44 h-72 bg-slate-900/70 border-4 border-slate-600 rounded-b-[3rem] rounded-t-3xl overflow-hidden shadow-2xl flex items-end justify-center p-4">
-                  <div id="sim-content" class="absolute bottom-0 left-0 w-full bg-blue-500/50 transition-all duration-300" style="height: 10%;"></div>
-                  <div id="sim-items" class="relative z-10 text-3xl space-x-2"></div>
-                </div>
-              </div>
-              <div id="sim-result" class="hidden mt-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-medium">${escapeHtml(el.simulation.resultText || "")}</div>
-            </div>
-          `
-    : "";
-
   html += `
-          <section id="sec-reactions" class="scroll-mt-24">
-            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center text-sm"><i class="fa-solid fa-arrow-right-arrow-left"></i></span> 7. Phương trình & Mô phỏng</h3>
+          <section id="sec-reactions" class="scroll-mt-24 animate-fade-up">
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center text-sm"><i class="fa-solid fa-arrow-right-arrow-left"></i></span> 7. Phương trình</h3>
             <div class="space-y-4">${reactHtml}</div>
-            ${simHtml}
             ${sectionMedia("reactions")}
           </section>
         `;
 
   html += `
-          <section id="sec-applications" class="scroll-mt-24">
+          <section id="sec-applications" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-pink-500/20 text-pink-400 flex items-center justify-center text-sm"><i class="fa-solid fa-rocket"></i></span> 8. Ứng dụng thực tế</h3>
             <div class="grid md:grid-cols-2 gap-6">${appCards}</div>
             ${sectionMedia("applications")}
@@ -695,7 +665,7 @@ function showElementDetails(el) {
         `;
 
   html += `
-          <section id="sec-overview" class="scroll-mt-24">
+          <section id="sec-overview" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <span class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm"><i class="fa-solid fa-book"></i></span>
               9. Tổng quan
@@ -708,7 +678,7 @@ function showElementDetails(el) {
         `;
 
   html += `
-          <section id="sec-notes" class="scroll-mt-24">
+          <section id="sec-notes" class="scroll-mt-24 animate-fade-up">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3"><span class="w-8 h-8 rounded bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-sm"><i class="fa-solid fa-pen"></i></span> 10. Ghi chú cá nhân</h3>
             <textarea id="personal-note" onkeyup="saveNote('${escapeHtml(el.symbol)}')" class="w-full h-40 bg-slate-900 border border-slate-700 rounded-2xl p-5 text-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none" placeholder="Nhập ghi chú của bạn về ${escapeHtml(el.nameVi)} tại đây. Dữ liệu sẽ tự động lưu vào trình duyệt...">${escapeHtml(savedNote)}</textarea>
             <p class="text-xs text-slate-500 mt-2 text-right"><i class="fa-solid fa-cloud-arrow-up"></i> Đã đồng bộ</p>
@@ -996,6 +966,21 @@ function enhanceDetailPage(el) {
   }
 
   setupChatbotContext(el);
+
+  // Kích hoạt hiệu ứng cuộn trang (Intersection Observer)
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+  );
+  document.querySelectorAll(".animate-fade-up, .animate-zoom-in, .animate-stagger").forEach((el) => {
+    observer.observe(el);
+  });
 }
 
 function interlinkElement(symbol) {
@@ -1203,6 +1188,11 @@ function showToast(message) {
   }
   toast.textContent = message;
   toast.style.display = "block";
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJaxQueue = (window.MathJaxQueue || Promise.resolve())
+      .then(() => window.MathJax.typesetPromise([toast]))
+      .catch(() => {});
+  }
   clearTimeout(window.__toastTimer);
   window.__toastTimer = setTimeout(() => {
     toast.style.display = "none";

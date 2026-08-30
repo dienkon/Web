@@ -203,6 +203,9 @@ function appendChatMessage(role, text = "") {
   row.appendChild(bubble);
   output.appendChild(row);
   output.scrollTop = output.scrollHeight;
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise([bubble]).catch(() => {});
+  }
   return bubble;
 }
 
@@ -244,6 +247,9 @@ async function typeChatAnswer(answer = "") {
   }
   bubble.innerHTML = finalHtml;
   if (output) output.scrollTop = output.scrollHeight;
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise([bubble]).catch(() => {});
+  }
 }
 
 // Bộ matcher thông minh để nhận diện các tin nhắn tương tự
@@ -554,32 +560,16 @@ async function sendChatMessage() {
 
   let answer = "";
   try {
-    if (!apiKey || apiKey === "PASTE_GEMINI_API_KEY_HERE") {
-      answer =
-        "Chưa có Gemini API key trong biến GEMINI_API_KEY. Hãy gán key vào biến này trong file để bot trả lời bằng Gemini.";
-    } else {
-      const res = await fetch(
-        `${endpoint}${encodeURIComponent(model)}:generateContent`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": apiKey,
-          },
-          body: JSON.stringify(payload),
-        },
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data?.error?.message || `HTTP ${res.status}`);
-      }
-      answer =
-        data.candidates?.[0]?.content?.parts
-          ?.map((p) => p.text || "")
-          .join("") ||
-        data?.output_text ||
-        "Mình chưa đọc được phản hồi từ Gemini API.";
+    const res = await fetch("/api/gemini/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: userMsg, systemPrompt }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data?.error || `HTTP ${res.status}`);
     }
+    answer = data.text || "Mình chưa đọc được phản hồi từ Gemini API.";
   } catch (err) {
     answer = `Bạn hiện không có quyền truy cập vào tính năng trên. Hãy báo cáo với quan trị viên để được hỗ trợ.`;
   }
@@ -608,9 +598,9 @@ function mountChatbotWidget() {
             <div id="chat-suggestions" class="flex flex-wrap gap-2"></div>
             <div id="chat-messages" class="space-y-3"></div>
           </div>
-          <div class="p-3 border-t border-slate-700/50 bg-slate-950/40">
+          <div class="p-3 border-t border-slate-700/50 bg-slate-800/40">
             <div class="flex gap-2">
-              <input id="chat-input" class="flex-1 bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-slate-100 outline-none" placeholder="Cân bằng phương trình...." />
+              <input id="chat-input" class="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-slate-100 outline-none" placeholder="Cân bằng phương trình...." />
               <button id="chat-send-btn" class="px-4 py-3 rounded-2xl bg-blue-500 hover:bg-blue-400 text-white font-semibold">Gửi</button>
             </div>
           </div>

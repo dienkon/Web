@@ -166,26 +166,6 @@
       "desc": "Quan trọng trong nghiên cứu vật lý hạt nhân và phóng xạ."
     }
   ],
-  "simulation": {
-    "title": "Oxy hóa Polonium",
-    "reagents": [
-      {
-        "id": "Po",
-        "name": "Polonium",
-        "icon": "fa-radiation"
-      },
-      {
-        "id": "O",
-        "name": "Oxygen",
-        "icon": "fa-wind"
-      }
-    ],
-    "expected": [
-      "Po",
-      "O"
-    ],
-    "resultText": "☢️ Polonium phản ứng với oxygen tạo polonium dioxide.\n\nPo + O₂ → PoO₂"
-  },
   "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 84 trong bảng tuần hoàn.</li>\n  <li>Được Marie Curie và Pierre Curie phát hiện năm 1898.</li>\n  <li>Được đặt tên theo Ba Lan (Poland).</li>\n  <li>Là một trong những nguyên tố phóng xạ độc hại nhất được biết đến.</li>\n  <li>²¹⁰Po là đồng vị nổi tiếng và được nghiên cứu nhiều nhất.</li>\n  <li>Trong tự nhiên chỉ tồn tại với lượng cực kỳ nhỏ.</li>\n</ul>\n",
   "nameVi": "Polonium",
   "nameEn": "Polonium",

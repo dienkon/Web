@@ -1,139 +1,136 @@
-# Mô hình dữ liệu
+# Mô Hình Dữ Liệu (Data Model)
 
-## 1. Tổng quan
+Hệ thống dữ liệu của ChemDex được chia làm hai mảng chính: Dữ liệu Tĩnh (Offline JSON) cho Bảng tuần hoàn, và Dữ liệu Động (Firebase Firestore) cho Đấu trường và Cộng đồng.
 
-Dữ liệu ChemDex được chia thành hai tầng:
+---
 
-- **Tầng danh mục**: `manifest.json`
-- **Tầng nội dung**: `data/elements/*.json`
+## 1. Dữ Liệu Tĩnh: Cấu trúc JSON Nguyên Tố (Core)
 
-Ngoài ra còn có:
-- `categories.json` cho màu và tên nhóm,
-- các tài nguyên media trong `assets/`.
+Mọi dữ liệu của 118 nguyên tố hóa học được lưu trữ tại `data/manifest.json` và `data/elements/`. 
+Cấu trúc này giúp load bảng tuần hoàn cực nhanh trong 1 Request.
 
-## 2. Manifest
-
-`manifest.json` chứa 118 bản ghi, mỗi bản ghi đại diện cho một nguyên tố.
-
-Một entry thường có dạng:
-
+### Schema `manifest.json`
+Định nghĩa mảng 118 nguyên tố.
 ```json
 {
-  "number": 1,
   "symbol": "H",
-  "nameVi": "Hydrogen",
-  "nameEn": "Hydrogen",
-  "category": "phi-kim",
-  "hasData": true,
-  "file": "elements/001_H.json"
+  "name": "Hydrogen",
+  "atomicNumber": 1,
+  "category": "nonmetal",
+  "group": 1,
+  "period": 1,
+  "atomicMass": 1.008
 }
 ```
 
-### Ý nghĩa trường
-- `number`: số hiệu nguyên tử.
-- `symbol`: ký hiệu nguyên tố.
-- `nameVi`: tên hiển thị.
-- `nameEn`: tên tiếng Anh.
-- `category`: mã nhóm hiển thị màu.
-- `hasData`: có file dữ liệu chi tiết hay không.
-- `file`: đường dẫn file JSON chi tiết, nếu có.
+### Schema `elements/{symbol}.json`
+Chi tiết sâu về một nguyên tố (VD: `elements/H.json`).
+```json
+{
+  "symbol": "H",
+  "appearance": "khí không màu",
+  "boil": 20.271,
+  "melt": 13.99,
+  "density": 0.08988,
+  "electronegativity": 2.2,
+  "electronConfiguration": "1s1",
+  "oxidationStates": [1, -1],
+  "history": {
+    "discoverer": "Henry Cavendish",
+    "year": 1766
+  },
+  "crystalStructure": "hexagonal",
+  "images": [
+    {
+      "url": "https://example.com/h.jpg",
+      "caption": "Mô phỏng nguyên tử Hydro"
+    }
+  ]
+}
+```
 
-## 3. File dữ liệu nguyên tố
+---
 
-Một file JSON chi tiết thường chứa các cụm dữ liệu sau:
+## 2. Dữ Liệu Động: Cấu trúc Firebase Firestore
 
-- `general`
-- `history`
-- `structure`
-- `occurrence`
-- `naturalState`
-- `physical`
-- `chemical`
-- `preparation`
-- `reactions`
-- `applications`
-- `simulation`
-- `notes`
-- `mediaBlocks` (nếu có)
+Toàn bộ hoạt động thi đấu của `dau-truong/` và đăng bài của `trung-tam/` được đồng bộ thời gian thực qua Firestore.
 
-### Ví dụ các trường quan trọng trong `general`
-- `latinName`
-- `englishName`
-- `electronConfig`
-- `isotope`
-- `group`
-- `period`
-- `block`
-- `state`
-- `oxidation`
-- `electronegativity`
-- `density`
-- `meltingPoint`
-- `boilingPoint`
-- `crystalStructure`
+### 2.1. Bảng `users` (Hồ sơ người chơi)
+Lưu trữ thông tin tài khoản và thành tích.
+```ts
+{
+  uid: "abc123xyz",
+  displayName: "ChemMaster",
+  email: "chem@example.com",
+  photoURL: "https://...",
+  stats: {
+    matchesPlayed: 10,
+    matchesWon: 6,
+    totalScore: 450,
+    winStreak: 2,
+    highestStreak: 5,
+    elo: 1200
+  },
+  createdAt: Timestamp
+}
+```
 
-### `structure`
-Dùng cho thông tin cấu trúc:
-- số proton,
-- neutron,
-- electron,
-- electron shells,
-- valence electrons,
-- lattice key.
+### 2.2. Bảng `rooms` (Phòng thi đấu Arena)
+Được cập nhật liên tục (onSnapshot) khi người chơi vào phòng và trả lời.
+```ts
+{
+  id: "ROOM_123",
+  hostId: "abc123xyz",
+  status: "lobby" | "playing" | "matchEnd",
+  createdAt: Timestamp,
+  players: {
+    "abc123xyz": {
+      displayName: "ChemMaster",
+      photoURL: "https://...",
+      score: 150,
+      isReady: true,
+      lastAnswerTime: Timestamp
+    }
+  },
+  settings: {
+    maxPlayers: 4,
+    questionsCount: 10,
+    timePerQuestion: 20,
+    category: "all"
+  },
+  currentQuestionIndex: 2
+}
+```
 
-### `history`
-Dùng cho dữ liệu lịch sử:
-- người phát hiện,
-- năm phát hiện,
-- nơi phát hiện,
-- mô tả lịch sử,
-- link tham khảo nếu có.
+### 2.3. Bảng `posts` (Diễn đàn cộng đồng)
+Chứa nội dung các bài viết trên mạng xã hội ChemDex.
+```ts
+{
+  id: "POST_999",
+  authorId: "abc123xyz",
+  authorName: "ChemMaster",
+  title: "Cách cân bằng phản ứng Oxi hóa khử?",
+  content: "Mình gặp khó khăn ở phương trình $KMnO_4 + HCl$... (Markdown format)",
+  category: "hoi-dap",
+  tags: ["oxi-hoa-khu", "bai-tap"],
+  likes: 15,
+  commentsCount: 3,
+  createdAt: Timestamp
+}
+```
 
-## 4. Categories
+### 2.4. Bảng `comments` (Bình luận bài viết)
+```ts
+{
+  id: "COMMENT_1",
+  postId: "POST_999",
+  authorId: "def456xyz",
+  content: "Bạn dùng phương pháp thăng bằng electron nhé...",
+  createdAt: Timestamp
+}
+```
 
-`categories.json` là bảng ánh xạ:
+---
 
-- mã nhóm,
-- tên nhóm hiển thị,
-- màu giao diện.
-
-Ví dụ:
-- `phi-kim`
-- `khi-hiem`
-- `kiem`
-- `kiem-tho`
-- `a-kim`
-- `halogen`
-- `chuyen-tiep`
-- `lanthanide`
-- `actinide`
-- `unknown`
-
-## 5. Dữ liệu hiện có
-
-Theo snapshot hiện tại:
-- manifest có **118 nguyên tố**,
-- **36** nguyên tố có payload JSON thực,
-- **82** nguyên tố còn ở trạng thái placeholder / chưa mở rộng.
-
-## 6. Nguyên tắc mở rộng dữ liệu
-
-Khi thêm một nguyên tố mới:
-1. thêm entry vào `manifest.json`,
-2. tạo JSON chi tiết nếu muốn hiển thị sâu,
-3. thêm media vào `assets/` nếu cần,
-4. đảm bảo `category` khớp với `categories.json`,
-5. kiểm tra render ở:
-   - bảng tuần hoàn,
-   - trang chi tiết,
-   - chatbot,
-   - media viewer.
-
-## 7. Khuyến nghị chuẩn hóa dữ liệu
-
-Để đồng bộ lâu dài, nên:
-- thống nhất naming tiếng Việt / tiếng Anh,
-- tách rõ mô tả học thuật và mô tả ngắn,
-- giữ mediaBlocks cùng schema,
-- lưu URL tham chiếu thành field riêng,
-- tránh nhồi quá nhiều HTML tự do vào cùng một field.
+## 3. Kiến trúc CSDL AI Vector (Đang thử nghiệm)
+Tương lai hệ thống sẽ nhúng các bài đăng và tài liệu PDF thành dạng Vector Embeddings (thông qua ChromaDB hoặc Firestore Vector Search) để tối ưu hóa truy vấn Semantic Search cho AI Gemini.

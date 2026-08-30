@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Play, Plus, Users, Target, Trophy, History, User, Settings, HelpCircle, LogOut, X, ChevronLeft, ChevronRight, Atom, Shield, Swords, MessageSquare } from 'lucide-react';
+import { Home, Play, Plus, Users, Target, Trophy, History, User, Settings, HelpCircle, LogOut, X, ChevronLeft, ChevronRight, Atom, Shield, Swords, MessageSquare, Grid, BookOpen, Wrench, FlaskConical } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { logout } from '../../services/firebase';
 
@@ -104,6 +104,24 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
               </Link>
             );
           })}
+          
+          <div className="my-2 border-t border-slate-200/50 dark:border-slate-700/50"></div>
+          
+          <a
+            href="/"
+            title={isCollapsed ? 'Quay lại Bảng Tuần Hoàn' : undefined}
+            className={`flex items-center rounded-lg transition-colors cursor-pointer group
+              ${isCollapsed ? 'justify-center p-3' : 'px-4 py-3 gap-3'}
+              text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white
+            `}
+          >
+            <div className="relative shrink-0 flex items-center justify-center">
+              <LogOut size={20} className="rotate-180" />
+            </div>
+            {!isCollapsed && (
+              <span className="font-medium whitespace-nowrap flex-1">Quay lại Bảng Tuần Hoàn</span>
+            )}
+          </a>
         </div>
 
         <div className="p-4 mt-auto border-t border-slate-200/50 dark:border-slate-700/50 space-y-1 shrink-0 overflow-hidden">

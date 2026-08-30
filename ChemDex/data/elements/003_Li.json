@@ -5,9 +5,7 @@
   "nameEn": "Lithium",
   "mass": 6.94,
   "category": "kiem",
-
   "hasData": true,
-
   "general": {
     "latinName": "Lithium",
     "englishName": "Lithium",
@@ -24,7 +22,6 @@
     "ionicRadius": "76 pm (Li⁺)",
     "hardness": "0.6 (Mohs scale)"
   },
-
   "structure": {
     "electrons": 3,
     "protons": 3,
@@ -32,7 +29,6 @@
     "latticeType": "body-centered-cubic",
     "latticeParameter": "a = 3.507 Å"
   },
-
   "naturalState": {
     "description": "Liti là một kim loại mềm, bạc trắng, được tìm thấy chủ yếu trong các khoáng sản như spodumene (LiAlSi₂O₆), lepidolite (K(Li,Al)₃(Al,Si,Rb)₄O₁₀(F,OH)₂) và trong nước biển dưới dạng ion Li⁺. Chứ không tồn tại ở dạng tự do trong tự nhiên do tính chất hoạt động cao.",
     "simple": [
@@ -50,7 +46,6 @@
     ],
     "image": "https://images.unsplash.com/photo-1579274455652-2da3d28b0f4d?w=600"
   },
-
   "history": {
     "discoverers": [
       {
@@ -62,18 +57,18 @@
     "discoveryLocation": "Thụy Điển",
     "description": "Johan August Arfwedson, một hóa học gia Thụy Điển, phát hiện liti vào năm 1817 khi phân tích khoáng lepidolite. Ông phát hiện một chất lạ không phải là natrium hay kali, và đặt tên là 'lithium' từ tiếng Hy Lạp 'lithos' (đá) vì nó được tìm thấy trong các loại đá. William Thomas Brande đã lần đầu tiên phát tích Li bằng điện phân vào năm 1821."
   },
-
   "physical": "<p><strong>Tính chất vật lí của Liti (Li):</strong></p><ul><li><strong>Trạng thái:</strong> Kim loại rắn ở nhiệt độ phòng</li><li><strong>Màu sắc:</strong> Bạc trắng, sáng bóng</li><li><strong>Mật độ:</strong> 0.534 g/cm³ - Kim loại nhẹ nhất trong tất cả các kim loại rắn, nhẹ hơn cả nước!</li><li><strong>Điểm nóng chảy:</strong> 180.5°C</li><li><strong>Điểm sôi:</strong> 1342°C</li><li><strong>Độ cứng:</strong> Rất mềm, có thể cắt bằng dao</li><li><strong>Độ dẫn điện:</strong> Dẫn điện tốt</li><li><strong>Độ dẫn nhiệt:</strong> Dẫn nhiệt tốt</li><li><strong>Cấu trúc tinh thể:</strong> Khối lập phương tâm bên (BCC)</li></ul><p><strong>Các đặc tính nổi bật:</strong></p><ul><li>Kim loại nhẹ nhất trong tất cả các kim loại (nhẹ hơn nước)</li><li>Có tính chất siêu dẫn ở các nhiệt độ thấp</li><li>Giãn nở khi đông lạnh (bất thường)</li></ul>",
-
   "chemical": "<p><strong>Tính chất hóa học của Liti (Li):</strong></p><ul><li><strong>Độ hoạt động:</strong> Rất hoạt động, xếp thứ hai trong nhóm kim loại kiềm (sau Natrium)</li><li><strong>Tương tác với Oxigen (O₂):</strong> 4Li + O₂ → 2Li₂O (Cháy với ngọn lửa đỏ tím)</li><li><strong>Tương tác với Nước (H₂O):</strong> 2Li + 2H₂O → 2LiOH + H₂↑ (Phản ứng rất mạnh)</li><li><strong>Tương tác với Clo (Cl₂):</strong> 2Li + Cl₂ → 2LiCl</li><li><strong>Tương tác với Bromine (Br₂):</strong> 2Li + Br₂ → 2LiBr</li><li><strong>Tương tác với Axit (HCl, H₂SO₄):</strong> 2Li + 2HCl → 2LiCl + H₂↑</li><li><strong>Trạng thái oxy hóa:</strong> +1 (thường duy nhất)</li><li><strong>Độ âm điện:</strong> 0.98 (Pauling scale) - Rất âm điện thấp</li></ul><p><strong>Đặc điểm nổi bật:</strong></p><ul><li>Là kim loại hoạt động nhất trong tất cả các kim loại có ứng dụng thương mại</li><li>Hợp chất liti là những bazơ mạnh</li><li>Hình thành các liên kết kộng hóa đặc biệt</li><li>Tác dụng chọn lọc cao với hữu cơ</li></ul>",
-
   "preparation": {
     "lab": [
       {
         "title": "Từ LiCl bằng điện phân",
         "equation": "2LiCl(l) →(electrolysis) 2Li + Cl₂↑",
         "condition": "850°C, cathode: Fe, anode: C",
-        "reagent": ["LiCl (muối liti nóng chảy)", "Cellule điện phân"],
+        "reagent": [
+          "LiCl (muối liti nóng chảy)",
+          "Cellule điện phân"
+        ],
         "desc": "Điện phân LiCl nóng chảy tạo ra liti kim loại tại cathode và khí clo tại anode.",
         "result": "Liti kim loại nóng chảy và khí clo được phát sinh"
       },
@@ -95,7 +90,12 @@
         "title": "Khai thác từ nước biển",
         "equation": "Quy trình: Li⁺(aq) → Li₂CO₃(s) → Li₂CO₃ + HCl → LiCl → điện phân → Li",
         "condition": "Công nghiệp, quy mô lớn",
-        "reagent": ["Nước biển chứa Li⁺", "Na₂CO₃", "HCl", "Cellule điện phân"],
+        "reagent": [
+          "Nước biển chứa Li⁺",
+          "Na₂CO₃",
+          "HCl",
+          "Cellule điện phân"
+        ],
         "desc": "Quá trình công nghiệp chính để sản xuất liti. Đầu tiên, ion Li⁺ được tập trung từ nước biển bằng cách thêm Na₂CO₃ để tạo Li₂CO₃ kém tan. Sau đó Li₂CO₃ được chuyển hóa thành LiCl và điện phân để thu liti kim loại.",
         "result": "Liti kim loại sạch, năng suất cao"
       },
@@ -103,13 +103,17 @@
         "title": "Khai thác từ khoáng spodumene",
         "equation": "Quy trình: LiAlSi₂O₆ → Li₂CO₃ → LiCl → Li",
         "condition": "Quy mô công nghiệp",
-        "reagent": ["Khoáng spodumene", "H₂SO₄", "Na₂CO₃", "HCl"],
+        "reagent": [
+          "Khoáng spodumene",
+          "H₂SO₄",
+          "Na₂CO₃",
+          "HCl"
+        ],
         "desc": "Khai thác liti từ khoáng spodumene bằng cách nung nóng rồi tác dụng với axit, sau đó trung hòa tạo cacbonate, rồi chuyển hóa thành cloride và điện phân.",
         "result": "Sản phẩm liti từ các khoáng"
       }
     ]
   },
-
   "recognition": {
     "tests": [
       {
@@ -121,21 +125,30 @@
       },
       {
         "title": "Kiểm tra với NaOH",
-        "reagent": ["Dung dịch chứa Li⁺", "NaOH dung dịch"],
+        "reagent": [
+          "Dung dịch chứa Li⁺",
+          "NaOH dung dịch"
+        ],
         "equation": "Li⁺ + OH⁻ → không có kết tủa (dung dịch vẫn trong)",
         "condition": "Thêm NaOH vào dung dịch chứa Li⁺",
         "result": "Không có kết tủa hình thành - điểm khác biệt với Na⁺ và K⁺"
       },
       {
         "title": "Kiểm tra với Na₂CO₃",
-        "reagent": ["Dung dịch chứa Li⁺", "Na₂CO₃ dung dịch"],
+        "reagent": [
+          "Dung dịch chứa Li⁺",
+          "Na₂CO₃ dung dịch"
+        ],
         "equation": "2Li⁺ + CO₃²⁻ → Li₂CO₃↓ (trắng)",
         "condition": "Thêm Na₂CO₃ vào dung dịch chứa Li⁺",
         "result": "Kết tủa trắng Li₂CO₃, tan trong axit dư thừa"
       },
       {
         "title": "Kiểm tra với Na₂HPO₄",
-        "reagent": ["Dung dịch chứa Li⁺", "Na₂HPO₄"],
+        "reagent": [
+          "Dung dịch chứa Li⁺",
+          "Na₂HPO₄"
+        ],
         "equation": "3Li⁺ + HPO₄²⁻ + 2OH⁻ → Li₃PO₄↓",
         "condition": "Thêm Na₂HPO₄ vào dung dịch kiềm chứa Li⁺",
         "result": "Kết tủa trắng Li₃PO₄"
@@ -151,21 +164,26 @@
       },
       {
         "title": "Li⁺ vs Na⁺ với NaOH",
-        "reagent": ["Li⁺ hoặc Na⁺", "NaOH dung dịch"],
+        "reagent": [
+          "Li⁺ hoặc Na⁺",
+          "NaOH dung dịch"
+        ],
         "equation": "Na⁺ + OH⁻ → dung dịch rõ ràng (không có sự thay đổi); Li⁺ cũng không tạo kết tủa",
         "condition": "Thêm NaOH từ từ",
         "result": "Cả Li⁺ và Na⁺ không tạo kết tủa với NaOH - khó phân biệt bằng NaOH"
       },
       {
         "title": "Li⁺ vs Na⁺ với Na₂CO₃",
-        "reagent": ["Li⁺ hoặc Na⁺", "Na₂CO₃"],
+        "reagent": [
+          "Li⁺ hoặc Na⁺",
+          "Na₂CO₃"
+        ],
         "equation": "Li⁺ + CO₃²⁻ → Li₂CO₃↓ (kết tủa trắng); Na⁺ không tạo kết tủa",
         "condition": "Thêm Na₂CO₃ dung dịch",
         "result": "Li⁺ tạo kết tủa trắng, Na⁺ không - cách hay để phân biệt Li⁺"
       }
     ]
   },
-
   "reactions": [
     {
       "title": "Liti với Oxigen",
@@ -232,7 +250,6 @@
       "note": "Phản ứng điển hình axit-bazơ"
     }
   ],
-
   "applications": [
     {
       "title": "Pin Lithium (Lithium Batteries)",
@@ -277,7 +294,6 @@
       "emoji": "❄️"
     }
   ],
-
   "images": [
     {
       "title": "Liti kim loại tự nhiên",
@@ -300,30 +316,5 @@
       "desc": "Công nghệ pin lithium hiện đại"
     }
   ],
-
-  "notes": "<p><strong>Tóm tắt về Lithium (Li):</strong></p><p>Lithium là nguyên tố hóa học số hiệu 3, thuộc nhóm I (Kim loại Kiềm) của bảng tuần hoàn. Đây là một kim loại kiềm cực kỳ hoạt động, nhẹ nhất trong tất cả các kim loại và có nhiều ứng dụng quan trọng trong hiện đại.</p><p><strong>Đặc điểm quan trọng:</strong></p><ul><li>Kim loại nhẹ nhất (mật độ: 0.534 g/cm³ - nhẹ hơn nước)</li><li>Hoạt động hóa học cao, dễ bị oxy hóa trong không khí ẩm</li><li>Phản ứng mạnh mẽ với nước, tạo LiOH + H₂ gas</li><li>Ngọn lửa đặc trưng: màu đỏ tím (crimson)</li><li>Ứng dụng chính: pin lithium-ion, dược phẩm, hợp kim nhẹ</li></ul><p><strong>Ứng dụng thực tế:</strong></p><ul><li><strong>Công nghệ:</strong> Pin điện thoại, laptop, ô tô điện</li><li><strong>Y tế:</strong> Điều trị bệnh tâm thần (lithium therapy)</li><li><strong>Hàng không vũ trụ:</strong> Hợp kim nhẹ cho máy bay, tàu vũ trụ</li><li><strong>Công nghiệp:</strong> Kính, gốm, dầu mỡ, làm lạnh</li></ul><p><strong>Lịch sử:</strong> Liti được phát hiện vào năm 1817 bởi Johan August Arfwedson, nhà hóa học Thụy Điển, từ khoáng lepidolite. Tên 'lithium' xuất phát từ tiếng Hy Lạp 'lithos' (đá).</p><p><strong>An toàn:</strong> Liti hoạt động mạnh với nước và oxy, nên phải bảo quản trong dầu khoáng hoặc khí trơn. Tiếp xúc trực tiếp với da có thể gây bỏng hóa học.</p>",
-
-  "simulation": {
-    "title": "Mô phỏng: Phản ứng Liti với Nước",
-    "description": "Quan sát phản ứng giữa liti kim loại và nước - một phản ứng hóa học rất mạnh!",
-    "reagents": [
-      {
-        "id": "li",
-        "name": "Liti",
-        "icon": "fa-droplet"
-      },
-      {
-        "id": "water",
-        "name": "Nước",
-        "icon": "fa-water"
-      },
-      {
-        "id": "water",
-        "name": "Nước",
-        "icon": "fa-water"
-      }
-    ],
-    "expected": ["li", "water"],
-    "resultText": "✨ Phản ứng! 2Li + 2H₂O → 2LiOH + H₂↑ | Dung dịch hydroxit liti (kiềm mạnh) + khí hydrogen được phát sinh. Phản ứng exothermic rất mạnh, khí H₂ có thể tự bắt lửa!"
-  }
+  "notes": "<p><strong>Tóm tắt về Lithium (Li):</strong></p><p>Lithium là nguyên tố hóa học số hiệu 3, thuộc nhóm I (Kim loại Kiềm) của bảng tuần hoàn. Đây là một kim loại kiềm cực kỳ hoạt động, nhẹ nhất trong tất cả các kim loại và có nhiều ứng dụng quan trọng trong hiện đại.</p><p><strong>Đặc điểm quan trọng:</strong></p><ul><li>Kim loại nhẹ nhất (mật độ: 0.534 g/cm³ - nhẹ hơn nước)</li><li>Hoạt động hóa học cao, dễ bị oxy hóa trong không khí ẩm</li><li>Phản ứng mạnh mẽ với nước, tạo LiOH + H₂ gas</li><li>Ngọn lửa đặc trưng: màu đỏ tím (crimson)</li><li>Ứng dụng chính: pin lithium-ion, dược phẩm, hợp kim nhẹ</li></ul><p><strong>Ứng dụng thực tế:</strong></p><ul><li><strong>Công nghệ:</strong> Pin điện thoại, laptop, ô tô điện</li><li><strong>Y tế:</strong> Điều trị bệnh tâm thần (lithium therapy)</li><li><strong>Hàng không vũ trụ:</strong> Hợp kim nhẹ cho máy bay, tàu vũ trụ</li><li><strong>Công nghiệp:</strong> Kính, gốm, dầu mỡ, làm lạnh</li></ul><p><strong>Lịch sử:</strong> Liti được phát hiện vào năm 1817 bởi Johan August Arfwedson, nhà hóa học Thụy Điển, từ khoáng lepidolite. Tên 'lithium' xuất phát từ tiếng Hy Lạp 'lithos' (đá).</p><p><strong>An toàn:</strong> Liti hoạt động mạnh với nước và oxy, nên phải bảo quản trong dầu khoáng hoặc khí trơn. Tiếp xúc trực tiếp với da có thể gây bỏng hóa học.</p>"
 }

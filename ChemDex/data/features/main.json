@@ -86,238 +86,155 @@
         "phương trình hóa học"
       ]
     },
-    
-
     {
-      "id": "chemical-search",
-      "title": "Tra cứu chất hóa học",
-      "description": "Tra cứu tính chất, công thức và thông tin của chất.",
-      "href": "./chemical-search/",
-      "category": "Lý thuyết",
-      "icon": "fa-magnifying-glass",
-      "color": "emerald",
-      "keywords": ["tra cứu", "chất hóa học", "tính chất", "công thức"]
+      "id": "chuyen-doi-luong-chat",
+      "title": "Chuyển đổi lượng chất",
+      "description": "Tính Khối lượng, số Mol, số Hạt, và Thể tích khí ở đktc/đkc.",
+      "href": "./dai-cuong/chuyen-doi-luong-chat/",
+      "category": "Tính toán Đại cương",
+      "icon": "fa-right-left",
+      "color": "blue",
+      "keywords": ["khối lượng", "mol", "số hạt", "thể tích", "đktc", "chuyển đổi", "tính toán đại cương"]
     },
-
     {
-      "id": "ph-calculator",
-      "title": "Tính pH",
-      "description": "Tính nhanh pH và pOH của dung dịch.",
-      "href": "./ph-calculator/",
-      "category": "Tính toán cơ bản",
-      "icon": "fa-vial",
-      "color": "cyan",
-      "keywords": ["pH", "pOH", "axit", "bazơ", "dung dịch"]
-    },
-
-    {
-      "id": "stoichiometry-calculator",
-      "title": "Tính toán hóa học",
-      "description": "Tính toán hóa học nâng cao, bao gồm phản ứng, mol, khối lượng.",
-      "href": "./stoichiometry-calculator/",
-      "category": "Tính toán nâng cao",
+      "id": "tinh-toan-dung-dich",
+      "title": "Công cụ dung dịch",
+      "description": "Tính nồng độ phần trăm (C%), nồng độ mol (CM), khối lượng riêng, và pha loãng.",
+      "href": "./dai-cuong/tinh-toan-dung-dich/",
+      "category": "Tính toán Đại cương",
       "icon": "fa-flask-vial",
+      "color": "blue",
+      "keywords": ["nồng độ", "phần trăm", "mol", "khối lượng riêng", "pha loãng", "dung dịch"]
+    },
+    {
+      "id": "hieu-suat-phan-ung",
+      "title": "Hiệu suất & Chất giới hạn",
+      "description": "Tìm chất thiếu/dư, tính hiệu suất phản ứng 1 bước và nhiều bước.",
+      "href": "./dai-cuong/hieu-suat-phan-ung/",
+      "category": "Tính toán Đại cương",
+      "icon": "fa-chart-pie",
+      "color": "blue",
+      "keywords": ["hiệu suất", "chất giới hạn", "phản ứng", "nhiều bước", "h%"]
+    },
+    {
+      "id": "tinh-ph",
+      "title": "Máy tính pH toàn diện",
+      "description": "Tính nhanh pH, pOH cho axit/bazơ mạnh, yếu, và dung dịch đệm.",
+      "href": "./hoa-ly/tinh-ph/",
+      "category": "Hóa Lý & Phân tích",
+      "icon": "fa-droplet",
       "color": "amber",
-      "keywords": ["tính toán hóa học", "phản ứng", "mol", "khối lượng"]
-    },
-
-    {
-      "category": "Lý thuyết",
-      "name": "Tra cứu nguyên tố",
-      "folder": "tra-cuu-nguyen-to",
-      "href": "ly-thuyet/tra-cuu-nguyen-to/index.html"
+      "keywords": ["ph", "poh", "axit", "bazơ", "dung dịch đệm", "chuẩn độ"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Độ tan nhanh",
-      "folder": "quy-tac-do-tan",
-      "href": "ly-thuyet/quy-tac-do-tan/index.html"
+      "id": "can-bang-hoa-hoc",
+      "title": "Hằng số cân bằng (Kc, Kp)",
+      "description": "Tính toán hằng số cân bằng dựa trên nồng độ hoặc áp suất.",
+      "href": "./hoa-ly/can-bang-hoa-hoc/",
+      "category": "Hóa Lý & Phân tích",
+      "icon": "fa-scale-balanced",
+      "color": "amber",
+      "keywords": ["hằng số cân bằng", "kc", "kp", "cân bằng hóa học", "nồng độ", "áp suất"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Axit hay bazơ",
-      "folder": "phan-loai-axit-bazo",
-      "href": "ly-thuyet/phan-loai-axit-bazo/index.html"
+      "id": "nhiet-dong-luc-hoc",
+      "title": "Nhiệt động lực học",
+      "description": "Tính Enthalpy (ΔH), Entropy (ΔS) và năng lượng tự do Gibbs (ΔG).",
+      "href": "./hoa-ly/nhiet-dong-luc-hoc/",
+      "category": "Hóa Lý & Phân tích",
+      "icon": "fa-fire-flame-curved",
+      "color": "amber",
+      "keywords": ["nhiệt động lực học", "enthalpy", "entropy", "gibbs", "động lực", "năng lượng tự do"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Dãy hoạt động kim loại",
-      "folder": "day-hoat-dong-kim-loai",
-      "href": "ly-thuyet/day-hoat-dong-kim-loai/index.html"
+      "id": "dong-hoa-hoc",
+      "title": "Động hóa học",
+      "description": "Tính phương trình Arrhenius, năng lượng hoạt hóa, hằng số tốc độ.",
+      "href": "./hoa-ly/dong-hoa-hoc/",
+      "category": "Hóa Lý & Phân tích",
+      "icon": "fa-stopwatch",
+      "color": "amber",
+      "keywords": ["động hóa học", "arrhenius", "tốc độ", "năng lượng hoạt hóa", "k"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Dãy điện hóa",
-      "folder": "day-dien-hoa",
-      "href": "ly-thuyet/day-dien-hoa/index.html"
+      "id": "dien-hoa-hoc",
+      "title": "Phương trình Nernst",
+      "description": "Tính sức điện động (E) của pin điện hóa theo phương trình Nernst.",
+      "href": "./hoa-ly/dien-hoa-hoc/",
+      "category": "Hóa Lý & Phân tích",
+      "icon": "fa-car-battery",
+      "color": "amber",
+      "keywords": ["điện hóa học", "nernst", "pin", "sức điện động", "điện thế"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Màu ngọn lửa",
-      "folder": "mau-ngon-lua",
-      "href": "ly-thuyet/mau-ngon-lua/index.html"
+      "id": "quang-pho",
+      "title": "Đo quang (Beer-Lambert)",
+      "description": "Định luật định lượng Beer-Lambert, tính độ hấp thụ (A), độ truyền qua (T).",
+      "href": "./hoa-ly/quang-pho/",
+      "category": "Hóa Lý & Phân tích",
+      "icon": "fa-sun",
+      "color": "amber",
+      "keywords": ["đo quang", "beer-lambert", "độ hấp thụ", "truyền qua", "quang phổ"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Nhận biết kết tủa",
-      "folder": "nhan-biet-ket-tua",
-      "href": "ly-thuyet/nhan-biet-ket-tua/index.html"
+      "id": "tinh-tan",
+      "title": "Bảng tính tan & Quy tắc",
+      "description": "Tra cứu nhanh độ tan của các muối và hidroxit trong nước.",
+      "href": "./tra-cuu/tinh-tan/",
+      "category": "Tra cứu Lý thuyết",
+      "icon": "fa-table-list",
+      "color": "emerald",
+      "keywords": ["bảng tính tan", "độ tan", "quy tắc", "tra cứu", "muối", "hidroxit"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Nhóm chức hữu cơ",
-      "folder": "nhom-chuc-huu-co",
-      "href": "ly-thuyet/nhom-chuc-huu-co/index.html"
+      "id": "day-dien-hoa",
+      "title": "Dãy điện hóa & HĐHH",
+      "description": "Tra cứu dãy điện hóa chuẩn của kim loại và dãy hoạt động hóa học.",
+      "href": "./tra-cuu/day-dien-hoa/",
+      "category": "Tra cứu Lý thuyết",
+      "icon": "fa-bolt",
+      "color": "emerald",
+      "keywords": ["dãy điện hóa", "dãy hoạt động kim loại", "hoạt động hóa học", "thế điện cực"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Điều kiện phản ứng",
-      "folder": "bang-dieu-kien-phan-ung",
-      "href": "ly-thuyet/bang-dieu-kien-phan-ung/index.html"
+      "id": "mau-sac-nhan-biet",
+      "title": "Màu sắc nhận biết",
+      "description": "Tra cứu màu sắc ngọn lửa của kim loại kiềm/kiềm thổ và các loại kết tủa.",
+      "href": "./tra-cuu/mau-sac-nhan-biet/",
+      "category": "Tra cứu Lý thuyết",
+      "icon": "fa-eye",
+      "color": "emerald",
+      "keywords": ["màu sắc", "nhận biết", "ngọn lửa", "kết tủa", "màu"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Chỉ thị axit-bazơ",
-      "folder": "chi-thi-axit-bazo",
-      "href": "ly-thuyet/chi-thi-axit-bazo/index.html"
+      "id": "danh-phap-huu-co",
+      "title": "Danh pháp Hữu cơ",
+      "description": "Hướng dẫn đọc tên mạch Carbon và phân loại nhóm chức hóa học.",
+      "href": "./tra-cuu/danh-phap-huu-co/",
+      "category": "Tra cứu Lý thuyết",
+      "icon": "fa-file-signature",
+      "color": "emerald",
+      "keywords": ["danh pháp", "hữu cơ", "iupac", "tên gọi", "nhóm chức"]
     },
     {
-      "category": "Lý thuyết",
-      "name": "Gợi ý danh pháp",
-      "folder": "danh-phap-co-ban",
-      "href": "ly-thuyet/danh-phap-co-ban/index.html"
+      "id": "dieu-kien-phan-ung",
+      "title": "Bảng điều kiện",
+      "description": "Các điều kiện phản ứng thường gặp (Nhiệt độ, xúc tác, ánh sáng, điện phân).",
+      "href": "./tra-cuu/dieu-kien-phan-ung/",
+      "category": "Tra cứu Lý thuyết",
+      "icon": "fa-fire",
+      "color": "emerald",
+      "keywords": ["điều kiện", "phản ứng", "xúc tác", "nhiệt độ", "ánh sáng", "điện phân"]
     },
     {
-      "category": "Tính toán cơ bản",
-      "name": "Khối lượng mol",
-      "folder": "khoi-luong-mol",
-      "href": "tinh-toan-co-ban/khoi-luong-mol/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Khối lượng → mol",
-      "folder": "khoi-luong-sang-so-mol",
-      "href": "tinh-toan-co-ban/khoi-luong-sang-so-mol/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Mol → khối lượng",
-      "folder": "so-mol-sang-khoi-luong",
-      "href": "tinh-toan-co-ban/so-mol-sang-khoi-luong/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Mol ↔ số hạt",
-      "folder": "mol-sang-so-hat",
-      "href": "tinh-toan-co-ban/mol-sang-so-hat/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Nồng độ mol",
-      "folder": "nong-do-mol",
-      "href": "tinh-toan-co-ban/nong-do-mol/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Nồng độ phần trăm",
-      "folder": "nong-do-phan-tram",
-      "href": "tinh-toan-co-ban/nong-do-phan-tram/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Thể tích khí đktc",
-      "folder": "the-tich-khi-dktc",
-      "href": "tinh-toan-co-ban/the-tich-khi-dktc/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Khối lượng riêng",
-      "folder": "khoi-luong-rieng",
-      "href": "tinh-toan-co-ban/khoi-luong-rieng/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "Pha loãng dung dịch",
-      "folder": "pha-loang-dung-dich",
-      "href": "tinh-toan-co-ban/pha-loang-dung-dich/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "pH axit mạnh",
-      "folder": "ph-axit-manh",
-      "href": "tinh-toan-co-ban/ph-axit-manh/index.html"
-    },
-    {
-      "category": "Tính toán cơ bản",
-      "name": "pOH bazơ mạnh",
-      "folder": "poh-bazo-manh",
-      "href": "tinh-toan-co-ban/poh-bazo-manh/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Hiệu suất phản ứng",
-      "folder": "hieu-suat-phan-ung",
-      "href": "tinh-toan-nang-cao/hieu-suat-phan-ung/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Hiệu suất nhiều bước",
-      "folder": "hieu-suat-nhieu-buoc",
-      "href": "tinh-toan-nang-cao/hieu-suat-nhieu-buoc/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Chất giới hạn",
-      "folder": "chat-gioi-han",
-      "href": "tinh-toan-nang-cao/chat-gioi-han/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Hằng số cân bằng Kc",
-      "folder": "hang-so-can-bang-kc",
-      "href": "tinh-toan-nang-cao/hang-so-can-bang-kc/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Phương trình Arrhenius",
-      "folder": "phuong-trinh-arrhenius",
-      "href": "tinh-toan-nang-cao/phuong-trinh-arrhenius/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Phương trình Nernst",
-      "folder": "phuong-trinh-nernst",
-      "href": "tinh-toan-nang-cao/phuong-trinh-nernst/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Năng lượng Gibbs",
-      "folder": "nang-luong-gibbs",
-      "href": "tinh-toan-nang-cao/nang-luong-gibbs/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Beer–Lambert",
-      "folder": "dinh-luat-beer-lambert",
-      "href": "tinh-toan-nang-cao/dinh-luat-beer-lambert/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "pH axit yếu",
-      "folder": "ph-axit-yeu",
-      "href": "tinh-toan-nang-cao/ph-axit-yeu/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Dung dịch đệm",
-      "folder": "dung-dich-dem",
-      "href": "tinh-toan-nang-cao/dung-dich-dem/index.html"
-    },
-    {
-      "category": "Tính toán nâng cao",
-      "name": "Chuẩn độ axit–bazơ",
-      "folder": "chuan-do-axit-bazo",
-      "href": "tinh-toan-nang-cao/chuan-do-axit-bazo/index.html"
+      "id": "doc-danh-phap",
+      "title": "Đọc danh pháp (AI)",
+      "description": "Đọc tên IUPAC và danh pháp thường của bất kỳ chất vô cơ, hữu cơ nào bằng AI.",
+      "href": "./tra-cuu/doc-danh-phap/",
+      "category": "Tra cứu Lý thuyết",
+      "icon": "fa-robot",
+      "color": "emerald",
+      "keywords": ["đọc danh pháp", "danh pháp", "tên gọi", "ai", "iupac", "thường", "hữu cơ", "vô cơ"]
     }
   ]
 }

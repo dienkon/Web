@@ -18,7 +18,8 @@
       8,
       8,
       1
-    ]
+    ],
+    "isotope": "39K, 40k, 41K."
   },
   "history": {
     "discoverer": "Humphry Davy",
@@ -31,26 +32,106 @@
     "neutrons": 20
   },
   "occurrence": {
-    "description": "Có trong silicat và muối khoáng.",
+    "description": "Trong tự nhiên, K hầu như không tồn tại ở dạng đơn chất do có tính khử mạnh.",
     "simple": [
       "K"
     ],
     "compounds": [
       "KCl",
-      "K2SO4"
+      "KNO3​",
+      "K2SO4",
+      "KCl⋅MgCl2​⋅6H2​O",
+      "…"
     ]
   },
-  "physical": "Kim loại rất mềm và hoạt động mạnh.",
-  "chemical": "Phản ứng mạnh với nước, cần bảo quản trong dầu.",
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Potassium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Là kim loại màu trắng bạc.</li>\n  <li>Khối lượng riêng: 0,86 g/cm³</li>\n  <li>Rất mềm.</li>\n  <li>Dẫn điện và dẫn nhiệt tốt.</li>\n  <li>Nhiệt độ nóng chảy thấp, khoảng 63,5°C.</li>\n  <li>Nhiệt độ sôi khoảng 759°C.</li>\n  <li>Dễ bị oxi hóa ngoài không khí.</li>\n  <li>Không tan trong các dung môi hữu cơ thông thường.</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Có tính khử mạnh</li>\n  <li>Tác dụng với phi kim.</li>\n  <li>Tác dụng với axit.</li>\n  <li>Tác dụng với nước.</li>\n  <li>Tác dụng với hidro.</li>\n</ul>\n",
   "reactions": [
     {
-      "type": "Với nước",
+      "type": "Phản ứng đặc trưng",
+      "eq": "2K + 2HCl → 2KCl + H2",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
       "eq": "2K + 2H2O → 2KOH + H2",
-      "desc": "Phản ứng rất mạnh."
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2K + H2 → 2KH",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2KCl → 2K + Cl2",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "4K + O2 2K2O",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng đặc trưng",
+      "eq": "2K + Cl2",
+      "desc": ""
     }
   ],
-  "structureType": "bcc",
+  "structureType": "Lập phương tâm khối.",
   "images": {},
   "hasData": true,
-  "file": "elements/019_K.json"
+  "file": "elements/019_K.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nóng chảy Potassium hydroxide (KOH)",
+        "equation": "4KOH → 4K + O2↑ + 2H2O",
+        "condition": "đpnc"
+      },
+      {
+        "title": "Điện phân nóng chảy Potassium chloride (KCl)",
+        "equation": "2KCl → 2K + Cl2↑",
+        "condition": "đpnc"
+      },
+      {
+        "title": "Khử KCl bằng Natri ở nhiệt độ cao",
+        "equation": "KCl + Na → NaCl + K",
+        "condition": "t°"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Sản xuất phân bón, Potassium giúp cây hấp thụ nước tốt hơn, tăng cường khả năng chống chịu hạn hán, giá rét và sâu bệnh. Ngoài ra, nó kích thích quá trình quang hợp, giúp cây ra hoa, kết quả to, ngọt và đẹp mã hơn."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Ion K+ giúp duy trì áp suất thẩm thấu, giúp truyền dẫn các xung thần kinh và điều hòa nhịp tim."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Các hợp chất khác nhau của Potassium còn có những ứng dụng rất đa dạng trong công nghiệp như sản xuất xà phòng lỏng và các chất tẩy rửa mạnh, chế tạo thuốc súng đen, pháo hoa, và thuốc nổ, sản xuất thủy tinh chất lượng cao, Chất sát trùng, khử trùng nguồn nước."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Hợp kim Na-K làm chất tản nhiệt trong các lò phản ứng hạt nhân thế hệ mới hoặc một số hệ thống công nghệ cao."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Potassium là kim loại kiềm điển hình, có hoạt động mạnh (ô số 19, nhóm IA, chu kỳ 4), có cấu hình electron lớp ngoài cùng là [Ar]4s1</li>\n  <li>trong tự nhiên Potassium yếu tồn tại ở dạng đồng vị bền 39K (93,3%). Potassium có tính khử cực kỳ mạnh và hung hãn, Potassium hầu như không tồn tại dạng đơn chất trong tự nhiên mà chỉ có trong các hợp chất (phổ biến nhất là khoáng vật Sylvite KCl, Carnallite KCl.MgCl2.nH2O và trong đất đá silicat).</li>\n  <li>Do đơn chất của Potassium không có sẵn trong tự nhiên, con người phải tự điều chế bằng cách cho Sodium lỏng khử KCl nóng chảy ở nhiệt độ cao (850oC) rồi chưng cất thu hơi Potassium, hoặc điện phân nóng chảy KOH hoặc KCl.</li>\n  <li>Potassium là nguyên liệu cốt lõi để sản xuất phân bón kali (phân chloride, phân sulfate) trong nông nghiệp, sản xuất thủy tinh chuyên dụng, bánh pháo. Ở góc độ sinh học, ion K+ là ion nội bào quan trọng nhất, giữ vai trò quyết định trong việc vận hành cơ tim, cân bằng nước và dẫn truyền thần kinh ở tế bào sống.</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Thử màu ngọn lửa",
+      "reagent": "Đốt cháy các hợp chất của Potassium.",
+      "result": "Hợp chất của Potassium cháy với ngọn lửa màu tím đặc trưng.",
+      "equation": ""
+    }
+  ]
 }

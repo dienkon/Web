@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Công cụ dung dịch - Công cụ Hóa Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
+        .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 text-slate-800 selection:bg-blue-100 selection:text-blue-900">
+    <a href="../../" class="fixed top-4 left-4 md:top-6 md:left-6 z-50 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-[0_2px_10px_rgb(0,0,0,0.06)] border border-slate-100 text-slate-400 hover:text-slate-800 hover:scale-105 active:scale-95 transition-all duration-200">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <main class="w-full max-w-md">
+        <div class="glass-effect rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white p-6 sm:p-8">
+            <div class="space-y-6">
+                <!-- Tabs -->
+                <div class="flex space-x-2 border-b border-slate-200">
+                    <button class="tab-btn active px-4 py-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600" data-target="c-percent">C%</button>
+                    <button class="tab-btn px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-700" data-target="c-molar">CM</button>
+                    <button class="tab-btn px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-700" data-target="dilution">Pha loãng</button>
+                </div>
+
+                <!-- C% Form -->
+                <form id="c-percent" class="tab-content space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">Khối lượng chất tan (m_ct) (g)</label>
+                        <input type="number" id="cp-mct" step="any" class="calc-cp w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">Khối lượng dung dịch (m_dd) (g)</label>
+                        <input type="number" id="cp-mdd" step="any" class="calc-cp w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">Nồng độ phần trăm (C%) (%)</label>
+                        <input type="number" id="cp-c" step="any" class="calc-cp w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 font-bold">
+                    </div>
+                    <p class="text-xs text-slate-400 text-center">Nhập 2 ô bất kỳ để tính ô còn lại.</p>
+                </form>
+
+                <!-- CM Form -->
+                <form id="c-molar" class="tab-content hidden space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">Số mol chất tan (n) (mol)</label>
+                        <input type="number" id="cm-n" step="any" class="calc-cm w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">Thể tích dung dịch (V) (L)</label>
+                        <input type="number" id="cm-v" step="any" class="calc-cm w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">Nồng độ Mol (CM) (M)</label>
+                        <input type="number" id="cm-c" step="any" class="calc-cm w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 font-bold">
+                    </div>
+                    <p class="text-xs text-slate-400 text-center">Nhập 2 ô bất kỳ để tính ô còn lại.</p>
+                </form>
+
+                <!-- Dilution Form -->
+                <form id="dilution" class="tab-content hidden space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">C1 (Ban đầu)</label>
+                            <input type="number" id="dl-c1" step="any" class="calc-dl w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">V1 (Ban đầu)</label>
+                            <input type="number" id="dl-v1" step="any" class="calc-dl w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">C2 (Lúc sau)</label>
+                            <input type="number" id="dl-c2" step="any" class="calc-dl w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase mb-2 ml-1">V2 (Lúc sau)</label>
+                            <input type="number" id="dl-v2" step="any" class="calc-dl w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 text-center">Nhập 3 ô bất kỳ để tính ô còn lại (C1V1 = C2V2).</p>
+                </form>
+            </div>
+
+            <script>
+                // Tabs logic
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tab-btn').forEach(b => {
+                            b.classList.remove('active', 'text-blue-600', 'border-b-2', 'border-blue-600');
+                            b.classList.add('text-slate-500');
+                        });
+                        btn.classList.add('active', 'text-blue-600', 'border-b-2', 'border-blue-600');
+                        btn.classList.remove('text-slate-500');
+                        
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                        document.getElementById(btn.dataset.target).classList.remove('hidden');
+                    });
+                });
+
+                // Helper to solve 3-variable equations (A = B / C)
+                function solve3(inputs, eq) {
+                    // eq: A = B / C (e.g., C% = m_ct / m_dd, or CM = n / V)
+                    // inputs format: { A: element, B: element, C: element }
+                    const vals = { A: parseFloat(inputs.A.value), B: parseFloat(inputs.B.value), C: parseFloat(inputs.C.value) };
+                    const isNaNCount = Object.values(vals).filter(v => isNaN(v)).length;
+
+                    if (isNaNCount === 1) {
+                        if (isNaN(vals.A)) inputs.A.value = (vals.B / vals.C).toPrecision(5);
+                        else if (isNaN(vals.B)) inputs.B.value = (vals.A * vals.C).toPrecision(5);
+                        else if (isNaN(vals.C)) inputs.C.value = (vals.B / vals.A).toPrecision(5);
+                    }
+                }
+
+                // C% Logic
+                const cpInputs = { A: document.getElementById('cp-c'), B: document.getElementById('cp-mct'), C: document.getElementById('cp-mdd') };
+                document.querySelectorAll('.calc-cp').forEach(el => el.addEventListener('input', (e) => {
+                    // Normalize C% to fraction for calculation (or handle * 100)
+                    // A = (B/C)*100 => A/100 = B/C
+                    let vals = { c: parseFloat(cpInputs.A.value), mct: parseFloat(cpInputs.B.value), mdd: parseFloat(cpInputs.C.value) };
+                    if (e.target !== cpInputs.A && !isNaN(vals.mct) && !isNaN(vals.mdd) && vals.mdd !== 0) cpInputs.A.value = ((vals.mct / vals.mdd) * 100).toPrecision(5);
+                    if (e.target !== cpInputs.B && !isNaN(vals.c) && !isNaN(vals.mdd)) cpInputs.B.value = (vals.mdd * vals.c / 100).toPrecision(5);
+                    if (e.target !== cpInputs.C && !isNaN(vals.c) && !isNaN(vals.mct) && vals.c !== 0) cpInputs.C.value = (vals.mct * 100 / vals.c).toPrecision(5);
+                }));
+
+                // CM Logic
+                const cmInputs = { A: document.getElementById('cm-c'), B: document.getElementById('cm-n'), C: document.getElementById('cm-v') };
+                document.querySelectorAll('.calc-cm').forEach(el => el.addEventListener('input', (e) => {
+                    let vals = { c: parseFloat(cmInputs.A.value), n: parseFloat(cmInputs.B.value), v: parseFloat(cmInputs.C.value) };
+                    if (e.target !== cmInputs.A && !isNaN(vals.n) && !isNaN(vals.v) && vals.v !== 0) cmInputs.A.value = (vals.n / vals.v).toPrecision(5);
+                    if (e.target !== cmInputs.B && !isNaN(vals.c) && !isNaN(vals.v)) cmInputs.B.value = (vals.v * vals.c).toPrecision(5);
+                    if (e.target !== cmInputs.C && !isNaN(vals.c) && !isNaN(vals.n) && vals.c !== 0) cmInputs.C.value = (vals.n / vals.c).toPrecision(5);
+                }));
+
+                // Dilution Logic C1V1 = C2V2
+                const dlInputs = [document.getElementById('dl-c1'), document.getElementById('dl-v1'), document.getElementById('dl-c2'), document.getElementById('dl-v2')];
+                document.querySelectorAll('.calc-dl').forEach(el => el.addEventListener('input', (e) => {
+                    const vals = dlInputs.map(i => parseFloat(i.value));
+                    const nanIdx = vals.findIndex(v => isNaN(v));
+                    if (vals.filter(v => isNaN(v)).length === 1) {
+                        if (nanIdx === 0) dlInputs[0].value = (vals[2] * vals[3] / vals[1]).toPrecision(5);
+                        else if (nanIdx === 1) dlInputs[1].value = (vals[2] * vals[3] / vals[0]).toPrecision(5);
+                        else if (nanIdx === 2) dlInputs[2].value = (vals[0] * vals[1] / vals[3]).toPrecision(5);
+                        else if (nanIdx === 3) dlInputs[3].value = (vals[0] * vals[1] / vals[2]).toPrecision(5);
+                    }
+                }));
+            </script>
+        </div>
+    </main>
+</body>
+</html>

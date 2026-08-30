@@ -68,7 +68,7 @@
     "nameVi": "Oxygen",
     "nameEn": "Oxygen",
     "category": "phi-kim",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/008_O.json"
   },
   {
@@ -122,7 +122,7 @@
     "nameVi": "Silicon",
     "nameEn": "Silicon",
     "category": "phi-kim",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/014_Si.json"
   },
   {
@@ -140,7 +140,7 @@
     "nameVi": "Sulfur",
     "nameEn": "Sulfur",
     "category": "phi-kim",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/016_S.json"
   },
   {
@@ -149,7 +149,7 @@
     "nameVi": "Chlorine",
     "nameEn": "Chlorine",
     "category": "halogen",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/017_Cl.json"
   },
   {
@@ -194,7 +194,7 @@
     "nameVi": "Titanium",
     "nameEn": "Titanium",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/022_Ti.json"
   },
   {
@@ -230,7 +230,7 @@
     "nameVi": "Iron",
     "nameEn": "Iron",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/026_Fe.json"
   },
   {
@@ -248,7 +248,7 @@
     "nameVi": "Nickel",
     "nameEn": "Nickel",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/028_Ni.json"
   },
   {
@@ -257,7 +257,7 @@
     "nameVi": "Copper",
     "nameEn": "Copper",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/029_Cu.json"
   },
   {
@@ -266,7 +266,7 @@
     "nameVi": "Zinc",
     "nameEn": "Zinc",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/030_Zn.json"
   },
   {
@@ -293,7 +293,7 @@
     "nameVi": "Arsenic",
     "nameEn": "Arsenic",
     "category": "phi-kim",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/033_As.json"
   },
   {
@@ -302,7 +302,7 @@
     "nameVi": "Selenium",
     "nameEn": "Selenium",
     "category": "phi-kim",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/034_Se.json"
   },
   {
@@ -311,7 +311,7 @@
     "nameVi": "Bromine",
     "nameEn": "Bromine",
     "category": "halogen",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/035_Br.json"
   },
   {
@@ -392,7 +392,7 @@
     "nameVi": "Ruthenium",
     "nameEn": "Ruthenium",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/044_Ru.json"
   },
   {
@@ -419,7 +419,7 @@
     "nameVi": "Silver",
     "nameEn": "Silver",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/047_Ag.json"
   },
   {
@@ -428,7 +428,7 @@
     "nameVi": "Cadmium",
     "nameEn": "Cadmium",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/048_Cd.json"
   },
   {
@@ -491,7 +491,7 @@
     "nameVi": "Cesium",
     "nameEn": "Cesium",
     "category": "kiem",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/055_Cs.json"
   },
   {
@@ -509,7 +509,7 @@
     "nameVi": "Lanthanum",
     "nameEn": "Lanthanum",
     "category": "lanthanide",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/057_La.json"
   },
   {
@@ -518,7 +518,7 @@
     "nameVi": "Cerium",
     "nameEn": "Cerium",
     "category": "lanthanide",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/058_Ce.json"
   },
   {
@@ -572,7 +572,7 @@
     "nameVi": "Gadolinium",
     "nameEn": "Gadolinium",
     "category": "lanthanide",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/064_Gd.json"
   },
   {
@@ -707,7 +707,7 @@
     "nameVi": "Gold",
     "nameEn": "Gold",
     "category": "chuyen-tiep",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/079_Au.json"
   },
   {
@@ -734,7 +734,7 @@
     "nameVi": "Lead",
     "nameEn": "Lead",
     "category": "unknown",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/082_Pb.json"
   },
   {
@@ -788,7 +788,7 @@
     "nameVi": "Radium",
     "nameEn": "Radium",
     "category": "kiem-tho",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/088_Ra.json"
   },
   {
@@ -815,7 +815,7 @@
     "nameVi": "Protactinium",
     "nameEn": "Protactinium",
     "category": "actinide",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/091_Pa.json"
   },
   {
@@ -824,7 +824,7 @@
     "nameVi": "Uranium",
     "nameEn": "Uranium",
     "category": "actinide",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/092_U.json"
   },
   {
@@ -842,7 +842,7 @@
     "nameVi": "Plutonium",
     "nameEn": "Plutonium",
     "category": "actinide",
-    "hasData": true,
+    "hasData": false,
     "file": "elements/094_Pu.json"
   },
   {

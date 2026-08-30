@@ -203,32 +203,50 @@ function getReactionLabels(r = {}) {
 }
 
 function buildReactionLatex(r = {}) {
-  const rawInput = normalizeReactionText(r.eq || r.equation || "");
+  let rawInput = normalizeReactionText(r.eq || r.equation || "");
+  let parsedAbove = "";
+  let parsedBelow = "";
+
+  rawInput = rawInput.replace(/\\xrightarrow(?:\[(.*?)\])?\{(.*?)\}/g, (match, p1, p2) => {
+    if (p1) parsedBelow = p1;
+    if (p2) parsedAbove = p2;
+    return "→";
+  });
+  rawInput = rawInput.replace(/\\xrightleftharpoons(?:\[(.*?)\])?\{(.*?)\}/g, (match, p1, p2) => {
+    if (p1) parsedBelow = p1;
+    if (p2) parsedAbove = p2;
+    return "⇌";
+  });
+
   const raw = rawInput
-    .replace(/\\xrightleftharpoons(?:\[[^\]]*\])?\{[^}]*\}/g, "⇌")
-    .replace(/\\xrightarrow(?:\[[^\]]*\])?\{[^}]*\}/g, "→")
     .replace(/\\rightleftharpoons|\\leftrightarrow|\\rightarrow/g, "→")
     .replace(/^[\[\(]\s*|\s*[\]\)]$/g, "");
 
   const splitArrow = raw.split(/(?:→|->|⇌|↔|=)/, 2);
   const leftRaw = (splitArrow[0] || "").trim();
   const rightRaw = (splitArrow[1] || "").trim();
-  const left = formatChemicalFormulaHtml(leftRaw);
-  const right = formatChemicalFormulaHtml(rightRaw);
-  const above = escapeHtml(
-    normalizeText(r.catalyst || r.condition || r.cat || ""),
-  );
-  const below = escapeHtml(
-    normalizeText(
-      r.conditionBelow || r.temperature || r.pressure || r.solvent || "",
-    ),
-  );
+  const left = formatChemicalFormulaHtml(leftRaw, r.related);
+  const right = formatChemicalFormulaHtml(rightRaw, r.related);
+  
+  const aboveStr = normalizeText(r.catalyst || r.condition || r.cat || parsedAbove || "");
+  const above = escapeHtml(aboveStr).replace(/\\text\{([^}]*)\}/g, "$1").replace(/\^o/g, "°");
+  
+  const belowStr = normalizeText(r.conditionBelow || r.temperature || r.pressure || r.solvent || parsedBelow || "");
+  const below = escapeHtml(belowStr).replace(/\\text\{([^}]*)\}/g, "$1").replace(/\^o/g, "°");
 
   const arrowSymbol = raw.includes("⇌") || raw.includes("↔") ? "⇌" : "→";
   const hasLabels = Boolean(above || below);
+
+  const arrowSvgRight = `<div class="w-full flex items-center"><div class="flex-grow h-[2px] bg-slate-300"></div><div class="w-2.5 h-2.5 border-t-[2px] border-r-[2px] border-slate-300 transform rotate-45 -ml-1.5"></div></div>`;
+  const arrowSvgReversible = `<div class="w-full flex flex-col gap-[3px] items-center"><div class="w-full flex items-center"><div class="flex-grow h-[2px] bg-slate-300"></div><div class="w-2 h-2 border-t-[2px] border-r-[2px] border-slate-300 transform rotate-45 -ml-1"></div></div><div class="w-full flex items-center"><div class="w-2 h-2 border-b-[2px] border-l-[2px] border-slate-300 transform rotate-45 -mr-1"></div><div class="flex-grow h-[2px] bg-slate-300"></div></div></div>`;
+
   const arrowHtml = hasLabels
-    ? `<span class="inline-flex flex-col items-center justify-center mx-2 align-middle text-center leading-none"><span class="text-[11px] text-slate-300 min-h-[1em]">${above || "&nbsp;"}</span><span class="text-2xl leading-none">${arrowSymbol}</span><span class="text-[11px] text-slate-300 min-h-[1em]">${below || "&nbsp;"}</span></span>`
-    : `<span class="mx-2 text-2xl leading-none align-middle">${arrowSymbol}</span>`;
+    ? `<span class="inline-flex flex-col items-center justify-center mx-4 align-middle text-center min-w-[4rem] flex-shrink-0">
+        <span class="text-sm font-sans font-medium text-slate-300 min-h-[1.2em] pb-1 whitespace-nowrap z-10 relative px-2">${above || "&nbsp;"}</span>
+        ${arrowSymbol === "⇌" ? arrowSvgReversible : arrowSvgRight}
+        <span class="text-sm font-sans font-medium text-slate-300 min-h-[1.2em] pt-1 whitespace-nowrap z-10 relative px-2">${below || "&nbsp;"}</span>
+      </span>`
+    : `<span class="mx-4 align-middle flex items-center justify-center w-8 flex-shrink-0">${arrowSymbol === "⇌" ? arrowSvgReversible : arrowSvgRight}</span>`;
 
   return `${left} ${arrowHtml} ${right}`.trim();
 }
@@ -374,18 +392,26 @@ function addAtomMesh(group, position, color, radius = 0.24) {
   return sphere;
 }
 
-function addBond(group, from, to, color = 0x8cc7ff, opacity = 0.28) {
-  const lineGeo = new THREE.BufferGeometry().setFromPoints([from, to]);
-  const line = new THREE.Line(
-    lineGeo,
-    new THREE.LineBasicMaterial({
-      color,
-      transparent: true,
-      opacity,
-    }),
-  );
-  group.add(line);
-  return line;
+function addBond(group, from, to, color = 0x8cc7ff, opacity = 0.5) {
+  const distance = from.distanceTo(to);
+  const bondRadius = 0.08; 
+  const cylinderGeo = new THREE.CylinderGeometry(bondRadius, bondRadius, distance, 12, 1, false);
+  cylinderGeo.applyMatrix4(new THREE.Matrix4().makeTranslation(0, distance / 2, 0));
+  cylinderGeo.applyMatrix4(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+  
+  const material = new THREE.MeshStandardMaterial({
+    color,
+    roughness: 0.3,
+    metalness: 0.6,
+    transparent: opacity < 1,
+    opacity
+  });
+  const cylinder = new THREE.Mesh(cylinderGeo, material);
+  cylinder.position.copy(from);
+  cylinder.lookAt(to);
+  
+  group.add(cylinder);
+  return cylinder;
 }
 
 function addFaceDots(group, positions, color, radius = 0.2) {
@@ -458,7 +484,11 @@ function escapeHtml(value = "") {
     .replace(/'/g, "&#39;");
 }
 
-function formatChemicalFormulaHtml(text = "") {
+function formatIsotopeText(text = "") {
+  return escapeHtml(text).replace(/\b([0-9]+)([A-Za-z]{1,2})\b/g, "<sup>$1</sup>$2");
+}
+
+function formatChemicalFormulaHtml(text = "", related = "") {
   let s = normalizeReactionText(text).replace(/^[\[\(]\s*|\s*[\]\)]$/g, "");
   s = escapeHtml(s);
   s = s
@@ -466,7 +496,14 @@ function formatChemicalFormulaHtml(text = "") {
     .replace(/_([0-9]+)/g, "<sub>$1</sub>")
     .replace(/\^\{([^}]+)\}/g, "<sup>$1</sup>")
     .replace(/\^([0-9+-]+)/g, "<sup>$1</sup>")
-    .replace(/([A-Za-z\)])([0-9]+)/g, "$1<sub>$2</sub>");
+    .replace(/([A-Za-z\)])([0-9]+)/g, "$1<sub>$2</sub>")
+    .replace(/\((loãng|đặc|nóng|hơi|khí|rắn|lỏng|dd|khan|đặc,\s*nóng|đặc\s*nóng|loãng,\s*nóng)\)/gi, "<sub>($1)</sub>");
+    
+  if (related) {
+    const rel = escapeHtml(related);
+    const relRegex = new RegExp(`(^|[^a-zA-Z])(${rel})(?![a-z])(?![^<]*>)`, 'g');
+    s = s.replace(relRegex, `$1<button onclick="interlinkElement('${rel}')" class="inline-block font-bold text-sky-400 hover:text-sky-300 transition-colors underline decoration-sky-500/40 underline-offset-4 cursor-pointer">$2</button>`);
+  }
   return s;
 }
 
@@ -602,6 +639,7 @@ function getReactionMediaBlocks(reaction = {}, reactionIndex = 0) {
         block.url ||
         block.link ||
         block.media ||
+        block.model ||
         block.modelPath ||
         block.path ||
         "";
@@ -656,9 +694,6 @@ function renderEquationBlock(r = {}, options = {}) {
   const el = options.el || {};
   const reactionIndex = Number(options.index ?? r._idx ?? 0);
   const eqHtml = buildReactionLatex(r);
-  const relatedBtn = r.related
-    ? `<button onclick="interlinkElement('${escapeHtml(r.related)}')" class="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-blue-300 border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 px-3 py-2 rounded-full transition-colors">Xem ${escapeHtml(r.related)}</button>`
-    : "";
   const reactionMediaHtml = renderReactionMediaBlocks(r, reactionIndex, el);
   if (false)
     mediaToCards(r.video || r.media || r.videos, {
@@ -667,11 +702,10 @@ function renderEquationBlock(r = {}, options = {}) {
       kindHint: "video",
     });
   return `
-          <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700 mb-4">
+          <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700 mb-4 w-full">
             <span class="text-xs font-bold px-3 py-1 bg-slate-700 rounded-full text-slate-300 mb-3 inline-block">${escapeHtml(r.type || "Phản ứng")}</span>
-            <div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto">${eqHtml}</div>
-            <p class="text-slate-400 mb-2">${escapeHtml(r.desc || "")}</p>
-            ${relatedBtn}
+            <div class="equation-latex text-xl md:text-2xl font-mono text-emerald-300 mb-3 font-bold bg-slate-900 p-4 rounded-lg overflow-x-auto whitespace-nowrap flex items-center">${eqHtml}</div>
+            <p class="text-slate-400 mb-2 whitespace-normal">${escapeHtml(r.desc || "")}</p>
             ${reactionMediaHtml}
           </div>
         `;
@@ -712,7 +746,15 @@ function createElectronWidget(container, el) {
   zoomLabel.className = "visual-badge px-3 py-2";
   zoomLabel.textContent = "100%";
 
-  toolbar.append(zoomOutBtn, zoomLabel, zoomInBtn, resetBtn);
+  const toggle3DBtn = document.createElement("button");
+  toggle3DBtn.className = "visual-badge px-3 py-2 font-bold cursor-pointer transition-colors";
+  toggle3DBtn.textContent = "3D";
+
+  const fullscreenBtn = document.createElement("button");
+  fullscreenBtn.className = "visual-badge px-3 py-2 hidden";
+  fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+
+  toolbar.append(toggle3DBtn, fullscreenBtn, zoomOutBtn, zoomLabel, zoomInBtn, resetBtn);
 
   const badge = document.createElement("div");
   // badge.className =
@@ -877,12 +919,351 @@ function createElectronWidget(container, el) {
     drawLegend();
   };
 
+  let isIntersecting = false;
   const loop = (t) => {
-    draw(t || 0);
+    if (!is3DMode) {
+      if (canvas.width <= 1) resize();
+      draw(t || 0);
+    }
     raf = requestAnimationFrame(loop);
   };
 
-  const ro = new ResizeObserver(resize);
+  const visibilityObserver = new IntersectionObserver(
+    (entries) => {
+      isIntersecting = entries[0].isIntersecting;
+    },
+    { threshold: 0.01 },
+  );
+  visibilityObserver.observe(wrap);
+
+  let is3DMode = false;
+  let threeScene, threeCamera, threeRenderer, threeControls, threeRaf, threeGroup;
+
+  const init3D = () => {
+    if (threeRenderer) return;
+    if (!THREE) {
+      console.warn("Three.js is not loaded.");
+      return;
+    }
+    threeScene = new THREE.Scene();
+    threeScene.background = new THREE.Color(0x050814); // Dark navy/black
+    
+    threeCamera = new THREE.PerspectiveCamera(45, wrap.clientWidth / wrap.clientHeight, 0.1, 1000);
+    threeCamera.position.set(0, 40, 180);
+
+    threeRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    threeRenderer.setSize(wrap.clientWidth, wrap.clientHeight);
+    threeRenderer.domElement.style.position = "absolute";
+    threeRenderer.domElement.style.inset = "0";
+    threeRenderer.domElement.style.zIndex = "1";
+    wrap.appendChild(threeRenderer.domElement);
+
+    if (OrbitControls) {
+      threeControls = new OrbitControls(threeCamera, threeRenderer.domElement);
+      threeControls.enableDamping = true;
+      threeControls.dampingFactor = 0.04;
+      threeControls.enablePan = false;
+      threeControls.autoRotate = true; // Auto-rotate camera slowly when idle
+      threeControls.autoRotateSpeed = 0.5;
+    }
+
+    // Cinematic Lighting
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444455, 0.6);
+    threeScene.add(hemiLight);
+    
+    const pointLight = new THREE.PointLight(0xffffff, 1.5, 300);
+    pointLight.position.set(0, 0, 0); // At nucleus
+    threeScene.add(pointLight);
+
+    const dirLight = new THREE.DirectionalLight(0xccddff, 1.0);
+    dirLight.position.set(40, 60, 40);
+    threeScene.add(dirLight);
+
+    threeGroup = new THREE.Group();
+    threeScene.add(threeGroup);
+
+    // Nucleus Generation
+    const protons = el.number || 1;
+    const mass = el.atomic_mass ? Math.round(el.atomic_mass) : protons * 2;
+    const neutrons = Math.max(0, mass - protons);
+    
+    const nucleonRadius = 1.2;
+    // High detail for physical shading
+    const nucleusGeometry = new THREE.IcosahedronGeometry(nucleonRadius, 3);
+    
+    // Premium materials
+    const protonMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0xff3b3b, 
+        roughness: 0.1, 
+        metalness: 0.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1
+    });
+    const neutronMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0x3b82f6, 
+        roughness: 0.1, 
+        metalness: 0.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transparent: true,
+        opacity: 0.85,
+        transmission: 0.3,
+        ior: 1.5
+    });
+
+    const totalNucleons = protons + neutrons;
+    const nucleons = [];
+    
+    // Mix proton and neutron types randomly
+    const particleTypes = [];
+    for(let i = 0; i < protons; i++) particleTypes.push('proton');
+    for(let i = 0; i < neutrons; i++) particleTypes.push('neutron');
+    particleTypes.sort(() => Math.random() - 0.5);
+
+    const positions = [];
+    const packingFraction = 0.6;
+    const targetRadius = nucleonRadius * Math.cbrt(totalNucleons / packingFraction);
+    
+    // Initial random positions inside sphere
+    for (let i = 0; i < totalNucleons; i++) {
+        let r = targetRadius * Math.cbrt(Math.random());
+        let theta = Math.random() * 2 * Math.PI;
+        let phi = Math.acos(2 * Math.random() - 1);
+        positions.push(new THREE.Vector3(
+            r * Math.sin(phi) * Math.cos(theta),
+            r * Math.sin(phi) * Math.sin(theta),
+            r * Math.cos(phi)
+        ));
+    }
+
+    // Physics relax loop for spherical clustering (bám dính và cách đều)
+    const repelDist = nucleonRadius * 1.6; // Slightly overlapping to stick together
+    const repelDistSq = repelDist * repelDist;
+    const centerAttract = 0.05;
+
+    for (let iter = 0; iter < 15; iter++) {
+        for (let i = 0; i < totalNucleons; i++) {
+            positions[i].multiplyScalar(1.0 - centerAttract);
+            for (let j = i + 1; j < totalNucleons; j++) {
+                const dx = positions[i].x - positions[j].x;
+                const dy = positions[i].y - positions[j].y;
+                const dz = positions[i].z - positions[j].z;
+                const distSq = dx*dx + dy*dy + dz*dz;
+                
+                if (distSq < repelDistSq && distSq > 0.00001) {
+                    const dist = Math.sqrt(distSq);
+                    const overlap = repelDist - dist;
+                    const force = overlap * 0.5;
+                    
+                    const nx = dx / dist * force;
+                    const ny = dy / dist * force;
+                    const nz = dz / dist * force;
+                    
+                    positions[i].x += nx;
+                    positions[i].y += ny;
+                    positions[i].z += nz;
+                    
+                    positions[j].x -= nx;
+                    positions[j].y -= ny;
+                    positions[j].z -= nz;
+                }
+            }
+        }
+    }
+
+    for (let i = 0; i < totalNucleons; i++) {
+        const isProton = particleTypes[i] === 'proton';
+        const mesh = new THREE.Mesh(nucleusGeometry, isProton ? protonMat : neutronMat);
+        
+        const scale = 0.92 + Math.random() * 0.16;
+        mesh.scale.set(scale, scale, scale);
+        
+        mesh.position.copy(positions[i]);
+        mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
+        
+        nucleons.push(mesh);
+        threeGroup.add(mesh);
+    }
+
+    // Electron & Orbit Generation
+    const ringStep = 20;
+    const electronGeom = new THREE.SphereGeometry(0.8, 16, 16);
+    threeGroup.userData.orbits = [];
+    threeGroup.userData.electrons = [];
+    threeGroup.userData.time = 0;
+
+    shellMeta.forEach((item, idx) => {
+      const shellTotal = Math.max(1, item.count || 0);
+      const segments = item.segments.length ? item.segments : [{ orbital: "s", count: shellTotal }];
+      const expanded = segments.flatMap((seg) =>
+        Array.from({ length: Math.max(0, Number(seg.count) || 0) }, () => ({
+          orbital: String(seg.orbital || "s").toLowerCase(),
+        }))
+      );
+      while (expanded.length < shellTotal) expanded.push({ orbital: "s" });
+      
+      const baseRadius = Math.max(12, ringStep * (idx + 1));
+      
+      // True 3D Orbits: Ellipse mapped to Line
+      const curve = new THREE.EllipseCurve(
+          0, 0, 
+          baseRadius, baseRadius * (0.9 + Math.random()*0.2), // Random eccentricity
+          0, 2 * Math.PI, false, 0
+      );
+      const points = curve.getPoints(128);
+      const lineGeom = new THREE.BufferGeometry().setFromPoints(points);
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.35 });
+      const orbitObj = new THREE.Line(lineGeom, lineMat);
+      
+      // Randomize 3D orientation of the orbit
+      orbitObj.rotation.x = (Math.random() - 0.5) * Math.PI * 0.5;
+      orbitObj.rotation.y = (Math.random() - 0.5) * Math.PI * 0.5;
+      orbitObj.rotation.z = Math.random() * Math.PI;
+      
+      threeGroup.add(orbitObj);
+      
+      // Store orbit info for animation
+      threeGroup.userData.orbits.push({
+          mesh: orbitObj,
+          rotSpeedX: (Math.random() - 0.5) * 0.001,
+          rotSpeedY: (Math.random() - 0.5) * 0.001,
+          rotSpeedZ: (Math.random() - 0.5) * 0.001,
+      });
+      
+      // Uniform speed per shell, electrons evenly spaced
+      const shellSpeed = 0.003 / (idx + 1);
+      const electronCount = expanded.length;
+      for (let i = 0; i < electronCount; i++) {
+          const mat = new THREE.MeshBasicMaterial({ color: 0x4ade80 }); // Glowing green
+          const elMesh = new THREE.Mesh(electronGeom, mat);
+          
+          // Subtle emissive glow point light per electron
+          const elLight = new THREE.PointLight(0x4ade80, 0.5, 10);
+          elMesh.add(elLight);
+          
+          orbitObj.add(elMesh); // Child of orbit to inherit orientation
+          
+          threeGroup.userData.electrons.push({
+              mesh: elMesh,
+              curve: curve,
+              t: i / electronCount, // Evenly spaced: 0, 1/n, 2/n, ...
+              speed: shellSpeed,    // Same speed for all electrons on this shell
+          });
+      }
+    });
+
+    const animate3D = () => {
+        threeRaf = requestAnimationFrame(animate3D);
+        if (!isIntersecting) return;
+        
+        threeGroup.userData.time += 0.016; // approx 60fps delta
+        const time = threeGroup.userData.time;
+
+        if (threeControls) threeControls.update();
+        
+        if (threeGroup) {
+            // Slowly rotate orbits
+            if (threeGroup.userData.orbits) {
+                threeGroup.userData.orbits.forEach(orb => {
+                    orb.mesh.rotation.x += orb.rotSpeedX;
+                    orb.mesh.rotation.y += orb.rotSpeedY;
+                    orb.mesh.rotation.z += orb.rotSpeedZ;
+                });
+            }
+            
+            // Uniform electron motion — evenly spaced, same speed per shell
+            if (threeGroup.userData.electrons) {
+                threeGroup.userData.electrons.forEach(e => {
+                    e.t = (e.t + e.speed) % 1.0;
+                    const pos = e.curve.getPoint(e.t);
+                    e.mesh.position.set(pos.x, pos.y, 0);
+                });
+            }
+        }
+        if (threeRenderer) threeRenderer.render(threeScene, threeCamera);
+    };
+    animate3D();
+  };
+
+  const destroy3D = () => {
+    if (threeRaf) cancelAnimationFrame(threeRaf);
+    threeRaf = null;
+    if (threeRenderer) {
+      wrap.removeChild(threeRenderer.domElement);
+      threeRenderer.dispose();
+      threeRenderer = null;
+    }
+  };
+
+  const onFullscreenChange = () => {
+    const isFS = document.fullscreenElement === wrap;
+    fullscreenBtn.innerHTML = isFS ? '<i class="fa-solid fa-compress"></i>' : '<i class="fa-solid fa-expand"></i>';
+    if (isFS) {
+        wrap.classList.add("bg-[#050814]");
+    } else {
+        wrap.classList.remove("bg-[#050814]");
+    }
+    setTimeout(() => {
+        resize();
+        if (is3DMode && threeRenderer && threeCamera) {
+            threeCamera.aspect = wrap.clientWidth / wrap.clientHeight;
+            threeCamera.updateProjectionMatrix();
+            threeRenderer.setSize(wrap.clientWidth, wrap.clientHeight);
+        }
+    }, 50);
+  };
+  document.addEventListener("fullscreenchange", onFullscreenChange);
+
+  fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        wrap.requestFullscreen().catch(() => {});
+    } else {
+        document.exitFullscreen();
+    }
+  });
+
+  toggle3DBtn.addEventListener("click", () => {
+    is3DMode = !is3DMode;
+    toggle3DBtn.textContent = is3DMode ? "2D" : "3D";
+    toggle3DBtn.classList.toggle("bg-sky-500", is3DMode);
+    toggle3DBtn.classList.toggle("text-white", is3DMode);
+    toggle3DBtn.classList.toggle("border-sky-500", is3DMode);
+    
+    if (is3DMode) {
+      canvas.style.display = "none";
+      zoomOutBtn.style.display = "none";
+      zoomLabel.style.display = "none";
+      zoomInBtn.style.display = "none";
+      resetBtn.style.display = "none";
+      fullscreenBtn.style.display = "block";
+      init3D();
+    } else {
+      canvas.style.display = "block";
+      zoomOutBtn.style.display = "";
+      zoomLabel.style.display = "";
+      zoomInBtn.style.display = "";
+      resetBtn.style.display = "";
+      fullscreenBtn.style.display = "none";
+      
+      // If exiting 3D while fullscreen, exit fullscreen
+      if (wrap.classList.contains("fixed")) {
+          fullscreenBtn.click();
+      }
+      
+      resize();
+      destroy3D();
+    }
+  });
+
+  const ro = new ResizeObserver(() => {
+    resize();
+    if (is3DMode && threeRenderer && threeCamera) {
+        threeCamera.aspect = wrap.clientWidth / wrap.clientHeight;
+        threeCamera.updateProjectionMatrix();
+        threeRenderer.setSize(wrap.clientWidth, wrap.clientHeight);
+    }
+  });
   ro.observe(wrap);
 
   const applyZoom = (delta) => {
@@ -910,7 +1291,10 @@ function createElectronWidget(container, el) {
   return {
     destroy() {
       cancelAnimationFrame(raf);
+      destroy3D();
       ro.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
       if (wheelHandler) wrap.removeEventListener("wheel", wheelHandler);
       wrap.innerHTML = "";
     },
@@ -930,6 +1314,33 @@ function createCrystalWidget(container, el) {
   label.className = "absolute left-3 top-3 z-10 visual-badge";
   label.innerHTML = `<i class="fa-solid fa-cube"></i> ${title}`;
   wrap.appendChild(label);
+
+  const fullscreenBtn = document.createElement("button");
+  fullscreenBtn.className = "absolute right-3 top-3 z-10 visual-badge px-3 py-2 cursor-pointer transition-colors";
+  fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+  wrap.appendChild(fullscreenBtn);
+
+  const onCrystalFullscreenChange = () => {
+    const isFS = document.fullscreenElement === wrap;
+    fullscreenBtn.innerHTML = isFS ? '<i class="fa-solid fa-compress"></i>' : '<i class="fa-solid fa-expand"></i>';
+    if (isFS) {
+        wrap.classList.add("bg-[#050814]");
+    } else {
+        wrap.classList.remove("bg-[#050814]");
+    }
+    setTimeout(() => {
+        if (typeof sizeFit === "function") sizeFit();
+    }, 50);
+  };
+  document.addEventListener("fullscreenchange", onCrystalFullscreenChange);
+
+  fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        wrap.requestFullscreen().catch(() => {});
+    } else {
+        document.exitFullscreen();
+    }
+  });
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x06101d);
@@ -982,18 +1393,31 @@ function createCrystalWidget(container, el) {
   sizeFit();
 
   let raf = 0;
+  let isIntersecting = false;
   const loop = () => {
-    root.rotation.y += 0.003;
-    controls.update();
-    renderer.render(scene, camera);
+    if (isIntersecting) {
+      root.rotation.y += 0.003;
+      controls.update();
+      renderer.render(scene, camera);
+    }
     raf = requestAnimationFrame(loop);
   };
   loop();
 
+  const visibilityObserver = new IntersectionObserver(
+    (entries) => {
+      isIntersecting = entries[0].isIntersecting;
+    },
+    { threshold: 0.01 },
+  );
+  visibilityObserver.observe(wrap);
+
   return {
     destroy() {
       cancelAnimationFrame(raf);
+      document.removeEventListener("fullscreenchange", onCrystalFullscreenChange);
       ro.disconnect();
+      visibilityObserver.disconnect();
       controls.dispose();
       renderer.dispose();
       wrap.innerHTML = "";
@@ -1021,7 +1445,10 @@ function mountDetailVisuals(el) {
   const article = document.getElementById("article-content");
   const typeset = () => {
     if (window.MathJax?.typesetPromise && article) {
-      return window.MathJax.typesetPromise([article]).catch(() => {});
+      window.MathJaxQueue = (window.MathJaxQueue || Promise.resolve())
+        .then(() => window.MathJax.typesetPromise([article]))
+        .catch(() => {});
+      return window.MathJaxQueue;
     }
     return Promise.resolve();
   };
@@ -1279,6 +1706,7 @@ function getDetailMediaBlocks(el) {
         block.url ||
         block.link ||
         block.media ||
+        block.model ||
         block.modelPath ||
         block.path ||
         "";
@@ -1554,8 +1982,8 @@ function createVideoQuizBlock(container, block, el) {
         </div>
       </div>
 
-      <div id="video-modal-${el.symbol}-${block._idx}" class="absolute inset-0 hidden items-stretch justify-center z-50 overflow-hidden bg-black/60 backdrop-blur-[1px] p-3 md:p-4">
-        <div class="flex h-full w-full max-w-3xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl border border-slate-200">
+      <div id="video-modal-${el.symbol}-${block._idx}" class="absolute inset-0 hidden items-center justify-center z-50 overflow-hidden bg-black/60 backdrop-blur-[1px] p-3 md:p-4">
+        <div class="flex max-h-full w-full max-w-3xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl border border-slate-200">
           <div class="shrink-0 px-5 py-4 border-b bg-slate-50 flex items-start justify-between gap-4">
             <div class="min-w-0">
               <p id="video-meta-${el.symbol}-${block._idx}" class="text-sm text-slate-600 mt-1 leading-relaxed"></p>
@@ -1780,9 +2208,12 @@ function createVideoQuizBlock(container, block, el) {
   const requestFullscreen = async () => {
     const target = safeFullscreenTarget();
     try {
-      if (target.requestFullscreen) return await target.requestFullscreen();
-      if (target.webkitRequestFullscreen)
-        return await target.webkitRequestFullscreen();
+      if (target.requestFullscreen) await target.requestFullscreen();
+      else if (target.webkitRequestFullscreen) await target.webkitRequestFullscreen();
+      
+      if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+        await window.screen.orientation.lock("landscape").catch(() => {});
+      }
     } catch {}
   };
 
@@ -1928,7 +2359,7 @@ function createVideoQuizBlock(container, block, el) {
                   (opt, idx) => `
                     <button type="button" data-option-index="${idx}" class="rounded-2xl border border-slate-200 px-4 py-3 text-left text-slate-800 bg-white hover:bg-sky-50 transition-colors break-words">
                       <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold mr-3 align-top">${idx + 1}</span>
-                      <span class="inline-block max-w-[calc(100%-2.5rem)] align-top">${escapeHtml(opt)}</span>
+                      <span class="inline-block max-w-[calc(100%-2.5rem)] align-top">${opt}</span>
                     </button>
                   `,
                 )
@@ -1985,22 +2416,36 @@ function createVideoQuizBlock(container, block, el) {
         ? String(selected[0]).trim().length > 0
         : selected.some((x) => String(x).trim().length > 0);
 
-    if (!hasSelection) {
-      setFeedback(
-        false,
-        "Hãy chọn hoặc nhập câu trả lời trước khi xác nhận.",
-        formatCorrectAnswer(currentCue),
-      );
-      return;
-    }
-
-    const ok = isQuizAnswerCorrect(currentCue, selected);
+    const ok = hasSelection ? isQuizAnswerCorrect(currentCue, selected) : false;
     const explanation = currentCue.explain
       ? `<div class="mt-3 text-slate-700 leading-relaxed"><span class="font-semibold">Giải thích:</span> ${escapeHtml(currentCue.explain)}</div>`
       : `<div class="mt-3 text-slate-500">Chưa có phần giải thích bổ sung.</div>`;
+
+    if (type === "multiple" || type === "boolean") {
+      const rawAnswer = currentCue.answer ?? currentCue.correct ?? currentCue.correctAnswer ?? currentCue.correctIndex ?? currentCue.correctIndexes ?? currentCue.correctAnswers ?? currentCue.expected ?? currentCue.rightAnswer ?? currentCue.solution ?? currentCue.acceptedAnswers ?? currentCue.accepted ?? currentCue.answers ?? "";
+      const optionTexts = currentCue.options.length ? currentCue.options : (type === "boolean" ? ["Đúng", "Sai"] : []);
+      const correctIndices = quizAnswerToIndices(rawAnswer, optionTexts);
+      
+      optsWrap.querySelectorAll("[data-option-index]").forEach((btn) => {
+        const idx = Number(btn.getAttribute("data-option-index") || 0);
+        const isSelected = selected.includes(String(idx));
+        const isCorrect = correctIndices.includes(idx);
+        
+        btn.className = "rounded-2xl border px-4 py-3 text-left transition-colors break-words";
+        
+        if (isCorrect) {
+          btn.classList.add("bg-emerald-50", "border-emerald-500", "text-emerald-900", "ring-2", "ring-emerald-400");
+        } else if (isSelected && !isCorrect) {
+          btn.classList.add("bg-rose-50", "border-rose-500", "text-rose-900");
+        } else {
+          btn.classList.add("bg-white", "border-slate-200", "text-slate-500", "opacity-50");
+        }
+      });
+    }
+
     setFeedback(
       ok,
-      ok ? "Bạn đã chọn đúng." : "Bạn chưa chọn đúng đáp án.",
+      hasSelection ? (ok ? "Bạn đã chọn đúng." : "Bạn chưa chọn đúng đáp án.") : "Bạn chưa chọn đáp án, đây là đáp án đúng:",
       formatCorrectAnswer(currentCue),
       explanation,
     );
@@ -2033,8 +2478,8 @@ function createVideoQuizBlock(container, block, el) {
     modal.classList.add("flex");
     const type = normalizeQuizType(cue.type);
     meta.textContent = ``;
-    questionText.textContent = cue.question;
-    hintText.textContent = formatQuizAnswerHint(cue);
+    questionText.innerHTML = cue.question;
+    hintText.innerHTML = formatQuizAnswerHint(cue);
     feedback.classList.add("hidden");
     feedback.innerHTML = "";
     nextBtn.classList.add("hidden");
@@ -2042,6 +2487,11 @@ function createVideoQuizBlock(container, block, el) {
     renderOptions(cue);
     pausePlayback();
     showControls();
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJaxQueue = (window.MathJaxQueue || Promise.resolve())
+        .then(() => window.MathJax.typesetPromise([modal]))
+        .catch(() => {});
+    }
   };
 
   const checkCues = () => {
@@ -2070,16 +2520,28 @@ function createVideoQuizBlock(container, block, el) {
   };
 
   playBtn.onclick = () => {
-    if (isPlaying()) pausePlayback();
-    else resumePlayback();
+    if (isPlaying()) {
+      pausePlayback();
+    } else {
+      resumePlayback();
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        requestFullscreen();
+      }
+    }
     setPlayIcon();
   };
   backBtn.onclick = () => seekTo(getCurrentTime() - 10);
   forwardBtn.onclick = () => seekTo(getCurrentTime() + 10);
   fsBtn.onclick = toggleFullscreen;
   tapLayer.onclick = () => {
-    if (isPlaying()) pausePlayback();
-    else resumePlayback();
+    if (isPlaying()) {
+      pausePlayback();
+    } else {
+      resumePlayback();
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        requestFullscreen();
+      }
+    }
     setPlayIcon();
     scheduleControlsHide();
   };
@@ -2208,7 +2670,7 @@ function createVideoQuizBlock(container, block, el) {
     else if (isDirectVideo) loadDirectVideo();
     else {
       host.innerHTML = `
-              <div class="absolute inset-0 flex items-center justify-center bg-slate-950 text-slate-300 p-6 text-center">
+              <div class="absolute inset-0 flex items-center justify-center bg-slate-900 text-slate-300 p-6 text-center">
                 <div>
                   <div class="text-lg font-semibold mb-2">Nguồn video không hợp lệ</div>
                   <div class="text-sm text-slate-400">Vui lòng kiểm tra lại đường dẫn video.</div>
@@ -2225,11 +2687,24 @@ function createVideoQuizBlock(container, block, el) {
   showControls();
   scheduleControlsHide();
 
+  const visibilityObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting && isPlaying()) {
+          pausePlayback();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  visibilityObserver.observe(shell);
+
   return {
     destroy() {
       if (checker) clearInterval(checker);
       if (uiTimer) clearInterval(uiTimer);
       if (controlsHideTimer) clearTimeout(controlsHideTimer);
+      if (visibilityObserver) visibilityObserver.disconnect();
       try {
         if (player?.destroy) player.destroy();
         else if (isHtmlVideo() && player.pause) player.pause();
@@ -2280,6 +2755,7 @@ export {
   getYouTubeEmbedUrl,
   renderMediaPreview,
   formatChemicalFormulaHtml,
+  formatIsotopeText,
   mediaToCards,
   renderEquationBlock,
   getReactionMediaBlocks,

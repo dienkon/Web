@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dãy điện hóa - Công cụ Hóa Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
+        .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 text-slate-800 selection:bg-blue-100 selection:text-blue-900">
+    <a href="../../" class="fixed top-4 left-4 md:top-6 md:left-6 z-50 flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-[0_2px_10px_rgb(0,0,0,0.06)] border border-slate-100 text-slate-400 hover:text-slate-800 hover:scale-105 active:scale-95 transition-all duration-200">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <main class="w-full max-w-md">
+        <div class="glass-effect rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white p-6 sm:p-8">
+            <div class="space-y-6">
+                <!-- Tabs -->
+                <div class="flex space-x-2 border-b border-slate-200">
+                    <button class="tab-btn active px-4 py-2 text-sm font-semibold text-emerald-600 border-b-2 border-emerald-600" data-target="activity">Hoạt động hóa học</button>
+                    <button class="tab-btn px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-700" data-target="electro">Dãy điện hóa chuẩn</button>
+                </div>
+
+                <!-- Activity Series -->
+                <div id="activity" class="tab-content space-y-4">
+                    <p class="text-xs text-slate-500 font-semibold mb-2">Dãy hoạt động hóa học của kim loại:</p>
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl overflow-x-auto">
+                        <div class="flex gap-2 min-w-max items-center font-bold text-lg text-emerald-900 pb-2 border-b border-emerald-200/50 mb-2">
+                            <span>K</span> <span>></span>
+                            <span>Ba</span> <span>></span>
+                            <span>Ca</span> <span>></span>
+                            <span>Na</span> <span>></span>
+                            <span>Mg</span> <span>></span>
+                            <span>Al</span> <span>></span>
+                            <span>Zn</span> <span>></span>
+                            <span>Fe</span> <span>></span>
+                            <span>Ni</span> <span>></span>
+                            <span>Sn</span> <span>></span>
+                            <span>Pb</span> <span>></span>
+                            <span class="text-red-500 border-b-2 border-red-500 px-1">H</span> <span>></span>
+                            <span>Cu</span> <span>></span>
+                            <span>Hg</span> <span>></span>
+                            <span>Ag</span> <span>></span>
+                            <span>Pt</span> <span>></span>
+                            <span>Au</span>
+                        </div>
+                        <div class="text-xs text-emerald-700 space-y-1">
+                            <p>Mẹo nhớ: <span class="font-medium">Khi Ba Cần Nàng May Áo Giáp Sắt Nhớ Sang Phố Hỏi Cửa Hàng Á Phi Âu.</span></p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li>- <span class="font-bold text-slate-900">Từ K đến Na:</span> Kim loại kiềm/kiềm thổ, tan trong nước ở nhiệt độ thường tạo bazơ và H₂.</li>
+                        <li>- <span class="font-bold text-slate-900">Từ Mg đến Pb:</span> Không tan trong nước, nhưng tác dụng với axit (HCl, H₂SO₄ loãng) sinh ra H₂.</li>
+                        <li>- <span class="font-bold text-slate-900">Sau H:</span> Không tác dụng với axit loãng (trừ HNO₃, H₂SO₄ đặc nóng).</li>
+                        <li>- <span class="font-bold text-slate-900">Quy tắc đẩy:</span> Kim loại đứng trước đẩy kim loại đứng sau ra khỏi dung dịch muối (trừ K, Ba, Ca, Na do chúng pư với nước).</li>
+                    </ul>
+                </div>
+
+                <!-- Electrochemical Series -->
+                <div id="electro" class="tab-content hidden space-y-4">
+                    <p class="text-xs text-slate-500 font-semibold mb-2">Quy tắc Alpha (α) và cặp oxi hóa - khử:</p>
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl overflow-x-auto text-sm">
+                        <table class="w-full min-w-max text-center">
+                            <thead>
+                                <tr class="border-b border-emerald-200 text-emerald-800">
+                                    <th class="py-2">Chất oxi hóa (Ion)</th>
+                                    <th class="py-2">Chất khử (Kim loại)</th>
+                                    <th class="py-2">Thế điện cực (E°)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <tr class="border-b border-emerald-100/50"><td>K⁺</td><td>K</td><td>-2.92 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Na⁺</td><td>Na</td><td>-2.71 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Mg²⁺</td><td>Mg</td><td>-2.37 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Al³⁺</td><td>Al</td><td>-1.66 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Zn²⁺</td><td>Zn</td><td>-0.76 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Fe²⁺</td><td>Fe</td><td>-0.44 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Pb²⁺</td><td>Pb</td><td>-0.13 V</td></tr>
+                                <tr class="border-b border-emerald-200 bg-emerald-100/50 font-bold text-emerald-900"><td>2H⁺</td><td>H₂</td><td>0.00 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Cu²⁺</td><td>Cu</td><td>+0.34 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Fe³⁺</td><td>Fe²⁺</td><td>+0.77 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Ag⁺</td><td>Ag</td><td>+0.80 V</td></tr>
+                                <tr class="border-b border-emerald-100/50"><td>Au³⁺</td><td>Au</td><td>+1.50 V</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm text-slate-700 font-medium">Quy tắc α: Chất oxi hóa mạnh hơn sẽ phản ứng với chất khử mạnh hơn tạo ra chất oxi hóa yếu hơn và chất khử yếu hơn.</p>
+                </div>
+            </div>
+
+            <script>
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tab-btn').forEach(b => {
+                            b.classList.remove('active', 'text-emerald-600', 'border-b-2', 'border-emerald-600');
+                            b.classList.add('text-slate-500');
+                        });
+                        btn.classList.add('active', 'text-emerald-600', 'border-b-2', 'border-emerald-600');
+                        btn.classList.remove('text-slate-500');
+                        
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                        document.getElementById(btn.dataset.target).classList.remove('hidden');
+                    });
+                });
+            </script>
+        </div>
+    </main>
+</body>
+</html>

@@ -214,9 +214,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
 
               {/* External Links */}
               <a 
-                href="https://chem-dex.vercel.app/" 
-                target="_blank" 
-                rel="noopener noreferrer"
+                href="/" 
                 className="flex items-center justify-between p-4 bg-slate-900/50 hover:bg-slate-800 rounded-xl border border-slate-700/50 transition-all group"
               >
                 <div>
@@ -228,8 +226,6 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
 
               <a 
                 href="https://antoanphongthinghiem.ai.studio" 
-                target="_blank" 
-                rel="noopener noreferrer"
                 className="flex items-center justify-between p-4 bg-slate-900/50 hover:bg-slate-800 rounded-xl border border-slate-700/50 transition-all group"
               >
                 <div>

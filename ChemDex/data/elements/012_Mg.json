@@ -39,17 +39,71 @@
       "MgCO3"
     ]
   },
-  "physical": "Kim loại nhẹ, sáng bạc.",
-  "chemical": "Dễ cháy trong không khí tạo oxit và nitrua.",
-  "reactions": [
-    {
-      "type": "Cháy",
-      "eq": "2Mg + O2 → 2MgO",
-      "desc": "Tạo ngọn lửa trắng sáng."
-    }
-  ],
-  "structureType": "hcp",
+  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Magnesium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Là kim kiềm thổ loại có màu trắng bạc.</li>\n  <li>Khối lượng riêng: 1,738 g/cm3</li>\n  <li>Khá mềm và có tính dẻo.</li>\n  <li>dẫn điện và dẫn nhiệt tốt</li>\n  <li>Nhiệt độ nóng chảy khoảng</li>\n  <li>Nhiệt độ sôi khoảng</li>\n</ul>\n",
+  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Có tính khử mạnh</li>\n  <li>Tác dụng với Phi kim.</li>\n  <li>Tác dụng với Acid loãng.</li>\n  <li>Tác dụng với Nước</li>\n  <li>Tác dụng với dung dịch muối của kim loại yếu hơn.</li>\n</ul>\n",
+  "reactions": [],
+  "structureType": "lục phươnh xếp chặt",
   "images": {},
   "hasData": true,
-  "file": "elements/012_Mg.json"
+  "file": "elements/012_Mg.json",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
+        "equation": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nóng chảy Magnesium chloride (MgCl2)",
+        "equation": "MgCl2 → Mg + Cl2↑",
+        "condition": "đpnc"
+      },
+      {
+        "title": "Phương pháp Pidgeon (Khử quặng Dolomite)",
+        "equation": "CaCO3⋅MgCO3 → CaO⋅MgO + 2CO2↑ (Giai đoạn 1) <br> 2MgO + 2CaO + Si → 2Mg↑ + Ca2SiO4 (Giai đoạn 2)",
+        "condition": "1200°C, chân không"
+      }
+    ]
+  },
+  "applications": [
+    {
+      "title": "Ứng dụng",
+      "desc": "Magnesium đặc biệt được sử dụng cho ngành công nghiệp hàng không vũ trụ, chúng được dùng để làm cho hợp kim bền hơn."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Magnesium còn được dùng trong sản xuất pháo hoa vì khi đốt cháy sẽ tạo ngọn lửa trắng rực rỡ."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Trong các lò sản xuất sắt, thép, kim loại màu, xi măng hay thủy tinh, các hợp chất của Magnesium được sử dụng như vật liệu chịu lửa."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Các magnesium oxide và các hợp chất khác cũng được dùng nhiều trong xây dựng, nông nghiệp, công nghiệp hóa chất."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Magnesium còn được dùng để khử lưu huỳnh từ sắt thép hoặc tạo các hợp kim của Al - Mg sử dụng trong sản xuất vỏ hộp, cấu trúc của xe máy, ô tô."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Tạo các tấm khắc quang học trong công nghệ in, là tác nhân bổ sung trong các chất nổ thông thường và sử dụng trong sản xuất gang cầu, nằm trong hợp kim của kết cấu máy bay, tên lửa."
+    },
+    {
+      "title": "Ứng dụng",
+      "desc": "Trong ngành dược phẩm, Mg  được sử dụng để sản xuất các viên thuốc nén, ngăn cho thuốc không bị dính vào thiết bị trong quá trình nén thuốc,..."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Magnesium là kim loại kiềm thổ điển hình (ô số 12, nhóm IIA, chu kỳ 3), có cấu hình electron lớp ngoài cùng là [Ne]3s2. Khi tham gia phản ứng, nó luôn có xu hướng nhường 2e để đạt cấu hình bền vững Mg2+.</li>\n  <li>Trong tự nhiên Magnesium có tính chất hóa học mạnh nên hoàn toàn không tồn tại dạng đơn chất trong tự nhiên. Tuy nhiên, Magnesium lại là nguyên tố phổ biến thứ 8 trong vỏ Trái Đất, nó có trong mỏ đá lớn như đá Dolomite : và hòa tan trong đại dương dưới dạng muối đắng MgCl2 và MgSO4.</li>\n  <li>Trong công nghiệp, Magnesium được sản xuất hàng loạt bằng phương pháp điện phân nóng chảy Magnesium chloride ( MgCl2) tách từ nước biển, hoặc dùng Silicon khử quặng Dolomite ở nhiệt độ cao (phương pháp Pidgeon). Trong phòng thí nghiệm, người ta mua sẵn đơn chất chứ không tự điều chế.</li>\n  <li>Magnesium là \"kim loại cấu trúc\" nhờ đặc tính siêu nhẹ và bền bỉ, chuyên dùng làm hợp kim chế tạo vỏ máy bay, ô tô, laptop và điện thoại. Ở góc độ sinh học, Magnesium chính là trái tim của chất diệp lục (Chlorophyll) giúp cây xanh quang hợp, và là nguyên tố vi lượng cốt lõi vận hành hơn 300 phản ứng sinh hóa trong cơ thể con người.</li>\n</ul>\n",
+  "recognition": [
+    {
+      "title": "Thử bằng ngọn lửa",
+      "reagent": "Đốt cháy dây Magnesium trên ngọn lửa đèn cồn.",
+      "result": "Magnesium cháy với ngọn lửa màu trắng chói lòa.",
+      "equation": "2Mg + O2 → 2MgO",
+      "condition": "t°"
+    }
+  ]
 }

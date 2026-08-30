@@ -319,7 +319,7 @@
     >
       <div class="p-5 flex items-center gap-3 border-b border-slate-700/50">
         <div
-          class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30"
+          class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-slate-900 font-bold text-xl shadow-lg shadow-blue-500/30"
         >
           <i class="fa-solid fa-atom"></i>
         </div>
@@ -357,7 +357,7 @@
 
         <a
   href="./"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 bg-slate-800 text-white shadow-md active-nav transition-all"
 >
   <i class="fa-solid fa-toolbox text-blue-400 w-5"></i>
   <span class="font-medium">Tiện Ích Học Tập</span>
@@ -392,7 +392,7 @@
           <button
             id="sidebarToggle"
             type="button"
-            class="sidebar-toggle text-slate-300"
+            class="sidebar-toggle text-slate-700"
             aria-label="Hiện/ẩn thanh điều hướng"
             aria-controls="sidebar"
             aria-expanded="true"
@@ -401,7 +401,7 @@
             <i class="fa-solid fa-bars"></i>
           </button>
 
-          <h2 class="text-lg font-bold text-white min-w-0">
+          <h2 class="text-lg font-bold text-slate-200 min-w-0">
             <i class="fa-solid fa-toolbox text-purple-400 mr-2"></i>
             <span>Tiện ích</span>
           </h2>
@@ -415,7 +415,7 @@
             type="text"
             id="toolSearch"
             placeholder="Tìm tiện ích..."
-            class="w-full bg-slate-800/80 border border-slate-600 text-slate-200 text-sm rounded-full focus:ring-2 focus:ring-purple-500 block pl-9 p-1.5 transition-all"
+            class="w-full bg-slate-100/80 border border-slate-600 text-slate-200 text-sm rounded-full focus:ring-2 focus:ring-purple-500 block pl-9 p-1.5 transition-all"
           />
         </div>
       </header>
@@ -442,9 +442,9 @@
 
         const CATEGORY_META = {
           "Phương trình": { icon: "fa-bolt", color: "pink", order: 0 },
-          "Lý thuyết": { icon: "fa-book-bookmark", color: "emerald", order: 1 },
-          "Tính toán cơ bản": { icon: "fa-calculator", color: "blue", order: 2 },
-          "Tính toán nâng cao": { icon: "fa-gears", color: "amber", order: 3 },
+          "Tính toán Đại cương": { icon: "fa-calculator", color: "blue", order: 1 },
+          "Hóa Lý & Phân tích": { icon: "fa-flask-vial", color: "amber", order: 2 },
+          "Tra cứu Lý thuyết": { icon: "fa-book-bookmark", color: "emerald", order: 3 },
         };
 
         const COLOR_META = {
@@ -456,7 +456,7 @@
           purple: { text: "text-purple-400", bg: "bg-purple-500/20", border: "border-purple-500/30" },
           orange: { text: "text-orange-400", bg: "bg-orange-500/20", border: "border-orange-500/30" },
           red: { text: "text-red-400", bg: "bg-red-500/20", border: "border-red-500/30" },
-          slate: { text: "text-slate-400", bg: "bg-slate-500/20", border: "border-slate-500/30" },
+          slate: { text: "text-slate-400", bg: "bg-slate-100", border: "border-slate-200" },
         };
 
         function normalize(value) {
@@ -557,7 +557,7 @@
           section.dataset.category = category;
           section.dataset.dynamicSection = "true";
           section.innerHTML = `
-            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+            <h3 class="text-xl font-bold text-slate-200 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
               <span class="${palette.text}"><i class="fa-solid ${icon}"></i></span>
               ${escapeHtml(category)}
             </h3>
@@ -598,8 +598,12 @@
               <i class="fa-solid ${safeIcon(feature.icon)}"></i>
             </div>
             <div class="min-w-0 flex-1">
-              <h4 class="font-bold text-white mb-1">${escapeHtml(feature.title)}</h4>
-              <p class="text-xs text-slate-400">${escapeHtml(feature.description)}</p>
+              <h4 class="text-[0.95rem] font-bold text-slate-200 mb-1 line-clamp-2 leading-tight">
+                ${escapeHtml(feature.title)}
+              </h4>
+              <p class="text-[0.8rem] text-slate-400 leading-relaxed line-clamp-3">
+                ${escapeHtml(feature.description)}
+              </p>
             </div>
           `;
           card.dataset.search = normalize(searchText);
@@ -610,7 +614,7 @@
         if (!status) {
           status = document.createElement("div");
           status.id = "toolSearchStatus";
-          status.className = "tool-search-status text-xs text-slate-500 mt-2 text-right";
+          status.className = "tool-search-status text-xs text-slate-400 mt-2 text-right";
           searchInput.parentElement.appendChild(status);
         }
 

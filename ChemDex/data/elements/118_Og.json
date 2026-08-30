@@ -144,26 +144,6 @@
       "desc": "Được dùng để nhận diện và truy vết các hạt nhân con trong vật lý hạt nhân."
     }
   ],
-  "simulation": {
-    "title": "Tổng hợp Oganesson",
-    "reagents": [
-      {
-        "id": "Cf",
-        "name": "Californium-249",
-        "icon": "fa-atom"
-      },
-      {
-        "id": "Ca",
-        "name": "Calcium-48",
-        "icon": "fa-circle-nodes"
-      }
-    ],
-    "expected": [
-      "Cf",
-      "Ca"
-    ],
-    "resultText": "Oganesson là nguyên tố siêu nặng được tổng hợp trong máy gia tốc hạt. Các nguyên tử đã tạo ra tồn tại rất ngắn và thường được nhận diện qua chuỗi phân rã alpha."
-  },
   "notes": "\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nguyên tố số 118 trong bảng tuần hoàn.</li>\n  <li>Là nguyên tố cuối cùng của chu kỳ 7.</li>\n  <li>Thuộc nhóm khí hiếm nhưng có tính chất dự đoán rất bất thường.</li>\n  <li>Phần lớn dữ liệu hiện nay là từ mô hình lý thuyết và thí nghiệm hạt nhân siêu nặng.</li>\n</ul>\n",
   "nameVi": "Oganesson",
   "nameEn": "Oganesson",

@@ -8,7 +8,7 @@
     "latinName": "Hydrogenium",
     "englishName": "Hydrogen",
     "electronConfig": "1s¹",
-    "isotope": "¹H , ²H (D), ³H (T)",
+    "isotope": "1H, 2H, 3H",
     "group": 1,
     "period": 1,
     "block": "s",
@@ -31,7 +31,9 @@
     "protons": 1,
     "neutrons": 0,
     "electrons": 1,
-    "electronShells": [1],
+    "electronShells": [
+      1
+    ],
     "valenceElectrons": 1,
     "lattice": "sh",
     "nucleus": {
@@ -40,10 +42,25 @@
     }
   },
   "occurrence": {
-    "description": "Hydrogen là nguyên tố phổ biến nhất trong vũ trụ. Trên Trái Đất hydrogen chủ yếu tồn tại dưới dạng hợp chất như nước và các hợp chất hữu cơ.",
-    "simple": ["H₂"],
-    "compounds": ["H₂O", "HCl", "NH₃", "CH₄", "C₂H₂", "H₂SO₄", "NaOH"],
-    "ores": ["Nước biển", "Nước ngọt", "Dầu mỏ", "Khí thiên nhiên", "Sinh khối"]
+    "description": "H2 tồn tại rất ít trong tự nhiên",
+    "simple": [
+      "H₂"
+    ],
+    "compounds": [
+      "H₂O",
+      "HCl",
+      "CH₄",
+      "C6H12O6",
+      "H₂SO₄",
+      "NaOH"
+    ],
+    "ores": [
+      "Nước biển",
+      "Nước ngọt",
+      "Dầu mỏ",
+      "Khí thiên nhiên",
+      "Sinh khối"
+    ]
   },
   "naturalState": {},
   "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí không màu, không mùi, không vị.</li>\n      <li>Là nguyên tố nhẹ nhất trong bảng tuần hoàn.</li>\n      <li>Khối lượng riêng: <b>0,08988 g/L</b>.</li>\n      <li>Ít tan trong nước.</li>\n      <li>Tốc độ khuếch tán rất lớn.</li>\n      <li>Nhiệt độ nóng chảy: <b>-259,16°C</b>.</li>\n      <li>Nhiệt độ sôi: <b>-252,87°C</b>.</li>\n      <li>Dẫn nhiệt tốt hơn hầu hết các chất khí khác.</li>\n      <li>Hydrogen lỏng được bảo quản ở nhiệt độ cực thấp.</li>\n    </ul>\n  ",
@@ -122,25 +139,45 @@
       "desc": "Do là khí nhẹ nhất."
     }
   ],
-  "simulation": {
-    "title": "Đốt cháy khí Hydrogen",
-    "reagents": [
-      {
-        "id": "H2",
-        "name": "Khí H₂",
-        "icon": "fa-cloud"
-      },
-      {
-        "id": "O2",
-        "name": "Khí O₂",
-        "icon": "fa-wind"
-      }
-    ],
-    "expected": ["H2", "O2"],
-    "resultText": "🔥 Hydrogen cháy trong Oxygen tạo thành nước và giải phóng nhiều nhiệt.\n\n2H₂ + O₂ → 2H₂O"
-  },
-  "notes": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Nguyên tố số 1 trong bảng tuần hoàn.</li>\n      <li>Chiếm khoảng 75% khối lượng vật chất thông thường của vũ trụ.</li>\n      <li>Là thành phần chính của Mặt Trời và các sao.</li>\n      <li>Là nguyên tố quan trọng trong nước và mọi hợp chất hữu cơ.</li>\n      <li>Được xem là nhiên liệu của tương lai trong nền kinh tế hydrogen.</li>\n    </ul>\n  ",
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Hydrogen là nguyên tố đầu tiên trong bảng tuần hoàn (ô số 1, chu kỳ 1, nhóm IA), có cấu tạo đơn giản nhất vũ trụ chỉ gồm 1 proton và 1 electron và cấu hình e là 1s1</li>\n  <li>Trên Trái Đất, gần như không có đơn chất khí h2 tự do (do quá nhẹ nên bị bay vào vũ trụ và bị sấm sét cổ đại đốt thành nước), nó chủ có trong hợp chất như nước và hợp chất hữu cơ. Ngược lại, trong Vũ Trụ, đơn chất H2lại là \"bá chủ\" chiếm 75% khối lượng vật chất, cấu tạo nên các ngôi sao (Mặt Trời) và các tinh vân.</li>\n  <li>Trong công nghiệp, đơn chất khí H2được sản xuất quy mô lớn bằng cách cải tạt khí tự nhiên (methane) bằng hơi nước hoặc điện phân nước. Trong phòng thí nghiệm, nó được điều chế nhanh bằng cách cho kim loại như Zn, Fe tác dụng với dung dịch acid loãng HCl và H2SO4</li>\n  <li>Hydrogen là nhiên liệu sạch lý tưởng của tương lai (năng lượng xanh, không phát thải khí nhà kính), làm nguyên liệu sản xuất ammonia NH3, chất béo nhân tạo và luyện kim. Ở dạng hợp chất, Hydrogen là thành phần không thể thiếu cấu tạo nên nước và mọi tế bào sinh học của sinh vật sống.</li>\n</ul>\n",
   "nameVi": "Hydrogen",
   "nameEn": "Hydrogen",
-  "file": "elements/001_H.json"
+  "file": "elements/001_H.json",
+  "structureType": "Lục phương xếp chặt.",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Kim loại tác dụng với dung dịch acid loãng",
+        "equation": "Zn + 2HCl(loãng) → ZnCl2 + H2↑ <br> Fe + H2SO4(loãng) → FeSO4 + H2↑"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Điện phân nước",
+        "equation": "2H2O → 2H2↑ + O2↑"
+      },
+      {
+        "title": "Công nghệ chuyển hóa hydrocarbon",
+        "equation": "CH4 + H2O → CO + 3H2↑ (giai đoạn 1) <br> CO + H2O → CO2 + H2↑ (giai đoạn 2)"
+      },
+      {
+        "title": "Dùng than khử oxi của H2O ở nhiệt độ cao",
+        "equation": "C + H2O → CO + H2↑"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Cách 1: Dùng bột CuO đun nóng",
+      "reagent": "Cho khí đi qua CuO nung nóng.",
+      "result": "Chất rắn màu đen (CuO) chuyển dần sang màu đỏ (Cu).",
+      "equation": "CuO + H2 → Cu + H2O"
+    },
+    {
+      "title": "Cách 2: Thử bằng que đốm",
+      "reagent": "Đưa que đốm đang cháy vào bình chứa khí.",
+      "result": "Khí H2 cháy trong không khí cho ngọn lửa màu xanh nhạt và tỏa nhiều nhiệt.",
+      "equation": "2H2 + O2 → 2H2O"
+    }
+  ]
 }
