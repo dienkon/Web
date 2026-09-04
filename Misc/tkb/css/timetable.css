@@ -1,0 +1,132 @@
+/**
+ * =========================================================================
+ * CSS TIMETABLE: DESKTOP GRID, STICKY HEADERS, RED TIME LINE, CARDS
+ * =========================================================================
+ */
+
+/* Timetable Grid Desktop: 88px Time Column + 7 Days */
+.timetable-grid-desktop {
+  display: grid;
+  grid-template-columns: 88px repeat(7, minmax(130px, 1fr));
+}
+
+/* Sticky Headers & Time Column */
+.sticky-time-col {
+  position: sticky;
+  left: 0;
+  z-index: 25;
+  background-color: var(--bg-surface-muted);
+}
+.sticky-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 28;
+  background-color: var(--bg-surface);
+  backdrop-filter: blur(8px);
+}
+
+/* Red Real-Time Indicator Line */
+#current-time-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  pointer-events: none;
+  transition: top 1s linear;
+}
+#current-time-indicator .time-line {
+  height: 2px;
+  background-color: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+}
+#current-time-indicator .time-pill {
+  position: absolute;
+  left: 0.25rem;
+  top: -0.75rem;
+  z-index: 32;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Timetable Card Styling */
+.timetable-card {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  padding: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: grab;
+  user-select: none;
+  border-width: 1px;
+  border-style: solid;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+.timetable-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.timetable-card.is-completed {
+  opacity: 0.6;
+}
+.timetable-card.is-current {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: -1px;
+}
+
+/* Multi-select cell styling */
+.cell-multi-selected {
+  outline: 2px solid var(--brand-primary) !important;
+  outline-offset: -2px;
+  background-color: rgba(2, 132, 199, 0.1) !important;
+}
+
+/* Drop targets */
+.drop-target-valid {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border-color: #10b981 !important;
+}
+
+/* Print Stylesheet */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print,
+  .app-header,
+  .sub-bar,
+  #mobile-bottom-nav,
+  #activity-library-sidebar,
+  #current-time-indicator,
+  #btn-floating-reopen-library,
+  #floating-now-pill,
+  #multi-select-bar,
+  #toast-container {
+    display: none !important;
+  }
+  .timetable-grid-desktop {
+    grid-template-columns: 80px repeat(7, 1fr) !important;
+  }
+  .sticky-time-col, .sticky-header-row {
+    position: static !important;
+  }
+  .print-only-header {
+    display: block !important;
+  }
+}
+.print-only-header {
+  display: none;
+}

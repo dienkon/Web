@@ -1,0 +1,66 @@
+/**
+ * =========================================================================
+ * CSS THEMES: LIGHT (DEFAULT), DARK & PRESETS
+ * =========================================================================
+ */
+
+/* Dark Mode Tokens (Active only if .dark class is explicitly present) */
+html.dark {
+  --bg-app: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-surface-elevated: #334155;
+  --bg-surface-muted: #1e293b;
+
+  --border-color: #334155;
+  --border-color-subtle: #1e293b;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+
+  --brand-primary: #38bdf8;
+  --brand-primary-hover: #0ea5e9;
+  --brand-light: #082f49;
+  --brand-dark: #0284c7;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Preset Themes (applied via data-theme attribute on body) */
+body[data-theme="midnight"].dark {
+  --bg-app: #030712;
+  --bg-surface: #0b0f19;
+  --bg-surface-elevated: #111827;
+  --border-color: #1f2937;
+  --brand-primary: #6366f1;
+}
+
+body[data-theme="forest"].dark {
+  --bg-app: #061811;
+  --bg-surface: #0a251b;
+  --bg-surface-elevated: #123829;
+  --border-color: #164e37;
+  --brand-primary: #10b981;
+}
+
+body[data-theme="lavender"].dark {
+  --bg-app: #0f0c1b;
+  --bg-surface: #18142b;
+  --bg-surface-elevated: #241e3d;
+  --border-color: #332b54;
+  --brand-primary: #a855f7;
+}
+
+body[data-theme="monochrome"].dark {
+  --bg-app: #000000;
+  --bg-surface: #121212;
+  --bg-surface-elevated: #1e1e1e;
+  --border-color: #2e2e2e;
+  --brand-primary: #e2e8f0;
+}

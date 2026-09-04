@@ -1,0 +1,21 @@
+{
+  "name": "Lịch Cá Nhân - Study & Schedule Command Center",
+  "short_name": "Productivity",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0284c7",
+  "description": "Trung tâm quản lý thời gian, học tập và hiệu suất cá nhân thông minh.",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
