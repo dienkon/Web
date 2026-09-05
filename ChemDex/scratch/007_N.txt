@@ -1,0 +1,100 @@
+Nitrogen (N)
+Thông tin chung
+Tên Latin: Nitrogenium
+Tên tiếng Anh: Nitrogen
+Đồng vị: ¹⁴N, ¹⁵N
+Vị trí: Nhóm VA | Chu kỳ 2
+Số Oxy hóa: −3, −2, −1, 0, +1, +2, +3, +4, +5
+Độ âm điện: 3.04
+Lịch sử khám phá
+Phát hiện bởi: Daniel Rutherford
+Năm công bố: 1772
+Nơi khám phá: Scotland
+Mô tả: Năm 1772, Daniel Rutherford nghiên cứu phần không khí còn lại sau khi Oxygen bị loại bỏ và xác định đây là một loại khí không duy trì sự cháy và sự hô hấp. Nitrogen sau đó được nghiên cứu sâu hơn bởi các nhà hóa học khác. Tên Nitrogen được Antoine Lavoisier sử dụng, bắt nguồn từ khả năng tạo Nitrogen compounds trong tự nhiên.
+    3. Cấu tạo
+a. Cấu tạo
+Hoạt họa cấu hình e: 1s² 2s² 2p³
+Mô hình mạng tinh thể: Lục phương (Hexagonal)
+Số hiệu nguyên tử: 7
+Nguyên tử khối: 14.007 g/mol
+Vỏ nguyên tử: 7 electron
+K: 2 | L: 5
+Hạt nhân: 7 proton, 7 neutron đối với ¹⁴N
+Cấu hình e: 1s² 2s² 2p³
+Loại mạng: Lục phương (Hexagonal)
+b. Trạng thái tự nhiên
+Trạng thái: Nitrogen là chất khí ở điều kiện thường và là thành phần chính của khí quyển Trái Đất. Nitrogen trong tự nhiên chủ yếu tồn tại dưới dạng phân tử N₂ và các hợp chất Nitrogen.
+Có trong: Khí quyển, đất, nước, sinh vật và các khoáng vật chứa Nitrogen.
+Đơn chất: N₂
+Hợp chất: NH₃, HNO₃, NO, NO₂, N₂O, NH₄NO₃, NaNO₃, protein, DNA...
+c. Đồng vị
+Đồng vị: ¹⁴N, ¹⁵N
+¹⁴N: Đồng vị bền, chiếm khoảng 99.63% Nitrogen tự nhiên.
+¹⁵N: Đồng vị bền, chiếm khoảng 0.37%.
+Cả hai đều là đồng vị bền và có nhiều ứng dụng trong nghiên cứu hóa học, sinh học và môi trường.
+Tính chất
+Tính chất vật lý
+Là chất khí không màu, không mùi, không vị.
+Chiếm khoảng 78.08% thể tích khí quyển.
+Tồn tại chủ yếu dưới dạng phân tử N₂.
+Khối lượng mol của N₂: 28.014 g/mol.
+Khối lượng riêng: khoảng 1.251 g/L ở 0 °C và 1 atm.
+Ít tan trong nước.
+Nhiệt độ nóng chảy: −210.0 °C.
+Nhiệt độ sôi: −195.8 °C.
+Không cháy.
+Không duy trì sự cháy.
+Liên kết ba N≡N rất bền, khiến N₂ tương đối trơ ở điều kiện thường.
+Tính chất hóa học
+Là phi kim.
+Có nhiều số Oxy hóa từ −3 đến +5.
+N₂ tương đối trơ ở nhiệt độ thường do liên kết ba rất bền.
+Phản ứng với Hydrogen ở nhiệt độ, áp suất và xúc tác thích hợp tạo Ammonia.
+Phản ứng với Oxygen ở nhiệt độ rất cao tạo Nitrogen monoxide.
+Phản ứng với một số kim loại hoạt động tạo Nitride.
+Nitrogen tạo nhiều hợp chất quan trọng như Ammonia, Nitric acid và các Nitrogen oxide.
+Là nguyên tố thiết yếu đối với sự sống.
+Điều chế
+Điều chế trong công nghiệp
+Chưng cất phân đoạn không khí lỏng: Không khí được làm sạch, nén và hóa lỏng. Nitrogen được tách khỏi Oxygen dựa trên sự khác nhau về nhiệt độ sôi.
+PSA (Pressure Swing Adsorption): Sử dụng vật liệu hấp phụ để giữ Oxygen và một số khí khác, từ đó thu được dòng khí giàu Nitrogen.
+Điều chế trong phòng thí nghiệm
+Nitrogen có thể được điều chế bằng cách loại Oxygen khỏi không khí hoặc thông qua một số phản ứng hóa học.
+Nhiệt phân Ammonium nitrite:
+NH4NO2 → N2 + 2H2O
+Do Ammonium nitrite không bền, trong thực tế có thể tạo nó ngay trong hỗn hợp phản ứng từ Ammonium chloride và Sodium nitrite:
+NH4Cl + NaNO2 → N2 + NaCl + 2H2O
+Nhận biết
+Que đóm cháy: Nitrogen không duy trì sự cháy. Khi đưa que đóm đang cháy vào Nitrogen, ngọn lửa sẽ tắt.
+Tính chất: Tuy nhiên, phép thử này không đặc hiệu, vì nhiều khí khác cũng không duy trì sự cháy.
+Phương trình
+Tác dụng với Hydrogen
+N2 + 3H2 ⇌ 2NH3
+Điều kiện: nhiệt độ, áp suất và xúc tác thích hợp.
+Tác dụng với Oxygen
+Ở nhiệt độ rất cao:
+N2 + O2 → 2NO
+Tác dụng với Lithium
+6Li + N2 → 2Li3N
+Tác dụng với Calcium
+3Ca + N2 → Ca3N2
+Phân hủy Ammonium nitrite
+NH4NO2 → N2 + 2H2O
+Oxi hóa Nitrogen monoxide
+2NO + O2 → 2NO2
+Tạo Nitric acid từ Nitrogen dioxide
+3NO2 + H2O → 2HNO3 + NO
+Ứng dụng thực tế
+Sản xuất Ammonia: Nitrogen là nguyên liệu chính trong quy trình Haber-Bosch.
+Sản xuất phân bón: Các hợp chất Nitrogen được sử dụng rộng rãi trong sản xuất phân bón.
+Bảo quản thực phẩm: Nitrogen được sử dụng để tạo môi trường khí trơ, giúp hạn chế quá trình Oxy hóa.
+Công nghiệp điện tử: Nitrogen được sử dụng làm khí bảo vệ trong một số quá trình sản xuất linh kiện.
+Luyện kim: Nitrogen được sử dụng trong một số quá trình xử lý và sản xuất kim loại.
+Nitrogen lỏng: Được sử dụng để làm lạnh, bảo quản mẫu sinh học và trong nhiều ứng dụng nhiệt độ thấp.
+Công nghiệp hóa chất: Nitrogen được sử dụng làm khí trơ trong các quy trình cần hạn chế phản ứng với Oxygen.
+Nghiên cứu khoa học: ¹⁵N được sử dụng để nghiên cứu các quá trình sinh học, hóa học và chu trình Nitrogen.
+Tổng quan
+Nitrogen là nguyên tố số 7, thuộc nhóm VA | chu kỳ 2.
+Ở điều kiện thường, Nitrogen tồn tại chủ yếu dưới dạng phân tử N₂, chiếm khoảng 78.08% thể tích khí quyển Trái Đất. Liên kết ba N≡N rất bền khiến Nitrogen phân tử tương đối trơ ở điều kiện thường.
+Nitrogen có nhiều số Oxy hóa và tạo ra một hệ thống hợp chất rất phong phú, trong đó có Ammonia, Nitric acid và các Nitrogen oxide.
+Nitrogen là nguyên tố thiết yếu của sự sống, có mặt trong protein, DNA và nhiều phân tử sinh học quan trọng. Trong công nghiệp, Nitrogen đặc biệt quan trọng đối với sản xuất Ammonia, phân bón, hóa chất, bảo quản thực phẩm và tạo môi trường khí trơ.

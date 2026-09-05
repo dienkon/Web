@@ -21,6 +21,8 @@ export class ModalUI {
     this.bindQuickAddForm();
     this.bindManageSlotsForm();
     this.bindPlaceActivityForm();
+    this.bindQuickEditForm();
+    this.bindMergedDetailActions();
   }
 
   bindEvents() {
@@ -58,6 +60,27 @@ export class ModalUI {
     events.on("modal:open-quick-add", (slotKey) => this.openQuickAdd(slotKey));
     events.on("modal:open-manage-slots", () => this.openManageSlots());
     events.on("modal:open-place-activity", (lessonId) => this.openPlaceActivity(lessonId));
+    events.on("modal:open-quick-edit", (slotKey) => this.openQuickEdit(slotKey));
+    events.on("modal:open-merged-detail", (data) => this.openMergedBlockDetail(data));
+
+    // Settings Toggle for Smart Merge
+    const autoMergeToggle = $("#settings-toggle-automerge");
+    if (autoMergeToggle) {
+      const state = this.store.getState();
+      autoMergeToggle.checked = state.settings?.autoMergeBlocks !== false;
+      autoMergeToggle.addEventListener("change", (e) => {
+        const currentSettings = this.store.getState().settings || {};
+        this.store.setState({
+          settings: { ...currentSettings, autoMergeBlocks: e.target.checked },
+        });
+        this.storage.debouncedSave();
+        events.emit("schedule:updated");
+        events.emit("toast:show", {
+          message: e.target.checked ? "Đã bật tự động gộp khối" : "Đã tắt tự động gộp khối",
+          type: "info",
+        });
+      });
+    }
   }
 
   open(modalId) {
@@ -680,5 +703,241 @@ export class ModalUI {
         type: "success",
       });
     });
+  }
+
+  // ==================== 4. QUICK EDIT MODAL ====================
+  openQuickEdit(slotKeyOrKeys) {
+    const isArray = Array.isArray(slotKeyOrKeys);
+    const primaryKey = isArray ? slotKeyOrKeys[0] : slotKeyOrKeys;
+    const state = this.store.getState();
+    const item = state.schedule.find((s) => s.slotId === primaryKey);
+    if (!item) return;
+
+    $("#quick-edit-slot-key").value = primaryKey;
+    $("#quick-edit-slot-keys").value = isArray ? JSON.stringify(slotKeyOrKeys) : "";
+    $("#quick-edit-subject").value = item.subject || "";
+    $("#quick-edit-teacher").value = item.teacher || "";
+    $("#quick-edit-room").value = item.room || "";
+    $("#quick-edit-status").value = item.status || "planned";
+    $("#quick-edit-is-focus").checked = Boolean(item.isFocus);
+
+    // Color selector
+    const colorSelect = $("#quick-edit-color");
+    if (colorSelect) {
+      colorSelect.innerHTML = Object.keys(COLOR_MAP)
+        .map((c) => `<option value="${c}" ${item.color === c ? "selected" : ""}>${COLOR_MAP[c].name || c}</option>`)
+        .join("");
+    }
+
+    const applyAllContainer = $("#quick-edit-apply-all-container");
+    if (applyAllContainer) {
+      if (isArray && slotKeyOrKeys.length > 1) {
+        applyAllContainer.classList.remove("hidden");
+        const cb = $("#quick-edit-apply-all-block");
+        if (cb) cb.checked = true;
+      } else {
+        applyAllContainer.classList.add("hidden");
+      }
+    }
+
+    this.open("modal-quick-edit");
+  }
+
+  bindQuickEditForm() {
+    const form = $("#form-quick-edit");
+    if (!form) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const primaryKey = $("#quick-edit-slot-key").value;
+      const rawKeys = $("#quick-edit-slot-keys").value;
+      const applyAll = $("#quick-edit-apply-all-block")?.checked;
+      const keys = rawKeys && applyAll ? JSON.parse(rawKeys) : [primaryKey];
+
+      const state = this.store.getState();
+      this.history.recordState();
+
+      const subject = $("#quick-edit-subject").value.trim();
+      const teacher = $("#quick-edit-teacher").value.trim();
+      const room = $("#quick-edit-room").value.trim();
+      const status = $("#quick-edit-status").value;
+      const color = $("#quick-edit-color").value;
+      const isFocus = $("#quick-edit-is-focus").checked;
+
+      keys.forEach((k) => {
+        const item = state.schedule.find((s) => s.slotId === k);
+        if (item) {
+          item.subject = subject;
+          item.teacher = teacher;
+          item.room = room;
+          item.status = status;
+          item.color = color;
+          item.isFocus = isFocus;
+        }
+      });
+
+      this.storage.debouncedSave();
+      this.close("modal-quick-edit");
+      events.emit("schedule:updated");
+      events.emit("toast:show", { message: `Đã cập nhật môn "${subject}"`, type: "success" });
+    });
+  }
+
+  // ==================== 5. MERGED BLOCK DETAIL MODAL ====================
+  openMergedBlockDetail(data) {
+    if (!data) return;
+    const { blockId, slotKeys, day } = data;
+    const state = this.store.getState();
+    const items = state.schedule.filter((s) => slotKeys.includes(s.slotId));
+    if (items.length === 0) return;
+
+    const first = items[0];
+    this.currentMergedData = data;
+
+    // Subject title & dot
+    $("#merged-detail-subject-title").textContent = first.subject || "Chưa có tên";
+    const dot = $("#merged-detail-color-dot");
+    if (dot) {
+      dot.className = `w-3 h-3 rounded-full ${COLOR_MAP[first.color]?.accent || "bg-blue-500"}`;
+    }
+
+    $("#merged-detail-teacher").textContent = first.teacher || "--";
+    $("#merged-detail-room").textContent = first.room || "--";
+
+    // Find slot info
+    const subSlots = slotKeys
+      .map((k) => {
+        const [, sid] = k.split("-");
+        return state.timeSlots.find((s) => s.id === sid);
+      })
+      .filter(Boolean);
+
+    let startTime = subSlots[0]?.start || "--";
+    let endTime = subSlots[subSlots.length - 1]?.end || "--";
+    let totalMinutes = 0;
+    subSlots.forEach((s) => {
+      const dur = TimeEngine.getSlotDurationMinutes ? TimeEngine.getSlotDurationMinutes(s) : (TimeEngine.getDurationMinutes ? TimeEngine.getDurationMinutes(s.start, s.end) : 0);
+      totalMinutes += (dur || 0);
+    });
+
+    $("#merged-detail-time-range").textContent = `${startTime} — ${endTime}`;
+    $("#merged-detail-day-label").textContent = `${DAY_NAMES[day]} • ${subSlots.length} ca liên tiếp`;
+    $("#merged-detail-duration-badge").textContent = `${totalMinutes} phút`;
+
+    const allCompleted = items.every((i) => i.status === "completed");
+    $("#merged-btn-complete-text").textContent = allCompleted ? "Đổi sang dự kiến" : "Hoàn thành";
+
+    // Render sub slots list
+    const listEl = $("#merged-detail-slots-list");
+    if (listEl) {
+      listEl.innerHTML = subSlots
+        .map((s, idx) => {
+          const item = items.find((i) => i.slotId === `${day}-${s.id}`);
+          const isDone = item?.status === "completed";
+          return `
+            <div class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center font-bold text-[10px] text-slate-600 dark:text-slate-300">
+                  ${idx + 1}
+                </span>
+                <div>
+                  <span class="font-bold text-slate-800 dark:text-slate-200 text-xs">${escapeHTML(s.label)}</span>
+                  <span class="text-slate-400 font-mono text-[10px] ml-1">(${s.start} - ${s.end})</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${isDone ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300" : "bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300"}">
+                  ${isDone ? "Xong" : "Dự kiến"}
+                </span>
+                <button
+                  type="button"
+                  data-remove-single-slot="${day}-${s.id}"
+                  class="btn-remove-subslot p-1 text-slate-400 hover:text-rose-500 rounded transition"
+                  title="Xóa riêng ca này khỏi TKB"
+                >
+                  <i data-lucide="trash" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      listEl.querySelectorAll(".btn-remove-subslot").forEach((btn) => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const targetKey = btn.dataset.removeSingleSlot;
+          this.history.recordState();
+          const st = this.store.getState();
+          st.schedule = st.schedule.filter((s) => s.slotId !== targetKey);
+          this.storage.debouncedSave();
+          this.close("modal-merged-detail");
+          events.emit("schedule:updated");
+          events.emit("toast:show", { message: "Đã xóa ca khỏi khối", type: "info" });
+        };
+      });
+    }
+
+    this.open("modal-merged-detail");
+  }
+
+  bindMergedDetailActions() {
+    // Split block
+    const btnSplit = $("#btn-merged-split-block");
+    if (btnSplit) {
+      btnSplit.onclick = () => {
+        if (!this.currentMergedData?.slotKeys) return;
+        events.emit("timetable:split-block", this.currentMergedData.slotKeys);
+        this.close("modal-merged-detail");
+        events.emit("toast:show", { message: "Đã tách khối thành các ca riêng", type: "success" });
+      };
+    }
+
+    // Toggle complete
+    const btnComplete = $("#btn-merged-toggle-complete");
+    if (btnComplete) {
+      btnComplete.onclick = () => {
+        if (!this.currentMergedData?.slotKeys) return;
+        events.emit("timetable:toggle-complete-block", this.currentMergedData.slotKeys);
+        this.close("modal-merged-detail");
+      };
+    }
+
+    // Focus
+    const btnFocus = $("#btn-merged-focus");
+    if (btnFocus) {
+      btnFocus.onclick = () => {
+        if (!this.currentMergedData?.slotKeys) return;
+        const state = this.store.getState();
+        const first = state.schedule.find((s) => s.slotId === this.currentMergedData.slotKeys[0]);
+        if (first) {
+          const [, sid] = first.slotId.split("-");
+          const slot = state.timeSlots.find((s) => s.id === sid);
+          this.close("modal-merged-detail");
+          events.emit("focus:start", { ...first, slot });
+        }
+      };
+    }
+
+    // Edit all
+    const btnEditAll = $("#btn-merged-edit-all");
+    if (btnEditAll) {
+      btnEditAll.onclick = () => {
+        if (!this.currentMergedData?.slotKeys) return;
+        this.close("modal-merged-detail");
+        this.openQuickEdit(this.currentMergedData.slotKeys);
+      };
+    }
+
+    // Delete block
+    const btnDelete = $("#btn-merged-delete-block");
+    if (btnDelete) {
+      btnDelete.onclick = () => {
+        if (!this.currentMergedData?.slotKeys) return;
+        if (!confirm(`Xóa toàn bộ ${this.currentMergedData.slotKeys.length} ca trong khối gộp này?`)) return;
+        events.emit("timetable:delete-block", this.currentMergedData.slotKeys);
+        this.close("modal-merged-detail");
+      };
+    }
   }
 }

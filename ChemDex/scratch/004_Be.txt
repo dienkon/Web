@@ -1,0 +1,94 @@
+Beryllium (Be)
+Thông tin chung
+Tên Latin: Beryllium
+Tên tiếng Anh: Beryllium
+Đồng vị: ⁷Be, ⁹Be, ¹⁰Be
+Vị trí: Nhóm IIA | Chu kỳ 2
+Số Oxy hóa: +2
+Độ âm điện: 1.57
+Lịch sử khám phá
+Phát hiện bởi: Louis Nicolas Vauquelin
+Năm công bố: 1798
+Nơi khám phá: Pháp
+Mô tả: Năm 1798, Louis Nicolas Vauquelin phát hiện một oxide mới khi phân tích Beryll và Emerald. Kim loại Beryllium sau đó được Friedrich Wöhler và Antoine Bussy điều chế độc lập vào năm 1828.
+   3. Cấu tạo
+a. Cấu tạo
+Hoạt họa cấu hình e: 1s² 2s²
+Mô hình mạng tinh thể: Lục phương xếp chặt (HCP)
+Số hiệu nguyên tử: 4
+Nguyên tử khối: 9.0122 g/mol
+Vỏ nguyên tử: 4 electron
+K: 2 | L: 2
+Hạt nhân: 4 proton, 5 neutron đối với ⁹Be
+Cấu hình e: 1s² 2s²
+Loại mạng: Lục phương xếp chặt (HCP)
+b. Trạng thái tự nhiên
+Trạng thái: Beryllium không tồn tại ở dạng đơn chất tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại trong các khoáng vật chứa Beryllium.
+Có trong: Beryll, Emerald, Aquamarine, Bertrandite và một số khoáng vật khác.
+Đơn chất: Be
+Hợp chất: BeO, Be(OH)₂, BeCl₂, BeF₂, BeCO₃, Be₃Al₂Si₆O₁₈...
+c. Đồng vị
+Đồng vị: ⁷Be, ⁹Be, ¹⁰Be
+⁷Be: Đồng vị phóng xạ, chu kỳ bán rã khoảng 53 ngày.
+⁹Be: Đồng vị bền duy nhất của Beryllium và chiếm gần như toàn bộ Beryllium tự nhiên.
+¹⁰Be: Đồng vị phóng xạ, chu kỳ bán rã khoảng 1.39 triệu năm; có thể hình thành do tác động của tia vũ trụ.
+Tính chất
+Tính chất vật lý
+Kim loại màu xám bạc.
+Nhẹ và cứng.
+Có độ cứng cao so với nhiều kim loại nhẹ.
+Khối lượng riêng: 1.848 g/cm³.
+Nhiệt độ nóng chảy: 1287 °C.
+Nhiệt độ sôi: khoảng 2469 °C.
+Dẫn nhiệt tốt.
+Có độ ổn định kích thước cao.
+Hấp thụ tia X tương đối thấp.
+Tính chất hóa học
+Là kim loại kiềm thổ.
+Có tính khử.
+Số Oxy hóa phổ biến: +2.
+Phản ứng với Oxygen khi nung nóng tạo Beryllium oxide.
+Phản ứng với Halogen tạo Beryllium halide.
+Phản ứng với acid tạo muối Beryllium và Hydrogen.
+Không phản ứng đáng kể với nước ở điều kiện thường do có lớp oxide bảo vệ.
+Beryllium oxide và Beryllium hydroxide có tính lưỡng tính.
+Điều chế
+Điều chế trong công nghiệp
+Beryllium thường được sản xuất từ Beryllium hydroxide và chuyển thành Beryllium chloride:
+Be(OH)2 + 2HCl → BeCl2 + 2H2O
+Beryllium chloride khan sau đó được điện phân trong môi trường muối nóng chảy để thu Beryllium:
+BeCl2 → Be + Cl2
+Điều chế trong phòng thí nghiệm
+Có thể điều chế Beryllium bằng cách khử Beryllium chloride bằng Magnesium:
+BeCl2 + Mg → Be + MgCl2
+Nhận biết
+Phổ nguyên tử: Beryllium có thể được nhận biết bằng các vạch phổ đặc trưng.
+Ion Be²⁺: Có thể xác định bằng các phương pháp phân tích hóa học chuyên biệt.
+Không có một phản ứng đơn giản, phổ biến dùng để nhận biết Beryllium như phép thử Ag⁺ với Cl⁻.
+Phương trình
+Tác dụng với Oxygen
+2Be + O2 → 2BeO
+Tác dụng với Hydrochloric acid
+Be + 2HCl → BeCl2 + H2↑
+Tác dụng với Chlorine
+Be + Cl2 → BeCl2
+Tác dụng với Sulfur
+Be + S → BeS
+Tác dụng với Sodium hydroxide
+Be + 2NaOH + 2H2O → Na2[Be(OH)4] + H2↑
+Beryllium hydroxide tác dụng với acid
+Be(OH)2 + 2HCl → BeCl2 + 2H2O
+Beryllium hydroxide tác dụng với base
+Be(OH)2 + 2NaOH → Na2[Be(OH)4]
+Ứng dụng thực tế
+Hợp kim: Tạo hợp kim Beryllium-Copper có độ cứng, độ bền và độ dẫn điện tốt.
+Hàng không vũ trụ: Sử dụng trong các bộ phận cần vật liệu nhẹ, cứng và ổn định kích thước.
+Công nghệ tia X: Dùng làm cửa sổ cho một số thiết bị tia X do hấp thụ tia X tương đối thấp.
+Công nghệ hạt nhân: Beryllium được sử dụng trong một số hệ thống liên quan đến neutron.
+Điện tử: Hợp kim Beryllium-Copper được dùng trong đầu nối, tiếp điểm và linh kiện điện tử.
+Dụng cụ: Một số hợp kim Beryllium-Copper được dùng chế tạo dụng cụ có yêu cầu hạn chế phát tia lửa.
+9. Tổng quan
+Beryllium là nguyên tố số 4, thuộc nhóm IIA | chu kỳ 2 và là kim loại kiềm thổ nhẹ.
+Beryllium có khối lượng riêng thấp, độ cứng cao, nhiệt độ nóng chảy cao và khả năng dẫn nhiệt tốt. Trong tự nhiên, Beryllium chủ yếu tồn tại trong các khoáng vật như Beryll và Bertrandite.
+Beryllium chủ yếu có số Oxy hóa +2. Beryllium oxide và Beryllium hydroxide có tính lưỡng tính, là đặc điểm hóa học nổi bật của nguyên tố này.
+Beryllium và các hợp kim của nó được sử dụng trong hàng không vũ trụ, điện tử, công nghệ tia X và kỹ thuật hạt nhân.

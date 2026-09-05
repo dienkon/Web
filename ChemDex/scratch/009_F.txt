@@ -1,0 +1,105 @@
+Fluorine (F)
+Thông tin chung
+Tên Latin: Fluorum
+Tên tiếng Anh: Fluorine
+Đồng vị: ¹⁷F, ¹⁸F, ¹⁹F, ²⁰F
+Vị trí: Nhóm VIIA | Chu kỳ 2
+Số Oxy hóa: −1, 0
+Độ âm điện: 3.98
+Lịch sử khám phá
+Phát hiện bởi: Henri Moissan
+Năm công bố: 1886
+Nơi khám phá: Pháp
+Mô tả: Fluorine là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được Fluorine dạng đơn chất bằng phương pháp điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu Fluorine.
+    3. Cấu tạo
+a. Cấu tạo
+Hoạt họa cấu hình e: 1s² 2s² 2p⁵
+Mô hình mạng tinh thể: Lập phương tâm mặt (FCC)
+Số hiệu nguyên tử: 9
+Nguyên tử khối: 18.998 g/mol
+Vỏ nguyên tử: 9 electron
+K: 2 | L: 7
+Hạt nhân: 9 proton, 10 neutron đối với ¹⁹F
+Cấu hình e: 1s² 2s² 2p⁵
+Loại mạng: Lập phương tâm mặt (FCC)
+b. Trạng thái tự nhiên
+Trạng thái: Fluorine có tính Oxy hóa rất mạnh nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.
+Có trong: Fluorite, Cryolite, Fluorapatite và nước biển.
+Đơn chất: F₂
+Hợp chất: CaF₂, Na₃AlF₆, NaF, HF, SF₆, CF₄...
+c. Đồng vị
+Đồng vị: ¹⁷F, ¹⁸F, ¹⁹F, ²⁰F
+¹⁹F: Đồng vị bền duy nhất và gần như chiếm toàn bộ Fluorine tự nhiên.
+¹⁸F: Đồng vị phóng xạ có chu kỳ bán rã khoảng 110 phút, được sử dụng rộng rãi trong y học hạt nhân.
+¹⁷F, ²⁰F: Các đồng vị phóng xạ có thời gian sống rất ngắn.
+Tính chất
+Tính chất vật lý
+Là chất khí màu vàng nhạt ở điều kiện thường.
+Có mùi hắc, kích thích mạnh.
+Là nguyên tố có độ âm điện cao nhất.
+Là halogen nhẹ nhất.
+Khối lượng mol của F₂: 37.9968 g/mol.
+Khối lượng riêng: khoảng 1.70 g/L ở 0 °C và 1 atm.
+Nhiệt độ nóng chảy: −219.67 °C.
+Nhiệt độ sôi: −188.11 °C.
+Ít tan trong nước và phản ứng với nước.
+Có tính Oxy hóa cực mạnh.
+Tính chất hóa học
+Là phi kim thuộc nhóm VIIA.
+Có độ âm điện cao nhất trong bảng tuần hoàn.
+Là chất Oxy hóa mạnh nhất trong các nguyên tố.
+Số Oxy hóa phổ biến nhất: −1.
+Phản ứng mạnh với hầu hết các kim loại tạo Fluoride.
+Phản ứng với nhiều phi kim.
+Phản ứng với Hydrogen tạo Hydrogen fluoride.
+Có thể phản ứng với nước tạo HF và Oxygen.
+Có khả năng Oxy hóa các halogen khác.
+Phản ứng với nhiều hợp chất hữu cơ và vô cơ.
+Điều chế
+Điều chế trong công nghiệp
+Fluorine được sản xuất chủ yếu bằng điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy.
+Quá trình điện phân:
+Tại anode:
+2F⁻ → F₂ + 2e⁻
+Tại cathode:
+2H⁺ + 2e⁻ → H₂
+Phương trình tổng quát:
+2HF → H₂ + F₂
+Potassium fluoride được sử dụng để tạo môi trường điện phân thích hợp vì Hydrogen fluoride tinh khiết có độ dẫn điện thấp.
+Điều chế trong phòng thí nghiệm
+Fluorine không được điều chế bằng các phản ứng hóa học thông thường trong phòng thí nghiệm do tính Oxy hóa cực mạnh.
+Phương pháp điều chế vẫn dựa trên điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy:
+2HF → H₂ + F₂
+Nhận biết
+Giấy thử: Fluorine không có một phép thử đơn giản, an toàn và đặc hiệu thường dùng trong phòng thí nghiệm phổ thông.
+Đặc điểm: Fluorine là khí màu vàng nhạt và có tính Oxy hóa rất mạnh, nhưng màu sắc không được xem là phương pháp nhận biết chính xác.
+Phương trình
+Tác dụng với Hydrogen
+H₂ + F₂ → 2HF
+Tác dụng với Sodium
+2Na + F₂ → 2NaF
+Tác dụng với Calcium
+Ca + F₂ → CaF₂
+Tác dụng với Iron
+2Fe + 3F₂ → 2FeF₃
+Tác dụng với Sulfur
+S + 3F₂ → SF₆
+Tác dụng với Phosphorus
+2P + 5F₂ → 2PF₅
+Tác dụng với nước
+2F₂ + 2H₂O → 4HF + O₂
+Oxi hóa Chlorine
+F₂ + 2Cl⁻ → 2F⁻ + Cl₂
+Ứng dụng thực tế
+Sản xuất Fluoride: Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride.
+Công nghiệp hạt nhân: Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium.
+Vật liệu chống dính: Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE.
+Công nghiệp hóa chất: Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật.
+Y học: ¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ.
+Kem đánh răng: Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng.
+Làm lạnh: Một số hợp chất Fluorine được sử dụng làm môi chất lạnh.
+Tổng quan
+Fluorine là nguyên tố số 9, thuộc nhóm VIIA | chu kỳ 2 và là halogen.
+Fluorine có độ âm điện cao nhất trong bảng tuần hoàn (3.98) và là chất Oxy hóa mạnh nhất trong các nguyên tố. Ở điều kiện thường, Fluorine tồn tại dưới dạng phân tử F₂, có màu vàng nhạt.
+Do tính phản ứng cực mạnh, Fluorine không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.
+Fluorine và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, vật liệu chống dính, công nghệ hạt nhân, y học và chăm sóc răng miệng.

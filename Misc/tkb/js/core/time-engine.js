@@ -16,6 +16,11 @@ export class TimeEngine {
     return Math.max(0, e - s);
   }
 
+  static getSlotDurationMinutes(slot) {
+    if (!slot) return 0;
+    return this.getDurationMinutes(slot.start, slot.end);
+  }
+
   static isOvernight(startStr, endStr) {
     return this.parseToMinutes(endStr) < this.parseToMinutes(startStr);
   }

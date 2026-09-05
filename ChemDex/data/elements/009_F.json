@@ -1,0 +1,137 @@
+{
+  "number": 9,
+  "symbol": "F",
+  "nameVi": "Fluorine",
+  "nameEn": "Fluorine",
+  "mass": 18.998,
+  "category": "halogen",
+  "themeColor": "#F1C40F",
+  "hasData": true,
+  "general": {
+    "latinName": "Fluorum",
+    "englishName": "Fluorine",
+    "isotope": "¹⁷F, ¹⁸F, ¹⁹F, ²⁰F",
+    "group": 17,
+    "period": 2,
+    "oxidation": "−1, 0",
+    "electronegativity": 3.98,
+    "electronConfig": "1s² 2s² 2p⁵",
+    "density": "khoảng 1.70 g/L ở 0 °C",
+    "meltingPoint": "−219.67 °C",
+    "boilingPoint": "−188.11 °C"
+  },
+  "structure": {
+    "electrons": 9,
+    "protons": 9,
+    "neutrons": 10,
+    "latticeType": "Lập phương tâm mặt (FCC)",
+    "shells": [2, 7]
+  },
+  "naturalState": {
+    "description": "Fluorine có tính Oxy hóa rất mạnh nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật.",
+    "simple": ["F₂"],
+    "compounds": [
+      "CaF₂", "Na₃AlF₆", "NaF", "HF", "SF₆", "CF₄"
+    ],
+    "minerals": ["Fluorite", "Cryolite", "Fluorapatite", "Nước biển"]
+  },
+  "history": {
+    "discoverers": [
+      {"name": "Henri Moissan"}
+    ],
+    "year": 1886,
+    "discoveryLocation": "Pháp",
+    "description": "Fluorine là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được Fluorine dạng đơn chất bằng phương pháp điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu Fluorine."
+  },
+  "physical": "<p><strong>Tính chất vật lý của Fluorine (F):</strong></p><ul><li>Là chất khí màu vàng nhạt ở điều kiện thường.</li><li>Có mùi hắc, kích thích mạnh.</li><li>Là nguyên tố có độ âm điện cao nhất.</li><li>Là halogen nhẹ nhất.</li><li>Khối lượng mol của F₂: 37.9968 g/mol.</li><li>Khối lượng riêng: khoảng 1.70 g/L ở 0 °C và 1 atm.</li><li>Nhiệt độ nóng chảy: −219.67 °C.</li><li>Nhiệt độ sôi: −188.11 °C.</li><li>Ít tan trong nước và phản ứng với nước.</li><li>Có tính Oxy hóa cực mạnh.</li></ul>",
+  "chemical": "<p><strong>Tính chất hóa học của Fluorine (F):</strong></p><ul><li>Là phi kim thuộc nhóm VIIA.</li><li>Có độ âm điện cao nhất trong bảng tuần hoàn.</li><li>Là chất Oxy hóa mạnh nhất trong các nguyên tố.</li><li>Số Oxy hóa phổ biến nhất: −1.</li><li>Phản ứng mạnh với hầu hết các kim loại tạo Fluoride.</li><li>Phản ứng với nhiều phi kim.</li><li>Phản ứng với Hydrogen tạo Hydrogen fluoride.</li><li>Có thể phản ứng với nước tạo HF và Oxygen.</li><li>Có khả năng Oxy hóa các halogen khác.</li><li>Phản ứng với nhiều hợp chất hữu cơ và vô cơ.</li></ul>",
+  "preparation": {
+    "industry": [
+      {
+        "title": "Điện phân HF và KF nóng chảy",
+        "desc": "Fluorine được sản xuất chủ yếu bằng điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Potassium fluoride được sử dụng để tạo môi trường điện phân thích hợp vì Hydrogen fluoride tinh khiết có độ dẫn điện thấp.",
+        "equation": "Tại anode: 2F⁻ → F₂ + 2e⁻\nTại cathode: 2H⁺ + 2e⁻ → H₂\nTổng quát: 2HF → H₂ + F₂"
+      }
+    ],
+    "lab": [
+      {
+        "title": "Không dùng phản ứng hóa học thông thường",
+        "desc": "Fluorine không được điều chế bằng các phản ứng hóa học thông thường trong phòng thí nghiệm do tính Oxy hóa cực mạnh. Phương pháp điều chế vẫn dựa trên điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy.",
+        "equation": "2HF → H₂ + F₂"
+      }
+    ]
+  },
+  "recognition": {
+    "tests": [
+      {
+        "title": "Giấy thử",
+        "result": "Fluorine không có một phép thử đơn giản, an toàn và đặc hiệu thường dùng trong phòng thí nghiệm phổ thông. Đặc điểm: Fluorine là khí màu vàng nhạt và có tính Oxy hóa rất mạnh, nhưng màu sắc không được xem là phương pháp nhận biết chính xác."
+      }
+    ]
+  },
+  "reactions": [
+    {
+      "title": "Tác dụng với Hydrogen",
+      "equation": "H₂ + F₂ → 2HF"
+    },
+    {
+      "title": "Tác dụng với Sodium",
+      "equation": "2Na + F₂ → 2NaF"
+    },
+    {
+      "title": "Tác dụng với Calcium",
+      "equation": "Ca + F₂ → CaF₂"
+    },
+    {
+      "title": "Tác dụng với Iron",
+      "equation": "2Fe + 3F₂ → 2FeF₃"
+    },
+    {
+      "title": "Tác dụng với Sulfur",
+      "equation": "S + 3F₂ → SF₆"
+    },
+    {
+      "title": "Tác dụng với Phosphorus",
+      "equation": "2P + 5F₂ → 2PF₅"
+    },
+    {
+      "title": "Tác dụng với nước",
+      "equation": "2F₂ + 2H₂O → 4HF + O₂"
+    },
+    {
+      "title": "Oxi hóa Chlorine",
+      "equation": "F₂ + 2Cl⁻ → 2F⁻ + Cl₂"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất Fluoride",
+      "desc": "Fluorine được sử dụng để sản xuất nhiều hợp chất Fluoride."
+    },
+    {
+      "title": "Công nghiệp hạt nhân",
+      "desc": "Một số hợp chất Fluorine, đặc biệt Uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu Uranium."
+    },
+    {
+      "title": "Vật liệu chống dính",
+      "desc": "Fluorine được sử dụng để sản xuất các polymer chứa Fluorine như PTFE."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Sản xuất nhiều hợp chất Fluorine dùng trong hóa chất và vật liệu kỹ thuật."
+    },
+    {
+      "title": "Y học",
+      "desc": "¹⁸F được sử dụng trong Positron Emission Tomography (PET) để tạo các chất đánh dấu phóng xạ."
+    },
+    {
+      "title": "Kem đánh răng",
+      "desc": "Fluoride compounds như Sodium fluoride được sử dụng để giúp bảo vệ men răng."
+    },
+    {
+      "title": "Làm lạnh",
+      "desc": "Một số hợp chất Fluorine được sử dụng làm môi chất lạnh."
+    }
+  ],
+  "notes": "<p><strong>Tổng quan về Fluorine:</strong> Fluorine là nguyên tố số 9, thuộc nhóm VIIA | chu kỳ 2 và là halogen. Fluorine có độ âm điện cao nhất trong bảng tuần hoàn (3.98) và là chất Oxy hóa mạnh nhất trong các nguyên tố. Ở điều kiện thường, Fluorine tồn tại dưới dạng phân tử F₂, có màu vàng nhạt. Do tính phản ứng cực mạnh, Fluorine không tồn tại tự do trong tự nhiên mà chủ yếu tồn tại dưới dạng Fluoride trong khoáng vật. Fluorine và các hợp chất của nó có nhiều ứng dụng trong công nghiệp hóa chất, vật liệu chống dính, công nghệ hạt nhân, y học và chăm sóc răng miệng.</p>"
+}

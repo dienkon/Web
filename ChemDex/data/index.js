@@ -287,7 +287,7 @@ export const categories = {
 export const detailedData = await loadAllKnownElements();
 
 export const GEMINI_API_KEY = "";
-export const GEMINI_MODEL = "gemini-3.1-flash-lite";
+export const GEMINI_MODEL = "gemini-3.5-flash-lite";
 export const GEMINI_ENDPOINT =
   "https://generativelanguage.googleapis.com/v1beta/models/";
 

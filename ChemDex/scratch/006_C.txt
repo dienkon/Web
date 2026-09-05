@@ -1,0 +1,104 @@
+Carbon (C)
+Thông tin chung
+Tên Latin: Carboneum
+Tên tiếng Anh: Carbon
+Đồng vị: ¹²C, ¹³C, ¹⁴C
+Vị trí: Nhóm IVA | Chu kỳ 2
+Số Oxy hóa: −4, −3, −2, −1, 0, +1, +2, +3, +4
+Độ âm điện: 2.55
+Lịch sử khám phá
+Phát hiện bởi: Không xác định một cá nhân cụ thể
+Năm công bố: Thời cổ đại
+Nơi khám phá: Nhiều nền văn minh cổ đại
+Mô tả: Carbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide.
+    3. Cấu tạo
+a. Cấu tạo
+Hoạt họa cấu hình e: 1s² 2s² 2p²
+Mô hình mạng tinh thể: Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương
+Số hiệu nguyên tử: 6
+Nguyên tử khối: 12.011 g/mol
+Vỏ nguyên tử: 6 electron
+K: 2 | L: 4
+Hạt nhân: 6 proton, 6 neutron đối với ¹²C
+Cấu hình e: 1s² 2s² 2p²
+Loại mạng: Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương
+b. Trạng thái tự nhiên
+Trạng thái: Carbon tồn tại trong tự nhiên dưới nhiều dạng khác nhau. Carbon có thể tồn tại ở dạng đơn chất như kim cương, graphite và một số dạng thù hình khác; đồng thời có mặt rất phổ biến trong các hợp chất vô cơ và hữu cơ.
+Có trong: Than đá, dầu mỏ, khí tự nhiên, đá carbonate, khí quyển, sinh vật và các vật chất hữu cơ.
+Đơn chất: C
+Hợp chất: CO₂, CO, CaCO₃, CH₄, C₂H₅OH, C₆H₁₂O₆...
+c. Đồng vị
+Đồng vị: ¹²C, ¹³C, ¹⁴C
+¹²C: Đồng vị bền, chiếm khoảng 98.93% Carbon tự nhiên.
+¹³C: Đồng vị bền, chiếm khoảng 1.07%.
+¹⁴C: Đồng vị phóng xạ, có chu kỳ bán rã khoảng 5730 năm. Được hình thành tự nhiên trong khí quyển do tác động của tia vũ trụ.
+Tính chất
+Tính chất vật lý
+Là chất rắn ở điều kiện thường.
+Có nhiều dạng thù hình.
+Kim cương không màu và cực kỳ cứng.
+Graphite màu đen, mềm và có khả năng dẫn điện.
+Khối lượng riêng của graphite: khoảng 2.27 g/cm³.
+Khối lượng riêng của kim cương: khoảng 3.51 g/cm³.
+Carbon có nhiệt độ thăng hoa rất cao.
+Có khả năng tạo cấu trúc liên kết cộng hóa trị rất đa dạng.
+Có thể tạo các cấu trúc như graphite, kim cương, graphene và fullerene.
+Tính chất hóa học
+Là phi kim.
+Có khả năng tạo liên kết cộng hóa trị mạnh.
+Có khả năng liên kết với chính nó tạo các chuỗi và cấu trúc phức tạp.
+Có số Oxy hóa phổ biến từ −4 đến +4.
+Carbon cháy trong Oxygen tạo Carbon dioxide.
+Khi Oxygen không đủ, Carbon có thể tạo Carbon monoxide.
+Ở nhiệt độ cao, Carbon có thể khử một số oxide kim loại.
+Phản ứng với Hydrogen tạo Hydrocarbon.
+Phản ứng với một số kim loại tạo Carbide.
+Điều chế
+Điều chế trong công nghiệp
+Carbon không được điều chế theo một phương pháp duy nhất vì nó tồn tại tự nhiên dưới nhiều dạng khác nhau.
+Sản xuất Carbon vô định hình: Có thể thu được từ quá trình nhiệt phân các chất hữu cơ trong điều kiện thiếu Oxygen.
+Sản xuất than cốc: Than đá được nung ở nhiệt độ cao trong điều kiện không có Oxygen để loại bỏ các thành phần dễ bay hơi.
+Sản xuất Carbon đen (Carbon black): Hydrocarbon được phân hủy hoặc đốt cháy không hoàn toàn để tạo Carbon dạng hạt mịn.
+Điều chế trong phòng thí nghiệm
+Carbon có thể được tạo ra bằng cách nhiệt phân các hợp chất hữu cơ trong điều kiện thiếu Oxygen.
+Ví dụ:
+C12H22O11 → 12C + 11H2O
+Phản ứng này tạo Carbon vô định hình cùng các sản phẩm khác tùy điều kiện.
+Nhận biết
+Đốt cháy: Carbon cháy hoàn toàn trong Oxygen tạo Carbon dioxide.
+C + O2 → CO2
+Khí Carbon dioxide tạo thành có thể được xác nhận bằng nước vôi trong:
+CO2 + Ca(OH)2 → CaCO3↓ + H2O
+Hiện tượng: Nước vôi trong chuyển thành vẩn đục do tạo kết tủa Calcium carbonate.
+Phương trình
+Cháy hoàn toàn trong Oxygen
+C + O2 → CO2
+Cháy không hoàn toàn
+2C + O2 → 2CO
+Tác dụng với Carbon dioxide
+Ở nhiệt độ cao:
+C + CO2 → 2CO
+Khử Copper(II) oxide
+2CuO + C → 2Cu + CO2
+Khử Iron(III) oxide
+2Fe2O3 + 3C → 4Fe + 3CO2
+Tạo Methane
+C + 2H2 → CH4
+Tạo Calcium carbide
+CaO + 3C → CaC2 + CO
+Tạo Silicon carbide
+SiO2 + 3C → SiC + 2CO
+Ứng dụng thực tế
+Nhiên liệu: Than và các nhiên liệu chứa Carbon được sử dụng để sản xuất nhiệt và năng lượng.
+Luyện kim: Carbon và than cốc được sử dụng trong sản xuất Iron và Steel.
+Điện cực: Graphite được sử dụng làm điện cực nhờ khả năng dẫn điện và chịu nhiệt tốt.
+Bút chì: Graphite được sử dụng trong lõi bút chì.
+Vật liệu cứng: Kim cương được sử dụng để cắt, mài và gia công các vật liệu cứng.
+Lọc và hấp phụ: Activated carbon được sử dụng để hấp phụ các chất trong xử lý nước và không khí.
+Sản xuất vật liệu: Carbon black được sử dụng trong sản xuất cao su, mực in và nhiều vật liệu khác.
+Công nghệ cao: Graphene, Carbon nanotube và fullerene được nghiên cứu và ứng dụng trong điện tử, vật liệu và công nghệ nano.
+Tổng quan
+Carbon là nguyên tố số 6, thuộc nhóm IVA | chu kỳ 2 và là một trong những nguyên tố quan trọng nhất đối với sự sống.
+Carbon có khả năng tạo liên kết cộng hóa trị rất đa dạng và có thể liên kết với chính nó tạo thành các chuỗi, vòng và cấu trúc phức tạp. Đây là cơ sở của hóa học hữu cơ.
+Carbon có nhiều dạng thù hình với tính chất rất khác nhau, tiêu biểu như kim cương, graphite, graphene và fullerene.
+Carbon xuất hiện trong khí quyển, khoáng vật, nhiên liệu hóa thạch và mọi sinh vật sống. Các hợp chất của Carbon có vai trò quan trọng trong sinh học, công nghiệp, năng lượng, luyện kim và công nghệ vật liệu.

@@ -1,0 +1,105 @@
+Oxygen (O)
+Thông tin chung
+Tên Latin: Oxygenium
+Tên tiếng Anh: Oxygen
+Đồng vị: ¹⁶O, ¹⁷O, ¹⁸O
+Vị trí: Nhóm VIA | Chu kỳ 2
+Số Oxy hóa: −2, −1, 0, +1, +2
+Độ âm điện: 3.44
+Lịch sử khám phá
+Phát hiện bởi: Joseph Priestley và Carl Wilhelm Scheele
+Năm công bố: 1774
+Nơi khám phá: Anh và Thụy Điển
+Mô tả: Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen.
+    3. Cấu tạo
+a. Cấu tạo
+Hoạt họa cấu hình e: 1s² 2s² 2p⁴
+Mô hình mạng tinh thể: Oxygen ở điều kiện thường tồn tại dưới dạng phân tử O₂ nên không có mạng tinh thể. Khi ở trạng thái rắn, Oxygen tạo tinh thể phân tử với nhiều pha khác nhau.
+Số hiệu nguyên tử: 8
+Nguyên tử khối: 15.999 g/mol
+Vỏ nguyên tử: 8 electron
+K: 2 | L: 6
+Hạt nhân: 8 proton, 8 neutron đối với ¹⁶O
+Cấu hình e: 1s² 2s² 2p⁴
+Loại mạng: Đơn tà (monoclinic) ở pha α-O2; Tam tà (triclinic) ở pha β-O2; Lập phương đơn giản (SC) ở pha γ-O2
+b. Trạng thái tự nhiên
+Trạng thái: Oxygen là nguyên tố phổ biến trong vũ trụ và là nguyên tố phổ biến nhất theo khối lượng trong lớp vỏ Trái Đất. Trong khí quyển, Oxygen chủ yếu tồn tại dưới dạng O₂.
+Đơn chất: O₂, O₃
+Hợp chất: H₂O, CO₂, SiO₂, Fe₂O₃, Al₂O₃, H₂SO₄, CaCO₃...
+c. Đồng vị
+Đồng vị: ¹⁶O, ¹⁷O, ¹⁸O
+¹⁶O: Khoảng 99.76%, là đồng vị phổ biến nhất.
+¹⁷O: Khoảng 0.04%, là đồng vị bền.
+¹⁸O: Khoảng 0.20%, là đồng vị bền.
+Ngoài ba đồng vị bền, Oxygen còn có nhiều đồng vị phóng xạ.
+Tính chất
+Tính chất vật lý
+Chất khí không màu, không mùi, không vị.
+Chiếm khoảng 20.95% thể tích khí quyển.
+Khối lượng mol của O₂: 31.998 g/mol.
+Khối lượng riêng: khoảng 1.429 g/L ở 0 °C và 1 atm.
+Ít tan trong nước.
+Nhiệt độ nóng chảy: −218.79 °C.
+Nhiệt độ sôi: −182.95 °C.
+Oxygen lỏng có màu xanh lam nhạt.
+Có tính thuận từ.
+Không cháy nhưng duy trì sự cháy mạnh.
+Tính chất hóa học
+Là phi kim có độ âm điện cao.
+Có tính Oxy hóa mạnh.
+Dễ phản ứng với nhiều kim loại tạo oxide.
+Phản ứng với nhiều phi kim tạo oxide.
+Phản ứng với Hydrogen tạo nước.
+Duy trì quá trình cháy.
+Tham gia quá trình hô hấp hiếu khí.
+Có thể tạo peroxide và các hợp chất Oxygen khác.
+Có thể mang số Oxy hóa dương khi phản ứng với Fluorine.
+Điều chế
+Điều chế trong công nghiệp
+Chưng cất phân đoạn không khí lỏng: Không khí được làm sạch, nén và làm lạnh để hóa lỏng. Oxygen sau đó được tách khỏi Nitrogen và các thành phần khác dựa trên sự khác nhau về nhiệt độ sôi.
+Pressure Swing Adsorption (PSA): Sử dụng vật liệu hấp phụ để tách Nitrogen khỏi không khí, thu được khí giàu Oxygen.
+Điều chế trong phòng thí nghiệm
+Phân hủy Hydrogen peroxide:
+2H2O2 → 2H2O + O2
+Nhiệt phân Potassium chlorate:
+2KClO3 → 2KCl + 3O2
+Nhiệt phân Potassium permanganate:
+2KMnO4 → K2MnO4 + MnO2 + O2
+Nhận biết
+Que đóm còn tàn đỏ: Oxygen làm que đóm còn tàn đỏ bùng cháy trở lại.
+Đặc điểm: Oxygen không cháy nhưng duy trì sự cháy.
+Phương trình
+Tác dụng với Magnesium
+2Mg + O2 → 2MgO
+Tác dụng với Hydrogen
+2H2 + O2 → 2H2O
+Tác dụng với Carbon
+C + O2 → CO2
+Tác dụng với Iron
+3Fe + 2O2 → Fe3O4
+Tác dụng với Sulfur
+S + O2 → SO2
+Oxi hóa Carbon monoxide
+2CO + O2 → 2CO2
+Oxi hóa Sulfur dioxide
+2SO2 + O2 ⇌ 2SO3
+Xúc tác: Vanadium(V) oxide.
+Phân hủy Hydrogen peroxide
+2H2O2 → 2H2O + O2
+Xúc tác: Manganese(IV) oxide.
+Tác dụng với Fluorine
+O2 + 2F2 → 2OF2
+Ứng dụng thực tế
+Y tế: Cung cấp Oxygen cho bệnh nhân cần hỗ trợ hô hấp.
+Luyện kim: Tăng hiệu quả luyện và tinh chế kim loại, đặc biệt trong sản xuất thép.
+Hàn và cắt kim loại: Kết hợp với các nhiên liệu khí để tạo ngọn lửa nhiệt độ cao.
+Công nghiệp hóa chất: Sử dụng trong nhiều quá trình Oxy hóa và sản xuất hóa chất.
+Hàng không vũ trụ: Oxygen lỏng (LOX) được sử dụng làm chất Oxy hóa trong động cơ tên lửa.
+Xử lý nước: Tăng Oxygen hòa tan và hỗ trợ các quá trình xử lý sinh học.
+Nuôi trồng thủy sản: Bổ sung Oxygen cho môi trường nước.
+Công nghiệp thủy tinh và xi măng: Hỗ trợ quá trình đốt và tăng hiệu suất sản xuất.
+Tổng quan
+Oxygen là nguyên tố số 8 trong bảng tuần hoàn, thuộc nhóm VIA | chu kỳ 2.
+Ở điều kiện thường, Oxygen tồn tại chủ yếu dưới dạng phân tử O₂. Đây là thành phần chiếm khoảng 20.95% thể tích khí quyển và có mặt trong nước, khoáng vật cũng như rất nhiều hợp chất hữu cơ.
+Oxygen có độ âm điện cao và tính Oxy hóa mạnh, đóng vai trò quan trọng trong sự cháy, hô hấp, Oxy hóa và nhiều quá trình hóa học tự nhiên.
+Oxygen được ứng dụng rộng rãi trong y tế, luyện kim, công nghiệp hóa chất, hàn cắt, xử lý nước và công nghệ hàng không vũ trụ.

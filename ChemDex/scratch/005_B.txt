@@ -1,0 +1,101 @@
+Boron (B)
+Thông tin chung
+Tên Latin: Borium
+Tên tiếng Anh: Boron
+Đồng vị: ¹⁰B, ¹¹B
+Vị trí: Nhóm IIIA | Chu kỳ 2
+Số Oxy hóa: −3, +1, +2, +3
+Độ âm điện: 2.04
+Lịch sử khám phá
+Phát hiện bởi: Joseph Louis Gay-Lussac, Louis Jacques Thénard và Humphry Davy
+Năm công bố: 1808
+Nơi khám phá: Pháp và Anh
+Mô tả: Năm 1808, Gay-Lussac và Thénard ở Pháp, cùng Davy ở Anh, độc lập điều chế được Boron ở dạng tương đối không tinh khiết từ các hợp chất của Boron. Davy đặt tên nguyên tố là Boron, liên hệ với Borax.
+   3. Cấu tạo
+a. Cấu tạo
+Hoạt họa cấu hình e: 1s² 2s² 2p¹
+Mô hình mạng tinh thể: Mạng thoi (Rhombohedral)
+Số hiệu nguyên tử: 5
+Nguyên tử khối: 10.81 g/mol
+Vỏ nguyên tử: 5 electron
+K: 2 | L: 3
+Hạt nhân: 5 proton, 6 neutron đối với ¹¹B
+Cấu hình e: 1s² 2s² 2p¹
+Loại mạng: Mạng thoi (Rhombohedral)
+b. Trạng thái tự nhiên
+Trạng thái: Boron không tồn tại tự do phổ biến trong tự nhiên. Chủ yếu tồn tại dưới dạng Borate và các khoáng vật chứa Boron.
+Có trong: Borax, Kernite, Colemanite, Ulexite và một số khoáng vật Borate.
+Đơn chất: B
+Hợp chất: B₂O₃, H₃BO₃, Na₂B₄O₇·10H₂O, B₄C, BN...
+c. Đồng vị
+Đồng vị: ¹⁰B, ¹¹B
+¹⁰B: Chiếm khoảng 19.9% Boron tự nhiên, là đồng vị bền.
+¹¹B: Chiếm khoảng 80.1%, là đồng vị bền và phổ biến hơn.
+Ngoài hai đồng vị bền, Boron còn có các đồng vị phóng xạ.
+Tính chất
+Tính chất vật lý
+Là chất rắn ở điều kiện thường.
+Boron tinh khiết có màu đen hoặc xám đen.
+Là á kim.
+Rất cứng.
+Có nhiệt độ nóng chảy cao.
+Khối lượng riêng: khoảng 2.34 g/cm³.
+Nhiệt độ nóng chảy: khoảng 2076 °C.
+Nhiệt độ sôi: khoảng 3927 °C.
+Dẫn điện kém ở điều kiện thường.
+Độ dẫn điện tăng khi nhiệt độ tăng.
+Tính chất hóa học
+Có tính chất trung gian giữa kim loại và phi kim.
+Có số Oxy hóa phổ biến nhất là +3.
+Có khả năng tạo nhiều liên kết cộng hóa trị.
+Phản ứng với Oxygen khi nung nóng tạo Boron(III) oxide.
+Phản ứng với một số kim loại tạo Boride.
+Phản ứng với Halogen tạo Boron halide.
+Boron có khả năng tạo các hợp chất có cấu trúc mạng cộng hóa trị phức tạp.
+Boron tương đối trơ với nước và nhiều acid ở điều kiện thường.
+Boron có thể phản ứng với base mạnh trong điều kiện thích hợp.
+Điều chế
+Điều chế trong công nghiệp
+Khử Boron halide bằng Hydrogen:
+2BCl3 + 3H2 → 2B + 6HCl
+Phương pháp này có thể tạo Boron có độ tinh khiết cao.
+Khử Boron oxide bằng Magnesium:
+B2O3 + 3Mg → 2B + 3MgO
+Điều chế trong phòng thí nghiệm
+Boron có thể được điều chế bằng cách khử Boron(III) oxide bằng Magnesium:
+B2O3 + 3Mg → 2B + 3MgO
+Sau phản ứng, sản phẩm Boron được tách khỏi các sản phẩm phụ bằng phương pháp xử lý thích hợp.
+Nhận biết
+Phản ứng tạo ngọn lửa màu xanh lục: Một số hợp chất Boron khi được đưa vào ngọn lửa có thể tạo màu xanh lục đặc trưng.
+Phản ứng với Curcumin: Borate có thể tạo phức màu đặc trưng với Curcumin trong môi trường thích hợp.
+Phương trình
+Tác dụng với Oxygen
+4B + 3O2 → 2B2O3
+Tác dụng với Chlorine
+2B + 3Cl2 → 2BCl3
+Tác dụng với Bromine
+2B + 3Br2 → 2BBr3
+Tác dụng với Nitrogen
+2B + N2 → 2BN
+Tác dụng với Carbon
+4B + C → B4C
+Tác dụng với Magnesium
+2B + 3Mg → Mg3B2
+Boron(III) oxide tác dụng với Sodium hydroxide
+B2O3 + 2NaOH → 2NaBO2 + H2O
+Điều chế Boron từ Boron(III) oxide
+B2O3 + 3Mg → 2B + 3MgO
+Ứng dụng thực tế
+Thủy tinh chịu nhiệt: Boron được sử dụng để sản xuất Borosilicate glass có khả năng chịu nhiệt và chống sốc nhiệt tốt.
+Gốm kỹ thuật: Boron nitride và Boron carbide được sử dụng trong các vật liệu gốm có độ cứng và khả năng chịu nhiệt cao.
+Chất bán dẫn: Boron được sử dụng làm chất pha tạp (dopant) cho Silicon trong công nghiệp bán dẫn.
+Vật liệu chống mài mòn: Boron carbide được sử dụng trong các vật liệu có độ cứng cao.
+Chất tẩy rửa: Một số Borate được sử dụng trong chất tẩy rửa và sản phẩm làm sạch.
+Nông nghiệp: Boron là vi lượng thiết yếu đối với thực vật và được sử dụng trong một số loại phân bón.
+Hấp thụ neutron: ¹⁰B có khả năng hấp thụ neutron cao nên được sử dụng trong một số ứng dụng liên quan đến kiểm soát neutron.
+Luyện kim: Một lượng nhỏ Boron được thêm vào một số hợp kim để cải thiện tính chất cơ học.
+Tổng quan
+Boron là nguyên tố số 5, thuộc nhóm IIIA | chu kỳ 2 và là một á kim.
+Boron có cấu hình electron 1s² 2s² 2p¹ và có khả năng tạo nhiều liên kết cộng hóa trị. Trong tự nhiên, Boron chủ yếu tồn tại trong các khoáng vật Borate thay vì ở dạng đơn chất.
+Boron có nhiều dạng cấu trúc tinh thể và các dạng thù hình khác nhau. Nguyên tố này có nhiệt độ nóng chảy cao, độ cứng lớn và nhiều hợp chất có tính chất vật liệu đặc biệt.
+Boron và các hợp chất của nó được sử dụng trong thủy tinh chịu nhiệt, gốm kỹ thuật, chất bán dẫn, vật liệu chống mài mòn, nông nghiệp và công nghệ hạt nhân.

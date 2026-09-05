@@ -31,18 +31,18 @@
     "symbol": "Be",
     "nameVi": "Beryllium",
     "nameEn": "Beryllium",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "kiem-tho",
+    "hasData": true,
+    "file": "elements/004_Be.json"
   },
   {
     "number": 5,
     "symbol": "B",
     "nameVi": "Boron",
     "nameEn": "Boron",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "a-kim",
+    "hasData": true,
+    "file": "elements/005_B.json"
   },
   {
     "number": 6,
@@ -58,9 +58,9 @@
     "symbol": "N",
     "nameVi": "Nitrogen",
     "nameEn": "Nitrogen",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "phi-kim",
+    "hasData": true,
+    "file": "elements/007_N.json"
   },
   {
     "number": 8,
@@ -68,7 +68,7 @@
     "nameVi": "Oxygen",
     "nameEn": "Oxygen",
     "category": "phi-kim",
-    "hasData": false,
+    "hasData": true,
     "file": "elements/008_O.json"
   },
   {
@@ -76,18 +76,18 @@
     "symbol": "F",
     "nameVi": "Fluorine",
     "nameEn": "Fluorine",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "halogen",
+    "hasData": true,
+    "file": "elements/009_F.json"
   },
   {
     "number": 10,
     "symbol": "Ne",
     "nameVi": "Neon",
     "nameEn": "Neon",
-    "category": "unknown",
-    "hasData": false,
-    "file": null
+    "category": "khi-hiem",
+    "hasData": true,
+    "file": "elements/010_Ne.json"
   },
   {
     "number": 11,

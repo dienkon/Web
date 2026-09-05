@@ -130,3 +130,60 @@
 .print-only-header {
   display: none;
 }
+
+/* =========================================================================
+ * ANALYTICS DASHBOARD MODAL STYLES & ICON ALIGNMENT
+ * ========================================================================= */
+.analytics-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-align: left;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.25rem;
+}
+.analytics-tab-btn:hover {
+  background: rgba(241, 245, 249, 0.85);
+  color: #0f172a;
+}
+.dark .analytics-tab-btn {
+  color: #94a3b8;
+}
+.dark .analytics-tab-btn:hover {
+  background: rgba(30, 41, 59, 0.6);
+  color: #f8fafc;
+}
+.analytics-tab-btn.active {
+  background: #e0f2fe;
+  color: #0284c7;
+  border-color: #bae6fd;
+  font-weight: 700;
+}
+.dark .analytics-tab-btn.active {
+  background: rgba(12, 74, 110, 0.35);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+.analytics-tab-btn svg,
+.analytics-tab-btn i,
+.analytics-tab-btn [data-lucide] {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+

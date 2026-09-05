@@ -1,0 +1,127 @@
+{
+  "number": 4,
+  "symbol": "Be",
+  "nameVi": "Beryllium",
+  "nameEn": "Beryllium",
+  "mass": 9.0122,
+  "category": "kiem-tho",
+  "themeColor": "#2ECC71",
+  "hasData": true,
+  "general": {
+    "latinName": "Beryllium",
+    "englishName": "Beryllium",
+    "isotope": "⁷Be, ⁹Be, ¹⁰Be",
+    "group": 2,
+    "period": 2,
+    "oxidation": "+2",
+    "electronegativity": 1.57,
+    "electronConfig": "1s² 2s²",
+    "density": "1.848 g/cm³",
+    "meltingPoint": "1287 °C",
+    "boilingPoint": "khoảng 2469 °C"
+  },
+  "structure": {
+    "electrons": 4,
+    "protons": 4,
+    "neutrons": 5,
+    "latticeType": "Lục phương xếp chặt (HCP)",
+    "shells": [2, 2]
+  },
+  "naturalState": {
+    "description": "Beryllium không tồn tại ở dạng đơn chất tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại trong các khoáng vật chứa Beryllium.",
+    "simple": ["Be"],
+    "compounds": [
+      "BeO", "Be(OH)₂", "BeCl₂", "BeF₂", "BeCO₃", "Be₃Al₂Si₆O₁₈"
+    ],
+    "minerals": ["Beryll", "Emerald", "Aquamarine", "Bertrandite"]
+  },
+  "history": {
+    "discoverers": [{"name": "Louis Nicolas Vauquelin"}],
+    "year": 1798,
+    "discoveryLocation": "Pháp",
+    "description": "Năm 1798, Louis Nicolas Vauquelin phát hiện một oxide mới khi phân tích Beryll và Emerald. Kim loại Beryllium sau đó được Friedrich Wöhler và Antoine Bussy điều chế độc lập vào năm 1828."
+  },
+  "physical": "<p><strong>Tính chất vật lý của Beryllium (Be):</strong></p><ul><li>Kim loại màu xám bạc.</li><li>Nhẹ và cứng.</li><li>Có độ cứng cao so với nhiều kim loại nhẹ.</li><li>Khối lượng riêng: 1.848 g/cm³.</li><li>Nhiệt độ nóng chảy: 1287 °C.</li><li>Nhiệt độ sôi: khoảng 2469 °C.</li><li>Dẫn nhiệt tốt.</li><li>Có độ ổn định kích thước cao.</li><li>Hấp thụ tia X tương đối thấp.</li></ul>",
+  "chemical": "<p><strong>Tính chất hóa học của Beryllium (Be):</strong></p><ul><li>Là kim loại kiềm thổ.</li><li>Có tính khử.</li><li>Số Oxy hóa phổ biến: +2.</li><li>Phản ứng với Oxygen khi nung nóng tạo Beryllium oxide.</li><li>Phản ứng với Halogen tạo Beryllium halide.</li><li>Phản ứng với acid tạo muối Beryllium và Hydrogen.</li><li>Không phản ứng đáng kể với nước ở điều kiện thường do có lớp oxide bảo vệ.</li><li>Beryllium oxide và Beryllium hydroxide có tính lưỡng tính.</li></ul>",
+  "preparation": {
+    "industry": [
+      {
+        "title": "Sản xuất từ Beryllium hydroxide",
+        "desc": "Beryllium thường được sản xuất từ Beryllium hydroxide và chuyển thành Beryllium chloride, sau đó được điện phân trong môi trường muối nóng chảy để thu Beryllium.",
+        "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O\nBeCl₂ → Be + Cl₂"
+      }
+    ],
+    "lab": [
+      {
+        "title": "Khử Beryllium chloride",
+        "desc": "Có thể điều chế Beryllium bằng cách khử Beryllium chloride bằng Magnesium.",
+        "equation": "BeCl₂ + Mg → Be + MgCl₂"
+      }
+    ]
+  },
+  "recognition": {
+    "tests": [
+      {
+        "title": "Phổ nguyên tử",
+        "result": "Beryllium có thể được nhận biết bằng các vạch phổ đặc trưng."
+      },
+      {
+        "title": "Ion Be²⁺",
+        "result": "Có thể xác định bằng các phương pháp phân tích hóa học chuyên biệt."
+      },
+      {
+        "title": "Lưu ý",
+        "result": "Không có một phản ứng đơn giản, phổ biến dùng để nhận biết Beryllium như phép thử Ag⁺ với Cl⁻."
+      }
+    ]
+  },
+  "reactions": [
+    {
+      "title": "Tác dụng với Oxygen",
+      "equation": "2Be + O₂ → 2BeO"
+    },
+    {
+      "title": "Tác dụng với Hydrochloric acid",
+      "equation": "Be + 2HCl → BeCl₂ + H₂↑"
+    },
+    {
+      "title": "Tác dụng với Chlorine",
+      "equation": "Be + Cl₂ → BeCl₂"
+    },
+    {
+      "title": "Tác dụng với Sulfur",
+      "equation": "Be + S → BeS"
+    },
+    {
+      "title": "Tác dụng với Sodium hydroxide",
+      "equation": "Be + 2NaOH + 2H₂O → Na₂[Be(OH)₄] + H₂↑"
+    },
+    {
+      "title": "Beryllium hydroxide tác dụng với acid",
+      "equation": "Be(OH)₂ + 2HCl → BeCl₂ + 2H₂O"
+    },
+    {
+      "title": "Beryllium hydroxide tác dụng với base",
+      "equation": "Be(OH)₂ + 2NaOH → Na₂[Be(OH)₄]"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hợp kim Beryllium-Copper",
+      "desc": "Tạo hợp kim Beryllium-Copper có độ cứng, độ bền và độ dẫn điện tốt. Dùng trong đầu nối, tiếp điểm, linh kiện điện tử và chế tạo dụng cụ có yêu cầu hạn chế phát tia lửa."
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Sử dụng trong các bộ phận cần vật liệu nhẹ, cứng và ổn định kích thước."
+    },
+    {
+      "title": "Công nghệ tia X",
+      "desc": "Dùng làm cửa sổ cho một số thiết bị tia X do hấp thụ tia X tương đối thấp."
+    },
+    {
+      "title": "Công nghệ hạt nhân",
+      "desc": "Beryllium được sử dụng trong một số hệ thống liên quan đến neutron."
+    }
+  ],
+  "notes": "<p><strong>Tổng quan về Beryllium:</strong> Beryllium là nguyên tố số 4, thuộc nhóm IIA | chu kỳ 2 và là kim loại kiềm thổ nhẹ. Beryllium có khối lượng riêng thấp, độ cứng cao, nhiệt độ nóng chảy cao và khả năng dẫn nhiệt tốt. Trong tự nhiên, Beryllium chủ yếu tồn tại trong các khoáng vật như Beryll và Bertrandite. Beryllium chủ yếu có số Oxy hóa +2. Beryllium oxide và Beryllium hydroxide có tính lưỡng tính, là đặc điểm hóa học nổi bật của nguyên tố này. Beryllium và các hợp kim của nó được sử dụng trong hàng không vũ trụ, điện tử, công nghệ tia X và kỹ thuật hạt nhân.</p>"
+}

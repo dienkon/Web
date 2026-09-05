@@ -1,0 +1,152 @@
+{
+  "number": 5,
+  "symbol": "B",
+  "nameVi": "Boron",
+  "nameEn": "Boron",
+  "mass": 10.81,
+  "category": "a-kim",
+  "themeColor": "#D35400",
+  "hasData": true,
+  "general": {
+    "latinName": "Borium",
+    "englishName": "Boron",
+    "isotope": "¹⁰B, ¹¹B",
+    "group": 13,
+    "period": 2,
+    "oxidation": "−3, +1, +2, +3",
+    "electronegativity": 2.04,
+    "electronConfig": "1s² 2s² 2p¹",
+    "density": "khoảng 2.34 g/cm³",
+    "meltingPoint": "khoảng 2076 °C",
+    "boilingPoint": "khoảng 3927 °C"
+  },
+  "structure": {
+    "electrons": 5,
+    "protons": 5,
+    "neutrons": 6,
+    "latticeType": "Mạng thoi (Rhombohedral)",
+    "shells": [2, 3]
+  },
+  "naturalState": {
+    "description": "Boron không tồn tại tự do phổ biến trong tự nhiên. Chủ yếu tồn tại dưới dạng Borate và các khoáng vật chứa Boron.",
+    "simple": ["B"],
+    "compounds": [
+      "B₂O₃", "H₃BO₃", "Na₂B₄O₇·10H₂O", "B₄C", "BN"
+    ],
+    "minerals": ["Borax", "Kernite", "Colemanite", "Ulexite"]
+  },
+  "history": {
+    "discoverers": [
+      {"name": "Joseph Louis Gay-Lussac"},
+      {"name": "Louis Jacques Thénard"},
+      {"name": "Humphry Davy"}
+    ],
+    "year": 1808,
+    "discoveryLocation": "Pháp và Anh",
+    "description": "Năm 1808, Gay-Lussac và Thénard ở Pháp, cùng Davy ở Anh, độc lập điều chế được Boron ở dạng tương đối không tinh khiết từ các hợp chất của Boron. Davy đặt tên nguyên tố là Boron, liên hệ với Borax."
+  },
+  "physical": "<p><strong>Tính chất vật lý của Boron (B):</strong></p><ul><li>Là chất rắn ở điều kiện thường.</li><li>Boron tinh khiết có màu đen hoặc xám đen.</li><li>Là á kim, rất cứng.</li><li>Có nhiệt độ nóng chảy cao.</li><li>Khối lượng riêng: khoảng 2.34 g/cm³.</li><li>Nhiệt độ nóng chảy: khoảng 2076 °C.</li><li>Nhiệt độ sôi: khoảng 3927 °C.</li><li>Dẫn điện kém ở điều kiện thường, độ dẫn điện tăng khi nhiệt độ tăng.</li></ul>",
+  "chemical": "<p><strong>Tính chất hóa học của Boron (B):</strong></p><ul><li>Có tính chất trung gian giữa kim loại và phi kim.</li><li>Có số Oxy hóa phổ biến nhất là +3.</li><li>Có khả năng tạo nhiều liên kết cộng hóa trị.</li><li>Phản ứng với Oxygen khi nung nóng tạo Boron(III) oxide.</li><li>Phản ứng với một số kim loại tạo Boride.</li><li>Phản ứng với Halogen tạo Boron halide.</li><li>Boron có khả năng tạo các hợp chất có cấu trúc mạng cộng hóa trị phức tạp.</li><li>Boron tương đối trơ với nước và nhiều acid ở điều kiện thường.</li><li>Boron có thể phản ứng với base mạnh trong điều kiện thích hợp.</li></ul>",
+  "preparation": {
+    "industry": [
+      {
+        "title": "Khử Boron halide",
+        "desc": "Khử Boron halide bằng Hydrogen, phương pháp này có thể tạo Boron có độ tinh khiết cao.",
+        "equation": "2BCl₃ + 3H₂ → 2B + 6HCl"
+      },
+      {
+        "title": "Khử Boron oxide",
+        "desc": "Khử Boron oxide bằng Magnesium.",
+        "equation": "B₂O₃ + 3Mg → 2B + 3MgO"
+      }
+    ],
+    "lab": [
+      {
+        "title": "Khử Boron(III) oxide",
+        "desc": "Boron có thể được điều chế bằng cách khử Boron(III) oxide bằng Magnesium, sau đó tách khỏi sản phẩm phụ.",
+        "equation": "B₂O₃ + 3Mg → 2B + 3MgO"
+      }
+    ]
+  },
+  "recognition": {
+    "tests": [
+      {
+        "title": "Phản ứng tạo ngọn lửa màu xanh lục",
+        "result": "Một số hợp chất Boron khi được đưa vào ngọn lửa có thể tạo màu xanh lục đặc trưng."
+      },
+      {
+        "title": "Phản ứng với Curcumin",
+        "result": "Borate có thể tạo phức màu đặc trưng với Curcumin trong môi trường thích hợp."
+      }
+    ]
+  },
+  "reactions": [
+    {
+      "title": "Tác dụng với Oxygen",
+      "equation": "4B + 3O₂ → 2B₂O₃"
+    },
+    {
+      "title": "Tác dụng với Chlorine",
+      "equation": "2B + 3Cl₂ → 2BCl₃"
+    },
+    {
+      "title": "Tác dụng với Bromine",
+      "equation": "2B + 3Br₂ → 2BBr₃"
+    },
+    {
+      "title": "Tác dụng với Nitrogen",
+      "equation": "2B + N₂ → 2BN"
+    },
+    {
+      "title": "Tác dụng với Carbon",
+      "equation": "4B + C → B₄C"
+    },
+    {
+      "title": "Tác dụng với Magnesium",
+      "equation": "2B + 3Mg → Mg₃B₂"
+    },
+    {
+      "title": "Boron(III) oxide tác dụng với Sodium hydroxide",
+      "equation": "B₂O₃ + 2NaOH → 2NaBO₂ + H₂O"
+    },
+    {
+      "title": "Điều chế Boron từ Boron(III) oxide",
+      "equation": "B₂O₃ + 3Mg → 2B + 3MgO"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Thủy tinh chịu nhiệt",
+      "desc": "Boron được sử dụng để sản xuất Borosilicate glass có khả năng chịu nhiệt và chống sốc nhiệt tốt."
+    },
+    {
+      "title": "Gốm kỹ thuật",
+      "desc": "Boron nitride và Boron carbide được sử dụng trong các vật liệu gốm có độ cứng và khả năng chịu nhiệt cao."
+    },
+    {
+      "title": "Chất bán dẫn",
+      "desc": "Boron được sử dụng làm chất pha tạp (dopant) cho Silicon trong công nghiệp bán dẫn."
+    },
+    {
+      "title": "Vật liệu chống mài mòn",
+      "desc": "Boron carbide được sử dụng trong các vật liệu có độ cứng cao."
+    },
+    {
+      "title": "Chất tẩy rửa",
+      "desc": "Một số Borate được sử dụng trong chất tẩy rửa và sản phẩm làm sạch."
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Boron là vi lượng thiết yếu đối với thực vật và được sử dụng trong một số loại phân bón."
+    },
+    {
+      "title": "Hấp thụ neutron",
+      "desc": "¹⁰B có khả năng hấp thụ neutron cao nên được sử dụng trong một số ứng dụng liên quan đến kiểm soát neutron."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Một lượng nhỏ Boron được thêm vào một số hợp kim để cải thiện tính chất cơ học."
+    }
+  ],
+  "notes": "<p><strong>Tổng quan về Boron:</strong> Boron là nguyên tố số 5, thuộc nhóm IIIA | chu kỳ 2 và là một á kim. Boron có cấu hình electron 1s² 2s² 2p¹ và có khả năng tạo nhiều liên kết cộng hóa trị. Trong tự nhiên, Boron chủ yếu tồn tại trong các khoáng vật Borate thay vì ở dạng đơn chất. Boron có nhiều dạng cấu trúc tinh thể và các dạng thù hình khác nhau. Nguyên tố này có nhiệt độ nóng chảy cao, độ cứng lớn và nhiều hợp chất có tính chất vật liệu đặc biệt. Boron và các hợp chất của nó được sử dụng trong thủy tinh chịu nhiệt, gốm kỹ thuật, chất bán dẫn, vật liệu chống mài mòn, nông nghiệp và công nghệ hạt nhân.</p>"
+}

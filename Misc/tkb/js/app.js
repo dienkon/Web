@@ -57,21 +57,67 @@ class ProductivityApp {
     this.activityLibrary.init();
     this.timetable.init();
     this.focusMode.init();
+    this.analytics.init();
     this.modalUI.init();
     this.drawerUI.init();
     this.commandPaletteUI.init();
     this.responsiveNavUI.init();
 
-    // 4. Start Global Clock
+    // 4. Check Week Rollover & Reset Completed Sessions for New Week
+    this.checkWeekRollover();
+
+    // 5. Start Global Clock
     this.startGlobalClock();
 
-    // 5. Bind Core App Events
+    // 6. Bind Core App Events
     this.bindAppEvents();
 
-    // 6. First Render
+    // 7. First Render
     this.updateHeaderDates();
     this.updateLiveActivities();
     if (typeof lucide !== "undefined") lucide.createIcons();
+  }
+
+  getMondayOfWeek(d = new Date()) {
+    const date = new Date(d);
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+    date.setDate(diff);
+    return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+  }
+
+  checkWeekRollover(now = new Date()) {
+    const currentWeekKey = this.getMondayOfWeek(now);
+    const state = this.store.getState();
+    const lastWeekKey = state.settings.lastActiveWeek;
+
+    if (!lastWeekKey) {
+      state.settings.lastActiveWeek = currentWeekKey;
+      this.storage.debouncedSave();
+      return;
+    }
+
+    if (lastWeekKey !== currentWeekKey) {
+      // New week detected! Automatically reset all completed sessions
+      this.history.recordState();
+      let resetCount = 0;
+      state.schedule.forEach((item) => {
+        if (item.status === "completed") {
+          item.status = "planned";
+          resetCount++;
+        }
+      });
+      state.settings.lastActiveWeek = currentWeekKey;
+      this.storage.debouncedSave();
+      if (this.timetable) this.timetable.render();
+      events.emit("schedule:updated");
+      if (resetCount > 0) {
+        events.emit("toast:show", {
+          message: `Chào tuần mới! Đã làm mới trạng thái (${resetCount} ca) cho tuần này.`,
+          type: "success",
+        });
+      }
+    }
   }
 
   applyInitialTheme() {
@@ -117,6 +163,7 @@ class ProductivityApp {
     const now = new Date();
     if (now.getDate() !== this.lastCheckedDate) {
       this.lastCheckedDate = now.getDate();
+      this.checkWeekRollover(now);
       this.updateHeaderDates();
       this.timetable.render();
       this.responsiveNavUI.renderDaySelector();
@@ -250,8 +297,7 @@ class ProductivityApp {
 
     // Analytics open
     $("#btn-open-analytics")?.addEventListener("click", () => {
-      this.renderAnalyticsModal();
-      this.modalUI.open("modal-analytics");
+      this.analytics.open();
     });
 
     // Backup triggers
@@ -365,46 +411,6 @@ class ProductivityApp {
       e.target.value = "";
     };
     reader.readAsText(file);
-  }
-
-  renderAnalyticsModal() {
-    const metrics = this.analytics.getMetrics();
-    const insights = this.analytics.generateInsights();
-    const container = $("#analytics-modal-content");
-    if (!container) return;
-
-    container.innerHTML = `
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-          <span class="text-[10px] uppercase font-bold text-slate-400">Tổng ca học</span>
-          <div class="text-xl font-black text-slate-900 dark:text-white mt-0.5">${metrics.totalSessions}</div>
-        </div>
-        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-          <span class="text-[10px] uppercase font-bold text-slate-400">Đã hoàn thành</span>
-          <div class="text-xl font-black text-emerald-600 dark:text-emerald-400 mt-0.5">${metrics.completionRate}%</div>
-        </div>
-        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-          <span class="text-[10px] uppercase font-bold text-slate-400">Thời lượng Focus</span>
-          <div class="text-xl font-black text-sky-600 dark:text-sky-400 mt-0.5">${formatDurationShort(metrics.focusMinutes)}</div>
-        </div>
-        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-          <span class="text-[10px] uppercase font-bold text-slate-400">Trạng thái</span>
-          <div class="text-xs font-black ${metrics.balanceColor} mt-1">${metrics.balanceStatus}</div>
-        </div>
-      </div>
-
-      <div class="mt-4">
-        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-2">Thông tin & Gợi ý lịch trình</h4>
-        <div class="space-y-2">
-          ${insights.map((ins) => `
-            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs">
-              <span class="font-bold text-slate-900 dark:text-white">${ins.title}:</span>
-              <p class="text-slate-600 dark:text-slate-400 mt-0.5">${ins.desc}</p>
-            </div>
-          `).join("")}
-        </div>
-      </div>
-    `;
   }
 }
 

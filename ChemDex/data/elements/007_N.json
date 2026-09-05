@@ -1,0 +1,142 @@
+{
+  "number": 7,
+  "symbol": "N",
+  "nameVi": "Nitrogen",
+  "nameEn": "Nitrogen",
+  "mass": 14.007,
+  "category": "phi-kim",
+  "themeColor": "#3498DB",
+  "hasData": true,
+  "general": {
+    "latinName": "Nitrogenium",
+    "englishName": "Nitrogen",
+    "isotope": "¹⁴N, ¹⁵N",
+    "group": 15,
+    "period": 2,
+    "oxidation": "−3, −2, −1, 0, +1, +2, +3, +4, +5",
+    "electronegativity": 3.04,
+    "electronConfig": "1s² 2s² 2p³",
+    "density": "khoảng 1.251 g/L ở 0 °C",
+    "meltingPoint": "−210.0 °C",
+    "boilingPoint": "−195.8 °C"
+  },
+  "structure": {
+    "electrons": 7,
+    "protons": 7,
+    "neutrons": 7,
+    "latticeType": "Lục phương (Hexagonal)",
+    "shells": [2, 5]
+  },
+  "naturalState": {
+    "description": "Nitrogen là chất khí ở điều kiện thường và là thành phần chính của khí quyển Trái Đất. Nitrogen trong tự nhiên chủ yếu tồn tại dưới dạng phân tử N₂ và các hợp chất Nitrogen.",
+    "simple": ["N₂"],
+    "compounds": [
+      "NH₃", "HNO₃", "NO", "NO₂", "N₂O", "NH₄NO₃", "NaNO₃", "protein", "DNA"
+    ],
+    "minerals": ["Khí quyển", "Đất", "Nước", "Sinh vật"]
+  },
+  "history": {
+    "discoverers": [
+      {"name": "Daniel Rutherford"}
+    ],
+    "year": 1772,
+    "discoveryLocation": "Scotland",
+    "description": "Năm 1772, Daniel Rutherford nghiên cứu phần không khí còn lại sau khi Oxygen bị loại bỏ và xác định đây là một loại khí không duy trì sự cháy và sự hô hấp. Nitrogen sau đó được nghiên cứu sâu hơn bởi các nhà hóa học khác. Tên Nitrogen được Antoine Lavoisier sử dụng, bắt nguồn từ khả năng tạo Nitrogen compounds trong tự nhiên."
+  },
+  "physical": "<p><strong>Tính chất vật lý của Nitrogen (N):</strong></p><ul><li>Là chất khí không màu, không mùi, không vị.</li><li>Chiếm khoảng 78.08% thể tích khí quyển.</li><li>Tồn tại chủ yếu dưới dạng phân tử N₂.</li><li>Khối lượng mol của N₂: 28.014 g/mol.</li><li>Khối lượng riêng: khoảng 1.251 g/L ở 0 °C và 1 atm.</li><li>Ít tan trong nước.</li><li>Nhiệt độ nóng chảy: −210.0 °C.</li><li>Nhiệt độ sôi: −195.8 °C.</li><li>Không cháy.</li><li>Không duy trì sự cháy.</li><li>Liên kết ba N≡N rất bền, khiến N₂ tương đối trơ ở điều kiện thường.</li></ul>",
+  "chemical": "<p><strong>Tính chất hóa học của Nitrogen (N):</strong></p><ul><li>Là phi kim.</li><li>Có nhiều số Oxy hóa từ −3 đến +5.</li><li>N₂ tương đối trơ ở nhiệt độ thường do liên kết ba rất bền.</li><li>Phản ứng với Hydrogen ở nhiệt độ, áp suất và xúc tác thích hợp tạo Ammonia.</li><li>Phản ứng với Oxygen ở nhiệt độ rất cao tạo Nitrogen monoxide.</li><li>Phản ứng với một số kim loại hoạt động tạo Nitride.</li><li>Nitrogen tạo nhiều hợp chất quan trọng như Ammonia, Nitric acid và các Nitrogen oxide.</li><li>Là nguyên tố thiết yếu đối với sự sống.</li></ul>",
+  "preparation": {
+    "industry": [
+      {
+        "title": "Chưng cất phân đoạn không khí lỏng",
+        "desc": "Không khí được làm sạch, nén và hóa lỏng. Nitrogen được tách khỏi Oxygen dựa trên sự khác nhau về nhiệt độ sôi.",
+        "equation": ""
+      },
+      {
+        "title": "PSA (Pressure Swing Adsorption)",
+        "desc": "Sử dụng vật liệu hấp phụ để giữ Oxygen và một số khí khác, từ đó thu được dòng khí giàu Nitrogen.",
+        "equation": ""
+      }
+    ],
+    "lab": [
+      {
+        "title": "Nhiệt phân Ammonium nitrite",
+        "desc": "Nitrogen có thể được điều chế bằng cách loại Oxygen khỏi không khí hoặc thông qua phản ứng hóa học. Do Ammonium nitrite không bền, trong thực tế có thể tạo nó ngay trong hỗn hợp phản ứng từ Ammonium chloride và Sodium nitrite.",
+        "equation": "NH₄NO₂ → N₂ + 2H₂O\nNH₄Cl + NaNO₂ → N₂ + NaCl + 2H₂O"
+      }
+    ]
+  },
+  "recognition": {
+    "tests": [
+      {
+        "title": "Que đóm cháy",
+        "result": "Nitrogen không duy trì sự cháy. Khi đưa que đóm đang cháy vào Nitrogen, ngọn lửa sẽ tắt. Tuy nhiên, phép thử này không đặc hiệu, vì nhiều khí khác cũng không duy trì sự cháy."
+      }
+    ]
+  },
+  "reactions": [
+    {
+      "title": "Tác dụng với Hydrogen",
+      "equation": "N₂ + 3H₂ ⇌ 2NH₃"
+    },
+    {
+      "title": "Tác dụng với Oxygen",
+      "equation": "N₂ + O₂ → 2NO"
+    },
+    {
+      "title": "Tác dụng với Lithium",
+      "equation": "6Li + N₂ → 2Li₃N"
+    },
+    {
+      "title": "Tác dụng với Calcium",
+      "equation": "3Ca + N₂ → Ca₃N₂"
+    },
+    {
+      "title": "Phân hủy Ammonium nitrite",
+      "equation": "NH₄NO₂ → N₂ + 2H₂O"
+    },
+    {
+      "title": "Oxi hóa Nitrogen monoxide",
+      "equation": "2NO + O₂ → 2NO₂"
+    },
+    {
+      "title": "Tạo Nitric acid từ Nitrogen dioxide",
+      "equation": "3NO₂ + H₂O → 2HNO₃ + NO"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất Ammonia",
+      "desc": "Nitrogen là nguyên liệu chính trong quy trình Haber-Bosch."
+    },
+    {
+      "title": "Sản xuất phân bón",
+      "desc": "Các hợp chất Nitrogen được sử dụng rộng rãi trong sản xuất phân bón."
+    },
+    {
+      "title": "Bảo quản thực phẩm",
+      "desc": "Nitrogen được sử dụng để tạo môi trường khí trơ, giúp hạn chế quá trình Oxy hóa."
+    },
+    {
+      "title": "Công nghiệp điện tử",
+      "desc": "Nitrogen được sử dụng làm khí bảo vệ trong một số quá trình sản xuất linh kiện."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Nitrogen được sử dụng trong một số quá trình xử lý và sản xuất kim loại."
+    },
+    {
+      "title": "Nitrogen lỏng",
+      "desc": "Được sử dụng để làm lạnh, bảo quản mẫu sinh học và trong nhiều ứng dụng nhiệt độ thấp."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Nitrogen được sử dụng làm khí trơ trong các quy trình cần hạn chế phản ứng với Oxygen."
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "¹⁵N được sử dụng để nghiên cứu các quá trình sinh học, hóa học và chu trình Nitrogen."
+    }
+  ],
+  "notes": "<p><strong>Tổng quan về Nitrogen:</strong> Nitrogen là nguyên tố số 7, thuộc nhóm VA | chu kỳ 2. Ở điều kiện thường, Nitrogen tồn tại chủ yếu dưới dạng phân tử N₂, chiếm khoảng 78.08% thể tích khí quyển Trái Đất. Liên kết ba N≡N rất bền khiến Nitrogen phân tử tương đối trơ ở điều kiện thường. Nitrogen có nhiều số Oxy hóa và tạo ra một hệ thống hợp chất rất phong phú, trong đó có Ammonia, Nitric acid và các Nitrogen oxide. Nitrogen là nguyên tố thiết yếu của sự sống, có mặt trong protein, DNA và nhiều phân tử sinh học quan trọng. Trong công nghiệp, Nitrogen đặc biệt quan trọng đối với sản xuất Ammonia, phân bón, hóa chất, bảo quản thực phẩm và tạo môi trường khí trơ.</p>"
+}

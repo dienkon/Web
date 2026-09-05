@@ -1,0 +1,161 @@
+{
+  "number": 8,
+  "symbol": "O",
+  "nameVi": "Oxygen",
+  "nameEn": "Oxygen",
+  "mass": 15.999,
+  "category": "phi-kim",
+  "themeColor": "#E74C3C",
+  "hasData": true,
+  "general": {
+    "latinName": "Oxygenium",
+    "englishName": "Oxygen",
+    "isotope": "¹⁶O, ¹⁷O, ¹⁸O",
+    "group": 16,
+    "period": 2,
+    "oxidation": "−2, −1, 0, +1, +2",
+    "electronegativity": 3.44,
+    "electronConfig": "1s² 2s² 2p⁴",
+    "density": "khoảng 1.429 g/L ở 0 °C",
+    "meltingPoint": "−218.79 °C",
+    "boilingPoint": "−182.95 °C"
+  },
+  "structure": {
+    "electrons": 8,
+    "protons": 8,
+    "neutrons": 8,
+    "latticeType": "Đơn tà (monoclinic) ở pha α-O₂; Tam tà (triclinic) ở pha β-O₂; Lập phương đơn giản (SC) ở pha γ-O₂",
+    "shells": [2, 6]
+  },
+  "naturalState": {
+    "description": "Oxygen là nguyên tố phổ biến trong vũ trụ và là nguyên tố phổ biến nhất theo khối lượng trong lớp vỏ Trái Đất. Trong khí quyển, Oxygen chủ yếu tồn tại dưới dạng O₂.",
+    "simple": ["O₂", "O₃"],
+    "compounds": [
+      "H₂O", "CO₂", "SiO₂", "Fe₂O₃", "Al₂O₃", "H₂SO₄", "CaCO₃"
+    ],
+    "minerals": ["Vỏ Trái Đất", "Khí quyển", "Nước"]
+  },
+  "history": {
+    "discoverers": [
+      {"name": "Joseph Priestley"},
+      {"name": "Carl Wilhelm Scheele"}
+    ],
+    "year": 1774,
+    "discoveryLocation": "Anh và Thụy Điển",
+    "description": "Năm 1774, Joseph Priestley điều chế được Oxygen bằng cách nung Mercury(II) oxide và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được Oxygen độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau. Antoine Lavoisier sau đó xác định vai trò của Oxygen trong sự cháy và hô hấp, đồng thời đặt tên Oxygen."
+  },
+  "physical": "<p><strong>Tính chất vật lý của Oxygen (O):</strong></p><ul><li>Chất khí không màu, không mùi, không vị.</li><li>Chiếm khoảng 20.95% thể tích khí quyển.</li><li>Khối lượng mol của O₂: 31.998 g/mol.</li><li>Khối lượng riêng: khoảng 1.429 g/L ở 0 °C và 1 atm.</li><li>Ít tan trong nước.</li><li>Nhiệt độ nóng chảy: −218.79 °C.</li><li>Nhiệt độ sôi: −182.95 °C.</li><li>Oxygen lỏng có màu xanh lam nhạt.</li><li>Có tính thuận từ.</li><li>Không cháy nhưng duy trì sự cháy mạnh.</li></ul>",
+  "chemical": "<p><strong>Tính chất hóa học của Oxygen (O):</strong></p><ul><li>Là phi kim có độ âm điện cao.</li><li>Có tính Oxy hóa mạnh.</li><li>Dễ phản ứng với nhiều kim loại tạo oxide.</li><li>Phản ứng với nhiều phi kim tạo oxide.</li><li>Phản ứng với Hydrogen tạo nước.</li><li>Duy trì quá trình cháy.</li><li>Tham gia quá trình hô hấp hiếu khí.</li><li>Có thể tạo peroxide và các hợp chất Oxygen khác.</li><li>Có thể mang số Oxy hóa dương khi phản ứng với Fluorine.</li></ul>",
+  "preparation": {
+    "industry": [
+      {
+        "title": "Chưng cất phân đoạn không khí lỏng",
+        "desc": "Không khí được làm sạch, nén và làm lạnh để hóa lỏng. Oxygen sau đó được tách khỏi Nitrogen và các thành phần khác dựa trên sự khác nhau về nhiệt độ sôi.",
+        "equation": ""
+      },
+      {
+        "title": "Pressure Swing Adsorption (PSA)",
+        "desc": "Sử dụng vật liệu hấp phụ để tách Nitrogen khỏi không khí, thu được khí giàu Oxygen.",
+        "equation": ""
+      }
+    ],
+    "lab": [
+      {
+        "title": "Phân hủy Hydrogen peroxide",
+        "desc": "Phân hủy H₂O₂ với xúc tác.",
+        "equation": "2H₂O₂ → 2H₂O + O₂"
+      },
+      {
+        "title": "Nhiệt phân Potassium chlorate",
+        "desc": "Nhiệt phân KClO₃.",
+        "equation": "2KClO₃ → 2KCl + 3O₂"
+      },
+      {
+        "title": "Nhiệt phân Potassium permanganate",
+        "desc": "Nhiệt phân KMnO₄.",
+        "equation": "2KMnO₄ → K₂MnO₄ + MnO₂ + O₂"
+      }
+    ]
+  },
+  "recognition": {
+    "tests": [
+      {
+        "title": "Que đóm còn tàn đỏ",
+        "result": "Oxygen làm que đóm còn tàn đỏ bùng cháy trở lại. Đặc điểm: Oxygen không cháy nhưng duy trì sự cháy."
+      }
+    ]
+  },
+  "reactions": [
+    {
+      "title": "Tác dụng với Magnesium",
+      "equation": "2Mg + O₂ → 2MgO"
+    },
+    {
+      "title": "Tác dụng với Hydrogen",
+      "equation": "2H₂ + O₂ → 2H₂O"
+    },
+    {
+      "title": "Tác dụng với Carbon",
+      "equation": "C + O₂ → CO₂"
+    },
+    {
+      "title": "Tác dụng với Iron",
+      "equation": "3Fe + 2O₂ → Fe₃O₄"
+    },
+    {
+      "title": "Tác dụng với Sulfur",
+      "equation": "S + O₂ → SO₂"
+    },
+    {
+      "title": "Oxi hóa Carbon monoxide",
+      "equation": "2CO + O₂ → 2CO₂"
+    },
+    {
+      "title": "Oxi hóa Sulfur dioxide",
+      "equation": "2SO₂ + O₂ ⇌ 2SO₃"
+    },
+    {
+      "title": "Phân hủy Hydrogen peroxide",
+      "equation": "2H₂O₂ → 2H₂O + O₂"
+    },
+    {
+      "title": "Tác dụng với Fluorine",
+      "equation": "O₂ + 2F₂ → 2OF₂"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Y tế",
+      "desc": "Cung cấp Oxygen cho bệnh nhân cần hỗ trợ hô hấp."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Tăng hiệu quả luyện và tinh chế kim loại, đặc biệt trong sản xuất thép."
+    },
+    {
+      "title": "Hàn và cắt kim loại",
+      "desc": "Kết hợp với các nhiên liệu khí để tạo ngọn lửa nhiệt độ cao."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Sử dụng trong nhiều quá trình Oxy hóa và sản xuất hóa chất."
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Oxygen lỏng (LOX) được sử dụng làm chất Oxy hóa trong động cơ tên lửa."
+    },
+    {
+      "title": "Xử lý nước",
+      "desc": "Tăng Oxygen hòa tan và hỗ trợ các quá trình xử lý sinh học."
+    },
+    {
+      "title": "Nuôi trồng thủy sản",
+      "desc": "Bổ sung Oxygen cho môi trường nước."
+    },
+    {
+      "title": "Công nghiệp thủy tinh và xi măng",
+      "desc": "Hỗ trợ quá trình đốt và tăng hiệu suất sản xuất."
+    }
+  ],
+  "notes": "<p><strong>Tổng quan về Oxygen:</strong> Oxygen là nguyên tố số 8 trong bảng tuần hoàn, thuộc nhóm VIA | chu kỳ 2. Ở điều kiện thường, Oxygen tồn tại chủ yếu dưới dạng phân tử O₂. Đây là thành phần chiếm khoảng 20.95% thể tích khí quyển và có mặt trong nước, khoáng vật cũng như rất nhiều hợp chất hữu cơ. Oxygen có độ âm điện cao và tính Oxy hóa mạnh, đóng vai trò quan trọng trong sự cháy, hô hấp, Oxy hóa và nhiều quá trình hóa học tự nhiên. Oxygen được ứng dụng rộng rãi trong y tế, luyện kim, công nghiệp hóa chất, hàn cắt, xử lý nước và công nghệ hàng không vũ trụ.</p>"
+}

@@ -1,0 +1,112 @@
+{
+  "number": 10,
+  "symbol": "Ne",
+  "nameVi": "Neon",
+  "nameEn": "Neon",
+  "mass": 20.18,
+  "category": "khi-hiem",
+  "themeColor": "#E67E22",
+  "hasData": true,
+  "general": {
+    "latinName": "Neon",
+    "englishName": "Neon",
+    "isotope": "²⁰Ne, ²¹Ne, ²²Ne",
+    "group": 18,
+    "period": 2,
+    "oxidation": "0",
+    "electronegativity": null,
+    "electronConfig": "1s² 2s² 2p⁶",
+    "density": "khoảng 0.900 g/L ở 0 °C",
+    "meltingPoint": "−248.59 °C",
+    "boilingPoint": "−246.08 °C"
+  },
+  "structure": {
+    "electrons": 10,
+    "protons": 10,
+    "neutrons": 10,
+    "latticeType": "Lập phương tâm mặt (FCC)",
+    "shells": [2, 8]
+  },
+  "naturalState": {
+    "description": "Neon là khí hiếm, tồn tại dưới dạng khí đơn nguyên tử trong khí quyển. Neon có hàm lượng rất nhỏ trong không khí.",
+    "simple": ["Ne"],
+    "compounds": [],
+    "minerals": ["Khí quyển Trái Đất", "Khí tự nhiên"]
+  },
+  "history": {
+    "discoverers": [
+      {"name": "William Ramsay"},
+      {"name": "Morris Travers"}
+    ],
+    "year": 1898,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1898, William Ramsay và Morris Travers phát hiện Neon khi nghiên cứu phần khí còn lại sau khi hóa lỏng và tách các thành phần của không khí. Họ thu được một khí mới có quang phổ đặc trưng. Tên Neon bắt nguồn từ tiếng Hy Lạp neos, nghĩa là “mới”."
+  },
+  "physical": "<p><strong>Tính chất vật lý của Neon (Ne):</strong></p><ul><li>Là chất khí không màu, không mùi, không vị.</li><li>Là khí hiếm thuộc nhóm VIIIA.</li><li>Khối lượng mol: 20.180 g/mol.</li><li>Khối lượng riêng: khoảng 0.900 g/L ở 0 °C và 1 atm.</li><li>Nhiệt độ nóng chảy: −248.59 °C.</li><li>Nhiệt độ sôi: −246.08 °C.</li><li>Rất ít tan trong nước, nhẹ hơn không khí.</li><li>Khi bị kích thích bằng điện, phát ra ánh sáng đỏ cam đặc trưng.</li><li>Có nhiệt dung riêng và khả năng dẫn nhiệt tương đối cao so với nhiều khí khác.</li></ul>",
+  "chemical": "<p><strong>Tính chất hóa học của Neon (Ne):</strong></p><ul><li>Là khí hiếm và có tính trơ hóa học rất cao.</li><li>Có cấu hình electron lớp ngoài cùng bão hòa.</li><li>Hầu như không tham gia phản ứng hóa học ở điều kiện thường.</li><li>Không cháy.</li><li>Không duy trì sự cháy.</li><li>Không có số Oxy hóa dương hoặc âm phổ biến trong các hợp chất ổn định.</li><li>Không dễ tạo ion hoặc liên kết hóa học.</li></ul>",
+  "preparation": {
+    "industry": [
+      {
+        "title": "Chưng cất phân đoạn không khí lỏng",
+        "desc": "Neon được thu chủ yếu từ không khí lỏng. Không khí được làm sạch, hóa lỏng và tách thành các thành phần bằng chưng cất phân đoạn. Neon được thu từ các dòng khí nhẹ chứa Neon và các khí hiếm khác, sau đó tiếp tục được tinh chế.",
+        "equation": ""
+      }
+    ],
+    "lab": [
+      {
+        "title": "Sử dụng Neon tinh chế sẵn",
+        "desc": "Neon không được điều chế bằng phản ứng hóa học thông thường vì là khí hiếm rất trơ. Trong phòng thí nghiệm, Neon thường được sử dụng từ Neon đã được tinh chế sẵn.",
+        "equation": ""
+      }
+    ]
+  },
+  "recognition": {
+    "tests": [
+      {
+        "title": "Phổ phát xạ",
+        "result": "Khi cho dòng điện đi qua Neon trong ống phóng điện, Neon phát ra ánh sáng đỏ cam đặc trưng."
+      },
+      {
+        "title": "Phổ nguyên tử",
+        "result": "Neon có các vạch phổ đặc trưng, có thể dùng để xác định chính xác nguyên tố."
+      }
+    ]
+  },
+  "reactions": [
+    {
+      "title": "Không phản ứng hóa học",
+      "equation": "Neon là khí hiếm và hầu như không tham gia phản ứng hóa học trong điều kiện thường."
+    },
+    {
+      "title": "Phát sáng trong ống phóng điện",
+      "equation": "Ne + năng lượng điện → Ne*\nNe* → Ne + hν (photon)"
+    }
+  ],
+  "applications": [
+    {
+      "title": "Đèn Neon",
+      "desc": "Dùng trong biển hiệu và các loại đèn phóng điện tạo ánh sáng đỏ cam đặc trưng."
+    },
+    {
+      "title": "Đèn báo",
+      "desc": "Sử dụng trong một số thiết bị điện và điện tử."
+    },
+    {
+      "title": "Laser",
+      "desc": "Neon được sử dụng trong một số loại laser, đặc biệt là laser Helium-Neon."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Được sử dụng trong một số ống phóng điện và thiết bị điện tử."
+    },
+    {
+      "title": "Làm lạnh",
+      "desc": "Neon lỏng có thể được sử dụng làm chất làm lạnh ở nhiệt độ rất thấp."
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Được sử dụng trong nghiên cứu vật lý plasma, quang phổ và khí hiếm."
+    }
+  ],
+  "notes": "<p><strong>Tổng quan về Neon:</strong> Neon là nguyên tố số 10, thuộc nhóm VIIIA | chu kỳ 2 và là một khí hiếm. Neon có cấu hình electron 1s² 2s² 2p⁶, với lớp electron ngoài cùng đã bão hòa nên có tính trơ hóa học rất cao. Ở điều kiện thường, Neon tồn tại dưới dạng khí đơn nguyên tử Ne. Neon có ba đồng vị bền tự nhiên là ²⁰Ne, ²¹Ne và ²²Ne. Khi được kích thích bằng điện, Neon phát ra ánh sáng đỏ cam đặc trưng, tạo nên ứng dụng nổi tiếng nhất của nguyên tố này trong đèn Neon. Neon chủ yếu được sử dụng trong chiếu sáng, biển hiệu, thiết bị điện tử, laser và nghiên cứu khoa học.</p>"
+}
