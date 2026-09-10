@@ -314,42 +314,110 @@ export class AnalyticsFeature {
   renderDailyTab(data) {
     return `
       <div class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="flex items-center justify-between flex-wrap gap-2 pb-1 border-b border-slate-200 dark:border-slate-800">
+          <div>
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+              <i data-lucide="calendar-days" class="w-4 h-4 text-sky-500"></i>
+              <span>Phân Tích Chi Tiết Từng Ngày & Tải Học Tập</span>
+            </h4>
+            <p class="text-xs text-slate-500 mt-0.5">Danh sách môn học, tổng thời lượng, khung giờ và chỉ số tải của từng ngày trong tuần</p>
+          </div>
+          <div class="text-xs font-semibold px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+            Tổng cả tuần: <span class="font-bold text-sky-600 dark:text-sky-400">${data.overview.totalStudyHours}h</span> (${data.overview.totalSessions} ca)
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
           ${data.daily
             .map(
               (d) => `
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative overflow-hidden">
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="font-black text-base text-slate-900 dark:text-white">${d.dayName}</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${d.sessionCount} ca</span>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col justify-between shadow-xs">
+              <div>
+                <!-- Day Card Header -->
+                <div class="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-200/80 dark:border-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="font-black text-base text-slate-900 dark:text-white">${d.dayName}</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${d.sessionCount} ca</span>
+                    ${d.completedCount > 0 ? `<span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">Xong ${d.completedCount}/${d.sessionCount} (${d.completionRate}%)</span>` : ""}
+                  </div>
+
+                  <div class="flex items-center gap-1.5">
+                    <div class="px-2.5 py-1 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-xs font-bold text-sky-700 dark:text-sky-300 font-mono">
+                      ⚡ Tổng: ${d.totalHoursFormatted}h (${d.totalMinutes}p)
+                    </div>
+                    <div class="px-2 py-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                      <span class="font-black text-${d.workloadColor}-600 dark:text-${d.workloadColor}-400">${d.workloadScore}/100</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
-                  <span class="text-[10px] uppercase font-bold text-slate-400">Workload:</span>
-                  <span class="font-black text-${d.workloadColor}-600 dark:text-${d.workloadColor}-400">${d.workloadScore}/100 (${d.workloadLevel})</span>
+
+                <!-- Daily Metrics Grid -->
+                <div class="grid grid-cols-3 gap-2 text-xs mb-3">
+                  <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
+                    <span class="text-[10px] text-slate-400 block font-semibold">Khung giờ</span>
+                    <span class="font-bold text-slate-900 dark:text-white text-[11px]">${d.startTime} - ${d.endTime}</span>
+                  </div>
+                  <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
+                    <span class="text-[10px] text-slate-400 block font-semibold">Chuỗi liên tục</span>
+                    <span class="font-bold ${d.longestStreak >= 3 ? "text-amber-500" : "text-slate-900 dark:text-white"} text-[11px]">${d.longestStreak} tiết max</span>
+                  </div>
+                  <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
+                    <span class="text-[10px] text-slate-400 block font-semibold">Khoảng nghỉ</span>
+                    <span class="font-bold text-slate-900 dark:text-white text-[11px]">${d.breakCount} lần (${d.totalBreakMinutes}p)</span>
+                  </div>
+                </div>
+
+                <!-- SUBJECT LIST & TIME BREAKDOWN FOR THIS DAY -->
+                <div class="mt-2 mb-3">
+                  <span class="text-[11px] uppercase font-bold text-slate-500 dark:text-slate-400 block mb-1.5 flex items-center justify-between">
+                    <span>Danh sách môn học trong ngày (${d.subjectBreakdown?.length || 0} môn):</span>
+                    <span class="text-[10px] lowercase text-slate-400">thời gian từng môn</span>
+                  </span>
+
+                  ${(!d.subjectBreakdown || d.subjectBreakdown.length === 0) ? `
+                    <div class="p-4 text-center text-xs text-slate-400 bg-white/60 dark:bg-slate-800/60 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+                      Không có môn học nào được xếp vào ngày này (ngày tự do / nghỉ ngơi).
+                    </div>
+                  ` : `
+                    <div class="space-y-1.5 max-h-48 overflow-y-auto pr-0.5">
+                      ${d.subjectBreakdown.map((sb) => `
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700/60 flex items-center justify-between gap-2 hover:border-sky-300 dark:hover:border-sky-700 transition">
+                          <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-3 h-3 rounded-md shrink-0 shadow-2xs" style="background-color: ${sb.colorHex}"></span>
+                            <div class="truncate">
+                              <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs text-slate-900 dark:text-white truncate">${escapeHTML(sb.name)}</span>
+                                ${sb.isCompleted ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">Đã xong</span>' : ''}
+                              </div>
+                              <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                                ${escapeHTML(sb.teacher || "Tự học")} ${sb.room ? `• Phòng: ${escapeHTML(sb.room)}` : ""}
+                                ${sb.timeRanges.length > 0 ? `• <span class="font-mono text-slate-600 dark:text-slate-300">${sb.timeRanges.join(", ")}</span>` : ""}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="text-right shrink-0">
+                            <span class="font-mono font-bold text-xs text-sky-600 dark:text-sky-400">${sb.totalHoursFormatted}h</span>
+                            <div class="text-[10px] text-slate-400">${sb.totalMinutes}p • ${sb.sessionCount} tiết</div>
+                          </div>
+                        </div>
+                      `).join("")}
+                    </div>
+                  `}
                 </div>
               </div>
 
-              <!-- Daily Metrics Grid -->
-              <div class="grid grid-cols-3 gap-2 text-xs mb-3">
-                <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
-                  <span class="text-[10px] text-slate-400 block font-semibold">Thời lượng học</span>
-                  <span class="font-bold text-slate-900 dark:text-white">${d.totalHoursFormatted}h (${d.totalMinutes}p)</span>
-                </div>
-                <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
-                  <span class="text-[10px] text-slate-400 block font-semibold">Khung giờ</span>
-                  <span class="font-bold text-slate-900 dark:text-white">${d.startTime} - ${d.endTime}</span>
-                </div>
-                <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
-                  <span class="text-[10px] text-slate-400 block font-semibold">Chuỗi liên tục max</span>
-                  <span class="font-bold ${d.longestStreak >= 3 ? "text-amber-500" : "text-slate-900 dark:text-white"}">${d.longestStreak} tiết</span>
-                </div>
-              </div>
-
-              <!-- Breaks in Day -->
-              <div class="text-[11px] text-slate-500 flex items-center justify-between border-t border-slate-200/60 dark:border-slate-800 pt-2">
-                <span>Số khoảng nghỉ: <b>${d.breakCount}</b> (Tổng: ${d.totalBreakMinutes}p)</span>
-                <span>Nghỉ dài nhất: <b>${d.longestBreakMinutes}p</b></span>
+              <!-- Action Footer -->
+              <div class="pt-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs">
+                <span class="text-[11px] text-slate-400">Mức độ tải: <b class="text-${d.workloadColor}-600 dark:text-${d.workloadColor}-400">${d.workloadLevel}</b></span>
+                <button
+                  type="button"
+                  data-open-day-drawer="${d.day}"
+                  class="btn btn-secondary px-3 py-1 text-xs flex items-center gap-1 font-semibold text-sky-700 dark:text-sky-300 hover:bg-sky-50 dark:hover:bg-sky-950 transition"
+                >
+                  <i data-lucide="eye" class="w-3.5 h-3.5 text-sky-500"></i>
+                  <span>Xem chi tiết ${d.dayName}</span>
+                </button>
               </div>
             </div>
           `
@@ -663,6 +731,15 @@ export class AnalyticsFeature {
         if (subObj) {
           events.emit("drawer:open-subject-detail", subObj);
         }
+      });
+    });
+
+    // Day Drawer opener from Daily Analytics
+    container.querySelectorAll("[data-open-day-drawer]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const dayNum = parseInt(btn.dataset.openDayDrawer, 10);
+        events.emit("drawer:open-day-detail", dayNum);
       });
     });
 

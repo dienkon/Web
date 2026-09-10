@@ -245,6 +245,7 @@ export class ActivitiesFeature {
     state.lessons.unshift(newLesson);
     this.storage.debouncedSave();
     this.render();
+    events.emit("library:updated");
   }
 
   deleteLesson(id) {
@@ -258,6 +259,7 @@ export class ActivitiesFeature {
     state.lessons = state.lessons.filter((l) => l.id !== id);
     this.storage.debouncedSave();
     this.render();
+    events.emit("library:updated");
     events.emit("toast:show", { message: `Đã xóa "${lesson.subject}" khỏi kho`, type: "info" });
   }
 

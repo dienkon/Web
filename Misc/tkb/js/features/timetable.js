@@ -136,9 +136,15 @@ export class TimetableFeature {
         if (focusBtn) {
           e.stopPropagation();
           const slotKey = focusBtn.dataset.slotKey;
+          const slotKeys = JSON.parse(focusBtn.dataset.slotKeys || "[]");
           const state = this.store.getState();
           const item = state.schedule.find((s) => s.slotId === slotKey);
-          if (item) events.emit("focus:start", item);
+          if (item) {
+            events.emit("focus:start", {
+              ...item,
+              slotKeys: slotKeys.length ? slotKeys : [slotKey],
+            });
+          }
           return;
         }
 
@@ -901,6 +907,7 @@ export class TimetableFeature {
                     type="button"
                     data-action="focus-mobile"
                     data-slot-key="${block.slotKeys[0]}"
+                    data-slot-keys='${JSON.stringify(block.slotKeys)}'
                     class="px-2.5 py-1 bg-sky-600 hover:bg-sky-500 text-white font-semibold rounded-lg flex items-center gap-1 shadow-2xs"
                   >
                     <i data-lucide="target" class="w-3.5 h-3.5"></i>

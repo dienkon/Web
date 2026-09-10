@@ -1,11 +1,15 @@
 /**
  * Real-Time Focus Mode Feature (Calculated strictly from actual time)
+ * Enhanced with Smart Merged Block recognition, total time calculation,
+ * and high-quality Web Audio chimes & bells.
  */
 
 import { escapeHTML, $ } from "../utils/dom.js";
 import { formatHHMMSS } from "../utils/format.js";
 import { TimeEngine } from "../core/time-engine.js";
 import { events } from "../core/events.js";
+import { buildMergedBlocks } from "../core/merge-engine.js";
+import { soundEngine } from "../core/sound.js";
 
 export class FocusModeFeature {
   constructor(store, storage, history) {
@@ -17,6 +21,7 @@ export class FocusModeFeature {
     this.isPaused = false;
     this.pomodoroMinutes = null; // null = real-time mode, number = pomodoro mode
     this.pomodoroRemainingSec = 0;
+    this.hasPlayedEndSound = false;
   }
 
   init() {
@@ -46,6 +51,19 @@ export class FocusModeFeature {
       btnExit.addEventListener("click", () => this.exitFocus());
     }
 
+    // Sound toggle button in Focus overlay
+    const btnSound = $("#btn-focus-sound-toggle");
+    if (btnSound) {
+      btnSound.addEventListener("click", () => {
+        const isEnabled = soundEngine.toggleSound();
+        this.updateSoundButtonUI(isEnabled);
+        events.emit("toast:show", {
+          message: isEnabled ? "🔊 Đã bật âm thanh chuông báo" : "🔇 Đã tắt âm thanh",
+          type: "info",
+        });
+      });
+    }
+
     // Pomodoro Presets
     const pomoContainer = $("#focus-pomodoro-presets");
     if (pomoContainer) {
@@ -63,29 +81,42 @@ export class FocusModeFeature {
     events.on("focus:complete-current", () => this.completeCurrentActivity());
   }
 
+  updateSoundButtonUI(isEnabled = soundEngine.isSoundEnabled()) {
+    const container = $("#focus-sound-icon-container");
+    const label = $("#focus-sound-label");
+    if (container) {
+      container.innerHTML = `<i data-lucide="${isEnabled ? 'volume-2' : 'volume-x'}" class="w-3.5 h-3.5 ${isEnabled ? 'text-emerald-400' : 'text-slate-500'}"></i>`;
+    }
+    if (label) {
+      label.textContent = isEnabled ? "Chuông: BẬT" : "Chuông: TẮT";
+    }
+    if (typeof lucide !== "undefined") lucide.createIcons();
+  }
+
   startFocus(item = null) {
     const state = this.store.getState();
     const now = new Date();
+    const currentDay = now.getDay();
+    this.hasPlayedEndSound = false;
 
-    // 1. If explicit item provided, use it
+    // 1. Resolve Target Item
+    let rawSession = null;
     if (item) {
-      this.currentActivitySession = { ...item };
-      if (!this.currentActivitySession.slot && item.slotId) {
+      rawSession = { ...item };
+      if (!rawSession.slot && item.slotId) {
         const [, sId] = item.slotId.split("-");
-        this.currentActivitySession.slot = state.timeSlots.find((s) => s.id === sId);
+        rawSession.slot = state.timeSlots.find((s) => s.id === sId);
       }
     } else {
-      // 2. Otherwise find the real-time active activity
       const currentActive = TimeEngine.getCurrentActivity(now, state.schedule, state.timeSlots);
       if (currentActive && !currentActive.isFree) {
-        this.currentActivitySession = { ...currentActive.activity, slot: currentActive.slot };
+        rawSession = { ...currentActive.activity, slot: currentActive.slot };
       } else {
-        // 3. If in gap or no activity, find next activity
         const next = TimeEngine.getNextActivity(now, state.schedule, state.timeSlots);
         if (next) {
-          this.currentActivitySession = { ...next.item, slot: next.slot };
+          rawSession = { ...next.item, slot: next.slot };
         } else {
-          this.currentActivitySession = {
+          rawSession = {
             subject: "Tập trung Deep Work",
             teacher: "Cá nhân",
             room: "Bàn học",
@@ -95,14 +126,72 @@ export class FocusModeFeature {
       }
     }
 
+    // 2. Recognize Merged Blocks (Gộp khối) if applicable
+    const autoMerge = state.settings?.autoMergeBlocks !== false;
+    let dayNum = currentDay;
+    if (rawSession && rawSession.slotId) {
+      const parsedDay = parseInt(rawSession.slotId.split("-")[0], 10);
+      if (!isNaN(parsedDay)) dayNum = parsedDay;
+    }
+
+    const mergedBlocks = buildMergedBlocks(state.schedule, state.timeSlots, dayNum, autoMerge);
+    let matchedMergedBlock = null;
+
+    if (rawSession) {
+      if (rawSession.slotKeys && Array.isArray(rawSession.slotKeys)) {
+        matchedMergedBlock = mergedBlocks.find((b) =>
+          rawSession.slotKeys.some((sk) => b.slotKeys.includes(sk))
+        );
+      } else if (rawSession.slotId) {
+        matchedMergedBlock = mergedBlocks.find((b) => b.slotKeys.includes(rawSession.slotId));
+      }
+    }
+
+    if (matchedMergedBlock && matchedMergedBlock.slotCount > 1) {
+      // Configure session as a Merged Block
+      this.currentActivitySession = {
+        ...rawSession,
+        subject: matchedMergedBlock.subject || rawSession.subject,
+        teacher: matchedMergedBlock.teacher || rawSession.teacher,
+        room: matchedMergedBlock.room || rawSession.room,
+        color: matchedMergedBlock.color || rawSession.color,
+        isMerged: true,
+        slotCount: matchedMergedBlock.slotCount,
+        slotKeys: matchedMergedBlock.slotKeys,
+        durationMinutes: matchedMergedBlock.durationMinutes,
+        startTime: matchedMergedBlock.startTime,
+        endTime: matchedMergedBlock.endTime,
+        slot: {
+          label: `${matchedMergedBlock.startSlot.label} - ${matchedMergedBlock.endSlot.label}`,
+          start: matchedMergedBlock.startTime,
+          end: matchedMergedBlock.endTime,
+        },
+      };
+    } else {
+      // Normal single block
+      this.currentActivitySession = {
+        ...rawSession,
+        isMerged: false,
+        slotCount: 1,
+        slotKeys: rawSession.slotId ? [rawSession.slotId] : [],
+        startTime: rawSession.slot?.start || null,
+        endTime: rawSession.slot?.end || null,
+      };
+    }
+
     this.pomodoroMinutes = null;
     this.isPaused = false;
 
     const overlay = $("#focus-mode-overlay");
     if (overlay) overlay.classList.add("active");
 
+    this.updateSoundButtonUI();
     this.updateClock();
     this.startClockInterval();
+
+    // Play subtle chime on focus entrance
+    soundEngine.playChime();
+    if (typeof lucide !== "undefined") lucide.createIcons();
   }
 
   startClockInterval() {
@@ -120,6 +209,8 @@ export class FocusModeFeature {
     const barEl = $("#focus-progress-bar");
     const timeRangeEl = $("#focus-time-range");
     const remainingEl = $("#focus-remaining-text");
+    const mergedBadge = $("#focus-merged-badge");
+    const mergedText = $("#focus-merged-text");
 
     if (!clockEl || !this.currentActivitySession) return;
 
@@ -130,6 +221,20 @@ export class FocusModeFeature {
 
     titleEl.textContent = this.currentActivitySession.subject;
     metaEl.textContent = `Phụ trách: ${this.currentActivitySession.teacher || "Tự do"} • Phòng: ${this.currentActivitySession.room || "-"}`;
+
+    // Merged Block Badge Display
+    if (mergedBadge) {
+      if (this.currentActivitySession.isMerged && this.currentActivitySession.slotCount > 1) {
+        mergedBadge.classList.remove("hidden");
+        mergedBadge.classList.add("flex");
+        if (mergedText) {
+          mergedText.textContent = `GỘP KHỐI: ${this.currentActivitySession.slotCount} TIẾT LIÊN TỤC • TỔNG ${this.currentActivitySession.durationMinutes} PHÚT`;
+        }
+      } else {
+        mergedBadge.classList.add("hidden");
+        mergedBadge.classList.remove("flex");
+      }
+    }
 
     // A. Pomodoro Mode
     if (this.pomodoroMinutes !== null) {
@@ -147,30 +252,43 @@ export class FocusModeFeature {
         const pct = Math.min(100, Math.max(0, ((total - this.pomodoroRemainingSec) / total) * 100));
         barEl.style.width = `${pct}%`;
       }
+
+      // Check Pomodoro Finish
+      if (this.pomodoroRemainingSec === 0 && !this.hasPlayedEndSound) {
+        this.hasPlayedEndSound = true;
+        soundEngine.playBell();
+        events.emit("toast:show", { message: "⏰ Đã kết thúc chu kỳ Pomodoro!", type: "success" });
+      }
       return;
     }
 
-    // B. Real-Time Mode (Based strictly on slot start and end)
-    const slot = this.currentActivitySession.slot;
-    if (!slot) {
-      // Default fallback
-      clockEl.textContent = `${formatHHMMSS(curTotalSec)}`;
+    // B. Real-Time Mode (Handles both Single and Merged Blocks)
+    const startTimeStr = this.currentActivitySession.startTime || this.currentActivitySession.slot?.start;
+    const endTimeStr = this.currentActivitySession.endTime || this.currentActivitySession.slot?.end;
+
+    if (!startTimeStr || !endTimeStr) {
+      clockEl.textContent = formatHHMMSS(curTotalSec);
       return;
     }
 
-    const sMin = TimeEngine.parseToMinutes(slot.start);
-    let eMin = TimeEngine.parseToMinutes(slot.end);
+    const sMin = TimeEngine.parseToMinutes(startTimeStr);
+    let eMin = TimeEngine.parseToMinutes(endTimeStr);
     const isOvernight = eMin < sMin;
     if (isOvernight) eMin += 1440;
 
     const startSec = sMin * 60;
     const endSec = eMin * 60;
     let nowSec = curTotalSec;
-    if (isOvernight && curMinutes < TimeEngine.parseToMinutes(slot.end)) {
+    if (isOvernight && curMinutes < TimeEngine.parseToMinutes(endTimeStr)) {
       nowSec += 1440 * 60;
     }
 
-    if (timeRangeEl) timeRangeEl.textContent = `${slot.start} ────────────── ${slot.end}`;
+    if (timeRangeEl) {
+      const mergedExtra = this.currentActivitySession.isMerged
+        ? ` (${this.currentActivitySession.durationMinutes}p)`
+        : "";
+      timeRangeEl.textContent = `${startTimeStr} ────────────── ${endTimeStr}${mergedExtra}`;
+    }
 
     // State 1: Sắp bắt đầu (now < start)
     if (nowSec < startSec) {
@@ -194,6 +312,12 @@ export class FocusModeFeature {
       }
       if (remainingEl) remainingEl.textContent = "Ca học đã hoàn tất. Hãy bấm Hoàn Thành bên dưới.";
       if (barEl) barEl.style.width = "100%";
+
+      // Play period end sound once
+      if (!this.hasPlayedEndSound) {
+        this.hasPlayedEndSound = true;
+        soundEngine.playPeriodEnd();
+      }
       return;
     }
 
@@ -206,9 +330,11 @@ export class FocusModeFeature {
     clockEl.textContent = formatHHMMSS(remSec);
     if (statusPill) {
       statusPill.className = "focus-status-pill active";
-      statusPill.textContent = "ĐANG DIỄN RA";
+      statusPill.textContent = this.currentActivitySession.isMerged ? "ĐANG DIỄN RA (KHỐI GỘP)" : "ĐANG DIỄN RA";
     }
-    if (remainingEl) remainingEl.textContent = `Còn lại ${Math.ceil(remSec / 60)} phút (${Math.round(progress)}%)`;
+    if (remainingEl) {
+      remainingEl.textContent = `Còn lại ${Math.ceil(remSec / 60)} phút (${Math.round(progress)}%)`;
+    }
     if (barEl) barEl.style.width = `${progress}%`;
   }
 
@@ -219,6 +345,7 @@ export class FocusModeFeature {
       icon.setAttribute("data-lucide", this.isPaused ? "play" : "pause");
       if (typeof lucide !== "undefined") lucide.createIcons();
     }
+    soundEngine.playTone(this.isPaused ? 440 : 880, "sine", 0.15);
     events.emit("toast:show", { message: this.isPaused ? "Đã tạm dừng" : "Tiếp tục đếm giờ", type: "info" });
   }
 
@@ -226,7 +353,9 @@ export class FocusModeFeature {
     this.pomodoroMinutes = minutes;
     this.pomodoroRemainingSec = minutes * 60;
     this.isPaused = false;
+    this.hasPlayedEndSound = false;
     this.updateClock();
+    soundEngine.playChime();
     events.emit("toast:show", { message: `Đã đổi sang chế độ Pomodoro ${minutes} phút`, type: "info" });
   }
 
@@ -234,24 +363,32 @@ export class FocusModeFeature {
     const state = this.store.getState();
     let target = this.currentActivitySession;
 
-    if (!target || !target.slotId) {
+    if (!target || (!target.slotId && (!target.slotKeys || target.slotKeys.length === 0))) {
       const currentActive = TimeEngine.getCurrentActivity(new Date(), state.schedule, state.timeSlots);
       if (currentActive && !currentActive.isFree && currentActive.activity) {
         target = currentActive.activity;
       }
     }
 
-    if (target && target.slotId) {
+    const keysToComplete = target?.slotKeys?.length ? target.slotKeys : (target?.slotId ? [target.slotId] : []);
+
+    if (keysToComplete.length > 0) {
       this.history.recordState();
-      const item = state.schedule.find((s) => s.slotId === target.slotId);
-      if (item) {
-        item.status = "completed";
-        this.storage.debouncedSave();
-      }
+      let completedCount = 0;
+      state.schedule.forEach((item) => {
+        if (keysToComplete.includes(item.slotId)) {
+          item.status = "completed";
+          completedCount++;
+        }
+      });
+
+      this.storage.debouncedSave();
+      soundEngine.playCelebration();
       events.emit("toast:show", {
-        message: `🎉 Đã hoàn thành ca "${target.subject}"!`,
+        message: `🎉 Đã hoàn thành ${completedCount > 1 ? completedCount + " tiết (khối gộp)" : "ca"} "${target.subject}"!`,
         type: "success",
       });
+      events.emit("schedule:updated");
     } else {
       events.emit("toast:show", {
         message: "Hiện không có ca học nào để đánh dấu hoàn thành.",

@@ -182,6 +182,18 @@
             <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
           </button>
 
+          <!-- Notifications Toggle & Permission Button -->
+          <button
+            type="button"
+            id="btn-header-notifications"
+            aria-label="Thông báo trình duyệt"
+            title="Bật / Tắt chuông và thông báo khi tới tiết / hết tiết"
+            class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition relative"
+          >
+            <span id="header-bell-icon-container" class="flex items-center"><i data-lucide="bell" class="w-4 h-4"></i></span>
+            <span id="header-bell-dot" class="w-2 h-2 rounded-full bg-emerald-500 absolute top-1.5 right-1.5 border-2 border-white dark:border-slate-900 hidden"></span>
+          </button>
+
           <!-- Theme Toggle (Light / Dark) -->
           <button
             type="button"
@@ -1194,6 +1206,16 @@
         </div>
       </div>
 
+      <div class="pt-3 flex items-center justify-end gap-2 border-t border-slate-200 dark:border-slate-800 mt-4">
+        <button type="button" data-drawer-close="drawer-add-activity" class="btn btn-secondary py-2 px-4 rounded-xl text-xs font-semibold">
+          Hủy
+        </button>
+        <button type="submit" id="btn-submit-add-activity" class="btn btn-primary py-2 px-5 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md hover:shadow-lg transition">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Tạo hoạt động mới</span>
+        </button>
+      </div>
+
     </form>
   </div>
 
@@ -1322,11 +1344,23 @@
         <span class="text-xs font-bold tracking-widest text-slate-400">FOCUS MODE</span>
       </div>
 
-      <!-- Pomodoro Presets -->
-      <div id="focus-pomodoro-presets" class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs">
-        <button type="button" data-pomodoro="25" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">25m</button>
-        <button type="button" data-pomodoro="50" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">50m</button>
-        <button type="button" data-pomodoro="90" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">90m</button>
+      <!-- Sound Toggle & Pomodoro Presets -->
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          id="btn-focus-sound-toggle"
+          class="px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-white transition flex items-center gap-1.5 text-xs font-semibold"
+          title="Bật / Tắt âm thanh chuông báo"
+        >
+          <span id="focus-sound-icon-container" class="flex items-center"><i data-lucide="volume-2" class="w-3.5 h-3.5 text-emerald-400"></i></span>
+          <span id="focus-sound-label" class="hidden sm:inline text-[11px]">Chuông: BẬT</span>
+        </button>
+
+        <div id="focus-pomodoro-presets" class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs">
+          <button type="button" data-pomodoro="25" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">25m</button>
+          <button type="button" data-pomodoro="50" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">50m</button>
+          <button type="button" data-pomodoro="90" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">90m</button>
+        </div>
       </div>
 
       <button type="button" id="btn-focus-exit" class="btn btn-secondary bg-slate-800 border-slate-700 text-white text-xs">
@@ -1336,6 +1370,12 @@
 
     <!-- Center Giant Real-Time Clock -->
     <div class="flex flex-col items-center justify-center my-auto text-center">
+      <!-- Merged Block Recognition Badge -->
+      <div id="focus-merged-badge" class="hidden mb-2 px-3 py-1 rounded-full text-xs font-bold bg-sky-950/90 text-sky-300 border border-sky-800 flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i>
+        <span id="focus-merged-text">GỘP KHỐI: 2 TIẾT LIÊN TIẾP • TỔNG 90 PHÚT</span>
+      </div>
+
       <span id="focus-status-pill" class="focus-status-pill active mb-2">ĐANG DIỄN RA</span>
       <h2 id="focus-activity-title" class="text-3xl sm:text-5xl font-black tracking-tight">CODE</h2>
       <p id="focus-activity-meta" class="text-xs sm:text-sm text-slate-400 mt-1">Phụ trách: Thực hành • Phòng: PC</p>

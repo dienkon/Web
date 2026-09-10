@@ -208,6 +208,159 @@ class EventBus {
 
 const events = new EventBus();
 
+/* --- Module: sound.js --- */
+/**
+ * Sound Engine - High Quality Web Audio API Synthesizer
+ * Zero external assets needed, runs 100% offline, crisp and instant feedback.
+ */
+
+class SoundEngine {
+  constructor() {
+    this.audioCtx = null;
+    this.soundEnabled = true;
+    this.volume = 0.7;
+
+    // Load sound preference from localStorage if available
+    try {
+      const saved = localStorage.getItem("tkb_sound_enabled");
+      if (saved !== null) {
+        this.soundEnabled = saved === "true";
+      }
+    } catch (e) {
+      // Ignore
+    }
+  }
+
+  getAudioContext() {
+    if (!this.audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        this.audioCtx = new AudioContextClass();
+      }
+    }
+    if (this.audioCtx && this.audioCtx.state === "suspended") {
+      this.audioCtx.resume();
+    }
+    return this.audioCtx;
+  }
+
+  isSupported() {
+    return Boolean(window.AudioContext || window.webkitAudioContext);
+  }
+
+  setSoundEnabled(enabled) {
+    this.soundEnabled = Boolean(enabled);
+    try {
+      localStorage.setItem("tkb_sound_enabled", String(this.soundEnabled));
+    } catch (e) {
+      // Ignore
+    }
+  }
+
+  isSoundEnabled() {
+    return this.soundEnabled;
+  }
+
+  toggleSound() {
+    this.setSoundEnabled(!this.soundEnabled);
+    if (this.soundEnabled) {
+      this.playChime();
+    }
+    return this.soundEnabled;
+  }
+
+  /**
+   * Helper to play a smooth synth tone
+   */
+  playTone(freq, type = "sine", duration = 0.5, delay = 0, gainLevel = 0.3) {
+    if (!this.soundEnabled) return;
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
+    const startTime = ctx.currentTime + delay;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, startTime);
+
+    gain.gain.setValueAtTime(0.001, startTime);
+    gain.gain.linearRampToValueAtTime(gainLevel * this.volume, startTime + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(startTime);
+    osc.stop(startTime + duration);
+  }
+
+  /**
+   * Crisp resonant dual-tone bell / chime (Apple / Google style)
+   */
+  playBell() {
+    if (!this.soundEnabled) return;
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
+    // Resonant fundamental + harmonics
+    const tones = [
+      { freq: 880, dur: 1.2, gain: 0.35 },
+      { freq: 1320, dur: 1.0, gain: 0.2 },
+      { freq: 1760, dur: 0.8, gain: 0.15 },
+    ];
+
+    tones.forEach(({ freq, dur, gain }) => {
+      this.playTone(freq, "sine", dur, 0, gain);
+    });
+  }
+
+  /**
+   * Gentle reminder chime (e.g. toggle confirmation or notification)
+   */
+  playChime() {
+    if (!this.soundEnabled) return;
+    this.playTone(659.25, "sine", 0.4, 0, 0.25); // E5
+    this.playTone(987.77, "sine", 0.6, 0.08, 0.3); // B5
+  }
+
+  /**
+   * Period Start Announcement (Cheerful 3-note ascending chime: C5 -> E5 -> G5)
+   */
+  playPeriodStart() {
+    if (!this.soundEnabled) return;
+    const now = 0;
+    this.playTone(523.25, "sine", 0.45, now, 0.25); // C5
+    this.playTone(659.25, "sine", 0.45, now + 0.12, 0.28); // E5
+    this.playTone(783.99, "sine", 0.8, now + 0.24, 0.35); // G5
+  }
+
+  /**
+   * Period End Announcement (Gentle descending finish chime: G5 -> E5 -> C5)
+   */
+  playPeriodEnd() {
+    if (!this.soundEnabled) return;
+    const now = 0;
+    this.playTone(783.99, "sine", 0.45, now, 0.3); // G5
+    this.playTone(659.25, "sine", 0.45, now + 0.14, 0.26); // E5
+    this.playTone(523.25, "sine", 0.9, now + 0.28, 0.32); // C5
+  }
+
+  /**
+   * Celebration Fanfare (4-note triumphant chord when completing activities)
+   */
+  playCelebration() {
+    if (!this.soundEnabled) return;
+    const now = 0;
+    this.playTone(523.25, "triangle", 0.35, now, 0.25); // C5
+    this.playTone(659.25, "triangle", 0.35, now + 0.1, 0.28); // E5
+    this.playTone(783.99, "triangle", 0.35, now + 0.2, 0.3); // G5
+    this.playTone(1046.5, "sine", 0.9, now + 0.3, 0.38); // C6
+  }
+}
+
+const soundEngine = new SoundEngine();
+
 /* --- Module: time-engine.js --- */
 /**
  * Global Clock & Pure Time Calculations Engine
@@ -1671,6 +1824,48 @@ class AnalyticsEngineClass {
         workloadColor = "sky";
       }
 
+      // Subject breakdown for this day
+      const subjectMap = new Map();
+      itemsWithSlot.forEach(({ item, slot, dur }) => {
+        const subName = (item.subject || "Chưa đặt tên").trim();
+        const clr = item.color || "blue";
+        const key = `${subName.toLowerCase()}|${(item.teacher || "").toLowerCase()}|${(item.room || "").toLowerCase()}|${clr}`;
+
+        if (!subjectMap.has(key)) {
+          subjectMap.set(key, {
+            subject: subName,
+            name: subName,
+            color: clr,
+            colorHex: COLOR_MAP[clr]?.hex || "#3b82f6",
+            teacher: item.teacher || "",
+            room: item.room || "",
+            sessionCount: 0,
+            totalMinutes: 0,
+            timeRanges: [],
+            completedCount: 0,
+          });
+        }
+
+        const subObj = subjectMap.get(key);
+        subObj.sessionCount++;
+        subObj.totalMinutes += dur;
+        subObj.timeRanges.push(`${slot.start} - ${slot.end}`);
+        if (item.status === "completed") {
+          subObj.completedCount++;
+        }
+      });
+
+      const subjectBreakdown = Array.from(subjectMap.values()).map((sb) => ({
+        ...sb,
+        totalHoursFormatted: +(sb.totalMinutes / 60).toFixed(1),
+        isCompleted: sb.completedCount === sb.sessionCount,
+      }));
+
+      // Sort subjects by totalMinutes descending
+      subjectBreakdown.sort((a, b) => b.totalMinutes - a.totalMinutes);
+
+      const dayCompletionRate = dayItems.length > 0 ? Math.round((completedCount / dayItems.length) * 100) : 0;
+
       return {
         day: dayNum,
         dayName: DAY_NAMES[dayNum],
@@ -1694,6 +1889,20 @@ class AnalyticsEngineClass {
         shortestBreakMinutes,
         completedCount,
         focusCount,
+        completionRate: dayCompletionRate,
+        subjectBreakdown,
+        sessions: itemsWithSlot.map(({ item, slot, dur }) => ({
+          subject: item.subject || "Chưa đặt tên",
+          teacher: item.teacher || "",
+          room: item.room || "",
+          color: item.color || "blue",
+          colorHex: COLOR_MAP[item.color || "blue"]?.hex || "#3b82f6",
+          status: item.status || "planned",
+          isFocus: Boolean(item.isFocus),
+          slotId: item.slotId,
+          slot,
+          durationMinutes: dur,
+        })),
         workloadScore,
         workloadLevel,
         workloadColor,
@@ -2562,42 +2771,110 @@ class AnalyticsFeature {
   renderDailyTab(data) {
     return `
       <div class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="flex items-center justify-between flex-wrap gap-2 pb-1 border-b border-slate-200 dark:border-slate-800">
+          <div>
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+              <i data-lucide="calendar-days" class="w-4 h-4 text-sky-500"></i>
+              <span>Phân Tích Chi Tiết Từng Ngày & Tải Học Tập</span>
+            </h4>
+            <p class="text-xs text-slate-500 mt-0.5">Danh sách môn học, tổng thời lượng, khung giờ và chỉ số tải của từng ngày trong tuần</p>
+          </div>
+          <div class="text-xs font-semibold px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+            Tổng cả tuần: <span class="font-bold text-sky-600 dark:text-sky-400">${data.overview.totalStudyHours}h</span> (${data.overview.totalSessions} ca)
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
           ${data.daily
             .map(
               (d) => `
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative overflow-hidden">
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="font-black text-base text-slate-900 dark:text-white">${d.dayName}</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${d.sessionCount} ca</span>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative overflow-hidden flex flex-col justify-between shadow-xs">
+              <div>
+                <!-- Day Card Header -->
+                <div class="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-200/80 dark:border-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="font-black text-base text-slate-900 dark:text-white">${d.dayName}</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${d.sessionCount} ca</span>
+                    ${d.completedCount > 0 ? `<span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">Xong ${d.completedCount}/${d.sessionCount} (${d.completionRate}%)</span>` : ""}
+                  </div>
+
+                  <div class="flex items-center gap-1.5">
+                    <div class="px-2.5 py-1 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-xs font-bold text-sky-700 dark:text-sky-300 font-mono">
+                      ⚡ Tổng: ${d.totalHoursFormatted}h (${d.totalMinutes}p)
+                    </div>
+                    <div class="px-2 py-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                      <span class="font-black text-${d.workloadColor}-600 dark:text-${d.workloadColor}-400">${d.workloadScore}/100</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
-                  <span class="text-[10px] uppercase font-bold text-slate-400">Workload:</span>
-                  <span class="font-black text-${d.workloadColor}-600 dark:text-${d.workloadColor}-400">${d.workloadScore}/100 (${d.workloadLevel})</span>
+
+                <!-- Daily Metrics Grid -->
+                <div class="grid grid-cols-3 gap-2 text-xs mb-3">
+                  <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
+                    <span class="text-[10px] text-slate-400 block font-semibold">Khung giờ</span>
+                    <span class="font-bold text-slate-900 dark:text-white text-[11px]">${d.startTime} - ${d.endTime}</span>
+                  </div>
+                  <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
+                    <span class="text-[10px] text-slate-400 block font-semibold">Chuỗi liên tục</span>
+                    <span class="font-bold ${d.longestStreak >= 3 ? "text-amber-500" : "text-slate-900 dark:text-white"} text-[11px]">${d.longestStreak} tiết max</span>
+                  </div>
+                  <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
+                    <span class="text-[10px] text-slate-400 block font-semibold">Khoảng nghỉ</span>
+                    <span class="font-bold text-slate-900 dark:text-white text-[11px]">${d.breakCount} lần (${d.totalBreakMinutes}p)</span>
+                  </div>
+                </div>
+
+                <!-- SUBJECT LIST & TIME BREAKDOWN FOR THIS DAY -->
+                <div class="mt-2 mb-3">
+                  <span class="text-[11px] uppercase font-bold text-slate-500 dark:text-slate-400 block mb-1.5 flex items-center justify-between">
+                    <span>Danh sách môn học trong ngày (${d.subjectBreakdown?.length || 0} môn):</span>
+                    <span class="text-[10px] lowercase text-slate-400">thời gian từng môn</span>
+                  </span>
+
+                  ${(!d.subjectBreakdown || d.subjectBreakdown.length === 0) ? `
+                    <div class="p-4 text-center text-xs text-slate-400 bg-white/60 dark:bg-slate-800/60 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+                      Không có môn học nào được xếp vào ngày này (ngày tự do / nghỉ ngơi).
+                    </div>
+                  ` : `
+                    <div class="space-y-1.5 max-h-48 overflow-y-auto pr-0.5">
+                      ${d.subjectBreakdown.map((sb) => `
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/70 dark:border-slate-700/60 flex items-center justify-between gap-2 hover:border-sky-300 dark:hover:border-sky-700 transition">
+                          <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-3 h-3 rounded-md shrink-0 shadow-2xs" style="background-color: ${sb.colorHex}"></span>
+                            <div class="truncate">
+                              <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-xs text-slate-900 dark:text-white truncate">${escapeHTML(sb.name)}</span>
+                                ${sb.isCompleted ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">Đã xong</span>' : ''}
+                              </div>
+                              <div class="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                                ${escapeHTML(sb.teacher || "Tự học")} ${sb.room ? `• Phòng: ${escapeHTML(sb.room)}` : ""}
+                                ${sb.timeRanges.length > 0 ? `• <span class="font-mono text-slate-600 dark:text-slate-300">${sb.timeRanges.join(", ")}</span>` : ""}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="text-right shrink-0">
+                            <span class="font-mono font-bold text-xs text-sky-600 dark:text-sky-400">${sb.totalHoursFormatted}h</span>
+                            <div class="text-[10px] text-slate-400">${sb.totalMinutes}p • ${sb.sessionCount} tiết</div>
+                          </div>
+                        </div>
+                      `).join("")}
+                    </div>
+                  `}
                 </div>
               </div>
 
-              <!-- Daily Metrics Grid -->
-              <div class="grid grid-cols-3 gap-2 text-xs mb-3">
-                <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
-                  <span class="text-[10px] text-slate-400 block font-semibold">Thời lượng học</span>
-                  <span class="font-bold text-slate-900 dark:text-white">${d.totalHoursFormatted}h (${d.totalMinutes}p)</span>
-                </div>
-                <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
-                  <span class="text-[10px] text-slate-400 block font-semibold">Khung giờ</span>
-                  <span class="font-bold text-slate-900 dark:text-white">${d.startTime} - ${d.endTime}</span>
-                </div>
-                <div class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50">
-                  <span class="text-[10px] text-slate-400 block font-semibold">Chuỗi liên tục max</span>
-                  <span class="font-bold ${d.longestStreak >= 3 ? "text-amber-500" : "text-slate-900 dark:text-white"}">${d.longestStreak} tiết</span>
-                </div>
-              </div>
-
-              <!-- Breaks in Day -->
-              <div class="text-[11px] text-slate-500 flex items-center justify-between border-t border-slate-200/60 dark:border-slate-800 pt-2">
-                <span>Số khoảng nghỉ: <b>${d.breakCount}</b> (Tổng: ${d.totalBreakMinutes}p)</span>
-                <span>Nghỉ dài nhất: <b>${d.longestBreakMinutes}p</b></span>
+              <!-- Action Footer -->
+              <div class="pt-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs">
+                <span class="text-[11px] text-slate-400">Mức độ tải: <b class="text-${d.workloadColor}-600 dark:text-${d.workloadColor}-400">${d.workloadLevel}</b></span>
+                <button
+                  type="button"
+                  data-open-day-drawer="${d.day}"
+                  class="btn btn-secondary px-3 py-1 text-xs flex items-center gap-1 font-semibold text-sky-700 dark:text-sky-300 hover:bg-sky-50 dark:hover:bg-sky-950 transition"
+                >
+                  <i data-lucide="eye" class="w-3.5 h-3.5 text-sky-500"></i>
+                  <span>Xem chi tiết ${d.dayName}</span>
+                </button>
               </div>
             </div>
           `
@@ -2911,6 +3188,15 @@ class AnalyticsFeature {
         if (subObj) {
           events.emit("drawer:open-subject-detail", subObj);
         }
+      });
+    });
+
+    // Day Drawer opener from Daily Analytics
+    container.querySelectorAll("[data-open-day-drawer]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const dayNum = parseInt(btn.dataset.openDayDrawer, 10);
+        events.emit("drawer:open-day-detail", dayNum);
       });
     });
 
@@ -3541,10 +3827,272 @@ class BackupFeature {
   }
 }
 
+/* --- Module: notifications.js --- */
+/**
+ * Notifications & Reminders Feature
+ * Web Notifications API + Web Audio Alerts for Lesson Start, Finish, and 5-min warning.
+ * Operates reliably whenever the browser tab is open (both active or in the background).
+ */
+
+
+
+
+
+
+class NotificationsFeature {
+  constructor(store) {
+    this.store = store;
+    this.notifiedSet = new Set();
+    this.lastCheckedDate = new Date().toDateString();
+    this.notificationsEnabled = true;
+
+    try {
+      const saved = localStorage.getItem("tkb_notifications_enabled");
+      if (saved !== null) {
+        this.notificationsEnabled = saved === "true";
+      }
+    } catch (e) {
+      // Ignore
+    }
+  }
+
+  init() {
+    this.bindHeaderButton();
+    this.updateHeaderUI();
+  }
+
+  bindHeaderButton() {
+    const btn = $("#btn-header-notifications");
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        if (!("Notification" in window)) {
+          events.emit("toast:show", {
+            message: "Trình duyệt của bạn không hỗ trợ tính năng Web Notification.",
+            type: "error",
+          });
+          return;
+        }
+
+        if (Notification.permission === "default") {
+          const granted = await this.requestPermission();
+          if (granted) {
+            this.notificationsEnabled = true;
+            this.saveState();
+            soundEngine.playChime();
+            this.send(
+              "🔔 Đã bật thông báo lịch học!",
+              "Bạn sẽ nhận thông báo kèm âm thanh rõ ràng khi tới tiết và hết tiết học."
+            );
+            events.emit("toast:show", { message: "Đã bật thông báo trình duyệt thành công!", type: "success" });
+          } else {
+            events.emit("toast:show", {
+              message: "Bạn đã từ chối quyền thông báo trên trình duyệt.",
+              type: "warning",
+            });
+          }
+        } else if (Notification.permission === "granted") {
+          this.notificationsEnabled = !this.notificationsEnabled;
+          this.saveState();
+          if (this.notificationsEnabled) {
+            soundEngine.playChime();
+            this.send("🔔 Thông báo đã được bật", "Hệ thống sẽ nhắc nhở khi tới tiết và hết tiết.");
+          }
+          events.emit("toast:show", {
+            message: this.notificationsEnabled ? "Đã bật thông báo nhắc tiết học" : "Đã tạm tắt thông báo",
+            type: "info",
+          });
+        } else {
+          // Denied
+          events.emit("toast:show", {
+            message: "Quyền thông báo đang bị chặn. Vui lòng bấm vào icon ổ khóa trên thanh địa chỉ để cấp quyền.",
+            type: "warning",
+          });
+        }
+
+        this.updateHeaderUI();
+      });
+    }
+  }
+
+  saveState() {
+    try {
+      localStorage.setItem("tkb_notifications_enabled", String(this.notificationsEnabled));
+    } catch (e) {
+      // Ignore
+    }
+  }
+
+  updateHeaderUI() {
+    const btn = $("#btn-header-notifications");
+    const container = $("#header-bell-icon-container");
+    const dot = $("#header-bell-dot");
+
+    if (!btn || !("Notification" in window)) return;
+
+    const isGranted = Notification.permission === "granted" && this.notificationsEnabled;
+
+    if (dot) {
+      dot.classList.toggle("hidden", !isGranted);
+    }
+
+    if (container) {
+      if (Notification.permission === "denied") {
+        container.innerHTML = `<i data-lucide="bell-off" class="w-4 h-4 text-slate-400"></i>`;
+        btn.classList.add("opacity-60");
+        btn.title = "Thông báo bị chặn trong cài đặt trình duyệt";
+      } else if (isGranted) {
+        container.innerHTML = `<i data-lucide="bell-ring" class="w-4 h-4 text-emerald-500"></i>`;
+        btn.classList.remove("opacity-60");
+        btn.title = "Thông báo trình duyệt & âm thanh: ĐANG BẬT";
+      } else {
+        container.innerHTML = `<i data-lucide="bell" class="w-4 h-4"></i>`;
+        btn.classList.remove("opacity-60");
+        btn.title = "Bấm để bật thông báo khi tới tiết / hết tiết";
+      }
+    }
+
+    if (typeof lucide !== "undefined") lucide.createIcons();
+  }
+
+  async requestPermission() {
+    if (!("Notification" in window)) return false;
+    try {
+      const perm = await Notification.requestPermission();
+      return perm === "granted";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  send(title, body, tag = null) {
+    if (!this.notificationsEnabled) return;
+
+    if ("Notification" in window && Notification.permission === "granted") {
+      try {
+        const notif = new Notification(title, {
+          body,
+          icon: "logo.png",
+          tag: tag || undefined,
+          badge: "logo.png",
+          requireInteraction: false,
+        });
+
+        notif.onclick = () => {
+          window.focus();
+          notif.close();
+        };
+      } catch (e) {
+        console.warn("Notification error:", e);
+      }
+    }
+  }
+
+  /**
+   * Main period monitoring loop - called every tick from app.js
+   */
+  checkScheduleAlerts(now = new Date(), schedule = [], timeSlots = []) {
+    if (!this.notificationsEnabled) return;
+
+    const todayDateStr = now.toDateString();
+    if (todayDateStr !== this.lastCheckedDate) {
+      this.notifiedSet.clear();
+      this.lastCheckedDate = todayDateStr;
+    }
+
+    const currentDay = now.getDay();
+    const curMinutes = now.getHours() * 60 + now.getMinutes();
+    const curSeconds = now.getSeconds();
+
+    // Check once per minute window (within the first 20 seconds of each minute)
+    if (curSeconds > 20) return;
+
+    // Filter today's scheduled items
+    const todayPrefix = `${currentDay}-`;
+    const todayItems = schedule.filter((s) => s && s.slotId && s.slotId.startsWith(todayPrefix));
+    if (todayItems.length === 0) return;
+
+    todayItems.forEach((item) => {
+      const [, sId] = item.slotId.split("-");
+      const slot = timeSlots.find((s) => s.id === sId);
+      if (!slot) return;
+
+      const startMin = TimeEngine.parseToMinutes(slot.start);
+      let endMin = TimeEngine.parseToMinutes(slot.end);
+      if (endMin < startMin) endMin += 1440; // Overnight handling
+
+      // 1. TỚI TIẾT HỌC (Period Start)
+      if (curMinutes === startMin) {
+        const key = `${todayDateStr}_start_${item.slotId}_${slot.start}`;
+        if (!this.notifiedSet.has(key)) {
+          this.notifiedSet.add(key);
+
+          // Play period start announcement chime
+          soundEngine.playPeriodStart();
+
+          // Send desktop notification
+          this.send(
+            `🔔 Tới tiết học: ${item.subject}`,
+            `Khung giờ: ${slot.start} - ${slot.end} • ${item.teacher || "Tự do"} • Phòng: ${item.room || "Tự do"}`,
+            `start_${item.slotId}`
+          );
+
+          events.emit("toast:show", {
+            message: `🔔 Tới tiết học: "${item.subject}" (${slot.start} - ${slot.end})`,
+            type: "info",
+          });
+        }
+      }
+
+      // 2. HẾT TIẾT HỌC (Period End)
+      if (curMinutes === endMin) {
+        const key = `${todayDateStr}_end_${item.slotId}_${slot.end}`;
+        if (!this.notifiedSet.has(key)) {
+          this.notifiedSet.add(key);
+
+          // Play period end chime
+          soundEngine.playPeriodEnd();
+
+          // Send desktop notification
+          this.send(
+            `🏁 Hết tiết học: ${item.subject}`,
+            `Đã kết thúc lúc ${slot.end}. Nghỉ ngơi giải lao hoặc chuẩn bị tiết tiếp theo nhé!`,
+            `end_${item.slotId}`
+          );
+
+          events.emit("toast:show", {
+            message: `🏁 Đã hết tiết học: "${item.subject}" (${slot.end})`,
+            type: "info",
+          });
+        }
+      }
+
+      // 3. SẮP TỚI TIẾT (5 minutes prior)
+      if (curMinutes === startMin - 5) {
+        const key = `${todayDateStr}_pre5_${item.slotId}_${slot.start}`;
+        if (!this.notifiedSet.has(key)) {
+          this.notifiedSet.add(key);
+
+          soundEngine.playChime();
+
+          this.send(
+            `⏰ Sắp tới tiết học (5 phút nữa): ${item.subject}`,
+            `Chuẩn bị vào tiết lúc ${slot.start} tại ${item.room || "phòng học"}.`,
+            `pre5_${item.slotId}`
+          );
+        }
+      }
+    });
+  }
+}
+
 /* --- Module: focus-mode.js --- */
 /**
  * Real-Time Focus Mode Feature (Calculated strictly from actual time)
+ * Enhanced with Smart Merged Block recognition, total time calculation,
+ * and high-quality Web Audio chimes & bells.
  */
+
+
 
 
 
@@ -3561,6 +4109,7 @@ class FocusModeFeature {
     this.isPaused = false;
     this.pomodoroMinutes = null; // null = real-time mode, number = pomodoro mode
     this.pomodoroRemainingSec = 0;
+    this.hasPlayedEndSound = false;
   }
 
   init() {
@@ -3590,6 +4139,19 @@ class FocusModeFeature {
       btnExit.addEventListener("click", () => this.exitFocus());
     }
 
+    // Sound toggle button in Focus overlay
+    const btnSound = $("#btn-focus-sound-toggle");
+    if (btnSound) {
+      btnSound.addEventListener("click", () => {
+        const isEnabled = soundEngine.toggleSound();
+        this.updateSoundButtonUI(isEnabled);
+        events.emit("toast:show", {
+          message: isEnabled ? "🔊 Đã bật âm thanh chuông báo" : "🔇 Đã tắt âm thanh",
+          type: "info",
+        });
+      });
+    }
+
     // Pomodoro Presets
     const pomoContainer = $("#focus-pomodoro-presets");
     if (pomoContainer) {
@@ -3607,29 +4169,42 @@ class FocusModeFeature {
     events.on("focus:complete-current", () => this.completeCurrentActivity());
   }
 
+  updateSoundButtonUI(isEnabled = soundEngine.isSoundEnabled()) {
+    const container = $("#focus-sound-icon-container");
+    const label = $("#focus-sound-label");
+    if (container) {
+      container.innerHTML = `<i data-lucide="${isEnabled ? 'volume-2' : 'volume-x'}" class="w-3.5 h-3.5 ${isEnabled ? 'text-emerald-400' : 'text-slate-500'}"></i>`;
+    }
+    if (label) {
+      label.textContent = isEnabled ? "Chuông: BẬT" : "Chuông: TẮT";
+    }
+    if (typeof lucide !== "undefined") lucide.createIcons();
+  }
+
   startFocus(item = null) {
     const state = this.store.getState();
     const now = new Date();
+    const currentDay = now.getDay();
+    this.hasPlayedEndSound = false;
 
-    // 1. If explicit item provided, use it
+    // 1. Resolve Target Item
+    let rawSession = null;
     if (item) {
-      this.currentActivitySession = { ...item };
-      if (!this.currentActivitySession.slot && item.slotId) {
+      rawSession = { ...item };
+      if (!rawSession.slot && item.slotId) {
         const [, sId] = item.slotId.split("-");
-        this.currentActivitySession.slot = state.timeSlots.find((s) => s.id === sId);
+        rawSession.slot = state.timeSlots.find((s) => s.id === sId);
       }
     } else {
-      // 2. Otherwise find the real-time active activity
       const currentActive = TimeEngine.getCurrentActivity(now, state.schedule, state.timeSlots);
       if (currentActive && !currentActive.isFree) {
-        this.currentActivitySession = { ...currentActive.activity, slot: currentActive.slot };
+        rawSession = { ...currentActive.activity, slot: currentActive.slot };
       } else {
-        // 3. If in gap or no activity, find next activity
         const next = TimeEngine.getNextActivity(now, state.schedule, state.timeSlots);
         if (next) {
-          this.currentActivitySession = { ...next.item, slot: next.slot };
+          rawSession = { ...next.item, slot: next.slot };
         } else {
-          this.currentActivitySession = {
+          rawSession = {
             subject: "Tập trung Deep Work",
             teacher: "Cá nhân",
             room: "Bàn học",
@@ -3639,14 +4214,72 @@ class FocusModeFeature {
       }
     }
 
+    // 2. Recognize Merged Blocks (Gộp khối) if applicable
+    const autoMerge = state.settings?.autoMergeBlocks !== false;
+    let dayNum = currentDay;
+    if (rawSession && rawSession.slotId) {
+      const parsedDay = parseInt(rawSession.slotId.split("-")[0], 10);
+      if (!isNaN(parsedDay)) dayNum = parsedDay;
+    }
+
+    const mergedBlocks = buildMergedBlocks(state.schedule, state.timeSlots, dayNum, autoMerge);
+    let matchedMergedBlock = null;
+
+    if (rawSession) {
+      if (rawSession.slotKeys && Array.isArray(rawSession.slotKeys)) {
+        matchedMergedBlock = mergedBlocks.find((b) =>
+          rawSession.slotKeys.some((sk) => b.slotKeys.includes(sk))
+        );
+      } else if (rawSession.slotId) {
+        matchedMergedBlock = mergedBlocks.find((b) => b.slotKeys.includes(rawSession.slotId));
+      }
+    }
+
+    if (matchedMergedBlock && matchedMergedBlock.slotCount > 1) {
+      // Configure session as a Merged Block
+      this.currentActivitySession = {
+        ...rawSession,
+        subject: matchedMergedBlock.subject || rawSession.subject,
+        teacher: matchedMergedBlock.teacher || rawSession.teacher,
+        room: matchedMergedBlock.room || rawSession.room,
+        color: matchedMergedBlock.color || rawSession.color,
+        isMerged: true,
+        slotCount: matchedMergedBlock.slotCount,
+        slotKeys: matchedMergedBlock.slotKeys,
+        durationMinutes: matchedMergedBlock.durationMinutes,
+        startTime: matchedMergedBlock.startTime,
+        endTime: matchedMergedBlock.endTime,
+        slot: {
+          label: `${matchedMergedBlock.startSlot.label} - ${matchedMergedBlock.endSlot.label}`,
+          start: matchedMergedBlock.startTime,
+          end: matchedMergedBlock.endTime,
+        },
+      };
+    } else {
+      // Normal single block
+      this.currentActivitySession = {
+        ...rawSession,
+        isMerged: false,
+        slotCount: 1,
+        slotKeys: rawSession.slotId ? [rawSession.slotId] : [],
+        startTime: rawSession.slot?.start || null,
+        endTime: rawSession.slot?.end || null,
+      };
+    }
+
     this.pomodoroMinutes = null;
     this.isPaused = false;
 
     const overlay = $("#focus-mode-overlay");
     if (overlay) overlay.classList.add("active");
 
+    this.updateSoundButtonUI();
     this.updateClock();
     this.startClockInterval();
+
+    // Play subtle chime on focus entrance
+    soundEngine.playChime();
+    if (typeof lucide !== "undefined") lucide.createIcons();
   }
 
   startClockInterval() {
@@ -3664,6 +4297,8 @@ class FocusModeFeature {
     const barEl = $("#focus-progress-bar");
     const timeRangeEl = $("#focus-time-range");
     const remainingEl = $("#focus-remaining-text");
+    const mergedBadge = $("#focus-merged-badge");
+    const mergedText = $("#focus-merged-text");
 
     if (!clockEl || !this.currentActivitySession) return;
 
@@ -3674,6 +4309,20 @@ class FocusModeFeature {
 
     titleEl.textContent = this.currentActivitySession.subject;
     metaEl.textContent = `Phụ trách: ${this.currentActivitySession.teacher || "Tự do"} • Phòng: ${this.currentActivitySession.room || "-"}`;
+
+    // Merged Block Badge Display
+    if (mergedBadge) {
+      if (this.currentActivitySession.isMerged && this.currentActivitySession.slotCount > 1) {
+        mergedBadge.classList.remove("hidden");
+        mergedBadge.classList.add("flex");
+        if (mergedText) {
+          mergedText.textContent = `GỘP KHỐI: ${this.currentActivitySession.slotCount} TIẾT LIÊN TỤC • TỔNG ${this.currentActivitySession.durationMinutes} PHÚT`;
+        }
+      } else {
+        mergedBadge.classList.add("hidden");
+        mergedBadge.classList.remove("flex");
+      }
+    }
 
     // A. Pomodoro Mode
     if (this.pomodoroMinutes !== null) {
@@ -3691,30 +4340,43 @@ class FocusModeFeature {
         const pct = Math.min(100, Math.max(0, ((total - this.pomodoroRemainingSec) / total) * 100));
         barEl.style.width = `${pct}%`;
       }
+
+      // Check Pomodoro Finish
+      if (this.pomodoroRemainingSec === 0 && !this.hasPlayedEndSound) {
+        this.hasPlayedEndSound = true;
+        soundEngine.playBell();
+        events.emit("toast:show", { message: "⏰ Đã kết thúc chu kỳ Pomodoro!", type: "success" });
+      }
       return;
     }
 
-    // B. Real-Time Mode (Based strictly on slot start and end)
-    const slot = this.currentActivitySession.slot;
-    if (!slot) {
-      // Default fallback
-      clockEl.textContent = `${formatHHMMSS(curTotalSec)}`;
+    // B. Real-Time Mode (Handles both Single and Merged Blocks)
+    const startTimeStr = this.currentActivitySession.startTime || this.currentActivitySession.slot?.start;
+    const endTimeStr = this.currentActivitySession.endTime || this.currentActivitySession.slot?.end;
+
+    if (!startTimeStr || !endTimeStr) {
+      clockEl.textContent = formatHHMMSS(curTotalSec);
       return;
     }
 
-    const sMin = TimeEngine.parseToMinutes(slot.start);
-    let eMin = TimeEngine.parseToMinutes(slot.end);
+    const sMin = TimeEngine.parseToMinutes(startTimeStr);
+    let eMin = TimeEngine.parseToMinutes(endTimeStr);
     const isOvernight = eMin < sMin;
     if (isOvernight) eMin += 1440;
 
     const startSec = sMin * 60;
     const endSec = eMin * 60;
     let nowSec = curTotalSec;
-    if (isOvernight && curMinutes < TimeEngine.parseToMinutes(slot.end)) {
+    if (isOvernight && curMinutes < TimeEngine.parseToMinutes(endTimeStr)) {
       nowSec += 1440 * 60;
     }
 
-    if (timeRangeEl) timeRangeEl.textContent = `${slot.start} ────────────── ${slot.end}`;
+    if (timeRangeEl) {
+      const mergedExtra = this.currentActivitySession.isMerged
+        ? ` (${this.currentActivitySession.durationMinutes}p)`
+        : "";
+      timeRangeEl.textContent = `${startTimeStr} ────────────── ${endTimeStr}${mergedExtra}`;
+    }
 
     // State 1: Sắp bắt đầu (now < start)
     if (nowSec < startSec) {
@@ -3738,6 +4400,12 @@ class FocusModeFeature {
       }
       if (remainingEl) remainingEl.textContent = "Ca học đã hoàn tất. Hãy bấm Hoàn Thành bên dưới.";
       if (barEl) barEl.style.width = "100%";
+
+      // Play period end sound once
+      if (!this.hasPlayedEndSound) {
+        this.hasPlayedEndSound = true;
+        soundEngine.playPeriodEnd();
+      }
       return;
     }
 
@@ -3750,9 +4418,11 @@ class FocusModeFeature {
     clockEl.textContent = formatHHMMSS(remSec);
     if (statusPill) {
       statusPill.className = "focus-status-pill active";
-      statusPill.textContent = "ĐANG DIỄN RA";
+      statusPill.textContent = this.currentActivitySession.isMerged ? "ĐANG DIỄN RA (KHỐI GỘP)" : "ĐANG DIỄN RA";
     }
-    if (remainingEl) remainingEl.textContent = `Còn lại ${Math.ceil(remSec / 60)} phút (${Math.round(progress)}%)`;
+    if (remainingEl) {
+      remainingEl.textContent = `Còn lại ${Math.ceil(remSec / 60)} phút (${Math.round(progress)}%)`;
+    }
     if (barEl) barEl.style.width = `${progress}%`;
   }
 
@@ -3763,6 +4433,7 @@ class FocusModeFeature {
       icon.setAttribute("data-lucide", this.isPaused ? "play" : "pause");
       if (typeof lucide !== "undefined") lucide.createIcons();
     }
+    soundEngine.playTone(this.isPaused ? 440 : 880, "sine", 0.15);
     events.emit("toast:show", { message: this.isPaused ? "Đã tạm dừng" : "Tiếp tục đếm giờ", type: "info" });
   }
 
@@ -3770,7 +4441,9 @@ class FocusModeFeature {
     this.pomodoroMinutes = minutes;
     this.pomodoroRemainingSec = minutes * 60;
     this.isPaused = false;
+    this.hasPlayedEndSound = false;
     this.updateClock();
+    soundEngine.playChime();
     events.emit("toast:show", { message: `Đã đổi sang chế độ Pomodoro ${minutes} phút`, type: "info" });
   }
 
@@ -3778,24 +4451,32 @@ class FocusModeFeature {
     const state = this.store.getState();
     let target = this.currentActivitySession;
 
-    if (!target || !target.slotId) {
+    if (!target || (!target.slotId && (!target.slotKeys || target.slotKeys.length === 0))) {
       const currentActive = TimeEngine.getCurrentActivity(new Date(), state.schedule, state.timeSlots);
       if (currentActive && !currentActive.isFree && currentActive.activity) {
         target = currentActive.activity;
       }
     }
 
-    if (target && target.slotId) {
+    const keysToComplete = target?.slotKeys?.length ? target.slotKeys : (target?.slotId ? [target.slotId] : []);
+
+    if (keysToComplete.length > 0) {
       this.history.recordState();
-      const item = state.schedule.find((s) => s.slotId === target.slotId);
-      if (item) {
-        item.status = "completed";
-        this.storage.debouncedSave();
-      }
+      let completedCount = 0;
+      state.schedule.forEach((item) => {
+        if (keysToComplete.includes(item.slotId)) {
+          item.status = "completed";
+          completedCount++;
+        }
+      });
+
+      this.storage.debouncedSave();
+      soundEngine.playCelebration();
       events.emit("toast:show", {
-        message: `🎉 Đã hoàn thành ca "${target.subject}"!`,
+        message: `🎉 Đã hoàn thành ${completedCount > 1 ? completedCount + " tiết (khối gộp)" : "ca"} "${target.subject}"!`,
         type: "success",
       });
+      events.emit("schedule:updated");
     } else {
       events.emit("toast:show", {
         message: "Hiện không có ca học nào để đánh dấu hoàn thành.",
@@ -4062,6 +4743,7 @@ class ActivitiesFeature {
     state.lessons.unshift(newLesson);
     this.storage.debouncedSave();
     this.render();
+    events.emit("library:updated");
   }
 
   deleteLesson(id) {
@@ -4075,6 +4757,7 @@ class ActivitiesFeature {
     state.lessons = state.lessons.filter((l) => l.id !== id);
     this.storage.debouncedSave();
     this.render();
+    events.emit("library:updated");
     events.emit("toast:show", { message: `Đã xóa "${lesson.subject}" khỏi kho`, type: "info" });
   }
 
@@ -4352,9 +5035,15 @@ class TimetableFeature {
         if (focusBtn) {
           e.stopPropagation();
           const slotKey = focusBtn.dataset.slotKey;
+          const slotKeys = JSON.parse(focusBtn.dataset.slotKeys || "[]");
           const state = this.store.getState();
           const item = state.schedule.find((s) => s.slotId === slotKey);
-          if (item) events.emit("focus:start", item);
+          if (item) {
+            events.emit("focus:start", {
+              ...item,
+              slotKeys: slotKeys.length ? slotKeys : [slotKey],
+            });
+          }
           return;
         }
 
@@ -5117,6 +5806,7 @@ class TimetableFeature {
                     type="button"
                     data-action="focus-mobile"
                     data-slot-key="${block.slotKeys[0]}"
+                    data-slot-keys='${JSON.stringify(block.slotKeys)}'
                     class="px-2.5 py-1 bg-sky-600 hover:bg-sky-500 text-white font-semibold rounded-lg flex items-center gap-1 shadow-2xs"
                   >
                     <i data-lucide="target" class="w-3.5 h-3.5"></i>
@@ -6227,7 +6917,7 @@ class ModalUI {
           const [, sid] = first.slotId.split("-");
           const slot = state.timeSlots.find((s) => s.id === sid);
           this.close("modal-merged-detail");
-          events.emit("focus:start", { ...first, slot });
+          events.emit("focus:start", { ...first, slot, slotKeys: this.currentMergedData.slotKeys });
         }
       };
     }
@@ -7052,6 +7742,7 @@ class ResponsiveNavUI {
 
 
 
+
 class ProductivityApp {
   constructor() {
     this.store = store;
@@ -7069,6 +7760,7 @@ class ProductivityApp {
     this.focusMode = new FocusModeFeature(this.store, this.storage, this.history);
     this.analytics = new AnalyticsFeature(this.store);
     this.backup = new BackupFeature(this.store, this.storage, this.history);
+    this.notifications = new NotificationsFeature(this.store);
 
     this.lastCheckedDate = new Date().getDate();
     this.globalClockInterval = null;
@@ -7086,6 +7778,7 @@ class ProductivityApp {
     this.timetable.init();
     this.focusMode.init();
     this.analytics.init();
+    this.notifications.init();
     this.modalUI.init();
     this.drawerUI.init();
     this.commandPaletteUI.init();
@@ -7171,9 +7864,14 @@ class ProductivityApp {
     if (this.globalClockInterval) clearInterval(this.globalClockInterval);
 
     const tick = () => {
+      const now = new Date();
+      const state = this.store.getState();
       this.updateLiveActivities();
       this.updateCurrentTimeIndicator();
       this.checkDateRollover();
+      if (this.notifications) {
+        this.notifications.checkScheduleAlerts(now, state.schedule, state.timeSlots);
+      }
     };
 
     tick();
@@ -7452,6 +8150,20 @@ function bootstrapApp() {
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", bootstrapApp);
+} else {
+  bootstrapApp();
+}
+
+// Global bootstrap on DOM ready or immediate if already loaded
+function bootstrapApp() {
+  if (!window.app) {
+    window.app = new ProductivityApp();
+    window.app.init();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapApp);
 } else {
   bootstrapApp();
 }

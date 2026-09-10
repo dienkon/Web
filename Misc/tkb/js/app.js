@@ -14,6 +14,7 @@ import { TimetableFeature } from "./features/timetable.js";
 import { FocusModeFeature } from "./features/focus-mode.js";
 import { AnalyticsFeature } from "./features/analytics.js";
 import { BackupFeature } from "./features/backup.js";
+import { NotificationsFeature } from "./features/notifications.js";
 
 import { ToastUI } from "./ui/toast.js";
 import { ModalUI } from "./ui/modal.js";
@@ -41,6 +42,7 @@ class ProductivityApp {
     this.focusMode = new FocusModeFeature(this.store, this.storage, this.history);
     this.analytics = new AnalyticsFeature(this.store);
     this.backup = new BackupFeature(this.store, this.storage, this.history);
+    this.notifications = new NotificationsFeature(this.store);
 
     this.lastCheckedDate = new Date().getDate();
     this.globalClockInterval = null;
@@ -58,6 +60,7 @@ class ProductivityApp {
     this.timetable.init();
     this.focusMode.init();
     this.analytics.init();
+    this.notifications.init();
     this.modalUI.init();
     this.drawerUI.init();
     this.commandPaletteUI.init();
@@ -143,9 +146,14 @@ class ProductivityApp {
     if (this.globalClockInterval) clearInterval(this.globalClockInterval);
 
     const tick = () => {
+      const now = new Date();
+      const state = this.store.getState();
       this.updateLiveActivities();
       this.updateCurrentTimeIndicator();
       this.checkDateRollover();
+      if (this.notifications) {
+        this.notifications.checkScheduleAlerts(now, state.schedule, state.timeSlots);
+      }
     };
 
     tick();

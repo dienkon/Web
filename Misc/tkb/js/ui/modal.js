@@ -914,7 +914,7 @@ export class ModalUI {
           const [, sid] = first.slotId.split("-");
           const slot = state.timeSlots.find((s) => s.id === sid);
           this.close("modal-merged-detail");
-          events.emit("focus:start", { ...first, slot });
+          events.emit("focus:start", { ...first, slot, slotKeys: this.currentMergedData.slotKeys });
         }
       };
     }

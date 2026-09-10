@@ -412,6 +412,48 @@ class AnalyticsEngineClass {
         workloadColor = "sky";
       }
 
+      // Subject breakdown for this day
+      const subjectMap = new Map();
+      itemsWithSlot.forEach(({ item, slot, dur }) => {
+        const subName = (item.subject || "Chưa đặt tên").trim();
+        const clr = item.color || "blue";
+        const key = `${subName.toLowerCase()}|${(item.teacher || "").toLowerCase()}|${(item.room || "").toLowerCase()}|${clr}`;
+
+        if (!subjectMap.has(key)) {
+          subjectMap.set(key, {
+            subject: subName,
+            name: subName,
+            color: clr,
+            colorHex: COLOR_MAP[clr]?.hex || "#3b82f6",
+            teacher: item.teacher || "",
+            room: item.room || "",
+            sessionCount: 0,
+            totalMinutes: 0,
+            timeRanges: [],
+            completedCount: 0,
+          });
+        }
+
+        const subObj = subjectMap.get(key);
+        subObj.sessionCount++;
+        subObj.totalMinutes += dur;
+        subObj.timeRanges.push(`${slot.start} - ${slot.end}`);
+        if (item.status === "completed") {
+          subObj.completedCount++;
+        }
+      });
+
+      const subjectBreakdown = Array.from(subjectMap.values()).map((sb) => ({
+        ...sb,
+        totalHoursFormatted: +(sb.totalMinutes / 60).toFixed(1),
+        isCompleted: sb.completedCount === sb.sessionCount,
+      }));
+
+      // Sort subjects by totalMinutes descending
+      subjectBreakdown.sort((a, b) => b.totalMinutes - a.totalMinutes);
+
+      const dayCompletionRate = dayItems.length > 0 ? Math.round((completedCount / dayItems.length) * 100) : 0;
+
       return {
         day: dayNum,
         dayName: DAY_NAMES[dayNum],
@@ -435,6 +477,20 @@ class AnalyticsEngineClass {
         shortestBreakMinutes,
         completedCount,
         focusCount,
+        completionRate: dayCompletionRate,
+        subjectBreakdown,
+        sessions: itemsWithSlot.map(({ item, slot, dur }) => ({
+          subject: item.subject || "Chưa đặt tên",
+          teacher: item.teacher || "",
+          room: item.room || "",
+          color: item.color || "blue",
+          colorHex: COLOR_MAP[item.color || "blue"]?.hex || "#3b82f6",
+          status: item.status || "planned",
+          isFocus: Boolean(item.isFocus),
+          slotId: item.slotId,
+          slot,
+          durationMinutes: dur,
+        })),
         workloadScore,
         workloadLevel,
         workloadColor,
