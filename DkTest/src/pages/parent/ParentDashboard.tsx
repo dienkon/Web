@@ -763,12 +763,29 @@ export default function ParentDashboard() {
     window.print();
   };
 
-  // Standard Template Prompt for Guide
-  const GUIDE_PROMPT_TEMPLATE = `\`json
+  // Standard Template Prompt for Guide (Latest V3+ with Tables, Code Blocks, HTML, Math)
+  const GUIDE_PROMPT_TEMPLATE = `\`\`\`json
 ${FULL_DKTEST_JSON_SCHEMA_TEXT}
-\`
+\`\`\`
 
-Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví dụ: Toán học] Lớp [Khối lớp - Ví dụ: 12]. Đây là một đề [Mô tả chi tiết - Ví dụ: Ôn tập thi tốt nghiệp THPT Quốc gia 2025, gồm các dạng khảo sát hàm số và logarit] dành cho [Đối tượng - Ví dụ: Học sinh ôn thi đại học]. Thời gian làm bài là [Thời gian - Ví dụ: 45] phút, số lượng [Số lượng - Ví dụ: 20] câu gồm cả trắc nghiệm 1 đáp án, trắc nghiệm nhiều đáp án, đúng sai 4 ý và trả lời ngắn kèm lời giải chi tiết và công thức chuẩn LaTeX.`;
+Dựa vào cấu trúc JSON chuẩn của hệ thống DkTEST ở trên, hãy tạo cho tôi một bộ đề thi:
+- Môn học: [Tên môn - Ví dụ: Toán học / Tin học / Vật lý / Tiếng Anh]
+- Khối lớp: [Khối lớp - Ví dụ: 12]
+- Chủ đề / Mục tiêu: [Mô tả chi tiết - Ví dụ: Ôn tập thi tốt nghiệp THPT Quốc gia 2025, chuyên đề khảo sát hàm số, logarit hoặc thuật toán lập trình]
+- Đối tượng: [Ví dụ: Học sinh ôn thi đại học / Học sinh lớp 12]
+- Thời gian làm bài: [Ví dụ: 45] phút
+- Số lượng: [Ví dụ: 20] câu hỏi
+
+YÊU CẦU ĐẶC BIỆT KHI XUẤT ĐỀ:
+1. Bao gồm cả 4 dạng câu hỏi: Trắc nghiệm 1 đáp án (single_choice), Trắc nghiệm nhiều đáp án (multiple_choice), Đúng/Sai 4 ý (true_false) và Trả lời ngắn (short_answer).
+2. Tận dụng các tính năng cao cấp của DkTEST:
+   - Bảng biểu (HTML <table> hoặc Markdown table) để thể hiện bảng biến thiên, bảng xét dấu, bảng dữ liệu.
+   - Khung mã nguồn lập trình Discord (\`\`\`python, \`\`\`cpp, \`\`\`pascal...) nếu là môn Tin học/thuật toán.
+   - Thẻ HTML trực quan (<mark>, <b>, <i>, <u>, <sub>, <sup>, <details><summary>) để làm nổi bật từ khóa quan trọng.
+   - Điền khuyết [_] cho câu hỏi điền từ hoặc điền đáp án.
+   - Công thức Toán - Lý - Hóa luôn bọc trong $...$ hoặc $$...$$ với cú pháp LaTeX chuẩn.
+3. Mỗi câu hỏi PHẢI có lời giải chi tiết (explanation) từng bước rõ ràng, dễ hiểu.
+4. TRẢ VỀ DUY NHẤT MỘT KHỐI MÃ JSON HỢP LỆ TRONG \`\`\`json ... \`\`\`, TUYỆT ĐỐI KHÔNG thêm lời chào hay giải thích thừa.`;
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans pb-16">
@@ -2038,27 +2055,43 @@ Dựa vào json trên hãy, tạo cho tôi một đề môn [Tên môn - Ví d�
               </div>
 
               {/* Supported Features Checklist */}
-              <div className="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-5 space-y-3">
+              <div className="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-5 space-y-4">
                 <h4 className="font-extrabold text-xs uppercase tracking-wider text-indigo-950 flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-indigo-600" />
-                  Đầy đủ 4 dạng câu hỏi được hỗ trợ trong hệ thống DkTEST:
+                  Toàn bộ tính năng cao cấp được hệ thống DkTEST hỗ trợ nhận diện:
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium">
-                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
                     <span className="font-bold text-indigo-600 shrink-0">1. single_choice:</span>
                     <span>Trắc nghiệm 1 đáp án đúng (A, B, C, D)</span>
                   </div>
-                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
                     <span className="font-bold text-indigo-600 shrink-0">2. multiple_choice:</span>
                     <span>Trắc nghiệm nhiều đáp án đúng (chọn nhiều đáp án)</span>
                   </div>
-                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
                     <span className="font-bold text-indigo-600 shrink-0">3. true_false:</span>
                     <span>Trắc nghiệm Đúng / Sai 4 ý a, b, c, d (chuẩn thi tốt nghiệp mới)</span>
                   </div>
-                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100">
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
                     <span className="font-bold text-indigo-600 shrink-0">4. short_answer:</span>
-                    <span>Điền đáp án số hoặc biểu thức ngắn</span>
+                    <span>Điền đáp án số hoặc biểu thức ngắn (acceptedAnswers)</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
+                    <span className="font-bold text-emerald-600 shrink-0">5. Bảng biểu (Tables):</span>
+                    <span>Nhận diện thẻ HTML &lt;table&gt; hoặc bảng Markdown (| col1 | col2 |)</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
+                    <span className="font-bold text-purple-600 shrink-0">6. Khung code Discord:</span>
+                    <span>Nhận diện khối mã ```python, ```cpp... có đánh số dòng &amp; nút copy</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
+                    <span className="font-bold text-amber-600 shrink-0">7. Thẻ HTML trực quan:</span>
+                    <span>Hỗ trợ &lt;mark&gt;, &lt;b&gt;, &lt;i&gt;, &lt;u&gt;, &lt;sub&gt;, &lt;sup&gt;, &lt;details&gt;, badge...</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-white p-2.5 rounded-xl border border-indigo-100 shadow-2xs">
+                    <span className="font-bold text-blue-600 shrink-0">8. Điền khuyết &amp; Ảnh:</span>
+                    <span>Hỗ trợ ký hiệu [_] tạo ô điền khuyết và ảnh ![alt](url)</span>
                   </div>
                 </div>
               </div>

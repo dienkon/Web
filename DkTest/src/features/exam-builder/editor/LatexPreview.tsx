@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import katex from "katex";
+import { renderDiscordCodeBlock } from "../../../utils/codeHighlighter";
 
 interface Props {
   content: string;
@@ -25,6 +26,43 @@ export default function LatexPreview({ content, className = "" }: Props) {
         containerRef.current.textContent = content;
       }
     }
+  }, [content]);
+
+  // Click delegation for Discord code block copy buttons
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleCopy = (e: MouseEvent) => {
+      const btn = (e.target as HTMLElement).closest(".dk-copy-code-btn") as HTMLButtonElement | null;
+      if (!btn) return;
+
+      const rawEncoded = btn.getAttribute("data-code");
+      if (!rawEncoded) return;
+
+      const rawCode = decodeURIComponent(rawEncoded);
+      navigator.clipboard
+        .writeText(rawCode)
+        .then(() => {
+          const label = btn.querySelector(".dk-copy-label");
+          const originalText = label ? label.textContent : "Sao chép";
+          if (label) label.textContent = "Đã sao chép! ✓";
+          btn.classList.add("copied");
+
+          setTimeout(() => {
+            if (label) label.textContent = originalText;
+            btn.classList.remove("copied");
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Clipboard copy failed:", err);
+        });
+    };
+
+    container.addEventListener("click", handleCopy);
+    return () => {
+      container.removeEventListener("click", handleCopy);
+    };
   }, [content]);
 
   const defaultColorClass = className.includes("text-") ? "" : "text-slate-800";
@@ -256,17 +294,22 @@ export function renderLatexInString(textToRender: string, placeholderFn?: (html:
 
 /**
  * Safely escapes bare '<' and '>' characters that are not valid HTML tags
- * to prevent math comparisons like 'x < 5' or 'a > b' from corrupting HTML.
+ * to prevent math comparisons like 'x < 5' or 'a > b' from corrupting HTML,
+ * while fully preserving all valid HTML5 elements, attributes, tables, and formatting.
  */
 function escapeUnmatchedAngleBrackets(text: string): string {
   if (!text) return "";
   const validTagNames = [
-    "div", "span", "p", "br", "hr", "strong", "em", "u", "del", "code", "pre",
-    "blockquote", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li",
-    "table", "thead", "tbody", "tr", "th", "td", "caption",
-    "details", "summary", "mark", "a", "img", "svg", "path", "circle", "blockquote"
+    "div", "span", "p", "br", "hr", "strong", "b", "em", "i", "u", "del", "s", "strike",
+    "code", "pre", "blockquote", "h1", "h2", "h3", "h4", "h5", "h6",
+    "ul", "ol", "li", "dl", "dt", "dd",
+    "table", "thead", "tbody", "tfoot", "tr", "th", "td", "caption", "colgroup", "col",
+    "details", "summary", "mark", "a", "img", "svg", "path", "circle", "rect", "line",
+    "polyline", "polygon", "text", "g", "defs", "clippath", "sub", "sup", "small", "big",
+    "font", "center", "kbd", "var", "samp", "abbr", "section", "article", "aside",
+    "figure", "figcaption", "header", "footer", "nav", "main", "video", "audio", "source", "canvas"
   ];
-  const tagPattern = new RegExp(`<\\/?(${validTagNames.join("|")})\\b[^>]*>`, "gi");
+  const tagPattern = new RegExp(`<\\/?(${validTagNames.join("|")})\\b[\\s\\S]*?>`, "gi");
 
   const tags: string[] = [];
   const protectedText = text.replace(tagPattern, (match) => {
@@ -291,7 +334,7 @@ function renderCellContent(content: string): string {
   // Inline italic
   cell = cell.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
   // Inline code
-  cell = cell.replace(/`([^`\n]+)`/g, '<code class="px-1 py-0.5 bg-slate-100 rounded text-xs font-mono text-pink-600">$1</code>');
+  cell = cell.replace(/`([^`\n]+)`/g, '<code class="px-1.5 py-0.5 mx-0.5 bg-slate-100/90 text-pink-600 font-mono text-[12px] font-semibold rounded-md border border-slate-200/80 shadow-2xs">$1</code>');
   return cell;
 }
 
@@ -312,13 +355,36 @@ export function renderMarkdownWithLatex(rawText: string): string {
 
   let text = normalizeLatexText(rawText);
 
-  // 1. Code blocks: ```lang ... ```
-  text = text.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    const escapedCode = escapeHtml(code.trimEnd());
-    const langLabel = lang ? `<div class="px-3 py-1 bg-slate-800 text-slate-400 text-[10px] font-mono border-b border-slate-700 uppercase">${escapeHtml(lang)}</div>` : "";
-    return createPlaceholder(
-      `<div class="my-3 rounded-xl overflow-hidden bg-slate-900 text-slate-100 text-xs font-mono shadow-xs border border-slate-800">${langLabel}<pre class="p-3.5 overflow-x-auto"><code>${escapedCode}</code></pre></div>`
-    );
+  // 1. Code blocks: ```lang ... ``` or ~~~lang ... ~~~ (Discord style)
+  text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
+    let rawContent = blockContent;
+    let lang = "";
+
+    // Check if the first line specifies a language
+    const firstNewlineIdx = rawContent.indexOf("\n");
+    if (firstNewlineIdx !== -1) {
+      const firstLine = rawContent.slice(0, firstNewlineIdx).trim();
+      // If firstLine is a clean identifier (e.g. "python", "cpp", "c++", "pascal", "sql")
+      if (/^[a-zA-Z0-9_#+.-]{1,25}$/.test(firstLine)) {
+        lang = firstLine;
+        rawContent = rawContent.slice(firstNewlineIdx + 1);
+      }
+    } else {
+      // Single line block, e.g. ```python print('hello')```
+      const parts = rawContent.trim().match(/^([a-zA-Z0-9_#+.-]{1,15})\s+([\s\S]+)$/);
+      if (
+        parts &&
+        /^(py|python|js|javascript|ts|typescript|cpp|c\+\+|cs|c#|csharp|java|pascal|pas|sql|html|css|json|bash|sh|xml|yaml|yml|md|text|txt)$/i.test(
+          parts[1]
+        )
+      ) {
+        lang = parts[1];
+        rawContent = parts[2];
+      }
+    }
+
+    const discordHtml = renderDiscordCodeBlock(rawContent, lang);
+    return createPlaceholder(discordHtml);
   });
 
   // 2. Process HTML tables: <table ...>...</table>
@@ -342,10 +408,15 @@ export function renderMarkdownWithLatex(rawText: string): string {
         /<table/i,
         '<table class="min-w-full divide-y divide-slate-200 text-xs text-slate-800 border-collapse border border-slate-300 rounded-lg overflow-hidden my-1 bg-white"'
       );
+    } else {
+      processedTable = processedTable.replace(/<table\b([^>]*)class="([^"]*)"/i, (m, pre, cls) => {
+        const enhancedCls = cls.includes("min-w-") ? cls : `min-w-full border-collapse ${cls}`;
+        return `<table${pre}class="${enhancedCls}"`;
+      });
     }
 
     return createPlaceholder(
-      `<div class="overflow-x-auto my-3 max-w-full shadow-2xs rounded-xl border border-slate-200 bg-white">${processedTable}</div>`
+      `<div class="table-responsive-wrapper overflow-x-auto my-3 max-w-full shadow-2xs rounded-xl border border-slate-200 bg-white">${processedTable}</div>`
     );
   });
 
@@ -376,7 +447,7 @@ export function renderMarkdownWithLatex(rawText: string): string {
       });
     }
 
-    let tableHtml = '<div class="overflow-x-auto my-3 max-w-full shadow-2xs rounded-xl border border-slate-200 bg-white"><table class="min-w-full divide-y divide-slate-200 text-xs text-slate-800 border-collapse">';
+    let tableHtml = '<div class="table-responsive-wrapper overflow-x-auto my-3 max-w-full shadow-2xs rounded-xl border border-slate-200 bg-white"><table class="min-w-full divide-y divide-slate-200 text-xs text-slate-800 border-collapse">';
 
     const restoreMath = (cellStr: string) =>
       cellStr.replace(/\uE004MATH(\d+)\uE005/g, (_, idx) => tableMathMasks[parseInt(idx, 10)]);
@@ -492,7 +563,7 @@ export function renderMarkdownWithLatex(rawText: string): string {
   // Strikethrough: ~~text~~
   text = text.replace(/~~([^~\n]+)~~/g, '<del class="line-through text-slate-400">$1</del>');
   // Inline Code: `text`
-  text = text.replace(/`([^`\n]+)`/g, '<code class="px-1.5 py-0.5 bg-slate-100 rounded text-xs font-mono text-pink-600 font-semibold">$1</code>');
+  text = text.replace(/`([^`\n]+)`/g, '<code class="px-1.5 py-0.5 mx-0.5 bg-slate-100/90 text-pink-600 font-mono text-[12px] font-semibold rounded-md border border-slate-200/80 shadow-2xs">$1</code>');
 
   // 12. Escape bare angle brackets (e.g. x < 5) to prevent HTML corruption
   text = escapeUnmatchedAngleBrackets(text);
@@ -504,9 +575,18 @@ export function renderMarkdownWithLatex(rawText: string): string {
   // 14. Sanitize harmful scripts while preserving safe HTML structure & classes
   text = sanitizeHarmfulHtml(text);
 
-  // 14. Restore all placeholders safely
-  for (const [key, replacement] of Object.entries(placeholders)) {
-    text = text.split(key).join(replacement);
+  // 14. Restore all placeholders safely (resolves nested placeholders e.g. math inside table cells)
+  let hasPlaceholder = true;
+  let iterations = 0;
+  while (hasPlaceholder && iterations < 5) {
+    hasPlaceholder = false;
+    iterations++;
+    for (const [key, replacement] of Object.entries(placeholders)) {
+      if (text.includes(key)) {
+        text = text.split(key).join(replacement);
+        hasPlaceholder = true;
+      }
+    }
   }
 
   // Restore unescaped dollar signs \$ -> $

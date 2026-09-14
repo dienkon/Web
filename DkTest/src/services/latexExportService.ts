@@ -64,6 +64,34 @@ export function renderLatexToHtml(text: string): string {
 
   let sanitized = fixLatexFormatting(text);
 
+  // Convert markdown code blocks ```lang ... ``` to styled code boxes
+  sanitized = sanitized.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
+    let rawContent = blockContent;
+    let lang = "";
+    const firstNewlineIdx = rawContent.indexOf("\n");
+    if (firstNewlineIdx !== -1) {
+      const firstLine = rawContent.slice(0, firstNewlineIdx).trim();
+      if (/^[a-zA-Z0-9_#+.-]{1,25}$/.test(firstLine)) {
+        lang = firstLine.toUpperCase();
+        rawContent = rawContent.slice(firstNewlineIdx + 1);
+      }
+    }
+    const clean = rawContent.replace(/\r\n/g, "\n").trim();
+    const langHeader = lang
+      ? `<div style="font-size: 11px; font-weight: bold; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 4px; margin-bottom: 6px;">${lang}</div>`
+      : "";
+    return `<div style="background: #1e293b; color: #f8fafc; font-family: monospace; font-size: 12px; padding: 10px 12px; border-radius: 6px; margin: 8px 0; border: 1px solid #334155; line-height: 1.4; white-space: pre-wrap;">${langHeader}${clean
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")}</div>`;
+  });
+
+  // Convert inline code `code`
+  sanitized = sanitized.replace(
+    /`([^`\n]+)`/g,
+    '<code style="background-color: #f1f5f9; color: #db2777; padding: 2px 5px; border-radius: 4px; font-family: monospace; font-size: 12px; border: 1px solid #e2e8f0;">$1</code>'
+  );
+
   // Convert markdown image syntax ![alt](url) to <img> tag
   sanitized = sanitized.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^\s)]+)\)/gi, (_, alt, src) => {
     return `<div style="text-align: center; margin: 8px 0;"><img src="${src}" alt="${alt || 'Hình ảnh'}" style="max-width: 100%; max-height: 380px; object-fit: contain; display: inline-block; border-radius: 4px;" crossorigin="anonymous" /></div>`;

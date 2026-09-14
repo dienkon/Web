@@ -152,6 +152,8 @@ export default function AiTutorPage() {
                 <div className="prose prose-slate max-w-none text-slate-800">
                   <LatexPreview content={msg.text} />
                 </div>
+              ) : msg.text.includes("```") || msg.text.includes("$") ? (
+                <LatexPreview content={msg.text} className="text-white" />
               ) : (
                 <div className="whitespace-pre-wrap leading-relaxed font-medium">{msg.text}</div>
               )}

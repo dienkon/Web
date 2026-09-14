@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Eye, Edit3, Image as ImageIcon, Sigma, Columns, Trash2 } from "lucide-react";
+import { Eye, Edit3, Image as ImageIcon, Sigma, Columns, Trash2, Code } from "lucide-react";
 import LatexPreview from "./LatexPreview";
 import MathLiveModal from "./MathLiveModal";
 import ImageUploadModal from "./ImageUploadModal";
@@ -53,6 +53,10 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
     handleInsertText(markdown);
   };
 
+  const handleInsertCodeBlock = () => {
+    handleInsertText("\n```python\n# Nhập mã nguồn ở đây\n\n```\n");
+  };
+
   return (
     <div className="border border-slate-200 rounded-xl overflow-hidden bg-white flex flex-col focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition-all relative">
       <div className="flex items-center justify-between p-1.5 bg-slate-50 border-b border-slate-200">
@@ -100,6 +104,15 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
             title="Chèn công thức toán học LaTeX"
           >
             <Sigma className="w-4 h-4 text-blue-600" /> Công thức
+          </button>
+          <div className="w-px h-4 bg-slate-300 mx-1"></div>
+          <button
+            type="button"
+            onClick={handleInsertCodeBlock}
+            className="px-2 py-1 text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-medium"
+            title="Chèn khung mã nguồn lập trình (Discord Code Block)"
+          >
+            <Code className="w-4 h-4 text-indigo-600" /> Khối mã (Code)
           </button>
           <div className="w-px h-4 bg-slate-300 mx-1"></div>
           <button

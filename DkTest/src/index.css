@@ -23,3 +23,252 @@
   overflow-x: auto;
   overflow-y: hidden;
 }
+
+/* =========================================================
+   DISCORD-STYLE CODE BLOCKS & SYNTAX HIGHLIGHTING
+   ========================================================= */
+.discord-code-block {
+  font-family: ui-monospace, SFMono-Regular, "Fira Code", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.discord-code-header {
+  font-family: ui-monospace, SFMono-Regular, "Fira Code", Menlo, Consolas, monospace;
+}
+
+.dk-copy-code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.725rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  background-color: #2b2d31;
+  color: #dbdee1;
+  border: 1px solid #383a40;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dk-copy-code-btn:hover {
+  background-color: #35373c;
+  color: #ffffff;
+  border-color: #4e5058;
+}
+
+.dk-copy-code-btn:active {
+  transform: scale(0.96);
+}
+
+.dk-copy-code-btn.copied {
+  background-color: rgba(35, 165, 90, 0.18) !important;
+  color: #57f287 !important;
+  border-color: rgba(87, 242, 135, 0.5) !important;
+}
+
+.custom-code-scrollbar::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+}
+
+.custom-code-scrollbar::-webkit-scrollbar-track {
+  background: #232428;
+  border-radius: 4px;
+}
+
+.custom-code-scrollbar::-webkit-scrollbar-thumb {
+  background: #3f4147;
+  border-radius: 4px;
+}
+
+.custom-code-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #4e5058;
+}
+
+.dk-code-lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.dk-code-row {
+  display: flex;
+  align-items: baseline;
+  min-height: 1.5rem;
+  line-height: 1.5rem;
+}
+
+.dk-code-row:hover {
+  background-color: rgba(255, 255, 255, 0.025);
+  border-radius: 4px;
+}
+
+.dk-line-num {
+  display: inline-block;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  padding-right: 0.875rem;
+  text-align: right;
+  color: #63656d;
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 0.75rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  margin-right: 0.875rem;
+  flex-shrink: 0;
+}
+
+.dk-line-content {
+  flex: 1;
+  white-space: pre;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: #dbdee1;
+}
+
+/* Syntax Highlighting Tokens (Discord Dark Palette) */
+.discord-code-block .token.comment,
+.discord-code-block .token.prolog,
+.discord-code-block .token.doctype,
+.discord-code-block .token.cdata {
+  color: #80848e;
+  font-style: italic;
+}
+
+.discord-code-block .token.punctuation {
+  color: #949ba4;
+}
+
+.discord-code-block .token.property,
+.discord-code-block .token.tag,
+.discord-code-block .token.boolean,
+.discord-code-block .token.number,
+.discord-code-block .token.constant,
+.discord-code-block .token.symbol,
+.discord-code-block .token.deleted {
+  color: #f0b232;
+}
+
+.discord-code-block .token.selector,
+.discord-code-block .token.attr-name,
+.discord-code-block .token.string,
+.discord-code-block .token.char,
+.discord-code-block .token.builtin,
+.discord-code-block .token.inserted {
+  color: #57f287;
+}
+
+.discord-code-block .token.operator,
+.discord-code-block .token.entity,
+.discord-code-block .token.url,
+.discord-code-block .language-css .token.string,
+.discord-code-block .style .token.string {
+  color: #5865f2;
+}
+
+.discord-code-block .token.atrule,
+.discord-code-block .token.attr-value,
+.discord-code-block .token.keyword {
+  color: #f47067;
+  font-weight: 600;
+}
+
+.discord-code-block .token.function,
+.discord-code-block .token.class-name {
+  color: #58b9ff;
+}
+
+.discord-code-block .token.regex,
+.discord-code-block .token.important,
+.discord-code-block .token.variable {
+  color: #fee75c;
+}
+
+.discord-code-block .token.important,
+.discord-code-block .token.bold {
+  font-weight: bold;
+}
+
+.discord-code-block .token.italic {
+  font-style: italic;
+}
+
+/* =========================================================
+   RICH HTML & TABLE RENDERING FOR LATEX PREVIEW
+   ========================================================= */
+.latex-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  font-size: 0.8125rem;
+}
+
+.latex-preview th {
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(241, 245, 249, 0.9);
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  text-align: inherit;
+}
+
+.latex-preview td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.latex-preview tr:hover {
+  background-color: rgba(241, 245, 249, 0.4);
+}
+
+.latex-preview mark {
+  background-color: #fef08a;
+  color: #854d0e;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+}
+
+.latex-preview sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+
+.latex-preview sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+}
+
+.latex-preview kbd {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+.latex-preview details {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  margin: 0.5rem 0;
+  font-size: 0.8125rem;
+}
+
+.latex-preview summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #4f46e5;
+  user-select: none;
+}

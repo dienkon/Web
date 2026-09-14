@@ -24,6 +24,34 @@ export function formatTextForWord(input: string): string {
   // 1. Normalize LaTeX corrupted chars, multiple backslashes, unicode roots
   let text = normalizeLatexText(input);
 
+  // 1b. Convert markdown code blocks ```lang ... ``` to Word-friendly pre/code boxes
+  text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
+    let rawContent = blockContent;
+    let lang = "";
+    const firstNewlineIdx = rawContent.indexOf("\n");
+    if (firstNewlineIdx !== -1) {
+      const firstLine = rawContent.slice(0, firstNewlineIdx).trim();
+      if (/^[a-zA-Z0-9_#+.-]{1,25}$/.test(firstLine)) {
+        lang = firstLine.toUpperCase();
+        rawContent = rawContent.slice(firstNewlineIdx + 1);
+      }
+    }
+    const clean = rawContent.replace(/\r\n/g, "\n").trim();
+    const langHeader = lang
+      ? `<div style="font-size: 8pt; font-weight: bold; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 4pt; margin-bottom: 6pt; letter-spacing: 0.5pt;">${lang}</div>`
+      : "";
+    return `<div style="background-color: #1e293b; color: #f8fafc; font-family: Consolas, 'Courier New', monospace; font-size: 9pt; padding: 8pt 10pt; border-radius: 6pt; margin: 8pt 0; border: 1px solid #334155; line-height: 1.45; white-space: pre-wrap;">${langHeader}${clean
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")}</div>`;
+  });
+
+  // 1c. Convert inline code `code`
+  text = text.replace(
+    /`([^`\n]+)`/g,
+    '<code style="background-color: #f1f5f9; color: #db2777; padding: 2pt 4pt; border-radius: 3pt; font-family: Consolas, monospace; font-size: 9pt; border: 1px solid #e2e8f0;">$1</code>'
+  );
+
   // 2. Convert markdown bold **...** and italic *...*
   text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   text = text.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "<em>$1</em>");
