@@ -27,6 +27,7 @@ export const getOrCreateParentFolder = async (parentUsername: string, parentDisp
     where("parentId", "==", null)
   );
   const rootSnap = await getDocs(rootQuery);
+  console.warn(`[Firestore] READ_MANY (${rootSnap.size} docs): ${FOLDERS_COLLECTION} (find root "Phụ huynh" folder)`);
   if (rootSnap.empty) {
     const newRoot = await createFolder({
       name: "Phụ huynh",
@@ -46,6 +47,7 @@ export const getOrCreateParentFolder = async (parentUsername: string, parentDisp
     where("parentId", "==", rootFolderId)
   );
   const parentSnap = await getDocs(parentFolderQuery);
+  console.warn(`[Firestore] READ_MANY (${parentSnap.size} docs): ${FOLDERS_COLLECTION} (find parent folder "${parentFolderName}")`);
   if (parentSnap.empty) {
     const newParentFolder = await createFolder({
       name: parentFolderName,
@@ -56,6 +58,62 @@ export const getOrCreateParentFolder = async (parentUsername: string, parentDisp
     return newParentFolder.id;
   } else {
     return parentSnap.docs[0].id;
+  }
+};
+
+/**
+ * Gets or creates the student folder hierarchy: Drive / Học sinh / <Tên học sinh>
+ * Used for storing retake and review exams non-publicly.
+ */
+export const getOrCreateStudentFolder = async (
+  studentUsername: string,
+  studentDisplayName?: string
+): Promise<string> => {
+  // 1. Find or create root folder "Học sinh"
+  let rootFolderId: string | null = null;
+  const rootQuery = query(
+    collection(db, FOLDERS_COLLECTION),
+    where("name", "==", "Học sinh"),
+    where("parentId", "==", null)
+  );
+  const rootSnap = await getDocs(rootQuery);
+  console.warn(`[Firestore] READ_MANY (${rootSnap.size} docs): ${FOLDERS_COLLECTION} (find root "Học sinh" folder)`);
+
+  if (rootSnap.empty) {
+    const newRoot = await createFolder({
+      name: "Học sinh",
+      color: "blue",
+      description: "Thư mục gốc chứa đề thi ôn tập và làm lại của học sinh",
+      parentId: null,
+    });
+    rootFolderId = newRoot.id;
+  } else {
+    rootFolderId = rootSnap.docs[0].id;
+  }
+
+  // 2. Find or create student's personal subfolder under "Học sinh"
+  const studentFolderName = studentDisplayName && studentDisplayName.trim()
+    ? `${studentDisplayName.trim()} (${studentUsername})`
+    : studentUsername;
+
+  const studentFolderQuery = query(
+    collection(db, FOLDERS_COLLECTION),
+    where("name", "==", studentFolderName),
+    where("parentId", "==", rootFolderId)
+  );
+  const studentSnap = await getDocs(studentFolderQuery);
+  console.warn(`[Firestore] READ_MANY (${studentSnap.size} docs): ${FOLDERS_COLLECTION} (find student folder "${studentFolderName}")`);
+
+  if (studentSnap.empty) {
+    const newStudentFolder = await createFolder({
+      name: studentFolderName,
+      parentId: rootFolderId,
+      color: "emerald",
+      description: `Thư mục lưu đề làm lại và ôn tập của học sinh ${studentDisplayName || studentUsername}`,
+    });
+    return newStudentFolder.id;
+  } else {
+    return studentSnap.docs[0].id;
   }
 };
 
@@ -70,14 +128,26 @@ const sanitizePayload = (data: Record<string, any>) => {
   return sanitized;
 };
 
-export const getFolders = async (ownerId?: string | null): Promise<Folder[]> => {
+/**
+ * Retrieves folders with optional ownerId and parentId filtering (supports lazy-loading child folders).
+ */
+export const getFolders = async (
+  ownerId?: string | null,
+  parentId?: string | null | "all"
+): Promise<Folder[]> => {
   try {
-    let q = collection(db, FOLDERS_COLLECTION) as any;
+    const conditions: any[] = [];
     if (ownerId) {
-      q = query(q, where("ownerId", "==", ownerId));
+      conditions.push(where("ownerId", "==", ownerId));
     }
-    console.log(`[Firestore] READ_MANY: ${FOLDERS_COLLECTION}`);
+    if (parentId !== "all" && parentId !== undefined) {
+      conditions.push(where("parentId", "==", parentId));
+    }
+
+    let q = query(collection(db, FOLDERS_COLLECTION), ...conditions);
     const snap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${snap.size} docs): ${FOLDERS_COLLECTION} (ownerId: ${ownerId || 'all'}, parentId: ${parentId ?? 'null'})`);
+
     const folders = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as Folder));
 
     folders.sort((a, b) => {
@@ -90,6 +160,21 @@ export const getFolders = async (ownerId?: string | null): Promise<Folder[]> => 
   } catch (err) {
     console.error("Lỗi khi tải danh mục/thư mục:", err);
     return [];
+  }
+};
+
+export const getFolder = async (folderId: string): Promise<Folder | null> => {
+  try {
+    const docRef = doc(db, FOLDERS_COLLECTION, folderId);
+    const snap = await getDoc(docRef);
+    console.warn(`[Firestore] READ (1 doc): ${FOLDERS_COLLECTION}/${folderId} (found: ${snap.exists()})`);
+    if (snap.exists()) {
+      return { id: snap.id, ...(snap.data() as any) } as Folder;
+    }
+    return null;
+  } catch (err) {
+    console.error("Lỗi khi lấy thông tin thư mục:", err);
+    return null;
   }
 };
 
@@ -107,7 +192,7 @@ export const createFolder = async (
 
   const payload = sanitizePayload(rawPayload);
 
-  console.log(`[Firestore] WRITE: ${FOLDERS_COLLECTION}/${docRef.id}`, payload);
+  console.warn(`[Firestore] WRITE (1 doc): ${FOLDERS_COLLECTION}/${docRef.id}`, payload);
   await setDoc(docRef, payload);
 
   return {
@@ -125,7 +210,7 @@ export const updateFolder = async (
   updates: Partial<Folder>
 ): Promise<void> => {
   const docRef = doc(db, FOLDERS_COLLECTION, folderId);
-  console.log(`[Firestore] UPDATE: ${FOLDERS_COLLECTION}/${folderId}`);
+  console.warn(`[Firestore] UPDATE (1 doc): ${FOLDERS_COLLECTION}/${folderId}`);
   const payload = sanitizePayload({
     ...updates,
     updatedAt: serverTimestamp(),
@@ -139,16 +224,19 @@ export const deleteFolder = async (
 ): Promise<void> => {
   // Get folder details to find parent
   const folderDoc = await getDoc(doc(db, FOLDERS_COLLECTION, folderId));
+  console.warn(`[Firestore] READ (1 doc): ${FOLDERS_COLLECTION}/${folderId} (for folder deletion)`);
   const parentId = folderDoc.exists() ? (folderDoc.data()?.parentId || null) : null;
 
   // Move subfolders to parent folder
   const subfoldersQuery = query(collection(db, FOLDERS_COLLECTION), where("parentId", "==", folderId));
   const subfoldersSnap = await getDocs(subfoldersQuery);
+  console.warn(`[Firestore] READ_MANY (${subfoldersSnap.size} docs): ${FOLDERS_COLLECTION} (subfolders to reparent)`);
   if (!subfoldersSnap.empty) {
     const batch = writeBatch(db);
     subfoldersSnap.docs.forEach((docItem) => {
       batch.update(docItem.ref, { parentId: parentId, updatedAt: serverTimestamp() });
     });
+    console.warn(`[Firestore] BATCH_WRITE (${subfoldersSnap.size} docs): ${FOLDERS_COLLECTION} reparent`);
     await batch.commit();
   }
 
@@ -156,17 +244,19 @@ export const deleteFolder = async (
   if (moveExamsToParent) {
     const q = query(collection(db, EXAMS_COLLECTION), where("folderId", "==", folderId));
     const snap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${snap.size} docs): ${EXAMS_COLLECTION} (exams to reparent)`);
     if (!snap.empty) {
       const batch = writeBatch(db);
       snap.docs.forEach((docItem) => {
         batch.update(docItem.ref, { folderId: parentId, updatedAt: serverTimestamp() });
       });
+      console.warn(`[Firestore] BATCH_WRITE (${snap.size} docs): ${EXAMS_COLLECTION} reparent`);
       await batch.commit();
     }
   }
 
   const docRef = doc(db, FOLDERS_COLLECTION, folderId);
-  console.log(`[Firestore] DELETE: ${FOLDERS_COLLECTION}/${folderId}`);
+  console.warn(`[Firestore] DELETE (1 doc): ${FOLDERS_COLLECTION}/${folderId}`);
   await deleteDoc(docRef);
 };
 
@@ -175,7 +265,7 @@ export const moveExamToFolder = async (
   folderId: string | null
 ): Promise<void> => {
   const docRef = doc(db, EXAMS_COLLECTION, examId);
-  console.log(`[Firestore] UPDATE_EXAM_FOLDER: ${EXAMS_COLLECTION}/${examId} -> ${folderId}`);
+  console.warn(`[Firestore] UPDATE (1 doc): ${EXAMS_COLLECTION}/${examId} -> folderId: ${folderId}`);
   await updateDoc(docRef, {
     folderId: folderId || null,
     updatedAt: serverTimestamp(),
@@ -195,7 +285,7 @@ export const bulkMoveExamsToFolder = async (
       updatedAt: serverTimestamp(),
     });
   });
-  console.log(`[Firestore] BULK_UPDATE_EXAM_FOLDER: ${examIds.length} items -> ${folderId}`);
+  console.warn(`[Firestore] BATCH_WRITE (${examIds.length} docs): ${EXAMS_COLLECTION} bulkMove -> folderId: ${folderId}`);
   await batch.commit();
 };
 
@@ -210,9 +300,9 @@ export const toggleExamFeatured = async (
   isFeatured: boolean
 ): Promise<void> => {
   const docRef = doc(db, EXAMS_COLLECTION, examId);
+  console.warn(`[Firestore] UPDATE (1 doc): ${EXAMS_COLLECTION}/${examId} -> isFeatured: ${isFeatured}`);
   await updateDoc(docRef, {
     isFeatured: isFeatured,
     updatedAt: serverTimestamp(),
   });
 };
-

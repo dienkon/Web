@@ -23,10 +23,12 @@ import {
   Flag,
   Send,
   Loader2,
+  FileDown,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
 import { getExamSections } from "../../services/sectionService";
+import { exportExamToWordFile } from "../../services/wordExportService";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam, Question, Section } from "../../types";
@@ -35,12 +37,20 @@ import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import AiTutorChat from "../../components/exam/AiTutorChat";
 import AiAnalyticsWidget from "../../components/exam/AiAnalyticsWidget";
 import ExamResultCharts from "../../components/exam/ExamResultCharts";
+import QuestionTimeAnalysisChart from "../../components/exam/QuestionTimeAnalysisChart";
+import ProgressAccumulationChart from "../../components/exam/ProgressAccumulationChart";
+import RetakeModal from "../../components/exam/RetakeModal";
+import {
+  computeAttemptTimeAnalytics,
+  computeSegmentAnalytics,
+  computeProgressAccumulation,
+} from "../../utils/attemptAnalytics";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export default function ExamResult() {
   const { examId, submissionId } = useParams<{ examId: string; submissionId: string }>();
   const navigate = useNavigate();
-  const { error: showErrorToast } = useToast();
+  const { error: showErrorToast, success: showSuccessToast } = useToast();
 
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [exam, setExam] = useState<Exam | null>(null);
@@ -49,8 +59,10 @@ export default function ExamResult() {
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [viewMode, setViewMode] = useState<"shuffled" | "original">("shuffled");
   const [loading, setLoading] = useState(true);
+  const [isExportingWord, setIsExportingWord] = useState(false);
   const [expandedExplanations, setExpandedExplanations] = useState<Record<string, boolean>>({});
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showRetakeModal, setShowRetakeModal] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [filterStatus, setFilterStatus] = useState<"all" | "correct" | "incorrect" | "unanswered">("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -142,6 +154,50 @@ export default function ExamResult() {
     }
   };
 
+  const handleExportWord = async () => {
+    if (!submission && !exam) {
+      showErrorToast("Không tìm thấy dữ liệu bài thi để xuất Word!");
+      return;
+    }
+    try {
+      setIsExportingWord(true);
+      const targetQuestions = originalQuestions.length > 0
+        ? originalQuestions
+        : (shuffledQuestions.length > 0 ? shuffledQuestions : (exam?.questions || []));
+
+      if (targetQuestions.length === 0) {
+        showErrorToast("Bài thi chưa có danh sách câu hỏi!");
+        return;
+      }
+
+      await exportExamToWordFile(
+        exam || {
+          title: submission?.examTitleSnapshot || "De_Thi",
+          code: submission?.examCodeSnapshot || "101",
+        },
+        sections,
+        targetQuestions,
+        {
+          studentName: submission?.studentNameSnapshot || submission?.studentId,
+          score: submission?.score,
+          maxScore: submission?.maxScore || 10,
+          examCode: exam?.code || submission?.examCodeSnapshot,
+          duration: exam?.duration,
+          subjectName: (exam as any)?.subject,
+          submittedAt: submission?.submittedAt,
+        }
+      );
+      if (typeof showSuccessToast === "function") {
+        showSuccessToast("Đã tải xuống file Word đề thi kèm bảng đáp án!");
+      }
+    } catch (err) {
+      console.error("Lỗi xuất file Word:", err);
+      showErrorToast("Có lỗi xảy ra khi tải file Word!");
+    } finally {
+      setIsExportingWord(false);
+    }
+  };
+
   useEffect(() => {
     const loadResult = async () => {
       if (!submissionId) return;
@@ -220,6 +276,37 @@ export default function ExamResult() {
     setExpandedExplanations((prev) => ({ ...prev, [qId]: !prev[qId] }));
   };
 
+  const rawActiveQuestions = viewMode === "shuffled" ? shuffledQuestions : originalQuestions;
+
+  const activeQuestionsForAnalytics = shuffledQuestions.length > 0 ? shuffledQuestions : originalQuestions;
+
+  const timeAnalytics = React.useMemo(() => {
+    if (!submission || activeQuestionsForAnalytics.length === 0) return null;
+    return computeAttemptTimeAnalytics(submission, activeQuestionsForAnalytics);
+  }, [submission, activeQuestionsForAnalytics]);
+
+  const segmentAnalytics = React.useMemo(() => {
+    if (!timeAnalytics) return null;
+    return computeSegmentAnalytics(timeAnalytics.evaluations);
+  }, [timeAnalytics]);
+
+  const accumulationData = React.useMemo(() => {
+    if (!timeAnalytics) return [];
+    return computeProgressAccumulation(timeAnalytics.evaluations);
+  }, [timeAnalytics]);
+
+  const handleSelectQuestionFromChart = (questionIndex: number) => {
+    setShowDetails(true);
+    setTimeout(() => {
+      const el = document.getElementById(`q-result-card-${questionIndex}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.classList.add("ring-2", "ring-blue-500", "transition-all");
+        setTimeout(() => el.classList.remove("ring-2", "ring-blue-500"), 2000);
+      }
+    }, 150);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
@@ -247,8 +334,6 @@ export default function ExamResult() {
       </div>
     );
   }
-
-  const rawActiveQuestions = viewMode === "shuffled" ? shuffledQuestions : originalQuestions;
 
   const activeQuestions = rawActiveQuestions.filter((q) => {
     const studentAns = submission.answers?.[q.id];
@@ -332,6 +417,57 @@ export default function ExamResult() {
     <div className="min-h-screen bg-slate-50/70 py-8 px-4 font-sans print:bg-white print:p-0">
       <div className="max-w-4xl w-full mx-auto space-y-6">
 
+        {/* Top Navigation Bar with Back & Word Export */}
+        <div className="flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/70 border border-slate-200/60 p-2.5 rounded-2xl shadow-2xs">
+          <div className="flex items-center gap-2">
+            {localStorage.getItem("auth_role") === "parent" || localStorage.getItem("parent_info") ? (
+              <Link
+                to="/parent/dashboard"
+                className="px-3 py-1.5 text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5"
+                title="Quay lại Bảng Phụ Huynh"
+              >
+                <ArrowLeft className="w-4 h-4 text-slate-600" />
+                <span>Quay lại</span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/"
+                  className="px-3 py-1.5 text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5"
+                  title="Quay lại danh sách đề thi"
+                >
+                  <ArrowLeft className="w-4 h-4 text-slate-600" />
+                  <span>Trang chủ</span>
+                </Link>
+
+                <Link
+                  to="/student/history"
+                  className="px-3 py-1.5 text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5"
+                  title="Lịch sử làm bài"
+                >
+                  <History className="w-4 h-4 text-blue-600" />
+                  <span>Lịch sử</span>
+                </Link>
+              </>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={handleExportWord}
+            disabled={isExportingWord}
+            className="px-3.5 py-1.5 text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            title="Tải toàn bộ đề thi kèm bảng đáp án về file Word (.doc)"
+          >
+            {isExportingWord ? (
+              <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+            ) : (
+              <FileDown className="w-4 h-4 text-blue-600" />
+            )}
+            <span>Tải file Word</span>
+          </button>
+        </div>
+
         {/* Score Card Hero */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 lg:p-8 shadow-xs overflow-hidden relative">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-100">
@@ -413,14 +549,40 @@ export default function ExamResult() {
           </div>
         </div>
 
-        {/* AI Analytics Widget */}
-        <ExamResultCharts submission={submission} questions={originalQuestions} sections={sections} />
+        {/* Time Analysis Chart */}
+        {timeAnalytics && segmentAnalytics && (
+          <QuestionTimeAnalysisChart
+            timeAnalytics={timeAnalytics}
+            segments={segmentAnalytics}
+            onSelectQuestion={handleSelectQuestionFromChart}
+          />
+        )}
+
+        {/* Progress Score Accumulation Chart */}
+        {accumulationData.length > 0 && (
+          <ProgressAccumulationChart
+            data={accumulationData}
+            maxScore={submission.maxScore || 10}
+          />
+        )}
+
+        {/* Category & Section Result Charts */}
+        <ExamResultCharts
+          submission={submission}
+          questions={activeQuestionsForAnalytics}
+          sections={sections}
+        />
+
+        {/* Advanced AI Analytics Widget */}
         <AiAnalyticsWidget 
-          examId={examId!} 
+          examId={examId || submission.examId} 
           currentSubmission={submission}
           exam={exam}
-          questions={originalQuestions}
+          questions={activeQuestionsForAnalytics}
           sections={sections}
+          timeAnalytics={timeAnalytics || undefined}
+          segments={segmentAnalytics || undefined}
+          onSelectQuestion={handleSelectQuestionFromChart}
         />
 
         {/* Action buttons bar moved under AI Analytics Widget */}
@@ -454,6 +616,22 @@ export default function ExamResult() {
                 </Link>
               </>
             )}
+
+            {/* Nút Tải file Word */}
+            <button
+              type="button"
+              onClick={handleExportWord}
+              disabled={isExportingWord}
+              className="px-3 py-2 text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200/80 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              title="Tải toàn bộ đề thi kèm bảng đáp án về file Word (.doc)"
+            >
+              {isExportingWord ? (
+                <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+              ) : (
+                <FileDown className="w-4 h-4 text-blue-600" />
+              )}
+              <span className="hidden sm:inline">Tải file Word</span>
+            </button>
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -470,13 +648,14 @@ export default function ExamResult() {
               <FileText className="w-4 h-4" />
             </button>
 
-            <Link
-              to={`/student/exam/${exam?.id || submission.examId}`}
+            <button
+              type="button"
+              onClick={() => setShowRetakeModal(true)}
               className="p-2.5 text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-xl transition-all shadow-2xs cursor-pointer"
               title="Làm lại đề thi"
             >
               <RotateCcw className="w-4 h-4 text-emerald-600" />
-            </Link>
+            </button>
 
             <button
               type="button"
@@ -657,14 +836,21 @@ export default function ExamResult() {
 
                 return (
                   <div
+                    id={`q-result-card-${qIdx}`}
                     key={`${viewMode}-${q.id}-${qIdx}`}
-                    className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-6 shadow-2xs space-y-4"
+                    className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-6 shadow-2xs space-y-4 scroll-mt-24 transition-all"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="px-2.5 py-1 bg-slate-100 text-slate-700 font-bold text-xs rounded-lg">
                           Câu {qIdx + 1}
                         </span>
+                        {submission.questionTiming?.[q.id]?.timeSpentSeconds !== undefined && (
+                          <span className="px-2 py-0.5 bg-blue-50 text-blue-700 font-mono text-[11px] font-bold rounded-lg flex items-center gap-1 border border-blue-100">
+                            <Clock className="w-3 h-3 text-blue-500" />
+                            {submission.questionTiming[q.id].timeSpentSeconds}s
+                          </span>
+                        )}
                         <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                           {q.type === "single_choice" && "Trắc nghiệm 1 đáp án"}
                           {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
@@ -785,7 +971,9 @@ export default function ExamResult() {
                                 })
                                 .filter(Boolean)
                                 .join(", ")}
-                            {q.type === "short_answer" && (q.acceptedAnswers?.join(" hoặc ") || "Chưa thiết lập")}
+                            {q.type === "short_answer" && (
+                              <LatexPreview content={q.acceptedAnswers?.join(" hoặc ") || "Chưa thiết lập"} className="inline" />
+                            )}
                           </span>
                         </div>
                       )}
@@ -1171,6 +1359,15 @@ export default function ExamResult() {
           </div>
         </div>
       )}
+
+      {/* Retake Exam Modal */}
+      <RetakeModal
+        isOpen={showRetakeModal}
+        onClose={() => setShowRetakeModal(false)}
+        exam={exam}
+        submission={submission}
+        questions={originalQuestions}
+      />
 
       {/* AI Tutor Chat Widget */}
       <AiTutorChat

@@ -50,10 +50,11 @@ export async function sendParentLinkRequest(
     // 1. Check if child user exists
     const childRef = doc(db, "users", cleanChild);
     const childSnap = await getDoc(childRef);
+    console.warn(`[Firestore] READ (1 doc): users/${cleanChild} (found: ${childSnap.exists()})`);
     if (!childSnap.exists()) {
       return {
         success: false,
-        message: `Không tìm thấy tài khoản học sinh "${cleanChild}". Vui lòng kiểm tra lại username của con.`,
+        message: `Không tìm thấy tài khoản học sinh "${cleanChild}". Vui lòng kiểm tra lại tên đăng nhập của con.`,
       };
     }
 
@@ -64,6 +65,7 @@ export async function sendParentLinkRequest(
       where("childUsername", "==", cleanChild)
     );
     const existingSnap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${existingSnap.size} docs): parent_link_requests (check existing request)`);
     if (!existingSnap.empty) {
       const existingData = existingSnap.docs[0].data();
       if (existingData.status === "accepted") {
@@ -82,6 +84,7 @@ export async function sendParentLinkRequest(
 
     // 3. Create request doc
     const newDocRef = doc(collection(db, "parent_link_requests"));
+    console.warn(`[Firestore] WRITE (1 doc): parent_link_requests/${newDocRef.id}`);
     await setDoc(newDocRef, {
       id: newDocRef.id,
       parentUsername: cleanParent,
@@ -124,8 +127,10 @@ export async function autoLinkChildToParent(
       where("childUsername", "==", cleanChild)
     );
     const existingSnap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${existingSnap.size} docs): parent_link_requests (autoLink check)`);
     if (!existingSnap.empty) {
       const docRef = existingSnap.docs[0].ref;
+      console.warn(`[Firestore] UPDATE (1 doc): parent_link_requests/${docRef.id}`);
       await updateDoc(docRef, {
         status: "accepted",
         parentDisplayName: parentDisplayName || cleanParent,
@@ -136,6 +141,7 @@ export async function autoLinkChildToParent(
 
     // Create a new accepted link
     const newDocRef = doc(collection(db, "parent_link_requests"));
+    console.warn(`[Firestore] WRITE (1 doc): parent_link_requests/${newDocRef.id}`);
     await setDoc(newDocRef, {
       id: newDocRef.id,
       parentUsername: cleanParent,
@@ -164,6 +170,7 @@ export async function getPendingRequestsForStudent(childUsername: string): Promi
       where("status", "==", "pending")
     );
     const snap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${snap.size} docs): parent_link_requests (student pending requests)`);
     return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
   } catch (err) {
     console.error("Error fetching pending requests for student:", err);
@@ -180,6 +187,7 @@ export async function respondToParentLinkRequest(
 ): Promise<boolean> {
   try {
     const docRef = doc(db, "parent_link_requests", requestId);
+    console.warn(`[Firestore] UPDATE (1 doc): parent_link_requests/${requestId}`);
     await updateDoc(docRef, {
       status: accept ? "accepted" : "rejected",
       respondedAt: new Date().toISOString(),
@@ -203,12 +211,14 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
       where("status", "==", "accepted")
     );
     const snap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${snap.size} docs): parent_link_requests (accepted links for parent)`);
     const requests = snap.docs.map((d) => d.data() as ParentLinkRequest);
 
     const children: LinkedChildInfo[] = [];
 
     for (const req of requests) {
       const childUserDoc = await getDoc(doc(db, "users", req.childUsername));
+      console.warn(`[Firestore] READ (1 doc): users/${req.childUsername} (found: ${childUserDoc.exists()})`);
       let childName = req.childUsername;
       let avatarUrl = "";
       let studentClass = "";
@@ -230,6 +240,7 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
           limit(3)
         );
         const subSnap = await getDocs(subQuery);
+        console.warn(`[Firestore] READ_MANY (${subSnap.size} docs): submissions (parent view recent child submissions)`);
         subs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       } catch (subErr) {
         // Fallback if index is not ready yet: query without orderBy and sort in JS
@@ -265,6 +276,7 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
           where("studentUsername", "==", req.childUsername)
         );
         const actSnap = await getDocs(actQuery);
+        console.warn(`[Firestore] READ_MANY (${actSnap.size} docs): active_sessions (parent check student active session)`);
         let foundDoc = null;
         if (!actSnap.empty) {
           foundDoc = actSnap.docs[0].data();
@@ -275,6 +287,7 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
             where("studentId", "==", req.childUsername)
           );
           const actSnap2 = await getDocs(actQuery2);
+          console.warn(`[Firestore] READ_MANY (${actSnap2.size} docs): active_sessions (fallback query studentId)`);
           if (!actSnap2.empty) {
             foundDoc = actSnap2.docs[0].data();
           } else {
@@ -284,6 +297,7 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
               where("studentId", "==", req.childUsername)
             );
             const sessSnap = await getDocs(sessQuery);
+            console.warn(`[Firestore] READ_MANY (${sessSnap.size} docs): taking_sessions (fallback taking_sessions)`);
             if (!sessSnap.empty) {
               foundDoc = sessSnap.docs[0].data();
             }
@@ -337,6 +351,7 @@ export async function getPendingRequestsSentByParent(parentUsername: string): Pr
       where("status", "==", "pending")
     );
     const snap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${snap.size} docs): parent_link_requests (parent sent pending requests)`);
     return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
   } catch (err) {
     console.error("Error fetching pending requests for parent:", err);
@@ -366,6 +381,7 @@ export async function getChildSubmissions(
     }
 
     const subSnap = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${subSnap.size} docs): submissions (getChildSubmissions, pageSize: ${pageSize})`);
     const submissions = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
     const nextCursor = subSnap.docs.length > 0 ? subSnap.docs[subSnap.docs.length - 1] : null;
 
@@ -384,6 +400,7 @@ export async function getChildSubmissions(
         limit(50)
       );
       const subSnap = await getDocs(fallbackQ);
+      console.warn(`[Firestore] READ_MANY (${subSnap.size} docs): submissions (getChildSubmissions fallback, limit 50)`);
       let submissions = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       submissions.sort((a: any, b: any) => {
         const getMs = (val: any) => {

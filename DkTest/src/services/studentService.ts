@@ -29,7 +29,7 @@ export const saveStudentProfile = async (profile: {
   if (!profile.name) return;
   const docId = profile.username || profile.name.replace(/\s+/g, "_").toLowerCase();
   const docRef = doc(db, STUDENTS_COLLECTION, docId);
-  console.log(`[Firestore] WRITE: ${STUDENTS_COLLECTION}/${docId}`);
+  console.warn(`[Firestore] WRITE (1 doc): ${STUDENTS_COLLECTION}/${docId}`);
   await setDoc(
     docRef,
     {
@@ -48,7 +48,7 @@ export const saveStudentProfile = async (profile: {
 
 export const updateStudent = async (studentId: string, data: Partial<Student>) => {
   const docRef = doc(db, STUDENTS_COLLECTION, studentId);
-  console.log(`[Firestore] UPDATE: ${STUDENTS_COLLECTION}/${studentId}`);
+  console.warn(`[Firestore] UPDATE (1 doc): ${STUDENTS_COLLECTION}/${studentId}`);
   await updateDoc(docRef, {
     ...data,
     ...(data.name ? { searchNameLower: data.name.toLowerCase() } : {})
@@ -58,8 +58,8 @@ export const updateStudent = async (studentId: string, data: Partial<Student>) =
 export const deleteStudent = async (studentId: string) => {
   try {
     const docRef = doc(db, STUDENTS_COLLECTION, studentId);
-    console.log(`[Firestore] READ: ${STUDENTS_COLLECTION}/${studentId} (for cascade delete)`);
     const studentSnap = await getDoc(docRef);
+    console.warn(`[Firestore] READ (1 doc): ${STUDENTS_COLLECTION}/${studentId} (found: ${studentSnap.exists()}, for cascade delete)`);
     let username = "";
     let name = "";
     if (studentSnap.exists()) {
@@ -69,7 +69,7 @@ export const deleteStudent = async (studentId: string) => {
     }
 
     // 1. Delete student doc
-    console.log(`[Firestore] DELETE: ${STUDENTS_COLLECTION}/${studentId}`);
+    console.warn(`[Firestore] DELETE (1 doc): ${STUDENTS_COLLECTION}/${studentId}`);
     await deleteDoc(docRef);
 
     // 2. Cascade delete all submissions of this student
@@ -83,10 +83,10 @@ export const deleteStudent = async (studentId: string) => {
     const deletedSubIds = new Set<string>();
     for (const q of queries) {
       try {
-        console.log(`[Firestore] READ_MANY: submissions (for student deletion)`);
         const snap = await getDocs(q);
+        console.warn(`[Firestore] READ_MANY (${snap.size} docs): submissions (for student cascade deletion)`);
         if (!snap.empty) {
-          console.log(`[Firestore] DELETE_BATCH: submissions (${snap.size} docs)`);
+          console.warn(`[Firestore] DELETE_BATCH (${snap.size} docs): submissions`);
           const batch = writeBatch(db);
           snap.docs.forEach((d) => {
             if (!deletedSubIds.has(d.id)) {
@@ -106,10 +106,10 @@ export const deleteStudent = async (studentId: string) => {
       const sessRef = collection(db, "active_sessions");
       const targetUsernames = [username, studentId].filter(Boolean);
       for (const u of targetUsernames) {
-        console.log(`[Firestore] READ_MANY: active_sessions (for student deletion)`);
         const sessSnap = await getDocs(query(sessRef, where("studentUsername", "==", u)));
+        console.warn(`[Firestore] READ_MANY (${sessSnap.size} docs): active_sessions (for student cascade deletion)`);
         if (!sessSnap.empty) {
-          console.log(`[Firestore] DELETE_BATCH: active_sessions (${sessSnap.size} docs)`);
+          console.warn(`[Firestore] DELETE_BATCH (${sessSnap.size} docs): active_sessions`);
           const sessBatch = writeBatch(db);
           sessSnap.docs.forEach((d) => sessBatch.delete(d.ref));
           await sessBatch.commit();
@@ -151,14 +151,14 @@ export const getStudentList = async ({
       q = query(q, startAfter(cursor));
     }
 
-    console.log(`[Firestore] READ_MANY: ${STUDENTS_COLLECTION}`);
     const snapshot = await getDocs(q);
+    console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): ${STUDENTS_COLLECTION} (searchQuery: "${searchQuery}")`);
     let items = snapshot.docs.map((d) => ({ id: d.id, ...(d.data() as object) } as Student));
 
     // Fallback/enrich from submissions collection if students collection is empty or sparse
     if (items.length === 0) {
-      console.log(`[Firestore] READ_MANY: submissions (fallback for empty student list)`);
       const subSnap = await getDocs(query(collection(db, "submissions"), limit(100)));
+      console.warn(`[Firestore] READ_MANY (${subSnap.size} docs): submissions (fallback for empty student list)`);
       const studentMap = new Map<string, Student>();
 
       subSnap.docs.forEach((doc) => {
@@ -198,8 +198,8 @@ export const getStudentList = async ({
 
 export const getStudent = async (studentId: string): Promise<Student | null> => {
   const docRef = doc(db, STUDENTS_COLLECTION, studentId);
-  console.log(`[Firestore] READ: ${STUDENTS_COLLECTION}/${studentId}`);
   const snapshot = await getDoc(docRef);
+  console.warn(`[Firestore] READ (1 doc): ${STUDENTS_COLLECTION}/${studentId} (found: ${snapshot.exists()})`);
   if (snapshot.exists()) {
     return { id: snapshot.id, ...(snapshot.data() as any) } as Student;
   }

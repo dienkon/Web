@@ -103,3 +103,59 @@ export const aiAnalyticsSchema = z.object({
     })
   ),
 });
+
+export const structuredAiAnalysisSchema = z.object({
+  summary: z.string(),
+  sectionPerformance: z.array(
+    z.object({
+      sectionId: z.string().optional(),
+      title: z.string(),
+      accuracy: z.number(),
+      strength: z.string().optional(),
+      weakness: z.string().optional(),
+      stability: z.string().optional(),
+    })
+  ),
+  priorities: z.array(
+    z.object({
+      title: z.string(),
+      reason: z.string(),
+      evidence: z.string(),
+      action: z.string(),
+    })
+  ),
+  mistakePatterns: z.array(
+    z.object({
+      pattern: z.string(),
+      description: z.string(),
+      affectedQuestions: z.array(z.string()),
+      suggestion: z.string(),
+    })
+  ),
+  progressAnalysis: z.object({
+    startPhase: z.string(),
+    middlePhase: z.string(),
+    endPhase: z.string(),
+    pacingInsight: z.string(),
+  }),
+  timeAnalysis: z.object({
+    overallPacing: z.string(),
+    fastestInsight: z.string().optional(),
+    slowestInsight: z.string().optional(),
+    stuckAreas: z.string().optional(),
+    rushingAreas: z.string().optional(),
+    efficiencyAdvice: z.string(),
+  }),
+  notableQuestions: z.array(
+    z.object({
+      questionIndex: z.number(),
+      questionId: z.string(),
+      timeSpentSeconds: z.number(),
+      status: z.enum(["correct", "incorrect", "unanswered"]),
+      reason: z.string(),
+      recommendation: z.string(),
+    })
+  ),
+  followUpQuestions: z.array(z.string()),
+  disclaimer: z.string(),
+});

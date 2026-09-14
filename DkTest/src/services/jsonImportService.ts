@@ -13,7 +13,8 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
       description: data.exam?.description || "",
       subject: data.exam?.subject || "",
       gradeCategory: data.exam?.gradeCategory || "",
-      status: "draft" as const
+      status: "draft" as const,
+      folderId: null,
     };
     
     // Create new doc ref for exam
@@ -83,7 +84,8 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
       updatedAt: new Date()
     };
     
-    console.log("[Firestore] WRITE: exams/" + examId); await setDoc(examRef, fullExamDoc, { merge: true });
+    console.warn(`[Firestore] WRITE (1 doc): exams/${examId} (JSON import)`);
+    await setDoc(examRef, fullExamDoc, { merge: true });
     
     return examId;
   } else if (mode === "question_bank" && targetExamId) {

@@ -92,9 +92,47 @@ export function normalizeLatexText(input: string): string {
   text = text.replace(/\x0Bspace/g, "\\vspace");
   text = text.replace(/\x0Bdots/g, "\\vdots");
 
-  // 2. Fix unescaped keywords when backslash was stripped:
-  text = text.replace(/(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*rac\s*\{/g, "$1\\frac{");
-  text = text.replace(/(^|[\s=+\-*/(;,:]|[a-zA-Z]\s*=)\s*sqrt\s*\{/g, "$1\\sqrt{");
+  // Strip invisible / zero-width Unicode characters that break KaTeX
+  text = text.replace(/[\u200B-\u200D\uFEFF]/g, "");
+
+  // Fix multiple backslashes before known LaTeX math commands (e.g. \\sqrt -> \sqrt, \\frac -> \frac)
+  const mathCommands = [
+    "sqrt", "frac", "dfrac", "tfrac", "cfrac",
+    "alpha", "beta", "gamma", "delta", "epsilon", "varepsilon", "zeta", "eta", "theta", "vartheta",
+    "iota", "kappa", "lambda", "mu", "nu", "xi", "pi", "rho", "sigma", "tau", "upsilon", "phi",
+    "varphi", "chi", "psi", "omega", "Gamma", "Delta", "Theta", "Lambda", "Xi", "Pi", "Sigma",
+    "Upsilon", "Phi", "Psi", "Omega",
+    "int", "iint", "iiint", "oint", "sum", "prod", "coprod", "lim", "infty",
+    "vec", "bar", "hat", "tilde", "overline", "underline", "mathbf", "mathrm", "mathbb", "mathcal",
+    "pm", "mp", "times", "div", "cdot", "cap", "cup", "subset", "supset", "subseteq", "supseteq",
+    "in", "notin", "ni", "forall", "exists", "nexists", "empty", "emptyset",
+    "le", "ge", "leq", "geq", "neq", "approx", "equiv", "sim", "cong", "propto",
+    "to", "rightarrow", "leftarrow", "leftrightarrow", "Rightarrow", "Leftarrow", "Leftrightarrow",
+    "sin", "cos", "tan", "cot", "arcsin", "arccos", "arctan", "log", "ln", "lg", "exp",
+    "begin", "end", "left", "right", "text", "quad", "qquad"
+  ];
+  const mathCmdPattern = new RegExp(`\\\\{2,}(${mathCommands.join("|")})\\b`, "g");
+  text = text.replace(mathCmdPattern, "\\$1");
+
+  // Replace unicode square roots with \sqrt
+  text = text.replace(/∛\s*\{([^}]+)\}/g, "\\sqrt[3]{$1}");
+  text = text.replace(/∛\s*\(([^)]+)\)/g, "\\sqrt[3]{$1}");
+  text = text.replace(/∛\s*(\d+|[a-zA-Z])/g, "\\sqrt[3]{$1}");
+  text = text.replace(/∜\s*\{([^}]+)\}/g, "\\sqrt[4]{$1}");
+  text = text.replace(/∜\s*\(([^)]+)\)/g, "\\sqrt[4]{$1}");
+  text = text.replace(/∜\s*(\d+|[a-zA-Z])/g, "\\sqrt[4]{$1}");
+  text = text.replace(/√\s*\{([^}]+)\}/g, "\\sqrt{$1}");
+  text = text.replace(/√\s*\(([^)]+)\)/g, "\\sqrt{$1}");
+  text = text.replace(/√\s*(\d+|[a-zA-Z])/g, "\\sqrt{$1}");
+
+  // Fix bare sqrt / frac syntax (including when preceded by digits, e.g. 2sqrt{3} or sqrt(2)):
+  text = text.replace(/(?<![a-zA-Z\\])sqrt\s*\{/gi, "\\sqrt{");
+  text = text.replace(/(?<![a-zA-Z\\])sqrt\s*\(([^)]+)\)/gi, "\\sqrt{$1}");
+  text = text.replace(/\\sqrt\s*\(([^)]+)\)/gi, "\\sqrt{$1}");
+  text = text.replace(/(?<![a-zA-Z\\])sqrt\s+([0-9a-zA-Z])\b/gi, "\\sqrt{$1}");
+  text = text.replace(/\\sqrt\s+([0-9a-zA-Z])\b/gi, "\\sqrt{$1}");
+  text = text.replace(/(?<![a-zA-Z\\])rac\s*\{/gi, "\\frac{");
+  text = text.replace(/(?<![a-zA-Z\\])frac\s*\{/gi, "\\frac{");
 
   // 3. Fix unescaped math symbol words like "notin A", "times", "2times3"
   text = text.replace(/(^|[\s({[,=+\-*/])\s*notin\b/g, "$1 \\notin ");
@@ -104,21 +142,37 @@ export function normalizeLatexText(input: string): string {
 }
 
 /**
- * Safely renders LaTeX mathematical formulas inside any text string to KaTeX HTML.
+ * Safely renders a LaTeX formula to KaTeX HTML without raw newlines in SVG path attributes.
  */
-export function renderLatexInString(textToRender: string): string {
+function safeKatexRender(tex: string, displayMode: boolean): string {
+  const rendered = katex.renderToString(tex, {
+    displayMode,
+    throwOnError: false,
+    strict: false,
+  });
+  // CRITICAL: KaTeX SVG <path d="..."> contains raw newlines (\n).
+  // In SVG path syntax, space and newline are equivalent whitespace separators.
+  // Replacing \n with space prevents downstream Markdown processors and <br/> replacements
+  // from corrupting path d attributes into "M95,702<br/>c-2.7...".
+  return rendered.replace(/\r?\n/g, " ");
+}
+
+/**
+ * Safely renders LaTeX mathematical formulas inside any text string to KaTeX HTML.
+ * When placeholderFn is provided, rendered HTML is shielded from downstream markdown/HTML processing.
+ */
+export function renderLatexInString(textToRender: string, placeholderFn?: (html: string) => string): string {
   if (!textToRender) return "";
+
+  const wrap = (html: string) => (placeholderFn ? placeholderFn(html) : html);
 
   let str = textToRender;
 
   // 1. Block LaTeX environments: \begin{aligned}...\end{aligned}, \begin{cases}...\end{cases}, etc.
   str = str.replace(/\\begin\{(aligned|cases|matrix|pmatrix|bmatrix|vmatrix|Vmatrix|array|tabular)\}([\s\S]*?)\\end\{\1\}/g, (fullMatch) => {
     try {
-      const rendered = katex.renderToString(fullMatch.trim(), {
-        displayMode: true,
-        throwOnError: false,
-      });
-      return `<div class="my-2 py-1 overflow-x-auto flex justify-center katex-block">${rendered}</div>`;
+      const rendered = safeKatexRender(fullMatch.trim(), true);
+      return wrap(`<div class="my-2 py-1 overflow-x-auto flex justify-center katex-block">${rendered}</div>`);
     } catch {
       return fullMatch;
     }
@@ -127,11 +181,8 @@ export function renderLatexInString(textToRender: string): string {
   // 2. Block math: $$...$$ or \[...\]
   str = str.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
     try {
-      const rendered = katex.renderToString(math.trim(), {
-        displayMode: true,
-        throwOnError: false,
-      });
-      return `<div class="my-2 py-1 overflow-x-auto flex justify-center katex-block">${rendered}</div>`;
+      const rendered = safeKatexRender(math.trim(), true);
+      return wrap(`<div class="my-2 py-1 overflow-x-auto flex justify-center katex-block">${rendered}</div>`);
     } catch (e) {
       return `<span class="text-red-500 font-mono text-xs">[Lỗi công thức: ${escapeHtml(math)}]</span>`;
     }
@@ -139,11 +190,8 @@ export function renderLatexInString(textToRender: string): string {
 
   str = str.replace(/\\\[([\s\S]*?)\\\]/g, (_, math) => {
     try {
-      const rendered = katex.renderToString(math.trim(), {
-        displayMode: true,
-        throwOnError: false,
-      });
-      return `<div class="my-2 py-1 overflow-x-auto flex justify-center katex-block">${rendered}</div>`;
+      const rendered = safeKatexRender(math.trim(), true);
+      return wrap(`<div class="my-2 py-1 overflow-x-auto flex justify-center katex-block">${rendered}</div>`);
     } catch (e) {
       return `<span class="text-red-500 font-mono text-xs">[Lỗi công thức: ${escapeHtml(math)}]</span>`;
     }
@@ -152,53 +200,41 @@ export function renderLatexInString(textToRender: string): string {
   // 3. Inline math: \(...\)
   str = str.replace(/\\\(([\s\S]*?)\\\)/g, (_, math) => {
     try {
-      const rendered = katex.renderToString(math.trim(), {
-        displayMode: false,
-        throwOnError: false,
-      });
-      return `<span class="inline-katex mx-0.5">${rendered}</span>`;
+      const rendered = safeKatexRender(math.trim(), false);
+      return wrap(`<span class="inline-katex mx-0.5">${rendered}</span>`);
     } catch (e) {
       return `<span class="text-red-500 font-mono text-xs">$${escapeHtml(math)}$</span>`;
     }
   });
 
   // 4. Inline math: $...$ (handles exponents $x^2$, fractions $\frac{a}{b}$, subscripts $a_1$, etc.)
-  // Matches $...$ on same line or within standard math bounds, skipping escaped \$
-  str = str.replace(/(^|[^\\])\$([^\$\n\r]+?)\$/g, (match, prefix, math) => {
+  // Matches $...$, skipping escaped \$
+  str = str.replace(/(^|[^\\])\$([^\$]+?)\$/g, (match, prefix, math) => {
     try {
-      const rendered = katex.renderToString(math.trim(), {
-        displayMode: false,
-        throwOnError: false,
-      });
-      return `${prefix}<span class="inline-katex mx-0.5">${rendered}</span>`;
+      const rendered = safeKatexRender(math.trim(), false);
+      return `${prefix}${wrap(`<span class="inline-katex mx-0.5">${rendered}</span>`)}`;
     } catch (e) {
       return `${prefix}<span class="text-red-500 font-mono text-xs">$${escapeHtml(math)}$</span>`;
     }
   });
 
-  // 5. Undelimited mathematical fractions: \frac{...}{...}, \dfrac{...}{...}, y = \frac{...}{...}
-  const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\})/g;
+  // 5. Undelimited mathematical fractions: \frac{...}{...}, \dfrac{...}{...}, y = \frac{...}{...} (deep nested brace support)
+  const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t|c)?frac\s*\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\}\s*\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\})/g;
   str = str.replace(fracRegex, (fullMatch) => {
     try {
-      const rendered = katex.renderToString(fullMatch.trim(), {
-        displayMode: false,
-        throwOnError: false,
-      });
-      return `<span class="inline-katex mx-0.5">${rendered}</span>`;
+      const rendered = safeKatexRender(fullMatch.trim(), false);
+      return wrap(`<span class="inline-katex mx-0.5">${rendered}</span>`);
     } catch {
       return fullMatch;
     }
   });
 
-  // 6. Undelimited roots: \sqrt[...]{...} or \sqrt{...}
-  const sqrtRegex = /((?:[a-zA-Z]\s*=\s*)?\\sqrt(?:\[[^\]]*\])?\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\})/g;
+  // 6. Undelimited roots: \sqrt[...]{...} or \sqrt{...} with coefficients (e.g. 2\sqrt{3}, a\sqrt{2}) & deep nested brace support
+  const sqrtRegex = /((?:[-+]?\s*(?:[0-9a-zA-Z]+|[a-zA-Z]\s*=\s*))?\\sqrt(?:\[[^\]]*\])?\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\})/g;
   str = str.replace(sqrtRegex, (fullMatch) => {
     try {
-      const rendered = katex.renderToString(fullMatch.trim(), {
-        displayMode: false,
-        throwOnError: false,
-      });
-      return `<span class="inline-katex mx-0.5">${rendered}</span>`;
+      const rendered = safeKatexRender(fullMatch.trim(), false);
+      return wrap(`<span class="inline-katex mx-0.5">${rendered}</span>`);
     } catch {
       return fullMatch;
     }
@@ -208,11 +244,8 @@ export function renderLatexInString(textToRender: string): string {
   const commonLatexRegex = /(\\(?:vec|bar|hat|overline|underline)\s*\{[^{}]*\}|\\(?:int|sum|prod|lim)(?:_\{[^{}]*\}|_[\w\d])?(?:\^\{[^{}]*\}|\^[\w\d])?|\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)\b)/g;
   str = str.replace(commonLatexRegex, (fullMatch) => {
     try {
-      const rendered = katex.renderToString(fullMatch.trim(), {
-        displayMode: false,
-        throwOnError: false,
-      });
-      return `<span class="inline-katex mx-0.5">${rendered}</span>`;
+      const rendered = safeKatexRender(fullMatch.trim(), false);
+      return wrap(`<span class="inline-katex mx-0.5">${rendered}</span>`);
     } catch {
       return fullMatch;
     }
@@ -292,7 +325,7 @@ export function renderMarkdownWithLatex(rawText: string): string {
   // Parse any LaTeX and inline formatting inside table cells (th, td, caption)
   text = text.replace(/<table([\s\S]*?)<\/table>/gi, (fullTable) => {
     let processedTable = fullTable.replace(/<(th|td|caption)([\s\S]*?)>([\s\S]*?)<\/\1>/gi, (match, tag, attrs, cellInner) => {
-      const renderedInner = renderLatexInString(cellInner);
+      const renderedInner = renderLatexInString(cellInner, createPlaceholder);
       let cellAttrs = attrs;
       if (!cellAttrs.includes("class=")) {
         if (tag.toLowerCase() === "th") {
@@ -379,8 +412,8 @@ export function renderMarkdownWithLatex(rawText: string): string {
     return createPlaceholder(tableHtml);
   });
 
-  // 4. Extract and Render all LaTeX expressions in remaining text
-  text = renderLatexInString(text);
+  // 4. Extract and Render all LaTeX expressions safely into placeholders
+  text = renderLatexInString(text, createPlaceholder);
 
   // 5. Extract markdown images ![alt](url)
   text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {

@@ -13,7 +13,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
-import type { Submission, PaginatedResult } from "../types";
+import type { Submission, PaginatedResult, AiAnalysisCache } from "../types";
 
 const SUBMISSIONS_COLLECTION = "submissions";
 
@@ -37,8 +37,8 @@ export const getExamSubmissions = async ({
     q = query(q, startAfter(cursor));
   }
 
-  console.log(`[Firestore] READ_MANY: ${SUBMISSIONS_COLLECTION} (examId: ${examId})`);
   const snapshot = await getDocs(q);
+  console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): ${SUBMISSIONS_COLLECTION} (examId: ${examId})`);
   const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Submission));
   const nextCursor = snapshot.docs[snapshot.docs.length - 1] || null;
 
@@ -51,8 +51,8 @@ export const getExamSubmissions = async ({
 
 export const getSubmission = async (submissionId: string): Promise<Submission | null> => {
   const docRef = doc(db, SUBMISSIONS_COLLECTION, submissionId);
-  console.log(`[Firestore] READ: ${SUBMISSIONS_COLLECTION}/${submissionId}`);
   const snapshot = await getDoc(docRef);
+  console.warn(`[Firestore] READ (1 doc): ${SUBMISSIONS_COLLECTION}/${submissionId} (found: ${snapshot.exists()})`);
   if (snapshot.exists()) {
     return { id: snapshot.id, ...(snapshot.data() as any) } as Submission;
   }
@@ -79,7 +79,7 @@ export const createSubmission = async (submissionData: Omit<Submission, "id" | "
     ...sanitized,
     submittedAt: serverTimestamp(),
   };
-  console.log(`[Firestore] WRITE: ${SUBMISSIONS_COLLECTION}/${docRef.id}`);
+  console.warn(`[Firestore] WRITE (1 doc): ${SUBMISSIONS_COLLECTION}/${docRef.id}`);
   await setDoc(docRef, newSubmission);
 
   // Update leaderboard
@@ -89,8 +89,8 @@ export const createSubmission = async (submissionData: Omit<Submission, "id" | "
     try {
       const { runTransaction } = await import("firebase/firestore");
       await runTransaction(db, async (transaction) => {
-        console.log(`[Firestore] TRANSACTION_READ: leaderboards/${examId}`);
         const lbDoc = await transaction.get(leaderboardRef);
+        console.warn(`[Firestore] TRANSACTION_READ (1 doc): leaderboards/${examId}`);
         let top: any[] = [];
         let totalParticipants = 0;
 
@@ -131,7 +131,7 @@ export const createSubmission = async (submissionData: Omit<Submission, "id" | "
 
         top = top.slice(0, 20);
 
-        console.log(`[Firestore] TRANSACTION_UPDATE: leaderboards/${examId}`);
+        console.warn(`[Firestore] TRANSACTION_WRITE (1 doc): leaderboards/${examId}`);
         transaction.set(leaderboardRef, {
           examId,
           top,
@@ -144,4 +144,17 @@ export const createSubmission = async (submissionData: Omit<Submission, "id" | "
   }
 
   return { id: docRef.id, ...newSubmission, submittedAt: new Date() as any } as Submission;
+};
+
+export const saveSubmissionAiAnalysis = async (
+  submissionId: string,
+  aiAnalysis: AiAnalysisCache
+): Promise<void> => {
+  try {
+    const docRef = doc(db, SUBMISSIONS_COLLECTION, submissionId);
+    console.warn(`[Firestore] UPDATE (1 doc): ${SUBMISSIONS_COLLECTION}/${submissionId} (aiAnalysis)`);
+    await updateDoc(docRef, { aiAnalysis });
+  } catch (err) {
+    console.warn("Could not cache AI analysis in Firestore:", err);
+  }
 };

@@ -19,6 +19,7 @@ import {
   User,
   ShieldCheck,
   Eye,
+  RotateCcw,
 } from "lucide-react";
 import {
   collection,
@@ -33,6 +34,7 @@ import {
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
+import RetakeModal from "../../components/exam/RetakeModal";
 
 export default function StudentHistory() {
   const navigate = useNavigate();
@@ -43,6 +45,8 @@ export default function StudentHistory() {
   const [hasMore, setHasMore] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [studentInfo, setStudentInfo] = useState<{ username: string; displayName: string } | null>(null);
+  const [showRetakeModal, setShowRetakeModal] = useState(false);
+  const [selectedRetakeSub, setSelectedRetakeSub] = useState<Submission | null>(null);
 
   useEffect(() => {
     // Check student profile
@@ -356,6 +360,17 @@ export default function StudentHistory() {
                   </div>
 
                   <div className="flex items-center gap-2 w-full sm:w-auto justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedRetakeSub(sub);
+                        setShowRetakeModal(true);
+                      }}
+                      className="p-2.5 bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-200/80 rounded-xl text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-2xs"
+                      title="Làm lại đề thi này"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </button>
                     <Link
                       to={`/student/exam/${sub.examId}/result/${sub.id}`}
                       className="p-2.5 bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center cursor-pointer shadow-2xs"
@@ -394,6 +409,18 @@ export default function StudentHistory() {
           </div>
         )}
       </div>
+
+      {/* Retake Modal */}
+      <RetakeModal
+        isOpen={showRetakeModal}
+        onClose={() => {
+          setShowRetakeModal(false);
+          setSelectedRetakeSub(null);
+        }}
+        exam={null}
+        submission={selectedRetakeSub}
+        questions={selectedRetakeSub?.shuffledQuestionsSnapshot}
+      />
     </div>
   );
 }

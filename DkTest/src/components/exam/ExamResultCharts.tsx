@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { Question, Section, Submission } from "../../types";
+import { evaluateQuestionAnswer } from "../../utils/attemptAnalytics";
 
 interface ExamResultChartsProps {
   submission: Submission;
@@ -31,61 +32,40 @@ export default function ExamResultCharts({ submission, questions, sections }: Ex
     const sectionStats: Record<string, { name: string; correct: number; incorrect: number; unanswered: number }> = {};
     const typeStats: Record<string, { name: string; correct: number; incorrect: number; unanswered: number }> = {};
 
-    sections.forEach((s) => {
+    (sections || []).forEach((s) => {
       sectionStats[s.id] = { name: s.title || "Phần chung", correct: 0, incorrect: 0, unanswered: 0 };
     });
     sectionStats["no_section"] = { name: "Phần chung", correct: 0, incorrect: 0, unanswered: 0 };
 
-    questions.forEach((q) => {
+    const pointPerQuestion = questions.length > 0 ? (submission?.maxScore || 10) / questions.length : 1;
+
+    (questions || []).forEach((q) => {
       const sId = q.sectionId || "no_section";
       const qType = q.type || "unknown";
-      
+
+      if (!sectionStats[sId]) {
+        sectionStats[sId] = { name: "Phần thi", correct: 0, incorrect: 0, unanswered: 0 };
+      }
+
       if (!typeStats[qType]) {
         let typeName = qType;
         if (qType === "single_choice") typeName = "Trắc nghiệm";
         else if (qType === "multiple_choice") typeName = "Nhiều lựa chọn";
         else if (qType === "true_false") typeName = "Đúng/Sai";
-        else if (qType === "short_answer") typeName = "Điền khuyết";
+        else if (qType === "short_answer") typeName = "Điền ngắn";
+        else if (qType === "fill_blank") typeName = "Điền khuyết";
+        else if (qType === "ordering") typeName = "Sắp xếp";
         typeStats[qType] = { name: typeName, correct: 0, incorrect: 0, unanswered: 0 };
       }
 
-      const ans = submission.answers?.[q.id];
-      let isCorrect = false;
-      let isAnswered = false;
+      const ans = submission?.answers?.[q.id];
+      const evalResult = evaluateQuestionAnswer(q, ans, pointPerQuestion);
 
-      if (ans !== undefined && ans !== null && ans !== "") {
-        isAnswered = true;
-        if (Array.isArray(ans) && ans.length === 0) isAnswered = false;
-        if (typeof ans === "object" && !Array.isArray(ans) && Object.keys(ans).length === 0) isAnswered = false;
-      }
-
-      if (isAnswered) {
-        if (q.type === "single_choice") {
-          isCorrect = q.correctOptionIds?.includes(ans as string) || false;
-        } else if (q.type === "multiple_choice") {
-          const correctSet = new Set<string>(q.correctOptionIds || []);
-          const ansSet = new Set<string>((ans as string[]) || []);
-          isCorrect = correctSet.size > 0 && correctSet.size === ansSet.size && [...correctSet].every((id) => ansSet.has(id));
-        } else if (q.type === "short_answer") {
-          const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
-          isCorrect = accepted.includes(String(ans).trim().toLowerCase());
-        } else if (q.type === "true_false") {
-          const stmts = q.statements || [];
-          if (stmts.length > 0 && typeof ans === "object") {
-            let cCount = 0;
-            stmts.forEach((s) => {
-              if ((ans as any)[s.id] === s.correctAnswer) cCount++;
-            });
-            isCorrect = cCount === stmts.length;
-          }
-        }
-      }
-
-      if (!isAnswered) {
+      if (evalResult.status === "unanswered") {
         unanswered++;
         sectionStats[sId].unanswered++;
         typeStats[qType].unanswered++;
-      } else if (isCorrect) {
+      } else if (evalResult.isCorrect) {
         correct++;
         sectionStats[sId].correct++;
         typeStats[qType].correct++;

@@ -1,3 +1,5 @@
+import type { QuestionTiming } from "../types";
+
 export interface ActiveExamSession {
   examId: string;
   examTitle?: string;
@@ -13,6 +15,7 @@ export interface ActiveExamSession {
   warnings: number;
   updatedAt: number;
   status: "in-progress" | "submitted" | "expired";
+  questionTiming?: Record<string, QuestionTiming>;
 }
 
 const GLOBAL_ACTIVE_SESSION_KEY = "active_exam_session";
@@ -40,6 +43,7 @@ export function saveActiveExamSession(data: {
   flagged?: Record<string, boolean>;
   activeQuestionIdx?: number;
   warnings?: number;
+  questionTiming?: Record<string, QuestionTiming>;
 }): ActiveExamSession {
   const studentUsername = data.studentUsername || getStudentIdentifier();
   const studentName = data.studentName || "Thí sinh";
@@ -60,6 +64,7 @@ export function saveActiveExamSession(data: {
     warnings: data.warnings || 0,
     updatedAt: Date.now(),
     status: "in-progress",
+    questionTiming: data.questionTiming || {},
   };
 
   try {
@@ -81,6 +86,7 @@ export function updateActiveExamSessionAnswers(
     flagged?: Record<string, boolean>;
     activeQuestionIdx?: number;
     warnings?: number;
+    questionTiming?: Record<string, QuestionTiming>;
   }
 ) {
   try {
@@ -90,6 +96,7 @@ export function updateActiveExamSessionAnswers(
       if (extra?.flagged !== undefined) current.flagged = extra.flagged;
       if (extra?.activeQuestionIdx !== undefined) current.activeQuestionIdx = extra.activeQuestionIdx;
       if (extra?.warnings !== undefined) current.warnings = extra.warnings;
+      if (extra?.questionTiming !== undefined) current.questionTiming = extra.questionTiming;
       current.updatedAt = Date.now();
 
       localStorage.setItem(GLOBAL_ACTIVE_SESSION_KEY, JSON.stringify(current));

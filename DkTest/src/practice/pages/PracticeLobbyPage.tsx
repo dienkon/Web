@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useMemo, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Zap,
   Flame,
@@ -17,10 +17,12 @@ import {
   CheckCircle,
   Play,
   RotateCcw,
+  History,
 } from "lucide-react";
 import { PracticeRegistry } from "../core/PracticeRegistry";
 import { PracticeHistoryService } from "../core/PracticeHistoryService";
 import { PracticeCategory, PracticeMode } from "../core/types";
+import OldExamsReviewTab from "../components/OldExamsReviewTab";
 
 const CATEGORIES: Array<{ id: PracticeCategory | "all"; label: string; icon: any; subject?: "math" | "english" }> = [
   { id: "all", label: "Tất cả chủ đề", icon: Layers },
@@ -37,8 +39,22 @@ const CATEGORIES: Array<{ id: PracticeCategory | "all"; label: string; icon: any
 
 export default function PracticeLobbyPage() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const allModes = PracticeRegistry.getAll();
   const historyStats = PracticeHistoryService.getGlobalStats();
+
+  const [mainTab, setMainTab] = useState<"library" | "review">(() => {
+    return searchParams.get("tab") === "review" ? "review" : "library";
+  });
+
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    if (tabParam === "review" && mainTab !== "review") {
+      setMainTab("review");
+    } else if (!tabParam && mainTab === "review") {
+      setMainTab("library");
+    }
+  }, [searchParams]);
 
   const [selectedSubject, setSelectedSubject] = useState<"all" | "math" | "english">("all");
   const [selectedCategory, setSelectedCategory] = useState<PracticeCategory | "all">("all");
@@ -143,8 +159,63 @@ export default function PracticeLobbyPage() {
 
       {/* Main Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 -mt-6">
-        {/* Filters Card */}
-        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 mb-8">
+        {/* Navigation Tabs between Topic Library and Old Exams Review */}
+        <div className="flex items-center gap-2 mb-6 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200 shadow-xs max-w-fit">
+          <button
+            type="button"
+            onClick={() => {
+              setMainTab("library");
+              setSearchParams({});
+            }}
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              mainTab === "library"
+                ? "bg-blue-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Kho chủ đề luyện tập</span>
+            <span
+              className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                mainTab === "library" ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"
+              }`}
+            >
+              35+ dạng
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setMainTab("review");
+              setSearchParams({ tab: "review" });
+            }}
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              mainTab === "review"
+                ? "bg-blue-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            <History className="w-4 h-4" />
+            <span>Ôn tập bài cũ</span>
+            <span
+              className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                mainTab === "review"
+                  ? "bg-amber-300 text-slate-900"
+                  : "bg-amber-100 text-amber-800"
+              }`}
+            >
+              Mới
+            </span>
+          </button>
+        </div>
+
+        {mainTab === "review" ? (
+          <OldExamsReviewTab />
+        ) : (
+          <>
+            {/* Filters Card */}
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 mb-8">
           {/* Search bar & Grade Pills */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="relative w-full sm:w-80">
@@ -308,6 +379,8 @@ export default function PracticeLobbyPage() {
             <h3 className="text-base font-bold text-slate-700 mb-1">Không tìm thấy chế độ nào</h3>
             <p className="text-xs text-slate-500">Hãy thử chọn danh mục khác hoặc xóa từ khóa tìm kiếm.</p>
           </div>
+        )}
+          </>
         )}
       </div>
 

@@ -4,6 +4,34 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
   <head>
     <meta charset="UTF-8" />
 
+    <script>
+      // Safe environment shim: Ensure window.fetch is writable and cannot throw getter-only TypeError
+      (function() {
+        try {
+          var originalFetch = typeof window !== 'undefined' && window.fetch ? window.fetch.bind(window) : undefined;
+          if (typeof window !== 'undefined') {
+            var proto = window;
+            while (proto) {
+              var desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+              if (desc) {
+                if (!desc.set && desc.configurable !== false) {
+                  var activeFetch = originalFetch;
+                  Object.defineProperty(window, 'fetch', {
+                    get: function() { return activeFetch; },
+                    set: function(val) { activeFetch = val; },
+                    configurable: true,
+                    enumerable: true
+                  });
+                }
+                break;
+              }
+              proto = Object.getPrototypeOf(proto);
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
@@ -40,8 +68,8 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
 
     <!-- Prevent favicon 404 if you don't have one yet -->
     <link rel="apple-touch-icon" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/index-cHzg-EnA.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Nmyn60pj.css">
+    <script type="module" crossorigin src="/assets/index-D4cLUL_h.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-C_YftMyy.css">
   </head>
 
   <body>

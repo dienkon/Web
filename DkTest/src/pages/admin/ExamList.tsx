@@ -25,6 +25,8 @@ import {
   Square,
   Home,
   ArrowRight,
+  RotateCw,
+  Loader2,
 } from "lucide-react";
 import { getExamList, deleteExam } from "../../services/examService";
 import {
@@ -157,43 +159,129 @@ export default function ExamList() {
   const [deletingExam, setDeletingExam] = useState<Exam | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const loadFolders = async () => {
-    try {
-      const fList = await getFolders(isParentMode ? userId : null);
-      setFolders(fList);
-    } catch (e) {
-      console.error("Lỗi khi tải danh sách thư mục:", e);
-    }
-  };
+  // In-memory cache for folder content: key is (currentFolderId || "root") or "__all__"
+  // Avoids re-reading Firebase when switching back and forth between folders
+  const folderCacheRef = React.useRef<
+    Map<string, { subfolders: Folder[]; exams: Exam[]; cursor: any; hasMore: boolean }>
+  >(new Map());
+  const [folderLoading, setFolderLoading] = useState(false);
 
-  const loadExams = async (reset = false) => {
-    try {
-      if (reset) {
-        setLoading(true);
-        setExams([]);
-        setCursor(null);
+  // Lazy-load subfolders & exams only when entering/clicking into that folder
+  const loadFolderData = async (folderId: string | null, forceReload = false) => {
+    const cacheKey = viewFolderMode === "all" ? "__all__" : (folderId || "root");
+
+    if (!forceReload && folderCacheRef.current.has(cacheKey)) {
+      const cached = folderCacheRef.current.get(cacheKey)!;
+      setExams(cached.exams);
+      setCursor(cached.cursor);
+      setHasMore(cached.hasMore);
+      if (cached.subfolders && cached.subfolders.length > 0) {
+        setFolders((prev) => {
+          const existingIds = new Set(prev.map((f) => f.id));
+          const toAdd = cached.subfolders.filter((f) => !existingIds.has(f.id));
+          return toAdd.length > 0 ? [...prev, ...toAdd] : prev;
+        });
       }
-      const currentCursor = reset ? null : cursor;
-      const result = await getExamList({
-        pageSize: 20,
-        cursor: currentCursor,
-        ownerId: isParentMode ? userId : null,
-      });
+      setLoading(false);
+      return;
+    }
 
-      setExams((prev) => (reset ? result.items : [...prev, ...result.items]));
-      setCursor(result.nextCursor);
-      setHasMore(result.hasMore);
-    } catch (error) {
-      console.error("Error loading exams", error);
+    setFolderLoading(true);
+    if (forceReload) setLoading(true);
+    try {
+      if (viewFolderMode === "all") {
+        const res = await getExamList({
+          pageSize: 20,
+          ownerId: isParentMode ? userId : null,
+        });
+        folderCacheRef.current.set("__all__", {
+          subfolders: [],
+          exams: res.items,
+          cursor: res.nextCursor,
+          hasMore: res.hasMore,
+        });
+        setExams(res.items);
+        setCursor(res.nextCursor);
+        setHasMore(res.hasMore);
+      } else {
+        // 1. Lazy load child folders of folderId
+        const childFolders = await getFolders(isParentMode ? userId : null, folderId);
+
+        // 2. Lazy load exams inside folderId
+        const examRes = await getExamList({
+          pageSize: 20,
+          folderId: folderId,
+          ownerId: isParentMode ? userId : null,
+        });
+
+        folderCacheRef.current.set(cacheKey, {
+          subfolders: childFolders,
+          exams: examRes.items,
+          cursor: examRes.nextCursor,
+          hasMore: examRes.hasMore,
+        });
+
+        setFolders((prev) => {
+          const existingIds = new Set(prev.map((f) => f.id));
+          const toAdd = childFolders.filter((f) => !existingIds.has(f.id));
+          return toAdd.length > 0 ? [...prev, ...toAdd] : prev;
+        });
+
+        setExams(examRes.items);
+        setCursor(examRes.nextCursor);
+        setHasMore(examRes.hasMore);
+      }
+    } catch (err) {
+      console.error("Lỗi khi tải dữ liệu thư mục:", err);
+      toast.error("Không thể tải nội dung thư mục.");
     } finally {
+      setFolderLoading(false);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadFolders();
-    loadExams(true);
-  }, []);
+    loadFolderData(currentFolderId);
+  }, [currentFolderId, viewFolderMode]);
+
+  // Pre-load all folders on demand when user opens Move Exam or Create Folder modals
+  const ensureAllFoldersLoaded = async () => {
+    try {
+      const all = await getFolders(isParentMode ? userId : null, "all");
+      setFolders(all);
+    } catch (e) {
+      console.error("Lỗi tải toàn bộ thư mục:", e);
+    }
+  };
+
+  const loadMoreExams = async () => {
+    if (!hasMore || loading || folderLoading) return;
+    const cacheKey = viewFolderMode === "all" ? "__all__" : (currentFolderId || "root");
+    try {
+      setLoading(true);
+      const res = await getExamList({
+        pageSize: 20,
+        cursor,
+        folderId: viewFolderMode === "all" ? undefined : currentFolderId,
+        ownerId: isParentMode ? userId : null,
+      });
+      const nextExams = [...exams, ...res.items];
+      setExams(nextExams);
+      setCursor(res.nextCursor);
+      setHasMore(res.hasMore);
+
+      const cached = folderCacheRef.current.get(cacheKey);
+      if (cached) {
+        cached.exams = nextExams;
+        cached.cursor = res.nextCursor;
+        cached.hasMore = res.hasMore;
+      }
+    } catch (err) {
+      console.error("Error loading more exams", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCreateFolderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -208,6 +296,11 @@ export default function ExamList() {
         ownerId: isParentMode ? (userId || null) : null,
       });
       setFolders((prev) => [created, ...prev]);
+      const cacheKey = currentFolderId || "root";
+      const cached = folderCacheRef.current.get(cacheKey);
+      if (cached) {
+        cached.subfolders = [created, ...cached.subfolders];
+      }
       setNewFolderName("");
       setNewFolderDesc("");
       setShowCreateFolderModal(false);
@@ -229,13 +322,20 @@ export default function ExamList() {
     setIsDeletingFolder(true);
     try {
       await deleteFolder(folderToDelete.id, true);
+      folderCacheRef.current.delete(folderToDelete.id);
+      const cacheKey = currentFolderId || "root";
+      const cached = folderCacheRef.current.get(cacheKey);
+      if (cached) {
+        cached.subfolders = cached.subfolders.filter((f) => f.id !== folderToDelete.id);
+      }
       setFolders((prev) => prev.filter((f) => f.id !== folderToDelete.id));
       if (currentFolderId === folderToDelete.id) {
         setCurrentFolderId(folderToDelete.parentId || null);
+      } else {
+        loadFolderData(currentFolderId, true);
       }
       toast.success(`Đã xóa thư mục "${folderToDelete.name}"!`);
       setFolderToDelete(null);
-      loadExams(true);
     } catch (e) {
       console.error("Error deleting folder:", e);
       toast.error("Không thể xóa thư mục.");
@@ -249,9 +349,14 @@ export default function ExamList() {
     try {
       const destFolder = targetFolderId === "root" ? null : targetFolderId;
       await moveExamToFolder(movingExam.id, destFolder);
-      setExams((prev) =>
-        prev.map((ex) => (ex.id === movingExam.id ? { ...ex, folderId: destFolder } : ex))
-      );
+      // Invalidate target cache and remove from current cache
+      folderCacheRef.current.delete(destFolder || "root");
+      const currentKey = currentFolderId || "root";
+      const currentCached = folderCacheRef.current.get(currentKey);
+      if (currentCached) {
+        currentCached.exams = currentCached.exams.filter((ex) => ex.id !== movingExam.id);
+      }
+      setExams((prev) => prev.filter((ex) => ex.id !== movingExam.id));
       toast.success("Đã chuyển thư mục bài thi!");
       setMovingExam(null);
     } catch (e) {
@@ -267,11 +372,13 @@ export default function ExamList() {
     try {
       const destFolder = bulkTargetFolderId === "root" ? null : bulkTargetFolderId;
       await bulkMoveExamsToFolder(selectedExamIds, destFolder);
-      setExams((prev) =>
-        prev.map((ex) =>
-          selectedExamIds.includes(ex.id) ? { ...ex, folderId: destFolder } : ex
-        )
-      );
+      folderCacheRef.current.delete(destFolder || "root");
+      const currentKey = currentFolderId || "root";
+      const currentCached = folderCacheRef.current.get(currentKey);
+      if (currentCached) {
+        currentCached.exams = currentCached.exams.filter((ex) => !selectedExamIds.includes(ex.id));
+      }
+      setExams((prev) => prev.filter((ex) => !selectedExamIds.includes(ex.id)));
       toast.success(`Đã di chuyển ${selectedExamIds.length} bài thi vào thư mục!`);
       setSelectedExamIds([]);
       setShowBulkMoveModal(false);
@@ -474,28 +581,40 @@ export default function ExamList() {
             ))}
           </div>
 
-          {/* Mode Switcher: Current folder vs All exams */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl shrink-0">
+          {/* Mode Switcher: Current folder vs All exams & Refresh */}
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
-              onClick={() => setViewFolderMode("current")}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                viewFolderMode === "current"
-                  ? "bg-white text-blue-700 shadow-2xs"
-                  : "text-slate-600"
-              }`}
+              type="button"
+              onClick={() => loadFolderData(currentFolderId, true)}
+              disabled={folderLoading}
+              title="Tải lại thư mục từ Firebase"
+              className="p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 hover:text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer disabled:opacity-50"
             >
-              Xem theo thư mục đang mở
+              <RotateCw className={`w-3.5 h-3.5 ${folderLoading ? "animate-spin text-blue-600" : ""}`} />
             </button>
-            <button
-              onClick={() => setViewFolderMode("all")}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                viewFolderMode === "all"
-                  ? "bg-white text-slate-900 shadow-2xs"
-                  : "text-slate-600"
-              }`}
-            >
-              Tất cả đề thi ({exams.length})
-            </button>
+
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+              <button
+                onClick={() => setViewFolderMode("current")}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  viewFolderMode === "current"
+                    ? "bg-white text-blue-700 shadow-2xs"
+                    : "text-slate-600"
+                }`}
+              >
+                Xem theo thư mục đang mở
+              </button>
+              <button
+                onClick={() => setViewFolderMode("all")}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  viewFolderMode === "all"
+                    ? "bg-white text-slate-900 shadow-2xs"
+                    : "text-slate-600"
+                }`}
+              >
+                Tất cả đề thi ({exams.length})
+              </button>
+            </div>
           </div>
         </div>
 
@@ -503,11 +622,19 @@ export default function ExamList() {
         {viewFolderMode === "current" && (
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
-                Thư mục con ({currentSubfolders.length})
+              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                <span>Thư mục con ({currentSubfolders.length})</span>
+                {folderLoading && (
+                  <span className="flex items-center gap-1 text-[11px] text-blue-600 font-semibold lowercase">
+                    <Loader2 className="w-3 h-3 animate-spin" /> đang tải...
+                  </span>
+                )}
               </span>
               <button
-                onClick={() => setShowCreateFolderModal(true)}
+                onClick={() => {
+                  ensureAllFoldersLoaded();
+                  setShowCreateFolderModal(true);
+                }}
                 className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
               >
                 <FolderPlus className="w-3.5 h-3.5" />
@@ -517,7 +644,7 @@ export default function ExamList() {
 
             {currentSubfolders.length === 0 ? (
               <p className="text-xs text-slate-400 italic py-1">
-                Chưa có thư mục con nào ở cấp này.
+                {folderLoading ? "Đang tải thư mục con..." : "Chưa có thư mục con nào ở cấp này."}
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -525,7 +652,6 @@ export default function ExamList() {
                   const colorObj =
                     FOLDER_COLORS.find((c) => c.value === f.color) || FOLDER_COLORS[0];
                   const childFolderCount = folders.filter((child) => child.parentId === f.id).length;
-                  const childExamCount = exams.filter((e) => e.folderId === f.id).length;
 
                   return (
                     <div
@@ -560,8 +686,12 @@ export default function ExamList() {
                       )}
 
                       <div className="flex items-center justify-between text-[10px] font-bold text-slate-700 pt-1 border-t border-black/5">
-                        <span>{childFolderCount} thư mục con</span>
-                        <span>{childExamCount} đề thi</span>
+                        <span>{childFolderCount > 0 ? `${childFolderCount} thư mục con` : "Thư mục"}</span>
+                        <span>
+                          {folderCacheRef.current.has(f.id)
+                            ? `${folderCacheRef.current.get(f.id)!.exams.length} đề thi`
+                            : "Nhấn để mở"}
+                        </span>
                       </div>
                     </div>
                   );
@@ -904,8 +1034,8 @@ export default function ExamList() {
         {hasMore && (
           <div className="p-4 border-t border-slate-200 text-center bg-slate-50/50">
             <button
-              onClick={() => loadExams(false)}
-              disabled={loading}
+              onClick={() => loadMoreExams()}
+              disabled={loading || folderLoading}
               className="px-4 py-2 text-xs font-bold text-blue-600 hover:bg-blue-50 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
             >
               {loading ? "Đang tải..." : "Tải thêm bài thi"}

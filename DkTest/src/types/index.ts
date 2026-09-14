@@ -34,6 +34,7 @@ export interface Exam {
   attemptCount?: number;
 
   timeLimit: number; // in minutes
+  duration?: number; // alias for timeLimit in minutes
 
   shuffleQuestions: boolean;
   shuffleOptions: boolean;
@@ -57,6 +58,14 @@ export interface Exam {
   visibility?: "public" | "private" | "unlisted";
 
   questionCount: number;
+  totalQuestions?: number; // alias for questionCount
+  maxScore?: number;
+  isPractice?: boolean;
+  isRetake?: boolean;
+  isAggregatedReview?: boolean;
+  sourceExamCount?: number;
+  originalExamId?: string;
+
   questions?: Question[];
   sections?: Section[];
 
@@ -179,6 +188,83 @@ export interface Student {
   createdAt?: any;
 }
 
+export interface QuestionTiming {
+  questionId: string;
+  questionIndex: number;
+  timeSpentSeconds: number; // Cumulative seconds
+  visits: number; // Number of times opened
+  answerChanges: number; // Number of times answer was modified
+  firstOpenedAt?: number;
+  lastInteractionAt?: number;
+}
+
+export interface StructuredAiPriority {
+  title: string;
+  reason: string;
+  evidence: string; // e.g., "Câu 12, 27, 34"
+  action: string;
+}
+
+export interface StructuredMistakePattern {
+  pattern: string; // e.g. "Sai do tính toán", "Nhầm công thức"
+  description: string;
+  affectedQuestions: string[]; // e.g. ["Câu 3", "Câu 7"]
+  suggestion: string;
+}
+
+export interface StructuredSectionPerformance {
+  sectionId?: string;
+  title: string;
+  accuracy: number;
+  strength?: string;
+  weakness?: string;
+  stability?: string;
+}
+
+export interface StructuredProgressAnalysis {
+  startPhase: string; // e.g. "Đầu bài: 94% đúng, tốc độ nhanh và ổn định"
+  middlePhase: string; // e.g. "Giữa bài: Tốc độ chậm lại, xuất hiện một số câu khó"
+  endPhase: string; // e.g. "Cuối bài: Tỷ lệ đúng giữ vững..."
+  pacingInsight: string;
+}
+
+export interface StructuredTimeAnalysis {
+  overallPacing: string;
+  fastestInsight?: string;
+  slowestInsight?: string;
+  stuckAreas?: string;
+  rushingAreas?: string;
+  efficiencyAdvice: string;
+}
+
+export interface StructuredNotableQuestion {
+  questionIndex: number; // 1-based index
+  questionId: string;
+  timeSpentSeconds: number;
+  status: "correct" | "incorrect" | "unanswered";
+  reason: string; // Why this question is notable (e.g. "Mất 82s nhưng vẫn sai")
+  recommendation: string;
+}
+
+export interface StructuredAiAnalysis {
+  summary: string;
+  sectionPerformance: StructuredSectionPerformance[];
+  priorities: StructuredAiPriority[]; // Exactly 3 priorities
+  mistakePatterns: StructuredMistakePattern[];
+  progressAnalysis: StructuredProgressAnalysis;
+  timeAnalysis: StructuredTimeAnalysis;
+  notableQuestions: StructuredNotableQuestion[];
+  followUpQuestions: string[];
+  disclaimer: string;
+}
+
+export interface AiAnalysisCache {
+  version: string;
+  data: StructuredAiAnalysis;
+  generatedAt: string;
+  inputHash: string;
+}
+
 export interface Submission {
   id: string;
   ownerId?: string;
@@ -200,6 +286,11 @@ export interface Submission {
   shuffledQuestionsSnapshot?: Question[]; // Snapshot of questions order & shuffled options during the exam session
   subExam?: boolean;
   subExamConfigSnapshot?: SubExamConfig;
+  questionTiming?: Record<string, QuestionTiming>;
+  aiAnalysis?: AiAnalysisCache;
+  isRetake?: boolean;
+  isAggregatedReview?: boolean;
+  originalExamId?: string | null;
 }
 
 export interface PaginatedResult<T> {

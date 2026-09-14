@@ -18,6 +18,8 @@ import {
   RefreshCw,
   Sparkles,
   AlertCircle,
+  FileDown,
+  Loader2,
 } from "lucide-react";
 import { doc, getDoc, collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
@@ -26,6 +28,7 @@ import { formatDate } from "../../utils/date";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
 import ConfirmModal from "../../components/ui/ConfirmModal";
+import { exportExamToWordFile } from "../../services/wordExportService";
 import {
   regradeSingleSubmission,
   regradeExamSubmissions,
@@ -51,12 +54,40 @@ export default function SubmissionDetail() {
   // Regrading state
   const [isRegradingSingle, setIsRegradingSingle] = useState(false);
   const [isRegradingBatch, setIsRegradingBatch] = useState(false);
+  const [isExportingWord, setIsExportingWord] = useState(false);
   const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(null);
   const [regradeModalData, setRegradeModalData] = useState<{
     type: "single" | "batch";
     singleResult?: RegradeResult;
     batchSummary?: { totalSubmissions: number; changedCount: number; averageScore: number };
   } | null>(null);
+
+  const handleExportWord = async () => {
+    if (!submission) return;
+    try {
+      setIsExportingWord(true);
+      await exportExamToWordFile(
+        exam || { title: submission.examTitleSnapshot || "De_Thi" },
+        [],
+        questions,
+        {
+          studentName: submission.studentNameSnapshot || submission.studentId,
+          score: submission.score,
+          maxScore: submission.maxScore || 10,
+          examCode: exam?.code || submission.examCodeSnapshot,
+          duration: exam?.duration,
+          subjectName: (exam as any)?.subject,
+          submittedAt: submission.submittedAt,
+        }
+      );
+      showToast("Đã tải xuống file Word đề thi kèm bảng đáp án!", "success");
+    } catch (err) {
+      console.error("Lỗi xuất file Word:", err);
+      showErrorToast("Có lỗi xảy ra khi tải file Word!");
+    } finally {
+      setIsExportingWord(false);
+    }
+  };
 
   const loadData = async () => {
     if (!submissionId) return;
@@ -228,6 +259,20 @@ export default function SubmissionDetail() {
             {isRegradingBatch
               ? `Đang chấm lại (${batchProgress?.current || 0}/${batchProgress?.total || 0})...`
               : "Chấm lại toàn bộ bài thi"}
+          </button>
+
+          <button
+            onClick={handleExportWord}
+            disabled={isExportingWord}
+            className="px-3.5 py-2 bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 disabled:opacity-50 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+            title="Tải toàn bộ đề thi kèm bảng đáp án về máy (File Word .doc)"
+          >
+            {isExportingWord ? (
+              <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+            ) : (
+              <FileDown className="w-4 h-4 text-blue-600" />
+            )}
+            Tải file Word
           </button>
 
           <button

@@ -1,5 +1,5 @@
 import { getAiClient, defaultModel } from "./aiClient.js";
-import { aiAnalyticsSchema } from "./aiSchema.js";
+import { aiAnalyticsSchema, structuredAiAnalysisSchema } from "./aiSchema.js";
 import { Type } from "@google/genai";
 
 export async function analyzeExamPerformance(analyticsInput: any) {
@@ -327,4 +327,224 @@ Bạn phải ưu tiên tính chính xác và trung thực của dữ liệu cao 
   const validatedData = aiAnalyticsSchema.parse(rawData);
 
   return validatedData;
+}
+
+export async function analyzeStructuredExamPerformance(payload: any) {
+  const ai = getAiClient();
+
+  const systemInstruction = `
+Bạn là "Chuyên gia Khảo thí và Cố vấn Học tập AI" của hệ thống giáo dục DkTEST.
+
+NHIỆM VỤ:
+Phân tích chuyên sâu bài làm của học sinh theo cấu trúc khoa học và sư phạm dựa TRÊN DỮ LIỆU ĐÃ ĐƯỢC TÍNH TOÁN SẴN.
+
+NGUYÊN TẮC BẮT BUỘC:
+1. KHÔNG ĐƯỢC TỰ BỊA HOẶC TÍNH LẠI SỐ LIỆU:
+   - Các số liệu như: Điểm số, Số câu đúng/sai/bỏ trống, Tỷ lệ %, Tổng thời gian, Thời gian trung bình, Thời gian từng câu, Tỷ lệ các giai đoạn (Đầu / Giữa / Cuối) đã được hệ thống tính toán CHÍNH XÁC trong payload.
+   - Bạn chỉ có nhiệm vụ DIỄN GIẢI, TÌM QUY LUẬT (PATTERNS), ĐÁNH GIÁ SƯ PHẠM VÀ ĐƯA RA HÀNH ĐỘNG CẢI THIỆN.
+2. NỘI DUNG 6 MỤC CẦN PHÂN TÍCH THEO SCHEMA:
+   - Mục 1: "summary" - Tổng quan ngắn gọn (2-3 câu) về kết quả và phong độ làm bài.
+   - Mục 2: "sectionPerformance" - Nhận xét cho từng phần/chủ đề thi (điểm mạnh, lỗi thường gặp, tính ổn định).
+   - Mục 3: "priorities" - ĐÚNG 3 VIỆC ƯU TIÊN LỚN NHẤT CẦN SỬA. Mỗi việc phải có:
+     + title: Tiêu đề rõ ràng.
+     + reason: Lý do tại sao ưu tiên việc này (dựa trên số liệu).
+     + evidence: Dẫn chứng cụ thể câu hỏi (ví dụ: "Câu 12, Câu 27, Câu 34").
+     + action: Hành động cụ thể học sinh có thể làm ngay (ví dụ: "Luyện 10 câu về dạng bài này...").
+   - Mục 4: "mistakePatterns" - Tìm 2-3 kiểu sai hay lặp lại (ví dụ: Sai do tính toán vội, Đọc thiếu điều kiện, Nhầm công thức, v.v.). Nếu không đủ dữ liệu, ghi rõ "Chưa đủ dữ liệu để xác định".
+   - Mục 5: "progressAnalysis" - So sánh diễn biến 3 giai đoạn: Đầu bài, Giữa bài, Cuối bài (về độ chính xác và tốc độ/sức bền làm bài).
+   - Mục 6: "timeAnalysis" - Phân tích thời gian: tốc độ tổng thể, các câu mất quá nhiều thời gian nhưng sai (stuck), các câu làm quá nhanh (rushing), lời khuyên quản lý thời gian.
+   - Mục 7: "notableQuestions" - 2 đến 5 câu hỏi đáng chú ý nhất (ví dụ: làm lâu nhưng sai, hoặc làm cực nhanh nhưng sai, hoặc làm lâu và đúng).
+   - Mục 8: "followUpQuestions" - 3 câu hỏi gợi ý thông minh học sinh có thể hỏi tiếp về bài thi này.
+   - Mục 9: "disclaimer" - "Gợi ý mang tính tham khảo sư phạm dựa trên dữ liệu làm bài thực tế của bạn."
+3. NGÔN TỪ: Tiếng Việt sư phạm, ấm áp, tích cực, khuyến khích học sinh, không phán xét.
+4. CHỈ TRẢ VỀ JSON HỢP LỆ THEO SCHEMA. Không markdown, không văn bản thừa.
+`;
+
+  const structuredSchema = {
+    type: Type.OBJECT,
+    properties: {
+      summary: { type: Type.STRING },
+      sectionPerformance: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            sectionId: { type: Type.STRING },
+            title: { type: Type.STRING },
+            accuracy: { type: Type.NUMBER },
+            strength: { type: Type.STRING },
+            weakness: { type: Type.STRING },
+            stability: { type: Type.STRING },
+          },
+          required: ["title", "accuracy"],
+        },
+      },
+      priorities: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            title: { type: Type.STRING },
+            reason: { type: Type.STRING },
+            evidence: { type: Type.STRING },
+            action: { type: Type.STRING },
+          },
+          required: ["title", "reason", "evidence", "action"],
+        },
+      },
+      mistakePatterns: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            pattern: { type: Type.STRING },
+            description: { type: Type.STRING },
+            affectedQuestions: { type: Type.ARRAY, items: { type: Type.STRING } },
+            suggestion: { type: Type.STRING },
+          },
+          required: ["pattern", "description", "affectedQuestions", "suggestion"],
+        },
+      },
+      progressAnalysis: {
+        type: Type.OBJECT,
+        properties: {
+          startPhase: { type: Type.STRING },
+          middlePhase: { type: Type.STRING },
+          endPhase: { type: Type.STRING },
+          pacingInsight: { type: Type.STRING },
+        },
+        required: ["startPhase", "middlePhase", "endPhase", "pacingInsight"],
+      },
+      timeAnalysis: {
+        type: Type.OBJECT,
+        properties: {
+          overallPacing: { type: Type.STRING },
+          fastestInsight: { type: Type.STRING },
+          slowestInsight: { type: Type.STRING },
+          stuckAreas: { type: Type.STRING },
+          rushingAreas: { type: Type.STRING },
+          efficiencyAdvice: { type: Type.STRING },
+        },
+        required: ["overallPacing", "efficiencyAdvice"],
+      },
+      notableQuestions: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            questionIndex: { type: Type.INTEGER },
+            questionId: { type: Type.STRING },
+            timeSpentSeconds: { type: Type.NUMBER },
+            status: { type: Type.STRING },
+            reason: { type: Type.STRING },
+            recommendation: { type: Type.STRING },
+          },
+          required: ["questionIndex", "questionId", "timeSpentSeconds", "status", "reason", "recommendation"],
+        },
+      },
+      followUpQuestions: {
+        type: Type.ARRAY,
+        items: { type: Type.STRING },
+      },
+      disclaimer: { type: Type.STRING },
+    },
+    required: [
+      "summary",
+      "sectionPerformance",
+      "priorities",
+      "mistakePatterns",
+      "progressAnalysis",
+      "timeAnalysis",
+      "notableQuestions",
+      "followUpQuestions",
+      "disclaimer",
+    ],
+  };
+
+  try {
+    const response = await ai.models.generateContent({
+      model: defaultModel,
+      contents: `Dưới đây là payload dữ liệu bài kiểm tra của học sinh cần phân tích:\n\n${JSON.stringify(payload, null, 2)}`,
+      config: {
+        systemInstruction,
+        responseMimeType: "application/json",
+        responseSchema: structuredSchema,
+      },
+    });
+
+    const jsonStr = response.text || "{}";
+    const rawData = JSON.parse(jsonStr);
+    const validated = structuredAiAnalysisSchema.parse(rawData);
+    return validated;
+  } catch (err) {
+    console.error("[aiAnalytics] Error in analyzeStructuredExamPerformance:", err);
+    // Graceful fallback object that adheres to the schema rather than crashing
+    return {
+      summary: `Học sinh đạt ${payload.result?.score ?? 0}/${payload.result?.maxScore ?? 10} điểm với ${payload.result?.correctCount ?? 0} câu đúng trên tổng số ${payload.result?.totalQuestions ?? payload.exam?.totalQuestions ?? 0} câu.`,
+      sectionPerformance: (payload.sections || []).map((s: any) => ({
+        title: s.title || "Phần thi",
+        accuracy: s.accuracy || 0,
+        strength: s.accuracy >= 70 ? "Hoàn thành tốt các câu hỏi trong phần này." : undefined,
+        weakness: s.accuracy < 70 ? "Cần củng cố thêm các dạng bài này." : undefined,
+        stability: "Bình thường",
+      })),
+      priorities: [
+        {
+          title: "Ôn tập lại các câu hỏi trả lời sai",
+          reason: `Có ${payload.result?.incorrectCount ?? 0} câu trả lời sai cần kiểm tra lại lý do.`,
+          evidence: (payload.notableQuestionsSummary || []).map((q: any) => `Câu ${q.questionIndex}`).join(", ") || "Các câu sai trong đề",
+          action: "Xem lại chi tiết lời giải trong bảng điểm và luyện tập thêm các câu cùng dạng.",
+        },
+        {
+          title: "Tối ưu hóa thời gian làm bài",
+          reason: payload.timing?.averageSecondsPerQuestion
+            ? `Thời gian trung bình là ${payload.timing.averageSecondsPerQuestion}s/câu.`
+            : "Cần phân bố thời gian đều hơn giữa các câu.",
+          evidence: payload.timing?.slowestQuestion ? `Câu ${payload.timing.slowestQuestion.index} (${payload.timing.slowestQuestion.seconds}s)` : "Toàn bộ bài thi",
+          action: "Tránh dừng lại quá lâu ở một câu khó; đánh dấu và quay lại sau khi đã làm xong các câu dễ.",
+        },
+        {
+          title: "Duy trì sự tập trung ở giai đoạn cuối đề",
+          reason: "Tỷ lệ chính xác thường có xu hướng biến động ở cuối thời gian làm bài.",
+          evidence: `Giai đoạn cuối: ${payload.segments?.end?.accuracy ?? 0}% đúng`,
+          action: "Dành ra ít nhất 3-5 phút cuối để rà soát lại toàn bộ phiếu trả lời.",
+        },
+      ],
+      mistakePatterns: [
+        {
+          pattern: "Chưa đủ dữ liệu để phân loại chuyên sâu",
+          description: "Cần thêm dữ liệu từ các lần làm bài tiếp theo để nhận diện chính xác kiểu lỗi tư duy hay lặp lại.",
+          affectedQuestions: (payload.notableQuestionsSummary || []).filter((q: any) => q.status === "incorrect").map((q: any) => `Câu ${q.questionIndex}`),
+          suggestion: "Tự rà soát lại các câu sai theo lời giải chi tiết đã cung cấp.",
+        },
+      ],
+      progressAnalysis: {
+        startPhase: `Đầu bài: ${payload.segments?.start?.accuracy ?? 0}% đúng, trung bình ${payload.segments?.start?.averageTimeSeconds ?? 0}s/câu.`,
+        middlePhase: `Giữa bài: ${payload.segments?.middle?.accuracy ?? 0}% đúng, trung bình ${payload.segments?.middle?.averageTimeSeconds ?? 0}s/câu.`,
+        endPhase: `Cuối bài: ${payload.segments?.end?.accuracy ?? 0}% đúng, trung bình ${payload.segments?.end?.averageTimeSeconds ?? 0}s/câu.`,
+        pacingInsight: "Tốc độ và sự tập trung cần được phân bổ đều qua cả 3 giai đoạn của đề thi.",
+      },
+      timeAnalysis: {
+        overallPacing: `Thời gian trung bình ${payload.timing?.averageSecondsPerQuestion ?? 0} giây mỗi câu.`,
+        fastestInsight: payload.timing?.fastestQuestion ? `Câu nhanh nhất: Câu ${payload.timing.fastestQuestion.index} (${payload.timing.fastestQuestion.seconds}s).` : undefined,
+        slowestInsight: payload.timing?.slowestQuestion ? `Câu mất nhiều thời gian nhất: Câu ${payload.timing.slowestQuestion.index} (${payload.timing.slowestQuestion.seconds}s).` : undefined,
+        stuckAreas: payload.timing?.longestSlowStreak ? `Đoạn mất nhiều thời gian: Câu ${payload.timing.longestSlowStreak.startNumber} đến Câu ${payload.timing.longestSlowStreak.endNumber}.` : undefined,
+        efficiencyAdvice: "Nên giữ tốc độ ổn định, ưu tiên làm chắc các câu hỏi quen thuộc trước.",
+      },
+      notableQuestions: (payload.notableQuestionsSummary || []).slice(0, 4).map((q: any) => ({
+        questionIndex: q.questionIndex,
+        questionId: q.questionId,
+        timeSpentSeconds: q.timeSpentSeconds || 0,
+        status: q.status || "unanswered",
+        reason: q.status === "incorrect" ? `Mất ${q.timeSpentSeconds}s nhưng chưa chọn đúng phương án.` : `Hoàn thành trong ${q.timeSpentSeconds}s.`,
+        recommendation: "Xem lại phương pháp giải chi tiết.",
+      })),
+      followUpQuestions: [
+        "Vì sao em làm sai các câu trong phần này?",
+        "Em nên bắt đầu ôn tập từ dạng bài nào trước?",
+        "Làm thế nào để cải thiện tốc độ làm bài mà không bị nhầm lẫn?",
+      ],
+      disclaimer: "Gợi ý mang tính tham khảo sư phạm dựa trên dữ liệu làm bài thực tế của bạn.",
+    };
+  }
 }

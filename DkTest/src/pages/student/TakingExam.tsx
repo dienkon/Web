@@ -32,6 +32,7 @@ import { createSubmission } from "../../services/submissionService";
 import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExamAttempt";
 import { organizeAndShuffleExam } from "../../utils/examShuffler";
 import { saveStudentProfile } from "../../services/studentService";
+import { recordQuestionMastery } from "../../services/reviewMasteryService";
 import { syncRealtimeSession, updateRealtimeSessionMetrics, removeRealtimeSession, subscribeToSingleSession } from "../../services/realtimeProctoringService";
 import { collection, getDocs, query, orderBy, getDoc, doc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
@@ -41,7 +42,7 @@ import {
   getActiveExamSession,
   clearActiveExamSession,
 } from "../../services/examSessionService";
-import type { Exam, Question, Section } from "../../types";
+import type { Exam, Question, Section, QuestionTiming } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
 
@@ -115,6 +116,9 @@ export default function TakingExam() {
   const subExamConfigUsedRef = useRef<any>(null);
   const isSubExamUsedRef = useRef<boolean>(false);
   const lastSyncTimeRef = useRef<number>(0);
+  const questionTimingRef = useRef<Record<string, QuestionTiming>>({});
+  const currentActiveQuestionIdRef = useRef<string | null>(null);
+  const prevAnswersRef = useRef<Record<string, any>>({});
 
   // Realtime Active Session Sync to Firestore and RTDB
   const syncCurrentSession = async (force: boolean = false) => {
@@ -431,6 +435,9 @@ export default function TakingExam() {
           if (typeof activeSession.warnings === "number") {
             setWarnings(activeSession.warnings);
           }
+          if (activeSession.questionTiming && typeof activeSession.questionTiming === "object") {
+            questionTimingRef.current = { ...activeSession.questionTiming };
+          }
 
           startTime = activeSession.startTime;
           startTimeRef.current = startTime;
@@ -546,9 +553,92 @@ export default function TakingExam() {
         flagged,
         activeQuestionIdx,
         warnings,
+        questionTiming: questionTimingRef.current,
       });
     }
   }, [answers, flagged, activeQuestionIdx, warnings, loading, exam, examId, submitting]);
+
+  // 1. Track active question visit & switch
+  useEffect(() => {
+    if (loading || questions.length === 0) return;
+    const currentQ = questions[activeQuestionIdx];
+    if (!currentQ) return;
+    const qId = currentQ.id;
+
+    if (!questionTimingRef.current[qId]) {
+      questionTimingRef.current[qId] = {
+        questionId: qId,
+        questionIndex: activeQuestionIdx,
+        timeSpentSeconds: 0,
+        visits: 1,
+        answerChanges: 0,
+        firstOpenedAt: Date.now(),
+        lastInteractionAt: Date.now(),
+      };
+    } else {
+      if (currentActiveQuestionIdRef.current && currentActiveQuestionIdRef.current !== qId) {
+        questionTimingRef.current[qId].visits = (questionTimingRef.current[qId].visits || 0) + 1;
+        questionTimingRef.current[qId].lastInteractionAt = Date.now();
+      }
+    }
+    currentActiveQuestionIdRef.current = qId;
+  }, [activeQuestionIdx, questions, loading]);
+
+  // 2. High-precision cumulative time ticker for current active question
+  useEffect(() => {
+    if (loading || submitting || isPaused || isSuspended || questions.length === 0) return;
+    const currentQ = questions[activeQuestionIdx];
+    if (!currentQ) return;
+    const qId = currentQ.id;
+
+    const interval = setInterval(() => {
+      if (!questionTimingRef.current[qId]) {
+        questionTimingRef.current[qId] = {
+          questionId: qId,
+          questionIndex: activeQuestionIdx,
+          timeSpentSeconds: 0,
+          visits: 1,
+          answerChanges: 0,
+          firstOpenedAt: Date.now(),
+          lastInteractionAt: Date.now(),
+        };
+      }
+      questionTimingRef.current[qId].timeSpentSeconds = (questionTimingRef.current[qId].timeSpentSeconds || 0) + 1;
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [activeQuestionIdx, questions, loading, submitting, isPaused, isSuspended]);
+
+  // 3. Track answer modifications
+  useEffect(() => {
+    if (loading || questions.length === 0) return;
+    const prev = prevAnswersRef.current;
+    
+    // Only detect changes if we already had a baseline
+    if (Object.keys(prev).length > 0 || Object.keys(answers).length > 0) {
+      for (const qId of Object.keys(answers)) {
+        if (JSON.stringify(answers[qId]) !== JSON.stringify(prev[qId])) {
+          const now = Date.now();
+          if (!questionTimingRef.current[qId]) {
+            const qIdx = questions.findIndex((q) => q.id === qId);
+            questionTimingRef.current[qId] = {
+              questionId: qId,
+              questionIndex: qIdx >= 0 ? qIdx : 0,
+              timeSpentSeconds: 0,
+              visits: 1,
+              answerChanges: 1,
+              firstOpenedAt: now,
+              lastInteractionAt: now,
+            };
+          } else {
+            questionTimingRef.current[qId].answerChanges = (questionTimingRef.current[qId].answerChanges || 0) + 1;
+            questionTimingRef.current[qId].lastInteractionAt = now;
+          }
+        }
+      }
+    }
+    prevAnswersRef.current = { ...answers };
+  }, [answers, loading, questions.length]);
 
   // Anti-cheat detection: visibilitychange & window blur
   useEffect(() => {
@@ -627,6 +717,7 @@ export default function TakingExam() {
     const pointPerQuestion = 10 / totalQ;
     let totalEarnedPoints = 0;
     let correctCount = 0;
+    const correctQuestionIds: string[] = [];
 
     questions.forEach((q) => {
       const ans = answers[q.id];
@@ -637,6 +728,7 @@ export default function TakingExam() {
         if (isCorrect) {
           totalEarnedPoints += pointPerQuestion;
           correctCount++;
+          correctQuestionIds.push(q.id);
         }
       } else if (q.type === "multiple_choice") {
         const correctSet = new Set<string>(q.correctOptionIds || []);
@@ -648,6 +740,7 @@ export default function TakingExam() {
         if (isCorrect) {
           totalEarnedPoints += pointPerQuestion;
           correctCount++;
+          correctQuestionIds.push(q.id);
         }
       } else if (q.type === "true_false") {
         const stmts = q.statements || [];
@@ -663,6 +756,7 @@ export default function TakingExam() {
           });
           if (correctInThisQ === stmts.length) {
             correctCount++;
+            correctQuestionIds.push(q.id);
           }
         }
       } else if (q.type === "short_answer") {
@@ -671,6 +765,7 @@ export default function TakingExam() {
         if (isCorrect) {
           totalEarnedPoints += pointPerQuestion;
           correctCount++;
+          correctQuestionIds.push(q.id);
         }
       } else if (q.type === "ordering") {
         const items = q.orderingItems || [];
@@ -683,6 +778,7 @@ export default function TakingExam() {
         if (matches === correctOrder.length && correctOrder.length > 0) {
           totalEarnedPoints += pointPerQuestion;
           correctCount++;
+          correctQuestionIds.push(q.id);
         } else if (matches > 0 && correctOrder.length > 0) {
           totalEarnedPoints += (matches / correctOrder.length) * pointPerQuestion;
         }
@@ -706,6 +802,7 @@ export default function TakingExam() {
           if (correctBlanks === keys.length) {
             totalEarnedPoints += pointPerQuestion;
             correctCount++;
+            correctQuestionIds.push(q.id);
           } else if (correctBlanks > 0) {
             totalEarnedPoints += (correctBlanks / keys.length) * pointPerQuestion;
           }
@@ -721,6 +818,7 @@ export default function TakingExam() {
       correctCount,
       maxScore: 10,
       totalCount: totalQ,
+      correctQuestionIds,
     };
   };
 
@@ -735,7 +833,7 @@ export default function TakingExam() {
     isSubmittingRef.current = true;
     setSubmitting(true);
     try {
-      const { score, correctCount, maxScore, totalCount } = calculateScore();
+      const { score, correctCount, maxScore, totalCount, correctQuestionIds } = calculateScore();
       const timeSpent = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
 
       const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
@@ -748,6 +846,19 @@ export default function TakingExam() {
           if (parsed.studentClass || parsed.class) studentClassSnapshot = parsed.studentClass || parsed.class;
         } catch (e) {}
       }
+
+      // Ensure every question has an entry in questionTiming
+      questions.forEach((q, idx) => {
+        if (!questionTimingRef.current[q.id]) {
+          questionTimingRef.current[q.id] = {
+            questionId: q.id,
+            questionIndex: idx,
+            timeSpentSeconds: 0,
+            visits: 0,
+            answerChanges: 0,
+          };
+        }
+      });
 
       const sub = await createSubmission({
         examId,
@@ -764,10 +875,35 @@ export default function TakingExam() {
         timeSpent,
         cheatViolations: warnings,
         answers,
+        questionTiming: questionTimingRef.current,
         shuffledQuestionsSnapshot: questions,
         subExam: isSubExamUsedRef.current,
         subExamConfigSnapshot: subExamConfigUsedRef.current || (exam.allowSubExam && exam.subExamConfig ? exam.subExamConfig : null),
+        isRetake: !!exam.isRetake,
+        isAggregatedReview: !!exam.isAggregatedReview,
+        originalExamId: exam.originalExamId || null,
       });
+
+      // If this is a retake or aggregated review exam, record mastery for any questions answered correctly
+      if ((exam.isRetake || exam.isAggregatedReview) && correctQuestionIds && correctQuestionIds.length > 0) {
+        try {
+          const masteryItems: { questionId: string; originalExamId: string }[] = [];
+          correctQuestionIds.forEach((qId) => {
+            const qObj = questions.find((it) => it.id === qId);
+            const targetExamId = (qObj as any)?.originalExamId || (qObj as any)?.examId || exam.originalExamId;
+            if (targetExamId && targetExamId !== examId) {
+              masteryItems.push({ questionId: qId, originalExamId: targetExamId });
+            } else if (exam.originalExamId) {
+              masteryItems.push({ questionId: qId, originalExamId: exam.originalExamId });
+            }
+          });
+          if (masteryItems.length > 0) {
+            await recordQuestionMastery(studentUsername, masteryItems);
+          }
+        } catch (mErr) {
+          console.warn("Could not record question review mastery:", mErr);
+        }
+      }
 
       // Save or update student profile in Firestore
       try {
@@ -1548,7 +1684,9 @@ export default function TakingExam() {
                     const secId = q.sectionId;
                     const sec = secId ? sections.find((s) => s.id === secId) || null : null;
                     const lastGroup = orderedGroups[orderedGroups.length - 1];
-                    if (lastGroup && lastGroup.section?.id === (sec?.id || null)) {
+                    const lastSecId = lastGroup?.section ? lastGroup.section.id : null;
+                    const currentSecId = sec ? sec.id : null;
+                    if (lastGroup && lastSecId === currentSecId) {
                       lastGroup.items.push({ q, originalIndex: idx });
                     } else {
                       orderedGroups.push({
@@ -1570,10 +1708,14 @@ export default function TakingExam() {
                       return true;
                     }).length;
 
+                    const groupTitle = sec
+                      ? sec.title
+                      : (sections && sections.length > 0 ? "Câu hỏi khác" : "Danh sách câu hỏi");
+
                     return (
                       <div key={sec ? sec.id : `no-sec-map-${groupIdx}`} className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
                         <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                          <span className="truncate pr-2">{sec ? sec.title : "Câu hỏi khác"}</span>
+                          <span className="truncate pr-2">{groupTitle}</span>
                           <span className="text-[11px] font-semibold text-slate-400 shrink-0">
                             {secAnswered}/{secQuestions.length}
                           </span>

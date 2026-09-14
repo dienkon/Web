@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import { parseDocxFile, processExamInChunks, processExamFromPromptStream } from "./aiExamGenerator.js";
 import { askTutor } from "./aiTutor";
-import { analyzeExamPerformance } from "./aiAnalytics.js";
+import { analyzeExamPerformance, analyzeStructuredExamPerformance } from "./aiAnalytics.js";
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
@@ -109,7 +109,7 @@ aiRouter.post("/tutor", async (req, res) => {
   }
 });
 
-// 3. Analyze Exam Performance
+// 3. Analyze Exam Performance (Legacy)
 aiRouter.post("/analyze-exam", async (req, res) => {
   try {
     const { analyticsInput } = req.body;
@@ -122,5 +122,21 @@ aiRouter.post("/analyze-exam", async (req, res) => {
   } catch (err: any) {
     console.error("Error analyzing exam performance:", err);
     res.status(500).json({ error: err.message || "Failed to analyze performance" });
+  }
+});
+
+// 4. Analyze Structured Exam Performance
+aiRouter.post("/analyze-structured-exam", async (req, res) => {
+  try {
+    const { payload } = req.body;
+    if (!payload) {
+      return res.status(400).json({ error: "Analysis payload is required" });
+    }
+
+    const analysis = await analyzeStructuredExamPerformance(payload);
+    res.json(analysis);
+  } catch (err: any) {
+    console.error("Error analyzing structured exam performance:", err);
+    res.status(500).json({ error: err.message || "Failed to analyze structured performance" });
   }
 });
