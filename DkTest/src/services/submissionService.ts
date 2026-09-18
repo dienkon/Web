@@ -72,9 +72,30 @@ const removeUndefinedValues = (obj: any): any => {
   return result;
 };
 
-export const createSubmission = async (submissionData: Omit<Submission, "id" | "submittedAt">): Promise<Submission> => {
-  const docRef = doc(collection(db, SUBMISSIONS_COLLECTION));
-  const sanitized = removeUndefinedValues(submissionData);
+export const createSubmission = async (
+  submissionData: Omit<Submission, "id" | "submittedAt">,
+  customSubmissionId?: string
+): Promise<Submission> => {
+  const subId = customSubmissionId || (submissionData as any).submissionId || submissionData.attemptId;
+  const docRef = subId ? doc(db, SUBMISSIONS_COLLECTION, subId) : doc(collection(db, SUBMISSIONS_COLLECTION));
+
+  // Idempotency check: if document already exists, return it directly to avoid duplicates
+  if (subId) {
+    try {
+      const existingSnap = await getDoc(docRef);
+      if (existingSnap.exists()) {
+        console.warn(`[Firestore] Idempotent submission hit: ${subId}`);
+        return { id: existingSnap.id, ...(existingSnap.data() as any) } as Submission;
+      }
+    } catch (e) {
+      console.warn("Idempotency check warning:", e);
+    }
+  }
+
+  const sanitized = removeUndefinedValues({
+    ...submissionData,
+    attemptId: submissionData.attemptId || docRef.id,
+  });
   const newSubmission = {
     ...sanitized,
     submittedAt: serverTimestamp(),

@@ -182,24 +182,24 @@ export default function ParentDashboard() {
 
   const SAMPLE_PROMPT_PRESETS = [
     {
-      label: "Toán 12 - Ôn thi Tốt nghiệp THPT",
+      label: "Toán 12 - Tốt nghiệp THPT & ĐGNL",
       prompt:
-        "Dựa vào json trên hãy, tạo cho tôi một đề môn Toán Lớp 12. Đây là một đề ôn tập thi tốt nghiệp THPT Quốc gia 2025 dành cho học sinh khá giỏi. Thời gian làm bài là 90 phút, gồm 12 câu trắc nghiệm 4 lựa chọn, 4 câu đúng sai và 6 câu trả lời ngắn kèm lời giải chi tiết và công thức LaTeX.",
+        "Dựa vào json trên hãy tạo cho tôi một đề môn Toán Lớp 12 ôn thi tốt nghiệp THPT và Đánh giá năng lực 2026. Thời gian làm bài 50 phút, gồm 12 câu trắc nghiệm 1 đáp án, 4 câu đúng sai 4 ý và 6 câu điền kết quả ngắn, có bảng biến thiên HTML và công thức tích phân, đạo hàm KaTeX kèm lời giải chi tiết.",
     },
     {
-      label: "Tiếng Anh 9 - Luyện thi vào 10",
+      label: "Tiếng Anh 12 - Luyện kỹ năng Nghe & Điền khuyết",
       prompt:
-        "Dựa vào json trên hãy, tạo cho tôi một đề môn Tiếng Anh Lớp 9. Đây là một đề thi thử vào lớp 10 THPT dành cho học sinh THCS. Thời gian làm bài là 60 phút, gồm 30 câu trắc nghiệm phát âm, trọng âm, ngữ pháp, từ vựng và bài đọc hiểu.",
+        "Dựa vào json trên hãy tạo cho tôi một đề Tiếng Anh Lớp 12 có cấu hình bài nghe Audio MP3 (audioConfig) gồm 1 đoạn văn điền khuyết 4 chỗ trống [_] (fill_blank), 10 câu trắc nghiệm ngữ âm, từ vựng và 1 bài đọc hiểu trả lời câu hỏi.",
     },
     {
-      label: "Vật lý 10 - Động học & Động lực học",
+      label: "Tin học 11 - Giải thuật & Khối mã Discord",
       prompt:
-        "Dựa vào json trên hãy, tạo cho tôi một đề môn Vật lý Lớp 10. Đây là một đề kiểm tra giữa kỳ 1 chương Động học chất điểm dành cho học sinh lớp 10. Thời gian làm bài là 45 phút, gồm 18 câu trắc nghiệm và 4 câu tự luận ngắn có lời giải số chi tiết.",
+        "Dựa vào json trên hãy tạo cho tôi một đề kiểm tra Tin học 11 chuyên đề Cấu trúc dữ liệu và Giải thuật. Bao gồm khối mã nguồn Python chuẩn phong cách Discord, 4 câu trắc nghiệm và 2 câu sắp xếp thứ tự các bước thực thi thuật toán (ordering).",
     },
     {
-      label: "Hóa học 11 - Cân bằng Hóa học & pH",
+      label: "Hóa học 10 - Cân bằng phản ứng & Sắp xếp thực nghiệm",
       prompt:
-        "Dựa vào json trên hãy, tạo cho tôi một đề môn Hóa học Lớp 11. Đây là một đề kiểm tra 1 tiết chương Cân bằng Hóa học và pH dành cho học sinh lớp 11. Thời gian làm bài là 45 phút, gồm 20 câu trắc nghiệm và 4 câu đúng sai.",
+        "Dựa vào json trên hãy tạo cho tôi một đề kiểm tra Hóa học 10 phần Phản ứng oxi hóa - khử. Thời gian làm bài 45 phút, gồm 15 câu trắc nghiệm, 4 câu đúng sai 4 ý và 1 câu sắp xếp thứ tự các bước tiến hành thí nghiệm (ordering).",
     },
   ];
 

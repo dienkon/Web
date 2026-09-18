@@ -5,6 +5,8 @@ import { doc, getDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { ActiveSession, subscribeToSingleSession, updateRealtimeSessionMetrics } from "../../services/realtimeProctoringService";
 import { Exam, Question } from "../../types";
+import { gradeQuestion, calculateExamScore } from "../../services/gradingService";
+import { getStoredItem, setStoredItem, STORAGE_KEYS } from "../../utils/storage";
 import {
   Clock,
   AlertTriangle,
@@ -19,7 +21,11 @@ import {
   Check,
   X,
   HelpCircle,
-  Award
+  Award,
+  Layers,
+  Monitor,
+  MonitorOff,
+  Loader2,
 } from "lucide-react";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 
@@ -33,144 +39,18 @@ function formatSeconds(s: number) {
 type QuestionStatus = "correct" | "incorrect" | "partial" | "unanswered";
 
 function evaluateQuestion(q: Question, studentAns: any): { status: QuestionStatus; scoreRatio: number } {
-  if (studentAns === undefined || studentAns === null || studentAns === "") {
-    if (q.type === "true_false" || q.type === "fill_blank" || q.type === "ordering") {
-      if (!studentAns || (typeof studentAns === "object" && Object.keys(studentAns).length === 0)) {
-        return { status: "unanswered", scoreRatio: 0 };
-      }
-    } else {
-      return { status: "unanswered", scoreRatio: 0 };
-    }
-  }
-
-  const qType = q.type || "single_choice";
-
-  if (qType === "single_choice") {
-    const correctIds = q.correctOptionIds || [];
-    const selected = typeof studentAns === "string" ? studentAns : (Array.isArray(studentAns) ? studentAns[0] : "");
-    if (!selected) return { status: "unanswered", scoreRatio: 0 };
-    const isCorrect = correctIds.includes(selected);
-    return { status: isCorrect ? "correct" : "incorrect", scoreRatio: isCorrect ? 1 : 0 };
-  }
-
-  if (qType === "multiple_choice" || (qType as any) === "multiple-choice") {
-    const correctIds = q.correctOptionIds || [];
-    const selectedArr = Array.isArray(studentAns) ? studentAns : (studentAns ? [studentAns] : []);
-    if (selectedArr.length === 0) return { status: "unanswered", scoreRatio: 0 };
-
-    const isAllCorrect =
-      correctIds.length === selectedArr.length &&
-      correctIds.every((id) => selectedArr.includes(id));
-    const hasSomeCorrect = selectedArr.some((id) => correctIds.includes(id));
-    const hasWrong = selectedArr.some((id) => !correctIds.includes(id));
-
-    if (isAllCorrect) return { status: "correct", scoreRatio: 1 };
-    if (hasSomeCorrect && !hasWrong) {
-      const ratio = correctIds.length > 0 ? (selectedArr.length / correctIds.length) : 0.5;
-      return { status: "partial", scoreRatio: Math.min(0.75, ratio) };
-    }
-    return { status: "incorrect", scoreRatio: 0 };
-  }
-
-  if (qType === "true_false") {
-    const statements = q.statements || [];
-    const ansObj = typeof studentAns === "object" && studentAns ? studentAns : {};
-    const answeredKeys = Object.keys(ansObj);
-    if (answeredKeys.length === 0) return { status: "unanswered", scoreRatio: 0 };
-
-    let correctCount = 0;
-    statements.forEach((st) => {
-      if (ansObj[st.id] === st.correctAnswer) {
-        correctCount++;
-      }
-    });
-
-    if (statements.length === 0) return { status: "unanswered", scoreRatio: 0 };
-
-    if (correctCount === statements.length) {
-      return { status: "correct", scoreRatio: 1 };
-    }
-    if (correctCount > 0) {
-      return { status: "partial", scoreRatio: correctCount / statements.length };
-    }
-    return { status: "incorrect", scoreRatio: 0 };
-  }
-
-  if (qType === "short_answer") {
-    const textAns = String(studentAns || "").trim();
-    if (!textAns) return { status: "unanswered", scoreRatio: 0 };
-    const accepted = q.acceptedAnswers || [];
-    const isMatch = accepted.some((acc) => {
-      if (q.caseSensitive) {
-        return textAns === acc.trim();
-      }
-      return textAns.toLowerCase() === acc.trim().toLowerCase();
-    });
-    return { status: isMatch ? "correct" : "incorrect", scoreRatio: isMatch ? 1 : 0 };
-  }
-
-  if (qType === "ordering") {
-    const items = q.orderingItems || [];
-    const correctOrder = q.correctOrder || items.map((it) => it.id);
-    const studentOrder = Array.isArray(studentAns) ? studentAns : [];
-
-    if (studentOrder.length === 0) return { status: "unanswered", scoreRatio: 0 };
-
-    let matchCount = 0;
-    correctOrder.forEach((id, idx) => {
-      if (studentOrder[idx] === id) matchCount++;
-    });
-
-    if (matchCount === correctOrder.length && correctOrder.length > 0) {
-      return { status: "correct", scoreRatio: 1 };
-    }
-    if (matchCount > 0) {
-      return { status: "partial", scoreRatio: matchCount / correctOrder.length };
-    }
-    return { status: "incorrect", scoreRatio: 0 };
-  }
-
-  if (qType === "fill_blank") {
-    const acceptedMap = q.acceptedAnswersPerBlank || {};
-    const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
-    const keys = Object.keys(acceptedMap);
-
-    if (keys.length === 0) return { status: "unanswered", scoreRatio: 0 };
-
-    let answeredCount = 0;
-    let correctCount = 0;
-
-    keys.forEach((k) => {
-      const idx = Number(k);
-      const userVal = String(ansMap[idx] || "").trim();
-      if (userVal) answeredCount++;
-
-      const valToCheck = q.trimWhitespace !== false ? userVal : String(ansMap[idx] || "");
-      const validOptions = acceptedMap[idx] || [];
-
-      const isCorrect = validOptions.some((opt) => {
-        const target = q.trimWhitespace !== false ? opt.trim() : opt;
-        if (q.caseSensitive) return target === valToCheck;
-        return target.toLowerCase() === valToCheck.toLowerCase();
-      });
-
-      if (isCorrect) correctCount++;
-    });
-
-    if (answeredCount === 0) return { status: "unanswered", scoreRatio: 0 };
-    if (correctCount === keys.length) return { status: "correct", scoreRatio: 1 };
-    if (correctCount > 0) return { status: "partial", scoreRatio: correctCount / keys.length };
-    return { status: "incorrect", scoreRatio: 0 };
-  }
-
-  return { status: "unanswered", scoreRatio: 0 };
+  const result = gradeQuestion({ question: q, answer: studentAns });
+  return {
+    status: result.status,
+    scoreRatio: result.maxPoints > 0 ? (result.earnedPoints / result.maxPoints) : 0,
+  };
 }
 
 export default function LiveMonitor() {
   const { sessionId } = useParams();
-  const role = localStorage.getItem("auth_role");
-  const isParent = role === "parent";
-  const isAdmin = role === "admin";
+  const role = localStorage.getItem("auth_role") || (window.location.pathname.startsWith("/admin") ? "admin" : null);
+  const isParent = role === "parent" || window.location.pathname.startsWith("/parent");
+  const isAdmin = role === "admin" || window.location.pathname.startsWith("/admin") || !isParent;
   const parentInfo = JSON.parse(localStorage.getItem("parent_info") || "null");
   const studentInfo = JSON.parse(localStorage.getItem("student_info") || "null");
   const user = localStorage.getItem("user_id") || studentInfo?.username || parentInfo?.username || (isAdmin ? "admin" : null);
@@ -181,8 +61,25 @@ export default function LiveMonitor() {
   const [exam, setExam] = useState<(Exam & { questions: Question[] }) | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Question Panel Visibility Toggle (Directive 14)
+  const [showQuestionPanel, setShowQuestionPanel] = useState<boolean>(() => {
+    const saved = getStoredItem<boolean>(STORAGE_KEYS.UI_LIVE_MONITOR_SHOW_MAP);
+    return saved !== null ? saved : true;
+  });
+
+  const toggleQuestionPanel = () => {
+    setShowQuestionPanel((prev) => {
+      const next = !prev;
+      setStoredItem(STORAGE_KEYS.UI_LIVE_MONITOR_SHOW_MAP, next);
+      return next;
+    });
+  };
+
   // Live Answer & Explanation Mode Toggle
-  const [showAnswerKey, setShowAnswerKey] = useState<boolean>(true);
+  const [showAnswerKey, setShowAnswerKey] = useState<boolean>(() => {
+    const saved = getStoredItem<boolean>(STORAGE_KEYS.UI_LIVE_MONITOR_SHOW_ANSWER_KEY);
+    return saved !== null ? saved : true;
+  });
 
   useEffect(() => {
     if (!user && !isAdmin && !isParent) {
@@ -221,6 +118,7 @@ export default function LiveMonitor() {
   const [pauseReasonInput, setPauseReasonInput] = useState("Giám thị/Phụ huynh yêu cầu tạm dừng bài thi để kiểm tra.");
   const [showSuspendModal, setShowSuspendModal] = useState(false);
   const [suspendReasonInput, setSuspendReasonInput] = useState("Phát hiện vi phạm quy chế thi. Hệ thống thu bài bắt buộc.");
+  const [showScreenModal, setShowScreenModal] = useState(false);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -237,6 +135,16 @@ export default function LiveMonitor() {
 
     return () => unsubscribe();
   }, [sessionId, autoFollowStudent]);
+
+  // Keep question map button scrolled into view
+  useEffect(() => {
+    if (typeof inspectQuestionIdx === "number") {
+      const el = document.getElementById(`live-q-btn-${inspectQuestionIdx}`);
+      if (el) {
+        el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    }
+  }, [inspectQuestionIdx]);
 
   useEffect(() => {
     const loadExam = async () => {
@@ -369,6 +277,26 @@ export default function LiveMonitor() {
     setShowSuspendModal(false);
   };
 
+  // Real Screen Share Feature (Directives from User Request)
+  const handleRequestScreenShare = async () => {
+    if (!sessionId) return;
+    setShowScreenModal(true);
+    await updateRealtimeSessionMetrics(sessionId, {
+      screenShareRequest: "requested",
+      screenShareRequestedAt: Date.now(),
+    });
+  };
+
+  const handleStopScreenShare = async () => {
+    if (!sessionId) return;
+    await updateRealtimeSessionMetrics(sessionId, {
+      screenShareRequest: "stopped",
+      screenShareActive: false,
+      screenShareFrame: null,
+    });
+    setShowScreenModal(false);
+  };
+
   const isPaused = session?.adminAction === "pause";
   const isSuspended = session?.adminAction === "suspend" || session?.status === "submitted";
 
@@ -462,6 +390,20 @@ export default function LiveMonitor() {
                 </span>
               </button>
 
+              <button
+                type="button"
+                onClick={toggleQuestionPanel}
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                  showQuestionPanel
+                    ? "bg-indigo-50 text-indigo-700 border-indigo-200"
+                    : "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200"
+                }`}
+                title="Ẩn hoặc hiện bảng danh sách câu hỏi"
+              >
+                <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                <span>{showQuestionPanel ? "Ẩn bảng câu hỏi" : "Hiện bảng câu hỏi"}</span>
+              </button>
+
               {/* Status pill for current inspected question */}
               {showAnswerKey && currentQ && (
                 <div className="flex items-center gap-1.5">
@@ -488,6 +430,27 @@ export default function LiveMonitor() {
 
             {(isAdmin || isParent) && (
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={session?.screenShareActive ? () => setShowScreenModal(true) : handleRequestScreenShare}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-2xs ${
+                    session?.screenShareActive
+                      ? "bg-indigo-600 text-white animate-pulse"
+                      : session?.screenShareRequest === "requested"
+                      ? "bg-blue-100 text-blue-800 border border-blue-300"
+                      : "bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200"
+                  }`}
+                  title="Yêu cầu học sinh chia sẻ màn hình trực tiếp để giám sát thực tế"
+                >
+                  <Monitor className="w-3.5 h-3.5" />
+                  <span>
+                    {session?.screenShareActive
+                      ? "Đang xem màn hình"
+                      : session?.screenShareRequest === "requested"
+                      ? "Đang đợi học sinh..."
+                      : "Xem màn hình giám sát"}
+                  </span>
+                </button>
                 <button
                   onClick={handlePauseExam}
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
@@ -942,8 +905,9 @@ export default function LiveMonitor() {
         </div>
 
         {/* Right Side: Question Map & Scratchpad Mirror */}
-        <div className="w-full xl:w-96 flex flex-col bg-slate-50 xl:border-l border-slate-200 shrink-0 h-[45vh] xl:h-auto z-10 xl:z-0 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.1)] xl:shadow-none">
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5 flex flex-col gap-4">
+        {showQuestionPanel && (
+          <div className="w-full xl:w-96 flex flex-col bg-slate-50 xl:border-l border-slate-200 shrink-0 h-[45vh] xl:h-auto z-10 xl:z-0 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.1)] xl:shadow-none transition-all duration-300">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-5 flex flex-col gap-4">
             
             {/* Live Score & Performance Summary Card (Khi bật chế độ xem đáp án) */}
             {showAnswerKey && (
@@ -1019,6 +983,7 @@ export default function LiveMonitor() {
                   return (
                     <button
                       key={q.id}
+                      id={`live-q-btn-${i}`}
                       onClick={() => {
                         setAutoFollowStudent(false);
                         setInspectQuestionIdx(i);
@@ -1086,6 +1051,7 @@ export default function LiveMonitor() {
 
           </div>
         </div>
+        )}
       </main>
 
       {/* Overlay: Fullscreen Scratchpad */}
@@ -1182,6 +1148,146 @@ export default function LiveMonitor() {
                 className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
               >
                 Xác nhận Đình chỉ
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Screen Share Monitor Modal */}
+      {showScreenModal && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-slate-900 text-white rounded-3xl shadow-2xl max-w-5xl w-full flex flex-col max-h-[92vh] border border-slate-800 overflow-hidden">
+            {/* Header */}
+            <div className="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+                  <Monitor className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-extrabold text-sm sm:text-base text-white">
+                      Màn hình giám sát trực tiếp
+                    </h3>
+                    {session?.screenShareActive ? (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                        TRỰC TIẾP
+                      </span>
+                    ) : session?.screenShareRequest === "requested" ? (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                        Đang chờ thí sinh...
+                      </span>
+                    ) : (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">
+                        Chưa kết nối
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-slate-400">
+                    Thí sinh: <span className="text-white font-bold">{session?.studentName}</span> {session?.studentClass ? `(${session.studentClass})` : ""}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {session?.screenShareActive && (
+                  <button
+                    type="button"
+                    onClick={handleStopScreenShare}
+                    className="px-3 py-1.5 bg-rose-600/80 hover:bg-rose-600 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+                  >
+                    <XCircle className="w-3.5 h-3.5" /> Dừng chia sẻ
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setShowScreenModal(false)}
+                  className="p-2 hover:bg-slate-800 text-slate-400 hover:text-white rounded-xl transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Screen Content Viewport */}
+            <div className="flex-1 bg-black p-3 sm:p-6 flex items-center justify-center overflow-auto min-h-[360px] sm:min-h-[500px]">
+              {session?.screenShareActive && session.screenShareFrame ? (
+                <div className="relative max-w-full max-h-full flex items-center justify-center">
+                  <img
+                    src={session.screenShareFrame}
+                    alt="Live Examinee Screen Mirror"
+                    className="max-w-full max-h-[72vh] object-contain rounded-xl border border-slate-800 shadow-2xl"
+                  />
+                  <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10 text-white text-[11px] font-mono flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                    <span>Tốc độ khung hình: 1.0 fps • Truyền phát thực</span>
+                  </div>
+                </div>
+              ) : session?.screenShareRequest === "requested" ? (
+                <div className="text-center space-y-4 max-w-md p-6">
+                  <div className="w-16 h-16 rounded-3xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto border border-blue-500/20">
+                    <Loader2 className="w-8 h-8 animate-spin" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h4 className="font-bold text-base text-white">Đang gửi yêu cầu chia sẻ màn hình</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Hệ thống đã gửi lời mời chia sẻ màn hình tới thí sinh <span className="text-indigo-300 font-bold">{session?.studentName}</span>. Thí sinh có quyền đồng ý hoặc từ chối.
+                    </p>
+                  </div>
+                </div>
+              ) : session?.screenShareRequest === "rejected" ? (
+                <div className="text-center space-y-4 max-w-md p-6">
+                  <div className="w-16 h-16 rounded-3xl bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
+                    <AlertTriangle className="w-8 h-8" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h4 className="font-bold text-base text-white">Thí sinh đã từ chối chia sẻ</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Thí sinh không đồng ý chia sẻ màn hình thiết bị hoặc đã hủy yêu cầu chia sẻ từ trình duyệt.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleRequestScreenShare}
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Gửi lại yêu cầu chia sẻ
+                  </button>
+                </div>
+              ) : (
+                <div className="text-center space-y-4 max-w-md p-6">
+                  <div className="w-16 h-16 rounded-3xl bg-slate-800 text-slate-400 flex items-center justify-center mx-auto">
+                    <Monitor className="w-8 h-8" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <h4 className="font-bold text-base text-white">Màn hình giám sát chưa được bật</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Tính năng này cho phép bạn quan sát thực tế toàn bộ màn hình của thí sinh thông qua cơ chế chia sẻ màn hình chuẩn của trình duyệt.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleRequestScreenShare}
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Gửi yêu cầu chia sẻ màn hình
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="px-5 py-3 border-t border-slate-800 flex items-center justify-between bg-slate-950/50 text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-emerald-400" /> Giám sát thực tế an toàn, minh bạch
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowScreenModal(false)}
+                className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-colors cursor-pointer"
+              >
+                Đóng cửa sổ
               </button>
             </div>
           </div>

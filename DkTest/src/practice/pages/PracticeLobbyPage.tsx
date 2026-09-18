@@ -18,14 +18,17 @@ import {
   Play,
   RotateCcw,
   History,
+  Code2,
+  Share2,
 } from "lucide-react";
 import { PracticeRegistry } from "../core/PracticeRegistry";
 import { PracticeHistoryService } from "../core/PracticeHistoryService";
 import { PracticeCategory, PracticeMode } from "../core/types";
 import OldExamsReviewTab from "../components/OldExamsReviewTab";
 
-const CATEGORIES: Array<{ id: PracticeCategory | "all"; label: string; icon: any; subject?: "math" | "english" }> = [
+const CATEGORIES: Array<{ id: PracticeCategory | "all"; label: string; icon: any; subject?: "math" | "english" | "cs" }> = [
   { id: "all", label: "Tất cả chủ đề", icon: Layers },
+  { id: "cs", label: "💻 Tin học & Code", icon: Code2, subject: "cs" },
   { id: "english", label: "🇬🇧 Tiếng Anh Luyện tập", icon: BookOpen, subject: "english" },
   { id: "speed", label: "⚡ Thử thách & Tốc độ", icon: Zap, subject: "math" },
   { id: "arithmetic", label: "Phép tính cơ bản", icon: Calculator, subject: "math" },
@@ -56,22 +59,75 @@ export default function PracticeLobbyPage() {
     }
   }, [searchParams]);
 
-  const [selectedSubject, setSelectedSubject] = useState<"all" | "math" | "english">("all");
+  const [selectedSubject, setSelectedSubject] = useState<"all" | "math" | "english" | "cs">("all");
   const [selectedCategory, setSelectedCategory] = useState<PracticeCategory | "all">("all");
   const [selectedGrade, setSelectedGrade] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Toast notification for sharing
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage((curr) => (curr === msg ? null : curr));
+    }, 2500);
+  };
 
   // Modal for launching a mode with custom difficulty & length
   const [selectedModeForLaunch, setSelectedModeForLaunch] = useState<PracticeMode | null>(null);
   const [chosenDiff, setChosenDiff] = useState<number | string>("random");
   const [chosenTarget, setChosenTarget] = useState<number | "endless">(10);
+  const [isCustomTarget, setIsCustomTarget] = useState(false);
+  const [customTargetInput, setCustomTargetInput] = useState("");
+
+  // Handle URL share parameters: ?mode=...&diff=...&target=...
+  useEffect(() => {
+    const modeParam = searchParams.get("mode");
+    if (modeParam) {
+      const targetMode = allModes.find((m) => m.id === modeParam);
+      if (targetMode) {
+        setSelectedModeForLaunch(targetMode);
+
+        const diffParam = searchParams.get("diff");
+        if (diffParam) {
+          setChosenDiff(diffParam === "random" ? "random" : parseInt(diffParam, 10) || diffParam);
+        } else {
+          setChosenDiff("random");
+        }
+
+        const targetParam = searchParams.get("target");
+        if (targetParam) {
+          if (targetParam === "endless") {
+            setChosenTarget("endless");
+            setIsCustomTarget(false);
+          } else {
+            const parsed = parseInt(targetParam, 10);
+            if (!isNaN(parsed) && parsed > 0) {
+              setChosenTarget(parsed);
+              if (![5, 10, 15, 20, 30, 50].includes(parsed)) {
+                setIsCustomTarget(true);
+                setCustomTargetInput(String(parsed));
+              }
+            }
+          }
+        }
+
+        if (targetMode.category === "cs") {
+          setSelectedSubject("cs");
+        } else if (targetMode.category === "english") {
+          setSelectedSubject("english");
+        }
+      }
+    }
+  }, [searchParams, allModes]);
 
   // Filter modes
   const filteredModes = useMemo(() => {
     return allModes.filter((m) => {
       // Subject filter
-      if (selectedSubject === "math" && m.category === "english") return false;
+      if (selectedSubject === "math" && (m.category === "english" || m.category === "cs")) return false;
       if (selectedSubject === "english" && m.category !== "english") return false;
+      if (selectedSubject === "cs" && m.category !== "cs") return false;
 
       // Category filter
       if (selectedCategory !== "all" && m.category !== selectedCategory) return false;
@@ -98,6 +154,8 @@ export default function PracticeLobbyPage() {
   const handleOpenLaunchModal = (mode: PracticeMode) => {
     setSelectedModeForLaunch(mode);
     setChosenDiff("random");
+    setIsCustomTarget(false);
+    setCustomTargetInput("");
     const def = mode.defaultLength;
     const initialCount =
       typeof def === "number"
@@ -110,6 +168,33 @@ export default function PracticeLobbyPage() {
         ? "endless"
         : 10;
     setChosenTarget(initialCount);
+  };
+
+  const handleShareMode = (
+    e: React.MouseEvent,
+    modeId: string,
+    diff?: number | string,
+    target?: number | "endless"
+  ) => {
+    e.stopPropagation();
+    let url = `${window.location.origin}/practice?mode=${encodeURIComponent(modeId)}`;
+    if (diff !== undefined && diff !== "random") {
+      url += `&diff=${encodeURIComponent(diff)}`;
+    }
+    if (target !== undefined) {
+      url += `&target=${encodeURIComponent(target)}`;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => showToast("Đã sao chép liên kết chia sẻ minigame!"))
+        .catch(() => {
+          prompt("Sao chép liên kết chia sẻ minigame:", url);
+        });
+    } else {
+      prompt("Sao chép liên kết chia sẻ minigame:", url);
+    }
   };
 
   const handleStartSession = () => {
@@ -129,9 +214,9 @@ export default function PracticeLobbyPage() {
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                 <span>Hệ thống luyện tập độc lập DkTEST • Sinh câu hỏi vô tận</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Trung tâm Luyện tập Toán</h1>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Trung tâm Luyện tập</h1>
               <p className="mt-2 text-blue-100 text-sm sm:text-base max-w-xl">
-                Rèn luyện kỹ năng tính toán, chinh phục các dạng toán kinh điển và nâng cao phản xạ với hơn 35+ chế độ sinh đề tự động.
+                Rèn luyện kỹ năng giải toán, ngữ pháp Tiếng Anh và tư duy thuật toán Tin học với hơn 40+ chế độ sinh câu hỏi tự động vô tận.
               </p>
             </div>
 
@@ -255,21 +340,31 @@ export default function PracticeLobbyPage() {
           </div>
 
           {/* Subject Filter Tabs */}
-          <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
+          <div className="flex items-center gap-2 pt-2 border-t border-slate-100 flex-wrap">
             <span className="text-xs font-semibold text-slate-400 mr-1 uppercase">Môn học:</span>
             <button
               onClick={() => { setSelectedSubject("all"); setSelectedCategory("all"); }}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 selectedSubject === "all"
-                  ? "bg-indigo-600 text-white shadow-xs"
+                  ? "bg-slate-900 text-white shadow-xs"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
               🌐 Tất cả môn
             </button>
             <button
+              onClick={() => { setSelectedSubject("cs"); setSelectedCategory("cs"); }}
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                selectedSubject === "cs"
+                  ? "bg-indigo-600 text-white shadow-xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              💻 Môn Tin học (Mới)
+            </button>
+            <button
               onClick={() => { setSelectedSubject("math"); setSelectedCategory("all"); }}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 selectedSubject === "math"
                   ? "bg-blue-600 text-white shadow-xs"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -279,13 +374,13 @@ export default function PracticeLobbyPage() {
             </button>
             <button
               onClick={() => { setSelectedSubject("english"); setSelectedCategory("english"); }}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                 selectedSubject === "english"
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              🇬🇧 Môn Tiếng Anh (Mới)
+              🇬🇧 Môn Tiếng Anh
             </button>
           </div>
 
@@ -336,9 +431,19 @@ export default function PracticeLobbyPage() {
                     <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-100">
                       {mode.shortTag || "Toán"}
                     </span>
-                    <span className="text-xs font-medium text-slate-400">
-                      Lớp {mode.gradeRange[0]} - {mode.gradeRange[1]}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-medium text-slate-400">
+                        Lớp {mode.gradeRange[0]} - {mode.gradeRange[1]}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => handleShareMode(e, mode.id)}
+                        className="p-1 rounded-md text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                        title="Chia sẻ minigame này qua URL"
+                      >
+                        <Share2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
                   {/* Title & Description */}
@@ -387,7 +492,7 @@ export default function PracticeLobbyPage() {
       {/* Mode Launch Modal */}
       {selectedModeForLaunch && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-100">
                 {selectedModeForLaunch.shortTag || "Cấu hình luyện tập"}
@@ -439,46 +544,113 @@ export default function PracticeLobbyPage() {
               </div>
             )}
 
-            {/* Target Question Count (Unless game rule prescribes it) */}
-            {!selectedModeForLaunch.gameRule && (
+            {/* Target Question Count (Unless fixed game rule) */}
+            {(!selectedModeForLaunch.gameRule ||
+              selectedModeForLaunch.gameRule === "standard" ||
+              selectedModeForLaunch.gameRule === "combo_streak") && (
               <div className="mb-6">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
-                  Số lượng câu hỏi:
-                </label>
-                <div className="grid grid-cols-4 gap-2">
-                  {[5, 10, 20, "endless"].map((t) => (
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                    Số lượng câu hỏi:
+                  </label>
+                  <span className="text-xs font-bold text-blue-600">
+                    {chosenTarget === "endless" ? "Vô hạn (∞)" : `${chosenTarget} câu`}
+                  </span>
+                </div>
+                <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5">
+                  {[5, 10, 15, 20, 30, 50, "endless"].map((t) => (
                     <button
                       key={String(t)}
-                      onClick={() => setChosenTarget(t as any)}
+                      type="button"
+                      onClick={() => {
+                        setChosenTarget(t as any);
+                        setIsCustomTarget(false);
+                      }}
                       className={`py-2 text-xs font-semibold rounded-xl border transition-all ${
-                        chosenTarget === t
-                          ? "bg-slate-900 text-white border-slate-900"
+                        chosenTarget === t && !isCustomTarget
+                          ? "bg-slate-900 text-white border-slate-900 shadow-xs"
                           : "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700"
                       }`}
                     >
-                      {t === "endless" ? "Vô hạn (∞)" : `${t} câu`}
+                      {t === "endless" ? "∞ Vô hạn" : `${t}`}
                     </button>
                   ))}
+                </div>
+
+                {/* Custom numeric input */}
+                <div className="mt-2.5 flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200">
+                  <span className="text-xs text-slate-600 font-medium whitespace-nowrap">
+                    Hoặc nhập số câu (1 - 100):
+                  </span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={100}
+                    placeholder="VD: 7, 12, 25..."
+                    value={isCustomTarget ? customTargetInput : ""}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setIsCustomTarget(true);
+                      setCustomTargetInput(val);
+                      const num = parseInt(val, 10);
+                      if (!isNaN(num) && num > 0) {
+                        setChosenTarget(Math.min(100, Math.max(1, num)));
+                      }
+                    }}
+                    className={`flex-1 px-3 py-1 text-xs font-bold rounded-lg border bg-white outline-hidden transition-all ${
+                      isCustomTarget
+                        ? "border-blue-500 ring-2 ring-blue-100 text-blue-900"
+                        : "border-slate-300 text-slate-700 focus:border-blue-400"
+                    }`}
+                  />
                 </div>
               </div>
             )}
 
             {/* Action buttons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-2.5 pt-2">
               <button
+                type="button"
                 onClick={() => setSelectedModeForLaunch(null)}
-                className="flex-1 py-3 text-sm font-semibold rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                className="py-3 px-4 text-xs sm:text-sm font-semibold rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
               >
                 Hủy bỏ
               </button>
               <button
+                type="button"
+                onClick={(e) =>
+                  handleShareMode(
+                    e,
+                    selectedModeForLaunch.id,
+                    chosenDiff,
+                    chosenTarget
+                  )
+                }
+                className="py-3 px-3.5 text-xs sm:text-sm font-semibold rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/80 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                title="Sao chép link chia sẻ cấu hình này"
+              >
+                <Share2 className="w-4 h-4" />
+                <span className="hidden sm:inline">Chia sẻ link</span>
+              </button>
+              <button
+                type="button"
                 onClick={handleStartSession}
-                className="flex-1 py-3 text-sm font-semibold rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
+                className="flex-1 py-3 text-xs sm:text-sm font-semibold rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Play className="w-4 h-4 fill-current" />
                 <span>Bắt đầu ngay</span>
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-60 animate-in fade-in slide-in-from-bottom-3 duration-200 pointer-events-none">
+          <div className="bg-slate-900 text-white px-4 py-2.5 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm font-medium border border-slate-700">
+            <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{toastMessage}</span>
           </div>
         </div>
       )}

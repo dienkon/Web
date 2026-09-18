@@ -405,7 +405,7 @@ export default function ScratchpadModal({
           </button>
 
           <span className="text-xs font-mono font-bold px-2.5 py-1 bg-slate-800 rounded-lg text-blue-400 border border-slate-700">
-            {activeQuestionIdx + 1} / {questions.length}
+            {questions.length === 1 && currentQ.order ? `Câu ${currentQ.order}` : `${activeQuestionIdx + 1} / ${questions.length}`}
           </span>
 
           <button
@@ -458,7 +458,7 @@ export default function ScratchpadModal({
           >
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <span className="px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-xs">
-                Câu {activeQuestionIdx + 1}
+                Câu {currentQ.order || (activeQuestionIdx + 1)}
               </span>
               <span className="text-[11px] font-semibold text-slate-400 uppercase">
                 Nháp & Chọn đáp án

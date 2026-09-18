@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Stories collection rules:
+    // - Ai cũng có thể đọc (read) câu chuyện nếu đã xuất bản (status == 'published') hoặc có id bí mật
+    // - Chỉ chủ sở hữu (ownerId) mới có quyền tạo (create), sửa (update), xóa (delete) bản thảo
+    match /stories/{storyId} {
+      allow read: if resource.data.status == 'published' || (request.auth != null && request.auth.uid == resource.data.ownerId);
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+      
+      // Cho phép tăng lượt xem ẩn danh (analytics)
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['analytics']);
+    }
+
+    // Media library uploaded metadata
+    match /users/{userId}/media/{mediaId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

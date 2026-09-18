@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Lock, Loader2, ArrowLeft } from "lucide-react";
+import { verifyAdminCredentials, setAdminSession, isAdminAuthenticated } from "../../services/authService";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -9,8 +10,7 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    if (role === "admin") {
+    if (isAdminAuthenticated()) {
       navigate("/admin/exams", { replace: true });
     }
   }, [navigate]);
@@ -25,9 +25,8 @@ export default function AdminLogin() {
     setError("");
     
     setTimeout(() => {
-      if (password === "Dienkon") {
-        localStorage.setItem("auth_role", "admin");
-        localStorage.setItem("admin_token", "admin_authenticated_" + Date.now());
+      if (verifyAdminCredentials(password)) {
+        setAdminSession();
         navigate("/admin/exams", { replace: true });
       } else {
         setError("Mật khẩu không đúng.");

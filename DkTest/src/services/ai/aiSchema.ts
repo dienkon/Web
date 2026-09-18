@@ -5,21 +5,62 @@ export const aiQuestionOptionSchema = z.object({
   text: z.string(),
 });
 
+export const aiOrderingItemSchema = z.object({
+  id: z.string(),
+  text: z.string(),
+});
+
+export const aiAudioConfigSchema = z
+  .object({
+    url: z.string().optional(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    maxPlays: z.number().optional(),
+    allowSeek: z.boolean().optional(),
+    allowPause: z.boolean().optional(),
+    autoPlay: z.boolean().optional(),
+    enabled: z.boolean().optional(),
+  })
+  .optional();
+
+export const aiAttachmentSchema = z.object({
+  name: z.string(),
+  url: z.string(),
+  type: z.string().optional(),
+  size: z.number().optional(),
+});
+
 export const aiQuestionSchema = z.object({
   id: z.string().optional(),
-  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer"]),
+  type: z.enum([
+    "single_choice",
+    "multiple_choice",
+    "true_false",
+    "short_answer",
+    "ordering",
+    "fill_blank",
+  ]),
   text: z.string(),
   explanation: z.string().optional(),
   options: z.array(aiQuestionOptionSchema).optional(),
   correctOptionIds: z.array(z.string()).optional(),
-  statements: z.array(
-    z.object({
-      id: z.string().optional(),
-      text: z.string(),
-      correctAnswer: z.boolean(),
-    })
-  ).optional(),
+  statements: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        text: z.string(),
+        correctAnswer: z.boolean(),
+      })
+    )
+    .optional(),
   acceptedAnswers: z.array(z.string()).optional(),
+  orderingItems: z.array(aiOrderingItemSchema).optional(),
+  correctOrder: z.array(z.string()).optional(),
+  acceptedAnswersPerBlank: z.record(z.string(), z.array(z.string())).optional(),
+  blankAnswers: z.array(z.array(z.string())).optional(),
+  audioUrl: z.string().optional(),
+  audioConfig: aiAudioConfigSchema,
+  attachments: z.array(aiAttachmentSchema).optional(),
   sectionId: z.string().nullable().optional(),
   points: z.number().optional(),
   answerSource: z.enum(["document", "ai_generated", "unknown"]).optional(),
@@ -30,12 +71,31 @@ export const aiSectionSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
+  instructions: z.string().optional(),
+  audioConfig: aiAudioConfigSchema,
+  subExamConfig: z
+    .object({
+      enabled: z.boolean(),
+      numberOfQuestions: z.number().optional(),
+    })
+    .optional(),
+  disableQuestionShuffle: z.boolean().optional(),
+  pinOrder: z.boolean().optional(),
 });
 
 export const aiExamSchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   timeLimit: z.number().optional(),
+  audioConfig: aiAudioConfigSchema,
+  attachments: z.array(aiAttachmentSchema).optional(),
+  allowSubExam: z.boolean().optional(),
+  subExamConfig: z
+    .object({
+      enabled: z.boolean(),
+      numberOfQuestions: z.number().optional(),
+    })
+    .optional(),
 });
 
 export const aiExamImportResultSchema = z.object({
@@ -43,23 +103,31 @@ export const aiExamImportResultSchema = z.object({
   exam: aiExamSchema.optional(),
   sections: z.array(aiSectionSchema).optional(),
   questions: z.array(aiQuestionSchema),
-  warnings: z.array(
-    z.object({
-      message: z.string(),
+  warnings: z
+    .array(
+      z.object({
+        message: z.string(),
+      })
+    )
+    .optional(),
+  statistics: z
+    .object({
+      totalQuestions: z.number(),
+      byType: z
+        .object({
+          singleChoice: z.number().optional(),
+          multipleChoice: z.number().optional(),
+          trueFalse: z.number().optional(),
+          shortAnswer: z.number().optional(),
+          ordering: z.number().optional(),
+          fillBlank: z.number().optional(),
+        })
+        .optional(),
+      answersFromDocument: z.number().optional(),
+      answersGeneratedByAI: z.number().optional(),
+      answersUnknown: z.number().optional(),
     })
-  ).optional(),
-  statistics: z.object({
-    totalQuestions: z.number(),
-    byType: z.object({
-      singleChoice: z.number(),
-      multipleChoice: z.number(),
-      trueFalse: z.number(),
-      shortAnswer: z.number(),
-    }),
-    answersFromDocument: z.number(),
-    answersGeneratedByAI: z.number(),
-    answersUnknown: z.number(),
-  }).optional(),
+    .optional(),
 });
 
 // Analytics Schemas

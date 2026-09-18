@@ -47,7 +47,7 @@ const schema = {
           id: { type: Type.STRING },
           type: {
             type: Type.STRING,
-            description: "Must be 'single_choice', 'multiple_choice', 'true_false', or 'short_answer'",
+            description: "Must be 'single_choice', 'multiple_choice', 'true_false', 'short_answer', 'ordering', or 'fill_blank'",
           },
           text: { type: Type.STRING },
           explanation: { type: Type.STRING },
@@ -82,6 +82,22 @@ const schema = {
             type: Type.ARRAY,
             items: { type: Type.STRING },
           },
+          orderingItems: {
+            type: Type.ARRAY,
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                id: { type: Type.STRING },
+                text: { type: Type.STRING },
+              },
+              required: ["id", "text"],
+            },
+          },
+          correctOrder: {
+            type: Type.ARRAY,
+            items: { type: Type.STRING },
+          },
+          audioUrl: { type: Type.STRING },
           sectionId: { type: Type.STRING },
           points: { type: Type.NUMBER },
           answerSource: {
@@ -207,7 +223,97 @@ Nếu là bài số học, ưu tiên:
 tùy theo tính chất bài toán.
 
 ==================================================
-V. QUY TẮC HÓA HỌC VÀ KHOA HỌC
+V. QUY TẮC DẠNG SẮP XẾP THỨ TỰ (ordering)
+==================================================
+
+Với dạng ordering:
+- Sử dụng khi câu hỏi yêu cầu sắp xếp quy trình, thứ tự thời gian, các bước giải thuật, hoặc sự kiện lịch sử.
+- Trường "orderingItems": mảng các mục [{ "id": "item_1", "text": "Nội dung bước 1" }, ...].
+- Trường "correctOrder": mảng các ID theo đúng thứ tự chuẩn từ đầu đến cuối, ví dụ: ["item_3", "item_1", "item_4", "item_2"].
+- Explanation phải nêu rõ vì sao thứ tự đó là chuẩn xác.
+
+==================================================
+VI. QUY TẮC DẠNG ĐIỀN KHUYẾT (fill_blank)
+==================================================
+
+Với dạng fill_blank:
+- Trong trường "text", sử dụng ký hiệu "[_]" để đánh dấu từng vị trí trống cần điền (đếm từ 0).
+- Trường "acceptedAnswersPerBlank": đối tượng ánh xạ chỉ số ô trống sang danh sách đáp án hợp lệ, ví dụ:
+  {
+    "0": ["Hà Nội", "ha noi", "Ha Noi"],
+    "1": ["1000", "một nghìn"]
+  }
+- Tự động chấp nhận viết hoa/thường hợp lý và loại trừ khoảng trắng thừa.
+
+==================================================
+VII. BÀI THI CÓ ÂM THANH NGHE MP3 & TỆP ĐÍNH KÈM
+==================================================
+
+1. Âm thanh nghe (Listening Audio - audioConfig / audioUrl):
+- Khi đề bài yêu cầu tạo bài kiểm tra kỹ năng nghe (Tiếng Anh, Ngoại ngữ, Văn bản đọc):
+  + Cấp độ đề thi: "exam.audioConfig": { "url": "https://...", "maxPlays": 2, "allowSeek": true, "allowPause": true, "title": "Audio bài nghe Part 1-4" }
+  + Cấp độ Section: "section.audioConfig": { "url": "https://...", "maxPlays": 2 }
+  + Cấp độ câu hỏi: "audioUrl": "https://..." hoặc "audioConfig"
+- Đảm bảo các câu hỏi nghe được gom nhóm rõ ràng vào Section tương ứng.
+
+2. Tệp đính kèm & Liên kết (attachments):
+- Trường "attachments": mảng [{ "name": "Tài liệu đính kèm", "url": "https://...", "type": "link" | "file" }]
+- Hỗ trợ cung cấp đường dẫn tài liệu bổ trợ, link tra cứu hoặc file đính kèm sau khi hoàn thành bài thi.
+
+VIII. NGUYÊN TẮC BẮT BUỘC: SỬ DỤNG THẺ <raw>...</raw> ĐỂ HỆ THỐNG KHÔNG CONVERT CÚ PHÁP HTML VÀ DẤU HUYỀN BACKTICK (\` VÀ \`\`\`)
+==================================================
+
+1. Khối nguyên bản <raw>...</raw> (CHỐNG CONVERT HTML SANG DOM):
+- VÌ SAO BẮT BUỘC PHẢI DÙNG:
+  + Giao diện bài thi của thí sinh render HTML trực tiếp.
+  + Nếu câu hỏi hoặc các phương án A, B, C, D hỏi về thẻ cú pháp HTML (như <a>, <p>, <div>, <input>, <img>, <button>, <form>, <table>...) mà KHÔNG BỌC <raw>...</raw>, trình duyệt sẽ TỰ ĐỘNG CONVERT chúng thành phần tử DOM thật!
+  + Hậu quả: Thẻ <a> biến thành link ẩn làm mất chữ của phương án, thẻ <img> biến thành ảnh vỡ, thẻ <input> thành ô gõ phím thật, thẻ <button> thành nút bấm thật... Thí sinh KHÔNG THỂ đọc được cú pháp để làm bài và giao diện bài thi bị hỏng!
+  + Khi bọc trong <raw>...</raw>, hệ thống DkTEST sẽ VÔ HIỆU HÓA việc convert HTML, giữ nguyên vẹn 100% cú pháp dạng text như "<input type=\"text\">" hay "<a>".
+
+- CÁC VÍ DỤ CỤ THỂ BẮT BUỘC DÙNG <raw>...</raw>:
+  + VÍ DỤ 1 (Hỏi về thẻ HTML trong câu hỏi trắc nghiệm):
+    Câu hỏi: "Trong HTML, thẻ nào dùng để tạo một siêu liên kết?"
+    Các phương án PHẢI VIẾT:
+    opt_a: "<raw><a></raw>" (BẮT BUỘC có <raw> để không bị convert mất chữ)
+    opt_b: "<raw><link></raw>"
+    opt_c: "<raw><href></raw>"
+    opt_d: "<raw><url></raw>"
+  + VÍ DỤ 2 (Đoạn mã HTML giao diện hoặc thuộc tính):
+    Ví dụ: "Xét đoạn mã HTML: <raw><img src=\"logo.png\" alt=\"Logo trường\" width=\"200\"/></raw>"
+    Ví dụ: "Đoạn form: <raw><form action=\"/login\"><input type=\"text\"/><button class=\"btn-submit\">Gửi</button></form></raw>"
+  + VÍ DỤ 3 (Ký tự toán so sánh & logic trần trụi <, >, &&, ||):
+    Ví dụ: "Cho điều kiện kiểm tra: <raw>if (count < 10 && total > 0)</raw>..."
+    -> Nếu KHÔNG bọc <raw>, ký tự "< 10" sẽ bị hiểu nhầm là mở thẻ HTML '&lt;10', làm mất chữ hoặc vỡ cấu trúc câu hỏi.
+  + VÍ DỤ 4 (Ký hiệu đô-la $ trong câu văn hoặc giá tiền):
+    Ví dụ: "Món hàng A có giá <raw>$25</raw> và món hàng B có giá <raw>$10</raw>."
+    -> Nếu KHÔNG bọc <raw>, hệ thống sẽ nhận diện hai ký tự $ thành công thức toán KaTeX "$25 và món hàng B có giá $", gây lỗi KaTeX màu đỏ!
+  + VÍ DỤ 5 (Biểu thức chính quy Regex, chuỗi định dạng đặc biệt):
+    Ví dụ: "Biểu thức Regex nào sau đây kiểm tra email hợp lệ: <raw>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$</raw>"
+
+2. Dấu huyền Backtick (\` inline và \`\`\` code block):
+- DẤU HUYỀN ĐƠN \` (INLINE CODE):
+  Bắt buộc dùng khi nhắc đến từ khóa lập trình, tên biến, tên hàm, kiểu dữ liệu hoặc biểu thức ngắn ngay trong câu văn:
+  + Ví dụ: "Trong ngôn ngữ Python, biến \`total_sum\` được khởi tạo bằng giá trị \`0\`."
+  + Ví dụ: "Hàm \`len(my_list)\` trả về số lượng phần tử của danh sách \`my_list\`."
+  + Ví dụ: "Câu lệnh \`cin >> n;\` trong C++ tương đương với lệnh \`n = int(input())\` trong Python."
+  + Tuyệt đối KHÔNG dùng dấu nháy kép " " hay nháy đơn ' ' khi đề cập đến mã nguồn hoặc biến số trong dòng.
+- KHỐI BA DẤU HUYỀN \`\`\` (CODE BLOCK NHIỀU DÒNG - KÈM TÊN NGÔN NGỮ):
+  Bắt buộc dùng khi trình bày đoạn mã nguồn từ 2 dòng trở lên. PHẢI ghi rõ định danh ngôn ngữ (python, cpp, c, java, pascal, javascript, sql, html, css):
+  Ví dụ:
+  \`\`\`python
+  def fibonacci(n):
+      if n <= 1:
+          return n
+      return fibonacci(n - 1) + fibonacci(n - 2)
+  \`\`\`
+  -> Hệ thống DkTEST sẽ tự động kích hoạt khung code phong cách Discord cao cấp (nền tối, tô màu cú pháp theo ngôn ngữ, đánh số thứ tự dòng và có nút Sao chép mã tiện lợi).
+
+3. Bảng biểu HTML & Markdown:
+- Bảng biến thiên, bảng xét dấu, bảng số liệu nên dùng thẻ HTML:
+  <table><thead><tr><th>x</th><th>...</th></tr></thead><tbody><tr><td>f'(x)</td><td>...</td></tr></tbody></table>
+
+==================================================
+IX. QUY TẮC HÓA HỌC VÀ KHOA HỌC
 ==================================================
 
 - Phải phân biệt đúng chỉ số, hệ số, điện tích, số oxi hóa và ký hiệu.
@@ -663,7 +769,30 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
       const rawAnswers = Array.isArray(q.acceptedAnswers) ? q.acceptedAnswers : [];
       const cleaned = rawAnswers.map((ans: any) => fixLatexFormatting(String(ans).trim())).filter(Boolean);
       normalizedQ.acceptedAnswers = cleaned.length > 0 ? cleaned : ["Đáp án đúng"];
+    } else if (type === "ordering") {
+      const rawItems = Array.isArray(q.orderingItems) ? q.orderingItems : [];
+      normalizedQ.orderingItems = rawItems.map((item: any, itemIdx: number) => ({
+        id: String(item?.id || `item_${itemIdx + 1}`),
+        text: fixLatexFormatting(String(item?.text || "").trim()),
+      }));
+      normalizedQ.correctOrder = Array.isArray(q.correctOrder) && q.correctOrder.length > 0
+        ? q.correctOrder.map(String)
+        : normalizedQ.orderingItems.map((it: any) => it.id);
+    } else if (type === "fill_blank") {
+      if (q.acceptedAnswersPerBlank && typeof q.acceptedAnswersPerBlank === "object") {
+        normalizedQ.acceptedAnswersPerBlank = q.acceptedAnswersPerBlank;
+      }
+      if (Array.isArray(q.blankAnswers)) {
+        normalizedQ.blankAnswers = q.blankAnswers;
+      }
+      if (Array.isArray(q.acceptedAnswers) && !normalizedQ.acceptedAnswersPerBlank) {
+        normalizedQ.acceptedAnswers = q.acceptedAnswers;
+      }
     }
+
+    if (q.audioConfig) normalizedQ.audioConfig = q.audioConfig;
+    if (q.audioUrl) normalizedQ.audioUrl = q.audioUrl;
+    if (Array.isArray(q.attachments)) normalizedQ.attachments = q.attachments;
 
     normalizedQuestions.push(normalizedQ);
   });
@@ -674,6 +803,10 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
       title: rawData?.exam?.title || defaultTitle,
       description: rawData?.exam?.description || defaultDesc,
       timeLimit: typeof rawData?.exam?.timeLimit === "number" ? rawData.exam.timeLimit : 60,
+      audioConfig: rawData?.exam?.audioConfig || undefined,
+      attachments: Array.isArray(rawData?.exam?.attachments) ? rawData.exam.attachments : undefined,
+      allowSubExam: rawData?.exam?.allowSubExam,
+      subExamConfig: rawData?.exam?.subExamConfig,
     },
     sections: normalizedSections,
     questions: normalizedQuestions,
@@ -684,6 +817,8 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
         multipleChoice: normalizedQuestions.filter((q) => q.type === "multiple_choice").length,
         trueFalse: normalizedQuestions.filter((q) => q.type === "true_false").length,
         shortAnswer: normalizedQuestions.filter((q) => q.type === "short_answer").length,
+        ordering: normalizedQuestions.filter((q) => q.type === "ordering").length,
+        fillBlank: normalizedQuestions.filter((q) => q.type === "fill_blank").length,
       },
       answersFromDocument: normalizedQuestions.filter((q) => q.answerSource === "document").length,
       answersGeneratedByAI: normalizedQuestions.filter((q) => q.answerSource === "ai_generated").length,

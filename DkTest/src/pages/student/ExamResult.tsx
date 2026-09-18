@@ -24,6 +24,10 @@ import {
   Send,
   Loader2,
   FileDown,
+  Paperclip,
+  ExternalLink,
+  Download,
+  Headphones,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -549,6 +553,85 @@ export default function ExamResult() {
           </div>
         </div>
 
+        {/* Post-Submission Attachments from Teacher/Admin */}
+        {exam?.attachments && exam.attachments.length > 0 && (
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
+              <Paperclip className="w-5 h-5 text-blue-600" />
+              <div>
+                <h3 className="font-extrabold text-base text-slate-900">
+                  Tài liệu & Tệp đính kèm bài thi
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Tài liệu ôn tập, bài giải chi tiết hoặc file nghe do giáo viên cung cấp sau khi nộp bài
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3 font-medium">
+              {exam.attachments.map((att, idx) => (
+                <div
+                  key={att.id || idx}
+                  className="p-4 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all"
+                >
+                  <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
+                    <span className="text-xs font-extrabold text-slate-700 shrink-0">
+                      {att.label || `Nội dung ${idx > 0 ? idx + 1 : ""}:`.trim()}
+                    </span>
+
+                    {att.type === "link" ? (
+                      <a
+                        href={att.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline truncate flex items-center gap-1.5"
+                      >
+                        <span className="truncate">{att.url}</span>
+                        <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                      </a>
+                    ) : (
+                      <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 truncate">
+                        <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span className="truncate">{att.fileName || "Tệp tin"}</span>
+                        {att.fileSize && (
+                          <span className="text-[11px] text-slate-400 font-normal">
+                            ({(att.fileSize / 1024).toFixed(1)} KB)
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="shrink-0 self-end sm:self-center">
+                    {att.type === "link" ? (
+                      <a
+                        href={att.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-bold border border-blue-200 transition-all cursor-pointer"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        Mở liên kết
+                      </a>
+                    ) : (
+                      <a
+                        href={att.url || att.fileData}
+                        target="_blank"
+                        rel="noreferrer"
+                        download={att.fileName || `tailieu_${idx + 1}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-2xs transition-all cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        Tải về ({att.fileName || "Tệp"})
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Time Analysis Chart */}
         {timeAnalytics && segmentAnalytics && (
           <QuestionTimeAnalysisChart
@@ -916,6 +999,17 @@ export default function ExamResult() {
                     <div className="text-sm lg:text-base font-medium text-slate-900 leading-relaxed">
                       <LatexPreview content={q.text} />
                     </div>
+
+                    {/* Question Audio Track in Review */}
+                    {(q.audioConfig?.url || q.audioUrl) && (
+                      <div className="p-3 bg-indigo-50/70 border border-indigo-200 rounded-2xl space-y-1.5">
+                        <div className="flex items-center gap-2 text-xs font-bold text-indigo-900">
+                          <Headphones className="w-4 h-4 text-indigo-600" />
+                          <span>{q.audioConfig?.title || "Audio bài nghe của câu hỏi"}</span>
+                        </div>
+                        <audio controls src={q.audioConfig?.url || q.audioUrl || ""} className="w-full h-8 rounded-lg" />
+                      </div>
+                    )}
 
                     {/* Summary Comparison Bar */}
                     <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">

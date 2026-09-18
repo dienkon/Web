@@ -54,6 +54,8 @@ export default function ExamIntro() {
   const [parentInfo, setParentInfo] = useState<{ username: string; displayName: string } | null>(null);
   const [linkedChildren, setLinkedChildren] = useState<LinkedChildInfo[]>([]);
   const [selectedChild, setSelectedChild] = useState<string>("");
+  const [attemptCount, setAttemptCount] = useState<number>(0);
+  const [checkingAttempts, setCheckingAttempts] = useState<boolean>(false);
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
@@ -189,9 +191,80 @@ export default function ExamIntro() {
     fetchExam();
   }, [examId]);
 
+  // Check candidate's existing attempt count for this exam
+  useEffect(() => {
+    const candidateUsername = studentCode.trim() || currentUser?.username || "";
+    if (!exam?.id || !candidateUsername) {
+      setAttemptCount(0);
+      return;
+    }
+
+    let isMounted = true;
+    const checkAttempts = async () => {
+      setCheckingAttempts(true);
+      try {
+        const subsRef = collection(db, "submissions");
+        const qSubs = query(
+          subsRef,
+          where("examId", "==", exam.id),
+          where("studentUsername", "==", candidateUsername)
+        );
+        const snap = await getDocs(qSubs);
+        if (isMounted) {
+          setAttemptCount(snap.size);
+        }
+      } catch (err) {
+        console.warn("Could not fetch attempt count:", err);
+      } finally {
+        if (isMounted) setCheckingAttempts(false);
+      }
+    };
+
+    checkAttempts();
+    return () => {
+      isMounted = false;
+    };
+  }, [exam?.id, studentCode, currentUser?.username]);
+
+  const now = Date.now();
+  const isNotOpenYet = !!(exam?.openTime && new Date(exam.openTime).getTime() > now);
+  const isClosed = !!(exam?.closeTime && new Date(exam.closeTime).getTime() <= now);
+  const isAttemptLimitReached = !!(
+    exam?.maxAttempts &&
+    exam.maxAttempts > 0 &&
+    attemptCount >= exam.maxAttempts
+  );
+  const isExamBlocked = isNotOpenYet || isClosed || isAttemptLimitReached;
+
+  const formatDateTime = (dateStr?: string) => {
+    if (!dateStr) return "";
+    try {
+      return new Date(dateStr).toLocaleString("vi-VN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
   const handleStartExam = (e: React.FormEvent) => {
     e.preventDefault();
     if (!exam) return;
+
+    if (isExamBlocked) {
+      if (isNotOpenYet) {
+        setPasswordError(`Đề thi chưa đến thời gian mở! Dự kiến mở lúc: ${formatDateTime(exam.openTime)}`);
+      } else if (isClosed) {
+        setPasswordError(`Đề thi đã đóng nhận bài vào lúc: ${formatDateTime(exam.closeTime)}!`);
+      } else if (isAttemptLimitReached) {
+        setPasswordError(`Bạn đã sử dụng hết số lần làm bài quy định (${attemptCount}/${exam.maxAttempts} lần)!`);
+      }
+      return;
+    }
 
     if (exam.password && exam.password.trim() !== "") {
       if (accessPassword !== exam.password) {
@@ -433,7 +506,7 @@ export default function ExamIntro() {
             </div>
 
             {/* Quick Metrics Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
                 <Clock className="w-5 h-5 text-blue-600 mx-auto mb-1" />
                 <span className="text-[11px] text-slate-400 font-semibold block">Thời gian thi</span>
@@ -446,12 +519,76 @@ export default function ExamIntro() {
                 <span className="text-base font-extrabold text-slate-800">{exam.questionCount || 0} câu</span>
               </div>
 
-              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center col-span-2 sm:col-span-1">
+              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                <Layers className="w-5 h-5 text-violet-600 mx-auto mb-1" />
+                <span className="text-[11px] text-slate-400 font-semibold block">Số lần làm</span>
+                <span className={`text-base font-extrabold ${isAttemptLimitReached ? "text-rose-600" : "text-slate-800"}`}>
+                  {exam.maxAttempts && exam.maxAttempts > 0 ? `${attemptCount}/${exam.maxAttempts}` : "Vô hạn"}
+                </span>
+              </div>
+
+              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
                 <ShieldAlert className="w-5 h-5 text-amber-600 mx-auto mb-1" />
                 <span className="text-[11px] text-slate-400 font-semibold block">Chống gian lận</span>
                 <span className="text-xs font-extrabold text-emerald-700 block mt-1">Đang kích hoạt</span>
               </div>
             </div>
+
+            {/* Schedule Info (Open & Close Times) if configured */}
+            {(exam.openTime || exam.closeTime) && (
+              <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-around gap-2 text-xs font-medium">
+                {exam.openTime && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-500 font-semibold">Thời gian mở đề:</span>
+                    <strong className="text-slate-800">{formatDateTime(exam.openTime)}</strong>
+                  </div>
+                )}
+                {exam.openTime && exam.closeTime && <span className="hidden sm:inline text-slate-300">|</span>}
+                {exam.closeTime && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-500 font-semibold">Thời gian kết thúc:</span>
+                    <strong className="text-slate-800">{formatDateTime(exam.closeTime)}</strong>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Schedule & Attempts Status Alerts */}
+            {isNotOpenYet && (
+              <div className="p-4 bg-amber-50 border border-amber-300 rounded-2xl flex items-start gap-3 text-amber-900">
+                <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm">Chưa đến thời gian mở đề thi</h4>
+                  <p className="text-xs mt-1 text-amber-800">
+                    Đề thi sẽ chính thức mở vào lúc <strong>{formatDateTime(exam.openTime)}</strong>. Vui lòng quay lại đúng giờ để tham gia làm bài.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {isClosed && (
+              <div className="p-4 bg-rose-50 border border-rose-300 rounded-2xl flex items-start gap-3 text-rose-900">
+                <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm">Đề thi đã đóng nhận bài</h4>
+                  <p className="text-xs mt-1 text-rose-800">
+                    Thời gian kết thúc bài thi là <strong>{formatDateTime(exam.closeTime)}</strong>. Hệ thống hiện đã khóa và không nhận thêm bài thi.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {isAttemptLimitReached && (
+              <div className="p-4 bg-rose-50 border border-rose-300 rounded-2xl flex items-start gap-3 text-rose-900">
+                <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm">Đã hết số lần làm bài cho phép</h4>
+                  <p className="text-xs mt-1 text-rose-800">
+                    Thí sinh <strong>{studentCode || studentName}</strong> đã nộp bài <strong>{attemptCount}</strong> lần (Quy định tối đa: <strong>{exam.maxAttempts}</strong> lần).
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Student Custom Sub-Exam */}
             {exam.allowSubExam && (
@@ -524,10 +661,17 @@ export default function ExamIntro() {
               <div className="flex items-center gap-3 pt-2">
                 <button
                   type="submit"
-                  disabled={!acceptedTerms}
+                  disabled={!acceptedTerms || isExamBlocked || checkingAttempts}
                   className="flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Play className="w-4 h-4 fill-white" /> Bắt đầu làm bài
+                  <Play className="w-4 h-4 fill-white" />
+                  {isNotOpenYet
+                    ? "Chưa đến giờ mở đề"
+                    : isClosed
+                    ? "Đề thi đã đóng nhận bài"
+                    : isAttemptLimitReached
+                    ? "Đã hết số lần làm bài"
+                    : "Bắt đầu làm bài"}
                 </button>
 
                 <button

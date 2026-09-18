@@ -23,7 +23,11 @@ export default function LatexPreview({ content, className = "" }: Props) {
     } catch (e) {
       console.error("Error parsing LaTeX preview", e);
       if (containerRef.current) {
-        containerRef.current.textContent = content;
+        try {
+          containerRef.current.innerHTML = sanitizeHarmfulHtml(content.replace(/\n/g, "<br/>"));
+        } catch {
+          containerRef.current.textContent = content;
+        }
       }
     }
   }, [content]);
@@ -324,11 +328,11 @@ function escapeUnmatchedAngleBrackets(text: string): string {
   return escaped.replace(/\uE002TAG(\d+)\uE003/g, (_, idx) => tags[parseInt(idx, 10)]);
 }
 
-/**
- * Parses markdown cell content: renders LaTeX, bold, italic, code, etc.
- */
 function renderCellContent(content: string): string {
+  if (!content) return "";
   let cell = renderLatexInString(content.trim());
+  // Safely escape bare angle brackets (e.g. x < 5 or n > 10) inside table cells so they don't break HTML tags
+  cell = escapeUnmatchedAngleBrackets(cell);
   // Inline bold
   cell = cell.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
   // Inline italic
@@ -338,11 +342,217 @@ function renderCellContent(content: string): string {
   return cell;
 }
 
+export interface RawBlockToken {
+  id: string;
+  content: string;
+}
+
+/**
+ * Extracts fenced code block into lang and raw content,
+ * supporting both multiline ```lang\n...``` and single-line ```lang ...```.
+ */
+export function parseFencedCodeBlock(blockContent: string): { lang: string; code: string } {
+  let rawContent = blockContent;
+  let lang = "";
+
+  const firstNewlineIdx = rawContent.indexOf("\n");
+  if (firstNewlineIdx !== -1) {
+    const firstLine = rawContent.slice(0, firstNewlineIdx).trim();
+    if (/^[a-zA-Z0-9_#+.-]{1,25}$/.test(firstLine)) {
+      lang = firstLine;
+      rawContent = rawContent.slice(firstNewlineIdx + 1);
+    }
+  } else {
+    const parts = rawContent.trim().match(/^([a-zA-Z0-9_#+.-]{1,15})\s+([\s\S]+)$/);
+    if (
+      parts &&
+      /^(py|python|js|javascript|ts|typescript|cpp|c\+\+|cs|c#|csharp|java|pascal|pas|sql|html|css|json|bash|sh|xml|yaml|yml|md|text|txt|latex|tex)$/i.test(
+        parts[1]
+      )
+    ) {
+      lang = parts[1];
+      rawContent = parts[2];
+    }
+  }
+
+  return { lang, code: rawContent };
+}
+
+/**
+ * Robust tokenizer/state machine that extracts <raw>...</raw> blocks
+ * before any normalization, Markdown, LaTeX, or HTML parsing occurs.
+ */
+export function extractRawBlocks(input: string): {
+  text: string;
+  rawBlocks: RawBlockToken[];
+} {
+  if (!input) return { text: "", rawBlocks: [] };
+
+  // Support legacy $&raw{...}&$ or &raw{...} syntax by converting to <raw>...</raw>
+  let source = input;
+  if (source.includes("&raw{")) {
+    source = source.replace(/(?:\$)?&raw\{([\s\S]*?)\}(?:\$)?/g, "<raw>$1</raw>");
+  }
+
+  const rawBlocks: RawBlockToken[] = [];
+  let result = "";
+  let i = 0;
+  const len = source.length;
+
+  while (i < len) {
+    // Check if source starting at i is <raw> (case-insensitive, optional whitespace before '>')
+    const rawMatch = source.slice(i).match(/^<raw\s*>/i);
+    if (rawMatch) {
+      const openTagLen = rawMatch[0].length;
+      const contentStart = i + openTagLen;
+
+      // Scan forward for matching </raw\s*>
+      // Must ignore </raw> when inside backticks (fenced code or inline code)
+      let j = contentStart;
+      let matchingCloseStart = -1;
+      let matchingCloseEnd = -1;
+
+      while (j < len) {
+        // Fenced code block: ``` or ~~~
+        if (source.startsWith("```", j) || source.startsWith("~~~", j)) {
+          const fence = source.slice(j, j + 3);
+          j += 3;
+          const closeFenceIdx = source.indexOf(fence, j);
+          if (closeFenceIdx !== -1) {
+            j = closeFenceIdx + 3;
+          } else {
+            j = len;
+          }
+          continue;
+        }
+
+        // Inline backtick: `
+        if (source[j] === "`") {
+          j++;
+          const closeTickIdx = source.indexOf("`", j);
+          if (closeTickIdx !== -1) {
+            j = closeTickIdx + 1;
+          } else {
+            j = len;
+          }
+          continue;
+        }
+
+        // Closing </raw>
+        const closeMatch = source.slice(j).match(/^<\/raw\s*>/i);
+        if (closeMatch) {
+          matchingCloseStart = j;
+          matchingCloseEnd = j + closeMatch[0].length;
+          break;
+        }
+
+        j++;
+      }
+
+      if (matchingCloseStart !== -1) {
+        const rawContent = source.slice(contentStart, matchingCloseStart);
+        const blockId = `\uE008RAW_${rawBlocks.length}\uE009`;
+        rawBlocks.push({ id: blockId, content: rawContent });
+        result += blockId;
+        i = matchingCloseEnd;
+        continue;
+      }
+    }
+
+    result += source[i];
+    i++;
+  }
+
+  return { text: result, rawBlocks };
+}
+
+/**
+ * Dedicated renderer for RAW block content.
+ * Disables automatic Markdown/HTML/LaTeX interpretation.
+ * Only processes:
+ * 1. Fenced code blocks (``` or ~~~)
+ * 2. Inline backtick code (`...`)
+ * 3. Preserves all other text as literal content (safe from HTML execution / KaTeX transformation).
+ */
+export function renderRawBlockContent(
+  rawContent: string,
+  options?: { forWord?: boolean }
+): string {
+  if (!rawContent) return "";
+
+  let i = 0;
+  const len = rawContent.length;
+  let htmlResult = "";
+
+  while (i < len) {
+    // 1. Check for fenced code block: ``` or ~~~
+    if (rawContent.startsWith("```", i) || rawContent.startsWith("~~~", i)) {
+      const fence = rawContent.slice(i, i + 3);
+      const startFence = i + 3;
+      const endFence = rawContent.indexOf(fence, startFence);
+      if (endFence !== -1) {
+        const blockContent = rawContent.slice(startFence, endFence);
+        const { lang, code } = parseFencedCodeBlock(blockContent);
+
+        if (options?.forWord) {
+          const clean = code.replace(/\r\n/g, "\n").trim();
+          const langHeader = lang
+            ? `<div style="font-size: 8pt; font-weight: bold; color: #94a3b8; border-bottom: 1px solid #334155; padding-bottom: 4pt; margin-bottom: 6pt; letter-spacing: 0.5pt;">${lang.toUpperCase()}</div>`
+            : "";
+          htmlResult += `<div style="background-color: #1e293b; color: #f8fafc; font-family: Consolas, 'Courier New', monospace; font-size: 9pt; padding: 8pt 10pt; border-radius: 6pt; margin: 8pt 0; border: 1px solid #334155; line-height: 1.45; white-space: pre-wrap;">${langHeader}${escapeHtml(clean)}</div>`;
+        } else {
+          htmlResult += renderDiscordCodeBlock(code, lang);
+        }
+
+        i = endFence + 3;
+        continue;
+      }
+    }
+
+    // 2. Check for inline backtick: `
+    if (rawContent[i] === "`") {
+      const endTick = rawContent.indexOf("`", i + 1);
+      if (endTick !== -1) {
+        const codeText = rawContent.slice(i + 1, endTick);
+        if (options?.forWord) {
+          htmlResult += `<code style="background-color: #f1f5f9; color: #db2777; padding: 2pt 4pt; border-radius: 3pt; font-family: Consolas, monospace; font-size: 9pt; border: 1px solid #e2e8f0;">${escapeHtml(codeText)}</code>`;
+        } else {
+          htmlResult += `<code class="px-1.5 py-0.5 mx-0.5 bg-slate-100/90 text-pink-600 font-mono text-[12px] font-semibold rounded-md border border-slate-200/80 shadow-2xs">${escapeHtml(codeText)}</code>`;
+        }
+        i = endTick + 1;
+        continue;
+      }
+    }
+
+    // 3. Literal text: scan until next fence or backtick
+    let literalEnd = i;
+    while (
+      literalEnd < len &&
+      !rawContent.startsWith("```", literalEnd) &&
+      !rawContent.startsWith("~~~", literalEnd) &&
+      rawContent[literalEnd] !== "`"
+    ) {
+      literalEnd++;
+    }
+
+    const literalSegment = rawContent.slice(i, literalEnd);
+    if (literalSegment) {
+      htmlResult += `<span class="dk-raw-text" style="white-space: pre-wrap;">${escapeHtml(literalSegment)}</span>`;
+    }
+    i = literalEnd;
+  }
+
+  return htmlResult;
+}
+
 /**
  * Main markdown with LaTeX and rich HTML parser.
  */
 export function renderMarkdownWithLatex(rawText: string): string {
   if (!rawText) return "";
+
+  // 0. Extract and protect RAW blocks FIRST using tokenizer state machine
+  const { text: textWithoutRaw, rawBlocks } = extractRawBlocks(rawText);
 
   const placeholders: { [key: string]: string } = {};
   let tokenCounter = 0;
@@ -353,45 +563,28 @@ export function renderMarkdownWithLatex(rawText: string): string {
     return key;
   };
 
-  let text = normalizeLatexText(rawText);
+  let text = normalizeLatexText(textWithoutRaw);
 
   // 1. Code blocks: ```lang ... ``` or ~~~lang ... ~~~ (Discord style)
   text = text.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
-    let rawContent = blockContent;
-    let lang = "";
-
-    // Check if the first line specifies a language
-    const firstNewlineIdx = rawContent.indexOf("\n");
-    if (firstNewlineIdx !== -1) {
-      const firstLine = rawContent.slice(0, firstNewlineIdx).trim();
-      // If firstLine is a clean identifier (e.g. "python", "cpp", "c++", "pascal", "sql")
-      if (/^[a-zA-Z0-9_#+.-]{1,25}$/.test(firstLine)) {
-        lang = firstLine;
-        rawContent = rawContent.slice(firstNewlineIdx + 1);
-      }
-    } else {
-      // Single line block, e.g. ```python print('hello')```
-      const parts = rawContent.trim().match(/^([a-zA-Z0-9_#+.-]{1,15})\s+([\s\S]+)$/);
-      if (
-        parts &&
-        /^(py|python|js|javascript|ts|typescript|cpp|c\+\+|cs|c#|csharp|java|pascal|pas|sql|html|css|json|bash|sh|xml|yaml|yml|md|text|txt)$/i.test(
-          parts[1]
-        )
-      ) {
-        lang = parts[1];
-        rawContent = parts[2];
-      }
-    }
-
-    const discordHtml = renderDiscordCodeBlock(rawContent, lang);
+    const { lang, code } = parseFencedCodeBlock(blockContent);
+    const discordHtml = renderDiscordCodeBlock(code, lang);
     return createPlaceholder(discordHtml);
   });
 
   // 2. Process HTML tables: <table ...>...</table>
+  // Auto-close dangling <table> tags if truncated or missing in AI stream
+  const openTableMatches = (text.match(/<table\b/gi) || []).length;
+  const closeTableMatches = (text.match(/<\/table>/gi) || []).length;
+  if (openTableMatches > closeTableMatches) {
+    text += "</table>".repeat(openTableMatches - closeTableMatches);
+  }
+
   // Parse any LaTeX and inline formatting inside table cells (th, td, caption)
   text = text.replace(/<table([\s\S]*?)<\/table>/gi, (fullTable) => {
     let processedTable = fullTable.replace(/<(th|td|caption)([\s\S]*?)>([\s\S]*?)<\/\1>/gi, (match, tag, attrs, cellInner) => {
-      const renderedInner = renderLatexInString(cellInner, createPlaceholder);
+      const safeCellInner = escapeUnmatchedAngleBrackets(cellInner);
+      const renderedInner = renderLatexInString(safeCellInner, createPlaceholder);
       let cellAttrs = attrs;
       if (!cellAttrs.includes("class=")) {
         if (tag.toLowerCase() === "th") {
@@ -592,6 +785,15 @@ export function renderMarkdownWithLatex(rawText: string): string {
   // Restore unescaped dollar signs \$ -> $
   text = text.replace(/\\\$/g, "$");
 
+  // Restore protected RAW blocks directly into the final output.
+  // Content inside RAW blocks is never re-processed by KaTeX, Markdown, or HTML parsers.
+  if (rawBlocks.length > 0) {
+    for (const block of rawBlocks) {
+      const renderedRaw = renderRawBlockContent(block.content);
+      text = text.split(block.id).join(renderedRaw);
+    }
+  }
+
   return text;
 }
 
@@ -618,7 +820,7 @@ function sanitizeHarmfulHtml(htmlStr: string): string {
   return cleaned;
 }
 
-function escapeHtml(str: string): string {
+export function escapeHtml(str: string): string {
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")

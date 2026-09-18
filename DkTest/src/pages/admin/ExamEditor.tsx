@@ -252,12 +252,32 @@ export default function ExamEditor({ isNew }: { isNew?: boolean }) {
             </label>
             
             <div className="mt-4">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Số lần làm tối đa</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Số lần làm tối đa (0 = vô hạn)</label>
               <input 
                 type="number" 
-                min={1}
-                value={exam.maxAttempts || 1}
+                min={0}
+                value={exam.maxAttempts ?? 1}
                 onChange={(e) => handleChange("maxAttempts", Number(e.target.value))}
+                className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-slate-700 mb-1">Thời gian mở đề (Tùy chọn)</label>
+              <input 
+                type="datetime-local" 
+                value={exam.openTime || ""}
+                onChange={(e) => handleChange("openTime", e.target.value || undefined)}
+                className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-slate-700 mb-1">Thời gian đóng đề (Tùy chọn)</label>
+              <input 
+                type="datetime-local" 
+                value={exam.closeTime || ""}
+                onChange={(e) => handleChange("closeTime", e.target.value || undefined)}
                 className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow"
               />
             </div>

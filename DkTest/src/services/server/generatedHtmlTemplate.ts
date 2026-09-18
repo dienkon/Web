@@ -68,8 +68,8 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
 
     <!-- Prevent favicon 404 if you don't have one yet -->
     <link rel="apple-touch-icon" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/index-D4cLUL_h.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C_YftMyy.css">
+    <script type="module" crossorigin src="/assets/index-k1VvjaQW.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D594iDe-.css">
   </head>
 
   <body>

@@ -7,6 +7,7 @@ import ShortAnswerEditor from "./ShortAnswerEditor";
 import OrderingEditor from "./OrderingEditor";
 import FillBlankEditor from "./FillBlankEditor";
 import RichTextEditor from "../editor/RichTextEditor";
+import AudioConfigEditor from "../../../components/exam/AudioConfigEditor";
 import { Pin, Shuffle } from "lucide-react";
 
 export default function QuestionEditor({ question }: { question: Question }) {
@@ -29,6 +30,15 @@ export default function QuestionEditor({ question }: { question: Question }) {
           placeholder="Nhập nội dung câu hỏi (hỗ trợ LaTeX bằng $công thức$ hoặc $$công thức khối$$)..."
         />
       </div>
+
+      {/* Embedded Question Audio (Listening MP3) */}
+      <AudioConfigEditor
+        audioConfig={question.audioConfig}
+        onChange={(cfg) => update({ audioConfig: cfg, audioUrl: cfg.url })}
+        onRemove={() => update({ audioConfig: undefined, audioUrl: null })}
+        label="Nhúng bài nghe Audio vào câu hỏi này (MP3)"
+        defaultTitle="Audio câu hỏi"
+      />
 
       {/* Type Specific Editor */}
       <div>

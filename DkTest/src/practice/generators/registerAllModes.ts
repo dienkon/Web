@@ -68,7 +68,13 @@ import { englishSynonymsAntonymsMode } from "./english/synonymsAntonyms";
 import { englishErrorIdentificationMode } from "./english/errorIdentification";
 import { englishScrambledSentencesMode } from "./english/scrambledSentences";
 
+// Group J: Computer Science / Tin học THPTQG
+import { codeTraceLoopMode } from "./cs/codeTraceLoop";
+
 export const ALL_PRACTICE_MODES: PracticeMode[] = [
+  // Computer Science / Tin học
+  codeTraceLoopMode,
+
   // English Learning
   englishVocabTopicMode,
   englishGrammarTensesMode,

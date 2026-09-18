@@ -1,0 +1,259 @@
+:root {
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-handwriting: 'Dancing Script', cursive;
+  --font-display: 'Playfair Display', serif;
+
+  --theme-primary: #f43f5e;
+  --theme-accent: #8b5cf6;
+  --theme-glow: rgba(244, 63, 94, 0.4);
+  --theme-bg: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0f172a 55%, #020617 100%);
+  --theme-glass-bg: rgba(15, 23, 42, 0.7);
+  --theme-glass-border: rgba(244, 63, 94, 0.25);
+  --theme-card-bg: rgba(30, 27, 75, 0.55);
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: rgba(241, 245, 249, 0.75);
+  --theme-heart: #f43f5e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  background: var(--theme-bg);
+  color: var(--theme-text-primary);
+  line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--theme-glass-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-primary);
+}
+
+/* Selection Color */
+::selection {
+  background: var(--theme-primary);
+  color: #ffffff;
+}
+
+/* Luxury Typography */
+.font-handwriting {
+  font-family: var(--font-handwriting);
+}
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Glassmorphism System */
+.glass-panel {
+  background: var(--theme-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--theme-glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card {
+  background: var(--theme-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--theme-glass-border);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--theme-primary);
+  box-shadow: 0 14px 35px -5px var(--theme-glow);
+  transform: translateY(-2px);
+}
+
+.glass-button {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--theme-glass-border);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+.glass-button:hover {
+  background: linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+  border-color: transparent;
+  box-shadow: 0 0 20px var(--theme-glow);
+  transform: translateY(-1px) scale(1.02);
+}
+.glass-button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Primary Vibrant Button */
+.btn-vibrant {
+  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-accent) 100%);
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 20px var(--theme-glow);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-vibrant:hover {
+  box-shadow: 0 6px 30px var(--theme-glow), 0 0 12px var(--theme-primary);
+  transform: translateY(-2px) scale(1.03);
+}
+.btn-vibrant:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes heartbeatPulse {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.22);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateRecord {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes waveBar {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 24px;
+  }
+}
+
+@keyframes inkReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Desktop Custom Cursor */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor {
+    cursor: none !important;
+  }
+  body.has-custom-cursor button,
+  body.has-custom-cursor a,
+  body.has-custom-cursor input,
+  body.has-custom-cursor textarea,
+  body.has-custom-cursor [role="button"] {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  mix-blend-mode: screen;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  z-index: 100000;
+  border-radius: 50%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px var(--theme-primary);
+}
+
+/* Background Ambient Orbs */
+.ambient-bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+  animation: pulseGlow 12s infinite alternate ease-in-out;
+}
+
+/* Mobile Safe Areas */
+.safe-bottom {
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+.safe-top {
+  padding-top: max(16px, env(safe-area-inset-top));
+}

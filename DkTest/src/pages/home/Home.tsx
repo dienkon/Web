@@ -25,6 +25,7 @@ import {
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Exam } from "../../types";
+import { MASTER_SCHEMA_JSON_STRING } from "../../utils/prompt/chatGptMasterPrompt";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -45,28 +46,15 @@ export default function Home() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [targetExamId, setTargetExamId] = useState<string | null>(null);
 
-  const HOME_MASTER_PROMPT = `Bạn là trợ lý soạn đề thi trắc nghiệm. Hãy tạo đề thi theo cấu trúc JSON sau và trả về DUY NHẤT một khối mã JSON hợp lệ:
-{
-  "title": "Tên đề thi",
-  "timeLimit": 45,
-  "questions": [
-    {
-      "id": "q1",
-      "type": "single_choice",
-      "text": "Nội dung câu hỏi (hỗ trợ công thức $...$)",
-      "points": 1,
-      "options": [
-        { "id": "opt_a", "text": "Phương án A" },
-        { "id": "opt_b", "text": "Phương án B" },
-        { "id": "opt_c", "text": "Phương án C" },
-        { "id": "opt_d", "text": "Phương án D" }
-      ],
-      "correctOptionIds": ["opt_a"],
-      "explanation": "Lời giải chi tiết..."
-    }
-  ]
-}
-Chủ đề cần tạo: [NHẬP CHỦ ĐỀ HOẶC DÁN BÀI TẬP VÀO ĐÂY]`;
+  const HOME_MASTER_PROMPT = `Bạn là trợ lý chuyên nghiệp soạn đề thi chuẩn DkTEST (phiên bản 2026 hỗ trợ toàn diện 6 dạng câu hỏi, âm thanh nghe MP3, tệp đính kèm, LaTeX, bảng HTML, khối mã Discord, khối nguyên bản <raw>).
+
+Hãy tạo đề thi theo cấu trúc JSON sau và trả về DUY NHẤT một khối mã JSON hợp lệ:
+
+\`\`\`json
+${MASTER_SCHEMA_JSON_STRING}
+\`\`\`
+
+Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN BÀI TẬP/ẢNH VÀO ĐÂY]`;
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");

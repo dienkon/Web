@@ -10,7 +10,8 @@ export type PracticeCategory =
   | "advanced"
   | "geometry"
   | "word_problems"
-  | "english";
+  | "english"
+  | "cs";
 
 export type QuestionInputType =
   | "numeric"
@@ -49,6 +50,7 @@ export interface PracticeQuestion {
   prompt: string;
   latex?: string;
   subText?: string;
+  codeSnippet?: { python: string; cpp: string };
   correctAnswer: PracticeAnswerValue;
   options?: Array<{ id: string; text: string; latex?: string }>;
   explanation: string;
@@ -60,6 +62,7 @@ export interface PracticeQuestion {
     targetValue?: number;
     availableCards?: Array<{ id: string; label: string; value: number | string; type: "number" | "op" }>;
     hints?: string[];
+    codeSnippet?: { python: string; cpp: string };
   };
 }
 

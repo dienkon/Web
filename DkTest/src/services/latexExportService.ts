@@ -1,6 +1,7 @@
 import katex from "katex";
 import type { Exam, Question, Section } from "../types";
 import { fixLatexFormatting } from "../utils/latexFormatter";
+import { extractRawBlocks, renderRawBlockContent } from "../features/exam-builder/editor/LatexPreview";
 
 export interface ExportExamOptions {
   includeAnswers: boolean;
@@ -20,16 +21,11 @@ export function escapeLatexText(text: string): string {
   // 1. Fix control character corruption & unescaped math commands
   let sanitized = fixLatexFormatting(text);
 
-  // 2. Wrap un-delimited math commands (like \frac{...}{...}, \sqrt{...}, \notin, \times) into inline math $...$
   const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{[^{}]*\}\s*\{[^{}]*\})/g;
-  sanitized = sanitized.replace(fracRegex, (m) => (m.startsWith("$") ? m : `$${m}$`));
-
   const sqrtRegex = /((?:[-+]?\s*(?:[0-9a-zA-Z]+|[a-zA-Z]\s*=\s*))?\\sqrt(?:\[[^\]]*\])?\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\})/g;
-  sanitized = sanitized.replace(sqrtRegex, (m) => (m.startsWith("$") ? m : `$${m}$`));
-
   const commonLatexRegex = /(\\(?:vec|bar|hat|overline|underline)\s*\{[^{}]*\}|\\(?:int|sum|prod|lim)(?:_\{[^{}]*\}|_[\w\d])?(?:\^\{[^{}]*\}|\^[\w\d])?|\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)\b)/g;
-  
-  // Protect existing math mode blocks
+
+  // Protect existing math mode blocks FIRST so we never double-wrap $...$
   const parts = sanitized.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
 
   return parts
@@ -38,8 +34,11 @@ export function escapeLatexText(text: string): string {
         // Math content: preserve as is
         return part;
       }
-      // Text content: wrap un-delimited LaTeX commands in math mode first
-      let processedText = part.replace(commonLatexRegex, (cmd) => `$${cmd}$`);
+      // Text content: only wrap un-delimited LaTeX commands in plain text
+      let processedText = part;
+      processedText = processedText.replace(fracRegex, (m) => `$${m}$`);
+      processedText = processedText.replace(sqrtRegex, (m) => `$${m}$`);
+      processedText = processedText.replace(commonLatexRegex, (cmd) => `$${cmd}$`);
 
       // Now split by any newly introduced $...$
       const innerParts = processedText.split(/(\$[\s\S]*?\$)/g);
@@ -62,7 +61,10 @@ export function escapeLatexText(text: string): string {
 export function renderLatexToHtml(text: string): string {
   if (!text) return "";
 
-  let sanitized = fixLatexFormatting(text);
+  // 0. Extract and protect RAW blocks FIRST using tokenizer state machine
+  const { text: textWithoutRaw, rawBlocks } = extractRawBlocks(text);
+
+  let sanitized = fixLatexFormatting(textWithoutRaw);
 
   // Convert markdown code blocks ```lang ... ``` to styled code boxes
   sanitized = sanitized.replace(/(?:```|~~~)([\s\S]*?)(?:```|~~~)/g, (_, blockContent) => {
@@ -104,20 +106,22 @@ export function renderLatexToHtml(text: string): string {
   // Format fill-in-the-blank placeholders [_] or [blank]
   sanitized = sanitized.replace(/\[_\]|\[blank\]/gi, `<span style="display: inline-block; min-width: 80px; border-bottom: 1.5px solid #334155; margin: 0 4px; vertical-align: bottom;">&nbsp;</span>`);
 
-  // Auto-wrap common unwrapped math commands in $...$
+  // Auto-wrap common unwrapped math commands in $...$ (ONLY outside existing $...$ blocks)
   const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{[^{}]*\}\s*\{[^{}]*\})/g;
-  sanitized = sanitized.replace(fracRegex, (m) => (m.startsWith("$") ? m : `$${m}$`));
-
   const sqrtRegex = /((?:[-+]?\s*(?:[0-9a-zA-Z]+|[a-zA-Z]\s*=\s*))?\\sqrt(?:\[[^\]]*\])?\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\})/g;
-  sanitized = sanitized.replace(sqrtRegex, (m) => (m.startsWith("$") ? m : `$${m}$`));
-
   const commonLatexRegex = /(\\(?:vec|bar|hat|overline|underline)\s*\{[^{}]*\}|\\(?:int|sum|prod|lim)(?:_\{[^{}]*\}|_[\w\d])?(?:\^\{[^{}]*\}|\^[\w\d])?|\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)\b)/g;
   
   const parts = sanitized.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
-  sanitized = parts.map((part) => {
-    if (part.startsWith("$")) return part;
-    return part.replace(commonLatexRegex, (cmd) => `$${cmd}$`);
-  }).join("");
+  sanitized = parts
+    .map((part) => {
+      if (part.startsWith("$")) return part;
+      let textPart = part;
+      textPart = textPart.replace(fracRegex, (m) => `$${m}$`);
+      textPart = textPart.replace(sqrtRegex, (m) => `$${m}$`);
+      textPart = textPart.replace(commonLatexRegex, (cmd) => `$${cmd}$`);
+      return textPart;
+    })
+    .join("");
 
   // Replace $$...$$ block math
   let result = sanitized.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
@@ -141,7 +145,77 @@ export function renderLatexToHtml(text: string): string {
   result = result.replace(/\n/g, "<br/>");
 
   result = result.replace(/<table\b[^>]*>[\s\S]*?<\/table>/gi, (match) => `<div class="responsive-table-container">${match}</div>`);
+
+  // Restore protected RAW blocks directly into the final output
+  if (rawBlocks.length > 0) {
+    for (const block of rawBlocks) {
+      const renderedRaw = renderRawBlockContent(block.content);
+      result = result.split(block.id).join(renderedRaw);
+    }
+  }
+
   return result;
+}
+
+/**
+ * Smart Vietnamese Exam ABCD Layout Classifier (Chuẩn đề thi thực tế Bộ GD&ĐT)
+ * - Kiểu 1 (four-cols): A  B  C  D trên 1 hàng khi các đáp án đều ngắn và gọn.
+ * - Kiểu 2 (two-cols): Hàng 1 (A, B) và Hàng 2 (C, D) khi các đáp án có độ dài trung bình hoặc chứa phân số / biểu thức.
+ * - Kiểu 3 (one-col): A, B, C, D mỗi đáp án 1 hàng riêng khi nội dung dài hoặc xuống dòng.
+ */
+export function classifyOptionsLayout(options: { text: string }[]): "four-cols" | "two-cols" | "one-col" {
+  if (!options || options.length === 0) return "four-cols";
+
+  if (options.length !== 4) {
+    const maxL = Math.max(...options.map((o) => (o.text || "").length), 0);
+    return maxL > 35 ? "one-col" : "two-cols";
+  }
+
+  let hasMultiline = false;
+  let hasHeavyMath = false;
+  let hasFractionOrSqrt = false;
+  const visualLengths: number[] = [];
+
+  for (const opt of options) {
+    const raw = opt.text || "";
+    if (raw.includes("\n") || raw.includes("<br") || raw.includes("<p>")) {
+      hasMultiline = true;
+    }
+    if (/\\begin|\\matrix|\\pmatrix|\\cases|\\aligned/i.test(raw)) {
+      hasHeavyMath = true;
+    }
+    if (/\\(?:d|t)?frac|\\sqrt/i.test(raw)) {
+      hasFractionOrSqrt = true;
+    }
+
+    // Estimate visual text length by stripping LaTeX markup commands
+    const stripped = raw
+      .replace(/\$\$[\s\S]*?\$\$/g, "XXXXX")
+      .replace(/\$([^$]+)\$/g, "$1")
+      .replace(/\\(?:d|t)?frac\{([^{}]*)\}\{([^{}]*)\}/g, "$1/$2")
+      .replace(/\\sqrt(?:\[[^\]]*\])?\{([^{}]*)\}/g, "V$1")
+      .replace(/\\[a-zA-Z]+/g, "")
+      .replace(/[{}]/g, "")
+      .trim();
+
+    visualLengths.push(stripped.length);
+  }
+
+  const maxLen = Math.max(...visualLengths, 0);
+  const totalLen = visualLengths.reduce((sum, len) => sum + len, 0);
+
+  // Kiểu 3: 1 cột nếu có xuống dòng, công thức rất cồng kềnh hoặc đáp án dài > 45 ký tự
+  if (hasMultiline || hasHeavyMath || maxLen > 45) {
+    return "one-col";
+  }
+
+  // Kiểu 2: 2 cột (A B / C D) nếu chứa phân số/căn thức, hoặc maxLen > 18, hoặc tổng độ dài > 50
+  if (hasFractionOrSqrt || maxLen > 18 || totalLen > 50) {
+    return "two-cols";
+  }
+
+  // Kiểu 1: 4 cột trên 1 hàng (A B C D) khi tất cả đều ngắn, không phân số cồng kềnh
+  return "four-cols";
 }
 
 /**
@@ -347,10 +421,10 @@ export function generateExamLatex(
 
     if (q.type === "single_choice" || q.type === "multiple_choice") {
       const opts = q.options || [];
-      const maxLen = Math.max(...opts.map((o) => (o.text || "").length), 0);
+      const layoutType = classifyOptionsLayout(opts);
       let numCols = 4;
-      if (maxLen > 40) numCols = 1;
-      else if (maxLen > 20) numCols = 2;
+      if (layoutType === "one-col") numCols = 1;
+      else if (layoutType === "two-cols") numCols = 2;
 
       tex += `\\begin{tasks}(${numCols})\n`;
       opts.forEach((opt) => {
@@ -547,9 +621,16 @@ export function generateExamHtmlForPrint(
     .options-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px 12px;
+      column-gap: 16px;
+      row-gap: 6px;
       margin-left: 14px;
+      margin-top: 4px;
       margin-bottom: 6px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .options-grid.four-cols {
+      grid-template-columns: repeat(4, 1fr);
     }
     .options-grid.two-cols {
       grid-template-columns: repeat(2, 1fr);
@@ -560,10 +641,22 @@ export function generateExamHtmlForPrint(
     .opt-item {
       display: flex;
       align-items: baseline;
-      gap: 4px;
+      gap: 6px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      min-width: 0;
     }
     .opt-letter {
       font-weight: bold;
+      flex-shrink: 0;
+      white-space: nowrap;
+      min-width: 18px;
+    }
+    .opt-content {
+      flex: 1;
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
     .opt-correct {
       font-weight: bold;
@@ -761,11 +854,7 @@ export function generateExamHtmlForPrint(
 
     if (q.type === "single_choice" || q.type === "multiple_choice") {
       const opts = q.options || [];
-      // Calculate column count based on option text length
-      const maxLen = Math.max(...opts.map((o) => o.text.length), 0);
-      let colClass = "";
-      if (maxLen > 40) colClass = "one-col";
-      else if (maxLen > 20) colClass = "two-cols";
+      const colClass = classifyOptionsLayout(opts);
 
       html += `<div class="options-grid ${colClass}">`;
       opts.forEach((opt, oIdx) => {
@@ -774,7 +863,7 @@ export function generateExamHtmlForPrint(
         html += `
         <div class="opt-item ${includeAnswers && isCorrect ? "opt-correct" : ""}">
           <span class="opt-letter">${letter}.</span>
-          <span>${renderLatexToHtml(opt.text)}</span>
+          <span class="opt-content">${renderLatexToHtml(opt.text)}</span>
         </div>
 `;
       });
@@ -883,6 +972,8 @@ export async function exportExamToPdf(
   container.style.boxSizing = "border-box";
   container.style.padding = "0";
   container.style.margin = "0";
+  container.style.opacity = "1";
+  container.style.pointerEvents = "none";
 
   // Parse HTML string and extract style tags and body content
   const parser = new DOMParser();
@@ -896,21 +987,28 @@ export async function exportExamToPdf(
   const katexCssLink = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">`;
   const bodyInner = parsedDoc.body ? parsedDoc.body.innerHTML : html;
 
-  container.innerHTML = `
+  const contentDiv = document.createElement("div");
+  contentDiv.style.background = "#ffffff";
+  contentDiv.style.color = "#111827";
+  contentDiv.style.padding = "16px";
+  contentDiv.style.fontFamily = "'Times New Roman', Times, serif";
+  contentDiv.style.width = "100%";
+  contentDiv.style.boxSizing = "border-box";
+  contentDiv.innerHTML = `
     ${katexCssLink}
     ${styleElements.join("\n")}
-    <div style="background:#ffffff; color:#111827; padding: 15mm; font-family: 'Times New Roman', Times, serif; width: 794px; box-sizing: border-box;">
-      ${bodyInner}
-    </div>
+    ${bodyInner}
   `;
 
+  container.appendChild(contentDiv);
   document.body.appendChild(container);
 
-  // Wait 1200ms for KaTeX CSS and webfonts
+  // Wait 1200ms for KaTeX CSS, images, and fonts to fully render
   await new Promise((resolve) => setTimeout(resolve, 1200));
 
   try {
-    const html2pdf = (await import("html2pdf.js")).default;
+    const html2pdfModule = await import("html2pdf.js");
+    const html2pdf: any = (html2pdfModule as any).default || html2pdfModule;
 
     const opt = {
       margin: [10, 10, 10, 10] as [number, number, number, number],
@@ -923,15 +1021,13 @@ export async function exportExamToPdf(
         backgroundColor: "#ffffff",
         scrollX: 0,
         scrollY: 0,
-        windowWidth: 794,
-        windowHeight: container.scrollHeight,
         logging: false,
       },
       jsPDF: { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
       pagebreak: { mode: ["avoid-all", "css", "legacy"] },
     };
 
-    await html2pdf().set(opt).from(container).save();
+    await html2pdf().set(opt).from(contentDiv).save();
   } catch (err) {
     console.warn("html2pdf failed, invoking browser print fallback", err);
     printExamDocument(exam, sections, questions, options);

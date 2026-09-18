@@ -23,36 +23,10 @@ export function getQuestionSignature(q: Question): string {
 }
 
 /**
- * Deduplicates questions based on ID and normalized content.
- * Guarantees no two questions in the result share the same signature or text.
+ * Returns all review questions directly without deduplication (per user directive).
  */
 export function deduplicateQuestions(questions: Question[]): Question[] {
-  const seenSignatures = new Set<string>();
-  const seenTexts = new Set<string>();
-  const result: Question[] = [];
-
-  for (const q of questions) {
-    if (!q) continue;
-    const sig = q.id?.trim();
-    const textSig = (q.text || "")
-      .toLowerCase()
-      .replace(/\s+/g, " ")
-      .trim();
-
-    if (sig && seenSignatures.has(sig)) {
-      continue;
-    }
-    if (textSig && textSig.length > 5 && seenTexts.has(textSig)) {
-      continue;
-    }
-
-    if (sig) seenSignatures.add(sig);
-    if (textSig && textSig.length > 5) seenTexts.add(textSig);
-
-    result.push(q);
-  }
-
-  return result;
+  return questions.filter(Boolean);
 }
 
 /**
@@ -186,6 +160,7 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     ...q,
     order: idx,
     originalExamId: examId,
+    originalQuestionId: (q as any).originalQuestionId || q.id,
   }));
 
   const modeLabel = mode === "correct" ? "Làm lại câu đúng" : "Làm lại câu sai";
@@ -272,23 +247,34 @@ export async function createAggregatedReviewExam(
 
   let aggregatedQuestions: Question[] = [];
 
-  for (const item of items) {
+  for (let itemIdx = 0; itemIdx < items.length; itemIdx++) {
+    const item = items[itemIdx];
+    const itemExamId = item.exam?.id || `exam_${itemIdx + 1}`;
     const rawQuestions = await getExamQuestionsSafe(
       item.exam.id,
-      item.submission?.shuffledQuestionsSnapshot || item.questions || item.exam.questions
+      item.questions || item.submission?.shuffledQuestionsSnapshot || item.exam.questions
     );
 
+    let currentQuestions: Question[] = [];
     if (mode === "all") {
-      aggregatedQuestions.push(...rawQuestions);
+      currentQuestions = rawQuestions;
     } else if (mode === "wrong") {
       if (item.submission) {
-        const wrongQs = filterQuestionsBySubmission(rawQuestions, item.submission, "wrong");
-        aggregatedQuestions.push(...wrongQs);
+        currentQuestions = filterQuestionsBySubmission(rawQuestions, item.submission, "wrong");
       } else {
         // If no submission provided for this item, keep questions as fallback
-        aggregatedQuestions.push(...rawQuestions);
+        currentQuestions = rawQuestions;
       }
     }
+
+    // Preserve original question ID and exam ID before merging
+    const tagged = currentQuestions.map((q, qIdx) => ({
+      ...q,
+      originalQuestionId: (q as any).originalQuestionId || q.id || `q_${qIdx + 1}`,
+      originalExamId: (q as any).originalExamId || itemExamId,
+    }));
+
+    aggregatedQuestions.push(...tagged);
   }
 
   // Deduplicate strictly
@@ -311,12 +297,23 @@ export async function createAggregatedReviewExam(
     }
   }
 
-  // Re-index and preserve originalExamId
-  finalQuestions = finalQuestions.map((q, idx) => ({
-    ...q,
-    order: idx,
-    originalExamId: (q as any).originalExamId || (q as any).examId || null,
-  }));
+  // Re-index and assign GUARANTEED UNIQUE IDs for each question to avoid duplicate React keys (e.g. 'q10') and state collisions
+  finalQuestions = finalQuestions.map((q, idx) => {
+    const origId = (q as any).originalQuestionId || q.id || `q${idx + 1}`;
+    const origExam = (q as any).originalExamId || (q as any).examId || "ex";
+    const cleanExam = String(origExam).replace(/[^a-zA-Z0-9_-]/g, "_");
+    const cleanOrigId = String(origId).replace(/[^a-zA-Z0-9_-]/g, "_");
+    const uniqueId = `agg_${cleanExam}_${cleanOrigId}_${idx + 1}`;
+
+    return {
+      ...q,
+      id: uniqueId,
+      order: idx,
+      sectionId: null,
+      originalQuestionId: origId,
+      originalExamId: origExam,
+    };
+  });
 
   const modeTitle = mode === "all" ? "Ôn tập tổng hợp" : "Chinh phục câu sai";
   const estimatedDuration =
@@ -347,7 +344,7 @@ export async function createAggregatedReviewExam(
   const newExamData = {
     title: `${modeTitle} (${items.length} đề thi)`,
     code: `REV_${Date.now().toString().slice(-4)}`,
-    description: `Bài kiểm tra ôn tập tự động từ ${items.length} đề thi bạn đã chọn. Gồm ${finalQuestions.length} câu hỏi không trùng lặp.`,
+    description: `Bài kiểm tra ôn tập tự động từ ${items.length} đề thi bạn đã chọn. Gồm ${finalQuestions.length} câu hỏi.`,
     folderId: studentFolderId,
     timeLimit: estimatedDuration,
     duration: estimatedDuration,

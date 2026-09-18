@@ -1,10 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Loader2, Bot, User, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Bot, User, Sparkles, Paperclip, Image as ImageIcon } from "lucide-react";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+
+interface Attachment {
+  name: string;
+  type: string;
+  data: string; // base64 data url
+}
 
 interface Message {
   role: "user" | "model";
   text: string;
+  attachment?: Attachment;
 }
 
 interface AiTutorChatProps {
@@ -24,10 +31,12 @@ export default function AiTutorChat({
 }: AiTutorChatProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "model", text: "Chào bạn! Mình là Gia sư AI DkTEST. Bạn cần hỗ trợ gì về bài thi này?" },
+    { role: "model", text: "Chào bạn! Mình là Gia sư AI DkTEST. Bạn có thể hỏi câu hỏi hoặc tải ảnh bài tập lên để mình giải đáp nhé!" },
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [pendingAttachment, setPendingAttachment] = useState<Attachment | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,17 +54,50 @@ export default function AiTutorChat({
     }
   }, [autoPrompt]);
 
-  const sendCustomPrompt = async (promptText: string) => {
-    if (!promptText.trim() || isTyping) return;
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    const newMessages: Message[] = [...messages, { role: "user", text: promptText.trim() }];
+    if (file.size > 8 * 1024 * 1024) {
+      alert("Kích thước tệp quá lớn. Vui lòng chọn tệp nhỏ hơn 8MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64Data = event.target?.result as string;
+      setPendingAttachment({
+        name: file.name,
+        type: file.type || "image/jpeg",
+        data: base64Data,
+      });
+    };
+    reader.readAsDataURL(file);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const sendCustomPrompt = async (promptText: string, attachedFile?: Attachment | null) => {
+    if ((!promptText.trim() && !attachedFile) || isTyping) return;
+
+    const userMsg: Message = {
+      role: "user",
+      text: promptText.trim() || (attachedFile ? "Hãy phân tích hình ảnh/tệp này giúp em." : ""),
+      attachment: attachedFile || undefined,
+    };
+
+    const newMessages: Message[] = [...messages, userMsg];
     setMessages(newMessages);
     setIsTyping(true);
+    setPendingAttachment(null);
 
     try {
+      const customApiKey = localStorage.getItem("dktest_gemini_api_key") || "";
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (customApiKey) headers["x-gemini-api-key"] = customApiKey;
+
       const response = await fetch("/api/ai/tutor", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
           messages: newMessages,
           context: {
@@ -108,7 +150,7 @@ export default function AiTutorChat({
       console.error(err);
       setMessages((prev) => [
         ...prev,
-        { role: "model", text: "Xin lỗi, đã xảy ra lỗi khi kết nối với Gia sư AI. Vui lòng thử lại sau." },
+        { role: "model", text: "Xin lỗi, đã xảy ra lỗi khi kết nối với Gia sư AI. Vui lòng kiểm tra khóa API hoặc kết nối mạng." },
       ]);
     } finally {
       setIsTyping(false);
@@ -116,10 +158,10 @@ export default function AiTutorChat({
   };
 
   const handleSend = () => {
-    if (!input.trim() || isTyping) return;
+    if ((!input.trim() && !pendingAttachment) || isTyping) return;
     const text = input.trim();
     setInput("");
-    sendCustomPrompt(text);
+    sendCustomPrompt(text, pendingAttachment);
   };
 
   return (
@@ -137,7 +179,7 @@ export default function AiTutorChat({
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-80 sm:w-96 h-[520px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-indigo-100 flex flex-col z-50 overflow-hidden animate-in fade-in slide-in-from-bottom-5">
+        <div className="fixed bottom-6 right-6 w-80 sm:w-96 h-[540px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-indigo-100 flex flex-col z-50 overflow-hidden animate-in fade-in slide-in-from-bottom-5">
           {/* Header */}
           <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 flex items-center justify-between text-white shrink-0">
             <div className="flex items-center gap-2">
@@ -146,7 +188,7 @@ export default function AiTutorChat({
               </div>
               <div>
                 <h3 className="font-extrabold text-sm">Gia sư AI DkTEST</h3>
-                <p className="text-[10px] text-indigo-100">Giải thích đề thi & Tư vấn học tập</p>
+                <p className="text-[10px] text-indigo-100">Hỗ trợ bài thi & Phân tích ảnh bài tập</p>
               </div>
             </div>
             <button
@@ -170,12 +212,28 @@ export default function AiTutorChat({
                   {msg.role === "user" ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
                 </div>
                 <div
-                  className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm ${
+                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm ${
                     msg.role === "user"
                       ? "bg-indigo-600 text-white rounded-tr-xs font-medium"
                       : "bg-white border border-slate-200 text-slate-800 rounded-tl-xs shadow-2xs leading-relaxed"
                   }`}
                 >
+                  {msg.attachment && (
+                    <div className="mb-2">
+                      {msg.attachment.type.startsWith("image/") ? (
+                        <img
+                          src={msg.attachment.data}
+                          alt={msg.attachment.name}
+                          className="max-h-48 max-w-full rounded-xl border border-white/20 shadow-xs object-contain"
+                        />
+                      ) : (
+                        <div className="px-2.5 py-1.5 bg-white/20 rounded-lg text-xs font-mono flex items-center gap-1.5">
+                          <Paperclip className="w-3.5 h-3.5" />
+                          <span className="truncate max-w-[180px]">{msg.attachment.name}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <LatexPreview content={msg.text} className={msg.role === "user" ? "text-white [&_*]:text-white" : "text-slate-800"} />
                 </div>
               </div>
@@ -189,11 +247,52 @@ export default function AiTutorChat({
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Pending Attachment Preview */}
+          {pendingAttachment && (
+            <div className="px-3 pt-2 pb-1 bg-indigo-50/80 border-t border-indigo-100 flex items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2 truncate">
+                {pendingAttachment.type.startsWith("image/") ? (
+                  <img
+                    src={pendingAttachment.data}
+                    alt="Preview"
+                    className="w-9 h-9 rounded-lg object-cover border border-indigo-200 shrink-0"
+                  />
+                ) : (
+                  <Paperclip className="w-4 h-4 text-indigo-600 shrink-0" />
+                )}
+                <span className="truncate text-slate-700 font-medium text-[11px]">{pendingAttachment.name}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPendingAttachment(null)}
+                className="text-slate-400 hover:text-red-500 p-1 cursor-pointer"
+                title="Bỏ đính kèm"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
           {/* Chat Input */}
           <div className="p-3 bg-white border-t border-slate-100 flex items-center gap-2">
             <input
+              type="file"
+              ref={fileInputRef}
+              accept="image/*,.pdf,.doc,.docx"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-slate-100 rounded-xl transition-all cursor-pointer shrink-0"
+              title="Gửi ảnh hoặc tệp đính kèm"
+            >
+              <ImageIcon className="w-4 h-4" />
+            </button>
+            <input
               type="text"
-              placeholder="Nhập thắc mắc của bạn..."
+              placeholder={pendingAttachment ? "Nhập câu hỏi về tệp này..." : "Nhập thắc mắc của bạn..."}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
@@ -202,8 +301,8 @@ export default function AiTutorChat({
             <button
               type="button"
               onClick={handleSend}
-              disabled={!input.trim() || isTyping}
-              className="p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-all disabled:opacity-40 cursor-pointer"
+              disabled={(!input.trim() && !pendingAttachment) || isTyping}
+              className="p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-all disabled:opacity-40 cursor-pointer shrink-0"
             >
               <Send className="w-4 h-4" />
             </button>

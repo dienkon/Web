@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, Sparkles, CheckCircle2, AlertTriangle, ArrowLeft, X } from "lucide-react";
+import { Loader2, Sparkles, CheckCircle2, AlertTriangle, ArrowLeft, X, FileCode, Copy, BookOpen } from "lucide-react";
 import { useToast } from "../../components/ui/ToastNotification";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import AiGenerationProgress, { AiLogItem } from "../../components/ai/AiGenerationProgress";
+import ChatGPTMasterPromptModal from "../../components/ui/ChatGPTMasterPromptModal";
 
 const EXAMPLE_PROMPTS = [
+  "Tạo đề thi thử Tốt nghiệp THPT môn Toán gồm 12 câu trắc nghiệm 1 đáp án, 4 câu Đúng/Sai 4 ý, 6 câu trả lời ngắn có bảng biến thiên HTML và công thức tích phân, đạo hàm KaTeX.",
+  "Tạo bài thi Tiếng Anh kiểm tra kỹ năng Nghe & Đọc hiểu gồm 1 section có cấu hình bài nghe MP3 (audioConfig), 4 câu điền khuyết [_], và 6 câu trắc nghiệm đọc hiểu.",
+  "Tạo đề kiểm tra Tin học 11 về Giải thuật & Cấu trúc dữ liệu có khối mã Python phong cách Discord, 3 câu trắc nghiệm và 2 câu sắp xếp thứ tự các bước thuật toán (ordering).",
+  "Tạo đề Tin học 12 phần Lập trình Web & Xử lý Chuỗi gồm 5 câu trắc nghiệm dùng thẻ <raw> cho thẻ HTML/Regex, dùng dấu ` cho tên biến/hàm và khối mã Python ```python.",
+  "Tạo đề Hóa học 12 phần Este - Lipit gồm 4 câu trắc nghiệm, 2 câu Đúng/Sai 4 ý và 1 câu sắp xếp thứ tự thực nghiệm điều chế este.",
+  "Tạo đề Vật lý 12 phần Dao động điều hòa và Sóng cơ gồm 8 câu có công thức LaTeX chuẩn, 2 câu điền đáp số ngắn và tài liệu đính kèm bảng công thức bổ trợ.",
   "Tạo đề kiểm tra 15 phút Toán lớp 12 phần Khảo sát hàm số gồm 5 câu trắc nghiệm 4 lựa chọn, có chứa công thức đạo hàm và bảng biến thiên dạng LaTeX.",
-  "Tạo đề ôn tập Hóa học 10 phần Cân bằng phản ứng Oxi hóa - Khử gồm 4 câu trắc nghiệm và 1 câu tự luận điền số.",
-  "Tạo bài thi Tiếng Anh THPT gồm 1 đoạn văn đọc hiểu ngắn và 4 câu hỏi trắc nghiệm liên quan đến đoạn văn đó.",
-  "Tạo đề Vật lý 12 phần Dao động điều hòa gồm 6 câu trắc nghiệm có công thức tính chu kỳ, tần số và pha dao động bằng LaTeX.",
 ];
 
 export default function AiPromptImport() {
@@ -22,6 +26,7 @@ export default function AiPromptImport() {
   const [progressMsg, setProgressMsg] = useState<string>("");
   const [progressPercent, setProgressPercent] = useState<number>(0);
   const [logs, setLogs] = useState<AiLogItem[]>([]);
+  const [showMasterPromptModal, setShowMasterPromptModal] = useState(false);
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -179,16 +184,27 @@ export default function AiPromptImport() {
             <div>
               <h1 className="text-xl font-bold text-slate-900">AI Tạo Đề Bằng Prompt</h1>
               <p className="text-sm text-slate-500">
-                Nhập yêu cầu tự do, AI sẽ tự động tạo đề thi đầy đủ câu hỏi, đáp án và công thức LaTeX ($...$).
+                Nhập yêu cầu tự do để AI tạo đề trực tiếp, hoặc lấy prompt chuẩn v3 cho ChatGPT / Claude / Gemini.
               </p>
             </div>
           </div>
-          <button
-            onClick={() => navigate(backUrl)}
-            className="p-2 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-50 transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowMasterPromptModal(true)}
+              className="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
+              title="Xem và sao chép cấu trúc Master Prompt chuẩn v3 đầy đủ để dán vào ChatGPT / Claude / Gemini"
+            >
+              <FileCode className="w-4 h-4 text-indigo-600" />
+              <span>Prompt ChatGPT / Claude chuẩn</span>
+            </button>
+            <button
+              onClick={() => navigate(backUrl)}
+              className="p-2 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-50 transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {!result ? (
@@ -381,6 +397,11 @@ export default function AiPromptImport() {
           </div>
         )}
       </div>
+
+      <ChatGPTMasterPromptModal
+        isOpen={showMasterPromptModal}
+        onClose={() => setShowMasterPromptModal(false)}
+      />
     </div>
   );
 }

@@ -362,17 +362,35 @@ export default function PracticeSessionPage() {
   // Map practice question to exam question format for ScratchpadModal
   const mappedQuestions: Question[] = React.useMemo(() => {
     if (!currentQuestion) return [];
+
+    let text = currentQuestion.prompt || currentQuestion.latex || "";
+
+    // If question has codeSnippet (e.g. Informatics / CS code trace), append code blocks for Scratchpad
+    const codeSnippet = currentQuestion.codeSnippet || currentQuestion.metadata?.codeSnippet;
+    if (codeSnippet) {
+      const parts: string[] = [];
+      if (codeSnippet.python && codeSnippet.python.trim()) {
+        parts.push(`\`\`\`python\n# 🐍 Python 3\n${codeSnippet.python.trim()}\n\`\`\``);
+      }
+      if (codeSnippet.cpp && codeSnippet.cpp.trim()) {
+        parts.push(`\`\`\`cpp\n// ⚡ C++\n${codeSnippet.cpp.trim()}\n\`\`\``);
+      }
+      if (parts.length > 0) {
+        text = `${text}\n\n${parts.join("\n\n")}`;
+      }
+    }
+
     return [
       {
         id: currentQuestion.id,
         examId: "practice",
         points: 10,
-        order: 1,
+        order: session.currentQuestionIndex + 1,
         type:
           currentQuestion.type === "choice"
             ? "single_choice"
             : "short_answer",
-        text: currentQuestion.prompt || currentQuestion.latex || "",
+        text,
         options: currentQuestion.options?.map((o) => ({
           id: o.id,
           text: o.latex || o.text,
@@ -380,7 +398,7 @@ export default function PracticeSessionPage() {
         explanation: currentQuestion.explanation,
       },
     ];
-  }, [currentQuestion]);
+  }, [currentQuestion, session.currentQuestionIndex]);
 
   return (
     <div className="flex-1 w-full bg-slate-50/50 flex flex-col justify-between relative">

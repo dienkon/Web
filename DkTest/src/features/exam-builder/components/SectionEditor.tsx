@@ -1,11 +1,12 @@
 import { useExamEditorContext } from "../context/ExamEditorContext";
 import { Section } from "../../../types";
-import { Settings, Trash2, GripVertical, Plus, Shuffle, Lock, Pin, Sparkles, Eye, Code, ChevronDown, ChevronUp } from "lucide-react";
+import { Settings, Trash2, GripVertical, Plus, Shuffle, Lock, Pin, Sparkles, Eye, Code, ChevronDown, ChevronUp, Headphones } from "lucide-react";
 import QuestionCard from "./QuestionCard";
 import QuestionTypeSelector from "./QuestionTypeSelector";
 import { useState, useEffect } from "react";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
 import LatexPreview from "../editor/LatexPreview";
+import AudioConfigEditor from "../../../components/exam/AudioConfigEditor";
 
 export default function SectionEditor({ section }: { section: Section }) {
   const { state, actions } = useExamEditorContext();
@@ -112,6 +113,15 @@ export default function SectionEditor({ section }: { section: Section }) {
               </span>
             )}
 
+            {section.audioConfig?.enabled && section.audioConfig?.url && (
+              <span
+                className="flex items-center gap-1 text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200"
+                title={`Bài nghe: ${section.audioConfig.title || "MP3"}`}
+              >
+                <Headphones className="w-3 h-3 text-indigo-600" /> Audio
+              </span>
+            )}
+
             <button
               type="button"
               onClick={() => setShowSettings(!showSettings)}
@@ -172,6 +182,15 @@ export default function SectionEditor({ section }: { section: Section }) {
                 </div>
               )}
             </div>
+
+            {/* Section Audio Embedding */}
+            <AudioConfigEditor
+              audioConfig={section.audioConfig}
+              onChange={(cfg) => actions.updateSection(section.id, { audioConfig: cfg })}
+              onRemove={() => actions.updateSection(section.id, { audioConfig: undefined })}
+              label="Nhúng bài nghe Audio cho Phần thi này (Section Listening MP3)"
+              defaultTitle={section.title || "Audio Phần thi"}
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
               <label className="flex items-center gap-2.5 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-blue-300 transition-colors">

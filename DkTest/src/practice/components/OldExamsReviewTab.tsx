@@ -62,6 +62,11 @@ export default function OldExamsReviewTab() {
   const [examItems, setExamItems] = useState<ExamReviewItem[]>([]);
   const [selectedExamIds, setSelectedExamIds] = useState<Set<string>>(new Set());
 
+  // Pagination & Read-optimization: Load 1 exam first, then +5 on "Load more"
+  const [allCandidates, setAllCandidates] = useState<Array<[string, Submission]>>([]);
+  const [studentUser, setStudentUser] = useState<string>("");
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -147,119 +152,159 @@ export default function OldExamsReviewTab() {
         }
       }
 
-      // 3. Fetch exams metadata and apply review mastery
+      const allCandidatesList = Array.from(latestSubByExam.entries());
+      setAllCandidates(allCandidatesList);
+      setStudentUser(studentUsername);
+
+      // 3. Directive: Initial load only fetches 1 most recent exam to conserve Firestore reads
+      const initialCandidate = allCandidatesList.slice(0, 1);
       const items: ExamReviewItem[] = [];
-      for (const [examId, sub] of latestSubByExam.entries()) {
-        try {
-          let examData: Exam | null = null;
-          const eDoc = await getDoc(doc(db, "exams", examId));
-          console.warn(`[Firestore] READ (1 doc): exams/${examId} (OldExamsReviewTab)`);
-          if (eDoc.exists()) {
-            examData = { id: eDoc.id, ...eDoc.data() } as Exam;
-          } else {
-            examData = {
-              id: examId,
-              title: sub.examTitleSnapshot || "Đề thi",
-              code: sub.examCodeSnapshot || "",
-              timeLimit: 45,
-              duration: 45,
-              questionCount: sub.totalCount || 10,
-              totalQuestions: sub.totalCount || 10,
-              maxScore: sub.maxScore || 10,
-            } as unknown as Exam;
-          }
 
-          // Strict filter: Exclude if exam itself is a retake or review exam
-          if (
-            examData.isRetake ||
-            examData.isAggregatedReview ||
-            examData.title?.startsWith("[Làm lại") ||
-            examData.title?.startsWith("[Ôn tập")
-          ) {
-            continue;
-          }
-
-          // Query review mastery for this exam & student: which questions have been answered correctly in retakes?
-          const masteredSet = await getMasteredQuestionsForExam(studentUsername, examId);
-
-          const examQuestions =
-            sub.shuffledQuestionsSnapshot && sub.shuffledQuestionsSnapshot.length > 0
-              ? sub.shuffledQuestionsSnapshot
-              : examData.questions && examData.questions.length > 0
-              ? examData.questions
-              : await getExamQuestionsSafe(examId);
-
-          // Get wrong questions from the latest submission
-          const rawWrongQuestions = filterQuestionsBySubmission(examQuestions, sub, "wrong");
-
-          // Mastery update: questions that were answered correctly in retakes are now marked correct in review!
-          const stillWrongQuestions = rawWrongQuestions.filter((q) => !masteredSet.has(q.id));
-          const correctedCount = rawWrongQuestions.length - stillWrongQuestions.length;
-
-          const total =
-            sub.totalCount ||
-            examData.totalQuestions ||
-            examData.questionCount ||
-            examQuestions.length ||
-            10;
-          const effectiveWrongCount = stillWrongQuestions.length;
-          const effectiveCorrectCount = Math.min(
-            total,
-            (sub.correctCount ?? (total - rawWrongQuestions.length)) + correctedCount
-          );
-          const effectiveScore = Math.min(
-            10,
-            Math.round((effectiveCorrectCount / Math.max(1, total)) * 10 * 100) / 100
-          );
-
-          // Detect subject/category from exam title or fields
-          let category = "Khác";
-          const titleLower = (examData.title || sub.examTitleSnapshot || "").toLowerCase();
-          if (titleLower.includes("toán") || titleLower.includes("math")) {
-            category = "Toán học";
-          } else if (
-            titleLower.includes("tiếng anh") ||
-            titleLower.includes("english") ||
-            titleLower.includes("anh văn")
-          ) {
-            category = "Tiếng Anh";
-          } else if (
-            titleLower.includes("lý") ||
-            titleLower.includes("hóa") ||
-            titleLower.includes("sinh")
-          ) {
-            category = "KHTN";
-          } else if (titleLower.includes("khảo sát") || titleLower.includes("thử")) {
-            category = "Thi thử";
-          }
-
-          items.push({
-            examId,
-            examTitle: examData.title || sub.examTitleSnapshot || "Bài kiểm tra",
-            examCode: examData.code || sub.examCodeSnapshot,
-            subject: examData.subject || category,
-            category,
-            latestScore: effectiveScore,
-            maxScore: sub.maxScore || 10,
-            correctCount: effectiveCorrectCount,
-            totalCount: total,
-            wrongCount: effectiveWrongCount,
-            submittedAt: sub.submittedAt,
-            submission: sub,
-            exam: examData,
-            correctedInReviewCount: correctedCount,
-            stillWrongQuestions,
-          });
-        } catch (itemErr) {
-          console.warn("Could not process exam history item", examId, itemErr);
-        }
+      for (const [examId, sub] of initialCandidate) {
+        const item = await fetchSingleExamReviewItem(examId, sub, studentUsername);
+        if (item) items.push(item);
       }
 
       setExamItems(items);
     } catch (err) {
       console.error("Lỗi khi tải lịch sử ôn tập:", err);
+      showErrorToast("Không thể tải lịch sử làm bài.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Helper to fetch details and mastery for a single exam item
+  const fetchSingleExamReviewItem = async (
+    examId: string,
+    sub: Submission,
+    username: string
+  ): Promise<ExamReviewItem | null> => {
+    try {
+      let examData: Exam | null = null;
+      const eDoc = await getDoc(doc(db, "exams", examId));
+      console.warn(`[Firestore] READ (1 doc): exams/${examId} (OldExamsReviewTab)`);
+      if (eDoc.exists()) {
+        examData = { id: eDoc.id, ...eDoc.data() } as Exam;
+      } else {
+        examData = {
+          id: examId,
+          title: sub.examTitleSnapshot || "Đề thi",
+          code: sub.examCodeSnapshot || "",
+          timeLimit: 45,
+          duration: 45,
+          questionCount: sub.totalCount || 10,
+          totalQuestions: sub.totalCount || 10,
+          maxScore: sub.maxScore || 10,
+        } as unknown as Exam;
+      }
+
+      // Strict filter: Exclude if exam itself is a retake or review exam
+      if (
+        examData.isRetake ||
+        examData.isAggregatedReview ||
+        examData.title?.startsWith("[Làm lại") ||
+        examData.title?.startsWith("[Ôn tập")
+      ) {
+        return null;
+      }
+
+      // Query review mastery for this exam & student
+      const masteredSet = await getMasteredQuestionsForExam(username, examId);
+
+      const examQuestions =
+        sub.shuffledQuestionsSnapshot && sub.shuffledQuestionsSnapshot.length > 0
+          ? sub.shuffledQuestionsSnapshot
+          : examData.questions && examData.questions.length > 0
+          ? examData.questions
+          : await getExamQuestionsSafe(examId);
+
+      // Get wrong questions from the latest submission
+      const rawWrongQuestions = filterQuestionsBySubmission(examQuestions, sub, "wrong");
+
+      // Mastery update: questions that were answered correctly in retakes are now marked correct in review!
+      const stillWrongQuestions = rawWrongQuestions.filter((q) => !masteredSet.has(q.id));
+      const correctedCount = rawWrongQuestions.length - stillWrongQuestions.length;
+
+      const total =
+        sub.totalCount ||
+        examData.totalQuestions ||
+        examData.questionCount ||
+        examQuestions.length ||
+        10;
+      const effectiveWrongCount = stillWrongQuestions.length;
+      const effectiveCorrectCount = Math.min(
+        total,
+        (sub.correctCount ?? (total - rawWrongQuestions.length)) + correctedCount
+      );
+      const effectiveScore = Math.min(
+        sub.maxScore || 10,
+        Math.round(((effectiveCorrectCount / total) * (sub.maxScore || 10)) * 10) / 10
+      );
+
+      // Determine Category/Subject tag
+      let category = examData.subject || "Khác";
+      const titleLower = (examData.title || "").toLowerCase();
+      if (titleLower.includes("toán") || titleLower.includes("math")) {
+        category = "Toán học";
+      } else if (
+        titleLower.includes("tiếng anh") ||
+        titleLower.includes("english") ||
+        titleLower.includes("anh văn")
+      ) {
+        category = "Tiếng Anh";
+      } else if (
+        titleLower.includes("lý") ||
+        titleLower.includes("hóa") ||
+        titleLower.includes("sinh")
+      ) {
+        category = "KHTN";
+      } else if (titleLower.includes("khảo sát") || titleLower.includes("thử")) {
+        category = "Thi thử";
+      }
+
+      return {
+        examId,
+        examTitle: examData.title || sub.examTitleSnapshot || "Bài kiểm tra",
+        examCode: examData.code || sub.examCodeSnapshot,
+        subject: examData.subject || category,
+        category,
+        latestScore: effectiveScore,
+        maxScore: sub.maxScore || 10,
+        correctCount: effectiveCorrectCount,
+        totalCount: total,
+        wrongCount: effectiveWrongCount,
+        submittedAt: sub.submittedAt,
+        submission: sub,
+        exam: examData,
+        correctedInReviewCount: correctedCount,
+        stillWrongQuestions,
+      };
+    } catch (itemErr) {
+      console.warn("Could not process exam history item", examId, itemErr);
+      return null;
+    }
+  };
+
+  // Handler: Load 5 more exams on user request
+  const handleLoadMoreExams = async () => {
+    if (isLoadingMore || examItems.length >= allCandidates.length) return;
+    setIsLoadingMore(true);
+    try {
+      const nextCandidates = allCandidates.slice(examItems.length, examItems.length + 5);
+      const newItems: ExamReviewItem[] = [];
+
+      for (const [examId, sub] of nextCandidates) {
+        const item = await fetchSingleExamReviewItem(examId, sub, studentUser);
+        if (item) newItems.push(item);
+      }
+
+      setExamItems((prev) => [...prev, ...newItems]);
+    } catch (e) {
+      console.error("Lỗi khi tải thêm bài thi:", e);
+      showErrorToast("Lỗi khi tải thêm bài thi cũ.");
+    } finally {
+      setIsLoadingMore(false);
     }
   };
 
@@ -356,7 +401,7 @@ export default function OldExamsReviewTab() {
       });
 
       showSuccessToast(
-        `Đã tạo đề ôn tập thành công với ${result.totalQuestions} câu hỏi không trùng lặp!`
+        `Đã tạo đề ôn tập thành công với ${result.totalQuestions} câu hỏi!`
       );
 
       navigate(`/student/exam/${result.examId}/take`);
@@ -504,8 +549,9 @@ export default function OldExamsReviewTab() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-3">
-          {filteredItems.map((item) => {
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-3">
+            {filteredItems.map((item) => {
             const isSelected = selectedExamIds.has(item.examId);
 
             return (
@@ -584,6 +630,40 @@ export default function OldExamsReviewTab() {
             );
           })}
         </div>
+
+        {/* Load More (+5 Exams) Button to save Firestore Read quota */}
+        {allCandidates.length > examItems.length && (
+          <div className="flex flex-col items-center justify-center py-6 gap-2 border-t border-slate-100 mt-4">
+            <button
+              type="button"
+              onClick={handleLoadMoreExams}
+              disabled={isLoadingMore}
+              className="px-6 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-2xl text-xs font-bold transition-all shadow-2xs hover:shadow-xs flex items-center gap-2 cursor-pointer active:scale-95"
+            >
+              {isLoadingMore ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                  <span>Đang tải thêm 5 bài thi cũ...</span>
+                </>
+              ) : (
+                <>
+                  <ArrowRight className="w-4 h-4 text-blue-600" />
+                  <span>Tải thêm bài thi cũ (+5 bài)</span>
+                </>
+              )}
+            </button>
+            <span className="text-[11px] text-slate-400 font-medium">
+              Đang hiển thị {examItems.length} / {allCandidates.length} bài thi cũ
+            </span>
+          </div>
+        )}
+
+        {allCandidates.length > 0 && examItems.length >= allCandidates.length && allCandidates.length > 1 && (
+          <div className="text-center py-5 text-xs text-slate-400 font-medium">
+            ✓ Đã tải toàn bộ {allCandidates.length} bài thi cũ
+          </div>
+        )}
+      </div>
       )}
 
       {/* Floating Bottom Action Bar (When 1+ exams selected) */}

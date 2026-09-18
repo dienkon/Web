@@ -37,9 +37,25 @@ import PracticeSessionPage from "../../practice/pages/PracticeSessionPage";
 import PracticeLobbyPage from "../../practice/pages/PracticeLobbyPage";
 import Home from "../../pages/home/Home";
 
+import RequireAuth from "../../components/auth/RequireAuth";
+
 const router = createBrowserRouter([
-  { path: "/admin/live-monitor/:sessionId", element: <LiveMonitor /> },
-  { path: "/parent/live-monitor/:sessionId", element: <LiveMonitor /> },
+  {
+    path: "/admin/live-monitor/:sessionId",
+    element: (
+      <RequireAuth role="admin">
+        <LiveMonitor />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: "/parent/live-monitor/:sessionId",
+    element: (
+      <RequireAuth role="parent">
+        <LiveMonitor />
+      </RequireAuth>
+    ),
+  },
   {
     path: "/admin/login",
     element: <AdminLogin />,
@@ -52,65 +68,93 @@ const router = createBrowserRouter([
     path: "/parent/login",
     element: <ParentLogin />,
   },
-    {
+  {
     path: "/parent/dashboard",
-    element: <ParentDashboard />,
+    element: (
+      <RequireAuth role="parent">
+        <ParentDashboard />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams",
-    element: <ExamList />,
+    element: (
+      <RequireAuth role="parent">
+        <ExamList />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/import-word",
-    element: <AiWordImport />,
+    element: (
+      <RequireAuth role="parent">
+        <AiWordImport />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/import-prompt",
-    element: <AiPromptImport />,
+    element: (
+      <RequireAuth role="parent">
+        <AiPromptImport />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/new",
-    element: <ExamBuilder isNew />,
+    element: (
+      <RequireAuth role="parent">
+        <ExamBuilder isNew />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/:examId/edit",
-    element: <ExamBuilder />,
+    element: (
+      <RequireAuth role="parent">
+        <ExamBuilder />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/:examId",
-    element: <ExamDetail />,
+    element: (
+      <RequireAuth role="parent">
+        <ExamDetail />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/:examId/submissions",
-    element: <Submissions />,
+    element: (
+      <RequireAuth role="parent">
+        <Submissions />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/:examId/submissions/:submissionId",
-    element: <SubmissionDetail />,
+    element: (
+      <RequireAuth role="parent">
+        <SubmissionDetail />
+      </RequireAuth>
+    ),
   },
   {
     path: "/parent/exams/:examId/stats",
-    element: <Statistics />,
-  },
-  {
-    path: "/parent/exams",
-    element: <ExamList />,
-  },
-  {
-    path: "/parent/exams/new",
-    element: <ExamBuilder isNew />,
-  },
-  {
-    path: "/parent/exams/:examId/edit",
-    element: <ExamBuilder />,
-  },
-  {
-    path: "/parent/exams/:examId",
-    element: <ExamDetail />,
+    element: (
+      <RequireAuth role="parent">
+        <Statistics />
+      </RequireAuth>
+    ),
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: (
+      <RequireAuth role="admin">
+        <AdminLayout />
+      </RequireAuth>
+    ),
     children: [
       { path: "", element: <Navigate to="exams" replace /> },
       { path: "dashboard", element: <Dashboard /> },

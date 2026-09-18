@@ -1,10 +1,23 @@
 import { getAiClient, defaultModel } from "./aiClient.js";
 
+export interface TutorAttachment {
+  name?: string;
+  type?: string;
+  data?: string; // Base64 or Data URL
+}
+
+export interface TutorMessage {
+  role: "user" | "model";
+  text: string;
+  attachment?: TutorAttachment;
+}
+
 export async function askTutor(
-  messages: Array<{ role: "user" | "model"; text: string }>,
-  context?: { examTitle?: string; currentQuestionText?: string; studentAnswer?: any }
+  messages: Array<TutorMessage>,
+  context?: { examTitle?: string; currentQuestionText?: string; studentAnswer?: any },
+  customApiKey?: string
 ) {
-  const ai = getAiClient();
+  const ai = getAiClient(customApiKey);
 
   let systemInstruction = `Bạn là Trợ lý Học tập & Gia sư AI Thông minh của DkTEST.
 Nhiệm vụ của bạn là hướng dẫn học sinh hiểu sâu sắc các khái niệm, phương pháp tư duy, cách giải chi tiết và lý do đằng sau từng đáp án.
@@ -41,7 +54,12 @@ QUY TẮC BẮT BUỘC KHI TRẢ LỜI & TRÌNH BÀY:
    - Hệ thống sẽ tự động hiển thị khung code phong cách Discord cực đẹp có thanh tiêu đề ngôn ngữ, số thứ tự từng dòng chuẩn mực và nút sao chép nhanh.
    - Luôn thụt lề chuẩn, ngắt dòng hợp lý và viết chú thích (comments) trong code để học sinh dễ hiểu.
 
-5. PHƯƠNG PHÁP SƯ PHẠM:
+5. PHÂN TÍCH HÌNH ẢNH & TỆP ĐÍNH KÈM (MULTIMODAL VISION):
+   - Khi học sinh gửi kèm hình ảnh (ảnh chụp đề bài, đồ thị hình học, bảng vẽ hình, bài làm viết tay):
+     Hãy quan sát thật tỉ mỉ tất cả các thông số, ký hiệu, đồ thị hoặc chữ viết trong ảnh.
+     Trích dẫn lại những dữ kiện quan sát được từ ảnh trước khi đi vào phân tích logic và giải chi tiết.
+
+6. PHƯƠNG PHÁP SƯ PHẠM:
    - KHÔNG TRẢ LỜI VẸT HOẶC ĐƯA NGAY ĐÁP ÁN: Nếu học sinh hỏi hướng giải, hãy gợi ý từng bước, đặt câu hỏi dẫn dắt để học sinh tự suy nghĩ và hoàn thành.
    - Khi học sinh đã trả lời hoặc yêu cầu lời giải chi tiết: Cung cấp từng bước giải mẫu mực, rõ ràng, dễ hiểu.
    - Thân thiện, tôn trọng, động viên tinh thần học tập của học sinh.`;
@@ -53,17 +71,39 @@ QUY TẮC BẮT BUỘC KHI TRẢ LỜI & TRÌNH BÀY:
     }
   }
 
-  const contents = messages.map(msg => ({
-    role: msg.role,
-    parts: [{ text: msg.text }]
-  }));
+  const contents = messages.map((msg) => {
+    const parts: any[] = [];
+    if (msg.attachment && msg.attachment.data) {
+      const rawData = msg.attachment.data;
+      const base64Str = rawData.includes(";base64,") ? rawData.split(";base64,")[1] : rawData;
+      let mimeType = msg.attachment.type || "image/jpeg";
+      if (rawData.startsWith("data:")) {
+        const extractedMime = rawData.substring(5, rawData.indexOf(";"));
+        if (extractedMime) mimeType = extractedMime;
+      }
+      parts.push({
+        inlineData: {
+          mimeType,
+          data: base64Str,
+        },
+      });
+    }
+    const textPart = msg.text || (msg.attachment ? "Hãy phân tích hình ảnh / tài liệu đính kèm này giúp em." : "");
+    if (textPart) {
+      parts.push({ text: textPart });
+    }
+    return {
+      role: msg.role,
+      parts,
+    };
+  });
 
   const stream = await ai.models.generateContentStream({
     model: defaultModel,
     contents,
     config: {
-      systemInstruction
-    }
+      systemInstruction,
+    },
   });
 
   return stream;

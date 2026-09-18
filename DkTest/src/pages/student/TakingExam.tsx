@@ -24,24 +24,42 @@ import {
   ArrowUp,
   ArrowDown,
   GripVertical,
+  Monitor,
 } from "lucide-react";
 import ScratchpadModal from "../../features/student-exam/components/ScratchpadModal";
 import CasioCalculator from "../../components/exam/CasioCalculator";
+import ExamAudioPlayer from "../../components/exam/ExamAudioPlayer";
 import { getExam } from "../../services/examService";
 import { createSubmission } from "../../services/submissionService";
 import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExamAttempt";
 import { organizeAndShuffleExam } from "../../utils/examShuffler";
 import { saveStudentProfile } from "../../services/studentService";
 import { recordQuestionMastery } from "../../services/reviewMasteryService";
-import { syncRealtimeSession, updateRealtimeSessionMetrics, removeRealtimeSession, subscribeToSingleSession } from "../../services/realtimeProctoringService";
-import { collection, getDocs, query, orderBy, getDoc, doc } from "firebase/firestore";
+import {
+  syncRealtimeSession,
+  updateRealtimeSessionMetrics,
+  removeRealtimeSession,
+  markRealtimeSessionSubmitted,
+  updateRealtimeAnswerDelta,
+  subscribeToSingleSession,
+  sanitizeSessionId,
+} from "../../services/realtimeProctoringService";
+import { collection, getDocs, query, orderBy, getDoc, doc, where } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import {
   saveActiveExamSession,
   updateActiveExamSessionAnswers,
+  updateActiveExamSessionStatus,
   getActiveExamSession,
   clearActiveExamSession,
 } from "../../services/examSessionService";
+import {
+  ExamSessionStatus,
+  canTransition,
+  calculateRemainingSeconds,
+} from "../../services/examSessionStateMachine";
+import { calculateExamScore } from "../../services/gradingService";
+import { STORAGE_KEYS, getStoredItem, setStoredItem } from "../../utils/storage";
 import type { Exam, Question, Section, QuestionTiming } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -63,22 +81,54 @@ export default function TakingExam() {
   const [exam, setExam] = useState<Exam | null>(null);
   const [sections, setSections] = useState<Section[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<Record<string, any>>(() => {
+    try {
+      const eid = window.location.pathname.split("/")[3] || "";
+      if (!eid) return {};
+      const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+      const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).displayName || "student") : "student";
+      const specific = localStorage.getItem(`dktest_temp_answers_${eid}_${u}`);
+      if (specific) return JSON.parse(specific);
+      const fallback = localStorage.getItem(`dktest_temp_answers_${eid}`);
+      if (fallback) return JSON.parse(fallback);
+      return {};
+    } catch {
+      return {};
+    }
+  });
   const [flagged, setFlagged] = useState<Record<string, boolean>>({});
 
   const [loading, setLoading] = useState(true);
+  const [sessionStatus, setSessionStatus] = useState<ExamSessionStatus>("idle");
   const [isPaused, setIsPaused] = useState(false);
   const [isSuspended, setIsSuspended] = useState(false);
   const [adminMessage, setAdminMessage] = useState("");
   
   const [submitting, setSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [isBlockedByOtherTab, setIsBlockedByOtherTab] = useState(false);
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(0);
   const [activeQuestionIdx, setActiveQuestionIdx] = useState(0);
   const [warnings, setWarnings] = useState(0);
   const [studentName, setStudentName] = useState("Thí sinh");
+  const [studentUsername] = useState<string>(() => {
+    try {
+      const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+      if (sInfo) {
+        const parsed = JSON.parse(sInfo);
+        return parsed.username || parsed.displayName || "student";
+      }
+    } catch {}
+    return "student";
+  });
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Authoritative Pause duration tracking
+  const totalPausedDurationMsRef = useRef<number>(0);
+  const pauseStartedAtRef = useRef<number | null>(null);
+  const lastViolationTimeRef = useRef<number>(0);
 
   // New UI controls: Show/Hide Map & Paging vs Scroll view
   const [showMap, setShowMap] = useState<boolean>(window.innerWidth >= 1024);
@@ -103,8 +153,10 @@ export default function TakingExam() {
   const sessionIdRef = useRef<string>((() => {
     try {
       const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
-      const u = sInfo ? JSON.parse(sInfo).username : "student";
-      return `sess_${u}_${window.location.pathname.split("/")[3] || Date.now()}`;
+      const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).displayName || "student") : "student";
+      const cleanU = sanitizeSessionId(u);
+      const eid = sanitizeSessionId(window.location.pathname.split("/")[3] || "exam");
+      return `sess_${cleanU}_${eid}`;
     } catch (e) {
       return "sess_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
     }
@@ -119,6 +171,114 @@ export default function TakingExam() {
   const questionTimingRef = useRef<Record<string, QuestionTiming>>({});
   const currentActiveQuestionIdRef = useRef<string | null>(null);
   const prevAnswersRef = useRef<Record<string, any>>({});
+
+  // Real Screen Share States & Refs
+  const [showScreenSharePrompt, setShowScreenSharePrompt] = useState(false);
+  const [isScreenSharing, setIsScreenSharing] = useState(false);
+  const screenStreamRef = useRef<MediaStream | null>(null);
+  const screenIntervalRef = useRef<any>(null);
+  const offscreenVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const stopRealScreenShare = () => {
+    if (screenIntervalRef.current) {
+      clearInterval(screenIntervalRef.current);
+      screenIntervalRef.current = null;
+    }
+    if (screenStreamRef.current) {
+      screenStreamRef.current.getTracks().forEach((t) => t.stop());
+      screenStreamRef.current = null;
+    }
+    if (offscreenVideoRef.current) {
+      offscreenVideoRef.current.srcObject = null;
+      offscreenVideoRef.current = null;
+    }
+    setIsScreenSharing(false);
+    setShowScreenSharePrompt(false);
+
+    if (sessionIdRef.current) {
+      updateRealtimeSessionMetrics(sessionIdRef.current, {
+        screenShareActive: false,
+        screenShareRequest: "stopped",
+        screenShareFrame: null,
+      }).catch(() => {});
+    }
+  };
+
+  const handleDeclineScreenShare = () => {
+    setShowScreenSharePrompt(false);
+    if (sessionIdRef.current) {
+      updateRealtimeSessionMetrics(sessionIdRef.current, {
+        screenShareRequest: "rejected",
+        screenShareActive: false,
+      }).catch(() => {});
+    }
+    showInfoToast("Bạn đã từ chối yêu cầu chia sẻ màn hình.");
+  };
+
+  const handleAcceptScreenShare = async () => {
+    setShowScreenSharePrompt(false);
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+        showErrorToast("Trình duyệt của bạn không hỗ trợ tính năng chia sẻ màn hình.");
+        handleDeclineScreenShare();
+        return;
+      }
+
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+          displaySurface: "monitor",
+        } as any,
+        audio: false,
+      });
+
+      screenStreamRef.current = stream;
+      setIsScreenSharing(true);
+
+      const video = document.createElement("video");
+      video.autoplay = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.srcObject = stream;
+      await video.play().catch(() => {});
+      offscreenVideoRef.current = video;
+
+      if (sessionIdRef.current) {
+        await updateRealtimeSessionMetrics(sessionIdRef.current, {
+          screenShareRequest: "accepted",
+          screenShareActive: true,
+        });
+      }
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Capture frame every 1200ms
+      screenIntervalRef.current = setInterval(() => {
+        if (!video.videoWidth || !video.videoHeight || !ctx || !sessionIdRef.current) return;
+        const maxWidth = 960;
+        const scale = Math.min(1, maxWidth / video.videoWidth);
+        canvas.width = Math.round(video.videoWidth * scale);
+        canvas.height = Math.round(video.videoHeight * scale);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.45);
+
+        updateRealtimeSessionMetrics(sessionIdRef.current, {
+          screenShareFrame: dataUrl,
+          screenShareActive: true,
+        }).catch(() => {});
+      }, 1200);
+
+      stream.getVideoTracks()[0].onended = () => {
+        stopRealScreenShare();
+        showInfoToast("Đã dừng chia sẻ màn hình.");
+      };
+
+      showInfoToast("Đang chia sẻ màn hình trực tiếp với Giám thị.");
+    } catch (err) {
+      console.warn("Screen share permission cancelled or failed:", err);
+      handleDeclineScreenShare();
+    }
+  };
 
   // Realtime Active Session Sync to Firestore and RTDB
   const syncCurrentSession = async (force: boolean = false) => {
@@ -157,6 +317,8 @@ export default function TakingExam() {
         studentUsername,
         studentId: studentUsername,
         studentClass,
+        startTime: startTimeRef.current || now,
+        durationMinutes: exam.timeLimit || 45,
         timeLeft,
         answeredCount: Object.keys(answers).length,
         totalQuestions: questions.length,
@@ -173,25 +335,72 @@ export default function TakingExam() {
     }
   };
 
-  // Cleanup session on unmount
+  // Multi-tab protection (Directive 24)
+  useEffect(() => {
+    if (!examId) return;
+    const tabId = Math.random().toString(36).substring(2, 9);
+    const channelName = `dktest_exam_tab_channel_${examId}`;
+    let channel: BroadcastChannel | null = null;
+
+    try {
+      channel = new BroadcastChannel(channelName);
+      channel.postMessage({ type: "CLAIM_TAB", tabId });
+
+      channel.onmessage = (event) => {
+        if (event.data?.type === "CLAIM_TAB" && event.data.tabId !== tabId) {
+          // Another tab is claiming the exam
+          setIsBlockedByOtherTab(true);
+        } else if (event.data?.type === "EXISTING_TAB" && event.data.tabId !== tabId) {
+          setIsBlockedByOtherTab(true);
+        }
+      };
+
+      // Respond to queries from other tabs
+      const handleStorage = (e: StorageEvent) => {
+        if (e.key === `dktest_tab_active_${examId}` && e.newValue && e.newValue !== tabId) {
+          setIsBlockedByOtherTab(true);
+        }
+      };
+      window.addEventListener("storage", handleStorage);
+      localStorage.setItem(`dktest_tab_active_${examId}`, tabId);
+
+      return () => {
+        channel?.close();
+        window.removeEventListener("storage", handleStorage);
+        if (localStorage.getItem(`dktest_tab_active_${examId}`) === tabId) {
+          localStorage.removeItem(`dktest_tab_active_${examId}`);
+        }
+      };
+    } catch {
+      return () => {};
+    }
+  }, [examId]);
+
+  // Clean unmount (Directive 19: Do NOT delete RTDB session on unmount)
   useEffect(() => {
     return () => {
       isSessionActiveRef.current = false;
-      const sessId = sessionIdRef.current;
-      if (sessId) {
-        try {
-          removeRealtimeSession(sessId);
-        } catch (e) {}
+      if (screenIntervalRef.current) clearInterval(screenIntervalRef.current);
+      if (screenStreamRef.current) {
+        screenStreamRef.current.getTracks().forEach((t) => t.stop());
       }
     };
   }, []);
+
+  // Instant position sync to RTDB whenever active question changes
+  useEffect(() => {
+    if (!sessionIdRef.current || !isSessionActiveRef.current || loading) return;
+    updateRealtimeSessionMetrics(sessionIdRef.current, {
+      activeQuestionIdx,
+    }).catch(() => {});
+  }, [activeQuestionIdx, loading]);
 
   // Sync whenever key state changes (immediate force sync on answers, warnings, active question)
   useEffect(() => {
     if (!loading && exam && isSessionActiveRef.current) {
       syncCurrentSession(true);
     }
-  }, [answers, warnings, activeQuestionIdx, loading, examId]);
+  }, [answers, warnings, activeQuestionIdx, loading, examId, exam]);
 
   // Periodic heartbeat sync for timer
   useEffect(() => {
@@ -200,29 +409,53 @@ export default function TakingExam() {
     }
   }, [timeLeft]);
 
-  // Listen for admin actions (pause, suspend)
+  // Listen for admin actions (pause, resume, suspend, screen share) (Directives 12 & 13)
   useEffect(() => {
     if (!sessionIdRef.current || loading || !exam) return;
     
     const unsubscribe = subscribeToSingleSession(sessionIdRef.current, (liveSession) => {
       if (liveSession) {
-        if (liveSession.adminAction === 'pause') {
-           // Maybe we show a modal overlay in TakingExam
-           setIsPaused(true);
-           setAdminMessage(liveSession.adminMessage || 'Bài thi của bạn đang bị tạm dừng bởi Giám thị.');
-        } else if (liveSession.adminAction === 'suspend' && !isSuspended) {
-           setIsSuspended(true);
-           setAdminMessage(liveSession.adminMessage || 'Bạn đã bị đình chỉ thi.');
-           // Force submit
-           executeSubmit();
+        // Screen share signaling
+        if (liveSession.screenShareRequest === "requested") {
+          if (!isScreenSharing && !screenStreamRef.current) {
+            setShowScreenSharePrompt(true);
+          }
+        } else if (liveSession.screenShareRequest === "stopped") {
+          if (isScreenSharing || screenStreamRef.current) {
+            stopRealScreenShare();
+          }
+        }
+
+        if (liveSession.adminAction === "pause") {
+          if (!isPaused) {
+            setIsPaused(true);
+            setSessionStatus("paused");
+            pauseStartedAtRef.current = Date.now();
+            setAdminMessage(liveSession.adminMessage || "Bài thi của bạn đang bị tạm dừng bởi Giám thị.");
+          }
+        } else if (liveSession.adminAction === "suspend" && !isSuspended) {
+          setIsSuspended(true);
+          setSessionStatus("suspended");
+          setAdminMessage(liveSession.adminMessage || "Bạn đã bị đình chỉ thi.");
+          // Force submit with suspended reason
+          executeSubmit("suspended");
         } else {
-           setIsPaused(false);
+          // Resume action if previously paused
+          if (isPaused) {
+            setIsPaused(false);
+            setSessionStatus("taking");
+            if (pauseStartedAtRef.current) {
+              const pausedDelta = Date.now() - pauseStartedAtRef.current;
+              totalPausedDurationMsRef.current += pausedDelta;
+              pauseStartedAtRef.current = null;
+            }
+          }
         }
       }
     });
 
     return () => unsubscribe();
-  }, [loading, exam]);
+  }, [loading, exam, isPaused, isSuspended, isScreenSharing]);
 
   useEffect(() => {
     const loadExamAndPrepare = async () => {
@@ -251,6 +484,28 @@ export default function TakingExam() {
         const data = examDoc.data();
         const { sections: docSections, questions: docQuestions, ...meta } = data;
         const examData = meta as Exam;
+
+        // Ensure audioConfig is thoroughly resolved from root doc or examMeta
+        const resolvedAudioConfig = data.audioConfig || (data as any)?.examMeta?.audioConfig || examData.audioConfig;
+        if (resolvedAudioConfig && !examData.audioConfig) {
+          examData.audioConfig = resolvedAudioConfig;
+        }
+
+        // Also check if any post-submission attachment has audio URL and use as fallback if needed
+        const audioAtt = (examData.attachments || []).find((a: any) =>
+          a.url?.match(/\.(mp3|wav|m4a|aac|ogg)($|\?)/i) || a.fileName?.match(/\.(mp3|wav|m4a|aac|ogg)$/i)
+        );
+        if (audioAtt && (!examData.audioConfig || !examData.audioConfig.url)) {
+          examData.audioConfig = {
+            enabled: true,
+            url: audioAtt.url,
+            fileName: audioAtt.fileName,
+            title: audioAtt.label || audioAtt.fileName || "File nghe Audio",
+            maxPlays: 0,
+            allowSeek: true,
+            allowPause: true,
+          };
+        }
         
         setExam(examData);
 
@@ -296,8 +551,42 @@ export default function TakingExam() {
         // Student Info & Snapshot Storage Key
         const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
         const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "student";
-        sessionIdRef.current = `sess_${studentIdentifier.toLowerCase().replace(/[^a-z0-9]/g, "_")}_${examId}`;
+        sessionIdRef.current = `sess_${sanitizeSessionId(studentIdentifier)}_${sanitizeSessionId(examId)}`;
         const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
+
+        // Check schedule: openTime and closeTime
+        if (examData.openTime && new Date(examData.openTime).getTime() > Date.now()) {
+          showErrorToast("Bài thi chưa đến thời gian mở đề!");
+          navigate(`/student/exam/${examId}`, { replace: true });
+          return;
+        }
+
+        if (examData.closeTime && new Date(examData.closeTime).getTime() <= Date.now()) {
+          showErrorToast("Bài thi đã kết thúc thời gian làm bài (đã đóng đề)!");
+          navigate(`/student/exam/${examId}`, { replace: true });
+          return;
+        }
+
+        // Check max attempts
+        const activeExistingSession = getActiveExamSession(examId);
+        if (examData.maxAttempts && examData.maxAttempts > 0 && !activeExistingSession) {
+          try {
+            const subsRef = collection(db, "submissions");
+            const qAttempts = query(
+              subsRef,
+              where("examId", "==", examId),
+              where("studentUsername", "==", studentIdentifier)
+            );
+            const subsSnap = await getDocs(qAttempts);
+            if (subsSnap.size >= examData.maxAttempts) {
+              showErrorToast(`Bạn đã sử dụng hết số lần làm bài quy định (${subsSnap.size}/${examData.maxAttempts} lần)!`);
+              navigate(`/student/exam/${examId}`, { replace: true });
+              return;
+            }
+          } catch (attErr) {
+            console.warn("Could not check attempts limit:", attErr);
+          }
+        }
 
         // Organize and shuffle questions
         let allQuestions: Question[] = [];
@@ -420,12 +709,33 @@ export default function TakingExam() {
         const activeSession = getActiveExamSession(examId);
         let startTime = Date.now();
         const durationMinutes = examData.timeLimit || 45;
+        let initialRemainingSec = 0;
 
-        if (activeSession && activeSession.status === "in-progress") {
-          // Restore in-progress answers and proctoring info
-          if (activeSession.answers && Object.keys(activeSession.answers).length > 0) {
-            setAnswers(activeSession.answers);
+        // Restore local temporary answers (resilient against accidental page refresh)
+        let localAnswers: Record<string, any> = {};
+        try {
+          const userSpecificKey = `dktest_temp_answers_${examId}_${studentIdentifier}`;
+          const fallbackKey = `dktest_temp_answers_${examId}`;
+          const savedStr = localStorage.getItem(userSpecificKey) || localStorage.getItem(fallbackKey);
+          if (savedStr) {
+            localAnswers = JSON.parse(savedStr);
           }
+        } catch (e) {}
+
+        const finalRestoredAnswers = (localAnswers && Object.keys(localAnswers).length > 0)
+          ? localAnswers
+          : (activeSession?.answers && Object.keys(activeSession.answers).length > 0)
+            ? activeSession.answers
+            : (activeSnapshot?.answers && Object.keys(activeSnapshot.answers).length > 0)
+              ? activeSnapshot.answers
+              : {};
+
+        if (Object.keys(finalRestoredAnswers).length > 0) {
+          setAnswers(finalRestoredAnswers);
+        }
+
+        if (activeSession && (activeSession.status === "in-progress" || (activeSession as any).status === "taking" || (activeSession as any).status === "paused")) {
+          // Restore in-progress session info
           if (activeSession.flagged) {
             setFlagged(activeSession.flagged);
           }
@@ -438,19 +748,45 @@ export default function TakingExam() {
           if (activeSession.questionTiming && typeof activeSession.questionTiming === "object") {
             questionTimingRef.current = { ...activeSession.questionTiming };
           }
+          if (typeof (activeSession as any).totalPausedDurationMs === "number") {
+            totalPausedDurationMsRef.current = (activeSession as any).totalPausedDurationMs;
+          }
+          if ((activeSession as any).isPaused) {
+            setIsPaused(true);
+            setSessionStatus("paused");
+          } else {
+            setSessionStatus("taking");
+          }
 
           startTime = activeSession.startTime;
           startTimeRef.current = startTime;
-          const remainingMs = activeSession.endTime - Date.now();
+          let remainingSec = calculateRemainingSeconds({
+            startTime,
+            durationMinutes,
+            totalPausedDurationMs: totalPausedDurationMsRef.current,
+            isPaused: !!(activeSession as any).isPaused,
+            pauseStartedAt: (activeSession as any).pauseStartedAt,
+          });
 
-          if (remainingMs <= 0) {
+          // Cap remaining time if exam closeTime is scheduled
+          if (examData.closeTime) {
+            const msUntilClose = new Date(examData.closeTime).getTime() - Date.now();
+            const secUntilClose = Math.max(0, Math.floor(msUntilClose / 1000));
+            if (remainingSec > secUntilClose) {
+              remainingSec = secUntilClose;
+            }
+          }
+
+          if (remainingSec <= 0) {
             setTimeLeft(0);
+            initialRemainingSec = 0;
           } else {
-            setTimeLeft(Math.floor(remainingMs / 1000));
-            showInfoToast("Đã khôi phục bài làm dở và thời gian làm bài của bạn!");
+            setTimeLeft(remainingSec);
+            initialRemainingSec = remainingSec;
+            showInfoToast("Đã khôi phục bài làm và thời gian làm bài của bạn!");
           }
         } else {
-          // New Attempt Session
+          // New Attempt Session or restore answers from snapshot
           const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
           const storedStart = localStorage.getItem(storageKey);
           if (storedStart) {
@@ -459,15 +795,30 @@ export default function TakingExam() {
             localStorage.setItem(storageKey, startTime.toString());
           }
           startTimeRef.current = startTime;
+          setSessionStatus("taking");
 
-          const limitMs = durationMinutes * 60 * 1000;
-          const elapsedMs = Date.now() - startTime;
-          const remainingMs = limitMs - elapsedMs;
+          let remainingSec = calculateRemainingSeconds({
+            startTime,
+            durationMinutes,
+            totalPausedDurationMs: 0,
+            isPaused: false,
+          });
 
-          if (remainingMs <= 0) {
+          // Cap remaining time if exam closeTime is scheduled
+          if (examData.closeTime) {
+            const msUntilClose = new Date(examData.closeTime).getTime() - Date.now();
+            const secUntilClose = Math.max(0, Math.floor(msUntilClose / 1000));
+            if (remainingSec > secUntilClose) {
+              remainingSec = secUntilClose;
+            }
+          }
+
+          if (remainingSec <= 0) {
             setTimeLeft(0);
+            initialRemainingSec = 0;
           } else {
-            setTimeLeft(Math.floor(remainingMs / 1000));
+            setTimeLeft(remainingSec);
+            initialRemainingSec = remainingSec;
           }
 
           saveActiveExamSession({
@@ -478,65 +829,98 @@ export default function TakingExam() {
             studentName: studentName || "Thí sinh",
             startTime,
             durationMinutes,
-            answers: {},
+            answers: finalRestoredAnswers,
             flagged: {},
             activeQuestionIdx: 0,
             warnings: 0,
           });
         }
 
+        // Immediate authoritative sync to RTDB so examinee appears instantly on Live Proctoring
+        try {
+          const freshSessId = sessionIdRef.current || `sess_${studentIdentifier}_${examId}`;
+          await syncRealtimeSession({
+            sessionId: freshSessId,
+            attemptId: freshSessId,
+            examId: examId || "",
+            examTitle: examData.title || "Bài thi",
+            studentName: studentName || studentIdentifier || "Thí sinh",
+            studentUsername: studentIdentifier,
+            studentId: studentIdentifier,
+            studentClass: studentInfo?.studentClass || studentInfo?.class || "Học sinh",
+            startTime: startTimeRef.current || startTime,
+            durationMinutes: examData.timeLimit || 45,
+            timeLeft: initialRemainingSec > 0 ? initialRemainingSec : 0,
+            answeredCount: Object.keys(finalRestoredAnswers).length,
+            totalQuestions: allQuestions.length,
+            warnings: 0,
+            status: "taking",
+            lastActiveAt: Date.now(),
+            answers: finalRestoredAnswers,
+            activeQuestionIdx: 0,
+            shuffledQuestions: allQuestions,
+            questionOrder: allQuestions.map((q) => q.id),
+          });
+        } catch (sErr) {
+          console.warn("Initial syncRealtimeSession warning:", sErr);
+        }
+
       } catch (err) {
         console.error("Lỗi khi chuẩn bị phòng thi:", err);
       } finally {
         setLoading(false);
+        setTimeout(() => {
+          syncCurrentSession(true);
+        }, 100);
       }
     };
 
     loadExamAndPrepare();
   }, [examId, navigate]);
 
-  // Timer countdown & auto-submit when remaining time expires
+  // Authoritative timer countdown & auto-submit when remaining time expires (Directive 9 & 10)
   useEffect(() => {
-    if (loading || !exam || isPaused) return;
+    if (loading || !exam || isPaused || sessionStatus !== "taking" || submitting) return;
     
     // If timer is already at 0, trigger auto submit immediately
     if (timeLeft <= 0) {
       if (!hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
         hasAutoSubmittedRef.current = true;
-        handleAutoSubmit();
+        handleAutoSubmit("timeout");
       }
       return;
     }
     
     const timer = setInterval(() => {
-      const studentInfoStr = localStorage.getItem("student_info");
-      const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
-      const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "unknown";
-      const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
-      
-      const storedStart = localStorage.getItem(storageKey);
-      let startTime = startTimeRef.current;
-      if (storedStart) {
-        startTime = parseInt(storedStart, 10);
+      let remainingSec = calculateRemainingSeconds({
+        startTime: startTimeRef.current,
+        durationMinutes: exam.timeLimit || 45,
+        totalPausedDurationMs: totalPausedDurationMsRef.current,
+        isPaused: false,
+      });
+
+      // Cap with closeTime if configured
+      if (exam.closeTime) {
+        const msUntilClose = new Date(exam.closeTime).getTime() - Date.now();
+        const secUntilClose = Math.max(0, Math.floor(msUntilClose / 1000));
+        if (remainingSec > secUntilClose) {
+          remainingSec = secUntilClose;
+        }
       }
       
-      const limitMs = (exam?.timeLimit || 45) * 60 * 1000;
-      const elapsedMs = Date.now() - startTime;
-      const remainingMs = limitMs - elapsedMs;
-      
-      if (remainingMs <= 0) {
+      if (remainingSec <= 0) {
         clearInterval(timer);
         setTimeLeft(0);
         if (!hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
           hasAutoSubmittedRef.current = true;
-          handleAutoSubmit();
+          handleAutoSubmit("timeout");
         }
       } else {
-        setTimeLeft(Math.floor(remainingMs / 1000));
+        setTimeLeft(remainingSec);
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [loading, timeLeft, exam, examId, submitting]);
+  }, [loading, timeLeft, exam, isPaused, sessionStatus, submitting]);
 
   // Guaranteed safeguard auto-submit when timeLeft is 0
   useEffect(() => {
@@ -546,7 +930,7 @@ export default function TakingExam() {
     }
   }, [loading, exam, timeLeft, submitting]);
 
-  // Continuously sync in-progress answers & state to localStorage
+  // Continuously sync in-progress answers & state to localStorage (guaranteeing zero loss on refresh)
   useEffect(() => {
     if (!loading && exam && examId && !submitting && isSessionActiveRef.current) {
       updateActiveExamSessionAnswers(examId, answers, {
@@ -555,6 +939,22 @@ export default function TakingExam() {
         warnings,
         questionTiming: questionTimingRef.current,
       });
+
+      // Also persist answers into attemptSnapshot
+      try {
+        const studentInfoStr = localStorage.getItem("student_info");
+        const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
+        const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "student";
+        const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
+        const snapStr = localStorage.getItem(snapshotKey);
+        if (snapStr) {
+          const parsedSnap = JSON.parse(snapStr);
+          parsedSnap.answers = answers;
+          parsedSnap.flagged = flagged;
+          parsedSnap.activeQuestionIdx = activeQuestionIdx;
+          localStorage.setItem(snapshotKey, JSON.stringify(parsedSnap));
+        }
+      } catch (e) {}
     }
   }, [answers, flagged, activeQuestionIdx, warnings, loading, exam, examId, submitting]);
 
@@ -640,18 +1040,39 @@ export default function TakingExam() {
     prevAnswersRef.current = { ...answers };
   }, [answers, loading, questions.length]);
 
-  // Anti-cheat detection: visibilitychange & window blur
+  // Anti-cheat detection: visibilitychange & window blur (Directives 49 & 50)
   useEffect(() => {
-    if (!exam || !exam.antiCheatEnabled) return;
+    if (!exam || !exam.antiCheatEnabled || submitting || sessionStatus !== "taking") return;
+
+    const recordViolation = () => {
+      const now = Date.now();
+      // 1000ms cooldown to avoid double counting blur and visibilitychange
+      if (now - lastViolationTimeRef.current < 1000) return;
+      lastViolationTimeRef.current = now;
+
+      setWarnings((prev) => {
+        const next = prev + 1;
+        const maxLimit = exam.maxWarnings || 3;
+
+        if (exam.autoSubmitOnViolation && next >= maxLimit) {
+          showErrorToast(`Đã vượt quá số lần cảnh báo cho phép (${maxLimit}). Hệ thống đang tự động nộp bài.`);
+          handleAutoSubmit("suspended");
+        } else {
+          showErrorToast(`Cảnh báo vi phạm (${next}/${maxLimit}): Vui lòng không chuyển tab hoặc thoát khỏi giao diện thi!`);
+        }
+
+        return next;
+      });
+    };
 
     const handleVisibility = () => {
       if (document.hidden) {
-        setWarnings((w) => w + 1);
+        recordViolation();
       }
     };
 
     const handleBlur = () => {
-      setWarnings((w) => w + 1);
+      recordViolation();
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
@@ -661,17 +1082,37 @@ export default function TakingExam() {
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("blur", handleBlur);
     };
-  }, [exam]);
+  }, [exam, submitting, sessionStatus]);
 
   // ScrollSpy for Active Question Tracking in Scroll Mode
   useEffect(() => {
     if (displayMode === "paging" || questions.length === 0 || loading || submitting) return;
 
+    const handleScroll = () => {
+      if (isManualScrollingRef.current) return;
+      let minDistance = Infinity;
+      let closestIdx = -1;
+      questions.forEach((_, idx) => {
+        const el = document.getElementById(`q-card-${idx}`);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const dist = Math.abs(rect.top - 120);
+          if (rect.bottom > 120 && dist < minDistance) {
+            minDistance = dist;
+            closestIdx = idx;
+          }
+        }
+      });
+      if (closestIdx !== -1) {
+        setActiveQuestionIdx((prev) => (prev !== closestIdx ? closestIdx : prev));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     const observer = new IntersectionObserver(
       (entries) => {
-        if (isManualScrollingRef.current) return; // Prevent overwriting active index during click-scroll
-
-        // Find the most visible question card
+        if (isManualScrollingRef.current) return;
         let maxRatio = 0;
         let mostVisibleIdx = -1;
 
@@ -692,7 +1133,7 @@ export default function TakingExam() {
       },
       {
         root: null,
-        rootMargin: "-20% 0px -40% 0px", // Trigger active when it passes the top 20%
+        rootMargin: "-10% 0px -30% 0px",
         threshold: [0.1, 0.5, 0.9],
       }
     );
@@ -702,139 +1143,40 @@ export default function TakingExam() {
       if (el) observer.observe(el);
     });
 
-    return () => observer.disconnect();
-  }, [displayMode === "paging", questions.length, loading, submitting]);
-
-  // System Point Calculation: Total max score is 10.0 points.
-  // Each question counts as (10 / totalQuestions) points.
-  // For true/false, each statement counts as (pointPerQuestion / statements.length).
-  const calculateScore = () => {
-    const totalQ = questions.length;
-    if (totalQ === 0) {
-      return { rawScore: 0, score: 0, correctCount: 0, maxScore: 10, totalCount: 0 };
-    }
-
-    const pointPerQuestion = 10 / totalQ;
-    let totalEarnedPoints = 0;
-    let correctCount = 0;
-    const correctQuestionIds: string[] = [];
-
-    questions.forEach((q) => {
-      const ans = answers[q.id];
-      if (!ans) return;
-
-      if (q.type === "single_choice") {
-        const isCorrect = q.correctOptionIds?.includes(ans as string);
-        if (isCorrect) {
-          totalEarnedPoints += pointPerQuestion;
-          correctCount++;
-          correctQuestionIds.push(q.id);
-        }
-      } else if (q.type === "multiple_choice") {
-        const correctSet = new Set<string>(q.correctOptionIds || []);
-        const ansSet = new Set<string>((ans as string[]) || []);
-        const isCorrect =
-          correctSet.size > 0 &&
-          correctSet.size === ansSet.size &&
-          [...correctSet].every((id: string) => ansSet.has(id));
-        if (isCorrect) {
-          totalEarnedPoints += pointPerQuestion;
-          correctCount++;
-          correctQuestionIds.push(q.id);
-        }
-      } else if (q.type === "true_false") {
-        const stmts = q.statements || [];
-        if (stmts.length > 0) {
-          const pointPerStatement = pointPerQuestion / stmts.length;
-          let correctInThisQ = 0;
-          stmts.forEach((s) => {
-            // ans for true_false is an object { [statementId]: boolean }
-            if (ans[s.id] === s.correctAnswer) {
-              correctInThisQ++;
-              totalEarnedPoints += pointPerStatement;
-            }
-          });
-          if (correctInThisQ === stmts.length) {
-            correctCount++;
-            correctQuestionIds.push(q.id);
-          }
-        }
-      } else if (q.type === "short_answer") {
-        const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
-        const isCorrect = accepted.includes(String(ans).trim().toLowerCase());
-        if (isCorrect) {
-          totalEarnedPoints += pointPerQuestion;
-          correctCount++;
-          correctQuestionIds.push(q.id);
-        }
-      } else if (q.type === "ordering") {
-        const items = q.orderingItems || [];
-        const correctOrder = q.correctOrder || items.map((it) => it.id);
-        const studentOrder = Array.isArray(ans) ? ans : [];
-        let matches = 0;
-        correctOrder.forEach((id, idx) => {
-          if (studentOrder[idx] === id) matches++;
-        });
-        if (matches === correctOrder.length && correctOrder.length > 0) {
-          totalEarnedPoints += pointPerQuestion;
-          correctCount++;
-          correctQuestionIds.push(q.id);
-        } else if (matches > 0 && correctOrder.length > 0) {
-          totalEarnedPoints += (matches / correctOrder.length) * pointPerQuestion;
-        }
-      } else if (q.type === "fill_blank") {
-        const acceptedMap = q.acceptedAnswersPerBlank || {};
-        const ansMap = typeof ans === "object" && ans ? ans : {};
-        const keys = Object.keys(acceptedMap);
-        if (keys.length > 0) {
-          let correctBlanks = 0;
-          keys.forEach((k) => {
-            const idx = Number(k);
-            const userVal = String(ansMap[idx] || "").trim();
-            const validOptions = acceptedMap[idx] || [];
-            const isMatch = validOptions.some((opt) => {
-              const target = q.trimWhitespace !== false ? opt.trim() : opt;
-              if (q.caseSensitive) return target === (q.trimWhitespace !== false ? userVal : String(ansMap[idx] || ""));
-              return target.toLowerCase() === userVal.toLowerCase();
-            });
-            if (isMatch) correctBlanks++;
-          });
-          if (correctBlanks === keys.length) {
-            totalEarnedPoints += pointPerQuestion;
-            correctCount++;
-            correctQuestionIds.push(q.id);
-          } else if (correctBlanks > 0) {
-            totalEarnedPoints += (correctBlanks / keys.length) * pointPerQuestion;
-          }
-        }
-      }
-    });
-
-    const finalScore = Math.min(10, Math.round(totalEarnedPoints * 100) / 100);
-
-    return {
-      rawScore: totalEarnedPoints,
-      score: finalScore,
-      correctCount,
-      maxScore: 10,
-      totalCount: totalQ,
-      correctQuestionIds,
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
+  }, [displayMode, questions.length, loading, submitting]);
+
+  // Centralized Point Calculation (Directives 28 & 7)
+  const calculateScore = () => {
+    return calculateExamScore(questions, answers);
   };
 
-  const handleAutoSubmit = async () => {
-    showInfoToast("Thời gian làm bài đã kết thúc! Hệ thống đang tự động nộp bài thi của bạn.");
-    await executeSubmit();
+  const handleAutoSubmit = async (reason: "timeout" | "suspended" = "timeout") => {
+    if (reason === "timeout") {
+      showInfoToast("Thời gian làm bài đã kết thúc! Hệ thống đang tự động nộp bài thi của bạn.");
+    }
+    await executeSubmit(reason);
   };
 
-  const executeSubmit = async () => {
+  const executeSubmit = async (reason: "manual" | "timeout" | "admin_force" | "suspended" = "manual") => {
     if (!exam || !examId) return;
-    isSessionActiveRef.current = false;
-    isSubmittingRef.current = true;
+
+    // Transition immediately to submitting (P0 submission lock, Directives 5 & 10)
+    setSessionStatus("submitting");
     setSubmitting(true);
+    setSubmissionError(null);
+    isSubmittingRef.current = true;
+    isSessionActiveRef.current = false;
+
+    // Freeze timer at current value
+    const finalCapturedTimeLeft = timeLeft;
+
     try {
       const { score, correctCount, maxScore, totalCount, correctQuestionIds } = calculateScore();
-      const timeSpent = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
+      const timeSpent = Math.max(1, Math.floor((Date.now() - startTimeRef.current - totalPausedDurationMsRef.current) / 1000));
 
       const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
       let studentUsername = "student";
@@ -846,6 +1188,10 @@ export default function TakingExam() {
           if (parsed.studentClass || parsed.class) studentClassSnapshot = parsed.studentClass || parsed.class;
         } catch (e) {}
       }
+
+      // Stable attempt & submission ID (Directive 6)
+      const attemptId = sessionIdRef.current || `sess_${studentUsername}_${examId}`;
+      const submissionId = `sub_${attemptId.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
 
       // Ensure every question has an entry in questionTiming
       questions.forEach((q, idx) => {
@@ -860,41 +1206,47 @@ export default function TakingExam() {
         }
       });
 
-      const sub = await createSubmission({
-        examId,
-        examTitleSnapshot: exam.title,
-        examCodeSnapshot: exam.code || "",
-        studentId: studentUsername,
-        studentNameSnapshot: studentName,
-        studentUsername,
-        studentClassSnapshot,
-        score,
-        maxScore,
-        correctCount,
-        totalCount,
-        timeSpent,
-        cheatViolations: warnings,
-        answers,
-        questionTiming: questionTimingRef.current,
-        shuffledQuestionsSnapshot: questions,
-        subExam: isSubExamUsedRef.current,
-        subExamConfigSnapshot: subExamConfigUsedRef.current || (exam.allowSubExam && exam.subExamConfig ? exam.subExamConfig : null),
-        isRetake: !!exam.isRetake,
-        isAggregatedReview: !!exam.isAggregatedReview,
-        originalExamId: exam.originalExamId || null,
-      });
+      const sub = await createSubmission(
+        {
+          examId,
+          examTitleSnapshot: exam.title,
+          examCodeSnapshot: exam.code || "",
+          studentId: studentUsername,
+          studentNameSnapshot: studentName,
+          studentUsername,
+          studentClassSnapshot,
+          score,
+          maxScore,
+          correctCount,
+          totalCount,
+          timeSpent,
+          cheatViolations: warnings,
+          answers,
+          questionTiming: questionTimingRef.current,
+          shuffledQuestionsSnapshot: questions,
+          subExam: isSubExamUsedRef.current,
+          subExamConfigSnapshot: subExamConfigUsedRef.current || (exam.allowSubExam && exam.subExamConfig ? exam.subExamConfig : null),
+          isRetake: !!exam.isRetake,
+          isAggregatedReview: !!exam.isAggregatedReview,
+          originalExamId: exam.originalExamId || null,
+          attemptId,
+          submissionReason: reason,
+        },
+        submissionId
+      );
 
-      // If this is a retake or aggregated review exam, record mastery for any questions answered correctly
+      // Record mastery if retake
       if ((exam.isRetake || exam.isAggregatedReview) && correctQuestionIds && correctQuestionIds.length > 0) {
         try {
           const masteryItems: { questionId: string; originalExamId: string }[] = [];
           correctQuestionIds.forEach((qId) => {
             const qObj = questions.find((it) => it.id === qId);
             const targetExamId = (qObj as any)?.originalExamId || (qObj as any)?.examId || exam.originalExamId;
+            const targetQuestionId = (qObj as any)?.originalQuestionId || qId;
             if (targetExamId && targetExamId !== examId) {
-              masteryItems.push({ questionId: qId, originalExamId: targetExamId });
+              masteryItems.push({ questionId: targetQuestionId, originalExamId: targetExamId });
             } else if (exam.originalExamId) {
-              masteryItems.push({ questionId: qId, originalExamId: exam.originalExamId });
+              masteryItems.push({ questionId: targetQuestionId, originalExamId: exam.originalExamId });
             }
           });
           if (masteryItems.length > 0) {
@@ -905,22 +1257,30 @@ export default function TakingExam() {
         }
       }
 
-      // Save or update student profile in Firestore
+      // Save student profile
       try {
         await saveStudentProfile({ name: studentName, username: studentUsername, studentClass: studentClassSnapshot });
       } catch (profileErr) {
         console.warn("Could not save student profile:", profileErr);
       }
 
-      // Clean up active session from real-time monitoring upon submission immediately
+      // Khi thí sinh đã nộp bài, lập tức giải phóng và xóa phiên thi khỏi Live RTDB & Firestore
       try {
-        const sessId = sessionIdRef.current || `sess_${studentUsername}_${examId}`;
-        await removeRealtimeSession(sessId);
+        const liveSessId = sessionIdRef.current || attemptId || `sess_${studentUsername}_${examId}`;
+        await removeRealtimeSession(liveSessId);
+        if (attemptId && attemptId !== liveSessId) {
+          await removeRealtimeSession(attemptId);
+        }
       } catch (sessErr) {
-        console.warn("Could not remove active session:", sessErr);
+        console.warn("Could not remove session from RTDB on submit:", sessErr);
       }
-      
+
       clearActiveExamSession(examId);
+      try {
+        localStorage.removeItem(`dktest_temp_answers_${examId}_${studentUsername}`);
+        localStorage.removeItem(`dktest_temp_answers_${examId}`);
+      } catch (e) {}
+      setSessionStatus("submitted");
 
       // Save submission ID to local submission history
       try {
@@ -935,12 +1295,13 @@ export default function TakingExam() {
       }
 
       navigate(`/student/exam/${examId}/result/${sub.id}`, { replace: true });
-    } catch (err) {
+    } catch (err: any) {
       console.error("Lỗi khi nộp bài:", err);
-      showErrorToast("Đã xảy ra lỗi khi nộp bài. Vui lòng thử lại!");
+      const errMsg = err?.message || "Không thể hoàn tất nộp bài. Bài làm của bạn vẫn được bảo toàn.";
+      setSubmissionError(errMsg);
+      showErrorToast(errMsg);
+      // Directive 8: Remain locked on failure, timer frozen, do not reopen automatically
       setSubmitting(false);
-      isSubmittingRef.current = false;
-      isSessionActiveRef.current = true;
     }
   };
 
@@ -1000,6 +1361,23 @@ export default function TakingExam() {
     return true;
   }).length;
 
+  // Dedicated Instant Local Storage Sync on Every Answer Change (User Directive)
+  const updateAnswer = (qId: string, valOrUpdater: any) => {
+    setAnswers((prev) => {
+      const nextVal = typeof valOrUpdater === "function" ? valOrUpdater(prev[qId]) : valOrUpdater;
+      const next = { ...prev, [qId]: nextVal };
+      try {
+        if (examId) {
+          const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+          const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).displayName || "student") : "student";
+          localStorage.setItem(`dktest_temp_answers_${examId}_${u}`, JSON.stringify(next));
+          localStorage.setItem(`dktest_temp_answers_${examId}`, JSON.stringify(next));
+        }
+      } catch (e) {}
+      return next;
+    });
+  };
+
   // Single Question Card Component Render
   const renderQuestionCard = (q: Question, qIdx: number) => {
     const qSection = q.sectionId ? sections.find((s) => s.id === q.sectionId) : null;
@@ -1007,7 +1385,7 @@ export default function TakingExam() {
     return (
       <div
         id={`q-card-${qIdx}`}
-        key={q.id}
+        key={`${q.id || "q"}_${qIdx}`}
         className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-8 shadow-2xs space-y-6 scroll-mt-20"
       >
         {/* Question Header */}
@@ -1057,8 +1435,28 @@ export default function TakingExam() {
           <LatexPreview content={q.text} />
         </div>
 
-        {/* Answer Options */}
-        <div className="pt-2">
+        {/* Embedded Question Audio (Listening MP3) */}
+        {Boolean(q.audioConfig?.url || q.audioUrl) && (
+          <div className="pt-2">
+            <ExamAudioPlayer
+              config={{
+                enabled: true,
+                url: q.audioConfig?.url || q.audioUrl || "",
+                title: q.audioConfig?.title || `Audio Câu ${qIdx + 1}`,
+                maxPlays: q.audioConfig?.maxPlays ?? 0,
+                allowSeek: q.audioConfig?.allowSeek ?? true,
+                allowPause: q.audioConfig?.allowPause ?? true,
+                autoPlay: q.audioConfig?.autoPlay ?? false,
+                ...q.audioConfig,
+              }}
+              examId={`${examId || "exam"}_q_${q.id}`}
+              studentUsername={studentUsername}
+            />
+          </div>
+        )}
+
+        {/* Answer Options (Locked when submitting, paused, suspended or blocked - Directive 5) */}
+        <div className={`pt-2 ${submitting || isPaused || isSuspended || sessionStatus !== "taking" ? "pointer-events-none opacity-60" : ""}`}>
           {/* 1. Single Choice */}
           {q.type === "single_choice" && (
             <div className="space-y-2.5">
@@ -1070,12 +1468,7 @@ export default function TakingExam() {
                   <button
                     key={opt.id}
                     type="button"
-                    onClick={() =>
-                      setAnswers((prev) => ({
-                        ...prev,
-                        [q.id]: opt.id,
-                      }))
-                    }
+                    onClick={() => updateAnswer(q.id, opt.id)}
                     className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${
                       isSelected
                         ? "bg-blue-50/80 border-blue-500 ring-2 ring-blue-500/20 text-blue-950 font-semibold"
@@ -1113,12 +1506,11 @@ export default function TakingExam() {
                     key={opt.id}
                     type="button"
                     onClick={() => {
-                      setAnswers((prev) => {
-                        const existing = (prev[q.id] as string[]) || [];
-                        const updated = existing.includes(opt.id)
+                      updateAnswer(q.id, (prevVal: string[] = []) => {
+                        const existing = Array.isArray(prevVal) ? prevVal : [];
+                        return existing.includes(opt.id)
                           ? existing.filter((id) => id !== opt.id)
                           : [...existing, opt.id];
-                        return { ...prev, [q.id]: updated };
                       });
                     }}
                     className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${
@@ -1170,12 +1562,9 @@ export default function TakingExam() {
                       <button
                         type="button"
                         onClick={() => {
-                          setAnswers((prev) => ({
-                            ...prev,
-                            [q.id]: {
-                              ...(prev[q.id] || {}),
-                              [stmt.id]: true,
-                            },
+                          updateAnswer(q.id, (prevMap: any = {}) => ({
+                            ...(prevMap || {}),
+                            [stmt.id]: true,
                           }));
                         }}
                         className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
@@ -1190,12 +1579,9 @@ export default function TakingExam() {
                       <button
                         type="button"
                         onClick={() => {
-                          setAnswers((prev) => ({
-                            ...prev,
-                            [q.id]: {
-                              ...(prev[q.id] || {}),
-                              [stmt.id]: false,
-                            },
+                          updateAnswer(q.id, (prevMap: any = {}) => ({
+                            ...(prevMap || {}),
+                            [stmt.id]: false,
                           }));
                         }}
                         className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
@@ -1223,12 +1609,7 @@ export default function TakingExam() {
                 type="text"
                 placeholder="Nhập đáp án ngắn vào đây..."
                 value={answers[q.id] || ""}
-                onChange={(e) =>
-                  setAnswers((prev) => ({
-                    ...prev,
-                    [q.id]: e.target.value,
-                  }))
-                }
+                onChange={(e) => updateAnswer(q.id, e.target.value)}
                 className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -1253,10 +1634,7 @@ export default function TakingExam() {
                   const temp = newOrder[index];
                   newOrder[index] = newOrder[targetIndex];
                   newOrder[targetIndex] = temp;
-                  setAnswers((prev) => ({
-                    ...prev,
-                    [q.id]: newOrder,
-                  }));
+                  updateAnswer(q.id, newOrder);
                 };
 
                 return (
@@ -1338,12 +1716,9 @@ export default function TakingExam() {
                           value={currentAnsMap[bIdx] || ""}
                           onChange={(e) => {
                             const val = e.target.value;
-                            setAnswers((prev) => ({
-                              ...prev,
-                              [q.id]: {
-                                ...(typeof prev[q.id] === "object" && prev[q.id] ? prev[q.id] : {}),
-                                [bIdx]: val,
-                              },
+                            updateAnswer(q.id, (prevMap: any = {}) => ({
+                              ...(typeof prevMap === "object" && prevMap ? prevMap : {}),
+                              [bIdx]: val,
                             }));
                           }}
                           className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1362,16 +1737,77 @@ export default function TakingExam() {
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none pt-16">
-      {/* Admin Action Overlays */}
+      {/* Multi-Tab Protection Overlay (Directive 24) */}
+      {isBlockedByOtherTab && (
+        <div className="fixed inset-0 z-[120] bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-rose-600 space-y-4">
+            <div className="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mx-auto text-rose-600">
+              <AlertTriangle className="w-8 h-8" />
+            </div>
+            <h2 className="text-xl font-black text-slate-900">Phát hiện mở nhiều tab</h2>
+            <p className="text-xs text-slate-600 leading-relaxed font-medium">
+              Bài thi này đang được mở ở một tab khác trên trình duyệt. Vui lòng đóng tab này và quay lại tab đang làm bài để tránh mất dữ liệu.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Submission Failure Retry Overlay (Directive 8) */}
+      {submissionError && (
+        <div className="fixed inset-0 z-[110] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-red-500 space-y-4">
+            <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto text-red-600">
+              <AlertTriangle className="w-8 h-8" />
+            </div>
+            <h2 className="text-xl font-bold text-slate-900">Không thể hoàn tất nộp bài</h2>
+            <p className="text-xs text-slate-600 leading-relaxed font-medium">
+              {submissionError}
+            </p>
+            <p className="text-xs text-emerald-700 font-bold bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
+              Bài làm của bạn vẫn được bảo toàn. Hãy kiểm tra kết nối mạng và bấm thử lại.
+            </p>
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => executeSubmit("manual")}
+                disabled={submitting}
+                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                Thử lại nộp bài
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Submitting Blocking Indicator (Directive 5 & 10) */}
+      {submitting && !submissionError && (
+        <div className="fixed inset-0 z-[105] bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-3 shadow-2xl">
+            <Loader2 className="w-10 h-10 text-blue-600 animate-spin mx-auto" />
+            <h3 className="text-base font-bold text-slate-900">Đang nộp bài...</h3>
+            <p className="text-xs text-slate-500">Hệ thống đang niêm phong bài làm và chấm điểm tự động.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Admin Action Overlays (Directives 12 & 13) */}
       {isPaused && (
         <div className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-amber-500">
-            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-amber-600" />
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-amber-500 space-y-4">
+            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto text-amber-600">
+              <AlertTriangle className="w-8 h-8" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Bài thi bị tạm dừng</h2>
-            <p className="text-slate-600 mb-6">{adminMessage}</p>
-            <div className="animate-pulse flex gap-2 justify-center text-sm font-medium text-amber-600">
+            <h2 className="text-xl font-bold text-slate-900">BÀI THI ĐANG TẠM DỪNG</h2>
+            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs text-slate-700 text-left space-y-1">
+              <div className="font-bold text-slate-500">Lý do:</div>
+              <div>{adminMessage}</div>
+            </div>
+            <p className="text-xs text-amber-700 font-semibold">
+              Thời gian đang được bảo lưu. Vui lòng chờ giám thị tiếp tục bài thi.
+            </p>
+            <div className="animate-pulse flex gap-2 justify-center text-sm font-medium text-amber-600 pt-2">
               <div className="w-2 h-2 bg-amber-500 rounded-full" />
               <div className="w-2 h-2 bg-amber-500 rounded-full" />
               <div className="w-2 h-2 bg-amber-500 rounded-full" />
@@ -1379,15 +1815,18 @@ export default function TakingExam() {
           </div>
         </div>
       )}
+
       {isSuspended && (
         <div className="fixed inset-0 z-[100] bg-red-900/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-red-600">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-red-600" />
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center border-t-4 border-red-600 space-y-3">
+            <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto text-red-600">
+              <AlertTriangle className="w-8 h-8" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Đình chỉ thi</h2>
-            <p className="text-slate-600 font-medium">{adminMessage}</p>
-            <p className="text-red-500 text-sm mt-4 font-bold uppercase tracking-wide">Hệ thống đã tự động nộp bài</p>
+            <h2 className="text-2xl font-bold text-slate-900">Đình chỉ thi</h2>
+            <p className="text-slate-600 font-medium text-xs">{adminMessage}</p>
+            <p className="text-red-600 text-xs font-bold uppercase tracking-wide bg-red-50 p-2 rounded-xl border border-red-200">
+              Hệ thống đã tự động niêm phong & nộp bài
+            </p>
           </div>
         </div>
       )}
@@ -1504,6 +1943,26 @@ export default function TakingExam() {
       <div className="flex-1 flex flex-col lg:flex-row max-w-7xl w-full mx-auto p-4 gap-4 items-start">
         {/* Left Side: Questions Container */}
         <div className="flex-1 w-full space-y-4">
+          {/* Exam Audio Player (Listening Test) */}
+          {(exam?.audioConfig?.url || (exam as any)?.audioUrl) && (
+            <div className="w-full">
+              <ExamAudioPlayer
+                config={{
+                  enabled: true,
+                  url: exam.audioConfig?.url || (exam as any).audioUrl || "",
+                  title: exam.audioConfig?.title || "Bài nghe Audio của đề thi",
+                  maxPlays: exam.audioConfig?.maxPlays ?? 0,
+                  allowSeek: exam.audioConfig?.allowSeek ?? true,
+                  allowPause: exam.audioConfig?.allowPause ?? true,
+                  autoPlay: exam.audioConfig?.autoPlay ?? false,
+                  ...exam.audioConfig,
+                }}
+                examId={exam.id || examId || "exam"}
+                studentUsername={studentUsername}
+              />
+            </div>
+          )}
+
           {displayMode === "paging" ? (
             currentQ ? (
               <div className="space-y-4">
@@ -1527,6 +1986,26 @@ export default function TakingExam() {
                           {currentSection.description && (
                             <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
                               <LatexPreview content={currentSection.description} />
+                            </div>
+                          )}
+
+                          {/* Section Audio Player (Paging View) */}
+                          {(currentSection.audioConfig?.url || (currentSection as any).audioUrl) && (
+                            <div className="pt-1">
+                              <ExamAudioPlayer
+                                config={{
+                                  enabled: true,
+                                  url: currentSection.audioConfig?.url || (currentSection as any).audioUrl || "",
+                                  title: currentSection.audioConfig?.title || `Bài nghe: ${currentSection.title}`,
+                                  maxPlays: currentSection.audioConfig?.maxPlays ?? 0,
+                                  allowSeek: currentSection.audioConfig?.allowSeek ?? true,
+                                  allowPause: currentSection.audioConfig?.allowPause ?? true,
+                                  autoPlay: currentSection.audioConfig?.autoPlay ?? false,
+                                  ...currentSection.audioConfig,
+                                }}
+                                examId={`${examId || "exam"}_sec_${currentSection.id}`}
+                                studentUsername={studentUsername}
+                              />
                             </div>
                           )}
                         </div>
@@ -1613,6 +2092,26 @@ export default function TakingExam() {
                           {group.section.description && (
                             <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
                               <LatexPreview content={group.section.description} />
+                            </div>
+                          )}
+
+                          {/* Section Audio Player (Scroll View) */}
+                          {(group.section.audioConfig?.url || (group.section as any).audioUrl) && (
+                            <div className="pt-1">
+                              <ExamAudioPlayer
+                                config={{
+                                  enabled: true,
+                                  url: group.section.audioConfig?.url || (group.section as any).audioUrl || "",
+                                  title: group.section.audioConfig?.title || `Bài nghe: ${group.section.title}`,
+                                  maxPlays: group.section.audioConfig?.maxPlays ?? 0,
+                                  allowSeek: group.section.audioConfig?.allowSeek ?? true,
+                                  allowPause: group.section.audioConfig?.allowPause ?? true,
+                                  autoPlay: group.section.audioConfig?.autoPlay ?? false,
+                                  ...group.section.audioConfig,
+                                }}
+                                examId={`${examId || "exam"}_sec_${group.section.id}`}
+                                studentUsername={studentUsername}
+                              />
                             </div>
                           )}
                         </div>
@@ -1743,7 +2242,7 @@ export default function TakingExam() {
 
                             return (
                               <button
-                                key={q.id}
+                                key={`${q.id || "q"}_nav_${i}`}
                                 type="button"
                                 onClick={() => {
                                   handleQuestionSelectInMap(i);
@@ -1849,7 +2348,7 @@ export default function TakingExam() {
         activeQuestionIdx={activeQuestionIdx}
         onSelectQuestion={(idx) => setActiveQuestionIdx(idx)}
         answers={answers}
-        onAnswerChange={(qId, val) => setAnswers((prev) => ({ ...prev, [qId]: val }))}
+        onAnswerChange={(qId, val) => updateAnswer(qId, val)}
         timeLeft={timeLeft}
         onSubmitExam={() => setShowSubmitConfirm(true)}
         onScratchpadUpdate={(dataUrl) => {
@@ -1868,6 +2367,66 @@ export default function TakingExam() {
           showInfoToast(`Đã sao chép kết quả ${val} vào bộ nhớ để nháp!`);
         }}
       />
+
+      {/* Screen Share Proctoring Request Prompt Modal */}
+      {showScreenSharePrompt && (
+        <div className="fixed inset-0 z-[120] bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
+            <div className="flex items-center gap-3 text-indigo-600">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0">
+                <Monitor className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-slate-900 text-base">Yêu cầu chia sẻ màn hình</h3>
+                <p className="text-xs text-slate-500">Từ: Giám thị coi thi</p>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs text-slate-700 leading-relaxed space-y-2">
+              <p>
+                Giám thị đang yêu cầu xem màn hình thiết bị của bạn để trực tiếp quan sát và giám sát quá trình làm bài thi thực tế.
+              </p>
+              <p className="text-[11px] text-slate-500 font-medium">
+                * Bạn có quyền <strong className="text-slate-700">Đồng ý</strong> hoặc <strong className="text-slate-700">Từ chối</strong> yêu cầu này. Nếu đồng ý, trình duyệt sẽ mở hộp thoại để bạn chọn chia sẻ màn hình.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-end gap-2.5 pt-1">
+              <button
+                type="button"
+                onClick={handleDeclineScreenShare}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              >
+                Từ chối
+              </button>
+              <button
+                type="button"
+                onClick={handleAcceptScreenShare}
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer"
+              >
+                <Monitor className="w-4 h-4" /> Đồng ý chia sẻ
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Active Screen Share Badge */}
+      {isScreenSharing && (
+        <div className="fixed bottom-4 left-4 z-[90] bg-slate-900/90 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl shadow-xl border border-white/10 flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-1.5 font-bold text-emerald-400">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
+            <span>Đang chia sẻ màn hình với Giám thị</span>
+          </div>
+          <button
+            type="button"
+            onClick={stopRealScreenShare}
+            className="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-[11px] transition-colors cursor-pointer"
+          >
+            Dừng chia sẻ
+          </button>
+        </div>
+      )}
     </div>
   );
 }

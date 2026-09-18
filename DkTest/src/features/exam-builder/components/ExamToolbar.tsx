@@ -1,9 +1,9 @@
 import { useExamEditorContext } from "../context/ExamEditorContext";
-import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2, Sparkles, FileText } from "lucide-react";
+import { ArrowLeft, Save, Play, Download, Upload, CheckCircle2, Loader2, AlertCircle, Trash2, Sparkles, FileText, ChevronDown, FileCode } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { exportJson } from "../../../utils/json/exportExamJson";
 import { parseExamFile } from "../../../utils/json/importExamJson";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ExamPreviewModal from "./ExamPreviewModal";
 import ExamExportModal from "./ExamExportModal";
 import JsonImportModal from "./JsonImportModal";
@@ -11,6 +11,7 @@ import PublishVisibilityModal from "./PublishVisibilityModal";
 import { deleteExam } from "../../../services/examService";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
 import { useToast } from "../../../components/ui/ToastNotification";
+import { exportExamToWord } from "../../../services/wordExportService";
 
 export default function ExamToolbar() {
   const { state, actions } = useExamEditorContext();
@@ -23,7 +24,24 @@ export default function ExamToolbar() {
   const [showJsonImportModal, setShowJsonImportModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showImportDropdown, setShowImportDropdown] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
+  const importDropdownRef = useRef<HTMLDivElement>(null);
+  const exportDropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (importDropdownRef.current && !importDropdownRef.current.contains(e.target as Node)) {
+        setShowImportDropdown(false);
+      }
+      if (exportDropdownRef.current && !exportDropdownRef.current.contains(e.target as Node)) {
+        setShowExportDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const processImportedJsonData = (data: any) => {
     try {
@@ -211,49 +229,146 @@ export default function ExamToolbar() {
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={() => setShowExportModal(true)}
-            className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer"
-            title="Xuất đề thi dạng PDF & LaTeX"
-          >
-            <FileText className="w-4 h-4" /> <span className="hidden md:inline">Xuất PDF / LaTeX</span>
-          </button>
+          {/* Menu Dropdown: Xuất đề */}
+          <div className="relative" ref={exportDropdownRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setShowExportDropdown(!showExportDropdown);
+                setShowImportDropdown(false);
+              }}
+              className="px-3 py-2 text-blue-700 bg-blue-50/90 hover:bg-blue-100 border border-blue-200/80 rounded-xl transition-all flex items-center gap-1.5 text-xs font-bold cursor-pointer shadow-2xs"
+              title="Xuất đề thi ra các định dạng"
+            >
+              <Download className="w-3.5 h-3.5 text-blue-600" />
+              <span>Xuất đề</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showExportDropdown ? "rotate-180" : ""}`} />
+            </button>
 
-          <button
-            type="button"
-            onClick={handleExport}
-            className="p-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
-            title="Xuất JSON đề thi"
-          >
-            <Download className="w-4 h-4" /> <span className="hidden lg:inline">Xuất JSON</span>
-          </button>
+            {showExportDropdown && (
+              <div className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-200 py-1.5 z-50 animate-in fade-in slide-in-from-top-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowExportDropdown(false);
+                    try {
+                      exportExamToWord(state.examMeta, state.questions);
+                      showSuccessToast("Đã tải xuống file Word (.doc) đề thi!");
+                    } catch (e: any) {
+                      showErrorToast("Lỗi xuất Word: " + (e.message || "Vui lòng thử lại"));
+                    }
+                  }}
+                  className="w-full px-3.5 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center gap-2.5 transition-colors cursor-pointer"
+                >
+                  <FileText className="w-4 h-4 text-blue-600" />
+                  <div>
+                    <div className="font-bold text-slate-800">Xuất file Word (.docx)</div>
+                    <div className="text-[10px] text-slate-400 font-normal">Kèm đề, bảng đáp án & giải</div>
+                  </div>
+                </button>
 
-          <button
-            type="button"
-            onClick={() => setShowJsonImportModal(true)}
-            className="p-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
-            title="Nhập JSON đề thi (Dán hoặc Tải file)"
-          >
-            <Upload className="w-4 h-4" /> <span className="hidden lg:inline">Nhập JSON</span>
-          </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowExportDropdown(false);
+                    setShowExportModal(true);
+                  }}
+                  className="w-full px-3.5 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2.5 transition-colors cursor-pointer"
+                >
+                  <FileCode className="w-4 h-4 text-indigo-600" />
+                  <div>
+                    <div className="font-bold text-slate-800">Xuất PDF & LaTeX</div>
+                    <div className="text-[10px] text-slate-400 font-normal">In đề hoặc lời giải chất lượng cao</div>
+                  </div>
+                </button>
 
-          <button
-            type="button"
-            onClick={() => navigate(isParentMode ? "/parent/exams/import-prompt" : "/admin/exams/import-prompt")}
-            className="p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer"
-            title="AI tạo đề từ Prompt"
-          >
-            <Sparkles className="w-4 h-4" /> <span className="hidden lg:inline">Tạo từ Prompt</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate(isParentMode ? "/parent/exams/import-word" : "/admin/exams/import-word")}
-            className="p-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold cursor-pointer"
-            title="AI tạo đề từ file Word"
-          >
-            <Upload className="w-4 h-4" /> <span className="hidden lg:inline">Nhập Word</span>
-          </button>
+                <div className="my-1 border-t border-slate-100" />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowExportDropdown(false);
+                    handleExport();
+                  }}
+                  className="w-full px-3.5 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-2.5 transition-colors cursor-pointer"
+                >
+                  <Download className="w-4 h-4 text-emerald-600" />
+                  <div>
+                    <div className="font-bold text-slate-800">Xuất file JSON</div>
+                    <div className="text-[10px] text-slate-400 font-normal">Sao lưu & chia sẻ cấu trúc đề</div>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Menu Dropdown: Nhập đề */}
+          <div className="relative" ref={importDropdownRef}>
+            <button
+              type="button"
+              onClick={() => {
+                setShowImportDropdown(!showImportDropdown);
+                setShowExportDropdown(false);
+              }}
+              className="px-3 py-2 text-indigo-700 bg-indigo-50/90 hover:bg-indigo-100 border border-indigo-200/80 rounded-xl transition-all flex items-center gap-1.5 text-xs font-bold cursor-pointer shadow-2xs"
+              title="Nhập đề thi từ file hoặc AI"
+            >
+              <Upload className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Nhập đề</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showImportDropdown ? "rotate-180" : ""}`} />
+            </button>
+
+            {showImportDropdown && (
+              <div className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-200 py-1.5 z-50 animate-in fade-in slide-in-from-top-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowImportDropdown(false);
+                    setShowJsonImportModal(true);
+                  }}
+                  className="w-full px-3.5 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center gap-2.5 transition-colors cursor-pointer"
+                >
+                  <Upload className="w-4 h-4 text-emerald-600" />
+                  <div>
+                    <div className="font-bold text-slate-800">Nhập từ JSON</div>
+                    <div className="text-[10px] text-slate-400 font-normal">Dán hoặc tải file JSON đề thi</div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowImportDropdown(false);
+                    navigate(isParentMode ? "/parent/exams/import-word" : "/admin/exams/import-word");
+                  }}
+                  className="w-full px-3.5 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 flex items-center gap-2.5 transition-colors cursor-pointer"
+                >
+                  <FileText className="w-4 h-4 text-indigo-600" />
+                  <div>
+                    <div className="font-bold text-slate-800">Nhập từ file Word</div>
+                    <div className="text-[10px] text-slate-400 font-normal">AI tự bóc tách đề từ .docx</div>
+                  </div>
+                </button>
+
+                <div className="my-1 border-t border-slate-100" />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowImportDropdown(false);
+                    navigate(isParentMode ? "/parent/exams/import-prompt" : "/admin/exams/import-prompt");
+                  }}
+                  className="w-full px-3.5 py-2.5 text-left text-xs font-semibold text-slate-700 hover:bg-purple-50 hover:text-purple-700 flex items-center gap-2.5 transition-colors cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-purple-600" />
+                  <div>
+                    <div className="font-bold text-slate-800">AI tạo từ Prompt</div>
+                    <div className="text-[10px] text-slate-400 font-normal">Tạo đề thi tự động bằng câu lệnh</div>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Unified Preview Button */}
           <button

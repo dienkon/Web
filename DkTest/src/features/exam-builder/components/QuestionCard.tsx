@@ -9,6 +9,7 @@ import {
   ChevronUp,
   ArrowUp,
   ArrowDown,
+  Headphones,
 } from "lucide-react";
 import QuestionEditor from "../questions/QuestionEditor";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
@@ -193,6 +194,14 @@ export default function QuestionCard({ question }: { question: Question }) {
             <span className="text-[11px] text-slate-400 font-medium">
               ({question.points || 1} điểm)
             </span>
+            {question.audioConfig?.enabled && question.audioConfig?.url && (
+              <span
+                className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded flex items-center gap-1 shrink-0"
+                title={`Bài nghe: ${question.audioConfig.title || "MP3"}`}
+              >
+                <Headphones className="w-2.5 h-2.5" /> Audio
+              </span>
+            )}
             <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider hidden sm:inline">
               {question.type === "single_choice" && "• 1 đáp án"}
               {question.type === "multiple_choice" && "• nhiều đáp án"}

@@ -158,13 +158,76 @@ export default function ChatGPTMasterPromptModal({ isOpen, onClose, initialTopic
                 />
               </div>
 
+              {/* Question Types Selection */}
+              <div className="sm:col-span-2 space-y-2">
+                <label className="font-bold text-slate-700 block">Các dạng câu hỏi cần tạo:</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {[
+                    { id: "single_choice", label: "1 Đáp án đúng" },
+                    { id: "multiple_choice", label: "Nhiều đáp án đúng" },
+                    { id: "true_false", label: "Đúng/Sai 4 ý (Bộ GD&ĐT)" },
+                    { id: "short_answer", label: "Điền kết quả ngắn" },
+                    { id: "ordering", label: "Sắp xếp thứ tự" },
+                    { id: "fill_blank", label: "Điền khuyết [_]" },
+                  ].map((item) => {
+                    const isSelected = (config.questionTypes || []).includes(item.id as any);
+                    return (
+                      <label
+                        key={item.id}
+                        className={`flex items-center gap-2 p-2 rounded-xl border text-xs font-semibold cursor-pointer transition-colors ${
+                          isSelected
+                            ? "bg-indigo-50 border-indigo-300 text-indigo-900"
+                            : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={(e) => {
+                            const current = config.questionTypes || [];
+                            const next = e.target.checked
+                              ? [...current, item.id as any]
+                              : current.filter((t) => t !== item.id);
+                            setConfig({ ...config, questionTypes: next });
+                          }}
+                          className="rounded text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <span>{item.label}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Extra Features (Audio & Attachments) */}
+              <div className="sm:col-span-2 flex flex-wrap items-center gap-3">
+                <label className="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={config.hasAudio ?? false}
+                    onChange={(e) => setConfig({ ...config, hasAudio: e.target.checked })}
+                    className="rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span>🎧 Tích hợp bài nghe Audio MP3 (Listening)</span>
+                </label>
+                <label className="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 cursor-pointer transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={config.hasAttachments ?? false}
+                    onChange={(e) => setConfig({ ...config, hasAttachments: e.target.checked })}
+                    className="rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span>📎 Đính kèm tệp / link tra cứu bổ trợ</span>
+                </label>
+              </div>
+
               <div className="sm:col-span-2 space-y-1">
                 <label className="font-bold text-slate-700">Yêu cầu đặc biệt (tùy chọn):</label>
                 <textarea
                   rows={3}
                   value={config.additionalInfo || ""}
                   onChange={(e) => setConfig({ ...config, additionalInfo: e.target.value })}
-                  placeholder="VD: Kèm theo bài đọc đoạn văn tiếng Anh, hoặc có câu hỏi thực tế..."
+                  placeholder="VD: Kèm theo bài đọc đoạn văn tiếng Anh, công thức giải thuật Python, hoặc câu hỏi tình huống thực tế..."
                   className="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>

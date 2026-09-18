@@ -9,6 +9,10 @@
     {
       "source": "/dau-truong/(.*)",
       "destination": "/dau-truong/index.html"
+    },
+    {
+      "source": "/lab/(.*)",
+      "destination": "/lab/index.html"
     }
   ]
 }

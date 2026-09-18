@@ -152,7 +152,35 @@ export const ExamEditorProvider: React.FC<{ children: React.ReactNode, isParentM
 
   const initNewExam = useCallback(() => {
     const newId = doc(collection(db, "exams")).id;
-    setState(s => ({ ...s, isLoading: false, examId: newId, examMeta: { ...s.examMeta, id: newId } }));
+
+    // Apply defaults from Settings
+    let defaults: any = {};
+    try {
+      const savedDefaultsStr = localStorage.getItem("dktest_exam_defaults") || localStorage.getItem("dktest:exam:defaults");
+      if (savedDefaultsStr) {
+        defaults = JSON.parse(savedDefaultsStr);
+      }
+    } catch (e) {
+      console.warn("Could not read exam defaults:", e);
+    }
+
+    setState(s => ({
+      ...s,
+      isLoading: false,
+      examId: newId,
+      examMeta: {
+        ...s.examMeta,
+        id: newId,
+        timeLimit: typeof defaults.defaultTimeLimit === "number" ? defaults.defaultTimeLimit : (s.examMeta.timeLimit || 45),
+        shuffleQuestions: defaults.defaultShuffleQuestions !== undefined ? !!defaults.defaultShuffleQuestions : (s.examMeta.shuffleQuestions ?? false),
+        shuffleOptions: defaults.defaultShuffleOptions !== undefined ? !!defaults.defaultShuffleOptions : (s.examMeta.shuffleOptions ?? false),
+        shuffleStatements: defaults.defaultShuffleStatements !== undefined ? !!defaults.defaultShuffleStatements : (s.examMeta.shuffleStatements ?? false),
+        showResults: defaults.defaultShowResults !== undefined ? !!defaults.defaultShowResults : (s.examMeta.showResults ?? true),
+        antiCheatEnabled: defaults.enableTabMonitor !== undefined ? !!defaults.enableTabMonitor : (s.examMeta.antiCheatEnabled ?? true),
+        maxWarnings: typeof defaults.maxWarnings === "number" ? defaults.maxWarnings : (s.examMeta.maxWarnings || 3),
+        autoSubmitOnViolation: defaults.autoSubmitOnViolation !== undefined ? !!defaults.autoSubmitOnViolation : (s.examMeta.autoSubmitOnViolation ?? false),
+      },
+    }));
   }, []);
 
   const validate = (questions: Question[], sections: Section[]) => {

@@ -83,12 +83,14 @@ aiRouter.post("/generate-exam", upload.single("file"), async (req, res) => {
 // 2. AI Tutor Chat
 aiRouter.post("/tutor", async (req, res) => {
   try {
-    const { messages, context } = req.body;
+    const { messages, context, apiKey } = req.body;
+    const customApiKey = (req.headers["x-gemini-api-key"] as string) || apiKey;
+
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({ error: "Messages array is required" });
     }
 
-    const stream = await askTutor(messages, context);
+    const stream = await askTutor(messages, context, customApiKey);
     
     // Set headers for SSE
     res.setHeader("Content-Type", "text/event-stream");

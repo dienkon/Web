@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TKB Source Editor - Trình Vá Mã Nguồn Thời Khóa Biểu</title>
+  
+  <!-- Modern Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="brand-icon">⚡</div>
+          <div class="brand-info">
+            <h1>TKB Source Editor</h1>
+            <span class="brand-badge">Source Patcher v1.0</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">Nhập & Chỉnh Sửa</div>
+          
+          <a class="nav-item active" data-tab="input">
+            <span class="nav-icon">📥</span>
+            <span>Dán Source</span>
+            <span class="nav-badge" id="sidebar-line-count">0</span>
+          </a>
+
+          <a class="nav-item" data-tab="timetable">
+            <span class="nav-icon">📅</span>
+            <span>Thời khóa biểu</span>
+            <span class="nav-badge" id="sidebar-period-count">0</span>
+          </a>
+
+          <a class="nav-item" data-tab="notes">
+            <span class="nav-icon">📝</span>
+            <span>Ghi chú chiều</span>
+          </a>
+
+          <a class="nav-item" data-tab="hours">
+            <span class="nav-icon">⏰</span>
+            <span>Giờ học chiều</span>
+          </a>
+
+          <a class="nav-item" data-tab="theory">
+            <span class="nav-icon">📚</span>
+            <span>Môn lý thuyết</span>
+            <span class="nav-badge" id="sidebar-theory-count">0</span>
+          </a>
+
+          <div class="nav-section-title">Mã Nguồn & Xuất File</div>
+
+          <a class="nav-item" data-tab="orig_source">
+            <span class="nav-icon">📄</span>
+            <span>Source gốc</span>
+          </a>
+
+          <a class="nav-item" data-tab="patched_source">
+            <span class="nav-icon">⚡</span>
+            <span>Source sau chỉnh</span>
+          </a>
+
+          <a class="nav-item" data-tab="diff">
+            <span class="nav-icon">🔄</span>
+            <span>So sánh Diff</span>
+            <span class="nav-badge" id="sidebar-diff-badge">0</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="patcher-status-card">
+          <div class="status-indicator-dot" id="system-status-dot"></div>
+          <div>
+            <div class="status-text" id="system-status-text">Bảo toàn 100% Source</div>
+            <div class="status-sub" id="system-status-sub">Sẵn sàng patch AST</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" id="sidebar-btn-export" style="width: 100%;">
+          <span>⚡ Xuất File .JS</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT WRAPPER ================= -->
+    <main class="main-wrapper">
+      
+      <!-- TOP NAVBAR -->
+      <header class="top-navbar">
+        <div class="navbar-left">
+          <div class="page-title-box">
+            <h2 id="current-page-title">Dán Source TKB</h2>
+            <div class="page-subtitle" id="current-page-subtitle">Dán toàn bộ file JavaScript ban đầu để phân tích các block dữ liệu</div>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <!-- Undo / Redo controls -->
+          <div class="history-btn-group">
+            <button class="btn btn-ghost" id="btn-undo" title="Hoàn tác (Ctrl+Z)" disabled>
+              <span>↶ Hoàn tác</span>
+            </button>
+            <button class="btn btn-ghost" id="btn-redo" title="Làm lại (Ctrl+Y)" disabled>
+              <span>↷ Làm lại</span>
+            </button>
+          </div>
+
+          <!-- Draft status & actions -->
+          <button class="btn btn-secondary btn-sm" id="btn-restore-draft" style="display: none;">
+            <span>💾 Khôi phục nháp</span>
+          </button>
+          
+          <button class="btn btn-secondary btn-sm" id="btn-clear-draft" title="Xóa bản nháp trong LocalStorage">
+            <span>🗑️ Xóa nháp</span>
+          </button>
+
+          <!-- Quick Copy & Download -->
+          <button class="btn btn-secondary" id="btn-quick-copy">
+            <span>📋 Sao chép Source</span>
+          </button>
+
+          <button class="btn btn-primary" id="btn-quick-download">
+            <span>⬇ Tải tkb-updated.js</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT PANES -->
+      <div class="content-area">
+
+        <!-- ================= PANE 1: DÁN SOURCE ================= -->
+        <section class="view-pane active" id="pane-input">
+          <div class="input-view-container">
+            
+            <div class="input-hero-card">
+              <div class="hero-left">
+                <h3><span>📥</span> Dán Source JavaScript Gốc Hoàn Chỉnh</h3>
+                <p>Ứng dụng sẽ nhận diện các block <code>TKB_JSON</code>, <code>GHI_CHU_CHIEU</code>, <code>GIO_CHIEU</code>, <code>MON_LY_THUYET</code> và bảo toàn 100% comment, function và logic <code>result = {...}</code>.</p>
+              </div>
+              <div class="hero-actions">
+                <input type="file" id="file-input-js" accept=".js,.txt" style="display: none;">
+                <button class="btn btn-secondary" id="btn-trigger-upload">
+                  <span>📂 Tải file .js</span>
+                </button>
+                <button class="btn btn-secondary" id="btn-load-sample">
+                  <span>✨ Nạp mẫu chuẩn 12A1</span>
+                </button>
+                <button class="btn btn-primary" id="btn-parse-source">
+                  <span>🔍 Phân tích Source</span>
+                </button>
+                <button class="btn btn-danger btn-sm" id="btn-clear-input" title="Xóa trắng khung nhập">
+                  <span>Xóa</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="code-editor-box">
+              <div class="code-editor-toolbar">
+                <div class="toolbar-file-info">
+                  <span>📝 Editor Source Code</span>
+                  <span id="input-stats-text" style="font-weight: 500; color: #64748b;">(0 dòng)</span>
+                </div>
+                <div>
+                  <button class="btn btn-secondary btn-sm" id="btn-paste-clipboard">
+                    <span>📋 Dán từ Clipboard</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="editor-wrapper">
+                <div class="line-numbers" id="input-line-numbers">1</div>
+                <textarea class="code-textarea" id="source-input-textarea" placeholder="// Dán toàn bộ source code JavaScript TKB vào đây...
+// Ví dụ:
+// const GHI_CHU_CHIEU = {...};
+// const TKB_JSON = [...];
+// const GIO_CHIEU = {...};
+// const MON_LY_THUYET = [...];
+// function getDateParts(...) {...}
+// result = {...};" spellcheck="false"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= PANE 2: THỜI KHÓA BIỂU MATRIX ================= -->
+        <section class="view-pane" id="pane-timetable">
+          <div class="timetable-view-container">
+            
+            <div class="timetable-control-card">
+              <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                <div class="buoi-tabs">
+                  <button class="buoi-tab active" data-buoi="all">Cả ngày</button>
+                  <button class="buoi-tab" data-buoi="Sang">Sáng</button>
+                  <button class="buoi-tab" data-buoi="Chieu">Chiều</button>
+                </div>
+
+                <input type="text" class="timetable-search-input" id="timetable-search-box" placeholder="🔍 Tìm môn, GV, phòng...">
+              </div>
+
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-primary" id="btn-open-add-period">
+                  <span>+ Thêm tiết học</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="timetable-table-container">
+              <table class="tkb-matrix-table" id="tkb-matrix">
+                <thead>
+                  <tr>
+                    <th class="col-tiet">Tiết</th>
+                    <th>Thứ Hai</th>
+                    <th>Thứ Ba</th>
+                    <th>Thứ Tư</th>
+                    <th>Thứ Năm</th>
+                    <th>Thứ Sáu</th>
+                    <th>Thứ Bảy</th>
+                    <th id="col-chunhat" style="display: none;">Chủ Nhật</th>
+                  </tr>
+                </thead>
+                <tbody id="tkb-matrix-body">
+                  <!-- Generated via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= PANE 3: GHI CHÚ CHIỀU ================= -->
+        <section class="view-pane" id="pane-notes">
+          <div class="notes-view-container">
+            <div class="panel-intro-card">
+              <h3><span>📝</span> Ghi Chú Buổi Chiều (GHI_CHU_CHIEU)</h3>
+              <p>Chỉnh sửa các lưu ý tương ứng cho từng tiết học chiều (từ Tiết 1 đến Tiết 5). Source patcher sẽ chỉ cập nhật giá trị trong block <code>const GHI_CHU_CHIEU = {...}</code> và bảo toàn toàn bộ logic xử lý note bên dưới.</p>
+            </div>
+
+            <div class="notes-card-list" id="notes-inputs-list">
+              <!-- Rendered via JavaScript -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= PANE 4: GIỜ HỌC CHIỀU ================= -->
+        <section class="view-pane" id="pane-hours">
+          <div class="hours-view-container">
+            <div class="panel-intro-card">
+              <h3><span>⏰</span> Khung Giờ Chiều (GIO_CHIEU)</h3>
+              <p>Chỉnh sửa giờ bắt đầu và giờ kết thúc cho từng tiết chiều theo định dạng chuẩn HH:mm.</p>
+            </div>
+
+            <div class="hours-table-card">
+              <table class="hours-table">
+                <thead>
+                  <tr>
+                    <th style="width: 100px;">Tiết</th>
+                    <th>Giờ bắt đầu</th>
+                    <th>Giờ kết thúc</th>
+                    <th>Thời lượng</th>
+                  </tr>
+                </thead>
+                <tbody id="hours-table-body">
+                  <!-- Rendered via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= PANE 5: MÔN LÝ THUYẾT ================= -->
+        <section class="view-pane" id="pane-theory">
+          <div class="theory-view-container">
+            <div class="panel-intro-card">
+              <h3><span>📚</span> Danh Sách Môn Lý Thuyết (MON_LY_THUYET)</h3>
+              <p>Quản lý các môn học lý thuyết dùng để nhắc mang sách giáo khoa / vở ghi. Chỉ thay đổi nội dung mảng <code>const MON_LY_THUYET = [...]</code>, không làm mất logic <code>MON_LY_THUYET.includes(...)</code>.</p>
+            </div>
+
+            <div class="theory-manage-card">
+              <div class="theory-add-bar">
+                <input type="text" class="theory-input" id="theory-add-input" placeholder="Nhập tên môn lý thuyết mới (VD: GDQP, Âm nhạc)...">
+                <button class="btn btn-primary" id="btn-add-theory">
+                  <span>+ Thêm môn</span>
+                </button>
+              </div>
+
+              <div class="theory-chip-list" id="theory-chips-container">
+                <!-- Rendered via JavaScript -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= PANE 6: SOURCE GỐC ================= -->
+        <section class="view-pane" id="pane-orig_source">
+          <div class="code-viewer-container">
+            <div class="code-viewer-header">
+              <div class="code-viewer-title">
+                <span>📄 SOURCE GỐC (ORIGINAL SOURCE)</span>
+                <span class="badge badge-success" id="orig-stats-badge">0 dòng</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary btn-sm" id="btn-copy-orig">
+                  <span>📋 Sao chép Source Gốc</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="code-viewer-box">
+              <div class="line-numbers" id="orig-line-numbers"></div>
+              <pre class="readonly-code-block" id="orig-code-content"></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= PANE 7: SOURCE SAU CHỈNH ================= -->
+        <section class="view-pane" id="pane-patched_source">
+          <div class="code-viewer-container">
+            <div class="code-viewer-header">
+              <div class="code-viewer-title">
+                <span>⚡ SOURCE SAU KHI CHỈNH (TOÀN BỘ FILE HOÀN CHỈNH)</span>
+                <span class="badge badge-success" id="patched-stats-badge">0 dòng</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary btn-sm" id="btn-copy-patched">
+                  <span>📋 Sao chép Source Này</span>
+                </button>
+                <button class="btn btn-primary btn-sm" id="btn-download-patched">
+                  <span>⬇ Tải tkb-updated.js</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="code-viewer-box">
+              <div class="line-numbers" id="patched-line-numbers"></div>
+              <pre class="readonly-code-block" id="patched-code-content"></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= PANE 8: DIFF SO SÁNH ================= -->
+        <section class="view-pane" id="pane-diff">
+          <div class="diff-view-container">
+            <div class="diff-toolbar-card">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-weight: 700; font-size: 14px;">🔄 So sánh Source Gốc vs Source Sau Chỉnh</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <label style="font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                  <input type="checkbox" id="diff-filter-toggle" checked>
+                  <span>Chỉ hiển thị vùng có thay đổi</span>
+                </label>
+              </div>
+            </div>
+
+            <div id="diff-content-wrapper">
+              <!-- Diff rendered via DiffEngine -->
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ================= MODAL: CHỈNH SỬA / THÊM TIẾT HỌC ================= -->
+  <div class="modal-overlay" id="period-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="period-modal-title">Chỉnh sửa tiết học</h3>
+        <button class="modal-close-btn" id="btn-close-modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="duplicate-alert-banner" id="duplicate-alert">
+          <span>⚠️</span>
+          <span id="duplicate-alert-msg">Tiết học này đã tồn tại!</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modal-field-thu">Thứ:</label>
+            <select class="form-control" id="modal-field-thu">
+              <option value="2">Thứ Hai</option>
+              <option value="3">Thứ Ba</option>
+              <option value="4">Thứ Tư</option>
+              <option value="5">Thứ Năm</option>
+              <option value="6">Thứ Sáu</option>
+              <option value="7">Thứ Bảy</option>
+              <option value="8">Chủ Nhật</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-field-buoi">Buổi:</label>
+            <select class="form-control" id="modal-field-buoi">
+              <option value="Sáng">Sáng</option>
+              <option value="Chiều">Chiều</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-field-tiet">Tiết:</label>
+            <select class="form-control" id="modal-field-tiet">
+              <option value="1">Tiết 1</option>
+              <option value="2">Tiết 2</option>
+              <option value="3">Tiết 3</option>
+              <option value="4">Tiết 4</option>
+              <option value="5">Tiết 5</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-field-mon">Môn học:</label>
+          <input type="text" class="form-control" id="modal-field-mon" placeholder="VD: Toán, Văn, Lí, SHĐT...">
+          <div class="quick-subjects-bar" id="modal-quick-subjects">
+            <span class="quick-subject-chip">Toán</span>
+            <span class="quick-subject-chip">Văn</span>
+            <span class="quick-subject-chip">Lí</span>
+            <span class="quick-subject-chip">Hóa</span>
+            <span class="quick-subject-chip">Sinh</span>
+            <span class="quick-subject-chip">TA</span>
+            <span class="quick-subject-chip">Sử</span>
+            <span class="quick-subject-chip">Tin</span>
+            <span class="quick-subject-chip">Thể dục</span>
+            <span class="quick-subject-chip">SHĐT</span>
+            <span class="quick-subject-chip">SHL</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modal-field-phong">Phòng học (tùy chọn):</label>
+            <input type="text" class="form-control" id="modal-field-phong" placeholder="VD: Lab 1, A101...">
+          </div>
+
+          <div class="form-group">
+            <label for="modal-field-gv">Giáo viên (tùy chọn):</label>
+            <input type="text" class="form-control" id="modal-field-gv" placeholder="VD: Thầy Tùng, Cô Nga...">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-field-ghichu">Ghi chú riêng:</label>
+          <input type="text" class="form-control" id="modal-field-ghichu" placeholder="VD: Kiểm tra 15p, Mang dụng cụ...">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div>
+          <button class="btn btn-danger" id="modal-btn-delete" style="display: none;">
+            <span>🗑️ Xóa tiết này</span>
+          </button>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" id="modal-btn-cancel">Hủy</button>
+          <button class="btn btn-primary" id="modal-btn-save">Lưu tiết học</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: LỖI VALIDATION ================= -->
+  <div class="modal-overlay" id="validation-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--danger);">⚠️ Không thể xuất source</h3>
+        <button class="modal-close-btn" id="btn-close-val-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="val-modal-body">
+        <!-- Error list inserted via JS -->
+      </div>
+      <div class="modal-footer" style="justify-content: flex-end;">
+        <button class="btn btn-primary" id="btn-val-modal-ok">Đã hiểu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/sample_data.js"></script>
+  <script src="js/sample_source.js"></script>
+  <script src="js/patcher.js"></script>
+  <script src="js/diff.js"></script>
+  <script src="js/validator.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

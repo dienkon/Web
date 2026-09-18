@@ -6,6 +6,7 @@ const projects = [
   "tien-ich/phuong-trinh/chuoi-phan-ung",
   "trung-tam",
   "dau-truong",
+  "lab"
 ];
 
 function copyProject(folder) {

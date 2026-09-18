@@ -106,6 +106,37 @@ export default function PracticeQuestionView({
               {question.prompt}
             </p>
           )}
+
+          {/* Parallel Code Snippet for Informatics THPTQG (Python & C++ side by side) */}
+          {(question.codeSnippet || question.metadata?.codeSnippet) && (
+            <div className="my-5 grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
+              {/* Python Column */}
+              <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-md">
+                <div className="bg-slate-800/90 px-3.5 py-2 border-b border-slate-700 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
+                    <span>🐍</span> Python 3
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono">.py</span>
+                </div>
+                <pre className="p-4 text-xs font-mono text-emerald-300 leading-relaxed overflow-x-auto whitespace-pre">
+                  <code>{(question.codeSnippet?.python || question.metadata?.codeSnippet?.python || "").trim()}</code>
+                </pre>
+              </div>
+
+              {/* C++ Column */}
+              <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-md">
+                <div className="bg-slate-800/90 px-3.5 py-2 border-b border-slate-700 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-sky-400">
+                    <span>⚡</span> C++
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono">.cpp</span>
+                </div>
+                <pre className="p-4 text-xs font-mono text-cyan-300 leading-relaxed overflow-x-auto whitespace-pre">
+                  <code>{(question.codeSnippet?.cpp || question.metadata?.codeSnippet?.cpp || "").trim()}</code>
+                </pre>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Input Interface */}

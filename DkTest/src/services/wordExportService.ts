@@ -563,3 +563,27 @@ export async function exportExamToWordFile(
 
   saveAs(blob, fileName);
 }
+
+/**
+ * Convenience wrapper for exportExamToWordFile.
+ * Supports calling with (exam, questions, sections?, options?) or (exam, sections, questions, options?).
+ */
+export async function exportExamToWord(
+  exam: Partial<Exam>,
+  questionsOrSections: Question[] | Section[],
+  questionsOrOptions?: Question[] | WordExportOptions,
+  options?: WordExportOptions
+): Promise<void> {
+  if (Array.isArray(questionsOrSections) && questionsOrSections.length > 0 && "type" in questionsOrSections[0]) {
+    // Called as exportExamToWord(exam, questions, sections?, options?)
+    const questions = questionsOrSections as Question[];
+    const sections = Array.isArray(questionsOrOptions) ? (questionsOrOptions as unknown as Section[]) : [];
+    const opts = (Array.isArray(questionsOrOptions) ? options : (questionsOrOptions as WordExportOptions)) || {};
+    return exportExamToWordFile(exam, sections, questions, opts);
+  } else {
+    // Called as exportExamToWord(exam, sections, questions, options?)
+    const sections = (questionsOrSections as Section[]) || [];
+    const questions = (questionsOrOptions as Question[]) || [];
+    return exportExamToWordFile(exam, sections, questions, options || {});
+  }
+}

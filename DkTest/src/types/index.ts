@@ -42,6 +42,8 @@ export interface Exam {
   shuffleStatements?: boolean;
 
   antiCheatEnabled?: boolean;
+  maxWarnings?: number;
+  autoSubmitOnViolation?: boolean;
 
   showResults: boolean;
   showDetails: boolean;
@@ -52,6 +54,12 @@ export interface Exam {
   maxAttempts: number; // 0 = vô hạn
   openTime?: string; // ISO string / datetime: thời gian bắt đầu mở đề
   closeTime?: string; // ISO string / datetime: thời gian khóa/đóng đề
+
+  // Attachments (Files and URLs) displayed after submission
+  attachments?: ExamAttachment[];
+
+  // Listening Audio Configuration
+  audioConfig?: ExamAudioConfig;
 
   status: ExamStatus;
   isPublic?: boolean;
@@ -103,6 +111,9 @@ export interface Section {
     enabled: boolean;
     numberOfQuestions?: number;
   };
+
+  // Section-level listening audio
+  audioConfig?: ExamAudioConfig;
 }
 
 export type QuestionType =
@@ -173,6 +184,10 @@ export interface Question {
   pinQuestion?: boolean; // Cố định vị trí câu hỏi, không đảo khi xáo đề
   shuffleOptions?: boolean; // Cho phép/không cho phép đảo thứ tự đáp án câu này (mặc định true)
   shuffleStatements?: boolean; // Cho phép/không cho phép đảo thứ tự ý Đúng/Sai (mặc định true)
+
+  // Question-level listening audio
+  audioConfig?: ExamAudioConfig;
+  audioUrl?: string | null;
 }
 
 export interface Student {
@@ -267,6 +282,8 @@ export interface AiAnalysisCache {
 
 export interface Submission {
   id: string;
+  attemptId?: string;
+  submissionReason?: "manual" | "timeout" | "admin_force" | "suspended";
   ownerId?: string;
   examId: string;
   examTitleSnapshot: string;
@@ -298,3 +315,28 @@ export interface PaginatedResult<T> {
   nextCursor: any | null;
   hasMore: boolean;
 }
+
+export interface ExamAttachment {
+  id: string;
+  type: "link" | "file";
+  label: string; // Tên hiển thị (do Admin đặt, ví dụ "Nội dung:", "Nội dung 2:")
+  url?: string; // Dành cho link web hoặc Cloudinary URL của tệp
+  fileName?: string; // Tên tệp tin
+  fileData?: string; // Base64 data URL hoặc URL download
+  fileSize?: number; // Kích thước tệp (bytes)
+  mimeType?: string; // Loại tệp
+}
+
+export interface ExamAudioConfig {
+  enabled: boolean;
+  url?: string; // Cloudinary secure_url
+  fileName?: string;
+  fileSize?: number;
+  title?: string; // Tên hiển thị bài nghe (VD: "Audio Listening Part 1")
+  maxPlays: number; // Số lần tối đa được ấn nghe (0 = Vô hạn)
+  allowSeek: boolean; // Cho phép tua thanh thời gian
+  allowPause: boolean; // Cho phép tạm dừng khi đang phát
+  autoPlay?: boolean; // Tự động phát khi bắt đầu làm bài
+}
+
+
