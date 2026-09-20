@@ -3,16 +3,84 @@
   "outputDirectory": ".",
   "rewrites": [
     {
+      "source": "/trung-tam/assets/(.*)",
+      "destination": "/trung-tam/dist/assets/$1"
+    },
+    {
+      "source": "/trung-tam/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/trung-tam/dist/$1"
+    },
+    {
       "source": "/trung-tam/(.*)",
-      "destination": "/trung-tam/index.html"
+      "destination": "/trung-tam/dist/index.html"
+    },
+    {
+      "source": "/trung-tam",
+      "destination": "/trung-tam/dist/index.html"
+    },
+    {
+      "source": "/dau-truong/assets/(.*)",
+      "destination": "/dau-truong/dist/assets/$1"
+    },
+    {
+      "source": "/dau-truong/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/dau-truong/dist/$1"
     },
     {
       "source": "/dau-truong/(.*)",
-      "destination": "/dau-truong/index.html"
+      "destination": "/dau-truong/dist/index.html"
+    },
+    {
+      "source": "/dau-truong",
+      "destination": "/dau-truong/dist/index.html"
+    },
+    {
+      "source": "/lab/assets/(.*)",
+      "destination": "/lab/dist/assets/$1"
+    },
+    {
+      "source": "/lab/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/lab/dist/$1"
     },
     {
       "source": "/lab/(.*)",
-      "destination": "/lab/index.html"
+      "destination": "/lab/dist/index.html"
+    },
+    {
+      "source": "/lab",
+      "destination": "/lab/dist/index.html"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/assets/(.*)",
+      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/assets/$1"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/$1"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/(.*)",
+      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh",
+      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/assets/(.*)",
+      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/assets/$1"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/$1"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/(.*)",
+      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
+    },
+    {
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung",
+      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
     }
   ]
 }

@@ -227,21 +227,31 @@ Trả về DUY NHẤT JSON theo định dạng:
     // 2. Serve static files from root for non-SPA paths (index.html, css, js)
     app.use(express.static(rootPath));
   } else {
-    // Production: serve static files from rootPath (since build.js copied dist contents to their respective root directories)
+    // Production: serve built static files from each project's dist directory
+    app.use("/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh", express.static(path.join(rootPath, "tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist")));
+    app.use("/tien-ich/phuong-trinh/chuoi-phan-ung", express.static(path.join(rootPath, "tien-ich/phuong-trinh/chuoi-phan-ung/dist")));
+    app.use("/trung-tam", express.static(path.join(rootPath, "trung-tam/dist")));
+    app.use("/dau-truong", express.static(path.join(rootPath, "dau-truong/dist")));
+    app.use("/lab", express.static(path.join(rootPath, "lab/dist")));
+
+    // Serve static files from root for non-SPA paths (index.html, css, js, data)
     app.use(express.static(rootPath));
 
     // Fallback routes for SPAs to handle client-side routing
-    app.get("/trung-tam/*", (req, res) => {
-      res.sendFile(path.join(rootPath, "trung-tam/index.html"));
+    app.get(["/trung-tam", "/trung-tam/*"], (req, res) => {
+      res.sendFile(path.join(rootPath, "trung-tam/dist/index.html"));
     });
-    app.get("/dau-truong/*", (req, res) => {
-      res.sendFile(path.join(rootPath, "dau-truong/index.html"));
+    app.get(["/dau-truong", "/dau-truong/*"], (req, res) => {
+      res.sendFile(path.join(rootPath, "dau-truong/dist/index.html"));
     });
-    app.get("/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/*", (req, res) => {
-      res.sendFile(path.join(rootPath, "tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/index.html"));
+    app.get(["/lab", "/lab/*"], (req, res) => {
+      res.sendFile(path.join(rootPath, "lab/dist/index.html"));
     });
-    app.get("/tien-ich/phuong-trinh/chuoi-phan-ung/*", (req, res) => {
-      res.sendFile(path.join(rootPath, "tien-ich/phuong-trinh/chuoi-phan-ung/index.html"));
+    app.get(["/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh", "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/*"], (req, res) => {
+      res.sendFile(path.join(rootPath, "tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"));
+    });
+    app.get(["/tien-ich/phuong-trinh/chuoi-phan-ung", "/tien-ich/phuong-trinh/chuoi-phan-ung/*"], (req, res) => {
+      res.sendFile(path.join(rootPath, "tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"));
     });
   }
 
