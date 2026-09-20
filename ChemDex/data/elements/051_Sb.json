@@ -1,0 +1,204 @@
+{
+  "number": 51,
+  "symbol": "Sb",
+  "nameVi": "Antimony",
+  "nameEn": "Antimony",
+  "mass": 121.76,
+  "category": "a-kim",
+  "hasData": true,
+  "file": "elements/051_Sb.json",
+  "general": {
+    "latinName": "Stibium",
+    "englishName": "Antimony",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p³",
+    "isotope": "¹²¹Sb, ¹²³Sb",
+    "group": 15,
+    "period": 5,
+    "state": "",
+    "oxidation": "−3, +3, +5",
+    "electronegativity": 2.05,
+    "density": "khoảng 6.68 g/cm³.",
+    "meltingPoint": "khoảng 630.6 °C.",
+    "boilingPoint": "khoảng 1587 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Không xác định — Antimony và các hợp chất của nó đã được con người biết đến từ thời cổ đại.",
+    "year": "Khoảng 3000 TCN",
+    "discoveryLocation": "Không xác định",
+    "description": "Các hợp chất của Antimony đã được sử dụng từ thời cổ đại. Antimony nguyên chất được xác định và điều chế rõ ràng hơn trong thời kỳ Trung Cổ. Ký hiệu Sb bắt nguồn từ tên Latin Stibium."
+  },
+  "structure": {
+    "protons": 51,
+    "neutrons": 70,
+    "electrons": 51,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      5
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      5
+    ],
+    "valenceElectrons": 5,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 51,
+      "neutron": 70
+    }
+  },
+  "occurrence": {
+    "description": "Antimony là chất rắn, màu trắng bạc, có ánh kim và khá giòn.",
+    "simple": [
+      "Sb"
+    ],
+    "compounds": [
+      "Sb₂S₃",
+      "Sb₂O₃",
+      "Sb₂O₅",
+      "SbCl₃",
+      "SbCl₅"
+    ],
+    "ores": [
+      "Chủ yếu tồn tại trong quặng Stibnite (Sb₂S₃)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Màu trắng bạc, ánh kim.</li>\n      <li>Giòn và dễ vỡ.</li>\n      <li>Khối lượng riêng: khoảng 6.68 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 630.6 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1587 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt kém hơn kim loại.</li>\n      <li>Có một số dạng thù hình.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến −3, +3 và +5.</li>\n      <li>Sb(III) và Sb(V) là hai trạng thái Oxy hóa quan trọng.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Antimony oxide.</li>\n      <li>Phản ứng với Halogen tạo Antimony halide.</li>\n      <li>Có thể phản ứng với một số acid và base mạnh.</li>\n      <li>Có khả năng tạo hợp chất với Sulfur.</li>\n      <li>Một số hợp chất Antimony có tính độc.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Sb + 3O₂ → 2Sb₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Sb + 3Cl₂ → 2SbCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2Sb + 3S → Sb₂S₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "2Sb + 6HCl → 2SbCl₃ + 3H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Antimony(III) sulfide",
+      "equation": "2Sb³⁺ + 3S²⁻ → Sb₂S₃↓",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Antimony(V) sulfide",
+      "equation": "2Sb⁵⁺ + 5S²⁻ → Sb₂S₅↓",
+      "desc": ""
+    },
+    {
+      "type": "Nung Stibnite trong Oxygen",
+      "equation": "2Sb₂S₃ + 9O₂ → 2Sb₂O₃ + 6SO₂",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Antimony",
+      "equation": "Sb₂O₃ + 3C → 2Sb + 3CO↑",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hợp kim",
+      "desc": "Antimony được thêm vào Lead và một số kim loại khác để tăng độ cứng và độ bền."
+    },
+    {
+      "title": "Ắc quy",
+      "desc": "Antimony được sử dụng trong một số hợp kim Lead dùng cho ắc quy chì–acid."
+    },
+    {
+      "title": "Chất chống cháy",
+      "desc": "Một số hợp chất Antimony, đặc biệt là Antimony trioxide (Sb₂O₃), được sử dụng làm chất hỗ trợ chống cháy."
+    },
+    {
+      "title": "Bán dẫn",
+      "desc": "Một số hợp chất như Indium antimonide (InSb) và Gallium antimonide (GaSb) được sử dụng trong công nghệ bán dẫn."
+    },
+    {
+      "title": "Sản xuất kính",
+      "desc": "Một số hợp chất Antimony được sử dụng trong quá trình sản xuất và xử lý kính."
+    },
+    {
+      "title": "Hóa chất",
+      "desc": "Các hợp chất Antimony được sử dụng trong nhiều quá trình công nghiệp và tổng hợp hóa học."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Antimony là nguyên tố số 51, thuộc nhóm VA | chu kỳ 5 và được xếp vào nhóm á kim.</li>\n  <li>Antimony có cấu hình electron [Kr] 4d¹⁰ 5s² 5p³, với các số Oxy hóa phổ biến là −3, +3 và +5.</li>\n  <li>Antimony có màu trắng bạc, ánh kim nhưng giòn và dẫn điện kém, thể hiện tính chất trung gian giữa kim loại và phi kim. Trong tự nhiên, nguồn Antimony quan trọng nhất là Stibnite (Sb₂S₃).</li>\n  <li>Antimony được sử dụng chủ yếu trong hợp kim, ắc quy, chất chống cháy, bán dẫn và công nghiệp kính. Trong đó, Antimony trioxide (Sb₂O₃) là một hợp chất công nghiệp quan trọng.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Antimony chủ yếu được điều chế từ quặng Stibnite (Sb₂S₃).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Quặng được nung trong Oxygen để tạo Antimony(III) oxide:",
+        "equation": "2Sb₂S₃ + 9O₂ → 2Sb₂O₃ + 6SO₂ <br> Sb₂O₃ + 3C → 2Sb + 3CO↑",
+        "desc": "Sau đó Sb₂O₃ được khử bằng Carbon:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Sb³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho Sb³⁺ tác dụng với Sulfide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "2Sb³⁺ + 3S²⁻ → Sb₂S₃↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa màu cam hoặc cam đỏ Antimony(III) sulfide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Sb⁵⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "2Sb⁵⁺ + 5S²⁻ → Sb₂S₅↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa màu vàng Antimony(V) sulfide.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

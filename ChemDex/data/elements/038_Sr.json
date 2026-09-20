@@ -1,0 +1,182 @@
+{
+  "number": 38,
+  "symbol": "Sr",
+  "nameVi": "Strontium",
+  "nameEn": "Strontium",
+  "mass": 87.62,
+  "category": "kiem-tho",
+  "hasData": true,
+  "file": "elements/038_Sr.json",
+  "general": {
+    "latinName": "Strontium",
+    "englishName": "Strontium",
+    "electronConfig": "[Kr] 5s²",
+    "isotope": "⁸⁴Sr, ⁸⁶Sr, ⁸⁷Sr, ⁸⁸Sr",
+    "group": 2,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2",
+    "electronegativity": 0.95,
+    "density": "khoảng 2.64 g/cm³.",
+    "meltingPoint": "khoảng 777 °C.",
+    "boilingPoint": "khoảng 1382 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Adair Crawford",
+    "year": 1790,
+    "discoveryLocation": "Scotland",
+    "description": "Năm 1790, Adair Crawford nhận ra một khoáng vật được tìm thấy gần Strontian, Scotland có tính chất khác với các hợp chất Barium đã biết. Đến năm 1808, Humphry Davy lần đầu tiên cô lập được Strontium kim loại bằng phương pháp điện phân."
+  },
+  "structure": {
+    "protons": 38,
+    "neutrons": 50,
+    "electrons": 38,
+    "electronShells": [
+      2,
+      8,
+      18,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 38,
+      "neutron": 50
+    }
+  },
+  "occurrence": {
+    "description": "Strontium là kim loại rắn, mềm, màu trắng bạc.",
+    "simple": [
+      "Sr"
+    ],
+    "compounds": [
+      "SrO",
+      "Sr(OH)₂",
+      "SrCO₃",
+      "SrSO₄",
+      "SrCl₂",
+      "Sr(NO₃)₂"
+    ],
+    "ores": [
+      "Celestine (SrSO₄) và Strontianite (SrCO₃)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Mềm hơn Calcium.</li>\n      <li>Khối lượng riêng: khoảng 2.64 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 777 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1382 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Khi đốt nóng, Strontium tạo ngọn lửa đỏ thẫm.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa gần như duy nhất là +2.</li>\n      <li>Hoạt động hóa học mạnh.</li>\n      <li>Dễ mất hai electron lớp ngoài cùng để tạo Sr²⁺.</li>\n      <li>Phản ứng với nước tạo Strontium hydroxide và Hydrogen.</li>\n      <li>Phản ứng với Oxygen tạo Strontium oxide.</li>\n      <li>Phản ứng với Halogen tạo Strontium halide.</li>\n      <li>Phản ứng với acid tạo Strontium salt và Hydrogen.</li>\n      <li>Các hợp chất Strontium tan thường tạo ion Sr²⁺.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Sr + O₂ → 2SrO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với nước",
+      "equation": "Sr + 2H₂O → Sr(OH)₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Sr + Cl₂ → SrCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "Sr + H₂ → SrH₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Sr + S → SrS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Sr + 2HCl → SrCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Nhiệt phân Strontium carbonate",
+      "equation": "SrCO₃ → SrO + CO₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Strontium bằng điện phân",
+      "equation": "SrCl₂ → Sr + Cl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Pháo hoa",
+      "desc": "Strontium compounds tạo màu đỏ đặc trưng trong pháo hoa và pháo sáng."
+    },
+    {
+      "title": "Tín hiệu cảnh báo",
+      "desc": "Một số Strontium compounds được sử dụng trong pháo sáng và thiết bị tín hiệu."
+    },
+    {
+      "title": "Nam châm Ferrite",
+      "desc": "Strontium ferrite được sử dụng để sản xuất nam châm Ferrite."
+    },
+    {
+      "title": "Gốm",
+      "desc": "Một số Strontium compounds được sử dụng trong vật liệu gốm và điện tử."
+    },
+    {
+      "title": "Kính",
+      "desc": "Strontium được sử dụng trong một số loại kính chuyên dụng."
+    },
+    {
+      "title": "Y học",
+      "desc": "Một số Strontium compounds/radioisotopes có ứng dụng trong nghiên cứu và y học dưới sự kiểm soát chuyên môn."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Strontium là nguyên tố số 38, thuộc nhóm IIA | chu kỳ 5 và là một kim loại kiềm thổ.</li>\n  <li>Strontium có cấu hình electron [Kr] 5s², dễ mất hai electron để tạo Sr²⁺, do đó số Oxy hóa đặc trưng là +2.</li>\n  <li>Strontium là kim loại mềm, màu trắng bạc và có tính hoạt động hóa học khá cao. Khi bị kích thích trong ngọn lửa, Strontium tạo màu đỏ thẫm đặc trưng.</li>\n  <li>Trong tự nhiên, Strontium chủ yếu tồn tại trong Celestine (SrSO₄) và Strontianite (SrCO₃). Strontium có ứng dụng quan trọng trong pháo hoa, pháo sáng, nam châm Ferrite, gốm, kính và một số lĩnh vực y học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Strontium kim loại có thể được điều chế bằng điện phân Strontium chloride nóng chảy:",
+        "equation": "SrCl₂ → Sr + Cl₂",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Sr²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Strontium có thể được nhận biết bằng phép thử ngọn lửa.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Ngọn lửa có màu đỏ thẫm / đỏ carmine đặc trưng.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Có thể sử dụng phương pháp quang phổ để xác định chính xác hơn.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

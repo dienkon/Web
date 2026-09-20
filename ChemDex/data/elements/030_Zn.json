@@ -1,0 +1,230 @@
+{
+  "number": 30,
+  "symbol": "Zn",
+  "nameVi": "Zinc",
+  "nameEn": "Zinc",
+  "mass": 65.38,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/030_Zn.json",
+  "general": {
+    "latinName": "Zincum",
+    "englishName": "Zinc",
+    "electronConfig": "[Ar] 3d¹⁰ 4s²",
+    "isotope": "⁶⁴Zn, ⁶⁶Zn, ⁶⁷Zn, ⁶⁸Zn, ⁷⁰Zn",
+    "group": 12,
+    "period": 4,
+    "state": "",
+    "oxidation": "+2",
+    "electronegativity": 1.65,
+    "density": "khoảng 7.14 g/cm³.",
+    "meltingPoint": "khoảng 419.5 °C.",
+    "boilingPoint": "khoảng 907 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Không xác định chính xác. Zinc đã được sử dụng từ thời cổ đại; Zinc kim loại được điều chế và sử dụng rộng rãi ở Ấn Độ.",
+    "year": "Khoảng thế kỷ XII–XIII",
+    "discoveryLocation": "Ấn Độ",
+    "description": "Zinc compounds đã được sử dụng từ thời cổ đại, đặc biệt trong sản xuất Brass. Zinc kim loại được sản xuất ở quy mô đáng kể tại Ấn Độ vào khoảng thế kỷ XII–XIII. Sau đó, kỹ thuật sản xuất Zinc được truyền sang Trung Quốc và châu Âu. Tên Zinc trong tiếng Anh bắt nguồn từ tiếng Đức Zink."
+  },
+  "structure": {
+    "protons": 30,
+    "neutrons": 34,
+    "electrons": 30,
+    "electronShells": [
+      2,
+      8,
+      18,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 30,
+      "neutron": 34
+    }
+  },
+  "occurrence": {
+    "description": "Zinc là kim loại rắn, màu trắng xanh ở điều kiện thường.",
+    "simple": [
+      "Zn"
+    ],
+    "compounds": [
+      "ZnO",
+      "ZnS",
+      "ZnCl₂",
+      "ZnSO₄",
+      "ZnCO₃",
+      "Zn(OH)₂"
+    ],
+    "ores": [
+      "Sphalerite (ZnS)",
+      "Smithsonite (ZnCO₃)",
+      "Zincite (ZnO) và Franklinite"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IIB.</li>\n      <li>Có màu trắng xanh.</li>\n      <li>Khá giòn ở nhiệt độ thường.</li>\n      <li>Trở nên dẻo hơn khi được nung nóng khoảng 100–150 °C.</li>\n      <li>Khối lượng riêng: khoảng 7.14 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 419.5 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 907 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chống ăn mòn nhờ hình thành lớp bảo vệ trên bề mặt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa phổ biến là +2.</li>\n      <li>Có tính khử tương đối mạnh.</li>\n      <li>Dễ phản ứng với acid tạo Zinc salt và Hydrogen.</li>\n      <li>Phản ứng với Oxygen tạo Zinc oxide.</li>\n      <li>Phản ứng với Halogen tạo Zinc halide.</li>\n      <li>ZnO và Zn(OH)₂ có tính lưỡng tính.</li>\n      <li>Có thể phản ứng với cả acid và kiềm mạnh.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Zn + O₂ → 2ZnO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Zn + Cl₂ → ZnCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Zn + S → ZnS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Zn + 2HCl → ZnCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfuric acid loãng",
+      "equation": "Zn + H₂SO₄ → ZnSO₄ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Copper(II) sulfate",
+      "equation": "Zn + CuSO₄ → ZnSO₄ + Cu",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Zinc hydroxide",
+      "equation": "Zn²⁺ + 2OH⁻ → Zn(OH)₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Zinc hydroxide tác dụng với acid",
+      "equation": "Zn(OH)₂ + 2HCl → ZnCl₂ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Zinc hydroxide tác dụng với kiềm",
+      "equation": "Zn(OH)₂ + 2NaOH → Na₂[Zn(OH)₄]",
+      "desc": ""
+    },
+    {
+      "type": "Nung Zinc carbonate",
+      "equation": "ZnCO₃ → ZnO + CO₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Zinc từ Zinc oxide",
+      "equation": "ZnO + C → Zn + CO",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Mạ Zinc",
+      "desc": "Zinc được dùng để mạ lên Iron và Steel nhằm bảo vệ kim loại khỏi ăn mòn, gọi là Galvanization."
+    },
+    {
+      "title": "Sản xuất Brass",
+      "desc": "Zinc được sử dụng cùng Copper để tạo Brass."
+    },
+    {
+      "title": "Pin",
+      "desc": "Zinc được sử dụng làm điện cực trong nhiều loại pin, như Zinc–carbon và Alkaline batteries."
+    },
+    {
+      "title": "Đúc hợp kim",
+      "desc": "Zinc alloys được sử dụng để chế tạo nhiều chi tiết có hình dạng phức tạp."
+    },
+    {
+      "title": "Sản xuất Zinc oxide",
+      "desc": "ZnO được sử dụng trong cao su, gốm, sơn và nhiều sản phẩm công nghiệp."
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Một số Zinc compounds được sử dụng làm nguồn Zinc trong phân bón."
+    },
+    {
+      "title": "Sinh học",
+      "desc": "Zinc là nguyên tố vi lượng cần thiết cho nhiều enzyme và quá trình sinh học."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Zinc là nguyên tố số 30, thuộc nhóm IIB | chu kỳ 4.</li>\n  <li>Zinc có cấu hình electron [Ar] 3d¹⁰ 4s² và số Oxy hóa phổ biến nhất là +2.</li>\n  <li>Zinc là kim loại màu trắng xanh, có khả năng chống ăn mòn tốt và có tính khử tương đối mạnh. Trong tự nhiên, Zinc chủ yếu tồn tại trong quặng Sphalerite (ZnS).</li>\n  <li>Zinc được sử dụng rộng rãi trong mạ kim loại, sản xuất Brass, pin, hợp kim và sản xuất Zinc oxide. Ngoài vai trò công nghiệp, Zinc còn là một nguyên tố vi lượng thiết yếu đối với sinh vật.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Zinc có thể được điều chế bằng cách khử Zinc oxide bằng Carbon ở nhiệt độ cao:",
+        "equation": "ZnO + C → Zn + CO",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Zinc chủ yếu được sản xuất từ quặng Sphalerite (ZnS).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trước tiên, quặng được nung trong không khí để chuyển thành Zinc oxide:",
+        "equation": "2ZnS + 3O₂ → 2ZnO + 2SO₂ <br> ZnO + C → Zn + CO",
+        "desc": "Sau đó Zinc oxide được khử bằng Carbon: Zinc cũng có thể được sản xuất bằng phương pháp điện phân dung dịch Zinc sulfate."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Zn²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Zn²⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Zn²⁺ + 2OH⁻ → Zn(OH)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Zinc hydroxide.",
+      "equation": ""
+    },
+    {
+      "title": "Khi cho dư Sodium hydroxide, kết tủa tan",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Kết tủa trắng tan trong kiềm dư.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

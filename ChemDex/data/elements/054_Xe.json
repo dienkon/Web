@@ -1,0 +1,165 @@
+{
+  "number": 54,
+  "symbol": "Xe",
+  "nameVi": "Xenon",
+  "nameEn": "Xenon",
+  "mass": 131.293,
+  "category": "khi-hiem",
+  "hasData": true,
+  "file": "elements/054_Xe.json",
+  "general": {
+    "latinName": "Xenon",
+    "englishName": "Xenon",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁶",
+    "isotope": "¹²⁴Xe, ¹²⁶Xe, ¹²⁸Xe, ¹²⁹Xe, ¹³⁰Xe, ¹³¹Xe, ¹³²Xe, ¹³⁴Xe, ¹³⁶Xe",
+    "group": 18,
+    "period": 5,
+    "state": "",
+    "oxidation": "0, +2, +4, +6, +8",
+    "electronegativity": 2.6,
+    "density": "",
+    "meltingPoint": "khoảng −111.8 °C.",
+    "boilingPoint": "khoảng −108.1 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "William Ramsay và Morris Travers",
+    "year": 1898,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1898, William Ramsay và Morris Travers phát hiện Xenon khi nghiên cứu phần cặn còn lại sau khi tách các khí khác khỏi không khí hóa lỏng. Tên Xenon bắt nguồn từ tiếng Hy Lạp xenos, nghĩa là “xa lạ” hoặc “người khách”."
+  },
+  "structure": {
+    "protons": 54,
+    "neutrons": 77,
+    "electrons": 54,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      8
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      8
+    ],
+    "valenceElectrons": 8,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 54,
+      "neutron": 77
+    }
+  },
+  "occurrence": {
+    "description": "Xenon là khí không màu, không mùi ở điều kiện thường.",
+    "simple": [
+      "Xe"
+    ],
+    "compounds": [
+      "XeF₂",
+      "XeF₄",
+      "XeF₆",
+      "XeO₃",
+      "XeO₄"
+    ],
+    "ores": [
+      "Tồn tại với hàm lượng rất nhỏ trong khí quyển Trái Đất"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là khí hiếm, thuộc nhóm VIIIA.</li>\n      <li>Không màu, không mùi.</li>\n      <li>Tồn tại dạng khí đơn nguyên tử.</li>\n      <li>Khối lượng riêng của khí ở điều kiện tiêu chuẩn: khoảng 5.9 g/L.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −111.8 °C.</li>\n      <li>Nhiệt độ sôi: khoảng −108.1 °C.</li>\n      <li>Không cháy.</li>\n      <li>Có khả năng phát ánh sáng xanh tím khi bị kích thích bằng điện.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Ở trạng thái cơ bản, Xenon có số Oxy hóa 0.</li>\n      <li>Có thể tạo hợp chất với Fluorine và Oxygen.</li>\n      <li>Có các số Oxy hóa dương như +2, +4, +6 và +8 trong một số hợp chất.</li>\n      <li>Kém hoạt động hóa học hơn hầu hết các nguyên tố.</li>\n      <li>Có thể tạo nhiều hợp chất đặc biệt như Xenon difluoride (XeF₂), Xenon tetrafluoride (XeF₄) và Xenon hexafluoride (XeF₆).</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Fluorine",
+      "equation": "Xe + F₂ → XeF₂",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Xenon tetrafluoride",
+      "equation": "Xe + 2F₂ → XeF₄",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Xenon hexafluoride",
+      "equation": "Xe + 3F₂ → XeF₆",
+      "desc": ""
+    },
+    {
+      "type": "Xenon difluoride thủy phân",
+      "equation": "2XeF₂ + 2H₂O → 2Xe + 4HF + O₂",
+      "desc": ""
+    },
+    {
+      "type": "Xenon trioxide phân hủy",
+      "equation": "2XeO₃ → 2Xe + 3O₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Đèn Xenon",
+      "desc": "Xenon được sử dụng trong đèn flash, đèn chiếu sáng cường độ cao và một số loại đèn pha."
+    },
+    {
+      "title": "Laser",
+      "desc": "Xenon được sử dụng trong một số hệ thống laser excimer."
+    },
+    {
+      "title": "Y học",
+      "desc": "Xenon có thể được sử dụng trong một số nghiên cứu và ứng dụng y học chuyên biệt."
+    },
+    {
+      "title": "Nhiếp ảnh",
+      "desc": "Đèn flash Xenon tạo ra ánh sáng mạnh trong thời gian rất ngắn."
+    },
+    {
+      "title": "Động cơ ion",
+      "desc": "Xenon được sử dụng làm chất đẩy trong một số hệ thống động cơ ion của tàu vũ trụ."
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Xenon được sử dụng trong các thí nghiệm vật lý và hóa học, bao gồm nghiên cứu vật chất tối và neutrino."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Xenon là nguyên tố số 54, thuộc nhóm VIIIA | chu kỳ 5 và là một khí hiếm.</li>\n  <li>Xenon có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁶, với lớp electron ngoài cùng đã bão hòa nên ở điều kiện thường rất ít phản ứng hóa học.</li>\n  <li>Xenon là khí không màu, không mùi, tồn tại với hàm lượng rất nhỏ trong khí quyển. Điểm đặc biệt của Xenon là dù thuộc khí hiếm, nó vẫn có thể tạo ra các hợp chất với Fluorine và Oxygen.</li>\n  <li>Xenon có nhiều ứng dụng trong đèn chiếu sáng, đèn flash, laser, y học, động cơ ion và nghiên cứu khoa học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Xenon được thu nhận chủ yếu từ không khí hóa lỏng bằng phương pháp chưng cất phân đoạn.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trong quá trình hóa lỏng và phân tách không khí, Xenon được tách cùng với các khí hiếm nặng khác như Krypton.",
+        "equation": "",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Xenon không có phản ứng hóa học đơn giản, đặc trưng để nhận biết trong điều kiện thông thường.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phương pháp nhận biết là dựa vào phổ phát xạ",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Khi bị kích thích bằng điện, Xenon phát ra ánh sáng đặc trưng, có thể quan sát dưới dạng ánh sáng xanh tím/trắng.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

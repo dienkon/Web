@@ -1,0 +1,202 @@
+{
+  "number": 35,
+  "symbol": "Br",
+  "nameVi": "Bromine",
+  "nameEn": "Bromine",
+  "mass": 79.904,
+  "category": "halogen",
+  "hasData": true,
+  "file": "elements/035_Br.json",
+  "general": {
+    "latinName": "Bromum",
+    "englishName": "Bromine",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁵",
+    "isotope": "⁷⁹Br, ⁸¹Br",
+    "group": 17,
+    "period": 4,
+    "state": "",
+    "oxidation": "−1, +1, +3, +5, +7",
+    "electronegativity": 2.96,
+    "density": "khoảng 3.12 g/cm³.",
+    "meltingPoint": "khoảng −7.2 °C.",
+    "boilingPoint": "khoảng 58.8 °C.",
+    "crystalStructure": "Trực thoi (Orthorhombic)"
+  },
+  "history": {
+    "discoverer": "Antoine Jérôme Balard",
+    "year": 1826,
+    "discoveryLocation": "Pháp",
+    "description": "Năm 1826, Antoine Jérôme Balard phát hiện một chất lỏng màu nâu đỏ khi nghiên cứu nước muối từ các đầm muối ở Montpellier, Pháp. Ông nhận ra đây là một nguyên tố mới và đặt tên Bromine, bắt nguồn từ tiếng Hy Lạp brōmos, nghĩa là “mùi hôi”."
+  },
+  "structure": {
+    "protons": 35,
+    "neutrons": 44,
+    "electrons": 35,
+    "electronShells": [
+      2,
+      8,
+      18,
+      7
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      7
+    ],
+    "valenceElectrons": 7,
+    "lattice": "Trực thoi (Orthorhombic)",
+    "nucleus": {
+      "proton": 35,
+      "neutron": 44
+    }
+  },
+  "occurrence": {
+    "description": "Bromine là chất lỏng màu nâu đỏ, có mùi đặc trưng và dễ bay hơi ở điều kiện thường.",
+    "simple": [
+      "Br₂"
+    ],
+    "compounds": [
+      "HBr",
+      "NaBr",
+      "KBr",
+      "AgBr",
+      "KBrO₃"
+    ],
+    "ores": [
+      "Chủ yếu tồn tại dưới dạng Bromide trong nước biển",
+      "nước muối và các mỏ muối tự nhiên"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim, thuộc nhóm Halogen.</li>\n      <li>Là chất lỏng ở điều kiện thường.</li>\n      <li>Có màu nâu đỏ.</li>\n      <li>Có mùi hắc và dễ bay hơi.</li>\n      <li>Khối lượng riêng: khoảng 3.12 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −7.2 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 58.8 °C.</li>\n      <li>Hơi Bromine có màu nâu đỏ.</li>\n      <li>Tan ít trong nước nhưng tan tốt hơn trong một số dung môi hữu cơ.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất Oxy hóa mạnh, nhưng yếu hơn Chlorine và Fluorine.</li>\n      <li>Có tính phi kim.</li>\n      <li>Số Oxy hóa phổ biến nhất là −1.</li>\n      <li>Phản ứng với kim loại tạo Bromide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen bromide.</li>\n      <li>Có thể đẩy Iodine ra khỏi Iodide.</li>\n      <li>Phản ứng với nước và một số dung dịch kiềm.</li>\n      <li>Có thể tạo các Oxoacid và Oxoanion với nhiều số Oxy hóa khác nhau.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "H₂ + Br₂ ⇌ 2HBr",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Iron",
+      "equation": "2Fe + 3Br₂ → 2FeBr₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Aluminium",
+      "equation": "2Al + 3Br₂ → 2AlBr₃",
+      "desc": ""
+    },
+    {
+      "type": "Đẩy Iodine khỏi Iodide",
+      "equation": "Br₂ + 2KI → 2KBr + I₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với nước",
+      "equation": "Br₂ + H₂O ⇌ HBr + HBrO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium hydroxide loãng, lạnh",
+      "equation": "Br₂ + 2NaOH → NaBr + NaBrO + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium hydroxide đặc, nóng",
+      "equation": "3Br₂ + 6NaOH → 5NaBr + NaBrO₃ + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Nhận biết Bromide",
+      "equation": "Ag⁺ + Br⁻ → AgBr↓",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Bromine",
+      "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Chất chống cháy",
+      "desc": "Một số Brominated compounds được sử dụng làm chất chống cháy trong một số vật liệu."
+    },
+    {
+      "title": "Nhiếp ảnh",
+      "desc": "Silver bromide (AgBr) từng có vai trò quan trọng trong phim ảnh và giấy ảnh truyền thống."
+    },
+    {
+      "title": "Dược phẩm",
+      "desc": "Một số Bromine compounds được sử dụng trong quá trình tổng hợp dược phẩm."
+    },
+    {
+      "title": "Hóa chất",
+      "desc": "Bromine được sử dụng làm nguyên liệu để sản xuất nhiều Bromine compounds."
+    },
+    {
+      "title": "Xử lý nước",
+      "desc": "Một số Bromine-based compounds được sử dụng làm chất khử trùng trong các hệ thống xử lý nước."
+    },
+    {
+      "title": "Khoan dầu khí",
+      "desc": "Một số Bromide compounds được sử dụng trong các dung dịch có tỷ trọng cao phục vụ ngành dầu khí."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Bromine là nguyên tố số 35, thuộc nhóm VIIA | chu kỳ 4 và là một Halogen.</li>\n  <li>Bromine có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁵, với số Oxy hóa phổ biến nhất là −1.</li>\n  <li>Bromine là một trong số rất ít nguyên tố tồn tại ở dạng chất lỏng ở điều kiện thường. Đơn chất Bromine tồn tại chủ yếu dưới dạng phân tử Br₂, có màu nâu đỏ và dễ bay hơi.</li>\n  <li>Trong tự nhiên, Bromine chủ yếu tồn tại dưới dạng Bromide trong nước biển và các mỏ muối. Bromine có thể được điều chế bằng cách Oxy hóa Bromide bằng Chlorine.</li>\n  <li>Bromine và các hợp chất của nó có ứng dụng trong công nghiệp hóa chất, dược phẩm, xử lý nước, vật liệu chống cháy và nhiếp ảnh.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Bromine bằng cách cho Potassium bromide tác dụng với Chlorine:",
+        "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Bromine chủ yếu được sản xuất từ nước biển và nước muối giàu Bromide.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Ion Bromide được Oxy hóa bằng Chlorine:",
+        "equation": "Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂",
+        "desc": "Bromine được giải phóng sau đó được tách và tinh chế."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Br⁻",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Br⁻ tác dụng với Silver nitrate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ag⁺ + Br⁻ → AgBr↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa màu kem hoặc vàng nhạt Silver bromide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "AgBr ít tan trong nước và nhạy sáng.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Trực thoi (Orthorhombic)"
+}

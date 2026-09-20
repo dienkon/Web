@@ -1,0 +1,173 @@
+{
+  "number": 37,
+  "symbol": "Rb",
+  "nameVi": "Rubidium",
+  "nameEn": "Rubidium",
+  "mass": 85.468,
+  "category": "kiem",
+  "hasData": true,
+  "file": "elements/037_Rb.json",
+  "general": {
+    "latinName": "Rubidium",
+    "englishName": "Rubidium",
+    "electronConfig": "[Kr] 5s¹",
+    "isotope": "⁸⁵Rb, ⁸⁷Rb",
+    "group": 1,
+    "period": 5,
+    "state": "",
+    "oxidation": "+1",
+    "electronegativity": 0.82,
+    "density": "khoảng 1.53 g/cm³.",
+    "meltingPoint": "khoảng 39.3 °C.",
+    "boilingPoint": "khoảng 688 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Robert Bunsen và Gustav Kirchhoff",
+    "year": 1861,
+    "discoveryLocation": "Đức",
+    "description": "Rubidium được phát hiện năm 1861 khi Robert Bunsen và Gustav Kirchhoff phân tích khoáng vật Lepidolite bằng phương pháp quang phổ. Họ nhận ra hai vạch phổ màu đỏ đặc trưng chưa từng được quan sát trước đó. Tên Rubidium bắt nguồn từ tiếng Latin rubidus, nghĩa là “đỏ sẫm”."
+  },
+  "structure": {
+    "protons": 37,
+    "neutrons": 48,
+    "electrons": 37,
+    "electronShells": [
+      2,
+      8,
+      18,
+      8,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      8,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 37,
+      "neutron": 48
+    }
+  },
+  "occurrence": {
+    "description": "Rubidium là kim loại rắn, mềm, có màu trắng bạc ở điều kiện thường.",
+    "simple": [
+      "Rb"
+    ],
+    "compounds": [
+      "RbCl",
+      "RbOH",
+      "Rb₂O",
+      "Rb₂CO₃",
+      "RbNO₃"
+    ],
+    "ores": [
+      "Một số khoáng vật như Lepidolite và Pollucite",
+      "thường tồn tại cùng các kim loại kiềm khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Rất mềm.</li>\n      <li>Khối lượng riêng: khoảng 1.53 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 39.3 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 688 °C.</li>\n      <li>Có thể nóng chảy ở nhiệt độ hơi cao hơn nhiệt độ phòng.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có thể tạo ngọn lửa màu đỏ tím khi bị đốt nóng.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại có hoạt tính hóa học rất cao.</li>\n      <li>Có tính khử mạnh.</li>\n      <li>Dễ mất electron 5s¹ để tạo Rb⁺.</li>\n      <li>Phản ứng mạnh với nước tạo Rubidium hydroxide và Hydrogen.</li>\n      <li>Phản ứng nhanh với Oxygen.</li>\n      <li>Phản ứng mạnh với Halogen tạo Rubidium halide.</li>\n      <li>Phản ứng với nhiều chất phi kim khác.</li>\n      <li>Cần được bảo quản tránh tiếp xúc với nước và không khí ẩm.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với nước",
+      "equation": "2Rb + 2H₂O → 2RbOH + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Rb + O₂ → 2Rb₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Rb + Cl₂ → 2RbCl",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "2Rb + H₂ → 2RbH",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2Rb + S → Rb₂S",
+      "desc": ""
+    },
+    {
+      "type": "Điện phân Rubidium chloride nóng chảy",
+      "equation": "2RbCl → 2Rb + Cl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Đồng hồ nguyên tử",
+      "desc": "Rubidium được sử dụng trong một số loại Rubidium atomic clocks nhờ đặc tính chuyển mức năng lượng ổn định của nguyên tử."
+    },
+    {
+      "title": "Nghiên cứu vật lý",
+      "desc": "Rubidium được sử dụng trong nghiên cứu nguyên tử lạnh và Bose–Einstein condensate."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Một số Rubidium compounds được sử dụng trong sản xuất vật liệu và thiết bị điện tử đặc biệt."
+    },
+    {
+      "title": "Y học và nghiên cứu",
+      "desc": "Một số đồng vị Rubidium được sử dụng trong nghiên cứu sinh học và y học."
+    },
+    {
+      "title": "Nghiên cứu địa chất",
+      "desc": "⁸⁷Rb được sử dụng trong phương pháp định tuổi Rubidium–Strontium."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Rubidium là nguyên tố số 37, thuộc nhóm IA | chu kỳ 5 và là một kim loại kiềm.</li>\n  <li>Rubidium có cấu hình electron [Kr] 5s¹, vì vậy rất dễ mất electron để tạo ion Rb⁺. Đây là nguyên nhân khiến Rubidium có tính khử và độ hoạt động hóa học rất cao.</li>\n  <li>Rubidium là kim loại mềm, màu trắng bạc, có nhiệt độ nóng chảy thấp và có thể tạo ngọn lửa đỏ tím đặc trưng.</li>\n  <li>Trong tự nhiên, Rubidium thường tồn tại trong các khoáng vật cùng với các kim loại kiềm khác. Rubidium có ứng dụng đáng chú ý trong đồng hồ nguyên tử, nghiên cứu vật lý, định tuổi địa chất và một số lĩnh vực điện tử, y học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Rubidium thường được điều chế từ Rubidium compounds bằng phương pháp khử hoặc điện phân nóng chảy.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương pháp có thể sử dụng là điện phân Rubidium chloride nóng chảy:",
+        "equation": "2RbCl → 2Rb + Cl₂",
+        "desc": "Trong thực tế, việc điều chế Rubidium kim loại cần điều kiện kiểm soát nghiêm ngặt do Rubidium có tính phản ứng rất mạnh."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Rb⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Rubidium có thể được nhận biết bằng phép thử ngọn lửa.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Ngọn lửa có màu đỏ tím đặc trưng.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Do màu ngọn lửa có thể bị che lấp bởi các ion kim loại khác, phương pháp quang phổ thường được sử dụng để xác định chính xác hơn.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

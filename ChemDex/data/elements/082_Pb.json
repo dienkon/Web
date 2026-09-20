@@ -1,0 +1,213 @@
+{
+  "number": 82,
+  "symbol": "Pb",
+  "nameVi": "Lead",
+  "nameEn": "Lead",
+  "mass": 207.2,
+  "category": "unknown",
+  "hasData": true,
+  "file": "elements/082_Pb.json",
+  "general": {
+    "latinName": "Plumbum",
+    "englishName": "Lead",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²",
+    "isotope": "²⁰⁴Pb, ²⁰⁶Pb, ²⁰⁷Pb, ²⁰⁸Pb",
+    "group": 14,
+    "period": 6,
+    "state": "",
+    "oxidation": "+2, +4",
+    "electronegativity": 2.33,
+    "density": "khoảng 11.34 g/cm³.",
+    "meltingPoint": "khoảng 327.5 °C.",
+    "boilingPoint": "khoảng 1749 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Không xác định — Lead đã được con người biết đến từ thời cổ đại.",
+    "year": "Thời cổ đại",
+    "discoveryLocation": "Không xác định",
+    "description": "Lead là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Các vật phẩm bằng Lead đã được tìm thấy trong nhiều nền văn minh cổ đại. Người Ai Cập, Hy Lạp và La Mã đã sử dụng Lead trong nhiều mục đích khác nhau, bao gồm chế tạo vật dụng và xây dựng. Ký hiệu Pb bắt nguồn từ tên Latin Plumbum."
+  },
+  "structure": {
+    "protons": 82,
+    "neutrons": 125,
+    "electrons": 82,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      4
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      4
+    ],
+    "valenceElectrons": 4,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 82,
+      "neutron": 125
+    }
+  },
+  "occurrence": {
+    "description": "Lead là kim loại rắn, mềm, nặng, có màu xám xanh.",
+    "simple": [
+      "Pb"
+    ],
+    "compounds": [
+      "PbS",
+      "PbO",
+      "PbO₂",
+      "PbCl₂",
+      "Pb(NO₃)₂",
+      "PbCO₃"
+    ],
+    "ores": [
+      "Chủ yếu trong khoáng vật Galena (PbS)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại hậu chuyển tiếp.</li>\n      <li>Màu xám xanh.</li>\n      <li>Rất mềm và dễ dát mỏng.</li>\n      <li>Có khối lượng riêng lớn.</li>\n      <li>Khối lượng riêng: khoảng 11.34 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 327.5 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1749 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng hấp thụ bức xạ tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có hai số Oxy hóa chính: +2 và +4.</li>\n      <li>+2 ổn định hơn +4 do hiệu ứng cặp electron trơ.</li>\n      <li>Bề mặt Lead có thể hình thành lớp oxide bảo vệ.</li>\n      <li>Phản ứng với Oxygen tạo Lead oxide.</li>\n      <li>Phản ứng với Halogen tạo Lead halide.</li>\n      <li>Một số muối Lead ít tan trong nước, chẳng hạn PbCl₂.</li>\n      <li>Nhiều hợp chất Lead có độc tính cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Pb + O₂ → 2PbO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Pb + S → PbS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Pb + Cl₂ → PbCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Bromine",
+      "equation": "Pb + Br₂ → PbBr₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Iodine",
+      "equation": "Pb + I₂ → PbI₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitric acid",
+      "equation": "3Pb + 8HNO₃ → 3Pb(NO₃)₂ + 2NO + 4H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Lead từ Lead(II) oxide",
+      "equation": "2PbO + C → 2Pb + CO₂",
+      "desc": ""
+    },
+    {
+      "type": "Nhận biết Pb²⁺ bằng Iodide",
+      "equation": "Pb²⁺ + 2I⁻ → PbI₂↓",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Ắc quy",
+      "desc": "Lead là vật liệu quan trọng trong ắc quy Lead–acid, đặc biệt trong ô tô và hệ thống lưu trữ điện."
+    },
+    {
+      "title": "Chống bức xạ",
+      "desc": "Do có khối lượng riêng lớn và khả năng hấp thụ bức xạ tốt, Lead được sử dụng trong vật liệu che chắn bức xạ."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Lead được sử dụng trong một số hợp kim có nhiệt độ nóng chảy thấp."
+    },
+    {
+      "title": "Cáp và thiết bị",
+      "desc": "Trước đây Lead từng được sử dụng làm lớp bảo vệ cáp điện và trong nhiều thiết bị công nghiệp."
+    },
+    {
+      "title": "Xây dựng",
+      "desc": "Một số vật liệu chứa Lead từng được sử dụng trong xây dựng và chống thấm, nhưng nhiều ứng dụng đã bị hạn chế vì độc tính."
+    },
+    {
+      "title": "Đạn dược",
+      "desc": "Lead từng được sử dụng rộng rãi trong một số loại đạn và vật liệu liên quan, nhưng việc sử dụng Lead ngày càng được hạn chế vì tác động độc hại đến sức khỏe và môi trường."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Lead là nguyên tố số 82, thuộc nhóm IVA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li>\n  <li>Lead có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p², với hai số Oxy hóa chính là +2 và +4, trong đó +2 ổn định hơn.</li>\n  <li>Lead là kim loại mềm, nặng, dễ gia công và có nhiệt độ nóng chảy tương đối thấp. Đặc biệt, Lead có khả năng hấp thụ bức xạ tốt.</li>\n  <li>Lead có vai trò quan trọng trong ắc quy Lead–acid, vật liệu che chắn bức xạ và một số hợp kim. Tuy nhiên, do Lead và nhiều hợp chất của nó có độc tính cao, việc sử dụng Lead trong nhiều sản phẩm đã được hạn chế hoặc thay thế bằng vật liệu an toàn hơn.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Lead chủ yếu được điều chế từ Galena (PbS).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trước tiên, PbS được nung trong Oxygen để tạo Lead(II) oxide:",
+        "equation": "2PbS + 3O₂ → 2PbO + 2SO₂ <br> 2PbO + C → 2Pb + CO₂",
+        "desc": "Sau đó PbO được khử bằng Carbon:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Pb²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho ion Pb²⁺ tác dụng với Chloride",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Pb²⁺ + 2Cl⁻ → PbCl₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng PbCl₂.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "PbCl₂ tan tốt hơn trong nước nóng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phản ứng đặc trưng khác",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Pb²⁺ + 2I⁻ → PbI₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa vàng sáng PbI₂.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

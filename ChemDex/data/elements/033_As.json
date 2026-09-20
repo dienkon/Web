@@ -1,0 +1,201 @@
+{
+  "number": 33,
+  "symbol": "As",
+  "nameVi": "Arsenic",
+  "nameEn": "Arsenic",
+  "mass": 74.922,
+  "category": "a-kim",
+  "hasData": true,
+  "file": "elements/033_As.json",
+  "general": {
+    "latinName": "Arsenicum",
+    "englishName": "Arsenic",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p³",
+    "isotope": "⁷³As, ⁷⁵As",
+    "group": 15,
+    "period": 4,
+    "state": "",
+    "oxidation": "−3, +3, +5",
+    "electronegativity": 2.18,
+    "density": "khoảng 5.73 g/cm³.",
+    "meltingPoint": "",
+    "boilingPoint": "",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Albertus Magnus",
+    "year": "Khoảng năm 1250",
+    "discoveryLocation": "Đức",
+    "description": "Albertus Magnus được ghi nhận là người đầu tiên mô tả việc điều chế Arsenic kim loại bằng cách nung nóng Arsenic sulfide với xà phòng. Tuy nhiên, các Arsenic compounds đã được con người biết đến và sử dụng từ thời cổ đại."
+  },
+  "structure": {
+    "protons": 33,
+    "neutrons": 42,
+    "electrons": 33,
+    "electronShells": [
+      2,
+      8,
+      18,
+      5
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      5
+    ],
+    "valenceElectrons": 5,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 33,
+      "neutron": 42
+    }
+  },
+  "occurrence": {
+    "description": "Arsenic là chất rắn, thường có dạng màu xám kim loại ở dạng ổn định nhất.",
+    "simple": [
+      "As"
+    ],
+    "compounds": [
+      "As₂O₃",
+      "As₂O₅",
+      "As₂S₃",
+      "As₄S₄",
+      "AsH₃",
+      "H₃AsO₄"
+    ],
+    "ores": [
+      "Arsenopyrite (FeAsS)",
+      "Realgar (As₄S₄)",
+      "Orpiment (As₂S₃) và nhiều khoáng vật khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Dạng ổn định nhất có màu xám kim loại.</li>\n      <li>Giòn và dễ vỡ.</li>\n      <li>Khối lượng riêng: khoảng 5.73 g/cm³.</li>\n      <li>Không có nhiệt độ nóng chảy ở áp suất thường do thăng hoa trước khi nóng chảy.</li>\n      <li>Thăng hoa ở khoảng 615 °C.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Dẫn điện kém hơn kim loại.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến nhất là −3, +3 và +5.</li>\n      <li>Có thể phản ứng với Oxygen tạo Arsenic oxide.</li>\n      <li>Phản ứng với Halogen tạo Arsenic halide.</li>\n      <li>Có thể tạo hydride là Arsine (AsH₃).</li>\n      <li>Một số Arsenic compounds có tính độc cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4As + 3O₂ → 2As₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2As + 3Cl₂ → 2AsCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2As + 3S → As₂S₃",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Arsenic(III) sulfide",
+      "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺",
+      "desc": ""
+    },
+    {
+      "type": "Khử Arsenic(III) oxide",
+      "equation": "As₄O₆ + 6C → 4As + 6CO",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Arsine",
+      "equation": "2As + 3H₂ → 2AsH₃",
+      "desc": ""
+    },
+    {
+      "type": "Oxy hóa Arsenic(III) oxide",
+      "equation": "2As₂O₃ + O₂ → 2As₂O₅",
+      "desc": ""
+    },
+    {
+      "type": "Arsenic(III) oxide tác dụng với kiềm",
+      "equation": "As₂O₃ + 6NaOH → 2Na₃AsO₃ + 3H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Bán dẫn",
+      "desc": "Arsenic được sử dụng để tạo các vật liệu bán dẫn như Gallium arsenide (GaAs)."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Một lượng nhỏ Arsenic có thể được sử dụng trong một số hợp kim để cải thiện tính chất vật liệu."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Gallium arsenide có ứng dụng trong các thiết bị điện tử và quang điện tử tốc độ cao."
+    },
+    {
+      "title": "Kính",
+      "desc": "Một số Arsenic compounds từng được sử dụng trong sản xuất và xử lý thủy tinh."
+    },
+    {
+      "title": "Bảo quản gỗ",
+      "desc": "Một số hợp chất chứa Arsenic từng được sử dụng trong chất bảo quản gỗ, nhưng việc sử dụng bị hạn chế nghiêm ngặt do độc tính."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Arsenic là nguyên tố số 33, thuộc nhóm VA | chu kỳ 4 và là một á kim.</li>\n  <li>Arsenic có cấu hình electron [Ar] 3d¹⁰ 4s² 4p³, với các số Oxy hóa phổ biến là −3, +3 và +5.</li>\n  <li>Arsenic tồn tại trong tự nhiên chủ yếu dưới dạng các khoáng vật như Arsenopyrite (FeAsS), Realgar (As₄S₄) và Orpiment (As₂S₃).</li>\n  <li>Arsenic có vai trò trong công nghệ bán dẫn và sản xuất vật liệu, đặc biệt thông qua các hợp chất như Gallium arsenide (GaAs). Tuy nhiên, nhiều Arsenic compounds có độc tính cao, vì vậy việc sử dụng và xử lý chúng cần được kiểm soát nghiêm ngặt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Arsenic bằng cách khử Arsenic(III) oxide bằng Carbon:",
+        "equation": "As₄O₆ + 6C → 4As + 6CO",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Arsenic thường được thu hồi từ các quặng chứa Arsenic, đặc biệt là Arsenopyrite.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Khi nung Arsenic sulfide trong không khí, có thể tạo Arsenic(III) oxide:",
+        "equation": "4As₂S₃ + 9O₂ → 2As₄O₆ + 6SO₂ <br> As₄O₆ + 6C → 4As + 6CO",
+        "desc": "Sau đó Arsenic(III) oxide được khử bằng Carbon:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết As³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho ion As³⁺ tác dụng với Hydrogen sulfide trong môi trường acid",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "2As³⁺ + 3H₂S → As₂S₃↓ + 6H⁺"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa vàng Arsenic(III) sulfide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết As⁵⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "As⁵⁺ có thể được chuyển về As³⁺ rồi tiếp tục nhận biết thông qua sự tạo thành As₂S₃.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

@@ -1,0 +1,208 @@
+{
+  "number": 25,
+  "symbol": "Mn",
+  "nameVi": "Manganese",
+  "nameEn": "Manganese",
+  "mass": 54.938,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/025_Mn.json",
+  "general": {
+    "latinName": "Manganum",
+    "englishName": "Manganese",
+    "electronConfig": "[Ar] 3d⁵ 4s²",
+    "isotope": "⁵⁵Mn",
+    "group": 7,
+    "period": 4,
+    "state": "",
+    "oxidation": "+2, +3, +4, +5, +6, +7",
+    "electronegativity": 1.55,
+    "density": "khoảng 7.21 g/cm³.",
+    "meltingPoint": "khoảng 1246 °C.",
+    "boilingPoint": "khoảng 2061 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Johan Gottlieb Gahn",
+    "year": 1774,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1774, Johan Gottlieb Gahn đã điều chế được Manganese kim loại bằng cách khử Manganese dioxide (MnO₂) với Carbon. Trước đó, Manganese compounds đã được biết đến và sử dụng từ lâu, nhưng chưa được xác định là nguyên tố riêng biệt."
+  },
+  "structure": {
+    "protons": 25,
+    "neutrons": 30,
+    "electrons": 25,
+    "electronShells": [
+      2,
+      8,
+      13,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      13,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 25,
+      "neutron": 30
+    }
+  },
+  "occurrence": {
+    "description": "Manganese là kim loại rắn, màu xám bạc ở điều kiện thường.",
+    "simple": [
+      "Mn"
+    ],
+    "compounds": [
+      "MnO₂",
+      "MnO",
+      "Mn₂O₃",
+      "Mn₃O₄",
+      "KMnO₄",
+      "MnSO₄"
+    ],
+    "ores": [
+      "Pyrolusite (MnO₂)",
+      "Manganite (MnO(OH))",
+      "Rhodochrosite (MnCO₃) và nhiều khoáng vật khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc.</li>\n      <li>Cứng và giòn.</li>\n      <li>Khó nóng chảy.</li>\n      <li>Khối lượng riêng: khoảng 7.21 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1246 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2061 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tương đối kém so với nhiều kim loại.</li>\n      <li>Có nhiều dạng thù hình.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, từ +2 đến +7.</li>\n      <li>+2 là trạng thái Oxy hóa phổ biến nhất.</li>\n      <li>MnO₂ thể hiện tính Oxy hóa trong nhiều phản ứng.</li>\n      <li>Permanganate chứa Mn ở trạng thái +7 và có tính Oxy hóa mạnh.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Manganese halide.</li>\n      <li>Phản ứng với acid tạo muối Manganese và Hydrogen.</li>\n      <li>Có thể tạo nhiều oxide với các số Oxy hóa khác nhau.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "3Mn + 2O₂ → Mn₃O₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Mn + Cl₂ → MnCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Mn + S → MnS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Mn + 2HCl → MnCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Manganese(II) hydroxide",
+      "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Oxy hóa Manganese(II) hydroxide trong không khí",
+      "equation": "2Mn(OH)₂ + O₂ → 2MnO(OH) + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Phân hủy Manganese dioxide với Hydrochloric acid",
+      "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Potassium permanganate trong môi trường acid",
+      "equation": "2MnO₄⁻ + 5H₂O₂ + 6H⁺ → 2Mn²⁺ + 5O₂↑ + 8H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Manganese",
+      "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất thép",
+      "desc": "Manganese là nguyên tố hợp kim quan trọng, giúp tăng độ cứng, độ bền và khả năng chịu mài mòn của thép."
+    },
+    {
+      "title": "Ferromanganese",
+      "desc": "Được sử dụng rộng rãi trong luyện thép."
+    },
+    {
+      "title": "Pin",
+      "desc": "Manganese dioxide (MnO₂) được sử dụng trong một số loại pin, đặc biệt là pin Zinc–carbon và Alkaline."
+    },
+    {
+      "title": "Sản xuất hợp kim",
+      "desc": "Manganese được sử dụng trong nhiều hợp kim của sắt và các kim loại khác."
+    },
+    {
+      "title": "Xử lý thủy tinh",
+      "desc": "Một số Manganese compounds được sử dụng để tạo màu hoặc khử màu thủy tinh."
+    },
+    {
+      "title": "Phân bón",
+      "desc": "Một số Manganese compounds được sử dụng làm nguồn Manganese cho cây trồng."
+    },
+    {
+      "title": "Hóa chất",
+      "desc": "Potassium permanganate (KMnO₄) là một chất Oxy hóa quan trọng trong phòng thí nghiệm và công nghiệp."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Manganese là nguyên tố số 25, thuộc nhóm VIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Manganese có cấu hình electron [Ar] 3d⁵ 4s² và có nhiều số Oxy hóa, từ +2 đến +7. Trong đó, +2 là trạng thái phổ biến nhất, còn +7 xuất hiện trong Permanganate.</li>\n  <li>Manganese có vai trò đặc biệt quan trọng trong luyện thép, đặc biệt là sản xuất Ferromanganese. Ngoài ra, các hợp chất như Manganese dioxide và Potassium permanganate có nhiều ứng dụng trong pin và công nghiệp hóa chất.</li>\n  <li>Trong tự nhiên, Manganese chủ yếu tồn tại trong các khoáng vật như Pyrolusite (MnO₂) và thường được khai thác cùng hoặc gần các quặng sắt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế bằng cách khử Manganese(II) oxide bằng Aluminium:",
+        "equation": "3MnO + 2Al → 3Mn + Al₂O₃",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Manganese được sản xuất chủ yếu từ quặng Manganese oxide bằng phương pháp nhiệt luyện.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phản ứng khử đơn giản:",
+        "equation": "MnO₂ + 2C → Mn + 2CO",
+        "desc": "Trong sản xuất Ferroalloy, Manganese thường được dùng để sản xuất Ferromanganese và Silicomanganese."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Mn²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Dung dịch chứa Mn²⁺ thường không màu hoặc có màu rất nhạt.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Có thể tạo kết tủa Manganese(II) hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Mn²⁺ + 2OH⁻ → Mn(OH)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng hoặc trắng hơi hồng, nhanh chóng bị Oxygen trong không khí oxy hóa và chuyển màu nâu.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

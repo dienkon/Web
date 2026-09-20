@@ -1,0 +1,174 @@
+{
+  "number": 55,
+  "symbol": "Cs",
+  "nameVi": "Cesium",
+  "nameEn": "Cesium",
+  "mass": 132.905,
+  "category": "kiem",
+  "hasData": true,
+  "file": "elements/055_Cs.json",
+  "general": {
+    "latinName": "Caesium",
+    "englishName": "Cesium",
+    "electronConfig": "[Xe] 6s¹",
+    "isotope": "¹³³Cs",
+    "group": 1,
+    "period": 6,
+    "state": "",
+    "oxidation": "+1",
+    "electronegativity": 0.79,
+    "density": "khoảng 1.93 g/cm³.",
+    "meltingPoint": "khoảng 28.4 °C.",
+    "boilingPoint": "khoảng 671 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Robert Bunsen và Gustav Kirchhoff",
+    "year": 1860,
+    "discoveryLocation": "Đức",
+    "description": "Cesium được phát hiện năm 1860 bằng phương pháp quang phổ khi Robert Bunsen và Gustav Kirchhoff phân tích nước khoáng. Họ quan sát thấy hai vạch phổ màu xanh đặc trưng, từ đó xác định sự tồn tại của nguyên tố mới. Tên Cesium bắt nguồn từ tiếng Latin caesius, nghĩa là “xanh da trời”."
+  },
+  "structure": {
+    "protons": 55,
+    "neutrons": 78,
+    "electrons": 55,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      8,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      8,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 55,
+      "neutron": 78
+    }
+  },
+  "occurrence": {
+    "description": "Cesium là kim loại rắn, màu vàng nhạt, mềm.",
+    "simple": [
+      "Cs"
+    ],
+    "compounds": [
+      "CsCl",
+      "CsOH",
+      "Cs₂CO₃",
+      "CsNO₃"
+    ],
+    "ores": [
+      "Tồn tại trong một số khoáng vật",
+      "đặc biệt là Pollucite (CsAlSi₂O₆)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm.</li>\n      <li>Màu vàng nhạt.</li>\n      <li>Rất mềm và dễ cắt.</li>\n      <li>Là một trong những kim loại có nhiệt độ nóng chảy thấp nhất.</li>\n      <li>Khối lượng riêng: khoảng 1.93 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 28.4 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 671 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có nhiệt độ nóng chảy gần nhiệt độ phòng.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa đặc trưng là +1.</li>\n      <li>Là một trong những kim loại hoạt động hóa học mạnh nhất.</li>\n      <li>Phản ứng rất mạnh với nước.</li>\n      <li>Phản ứng nhanh với Oxygen và Halogen.</li>\n      <li>Dễ mất electron 6s¹ để tạo ion Cs⁺.</li>\n      <li>Cesium hydroxide (CsOH) là một base mạnh.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với nước",
+      "equation": "2Cs + 2H₂O → 2CsOH + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Cs + Cl₂ → 2CsCl",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Cs + O₂ → CsO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "2Cs + H₂ → 2CsH",
+      "desc": ""
+    },
+    {
+      "type": "Cesium hydroxide tác dụng với Hydrochloric acid",
+      "equation": "CsOH + HCl → CsCl + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Cesium",
+      "equation": "2CsCl + Ca → 2Cs + CaCl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Đồng hồ nguyên tử",
+      "desc": "Cesium-133 được sử dụng để định nghĩa đơn vị giây trong hệ SI thông qua tần số chuyển tiếp nguyên tử."
+    },
+    {
+      "title": "GPS và viễn thông",
+      "desc": "Đồng hồ nguyên tử Cesium được sử dụng trong các hệ thống cần đo thời gian cực kỳ chính xác."
+    },
+    {
+      "title": "Thiết bị quang điện",
+      "desc": "Cesium được sử dụng trong một số tế bào quang điện và vật liệu quang điện."
+    },
+    {
+      "title": "Khoan giếng",
+      "desc": "Một số hợp chất Cesium như Cesium formate được sử dụng trong dung dịch có tỷ trọng cao cho ngành dầu khí."
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Cesium được sử dụng trong các thí nghiệm vật lý nguyên tử và quang học lượng tử."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Cesium là nguyên tố số 55, thuộc nhóm IA | chu kỳ 6 và là một kim loại kiềm.</li>\n  <li>Cesium có cấu hình electron [Xe] 6s¹, với số Oxy hóa đặc trưng là +1.</li>\n  <li>Cesium là kim loại rất mềm, màu vàng nhạt và có tính hoạt động hóa học cực mạnh. Nó có nhiệt độ nóng chảy chỉ khoảng 28.4 °C, vì vậy có thể chuyển sang trạng thái lỏng khi nhiệt độ môi trường đủ cao.</li>\n  <li>Trong tự nhiên, Cesium chủ yếu tồn tại trong các khoáng vật như Pollucite và đồng vị tự nhiên duy nhất là ¹³³Cs.</li>\n  <li>Ứng dụng nổi bật nhất của Cesium là trong đồng hồ nguyên tử, đặc biệt là Cesium-133, đóng vai trò nền tảng trong phép đo thời gian chính xác cao. Ngoài ra, Cesium còn được sử dụng trong GPS, viễn thông, thiết bị quang điện và nghiên cứu khoa học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Cesium thường được điều chế từ các hợp chất Cesium, đặc biệt là Cesium halide.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương pháp là khử Cesium chloride bằng Calcium ở nhiệt độ cao:",
+        "equation": "2CsCl + Ca → 2Cs + CaCl₂",
+        "desc": "Sau đó Cesium được tách và tinh chế trong điều kiện kiểm soát nghiêm ngặt do phản ứng rất mạnh với nước và Oxygen."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Cs⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Cesium có thể được nhận biết bằng phép thử ngọn lửa.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Cesium tạo ngọn lửa màu xanh tím/xanh lam đặc trưng.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong phân tích chính xác, Cesium thường được xác định bằng quang phổ phát xạ hoặc quang phổ hấp thụ.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

@@ -1,0 +1,196 @@
+{
+  "number": 41,
+  "symbol": "Nb",
+  "nameVi": "Niobium",
+  "nameEn": "Niobium",
+  "mass": 92.906,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/041_Nb.json",
+  "general": {
+    "latinName": "Niobium",
+    "englishName": "Niobium",
+    "electronConfig": "[Kr] 4d⁴ 5s¹",
+    "isotope": "⁹³Nb",
+    "group": 5,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2, +3, +4, +5",
+    "electronegativity": 1.6,
+    "density": "khoảng 8.57 g/cm³.",
+    "meltingPoint": "khoảng 2477 °C.",
+    "boilingPoint": "khoảng 4744 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Charles Hatchett",
+    "year": 1801,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1801, Charles Hatchett nghiên cứu một loại quặng được gửi từ Mỹ và phát hiện một nguyên tố mới. Ông đặt tên nguyên tố là Columbium. Sau này, tên Niobium được quốc tế công nhận và sử dụng rộng rãi."
+  },
+  "structure": {
+    "protons": 41,
+    "neutrons": 52,
+    "electrons": 41,
+    "electronShells": [
+      2,
+      8,
+      18,
+      12,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      12,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 41,
+      "neutron": 52
+    }
+  },
+  "occurrence": {
+    "description": "Niobium là kim loại rắn, màu xám bạc, tương đối mềm và có độ bóng kim loại.",
+    "simple": [
+      "Nb"
+    ],
+    "compounds": [
+      "Nb₂O₅",
+      "NbCl₅",
+      "NbC",
+      "NbN"
+    ],
+    "ores": [
+      "Columbite–tantalite và Pyrochlore"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu xám bạc.</li>\n      <li>Mềm và dễ uốn ở trạng thái tinh khiết.</li>\n      <li>Khối lượng riêng: khoảng 8.57 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2477 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4744 °C.</li>\n      <li>Có khả năng chịu nhiệt cao.</li>\n      <li>Có tính siêu dẫn ở nhiệt độ rất thấp.</li>\n      <li>Chống ăn mòn tốt nhờ tạo lớp oxide bảo vệ.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +5.</li>\n      <li>Có khả năng tạo lớp Nb₂O₅ bảo vệ trên bề mặt.</li>\n      <li>Tương đối bền trong không khí ở điều kiện thường.</li>\n      <li>Phản ứng với Oxygen khi được nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Niobium halide.</li>\n      <li>Tạo nhiều hợp chất với Carbon và Nitrogen.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Nb + 5O₂ → 2Nb₂O₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Nb + 5Cl₂ → 2NbCl₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "2Nb + N₂ → 2NbN",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "Nb + C → NbC",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Niobium hydroxide",
+      "equation": "Nb⁵⁺ + 5OH⁻ → Nb(OH)₅↓",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Niobium",
+      "equation": "3Nb₂O₅ + 10Al → 6Nb + 5Al₂O₃",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hợp kim thép",
+      "desc": "Niobium được thêm vào thép để tăng độ bền và khả năng chịu nhiệt."
+    },
+    {
+      "title": "Đường ống",
+      "desc": "Thép chứa Niobium được sử dụng trong một số đường ống dầu khí nhờ độ bền cao."
+    },
+    {
+      "title": "Động cơ",
+      "desc": "Một số hợp kim Niobium được sử dụng trong các bộ phận chịu nhiệt cao."
+    },
+    {
+      "title": "Siêu dẫn",
+      "desc": "Các hợp chất như Niobium–Titanium (NbTi) được sử dụng để chế tạo nam châm siêu dẫn."
+    },
+    {
+      "title": "Máy MRI",
+      "desc": "Nam châm siêu dẫn NbTi được sử dụng trong nhiều hệ thống MRI."
+    },
+    {
+      "title": "Công nghệ hạt nhân",
+      "desc": "Niobium được sử dụng trong một số vật liệu chịu nhiệt và chịu bức xạ."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Một số Niobium compounds được sử dụng trong tụ điện và vật liệu điện tử."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Niobium là nguyên tố số 41, thuộc nhóm VB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Niobium có cấu hình electron [Kr] 4d⁴ 5s¹, với số Oxy hóa phổ biến nhất là +5.</li>\n  <li>Niobium có nhiệt độ nóng chảy cao, khả năng chống ăn mòn tốt và tính siêu dẫn ở nhiệt độ thấp. Trong tự nhiên, Niobium chủ yếu được tìm thấy trong các khoáng vật như Pyrochlore và Columbite–tantalite.</li>\n  <li>Niobium đặc biệt quan trọng trong sản xuất thép và siêu hợp kim, đồng thời các hợp kim như NbTi có vai trò lớn trong công nghệ nam châm siêu dẫn và máy MRI.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Niobium chủ yếu được thu nhận từ các quặng chứa Niobium như Pyrochlore.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Quặng được xử lý để tạo Niobium oxide, sau đó oxide được chuyển thành Niobium chloride hoặc fluoride để tinh chế.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương pháp điều chế Niobium kim loại là khử Niobium pentoxide bằng Aluminium:",
+        "equation": "3Nb₂O₅ + 10Al → 6Nb + 5Al₂O₃",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Nb⁵⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Niobium(V) có thể tạo các hợp chất hoặc kết tủa oxide/hydroxide đặc trưng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phản ứng đơn giản",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Nb⁵⁺ + 5OH⁻ → Nb(OH)₅↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Niobium hydroxide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong phân tích thực tế, Niobium thường được nhận biết bằng các phương pháp phân tích chuyên dụng do phản ứng hóa học của nó khá phức tạp.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

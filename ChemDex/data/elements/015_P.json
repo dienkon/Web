@@ -1,0 +1,189 @@
+{
+  "number": 15,
+  "symbol": "P",
+  "nameVi": "Phosphorus",
+  "nameEn": "Phosphorus",
+  "mass": 30.974,
+  "category": "phi-kim",
+  "hasData": true,
+  "file": "elements/015_P.json",
+  "general": {
+    "latinName": "Phosphorus",
+    "englishName": "Phosphorus",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p³",
+    "isotope": "³¹P, ³²P, ³³P",
+    "group": 15,
+    "period": 3,
+    "state": "",
+    "oxidation": "−3, +1, +3, +5",
+    "electronegativity": 2.19,
+    "density": "",
+    "meltingPoint": "",
+    "boilingPoint": "",
+    "crystalStructure": "Mạng lập phương đơn giản (SC)"
+  },
+  "history": {
+    "discoverer": "Hennig Brand",
+    "year": 1669,
+    "discoveryLocation": "Hamburg, Đức",
+    "description": "Năm 1669, Hennig Brand phát hiện Phosphorus khi thực hiện các thí nghiệm với nước tiểu. Ông thu được một chất phát sáng trong bóng tối và gọi nó là Phosphorus, bắt nguồn từ tiếng Hy Lạp với nghĩa là “mang ánh sáng”."
+  },
+  "structure": {
+    "protons": 15,
+    "neutrons": 16,
+    "electrons": 15,
+    "electronShells": [
+      2,
+      8,
+      5
+    ],
+    "shells": [
+      2,
+      8,
+      5
+    ],
+    "valenceElectrons": 5,
+    "lattice": "Mạng lập phương đơn giản (SC)",
+    "nucleus": {
+      "proton": 15,
+      "neutron": 16
+    }
+  },
+  "occurrence": {
+    "description": "Phosphorus không tồn tại tự do trong tự nhiên do có tính hoạt động hóa học. Chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật.",
+    "simple": [
+      "P₄"
+    ],
+    "compounds": [
+      "Ca₃(PO₄)₂",
+      "H₃PO₄",
+      "P₄O₁₀",
+      "PH₃",
+      "Na₃PO₄"
+    ],
+    "ores": [
+      "Phosphate rock",
+      "Apatite",
+      "đất",
+      "nước và các sinh vật sống"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn ở điều kiện thường.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Phosphorus trắng có màu trắng hoặc vàng nhạt.</li>\n      <li>Phosphorus đỏ có màu đỏ sẫm.</li>\n      <li>Phosphorus đen có màu đen và có cấu trúc ổn định hơn.</li>\n      <li>Khối lượng riêng phụ thuộc vào dạng thù hình.</li>\n      <li>Phosphorus trắng nóng chảy ở khoảng 44.1 °C.</li>\n      <li>Phosphorus trắng sôi ở khoảng 280.5 °C.</li>\n      <li>Phosphorus đỏ và đen có nhiệt độ chuyển pha khác nhau.</li>\n      <li>Phosphorus trắng phát sáng yếu trong bóng tối do phản ứng chậm với Oxygen.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim.</li>\n      <li>Có nhiều dạng thù hình với tính chất khác nhau.</li>\n      <li>Có khả năng tạo nhiều hợp chất cộng hóa trị.</li>\n      <li>Có các số Oxy hóa phổ biến −3, +3 và +5.</li>\n      <li>Phosphorus trắng hoạt động hóa học mạnh hơn Phosphorus đỏ và đen.</li>\n      <li>Phản ứng với Oxygen tạo các Phosphorus oxide.</li>\n      <li>Phản ứng với Halogen tạo Phosphorus halide.</li>\n      <li>Phản ứng với kim loại tạo Phosphide.</li>\n      <li>Phosphorus có thể tạo Phosphoric acid và nhiều Phosphate.</li>\n      <li>Phosphorus là nguyên tố thiết yếu của sinh vật.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "P4 + 5O2 → P4O10",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "P4 + 6Cl2 → 4PCl3",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "P4 + 10Cl2 → 4PCl5",
+      "desc": "Khi Chlorine dư:"
+    },
+    {
+      "type": "Tác dụng với Bromine",
+      "equation": "P4 + 6Br2 → 4PBr3",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2P + 3S → P2S3",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Calcium",
+      "equation": "3Ca + 2P → Ca3P2",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium",
+      "equation": "3Na + P → Na3P",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Phosphine",
+      "equation": "Ca3P2 + 6H2O → 3Ca(OH)2 + 2PH3↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Phosphoric acid",
+      "equation": "P4O10 + 6H2O → 4H3PO4",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Phân bón",
+      "desc": "Phosphate compounds là nguồn Phosphorus quan trọng trong sản xuất phân bón."
+    },
+    {
+      "title": "Sản xuất Phosphoric acid",
+      "desc": "Phosphorus compounds được sử dụng để sản xuất Phosphoric acid và nhiều hóa chất Phosphate."
+    },
+    {
+      "title": "Diêm",
+      "desc": "Red phosphorus được sử dụng trong bề mặt quẹt của một số loại diêm an toàn."
+    },
+    {
+      "title": "Chất tẩy rửa",
+      "desc": "Một số Phosphate được sử dụng trong các sản phẩm tẩy rửa, mặc dù việc sử dụng bị hạn chế ở nhiều nơi do vấn đề môi trường."
+    },
+    {
+      "title": "Công nghiệp thực phẩm",
+      "desc": "Một số Phosphate được sử dụng làm chất điều chỉnh độ acid và phụ gia thực phẩm."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Phosphorus compounds được sử dụng trong một số quá trình luyện kim."
+    },
+    {
+      "title": "Sinh học và y học",
+      "desc": "Phosphorus là thành phần quan trọng của DNA, RNA, ATP, phospholipid và xương."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Phosphorus là nguyên tố số 15, thuộc nhóm VA | chu kỳ 3 và là một phi kim.</li>\n  <li>Phosphorus có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p³ và có 5 electron hóa trị. Nguyên tố này có nhiều dạng thù hình, trong đó quan trọng nhất là Phosphorus trắng, Phosphorus đỏ và Phosphorus đen.</li>\n  <li>Trong tự nhiên, Phosphorus chủ yếu tồn tại dưới dạng Phosphate trong khoáng vật và sinh vật. Phosphorus là nguyên tố thiết yếu của sự sống, tham gia vào cấu tạo của DNA, RNA, ATP, phospholipid và xương.</li>\n  <li>Phosphorus và các hợp chất của nó có vai trò quan trọng trong sản xuất phân bón, Phosphoric acid, diêm, hóa chất, công nghiệp thực phẩm và nhiều quá trình sinh học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Về nguyên tắc, có thể thu Phosphorus bằng cách khử các Phosphate ở nhiệt độ cao với Carbon và Silica:",
+        "equation": "2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Phosphorus được sản xuất chủ yếu từ Phosphate rock. Nguyên liệu chứa Calcium phosphate được nung với Silica và Carbon trong lò điện:",
+        "equation": "2Ca3(PO4)2 + 6SiO2 + 10C → P4 + 6CaSiO3 + 10CO",
+        "desc": "Phosphorus được tạo ra ở dạng hơi, sau đó được làm lạnh và thu hồi."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Ion Phosphate (PO₄³⁻)",
+      "reagent": "",
+      "result": "Có thể nhận biết bằng phản ứng tạo kết tủa màu vàng với Silver nitrate trong môi trường thích hợp:",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "PO₄³⁻ + 3Ag⁺ → Ag₃PO₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa vàng Silver phosphate.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Mạng lập phương đơn giản (SC)"
+}

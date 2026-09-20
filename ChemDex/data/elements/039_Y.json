@@ -1,0 +1,182 @@
+{
+  "number": 39,
+  "symbol": "Y",
+  "nameVi": "Yttrium",
+  "nameEn": "Yttrium",
+  "mass": 88.906,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/039_Y.json",
+  "general": {
+    "latinName": "Yttrium",
+    "englishName": "Yttrium",
+    "electronConfig": "[Kr] 4d¹ 5s²",
+    "isotope": "⁸⁹Y là đồng vị tự nhiên ổn định duy nhất của Yttrium.",
+    "group": 3,
+    "period": 5,
+    "state": "",
+    "oxidation": "+3",
+    "electronegativity": 1.22,
+    "density": "khoảng 4.47 g/cm³.",
+    "meltingPoint": "khoảng 1526 °C.",
+    "boilingPoint": "khoảng 3338 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Johan Gadolin",
+    "year": 1794,
+    "discoveryLocation": "Phần Lan",
+    "description": "Năm 1794, Johan Gadolin phát hiện một loại oxide mới trong khoáng vật được tìm thấy tại Ytterby, Thụy Điển. Sau đó, nhiều nguyên tố đất hiếm khác cũng được phát hiện từ cùng loại khoáng vật này. Năm 1828, Friedrich Wöhler điều chế được Yttrium tương đối tinh khiết."
+  },
+  "structure": {
+    "protons": 39,
+    "neutrons": 50,
+    "electrons": 39,
+    "electronShells": [
+      2,
+      8,
+      18,
+      9,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      9,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 39,
+      "neutron": 50
+    }
+  },
+  "occurrence": {
+    "description": "Yttrium là kim loại rắn, màu trắng bạc.",
+    "simple": [
+      "Y"
+    ],
+    "compounds": [
+      "Y₂O₃",
+      "YCl₃",
+      "YF₃",
+      "Y₂S₃",
+      "YAG (Y₃Al₅O₁₂)"
+    ],
+    "ores": [
+      "Xenotime (YPO₄)",
+      "Monazite và một số khoáng vật đất hiếm"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu trắng bạc.</li>\n      <li>Tương đối mềm và dễ gia công.</li>\n      <li>Khối lượng riêng: khoảng 4.47 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1526 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3338 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có tính chất gần với các nguyên tố đất hiếm.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +3.</li>\n      <li>Có tính khử.</li>\n      <li>Dễ tạo Y³⁺ trong các hợp chất.</li>\n      <li>Phản ứng với Oxygen tạo Yttrium oxide.</li>\n      <li>Phản ứng với Halogen tạo Yttrium halide.</li>\n      <li>Phản ứng với acid tạo Yttrium salt và Hydrogen.</li>\n      <li>Yttrium oxide có độ bền nhiệt cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Y + 3O₂ → 2Y₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Y + 3Cl₂ → 2YCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "2Y + 6HCl → 2YCl₃ + 3H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2Y + 3S → Y₂S₃",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Yttrium hydroxide",
+      "equation": "Y³⁺ + 3OH⁻ → Y(OH)₃↓",
+      "desc": ""
+    },
+    {
+      "type": "Yttrium hydroxide tác dụng với acid",
+      "equation": "Y(OH)₃ + 3HCl → YCl₃ + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Yttrium",
+      "equation": "2YCl₃ + 3Ca → 2Y + 3CaCl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Laser",
+      "desc": "Yttrium được sử dụng trong các vật liệu laser như YAG (Y₃Al₅O₁₂), đặc biệt khi pha thêm các nguyên tố thích hợp."
+    },
+    {
+      "title": "LED và màn hình",
+      "desc": "Yttrium compounds được sử dụng làm vật liệu phát quang trong một số loại LED và màn hình."
+    },
+    {
+      "title": "Gốm kỹ thuật",
+      "desc": "Yttrium oxide được sử dụng để ổn định Zirconium oxide, tạo vật liệu gốm có độ bền cao."
+    },
+    {
+      "title": "Siêu dẫn",
+      "desc": "Một số vật liệu chứa Yttrium có tính siêu dẫn ở nhiệt độ tương đối cao, điển hình là YBCO."
+    },
+    {
+      "title": "Kính",
+      "desc": "Yttrium compounds được sử dụng trong một số loại kính quang học và vật liệu chịu nhiệt."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Yttrium được thêm vào một số hợp kim để cải thiện tính chất cơ học và khả năng chịu nhiệt."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Yttrium là nguyên tố số 39, thuộc nhóm IIIB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Yttrium có cấu hình electron [Kr] 4d¹ 5s², với số Oxy hóa đặc trưng là +3.</li>\n  <li>Yttrium có nhiều tính chất tương tự các nguyên tố đất hiếm và thường tồn tại trong tự nhiên cùng các khoáng vật đất hiếm. Đồng vị tự nhiên ổn định duy nhất của Yttrium là ⁸⁹Y.</li>\n  <li>Yttrium có vai trò quan trọng trong laser, vật liệu phát quang, gốm kỹ thuật, vật liệu siêu dẫn, kính quang học và hợp kim chịu nhiệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Yttrium được sản xuất từ các khoáng vật chứa Yttrium như Xenotime (YPO₄).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Các hợp chất Yttrium được chuyển thành Yttrium chloride, sau đó Yttrium kim loại có thể được điều chế bằng cách khử Yttrium chloride bằng Calcium:",
+        "equation": "2YCl₃ + 3Ca → 2Y + 3CaCl₂",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Y³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Y³⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Y³⁺ + 3OH⁻ → Y(OH)₃↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Yttrium hydroxide.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

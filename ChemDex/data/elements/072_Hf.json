@@ -1,0 +1,179 @@
+{
+  "number": 72,
+  "symbol": "Hf",
+  "nameVi": "Hafnium",
+  "nameEn": "Hafnium",
+  "mass": 178.486,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/072_Hf.json",
+  "general": {
+    "latinName": "Hafnium",
+    "englishName": "Hafnium",
+    "electronConfig": "[Xe] 4f¹⁴ 5d² 6s²",
+    "isotope": "¹⁷⁴Hf, ¹⁷⁶Hf, ¹⁷⁷Hf, ¹⁷⁸Hf, ¹⁷⁹Hf, ¹⁸⁰Hf",
+    "group": 4,
+    "period": 6,
+    "state": "",
+    "oxidation": "+2, +3, +4",
+    "electronegativity": 1.3,
+    "density": "khoảng 13.31 g/cm³.",
+    "meltingPoint": "khoảng 2233 °C.",
+    "boilingPoint": "khoảng 4603 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Dirk Coster và George de Hevesy",
+    "year": 1923,
+    "discoveryLocation": "Copenhagen, Đan Mạch",
+    "description": "Hafnium được phát hiện khi Dirk Coster và George de Hevesy phân tích Zirconium bằng phương pháp tia X. Họ xác định được một nguyên tố mới nằm cùng nhóm với Zirconium. Tên Hafnium bắt nguồn từ Hafnia, tên Latin của Copenhagen."
+  },
+  "structure": {
+    "protons": 72,
+    "neutrons": 106,
+    "electrons": 72,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      10,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      10,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 72,
+      "neutron": 106
+    }
+  },
+  "occurrence": {
+    "description": "Hafnium là kim loại rắn, màu xám bạc, bóng và khá nặng.",
+    "simple": [
+      "Hf"
+    ],
+    "compounds": [
+      "HfO₂",
+      "HfCl₄",
+      "HfC",
+      "HfN",
+      "HfSi₂"
+    ],
+    "ores": [
+      "Hầu như luôn tồn tại cùng Zirconium trong các khoáng vật như Zircon (ZrSiO₄)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu xám bạc.</li>\n      <li>Cứng, bền và có độ chịu nhiệt cao.</li>\n      <li>Khối lượng riêng: khoảng 13.31 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2233 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4603 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chịu ăn mòn tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +4.</li>\n      <li>Khá bền trong không khí ở nhiệt độ thường nhờ lớp oxide bảo vệ.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Hafnium dioxide.</li>\n      <li>Phản ứng với Halogen tạo Hafnium halide.</li>\n      <li>Phản ứng với Carbon tạo Hafnium carbide (HfC).</li>\n      <li>Hafnium có tiết diện bắt neutron nhiệt rất lớn.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Hf + O₂ → HfO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Hf + 2Cl₂ → HfCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "Hf + C → HfC",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "2Hf + N₂ → 2HfN",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Hafnium hydroxide",
+      "equation": "Hf⁴⁺ + 4OH⁻ → Hf(OH)₄↓",
+      "desc": ""
+    },
+    {
+      "type": "Hafnium dioxide tác dụng với Hydrochloric acid",
+      "equation": "HfO₂ + 4HCl → HfCl₄ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Hafnium",
+      "equation": "HfCl₄ + 2Mg → Hf + 2MgCl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Thanh điều khiển lò phản ứng hạt nhân",
+      "desc": "Hafnium hấp thụ neutron rất mạnh nên được sử dụng trong một số hệ thống điều khiển lò phản ứng hạt nhân."
+    },
+    {
+      "title": "Công nghệ bán dẫn",
+      "desc": "Hafnium dioxide (HfO₂) được sử dụng làm vật liệu điện môi có hằng số điện môi cao trong linh kiện bán dẫn."
+    },
+    {
+      "title": "Hợp kim chịu nhiệt",
+      "desc": "Hafnium được thêm vào một số hợp kim để tăng khả năng chịu nhiệt và độ bền."
+    },
+    {
+      "title": "Động cơ hàng không",
+      "desc": "Một số hợp kim chứa Hafnium được sử dụng trong các bộ phận chịu nhiệt cao."
+    },
+    {
+      "title": "Hafnium carbide",
+      "desc": "HfC có nhiệt độ nóng chảy cực cao, phù hợp cho các ứng dụng vật liệu chịu nhiệt đặc biệt."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Hafnium là nguyên tố số 72, thuộc nhóm IVB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Hafnium có cấu hình electron [Xe] 4f¹⁴ 5d² 6s², với số Oxy hóa phổ biến nhất là +4.</li>\n  <li>Hafnium có màu xám bạc, cứng, bền, chịu nhiệt và chống ăn mòn tốt. Trong tự nhiên, Hafnium gần như luôn đi kèm với Zirconium, đặc biệt trong khoáng vật Zircon (ZrSiO₄).</li>\n  <li>Đặc điểm nổi bật của Hafnium là khả năng hấp thụ neutron rất mạnh, khiến nó có giá trị trong công nghệ hạt nhân. Ngoài ra, Hafnium dioxide và Hafnium carbide có vai trò quan trọng trong công nghệ bán dẫn và vật liệu chịu nhiệt cao.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Hafnium thường được tách khỏi Zirconium bằng các phương pháp hóa học do hai nguyên tố có tính chất rất giống nhau.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sau khi tinh chế Hafnium chloride, có thể khử bằng Magnesium:",
+        "equation": "HfCl₄ + 2Mg → Hf + 2MgCl₂",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Hafnium thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng do tính chất rất giống Zirconium.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Hafnium(IV) có thể tạo kết tủa hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Hf⁴⁺ + 4OH⁻ → Hf(OH)₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Hafnium hydroxide.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

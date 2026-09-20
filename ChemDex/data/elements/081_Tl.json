@@ -1,0 +1,199 @@
+{
+  "number": 81,
+  "symbol": "Tl",
+  "nameVi": "Thallium",
+  "nameEn": "Thallium",
+  "mass": 204.38,
+  "category": "unknown",
+  "hasData": true,
+  "file": "elements/081_Tl.json",
+  "general": {
+    "latinName": "Thallium",
+    "englishName": "Thallium",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹",
+    "isotope": "²⁰³Tl, ²⁰⁵Tl",
+    "group": 13,
+    "period": 6,
+    "state": "",
+    "oxidation": "+1, +3",
+    "electronegativity": 1.62,
+    "density": "khoảng 11.85 g/cm³.",
+    "meltingPoint": "khoảng 304 °C.",
+    "boilingPoint": "khoảng 1473 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "William Crookes",
+    "year": 1861,
+    "discoveryLocation": "Anh",
+    "description": "Thallium được William Crookes phát hiện vào năm 1861 khi phân tích cặn còn lại từ quá trình sản xuất Sulfuric acid. Ông nhận ra một vạch phổ màu xanh lục mới và đặt tên nguyên tố là Thallium, bắt nguồn từ tiếng Hy Lạp thallos, nghĩa là “chồi non” hoặc “cành xanh”."
+  },
+  "structure": {
+    "protons": 81,
+    "neutrons": 124,
+    "electrons": 81,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      3
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      3
+    ],
+    "valenceElectrons": 3,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 81,
+      "neutron": 124
+    }
+  },
+  "occurrence": {
+    "description": "Thallium là kim loại rắn, mềm, màu trắng bạc.",
+    "simple": [
+      "Tl"
+    ],
+    "compounds": [
+      "Tl₂O",
+      "Tl₂O₃",
+      "TlCl",
+      "TlBr",
+      "TlI",
+      "Tl₂S"
+    ],
+    "ores": [
+      "Thường tồn tại với hàm lượng rất nhỏ trong các quặng Sulfide của Zinc",
+      "Lead và Copper"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại hậu chuyển tiếp.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Rất mềm và dễ biến dạng.</li>\n      <li>Có thể bị cắt tương đối dễ dàng.</li>\n      <li>Khối lượng riêng: khoảng 11.85 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 304 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1473 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Bề mặt nhanh chóng bị xỉn màu trong không khí.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có hai số Oxy hóa chính: +1 và +3.</li>\n      <li>+1 ổn định hơn +3, do hiệu ứng cặp electron trơ.</li>\n      <li>Dễ bị Oxy hóa trong không khí.</li>\n      <li>Phản ứng với Halogen tạo Thallium halide.</li>\n      <li>Phản ứng với acid tạo muối Thallium.</li>\n      <li>Nhiều hợp chất Thallium có độc tính rất cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Tl + O₂ → 2Tl₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Tl + Cl₂ → 2TlCl",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Bromine",
+      "equation": "2Tl + Br₂ → 2TlBr",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Iodine",
+      "equation": "2Tl + I₂ → 2TlI",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2Tl + S → Tl₂S",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Thallium(I) iodide",
+      "equation": "Tl⁺ + I⁻ → TlI↓",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "2Tl + 2HCl → 2TlCl + H₂↑",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Điện tử",
+      "desc": "Một số hợp chất Thallium được sử dụng trong vật liệu bán dẫn và quang điện."
+    },
+    {
+      "title": "Quang học",
+      "desc": "Thallium được sử dụng trong một số loại kính có chiết suất cao."
+    },
+    {
+      "title": "Thiết bị phát hiện bức xạ",
+      "desc": "Một số tinh thể chứa Thallium, như Sodium iodide activated with Thallium [NaI(Tl)], được sử dụng trong detector bức xạ."
+    },
+    {
+      "title": "Nghiên cứu",
+      "desc": "Một số đồng vị phóng xạ của Thallium được sử dụng trong nghiên cứu và y học hạt nhân."
+    },
+    {
+      "title": "Nhiệt kế",
+      "desc": "Một số hợp kim Thallium từng được nghiên cứu và sử dụng trong các ứng dụng nhiệt độ thấp."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Thallium là nguyên tố số 81, thuộc nhóm IIIA | chu kỳ 6 và là một kim loại hậu chuyển tiếp.</li>\n  <li>Thallium có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹, với hai số Oxy hóa chính là +1 và +3. Trong đó, trạng thái +1 ổn định hơn.</li>\n  <li>Thallium là kim loại mềm, nặng và có nhiệt độ nóng chảy tương đối thấp. Đặc điểm nổi bật trong lịch sử phát hiện là vạch phổ xanh lục đặc trưng.</li>\n  <li>Thallium có một số ứng dụng trong điện tử, quang học và detector bức xạ, nhưng việc sử dụng bị hạn chế đáng kể do Thallium và nhiều hợp chất của nó có độc tính rất cao.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Thallium thường được thu hồi như sản phẩm phụ trong quá trình luyện quặng Zinc, Lead và Copper.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương trình minh họa quá trình tạo Thallium(I) oxide:",
+        "equation": "4Tl + O₂ → 2Tl₂O",
+        "desc": "Sau đó Thallium có thể được tinh chế bằng các phương pháp hóa học và điện phân."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Thallium",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Thallium có thể được nhận biết bằng phân tích quang phổ, đặc biệt dựa trên vạch phổ xanh lục đặc trưng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Đây chính là đặc điểm giúp William Crookes phát hiện nguyên tố này.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Tl⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Ion Tl⁺ có thể tạo kết tủa với Iodide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Tl⁺ + I⁻ → TlI↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa vàng Thallium(I) iodide.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

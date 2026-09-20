@@ -1,0 +1,200 @@
+{
+  "number": 23,
+  "symbol": "V",
+  "nameVi": "Vanadium",
+  "nameEn": "Vanadium",
+  "mass": 50.9415,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/023_V.json",
+  "general": {
+    "latinName": "Vanadium",
+    "englishName": "Vanadium",
+    "electronConfig": "[Ar] 3d³ 4s²",
+    "isotope": "⁵⁰V, ⁵¹V",
+    "group": 5,
+    "period": 4,
+    "state": "",
+    "oxidation": "+2, +3, +4, +5",
+    "electronegativity": 1.63,
+    "density": "khoảng 6.11 g/cm³.",
+    "meltingPoint": "khoảng 1910 °C.",
+    "boilingPoint": "khoảng 3407 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Andrés Manuel del Río",
+    "year": 1801,
+    "discoveryLocation": "Mexico",
+    "description": "Năm 1801, Andrés Manuel del Río phát hiện một nguyên tố mới trong quặng chì ở Mexico. Ông nhận thấy các hợp chất của nguyên tố này có nhiều màu sắc khác nhau và ban đầu đặt tên là erythronium. Tuy nhiên, kết quả của ông bị bác bỏ và nguyên tố này bị cho là Chromium. Năm 1830, Nils Gabriel Sefström phát hiện lại nguyên tố này và đặt tên là Vanadium, theo Vanadís, một nữ thần trong thần thoại Bắc Âu."
+  },
+  "structure": {
+    "protons": 23,
+    "neutrons": 28,
+    "electrons": 23,
+    "electronShells": [
+      2,
+      8,
+      11,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      11,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 23,
+      "neutron": 28
+    }
+  },
+  "occurrence": {
+    "description": "Vanadium là kim loại rắn, màu xám bạc ở điều kiện thường.",
+    "simple": [
+      "V"
+    ],
+    "compounds": [
+      "V₂O₅",
+      "V₂O₃",
+      "VO₂",
+      "VOCl₃",
+      "NH₄VO₃"
+    ],
+    "ores": [
+      "Vanadinite",
+      "Patronite",
+      "Carnotite",
+      "Magnetite và một số quặng sắt",
+      "Titanium"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc.</li>\n      <li>Cứng và tương đối giòn ở nhiệt độ thường.</li>\n      <li>Khối lượng riêng: khoảng 6.11 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1910 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3407 °C.</li>\n      <li>Có độ bền cơ học cao.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa: +2, +3, +4, +5.</li>\n      <li>Hợp chất Vanadium có nhiều màu sắc khác nhau tùy số Oxy hóa.</li>\n      <li>+5 là trạng thái Oxy hóa cao và phổ biến trong nhiều hợp chất.</li>\n      <li>Phản ứng với Oxygen tạo các Vanadium oxide.</li>\n      <li>Phản ứng với Halogen tạo Vanadium halide.</li>\n      <li>Phản ứng với acid mạnh.</li>\n      <li>Ở nhiệt độ cao có thể phản ứng với Carbon và Nitrogen.</li>\n      <li>Vanadium(V) oxide có tính chất quan trọng trong công nghiệp hóa học.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4V + 5O₂ → 2V₂O₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2V + 3Cl₂ → 2VCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2V + 5Cl₂ → 2VCl₅",
+      "desc": "Khi Chlorine dư:"
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2V + 3S → V₂S₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "2V + N₂ → 2VN",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "2V + 6HCl → 2VCl₃ + 3H₂↑",
+      "desc": "Trong điều kiện thích hợp:"
+    },
+    {
+      "type": "Khử Vanadium(V)",
+      "equation": "VO₂⁺ + 2H⁺ + e⁻ → VO²⁺ + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Vanadium",
+      "equation": "V₂O₅ + 5Ca → 2V + 5CaO",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất thép",
+      "desc": "Vanadium được sử dụng làm nguyên tố hợp kim để tăng độ bền, độ cứng và khả năng chịu nhiệt của thép."
+    },
+    {
+      "title": "Công cụ",
+      "desc": "Vanadium alloys được sử dụng trong một số loại dụng cụ và vật liệu chịu mài mòn."
+    },
+    {
+      "title": "Hàng không",
+      "desc": "Một số Vanadium alloys được sử dụng trong các vật liệu yêu cầu độ bền cao và trọng lượng tương đối thấp."
+    },
+    {
+      "title": "Chất xúc tác",
+      "desc": "Vanadium(V) oxide được sử dụng làm chất xúc tác trong quá trình sản xuất Sulfuric acid."
+    },
+    {
+      "title": "Pin",
+      "desc": "Vanadium redox flow batteries sử dụng các ion Vanadium trong hệ thống lưu trữ năng lượng."
+    },
+    {
+      "title": "Gốm và thủy tinh",
+      "desc": "Một số Vanadium compounds được sử dụng làm chất tạo màu."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Vanadium là nguyên tố số 23, thuộc nhóm VB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Vanadium có cấu hình electron [Ar] 3d³ 4s² và có nhiều số Oxy hóa, phổ biến nhất là +2, +3, +4 và +5. Các trạng thái Oxy hóa khác nhau tạo ra những hợp chất có màu sắc đặc trưng.</li>\n  <li>Vanadium thường được thu hồi từ quặng và các sản phẩm phụ của ngành luyện kim. Kim loại này đặc biệt quan trọng trong việc sản xuất thép hợp kim có độ bền cao.</li>\n  <li>Ngoài luyện kim, Vanadium còn có ứng dụng trong chất xúc tác, pin Vanadium redox flow, hàng không và sản xuất vật liệu đặc biệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Vanadium kim loại có thể được điều chế bằng cách khử Vanadium chloride bằng kim loại hoạt động mạnh:",
+        "equation": "2VCl₃ + 3Mg → 2V + 3MgCl₂",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Vanadium thường được thu hồi từ các quặng chứa Vanadium hoặc từ các sản phẩm phụ của quá trình luyện gang thép.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương pháp là chuyển Vanadium thành Vanadium(V) oxide, sau đó khử bằng Calcium:",
+        "equation": "V₂O₅ + 5Ca → 2V + 5CaO",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Vanadium(V)",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ion Vanadate có thể được nhận biết bằng phản ứng khử, trong đó màu của dung dịch thay đổi theo số Oxy hóa của Vanadium.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Ví dụ, Vanadium(V) bị khử thành Vanadium(IV)",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "VO₂⁺ + 2H⁺ + e⁻ → VO²⁺ + H₂O"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Dung dịch chuyển từ màu vàng của Vanadium(V) sang màu xanh lam của Vanadium(IV).",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

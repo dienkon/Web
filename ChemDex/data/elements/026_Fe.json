@@ -1,0 +1,256 @@
+{
+  "number": 26,
+  "symbol": "Fe",
+  "nameVi": "Iron",
+  "nameEn": "Iron",
+  "mass": 55.845,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/026_Fe.json",
+  "general": {
+    "latinName": "Ferrum",
+    "englishName": "Iron",
+    "electronConfig": "[Ar] 3d⁶ 4s²",
+    "isotope": "⁵⁴Fe, ⁵⁶Fe, ⁵⁷Fe, ⁵⁸Fe",
+    "group": 8,
+    "period": 4,
+    "state": "",
+    "oxidation": "+2, +3, +6",
+    "electronegativity": 1.83,
+    "density": "khoảng 7.87 g/cm³.",
+    "meltingPoint": "khoảng 1538 °C.",
+    "boilingPoint": "khoảng 2862 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Không xác định — Iron đã được con người sử dụng từ thời tiền sử.",
+    "year": "Khoảng thiên niên kỷ 2 TCN đối với Iron luyện từ quặng; không có một năm phát hiện chính xác.",
+    "discoveryLocation": "Không xác định; Iron được sử dụng độc lập ở nhiều nền văn minh cổ đại.",
+    "description": "Iron là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Iron từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện Iron từ quặng. Đến thời kỳ Iron Age, kỹ thuật luyện Iron từ quặng phát triển mạnh và Iron trở thành vật liệu quan trọng."
+  },
+  "structure": {
+    "protons": 26,
+    "neutrons": 30,
+    "electrons": 26,
+    "electronShells": [
+      2,
+      8,
+      14,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      14,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 26,
+      "neutron": 30
+    }
+  },
+  "occurrence": {
+    "description": "Iron là kim loại rắn, màu xám bạc ở điều kiện thường.",
+    "simple": [
+      "Fe"
+    ],
+    "compounds": [
+      "FeO",
+      "Fe₂O₃",
+      "Fe₃O₄",
+      "FeCl₂",
+      "FeCl₃",
+      "FeSO₄",
+      "Fe₂(SO₄)₃"
+    ],
+    "ores": [
+      "Hematite (Fe₂O₃)",
+      "Magnetite (Fe₃O₄)",
+      "Siderite (FeCO₃)",
+      "Limonite và nhiều khoáng vật khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc.</li>\n      <li>Cứng và có độ bền cơ học cao.</li>\n      <li>Có tính dẻo và dễ gia công.</li>\n      <li>Khối lượng riêng: khoảng 7.87 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1538 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2862 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có tính sắt từ ở nhiệt độ dưới khoảng 770 °C.</li>\n      <li>Có nhiều dạng thù hình với cấu trúc tinh thể khác nhau.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính khử.</li>\n      <li>Số Oxy hóa phổ biến nhất: +2 và +3.</li>\n      <li>Có thể tạo Fe²⁺ và Fe³⁺.</li>\n      <li>Dễ bị Oxy hóa trong không khí ẩm tạo gỉ Iron.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với nhiều acid tạo muối Iron và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Iron halide.</li>\n      <li>Có thể tham gia phản ứng tạo hợp chất với Carbon.</li>\n      <li>Fe³⁺ có tính Oxy hóa mạnh hơn Fe²⁺.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "3Fe + 2O₂ → Fe₃O₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Fe + S → FeS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Fe + 3Cl₂ → 2FeCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Fe + 2HCl → FeCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfuric acid loãng",
+      "equation": "Fe + H₂SO₄ → FeSO₄ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Iron(II) hydroxide",
+      "equation": "Fe²⁺ + 2OH⁻ → Fe(OH)₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Iron(III) hydroxide",
+      "equation": "Fe³⁺ + 3OH⁻ → Fe(OH)₃↓",
+      "desc": ""
+    },
+    {
+      "type": "Oxy hóa Iron(II) hydroxide",
+      "equation": "4Fe(OH)₂ + O₂ + 2H₂O → 4Fe(OH)₃",
+      "desc": ""
+    },
+    {
+      "type": "Khử Iron(III) oxide bằng Carbon monoxide",
+      "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂",
+      "desc": ""
+    },
+    {
+      "type": "Khử Iron(III) oxide bằng Hydrogen",
+      "equation": "Fe₂O₃ + 3H₂ → 2Fe + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng nhiệt nhôm",
+      "equation": "Fe₂O₃ + 2Al → 2Fe + Al₂O₃",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất thép",
+      "desc": "Iron là thành phần chính của thép và nhiều loại hợp kim."
+    },
+    {
+      "title": "Xây dựng",
+      "desc": "Steel được sử dụng rộng rãi trong cầu, nhà cao tầng, đường ray và các công trình."
+    },
+    {
+      "title": "Cơ khí",
+      "desc": "Iron và Steel được sử dụng để chế tạo máy móc, công cụ và thiết bị."
+    },
+    {
+      "title": "Giao thông",
+      "desc": "Steel được sử dụng trong ô tô, tàu hỏa, tàu thủy và nhiều phương tiện khác."
+    },
+    {
+      "title": "Sản xuất nam châm",
+      "desc": "Một số Iron alloys có tính từ mạnh và được sử dụng trong các thiết bị điện."
+    },
+    {
+      "title": "Đúc",
+      "desc": "Cast iron được sử dụng để sản xuất nhiều chi tiết máy và thiết bị."
+    },
+    {
+      "title": "Sinh học",
+      "desc": "Iron là nguyên tố vi lượng thiết yếu, tham gia vào Hemoglobin và nhiều enzyme trong cơ thể sinh vật."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Iron là nguyên tố số 26, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Iron có cấu hình electron [Ar] 3d⁶ 4s², với hai trạng thái Oxy hóa phổ biến nhất là +2 và +3.</li>\n  <li>Iron là một trong những kim loại quan trọng nhất đối với nền văn minh nhân loại. Trong tự nhiên, Iron chủ yếu tồn tại dưới dạng các oxide và carbonate trong quặng như Hematite và Magnetite.</li>\n  <li>Phần lớn Iron được sản xuất để chế tạo Steel, một nhóm vật liệu có vai trò đặc biệt quan trọng trong xây dựng, cơ khí và giao thông. Ngoài ra, Iron còn đóng vai trò thiết yếu trong sinh học, đặc biệt trong quá trình vận chuyển Oxygen của Hemoglobin.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Iron có thể được điều chế bằng cách khử Iron oxide bằng Hydrogen ở nhiệt độ cao:",
+        "equation": "Fe₂O₃ + 3H₂ → 2Fe + 3H₂O <br> Fe₂O₃ + 2Al → 2Fe + Al₂O₃",
+        "desc": "Hoặc bằng phản ứng nhiệt nhôm:"
+      }
+    ],
+    "industry": [
+      {
+        "title": "Iron được sản xuất chủ yếu từ quặng Iron oxide trong lò cao.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phản ứng tổng quát:",
+        "equation": "Fe₂O₃ + 3CO → 2Fe + 3CO₂ <br> C + O₂ → CO₂ <br> CO₂ + C → 2CO",
+        "desc": "Carbon monoxide được tạo ra từ Carbon trong lò cao:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Fe²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Fe²⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Fe²⁺ + 2OH⁻ → Fe(OH)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng xanh, sau đó dần chuyển thành màu nâu do bị Oxygen trong không khí Oxy hóa.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Fe³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Fe³⁺ tác dụng với Potassium thiocyanate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Fe³⁺ + SCN⁻ ⇌ [FeSCN]²⁺"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Dung dịch xuất hiện màu đỏ máu đặc trưng.",
+      "equation": ""
+    },
+    {
+      "title": "Ngoài ra",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Fe³⁺ + 3OH⁻ → Fe(OH)₃↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa nâu đỏ.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

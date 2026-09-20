@@ -1,0 +1,190 @@
+{
+  "number": 80,
+  "symbol": "Hg",
+  "nameVi": "Mercury",
+  "nameEn": "Mercury",
+  "mass": 200.592,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/080_Hg.json",
+  "general": {
+    "latinName": "Hydrargyrum",
+    "englishName": "Mercury",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s²",
+    "isotope": "¹⁹⁶Hg, ¹⁹⁸Hg, ¹⁹⁹Hg, ²⁰⁰Hg, ²⁰¹Hg, ²⁰²Hg, ²⁰⁴Hg",
+    "group": 12,
+    "period": 6,
+    "state": "",
+    "oxidation": "+1, +2",
+    "electronegativity": 2.0,
+    "density": "khoảng 13.53 g/cm³.",
+    "meltingPoint": "khoảng −38.83 °C.",
+    "boilingPoint": "khoảng 356.73 °C.",
+    "crystalStructure": "Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)"
+  },
+  "history": {
+    "discoverer": "Không xác định — Mercury đã được con người biết đến từ thời cổ đại.",
+    "year": "Thời cổ đại",
+    "discoveryLocation": "Không xác định",
+    "description": "Mercury là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa Mercury đã được tìm thấy trong những di tích cổ. Người Hy Lạp và La Mã đã biết đến và sử dụng Mercury trong nhiều mục đích khác nhau. Tên Mercury trong tiếng Anh bắt nguồn từ tên vị thần Mercury của La Mã, còn ký hiệu Hg bắt nguồn từ tên Latin Hydrargyrum, có nghĩa gần với “bạc lỏng”."
+  },
+  "structure": {
+    "protons": 80,
+    "neutrons": 122,
+    "electrons": 80,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)",
+    "nucleus": {
+      "proton": 80,
+      "neutron": 122
+    }
+  },
+  "occurrence": {
+    "description": "Mercury là kim loại lỏng ở điều kiện thường.",
+    "simple": [
+      "Hg"
+    ],
+    "compounds": [
+      "HgS",
+      "HgO",
+      "HgCl₂",
+      "Hg₂Cl₂",
+      "Hg(NO₃)₂"
+    ],
+    "ores": [
+      "Chủ yếu tồn tại trong khoáng vật Cinnabar (HgS)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Là kim loại duy nhất ở trạng thái lỏng trong điều kiện thường.</li>\n      <li>Có màu bạc sáng.</li>\n      <li>Có ánh kim.</li>\n      <li>Khối lượng riêng: khoảng 13.53 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −38.83 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 356.73 °C.</li>\n      <li>Dẫn điện.</li>\n      <li>Dẫn nhiệt kém hơn nhiều kim loại khác.</li>\n      <li>Dễ tạo hỗn hống (amalgam) với nhiều kim loại.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến: +1 và +2.</li>\n      <li>Mercury(I) thường tồn tại dưới dạng ion Hg₂²⁺.</li>\n      <li>Mercury(II) tồn tại dưới dạng Hg²⁺.</li>\n      <li>Phản ứng với Oxygen khi đun nóng tạo Mercury(II) oxide.</li>\n      <li>Phản ứng với Halogen tạo Mercury halide.</li>\n      <li>Không phản ứng đáng kể với nhiều acid không Oxy hóa.</li>\n      <li>Tan trong Nitric acid và nước cường toan.</li>\n      <li>Hơi Mercury và nhiều hợp chất Mercury độc, vì vậy cần được xử lý rất cẩn thận.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Hg + O₂ → 2HgO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Hg + Cl₂ → HgCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Hg + S → HgS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Iodine",
+      "equation": "Hg + I₂ → HgI₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitric acid",
+      "equation": "Hg + 4HNO₃ → Hg(NO₃)₂ + 2NO₂ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Mercury(I) chloride",
+      "equation": "Hg₂²⁺ + 2Cl⁻ → Hg₂Cl₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Mercury(II) iodide",
+      "equation": "Hg²⁺ + 2I⁻ → HgI₂↓",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Thiết bị đo",
+      "desc": "Mercury từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất."
+    },
+    {
+      "title": "Đèn Mercury",
+      "desc": "Mercury được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Một số hợp chất Mercury được sử dụng làm chất xúc tác hoặc nguyên liệu trong các quá trình hóa học."
+    },
+    {
+      "title": "Điện hóa",
+      "desc": "Mercury từng được sử dụng trong một số loại điện cực và pin."
+    },
+    {
+      "title": "Khai thác Gold",
+      "desc": "Mercury từng được sử dụng để tạo hỗn hống với Gold trong quá trình khai thác và tinh chế Gold, nhưng phương pháp này gây ô nhiễm nghiêm trọng và nguy hiểm."
+    },
+    {
+      "title": "Lưu ý",
+      "desc": "Do Mercury và nhiều hợp chất của nó có độc tính cao, việc sử dụng Mercury ngày nay đã bị hạn chế hoặc thay thế trong nhiều lĩnh vực."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Mercury là nguyên tố số 80, thuộc nhóm IIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Mercury có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s², với số Oxy hóa phổ biến là +1 và +2.</li>\n  <li>Đặc điểm nổi bật nhất của Mercury là trạng thái lỏng ở điều kiện thường, với nhiệt độ nóng chảy chỉ khoảng −38.83 °C.</li>\n  <li>Mercury chủ yếu được khai thác từ Cinnabar (HgS) và có lịch sử sử dụng lâu đời trong nhiệt kế, áp kế, đèn phóng điện và công nghiệp hóa chất.</li>\n  <li>Tuy nhiên, do độc tính cao của Mercury và nhiều hợp chất của nó, việc sử dụng nguyên tố này hiện nay được kiểm soát nghiêm ngặt và nhiều ứng dụng truyền thống đã được thay thế bằng vật liệu an toàn hơn.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Mercury chủ yếu được điều chế từ quặng Cinnabar (HgS) bằng cách nung quặng trong không khí:",
+        "equation": "HgS + O₂ → Hg + SO₂",
+        "desc": "Mercury tạo thành ở dạng hơi, sau đó được làm nguội và ngưng tụ thành Mercury lỏng."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Hg²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phương pháp định tính là cho Hg²⁺ tác dụng với Iodide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Hg²⁺ + 2I⁻ → HgI₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa đỏ cam Mercury(II) iodide.",
+      "equation": ""
+    },
+    {
+      "title": "Khi tiếp tục cho dư Iodide, HgI₂ có thể hòa tan tạo phức",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "HgI₂ + 2I⁻ → [HgI₄]²⁻"
+    }
+  ],
+  "structureType": "Lập phương nguyên thủy (Primitive cubic, PC) (ở trạng thái rắn)"
+}

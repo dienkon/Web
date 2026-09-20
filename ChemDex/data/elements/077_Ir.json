@@ -1,0 +1,174 @@
+{
+  "number": 77,
+  "symbol": "Ir",
+  "nameVi": "Iridium",
+  "nameEn": "Iridium",
+  "mass": 192.217,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/077_Ir.json",
+  "general": {
+    "latinName": "Iridium",
+    "englishName": "Iridium",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁷ 6s²",
+    "isotope": "¹⁹¹Ir, ¹⁹³Ir",
+    "group": 8,
+    "period": 6,
+    "state": "",
+    "oxidation": "−3, −1, 0, +1, +2, +3, +4, +6",
+    "electronegativity": 2.2,
+    "density": "khoảng 22.56 g/cm³.",
+    "meltingPoint": "khoảng 2446 °C.",
+    "boilingPoint": "khoảng 4428 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Smithson Tennant",
+    "year": 1803,
+    "discoveryLocation": "Anh",
+    "description": "Iridium được Smithson Tennant phát hiện cùng thời điểm với Osmium khi nghiên cứu phần cặn không tan của Platinum trong nước cường toan. Tên Iridium bắt nguồn từ tiếng Latin Iris, nữ thần cầu vồng trong thần thoại Hy Lạp, do màu sắc đa dạng của các hợp chất Iridium."
+  },
+  "structure": {
+    "protons": 77,
+    "neutrons": 115,
+    "electrons": 77,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      15,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      15,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 77,
+      "neutron": 115
+    }
+  },
+  "occurrence": {
+    "description": "Iridium là kim loại rắn, màu trắng bạc, rất cứng và giòn.",
+    "simple": [
+      "Ir"
+    ],
+    "compounds": [
+      "IrO₂",
+      "IrCl₃",
+      "IrCl₄",
+      "IrF₆",
+      "Ir₂O₃"
+    ],
+    "ores": [
+      "Thường tồn tại cùng các kim loại nhóm Platinum",
+      "đặc biệt trong quặng Platinum và Nickel"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Rất cứng và giòn.</li>\n      <li>Có khối lượng riêng rất lớn.</li>\n      <li>Khối lượng riêng: khoảng 22.56 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2446 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4428 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chống ăn mòn rất cao.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến là +3 và +4.</li>\n      <li>Là một trong những kim loại có khả năng chống ăn mòn tốt nhất.</li>\n      <li>Khá trơ ở điều kiện thường.</li>\n      <li>Có thể tạo oxide và halide khi ở điều kiện thích hợp.</li>\n      <li>Phản ứng với Oxygen ở nhiệt độ cao tạo Iridium oxide.</li>\n      <li>Tạo nhiều phức chất với các ligand khác nhau.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Ir + O₂ → IrO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Ir + 3Cl₂ → 2IrCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Fluorine",
+      "equation": "Ir + 3F₂ → IrF₆",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Iridium dioxide",
+      "equation": "Ir + O₂ → IrO₂",
+      "desc": ""
+    },
+    {
+      "type": "Iridium oxide bị khử",
+      "equation": "IrO₂ + 2H₂ → Ir + 2H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Bugi",
+      "desc": "Iridium được sử dụng trong điện cực của một số loại bugi do có độ cứng, nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao."
+    },
+    {
+      "title": "Thiết bị khoa học",
+      "desc": "Iridium được sử dụng trong một số dụng cụ và thiết bị cần khả năng chống ăn mòn."
+    },
+    {
+      "title": "Điện hóa",
+      "desc": "Một số hợp chất Iridium, đặc biệt Iridium oxide, được sử dụng trong điện cực."
+    },
+    {
+      "title": "Y học",
+      "desc": "Đồng vị phóng xạ ¹⁹²Ir được sử dụng trong một số phương pháp xạ trị."
+    },
+    {
+      "title": "Nghiên cứu",
+      "desc": "Iridium và các hợp chất của nó được sử dụng làm chất xúc tác và trong nghiên cứu hóa học."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Iridium là nguyên tố số 77, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Iridium có cấu hình electron [Xe] 4f¹⁴ 5d⁷ 6s², với các số Oxy hóa phổ biến là +3 và +4.</li>\n  <li>Đây là kim loại rất cứng, giòn, nặng và có khả năng chống ăn mòn cực cao. Iridium cũng có nhiệt độ nóng chảy rất cao.</li>\n  <li>Iridium tồn tại tự nhiên chủ yếu cùng các kim loại nhóm Platinum và được thu hồi như sản phẩm phụ trong quá trình tinh luyện các quặng kim loại khác.</li>\n  <li>Iridium có ứng dụng trong bugi, hợp kim chịu nhiệt, điện cực, thiết bị khoa học và y học hạt nhân, đặc biệt là đồng vị ¹⁹²Ir trong xạ trị.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Iridium chủ yếu được thu hồi như một sản phẩm phụ trong quá trình tinh luyện Nickel, Copper và Platinum.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sau khi tách các kim loại nhóm Platinum khác, Iridium được tinh chế bằng các phương pháp hóa học và cuối cùng thu được Iridium kim loại.",
+        "equation": "",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Iridium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một hợp chất đặc trưng là Iridium(IV) oxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ir + O₂ → IrO₂"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Hình thành chất rắn màu đen IrO₂.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

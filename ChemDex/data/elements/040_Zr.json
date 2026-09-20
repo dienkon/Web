@@ -1,0 +1,192 @@
+{
+  "number": 40,
+  "symbol": "Zr",
+  "nameVi": "Zirconium",
+  "nameEn": "Zirconium",
+  "mass": 91.224,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/040_Zr.json",
+  "general": {
+    "latinName": "Zirconium",
+    "englishName": "Zirconium",
+    "electronConfig": "[Kr] 4d² 5s²",
+    "isotope": "⁹⁰Zr, ⁹¹Zr, ⁹²Zr, ⁹⁴Zr, ⁹⁶Zr",
+    "group": 4,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2, +3, +4",
+    "electronegativity": 1.33,
+    "density": "khoảng 6.52 g/cm³.",
+    "meltingPoint": "khoảng 1855 °C.",
+    "boilingPoint": "khoảng 4409 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Martin Heinrich Klaproth",
+    "year": 1789,
+    "discoveryLocation": "Đức",
+    "description": "Năm 1789, Martin Heinrich Klaproth phát hiện một nguyên tố mới trong Zircon và xác định oxide của nó. Đến năm 1824, Jöns Jacob Berzelius điều chế được Zirconium ở dạng tương đối tinh khiết."
+  },
+  "structure": {
+    "protons": 40,
+    "neutrons": 50,
+    "electrons": 40,
+    "electronShells": [
+      2,
+      8,
+      18,
+      10,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      10,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 40,
+      "neutron": 50
+    }
+  },
+  "occurrence": {
+    "description": "Zirconium là kim loại rắn, màu trắng xám, có độ bền và khả năng chống ăn mòn cao.",
+    "simple": [
+      "Zr"
+    ],
+    "compounds": [
+      "ZrO₂",
+      "ZrCl₄",
+      "ZrSiO₄",
+      "ZrC",
+      "ZrN"
+    ],
+    "ores": [
+      "Zircon (ZrSiO₄) và Baddeleyite (ZrO₂)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng xám.</li>\n      <li>Cứng và bền.</li>\n      <li>Khối lượng riêng: khoảng 6.52 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1855 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4409 °C.</li>\n      <li>Chống ăn mòn rất tốt.</li>\n      <li>Có khả năng chịu nhiệt cao.</li>\n      <li>Dẫn nhiệt và dẫn điện.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +4.</li>\n      <li>Tương đối bền trong không khí nhờ lớp Zirconium oxide bảo vệ.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Zirconium halide.</li>\n      <li>Có thể phản ứng với acid và kiềm mạnh trong những điều kiện thích hợp.</li>\n      <li>Zirconium có ái lực rất mạnh với Oxygen.</li>\n      <li>Zirconium carbide và Zirconium nitride có độ cứng và độ bền nhiệt cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Zr + O₂ → ZrO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Zr + 2Cl₂ → ZrCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "Zr + N₂ → ZrN",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "Zr + C → ZrC",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Zr + 4HCl → ZrCl₄ + 2H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Zirconium hydroxide",
+      "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓",
+      "desc": ""
+    },
+    {
+      "type": "Zirconium hydroxide tác dụng với acid",
+      "equation": "Zr(OH)₄ + 4HCl → ZrCl₄ + 4H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Zirconium",
+      "equation": "ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Công nghiệp hạt nhân",
+      "desc": "Zirconium được sử dụng làm vật liệu bọc nhiên liệu hạt nhân vì có khả năng chống ăn mòn và hấp thụ neutron thấp."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Zirconium được sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao."
+    },
+    {
+      "title": "Gốm kỹ thuật",
+      "desc": "Zirconium dioxide (ZrO₂) được sử dụng trong vật liệu gốm chịu nhiệt và vật liệu kỹ thuật."
+    },
+    {
+      "title": "Dao cắt",
+      "desc": "Một số Zirconium compounds được sử dụng trong vật liệu gốm có độ cứng cao."
+    },
+    {
+      "title": "Chống ăn mòn",
+      "desc": "Zirconium được sử dụng trong thiết bị xử lý hóa chất nhờ khả năng chống ăn mòn tốt."
+    },
+    {
+      "title": "Zircon",
+      "desc": "Zirconium silicate được sử dụng trong gốm sứ, vật liệu chịu lửa và một số ứng dụng quang học."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Zirconium là nguyên tố số 40, thuộc nhóm IVB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Zirconium có cấu hình electron [Kr] 4d² 5s², với số Oxy hóa phổ biến nhất là +4.</li>\n  <li>Zirconium có độ bền cơ học cao, chịu nhiệt tốt và đặc biệt chống ăn mòn nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li>\n  <li>Trong tự nhiên, Zirconium chủ yếu tồn tại trong Zircon (ZrSiO₄) và Baddeleyite (ZrO₂). Kim loại Zirconium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll, trong đó ZrCl₄ được khử bằng Magnesium.</li>\n  <li>Zirconium có vai trò quan trọng trong công nghiệp hạt nhân, hợp kim, hóa chất, gốm kỹ thuật và vật liệu chịu nhiệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Zirconium chủ yếu được điều chế từ Zircon (ZrSiO₄).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Zircon được chuyển thành Zirconium tetrachloride:",
+        "equation": "ZrSiO₄ + 2Cl₂ + 2C → ZrCl₄ + SiO₂ + 2CO <br> ZrCl₄ + 2Mg → Zr + 2MgCl₂",
+        "desc": "Sau đó Zirconium tetrachloride được khử bằng Magnesium theo quy trình Kroll:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Zr⁴⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Zr⁴⁺ có thể tạo kết tủa Zirconium hydroxide khi tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Zr⁴⁺ + 4OH⁻ → Zr(OH)₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong thực tế, việc xác định Zirconium thường sử dụng các phương pháp phân tích chuyên dụng do các phản ứng nhận biết đơn giản không có tính đặc hiệu cao.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

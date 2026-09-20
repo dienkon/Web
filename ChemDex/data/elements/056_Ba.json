@@ -4,96 +4,189 @@
   "nameVi": "Barium",
   "nameEn": "Barium",
   "mass": 137.327,
-  "structureType": "lập phương tâm khối.",
   "category": "kiem-tho",
+  "hasData": true,
+  "file": "elements/056_Ba.json",
   "general": {
-    "shells": [],
-    "electronConfig": "Đang cập nhật",
+    "latinName": "Barium",
     "englishName": "Barium",
-    "latinName": "Barium"
+    "electronConfig": "[Xe] 6s²",
+    "isotope": "¹³⁰Ba, ¹³²Ba, ¹³⁴Ba, ¹³⁵Ba, ¹³⁶Ba, ¹³⁷Ba, ¹³⁸Ba",
+    "group": 2,
+    "period": 6,
+    "state": "",
+    "oxidation": "+2",
+    "electronegativity": 0.89,
+    "density": "khoảng 3.62 g/cm³.",
+    "meltingPoint": "khoảng 727 °C.",
+    "boilingPoint": "khoảng 1897 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
   },
-  "history": {},
-  "structure": {},
+  "history": {
+    "discoverer": "Humphry Davy",
+    "year": 1808,
+    "discoveryLocation": "Anh",
+    "description": "Barium được Humphry Davy cô lập lần đầu vào năm 1808 bằng phương pháp điện phân Barium oxide nóng chảy. Trước đó, các hợp chất của Barium đã được biết đến và nghiên cứu từ thế kỷ XVIII."
+  },
+  "structure": {
+    "protons": 56,
+    "neutrons": 81,
+    "electrons": 56,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 56,
+      "neutron": 81
+    }
+  },
   "occurrence": {
-    "description": "Barium hầu như không tồn tại ở dạng đơn chất.",
-    "compounds": []
+    "description": "Barium là kim loại rắn, màu trắng bạc và tương đối mềm.",
+    "simple": [
+      "Ba"
+    ],
+    "compounds": [
+      "BaSO₄",
+      "BaCO₃",
+      "BaO",
+      "BaCl₂",
+      "Ba(OH)₂",
+      "Ba(NO₃)₂"
+    ],
+    "ores": [
+      "Chủ yếu tồn tại trong các khoáng vật như Barite (BaSO₄) và Witherite (BaCO₃)"
+    ]
   },
-  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Barium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Barium là kim loại có màu trắng bạc.</li>\n  <li>Khối lượng riêng lớn khoảng 3,62 g/cm³.</li>\n  <li>Khá mềm.</li>\n  <li>Dẫn điện và dẫn nhiệt tốt.</li>\n  <li>Nhiệt độ nóng chảy khoảng 727°C.</li>\n  <li>Nhiệt độ sôi khoảng 1897°C.</li>\n  <li>Dễ bị oxi hóa trong không khí.</li>\n</ul>\n",
-  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Có tính khử mạnh.</li>\n  <li>Tác dụng với phi kim.</li>\n  <li>Tác dụng với acid.</li>\n  <li>Tác dụng với nước.</li>\n  <li>Tác dụng với dung dịch muối của kim loại yếu hơn.</li>\n</ul>\n",
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Tương đối mềm.</li>\n      <li>Khối lượng riêng: khoảng 3.62 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 727 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1897 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Dễ bị oxy hóa trong không khí.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa đặc trưng là +2.</li>\n      <li>Hoạt động hóa học mạnh.</li>\n      <li>Phản ứng với Oxygen tạo Barium oxide hoặc peroxide.</li>\n      <li>Phản ứng với nước tạo Barium hydroxide và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Barium halide.</li>\n      <li>Phản ứng với acid tạo muối Barium và Hydrogen.</li>\n      <li>Nhiều hợp chất Barium tan trong nước có tính độc, trong khi BaSO₄ rất ít tan và được sử dụng trong y tế.</li>\n    </ul>\n  ",
   "reactions": [
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "2Ba+O2​→2BaO",
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Ba + O₂ → 2BaO",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ba+Cl2​→BaCl2​",
+      "type": "Tác dụng với nước",
+      "equation": "Ba + 2H₂O → Ba(OH)₂ + H₂↑",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ba+2H2​O→Ba(OH)2​+H2​↑",
+      "type": "Tác dụng với Chlorine",
+      "equation": "Ba + Cl₂ → BaCl₂",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ba+CuSO4​→BaSO4​↓+Cu",
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Ba + 2HCl → BaCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Barium sulfate",
+      "equation": "Ba²⁺ + SO₄²⁻ → BaSO₄↓",
+      "desc": ""
+    },
+    {
+      "type": "Barium hydroxide tác dụng với Sulfuric acid",
+      "equation": "Ba(OH)₂ + H₂SO₄ → BaSO₄↓ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Barium bằng điện phân",
+      "equation": "BaCl₂ → Ba + Cl₂↑",
       "desc": ""
     }
   ],
-  "images": {},
-  "hasData": true,
-  "file": "elements/056_Ba.json",
+  "applications": [
+    {
+      "title": "Y tế",
+      "desc": "Barium sulfate (BaSO₄) được sử dụng làm chất cản quang trong một số phương pháp chẩn đoán hình ảnh đường tiêu hóa."
+    },
+    {
+      "title": "Khoan dầu khí",
+      "desc": "Barite (BaSO₄) được sử dụng trong dung dịch khoan nhờ khối lượng riêng cao."
+    },
+    {
+      "title": "Pháo hoa",
+      "desc": "Một số hợp chất Barium tạo màu xanh lục trong pháo hoa."
+    },
+    {
+      "title": "Sản xuất thủy tinh",
+      "desc": "Barium compounds được sử dụng trong một số loại kính và thủy tinh đặc biệt."
+    },
+    {
+      "title": "Gốm",
+      "desc": "Một số hợp chất Barium được sử dụng trong sản xuất gốm và vật liệu điện tử."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Barium titanate (BaTiO₃) được sử dụng trong tụ điện và các vật liệu điện môi."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Barium là nguyên tố số 56, thuộc nhóm IIA | chu kỳ 6 và là một kim loại kiềm thổ.</li>\n  <li>Barium có cấu hình electron [Xe] 6s², với số Oxy hóa đặc trưng là +2.</li>\n  <li>Barium là kim loại trắng bạc, tương đối mềm và hoạt động hóa học mạnh. Trong tự nhiên, Barium chủ yếu tồn tại trong các khoáng vật Barite (BaSO₄) và Witherite (BaCO₃).</li>\n  <li>Ion Ba²⁺ có thể được nhận biết thông qua kết tủa trắng BaSO₄, trong khi các hợp chất Barium có thể tạo màu xanh lục đặc trưng trong phép thử ngọn lửa.</li>\n  <li>Barium có nhiều ứng dụng trong y tế, khoan dầu khí, sản xuất thủy tinh, gốm, pháo hoa và vật liệu điện tử.</li>\n</ul>\n",
   "preparations": {
-    "lab": [
-      {
-        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
-        "equation": ""
-      }
-    ],
+    "lab": [],
     "industry": [
       {
-        "title": "Điện phân nóng chảy Barium chloride (BaCl2)",
-        "equation": "BaCl2 → Ba + Cl2↑",
-        "condition": "đpnc"
-      },
-      {
-        "title": "Phương pháp nhiệt nhôm trong chân không",
-        "equation": "BaCO3 → BaO + CO2↑ (Giai đoạn 1) <br> 3BaO + 2Al → 3Ba↑ + Al2O3 (Giai đoạn 2)",
-        "condition": "t°, chân không"
+        "title": "Barium kim loại có thể được điều chế bằng cách điện phân Barium chloride nóng chảy:",
+        "equation": "BaCl₂ → Ba + Cl₂↑ <br> Catot: Ba²⁺ + 2e⁻ → Ba <br> Anot: 2Cl⁻ → Cl₂ + 2e⁻",
+        "desc": "Trong đó:"
       }
     ]
   },
-  "applications": [
-    {
-      "title": "Ứng dụng",
-      "desc": "Barium được dùng để làm chất thu khí trong ống chân không, phụ gia luyện kim."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Hợp chất Barium sulfate có màu trắng và được sử dụng trong sản xuất sơn, trong chẩn đoán bằng tia X-quang, và trong sản xuất thủy tinh. Ngoài ra Barium sulfate còn được dùng làm chất tăng khối lượng cho dung dịch khoan, giúp ổn định áp suất trong quá trình khoan giếng dầu và khí."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Hợp kim Barium-Nickel được dùng để chế tạo cực điện trong bugi động cơ đốt trong nhờ khả năng phát xạ electron rất tốt khi bị đốt nóng."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Barium nitrate và Barium chloride được sử dụng để tạo màu xanh lá cây trong sản xuất pháo hoa."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Các hợp chất của barium được dùng để chế tạo thủy tinh chất lượng cao, thủy tinh quang học và men gốm, giúp tăng độ bền và độ bóng."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Barium là kim loại kiềm thổ có điện tích hạt nhân lớn (ô số 56, nhóm IIA, chu kỳ 6), cấu hình electron lớp ngoài cùng là [Xe]6s2. Trong các phản ứng hóa học, Ba luôn nhường đi 2e để đạt cấu hình vỏ khí hiếm bền vững và thể hiện tính khử cực kỳ mạnh ({Ba2+), mạnh nhất trong số các kim loại nhóm IIA thông dụng.</li>\n  <li>Do có tính khử mạnh, nên Barium hoàn toàn không tồn tại dạng đơn chất trong tự nhiên. Nó chiếm khoảng 0,0425% khối lượng vỏ Trái Đất, tích tụ chủ yếu ở hai khoáng vật quặng lớn là Barite (BaSO4) và Witherite (BaCO3).</li>\n  <li>Trong công nghiệp hiện đại, Barium được sản xuất chủ yếu bằng phương pháp nhiệt nhôm trong chân không (dùng bộtAl khử BaO}ở nhiệt độ cao) hoặc điện phân nóng chảy muối BaCl2 khan. Trong phòng thí nghiệm, người ta dùng sẵn kim loại bảo quản ngập trong dầu hỏa khan.</li>\n  <li>Kim loại Barium được dùng làm chất thu khí để hút sạch oxy, nitơ còn sót lại trong các ống chân không cao cấp. Ở dạng hợp chất, muối BaSO}4 là xương sống của ngành dầu khí (làm nặng bùn khoan) và y tế (chất cản quang chụp X-quang đường tiêu hóa), còn Ba(NO3)2 chuyên dùng để tạo ngọn lửa màu xanh lục táo cho pháo hoa.</li>\n</ul>\n",
   "recognition": [
     {
-      "title": "Thử màu ngọn lửa",
-      "reagent": "Đốt muối Barium trên ngọn lửa đèn cồn hoặc đèn Bunsen.",
-      "result": "Ngọn lửa có màu xanh lục (xanh táo) đặc trưng.",
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Ba²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Ba²⁺ tác dụng với Sulfate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ba²⁺ + SO₄²⁻ → BaSO₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Barium sulfate.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết bằng phép thử ngọn lửa",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Barium tạo màu xanh lục vàng (xanh lá nhạt) đặc trưng trên ngọn lửa.",
+      "result": "",
       "equation": ""
     }
-  ]
+  ],
+  "images": {},
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
 }

@@ -1,0 +1,183 @@
+{
+  "number": 73,
+  "symbol": "Ta",
+  "nameVi": "Tantalum",
+  "nameEn": "Tantalum",
+  "mass": 180.948,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/073_Ta.json",
+  "general": {
+    "latinName": "Tantalum",
+    "englishName": "Tantalum",
+    "electronConfig": "[Xe] 4f¹⁴ 5d³ 6s²",
+    "isotope": "¹⁸⁰mTa, ¹⁸¹Ta",
+    "group": 5,
+    "period": 6,
+    "state": "",
+    "oxidation": "+5",
+    "electronegativity": 1.5,
+    "density": "khoảng 16.65 g/cm³.",
+    "meltingPoint": "khoảng 3017 °C.",
+    "boilingPoint": "khoảng 5458 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Anders Gustaf Ekeberg",
+    "year": 1802,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Anders Gustaf Ekeberg phát hiện Tantalum khi nghiên cứu một loại khoáng vật chứa Tantalum. Tên nguyên tố bắt nguồn từ Tantalus, một nhân vật trong thần thoại Hy Lạp, do Tantalum oxide có tính chất khó hòa tan trong acid."
+  },
+  "structure": {
+    "protons": 73,
+    "neutrons": 108,
+    "electrons": 73,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      11,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      11,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 73,
+      "neutron": 108
+    }
+  },
+  "occurrence": {
+    "description": "Tantalum là kim loại rắn, màu xám bạc, cứng và nặng.",
+    "simple": [
+      "Ta"
+    ],
+    "compounds": [
+      "Ta₂O₅",
+      "TaCl₅",
+      "TaC",
+      "TaN"
+    ],
+    "ores": [
+      "Chủ yếu tồn tại trong khoáng vật Tantalite và Columbite-tantalite (Coltan)",
+      "thường đi cùng Niobium"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu xám bạc.</li>\n      <li>Cứng, dẻo và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 16.65 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 3017 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 5458 °C.</li>\n      <li>Có khả năng dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chịu nhiệt rất tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +5.</li>\n      <li>Có khả năng chống ăn mòn rất cao.</li>\n      <li>Bề mặt nhanh chóng hình thành lớp Ta₂O₅ bảo vệ.</li>\n      <li>Hầu như không phản ứng với nhiều acid ở điều kiện thường.</li>\n      <li>Phản ứng với Fluorine và một số Halogen.</li>\n      <li>Tantalum carbide (TaC) có nhiệt độ nóng chảy rất cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Ta + 5O₂ → 2Ta₂O₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Ta + 5Cl₂ → 2TaCl₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Fluorine",
+      "equation": "2Ta + 5F₂ → 2TaF₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "Ta + C → TaC",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "2Ta + N₂ → 2TaN",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Tantalum hydroxide",
+      "equation": "Ta⁵⁺ + 5OH⁻ → Ta(OH)₅↓",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Tantalum",
+      "equation": "Ta₂O₅ + 5C → 2Ta + 5CO↑",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Tụ điện",
+      "desc": "Tantalum được sử dụng để sản xuất Tantalum capacitors, có kích thước nhỏ và độ ổn định cao."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Tantalum và các hợp chất của nó được sử dụng trong nhiều linh kiện điện tử."
+    },
+    {
+      "title": "Y tế",
+      "desc": "Tantalum có khả năng chống ăn mòn và tương thích sinh học tốt nên được sử dụng trong một số vật liệu cấy ghép và dụng cụ y tế."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Được thêm vào các hợp kim chịu nhiệt để tăng độ bền và khả năng chống ăn mòn."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Tantalum được sử dụng trong các thiết bị phải tiếp xúc với hóa chất ăn mòn mạnh."
+    },
+    {
+      "title": "Vật liệu chịu nhiệt",
+      "desc": "Tantalum carbide (TaC) được sử dụng trong một số ứng dụng yêu cầu khả năng chịu nhiệt cực cao."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tantalum là nguyên tố số 73, thuộc nhóm VB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Tantalum có cấu hình electron [Xe] 4f¹⁴ 5d³ 6s², với số Oxy hóa phổ biến nhất là +5.</li>\n  <li>Đây là kim loại cứng, nặng, chịu nhiệt và có khả năng chống ăn mòn cực tốt nhờ lớp Ta₂O₅ bảo vệ trên bề mặt.</li>\n  <li>Tantalum có vai trò đặc biệt quan trọng trong ngành điện tử, nhất là sản xuất tụ điện Tantalum. Ngoài ra, nó còn được sử dụng trong y tế, hợp kim, công nghiệp hóa chất và vật liệu chịu nhiệt cao.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Tantalum thường được điều chế từ các khoáng vật chứa Tantalum bằng cách chuyển hóa thành Tantalum pentoxide (Ta₂O₅), sau đó khử bằng các phương pháp hóa học hoặc điện hóa.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương trình khử minh họa:",
+        "equation": "Ta₂O₅ + 5C → 2Ta + 5CO↑",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Tantalum thường được xác định bằng phân tích quang phổ hoặc các phương pháp hóa học chuyên dụng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Ion Ta(V) có thể tạo hợp chất oxide/hydroxide khó tan trong nước",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ta⁵⁺ + 5OH⁻ → Ta(OH)₅↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa màu trắng.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

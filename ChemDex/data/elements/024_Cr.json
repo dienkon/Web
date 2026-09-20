@@ -1,0 +1,227 @@
+{
+  "number": 24,
+  "symbol": "Cr",
+  "nameVi": "Chromium",
+  "nameEn": "Chromium",
+  "mass": 51.9961,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/024_Cr.json",
+  "general": {
+    "latinName": "Chromium",
+    "englishName": "Chromium",
+    "electronConfig": "[Ar] 3d⁵ 4s¹",
+    "isotope": "⁵⁰Cr, ⁵²Cr, ⁵³Cr, ⁵⁴Cr",
+    "group": 6,
+    "period": 4,
+    "state": "",
+    "oxidation": "−2, −1, 0, +1, +2, +3, +4, +5, +6",
+    "electronegativity": 1.66,
+    "density": "khoảng 7.19 g/cm³.",
+    "meltingPoint": "khoảng 1907 °C.",
+    "boilingPoint": "khoảng 2671 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Louis Nicolas Vauquelin",
+    "year": 1797,
+    "discoveryLocation": "Pháp",
+    "description": "Năm 1797, Louis Nicolas Vauquelin nghiên cứu khoáng vật crocoite và phát hiện một oxide mới. Năm 1798, ông điều chế được Chromium kim loại từ oxide này. Chromium được đặt tên từ tiếng Hy Lạp chrōma, có nghĩa là “màu sắc”, do các hợp chất Chromium thường có màu sắc đa dạng."
+  },
+  "structure": {
+    "protons": 24,
+    "neutrons": 28,
+    "electrons": 24,
+    "electronShells": [
+      2,
+      8,
+      13,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      13,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 24,
+      "neutron": 28
+    }
+  },
+  "occurrence": {
+    "description": "Chromium là kim loại rắn, có màu xám bạc và bề mặt sáng bóng.",
+    "simple": [
+      "Cr"
+    ],
+    "compounds": [
+      "Cr₂O₃",
+      "CrO₃",
+      "CrCl₃",
+      "K₂Cr₂O₇",
+      "K₂CrO₄",
+      "Na₂CrO₄"
+    ],
+    "ores": [
+      "Quặng Chromite (FeCr₂O₄)",
+      "Crocoite (PbCrO₄) và một số khoáng vật khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc, sáng bóng.</li>\n      <li>Cứng và giòn.</li>\n      <li>Khối lượng riêng: khoảng 7.19 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1907 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2671 °C.</li>\n      <li>Có độ cứng cao.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chống ăn mòn tốt nhờ hình thành lớp oxide bảo vệ trên bề mặt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa.</li>\n      <li>Các trạng thái phổ biến: +2, +3 và +6.</li>\n      <li>Cr(III) tương đối bền và thường tạo các hợp chất có màu xanh lục.</li>\n      <li>Cr(VI) có tính Oxy hóa mạnh và nhiều hợp chất có màu vàng hoặc cam.</li>\n      <li>Chromium kim loại tương đối bền trong không khí nhờ lớp Cr₂O₃ bảo vệ.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen.</li>\n      <li>Phản ứng với acid trong điều kiện thích hợp.</li>\n      <li>Có thể tạo nhiều oxide và muối có màu sắc khác nhau.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Cr + 3O₂ → 2Cr₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Cr + 3Cl₂ → 2CrCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Cr + 2HCl → CrCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Chromium(III) hydroxide",
+      "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓",
+      "desc": ""
+    },
+    {
+      "type": "Chromium(III) hydroxide tác dụng với acid",
+      "equation": "Cr(OH)₃ + 3HCl → CrCl₃ + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Chromium(III) hydroxide tác dụng với kiềm",
+      "equation": "Cr(OH)₃ + 3OH⁻ → [Cr(OH)₆]³⁻",
+      "desc": ""
+    },
+    {
+      "type": "Khử Chromium(III) oxide",
+      "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Chuyển Chromate thành Dichromate",
+      "equation": "2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Chuyển Dichromate thành Chromate",
+      "equation": "Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất thép không gỉ",
+      "desc": "Chromium là thành phần quan trọng của Stainless steel, giúp tăng khả năng chống ăn mòn."
+    },
+    {
+      "title": "Mạ Chromium",
+      "desc": "Chromium được dùng để tạo lớp phủ sáng bóng, cứng và chống ăn mòn trên bề mặt kim loại."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Chromium được sử dụng trong nhiều hợp kim chịu nhiệt và chịu ăn mòn."
+    },
+    {
+      "title": "Chất màu",
+      "desc": "Một số Chromium compounds được sử dụng làm pigment màu xanh, vàng, cam và xanh lục."
+    },
+    {
+      "title": "Vật liệu chịu nhiệt",
+      "desc": "Một số Chromium compounds được sử dụng trong vật liệu chịu nhiệt và gốm."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Chromium compounds được sử dụng trong nhiều quá trình hóa học và sản xuất vật liệu."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Chromium là nguyên tố số 24, thuộc nhóm VIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Chromium có cấu hình electron đặc biệt [Ar] 3d⁵ 4s¹, với phân lớp 3d bán bão hòa tương đối bền. Chromium có nhiều số Oxy hóa, trong đó +2, +3 và +6 là những trạng thái quan trọng.</li>\n  <li>Chromium có màu xám bạc, cứng và có khả năng chống ăn mòn tốt nhờ hình thành lớp Chromium(III) oxide (Cr₂O₃) bảo vệ trên bề mặt.</li>\n  <li>Chromium được khai thác chủ yếu từ Chromite (FeCr₂O₄) và có vai trò đặc biệt quan trọng trong sản xuất Stainless steel, mạ Chromium và các hợp kim chịu ăn mòn, chịu nhiệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Về nguyên tắc, có thể điều chế bằng phương pháp nhiệt luyện Chromium(III) oxide với Aluminium:",
+        "equation": "Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Chromium được sản xuất chủ yếu từ quặng Chromite (FeCr₂O₄).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Chromite được xử lý để tạo Chromium(III) oxide:",
+        "equation": "4FeCr₂O₄ + 8Na₂CO₃ + 7O₂ → 8Na₂CrO₄ + 2Fe₂O₃ + 8CO₂ <br> Na₂CrO₄ + H₂SO₄ → Na₂SO₄ + H₂CrO₄ <br> Cr₂O₃ + 2Al → 2Cr + Al₂O₃",
+        "desc": "Sau đó Chromium(VI) được chuyển về Chromium(III) oxide: Cuối cùng điều chế Chromium bằng phương pháp nhiệt luyện, thường dùng Aluminium làm chất khử:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Cr³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Cr³⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Cr³⁺ + 3OH⁻ → Cr(OH)₃↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa xanh lục Chromium(III) hydroxide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Cr(OH)₃ có tính lưỡng tính và tan trong acid hoặc kiềm mạnh.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết CrO₄²⁻",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ion Chromate thường tạo dung dịch màu vàng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Cr₂O₇²⁻",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ion Dichromate tạo dung dịch màu da cam.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

@@ -1,109 +1,214 @@
 {
   "number": 12,
   "symbol": "Mg",
-  "nameVi": "Magnesium",
+  "nameVi": "⁠Magnesium",
   "nameEn": "Magnesium",
   "mass": 24.305,
   "category": "kiem-tho",
+  "hasData": true,
+  "file": "elements/012_Mg.json",
   "general": {
     "latinName": "Magnesium",
     "englishName": "Magnesium",
-    "electronConfig": "[Ne] 3s2",
+    "electronConfig": "1s² 2s² 2p⁶ 3s²",
+    "isotope": "²⁴Mg, ²⁵Mg, ²⁶Mg",
     "group": 2,
     "period": 3,
+    "state": "",
     "oxidation": "+2",
-    "electronegativity": "1.31",
-    "shells": [
-      2,
-      8,
-      2
-    ]
+    "electronegativity": 1.31,
+    "density": "khoảng 1.738 g/cm³.",
+    "meltingPoint": "650 °C.",
+    "boilingPoint": "1090 °C.",
+    "crystalStructure": "Lục phương xếp chặt (HCP)"
   },
   "history": {
     "discoverer": "Joseph Black",
     "year": 1755,
-    "discoveryLocation": "Scotland"
+    "discoveryLocation": "Scotland",
+    "description": "Năm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa."
   },
   "structure": {
-    "electrons": 12,
     "protons": 12,
-    "neutrons": 12
+    "neutrons": 12,
+    "electrons": 12,
+    "electronShells": [
+      2,
+      8,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương xếp chặt (HCP)",
+    "nucleus": {
+      "proton": 12,
+      "neutron": 12
+    }
   },
   "occurrence": {
-    "description": "Có trong dolomit, magnesit, nước biển.",
+    "description": "Magnesium là kim loại hoạt động hóa học nên không tồn tại tự do trong tự nhiên. Nó chủ yếu tồn tại dưới dạng hợp chất trong khoáng vật và nước biển.",
     "simple": [
       "Mg"
     ],
     "compounds": [
       "MgO",
-      "MgCO3"
+      "Mg(OH)₂",
+      "MgCO₃",
+      "MgCl₂",
+      "MgSO₄",
+      "Mg₃Si₂O₅(OH)₄"
+    ],
+    "ores": [
+      "Magnesite",
+      "Dolomite",
+      "Brucite",
+      "Carnallite",
+      "nước biển và một số khoáng vật Silicate"
     ]
   },
-  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Magnesium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Là kim kiềm thổ loại có màu trắng bạc.</li>\n  <li>Khối lượng riêng: 1,738 g/cm3</li>\n  <li>Khá mềm và có tính dẻo.</li>\n  <li>dẫn điện và dẫn nhiệt tốt</li>\n  <li>Nhiệt độ nóng chảy khoảng</li>\n  <li>Nhiệt độ sôi khoảng</li>\n</ul>\n",
-  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Có tính khử mạnh</li>\n  <li>Tác dụng với Phi kim.</li>\n  <li>Tác dụng với Acid loãng.</li>\n  <li>Tác dụng với Nước</li>\n  <li>Tác dụng với dung dịch muối của kim loại yếu hơn.</li>\n</ul>\n",
-  "reactions": [],
-  "structureType": "lục phươnh xếp chặt",
-  "images": {},
-  "hasData": true,
-  "file": "elements/012_Mg.json",
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại màu trắng bạc.</li>\n      <li>Nhẹ.</li>\n      <li>Có độ bền cơ học tương đối tốt.</li>\n      <li>Khối lượng riêng: khoảng 1.738 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: 650 °C.</li>\n      <li>Nhiệt độ sôi: 1090 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có thể tạo ánh sáng trắng rất sáng khi cháy.</li>\n      <li>Dễ gia công khi ở điều kiện thích hợp.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Có tính khử.</li>\n      <li>Số Oxy hóa phổ biến: +2.</li>\n      <li>Phản ứng với Oxygen tạo Magnesium oxide.</li>\n      <li>Phản ứng với acid tạo muối Magnesium và Hydrogen.</li>\n      <li>Phản ứng chậm với nước lạnh và nhanh hơn với nước nóng.</li>\n      <li>Có thể phản ứng với Steam tạo Magnesium oxide và Hydrogen.</li>\n      <li>Phản ứng với Halogen tạo Magnesium halide.</li>\n      <li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li>\n      <li>Khi cháy tạo ánh sáng trắng mạnh.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Mg + O2 → 2MgO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "3Mg + N2 → Mg3N2",
+      "desc": "Khi nung nóng:"
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Mg + Cl2 → MgCl2",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Mg + 2HCl → MgCl2 + H2↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfuric acid loãng",
+      "equation": "Mg + H2SO4 → MgSO4 + H2↑",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với nước",
+      "equation": "Mg + 2H2O → Mg(OH)2 + H2↑",
+      "desc": "Với nước nóng:"
+    },
+    {
+      "type": "Tác dụng với nước",
+      "equation": "Mg + H2O(g) → MgO + H2↑",
+      "desc": "Với Steam:"
+    },
+    {
+      "type": "Tác dụng với Carbon dioxide",
+      "equation": "2Mg + CO2 → 2MgO + C",
+      "desc": "Khi đốt Magnesium:"
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "2Mg + C → Mg2C3",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Khử Copper(II) oxide",
+      "equation": "Mg + CuO → MgO + Cu",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hợp kim",
+      "desc": "Magnesium được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật."
+    },
+    {
+      "title": "Hàng không",
+      "desc": "Hợp kim Magnesium được sử dụng trong một số bộ phận cần giảm khối lượng."
+    },
+    {
+      "title": "Pháo sáng và tín hiệu",
+      "desc": "Magnesium tạo ánh sáng trắng mạnh khi cháy nên được sử dụng trong một số loại pháo sáng và thiết bị tín hiệu."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Magnesium được sử dụng làm chất khử và trong quá trình sản xuất một số kim loại."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Dùng để sản xuất nhiều Magnesium compounds."
+    },
+    {
+      "title": "Bảo vệ chống ăn mòn",
+      "desc": "Magnesium có thể được sử dụng làm anode hy sinh trong một số hệ thống bảo vệ kim loại."
+    },
+    {
+      "title": "Vật liệu",
+      "desc": "Magnesium và hợp kim của nó được sử dụng trong các sản phẩm yêu cầu vật liệu nhẹ."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Magnesium là nguyên tố số 12, thuộc nhóm IIA | chu kỳ 3 và là một kim loại kiềm thổ.</li>\n  <li>Magnesium có cấu hình electron 1s² 2s² 2p⁶ 3s², dễ mất hai electron lớp ngoài cùng để tạo ion Mg²⁺. Magnesium có tính khử tương đối mạnh và có thể cháy trong Oxygen với ánh sáng trắng rất mạnh.</li>\n  <li>Trong tự nhiên, Magnesium không tồn tại ở dạng đơn chất mà chủ yếu có trong khoáng vật, nước biển và các hợp chất Silicate.</li>\n  <li>Magnesium kim loại chủ yếu được sản xuất bằng điện phân Magnesium chloride nóng chảy. Nhờ khối lượng riêng thấp và khả năng tạo hợp kim, Magnesium có vai trò quan trọng trong vật liệu nhẹ, luyện kim, công nghiệp hóa chất và kỹ thuật.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
-        "equation": ""
+        "title": "Về nguyên tắc, có thể điều chế bằng điện phân Magnesium chloride nóng chảy:",
+        "equation": "MgCl₂(l) → Mg(l) + Cl₂(g)",
+        "desc": ""
       }
     ],
     "industry": [
       {
-        "title": "Điện phân nóng chảy Magnesium chloride (MgCl2)",
-        "equation": "MgCl2 → Mg + Cl2↑",
-        "condition": "đpnc"
+        "title": "Magnesium được sản xuất chủ yếu bằng điện phân Magnesium chloride nóng chảy.",
+        "equation": "",
+        "desc": ""
       },
       {
-        "title": "Phương pháp Pidgeon (Khử quặng Dolomite)",
-        "equation": "CaCO3⋅MgCO3 → CaO⋅MgO + 2CO2↑ (Giai đoạn 1) <br> 2MgO + 2CaO + Si → 2Mg↑ + Ca2SiO4 (Giai đoạn 2)",
-        "condition": "1200°C, chân không"
+        "title": "Tại cathode:",
+        "equation": "Mg²⁺ + 2e⁻ → Mg <br> 2Cl⁻ → Cl₂ + 2e⁻ <br> MgCl₂(l) → Mg(l) + Cl₂(g)",
+        "desc": "Tại anode: Phương trình tổng quát: Magnesium chloride có thể được thu từ nước biển hoặc các khoáng vật chứa Magnesium."
       }
     ]
   },
-  "applications": [
-    {
-      "title": "Ứng dụng",
-      "desc": "Magnesium đặc biệt được sử dụng cho ngành công nghiệp hàng không vũ trụ, chúng được dùng để làm cho hợp kim bền hơn."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Magnesium còn được dùng trong sản xuất pháo hoa vì khi đốt cháy sẽ tạo ngọn lửa trắng rực rỡ."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Trong các lò sản xuất sắt, thép, kim loại màu, xi măng hay thủy tinh, các hợp chất của Magnesium được sử dụng như vật liệu chịu lửa."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Các magnesium oxide và các hợp chất khác cũng được dùng nhiều trong xây dựng, nông nghiệp, công nghiệp hóa chất."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Magnesium còn được dùng để khử lưu huỳnh từ sắt thép hoặc tạo các hợp kim của Al - Mg sử dụng trong sản xuất vỏ hộp, cấu trúc của xe máy, ô tô."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Tạo các tấm khắc quang học trong công nghệ in, là tác nhân bổ sung trong các chất nổ thông thường và sử dụng trong sản xuất gang cầu, nằm trong hợp kim của kết cấu máy bay, tên lửa."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Trong ngành dược phẩm, Mg  được sử dụng để sản xuất các viên thuốc nén, ngăn cho thuốc không bị dính vào thiết bị trong quá trình nén thuốc,..."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Magnesium là kim loại kiềm thổ điển hình (ô số 12, nhóm IIA, chu kỳ 3), có cấu hình electron lớp ngoài cùng là [Ne]3s2. Khi tham gia phản ứng, nó luôn có xu hướng nhường 2e để đạt cấu hình bền vững Mg2+.</li>\n  <li>Trong tự nhiên Magnesium có tính chất hóa học mạnh nên hoàn toàn không tồn tại dạng đơn chất trong tự nhiên. Tuy nhiên, Magnesium lại là nguyên tố phổ biến thứ 8 trong vỏ Trái Đất, nó có trong mỏ đá lớn như đá Dolomite : và hòa tan trong đại dương dưới dạng muối đắng MgCl2 và MgSO4.</li>\n  <li>Trong công nghiệp, Magnesium được sản xuất hàng loạt bằng phương pháp điện phân nóng chảy Magnesium chloride ( MgCl2) tách từ nước biển, hoặc dùng Silicon khử quặng Dolomite ở nhiệt độ cao (phương pháp Pidgeon). Trong phòng thí nghiệm, người ta mua sẵn đơn chất chứ không tự điều chế.</li>\n  <li>Magnesium là \"kim loại cấu trúc\" nhờ đặc tính siêu nhẹ và bền bỉ, chuyên dùng làm hợp kim chế tạo vỏ máy bay, ô tô, laptop và điện thoại. Ở góc độ sinh học, Magnesium chính là trái tim của chất diệp lục (Chlorophyll) giúp cây xanh quang hợp, và là nguyên tố vi lượng cốt lõi vận hành hơn 300 phản ứng sinh hóa trong cơ thể con người.</li>\n</ul>\n",
   "recognition": [
     {
-      "title": "Thử bằng ngọn lửa",
-      "reagent": "Đốt cháy dây Magnesium trên ngọn lửa đèn cồn.",
-      "result": "Magnesium cháy với ngọn lửa màu trắng chói lòa.",
-      "equation": "2Mg + O2 → 2MgO",
-      "condition": "t°"
+      "title": "Thử màu ngọn lửa",
+      "reagent": "",
+      "result": "Magnesium không có màu ngọn lửa đặc trưng đủ mạnh để dùng làm phép thử định tính phổ thông.",
+      "equation": ""
+    },
+    {
+      "title": "Phản ứng tạo kết tủa",
+      "reagent": "",
+      "result": "Ion Mg²⁺ có thể được nhận biết thông qua các phản ứng tạo kết tủa với một số thuốc thử thích hợp.",
+      "equation": ""
+    },
+    {
+      "title": "Ví dụ với Sodium hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Mg²⁺ + 2OH⁻ → Mg(OH)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Magnesium hydroxide.",
+      "equation": ""
     }
-  ]
+  ],
+  "images": {},
+  "structureType": "Lục phương xếp chặt (HCP)"
 }

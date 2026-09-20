@@ -1,0 +1,183 @@
+{
+  "number": 48,
+  "symbol": "Cd",
+  "nameVi": "Cadmium",
+  "nameEn": "Cadmium",
+  "mass": 112.414,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/048_Cd.json",
+  "general": {
+    "latinName": "Cadmium",
+    "englishName": "Cadmium",
+    "electronConfig": "[Kr] 4d¹⁰ 5s²",
+    "isotope": "¹⁰⁶Cd, ¹⁰⁸Cd, ¹¹⁰Cd, ¹¹¹Cd, ¹¹²Cd, ¹¹³Cd, ¹¹⁴Cd, ¹¹⁶Cd",
+    "group": 12,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2",
+    "electronegativity": 1.69,
+    "density": "khoảng 8.65 g/cm³.",
+    "meltingPoint": "khoảng 321 °C.",
+    "boilingPoint": "khoảng 767 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Friedrich Stromeyer",
+    "year": 1817,
+    "discoveryLocation": "Đức",
+    "description": "Năm 1817, Friedrich Stromeyer phát hiện Cadmium khi nghiên cứu Zinc carbonate. Ông nhận thấy một số mẫu Zinc oxide có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới. Tên Cadmium bắt nguồn từ cadmia, tên cổ của Zinc carbonate."
+  },
+  "structure": {
+    "protons": 48,
+    "neutrons": 64,
+    "electrons": 48,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 48,
+      "neutron": 64
+    }
+  },
+  "occurrence": {
+    "description": "Cadmium là kim loại rắn, mềm, màu trắng bạc.",
+    "simple": [
+      "Cd"
+    ],
+    "compounds": [
+      "CdO",
+      "CdS",
+      "CdCl₂",
+      "Cd(NO₃)₂"
+    ],
+    "ores": [
+      "Thường tồn tại dưới dạng tạp chất trong quặng Zinc",
+      "đặc biệt là Sphalerite (ZnS)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IIB.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Mềm và dễ dát mỏng.</li>\n      <li>Khối lượng riêng: khoảng 8.65 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 321 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 767 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có nhiệt độ nóng chảy tương đối thấp so với nhiều kim loại chuyển tiếp.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến và quan trọng nhất là +2.</li>\n      <li>Có tính khử.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Cadmium oxide.</li>\n      <li>Phản ứng với Halogen tạo Cadmium halide.</li>\n      <li>Phản ứng với acid tạo muối Cadmium và Hydrogen.</li>\n      <li>Cadmium sulfide (CdS) có màu vàng đặc trưng.</li>\n      <li>Cadmium và nhiều hợp chất của nó độc, vì vậy việc sử dụng cần được kiểm soát nghiêm ngặt.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Cd + O₂ → 2CdO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Cd + Cl₂ → CdCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Cd + S → CdS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Cd + 2HCl → CdCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Cadmium sulfide",
+      "equation": "Cd²⁺ + S²⁻ → CdS↓",
+      "desc": ""
+    },
+    {
+      "type": "Cadmium oxide tác dụng với acid",
+      "equation": "CdO + 2HCl → CdCl₂ + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Cadmium",
+      "equation": "CdO + C → Cd + CO",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Pin Nickel-Cadmium",
+      "desc": "Cadmium từng được sử dụng rộng rãi trong pin Ni-Cd có khả năng sạc lại."
+    },
+    {
+      "title": "Mạ kim loại",
+      "desc": "Cadmium được dùng để tạo lớp phủ bảo vệ một số kim loại khỏi ăn mòn."
+    },
+    {
+      "title": "Chất màu",
+      "desc": "Cadmium sulfide và Cadmium selenide từng được sử dụng để tạo các sắc tố vàng, cam và đỏ."
+    },
+    {
+      "title": "Vật liệu bán dẫn",
+      "desc": "Một số hợp chất Cadmium như CdTe được sử dụng trong công nghệ bán dẫn và pin mặt trời."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Cadmium được sử dụng trong một số hợp kim và vật liệu hàn chuyên dụng."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Cadmium là nguyên tố số 48, thuộc nhóm IIB | chu kỳ 5.</li>\n  <li>Cadmium có cấu hình electron [Kr] 4d¹⁰ 5s² và số Oxy hóa đặc trưng là +2.</li>\n  <li>Cadmium là kim loại mềm, màu trắng bạc, có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Cadmium chủ yếu được tìm thấy dưới dạng tạp chất trong quặng Zinc và thường được thu hồi trong quá trình luyện Zinc.</li>\n  <li>Một hợp chất đặc trưng của Cadmium là Cadmium sulfide (CdS), có màu vàng và có nhiều ứng dụng trong vật liệu.</li>\n  <li>Cadmium có ứng dụng trong pin, mạ kim loại, sắc tố và vật liệu bán dẫn, nhưng do độc tính cao, việc sử dụng Cadmium và các hợp chất của nó hiện được kiểm soát chặt chẽ.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Cadmium chủ yếu được thu hồi như sản phẩm phụ trong quá trình luyện Zinc.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Cadmium oxide có thể được khử bằng Carbon:",
+        "equation": "CdO + C → Cd + CO",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Cd²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho Cd²⁺ tác dụng với Sulfide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Cd²⁺ + S²⁻ → CdS↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa màu vàng Cadmium sulfide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Đây là một phản ứng đặc trưng thường được dùng để nhận biết Cd²⁺.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

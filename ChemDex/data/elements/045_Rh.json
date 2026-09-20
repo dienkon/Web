@@ -1,0 +1,188 @@
+{
+  "number": 45,
+  "symbol": "Rh",
+  "nameVi": "Rhodium",
+  "nameEn": "Rhodium",
+  "mass": 102.906,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/045_Rh.json",
+  "general": {
+    "latinName": "Rhodium",
+    "englishName": "Rhodium",
+    "electronConfig": "[Kr] 4d⁸ 5s¹",
+    "isotope": "¹⁰³Rh",
+    "group": 8,
+    "period": 5,
+    "state": "",
+    "oxidation": "−1, +1, +2, +3, +4, +5, +6",
+    "electronegativity": 2.28,
+    "density": "khoảng 12.41 g/cm³.",
+    "meltingPoint": "khoảng 1964 °C.",
+    "boilingPoint": "khoảng 3695 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "William Hyde Wollaston",
+    "year": 1803,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1803, William Hyde Wollaston phát hiện Rhodium trong quặng Platinum. Ông nhận thấy các hợp chất của nguyên tố mới có màu sắc đặc trưng, đặc biệt là các hợp chất tạo màu đỏ. Vì vậy, nguyên tố được đặt tên Rhodium, bắt nguồn từ tiếng Hy Lạp rhodon, nghĩa là “hoa hồng”."
+  },
+  "structure": {
+    "protons": 45,
+    "neutrons": 58,
+    "electrons": 45,
+    "electronShells": [
+      2,
+      8,
+      18,
+      16,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      16,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 45,
+      "neutron": 58
+    }
+  },
+  "occurrence": {
+    "description": "Rhodium là kim loại rắn, màu trắng bạc, sáng bóng.",
+    "simple": [
+      "Rh"
+    ],
+    "compounds": [
+      "RhCl₃",
+      "Rh₂O₃",
+      "RhBr₃",
+      "Rh₂(SO₄)₃"
+    ],
+    "ores": [
+      "Thường tồn tại cùng Platinum",
+      "Palladium và các kim loại nhóm Platinum khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc, có độ bóng cao.</li>\n      <li>Rất cứng và bền.</li>\n      <li>Khối lượng riêng: khoảng 12.41 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1964 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3695 °C.</li>\n      <li>Chống ăn mòn rất tốt.</li>\n      <li>Có khả năng phản xạ ánh sáng cao.</li>\n      <li>Là một trong những kim loại quý hiếm.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +3.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Không dễ phản ứng với Oxygen hoặc nước.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n      <li>Rhodium compounds có hoạt tính xúc tác cao.</li>\n      <li>Rhodium có khả năng chống oxy hóa và ăn mòn tốt.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Rh + 3Cl₂ → 2RhCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Rhodium(III) oxide",
+      "equation": "4Rh + 3O₂ → 2Rh₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Rhodium hydroxide",
+      "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓",
+      "desc": ""
+    },
+    {
+      "type": "Rhodium hydroxide tác dụng với acid",
+      "equation": "Rh(OH)₃ + 3HCl → RhCl₃ + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Khử Rhodium chloride",
+      "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Rhodium sulfide",
+      "equation": "2Rh + 3S → Rh₂S₃",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Bộ chuyển đổi xúc tác",
+      "desc": "Rhodium là một trong những kim loại xúc tác quan trọng trong bộ chuyển đổi xúc tác của ô tô, giúp xử lý các khí thải như NOₓ."
+    },
+    {
+      "title": "Mạ kim loại",
+      "desc": "Rhodium được dùng để mạ trang sức và các bề mặt kim loại nhằm tạo lớp phủ sáng bóng và chống ăn mòn."
+    },
+    {
+      "title": "Xúc tác hóa học",
+      "desc": "Rhodium compounds được sử dụng trong nhiều phản ứng tổng hợp hữu cơ."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Rhodium được thêm vào Platinum và Palladium để tăng độ cứng và khả năng chịu nhiệt."
+    },
+    {
+      "title": "Thiết bị quang học",
+      "desc": "Rhodium có độ phản xạ ánh sáng cao nên được sử dụng trong một số ứng dụng quang học."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Rhodium được sử dụng trong một số tiếp điểm và linh kiện điện tử nhờ khả năng chống ăn mòn."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Rhodium là nguyên tố số 45, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Rhodium có cấu hình electron [Kr] 4d⁸ 5s¹, trong đó số Oxy hóa +3 là trạng thái phổ biến nhất.</li>\n  <li>Rhodium là kim loại trắng bạc, cứng, rất bền và có khả năng chống ăn mòn cao. Nó cũng là một trong những nguyên tố kim loại quý hiếm nhất trong tự nhiên.</li>\n  <li>Ứng dụng quan trọng nhất của Rhodium là làm chất xúc tác trong bộ chuyển đổi xúc tác ô tô, đặc biệt trong việc xử lý các Oxide Nitrogen (NOₓ). Ngoài ra, Rhodium còn được sử dụng trong mạ kim loại, xúc tác hóa học, hợp kim và điện tử.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Ví dụ:",
+        "equation": "2RhCl₃ + 3H₂ → 2Rh + 6HCl",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Rhodium chủ yếu được thu hồi như sản phẩm phụ trong quá trình khai thác và tinh chế quặng Platinum và Nickel.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Quá trình tách Rhodium thường bao gồm nhiều bước hòa tan, kết tủa và tinh chế để tách nó khỏi các kim loại nhóm Platinum khác.",
+        "equation": "",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Rh³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Rhodium(III) có thể tạo kết tủa hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Rh³⁺ + 3OH⁻ → Rh(OH)₃↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa hydroxide Rhodium.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong thực tế, Rhodium thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng, vì các phản ứng đơn giản không đủ đặc hiệu.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

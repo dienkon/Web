@@ -1,0 +1,182 @@
+{
+  "number": 78,
+  "symbol": "Pt",
+  "nameVi": "Platinum",
+  "nameEn": "Platinum",
+  "mass": 195.084,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/078_Pt.json",
+  "general": {
+    "latinName": "Platinum",
+    "englishName": "Platinum",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁹ 6s¹",
+    "isotope": "¹⁹⁰Pt, ¹⁹²Pt, ¹⁹⁴Pt, ¹⁹⁵Pt, ¹⁹⁶Pt, ¹⁹⁸Pt",
+    "group": 8,
+    "period": 6,
+    "state": "",
+    "oxidation": "+2, +4",
+    "electronegativity": 2.28,
+    "density": "khoảng 21.45 g/cm³.",
+    "meltingPoint": "khoảng 1768 °C.",
+    "boilingPoint": "khoảng 3825 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Người bản địa Nam Mỹ đã sử dụng từ thời cổ đại; được Antonio de Ulloa mô tả ở châu Âu.",
+    "year": 1735,
+    "discoveryLocation": "Colombia, Nam Mỹ",
+    "description": "Platinum đã được người bản địa Nam Mỹ sử dụng từ trước thời kỳ châu Âu tiếp xúc với châu Mỹ. Năm 1735, nhà khoa học Tây Ban Nha Antonio de Ulloa đã đưa Platinum vào tài liệu khoa học châu Âu. Tên Platinum bắt nguồn từ tiếng Tây Ban Nha platina, nghĩa là “bạc nhỏ”."
+  },
+  "structure": {
+    "protons": 78,
+    "neutrons": 117,
+    "electrons": 78,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      17,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      17,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 78,
+      "neutron": 117
+    }
+  },
+  "occurrence": {
+    "description": "Platinum là kim loại rắn, màu trắng bạc, sáng bóng.",
+    "simple": [
+      "Pt"
+    ],
+    "compounds": [
+      "PtCl₂",
+      "PtCl₄",
+      "H₂PtCl₆",
+      "PtO₂"
+    ],
+    "ores": [
+      "Tồn tại trong các quặng kim loại nhóm Platinum và đôi khi ở dạng Platinum tự nhiên"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc, sáng bóng.</li>\n      <li>Dẻo và dễ dát mỏng.</li>\n      <li>Khối lượng riêng: khoảng 21.45 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1768 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3825 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Chống ăn mòn và chống Oxy hóa rất tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa phổ biến là +2 và +4.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Không dễ phản ứng với Oxygen.</li>\n      <li>Không tan trong phần lớn acid thông thường.</li>\n      <li>Tan trong nước cường toan tạo các phức Chloroplatinate.</li>\n      <li>Có khả năng xúc tác nhiều phản ứng hóa học.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Pt + Cl₂ → PtCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Platinum(IV) chloride",
+      "equation": "Pt + 2Cl₂ → PtCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Platinum dioxide",
+      "equation": "Pt + O₂ → PtO₂",
+      "desc": ""
+    },
+    {
+      "type": "Phản ứng với nước cường toan",
+      "equation": "Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Ammonium hexachloroplatinate",
+      "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl",
+      "desc": ""
+    },
+    {
+      "type": "Khử Platinum(IV) chloride",
+      "equation": "PtCl₄ + 2H₂ → Pt + 4HCl",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Bộ xúc tác khí thải",
+      "desc": "Platinum là chất xúc tác quan trọng trong catalytic converter, giúp chuyển hóa các khí độc trong khí thải động cơ."
+    },
+    {
+      "title": "Trang sức",
+      "desc": "Platinum được sử dụng rộng rãi trong trang sức nhờ vẻ ngoài sáng bóng, độ bền và khả năng chống ăn mòn."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Platinum được dùng làm chất xúc tác trong nhiều quá trình hóa học."
+    },
+    {
+      "title": "Y học",
+      "desc": "Một số hợp chất Platinum, tiêu biểu là Cisplatin, được sử dụng trong điều trị một số loại ung thư."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Platinum được sử dụng trong một số điện cực, cảm biến và linh kiện đặc biệt."
+    },
+    {
+      "title": "Phòng thí nghiệm",
+      "desc": "Platinum được dùng làm chén, điện cực và các dụng cụ chịu nhiệt, chịu hóa chất."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Platinum là nguyên tố số 78, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Platinum có cấu hình electron [Xe] 4f¹⁴ 5d⁹ 6s¹, với số Oxy hóa phổ biến là +2 và +4.</li>\n  <li>Đây là kim loại trắng bạc, nặng, dẻo, bền và có khả năng chống ăn mòn rất cao. Platinum cũng là một chất xúc tác rất hiệu quả.</li>\n  <li>Platinum có vai trò quan trọng trong catalytic converter, công nghiệp hóa chất, trang sức, điện tử và y học. Đặc biệt, các hợp chất Platinum như Cisplatin có ý nghĩa lớn trong y học hiện đại.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Platinum được khai thác chủ yếu từ các quặng chứa kim loại nhóm Platinum, thường đi kèm Nickel và Copper.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Quá trình tinh chế gồm nhiều bước hòa tan, kết tủa và tách các kim loại nhóm Platinum khác nhau.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phản ứng minh họa quá trình tạo phức:",
+        "equation": "Pt + 4HCl + HNO₃ → H₂PtCl₆ + NO + 2H₂O",
+        "desc": "Sau đó H₂PtCl₆ có thể được xử lý để thu Platinum kim loại."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Platinum thường được nhận biết bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phản ứng đặc trưng của Pt(IV) là tạo Ammonium hexachloroplatinate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "H₂PtCl₆ + 2NH₄Cl → (NH₄)₂PtCl₆↓ + 2HCl"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa màu vàng Ammonium hexachloroplatinate.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

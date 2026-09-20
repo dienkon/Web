@@ -1,0 +1,186 @@
+{
+  "number": 46,
+  "symbol": "Pd",
+  "nameVi": "Palladium",
+  "nameEn": "Palladium",
+  "mass": 106.42,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/046_Pd.json",
+  "general": {
+    "latinName": "Palladium",
+    "englishName": "Palladium",
+    "electronConfig": "[Kr] 4d¹⁰",
+    "isotope": "¹⁰²Pd, ¹⁰⁴Pd, ¹⁰⁵Pd, ¹⁰⁶Pd, ¹⁰⁸Pd, ¹¹⁰Pd",
+    "group": 8,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2, +4",
+    "electronegativity": 2.2,
+    "density": "khoảng 12.02 g/cm³.",
+    "meltingPoint": "khoảng 1555 °C.",
+    "boilingPoint": "khoảng 2963 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "William Hyde Wollaston",
+    "year": 1803,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1803, William Hyde Wollaston phát hiện Palladium khi nghiên cứu quặng Platinum. Ông đặt tên nguyên tố theo Pallas, một tiểu hành tinh được phát hiện vào năm 1802."
+  },
+  "structure": {
+    "protons": 46,
+    "neutrons": 60,
+    "electrons": 46,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18
+    ],
+    "valenceElectrons": 18,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 46,
+      "neutron": 60
+    }
+  },
+  "occurrence": {
+    "description": "Palladium là kim loại rắn, màu trắng bạc, sáng bóng.",
+    "simple": [
+      "Pd"
+    ],
+    "compounds": [
+      "PdCl₂",
+      "PdO",
+      "PdBr₂",
+      "Pd(NO₃)₂"
+    ],
+    "ores": [
+      "Thường tồn tại cùng Platinum",
+      "Rhodium",
+      "Nickel và các kim loại nhóm Platinum khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Mềm, dễ uốn và dễ gia công.</li>\n      <li>Khối lượng riêng: khoảng 12.02 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1555 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2963 °C.</li>\n      <li>Chống ăn mòn tốt.</li>\n      <li>Có khả năng hấp thụ một lượng lớn Hydrogen.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Số Oxy hóa phổ biến nhất là +2.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Có thể phản ứng với Oxygen khi nung nóng tạo Palladium oxide.</li>\n      <li>Phản ứng với Halogen tạo Palladium halide.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n      <li>Có tính chất xúc tác rất tốt.</li>\n      <li>Đặc biệt có khả năng xúc tác cho các phản ứng liên quan đến Hydrogen.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Pd + O₂ → 2PdO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Pd + Cl₂ → PdCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Palladium sulfide",
+      "equation": "Pd²⁺ + S²⁻ → PdS↓",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Palladium hydroxide",
+      "equation": "Pd²⁺ + 2OH⁻ → Pd(OH)₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Palladium hydroxide tác dụng với acid",
+      "equation": "Pd(OH)₂ + 2HCl → PdCl₂ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Khử Palladium chloride",
+      "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Bộ chuyển đổi xúc tác",
+      "desc": "Palladium là chất xúc tác quan trọng trong hệ thống xử lý khí thải của ô tô."
+    },
+    {
+      "title": "Xúc tác hóa học",
+      "desc": "Được sử dụng rộng rãi trong tổng hợp hữu cơ và công nghiệp hóa chất."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Palladium được sử dụng trong một số linh kiện điện tử và vật liệu dẫn điện."
+    },
+    {
+      "title": "Trang sức",
+      "desc": "Palladium được sử dụng để chế tạo trang sức và hợp kim kim loại quý."
+    },
+    {
+      "title": "Lọc Hydrogen",
+      "desc": "Palladium có khả năng hấp thụ và khuếch tán Hydrogen, nên được sử dụng trong một số công nghệ tinh chế Hydrogen."
+    },
+    {
+      "title": "Nha khoa",
+      "desc": "Một số hợp kim chứa Palladium được sử dụng trong vật liệu nha khoa."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Palladium là nguyên tố số 46, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Palladium có cấu hình electron đặc biệt [Kr] 4d¹⁰, với số Oxy hóa phổ biến nhất là +2.</li>\n  <li>Palladium là kim loại trắng bạc, mềm, dễ gia công và chống ăn mòn tốt. Đặc điểm nổi bật của Palladium là khả năng hấp thụ Hydrogen và hoạt tính xúc tác cao.</li>\n  <li>Palladium có vai trò quan trọng trong bộ chuyển đổi xúc tác ô tô, công nghiệp hóa chất, điện tử, công nghệ Hydrogen, trang sức và nha khoa.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Palladium chủ yếu được thu hồi như sản phẩm phụ trong quá trình khai thác và tinh chế Nickel, Copper và các kim loại nhóm Platinum.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sau quá trình tách và tinh chế, các hợp chất Palladium có thể được khử để thu kim loại.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Ví dụ:",
+        "equation": "PdCl₂ + H₂ → Pd + 2HCl",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Pd²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Pd²⁺ có thể tạo kết tủa Palladium sulfide khi tác dụng với Sulfide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Pd²⁺ + S²⁻ → PdS↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa đen hoặc nâu đen Palladium sulfide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong phân tích chính xác, Palladium thường được xác định bằng các phương pháp phân tích chuyên dụng.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

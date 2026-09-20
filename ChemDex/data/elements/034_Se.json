@@ -1,0 +1,238 @@
+{
+  "number": 34,
+  "symbol": "Se",
+  "nameVi": "Selenium",
+  "nameEn": "Selenium",
+  "mass": 78.971,
+  "category": "phi-kim",
+  "hasData": true,
+  "file": "elements/034_Se.json",
+  "general": {
+    "latinName": "Selenium",
+    "englishName": "Selenium",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁴",
+    "isotope": "⁷⁴Se, ⁷⁶Se, ⁷⁷Se, ⁷⁸Se, ⁸⁰Se, ⁸²Se",
+    "group": 16,
+    "period": 4,
+    "state": "",
+    "oxidation": "−2, +4, +6",
+    "electronegativity": 2.55,
+    "density": "khoảng 4.81 g/cm³ đối với Selenium xám.",
+    "meltingPoint": "khoảng 221 °C.",
+    "boilingPoint": "khoảng 685 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Jöns Jacob Berzelius và Johan Gottlieb Gahn",
+    "year": 1817,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1817, Jöns Jacob Berzelius phát hiện Selenium khi nghiên cứu một chất cặn trong quá trình sản xuất Sulfuric acid. Ban đầu, ông cho rằng đó là Tellurium, nhưng sau khi nghiên cứu thêm, ông xác định đây là một nguyên tố mới. Tên Selenium bắt nguồn từ tiếng Hy Lạp Selene, nghĩa là Mặt Trăng."
+  },
+  "structure": {
+    "protons": 34,
+    "neutrons": 44,
+    "electrons": 34,
+    "electronShells": [
+      2,
+      8,
+      18,
+      6
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      6
+    ],
+    "valenceElectrons": 6,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 34,
+      "neutron": 44
+    }
+  },
+  "occurrence": {
+    "description": "Selenium là chất rắn, có thể tồn tại dưới dạng màu xám kim loại, đỏ hoặc đen tùy dạng thù hình.",
+    "simple": [
+      "Se"
+    ],
+    "compounds": [
+      "SeO₂",
+      "SeO₃",
+      "H₂Se",
+      "H₂SeO₃",
+      "H₂SeO₄",
+      "SeS₂"
+    ],
+    "ores": [
+      "Thường tồn tại với lượng nhỏ trong các quặng Sulfide của Copper",
+      "Lead",
+      "Silver và Nickel"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim, thuộc nhóm Chalcogen.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Selenium xám có ánh kim và tính bán dẫn.</li>\n      <li>Selenium đỏ thường có màu đỏ hoặc đỏ nâu.</li>\n      <li>Selenium đen có dạng vô định hình.</li>\n      <li>Khối lượng riêng: khoảng 4.81 g/cm³ đối với Selenium xám.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 221 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 685 °C.</li>\n      <li>Có tính quang dẫn: độ dẫn điện tăng khi được chiếu sáng.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến −2, +4 và +6.</li>\n      <li>Phản ứng với Oxygen tạo Selenium dioxide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen selenide.</li>\n      <li>Phản ứng với nhiều kim loại tạo Selenide.</li>\n      <li>Phản ứng với Halogen tạo Selenium halide.</li>\n      <li>Có thể vừa thể hiện tính Oxy hóa vừa thể hiện tính khử tùy phản ứng.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Se + O₂ → SeO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "H₂ + Se → H₂Se",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Se + S → SeS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Se + 2Cl₂ → SeCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Hydrogen selenide",
+      "equation": "H₂ + Se → H₂Se",
+      "desc": ""
+    },
+    {
+      "type": "Khử Selenium dioxide",
+      "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
+      "desc": ""
+    },
+    {
+      "type": "Selenium dioxide tác dụng với nước",
+      "equation": "SeO₂ + H₂O → H₂SeO₃",
+      "desc": ""
+    },
+    {
+      "type": "Oxy hóa Selenium dioxide",
+      "equation": "2SeO₂ + O₂ → 2SeO₃",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Điện tử",
+      "desc": "Selenium có tính quang dẫn nên từng được sử dụng trong một số thiết bị quang điện."
+    },
+    {
+      "title": "Kính",
+      "desc": "Selenium compounds được sử dụng để khử màu hoặc tạo màu cho thủy tinh."
+    },
+    {
+      "title": "Pigment",
+      "desc": "Một số Selenium compounds được sử dụng để tạo pigment màu đỏ."
+    },
+    {
+      "title": "Solar cells",
+      "desc": "Selenium được sử dụng trong một số vật liệu quang điện và công nghệ tế bào mặt trời."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Selenium được thêm vào một số hợp kim để cải thiện khả năng gia công."
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Selenium là nguyên tố vi lượng cần thiết với một số sinh vật, nhưng lượng quá cao có thể gây độc."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Selenium compounds được sử dụng trong một số quá trình tổng hợp hóa học."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Selenium là nguyên tố số 34, thuộc nhóm VIA | chu kỳ 4 và thuộc nhóm Chalcogen.</li>\n  <li>Selenium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li>\n  <li>Selenium có nhiều dạng thù hình, trong đó Selenium xám có ánh kim và thể hiện tính quang dẫn rõ rệt. Trong tự nhiên, Selenium thường tồn tại với hàm lượng nhỏ trong các quặng Sulfide của Copper, Lead, Silver và Nickel.</li>\n  <li>Selenium có ứng dụng trong công nghiệp thủy tinh, điện tử, vật liệu quang điện, luyện kim và hóa chất. Đồng thời, Selenium là nguyên tố vi lượng quan trọng đối với sinh vật ở lượng thích hợp.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Selenium bằng cách khử Selenium dioxide bằng Sulfur dioxide:",
+        "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Selenium chủ yếu được thu hồi như sản phẩm phụ trong quá trình tinh chế Copper.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Cặn anode chứa Selenium được xử lý để thu Selenium compounds, sau đó Selenium được khử để thu Selenium nguyên tố.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phản ứng tổng quát:",
+        "equation": "SeO₂ + 2SO₂ + 2H₂O → Se + 2H₂SO₄",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Se²⁻",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Cho ion Se²⁻ tác dụng với Hydrogen sulfide hoặc các ion kim loại thích hợp có thể tạo Selenium compounds đặc trưng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phản ứng tạo Selenium sulfide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Se²⁻ + 2H⁺ → H₂Se"
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "H₂Se có thể phản ứng với các ion kim loại tạo kết tủa Selenide.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Selenium nguyên tố",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Selenium có nhiều dạng màu sắc khác nhau tùy cấu trúc",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Selenium xám",
+      "reagent": "",
+      "result": "màu xám kim loại.",
+      "equation": ""
+    },
+    {
+      "title": "Selenium đỏ",
+      "reagent": "",
+      "result": "màu đỏ hoặc đỏ nâu.",
+      "equation": ""
+    },
+    {
+      "title": "Selenium đen",
+      "reagent": "",
+      "result": "màu đen.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

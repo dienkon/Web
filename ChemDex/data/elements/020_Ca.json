@@ -5,140 +5,208 @@
   "nameEn": "Calcium",
   "mass": 40.078,
   "category": "kiem-tho",
+  "hasData": true,
+  "file": "elements/020_Ca.json",
   "general": {
     "latinName": "Calcium",
     "englishName": "Calcium",
-    "electronConfig": "[Ar] 4s2",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁶ 4s²",
+    "isotope": "⁴⁰Ca, ⁴¹Ca, ⁴²Ca, ⁴³Ca, ⁴⁴Ca, ⁴⁶Ca, ⁴⁸Ca",
     "group": 2,
     "period": 4,
+    "state": "",
     "oxidation": "+2",
-    "electronegativity": "1.00",
+    "electronegativity": 1.0,
+    "density": "",
+    "meltingPoint": "khoảng 842 °C.",
+    "boilingPoint": "khoảng 1484 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Humphry Davy",
+    "year": 1808,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1808, Humphry Davy điều chế được Calcium kim loại bằng phương pháp điện phân hỗn hợp nóng chảy chứa Calcium oxide và Mercury(II) oxide. Sau đó ông loại Mercury để thu được Calcium."
+  },
+  "structure": {
+    "protons": 20,
+    "neutrons": 20,
+    "electrons": 20,
+    "electronShells": [
+      2,
+      8,
+      8,
+      2
+    ],
     "shells": [
       2,
       8,
       8,
       2
-    ]
-  },
-  "history": {
-    "discoverer": "Humphry Davy",
-    "year": 1808,
-    "discoveryLocation": "Anh"
-  },
-  "structure": {
-    "electrons": 20,
-    "protons": 20,
-    "neutrons": 20
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 20,
+      "neutron": 20
+    }
   },
   "occurrence": {
-    "description": "Calsium hầu như không tồn tại ở dạng đơn chất.",
+    "description": "Calcium là kim loại rắn, màu trắng bạc ở điều kiện thường. Do có hoạt tính hóa học cao, Calcium không tồn tại tự do trong tự nhiên.",
     "simple": [
       "Ca"
     ],
     "compounds": [
-      "CaCO3",
-      "CaSO4​⋅2H2​O",
-      "CaF₂",
-      "Ca₃(PO₄)₂…"
+      "CaCO₃",
+      "CaO",
+      "Ca(OH)₂",
+      "CaSO₄",
+      "Ca₃(PO₄)₂",
+      "CaCl₂"
+    ],
+    "ores": [
+      "Đá vôi",
+      "Calcite",
+      "Dolomite",
+      "Gypsum",
+      "nước biển",
+      "đất và cơ thể sinh vật"
     ]
   },
-  "physical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Calsium là chất rắn ở nhiệt độ phòng.</li>\n  <li>Calsium là kim loại kiềm thổ có màu trắng bạc.</li>\n  <li>Khối lượng riêng khoảng 1,55 g/cm³.</li>\n  <li>Tương đối mềm và có tính dẻo.</li>\n  <li>Dẫn điện và dẫn nhiệt tốt.</li>\n  <li>Nhiệt độ nóng chảy khoảng 842°C.</li>\n  <li>Nhiệt độ sôi khoảng 1484,0°C.</li>\n  <li>Dễ bị oxi hóa trong không khí ẩm.</li>\n</ul>\n",
-  "chemical": "<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Ca là kim loại có tính khử mạnh.</li>\n  <li>Tác dụng với phi kim.- Tác dụng với acid loãng.</li>\n  <li>Tác dụng với nước.</li>\n  <li>Tác dụng với dung dịch muối của kim loại yếu hơn.</li>\n</ul>\n",
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại kiềm thổ.</li>\n      <li>Là chất rắn màu trắng bạc.</li>\n      <li>Tương đối mềm.</li>\n      <li>Có khối lượng riêng khoảng 1.55 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 842 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 1484 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Bề mặt nhanh chóng bị oxy hóa khi tiếp xúc với không khí.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính khử mạnh.</li>\n      <li>Dễ nhường 2 electron tạo Ca²⁺.</li>\n      <li>Phản ứng với nước tạo Calcium hydroxide và Hydrogen.</li>\n      <li>Phản ứng với Oxygen tạo Calcium oxide.</li>\n      <li>Phản ứng với Halogen tạo Calcium halide.</li>\n      <li>Phản ứng với Hydrogen tạo Calcium hydride.</li>\n      <li>Phản ứng với acid tạo muối Calcium và Hydrogen.</li>\n      <li>Có thể khử một số oxide kim loại ở nhiệt độ cao.</li>\n    </ul>\n  ",
   "reactions": [
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "2Ca+O2​→2CaO",
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Ca + O₂ → 2CaO",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ca+Cl2​→CaCl2​",
+      "type": "Tác dụng với nước",
+      "equation": "Ca + 2H₂O → Ca(OH)₂ + H₂↑",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ca+S→CaS",
+      "type": "Tác dụng với Hydrogen",
+      "equation": "Ca + H₂ → CaH₂",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ca+2H2​O→Ca(OH)2​+H2​↑",
+      "type": "Tác dụng với Chlorine",
+      "equation": "Ca + Cl₂ → CaCl₂",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ca+2HCl(loãng)→CaCl2​+H2​↑",
+      "type": "Tác dụng với Nitrogen",
+      "equation": "3Ca + N₂ → Ca₃N₂",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Ca + 2HCl → CaCl₂ + H₂↑",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ca+H2​SO4​(loa˜ng)→CaSO4​+H2​↑",
+      "type": "Tác dụng với Sulfur",
+      "equation": "Ca + S → CaS",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "Ca+CuSO4​→CaSO4​+Cu",
+      "type": "Nhiệt phân Calcium carbonate",
+      "equation": "CaCO₃ → CaO + CO₂↑",
       "desc": ""
     },
     {
-      "type": "Phản ứng đặc trưng",
-      "eq": "CaCl2 ​Ca+Cl2​↑",
+      "type": "Calcium oxide tác dụng với nước",
+      "equation": "CaO + H₂O → Ca(OH)₂",
+      "desc": ""
+    },
+    {
+      "type": "Calcium hydroxide tác dụng với Carbon dioxide",
+      "equation": "Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O",
       "desc": ""
     }
   ],
-  "structureType": "lập phương tâm diện",
-  "images": {},
-  "hasData": true,
-  "file": "elements/020_Ca.json",
+  "applications": [
+    {
+      "title": "Xây dựng",
+      "desc": "Calcium compounds như Calcium carbonate và Calcium oxide được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Calcium được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim."
+    },
+    {
+      "title": "Sản xuất hợp kim",
+      "desc": "Calcium được sử dụng trong một số hợp kim đặc biệt."
+    },
+    {
+      "title": "Xử lý nước",
+      "desc": "Calcium hydroxide được sử dụng để điều chỉnh pH và xử lý nước."
+    },
+    {
+      "title": "Nông nghiệp",
+      "desc": "Calcium compounds được sử dụng để cải thiện đất và điều chỉnh độ acid của đất."
+    },
+    {
+      "title": "Sinh học",
+      "desc": "Ca²⁺ đóng vai trò quan trọng trong xương, răng, co cơ, truyền tín hiệu tế bào và đông máu."
+    },
+    {
+      "title": "Sản xuất hóa chất",
+      "desc": "Calcium là nguyên liệu để sản xuất nhiều Calcium compounds."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Calcium là nguyên tố số 20, thuộc nhóm IIA | chu kỳ 4 và là một kim loại kiềm thổ.</li>\n  <li>Calcium có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁶ 4s², với 2 electron hóa trị. Calcium dễ nhường 2 electron để tạo ion Ca²⁺, vì vậy số Oxy hóa phổ biến của nó là +2.</li>\n  <li>Trong tự nhiên, Calcium không tồn tại ở dạng đơn chất mà chủ yếu tồn tại trong các khoáng vật như Calcium carbonate, Calcium sulfate và Calcium phosphate. Calcium cũng là một nguyên tố quan trọng trong cơ thể sinh vật.</li>\n  <li>Calcium và các hợp chất của nó có vai trò lớn trong xây dựng, luyện kim, sản xuất hóa chất, xử lý nước, nông nghiệp và các quá trình sinh học.</li>\n</ul>\n",
   "preparations": {
     "lab": [
       {
-        "title": "Hầu như không được điều chế trong phòng thí nghiệm",
-        "equation": ""
+        "title": "Về nguyên tắc, có thể điều chế bằng điện phân Calcium chloride nóng chảy:",
+        "equation": "CaCl₂ → Ca + Cl₂",
+        "desc": ""
       }
     ],
     "industry": [
       {
-        "title": "Điện phân nóng chảy Calcium chloride (CaCl2)",
-        "equation": "CaCl2 → Ca + Cl2↑",
-        "condition": "đpnc"
-      },
-      {
-        "title": "Phương pháp Nhiệt nhôm",
-        "equation": "CaCO3 → CaO + CO2↑ (Giai đoạn 1) <br> 6CaO + 2Al → 3Ca↑ + 3CaO⋅Al2O3 (Giai đoạn 2)",
-        "condition": "t°, chân không"
+        "title": "Calcium được điều chế chủ yếu bằng điện phân Calcium chloride nóng chảy:",
+        "equation": "CaCl₂ → Ca + Cl₂ <br> Ca²⁺ + 2e⁻ → Ca <br> 2Cl⁻ → Cl₂ + 2e⁻",
+        "desc": "Cathode: Anode:"
       }
     ]
   },
-  "applications": [
-    {
-      "title": "Ứng dụng",
-      "desc": "Sản xuất vật liệu xây dựng như xi măng, vôi, gạch từ CaCO3 và tráng trí từ CaSO₄·2H₂O."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "làm chất khử trong việc điều chế các kim loại khác như uran, ziriconi hay thori."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Chế tạo hợp kim với chì, nhôm và một số kim loại khác để cải thiện tính chất cơ học."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Các loại thuốc bồi bổ xương khớp, thực phẩm chức năng chứa Calcium carbonate (CaCO3) hoặc Calcium gluconate được dùng để điều trị bệnh loãng xương ở người già, còi xương ở trẻ em và bổ sung cho phụ nữ mang thai."
-    },
-    {
-      "title": "Ứng dụng",
-      "desc": "Vôi sống (CaO) và vôi tôi [Ca(OH)2] được rải xuống ruộng để khử chua (hạ phèn) cho đất rất hiệu quả, đồng thời dùng để tiêu độc, sát trùng chuồng trại chăn nuôi hoặc ao nuôi thủy sản."
-    }
-  ],
-  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Calcium là kim loại kiềm thổ hoạt động mạnh (ô số 20, nhóm IIA, chu kỳ 4), có cấu hình electron là [Ar]4s2. Trong các phản ứng, Calcium luôn nhường 2e để đạt cấu hình vỏ khí hiếm bền vững và thể hiện tính khử rất mạnh Ca2+</li>\n  <li>Do có tính khử mạnh, Calcium hầu như không tồn tại dạng đơn chất trong tự nhiên. Tuy nhiên, nó là nguyên tố phổ biến thứ 5 trong vỏ Trái Đất, tích tụ thành những dãy núi đá vôi khổng lồ (CaCO3), các mỏ thạch cao , quặng fluorite (CaF2) hoặc nằm trong cấu trúc xương, răng, vỏ của sinh vật.</li>\n  <li>Trong công nghiệp, Calcium được sản xuất chủ yếu bằng cách điện phân nóng chảy muối Calcium chloride (CaCl2) khan hoặc dùng bột Aluminium khử (CaO) trong môi trường chân không cao (nhiệt nhôm). Trong phòng thí nghiệm, người ta dùng sẵn kim loại bảo quản trong dầu hỏa chứ không tự điều chế.</li>\n  <li>Kim loại Calcium được dùng làm chất khử oxy, lưu huỳnh trong luyện kim thép và chế tạo hợp kim Lead-Calcium làm vỏ ắc quy cực bền. Ở dạng hợp chất, nó là xương sống của ngành xây dựng (sản xuất xi măng, vôi, thạch cao) và là vi chất tối quan trọng cho sức khỏe con người.</li>\n</ul>\n",
   "recognition": [
     {
-      "title": "Thử màu ngọn lửa",
-      "reagent": "Đốt cháy các hợp chất của Calcium.",
-      "result": "Calcium cháy với ngọn lửa màu đỏ gạch.",
+      "title": "Nhận biết",
+      "reagent": "Nhận biết ion Calcium (Ca²⁺)",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Thử ngọn lửa",
+      "reagent": "",
+      "result": "Calcium tạo màu đỏ gạch / đỏ cam.",
+      "equation": ""
+    },
+    {
+      "title": "Ngoài ra, Ca²⁺ có thể tạo kết tủa Calcium oxalate với Oxalate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ca²⁺ + C₂O₄²⁻ → CaC₂O₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Calcium oxalate.",
       "equation": ""
     }
-  ]
+  ],
+  "images": {},
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
 }

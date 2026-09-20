@@ -1,0 +1,185 @@
+{
+  "number": 74,
+  "symbol": "W",
+  "nameVi": "Tungsten",
+  "nameEn": "Tungsten",
+  "mass": 183.84,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/074_W.json",
+  "general": {
+    "latinName": "Wolframium",
+    "englishName": "Tungsten",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁴ 6s²",
+    "isotope": "¹⁸⁰W, ¹⁸²W, ¹⁸³W, ¹⁸⁴W, ¹⁸⁶W",
+    "group": 6,
+    "period": 6,
+    "state": "",
+    "oxidation": "+2, +3, +4, +5, +6",
+    "electronegativity": 2.36,
+    "density": "khoảng 19.25 g/cm³.",
+    "meltingPoint": "khoảng 3422 °C.",
+    "boilingPoint": "khoảng 5555 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Juan José và Fausto Elhuyar",
+    "year": 1783,
+    "discoveryLocation": "Tây Ban Nha",
+    "description": "Năm 1783, hai anh em Juan José và Fausto Elhuyar đã điều chế được Tungsten bằng cách khử Tungsten oxide thu được từ khoáng vật Wolframite. Ký hiệu W bắt nguồn từ tên Wolfram, một tên gọi khác của Tungsten."
+  },
+  "structure": {
+    "protons": 74,
+    "neutrons": 110,
+    "electrons": 74,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      12,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      12,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 74,
+      "neutron": 110
+    }
+  },
+  "occurrence": {
+    "description": "Tungsten là kim loại rắn, màu xám bạc, rất cứng và nặng.",
+    "simple": [
+      "W"
+    ],
+    "compounds": [
+      "WO₃",
+      "CaWO₄",
+      "FeWO₄",
+      "WS₂",
+      "WCl₆",
+      "WC"
+    ],
+    "ores": [
+      "Chủ yếu trong các khoáng vật Wolframite ((Fe",
+      "Mn)WO₄) và Scheelite (CaWO₄)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu xám bạc.</li>\n      <li>Rất cứng và có độ bền cao.</li>\n      <li>Có nhiệt độ nóng chảy cao nhất trong số các kim loại.</li>\n      <li>Khối lượng riêng: khoảng 19.25 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 3422 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 5555 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chịu nhiệt và chống biến dạng tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến nhất là +6.</li>\n      <li>Ở nhiệt độ thường khá bền trong không khí.</li>\n      <li>Khi nung nóng phản ứng với Oxygen tạo Tungsten oxide.</li>\n      <li>Phản ứng với Halogen ở nhiệt độ cao.</li>\n      <li>Tungsten carbide (WC) có độ cứng rất cao.</li>\n      <li>Có khả năng chống ăn mòn tốt trong nhiều môi trường.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2W + 3O₂ → 2WO₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "W + 3Cl₂ → WCl₆",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "W + C → WC",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Fluorine",
+      "equation": "W + 3F₂ → WF₆",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "W + 2S → WS₂",
+      "desc": ""
+    },
+    {
+      "type": "Khử Tungsten trioxide",
+      "equation": "WO₃ + 3H₂ → W + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Tungsten carbide",
+      "equation": "W + C → WC",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Dây tóc bóng đèn",
+      "desc": "Tungsten có nhiệt độ nóng chảy cực cao nên từng được sử dụng rộng rãi làm dây tóc bóng đèn sợi đốt."
+    },
+    {
+      "title": "Công cụ cắt",
+      "desc": "Tungsten carbide (WC) được sử dụng trong mũi khoan, dao cắt và các dụng cụ gia công có độ cứng cao."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Tungsten được thêm vào thép và các hợp kim đặc biệt để tăng độ cứng, độ bền và khả năng chịu nhiệt."
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Tungsten được sử dụng trong một số bộ phận chịu nhiệt cao."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Tungsten được sử dụng trong một số linh kiện và vật liệu điện tử chịu nhiệt."
+    },
+    {
+      "title": "Đối trọng",
+      "desc": "Do có khối lượng riêng rất lớn, Tungsten được sử dụng trong một số vật liệu cần khối lượng cao nhưng kích thước nhỏ."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tungsten là nguyên tố số 74, thuộc nhóm VIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Tungsten có cấu hình electron [Xe] 4f¹⁴ 5d⁴ 6s², với số Oxy hóa phổ biến nhất là +6.</li>\n  <li>Đây là kim loại có nhiệt độ nóng chảy cao nhất trong số các kim loại, đồng thời có khối lượng riêng lớn, độ cứng và khả năng chịu nhiệt rất cao.</li>\n  <li>Trong tự nhiên, Tungsten chủ yếu được khai thác từ Wolframite và Scheelite. Tungsten và đặc biệt là Tungsten carbide (WC) có vai trò quan trọng trong công cụ cắt, hợp kim chịu nhiệt, điện tử, hàng không vũ trụ và các vật liệu kỹ thuật đặc biệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Tungsten thường được điều chế từ các quặng Wolframite hoặc Scheelite.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Quặng được chuyển thành Tungsten trioxide (WO₃), sau đó WO₃ được khử bằng Hydrogen ở nhiệt độ cao:",
+        "equation": "WO₃ + 3H₂ → W + 3H₂O",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Tungsten thường được xác định bằng phương pháp quang phổ hoặc phân tích hóa học chuyên dụng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một hợp chất đặc trưng là Tungsten trioxide (WO₃), có màu vàng",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "W + 3O₂ → WO₃"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Tạo chất rắn màu vàng WO₃.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}

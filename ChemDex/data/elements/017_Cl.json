@@ -1,0 +1,222 @@
+{
+  "number": 17,
+  "symbol": "Cl",
+  "nameVi": "Chlorine",
+  "nameEn": "Chlorine",
+  "mass": 35.45,
+  "category": "halogen",
+  "hasData": true,
+  "file": "elements/017_Cl.json",
+  "general": {
+    "latinName": "Chlorum",
+    "englishName": "Chlorine",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁵",
+    "isotope": "³⁵Cl, ³⁶Cl, ³⁷Cl",
+    "group": 17,
+    "period": 3,
+    "state": "",
+    "oxidation": "−1, +1, +3, +5, +7",
+    "electronegativity": 3.16,
+    "density": "khoảng 3.21 g/L ở 0 °C và 1 atm.",
+    "meltingPoint": "−101.5 °C.",
+    "boilingPoint": "−34.04 °C.",
+    "crystalStructure": "Trực thoi (Orthorhombic)"
+  },
+  "history": {
+    "discoverer": "Carl Wilhelm Scheele",
+    "year": 1774,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1774, Carl Wilhelm Scheele điều chế được khí Clo bằng cách cho Manganese dioxide tác dụng với Hydrochloric acid. Ban đầu ông cho rằng đây là một hợp chất. Năm 1810, Humphry Davy chứng minh Clo là một nguyên tố và đặt tên là Chlorine."
+  },
+  "structure": {
+    "protons": 17,
+    "neutrons": 18,
+    "electrons": 17,
+    "electronShells": [
+      2,
+      8,
+      7
+    ],
+    "shells": [
+      2,
+      8,
+      7
+    ],
+    "valenceElectrons": 7,
+    "lattice": "Trực thoi (Orthorhombic)",
+    "nucleus": {
+      "proton": 17,
+      "neutron": 18
+    }
+  },
+  "occurrence": {
+    "description": "Khí màu vàng lục ở điều kiện thường. Trong tự nhiên, Clo chủ yếu tồn tại dưới dạng hợp chất do có tính hoạt động hóa học cao.",
+    "simple": [
+      "Cl₂"
+    ],
+    "compounds": [
+      "NaCl",
+      "KCl",
+      "MgCl₂",
+      "CaCl₂",
+      "HCl",
+      "NaClO"
+    ],
+    "ores": [
+      "Nước biển",
+      "mỏ muối",
+      "khoáng vật và nước tự nhiên"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất khí màu vàng lục ở điều kiện thường.</li>\n      <li>Có mùi hắc đặc trưng.</li>\n      <li>Độc và gây kích ứng mạnh.</li>\n      <li>Tồn tại chủ yếu dưới dạng phân tử Cl₂.</li>\n      <li>Khối lượng mol của Cl₂: 70.90 g/mol.</li>\n      <li>Khối lượng riêng: khoảng 3.21 g/L ở 0 °C và 1 atm.</li>\n      <li>Nhiệt độ nóng chảy: −101.5 °C.</li>\n      <li>Nhiệt độ sôi: −34.04 °C.</li>\n      <li>Tan trong nước.</li>\n      <li>Nặng hơn không khí.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim thuộc nhóm Halogen.</li>\n      <li>Có tính Oxy hóa mạnh.</li>\n      <li>Số Oxy hóa phổ biến nhất là −1.</li>\n      <li>Phản ứng với nhiều kim loại tạo Metal chloride.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen chloride.</li>\n      <li>Phản ứng với nước tạo Hydrochloric acid và Hypochlorous acid.</li>\n      <li>Phản ứng với dung dịch kiềm.</li>\n      <li>Có thể đẩy Bromine và Iodine ra khỏi một số Halide.</li>\n      <li>Có thể tham gia phản ứng tự Oxy hóa – khử.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "H₂ + Cl₂ → 2HCl",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium",
+      "equation": "2Na + Cl₂ → 2NaCl",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Iron",
+      "equation": "2Fe + 3Cl₂ → 2FeCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Copper",
+      "equation": "Cu + Cl₂ → CuCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với nước",
+      "equation": "Cl₂ + H₂O ⇌ HCl + HClO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium hydroxide loãng, lạnh",
+      "equation": "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium hydroxide nóng, đặc",
+      "equation": "3Cl₂ + 6NaOH → 5NaCl + NaClO₃ + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Đẩy Bromine khỏi Potassium bromide",
+      "equation": "Cl₂ + 2KBr → 2KCl + Br₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Phosphorus",
+      "equation": "P₄ + 6Cl₂ → 4PCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Phosphorus",
+      "equation": "P₄ + 10Cl₂ → 4PCl₅",
+      "desc": "Khi Chlorine dư:"
+    },
+    {
+      "type": "Điều chế Chlorine",
+      "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Khử trùng nước",
+      "desc": "Chlorine được sử dụng để tiêu diệt nhiều vi sinh vật trong nước uống và nước hồ bơi."
+    },
+    {
+      "title": "Sản xuất PVC",
+      "desc": "Chlorine là nguyên liệu quan trọng để sản xuất Vinyl chloride và Polyvinyl chloride (PVC)."
+    },
+    {
+      "title": "Sản xuất Hydrochloric acid",
+      "desc": "Được sử dụng trong một số quy trình sản xuất HCl."
+    },
+    {
+      "title": "Chất tẩy trắng",
+      "desc": "Một số Chlorine compounds được sử dụng để tẩy trắng giấy, vải và các vật liệu khác."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Chlorine là nguyên liệu để sản xuất nhiều hợp chất Chlorine."
+    },
+    {
+      "title": "Dược phẩm",
+      "desc": "Một số Chlorine compounds được sử dụng trong quá trình sản xuất dược phẩm."
+    },
+    {
+      "title": "Xử lý nước thải",
+      "desc": "Chlorine được sử dụng trong một số quy trình khử trùng."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Chlorine là nguyên tố số 17, thuộc nhóm VIIA | chu kỳ 3 và là một Halogen.</li>\n  <li>Chlorine có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁵, với 7 electron hóa trị. Chlorine có tính Oxy hóa mạnh và thường nhận thêm một electron để tạo Cl⁻.</li>\n  <li>Ở điều kiện thường, Chlorine tồn tại dưới dạng phân tử Cl₂, là khí màu vàng lục có tính độc và hoạt động hóa học mạnh. Trong tự nhiên, Chlorine chủ yếu tồn tại dưới dạng Chloride, đặc biệt là Sodium chloride trong nước biển và các mỏ muối.</li>\n  <li>Chlorine có vai trò quan trọng trong khử trùng nước, sản xuất PVC, Hydrochloric acid, chất tẩy trắng và nhiều hóa chất công nghiệp.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Chlorine có thể được điều chế bằng cách cho Manganese dioxide tác dụng với Hydrochloric acid đặc:",
+        "equation": "MnO₂ + 4HCl → MnCl₂ + Cl₂↑ + 2H₂O",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Chlorine chủ yếu được sản xuất bằng điện phân dung dịch Sodium chloride.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Tại anode:",
+        "equation": "2Cl⁻ → Cl₂ + 2e⁻ <br> 2H₂O + 2e⁻ → H₂ + 2OH⁻ <br> 2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH",
+        "desc": "Tại cathode: Phương trình tổng quát:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Chloride (Cl⁻)",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Cl⁻ tác dụng với Silver nitrate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ag⁺ + Cl⁻ → AgCl↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Silver chloride.",
+      "equation": ""
+    },
+    {
+      "title": "Kết tủa AgCl tan trong Ammonia",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻"
+    }
+  ],
+  "structureType": "Trực thoi (Orthorhombic)"
+}

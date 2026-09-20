@@ -1,0 +1,194 @@
+{
+  "number": 32,
+  "symbol": "Ge",
+  "nameVi": "Germanium",
+  "nameEn": "Germanium",
+  "mass": 72.63,
+  "category": "a-kim",
+  "hasData": true,
+  "file": "elements/032_Ge.json",
+  "general": {
+    "latinName": "Germanium",
+    "englishName": "Germanium",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p²",
+    "isotope": "⁷⁰Ge, ⁷²Ge, ⁷³Ge, ⁷⁴Ge, ⁷⁶Ge",
+    "group": 14,
+    "period": 4,
+    "state": "",
+    "oxidation": "−4, +2, +4",
+    "electronegativity": 2.01,
+    "density": "khoảng 5.32 g/cm³.",
+    "meltingPoint": "khoảng 938.3 °C.",
+    "boilingPoint": "khoảng 2820 °C.",
+    "crystalStructure": "Lập phương kim cương (Diamond cubic)"
+  },
+  "history": {
+    "discoverer": "Clemens Winkler",
+    "year": 1886,
+    "discoveryLocation": "Đức",
+    "description": "Năm 1886, Clemens Winkler phát hiện Germanium khi phân tích khoáng vật Argyrodite. Sự tồn tại của nguyên tố này trước đó đã được Dmitri Mendeleev dự đoán và gọi là Eka-silicon."
+  },
+  "structure": {
+    "protons": 32,
+    "neutrons": 38,
+    "electrons": 32,
+    "electronShells": [
+      2,
+      8,
+      18,
+      4
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      4
+    ],
+    "valenceElectrons": 4,
+    "lattice": "Lập phương kim cương (Diamond cubic)",
+    "nucleus": {
+      "proton": 32,
+      "neutron": 38
+    }
+  },
+  "occurrence": {
+    "description": "Germanium là chất rắn, có màu trắng xám và ánh kim.",
+    "simple": [
+      "Ge"
+    ],
+    "compounds": [
+      "GeO₂",
+      "GeCl₄",
+      "GeS₂",
+      "GeH₄",
+      "GeBr₄"
+    ],
+    "ores": [
+      "Argyrodite",
+      "Germanite",
+      "Renierite và một số quặng Zinc",
+      "Copper"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Có màu trắng xám và ánh kim.</li>\n      <li>Cứng nhưng giòn.</li>\n      <li>Khối lượng riêng: khoảng 5.32 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 938.3 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2820 °C.</li>\n      <li>Có tính chất bán dẫn.</li>\n      <li>Độ dẫn điện tăng khi nhiệt độ tăng.</li>\n      <li>Có cấu trúc tinh thể tương tự Diamond và Silicon.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến là +2 và +4.</li>\n      <li>+4 là trạng thái Oxy hóa phổ biến nhất.</li>\n      <li>Tương đối bền ở nhiệt độ thường.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Germanium dioxide.</li>\n      <li>Phản ứng với Halogen tạo Germanium halide.</li>\n      <li>Có thể tạo các hợp chất với Hydrogen.</li>\n      <li>Germanium dioxide (GeO₂) có tính chất tương tự Silicon dioxide (SiO₂).</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Ge + O₂ → GeO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Ge + 2Cl₂ → GeCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Bromine",
+      "equation": "Ge + 2Br₂ → GeBr₄",
+      "desc": ""
+    },
+    {
+      "type": "Khử Germanium dioxide",
+      "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Germanium hydroxide",
+      "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓",
+      "desc": ""
+    },
+    {
+      "type": "Germanium dioxide tác dụng với kiềm",
+      "equation": "GeO₂ + 2NaOH → Na₂GeO₃ + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Germanium tetrachloride",
+      "equation": "Ge + 2Cl₂ → GeCl₄",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Chất bán dẫn",
+      "desc": "Germanium được sử dụng trong một số linh kiện bán dẫn và nghiên cứu vật liệu điện tử."
+    },
+    {
+      "title": "Sợi quang",
+      "desc": "Germanium dioxide được sử dụng để điều chỉnh chiết suất của thủy tinh trong sợi quang."
+    },
+    {
+      "title": "Quang học hồng ngoại",
+      "desc": "Germanium có khả năng truyền bức xạ hồng ngoại nên được sử dụng trong một số thấu kính và thiết bị quang học."
+    },
+    {
+      "title": "Transistor",
+      "desc": "Germanium từng đóng vai trò quan trọng trong sự phát triển ban đầu của transistor."
+    },
+    {
+      "title": "Solar cells",
+      "desc": "Một số hợp chất Germanium được sử dụng trong các tế bào quang điện hiệu suất cao."
+    },
+    {
+      "title": "Vật liệu điện tử",
+      "desc": "Germanium được sử dụng trong nghiên cứu các vật liệu bán dẫn và hợp chất bán dẫn."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Germanium là nguyên tố số 32, thuộc nhóm IVA | chu kỳ 4 và là một á kim.</li>\n  <li>Germanium có cấu hình electron [Ar] 3d¹⁰ 4s² 4p², với các số Oxy hóa phổ biến là +2 và +4.</li>\n  <li>Germanium có tính chất trung gian giữa kim loại và phi kim, đặc biệt nổi bật với tính bán dẫn. Trong tự nhiên, Germanium thường được tìm thấy với hàm lượng nhỏ trong các quặng Zinc và một số loại than.</li>\n  <li>Germanium có vai trò quan trọng trong công nghệ bán dẫn, sợi quang, quang học hồng ngoại và các thiết bị điện tử.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Germanium bằng cách khử Germanium dioxide bằng Hydrogen ở nhiệt độ cao:",
+        "equation": "GeO₂ + 2H₂ → Ge + 2H₂O",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Germanium thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Zinc và một số loại than.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Germanium compounds được chuyển thành Germanium dioxide:",
+        "equation": "GeS₂ + 2O₂ → GeO₂ + 2SO₂ <br> GeO₂ + 2H₂ → Ge + 2H₂O",
+        "desc": "Sau đó GeO₂ được khử bằng Hydrogen: Germanium sau đó được tinh chế để đạt độ tinh khiết cao, đặc biệt cho ngành bán dẫn."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Ge⁴⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Ge⁴⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ge⁴⁺ + 4OH⁻ → Ge(OH)₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Germanium hydroxide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ge(OH)₄ có thể tan trong kiềm mạnh do tính lưỡng tính.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương kim cương (Diamond cubic)"
+}

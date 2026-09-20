@@ -1,0 +1,199 @@
+{
+  "number": 27,
+  "symbol": "Co",
+  "nameVi": "Cobalt",
+  "nameEn": "Cobalt",
+  "mass": 58.933,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/027_Co.json",
+  "general": {
+    "latinName": "Cobaltum",
+    "englishName": "Cobalt",
+    "electronConfig": "[Ar] 3d⁷ 4s²",
+    "isotope": "⁵⁹Co",
+    "group": 8,
+    "period": 4,
+    "state": "",
+    "oxidation": "+2, +3",
+    "electronegativity": 1.88,
+    "density": "khoảng 8.90 g/cm³.",
+    "meltingPoint": "khoảng 1495 °C.",
+    "boilingPoint": "khoảng 2927 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Georg Brandt",
+    "year": 1735,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1735, Georg Brandt đã chứng minh rằng một chất có trong các quặng Cobalt là một nguyên tố kim loại mới, khác với Bismuth. Ông nghiên cứu Cobalt vì các hợp chất của nó đã được sử dụng từ trước để tạo màu xanh cho thủy tinh và đồ gốm."
+  },
+  "structure": {
+    "protons": 27,
+    "neutrons": 32,
+    "electrons": 27,
+    "electronShells": [
+      2,
+      8,
+      15,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      15,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 27,
+      "neutron": 32
+    }
+  },
+  "occurrence": {
+    "description": "Cobalt là kim loại rắn, màu trắng bạc hơi xanh ở điều kiện thường.",
+    "simple": [
+      "Co"
+    ],
+    "compounds": [
+      "CoO",
+      "Co₃O₄",
+      "CoCl₂",
+      "CoSO₄",
+      "Co(NO₃)₂"
+    ],
+    "ores": [
+      "Cobaltite (CoAsS)",
+      "Erythrite (Co₃(AsO₄)₂·8H₂O)",
+      "Skutterudite và các quặng Nickel",
+      "Copper"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu trắng bạc hơi xanh.</li>\n      <li>Cứng và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 8.90 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1495 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2927 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có tính sắt từ ở nhiệt độ thường.</li>\n      <li>Có khả năng chống mài mòn tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính chất tương tự Nickel và Iron.</li>\n      <li>Số Oxy hóa phổ biến: +2 và +3.</li>\n      <li>Co²⁺ là trạng thái Oxy hóa phổ biến.</li>\n      <li>Một số Co³⁺ compounds có tính Oxy hóa mạnh.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Cobalt halide.</li>\n      <li>Phản ứng với acid tạo muối Cobalt và Hydrogen.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "3Co + 2O₂ → Co₃O₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Co + Cl₂ → CoCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Co + S → CoS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Co + 2HCl → CoCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Cobalt(II) hydroxide",
+      "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Cobalt(II) hydroxide tác dụng với acid",
+      "equation": "Co(OH)₂ + 2HCl → CoCl₂ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Khử Cobalt(II) oxide bằng Hydrogen",
+      "equation": "CoO + H₂ → Co + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Oxy hóa Cobalt(II)",
+      "equation": "4Co(OH)₂ + O₂ + 2H₂O → 4Co(OH)₃",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Pin Lithium-ion",
+      "desc": "Cobalt compounds được sử dụng trong một số loại cathode của pin Lithium-ion."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Cobalt được sử dụng để tạo các hợp kim có khả năng chịu nhiệt, chịu mài mòn và chịu ăn mòn cao."
+    },
+    {
+      "title": "Nam châm",
+      "desc": "Một số Cobalt alloys được sử dụng để chế tạo nam châm vĩnh cửu có tính từ mạnh."
+    },
+    {
+      "title": "Pigment",
+      "desc": "Cobalt compounds được sử dụng để tạo các pigment màu xanh lam trong thủy tinh, gốm và sơn."
+    },
+    {
+      "title": "Hàng không",
+      "desc": "Một số Cobalt-based superalloys được sử dụng trong các bộ phận chịu nhiệt cao."
+    },
+    {
+      "title": "Y học",
+      "desc": "⁶⁰Co là nguồn bức xạ được sử dụng trong một số thiết bị xạ trị và khử trùng."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Cobalt là nguyên tố số 27, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Cobalt có cấu hình electron [Ar] 3d⁷ 4s², trong đó +2 và +3 là những số Oxy hóa quan trọng.</li>\n  <li>Cobalt có màu trắng bạc hơi xanh, cứng, bền và có tính sắt từ. Trong tự nhiên, Cobalt thường không tồn tại thành các mỏ kim loại riêng biệt mà thường được thu hồi cùng với Copper và Nickel.</li>\n  <li>Cobalt có vai trò quan trọng trong sản xuất pin Lithium-ion, hợp kim chịu nhiệt, nam châm, pigment và các ứng dụng liên quan đến đồng vị phóng xạ ⁶⁰Co.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Cobalt có thể được điều chế bằng cách khử Cobalt(II) oxide bằng Hydrogen ở nhiệt độ cao:",
+        "equation": "CoO + H₂ → Co + H₂O",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Cobalt thường được thu hồi như sản phẩm phụ trong quá trình xử lý quặng Copper và Nickel.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Cobalt compounds được chuyển thành Cobalt oxide rồi khử bằng Carbon hoặc Hydrogen để thu Cobalt:",
+        "equation": "CoO + C → Co + CO <br> CoO + H₂ → Co + H₂O",
+        "desc": "Hoặc:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Co²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Co²⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Co²⁺ + 2OH⁻ → Co(OH)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa xanh lam hoặc xanh tím Cobalt(II) hydroxide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong dung dịch, Co²⁺ thường có màu hồng.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

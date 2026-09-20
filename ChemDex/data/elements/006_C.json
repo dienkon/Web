@@ -5,116 +5,134 @@
   "nameEn": "Carbon",
   "mass": 12.011,
   "category": "phi-kim",
-  "themeColor": "#34495E",
   "hasData": true,
+  "file": "elements/006_C.json",
   "general": {
     "latinName": "Carboneum",
     "englishName": "Carbon",
+    "electronConfig": "1s² 2s² 2p²",
     "isotope": "¹²C, ¹³C, ¹⁴C",
     "group": 14,
     "period": 2,
+    "state": "",
     "oxidation": "−4, −3, −2, −1, 0, +1, +2, +3, +4",
     "electronegativity": 2.55,
-    "electronConfig": "1s² 2s² 2p²",
-    "density": "Graphite: ~2.27 g/cm³ | Diamond: ~3.51 g/cm³",
-    "meltingPoint": "Thăng hoa rất cao",
-    "boilingPoint": ""
-  },
-  "structure": {
-    "electrons": 6,
-    "protons": 6,
-    "neutrons": 6,
-    "latticeType": "Lục phương (Hexagonal) đối với than chì (Graphite) / Lập phương tâm mặt (FCC) đối với kim cương",
-    "shells": [2, 4]
-  },
-  "naturalState": {
-    "description": "Carbon tồn tại trong tự nhiên dưới nhiều dạng khác nhau. Carbon có thể tồn tại ở dạng đơn chất như kim cương, graphite và một số dạng thù hình khác; đồng thời có mặt rất phổ biến trong các hợp chất vô cơ và hữu cơ.",
-    "simple": ["C"],
-    "compounds": [
-      "CO₂", "CO", "CaCO₃", "CH₄", "C₂H₅OH", "C₆H₁₂O₆"
-    ],
-    "minerals": ["Than đá", "Dầu mỏ", "Khí tự nhiên", "Đá carbonate", "Khí quyển", "Sinh vật"]
+    "density": "",
+    "meltingPoint": "",
+    "boilingPoint": "",
+    "crystalStructure": "Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương"
   },
   "history": {
-    "discoverers": [
-      {"name": "Không xác định một cá nhân cụ thể"}
-    ],
+    "discoverer": "Không xác định một cá nhân cụ thể",
     "year": "Thời cổ đại",
     "discoveryLocation": "Nhiều nền văn minh cổ đại",
     "description": "Carbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide."
   },
-  "physical": "<p><strong>Tính chất vật lý của Carbon (C):</strong></p><ul><li>Là chất rắn ở điều kiện thường.</li><li>Có nhiều dạng thù hình.</li><li>Kim cương không màu và cực kỳ cứng.</li><li>Graphite màu đen, mềm và có khả năng dẫn điện.</li><li>Khối lượng riêng của graphite: khoảng 2.27 g/cm³.</li><li>Khối lượng riêng của kim cương: khoảng 3.51 g/cm³.</li><li>Carbon có nhiệt độ thăng hoa rất cao.</li><li>Có khả năng tạo cấu trúc liên kết cộng hóa trị rất đa dạng.</li><li>Có thể tạo các cấu trúc như graphite, kim cương, graphene và fullerene.</li></ul>",
-  "chemical": "<p><strong>Tính chất hóa học của Carbon (C):</strong></p><ul><li>Là phi kim.</li><li>Có khả năng tạo liên kết cộng hóa trị mạnh.</li><li>Có khả năng liên kết với chính nó tạo các chuỗi và cấu trúc phức tạp.</li><li>Có số Oxy hóa phổ biến từ −4 đến +4.</li><li>Carbon cháy trong Oxygen tạo Carbon dioxide.</li><li>Khi Oxygen không đủ, Carbon có thể tạo Carbon monoxide.</li><li>Ở nhiệt độ cao, Carbon có thể khử một số oxide kim loại.</li><li>Phản ứng với Hydrogen tạo Hydrocarbon.</li><li>Phản ứng với một số kim loại tạo Carbide.</li></ul>",
-  "preparation": {
-    "industry": [
-      {
-        "title": "Sản xuất Carbon vô định hình",
-        "desc": "Có thể thu được từ quá trình nhiệt phân các chất hữu cơ trong điều kiện thiếu Oxygen.",
-        "equation": ""
-      },
-      {
-        "title": "Sản xuất than cốc",
-        "desc": "Than đá được nung ở nhiệt độ cao trong điều kiện không có Oxygen để loại bỏ các thành phần dễ bay hơi.",
-        "equation": ""
-      },
-      {
-        "title": "Sản xuất Carbon đen (Carbon black)",
-        "desc": "Hydrocarbon được phân hủy hoặc đốt cháy không hoàn toàn để tạo Carbon dạng hạt mịn.",
-        "equation": ""
-      }
+  "structure": {
+    "protons": 6,
+    "neutrons": 6,
+    "electrons": 6,
+    "electronShells": [
+      2,
+      4
     ],
-    "lab": [
-      {
-        "title": "Nhiệt phân hợp chất hữu cơ",
-        "desc": "Carbon có thể được tạo ra bằng cách nhiệt phân các hợp chất hữu cơ trong điều kiện thiếu Oxygen.",
-        "equation": "C₁₂H₂₂O₁₁ → 12C + 11H₂O"
-      }
+    "shells": [
+      2,
+      4
+    ],
+    "valenceElectrons": 4,
+    "lattice": "Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương",
+    "nucleus": {
+      "proton": 6,
+      "neutron": 6
+    }
+  },
+  "occurrence": {
+    "description": "Carbon tồn tại trong tự nhiên dưới nhiều dạng khác nhau. Carbon có thể tồn tại ở dạng đơn chất như kim cương, graphite và một số dạng thù hình khác; đồng thời có mặt rất phổ biến trong các hợp chất vô cơ và hữu cơ.",
+    "simple": [
+      "C"
+    ],
+    "compounds": [
+      "CO₂",
+      "CO",
+      "CaCO₃",
+      "CH₄",
+      "C₂H₅OH",
+      "C₆H₁₂O₆"
+    ],
+    "ores": [
+      "Than đá",
+      "dầu mỏ",
+      "khí tự nhiên",
+      "đá carbonate",
+      "khí quyển",
+      "sinh vật và các vật chất hữu cơ"
     ]
   },
-  "recognition": {
-    "tests": [
-      {
-        "title": "Đốt cháy",
-        "result": "Carbon cháy hoàn toàn trong Oxygen tạo Carbon dioxide (C + O₂ → CO₂)."
-      },
-      {
-        "title": "Thử với nước vôi trong",
-        "result": "Khí Carbon dioxide tạo thành có thể được xác nhận bằng nước vôi trong (CO₂ + Ca(OH)₂ → CaCO₃↓ + H₂O). Hiện tượng: Nước vôi trong chuyển thành vẩn đục do tạo kết tủa Calcium carbonate."
-      }
+  "naturalState": {
+    "description": "Carbon tồn tại trong tự nhiên dưới nhiều dạng khác nhau. Carbon có thể tồn tại ở dạng đơn chất như kim cương, graphite và một số dạng thù hình khác; đồng thời có mặt rất phổ biến trong các hợp chất vô cơ và hữu cơ.",
+    "simple": [
+      "C"
+    ],
+    "compounds": [
+      "CO₂",
+      "CO",
+      "CaCO₃",
+      "CH₄",
+      "C₂H₅OH",
+      "C₆H₁₂O₆"
+    ],
+    "minerals": [
+      "Than đá",
+      "Dầu mỏ",
+      "Khí tự nhiên",
+      "Đá carbonate",
+      "Khí quyển",
+      "Sinh vật"
     ]
   },
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn ở điều kiện thường.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Kim cương không màu và cực kỳ cứng.</li>\n      <li>Graphite màu đen, mềm và có khả năng dẫn điện.</li>\n      <li>Khối lượng riêng của graphite: khoảng 2.27 g/cm³.</li>\n      <li>Khối lượng riêng của kim cương: khoảng 3.51 g/cm³.</li>\n      <li>Carbon có nhiệt độ thăng hoa rất cao.</li>\n      <li>Có khả năng tạo cấu trúc liên kết cộng hóa trị rất đa dạng.</li>\n      <li>Có thể tạo các cấu trúc như graphite, kim cương, graphene và fullerene.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim.</li>\n      <li>Có khả năng tạo liên kết cộng hóa trị mạnh.</li>\n      <li>Có khả năng liên kết với chính nó tạo các chuỗi và cấu trúc phức tạp.</li>\n      <li>Có số Oxy hóa phổ biến từ −4 đến +4.</li>\n      <li>Carbon cháy trong Oxygen tạo Carbon dioxide.</li>\n      <li>Khi Oxygen không đủ, Carbon có thể tạo Carbon monoxide.</li>\n      <li>Ở nhiệt độ cao, Carbon có thể khử một số oxide kim loại.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrocarbon.</li>\n      <li>Phản ứng với một số kim loại tạo Carbide.</li>\n    </ul>\n  ",
   "reactions": [
     {
-      "title": "Cháy hoàn toàn trong Oxygen",
-      "equation": "C + O₂ → CO₂"
+      "type": "Cháy hoàn toàn trong Oxygen",
+      "equation": "C + O2 → CO2",
+      "desc": ""
     },
     {
-      "title": "Cháy không hoàn toàn",
-      "equation": "2C + O₂ → 2CO"
+      "type": "Cháy không hoàn toàn",
+      "equation": "2C + O2 → 2CO",
+      "desc": ""
     },
     {
-      "title": "Tác dụng với Carbon dioxide",
-      "equation": "C + CO₂ → 2CO"
+      "type": "Tác dụng với Carbon dioxide",
+      "equation": "C + CO2 → 2CO",
+      "desc": "Ở nhiệt độ cao:"
     },
     {
-      "title": "Khử Copper(II) oxide",
-      "equation": "2CuO + C → 2Cu + CO₂"
+      "type": "Khử Copper(II) oxide",
+      "equation": "2CuO + C → 2Cu + CO2",
+      "desc": ""
     },
     {
-      "title": "Khử Iron(III) oxide",
-      "equation": "2Fe₂O₃ + 3C → 4Fe + 3CO₂"
+      "type": "Khử Iron(III) oxide",
+      "equation": "2Fe2O3 + 3C → 4Fe + 3CO2",
+      "desc": ""
     },
     {
-      "title": "Tạo Methane",
-      "equation": "C + 2H₂ → CH₄"
+      "type": "Tạo Methane",
+      "equation": "C + 2H2 → CH4",
+      "desc": ""
     },
     {
-      "title": "Tạo Calcium carbide",
-      "equation": "CaO + 3C → CaC₂ + CO"
+      "type": "Tạo Calcium carbide",
+      "equation": "CaO + 3C → CaC2 + CO",
+      "desc": ""
     },
     {
-      "title": "Tạo Silicon carbide",
-      "equation": "SiO₂ + 3C → SiC + 2CO"
+      "type": "Tạo Silicon carbide",
+      "equation": "SiO2 + 3C → SiC + 2CO",
+      "desc": ""
     }
   ],
   "applications": [
@@ -151,5 +169,74 @@
       "desc": "Graphene, Carbon nanotube và fullerene được nghiên cứu và ứng dụng trong điện tử, vật liệu và công nghệ nano."
     }
   ],
-  "notes": "<p><strong>Tổng quan về Carbon:</strong> Carbon là nguyên tố số 6, thuộc nhóm IVA | chu kỳ 2 và là một trong những nguyên tố quan trọng nhất đối với sự sống. Carbon có khả năng tạo liên kết cộng hóa trị rất đa dạng và có thể liên kết với chính nó tạo thành các chuỗi, vòng và cấu trúc phức tạp. Đây là cơ sở của hóa học hữu cơ. Carbon có nhiều dạng thù hình với tính chất rất khác nhau, tiêu biểu như kim cương, graphite, graphene và fullerene. Carbon xuất hiện trong khí quyển, khoáng vật, nhiên liệu hóa thạch và mọi sinh vật sống. Các hợp chất của Carbon có vai trò quan trọng trong sinh học, công nghiệp, năng lượng, luyện kim và công nghệ vật liệu.</p>"
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Carbon là nguyên tố số 6, thuộc nhóm IVA | chu kỳ 2 và là một trong những nguyên tố quan trọng nhất đối với sự sống.</li>\n  <li>Carbon có khả năng tạo liên kết cộng hóa trị rất đa dạng và có thể liên kết với chính nó tạo thành các chuỗi, vòng và cấu trúc phức tạp. Đây là cơ sở của hóa học hữu cơ.</li>\n  <li>Carbon có nhiều dạng thù hình với tính chất rất khác nhau, tiêu biểu như kim cương, graphite, graphene và fullerene.</li>\n  <li>Carbon xuất hiện trong khí quyển, khoáng vật, nhiên liệu hóa thạch và mọi sinh vật sống. Các hợp chất của Carbon có vai trò quan trọng trong sinh học, công nghiệp, năng lượng, luyện kim và công nghệ vật liệu.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Carbon có thể được tạo ra bằng cách nhiệt phân các hợp chất hữu cơ trong điều kiện thiếu Oxygen.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Ví dụ:",
+        "equation": "C12H22O11 → 12C + 11H2O",
+        "desc": "Phản ứng này tạo Carbon vô định hình cùng các sản phẩm khác tùy điều kiện."
+      }
+    ],
+    "industry": [
+      {
+        "title": "Carbon không được điều chế theo một phương pháp duy nhất vì nó tồn tại tự nhiên dưới nhiều dạng khác nhau.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sản xuất Carbon vô định hình: Có thể thu được từ quá trình nhiệt phân các chất hữu cơ trong điều kiện thiếu Oxygen.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sản xuất than cốc: Than đá được nung ở nhiệt độ cao trong điều kiện không có Oxygen để loại bỏ các thành phần dễ bay hơi.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sản xuất Carbon đen (Carbon black): Hydrocarbon được phân hủy hoặc đốt cháy không hoàn toàn để tạo Carbon dạng hạt mịn.",
+        "equation": "",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Đốt cháy",
+      "reagent": "",
+      "result": "Carbon cháy hoàn toàn trong Oxygen tạo Carbon dioxide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "C + O2 → CO2"
+    },
+    {
+      "title": "Khí Carbon dioxide tạo thành có thể được xác nhận bằng nước vôi trong",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "CO2 + Ca(OH)2 → CaCO3↓ + H2O"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Nước vôi trong chuyển thành vẩn đục do tạo kết tủa Calcium carbonate.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal) đối với than chì (Graphite)/Lập phương tâm mặt (FCC) đối với kim cương"
 }

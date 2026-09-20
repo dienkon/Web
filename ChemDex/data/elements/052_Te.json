@@ -1,0 +1,197 @@
+{
+  "number": 52,
+  "symbol": "Te",
+  "nameVi": "Tellurium",
+  "nameEn": "Tellurium",
+  "mass": 127.6,
+  "category": "a-kim",
+  "hasData": true,
+  "file": "elements/052_Te.json",
+  "general": {
+    "latinName": "Tellurium",
+    "englishName": "Tellurium",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p⁴",
+    "isotope": "¹²⁰Te, ¹²²Te, ¹²³Te, ¹²⁴Te, ¹²⁵Te, ¹²⁶Te, ¹²⁸Te, ¹³⁰Te",
+    "group": 16,
+    "period": 5,
+    "state": "",
+    "oxidation": "−2, +2, +4, +6",
+    "electronegativity": 2.1,
+    "density": "khoảng 6.24 g/cm³.",
+    "meltingPoint": "khoảng 449.5 °C.",
+    "boilingPoint": "khoảng 988 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Franz-Joseph Müller von Reichenstein",
+    "year": 1782,
+    "discoveryLocation": "Transylvania",
+    "description": "Năm 1782, Franz-Joseph Müller von Reichenstein phát hiện một nguyên tố mới khi nghiên cứu quặng vàng. Sau đó, Martin Heinrich Klaproth xác nhận nguyên tố này vào năm 1798 và đặt tên là Tellurium, bắt nguồn từ tiếng Latin Tellus, nghĩa là “Trái Đất”."
+  },
+  "structure": {
+    "protons": 52,
+    "neutrons": 76,
+    "electrons": 52,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      6
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      6
+    ],
+    "valenceElectrons": 6,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 52,
+      "neutron": 76
+    }
+  },
+  "occurrence": {
+    "description": "Tellurium là chất rắn, màu trắng bạc, ánh kim và khá giòn.",
+    "simple": [
+      "Te"
+    ],
+    "compounds": [
+      "TeO₂",
+      "TeO₃",
+      "H₂Te",
+      "TeCl₄",
+      "Na₂TeO₃",
+      "CdTe"
+    ],
+    "ores": [
+      "Thường tồn tại dưới dạng hợp chất trong các quặng Copper",
+      "Lead",
+      "Gold và Silver",
+      "đôi khi tồn tại ở dạng Tellurium tự sinh"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là á kim.</li>\n      <li>Màu trắng bạc, ánh kim.</li>\n      <li>Giòn và dễ vỡ.</li>\n      <li>Khối lượng riêng: khoảng 6.24 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 449.5 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 988 °C.</li>\n      <li>Có tính chất bán dẫn.</li>\n      <li>Độ dẫn điện tăng khi được chiếu sáng.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có các số Oxy hóa phổ biến −2, +4 và +6.</li>\n      <li>Phản ứng với Oxygen tạo Tellurium oxide.</li>\n      <li>Phản ứng với Halogen tạo Tellurium halide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen telluride.</li>\n      <li>Có thể tạo Telluride với nhiều kim loại.</li>\n      <li>Một số hợp chất Tellurium có tính độc.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Te + O₂ → TeO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Te + 2Cl₂ → TeCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "H₂ + Te → H₂Te",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium",
+      "equation": "2Na + Te → Na₂Te",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Lead telluride",
+      "equation": "Pb²⁺ + Te²⁻ → PbTe↓",
+      "desc": ""
+    },
+    {
+      "type": "Khử Tellurium dioxide",
+      "equation": "TeO₂ + 2H₂ → Te + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Tellurium dioxide",
+      "equation": "Te + O₂ → TeO₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Pin mặt trời",
+      "desc": "Cadmium telluride (CdTe) được sử dụng trong pin mặt trời màng mỏng."
+    },
+    {
+      "title": "Bán dẫn",
+      "desc": "Tellurium và các hợp chất của nó được sử dụng trong một số vật liệu bán dẫn."
+    },
+    {
+      "title": "Nhiệt điện",
+      "desc": "Một số Telluride như Bismuth telluride (Bi₂Te₃) có tính chất nhiệt điện tốt, được sử dụng trong các thiết bị chuyển đổi nhiệt–điện."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Tellurium được thêm vào một số hợp kim Copper và Lead để cải thiện khả năng gia công."
+    },
+    {
+      "title": "Cao su",
+      "desc": "Một số hợp chất Tellurium được sử dụng trong quá trình xử lý và lưu hóa cao su."
+    },
+    {
+      "title": "Kính",
+      "desc": "Tellurium compounds được sử dụng trong một số loại kính đặc biệt."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tellurium là nguyên tố số 52, thuộc nhóm VIA | chu kỳ 5 và là một á kim.</li>\n  <li>Tellurium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p⁴, với các số Oxy hóa phổ biến là −2, +4 và +6.</li>\n  <li>Tellurium có màu trắng bạc, ánh kim, khá giòn và có tính chất bán dẫn. Đặc biệt, độ dẫn điện của Tellurium có thể thay đổi dưới tác động của ánh sáng.</li>\n  <li>Trong tự nhiên, Tellurium thường được thu hồi như sản phẩm phụ của quá trình tinh luyện Copper. Tellurium và các hợp chất của nó có vai trò trong pin mặt trời, vật liệu bán dẫn, thiết bị nhiệt điện, hợp kim và kính đặc biệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Tellurium thường được thu hồi như sản phẩm phụ trong quá trình tinh luyện Copper, đặc biệt từ bùn anode tạo ra trong quá trình điện phân.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương pháp điều chế Tellurium từ Tellurium dioxide bằng Hydrogen:",
+        "equation": "TeO₂ + 2H₂ → Te + 2H₂O",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Te²⁻",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ion Telluride có thể phản ứng với ion kim loại để tạo Telluride không tan.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Ví dụ với Lead",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Pb²⁺ + Te²⁻ → PbTe↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa đen Lead telluride.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong thực tế, Tellurium thường được xác định bằng các phương pháp phân tích chuyên dụng như quang phổ.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

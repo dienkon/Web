@@ -1,0 +1,144 @@
+{
+  "number": 36,
+  "symbol": "Kr",
+  "nameVi": "Krypton",
+  "nameEn": "Krypton",
+  "mass": 83.798,
+  "category": "khi-hiem",
+  "hasData": true,
+  "file": "elements/036_Kr.json",
+  "general": {
+    "latinName": "Krypton",
+    "englishName": "Krypton",
+    "electronConfig": "[Ar] 3d¹⁰ 4s² 4p⁶",
+    "isotope": "⁷⁸Kr, ⁸⁰Kr, ⁸²Kr, ⁸³Kr, ⁸⁴Kr, ⁸⁶Kr",
+    "group": 18,
+    "period": 4,
+    "state": "",
+    "oxidation": "0, +2",
+    "electronegativity": 3.0,
+    "density": "khoảng 3.75 g/L.",
+    "meltingPoint": "khoảng −157.4 °C.",
+    "boilingPoint": "khoảng −153.4 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "William Ramsay và Morris Travers",
+    "year": 1898,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1898, William Ramsay và Morris Travers phát hiện Krypton khi nghiên cứu phần khí còn lại sau khi làm bay hơi các thành phần chính của không khí lỏng. Tên Krypton bắt nguồn từ tiếng Hy Lạp kryptos, nghĩa là “ẩn giấu”."
+  },
+  "structure": {
+    "protons": 36,
+    "neutrons": 48,
+    "electrons": 36,
+    "electronShells": [
+      2,
+      8,
+      18,
+      8
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      8
+    ],
+    "valenceElectrons": 8,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 36,
+      "neutron": 48
+    }
+  },
+  "occurrence": {
+    "description": "Krypton là khí không màu, không mùi, rất ít phản ứng hóa học ở điều kiện thường.",
+    "simple": [
+      "Kr"
+    ],
+    "compounds": [
+      "KrF₂ và một số hợp chất Krypton khác được tạo ra trong điều kiện đặc biệt"
+    ],
+    "ores": [
+      "Khí quyển Trái Đất với hàm lượng rất nhỏ"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là khí hiếm thuộc nhóm VIIIA.</li>\n      <li>Không màu, không mùi.</li>\n      <li>Khối lượng riêng: khoảng 3.75 g/L.</li>\n      <li>Nhiệt độ nóng chảy: khoảng −157.4 °C.</li>\n      <li>Nhiệt độ sôi: khoảng −153.4 °C.</li>\n      <li>Tồn tại dưới dạng nguyên tử đơn Kr.</li>\n      <li>Phát ra ánh sáng đặc trưng khi bị kích thích bằng điện.</li>\n      <li>Rất ít tan trong nước.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có lớp electron ngoài cùng bão hòa.</li>\n      <li>Rất trơ về mặt hóa học.</li>\n      <li>Số Oxy hóa phổ biến nhất là 0.</li>\n      <li>Có thể tạo một số hợp chất trong điều kiện đặc biệt.</li>\n      <li>Krypton difluoride (KrF₂) là hợp chất Krypton nổi bật nhất.</li>\n      <li>Có thể tạo một số species chứa Krypton trong điều kiện nghiên cứu đặc biệt.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tạo Krypton difluoride",
+      "equation": "Kr + F₂ → KrF₂",
+      "desc": ""
+    },
+    {
+      "type": "Phân hủy Krypton difluoride",
+      "equation": "KrF₂ → Kr + F₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Đèn chiếu sáng",
+      "desc": "Krypton được sử dụng trong một số loại đèn và nguồn sáng đặc biệt."
+    },
+    {
+      "title": "Laser",
+      "desc": "Krypton được sử dụng trong một số hệ thống laser, đặc biệt là Krypton ion laser."
+    },
+    {
+      "title": "Đèn flash",
+      "desc": "Krypton có thể được sử dụng trong một số loại đèn flash và đèn phóng điện."
+    },
+    {
+      "title": "Cách nhiệt",
+      "desc": "Krypton được sử dụng làm khí trơ trong một số loại cửa sổ kính cách nhiệt."
+    },
+    {
+      "title": "Nghiên cứu khoa học",
+      "desc": "Krypton được sử dụng trong nghiên cứu vật lý, hóa học và quang phổ."
+    },
+    {
+      "title": "Định tuổi vật liệu",
+      "desc": "Một số đồng vị Krypton được sử dụng trong nghiên cứu địa chất và môi trường."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Krypton là nguyên tố số 36, thuộc nhóm VIIIA | chu kỳ 4 và là một khí hiếm.</li>\n  <li>Krypton có cấu hình electron [Ar] 3d¹⁰ 4s² 4p⁶, với lớp electron ngoài cùng đã bão hòa nên có độ hoạt động hóa học rất thấp.</li>\n  <li>Ở điều kiện thường, Krypton tồn tại dưới dạng khí đơn nguyên tử, không màu và không mùi. Trong tự nhiên, Krypton chỉ chiếm một lượng rất nhỏ trong khí quyển.</li>\n  <li>Krypton chủ yếu được thu hồi bằng cách chưng cất phân đoạn không khí lỏng. Mặc dù rất trơ, Krypton vẫn có thể tạo một số hợp chất, tiêu biểu là Krypton difluoride (KrF₂).</li>\n  <li>Krypton có ứng dụng trong chiếu sáng, laser, kính cách nhiệt và nghiên cứu khoa học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Krypton không được điều chế bằng phản ứng hóa học thông thường mà chủ yếu được tách từ không khí lỏng.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trong quá trình chưng cất phân đoạn không khí lỏng, Krypton được thu hồi cùng với các khí hiếm khác và tiếp tục được tinh chế.",
+        "equation": "",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Krypton có thể được nhận biết dựa trên phổ phát xạ đặc trưng khi bị kích thích bằng điện.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Krypton phát ra ánh sáng với các vạch phổ đặc trưng.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Do Krypton là khí hiếm và có nồng độ rất thấp trong không khí, việc nhận biết chính xác thường cần thiết bị phân tích chuyên dụng.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

@@ -1,0 +1,192 @@
+{
+  "number": 22,
+  "symbol": "Ti",
+  "nameVi": "Titanium",
+  "nameEn": "Titanium",
+  "mass": 47.867,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/022_Ti.json",
+  "general": {
+    "latinName": "Titanium",
+    "englishName": "Titanium",
+    "electronConfig": "[Ar] 3d² 4s²",
+    "isotope": "⁴⁶Ti, ⁴⁷Ti, ⁴⁸Ti, ⁴⁹Ti, ⁵⁰Ti",
+    "group": 4,
+    "period": 4,
+    "state": "",
+    "oxidation": "+2, +3, +4",
+    "electronegativity": 1.54,
+    "density": "khoảng 4.506 g/cm³.",
+    "meltingPoint": "khoảng 1668 °C.",
+    "boilingPoint": "khoảng 3287 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "William Gregor",
+    "year": 1791,
+    "discoveryLocation": "Anh",
+    "description": "Năm 1791, William Gregor phát hiện một oxide mới trong khoáng vật ilmenite và nhận ra nó chứa một nguyên tố chưa được biết đến. Năm 1795, Martin Heinrich Klaproth phát hiện lại nguyên tố này trong rutile và đặt tên là Titanium, theo các Titan trong thần thoại Hy Lạp."
+  },
+  "structure": {
+    "protons": 22,
+    "neutrons": 26,
+    "electrons": 22,
+    "electronShells": [
+      2,
+      8,
+      10,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      10,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 22,
+      "neutron": 26
+    }
+  },
+  "occurrence": {
+    "description": "Titanium là kim loại rắn, màu xám bạc ở điều kiện thường. Titanium không tồn tại tự do phổ biến trong tự nhiên mà chủ yếu tồn tại trong các khoáng vật.",
+    "simple": [
+      "Ti"
+    ],
+    "compounds": [
+      "TiO₂",
+      "TiCl₄",
+      "FeTiO₃",
+      "CaTiO₃",
+      "TiC"
+    ],
+    "ores": [
+      "Rutile",
+      "Ilmenite",
+      "Titanite và một số khoáng vật khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu xám bạc.</li>\n      <li>Nhẹ nhưng có độ bền cơ học cao.</li>\n      <li>Khối lượng riêng: khoảng 4.506 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1668 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3287 °C.</li>\n      <li>Dẫn nhiệt và dẫn điện tương đối thấp so với nhiều kim loại.</li>\n      <li>Có khả năng chống ăn mòn rất tốt.</li>\n      <li>Có độ bền cao so với khối lượng.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có khả năng tạo lớp Titanium dioxide bảo vệ trên bề mặt nên chống ăn mòn tốt.</li>\n      <li>Các số Oxy hóa phổ biến: +2, +3, +4.</li>\n      <li>+4 là trạng thái Oxy hóa bền và phổ biến nhất.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Titanium dioxide.</li>\n      <li>Phản ứng với Halogen ở nhiệt độ thích hợp.</li>\n      <li>Phản ứng với acid mạnh trong những điều kiện nhất định.</li>\n      <li>Ở nhiệt độ cao, Titanium có thể phản ứng với Nitrogen và Carbon.</li>\n      <li>Titanium có hoạt tính hóa học đáng kể ở nhiệt độ cao nhưng khá bền ở điều kiện thường.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Ti + O₂ → TiO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Ti + 2Cl₂ → TiCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Bromine",
+      "equation": "Ti + 2Br₂ → TiBr₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Nitrogen",
+      "equation": "2Ti + N₂ → 2TiN",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "Ti + C → TiC",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Ti + 4HCl → TiCl₄ + 2H₂↑",
+      "desc": "Ở điều kiện thích hợp:"
+    },
+    {
+      "type": "Điều chế Titanium tetrachloride",
+      "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO",
+      "desc": ""
+    },
+    {
+      "type": "Khử Titanium tetrachloride",
+      "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hàng không và vũ trụ",
+      "desc": "Titanium alloys có độ bền cao, nhẹ và chịu nhiệt tốt nên được sử dụng trong máy bay và tàu vũ trụ."
+    },
+    {
+      "title": "Y tế",
+      "desc": "Titanium và Titanium alloys được sử dụng trong một số dụng cụ và implant y tế nhờ khả năng chống ăn mòn và tương thích sinh học tốt."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Titanium được sử dụng trong các thiết bị cần khả năng chống ăn mòn cao."
+    },
+    {
+      "title": "Sơn và chất màu",
+      "desc": "Titanium dioxide (TiO₂) là một chất màu trắng quan trọng, được sử dụng rộng rãi trong sơn, nhựa và giấy."
+    },
+    {
+      "title": "Đồ dùng và thể thao",
+      "desc": "Titanium alloys được sử dụng trong một số sản phẩm yêu cầu nhẹ và bền."
+    },
+    {
+      "title": "Luyện kim",
+      "desc": "Titanium được sử dụng làm nguyên tố hợp kim để cải thiện tính chất của một số vật liệu."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Titanium là nguyên tố số 22, thuộc nhóm IVB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Titanium có cấu hình electron [Ar] 3d² 4s², với các số Oxy hóa phổ biến là +2, +3 và +4, trong đó +4 là trạng thái phổ biến nhất.</li>\n  <li>Titanium có độ bền cao, khối lượng riêng tương đối thấp và khả năng chống ăn mòn tốt nhờ hình thành lớp Titanium dioxide bảo vệ trên bề mặt.</li>\n  <li>Titanium được khai thác chủ yếu từ các khoáng vật như Rutile và Ilmenite. Kim loại Titanium được sản xuất công nghiệp chủ yếu bằng quy trình Kroll.</li>\n  <li>Titanium và các hợp chất của nó có vai trò quan trọng trong hàng không–vũ trụ, y tế, công nghiệp hóa chất, sản xuất chất màu và chế tạo hợp kim.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Về nguyên tắc, có thể điều chế bằng cách khử Titanium halide bằng kim loại hoạt động mạnh:",
+        "equation": "TiCl₄ + 2Mg → Ti + 2MgCl₂",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Titanium được sản xuất chủ yếu bằng quy trình Kroll.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trước tiên, Titanium dioxide được chuyển thành Titanium tetrachloride:",
+        "equation": "TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO <br> TiCl₄ + 2Mg → Ti + 2MgCl₂",
+        "desc": "Sau đó Titanium tetrachloride được khử bằng Magnesium ở nhiệt độ cao: Titanium thu được tiếp tục được tinh chế để loại bỏ Magnesium và Magnesium chloride còn lại."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Titanium(IV)",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Titanium(IV) có thể được nhận biết bằng phản ứng với Hydrogen peroxide trong môi trường acid, tạo phức màu vàng đặc trưng",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ti⁴⁺ + H₂O₂ → [TiO₂]²⁺ + 2H⁺"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện màu vàng đặc trưng của phức Titanium–peroxo.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

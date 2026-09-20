@@ -1,0 +1,201 @@
+{
+  "number": 79,
+  "symbol": "Au",
+  "nameVi": "Gold",
+  "nameEn": "Gold",
+  "mass": 196.967,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/079_Au.json",
+  "general": {
+    "latinName": "Aurum",
+    "englishName": "Gold",
+    "electronConfig": "[Xe] 4f¹⁴ 5d¹⁰ 6s¹",
+    "isotope": "¹⁹⁷Au",
+    "group": 11,
+    "period": 6,
+    "state": "",
+    "oxidation": "−1, +1, +3, +5",
+    "electronegativity": 2.54,
+    "density": "khoảng 19.30 g/cm³.",
+    "meltingPoint": "khoảng 1064 °C.",
+    "boilingPoint": "khoảng 2856 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Không xác định — Gold đã được con người biết đến từ thời tiền sử.",
+    "year": "Thời tiền sử",
+    "discoveryLocation": "Không xác định",
+    "description": "Gold là một trong những nguyên tố đầu tiên được con người biết đến và sử dụng. Các đồ vật bằng Gold đã được tìm thấy trong nhiều nền văn minh cổ đại. Do Gold có thể tồn tại ở dạng kim loại tự nhiên và không dễ bị Oxy hóa, nó có thể được thu thập và gia công mà không cần các kỹ thuật luyện kim phức tạp."
+  },
+  "structure": {
+    "protons": 79,
+    "neutrons": 118,
+    "electrons": 79,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      18,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 79,
+      "neutron": 118
+    }
+  },
+  "occurrence": {
+    "description": "Gold là kim loại rắn, màu vàng ánh kim đặc trưng.",
+    "simple": [
+      "Au"
+    ],
+    "compounds": [
+      "AuCl",
+      "AuCl₃",
+      "Au₂O₃",
+      "HAuCl₄"
+    ],
+    "ores": [
+      "Có thể tồn tại ở dạng Gold tự nhiên trong các mỏ và trầm tích",
+      "ngoài ra còn có trong một số quặng chứa các kim loại khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu vàng ánh kim đặc trưng.</li>\n      <li>Rất dẻo và dễ dát mỏng.</li>\n      <li>Có thể kéo thành sợi rất mảnh.</li>\n      <li>Khối lượng riêng: khoảng 19.30 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1064 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2856 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Không dễ bị Oxy hóa trong không khí.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Tương đối trơ về mặt hóa học.</li>\n      <li>Các số Oxy hóa phổ biến là +1 và +3.</li>\n      <li>Không phản ứng đáng kể với Oxygen ở điều kiện thường.</li>\n      <li>Không tan trong Hydrochloric acid hoặc Nitric acid riêng biệt.</li>\n      <li>Tan trong nước cường toan.</li>\n      <li>Có thể tạo nhiều phức chất, đặc biệt là phức Chloride và Cyanide.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tạo Gold(I) chloride",
+      "equation": "2Au + Cl₂ → 2AuCl",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Gold(III) chloride",
+      "equation": "2Au + 3Cl₂ → 2AuCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Gold(III) oxide",
+      "equation": "4Au + 3O₂ → 2Au₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Hòa tan Gold trong nước cường toan",
+      "equation": "Au + HNO₃ + 4HCl → HAuCl₄ + NO + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Khử Au³⁺ bằng Fe²⁺",
+      "equation": "2Au³⁺ + 3Fe²⁺ → 2Au↓ + 3Fe³⁺",
+      "desc": ""
+    },
+    {
+      "type": "Khử Chloroauric acid bằng Sulfur dioxide",
+      "equation": "2HAuCl₄ + 3SO₂ + 6H₂O → 2Au + 3H₂SO₄ + 8HCl",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Trang sức",
+      "desc": "Gold được sử dụng rộng rãi trong trang sức nhờ màu sắc đặc trưng, độ bền và khả năng chống ăn mòn."
+    },
+    {
+      "title": "Tài chính",
+      "desc": "Gold được sử dụng làm tài sản dự trữ và trong một số loại tiền xu, thỏi Gold."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Gold được sử dụng trong các đầu nối, tiếp điểm và dây dẫn điện tử nhờ khả năng dẫn điện và chống Oxy hóa."
+    },
+    {
+      "title": "Y học",
+      "desc": "Một số hợp chất và đồng vị của Gold được sử dụng trong nghiên cứu và một số ứng dụng y học."
+    },
+    {
+      "title": "Hàng không vũ trụ",
+      "desc": "Gold có thể được sử dụng trong lớp phủ của một số thiết bị để phản xạ bức xạ và bảo vệ linh kiện."
+    },
+    {
+      "title": "Công nghiệp",
+      "desc": "Gold được sử dụng làm chất xúc tác trong một số phản ứng hóa học và trong các vật liệu công nghệ cao."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Gold là nguyên tố số 79, thuộc nhóm IB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Gold có cấu hình electron [Xe] 4f¹⁴ 5d¹⁰ 6s¹, với số Oxy hóa phổ biến nhất là +1 và +3.</li>\n  <li>Gold nổi bật với màu vàng ánh kim, độ dẻo cao, khả năng dẫn điện tốt và tính trơ hóa học. Nó hầu như không bị Oxy hóa trong không khí và không tan trong hầu hết acid thông thường.</li>\n  <li>Gold có giá trị lớn trong trang sức, tài chính, điện tử, công nghệ hàng không vũ trụ và một số ứng dụng y học.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Gold được khai thác từ quặng hoặc thu hồi từ các nguồn chứa Gold.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trong quá trình tinh chế, Gold có thể được hòa tan trong nước cường toan để tạo Chloroauric acid (HAuCl₄), sau đó được khử để thu Gold kim loại.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Phương trình khử:",
+        "equation": "2HAuCl₄ + 3SO₂ + 6H₂O → 2Au + 3H₂SO₄ + 8HCl",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Au³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Một phương pháp phân tích là cho Au³⁺ phản ứng với chất khử thích hợp để tạo Gold kim loại.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Ví dụ, dùng Iron(II) sulfate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "2Au³⁺ + 3Fe²⁺ → 2Au↓ + 3Fe³⁺"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện Gold kim loại.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết trong dung dịch",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Dung dịch chứa Gold(III) chloride thường có màu vàng/cam, tùy nồng độ và thành phần phức.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

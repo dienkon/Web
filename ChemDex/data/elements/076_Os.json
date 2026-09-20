@@ -1,0 +1,175 @@
+{
+  "number": 76,
+  "symbol": "Os",
+  "nameVi": "Osmium",
+  "nameEn": "Osmium",
+  "mass": 190.23,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/076_Os.json",
+  "general": {
+    "latinName": "Osmium",
+    "englishName": "Osmium",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁶ 6s²",
+    "isotope": "¹⁸⁴Os, ¹⁸⁶Os, ¹⁸⁷Os, ¹⁸⁸Os, ¹⁸⁹Os, ¹⁹⁰Os, ¹⁹²Os",
+    "group": 8,
+    "period": 6,
+    "state": "",
+    "oxidation": "−2, −1, 0, +1, +2, +3, +4, +6, +8",
+    "electronegativity": 2.2,
+    "density": "khoảng 22.59 g/cm³.",
+    "meltingPoint": "khoảng 3033 °C.",
+    "boilingPoint": "khoảng 5012 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Smithson Tennant",
+    "year": 1803,
+    "discoveryLocation": "Anh",
+    "description": "Osmium được Smithson Tennant phát hiện vào năm 1803 khi nghiên cứu cặn không tan còn lại sau khi hòa tan Platinum trong nước cường toan. Ông nhận thấy một chất tạo ra mùi đặc trưng và đặt tên là Osmium, bắt nguồn từ tiếng Hy Lạp osme, nghĩa là “mùi”."
+  },
+  "structure": {
+    "protons": 76,
+    "neutrons": 114,
+    "electrons": 76,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      14,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      14,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 76,
+      "neutron": 114
+    }
+  },
+  "occurrence": {
+    "description": "Osmium là kim loại rắn, màu xanh xám hoặc trắng bạc, rất cứng và giòn.",
+    "simple": [
+      "Os"
+    ],
+    "compounds": [
+      "OsO₄",
+      "OsO₂",
+      "OsCl₃",
+      "OsCl₄",
+      "OsS₂"
+    ],
+    "ores": [
+      "Thường tồn tại cùng các kim loại nhóm Platinum",
+      "đặc biệt trong các khoáng vật chứa Platinum và Iridium"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp và thuộc nhóm kim loại Platinum.</li>\n      <li>Màu xanh xám hoặc trắng bạc.</li>\n      <li>Rất cứng và giòn.</li>\n      <li>Có khối lượng riêng lớn nhất trong số các nguyên tố tự nhiên.</li>\n      <li>Khối lượng riêng: khoảng 22.59 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 3033 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 5012 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có khả năng chống mài mòn cao.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, trong đó +4 và +8 là quan trọng.</li>\n      <li>Ở nhiệt độ thường tương đối bền trong không khí.</li>\n      <li>Khi nung nóng phản ứng với Oxygen tạo Osmium tetroxide (OsO₄).</li>\n      <li>Có thể tạo hợp chất với Halogen và Sulfur.</li>\n      <li>OsO₄ là chất Oxy hóa mạnh và rất độc.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Os + 2O₂ → OsO₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Os + 3Cl₂ → 2OsCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Os + 2S → OsS₂",
+      "desc": ""
+    },
+    {
+      "type": "Khử Osmium tetroxide",
+      "equation": "OsO₄ + 4H₂ → Os + 4H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Osmium dioxide",
+      "equation": "Os + O₂ → OsO₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hợp kim",
+      "desc": "Osmium được sử dụng trong một số hợp kim đặc biệt để tăng độ cứng và khả năng chống mài mòn."
+    },
+    {
+      "title": "Bút máy",
+      "desc": "Osmium từng được sử dụng trong hợp kim làm đầu ngòi bút và các chi tiết chịu mài mòn."
+    },
+    {
+      "title": "Thiết bị chính xác",
+      "desc": "Các hợp kim chứa Osmium được sử dụng trong một số dụng cụ và linh kiện cần độ bền cao."
+    },
+    {
+      "title": "Xúc tác",
+      "desc": "Osmium và các phức chất của nó được sử dụng trong một số phản ứng hóa học đặc biệt."
+    },
+    {
+      "title": "Nghiên cứu",
+      "desc": "Các hợp chất Osmium được sử dụng trong nghiên cứu hóa học và vật liệu."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Osmium là nguyên tố số 76, thuộc nhóm VIIIB | chu kỳ 6 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Osmium có cấu hình electron [Xe] 4f¹⁴ 5d⁶ 6s², với các số Oxy hóa quan trọng là +4 và +8.</li>\n  <li>Osmium là kim loại rất cứng, giòn và có khối lượng riêng cực lớn, khoảng 22.59 g/cm³. Đây là một trong những nguyên tố tự nhiên có khối lượng riêng lớn nhất.</li>\n  <li>Đặc điểm hóa học nổi bật của Osmium là khả năng tạo Osmium tetroxide (OsO₄), một hợp chất rất độc và có tính Oxy hóa mạnh.</li>\n  <li>Osmium chủ yếu được sử dụng trong hợp kim chịu mài mòn, dụng cụ chính xác, xúc tác và nghiên cứu hóa học, do độ cứng và khả năng chống mài mòn cao.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Osmium thường được thu hồi từ quặng chứa các kim loại nhóm Platinum.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sau khi tách các kim loại khác, Osmium có thể được chuyển thành Osmium tetroxide (OsO₄) rồi khử để thu Osmium kim loại.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương trình minh họa:",
+        "equation": "OsO₄ + 4H₂ → Os + 4H₂O",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Osmium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích chuyên dụng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một đặc điểm đặc trưng là khi Osmium bị Oxy hóa có thể tạo Osmium tetroxide (OsO₄)",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Os + 2O₂ → OsO₄"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "OsO₄ là chất rắn dễ bay hơi, có mùi rất mạnh và độc.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

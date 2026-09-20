@@ -1,0 +1,200 @@
+{
+  "number": 50,
+  "symbol": "Sn",
+  "nameVi": "Tin",
+  "nameEn": "Tin",
+  "mass": 118.71,
+  "category": "unknown",
+  "hasData": true,
+  "file": "elements/050_Sn.json",
+  "general": {
+    "latinName": "Stannum",
+    "englishName": "Tin",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p²",
+    "isotope": "¹¹²Sn, ¹¹⁴Sn, ¹¹⁵Sn, ¹¹⁶Sn, ¹¹⁷Sn, ¹¹⁸Sn, ¹¹⁹Sn, ¹²⁰Sn, ¹²²Sn, ¹²⁴Sn",
+    "group": 14,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2, +4",
+    "electronegativity": 1.96,
+    "density": "khoảng 7.31 g/cm³.",
+    "meltingPoint": "khoảng 231.9 °C.",
+    "boilingPoint": "khoảng 2602 °C.",
+    "crystalStructure": "Tứ phương (Tetragonal)"
+  },
+  "history": {
+    "discoverer": "Không xác định — Tin đã được con người biết đến từ thời cổ đại.",
+    "year": "Khoảng 3000 TCN",
+    "discoveryLocation": "Không xác định",
+    "description": "Tin là một trong những kim loại được con người sử dụng từ thời cổ đại. Việc kết hợp Tin với Copper tạo ra Bronze, mở đầu cho thời kỳ Đồ Đồng. Ký hiệu Sn bắt nguồn từ tên Latin Stannum."
+  },
+  "structure": {
+    "protons": 50,
+    "neutrons": 68,
+    "electrons": 50,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      4
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      4
+    ],
+    "valenceElectrons": 4,
+    "lattice": "Tứ phương (Tetragonal)",
+    "nucleus": {
+      "proton": 50,
+      "neutron": 68
+    }
+  },
+  "occurrence": {
+    "description": "Tin là kim loại rắn, màu trắng bạc.",
+    "simple": [
+      "Sn"
+    ],
+    "compounds": [
+      "SnO",
+      "SnO₂",
+      "SnCl₂",
+      "SnCl₄",
+      "SnS",
+      "SnS₂"
+    ],
+    "ores": [
+      "Chủ yếu trong quặng Cassiterite (SnO₂)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IVA.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Mềm và dễ dát mỏng.</li>\n      <li>Dễ uốn.</li>\n      <li>Khối lượng riêng: khoảng 7.31 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 231.9 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2602 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt.</li>\n      <li>Có thể tồn tại dưới nhiều dạng thù hình.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có hai số Oxy hóa phổ biến: +2 và +4.</li>\n      <li>Sn(II) có tính khử.</li>\n      <li>Sn(IV) tương đối ổn định trong nhiều hợp chất.</li>\n      <li>Phản ứng với Oxygen tạo Tin oxide.</li>\n      <li>Phản ứng với Halogen tạo Tin halide.</li>\n      <li>Phản ứng với acid tạo muối Tin và có thể giải phóng Hydrogen.</li>\n      <li>Có khả năng tạo hợp kim với nhiều kim loại.</li>\n      <li>Bề mặt Tin tương đối bền trong không khí nhờ lớp oxide bảo vệ.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Sn + O₂ → SnO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Sn + 2Cl₂ → SnCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Sn + 2HCl → SnCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Tin(II) sulfide",
+      "equation": "Sn²⁺ + S²⁻ → SnS↓",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Tin(IV) sulfide",
+      "equation": "Sn⁴⁺ + 2S²⁻ → SnS₂↓",
+      "desc": ""
+    },
+    {
+      "type": "SnO₂ tác dụng với Hydrochloric acid",
+      "equation": "SnO₂ + 4HCl → SnCl₄ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Tin",
+      "equation": "SnO₂ + 2C → Sn + 2CO↑",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Hàn",
+      "desc": "Tin là thành phần quan trọng trong nhiều loại vật liệu hàn, đặc biệt trong ngành điện tử."
+    },
+    {
+      "title": "Mạ kim loại",
+      "desc": "Tin được dùng để phủ lên thép nhằm chống ăn mòn, đặc biệt trong sản xuất hộp đựng thực phẩm."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Tin được sử dụng trong Bronze, Solder và nhiều hợp kim khác."
+    },
+    {
+      "title": "Bao bì thực phẩm",
+      "desc": "Thép mạ Tin được sử dụng để sản xuất một số loại hộp đựng thực phẩm."
+    },
+    {
+      "title": "Kính",
+      "desc": "Tin oxide được sử dụng trong một số loại kính và lớp phủ dẫn điện."
+    },
+    {
+      "title": "Hóa chất",
+      "desc": "Các hợp chất Organotin được sử dụng trong một số ứng dụng công nghiệp."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Tin là nguyên tố số 50, thuộc nhóm IVA | chu kỳ 5.</li>\n  <li>Tin có cấu hình electron [Kr] 4d¹⁰ 5s² 5p², với hai số Oxy hóa phổ biến là +2 và +4.</li>\n  <li>Tin là kim loại mềm, dễ uốn, màu trắng bạc và có nhiệt độ nóng chảy tương đối thấp. Trong tự nhiên, Tin chủ yếu tồn tại dưới dạng Cassiterite (SnO₂).</li>\n  <li>Tin có vai trò quan trọng trong hàn, mạ kim loại, sản xuất hợp kim, bao bì thực phẩm và công nghiệp điện tử. Một đặc điểm quan trọng của Tin là khả năng tạo nhiều hợp kim, trong đó Bronze và các vật liệu hàn là những ứng dụng tiêu biểu.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Tin chủ yếu được điều chế từ quặng Cassiterite (SnO₂).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Quặng được nghiền, làm giàu rồi khử bằng Carbon ở nhiệt độ cao:",
+        "equation": "SnO₂ + 2C → Sn + 2CO↑",
+        "desc": "Sau đó Tin thô được tinh chế để loại bỏ các tạp chất."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Sn²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Sn²⁺ có thể được nhận biết bằng phản ứng với ion Sulfide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Sn²⁺ + S²⁻ → SnS↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa nâu đen SnS.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Sn⁴⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Sn⁴⁺ + 2S²⁻ → SnS₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa vàng SnS₂.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Tứ phương (Tetragonal)"
+}

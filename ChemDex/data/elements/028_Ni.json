@@ -1,0 +1,224 @@
+{
+  "number": 28,
+  "symbol": "Ni",
+  "nameVi": "Nickel",
+  "nameEn": "Nickel",
+  "mass": 58.6934,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/028_Ni.json",
+  "general": {
+    "latinName": "Niccolum",
+    "englishName": "Nickel",
+    "electronConfig": "[Ar] 3d⁸ 4s²",
+    "isotope": "⁵⁸Ni, ⁶⁰Ni, ⁶¹Ni, ⁶²Ni, ⁶⁴Ni",
+    "group": 8,
+    "period": 4,
+    "state": "",
+    "oxidation": "−1, 0, +1, +2, +3, +4",
+    "electronegativity": 1.91,
+    "density": "khoảng 8.91 g/cm³.",
+    "meltingPoint": "khoảng 1455 °C.",
+    "boilingPoint": "khoảng 2913 °C.",
+    "crystalStructure": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+  },
+  "history": {
+    "discoverer": "Axel Fredrik Cronstedt",
+    "year": 1751,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1751, Axel Fredrik Cronstedt nghiên cứu một loại quặng màu đỏ nâu được gọi là Kupfernickel. Ông nhận ra quặng này chứa một kim loại mới và đặt tên nguyên tố là Nickel, bắt nguồn từ tên gọi Kupfernickel."
+  },
+  "structure": {
+    "protons": 28,
+    "neutrons": 30,
+    "electrons": 28,
+    "electronShells": [
+      2,
+      8,
+      16,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      16,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lập phương tâm mặt (Face-centered cubic, FCC)",
+    "nucleus": {
+      "proton": 28,
+      "neutron": 30
+    }
+  },
+  "occurrence": {
+    "description": "Nickel là kim loại rắn, màu trắng bạc, hơi ánh vàng ở điều kiện thường.",
+    "simple": [
+      "Ni"
+    ],
+    "compounds": [
+      "NiO",
+      "Ni₂O₃",
+      "NiCl₂",
+      "NiSO₄",
+      "Ni(OH)₂"
+    ],
+    "ores": [
+      "Pentlandite",
+      "Garnierite",
+      "Nickeliferous laterite và một số thiên thạch"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Có màu trắng bạc hơi ánh vàng.</li>\n      <li>Cứng, dai và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 8.91 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1455 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2913 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có tính sắt từ ở nhiệt độ thường.</li>\n      <li>Có khả năng chống ăn mòn tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính khử.</li>\n      <li>Số Oxy hóa phổ biến nhất là +2.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n      <li>Tương đối bền trong không khí ở nhiệt độ thường.</li>\n      <li>Phản ứng với Oxygen khi nung nóng.</li>\n      <li>Phản ứng với Halogen tạo Nickel halide.</li>\n      <li>Phản ứng với acid tạo muối Nickel và Hydrogen.</li>\n      <li>Nickel có thể xúc tác cho nhiều phản ứng hóa học, đặc biệt là phản ứng Hydrogenation.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Ni + O₂ → 2NiO",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Ni + Cl₂ → NiCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Ni + S → NiS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "Ni + 2HCl → NiCl₂ + H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Nickel(II) hydroxide",
+      "equation": "Ni²⁺ + 2OH⁻ → Ni(OH)₂↓",
+      "desc": ""
+    },
+    {
+      "type": "Nickel(II) hydroxide tác dụng với acid",
+      "equation": "Ni(OH)₂ + 2HCl → NiCl₂ + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Khử Nickel(II) oxide",
+      "equation": "NiO + H₂ → Ni + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Mond process",
+      "equation": "Ni + 4CO ⇌ Ni(CO)₄",
+      "desc": ""
+    },
+    {
+      "type": "Mond process",
+      "equation": "Ni(CO)₄ → Ni + 4CO",
+      "desc": ""
+    },
+    {
+      "type": "Hydrogenation",
+      "equation": "C₂H₄ + H₂ → C₂H₆",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Thép không gỉ",
+      "desc": "Nickel được sử dụng trong nhiều loại Stainless steel để tăng khả năng chống ăn mòn và cải thiện tính chất cơ học."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Được sử dụng trong các hợp kim chịu nhiệt, chịu ăn mòn và có độ bền cao."
+    },
+    {
+      "title": "Pin",
+      "desc": "Nickel được sử dụng trong các loại pin như Nickel–metal hydride (NiMH) và Nickel–cadmium (NiCd)."
+    },
+    {
+      "title": "Mạ Nickel",
+      "desc": "Được sử dụng để tạo lớp phủ bảo vệ và tăng độ bền cho bề mặt kim loại."
+    },
+    {
+      "title": "Tiền xu",
+      "desc": "Nickel và các hợp kim của nó được sử dụng trong một số loại tiền xu."
+    },
+    {
+      "title": "Chất xúc tác",
+      "desc": "Nickel là chất xúc tác quan trọng trong Hydrogenation và nhiều phản ứng công nghiệp."
+    },
+    {
+      "title": "Công nghiệp hóa chất",
+      "desc": "Nickel compounds được sử dụng trong sản xuất và xử lý nhiều hóa chất."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Nickel là nguyên tố số 28, thuộc nhóm VIIIB | chu kỳ 4 và là một kim loại chuyển tiếp.</li>\n  <li>Nickel có cấu hình electron [Ar] 3d⁸ 4s², trong đó +2 là số Oxy hóa phổ biến nhất.</li>\n  <li>Nickel có màu trắng bạc hơi ánh vàng, cứng, bền và có khả năng chống ăn mòn tốt. Ở điều kiện thường, Nickel có cấu trúc tinh thể lập phương tâm mặt (FCC).</li>\n  <li>Nickel có vai trò quan trọng trong sản xuất Stainless steel, hợp kim, pin, mạ kim loại và chất xúc tác. Trong tự nhiên, Nickel chủ yếu được khai thác từ quặng sulfide và laterite.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Nickel có thể được điều chế bằng cách khử Nickel(II) oxide bằng Hydrogen ở nhiệt độ cao:",
+        "equation": "NiO + H₂ → Ni + H₂O",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Nickel được sản xuất từ các quặng sulfide hoặc laterite.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Đối với quặng sulfide, Nickel compounds được chuyển thành Nickel oxide rồi khử bằng Carbon:",
+        "equation": "NiO + C → Ni + CO <br> Ni + 4CO ⇌ Ni(CO)₄ <br> Ni(CO)₄ → Ni + 4CO",
+        "desc": "Ngoài ra, Nickel có thể được tinh chế bằng Mond process, trong đó Nickel phản ứng với Carbon monoxide tạo Nickel carbonyl: Sau đó Nickel carbonyl bị phân hủy ở nhiệt độ cao:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Ni²⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho dung dịch chứa Ni²⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ni²⁺ + 2OH⁻ → Ni(OH)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa xanh lục Nickel(II) hydroxide.",
+      "equation": ""
+    },
+    {
+      "title": "Một thuốc thử đặc trưng cho Ni²⁺ là Dimethylglyoxime (DMG)",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ni²⁺ + 2DMG → Ni(DMG)₂↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa đỏ hồng đặc trưng.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (Face-centered cubic, FCC)"
+}

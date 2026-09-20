@@ -1,0 +1,179 @@
+{
+  "number": 75,
+  "symbol": "Re",
+  "nameVi": "Rhenium",
+  "nameEn": "Rhenium",
+  "mass": 186.207,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/075_Re.json",
+  "general": {
+    "latinName": "Rhenium",
+    "englishName": "Rhenium",
+    "electronConfig": "[Xe] 4f¹⁴ 5d⁵ 6s²",
+    "isotope": "¹⁸⁵Re, ¹⁸⁷Re",
+    "group": 7,
+    "period": 6,
+    "state": "",
+    "oxidation": "−1, +1, +2, +3, +4, +5, +6, +7",
+    "electronegativity": 1.9,
+    "density": "khoảng 21.02 g/cm³.",
+    "meltingPoint": "khoảng 3186 °C.",
+    "boilingPoint": "khoảng 5596 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Walter Noddack, Ida Tacke và Otto Berg",
+    "year": 1925,
+    "discoveryLocation": "Đức",
+    "description": "Rhenium được phát hiện năm 1925 thông qua phân tích quang phổ của quặng Platinum và Columbite. Đây là một trong những nguyên tố cuối cùng được phát hiện có đồng vị bền tồn tại tự nhiên. Tên Rhenium bắt nguồn từ Rhenus, tên Latin của sông Rhine."
+  },
+  "structure": {
+    "protons": 75,
+    "neutrons": 110,
+    "electrons": 75,
+    "electronShells": [
+      2,
+      8,
+      18,
+      32,
+      13,
+      2
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      32,
+      13,
+      2
+    ],
+    "valenceElectrons": 2,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 75,
+      "neutron": 110
+    }
+  },
+  "occurrence": {
+    "description": "Rhenium là kim loại rắn, màu trắng bạc, rất nặng và cứng.",
+    "simple": [
+      "Re"
+    ],
+    "compounds": [
+      "Re₂O₇",
+      "ReO₂",
+      "ReCl₅",
+      "NH₄ReO₄",
+      "ReS₂"
+    ],
+    "ores": [
+      "Thường tồn tại với hàm lượng rất nhỏ trong các khoáng vật chứa Molybdenum và Copper",
+      "đặc biệt trong Molybdenite (MoS₂)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Rất cứng và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 21.02 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 3186 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 5596 °C.</li>\n      <li>Có khả năng chịu nhiệt cực tốt.</li>\n      <li>Có độ bền cơ học cao ở nhiệt độ cao.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa, phổ biến nhất là +7 và +6.</li>\n      <li>Khá bền trong không khí ở nhiệt độ thường.</li>\n      <li>Khi nung nóng phản ứng với Oxygen tạo Rhenium oxide.</li>\n      <li>Phản ứng với Halogen tạo Rhenium halide.</li>\n      <li>Có thể tạo nhiều hợp chất phức.</li>\n      <li>Có khả năng chống ăn mòn tương đối tốt.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4Re + 7O₂ → 2Re₂O₇",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Re + 5Cl₂ → 2ReCl₅",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Fluorine",
+      "equation": "2Re + 7F₂ → 2ReF₇",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Rhenium disulfide",
+      "equation": "Re + 2S → ReS₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Oxygen tạo Rhenium dioxide",
+      "equation": "Re + O₂ → ReO₂",
+      "desc": ""
+    },
+    {
+      "type": "Khử Rhenium heptoxide",
+      "equation": "Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Siêu hợp kim",
+      "desc": "Rhenium là thành phần quan trọng trong một số superalloy dùng cho động cơ phản lực và turbine khí."
+    },
+    {
+      "title": "Động cơ hàng không",
+      "desc": "Hợp kim Nickel–Rhenium có khả năng chịu nhiệt và giữ độ bền tốt ở nhiệt độ cao."
+    },
+    {
+      "title": "Xúc tác",
+      "desc": "Rhenium được sử dụng làm chất xúc tác trong một số quá trình lọc dầu, đặc biệt trong quá trình reforming xúc tác."
+    },
+    {
+      "title": "Dây tóc và linh kiện nhiệt",
+      "desc": "Rhenium được sử dụng trong một số dây tóc, cặp nhiệt điện và linh kiện chịu nhiệt cao."
+    },
+    {
+      "title": "Nhiệt điện",
+      "desc": "Hợp kim Tungsten–Rhenium được sử dụng trong các cặp nhiệt điện đo nhiệt độ rất cao."
+    },
+    {
+      "title": "Y học",
+      "desc": "Một số đồng vị phóng xạ của Rhenium được nghiên cứu và sử dụng trong các ứng dụng y học hạt nhân."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Rhenium là nguyên tố số 75, thuộc nhóm VIIB | chu kỳ 6 và là một kim loại chuyển tiếp.</li>\n  <li>Rhenium có cấu hình electron [Xe] 4f¹⁴ 5d⁵ 6s², với các số Oxy hóa phổ biến là +6 và +7.</li>\n  <li>Rhenium là kim loại rất nặng, cứng, chịu nhiệt và có nhiệt độ nóng chảy cực cao. Nó là một trong những kim loại có nhiệt độ nóng chảy cao nhất.</li>\n  <li>Trong tự nhiên, Rhenium rất hiếm và thường được thu hồi như sản phẩm phụ từ quặng Molybdenum, đặc biệt là Molybdenite (MoS₂).</li>\n  <li>Rhenium có giá trị cao trong superalloy, động cơ phản lực, turbine khí, xúc tác lọc dầu và các thiết bị đo nhiệt độ cao, nhờ khả năng duy trì độ bền trong môi trường nhiệt độ cực cao.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Rhenium chủ yếu được thu hồi như sản phẩm phụ từ quá trình xử lý quặng Molybdenite (MoS₂).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương trình minh họa quá trình tạo Rhenium oxide:",
+        "equation": "4Re + 7O₂ → 2Re₂O₇ <br> Re₂O₇ + 7H₂ → 2Re + 7H₂O",
+        "desc": "Sau đó Re₂O₇ được chuyển hóa thành các hợp chất Rhenium dễ tinh chế và cuối cùng được khử bằng Hydrogen:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Rhenium thường được xác định bằng phân tích quang phổ hoặc các phương pháp phân tích hóa học chuyên dụng.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một hợp chất đặc trưng là Ammonium perrhenate",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "NH₄ReO₄",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong phân tích định tính, ion Perrhenate (ReO₄⁻) có thể được sử dụng để xác định sự hiện diện của Rhenium.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

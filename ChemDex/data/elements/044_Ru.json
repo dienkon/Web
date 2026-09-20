@@ -1,0 +1,191 @@
+{
+  "number": 44,
+  "symbol": "Ru",
+  "nameVi": "Ruthenium",
+  "nameEn": "Ruthenium",
+  "mass": 101.07,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/044_Ru.json",
+  "general": {
+    "latinName": "Ruthenium",
+    "englishName": "Ruthenium",
+    "electronConfig": "[Kr] 4d⁷ 5s¹",
+    "isotope": "⁹⁶Ru, ⁹⁸Ru, ⁹⁹Ru, ¹⁰⁰Ru, ¹⁰¹Ru, ¹⁰²Ru, ¹⁰⁴Ru",
+    "group": 8,
+    "period": 5,
+    "state": "",
+    "oxidation": "−2, +2, +3, +4, +6, +8",
+    "electronegativity": 2.2,
+    "density": "khoảng 12.37 g/cm³.",
+    "meltingPoint": "khoảng 2334 °C.",
+    "boilingPoint": "khoảng 4150 °C.",
+    "crystalStructure": "Lục phương (Hexagonal)"
+  },
+  "history": {
+    "discoverer": "Karl Ernst Claus",
+    "year": 1844,
+    "discoveryLocation": "Nga",
+    "description": "Năm 1844, Karl Ernst Claus đã tách và xác định Ruthenium từ quặng Platinum. Ông đặt tên nguyên tố theo Ruthenia, tên Latin của Nga."
+  },
+  "structure": {
+    "protons": 44,
+    "neutrons": 58,
+    "electrons": 44,
+    "electronShells": [
+      2,
+      8,
+      18,
+      15,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      15,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lục phương (Hexagonal)",
+    "nucleus": {
+      "proton": 44,
+      "neutron": 58
+    }
+  },
+  "occurrence": {
+    "description": "Ruthenium là kim loại rắn, màu trắng bạc.",
+    "simple": [
+      "Ru"
+    ],
+    "compounds": [
+      "RuO₂",
+      "RuCl₃",
+      "RuO₄",
+      "RuS₂"
+    ],
+    "ores": [
+      "Quặng Platinum và các khoáng vật chứa kim loại nhóm Platinum"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp thuộc nhóm kim loại Platinum.</li>\n      <li>Màu trắng bạc.</li>\n      <li>Cứng và giòn.</li>\n      <li>Khối lượng riêng: khoảng 12.37 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2334 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4150 °C.</li>\n      <li>Có độ bền cao.</li>\n      <li>Chống ăn mòn tốt.</li>\n      <li>Có khả năng tạo hợp kim với nhiều kim loại khác.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa.</li>\n      <li>Số Oxy hóa +3 và +4 khá phổ biến.</li>\n      <li>Có thể đạt số Oxy hóa cao nhất là +8 trong RuO₄.</li>\n      <li>Tương đối trơ ở điều kiện thường.</li>\n      <li>Có khả năng tạo nhiều phức chất.</li>\n      <li>RuO₄ là chất Oxy hóa mạnh.</li>\n      <li>Nhiều Ruthenium compounds có hoạt tính xúc tác cao.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Ru + O₂ → RuO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2Ru + 3Cl₂ → 2RuCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Ruthenium dioxide",
+      "equation": "Ru + O₂ → RuO₂",
+      "desc": ""
+    },
+    {
+      "type": "Khử Ruthenium dioxide",
+      "equation": "RuO₂ + 2H₂ → Ru + 2H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Ruthenium tetroxide",
+      "equation": "Ru + 2O₂ → RuO₄",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Ruthenium sulfide",
+      "equation": "Ru + 2S → RuS₂",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Xúc tác",
+      "desc": "Ruthenium và các hợp chất của nó được sử dụng làm chất xúc tác trong nhiều phản ứng hóa học."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Ruthenium được sử dụng trong một số lớp phủ và vật liệu điện tử."
+    },
+    {
+      "title": "Điện cực",
+      "desc": "Ruthenium oxide được sử dụng trong một số loại điện cực và thiết bị điện hóa."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Ruthenium được thêm vào Platinum và Palladium để tăng độ cứng và độ bền."
+    },
+    {
+      "title": "Chống ăn mòn",
+      "desc": "Một số lớp phủ chứa Ruthenium được sử dụng để tăng độ bền hóa học của vật liệu."
+    },
+    {
+      "title": "Pin và siêu tụ điện",
+      "desc": "Ruthenium oxide được nghiên cứu và sử dụng trong một số vật liệu điện hóa hiệu suất cao."
+    },
+    {
+      "title": "Hóa chất",
+      "desc": "Ruthenium compounds được sử dụng trong tổng hợp hữu cơ và hóa học phức chất."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Ruthenium là nguyên tố số 44, thuộc nhóm VIIIB | chu kỳ 5 và là một kim loại chuyển tiếp thuộc nhóm Platinum.</li>\n  <li>Ruthenium có cấu hình electron [Kr] 4d⁷ 5s¹ và có nhiều số Oxy hóa, từ −2 đến +8. Đặc biệt, Ruthenium có khả năng tạo nhiều phức chất và chất xúc tác có giá trị.</li>\n  <li>Ruthenium là kim loại cứng, giòn, màu trắng bạc, có nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt.</li>\n  <li>Trong tự nhiên, Ruthenium thường được tìm thấy cùng các kim loại nhóm Platinum. Nó có ứng dụng trong xúc tác, điện tử, điện hóa, hợp kim và vật liệu chống ăn mòn.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Ruthenium thường được thu hồi như sản phẩm phụ trong quá trình tinh chế quặng Platinum.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương pháp điều chế Ruthenium kim loại là khử Ruthenium oxide:",
+        "equation": "RuO₂ + 2H₂ → Ru + 2H₂O",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Ru⁴⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ruthenium có thể được xác định thông qua các phản ứng tạo phức hoặc các phương pháp phân tích quang phổ.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phản ứng tạo Ruthenium hydroxide có thể biểu diễn",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Ru⁴⁺ + 4OH⁻ → Ru(OH)₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Có thể tạo kết tủa Ruthenium hydroxide màu tối.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong thực tế, phổ hấp thụ, phổ phát xạ hoặc các phương pháp phân tích nguyên tố thường được sử dụng để xác định Ruthenium chính xác.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lục phương (Hexagonal)"
+}

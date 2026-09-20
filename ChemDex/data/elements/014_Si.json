@@ -1,0 +1,184 @@
+{
+  "number": 14,
+  "symbol": "Si",
+  "nameVi": "Silicon",
+  "nameEn": "Silicon",
+  "mass": 28.085,
+  "category": "a-kim",
+  "hasData": true,
+  "file": "elements/014_Si.json",
+  "general": {
+    "latinName": "Silicium",
+    "englishName": "Silicon",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p²",
+    "isotope": "²⁸Si, ²⁹Si, ³⁰Si",
+    "group": 14,
+    "period": 3,
+    "state": "",
+    "oxidation": "−4, +2, +4",
+    "electronegativity": 1.9,
+    "density": "khoảng 2.329 g/cm³.",
+    "meltingPoint": "khoảng 1414 °C.",
+    "boilingPoint": "khoảng 3265 °C.",
+    "crystalStructure": "Lập phương tâm mặt (FCC)"
+  },
+  "history": {
+    "discoverer": "Jöns Jacob Berzelius",
+    "year": 1824,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1824, Jöns Jacob Berzelius điều chế được Silicon vô định hình bằng cách khử Silicon tetrafluoride với Potassium. Ông nhận ra đây là một nguyên tố mới. Silicon tinh khiết hơn được điều chế sau đó bằng các phương pháp khác."
+  },
+  "structure": {
+    "protons": 14,
+    "neutrons": 14,
+    "electrons": 14,
+    "electronShells": [
+      2,
+      8,
+      4
+    ],
+    "shells": [
+      2,
+      8,
+      4
+    ],
+    "valenceElectrons": 4,
+    "lattice": "Lập phương tâm mặt (FCC)",
+    "nucleus": {
+      "proton": 14,
+      "neutron": 14
+    }
+  },
+  "occurrence": {
+    "description": "Silicon là một á kim và không tồn tại tự do đáng kể trong tự nhiên. Nó chủ yếu tồn tại dưới dạng Silicon dioxide và các Silicate.",
+    "simple": [
+      "Si"
+    ],
+    "compounds": [
+      "SiO₂",
+      "SiC",
+      "SiCl₄",
+      "Na₂SiO₃",
+      "CaSiO₃",
+      "SiH₄"
+    ],
+    "ores": [
+      "Cát",
+      "Quartz",
+      "đất đá",
+      "khoáng vật Silicate và lớp vỏ Trái Đất"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn ở điều kiện thường.</li>\n      <li>Có màu xám đen và ánh kim.</li>\n      <li>Là á kim.</li>\n      <li>Có tính bán dẫn.</li>\n      <li>Khối lượng riêng: khoảng 2.329 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 1414 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 3265 °C.</li>\n      <li>Cứng và giòn.</li>\n      <li>Độ dẫn điện tăng khi nhiệt độ tăng.</li>\n      <li>Có cấu trúc tinh thể tương tự Diamond.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có tính chất trung gian giữa kim loại và phi kim.</li>\n      <li>Số Oxy hóa phổ biến: −4 và +4.</li>\n      <li>Có khả năng tạo liên kết cộng hóa trị mạnh.</li>\n      <li>Phản ứng với Oxygen khi nung nóng tạo Silicon dioxide.</li>\n      <li>Phản ứng với Halogen tạo Silicon halide.</li>\n      <li>Phản ứng với một số kim loại tạo Silicide.</li>\n      <li>Tương đối trơ với nước ở điều kiện thường.</li>\n      <li>Không phản ứng đáng kể với nhiều acid, nhưng phản ứng với Hydrofluoric acid.</li>\n      <li>Silicon dioxide có tính acid và phản ứng với base mạnh.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "Si + O₂ → SiO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Si + 2Cl₂ → SiCl₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Fluorine",
+      "equation": "Si + 2F₂ → SiF₄",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "Si + C → SiC",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Tác dụng với Magnesium",
+      "equation": "Si + 2Mg → Mg₂Si",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sodium hydroxide",
+      "equation": "Si + 2NaOH + H₂O → Na₂SiO₃ + 2H₂↑",
+      "desc": "Trong dung dịch kiềm:"
+    },
+    {
+      "type": "Silicon dioxide tác dụng với Sodium hydroxide",
+      "equation": "SiO₂ + 2NaOH → Na₂SiO₃ + H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Silicon dioxide tác dụng với Calcium oxide",
+      "equation": "SiO₂ + CaO → CaSiO₃",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Silicon dioxide tác dụng với Hydrofluoric acid",
+      "equation": "SiO₂ + 4HF → SiF₄ + 2H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Chất bán dẫn",
+      "desc": "Silicon là vật liệu quan trọng nhất trong sản xuất chip và linh kiện bán dẫn."
+    },
+    {
+      "title": "Pin mặt trời",
+      "desc": "Silicon tinh thể được sử dụng rộng rãi trong các tế bào quang điện."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Được sử dụng để sản xuất transistor, diode và các vi mạch."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Silicon được thêm vào một số hợp kim Aluminium, Iron và các kim loại khác để cải thiện tính chất vật liệu."
+    },
+    {
+      "title": "Silicone",
+      "desc": "Silicon compounds là nguyên liệu để sản xuất Silicone dùng trong nhiều ngành công nghiệp."
+    },
+    {
+      "title": "Vật liệu xây dựng",
+      "desc": "Silicon dioxide và Silicate là thành phần quan trọng của thủy tinh, xi măng, gốm và bê tông."
+    },
+    {
+      "title": "Silicon carbide",
+      "desc": "SiC được sử dụng làm vật liệu mài mòn và vật liệu kỹ thuật chịu nhiệt cao."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Silicon là nguyên tố số 14, thuộc nhóm IVA | chu kỳ 3 và là một á kim.</li>\n  <li>Silicon có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p² và có 4 electron hóa trị. Silicon có khả năng tạo liên kết cộng hóa trị mạnh và có cấu trúc tinh thể tương tự Diamond.</li>\n  <li>Trong tự nhiên, Silicon là một trong những nguyên tố phổ biến nhất trong lớp vỏ Trái Đất, chủ yếu tồn tại dưới dạng Silicon dioxide và Silicate.</li>\n  <li>Silicon có tính bán dẫn, là cơ sở của ngành công nghiệp điện tử hiện đại. Silicon và các hợp chất của nó được sử dụng rộng rãi trong vi điện tử, pin mặt trời, vật liệu xây dựng, thủy tinh, gốm, hợp kim và vật liệu kỹ thuật.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Có thể điều chế Silicon bằng cách khử Silicon dioxide bằng Magnesium:",
+        "equation": "SiO₂ + 2Mg → Si + 2MgO",
+        "desc": ""
+      }
+    ],
+    "industry": [
+      {
+        "title": "Silicon được sản xuất chủ yếu bằng cách khử Silicon dioxide bằng Carbon trong lò điện ở nhiệt độ cao:",
+        "equation": "SiO₂ + 2C → Si + 2CO",
+        "desc": "Đối với Silicon điện tử có độ tinh khiết rất cao, Silicon có thể được chuyển thành các hợp chất dễ tinh chế rồi tái lắng đọng thành Silicon tinh khiết."
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Phương pháp hóa học",
+      "reagent": "",
+      "result": "Silicon đơn chất không có phản ứng nhận biết đơn giản và đặc hiệu trong chương trình phổ thông.",
+      "equation": ""
+    },
+    {
+      "title": "Tính chất bán dẫn",
+      "reagent": "",
+      "result": "Silicon có thể được xác định bằng các phương pháp vật lý và phân tích chuyên dụng dựa trên tính chất bán dẫn và cấu trúc tinh thể.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm mặt (FCC)"
+}

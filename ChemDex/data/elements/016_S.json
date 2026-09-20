@@ -1,0 +1,229 @@
+{
+  "number": 16,
+  "symbol": "S",
+  "nameVi": "Sulfur",
+  "nameEn": "Sulfur",
+  "mass": 32.06,
+  "category": "phi-kim",
+  "hasData": true,
+  "file": "elements/016_S.json",
+  "general": {
+    "latinName": "Sulfur",
+    "englishName": "Sulfur",
+    "electronConfig": "1s² 2s² 2p⁶ 3s² 3p⁴",
+    "isotope": "³²S, ³³S, ³⁴S, ³⁶S",
+    "group": 16,
+    "period": 3,
+    "state": "",
+    "oxidation": "−2, +2, +4, +6",
+    "electronegativity": 2.58,
+    "density": "khoảng 2.07 g/cm³.",
+    "meltingPoint": "khoảng 115.2 °C.",
+    "boilingPoint": "khoảng 444.6 °C.",
+    "crystalStructure": "Trực thoi (Orthorhombic)"
+  },
+  "history": {
+    "discoverer": "Đã được biết đến từ thời cổ đại",
+    "year": "Không xác định",
+    "discoveryLocation": "Không xác định",
+    "description": "Sulfur đã được con người biết đến và sử dụng từ thời cổ đại. Các nền văn minh cổ đã sử dụng Sulfur trong y học, tôn giáo và các hoạt động khác. Đến cuối thế kỷ XVIII, Antoine Lavoisier xác định Sulfur là một nguyên tố hóa học chứ không phải hợp chất."
+  },
+  "structure": {
+    "protons": 16,
+    "neutrons": 16,
+    "electrons": 16,
+    "electronShells": [
+      2,
+      8,
+      6
+    ],
+    "shells": [
+      2,
+      8,
+      6
+    ],
+    "valenceElectrons": 6,
+    "lattice": "Trực thoi (Orthorhombic)",
+    "nucleus": {
+      "proton": 16,
+      "neutron": 16
+    }
+  },
+  "occurrence": {
+    "description": "Sulfur là chất rắn màu vàng ở điều kiện thường. Trong tự nhiên, Sulfur có thể tồn tại dưới dạng đơn chất hoặc hợp chất.",
+    "simple": [
+      "S₈"
+    ],
+    "compounds": [
+      "H₂S",
+      "SO₂",
+      "SO₃",
+      "H₂SO₄",
+      "FeS₂",
+      "ZnS",
+      "CaSO₄"
+    ],
+    "ores": [
+      "Mỏ Sulfur tự nhiên",
+      "khu vực núi lửa",
+      "khoáng vật Sulfide và Sulfate",
+      "dầu mỏ và khí tự nhiên"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là chất rắn màu vàng ở điều kiện thường.</li>\n      <li>Có nhiều dạng thù hình.</li>\n      <li>Dạng ổn định ở nhiệt độ thường là Sulfur trực thoi.</li>\n      <li>Giòn và không dẫn điện tốt.</li>\n      <li>Không tan trong nước.</li>\n      <li>Tan tốt hơn trong một số dung môi hữu cơ.</li>\n      <li>Khối lượng riêng: khoảng 2.07 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 115.2 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 444.6 °C.</li>\n      <li>Có thể tạo hơi Sulfur khi được nung nóng.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là phi kim.</li>\n      <li>Có tính Oxy hóa và tính khử tùy phản ứng.</li>\n      <li>Số Oxy hóa phổ biến: −2, +4, +6.</li>\n      <li>Phản ứng với Oxygen tạo Sulfur dioxide.</li>\n      <li>Phản ứng với Hydrogen tạo Hydrogen sulfide.</li>\n      <li>Phản ứng với nhiều kim loại tạo Metal sulfide.</li>\n      <li>Phản ứng với Halogen tạo Sulfur halide.</li>\n      <li>Có thể bị Oxy hóa tiếp thành Sulfur trioxide.</li>\n      <li>Sulfur dioxide có thể tiếp tục bị Oxy hóa thành Sulfur trioxide trong điều kiện thích hợp.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "S + O₂ → SO₂",
+      "desc": ""
+    },
+    {
+      "type": "Oxy hóa Sulfur dioxide",
+      "equation": "2SO₂ + O₂ ⇌ 2SO₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrogen",
+      "equation": "H₂ + S → H₂S",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Iron",
+      "equation": "Fe + S → FeS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Zinc",
+      "equation": "Zn + S → ZnS",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Copper",
+      "equation": "2Cu + S → Cu₂S",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Carbon",
+      "equation": "C + 2S → CS₂",
+      "desc": "Ở nhiệt độ cao:"
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "S + Cl₂ → SCl₂",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Sulfuric acid",
+      "equation": "SO₃ + H₂O → H₂SO₄",
+      "desc": ""
+    },
+    {
+      "type": "Sulfur dioxide tác dụng với Hydrogen sulfide",
+      "equation": "2H₂S + SO₂ → 3S + 2H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Sản xuất Sulfuric acid",
+      "desc": "Đây là ứng dụng quan trọng nhất của Sulfur."
+    },
+    {
+      "title": "Phân bón",
+      "desc": "Sulfuric acid và Sulfur compounds được sử dụng trong sản xuất phân bón."
+    },
+    {
+      "title": "Lưu hóa cao su",
+      "desc": "Sulfur được sử dụng để tạo liên kết chéo trong cao su, giúp cải thiện độ bền và tính đàn hồi."
+    },
+    {
+      "title": "Sản xuất hóa chất",
+      "desc": "Dùng để sản xuất nhiều Sulfur compounds."
+    },
+    {
+      "title": "Thuốc bảo vệ thực vật",
+      "desc": "Một số chế phẩm Sulfur được sử dụng trong nông nghiệp."
+    },
+    {
+      "title": "Sản xuất thuốc",
+      "desc": "Sulfur compounds được sử dụng trong một số quy trình sản xuất dược phẩm."
+    },
+    {
+      "title": "Diêm và pháo",
+      "desc": "Một số hợp chất chứa Sulfur được sử dụng trong các sản phẩm tạo lửa và pháo hoa."
+    },
+    {
+      "title": "Lọc dầu",
+      "desc": "Sulfur được thu hồi trong quá trình xử lý dầu mỏ và khí tự nhiên nhằm loại bỏ Hydrogen sulfide."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Sulfur là nguyên tố số 16, thuộc nhóm VIA | chu kỳ 3 và là một phi kim.</li>\n  <li>Sulfur có cấu hình electron 1s² 2s² 2p⁶ 3s² 3p⁴, với 6 electron hóa trị. Sulfur có nhiều dạng thù hình và có thể thể hiện cả tính Oxy hóa lẫn tính khử tùy vào phản ứng.</li>\n  <li>Trong tự nhiên, Sulfur tồn tại cả ở dạng đơn chất S₈ và dưới dạng nhiều hợp chất Sulfide, Sulfate. Sulfur cũng có mặt đáng kể trong dầu mỏ và khí tự nhiên dưới dạng Hydrogen sulfide.</li>\n  <li>Sulfur có vai trò rất quan trọng trong công nghiệp, đặc biệt là sản xuất Sulfuric acid, phân bón, lưu hóa cao su, hóa chất và xử lý dầu mỏ.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [
+      {
+        "title": "Sulfur có thể được tạo ra bằng cách cho Hydrogen sulfide phản ứng với Sulfur dioxide:",
+        "equation": "2H₂S + SO₂ → 3S↓ + 2H₂O",
+        "desc": "Sulfur thu được có màu vàng."
+      }
+    ],
+    "industry": [
+      {
+        "title": "Sulfur được thu hồi chủ yếu từ Hydrogen sulfide (H₂S) trong dầu mỏ và khí tự nhiên bằng Claus process.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Phản ứng tổng quát:",
+        "equation": "2H₂S + O₂ → 2S + 2H₂O <br> 2H₂S + 3O₂ → 2SO₂ + 2H₂O <br> 2H₂S + SO₂ → 3S + 2H₂O",
+        "desc": "Một phần H₂S được đốt tạo Sulfur dioxide: Sau đó SO₂ phản ứng với H₂S:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết Sulfide (S²⁻)",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho ion Sulfide tác dụng với ion Lead(II)",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "S²⁻ + Pb²⁺ → PbS↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa đen Lead(II) sulfide.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết Sulfate (SO₄²⁻)",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "SO₄²⁻ + Ba²⁺ → BaSO₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Barium sulfate.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Trực thoi (Orthorhombic)"
+}

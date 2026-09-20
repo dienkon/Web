@@ -1,0 +1,188 @@
+{
+  "number": 49,
+  "symbol": "In",
+  "nameVi": "Indium",
+  "nameEn": "Indium",
+  "mass": 114.818,
+  "category": "unknown",
+  "hasData": true,
+  "file": "elements/049_In.json",
+  "general": {
+    "latinName": "Indium",
+    "englishName": "Indium",
+    "electronConfig": "[Kr] 4d¹⁰ 5s² 5p¹",
+    "isotope": "¹¹³In, ¹¹⁵In",
+    "group": 13,
+    "period": 5,
+    "state": "",
+    "oxidation": "+1, +3",
+    "electronegativity": 1.78,
+    "density": "khoảng 7.31 g/cm³.",
+    "meltingPoint": "khoảng 156.6 °C.",
+    "boilingPoint": "khoảng 2072 °C.",
+    "crystalStructure": "Tứ phương (Tetragonal)"
+  },
+  "history": {
+    "discoverer": "Ferdinand Reich và Hieronymus Theodor Richter",
+    "year": 1863,
+    "discoveryLocation": "Đức",
+    "description": "Năm 1863, Ferdinand Reich và Hieronymus Theodor Richter phát hiện Indium khi phân tích quặng Zinc bằng phương pháp quang phổ. Họ nhận thấy một vạch phổ màu chàm đặc trưng chưa từng được biết đến. Từ đó, nguyên tố mới được đặt tên là Indium."
+  },
+  "structure": {
+    "protons": 49,
+    "neutrons": 64,
+    "electrons": 49,
+    "electronShells": [
+      2,
+      8,
+      18,
+      18,
+      3
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      18,
+      3
+    ],
+    "valenceElectrons": 3,
+    "lattice": "Tứ phương (Tetragonal)",
+    "nucleus": {
+      "proton": 49,
+      "neutron": 64
+    }
+  },
+  "occurrence": {
+    "description": "Indium là kim loại rắn, màu trắng bạc, rất mềm.",
+    "simple": [
+      "In"
+    ],
+    "compounds": [
+      "In₂O₃",
+      "InCl₃",
+      "In₂S₃",
+      "In(OH)₃",
+      "InP",
+      "InAs"
+    ],
+    "ores": [
+      "Chủ yếu tồn tại dưới dạng tạp chất trong các quặng Zinc",
+      "đặc biệt là Sphalerite (ZnS)"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại thuộc nhóm IIIA.</li>\n      <li>Màu trắng bạc, có ánh kim.</li>\n      <li>Rất mềm và dễ dát mỏng.</li>\n      <li>Có thể để lại vệt trên giấy.</li>\n      <li>Khối lượng riêng: khoảng 7.31 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 156.6 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 2072 °C.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n      <li>Có tính dẻo cao.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có số Oxy hóa phổ biến là +3, ngoài ra có +1.</li>\n      <li>Tương đối ổn định trong không khí ở nhiệt độ thường.</li>\n      <li>Khi nung nóng phản ứng với Oxygen tạo Indium oxide.</li>\n      <li>Phản ứng với Halogen tạo Indium halide.</li>\n      <li>Phản ứng với acid tạo muối Indium và Hydrogen.</li>\n      <li>Một số hợp chất Indium có tính bán dẫn quan trọng.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "4In + 3O₂ → 2In₂O₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "2In + 3Cl₂ → 2InCl₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "2In + 3S → In₂S₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Hydrochloric acid",
+      "equation": "2In + 6HCl → 2InCl₃ + 3H₂↑",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Indium hydroxide",
+      "equation": "In³⁺ + 3OH⁻ → In(OH)₃↓",
+      "desc": ""
+    },
+    {
+      "type": "Indium hydroxide tác dụng với acid",
+      "equation": "In(OH)₃ + 3HCl → InCl₃ + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Điều chế Indium",
+      "equation": "In₂O₃ + 3H₂ → 2In + 3H₂O",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Màn hình cảm ứng",
+      "desc": "Indium tin oxide (ITO) được sử dụng rộng rãi làm lớp phủ dẫn điện trong màn hình cảm ứng và màn hình phẳng."
+    },
+    {
+      "title": "Màn hình LCD",
+      "desc": "ITO cũng được sử dụng trong các điện cực trong suốt của màn hình LCD."
+    },
+    {
+      "title": "Pin mặt trời",
+      "desc": "Các hợp chất như Indium gallium selenide (CIGS) được sử dụng trong một số loại pin mặt trời màng mỏng."
+    },
+    {
+      "title": "Bán dẫn",
+      "desc": "Indium phosphide (InP) được sử dụng trong linh kiện bán dẫn và công nghệ quang điện tử."
+    },
+    {
+      "title": "Hợp kim",
+      "desc": "Indium có nhiệt độ nóng chảy thấp nên được sử dụng trong một số hợp kim và vật liệu hàn."
+    },
+    {
+      "title": "Kính phủ dẫn điện",
+      "desc": "Indium tin oxide tạo lớp phủ vừa trong suốt vừa dẫn điện."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Indium là nguyên tố số 49, thuộc nhóm IIIA | chu kỳ 5.</li>\n  <li>Indium có cấu hình electron [Kr] 4d¹⁰ 5s² 5p¹, với số Oxy hóa phổ biến là +3.</li>\n  <li>Indium là kim loại rất mềm, màu trắng bạc và có nhiệt độ nóng chảy thấp. Trong tự nhiên, Indium thường tồn tại với hàm lượng rất nhỏ trong các quặng Zinc và chủ yếu được thu hồi như sản phẩm phụ của ngành luyện Zinc.</li>\n  <li>Indium đặc biệt quan trọng trong công nghệ hiện đại nhờ khả năng tạo Indium tin oxide (ITO) — vật liệu trong suốt nhưng dẫn điện tốt, được sử dụng trong màn hình cảm ứng, LCD và các thiết bị hiển thị.</li>\n  <li>Ngoài ra, Indium còn có vai trò trong bán dẫn, quang điện tử, pin mặt trời và vật liệu hàn.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Indium chủ yếu được thu hồi như sản phẩm phụ trong quá trình luyện Zinc.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Sau khi tách khỏi quặng Zinc, Indium được tinh chế bằng các phương pháp hóa học và điện phân.",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Một phương trình minh họa quá trình khử Indium oxide:",
+        "equation": "In₂O₃ + 3H₂ → 2In + 3H₂O",
+        "desc": ""
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết In³⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Cho In³⁺ tác dụng với hydroxide",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "In³⁺ + 3OH⁻ → In(OH)₃↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng Indium hydroxide.",
+      "equation": ""
+    }
+  ],
+  "structureType": "Tứ phương (Tetragonal)"
+}

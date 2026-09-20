@@ -1,0 +1,198 @@
+{
+  "number": 42,
+  "symbol": "Mo",
+  "nameVi": "Molybdenum",
+  "nameEn": "Molybdenum",
+  "mass": 95.95,
+  "category": "chuyen-tiep",
+  "hasData": true,
+  "file": "elements/042_Mo.json",
+  "general": {
+    "latinName": "Molybdenum",
+    "englishName": "Molybdenum",
+    "electronConfig": "[Kr] 4d⁵ 5s¹",
+    "isotope": "⁹²Mo, ⁹⁴Mo, ⁹⁵Mo, ⁹⁶Mo, ⁹⁷Mo, ⁹⁸Mo, ¹⁰⁰Mo",
+    "group": 6,
+    "period": 5,
+    "state": "",
+    "oxidation": "+2, +3, +4, +5, +6",
+    "electronegativity": 2.16,
+    "density": "khoảng 10.28 g/cm³.",
+    "meltingPoint": "khoảng 2623 °C.",
+    "boilingPoint": "khoảng 4639 °C.",
+    "crystalStructure": "Lập phương tâm khối (Body-centered cubic, BCC)"
+  },
+  "history": {
+    "discoverer": "Carl Wilhelm Scheele",
+    "year": 1778,
+    "discoveryLocation": "Thụy Điển",
+    "description": "Năm 1778, Carl Wilhelm Scheele xác định rằng Molybdenite (MoS₂) không phải là hợp chất của Lead như từng nghĩ mà chứa một nguyên tố mới. Đến năm 1781, Peter Jacob Hjelm điều chế được Molybdenum kim loại tương đối tinh khiết."
+  },
+  "structure": {
+    "protons": 42,
+    "neutrons": 54,
+    "electrons": 42,
+    "electronShells": [
+      2,
+      8,
+      18,
+      13,
+      1
+    ],
+    "shells": [
+      2,
+      8,
+      18,
+      13,
+      1
+    ],
+    "valenceElectrons": 1,
+    "lattice": "Lập phương tâm khối (Body-centered cubic, BCC)",
+    "nucleus": {
+      "proton": 42,
+      "neutron": 54
+    }
+  },
+  "occurrence": {
+    "description": "Molybdenum là kim loại rắn, màu trắng bạc hoặc xám kim loại.",
+    "simple": [
+      "Mo"
+    ],
+    "compounds": [
+      "MoS₂",
+      "MoO₃",
+      "MoCl₅",
+      "MoO₂",
+      "Mo₂C"
+    ],
+    "ores": [
+      "Chủ yếu trong quặng Molybdenite (MoS₂)",
+      "ngoài ra còn có Wulfenite (PbMoO₄) và một số khoáng vật khác"
+    ]
+  },
+  "naturalState": {},
+  "physical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Là kim loại chuyển tiếp.</li>\n      <li>Màu trắng bạc hoặc xám kim loại.</li>\n      <li>Cứng và có độ bền cao.</li>\n      <li>Khối lượng riêng: khoảng 10.28 g/cm³.</li>\n      <li>Nhiệt độ nóng chảy: khoảng 2623 °C.</li>\n      <li>Nhiệt độ sôi: khoảng 4639 °C.</li>\n      <li>Có nhiệt độ nóng chảy rất cao.</li>\n      <li>Giữ được độ bền ở nhiệt độ cao.</li>\n      <li>Dẫn điện và dẫn nhiệt tốt.</li>\n    </ul>\n  ",
+  "chemical": "\n    <ul class=\"list-disc ml-5 space-y-2\">\n      <li>Có nhiều số Oxy hóa từ +2 đến +6.</li>\n      <li>Trạng thái +6 rất phổ biến.</li>\n      <li>Tương đối bền trong không khí ở điều kiện thường.</li>\n      <li>Khi nung nóng có thể phản ứng với Oxygen tạo Molybdenum trioxide.</li>\n      <li>Phản ứng với Halogen tạo Molybdenum halide.</li>\n      <li>Có thể tạo Sulfide, Carbide và Nitride.</li>\n      <li>Molybdenum disulfide (MoS₂) có tính bôi trơn đặc biệt.</li>\n    </ul>\n  ",
+  "reactions": [
+    {
+      "type": "Tác dụng với Oxygen",
+      "equation": "2Mo + 3O₂ → 2MoO₃",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Chlorine",
+      "equation": "Mo + 3Cl₂ → MoCl₆",
+      "desc": ""
+    },
+    {
+      "type": "Tác dụng với Sulfur",
+      "equation": "Mo + 2S → MoS₂",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Molybdenum disulfide",
+      "equation": "Mo + 2S → MoS₂",
+      "desc": ""
+    },
+    {
+      "type": "Khử Molybdenum trioxide",
+      "equation": "MoO₃ + 3H₂ → Mo + 3H₂O",
+      "desc": ""
+    },
+    {
+      "type": "Nung Molybdenite trong Oxygen",
+      "equation": "2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂",
+      "desc": ""
+    },
+    {
+      "type": "Tạo Lead molybdate",
+      "equation": "Pb²⁺ + MoO₄²⁻ → PbMoO₄↓",
+      "desc": ""
+    }
+  ],
+  "applications": [
+    {
+      "title": "Thép hợp kim",
+      "desc": "Molybdenum được thêm vào thép để tăng độ cứng, độ bền và khả năng chịu nhiệt."
+    },
+    {
+      "title": "Hợp kim chịu nhiệt",
+      "desc": "Dùng trong các bộ phận phải làm việc ở nhiệt độ cao."
+    },
+    {
+      "title": "Công nghiệp dầu khí",
+      "desc": "Một số Molybdenum compounds được sử dụng làm chất xúc tác trong quá trình lọc dầu."
+    },
+    {
+      "title": "Chất bôi trơn",
+      "desc": "Molybdenum disulfide (MoS₂) là chất bôi trơn rắn, hoạt động tốt ở nhiệt độ và áp suất cao."
+    },
+    {
+      "title": "Điện tử",
+      "desc": "Molybdenum được sử dụng trong một số linh kiện và vật liệu điện tử."
+    },
+    {
+      "title": "Kính và vật liệu",
+      "desc": "Molybdenum được sử dụng trong điện cực, vật liệu chịu nhiệt và một số thiết bị công nghiệp."
+    },
+    {
+      "title": "Sinh học",
+      "desc": "Molybdenum là nguyên tố vi lượng cần thiết cho nhiều sinh vật và là thành phần của một số enzyme."
+    }
+  ],
+  "notes": "<h4 class=\"text-white font-semibold mb-4\">Tổng quan</h4>\n<ul class=\"list-disc ml-5 space-y-2\">\n  <li>Molybdenum là nguyên tố số 42, thuộc nhóm VIB | chu kỳ 5 và là một kim loại chuyển tiếp.</li>\n  <li>Molybdenum có cấu hình electron [Kr] 4d⁵ 5s¹, với nhiều số Oxy hóa, trong đó +6 là trạng thái phổ biến.</li>\n  <li>Molybdenum có nhiệt độ nóng chảy rất cao, độ bền tốt và khả năng duy trì tính chất cơ học ở nhiệt độ cao. Trong tự nhiên, nguồn Molybdenum quan trọng nhất là Molybdenite (MoS₂).</li>\n  <li>Molybdenum có vai trò quan trọng trong thép hợp kim, vật liệu chịu nhiệt, chất xúc tác, chất bôi trơn và công nghiệp điện tử. Đặc biệt, MoS₂ là một chất bôi trơn rắn có giá trị trong các môi trường khắc nghiệt.</li>\n</ul>\n",
+  "preparations": {
+    "lab": [],
+    "industry": [
+      {
+        "title": "Molybdenum chủ yếu được sản xuất từ quặng Molybdenite (MoS₂).",
+        "equation": "",
+        "desc": ""
+      },
+      {
+        "title": "Trước tiên, quặng được nung trong Oxygen để tạo Molybdenum trioxide:",
+        "equation": "2MoS₂ + 7O₂ → 2MoO₃ + 4SO₂ <br> MoO₃ + 3H₂ → Mo + 3H₂O",
+        "desc": "Sau đó MoO₃ được khử bằng Hydrogen ở nhiệt độ cao:"
+      }
+    ]
+  },
+  "recognition": [
+    {
+      "title": "Nhận biết",
+      "reagent": "Nhận biết Mo⁶⁺",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Ion Molybdate (MoO₄²⁻) có thể được sử dụng để nhận biết Molybdenum.",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Một phản ứng tạo kết tủa",
+      "reagent": "",
+      "result": "",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "",
+      "result": "",
+      "equation": "Pb²⁺ + MoO₄²⁻ → PbMoO₄↓"
+    },
+    {
+      "title": "Hiện tượng",
+      "reagent": "",
+      "result": "Xuất hiện kết tủa trắng hoặc vàng nhạt Lead molybdate.",
+      "equation": ""
+    },
+    {
+      "title": "Nhận biết",
+      "reagent": "Trong phân tích định tính chính xác, Molybdenum thường cần các phương pháp chuyên dụng.",
+      "result": "",
+      "equation": ""
+    }
+  ],
+  "structureType": "Lập phương tâm khối (Body-centered cubic, BCC)"
+}
