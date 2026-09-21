@@ -1,6 +1,6 @@
 import katex from "katex";
 import type { Exam, Question, Section } from "../types";
-import { fixLatexFormatting } from "../utils/latexFormatter";
+import { fixLatexFormatting } from "../utils/latexFormatter.js";
 import { extractRawBlocks, renderRawBlockContent } from "../features/exam-builder/editor/LatexPreview";
 
 export interface ExportExamOptions {

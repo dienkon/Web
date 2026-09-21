@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { parseDocxFile, processExamInChunks, processExamFromPromptStream } from "./aiExamGenerator.js";
-import { askTutor } from "./aiTutor";
+import { askTutor } from "./aiTutor.js";
 import { analyzeExamPerformance, analyzeStructuredExamPerformance } from "./aiAnalytics.js";
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit

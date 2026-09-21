@@ -2,7 +2,7 @@ import mammoth from "mammoth";
 import { getAiClient, defaultModel } from "./aiClient.js";
 import { aiExamImportResultSchema } from "./aiSchema.js";
 import { Type } from "@google/genai";
-import { fixLatexFormatting } from "../../utils/latexFormatter";
+import { fixLatexFormatting } from "../../utils/latexFormatter.js";
 export { fixLatexFormatting };
 
 export async function parseDocxFile(buffer: Buffer): Promise<string> {
