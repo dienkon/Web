@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Check, X, ArrowRight, Lightbulb, Sparkles, HelpCircle } from "lucide-react";
+import { Check, X, ArrowRight, Lightbulb, Sparkles, HelpCircle, Trophy } from "lucide-react";
 import { PracticeQuestion, PracticeUserAnswer } from "../core/types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 
@@ -12,6 +12,7 @@ interface Props {
   userResult: PracticeUserAnswer | null; // evaluated result if answered
   isSubmitted: boolean;
   disabled?: boolean;
+  isLastQuestion?: boolean;
 }
 
 export default function PracticeQuestionView({
@@ -23,6 +24,7 @@ export default function PracticeQuestionView({
   userResult,
   isSubmitted,
   disabled = false,
+  isLastQuestion = false,
 }: Props) {
   const numericInputRef = useRef<HTMLInputElement>(null);
   const fracNumRef = useRef<HTMLInputElement>(null);
@@ -92,51 +94,40 @@ export default function PracticeQuestionView({
         </div>
 
         {/* Prompt & LaTeX Formula */}
-        <div className="text-center my-4 sm:my-6">
-          {question.latex ? (
-            <div className="text-2xl sm:text-4xl font-bold text-slate-900 py-2">
+        <div className="text-center my-4 sm:my-6 space-y-3">
+          {question.prompt && (
+            <div className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight leading-relaxed">
+              <LatexPreview content={question.prompt} />
+            </div>
+          )}
+
+          {question.latex && question.latex !== question.prompt && (
+            <div className="text-2xl sm:text-3xl font-bold text-slate-900 py-1">
               <LatexPreview content={`$$${question.latex}$$`} className="text-slate-900" />
             </div>
-          ) : (
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">{question.prompt}</h2>
           )}
 
-          {question.latex && question.prompt && question.prompt !== question.latex && (
-            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed max-w-lg mx-auto whitespace-pre-line">
-              {question.prompt}
-            </p>
-          )}
+          {/* Parallel Code Snippet for Informatics THPTQG (Python & C++ side by side with Discord style) */}
+          {(question.codeSnippet || question.metadata?.codeSnippet) && (() => {
+            const cs = question.codeSnippet || question.metadata?.codeSnippet;
+            const pyCode = cs?.python?.trim() || "";
+            const cppCode = cs?.cpp?.trim() || "";
 
-          {/* Parallel Code Snippet for Informatics THPTQG (Python & C++ side by side) */}
-          {(question.codeSnippet || question.metadata?.codeSnippet) && (
-            <div className="my-5 grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
-              {/* Python Column */}
-              <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-md">
-                <div className="bg-slate-800/90 px-3.5 py-2 border-b border-slate-700 flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
-                    <span>🐍</span> Python 3
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-mono">.py</span>
-                </div>
-                <pre className="p-4 text-xs font-mono text-emerald-300 leading-relaxed overflow-x-auto whitespace-pre">
-                  <code>{(question.codeSnippet?.python || question.metadata?.codeSnippet?.python || "").trim()}</code>
-                </pre>
+            return (
+              <div className="my-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
+                {pyCode && (
+                  <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-700/60 bg-[#1e1f22]">
+                    <LatexPreview content={`\`\`\`python\n${pyCode}\n\`\`\``} />
+                  </div>
+                )}
+                {cppCode && (
+                  <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-700/60 bg-[#1e1f22]">
+                    <LatexPreview content={`\`\`\`cpp\n${cppCode}\n\`\`\``} />
+                  </div>
+                )}
               </div>
-
-              {/* C++ Column */}
-              <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-md">
-                <div className="bg-slate-800/90 px-3.5 py-2 border-b border-slate-700 flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-xs font-bold text-sky-400">
-                    <span>⚡</span> C++
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-mono">.cpp</span>
-                </div>
-                <pre className="p-4 text-xs font-mono text-cyan-300 leading-relaxed overflow-x-auto whitespace-pre">
-                  <code>{(question.codeSnippet?.cpp || question.metadata?.codeSnippet?.cpp || "").trim()}</code>
-                </pre>
-              </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
 
         {/* Input Interface */}
@@ -175,7 +166,7 @@ export default function PracticeQuestionView({
                           : "bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 active:scale-95"
                       }`}
                     >
-                      {opt.text}
+                      {opt.latex ? <LatexPreview content={`$${opt.latex}$`} /> : <LatexPreview content={opt.text} />}
                     </button>
                   ))}
                 </div>
@@ -338,16 +329,25 @@ export default function PracticeQuestionView({
                 (question.type === "fraction" && (!currentAnswer.numerator || !currentAnswer.denominator))
               }
               onClick={onSubmitAnswer}
-              className="w-full max-w-sm px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none"
+              className="w-full max-w-sm px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none cursor-pointer"
             >
               <span>Kiểm tra đáp án</span>
               <ArrowRight className="w-4 h-4" />
+            </button>
+          ) : isLastQuestion ? (
+            <button
+              type="button"
+              onClick={onNextQuestion}
+              className="w-full max-w-sm px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-lg shadow-emerald-500/25 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Trophy className="w-5 h-5 text-amber-300" />
+              <span>Hoàn thành & Xem kết quả (Phím Enter)</span>
             </button>
           ) : (
             <button
               type="button"
               onClick={onNextQuestion}
-              className="w-full max-w-sm px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-500/25 active:scale-98 transition-all flex items-center justify-center gap-2"
+              className="w-full max-w-sm px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-500/25 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Câu tiếp theo (Phím Enter)</span>
               <ArrowRight className="w-4 h-4" />

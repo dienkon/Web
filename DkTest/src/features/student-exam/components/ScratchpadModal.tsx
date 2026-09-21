@@ -18,6 +18,8 @@ import {
   GripVertical,
   Clock,
   Send,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
 
 interface Props {
@@ -359,6 +361,25 @@ export default function ScratchpadModal({
     onAnswerChange(currentQ.id, val);
   };
 
+  const handleMoveOrderingItem = (index: number, direction: "up" | "down") => {
+    if (!currentQ || !onAnswerChange) return;
+    const items = currentQ.orderingItems || [];
+    const currentOrder: string[] =
+      Array.isArray(answers[currentQ.id]) && answers[currentQ.id].length === items.length
+        ? answers[currentQ.id]
+        : items.map((it) => it.id);
+
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= currentOrder.length) return;
+
+    const newOrder = [...currentOrder];
+    const temp = newOrder[index];
+    newOrder[index] = newOrder[targetIndex];
+    newOrder[targetIndex] = temp;
+
+    onAnswerChange(currentQ.id, newOrder);
+  };
+
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -579,6 +600,97 @@ export default function ScratchpadModal({
                   onChange={(e) => handleShortAnswerChange(e.target.value)}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+              </div>
+            )}
+
+            {/* Ordering (Sắp xếp thứ tự) Interactive */}
+            {currentQ.type === "ordering" && (
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  Dùng mũi tên để sắp xếp theo đúng thứ tự logic:
+                </p>
+                {(() => {
+                  const items = currentQ.orderingItems || [];
+                  const currentOrder: string[] =
+                    Array.isArray(answers[currentQ.id]) && answers[currentQ.id].length === items.length
+                      ? answers[currentQ.id]
+                      : items.map((it) => it.id);
+
+                  return (
+                    <div className="space-y-1.5">
+                      {currentOrder.map((itemId, idx) => {
+                        const item = items.find((it) => it.id === itemId);
+                        return (
+                          <div
+                            key={itemId}
+                            className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-2 hover:border-blue-300 transition-all text-xs"
+                          >
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              <span className="w-5 h-5 rounded-lg bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0">
+                                {idx + 1}
+                              </span>
+                              <div className="text-slate-800 font-medium flex-1">
+                                <LatexPreview content={item?.text || ""} />
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-1 shrink-0">
+                              <button
+                                type="button"
+                                onClick={() => handleMoveOrderingItem(idx, "up")}
+                                disabled={idx === 0}
+                                className="p-1 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+                                title="Di chuyển lên"
+                              >
+                                <ChevronUp className="w-3.5 h-3.5 text-slate-600" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleMoveOrderingItem(idx, "down")}
+                                disabled={idx === currentOrder.length - 1}
+                                className="p-1 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+                                title="Di chuyển xuống"
+                              >
+                                <ChevronDown className="w-3.5 h-3.5 text-slate-600" />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* Fill Blank Interactive */}
+            {currentQ.type === "fill_blank" && currentQ.acceptedAnswersPerBlank && (
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  Điền vào các chỗ trống:
+                </p>
+                <div className="space-y-1.5">
+                  {Object.keys(currentQ.acceptedAnswersPerBlank).map((blankKey) => {
+                    const bIdx = parseInt(blankKey, 10);
+                    const userAnswersMap = (answers[currentQ.id] as Record<number, string>) || {};
+                    const currentVal = userAnswersMap[bIdx] || "";
+                    return (
+                      <div key={blankKey} className="flex items-center gap-2 text-xs">
+                        <span className="font-bold text-blue-700 w-16 shrink-0">Ô [{bIdx + 1}]:</span>
+                        <input
+                          type="text"
+                          placeholder={`Đáp án ô ${bIdx + 1}...`}
+                          value={currentVal}
+                          onChange={(e) => {
+                            const nextMap = { ...userAnswersMap, [bIdx]: e.target.value };
+                            if (onAnswerChange) onAnswerChange(currentQ.id, nextMap);
+                          }}
+                          className="flex-1 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

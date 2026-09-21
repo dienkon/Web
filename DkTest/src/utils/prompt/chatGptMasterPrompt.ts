@@ -1,3 +1,10 @@
+export interface CognitiveLevelDistribution {
+  recognition: number; // Nhận biết (%)
+  comprehension: number; // Thông hiểu (%)
+  application: number; // Vận dụng (%)
+  advanced: number; // Vận dụng cao (%)
+}
+
 export interface PromptCustomConfig {
   subject: string;
   grade: string;
@@ -11,6 +18,27 @@ export interface PromptCustomConfig {
   hasAudio?: boolean;
   hasAttachments?: boolean;
   allowSubExam?: boolean;
+
+  // Enhanced detailed settings:
+  examStructure?: "bogiaoduc_3parts" | "by_topic" | "single_section";
+  scoreScale?: 10 | 100;
+  cognitiveLevels?: CognitiveLevelDistribution;
+  shuffleQuestions?: boolean;
+  shuffleOptions?: boolean;
+  showResultsImmediately?: boolean;
+  showExplanationsImmediately?: boolean;
+  maxAttempts?: number; // 0 = unlimited
+  subExamQuestionCount?: number;
+  programmingLanguage?: "all" | "python" | "cpp" | "pascal" | "none";
+  pedagogyStyle?: "detailed_steps" | "quick_tips" | "standard";
+}
+
+export interface MasterPromptPreset {
+  id: string;
+  name: string;
+  iconName: string;
+  desc: string;
+  config: Partial<PromptCustomConfig>;
 }
 
 export const DEFAULT_PROMPT_CONFIG: PromptCustomConfig = {
@@ -20,31 +48,181 @@ export const DEFAULT_PROMPT_CONFIG: PromptCustomConfig = {
   audience: "Học sinh ôn thi tốt nghiệp THPT Quốc gia & Đánh giá năng lực (HSA/V-SAT)",
   timeLimit: 50,
   questionCount: 25,
-  difficulty: "Từ nhận biết, thông hiểu, vận dụng đến vận dụng cao",
+  difficulty: "40% Nhận biết, 30% Thông hiểu, 20% Vận dụng, 10% Vận dụng cao",
   additionalInfo: "Bao gồm trắc nghiệm 1 đáp án, nhiều đáp án, đúng/sai 4 ý, trả lời ngắn, sắp xếp thứ tự và điền khuyết.",
   questionTypes: ["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank"],
   hasAudio: true,
   hasAttachments: true,
   allowSubExam: false,
+  examStructure: "bogiaoduc_3parts",
+  scoreScale: 10,
+  cognitiveLevels: {
+    recognition: 40,
+    comprehension: 30,
+    application: 20,
+    advanced: 10,
+  },
+  shuffleQuestions: false,
+  shuffleOptions: false,
+  showResultsImmediately: true,
+  showExplanationsImmediately: true,
+  maxAttempts: 0,
+  subExamQuestionCount: 20,
+  programmingLanguage: "all",
+  pedagogyStyle: "detailed_steps",
 };
 
-export const FULL_DKTEST_JSON_SCHEMA_TEXT = `{
+export const MASTER_PROMPT_PRESETS: MasterPromptPreset[] = [
+  {
+    id: "thpt_2026",
+    name: "Chuẩn Đề TN THPT 2025/2026 (Bộ GD&ĐT)",
+    iconName: "GraduationCap",
+    desc: "Cấu trúc 3 phần: Trắc nghiệm 1 ĐA, Đúng/Sai 4 ý, Trả lời ngắn",
+    config: {
+      subject: "Toán học",
+      grade: "Lớp 12",
+      topic: "Đề thi thử Tốt nghiệp THPT 2026 chuyên đề Hàm số, Tọa độ Oxyz & Xác suất",
+      audience: "Học sinh lớp 12 ôn thi tốt nghiệp THPT Quốc gia",
+      timeLimit: 90,
+      questionCount: 22,
+      scoreScale: 10,
+      examStructure: "bogiaoduc_3parts",
+      questionTypes: ["single_choice", "true_false", "short_answer"],
+      cognitiveLevels: { recognition: 40, comprehension: 30, application: 20, advanced: 10 },
+      difficulty: "40% Nhận biết, 30% Thông hiểu, 20% Vận dụng, 10% Vận dụng cao",
+      shuffleQuestions: false,
+      shuffleOptions: false,
+      hasAudio: false,
+      hasAttachments: true,
+      pedagogyStyle: "detailed_steps",
+    },
+  },
+  {
+    id: "hsa_dgnl",
+    name: "Đánh Giá Năng Lực (HSA / V-SAT)",
+    iconName: "Sparkles",
+    desc: "Đề thi tư duy định lượng & định tính, đa dạng câu hỏi có điền số ngắn",
+    config: {
+      subject: "Toán học & Khoa học Tự nhiên",
+      grade: "Lớp 12 / Ôn thi ĐGNL",
+      topic: "Tư duy Định lượng và Giải quyết vấn đề thực tế (ĐGNL HSA 2026)",
+      audience: "Thí sinh thi Đánh giá năng lực ĐHQGHN (HSA) và ĐHQG-HCM",
+      timeLimit: 75,
+      questionCount: 50,
+      scoreScale: 10,
+      examStructure: "by_topic",
+      questionTypes: ["single_choice", "short_answer", "ordering"],
+      cognitiveLevels: { recognition: 30, comprehension: 40, application: 20, advanced: 10 },
+      difficulty: "30% Nhận biết, 40% Thông hiểu, 20% Vận dụng, 10% Vận dụng cao",
+      shuffleQuestions: true,
+      shuffleOptions: true,
+      hasAudio: false,
+      hasAttachments: false,
+      pedagogyStyle: "quick_tips",
+    },
+  },
+  {
+    id: "tin_hoc_code",
+    name: "Tin Học THPTQG & Lập Trình",
+    iconName: "FileCode",
+    desc: "Khối mã Python & C++ phong cách Discord, bọc <raw>, thuật toán & ordering",
+    config: {
+      subject: "Tin học",
+      grade: "Lớp 11 - 12",
+      topic: "Cấu trúc Dữ liệu, Giải thuật, Vòng lặp, Đệ quy & Đọc hiểu mã nguồn",
+      audience: "Học sinh ôn thi THPT Quốc gia môn Tin học & Đội tuyển HSG",
+      timeLimit: 45,
+      questionCount: 15,
+      scoreScale: 10,
+      examStructure: "by_topic",
+      questionTypes: ["single_choice", "true_false", "short_answer", "ordering"],
+      programmingLanguage: "all",
+      cognitiveLevels: { recognition: 30, comprehension: 40, application: 20, advanced: 10 },
+      difficulty: "30% Nhận biết, 40% Thông hiểu, 20% Vận dụng, 10% Vận dụng cao",
+      hasAudio: false,
+      hasAttachments: true,
+      additionalInfo: "Bắt buộc có đoạn mã Python & C++ phong cách Discord, sử dụng thẻ <raw>...</raw> cho các thẻ HTML hoặc ký tự so sánh < >.",
+      pedagogyStyle: "detailed_steps",
+    },
+  },
+  {
+    id: "english_listening",
+    name: "Tiếng Anh THPT Kèm Bài Nghe Audio",
+    iconName: "Headphones",
+    desc: "Tích hợp Audio MP3 Listening, điền khuyết [_] & trắc nghiệm đọc hiểu",
+    config: {
+      subject: "Tiếng Anh",
+      grade: "Lớp 12",
+      topic: "Đề kiểm tra Tiếng Anh THPT toàn diện: Listening, Grammar, Reading Comprehension",
+      audience: "Học sinh ôn thi tốt nghiệp THPT và chứng chỉ B1/B2/IELTS",
+      timeLimit: 50,
+      questionCount: 40,
+      scoreScale: 10,
+      examStructure: "by_topic",
+      questionTypes: ["single_choice", "fill_blank"],
+      hasAudio: true,
+      hasAttachments: false,
+      cognitiveLevels: { recognition: 40, comprehension: 40, application: 15, advanced: 5 },
+      difficulty: "40% Nhận biết, 40% Thông hiểu, 15% Vận dụng, 5% Vận dụng cao",
+      additionalInfo: "Cung cấp audioConfig với url bài nghe MP3, lời thoại transcripts (bài đọc) và các câu hỏi dạng điền khuyết [_].",
+      pedagogyStyle: "detailed_steps",
+    },
+  },
+  {
+    id: "quick_test_15m",
+    name: "Kiểm Tra Nhanh 15 Phút / 1 Tiết",
+    iconName: "Clock",
+    desc: "10 câu hỏi ngắn gọn, kiểm tra mức độ ghi nhớ và thông hiểu",
+    config: {
+      subject: "Toán học",
+      grade: "Lớp 10",
+      topic: "Kiểm tra 15 phút đầu giờ: Khái niệm & Công thức trọng tâm",
+      audience: "Học sinh kiểm tra nhanh trên lớp",
+      timeLimit: 15,
+      questionCount: 10,
+      scoreScale: 10,
+      examStructure: "single_section",
+      questionTypes: ["single_choice", "short_answer"],
+      cognitiveLevels: { recognition: 60, comprehension: 40, application: 0, advanced: 0 },
+      difficulty: "60% Nhận biết, 40% Thông hiểu",
+      shuffleQuestions: true,
+      shuffleOptions: true,
+      hasAudio: false,
+      hasAttachments: false,
+      pedagogyStyle: "standard",
+    },
+  },
+];
+
+export function generateDynamicJsonSchemaExample(config: PromptCustomConfig): string {
+  const timeLimit = config.timeLimit || 50;
+  const shuffleQ = config.shuffleQuestions ?? false;
+  const shuffleOpt = config.shuffleOptions ?? false;
+  const showRes = config.showResultsImmediately ?? true;
+  const showDet = config.showExplanationsImmediately ?? true;
+  const maxAtt = config.maxAttempts ?? 0;
+  const subEnabled = config.allowSubExam ?? false;
+  const subCount = config.subExamQuestionCount || 20;
+
+  return `{
   "version": 3,
   "source": "DkTEST",
   "exportType": "exam",
-  "exportedAt": "2026-09-18T00:00:00.000Z",
+  "exportedAt": "2026-09-21T00:00:00.000Z",
   "exam": {
-    "title": "Tên bài thi (VD: Đề thi thử Tốt nghiệp THPT & Đánh giá năng lực 2026)",
-    "subject": "Toán học / Tiếng Anh / Tin học / Vật lý / Hóa học...",
-    "gradeCategory": "THPT Quốc Gia / Lớp 12",
-    "timeLimit": 50,
-    "shuffleQuestions": false,
-    "shuffleOptions": false,
-    "showResults": true,
-    "showDetails": true,
-    "maxAttempts": 0,
-    "description": "Mô tả chi tiết bài thi (hỗ trợ LaTeX, bảng HTML, khối mã Discord, audio nghe...)",
-    "audioConfig": {
+    "title": "${config.topic || "Đề kiểm tra chuẩn DkTEST 2026"}",
+    "subject": "${config.subject || "Toán học"}",
+    "gradeCategory": "${config.grade || "Lớp 12"}",
+    "timeLimit": ${timeLimit},
+    "shuffleQuestions": ${shuffleQ},
+    "shuffleOptions": ${shuffleOpt},
+    "showResults": ${showRes},
+    "showDetails": ${showDet},
+    "maxAttempts": ${maxAtt},
+    "description": "Mô tả chi tiết đề thi (hỗ trợ công thức LaTeX $...$, bảng biểu HTML, code Discord, audio nghe...)",
+    ${
+      config.hasAudio
+        ? `"audioConfig": {
       "url": "https://res.cloudinary.com/demo/video/upload/sample_listening.mp3",
       "title": "Audio bài thi (Toàn bộ bài nghe)",
       "maxPlays": 2,
@@ -52,63 +230,52 @@ export const FULL_DKTEST_JSON_SCHEMA_TEXT = `{
       "allowPause": true,
       "autoPlay": false,
       "enabled": true
-    },
-    "attachments": [
+    },`
+        : ""
+    }
+    ${
+      config.hasAttachments
+        ? `"attachments": [
       {
-        "name": "Bảng tuần hoàn các nguyên tố hóa học / Công thức bổ trợ.pdf",
+        "name": "Tài liệu bảng tra cứu / Công thức bổ trợ.pdf",
         "url": "https://example.com/tai-lieu-bo-tro.pdf",
         "type": "file"
       }
-    ],
+    ],`
+        : ""
+    }
     "subExamConfig": {
-      "enabled": false,
-      "numberOfQuestions": 20
+      "enabled": ${subEnabled},
+      "numberOfQuestions": ${subCount}
     }
   },
   "sections": [
-    {
+    ${
+      config.examStructure === "bogiaoduc_3parts"
+        ? `{
       "id": "sec_1",
-      "title": "Phần I. Trắc nghiệm 1 phương án lựa chọn",
-      "description": "Thí sinh chỉ chọn đúng DUY NHẤT 1 phương án A, B, C hoặc D.",
-      "order": 0,
-      "instructions": "Mỗi câu trả lời đúng được 0.25 điểm."
+      "title": "Phần I. Câu trắc nghiệm nhiều phương án lựa chọn",
+      "description": "Thí sinh chỉ chọn đúng duy nhất 1 phương án (A, B, C hoặc D).",
+      "order": 0
     },
     {
       "id": "sec_2",
-      "title": "Phần II. Trắc nghiệm nhiều phương án đúng",
-      "description": "Mỗi câu có thể có một hoặc nhiều phương án đúng. Thí sinh chọn tất cả đáp án đúng.",
+      "title": "Phần II. Câu trắc nghiệm Đúng / Sai (Chuẩn Bộ GD&ĐT 4 ý a, b, c, d)",
+      "description": "Trong mỗi ý a), b), c), d), thí sinh chọn Đúng hoặc Sai.",
       "order": 1
     },
     {
       "id": "sec_3",
-      "title": "Phần III. Trắc nghiệm Đúng / Sai 4 ý (Chuẩn Bộ GD&ĐT)",
-      "description": "Trong mỗi ý a), b), c), d), thí sinh chọn Đúng hoặc Sai.",
+      "title": "Phần III. Câu trắc nghiệm trả lời ngắn",
+      "description": "Thí sinh điền kết quả số thực, phân số hoặc đáp số ngắn.",
       "order": 2
-    },
-    {
-      "id": "sec_4",
-      "title": "Phần IV. Trả lời ngắn (Điền số / kết quả)",
-      "description": "Thí sinh điền kết quả số thực, phân số hoặc từ khóa vào ô đáp án.",
-      "order": 3
-    },
-    {
-      "id": "sec_5",
-      "title": "Phần V. Sắp xếp thứ tự quy trình / thuật toán",
-      "description": "Thí sinh kéo thả hoặc chọn thứ tự các bước logic từ trước đến sau.",
-      "order": 4
-    },
-    {
-      "id": "sec_6",
-      "title": "Phần VI. Điền khuyết vào văn bản & Bài nghe Audio",
-      "description": "Nghe đoạn âm thanh và điền từ thích hợp vào các chỗ trống [_].",
-      "order": 5,
-      "audioConfig": {
-        "url": "https://res.cloudinary.com/demo/video/upload/section_audio.mp3",
-        "maxPlays": 3,
-        "allowSeek": false,
-        "allowPause": true,
-        "enabled": true
-      }
+    }`
+        : `{
+      "id": "sec_1",
+      "title": "Phần thi chính: ${config.topic || "Nội dung kiểm tra"}",
+      "description": "Thí sinh đọc kỹ từng câu hỏi và làm bài theo thời gian quy định.",
+      "order": 0
+    }`
     }
   ],
   "questions": [
@@ -126,114 +293,38 @@ export const FULL_DKTEST_JSON_SCHEMA_TEXT = `{
         { "id": "opt_d", "text": "$(0; 2)$" }
       ],
       "correctOptionIds": ["opt_a"],
-      "explanation": "Đạo hàm: $y' = 3x^2 - 3 = 0 \\\\Leftrightarrow x = \\\\pm 1$.<br/>Tại $x = 1$, $y = 0$, $y'' = 6x \\\\Rightarrow y''(1) = 6 > 0$ nên $(1; 0)$ là điểm cực tiểu của đồ thị hàm số.<br/>Do đó chọn đáp án A."
+      "explanation": "Đạo hàm: $y' = 3x^2 - 3 = 0 \\\\Leftrightarrow x = \\\\pm 1$. Tại $x = 1$, $y = 0$, $y''(1) = 6 > 0$ nên $(1; 0)$ là điểm cực tiểu.<br/>Do đó chọn đáp án A."
     },
     {
       "id": "q2",
-      "sectionId": "sec_2",
-      "type": "multiple_choice",
-      "text": "Cho hàm số $y = f(x)$ liên tục trên $\\\\mathbb{R}$ có bảng xét dấu của đạo hàm $f'(x)$ như sau:<br/><table class=\\"my-2 border border-slate-300\\"><thead><tr class=\\"bg-slate-100\\"><th class=\\"p-2 border\\">$x$</th><th class=\\"p-2 border\\">$-\\\\infty$</th><th class=\\"p-2 border\\">$-1$</th><th class=\\"p-2 border\\">$1$</th><th class=\\"p-2 border\\">$+\\\\infty$</th></tr></thead><tbody><tr class=\\"text-center\\"><td class=\\"p-2 border font-bold\\">$f'(x)$</td><td class=\\"p-2 border\\">$-$</td><td class=\\"p-2 border font-bold\\">0</td><td class=\\"p-2 border\\">$+$</td><td class=\\"p-2 border font-bold\\">0</td><td class=\\"p-2 border\\">$-$</td></tr></tbody></table>Những mệnh đề nào sau đây là <strong>ĐÚNG</strong>? (Chọn tất cả đáp án đúng)",
-      "points": 0.5,
+      "sectionId": "sec_1",
+      "type": "true_false",
+      "text": "Cho hình chóp $S.ABC$ có đáy $ABC$ là tam giác vuông cân tại $B$, $SA \\\\perp (ABC)$. Xét tính đúng/sai của các mệnh đề sau:",
+      "points": 1.0,
       "order": 1,
-      "options": [
-        { "id": "opt_a", "text": "Hàm số đồng biến trên khoảng $(-1; 1)$." },
-        { "id": "opt_b", "text": "Hàm số đạt cực tiểu tại điểm $x = -1$." },
-        { "id": "opt_c", "text": "Hàm số đạt cực đại tại điểm $x = 1$." },
-        { "id": "opt_d", "text": "Hàm số nghịch biến trên khoảng $(-\\infty; 1)$." }
+      "statements": [
+        { "id": "s_a", "text": "$BC \\\\perp (SAB)$", "correctAnswer": true },
+        { "id": "s_b", "text": "$AC \\\\perp SB$", "correctAnswer": false },
+        { "id": "s_c", "text": "Tam giác $SBC$ vuông tại $B$", "correctAnswer": true },
+        { "id": "s_d", "text": "Góc giữa $SC$ và $(ABC)$ là góc $\\\\widehat{SCA}$", "correctAnswer": true }
       ],
-      "correctOptionIds": ["opt_a", "opt_b", "opt_c"],
-      "explanation": "Dựa vào bảng xét dấu đạo hàm $f'(x)$:<br/>- $f'(x) > 0$ trên $(-1; 1)$ nên hàm số đồng biến trên $(-1; 1)$ (A đúng).<br/>- Đổi dấu từ âm sang dương qua $x = -1$ nên đạt cực tiểu tại $x = -1$ (B đúng).<br/>- Đổi dấu từ dương sang âm qua $x = 1$ nên đạt cực đại tại $x = 1$ (C đúng).<br/>Do đó chọn các đáp án A, B, C."
+      "explanation": "a) Đúng: $BC \\\\perp AB$ và $BC \\\\perp SA \\\\Rightarrow BC \\\\perp (SAB)$.<br/>b) Sai.<br/>c) Đúng: vì $BC \\\\perp (SAB)$ nên $BC \\\\perp SB$.<br/>d) Đúng: $SA \\\\perp (ABC)$ nên góc là $\\\\widehat{SCA}$."
     },
     {
       "id": "q3",
-      "sectionId": "sec_3",
-      "type": "true_false",
-      "text": "Cho đoạn mã nguồn Python sau thực hiện giải thuật Euclid tìm ước chung lớn nhất (ƯCLN):\\\\n\`\`\`python\\\\ndef gcd(a, b):\\\\n    while b != 0:\\\\n        a, b = b, a % b\\\\n    return a\\\\n\`\`\`\\\\nXét tính đúng/sai của các khẳng định sau:",
-      "points": 1.0,
-      "order": 2,
-      "statements": [
-        { "id": "st_a", "text": "Giá trị của lời gọi hàm \`gcd(24, 36)\` là \`12\`.", "correctAnswer": true },
-        { "id": "st_b", "text": "Vòng lặp \`while\` sẽ bị lặp vô tận nếu truyền tham số thỏa mãn $a < b$.", "correctAnswer": false },
-        { "id": "st_c", "text": "Giải thuật trên có độ phức tạp thời gian là $O(\\\\log(\\\\min(a, b)))$.", "correctAnswer": true },
-        { "id": "st_d", "text": "Nếu truyền vào \`b = 0\` ngay từ đầu, hàm sẽ ném ra ngoại lệ \`ZeroDivisionError\`.", "correctAnswer": false }
-      ],
-      "explanation": "a) Đúng: $\\\\gcd(24, 36) = 12$.<br/>b) Sai: Khi $a < b$, bước lặp đầu tiên sẽ hoán đổi giá trị $a$ và $b$ an toàn ($a \\\\leftarrow b$, $b \\\\leftarrow a \\\\% b = a$).<br/>c) Đúng: Độ phức tạp thời gian thuật toán Euclid là $O(\\\\log(\\\\min(a, b)))$.<br/>d) Sai: Khi $b = 0$, vòng lặp \`while\` dừng ngay và trả về $a$."
-    },
-    {
-      "id": "q4",
-      "sectionId": "sec_4",
+      "sectionId": "sec_1",
       "type": "short_answer",
-      "text": "Cho hình chóp $S.ABC$ có đáy $ABC$ là tam giác vuông tại $B$, $AB = 3$, $BC = 4$. Cạnh bên $SA \\\\perp (ABC)$ và $SA = 5$. Thể tích khối chóp $S.ABC$ bằng bao nhiêu?",
+      "text": "Tìm số nghiệm nguyên của bất phương trình $\\\\log_2(x^2 - 4) \\\\le 3$:",
       "points": 0.5,
-      "order": 3,
-      "acceptedAnswers": ["10", "10.0"],
-      "explanation": "Diện tích đáy $S_{ABC} = \\\\frac{1}{2} \\\\cdot 3 \\\\cdot 4 = 6$.<br/>Thể tích khối chóp: $V = \\\\frac{1}{3} S_{ABC} \\\\cdot SA = \\\\frac{1}{3} \\\\cdot 6 \\\\cdot 5 = 10$.<br/>Do đó điền đáp án 10."
-    },
-    {
-      "id": "q5",
-      "sectionId": "sec_5",
-      "type": "ordering",
-      "text": "Hãy sắp xếp các bước sau đây theo đúng quy trình thực nghiệm điều chế và thu khí $O_2$ trong phòng thí nghiệm từ $KMnO_4$:",
-      "points": 0.5,
-      "order": 4,
-      "orderingItems": [
-        { "id": "step_1", "text": "Lắp ráp ống nghiệm có chứa $KMnO_4$ lên giá thí nghiệm có ống dẫn khí." },
-        { "id": "step_2", "text": "Dùng đèn cồn hơ nóng đều ống nghiệm, sau đó tập trung đun đáy ống nghiệm." },
-        { "id": "step_3", "text": "Thu khí $O_2$ đẩy nước vào ống đong hoặc lọ thu khí úp ngược." },
-        { "id": "step_4", "text": "Tháo ống dẫn khí ra khỏi chậu nước trước khi tắt đèn cồn để tránh nước tràn vào." }
-      ],
-      "correctOrder": ["step_1", "step_2", "step_3", "step_4"],
-      "explanation": "Quy trình thực nghiệm chuẩn: Lắp ráp dụng cụ -> Đun nóng -> Thu khí -> Tháo ống dẫn khí trước khi tắt đèn cồn để chống sốc nhiệt vỡ ống nghiệm."
-    },
-    {
-      "id": "q6",
-      "sectionId": "sec_6",
-      "type": "fill_blank",
-      "text": "Listen to the audio recording and fill in the missing words in the paragraph below:<br/><br/>Artificial Intelligence is revolutionizing modern [_] by providing personalized learning experiences. In addition, machine learning algorithms can analyze student [_] to offer immediate feedback.",
-      "points": 0.5,
-      "order": 5,
-      "audioUrl": "https://res.cloudinary.com/demo/video/upload/listening_q6.mp3",
-      "acceptedAnswersPerBlank": {
-        "0": ["education", "Education"],
-        "1": ["performance", "progress", "data"]
-      },
-      "explanation": "Dựa vào đoạn audio: Vị trí [0] người nói đọc 'education'. Vị trí [1] người nói đọc 'performance'."
-    },
-    {
-      "id": "q7",
-      "sectionId": "sec_1",
-      "type": "single_choice",
-      "text": "Trong ngôn ngữ đánh dấu siêu văn bản HTML, thẻ nào sau đây được sử dụng để tạo một siêu liên kết (hyperlink)?",
-      "points": 0.25,
-      "order": 6,
-      "options": [
-        { "id": "opt_a", "text": "<raw><a></raw>" },
-        { "id": "opt_b", "text": "<raw><link></raw>" },
-        { "id": "opt_c", "text": "<raw><href></raw>" },
-        { "id": "opt_d", "text": "<raw><url></raw>" }
-      ],
-      "correctOptionIds": ["opt_a"],
-      "explanation": "- BẮT BUỘC dùng thẻ \`<raw>...</raw>\` bọc quanh các thẻ HTML như \`<raw><a></raw>\`, \`<raw><link></raw>\` trong các phương án trả lời. Nếu KHÔNG bọc \`<raw>\`, trình duyệt của thí sinh sẽ TỰ ĐỘNG CONVERT thành thẻ DOM thật, khiến chữ của đáp án bị biến mất hoặc hỏng giao diện bài thi.<br/>- Trong HTML, thẻ \`<a>\` (Anchor) kết hợp với thuộc tính \`href\` được dùng để tạo siêu liên kết (A đúng)."
-    },
-    {
-      "id": "q8",
-      "sectionId": "sec_1",
-      "type": "single_choice",
-      "text": "Trong lập trình Web và xử lý dữ liệu, xét đoạn mã HTML sau chứa nút bấm và ô nhập liệu được bảo vệ bằng thẻ <raw>:<br/><raw><div class=\"box-form\"><input type=\"text\" id=\"user_email\" placeholder=\"Nhập email\"/><button class=\"btn-submit\">Gửi</button></div></raw><br/>Đoạn mã Python kiểm tra độ dài dữ liệu nhập như sau:<br/>\`\`\`python<br/>def check_input(text, max_len):<br/>    # Biến \`text\` biểu thị chuỗi nhập vào<br/>    if len(text) <= max_len and len(text) > 0:<br/>        return \"VALID\"<br/>    return \"INVALID\"<br/>\`\`\`<br/>Nếu gọi lệnh \`check_input(text=\"admin@dktest.com\", max_len=20)\`, kết quả trả về là gì?",
-      "points": 0.25,
-      "order": 7,
-      "options": [
-        { "id": "opt_a", "text": "\`\"VALID\"\`" },
-        { "id": "opt_b", "text": "\`\"INVALID\"\`" },
-        { "id": "opt_c", "text": "\`None\`" },
-        { "id": "opt_d", "text": "\`Error\`" }
-      ],
-      "correctOptionIds": ["opt_a"],
-      "explanation": "- Đoạn mã HTML trong đề bài được bọc trong thẻ \`<raw>...</raw>\` để ngăn trình duyệt tự động convert thành ô nhập thật hoặc nút bấm thật trên đề thi, bảo toàn nguyên bản cú pháp cho thí sinh quan sát.<br/>- Dùng dấu \` (backtick đơn) bọc tên biến \`text\`, \`max_len\` và lời gọi hàm \`check_input(...)\` trong dòng.<br/>- Dùng khối 3 dấu \`\`\`python ... \`\`\` để hiển thị khung code Discord với màu cú pháp chuyên nghiệp.<br/>- Chuỗi 'admin@dktest.com' có 16 ký tự ($0 < 16 \\\\le 20$), hàm trả về \`\"VALID\"\`.<br/>Do đó chọn đáp án A."
+      "order": 2,
+      "acceptedAnswers": ["4", "4.0"],
+      "explanation": "Điều kiện: $x^2 - 4 > 0 \\\\Leftrightarrow x > 2$ hoặc $x < -2$.<br/>$\\\\log_2(x^2 - 4) \\\\le 3 \\\\Leftrightarrow x^2 - 4 \\\\le 8 \\\\Leftrightarrow x^2 \\\\le 12$.<br/>Nghiệm nguyên thỏa mãn: $x \\\\in \\\\{-3, 3\\}$... Có 4 nghiệm nguyên: -3, 3 (cùng kiểm tra).<br/>Đáp số: 4."
     }
   ]
 }`;
+}
 
+export const FULL_DKTEST_JSON_SCHEMA_TEXT = generateDynamicJsonSchemaExample(DEFAULT_PROMPT_CONFIG);
 export const MASTER_SCHEMA_JSON_STRING = FULL_DKTEST_JSON_SCHEMA_TEXT;
 
 export function buildFullChatGptPrompt(config: PromptCustomConfig = DEFAULT_PROMPT_CONFIG): string {
@@ -246,30 +337,68 @@ export function buildFullChatGptPrompt(config: PromptCustomConfig = DEFAULT_PROM
     fill_blank: "điền khuyết vào đoạn văn [_] (fill_blank)",
   };
 
-  const typesText = config.questionTypes && config.questionTypes.length > 0
-    ? config.questionTypes.map((t) => typesMap[t] || t).join(", ")
-    : Object.values(typesMap).join(", ");
+  const typesText =
+    config.questionTypes && config.questionTypes.length > 0
+      ? config.questionTypes.map((t) => typesMap[t] || t).join(", ")
+      : Object.values(typesMap).join(", ");
+
+  const structureDesc =
+    config.examStructure === "bogiaoduc_3parts"
+      ? "Chia thành 3 Phần chuẩn Bộ GD&ĐT 2025/2026 (Phần I: Trắc nghiệm 1 đáp án; Phần II: Đúng/Sai 4 ý; Phần III: Điền kết quả ngắn)"
+      : config.examStructure === "by_topic"
+      ? "Phân chia Sections theo từng chuyên đề / chủ điểm kiến thức cụ thể"
+      : "Gộp chung trong 1 Section duy nhất, câu hỏi sắp xếp liền mạch";
+
+  const cog = config.cognitiveLevels || {
+    recognition: 40,
+    comprehension: 30,
+    application: 20,
+    advanced: 10,
+  };
+  const cognitiveDesc = `${cog.recognition}% Nhận biết, ${cog.comprehension}% Thông hiểu, ${cog.application}% Vận dụng, ${cog.advanced}% Vận dụng cao`;
+
+  const dynamicSchema = generateDynamicJsonSchemaExample(config);
 
   return `Bạn là chuyên gia giáo dục và biên soạn đề thi chuyên nghiệp theo chuẩn Bộ Giáo Dục & Đào Tạo và hệ thống khảo thí hiện đại DkTEST.
 
 Dựa vào cấu trúc JSON chuẩn của hệ thống DkTEST (phiên bản mới nhất hỗ trợ toàn diện 6 dạng câu hỏi, âm thanh nghe MP3, tệp đính kèm, LaTeX, Bảng biểu HTML, Khối mã Discord, Khối nguyên bản <raw>):
 
 \`\`\`json
-${FULL_DKTEST_JSON_SCHEMA_TEXT}
+${dynamicSchema}
 \`\`\`
 
-Dựa vào cấu trúc JSON trên, hãy tạo cho tôi một đề thi hoàn chỉnh:
-- Môn học: ${config.subject || "Toán học & Tiếng Anh"}
-- Khối lớp: ${config.grade || "Lớp 12"}
-- Yêu cầu / Chủ đề: Đây là đề thi "${config.topic || "Đề thi đánh giá năng lực & Tốt nghiệp THPT 2026"}"
-- Đối tượng học sinh: Dành cho "${config.audience || "Học sinh ôn thi THPT Quốc gia & Luyện đề chuẩn"}"
-- Thời gian làm bài: ${config.timeLimit || 50} phút
-- Số lượng câu hỏi: ${config.questionCount || 25} câu
-- Mức độ đề: ${config.difficulty || "Phân hóa từ nhận biết, thông hiểu đến vận dụng cao"}
-- Các dạng câu hỏi cần có: ${typesText}
-${config.hasAudio ? "- Đề thi có tích hợp phần nghe Audio MP3 (Listening Audio) cho câu hỏi hoặc Section tương ứng." : ""}
-${config.hasAttachments ? "- Đề thi có đính kèm tệp tài liệu / liên kết tham khảo (attachments)." : ""}
-${config.additionalInfo ? `- Ghi chú bổ sung: ${config.additionalInfo}` : ""}
+Dựa vào cấu trúc JSON trên, hãy tạo cho tôi một đề thi hoàn chỉnh thỏa mãn CHÍNH XÁC các thông số sau:
+- **Môn học**: ${config.subject || "Toán học & Tiếng Anh"}
+- **Khối lớp / Đối tượng**: ${config.grade || "Lớp 12"} (Dành cho: ${config.audience || "Học sinh ôn thi THPT Quốc gia & Đánh giá năng lực"})
+- **Chủ đề & Nội dung kiểm tra**: "${config.topic || "Đề kiểm tra chất lượng trọng tâm 2026"}"
+- **Cấu trúc Phần thi (Sections)**: ${structureDesc}
+- **Thời gian làm bài**: ${config.timeLimit || 50} phút
+- **Số lượng câu hỏi**: ${config.questionCount || 25} câu
+- **Thang điểm**: Thang điểm ${config.scoreScale || 10}
+- **Phân bố mức độ nhận thức**: ${cognitiveDesc}
+- **Các dạng câu hỏi bắt buộc tạo**: ${typesText}
+- **Cài đặt phòng thi**:
+  * Đảo câu hỏi: ${config.shuffleQuestions ? "Bật (shuffleQuestions: true)" : "Tắt (shuffleQuestions: false)"}
+  * Đảo phương án A, B, C, D: ${config.shuffleOptions ? "Bật (shuffleOptions: true)" : "Tắt (shuffleOptions: false)"}
+  * Hiển thị điểm thi sau khi nộp: ${config.showResultsImmediately !== false ? "Bật (showResults: true)" : "Tắt (showResults: false)"}
+  * Hiển thị lời giải chi tiết: ${config.showExplanationsImmediately !== false ? "Bật (showDetails: true)" : "Tắt (showDetails: false)"}
+  * Số lần làm bài: ${config.maxAttempts && config.maxAttempts > 0 ? `${config.maxAttempts} lần` : "Không giới hạn (maxAttempts: 0)"}
+${config.allowSubExam ? `- **Cắt đề ngẫu nhiên Sub-Exam**: Có (Cắt ngẫu nhiên ${config.subExamQuestionCount || 20} câu từ tổng ngân hàng ${config.questionCount} câu).` : ""}
+${config.hasAudio ? "- **Bài nghe Audio MP3 (Listening)**: Có tích hợp audioConfig nghe âm thanh MP3 cho câu hỏi hoặc Section tương ứng." : ""}
+${config.hasAttachments ? "- **Tệp đính kèm**: Có tệp đính kèm bảng tra cứu / tài liệu tham khảo (attachments)." : ""}
+${
+  config.programmingLanguage && config.programmingLanguage !== "none"
+    ? `- **Môn Tin học / Lập trình**: Khối mã nguồn minh họa ưu tiên ngôn ngữ ${config.programmingLanguage.toUpperCase()} (bọc trong khối Discord \`\`\`${config.programmingLanguage === "all" ? "python hoặc cpp" : config.programmingLanguage} ... \`\`\` và dùng thẻ <raw>...</raw> cho các thẻ HTML hoặc phép so sánh).`
+    : ""
+}
+- **Phong cách lời giải**: ${
+    config.pedagogyStyle === "detailed_steps"
+      ? "Giải thích chi tiết từng bước, lập luận sư phạm rõ ràng, chỉ rõ công thức và cách suy luận bản chất."
+      : config.pedagogyStyle === "quick_tips"
+      ? "Kèm theo mẹo tư duy nhanh, kỹ thuật loại trừ phương án nhiễu hoặc hướng dẫn bấm máy tính CASIO fx-580 VN X."
+      : "Ngắn gọn, chuẩn xác, kết luận phương án đúng."
+  }
+${config.additionalInfo ? `- **Yêu cầu bổ sung đặc biệt**: ${config.additionalInfo}` : ""}
 
 ==================================================
 QUY TẮC BẮT BUỘC ĐẦU RA VÀ ĐỊNH DẠNG (LATEST DkTEST 2026):
@@ -279,13 +408,37 @@ QUY TẮC BẮT BUỘC ĐẦU RA VÀ ĐỊNH DẠNG (LATEST DkTEST 2026):
    - Bắt buộc bọc trong \`\`\`json ... \`\`\`.
    - Tuyệt đối không thêm bất kỳ văn bản chào hỏi, giải thích hay kết luận nào ngoài khối JSON.
 
-2. ĐẦY ĐỦ 6 DẠNG CÂU HỎI HIỆN ĐẠI:
-   - single_choice: Có "options" ("id", "text") và "correctOptionIds": ["id_đúng"] (duy nhất 1 id đúng).
-   - multiple_choice: Có "options" và "correctOptionIds" chứa mảng các id đúng (chọn tất cả phương án đúng).
-   - true_false: Chuẩn Bộ GD&ĐT 4 ý a, b, c, d; mỗi ý độc lập có "id", "text" và "correctAnswer": true/false.
-   - short_answer: Có "acceptedAnswers" chứa danh sách các dạng đáp số tương đương (ví dụ: ["10", "10.0", "10/1"]).
-   - ordering: Sắp xếp các mục; có "orderingItems": [{ "id": "item_1", "text": "..." }] và "correctOrder": ["item_2", "item_1", ...].
-   - fill_blank: Điền vào chỗ trống; trong "text" dùng ký hiệu "[_]" và cung cấp "acceptedAnswersPerBlank": { "0": ["từ_khóa_1"], "1": ["từ_khóa_2"] }.
+2. CÁC DẠNG CÂU HỎI ĐƯỢC CHỈ ĐỊNH:
+   ${
+     config.questionTypes?.includes("single_choice")
+       ? `- single_choice: Có "options" ("id", "text") và "correctOptionIds": ["id_đúng"] (duy nhất 1 id đúng).`
+       : ""
+   }
+   ${
+     config.questionTypes?.includes("multiple_choice")
+       ? `- multiple_choice: Có "options" và "correctOptionIds" chứa mảng các id đúng (chọn tất cả phương án đúng).`
+       : ""
+   }
+   ${
+     config.questionTypes?.includes("true_false")
+       ? `- true_false: Chuẩn Bộ GD&ĐT 4 ý a, b, c, d; mỗi ý độc lập có "id", "text" và "correctAnswer": true/false.`
+       : ""
+   }
+   ${
+     config.questionTypes?.includes("short_answer")
+       ? `- short_answer: Có "acceptedAnswers" chứa danh sách các dạng đáp số tương đương (ví dụ: ["10", "10.0", "10/1"]).`
+       : ""
+   }
+   ${
+     config.questionTypes?.includes("ordering")
+       ? `- ordering: Sắp xếp các mục; có "orderingItems": [{ "id": "item_1", "text": "..." }] và "correctOrder": ["item_2", "item_1", ...].`
+       : ""
+   }
+   ${
+     config.questionTypes?.includes("fill_blank")
+       ? `- fill_blank: Điền vào chỗ trống; trong "text" dùng ký hiệu "[_]" và cung cấp "acceptedAnswersPerBlank": { "0": ["từ_khóa_1"], "1": ["từ_khóa_2"] }.`
+       : ""
+   }
 
 3. CÔNG THỨC TOÁN, LÝ, HÓA (LATEX CHUẨN KATE X):
    - Công thức trong dòng bọc trong '$...$'.
@@ -293,76 +446,37 @@ QUY TẮC BẮT BUỘC ĐẦU RA VÀ ĐỊNH DẠNG (LATEST DkTEST 2026):
    - BẮT BUỘC escape đúng chuẩn JSON: ví dụ '\\\\frac{a}{b}', '\\\\sqrt{x^2+1}', '\\\\int_0^1', '\\\\alpha, \\\\beta', '\\\\begin{cases} ... \\\\end{cases}'.
    - Không được để công thức bị lỗi cú pháp KaTeX.
 
-4. ÂM THANH NGHE MP3 (LISTENING AUDIO) & ĐÍNH KÈM (ATTACHMENTS):
-   - Khi tạo bài thi môn Ngoại ngữ hoặc đề có bài nghe: cấu hình "audioConfig" ở cấp độ đề thi, section, hoặc "audioUrl" trong từng câu hỏi.
-   - Các trường audio: "url", "title", "maxPlays", "allowSeek", "allowPause", "enabled".
-   - Tệp đính kèm: trường "attachments": [{ "name": "Tên tệp", "url": "https://...", "type": "file" | "link" }].
-
-5. NGUYÊN TẮC BẮT BUỘC: SỬ DỤNG THẺ <raw>...</raw> ĐỂ HỆ THỐNG KHÔNG CONVERT CÚ PHÁP HTML SANG DOM VÀ DẤU HUYỀN BACKTICK (\` VÀ \`\`\`):
+4. NGUYÊN TẮC BẮT BUỘC: SỬ DỤNG THẺ <raw>...</raw> ĐỂ HỆ THỐNG KHÔNG CONVERT CÚ PHÁP HTML SANG DOM VÀ DẤU HUYỀN BACKTICK (\` VÀ \`\`\`):
 
    ⚠️ CẢNH BÁO SỐNG CÒN DÀNH CHO AI (VÌ SAO BẮT BUỘC PHẢI DÙNG THẺ <raw>?):
    - Nền tảng DkTEST hiển thị đề thi cho thí sinh bằng trình render Web HTML trực tiếp.
    - NẾU AI viết các thẻ cú pháp HTML (như <a>, <p>, <div>, <input>, <img>, <button>, <form>, <link>, <table>...) trong câu hỏi hoặc trong các phương án trả lời A, B, C, D mà KHÔNG BỌC TRONG <raw>...</raw>:
      -> Trình duyệt của thí sinh sẽ TỰ ĐỘNG CONVERT CHÚNG THÀNH PHẦN TỬ HTML DOM THẬT!
-     -> HẬU QUẢ NGHIÊM TRỌNG:
-        * Thẻ <a> sẽ bị trình duyệt biến thành link ẩn và làm MẤT CHỮ của phương án trả lời.
-        * Thẻ <img> sẽ bị biến thành icon ảnh vỡ hiển thị trên màn hình.
-        * Thẻ <button> sẽ bị biến thành nút bấm thật.
-        * Thẻ <input> sẽ bị biến thành ô gõ phím thật.
-        * Thẻ <p>, <div>, <form> sẽ làm vỡ tan nát bố cục bảng và giao diện câu hỏi.
-        -> Thí sinh KHÔNG THỂ ĐỌC ĐƯỢC CÚ PHÁP VÀ BỊ MẤT ĐÁP ÁN!
-   - KHI BỌC TRONG <raw>...</raw>: Hệ thống DkTEST sẽ BẢO TOÀN NGUYÊN BẢN CÚ PHÁP (raw text), VÔ HIỆU HÓA HOÀN TOÀN việc convert HTML của trình duyệt, giúp thí sinh nhìn thấy chính xác 100% cú pháp như "<input type=\"text\">" hay "<a>".
+     -> Làm mất chữ, mất phương án và vỡ layout đề thi.
+   - KHI BỌC TRONG <raw>...</raw>: Hệ thống DkTEST sẽ BẢO TOÀN NGUYÊN BẢN CÚ PHÁP (raw text), vô hiệu hóa việc convert HTML của trình duyệt, giúp thí sinh nhìn thấy chính xác 100% cú pháp.
 
    📌 CÁC TRƯỜNG HỢP CỤ THỂ BẮT BUỘC PHẢI DÙNG <raw>...</raw>:
-   
    1. CÂU HỎI HOẶC PHƯƠNG ÁN A, B, C, D HỎI VỀ THẺ HTML / XML:
-      - Trong câu hỏi: "Thẻ nào trong HTML dùng để tạo liên kết siêu văn bản?"
-      - Trong options PHẢI VIẾT:
-        * opt_a: "<raw><a></raw>"  (BẮT BUỘC có <raw> để không bị convert mất chữ)
-        * opt_b: "<raw><link></raw>"
-        * opt_c: "<raw><href></raw>"
-        * opt_d: "<raw><url></raw>"
-      - Tuyệt đối KHÔNG ĐƯỢC viết trần trụi "<a>" hay "<link>" vì sẽ bị trình duyệt nuốt mất chữ.
-      
+      Ví dụ options: opt_a: "<raw><a></raw>", opt_b: "<raw><link></raw>", opt_c: "<raw><href></raw>"
    2. ĐOẠN MÃ HTML GIAO DIỆN HOẶC THUỘC TÍNH:
-      - Ví dụ đề bài: "Xét đoạn mã HTML sau: <raw><img src=\"logo.png\" alt=\"Logo trường\" width=\"200\"/></raw>..."
-      - Ví dụ: "Đoạn form: <raw><form action=\"/login\"><input type=\"text\"/><button>Gửi</button></form></raw>"
-
+      Ví dụ: "<raw><img src=\\"logo.png\\" alt=\\"Logo\\"/></raw>"
    3. KÝ TỰ SO SÁNH TRẦN TRỤI (<, >, &&, ||):
-      - Ví dụ: "<raw>while (left < right && count > 0)</raw>"
-      - Bắt buộc bọc <raw> để ký tự "< right" không bị hiểu nhầm là mở thẻ HTML '&lt;right&gt;'.
-
+      Ví dụ: "<raw>while (left < right && count > 0)</raw>"
    4. KÝ HIỆU ĐÔ-LA $ TRONG VĂN BẢN (CHỐNG LỖI KATEX):
-      - Ví dụ: "Một cuốn sách giá <raw>$20</raw> và tiền ship là <raw>$2</raw>."
-      - Bắt buộc bọc <raw> để hai dấu $ không bị kích hoạt KaTeX toán học gây lỗi đỏ.
-
+      Ví dụ: "Một cuốn sách giá <raw>$20</raw>."
    5. BIỂU THỨC CHÍNH QUY REGEX:
-      - Ví dụ: "<raw>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$</raw>"
+      Ví dụ: "<raw>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$</raw>"
 
    --------------------------------------------------
    QUY TẮC DÙNG DẤU HUYỀN BACKTICK (\` VÀ \`\`\`):
-   - 1. DẤU HUYỀN ĐƠN \` (INLINE CODE - 1 DẤU BACKTICK ĐẦU & CUỐI):
-     Bắt buộc dùng khi nhắc đến từ khóa lập trình, tên biến, tên hàm, kiểu dữ liệu hoặc biểu thức ngắn ngay trong câu văn:
-     - Ví dụ: "Trong ngôn ngữ Python, biến \`total_sum\` được khởi tạo bằng giá trị \`0\`."
-     - Ví dụ: "Hàm \`len(my_list)\` trả về số lượng phần tử của danh sách \`my_list\`."
-     - Ví dụ: "Câu lệnh \`cin >> n;\` trong C++ tương đương với lệnh \`n = int(input())\` trong Python."
-     - Tuyệt đối KHÔNG dùng dấu nháy kép " " hay nháy đơn ' ' khi đề cập đến mã nguồn hoặc biến số trong dòng.
-     
-   - 2. KHỐI BA DẤU HUYỀN \`\`\` (CODE BLOCK NHIỀU DÒNG - KÈM TÊN NGÔN NGỮ):
-     Bắt buộc dùng khi trình bày đoạn mã nguồn từ 2 dòng trở lên. PHẢI ghi rõ định danh ngôn ngữ (python, cpp, c, java, pascal, javascript, sql, html, css):
-     Ví dụ:
+   - 1. DẤU HUYỀN ĐƠN \` (INLINE CODE): Dùng khi nhắc đến từ khóa lập trình, tên biến \`count\`, lệnh \`len(list)\` trong câu văn.
+   - 2. KHỐI BA DẤU HUYỀN \`\`\` (CODE BLOCK NHIỀU DÒNG KÈM TÊN NGÔN NGỮ):
+     Bắt buộc có định danh ngôn ngữ (python, cpp, c, java, pascal, javascript, sql, html, css):
      \`\`\`python
-     def fibonacci(n):
-         if n <= 1:
-             return n
-         return fibonacci(n - 1) + fibonacci(n - 2)
+     def process(n):
+         return n * 2
      \`\`\`
-     -> Hệ thống DkTEST sẽ tự động kích hoạt khung code phong cách Discord cao cấp (nền tối, tô màu cú pháp theo ngôn ngữ, đánh số thứ tự dòng và có nút Sao chép mã tiện lợi).
 
-6. BẢNG BIỂU HTML & MARKDOWN:
-   - Bảng biến thiên, bảng xét dấu, bảng dữ liệu nên dùng HTML: '<table><thead><tr><th>x</th><th>...</th></tr></thead><tbody><tr><td>f'(x)</td><td>...</td></tr></tbody></table>' hoặc bảng Markdown '|---|---|'.
-   - Hộp mẹo tư duy: '<div class="p-3 my-2 bg-blue-50 border border-blue-200 rounded-xl text-blue-900">💡 <strong>Mẹo:</strong> ...</div>'.
-
-7. LỜI GIẢI CHI TIẾT (EXPLANATION):
+5. LỜI GIẢI CHI TIẾT (EXPLANATION):
    - Mỗi câu hỏi bắt buộc phải có "explanation" giải thích chi tiết, sư phạm, chứng minh rõ ràng đáp án cuối cùng. Với câu single_choice, kết luận dòng cuối: "Do đó chọn đáp án [A/B/C/D].".`;
 }

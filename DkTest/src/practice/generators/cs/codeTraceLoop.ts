@@ -165,7 +165,7 @@ function generateScenario(difficulty: number): TraceScenario {
       const steps: string[] = [];
       let count = 0;
       while (x < target) {
-        steps.push(`Bước ${count + 1}: x = ${x} < ${target} (Đúng) -> x = ${x} * 2 + 1 = ${x * 2 + 1}`);
+        steps.push(`Bước ${count + 1}: x = ${x} < ${target} (Đúng) -> x = ${x} × 2 + 1 = ${x * 2 + 1}`);
         x = x * 2 + 1;
         count++;
       }
@@ -465,7 +465,7 @@ function generateScenario(difficulty: number): TraceScenario {
       const steps: string[] = ["Bước cơ sở: f(1) = 1"];
       for (let i = 2; i <= n; i++) {
         cache[i] = cache[i - 1] + 2 * i;
-        steps.push(`Tính f(${i}) = f(${i - 1}) + 2 * ${i} = ${cache[i - 1]} + ${2 * i} = ${cache[i]}`);
+        steps.push(`Tính f(${i}) = f(${i - 1}) + 2 × ${i} = ${cache[i - 1]} + ${2 * i} = ${cache[i]}`);
       }
 
       const py = `def f(n):\n    if n <= 1:\n        return 1\n    return f(n - 1) + 2 * n\n\nprint(f(${n}))`;
@@ -489,7 +489,7 @@ function generateScenario(difficulty: number): TraceScenario {
       const steps: string[] = ["Bước cơ sở: f(1) = 1"];
       for (let i = 2; i <= n; i++) {
         cache[i] = 2 * cache[i - 1] + 1;
-        steps.push(`Tính f(${i}) = 2 * f(${i - 1}) + 1 = 2 * ${cache[i - 1]} + 1 = ${cache[i]}`);
+        steps.push(`Tính f(${i}) = 2 × f(${i - 1}) + 1 = 2 × ${cache[i - 1]} + 1 = ${cache[i]}`);
       }
 
       const py = `def f(n):\n    if n <= 1:\n        return 1\n    return 2 * f(n - 1) + 1\n\nprint(f(${n}))`;

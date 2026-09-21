@@ -29,7 +29,7 @@ interface QuestionTimeAnalysisChartProps {
     middle: SegmentAnalytics;
     end: SegmentAnalytics;
   };
-  onSelectQuestion?: (questionIndex: number) => void;
+  onSelectQuestion?: (questionIndex: number, questionId?: string) => void;
 }
 
 const COLOR_CORRECT = "#10b981"; // Emerald
@@ -77,6 +77,7 @@ export default function QuestionTimeAnalysisChart({
 
       return {
         index: ev.questionIndex,
+        questionId: ev.questionId,
         displayIndex: ev.displayIndex,
         label: `Câu ${ev.displayIndex}`,
         seconds: ev.timeSpentSeconds,
@@ -90,16 +91,18 @@ export default function QuestionTimeAnalysisChart({
   // Click handler to navigate to question card
   const handleBarClick = (data: any) => {
     const qIndex = data?.index ?? data?.activePayload?.[0]?.payload?.index;
-    if (qIndex === undefined) return;
+    const qId = data?.questionId ?? data?.activePayload?.[0]?.payload?.questionId;
+    if (qIndex === undefined && !qId) return;
 
     if (onSelectQuestion) {
-      onSelectQuestion(qIndex);
+      onSelectQuestion(qIndex, qId);
     } else {
-      const targetEl = document.getElementById(`q-result-card-${qIndex}`);
+      const targetEl = (qId ? document.getElementById(`q-result-card-${qId}`) : null)
+        || document.getElementById(`q-result-card-${qIndex}`);
       if (targetEl) {
         targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
-        targetEl.classList.add("ring-2", "ring-blue-500", "transition-all");
-        setTimeout(() => targetEl.classList.remove("ring-2", "ring-blue-500"), 2000);
+        targetEl.classList.add("ring-4", "ring-blue-500", "shadow-xl", "transition-all");
+        setTimeout(() => targetEl.classList.remove("ring-4", "ring-blue-500", "shadow-xl"), 2500);
       }
     }
   };
@@ -208,9 +211,15 @@ export default function QuestionTimeAnalysisChart({
                     radius={[6, 6, 0, 0]}
                     maxBarSize={32}
                     className="cursor-pointer transition-opacity hover:opacity-85"
+                    onClick={(entry) => handleBarClick(entry)}
                   >
                     {barData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.barColor} />
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={entry.barColor}
+                        onClick={() => handleBarClick(entry)}
+                        className="cursor-pointer hover:opacity-80 transition-opacity"
+                      />
                     ))}
                   </Bar>
                 </BarChart>

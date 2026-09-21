@@ -749,8 +749,8 @@ export function renderMarkdownWithLatex(rawText: string): string {
   // 11. Markdown inline typography formatting
   // Bold: **text**
   text = text.replace(/\*\*([^*\n]+)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>');
-  // Italic: *text*
-  text = text.replace(/\*([^*\n]+)\*/g, '<em class="italic">$1</em>');
+  // Italic: *text* (requires non-whitespace inside asterisks, avoids consuming arithmetic multiplication like '2 * 3')
+  text = text.replace(/(^|[\s(>])\*([^\s*][^*\n]*?[^\s*]|[^\s*])\*(?=[\s).,!?<:]|$)/g, '$1<em class="italic">$2</em>');
   // Underline: __text__
   text = text.replace(/__([^_\n]+)__/g, '<u class="underline underline-offset-2">$1</u>');
   // Strikethrough: ~~text~~

@@ -109,6 +109,10 @@ export interface UserQuestionAttempt {
 export interface PracticeUserAnswer {
   questionId: string;
   questionPrompt: string;
+  questionLatex?: string;
+  questionType?: QuestionInputType;
+  codeSnippet?: { python: string; cpp: string };
+  options?: Array<{ id: string; text: string; latex?: string }>;
   userAnswer: any;
   correctAnswer: any;
   isCorrect: boolean;

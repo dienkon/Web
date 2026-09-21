@@ -299,16 +299,31 @@ export default function ExamResult() {
     return computeProgressAccumulation(timeAnalytics.evaluations);
   }, [timeAnalytics]);
 
-  const handleSelectQuestionFromChart = (questionIndex: number) => {
+  const handleSelectQuestionFromChart = (questionIndex: number, questionId?: string) => {
     setShowDetails(true);
-    setTimeout(() => {
-      const el = document.getElementById(`q-result-card-${questionIndex}`);
+    setFilterStatus("all");
+    setSearchQuery("");
+
+    let attempts = 0;
+    const maxAttempts = 15;
+
+    const findAndScroll = () => {
+      const el =
+        (questionId ? document.getElementById(`q-result-card-${questionId}`) : null) ||
+        document.getElementById(`q-result-card-${questionIndex}`) ||
+        (document.querySelector(`[data-card-idx="q-result-card-${questionIndex}"]`) as HTMLElement | null);
+
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
-        el.classList.add("ring-2", "ring-blue-500", "transition-all");
-        setTimeout(() => el.classList.remove("ring-2", "ring-blue-500"), 2000);
+        el.classList.add("ring-4", "ring-blue-500", "shadow-xl", "transition-all");
+        setTimeout(() => el.classList.remove("ring-4", "ring-blue-500", "shadow-xl"), 2500);
+      } else if (attempts < maxAttempts) {
+        attempts++;
+        setTimeout(findAndScroll, 80);
       }
-    }, 150);
+    };
+
+    setTimeout(findAndScroll, 60);
   };
 
   if (loading) {
@@ -927,7 +942,8 @@ export default function ExamResult() {
 
                 return (
                   <div
-                    id={`q-result-card-${qIdx}`}
+                    id={`q-result-card-${q.id}`}
+                    data-card-idx={`q-result-card-${qIdx}`}
                     key={`${viewMode}-${q.id}-${qIdx}`}
                     className="bg-white border border-slate-200 rounded-3xl p-5 lg:p-6 shadow-2xs space-y-4 scroll-mt-24 transition-all"
                   >

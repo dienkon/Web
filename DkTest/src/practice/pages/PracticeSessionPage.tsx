@@ -250,6 +250,10 @@ export default function PracticeSessionPage() {
     const answerRecord: PracticeUserAnswer = {
       questionId: currentQuestion.id,
       questionPrompt: currentQuestion.prompt,
+      questionLatex: currentQuestion.latex,
+      questionType: currentQuestion.type,
+      codeSnippet: currentQuestion.codeSnippet || currentQuestion.metadata?.codeSnippet,
+      options: currentQuestion.options,
       userAnswer: currentAnswer,
       correctAnswer: currentQuestion.correctAnswer,
       isCorrect,
@@ -276,27 +280,27 @@ export default function PracticeSessionPage() {
 
     // Check instant game over conditions
     if (mode.gameRule === "survival_3hearts" && newHearts === 0) {
-      setTimeout(finishSession, 1200);
+      setTimeout(finishSession, 800);
       return;
     }
 
     if (mode.gameRule === "score_conquest" && newScore >= (session.targetScore ?? 500)) {
-      setTimeout(finishSession, 1200);
+      setTimeout(finishSession, 800);
       return;
-    }
-
-    // If target question count reached
-    if (
-      typeof session.targetQuestions === "number" &&
-      session.targetQuestions > 0 &&
-      session.currentQuestionIndex + 1 >= session.targetQuestions
-    ) {
-      setTimeout(finishSession, 1200);
     }
   };
 
+  const isLastQuestion =
+    typeof session.targetQuestions === "number" &&
+    session.targetQuestions > 0 &&
+    session.currentQuestionIndex + 1 >= session.targetQuestions;
+
   // Next Question
   const handleNextQuestion = () => {
+    if (isLastQuestion) {
+      finishSession();
+      return;
+    }
     const nextIdx = session.currentQuestionIndex + 1;
     setSession((prev) => ({ ...prev, currentQuestionIndex: nextIdx }));
     loadNextQuestion(session.difficulty, nextIdx, session.currentStreak);
@@ -439,6 +443,7 @@ export default function PracticeSessionPage() {
                 onNextQuestion={handleNextQuestion}
                 userResult={userResult}
                 isSubmitted={isSubmitted}
+                isLastQuestion={isLastQuestion}
               />
 
               {/* Optional On-Screen Keypad for touch/mobile devices */}
