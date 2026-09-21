@@ -26,6 +26,11 @@ import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Exam } from "../../types";
 import { MASTER_SCHEMA_JSON_STRING } from "../../utils/prompt/chatGptMasterPrompt";
+import {
+  isAdminAuthenticated,
+  isStudentAuthenticated,
+  isParentAuthenticated,
+} from "../../services/authService";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -57,13 +62,12 @@ ${MASTER_SCHEMA_JSON_STRING}
 Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN BÀI TẬP/ẢNH VÀO ĐÂY]`;
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    if (role === "admin") {
+    if (isAdminAuthenticated()) {
       setIsAdmin(true);
       setIsLoggedIn(true);
-    } else if (role === "student") {
+    } else if (isStudentAuthenticated()) {
       setIsLoggedIn(true);
-      const infoStr = localStorage.getItem("student_info");
+      const infoStr = localStorage.getItem("student_info") || localStorage.getItem("dktest:auth:student_info");
       if (infoStr) {
         try {
           setStudentInfo(JSON.parse(infoStr));
@@ -71,13 +75,12 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
           // ignore
         }
       }
-    } else if (role === "parent") {
+    } else if (isParentAuthenticated()) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
-      // Unauthenticated first visit: direct user to registration/login
-      navigate("/student/login?mode=register", { replace: true });
-      return;
+      setStudentInfo(null);
+      setIsAdmin(false);
     }
 
     // Load active published exams for students to browse

@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { Lock, Loader2, ArrowLeft } from "lucide-react";
 import { verifyAdminCredentials, setAdminSession, isAdminAuthenticated } from "../../services/authService";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const rawRedirect = searchParams.get("redirect") || "/admin/exams";
+  const redirectPath = (rawRedirect && !rawRedirect.startsWith("/admin/login")) ? rawRedirect : "/admin/exams";
+
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (isAdminAuthenticated()) {
-      navigate("/admin/exams", { replace: true });
+      navigate(redirectPath, { replace: true });
     }
-  }, [navigate]);
+  }, [navigate, redirectPath]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +31,7 @@ export default function AdminLogin() {
     setTimeout(() => {
       if (verifyAdminCredentials(password)) {
         setAdminSession();
-        navigate("/admin/exams", { replace: true });
+        navigate(redirectPath, { replace: true });
       } else {
         setError("Mật khẩu không đúng.");
       }

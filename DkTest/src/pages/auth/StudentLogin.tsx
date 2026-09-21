@@ -21,6 +21,11 @@ import {
   autoLinkChildToParent,
   type LinkedChildInfo,
 } from "../../services/parentService";
+import {
+  isAdminAuthenticated,
+  isStudentAuthenticated,
+} from "../../services/authService";
+import { STORAGE_KEYS, setStoredItem } from "../../utils/storage";
 
 export default function StudentLogin() {
   const navigate = useNavigate();
@@ -58,12 +63,10 @@ export default function StudentLogin() {
   }, [modeParam]);
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    const adminToken = localStorage.getItem("admin_token");
-    setIsAdmin(role === "admin" || !!adminToken);
+    setIsAdmin(isAdminAuthenticated());
 
     // Read saved student info from this device
-    const savedStr = localStorage.getItem("student_info");
+    const savedStr = localStorage.getItem("student_info") || localStorage.getItem(STORAGE_KEYS.STUDENT_INFO);
     if (savedStr) {
       try {
         const parsed = JSON.parse(savedStr);
@@ -73,7 +76,7 @@ export default function StudentLogin() {
       } catch (e) {}
     }
 
-    const parentInfoStr = localStorage.getItem("parent_info");
+    const parentInfoStr = localStorage.getItem("parent_info") || localStorage.getItem(STORAGE_KEYS.PARENT_INFO);
 
     // Check if parent account exists on device
     if (parentInfoStr) {
@@ -93,24 +96,29 @@ export default function StudentLogin() {
     }
 
     // Only redirect if ALREADY logged in as student AND not explicitly asking to switch
-    if (role === "student" && !forceSwitch) {
-      if (redirectPath !== "/student/login" && redirectPath !== "/login") {
+    if (isStudentAuthenticated() && !forceSwitch) {
+      if (
+        redirectPath &&
+        !redirectPath.startsWith("/student/login") &&
+        !redirectPath.startsWith("/login") &&
+        !redirectPath.startsWith("/admin")
+      ) {
         navigate(redirectPath, { replace: true });
       }
     }
   }, [navigate, redirectPath, forceSwitch]);
 
   const handleQuickLoginAsChild = async (child: LinkedChildInfo) => {
+    const studentInfo = {
+      username: child.username,
+      displayName: child.displayName || child.username,
+      studentClass: child.studentClass || "",
+      avatarUrl: child.avatarUrl || "",
+    };
     localStorage.setItem("auth_role", "student");
-    localStorage.setItem(
-      "student_info",
-      JSON.stringify({
-        username: child.username,
-        displayName: child.displayName || child.username,
-        studentClass: child.studentClass || "",
-        avatarUrl: child.avatarUrl || "",
-      })
-    );
+    localStorage.setItem("student_info", JSON.stringify(studentInfo));
+    setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
+    setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
 
     if (parentData?.username && child.username.toLowerCase() !== parentData.username.toLowerCase()) {
       try {
@@ -122,13 +130,18 @@ export default function StudentLogin() {
       } catch (e) {}
     }
 
-    navigate(redirectPath, { replace: true });
+    const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
+      ? "/"
+      : redirectPath;
+    navigate(safeRedirect, { replace: true });
   };
 
   const handleQuickLoginAsSavedStudent = async () => {
     if (!savedStudent) return;
     localStorage.setItem("auth_role", "student");
     localStorage.setItem("student_info", JSON.stringify(savedStudent));
+    setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
+    setStoredItem(STORAGE_KEYS.STUDENT_INFO, savedStudent);
 
     if (parentData?.username && savedStudent.username.toLowerCase() !== parentData.username.toLowerCase()) {
       try {
@@ -140,7 +153,10 @@ export default function StudentLogin() {
       } catch (e) {}
     }
 
-    navigate(redirectPath, { replace: true });
+    const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
+      ? "/"
+      : redirectPath;
+    navigate(safeRedirect, { replace: true });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -166,18 +182,18 @@ export default function StudentLogin() {
           );
         }
         const userData = userSnap.data();
+        const studentInfo = {
+          username: cleanUsername,
+          displayName: userData.displayName || cleanUsername,
+          studentClass: userData.studentClass || "",
+          avatarUrl: userData.avatarUrl || "",
+        };
 
         // Log in success
         localStorage.setItem("auth_role", "student");
-        localStorage.setItem(
-          "student_info",
-          JSON.stringify({
-            username: cleanUsername,
-            displayName: userData.displayName || cleanUsername,
-            studentClass: userData.studentClass || "",
-            avatarUrl: userData.avatarUrl || "",
-          })
-        );
+        localStorage.setItem("student_info", JSON.stringify(studentInfo));
+        setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
+        setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
 
         // Auto-link to parent if parent is logged in on this browser
         if (parentData?.username && cleanUsername !== parentData.username.toLowerCase()) {
@@ -190,7 +206,10 @@ export default function StudentLogin() {
           } catch (e) {}
         }
 
-        navigate(redirectPath, { replace: true });
+        const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
+          ? "/"
+          : redirectPath;
+        navigate(safeRedirect, { replace: true });
       } else {
         if (userSnap.exists()) {
           throw new Error(
@@ -209,15 +228,16 @@ export default function StudentLogin() {
 
         await setDoc(userRef, newUserData);
 
+        const studentInfo = {
+          username: cleanUsername,
+          displayName: displayName.trim(),
+          studentClass: studentClass.trim(),
+        };
+
         localStorage.setItem("auth_role", "student");
-        localStorage.setItem(
-          "student_info",
-          JSON.stringify({
-            username: cleanUsername,
-            displayName: displayName.trim(),
-            studentClass: studentClass.trim(),
-          })
-        );
+        localStorage.setItem("student_info", JSON.stringify(studentInfo));
+        setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
+        setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
 
         // Auto-link to parent if parent is logged in on this browser
         if (parentData?.username && cleanUsername !== parentData.username.toLowerCase()) {
@@ -230,7 +250,10 @@ export default function StudentLogin() {
           } catch (e) {}
         }
 
-        navigate(redirectPath, { replace: true });
+        const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
+          ? "/"
+          : redirectPath;
+        navigate(safeRedirect, { replace: true });
       }
     } catch (err: any) {
       setError(err.message || "Lỗi xử lý tài khoản");

@@ -19,6 +19,7 @@ import {
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
 import { subscribeToActiveSessions, type ActiveSession } from "../../services/realtimeProctoringService";
+import { isAdminAuthenticated, clearAdminSession } from "../../services/authService";
 
 const navItems = [
   { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
@@ -51,12 +52,10 @@ export default function AdminLayout() {
   }, []);
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    const adminToken = localStorage.getItem("admin_token");
-    if (role !== "admin" && !adminToken) {
+    if (!isAdminAuthenticated()) {
       navigate("/admin/login", { replace: true });
     }
-  }, [navigate, location.pathname]);
+  }, [navigate]);
 
   const toggleCollapse = () => {
     setCollapsed((prev) => {
@@ -67,10 +66,9 @@ export default function AdminLayout() {
   };
 
   const confirmLogout = () => {
-    localStorage.removeItem("auth_role");
-    localStorage.removeItem("admin_token");
+    clearAdminSession();
     setShowLogoutModal(false);
-    navigate("/", { replace: true });
+    navigate("/admin/login", { replace: true });
   };
 
   // Close mobile drawer on route change

@@ -16,6 +16,9 @@ export default function RequireAuth({ role, children }: RequireAuthProps) {
 
   if (role === "admin") {
     if (!isAdminAuthenticated()) {
+      if (location.pathname.startsWith("/admin/login")) {
+        return <>{children}</>;
+      }
       return (
         <Navigate
           to={`/admin/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}
@@ -25,6 +28,9 @@ export default function RequireAuth({ role, children }: RequireAuthProps) {
     }
   } else if (role === "parent") {
     if (!isParentAuthenticated()) {
+      if (location.pathname.startsWith("/parent/login")) {
+        return <>{children}</>;
+      }
       return (
         <Navigate
           to={`/parent/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}
@@ -34,6 +40,9 @@ export default function RequireAuth({ role, children }: RequireAuthProps) {
     }
   } else if (role === "student") {
     if (!isStudentAuthenticated()) {
+      if (location.pathname.startsWith("/student/login")) {
+        return <>{children}</>;
+      }
       return (
         <Navigate
           to={`/student/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}

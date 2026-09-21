@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { User, Loader2, ArrowLeft, Users, ShieldCheck, HeartHandshake, Eye, Sparkles } from "lucide-react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { isAdminAuthenticated, isParentAuthenticated } from "../../services/authService";
+import { STORAGE_KEYS, setStoredItem } from "../../utils/storage";
 
 export default function ParentLogin() {
   const navigate = useNavigate();
@@ -19,12 +21,11 @@ export default function ParentLogin() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    const adminToken = localStorage.getItem("admin_token");
-    setIsAdmin(role === "admin" || !!adminToken);
+    setIsAdmin(isAdminAuthenticated());
 
-    if (role === "parent") {
-      navigate(redirectPath, { replace: true });
+    if (isParentAuthenticated()) {
+      const target = (redirectPath && !redirectPath.startsWith("/parent/login")) ? redirectPath : "/parent/dashboard";
+      navigate(target, { replace: true });
     }
   }, [navigate, redirectPath]);
 
@@ -50,14 +51,16 @@ export default function ParentLogin() {
         const userData = userSnap.data();
         
         // Log in success (coexisting sessions)
-        localStorage.setItem("parent_info", JSON.stringify({
+        const parentPayload = {
           username: cleanUser,
           displayName: userData.displayName || cleanUser,
           role: "parent",
           phone: userData.phone || "",
-        }));
-        localStorage.setItem("auth_role", "parent");
-        navigate(redirectPath, { replace: true });
+        };
+        setStoredItem(STORAGE_KEYS.PARENT_INFO, parentPayload, "parent_info");
+        setStoredItem(STORAGE_KEYS.AUTH_ROLE, "parent", "auth_role");
+        const target = (redirectPath && !redirectPath.startsWith("/parent/login")) ? redirectPath : "/parent/dashboard";
+        navigate(target, { replace: true });
       } else {
         if (userSnap.exists()) {
           throw new Error("Tên đăng nhập này đã được sử dụng. Vui lòng chọn tên khác hoặc đăng nhập.");
@@ -72,14 +75,16 @@ export default function ParentLogin() {
           createdAt: new Date().toISOString()
         });
 
-        localStorage.setItem("parent_info", JSON.stringify({
+        const parentPayload = {
           username: cleanUser,
           displayName: displayName.trim(),
           role: "parent",
           phone: phone.trim(),
-        }));
-        localStorage.setItem("auth_role", "parent");
-        navigate(redirectPath, { replace: true });
+        };
+        setStoredItem(STORAGE_KEYS.PARENT_INFO, parentPayload, "parent_info");
+        setStoredItem(STORAGE_KEYS.AUTH_ROLE, "parent", "auth_role");
+        const target = (redirectPath && !redirectPath.startsWith("/parent/login")) ? redirectPath : "/parent/dashboard";
+        navigate(target, { replace: true });
       }
     } catch (err: any) {
       setError(err.message || "Lỗi đăng nhập");

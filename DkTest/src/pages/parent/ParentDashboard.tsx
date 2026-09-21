@@ -59,6 +59,12 @@ import {
   saveParentExam,
   getParentCreatedExams,
 } from "../../services/parentExamService";
+import {
+  isAdminAuthenticated,
+  isParentAuthenticated,
+  clearParentSession,
+} from "../../services/authService";
+import { STORAGE_KEYS, setStoredItem } from "../../utils/storage";
 import type { Question, Exam, Submission } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -249,16 +255,14 @@ export default function ParentDashboard() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    const adminToken = localStorage.getItem("admin_token");
-    setIsAdmin(role === "admin" || !!adminToken);
+    setIsAdmin(isAdminAuthenticated());
 
-    const pStr = localStorage.getItem("parent_info");
-    if (role !== "parent" && !pStr) {
+    if (!isParentAuthenticated()) {
       navigate("/parent/login", { replace: true });
       return;
     }
 
+    const pStr = localStorage.getItem("parent_info") || localStorage.getItem(STORAGE_KEYS.PARENT_INFO);
     if (pStr) {
       try {
         const parsed = JSON.parse(pStr);
@@ -369,19 +373,19 @@ export default function ParentDashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("auth_role");
-    localStorage.removeItem("parent_info");
+    clearParentSession();
     navigate("/", { replace: true });
   };
 
   const handleSwitchToStudent = () => {
     // 1. If student_info already exists in localStorage, activate it and go straight to student portal
-    const studentInfoStr = localStorage.getItem("student_info");
+    const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem(STORAGE_KEYS.STUDENT_INFO);
     if (studentInfoStr) {
       try {
         const parsed = JSON.parse(studentInfoStr);
         if (parsed.username) {
           localStorage.setItem("auth_role", "student");
+          setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
           navigate("/");
           return;
         }
@@ -399,16 +403,16 @@ export default function ParentDashboard() {
   };
 
   const handleSwitchToChild = (child: LinkedChildInfo) => {
+    const childInfo = {
+      username: child.username,
+      displayName: child.displayName || child.username,
+      studentClass: child.studentClass || "",
+      avatarUrl: child.avatarUrl || "",
+    };
     localStorage.setItem("auth_role", "student");
-    localStorage.setItem(
-      "student_info",
-      JSON.stringify({
-        username: child.username,
-        displayName: child.displayName || child.username,
-        studentClass: child.studentClass || "",
-        avatarUrl: child.avatarUrl || "",
-      })
-    );
+    localStorage.setItem("student_info", JSON.stringify(childInfo));
+    setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
+    setStoredItem(STORAGE_KEYS.STUDENT_INFO, childInfo);
     navigate("/");
   };
 

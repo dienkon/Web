@@ -22,6 +22,7 @@ import {
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
+import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "../../services/authService";
 
 export default function StudentLayout() {
   const navigate = useNavigate();
@@ -33,13 +34,7 @@ export default function StudentLayout() {
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    const adminToken = localStorage.getItem("admin_token");
-    if (role === "admin" || adminToken) {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
+    setIsAdmin(isAdminAuthenticated());
 
     const infoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
     if (infoStr) {
@@ -89,11 +84,8 @@ export default function StudentLayout() {
 
   const handleConfirmLogout = () => {
     clearActiveExamSession();
-    localStorage.removeItem("auth_role");
-    localStorage.removeItem("student_info");
-    localStorage.removeItem("admin_token");
-    localStorage.removeItem("current_student_session");
-    localStorage.removeItem("student_submission_history");
+    clearStudentSession();
+    clearAdminSession();
     setStudentInfo(null);
     setIsAdmin(false);
     setShowLogoutModal(false);

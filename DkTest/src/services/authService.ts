@@ -33,33 +33,76 @@ export function setAdminSession(): void {
 export function clearAdminSession(): void {
   removeStoredItem(STORAGE_KEYS.AUTH_ROLE, "auth_role");
   removeStoredItem(STORAGE_KEYS.ADMIN_TOKEN, "admin_token");
+  localStorage.removeItem("auth_role");
+  localStorage.removeItem("admin_token");
+  localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
+  localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+}
+
+/**
+ * Logout parent
+ */
+export function clearParentSession(): void {
+  removeStoredItem(STORAGE_KEYS.AUTH_ROLE, "auth_role");
+  removeStoredItem(STORAGE_KEYS.PARENT_INFO, "parent_info");
+  localStorage.removeItem("auth_role");
+  localStorage.removeItem("parent_info");
+  localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
+  localStorage.removeItem(STORAGE_KEYS.PARENT_INFO);
+}
+
+/**
+ * Logout student
+ */
+export function clearStudentSession(): void {
+  removeStoredItem(STORAGE_KEYS.AUTH_ROLE, "auth_role");
+  removeStoredItem(STORAGE_KEYS.STUDENT_INFO, "student_info");
+  localStorage.removeItem("auth_role");
+  localStorage.removeItem("student_info");
+  localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
+  localStorage.removeItem(STORAGE_KEYS.STUDENT_INFO);
+  localStorage.removeItem("current_student_session");
+  localStorage.removeItem("student_submission_history");
 }
 
 /**
  * Checks if current user has valid admin session
  */
 export function isAdminAuthenticated(): boolean {
-  const role = getStoredItem<string>(STORAGE_KEYS.AUTH_ROLE, "auth_role");
-  const token = getStoredItem<string>(STORAGE_KEYS.ADMIN_TOKEN, "admin_token");
-  return role === "admin" && !!token;
+  const legacyRole = localStorage.getItem("auth_role");
+  const namespacedRole = localStorage.getItem(STORAGE_KEYS.AUTH_ROLE);
+  const activeRole = legacyRole || namespacedRole;
+
+  if (activeRole !== "admin") {
+    return false;
+  }
+
+  const token = localStorage.getItem("admin_token") || localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
+  return !!token;
 }
 
 /**
  * Checks if student is authenticated
  */
 export function isStudentAuthenticated(): boolean {
-  const role = getStoredItem<string>(STORAGE_KEYS.AUTH_ROLE, "auth_role");
-  const studentInfo = getStoredItem<any>(STORAGE_KEYS.STUDENT_INFO, "student_info");
-  return (role === "student" || role === "admin") && !!studentInfo?.username;
+  const legacyRole = localStorage.getItem("auth_role");
+  const namespacedRole = localStorage.getItem(STORAGE_KEYS.AUTH_ROLE);
+  const activeRole = legacyRole || namespacedRole;
+
+  const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem(STORAGE_KEYS.STUDENT_INFO);
+  return (activeRole === "student" || activeRole === "admin") && !!studentInfoStr;
 }
 
 /**
  * Checks if parent is authenticated
  */
 export function isParentAuthenticated(): boolean {
-  const role = getStoredItem<string>(STORAGE_KEYS.AUTH_ROLE, "auth_role");
-  const parentInfo = getStoredItem<any>(STORAGE_KEYS.PARENT_INFO, "parent_info");
-  return (role === "parent" || role === "admin") && !!parentInfo?.username;
+  const legacyRole = localStorage.getItem("auth_role");
+  const namespacedRole = localStorage.getItem(STORAGE_KEYS.AUTH_ROLE);
+  const activeRole = legacyRole || namespacedRole;
+
+  const parentInfoStr = localStorage.getItem("parent_info") || localStorage.getItem(STORAGE_KEYS.PARENT_INFO);
+  return (activeRole === "parent" || activeRole === "admin") && !!parentInfoStr;
 }
 
 /**
