@@ -101,10 +101,12 @@ export default function AdminLayout() {
       >
         {/* Sidebar Header */}
         <div className="h-16 px-4 border-b border-slate-100 flex items-center justify-between">
-          <Link to="/admin/dashboard" className="flex items-center gap-3 overflow-hidden">
-            <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
-              D
-            </div>
+          <Link to="/admin/dashboard" className="flex items-center gap-3 overflow-hidden group">
+            <img
+              src="/logo.png"
+              alt="DkTEST Logo"
+              className="w-9 h-9 rounded-xl object-contain drop-shadow-xs shrink-0 transition-transform duration-200 group-hover:scale-105"
+            />
             {!collapsed && (
               <div className="overflow-hidden whitespace-nowrap">
                 <h1 className="text-lg font-bold tracking-tight text-slate-800 flex items-center gap-1.5">

@@ -211,7 +211,7 @@ export default function PracticeLobbyPage() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-blue-100 text-xs font-semibold mb-3 border border-white/10">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <img src="/logo.png" alt="DKTEST" className="w-4 h-4 rounded-full object-contain" />
                 <span>Hệ thống luyện tập độc lập DkTEST • Sinh câu hỏi vô tận</span>
               </div>
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Trung tâm Luyện tập</h1>

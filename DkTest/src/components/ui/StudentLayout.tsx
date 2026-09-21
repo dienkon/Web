@@ -20,6 +20,7 @@ import {
   BrainCircuit,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
+import BrandLogo from "./BrandLogo";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 
 export default function StudentLayout() {
@@ -137,11 +138,8 @@ export default function StudentLayout() {
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-slate-500" />
             </Link>
 
-            <Link to="/" className="flex items-center gap-2">
-              <span className="text-lg sm:text-xl font-black text-blue-600 tracking-tight">DkTEST</span>
-              <span className="hidden xs:inline-block text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-lg">
-                Thi Trực Tuyến
-              </span>
+            <Link to="/" className="flex items-center group">
+              <BrandLogo size="sm" badgeText="Thi Trực Tuyến" theme="blue" />
             </Link>
           </div>
 
@@ -310,12 +308,7 @@ export default function StudentLayout() {
             {/* Drawer */}
             <div className="fixed inset-y-0 left-0 max-w-xs w-3/4 bg-white shadow-2xl z-10 p-5 flex flex-col space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-black text-blue-600">DkTEST</span>
-                  <span className="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md">
-                    Phòng thi
-                  </span>
-                </div>
+                <BrandLogo size="xs" badgeText="Phòng thi" theme="blue" />
                 <button
                   type="button"
                   onClick={() => setIsMobileDrawerOpen(false)}

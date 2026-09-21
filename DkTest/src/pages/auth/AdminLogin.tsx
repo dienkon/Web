@@ -59,12 +59,18 @@ export default function AdminLogin() {
           </div>
         </div>
 
-        <div className="text-center space-y-2">
-          <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xs">
-            <Lock className="w-7 h-7" />
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <img
+              src="/logo.png"
+              alt="DKTEST Logo"
+              className="w-16 h-16 rounded-2xl object-contain shadow-md border border-slate-100 p-1 bg-white"
+            />
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Cổng Giáo Viên</h1>
-          <p className="text-xs text-slate-500 font-medium">Nhập mật khẩu quản trị để vào hệ thống</p>
+          <div>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Cổng Giáo Viên</h1>
+            <p className="text-xs text-slate-500 font-medium mt-1">Nhập mật khẩu quản trị để vào hệ thống DkTEST</p>
+          </div>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">

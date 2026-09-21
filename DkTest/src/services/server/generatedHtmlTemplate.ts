@@ -54,6 +54,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       content="Tạo đề, tổ chức kỳ thi và làm bài trực tuyến với DK TEST."
     />
     <meta property="og:site_name" content="DK TEST" />
+    <meta property="og:image" content="/logo.png" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -62,14 +63,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       name="twitter:description"
       content="Tạo đề, tổ chức kỳ thi và làm bài trực tuyến với DK TEST."
     />
+    <meta name="twitter:image" content="/logo.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
-
-    <!-- Prevent favicon 404 if you don't have one yet -->
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/index-k1VvjaQW.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-D594iDe-.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script type="module" crossorigin src="/assets/index-CpBcgKJk.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DrGildEb.css">
   </head>
 
   <body>

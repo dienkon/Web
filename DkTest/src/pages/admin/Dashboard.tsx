@@ -176,6 +176,13 @@ export default function Dashboard() {
           </Link>
         </div>
 
+        {/* Decorative background logo */}
+        <div className="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 items-center justify-center pointer-events-none">
+          <div className="w-36 h-36 rounded-full p-2 bg-white/10 backdrop-blur-md border border-white/20 shadow-xl flex items-center justify-center opacity-85">
+            <img src="/logo.png" alt="DKTEST" className="w-32 h-32 rounded-full object-contain drop-shadow-md" />
+          </div>
+        </div>
+
         {/* Decorative background shape */}
         <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none" />
       </div>

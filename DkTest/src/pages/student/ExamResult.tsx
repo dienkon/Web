@@ -424,6 +424,14 @@ export default function ExamResult() {
         {/* Top Navigation Bar with Back & Word Export */}
         <div className="flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/70 border border-slate-200/60 p-2.5 rounded-2xl shadow-2xs">
           <div className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2 mr-1.5 group" title="Về trang chủ DkTEST">
+              <img
+                src="/logo.png"
+                alt="DKTEST Logo"
+                className="w-7 h-7 rounded-lg object-contain transition-transform group-hover:scale-105"
+              />
+              <span className="text-sm font-black text-blue-600 hidden sm:inline">DkTEST</span>
+            </Link>
             {localStorage.getItem("auth_role") === "parent" || localStorage.getItem("parent_info") ? (
               <Link
                 to="/parent/dashboard"

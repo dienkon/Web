@@ -151,9 +151,11 @@ export default function LegalPolicy() {
       {/* Footer Contact Info */}
       <div className="bg-slate-100 rounded-2xl p-5 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold">
-            Dk
-          </div>
+          <img
+            src="/logo.png"
+            alt="DKTEST Logo"
+            className="w-10 h-10 rounded-xl object-contain drop-shadow-xs p-0.5 bg-white border border-slate-200"
+          />
           <div>
             <p className="font-bold text-slate-900">Ban Pháp Chế & Bản Quyền DkTEST</p>
             <p className="text-slate-500">Mọi thắc mắc và báo cáo vi phạm vui lòng liên hệ bộ phận hỗ trợ kỹ thuật.</p>

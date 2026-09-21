@@ -134,7 +134,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-2xl space-y-5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-blue-100 text-xs font-bold uppercase tracking-wider border border-white/15">
-            <Sparkles className="w-4 h-4 text-amber-300" />
+            <img src="/logo.png" alt="DKTEST" className="w-4 h-4 rounded-full object-contain" />
             Nền Tảng Khảo Thí & Thi Trực Tuyến DkTEST
           </div>
 
@@ -481,13 +481,15 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 text-amber-600">
-              <div className="p-3 bg-amber-50 rounded-2xl">
-                <AlertCircle className="w-6 h-6" />
-              </div>
+            <div className="flex items-center gap-3">
+              <img
+                src="/logo.png"
+                alt="DKTEST Logo"
+                className="w-12 h-12 rounded-2xl object-contain shadow-xs border border-slate-100 p-0.5 bg-white shrink-0"
+              />
               <div>
                 <h3 className="font-extrabold text-slate-900 text-base">Yêu cầu Đăng nhập</h3>
-                <p className="text-xs text-slate-500">Bạn cần đăng nhập để tham gia làm bài thi</p>
+                <p className="text-xs text-slate-500">Đăng nhập tài khoản DkTEST để tham gia làm bài thi</p>
               </div>
             </div>
 

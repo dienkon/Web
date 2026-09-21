@@ -255,14 +255,13 @@ export function buildExamMetaTags({
     `<link rel="canonical" href="${escapedUrl}">`,
   ];
 
-  if (found && exam?.imageUrl) {
-    const escapedImage = escapeHtml(exam.imageUrl);
-    tags.push(
-      `<meta property="og:image" content="${escapedImage}">`,
-      `<meta name="twitter:image" content="${escapedImage}">`,
-      `<meta property="og:image:alt" content="${escapedTitle}">`
-    );
-  }
+  const imageUrl = (found && exam?.imageUrl) ? exam.imageUrl : `${cleanBaseUrl}/logo.png`;
+  const escapedImage = escapeHtml(imageUrl);
+  tags.push(
+    `<meta property="og:image" content="${escapedImage}">`,
+    `<meta name="twitter:image" content="${escapedImage}">`,
+    `<meta property="og:image:alt" content="${escapedTitle}">`
+  );
 
   return {
     fullTitle: titleRaw,

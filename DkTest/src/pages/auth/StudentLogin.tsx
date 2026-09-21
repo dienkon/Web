@@ -379,18 +379,24 @@ export default function StudentLogin() {
         )}
 
         {/* Title Header */}
-        <div className="text-center space-y-2">
-          <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xs border border-emerald-100">
-            <GraduationCap className="w-7 h-7" />
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <img
+              src="/logo.png"
+              alt="DKTEST Logo"
+              className="w-16 h-16 rounded-2xl object-contain shadow-md border border-slate-100 p-1 bg-white"
+            />
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-            Cổng Khảo Thí Học Sinh
-          </h1>
-          <p className="text-xs text-slate-500 font-medium">
-            {isLogin
-              ? "Đăng nhập tài khoản để vào thi và đồng bộ bảng nháp"
-              : "Đăng ký nhanh tài khoản học sinh để bắt đầu làm bài"}
-          </p>
+          <div>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+              Cổng Khảo Thí Học Sinh
+            </h1>
+            <p className="text-xs text-slate-500 font-medium mt-1">
+              {isLogin
+                ? "Đăng nhập tài khoản để vào thi và đồng bộ bảng nháp trên DkTEST"
+                : "Đăng ký nhanh tài khoản học sinh để bắt đầu làm bài"}
+            </p>
+          </div>
         </div>
 
         {/* Toggle Register / Login Mode Tabs */}

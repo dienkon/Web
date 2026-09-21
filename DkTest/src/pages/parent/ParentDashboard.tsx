@@ -793,7 +793,12 @@ YÊU CẦU ĐẶC BIỆT KHI XUẤT ĐỀ:
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2.5 group">
+              <img
+                src="/logo.png"
+                alt="DKTEST Logo"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-contain drop-shadow-xs transition-transform group-hover:scale-105 shrink-0"
+              />
               <span className="text-xl font-black text-indigo-600 tracking-tight">DkTEST</span>
               <span className="text-xs font-extrabold bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-xl border border-indigo-100 flex items-center gap-1">
                 <HeartHandshake className="w-3.5 h-3.5" /> Cổng Phụ Huynh
