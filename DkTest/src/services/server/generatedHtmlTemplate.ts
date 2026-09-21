@@ -69,8 +69,8 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <script type="module" crossorigin src="/assets/index-CZzWODAf.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DrGildEb.css">
+    <script type="module" crossorigin src="/assets/index-BPpmUKcv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CdOXic0T.css">
   </head>
 
   <body>

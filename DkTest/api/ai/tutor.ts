@@ -28,8 +28,10 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: "Messages array is required" });
     }
 
+    const customApiKey = (req.headers?.["x-gemini-api-key"] as string) || body.apiKey;
+
     initSse(res);
-    const stream = await askTutor(messages, context);
+    const stream = await askTutor(messages, context, customApiKey);
 
     for await (const chunk of stream) {
       const text = chunk.text ?? "";
