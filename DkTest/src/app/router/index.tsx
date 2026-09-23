@@ -3,10 +3,13 @@ import AdminLayout from "../../components/ui/AdminLayout";
 import StudentLayout from "../../components/ui/StudentLayout";
 
 // Auth Pages
+import Login from "../../pages/auth/Login";
+import Register from "../../pages/auth/Register";
 import AdminLogin from "../../pages/auth/AdminLogin";
 import StudentLogin from "../../pages/auth/StudentLogin";
 import ParentLogin from "../../pages/auth/ParentLogin";
 import ParentDashboard from "../../pages/parent/ParentDashboard";
+import EmailVerification from "../../pages/auth/EmailVerification";
 
 // Admin Pages
 import Dashboard from "../../pages/admin/Dashboard";
@@ -18,6 +21,12 @@ import ExamDetail from "../../pages/admin/ExamDetail";
 import Submissions from "../../pages/admin/Submissions";
 import SubmissionDetail from "../../pages/admin/SubmissionDetail";
 import Students from "../../pages/admin/Students";
+import Parents from "../../pages/admin/Parents";
+import UserDetail from "../../pages/admin/UserDetail";
+import DataHealth from "../../pages/admin/DataHealth";
+import AuditLogs from "../../pages/admin/AuditLogs";
+import Classes from "../../pages/admin/Classes";
+import SystemHealth from "../../pages/admin/SystemHealth";
 import Statistics from "../../pages/admin/Statistics";
 import Settings from "../../pages/admin/Settings";
 import LiveProctoring from "../../pages/admin/LiveProctoring";
@@ -55,6 +64,18 @@ const router = createBrowserRouter([
         <LiveMonitor />
       </RequireAuth>
     ),
+  },
+  {
+    path: "/email-verification",
+    element: <EmailVerification />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     path: "/admin/login",
@@ -169,6 +190,12 @@ const router = createBrowserRouter([
       { path: "exams/:examId/submissions/:submissionId", element: <SubmissionDetail /> },
       { path: "submissions", element: <Submissions /> },
       { path: "students", element: <Students /> },
+      { path: "parents", element: <Parents /> },
+      { path: "users/:uid", element: <UserDetail /> },
+      { path: "data-health", element: <DataHealth /> },
+      { path: "audit-logs", element: <AuditLogs /> },
+      { path: "classes", element: <Classes /> },
+      { path: "system-health", element: <SystemHealth /> },
       { path: "live-proctoring", element: <LiveProctoring /> },
       { path: "stats", element: <Statistics /> },
       { path: "settings", element: <Settings /> },

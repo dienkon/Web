@@ -243,7 +243,7 @@ export default function Community() {
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
     if (!role) {
-      navigate("/student/login", { replace: true });
+      navigate("/login", { replace: true });
       return;
     }
 

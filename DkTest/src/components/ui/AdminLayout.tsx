@@ -15,19 +15,31 @@ import {
   Sparkles,
   Eye,
   ShieldCheck,
+  HeartHandshake,
+  Activity,
+  FileCode,
+  Server,
+  Layers,
 } from "lucide-react";
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
+import NotificationCenter from "./NotificationCenter";
 import { subscribeToActiveSessions, type ActiveSession } from "../../services/realtimeProctoringService";
 import { isAdminAuthenticated, clearAdminSession } from "../../services/authService";
+import { useAuth } from "../../context/AuthContext";
 
 const navItems = [
-  { name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard },
+  { name: "Tổng quan", path: "/admin/dashboard", icon: LayoutDashboard },
+  { name: "Học sinh", path: "/admin/students", icon: Users },
+  { name: "Phụ huynh", path: "/admin/parents", icon: HeartHandshake },
   { name: "Bài thi", path: "/admin/exams", icon: FileText },
   { name: "Giám sát Live", path: "/admin/live-proctoring", icon: Eye, hasLiveBadge: true },
-  { name: "Học sinh", path: "/admin/students", icon: Users },
   { name: "Bài nộp", path: "/admin/submissions", icon: GraduationCap },
   { name: "Thống kê", path: "/admin/stats", icon: BarChart3 },
+  { name: "Phân tích theo lớp", path: "/admin/classes", icon: Layers },
+  { name: "Kiểm tra dữ liệu", path: "/admin/data-health", icon: Activity },
+  { name: "Nhật ký hệ thống", path: "/admin/audit-logs", icon: FileCode },
+  { name: "System Health", path: "/admin/system-health", icon: Server },
   { name: "Cài đặt", path: "/admin/settings", icon: Settings },
   { name: "Bản quyền & Pháp lý", path: "/admin/legal-policy", icon: ShieldCheck },
 ];
@@ -35,6 +47,8 @@ const navItems = [
 export default function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, userProfile, role, logout } = useAuth();
+
   const [collapsed, setCollapsed] = useState(() => {
     return localStorage.getItem("admin_sidebar_collapsed") === "true";
   });
@@ -51,12 +65,6 @@ export default function AdminLayout() {
     return () => unsub();
   }, []);
 
-  useEffect(() => {
-    if (!isAdminAuthenticated()) {
-      navigate("/admin/login", { replace: true });
-    }
-  }, [navigate]);
-
   const toggleCollapse = () => {
     setCollapsed((prev) => {
       const next = !prev;
@@ -65,8 +73,9 @@ export default function AdminLayout() {
     });
   };
 
-  const confirmLogout = () => {
+  const confirmLogout = async () => {
     clearAdminSession();
+    await logout();
     setShowLogoutModal(false);
     navigate("/admin/login", { replace: true });
   };
@@ -84,7 +93,7 @@ export default function AdminLayout() {
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm lg:hidden transition-opacity"
+          className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-xs lg:hidden transition-opacity"
         />
       )}
 
@@ -119,92 +128,74 @@ export default function AdminLayout() {
           </Link>
 
           <button
-            onClick={() => setMobileOpen(false)}
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg lg:hidden"
+            type="button"
+            onClick={toggleCollapse}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors hidden lg:flex items-center justify-center cursor-pointer"
+            title={collapsed ? "Mở rộng thanh điều hướng" : "Thu gọn thanh điều hướng"}
           >
-            <X className="w-5 h-5" />
+            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
           </button>
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname.startsWith(item.path);
+
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                title={collapsed ? item.name : undefined}
                 className={clsx(
-                  "flex items-center gap-3.5 px-3 py-2.5 rounded-xl transition-all font-medium text-sm",
+                  "flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-xs transition-all relative group",
                   isActive
-                    ? "bg-blue-50 text-blue-700 font-semibold shadow-xs"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900",
-                  collapsed && "justify-center px-2"
+                    ? "bg-blue-600 text-white font-bold shadow-xs"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                 )}
+                title={collapsed ? item.name : undefined}
               >
-                <div className="relative">
-                  <Icon
+                <Icon className={clsx("w-4 h-4 shrink-0", isActive ? "text-white" : "text-slate-400 group-hover:text-slate-600")} />
+
+                {!collapsed && <span className="truncate">{item.name}</span>}
+
+                {/* Live Badge for Proctoring */}
+                {item.hasLiveBadge && activeLiveCount > 0 && (
+                  <span
                     className={clsx(
-                      "w-5 h-5 shrink-0 transition-transform",
-                      isActive ? "text-blue-600 scale-105" : "text-slate-400 group-hover:text-slate-600"
+                      "ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full",
+                      isActive
+                        ? "bg-white text-blue-700"
+                        : "bg-red-500 text-white animate-pulse"
                     )}
-                  />
-                  {item.hasLiveBadge && activeLiveCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white animate-ping" />
-                  )}
-                </div>
-                {!collapsed && (
-                  <div className="flex items-center justify-between flex-1 truncate">
-                    <span className="truncate">{item.name}</span>
-                    {item.hasLiveBadge && activeLiveCount > 0 && (
-                      <span className="px-2 py-0.5 text-[10px] font-black bg-emerald-500 text-white rounded-full shadow-xs animate-pulse">
-                        {activeLiveCount} Live
-                      </span>
-                    )}
-                  </div>
+                  >
+                    {activeLiveCount}
+                  </span>
                 )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Sidebar Footer & Collapse toggle */}
-        <div className="p-3 border-t border-slate-100 space-y-2">
-          {/* Collapse button for desktop */}
-          <button
-            onClick={toggleCollapse}
-            className={clsx(
-              "hidden lg:flex items-center gap-2 w-full p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-xl transition-colors text-xs font-medium",
-              collapsed ? "justify-center" : "justify-between"
-            )}
-            title={collapsed ? "Mở rộng thanh bên" : "Thu gọn thanh bên"}
-          >
-            {!collapsed && <span>Thu gọn menu</span>}
-            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-          </button>
-
-          {/* Admin profile & logout */}
-          <div
-            className={clsx(
-              "flex items-center p-2 bg-slate-50 border border-slate-100 rounded-xl",
-              collapsed ? "justify-center cursor-pointer hover:bg-slate-100" : "justify-between"
-            )}
-            onClick={collapsed ? () => setShowLogoutModal(true) : undefined}
-            title={collapsed ? "Nhấp để đăng xuất" : undefined}
-          >
+        {/* Sidebar Footer User Info */}
+        <div className="p-3 border-t border-slate-100">
+          <div className="flex items-center justify-between p-2 rounded-2xl bg-slate-50 border border-slate-100">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
-                DK
+              <div className="w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0">
+                {(userProfile?.displayName || user?.email || "A").charAt(0).toUpperCase()}
               </div>
               {!collapsed && (
                 <div className="overflow-hidden">
-                  <p className="text-xs font-bold truncate text-slate-800">Quản trị viên</p>
-                  <p className="text-[10px] text-slate-400 truncate">Dienkon</p>
+                  <p className="text-xs font-bold truncate text-slate-800">
+                    {userProfile?.displayName || "Quản trị viên"}
+                  </p>
+                  <p className="text-[10px] text-slate-400 truncate">
+                    {user?.email || "admin"}
+                  </p>
                 </div>
               )}
             </div>
+
             {!collapsed && (
               <button
                 type="button"
@@ -234,13 +225,16 @@ export default function AdminLayout() {
             <div className="flex items-center gap-2 text-sm">
               <span className="text-slate-400 hidden sm:inline">Quản trị DkTEST</span>
               <span className="text-slate-300 hidden sm:inline">/</span>
-              <span className="font-semibold text-slate-800 uppercase tracking-tight">
+              <span className="font-semibold text-slate-800 uppercase tracking-tight text-xs sm:text-sm">
                 {currentNav?.name || "Hệ thống"}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3">
+            {/* Notification Center */}
+            <NotificationCenter />
+
             {/* Quick Role Switcher */}
             <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
               <span className="px-2.5 py-1 bg-white text-blue-700 rounded-lg shadow-2xs flex items-center gap-1">
@@ -270,25 +264,24 @@ export default function AdminLayout() {
             <Outlet />
           </div>
         ) : (
-          <div className="flex-1 p-4 lg:p-8 overflow-y-auto">
-            <div className="max-w-7xl mx-auto w-full">
-              <Outlet />
-            </div>
+          <div className="flex-1 overflow-y-auto">
+            <Outlet />
           </div>
         )}
       </main>
 
       {/* Logout Confirmation Dialog */}
-      <ConfirmModal
-        isOpen={showLogoutModal}
-        onClose={() => setShowLogoutModal(false)}
-        onConfirm={confirmLogout}
-        title="Đăng xuất tài khoản"
-        message="Bạn có chắc chắn muốn đăng xuất tài khoản Quản trị viên khỏi phiên làm việc này?"
-        confirmText="Đăng xuất"
-        cancelText="Ở lại"
-        variant="danger"
-      />
+      {showLogoutModal && (
+        <ConfirmModal
+          isOpen={true}
+          onCancel={() => setShowLogoutModal(false)}
+          onConfirm={confirmLogout}
+          title="Đăng xuất tài khoản"
+          message="Bạn có chắc chắn muốn đăng xuất tài khoản Quản trị viên khỏi phiên làm việc này?"
+          confirmText="Đăng xuất"
+          confirmVariant="danger"
+        />
+      )}
     </div>
   );
 }

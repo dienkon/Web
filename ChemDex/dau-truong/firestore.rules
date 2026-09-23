@@ -1,42 +1,79 @@
 rules_version = '2';
 
+/**
+ * ChemDex Ecosystem - Unified Firestore Security Rules
+ * Covers ChemDex Visual CMS, Trung Tâm (Community/Feed), and Đấu Trường (Arena/Multiplayer)
+ */
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
+    // Helper functions
     function isAuthenticated() {
       return request.auth != null;
     }
-    
+
     function isOwner(userId) {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
-    // USERS COLLECTION
+    // =========================================================================
+    // 1. CHEMDEX CHEMICAL DATA (Visual CMS & Chemical Elements)
+    // =========================================================================
+    match /chemDexElements/{elementId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // =========================================================================
+    // 2. USERS & PROFILES (Đấu Trường & Trung Tâm)
+    // =========================================================================
     match /users/{userId} {
       allow read: if true;
       allow create, update: if isAuthenticated();
       allow delete: if false;
 
-      // User matches subcollection
+      // Subcollection: Lịch sử trận đấu của user
       match /matches/{matchId} {
         allow read, create: if isAuthenticated();
         allow update, delete: if false;
       }
     }
 
-    // GLOBAL CHAT COLLECTION
-    match /global_chat/{msgId} {
+    // =========================================================================
+    // 3. TRUNG TÂM / CỘNG ĐỒNG (Posts, Stories, Notifications)
+    // =========================================================================
+    match /posts/{postId} {
       allow read: if true;
-      allow create: if isAuthenticated();
-      allow update, delete: if false;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+
+      // Bình luận bài viết
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated();
+        allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      }
     }
 
-    // ROOMS COLLECTION
+    match /stories/{storyId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // =========================================================================
+    // 4. ĐẤU TRƯỜNG HÓA HỌC (Rooms, Matches, Global Chat, Questions)
+    // =========================================================================
     match /rooms/{roomId} {
       allow read: if true;
       allow create, update, delete: if isAuthenticated();
 
-      // MESSAGES SUBCOLLECTION
       match /messages/{messageId} {
         allow read: if true;
         allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid;
@@ -44,16 +81,27 @@ service cloud.firestore {
       }
     }
 
-    // MATCHES COLLECTION (History)
+    match /global_chat/{msgId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if false;
+    }
+
     match /matches/{matchId} {
       allow read, create: if isAuthenticated();
       allow update, delete: if false;
     }
-    
-    // QUESTIONS COLLECTION
+
     match /questions/{questionId} {
       allow read: if true;
-      allow write: if false; 
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // 5. MẶC ĐỊNH CHẶN CÁC TÀI LIỆU KHÔNG KHAI BÁO
+    // =========================================================================
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

@@ -502,7 +502,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
             <div className="space-y-2 pt-2">
               <Link
-                to="/student/login"
+                to="/login"
                 className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer"
               >
                 <LogIn className="w-4 h-4" />

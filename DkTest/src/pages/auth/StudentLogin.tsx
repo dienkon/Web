@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import {
   User,
+  Mail,
+  Lock,
   Loader2,
   ArrowLeft,
   GraduationCap,
@@ -14,8 +16,12 @@ import {
   ArrowRight,
   Users,
 } from "lucide-react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
+import { auth, db } from "../../services/firebase/config";
+import { useAuth } from "../../context/AuthContext";
+import GoogleLoginButton from "../../components/auth/GoogleLoginButton";
+import PasswordStrengthMeter, { evaluatePasswordStrength } from "../../components/auth/PasswordStrengthMeter";
+import ResetPasswordModal from "../../components/auth/ResetPasswordModal";
+import { getFriendlyAuthErrorMessage } from "../../utils/authErrors";
 import {
   getLinkedChildrenForParent,
   autoLinkChildToParent,
@@ -26,6 +32,7 @@ import {
   isStudentAuthenticated,
 } from "../../services/authService";
 import { STORAGE_KEYS, setStoredItem } from "../../utils/storage";
+import { useToast } from "../../components/ui/ToastNotification";
 
 export default function StudentLogin() {
   const navigate = useNavigate();
@@ -34,11 +41,19 @@ export default function StudentLogin() {
   const modeParam = searchParams.get("mode");
   const forceSwitch = searchParams.get("switch") === "true";
 
+  const { loginWithEmail, loginWithUsername, registerWithEmail, registerWithUsername, userProfile, role } = useAuth();
+  const { showToast } = useToast();
+
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [regMethod, setRegMethod] = useState<"username" | "email">("username");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [studentClass, setStudentClass] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showResetModal, setShowResetModal] = useState(false);
 
   const [parentData, setParentData] = useState<{ username: string; displayName: string } | null>(null);
   const [linkedChildren, setLinkedChildren] = useState<LinkedChildInfo[]>([]);
@@ -51,34 +66,29 @@ export default function StudentLogin() {
     avatarUrl?: string;
   } | null>(null);
 
-  // Default to Register mode when first entering, unless mode=login is requested
-  const [isLogin, setIsLogin] = useState(modeParam === "login");
+  // Default to Login mode
+  const [isLogin, setIsLogin] = useState(modeParam !== "register");
 
   useEffect(() => {
-    if (modeParam === "login") {
-      setIsLogin(true);
-    } else if (modeParam === "register") {
-      setIsLogin(false);
-    }
+    if (modeParam === "login") setIsLogin(true);
+    else if (modeParam === "register") setIsLogin(false);
   }, [modeParam]);
 
   useEffect(() => {
-    setIsAdmin(isAdminAuthenticated());
+    setIsAdmin(isAdminAuthenticated() || role === "admin" || role === "super_admin");
 
     // Read saved student info from this device
     const savedStr = localStorage.getItem("student_info") || localStorage.getItem(STORAGE_KEYS.STUDENT_INFO);
     if (savedStr) {
       try {
         const parsed = JSON.parse(savedStr);
-        if (parsed.username) {
+        if (parsed.username || parsed.email) {
           setSavedStudent(parsed);
         }
       } catch (e) {}
     }
 
     const parentInfoStr = localStorage.getItem("parent_info") || localStorage.getItem(STORAGE_KEYS.PARENT_INFO);
-
-    // Check if parent account exists on device
     if (parentInfoStr) {
       try {
         const pObj = JSON.parse(parentInfoStr);
@@ -86,19 +96,17 @@ export default function StudentLogin() {
         if (pObj.username) {
           setLoadingChildren(true);
           getLinkedChildrenForParent(pObj.username)
-            .then((children) => {
-              setLinkedChildren(children || []);
-            })
+            .then((children) => setLinkedChildren(children || []))
             .catch(() => {})
             .finally(() => setLoadingChildren(false));
         }
       } catch (e) {}
     }
 
-    // Only redirect if ALREADY logged in as student AND not explicitly asking to switch
-    if (isStudentAuthenticated() && !forceSwitch) {
+    if ((isStudentAuthenticated() || role === "student") && !forceSwitch) {
       if (
         redirectPath &&
+        redirectPath !== "/" &&
         !redirectPath.startsWith("/student/login") &&
         !redirectPath.startsWith("/login") &&
         !redirectPath.startsWith("/admin")
@@ -106,7 +114,7 @@ export default function StudentLogin() {
         navigate(redirectPath, { replace: true });
       }
     }
-  }, [navigate, redirectPath, forceSwitch]);
+  }, [navigate, redirectPath, forceSwitch, role]);
 
   const handleQuickLoginAsChild = async (child: LinkedChildInfo) => {
     const studentInfo = {
@@ -143,16 +151,6 @@ export default function StudentLogin() {
     setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
     setStoredItem(STORAGE_KEYS.STUDENT_INFO, savedStudent);
 
-    if (parentData?.username && savedStudent.username.toLowerCase() !== parentData.username.toLowerCase()) {
-      try {
-        await autoLinkChildToParent(
-          parentData.username,
-          parentData.displayName || parentData.username,
-          savedStudent.username
-        );
-      } catch (e) {}
-    }
-
     const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
       ? "/"
       : redirectPath;
@@ -161,105 +159,125 @@ export default function StudentLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const cleanUsername = username.trim().toLowerCase();
+    setError("");
 
-    if (!cleanUsername || (!isLogin && !displayName.trim())) {
-      setError("Vui lòng điền đầy đủ thông tin bắt buộc.");
-      return;
+    if (isLogin) {
+      if (!email.trim() || !password) {
+        setError("Vui lòng điền đầy đủ tên đăng nhập (hoặc email) và mật khẩu.");
+        return;
+      }
+    } else {
+      if (!displayName.trim()) {
+        setError("Vui lòng nhập họ và tên của bạn (bắt buộc).");
+        return;
+      }
+
+      if (regMethod === "username") {
+        const trimmedUser = username.trim();
+        if (!trimmedUser) {
+          setError("Vui lòng nhập tên đăng nhập (username) của bạn (bắt buộc).");
+          return;
+        }
+        if (trimmedUser.length < 3) {
+          setError("Tên đăng nhập phải có ít nhất 3 ký tự.");
+          return;
+        }
+        if (/\s/.test(trimmedUser)) {
+          setError("Tên đăng nhập không được chứa khoảng trắng.");
+          return;
+        }
+      } else {
+        if (!email.trim() || !email.includes("@")) {
+          setError("Vui lòng nhập địa chỉ email hợp lệ để nhận mã xác nhận kích hoạt.");
+          return;
+        }
+      }
+
+      if (!password) {
+        setError("Vui lòng nhập mật khẩu.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        setError("Mật khẩu nhập lại không khớp. Vui lòng kiểm tra lại.");
+        return;
+      }
+
+      const strength = evaluatePasswordStrength(password, regMethod === "email" ? email : username);
+      if (strength.score < 2) {
+        setError("Mật khẩu quá yếu. Vui lòng đảm bảo tối thiểu 8 ký tự gồm cả chữ và số.");
+        return;
+      }
     }
 
     setLoading(true);
-    setError("");
 
     try {
-      const userRef = doc(db, "users", cleanUsername);
-      const userSnap = await getDoc(userRef);
-
       if (isLogin) {
-        if (!userSnap.exists()) {
-          throw new Error(
-            "Tài khoản không tồn tại. Nếu bạn là học sinh mới, vui lòng bấm tab 'Đăng ký tài khoản'."
-          );
-        }
-        const userData = userSnap.data();
-        const studentInfo = {
-          username: cleanUsername,
-          displayName: userData.displayName || cleanUsername,
-          studentClass: userData.studentClass || "",
-          avatarUrl: userData.avatarUrl || "",
-        };
-
-        // Log in success
-        localStorage.setItem("auth_role", "student");
-        localStorage.setItem("student_info", JSON.stringify(studentInfo));
-        setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
-        setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
-
-        // Auto-link to parent if parent is logged in on this browser
-        if (parentData?.username && cleanUsername !== parentData.username.toLowerCase()) {
-          try {
-            await autoLinkChildToParent(
-              parentData.username,
-              parentData.displayName || parentData.username,
-              cleanUsername
-            );
-          } catch (e) {}
+        let profile: any;
+        if (email.includes("@")) {
+          profile = await loginWithEmail(email.trim(), password);
+        } else {
+          profile = await loginWithUsername(email.trim(), password);
         }
 
         const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
           ? "/"
           : redirectPath;
+
+        // Check if password provider with real email and not verified
+        const isPassword = auth.currentUser?.providerData?.some((p) => p.providerId === "password");
+        const isRealEmail = auth.currentUser?.email && !auth.currentUser.email.endsWith("@dktest.local");
+        if (isPassword && isRealEmail && !auth.currentUser?.emailVerified) {
+          navigate(`/email-verification?redirect=${encodeURIComponent(safeRedirect)}`, { replace: true });
+          return;
+        }
+
+        showToast(`Đăng nhập thành công! Chào ${profile.displayName || "bạn"}.`, "success");
         navigate(safeRedirect, { replace: true });
       } else {
-        if (userSnap.exists()) {
-          throw new Error(
-            "Username này đã được sử dụng. Vui lòng chọn tên đăng nhập khác hoặc chuyển sang tab 'Đăng nhập'."
-          );
-        }
-
-        // Register success
-        const newUserData = {
-          username: cleanUsername,
-          displayName: displayName.trim(),
-          studentClass: studentClass.trim(),
-          role: "student",
-          createdAt: new Date().toISOString(),
-        };
-
-        await setDoc(userRef, newUserData);
-
-        const studentInfo = {
-          username: cleanUsername,
-          displayName: displayName.trim(),
-          studentClass: studentClass.trim(),
-        };
-
-        localStorage.setItem("auth_role", "student");
-        localStorage.setItem("student_info", JSON.stringify(studentInfo));
-        setStoredItem(STORAGE_KEYS.AUTH_ROLE, "student");
-        setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
-
-        // Auto-link to parent if parent is logged in on this browser
-        if (parentData?.username && cleanUsername !== parentData.username.toLowerCase()) {
-          try {
-            await autoLinkChildToParent(
-              parentData.username,
-              parentData.displayName || parentData.username,
-              cleanUsername
-            );
-          } catch (e) {}
-        }
-
         const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
           ? "/"
           : redirectPath;
-        navigate(safeRedirect, { replace: true });
+
+        if (regMethod === "username") {
+          const profile = await registerWithUsername({
+            username: username.trim(),
+            password,
+            displayName: displayName.trim(),
+            role: "student",
+            studentClass: studentClass.trim(),
+          });
+
+          showToast(`Đăng ký thành công! Chào mừng ${profile.displayName} tham gia phòng thi.`, "success");
+          navigate(safeRedirect, { replace: true });
+        } else {
+          await registerWithEmail({
+            email: email.trim(),
+            password,
+            displayName: displayName.trim(),
+            role: "student",
+            studentClass: studentClass.trim(),
+          });
+
+          showToast("Đăng ký thành công! Vui lòng kiểm tra email để xác minh kích hoạt tài khoản.", "success");
+          navigate(`/email-verification?redirect=${encodeURIComponent(safeRedirect)}`, { replace: true });
+        }
       }
     } catch (err: any) {
-      setError(err.message || "Lỗi xử lý tài khoản");
+      console.error("[StudentLogin] Error:", err);
+      setError(getFriendlyAuthErrorMessage(err));
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleSuccess = (profile: any) => {
+    showToast(`Chào mừng ${profile.displayName || "bạn"} đã tham gia phòng thi!`, "success");
+    const safeRedirect = (!redirectPath || redirectPath.startsWith("/student/login") || redirectPath.startsWith("/admin"))
+      ? "/"
+      : redirectPath;
+    navigate(safeRedirect, { replace: true });
   };
 
   return (
@@ -275,22 +293,15 @@ export default function StudentLogin() {
             <ArrowLeft className="w-4 h-4" />
           </Link>
 
-          {/* Role Nav pills */}
           <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
-            <span className="px-2.5 py-1 bg-white text-emerald-700 rounded-lg shadow-2xs">
+            <span className="px-2.5 py-1 bg-white text-emerald-700 rounded-lg shadow-2xs font-bold">
               Học sinh
             </span>
-            <Link
-              to="/parent/login"
-              className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors"
-            >
+            <Link to="/parent/login" className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors">
               Phụ huynh
             </Link>
             {isAdmin && (
-              <Link
-                to="/admin/login"
-                className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors"
-              >
+              <Link to="/admin/login" className="px-2.5 py-1 rounded-lg hover:text-slate-900 transition-colors">
                 Giáo viên
               </Link>
             )}
@@ -321,55 +332,47 @@ export default function StudentLogin() {
                 <span>Đang tải danh sách con em...</span>
               </div>
             ) : linkedChildren.length > 0 ? (
-              <div className="space-y-2 pt-1 border-t border-indigo-100">
+              <div className="space-y-1.5 pt-1 border-t border-indigo-100">
                 <p className="text-[11px] font-bold text-indigo-700">
-                  Chọn con em để đăng nhập nhanh vào thi:
+                  Chọn con em để vào thi nhanh:
                 </p>
-                <div className="space-y-1.5">
-                  {linkedChildren.map((child) => (
-                    <button
-                      key={child.username}
-                      type="button"
-                      onClick={() => handleQuickLoginAsChild(child)}
-                      className="w-full flex items-center justify-between p-2.5 bg-white hover:bg-emerald-50 border border-indigo-100 hover:border-emerald-300 rounded-xl text-left transition-all shadow-2xs group cursor-pointer"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
-                          {(child.displayName || child.username).charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-slate-800 group-hover:text-emerald-800">
-                            {child.displayName || child.username}
-                          </p>
-                          <p className="text-[10px] text-slate-400 font-mono">
-                            @{child.username} {child.studentClass ? `• ${child.studentClass}` : ""}
-                          </p>
-                        </div>
+                {linkedChildren.map((child) => (
+                  <button
+                    key={child.username}
+                    type="button"
+                    onClick={() => handleQuickLoginAsChild(child)}
+                    className="w-full flex items-center justify-between p-2.5 bg-white hover:bg-emerald-50 border border-indigo-100 hover:border-emerald-300 rounded-xl text-left transition-all shadow-2xs group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
+                        {(child.displayName || child.username).charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-[11px] font-bold text-emerald-600 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                        Vào thi <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                      <div>
+                        <p className="text-xs font-bold text-slate-800 group-hover:text-emerald-800">
+                          {child.displayName || child.username}
+                        </p>
+                        <p className="text-[10px] text-slate-400 font-mono">
+                          @{child.username} {child.studentClass ? `• ${child.studentClass}` : ""}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold text-emerald-600 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                      Vào thi <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </button>
+                ))}
               </div>
-            ) : (
-              <p className="text-[11px] text-indigo-600/90 leading-relaxed">
-                Bạn có thể đăng nhập hoặc đăng ký tài khoản Học sinh bên dưới để làm bài thi.
-              </p>
-            )}
+            ) : null}
           </div>
         )}
 
         {/* Saved local student account quick card */}
         {savedStudent && (
-          <div className="bg-emerald-50/80 border border-emerald-200/90 rounded-2xl p-4 space-y-2.5 shadow-2xs">
+          <div className="bg-emerald-50/80 border border-emerald-200/90 rounded-2xl p-3.5 space-y-2 shadow-2xs">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-emerald-900">
                 <GraduationCap className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span className="text-xs font-bold">
-                  Tài khoản học sinh đã lưu trên máy này:
-                </span>
+                <span className="text-xs font-bold">Tài khoản lưu trên máy:</span>
               </div>
               <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md">
                 Đã lưu phiên
@@ -379,66 +382,67 @@ export default function StudentLogin() {
             <button
               type="button"
               onClick={handleQuickLoginAsSavedStudent}
-              className="w-full flex items-center justify-between p-3 bg-white hover:bg-emerald-50 border border-emerald-200 hover:border-emerald-400 rounded-xl text-left transition-all shadow-2xs group cursor-pointer"
+              className="w-full flex items-center justify-between p-2.5 bg-white hover:bg-emerald-50 border border-emerald-200 hover:border-emerald-400 rounded-xl text-left transition-all shadow-2xs group cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-2xs">
-                  {(savedStudent.displayName || savedStudent.username).charAt(0).toUpperCase()}
+                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-2xs">
+                  {(savedStudent.displayName || savedStudent.username || "H").charAt(0).toUpperCase()}
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-800">
                     {savedStudent.displayName || savedStudent.username}
                   </p>
-                  <p className="text-[11px] text-slate-500 font-mono">
-                    @{savedStudent.username} {savedStudent.studentClass ? `• ${savedStudent.studentClass}` : ""}
+                  <p className="text-[10px] text-slate-500 font-mono">
+                    {savedStudent.studentClass || "Học sinh"}
                   </p>
                 </div>
               </div>
               <span className="text-xs font-bold text-emerald-700 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                Tiếp tục vào thi <ArrowRight className="w-4 h-4" />
+                Vào thi <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </button>
           </div>
         )}
 
         {/* Title Header */}
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-2">
           <div className="flex justify-center">
             <img
               src="/logo.png"
               alt="DKTEST Logo"
-              className="w-16 h-16 rounded-2xl object-contain shadow-md border border-slate-100 p-1 bg-white"
+              className="w-14 h-14 rounded-2xl object-contain shadow-md border border-slate-100 p-1 bg-white"
             />
           </div>
           <div>
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-              Cổng Khảo Thí Học Sinh
-            </h1>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Cổng Học Sinh</h1>
             <p className="text-xs text-slate-500 font-medium mt-1">
-              {isLogin
-                ? "Đăng nhập tài khoản để vào thi và đồng bộ bảng nháp trên DkTEST"
-                : "Đăng ký nhanh tài khoản học sinh để bắt đầu làm bài"}
+              {isLogin ? "Đăng nhập để vào phòng thi trực tuyến" : "Đăng ký tài khoản học sinh mới"}
             </p>
           </div>
         </div>
 
+        {/* Google Sign-in */}
+        <div>
+          <GoogleLoginButton
+            intendedRole="student"
+            buttonText="Tiếp tục với Google"
+            onSuccess={handleGoogleSuccess}
+            onError={setError}
+          />
+          <div className="relative my-4">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-3 text-slate-400 font-bold text-[10px] tracking-wider">
+                hoặc dùng tài khoản Email
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Toggle Register / Login Mode Tabs */}
-        <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200 text-xs font-black">
-          <button
-            type="button"
-            onClick={() => {
-              setIsLogin(false);
-              setError("");
-            }}
-            className={`py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              !isLogin
-                ? "bg-emerald-600 text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
-            }`}
-          >
-            <UserPlus className="w-4 h-4" />
-            <span>Đăng ký mới</span>
-          </button>
+        <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200 text-xs font-bold">
           <button
             type="button"
             onClick={() => {
@@ -446,66 +450,221 @@ export default function StudentLogin() {
               setError("");
             }}
             className={`py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              isLogin
-                ? "bg-emerald-600 text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+              isLogin ? "bg-emerald-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
             }`}
           >
             <LogIn className="w-4 h-4" />
             <span>Đăng nhập</span>
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsLogin(false);
+              setError("");
+            }}
+            className={`py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              !isLogin ? "bg-emerald-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <UserPlus className="w-4 h-4" />
+            <span>Đăng ký mới</span>
+          </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Tên đăng nhập (Username) <span className="text-red-500">*</span>
+        {/* If registering, show 1 trong 2 picker */}
+        {!isLogin && (
+          <div className="space-y-1.5">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Phương thức đăng ký:
             </label>
-            <input
-              type="text"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value.replace(/[^a-zA-Z0-9_]/g, ""))}
-              placeholder="VD: nguyenvanan12"
-              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all font-mono"
-            />
-            <p className="text-[11px] text-slate-400 mt-1">Viết liền không dấu, không khoảng trắng</p>
+            <div className="p-1 bg-slate-100 rounded-2xl flex items-center gap-1 border border-slate-200">
+              <button
+                type="button"
+                onClick={() => {
+                  setRegMethod("username");
+                  setError("");
+                }}
+                className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                  regMethod === "username"
+                    ? "bg-white text-emerald-700 shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <User className="w-3.5 h-3.5" />
+                <span>Tên đăng nhập (Username)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setRegMethod("email");
+                  setError("");
+                }}
+                className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                  regMethod === "email"
+                    ? "bg-white text-emerald-700 shadow-xs"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Địa chỉ Email</span>
+              </button>
+            </div>
+            <p className="text-[11px] text-slate-500 font-medium px-1">
+              {regMethod === "username"
+                ? "⚡ Không cần email: Tạo tài khoản và vào thi ngay lập tức."
+                : "✉️ Xác thực qua mail: Hệ thống sẽ gửi thư xác nhận kích hoạt tài khoản."}
+            </p>
           </div>
+        )}
 
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-3.5">
           {!isLogin && (
-            <>
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Họ và tên của bạn <span className="text-red-500">*</span>
-                </label>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Họ và tên của bạn <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
                 <input
                   type="text"
                   required
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   placeholder="VD: Nguyễn Văn An"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
                 />
+                <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               </div>
+            </div>
+          )}
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Lớp / Trường (Không bắt buộc)
-                </label>
+          {isLogin ? (
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Tên đăng nhập (Username) hoặc Email <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
                 <input
                   type="text"
-                  value={studentClass}
-                  onChange={(e) => setStudentClass(e.target.value)}
-                  placeholder="VD: 12A1 - THPT Chuyên"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="VD: nguyenvana hoặc an.nguyen@gmail.com"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
                 />
+                {!email.includes("@") ? (
+                  <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                ) : (
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                )}
               </div>
-            </>
+            </div>
+          ) : regMethod === "username" ? (
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Tên đăng nhập (Username) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="VD: nguyenvana hoặc an_12a1"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
+                />
+                <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              </div>
+            </div>
+          ) : (
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Địa chỉ Email thật <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="VD: an.nguyen@gmail.com"
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
+                />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1">
+                Hệ thống sẽ gửi email xác minh và liên kết kích hoạt tài khoản vào hòm thư này.
+              </p>
+            </div>
+          )}
+
+          {!isLogin && (
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Lớp / Khối (Không bắt buộc)
+              </label>
+              <input
+                type="text"
+                value={studentClass}
+                onChange={(e) => setStudentClass(e.target.value)}
+                placeholder="VD: 12A1"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
+              />
+            </div>
+          )}
+
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                Mật khẩu <span className="text-red-500">*</span>
+              </label>
+              {isLogin && (
+                <button
+                  type="button"
+                  onClick={() => setShowResetModal(true)}
+                  className="text-[11px] font-bold text-emerald-600 hover:text-emerald-800 transition-colors cursor-pointer"
+                >
+                  Quên mật khẩu?
+                </button>
+              )}
+            </div>
+            <div className="relative">
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={isLogin ? "Nhập mật khẩu..." : "Tối thiểu 8 ký tự..."}
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
+              />
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            </div>
+            {!isLogin && <PasswordStrengthMeter password={password} email={regMethod === "email" ? email : username} />}
+          </div>
+
+          {!isLogin && (
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Nhập lại mật khẩu <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Nhập lại chính xác mật khẩu..."
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-slate-800"
+                />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              </div>
+            </div>
           )}
 
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-semibold">
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-xs font-semibold animate-in fade-in">
               {error}
             </div>
           )}
@@ -513,7 +672,7 @@ export default function StudentLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs transition-all shadow-md hover:shadow-lg disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
           >
             {loading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -525,27 +684,22 @@ export default function StudentLogin() {
             ) : (
               <>
                 <UserPlus className="w-4 h-4" />
-                <span>Hoàn tất đăng ký & Bắt đầu</span>
+                <span>
+                  {regMethod === "username"
+                    ? "Hoàn tất đăng ký & Vào thi"
+                    : "Hoàn tất đăng ký & Kích hoạt email"}
+                </span>
               </>
             )}
           </button>
-
-          <div className="text-center pt-2">
-            <button
-              type="button"
-              onClick={() => {
-                setIsLogin(!isLogin);
-                setError("");
-              }}
-              className="text-xs text-slate-500 hover:text-emerald-600 font-semibold transition-colors cursor-pointer"
-            >
-              {isLogin
-                ? "Chưa có tài khoản học sinh? Bấm vào đây để Đăng ký ngay"
-                : "Đã có tài khoản từ trước? Bấm vào đây để Đăng nhập"}
-            </button>
-          </div>
         </form>
       </div>
+
+      <ResetPasswordModal
+        isOpen={showResetModal}
+        onClose={() => setShowResetModal(false)}
+        initialEmail={email}
+      />
     </div>
   );
 }

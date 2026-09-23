@@ -50,6 +50,7 @@ import {
   type LinkedChildInfo,
   type ParentLinkRequest,
 } from "../../services/parentService";
+import { claimInviteCode } from "../../services/relationshipService";
 import { deleteExam } from "../../services/examService";
 import {
   subscribeToActiveSessions,
@@ -348,14 +349,35 @@ export default function ParentDashboard() {
 
   const handleSendLink = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!childUsernameInput.trim() || !parentInfo) return;
+    const inputVal = childUsernameInput.trim();
+    if (!inputVal || !parentInfo) return;
 
     setIsSendingRequest(true);
     try {
+      // Check if user entered an invite code (starts with DK- or format DK-XXXXX)
+      if (inputVal.toUpperCase().startsWith("DK-")) {
+        const claimRes = await claimInviteCode(
+          inputVal,
+          parentInfo.username,
+          parentInfo.displayName,
+          ""
+        );
+        if (claimRes.success) {
+          showToast(claimRes.message, "success");
+          setChildUsernameInput("");
+          setShowAddChildModal(false);
+          loadMonitoringData(parentInfo.username);
+          return;
+        } else {
+          showToast(claimRes.message, "error");
+          return;
+        }
+      }
+
       const res = await sendParentLinkRequest(
         parentInfo.username,
         parentInfo.displayName,
-        childUsernameInput.trim()
+        inputVal
       );
       if (res.success) {
         showToast(res.message, "success");
@@ -2129,20 +2151,20 @@ YÊU CẦU ĐẶC BIỆT KHI XUẤT ĐỀ:
 
             <form onSubmit={handleSendLink} className="space-y-4">
               <p className="text-xs text-slate-600 leading-relaxed">
-                Nhập <strong>tên đăng nhập (username)</strong> của con trên hệ thống DkTEST. Hệ thống sẽ gửi thông báo tới con để yêu cầu xác nhận.
+                Nhập <strong>Mã liên kết do con tạo (Ví dụ: DK-9A8B2)</strong> hoặc <strong>tên đăng nhập (username)</strong> của con để kết nối theo dõi bài thi.
               </p>
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Username của con <span className="text-red-500">*</span>
+                  Mã liên kết hoặc Username của con <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={childUsernameInput}
-                  onChange={(e) => setChildUsernameInput(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
-                  placeholder="Ví dụ: hs123456"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  onChange={(e) => setChildUsernameInput(e.target.value.trim())}
+                  placeholder="Ví dụ: DK-7K9A2 hoặc hs123456"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"
                 />
               </div>
 

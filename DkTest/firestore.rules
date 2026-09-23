@@ -1,8 +1,178 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'admin' ||
+        request.auth.token.role == 'super_admin' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         getUserData().role in ['admin', 'super_admin'])
+      );
+    }
+    
+    function isSuperAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'super_admin' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         getUserData().role == 'super_admin')
+      );
+    }
+
+    // 1. User Profiles
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      // Regular users cannot modify role, status, or emailVerified directly
+      allow update: if isAdmin() || (
+        isOwner(userId) && 
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status', 'emailVerified'])
+      );
+      allow delete: if isSuperAdmin();
+    }
+
+    // 2. Student Profiles
+    match /students/{studentId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (
+        isOwner(studentId) || 
+        request.resource.data.uid == request.auth.uid || 
+        isAdmin()
+      );
+      allow update: if isAuthenticated() && (
+        isOwner(studentId) || 
+        resource.data.uid == request.auth.uid || 
+        isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 3. Parent Profiles
+    match /parents/{parentId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (
+        isOwner(parentId) || 
+        request.resource.data.uid == request.auth.uid || 
+        isAdmin()
+      );
+      allow update: if isAuthenticated() && (
+        isOwner(parentId) || 
+        resource.data.uid == request.auth.uid || 
+        isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 4. Relationships (Parent <-> Student links)
+    match /relationships/{relId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.parentUid == request.auth.uid ||
+        resource.data.studentUid == request.auth.uid
+      );
+      allow create: if isAuthenticated() && (
+        isAdmin() ||
+        request.resource.data.parentUid == request.auth.uid ||
+        request.resource.data.studentUid == request.auth.uid
+      );
+      allow update, delete: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.parentUid == request.auth.uid ||
+        resource.data.studentUid == request.auth.uid
+      );
+    }
+
+    // Legacy Parent Link Requests
+    match /parent_link_requests/{requestId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 5. Exams & Subcollections (Questions, Sections)
+    match /exams/{examId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+
+      match /questions/{questionId} {
+        allow read: if isAuthenticated();
+        allow write: if isAdmin();
+      }
+
+      match /sections/{sectionId} {
+        allow read: if isAuthenticated();
+        allow write: if isAdmin();
+      }
+    }
+
+    // 6. Submissions (Exam results)
+    match /submissions/{subId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid ||
+        resource.data.studentId == request.auth.uid
+      );
+      allow create: if isAuthenticated() && (
+        isAdmin() ||
+        request.resource.data.studentUid == request.auth.uid ||
+        request.resource.data.studentId == request.auth.uid
+      );
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid ||
+        resource.data.studentId == request.auth.uid
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 7. Proctoring & Active Sessions
+    match /active_sessions/{sessionId} {
+      allow read, write: if isAuthenticated();
+    }
+    match /taking_sessions/{sessionId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 8. Notifications
+    match /notifications/{notifId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        isAdmin() || 
+        resource.data.userId == request.auth.uid
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 9. Folders
+    match /folders/{folderId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // 10. Audit Logs & System Settings (Restricted to Admins)
+    match /auditLogs/{logId} {
+      allow read, write: if isAdmin();
+    }
+    match /system_settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Default deny for anything else
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }

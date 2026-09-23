@@ -146,3 +146,41 @@ export function getCurrentUser(): CurrentUser {
     displayName: "Khách",
   };
 }
+
+/**
+ * Checks if a username is available via backend
+ */
+export async function checkUsernameAvailability(username: string): Promise<{ available: boolean; message?: string }> {
+  const { api } = await import("./apiClient");
+  return await api.post("/api/auth/check-username", { username }, { requiresAuth: false });
+}
+
+/**
+ * Claims a username for an existing or newly registered user
+ */
+export async function claimUsernameApi(params: {
+  username: string;
+  uid: string;
+  email: string;
+  fullName: string;
+}): Promise<{ success: boolean; username: string }> {
+  const { api } = await import("./apiClient");
+  return await api.post("/api/auth/claim-username", params, { requiresAuth: false });
+}
+
+/**
+ * Log in using username and password via backend
+ */
+export async function loginWithUsernameApi(username: string, password: string): Promise<{
+  success: boolean;
+  customToken?: string;
+  email?: string;
+  idToken: string;
+  refreshToken: string;
+  uid: string;
+  username: string;
+}> {
+  const { api } = await import("./apiClient");
+  return await api.post("/api/auth/login-with-username", { username, password }, { requiresAuth: false });
+}
+

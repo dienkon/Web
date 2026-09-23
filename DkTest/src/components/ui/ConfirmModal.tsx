@@ -3,31 +3,38 @@ import { AlertTriangle, Trash2, LogOut, Info, Loader2, X } from "lucide-react";
 
 interface ConfirmModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
+  onCancel?: () => void;
   onConfirm: () => void | Promise<void>;
   title: string;
   message: React.ReactNode;
   confirmText?: string;
   cancelText?: string;
   variant?: "danger" | "warning" | "info";
+  confirmVariant?: "danger" | "warning" | "info" | string;
   isLoading?: boolean;
 }
 
 export default function ConfirmModal({
   isOpen,
   onClose,
+  onCancel,
   onConfirm,
   title,
   message,
   confirmText = "Xác nhận",
   cancelText = "Hủy bỏ",
   variant = "danger",
+  confirmVariant,
   isLoading = false,
 }: ConfirmModalProps) {
   if (!isOpen) return null;
 
+  const handleClose = onCancel || onClose || (() => {});
+  const effectiveVariant = (confirmVariant as "danger" | "warning" | "info") || variant;
+
   const getIcon = () => {
-    switch (variant) {
+    switch (effectiveVariant) {
       case "danger":
         return <Trash2 className="w-6 h-6 text-red-600" />;
       case "warning":
@@ -38,7 +45,7 @@ export default function ConfirmModal({
   };
 
   const getIconBg = () => {
-    switch (variant) {
+    switch (effectiveVariant) {
       case "danger":
         return "bg-red-100";
       case "warning":
@@ -49,7 +56,7 @@ export default function ConfirmModal({
   };
 
   const getConfirmButtonClasses = () => {
-    switch (variant) {
+    switch (effectiveVariant) {
       case "danger":
         return "bg-red-600 hover:bg-red-700 text-white focus:ring-red-500 shadow-sm shadow-red-500/20";
       case "warning":
@@ -64,13 +71,13 @@ export default function ConfirmModal({
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
-        onClick={isLoading ? undefined : onClose}
+        onClick={isLoading ? undefined : handleClose}
       />
 
       {/* Modal Card */}
       <div className="relative bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 z-10 animate-in zoom-in-95 duration-200">
         <button
-          onClick={isLoading ? undefined : onClose}
+          onClick={isLoading ? undefined : handleClose}
           disabled={isLoading}
           className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 rounded-lg transition-colors"
         >
@@ -91,7 +98,7 @@ export default function ConfirmModal({
         <div className="mt-6 flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             disabled={isLoading}
             className="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors disabled:opacity-50"
           >

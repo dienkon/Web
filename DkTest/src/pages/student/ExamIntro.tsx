@@ -21,8 +21,9 @@ import {
   Edit3,
 } from "lucide-react";
 import { getExam } from "../../services/examService";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { logQueryRead } from "../../utils/firestoreLogger";
 import type { Exam, Section, Question } from "../../types";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
@@ -143,10 +144,12 @@ export default function ExamIntro() {
         // 1. Try finding exam by ID
         let foundExam = await getExam(examId);
 
-        // 2. If not found by ID, try searching by exam code
+        // 2. If not found by ID, try searching by exam code (limit 1)
         if (!foundExam) {
-          const q = query(collection(db, "exams"), where("code", "==", examId.trim().toUpperCase()));
-          console.log("[Firestore] READ_MANY: exams (by code)"); const snap = await getDocs(q);
+          const t0 = performance.now();
+          const q = query(collection(db, "exams"), where("code", "==", examId.trim().toUpperCase()), limit(1));
+          const snap = await getDocs(q);
+          logQueryRead("exams", snap.size, `ExamIntro search by code: ${examId}`, 1, performance.now() - t0);
           if (!snap.empty) {
             const docData = snap.docs[0];
             foundExam = { id: docData.id, ...docData.data() } as Exam;
@@ -204,12 +207,16 @@ export default function ExamIntro() {
       setCheckingAttempts(true);
       try {
         const subsRef = collection(db, "submissions");
+        const maxLimit = exam.maxAttempts && exam.maxAttempts > 0 ? exam.maxAttempts + 1 : 10;
+        const t0 = performance.now();
         const qSubs = query(
           subsRef,
           where("examId", "==", exam.id),
-          where("studentUsername", "==", candidateUsername)
+          where("studentUsername", "==", candidateUsername),
+          limit(maxLimit)
         );
         const snap = await getDocs(qSubs);
+        logQueryRead("submissions", snap.size, `ExamIntro check candidate attempts`, maxLimit, performance.now() - t0);
         if (isMounted) {
           setAttemptCount(snap.size);
         }
@@ -369,7 +376,7 @@ export default function ExamIntro() {
                 </span>
 
                 <Link
-                  to={`/student/login?redirect=${encodeURIComponent(`/student/exam/${exam.id}`)}&switch=true`}
+                  to={`/login?redirect=${encodeURIComponent(`/student/exam/${exam.id}`)}&switch=true`}
                   className="text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1"
                 >
                   <GraduationCap className="w-3.5 h-3.5" />

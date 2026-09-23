@@ -23,15 +23,27 @@ import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "../../services/authService";
+import { useAuth } from "../../context/AuthContext";
 
 export default function StudentLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { userProfile, role, logout } = useAuth();
   const [studentInfo, setStudentInfo] = useState<{ username?: string; displayName?: string; avatarUrl?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+
+  // Synchronize active account: Prioritize Firebase Auth userProfile, fallback to localStorage
+  const currentAccount = userProfile
+    ? {
+        username: userProfile.username || userProfile.email?.split("@")[0] || "user",
+        displayName: userProfile.displayName || userProfile.fullName || "Người dùng",
+        avatarUrl: userProfile.photoURL || "",
+        role: userProfile.role || role || "student",
+      }
+    : studentInfo;
 
   useEffect(() => {
     setIsAdmin(isAdminAuthenticated());
@@ -82,14 +94,17 @@ export default function StudentLayout() {
     }
   }, [location.pathname, navigate]);
 
-  const handleConfirmLogout = () => {
+  const handleConfirmLogout = async () => {
     clearActiveExamSession();
     clearStudentSession();
     clearAdminSession();
+    try {
+      await logout();
+    } catch (e) {}
     setStudentInfo(null);
     setIsAdmin(false);
     setShowLogoutModal(false);
-    navigate("/", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   const isTakingExam = location.pathname.includes("/take");
@@ -168,26 +183,26 @@ export default function StudentLayout() {
               </Link>
             )}
 
-            {studentInfo ? (
+            {currentAccount ? (
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <Link
                   to="/student/profile"
                   className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60"
                   title="Chỉnh sửa hồ sơ cá nhân"
                 >
-                  {studentInfo.avatarUrl ? (
+                  {currentAccount.avatarUrl ? (
                     <img
-                      src={studentInfo.avatarUrl}
+                      src={currentAccount.avatarUrl}
                       alt="Avatar"
                       className="w-6 h-6 rounded-full object-cover border border-slate-300 shadow-2xs"
                     />
                   ) : (
                     <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
-                      {(studentInfo.displayName || "S").charAt(0).toUpperCase()}
+                      {(currentAccount.displayName || "S").charAt(0).toUpperCase()}
                     </div>
                   )}
                   <span className="text-xs font-bold text-slate-800 max-w-[90px] sm:max-w-[120px] truncate">
-                    {studentInfo.displayName || "Học sinh"}
+                    {currentAccount.displayName || "Học sinh"}
                   </span>
                 </Link>
                 <button
@@ -202,7 +217,7 @@ export default function StudentLayout() {
             ) : (
               !isAdmin && (
                 <Link
-                  to="/student/login"
+                  to="/login"
                   className="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 rounded-xl transition-all shadow-xs"
                 >
                   Đăng nhập
@@ -311,27 +326,27 @@ export default function StudentLayout() {
               </div>
 
               {/* Student Profile Preview */}
-              {studentInfo ? (
+              {currentAccount ? (
                 <Link
                   to="/student/profile"
                   onClick={() => setIsMobileDrawerOpen(false)}
                   className="p-3 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-200/70"
                 >
                   <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold overflow-hidden shrink-0 shadow-2xs">
-                    {studentInfo.avatarUrl ? (
-                      <img src={studentInfo.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                    {currentAccount.avatarUrl ? (
+                      <img src={currentAccount.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
-                      (studentInfo.displayName || "S").charAt(0).toUpperCase()
+                      (currentAccount.displayName || "S").charAt(0).toUpperCase()
                     )}
                   </div>
                   <div className="truncate flex-1">
-                    <div className="text-sm font-bold text-slate-900 truncate">{studentInfo.displayName || "Thí sinh"}</div>
-                    <div className="text-xs text-slate-500 truncate">@{studentInfo.username || "student"}</div>
+                    <div className="text-sm font-bold text-slate-900 truncate">{currentAccount.displayName || "Thí sinh"}</div>
+                    <div className="text-xs text-slate-500 truncate">@{currentAccount.username || "student"}</div>
                   </div>
                 </Link>
               ) : (
                 <Link
-                  to="/student/login"
+                  to="/login"
                   onClick={() => setIsMobileDrawerOpen(false)}
                   className="p-3 bg-blue-50 rounded-2xl text-center text-xs font-bold text-blue-700 border border-blue-100"
                 >

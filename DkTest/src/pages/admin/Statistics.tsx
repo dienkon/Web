@@ -38,6 +38,7 @@ import { db } from "../../services/firebase/config";
 import type { Exam, Submission, Student, Question } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
+import { logDocRead, logQueryRead, logCacheHit } from "../../utils/firestoreLogger";
 
 type GeneralTab = "overview" | "exams" | "students" | "cheat";
 type ExamDetailTab = "score_dist" | "questions_analysis" | "submissions_list" | "cheat_logs";
@@ -109,6 +110,7 @@ export default function Statistics() {
     const loadInitialOverview = async () => {
       const now = Date.now();
       if (STATS_CACHE.overview && now - STATS_CACHE.overview.timestamp < CACHE_TTL_MS) {
+        logCacheHit("Statistics Overview Cache (Memory)");
         setExams(STATS_CACHE.overview.exams);
         setSubmissions(STATS_CACHE.overview.submissions);
         setStudents(STATS_CACHE.overview.students);
@@ -118,15 +120,46 @@ export default function Statistics() {
 
       setInitialLoading(true);
       try {
-        const [exSnap, subSnap, stuSnap] = await Promise.all([
-          getDocs(query(collection(db, "exams"), orderBy("createdAt", "desc"), limit(5))),
-          getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5))),
-          getDocs(query(collection(db, "students"), limit(5))),
-        ]);
+        let loadedExams: Exam[] = [];
+        try {
+          const t0 = performance.now();
+          const exSnap = await getDocs(query(collection(db, "exams"), orderBy("createdAt", "desc"), limit(25)));
+          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams", 25, performance.now() - t0);
+          loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+        } catch {
+          const t0 = performance.now();
+          const exSnap = await getDocs(query(collection(db, "exams"), limit(25)));
+          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams fallback", 25, performance.now() - t0);
+          loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+        }
 
-        const loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-        const loadedSubs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-        const loadedStus = stuSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
+        let loadedSubs: Submission[] = [];
+        try {
+          const t0 = performance.now();
+          const subSnap = await getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(25)));
+          logQueryRead("submissions", subSnap.size, "Statistics loadInitialOverview submissions", 25, performance.now() - t0);
+          loadedSubs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+        } catch {
+          const t0 = performance.now();
+          const subSnap = await getDocs(query(collection(db, "submissions"), limit(25)));
+          logQueryRead("submissions", subSnap.size, "Statistics loadInitialOverview submissions fallback", 25, performance.now() - t0);
+          loadedSubs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+        }
+
+        let loadedStus: Student[] = [];
+        try {
+          const t0 = performance.now();
+          const stuSnap = await getDocs(query(collection(db, "users"), where("role", "==", "student"), limit(20)));
+          logQueryRead("users", stuSnap.size, "Statistics loadInitialOverview students", 20, performance.now() - t0);
+          loadedStus = stuSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
+        } catch {
+          try {
+            const t0 = performance.now();
+            const stuSnap = await getDocs(query(collection(db, "students"), limit(20)));
+            logQueryRead("students", stuSnap.size, "Statistics loadInitialOverview students fallback", 20, performance.now() - t0);
+            loadedStus = stuSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
+          } catch {}
+        }
 
         STATS_CACHE.overview = {
           exams: loadedExams,
@@ -156,6 +189,7 @@ export default function Statistics() {
 
       if (tab === "exams") {
         if (STATS_CACHE.examsTab && now - STATS_CACHE.examsTab.timestamp < CACHE_TTL_MS) {
+          logCacheHit("Statistics Exams Tab Cache");
           setAllExamsList(STATS_CACHE.examsTab.exams);
           setAllExamsSubmissions(STATS_CACHE.examsTab.submissions);
           setAllExamsLoaded(true);
@@ -165,11 +199,14 @@ export default function Statistics() {
         if (!allExamsLoaded) {
           setTabLoading(true);
           try {
-            // Tối ưu: Chỉ lấy 15 bài thi & 30 bài nộp gần nhất
+            const t0 = performance.now();
+            // Tối ưu: Chỉ lấy 15 bài thi & 25 bài nộp gần nhất
             const [exSnap, subSnap] = await Promise.all([
               getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(15))),
-              getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(30))),
+              getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(25))),
             ]);
+            logQueryRead("exams", exSnap.size, "Statistics tab exams", 15, performance.now() - t0);
+            logQueryRead("submissions", subSnap.size, "Statistics tab submissions", 25, performance.now() - t0);
             const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
             
@@ -190,6 +227,7 @@ export default function Statistics() {
         }
       } else if (tab === "students") {
         if (STATS_CACHE.studentsTab && now - STATS_CACHE.studentsTab.timestamp < CACHE_TTL_MS) {
+          logCacheHit("Statistics Students Tab Cache");
           setTopStudentSubmissions(STATS_CACHE.studentsTab.submissions);
           setStudentsTabLoaded(true);
           return;
@@ -198,9 +236,11 @@ export default function Statistics() {
         if (!studentsTabLoaded) {
           setTabLoading(true);
           try {
+            const t0 = performance.now();
             const subSnap = await getDocs(
               query(collection(db, "submissions"), orderBy("score", "desc"), limit(25))
             );
+            logQueryRead("submissions", subSnap.size, "Statistics tab top students", 25, performance.now() - t0);
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
             
             STATS_CACHE.studentsTab = {
@@ -218,6 +258,7 @@ export default function Statistics() {
         }
       } else if (tab === "cheat") {
         if (STATS_CACHE.cheatTab && now - STATS_CACHE.cheatTab.timestamp < CACHE_TTL_MS) {
+          logCacheHit("Statistics Cheat Tab Cache");
           setCheatSubmissions(STATS_CACHE.cheatTab.submissions);
           setCheatTabLoaded(true);
           return;
@@ -226,9 +267,11 @@ export default function Statistics() {
         if (!cheatTabLoaded) {
           setTabLoading(true);
           try {
+            const t0 = performance.now();
             const subSnap = await getDocs(
-              query(collection(db, "submissions"), where("cheatViolations", ">", 0), limit(30))
+              query(collection(db, "submissions"), where("cheatViolations", ">", 0), limit(25))
             );
+            logQueryRead("submissions", subSnap.size, "Statistics tab cheat violations", 25, performance.now() - t0);
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
 
             STATS_CACHE.cheatTab = {
@@ -259,7 +302,9 @@ export default function Statistics() {
         // Fetch exam doc if not already present
         let currentExam = exams.find((e) => e.id === selectedExamId) || null;
         if (!currentExam) {
+          const t0 = performance.now();
           const exDoc = await getDoc(doc(db, "exams", selectedExamId));
+          logDocRead("exams", selectedExamId, exDoc.exists(), performance.now() - t0);
           if (exDoc.exists()) {
             currentExam = { id: exDoc.id, ...exDoc.data() } as Exam;
           }
@@ -267,22 +312,48 @@ export default function Statistics() {
         setSelectedExamDoc(currentExam);
 
         if (cached && now - cached.timestamp < CACHE_TTL_MS) {
+          logCacheHit(`Exam Submissions Cache: ${selectedExamId}`);
           setExamSubmissions(cached.submissions);
           return;
         }
 
         setLoadingExamSubmissions(true);
         try {
-          // Fetch only submissions for this exam (limit 50)
-          const subSnap = await getDocs(
-            query(
-              collection(db, "submissions"),
-              where("examId", "==", selectedExamId),
-              orderBy("submittedAt", "desc"),
-              limit(50)
-            )
-          );
-          const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+          // Fetch submissions for this exam with composite index fallback
+          let subList: Submission[] = [];
+          try {
+            const t0 = performance.now();
+            const subSnap = await getDocs(
+              query(
+                collection(db, "submissions"),
+                where("examId", "==", selectedExamId),
+                orderBy("submittedAt", "desc"),
+                limit(50)
+              )
+            );
+            logQueryRead("submissions", subSnap.size, `Statistics exam ${selectedExamId} submissions`, 50, performance.now() - t0);
+            subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+          } catch {
+            const t0 = performance.now();
+            const subSnap = await getDocs(
+              query(
+                collection(db, "submissions"),
+                where("examId", "==", selectedExamId),
+                limit(50)
+              )
+            );
+            logQueryRead("submissions", subSnap.size, `Statistics exam ${selectedExamId} submissions fallback`, 50, performance.now() - t0);
+            subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+            const getTime = (val: any) => {
+              if (!val) return 0;
+              if (typeof val?.toMillis === "function") return val.toMillis();
+              if (typeof val?.toDate === "function") return val.toDate().getTime();
+              if (val instanceof Date) return val.getTime();
+              return new Date(String(val)).getTime() || 0;
+            };
+            subList.sort((a, b) => getTime(b.submittedAt) - getTime(a.submittedAt));
+          }
+
           STATS_CACHE.examSubmissions[selectedExamId] = {
             submissions: subList,
             timestamp: Date.now(),
@@ -311,6 +382,7 @@ export default function Statistics() {
       questionsExamIdLoaded !== selectedExamId
     ) {
       if (STATS_CACHE.questions[selectedExamId]) {
+        logCacheHit(`Exam Questions Cache: ${selectedExamId}`);
         setExamQuestions(STATS_CACHE.questions[selectedExamId]);
         setQuestionsExamIdLoaded(selectedExamId);
         return;
@@ -320,14 +392,17 @@ export default function Statistics() {
         setLoadingQuestions(true);
         try {
           if (selectedExamDoc && Array.isArray((selectedExamDoc as any).questions)) {
+            logCacheHit(`Exam Questions (Embedded in doc): ${selectedExamId}`);
             let qs = (selectedExamDoc as any).questions as Question[];
             qs.sort((a,b) => (a.order || 0) - (b.order || 0));
             STATS_CACHE.questions[selectedExamId] = qs;
             setExamQuestions(qs);
           } else {
+            const t0 = performance.now();
             const qSnap = await getDocs(
               query(collection(db, `exams/${selectedExamId}/questions`), orderBy("order", "asc"))
             );
+            logQueryRead(`exams/${selectedExamId}/questions`, qSnap.size, `Statistics exam questions`, 0, performance.now() - t0);
             const qs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
             STATS_CACHE.questions[selectedExamId] = qs;
             setExamQuestions(qs);

@@ -1,0 +1,733 @@
+/* ==========================================================================
+   ChemDex Visual CMS & Document Editor Stylesheet
+   Theme: Sleek Dark Glassmorphism, Notion / Word / Google Docs for Chemistry
+   ========================================================================== */
+
+:root {
+  --editor-bg: #111315;
+  --editor-canvas-bg: #181B1F;
+  --editor-card-bg: #20252B;
+  --editor-border: rgba(255, 255, 255, 0.06);
+  --editor-border-focus: #38bdf8;
+  --editor-text: #F2F4F7;
+  --editor-text-muted: #94A3B8;
+  --editor-primary: #38bdf8;
+  --editor-primary-hover: #0ea5e9;
+  --editor-dirty: #f59e0b;
+  --editor-dirty-glow: rgba(245, 158, 11, 0.25);
+  --editor-success: #10b981;
+  --editor-danger: #ef4444;
+}
+
+/* Base Body & Layout */
+body.data-editor-body {
+  background-color: var(--editor-bg);
+  color: var(--editor-text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Surface */
+.de-glass {
+  background: rgba(24, 27, 31, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--editor-border);
+}
+
+.de-glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--editor-border);
+}
+
+/* ==========================================================================
+   Periodic Table Grid Styles
+   ========================================================================== */
+.periodic-table-wrapper {
+  overflow: auto;
+  cursor: default;
+  user-select: none;
+}
+
+.periodic-table {
+  display: grid;
+  grid-template-columns: 26px repeat(18, minmax(64px, 1fr));
+  grid-template-rows: 26px repeat(7, minmax(68px, 1fr)) 16px repeat(2, minmax(68px, 1fr));
+  gap: 6px;
+  min-width: 1250px;
+}
+
+.element.el-cell {
+  position: relative;
+  background: rgba(30, 41, 59, 0.95);
+  border-radius: 8px;
+  padding: 5px 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 64px;
+}
+
+.element.el-cell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color, #64748b);
+  border-radius: 8px 8px 0 0;
+}
+
+.element.el-cell:hover {
+  transform: translateY(-2px);
+  border-color: var(--color, #38bdf8);
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.5), 0 0 8px var(--color, #38bdf8);
+  z-index: 10;
+}
+
+.element.el-cell.is-active {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 2px #38bdf8, 0 0 16px rgba(56, 189, 248, 0.4) !important;
+  transform: scale(1.04);
+  z-index: 20;
+}
+
+.element.el-cell.is-dirty {
+  border-color: var(--editor-dirty) !important;
+  box-shadow: 0 0 0 1.5px var(--editor-dirty), 0 0 10px var(--editor-dirty-glow);
+}
+
+.dirty-indicator-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--editor-dirty);
+  box-shadow: 0 0 6px var(--editor-dirty);
+  animation: pulseDirty 2s infinite ease-in-out;
+}
+
+@keyframes pulseDirty {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+.element.el-cell.no-data {
+  opacity: 0.55;
+  background: rgba(15, 23, 42, 0.7);
+  border-style: dashed;
+}
+.element.el-cell.no-data:hover {
+  opacity: 0.85;
+}
+
+.no-data-tag {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 3px;
+  padding: 1px 3px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.element.el-cell.is-dimmed {
+  opacity: 0.18 !important;
+  filter: grayscale(80%);
+  pointer-events: none;
+}
+
+.grid-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Document Canvas & WYSIWYG Editor
+   ========================================================================== */
+
+/* Main Document Canvas (Google Docs / Notion style container) */
+.doc-canvas-container {
+  max-width: 960px;
+  margin: 0 auto;
+  background: #111315;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  padding: 36px 48px;
+  min-height: calc(100vh - 180px);
+  user-select: text;
+  transition: max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.doc-canvas-container.is-expanded-canvas {
+  max-width: 1280px !important;
+}
+
+@media (max-width: 768px) {
+  .doc-canvas-container {
+    padding: 20px 16px;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+/* Document Header Section */
+.doc-header-hero {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+}
+
+/* Section Card inside Document */
+.doc-section {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.doc-section:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.doc-section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Editable Rich Text Area */
+.rich-text-area {
+  min-height: 90px;
+  background: #111315;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--editor-text);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rich-text-area:focus {
+  border-color: var(--editor-primary);
+  box-shadow: 0 0 0 1px var(--editor-primary), 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.rich-text-area[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #64748b;
+  font-style: italic;
+  pointer-events: none;
+}
+
+/* Fix Khung mô tả hiện tượng, ghi chú & textareas bị màu trắng */
+textarea,
+.tree-textarea-string,
+.rxn-desc,
+.app-desc,
+#recog-input,
+#hist-desc {
+  background-color: #111315 !important;
+  color: #F2F4F7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  font-family: inherit !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.6 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  resize: vertical !important;
+  min-height: 68px !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+textarea:focus,
+.tree-textarea-string:focus,
+.rxn-desc:focus,
+.app-desc:focus,
+#recog-input:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 1px #38bdf8, 0 0 10px rgba(56, 189, 248, 0.15) !important;
+}
+
+textarea::placeholder,
+.tree-textarea-string::placeholder {
+  color: #64748B !important;
+  font-style: italic !important;
+}
+
+.field-chip-input {
+  background: #111315 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 7px 10px !important;
+  color: #F2F4F7 !important;
+  font-size: 0.8125rem !important;
+  width: 100% !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.field-chip-input:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 1px #38bdf8 !important;
+}
+
+.field-chip-input::placeholder {
+  color: #64748B !important;
+}
+
+/* Rich Content Typography within ContentEditable */
+.rich-text-area h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 1rem 0 0.5rem 0;
+}
+.rich-text-area h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #93c5fd;
+  margin: 0.85rem 0 0.4rem 0;
+}
+.rich-text-area h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #67e8f9;
+  margin: 0.75rem 0 0.35rem 0;
+}
+.rich-text-area p {
+  margin-bottom: 0.65rem;
+}
+.rich-text-area ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 0.65rem;
+}
+.rich-text-area ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 0.65rem;
+}
+.rich-text-area li {
+  margin-bottom: 0.25rem;
+}
+.rich-text-area blockquote {
+  border-left: 3px solid #3b82f6;
+  padding-left: 14px;
+  color: #94a3b8;
+  font-style: italic;
+  margin: 0.75rem 0;
+}
+.rich-text-area a {
+  color: #38bdf8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rich-text-area a:hover {
+  color: #7dd3fc;
+}
+
+/* Rich Text Tables */
+.rich-text-area table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+.rich-text-area th,
+.rich-text-area td {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 12px;
+  text-align: left;
+}
+.rich-text-area th {
+  background: rgba(30, 41, 59, 0.8);
+  font-weight: 700;
+  color: #93c5fd;
+}
+.rich-text-area td {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+/* ==========================================================================
+   WYSIWYG Toolbar (Sticky & Floating)
+   ========================================================================== */
+.wysiwyg-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.wysiwyg-btn {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  min-width: 28px;
+  height: 28px;
+}
+
+.wysiwyg-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.wysiwyg-btn.is-active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.wysiwyg-separator {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 4px;
+}
+
+.wysiwyg-select {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  padding: 4px 6px;
+  outline: none;
+}
+
+/* Floating Bubble Toolbar on Selection */
+.bubble-toolbar {
+  position: absolute;
+  z-index: 100;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -100%);
+  margin-top: -8px;
+  pointer-events: auto;
+  animation: fadeInBubble 0.15s ease-out;
+}
+
+@keyframes fadeInBubble {
+  from { opacity: 0; transform: translate(-50%, -90%); }
+  to { opacity: 1; transform: translate(-50%, -100%); }
+}
+
+/* ==========================================================================
+   Visual Cards & Sections (General, Reactions, Applications...)
+   ========================================================================== */
+.field-chip-input {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #f1f5f9;
+  font-size: 0.875rem;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+.field-chip-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+.reaction-card,
+.application-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.reaction-card:hover,
+.application-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+/* Chemical Shortcut Badges */
+.chem-symbol-badge {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.chem-symbol-badge:hover {
+  background: #0284c7;
+  color: #fff;
+  border-color: #38bdf8;
+}
+
+/* ==========================================================================
+   Global Sticky Save Bar
+   ========================================================================== */
+.global-save-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6), 0 -2px 10px rgba(245, 158, 11, 0.15);
+  z-index: 80;
+  padding: 10px 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.global-save-bar.is-visible {
+  transform: translateY(0);
+}
+
+.dirty-chip {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dirty-chip:hover {
+  background: rgba(245, 158, 11, 0.3);
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================== */
+.de-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+  pointer-events: none;
+}
+.de-toast {
+  pointer-events: auto;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f1f5f9;
+  font-size: 0.875rem;
+  max-width: 360px;
+  animation: slideToastIn 0.25s ease-out;
+}
+@keyframes slideToastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.de-toast.toast-success { border-left: 4px solid #10b981; }
+.de-toast.toast-warning { border-left: 4px solid #f59e0b; }
+.de-toast.toast-error { border-left: 4px solid #ef4444; }
+.de-toast.toast-info { border-left: 4px solid #3b82f6; }
+
+/* ==========================================================================
+   Table Context Toolbar & Grid Picker
+   ========================================================================== */
+.table-context-toolbar {
+  position: absolute;
+  z-index: 95;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.table-context-toolbar.hidden {
+  display: none !important;
+}
+
+.tbl-act-btn {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.tbl-act-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.table-grid-picker {
+  animation: fadeInDown 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.grid-cell {
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+/* ==========================================================================
+   Chemical Equations & Formula Blocks
+   ========================================================================== */
+.chemical-equation-block {
+  user-select: text;
+  box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   Draft Recovery Banner
+   ========================================================================== */
+.draft-recovery-banner {
+  box-shadow: 0 8px 25px -5px rgba(245, 158, 11, 0.25);
+}
+
+/* ==========================================================================
+   Command Palette
+   ========================================================================== */
+.cmd-item {
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+/* ==========================================================================
+   Textarea Dark Theme (Fix khung mô tả hiện tượng bị màu trắng)
+   ========================================================================== */
+textarea,
+.tree-textarea-string,
+.rxn-desc,
+.app-desc,
+#recog-input,
+#personal-note {
+  background-color: #111315 !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 0.75rem !important;
+  padding: 0.75rem 1rem !important;
+  width: 100% !important;
+  font-family: inherit !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.5 !important;
+  resize: vertical !important;
+  outline: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+textarea:focus,
+.tree-textarea-string:focus,
+.rxn-desc:focus,
+.app-desc:focus,
+#recog-input:focus,
+#personal-note:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25) !important;
+}
+
+textarea::placeholder,
+.tree-textarea-string::placeholder,
+.rxn-desc::placeholder,
+.app-desc::placeholder,
+#recog-input::placeholder,
+#personal-note::placeholder {
+  color: #64748b !important;
+}
+
+/* ==========================================================================
+   Document Canvas & Full-Window Expansion (Sổ full cửa sổ)
+   ========================================================================== */
+.doc-canvas-container {
+  max-width: 920px;
+  margin: 0 auto;
+  width: 100%;
+  transition: max-width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.is-fullwidth-active .doc-canvas-container,
+.is-fullwidth-active .doc-canvas-container,
+.doc-canvas-container.is-expanded-canvas {
+  max-width: 1440px !important;
+  width: 100% !important;
+}
+
+/* Lanthanide & Actinide row banners */
+.el-lanthanide {
+  border-color: rgba(236, 72, 153, 0.4) !important;
+}
+.el-actinide {
+  border-color: rgba(217, 70, 239, 0.4) !important;
+}

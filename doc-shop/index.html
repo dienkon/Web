@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>DkDocShop 2.0 - Hệ Sinh Thái Học Tập Số Toàn Diện</title>
+    <meta
+      name="description"
+      content="Nền tảng học tập số, tài liệu luyện thi THPT Quốc Gia, Đánh giá năng lực, sổ tay ghi chú, flashcard ngắt quãng và trợ lý AI DkAI dành cho học sinh."
+    />
+    <meta name="theme-color" content="#10b981" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Web App Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons 6.5.2 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+            colors: {
+              primary: {
+                50: "#f0fdf4",
+                100: "#dcfce7",
+                200: "#bbf7d0",
+                300: "#86efac",
+                400: "#4ade80",
+                500: "#10b981",
+                600: "#059669",
+                700: "#047857",
+                800: "#065f46",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="text-gray-800 flex h-screen w-full max-w-full bg-gray-50 overflow-hidden select-none">
+    <!-- Sidebar Navigation -->
+    <aside
+      id="sidebar"
+      class="fixed md:static inset-y-0 left-0 z-40 w-72 md:w-64 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:flex shadow-xl md:shadow-none"
+    >
+      <!-- Brand Logo -->
+      <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" data-nav="dashboard">
+          <div
+            class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md font-extrabold text-lg"
+          >
+            Dk
+          </div>
+          <div>
+            <h1 class="font-black text-base text-gray-900 tracking-tight flex items-center gap-1">
+              DkDocShop <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded-md">2.0</span>
+            </h1>
+            <p class="text-[10px] text-gray-400 font-medium">Học tập số thông minh</p>
+          </div>
+        </div>
+
+        <button id="sidebar-close-btn" class="md:hidden text-gray-400 hover:text-gray-700 p-1">
+          ✕
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav id="nav-menu" class="flex-1 overflow-y-auto p-3 space-y-1 hide-scroll">
+        <!-- Injected via sidebar.js -->
+      </nav>
+
+      <!-- User Auth Section -->
+      <div id="sidebar-auth-section" class="p-3 border-t border-gray-100 bg-gray-50/50">
+        <!-- Injected via sidebar.js -->
+      </div>
+    </aside>
+
+    <!-- Mobile Drawer Overlay -->
+    <div
+      id="mobile-sidebar-overlay"
+      class="fixed inset-0 bg-gray-900/40 backdrop-blur-xs z-30 hidden md:hidden"
+    ></div>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative min-w-0">
+      <!-- Navbar Header -->
+      <header
+        id="main-header"
+        class="h-16 bg-white glass border-b border-gray-200/80 flex items-center justify-between px-3 sm:px-6 lg:px-8 z-10 sticky top-0 shadow-xs min-w-0"
+      >
+        <!-- Navbar elements dynamically injected via navbar.js -->
+      </header>
+
+      <!-- Scrollable Page Content Area -->
+      <div
+        id="content-area"
+        class="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-6 lg:p-8 pb-8 relative bg-gray-50/70 min-w-0"
+      >
+        <!-- Views rendered here dynamically by SPA Router -->
+      </div>
+    </main>
+
+    <!-- Modular Script Bundle -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

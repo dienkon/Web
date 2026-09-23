@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs, query, where, orderBy, limit, startAfter, setDoc, updateDoc, deleteDoc, writeBatch, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase/config";
 import { Exam, PaginatedResult } from "../types";
+import { logDocRead, logQueryRead, logDocWrite } from "../utils/firestoreLogger";
 const EXAMS_COLLECTION = "exams";
 
 export const getExamList = async ({
@@ -52,8 +53,9 @@ export const getExamList = async ({
 
     let snapshot;
     try {
+      const t0 = performance.now();
       snapshot = await getDocs(q);
-      console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): ${EXAMS_COLLECTION} (folderId: ${folderId ?? 'all'}, pageSize: ${pageSize})`);
+      logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList (folder: ${folderId ?? 'all'})`, pageSize, performance.now() - t0);
     } catch (orderErr) {
       console.warn("Filtered query failed, trying simple query fallback:", orderErr);
       let fallbackQ = collection(db, EXAMS_COLLECTION) as any;
@@ -62,8 +64,9 @@ export const getExamList = async ({
       } else {
         fallbackQ = query(fallbackQ, limit(pageSize));
       }
+      const t0 = performance.now();
       snapshot = await getDocs(fallbackQ);
-      console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): ${EXAMS_COLLECTION} (fallback query)`);
+      logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList fallback`, pageSize, performance.now() - t0);
     }
 
     const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Exam));
@@ -97,8 +100,9 @@ export const getExamList = async ({
 
 export const getExam = async (examId: string): Promise<Exam | null> => {
   const docRef = doc(db, EXAMS_COLLECTION, examId);
+  const t0 = performance.now();
   const snapshot = await getDoc(docRef);
-  console.warn(`[Firestore] READ (1 doc): ${EXAMS_COLLECTION}/${examId} (found: ${snapshot.exists()})`);
+  logDocRead(EXAMS_COLLECTION, examId, snapshot.exists(), performance.now() - t0);
   if (snapshot.exists()) {
     return { id: snapshot.id, ...(snapshot.data() as any) } as Exam;
   }
@@ -112,18 +116,20 @@ export const createExam = async (examData: Omit<Exam, "id" | "createdAt" | "upda
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   };
-  console.warn(`[Firestore] WRITE (1 doc): ${EXAMS_COLLECTION}/${docRef.id}`);
+  const t0 = performance.now();
   await setDoc(docRef, newExam);
+  logDocWrite(EXAMS_COLLECTION, docRef.id, "setDoc", performance.now() - t0);
   return { id: docRef.id, ...newExam, createdAt: new Date() as any, updatedAt: new Date() as any } as Exam;
 };
 
 export const updateExam = async (examId: string, updates: Partial<Exam>): Promise<void> => {
   const docRef = doc(db, EXAMS_COLLECTION, examId);
-  console.warn(`[Firestore] UPDATE (1 doc): ${EXAMS_COLLECTION}/${examId}`);
+  const t0 = performance.now();
   await updateDoc(docRef, {
     ...updates,
     updatedAt: serverTimestamp(),
   });
+  logDocWrite(EXAMS_COLLECTION, examId, "updateDoc", performance.now() - t0);
 };
 
 /**

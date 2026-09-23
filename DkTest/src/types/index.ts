@@ -339,4 +339,175 @@ export interface ExamAudioConfig {
   autoPlay?: boolean; // Tự động phát khi bắt đầu làm bài
 }
 
+// -------------------------------------------------------------
+// Authentication, Roles & User Profiles
+// -------------------------------------------------------------
+
+export type UserRole = "student" | "parent" | "teacher" | "admin" | "super_admin";
+
+export type AccountStatus = "pending" | "active" | "suspended" | "disabled" | "deleted";
+
+export type AuthProviderType = "google" | "password" | "google+password" | "username";
+
+export interface UserProfile {
+  uid: string;
+  username?: string;
+  usernameNormalized?: string;
+  fullName?: string;
+  email: string;
+  displayName: string;
+  photoURL?: string;
+  role: UserRole;
+  accountStatus: AccountStatus;
+  provider: AuthProviderType | string;
+  authProvider?: string;
+  emailVerified: boolean;
+  createdAt: any;
+  updatedAt: any;
+  lastLoginAt?: any;
+  lastSeenAt?: any;
+  loginCount?: number;
+  profileCompleted?: number; // percentage 0-100
+  isTestAccount?: boolean;
+  notes?: string;
+  studentClass?: string;
+  phone?: string;
+}
+
+export interface StudentProfile {
+  uid: string;
+  studentId?: string; // e.g. HS2026-001
+  fullName: string;
+  className?: string;
+  grade?: string; // Khối 10, 11, 12, etc.
+  school?: string;
+  academicYear?: string;
+  avatar?: string;
+  parentIds?: string[];
+  createdAt?: any;
+  updatedAt?: any;
+  totalExamsTaken?: number;
+  averageScore?: number;
+}
+
+export interface ParentProfile {
+  uid: string;
+  parentId?: string;
+  fullName: string;
+  email?: string;
+  phone?: string;
+  childIds?: string[];
+  createdAt?: any;
+  updatedAt?: any;
+}
+
+export interface ParentStudentRelationship {
+  id: string;
+  studentUid: string;
+  studentName: string;
+  studentEmail?: string;
+  studentClass?: string;
+  parentUid: string;
+  parentName: string;
+  parentEmail?: string;
+  inviteCode?: string;
+  status: "pending" | "active" | "rejected" | "unlinked";
+  createdAt: any;
+  updatedAt?: any;
+  linkedAt?: any;
+  verifiedByAdmin?: boolean;
+}
+
+export type AuditLogAction =
+  | "USER_APPROVED"
+  | "USER_SUSPENDED"
+  | "USER_REACTIVATED"
+  | "USER_DISABLED"
+  | "USER_DELETED"
+  | "ROLE_CHANGED"
+  | "PROFILE_UPDATED"
+  | "PARENT_LINKED"
+  | "PARENT_UNLINKED"
+  | "EXAM_UPDATED"
+  | "ADMIN_LOGIN"
+  | "DATA_REPAIRED"
+  | "BULK_OPERATION";
+
+export interface AuditLog {
+  id: string;
+  actorUid: string;
+  actorRole: string;
+  actorEmail?: string;
+  actorName?: string;
+  action: AuditLogAction;
+  targetUid?: string;
+  targetType?: "user" | "student" | "parent" | "exam" | "relationship" | "system";
+  metadata?: Record<string, any>;
+  timestamp: any;
+  ipHashOrSafeMetadata?: string;
+  userAgentSummary?: string;
+}
+
+export type ReconciliationIssueType =
+  | "AUTH_WITHOUT_PROFILE"
+  | "ORPHAN_PROFILE"
+  | "VALID_USER"
+  | "DATA_CONFLICT"
+  | "MISSING_ROLE"
+  | "INVALID_METADATA"
+  | "BROKEN_RELATIONSHIP";
+
+export interface ReconciliationIssue {
+  id: string;
+  type: ReconciliationIssueType;
+  severity: "warning" | "error" | "info";
+  description: string;
+  uid?: string;
+  email?: string;
+  displayName?: string;
+  source: "auth" | "firestore" | "both";
+  safeToAutoRepair: boolean;
+  suggestedAction: string;
+  details?: Record<string, any>;
+}
+
+export interface DataHealthReport {
+  scannedAt: string;
+  totalAuthUsers: number;
+  totalProfiles: number;
+  validUsersCount: number;
+  authWithoutProfileCount: number;
+  orphanProfileCount: number;
+  missingRoleCount: number;
+  duplicateEmailCount: number;
+  brokenRelationshipCount: number;
+  issues: ReconciliationIssue[];
+}
+
+export interface SystemSettings {
+  registrationEnabled: boolean;
+  googleLoginEnabled: boolean;
+  passwordLoginEnabled: boolean;
+  requireEmailVerification: boolean;
+  requireAdminApproval: boolean;
+  defaultStudentStatus: AccountStatus;
+  allowedEmailDomains?: string[];
+  maintenanceMode: boolean;
+  pageSize: number;
+  updatedAt?: any;
+  updatedBy?: string;
+}
+
+export interface SystemNotification {
+  id: string;
+  recipientUid: string;
+  title: string;
+  content: string;
+  type: "system" | "approval" | "relationship" | "exam" | "security";
+  read: boolean;
+  link?: string;
+  createdAt: any;
+}
+
+
 

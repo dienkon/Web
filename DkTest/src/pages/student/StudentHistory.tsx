@@ -35,6 +35,7 @@ import { db } from "../../services/firebase/config";
 import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
 import RetakeModal from "../../components/exam/RetakeModal";
+import { logDocRead, logQueryRead } from "../../utils/firestoreLogger";
 
 export default function StudentHistory() {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ export default function StudentHistory() {
     // Check student profile
     const role = localStorage.getItem("auth_role");
     if (!role) {
-      navigate("/student/login", { replace: true });
+      navigate("/login", { replace: true });
       return;
     }
 
@@ -93,36 +94,43 @@ export default function StudentHistory() {
       const localIds: string[] = localHistStr ? JSON.parse(localHistStr) : [];
 
       if (studentUsername) {
-        // Query by student username/name
+        // Query by student username/name (capped at targetLimit + 5, max 30)
+        const fetchLimit = Math.min(targetLimit + 5, 30);
+        const t0 = performance.now();
         const q = query(
           collection(db, "submissions"),
-          where("studentId", "==", studentUsername)
+          where("studentId", "==", studentUsername),
+          limit(fetchLimit)
         );
         const snap = await getDocs(q);
+        logQueryRead("submissions", snap.size, `StudentHistory student=${studentUsername}`, fetchLimit, performance.now() - t0);
         fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       }
 
-      // Also fetch any submissions from local IDs not yet included
-      for (const id of localIds) {
-        if (!fetchedSubs.some((s) => s.id === id)) {
-          try {
-            const docSnap = await getDoc(doc(db, "submissions", id));
-            if (docSnap.exists()) {
-              fetchedSubs.push({ id: docSnap.id, ...docSnap.data() } as Submission);
-            }
-          } catch (docErr) {
-            console.warn("Could not fetch submission doc", id, docErr);
+      // Also fetch any submissions from local IDs not yet included (max 5)
+      const pendingLocalIds = localIds.filter((id) => !fetchedSubs.some((s) => s.id === id)).slice(0, 5);
+      for (const id of pendingLocalIds) {
+        try {
+          const t0 = performance.now();
+          const docSnap = await getDoc(doc(db, "submissions", id));
+          logDocRead("submissions", id, docSnap.exists(), performance.now() - t0);
+          if (docSnap.exists()) {
+            fetchedSubs.push({ id: docSnap.id, ...docSnap.data() } as Submission);
           }
+        } catch (docErr) {
+          console.warn("Could not fetch submission doc", id, docErr);
         }
       }
 
-      // Fallback: If no student login & no local IDs, fetch recent public submissions
+      // Fallback: If no student login & no local IDs, fetch recent public submissions (max 10)
       if (fetchedSubs.length === 0 && !studentUsername && localIds.length === 0) {
+        const t0 = performance.now();
         const qRecent = query(
           collection(db, "submissions"),
-          limit(20)
+          limit(10)
         );
         const recentSnap = await getDocs(qRecent);
+        logQueryRead("submissions", recentSnap.size, "StudentHistory fallback public", 10, performance.now() - t0);
         fetchedSubs = recentSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       }
 

@@ -44,8 +44,9 @@ import {
   subscribeToSingleSession,
   sanitizeSessionId,
 } from "../../services/realtimeProctoringService";
-import { collection, getDocs, query, orderBy, getDoc, doc, where } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, getDoc, doc, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { logQueryRead } from "../../utils/firestoreLogger";
 import {
   saveActiveExamSession,
   updateActiveExamSessionAnswers,
@@ -466,7 +467,7 @@ export default function TakingExam() {
       const studentInfoStr = localStorage.getItem("student_info");
       if ((authRole !== "student" && authRole !== "admin") || !studentInfoStr) {
         showErrorToast("Vui lòng đăng nhập tài khoản học sinh để làm bài thi!");
-        navigate(`/student/login?redirect=${encodeURIComponent(`/student/exam/${examId}`)}`, { replace: true });
+        navigate(`/login?redirect=${encodeURIComponent(`/student/exam/${examId}`)}`, { replace: true });
         return;
       }
 
@@ -572,12 +573,16 @@ export default function TakingExam() {
         if (examData.maxAttempts && examData.maxAttempts > 0 && !activeExistingSession) {
           try {
             const subsRef = collection(db, "submissions");
+            const maxAttLimit = examData.maxAttempts + 1;
+            const t0 = performance.now();
             const qAttempts = query(
               subsRef,
               where("examId", "==", examId),
-              where("studentUsername", "==", studentIdentifier)
+              where("studentUsername", "==", studentIdentifier),
+              limit(maxAttLimit)
             );
             const subsSnap = await getDocs(qAttempts);
+            logQueryRead("submissions", subsSnap.size, `TakingExam check maxAttempts (${studentIdentifier})`, maxAttLimit, performance.now() - t0);
             if (subsSnap.size >= examData.maxAttempts) {
               showErrorToast(`Bạn đã sử dụng hết số lần làm bài quy định (${subsSnap.size}/${examData.maxAttempts} lần)!`);
               navigate(`/student/exam/${examId}`, { replace: true });

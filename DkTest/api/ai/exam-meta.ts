@@ -25,7 +25,7 @@ export default async function handler(req: any, res: any) {
       req.headers?.["host"] ||
       process.env.VERCEL_URL ||
       process.env.VITE_APP_URL ||
-      "localhost:3000";
+      `localhost:${process.env.PORT || 3636}`;
 
     const hostClean =
       host.startsWith("http://") || host.startsWith("https://")

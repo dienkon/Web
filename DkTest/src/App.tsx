@@ -5,11 +5,14 @@
 
 import { AppRouter } from './app/router';
 import { ToastProvider } from './components/ui/ToastNotification';
+import { AuthProvider } from './context/AuthContext';
 
 export default function App() {
   return (
     <ToastProvider>
-      <AppRouter />
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
     </ToastProvider>
   );
 }

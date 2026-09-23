@@ -14,6 +14,8 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase/config";
 import type { Submission, PaginatedResult, AiAnalysisCache } from "../types";
+import { logDocRead, logQueryRead, logDocWrite } from "../utils/firestoreLogger";
+import { updateGlobalStatsOnSubmission } from "./statsAggregatorService";
 
 const SUBMISSIONS_COLLECTION = "submissions";
 
@@ -26,33 +28,36 @@ export const getExamSubmissions = async ({
   pageSize?: number;
   cursor?: any;
 }): Promise<PaginatedResult<Submission>> => {
+  const safePageSize = Math.min(pageSize, 50);
   let q = query(
     collection(db, SUBMISSIONS_COLLECTION),
     where("examId", "==", examId),
     orderBy("submittedAt", "desc"),
-    limit(pageSize)
+    limit(safePageSize)
   );
 
   if (cursor) {
     q = query(q, startAfter(cursor));
   }
 
+  const t0 = performance.now();
   const snapshot = await getDocs(q);
-  console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): ${SUBMISSIONS_COLLECTION} (examId: ${examId})`);
+  logQueryRead(SUBMISSIONS_COLLECTION, snapshot.size, safePageSize, performance.now() - t0, `examId: ${examId}`);
   const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Submission));
   const nextCursor = snapshot.docs[snapshot.docs.length - 1] || null;
 
   return {
     items,
     nextCursor,
-    hasMore: snapshot.docs.length === pageSize,
+    hasMore: snapshot.docs.length === safePageSize,
   };
 };
 
 export const getSubmission = async (submissionId: string): Promise<Submission | null> => {
   const docRef = doc(db, SUBMISSIONS_COLLECTION, submissionId);
+  const t0 = performance.now();
   const snapshot = await getDoc(docRef);
-  console.warn(`[Firestore] READ (1 doc): ${SUBMISSIONS_COLLECTION}/${submissionId} (found: ${snapshot.exists()})`);
+  logDocRead(SUBMISSIONS_COLLECTION, submissionId, performance.now() - t0, `found: ${snapshot.exists()}`);
   if (snapshot.exists()) {
     return { id: snapshot.id, ...(snapshot.data() as any) } as Submission;
   }
@@ -100,8 +105,16 @@ export const createSubmission = async (
     ...sanitized,
     submittedAt: serverTimestamp(),
   };
-  console.warn(`[Firestore] WRITE (1 doc): ${SUBMISSIONS_COLLECTION}/${docRef.id}`);
+  logDocWrite(SUBMISSIONS_COLLECTION, docRef.id, "SET", "Save student exam submission");
   await setDoc(docRef, newSubmission);
+
+  // Update aggregated global stats & exam stats document (non-blocking)
+  updateGlobalStatsOnSubmission({
+    id: docRef.id,
+    ...newSubmission,
+  } as any).catch((statsErr) => {
+    console.warn("[SubmissionService] Warning updating stats doc:", statsErr);
+  });
 
   // Update leaderboard
   const examId = submissionData.examId;

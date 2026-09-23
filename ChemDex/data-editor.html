@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="vi" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChemDex Visual CMS - Trình Soạn Thảo Dữ Liệu Hóa Học</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="./assets/icon/logo.png" />
+    <link rel="shortcut icon" href="./assets/icon/logo.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: "#090d16",
+              darker: "#06090e",
+              panel: "#111827",
+              primary: "#3b82f6",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/app.css" />
+    <link rel="stylesheet" href="./css/data-editor.css" />
+  </head>
+  <body class="data-editor-body flex flex-col h-screen text-slate-200 overflow-hidden select-none">
+    <!-- TOPBAR / GLOBAL HEADER -->
+    <header class="h-16 de-glass border-b border-slate-700/50 flex items-center justify-between px-4 md:px-6 z-30 shrink-0 gap-4">
+      <!-- Left: Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group" title="Về trang chủ ChemDex">
+          <div
+            class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform"
+          >
+            <i class="fa-solid fa-atom"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                ChemDex
+              </span>
+              <span class="text-[10px] bg-amber-500/20 text-amber-400 font-mono font-bold px-2 py-0.5 rounded-full border border-amber-500/30 uppercase tracking-wider">
+                Visual CMS
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium">Trình soạn thảo trực quan (Google Docs style)</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center: Search & Filters -->
+      <div class="flex items-center gap-2.5 flex-1 max-w-xl mx-4">
+        <div class="relative w-full flex items-center">
+          <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input
+            type="text"
+            id="editor-search-input"
+            placeholder="Tìm theo ký hiệu (H), số (1), tên (Hydrogen, Hidro)..."
+            class="w-full bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-lg pl-8 pr-16 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
+          />
+          <button
+            type="button"
+            id="cmd-palette-trigger-btn"
+            class="absolute right-2 px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700 text-[10px] font-mono font-bold transition-colors"
+            title="Mở thanh lệnh & điều hướng nhanh (Ctrl+K)"
+          >
+            Ctrl+K
+          </button>
+        </div>
+
+        <select
+          id="editor-filter-category"
+          class="hidden sm:block bg-slate-900 border border-slate-700 text-slate-300 text-xs rounded-lg px-2.5 py-2 focus:ring-1 focus:ring-blue-500 focus:outline-none shrink-0"
+        >
+          <option value="all">Tất cả nhóm</option>
+          <option value="phi-kim">Phi kim</option>
+          <option value="khi-hiem">Khí hiếm</option>
+          <option value="kiem">Kim loại kiềm</option>
+          <option value="kiem-tho">Kim loại kiềm thổ</option>
+          <option value="a-kim">Á kim</option>
+          <option value="halogen">Halogen</option>
+          <option value="chuyen-tiep">Kim loại chuyển tiếp</option>
+          <option value="lanthanide">Lanthanide</option>
+          <option value="actinide">Actinide</option>
+          <option value="unknown">Chưa phân loại</option>
+        </select>
+      </div>
+
+      <!-- Right: Cloud Status, Actions & Auth -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Cloud Status Badge -->
+        <div id="cloud-status-badge" class="hidden xl:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+          <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+          <span>Cloud: Connecting...</span>
+        </div>
+
+        <!-- Import JSON -->
+        <button
+          id="import-json-btn"
+          class="tree-btn hover:bg-slate-800 text-slate-300 text-xs py-1.5 px-2.5"
+          title="Nhập file JSON cho nguyên tố"
+        >
+          <i class="fa-solid fa-file-import text-xs"></i>
+          <span class="hidden md:inline">Nhập</span>
+        </button>
+        <input type="file" id="import-file-input" accept=".json" class="hidden" />
+
+        <!-- Export Dropdown -->
+        <div class="relative group">
+          <button
+            class="tree-btn bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs py-1.5 px-3 flex items-center gap-1.5"
+          >
+            <i class="fa-solid fa-file-export text-xs text-blue-400"></i>
+            <span>Xuất</span>
+            <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </button>
+          <div
+            class="absolute right-0 top-full mt-1 w-56 de-glass rounded-xl shadow-2xl py-1.5 border border-slate-700/80 hidden group-hover:block z-50 animate-fade-in"
+          >
+            <button
+              id="export-selected-btn"
+              class="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-700/60 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-file-lines text-blue-400"></i>
+              <span>Xuất nguyên tố đang chọn</span>
+            </button>
+            <button
+              id="export-dirty-btn"
+              class="w-full text-left px-3 py-2 text-xs text-amber-300 hover:bg-slate-700/60 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-pen-to-square text-amber-400"></i>
+              <span>Xuất các mục chưa lưu</span>
+            </button>
+            <div class="my-1 border-t border-slate-700/60"></div>
+            <button
+              id="export-all-btn"
+              class="w-full text-left px-3 py-2 text-xs text-emerald-300 hover:bg-slate-700/60 flex items-center gap-2 font-semibold"
+            >
+              <i class="fa-solid fa-folder-tree text-emerald-400"></i>
+              <span>Xuất toàn bộ 118 nguyên tố</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Auth Section -->
+        <div class="flex items-center gap-1.5 pl-2 border-l border-slate-700/50">
+          <span id="auth-user-display" class="hidden text-xs font-mono text-emerald-400 max-w-[110px] truncate"></span>
+          
+          <div id="auth-actions-guest" class="flex items-center gap-1">
+            <button
+              id="auth-google-btn"
+              class="tree-btn bg-blue-600 hover:bg-blue-500 text-white text-xs py-1.5 px-2.5"
+              title="Đăng nhập Google"
+            >
+              <i class="fa-brands fa-google text-xs"></i>
+              <span class="hidden lg:inline">Admin Đăng nhập</span>
+            </button>
+            <button
+              id="auth-anon-btn"
+              class="tree-btn hover:bg-slate-700 text-slate-400 text-xs py-1.5 px-2"
+              title="Đăng nhập ẩn danh"
+            >
+              <i class="fa-solid fa-user-secret text-xs"></i>
+            </button>
+          </div>
+
+          <div id="auth-actions-logged" class="hidden">
+            <button
+              id="auth-logout-btn"
+              class="tree-btn btn-danger text-xs py-1.5 px-2.5"
+              title="Đăng xuất"
+            >
+              <i class="fa-solid fa-right-from-bracket text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN BODY: 2-COLUMN VIEW (TABLE ON LEFT, DOCUMENT CANVAS ON RIGHT) -->
+    <main class="flex-1 flex overflow-hidden relative">
+      <!-- LEFT COLUMN: PERIODIC TABLE SELECTOR -->
+      <section
+        id="table-panel-column"
+        class="w-full lg:w-[480px] xl:w-[540px] 2xl:w-[600px] flex flex-col h-full overflow-hidden border-r border-slate-700/50 relative shrink-0 bg-slate-950/40 transition-all duration-300"
+      >
+        <!-- Table Header Info -->
+        <div class="p-3 bg-slate-900/60 border-b border-slate-800 flex items-center justify-between text-xs">
+          <span class="font-bold text-slate-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-table-cells text-blue-400"></i>
+            <span>Chọn nguyên tố để soạn thảo</span>
+          </span>
+          <span class="text-slate-500 font-mono">118 ô nguyên tố</span>
+        </div>
+
+        <!-- Scrollable Periodic Grid -->
+        <div class="periodic-table-wrapper flex-1 p-3 md:p-4">
+          <div id="periodic-table" class="periodic-table">
+            <!-- Dynamically populated by table-renderer.js -->
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="h-10 de-glass border-t border-slate-800 px-3 flex items-center justify-between overflow-x-auto text-[10px] shrink-0 text-slate-400">
+          <div class="flex items-center gap-2">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Đang sửa</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 border border-dashed border-slate-500 rounded"></span> Chưa có data</span>
+          </div>
+          <span class="italic text-slate-500">Nhấp vào ô để mở tài liệu</span>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: VISUAL CMS DOCUMENT EDITOR PANEL -->
+      <section
+        id="editor-panel-column"
+        class="flex-1 flex flex-col h-full overflow-hidden relative bg-slate-950/60"
+      >
+        <!-- Editor Control Bar (Subheader) -->
+        <div class="p-3 border-b border-slate-700/60 bg-slate-900/80 flex items-center justify-between flex-wrap gap-3 shrink-0 z-20">
+          <!-- Left: Active Element Title & Modes -->
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <button
+                id="close-mobile-drawer-btn"
+                class="lg:hidden text-slate-400 hover:text-white p-1 text-sm"
+                title="Quay lại bảng tuần hoàn"
+              >
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <div id="active-element-title" class="flex items-center">
+                <span class="font-bold text-lg text-white">Chưa chọn</span>
+              </div>
+              <span id="active-element-dirty-badge" class="hidden text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-800 animate-pulse">
+                ● Chưa lưu
+              </span>
+            </div>
+
+            <!-- Mode Switcher Tabs -->
+            <div class="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-0.5 text-xs">
+              <button
+                id="tab-visual-btn"
+                class="px-3 py-1.5 rounded-md font-semibold text-blue-400 bg-slate-800 shadow transition-all flex items-center gap-1.5"
+              >
+                <i class="fa-solid fa-pen-nib text-xs"></i>
+                <span>Tài liệu (Visual)</span>
+              </button>
+              <button
+                id="tab-source-btn"
+                class="px-3 py-1.5 rounded-md font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5"
+              >
+                <i class="fa-solid fa-code text-xs"></i>
+                <span>Mã nguồn (JSON)</span>
+              </button>
+              <button
+                id="tab-preview-btn"
+                class="px-3 py-1.5 rounded-md font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5"
+              >
+                <i class="fa-solid fa-eye text-xs"></i>
+                <span>Xem trước (Preview)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Save & Actions for Active Element -->
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              id="toggle-fullwidth-btn"
+              class="tree-btn bg-slate-800/90 hover:bg-slate-700 text-sky-400 py-1.5 px-3 text-xs flex items-center gap-1.5 border border-slate-700"
+              title="Mở rộng / Thu gọn toàn cửa sổ (Sổ full cửa sổ để chỉnh sửa)"
+            >
+              <i class="fa-solid fa-expand text-xs"></i>
+              <span id="fullwidth-label" class="hidden sm:inline">Toàn cửa sổ</span>
+            </button>
+
+            <button
+              id="element-preview-chemdex-btn"
+              class="tree-btn hover:bg-slate-800 text-blue-400 hover:text-blue-300 py-1.5 px-3 text-xs"
+              title="Mở giao diện ChemDex chính thức"
+            >
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              <span class="hidden sm:inline">Xem trên ChemDex</span>
+            </button>
+
+            <button
+              id="element-cancel-btn"
+              class="tree-btn hover:bg-slate-800 text-slate-300 py-1.5 px-2.5 text-xs opacity-50"
+              disabled
+              title="Hủy bỏ các sửa đổi của nguyên tố này"
+            >
+              <i class="fa-solid fa-rotate-left text-xs"></i>
+              <span>Hủy sửa</span>
+            </button>
+
+            <button
+              id="element-save-btn"
+              class="tree-btn bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 px-4 text-xs shadow-lg shadow-emerald-600/30 flex items-center gap-1.5"
+              title="Lưu dữ liệu nguyên tố này lên Firebase Firestore (Ctrl+S)"
+            >
+              <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
+              <span>Lưu nguyên tố</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sticky WYSIWYG Formatting Toolbar (Shown in Visual Mode) -->
+        <div id="wysiwyg-toolbar-container" class="shrink-0 z-10">
+          <!-- Dynamically populated by wysiwyg-toolbar.js -->
+        </div>
+
+        <!-- Scrollable Document Canvas Viewport -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
+          <!-- 1. Visual Document Editor (Default & Hero experience) -->
+          <div id="visual-doc-editor-container">
+            <!-- Dynamically populated by visual-doc-editor.js -->
+          </div>
+
+          <!-- 2. Source JSON Mode (Developer / Admin) -->
+          <div id="raw-editor-container" class="hidden h-full">
+            <!-- Dynamically populated by raw-editor.js -->
+          </div>
+
+          <!-- 3. Preview Mode (Clean read-only representation) -->
+          <div id="preview-container" class="hidden">
+            <!-- Dynamically populated by preview-renderer.js -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- GLOBAL STICKY SAVE BAR (Appears when any element is dirty) -->
+    <div id="global-save-bar" class="global-save-bar flex items-center justify-between flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-amber-500 shadow-lg shadow-amber-500/50 animate-pulse"></span>
+          <span id="global-dirty-count" class="font-bold text-amber-400 text-sm">1 thay đổi chưa lưu</span>
+        </div>
+        <div id="global-dirty-chips" class="flex items-center gap-1.5 flex-wrap">
+          <!-- Dirty chips populated dynamically -->
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          id="global-cancel-all-btn"
+          class="tree-btn hover:bg-slate-800 text-slate-300 py-2 px-3 text-xs"
+        >
+          Hủy tất cả
+        </button>
+        <button
+          id="global-save-all-btn"
+          class="tree-btn bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-4 text-xs shadow-lg shadow-emerald-600/30 flex items-center gap-1.5"
+        >
+          <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
+          <span>Lưu tất cả lên Firebase</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- App Entry Point Module -->
+    <script type="module" src="./js/data-editor.js"></script>
+  </body>
+</html>

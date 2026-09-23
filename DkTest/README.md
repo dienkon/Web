@@ -52,15 +52,73 @@ For a detailed example of the V3 Schema, please see:
 
 ## Local Development
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Set up Firebase:
-   - Create a Firebase project.
-   - Enable Firestore.
-   - Copy `firebase-applet-config.json` configuration or use `.env` vars.
-3. Start the dev server:
-   ```bash
-   npm run dev
-   ```
+### 1. Cài đặt Dependencies
+```bash
+npm install
+```
+
+### 2. Thiết lập Biến môi trường (.env)
+Sao chép `.env.example` thành `.env` và điền cấu hình Firebase của bạn:
+```bash
+cp .env.example .env
+```
+Các biến cần thiết:
+- **Client (Frontend)**: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, v.v.
+- **Server (Backend Admin SDK)**: `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`.
+
+### 3. Thiết lập Tài khoản Super Admin đầu tiên
+Sử dụng script bootstrap để cấp quyền Super Admin cho tài khoản của bạn:
+```bash
+npm run bootstrap:admin admin@dktest.edu.vn --password=AdminSecure#2026
+```
+Hoặc nếu tài khoản đã đăng ký trên Firebase Auth:
+```bash
+npm run bootstrap:admin admin@dktest.edu.vn
+```
+
+### 4. Khởi chạy Ứng dụng
+```bash
+# Khởi chạy Express Backend + Vite Frontend (Cổng 3636)
+npm run dev
+
+# Nếu gặp lỗi cổng 3636 đang bận (EADDRINUSE), giải phóng cổng bằng lệnh:
+npm run kill:port
+
+# Kiểm tra kiểu dữ liệu TypeScript
+npm run lint
+
+# Build cho Production
+npm run build
+```
+
+---
+
+## Hệ thống Tài khoản & Phân quyền (Account & Auth System)
+
+DkTEST cung cấp hệ sinh thái tài khoản toàn diện với Firebase Authentication và Firebase Admin SDK:
+
+### 1. Vai trò Người dùng (User Roles)
+- **Học sinh (`student`)**:
+  - Đăng ký / Đăng nhập bằng Email/Mật khẩu hoặc Google Sign-In.
+  - Tạo mã mời phụ huynh ngẫu nhiên định dạng `DK-XXXXX` (hiệu lực 7 ngày).
+  - Làm bài thi trắc nghiệm & tự luận, xem lại kết quả thi, bảng thành tích cá nhân và tiến độ hoàn thiện hồ sơ.
+- **Phụ huynh (`parent`)**:
+  - Đăng ký / Đăng nhập, liên kết tài khoản con qua mã mời `DK-XXXXX`.
+  - Theo dõi tiến độ học tập, điểm thi và lịch sử làm bài của con.
+- **Quản trị viên (`admin`) / Super Admin (`super_admin`)**:
+  - Đăng nhập bảo mật tại `/admin/login`.
+  - **Students Management** (`/admin/students`): Danh sách học sinh với tìm kiếm debounced, bộ lọc lớp/trạng thái, sắp xếp `createdAt DESC`, bulk actions (phê duyệt/đình chỉ/xóa), xuất CSV UTF-8 BOM.
+  - **Parents Management** (`/admin/parents`): Quản lý tài khoản phụ huynh và mối liên kết gia đình.
+  - **User Detail** (`/admin/users/:uid`): Xem chi tiết hồ sơ đa tab: Tổng quan, Hồ sơ, Gia đình, Lịch sử thi, Nhật ký hoạt động, Cấu hình bảo mật.
+  - **Data Health & Reconciliation** (`/admin/data-health`): Quét lỗi toàn vẹn dữ liệu (hồ sơ mồ côi, tài khoản treo), hỗ trợ Dry-run và Tự động sửa chữa an toàn.
+  - **Audit Logs** (`/admin/audit-logs`): Lưu vết mọi hành động quản trị viên có đầy đủ IP, User-Agent và Timestamp.
+  - **Classes Analytics** (`/admin/classes`): Thống kê theo lớp học và xem danh sách học sinh theo khối.
+  - **System Health** (`/admin/system-health`): Giám sát trạng thái hoạt động và độ trễ của Firebase Auth, Firestore và RTDB.
+
+### 2. Bảo mật & Quy tắc Firestore (Security Rules)
+Hệ thống sử dụng quy tắc Firestore phân quyền nhiều lớp (`firestore.rules`):
+- Không lưu mật khẩu dạng plain-text ở Firestore hay Client.
+- Chặn người dùng tự ý thay đổi `role` hoặc `status` của chính mình.
+- Bảo vệ dữ liệu bài nộp (`submissions`), chỉ học sinh sở hữu, phụ huynh liên kết hoặc quản trị viên mới có quyền xem.
+- Xác thực Token ID phía server qua Middleware `requireAuth`, `requireAdmin`, `requireSuperAdmin`.
+

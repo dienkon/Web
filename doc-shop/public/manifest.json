@@ -1,0 +1,24 @@
+{
+  "name": "DkDocShop 2.0 - Nền Tảng Học Tập Số",
+  "short_name": "DkDocShop",
+  "description": "Nền tảng tài liệu học tập, luyện thi trắc nghiệm, flashcard và trợ lý DkAI dành cho học sinh THPT",
+  "start_url": "/#/dashboard",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=192",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=512",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

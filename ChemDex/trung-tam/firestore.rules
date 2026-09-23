@@ -1,42 +1,105 @@
 rules_version = '2';
 
+/**
+ * ChemDex Ecosystem - Unified Firestore Security Rules
+ * Covers ChemDex Visual CMS, Trung Tâm (Community/Feed), and Đấu Trường (Arena/Multiplayer)
+ */
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Posts
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // =========================================================================
+    // 1. CHEMDEX CHEMICAL DATA (Visual CMS & Chemical Elements)
+    // =========================================================================
+    match /chemDexElements/{elementId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // =========================================================================
+    // 2. USERS & PROFILES (Đấu Trường & Trung Tâm)
+    // =========================================================================
+    match /users/{userId} {
+      allow read: if true;
+      allow create, update: if isAuthenticated();
+      allow delete: if false;
+
+      // Subcollection: Lịch sử trận đấu của user
+      match /matches/{matchId} {
+        allow read, create: if isAuthenticated();
+        allow update, delete: if false;
+      }
+    }
+
+    // =========================================================================
+    // 3. TRUNG TÂM / CỘNG ĐỒNG (Posts, Stories, Notifications)
+    // =========================================================================
     match /posts/{postId} {
       allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
 
-      allow create: if request.auth != null
-        && request.resource.data.userId == request.auth.uid;
-
-      allow update, delete: if request.auth != null
-        && resource.data.userId == request.auth.uid;
+      // Bình luận bài viết
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated();
+        allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      }
     }
 
-    // Stories
     match /stories/{storyId} {
       allow read: if true;
-
-      allow create: if request.auth != null
-        && request.resource.data.userId == request.auth.uid;
-
-      allow update, delete: if request.auth != null
-        && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
     }
 
-    // Notifications
     match /notifications/{notificationId} {
-      allow read: if request.auth != null
-        && resource.data.userId == request.auth.uid;
-
-      allow create: if request.auth != null;
-
-      allow update, delete: if request.auth != null
-        && resource.data.userId == request.auth.uid;
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
     }
 
-    // Mặc định chặn mọi collection khác
+    // =========================================================================
+    // 4. ĐẤU TRƯỜNG HÓA HỌC (Rooms, Matches, Global Chat, Questions)
+    // =========================================================================
+    match /rooms/{roomId} {
+      allow read: if true;
+      allow create, update, delete: if isAuthenticated();
+
+      match /messages/{messageId} {
+        allow read: if true;
+        allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+
+    match /global_chat/{msgId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if false;
+    }
+
+    match /matches/{matchId} {
+      allow read, create: if isAuthenticated();
+      allow update, delete: if false;
+    }
+
+    match /questions/{questionId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // =========================================================================
+    // 5. MẶC ĐỊNH CHẶN CÁC TÀI LIỆU KHÔNG KHAI BÁO
+    // =========================================================================
     match /{document=**} {
       allow read, write: if false;
     }

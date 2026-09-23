@@ -1,16 +1,48 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, Mail, Camera, Save, CheckCircle2, ShieldCheck, Loader2, Award, BookOpen, Clock, HeartHandshake, Check, X } from "lucide-react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  User,
+  Mail,
+  Camera,
+  Save,
+  CheckCircle2,
+  ShieldCheck,
+  Loader2,
+  Award,
+  BookOpen,
+  Clock,
+  HeartHandshake,
+  Check,
+  X,
+  Copy,
+  Plus,
+  Sparkles,
+  Trophy,
+} from "lucide-react";
+import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { uploadImageToCloudinary } from "../../services/cloudinary";
 import { saveStudentProfile } from "../../services/studentService";
-import { getPendingRequestsForStudent, respondToParentLinkRequest, type ParentLinkRequest } from "../../services/parentService";
+import {
+  getPendingRequestsForStudent,
+  respondToParentLinkRequest,
+  type ParentLinkRequest,
+} from "../../services/parentService";
+import {
+  createStudentInviteCode,
+  getStudentRelationships,
+  unlinkRelationship,
+} from "../../services/relationshipService";
+import type { ParentStudentRelationship, Submission } from "../../types";
+import { useAuth } from "../../context/AuthContext";
+import EmailVerificationBanner from "../../components/auth/EmailVerificationBanner";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export default function StudentProfile() {
   const { showToast } = useToast();
   const navigate = useNavigate();
+  const { user, userProfile, role, refreshProfile } = useAuth();
+
   const [displayName, setDisplayName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -20,79 +52,177 @@ export default function StudentProfile() {
   const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Incoming parent requests
+  // Parent links
   const [parentRequests, setParentRequests] = useState<ParentLinkRequest[]>([]);
+  const [activeRelationships, setActiveRelationships] = useState<ParentStudentRelationship[]>([]);
+  const [inviteCode, setInviteCode] = useState<string | null>(null);
+  const [generatingCode, setGeneratingCode] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
   const [processingReqId, setProcessingReqId] = useState<string | null>(null);
 
-  // Stats from submission history
+  // Stats & Achievements
   const [examCount, setExamCount] = useState(0);
+  const [hasPerfectScore, setHasPerfectScore] = useState(false);
+  const [averageScore, setAverageScore] = useState(0);
 
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    if (!role) {
-      navigate("/student/login", { replace: true });
-      return;
-    }
-
-    // Load student info
-    const infoStr = localStorage.getItem("student_info");
-    let currentUsername = "";
-    if (infoStr) {
-      try {
-        const info = JSON.parse(infoStr);
-        setDisplayName(info.displayName || info.name || "");
-        setUsername(info.username || "");
-        currentUsername = info.username || info.displayName || "";
-        setEmail(info.email || "");
-        setStudentClass(info.studentClass || info.class || "");
-        setAvatarUrl(info.avatarUrl || "");
-      } catch (e) {
-        console.error("Error loading student_info:", e);
+    // Priority: use AuthContext profile if available, otherwise read localStorage
+    if (userProfile) {
+      setDisplayName(userProfile.displayName || "");
+      setEmail(userProfile.email || "");
+      setStudentClass(userProfile.studentClass || "");
+      setAvatarUrl(userProfile.photoURL || "");
+      setUsername(userProfile.email ? userProfile.email.split("@")[0] : userProfile.uid);
+    } else {
+      const infoStr = localStorage.getItem("student_info");
+      if (infoStr) {
+        try {
+          const info = JSON.parse(infoStr);
+          setDisplayName(info.displayName || info.name || "");
+          setUsername(info.username || "");
+          setEmail(info.email || "");
+          setStudentClass(info.studentClass || info.class || "");
+          setAvatarUrl(info.avatarUrl || "");
+        } catch (e) {}
       }
     }
+
+    const currentUid = user?.uid || localStorage.getItem("auth_role");
+    const currentUsername = username || displayName;
 
     // Load parent requests
     if (currentUsername) {
       getPendingRequestsForStudent(currentUsername).then(setParentRequests);
     }
 
-    // Load submission count history from Firestore
+    if (user?.uid) {
+      getStudentRelationships(user.uid).then(setActiveRelationships);
+    }
+
+    // Load submissions and compute achievements
     const fetchStats = async () => {
-      if (!currentUsername) return;
+      const targetId = user?.uid || currentUsername;
+      if (!targetId) return;
+
       try {
         const q = query(
           collection(db, "submissions"),
-          where("studentId", "==", currentUsername)
+          where("studentId", "==", targetId)
         );
         const snap = await getDocs(q);
-        setExamCount(snap.docs.length);
+        const count = snap.docs.length;
+        setExamCount(count);
+
+        let totalScore = 0;
+        let perfect = false;
+        snap.docs.forEach((d) => {
+          const s = d.data() as Submission;
+          if (typeof s.score === "number") {
+            totalScore += s.score;
+            if (s.score >= (s.maxScore || 10)) perfect = true;
+          }
+        });
+
+        setHasPerfectScore(perfect);
+        setAverageScore(count > 0 ? Number((totalScore / count).toFixed(1)) : 0);
       } catch (err) {
-        console.error("Error fetching stats:", err);
+        console.warn("Error fetching student submissions:", err);
       }
     };
-    
-    fetchStats();
-  }, [navigate]);
 
-  const handleRespondParent = async (reqId: string, accept: boolean) => {
-    setProcessingReqId(reqId);
+    fetchStats();
+  }, [user, userProfile, username, displayName]);
+
+  // Profile completion calculation (0 - 100%)
+  const calculateCompletion = () => {
+    let score = 0;
+    if (avatarUrl) score += 20;
+    if (displayName) score += 25;
+    if (email) score += 25;
+    if (studentClass) score += 15;
+    if (activeRelationships.length > 0 || parentRequests.length > 0) score += 15;
+    return Math.min(100, score);
+  };
+
+  const completionPercent = calculateCompletion();
+
+  const handleGenerateInviteCode = async () => {
+    if (!user) return;
+    setGeneratingCode(true);
     try {
-      const ok = await respondToParentLinkRequest(reqId, accept);
-      if (ok) {
-        setParentRequests((prev) => prev.filter((r) => r.id !== reqId));
-        showToast(
-          accept
-            ? "Đã chấp nhận liên kết với tài khoản Phụ huynh!"
-            : "Đã từ chối yêu cầu liên kết.",
-          accept ? "success" : "info"
-        );
-      } else {
-        showToast("Lỗi xử lý yêu cầu", "error");
-      }
+      const code = await createStudentInviteCode(user.uid, displayName || "Học sinh", email, studentClass);
+      setInviteCode(code);
+      showToast("Đã tạo mã mời liên kết phụ huynh thành công!", "success");
     } catch (err: any) {
-      showToast(err.message || "Lỗi xử lý yêu cầu", "error");
+      showToast(err.message || "Không thể tạo mã mời.", "error");
     } finally {
-      setProcessingReqId(null);
+      setGeneratingCode(false);
+    }
+  };
+
+  const handleCopyCode = () => {
+    if (!inviteCode) return;
+    navigator.clipboard.writeText(inviteCode);
+    setCopiedCode(true);
+    showToast("Đã sao chép mã mời!", "info");
+    setTimeout(() => setCopiedCode(false), 2500);
+  };
+
+  const handleUnlinkParent = async (relId: string) => {
+    try {
+      await unlinkRelationship(relId);
+      setActiveRelationships((prev) => prev.filter((r) => r.id !== relId));
+      showToast("Đã huỷ liên kết phụ huynh thành công!", "info");
+    } catch (err: any) {
+      showToast("Không thể huỷ liên kết.", "error");
+    }
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!displayName.trim()) {
+      showToast("Họ và tên không được để trống", "error");
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      if (user) {
+        await setDoc(
+          doc(db, "users", user.uid),
+          {
+            displayName: displayName.trim(),
+            studentClass: studentClass.trim(),
+            updatedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+      }
+
+      await saveStudentProfile({
+        name: displayName.trim(),
+        email: email.trim(),
+        username: username.trim(),
+        avatarUrl,
+        studentClass: studentClass.trim(),
+      });
+
+      const studentInfo = {
+        name: displayName.trim(),
+        displayName: displayName.trim(),
+        username: username.trim(),
+        email: email.trim(),
+        avatarUrl,
+        studentClass: studentClass.trim(),
+      };
+      localStorage.setItem("student_info", JSON.stringify(studentInfo));
+
+      await refreshProfile();
+      showToast("Đã lưu thông tin hồ sơ thành công!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Lỗi lưu hồ sơ", "error");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -101,88 +231,84 @@ export default function StudentProfile() {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      showToast("Vui lòng chọn tệp hình ảnh hợp lệ!", "error");
+      showToast("Vui lòng chọn tệp hình ảnh hợp lệ", "error");
       return;
     }
 
+    if (file.size > 5 * 1024 * 1024) {
+      showToast("Kích thước ảnh tối đa là 5MB", "error");
+      return;
+    }
+
+    setIsUploadingAvatar(true);
     try {
-      setIsUploadingAvatar(true);
       const uploadedUrl = await uploadImageToCloudinary(file);
       setAvatarUrl(uploadedUrl);
-      showToast("Tải ảnh đại diện thành công!", "success");
-    } catch (err) {
-      console.error("Error uploading avatar:", err);
-      showToast("Lỗi khi tải ảnh đại diện lên hệ thống", "error");
+
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), { photoURL: uploadedUrl }, { merge: true });
+      }
+
+      showToast("Đã tải ảnh đại diện lên thành công!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Lỗi tải ảnh lên", "error");
     } finally {
       setIsUploadingAvatar(false);
     }
   };
 
-  const handleSaveProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!displayName.trim()) {
-      showToast("Vui lòng nhập Họ và tên!", "error");
-      return;
-    }
-
-    setIsSaving(true);
-    try {
-      const updatedInfo = {
-        displayName: displayName.trim(),
-        username: username.trim(),
-        email: email.trim(),
-        studentClass: studentClass.trim(),
-        avatarUrl: avatarUrl.trim(),
-      };
-
-      // Save to localStorage
-      localStorage.setItem("student_info", JSON.stringify(updatedInfo));
-
-      // Save to Firestore
-      await saveStudentProfile({
-        name: displayName.trim(),
-        username: username.trim(),
-        email: email.trim(),
-        avatarUrl: avatarUrl.trim(),
-        studentClass: studentClass.trim(),
-      });
-
-      showToast("Đã lưu thông tin tài khoản thành công!", "success");
-    } catch (err) {
-      console.error("Error saving profile:", err);
-      showToast("Lỗi khi cập nhật hồ sơ!", "error");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   return (
-    <div className="p-4 lg:p-8 max-w-4xl mx-auto space-y-6">
-      {/* Header Banner */}
-      <div className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-          {/* Avatar Area */}
+    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Email verification alert banner */}
+        <EmailVerificationBanner />
+
+        {/* Profile Completion Bar */}
+        <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold text-slate-700 flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>Mức độ hoàn thiện hồ sơ:</span>
+            </span>
+            <span className="font-black text-blue-600 text-sm">{completionPercent}%</span>
+          </div>
+          <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${
+                completionPercent >= 80 ? "bg-emerald-500" : completionPercent >= 50 ? "bg-blue-500" : "bg-amber-500"
+              }`}
+              style={{ width: `${completionPercent}%` }}
+            />
+          </div>
+          <p className="text-[11px] text-slate-400">
+            Điền đầy đủ thông tin lớp, email và liên kết phụ huynh để hoàn thiện 100% hồ sơ học tập.
+          </p>
+        </div>
+
+        {/* Header Profile Card */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-6">
           <div className="relative group shrink-0">
-            <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-white/20 backdrop-blur-md border-2 border-white/40 overflow-hidden shadow-lg flex items-center justify-center text-white">
-              {avatarUrl ? (
-                <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-              ) : (
-                <span className="text-3xl font-extrabold uppercase">
-                  {displayName ? displayName.charAt(0) : "S"}
-                </span>
-              )}
-            </div>
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt="Avatar"
+                className="w-24 h-24 rounded-full object-cover border-4 border-slate-100 shadow-md"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-3xl border-4 border-slate-100 shadow-md">
+                {(displayName || username || "H").charAt(0).toUpperCase()}
+              </div>
+            )}
 
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploadingAvatar}
-              className="absolute -bottom-2 -right-2 p-2.5 bg-white text-blue-600 rounded-xl shadow-lg hover:bg-slate-100 transition-all cursor-pointer group-hover:scale-105"
+              className="absolute bottom-0 right-0 p-2 bg-emerald-600 text-white rounded-full shadow-lg hover:bg-emerald-700 transition-all cursor-pointer disabled:opacity-50"
               title="Đổi ảnh đại diện"
             >
               {isUploadingAvatar ? (
-                <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <Camera className="w-4 h-4" />
               )}
@@ -196,214 +322,218 @@ export default function StudentProfile() {
             />
           </div>
 
-          {/* Name & Role */}
-          <div className="text-center md:text-left space-y-1">
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-              {displayName || "Tài khoản Thí sinh"}
-            </h1>
-            <p className="text-blue-100 text-sm font-medium flex items-center justify-center md:justify-start gap-2">
-              <span>{studentClass ? `Lớp: ${studentClass}` : "Thí sinh tự do"}</span>
-              <span>•</span>
-              <span className="bg-white/20 px-2 py-0.5 rounded-md text-xs font-semibold">Tài khoản Học sinh</span>
+          <div className="flex-1 text-center sm:text-left space-y-1">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+              <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+                {displayName || username || "Học sinh"}
+              </h1>
+              <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-full">
+                Học sinh
+              </span>
+            </div>
+            <p className="text-xs text-slate-400 font-mono">@{username || "hocsinh"}</p>
+            <p className="text-xs text-slate-600 font-medium">
+              {studentClass ? `Lớp: ${studentClass}` : "Chưa cập nhật lớp học"}
             </p>
           </div>
-        </div>
-      </div>
 
-      {/* Quick Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-4">
-          <div className="p-3 bg-blue-50 text-blue-600 rounded-xl shrink-0">
-            <BookOpen className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">{examCount}</div>
-            <div className="text-xs text-slate-500 font-medium">Bài thi đã làm</div>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-4">
-          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl shrink-0">
-            <Award className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">10.0</div>
-            <div className="text-xs text-slate-500 font-medium">Thang điểm tối đa</div>
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-4">
-          <div className="p-3 bg-purple-50 text-purple-600 rounded-xl shrink-0">
-            <ShieldCheck className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-2xl font-black text-slate-900">Sẵn sàng</div>
-            <div className="text-xs text-slate-500 font-medium">Trạng thái phòng thi</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Incoming Parent Connection Requests */}
-      {parentRequests.length > 0 && (
-        <div className="bg-indigo-50/70 border border-indigo-200 rounded-3xl p-6 shadow-2xs space-y-4 animate-in fade-in duration-200">
-          <div className="flex items-center gap-2.5 text-indigo-900">
-            <div className="p-2 bg-indigo-100 text-indigo-700 rounded-xl">
-              <HeartHandshake className="w-5 h-5" />
+          <div className="flex items-center gap-4 text-center">
+            <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 min-w-[90px]">
+              <p className="text-2xl font-black text-emerald-600">{examCount}</p>
+              <p className="text-[10px] font-bold text-slate-500 mt-0.5">Bài thi</p>
             </div>
+            <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 min-w-[90px]">
+              <p className="text-2xl font-black text-blue-600">{averageScore || "—"}</p>
+              <p className="text-[10px] font-bold text-slate-500 mt-0.5">Điểm TB</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Achievements Section (Calculated from Real Data) */}
+        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-3">
+          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <Trophy className="w-4 h-4 text-amber-500" />
+            <span>Thành tích học tập</span>
+          </h3>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
+              examCount >= 1 ? "bg-amber-50/70 border-amber-200 text-amber-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
+            }`}>
+              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center mx-auto">
+                <Award className="w-4 h-4" />
+              </div>
+              <p className="text-xs font-bold">Khởi Đầu Tốt</p>
+              <p className="text-[10px] opacity-80">Hoàn thành bài thi đầu tiên</p>
+            </div>
+
+            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
+              hasPerfectScore ? "bg-emerald-50/70 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
+            }`}>
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-600 flex items-center justify-center mx-auto">
+                <Trophy className="w-4 h-4" />
+              </div>
+              <p className="text-xs font-bold">Điểm Tuyệt Đối</p>
+              <p className="text-[10px] opacity-80">Đạt điểm tối đa một bài thi</p>
+            </div>
+
+            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
+              examCount >= 10 ? "bg-blue-50/70 border-blue-200 text-blue-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
+            }`}>
+              <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-600 flex items-center justify-center mx-auto">
+                <BookOpen className="w-4 h-4" />
+              </div>
+              <p className="text-xs font-bold">Chăm Chỉ</p>
+              <p className="text-[10px] opacity-80">Hoàn thành 10 bài thi</p>
+            </div>
+
+            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
+              averageScore >= 8 ? "bg-purple-50/70 border-purple-200 text-purple-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
+            }`}>
+              <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-600 flex items-center justify-center mx-auto">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <p className="text-xs font-bold">Học Sinh Giỏi</p>
+              <p className="text-[10px] opacity-80">Điểm trung bình từ 8.0</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Parent Link Invitation Section */}
+        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 className="font-black text-sm sm:text-base">Yêu cầu liên kết từ Phụ huynh</h3>
-              <p className="text-xs text-indigo-700 font-medium">
-                Phụ huynh muốn đồng hành và theo dõi kết quả làm bài thi của bạn.
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <HeartHandshake className="w-4 h-4 text-indigo-600" />
+                <span>Liên kết tài khoản Phụ huynh</span>
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Chia sẻ mã mời để bố mẹ có thể theo dõi tiến độ và kết quả làm bài của bạn
               </p>
             </div>
-          </div>
 
-          <div className="space-y-3">
-            {parentRequests.map((req) => (
-              <div
-                key={req.id}
-                className="bg-white border border-indigo-100 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs"
-              >
-                <div className="space-y-0.5">
-                  <div className="text-sm font-extrabold text-slate-900">
-                    Phụ huynh: {req.parentDisplayName}
-                  </div>
-                  <div className="text-xs text-slate-500 font-medium">
-                    Tên đăng nhập: <strong className="text-indigo-600 font-mono">@{req.parentUsername}</strong>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-                  <button
-                    type="button"
-                    disabled={processingReqId === req.id}
-                    onClick={() => handleRespondParent(req.id, false)}
-                    className="px-3.5 py-2 bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-700 rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                    <span>Từ chối</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    disabled={processingReqId === req.id}
-                    onClick={() => handleRespondParent(req.id, true)}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
-                  >
-                    {processingReqId === req.id ? (
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Check className="w-3.5 h-3.5" />
-                    )}
-                    <span>Đồng ý kết nối</span>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Edit Form */}
-      <form onSubmit={handleSaveProfile} className="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 shadow-2xs space-y-6">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <User className="w-5 h-5 text-blue-600" />
-          <span>Thông tin cá nhân & Tài khoản</span>
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Họ và tên <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              required
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              placeholder="Nhập họ và tên thí sinh..."
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
-            <p className="text-[11px] text-slate-400 mt-1">Tên này sẽ tự động lưu khi làm bài thi.</p>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Tên đăng nhập / Mã học sinh
-            </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="VD: hs123456"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Lớp / Trường học
-            </label>
-            <input
-              type="text"
-              value={studentClass}
-              onChange={(e) => setStudentClass(e.target.value)}
-              placeholder="VD: 12A1 - THPT Chuyên"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Địa chỉ Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="nhapemail@domain.com"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-            Đường dẫn ảnh đại diện (URL)
-          </label>
-          <div className="flex items-center gap-3">
-            <input
-              type="text"
-              value={avatarUrl}
-              onChange={(e) => setAvatarUrl(e.target.value)}
-              placeholder="https://..."
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
             <button
               type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl shrink-0 transition-colors cursor-pointer"
+              onClick={handleGenerateInviteCode}
+              disabled={generatingCode}
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
             >
-              Chọn tệp
+              {generatingCode ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+              <span>Tạo mã mời phụ huynh</span>
             </button>
           </div>
+
+          {/* Active Generated Invite Code Display */}
+          {inviteCode && (
+            <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-2xl flex items-center justify-between gap-3 animate-in fade-in">
+              <div>
+                <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider block">
+                  Mã liên kết của bạn (gửi cho phụ huynh):
+                </span>
+                <span className="text-xl font-black font-mono text-indigo-950 tracking-wider">
+                  {inviteCode}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopyCode}
+                className="px-3 py-1.5 bg-white hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedCode ? "Đã chép" : "Sao chép"}</span>
+              </button>
+            </div>
+          )}
+
+          {/* Active Linked Parents List */}
+          {activeRelationships.length > 0 && (
+            <div className="space-y-2 pt-2 border-t border-slate-100">
+              <p className="text-xs font-bold text-slate-700">Phụ huynh đã liên kết:</p>
+              <div className="divide-y divide-slate-100">
+                {activeRelationships.map((rel) => (
+                  <div key={rel.id} className="py-2.5 flex items-center justify-between text-xs">
+                    <div>
+                      <span className="font-bold text-slate-800">{rel.parentName || "Phụ huynh"}</span>
+                      {rel.parentEmail && <span className="text-slate-400 ml-2 font-mono">({rel.parentEmail})</span>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleUnlinkParent(rel.id)}
+                      className="text-red-500 hover:text-red-700 text-[11px] font-bold cursor-pointer"
+                    >
+                      Huỷ liên kết
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-end">
-          <button
-            type="submit"
-            disabled={isSaving}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            {isSaving ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Save className="w-4 h-4" />
-            )}
-            <span>Lưu thay đổi hồ sơ</span>
-          </button>
-        </div>
-      </form>
+        {/* Profile Edit Form */}
+        <form onSubmit={handleSave} className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
+          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Thông tin cá nhân
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Họ và tên</label>
+              <input
+                type="text"
+                required
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="VD: Nguyễn Văn An"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-slate-800"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Tên đăng nhập (Username)</label>
+              <input
+                type="text"
+                disabled
+                value={username}
+                className="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-medium text-slate-500 font-mono"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Địa chỉ Email</label>
+              <input
+                type="email"
+                disabled={!!user}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-slate-100 disabled:text-slate-500 text-slate-800"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Lớp / Trường</label>
+              <input
+                type="text"
+                value={studentClass}
+                onChange={(e) => setStudentClass(e.target.value)}
+                placeholder="VD: 12A1"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-slate-800"
+              />
+            </div>
+          </div>
+
+          <div className="pt-2 flex justify-end">
+            <button
+              type="submit"
+              disabled={isSaving}
+              className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            >
+              {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              <span>Lưu thông tin hồ sơ</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
