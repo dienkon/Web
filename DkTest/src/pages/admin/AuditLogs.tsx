@@ -20,16 +20,20 @@ export default function AuditLogs() {
   const [loading, setLoading] = useState(true);
   const [actionFilter, setActionFilter] = useState("");
   const [actorSearch, setActorSearch] = useState("");
+  const [limit, setLimit] = useState(5);
+  const [hasMore, setHasMore] = useState(true);
 
-  const loadLogs = async () => {
+  const loadLogs = async (currentLimit = limit) => {
     setLoading(true);
     try {
       const res = await fetchAuditLogs({
-        limit: 50,
+        limit: currentLimit,
         action: actionFilter,
         actor: actorSearch,
       });
-      setLogs(res.items || []);
+      const items = res.items || [];
+      setLogs(items);
+      setHasMore(items.length >= currentLimit);
     } catch (err: any) {
       console.error("[AuditLogs] Error:", err);
       showErrorToast(err.message || "Không thể tải nhật ký thao tác.");
@@ -38,9 +42,16 @@ export default function AuditLogs() {
     }
   };
 
+  const handleLoadMore = () => {
+    const nextLimit = limit + 5;
+    setLimit(nextLimit);
+    loadLogs(nextLimit);
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      loadLogs();
+      setLimit(5);
+      loadLogs(5);
     }, 300);
     return () => clearTimeout(timer);
   }, [actionFilter, actorSearch]);
@@ -175,6 +186,18 @@ export default function AuditLogs() {
             </tbody>
           </table>
         </div>
+        {hasMore && logs.length >= limit && (
+          <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-center">
+            <button
+              type="button"
+              onClick={handleLoadMore}
+              disabled={loading}
+              className="px-4 py-2 bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
+            >
+              {loading ? "Đang tải thêm..." : "Tải thêm 5 nhật ký nữa"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from "express";
-import { adminAuth, adminDb, getFirestoreRestDoc, setFirestoreRestDoc, getFirestoreRestDocs } from "../firebaseAdmin";
+import { adminAuth, adminDb, getFirestoreRestDoc, setFirestoreRestDoc, getFirestoreRestDocs } from "../firebaseAdmin.js";
 
 export const authRouter = Router();
 

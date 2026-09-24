@@ -123,40 +123,40 @@ export default function Statistics() {
         let loadedExams: Exam[] = [];
         try {
           const t0 = performance.now();
-          const exSnap = await getDocs(query(collection(db, "exams"), orderBy("createdAt", "desc"), limit(25)));
-          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams", 25, performance.now() - t0);
+          const exSnap = await getDocs(query(collection(db, "exams"), orderBy("createdAt", "desc"), limit(5)));
+          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams", 5, performance.now() - t0);
           loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         } catch {
           const t0 = performance.now();
-          const exSnap = await getDocs(query(collection(db, "exams"), limit(25)));
-          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams fallback", 25, performance.now() - t0);
+          const exSnap = await getDocs(query(collection(db, "exams"), limit(5)));
+          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams fallback", 5, performance.now() - t0);
           loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         }
 
         let loadedSubs: Submission[] = [];
         try {
           const t0 = performance.now();
-          const subSnap = await getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(25)));
-          logQueryRead("submissions", subSnap.size, "Statistics loadInitialOverview submissions", 25, performance.now() - t0);
+          const subSnap = await getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5)));
+          logQueryRead("submissions", subSnap.size, "Statistics loadInitialOverview submissions", 5, performance.now() - t0);
           loadedSubs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
         } catch {
           const t0 = performance.now();
-          const subSnap = await getDocs(query(collection(db, "submissions"), limit(25)));
-          logQueryRead("submissions", subSnap.size, "Statistics loadInitialOverview submissions fallback", 25, performance.now() - t0);
+          const subSnap = await getDocs(query(collection(db, "submissions"), limit(5)));
+          logQueryRead("submissions", subSnap.size, "Statistics loadInitialOverview submissions fallback", 5, performance.now() - t0);
           loadedSubs = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
         }
 
         let loadedStus: Student[] = [];
         try {
           const t0 = performance.now();
-          const stuSnap = await getDocs(query(collection(db, "users"), where("role", "==", "student"), limit(20)));
-          logQueryRead("users", stuSnap.size, "Statistics loadInitialOverview students", 20, performance.now() - t0);
+          const stuSnap = await getDocs(query(collection(db, "users"), where("role", "==", "student"), limit(5)));
+          logQueryRead("users", stuSnap.size, "Statistics loadInitialOverview students", 5, performance.now() - t0);
           loadedStus = stuSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
         } catch {
           try {
             const t0 = performance.now();
-            const stuSnap = await getDocs(query(collection(db, "students"), limit(20)));
-            logQueryRead("students", stuSnap.size, "Statistics loadInitialOverview students fallback", 20, performance.now() - t0);
+            const stuSnap = await getDocs(query(collection(db, "students"), limit(5)));
+            logQueryRead("students", stuSnap.size, "Statistics loadInitialOverview students fallback", 5, performance.now() - t0);
             loadedStus = stuSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Student));
           } catch {}
         }
@@ -200,13 +200,13 @@ export default function Statistics() {
           setTabLoading(true);
           try {
             const t0 = performance.now();
-            // Tối ưu: Chỉ lấy 15 bài thi & 25 bài nộp gần nhất
+            // Tối ưu: Chỉ lấy 5 bài thi & 5 bài nộp gần nhất
             const [exSnap, subSnap] = await Promise.all([
-              getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(15))),
-              getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(25))),
+              getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(5))),
+              getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5))),
             ]);
-            logQueryRead("exams", exSnap.size, "Statistics tab exams", 15, performance.now() - t0);
-            logQueryRead("submissions", subSnap.size, "Statistics tab submissions", 25, performance.now() - t0);
+            logQueryRead("exams", exSnap.size, "Statistics tab exams", 5, performance.now() - t0);
+            logQueryRead("submissions", subSnap.size, "Statistics tab submissions", 5, performance.now() - t0);
             const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
             
@@ -238,9 +238,9 @@ export default function Statistics() {
           try {
             const t0 = performance.now();
             const subSnap = await getDocs(
-              query(collection(db, "submissions"), orderBy("score", "desc"), limit(25))
+              query(collection(db, "submissions"), orderBy("score", "desc"), limit(5))
             );
-            logQueryRead("submissions", subSnap.size, "Statistics tab top students", 25, performance.now() - t0);
+            logQueryRead("submissions", subSnap.size, "Statistics tab top students", 5, performance.now() - t0);
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
             
             STATS_CACHE.studentsTab = {
@@ -269,9 +269,9 @@ export default function Statistics() {
           try {
             const t0 = performance.now();
             const subSnap = await getDocs(
-              query(collection(db, "submissions"), where("cheatViolations", ">", 0), limit(25))
+              query(collection(db, "submissions"), where("cheatViolations", ">", 0), limit(5))
             );
-            logQueryRead("submissions", subSnap.size, "Statistics tab cheat violations", 25, performance.now() - t0);
+            logQueryRead("submissions", subSnap.size, "Statistics tab cheat violations", 5, performance.now() - t0);
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
 
             STATS_CACHE.cheatTab = {
@@ -328,10 +328,10 @@ export default function Statistics() {
                 collection(db, "submissions"),
                 where("examId", "==", selectedExamId),
                 orderBy("submittedAt", "desc"),
-                limit(50)
+                limit(5)
               )
             );
-            logQueryRead("submissions", subSnap.size, `Statistics exam ${selectedExamId} submissions`, 50, performance.now() - t0);
+            logQueryRead("submissions", subSnap.size, `Statistics exam ${selectedExamId} submissions`, 5, performance.now() - t0);
             subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
           } catch {
             const t0 = performance.now();
@@ -339,10 +339,10 @@ export default function Statistics() {
               query(
                 collection(db, "submissions"),
                 where("examId", "==", selectedExamId),
-                limit(50)
+                limit(5)
               )
             );
-            logQueryRead("submissions", subSnap.size, `Statistics exam ${selectedExamId} submissions fallback`, 50, performance.now() - t0);
+            logQueryRead("submissions", subSnap.size, `Statistics exam ${selectedExamId} submissions fallback`, 5, performance.now() - t0);
             subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
             const getTime = (val: any) => {
               if (!val) return 0;

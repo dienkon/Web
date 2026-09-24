@@ -11,7 +11,7 @@ import {
   Loader2,
   ChevronRight,
 } from "lucide-react";
-import { fetchAdminUsers } from "../../services/adminService";
+import { fetchAdminUsers, fetchAdminStats } from "../../services/adminService";
 import type { UserProfile } from "../../types";
 import { useToast } from "../../components/ui/ToastNotification";
 
@@ -29,29 +29,47 @@ export default function Classes() {
   const [search, setSearch] = useState("");
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
   const [classStudents, setClassStudents] = useState<UserProfile[]>([]);
+  const [classStudentLimit, setClassStudentLimit] = useState(5);
+  const [loadingStudents, setLoadingStudents] = useState(false);
+  const [hasMoreStudents, setHasMoreStudents] = useState(true);
 
   useEffect(() => {
     const loadClassData = async () => {
       setLoading(true);
       try {
-        const data = await fetchAdminUsers({ limit: 500, role: "student" });
-        const items = (data.items || []) as UserProfile[];
+        // Step 1: Read pre-aggregated overview (1 single doc read)
+        const stats = await fetchAdminStats();
+        const dist = stats.studentStats?.classDistribution || {};
 
         const map: Record<string, ClassStat> = {};
-        items.forEach((s) => {
-          const cName = s.studentClass?.trim() || "Chưa phân lớp";
-          if (!map[cName]) {
-            map[cName] = {
-              className: cName,
-              totalStudents: 0,
-              activeStudents: 0,
-              pendingStudents: 0,
-            };
-          }
-          map[cName].totalStudents++;
-          if (s.accountStatus === "active") map[cName].activeStudents++;
-          if (s.accountStatus === "pending") map[cName].pendingStudents++;
+        Object.entries(dist).forEach(([cName, count]) => {
+          map[cName] = {
+            className: cName,
+            totalStudents: Number(count) || 0,
+            activeStudents: Number(count) || 0,
+            pendingStudents: 0,
+          };
         });
+
+        // Fallback: If no classDistribution exists yet in system_stats
+        if (Object.keys(map).length === 0) {
+          const data = await fetchAdminUsers({ limit: 50, role: "student" });
+          const items = (data.items || []) as UserProfile[];
+          items.forEach((s) => {
+            const cName = s.studentClass?.trim() || "Chưa phân lớp";
+            if (!map[cName]) {
+              map[cName] = {
+                className: cName,
+                totalStudents: 0,
+                activeStudents: 0,
+                pendingStudents: 0,
+              };
+            }
+            map[cName].totalStudents++;
+            if (s.accountStatus === "active") map[cName].activeStudents++;
+            if (s.accountStatus === "pending") map[cName].pendingStudents++;
+          });
+        }
 
         setClassMap(map);
       } catch (err: any) {
@@ -64,16 +82,30 @@ export default function Classes() {
     loadClassData();
   }, []);
 
-  const handleSelectClass = async (cName: string) => {
+  const handleSelectClass = async (cName: string, customLimit = 5) => {
     setSelectedClass(cName);
+    setClassStudentLimit(customLimit);
+    setLoadingStudents(true);
     try {
       const data = await fetchAdminUsers({
-        limit: 100,
+        limit: customLimit,
         role: "student",
         class: cName === "Chưa phân lớp" ? "" : cName,
       });
-      setClassStudents(data.items || []);
-    } catch (e) {}
+      const items = data.items || [];
+      setClassStudents(items);
+      setHasMoreStudents(items.length >= customLimit);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoadingStudents(false);
+    }
+  };
+
+  const handleLoadMoreStudents = () => {
+    if (!selectedClass) return;
+    const nextLimit = classStudentLimit + 5;
+    handleSelectClass(selectedClass, nextLimit);
   };
 
   const classesList = Object.values(classMap).filter((c) =>
@@ -191,6 +223,19 @@ export default function Classes() {
               </div>
             ))}
           </div>
+
+          {hasMoreStudents && classStudents.length >= classStudentLimit && (
+            <div className="pt-2 text-center">
+              <button
+                type="button"
+                onClick={handleLoadMoreStudents}
+                disabled={loadingStudents}
+                className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-indigo-200 disabled:opacity-50"
+              >
+                {loadingStudents ? "Đang tải thêm..." : "Tải thêm 5 học sinh"}
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

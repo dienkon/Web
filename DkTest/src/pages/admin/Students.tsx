@@ -45,7 +45,7 @@ export default function Students() {
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(5);
 
   // Search & Filter & Sort state
   const [search, setSearch] = useState("");

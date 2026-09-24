@@ -7,10 +7,16 @@ import {
   getFirestoreRestDoc,
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
-} from "../firebaseAdmin";
-import { requireAdmin, requireSuperAdmin, type AuthenticatedRequest } from "../middleware/auth";
+} from "../firebaseAdmin.js";
+import { requireAdmin, requireSuperAdmin, type AuthenticatedRequest } from "../middleware/auth.js";
 
 export const adminRouter = Router();
+
+// In-memory cache for user list to drastically reduce Firestore reads (60s TTL, invalidated on write)
+const userListCache = new Map<string, { data: any[]; timestamp: number }>();
+export function invalidateUserListCache() {
+  userListCache.clear();
+}
 
 // Apply requireAdmin to all admin routes
 adminRouter.use(requireAdmin);
@@ -374,7 +380,7 @@ adminRouter.get("/analytics", async (req: AuthenticatedRequest, res: Response) =
 adminRouter.get("/users", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const page = Math.max(1, parseInt(req.query.page as string) || 1);
-    const limit = Math.min(100, Math.max(5, parseInt(req.query.limit as string) || 20));
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 5));
     const search = ((req.query.search as string) || "").trim().toLowerCase();
     const roleFilter = (req.query.role as string) || "";
     const statusFilter = (req.query.status as string) || "";
@@ -384,28 +390,36 @@ adminRouter.get("/users", async (req: AuthenticatedRequest, res: Response) => {
     const sortField = (req.query.sort as string) || "createdAt";
     const sortOrder = (req.query.order as string) === "asc" ? "asc" : "desc";
 
+    const cacheKey = `${roleFilter}__${statusFilter}`;
+    const cached = userListCache.get(cacheKey);
     let users: any[] = [];
-    if (adminDb) {
-      let query: Query = adminDb.collection("users");
-      if (roleFilter) {
-        query = query.where("role", "==", roleFilter);
-      }
-      if (statusFilter) {
-        query = query.where("accountStatus", "==", statusFilter);
-      }
-      const snapshot = await query.get();
-      users = snapshot.docs.map((doc) => ({
-        uid: doc.id,
-        ...doc.data(),
-      }));
+
+    if (cached && Date.now() - cached.timestamp < 60000) {
+      users = [...cached.data];
     } else {
-      users = await getFirestoreRestDocs("users");
-      if (roleFilter) {
-        users = users.filter((u) => u.role === roleFilter);
+      if (adminDb) {
+        let query: Query = adminDb.collection("users");
+        if (roleFilter) {
+          query = query.where("role", "==", roleFilter);
+        }
+        if (statusFilter) {
+          query = query.where("accountStatus", "==", statusFilter);
+        }
+        const snapshot = await query.get();
+        users = snapshot.docs.map((doc) => ({
+          uid: doc.id,
+          ...doc.data(),
+        }));
+      } else {
+        users = await getFirestoreRestDocs("users");
+        if (roleFilter) {
+          users = users.filter((u) => u.role === roleFilter);
+        }
+        if (statusFilter) {
+          users = users.filter((u) => (u.accountStatus || "active") === statusFilter);
+        }
       }
-      if (statusFilter) {
-        users = users.filter((u) => (u.accountStatus || "active") === statusFilter);
-      }
+      userListCache.set(cacheKey, { data: users, timestamp: Date.now() });
     }
 
     // In-memory filtering for compound / optional criteria
@@ -480,6 +494,9 @@ adminRouter.get("/users", async (req: AuthenticatedRequest, res: Response) => {
 adminRouter.get("/users/:uid", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { uid } = req.params;
+    const subLimit = Math.min(50, Math.max(1, parseInt(req.query.subLimit as string) || 5));
+    const logLimit = Math.min(50, Math.max(1, parseInt(req.query.logLimit as string) || 5));
+
     let userData: any = null;
     let studentProfile: any = null;
     let parentProfile: any = null;
@@ -510,14 +527,14 @@ adminRouter.get("/users/:uid", async (req: AuthenticatedRequest, res: Response) 
         .collection("submissions")
         .where("studentId", "==", uid)
         .orderBy("submittedAt", "desc")
-        .limit(20)
+        .limit(subLimit)
         .get()
         .catch(async () => {
-          return await adminDb!.collection("submissions").where("studentId", "==", uid).limit(20).get();
+          return await adminDb!.collection("submissions").where("studentId", "==", uid).limit(subLimit).get();
         });
       subSnap.forEach((d) => submissions.push({ id: d.id, ...d.data() }));
 
-      const logSnap = await adminDb.collection("auditLogs").where("targetUid", "==", uid).limit(20).get();
+      const logSnap = await adminDb.collection("auditLogs").where("targetUid", "==", uid).limit(logLimit).get();
       logSnap.forEach((d) => auditLogs.push({ id: d.id, ...d.data() }));
     } else {
       userData = await getFirestoreRestDoc("users", uid);
@@ -530,11 +547,11 @@ adminRouter.get("/users/:uid", async (req: AuthenticatedRequest, res: Response) 
       const allRels = await getFirestoreRestDocs("relationships");
       relationships = allRels.filter((r) => r.studentUid === uid || r.parentUid === uid);
 
-      const allSubs = await getFirestoreRestDocs("submissions", 200);
-      submissions = allSubs.filter((s) => s.studentId === uid).slice(0, 20);
+      const allSubs = await getFirestoreRestDocs("submissions", subLimit * 5);
+      submissions = allSubs.filter((s) => s.studentId === uid).slice(0, subLimit);
 
-      const allLogs = await getFirestoreRestDocs("auditLogs", 200);
-      auditLogs = allLogs.filter((l) => l.targetUid === uid).slice(0, 20);
+      const allLogs = await getFirestoreRestDocs("auditLogs", logLimit * 5);
+      auditLogs = allLogs.filter((l) => l.targetUid === uid).slice(0, logLimit);
     }
 
     return res.json({
@@ -592,6 +609,7 @@ adminRouter.patch("/users/:uid", async (req: AuthenticatedRequest, res: Response
       }
     }
 
+    invalidateUserListCache();
     await recordAuditLog(req.user, "PROFILE_UPDATED", uid, "user", updates, req);
     return res.json({ success: true, message: "Đã cập nhật thông tin người dùng thành công." });
   } catch (err: any) {
@@ -627,6 +645,7 @@ adminRouter.post("/users/:uid/approve", async (req: AuthenticatedRequest, res: R
       } catch (e) {}
     }
 
+    invalidateUserListCache();
     await recordAuditLog(req.user, "USER_APPROVED", uid, "user", { approvedBy: req.user?.uid }, req);
     return res.json({ success: true, message: "Đã phê duyệt tài khoản thành công." });
   } catch (err: any) {
@@ -658,6 +677,7 @@ adminRouter.post("/users/:uid/suspend", async (req: AuthenticatedRequest, res: R
       } catch (e) {}
     }
 
+    invalidateUserListCache();
     await recordAuditLog(req.user, "USER_SUSPENDED", uid, "user", { reason }, req);
     return res.json({ success: true, message: "Đã tạm khoá tài khoản thành công." });
   } catch (err: any) {
@@ -687,6 +707,7 @@ adminRouter.post("/users/:uid/reactivate", async (req: AuthenticatedRequest, res
       } catch (e) {}
     }
 
+    invalidateUserListCache();
     await recordAuditLog(req.user, "USER_REACTIVATED", uid, "user", {}, req);
     return res.json({ success: true, message: "Đã kích hoạt lại tài khoản thành công." });
   } catch (err: any) {
@@ -731,6 +752,7 @@ adminRouter.delete("/users/:uid", async (req: AuthenticatedRequest, res: Respons
       } catch (e) {}
     }
 
+    invalidateUserListCache();
     await recordAuditLog(req.user, "USER_DELETED", uid, "user", {}, req);
     return res.json({ success: true, message: "Đã xoá tài khoản thành công." });
   } catch (err: any) {
@@ -795,6 +817,7 @@ adminRouter.post("/users/bulk", async (req: AuthenticatedRequest, res: Response)
       }
     }
 
+    invalidateUserListCache();
     await recordAuditLog(req.user, "BULK_OPERATION", undefined, "system", { action, count: affectedCount, uids }, req);
 
     return res.json({
@@ -1148,7 +1171,7 @@ adminRouter.post("/data-health/repair", async (req: AuthenticatedRequest, res: R
 // -------------------------------------------------------------
 adminRouter.get("/audit-logs", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const limit = Math.min(100, Math.max(10, parseInt(req.query.limit as string) || 30));
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 5));
     const actionFilter = (req.query.action as string) || "";
     const actorFilter = (req.query.actor as string) || "";
 
@@ -1166,7 +1189,7 @@ adminRouter.get("/audit-logs", async (req: AuthenticatedRequest, res: Response) 
       });
       logs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } else {
-      logs = await getFirestoreRestDocs("auditLogs", 100);
+      logs = await getFirestoreRestDocs("auditLogs", limit * 5);
       if (actionFilter) {
         logs = logs.filter((l) => l.action === actionFilter);
       }

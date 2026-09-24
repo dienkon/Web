@@ -36,7 +36,7 @@ export default function Parents() {
     try {
       const data = await fetchAdminUsers({
         page,
-        limit: 20,
+        limit: 5,
         search,
         role: "parent",
         sort: "createdAt",

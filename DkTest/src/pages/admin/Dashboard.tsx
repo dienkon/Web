@@ -97,18 +97,18 @@ export default function Dashboard() {
         setDataHealthIssuesCount(healthRes.issues?.length || 0);
       } catch (e) {}
 
-      // 4. Fetch recent exams (capped at limit 6)
+      // 4. Fetch recent exams (capped at limit 5)
       try {
         const t0 = performance.now();
         const examSnap = await getDocs(
-          query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(6))
+          query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(5))
         );
-        logQueryRead("exams", examSnap.size, "Dashboard recent exams", 6, performance.now() - t0);
+        logQueryRead("exams", examSnap.size, "Dashboard recent exams", 5, performance.now() - t0);
         setExams(examSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
       } catch (e) {
         const t0 = performance.now();
-        const fallbackSnap = await getDocs(query(collection(db, "exams"), limit(6)));
-        logQueryRead("exams", fallbackSnap.size, "Dashboard recent exams fallback", 6, performance.now() - t0);
+        const fallbackSnap = await getDocs(query(collection(db, "exams"), limit(5)));
+        logQueryRead("exams", fallbackSnap.size, "Dashboard recent exams fallback", 5, performance.now() - t0);
         setExams(fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
       }
 
@@ -117,9 +117,9 @@ export default function Dashboard() {
         try {
           const t0 = performance.now();
           const subSnap = await getDocs(
-            query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(6))
+            query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5))
           );
-          logQueryRead("submissions", subSnap.size, "Dashboard fallback recent submissions", 6, performance.now() - t0);
+          logQueryRead("submissions", subSnap.size, "Dashboard fallback recent submissions", 5, performance.now() - t0);
           setRecentSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
         } catch (e) {}
       }

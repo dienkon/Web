@@ -207,6 +207,7 @@ const router = createBrowserRouter([
     element: <StudentLayout />,
     children: [
       { path: "", element: <Home /> },
+      { path: "exams", element: <Home /> },
       { path: "student", element: <Navigate to="/student/history" replace /> },
       { path: "student/practice", element: <PracticePage /> },
       { path: "student/practice/:modeId", element: <PracticeSessionPage /> },

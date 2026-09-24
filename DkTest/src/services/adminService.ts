@@ -36,8 +36,12 @@ export async function fetchAdminUsers(params: {
   return await api.get(`/api/admin/users?${query.toString()}`);
 }
 
-export async function fetchAdminUserDetail(uid: string) {
-  return await api.get(`/api/admin/users/${encodeURIComponent(uid)}`);
+export async function fetchAdminUserDetail(uid: string, subLimit?: number, logLimit?: number) {
+  const query = new URLSearchParams();
+  if (subLimit) query.set("subLimit", String(subLimit));
+  if (logLimit) query.set("logLimit", String(logLimit));
+  const qs = query.toString() ? `?${query.toString()}` : "";
+  return await api.get(`/api/admin/users/${encodeURIComponent(uid)}${qs}`);
 }
 
 export async function updateAdminUser(uid: string, updates: Partial<UserProfile>) {

@@ -5,11 +5,11 @@ import path from "path";
 import multer from "multer";
 import { createServer as createViteServer } from "vite";
 import fs from "fs";
-import { aiRouter } from "./src/services/ai/aiRouter";
-import { renderExamPageHtml } from "./src/services/server/examMetadata";
-import { adminRouter } from "./server/routes/adminRoutes";
-import { authRouter } from "./server/routes/authRoutes";
-import { initFirebaseAdmin } from "./server/firebaseAdmin";
+import { aiRouter } from "./src/services/ai/aiRouter.js";
+import { renderExamPageHtml } from "./src/services/server/examMetadata.js";
+import { adminRouter } from "./server/routes/adminRoutes.js";
+import { authRouter } from "./server/routes/authRoutes.js";
+import { initFirebaseAdmin } from "./server/firebaseAdmin.js";
 
 async function startServer() {
   const app = express();

@@ -33,38 +33,48 @@ export default function Submissions() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"time" | "score" | "name">("time");
   const [loading, setLoading] = useState(true);
-  const [displayLimit, setDisplayLimit] = useState(5);
+  const [fetchLimit, setFetchLimit] = useState(5);
+  const [hasMore, setHasMore] = useState(true);
 
   const [isRegrading, setIsRegrading] = useState(false);
   const [regradeProgress, setRegradeProgress] = useState<{ current: number; total: number } | null>(null);
 
-  const fetchData = async () => {
+  const fetchData = async (currentLimit = fetchLimit) => {
     setLoading(true);
     try {
-      // Fetch exams for filter dropdown (limit to top 50)
-      const exSnap = await getDocs(query(collection(db, "exams"), limit(50)));
-      const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-      setExams(exList);
+      // Fetch exams for filter dropdown (limit to 5)
+      if (exams.length === 0) {
+        const exSnap = await getDocs(query(collection(db, "exams"), limit(5)));
+        const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+        setExams(exList);
+      }
 
-      // Fetch submissions (limit to top 50)
-      let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(50));
+      // Fetch submissions (limit to currentLimit, default 5)
+      let subQuery = query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(currentLimit));
       if (selectedExamId !== "all") {
         subQuery = query(
           collection(db, "submissions"),
           where("examId", "==", selectedExamId),
           orderBy("submittedAt", "desc"),
-          limit(50)
+          limit(currentLimit)
         );
       }
 
       const subSnap = await getDocs(subQuery);
       const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       setSubmissions(subList);
+      setHasMore(subList.length >= currentLimit);
     } catch (err) {
       console.error("Lỗi khi tải danh sách bài nộp:", err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLoadMore = () => {
+    const nextLimit = fetchLimit + 5;
+    setFetchLimit(nextLimit);
+    fetchData(nextLimit);
   };
 
   useEffect(() => {
@@ -261,7 +271,7 @@ export default function Submissions() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm">
-                {filteredSubmissions.slice(0, displayLimit).map((sub) => (
+                {filteredSubmissions.map((sub) => (
                   <tr key={sub.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="px-6 py-4 font-bold text-slate-900">
                       {sub.studentNameSnapshot || "Học sinh"}
@@ -307,13 +317,15 @@ export default function Submissions() {
             </table>
           </div>
         )}
-        {filteredSubmissions.length > displayLimit && (
+        {hasMore && (
           <div className="h-14 px-6 border-t border-slate-100 bg-slate-50 flex items-center justify-center shrink-0">
             <button
-              onClick={() => setDisplayLimit((prev) => prev + 5)}
-              className="px-4 py-1.5 bg-white border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer"
+              type="button"
+              onClick={handleLoadMore}
+              disabled={loading}
+              className="px-4 py-1.5 bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
             >
-              Xem thêm
+              {loading ? "Đang tải thêm..." : "Tải thêm 5 bài nộp"}
             </button>
           </div>
         )}

@@ -191,7 +191,7 @@ export default function ExamList() {
     try {
       if (viewFolderMode === "all") {
         const res = await getExamList({
-          pageSize: 20,
+          pageSize: 5,
           ownerId: isParentMode ? userId : null,
         });
         folderCacheRef.current.set("__all__", {
@@ -209,7 +209,7 @@ export default function ExamList() {
 
         // 2. Lazy load exams inside folderId
         const examRes = await getExamList({
-          pageSize: 20,
+          pageSize: 5,
           folderId: folderId,
           ownerId: isParentMode ? userId : null,
         });
@@ -260,7 +260,7 @@ export default function ExamList() {
     try {
       setLoading(true);
       const res = await getExamList({
-        pageSize: 20,
+        pageSize: 5,
         cursor,
         folderId: viewFolderMode === "all" ? undefined : currentFolderId,
         ownerId: isParentMode ? userId : null,

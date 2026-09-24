@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { adminAuth, adminDb, getFirestoreRestDoc } from "../firebaseAdmin";
+import { adminAuth, adminDb, getFirestoreRestDoc } from "../firebaseAdmin.js";
 
 export interface AuthenticatedUser {
   uid: string;
