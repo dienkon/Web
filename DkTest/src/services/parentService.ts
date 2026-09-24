@@ -170,7 +170,6 @@ export async function getPendingRequestsForStudent(childUsername: string): Promi
       where("status", "==", "pending")
     );
     const snap = await getDocs(q);
-    console.warn(`[Firestore] READ_MANY (${snap.size} docs): parent_link_requests (student pending requests)`);
     return snap.docs.map((d) => ({ id: d.id, ...d.data() } as ParentLinkRequest));
   } catch (err) {
     console.error("Error fetching pending requests for student:", err);

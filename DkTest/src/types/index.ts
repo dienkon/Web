@@ -373,6 +373,8 @@ export interface UserProfile {
   studentClass?: string;
   phone?: string;
   contactEmail?: string;
+  pendingEmail?: string | null;
+  pendingEmailRequestedAt?: string;
 }
 
 export interface StudentProfile {

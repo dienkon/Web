@@ -499,11 +499,8 @@ authRouter.post("/login-with-username", async (req, res) => {
         }
       }
     }
-    if (!targetEmail || !targetUid) {
-      return res.status(401).json({
-        error: "invalid_credential",
-        message: "T\xEAn \u0111\u0103ng nh\u1EADp ho\u1EB7c m\u1EADt kh\u1EA9u kh\xF4ng ch\xEDnh x\xE1c."
-      });
+    if (!targetEmail) {
+      targetEmail = `${usernameNormalized}@dktest.local`;
     }
     const apiKey = process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
     const verifyRes = await fetch(
@@ -526,6 +523,9 @@ authRouter.post("/login-with-username", async (req, res) => {
         error: "invalid_credential",
         message: "T\xEAn \u0111\u0103ng nh\u1EADp ho\u1EB7c m\u1EADt kh\u1EA9u kh\xF4ng ch\xEDnh x\xE1c."
       });
+    }
+    if (!targetUid && verifyData.localId) {
+      targetUid = verifyData.localId;
     }
     let customToken = "";
     if (adminAuth) {

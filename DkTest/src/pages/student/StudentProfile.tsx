@@ -18,6 +18,10 @@ import {
   Plus,
   Sparkles,
   Trophy,
+  KeyRound,
+  Send,
+  AlertCircle,
+  RefreshCw,
 } from "lucide-react";
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
@@ -34,7 +38,13 @@ import {
   unlinkRelationship,
 } from "../../services/relationshipService";
 import type { ParentStudentRelationship, Submission } from "../../types";
-import { updateProfile as updateFirebaseProfile } from "firebase/auth";
+import {
+  updateProfile as updateFirebaseProfile,
+  verifyBeforeUpdateEmail,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  reload,
+} from "firebase/auth";
 import { setStoredItem, STORAGE_KEYS } from "../../utils/storage";
 import { useAuth } from "../../context/AuthContext";
 import EmailVerificationBanner from "../../components/auth/EmailVerificationBanner";
@@ -54,6 +64,15 @@ export default function StudentProfile() {
   const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Email Change & Linking States
+  const [isChangingEmail, setIsChangingEmail] = useState(false);
+  const [newEmailInput, setNewEmailInput] = useState("");
+  const [currentPasswordInput, setCurrentPasswordInput] = useState("");
+  const [emailModalError, setEmailModalError] = useState("");
+  const [emailActionLoading, setEmailActionLoading] = useState(false);
+  const [pendingVerificationEmail, setPendingVerificationEmail] = useState<string | null>(null);
+  const [isCheckingVerification, setIsCheckingVerification] = useState(false);
+
   // Parent links
   const [parentRequests, setParentRequests] = useState<ParentLinkRequest[]>([]);
   const [activeRelationships, setActiveRelationships] = useState<ParentStudentRelationship[]>([]);
@@ -67,16 +86,25 @@ export default function StudentProfile() {
   const [hasPerfectScore, setHasPerfectScore] = useState(false);
   const [averageScore, setAverageScore] = useState(0);
 
+  // 1. Initial form synchronization (runs strictly when userProfile or user changes, NOT on local keystrokes)
   useEffect(() => {
-    // Priority: use AuthContext profile if available, otherwise read localStorage
     if (userProfile) {
       setDisplayName(userProfile.displayName || "");
-      setUsername(userProfile.username || userProfile.usernameNormalized || (userProfile.email ? userProfile.email.split("@")[0] : userProfile.uid));
-      // For username-based accounts (@dktest.local), show contactEmail if saved, otherwise empty so user can add a real one
-      const isUsernameAccount = userProfile.email?.endsWith("@dktest.local") || userProfile.authProvider === "username";
-      setEmail(userProfile.contactEmail || (isUsernameAccount ? "" : (userProfile.email || "")));
+      setUsername(
+        userProfile.username ||
+          userProfile.usernameNormalized ||
+          (userProfile.email && !userProfile.email.endsWith("@dktest.local")
+            ? userProfile.email.split("@")[0]
+            : userProfile.uid)
+      );
+      const isUserAccount =
+        userProfile.email?.endsWith("@dktest.local") || userProfile.authProvider === "username";
+      setEmail(userProfile.contactEmail || (isUserAccount ? "" : userProfile.email || ""));
       setStudentClass(userProfile.studentClass || "");
       setAvatarUrl(userProfile.photoURL || "");
+      if (userProfile.pendingEmail) {
+        setPendingVerificationEmail(userProfile.pendingEmail);
+      }
     } else {
       const infoStr = localStorage.getItem("student_info");
       if (infoStr) {
@@ -84,7 +112,6 @@ export default function StudentProfile() {
           const info = JSON.parse(infoStr);
           setDisplayName(info.displayName || info.name || "");
           setUsername(info.username || "");
-          // For username-based accounts, don't show the internal @dktest.local email
           const storedEmail = info.contactEmail || info.email || "";
           setEmail(storedEmail.endsWith("@dktest.local") ? "" : storedEmail);
           setStudentClass(info.studentClass || info.class || "");
@@ -92,24 +119,31 @@ export default function StudentProfile() {
         } catch (e) {}
       }
     }
+  }, [userProfile?.uid, user?.uid]);
 
-    const currentUid = user?.uid || localStorage.getItem("auth_role");
-    const currentUsername = username || displayName;
+  // 2. Load parent requests & relationships (strictly decoupled from displayName input changes)
+  const normalizedUsername = (
+    userProfile?.username ||
+    userProfile?.usernameNormalized ||
+    username ||
+    ""
+  ).trim().toLowerCase();
 
-    // Load parent requests
-    if (currentUsername) {
-      getPendingRequestsForStudent(currentUsername).then(setParentRequests);
+  useEffect(() => {
+    if (normalizedUsername) {
+      getPendingRequestsForStudent(normalizedUsername).then(setParentRequests);
     }
-
     if (user?.uid) {
       getStudentRelationships(user.uid).then(setActiveRelationships);
     }
+  }, [user?.uid, normalizedUsername]);
 
-    // Load submissions and compute achievements
+  // 3. Load submissions and compute achievements (strictly decoupled from form inputs)
+  useEffect(() => {
+    const targetId = user?.uid;
+    if (!targetId) return;
+
     const fetchStats = async () => {
-      const targetId = user?.uid || currentUsername;
-      if (!targetId) return;
-
       try {
         const q = query(
           collection(db, "submissions"),
@@ -137,7 +171,166 @@ export default function StudentProfile() {
     };
 
     fetchStats();
-  }, [user, userProfile, username, displayName]);
+  }, [user?.uid]);
+
+  // 4. Auto check if pending email verification was completed upon page load
+  useEffect(() => {
+    if (user?.email && userProfile?.pendingEmail) {
+      if (user.email.toLowerCase() === userProfile.pendingEmail.toLowerCase()) {
+        setDoc(
+          doc(db, "users", user.uid),
+          { pendingEmail: null, emailVerified: true },
+          { merge: true }
+        ).catch(() => {});
+        setPendingVerificationEmail(null);
+      }
+    }
+  }, [user?.email, userProfile?.pendingEmail]);
+
+  const isUsernameAccount =
+    Boolean(user?.email?.endsWith("@dktest.local")) ||
+    userProfile?.authProvider === "username";
+  const hasRealEmail = Boolean(user?.email && !user.email.endsWith("@dktest.local"));
+
+  // Send email verification to link or update email
+  const handleSendEmailVerification = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) return;
+
+    const cleanEmail = newEmailInput.trim().toLowerCase();
+    if (!cleanEmail || !cleanEmail.includes("@") || cleanEmail.endsWith("@dktest.local")) {
+      setEmailModalError("Vui lòng nhập địa chỉ email hợp lệ (ví dụ: yourname@gmail.com).");
+      return;
+    }
+
+    if (user.email && cleanEmail === user.email.toLowerCase()) {
+      setEmailModalError("Địa chỉ email mới phải khác với địa chỉ email hiện tại.");
+      return;
+    }
+
+    if (!currentPasswordInput) {
+      setEmailModalError("Vui lòng nhập mật khẩu tài khoản hiện tại để xác thực bảo mật.");
+      return;
+    }
+
+    setEmailActionLoading(true);
+    setEmailModalError("");
+
+    try {
+      // 1. Re-authenticate with current credentials to ensure security freshness
+      const cred = EmailAuthProvider.credential(user.email || "", currentPasswordInput);
+      await reauthenticateWithCredential(user, cred);
+
+      // 2. Request verification email before updating email in Firebase Auth
+      await verifyBeforeUpdateEmail(user, cleanEmail);
+
+      // 3. Store pendingEmail in Firestore
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          pendingEmail: cleanEmail,
+          pendingEmailRequestedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+
+      setPendingVerificationEmail(cleanEmail);
+      setIsChangingEmail(false);
+      setCurrentPasswordInput("");
+      setNewEmailInput("");
+      showToast(
+        `Đã gửi thư xác nhận đến ${cleanEmail}. Vui lòng mở email và nhấn vào link để kích hoạt!`,
+        "success"
+      );
+    } catch (err: any) {
+      console.error("[StudentProfile] Error sending verification email:", err);
+      if (err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
+        setEmailModalError("Mật khẩu hiện tại không chính xác. Vui lòng kiểm tra lại.");
+      } else if (err.code === "auth/email-already-in-use") {
+        setEmailModalError("Địa chỉ email này đã được sử dụng bởi một tài khoản khác.");
+      } else if (err.code === "auth/invalid-email") {
+        setEmailModalError("Địa chỉ email không đúng định dạng.");
+      } else if (err.code === "auth/too-many-requests") {
+        setEmailModalError("Bạn đã gửi yêu cầu quá nhiều lần. Vui lòng thử lại sau ít phút.");
+      } else {
+        setEmailModalError(err.message || "Đã xảy ra sự cố khi gửi email xác thực.");
+      }
+    } finally {
+      setEmailActionLoading(false);
+    }
+  };
+
+  // Check if user confirmed the link in their inbox
+  const handleCheckEmailVerification = async () => {
+    if (!user) return;
+    setIsCheckingVerification(true);
+    try {
+      await reload(user);
+      const targetEmail = (pendingVerificationEmail || userProfile?.pendingEmail || "").trim().toLowerCase();
+
+      // If user's email in Firebase Auth matches targetEmail
+      if (user.email && targetEmail && user.email.toLowerCase() === targetEmail) {
+        // Sync Firestore
+        await setDoc(
+          doc(db, "users", user.uid),
+          {
+            email: user.email,
+            contactEmail: user.email,
+            emailVerified: true,
+            pendingEmail: null,
+            updatedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+
+        // Also update usernames collection if applicable
+        const usernameNorm = (userProfile?.username || username || "").trim().toLowerCase();
+        if (usernameNorm) {
+          try {
+            await setDoc(doc(db, "usernames", usernameNorm), { email: user.email }, { merge: true });
+          } catch (unErr) {}
+        }
+
+        setPendingVerificationEmail(null);
+        setEmail(user.email);
+        await refreshProfile();
+        showToast("Xác thực email thành công! Email tài khoản của bạn đã được cập nhật.", "success");
+      } else {
+        showToast(
+          `Chưa ghi nhận xác nhận. Vui lòng mở hộp thư đến của ${targetEmail} và nhấn vào liên kết xác nhận.`,
+          "info"
+        );
+      }
+    } catch (err: any) {
+      showToast("Lỗi kiểm tra trạng thái xác minh: " + (err.message || err), "error");
+    } finally {
+      setIsCheckingVerification(false);
+    }
+  };
+
+  // Resend verification email
+  const handleResendEmailVerification = async () => {
+    if (!user || !pendingVerificationEmail) return;
+    setEmailActionLoading(true);
+    try {
+      await verifyBeforeUpdateEmail(user, pendingVerificationEmail);
+      showToast(`Đã gửi lại email xác thực đến ${pendingVerificationEmail}!`, "success");
+    } catch (err: any) {
+      showToast("Không thể gửi lại email: " + (err.message || err), "error");
+    } finally {
+      setEmailActionLoading(false);
+    }
+  };
+
+  // Cancel email change
+  const handleCancelEmailChange = async () => {
+    if (!user) return;
+    try {
+      await setDoc(doc(db, "users", user.uid), { pendingEmail: null }, { merge: true });
+      setPendingVerificationEmail(null);
+      showToast("Đã hủy yêu cầu xác minh email.", "info");
+    } catch (err) {}
+  };
 
   // Profile completion calculation (0 - 100%)
   const calculateCompletion = () => {
@@ -560,21 +753,109 @@ export default function StudentProfile() {
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Địa chỉ Email
-                {user && (user.email?.endsWith("@dktest.local") || userProfile?.authProvider === "username") && (
-                  <span className="text-[10px] text-amber-600 font-medium ml-1">(Tuỳ chọn - thêm email thật để khôi phục mật khẩu)</span>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold text-slate-700">
+                  Địa chỉ Email
+                </label>
+                {isUsernameAccount && !hasRealEmail ? (
+                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                    Chưa liên kết email
+                  </span>
+                ) : (
+                  <span
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                      user?.emailVerified
+                        ? "text-emerald-700 bg-emerald-50 border-emerald-200"
+                        : "text-amber-700 bg-amber-50 border-amber-200"
+                    }`}
+                  >
+                    {user?.emailVerified ? "Đã xác thực" : "Chưa xác thực"}
+                  </span>
                 )}
-              </label>
-              <input
-                type="email"
-                disabled={!!user && !user.email?.endsWith("@dktest.local") && userProfile?.authProvider !== "username"}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={user?.email?.endsWith("@dktest.local") ? "VD: an.nguyen@gmail.com (không bắt buộc)" : ""}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-slate-100 disabled:text-slate-500 text-slate-800"
-              />
+              </div>
+
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <input
+                    type="email"
+                    disabled
+                    value={
+                      hasRealEmail
+                        ? user?.email || email
+                        : email || (userProfile?.contactEmail ? userProfile.contactEmail : "")
+                    }
+                    placeholder={!hasRealEmail ? "Chưa liên kết email thật" : ""}
+                    className="w-full pl-9 pr-3 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-medium text-slate-600 disabled:opacity-90 font-mono"
+                  />
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsChangingEmail(true);
+                    setNewEmailInput("");
+                    setCurrentPasswordInput("");
+                    setEmailModalError("");
+                  }}
+                  className="px-3.5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>{isUsernameAccount && !hasRealEmail ? "Liên kết Email" : "Đổi Email"}</span>
+                </button>
+              </div>
+
+              {/* Pending Email Verification Card */}
+              {pendingVerificationEmail && (
+                <div className="mt-2.5 p-3.5 bg-amber-50 border border-amber-200 rounded-2xl space-y-2 animate-in fade-in">
+                  <div className="flex items-start gap-2.5">
+                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <div className="text-xs text-amber-900 flex-1">
+                      <p className="font-bold">Đang chờ xác minh email mới:</p>
+                      <p className="font-mono text-amber-950 font-bold text-xs mt-0.5">
+                        {pendingVerificationEmail}
+                      </p>
+                      <p className="text-[11px] text-amber-800 mt-1 leading-relaxed">
+                        Hệ thống đã gửi liên kết xác thực đến địa chỉ này. Vui lòng mở email (kiểm tra cả thư rác/spam) và nhấn vào link để hoàn tất {isUsernameAccount && !hasRealEmail ? "liên kết" : "đổi"} email.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 pt-1">
+                    <button
+                      type="button"
+                      disabled={isCheckingVerification}
+                      onClick={handleCheckEmailVerification}
+                      className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                    >
+                      {isCheckingVerification ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      )}
+                      <span>Tôi đã xác nhận trong email</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleResendEmailVerification}
+                      disabled={emailActionLoading}
+                      className="px-2.5 py-1.5 bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-lg text-xs font-semibold transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      Gửi lại thư
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleCancelEmailChange}
+                      className="px-2.5 py-1.5 text-slate-500 hover:text-slate-800 text-xs transition-colors cursor-pointer"
+                    >
+                      Hủy yêu cầu
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
@@ -600,6 +881,116 @@ export default function StudentProfile() {
             </button>
           </div>
         </form>
+
+        {/* Modal: Change / Link Email with Verification */}
+        {isChangingEmail && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150">
+            <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 p-6 sm:p-7 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-slate-900">
+                      {isUsernameAccount && !hasRealEmail ? "Liên kết Email với tài khoản" : "Thay đổi địa chỉ Email"}
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      {isUsernameAccount && !hasRealEmail ? "Bảo mật tài khoản & khôi phục mật khẩu" : "Cập nhật hòm thư nhận thông báo mới"}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsChangingEmail(false)}
+                  className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="p-3 bg-blue-50/70 border border-blue-100 rounded-2xl text-xs text-blue-900 leading-relaxed">
+                {isUsernameAccount && !hasRealEmail ? (
+                  <span>
+                    Nhập địa chỉ email của bạn. Hệ thống sẽ gửi một liên kết xác thực đến hòm thư này. Bạn chỉ cần mở email và nhấn vào link xác nhận để hoàn tất liên kết tài khoản.
+                  </span>
+                ) : (
+                  <span>
+                    Nhập địa chỉ email mới. Thư xác nhận sẽ được gửi đến email mới. Khi bạn nhấn vào liên kết xác nhận trong email, địa chỉ email của bạn sẽ chính thức được cập nhật.
+                  </span>
+                )}
+              </div>
+
+              <form onSubmit={handleSendEmailVerification} className="space-y-3.5">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Địa chỉ email mới <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      required
+                      value={newEmailInput}
+                      onChange={(e) => setNewEmailInput(e.target.value)}
+                      placeholder="VD: an.nguyen@gmail.com"
+                      className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-slate-800"
+                    />
+                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Mật khẩu hiện tại <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      required
+                      value={currentPasswordInput}
+                      onChange={(e) => setCurrentPasswordInput(e.target.value)}
+                      placeholder="Nhập mật khẩu tài khoản hiện tại"
+                      className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-slate-800"
+                    />
+                    <KeyRound className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    Yêu cầu bảo mật của hệ thống để xác thực bạn là chủ tài khoản.
+                  </p>
+                </div>
+
+                {emailModalError && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 font-medium flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-500" />
+                    <span>{emailModalError}</span>
+                  </div>
+                )}
+
+                <div className="pt-2 flex items-center justify-end gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setIsChangingEmail(false)}
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Hủy bỏ
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={emailActionLoading}
+                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  >
+                    {emailActionLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Send className="w-3.5 h-3.5" />
+                    )}
+                    <span>Gửi email xác thực</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

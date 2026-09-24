@@ -17,7 +17,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase/config";
 import type { UserProfile, UserRole, AccountStatus } from "../types";
 import { STORAGE_KEYS, setStoredItem, removeStoredItem } from "../utils/storage";
-import { claimUsernameApi, loginWithUsernameApi } from "../services/authService";
+import { claimUsernameApi, loginWithUsernameApi, isAdminAuthenticated, clearAdminSession, clearParentSession, clearStudentSession } from "../services/authService";
 
 interface AuthContextValue {
   user: User | null;
@@ -68,6 +68,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Sync legacy localStorage keys to ensure complete backward compatibility with older components
   const syncLegacyStorage = (profile: UserProfile | null) => {
     if (!profile) {
+      if (isAdminAuthenticated()) {
+        return;
+      }
       localStorage.removeItem("auth_role");
       localStorage.removeItem("admin_token");
       localStorage.removeItem("parent_info");
@@ -241,8 +244,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           console.error("[AuthContext] Error loading user profile:", err);
         }
       } else {
-        setUserProfile(null);
-        syncLegacyStorage(null);
+        if (isAdminAuthenticated()) {
+          let savedInfo: any = {};
+          try {
+            const raw = localStorage.getItem("admin_info");
+            if (raw) savedInfo = JSON.parse(raw);
+          } catch {}
+
+          const adminProfile: UserProfile = {
+            uid: "admin_local",
+            displayName: savedInfo.displayName || "Quản trị viên",
+            fullName: savedInfo.displayName || "Quản trị viên",
+            email: savedInfo.email || "admin@dktest.local",
+            role: "admin",
+            accountStatus: "active",
+            provider: "password",
+            emailVerified: true,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+          setUserProfile(adminProfile);
+        } else {
+          setUserProfile(null);
+          syncLegacyStorage(null);
+        }
       }
       setLoading(false);
       setAuthInitialized(true);
@@ -275,26 +300,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const loginWithUsername = async (username: string, pass: string): Promise<UserProfile> => {
-    const res = await loginWithUsernameApi(username, pass);
-    let currentUser: User;
+    try {
+      const res = await loginWithUsernameApi(username, pass);
+      let currentUser: User;
 
-    if (res.customToken) {
-      const cred = await signInWithCustomToken(auth, res.customToken);
-      currentUser = cred.user;
-    } else if (res.email) {
-      const cred = await signInWithEmailAndPassword(auth, res.email, pass);
-      currentUser = cred.user;
-    } else {
-      if (!auth.currentUser) {
-        throw new Error("Không thể khởi tạo phiên đăng nhập với tên đăng nhập này.");
+      if (res.customToken) {
+        const cred = await signInWithCustomToken(auth, res.customToken);
+        currentUser = cred.user;
+      } else if (res.email) {
+        const cred = await signInWithEmailAndPassword(auth, res.email, pass);
+        currentUser = cred.user;
+      } else {
+        if (!auth.currentUser) {
+          throw new Error("Không thể khởi tạo phiên đăng nhập với tên đăng nhập này.");
+        }
+        currentUser = auth.currentUser;
       }
-      currentUser = auth.currentUser;
-    }
 
-    const profile = await fetchOrCreateProfile(currentUser);
-    setUser(currentUser);
-    setUserProfile(profile);
-    return profile;
+      const profile = await fetchOrCreateProfile(currentUser);
+      setUser(currentUser);
+      setUserProfile(profile);
+      return profile;
+    } catch (apiErr: any) {
+      console.warn("[loginWithUsername] API login failed, trying direct Firebase Auth fallback:", apiErr);
+      // Attempt direct client fallback for username accounts: <username>@dktest.local
+      try {
+        const directEmail = `${username.trim().toLowerCase()}@dktest.local`;
+        const cred = await signInWithEmailAndPassword(auth, directEmail, pass);
+        const profile = await fetchOrCreateProfile(cred.user);
+        setUser(cred.user);
+        setUserProfile(profile);
+        return profile;
+      } catch (fallbackErr) {
+        // If direct fallback also failed, re-throw original error
+        throw apiErr;
+      }
+    }
   };
 
   const registerWithUsername = async ({
@@ -411,10 +452,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async (): Promise<void> => {
-    await signOut(auth);
+    try {
+      await signOut(auth);
+    } catch (e) {}
+    clearAdminSession();
+    clearParentSession();
+    clearStudentSession();
     setUser(null);
     setUserProfile(null);
-    syncLegacyStorage(null);
+    localStorage.removeItem("auth_role");
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("admin_info");
+    localStorage.removeItem("parent_info");
+    localStorage.removeItem("student_info");
+    localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
+    localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.PARENT_INFO);
+    localStorage.removeItem(STORAGE_KEYS.STUDENT_INFO);
   };
 
   const sendPasswordReset = async (email: string): Promise<void> => {
@@ -452,7 +506,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return profile;
   };
 
-  const currentRole = userProfile?.role || (user ? "student" : "guest");
+  const currentRole = userProfile?.role || (isAdminAuthenticated() ? "admin" : (user ? "student" : "guest"));
   const accountStatus = userProfile?.accountStatus || (user ? "active" : null);
   const isPendingApproval = accountStatus === "pending";
   const isSuspended = accountStatus === "suspended" || accountStatus === "disabled" || accountStatus === "deleted";

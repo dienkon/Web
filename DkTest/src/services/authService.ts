@@ -21,10 +21,15 @@ export function verifyAdminCredentials(inputPassword: string): boolean {
 /**
  * Set admin session
  */
-export function setAdminSession(): void {
+export function setAdminSession(info?: { displayName?: string; email?: string }): void {
   const token = `dk_admin_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
   setStoredItem(STORAGE_KEYS.AUTH_ROLE, "admin", "auth_role");
   setStoredItem(STORAGE_KEYS.ADMIN_TOKEN, token, "admin_token");
+  localStorage.setItem("auth_role", "admin");
+  localStorage.setItem("admin_token", token);
+  if (info) {
+    localStorage.setItem("admin_info", JSON.stringify(info));
+  }
 }
 
 /**
@@ -37,6 +42,7 @@ export function clearAdminSession(): void {
   localStorage.removeItem("admin_token");
   localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
   localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+  localStorage.removeItem("admin_info");
 }
 
 /**

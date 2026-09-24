@@ -55,7 +55,7 @@ export default function AdminLogin() {
         setError("Tài khoản này không có quyền quản trị viên.");
         return;
       }
-      setAdminSession();
+      setAdminSession({ displayName: profile.displayName || "Quản trị viên", email: profile.email || "admin@dktest.local" });
       showToast("Đăng nhập quyền Quản trị viên thành công!", "success");
       navigate(redirectPath, { replace: true });
     } catch (err: any) {
@@ -78,7 +78,7 @@ export default function AdminLogin() {
 
     setTimeout(() => {
       if (verifyAdminCredentials(legacyPassword)) {
-        setAdminSession();
+        setAdminSession({ displayName: "Quản trị viên", email: "admin@dktest.local" });
         showToast("Đăng nhập thành công!", "success");
         navigate(redirectPath, { replace: true });
       } else {
@@ -93,7 +93,7 @@ export default function AdminLogin() {
       setError("Tài khoản Google này chưa được cấp quyền Quản trị viên.");
       return;
     }
-    setAdminSession();
+    setAdminSession({ displayName: profile.displayName || "Quản trị viên", email: profile.email || "admin@dktest.local" });
     showToast("Đăng nhập Google với quyền Quản trị viên thành công!", "success");
     navigate(redirectPath, { replace: true });
   };

@@ -286,12 +286,9 @@ authRouter.post("/login-with-username", async (req: Request, res: Response) => {
       }
     }
 
-    // If still not found, return generic auth error (prevent username enumeration)
-    if (!targetEmail || !targetUid) {
-      return res.status(401).json({
-        error: "invalid_credential",
-        message: "Tên đăng nhập hoặc mật khẩu không chính xác.",
-      });
+    // If not found in collections, fallback to standard internal username email format
+    if (!targetEmail) {
+      targetEmail = `${usernameNormalized}@dktest.local`;
     }
 
     // 2. Verify password with Firebase Identity Toolkit REST API
@@ -322,6 +319,10 @@ authRouter.post("/login-with-username", async (req: Request, res: Response) => {
         error: "invalid_credential",
         message: "Tên đăng nhập hoặc mật khẩu không chính xác.",
       });
+    }
+
+    if (!targetUid && verifyData.localId) {
+      targetUid = verifyData.localId;
     }
 
     // 3. Generate Custom Token if Admin SDK available, or return auth tokens
