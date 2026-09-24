@@ -1,18 +1,34 @@
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x + '" is not supported');
+});
+
 // server/routes/adminRoutes.ts
 import { Router } from "express";
 
 // server/firebaseAdmin.ts
-import { initializeApp, getApps, cert } from "firebase-admin/app";
-import { getAuth } from "firebase-admin/auth";
-import { getFirestore, FieldValue } from "firebase-admin/firestore";
+import { createRequire } from "module";
+function getNativeRequire() {
+  if (typeof __require !== "undefined") return __require;
+  try {
+    return createRequire(import.meta.url);
+  } catch {
+    return null;
+  }
+}
 var isInitialized = false;
 var adminAppInstance = null;
 var adminAuthInstance = null;
 var adminDbInstance = null;
 var isConfiguredState = false;
+var FieldValue = {
+  serverTimestamp: () => (/* @__PURE__ */ new Date()).toISOString(),
+  delete: () => null
+};
 function initFirebaseAdmin() {
-  const existingApps = getApps();
-  if (isInitialized && existingApps.length > 0) {
+  if (isInitialized) {
     return {
       adminApp: adminAppInstance,
       adminAuth: adminAuthInstance,
@@ -32,23 +48,41 @@ function initFirebaseAdmin() {
   try {
     const isRealPrivateKey = privateKey && !privateKey.includes("...") && privateKey.includes("-----BEGIN PRIVATE KEY-----");
     if (clientEmail && isRealPrivateKey) {
-      if (!existingApps.length) {
-        adminAppInstance = initializeApp({
-          credential: cert({
-            projectId,
-            clientEmail,
-            privateKey
-          }),
-          projectId
-        });
-      } else {
-        adminAppInstance = existingApps[0];
+      try {
+        const nativeRequire = getNativeRequire();
+        if (!nativeRequire) {
+          throw new Error("Unable to resolve require in current runtime environment");
+        }
+        const { initializeApp, getApps, cert } = nativeRequire("firebase-admin/app");
+        const { getAuth } = nativeRequire("firebase-admin/auth");
+        const { getFirestore, FieldValue: sdkFieldValue } = nativeRequire("firebase-admin/firestore");
+        if (sdkFieldValue) FieldValue = sdkFieldValue;
+        const existingApps = getApps();
+        if (!existingApps.length) {
+          adminAppInstance = initializeApp({
+            credential: cert({
+              projectId,
+              clientEmail,
+              privateKey
+            }),
+            projectId
+          });
+        } else {
+          adminAppInstance = existingApps[0];
+        }
+        isInitialized = true;
+        isConfiguredState = true;
+        adminAuthInstance = getAuth(adminAppInstance);
+        adminDbInstance = getFirestore(adminAppInstance);
+        console.log(`[FirebaseAdmin] Successfully initialized with service account for project "${projectId}".`);
+      } catch (sdkErr) {
+        console.warn("[FirebaseAdmin] Failed to load firebase-admin SDK (falling back to REST mode):", sdkErr);
+        isInitialized = true;
+        isConfiguredState = false;
+        adminAppInstance = null;
+        adminAuthInstance = null;
+        adminDbInstance = null;
       }
-      isInitialized = true;
-      isConfiguredState = true;
-      adminAuthInstance = getAuth(adminAppInstance);
-      adminDbInstance = getFirestore(adminAppInstance);
-      console.log(`[FirebaseAdmin] Successfully initialized with service account for project "${projectId}".`);
     } else {
       isInitialized = true;
       isConfiguredState = false;

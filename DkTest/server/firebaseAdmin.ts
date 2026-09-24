@@ -1,16 +1,29 @@
-import { initializeApp, getApps, cert, App } from "firebase-admin/app";
-import { getAuth, Auth } from "firebase-admin/auth";
-import { getFirestore, Firestore, FieldValue } from "firebase-admin/firestore";
+import { createRequire } from "module";
+import type { App } from "firebase-admin/app";
+import type { Auth } from "firebase-admin/auth";
+import type { Firestore } from "firebase-admin/firestore";
+
+function getNativeRequire(): any {
+  if (typeof require !== "undefined") return require;
+  try {
+    return createRequire(import.meta.url);
+  } catch {
+    return null;
+  }
+}
 
 let isInitialized = false;
 let adminAppInstance: App | null = null;
 let adminAuthInstance: Auth | null = null;
 let adminDbInstance: Firestore | null = null;
 let isConfiguredState = false;
+let FieldValue: any = {
+  serverTimestamp: () => new Date().toISOString(),
+  delete: () => null,
+};
 
 export function initFirebaseAdmin() {
-  const existingApps = getApps();
-  if (isInitialized && existingApps.length > 0) {
+  if (isInitialized) {
     return {
       adminApp: adminAppInstance,
       adminAuth: adminAuthInstance,
@@ -42,23 +55,42 @@ export function initFirebaseAdmin() {
       privateKey.includes("-----BEGIN PRIVATE KEY-----");
 
     if (clientEmail && isRealPrivateKey) {
-      if (!existingApps.length) {
-        adminAppInstance = initializeApp({
-          credential: cert({
+      try {
+        const nativeRequire = getNativeRequire();
+        if (!nativeRequire) {
+          throw new Error("Unable to resolve require in current runtime environment");
+        }
+        const { initializeApp, getApps, cert } = nativeRequire("firebase-admin/app");
+        const { getAuth } = nativeRequire("firebase-admin/auth");
+        const { getFirestore, FieldValue: sdkFieldValue } = nativeRequire("firebase-admin/firestore");
+        if (sdkFieldValue) FieldValue = sdkFieldValue;
+
+        const existingApps = getApps();
+        if (!existingApps.length) {
+          adminAppInstance = initializeApp({
+            credential: cert({
+              projectId,
+              clientEmail,
+              privateKey,
+            }),
             projectId,
-            clientEmail,
-            privateKey,
-          }),
-          projectId,
-        });
-      } else {
-        adminAppInstance = existingApps[0];
+          });
+        } else {
+          adminAppInstance = existingApps[0];
+        }
+        isInitialized = true;
+        isConfiguredState = true;
+        adminAuthInstance = getAuth(adminAppInstance);
+        adminDbInstance = getFirestore(adminAppInstance);
+        console.log(`[FirebaseAdmin] Successfully initialized with service account for project "${projectId}".`);
+      } catch (sdkErr) {
+        console.warn("[FirebaseAdmin] Failed to load firebase-admin SDK (falling back to REST mode):", sdkErr);
+        isInitialized = true;
+        isConfiguredState = false;
+        adminAppInstance = null;
+        adminAuthInstance = null;
+        adminDbInstance = null;
       }
-      isInitialized = true;
-      isConfiguredState = true;
-      adminAuthInstance = getAuth(adminAppInstance);
-      adminDbInstance = getFirestore(adminAppInstance);
-      console.log(`[FirebaseAdmin] Successfully initialized with service account for project "${projectId}".`);
     } else {
       // Running without service account credentials:
       // DO NOT call getFirestore() without ADC because it throws NO_ADC_FOUND and crashes Node
