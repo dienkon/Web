@@ -104,7 +104,16 @@ export async function apiClient<T = any>(
     }
 
     if (!response.ok) {
-      let friendlyMessage = data?.message || data?.error || "";
+      let friendlyMessage = "";
+      if (typeof data?.message === "string" && data.message.trim()) {
+        friendlyMessage = data.message;
+      } else if (typeof data?.error === "string" && data.error.trim()) {
+        friendlyMessage = data.error;
+      } else if (typeof data?.error?.message === "string" && data.error.message.trim()) {
+        friendlyMessage = data.error.message;
+      } else if (typeof data === "string" && data.trim() && !data.trim().startsWith("<")) {
+        friendlyMessage = data;
+      }
 
       if (!friendlyMessage) {
         switch (response.status) {

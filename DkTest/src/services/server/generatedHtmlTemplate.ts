@@ -69,7 +69,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <script type="module" crossorigin src="/assets/index-QbwHN5jh.js"></script>
+    <script type="module" crossorigin src="/assets/index-pgkKp5W6.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-5oDbroBY.css">
   </head>
 
