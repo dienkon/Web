@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (userSnap.exists()) {
       const existing = userSnap.data() as UserProfile;
       // Update lastLoginAt and login count
-      const updatedData: Partial<UserProfile> = {
+      const rawUpdate: Record<string, any> = {
         lastLoginAt: now,
         lastSeenAt: now,
         emailVerified: firebaseUser.emailVerified,
@@ -132,6 +132,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loginCount: (existing.loginCount || 0) + 1,
         ...extraFields,
       };
+
+      const updatedData: Record<string, any> = {};
+      for (const [k, v] of Object.entries(rawUpdate)) {
+        if (v !== undefined) {
+          updatedData[k] = v;
+        }
+      }
 
       try {
         await updateDoc(userRef, updatedData);
@@ -394,8 +401,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       fullName: displayName,
       username: username || "",
       usernameNormalized: username ? username.toLowerCase() : "",
-      studentClass,
-      phone,
+      studentClass: studentClass || "",
+      phone: phone || "",
     });
 
     setUser(cred.user);

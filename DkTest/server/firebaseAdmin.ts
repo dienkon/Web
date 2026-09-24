@@ -211,6 +211,10 @@ export function clearServerRestCache(keyPattern?: string): void {
   }
 }
 
+function getFirebaseApiKey(): string {
+  return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
+}
+
 export async function getFirestoreRestDocs(
   collectionName: string,
   pageSize = 50,
@@ -229,7 +233,7 @@ export async function getFirestoreRestDocs(
     }
   }
 
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   const t0 = Date.now();
 
@@ -275,7 +279,7 @@ export async function getFirestoreRestDoc(
     }
   }
 
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   const t0 = Date.now();
 
@@ -303,7 +307,7 @@ export async function getFirestoreRestDoc(
 }
 
 export async function setFirestoreRestDoc(collectionName: string, docId: string, data: Record<string, any>): Promise<boolean> {
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   const t0 = Date.now();
 
@@ -331,7 +335,7 @@ export async function setFirestoreRestDoc(collectionName: string, docId: string,
 }
 
 export async function deleteFirestoreRestDoc(collectionName: string, docId: string): Promise<boolean> {
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   try {
     const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collectionName}/${encodeURIComponent(docId)}?key=${apiKey}`;

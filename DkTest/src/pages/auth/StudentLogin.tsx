@@ -193,8 +193,8 @@ export default function StudentLogin() {
         }
       }
 
-      if (!password) {
-        setError("Vui lòng nhập mật khẩu.");
+      if (!password || password.length < 6) {
+        setError("Mật khẩu phải có tối thiểu 6 ký tự (khuyến nghị từ 8 ký tự).");
         return;
       }
 
@@ -204,7 +204,7 @@ export default function StudentLogin() {
       }
 
       const strength = evaluatePasswordStrength(password, regMethod === "email" ? email : username);
-      if (strength.score < 2) {
+      if (strength.score < 2 || password.length < 8) {
         setError("Mật khẩu quá yếu. Vui lòng đảm bảo tối thiểu 8 ký tự gồm cả chữ và số.");
         return;
       }

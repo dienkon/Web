@@ -146,8 +146,9 @@ export default function UserDetail() {
     if (!uid) return;
     try {
       await deleteUserAccount(uid);
-      showSuccessToast("Đã xoá tài khoản!");
-      navigate("/admin/students", { replace: true });
+      showSuccessToast("Đã xoá vĩnh viễn tài khoản!");
+      const returnPath = data?.user?.role === "parent" ? "/admin/parents" : "/admin/students";
+      navigate(returnPath, { replace: true });
     } catch (err: any) {
       showErrorToast(err.message);
     }

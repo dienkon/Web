@@ -32,6 +32,7 @@ export function evaluatePasswordStrength(password: string, email?: string): {
   if (hasNumber) score++;
   if (hasSpecial && password.length >= 10) score++;
   if (!notEmail && score > 0) score--;
+  if (!hasMinLength) score = Math.min(score, 1);
 
   let label = "Rất yếu";
   let color = "text-slate-400";

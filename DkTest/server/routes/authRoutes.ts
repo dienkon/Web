@@ -295,13 +295,10 @@ authRouter.post("/login-with-username", async (req: Request, res: Response) => {
     }
 
     // 2. Verify password with Firebase Identity Toolkit REST API
-    const apiKey = process.env.VITE_FIREBASE_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({
-        error: "server_misconfigured",
-        message: "Thiếu cấu hình Firebase API Key trên máy chủ.",
-      });
-    }
+    const apiKey =
+      process.env.VITE_FIREBASE_API_KEY ||
+      process.env.FIREBASE_API_KEY ||
+      "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 
     const verifyRes = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,

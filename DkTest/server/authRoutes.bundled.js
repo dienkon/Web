@@ -184,6 +184,9 @@ function clearServerRestCache(keyPattern) {
     }
   }
 }
+function getFirebaseApiKey() {
+  return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
+}
 async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
@@ -195,7 +198,7 @@ async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = tr
       return cached.data;
     }
   }
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   const t0 = Date.now();
   try {
@@ -228,7 +231,7 @@ async function getFirestoreRestDoc(collectionName, docId, useCache = true, cache
       return cached.data;
     }
   }
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   const t0 = Date.now();
   try {
@@ -250,7 +253,7 @@ async function getFirestoreRestDoc(collectionName, docId, useCache = true, cache
   }
 }
 async function setFirestoreRestDoc(collectionName, docId, data) {
-  const apiKey = process.env.VITE_FIREBASE_API_KEY;
+  const apiKey = getFirebaseApiKey();
   const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
   const t0 = Date.now();
   try {
@@ -502,13 +505,7 @@ authRouter.post("/login-with-username", async (req, res) => {
         message: "T\xEAn \u0111\u0103ng nh\u1EADp ho\u1EB7c m\u1EADt kh\u1EA9u kh\xF4ng ch\xEDnh x\xE1c."
       });
     }
-    const apiKey = process.env.VITE_FIREBASE_API_KEY;
-    if (!apiKey) {
-      return res.status(500).json({
-        error: "server_misconfigured",
-        message: "Thi\u1EBFu c\u1EA5u h\xECnh Firebase API Key tr\xEAn m\xE1y ch\u1EE7."
-      });
-    }
+    const apiKey = process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
     const verifyRes = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,
       {

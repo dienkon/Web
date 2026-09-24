@@ -331,6 +331,16 @@ export default function Students() {
               <span>Tạm khoá</span>
             </button>
             <button
+              onClick={() => {
+                setBulkAction("delete");
+                setShowBulkModal(true);
+              }}
+              className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-xs"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Xoá vĩnh viễn</span>
+            </button>
+            <button
               onClick={() => setSelectedUids([])}
               className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-medium transition-colors cursor-pointer"
             >
@@ -545,15 +555,21 @@ export default function Students() {
           isOpen={true}
           title={
             actionTarget.type === "delete"
-              ? "Xác nhận xoá tài khoản"
+              ? "Xác nhận xoá vĩnh viễn tài khoản"
               : actionTarget.type === "suspend"
               ? "Xác nhận tạm khoá tài khoản"
               : "Xác nhận phê duyệt tài khoản"
           }
-          message={`Bạn có chắc muốn thực hiện thao tác này cho học sinh "${
-            actionTarget.user.displayName || actionTarget.user.email
-          }"?`}
-          confirmText={actionTarget.type === "delete" ? "Xoá tài khoản" : "Xác nhận"}
+          message={
+            actionTarget.type === "delete"
+              ? `Bạn có chắc chắn muốn xoá vĩnh viễn học sinh "${
+                  actionTarget.user.displayName || actionTarget.user.email
+                }" khỏi cơ sở dữ liệu cùng toàn bộ kết quả thi và liên kết? Hành động này không thể hoàn tác.`
+              : `Bạn có chắc muốn thực hiện thao tác này cho học sinh "${
+                  actionTarget.user.displayName || actionTarget.user.email
+                }"?`
+          }
+          confirmText={actionTarget.type === "delete" ? "Xoá vĩnh viễn" : "Xác nhận"}
           confirmVariant={actionTarget.type === "delete" ? "danger" : "primary"}
           onConfirm={handleSingleAction}
           onCancel={() => setActionTarget(null)}
@@ -564,9 +580,13 @@ export default function Students() {
       {showBulkModal && (
         <ConfirmModal
           isOpen={true}
-          title="Xác nhận thao tác hàng loạt"
-          message={`Bạn có chắc muốn thực hiện thao tác "${bulkAction}" cho ${selectedUids.length} học sinh đã chọn?`}
-          confirmText="Thực hiện ngay"
+          title={bulkAction === "delete" ? "Xác nhận xoá vĩnh viễn hàng loạt" : "Xác nhận thao tác hàng loạt"}
+          message={
+            bulkAction === "delete"
+              ? `Bạn có chắc chắn muốn xoá vĩnh viễn ${selectedUids.length} tài khoản học sinh đã chọn cùng toàn bộ dữ liệu liên quan khỏi cơ sở dữ liệu? Hành động này không thể hoàn tác.`
+              : `Bạn có chắc muốn thực hiện thao tác "${bulkAction}" cho ${selectedUids.length} học sinh đã chọn?`
+          }
+          confirmText={bulkAction === "delete" ? "Xoá tất cả đã chọn" : "Thực hiện ngay"}
           confirmVariant={bulkAction === "delete" ? "danger" : "primary"}
           onConfirm={executeBulkAction}
           onCancel={() => setShowBulkModal(false)}

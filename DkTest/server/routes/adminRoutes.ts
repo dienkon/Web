@@ -7,6 +7,7 @@ import {
   getFirestoreRestDoc,
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
+  clearServerRestCache,
 } from "../firebaseAdmin.js";
 import { requireAdmin, requireSuperAdmin, type AuthenticatedRequest } from "../middleware/auth.js";
 
@@ -715,46 +716,159 @@ adminRouter.post("/users/:uid/reactivate", async (req: AuthenticatedRequest, res
   }
 });
 
-adminRouter.delete("/users/:uid", async (req: AuthenticatedRequest, res: Response) => {
+// -------------------------------------------------------------
+// HELPER: HARD DELETE USER & ALL RELATED DATA
+// -------------------------------------------------------------
+async function hardDeleteUser(uid: string): Promise<{ success: boolean; reason?: string; username?: string; role?: string }> {
   try {
-    const { uid } = req.params;
-
-    // Check if target is admin
-    let role = "";
+    let userData: any = null;
     if (adminDb) {
-      const targetDoc = await adminDb.collection("users").doc(uid).get();
-      role = targetDoc.data()?.role;
+      const docSnap = await adminDb.collection("users").doc(uid).get();
+      if (docSnap.exists) userData = docSnap.data();
     } else {
-      const target = await getFirestoreRestDoc("users", uid);
-      role = target?.role;
+      userData = await getFirestoreRestDoc("users", uid, false);
     }
 
+    const role = userData?.role || "";
     if (role === "super_admin") {
-      return res.status(403).json({ error: "forbidden", message: "Không thể xoá tài khoản Super Admin." });
+      return { success: false, reason: "Không thể xoá tài khoản Super Admin." };
     }
 
-    // Mark as deleted in Firestore
-    const updateData = {
-      accountStatus: "deleted",
-      deletedAt: new Date().toISOString(),
-    };
+    const username = (userData?.username || userData?.usernameNormalized || "").toLowerCase();
 
+    // 1. Delete from users collection
     if (adminDb) {
-      await adminDb.collection("users").doc(uid).update(updateData);
+      await adminDb.collection("users").doc(uid).delete().catch(() => {});
     } else {
-      await setFirestoreRestDoc("users", uid, updateData);
+      await deleteFirestoreRestDoc("users", uid);
     }
 
-    // Optionally disable in Firebase Auth so they can no longer sign in
-    if (adminAuth) {
+    // 2. Delete from usernames registry
+    if (username) {
+      if (adminDb) {
+        await adminDb.collection("usernames").doc(username).delete().catch(() => {});
+      } else {
+        await deleteFirestoreRestDoc("usernames", username);
+      }
+    }
+
+    // 3. Delete from students collection (both by username and uid)
+    if (adminDb) {
+      if (username) await adminDb.collection("students").doc(username).delete().catch(() => {});
+      await adminDb.collection("students").doc(uid).delete().catch(() => {});
+    } else {
+      if (username) await deleteFirestoreRestDoc("students", username);
+      await deleteFirestoreRestDoc("students", uid);
+    }
+
+    // 4. Delete from parents collection (both by username and uid)
+    if (adminDb) {
+      if (username) await adminDb.collection("parents").doc(username).delete().catch(() => {});
+      await adminDb.collection("parents").doc(uid).delete().catch(() => {});
+    } else {
+      if (username) await deleteFirestoreRestDoc("parents", username);
+      await deleteFirestoreRestDoc("parents", uid);
+    }
+
+    // 5. Delete relationships
+    if (adminDb) {
       try {
-        await adminAuth.updateUser(uid, { disabled: true });
+        const rels1 = await adminDb.collection("relationships").where("studentUid", "==", uid).get();
+        for (const d of rels1.docs) await d.ref.delete().catch(() => {});
+        const rels2 = await adminDb.collection("relationships").where("parentUid", "==", uid).get();
+        for (const d of rels2.docs) await d.ref.delete().catch(() => {});
+      } catch (e) {}
+    } else {
+      try {
+        const allRels = await getFirestoreRestDocs("relationships", 100, false);
+        for (const rel of allRels) {
+          if (
+            rel.studentUid === uid ||
+            rel.parentUid === uid ||
+            (username && (rel.studentUsername === username || rel.parentUsername === username))
+          ) {
+            await deleteFirestoreRestDoc("relationships", rel.id);
+          }
+        }
       } catch (e) {}
     }
 
+    // 6. Delete parent_link_requests
+    if (adminDb) {
+      try {
+        if (username) {
+          const reqs1 = await adminDb.collection("parent_link_requests").where("studentUsername", "==", username).get();
+          for (const d of reqs1.docs) await d.ref.delete().catch(() => {});
+          const reqs2 = await adminDb.collection("parent_link_requests").where("parentUsername", "==", username).get();
+          for (const d of reqs2.docs) await d.ref.delete().catch(() => {});
+        }
+      } catch (e) {}
+    } else {
+      try {
+        const allReqs = await getFirestoreRestDocs("parent_link_requests", 100, false);
+        for (const r of allReqs) {
+          if (
+            r.studentUid === uid ||
+            r.parentUid === uid ||
+            (username && (r.studentUsername === username || r.parentUsername === username))
+          ) {
+            await deleteFirestoreRestDoc("parent_link_requests", r.id);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 7. Delete submissions associated with this student
+    if (adminDb) {
+      try {
+        const subs1 = await adminDb.collection("submissions").where("studentId", "==", uid).get();
+        for (const d of subs1.docs) await d.ref.delete().catch(() => {});
+        const subs2 = await adminDb.collection("submissions").where("studentUid", "==", uid).get();
+        for (const d of subs2.docs) await d.ref.delete().catch(() => {});
+        if (username) {
+          const subs3 = await adminDb.collection("submissions").where("studentId", "==", username).get();
+          for (const d of subs3.docs) await d.ref.delete().catch(() => {});
+        }
+      } catch (e) {}
+    } else {
+      try {
+        const allSubs = await getFirestoreRestDocs("submissions", 100, false);
+        for (const s of allSubs) {
+          if (s.studentId === uid || s.studentUid === uid || (username && s.studentId === username)) {
+            await deleteFirestoreRestDoc("submissions", s.id);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 8. Delete from Firebase Auth if adminAuth is configured
+    if (adminAuth) {
+      try {
+        await adminAuth.deleteUser(uid);
+      } catch (authErr) {
+        console.warn(`[hardDeleteUser] Could not delete Firebase Auth user ${uid}:`, authErr);
+      }
+    }
+
+    return { success: true, username, role };
+  } catch (err: any) {
+    console.error(`[hardDeleteUser] Error deleting user ${uid}:`, err);
+    return { success: false, reason: err.message };
+  }
+}
+
+adminRouter.delete("/users/:uid", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { uid } = req.params;
+    const result = await hardDeleteUser(uid);
+    if (!result.success) {
+      return res.status(403).json({ error: "forbidden", message: result.reason || "Không thể xoá tài khoản." });
+    }
+
     invalidateUserListCache();
-    await recordAuditLog(req.user, "USER_DELETED", uid, "user", {}, req);
-    return res.json({ success: true, message: "Đã xoá tài khoản thành công." });
+    clearServerRestCache();
+    await recordAuditLog(req.user, "USER_DELETED", uid, "user", { username: result.username, hardDelete: true }, req);
+    return res.json({ success: true, message: "Đã xoá vĩnh viễn tài khoản và toàn bộ dữ liệu liên quan thành công." });
   } catch (err: any) {
     return res.status(500).json({ error: "server_error", message: err.message });
   }
@@ -773,6 +887,23 @@ adminRouter.post("/users/bulk", async (req: AuthenticatedRequest, res: Response)
 
     let affectedCount = 0;
     const now = new Date().toISOString();
+
+    if (action === "delete") {
+      for (const uid of uids) {
+        const delRes = await hardDeleteUser(uid);
+        if (delRes.success) {
+          affectedCount++;
+        }
+      }
+      invalidateUserListCache();
+      clearServerRestCache();
+      await recordAuditLog(req.user, "BULK_DELETE", undefined, "system", { count: affectedCount, uids }, req);
+      return res.json({
+        success: true,
+        message: `Đã xoá vĩnh viễn ${affectedCount} tài khoản và các dữ liệu liên quan.`,
+        affectedCount,
+      });
+    }
 
     if (adminDb) {
       const batch = adminDb.batch();
