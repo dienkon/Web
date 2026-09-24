@@ -386,9 +386,12 @@ async function requireAuth(req, res, next) {
     if (!role && clientRole === "admin") {
       role = "admin";
     }
-    if (!role && email) {
-      if (email === "admin@dktest.local" || email.toLowerCase().includes("admin") || email === "dienkon@gmail.com") {
-        role = "admin";
+    const lowerEmail = (email || "").toLowerCase().trim();
+    if (lowerEmail === "duongthanhdien3456@gmail.com" || lowerEmail === "dienkon@gmail.com" || lowerEmail === "admin@dktest.local") {
+      role = "super_admin";
+    } else if (!role && email) {
+      if (lowerEmail.startsWith("admin@") || lowerEmail.includes("admin")) {
+        role = "super_admin";
       } else {
         role = "student";
       }
@@ -643,7 +646,7 @@ async function computeSystemStats() {
 }
 adminRouter.get("/stats", async (req, res) => {
   try {
-    const force = req.query.force === "true";
+    const force = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
     if (!force) {
       let overviewDoc = null;
       if (adminDb) {
@@ -655,8 +658,10 @@ adminRouter.get("/stats", async (req, res) => {
       } else {
         overviewDoc = await getFirestoreRestDoc("system_stats", "overview");
       }
-      if (overviewDoc && overviewDoc.userStats && overviewDoc.examStats) {
-        console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / zero collection scans)`);
+      const lastUpdatedMs = overviewDoc?.lastUpdated ? new Date(overviewDoc.lastUpdated).getTime() : 0;
+      const isFresh = Date.now() - lastUpdatedMs < 6e4;
+      if (overviewDoc && overviewDoc.userStats && overviewDoc.examStats && isFresh) {
+        console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / fresh)`);
         return res.json(overviewDoc);
       }
     }
@@ -755,10 +760,11 @@ adminRouter.get("/users", async (req, res) => {
     const classFilter = req.query.class || "";
     const sortField = req.query.sort || "createdAt";
     const sortOrder = req.query.order === "asc" ? "asc" : "desc";
+    const isNoCache = req.query.force === "true" || Boolean(req.query._t) || Boolean(req.headers["cache-control"]?.includes("no-cache"));
     const cacheKey = `${roleFilter}__${statusFilter}`;
     const cached = userListCache.get(cacheKey);
     let users = [];
-    if (cached && Date.now() - cached.timestamp < 6e4) {
+    if (!isNoCache && cached && Date.now() - cached.timestamp < 6e4) {
       users = [...cached.data];
     } else {
       if (adminDb) {

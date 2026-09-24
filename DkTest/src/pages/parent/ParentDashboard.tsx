@@ -256,9 +256,10 @@ export default function ParentDashboard() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    setIsAdmin(isAdminAuthenticated());
+    const adminActive = isAdminAuthenticated();
+    setIsAdmin(adminActive);
 
-    if (!isParentAuthenticated()) {
+    if (!isParentAuthenticated() && !adminActive) {
       navigate("/parent/login", { replace: true });
       return;
     }
@@ -285,6 +286,14 @@ export default function ParentDashboard() {
         loadMonitoringData(parsed.username);
         loadParentExams(parsed.username);
       } catch (e) {}
+    } else if (adminActive) {
+      const adminParent = {
+        username: "admin",
+        displayName: "Dương Thanh Điền (Admin)",
+        email: "duongthanhdien3456@gmail.com",
+      };
+      setParentInfo(adminParent);
+      loadMonitoringData("admin");
     }
   }, [navigate]);
 

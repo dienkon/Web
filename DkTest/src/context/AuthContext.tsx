@@ -17,7 +17,17 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase/config";
 import type { UserProfile, UserRole, AccountStatus } from "../types";
 import { STORAGE_KEYS, setStoredItem, removeStoredItem } from "../utils/storage";
-import { claimUsernameApi, loginWithUsernameApi, isAdminAuthenticated, clearAdminSession, clearParentSession, clearStudentSession } from "../services/authService";
+import {
+  claimUsernameApi,
+  loginWithUsernameApi,
+  isAdminAuthenticated,
+  setAdminSession,
+  isAdminEmail,
+  ADMIN_EMAILS,
+  clearAdminSession,
+  clearParentSession,
+  clearStudentSession,
+} from "../services/authService";
 
 interface AuthContextValue {
   user: User | null;
@@ -82,15 +92,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    const isExplicitAdmin =
+      profile.role === "admin" ||
+      profile.role === "super_admin" ||
+      isAdminEmail(profile.email);
+
+    if (isExplicitAdmin) {
+      setAdminSession({
+        displayName: profile.displayName || "Dương Thanh Điền (Admin)",
+        email: profile.email || "duongthanhdien3456@gmail.com",
+      });
+      return;
+    }
+
     const role = profile.role || "student";
     localStorage.setItem("auth_role", role);
     setStoredItem(STORAGE_KEYS.AUTH_ROLE, role);
 
-    if (role === "admin" || role === "super_admin") {
-      const token = `dk_admin_${Date.now()}`;
-      localStorage.setItem("admin_token", token);
-      setStoredItem(STORAGE_KEYS.ADMIN_TOKEN, token);
-    } else if (role === "parent") {
+    if (role === "parent") {
       const pInfo = {
         username: profile.username || (profile.email ? profile.email.split("@")[0] : profile.uid),
         displayName: profile.displayName || "Phụ huynh",
@@ -123,14 +142,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const userSnap = await getDoc(userRef);
 
     const now = new Date().toISOString();
+    const isAdmin = isAdminEmail(firebaseUser.email);
 
     if (userSnap.exists()) {
       const existing = userSnap.data() as UserProfile;
-      // Update lastLoginAt and login count
+      const targetRole: UserRole = isAdmin ? "admin" : (existing.role || intendedRole || "student");
+
+      // Update lastLoginAt, role and login count
       const rawUpdate: Record<string, any> = {
+        role: targetRole,
         lastLoginAt: now,
         lastSeenAt: now,
-        emailVerified: firebaseUser.emailVerified,
+        emailVerified: isAdmin ? true : firebaseUser.emailVerified,
         photoURL: firebaseUser.photoURL || existing.photoURL || "",
         loginCount: (existing.loginCount || 0) + 1,
         ...extraFields,
@@ -152,19 +175,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const fullProfile: UserProfile = {
         ...existing,
         ...updatedData,
+        role: targetRole,
         uid: firebaseUser.uid,
         email: firebaseUser.email || existing.email,
-        displayName: existing.displayName || firebaseUser.displayName || "Người dùng",
+        displayName: existing.displayName || firebaseUser.displayName || (isAdmin ? "Dương Thanh Điền (Admin)" : "Người dùng"),
       };
+
+      if (isAdmin) {
+        setAdminSession({
+          displayName: fullProfile.displayName || "Dương Thanh Điền (Admin)",
+          email: fullProfile.email || "duongthanhdien3456@gmail.com",
+        });
+      }
 
       syncLegacyStorage(fullProfile);
       return fullProfile;
     } else {
       // Create new profile in Firestore
-      const newRole: UserRole = intendedRole || "student";
+      const newRole: UserRole = isAdmin ? "admin" : (intendedRole || "student");
       const username = extraFields?.username || (firebaseUser.email ? firebaseUser.email.split("@")[0] : "");
       const usernameNormalized = username.toLowerCase();
-      const displayName = extraFields?.displayName || firebaseUser.displayName || username || "Người dùng";
+      const displayName = extraFields?.displayName || firebaseUser.displayName || (isAdmin ? "Dương Thanh Điền (Admin)" : username) || "Người dùng";
 
       const newProfile: UserProfile = {
         uid: firebaseUser.uid,
@@ -178,7 +209,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         accountStatus: "active",
         provider: extraFields?.authProvider === "username" || firebaseUser.email?.endsWith("@dktest.local") ? "username" : (firebaseUser.providerData?.[0]?.providerId === "google.com" ? "google" : "password"),
         authProvider: extraFields?.authProvider || (firebaseUser.email?.endsWith("@dktest.local") ? "username" : (firebaseUser.providerData?.[0]?.providerId === "google.com" ? "google" : "password")),
-        emailVerified: Boolean(extraFields?.emailVerified) || firebaseUser.email?.endsWith("@dktest.local") || firebaseUser.emailVerified,
+        emailVerified: isAdmin || Boolean(extraFields?.emailVerified) || firebaseUser.email?.endsWith("@dktest.local") || firebaseUser.emailVerified,
         createdAt: now,
         updatedAt: now,
         lastLoginAt: now,
@@ -191,8 +222,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       await setDoc(userRef, newProfile);
 
-      // Create role-specific document
-      if (newRole === "student") {
+      if (isAdmin) {
+        setAdminSession({
+          displayName: newProfile.displayName,
+          email: newProfile.email || "duongthanhdien3456@gmail.com",
+        });
+      } else if (newRole === "student") {
         try {
           await setDoc(
             doc(db, "students", firebaseUser.uid),
@@ -253,9 +288,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
           const adminProfile: UserProfile = {
             uid: "admin_local",
-            displayName: savedInfo.displayName || "Quản trị viên",
-            fullName: savedInfo.displayName || "Quản trị viên",
-            email: savedInfo.email || "admin@dktest.local",
+            displayName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
+            fullName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
+            email: savedInfo.email || "duongthanhdien3456@gmail.com",
             role: "admin",
             accountStatus: "active",
             provider: "password",
@@ -506,7 +541,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return profile;
   };
 
-  const currentRole = userProfile?.role || (isAdminAuthenticated() ? "admin" : (user ? "student" : "guest"));
+  const isAdmin =
+    isAdminEmail(user?.email) ||
+    isAdminEmail(userProfile?.email) ||
+    isAdminAuthenticated();
+  const currentRole: UserRole | "guest" = isAdmin
+    ? "admin"
+    : (userProfile?.role || (user ? "student" : "guest"));
   const accountStatus = userProfile?.accountStatus || (user ? "active" : null);
   const isPendingApproval = accountStatus === "pending";
   const isSuspended = accountStatus === "suspended" || accountStatus === "disabled" || accountStatus === "deleted";

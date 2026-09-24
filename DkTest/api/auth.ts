@@ -6,7 +6,7 @@ const app = express();
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, X-Admin-Token, X-Auth-Role");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, X-Admin-Token, X-Auth-Role, Cache-Control, Pragma, Expires");
   if (req.method === "OPTIONS") {
     return res.sendStatus(204);
   }
@@ -23,7 +23,7 @@ app.use("/", authRouter);
 export default function handler(req: any, res: any) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, X-Admin-Token, X-Auth-Role");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, X-Admin-Token, X-Auth-Role, Cache-Control, Pragma, Expires");
 
   if (req.method === "OPTIONS") {
     return res.status(204).end();

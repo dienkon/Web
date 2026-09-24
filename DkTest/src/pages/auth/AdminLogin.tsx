@@ -21,7 +21,7 @@ export default function AdminLogin() {
   const { showToast } = useToast();
 
   const [authMode, setAuthMode] = useState<"firebase" | "legacy_pass">("firebase");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("duongthanhdien3456@gmail.com");
   const [password, setPassword] = useState("");
   const [legacyPassword, setLegacyPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,7 @@ export default function AdminLogin() {
         setError("Tài khoản này không có quyền quản trị viên.");
         return;
       }
-      setAdminSession({ displayName: profile.displayName || "Quản trị viên", email: profile.email || "admin@dktest.local" });
+      setAdminSession({ displayName: profile.displayName || "Dương Thanh Điền (Admin)", email: profile.email || "duongthanhdien3456@gmail.com" });
       showToast("Đăng nhập quyền Quản trị viên thành công!", "success");
       navigate(redirectPath, { replace: true });
     } catch (err: any) {
@@ -78,7 +78,7 @@ export default function AdminLogin() {
 
     setTimeout(() => {
       if (verifyAdminCredentials(legacyPassword)) {
-        setAdminSession({ displayName: "Quản trị viên", email: "admin@dktest.local" });
+        setAdminSession({ displayName: "Dương Thanh Điền (Admin)", email: "duongthanhdien3456@gmail.com" });
         showToast("Đăng nhập thành công!", "success");
         navigate(redirectPath, { replace: true });
       } else {
@@ -93,7 +93,7 @@ export default function AdminLogin() {
       setError("Tài khoản Google này chưa được cấp quyền Quản trị viên.");
       return;
     }
-    setAdminSession({ displayName: profile.displayName || "Quản trị viên", email: profile.email || "admin@dktest.local" });
+    setAdminSession({ displayName: profile.displayName || "Dương Thanh Điền (Admin)", email: profile.email || "duongthanhdien3456@gmail.com" });
     showToast("Đăng nhập Google với quyền Quản trị viên thành công!", "success");
     navigate(redirectPath, { replace: true });
   };

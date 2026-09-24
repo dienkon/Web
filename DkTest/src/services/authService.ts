@@ -18,18 +18,34 @@ export function verifyAdminCredentials(inputPassword: string): boolean {
   return inputPassword === currentPassword;
 }
 
+export const ADMIN_EMAILS = [
+  "duongthanhdien3456@gmail.com",
+  "dienkon@gmail.com",
+  "admin@dktest.local",
+];
+
+export function isAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  return ADMIN_EMAILS.includes(email.toLowerCase().trim());
+}
+
 /**
- * Set admin session
+ * Set admin session and persist credentials permanently in localStorage
  */
 export function setAdminSession(info?: { displayName?: string; email?: string }): void {
   const token = `dk_admin_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+  const adminData = {
+    displayName: info?.displayName || "Dương Thanh Điền (Admin)",
+    email: info?.email || "duongthanhdien3456@gmail.com",
+    role: "admin",
+    ...info,
+  };
   setStoredItem(STORAGE_KEYS.AUTH_ROLE, "admin", "auth_role");
   setStoredItem(STORAGE_KEYS.ADMIN_TOKEN, token, "admin_token");
   localStorage.setItem("auth_role", "admin");
   localStorage.setItem("admin_token", token);
-  if (info) {
-    localStorage.setItem("admin_info", JSON.stringify(info));
-  }
+  localStorage.setItem("admin_info", JSON.stringify(adminData));
+  localStorage.setItem("admin_persisted", "true");
 }
 
 /**
@@ -43,6 +59,7 @@ export function clearAdminSession(): void {
   localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
   localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
   localStorage.removeItem("admin_info");
+  localStorage.removeItem("admin_persisted");
 }
 
 /**
@@ -72,19 +89,45 @@ export function clearStudentSession(): void {
 }
 
 /**
- * Checks if current user has valid admin session
+ * Checks if current user has valid admin session (including remembered sessions)
  */
 export function isAdminAuthenticated(): boolean {
   const legacyRole = localStorage.getItem("auth_role");
   const namespacedRole = localStorage.getItem(STORAGE_KEYS.AUTH_ROLE);
   const activeRole = legacyRole || namespacedRole;
+  const token = localStorage.getItem("admin_token") || localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
 
-  if (activeRole !== "admin") {
-    return false;
+  if ((activeRole === "admin" || activeRole === "super_admin") && token) {
+    return true;
   }
 
-  const token = localStorage.getItem("admin_token") || localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
-  return !!token;
+  // Check persisted admin session (user logged in once as admin)
+  try {
+    const raw = localStorage.getItem("admin_info");
+    if (raw) {
+      const info = JSON.parse(raw);
+      const emailLower = (info.email || "").toLowerCase().trim();
+      if (
+        emailLower === "duongthanhdien3456@gmail.com" ||
+        emailLower === "dienkon@gmail.com" ||
+        emailLower === "admin@dktest.local" ||
+        info.role === "admin" ||
+        info.role === "super_admin"
+      ) {
+        // Auto-restore admin tokens if missing
+        if (!token) {
+          const restoredToken = `dk_admin_${Date.now()}_restored`;
+          localStorage.setItem("admin_token", restoredToken);
+          localStorage.setItem("auth_role", "admin");
+          setStoredItem(STORAGE_KEYS.ADMIN_TOKEN, restoredToken);
+          setStoredItem(STORAGE_KEYS.AUTH_ROLE, "admin");
+        }
+        return true;
+      }
+    }
+  } catch {}
+
+  return false;
 }
 
 /**
@@ -96,7 +139,7 @@ export function isStudentAuthenticated(): boolean {
   const activeRole = legacyRole || namespacedRole;
 
   const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem(STORAGE_KEYS.STUDENT_INFO);
-  return (activeRole === "student" || activeRole === "admin") && !!studentInfoStr;
+  return activeRole === "student" && !!studentInfoStr;
 }
 
 /**
@@ -108,7 +151,7 @@ export function isParentAuthenticated(): boolean {
   const activeRole = legacyRole || namespacedRole;
 
   const parentInfoStr = localStorage.getItem("parent_info") || localStorage.getItem(STORAGE_KEYS.PARENT_INFO);
-  return (activeRole === "parent" || activeRole === "admin") && !!parentInfoStr;
+  return activeRole === "parent" && !!parentInfoStr;
 }
 
 /**
@@ -116,10 +159,15 @@ export function isParentAuthenticated(): boolean {
  */
 export function getCurrentUser(): CurrentUser {
   if (isAdminAuthenticated()) {
+    let savedInfo: any = {};
+    try {
+      const raw = localStorage.getItem("admin_info");
+      if (raw) savedInfo = JSON.parse(raw);
+    } catch {}
     return {
       role: "admin",
       username: "admin",
-      displayName: "Quản trị viên",
+      displayName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
     };
   }
 

@@ -132,10 +132,17 @@ export async function requireAuth(
       role = "admin";
     }
 
-    // 5. Email-based admin fallback
-    if (!role && email) {
-      if (email === "admin@dktest.local" || email.toLowerCase().includes("admin") || email === "dienkon@gmail.com") {
-        role = "admin";
+    // 5. Explicit admin email override (ensures duongthanhdien3456@gmail.com is ALWAYS super_admin)
+    const lowerEmail = (email || "").toLowerCase().trim();
+    if (
+      lowerEmail === "duongthanhdien3456@gmail.com" ||
+      lowerEmail === "dienkon@gmail.com" ||
+      lowerEmail === "admin@dktest.local"
+    ) {
+      role = "super_admin";
+    } else if (!role && email) {
+      if (lowerEmail.startsWith("admin@") || lowerEmail.includes("admin")) {
+        role = "super_admin";
       } else {
         role = "student";
       }

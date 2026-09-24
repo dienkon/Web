@@ -32,11 +32,17 @@ export default function ParentLogin() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    setIsAdmin(isAdminAuthenticated() || role === "admin" || role === "super_admin");
+    const adminActive = isAdminAuthenticated() || role === "admin" || role === "super_admin";
+    setIsAdmin(adminActive);
 
-    if (isParentAuthenticated() || role === "parent" || role === "admin" || role === "super_admin") {
-      const target = redirectPath && !redirectPath.startsWith("/parent/login") ? redirectPath : "/parent/dashboard";
-      navigate(target, { replace: true });
+    // Only redirect if explicitly logged in as a parent with an intended target
+    if (
+      role === "parent" &&
+      redirectPath &&
+      !redirectPath.startsWith("/parent/login") &&
+      redirectPath !== "/parent/dashboard"
+    ) {
+      navigate(redirectPath, { replace: true });
     }
   }, [navigate, redirectPath, role]);
 

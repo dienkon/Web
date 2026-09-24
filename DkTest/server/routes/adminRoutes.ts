@@ -246,7 +246,10 @@ async function computeSystemStats() {
 // -------------------------------------------------------------
 adminRouter.get("/stats", async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const force = req.query.force === "true";
+    const force =
+      req.query.force === "true" ||
+      Boolean(req.query._t) ||
+      Boolean(req.headers["cache-control"]?.includes("no-cache"));
 
     // Step 1: Attempt to read the dedicated pre-aggregated document (1 doc read!)
     if (!force) {
@@ -261,8 +264,11 @@ adminRouter.get("/stats", async (req: AuthenticatedRequest, res: Response) => {
         overviewDoc = await getFirestoreRestDoc("system_stats", "overview");
       }
 
-      if (overviewDoc && overviewDoc.userStats && overviewDoc.examStats) {
-        console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / zero collection scans)`);
+      const lastUpdatedMs = overviewDoc?.lastUpdated ? new Date(overviewDoc.lastUpdated).getTime() : 0;
+      const isFresh = Date.now() - lastUpdatedMs < 60000; // Fresh within 60 seconds
+
+      if (overviewDoc && overviewDoc.userStats && overviewDoc.examStats && isFresh) {
+        console.log(`[Server Stats] Served from dedicated doc "system_stats/overview" (1 doc read / fresh)`);
         return res.json(overviewDoc);
       }
     }
@@ -391,11 +397,16 @@ adminRouter.get("/users", async (req: AuthenticatedRequest, res: Response) => {
     const sortField = (req.query.sort as string) || "createdAt";
     const sortOrder = (req.query.order as string) === "asc" ? "asc" : "desc";
 
+    const isNoCache =
+      req.query.force === "true" ||
+      Boolean(req.query._t) ||
+      Boolean(req.headers["cache-control"]?.includes("no-cache"));
+
     const cacheKey = `${roleFilter}__${statusFilter}`;
     const cached = userListCache.get(cacheKey);
     let users: any[] = [];
 
-    if (cached && Date.now() - cached.timestamp < 60000) {
+    if (!isNoCache && cached && Date.now() - cached.timestamp < 60000) {
       users = [...cached.data];
     } else {
       if (adminDb) {
