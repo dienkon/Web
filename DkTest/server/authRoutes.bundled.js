@@ -105,51 +105,69 @@ function initFirebaseAdmin() {
   };
 }
 var { adminApp, adminAuth, adminDb, isConfigured } = initFirebaseAdmin();
+function decodeFirestoreValue(val) {
+  if (!val || typeof val !== "object") return val;
+  if ("stringValue" in val) return val.stringValue;
+  if ("booleanValue" in val) return val.booleanValue;
+  if ("integerValue" in val) return parseInt(val.integerValue, 10);
+  if ("doubleValue" in val) return val.doubleValue;
+  if ("timestampValue" in val) return val.timestampValue;
+  if ("nullValue" in val) return null;
+  if ("arrayValue" in val) {
+    return (val.arrayValue?.values || []).map(decodeFirestoreValue);
+  }
+  if ("mapValue" in val) {
+    const obj = {};
+    const fields = val.mapValue?.fields || {};
+    for (const [k, v] of Object.entries(fields)) {
+      obj[k] = decodeFirestoreValue(v);
+    }
+    return obj;
+  }
+  return val;
+}
 function decodeFirestoreDocument(doc) {
   if (!doc) return null;
   const id = doc.name ? doc.name.split("/").pop() : "";
   const result = { id, uid: id };
   if (doc.fields) {
     for (const [key, val] of Object.entries(doc.fields)) {
-      if ("stringValue" in val) result[key] = val.stringValue;
-      else if ("booleanValue" in val) result[key] = val.booleanValue;
-      else if ("integerValue" in val) result[key] = parseInt(val.integerValue, 10);
-      else if ("doubleValue" in val) result[key] = val.doubleValue;
-      else if ("timestampValue" in val) result[key] = val.timestampValue;
-      else if ("nullValue" in val) result[key] = null;
-      else if ("arrayValue" in val) {
-        result[key] = (val.arrayValue.values || []).map(
-          (v) => v.stringValue ?? v.integerValue ?? v.booleanValue ?? v
-        );
-      } else {
-        result[key] = val;
-      }
+      result[key] = decodeFirestoreValue(val);
     }
   }
   return result;
 }
+function encodeFirestoreValue(val) {
+  if (val === void 0) return void 0;
+  if (val === null) return { nullValue: null };
+  if (typeof val === "boolean") return { booleanValue: val };
+  if (typeof val === "number") {
+    return Number.isInteger(val) ? { integerValue: String(val) } : { doubleValue: val };
+  }
+  if (typeof val === "string") return { stringValue: val };
+  if (Array.isArray(val)) {
+    return {
+      arrayValue: {
+        values: val.map(encodeFirestoreValue).filter((v) => v !== void 0)
+      }
+    };
+  }
+  if (typeof val === "object") {
+    const fields = {};
+    for (const [k, v] of Object.entries(val)) {
+      const enc = encodeFirestoreValue(v);
+      if (enc !== void 0) fields[k] = enc;
+    }
+    return { mapValue: { fields } };
+  }
+  return { stringValue: String(val) };
+}
 function encodeFirestoreFields(data) {
   const fields = {};
   for (const [key, val] of Object.entries(data)) {
-    if (val === void 0) continue;
-    if (val === null) {
-      fields[key] = { nullValue: null };
-    } else if (typeof val === "boolean") {
-      fields[key] = { booleanValue: val };
-    } else if (typeof val === "number") {
-      if (Number.isInteger(val)) {
-        fields[key] = { integerValue: String(val) };
-      } else {
-        fields[key] = { doubleValue: val };
-      }
-    } else if (typeof val === "string") {
-      fields[key] = { stringValue: val };
-    } else if (Array.isArray(val)) {
-      fields[key] = {
-        arrayValue: {
-          values: val.map((item) => ({ stringValue: String(item) }))
-        }
-      };
+    const enc = encodeFirestoreValue(val);
+    if (enc !== void 0) {
+      fields[key] = enc;
     }
   }
   return fields;

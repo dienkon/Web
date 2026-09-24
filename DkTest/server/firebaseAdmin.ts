@@ -123,52 +123,72 @@ export { FieldValue };
 // FIRESTORE REST API FALLBACK UTILITIES
 // -------------------------------------------------------------
 
+export function decodeFirestoreValue(val: any): any {
+  if (!val || typeof val !== "object") return val;
+  if ("stringValue" in val) return val.stringValue;
+  if ("booleanValue" in val) return val.booleanValue;
+  if ("integerValue" in val) return parseInt(val.integerValue, 10);
+  if ("doubleValue" in val) return val.doubleValue;
+  if ("timestampValue" in val) return val.timestampValue;
+  if ("nullValue" in val) return null;
+  if ("arrayValue" in val) {
+    return (val.arrayValue?.values || []).map(decodeFirestoreValue);
+  }
+  if ("mapValue" in val) {
+    const obj: Record<string, any> = {};
+    const fields = val.mapValue?.fields || {};
+    for (const [k, v] of Object.entries(fields)) {
+      obj[k] = decodeFirestoreValue(v);
+    }
+    return obj;
+  }
+  return val;
+}
+
 export function decodeFirestoreDocument(doc: any): any {
   if (!doc) return null;
   const id = doc.name ? doc.name.split("/").pop() : "";
   const result: Record<string, any> = { id, uid: id };
   if (doc.fields) {
     for (const [key, val] of Object.entries(doc.fields as Record<string, any>)) {
-      if ("stringValue" in val) result[key] = val.stringValue;
-      else if ("booleanValue" in val) result[key] = val.booleanValue;
-      else if ("integerValue" in val) result[key] = parseInt(val.integerValue, 10);
-      else if ("doubleValue" in val) result[key] = val.doubleValue;
-      else if ("timestampValue" in val) result[key] = val.timestampValue;
-      else if ("nullValue" in val) result[key] = null;
-      else if ("arrayValue" in val) {
-        result[key] = (val.arrayValue.values || []).map((v: any) =>
-          v.stringValue ?? v.integerValue ?? v.booleanValue ?? v
-        );
-      } else {
-        result[key] = val;
-      }
+      result[key] = decodeFirestoreValue(val);
     }
   }
   return result;
 }
 
+export function encodeFirestoreValue(val: any): any {
+  if (val === undefined) return undefined;
+  if (val === null) return { nullValue: null };
+  if (typeof val === "boolean") return { booleanValue: val };
+  if (typeof val === "number") {
+    return Number.isInteger(val) ? { integerValue: String(val) } : { doubleValue: val };
+  }
+  if (typeof val === "string") return { stringValue: val };
+  if (Array.isArray(val)) {
+    return {
+      arrayValue: {
+        values: val.map(encodeFirestoreValue).filter((v) => v !== undefined),
+      },
+    };
+  }
+  if (typeof val === "object") {
+    const fields: Record<string, any> = {};
+    for (const [k, v] of Object.entries(val)) {
+      const enc = encodeFirestoreValue(v);
+      if (enc !== undefined) fields[k] = enc;
+    }
+    return { mapValue: { fields } };
+  }
+  return { stringValue: String(val) };
+}
+
 export function encodeFirestoreFields(data: Record<string, any>): Record<string, any> {
   const fields: Record<string, any> = {};
   for (const [key, val] of Object.entries(data)) {
-    if (val === undefined) continue;
-    if (val === null) {
-      fields[key] = { nullValue: null };
-    } else if (typeof val === "boolean") {
-      fields[key] = { booleanValue: val };
-    } else if (typeof val === "number") {
-      if (Number.isInteger(val)) {
-        fields[key] = { integerValue: String(val) };
-      } else {
-        fields[key] = { doubleValue: val };
-      }
-    } else if (typeof val === "string") {
-      fields[key] = { stringValue: val };
-    } else if (Array.isArray(val)) {
-      fields[key] = {
-        arrayValue: {
-          values: val.map((item) => ({ stringValue: String(item) })),
-        },
-      };
+    const enc = encodeFirestoreValue(val);
+    if (enc !== undefined) {
+      fields[key] = enc;
     }
   }
   return fields;
