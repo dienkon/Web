@@ -372,6 +372,7 @@ export interface UserProfile {
   notes?: string;
   studentClass?: string;
   phone?: string;
+  contactEmail?: string;
 }
 
 export interface StudentProfile {

@@ -20,6 +20,7 @@ import type { Student, PaginatedResult } from "../types";
 const STUDENTS_COLLECTION = "students";
 
 export const saveStudentProfile = async (profile: {
+  uid?: string;
   name: string;
   email?: string;
   username?: string;
@@ -30,20 +31,20 @@ export const saveStudentProfile = async (profile: {
   const docId = profile.username || profile.name.replace(/\s+/g, "_").toLowerCase();
   const docRef = doc(db, STUDENTS_COLLECTION, docId);
   console.warn(`[Firestore] WRITE (1 doc): ${STUDENTS_COLLECTION}/${docId}`);
-  await setDoc(
-    docRef,
-    {
-      name: profile.name,
-      email: profile.email || "",
-      username: profile.username || "",
-      avatarUrl: profile.avatarUrl || "",
-      studentClass: profile.studentClass || "",
-      searchNameLower: profile.name.toLowerCase(),
-      lastActive: serverTimestamp(),
-      createdAt: serverTimestamp(),
-    },
-    { merge: true }
-  );
+  const payload: Record<string, any> = {
+    name: profile.name,
+    email: profile.email || "",
+    username: profile.username || "",
+    avatarUrl: profile.avatarUrl || "",
+    studentClass: profile.studentClass || "",
+    searchNameLower: profile.name.toLowerCase(),
+    lastActive: serverTimestamp(),
+    createdAt: serverTimestamp(),
+  };
+  if (profile.uid) {
+    payload.uid = profile.uid;
+  }
+  await setDoc(docRef, payload, { merge: true });
 };
 
 export const updateStudent = async (studentId: string, data: Partial<Student>) => {

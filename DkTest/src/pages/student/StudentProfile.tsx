@@ -34,6 +34,8 @@ import {
   unlinkRelationship,
 } from "../../services/relationshipService";
 import type { ParentStudentRelationship, Submission } from "../../types";
+import { updateProfile as updateFirebaseProfile } from "firebase/auth";
+import { setStoredItem, STORAGE_KEYS } from "../../utils/storage";
 import { useAuth } from "../../context/AuthContext";
 import EmailVerificationBanner from "../../components/auth/EmailVerificationBanner";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -70,9 +72,9 @@ export default function StudentProfile() {
     if (userProfile) {
       setDisplayName(userProfile.displayName || "");
       setUsername(userProfile.username || userProfile.usernameNormalized || (userProfile.email ? userProfile.email.split("@")[0] : userProfile.uid));
-      // For username-based accounts (@dktest.local), show empty email so user can add a real one
+      // For username-based accounts (@dktest.local), show contactEmail if saved, otherwise empty so user can add a real one
       const isUsernameAccount = userProfile.email?.endsWith("@dktest.local") || userProfile.authProvider === "username";
-      setEmail(isUsernameAccount ? "" : (userProfile.email || ""));
+      setEmail(userProfile.contactEmail || (isUsernameAccount ? "" : (userProfile.email || "")));
       setStudentClass(userProfile.studentClass || "");
       setAvatarUrl(userProfile.photoURL || "");
     } else {
@@ -83,7 +85,7 @@ export default function StudentProfile() {
           setDisplayName(info.displayName || info.name || "");
           setUsername(info.username || "");
           // For username-based accounts, don't show the internal @dktest.local email
-          const storedEmail = info.email || "";
+          const storedEmail = info.contactEmail || info.email || "";
           setEmail(storedEmail.endsWith("@dktest.local") ? "" : storedEmail);
           setStudentClass(info.studentClass || info.class || "");
           setAvatarUrl(info.avatarUrl || "");
@@ -191,32 +193,52 @@ export default function StudentProfile() {
 
     setIsSaving(true);
     try {
+      const cleanName = displayName.trim();
+      const cleanClass = studentClass.trim();
+      const cleanEmail = email.trim();
+
       if (user) {
+        // 1. Update Firebase Auth displayName
+        try {
+          await updateFirebaseProfile(user, { displayName: cleanName });
+        } catch (authErr) {
+          console.warn("[StudentProfile] Could not update Firebase Auth user:", authErr);
+        }
+
+        // 2. Prepare user document update
         const updateData: Record<string, any> = {
-          displayName: displayName.trim(),
-          fullName: displayName.trim(),
-          studentClass: studentClass.trim(),
+          displayName: cleanName,
+          fullName: cleanName,
+          studentClass: cleanClass,
           updatedAt: new Date().toISOString(),
         };
-        // For username-based accounts, allow saving a real email to the profile
+        // For username-based accounts, allow saving a real contact email to the profile
         const isUsernameAccount = user.email?.endsWith("@dktest.local") || userProfile?.authProvider === "username";
-        if (isUsernameAccount && email.trim() && email.includes("@") && !email.endsWith("@dktest.local")) {
-          updateData.contactEmail = email.trim();
+        if (isUsernameAccount) {
+          if (cleanEmail && cleanEmail.includes("@") && !cleanEmail.endsWith("@dktest.local")) {
+            updateData.contactEmail = cleanEmail;
+          } else if (!cleanEmail) {
+            updateData.contactEmail = "";
+          }
         }
         await setDoc(
           doc(db, "users", user.uid),
           updateData,
           { merge: true }
         );
-        // Also update the usernames doc with the new displayName
-        if (userProfile?.usernameNormalized) {
+
+        // 3. Also update the usernames doc with the new displayName
+        const normUser = userProfile?.usernameNormalized || userProfile?.username?.toLowerCase() || username?.toLowerCase();
+        if (normUser) {
           try {
             await setDoc(
-              doc(db, "usernames", userProfile.usernameNormalized),
+              doc(db, "usernames", normUser),
               {
-                fullName: displayName.trim(),
-                ...(isUsernameAccount && email.trim() && email.includes("@") && !email.endsWith("@dktest.local")
-                  ? { email: email.trim() }
+                fullName: cleanName,
+                displayName: cleanName,
+                uid: user.uid,
+                ...(isUsernameAccount && cleanEmail && cleanEmail.includes("@") && !cleanEmail.endsWith("@dktest.local")
+                  ? { contactEmail: cleanEmail }
                   : {}),
               },
               { merge: true }
@@ -227,24 +249,35 @@ export default function StudentProfile() {
         }
       }
 
-      await saveStudentProfile({
-        name: displayName.trim(),
-        email: email.trim(),
-        username: username.trim(),
-        avatarUrl,
-        studentClass: studentClass.trim(),
-      });
+      // 4. Save to students collection (with uid to satisfy security rules)
+      try {
+        await saveStudentProfile({
+          uid: user?.uid,
+          name: cleanName,
+          email: cleanEmail,
+          username: username.trim(),
+          avatarUrl,
+          studentClass: cleanClass,
+        });
+      } catch (stErr) {
+        console.warn("[StudentProfile] Could not save to students collection:", stErr);
+      }
 
+      // 5. Update local storage
       const studentInfo = {
-        name: displayName.trim(),
-        displayName: displayName.trim(),
+        name: cleanName,
+        displayName: cleanName,
         username: username.trim(),
-        email: email.trim(),
+        email: cleanEmail,
+        contactEmail: cleanEmail,
         avatarUrl,
-        studentClass: studentClass.trim(),
+        studentClass: cleanClass,
+        uid: user?.uid,
       };
       localStorage.setItem("student_info", JSON.stringify(studentInfo));
+      setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
 
+      // 6. Refresh AuthContext state
       await refreshProfile();
       showToast("Đã lưu thông tin hồ sơ thành công!", "success");
     } catch (err: any) {
