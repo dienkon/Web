@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
+    "api/*.ts": {
+      "includeFiles": "server/**"
+    },
     "api/**/*.ts": {
       "includeFiles": "server/**"
     }
@@ -9,6 +12,22 @@
     {
       "source": "/student/exam/:examId",
       "destination": "/api/ai/exam-meta?examId=:examId"
+    },
+    {
+      "source": "/api/admin/:match*",
+      "destination": "/api/admin"
+    },
+    {
+      "source": "/api/admin",
+      "destination": "/api/admin"
+    },
+    {
+      "source": "/api/auth/:match*",
+      "destination": "/api/auth"
+    },
+    {
+      "source": "/api/auth",
+      "destination": "/api/auth"
     },
     {
       "source": "/((?!api/).*)",
