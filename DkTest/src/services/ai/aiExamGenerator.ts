@@ -1,3 +1,4 @@
+
 import mammoth from "mammoth";
 import { getAiClient, defaultModel } from "./aiClient.js";
 import { aiExamImportResultSchema } from "./aiSchema.js";
@@ -623,7 +624,7 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
 
     if (type === "single_choice" || type === "multiple_choice") {
       let rawOptions = Array.isArray(q.options) ? q.options : [];
-      
+
       // If options are missing, create fallback options A, B, C, D
       if (rawOptions.length < 2) {
         rawOptions = [
@@ -728,8 +729,8 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
       // Check if explanation has an explicit conclusion (e.g. "Do đó chọn đáp án C" or "chọn C")
       if (opts.length > 0 && explanation) {
         const expMatch = explanation.match(/(?:do đó|suy ra|kết luận|chọn|đáp án|phương án)\s*(?:chọn|là)?\s*[:\-–—]?\s*(?:đáp án|phương án)?\s*[\*\`"]?([A-D])[\*\`"]?/i) ||
-                         explanation.match(/\bchọn\s+([A-D])\b/i) ||
-                         explanation.match(/\b([A-D])\s+(?:là đáp án đúng|chính xác)\b/i);
+          explanation.match(/\bchọn\s+([A-D])\b/i) ||
+          explanation.match(/\b([A-D])\s+(?:là đáp án đúng|chính xác)\b/i);
         if (expMatch) {
           const letter = expMatch[1].toUpperCase();
           const letterIdx = letter.charCodeAt(0) - 65;
@@ -832,23 +833,23 @@ function normalizeQuestionsAndExam(rawData: any, defaultTitle: string, defaultDe
 export async function processExamFromPromptStream(prompt: string, onProgress: (msg: string) => void) {
   const ai = getAiClient();
   const startTime = Date.now();
-  
-  onProgress(JSON.stringify({ 
-    type: "log", 
+
+  onProgress(JSON.stringify({
+    type: "log",
     level: "info",
     percent: 15,
     message: "Khởi động mô hình Gemini AI để phân tích yêu cầu...",
     timestamp: new Date().toLocaleTimeString("vi-VN")
   }));
-  
-  onProgress(JSON.stringify({ 
-    type: "log", 
+
+  onProgress(JSON.stringify({
+    type: "log",
     level: "info",
     percent: 30,
     message: "Đang xây dựng ngân hàng câu hỏi và nhận diện công thức toán/hóa học chuẩn LaTeX ($...$)...",
     timestamp: new Date().toLocaleTimeString("vi-VN")
   }));
-  
+
   const response = await ai.models.generateContent({
     model: defaultModel,
     contents: `Tạo đề thi đầy đủ, chính xác, định dạng LaTeX chuẩn cho công thức toán học/hóa học theo yêu cầu sau:\n"${prompt}"`,
@@ -859,8 +860,8 @@ export async function processExamFromPromptStream(prompt: string, onProgress: (m
     },
   });
 
-  onProgress(JSON.stringify({ 
-    type: "log", 
+  onProgress(JSON.stringify({
+    type: "log",
     level: "success",
     percent: 75,
     message: "Gemini AI đã tạo xong nội dung thô. Đang kiểm tra cấu trúc dữ liệu JSON...",
@@ -870,9 +871,9 @@ export async function processExamFromPromptStream(prompt: string, onProgress: (m
   try {
     const jsonStr = response.text || "{}";
     const rawData = JSON.parse(jsonStr);
-    
-    onProgress(JSON.stringify({ 
-      type: "log", 
+
+    onProgress(JSON.stringify({
+      type: "log",
       level: "info",
       percent: 90,
       message: `Đang chuẩn hóa các câu hỏi (${rawData?.questions?.length || 0} câu) và kiểm tra công thức LaTeX...`,
@@ -881,8 +882,8 @@ export async function processExamFromPromptStream(prompt: string, onProgress: (m
 
     const validatedData = normalizeQuestionsAndExam(rawData, "Đề thi tự động từ AI", prompt);
 
-    onProgress(JSON.stringify({ 
-      type: "log", 
+    onProgress(JSON.stringify({
+      type: "log",
       level: "success",
       percent: 100,
       message: `Hoàn tất tạo đề thành công trong ${((Date.now() - startTime) / 1000).toFixed(1)}s! Sẵn sàng xuất đề.`,
@@ -899,13 +900,13 @@ export async function processExamFromPromptStream(prompt: string, onProgress: (m
 export async function processExamInChunks(htmlContent: string, onProgress: (msg: string) => void) {
   const ai = getAiClient();
   const startTime = Date.now();
-  
+
   if (!htmlContent || htmlContent.trim().length === 0) {
     throw new Error("File Word không có nội dung văn bản để phân tích.");
   }
 
-  onProgress(JSON.stringify({ 
-    type: "log", 
+  onProgress(JSON.stringify({
+    type: "log",
     level: "info",
     percent: 10,
     message: `Đã đọc thành công nội dung Word (${htmlContent.length.toLocaleString()} ký tự). Đang phân đoạn tài liệu...`,
@@ -915,7 +916,7 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
   // Split HTML into reasonable chunks (15000 chars)
   const CHUNK_SIZE = 15000;
   const chunks: string[] = [];
-  
+
   let currentPos = 0;
   while (currentPos < htmlContent.length) {
     let nextPos = currentPos + CHUNK_SIZE;
@@ -933,8 +934,8 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
     chunks.push(htmlContent);
   }
 
-  onProgress(JSON.stringify({ 
-    type: "log", 
+  onProgress(JSON.stringify({
+    type: "log",
     level: "info",
     percent: 20,
     message: `Tài liệu được chia thành ${chunks.length} phần để xử lý song song & chuẩn hóa LaTeX...`,
@@ -945,7 +946,7 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
     sections: [],
     questions: [],
   };
-  
+
   for (let i = 0; i < chunks.length; i++) {
     const chunkPercent = Math.round(20 + ((i + 1) / chunks.length) * 65);
     onProgress(JSON.stringify({
@@ -957,7 +958,7 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
       message: `Đang gửi phần ${i + 1}/${chunks.length} tới Gemini AI: nhận diện câu hỏi, tách đáp án & chuyển đổi công thức Toán/Lý/Hóa sang LaTeX...`,
       timestamp: new Date().toLocaleTimeString("vi-VN")
     }));
-    
+
     try {
       const response = await ai.models.generateContent({
         model: defaultModel,
@@ -971,7 +972,7 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
 
       const jsonStr = response.text || "{}";
       const rawChunk = JSON.parse(jsonStr);
-      
+
       const foundQuestions = Array.isArray(rawChunk.questions) ? rawChunk.questions.length : 0;
       const foundSections = Array.isArray(rawChunk.sections) ? rawChunk.sections.length : 0;
 
@@ -1004,8 +1005,8 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
     }
   }
 
-  onProgress(JSON.stringify({ 
-    type: "log", 
+  onProgress(JSON.stringify({
+    type: "log",
     level: "info",
     percent: 92,
     message: "Tổng hợp toàn bộ câu hỏi, chuẩn hóa LaTeX ($...$), gán ID và tạo thống kê đề thi...",
@@ -1017,9 +1018,9 @@ export async function processExamInChunks(htmlContent: string, onProgress: (msg:
   }
 
   const validatedData = normalizeQuestionsAndExam(combinedRawData, "Đề thi tự động từ file Word", "Được tạo tự động từ tài liệu Word tải lên.");
-  
-  onProgress(JSON.stringify({ 
-    type: "log", 
+
+  onProgress(JSON.stringify({
+    type: "log",
     level: "success",
     percent: 100,
     message: `Đã hoàn tất trích xuất ${validatedData.questions.length} câu hỏi thành công trong ${((Date.now() - startTime) / 1000).toFixed(1)}s!`,

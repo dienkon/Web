@@ -36,11 +36,11 @@ export function getAiClient(customApiKey?: string): GoogleGenAI {
 }
 
 const safeEnv = typeof process !== "undefined" ? process.env : ({} as Record<string, string | undefined>);
-let envModel = safeEnv.GEMINI_MODEL || "gemini-2.5-flash";
+let envModel = safeEnv.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
 // If the environment variable mistakenly contains an API key (starts with AQ.), ignore it
 if (envModel.startsWith("AQ.")) {
-  envModel = "gemini-2.5-flash";
+  envModel = "gemini-3.5-flash-lite";
 }
 
 export const defaultModel = envModel;
