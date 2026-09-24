@@ -69,10 +69,12 @@ export default function StudentProfile() {
     // Priority: use AuthContext profile if available, otherwise read localStorage
     if (userProfile) {
       setDisplayName(userProfile.displayName || "");
-      setEmail(userProfile.email || "");
+      setUsername(userProfile.username || userProfile.usernameNormalized || (userProfile.email ? userProfile.email.split("@")[0] : userProfile.uid));
+      // For username-based accounts (@dktest.local), show empty email so user can add a real one
+      const isUsernameAccount = userProfile.email?.endsWith("@dktest.local") || userProfile.authProvider === "username";
+      setEmail(isUsernameAccount ? "" : (userProfile.email || ""));
       setStudentClass(userProfile.studentClass || "");
       setAvatarUrl(userProfile.photoURL || "");
-      setUsername(userProfile.email ? userProfile.email.split("@")[0] : userProfile.uid);
     } else {
       const infoStr = localStorage.getItem("student_info");
       if (infoStr) {
@@ -80,7 +82,9 @@ export default function StudentProfile() {
           const info = JSON.parse(infoStr);
           setDisplayName(info.displayName || info.name || "");
           setUsername(info.username || "");
-          setEmail(info.email || "");
+          // For username-based accounts, don't show the internal @dktest.local email
+          const storedEmail = info.email || "";
+          setEmail(storedEmail.endsWith("@dktest.local") ? "" : storedEmail);
           setStudentClass(info.studentClass || info.class || "");
           setAvatarUrl(info.avatarUrl || "");
         } catch (e) {}
@@ -188,15 +192,39 @@ export default function StudentProfile() {
     setIsSaving(true);
     try {
       if (user) {
+        const updateData: Record<string, any> = {
+          displayName: displayName.trim(),
+          fullName: displayName.trim(),
+          studentClass: studentClass.trim(),
+          updatedAt: new Date().toISOString(),
+        };
+        // For username-based accounts, allow saving a real email to the profile
+        const isUsernameAccount = user.email?.endsWith("@dktest.local") || userProfile?.authProvider === "username";
+        if (isUsernameAccount && email.trim() && email.includes("@") && !email.endsWith("@dktest.local")) {
+          updateData.contactEmail = email.trim();
+        }
         await setDoc(
           doc(db, "users", user.uid),
-          {
-            displayName: displayName.trim(),
-            studentClass: studentClass.trim(),
-            updatedAt: new Date().toISOString(),
-          },
+          updateData,
           { merge: true }
         );
+        // Also update the usernames doc with the new displayName
+        if (userProfile?.usernameNormalized) {
+          try {
+            await setDoc(
+              doc(db, "usernames", userProfile.usernameNormalized),
+              {
+                fullName: displayName.trim(),
+                ...(isUsernameAccount && email.trim() && email.includes("@") && !email.endsWith("@dktest.local")
+                  ? { email: email.trim() }
+                  : {}),
+              },
+              { merge: true }
+            );
+          } catch (unErr) {
+            console.warn("[StudentProfile] Could not update usernames doc:", unErr);
+          }
+        }
       }
 
       await saveStudentProfile({
@@ -500,12 +528,18 @@ export default function StudentProfile() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Địa chỉ Email</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Địa chỉ Email
+                {user && (user.email?.endsWith("@dktest.local") || userProfile?.authProvider === "username") && (
+                  <span className="text-[10px] text-amber-600 font-medium ml-1">(Tuỳ chọn - thêm email thật để khôi phục mật khẩu)</span>
+                )}
+              </label>
               <input
                 type="email"
-                disabled={!!user}
+                disabled={!!user && !user.email?.endsWith("@dktest.local") && userProfile?.authProvider !== "username"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder={user?.email?.endsWith("@dktest.local") ? "VD: an.nguyen@gmail.com (không bắt buộc)" : ""}
                 className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:bg-slate-100 disabled:text-slate-500 text-slate-800"
               />
             </div>
