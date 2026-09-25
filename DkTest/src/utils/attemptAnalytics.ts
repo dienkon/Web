@@ -143,6 +143,20 @@ export function evaluateQuestionAnswer(
       isCorrect = correctBlanks === keys.length;
       earned = (correctBlanks / keys.length) * pointPerQuestion;
     }
+  } else if (q.type === "matching") {
+    const correctMap = q.correctMatches || {};
+    const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+    const keys = Object.keys(correctMap);
+    if (keys.length > 0) {
+      let correctCount = 0;
+      keys.forEach((k) => {
+        if (String(ansMap[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase()) {
+          correctCount++;
+        }
+      });
+      isCorrect = correctCount === keys.length;
+      earned = (correctCount / keys.length) * pointPerQuestion;
+    }
   }
 
   const status: "correct" | "incorrect" | "unanswered" = isCorrect ? "correct" : "incorrect";

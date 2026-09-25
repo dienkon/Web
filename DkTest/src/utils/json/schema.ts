@@ -4,7 +4,7 @@ export const CURRENT_EXAM_JSON_VERSION = 3;
 
 export const QuestionSchemaV3 = z.object({
   id: z.string(),
-  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank"]),
+  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank", "matching"]),
   text: z.string(),
   options: z.array(z.object({
     id: z.string(),
@@ -23,12 +23,25 @@ export const QuestionSchemaV3 = z.object({
   })).optional(),
   correctOrder: z.array(z.string()).optional(),
   acceptedAnswersPerBlank: z.record(z.string(), z.array(z.string())).optional(),
+  matchingLeft: z.array(z.object({
+    id: z.string(),
+    label: z.string().optional(),
+    text: z.string()
+  })).optional(),
+  matchingRight: z.array(z.object({
+    id: z.string(),
+    label: z.string().optional(),
+    text: z.string()
+  })).optional(),
+  correctMatches: z.record(z.string(), z.string()).optional(),
   caseSensitive: z.boolean().optional(),
   trimWhitespace: z.boolean().optional(),
   explanation: z.string().optional(),
   imageUrl: z.string().nullable().optional(),
   imageWidth: z.number().nullable().optional(),
   imageHeight: z.number().nullable().optional(),
+  audioConfig: z.any().optional(),
+  audioUrl: z.string().nullable().optional(),
   points: z.number().optional().default(1),
   sectionId: z.string().nullable().optional(),
   order: z.number().optional(),
@@ -47,9 +60,13 @@ export const ExamSchemaV3 = z.object({
   timeLimit: z.number().default(90),
   shuffleQuestions: z.boolean().default(false),
   showResults: z.boolean().default(true),
+  showScore: z.boolean().default(true).optional(),
+  showDetails: z.boolean().default(true).optional(),
   description: z.string().optional(),
   subject: z.string().optional(),
   gradeCategory: z.string().optional(),
+  audioConfig: z.any().optional(),
+  attachments: z.any().optional(),
 });
 
 export const FullExportSchemaV3 = z.object({

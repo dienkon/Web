@@ -55,6 +55,7 @@ export default function ExamResultCharts({ submission, questions, sections }: Ex
         else if (qType === "short_answer") typeName = "Điền ngắn";
         else if (qType === "fill_blank") typeName = "Điền khuyết";
         else if (qType === "ordering") typeName = "Sắp xếp";
+        else if (qType === "matching") typeName = "Nối bảng";
         typeStats[qType] = { name: typeName, correct: 0, incorrect: 0, unanswered: 0 };
       }
 

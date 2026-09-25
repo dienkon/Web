@@ -41,6 +41,9 @@ export default function StudentSubExamConfig({
   const multipleChoiceTotal = questions.filter((q) => q.type === "multiple_choice").length;
   const trueFalseTotal = questions.filter((q) => q.type === "true_false").length;
   const shortAnswerTotal = questions.filter((q) => q.type === "short_answer").length;
+  const orderingTotal = questions.filter((q) => q.type === "ordering").length;
+  const fillBlankTotal = questions.filter((q) => q.type === "fill_blank").length;
+  const matchingTotal = questions.filter((q) => q.type === "matching").length;
 
   return (
     <div className="bg-gradient-to-br from-purple-50/80 to-indigo-50/60 rounded-3xl border-2 border-purple-200 p-5 sm:p-6 space-y-5 shadow-xs">
@@ -207,6 +210,66 @@ export default function StudentSubExamConfig({
                     placeholder={`Tất cả (${shortAnswerTotal})`}
                   />
                 </div>
+
+                {orderingTotal > 0 && (
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-semibold text-slate-700">Sắp xếp thứ tự:</span>
+                      <span className="text-[11px] font-bold text-slate-500">Có {orderingTotal} câu</span>
+                    </div>
+                    <input
+                      type="number"
+                      min="-1"
+                      max={orderingTotal}
+                      className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
+                      value={config.orderingCount ?? ""}
+                      onChange={(e) =>
+                        updateConfig({ orderingCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
+                      }
+                      placeholder={`Tất cả (${orderingTotal})`}
+                    />
+                  </div>
+                )}
+
+                {fillBlankTotal > 0 && (
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-semibold text-slate-700">Điền vào chỗ trống:</span>
+                      <span className="text-[11px] font-bold text-slate-500">Có {fillBlankTotal} câu</span>
+                    </div>
+                    <input
+                      type="number"
+                      min="-1"
+                      max={fillBlankTotal}
+                      className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
+                      value={config.fillBlankCount ?? ""}
+                      onChange={(e) =>
+                        updateConfig({ fillBlankCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
+                      }
+                      placeholder={`Tất cả (${fillBlankTotal})`}
+                    />
+                  </div>
+                )}
+
+                {matchingTotal > 0 && (
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-semibold text-slate-700">Nối bảng (2 cột):</span>
+                      <span className="text-[11px] font-bold text-slate-500">Có {matchingTotal} câu</span>
+                    </div>
+                    <input
+                      type="number"
+                      min="-1"
+                      max={matchingTotal}
+                      className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
+                      value={config.matchingCount ?? ""}
+                      onChange={(e) =>
+                        updateConfig({ matchingCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
+                      }
+                      placeholder={`Tất cả (${matchingTotal})`}
+                    />
+                  </div>
+                )}
               </div>
 
               <p className="text-[10px] text-slate-500 italic">

@@ -27,7 +27,10 @@ import {
   PanelLeftOpen,
   CheckCheck,
   RotateCcw,
+  Headphones,
+  Image as ImageIcon,
 } from "lucide-react";
+import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
 
 interface Props {
   onSwitchToQuestionEditor?: (questionId: string) => void;
@@ -429,6 +432,9 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
                               {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
                               {q.type === "true_false" && "Đúng / Sai"}
                               {q.type === "short_answer" && "Điền đáp án ngắn"}
+                              {q.type === "ordering" && "Sắp xếp thứ tự"}
+                              {q.type === "fill_blank" && "Điền vào chỗ trống"}
+                              {q.type === "matching" && "Nối bảng (2 cột)"}
                             </span>
                           </div>
 
@@ -495,6 +501,21 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
                                 <span className="text-[10px] text-slate-500 font-bold block uppercase mb-1">Xem trước:</span>
                                 <LatexPreview content={q.text || "(Trống)"} />
                               </div>
+                            </div>
+
+                            {/* Image URL input */}
+                            <div className="space-y-1 pt-1">
+                              <label className="block text-[11px] font-bold text-slate-600 flex items-center gap-1">
+                                <ImageIcon className="w-3.5 h-3.5 text-blue-600" />
+                                <span>Đường dẫn hình ảnh minh họa (tùy chọn):</span>
+                              </label>
+                              <input
+                                type="text"
+                                value={q.imageUrl || (q as any).image || ""}
+                                onChange={(e) => actions.updateQuestion(q.id, { imageUrl: e.target.value })}
+                                placeholder="https://example.com/hinh-anh.png"
+                                className="w-full px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono"
+                              />
                             </div>
 
                             {/* Options Editor for Choice Questions */}
@@ -643,6 +664,34 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
                               <LatexPreview content={q.text || "(Chưa nhập nội dung câu hỏi)"} />
                             </div>
 
+                            {/* Question Image (if present) */}
+                            {(q.imageUrl || (q as any).image) && (
+                              <div className="my-2 p-2 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col items-center">
+                                <img
+                                  src={q.imageUrl || (q as any).image}
+                                  alt={`Hình ảnh câu ${idx + 1}`}
+                                  className="max-h-72 rounded-xl object-contain shadow-xs bg-white max-w-full"
+                                />
+                              </div>
+                            )}
+
+                            {/* Audio Player (if present) */}
+                            {(q.audioConfig?.url || (q as any).audioUrl) && (
+                              <div className="p-3 bg-blue-50/80 border border-blue-200 rounded-2xl flex items-center gap-3 my-2">
+                                <Headphones className="w-5 h-5 text-blue-600 shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-bold text-blue-950 truncate">
+                                    {q.audioConfig?.title || "Audio bài nghe của câu hỏi"}
+                                  </p>
+                                  <audio
+                                    controls
+                                    src={q.audioConfig?.url || (q as any).audioUrl}
+                                    className="w-full h-8 mt-1"
+                                  />
+                                </div>
+                              </div>
+                            )}
+
                             {/* INTERACTIVE ANSWER SELECTOR ( STYLE) */}
                             <div className="pt-2 bg-white p-4 rounded-2xl border border-slate-200/90 space-y-3 shadow-2xs">
                               <div className="flex items-center justify-between text-xs font-bold text-slate-600 uppercase tracking-wider border-b border-slate-100 pb-2">
@@ -761,6 +810,74 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
                                   <p className="text-[11px] text-slate-500">
                                     Thí sinh điền trùng một trong các đáp số trên sẽ được tính điểm.
                                   </p>
+                                </div>
+                              )}
+
+                              {/* 4. Matching Question Preview & Direct Live Connect */}
+                              {q.type === "matching" && (
+                                <div className="space-y-3 pt-2">
+                                  <p className="text-xs text-slate-500 font-medium">
+                                    Nối các cặp ở Cột 1 và Cột 2 (nhấp hoặc kéo giữa các chấm tròn để cập nhật đáp án chuẩn):
+                                  </p>
+                                  <InteractiveMatchingBoard
+                                    isReview={true}
+                                    readOnly={false}
+                                    leftItems={q.matchingLeft || []}
+                                    rightItems={q.matchingRight || []}
+                                    matches={q.correctMatches || {}}
+                                    correctMatches={q.correctMatches || {}}
+                                    onChange={(newMatches) => {
+                                      actions.updateQuestion(q.id, { correctMatches: newMatches });
+                                    }}
+                                  />
+                                </div>
+                              )}
+
+                              {/* 5. Fill in the Blank Review */}
+                              {q.type === "fill_blank" && (
+                                <div className="space-y-2.5 p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                  <span className="text-xs font-bold text-slate-700 block">
+                                    Các vị trí điền khuyết [_] & danh sách đáp án chấp nhận:
+                                  </span>
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    {Object.entries(q.acceptedAnswersPerBlank || {}).map(([bIdx, ansList]) => (
+                                      <div key={bIdx} className="p-2.5 bg-white border border-slate-200 rounded-lg text-xs space-y-1">
+                                        <span className="font-bold text-blue-700">Chỗ trống [{parseInt(bIdx, 10) + 1}]:</span>
+                                        <input
+                                          type="text"
+                                          value={Array.isArray(ansList) ? ansList.join("; ") : String(ansList)}
+                                          onChange={(e) => {
+                                            const updated = { ...(q.acceptedAnswersPerBlank || {}) };
+                                            updated[parseInt(bIdx, 10)] = e.target.value.split(";").map((s) => s.trim()).filter(Boolean);
+                                            actions.updateQuestion(q.id, { acceptedAnswersPerBlank: updated });
+                                          }}
+                                          className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded text-xs font-mono"
+                                          placeholder="Đáp án đúng (ngăn cách bằng dấu ;)"
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* 6. Ordering Review */}
+                              {q.type === "ordering" && (
+                                <div className="space-y-2 p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                  <span className="text-xs font-bold text-slate-700 block">
+                                    Thứ tự các bước / mục chính xác:
+                                  </span>
+                                  <div className="space-y-1.5">
+                                    {(q.orderingItems || []).map((item, oIdx) => (
+                                      <div key={item.id || oIdx} className="flex items-center gap-2.5 p-2 bg-white border border-slate-200 rounded-lg text-xs">
+                                        <span className="w-5 h-5 bg-blue-100 text-blue-700 rounded-full font-bold flex items-center justify-center shrink-0 text-[10px]">
+                                          {oIdx + 1}
+                                        </span>
+                                        <div className="flex-1 text-slate-800">
+                                          <LatexPreview content={item.text} />
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
                             </div>

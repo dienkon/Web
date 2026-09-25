@@ -398,6 +398,21 @@ export function generateExamWordHtml(
         html += `<p style="margin: 2pt 0;">[${itIdx + 1}] ${formatTextForWord(it.text)}</p>`;
       });
       html += `</div>`;
+    } else if (q.type === "matching") {
+      const leftItems = q.matchingLeft || [];
+      const rightItems = q.matchingRight || [];
+      const maxRows = Math.max(leftItems.length, rightItems.length);
+      html += `<table style="width: 100%; border-collapse: collapse; margin: 6pt 0 8pt 16pt;">`;
+      html += `<tr><th style="width: 50%; border: 1px solid #cbd5e1; padding: 4pt 6pt; background: #f8fafc; font-weight: bold; text-align: left;">Cột 1</th><th style="width: 50%; border: 1px solid #cbd5e1; padding: 4pt 6pt; background: #f8fafc; font-weight: bold; text-align: left;">Cột 2</th></tr>`;
+      for (let r = 0; r < maxRows; r++) {
+        const l = leftItems[r];
+        const rt = rightItems[r];
+        html += `<tr>`;
+        html += `<td style="border: 1px solid #cbd5e1; padding: 4pt 6pt;">${l ? `<b>${l.label || r + 1}.</b> ${formatTextForWord(l.text)}` : ""}</td>`;
+        html += `<td style="border: 1px solid #cbd5e1; padding: 4pt 6pt;">${rt ? `<b>${rt.label || String.fromCharCode(97 + r)}.</b> ${formatTextForWord(rt.text)}` : ""}</td>`;
+        html += `</tr>`;
+      }
+      html += `</table>`;
     }
 
     html += `</div>`;

@@ -462,6 +462,23 @@ function sanitizeForFirestore(obj: any): any {
         };
         newQuestion.caseSensitive = false;
         newQuestion.trimWhitespace = true;
+      } else if (type === "matching") {
+        newQuestion.text = "Hãy nối các mục tương ứng giữa Cột 1 và Cột 2 dưới đây:";
+        newQuestion.matchingLeft = [
+          { id: uuidv4(), label: "1", text: "Khái niệm hoặc câu hỏi 1" },
+          { id: uuidv4(), label: "2", text: "Khái niệm hoặc câu hỏi 2" },
+          { id: uuidv4(), label: "3", text: "Khái niệm hoặc câu hỏi 3" },
+        ];
+        newQuestion.matchingRight = [
+          { id: uuidv4(), label: "a", text: "Định nghĩa hoặc câu trả lời A" },
+          { id: uuidv4(), label: "b", text: "Định nghĩa hoặc câu trả lời B" },
+          { id: uuidv4(), label: "c", text: "Định nghĩa hoặc câu trả lời C" },
+        ];
+        newQuestion.correctMatches = {
+          "1": "a",
+          "2": "b",
+          "3": "c",
+        };
       }
       
       setState(s => ({

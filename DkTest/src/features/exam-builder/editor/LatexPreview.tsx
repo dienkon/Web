@@ -313,7 +313,7 @@ function escapeUnmatchedAngleBrackets(text: string): string {
     "font", "center", "kbd", "var", "samp", "abbr", "section", "article", "aside",
     "figure", "figcaption", "header", "footer", "nav", "main", "video", "audio", "source", "canvas"
   ];
-  const tagPattern = new RegExp(`<\\/?(${validTagNames.join("|")})\\b[\\s\\S]*?>`, "gi");
+  const tagPattern = new RegExp(`<\\/?(${validTagNames.join("|")})\\b(?:[^<>"']|"[^"]*"|'[^']*')*\\/?>`, "gi");
 
   const tags: string[] = [];
   const protectedText = text.replace(tagPattern, (match) => {
@@ -615,7 +615,10 @@ export function renderMarkdownWithLatex(rawText: string): string {
 
   // 3. Process Markdown tables: | col1 | col2 | ...
   // Protect inline math inside table blocks so '|' inside math expressions ($|x|$) doesn't break columns
-  const mdTableRegex = /((?:^[ \t]*\|[^\n]+\|[ \t]*\r?\n){2,})/gm;
+  if (!text.endsWith("\n")) {
+    text += "\n";
+  }
+  const mdTableRegex = /((?:^[ \t]*\|[^\n]+\|[ \t]*(?:\r?\n|$)){2,})/gm;
   text = text.replace(mdTableRegex, (mdTable) => {
     // Mask LaTeX math blocks before splitting by '|'
     const tableMathMasks: string[] = [];
@@ -755,8 +758,15 @@ export function renderMarkdownWithLatex(rawText: string): string {
   text = text.replace(/__([^_\n]+)__/g, '<u class="underline underline-offset-2">$1</u>');
   // Strikethrough: ~~text~~
   text = text.replace(/~~([^~\n]+)~~/g, '<del class="line-through text-slate-400">$1</del>');
+  // Subscript: ~text~ (single tilde)
+  text = text.replace(/(?<!~)(~)([^~\n]+)(~)(?!~)/g, '<sub class="text-[0.8em] text-slate-700 font-medium">$2</sub>');
+  // Superscript: ^text^
+  text = text.replace(/\^([^\^\n]+)\^/g, '<sup class="text-[0.8em] text-slate-700 font-medium">$1</sup>');
   // Inline Code: `text`
   text = text.replace(/`([^`\n]+)`/g, '<code class="px-1.5 py-0.5 mx-0.5 bg-slate-100/90 text-pink-600 font-mono text-[12px] font-semibold rounded-md border border-slate-200/80 shadow-2xs">$1</code>');
+
+  // Fill in the blank: [_] or [blank]
+  text = text.replace(/\[_\]|\[blank\]/gi, '<span class="dk-blank-slot inline-block px-2.5 py-0.5 mx-1 font-mono font-bold text-indigo-600 bg-indigo-50/70 border-b-2 border-indigo-400 rounded min-w-[55px] text-center shadow-2xs select-none tracking-widest align-middle">_____</span>');
 
   // 12. Escape bare angle brackets (e.g. x < 5) to prevent HTML corruption
   text = escapeUnmatchedAngleBrackets(text);

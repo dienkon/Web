@@ -49,10 +49,14 @@ const LEGACY_GLOBAL_KEY = "active_exam_session";
 
 function getStudentIdentifier(): string {
   try {
+    const currentSessionStr = localStorage.getItem("current_student_session");
+    if (currentSessionStr) {
+      const parsed = JSON.parse(currentSessionStr);
+      if (parsed.username || parsed.code) return parsed.username || parsed.code;
+    }
     const studentInfoStr =
       localStorage.getItem("dktest:auth:student_info") ||
-      localStorage.getItem("student_info") ||
-      localStorage.getItem("current_student_session");
+      localStorage.getItem("student_info");
     if (studentInfoStr) {
       const parsed = JSON.parse(studentInfoStr);
       return parsed.username || parsed.displayName || "student";
@@ -371,8 +375,8 @@ export function getActiveExamSession(examId?: string): ActiveExamSession | null 
   }
 }
 
-export function hasActiveExamInProgress(): ActiveExamSession | null {
-  const session = getActiveExamSession();
+export function hasActiveExamInProgress(examId?: string): ActiveExamSession | null {
+  const session = getActiveExamSession(examId);
   if (!session) return null;
 
   session.startTime = (typeof session.startTime === "number" && !isNaN(session.startTime) && session.startTime > 0)
@@ -381,6 +385,11 @@ export function hasActiveExamInProgress(): ActiveExamSession | null {
   session.durationMinutes = session.durationMinutes || 45;
 
   const normalizedStatus = normalizeSessionStatus(session.status);
+  // Terminal statuses are definitely not in progress
+  if (["submitted", "suspended", "expired"].includes(normalizedStatus)) {
+    return null;
+  }
+
   if (normalizedStatus === "taking" || normalizedStatus === "paused") {
     const remaining = calculateRemainingSeconds({
       startTime: session.startTime,
@@ -398,18 +407,42 @@ export function hasActiveExamInProgress(): ActiveExamSession | null {
 }
 
 /**
- * Clears active session cache while safely retaining attempt identity for idempotent recovery.
+ * Clears active session cache, snapshots, temporary answers, and metrics for an exam.
  */
-export function clearActiveExamSession(examId?: string) {
+export function clearActiveExamSession(examId?: string, username?: string) {
   try {
-    const studentUsername = getStudentIdentifier();
+    const studentUsername = username || getStudentIdentifier();
     localStorage.removeItem(GLOBAL_ACTIVE_SESSION_KEY);
     localStorage.removeItem(LEGACY_GLOBAL_KEY);
     if (examId) {
       localStorage.removeItem(`dktest:session:${examId}:${studentUsername}`);
       localStorage.removeItem(`active_exam_${examId}_${studentUsername}`);
       localStorage.removeItem(`exam_startTime_${examId}_${studentUsername}`);
+      localStorage.removeItem(`attemptSnapshot_${examId}_${studentUsername}`);
+      localStorage.removeItem(`dktest_temp_answers_${examId}_${studentUsername}`);
+      localStorage.removeItem(`dktest_temp_answers_${examId}`);
       localStorage.removeItem(`custom_sub_exam_config_${examId}`);
+
+      // Thoroughly scan and remove any lingering keys related to this examId
+      try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (
+            key &&
+            (key.startsWith(`attemptSnapshot_${examId}`) ||
+              key.startsWith(`dktest_temp_answers_${examId}`) ||
+              key.startsWith(`exam_startTime_${examId}`) ||
+              key.startsWith(`active_exam_${examId}`) ||
+              key.startsWith(`dktest:session:${examId}`))
+          ) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach((k) => localStorage.removeItem(k));
+      } catch (scanErr) {
+        // Safe fallback for restricted storage environments
+      }
     }
   } catch (e) {
     console.warn("Error clearing active exam session:", e);

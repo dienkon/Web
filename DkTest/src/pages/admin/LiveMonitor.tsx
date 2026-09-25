@@ -60,6 +60,8 @@ export default function LiveMonitor() {
   const [session, setSession] = useState<ActiveSession | null>(null);
   const [exam, setExam] = useState<(Exam & { questions: Question[] }) | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isSessionEnded, setIsSessionEnded] = useState<boolean>(false);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
 
   // Question Panel Visibility Toggle (Directive 14)
   const [showQuestionPanel, setShowQuestionPanel] = useState<boolean>(() => {
@@ -126,10 +128,17 @@ export default function LiveMonitor() {
     // Subscribe to RTDB live session
     const unsubscribe = subscribeToSingleSession(sessionId, (liveData) => {
       if (liveData) {
+        if (liveData.status === "submitted") {
+          setIsSessionEnded(true);
+          if (liveData.submissionId) setSubmissionId(liveData.submissionId);
+        }
         setSession(liveData);
         if (autoFollowStudent && typeof liveData.activeQuestionIdx === "number") {
           setInspectQuestionIdx(liveData.activeQuestionIdx);
         }
+      } else {
+        // Session was deleted from RTDB/Firestore upon submission
+        setIsSessionEnded(true);
       }
     });
 
@@ -364,6 +373,42 @@ export default function LiveMonitor() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-[1920px] w-full mx-auto flex flex-col xl:flex-row pt-16 h-screen overflow-hidden">
+        {/* Session Ended Overlay */}
+        {isSessionEnded && (
+          <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-4 animate-in fade-in zoom-in-95 duration-200 border border-slate-200">
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-xs">
+                <CheckCircle2 className="w-8 h-8" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-lg font-black text-slate-900">
+                  Thí sinh đã nộp bài thành công!
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Phiên thi của thí sinh <strong className="text-slate-800">{session?.studentName || "Thí sinh"}</strong> đã hoàn thành. Phiên giám sát trực tiếp đã đóng.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={handleExit}
+                  className="flex-1 px-4 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-colors cursor-pointer"
+                >
+                  Quay lại danh sách giám sát
+                </button>
+                {session?.examId && submissionId && (
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/student/exam/${session.examId}/result/${submissionId}`)}
+                    className="flex-1 px-4 py-2.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold hover:bg-blue-100 transition-colors cursor-pointer"
+                  >
+                    Xem kết quả bài nộp
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Left Side: Question Display & Detailed Answers */}
         <div className="flex-1 flex flex-col min-w-0 xl:border-r border-slate-200 bg-white relative">
@@ -854,6 +899,54 @@ export default function LiveMonitor() {
                                 {showAnswerKey && accepted.length > 0 && (
                                   <div className="text-[11px] text-emerald-800 font-semibold pt-1 border-t border-emerald-200/50">
                                     Đ/A chấp nhận: {accepted.join(", ")}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          });
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 7. Matching Table */}
+                {qType === "matching" && (
+                  <div className="space-y-4">
+                    <div className="bg-white border-2 border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3">
+                      <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider">
+                        Các cặp nối học sinh đã thiết lập:
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {(() => {
+                          const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+                          const correctMap = currentQ.correctMatches || {};
+                          const leftList = currentQ.matchingLeft || [];
+
+                          return leftList.map((it, idx) => {
+                            const lKey = it.label || `${idx + 1}`;
+                            const val = ansMap[lKey] || ansMap[String(idx)];
+                            const correctVal = correctMap[lKey] || correctMap[String(idx)];
+                            const isCorrect = showAnswerKey && correctVal !== undefined && String(val || "").trim().toLowerCase() === String(correctVal).trim().toLowerCase();
+
+                            return (
+                              <div
+                                key={lKey}
+                                className={`p-3 rounded-xl border text-xs ${
+                                  showAnswerKey
+                                    ? isCorrect
+                                      ? "bg-emerald-50 border-emerald-300"
+                                      : "bg-red-50 border-red-300"
+                                    : "bg-slate-50 border-slate-200"
+                                }`}
+                              >
+                                <div className="font-bold text-slate-600 mb-1">Dòng #{lKey}</div>
+                                <div className="font-bold text-slate-900">
+                                  Nối với: <span className="text-blue-700 font-extrabold">{val ? `[${val}]` : "(Chưa nối)"}</span>
+                                </div>
+                                {showAnswerKey && correctVal && (
+                                  <div className="text-[11px] text-emerald-800 font-semibold pt-1 border-t border-emerald-200/50 mt-1">
+                                    Đ/A đúng: [{correctVal}]
                                   </div>
                                 )}
                               </div>

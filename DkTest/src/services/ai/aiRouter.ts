@@ -3,6 +3,7 @@ import multer from "multer";
 import { parseDocxFile, processExamInChunks, processExamFromPromptStream } from "./aiExamGenerator.js";
 import { askTutor } from "./aiTutor.js";
 import { analyzeExamPerformance, analyzeStructuredExamPerformance } from "./aiAnalytics.js";
+import { lookupAndTranslate } from "./aiLookup.js";
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
@@ -140,5 +141,23 @@ aiRouter.post("/analyze-structured-exam", async (req, res) => {
   } catch (err: any) {
     console.error("Error analyzing structured exam performance:", err);
     res.status(500).json({ error: err.message || "Failed to analyze structured performance" });
+  }
+});
+
+// 5. Look up, Pronunciation & Translation using gemini-3.5-flash-lite
+aiRouter.post("/lookup", async (req, res) => {
+  try {
+    const { text, context, apiKey } = req.body;
+    const customApiKey = (req.headers["x-gemini-api-key"] as string) || apiKey;
+
+    if (!text || typeof text !== "string") {
+      return res.status(400).json({ error: "Text string is required" });
+    }
+
+    const result = await lookupAndTranslate(text.trim(), context, customApiKey);
+    res.json(result);
+  } catch (err: any) {
+    console.error("Error in AI Lookup:", err);
+    res.status(500).json({ error: err.message || "Tra cứu thất bại" });
   }
 });

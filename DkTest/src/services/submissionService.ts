@@ -81,10 +81,16 @@ export const createSubmission = async (
   submissionData: Omit<Submission, "id" | "submittedAt">,
   customSubmissionId?: string
 ): Promise<Submission> => {
-  const subId = customSubmissionId || (submissionData as any).submissionId || submissionData.attemptId;
+  let subId = customSubmissionId || (submissionData as any).submissionId || submissionData.attemptId;
+
+  // Defensive guard: Ensure subId contains a timestamp or unique random component so it never collides with a previous attempt
+  if (subId && !subId.match(/\d{10,}/)) {
+    subId = `${subId}_${Date.now()}`;
+  }
+
   const docRef = subId ? doc(db, SUBMISSIONS_COLLECTION, subId) : doc(collection(db, SUBMISSIONS_COLLECTION));
 
-  // Idempotency check: if document already exists, return it directly to avoid duplicates
+  // Idempotency check: if document already exists, return it directly to avoid duplicate writes within the SAME attempt
   if (subId) {
     try {
       const existingSnap = await getDoc(docRef);
@@ -116,8 +122,28 @@ export const createSubmission = async (
     console.warn("[SubmissionService] Warning updating stats doc:", statsErr);
   });
 
-  // Update leaderboard
+  // Increment attemptCount on the Exam document in Firestore & invalidate home cache
   const examId = submissionData.examId;
+  if (examId) {
+    import("firebase/firestore").then(({ increment, updateDoc }) => {
+      updateDoc(doc(db, "exams", examId), {
+        attemptCount: increment(1),
+        submissionsCount: increment(1),
+        totalParticipants: increment(1),
+      }).catch((examErr) => {
+        console.warn("[SubmissionService] Warning incrementing exam attemptCount:", examErr);
+      });
+    }).catch(() => {});
+
+    // Invalidate Home cache dynamically
+    import("../pages/home/Home").then(({ invalidateHomeTopCache }) => {
+      if (typeof invalidateHomeTopCache === "function") {
+        invalidateHomeTopCache();
+      }
+    }).catch(() => {});
+  }
+
+  // Update leaderboard
   if (examId) {
     const leaderboardRef = doc(db, "leaderboards", examId);
     try {

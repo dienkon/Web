@@ -3,6 +3,7 @@ import { Eye, Edit3, Image as ImageIcon, Sigma, Columns, Trash2, Code } from "lu
 import LatexPreview from "./LatexPreview";
 import MathLiveModal from "./MathLiveModal";
 import ImageUploadModal from "./ImageUploadModal";
+import FloatingWordToolbar from "./FloatingWordToolbar";
 
 interface Props {
   value: string;
@@ -128,16 +129,23 @@ export default function RichTextEditor({ value, onChange, placeholder, minHeight
 
       <div className={`flex ${mode === "split" ? "flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-slate-200" : ""}`} style={{ minHeight }}>
         {(mode === "edit" || mode === "split") && (
-          <textarea
-            ref={textareaRef}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder || "Nhập nội dung câu hỏi (hỗ trợ $công thức toán$, **chữ đậm**, ảnh...)"}
-            className={`w-full p-3.5 resize-y border-none focus:outline-none focus:ring-0 text-sm font-sans text-slate-800 leading-relaxed bg-white ${
-              mode === "split" ? "sm:w-1/2" : ""
-            }`}
-            style={{ minHeight }}
-          />
+          <>
+            <FloatingWordToolbar
+              textareaRef={textareaRef}
+              value={value || ""}
+              onChange={onChange}
+            />
+            <textarea
+              ref={textareaRef}
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder={placeholder || "Nhập nội dung câu hỏi (hỗ trợ $công thức toán$, **chữ đậm**, ảnh...)"}
+              className={`w-full p-3.5 resize-y border-none focus:outline-none focus:ring-0 text-sm font-sans text-slate-800 leading-relaxed bg-white ${
+                mode === "split" ? "sm:w-1/2" : ""
+              }`}
+              style={{ minHeight }}
+            />
+          </>
         )}
 
         {(mode === "preview" || mode === "split") && (

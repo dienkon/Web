@@ -6,6 +6,9 @@ export type SubExamConfig = {
   multipleChoiceCount?: number;
   trueFalseCount?: number;
   shortAnswerCount?: number;
+  orderingCount?: number;
+  fillBlankCount?: number;
+  matchingCount?: number;
   sections?: SectionSubExamConfig[];
 };
 
@@ -17,6 +20,9 @@ export type SectionSubExamConfig = {
   multipleChoiceCount?: number;
   trueFalseCount?: number;
   shortAnswerCount?: number;
+  orderingCount?: number;
+  fillBlankCount?: number;
+  matchingCount?: number;
 };
 
 export type BuiltSubExam = {

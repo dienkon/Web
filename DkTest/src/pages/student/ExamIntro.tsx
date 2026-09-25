@@ -29,6 +29,7 @@ import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
 import StudentSubExamConfig from "../../features/sub-exam/components/StudentSubExamConfig";
 import { getLinkedChildrenForParent, type LinkedChildInfo } from "../../services/parentService";
+import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 
 export default function ExamIntro() {
   const { examId } = useParams<{ examId: string }>();
@@ -57,6 +58,7 @@ export default function ExamIntro() {
   const [selectedChild, setSelectedChild] = useState<string>("");
   const [attemptCount, setAttemptCount] = useState<number>(0);
   const [checkingAttempts, setCheckingAttempts] = useState<boolean>(false);
+  const [hasActiveExam, setHasActiveExam] = useState<boolean>(false);
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
@@ -233,6 +235,14 @@ export default function ExamIntro() {
     };
   }, [exam?.id, studentCode, currentUser?.username]);
 
+  // Check if candidate has an active in-progress session for this exam
+  useEffect(() => {
+    if (exam?.id) {
+      const active = hasActiveExamInProgress(exam.id);
+      setHasActiveExam(!!active);
+    }
+  }, [exam?.id, studentCode, currentUser?.username]);
+
   const now = Date.now();
   const isNotOpenYet = !!(exam?.openTime && new Date(exam.openTime).getTime() > now);
   const isClosed = !!(exam?.closeTime && new Date(exam.closeTime).getTime() <= now);
@@ -304,6 +314,12 @@ export default function ExamIntro() {
         useSubExam,
         config: subExamConfig
       }));
+    }
+
+    // If not resuming an in-progress session, clear any stale state from previous submissions
+    const active = hasActiveExamInProgress(exam.id);
+    if (!active) {
+      clearActiveExamSession(exam.id, finalCode);
     }
 
     navigate(`/student/exam/${exam.id}/take`);
@@ -678,6 +694,10 @@ export default function ExamIntro() {
                     ? "Đề thi đã đóng nhận bài"
                     : isAttemptLimitReached
                     ? "Đã hết số lần làm bài"
+                    : hasActiveExam
+                    ? "Tiếp tục làm bài (Đang làm)"
+                    : attemptCount > 0
+                    ? `Làm lại bài thi (Lần ${attemptCount + 1})`
                     : "Bắt đầu làm bài"}
                 </button>
 

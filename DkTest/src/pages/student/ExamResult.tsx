@@ -28,6 +28,7 @@ import {
   ExternalLink,
   Download,
   Headphones,
+  Lock,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -37,6 +38,9 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam, Question, Section } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
+import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
+import StudentReviewSelectionToolbar from "../../components/student/StudentReviewSelectionToolbar";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import AiTutorChat from "../../components/exam/AiTutorChat";
 import AiAnalyticsWidget from "../../components/exam/AiAnalyticsWidget";
@@ -413,6 +417,19 @@ export default function ExamResult() {
         });
         isCorrect = correctBlanks === keys.length;
       }
+    } else if (q.type === "matching") {
+      const correctMap = q.correctMatches || {};
+      const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
+      const keys = Object.keys(correctMap);
+      if (keys.length > 0) {
+        let correctCount = 0;
+        keys.forEach((k) => {
+          if (String(ansMap[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase()) {
+            correctCount++;
+          }
+        });
+        isCorrect = correctCount === keys.length;
+      }
     }
 
     if (filterStatus === "correct" && !isCorrect) return false;
@@ -431,6 +448,11 @@ export default function ExamResult() {
   const scorePercentage = Math.round(((submission.score || 0) / (submission.maxScore || 10)) * 100);
   const minutesSpent = Math.floor((submission.timeSpent || 0) / 60);
   const secondsSpent = (submission.timeSpent || 0) % 60;
+
+  const authRole = localStorage.getItem("auth_role") || (window.location.pathname.startsWith("/admin") ? "admin" : null);
+  const isPrivileged = authRole === "admin" || authRole === "parent" || (exam?.ownerId && localStorage.getItem("user_id") === exam.ownerId);
+  const allowShowScore = isPrivileged || (exam?.showResults !== false && (exam as any)?.showScore !== false);
+  const allowShowDetails = isPrivileged || (exam?.showDetails !== false);
 
   return (
     <div className="min-h-screen bg-slate-50/70 py-8 px-4 font-sans print:bg-white print:p-0">
@@ -510,28 +532,42 @@ export default function ExamResult() {
               </p>
             </div>
 
-            {/* Big Score Badge */}
-            <div className="flex items-center gap-4 bg-slate-50 border border-slate-200/80 rounded-2xl p-4 shrink-0">
-              <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex flex-col items-center justify-center shadow-xs">
-                <span className="text-2xl font-black leading-none">{submission.score}</span>
-                <span className="text-[10px] font-bold opacity-80 mt-0.5">/ {submission.maxScore || 10}</span>
-              </div>
-              <div className="space-y-0.5">
-                <div className="flex items-center gap-1 text-xs font-bold text-slate-700">
-                  <Award className="w-4 h-4 text-amber-500" />
-                  <span>
-                    {submission.score >= 8.5
-                      ? "Xuất sắc"
-                      : submission.score >= 7.0
-                      ? "Giỏi"
-                      : submission.score >= 5.0
-                      ? "Đạt yêu cầu"
-                      : "Cần cố gắng"}
-                  </span>
+            {/* Big Score Badge or Hidden Notice */}
+            {allowShowScore ? (
+              <div className="flex items-center gap-4 bg-slate-50 border border-slate-200/80 rounded-2xl p-4 shrink-0">
+                <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex flex-col items-center justify-center shadow-xs">
+                  <span className="text-2xl font-black leading-none">{submission.score}</span>
+                  <span className="text-[10px] font-bold opacity-80 mt-0.5">/ {submission.maxScore || 10}</span>
                 </div>
-                <p className="text-xs text-slate-500 font-medium">Tỷ lệ đúng: {scorePercentage}%</p>
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-1 text-xs font-bold text-slate-700">
+                    <Award className="w-4 h-4 text-amber-500" />
+                    <span>
+                      {submission.score >= 8.5
+                        ? "Xuất sắc"
+                        : submission.score >= 7.0
+                        ? "Giỏi"
+                        : submission.score >= 5.0
+                        ? "Đạt yêu cầu"
+                        : "Cần cố gắng"}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 font-medium">Tỷ lệ đúng: {scorePercentage}%</p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex items-center gap-3 bg-amber-50 border border-amber-200/80 rounded-2xl p-4 shrink-0 text-amber-900 max-w-sm">
+                <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+                  <Lock className="w-6 h-6 text-amber-700" />
+                </div>
+                <div className="space-y-0.5">
+                  <span className="text-xs font-bold text-amber-900 block">Điểm số được bảo mật</span>
+                  <p className="text-[11px] text-amber-700 font-medium leading-relaxed">
+                    Giáo viên đã cài đặt ẩn điểm số cho bài thi này. Điểm sẽ được thông báo sau.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Quick Metrics */}
@@ -540,7 +576,7 @@ export default function ExamResult() {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 mx-auto mb-1" />
               <span className="text-[11px] text-slate-400 font-semibold block">Số câu đúng</span>
               <span className="text-sm font-extrabold text-slate-800">
-                {submission.correctCount} / {submission.totalCount}
+                {allowShowScore ? `${submission.correctCount} / ${submission.totalCount}` : `•• / ${submission.totalCount}`}
               </span>
             </div>
 
@@ -743,13 +779,21 @@ export default function ExamResult() {
           <div className="flex items-center gap-1.5">
             <button
               type="button"
-              onClick={() => setShowDetails(!showDetails)}
-              className={`p-2.5 rounded-xl transition-all shadow-2xs cursor-pointer ${
-                showDetails 
-                  ? "bg-slate-900 text-white hover:bg-slate-800" 
-                  : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:bg-slate-50"
+              onClick={() => {
+                if (!allowShowDetails) {
+                  showErrorToast("Giáo viên không cho phép xem chi tiết đáp án & lời giải của bài thi này.");
+                  return;
+                }
+                setShowDetails(!showDetails);
+              }}
+              className={`p-2.5 rounded-xl transition-all shadow-2xs ${
+                !allowShowDetails
+                  ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-70"
+                  : showDetails 
+                  ? "bg-slate-900 text-white hover:bg-slate-800 cursor-pointer" 
+                  : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 cursor-pointer"
               }`}
-              title={showDetails ? "Ẩn chi tiết bài làm" : "Xem chi tiết bài làm"}
+              title={!allowShowDetails ? "Giáo viên không cho xem chi tiết bài làm" : (showDetails ? "Ẩn chi tiết bài làm" : "Xem chi tiết bài làm")}
             >
               <FileText className="w-4 h-4" />
             </button>
@@ -789,7 +833,19 @@ export default function ExamResult() {
           </div>
         )}
 
-        {showDetails && (
+        {!allowShowDetails ? (
+          <div className="p-6 bg-white border border-slate-200 rounded-3xl text-center space-y-2.5 shadow-xs">
+            <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center mx-auto shadow-2xs">
+              <Lock className="w-6 h-6 text-slate-600" />
+            </div>
+            <h4 className="text-sm font-extrabold text-slate-900">
+              Chi tiết bài làm & Lời giải đang được bảo mật
+            </h4>
+            <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed font-medium">
+              Giáo viên đã cài đặt ẩn chi tiết đáp án và lời giải của bài thi này.
+            </p>
+          </div>
+        ) : showDetails && (
           <div className="space-y-6 animate-in fade-in slide-in-from-top-3 duration-200">
             {/* Unified Sticky Header for Mobile and PC */}
             <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-3 print:hidden">
@@ -963,6 +1019,9 @@ export default function ExamResult() {
                           {q.type === "multiple_choice" && "Trắc nghiệm nhiều đáp án"}
                           {q.type === "true_false" && "Đúng / Sai theo ý"}
                           {q.type === "short_answer" && "Câu trả lời ngắn"}
+                          {q.type === "ordering" && "Sắp xếp thứ tự"}
+                          {q.type === "fill_blank" && "Điền vào chỗ trống"}
+                          {q.type === "matching" && "Nối bảng (2 cột)"}
                         </span>
                       </div>
 
@@ -1021,7 +1080,18 @@ export default function ExamResult() {
 
                     {/* Question Content */}
                     <div className="text-sm lg:text-base font-medium text-slate-900 leading-relaxed">
-                      <LatexPreview content={q.text} />
+                      {q.type === "fill_blank" || q.text?.includes("[_]") || q.text?.includes("[blank]") ? (
+                        <InteractiveFillBlankText
+                          content={q.text}
+                          isReview={true}
+                          answers={typeof studentAns === "object" && studentAns ? studentAns : {}}
+                          acceptedAnswersPerBlank={q.acceptedAnswersPerBlank}
+                          caseSensitive={q.caseSensitive}
+                          trimWhitespace={q.trimWhitespace}
+                        />
+                      ) : (
+                        <LatexPreview content={q.text} />
+                      )}
                     </div>
 
                     {/* Question Audio Track in Review */}
@@ -1331,6 +1401,32 @@ export default function ExamResult() {
                       </div>
                     )}
 
+                    {/* 7. Matching Table Review (Nối bảng) */}
+                    {q.type === "matching" && (
+                      <div className="space-y-3 pt-2">
+                        <InteractiveMatchingBoard
+                          isReview={true}
+                          readOnly={true}
+                          leftItems={q.matchingLeft || []}
+                          rightItems={q.matchingRight || []}
+                          matches={
+                            typeof studentAns === "object" && studentAns
+                              ? studentAns
+                              : typeof studentAns === "string" && studentAns.trim().startsWith("{")
+                              ? (() => {
+                                  try {
+                                    return JSON.parse(studentAns);
+                                  } catch {
+                                    return {};
+                                  }
+                                })()
+                              : {}
+                          }
+                          correctMatches={q.correctMatches || {}}
+                        />
+                      </div>
+                    )}
+
                     {/* Step by step LaTeX explanation */}
                     {q.explanation && (
                       <div className="border-t border-slate-100 pt-3">
@@ -1485,6 +1581,15 @@ export default function ExamResult() {
         exam={exam}
         submission={submission}
         questions={originalQuestions}
+      />
+
+      {/* Student Review Text Selection Floating Action Toolbar (Phát âm, Dịch & Phiên âm, Hỏi AI Tutor) */}
+      <StudentReviewSelectionToolbar
+        examContext={exam?.title || ""}
+        onAskAi={(highlightedText) => {
+          const promptMsg = `Chào Gia sư AI, em đang xem lại bài thi "${exam?.title || ""}" và có đoạn văn bản này cần bạn hướng dẫn, giải thích chi tiết: "${highlightedText}". Vui lòng giải nghĩa, phân tích ngữ pháp và chỉ ra các lưu ý giúp em nhé!`;
+          setAutoAiPrompt(promptMsg);
+        }}
       />
 
       {/* AI Tutor Chat Widget */}

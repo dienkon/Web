@@ -33,18 +33,27 @@ export function buildSubExamAttempt(
       multipleChoiceCount?: number;
       trueFalseCount?: number;
       shortAnswerCount?: number;
+      orderingCount?: number;
+      fillBlankCount?: number;
+      matchingCount?: number;
     }
   ) => {
     const singles = pool.filter((q) => q.type === "single_choice");
     const multiples = pool.filter((q) => q.type === "multiple_choice");
     const tfs = pool.filter((q) => q.type === "true_false");
     const shorts = pool.filter((q) => q.type === "short_answer");
+    const orderings = pool.filter((q) => q.type === "ordering");
+    const fillBlanks = pool.filter((q) => q.type === "fill_blank");
+    const matchings = pool.filter((q) => q.type === "matching");
 
     return [
       ...pickRandom(singles, getCount(typeConfig.singleChoiceCount, singles.length)),
       ...pickRandom(multiples, getCount(typeConfig.multipleChoiceCount, multiples.length)),
       ...pickRandom(tfs, getCount(typeConfig.trueFalseCount, tfs.length)),
       ...pickRandom(shorts, getCount(typeConfig.shortAnswerCount, shorts.length)),
+      ...pickRandom(orderings, getCount(typeConfig.orderingCount ?? -1, orderings.length)),
+      ...pickRandom(fillBlanks, getCount(typeConfig.fillBlankCount ?? -1, fillBlanks.length)),
+      ...pickRandom(matchings, getCount(typeConfig.matchingCount ?? -1, matchings.length)),
     ];
   };
 

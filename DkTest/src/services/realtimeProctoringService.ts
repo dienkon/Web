@@ -446,7 +446,8 @@ export function subscribeToSingleSession(
 
   const emit = (data: any) => {
     if (!data) {
-      if (!currentData) callback(null);
+      currentData = null;
+      callback(null);
       return;
     }
     const merged = { ...(currentData || {}), ...data, sessionId: cleanId };
@@ -466,6 +467,7 @@ export function subscribeToSingleSession(
       onValue(rtdbSessionRef, (snapshot) => {
         const val = snapshot.val();
         if (val) emit(val);
+        else emit(null);
       });
     } catch (e) {}
   }
@@ -477,6 +479,8 @@ export function subscribeToSingleSession(
     unsubFirestore = onSnapshot(docRef, (snap) => {
       if (snap.exists()) {
         emit(snap.data());
+      } else {
+        emit(null);
       }
     });
   } catch (e) {}

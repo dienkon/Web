@@ -14,7 +14,7 @@ export interface PromptCustomConfig {
   questionCount: number;
   difficulty: string;
   additionalInfo?: string;
-  questionTypes?: ("single_choice" | "multiple_choice" | "true_false" | "short_answer" | "ordering" | "fill_blank")[];
+  questionTypes?: ("single_choice" | "multiple_choice" | "true_false" | "short_answer" | "ordering" | "fill_blank" | "matching")[];
   hasAudio?: boolean;
   hasAttachments?: boolean;
   allowSubExam?: boolean;
@@ -49,8 +49,8 @@ export const DEFAULT_PROMPT_CONFIG: PromptCustomConfig = {
   timeLimit: 50,
   questionCount: 25,
   difficulty: "40% Nhận biết, 30% Thông hiểu, 20% Vận dụng, 10% Vận dụng cao",
-  additionalInfo: "Bao gồm trắc nghiệm 1 đáp án, nhiều đáp án, đúng/sai 4 ý, trả lời ngắn, sắp xếp thứ tự và điền khuyết.",
-  questionTypes: ["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank"],
+  additionalInfo: "Bao gồm trắc nghiệm 1 đáp án, nhiều đáp án, đúng/sai 4 ý, trả lời ngắn, sắp xếp thứ tự, điền khuyết và nối cột 2 bảng.",
+  questionTypes: ["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank", "matching"],
   hasAudio: true,
   hasAttachments: true,
   allowSubExam: false,
@@ -319,6 +319,74 @@ export function generateDynamicJsonSchemaExample(config: PromptCustomConfig): st
       "order": 2,
       "acceptedAnswers": ["4", "4.0"],
       "explanation": "Điều kiện: $x^2 - 4 > 0 \\\\Leftrightarrow x > 2$ hoặc $x < -2$.<br/>$\\\\log_2(x^2 - 4) \\\\le 3 \\\\Leftrightarrow x^2 - 4 \\\\le 8 \\\\Leftrightarrow x^2 \\\\le 12$.<br/>Nghiệm nguyên thỏa mãn: $x \\\\in \\\\{-3, 3\\}$... Có 4 nghiệm nguyên: -3, 3 (cùng kiểm tra).<br/>Đáp số: 4."
+    },
+    {
+      "id": "q4",
+      "sectionId": "sec_1",
+      "type": "multiple_choice",
+      "text": "Cho bảng phân bố tần số ghép nhóm sau:\\n\\n| Nhóm | [0; 20) | [20; 40) | [40; 60) |\\n|---|---|---|---|\\n| Tần số | 5 | 12 | 8 |\\n\\nChọn TẤT CẢ các khẳng định ĐÚNG:",
+      "points": 0.5,
+      "order": 3,
+      "options": [
+        { "id": "opt_m1", "text": "Tổng cỡ mẫu là $n = 25$." },
+        { "id": "opt_m2", "text": "Nhóm chứa mốt là nhóm $[20; 40)$." },
+        { "id": "opt_m3", "text": "Tần số của nhóm $[0; 20)$ lớn hơn nhóm $[40; 60)$." }
+      ],
+      "correctOptionIds": ["opt_m1", "opt_m2"],
+      "explanation": "Cỡ mẫu: $n = 5 + 12 + 8 = 25$. Nhóm có tần số lớn nhất là 12 ứng với $[20; 40)$. Do đó opt_m1 và opt_m2 đúng."
+    },
+    {
+      "id": "q5",
+      "sectionId": "sec_1",
+      "type": "ordering",
+      "text": "Sắp xếp các bước thực hiện thuật toán tìm kiếm nhị phân theo thứ tự chuẩn:",
+      "points": 0.5,
+      "order": 4,
+      "orderingItems": [
+        { "id": "ord_1", "text": "Khởi tạo hai biến chỉ số $left = 0$, $right = n - 1$." },
+        { "id": "ord_2", "text": "Tính chỉ số chính giữa $mid = \\\\lfloor(left + right) / 2\\\\rfloor$." },
+        { "id": "ord_3", "text": "So sánh phần tử $A[mid]$ với khóa tìm kiếm $x$ để thu hẹp phạm vi." },
+        { "id": "ord_4", "text": "Trả về vị trí tìm thấy hoặc kết luận không tìm thấy." }
+      ],
+      "correctOrder": ["ord_1", "ord_2", "ord_3", "ord_4"],
+      "explanation": "Quy trình thuật toán tìm kiếm nhị phân chuẩn gồm 4 bước lần lượt từ khởi tạo đến kết luận."
+    },
+    {
+      "id": "q6",
+      "sectionId": "sec_1",
+      "type": "fill_blank",
+      "text": "Trong tam giác vuông, cạnh huyền bằng căn bậc hai của tổng bình phương hai cạnh góc vuông theo định lý [_]. Đạo hàm của hàm số $y = \\\\sin(x)$ là [_].",
+      "points": 0.5,
+      "order": 5,
+      "acceptedAnswersPerBlank": {
+        "0": ["Pytago", "Py-ta-go", "Pythagoras"],
+        "1": ["cos(x)", "\\\\cos(x)", "cosx", "\\\\cos x"]
+      },
+      "explanation": "Vị trí [1] là định lý Pytago; vị trí [2] là đạo hàm $(\\\\sin x)' = \\\\cos x$."
+    },
+    {
+      "id": "q7",
+      "sectionId": "sec_1",
+      "type": "matching",
+      "text": "Nối mỗi khái niệm ở Cột 1 với công thức / định nghĩa tương ứng ở Cột 2:",
+      "points": 0.5,
+      "order": 6,
+      "matchingLeft": [
+        { "id": "1", "label": "1", "text": "Thể tích khối lập phương cạnh $a$" },
+        { "id": "2", "label": "2", "text": "Thể tích khối chóp diện tích đáy $B$, chiều cao $h$" },
+        { "id": "3", "label": "3", "text": "Diện tích mặt cầu bán kính $R$" }
+      ],
+      "matchingRight": [
+        { "id": "a", "label": "a", "text": "$V = \\\\frac{1}{3}Bh$" },
+        { "id": "b", "label": "b", "text": "$V = a^3$" },
+        { "id": "c", "label": "c", "text": "$S = 4\\\\pi R^2$" }
+      ],
+      "correctMatches": {
+        "1": "b",
+        "2": "a",
+        "3": "c"
+      },
+      "explanation": "Khối lập phương: $V = a^3$ (1-b); khối chóp: $V = \\\\frac{1}{3}Bh$ (2-a); mặt cầu: $S = 4\\\\pi R^2$ (3-c)."
     }
   ]
 }`;
@@ -335,6 +403,7 @@ export function buildFullChatGptPrompt(config: PromptCustomConfig = DEFAULT_PROM
     short_answer: "điền kết quả ngắn (short_answer)",
     ordering: "sắp xếp thứ tự quy trình/thuật toán (ordering)",
     fill_blank: "điền khuyết vào đoạn văn [_] (fill_blank)",
+    matching: "nối bảng 2 cột đối ứng (matching)",
   };
 
   const typesText =
@@ -437,6 +506,11 @@ QUY TẮC BẮT BUỘC ĐẦU RA VÀ ĐỊNH DẠNG (LATEST DkTEST 2026):
    ${
      config.questionTypes?.includes("fill_blank")
        ? `- fill_blank: Điền vào chỗ trống; trong "text" dùng ký hiệu "[_]" và cung cấp "acceptedAnswersPerBlank": { "0": ["từ_khóa_1"], "1": ["từ_khóa_2"] }.`
+       : ""
+   }
+   ${
+     config.questionTypes?.includes("matching")
+       ? `- matching: Nối bảng 2 cột; có "matchingLeft": [{ "id": "1", "label": "1", "text": "..." }], "matchingRight": [{ "id": "a", "label": "a", "text": "..." }] và "correctMatches": { "1": "b", "2": "a" } (ánh xạ nối từ khóa Cột 1 sang Cột 2).`
        : ""
    }
 

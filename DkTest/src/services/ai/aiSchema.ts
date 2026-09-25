@@ -39,6 +39,7 @@ export const aiQuestionSchema = z.object({
     "short_answer",
     "ordering",
     "fill_blank",
+    "matching",
   ]),
   text: z.string(),
   explanation: z.string().optional(),

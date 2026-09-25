@@ -56,6 +56,12 @@ const HOME_TOP_CACHE: {
 };
 const CACHE_TTL_MS = 180000; // 3 minutes
 
+export function invalidateHomeTopCache() {
+  HOME_TOP_CACHE.mostAttempted = null;
+  HOME_TOP_CACHE.newest = null;
+  HOME_TOP_CACHE.timestamp = 0;
+}
+
 export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -158,12 +164,13 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
-          limit(10)
+          limit(50)
         );
         const snap = await getDocs(q);
         attemptedList = snap.docs
           .map((d) => ({ id: d.id, ...d.data() } as Exam))
-          .sort((a, b) => (b.attemptCount || 0) - (a.attemptCount || 0));
+          .sort((a, b) => ((b.attemptCount || b.submissionsCount || 0) - (a.attemptCount || a.submissionsCount || 0)))
+          .slice(0, 10);
       }
 
       // 2. Fetch Top 10 Newest (limit 10)

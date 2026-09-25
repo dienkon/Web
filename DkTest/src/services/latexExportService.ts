@@ -916,6 +916,27 @@ export function generateExamHtmlForPrint(
           .join(" | ");
         html += `<div style="margin-left: 14px; font-weight: bold; color: #1e3a8a;">Đáp án điền từ: ${escapeLatexText(blanksSummary || "")}</div>`;
       }
+    } else if (q.type === "matching") {
+      const leftItems = q.matchingLeft || [];
+      const rightItems = q.matchingRight || [];
+      const maxRows = Math.max(leftItems.length, rightItems.length);
+      html += `<table style="width: 100%; border-collapse: collapse; margin: 8px 0 10px 14px;">`;
+      html += `<tr><th style="width: 50%; border: 1px solid #cbd5e1; padding: 4px 8px; background: #f8fafc; font-weight: bold; text-align: left;">Cột 1</th><th style="width: 50%; border: 1px solid #cbd5e1; padding: 4px 8px; background: #f8fafc; font-weight: bold; text-align: left;">Cột 2</th></tr>`;
+      for (let r = 0; r < maxRows; r++) {
+        const l = leftItems[r];
+        const rt = rightItems[r];
+        html += `<tr>`;
+        html += `<td style="border: 1px solid #cbd5e1; padding: 4px 8px;">${l ? `<b>${l.label || r + 1}.</b> ${renderLatexToHtml(l.text)}` : ""}</td>`;
+        html += `<td style="border: 1px solid #cbd5e1; padding: 4px 8px;">${rt ? `<b>${rt.label || String.fromCharCode(97 + r)}.</b> ${renderLatexToHtml(rt.text)}` : ""}</td>`;
+        html += `</tr>`;
+      }
+      html += `</table>`;
+      if (includeAnswers && q.correctMatches) {
+        const matchesSummary = Object.entries(q.correctMatches)
+          .map(([lKey, rVal]) => `${lKey} → ${rVal}`)
+          .join(", ");
+        html += `<div style="margin-left: 14px; font-weight: bold; color: #1e3a8a;">Đáp án nối: ${matchesSummary}</div>`;
+      }
     }
 
     // Explanation

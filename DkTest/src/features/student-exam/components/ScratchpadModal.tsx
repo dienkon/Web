@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Question } from "../../../types";
 import LatexPreview from "../../exam-builder/editor/LatexPreview";
+import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
+import InteractiveFillBlankText from "../../../components/exam/InteractiveFillBlankText";
 import {
   X,
   Pencil,
@@ -80,7 +82,7 @@ export default function ScratchpadModal({
   const [showQuestionPanel, setShowQuestionPanel] = useState(true);
 
   // Resizable panel width state
-  const [panelWidth, setPanelWidth] = useState<number>(360);
+  const [panelWidth, setPanelWidth] = useState<number>(460);
   const [isResizing, setIsResizing] = useState(false);
 
   // Store stroke history per questionId
@@ -94,7 +96,7 @@ export default function ScratchpadModal({
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;
-      const newWidth = Math.min(Math.max(220, e.clientX), 650);
+      const newWidth = Math.min(Math.max(260, e.clientX), 750);
       setPanelWidth(newWidth);
     };
 
@@ -488,8 +490,34 @@ export default function ScratchpadModal({
 
             {/* Question Text */}
             <div className="text-slate-900 text-xs sm:text-sm font-semibold leading-relaxed">
-              <LatexPreview content={currentQ.text} />
+              {currentQ.type === "fill_blank" || currentQ.text?.includes("[_]") || currentQ.text?.includes("[blank]") ? (
+                <InteractiveFillBlankText
+                  content={currentQ.text}
+                  answers={typeof answers[currentQ.id] === "object" && answers[currentQ.id] ? answers[currentQ.id] : {}}
+                  acceptedAnswersPerBlank={currentQ.acceptedAnswersPerBlank}
+                  caseSensitive={currentQ.caseSensitive}
+                  trimWhitespace={currentQ.trimWhitespace}
+                  onAnswerChange={(bIdx, val) => {
+                    const currentMap = typeof answers[currentQ.id] === "object" && answers[currentQ.id] ? answers[currentQ.id] : {};
+                    const nextMap = { ...currentMap, [bIdx]: val };
+                    if (onAnswerChange) onAnswerChange(currentQ.id, nextMap);
+                  }}
+                />
+              ) : (
+                <LatexPreview content={currentQ.text} />
+              )}
             </div>
+
+            {/* Question Image if present */}
+            {currentQ.imageUrl && (
+              <div className="pt-2">
+                <img
+                  src={currentQ.imageUrl}
+                  alt="Ảnh câu hỏi"
+                  className="max-h-48 rounded-xl border border-slate-200 object-contain mx-auto"
+                />
+              </div>
+            )}
 
             {/* Interactive Options Area */}
             {(currentQ.type === "single_choice" || currentQ.type === "multiple_choice" || !currentQ.type) && currentQ.options && (
@@ -664,33 +692,59 @@ export default function ScratchpadModal({
             )}
 
             {/* Fill Blank Interactive */}
-            {currentQ.type === "fill_blank" && currentQ.acceptedAnswersPerBlank && (
+            {currentQ.type === "fill_blank" && (
               <div className="space-y-2 pt-2 border-t border-slate-100">
                 <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                   Điền vào các chỗ trống:
                 </p>
-                <div className="space-y-1.5">
-                  {Object.keys(currentQ.acceptedAnswersPerBlank).map((blankKey) => {
-                    const bIdx = parseInt(blankKey, 10);
-                    const userAnswersMap = (answers[currentQ.id] as Record<number, string>) || {};
-                    const currentVal = userAnswersMap[bIdx] || "";
-                    return (
-                      <div key={blankKey} className="flex items-center gap-2 text-xs">
-                        <span className="font-bold text-blue-700 w-16 shrink-0">Ô [{bIdx + 1}]:</span>
-                        <input
-                          type="text"
-                          placeholder={`Đáp án ô ${bIdx + 1}...`}
-                          value={currentVal}
-                          onChange={(e) => {
-                            const nextMap = { ...userAnswersMap, [bIdx]: e.target.value };
-                            if (onAnswerChange) onAnswerChange(currentQ.id, nextMap);
-                          }}
-                          className="flex-1 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+                {(() => {
+                  const totalBlanks = Math.max(
+                    Object.keys(currentQ.acceptedAnswersPerBlank || {}).length,
+                    (currentQ.text?.match(/\[_\]|\[blank\]/gi) || []).length
+                  );
+                  const userAnswersMap = (answers[currentQ.id] as Record<number, string>) || {};
+
+                  return (
+                    <div className="space-y-1.5">
+                      {Array.from({ length: totalBlanks || 1 }).map((_, bIdx) => {
+                        const currentVal = userAnswersMap[bIdx] || "";
+                        return (
+                          <div key={bIdx} className="flex items-center gap-2 text-xs">
+                            <span className="font-bold text-blue-700 w-16 shrink-0">Ô [{bIdx + 1}]:</span>
+                            <input
+                              type="text"
+                              placeholder={`Đáp án ô ${bIdx + 1}...`}
+                              value={currentVal}
+                              onChange={(e) => {
+                                const nextMap = { ...userAnswersMap, [bIdx]: e.target.value };
+                                if (onAnswerChange) onAnswerChange(currentQ.id, nextMap);
+                              }}
+                              className="flex-1 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* Matching Table (Nối bảng 2 cột) Interactive */}
+            {currentQ.type === "matching" && (
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  Nối các mục tương ứng giữa 2 cột:
+                </p>
+                <InteractiveMatchingBoard
+                  leftItems={currentQ.matchingLeft || []}
+                  rightItems={currentQ.matchingRight || []}
+                  matches={typeof answers[currentQ.id] === "object" && answers[currentQ.id] ? answers[currentQ.id] : {}}
+                  correctMatches={currentQ.correctMatches || {}}
+                  onChange={(newMatches) => {
+                    if (onAnswerChange) onAnswerChange(currentQ.id, newMatches);
+                  }}
+                />
               </div>
             )}
           </div>

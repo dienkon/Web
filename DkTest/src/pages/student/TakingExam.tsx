@@ -53,6 +53,7 @@ import {
   updateActiveExamSessionStatus,
   getActiveExamSession,
   clearActiveExamSession,
+  hasActiveExamInProgress,
 } from "../../services/examSessionService";
 import {
   ExamSessionStatus,
@@ -63,6 +64,8 @@ import { calculateExamScore } from "../../services/gradingService";
 import { STORAGE_KEYS, getStoredItem, setStoredItem } from "../../utils/storage";
 import type { Exam, Question, Section, QuestionTiming } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
+import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
 import { useToast } from "../../components/ui/ToastNotification";
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -151,10 +154,11 @@ export default function TakingExam() {
   }, []);
 
   const startTimeRef = useRef<number>(Date.now());
+  const attemptIdRef = useRef<string>("");
   const sessionIdRef = useRef<string>((() => {
     try {
-      const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
-      const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).displayName || "student") : "student";
+      const sInfo = localStorage.getItem("current_student_session") || localStorage.getItem("student_info");
+      const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).code || JSON.parse(sInfo).displayName || "student") : "student";
       const cleanU = sanitizeSessionId(u);
       const eid = sanitizeSessionId(window.location.pathname.split("/")[3] || "exam");
       return `sess_${cleanU}_${eid}`;
@@ -312,6 +316,7 @@ export default function TakingExam() {
     try {
       await syncRealtimeSession({
         sessionId: sessId,
+        attemptId: attemptIdRef.current || sessId,
         examId,
         examTitle: exam.title || "Bài thi",
         studentName: currentDisplayName || studentUsername,
@@ -528,17 +533,23 @@ export default function TakingExam() {
 
         // Fetch questions from document or fallback to subcollection if missing (legacy)
         let rawQuestions: Question[] = Array.isArray(docQuestions) ? docQuestions : [];
-        if (!Array.isArray(docQuestions)) {
-          console.log("[Firestore] READ_MANY: exams/" + examId + "/questions (fallback)"); const qSnap = await getDocs(query(collection(db, `exams/${examId}/questions`)));
-          rawQuestions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+        if (!Array.isArray(docQuestions) || rawQuestions.length === 0) {
+          console.log("[Firestore] READ_MANY: exams/" + examId + "/questions (fallback)");
+          const qSnap = await getDocs(query(collection(db, `exams/${examId}/questions`)));
+          if (!qSnap.empty) {
+            rawQuestions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+          }
         }
         rawQuestions.sort((a,b) => (a.order || 0) - (b.order || 0));
 
         // Fetch sections from document or fallback to subcollection if missing (legacy)
         let rawSections: Section[] = Array.isArray(docSections) ? docSections : [];
-        if (!Array.isArray(docSections)) {
-          console.log("[Firestore] READ_MANY: exams/" + examId + "/sections (fallback)"); const secSnap = await getDocs(query(collection(db, `exams/${examId}/sections`)));
-          rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+        if (!Array.isArray(docSections) || rawSections.length === 0) {
+          console.log("[Firestore] READ_MANY: exams/" + examId + "/sections (fallback)");
+          const secSnap = await getDocs(query(collection(db, `exams/${examId}/sections`)));
+          if (!secSnap.empty) {
+            rawSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+          }
         }
         rawSections.sort((a,b) => (a.order || 0) - (b.order || 0));
 
@@ -552,8 +563,26 @@ export default function TakingExam() {
         // Student Info & Snapshot Storage Key
         const studentInfo = studentInfoStr ? JSON.parse(studentInfoStr) : null;
         const studentIdentifier = studentInfo?.username || studentInfo?.displayName || "student";
-        sessionIdRef.current = `sess_${sanitizeSessionId(studentIdentifier)}_${sanitizeSessionId(examId)}`;
         const snapshotKey = `attemptSnapshot_${examId}_${studentIdentifier}`;
+
+        // Check active in-progress session (authoritative resume vs fresh attempt)
+        const inProgressSession = hasActiveExamInProgress(examId);
+        const isResuming = !!inProgressSession;
+
+        if (isResuming && inProgressSession) {
+          const currentAttemptId = inProgressSession.attemptId || `att_${sanitizeSessionId(studentIdentifier)}_${sanitizeSessionId(examId)}_${inProgressSession.startTime}`;
+          attemptIdRef.current = currentAttemptId;
+          sessionIdRef.current = inProgressSession.attemptId || `sess_${sanitizeSessionId(studentIdentifier)}_${sanitizeSessionId(examId)}_${inProgressSession.startTime}`;
+        } else {
+          // Starting a fresh attempt: clean all stale session keys and caches for this exam
+          clearActiveExamSession(examId, studentIdentifier);
+          const attemptStartTime = Date.now();
+          const attemptNonce = Math.random().toString(36).substring(2, 7);
+          const freshAttemptId = `att_${sanitizeSessionId(studentIdentifier)}_${sanitizeSessionId(examId)}_${attemptStartTime}_${attemptNonce}`;
+          const freshSessionId = `sess_${sanitizeSessionId(studentIdentifier)}_${sanitizeSessionId(examId)}_${attemptStartTime}_${attemptNonce}`;
+          attemptIdRef.current = freshAttemptId;
+          sessionIdRef.current = freshSessionId;
+        }
 
         // Check schedule: openTime and closeTime
         if (examData.openTime && new Date(examData.openTime).getTime() > Date.now()) {
@@ -568,9 +597,8 @@ export default function TakingExam() {
           return;
         }
 
-        // Check max attempts
-        const activeExistingSession = getActiveExamSession(examId);
-        if (examData.maxAttempts && examData.maxAttempts > 0 && !activeExistingSession) {
+        // Check max attempts only when starting a fresh attempt
+        if (examData.maxAttempts && examData.maxAttempts > 0 && !isResuming) {
           try {
             const subsRef = collection(db, "submissions");
             const maxAttLimit = examData.maxAttempts + 1;
@@ -596,19 +624,34 @@ export default function TakingExam() {
         // Organize and shuffle questions
         let allQuestions: Question[] = [];
 
-        // Check for active Attempt Snapshot
+        // Check for active Attempt Snapshot ONLY if resuming
         let activeSnapshot = null;
-        try {
-          const snapshotStr = localStorage.getItem(snapshotKey);
-          if (snapshotStr) activeSnapshot = JSON.parse(snapshotStr);
-        } catch (e) {}
+        if (isResuming) {
+          try {
+            const snapshotStr = localStorage.getItem(snapshotKey);
+            if (snapshotStr) activeSnapshot = JSON.parse(snapshotStr);
+          } catch (e) {}
+        }
 
-        if (activeSnapshot && activeSnapshot.shuffledQuestions && activeSnapshot.shuffledQuestions.length > 0) {
+        const isSubExamAttempt = !!(activeSnapshot?.configSnapshot?.enabled || (examData.allowSubExam && examData.subExamConfig?.enabled));
+        
+        // Verify that snapshot questions match current exam questions, otherwise refresh
+        const isSnapshotValid =
+          isResuming &&
+          activeSnapshot &&
+          Array.isArray(activeSnapshot.shuffledQuestions) &&
+          activeSnapshot.shuffledQuestions.length > 0 &&
+          (isSubExamAttempt || (
+            activeSnapshot.shuffledQuestions.length === rawQuestions.length &&
+            rawQuestions.every((rq) => activeSnapshot.shuffledQuestions.some((sq: any) => sq.id === rq.id))
+          ));
+
+        if (isSnapshotValid && activeSnapshot.shuffledQuestions && activeSnapshot.shuffledQuestions.length > 0) {
           // Full restore with frozen shuffled questions & options
           allQuestions = activeSnapshot.shuffledQuestions;
           isSubExamUsedRef.current = !!activeSnapshot.configSnapshot;
           subExamConfigUsedRef.current = activeSnapshot.configSnapshot || null;
-        } else if (activeSnapshot) {
+        } else if (isSnapshotValid && activeSnapshot.selectedQuestionIds) {
           // Restore question sequence from snapshot
           const questionMap = new Map(rawQuestions.map((q) => [q.id, q]));
           allQuestions = activeSnapshot.selectedQuestionIds
@@ -698,12 +741,13 @@ export default function TakingExam() {
           // Save snapshot with frozen questions & options
           const newSnapshot = {
             examId,
-            attemptId: sessionIdRef.current,
+            attemptId: attemptIdRef.current || sessionIdRef.current,
             selectedQuestionIds: allQuestions.map(q => q.id),
             questionOrder: allQuestions.map(q => q.id),
             shuffledQuestions: allQuestions,
             configSnapshot: subExamConfigUsedRef.current,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            answers: {},
           };
           localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
         }
@@ -711,66 +755,65 @@ export default function TakingExam() {
         setQuestions(allQuestions);
         
         // Active Exam Session & Timer Logic
-        const activeSession = getActiveExamSession(examId);
         let startTime = Date.now();
         const durationMinutes = examData.timeLimit || 45;
         let initialRemainingSec = 0;
 
-        // Restore local temporary answers (resilient against accidental page refresh)
-        let localAnswers: Record<string, any> = {};
-        try {
-          const userSpecificKey = `dktest_temp_answers_${examId}_${studentIdentifier}`;
-          const fallbackKey = `dktest_temp_answers_${examId}`;
-          const savedStr = localStorage.getItem(userSpecificKey) || localStorage.getItem(fallbackKey);
-          if (savedStr) {
-            localAnswers = JSON.parse(savedStr);
+        if (isResuming && inProgressSession) {
+          // Restore local temporary answers (resilient against accidental page refresh)
+          let localAnswers: Record<string, any> = {};
+          try {
+            const userSpecificKey = `dktest_temp_answers_${examId}_${studentIdentifier}`;
+            const fallbackKey = `dktest_temp_answers_${examId}`;
+            const savedStr = localStorage.getItem(userSpecificKey) || localStorage.getItem(fallbackKey);
+            if (savedStr) {
+              localAnswers = JSON.parse(savedStr);
+            }
+          } catch (e) {}
+
+          const finalRestoredAnswers = (localAnswers && Object.keys(localAnswers).length > 0)
+            ? localAnswers
+            : (inProgressSession.answers && Object.keys(inProgressSession.answers).length > 0)
+              ? inProgressSession.answers
+              : (activeSnapshot?.answers && Object.keys(activeSnapshot.answers).length > 0)
+                ? activeSnapshot.answers
+                : {};
+
+          if (Object.keys(finalRestoredAnswers).length > 0) {
+            setAnswers(finalRestoredAnswers);
           }
-        } catch (e) {}
 
-        const finalRestoredAnswers = (localAnswers && Object.keys(localAnswers).length > 0)
-          ? localAnswers
-          : (activeSession?.answers && Object.keys(activeSession.answers).length > 0)
-            ? activeSession.answers
-            : (activeSnapshot?.answers && Object.keys(activeSnapshot.answers).length > 0)
-              ? activeSnapshot.answers
-              : {};
-
-        if (Object.keys(finalRestoredAnswers).length > 0) {
-          setAnswers(finalRestoredAnswers);
-        }
-
-        if (activeSession && (activeSession.status === "in-progress" || (activeSession as any).status === "taking" || (activeSession as any).status === "paused")) {
           // Restore in-progress session info
-          if (activeSession.flagged) {
-            setFlagged(activeSession.flagged);
+          if (inProgressSession.flagged) {
+            setFlagged(inProgressSession.flagged);
           }
-          if (typeof activeSession.activeQuestionIdx === "number") {
-            setActiveQuestionIdx(activeSession.activeQuestionIdx);
+          if (typeof inProgressSession.activeQuestionIdx === "number") {
+            setActiveQuestionIdx(inProgressSession.activeQuestionIdx);
           }
-          if (typeof activeSession.warnings === "number") {
-            setWarnings(activeSession.warnings);
+          if (typeof inProgressSession.warnings === "number") {
+            setWarnings(inProgressSession.warnings);
           }
-          if (activeSession.questionTiming && typeof activeSession.questionTiming === "object") {
-            questionTimingRef.current = { ...activeSession.questionTiming };
+          if (inProgressSession.questionTiming && typeof inProgressSession.questionTiming === "object") {
+            questionTimingRef.current = { ...inProgressSession.questionTiming };
           }
-          if (typeof (activeSession as any).totalPausedDurationMs === "number") {
-            totalPausedDurationMsRef.current = (activeSession as any).totalPausedDurationMs;
+          if (typeof (inProgressSession as any).totalPausedDurationMs === "number") {
+            totalPausedDurationMsRef.current = (inProgressSession as any).totalPausedDurationMs;
           }
-          if ((activeSession as any).isPaused) {
+          if ((inProgressSession as any).isPaused) {
             setIsPaused(true);
             setSessionStatus("paused");
           } else {
             setSessionStatus("taking");
           }
 
-          startTime = activeSession.startTime;
+          startTime = inProgressSession.startTime;
           startTimeRef.current = startTime;
           let remainingSec = calculateRemainingSeconds({
             startTime,
             durationMinutes,
             totalPausedDurationMs: totalPausedDurationMsRef.current,
-            isPaused: !!(activeSession as any).isPaused,
-            pauseStartedAt: (activeSession as any).pauseStartedAt,
+            isPaused: !!(inProgressSession as any).isPaused,
+            pauseStartedAt: (inProgressSession as any).pauseStartedAt,
           });
 
           // Cap remaining time if exam closeTime is scheduled
@@ -791,25 +834,21 @@ export default function TakingExam() {
             showInfoToast("Đã khôi phục bài làm và thời gian làm bài của bạn!");
           }
         } else {
-          // New Attempt Session or restore answers from snapshot
-          const storageKey = `exam_startTime_${examId}_${studentIdentifier}`;
-          const storedStart = localStorage.getItem(storageKey);
-          if (storedStart) {
-            startTime = parseInt(storedStart, 10);
-          } else {
-            localStorage.setItem(storageKey, startTime.toString());
-          }
-          startTimeRef.current = startTime;
+          // Fresh Attempt Session: Clean slate, 0 answers
+          setAnswers({});
+          setFlagged({});
+          setActiveQuestionIdx(0);
+          setWarnings(0);
+          questionTimingRef.current = {};
+          totalPausedDurationMsRef.current = 0;
+          setIsPaused(false);
           setSessionStatus("taking");
 
-          let remainingSec = calculateRemainingSeconds({
-            startTime,
-            durationMinutes,
-            totalPausedDurationMs: 0,
-            isPaused: false,
-          });
+          startTime = Date.now();
+          startTimeRef.current = startTime;
+          localStorage.setItem(`exam_startTime_${examId}_${studentIdentifier}`, startTime.toString());
 
-          // Cap remaining time if exam closeTime is scheduled
+          let remainingSec = durationMinutes * 60;
           if (examData.closeTime) {
             const msUntilClose = new Date(examData.closeTime).getTime() - Date.now();
             const secUntilClose = Math.max(0, Math.floor(msUntilClose / 1000));
@@ -828,25 +867,29 @@ export default function TakingExam() {
 
           saveActiveExamSession({
             examId,
+            attemptId: attemptIdRef.current,
+            submissionId: `sub_${attemptIdRef.current}`,
             examTitle: examData.title,
             examCode: examData.code,
             studentUsername: studentIdentifier,
             studentName: studentName || "Thí sinh",
             startTime,
             durationMinutes,
-            answers: finalRestoredAnswers,
+            answers: {},
             flagged: {},
             activeQuestionIdx: 0,
             warnings: 0,
+            status: "taking",
           });
         }
 
         // Immediate authoritative sync to RTDB so examinee appears instantly on Live Proctoring
         try {
-          const freshSessId = sessionIdRef.current || `sess_${studentIdentifier}_${examId}`;
+          const freshSessId = sessionIdRef.current;
+          const currentAnswers = isResuming ? (answers || {}) : {};
           await syncRealtimeSession({
             sessionId: freshSessId,
-            attemptId: freshSessId,
+            attemptId: attemptIdRef.current || freshSessId,
             examId: examId || "",
             examTitle: examData.title || "Bài thi",
             studentName: studentName || studentIdentifier || "Thí sinh",
@@ -856,12 +899,12 @@ export default function TakingExam() {
             startTime: startTimeRef.current || startTime,
             durationMinutes: examData.timeLimit || 45,
             timeLeft: initialRemainingSec > 0 ? initialRemainingSec : 0,
-            answeredCount: Object.keys(finalRestoredAnswers).length,
+            answeredCount: Object.keys(currentAnswers).length,
             totalQuestions: allQuestions.length,
-            warnings: 0,
+            warnings: isResuming ? (inProgressSession?.warnings || 0) : 0,
             status: "taking",
             lastActiveAt: Date.now(),
-            answers: finalRestoredAnswers,
+            answers: currentAnswers,
             activeQuestionIdx: 0,
             shuffledQuestions: allQuestions,
             questionOrder: allQuestions.map((q) => q.id),
@@ -1169,6 +1212,9 @@ export default function TakingExam() {
   const executeSubmit = async (reason: "manual" | "timeout" | "admin_force" | "suspended" = "manual") => {
     if (!exam || !examId) return;
 
+    // Immediately stop screen sharing & active media tracks
+    stopRealScreenShare();
+
     // Transition immediately to submitting (P0 submission lock, Directives 5 & 10)
     setSessionStatus("submitting");
     setSubmitting(true);
@@ -1194,8 +1240,11 @@ export default function TakingExam() {
         } catch (e) {}
       }
 
-      // Stable attempt & submission ID (Directive 6)
-      const attemptId = sessionIdRef.current || `sess_${studentUsername}_${examId}`;
+      // Unique attempt & submission ID tied strictly to this attempt
+      const attemptId =
+        attemptIdRef.current ||
+        sessionIdRef.current ||
+        `att_${sanitizeSessionId(studentUsername)}_${sanitizeSessionId(examId)}_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
       const submissionId = `sub_${attemptId.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
 
       // Ensure every question has an entry in questionTiming
@@ -1271,20 +1320,29 @@ export default function TakingExam() {
 
       // Khi thí sinh đã nộp bài, lập tức giải phóng và xóa phiên thi khỏi Live RTDB & Firestore
       try {
-        const liveSessId = sessionIdRef.current || attemptId || `sess_${studentUsername}_${examId}`;
-        await removeRealtimeSession(liveSessId);
+        const liveSessId = sessionIdRef.current;
+        if (liveSessId) {
+          await markRealtimeSessionSubmitted(liveSessId, {
+            submissionId: sub.id,
+            score: sub.score,
+            maxScore: sub.maxScore,
+            answeredCount: Object.keys(answers).length,
+          });
+          await removeRealtimeSession(liveSessId);
+        }
         if (attemptId && attemptId !== liveSessId) {
+          await markRealtimeSessionSubmitted(attemptId);
           await removeRealtimeSession(attemptId);
         }
       } catch (sessErr) {
         console.warn("Could not remove session from RTDB on submit:", sessErr);
       }
 
-      clearActiveExamSession(examId);
-      try {
-        localStorage.removeItem(`dktest_temp_answers_${examId}_${studentUsername}`);
-        localStorage.removeItem(`dktest_temp_answers_${examId}`);
-      } catch (e) {}
+      // Update active exam session status to submitted
+      updateActiveExamSessionStatus(examId, "submitted", { submissionId: sub.id });
+
+      // Thoroughly clear all cached answers, attempt snapshot, and timer for this exam
+      clearActiveExamSession(examId, studentUsername);
       setSessionStatus("submitted");
 
       // Save submission ID to local submission history
@@ -1411,6 +1469,7 @@ export default function TakingExam() {
               {q.type === "short_answer" && "Điền câu trả lời ngắn"}
               {q.type === "ordering" && "Sắp xếp thứ tự"}
               {q.type === "fill_blank" && "Điền vào chỗ trống"}
+              {q.type === "matching" && "Nối bảng (2 cột)"}
             </span>
           </div>
 
@@ -1437,7 +1496,22 @@ export default function TakingExam() {
 
         {/* Question Prompt */}
         <div className="text-slate-900 text-base lg:text-lg font-medium leading-relaxed">
-          <LatexPreview content={q.text} />
+          {q.type === "fill_blank" || q.text?.includes("[_]") || q.text?.includes("[blank]") ? (
+            <InteractiveFillBlankText
+              content={q.text}
+              answers={typeof answers[q.id] === "object" && answers[q.id] ? answers[q.id] : {}}
+              onAnswerChange={(bIdx, val) => {
+                updateAnswer(q.id, (prevMap: any = {}) => ({
+                  ...(typeof prevMap === "object" && prevMap ? prevMap : {}),
+                  [bIdx]: val,
+                }));
+              }}
+              caseSensitive={q.caseSensitive}
+              trimWhitespace={q.trimWhitespace}
+            />
+          ) : (
+            <LatexPreview content={q.text} />
+          )}
         </div>
 
         {/* Embedded Question Audio (Listening MP3) */}
@@ -1733,6 +1807,23 @@ export default function TakingExam() {
                   </div>
                 );
               })()}
+            </div>
+          )}
+
+          {/* 7. Matching Table (Nối bảng 2 cột) */}
+          {q.type === "matching" && (
+            <div className="space-y-3">
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Nối các mục tương ứng giữa Cột 1 và Cột 2 bên dưới:
+              </label>
+              <InteractiveMatchingBoard
+                leftItems={q.matchingLeft || []}
+                rightItems={q.matchingRight || []}
+                matches={typeof answers[q.id] === "object" && answers[q.id] ? answers[q.id] : {}}
+                onChange={(newMatches) => {
+                  updateAnswer(q.id, newMatches);
+                }}
+              />
             </div>
           )}
         </div>

@@ -26,6 +26,9 @@ import {
 } from "lucide-react";
 import { Exam, Section, Question } from "../../../types";
 import LatexPreview from "../editor/LatexPreview";
+import InteractiveFillBlankText from "../../../components/exam/InteractiveFillBlankText";
+import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
+import ExamAudioPlayer from "../../../components/exam/ExamAudioPlayer";
 
 interface Props {
   exam: Partial<Exam>;
@@ -154,6 +157,57 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
           earned += qPoints;
           correctCount++;
         }
+      } else if (q.type === "ordering") {
+        const correctOrder = q.correctOrder || q.orderingItems?.map((it) => it.id) || [];
+        const studentOrder = (ans as string[]) || [];
+        if (
+          correctOrder.length > 0 &&
+          studentOrder.length === correctOrder.length &&
+          correctOrder.every((id, idx) => studentOrder[idx] === id)
+        ) {
+          earned += qPoints;
+          correctCount++;
+        }
+      } else if (q.type === "fill_blank") {
+        const acceptedMap = q.acceptedAnswersPerBlank || {};
+        const totalBlanks = Math.max(
+          Object.keys(acceptedMap).length,
+          (q.text?.match(/\[_\]|\[blank\]/gi) || []).length
+        );
+        if (totalBlanks > 0 && typeof ans === "object" && ans !== null) {
+          let blankCorrect = 0;
+          for (let bIdx = 0; bIdx < totalBlanks; bIdx++) {
+            const accepted = acceptedMap[bIdx] || [];
+            const userVal = String(ans[bIdx] || "");
+            const userTrimmed = q.trimWhitespace !== false ? userVal.trim() : userVal;
+            const compareUser = q.caseSensitive ? userTrimmed : userTrimmed.toLowerCase();
+            const isMatch = accepted.some((opt) => {
+              const target = q.trimWhitespace !== false ? opt.trim() : opt;
+              return (q.caseSensitive ? target : target.toLowerCase()) === compareUser;
+            });
+            if (isMatch) blankCorrect++;
+          }
+          earned += (blankCorrect / totalBlanks) * qPoints;
+          if (blankCorrect === totalBlanks) correctCount++;
+        }
+      } else if (q.type === "matching") {
+        const correctMap = q.correctMatches || {};
+        const pairKeys = Object.keys(correctMap);
+        const ansMap = typeof ans === "object" && ans !== null ? ans : {};
+        if (pairKeys.length > 0) {
+          let correctPairs = 0;
+          pairKeys.forEach((key) => {
+            const userVal = ansMap[key];
+            if (
+              userVal !== undefined &&
+              String(userVal).trim().toLowerCase() === String(correctMap[key]).trim().toLowerCase()
+            ) {
+              correctPairs++;
+            }
+          });
+          earned += (correctPairs / pairKeys.length) * qPoints;
+          if (correctPairs === pairKeys.length) correctCount++;
+        }
       }
     });
 
@@ -236,6 +290,51 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
     } else if (q.type === "short_answer") {
       const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
       isQuestionCorrect = accepted.includes(String(studentAns || "").trim().toLowerCase());
+    } else if (q.type === "ordering") {
+      const correctOrder = q.correctOrder || q.orderingItems?.map((it) => it.id) || [];
+      const studentOrder = (studentAns as string[]) || [];
+      isQuestionCorrect =
+        correctOrder.length > 0 &&
+        studentOrder.length === correctOrder.length &&
+        correctOrder.every((id, idx) => studentOrder[idx] === id);
+    } else if (q.type === "fill_blank") {
+      const acceptedMap = q.acceptedAnswersPerBlank || {};
+      const totalBlanks = Math.max(
+        Object.keys(acceptedMap).length,
+        (q.text?.match(/\[_\]|\[blank\]/gi) || []).length
+      );
+      if (totalBlanks > 0 && typeof studentAns === "object" && studentAns !== null) {
+        let blankCorrect = 0;
+        for (let bIdx = 0; bIdx < totalBlanks; bIdx++) {
+          const accepted = acceptedMap[bIdx] || [];
+          const userVal = String(studentAns[bIdx] || "");
+          const userTrimmed = q.trimWhitespace !== false ? userVal.trim() : userVal;
+          const compareUser = q.caseSensitive ? userTrimmed : userTrimmed.toLowerCase();
+          const isMatch = accepted.some((opt) => {
+            const target = q.trimWhitespace !== false ? opt.trim() : opt;
+            return (q.caseSensitive ? target : target.toLowerCase()) === compareUser;
+          });
+          if (isMatch) blankCorrect++;
+        }
+        isQuestionCorrect = blankCorrect === totalBlanks;
+      }
+    } else if (q.type === "matching") {
+      const correctMap = q.correctMatches || {};
+      const pairKeys = Object.keys(correctMap);
+      const ansMap = typeof studentAns === "object" && studentAns !== null ? studentAns : {};
+      if (pairKeys.length > 0) {
+        let correctPairs = 0;
+        pairKeys.forEach((key) => {
+          const userVal = ansMap[key];
+          if (
+            userVal !== undefined &&
+            String(userVal).trim().toLowerCase() === String(correctMap[key]).trim().toLowerCase()
+          ) {
+            correctPairs++;
+          }
+        });
+        isQuestionCorrect = correctPairs === pairKeys.length;
+      }
     }
 
     const showKey = viewMode === "teacher" || submitted;
@@ -270,6 +369,7 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
               {q.type === "short_answer" && "Điền câu trả lời ngắn"}
               {q.type === "ordering" && "Sắp xếp thứ tự"}
               {q.type === "fill_blank" && "Điền vào chỗ trống"}
+              {q.type === "matching" && "Nối bảng (2 cột)"}
             </span>
           </div>
 
@@ -320,8 +420,63 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
 
         {/* Question Text */}
         <div className="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
-          <LatexPreview content={q.text} />
+          {q.type === "fill_blank" || q.text?.includes("[_]") || q.text?.includes("[blank]") ? (
+            <InteractiveFillBlankText
+              content={q.text}
+              isReview={submitted || viewMode === "teacher"}
+              answers={typeof studentAns === "object" && studentAns ? studentAns : {}}
+              acceptedAnswersPerBlank={q.acceptedAnswersPerBlank}
+              onAnswerChange={(bIdx, val) => {
+                if (submitted || viewMode === "teacher") return;
+                setUserAnswers((prev) => ({
+                  ...prev,
+                  [q.id]: {
+                    ...(typeof prev[q.id] === "object" && prev[q.id] ? prev[q.id] : {}),
+                    [bIdx]: val,
+                  },
+                }));
+              }}
+              caseSensitive={q.caseSensitive}
+              trimWhitespace={q.trimWhitespace}
+            />
+          ) : (
+            <LatexPreview content={q.text} />
+          )}
         </div>
+
+        {/* Question Image */}
+        {q.imageUrl && (
+          <div className="pt-2">
+            <img
+              src={q.imageUrl}
+              alt={`Hình ảnh câu ${qIdx + 1}`}
+              className="rounded-2xl border border-slate-200 max-h-80 max-w-full object-contain mx-auto shadow-2xs"
+              style={{
+                width: q.imageWidth ? `${q.imageWidth}px` : undefined,
+                height: q.imageHeight ? `${q.imageHeight}px` : undefined,
+              }}
+            />
+          </div>
+        )}
+
+        {/* Question Audio Player (Listening MP3) */}
+        {Boolean(q.audioConfig?.url || (q as any).audioUrl) && (
+          <div className="pt-1">
+            <ExamAudioPlayer
+              config={{
+                enabled: true,
+                url: q.audioConfig?.url || (q as any).audioUrl || "",
+                title: q.audioConfig?.title || `Audio Câu ${qIdx + 1}`,
+                maxPlays: 0,
+                allowSeek: true,
+                allowPause: true,
+                ...q.audioConfig,
+              }}
+              examId={`preview_q_${q.id}`}
+              studentUsername="preview_user"
+            />
+          </div>
+        )}
 
         {/* Single Choice Options */}
         {q.type === "single_choice" && (
@@ -586,6 +741,28 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                 </div>
               );
             })()}
+
+            {/* Ordering Key Feedback in review mode */}
+            {showKey && (
+              <div className="p-3.5 bg-emerald-50/90 border border-emerald-200 rounded-2xl text-xs space-y-1.5">
+                <span className="font-bold text-emerald-900 uppercase tracking-wider block">
+                  Thứ tự đúng chuẩn:
+                </span>
+                <div className="flex flex-wrap items-center gap-1.5 font-medium text-emerald-950">
+                  {(q.correctOrder || q.orderingItems?.map((it) => it.id) || []).map((itemId, idx) => {
+                    const it = q.orderingItems?.find((x) => x.id === itemId);
+                    return (
+                      <span
+                        key={itemId}
+                        className="inline-flex items-center gap-1 bg-white border border-emerald-300 px-2 py-1 rounded-lg"
+                      >
+                        <strong className="text-emerald-700">{idx + 1}.</strong> {it?.text || itemId}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -643,6 +820,24 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                 </div>
               );
             })()}
+          </div>
+        )}
+
+        {/* Matching Table (Nối bảng) */}
+        {q.type === "matching" && (
+          <div className="space-y-3">
+            <InteractiveMatchingBoard
+              isReview={submitted || viewMode === "teacher"}
+              readOnly={submitted || viewMode === "teacher"}
+              leftItems={q.matchingLeft || []}
+              rightItems={q.matchingRight || []}
+              matches={typeof userAnswers[q.id] === "object" && userAnswers[q.id] ? userAnswers[q.id] : {}}
+              correctMatches={q.correctMatches || {}}
+              onChange={(newMatches) => {
+                if (submitted || viewMode === "teacher") return;
+                setUserAnswers((prev) => ({ ...prev, [q.id]: newMatches }));
+              }}
+            />
           </div>
         )}
 
@@ -857,6 +1052,25 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                 </div>
               </div>
 
+              {/* Exam-level Audio Player */}
+              {(exam.audioConfig?.url || (exam as any)?.audioUrl) && (
+                <div className="w-full">
+                  <ExamAudioPlayer
+                    config={{
+                      enabled: true,
+                      url: exam.audioConfig?.url || (exam as any).audioUrl || "",
+                      title: exam.audioConfig?.title || "Bài nghe Audio của đề thi",
+                      maxPlays: 0,
+                      allowSeek: true,
+                      allowPause: true,
+                      ...exam.audioConfig,
+                    }}
+                    examId={`preview_exam_${exam.id || "exam"}`}
+                    studentUsername="preview_user"
+                  />
+                </div>
+              )}
+
               {/* Submitted Score Banner if submitted in Student Mode */}
               {viewMode === "student" && submitted && (
                 <div className="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm animate-in fade-in zoom-in-95">
@@ -916,6 +1130,24 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                             <LatexPreview content={currentPagingSection.description} />
                           </div>
                         )}
+                        {/* Section Audio Player in Paging mode */}
+                        {(currentPagingSection.audioConfig?.url || (currentPagingSection as any)?.audioUrl) && (
+                          <div className="pt-1">
+                            <ExamAudioPlayer
+                              config={{
+                                enabled: true,
+                                url: currentPagingSection.audioConfig?.url || (currentPagingSection as any).audioUrl || "",
+                                title: currentPagingSection.audioConfig?.title || `Bài nghe: ${currentPagingSection.title}`,
+                                maxPlays: 0,
+                                allowSeek: true,
+                                allowPause: true,
+                                ...currentPagingSection.audioConfig,
+                              }}
+                              examId={`preview_sec_${currentPagingSection.id}`}
+                              studentUsername="preview_user"
+                            />
+                          </div>
+                        )}
                       </div>
                     )}
 
@@ -973,6 +1205,24 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                             {group.section.description && (
                               <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
                                 <LatexPreview content={group.section.description} />
+                              </div>
+                            )}
+                            {/* Section Audio Player in Scroll mode */}
+                            {(group.section.audioConfig?.url || (group.section as any)?.audioUrl) && (
+                              <div className="pt-1">
+                                <ExamAudioPlayer
+                                  config={{
+                                    enabled: true,
+                                    url: group.section.audioConfig?.url || (group.section as any).audioUrl || "",
+                                    title: group.section.audioConfig?.title || `Bài nghe: ${group.section.title}`,
+                                    maxPlays: 0,
+                                    allowSeek: true,
+                                    allowPause: true,
+                                    ...group.section.audioConfig,
+                                  }}
+                                  examId={`preview_sec_${group.section.id}`}
+                                  studentUsername="preview_user"
+                                />
                               </div>
                             )}
                           </div>
@@ -1143,6 +1393,11 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                               }
                             }
                             isQCorrect = isAllCorrect;
+                          } else if (q.type === "matching") {
+                            const correctMap = q.correctMatches || {};
+                            const userMap = typeof ans === "object" && ans ? ans : {};
+                            const pairKeys = Object.keys(correctMap);
+                            isQCorrect = pairKeys.length > 0 && pairKeys.every(k => String(userMap[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase());
                           }
 
                           if (isQCorrect) btnClass = "bg-emerald-600 text-white font-bold";

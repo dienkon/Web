@@ -25,6 +25,7 @@ import {
   Loader2,
   Play,
   Volume2,
+  Award,
 } from "lucide-react";
 import React, { useState, useRef } from "react";
 import type { ExamAttachment, ExamAudioConfig } from "../../../types";
@@ -811,43 +812,105 @@ export default function ExamMetaEditor() {
         </label>
       </div>
 
-      {/* 3. Display & Results Rules */}
+      {/* 3. Display & Results Rules (Cài đặt riêng: Xem điểm & Xem chi tiết) */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-        <h3 className="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-          <Eye className="w-4 h-4 text-slate-600" />
-          3. Hiển thị kết quả & Lời giải
+        <h3 className="font-bold text-sm text-slate-900 border-b border-slate-100 pb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Eye className="w-4 h-4 text-blue-600" />
+            <span>3. Cài đặt xem Điểm & Chi tiết bài làm (2 ô riêng biệt)</span>
+          </div>
+          <span className="text-[11px] text-slate-500 font-normal">
+            Quyền xem sau khi nộp bài
+          </span>
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label className="flex items-start gap-3 p-3.5 bg-slate-50 hover:bg-blue-50/50 border border-slate-200 hover:border-blue-300 rounded-xl cursor-pointer transition-colors">
-            <input
-              type="checkbox"
-              checked={state.examMeta.showResults || false}
-              onChange={(e) => actions.setExamMeta({ showResults: e.target.checked })}
-              className="w-4 h-4 mt-0.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
-            />
-            <div>
-              <span className="text-xs font-bold text-slate-800 block">Hiển thị điểm sau khi nộp</span>
-              <span className="text-[11px] text-slate-500 mt-0.5 block">
-                Cho phép thí sinh xem ngay tổng điểm số sau khi bấm nộp bài.
-              </span>
-            </div>
-          </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Ô RIÊNG 1: Bật/Tắt Xem Điểm Số */}
+          <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+            state.examMeta.showResults !== false
+              ? "bg-blue-50/40 border-blue-400/80 shadow-2xs"
+              : "bg-slate-50/60 border-slate-200 opacity-80"
+          }`}>
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <Award className={`w-4 h-4 ${state.examMeta.showResults !== false ? "text-blue-600" : "text-slate-400"}`} />
+                  <span className="text-xs font-black text-slate-900">
+                    Bật / Tắt Xem Điểm Số
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  Cho phép thí sinh xem điểm tổng, số câu đúng và tỷ lệ hoàn thành sau khi nộp bài.
+                </p>
+              </div>
 
-          <label className="flex items-start gap-3 p-3.5 bg-slate-50 hover:bg-blue-50/50 border border-slate-200 hover:border-blue-300 rounded-xl cursor-pointer transition-colors">
-            <input
-              type="checkbox"
-              checked={state.examMeta.showDetails || false}
-              onChange={(e) => actions.setExamMeta({ showDetails: e.target.checked })}
-              className="w-4 h-4 mt-0.5 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
-            />
-            <div>
-              <span className="text-xs font-bold text-slate-800 block">Xem chi tiết đáp án & lời giải</span>
-              <span className="text-[11px] text-slate-500 mt-0.5 block">
-                Hiển thị từng câu đúng/sai cùng lời giải chi tiết (LaTeX).
+              <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+                <input
+                  type="checkbox"
+                  checked={state.examMeta.showResults !== false}
+                  onChange={(e) => actions.setExamMeta({
+                    showResults: e.target.checked,
+                    showScore: e.target.checked
+                  })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[10px] font-bold">
+              <span className="text-slate-500 uppercase">Trạng thái ô điểm:</span>
+              <span className={`px-2 py-0.5 rounded-full ${
+                state.examMeta.showResults !== false
+                  ? "bg-blue-100 text-blue-800"
+                  : "bg-slate-200 text-slate-700"
+              }`}>
+                {state.examMeta.showResults !== false ? "✓ ĐANG CHO XEM ĐIỂM" : "✕ ĐÃ ẨN ĐIỂM"}
               </span>
             </div>
-          </label>
+          </div>
+
+          {/* Ô RIÊNG 2: Bật/Tắt Xem Chi Tiết Đáp Án & Lời Giải */}
+          <div className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 ${
+            state.examMeta.showDetails !== false
+              ? "bg-emerald-50/40 border-emerald-400/80 shadow-2xs"
+              : "bg-slate-50/60 border-slate-200 opacity-80"
+          }`}>
+            <div className="flex items-start justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <FileText className={`w-4 h-4 ${state.examMeta.showDetails !== false ? "text-emerald-600" : "text-slate-400"}`} />
+                  <span className="text-xs font-black text-slate-900">
+                    Bật / Tắt Xem Chi Tiết Đáp Án & Lời Giải
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+                  Hiển thị chi tiết từng câu đúng/sai, đáp án chuẩn và hướng dẫn giải (LaTeX).
+                </p>
+              </div>
+
+              <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-0.5">
+                <input
+                  type="checkbox"
+                  checked={state.examMeta.showDetails !== false}
+                  onChange={(e) => actions.setExamMeta({ showDetails: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+              </label>
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[10px] font-bold">
+              <span className="text-slate-500 uppercase">Trạng thái ô chi tiết:</span>
+              <span className={`px-2 py-0.5 rounded-full ${
+                state.examMeta.showDetails !== false
+                  ? "bg-emerald-100 text-emerald-800"
+                  : "bg-slate-200 text-slate-700"
+              }`}>
+                {state.examMeta.showDetails !== false ? "✓ ĐANG CHO XEM CHI TIẾT" : "✕ ĐÃ ẨN CHI TIẾT"}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 

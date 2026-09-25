@@ -46,7 +46,10 @@ export interface Exam {
   autoSubmitOnViolation?: boolean;
 
   showResults: boolean;
+  showScore?: boolean;
   showDetails: boolean;
+  submissionsCount?: number;
+  totalParticipants?: number;
 
   allowSubExam: boolean;
   subExamConfig?: SubExamConfig;
@@ -122,7 +125,8 @@ export type QuestionType =
   | "true_false"
   | "short_answer"
   | "ordering"
-  | "fill_blank";
+  | "fill_blank"
+  | "matching";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
@@ -142,6 +146,12 @@ export interface TrueFalseStatement {
 export interface OrderingItem {
   id: string;
   text: string;
+}
+
+export interface MatchingItem {
+  id: string;
+  label?: string; // e.g. "1", "2", "3" or "a", "b", "c"
+  text: string; // supports rich text/math
 }
 
 export interface Question {
@@ -172,6 +182,11 @@ export interface Question {
   // for fill_blank questions
   acceptedAnswersPerBlank?: Record<number, string[]>; // blank index (0-indexed) -> array of valid accepted answers
   blankAnswers?: string[][]; // alternative format: array of answer arrays per blank
+
+  // for matching questions (nối bảng 2 cột: Cột 1 (1->n) và Cột 2 (a->z))
+  matchingLeft?: MatchingItem[]; // Cột 1 (hàng 1 -> n)
+  matchingRight?: MatchingItem[]; // Cột 2 (hàng a -> z)
+  correctMatches?: Record<string, string>; // left key/id -> right key/id (e.g. { "1": "c", "2": "a" })
 
   explanation?: string;
 
