@@ -16,6 +16,8 @@ import { db } from "./firebase/config";
 import type { Submission, PaginatedResult, AiAnalysisCache } from "../types";
 import { logDocRead, logQueryRead, logDocWrite } from "../utils/firestoreLogger";
 import { updateGlobalStatsOnSubmission } from "./statsAggregatorService";
+import { FirestoreRepository } from "./firebase/firestoreRepository";
+import { FirestoreCache } from "./firebase/firestoreCache";
 
 const SUBMISSIONS_COLLECTION = "submissions";
 
@@ -54,14 +56,10 @@ export const getExamSubmissions = async ({
 };
 
 export const getSubmission = async (submissionId: string): Promise<Submission | null> => {
-  const docRef = doc(db, SUBMISSIONS_COLLECTION, submissionId);
-  const t0 = performance.now();
-  const snapshot = await getDoc(docRef);
-  logDocRead(SUBMISSIONS_COLLECTION, submissionId, performance.now() - t0, `found: ${snapshot.exists()}`);
-  if (snapshot.exists()) {
-    return { id: snapshot.id, ...(snapshot.data() as any) } as Submission;
-  }
-  return null;
+  return FirestoreRepository.getDocument<Submission>(SUBMISSIONS_COLLECTION, submissionId, {
+    ttlMs: 180000,
+    caller: "submissionService:getSubmission",
+  });
 };
 
 const removeUndefinedValues = (obj: any): any => {
@@ -90,16 +88,11 @@ export const createSubmission = async (
 
   const docRef = subId ? doc(db, SUBMISSIONS_COLLECTION, subId) : doc(collection(db, SUBMISSIONS_COLLECTION));
 
-  // Idempotency check: if document already exists, return it directly to avoid duplicate writes within the SAME attempt
+  // In-memory idempotency check: avoid duplicate writes without incurring an extra Firestore read
   if (subId) {
-    try {
-      const existingSnap = await getDoc(docRef);
-      if (existingSnap.exists()) {
-        console.warn(`[Firestore] Idempotent submission hit: ${subId}`);
-        return { id: existingSnap.id, ...(existingSnap.data() as any) } as Submission;
-      }
-    } catch (e) {
-      console.warn("Idempotency check warning:", e);
+    const cachedSub = FirestoreCache.get<Submission>(`${SUBMISSIONS_COLLECTION}:${subId}`);
+    if (cachedSub) {
+      return cachedSub;
     }
   }
 
@@ -111,8 +104,31 @@ export const createSubmission = async (
     ...sanitized,
     submittedAt: serverTimestamp(),
   };
-  logDocWrite(SUBMISSIONS_COLLECTION, docRef.id, "SET", "Save student exam submission");
-  await setDoc(docRef, newSubmission);
+
+  await FirestoreRepository.setDocument(
+    SUBMISSIONS_COLLECTION,
+    docRef.id,
+    newSubmission,
+    undefined,
+    "Save student exam submission"
+  );
+
+  const finalSubObject = {
+    id: docRef.id,
+    ...newSubmission,
+    submittedAt: new Date() as any,
+  } as Submission;
+
+  // Seed into centralized cache with 5 minutes TTL
+  FirestoreCache.set(`${SUBMISSIONS_COLLECTION}:${docRef.id}`, finalSubObject, 300000);
+
+  // Invalidate student history cache and leaderboard cache
+  FirestoreCache.invalidatePrefix("history:");
+  FirestoreCache.invalidatePrefix("submissions:page:");
+  if (submissionData.examId) {
+    FirestoreCache.invalidate(`leaderboards:${submissionData.examId}`);
+    FirestoreCache.invalidate(`exam_stats:${submissionData.examId}`);
+  }
 
   // Update aggregated global stats & exam stats document (non-blocking)
   updateGlobalStatsOnSubmission({

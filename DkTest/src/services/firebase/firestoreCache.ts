@@ -128,6 +128,17 @@ export const FirestoreCache = {
   },
 
   /**
+   * Invalidate all keys starting with a given prefix.
+   */
+  invalidatePrefix(prefix: string): void {
+    for (const k of cache.keys()) {
+      if (k.startsWith(prefix)) {
+        cache.delete(k);
+      }
+    }
+  },
+
+  /**
    * Completely clear the cache.
    */
   clear(): void {

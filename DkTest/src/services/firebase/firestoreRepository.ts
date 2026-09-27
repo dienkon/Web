@@ -34,6 +34,7 @@ export interface RepositoryOptions {
   ttlMs?: number;
   forceRefresh?: boolean;
   purpose?: string;
+  caller?: string;
 }
 
 export const FirestoreRepository = {
@@ -113,19 +114,26 @@ export const FirestoreRepository = {
     docId: string,
     data: T,
     setOptions: SetOptions = {},
-    options: { purpose?: string; ttlMs?: number } = {}
+    options: { purpose?: string; ttlMs?: number; caller?: string } | string = {}
   ): Promise<void> {
+    const optObj = typeof options === "string" ? { purpose: options } : options;
     const t0 = performance.now();
     firestoreMetrics.writes++;
     const docRef = doc(db, collectionName, docId);
     await setDoc(docRef, data, setOptions);
     const durationMs = performance.now() - t0;
 
-    logDocWrite(collectionName, docId, (setOptions as any).merge ? "MERGE_SET" : "SET", durationMs, options.purpose);
+    logDocWrite(
+      collectionName,
+      docId,
+      (setOptions as any).merge ? "MERGE_SET" : "SET",
+      durationMs,
+      optObj.purpose || optObj.caller
+    );
 
     // Update in-memory cache with new state
     const key = `doc:${collectionName}:${docId}`;
-    FirestoreCache.set(key, { id: docId, ...data }, options.ttlMs ?? DEFAULT_TTL_MS);
+    FirestoreCache.set(key, { id: docId, ...data }, optObj.ttlMs ?? DEFAULT_TTL_MS);
 
     // Invalidate any cached queries on this collection
     FirestoreCache.invalidate(new RegExp(`^query:${collectionName}`));

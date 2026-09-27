@@ -10,8 +10,7 @@ import {
   Users,
   Award,
 } from "lucide-react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
+import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 
 // We'll map the leaderboard entry to a partial Submission-like structure 
 // so we don't have to rewrite the entire UI.
@@ -37,13 +36,17 @@ export default function ExamLeaderboard({
   const [displayLimit, setDisplayLimit] = useState(maxItems);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchLeaderboard = async () => {
       if (!examId) return;
       setLoading(true);
       try {
-        const lbDoc = await getDoc(doc(db, "leaderboards", examId));
-        if (lbDoc.exists()) {
-          const data = lbDoc.data();
+        const data = await FirestoreRepository.getDocument<any>("leaderboards", examId, {
+          ttlMs: 120000,
+          caller: "ExamLeaderboard",
+        });
+        if (!isMounted) return;
+        if (data) {
           const top = data.top || [];
           
           // Map to match the previous Submission structure for the UI
@@ -65,11 +68,14 @@ export default function ExamLeaderboard({
       } catch (err) {
         console.error("Lỗi khi tải bảng xếp hạng:", err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     fetchLeaderboard();
+    return () => {
+      isMounted = false;
+    };
   }, [examId]);
 
   const formatTime = (seconds: number) => {

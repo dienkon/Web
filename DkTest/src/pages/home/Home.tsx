@@ -43,23 +43,14 @@ import {
   isStudentAuthenticated,
   isParentAuthenticated,
 } from "../../services/authService";
+import { FirestoreCache } from "../../services/firebase/firestoreCache";
 
-// In-memory cache for Home top exams to avoid redundant Firestore reads
-const HOME_TOP_CACHE: {
-  mostAttempted: Exam[] | null;
-  newest: Exam[] | null;
-  timestamp: number;
-} = {
-  mostAttempted: null,
-  newest: null,
-  timestamp: 0,
-};
 const CACHE_TTL_MS = 180000; // 3 minutes
 
 export function invalidateHomeTopCache() {
-  HOME_TOP_CACHE.mostAttempted = null;
-  HOME_TOP_CACHE.newest = null;
-  HOME_TOP_CACHE.timestamp = 0;
+  FirestoreCache.invalidate("home:top:attempted");
+  FirestoreCache.invalidate("home:top:newest");
+  FirestoreCache.invalidatePrefix("home:filter:");
 }
 
 export default function Home() {
@@ -77,18 +68,20 @@ export default function Home() {
     return "most_attempted";
   });
 
-  // Top 10 lists (capped at 10 docs each)
+  // Top 5 lists (capped at 5 docs each)
   const [topAttemptedExams, setTopAttemptedExams] = useState<Exam[]>([]);
   const [topNewestExams, setTopNewestExams] = useState<Exam[]>([]);
   const [loadingTop, setLoadingTop] = useState(true);
 
-  // All Exams (infinite scroll, reads 10 docs per scroll chunk)
+  // All Exams (infinite scroll, reads 5 docs per scroll chunk)
   const [allExams, setAllExams] = useState<Exam[]>([]);
   const [allCursor, setAllCursor] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMoreAll, setHasMoreAll] = useState(true);
   const [loadingAll, setLoadingAll] = useState(false);
   const [loadingMoreAll, setLoadingMoreAll] = useState(false);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const loadingMoreRef = useRef(false);
+  const filterRequestIdRef = useRef(0);
 
   const [searchError, setSearchError] = useState("");
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string>("all");
@@ -135,28 +128,25 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
   }, []);
 
   const loadTopExams = async () => {
-    const now = Date.now();
-    if (
-      HOME_TOP_CACHE.mostAttempted &&
-      HOME_TOP_CACHE.newest &&
-      now - HOME_TOP_CACHE.timestamp < CACHE_TTL_MS
-    ) {
-      setTopAttemptedExams(HOME_TOP_CACHE.mostAttempted);
-      setTopNewestExams(HOME_TOP_CACHE.newest);
+    const cachedAttempted = FirestoreCache.get<Exam[]>("home:top:attempted");
+    const cachedNewest = FirestoreCache.get<Exam[]>("home:top:newest");
+    if (cachedAttempted && cachedNewest) {
+      setTopAttemptedExams(cachedAttempted);
+      setTopNewestExams(cachedNewest);
       setLoadingTop(false);
       return;
     }
 
     setLoadingTop(true);
     try {
-      // 1. Fetch Top 10 Most Attempted (limit 10)
+      // 1. Fetch Top 5 Most Attempted (strictly limit 5)
       let attemptedList: Exam[] = [];
       try {
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
           orderBy("attemptCount", "desc"),
-          limit(10)
+          limit(5)
         );
         const snap = await getDocs(q);
         attemptedList = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
@@ -164,23 +154,23 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
-          limit(50)
+          limit(5)
         );
         const snap = await getDocs(q);
         attemptedList = snap.docs
           .map((d) => ({ id: d.id, ...d.data() } as Exam))
           .sort((a, b) => ((b.attemptCount || b.submissionsCount || 0) - (a.attemptCount || a.submissionsCount || 0)))
-          .slice(0, 10);
+          .slice(0, 5);
       }
 
-      // 2. Fetch Top 10 Newest (limit 10)
+      // 2. Fetch Top 5 Newest (strictly limit 5)
       let newestList: Exam[] = [];
       try {
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
           orderBy("createdAt", "desc"),
-          limit(10)
+          limit(5)
         );
         const snap = await getDocs(q);
         newestList = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
@@ -188,26 +178,36 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         const q = query(
           collection(db, "exams"),
           where("status", "==", "published"),
-          limit(10)
+          limit(5)
         );
         const snap = await getDocs(q);
         newestList = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
       }
 
-      HOME_TOP_CACHE.mostAttempted = attemptedList;
-      HOME_TOP_CACHE.newest = newestList;
-      HOME_TOP_CACHE.timestamp = now;
+      FirestoreCache.set("home:top:attempted", attemptedList, CACHE_TTL_MS);
+      FirestoreCache.set("home:top:newest", newestList, CACHE_TTL_MS);
 
       setTopAttemptedExams(attemptedList);
       setTopNewestExams(newestList);
     } catch (err) {
-      console.error("Lỗi khi tải Top 10 đề thi:", err);
+      console.error("Lỗi khi tải Top 5 đề thi:", err);
     } finally {
       setLoadingTop(false);
     }
   };
 
   const loadInitialAllExams = async () => {
+    const reqId = ++filterRequestIdRef.current;
+    const filterCacheKey = `home:filter:${selectedSubjectFilter}:${selectedGradeFilter}`;
+    const cachedFilter = FirestoreCache.get<{ exams: Exam[]; hasMore: boolean }>(filterCacheKey);
+    if (cachedFilter) {
+      setAllExams(cachedFilter.exams);
+      setHasMoreAll(cachedFilter.hasMore);
+      setAllCursor(null);
+      setLoadingAll(false);
+      return;
+    }
+
     setLoadingAll(true);
     try {
       const conditions: any[] = [where("status", "==", "published")];
@@ -218,21 +218,34 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         conditions.push(where("gradeCategory", "==", selectedGradeFilter));
       }
 
-      const q = query(collection(db, "exams"), ...conditions, limit(10));
+      // Strictly limit 5 docs for initial batch
+      const q = query(collection(db, "exams"), ...conditions, limit(5));
       const snap = await getDocs(q);
+
+      // Discard result if filter changed during in-flight request
+      if (reqId !== filterRequestIdRef.current) return;
+
       const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+      const hasMore = snap.docs.length === 5;
       setAllExams(items);
       setAllCursor(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
-      setHasMoreAll(snap.docs.length === 10);
+      setHasMoreAll(hasMore);
+
+      FirestoreCache.set(filterCacheKey, { exams: items, hasMore }, 120000);
     } catch (err) {
-      console.error("Lỗi khi tải danh sách tất cả đề thi:", err);
+      if (reqId === filterRequestIdRef.current) {
+        console.error("Lỗi khi tải danh sách tất cả đề thi:", err);
+      }
     } finally {
-      setLoadingAll(false);
+      if (reqId === filterRequestIdRef.current) {
+        setLoadingAll(false);
+      }
     }
   };
 
   const loadMoreAllExams = async () => {
-    if (!allCursor || !hasMoreAll || loadingMoreAll || loadingAll) return;
+    if (!allCursor || !hasMoreAll || loadingMoreRef.current || loadingAll) return;
+    loadingMoreRef.current = true;
     setLoadingMoreAll(true);
     try {
       const conditions: any[] = [where("status", "==", "published")];
@@ -243,20 +256,22 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         conditions.push(where("gradeCategory", "==", selectedGradeFilter));
       }
 
+      // Strictly limit 5 docs per pagination chunk
       const q = query(
         collection(db, "exams"),
         ...conditions,
         startAfter(allCursor),
-        limit(10)
+        limit(5)
       );
       const snap = await getDocs(q);
       const newItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
       setAllExams((prev) => [...prev, ...newItems]);
       setAllCursor(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
-      setHasMoreAll(snap.docs.length === 10);
+      setHasMoreAll(snap.docs.length === 5);
     } catch (err) {
       console.error("Lỗi khi cuộn tải thêm đề thi:", err);
     } finally {
+      loadingMoreRef.current = false;
       setLoadingMoreAll(false);
     }
   };
@@ -276,7 +291,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !loadingMoreRef.current) {
           loadMoreAllExams();
         }
       },
@@ -408,11 +423,11 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               Thư Viện Đề Thi Trực Tuyến
             </h2>
             <p className="text-xs text-slate-500 font-medium mt-0.5">
-              Top 10 đề thi được làm nhiều nhất, đề mới cập nhật hoặc xem toàn bộ kho đề
+              Top 5 đề thi được làm nhiều nhất, đề mới cập nhật hoặc xem toàn bộ kho đề
             </p>
           </div>
 
-          {/* Navigation Tabs: Top 10 Nhiều lượt làm, Top 10 Mới nhất, Xem tất cả */}
+          {/* Navigation Tabs: Top 5 Nhiều lượt làm, Top 5 Mới nhất, Xem tất cả */}
           <div className="flex items-center gap-1.5 p-1 bg-slate-200/70 rounded-2xl self-stretch md:self-auto overflow-x-auto">
             <button
               type="button"
@@ -424,7 +439,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               }`}
             >
               <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>Nhiều lượt làm nhất (Top 10)</span>
+              <span>Nhiều lượt làm nhất (Top 5)</span>
             </button>
 
             <button
@@ -437,7 +452,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-              <span>Mới nhất (Top 10)</span>
+              <span>Mới nhất (Top 5)</span>
             </button>
 
             <button
@@ -502,7 +517,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               </div>
             </div>
             <p className="text-[11px] text-slate-400 pl-1">
-              * Dữ liệu được tải theo từng đợt 10 bài khi bạn cuộn trang để tối ưu hóa tốc độ và giảm thiểu lượt đọc cơ sở dữ liệu.
+              * Dữ liệu được tải theo từng đợt 5 bài khi bạn cuộn trang để tối ưu hóa tốc độ và giảm thiểu lượt đọc cơ sở dữ liệu.
             </p>
           </div>
         )}
@@ -814,7 +829,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
                     {loadingMoreAll ? (
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-2xl border border-slate-200 shadow-2xs text-xs font-bold text-blue-600">
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Đang đọc thêm 10 bài thi từ máy chủ...</span>
+                        <span>Đang đọc thêm 5 bài thi từ máy chủ...</span>
                       </div>
                     ) : hasMoreAll ? (
                       <button
@@ -823,7 +838,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
                         className="px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1.5"
                       >
                         <Layers className="w-3.5 h-3.5 text-blue-600" />
-                        <span>Tải thêm 10 bài thi tiếp theo (Hoặc cuộn xuống)</span>
+                        <span>Tải thêm 5 bài thi tiếp theo (Hoặc cuộn xuống)</span>
                       </button>
                     ) : (
                       <p className="text-xs font-semibold text-slate-400">

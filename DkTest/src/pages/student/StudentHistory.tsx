@@ -28,21 +28,24 @@ import {
   where,
   orderBy,
   limit,
-  doc,
-  getDoc,
+  startAfter,
+  type QueryDocumentSnapshot,
+  type DocumentData,
 } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
 import RetakeModal from "../../components/exam/RetakeModal";
 import { logDocRead, logQueryRead } from "../../utils/firestoreLogger";
+import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
+import { FirestoreCache } from "../../services/firebase/firestoreCache";
 
 export default function StudentHistory() {
   const navigate = useNavigate();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [pageLimit, setPageLimit] = useState(5);
+  const [lastDocSnapshot, setLastDocSnapshot] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMore, setHasMore] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [studentInfo, setStudentInfo] = useState<{ username: string; displayName: string } | null>(null);
@@ -58,80 +61,102 @@ export default function StudentHistory() {
     }
 
     const infoStr = localStorage.getItem("student_info");
+    let studentUsername = "";
     if (infoStr) {
       try {
-        setStudentInfo(JSON.parse(infoStr));
+        const parsed = JSON.parse(infoStr);
+        setStudentInfo(parsed);
+        studentUsername = parsed.username || parsed.displayName || "";
       } catch (e) {
         // ignore
       }
     }
 
-    loadHistory(5);
+    loadInitialHistory(studentUsername);
   }, [navigate]);
 
-  const loadHistory = async (targetLimit: number) => {
-    if (targetLimit === 5) {
-      setLoading(true);
-    } else {
-      setLoadingMore(true);
-    }
-
+  const loadInitialHistory = async (explicitUsername?: string) => {
+    setLoading(true);
     try {
-      let fetchedSubs: Submission[] = [];
-
-      // 1. Try querying from Firestore
       const infoStr = localStorage.getItem("student_info");
-      let studentUsername = "";
-      if (infoStr) {
+      let studentUsername = explicitUsername || "";
+      if (!studentUsername && infoStr) {
         try {
           const parsed = JSON.parse(infoStr);
-          studentUsername = parsed.username || parsed.displayName;
+          studentUsername = parsed.username || parsed.displayName || "";
         } catch {}
       }
 
-      // Check local submission history IDs stored in localStorage
-      const localHistStr = localStorage.getItem("student_submission_history");
-      const localIds: string[] = localHistStr ? JSON.parse(localHistStr) : [];
-
+      // Check cache first
       if (studentUsername) {
-        // Query by student username/name (capped at targetLimit + 5, max 30)
-        const fetchLimit = Math.min(targetLimit + 5, 30);
-        const t0 = performance.now();
-        const q = query(
-          collection(db, "submissions"),
-          where("studentId", "==", studentUsername),
-          limit(fetchLimit)
-        );
-        const snap = await getDocs(q);
-        logQueryRead("submissions", snap.size, `StudentHistory student=${studentUsername}`, fetchLimit, performance.now() - t0);
-        fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-      }
-
-      // Also fetch any submissions from local IDs not yet included (max 5)
-      const pendingLocalIds = localIds.filter((id) => !fetchedSubs.some((s) => s.id === id)).slice(0, 5);
-      for (const id of pendingLocalIds) {
-        try {
-          const t0 = performance.now();
-          const docSnap = await getDoc(doc(db, "submissions", id));
-          logDocRead("submissions", id, docSnap.exists(), performance.now() - t0);
-          if (docSnap.exists()) {
-            fetchedSubs.push({ id: docSnap.id, ...docSnap.data() } as Submission);
-          }
-        } catch (docErr) {
-          console.warn("Could not fetch submission doc", id, docErr);
+        const cachedSubs = FirestoreCache.get<Submission[]>(`history:${studentUsername}`);
+        if (cachedSubs && cachedSubs.length > 0) {
+          setSubmissions(cachedSubs);
+          setHasMore(cachedSubs.length === 5);
+          setLoading(false);
+          return;
         }
       }
 
-      // Fallback: If no student login & no local IDs, fetch recent public submissions (max 10)
-      if (fetchedSubs.length === 0 && !studentUsername && localIds.length === 0) {
+      let fetchedSubs: Submission[] = [];
+      let lastDoc: QueryDocumentSnapshot<DocumentData> | null = null;
+
+      if (studentUsername) {
+        // Query strictly limit 5
         const t0 = performance.now();
-        const qRecent = query(
-          collection(db, "submissions"),
-          limit(10)
-        );
+        let snap;
+        try {
+          const q = query(
+            collection(db, "submissions"),
+            where("studentId", "==", studentUsername),
+            orderBy("submittedAt", "desc"),
+            limit(5)
+          );
+          snap = await getDocs(q);
+        } catch {
+          // Fallback if composite index on (studentId, submittedAt) is pending
+          const qFallback = query(
+            collection(db, "submissions"),
+            where("studentId", "==", studentUsername),
+            limit(5)
+          );
+          snap = await getDocs(qFallback);
+        }
+
+        logQueryRead("submissions", snap.size, `StudentHistory student=${studentUsername}`, 5, performance.now() - t0);
+        fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+        lastDoc = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
+      }
+
+      // Fallback: If 0 submissions found and local IDs exist in localStorage
+      if (fetchedSubs.length === 0) {
+        const localHistStr = localStorage.getItem("student_submission_history");
+        const localIds: string[] = localHistStr ? JSON.parse(localHistStr) : [];
+        const uniqueLocalIds = Array.from(new Set(localIds)).slice(0, 5);
+
+        for (const id of uniqueLocalIds) {
+          try {
+            const docData = await FirestoreRepository.getDocument<Submission>("submissions", id, {
+              ttlMs: 300000,
+              caller: "StudentHistory:localFallback",
+            });
+            if (docData) {
+              fetchedSubs.push(docData);
+            }
+          } catch (docErr) {
+            console.warn("Could not fetch submission doc", id, docErr);
+          }
+        }
+      }
+
+      // Fallback: If no student login & no local IDs, fetch recent public submissions (strictly limit 5)
+      if (fetchedSubs.length === 0 && !studentUsername) {
+        const t0 = performance.now();
+        const qRecent = query(collection(db, "submissions"), limit(5));
         const recentSnap = await getDocs(qRecent);
-        logQueryRead("submissions", recentSnap.size, "StudentHistory fallback public", 10, performance.now() - t0);
+        logQueryRead("submissions", recentSnap.size, "StudentHistory fallback public", 5, performance.now() - t0);
         fetchedSubs = recentSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+        lastDoc = recentSnap.docs.length > 0 ? recentSnap.docs[recentSnap.docs.length - 1] : null;
       }
 
       // Sort by submittedAt descending (newest first)
@@ -141,21 +166,63 @@ export default function StudentHistory() {
         return timeB - timeA;
       });
 
-      // Pagination logic
-      const sliced = fetchedSubs.slice(0, targetLimit);
-      setSubmissions(sliced);
-      setHasMore(fetchedSubs.length > targetLimit);
-      setPageLimit(targetLimit);
+      setSubmissions(fetchedSubs);
+      setLastDocSnapshot(lastDoc);
+      setHasMore(fetchedSubs.length === 5);
+
+      if (studentUsername && fetchedSubs.length > 0) {
+        FirestoreCache.set(`history:${studentUsername}`, fetchedSubs, 60000);
+      }
     } catch (err) {
       console.error("Lỗi khi tải lịch sử bài thi:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadMoreHistory = async () => {
+    if (!lastDocSnapshot || loadingMore) return;
+    setLoadingMore(true);
+
+    try {
+      const studentUsername = studentInfo?.username || studentInfo?.displayName || "";
+      const t0 = performance.now();
+      let snap;
+
+      try {
+        const q = query(
+          collection(db, "submissions"),
+          where("studentId", "==", studentUsername),
+          orderBy("submittedAt", "desc"),
+          startAfter(lastDocSnapshot),
+          limit(5)
+        );
+        snap = await getDocs(q);
+      } catch {
+        const qFallback = query(
+          collection(db, "submissions"),
+          where("studentId", "==", studentUsername),
+          startAfter(lastDocSnapshot),
+          limit(5)
+        );
+        snap = await getDocs(qFallback);
+      }
+
+      logQueryRead("submissions", snap.size, `StudentHistory loadMore student=${studentUsername}`, 5, performance.now() - t0);
+      const newItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+
+      setSubmissions((prev) => [...prev, ...newItems]);
+      setLastDocSnapshot(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
+      setHasMore(snap.docs.length === 5);
+    } catch (err) {
+      console.error("Lỗi khi tải thêm lịch sử bài thi:", err);
+    } finally {
       setLoadingMore(false);
     }
   };
 
   const handleLoadMore = () => {
-    loadHistory(pageLimit + 5);
+    loadMoreHistory();
   };
 
   const filteredSubmissions = submissions.filter((sub) => {
@@ -391,7 +458,7 @@ export default function StudentHistory() {
               );
             })}
 
-            {/* Load More Button (Paginated by 10) */}
+            {/* Load More Button (Paginated by 5) */}
             {hasMore && (
               <div className="text-center pt-4">
                 <button
@@ -407,7 +474,7 @@ export default function StudentHistory() {
                     </>
                   ) : (
                     <>
-                      <span>Xem thêm (Tải thêm 10 bài tiếp theo)</span>
+                      <span>Xem thêm (Tải thêm 5 bài tiếp theo)</span>
                       <ChevronRight className="w-4 h-4" />
                     </>
                   )}

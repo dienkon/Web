@@ -24,6 +24,8 @@ import { getExam } from "../../services/examService";
 import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
+import { FirestoreCache } from "../../services/firebase/firestoreCache";
+import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 import type { Exam, Section, Question } from "../../types";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
@@ -176,12 +178,20 @@ export default function ExamIntro() {
             setQuestions(qs);
           } else {
              // Fallback for legacy
-            const [secSnap, qSnap] = await Promise.all([
-              getDocs(query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc"))),
-              getDocs(query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc"))),
+            const [secs, qs] = await Promise.all([
+              FirestoreRepository.getQuery<Section>(
+                `exams/${foundExam.id}/sections`,
+                query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc")),
+                { ttlMs: 180000, caller: "ExamIntro:sections" }
+              ),
+              FirestoreRepository.getQuery<Question>(
+                `exams/${foundExam.id}/questions`,
+                query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc")),
+                { ttlMs: 180000, caller: "ExamIntro:questions" }
+              ),
             ]);
-            setSections(secSnap.docs.map(d => ({ id: d.id, ...d.data() } as Section)));
-            setQuestions(qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question)));
+            setSections(secs);
+            setQuestions(qs);
           }
           setSubExamConfig(foundExam.subExamConfig);
           setUseSubExam(true);
@@ -204,12 +214,25 @@ export default function ExamIntro() {
       return;
     }
 
+    // If exam does not enforce attempt limit, 0 Firestore reads needed!
+    if (!exam.maxAttempts || exam.maxAttempts <= 0) {
+      setAttemptCount(0);
+      return;
+    }
+
+    const cacheKey = `attempts:${exam.id}:${candidateUsername}`;
+    const cachedCount = FirestoreCache.get<number>(cacheKey);
+    if (cachedCount !== null) {
+      setAttemptCount(cachedCount);
+      return;
+    }
+
     let isMounted = true;
     const checkAttempts = async () => {
       setCheckingAttempts(true);
       try {
         const subsRef = collection(db, "submissions");
-        const maxLimit = exam.maxAttempts && exam.maxAttempts > 0 ? exam.maxAttempts + 1 : 10;
+        const maxLimit = exam.maxAttempts || 3;
         const t0 = performance.now();
         const qSubs = query(
           subsRef,
@@ -221,6 +244,7 @@ export default function ExamIntro() {
         logQueryRead("submissions", snap.size, `ExamIntro check candidate attempts`, maxLimit, performance.now() - t0);
         if (isMounted) {
           setAttemptCount(snap.size);
+          FirestoreCache.set(cacheKey, snap.size, 60000);
         }
       } catch (err) {
         console.warn("Could not fetch attempt count:", err);
@@ -233,7 +257,7 @@ export default function ExamIntro() {
     return () => {
       isMounted = false;
     };
-  }, [exam?.id, studentCode, currentUser?.username]);
+  }, [exam?.id, exam?.maxAttempts, studentCode, currentUser?.username]);
 
   // Check if candidate has an active in-progress session for this exam
   useEffect(() => {

@@ -36,6 +36,7 @@ import { getExamSections } from "../../services/sectionService";
 import { exportExamToWordFile } from "../../services/wordExportService";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
+import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 import type { Submission, Exam, Question, Section } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
@@ -233,10 +234,11 @@ export default function ExamResult() {
           // 1. Fetch master original questions
           let masterQs: Question[] = Array.isArray((examData as any)?.questions) ? (examData as any).questions : [];
           if (!Array.isArray((examData as any)?.questions)) {
-            console.log("[Firestore] READ_MANY: exams/" + currentExamId + "/questions (fallback)"); const qSnap = await getDocs(
-              query(collection(db, `exams/${currentExamId}/questions`), orderBy("order", "asc"))
+            masterQs = await FirestoreRepository.getQuery<Question>(
+              `exams/${currentExamId}/questions`,
+              query(collection(db, `exams/${currentExamId}/questions`), orderBy("order", "asc")),
+              { ttlMs: 180000, caller: "ExamResult:questions" }
             );
-            masterQs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
           }
           masterQs.sort((a,b) => (a.order || 0) - (b.order || 0));
 
