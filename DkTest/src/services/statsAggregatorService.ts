@@ -16,6 +16,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
+import { FirestoreCache } from "./firebase/firestoreCache";
+import { FirestoreRepository } from "./firebase/firestoreRepository";
 import type { Submission } from "../types";
 import { logDocRead, logDocWrite, logCacheHit, logQueryRead } from "../utils/firestoreLogger";
 
@@ -118,6 +120,7 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
 
       // Invalidate memory cache so next read gets fresh data
       cachedOverview = null;
+      FirestoreCache.invalidate("doc:system_stats:overview");
     } else {
       // First-time initialization
       const initialOverview: SystemStatsOverview = {
@@ -172,6 +175,7 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
           lastSubmittedAt: now,
           lastUpdated: now,
         });
+        FirestoreCache.invalidate(`doc:exam_stats:${examId}`);
         logDocWrite("exam_stats", examId, "UPDATE", "Atomic increment exam submissions");
       } else {
         const initialExamStats: ExamAggregatedStats = {
@@ -199,45 +203,34 @@ export async function updateGlobalStatsOnSubmission(submission: Partial<Submissi
  * Reads exactly 1 document (system_stats/overview) or 0 documents if memory cache is valid!
  */
 export async function getAggregatedSystemStats(forceRefresh = false): Promise<SystemStatsOverview | null> {
-  const now = Date.now();
-  if (!forceRefresh && cachedOverview && now - cachedOverview.timestamp < CACHE_TTL_MS) {
-    logCacheHit("system_stats/overview", "Served from memory cache");
-    return cachedOverview.data;
-  }
+  return FirestoreCache.getOrFetch<SystemStatsOverview | null>(
+    "doc:system_stats:overview",
+    async () => {
+      try {
+        const t0 = performance.now();
+        const overviewRef = doc(db, "system_stats", "overview");
+        const snap = await getDoc(overviewRef);
+        logDocRead("system_stats", "overview", snap.exists(), performance.now() - t0, "Aggregated dashboard metrics");
 
-  try {
-    const t0 = performance.now();
-    const overviewRef = doc(db, "system_stats", "overview");
-    const snap = await getDoc(overviewRef);
-    logDocRead("system_stats", "overview", performance.now() - t0, "Aggregated dashboard metrics");
-
-    if (snap.exists()) {
-      const data = snap.data() as SystemStatsOverview;
-      cachedOverview = { data, timestamp: now };
-      return data;
-    }
-  } catch (err) {
-    console.warn("[StatsAggregator] Error fetching system_stats/overview:", err);
-  }
-
-  return null;
+        if (snap.exists()) {
+          return snap.data() as SystemStatsOverview;
+        }
+      } catch (err) {
+        console.warn("[StatsAggregator] Error fetching system_stats/overview:", err);
+      }
+      return null;
+    },
+    45 * 1000,
+    forceRefresh
+  );
 }
 
 /**
- * Get aggregated stats for a specific exam (1 doc read)
+ * Get aggregated stats for a specific exam (1 doc read or 0 if cached)
  */
 export async function getExamAggregatedStats(examId: string): Promise<ExamAggregatedStats | null> {
-  try {
-    const t0 = performance.now();
-    const examStatsRef = doc(db, "exam_stats", examId);
-    const snap = await getDoc(examStatsRef);
-    logDocRead("exam_stats", examId, performance.now() - t0, "Specific exam aggregated stats");
-
-    if (snap.exists()) {
-      return snap.data() as ExamAggregatedStats;
-    }
-  } catch (err) {
-    console.warn(`[StatsAggregator] Error fetching exam_stats/${examId}:`, err);
-  }
-  return null;
+  return FirestoreRepository.getDocument<ExamAggregatedStats>("exam_stats", examId, {
+    ttlMs: 60 * 1000,
+    purpose: "Specific exam aggregated stats",
+  });
 }

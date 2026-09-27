@@ -41,6 +41,7 @@ import { useToast } from "../../components/ui/ToastNotification";
 import { subscribeToActiveSessions, type ActiveSession } from "../../services/realtimeProctoringService";
 import { formatDate } from "../../utils/date";
 import { logQueryRead } from "../../utils/firestoreLogger";
+import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 
 export default function Dashboard() {
   const toast = useToast();
@@ -97,30 +98,34 @@ export default function Dashboard() {
         setDataHealthIssuesCount(healthRes.issues?.length || 0);
       } catch (e) {}
 
-      // 4. Fetch recent exams (capped at limit 5)
+      // 4. Fetch recent exams (capped at limit 5, with 60s memory cache)
       try {
-        const t0 = performance.now();
-        const examSnap = await getDocs(
-          query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(5))
+        const recentExams = await FirestoreRepository.getQuery<Exam>(
+          "dashboard:recent_exams",
+          query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(5)),
+          { ttlMs: 60 * 1000, collectionName: "exams", limitApplied: 5, purpose: "Dashboard recent exams" }
         );
-        logQueryRead("exams", examSnap.size, "Dashboard recent exams", 5, performance.now() - t0);
-        setExams(examSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
+        setExams(recentExams);
       } catch (e) {
-        const t0 = performance.now();
-        const fallbackSnap = await getDocs(query(collection(db, "exams"), limit(5)));
-        logQueryRead("exams", fallbackSnap.size, "Dashboard recent exams fallback", 5, performance.now() - t0);
-        setExams(fallbackSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam)));
+        try {
+          const fallbackExams = await FirestoreRepository.getQuery<Exam>(
+            "dashboard:recent_exams_fallback",
+            query(collection(db, "exams"), limit(5)),
+            { ttlMs: 60 * 1000, collectionName: "exams", limitApplied: 5, purpose: "Dashboard recent exams fallback" }
+          );
+          setExams(fallbackExams);
+        } catch (_) {}
       }
 
       // 5. Fetch recent submissions (Only if not already provided by system_stats/overview)
       if (!gotRecentSubmissions) {
         try {
-          const t0 = performance.now();
-          const subSnap = await getDocs(
-            query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5))
+          const recentSubs = await FirestoreRepository.getQuery<Submission>(
+            "dashboard:recent_submissions",
+            query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5)),
+            { ttlMs: 60 * 1000, collectionName: "submissions", limitApplied: 5, purpose: "Dashboard fallback recent submissions" }
           );
-          logQueryRead("submissions", subSnap.size, "Dashboard fallback recent submissions", 5, performance.now() - t0);
-          setRecentSubmissions(subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)));
+          setRecentSubmissions(recentSubs);
         } catch (e) {}
       }
     } catch (err) {

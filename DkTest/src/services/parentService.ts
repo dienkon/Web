@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase/config";
 import type { Submission } from "../types";
+import { getActiveSessionForStudent } from "./realtimeProctoringService";
 
 export interface ParentLinkRequest {
   id: string;
@@ -266,59 +267,12 @@ export async function getLinkedChildrenForParent(parentUsername: string): Promis
         }
       }
 
-      // Check active proctoring / taking session
+      // Check active proctoring / taking session directly from RTDB (0 Firestore reads)
       let activeSession = null;
       try {
-        // Query active_sessions first
-        const actQuery = query(
-          collection(db, "active_sessions"),
-          where("studentUsername", "==", req.childUsername)
-        );
-        const actSnap = await getDocs(actQuery);
-        console.warn(`[Firestore] READ_MANY (${actSnap.size} docs): active_sessions (parent check student active session)`);
-        let foundDoc = null;
-        if (!actSnap.empty) {
-          foundDoc = actSnap.docs[0].data();
-        } else {
-          // Fallback query with studentId
-          const actQuery2 = query(
-            collection(db, "active_sessions"),
-            where("studentId", "==", req.childUsername)
-          );
-          const actSnap2 = await getDocs(actQuery2);
-          console.warn(`[Firestore] READ_MANY (${actSnap2.size} docs): active_sessions (fallback query studentId)`);
-          if (!actSnap2.empty) {
-            foundDoc = actSnap2.docs[0].data();
-          } else {
-            // Check taking_sessions fallback
-            const sessQuery = query(
-              collection(db, "taking_sessions"),
-              where("studentId", "==", req.childUsername)
-            );
-            const sessSnap = await getDocs(sessQuery);
-            console.warn(`[Firestore] READ_MANY (${sessSnap.size} docs): taking_sessions (fallback taking_sessions)`);
-            if (!sessSnap.empty) {
-              foundDoc = sessSnap.docs[0].data();
-            }
-          }
-        }
-
-        if (foundDoc && foundDoc.status !== "submitted") {
-          const lastActive = typeof foundDoc.lastActiveAt === "number"
-            ? foundDoc.lastActiveAt
-            : foundDoc.lastHeartbeat
-            ? new Date(foundDoc.lastHeartbeat).getTime()
-            : foundDoc.startTime
-            ? new Date(foundDoc.startTime).getTime()
-            : 0;
-
-          const diffMin = (Date.now() - lastActive) / 60000;
-          if (diffMin < 10) {
-            activeSession = foundDoc;
-          }
-        }
+        activeSession = await getActiveSessionForStudent(req.childUsername);
       } catch (sessErr) {
-        console.warn("Error querying active session for child:", sessErr);
+        console.warn("Error querying active session for child from RTDB:", sessErr);
       }
 
       children.push({

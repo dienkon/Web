@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase/config";
 import type { Student, PaginatedResult } from "../types";
+import { deleteStudentActiveSessionsFromRtdb } from "./realtimeProctoringService";
 
 const STUDENTS_COLLECTION = "students";
 
@@ -102,22 +103,14 @@ export const deleteStudent = async (studentId: string) => {
       }
     }
 
-    // 3. Cascade delete active sessions of this student
+    // 3. Cascade delete active sessions of this student from RTDB (0 Firestore reads/writes)
     try {
-      const sessRef = collection(db, "active_sessions");
-      const targetUsernames = [username, studentId].filter(Boolean);
+      const targetUsernames = [username, studentId].filter(Boolean) as string[];
       for (const u of targetUsernames) {
-        const sessSnap = await getDocs(query(sessRef, where("studentUsername", "==", u)));
-        console.warn(`[Firestore] READ_MANY (${sessSnap.size} docs): active_sessions (for student cascade deletion)`);
-        if (!sessSnap.empty) {
-          console.warn(`[Firestore] DELETE_BATCH (${sessSnap.size} docs): active_sessions`);
-          const sessBatch = writeBatch(db);
-          sessSnap.docs.forEach((d) => sessBatch.delete(d.ref));
-          await sessBatch.commit();
-        }
+        await deleteStudentActiveSessionsFromRtdb(u);
       }
     } catch (sessErr) {
-      console.warn("Could not cascade delete active_sessions:", sessErr);
+      console.warn("Could not cascade delete active_sessions from RTDB:", sessErr);
     }
   } catch (err) {
     console.error("Error in cascade deleteStudent:", err);

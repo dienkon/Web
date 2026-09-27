@@ -1,3052 +1,1589 @@
-Hãy tiếp tục nâng cấp DkTEST theo repository hiện tại, nhưng lần này tập trung đặc biệt vào **AUTHENTICATION FLOW, ACCOUNT REGISTRATION, EMAIL VERIFICATION, USERNAME LOGIN và FIX TOÀN BỘ LỖI ĐĂNG NHẬP/FAILED TO FETCH**.
+Bạn là một Senior Full-Stack Engineer chuyên tối ưu Firebase/Firestore cho hệ thống có lượng truy cập lớn.
 
-Không chỉ thêm UI. Phải triển khai hoàn chỉnh frontend + Firebase Authentication + Firestore + Express/backend + routing + auth state + security.
+Hãy làm việc TRỰC TIẾP trên source code của dự án DkTest tại:
 
-# 1. BẮT BUỘC CÓ 3 PHƯƠNG THỨC ĐĂNG NHẬP
+`DkTest/`
 
-Hệ thống phải hỗ trợ rõ ràng 3 lựa chọn:
+Commit cần audit:
 
-### A. Đăng nhập bằng Username + Mật khẩu
+`df5a73eafa9b0de8cdfdaea0d67922ef4023412c`
 
-Form:
+Mục tiêu chính:
 
-```text
-Username
-Mật khẩu
-```
+GIẢM TỐI ĐA FIRESTORE READ + WRITE nhưng KHÔNG được làm mất dữ liệu, không phá chức năng, không làm sai trạng thái bài thi, không làm sai thống kê, không làm mất autosave và không làm thay đổi UX ngoài những chỗ cần thiết.
 
-### B. Đăng nhập bằng Email + Mật khẩu
+Đây KHÔNG phải yêu cầu tối ưu hiệu năng frontend đơn thuần.
 
-Form:
+Mục tiêu là giảm số lần gọi Firebase/Firestore thực tế.
 
-```text
-Email
-Mật khẩu
-```
+==================================================
 
-### C. Đăng nhập bằng Google
+1. NGUYÊN TẮC QUAN TRỌNG NHẤT
+   ==================================================
 
-Nút:
+Trước khi sửa code:
 
-```text
-Tiếp tục với Google
-```
+1. Đọc toàn bộ source liên quan tới data layer.
+2. Vẽ lại data-flow của:
 
-UI nên dùng tab/segmented control hoặc cách trình bày rõ ràng để người dùng hiểu đang đăng nhập bằng phương thức nào.
+   * authentication
+   * exam loading
+   * exam session
+   * question loading
+   * answer saving
+   * autosave
+   * submission
+   * grading
+   * statistics
+   * leaderboard
+   * parent/student relationship
+   * notification
+   * proctoring
+   * admin dashboard
+   * review/regrade
+3. Xác định chính xác chỗ nào đang tạo read/write nhiều.
+4. Không được đoán.
+5. Không được sửa kiểu “thêm debounce vào mọi thứ”.
+6. Phải xác định nguyên nhân gốc trước rồi mới refactor.
 
-Ví dụ:
+Các service cần đặc biệt audit:
 
-```text
-[ Username ] [ Email ] [ Google ]
-```
+* `services/examService.ts`
+* `services/examSessionService.ts`
+* `services/submissionService.ts`
+* `services/studentService.ts`
+* `services/parentService.ts`
+* `services/parentExamService.ts`
+* `services/realtimeProctoringService.ts`
+* `services/statsAggregatorService.ts`
+* `services/notificationService.ts`
+* `services/reviewExamService.ts`
+* `services/regradeService.ts`
+* `services/questionService.ts`
+* `services/sectionService.ts`
+* `services/folderService.ts`
+* `services/relationshipService.ts`
+* `services/gradingService.ts`
+* `services/adminService.ts`
+* `services/apiClient.ts`
 
-Không được để một form duy nhất gây nhầm lẫn username/email.
+Ngoài ra phải audit:
 
----
+* `context/AuthContext.tsx`
+* `features/exam-builder/hooks/useExamAutosave.ts`
+* mọi hook có `useEffect`
+* mọi listener Firestore
+* mọi `onSnapshot`
+* mọi `getDoc`
+* mọi `getDocs`
+* mọi `query`
+* mọi `setDoc`
+* mọi `updateDoc`
+* mọi `addDoc`
+* mọi `writeBatch`
+* mọi transaction
+* mọi timer/interval
+* mọi retry logic
+* mọi nơi gọi service trong render lifecycle.
 
-# 2. USERNAME PHẢI LÀ ĐỊNH DANH ĐĂNG NHẬP THẬT
+==================================================
+2. TÌM READ STORM
+=================
 
-Khi người dùng đăng ký bằng phương thức Username:
+Kiểm tra toàn bộ các trường hợp:
 
-Bắt buộc nhập:
+* component mount → query
+* component re-render → query lại
+* route change → query lại
+* mở modal → query
+* đóng modal → listener không unsubscribe
+* auth state change → load lại dữ liệu
+* nhiều component cùng đọc một document
+* cùng một query được gọi bởi nhiều service
+* dashboard tải cùng một dữ liệu nhiều lần
+* parent page + child component cùng đọc dữ liệu
+* admin statistics đọc toàn bộ collection
+* leaderboard đọc lại liên tục
+* session page đọc session nhiều lần
+* question page đọc exam/question lặp lại
+* profile đọc user nhiều lần.
 
-```text
-Tên
-Username
-Email
-Mật khẩu
-Nhập lại mật khẩu
-```
-
-Trong đó:
-
-### Tên
-
-Bắt buộc.
-
-Field:
-
-```text
-fullName
-```
-
-Không cho bỏ trống.
-
-### Username
-
-Bắt buộc.
-
-Yêu cầu:
-
-* unique
-* không phân biệt hoa/thường khi kiểm tra trùng
-* trim whitespace
-* chỉ cho phép ký tự hợp lệ
-* không có khoảng trắng giữa username
-* độ dài hợp lý
-* không chứa ký tự nguy hiểm
-* không cho username hệ thống như:
-
-```text
-admin
-administrator
-root
-system
-support
-moderator
-teacher
-official
-```
-
-nếu phù hợp với hệ thống.
-
-Username phải được normalize.
-
-Ví dụ:
-
-```text
-DienKon
-dienkon
-DIENKON
-```
-
-phải được xử lý nhất quán, tránh tạo duplicate do khác chữ hoa/chữ thường.
-
----
-
-# 3. EMAIL VẪN BẮT BUỘC KHI TẠO USERNAME ACCOUNT
-
-Đây là điểm rất quan trọng.
-
-Đăng ký bằng Username **không có nghĩa là bỏ email**.
-
-User vẫn phải cung cấp email thật để:
-
-* xác minh tài khoản
-* khôi phục mật khẩu
-* nhận thông báo bảo mật
-* xác minh quyền sở hữu tài khoản.
-
-Flow:
-
-```text
-Tên
-↓
-Username
-↓
-Email
-↓
-Password
-↓
-Create Firebase Auth account
-↓
-Send email verification
-↓
-User mở hòm thư
-↓
-Xác nhận email
-↓
-Refresh auth state
-↓
-Kiểm tra trạng thái tài khoản
-↓
-Cho phép sử dụng hệ thống
-```
-
----
-
-# 4. EMAIL LOGIN
-
-Khi chọn:
-
-`Đăng nhập bằng Email`
-
-form:
-
-```text
-Email
-Mật khẩu
-```
-
-Firebase Authentication xử lý credential.
-
-Không lưu password ở:
-
-* Firestore
-* localStorage
-* sessionStorage
-* Zustand/Redux persist
-* cookie tự tạo
-* IndexedDB
-* document user
-* audit log.
-
----
-
-# 5. USERNAME LOGIN
-
-Khi chọn:
-
-`Đăng nhập bằng Username`
-
-form:
-
-```text
-Username
-Mật khẩu
-```
-
-Phải hỗ trợ đăng nhập username thật.
-
-Không được làm kiểu:
+Đặc biệt tìm pattern:
 
 ```ts
-if (input === user.username) {
-   localStorage.setItem("loggedIn", "true")
+useEffect(() => {
+    loadData();
+}, [someObject]);
+```
+
+trong đó `someObject` thay reference thường xuyên.
+
+Tìm:
+
+```ts
+useEffect(() => {
+    ...
+}, [user]);
+```
+
+nếu `user` không stable.
+
+Tìm:
+
+```ts
+getDoc(...)
+```
+
+được gọi trong nhiều component khác nhau cho cùng document.
+
+Tìm:
+
+```ts
+getDocs(...)
+```
+
+được gọi mỗi lần render / tab switch / modal open.
+
+Tìm query không có cache.
+
+==================================================
+3. XÂY DỰNG CLIENT-SIDE CACHE
+=============================
+
+Thiết kế một data cache trung tâm.
+
+Không để mỗi service tự cache một kiểu.
+
+Tạo hoặc refactor thành kiến trúc tương đương:
+
+```ts
+FirestoreCache
+FirestoreRepository
+QueryCache
+DocumentCache
+```
+
+Có thể dùng:
+
+* in-memory Map
+* TTL
+* stale-while-revalidate
+* sessionStorage/localStorage khi phù hợp.
+
+Cache key phải deterministic.
+
+Ví dụ:
+
+```ts
+user:${uid}
+exam:${examId}
+session:${sessionId}
+question:${questionId}
+students:${classId}
+stats:${scope}:${period}
+```
+
+Không tạo nhiều request cho cùng một key trong cùng thời gian.
+
+Phải chống request duplication.
+
+Ví dụ:
+
+```ts
+requestCache.set(key, existingPromise)
+```
+
+Nếu 5 component cùng yêu cầu:
+
+```ts
+getUser(uid)
+```
+
+thì chỉ được tạo:
+
+1 Firestore read
+
+không phải:
+
+5 Firestore reads.
+
+==================================================
+4. STALE-WHILE-REVALIDATE
+=========================
+
+Với dữ liệu không realtime:
+
+* đọc cache trước
+* nếu cache còn fresh → không gọi Firestore
+* nếu stale → trả cache trước
+* background refresh
+* chỉ update Firestore result khi thực sự thay đổi.
+
+Ví dụ:
+
+```ts
+const cached = cache.get(key);
+
+if (cached && !isExpired(cached)) {
+    return cached.data;
+}
+
+return fetchAndCache(...);
+```
+
+Không được query Firestore chỉ để lấy lại dữ liệu UI đang có sẵn.
+
+==================================================
+5. REALTIME LISTENER
+====================
+
+Audit toàn bộ `onSnapshot`.
+
+Mỗi listener phải:
+
+* subscribe đúng lúc
+* unsubscribe đúng lúc
+* không subscribe trùng
+* không subscribe lại vì dependency object thay đổi
+* không tồn tại listener duplicate.
+
+Không được có:
+
+```ts
+useEffect(() => {
+    onSnapshot(...)
+}, [objectThatChangesEveryRender])
+```
+
+Phải đảm bảo listener có lifecycle rõ ràng.
+
+Nếu cùng một document/query được nhiều component subscribe:
+
+hãy cân nhắc tạo shared subscription manager.
+
+Ví dụ:
+
+```ts
+subscribe("exam:123", callback)
+```
+
+nhiều component dùng chung một listener.
+
+Khi subscriber cuối cùng unmount mới unsubscribe Firestore.
+
+==================================================
+6. PHÂN BIỆT REALTIME VÀ NON-REALTIME
+=====================================
+
+Không được dùng `onSnapshot` cho mọi thứ.
+
+Phân loại:
+
+REALTIME:
+
+* trạng thái phiên thi khi thực sự cần
+* proctoring
+* các dữ liệu live cần thiết
+* notification khi cần
+* một số trạng thái admin.
+
+NON-REALTIME:
+
+* danh sách tĩnh
+* profile
+* folder
+* exam metadata
+* question bank
+* statistics lịch sử
+* leaderboard nếu không yêu cầu realtime tuyệt đối.
+
+Các dữ liệu NON-REALTIME phải chuyển sang:
+
+```ts
+getDoc
+getDocs
+```
+
+kết hợp cache.
+
+==================================================
+7. TỐI ƯU AUTOSAVE
+==================
+
+Đây là khu vực CỰC KỲ QUAN TRỌNG.
+
+Audit:
+
+`features/exam-builder/hooks/useExamAutosave.ts`
+
+và tất cả logic autosave/session saving.
+
+Không được:
+
+```ts
+saveToFirestore()
+```
+
+mỗi lần:
+
+* gõ một ký tự
+* chọn đáp án
+* thay đổi state nhỏ
+* timer tick
+* progress thay đổi.
+
+Phải chuyển sang dirty-state + debounce.
+
+Kiến trúc:
+
+```text
+User changes state
+        ↓
+Update local state
+        ↓
+Mark document dirty
+        ↓
+Debounce 2-5 seconds
+        ↓
+Compute minimal diff
+        ↓
+Write ONLY changed fields
+```
+
+Ví dụ:
+
+```ts
+scheduleSave(sessionId, patch)
+```
+
+Không save toàn bộ object nếu chỉ thay đổi:
+
+```ts
+answers.q12
+```
+
+thì chỉ write:
+
+```ts
+{
+    [`answers.q12`]: answer
 }
 ```
 
-Không được fake authentication.
+==================================================
+8. GỘP CÁC WRITE
+================
 
-Thiết kế authentication phù hợp với Firebase hiện tại.
+Tìm code kiểu:
 
-Username phải được map tới Firebase Auth account bằng backend/service an toàn.
+```ts
+updateDoc(...)
+updateDoc(...)
+updateDoc(...)
+```
+
+liên tiếp.
+
+Gộp thành:
+
+```ts
+writeBatch(...)
+```
+
+nếu các write độc lập.
+
+Hoặc một `updateDoc()` duy nhất nếu cùng document.
+
+Mục tiêu:
+
+3 writes
+
+→
+
+1 write.
+
+Nhưng KHÔNG được gộp một cách làm thay đổi transaction semantics.
+
+==================================================
+9. CHỈ WRITE KHI DỮ LIỆU THAY ĐỔI
+=================================
+
+Tuyệt đối tránh:
+
+```ts
+updateDoc(ref, {
+   updatedAt: serverTimestamp()
+})
+```
+
+chỉ vì component rerender.
+
+Trước khi write:
+
+```ts
+deepEqual(oldData, newData)
+```
+
+hoặc tốt hơn:
+
+tạo patch/diff.
+
+Nếu không có business-data thay đổi:
+
+KHÔNG WRITE.
+
+Đặc biệt phải audit:
+
+* profile update
+* exam session
+* submission
+* statistics
+* settings
+* notification
+* parent relationship
+* admin data.
+
+==================================================
+10. KHÔNG GHI STATS SAU MỌI EVENT
+=================================
+
+Audit `statsAggregatorService.ts`.
+
+Tìm các trường hợp:
+
+```text
+answer changed
+→ update stats
+
+answer changed
+→ update stats
+
+answer changed
+→ update stats
+```
+
+Phải cân nhắc chuyển sang:
+
+```text
+raw event/session data
+        ↓
+aggregate
+        ↓
+persist periodically / on completion
+```
+
+Hoặc:
+
+* update aggregate khi submit
+* background aggregation
+* batch aggregation
+* lazy calculation
+* cached stats.
+
+Không được viết stats cho từng thao tác nhỏ nếu không bắt buộc.
+
+==================================================
+11. SESSION DATA
+================
+
+Audit `examSessionService.ts`.
+
+Một session không nên bị write liên tục toàn bộ object.
+
+Tách dữ liệu thành logical groups:
+
+```text
+session metadata
+answers
+timing
+progress
+proctoring
+final result
+```
+
+Ví dụ:
+
+```text
+sessions/{sessionId}
+sessions/{sessionId}/answers/{questionId}
+```
+
+hoặc architecture khác phù hợp với source hiện tại.
+
+Mục tiêu:
+
+thay đổi một answer
+
+KHÔNG làm toàn bộ session document bị write lại nếu không cần.
+
+==================================================
+12. ANSWER PERSISTENCE
+======================
+
+Trong khi làm bài:
+
+UI state phải là source of truth tạm thời.
+
+Firestore chỉ là persistence layer.
+
+Luồng mong muốn:
+
+```text
+User answer
+↓
+React local state
+↓
+local persistence
+↓
+debounced cloud sync
+```
 
 Có thể sử dụng:
 
 ```text
-username -> user profile / auth identifier
+localStorage
+IndexedDB
 ```
 
-sau đó thực hiện authentication bằng Firebase Auth.
+tùy kích thước dữ liệu.
 
-Nếu cần custom backend để resolve username thì backend phải:
+Nếu mất mạng:
 
-* xác thực request
-* validate input
-* chống username enumeration nếu phù hợp
-* không expose email của user tùy tiện
-* không trả password/hash/password credential
-* không log password
-* không đưa secret Firebase Admin vào frontend.
+* không mất đáp án
+* giữ local state
+* queue pending writes
+* reconnect → flush queue.
 
-Password vẫn phải được Firebase Authentication quản lý.
+Không được tạo hàng trăm writes sau reconnect.
 
----
-
-# 6. PASSWORD SECURITY
-
-Tuyệt đối không tự tạo một bảng:
-
-```text
-username
-password
-```
-
-rồi lưu password vào Firestore.
-
-Không làm:
-
-```text
-password: "123456"
-```
-
-Không làm:
-
-```text
-passwordHash
-```
-
-trong Firestore chỉ để phục vụ login nếu Firebase Authentication đã đảm nhiệm credential management.
-
-Không log:
-
-```text
-password
-```
-
-ra console.
-
-Không lưu password vào URL.
-
-Không lưu password trong localStorage/sessionStorage.
-
-Nếu hệ thống cần username login thì chỉ lưu mapping:
-
-```text
-username
-uid
-```
-
-và metadata cần thiết.
-
----
-
-# 7. FIELD "TÊN" BẮT BUỘC CHO MỌI ACCOUNT
-
-Tất cả phương thức tạo account phải có:
-
-```text
-Tên
-```
-
-Nếu Google lần đầu login:
-
-Firebase lấy:
-
-```text
-displayName
-```
-
-Nếu Google không trả về tên hợp lệ:
-
-→ bắt người dùng hoàn tất profile:
-
-```text
-Tên *
-```
-
-Không được tạo account hoàn chỉnh nếu thiếu `fullName`.
-
-Đối với Email/Password:
-
-```text
-Tên *
-Email *
-Mật khẩu *
-```
-
-Đối với Username/Password:
-
-```text
-Tên *
-Username *
-Email *
-Mật khẩu *
-```
-
----
-
-# 8. EMAIL VERIFICATION PHẢI THỰC SỰ HOẠT ĐỘNG
-
-Đây là yêu cầu bắt buộc.
-
-Khi user đăng ký bằng Username hoặc Email:
-
-1. Firebase tạo account.
-2. Firebase gửi email xác minh tới email user.
-3. UI chuyển sang màn hình:
-
-```text
-Kiểm tra email của bạn
-```
-
-4. Hiển thị email đích đã che bớt.
+Phải deduplicate queue.
 
 Ví dụ:
 
 ```text
-d***@gmail.com
+q1=A
+q1=B
+q1=C
 ```
 
-5. Có:
+trước khi sync chỉ cần:
 
 ```text
-Gửi lại email xác minh
+q1=C
 ```
 
-6. Có:
+==================================================
+13. TỐI ƯU LOCAL MIRROR
+=======================
 
-```text
-Tôi đã xác minh email
-```
+Với các dữ liệu thường xuyên thay đổi:
 
-7. Sau khi user xác nhận trong email:
+tạo local mirror.
 
-* reload Firebase user
-* kiểm tra `emailVerified`
-* cập nhật profile
-* cập nhật trạng thái UI
-* tiếp tục flow login.
-
-Firebase cung cấp `sendEmailVerification()` cho việc gửi email xác minh.
-
----
-
-# 9. KHÔNG ĐƯỢC CHO ACCOUNT UNVERIFIED ĐĂNG NHẬP NHƯ USER BÌNH THƯỜNG
-
-Nếu:
-
-```text
-emailVerified === false
-```
-
-không được coi là account hoàn tất.
-
-Sau khi nhập đúng username/password hoặc email/password:
-
-Nếu credential đúng nhưng email chưa verified:
-
-→ không redirect vào dashboard bình thường.
-
-Phải đưa về:
-
-```text
-Email Verification Required
-```
-
-Có nút:
-
-```text
-Gửi lại email xác minh
-```
-
-và:
-
-```text
-Tôi đã xác minh
-```
-
-Sau khi click:
-
-```text
-reload(currentUser)
-```
-
-rồi kiểm tra lại:
-
-```text
-emailVerified
-```
-
-Không được chỉ dựa vào state cũ.
-
----
-
-# 10. NẾU MUỐN DÙNG MÃ XÁC NHẬN EMAIL
-
-Nếu UI được yêu cầu dạng:
-
-```text
-Mã xác nhận đã được gửi tới email
-[ _ _ _ _ _ _ ]
-Xác nhận
-```
-
-thì **không giả lập mã ở frontend**.
-
-Phải triển khai verification-code flow thực sự phía backend:
-
-```text
-Generate cryptographically secure OTP
-↓
-Store only secure representation + expiry
-↓
-Send code via email provider
-↓
-User enters code
-↓
-Backend verifies code
-↓
-Mark verification successful
-↓
-Invalidate code
-```
-
-Mã phải:
-
-* random bằng cryptographically secure generator
-* có thời hạn
-* giới hạn số lần thử
-* giới hạn số lần gửi lại
-* chống brute-force
-* chỉ sử dụng một lần
-* không log ra console
-* không gửi lại raw code trong API response.
-
-Nếu sử dụng flow email verification chuẩn của Firebase thì ưu tiên sử dụng cơ chế verification email/action link của Firebase thay vì tự phát minh lại authentication. Firebase hỗ trợ gửi verification email và xử lý verification action.
-
-Không tạo UI nhập OTP giả nhưng backend lại chẳng kiểm tra.
-
----
-
-# 11. ĐĂNG KÝ THÀNH CÔNG KHÔNG ĐỒNG NGHĨA LOGIN HOÀN CHỈNH
-
-Sau:
-
-```text
-createUser
-```
-
-không được lập tức coi account là:
-
-```text
-active + verified
-```
-
-Account state phải phản ánh đúng:
-
-```text
-pending_verification
-```
-
-Sau khi email được xác minh:
-
-```text
-verified
-```
-
-Sau đó nếu hệ thống yêu cầu admin approval:
-
-```text
-pending_admin_approval
-```
-
-Sau khi được duyệt:
-
-```text
-active
-```
-
----
-
-# 12. AUTH STATE PHẢI CÓ INITIALIZATION GATE
-
-ĐÂY LÀ BUG QUAN TRỌNG CẦN FIX.
-
-Hiện tượng cần xử lý:
-
-```text
-ấn Đăng nhập
-→ trang nhảy về Home ngay
-→ Firebase chưa xác thực xong
-→ UI coi như chưa login
-→ login thất bại / mất session
-```
-
-Không được để route render trước khi Firebase Auth restore session xong.
-
-Phải có trạng thái kiểu:
+Ví dụ:
 
 ```ts
-authLoading
+saveLocalSyncMirror(...)
 ```
 
-hoặc:
+hoặc abstraction tương tự.
+
+Local mirror phải:
+
+* lightweight
+* versioned
+* có timestamp
+* có checksum/version nếu cần
+* tránh stale overwrite.
+
+Không dùng localStorage cho dữ liệu cực lớn nếu gây lag.
+
+Có thể dùng IndexedDB nếu dữ liệu session lớn.
+
+==================================================
+14. READ-BEFORE-WRITE PHẢI ĐƯỢC XEM XÉT
+=======================================
+
+Tìm pattern:
 
 ```ts
-authInitialized
-```
+const old = await getDoc(ref);
 
-Flow:
-
-```text
-App startup
-↓
-wait for onAuthStateChanged
-↓
-authInitialized = true
-↓
-render application
-```
-
-Trong thời gian Firebase chưa trả kết quả:
-
-```text
-Loading authentication...
-```
-
-Không redirect.
-
----
-
-# 13. FIX LOGIN REDIRECT RACE CONDITION
-
-Đăng nhập phải chạy theo flow:
-
-```text
-User click Login
-↓
-setSubmitting(true)
-↓
-disable button
-↓
-Firebase authentication
-↓
-Firebase returns user
-↓
-reload user if necessary
-↓
-load profile
-↓
-validate emailVerified
-↓
-validate accountStatus
-↓
-load role
-↓
-set auth state
-↓
-navigate
-↓
-setSubmitting(false)
-```
-
-Tuyệt đối không:
-
-```text
-navigate("/home")
-```
-
-ngay sau khi button click.
-
-Cũng không được:
-
-```text
-setIsLoggedIn(true)
-navigate("/home")
-```
-
-trước khi Firebase thực sự xác thực.
-
-Navigation chỉ xảy ra sau khi authentication thành công và profile đã được kiểm tra.
-
----
-
-# 14. FIX `FAILED TO FETCH`
-
-Audit toàn bộ những nơi hiện lỗi:
-
-```text
-Failed to fetch
-```
-
-Không chỉ bắt error rồi hiện Toast.
-
-Phải tìm nguyên nhân thực tế.
-
-Kiểm tra toàn bộ:
-
-### Frontend API URL
-
-Kiểm tra:
-
-```text
-VITE_API_URL
-```
-
-hoặc biến môi trường tương ứng.
-
-Không hard-code:
-
-```text
-localhost
-```
-
-trong production.
-
-Không để frontend production gọi:
-
-```text
-http://localhost:xxxx
-```
-
-### Express server
-
-Kiểm tra:
-
-* server có thực sự chạy không
-* port
-* deployment
-* endpoint
-* health endpoint
-* HTTPS
-* CORS
-* proxy.
-
-Tạo hoặc kiểm tra:
-
-```text
-GET /api/health
-```
-
-Response:
-
-```json
-{
-  "ok": true
+if (...) {
+    await updateDoc(ref, ...)
 }
 ```
 
-### CORS
+Trong nhiều trường hợp:
 
-Kiểm tra frontend origin thực tế.
+READ + WRITE
 
-Không dùng CORS sai kiểu khiến request bị browser chặn.
+có thể trở thành:
 
-Development:
+một `updateDoc`
 
-```text
-localhost
-```
+hoặc transaction khi thực sự cần atomicity.
 
-Production:
+Không được đọc trước chỉ để kiểm tra những thứ có thể xử lý bằng client-side state hoặc Firestore rules.
 
-domain DkTEST thật.
-
----
-
-# 15. API CLIENT PHẢI CÓ ERROR HANDLING TỐT
-
-Không rải:
-
-```ts
-fetch(...)
-```
-
-khắp project.
-
-Tạo API client/service trung tâm.
-
-Ví dụ:
-
-```text
-src/services/api.ts
-```
-
-Tự xử lý:
-
-* base URL
-* JSON
-* auth token
-* timeout
-* network error
-* HTTP error
-* retry phù hợp
-* parse error.
-
-Ví dụ logic:
-
-```text
-fetch
-↓
-network failed?
-→ NetworkError
-
-response.ok === false?
-→ ApiError(status)
-
-response JSON invalid?
-→ ParseError
-```
-
-Không biến mọi lỗi thành:
-
-```text
-Failed to fetch
-```
-
----
-
-# 16. AUTH TOKEN KHI GỌI BACKEND
-
-Khi frontend gọi backend protected:
-
-```text
-Firebase currentUser
-↓
-getIdToken()
-↓
-Authorization: Bearer <token>
-↓
-Express verifyIdToken()
-↓
-request allowed
-```
-
-Không gửi:
-
-```text
-username + password
-```
-
-tới những endpoint không cần authentication.
-
-Không dùng localStorage flag:
-
-```text
-isLoggedIn=true
-```
-
-để xác minh user.
-
----
-
-# 17. API ERROR UI
-
-Nếu backend lỗi:
-
-Hiển thị lỗi phù hợp:
-
-```text
-Không thể kết nối máy chủ.
-Vui lòng kiểm tra kết nối và thử lại.
-```
-
-Nếu Firebase lỗi:
-
-```text
-Email hoặc mật khẩu không chính xác.
-```
-
-hoặc message cụ thể phù hợp.
-
-Nếu server đang down:
-
-```text
-Máy chủ hiện không phản hồi.
-```
-
-Không show raw:
-
-```text
-TypeError: Failed to fetch
-```
-
-cho user bình thường.
-
-Nhưng developer console vẫn phải có thông tin debug vừa đủ.
-
----
-
-# 18. LOGIN BUTTON UX
-
-Khi user bấm:
-
-```text
-Đăng nhập
-```
-
-button phải đổi ngay:
-
-```text
-Đang đăng nhập...
-```
-
-và disabled.
-
-Không cho double click tạo nhiều request.
-
-Nếu thành công:
-
-```text
-Đăng nhập thành công
-```
-
-rồi chuyển trang.
-
-Nếu thất bại:
-
-```text
-button trở lại Đăng nhập
-```
-
-User có thể thử lại.
-
----
-
-# 19. GOOGLE LOGIN CŨNG PHẢI CÓ FLOW ĐÚNG
-
-Google login:
-
-```text
-Click Google
-↓
-popup/redirect
-↓
-Firebase authentication
-↓
-get user
-↓
-load/create profile
-↓
-ensure fullName
-↓
-check account status
-↓
-check required profile fields
-↓
-navigate
-```
-
-Không:
-
-```text
-Google popup
-→ navigate home ngay
-```
-
-Nếu Google lần đầu login:
-
-```text
-new account
-→ create profile
-→ nếu thiếu Tên → Complete Profile
-```
-
----
-
-# 20. PROTECTED ROUTE
-
-Tạo route guard đúng:
-
-```text
-AuthLoading
-↓
-Not authenticated
-→ Login
-↓
-Authenticated
-→ check account state
-↓
-Verified
-→ continue
-```
-
-Nếu account chưa verified:
-
-```text
-Verification page
-```
-
-Nếu pending approval:
-
-```text
-Pending approval page
-```
-
-Nếu suspended:
-
-```text
-Account suspended page
-```
-
-Nếu active:
-
-```text
-Dashboard
-```
-
-Không được redirect tất cả về Home một cách máy móc.
-
----
-
-# 21. FIX TRƯỜNG HỢP LOGIN XONG NHƯNG PROFILE CHƯA LOAD
-
-Firebase Auth user và Firestore profile là hai lớp khác nhau.
-
-Có thể xảy ra:
-
-```text
-Firebase Auth success
-Firestore profile unavailable
-```
-
-Không được coi luôn là logout.
-
-Hiển thị:
-
-```text
-Đang tải hồ sơ...
-```
-
-Retry phù hợp.
-
-Nếu thật sự thiếu profile:
-
-→ xử lý bằng onboarding/profile repair.
-
-Nếu profile lỗi:
-
-→ error page có:
-
-```text
-Thử lại
-```
-
-không redirect về Home.
-
----
-
-# 22. USERNAME DUPLICATE
-
-Khi đăng ký:
-
-```text
-username = DienKon
-```
-
-phải check uniqueness.
-
-Không được:
-
-```text
-DienKon
-dienkon
-```
-
-tạo được hai user.
-
-Nên có canonical field:
-
-```text
-usernameNormalized
-```
-
-Ví dụ:
-
-```text
-dienkon
-```
-
-Tạo unique mapping.
-
-Không dựa chỉ vào frontend validation.
-
-Backend phải kiểm tra lại.
-
----
-
-# 23. EMAIL DUPLICATE
-
-Nếu email đã tồn tại:
-
-Hiển thị:
-
-```text
-Email này đã được sử dụng.
-Bạn có thể đăng nhập hoặc sử dụng "Quên mật khẩu".
-```
-
-Không tạo duplicate account.
-
-Nếu cùng email từng login Google:
-
-→ xử lý provider conflict đúng.
-
----
-
-# 24. LOGIN BẰNG USERNAME KHÔNG ĐƯỢC TRẢ EMAIL USER KHÁC
-
-API resolve username không được cho phép enumeration kiểu:
-
-```text
-username → email thật
-```
-
-trả thẳng cho client tùy tiện.
-
-Nếu architecture cần resolve identifier:
-
-hãy thực hiện trên backend/server flow an toàn.
-
-Không expose danh sách:
-
-```text
-username
-email
-uid
-```
-
-của toàn bộ user.
-
----
-
-# 25. FORGOT PASSWORD
-
-Thêm:
-
-```text
-Quên mật khẩu?
-```
-
-Nếu user nhập email:
-
-Firebase gửi password reset email.
-
-Nếu user nhớ username nhưng không nhớ email:
-
-hệ thống phải cung cấp UX phù hợp mà không leak email người khác.
-
-Có thể yêu cầu email để reset.
-
-Không hiển thị:
-
-```text
-username này dùng email abc@gmail.com
-```
-
-cho bất kỳ người nào.
-
----
-
-# 26. EMAIL VERIFICATION PAGE
-
-Thiết kế page đẹp:
-
-```text
-✉
-Kiểm tra email của bạn
-
-Chúng tôi đã gửi email xác minh tới
-
-d***@gmail.com
-
-Mở email và hoàn tất xác minh tài khoản.
-
-[ Tôi đã xác minh ]
-[ Gửi lại email ]
-
-Không nhận được email?
-Kiểm tra Spam / Quảng cáo.
-```
-
-Countdown cho resend:
-
-```text
-Gửi lại sau 45s
-```
-
-Không cho spam resend.
-
----
-
-# 27. RESEND VERIFICATION
-
-Rate-limit:
-
-```text
-Resend verification
-```
-
-Không cho bấm hàng chục lần.
-
-Hiển thị:
-
-```text
-Đã gửi lại email xác minh.
-```
-
-Nếu Firebase trả lỗi too-many-requests:
-
-```text
-Bạn đã yêu cầu quá nhiều lần.
-Vui lòng thử lại sau.
-```
-
----
-
-# 28. PERSISTENCE
-
-Kiểm tra Firebase Auth persistence.
-
-Sau khi login:
-
-* refresh browser
-* mở tab mới
-* đóng/mở browser
-
-phải giữ session theo cấu hình mong muốn.
-
-Không tự lưu:
-
-```text
-password
-```
-
-để "auto login".
-
-Chỉ sử dụng Firebase Auth session persistence.
-
----
-
-# 29. LOGOUT
-
-Logout phải:
-
-```text
-Firebase signOut
-↓
-clear local auth-related transient state
-↓
-Auth state listener cập nhật
-↓
-redirect Login
-```
-
-Không dùng:
-
-```text
-localStorage.removeItem("isLoggedIn")
-```
-
-làm cơ chế chính.
-
----
-
-# 30. AUTH ERROR MAPPING
-
-Centralize mapping Firebase errors:
-
-```text
-auth/invalid-credential
-auth/user-not-found
-auth/wrong-password
-auth/email-already-in-use
-auth/weak-password
-auth/too-many-requests
-auth/network-request-failed
-auth/popup-closed-by-user
-auth/popup-blocked
-auth/account-exists-with-different-credential
-```
-
-Không hiển thị lỗi kỹ thuật khó hiểu cho user.
-
----
-
-# 31. FIX CÁC TÍNH NĂNG MỚI BỊ `FAILED TO FETCH`
-
-Không chỉ sửa Login.
-
-Quét toàn bộ features vừa thêm:
-
-* admin users
-* students
-* parents
-* analytics
-* data health
-* audit logs
-* notifications
-* relationship
-* system health
-* profile
-* authentication.
-
-Với mỗi API:
-
-```text
-frontend endpoint
-↓
-backend route
-↓
-controller/service
-↓
-Firebase
-```
-
-phải kiểm tra end-to-end.
-
-Tạo test/manual checklist cho từng API.
-
----
-
-# 32. API HEALTH MONITOR
-
-Thêm:
-
-```text
-/api/health
-```
-
-Nếu phù hợp:
-
-```text
-/api/health/firebase
-```
-
-Admin System Health đọc API này.
-
-Nếu backend không phản hồi thì UI phải nói rõ:
-
-```text
-Backend offline
-```
-
-thay vì chỉ:
-
-```text
-Failed to fetch
-```
-
----
-
-# 33. NO SILENT CATCH
-
-Không được có kiểu:
-
-```ts
-catch {
-  return null;
-}
-```
-
-với authentication/API quan trọng.
-
-Không được nuốt lỗi khiến app tưởng login thành công.
-
-Không được:
-
-```ts
-catch(() => navigate("/home"))
-```
-
-Không được redirect khi request thất bại.
-
----
-
-# 34. AUTH INITIALIZATION DEBUG
-
-Trong development có thể log:
-
-```text
-[AUTH] initialization started
-[AUTH] Firebase initialized
-[AUTH] user changed
-[AUTH] profile loaded
-[AUTH] verification status checked
-[AUTH] route resolved
-```
-
-Không log:
-
-```text
-password
-token
-refresh token
-private key
-```
-
-Production không cần log nhạy cảm.
-
----
-
-# 35. LOADING STATE
-
-Phải phân biệt:
-
-```text
-authInitializing
-authSubmitting
-profileLoading
-apiLoading
-pageLoading
-```
-
-Không dùng một biến:
-
-```text
-loading=true
-```
-
-cho toàn application khiến login và page rendering xung đột.
-
----
-
-# 36. ROUTER FLOW
-
-Audit toàn bộ router.
-
-Đặc biệt tìm các đoạn:
-
-```text
-navigate("/")
-navigate("/home")
-redirect
-Navigate
-useEffect
-```
-
-có thể chạy trước auth initialization.
-
-Sửa race condition.
-
-Ví dụ logic chuẩn:
-
-```text
-AuthProvider
-↓
-wait until initialized
-↓
-Router knows authenticated state
-↓
-ProtectedRoute decides
-```
-
-Không để nhiều component cùng tranh nhau redirect.
-
----
-
-# 37. SINGLE SOURCE OF TRUTH CHO AUTH
-
-Tạo một auth service/provider trung tâm.
-
-Ví dụ:
-
-```text
-AuthProvider
-useAuth()
-authService
-```
-
-Mọi page dùng cùng auth state.
-
-Không mỗi page tự:
-
-```text
-onAuthStateChanged(...)
-```
-
-rồi tự redirect theo cách khác nhau.
-
----
-
-# 38. PROFILE CREATION
-
-Sau registration:
-
-```text
-Firebase Auth user
-+
-Firestore profile
-```
-
-phải được tạo nhất quán.
-
-Nếu Firebase Auth tạo thành công nhưng Firestore profile fail:
-
-không được để account rơi vào trạng thái không biết xử lý.
-
-Có cơ chế:
-
-```text
-profile repair
-```
-
-hoặc backend transaction/retry phù hợp.
-
----
-
-# 39. ACCOUNT STATUS
-
-Authentication không chỉ có:
-
-```text
-logged in / logged out
-```
-
-Có:
-
-```text
-pending_verification
-pending_approval
-active
-suspended
-disabled
-```
-
-Router phải phản ánh đúng từng state.
-
----
-
-# 40. TEST CASE QUAN TRỌNG NHẤT
-
-Bắt buộc test đúng scenario này:
-
-### Username registration
-
-```text
-Register
-→ nhập Tên
-→ nhập Username
-→ nhập Email
-→ nhập Password
-→ submit
-→ Firebase tạo account
-→ email verification gửi thành công
-→ verification screen
-→ mở email
-→ xác minh
-→ quay lại web
-→ click Tôi đã xác minh
-→ reload Firebase User
-→ emailVerified = true
-→ load profile
-→ account active/pending approval
-→ redirect đúng trang
-```
-
-### Username login
-
-```text
-Logout
-→ username
-→ password
-→ click Login
-→ button loading
-→ authentication
-→ profile
-→ status
-→ dashboard
-```
-
-### Email login
-
-```text
-Logout
-→ email
-→ password
-→ click Login
-→ authentication
-→ dashboard
-```
-
-### Google
-
-```text
-Logout
-→ Google
-→ authentication
-→ profile
-→ dashboard
-```
-
-### Unverified
-
-```text
-Login đúng password
-→ emailVerified false
-→ KHÔNG vào dashboard
-→ Verification page
-```
-
-### Failed API
-
-```text
-Backend offline
-→ click feature
-→ UI không crash
-→ không redirect Home
-→ hiển thị lỗi kết nối rõ ràng
-```
-
----
-
-# 41. QUAN TRỌNG: KHÔNG ĐƯỢC CHỈ SỬA UI
-
-Sau khi triển khai phải kiểm tra:
-
-```text
-Firebase Console
-Authentication Users
-Firestore
-Express API
-Network tab
-Console
-Routing
-Auth state
-```
-
-Nếu bấm Login mà UI chuyển trang nhưng Firebase Users/Session không có user thì coi là FAILED.
-
-Nếu API trả 401/403 mà frontend vẫn hiện thành công thì coi là FAILED.
-
-Nếu verification page hiển thị nhưng email không gửi thật thì coi là FAILED.
-
----
-
-# 42. ACCEPTANCE CRITERIA
-
-Chỉ coi authentication hoàn thành khi:
-
-* [ ] Username + password login thật
-* [ ] Email + password login thật
-* [ ] Google login thật
-* [ ] Tên bắt buộc
-* [ ] Username unique
-* [ ] Email unique
-* [ ] Password không lưu Firestore
-* [ ] Registration tạo Firebase Auth user thật
-* [ ] Verification email thực sự được gửi
-* [ ] Unverified user không được coi là active
-* [ ] Resend verification hoạt động
-* [ ] Password reset hoạt động
-* [ ] Refresh trang không mất session
-* [ ] Logout hoạt động
-* [ ] Auth initialization không race
-* [ ] Login không tự nhảy Home trước khi auth xong
-* [ ] Failed authentication không redirect Home
-* [ ] Failed API không redirect Home
-* [ ] Failed to fetch được xử lý đúng
-* [ ] Backend health endpoint hoạt động
-* [ ] CORS đúng
-* [ ] Production API URL đúng
-* [ ] Firebase ID token được verify ở backend
-* [ ] Protected route hoạt động
-* [ ] Account status được kiểm tra
-* [ ] Profile loading được xử lý
-* [ ] Google first-login hoàn tất profile
-* [ ] Không leak credential
-* [ ] Không có secret trong frontend.
-
----
-
-# 43. CUỐI CÙNG: PHẢI TỰ DEBUG TOÀN BỘ
-
-Đừng kết thúc bằng câu:
-
-```text
-Authentication implemented.
-```
-
-Hãy thực sự kiểm tra và sửa.
-
-Nếu gặp:
-
-```text
-Failed to fetch
-CORS
-401
-403
-Firebase auth state race
-redirect loop
-profile not found
-email verification not updating
-Google popup error
-username conflict
-```
-
-thì tiếp tục trace source → network → backend → Firebase → database cho đến khi xác định nguyên nhân.
-
-Không chữa bằng:
-
-```text
-setTimeout(...)
-navigate("/home")
-reload page
-localStorage flag
-fake success
-```
-
-để che lỗi.
-
-Cuối cùng báo cáo chính xác:
-
-```text
-AUTH FIXED
-USERNAME LOGIN
-EMAIL LOGIN
-GOOGLE LOGIN
-EMAIL VERIFICATION
-PROFILE CREATION
-AUTH STATE
-REDIRECT FLOW
-FAILED TO FETCH
-API/CORS
-ROUTER
-SECURITY
-TEST RESULT
-```
-
-và liệt kê những file thực sự đã sửa.
-Hãy tiếp tục sửa DkTEST hiện tại, tập trung vào **TOÀN BỘ các tính năng Admin mới đã thêm nhưng đang không load dữ liệu**, đặc biệt lỗi:
-
-```text
-[Parents] Error loading parents: TypeError: Failed to fetch
-    at requests.js:1:3633
-    at 200.js:1:1266
-    at fetchAdminUsers (adminService.ts:60:21)
-    at async loadData (Parents.tsx:33:20)
-```
-
-và:
-
-```text
-WebSocket connection to 'ws://localhost:24678/' failed
-```
-
-## 1. MỤC TIÊU
-
-Không được chỉ sửa `Parents.tsx`.
-
-Phải kiểm tra và sửa **nguyên nhân gốc của API connectivity** khiến hàng loạt tính năng mới như:
-
-* Parents
-* Students
-* Users
-* Statistics
-* Analytics
-* Data Health
-* Audit Logs
-* System Health
-* Relationships
-* Notifications
-* Dashboard statistics
-* Class statistics
-* Exam analytics
-
-có thể cùng bị:
-
-```text
-Failed to fetch
-Network Error
-Cannot connect to server
-401
-403
-404
-500
-```
-
-Mục tiêu là mọi feature phải lấy **dữ liệu thật từ backend/Firebase**, không dùng mock data để che lỗi.
-
----
-
-# 2. ĐẦU TIÊN PHẢI TRACE NGUYÊN NHÂN `FAILED TO FETCH`
-
-Đừng bắt đầu bằng việc sửa UI.
-
-Hãy trace chính xác:
-
-```text
-Parents.tsx
-    ↓
-loadData()
-    ↓
-adminService.fetchAdminUsers()
-    ↓
-fetch(...)
-    ↓
-API URL thực tế
-    ↓
-Express/API server
-    ↓
-Firebase Admin SDK
-    ↓
-Firestore/Auth
-```
-
-Phải xác định request chết ở tầng nào.
-
-Kiểm tra:
-
-* URL request thực tế
-* protocol
-* hostname
-* port
-* endpoint
-* method
-* headers
-* Authorization
-* CORS
-* backend có chạy không
-* backend có listen đúng port không
-* deployment có endpoint không
-* Firebase Admin có initialize không
-* Firestore có trả data không.
-
-Không được kết luận:
-
-```text
-Failed to fetch
-→ Firebase lỗi
-```
-
-chỉ dựa vào message này.
-
-`Failed to fetch` có thể xảy ra trước cả khi backend trả HTTP response.
-
----
-
-# 3. KIỂM TRA `adminService.ts`
-
-Mở chính xác file:
-
-```text
-adminService.ts
-```
-
-và kiểm tra đoạn:
-
-```text
-fetchAdminUsers
-```
-
-đặc biệt line đang báo lỗi:
-
-```text
-adminService.ts:60
-```
-
-Phải xác định `fetch()` đang gọi URL nào.
-
-Ví dụ nếu hiện tại có kiểu:
-
-```ts
-fetch("http://localhost:xxxx/api/admin/users")
-```
-
-thì phải kiểm tra lại toàn bộ deployment architecture.
-
-Không được hard-code localhost vào production.
-
----
-
-# 4. TẠO API CLIENT TRUNG TÂM
-
-Nếu project đang rải `fetch()` ở nhiều file, refactor thành một API client trung tâm.
-
-Ví dụ:
-
-```text
-src/services/apiClient.ts
-```
-
-API client phải đảm nhiệm:
-
-```text
-base URL
-authorization
-headers
-JSON parsing
-timeout
-network error
-HTTP error
-retry phù hợp
-```
-
-Ví dụ logic:
-
-```text
-request()
-   ↓
-resolve API base URL
-   ↓
-attach Firebase ID token
-   ↓
-fetch
-   ↓
-response.ok?
-   ├─ yes → parse JSON
-   └─ no  → typed ApiError
-```
-
-Không để từng service tự ghép URL theo kiểu khác nhau.
-
----
-
-# 5. API BASE URL
-
-Tìm toàn bộ:
-
-```text
-API_URL
-VITE_API_URL
-BASE_URL
-localhost
-127.0.0.1
-/api/
-```
-
-và chuẩn hóa.
-
-Frontend phải biết đúng API server đang chạy.
-
-Development có thể:
-
-```text
-http://localhost:<backend-port>
-```
-
-Production phải dùng endpoint production thực tế.
-
-Không được:
-
-```text
-production frontend
-    ↓
-http://localhost:xxxx
-```
-
-vì trên browser của người dùng `localhost` là máy của chính người dùng.
-
----
-
-# 6. KIỂM TRA EXPRESS SERVER
-
-Kiểm tra server hiện tại.
-
-Xác nhận:
-
-* Express có start không
-* port hiện tại là gì
-* `process.env.PORT` có đúng không
-* server bind đúng interface
-* route có được mount không
-* middleware có throw error không.
-
-Ví dụ:
-
-```text
-app.use("/api/admin", adminRoutes)
-```
-
-phải khớp với frontend.
-
-Nếu frontend gọi:
-
-```text
-/api/admin/users
-```
-
-thì backend thực sự phải có endpoint tương ứng.
-
-Không chỉ nhìn source rồi giả định endpoint tồn tại.
-
----
-
-# 7. TẠO `/api/health`
-
-Phải có endpoint đơn giản:
-
-```text
-GET /api/health
-```
-
-trả:
-
-```json
-{
-  "ok": true,
-  "service": "DkTEST API"
-}
-```
-
-Không cần authentication cho health cơ bản.
-
-Tạo thêm nếu cần:
-
-```text
-GET /api/health/firebase
-```
-
-để admin/development kiểm tra Firebase connection.
-
-Sau đó test trực tiếp endpoint.
-
-Nếu `/api/health` không mở được thì không được tiếp tục sửa `Parents.tsx`; phải sửa backend connectivity trước.
-
----
-
-# 8. KIỂM TRA CORS
-
-Audit Express CORS.
-
-Phải cho phép đúng frontend origin.
-
-Development và production phải hỗ trợ origin phù hợp.
-
-Không dùng cấu hình nguy hiểm chỉ để "cho chạy".
-
-Không giải quyết bằng:
-
-```ts
-origin: "*"
-```
-
-nếu API chứa protected user/admin data.
-
-Kiểm tra:
-
-```text
-Origin
-Access-Control-Allow-Origin
-Access-Control-Allow-Headers
-Access-Control-Allow-Methods
-Authorization
-```
-
-Nếu preflight `OPTIONS` fail thì sửa backend.
-
----
-
-# 9. AUTHORIZATION HEADER
-
-Các admin API protected phải gửi Firebase ID token.
-
-Flow:
-
-```text
-Firebase currentUser
-↓
-await currentUser.getIdToken()
-↓
-Authorization: Bearer <token>
-↓
-Express
-↓
-verifyIdToken()
-↓
-check admin role
-↓
-query Firebase Admin
-```
-
-Không gửi:
-
-```text
-role=admin
-```
-
-từ frontend rồi backend tin luôn.
-
-Không gửi:
-
-```text
-isAdmin=true
-```
-
-để bypass authorization.
-
----
-
-# 10. KIỂM TRA FIREBASE AUTH STATE TRƯỚC API CALL
-
-Rất có khả năng một số page đang gọi API quá sớm.
-
-Ví dụ:
-
-```text
-Parents mounted
-↓
-loadData()
-↓
-fetchAdminUsers()
-↓
-Firebase user chưa restore
-↓
-không có token
-↓
-request fail
-```
-
-Phải đảm bảo:
-
-```text
-authInitializing
-↓
-wait Firebase auth initialization
-↓
-currentUser available
-↓
-getIdToken()
-↓
-API call
-```
-
-Không gọi protected API khi auth chưa sẵn sàng.
-
----
-
-# 11. FIX `Parents.tsx`
-
-Không chỉ catch lỗi.
-
-Hiện tại có thể đang là:
-
-```ts
-try {
-    const data = await fetchAdminUsers();
-    setParents(data);
-} catch (error) {
-    console.error(...)
-}
-```
-
-Cần sửa architecture để service trả error rõ ràng.
-
-Ví dụ phân biệt:
-
-```text
-NetworkError
-UnauthorizedError
-ForbiddenError
-NotFoundError
-ServerError
-FirebaseError
-```
-
-UI phải xử lý từng loại phù hợp.
-
----
-
-# 12. KHÔNG ĐƯỢC DÙNG `setTimeout` ĐỂ "CHỜ API"
-
-Stack hiện tại có:
-
-```text
-setTimeout
-useEffect
-loadData
-```
-
-Hãy kiểm tra tại sao `setTimeout` đang được dùng.
-
-Không giải quyết race condition bằng:
-
-```ts
-setTimeout(loadData, 500)
-```
-
-hoặc:
-
-```ts
-setTimeout(loadData, 1000)
-```
-
-để mong Firebase/backend kịp load.
-
-Đây chỉ che bug.
-
-Phải dùng state chính xác:
-
-```text
-authInitialized
-currentUser
-profileLoaded
-```
-
-rồi mới gọi API.
-
----
-
-# 13. FIX REACT STRICT MODE / DOUBLE EFFECT
-
-Stack cho thấy:
-
-```text
-commitDoubleInvokeEffectsInDEV
-```
-
-Đây là React Strict Mode ở development.
-
-Điều này có thể khiến:
-
-```text
-loadData()
-```
-
-chạy nhiều lần.
-
-Phải kiểm tra:
-
-* effect cleanup
-* AbortController
-* duplicate request
-* stale response
-* state update after unmount.
-
-Không được disable Strict Mode chỉ để che lỗi.
-
-Có thể dùng:
-
-```text
-AbortController
-request cancellation
-```
-
-nếu component unmount/re-run.
-
----
-
-# 14. TẠO REQUEST CANCELLATION
-
-Các admin data query nên hỗ trợ:
-
-```text
-AbortController
-```
-
-Flow:
-
-```text
-component mount
-↓
-request
-↓
-component unmount
-↓
-abort
-```
-
-tránh:
-
-* request cũ ghi đè request mới
-* memory leak
-* stale data
-* duplicate load.
-
----
-
-# 15. KIỂM TRA `Failed to fetch` BẰNG NETWORK TAB
-
-Không chỉ nhìn console.
-
-Trong development phải kiểm tra Network:
-
-### Nếu không có request
-
-Bug nằm ở frontend/service/auth flow.
-
-### Nếu có request nhưng `(failed)`
-
-Kiểm tra:
-
-* DNS
-* localhost
-* protocol
-* CORS
-* backend down
-* SSL
-* port.
-
-### Nếu `401`
-
-Authentication token/role có vấn đề.
-
-### Nếu `403`
-
-Authorization/permission.
-
-### Nếu `404`
-
-Sai API path.
-
-### Nếu `500`
-
-Backend/service/Firebase.
-
-### Nếu `200` nhưng frontend vẫn lỗi
-
-Bug parser/response shape.
-
-Phải xử lý đúng từng trường hợp.
-
----
-
-# 16. CHUẨN HÓA RESPONSE
-
-Các admin endpoint nên trả structure nhất quán.
-
-Ví dụ:
-
-```json
-{
-  "success": true,
-  "data": [],
-  "meta": {
-    "page": 1,
-    "pageSize": 20,
-    "total": 100
-  }
-}
-```
-
-Error:
-
-```json
-{
-  "success": false,
-  "error": {
-    "code": "ADMIN_USERS_FETCH_FAILED",
-    "message": "Unable to load users"
-  }
-}
-```
-
-Không để endpoint này trả array trực tiếp, endpoint khác trả `{users}`, endpoint khác trả `{data}` rồi frontend đoán.
-
----
-
-# 17. KIỂM TRA RESPONSE SHAPE CỦA `fetchAdminUsers`
-
-`Parents.tsx` đang gọi:
-
-```text
-fetchAdminUsers()
-```
-
-hãy kiểm tra nó thực sự trả:
-
-```text
-users
-```
-
-hay:
-
-```text
-data
-```
-
-hay:
-
-```text
-students
-```
-
-hay:
-
-```text
-response.data
-```
-
-Không được để:
-
-```ts
-const users = await fetchAdminUsers();
-users.filter(...)
-```
-
-trong khi service thực tế trả:
-
-```ts
-{ data: users }
-```
-
-Phải đồng bộ type.
-
----
-
-# 18. TẠO TYPES CHO ADMIN API
-
-Không dùng:
-
-```ts
-any
-```
-
-cho response.
-
-Tạo:
-
-```ts
-AdminUser
-AdminUsersResponse
-AdminStatsResponse
-Parent
-Student
-AuditLog
-AnalyticsData
-DataHealthReport
-```
-
-Service phải return type chính xác.
-
----
-
-# 19. FIX TOÀN BỘ ADMIN SERVICE
-
-Không chỉ:
-
-```text
-fetchAdminUsers
-```
+==================================================
+15. TRANSACTION
+===============
 
 Audit toàn bộ:
 
-```text
-fetchAdminUsers
-fetchAdminStudents
-fetchAdminParents
-fetchAdminStats
-fetchAnalytics
-fetchAuditLogs
-fetchDataHealth
-fetchRelationships
-fetchNotifications
-fetchClasses
-fetchExamAnalytics
+```ts
+runTransaction(...)
 ```
 
-Tìm các vấn đề:
+Transaction có thể retry.
 
-```text
-hard-coded localhost
-wrong endpoint
-missing auth token
-wrong HTTP method
-missing headers
-wrong JSON parsing
-wrong response shape
-unhandled 401
-unhandled 403
-```
+Không được đặt những operation gây side effects bên trong transaction.
 
----
+Kiểm tra transaction có vô tình thực hiện nhiều reads.
 
-# 20. TẤT CẢ TRANG ADMIN PHẢI CÓ 4 STATE
+Chỉ dùng transaction khi cần consistency/atomicity.
 
-Mỗi page phải có:
+Không dùng transaction như một cách mặc định để update data.
 
-```text
-loading
-success
-empty
-error
-```
+==================================================
+16. QUERY OPTIMIZATION
+======================
 
-Ví dụ Parents:
+Audit toàn bộ query.
 
-### Loading
-
-Skeleton/table loading.
-
-### Success
-
-Render data.
-
-### Empty
-
-```text
-Chưa có phụ huynh nào.
-```
-
-### Error
-
-```text
-Không thể tải dữ liệu phụ huynh.
-
-Kiểm tra kết nối máy chủ hoặc thử lại.
-
-[ Thử lại ]
-```
-
-Không để trang trắng.
-
----
-
-# 21. NÚT RETRY
-
-Mỗi admin data page phải có:
-
-```text
-[ Thử lại ]
-```
-
-khi request lỗi.
-
-Retry phải gọi lại service thật.
-
-Không reload toàn bộ page nếu không cần.
-
----
-
-# 22. GLOBAL ADMIN API ERROR BOUNDARY
-
-Nếu architecture phù hợp, thêm global handler cho:
-
-```text
-401
-403
-500
-network failure
-```
-
-Ví dụ:
-
-### 401
-
-```text
-Phiên đăng nhập đã hết hạn.
-Vui lòng đăng nhập lại.
-```
-
-### 403
-
-```text
-Bạn không có quyền thực hiện thao tác này.
-```
-
-### 500
-
-```text
-Máy chủ gặp lỗi.
-```
-
-### Network
-
-```text
-Không thể kết nối máy chủ.
-```
-
----
-
-# 23. 401 → REFRESH TOKEN
-
-Nếu Firebase ID token hết hạn:
-
-```text
-request
-↓
-401
-↓
-refresh/retrieve fresh Firebase ID token
-↓
-retry once
-```
-
-Chỉ retry một lần.
-
-Không retry vô hạn.
-
-Nếu vẫn 401:
-
-→ logout/reauthenticate phù hợp.
-
-Không làm:
-
-```text
-retry every 100ms
-```
-
----
-
-# 24. KHÔNG DÙNG MOCK FALLBACK KHI API FAIL
-
-Không làm:
+Không dùng:
 
 ```ts
-catch {
-    return mockParents;
-}
+getDocs(collection(...))
 ```
 
-Không làm:
+để tải cả collection nếu UI chỉ cần một phần.
+
+Phải có:
+
+* where
+* limit
+* orderBy
+* pagination
+* cursor pagination.
+
+Không tải toàn bộ users/students/exams chỉ để:
 
 ```ts
-catch {
-    setParents(fakeData);
-}
+array.find(...)
 ```
 
-Không hiển thị số liệu giả.
+Nếu Firestore có thể query trực tiếp:
 
-Khi API fail phải báo rõ lỗi.
+hãy query trực tiếp.
 
----
+==================================================
+17. PAGINATION
+==============
 
-# 25. FIX PARENTS LOGIC
+Các màn:
 
-Trang Parents phải lấy:
+* admin users
+* exams
+* submissions
+* students
+* parents
+* notifications
+* review
+* leaderboard
+* statistics
 
-```text
-role === parent
-```
+nếu đang tải hàng trăm/hàng nghìn documents:
 
-từ nguồn dữ liệu thật.
+phải chuyển sang pagination/infinite loading.
 
-Không lấy tất cả users rồi filter frontend nếu dataset lớn.
-
-Ưu tiên backend query/filter.
-
-Ví dụ:
-
-```text
-GET /api/admin/users?role=parent
-```
-
-hoặc endpoint chuyên biệt nếu architecture hiện tại phù hợp.
-
----
-
-# 26. FIX STUDENTS LOGIC
-
-Trang Students phải:
-
-```text
-role === student
-```
-
-và xử lý:
-
-* pagination
-* search
-* sorting
-* filter
-* createdAt
-* status
-* emailVerified.
-
-Không đọc toàn bộ users về frontend.
-
----
-
-# 27. FIX USER STATISTICS
-
-Dashboard stats phải có dữ liệu thật.
-
-Metrics có thể gồm:
-
-```text
-Total Users
-Students
-Parents
-Teachers
-Admins
-Active
-Pending
-Suspended
-Unverified
-New Today
-New 7 Days
-New 30 Days
-```
-
-Không tính orphan Firestore profiles vào "valid user" nếu hệ thống yêu cầu user thực.
-
----
-
-# 28. FIX ANALYTICS
-
-Các chart phải:
-
-```text
-API
-↓
-real Firebase data
-↓
-aggregation
-↓
-chart
-```
-
-Không:
-
-```text
-Math.random()
-```
-
-Không hard-code:
-
-```text
-students: 1248
-parents: 346
-```
-
-Không có dữ liệu thì:
-
-```text
-Chưa đủ dữ liệu
-```
-
----
-
-# 29. FIX DATA HEALTH
-
-`Data Health` phải thực sự scan:
-
-```text
-Firebase Auth users
-Firestore users
-```
-
-và detect:
-
-```text
-valid
-auth_without_profile
-orphan_profile
-missing_role
-invalid_metadata
-broken_relationship
-```
-
-Nếu endpoint này lỗi thì phải hiện nguyên nhân cụ thể.
-
----
-
-# 30. FIX AUDIT LOGS
-
-Audit Logs không được load bằng một request khổng lồ.
-
-Có:
-
-```text
-pagination
-limit
-cursor
-filter
-```
-
-API error phải được xử lý như các page khác.
-
----
-
-# 31. FIX PARENT ↔ STUDENT RELATIONSHIPS
-
-Kiểm tra:
-
-* parentId tồn tại
-* studentId tồn tại
-* relationship status
-* pagination
-* auth permission.
-
-Không để relationship page phụ thuộc vào một API khác mà không handle lỗi.
-
----
-
-# 32. FIX SYSTEM HEALTH
-
-System Health phải phân biệt:
-
-```text
-Frontend
-Backend
-Firebase Auth
-Firestore
-```
-
-Ví dụ:
-
-```text
-Frontend       OK
-API Server     OK
-Firebase Auth  OK
-Firestore      OK
-```
-
-Nếu API server down:
-
-```text
-API Server     ERROR
-```
-
-chứ không khiến toàn page crash.
-
----
-
-# 33. `ws://localhost:24678/` ERROR
-
-Hãy kiểm tra lỗi:
-
-```text
-WebSocket connection to 'ws://localhost:24678/' failed.
-```
-
-Xác định nó thuộc:
-
-* Vite HMR
-* plugin dev server
-* React dev tooling
-* một library khác.
-
-Nếu đây chỉ là development HMR connection:
-
-* không coi nó là nguyên nhân của admin API failure
-* không làm thay đổi API auth chỉ vì lỗi này.
-
-Nhưng vẫn kiểm tra xem dev server có đang khởi động đúng hay không.
-
-Nếu WebSocket error được tạo bởi một package/reverse proxy bị cấu hình sai thì sửa cấu hình đó.
-
-Không disable HMR bừa bãi.
-
----
-
-# 34. DEVELOPMENT VÀ PRODUCTION PHẢI CHẠY ĐƯỢC
-
-Phải kiểm tra cả:
-
-### Development
-
-```text
-Frontend localhost
-+
-Backend localhost
-+
-Firebase
-```
-
-### Production
-
-```text
-Frontend production domain
-+
-Backend production endpoint
-+
-Firebase
-```
-
-Không để chỉ dev chạy được.
-
----
-
-# 35. ENVIRONMENT CONFIG
-
-Audit `.env`, `.env.local`, `.env.production`.
-
-Không commit secret.
-
-Tạo `.env.example`.
-
-Phân biệt:
-
-```text
-VITE_API_URL
-```
-
-với backend secret.
-
-Không expose Firebase Admin credentials qua `VITE_*`.
-
----
-
-# 36. DEBUG END-TO-END
-
-Tạo checklist thực tế và chạy:
-
-```text
-1. Login admin
-2. Open Admin Dashboard
-3. Open Students
-4. Open Parents
-5. Open Users
-6. Open Analytics
-7. Open Data Health
-8. Open Audit Logs
-9. Open Relationships
-10. Open System Health
-```
-
-Mỗi trang phải:
-
-```text
-request sent
-↓
-HTTP status
-↓
-data received
-↓
-UI rendered
-```
-
-Không trang nào được âm thầm fail.
-
----
-
-# 37. PERFORMANCE
-
-Không biến fix này thành việc đọc toàn bộ Firestore.
+Không load toàn bộ dataset ngay khi mount.
 
 Ưu tiên:
 
-```text
-server-side pagination
-query filters
-aggregations
-count()
-caching hợp lý
-lazy loading
+```ts
+limit(20/50)
+startAfter(lastDoc)
 ```
 
-Không:
+và chỉ tải thêm khi cần.
+
+==================================================
+18. SELECTIVE FIELD / DATA MODEL
+================================
+
+Audit document size.
+
+Nếu một màn chỉ cần:
 
 ```text
-getDocs(users)
-```
-
-rồi tính toàn bộ frontend nếu dữ liệu lớn.
-
----
-
-# 38. FIRESTORE INDEXES
-
-Nếu query mới cần composite index:
-
-hãy phát hiện và tạo/cập nhật index phù hợp.
-
-Không workaround bằng cách:
-
-```text
-query everything
-```
-
-rồi filter client.
-
----
-
-# 39. ERROR LOGGING
-
-Ở backend phải log:
-
-```text
-route
+id
+name
+avatar
 status
-error code
-request correlation ID
 ```
 
-Nhưng tuyệt đối không log:
+thì không được kéo một document khổng lồ chứa:
+
+* answers
+* analytics
+* logs
+* metadata
+* history.
+
+Nếu data model hiện tại khiến document quá lớn:
+
+đề xuất tách:
 
 ```text
-password
-Firebase ID token
-refresh token
-private key
-sensitive personal information
+summary document
+detail document
+analytics document
 ```
 
-Ở frontend log đủ để debug endpoint nào fail.
+Không phá compatibility nếu chưa cần.
 
----
+==================================================
+19. ADMIN DASHBOARD
+===================
 
-# 40. REQUEST CORRELATION ID
+Audit toàn bộ admin pages.
 
-Nếu phù hợp, thêm:
+Đặc biệt tìm:
 
 ```text
-X-Request-ID
+Admin mount
+→ fetch users
+→ fetch parents
+→ fetch exams
+→ fetch stats
+→ fetch submissions
+→ fetch notifications
 ```
 
-hoặc correlation ID.
+Nếu tất cả đều chạy ngay khi mở dashboard:
 
-Khi frontend báo:
+hãy lazy-load theo tab.
+
+Ví dụ:
+
+mở tab Users
+
+→ chỉ load Users.
+
+Mở tab Statistics
+
+→ mới load Statistics.
+
+Không tải mọi thứ ngay từ initial mount.
+
+==================================================
+20. STATISTICS
+==============
+
+Không được mỗi lần mở trang statistics đều:
 
 ```text
-Failed to load Parents
+query toàn bộ submissions
+→ query toàn bộ users
+→ query toàn bộ exams
+→ tính lại mọi thứ
 ```
 
-console/backend có thể truy ngược request tương ứng.
-
----
-
-# 41. ACCEPTANCE CRITERIA
-
-Chỉ coi task hoàn thành khi:
-
-* [ ] `Parents` load được data thật
-* [ ] `Students` load được data thật
-* [ ] `Users` load được data thật
-* [ ] Dashboard statistics load được
-* [ ] Analytics load được
-* [ ] Data Health load được
-* [ ] Audit Logs load được
-* [ ] Relationships load được
-* [ ] Notifications load được
-* [ ] System Health hoạt động
-* [ ] Không còn `Failed to fetch` do API configuration
-* [ ] Không hard-code localhost trong production
-* [ ] Backend `/api/health` hoạt động
-* [ ] CORS đúng
-* [ ] Firebase ID token được gửi đúng
-* [ ] Backend verify token đúng
-* [ ] 401 được xử lý
-* [ ] 403 được xử lý
-* [ ] 404 được xử lý
-* [ ] 500 được xử lý
-* [ ] Network error có Retry
-* [ ] Auth initialization không gây request quá sớm
-* [ ] React Strict Mode không gây duplicate side effect nguy hiểm
-* [ ] Không dùng mock data để che API failure
-* [ ] Không đọc toàn bộ Firestore chỉ để render một table
-* [ ] Pagination hoạt động
-* [ ] Search/filter hoạt động
-* [ ] Production build hoạt động
-* [ ] Development build hoạt động
-
----
-
-# 42. QUY TẮC DEBUG BẮT BUỘC
-
-Đừng sửa theo kiểu:
+Tạo strategy:
 
 ```text
-catch error
-→ set []
-→ hiện "không có dữ liệu"
+raw data
++
+aggregated statistics
++
+cache
 ```
 
-vì như vậy sẽ biến:
+Statistics có thể có TTL.
+
+Ví dụ:
+
+```ts
+stats:daily:2026-09-27
+stats:exam:123
+stats:user:456
+```
+
+Chỉ recompute khi có dữ liệu liên quan thay đổi.
+
+==================================================
+21. PROCTORING
+==============
+
+Audit:
+
+`realtimeProctoringService.ts`
+
+Đây có thể là một nguồn WRITE CỰC LỚN.
+
+KHÔNG được write Firestore cho mỗi event nhỏ như:
+
+* mouse movement
+* focus change liên tục
+* visibility event
+* heartbeat quá dày
+* camera state spam
+* browser events.
+
+Phải:
+
+* debounce
+* throttle
+* batch
+* aggregate
+* chỉ lưu event quan trọng.
+
+Ví dụ:
+
+heartbeat có thể chỉ update trạng thái định kỳ thay vì mỗi vài giây.
+
+Events có thể queue local:
 
 ```text
-API DOWN
+events[]
+↓
+batch every N seconds
+↓
+one write/batch
 ```
 
-thành:
+Nhưng vẫn phải đảm bảo dữ liệu cần thiết không bị mất.
+
+==================================================
+22. NOTIFICATION
+================
+
+Audit `notificationService.ts`.
+
+Không được query notification list liên tục.
+
+Nếu realtime:
+
+chỉ một listener.
+
+Nếu không cần realtime:
+
+load khi mở notification panel.
+
+Mark-as-read phải:
+
+* chỉ write khi state thực sự thay đổi
+* batch nhiều notification nếu cần.
+
+==================================================
+23. AUTH
+========
+
+Audit `AuthContext.tsx`.
+
+Không được mỗi auth state update lại:
 
 ```text
-No parents
+fetch user
+fetch profile
+fetch relationship
+fetch permissions
+fetch settings
 ```
 
-Điều đó là SAI.
+nhiều lần.
 
-Phải phân biệt:
+Phải có:
 
 ```text
-API ERROR
+Auth state
+↓
+user cache
+↓
+profile cache
+↓
+permission cache
 ```
 
-với:
+và chống duplicate requests.
+
+==================================================
+24. SERVICE LAYER
+=================
+
+Các service hiện tại phải thống nhất một data-access strategy.
+
+Không được có:
 
 ```text
-SUCCESS + EMPTY DATA
+examService cache
+studentService cache
+parentService cache
+adminService cache
 ```
 
----
+mỗi nơi một cơ chế.
 
-# 43. QUY TẮC CUỐI
+Tạo centralized layer kiểu:
 
-Không được kết thúc chỉ vì console không còn đỏ.
+```ts
+firestoreRepository.ts
+firestoreCache.ts
+firestoreBatch.ts
+firestoreSyncQueue.ts
+```
 
-Phải chứng minh bằng flow thực:
+Các service business chỉ gọi repository.
+
+Ví dụ:
+
+```ts
+examService.getExam(id)
+```
+
+bên dưới:
+
+```ts
+repository.getDocument(...)
+```
+
+và repository chịu trách nhiệm:
+
+* cache
+* request deduplication
+* retry
+* metrics
+* invalidation.
+
+==================================================
+25. CACHE INVALIDATION
+======================
+
+Phải thiết kế invalidation rõ ràng.
+
+Ví dụ:
 
 ```text
-Login Admin
-→ Admin Dashboard
-→ Students
-→ Parents
-→ Statistics
-→ Analytics
-→ Data Health
-→ Audit Logs
+update exam
+↓
+invalidate exam:${id}
+↓
+invalidate exam-list cache
+↓
+invalidate related statistics nếu cần
 ```
 
-Mỗi trang phải lấy được dữ liệu thật.
+Không được dùng TTL cực ngắn để “chữa cháy”.
 
-Nếu một API vẫn lỗi:
+Không được invalidate toàn bộ cache sau một update nhỏ.
 
-1. xác định URL thật
-2. xác định request thật
-3. xác định HTTP status nếu có
-4. xác định backend route
-5. xác định Firebase query
-6. sửa root cause
-7. test lại frontend.
+==================================================
+26. WRITE QUEUE
+===============
 
-Không che lỗi bằng timeout, mock data, redirect, reload page hoặc localStorage.
+Tạo một centralized write queue.
 
-Cuối cùng báo cáo:
+Ví dụ:
+
+```ts
+enqueueWrite({
+    key,
+    ref,
+    patch
+})
+```
+
+Nếu cùng một `key` được enqueue nhiều lần:
+
+phải merge.
+
+Ví dụ:
 
 ```text
-ROOT CAUSE
-FIXED FILES
-API ENDPOINTS FIXED
-AUTH FIX
-CORS FIX
-ENV FIX
-FIREBASE FIX
-PAGES VERIFIED
-REMAINING ISSUES
+session:123
 ```
 
-Nếu `Failed to fetch` còn xuất hiện ở bất kỳ admin feature nào sau khi hoàn thành, tiếp tục trace và sửa cho tới khi xác định được nguyên nhân thực tế.
+updates:
+
+```text
+progress=10
+answers.q1=A
+progress=11
+answers.q1=B
+```
+
+cuối cùng có thể merge thành:
+
+```text
+progress=11
+answers.q1=B
+```
+
+rồi mới flush.
+
+==================================================
+27. BACKOFF / RETRY
+===================
+
+Retry phải có:
+
+* exponential backoff
+* jitter
+* giới hạn số lần retry.
+
+Không được:
+
+```ts
+setInterval(() => save(), 1000)
+```
+
+khi request fail.
+
+Không được tạo retry storm.
+
+==================================================
+28. OFFLINE FIRST
+=================
+
+Đối với exam session:
+
+ưu tiên:
+
+```text
+local state
+>
+memory cache
+>
+IndexedDB/localStorage
+>
+Firestore
+```
+
+Firestore không nên là storage duy nhất cho UI realtime state.
+
+==================================================
+29. FIRESTORE LISTENER MANAGER
+==============================
+
+Nếu phù hợp với kiến trúc:
+
+tạo:
+
+```ts
+FirestoreSubscriptionManager
+```
+
+Có reference counting.
+
+Ví dụ:
+
+```text
+Component A subscribes exam:123
+Component B subscribes exam:123
+
+Firestore:
+1 onSnapshot
+
+Subscribers:
+2 callbacks
+```
+
+Khi A unmount:
+
+listener vẫn tồn tại.
+
+Khi B unmount:
+
+unsubscribe Firestore.
+
+==================================================
+30. DUPLICATE REQUEST DEDUPLICATION
+===================================
+
+Phải có:
+
+```ts
+inFlightRequests: Map<string, Promise<any>>
+```
+
+Nếu request giống nhau đang chạy:
+
+không gửi request mới.
+
+Ví dụ:
+
+```text
+Component A -> getExam(123)
+Component B -> getExam(123)
+Component C -> getExam(123)
+```
+
+Firestore chỉ:
+
+1 READ.
+
+==================================================
+31. KHÔNG CACHE SAI DỮ LIỆU
+===========================
+
+Không được áp dụng cache tùy tiện cho:
+
+* permissions quan trọng
+* security-sensitive state
+* final score nếu có yêu cầu consistency
+* payment/wallet nếu có
+* trạng thái submit cuối.
+
+Những dữ liệu này phải đảm bảo consistency.
+
+==================================================
+32. SERVER VS CLIENT
+====================
+
+Nếu có logic aggregation hoặc heavy read:
+
+xem xét chuyển một phần sang server/API.
+
+Không để browser thực hiện:
+
+```text
+fetch 1000 documents
+→ calculate
+→ fetch another 1000
+→ calculate
+```
+
+nếu có thể tạo aggregated endpoint/document.
+
+==================================================
+33. FIRESTORE RULES
+===================
+
+Audit:
+
+`firestore.rules`
+
+Đảm bảo rule không yêu cầu các lookup không cần thiết.
+
+Không được thay đổi rule để “giảm read”.
+
+Rules phải vẫn an toàn.
+
+Đặc biệt không được biến client thành nơi có thể:
+
+* đọc toàn database
+* sửa dữ liệu người khác
+* bypass permission.
+
+==================================================
+34. FIRESTORE INDEXES
+=====================
+
+Audit:
+
+`firestore.indexes.json`
+
+Chỉ giữ index cần thiết.
+
+Kiểm tra query có thể tối ưu bằng composite index.
+
+Không tạo hàng loạt query workaround chỉ vì thiếu index.
+
+==================================================
+35. LOGGING
+===========
+
+Audit:
+
+`utils/firestoreLogger.ts`
+
+Logger không được tự nó tạo thêm reads/writes.
+
+Không log Firestore events bằng một write Firestore cho mỗi thao tác.
+
+Nếu cần telemetry:
+
+* console trong development
+* buffered telemetry
+* batch upload.
+
+==================================================
+36. PERFORMANCE INSTRUMENTATION
+===============================
+
+Tạo dev-only Firestore metrics.
+
+Ví dụ:
+
+```ts
+firestoreMetrics.reads++
+firestoreMetrics.writes++
+firestoreMetrics.listenerStarts++
+firestoreMetrics.listenerStops++
+firestoreMetrics.cacheHits++
+firestoreMetrics.cacheMisses++
+firestoreMetrics.dedupedRequests++
+```
+
+Có thể expose:
+
+```text
+Firestore Performance Debug Panel
+```
+
+chỉ trong development.
+
+Hiển thị:
+
+```text
+Reads
+Writes
+Cache hit %
+Cache miss %
+Dedup %
+Active listeners
+Pending writes
+```
+
+Mục tiêu là nhìn được service nào gây read/write.
+
+==================================================
+37. MỤC TIÊU BENCHMARK
+======================
+
+Sau khi refactor phải benchmark:
+
+A. Login
+
+B. Trang chủ
+
+C. Mở danh sách đề
+
+D. Mở một đề
+
+E. Bắt đầu thi
+
+F. Làm 10 câu
+
+G. Làm 50 câu
+
+H. Submit
+
+I. Xem kết quả
+
+J. Mở statistics
+
+K. Admin dashboard
+
+L. Proctoring session
+
+M. Parent dashboard.
+
+So sánh:
+
+BEFORE:
+
+```text
+reads:
+writes:
+listeners:
+```
+
+AFTER:
+
+```text
+reads:
+writes:
+listeners:
+cache hit:
+```
+
+Không được chỉ nói “đã tối ưu”.
+
+Phải cung cấp số liệu đo được.
+
+==================================================
+38. TIÊU CHUẨN THÀNH CÔNG
+=========================
+
+Ưu tiên giảm:
+
+1. redundant reads
+2. redundant writes
+3. duplicate listeners
+4. full-document writes
+5. repeated collection queries
+6. unnecessary stats aggregation
+7. autosave writes
+8. proctoring writes
+9. admin dashboard reads.
+
+Mục tiêu kiến trúc:
+
+```text
+UI
+ ↓
+Local State / Cache
+ ↓
+Repository
+ ↓
+Request Deduplication
+ ↓
+Firestore
+```
+
+không phải:
+
+```text
+UI
+ ↓
+Service
+ ↓
+Firestore
+```
+
+trực tiếp ở hàng chục nơi.
+
+==================================================
+39. KHÔNG ĐƯỢC PHÁ CHỨC NĂNG
+============================
+
+Trong quá trình refactor:
+
+KHÔNG được làm mất:
+
+* autosave
+* offline answer
+* reconnect sync
+* exam timer
+* submit
+* grading
+* score
+* analytics
+* leaderboard
+* notifications
+* parent functionality
+* admin functionality
+* proctoring
+* permission system.
+
+Đặc biệt:
+
+không được giảm writes bằng cách bỏ persistence.
+
+Phải giảm WRITE REDUNDANCY.
+
+==================================================
+40. CODE QUALITY
+================
+
+Sau khi refactor:
+
+* TypeScript strict-safe
+* không any vô lý
+* không memory leak
+* cleanup listener
+* không race condition
+* không stale closure
+* không infinite loop
+* không duplicate effect
+* không duplicate subscriptions.
+
+Không viết một giant service.
+
+Tách theo trách nhiệm.
+
+==================================================
+41. MIGRATION
+=============
+
+Nếu thay đổi data model:
+
+phải đảm bảo backward compatibility.
+
+Không tự ý xóa field production.
+
+Không tự ý rename collection.
+
+Nếu cần migration:
+
+tạo migration strategy rõ ràng.
+
+==================================================
+42. THỨ TỰ THỰC HIỆN
+====================
+
+Thực hiện theo thứ tự:
+
+PHASE 1
+Audit toàn bộ Firestore usage.
+
+PHASE 2
+Liệt kê top read/write hotspot.
+
+PHASE 3
+Thiết kế cache + request deduplication.
+
+PHASE 4
+Fix duplicate listeners.
+
+PHASE 5
+Fix autosave.
+
+PHASE 6
+Fix session/answer persistence.
+
+PHASE 7
+Fix proctoring.
+
+PHASE 8
+Fix statistics/admin dashboard.
+
+PHASE 9
+Fix pagination/query.
+
+PHASE 10
+Add metrics.
+
+PHASE 11
+Benchmark.
+
+==================================================
+43. KẾT QUẢ BẮT BUỘC
+====================
+
+Sau khi hoàn thành, phải trả về:
+
+### 1. Root causes
+
+Liệt kê chính xác các nguyên nhân làm Firestore read/write cao.
+
+Format:
+
+```text
+File
+Function
+Current behavior
+Why expensive
+Fix
+Estimated impact
+```
+
+### 2. Files changed
+
+Liệt kê toàn bộ file đã sửa.
+
+### 3. Architecture changes
+
+Giải thích cache, queue, dedup, autosave, listeners.
+
+### 4. Before / After
+
+Ví dụ:
+
+```text
+Exam open
+Before: 14 reads
+After: 3 reads
+
+Answering 20 questions
+Before: 40 writes
+After: 4 writes
+
+Admin dashboard
+Before: 320 reads
+After: 65 reads
+```
+
+Các số phải là số ĐO ĐƯỢC, không được bịa.
+
+### 5. Regression check
+
+Kiểm tra:
+
+* login
+* exam
+* session
+* answer
+* submit
+* result
+* admin
+* parent
+* proctoring.
+
+### 6. Firestore cost impact
+
+Ước lượng dựa trên measured request counts, không được chỉ đoán.
+
+==================================================
+44. QUY TẮC QUAN TRỌNG NHẤT
+===========================
+
+KHÔNG được làm kiểu:
+
+```text
+“Thấy nhiều read → thêm cache”
+```
+
+Phải làm:
+
+```text
+AUDIT
+→ IDENTIFY ROOT CAUSE
+→ MEASURE
+→ DESIGN
+→ REFACTOR
+→ MEASURE AGAIN
+```
+
+Mọi optimization phải có lý do.
+
+Không tối ưu mù.
+
+Không hy sinh data consistency chỉ để giảm Firebase cost.
+
+Không hy sinh UX.
+
+Không hy sinh security.
+
+Không bỏ realtime ở nơi thật sự cần realtime.
+
+Không ghi Firestore nếu state chưa thực sự thay đổi.
+
+Không đọc Firestore nếu dữ liệu đã có trong cache và còn hợp lệ.
+
+Không query cùng một dữ liệu nhiều lần trong cùng lifecycle.
+
+Không để một event của người dùng sinh ra hàng loạt reads/writes không cần thiết.
+
+Hãy ưu tiên một kiến trúc:
+
+```text
+LOCAL-FIRST
++
+CACHE
++
+REQUEST DEDUP
++
+DEBOUNCED WRITE
++
+BATCH WRITE
++
+SHARED LISTENERS
++
+PAGINATION
++
+AGGREGATED STATS
++
+OFFLINE QUEUE
+```
+
+nhưng chỉ áp dụng từng kỹ thuật ở nơi phù hợp với semantics của dữ liệu.
+
+Cuối cùng:
+
+ĐỪNG chỉ đưa ra đề xuất.
+
+Hãy trực tiếp sửa source code để triển khai toàn bộ tối ưu cần thiết, sau đó kiểm tra TypeScript/build/lint và báo cáo chính xác những gì đã thay đổi.

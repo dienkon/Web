@@ -15,6 +15,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../services/firebase/config";
+import { FirestoreCache } from "../services/firebase/firestoreCache";
 import type { UserProfile, UserRole, AccountStatus } from "../types";
 import { STORAGE_KEYS, setStoredItem, removeStoredItem } from "../utils/storage";
 import {
@@ -148,16 +149,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const existing = userSnap.data() as UserProfile;
       const targetRole: UserRole = isAdmin ? "admin" : (existing.role || intendedRole || "student");
 
-      // Update lastLoginAt, role and login count
+      // Update lastLoginAt, role and login count ONLY if role changed, extra fields supplied, or lastLoginAt > 30 minutes ago (Directive 9)
+      const lastLoginMs = existing.lastLoginAt ? new Date(existing.lastLoginAt).getTime() : 0;
+      const shouldUpdate =
+        !lastLoginMs ||
+        Date.now() - lastLoginMs > 30 * 60 * 1000 ||
+        existing.role !== targetRole ||
+        (extraFields && Object.keys(extraFields).length > 0);
+
       const rawUpdate: Record<string, any> = {
         role: targetRole,
-        lastLoginAt: now,
-        lastSeenAt: now,
         emailVerified: isAdmin ? true : firebaseUser.emailVerified,
         photoURL: firebaseUser.photoURL || existing.photoURL || "",
-        loginCount: (existing.loginCount || 0) + 1,
         ...extraFields,
       };
+
+      if (shouldUpdate) {
+        rawUpdate.lastLoginAt = now;
+        rawUpdate.lastSeenAt = now;
+        rawUpdate.loginCount = (existing.loginCount || 0) + 1;
+      }
 
       const updatedData: Record<string, any> = {};
       for (const [k, v] of Object.entries(rawUpdate)) {
@@ -166,10 +177,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      try {
-        await updateDoc(userRef, updatedData);
-      } catch (e) {
-        console.warn("[AuthContext] Could not update user document:", e);
+      if (shouldUpdate) {
+        try {
+          await updateDoc(userRef, updatedData);
+        } catch (e) {
+          console.warn("[AuthContext] Could not update user document:", e);
+        }
       }
 
       const fullProfile: UserProfile = {

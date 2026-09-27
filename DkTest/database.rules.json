@@ -2,7 +2,7 @@
   "rules": {
     "active_sessions": {
       ".read": true,
-      ".indexOn": ["examId", "studentUsername", "status", "lastActiveAt"],
+      ".indexOn": ["examId", "studentUsername", "studentId", "status", "lastActiveAt"],
       "$sessionId": {
         ".write": true,
         ".validate": "newData.hasChildren(['sessionId', 'examId', 'studentName', 'status'])",
@@ -16,7 +16,7 @@
           ".validate": "newData.isString()"
         },
         "status": {
-          ".validate": "newData.val() === 'taking' || newData.val() === 'warning' || newData.val() === 'submitted'"
+          ".validate": "newData.val() === 'taking' || newData.val() === 'warning' || newData.val() === 'submitted' || newData.val() === 'paused' || newData.val() === 'suspended' || newData.val() === 'completed' || newData.val() === 'idle'"
         },
         "timeLeft": {
           ".validate": "newData.isNumber()"

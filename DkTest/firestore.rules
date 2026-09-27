@@ -145,12 +145,13 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // 7. Proctoring & Active Sessions
+    // 7. Proctoring & Active Sessions (Operated strictly via Firebase Realtime Database - RTDB)
+    // TUYỆT ĐỐI KHÔNG DÙNG FIRESTORE ĐỂ WRITE TRẠNG THÁI LIÊN TỤC
     match /active_sessions/{sessionId} {
-      allow read, write: if isAuthenticated();
+      allow read, write: if false;
     }
     match /taking_sessions/{sessionId} {
-      allow read, write: if isAuthenticated();
+      allow read, write: if false;
     }
 
     // 8. Notifications

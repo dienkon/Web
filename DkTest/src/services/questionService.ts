@@ -1,19 +1,22 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import {
   collection,
   doc,
-  getDoc,
   getDocs,
   query,
   limit,
   startAfter,
   orderBy,
-  setDoc,
-  updateDoc,
-  deleteDoc,
   where,
   writeBatch,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
+import { FirestoreRepository } from "./firebase/firestoreRepository";
+import { FirestoreCache } from "./firebase/firestoreCache";
 import type { Question, PaginatedResult } from "../types";
 
 export const getQuestionsBySection = async (examId: string, sectionId: string): Promise<Question[]> => {
@@ -22,9 +25,11 @@ export const getQuestionsBySection = async (examId: string, sectionId: string): 
     where("sectionId", "==", sectionId),
     orderBy("order", "asc")
   );
-  const snapshot = await getDocs(q);
-  console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): exams/${examId}/questions (sectionId: ${sectionId})`);
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Question));
+  return FirestoreRepository.getQuery<Question>(`questions:${examId}:${sectionId}`, q, {
+    ttlMs: 3 * 60 * 1000,
+    collectionName: `exams/${examId}/questions`,
+    purpose: "getQuestionsBySection",
+  });
 };
 
 export const getQuestionsByExam = async ({
@@ -47,7 +52,6 @@ export const getQuestionsByExam = async ({
   }
 
   const snapshot = await getDocs(q);
-  console.warn(`[Firestore] READ_MANY (${snapshot.size} docs): exams/${examId}/questions (paginated, pageSize: ${pageSize})`);
   const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Question));
   const nextCursor = snapshot.docs[snapshot.docs.length - 1] || null;
 
@@ -60,33 +64,46 @@ export const getQuestionsByExam = async ({
 
 export const createQuestion = async (examId: string, questionData: Omit<Question, "id">): Promise<Question> => {
   const docRef = doc(collection(db, `exams/${examId}/questions`));
-  console.warn(`[Firestore] WRITE (1 doc): exams/${examId}/questions/${docRef.id}`);
-  await setDoc(docRef, questionData);
+  await FirestoreRepository.setDocument(
+    `exams/${examId}/questions`,
+    docRef.id,
+    questionData,
+    {},
+    { purpose: "createQuestion" }
+  );
+  FirestoreCache.invalidate(new RegExp(`^query:questions:${examId}`));
   return { id: docRef.id, ...questionData } as Question;
 };
 
 export const updateQuestion = async (examId: string, questionId: string, updates: Partial<Question>): Promise<void> => {
-  const docRef = doc(db, `exams/${examId}/questions`, questionId);
-  console.warn(`[Firestore] UPDATE (1 doc): exams/${examId}/questions/${questionId}`);
-  await updateDoc(docRef, updates);
+  await FirestoreRepository.updateDocument(
+    `exams/${examId}/questions`,
+    questionId,
+    updates,
+    { purpose: "updateQuestion" }
+  );
+  FirestoreCache.invalidate(new RegExp(`^query:questions:${examId}`));
 };
 
 export const deleteQuestion = async (examId: string, questionId: string): Promise<void> => {
-  const docRef = doc(db, `exams/${examId}/questions`, questionId);
-  console.warn(`[Firestore] DELETE (1 doc): exams/${examId}/questions/${questionId}`);
-  await deleteDoc(docRef);
+  await FirestoreRepository.deleteDocument(
+    `exams/${examId}/questions`,
+    questionId,
+    { purpose: "deleteQuestion" }
+  );
+  FirestoreCache.invalidate(new RegExp(`^query:questions:${examId}`));
 };
 
 export const updateQuestionOrders = async (examId: string, questions: { id: string; order: number; sectionId?: string }[]): Promise<void> => {
-  console.warn(`[Firestore] BATCH_WRITE (${questions.length} docs): exams/${examId}/questions order update`);
   const batch = writeBatch(db);
   questions.forEach((q) => {
     const docRef = doc(db, `exams/${examId}/questions`, q.id);
     const updates: any = { order: q.order };
     if (q.sectionId) {
-        updates.sectionId = q.sectionId;
+      updates.sectionId = q.sectionId;
     }
     batch.update(docRef, updates);
   });
   await batch.commit();
+  FirestoreCache.invalidate(new RegExp(`^query:questions:${examId}`));
 };

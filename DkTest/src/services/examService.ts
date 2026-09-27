@@ -2,6 +2,8 @@ import { collection, doc, getDoc, getDocs, query, where, orderBy, limit, startAf
 import { db } from "./firebase/config";
 import { Exam, PaginatedResult } from "../types";
 import { logDocRead, logQueryRead, logDocWrite } from "../utils/firestoreLogger";
+import { deleteExamActiveSessionsFromRtdb } from "./realtimeProctoringService";
+import { FirestoreRepository } from "./firebase/firestoreRepository";
 const EXAMS_COLLECTION = "exams";
 
 export const getExamList = async ({
@@ -99,14 +101,10 @@ export const getExamList = async ({
 };
 
 export const getExam = async (examId: string): Promise<Exam | null> => {
-  const docRef = doc(db, EXAMS_COLLECTION, examId);
-  const t0 = performance.now();
-  const snapshot = await getDoc(docRef);
-  logDocRead(EXAMS_COLLECTION, examId, snapshot.exists(), performance.now() - t0);
-  if (snapshot.exists()) {
-    return { id: snapshot.id, ...(snapshot.data() as any) } as Exam;
-  }
-  return null;
+  return FirestoreRepository.getDocument<Exam>(EXAMS_COLLECTION, examId, {
+    ttlMs: 3 * 60 * 1000,
+    purpose: "getExam",
+  });
 };
 
 export const createExam = async (examData: Omit<Exam, "id" | "createdAt" | "updatedAt">): Promise<Exam> => {
@@ -116,20 +114,20 @@ export const createExam = async (examData: Omit<Exam, "id" | "createdAt" | "upda
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   };
-  const t0 = performance.now();
-  await setDoc(docRef, newExam);
-  logDocWrite(EXAMS_COLLECTION, docRef.id, "setDoc", performance.now() - t0);
+  await FirestoreRepository.setDocument(EXAMS_COLLECTION, docRef.id, newExam, {}, { purpose: "createExam" });
   return { id: docRef.id, ...newExam, createdAt: new Date() as any, updatedAt: new Date() as any } as Exam;
 };
 
 export const updateExam = async (examId: string, updates: Partial<Exam>): Promise<void> => {
-  const docRef = doc(db, EXAMS_COLLECTION, examId);
-  const t0 = performance.now();
-  await updateDoc(docRef, {
-    ...updates,
-    updatedAt: serverTimestamp(),
-  });
-  logDocWrite(EXAMS_COLLECTION, examId, "updateDoc", performance.now() - t0);
+  await FirestoreRepository.updateDocument(
+    EXAMS_COLLECTION,
+    examId,
+    {
+      ...updates,
+      updatedAt: serverTimestamp(),
+    },
+    { purpose: "updateExam" }
+  );
 };
 
 /**
@@ -180,20 +178,11 @@ export const deleteExam = async (examId: string): Promise<void> => {
       console.warn("Could not delete submissions", subErr);
     }
 
-    // 5. Delete any active_sessions referencing this exam
+    // 5. Delete any active_sessions referencing this exam from RTDB (0 Firestore reads/writes)
     try {
-      const sessRef = collection(db, "active_sessions");
-      const sessQuery = query(sessRef, where("examId", "==", examId));
-      const sessSnap = await getDocs(sessQuery);
-      console.warn(`[Firestore] READ_MANY (${sessSnap.size} docs): active_sessions (for deletion of exam ${examId})`);
-      if (!sessSnap.empty) {
-        const sessBatch = writeBatch(db);
-        sessSnap.docs.forEach((d) => sessBatch.delete(d.ref));
-        console.warn(`[Firestore] DELETE_BATCH (${sessSnap.size} docs): active_sessions`);
-        await sessBatch.commit();
-      }
+      await deleteExamActiveSessionsFromRtdb(examId);
     } catch (sessErr) {
-      console.warn("Could not delete active_sessions", sessErr);
+      console.warn("Could not delete active_sessions from RTDB", sessErr);
     }
 
   } catch (err) {

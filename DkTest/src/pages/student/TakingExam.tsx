@@ -47,6 +47,7 @@ import {
 import { collection, getDocs, query, orderBy, getDoc, doc, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
+import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 import {
   saveActiveExamSession,
   updateActiveExamSessionAnswers,
@@ -257,21 +258,21 @@ export default function TakingExam() {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      // Capture frame every 1200ms
+      // Capture frame every 1600ms (optimized for RTDB bandwidth)
       screenIntervalRef.current = setInterval(() => {
         if (!video.videoWidth || !video.videoHeight || !ctx || !sessionIdRef.current) return;
-        const maxWidth = 960;
+        const maxWidth = 800;
         const scale = Math.min(1, maxWidth / video.videoWidth);
         canvas.width = Math.round(video.videoWidth * scale);
         canvas.height = Math.round(video.videoHeight * scale);
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL("image/jpeg", 0.45);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.4);
 
         updateRealtimeSessionMetrics(sessionIdRef.current, {
           screenShareFrame: dataUrl,
           screenShareActive: true,
         }).catch(() => {});
-      }, 1200);
+      }, 1600);
 
       stream.getVideoTracks()[0].onended = () => {
         stopRealScreenShare();
@@ -285,13 +286,16 @@ export default function TakingExam() {
     }
   };
 
-  // Realtime Active Session Sync to Firestore and RTDB
+  // Flag to ensure full metadata (questions) is only sent once upon initialization
+  const isInitialRtdbSyncedRef = useRef(false);
+
+  // Realtime Active Session Sync to RTDB (100% PURE RTDB - ZERO FIRESTORE WRITES)
   const syncCurrentSession = async (force: boolean = false) => {
     if (!examId || loading || !exam || !isSessionActiveRef.current || isSubmittingRef.current) return;
 
     const now = Date.now();
-    // Throttle automatic timer updates to once every 5 seconds unless forced
-    if (!force && now - lastSyncTimeRef.current < 5000) {
+    // Throttle automatic timer updates to once every 10 seconds unless forced
+    if (!force && now - lastSyncTimeRef.current < 10000) {
       return;
     }
     lastSyncTimeRef.current = now;
@@ -314,30 +318,44 @@ export default function TakingExam() {
     const sessId = sessionIdRef.current || `sess_${studentUsername}_${examId}`;
 
     try {
-      await syncRealtimeSession({
-        sessionId: sessId,
-        attemptId: attemptIdRef.current || sessId,
-        examId,
-        examTitle: exam.title || "Bài thi",
-        studentName: currentDisplayName || studentUsername,
-        studentUsername,
-        studentId: studentUsername,
-        studentClass,
-        startTime: startTimeRef.current || now,
-        durationMinutes: exam.timeLimit || 45,
-        timeLeft,
-        answeredCount: Object.keys(answers).length,
-        totalQuestions: questions.length,
-        warnings,
-        status: warnings > 0 ? "warning" : "taking",
-        lastActiveAt: now,
-        answers: answers,
-        activeQuestionIdx: activeQuestionIdx,
-        shuffledQuestions: questions,
-        questionOrder: questions.map((q) => q.id),
-      });
+      if (!isInitialRtdbSyncedRef.current) {
+        // First sync includes full session metadata and questions structure
+        await syncRealtimeSession({
+          sessionId: sessId,
+          attemptId: attemptIdRef.current || sessId,
+          examId,
+          examTitle: exam.title || "Bài thi",
+          studentName: currentDisplayName || studentUsername,
+          studentUsername,
+          studentId: studentUsername,
+          studentClass,
+          startTime: startTimeRef.current || now,
+          durationMinutes: exam.timeLimit || 45,
+          timeLeft,
+          answeredCount: Object.keys(answers).length,
+          totalQuestions: questions.length,
+          warnings,
+          status: warnings > 0 ? "warning" : "taking",
+          lastActiveAt: now,
+          answers: answers,
+          activeQuestionIdx: activeQuestionIdx,
+          shuffledQuestions: questions,
+          questionOrder: questions.map((q) => q.id),
+        });
+        isInitialRtdbSyncedRef.current = true;
+      } else {
+        // Subsequent syncs: send lightweight deltas only (saving 95% bandwidth, no questions payload)
+        await updateRealtimeSessionMetrics(sessId, {
+          timeLeft,
+          answeredCount: Object.keys(answers).length,
+          warnings,
+          status: warnings > 0 ? "warning" : "taking",
+          answers,
+          activeQuestionIdx,
+        });
+      }
     } catch (e) {
-      console.warn("Realtime session sync error:", e);
+      console.warn("[RTDB Live] Session sync error:", e);
     }
   };
 
@@ -478,16 +496,15 @@ export default function TakingExam() {
 
       setLoading(true);
       try {
-        console.log(`[Firestore] Loading exam for taking: ${examId}`);
-        console.log("[Firestore] READ: exams/" + examId); const examDoc = await getDoc(doc(db, "exams", examId));
-        if (!examDoc.exists()) {
+        const data = await FirestoreRepository.getDocument<any>("exams", examId, {
+          ttlMs: 3 * 60 * 1000,
+          purpose: "TakingExam load",
+        });
+        if (!data) {
           showErrorToast("Không tìm thấy bài thi!");
           navigate("/", { replace: true });
           return;
         }
-        
-        console.log(`[Firestore] Exam loaded with 1 document read: ${examId}`);
-        const data = examDoc.data();
         const { sections: docSections, questions: docQuestions, ...meta } = data;
         const examData = meta as Exam;
 
