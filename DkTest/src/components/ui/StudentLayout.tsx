@@ -123,7 +123,7 @@ export default function StudentLayout() {
   ];
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
+    <div className="min-h-screen h-[100dvh] w-full max-w-[100vw] overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
       {!hideStudentNav && (
         <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30">
           <div className="flex items-center gap-2 sm:gap-3">
@@ -405,14 +405,14 @@ export default function StudentLayout() {
           </div>
         )}
 
-        <main className="flex-1 overflow-y-auto pb-16 md:pb-6">
+        <main className="flex-1 overflow-y-auto pb-24 md:pb-6">
           <Outlet />
         </main>
       </div>
 
       {/* Modern Mobile Bottom Navigation Bar */}
       {!hideStudentNav && (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2 flex items-center justify-around shadow-lg z-30">
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] flex items-center justify-around shadow-lg z-30">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.to;

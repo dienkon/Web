@@ -16,10 +16,26 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react-router-dom',
+        'clsx',
+        'tailwind-merge',
+        'lucide-react',
+      ],
+    },
     build: {
-      target: 'es2020',
+      target: ['es2020', 'chrome80', 'safari14', 'firefox78', 'edge88'],
+      cssTarget: ['chrome61', 'safari13.1', 'firefox78', 'edge79'],
+      modulePreload: {
+        polyfill: true,
+      },
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1200,
+      assetsDir: 'assets',
+      sourcemap: false,
       rollupOptions: {
         output: {
           chunkFileNames: 'assets/[name]-[hash].js',

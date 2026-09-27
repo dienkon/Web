@@ -88,7 +88,7 @@ export default function AdminLayout() {
   const currentNav = navItems.find((i) => location.pathname.startsWith(i.path));
 
   return (
-    <div className="flex h-screen w-full bg-slate-50 font-sans text-slate-900 overflow-hidden">
+    <div className="flex min-h-screen h-[100dvh] w-full max-w-[100vw] bg-slate-50 font-sans text-slate-900 overflow-hidden">
       {/* Mobile Backdrop */}
       {mobileOpen && (
         <div

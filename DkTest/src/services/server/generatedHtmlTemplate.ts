@@ -3,7 +3,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>DK TEST - Hệ thống thi trực tuyến</title>
@@ -41,6 +41,18 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <!-- Pre-Boot Resilience & Anti-Blank Screen Shield -->
     <script>
       (function() {
+        // 0. Ancient Browser Detection Guard (Pre-ES6 check)
+        if (typeof Promise === 'undefined' || typeof Symbol === 'undefined' || typeof Map === 'undefined') {
+          window.__DK_BROWSER_UNSUPPORTED__ = true;
+          window.addEventListener('DOMContentLoaded', function() {
+            var root = document.getElementById('root');
+            if (root) {
+              root.innerHTML = '<div style="min-height:100vh;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:system-ui,sans-serif;"><div style="max-width:400px;background:#1e293b;border-radius:24px;padding:32px;border:1px solid #334155;"><h2 style="font-size:20px;font-weight:800;color:#f87171;margin-bottom:12px;">Trình duyệt quá cũ</h2><p style="font-size:13px;color:#94a3b8;line-height:1.6;margin-bottom:20px;">Phiên bản trình duyệt của bạn không còn đáp ứng tiêu chuẩn bảo mật cho kỳ thi trực tuyến. Vui lòng mở DkTEST bằng Google Chrome bản mới trên CH Play hoặc Cốc Cốc.</p><a href="https://www.google.com/chrome/" target="_blank" style="display:inline-block;padding:12px 24px;background:#2563eb;color:#fff;border-radius:12px;text-decoration:none;font-size:13px;font-weight:700;">Tải Google Chrome</a></div></div>';
+            }
+          });
+          return;
+        }
+
         // 1. Safe fetch property shim
         try {
           var originalFetch = typeof window !== 'undefined' && window.fetch ? window.fetch.bind(window) : undefined;
@@ -88,7 +100,89 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
           } catch (polyErr) {}
         }
 
-        // 3. Early Zombie ServiceWorker Cleanup
+        // 3. structuredClone shim
+        if (typeof window !== 'undefined' && typeof window.structuredClone === 'undefined') {
+          window.structuredClone = function(obj) {
+            try {
+              return JSON.parse(JSON.stringify(obj));
+            } catch (err) {
+              return obj;
+            }
+          };
+        }
+
+        // 4. navigator.clipboard shim
+        if (typeof navigator !== 'undefined' && !navigator.clipboard) {
+          navigator.clipboard = {
+            writeText: function(text) {
+              return new Promise(function(resolve, reject) {
+                try {
+                  var textarea = document.createElement('textarea');
+                  textarea.value = String(text || '');
+                  textarea.style.position = 'fixed';
+                  textarea.style.opacity = '0';
+                  textarea.style.pointerEvents = 'none';
+                  document.body.appendChild(textarea);
+                  textarea.focus();
+                  textarea.select();
+                  var success = document.execCommand('copy');
+                  document.body.removeChild(textarea);
+                  if (success) resolve(); else reject(new Error('execCommand copy failed'));
+                } catch (e) {
+                  reject(e);
+                }
+              });
+            },
+            readText: function() {
+              return Promise.resolve('');
+            }
+          };
+        }
+
+        // 5. BroadcastChannel shim (for older WebViews)
+        if (typeof window !== 'undefined' && typeof window.BroadcastChannel === 'undefined') {
+          window.BroadcastChannel = function(name) {
+            this.name = name;
+            this.onmessage = null;
+            this.onmessageerror = null;
+            this.postMessage = function(data) {
+              try {
+                if (typeof window.localStorage !== 'undefined') {
+                  window.localStorage.setItem('__dk_bc_' + name, JSON.stringify({ d: data, t: Date.now() }));
+                }
+              } catch(e) {}
+            };
+            this.close = function() {};
+          };
+        }
+
+        // 6. Fullscreen API safe fallback shims
+        if (typeof Element !== 'undefined' && !Element.prototype.requestFullscreen) {
+          Element.prototype.requestFullscreen =
+            Element.prototype.webkitRequestFullscreen ||
+            Element.prototype.mozRequestFullScreen ||
+            Element.prototype.msRequestFullscreen ||
+            function() { return Promise.resolve(); };
+        }
+        if (typeof Document !== 'undefined' && !Document.prototype.exitFullscreen) {
+          Document.prototype.exitFullscreen =
+            Document.prototype.webkitExitFullscreen ||
+            Document.prototype.mozCancelFullScreen ||
+            Document.prototype.msExitFullscreen ||
+            function() { return Promise.resolve(); };
+        }
+
+        // 7. requestIdleCallback shim
+        if (typeof window !== 'undefined' && !window.requestIdleCallback) {
+          window.requestIdleCallback = function(cb) {
+            return setTimeout(function() {
+              cb({ didTimeout: false, timeRemaining: function() { return 50; } });
+            }, 1);
+          };
+          window.cancelIdleCallback = function(id) { clearTimeout(id); };
+        }
+
+        // 8. Early Zombie ServiceWorker Cleanup
         if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
           try {
             navigator.serviceWorker.getRegistrations().then(function(regs) {
@@ -99,7 +193,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
           } catch (e) {}
         }
 
-        // 4. Early ChunkLoadError auto-recovery listener
+        // 9. Early ChunkLoadError auto-recovery listener
         var CHUNK_KEY = 'dk_last_chunk_recovery';
         var handleEarlyChunkError = function(msg) {
           var text = String(msg || '').toLowerCase();
@@ -131,15 +225,21 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
 
     <style>
       /* Zero-FOUC Initial App Shell */
-      body {
+      html, body {
         margin: 0;
+        padding: 0;
         background-color: #0f172a;
         color: #f8fafc;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         -webkit-tap-highlight-color: transparent;
+        text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        overflow-x: hidden;
+        max-width: 100vw;
       }
       .dk-boot-shell {
         min-height: 100vh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -147,6 +247,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         padding: 20px;
         text-align: center;
         background: #0f172a;
+        box-sizing: border-box;
       }
       .dk-boot-logo {
         width: 60px;
@@ -202,14 +303,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-Bp3aeJZA.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-h0JrXs1t.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BvmnIVAj.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-katex-WUr8KrTn.js">
+    <script type="module" crossorigin src="/assets/index-CpZk3AYe.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-OXFLMyHg.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DaDGYln6.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-f_7I4uij.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BkKhek6I.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-katex-dCTL_eoS.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-CEK31ho9.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-Bpr2HSDR.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DEbwc76c.css">
   </head>
 
   <body>

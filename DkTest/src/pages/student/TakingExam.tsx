@@ -44,7 +44,7 @@ import {
   subscribeToSingleSession,
   sanitizeSessionId,
 } from "../../services/realtimeProctoringService";
-import { createSafeBroadcastChannel } from "../../utils/mobileCompat";
+import { createSafeBroadcastChannel, safeRequestFullscreen, safeExitFullscreen } from "../../utils/mobileCompat";
 import { collection, getDocs, query, orderBy, getDoc, doc, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
@@ -1386,12 +1386,12 @@ export default function TakingExam() {
     }
   };
 
-  const toggleFullscreen = () => {
+  const toggleFullscreen = async () => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-      setIsFullscreen(true);
+      const ok = await safeRequestFullscreen(document.documentElement);
+      if (ok) setIsFullscreen(true);
     } else {
-      document.exitFullscreen().catch(() => {});
+      await safeExitFullscreen();
       setIsFullscreen(false);
     }
   };
