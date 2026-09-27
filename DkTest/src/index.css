@@ -28,12 +28,20 @@
 
   .min-h-dvh {
     min-height: 100vh;
-    min-height: 100dvh;
+  }
+  @supports (min-height: 100dvh) {
+    .min-h-dvh {
+      min-height: 100dvh;
+    }
   }
 
   .h-dvh {
     height: 100vh;
-    height: 100dvh;
+  }
+  @supports (height: 100dvh) {
+    .h-dvh {
+      height: 100dvh;
+    }
   }
 }
 

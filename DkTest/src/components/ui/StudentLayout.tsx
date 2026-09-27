@@ -123,7 +123,7 @@ export default function StudentLayout() {
   ];
 
   return (
-    <div className="min-h-screen h-[100dvh] w-full max-w-[100vw] overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
+    <div className="min-h-dvh h-dvh w-full max-w-[100vw] overflow-hidden bg-slate-50 font-sans text-slate-900 flex flex-col">
       {!hideStudentNav && (
         <header className="h-14 sm:h-16 bg-white border-b border-slate-200 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30">
           <div className="flex items-center gap-2 sm:gap-3">

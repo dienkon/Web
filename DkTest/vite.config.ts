@@ -27,8 +27,9 @@ export default defineConfig(() => {
       ],
     },
     build: {
-      target: ['es2020', 'chrome80', 'safari14', 'firefox78', 'edge88'],
-      cssTarget: ['chrome61', 'safari13.1', 'firefox78', 'edge79'],
+      target: ['es2020', 'chrome101', 'safari14', 'firefox91', 'edge101'],
+      cssTarget: 'chrome101',
+      cssMinify: 'lightningcss',
       modulePreload: {
         polyfill: true,
       },

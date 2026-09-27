@@ -111,7 +111,86 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
           };
         }
 
-        // 4. navigator.clipboard shim
+        // 4. crypto.randomUUID shim (Safe for HTTP / older Android WebViews)
+        if (typeof window !== 'undefined' && window.crypto && !window.crypto.randomUUID) {
+          window.crypto.randomUUID = function() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+              var r = Math.random() * 16 | 0;
+              var v = c === 'x' ? r : (r & 0x3 | 0x8);
+              return v.toString(16);
+            });
+          };
+        }
+
+        // 5. AbortSignal.timeout shim (Added in Chrome 103, absent in Chrome 101)
+        if (typeof AbortSignal !== 'undefined' && !AbortSignal.timeout) {
+          AbortSignal.timeout = function(ms) {
+            var controller = new AbortController();
+            setTimeout(function() {
+              try {
+                controller.abort(new DOMException('The operation timed out.', 'TimeoutError'));
+              } catch (e) {
+                controller.abort();
+              }
+            }, ms);
+            return controller.signal;
+          };
+        }
+
+        // 6. URL.canParse shim (Added in Chrome 120, absent in Chrome 101)
+        if (typeof URL !== 'undefined' && !URL.canParse) {
+          URL.canParse = function(url, base) {
+            try {
+              new URL(url, base);
+              return true;
+            } catch (e) {
+              return false;
+            }
+          };
+        }
+
+        // 7. Object.hasOwn shim (Chrome 93+)
+        if (typeof Object !== 'undefined' && !Object.hasOwn) {
+          Object.hasOwn = function(obj, prop) {
+            return Object.prototype.hasOwnProperty.call(obj, prop);
+          };
+        }
+
+        // 8. Array.prototype.at & String.prototype.at shim (Chrome 92+)
+        if (typeof Array !== 'undefined' && !Array.prototype.at) {
+          Array.prototype.at = function(n) {
+            n = Math.trunc(n) || 0;
+            if (n < 0) n += this.length;
+            if (n < 0 || n >= this.length) return undefined;
+            return this[n];
+          };
+        }
+        if (typeof String !== 'undefined' && !String.prototype.at) {
+          String.prototype.at = function(n) {
+            n = Math.trunc(n) || 0;
+            if (n < 0) n += this.length;
+            if (n < 0 || n >= this.length) return "";
+            return this.charAt(n);
+          };
+        }
+
+        // 9. ResizeObserver & IntersectionObserver safety shims for restricted WebViews
+        if (typeof window !== 'undefined' && !window.ResizeObserver) {
+          window.ResizeObserver = function() {
+            this.observe = function() {};
+            this.unobserve = function() {};
+            this.disconnect = function() {};
+          };
+        }
+        if (typeof window !== 'undefined' && !window.IntersectionObserver) {
+          window.IntersectionObserver = function() {
+            this.observe = function() {};
+            this.unobserve = function() {};
+            this.disconnect = function() {};
+          };
+        }
+
+        // 10. navigator.clipboard shim
         if (typeof navigator !== 'undefined' && !navigator.clipboard) {
           navigator.clipboard = {
             writeText: function(text) {
@@ -139,7 +218,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
           };
         }
 
-        // 5. BroadcastChannel shim (for older WebViews)
+        // 11. BroadcastChannel shim (for older WebViews)
         if (typeof window !== 'undefined' && typeof window.BroadcastChannel === 'undefined') {
           window.BroadcastChannel = function(name) {
             this.name = name;
@@ -156,7 +235,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
           };
         }
 
-        // 6. Fullscreen API safe fallback shims
+        // 12. Fullscreen API safe fallback shims
         if (typeof Element !== 'undefined' && !Element.prototype.requestFullscreen) {
           Element.prototype.requestFullscreen =
             Element.prototype.webkitRequestFullscreen ||
@@ -172,7 +251,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
             function() { return Promise.resolve(); };
         }
 
-        // 7. requestIdleCallback shim
+        // 13. requestIdleCallback shim
         if (typeof window !== 'undefined' && !window.requestIdleCallback) {
           window.requestIdleCallback = function(cb) {
             return setTimeout(function() {
@@ -182,7 +261,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
           window.cancelIdleCallback = function(id) { clearTimeout(id); };
         }
 
-        // 8. Early Zombie ServiceWorker Cleanup
+        // 14. Early Zombie ServiceWorker Cleanup
         if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
           try {
             navigator.serviceWorker.getRegistrations().then(function(regs) {
@@ -239,7 +318,6 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       }
       .dk-boot-shell {
         min-height: 100vh;
-        min-height: 100dvh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -248,6 +326,11 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         text-align: center;
         background: #0f172a;
         box-sizing: border-box;
+      }
+      @supports (min-height: 100dvh) {
+        .dk-boot-shell {
+          min-height: 100dvh;
+        }
       }
       .dk-boot-logo {
         width: 60px;
@@ -303,14 +386,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-CpZk3AYe.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-OXFLMyHg.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DaDGYln6.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-f_7I4uij.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BkKhek6I.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-katex-dCTL_eoS.js">
-    <link rel="stylesheet" crossorigin href="/assets/vendor-katex-CEK31ho9.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-DEbwc76c.css">
+    <script type="module" crossorigin src="/assets/index-uQat-sLj.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-h0JrXs1t.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BvmnIVAj.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
+    <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-BG65cL6P.css">
   </head>
 
   <body>
