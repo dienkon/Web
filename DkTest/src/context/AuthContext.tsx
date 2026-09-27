@@ -282,11 +282,69 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    if (!auth) {
+      console.warn("[AuthContext] Firebase Auth instance not available. Operating in offline/guest mode.");
+      if (isAdminAuthenticated()) {
+        let savedInfo: any = {};
+        try {
+          const raw = localStorage.getItem("admin_info");
+          if (raw) savedInfo = JSON.parse(raw);
+        } catch {}
+        setUserProfile({
+          uid: "admin_local",
+          displayName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
+          fullName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
+          email: savedInfo.email || "duongthanhdien3456@gmail.com",
+          role: "admin",
+          accountStatus: "active",
+          provider: "password",
+          emailVerified: true,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        });
+      }
+      setLoading(false);
+      setAuthInitialized(true);
+      return;
+    }
+
+    // Safety watchdog: Guarantee loading finishes within 4.5s even if Firebase hangs
+    const watchdogTimer = setTimeout(() => {
+      setLoading((currLoading) => {
+        if (currLoading) {
+          console.warn("[AuthContext] Auth initialization timed out (watchdog). Forcing ready state.");
+          setAuthInitialized(true);
+          return false;
+        }
+        return false;
+      });
+    }, 4500);
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
         try {
-          const profile = await fetchOrCreateProfile(currentUser);
+          // Race profile fetch against a 3.5s timeout to prevent hanging on slow 3G/4G
+          const profilePromise = fetchOrCreateProfile(currentUser);
+          const timeoutPromise = new Promise<UserProfile>((resolve) => {
+            setTimeout(() => {
+              const basicProfile: UserProfile = {
+                uid: currentUser.uid,
+                displayName: currentUser.displayName || "Thí sinh",
+                fullName: currentUser.displayName || "Thí sinh",
+                email: currentUser.email || "",
+                role: isAdminEmail(currentUser.email) ? "admin" : "student",
+                accountStatus: "active",
+                provider: "password",
+                emailVerified: Boolean(currentUser.emailVerified),
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+              };
+              resolve(basicProfile);
+            }, 3500);
+          });
+
+          const profile = await Promise.race([profilePromise, timeoutPromise]);
           setUserProfile(profile);
         } catch (err) {
           console.error("[AuthContext] Error loading user profile:", err);
@@ -317,16 +375,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           syncLegacyStorage(null);
         }
       }
+      clearTimeout(watchdogTimer);
       setLoading(false);
       setAuthInitialized(true);
     });
 
-    return () => unsubscribe();
+    return () => {
+      clearTimeout(watchdogTimer);
+      unsubscribe();
+    };
   }, []);
 
   const getIdToken = async (forceRefresh = false): Promise<string> => {
-    if (!auth.currentUser) return "";
-    return await auth.currentUser.getIdToken(forceRefresh);
+    try {
+      if (!auth?.currentUser) return "";
+      return await auth.currentUser.getIdToken(forceRefresh);
+    } catch (err) {
+      console.warn("[AuthContext] getIdToken error:", err);
+      return "";
+    }
   };
 
   const loginWithGoogle = async (intendedRole?: "student" | "parent"): Promise<UserProfile> => {

@@ -1,4 +1,5 @@
 import { getStoredItem, setStoredItem, removeStoredItem, STORAGE_KEYS } from "../utils/storage";
+import { api } from "./apiClient";
 
 export interface CurrentUser {
   role: "admin" | "student" | "parent" | "guest";
@@ -205,7 +206,6 @@ export function getCurrentUser(): CurrentUser {
  * Checks if a username is available via backend
  */
 export async function checkUsernameAvailability(username: string): Promise<{ available: boolean; message?: string }> {
-  const { api } = await import("./apiClient");
   return await api.post("/api/auth/check-username", { username }, { requiresAuth: false });
 }
 
@@ -218,7 +218,6 @@ export async function claimUsernameApi(params: {
   email: string;
   fullName: string;
 }): Promise<{ success: boolean; username: string }> {
-  const { api } = await import("./apiClient");
   return await api.post("/api/auth/claim-username", params, { requiresAuth: false });
 }
 
@@ -234,7 +233,6 @@ export async function loginWithUsernameApi(username: string, password: string): 
   uid: string;
   username: string;
 }> {
-  const { api } = await import("./apiClient");
   return await api.post("/api/auth/login-with-username", { username, password }, { requiresAuth: false });
 }
 

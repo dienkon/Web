@@ -1,5 +1,6 @@
 /**
  * Authoritative Storage & Keys Management for DkTest
+ * Fully Fail-Safe for Chrome Android, Private Browsing, and QuotaExceeded errors.
  * Namespace:
  *  dktest:auth:*
  *  dktest:exam:*
@@ -33,12 +34,149 @@ export const STORAGE_KEYS = {
   STUDENT_SUBMISSION_HISTORY: "dktest:session:submission_history",
 } as const;
 
+// In-memory memory fallback map when browser storage is blocked or quota is full
+const memoryStorage = new Map<string, string>();
+const memorySessionStorage = new Map<string, string>();
+
+/**
+ * Checks if localStorage is functional and non-throwing
+ */
+function isLocalStorageAvailable(): boolean {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return false;
+    const testKey = "__dktest_storage_test__";
+    window.localStorage.setItem(testKey, "1");
+    window.localStorage.removeItem(testKey);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Checks if sessionStorage is functional and non-throwing
+ */
+function isSessionStorageAvailable(): boolean {
+  try {
+    if (typeof window === "undefined" || !window.sessionStorage) return false;
+    const testKey = "__dktest_session_test__";
+    window.sessionStorage.setItem(testKey, "1");
+    window.sessionStorage.removeItem(testKey);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const hasLocalStorage = isLocalStorageAvailable();
+const hasSessionStorage = isSessionStorageAvailable();
+
+/**
+ * Safely parse JSON without throwing SyntaxError
+ */
+export function safeJsonParse<T>(raw: string | null | undefined, fallback: T): T {
+  if (raw === null || raw === undefined || raw === "") return fallback;
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+/**
+ * Fail-safe wrapper for localStorage
+ */
+export const safeLocalStorage = {
+  getItem(key: string): string | null {
+    try {
+      if (hasLocalStorage && typeof window !== "undefined") {
+        return window.localStorage.getItem(key);
+      }
+    } catch {}
+    return memoryStorage.get(key) ?? null;
+  },
+
+  setItem(key: string, value: string): void {
+    try {
+      if (hasLocalStorage && typeof window !== "undefined") {
+        window.localStorage.setItem(key, value);
+        return;
+      }
+    } catch (e) {
+      console.warn(`[safeLocalStorage] Failed to set "${key}" in window.localStorage, falling back to memory:`, e);
+    }
+    memoryStorage.set(key, value);
+  },
+
+  removeItem(key: string): void {
+    try {
+      if (hasLocalStorage && typeof window !== "undefined") {
+        window.localStorage.removeItem(key);
+      }
+    } catch {}
+    memoryStorage.delete(key);
+  },
+
+  clear(): void {
+    try {
+      if (hasLocalStorage && typeof window !== "undefined") {
+        window.localStorage.clear();
+      }
+    } catch {}
+    memoryStorage.clear();
+  },
+};
+
+/**
+ * Fail-safe wrapper for sessionStorage
+ */
+export const safeSessionStorage = {
+  getItem(key: string): string | null {
+    try {
+      if (hasSessionStorage && typeof window !== "undefined") {
+        return window.sessionStorage.getItem(key);
+      }
+    } catch {}
+    return memorySessionStorage.get(key) ?? null;
+  },
+
+  setItem(key: string, value: string): void {
+    try {
+      if (hasSessionStorage && typeof window !== "undefined") {
+        window.sessionStorage.setItem(key, value);
+        return;
+      }
+    } catch (e) {
+      console.warn(`[safeSessionStorage] Failed to set "${key}" in sessionStorage:`, e);
+    }
+    memorySessionStorage.set(key, value);
+  },
+
+  removeItem(key: string): void {
+    try {
+      if (hasSessionStorage && typeof window !== "undefined") {
+        window.sessionStorage.removeItem(key);
+      }
+    } catch {}
+    memorySessionStorage.delete(key);
+  },
+
+  clear(): void {
+    try {
+      if (hasSessionStorage && typeof window !== "undefined") {
+        window.sessionStorage.clear();
+      }
+    } catch {}
+    memorySessionStorage.clear();
+  },
+};
+
 /**
  * Helper to get item with fallback to legacy keys for backwards compatibility
  */
 export function getStoredItem<T = string>(key: string, legacyKey?: string): T | null {
   try {
-    const val = localStorage.getItem(key);
+    const val = safeLocalStorage.getItem(key);
     if (val !== null) {
       try {
         return JSON.parse(val) as T;
@@ -47,7 +185,7 @@ export function getStoredItem<T = string>(key: string, legacyKey?: string): T | 
       }
     }
     if (legacyKey) {
-      const legVal = localStorage.getItem(legacyKey);
+      const legVal = safeLocalStorage.getItem(legacyKey);
       if (legVal !== null) {
         try {
           return JSON.parse(legVal) as T;
@@ -68,12 +206,12 @@ export function getStoredItem<T = string>(key: string, legacyKey?: string): T | 
 export function setStoredItem(key: string, value: any, syncLegacyKey?: string): void {
   try {
     const stringVal = typeof value === "string" ? value : JSON.stringify(value);
-    localStorage.setItem(key, stringVal);
+    safeLocalStorage.setItem(key, stringVal);
     if (syncLegacyKey) {
-      localStorage.setItem(syncLegacyKey, stringVal);
+      safeLocalStorage.setItem(syncLegacyKey, stringVal);
     }
   } catch (e) {
-    console.warn("localStorage set error:", e);
+    console.warn("[setStoredItem] localStorage set error:", e);
   }
 }
 
@@ -82,11 +220,11 @@ export function setStoredItem(key: string, value: any, syncLegacyKey?: string): 
  */
 export function removeStoredItem(key: string, legacyKey?: string): void {
   try {
-    localStorage.removeItem(key);
+    safeLocalStorage.removeItem(key);
     if (legacyKey) {
-      localStorage.removeItem(legacyKey);
+      safeLocalStorage.removeItem(legacyKey);
     }
   } catch (e) {
-    console.warn("localStorage remove error:", e);
+    console.warn("[removeStoredItem] localStorage remove error:", e);
   }
 }

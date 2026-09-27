@@ -1,7 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
+import { initializeApp, type FirebaseApp } from "firebase/app";
+import { getFirestore, type Firestore } from "firebase/firestore";
+import { getAuth, type Auth } from "firebase/auth";
+import { getDatabase, type Database } from "firebase/database";
+import { reportError } from "../errorReporter";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4",
@@ -15,21 +16,48 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:603672592444:web:8d7b493fc9848756bec339",
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+// Fail-safe initialization: A failure here MUST NOT crash module loading or blank the screen
+let appInstance: FirebaseApp = null as any;
+let dbInstance: Firestore = null as any;
+let authInstance: Auth = null as any;
+let rtdbInstance: Database = null as any;
 
-// Safe RTDB initialization
-let rtdbInstance: any = null;
 try {
-  rtdbInstance = getDatabase(app);
-} catch (err) {
+  appInstance = initializeApp(firebaseConfig);
+} catch (err: any) {
+  console.error("[FirebaseConfig] initializeApp failed:", err);
+  reportError(err, { source: "firebase", action: "initializeApp" });
+}
+
+if (appInstance) {
   try {
-    rtdbInstance = getDatabase(app, "https://exam-fd7a1-default-rtdb.firebaseio.com");
-  } catch (err2) {
-    console.warn("RTDB initialization warning:", err2);
+    dbInstance = getFirestore(appInstance);
+  } catch (err: any) {
+    console.error("[FirebaseConfig] getFirestore failed:", err);
+    reportError(err, { source: "firebase", action: "getFirestore" });
+  }
+
+  try {
+    authInstance = getAuth(appInstance);
+  } catch (err: any) {
+    console.error("[FirebaseConfig] getAuth failed:", err);
+    reportError(err, { source: "firebase", action: "getAuth" });
+  }
+
+  try {
+    rtdbInstance = getDatabase(appInstance);
+  } catch (err) {
+    try {
+      rtdbInstance = getDatabase(appInstance, firebaseConfig.databaseURL);
+    } catch (err2: any) {
+      console.warn("[FirebaseConfig] RTDB initialization warning:", err2);
+      reportError(err2, { source: "firebase", action: "getDatabase" });
+    }
   }
 }
-export const rtdb = rtdbInstance;
 
+export const app = appInstance;
+export const db = dbInstance;
+export const auth = authInstance;
+export const rtdb = rtdbInstance;
+export const isFirebaseInitialized = Boolean(appInstance && dbInstance && authInstance);

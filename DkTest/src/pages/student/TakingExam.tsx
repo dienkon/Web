@@ -44,6 +44,7 @@ import {
   subscribeToSingleSession,
   sanitizeSessionId,
 } from "../../services/realtimeProctoringService";
+import { createSafeBroadcastChannel } from "../../utils/mobileCompat";
 import { collection, getDocs, query, orderBy, getDoc, doc, where, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { logQueryRead } from "../../utils/firestoreLogger";
@@ -364,10 +365,10 @@ export default function TakingExam() {
     if (!examId) return;
     const tabId = Math.random().toString(36).substring(2, 9);
     const channelName = `dktest_exam_tab_channel_${examId}`;
-    let channel: BroadcastChannel | null = null;
+    let channel: any = null;
 
     try {
-      channel = new BroadcastChannel(channelName);
+      channel = createSafeBroadcastChannel(channelName);
       channel.postMessage({ type: "CLAIM_TAB", tabId });
 
       channel.onmessage = (event) => {

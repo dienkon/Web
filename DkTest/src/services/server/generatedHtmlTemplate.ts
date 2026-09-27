@@ -3,39 +3,8 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-
-    <script>
-      // Safe environment shim: Ensure window.fetch is writable and cannot throw getter-only TypeError
-      (function() {
-        try {
-          var originalFetch = typeof window !== 'undefined' && window.fetch ? window.fetch.bind(window) : undefined;
-          if (typeof window !== 'undefined') {
-            var proto = window;
-            while (proto) {
-              var desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
-              if (desc) {
-                if (!desc.set && desc.configurable !== false) {
-                  var activeFetch = originalFetch;
-                  Object.defineProperty(window, 'fetch', {
-                    get: function() { return activeFetch; },
-                    set: function(val) { activeFetch = val; },
-                    configurable: true,
-                    enumerable: true
-                  });
-                }
-                break;
-              }
-              proto = Object.getPrototypeOf(proto);
-            }
-          }
-        } catch (e) {}
-      })();
-    </script>
-
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>DK TEST - Hệ thống thi trực tuyến</title>
 
@@ -43,7 +12,6 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       name="description"
       content="DK TEST - Hệ thống tạo, quản lý và tham gia các bài kiểm tra trực tuyến."
     />
-
     <meta name="theme-color" content="#0f172a" />
 
     <!-- Open Graph -->
@@ -69,12 +37,195 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <script type="module" crossorigin src="/assets/index-DyoDiTie.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-HTN6VLyn.css">
+
+    <!-- Pre-Boot Resilience & Anti-Blank Screen Shield -->
+    <script>
+      (function() {
+        // 1. Safe fetch property shim
+        try {
+          var originalFetch = typeof window !== 'undefined' && window.fetch ? window.fetch.bind(window) : undefined;
+          if (typeof window !== 'undefined') {
+            var proto = window;
+            while (proto) {
+              var desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+              if (desc) {
+                if (!desc.set && desc.configurable !== false) {
+                  var activeFetch = originalFetch;
+                  Object.defineProperty(window, 'fetch', {
+                    get: function() { return activeFetch; },
+                    set: function(val) { activeFetch = val; },
+                    configurable: true,
+                    enumerable: true
+                  });
+                }
+                break;
+              }
+              proto = Object.getPrototypeOf(proto);
+            }
+          }
+        } catch (e) {}
+
+        // 2. Safe Storage Shim (handles Private Browsing / SecurityError on Chrome Android)
+        try {
+          var storageTest = window.localStorage;
+          storageTest.setItem('__dk_test__', '1');
+          storageTest.removeItem('__dk_test__');
+        } catch (storageErr) {
+          try {
+            var mem = {};
+            var createStoragePolyfill = function() {
+              return {
+                getItem: function(k) { return mem[k] !== undefined ? mem[k] : null; },
+                setItem: function(k, v) { mem[k] = String(v); },
+                removeItem: function(k) { delete mem[k]; },
+                clear: function() { mem = {}; },
+                get length() { return Object.keys(mem).length; },
+                key: function(i) { return Object.keys(mem)[i] || null; }
+              };
+            };
+            Object.defineProperty(window, 'localStorage', { value: createStoragePolyfill(), configurable: true });
+            Object.defineProperty(window, 'sessionStorage', { value: createStoragePolyfill(), configurable: true });
+          } catch (polyErr) {}
+        }
+
+        // 3. Early Zombie ServiceWorker Cleanup
+        if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+          try {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              for (var i = 0; i < regs.length; i++) {
+                regs[i].unregister().catch(function() {});
+              }
+            }).catch(function() {});
+          } catch (e) {}
+        }
+
+        // 4. Early ChunkLoadError auto-recovery listener
+        var CHUNK_KEY = 'dk_last_chunk_recovery';
+        var handleEarlyChunkError = function(msg) {
+          var text = String(msg || '').toLowerCase();
+          if (
+            text.indexOf('chunk') !== -1 ||
+            text.indexOf('dynamically imported module') !== -1 ||
+            text.indexOf('loading css chunk') !== -1 ||
+            text.indexOf('failed to fetch') !== -1
+          ) {
+            var last = sessionStorage.getItem(CHUNK_KEY);
+            var now = Date.now();
+            if (!last || (now - parseInt(last, 10)) > 30000) {
+              sessionStorage.setItem(CHUNK_KEY, String(now));
+              var clean = new URL(window.location.href);
+              clean.searchParams.set('_r', String(now));
+              window.location.replace(clean.toString());
+            }
+          }
+        };
+
+        window.addEventListener('error', function(e) {
+          handleEarlyChunkError(e.message || (e.error && e.error.message));
+        });
+        window.addEventListener('unhandledrejection', function(e) {
+          handleEarlyChunkError(e.reason && (e.reason.message || e.reason));
+        });
+      })();
+    </script>
+
+    <style>
+      /* Zero-FOUC Initial App Shell */
+      body {
+        margin: 0;
+        background-color: #0f172a;
+        color: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .dk-boot-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        background: #0f172a;
+      }
+      .dk-boot-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        animation: dk-pulse 2s infinite ease-in-out;
+      }
+      .dk-boot-title {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        margin-bottom: 6px;
+      }
+      .dk-boot-sub {
+        font-size: 13px;
+        color: #94a3b8;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+      .dk-boot-bar {
+        width: 140px;
+        height: 4px;
+        border-radius: 2px;
+        background: #1e293b;
+        overflow: hidden;
+        position: relative;
+      }
+      .dk-boot-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 40%;
+        background: #3b82f6;
+        border-radius: 2px;
+        animation: dk-slide 1.4s infinite ease-in-out;
+      }
+      @keyframes dk-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      @keyframes dk-slide {
+        0% { left: -40%; }
+        50% { left: 40%; }
+        100% { left: 100%; }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-Bp3aeJZA.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-h0JrXs1t.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BvmnIVAj.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-katex-WUr8KrTn.js">
+    <link rel="stylesheet" crossorigin href="/assets/vendor-katex-CEK31ho9.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-Bpr2HSDR.css">
   </head>
 
   <body>
-    <div id="root"></div>
+    <!-- App Root with sleek Instant Boot Shell (Replaced instantly when React mounts) -->
+    <div id="root">
+      <div class="dk-boot-shell">
+        <div class="dk-boot-logo">
+          <svg style="width:32px;height:32px;color:#ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <div class="dk-boot-title">DkTEST</div>
+        <div class="dk-boot-sub">Đang khởi động hệ thống thi...</div>
+        <div class="dk-boot-bar"></div>
+      </div>
+    </div>
 
   </body>
 </html>`;

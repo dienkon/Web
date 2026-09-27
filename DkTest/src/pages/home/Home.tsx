@@ -47,11 +47,8 @@ import { FirestoreCache } from "../../services/firebase/firestoreCache";
 
 const CACHE_TTL_MS = 180000; // 3 minutes
 
-export function invalidateHomeTopCache() {
-  FirestoreCache.invalidate("home:top:attempted");
-  FirestoreCache.invalidate("home:top:newest");
-  FirestoreCache.invalidatePrefix("home:filter:");
-}
+import { invalidateHomeTopCache } from "../../services/examCacheService";
+export { invalidateHomeTopCache };
 
 export default function Home() {
   const navigate = useNavigate();
@@ -288,6 +285,11 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     if (activeTab !== "all" || !hasMoreAll || loadingMoreAll || loadingAll) return;
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      loadMoreAllExams();
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {

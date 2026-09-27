@@ -151,8 +151,8 @@ export const createSubmission = async (
       });
     }).catch(() => {});
 
-    // Invalidate Home cache dynamically
-    import("../pages/home/Home").then(({ invalidateHomeTopCache }) => {
+    // Invalidate Home cache safely
+    import("./examCacheService").then(({ invalidateHomeTopCache }) => {
       if (typeof invalidateHomeTopCache === "function") {
         invalidateHomeTopCache();
       }
