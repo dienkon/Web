@@ -1,7 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import { X, Maximize2, Minimize2, Move, Grid, Check, HelpCircle, ArrowLeft, RefreshCw } from "lucide-react";
+import React, { useReducer, useRef, useEffect, useState, useCallback } from "react";
+import { X, Maximize2, Minimize2, Move, Grid } from "lucide-react";
 import "mathlive";
-import { ComputeEngine } from "@cortex-js/compute-engine";
+
+import { SemanticAction, CalculatorKey, CalculatorMode } from "../types";
+import { calculatorReducer, initialCalculatorState } from "../state/calculatorReducer";
+import { CalculatorLCD } from "./CalculatorLCD";
+import { CalculatorKeypad } from "./CalculatorKeypad";
+import { evaluateCalculatorExpression } from "../engine/calculatorEngine";
+import { solveNumericalEquation } from "../engine/solver";
+import { MENU_MODES, getModeByShortcut } from "../config/menuConfig";
 
 interface Props {
   isOpen: boolean;
@@ -9,50 +16,53 @@ interface Props {
   onSendToScratchpad?: (value: string) => void;
 }
 
-type CasioMode = "COMP" | "CMPLX" | "TABLE" | "EQN" | "INEQ" | "MATRIX" | "VECTOR" | "STAT";
-
 export default function CasioEmulator({ isOpen, onClose, onSendToScratchpad }: Props) {
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const [state, dispatch] = useReducer(calculatorReducer, initialCalculatorState);
+
+  // Floating Window Coordinates & Dragging
+  const [position, setPosition] = useState({ x: 100, y: 70 });
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef<{ startX: number; startY: number; initX: number; initY: number } | null>(null);
   const [isMinimized, setIsMinimized] = useState(false);
 
+  // MathLive Field Ref
   const mfRef = useRef<any>(null);
-  const [result, setResult] = useState<string>("");
-  const [isShift, setIsShift] = useState(false);
-  const [isAlpha, setIsAlpha] = useState(false);
-  const [decimalMode, setDecimalMode] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const [activeMode, setActiveMode] = useState<CasioMode>("COMP");
-  
-  // Solver sub-modal state for Equation / Table
-  const [eqnType, setEqnType] = useState<"deg2" | "deg3" | "sys2" | null>(null);
-  const [eqnCoeffs, setEqnCoeffs] = useState<Record<string, string>>({ a: "1", b: "-3", c: "2", d: "0", a1: "1", b1: "1", c1: "5", a2: "2", b2: "-1", c2: "4" });
-  const [eqnResult, setEqnResult] = useState<string[] | null>(null);
+  const calculatorContainerRef = useRef<HTMLDivElement>(null);
 
-  const ceRef = useRef<ComputeEngine | null>(null);
-
-  useEffect(() => {
-    ceRef.current = new ComputeEngine();
-  }, []);
-
+  // Position on open
   useEffect(() => {
     if (isOpen) {
-      setPosition({
-        x: window.innerWidth > 600 ? Math.max(10, window.innerWidth - 380) : 10,
-        y: 70,
-      });
+      const initialX =
+        typeof window !== "undefined"
+          ? Math.max(10, Math.min(window.innerWidth - 370, window.innerWidth - 380))
+          : 100;
+      setPosition({ x: initialX, y: 70 });
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    if (mfRef.current && !isMinimized && !showMenu) {
-      mfRef.current.virtualKeyboardMode = "off";
-      mfRef.current.focus();
+  // Keep MathLive focused when active on MAIN screen
+  const focusMathField = useCallback(() => {
+    if (mfRef.current && !isMinimized && state.screenState === "MAIN") {
+      try {
+        mfRef.current.virtualKeyboardMode = "off";
+        mfRef.current.mathVirtualKeyboardPolicy = "manual";
+        mfRef.current.focus();
+      } catch {
+        // ignore
+      }
     }
-  }, [isMinimized, showMenu, isOpen]);
+  }, [isMinimized, state.screenState]);
 
+  useEffect(() => {
+    if (isOpen && !isMinimized && state.screenState === "MAIN") {
+      focusMathField();
+    }
+  }, [isOpen, isMinimized, state.screenState, focusMathField]);
+
+  // Window Drag handlers
   const onPointerDown = (e: React.PointerEvent) => {
+    // Only drag from header, ignore buttons
+    if ((e.target as HTMLElement).closest("button")) return;
     setIsDragging(true);
     dragRef.current = { startX: e.clientX, startY: e.clientY, initX: position.x, initY: position.y };
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -60,114 +70,443 @@ export default function CasioEmulator({ isOpen, onClose, onSendToScratchpad }: P
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging || !dragRef.current) return;
-    const newX = Math.max(0, Math.min(window.innerWidth - 100, dragRef.current.initX + (e.clientX - dragRef.current.startX)));
-    const newY = Math.max(0, Math.min(window.innerHeight - 60, dragRef.current.initY + (e.clientY - dragRef.current.startY)));
+    const maxX = Math.max(0, window.innerWidth - 360);
+    const maxY = Math.max(0, window.innerHeight - 80);
+    const newX = Math.max(0, Math.min(maxX, dragRef.current.initX + (e.clientX - dragRef.current.startX)));
+    const newY = Math.max(0, Math.min(maxY, dragRef.current.initY + (e.clientY - dragRef.current.startY)));
     setPosition({ x: newX, y: newY });
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
     setIsDragging(false);
     dragRef.current = null;
-    e.currentTarget.releasePointerCapture(e.pointerId);
-  };
-
-  const handleCommand = (cmd: string) => {
-    if (mfRef.current) {
-      mfRef.current.executeCommand(cmd);
-      mfRef.current.focus();
-    }
-  };
-
-  const insert = (text: string) => {
-    if (mfRef.current) {
-      mfRef.current.insert(text);
-      mfRef.current.focus();
-    }
-  };
-
-  const handleCalculate = async (toggleDecimal = false) => {
-    if (!mfRef.current || !ceRef.current) return;
     try {
-      const isDec = toggleDecimal ? !decimalMode : decimalMode;
-      if (toggleDecimal) setDecimalMode(isDec);
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {
+      // ignore
+    }
+  };
 
-      const latexVal = mfRef.current.getValue("latex");
-      if (!latexVal || latexVal.trim() === "") {
-        setResult("");
+  // Expression Evaluation Handler
+  const handleEvaluate = useCallback(() => {
+    if (!mfRef.current) return;
+    const latexVal = mfRef.current.getValue("latex") || state.expression || "";
+    if (!latexVal.trim()) {
+      dispatch({ type: "SET_RESULT", result: "" });
+      return;
+    }
+
+    const evalResult = evaluateCalculatorExpression(latexVal, state);
+    dispatch({
+      type: "SET_RESULT",
+      result: evalResult.display,
+      exact: evalResult.exact,
+      decimal: evalResult.decimal,
+    });
+
+    if (!evalResult.isError) {
+      dispatch({
+        type: "ADD_HISTORY",
+        item: {
+          expression: latexVal,
+          result: evalResult.display,
+          exactResult: evalResult.exact,
+          decimalResult: evalResult.decimal,
+        },
+      });
+    }
+
+    dispatch({ type: "RESET_MODIFIERS" });
+  }, [state]);
+
+  // Solve Equation Handler: Initializes the interactive SOLVE workflow
+  const handleSolve = useCallback(() => {
+    if (!mfRef.current) return;
+    const latexVal = mfRef.current.getValue("latex") || state.expression || "";
+    if (!latexVal.trim()) return;
+
+    // Detect variables in equation
+    const rawMatches = latexVal.match(/[A-Za-z]/g);
+    const varList: string[] = rawMatches ? Array.from(new Set(rawMatches)) : ["X"];
+    const varNames: string[] = varList.filter((v) => v !== "e" && v !== "i" && v !== "d");
+    if (varNames.length === 0) varNames.push("X");
+
+    dispatch({
+      type: "START_SOLVE",
+      payload: {
+        equation: latexVal,
+        lhs: latexVal.split("=")[0] || latexVal,
+        rhs: latexVal.split("=")[1] || "0",
+        targetVar: varNames[0] || "X",
+        variables: { ...state.variables },
+        varNames,
+        currentVarIndex: 0,
+        initialGuess: 0,
+      },
+    });
+  }, [state]);
+
+  // CALC Handler: Initializes the interactive CALC workflow
+  const handleCalc = useCallback(() => {
+    if (!mfRef.current) return;
+    const latexVal = mfRef.current.getValue("latex") || state.expression || "";
+    if (!latexVal.trim()) return;
+
+    const rawMatches = latexVal.match(/[A-Za-z]/g);
+    const varList: string[] = rawMatches ? Array.from(new Set(rawMatches)) : ["X"];
+    const varNames: string[] = varList.filter((v) => v !== "e" && v !== "i" && v !== "d");
+    if (varNames.length === 0) varNames.push("X");
+
+    dispatch({
+      type: "START_CALC",
+      payload: {
+        expression: latexVal,
+        varNames,
+        currentVarIndex: 0,
+        values: { ...state.variables },
+      },
+    });
+  }, [state]);
+
+  // Insert arbitrary text or template from submenus
+  const handleInsertText = useCallback(
+    (text: string) => {
+      if (mfRef.current) {
+        if (text.includes("#?")) {
+          mfRef.current.insert(text, { selectionMode: "placeholder" });
+        } else {
+          mfRef.current.insert(text);
+        }
+        dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+        focusMathField();
+      }
+    },
+    [focusMathField]
+  );
+
+  // Main Semantic Action Dispatcher
+  const handleAction = useCallback(
+    (action: SemanticAction, keyDef?: CalculatorKey) => {
+      // If Menu / Sub-screen is open, handle navigation actions
+      if (state.screenState !== "MAIN" && state.screenState !== "CALCULATE") {
+        if (action.type === "CLEAR") {
+          dispatch({ type: "CLOSE_MENU" });
+          focusMathField();
+          return;
+        }
+        if (state.screenState === "MENU") {
+          if (action.type === "MOVE_CURSOR") {
+            dispatch({ type: "MENU_NAVIGATE", direction: action.direction });
+            return;
+          }
+          if (action.type === "EXECUTE") {
+            const modes: CalculatorMode[] = ["CALCULATE", "TABLE", "EQUATION", "INEQUALITY"];
+            const chosen = modes[state.menuIndex] || "CALCULATE";
+            dispatch({ type: "SET_MODE", mode: chosen });
+            return;
+          }
+          if (action.type === "DIGIT") {
+            if (action.value === "1") {
+              dispatch({ type: "SET_MODE", mode: "CALCULATE" });
+              return;
+            }
+            if (action.value === "2") {
+              dispatch({ type: "SET_MODE", mode: "TABLE" });
+              return;
+            }
+            if (action.value === "3") {
+              dispatch({ type: "SET_MODE", mode: "EQUATION" });
+              return;
+            }
+            if (action.value === "4") {
+              dispatch({ type: "SET_MODE", mode: "INEQUALITY" });
+              return;
+            }
+          }
+        }
+      }
+
+      // Record state in undo buffer prior to changes
+      if (
+        action.type === "INSERT_TEXT" ||
+        action.type === "INSERT_TEMPLATE" ||
+        action.type === "DIGIT" ||
+        action.type === "OPERATOR" ||
+        action.type === "DELETE"
+      ) {
+        if (mfRef.current) {
+          dispatch({ type: "PUSH_UNDO", expression: mfRef.current.getValue("latex") || "" });
+        }
+      }
+
+      switch (action.type) {
+        case "INSERT_TEXT":
+          if (mfRef.current) {
+            mfRef.current.insert(action.text);
+            dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+            focusMathField();
+          }
+          if (state.shiftActive || state.alphaActive) {
+            dispatch({ type: "RESET_MODIFIERS" });
+          }
+          break;
+
+        case "INSERT_TEMPLATE":
+          if (mfRef.current) {
+            mfRef.current.insert(action.template, { selectionMode: "placeholder" });
+            dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+            focusMathField();
+          }
+          if (state.shiftActive || state.alphaActive) {
+            dispatch({ type: "RESET_MODIFIERS" });
+          }
+          break;
+
+        case "DIGIT":
+          if (mfRef.current) {
+            mfRef.current.insert(action.value);
+            dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+            focusMathField();
+          }
+          if (state.shiftActive || state.alphaActive) {
+            dispatch({ type: "RESET_MODIFIERS" });
+          }
+          break;
+
+        case "OPERATOR":
+          if (mfRef.current) {
+            mfRef.current.insert(action.op);
+            dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+            focusMathField();
+          }
+          if (state.shiftActive || state.alphaActive) {
+            dispatch({ type: "RESET_MODIFIERS" });
+          }
+          break;
+
+        case "VARIABLE":
+          if (state.stoActive) {
+            // Store current result into variable
+            const val = parseFloat(state.decimalResult || state.result || "0");
+            dispatch({ type: "SET_VARIABLE", name: action.name, value: isNaN(val) ? 0 : val });
+          } else if (state.rclActive) {
+            // Recall variable value into math-field
+            const val = state.variables[action.name] ?? 0;
+            if (mfRef.current) {
+              mfRef.current.insert(String(val));
+              focusMathField();
+            }
+            dispatch({ type: "RESET_MODIFIERS" });
+          } else {
+            // Normal variable insertion
+            if (mfRef.current) {
+              mfRef.current.insert(action.name);
+              dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+              focusMathField();
+            }
+            dispatch({ type: "RESET_MODIFIERS" });
+          }
+          break;
+
+        case "EXECUTE_COMMAND":
+          if (mfRef.current) {
+            mfRef.current.executeCommand(action.command);
+            focusMathField();
+          }
+          break;
+
+        case "MOVE_CURSOR":
+          if (mfRef.current) {
+            if (action.direction === "LEFT") {
+              mfRef.current.executeCommand("moveToPreviousChar");
+            } else if (action.direction === "RIGHT") {
+              mfRef.current.executeCommand("moveToNextChar");
+            } else if (action.direction === "UP") {
+              const curVal = mfRef.current.getValue("latex");
+              if (!curVal && state.history.length > 0) {
+                dispatch({ type: "NAVIGATE_HISTORY", direction: "UP" });
+              } else {
+                mfRef.current.executeCommand("moveUp");
+              }
+            } else if (action.direction === "DOWN") {
+              const curVal = mfRef.current.getValue("latex");
+              if (!curVal && state.history.length > 0) {
+                dispatch({ type: "NAVIGATE_HISTORY", direction: "DOWN" });
+              } else {
+                mfRef.current.executeCommand("moveDown");
+              }
+            }
+            focusMathField();
+          }
+          break;
+
+        case "DELETE":
+          if (mfRef.current) {
+            mfRef.current.executeCommand("deleteBackward");
+            dispatch({ type: "SET_EXPRESSION", expression: mfRef.current.getValue("latex") });
+            focusMathField();
+          }
+          break;
+
+        case "CLEAR":
+          if (mfRef.current) {
+            mfRef.current.value = "";
+          }
+          dispatch({ type: "CLEAR" });
+          focusMathField();
+          break;
+
+        case "EXECUTE":
+          handleEvaluate();
+          break;
+
+        case "TOGGLE_SHIFT":
+          dispatch({ type: "TOGGLE_SHIFT" });
+          break;
+
+        case "TOGGLE_ALPHA":
+          dispatch({ type: "TOGGLE_ALPHA" });
+          break;
+
+        case "TOGGLE_SD":
+          dispatch({ type: "TOGGLE_SD" });
+          break;
+
+        case "STO":
+          dispatch({ type: "SET_STO", active: !state.stoActive });
+          break;
+
+        case "RCL":
+          dispatch({ type: "SET_RCL", active: !state.rclActive });
+          break;
+
+        case "M_PLUS": {
+          const val = parseFloat(state.decimalResult || state.result || "0");
+          dispatch({ type: "ADD_MEMORY_M", delta: isNaN(val) ? 0 : val });
+          break;
+        }
+
+        case "M_MINUS": {
+          const val = parseFloat(state.decimalResult || state.result || "0");
+          dispatch({ type: "ADD_MEMORY_M", delta: isNaN(val) ? 0 : -val });
+          break;
+        }
+
+        case "CALC":
+          handleCalc();
+          break;
+
+        case "SOLVE":
+          handleSolve();
+          break;
+
+        case "OPEN_MENU":
+          dispatch({ type: "OPEN_MENU" });
+          break;
+
+        case "OPEN_SETUP":
+          dispatch({ type: "OPEN_SETUP" });
+          break;
+
+        case "OPEN_OPTN":
+          dispatch({ type: "OPEN_OPTN" });
+          break;
+
+        case "CLOSE_MENU":
+          dispatch({ type: "CLOSE_MENU" });
+          focusMathField();
+          break;
+
+        case "UNDO":
+          if (state.undoStack.length > 0) {
+            dispatch({ type: "UNDO" });
+          } else if (mfRef.current) {
+            mfRef.current.executeCommand("undo");
+          }
+          break;
+
+        case "SET_BASE_N_MODE":
+          dispatch({ type: "SET_BASE_N_MODE", mode: action.mode });
+          break;
+
+        case "ENG":
+          // Engineering notation shift
+          break;
+
+        default:
+          break;
+      }
+    },
+    [state, focusMathField, handleEvaluate, handleSolve, handleCalc]
+  );
+
+  // Sync state.expression when history navigation updates it
+  useEffect(() => {
+    if (mfRef.current && state.expression !== undefined && state.historyIndex >= 0) {
+      mfRef.current.value = state.expression;
+    }
+  }, [state.expression, state.historyIndex]);
+
+  // Global PC Keyboard Shortcuts Listener
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't intercept if focus is inside an input or textarea outside this calculator
+      const activeEl = document.activeElement;
+      if (
+        activeEl &&
+        (activeEl.tagName === "INPUT" || activeEl.tagName === "TEXTAREA") &&
+        !calculatorContainerRef.current?.contains(activeEl)
+      ) {
         return;
       }
 
-      const expr = ceRef.current.parse(latexVal);
-      const evaled = expr.evaluate();
-
-      let resText = "";
-      if (isDec) {
-        const numVal = evaled.N();
-        resText = numVal.latex || (numVal.value !== undefined ? String(numVal.value) : "0");
-      } else {
-        resText = evaled.latex || (evaled.value !== undefined ? String(evaled.value) : "0");
-      }
-
-      if (resText === "NaN" || resText === "Undefined") {
-        setResult("Math ERROR");
-      } else {
-        setResult(resText);
-      }
-    } catch (e) {
-      setResult("Math ERROR");
-    }
-  };
-
-  const handleSolveEquation = () => {
-    try {
-      if (eqnType === "deg2") {
-        const a = parseFloat(eqnCoeffs.a);
-        const b = parseFloat(eqnCoeffs.b);
-        const c = parseFloat(eqnCoeffs.c);
-        if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
-          setEqnResult(["Hệ số không hợp lệ (a ≠ 0)"]);
+      if (state.screenState === "MENU") {
+        if (e.key === "1" || e.key === "2" || e.key === "3" || e.key === "4") {
+          e.preventDefault();
+          handleAction({ type: "DIGIT", value: e.key });
           return;
         }
-        const delta = b * b - 4 * a * c;
-        if (delta > 0) {
-          const x1 = (-b + Math.sqrt(delta)) / (2 * a);
-          const x2 = (-b - Math.sqrt(delta)) / (2 * a);
-          setEqnResult([`x_1 = ${x1.toFixed(4)}`, `x_2 = ${x2.toFixed(4)}`, `\\Delta = ${delta}`]);
-        } else if (delta === 0) {
-          const x = -b / (2 * a);
-          setEqnResult([`x_1 = x_2 = ${x.toFixed(4)}`, `\\Delta = 0`]);
+      }
+
+      if (e.key === "Enter" || e.key === "=") {
+        e.preventDefault();
+        handleAction({ type: "EXECUTE" });
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        if (state.screenState !== "MAIN" && state.screenState !== "CALCULATE") {
+          dispatch({ type: "CLOSE_MENU" });
+          focusMathField();
         } else {
-          const real = (-b / (2 * a)).toFixed(3);
-          const imag = (Math.sqrt(-delta) / (2 * a)).toFixed(3);
-          setEqnResult([`x_1 = ${real} + ${imag}i`, `x_2 = ${real} - ${imag}i`, `\\Delta = ${delta} < 0`]);
+          handleAction({ type: "CLEAR" });
         }
-      } else if (eqnType === "sys2") {
-        const a1 = parseFloat(eqnCoeffs.a1), b1 = parseFloat(eqnCoeffs.b1), c1 = parseFloat(eqnCoeffs.c1);
-        const a2 = parseFloat(eqnCoeffs.a2), b2 = parseFloat(eqnCoeffs.b2), c2 = parseFloat(eqnCoeffs.c2);
-        const D = a1 * b2 - a2 * b1;
-        const Dx = c1 * b2 - c2 * b1;
-        const Dy = a1 * c2 - a2 * c1;
-        if (D === 0) {
-          setEqnResult(Dx === 0 && Dy === 0 ? ["Hệ vô số nghiệm"] : ["Hệ vô nghiệm"]);
-        } else {
-          setEqnResult([`x = ${(Dx / D).toFixed(4)}`, `y = ${(Dy / D).toFixed(4)}`]);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        handleAction({ type: "MOVE_CURSOR", direction: "UP" });
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        handleAction({ type: "MOVE_CURSOR", direction: "DOWN" });
+      } else if (e.key === "ArrowLeft") {
+        if (state.screenState === "MENU") {
+          e.preventDefault();
+          handleAction({ type: "MOVE_CURSOR", direction: "LEFT" });
+        }
+      } else if (e.key === "ArrowRight") {
+        if (state.screenState === "MENU") {
+          e.preventDefault();
+          handleAction({ type: "MOVE_CURSOR", direction: "RIGHT" });
         }
       }
-    } catch {
-      setEqnResult(["Lỗi tính toán"]);
-    }
-  };
+    };
 
-  const handleClear = () => {
-    if (mfRef.current) mfRef.current.value = "";
-    setResult("");
-  };
-
-  const handleDelete = () => handleCommand("deleteBackward");
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, state.screenState, handleAction, focusMathField]);
 
   if (!isOpen) return null;
 
-  // Render floating collapsed widget if minimized
+  // Minimized Floating Widget
   if (isMinimized) {
     return (
       <div
@@ -204,10 +543,11 @@ export default function CasioEmulator({ isOpen, onClose, onSendToScratchpad }: P
 
   return (
     <div
+      ref={calculatorContainerRef}
       style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
-      className="fixed z-[60] w-[350px] shadow-2xl rounded-3xl border border-slate-700 bg-[#1e1f22] flex flex-col overflow-hidden text-slate-100 select-none animate-in fade-in zoom-in-95 duration-150"
+      className="dk-casio-container fixed z-[60] w-[350px] max-w-[96vw] shadow-2xl rounded-3xl border border-slate-700 bg-[#1e1f22] flex flex-col overflow-hidden text-slate-100 select-none animate-in fade-in zoom-in-95 duration-150"
     >
-      {/* Title / Drag Bar */}
+      {/* 1. Emulator Header / Drag Bar */}
       <div
         className="h-10 bg-[#141517] border-b border-[#2a2b30] flex items-center justify-between px-3.5 cursor-grab active:cursor-grabbing text-neutral-400 select-none"
         onPointerDown={onPointerDown}
@@ -217,19 +557,19 @@ export default function CasioEmulator({ isOpen, onClose, onSendToScratchpad }: P
         <div className="flex items-center gap-2">
           <Move className="w-3.5 h-3.5 text-blue-400" />
           <span className="text-xs font-black tracking-widest text-[#d1d5db]">CASIO fx-580VN X</span>
-          <span className="text-[10px] bg-blue-900/60 text-blue-300 font-bold px-1.5 py-0.2 rounded border border-blue-700/50">
-            {activeMode}
+          <span className="text-[9.5px] bg-blue-900/60 text-blue-300 font-bold px-1.5 py-0.2 rounded border border-blue-700/50">
+            {state.currentMode}
           </span>
         </div>
 
         <div className="flex items-center gap-1.5">
           <button
             type="button"
-            onClick={() => setShowMenu(!showMenu)}
-            className={`p-1.5 rounded-lg text-xs font-bold transition-colors ${
-              showMenu ? "bg-amber-500 text-slate-900" : "hover:text-white hover:bg-slate-800"
+            onClick={() => dispatch({ type: state.screenState === "MAIN" ? "OPEN_MENU" : "CLOSE_MENU" })}
+            className={`p-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+              state.screenState !== "MAIN" ? "bg-amber-500 text-slate-900" : "hover:text-white hover:bg-slate-800"
             }`}
-            title="Menu chức năng"
+            title="Menu chức năng (MENU)"
           >
             <Grid className="w-3.5 h-3.5" />
           </button>
@@ -252,396 +592,30 @@ export default function CasioEmulator({ isOpen, onClose, onSendToScratchpad }: P
         </div>
       </div>
 
-      {/* Main Body */}
-      <div className="p-3.5 flex flex-col gap-3 bg-[#1e1f22]">
-        {/* CASIO LCD SCREEN */}
-        <div className="bg-[#9ba699] rounded-xl p-2.5 border-[3px] border-[#0a0a0a] shadow-inner flex flex-col h-[115px] font-mono relative overflow-hidden">
-          {/* Status Header */}
-          <div className="flex justify-between text-[10px] text-[#222] font-black h-4 select-none">
-            <div className="flex items-center gap-1.5">
-              {isShift && <span className="bg-[#222] text-[#ffb84d] px-1 rounded text-[9px]">S</span>}
-              {isAlpha && <span className="bg-[#222] text-[#ff4d4d] px-1 rounded text-[9px]">A</span>}
-              <span className="text-[9px]">{activeMode}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[9px]">
-              <span>D</span>
-              <span>MATH</span>
-            </div>
-          </div>
+      {/* 2. Main Body: LCD Screen + Keypad */}
+      <div className="p-3 flex flex-col gap-2 bg-[#1e1f22]">
+        {/* LCD Screen with Integrated Menu Overlay */}
+        <CalculatorLCD
+          state={state}
+          dispatch={dispatch}
+          mfRef={mfRef}
+          onSendToScratchpad={onSendToScratchpad}
+          onCloseMenu={() => {
+            dispatch({ type: "CLOSE_MENU" });
+            focusMathField();
+          }}
+          onExpressionChange={(val) => dispatch({ type: "SET_EXPRESSION", expression: val })}
+          onInsertText={handleInsertText}
+        />
 
-          {/* Math Expression Field */}
-          <div className="flex-1 overflow-x-auto flex items-center w-full min-h-[36px]" style={{ fontSize: "1.4rem" }}>
-            {React.createElement("math-field", {
-              ref: mfRef,
-              style: {
-                width: "100%",
-                backgroundColor: "transparent",
-                color: "#111",
-                border: "none",
-                outline: "none",
-                fontFamily: "monospace",
-                fontWeight: "600",
-              },
-            })}
-          </div>
-
-          {/* Evaluation Result Area */}
-          <div className="h-7 text-right text-[#111] text-lg font-black font-mono tracking-tighter truncate mt-0.5 border-t border-[#879285] pt-0.5">
-            {result && (
-              <div
-                onClick={() => {
-                  if (onSendToScratchpad && result && result !== "Math ERROR") {
-                    onSendToScratchpad(result);
-                  }
-                }}
-                className="w-full text-right cursor-pointer hover:bg-[#8e9a8c] rounded px-1 transition-colors flex items-center justify-end"
-                title="Bấm để dán kết quả vào nháp"
-              >
-                {React.createElement("math-field", {
-                  "read-only": true,
-                  style: {
-                    textAlign: "right",
-                    backgroundColor: "transparent",
-                    color: "#000",
-                    border: "none",
-                    outline: "none",
-                    pointerEvents: "none",
-                    fontWeight: "bold",
-                  },
-                  value: result,
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* FUNCTION MODE MENU OVERLAY */}
-        {showMenu && (
-          <div className="bg-[#2a2b30] border border-[#404148] rounded-2xl p-3 space-y-2 animate-in fade-in zoom-in-95 duration-100">
-            <div className="flex items-center justify-between text-xs font-bold text-slate-300 pb-1 border-b border-slate-700">
-              <span className="text-amber-400 font-extrabold uppercase">MENU CHỨC NĂNG (MODE)</span>
-              <button
-                type="button"
-                onClick={() => setShowMenu(false)}
-                className="text-[11px] text-slate-400 hover:text-white"
-              >
-                Đóng
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-1.5 text-xs">
-              {[
-                { key: "1", mode: "COMP" as CasioMode, label: "1: Tính toán cơ bản" },
-                { key: "2", mode: "CMPLX" as CasioMode, label: "2: Số phức (CMPLX)" },
-                { key: "3", mode: "TABLE" as CasioMode, label: "3: Bảng giá trị f(x)" },
-                { key: "4", mode: "EQN" as CasioMode, label: "4: PT / Hệ phương trình" },
-                { key: "5", mode: "INEQ" as CasioMode, label: "5: Bất phương trình" },
-                { key: "6", mode: "STAT" as CasioMode, label: "6: Thống kê 1 biến" },
-              ].map((item) => (
-                <button
-                  key={item.mode}
-                  type="button"
-                  onClick={() => {
-                    setActiveMode(item.mode);
-                    setShowMenu(false);
-                    if (item.mode === "EQN") {
-                      setEqnType("deg2");
-                    }
-                  }}
-                  className={`p-2 rounded-xl text-left font-bold transition-all border ${
-                    activeMode === item.mode
-                      ? "bg-blue-600 text-white border-blue-400 shadow-xs"
-                      : "bg-[#1f2024] text-slate-300 border-slate-700 hover:bg-slate-700"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* EQUATION SOLVER MODAL IF MODE = EQN */}
-        {activeMode === "EQN" && eqnType && (
-          <div className="bg-[#25262b] border border-blue-500/50 rounded-2xl p-3 space-y-2.5">
-            <div className="flex items-center justify-between text-xs font-bold text-blue-300">
-              <span>Giải PT Bậc 2: ax² + bx + c = 0</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveMode("COMP");
-                  setEqnType(null);
-                }}
-                className="text-slate-400 hover:text-white text-[11px]"
-              >
-                Về COMP
-              </button>
-            </div>
-
-            <div className="grid grid-cols-3 gap-2">
-              <div>
-                <label className="text-[10px] text-slate-400 block font-bold">a =</label>
-                <input
-                  type="text"
-                  value={eqnCoeffs.a}
-                  onChange={(e) => setEqnCoeffs({ ...eqnCoeffs, a: e.target.value })}
-                  className="w-full bg-[#141517] border border-slate-700 rounded-lg p-1.5 text-xs text-center font-mono font-bold text-white"
-                />
-              </div>
-              <div>
-                <label className="text-[10px] text-slate-400 block font-bold">b =</label>
-                <input
-                  type="text"
-                  value={eqnCoeffs.b}
-                  onChange={(e) => setEqnCoeffs({ ...eqnCoeffs, b: e.target.value })}
-                  className="w-full bg-[#141517] border border-slate-700 rounded-lg p-1.5 text-xs text-center font-mono font-bold text-white"
-                />
-              </div>
-              <div>
-                <label className="text-[10px] text-slate-400 block font-bold">c =</label>
-                <input
-                  type="text"
-                  value={eqnCoeffs.c}
-                  onChange={(e) => setEqnCoeffs({ ...eqnCoeffs, c: e.target.value })}
-                  className="w-full bg-[#141517] border border-slate-700 rounded-lg p-1.5 text-xs text-center font-mono font-bold text-white"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-2 pt-1">
-              <button
-                type="button"
-                onClick={handleSolveEquation}
-                className="flex-1 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
-              >
-                Giải nghiệm =
-              </button>
-            </div>
-
-            {eqnResult && (
-              <div className="p-2 bg-[#1a1b1e] rounded-xl border border-slate-700 text-xs font-mono space-y-1 text-emerald-400 font-bold">
-                {eqnResult.map((res, i) => (
-                  <div key={i}>{res}</div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* CASIO HARDWARE KEYPAD */}
-        <div className="flex flex-col gap-2">
-          {/* Top Control Cluster */}
-          <div className="flex justify-between items-start px-0.5">
-            <button
-              type="button"
-              onClick={() => {
-                setIsShift(!isShift);
-                setIsAlpha(false);
-              }}
-              className={`w-[44px] h-7 rounded-[50%] bg-[#3a3b40] text-[#ffb84d] text-[10px] font-black border-b-2 transition-all ${
-                isShift ? "border-[#111] bg-amber-900/50 translate-y-0.5" : "border-[#111]"
-              }`}
-            >
-              SHIFT
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setIsAlpha(!isAlpha);
-                setIsShift(false);
-              }}
-              className={`w-[44px] h-7 rounded-[50%] bg-[#3a3b40] text-[#ff4d4d] text-[10px] font-black border-b-2 transition-all ${
-                isAlpha ? "border-[#111] bg-red-900/50 translate-y-0.5" : "border-[#111]"
-              }`}
-            >
-              ALPHA
-            </button>
-
-            {/* D-Pad Navigational Disc */}
-            <div className="w-18 h-18 bg-[#323338] rounded-full border-2 border-[#111] relative shadow-md flex items-center justify-center">
-              <button
-                type="button"
-                onClick={() => handleCommand("moveToPreviousChar")}
-                className="absolute left-0.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full hover:bg-slate-600/50 flex items-center justify-center text-[10px] font-bold text-slate-300"
-                title="Sang trái"
-              >
-                ◀
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCommand("moveToNextChar")}
-                className="absolute right-0.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full hover:bg-slate-600/50 flex items-center justify-center text-[10px] font-bold text-slate-300"
-                title="Sang phải"
-              >
-                ▶
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCommand("moveToPreviousPlaceholder")}
-                className="absolute top-0.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full hover:bg-slate-600/50 flex items-center justify-center text-[10px] font-bold text-slate-300"
-                title="Lên trên / Tử số"
-              >
-                ▲
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCommand("moveToNextPlaceholder")}
-                className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full hover:bg-slate-600/50 flex items-center justify-center text-[10px] font-bold text-slate-300"
-                title="Xuống dưới / Mẫu số"
-              >
-                ▼
-              </button>
-              <div className="w-7 h-7 rounded-full border border-[#222] bg-[#222327] pointer-events-none" />
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setShowMenu(!showMenu)}
-              className="w-[44px] h-7 rounded-[50%] bg-[#3a3b40] text-white text-[10px] font-bold border-b-2 border-[#111] hover:bg-slate-600"
-            >
-              MENU
-            </button>
-
-            <button
-              type="button"
-              onClick={handleClear}
-              className="w-[44px] h-7 rounded-[50%] bg-[#3a3b40] text-white text-[10px] font-bold border-b-2 border-[#111] hover:bg-slate-600"
-            >
-              ON
-            </button>
-          </div>
-
-          {/* Scientific Operations Grid (Row 1-3) */}
-          <div className="grid grid-cols-6 gap-1.5">
-            <CalcBtn label="OPTN" onClick={() => insert("x")} />
-            <CalcBtn label="CALC" shift="SOLVE" shiftColor="#ffb84d" onShift={() => handleCalculate(false)} onClick={() => insert("x")} />
-            <CalcBtn label="∫□" onClick={() => insert("\\int_{}^{}")} />
-            <CalcBtn label="d/dx" onClick={() => insert("\\frac{d}{dx}\\left(\\right)")} />
-            <CalcBtn label="x⁻¹" onClick={() => insert("^{-1}")} />
-            <CalcBtn label="log" shift="10ˣ" onShift={() => insert("10^{}")} onClick={() => insert("\\log_{}(")} />
-
-            <CalcBtn label="a/b" onClick={() => insert("\\frac{}{}")} />
-            <CalcBtn label="√□" shift="³√□" shiftColor="#ffb84d" onShift={() => insert("\\sqrt[3]{}")} onClick={() => insert("\\sqrt{}")} />
-            <CalcBtn label="x²" onClick={() => insert("^2")} />
-            <CalcBtn label="x^□" onClick={() => insert("^{}")} />
-            <CalcBtn label="log" onClick={() => insert("\\log(")} />
-            <CalcBtn label="ln" shift="eˣ" onShift={() => insert("e^{}")} onClick={() => insert("\\ln(")} />
-
-            <CalcBtn label="(-)" onClick={() => insert("-")} />
-            <CalcBtn label={'° \' "'} onClick={() => insert("^{\\circ}")} />
-            <CalcBtn label="S⇔D" onClick={() => handleCalculate(true)} />
-            <CalcBtn label="sin" shift="sin⁻¹" onShift={() => insert("\\arcsin(")} onClick={() => insert("\\sin(")} />
-            <CalcBtn label="cos" shift="cos⁻¹" onShift={() => insert("\\arccos(")} onClick={() => insert("\\cos(")} />
-            <CalcBtn label="tan" shift="tan⁻¹" onShift={() => insert("\\arctan(")} onClick={() => insert("\\tan(")} />
-          </div>
-
-          {/* Keypad Digits & Operators */}
-          <div className="grid grid-cols-5 gap-1.5 mt-1">
-            <div className="col-span-3 grid grid-cols-3 gap-1.5">
-              {["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", ".", "×10ˣ"].map((btn) => (
-                <button
-                  key={btn}
-                  type="button"
-                  onClick={() => (btn === "×10ˣ" ? insert("\\cdot 10^{}") : insert(btn))}
-                  className="bg-[#d4d4d6] text-black h-9 rounded-lg font-bold text-base border-b-[3px] border-[#9ca3af] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-white transition-all cursor-pointer"
-                >
-                  {btn}
-                </button>
-              ))}
-            </div>
-
-            <div className="col-span-2 grid grid-cols-2 gap-1.5">
-              <button
-                type="button"
-                onClick={handleDelete}
-                className="bg-[#e11d48] text-white h-9 rounded-lg font-bold text-xs border-b-[3px] border-[#9f1239] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-[#f43f5e] transition-all cursor-pointer"
-              >
-                DEL
-              </button>
-              <button
-                type="button"
-                onClick={handleClear}
-                className="bg-[#e11d48] text-white h-9 rounded-lg font-bold text-xs border-b-[3px] border-[#9f1239] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-[#f43f5e] transition-all cursor-pointer"
-              >
-                AC
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insert("\\times")}
-                className="bg-[#3a3b40] text-white h-9 rounded-lg font-bold text-base border-b-[3px] border-[#18181b] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-slate-600 transition-all cursor-pointer"
-              >
-                ×
-              </button>
-              <button
-                type="button"
-                onClick={() => insert("\\div")}
-                className="bg-[#3a3b40] text-white h-9 rounded-lg font-bold text-base border-b-[3px] border-[#18181b] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-slate-600 transition-all cursor-pointer"
-              >
-                ÷
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insert("+")}
-                className="bg-[#3a3b40] text-white h-9 rounded-lg font-bold text-base border-b-[3px] border-[#18181b] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-slate-600 transition-all cursor-pointer"
-              >
-                +
-              </button>
-              <button
-                type="button"
-                onClick={() => insert("-")}
-                className="bg-[#3a3b40] text-white h-9 rounded-lg font-bold text-base border-b-[3px] border-[#18181b] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-slate-600 transition-all cursor-pointer"
-              >
-                −
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insert("Ans")}
-                className="bg-[#d4d4d6] text-black h-9 rounded-lg font-bold text-xs border-b-[3px] border-[#9ca3af] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-white transition-all cursor-pointer"
-              >
-                Ans
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCalculate(false)}
-                className="bg-[#2563eb] text-white h-9 rounded-lg font-black text-xl border-b-[3px] border-[#1d4ed8] active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-blue-500 transition-all cursor-pointer"
-              >
-                =
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* Hardware Keypad */}
+        <CalculatorKeypad
+          isShift={state.shiftActive}
+          isAlpha={state.alphaActive}
+          currentMode={state.currentMode}
+          onAction={handleAction}
+        />
       </div>
     </div>
   );
-
-  function CalcBtn({ label, shift, shiftColor, onShift, onClick }: any) {
-    return (
-      <button
-        type="button"
-        onClick={() => {
-          if (isShift && onShift) {
-            onShift();
-            setIsShift(false);
-          } else if (onClick) {
-            onClick();
-          }
-        }}
-        className="bg-[#2a2b30] text-white h-[32px] rounded-lg border-b-2 border-[#111] flex flex-col items-center justify-center relative active:border-b-0 active:translate-y-[2px] shadow-xs hover:bg-slate-700 transition-all cursor-pointer"
-      >
-        {shift && (
-          <span
-            className="absolute -top-2.5 text-[8px] font-black"
-            style={{ color: shiftColor || "#ffb84d" }}
-          >
-            {shift}
-          </span>
-        )}
-        <span className="text-[10px] font-bold">{label}</span>
-      </button>
-    );
-  }
 }

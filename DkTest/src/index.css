@@ -306,3 +306,25 @@
   color: #4f46e5;
   user-select: none;
 }
+
+/* =========================================================
+   CASIO FX-580VN X SCOPED EMULATOR STYLES
+   ========================================================= */
+.dk-casio-container math-field {
+  --caret-color: #111;
+  --selection-background-color: rgba(0, 0, 0, 0.2);
+  --selection-color: #111;
+  --contains-highlight-backround-color: transparent;
+}
+
+.dk-casio-container math-field:focus,
+.dk-casio-container math-field:focus-within {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dk-casio-container math-field::part(virtual-keyboard-toggle),
+.dk-casio-container math-field::part(menu-toggle) {
+  display: none !important;
+}
