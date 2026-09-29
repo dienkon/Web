@@ -4,6 +4,8 @@ import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Submission } from "../../types";
 import { formatDate } from "../../utils/date";
+import UserAvatar from "../common/UserAvatar";
+import { fetchUserAvatar } from "../../utils/avatarSync";
 
 export interface StudentPublicData {
   displayName: string;
@@ -21,6 +23,7 @@ interface Props {
 
 export default function PublicStudentProfileModal({ isOpen, onClose, student }: Props) {
   const [loading, setLoading] = useState(false);
+  const [avatar, setAvatar] = useState(student?.avatarUrl || "");
   const [stats, setStats] = useState({
     totalExams: 0,
     highestScore: 0,
@@ -31,6 +34,13 @@ export default function PublicStudentProfileModal({ isOpen, onClose, student }: 
 
   useEffect(() => {
     if (!isOpen || !student) return;
+
+    setAvatar(student.avatarUrl || "");
+    if (!student.avatarUrl && (student.username || student.displayName)) {
+      fetchUserAvatar(student.username || student.displayName).then((avt) => {
+        if (avt) setAvatar(avt);
+      });
+    }
 
     const fetchPublicStats = async () => {
       setLoading(true);
@@ -119,13 +129,13 @@ export default function PublicStudentProfileModal({ isOpen, onClose, student }: 
           <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none" />
           
           <div className="flex flex-col items-center text-center space-y-3 relative z-10">
-            <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md border-2 border-white/40 shadow-lg overflow-hidden flex items-center justify-center text-2xl font-extrabold uppercase">
-              {student.avatarUrl ? (
-                <img src={student.avatarUrl} alt={displayName} className="w-full h-full object-cover" />
-              ) : (
-                displayName.charAt(0)
-              )}
-            </div>
+            <UserAvatar
+              src={avatar}
+              name={displayName}
+              size="2xl"
+              shape="rounded"
+              className="w-20 h-20 shadow-lg border-2 border-white/40"
+            />
 
             <div>
               <h3 className="text-xl font-extrabold tracking-tight">{displayName}</h3>

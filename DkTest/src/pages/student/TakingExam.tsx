@@ -35,6 +35,7 @@ import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExam
 import { organizeAndShuffleExam } from "../../utils/examShuffler";
 import { saveStudentProfile } from "../../services/studentService";
 import { recordQuestionMastery } from "../../services/reviewMasteryService";
+import { getCachedAvatar } from "../../utils/avatarSync";
 import {
   syncRealtimeSession,
   updateRealtimeSessionMetrics,
@@ -1250,12 +1251,17 @@ export default function TakingExam() {
       const studentInfoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
       let studentUsername = "student";
       let studentClassSnapshot = "Học sinh";
+      let studentAvatarSnapshot = "";
       if (studentInfoStr) {
         try {
           const parsed = JSON.parse(studentInfoStr);
           if (parsed.username) studentUsername = parsed.username;
           if (parsed.studentClass || parsed.class) studentClassSnapshot = parsed.studentClass || parsed.class;
+          if (parsed.avatarUrl || parsed.photoURL) studentAvatarSnapshot = parsed.avatarUrl || parsed.photoURL;
         } catch (e) {}
+      }
+      if (!studentAvatarSnapshot && studentUsername) {
+        studentAvatarSnapshot = getCachedAvatar(studentUsername) || "";
       }
 
       // Unique attempt & submission ID tied strictly to this attempt
@@ -1287,6 +1293,7 @@ export default function TakingExam() {
           studentNameSnapshot: studentName,
           studentUsername,
           studentClassSnapshot,
+          avatarUrl: studentAvatarSnapshot,
           score,
           maxScore,
           correctCount,

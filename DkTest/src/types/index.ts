@@ -307,6 +307,8 @@ export interface Submission {
   studentNameSnapshot: string;
   studentUsername?: string;
   studentClassSnapshot?: string;
+  avatarUrl?: string;
+  studentAvatarSnapshot?: string;
   score: number;
   maxScore: number;
   correctCount: number;

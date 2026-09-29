@@ -125,7 +125,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         username: profile.username || (profile.email ? profile.email.split("@")[0] : profile.uid),
         displayName: profile.displayName || "Học sinh",
         studentClass: profile.studentClass || "",
-        avatarUrl: profile.photoURL || "",
+        avatarUrl: profile.photoURL || (profile as any).avatarUrl || "",
+        photoURL: profile.photoURL || (profile as any).avatarUrl || "",
         uid: profile.uid,
         email: profile.email,
       };

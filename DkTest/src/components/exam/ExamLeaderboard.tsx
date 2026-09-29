@@ -16,6 +16,9 @@ import { FirestoreRepository } from "../../services/firebase/firestoreRepository
 // so we don't have to rewrite the entire UI.
 import type { Submission } from "../../types"; 
 import PublicStudentProfileModal, { StudentPublicData } from "../student/PublicStudentProfileModal";
+import UserAvatar, { type AvatarRing } from "../common/UserAvatar";
+import { hydrateAvatarsForUsers, subscribeToAvatarUpdates } from "../../utils/avatarSync";
+import { useAuth } from "../../context/AuthContext";
 
 interface ExamLeaderboardProps {
   examId: string;
@@ -30,10 +33,27 @@ export default function ExamLeaderboard({
   className = "",
   maxItems = 10,
 }: ExamLeaderboardProps) {
+  const { userProfile, user } = useAuth();
   const [submissions, setSubmissions] = useState<any[]>([]);
+  const [avatarMap, setAvatarMap] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [selectedStudent, setSelectedStudent] = useState<StudentPublicData | null>(null);
   const [displayLimit, setDisplayLimit] = useState(maxItems);
+
+  // Subscribe to real-time avatar updates from student profile changes
+  useEffect(() => {
+    const unsub = subscribeToAvatarUpdates(({ avatarUrl, username, uid }) => {
+      if (avatarUrl) {
+        setAvatarMap((prev) => {
+          const next = { ...prev };
+          if (username) next[username.toLowerCase()] = avatarUrl;
+          if (uid) next[uid] = avatarUrl;
+          return next;
+        });
+      }
+    });
+    return unsub;
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -56,12 +76,22 @@ export default function ExamLeaderboard({
             studentNameSnapshot: entry.name,
             score: entry.score,
             timeSpent: entry.time,
-            submittedAt: entry.submittedAt, // can be passed through if available
+            submittedAt: entry.submittedAt,
             maxScore: entry.maxScore || 10,
             studentClassSnapshot: entry.className,
+            avatarUrl: entry.avatarUrl || "",
           }));
           
           setSubmissions(mappedSubmissions);
+
+          // Hydrate / resolve avatars for top participants in background
+          hydrateAvatarsForUsers(
+            top.map((e: any) => ({ userId: e.userId, avatarUrl: e.avatarUrl }))
+          ).then((resolved) => {
+            if (isMounted) {
+              setAvatarMap((prev) => ({ ...prev, ...resolved }));
+            }
+          });
         } else {
           setSubmissions([]);
         }
@@ -153,7 +183,9 @@ export default function ExamLeaderboard({
             <tbody className="divide-y divide-slate-100">
               {submissions.slice(0, displayLimit).map((sub, idx) => {
                 const rank = idx + 1;
-                const isCurrent = sub.id === currentSubmissionId;
+                const isCurrent = sub.id === currentSubmissionId ||
+                  (userProfile?.username && userProfile.username.toLowerCase() === sub.studentUsername?.toLowerCase()) ||
+                  (user?.uid && user.uid === sub.studentUsername);
 
                 let rankBadge = (
                   <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-600 font-mono font-bold flex items-center justify-center text-xs mx-auto">
@@ -185,6 +217,26 @@ export default function ExamLeaderboard({
                   );
                 }
 
+                // Priority for avatar:
+                // 1. Current user active avatar if this row belongs to current user
+                // 2. Hydrated avatar from avatarMap
+                // 3. Stored avatarUrl in submission/leaderboard entry
+                const isUserRow =
+                  (userProfile?.username && userProfile.username.toLowerCase() === sub.studentUsername?.toLowerCase()) ||
+                  (user?.uid && user.uid === sub.studentUsername);
+
+                const effectiveAvatar =
+                  (isUserRow && userProfile?.photoURL ? userProfile.photoURL : "") ||
+                  avatarMap[sub.studentUsername] ||
+                  avatarMap[sub.studentUsername?.toLowerCase()] ||
+                  sub.avatarUrl ||
+                  "";
+
+                let avatarRing: AvatarRing | undefined = undefined;
+                if (rank === 1) avatarRing = "gold";
+                else if (rank === 2) avatarRing = "silver";
+                else if (rank === 3) avatarRing = "bronze";
+
                 return (
                   <tr
                     key={sub.id}
@@ -194,7 +246,7 @@ export default function ExamLeaderboard({
                   >
                     <td className="py-2.5 px-3 text-center">{rankBadge}</td>
                     <td className="py-2.5 px-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2.5">
                         <button
                           type="button"
                           onClick={() =>
@@ -202,21 +254,41 @@ export default function ExamLeaderboard({
                               displayName: sub.studentNameSnapshot || "Thí sinh tự do",
                               username: sub.studentUsername,
                               studentClass: sub.studentClassSnapshot,
+                              avatarUrl: effectiveAvatar,
                             })
                           }
-                          className={`font-bold hover:underline cursor-pointer text-left ${
-                            isCurrent ? "text-blue-700" : "text-slate-800 hover:text-blue-600"
-                          }`}
+                          className="cursor-pointer group flex items-center gap-2.5 text-left"
+                          title="Xem thông tin thí sinh"
                         >
-                          {sub.studentNameSnapshot || "Thí sinh tự do"}
+                          <UserAvatar
+                            src={effectiveAvatar}
+                            name={sub.studentNameSnapshot || sub.studentUsername}
+                            size="sm"
+                            ring={avatarRing}
+                            className="transition-transform group-hover:scale-105"
+                          />
+                          <div>
+                            <div
+                              className={`font-bold flex items-center gap-1.5 ${
+                                isCurrent ? "text-blue-700" : "text-slate-800 group-hover:text-blue-600"
+                              }`}
+                            >
+                              <span>{sub.studentNameSnapshot || "Thí sinh tự do"}</span>
+                              {isCurrent && (
+                                <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-blue-600 text-white font-bold">
+                                  Bạn
+                                </span>
+                              )}
+                            </div>
+                            {sub.studentClassSnapshot && (
+                              <div className="text-[10px] text-slate-400 font-medium">
+                                {sub.studentClassSnapshot}
+                              </div>
+                            )}
+                          </div>
                         </button>
-                        {isCurrent && (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] bg-blue-600 text-white font-bold">
-                            Bạn
-                          </span>
-                        )}
                       </div>
-                      <div className="text-[11px] text-slate-400 font-medium sm:hidden">
+                      <div className="text-[11px] text-slate-400 font-medium sm:hidden mt-0.5">
                         ⏱️ {formatTime(sub.timeSpent)}
                       </div>
                     </td>

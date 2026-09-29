@@ -24,26 +24,48 @@ import BrandLogo from "./BrandLogo";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
+import UserAvatar from "../common/UserAvatar";
+import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
 
 export default function StudentLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { userProfile, role, logout } = useAuth();
   const [studentInfo, setStudentInfo] = useState<{ username?: string; displayName?: string; avatarUrl?: string } | null>(null);
+  const [liveAvatar, setLiveAvatar] = useState<string>("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
   // Synchronize active account: Prioritize Firebase Auth userProfile, fallback to localStorage
+  const effectiveAvatar = liveAvatar || userProfile?.photoURL || studentInfo?.avatarUrl || "";
+
   const currentAccount = userProfile
     ? {
         username: userProfile.username || userProfile.email?.split("@")[0] || "user",
         displayName: userProfile.displayName || userProfile.fullName || "Người dùng",
-        avatarUrl: userProfile.photoURL || "",
+        avatarUrl: effectiveAvatar,
         role: userProfile.role || role || "student",
       }
-    : studentInfo;
+    : (studentInfo
+        ? {
+            ...studentInfo,
+            avatarUrl: effectiveAvatar,
+            role: "student",
+          }
+        : null);
+
+  // Real-time listener for avatar changes across the application
+  useEffect(() => {
+    const unsub = subscribeToAvatarUpdates(({ avatarUrl }) => {
+      if (avatarUrl) {
+        setLiveAvatar(avatarUrl);
+        setStudentInfo((prev: any) => (prev ? { ...prev, avatarUrl } : prev));
+      }
+    });
+    return unsub;
+  }, []);
 
   useEffect(() => {
     setIsAdmin(isAdminAuthenticated());
@@ -190,17 +212,12 @@ export default function StudentLayout() {
                   className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60"
                   title="Chỉnh sửa hồ sơ cá nhân"
                 >
-                  {currentAccount.avatarUrl ? (
-                    <img
-                      src={currentAccount.avatarUrl}
-                      alt="Avatar"
-                      className="w-6 h-6 rounded-full object-cover border border-slate-300 shadow-2xs"
-                    />
-                  ) : (
-                    <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
-                      {(currentAccount.displayName || "S").charAt(0).toUpperCase()}
-                    </div>
-                  )}
+                  <UserAvatar
+                    src={currentAccount.avatarUrl}
+                    name={currentAccount.displayName || currentAccount.username}
+                    size="xs"
+                    shape="circle"
+                  />
                   <span className="text-xs font-bold text-slate-800 max-w-[90px] sm:max-w-[120px] truncate">
                     {currentAccount.displayName || "Học sinh"}
                   </span>
@@ -275,26 +292,25 @@ export default function StudentLayout() {
             </div>
 
             {/* Bottom Profile card */}
-            {studentInfo && (
+            {currentAccount && (
               <div className="mt-auto pt-4 border-t border-slate-100">
                 <Link
                   to="/student/profile"
-                  className={`p-2.5 bg-slate-50 hover:bg-slate-100 rounded-2xl flex items-center gap-3 transition-colors cursor-pointer border border-slate-200/50 ${
+                  className={`p-2 bg-slate-50 hover:bg-slate-100 rounded-2xl flex items-center gap-2.5 transition-colors cursor-pointer border border-slate-200/50 ${
                     isSidebarCollapsed ? "justify-center" : ""
                   }`}
                   title="Hồ sơ cá nhân"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold overflow-hidden shrink-0 shadow-2xs">
-                    {studentInfo.avatarUrl ? (
-                      <img src={studentInfo.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                    ) : (
-                      (studentInfo.displayName || "S").charAt(0).toUpperCase()
-                    )}
-                  </div>
+                  <UserAvatar
+                    src={currentAccount.avatarUrl}
+                    name={currentAccount.displayName || currentAccount.username}
+                    size="sm"
+                    shape="rounded"
+                  />
                   {!isSidebarCollapsed && (
                     <div className="truncate flex-1">
-                      <div className="text-xs font-bold text-slate-800 truncate">{studentInfo.displayName || "Thí sinh"}</div>
-                      <div className="text-[10px] text-slate-400 truncate">@{studentInfo.username || "student"}</div>
+                      <div className="text-xs font-bold text-slate-800 truncate">{currentAccount.displayName || "Thí sinh"}</div>
+                      <div className="text-[10px] text-slate-400 truncate">@{currentAccount.username || "student"}</div>
                     </div>
                   )}
                 </Link>
@@ -332,13 +348,12 @@ export default function StudentLayout() {
                   onClick={() => setIsMobileDrawerOpen(false)}
                   className="p-3 bg-slate-50 rounded-2xl flex items-center gap-3 border border-slate-200/70"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold overflow-hidden shrink-0 shadow-2xs">
-                    {currentAccount.avatarUrl ? (
-                      <img src={currentAccount.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                    ) : (
-                      (currentAccount.displayName || "S").charAt(0).toUpperCase()
-                    )}
-                  </div>
+                  <UserAvatar
+                    src={currentAccount.avatarUrl}
+                    name={currentAccount.displayName || currentAccount.username}
+                    size="md"
+                    shape="rounded"
+                  />
                   <div className="truncate flex-1">
                     <div className="text-sm font-bold text-slate-900 truncate">{currentAccount.displayName || "Thí sinh"}</div>
                     <div className="text-xs text-slate-500 truncate">@{currentAccount.username || "student"}</div>

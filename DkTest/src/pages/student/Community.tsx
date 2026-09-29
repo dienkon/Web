@@ -43,6 +43,8 @@ import { formatDate } from "../../utils/date";
 import PublicStudentProfileModal, { StudentPublicData } from "../../components/student/PublicStudentProfileModal";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import { uploadFileToCloudinary } from "../../services/cloudinary";
+import UserAvatar from "../../components/common/UserAvatar";
+import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export interface ReplyItem {
@@ -189,6 +191,15 @@ export default function Community() {
         }
       } catch (e) {}
     }
+
+    // Subscribe to real-time avatar changes
+    const unsubAvatar = subscribeToAvatarUpdates(({ avatarUrl }) => {
+      if (avatarUrl) {
+        setCurrentStudent((prev) => ({ ...prev, avatarUrl }));
+      }
+    });
+
+    return () => unsubAvatar();
   }, []);
 
   // Check URL search parameter for shared post popup
@@ -680,14 +691,15 @@ export default function Community() {
                   avatarUrl: post.authorAvatar,
                 })
               }
-              className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-700 font-extrabold flex items-center justify-center text-sm border border-blue-200 hover:ring-2 hover:ring-blue-400 transition-all cursor-pointer overflow-hidden shrink-0 shadow-2xs"
+              className="cursor-pointer transition-transform hover:scale-105 shrink-0"
               title="Xem hồ sơ thí sinh"
             >
-              {post.authorAvatar ? (
-                <img src={post.authorAvatar} alt={post.authorName} className="w-full h-full object-cover" />
-              ) : (
-                post.authorName.charAt(0).toUpperCase()
-              )}
+              <UserAvatar
+                src={post.authorAvatar}
+                name={post.authorName}
+                size="md"
+                shape="rounded"
+              />
             </button>
             <div>
               <button
@@ -874,13 +886,12 @@ export default function Community() {
                     <div key={cm.id} className="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs space-y-2">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[10px] overflow-hidden shrink-0 border border-slate-200">
-                            {cm.authorAvatar ? (
-                              <img src={cm.authorAvatar} alt="Avatar" className="w-full h-full object-cover" />
-                            ) : (
-                              cm.authorName.charAt(0).toUpperCase()
-                            )}
-                          </div>
+                          <UserAvatar
+                            src={cm.authorAvatar}
+                            name={cm.authorName}
+                            size="xs"
+                            shape="circle"
+                          />
                           <button
                             type="button"
                             onClick={() =>
@@ -1109,13 +1120,13 @@ export default function Community() {
               )}
 
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold hidden xs:flex items-center justify-center text-[11px] overflow-hidden shrink-0 border border-slate-200">
-                  {currentStudent.avatarUrl ? (
-                    <img src={currentStudent.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-                  ) : (
-                    currentStudent.displayName.charAt(0).toUpperCase()
-                  )}
-                </div>
+                <UserAvatar
+                  src={currentStudent.avatarUrl}
+                  name={currentStudent.displayName}
+                  size="xs"
+                  shape="circle"
+                  className="hidden xs:inline-flex shrink-0"
+                />
 
                 <input
                   type="text"
@@ -1219,13 +1230,13 @@ export default function Community() {
       {/* Post Creator Box */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200 shadow-xs space-y-3 sm:space-y-4">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-sm shadow-md shrink-0 overflow-hidden border border-blue-200">
-            {currentStudent.avatarUrl ? (
-              <img src={currentStudent.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-            ) : (
-              currentStudent.displayName.charAt(0).toUpperCase()
-            )}
-          </div>
+          <UserAvatar
+            src={currentStudent.avatarUrl}
+            name={currentStudent.displayName}
+            size="md"
+            shape="rounded"
+            className="shrink-0"
+          />
           <div className="flex-1 space-y-2">
             <textarea
               rows={3}

@@ -173,6 +173,7 @@ export const createSubmission = async (
         const newEntry = {
           userId: submissionData.studentUsername || submissionData.studentId || "unknown",
           name: submissionData.studentNameSnapshot || "Thí sinh",
+          avatarUrl: (submissionData as any).avatarUrl || (submissionData as any).studentAvatarSnapshot || "",
           score: submissionData.score || 0,
           maxScore: submissionData.maxScore || 10,
           time: submissionData.timeSpent || 0,
@@ -193,7 +194,12 @@ export const createSubmission = async (
         if (existingIdx >= 0) {
            const existing = top[existingIdx];
            if (newEntry.score > existing.score || (newEntry.score === existing.score && newEntry.time < existing.time)) {
-             top[existingIdx] = newEntry;
+             top[existingIdx] = {
+               ...newEntry,
+               avatarUrl: newEntry.avatarUrl || existing.avatarUrl || "",
+             };
+           } else if (newEntry.avatarUrl && !existing.avatarUrl) {
+             existing.avatarUrl = newEntry.avatarUrl;
            }
         } else {
            top.push(newEntry);

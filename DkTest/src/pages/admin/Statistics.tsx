@@ -23,6 +23,7 @@ import {
   ArrowLeft,
   Loader2,
 } from "lucide-react";
+import UserAvatar from "../../components/common/UserAvatar";
 import {
   collection,
   getDocs,
@@ -1559,7 +1560,15 @@ export default function Statistics() {
                               </span>
                             </td>
                             <td className="px-6 py-4 font-bold text-slate-900">
-                              {sub.studentNameSnapshot || "Học sinh"}
+                              <div className="flex items-center gap-2.5">
+                                <UserAvatar
+                                  src={sub.avatarUrl || (sub as any).studentAvatarSnapshot}
+                                  name={sub.studentNameSnapshot || "Học sinh"}
+                                  size="sm"
+                                  ring={idx === 0 ? "gold" : idx === 1 ? "silver" : idx === 2 ? "bronze" : undefined}
+                                />
+                                <span>{sub.studentNameSnapshot || "Học sinh"}</span>
+                              </div>
                             </td>
                             <td className="px-6 py-4 text-slate-600">{sub.examTitleSnapshot}</td>
                             <td className="px-6 py-4 font-extrabold text-blue-700 text-sm">

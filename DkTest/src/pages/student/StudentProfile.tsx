@@ -47,8 +47,10 @@ import {
 } from "firebase/auth";
 import { setStoredItem, STORAGE_KEYS } from "../../utils/storage";
 import { useAuth } from "../../context/AuthContext";
-import EmailVerificationBanner from "../../components/auth/EmailVerificationBanner";
 import { useToast } from "../../components/ui/ToastNotification";
+import EmailVerificationBanner from "../../components/auth/EmailVerificationBanner";
+import UserAvatar from "../../components/common/UserAvatar";
+import { broadcastAvatarUpdate } from "../../utils/avatarSync";
 
 export default function StudentProfile() {
   const { showToast } = useToast();
@@ -470,8 +472,9 @@ export default function StudentProfile() {
       localStorage.setItem("student_info", JSON.stringify(studentInfo));
       setStoredItem(STORAGE_KEYS.STUDENT_INFO, studentInfo);
 
-      // 6. Refresh AuthContext state
+      // 6. Refresh AuthContext state & broadcast update
       await refreshProfile();
+      broadcastAvatarUpdate(avatarUrl, { uid: user?.uid, username: username.trim(), name: cleanName });
       showToast("Đã lưu thông tin hồ sơ thành công!", "success");
     } catch (err: any) {
       showToast(err.message || "Lỗi lưu hồ sơ", "error");
@@ -499,11 +502,58 @@ export default function StudentProfile() {
       const uploadedUrl = await uploadImageToCloudinary(file);
       setAvatarUrl(uploadedUrl);
 
+      // 1. Update users collection if logged in
       if (user) {
-        await setDoc(doc(db, "users", user.uid), { photoURL: uploadedUrl }, { merge: true });
+        await setDoc(doc(db, "users", user.uid), { photoURL: uploadedUrl, updatedAt: new Date().toISOString() }, { merge: true });
       }
 
-      showToast("Đã tải ảnh đại diện lên thành công!", "success");
+      // 2. Immediately update students collection doc
+      try {
+        await saveStudentProfile({
+          uid: user?.uid,
+          name: displayName.trim() || username.trim() || "Học sinh",
+          email: email.trim(),
+          username: username.trim(),
+          avatarUrl: uploadedUrl,
+          studentClass: studentClass.trim(),
+        });
+      } catch (stErr) {
+        console.warn("[StudentProfile] Could not update students collection on avatar change:", stErr);
+      }
+
+      // 3. Immediately sync localStorage
+      try {
+        const raw = localStorage.getItem("student_info");
+        const prev = raw ? JSON.parse(raw) : {};
+        const updated = {
+          ...prev,
+          displayName: displayName.trim() || prev.displayName,
+          username: username.trim() || prev.username,
+          avatarUrl: uploadedUrl,
+          photoURL: uploadedUrl,
+          uid: user?.uid || prev.uid,
+        };
+        localStorage.setItem("student_info", JSON.stringify(updated));
+        setStoredItem(STORAGE_KEYS.STUDENT_INFO, updated);
+      } catch (lsErr) {
+        console.warn("[StudentProfile] Could not update localStorage:", lsErr);
+      }
+
+      // 4. Refresh AuthContext state
+      try {
+        await refreshProfile();
+      } catch (rfErr) {
+        console.warn("[StudentProfile] Could not refresh profile:", rfErr);
+      }
+
+      // 5. Broadcast global avatar update event for real-time header, sidebar, and leaderboard updates
+      broadcastAvatarUpdate(uploadedUrl, {
+        uid: user?.uid,
+        username: username.trim(),
+        name: displayName.trim(),
+      });
+
+      showToast("Đã cập nhật ảnh đại diện thành công!", "success");
     } catch (err: any) {
       showToast(err.message || "Lỗi tải ảnh lên", "error");
     } finally {
@@ -542,17 +592,13 @@ export default function StudentProfile() {
         {/* Header Profile Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-6">
           <div className="relative group shrink-0">
-            {avatarUrl ? (
-              <img
-                src={avatarUrl}
-                alt="Avatar"
-                className="w-24 h-24 rounded-full object-cover border-4 border-slate-100 shadow-md"
-              />
-            ) : (
-              <div className="w-24 h-24 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-3xl border-4 border-slate-100 shadow-md">
-                {(displayName || username || "H").charAt(0).toUpperCase()}
-              </div>
-            )}
+            <UserAvatar
+              src={avatarUrl}
+              name={displayName || username || "Học sinh"}
+              size="2xl"
+              shape="circle"
+              className="w-24 h-24 shadow-md ring-4 ring-slate-100"
+            />
 
             <button
               type="button"
