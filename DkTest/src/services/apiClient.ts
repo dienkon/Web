@@ -28,6 +28,9 @@ export function getApiBaseUrl(): string {
  */
 export async function getAuthToken(): Promise<string> {
   try {
+    if (!auth.currentUser && typeof auth.authStateReady === "function") {
+      await auth.authStateReady();
+    }
     if (auth.currentUser) {
       return await auth.currentUser.getIdToken();
     }
@@ -72,10 +75,15 @@ export async function apiClient<T = any>(
 
   if (requiresAuth) {
     const token = await getAuthToken();
+    const adminToken = localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token");
+
     if (token) {
       requestHeaders["Authorization"] = `Bearer ${token}`;
+    } else if (adminToken) {
+      // Fallback: If not logged into Firebase but admin session exists
+      requestHeaders["Authorization"] = `Bearer ${adminToken}`;
     }
-    const adminToken = localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token");
+
     if (adminToken) {
       requestHeaders["X-Admin-Token"] = adminToken;
     }

@@ -95,11 +95,20 @@ export default function Students() {
     }
   };
 
-  // Debounce search
+  const isFirstRender = React.useRef(true);
+
+  // Debounce search and filters
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const timer = setTimeout(() => {
-      setPage(1);
-      loadData();
+      if (page !== 1) {
+        setPage(1);
+      } else {
+        loadData();
+      }
     }, 400);
     return () => clearTimeout(timer);
   }, [search, statusFilter, providerFilter, verifiedFilter, classFilter, sortField, sortOrder, limit]);

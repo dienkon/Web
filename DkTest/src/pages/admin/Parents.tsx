@@ -70,10 +70,19 @@ export default function Parents() {
     }
   };
 
+  const isFirstRender = React.useRef(true);
+
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const timer = setTimeout(() => {
-      setPage(1);
-      loadData();
+      if (page !== 1) {
+        setPage(1);
+      } else {
+        loadData();
+      }
     }, 400);
     return () => clearTimeout(timer);
   }, [search]);

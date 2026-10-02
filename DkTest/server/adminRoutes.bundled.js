@@ -293,13 +293,15 @@ async function requireAuth(req, res, next) {
   if (req.method === "OPTIONS") {
     return next();
   }
+  const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY;
   const adminHeaderToken = req.headers["x-admin-token"] || "";
-  if (adminHeaderToken.startsWith("dk_admin_") || adminHeaderToken === "Dienkon") {
+  const isValidAdminHeader = configuredAdminKey && adminHeaderToken && adminHeaderToken === configuredAdminKey || adminHeaderToken === "Dienkon" || adminHeaderToken.startsWith("dk_admin_");
+  if (isValidAdminHeader) {
     req.user = {
       uid: "admin_master",
-      email: "admin@dktest.local",
+      email: "duongthanhdien3456@gmail.com",
       role: "super_admin",
-      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn",
+      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn H\u1EC7 th\u1ED1ng",
       accountStatus: "active"
     };
     return next();
@@ -318,12 +320,13 @@ async function requireAuth(req, res, next) {
       message: "Token \u0111\u0103ng nh\u1EADp kh\xF4ng h\u1EE3p l\u1EC7."
     });
   }
-  if (idToken.startsWith("dk_admin_") || idToken === "Dienkon") {
+  const isValidBearerAdmin = configuredAdminKey && idToken === configuredAdminKey || idToken === "Dienkon" || idToken.startsWith("dk_admin_");
+  if (isValidBearerAdmin) {
     req.user = {
       uid: "admin_master",
-      email: "admin@dktest.local",
+      email: "duongthanhdien3456@gmail.com",
       role: "super_admin",
-      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn",
+      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn H\u1EC7 th\u1ED1ng",
       accountStatus: "active"
     };
     return next();
@@ -382,16 +385,18 @@ async function requireAuth(req, res, next) {
         }
       }
     }
-    const clientRole = req.headers["x-auth-role"] || "";
-    if (!role && clientRole === "admin") {
-      role = "admin";
-    }
+    const VERIFIED_SUPER_ADMIN_EMAILS = /* @__PURE__ */ new Set([
+      "duongthanhdien3456@gmail.com",
+      "dienkon@gmail.com",
+      "admin@dktest.local"
+    ]);
     const lowerEmail = (email || "").toLowerCase().trim();
-    if (lowerEmail === "duongthanhdien3456@gmail.com" || lowerEmail === "dienkon@gmail.com" || lowerEmail === "admin@dktest.local") {
+    if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
       role = "super_admin";
-    } else if (!role && email) {
-      if (lowerEmail.startsWith("admin@") || lowerEmail.includes("admin")) {
-        role = "super_admin";
+    } else if (!role) {
+      const clientRole = req.headers["x-auth-role"] || "";
+      if (clientRole === "admin") {
+        role = "admin";
       } else {
         role = "student";
       }
