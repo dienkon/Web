@@ -14,9 +14,17 @@ export interface TutorMessage {
   attachment?: TutorAttachment;
 }
 
+export interface TutorContext {
+  examTitle?: string;
+  currentQuestionText?: string;
+  studentAnswer?: any;
+  fullQuestionData?: any;
+  [key: string]: any;
+}
+
 export async function askTutor(
   messages: Array<TutorMessage>,
-  context?: { examTitle?: string; currentQuestionText?: string; studentAnswer?: any },
+  context?: TutorContext,
   customApiKey?: string
 ) {
   const ai = getAiClient(customApiKey);
@@ -65,10 +73,29 @@ QUY TẮC BẮT BUỘC KHI TRẢ LỜI & TRÌNH BÀY:
    - Khi học sinh yêu cầu giải chi tiết, cung cấp lời giải hoàn chỉnh, mẫu mực và dễ hiểu nhất.
    - Thân thiện, tôn trọng, đồng hành tích cực cùng học sinh.`;
 
-  if (context && context.currentQuestionText) {
-    systemInstruction += `\n\nBỐI CẢNH CÂU HỎI:\nHọc sinh đang xem đề thi: "${context.examTitle || 'Chưa xác định'}".\nCâu hỏi hiện tại:\n${context.currentQuestionText}\n`;
+  if (context) {
+    if (context.examTitle) {
+      systemInstruction += `\n\nBỐI CẢNH ĐỀ THI: "${context.examTitle}".\n`;
+    }
+    if (context.currentQuestionText) {
+      systemInstruction += `\nCÂU HỎI HIỆN TẠI:\n${context.currentQuestionText}\n`;
+    }
     if (context.studentAnswer !== undefined) {
-      systemInstruction += `Lựa chọn hiện tại của học sinh: ${JSON.stringify(context.studentAnswer)}\n`;
+      systemInstruction += `\nLỰA CHỌN CỦA HỌC SINH: ${JSON.stringify(context.studentAnswer)}\n`;
+    }
+    if (context.fullQuestionData) {
+      const qDataStr = typeof context.fullQuestionData === "string" 
+        ? context.fullQuestionData 
+        : JSON.stringify(context.fullQuestionData, null, 2);
+      systemInstruction += `\n\n========================================
+THÔNG TIN NGẦM ĐẦY ĐỦ CỦA CÂU HỎI TRONG ĐỀ THI (DÙNG ĐỂ GIẢI ĐÁP CHÍNH XÁC 100%):
+========================================
+${qDataStr}
+
+HƯỚNG DẪN ĐẶC BIỆT DÀNH CHO GIA SƯ AI:
+- Bạn ĐÃ ĐƯỢC CUNG CẤP toàn bộ dữ liệu gốc ngầm của câu hỏi này (nội dung đề, tất cả các phương án chọn A/B/C/D hoặc các ý Đúng/Sai, đáp án chính thức từ hệ thống thi, lời giải gốc của giáo viên, và bài làm thực tế của học sinh).
+- BẮT BUỘC phải dựa trên thông tin chính xác này để trả lời đúng 100%, không được tự suy đoán sai lệch.
+- Phân tích rõ ràng tại sao học sinh chọn đúng hoặc sai, chỉ ra các bước tư duy chuẩn xác và mẹo tránh bẫy.`;
     }
   }
 

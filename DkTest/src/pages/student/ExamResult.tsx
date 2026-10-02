@@ -29,6 +29,10 @@ import {
   Download,
   Headphones,
   Lock,
+  TrendingUp,
+  PieChart,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -85,8 +89,15 @@ export default function ExamResult() {
   const [reportReason, setReportReason] = useState("");
   const [isSubmittingReport, setIsSubmittingReport] = useState(false);
 
-  // Auto prompt for Gia sư AI
+  // Auto prompt for Gia sư AI & Hidden full question context
   const [autoAiPrompt, setAutoAiPrompt] = useState<string | null>(null);
+  const [aiQuestionContext, setAiQuestionContext] = useState<any>(null);
+
+  // Accordion toggles for tidy display (collapsed by default as requested)
+  const [showTimeAnalysis, setShowTimeAnalysis] = useState(false);
+  const [showProgressChart, setShowProgressChart] = useState(false);
+  const [showResultCharts, setShowResultCharts] = useState(false);
+  const [showAiAnalysis, setShowAiAnalysis] = useState(true);
 
   const DISCORD_WEBHOOK_URL =
     "https://discord.com/api/webhooks/1500812404190085120/R1oclYbsjomTS5AUdbVkCD1hw1FqZZhb8LzvrfsyJVozADVmXWDlf4Mk3HlGUKqRI8zn";
@@ -693,41 +704,183 @@ export default function ExamResult() {
           </div>
         )}
 
-        {/* Time Analysis Chart */}
+        {/* Time Analysis Chart Accordion */}
         {timeAnalytics && segmentAnalytics && (
-          <QuestionTimeAnalysisChart
-            timeAnalytics={timeAnalytics}
-            segments={segmentAnalytics}
-            onSelectQuestion={handleSelectQuestionFromChart}
-          />
+          <div className="bg-white border border-slate-200/90 rounded-3xl shadow-xs overflow-hidden print:hidden transition-all">
+            <button
+              type="button"
+              onClick={() => setShowTimeAnalysis((prev) => !prev)}
+              className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-slate-50/80 transition-colors cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                    Phân tích thời gian làm bài từng câu
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100/80 text-blue-700">
+                      {timeAnalytics.hasTimingData ? `${timeAnalytics.averageSecondsPerQuestion}s / câu` : "Thời gian ước tính"}
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Nhấp để {showTimeAnalysis ? "thu gọn" : "sổ ra xem chi tiết tốc độ, nhịp độ và các câu tốn thời gian"}
+                  </p>
+                </div>
+              </div>
+              <div className="p-2 text-slate-400 hover:text-slate-600 rounded-xl bg-slate-100/70">
+                {showTimeAnalysis ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+              </div>
+            </button>
+            {showTimeAnalysis && (
+              <div className="border-t border-slate-100 p-2 sm:p-4">
+                <QuestionTimeAnalysisChart
+                  timeAnalytics={timeAnalytics}
+                  segments={segmentAnalytics}
+                  onSelectQuestion={handleSelectQuestionFromChart}
+                />
+              </div>
+            )}
+          </div>
         )}
 
-        {/* Progress Score Accumulation Chart */}
+        {/* Progress Score Accumulation Chart Accordion */}
         {accumulationData.length > 0 && (
-          <ProgressAccumulationChart
-            data={accumulationData}
-            maxScore={submission.maxScore || 10}
-          />
+          <div className="bg-white border border-slate-200/90 rounded-3xl shadow-xs overflow-hidden print:hidden transition-all">
+            <button
+              type="button"
+              onClick={() => setShowProgressChart((prev) => !prev)}
+              className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-slate-50/80 transition-colors cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                    Diễn biến làm bài & tích lũy điểm số
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-100/80 text-indigo-700">
+                      {submission.score}/{submission.maxScore || 10} đ
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Nhấp để {showProgressChart ? "thu gọn" : "sổ ra xem biểu đồ tích lũy điểm qua từng câu từ đầu đến cuối"}
+                  </p>
+                </div>
+              </div>
+              <div className="p-2 text-slate-400 hover:text-slate-600 rounded-xl bg-slate-100/70">
+                {showProgressChart ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+              </div>
+            </button>
+            {showProgressChart && (
+              <div className="border-t border-slate-100 p-2 sm:p-4">
+                <ProgressAccumulationChart
+                  data={accumulationData}
+                  maxScore={submission.maxScore || 10}
+                />
+              </div>
+            )}
+          </div>
         )}
 
-        {/* Category & Section Result Charts */}
-        <ExamResultCharts
-          submission={submission}
-          questions={activeQuestionsForAnalytics}
-          sections={sections}
-        />
+        {/* Category & Section Result Charts Accordion */}
+        <div className="bg-white border border-slate-200/90 rounded-3xl shadow-xs overflow-hidden print:hidden transition-all">
+          <button
+            type="button"
+            onClick={() => setShowResultCharts((prev) => !prev)}
+            className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-slate-50/80 transition-colors cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                <PieChart className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                  Biểu đồ phân tích tỉ lệ đúng / sai & chuyên đề
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100/80 text-emerald-700">
+                    {submission.correctCount}/{activeQuestionsForAnalytics.length} câu đúng
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-500 font-medium">
+                  Nhấp để {showResultCharts ? "thu gọn" : "sổ ra xem tỷ lệ hoàn thành theo phần thi và dạng câu hỏi"}
+                </p>
+              </div>
+            </div>
+            <div className="p-2 text-slate-400 hover:text-slate-600 rounded-xl bg-slate-100/70">
+              {showResultCharts ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+            </div>
+          </button>
+          {showResultCharts && (
+            <div className="border-t border-slate-100 p-2 sm:p-4">
+              <ExamResultCharts
+                submission={submission}
+                questions={activeQuestionsForAnalytics}
+                sections={sections}
+              />
+            </div>
+          )}
+        </div>
 
-        {/* Advanced AI Analytics Widget */}
-        <AiAnalyticsWidget 
-          examId={examId || submission.examId} 
-          currentSubmission={submission}
-          exam={exam}
-          questions={activeQuestionsForAnalytics}
-          sections={sections}
-          timeAnalytics={timeAnalytics || undefined}
-          segments={segmentAnalytics || undefined}
-          onSelectQuestion={handleSelectQuestionFromChart}
-        />
+        {/* Advanced AI Analytics Widget (Hideable / Collapsible) */}
+        <div className="space-y-2 print:hidden">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              Phân tích học tập thông minh & Gia sư AI
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowAiAnalysis((prev) => !prev)}
+              className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200/80 transition-all cursor-pointer"
+            >
+              {showAiAnalysis ? (
+                <>
+                  <EyeOff className="w-3.5 h-3.5" />
+                  <span>Ẩn phân tích AI</span>
+                </>
+              ) : (
+                <>
+                  <Eye className="w-3.5 h-3.5" />
+                  <span>Hiện phân tích AI</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {showAiAnalysis ? (
+            <AiAnalyticsWidget 
+              examId={examId || submission.examId} 
+              currentSubmission={submission}
+              exam={exam}
+              questions={activeQuestionsForAnalytics}
+              sections={sections}
+              timeAnalytics={timeAnalytics || undefined}
+              segments={segmentAnalytics || undefined}
+              onSelectQuestion={handleSelectQuestionFromChart}
+            />
+          ) : (
+            <div 
+              onClick={() => setShowAiAnalysis(true)}
+              className="p-4 rounded-2xl bg-gradient-to-r from-indigo-50/80 via-purple-50/50 to-blue-50/80 border border-indigo-100 flex items-center justify-between cursor-pointer hover:border-indigo-300 transition-all group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors">
+                    Phân tích AI đang được thu gọn
+                  </h4>
+                  <p className="text-xs text-slate-500">
+                    Bấm vào đây để mở báo cáo chi tiết về năng lực, mô hình lỗi sai và định hướng ôn tập từ AI
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs font-bold text-indigo-600 group-hover:underline px-3 py-1.5 bg-white rounded-xl shadow-2xs border border-indigo-100">
+                Mở phân tích AI
+              </span>
+            </div>
+          )}
+        </div>
 
         {/* Action buttons bar moved under AI Analytics Widget */}
         <div className="flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/70 border border-slate-200/50 p-2.5 rounded-2xl shadow-2xs">
@@ -1046,24 +1199,99 @@ export default function ExamResult() {
                           <span className="hidden sm:inline">Báo cáo</span>
                         </button>
 
-                        {/* Ask AI Tutor Button */}
+                        {/* Ask AI Tutor Button with Full Hidden Data */}
                         <button
                           type="button"
                           onClick={() => {
+                            const currentSec = sections.find((s) => s.id === q.sectionId);
+                            const secTitle = currentSec?.title || "Phần chung";
+
+                            // 1. Build structured options or statements
+                            let optionsOrStatements: any = null;
+                            let officialCorrectAnswer: string = "";
+                            let studentAnswerFormatted: string = "";
+
+                            if (q.type === "single_choice" || q.type === "multiple_choice") {
+                              const correctSet = new Set(q.correctOptionIds || []);
+                              const studentSet = new Set(Array.isArray(studentAns) ? studentAns : studentAns ? [studentAns] : []);
+                              
+                              const opts = (q.options || []).map((opt, i) => {
+                                const label = String.fromCharCode(65 + i); // A, B, C, D
+                                const isRight = correctSet.has(opt.id);
+                                const isChosen = studentSet.has(opt.id);
+                                return {
+                                  label,
+                                  id: opt.id,
+                                  text: (opt.text || "").replace(/<[^>]*>?/gm, " ").trim(),
+                                  isCorrect: isRight,
+                                  isChosenByStudent: isChosen,
+                                };
+                              });
+                              optionsOrStatements = opts;
+                              officialCorrectAnswer = opts.filter((o) => o.isCorrect).map((o) => `${o.label}. ${o.text}`).join("; ") || "(Chưa có đáp án chuẩn)";
+                              studentAnswerFormatted = opts.filter((o) => o.isChosenByStudent).map((o) => `${o.label}. ${o.text}`).join("; ") || "(Chưa chọn đáp án)";
+                            } else if (q.type === "true_false") {
+                              const stmts = (q.statements || []).map((stmt, i) => {
+                                const label = String.fromCharCode(97 + i); // a, b, c, d
+                                const studentVal = typeof studentAns === "object" && studentAns ? studentAns[stmt.id] : undefined;
+                                return {
+                                  label,
+                                  text: (stmt.text || "").replace(/<[^>]*>?/gm, " ").trim(),
+                                  correctAnswer: stmt.correctAnswer ? "Đúng" : "Sai",
+                                  studentChoice: studentVal === true ? "Đúng" : studentVal === false ? "Sai" : "Chưa chọn",
+                                };
+                              });
+                              optionsOrStatements = stmts;
+                              officialCorrectAnswer = stmts.map((s) => `Ý (${s.label}) ${s.correctAnswer}`).join("; ");
+                              studentAnswerFormatted = stmts.map((s) => `Ý (${s.label}) chọn ${s.studentChoice}`).join("; ");
+                            } else if (q.type === "fill_blank") {
+                              officialCorrectAnswer = q.acceptedAnswersPerBlank 
+                                ? Object.entries(q.acceptedAnswersPerBlank).map(([k, v]) => `Vị trí [${Number(k) + 1}]: ${(v || []).join(" hoặc ")}`).join("; ")
+                                : "(Chưa cấu hình)";
+                              studentAnswerFormatted = typeof studentAns === "object" && studentAns 
+                                ? Object.entries(studentAns).map(([k, v]) => `Vị trí [${Number(k) + 1}]: "${v}"`).join("; ")
+                                : String(studentAns || "(Chưa điền)");
+                            } else if (q.type === "short_answer") {
+                              officialCorrectAnswer = (q.acceptedAnswers || []).join(" hoặc ") || "(Chưa cấu hình)";
+                              studentAnswerFormatted = String(studentAns || "(Chưa trả lời)");
+                            } else if (q.type === "matching") {
+                              officialCorrectAnswer = JSON.stringify(q.correctMatches || {});
+                              studentAnswerFormatted = JSON.stringify(studentAns || {});
+                            } else {
+                              officialCorrectAnswer = JSON.stringify(q.correctOptionIds || q.acceptedAnswers || {});
+                              studentAnswerFormatted = JSON.stringify(studentAns || {});
+                            }
+
+                            const cleanPrompt = (q.text || "").replace(/<[^>]*>?/gm, " ").trim();
+
+                            // 2. Secret underlying data passed directly to AI system prompt
+                            const fullQuestionContext = {
+                              questionNumber: qIdx + 1,
+                              section: secTitle,
+                              questionType: q.type,
+                              fullQuestionText: cleanPrompt,
+                              optionsOrStatements,
+                              officialCorrectAnswer,
+                              studentAnswerFormatted,
+                              isStudentCorrect: isQuestionCorrect,
+                              teacherExplanation: q.explanation || "Không có lời giải gốc từ đề thi.",
+                            };
+
+                            setAiQuestionContext(fullQuestionContext);
+
+                            // 3. User friendly question asking prompt
                             const promptMsg = `Chào Gia Sư AI, nhờ bạn hướng dẫn và giải thích giúp mình Câu ${
                               qIdx + 1
                             } trong bài thi "${exam?.title || ""}":\n- Đề bài: ${
-                              q.text
-                            }\n- Đáp án của mình: ${JSON.stringify(studentAns || "Chưa chọn")}\n- Lời giải gốc: ${
-                              q.explanation || "Chưa có"
-                            }\nTại sao đáp án đó đúng/sai và làm thế nào để hiểu rõ dạng bài này?`;
+                              cleanPrompt.length > 200 ? cleanPrompt.substring(0, 200) + "..." : cleanPrompt
+                            }\n- Bài làm của mình: ${studentAnswerFormatted}\n- Kết quả: ${isQuestionCorrect ? "ĐÚNG" : "CHƯA ĐÚNG"}\nTại sao đáp án đúng là như vậy và cần lưu ý phương pháp gì khi giải dạng câu hỏi này?`;
                             setAutoAiPrompt(promptMsg);
                           }}
                           className="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer"
                           title="Hỏi Gia sư AI về câu hỏi này"
                         >
                           <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                          <span></span>
+                          <span className="hidden sm:inline">Hỏi AI</span>
                         </button>
 
                         {q.type !== "true_false" ? (
@@ -1597,6 +1825,7 @@ export default function ExamResult() {
       {/* AI Tutor Chat Widget */}
       <AiTutorChat
         examTitle={exam?.title}
+        questionContext={aiQuestionContext}
         autoPrompt={autoAiPrompt}
         onClearAutoPrompt={() => setAutoAiPrompt(null)}
       />

@@ -20,6 +20,8 @@ import {
   X,
   Maximize2,
   ExternalLink,
+  MessageSquare,
+  Send,
 } from "lucide-react";
 import {
   ActiveSession,
@@ -27,6 +29,8 @@ import {
   removeRealtimeSession,
   clearSubmittedSessions,
   updateRealtimeSessionMetrics,
+  resumeRealtimeExam,
+  sendRealtimeAdminMessage,
 } from "../../services/realtimeProctoringService";
 import { formatDate } from "../../utils/date";
 
@@ -44,6 +48,11 @@ export default function LiveProctoring() {
 
   const [targetSessionForSuspend, setTargetSessionForSuspend] = useState<ActiveSession | null>(null);
   const [suspendReasonInput, setSuspendReasonInput] = useState("Phát hiện vi phạm quy chế thi. Đình chỉ thi bắt buộc.");
+
+  const [targetSessionForMessage, setTargetSessionForMessage] = useState<ActiveSession | null>(null);
+  const [messageTextInput, setMessageTextInput] = useState("");
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
+  const [messageSuccessToast, setMessageSuccessToast] = useState<string | null>(null);
 
   const [screenModalSession, setScreenModalSession] = useState<ActiveSession | null>(null);
 
@@ -109,8 +118,8 @@ export default function LiveProctoring() {
   const handleTogglePause = async (e: React.MouseEvent, session: ActiveSession) => {
     e.stopPropagation();
     if (session.adminAction === "pause") {
-      // Resume
-      await updateRealtimeSessionMetrics(session.sessionId, { adminAction: null, adminMessage: null });
+      // Authoritatively resume examinee
+      await resumeRealtimeExam(session.sessionId);
     } else {
       setTargetSessionForPause(session);
       setPauseReasonInput("Giám thị/Admin yêu cầu tạm dừng bài thi để kiểm tra.");
@@ -124,6 +133,30 @@ export default function LiveProctoring() {
       adminMessage: pauseReasonInput || "Giám thị yêu cầu tạm dừng bài thi.",
     });
     setTargetSessionForPause(null);
+  };
+
+  // Action: Gửi tin nhắn trực tiếp
+  const handleOpenMessageModal = (e: React.MouseEvent, session: ActiveSession) => {
+    e.stopPropagation();
+    setTargetSessionForMessage(session);
+    setMessageTextInput("");
+  };
+
+  const handleConfirmSendMessage = async () => {
+    if (!targetSessionForMessage || !messageTextInput.trim() || isSendingMessage) return;
+    setIsSendingMessage(true);
+    try {
+      await sendRealtimeAdminMessage(targetSessionForMessage.sessionId, messageTextInput.trim(), "Giám thị");
+      const sName = targetSessionForMessage.studentName;
+      setTargetSessionForMessage(null);
+      setMessageTextInput("");
+      setMessageSuccessToast(`Đã gửi tin nhắn đến thí sinh ${sName}!`);
+      setTimeout(() => setMessageSuccessToast(null), 3500);
+    } catch (e) {
+      console.error("Lỗi khi gửi tin nhắn:", e);
+    } finally {
+      setIsSendingMessage(false);
+    }
   };
 
   // Action: Đình chỉ thi
@@ -402,10 +435,10 @@ export default function LiveProctoring() {
                   )}
                 </div>
 
-                {/* Action Buttons Directly on Card (Tạm dừng, Đình chỉ, Chia sẻ màn hình) */}
+                {/* Action Buttons Directly on Card (Tạm dừng, Nhắn tin, Đình chỉ, Chia sẻ màn hình) */}
                 {session.status !== "submitted" && (
                   <div
-                    className="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-100"
+                    className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-2 border-t border-slate-100"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {/* 1. Tạm dừng / Tiếp tục */}
@@ -432,7 +465,18 @@ export default function LiveProctoring() {
                       )}
                     </button>
 
-                    {/* 2. Đình chỉ thi */}
+                    {/* 2. Nhắn tin trực tiếp */}
+                    <button
+                      type="button"
+                      onClick={(e) => handleOpenMessageModal(e, session)}
+                      className="px-2 py-1.5 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1 transition-all bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 cursor-pointer"
+                      title="Gửi tin nhắn hoặc nhắc nhở với nội dung bất kỳ đến thí sinh"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Nhắn tin</span>
+                    </button>
+
+                    {/* 3. Đình chỉ thi */}
                     <button
                       type="button"
                       onClick={(e) => handleOpenSuspend(e, session)}
@@ -444,7 +488,7 @@ export default function LiveProctoring() {
                       <span>{isSuspended ? "Đã đình chỉ" : "Đình chỉ"}</span>
                     </button>
 
-                    {/* 3. Chia sẻ màn hình */}
+                    {/* 4. Chia sẻ màn hình */}
                     <button
                       type="button"
                       onClick={(e) => handleScreenShareAction(e, session)}
@@ -591,6 +635,95 @@ export default function LiveProctoring() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Modal: Gửi tin nhắn trực tiếp đến thí sinh */}
+      {targetSessionForMessage && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-blue-100 text-blue-700">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base">Gửi tin nhắn cho thí sinh</h3>
+                  <p className="text-xs text-slate-500">
+                    Thí sinh: <strong className="text-blue-600">{targetSessionForMessage.studentName || targetSessionForMessage.studentUsername}</strong>
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setTargetSessionForMessage(null)}
+                className="p-1 text-slate-400 hover:text-slate-600 rounded-lg cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-700 block">Nội dung tin nhắn:</label>
+              <textarea
+                rows={4}
+                value={messageTextInput}
+                onChange={(e) => setMessageTextInput(e.target.value)}
+                placeholder="Nhập nội dung nhắc nhở, cảnh báo hoặc hướng dẫn thí sinh..."
+                className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none"
+              />
+            </div>
+
+            {/* Quick Suggestions */}
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-bold text-slate-500">Gợi ý tin nhắn mẫu nhanh:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  "Vui lòng tập trung nhìn thẳng màn hình làm bài!",
+                  "Em kiểm tra lại kết nối mạng và thiết bị nhé.",
+                  "Không quay ngang nhìn ngó hoặc chuyển tab thi!",
+                  "Thời gian làm bài còn 10 phút, em chú ý kiểm tra lại bài.",
+                  "Giám thị đã ghi nhận yêu cầu hỗ trợ của em.",
+                ].map((preset, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setMessageTextInput(preset)}
+                    className="text-[11px] px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors cursor-pointer text-left"
+                  >
+                    {preset}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setTargetSessionForMessage(null)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmSendMessage}
+                disabled={isSendingMessage || !messageTextInput.trim()}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-xs flex items-center gap-1.5 disabled:opacity-50"
+              >
+                {isSendingMessage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                <span>Gửi tin nhắn</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating success toast */}
+      {messageSuccessToast && (
+        <div className="fixed bottom-6 right-6 z-[120] bg-emerald-600 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold animate-in slide-in-from-bottom">
+          <CheckCircle2 className="w-4 h-4" />
+          <span>{messageSuccessToast}</span>
         </div>
       )}
 

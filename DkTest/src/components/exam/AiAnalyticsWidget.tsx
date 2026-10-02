@@ -275,12 +275,35 @@ export default function AiAnalyticsWidget({
         timeSpent: currentSubmission.timeSpent,
         summary: analysis?.summary || "",
         priorities: analysis?.priorities || [],
-        questions: questions.slice(0, 30).map((q, idx) => ({
+        questions: questions.slice(0, 50).map((q, idx) => ({
           number: idx + 1,
-          text: q.text?.substring(0, 150),
+          type: q.type,
+          text: (q.text || "").replace(/<[^>]*>?/gm, " ").trim().substring(0, 250),
           isCorrect: timeAnalytics.evaluations[idx]?.isCorrect,
           timeSpent: timeAnalytics.evaluations[idx]?.timeSpentSeconds,
+          studentAnswer: currentSubmission.answers ? currentSubmission.answers[q.id] ?? currentSubmission.answers[idx] : null,
+          explanation: q.explanation ? q.explanation.substring(0, 200) : undefined,
         })),
+        fullQuestionData: {
+          examTitle: exam?.title || currentSubmission.examTitleSnapshot,
+          score: `${currentSubmission.score} / ${currentSubmission.maxScore || 10}`,
+          summary: analysis?.summary || "",
+          priorities: analysis?.priorities || [],
+          mistakePatterns: analysis?.mistakePatterns || [],
+          questionsList: questions.map((q, idx) => {
+            const ev = timeAnalytics.evaluations[idx];
+            const studentAns = currentSubmission.answers ? currentSubmission.answers[q.id] ?? currentSubmission.answers[idx] : null;
+            return {
+              number: idx + 1,
+              type: q.type,
+              prompt: (q.text || "").replace(/<[^>]*>?/gm, " ").trim().substring(0, 300),
+              studentAnswer: studentAns,
+              isCorrect: ev?.isCorrect ?? (ev?.status === "correct"),
+              timeSpentSeconds: ev?.timeSpentSeconds,
+              explanation: q.explanation || undefined,
+            };
+          }),
+        },
       };
 
       const res = await fetch("/api/ai/tutor", {

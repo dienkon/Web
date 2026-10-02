@@ -25,14 +25,16 @@ export async function requireAuth(
     return next();
   }
 
-  // 1. Check for dedicated Admin Token in header
+  // 1. Check for dedicated Admin Token in header with configured secret key
+  const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY;
   const adminHeaderToken = (req.headers["x-admin-token"] as string) || "";
-  if (adminHeaderToken.startsWith("dk_admin_") || adminHeaderToken === "Dienkon") {
+  
+  if (configuredAdminKey && adminHeaderToken && adminHeaderToken === configuredAdminKey) {
     req.user = {
       uid: "admin_master",
       email: "admin@dktest.local",
       role: "super_admin",
-      displayName: "Quản trị viên",
+      displayName: "Quản trị viên Hệ thống",
       accountStatus: "active",
     };
     return next();
@@ -54,13 +56,13 @@ export async function requireAuth(
     });
   }
 
-  // 2. Check if Bearer token is an admin token or legacy password
-  if (idToken.startsWith("dk_admin_") || idToken === "Dienkon") {
+  // 2. Check if Bearer token matches dedicated admin secret key
+  if (configuredAdminKey && idToken === configuredAdminKey) {
     req.user = {
       uid: "admin_master",
       email: "admin@dktest.local",
       role: "super_admin",
-      displayName: "Quản trị viên",
+      displayName: "Quản trị viên Hệ thống",
       accountStatus: "active",
     };
     return next();
@@ -126,26 +128,18 @@ export async function requireAuth(
       }
     }
 
-    // 4. Client role header fallback (if client is logged in as admin)
-    const clientRole = (req.headers["x-auth-role"] as string) || "";
-    if (!role && clientRole === "admin") {
-      role = "admin";
-    }
+    // 4. Strictly verified admin emails (cannot be spoofed without verifying ownership of Google account)
+    const VERIFIED_SUPER_ADMIN_EMAILS = new Set([
+      "duongthanhdien3456@gmail.com",
+      "dienkon@gmail.com",
+      "admin@dktest.local",
+    ]);
 
-    // 5. Explicit admin email override (ensures duongthanhdien3456@gmail.com is ALWAYS super_admin)
     const lowerEmail = (email || "").toLowerCase().trim();
-    if (
-      lowerEmail === "duongthanhdien3456@gmail.com" ||
-      lowerEmail === "dienkon@gmail.com" ||
-      lowerEmail === "admin@dktest.local"
-    ) {
+    if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
       role = "super_admin";
-    } else if (!role && email) {
-      if (lowerEmail.startsWith("admin@") || lowerEmail.includes("admin")) {
-        role = "super_admin";
-      } else {
-        role = "student";
-      }
+    } else if (!role) {
+      role = "student";
     }
 
     req.user = {

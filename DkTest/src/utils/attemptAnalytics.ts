@@ -472,7 +472,47 @@ export function buildAiAnalysisPayload(
       averageSecondsPerQuestion: Math.round(st.totalTime / st.total),
     }));
 
-  // Filter notable questions to prevent sending thousands of tokens
+  // Detailed breakdown of questions for AI (especially incorrect and notable questions)
+  const answersMap = submission.answers || {};
+  const questionTypeStats: Record<string, { total: number; correct: number }> = {};
+
+  const allQuestionsSummary = questions.map((q, idx) => {
+    const ev = timeAnalytics.evaluations[idx];
+    const sId = q.sectionId || "no_section";
+    const sectionTitle = sectionMap.get(sId) || "Phần chung";
+    const studentAns = answersMap[q.id] !== undefined ? answersMap[q.id] : answersMap[idx];
+    
+    // Type stats
+    const qType = q.type || "single_choice";
+    if (!questionTypeStats[qType]) {
+      questionTypeStats[qType] = { total: 0, correct: 0 };
+    }
+    questionTypeStats[qType].total += 1;
+    if (ev?.status === "correct") {
+      questionTypeStats[qType].correct += 1;
+    }
+
+    // Format clean text
+    const cleanText = (q.text || "").replace(/<[^>]*>?/gm, " ").replace(/\s+/g, " ").trim();
+
+    return {
+      index: idx + 1,
+      questionId: q.id,
+      section: sectionTitle,
+      type: q.type,
+      text: cleanText.length > 180 ? cleanText.substring(0, 180) + "..." : cleanText,
+      status: ev?.status || "unanswered",
+      timeSpentSeconds: ev?.timeSpentSeconds || 0,
+      answerChanges: ev?.answerChanges || 0,
+      studentAnswer: studentAns !== undefined ? studentAns : null,
+      explanation: q.explanation ? q.explanation.substring(0, 200) : undefined,
+    };
+  });
+
+  const incorrectQuestions = allQuestionsSummary
+    .filter((q) => q.status === "incorrect" || q.status === "unanswered")
+    .slice(0, 20);
+
   const notableList = timeAnalytics.evaluations
     .filter((ev) => ev.behaviorFlag !== "normal" || ev.answerChanges > 1)
     .slice(0, 8)
@@ -529,6 +569,15 @@ export function buildAiAnalysisPayload(
       end: segmentAnalytics.end,
     },
     sections: sectionPerformance,
+    questionTypeBreakdown: Object.entries(questionTypeStats).map(([type, stats]) => ({
+      type,
+      total: stats.total,
+      correct: stats.correct,
+      accuracy: Math.round((stats.correct / stats.total) * 100),
+    })),
     notableQuestionsSummary: notableList,
+    incorrectQuestionsDetail: incorrectQuestions,
+    allQuestionsOverview: allQuestionsSummary.slice(0, 50),
   };
 }
+

@@ -74,6 +74,9 @@ export default function LatexPreview({ content, className = "" }: Props) {
   return <div ref={containerRef} className={`latex-preview leading-relaxed ${defaultColorClass} ${className}`} />;
 }
 
+// Vietnamese vowel & letter lookahead to prevent false word boundary matches
+const VN_CHAR_LOOKAHEAD = "(?![a-zA-ZàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÈÉẺẼẸÊẾỀỂỄỆÌÍỈĨỊÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÙÚỦŨỤƯỨỪỬỮỰỲÝỶỸỴ])";
+
 /**
  * Normalizes corrupted control characters and raw LaTeX strings before KaTeX parsing.
  */
@@ -85,19 +88,33 @@ export function normalizeLatexText(input: string): string {
   // Convert literal '\n' and '\r\n' text strings into actual newline characters
   text = text.replace(/\\r\\n/g, "\n").replace(/\\n/g, "\n");
 
+  // 0. Auto-heal previously corrupted data in database:
+  text = text.replace(/\\t\s*\\times/g, "\\times");
+  text = text.replace(/(\d)\s*\\t\s*(\d)/g, "$1 \\times $2");
+  text = text.replace(/(?<![a-zA-Z\\])\\t\s*(\d)/g, "\\times $1");
+
+  text = text.replace(/\\to(àn|án|át|ại|ang|àng|áng)/gi, (_, suffix) => "to" + suffix);
+  text = text.replace(/\$\\to\$(àn|án|át|ại|ang|àng|áng)/gi, (_, suffix) => "to" + suffix);
+  text = text.replace(/(?:→|->)(àn|án|át|ại|ang|àng|áng)/gi, (_, suffix) => "to" + suffix);
+
+  text = text.replace(/\\in\s+(ấn|đề|bài|sách|vở|ra|vào)/gi, "in $1");
+  text = text.replace(/\$\\in\$\s+(ấn|đề|bài|sách|vở|ra|vào)/gi, "in $1");
+  text = text.replace(/\\tan\s+(trong|biến|vỡ|rã)/gi, "tan $1");
+  text = text.replace(/(chất|hòa|độ|sự)\s+\\tan/gi, "$1 tan");
+
   // 1. Fix ASCII control character corruptions caused by single-backslash JSON/JS string parsing:
   // Tab \x09
   text = text.replace(/\x09imes/g, "\\times");
   text = text.replace(/\x09heta/g, "\\theta");
   text = text.replace(/\x09an/g, "\\tan");
   text = text.replace(/\x09ext/g, "\\text");
-  text = text.replace(/\x09o\b/g, "\\to");
+  text = text.replace(new RegExp(`\\x09o${VN_CHAR_LOOKAHEAD}`, "g"), "\\to");
   text = text.replace(/\x09au/g, "\\tau");
   text = text.replace(/\x09riangle/g, "\\triangle");
   text = text.replace(/\x09ilde/g, "\\tilde");
   text = text.replace(/\x09op/g, "\\top");
   text = text.replace(/\x09frac/g, "\\tfrac");
-  text = text.replace(/\\t\s*x\s*(\d+|[a-zA-Z]+|\$)/g, "\\times $1");
+  text = text.replace(/(?:\\t|\x09)\s*x\s*(\d+|[a-zA-Z]+|\$)/g, "\\times $1");
 
   // Newline \x0A
   text = text.replace(/\x0Aotin/g, "\\notin");
@@ -153,7 +170,7 @@ export function normalizeLatexText(input: string): string {
     "sin", "cos", "tan", "cot", "arcsin", "arccos", "arctan", "log", "ln", "lg", "exp",
     "begin", "end", "left", "right", "text", "quad", "qquad"
   ];
-  const mathCmdPattern = new RegExp(`\\\\{2,}(${mathCommands.join("|")})\\b`, "g");
+  const mathCmdPattern = new RegExp(`\\\\{2,}(${mathCommands.join("|")})${VN_CHAR_LOOKAHEAD}`, "g");
   text = text.replace(mathCmdPattern, "\\$1");
 
   // Replace unicode square roots with \sqrt

@@ -136,6 +136,8 @@ export default function TakingExam() {
   const totalPausedDurationMsRef = useRef<number>(0);
   const pauseStartedAtRef = useRef<number | null>(null);
   const lastViolationTimeRef = useRef<number>(0);
+  const [activeDirectMessage, setActiveDirectMessage] = useState<{ id: string; text: string; sentAt: number; sender?: string } | null>(null);
+  const dismissedDirectMessageIdsRef = useRef<Set<string>>(new Set());
 
   // New UI controls: Show/Hide Map & Paging vs Scroll view
   const [showMap, setShowMap] = useState<boolean>(window.innerWidth >= 1024);
@@ -452,12 +454,23 @@ export default function TakingExam() {
           }
         }
 
+        // Realtime Direct Message from Admin / Proctor
+        if (liveSession.adminDirectMessage && liveSession.adminDirectMessage.id) {
+          if (!dismissedDirectMessageIdsRef.current.has(liveSession.adminDirectMessage.id)) {
+            setActiveDirectMessage(liveSession.adminDirectMessage);
+          }
+        }
+
+        // Realtime Pause / Resume / Suspend Actions
         if (liveSession.adminAction === "pause") {
           if (!isPaused) {
             setIsPaused(true);
             setSessionStatus("paused");
             pauseStartedAtRef.current = Date.now();
             setAdminMessage(liveSession.adminMessage || "Bài thi của bạn đang bị tạm dừng bởi Giám thị.");
+            if (examId) {
+              updateActiveExamSessionStatus(examId, "paused");
+            }
           }
         } else if (liveSession.adminAction === "suspend" && !isSuspended) {
           setIsSuspended(true);
@@ -465,7 +478,7 @@ export default function TakingExam() {
           setAdminMessage(liveSession.adminMessage || "Bạn đã bị đình chỉ thi.");
           // Force submit with suspended reason
           executeSubmit("suspended");
-        } else {
+        } else if (liveSession.adminAction === "resume" || (isPaused && !liveSession.adminAction)) {
           // Resume action if previously paused
           if (isPaused) {
             setIsPaused(false);
@@ -475,6 +488,10 @@ export default function TakingExam() {
               totalPausedDurationMsRef.current += pausedDelta;
               pauseStartedAtRef.current = null;
             }
+            if (examId) {
+              updateActiveExamSessionStatus(examId, "taking");
+            }
+            showInfoToast("Giám thị đã cho phép bạn tiếp tục làm bài thi!");
           }
         }
       }
@@ -906,6 +923,18 @@ export default function TakingExam() {
         try {
           const freshSessId = sessionIdRef.current;
           const currentAnswers = isResuming ? (answers || {}) : {};
+          // Strip out secret answers from public RTDB payload to prevent cheating
+          const sanitizedQuestionsForLive = allQuestions.map((q) => {
+            const { correctOptionIds, acceptedAnswers, explanation, correctMatches, ...safe } = q as any;
+            if (safe.statements && Array.isArray(safe.statements)) {
+              safe.statements = safe.statements.map((s: any) => {
+                const { correctAnswer, ...safeS } = s;
+                return safeS;
+              });
+            }
+            return safe;
+          });
+
           await syncRealtimeSession({
             sessionId: freshSessId,
             attemptId: attemptIdRef.current || freshSessId,
@@ -925,7 +954,7 @@ export default function TakingExam() {
             lastActiveAt: Date.now(),
             answers: currentAnswers,
             activeQuestionIdx: 0,
-            shuffledQuestions: allQuestions,
+            shuffledQuestions: sanitizedQuestionsForLive,
             questionOrder: allQuestions.map((q) => q.id),
           });
         } catch (sErr) {
@@ -1948,6 +1977,49 @@ export default function TakingExam() {
             <p className="text-red-600 text-xs font-bold uppercase tracking-wide bg-red-50 p-2 rounded-xl border border-red-200">
               Hệ thống đã tự động niêm phong & nộp bài
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Admin Direct Message Modal */}
+      {activeDirectMessage && (
+        <div className="fixed inset-0 z-[110] bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border-2 border-indigo-500 animate-in zoom-in-95">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
+                <Send className="w-6 h-6" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-extrabold text-slate-900 text-base">Tin nhắn từ {activeDirectMessage.sender || "Giám thị"}</h3>
+                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-ping" />
+                </div>
+                <p className="text-[11px] text-slate-400 font-medium">
+                  {new Date(activeDirectMessage.sentAt).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 bg-indigo-50/80 border border-indigo-200/80 rounded-2xl text-slate-900 text-sm font-medium leading-relaxed whitespace-pre-wrap">
+              {activeDirectMessage.text}
+            </div>
+
+            <p className="text-[11px] text-slate-500">
+              * Vui lòng tuân thủ quy chế thi và hướng dẫn trực tiếp từ giám thị coi thi.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                if (activeDirectMessage) {
+                  dismissedDirectMessageIdsRef.current.add(activeDirectMessage.id);
+                }
+                setActiveDirectMessage(null);
+              }}
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
+            >
+              <CheckCircle2 className="w-4 h-4" /> Đã đọc và hiểu
+            </button>
           </div>
         </div>
       )}

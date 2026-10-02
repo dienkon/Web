@@ -87,12 +87,14 @@ export default function StudentHistory() {
         } catch {}
       }
 
+      const PAGE_SIZE = 15;
+
       // Check cache first
       if (studentUsername) {
         const cachedSubs = FirestoreCache.get<Submission[]>(`history:${studentUsername}`);
         if (cachedSubs && cachedSubs.length > 0) {
           setSubmissions(cachedSubs);
-          setHasMore(cachedSubs.length === 5);
+          setHasMore(cachedSubs.length >= PAGE_SIZE);
           setLoading(false);
           return;
         }
@@ -102,46 +104,61 @@ export default function StudentHistory() {
       let lastDoc: QueryDocumentSnapshot<DocumentData> | null = null;
 
       if (studentUsername) {
-        // Query strictly limit 5
         const t0 = performance.now();
         let snap;
         try {
+          // 1. Primary query: studentUsername with submittedAt DESC (matches composite index)
           const q = query(
             collection(db, "submissions"),
-            where("studentId", "==", studentUsername),
+            where("studentUsername", "==", studentUsername),
             orderBy("submittedAt", "desc"),
-            limit(5)
+            limit(PAGE_SIZE)
           );
           snap = await getDocs(q);
         } catch {
-          // Fallback if composite index on (studentId, submittedAt) is pending
-          const qFallback = query(
-            collection(db, "submissions"),
-            where("studentId", "==", studentUsername),
-            limit(5)
-          );
-          snap = await getDocs(qFallback);
+          try {
+            // 2. Secondary query: studentId with submittedAt DESC
+            const qId = query(
+              collection(db, "submissions"),
+              where("studentId", "==", studentUsername),
+              orderBy("submittedAt", "desc"),
+              limit(PAGE_SIZE)
+            );
+            snap = await getDocs(qId);
+          } catch {
+            // 3. Fallback without composite index if index build is still propagating
+            const qFallback = query(
+              collection(db, "submissions"),
+              where("studentId", "==", studentUsername),
+              limit(50)
+            );
+            snap = await getDocs(qFallback);
+          }
         }
 
-        logQueryRead("submissions", snap.size, `StudentHistory student=${studentUsername}`, 5, performance.now() - t0);
-        fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-        lastDoc = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
+        if (snap) {
+          logQueryRead("submissions", snap.size, `StudentHistory student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
+          fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+          lastDoc = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
+        }
       }
 
-      // Fallback: If 0 submissions found and local IDs exist in localStorage
-      if (fetchedSubs.length === 0) {
-        const localHistStr = localStorage.getItem("student_submission_history");
-        const localIds: string[] = localHistStr ? JSON.parse(localHistStr) : [];
-        const uniqueLocalIds = Array.from(new Set(localIds)).slice(0, 5);
+      // Check local submission history IDs to ensure any freshly submitted exam shows immediately
+      const localHistStr = localStorage.getItem("student_submission_history");
+      const localIds: string[] = localHistStr ? JSON.parse(localHistStr) : [];
+      if (localIds.length > 0) {
+        const existingIds = new Set(fetchedSubs.map((s) => s.id));
+        const missingLocalIds = Array.from(new Set(localIds)).filter((id) => !existingIds.has(id)).slice(0, 10);
 
-        for (const id of uniqueLocalIds) {
+        for (const id of missingLocalIds) {
           try {
             const docData = await FirestoreRepository.getDocument<Submission>("submissions", id, {
               ttlMs: 300000,
-              caller: "StudentHistory:localFallback",
+              caller: "StudentHistory:localMerge",
             });
-            if (docData) {
+            if (docData && !existingIds.has(docData.id)) {
               fetchedSubs.push(docData);
+              existingIds.add(docData.id);
             }
           } catch (docErr) {
             console.warn("Could not fetch submission doc", id, docErr);
@@ -149,17 +166,23 @@ export default function StudentHistory() {
         }
       }
 
-      // Fallback: If no student login & no local IDs, fetch recent public submissions (strictly limit 5)
+      // Fallback: If no student login & no local IDs, fetch recent public submissions
       if (fetchedSubs.length === 0 && !studentUsername) {
         const t0 = performance.now();
-        const qRecent = query(collection(db, "submissions"), limit(5));
-        const recentSnap = await getDocs(qRecent);
-        logQueryRead("submissions", recentSnap.size, "StudentHistory fallback public", 5, performance.now() - t0);
+        let recentSnap;
+        try {
+          const qRecent = query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(PAGE_SIZE));
+          recentSnap = await getDocs(qRecent);
+        } catch {
+          const qRecentFallback = query(collection(db, "submissions"), limit(PAGE_SIZE));
+          recentSnap = await getDocs(qRecentFallback);
+        }
+        logQueryRead("submissions", recentSnap.size, "StudentHistory fallback public", PAGE_SIZE, performance.now() - t0);
         fetchedSubs = recentSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
         lastDoc = recentSnap.docs.length > 0 ? recentSnap.docs[recentSnap.docs.length - 1] : null;
       }
 
-      // Sort by submittedAt descending (newest first)
+      // Authoritatively sort by submittedAt descending (newest first)
       fetchedSubs.sort((a, b) => {
         const timeA = getTimestampMillis(a.submittedAt);
         const timeB = getTimestampMillis(b.submittedAt);
@@ -168,7 +191,7 @@ export default function StudentHistory() {
 
       setSubmissions(fetchedSubs);
       setLastDocSnapshot(lastDoc);
-      setHasMore(fetchedSubs.length === 5);
+      setHasMore(fetchedSubs.length >= PAGE_SIZE);
 
       if (studentUsername && fetchedSubs.length > 0) {
         FirestoreCache.set(`history:${studentUsername}`, fetchedSubs, 60000);
@@ -187,33 +210,48 @@ export default function StudentHistory() {
     try {
       const studentUsername = studentInfo?.username || studentInfo?.displayName || "";
       const t0 = performance.now();
+      const PAGE_SIZE = 15;
       let snap;
 
       try {
         const q = query(
           collection(db, "submissions"),
-          where("studentId", "==", studentUsername),
+          where("studentUsername", "==", studentUsername),
           orderBy("submittedAt", "desc"),
           startAfter(lastDocSnapshot),
-          limit(5)
+          limit(PAGE_SIZE)
         );
         snap = await getDocs(q);
       } catch {
-        const qFallback = query(
-          collection(db, "submissions"),
-          where("studentId", "==", studentUsername),
-          startAfter(lastDocSnapshot),
-          limit(5)
-        );
-        snap = await getDocs(qFallback);
+        try {
+          const qId = query(
+            collection(db, "submissions"),
+            where("studentId", "==", studentUsername),
+            orderBy("submittedAt", "desc"),
+            startAfter(lastDocSnapshot),
+            limit(PAGE_SIZE)
+          );
+          snap = await getDocs(qId);
+        } catch {
+          const qFallback = query(
+            collection(db, "submissions"),
+            where("studentId", "==", studentUsername),
+            startAfter(lastDocSnapshot),
+            limit(PAGE_SIZE)
+          );
+          snap = await getDocs(qFallback);
+        }
       }
 
-      logQueryRead("submissions", snap.size, `StudentHistory loadMore student=${studentUsername}`, 5, performance.now() - t0);
+      logQueryRead("submissions", snap.size, `StudentHistory loadMore student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
       const newItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+
+      // Sort newest first
+      newItems.sort((a, b) => getTimestampMillis(b.submittedAt) - getTimestampMillis(a.submittedAt));
 
       setSubmissions((prev) => [...prev, ...newItems]);
       setLastDocSnapshot(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
-      setHasMore(snap.docs.length === 5);
+      setHasMore(snap.docs.length >= PAGE_SIZE);
     } catch (err) {
       console.error("Lỗi khi tải thêm lịch sử bài thi:", err);
     } finally {

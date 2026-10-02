@@ -12,6 +12,32 @@ export interface ExportExamOptions {
   gradeName?: string;
 }
 
+// Vietnamese vowel & letter lookahead to prevent false word boundary matches
+const VN_CHAR_LOOKAHEAD = "(?![a-zA-ZàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÈÉẺẼẸÊẾỀỂỄỆÌÍỈĨỊÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÙÚỦŨỤƯỨỪỬỮỰỲÝỶỸỴ])";
+
+const getCommonLatexRegex = () =>
+  new RegExp(
+    `(\\\\(?:vec|bar|hat|overline|underline)\\s*\\{[^{}]*\\}|\\\\(?:int|sum|prod|lim)(?:_\\{[^{}]*\\}|_[\\w\\d])?(?:\\^\\{[^{}]*\\}|\\^[\\w\\d])?|\\\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)${VN_CHAR_LOOKAHEAD})`,
+    "g"
+  );
+
+/**
+ * Safely renders LaTeX with KaTeX, removing internal newlines so subsequent
+ * newline to <br/> replacement does not corrupt SVG path attributes or HTML layout.
+ */
+function safeKatexRender(math: string, displayMode: boolean): string {
+  try {
+    const rendered = katex.renderToString(math.trim(), {
+      displayMode,
+      throwOnError: false,
+      strict: false,
+    });
+    return rendered.replace(/[\r\n]+/g, " ");
+  } catch {
+    return `<code>${math}</code>`;
+  }
+}
+
 /**
  * Escapes LaTeX special characters in plain text, but preserves math expressions wrapped in $...$ or $$...$$.
  */
@@ -23,14 +49,20 @@ export function escapeLatexText(text: string): string {
 
   const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{[^{}]*\}\s*\{[^{}]*\})/g;
   const sqrtRegex = /((?:[-+]?\s*(?:[0-9a-zA-Z]+|[a-zA-Z]\s*=\s*))?\\sqrt(?:\[[^\]]*\])?\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\})/g;
-  const commonLatexRegex = /(\\(?:vec|bar|hat|overline|underline)\s*\{[^{}]*\}|\\(?:int|sum|prod|lim)(?:_\{[^{}]*\}|_[\w\d])?(?:\^\{[^{}]*\}|\^[\w\d])?|\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)\b)/g;
+  const commonLatexRegex = getCommonLatexRegex();
 
   // Protect existing math mode blocks FIRST so we never double-wrap $...$
-  const parts = sanitized.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
+  const parts = sanitized.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\\[a-zA-Z]+\{[^}]*\}|\\begin\{(?:cases|aligned|matrix|pmatrix|bmatrix|array|equation\*?)\}[\s\S]*?\\end\{(?:cases|aligned|matrix|pmatrix|bmatrix|array|equation\*?)\})/g);
 
   return parts
     .map((part) => {
-      if (part.startsWith("$") && part.endsWith("$")) {
+      if (!part) return "";
+      if (
+        (part.startsWith("$") && part.endsWith("$")) ||
+        (part.startsWith("\\[") && part.endsWith("\\]")) ||
+        (part.startsWith("\\(") && part.endsWith("\\)")) ||
+        part.startsWith("\\begin{")
+      ) {
         // Math content: preserve as is
         return part;
       }
@@ -106,10 +138,17 @@ export function renderLatexToHtml(text: string): string {
   // Format fill-in-the-blank placeholders [_] or [blank]
   sanitized = sanitized.replace(/\[_\]|\[blank\]/gi, `<span style="display: inline-block; min-width: 80px; border-bottom: 1.5px solid #334155; margin: 0 4px; vertical-align: bottom;">&nbsp;</span>`);
 
+  // Convert display math \[ ... \] to $$ ... $$ and inline math \( ... \) to $ ... $
+  sanitized = sanitized.replace(/\\\[([\s\S]*?)\\\]/g, (_, m) => `$$${m}$$`);
+  sanitized = sanitized.replace(/\\\(([\s\S]*?)\\\)/g, (_, m) => `$${m}$`);
+
+  // Auto-wrap unwrapped \begin{cases}...\end{cases}, \begin{aligned}, etc. in $$...$$
+  sanitized = sanitized.replace(/(?<!\$)(?:\\begin\{(?:cases|aligned|matrix|pmatrix|bmatrix|array|equation\*?)\}[\s\S]*?\\end\{(?:cases|aligned|matrix|pmatrix|bmatrix|array|equation\*?)\})(?!\$)/g, (m) => `$$${m}$$`);
+
   // Auto-wrap common unwrapped math commands in $...$ (ONLY outside existing $...$ blocks)
   const fracRegex = /((?:[a-zA-Z](?:\([a-zA-Z0-9]+\))?\s*=\s*)?\\(?:d|t)?frac\s*\{[^{}]*\}\s*\{[^{}]*\})/g;
   const sqrtRegex = /((?:[-+]?\s*(?:[0-9a-zA-Z]+|[a-zA-Z]\s*=\s*))?\\sqrt(?:\[[^\]]*\])?\{([^{}]*(?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}[^{}]*)*)\})/g;
-  const commonLatexRegex = /(\\(?:vec|bar|hat|overline|underline)\s*\{[^{}]*\}|\\(?:int|sum|prod|lim)(?:_\{[^{}]*\}|_[\w\d])?(?:\^\{[^{}]*\}|\^[\w\d])?|\\(?:alpha|beta|gamma|delta|epsilon|varepsilon|zeta|eta|theta|vartheta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|varphi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega|pm|mp|times|div|cdot|cap|cup|subset|supset|subseteq|supseteq|in|notin|ni|forall|exists|nexists|le|ge|leq|geq|neq|approx|equiv|sim|cong|propto|infty|nabla|partial|degree|perp|parallel|angle|triangle|rightarrow|to|leftarrow|leftrightarrow|Rightarrow|Leftarrow|Leftrightarrow|sin|cos|tan|cot|arcsin|arccos|arctan|log|ln|lg|exp)\b)/g;
+  const commonLatexRegex = getCommonLatexRegex();
   
   const parts = sanitized.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
   sanitized = parts
@@ -123,25 +162,17 @@ export function renderLatexToHtml(text: string): string {
     })
     .join("");
 
-  // Replace $$...$$ block math
+  // Replace $$...$$ block math using safeKaTeXRender to prevent SVG corruptions
   let result = sanitized.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => {
-    try {
-      return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
-    } catch {
-      return `<code>${math}</code>`;
-    }
+    return safeKatexRender(math, true);
   });
 
-  // Replace $...$ inline math
+  // Replace $...$ inline math using safeKaTeXRender
   result = result.replace(/\$([\s\S]*?)\$/g, (_, math) => {
-    try {
-      return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
-    } catch {
-      return `<code>${math}</code>`;
-    }
+    return safeKatexRender(math, false);
   });
 
-  // Convert line breaks to <br/>
+  // Convert line breaks to <br/> (safe now because KaTeX output has no internal newlines in SVG attributes)
   result = result.replace(/\n/g, "<br/>");
 
   result = result.replace(/<table\b[^>]*>[\s\S]*?<\/table>/gi, (match) => `<div class="responsive-table-container">${match}</div>`);
@@ -695,14 +726,14 @@ export function generateExamHtmlForPrint(
   <table class="header-table">
     <tr>
       <td style="width: 48%; text-align: center;">
-        <div style="font-weight: bold;">${escapeLatexText(schoolName)}</div>
-        <div style="font-size: 11pt;">TỔ CHUYÊN MÔN: ${escapeLatexText(subjectName)}</div>
+        <div style="font-weight: bold;">${renderLatexToHtml(schoolName)}</div>
+        <div style="font-size: 11pt;">TỔ CHUYÊN MÔN: ${renderLatexToHtml(subjectName)}</div>
         <div style="font-size: 11pt; font-style: italic;">(Đề thi gồm ${questions.length} câu)</div>
       </td>
       <td style="width: 4%;"></td>
       <td style="width: 48%; text-align: center;">
         <div style="font-weight: bold; font-size: 13pt;">${includeAnswers ? "HƯỚNG DẪN CHẤM & ĐÁP ÁN CHI TIẾT" : "ĐỀ THI CHÍNH THỨC"}</div>
-        <div style="font-weight: bold;">MÔN: ${escapeLatexText(subjectName)} - ${escapeLatexText(gradeName)}</div>
+        <div style="font-weight: bold;">MÔN: ${renderLatexToHtml(subjectName)} - ${renderLatexToHtml(gradeName)}</div>
         <div style="font-size: 11pt; font-style: italic;">Thời gian: ${timeLimit} phút (không kể phát đề)</div>
       </td>
     </tr>

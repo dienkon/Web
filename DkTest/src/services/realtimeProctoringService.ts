@@ -52,6 +52,7 @@ export interface ActiveSession {
   // Realtime Admin Control & Pause/Resume/Suspend audit
   adminAction?: "pause" | "suspend" | "resume" | "force_submit" | null;
   adminMessage?: string | null;
+  adminDirectMessage?: { id: string; text: string; sentAt: number; sender?: string } | null;
   adminActionReason?: string | null;
   adminActionActorId?: string | null;
   adminActionActorRole?: string | null;
@@ -174,6 +175,7 @@ export async function syncRealtimeSession(session: ActiveSession) {
 
   if (session.adminAction !== undefined) sessionData.adminAction = session.adminAction;
   if (session.adminMessage !== undefined) sessionData.adminMessage = session.adminMessage;
+  if (session.adminDirectMessage !== undefined) sessionData.adminDirectMessage = session.adminDirectMessage;
   if (session.screenShareRequest !== undefined) sessionData.screenShareRequest = session.screenShareRequest;
   if (session.screenShareActive !== undefined) sessionData.screenShareActive = session.screenShareActive;
   if (session.screenShareFrame !== undefined) sessionData.screenShareFrame = session.screenShareFrame;
@@ -392,14 +394,23 @@ export function subscribeToSingleSession(
       return;
     }
 
-    const merged = { ...(currentData || {}), ...val, sessionId: cleanId } as ActiveSession;
-    currentData = merged;
+    // Explicitly overwrite properties that can be cleared (set to null in RTDB)
+    const sessionData: ActiveSession = {
+      ...val,
+      sessionId: cleanId,
+      adminAction: val.adminAction !== undefined ? val.adminAction : null,
+      adminMessage: val.adminMessage !== undefined ? val.adminMessage : null,
+      adminDirectMessage: val.adminDirectMessage !== undefined ? val.adminDirectMessage : null,
+      screenShareRequest: val.screenShareRequest !== undefined ? val.screenShareRequest : null,
+      screenShareFrame: val.screenShareFrame !== undefined ? val.screenShareFrame : null,
+    };
+    currentData = sessionData;
     const conn = evaluateConnectionState(
-      merged.lastActiveAt,
-      merged.lastHeartbeat,
-      merged.presence
+      sessionData.lastActiveAt,
+      sessionData.lastHeartbeat,
+      sessionData.presence
     );
-    callback({ ...merged, connectionState: conn });
+    callback({ ...sessionData, connectionState: conn });
   };
 
   onValue(rtdbSessionRef, handleSnapshot);
@@ -413,6 +424,38 @@ export function subscribeToSingleSession(
       } catch (_) {}
     }
   };
+}
+
+/**
+ * Resumes an exam session that was previously paused by admin.
+ */
+export async function resumeRealtimeExam(sessionId: string) {
+  if (!sessionId || !rtdb) return;
+  await updateRealtimeSessionMetrics(sessionId, {
+    adminAction: "resume",
+    adminMessage: null,
+    status: "taking",
+  });
+}
+
+/**
+ * Sends a direct message with arbitrary content from admin to an active examinee.
+ */
+export async function sendRealtimeAdminMessage(
+  sessionId: string,
+  message: string,
+  sender: string = "Giám thị"
+) {
+  if (!sessionId || !rtdb) return;
+  const msgObj = {
+    id: `msg_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+    text: message.trim(),
+    sentAt: Date.now(),
+    sender,
+  };
+  await updateRealtimeSessionMetrics(sessionId, {
+    adminDirectMessage: msgObj,
+  });
 }
 
 /**

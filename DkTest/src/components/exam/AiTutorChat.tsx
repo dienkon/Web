@@ -33,6 +33,7 @@ interface AiTutorChatProps {
   examTitle?: string;
   currentQuestionText?: string;
   studentAnswer?: any;
+  questionContext?: any;
   autoPrompt?: string | null;
   onClearAutoPrompt?: () => void;
 }
@@ -41,10 +42,13 @@ export default function AiTutorChat({
   examTitle,
   currentQuestionText,
   studentAnswer,
+  questionContext,
   autoPrompt,
   onClearAutoPrompt,
 }: AiTutorChatProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeQuestionData, setActiveQuestionData] = useState<any>(questionContext || null);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "model",
@@ -65,6 +69,13 @@ export default function AiTutorChat({
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isTyping]);
+
+  // Handle questionContext changes
+  useEffect(() => {
+    if (questionContext) {
+      setActiveQuestionData(questionContext);
+    }
+  }, [questionContext]);
 
   // Handle autoPrompt when user clicks "Hỏi AI câu này"
   useEffect(() => {
@@ -197,6 +208,7 @@ export default function AiTutorChat({
             examTitle,
             currentQuestionText,
             studentAnswer,
+            fullQuestionData: activeQuestionData || questionContext,
           },
         }),
       });

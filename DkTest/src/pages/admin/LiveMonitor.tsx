@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { doc, getDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
-import { ActiveSession, subscribeToSingleSession, updateRealtimeSessionMetrics } from "../../services/realtimeProctoringService";
+import { ActiveSession, subscribeToSingleSession, updateRealtimeSessionMetrics, resumeRealtimeExam, sendRealtimeAdminMessage } from "../../services/realtimeProctoringService";
 import { Exam, Question } from "../../types";
 import { gradeQuestion, calculateExamScore } from "../../services/gradingService";
 import { getStoredItem, setStoredItem, STORAGE_KEYS } from "../../utils/storage";
@@ -26,6 +26,8 @@ import {
   Monitor,
   MonitorOff,
   Loader2,
+  MessageSquare,
+  Send,
 } from "lucide-react";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 
@@ -121,6 +123,10 @@ export default function LiveMonitor() {
   const [showSuspendModal, setShowSuspendModal] = useState(false);
   const [suspendReasonInput, setSuspendReasonInput] = useState("Phát hiện vi phạm quy chế thi. Hệ thống thu bài bắt buộc.");
   const [showScreenModal, setShowScreenModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [directMessageText, setDirectMessageText] = useState("");
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
+  const [messageSuccessToast, setMessageSuccessToast] = useState<string | null>(null);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -255,8 +261,9 @@ export default function LiveMonitor() {
 
   // Admin / Parent Actions
   const handlePauseExam = async () => {
+    if (!sessionId) return;
     if (session?.adminAction === "pause") {
-      await updateRealtimeSessionMetrics(sessionId, { adminAction: null, adminMessage: null });
+      await resumeRealtimeExam(sessionId);
     } else {
       setPauseReasonInput("Giám thị/Phụ huynh yêu cầu tạm dừng bài thi để kiểm tra.");
       setShowPauseModal(true);
@@ -270,6 +277,23 @@ export default function LiveMonitor() {
       adminMessage: pauseReasonInput || "Giám thị/Phụ huynh yêu cầu tạm dừng bài thi.",
     });
     setShowPauseModal(false);
+  };
+
+  const handleSendDirectMessage = async (customText?: string) => {
+    const textToSend = (customText || directMessageText).trim();
+    if (!sessionId || !textToSend || isSendingMessage) return;
+    setIsSendingMessage(true);
+    try {
+      await sendRealtimeAdminMessage(sessionId, textToSend, isAdmin ? "Giám thị" : "Phụ huynh");
+      setDirectMessageText("");
+      setShowMessageModal(false);
+      setMessageSuccessToast("Đã gửi tin nhắn trực tiếp đến màn hình thí sinh!");
+      setTimeout(() => setMessageSuccessToast(null), 3500);
+    } catch (e) {
+      console.error("Lỗi khi gửi tin nhắn:", e);
+    } finally {
+      setIsSendingMessage(false);
+    }
   };
 
   const handleSuspendExam = async () => {
@@ -475,6 +499,15 @@ export default function LiveMonitor() {
 
             {(isAdmin || isParent) && (
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowMessageModal(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors cursor-pointer shadow-2xs"
+                  title="Gửi tin nhắn hoặc nhắc nhở với nội dung bất kỳ đến thí sinh"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Nhắn tin</span>
+                </button>
                 <button
                   type="button"
                   onClick={session?.screenShareActive ? () => setShowScreenModal(true) : handleRequestScreenShare}
@@ -1244,6 +1277,95 @@ export default function LiveMonitor() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Direct Message Modal */}
+      {showMessageModal && (
+        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 space-y-4 border border-slate-200">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base">Gửi tin nhắn cho thí sinh</h3>
+                  <p className="text-xs text-slate-500">
+                    Đến: <strong className="text-blue-600">{session?.studentName}</strong> {session?.studentClass ? `(${session.studentClass})` : ""}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowMessageModal(false)}
+                className="p-1.5 text-slate-400 hover:text-slate-700 rounded-xl cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-slate-700">Nội dung tin nhắn:</label>
+              <textarea
+                value={directMessageText}
+                onChange={(e) => setDirectMessageText(e.target.value)}
+                rows={4}
+                className="w-full p-3.5 border border-slate-200 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Nhập nội dung nhắc nhở, thông báo hoặc hướng dẫn thí sinh..."
+              />
+            </div>
+
+            {/* Quick Suggestions */}
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-bold text-slate-500">Gợi ý tin nhắn mẫu nhanh:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  "Vui lòng tập trung nhìn thẳng màn hình làm bài!",
+                  "Em kiểm tra lại kết nối mạng và thiết bị nhé.",
+                  "Không quay ngang nhìn ngó hoặc chuyển tab thi!",
+                  "Thời gian làm bài còn 10 phút, em chú ý kiểm tra lại bài.",
+                  "Giám thị đã ghi nhận yêu cầu hỗ trợ của em.",
+                ].map((preset, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setDirectMessageText(preset)}
+                    className="text-[11px] px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors cursor-pointer text-left"
+                  >
+                    {preset}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowMessageModal(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Hủy
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSendDirectMessage()}
+                disabled={isSendingMessage || !directMessageText.trim()}
+                className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              >
+                {isSendingMessage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                <span>Gửi tin nhắn ngay</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating success toast */}
+      {messageSuccessToast && (
+        <div className="fixed bottom-6 right-6 z-[120] bg-emerald-600 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold animate-in slide-in-from-bottom">
+          <CheckCircle2 className="w-4 h-4" />
+          <span>{messageSuccessToast}</span>
         </div>
       )}
 
