@@ -1,0 +1,12 @@
+{
+  "name": "gemini-tts-studio",
+  "version": "1.0.0",
+  "description": "Text to Speech web app using Google Gemini 3.8 Flash Lite TTS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["gemini", "tts", "text-to-speech", "flash-lite-tts"],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini AI Studio - Audio & Live Multi-Model Hub</title>
+  <meta name="description" content="Trải nghiệm hệ sinh thái các mô hình Gemini Live API, TTS, Audio Dialog, Translate và Transcribe với giao diện trắng sáng hiện đại.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow and grid -->
+  <div class="bg-ambient"></div>
+  <div class="bg-grid"></div>
+
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <!-- Sparkles Icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            Gemini Studio Hub
+            <span class="model-pill">
+              <span class="model-pill-dot"></span>
+              <span id="activeModelBadge">Gemini 3.8 Flash Lite TTS</span>
+            </span>
+          </div>
+          <div class="brand-subtitle">Hệ sinh thái Gemini Live API & Audio thế hệ mới của Google</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="toggleConfigBtn" class="btn-ghost" title="Cấu hình API Key">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span>Cấu hình API</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Missing API Key Alert Banner -->
+    <div id="apiKeyBanner" class="api-key-banner hidden">
+      <div class="banner-left">
+        <div class="banner-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div class="banner-text">
+          <strong>Chưa cấu hình API Key:</strong> Vui lòng nhập Google Gemini API Key để kích hoạt các model. Key sẽ <strong>tự động lưu an toàn trên trình duyệt (LocalStorage)</strong> của bạn.
+        </div>
+      </div>
+      <button id="bannerSetupBtn" class="btn-banner-action">Nhập API Key</button>
+    </div>
+
+    <!-- Config Drawer (Collapsible) -->
+    <section id="configDrawer" class="config-drawer collapsed">
+      <div class="config-header">
+        <div class="config-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          Cài đặt Gemini API Key
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="save-indicator" id="keySaveIndicator" style="opacity: 0;">✓ Đã lưu Local</span>
+          <span class="input-label-badge" id="apiKeyStatusBadge">Chưa cấu hình</span>
+        </div>
+      </div>
+
+      <div class="config-grid" style="grid-template-columns: 1fr;">
+        <div class="input-group">
+          <div class="input-label">
+            <span>Google AI Studio API Key</span>
+            <div>
+              <button type="button" id="clearApiKeyBtn" class="btn-clear-key" title="Xóa API Key khỏi trình duyệt">Xóa key</button>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="apiKeyInput" class="text-input input-with-icon-right" placeholder="Dán API Key của bạn vào đây (AIzaSy... hoặc AQ.Ab...)">
+            <button type="button" id="toggleKeyVisibilityBtn" class="input-icon-btn" title="Hiện/ẩn API key">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-top: 4px;">
+            <span>Dữ liệu lưu an toàn 100% trong LocalStorage máy bạn, không gửi về bất kỳ máy chủ nào khác.</span>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="footer-link">Lấy API Key tại Google AI Studio ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Model Quota & Live Rate Limits Card (Real data from Google API & Account Quotas) -->
+    <section class="quota-card">
+      <div class="quota-header">
+        <div class="quota-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="20" height="14" x="2" y="5" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+          <span>Hạn mức & Thông số Thực Tế: <strong id="quotaModelTitle">Gemini 3.8 Flash Lite TTS</strong></span>
+          <span class="tab-pill-badge" id="quotaApiTypeBadge" style="margin-left: 6px;">TTS API</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="quota-status-pill" id="quotaHealthPill">
+            <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span>
+            <span id="quotaHealthText">Sẵn sàng</span>
+          </span>
+          <button id="refreshQuotaBtn" class="btn-ghost" style="padding: 3px 8px; font-size: 0.72rem;" title="Làm mới thông số">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="quota-grid">
+        <div class="quota-stat-box">
+          <div class="stat-box-label">
+            <span>Tốc độ (RPM)</span>
+            <span style="color: var(--primary-600);">Live / Min</span>
+          </div>
+          <div class="stat-box-val">
+            <span id="statRpmValue">0 / Unlimited</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" id="statRpmSub">
+            Đã gọi trong phiên: 0 requests
+          </div>
+        </div>
+
+        <div class="quota-stat-box">
+          <div class="stat-box-label">
+            <span>Hạn mức Token (TPM)</span>
+            <span style="color: var(--accent-purple);">Tokens / Min</span>
+          </div>
+          <div class="stat-box-val">
+            <span id="statTpmValue">0 / 1M</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" id="statTokensCountReal">
+            Token thực tế (Google countTokens): 0 tokens
+          </div>
+        </div>
+
+        <div class="quota-stat-box">
+          <div class="stat-box-label">
+            <span>Hạn ngạch ngày (RPD)</span>
+            <span style="color: var(--accent-emerald);">Day Quota</span>
+          </div>
+          <div class="stat-box-val">
+            <span id="statRpdCount">0 / Unlimited</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">
+            Tài khoản cấp quyền Unlimited RPD
+          </div>
+        </div>
+
+        <div class="quota-stat-box">
+          <div class="stat-box-label">
+            <span>Context Limit (Google API)</span>
+            <span style="color: var(--accent-cyan);">Specs</span>
+          </div>
+          <div class="stat-box-val">
+            <span id="statInputTokens">8,192</span>
+            <small id="statOutputTokensSuffix">/ 16K Out</small>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);" id="statModelEngineName">
+            Engine: models/gemini-3.8-flash-lite-tts
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Multi-Model Tabs Navigation Bar -->
+    <div class="tabs-nav-wrapper">
+      <nav class="tabs-nav" id="modelTabsNav">
+        <button class="tab-btn active" data-tab="tts">
+          <span>🎙️ 3.8 Flash Lite TTS</span>
+          <span class="tab-pill-badge">TTS API</span>
+        </button>
+        <button class="tab-btn" data-tab="dialog">
+          <span>💬 2.5 Flash Audio Dialog</span>
+          <span class="tab-pill-badge">Live API</span>
+        </button>
+        <button class="tab-btn" data-tab="live3">
+          <span>⚡ 3 Flash Live</span>
+          <span class="tab-pill-badge">Live API</span>
+        </button>
+        <button class="tab-btn" data-tab="translate">
+          <span>🌐 3.5 Live Translate</span>
+          <span class="tab-pill-badge">Live API</span>
+        </button>
+        <button class="tab-btn" data-tab="transcribe">
+          <span>📝 3.5 Transcribe Live</span>
+          <span class="tab-pill-badge">Live API</span>
+        </button>
+        <button class="tab-btn" data-tab="live38">
+          <span>🤖 3.8 Live</span>
+          <span class="tab-pill-badge">Live API</span>
+        </button>
+        <button class="tab-btn" data-tab="thinking">
+          <span>🧠 3.8 Live Extended Thinking</span>
+          <span class="tab-pill-badge">Live API</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Main Workspace Card (Hosts the Tab Panels) -->
+    <main class="main-card">
+
+      <!-- ====================================================================
+           TAB 1: Gemini 3.8 Flash Lite TTS (Chuyển văn bản thành giọng nói)
+           ==================================================================== -->
+      <section id="panel-tts" class="tab-panel active">
+        <!-- Model Selection Bar for TTS -->
+        <div class="tts-model-selector-bar" style="display: flex; gap: 12px; align-items: center; margin-bottom: 18px; background: var(--bg-page); padding: 12px 18px; border-radius: var(--radius-lg); border: 1.5px solid var(--border-subtle); flex-wrap: wrap;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            <span>Mô hình TTS tùy chọn:</span>
+          </div>
+          <select id="ttsModelSelect" class="select-input" style="flex: 1; min-width: 240px; max-width: 380px; padding: 8px 12px; font-weight: 600;">
+            <option value="gemini-3.8-flash-lite-tts" selected>Gemini 3.8 Flash Lite TTS (Khuyên dùng)</option>
+            <option value="gemini-3.8-flash-tts">Gemini 3.8 Flash TTS</option>
+            <option value="gemini-3.1-flash-tts-preview">Gemini 3.1 Flash TTS Preview</option>
+            <option value="gemini-2.5-flash-preview-tts">Gemini 2.5 Flash Preview TTS</option>
+            <option value="gemini-2.5-pro-preview-tts">Gemini 2.5 Pro Preview TTS</option>
+            <option value="custom">✏️ Nhập model ID khác tùy ý...</option>
+          </select>
+          <input type="text" id="ttsCustomModelInput" class="text-input" placeholder="Nhập model ID (VD: gemini-3.8-flash-tts)" style="display: none; max-width: 260px; padding: 8px 12px;">
+        </div>
+
+        <!-- Voice Selection -->
+        <div class="custom-voice-action-bar">
+          <div class="section-label" style="margin-bottom: 0;">
+            <span>Chọn giọng đọc AI</span>
+          </div>
+          <button id="openAddVoiceModalBtn" class="btn-add-custom-voice">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            + Tự custom giọng
+          </button>
+        </div>
+
+        <div class="voices-grid" id="voicesContainer">
+          <!-- Voice cards rendered by JS -->
+        </div>
+
+        <!-- Text Input Panel -->
+        <div class="input-panel" style="margin-top: 18px;">
+          <textarea id="textInput" class="main-textarea" placeholder="Nhập câu hoặc đoạn văn bản tiếng Việt bạn muốn phát âm thanh tại đây..." rows="4"></textarea>
+          
+          <div class="input-footer">
+            <div class="char-counter" id="charCounter">0 ký tự • 0 từ • <span id="realTokenCountDisplay">0 tokens</span></div>
+            <div class="input-actions-sub">
+              <button id="pasteTextBtn" class="btn-icon-sub" title="Dán từ Clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                </svg>
+                Dán
+              </button>
+              <button id="clearTextBtn" class="btn-icon-sub" title="Xóa nội dung">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                </svg>
+                Xóa
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Presets -->
+        <div class="presets-section">
+          <span class="preset-chip-title">Câu mẫu thử nghiệm:</span>
+          <button class="preset-chip" data-text="Xin chào! Chúc bạn một ngày mới tràn ngập niềm vui và năng lượng tích cực.">👋 Chào hỏi</button>
+          <button class="preset-chip" data-text="Gemini 3.8 Flash Lite TTS mang đến chất lượng âm thanh trong trẻo, tự nhiên và tốc độ phản hồi cực nhanh.">🚀 Công nghệ AI</button>
+          <button class="preset-chip" data-text="Ngày xửa ngày xưa, tại một thung lũng xanh mướt có một dòng suối trong vắt róc rách chảy quanh năm.">📖 Kể chuyện</button>
+          <button class="preset-chip" data-text="Hành trình vạn dặm luôn bắt đầu bằng một bước chân nhỏ. Hãy vững tin và tiến lên phía trước!">🎯 Động lực</button>
+        </div>
+
+        <!-- Action Button -->
+        <div class="generate-container">
+          <div class="shortcut-hint">
+            <span>Nhấn <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> để phát âm thanh nhanh</span>
+          </div>
+
+          <button id="generateBtn" class="btn-primary-generate">
+            <span class="spinner"></span>
+            <svg class="btn-icon-ready" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            </svg>
+            <span id="generateBtnText">Tạo & Phát Âm Thanh</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 2: Gemini 2.5 Flash Native Audio Dialog (Đối thoại âm thanh)
+           ==================================================================== -->
+      <section id="panel-dialog" class="tab-panel">
+        <div class="section-label">
+          <span>💬 Gemini 2.5 Flash Native Audio Dialog • Live API (1M TPM)</span>
+        </div>
+        <div class="dialog-container">
+          <div class="chat-history-box" id="dialogChatBox">
+            <div class="chat-msg assistant">
+              <div class="chat-avatar">✨</div>
+              <div class="chat-bubble">
+                Xin chào! Tôi là Gemini 2.5 Flash Native Audio Dialog. Hãy đặt câu hỏi hoặc trò chuyện với tôi bằng tiếng Việt, tôi sẽ trả lời kèm giọng đọc âm thanh đối thoại tự nhiên!
+              </div>
+            </div>
+          </div>
+
+          <div class="input-panel">
+            <textarea id="dialogInput" class="main-textarea" placeholder="Nhập tin nhắn hoặc câu hỏi đối thoại của bạn..." rows="2"></textarea>
+            <div class="input-footer">
+              <div class="char-counter" id="dialogCharCounter">0 ký tự • <span id="dialogTokenCount">0 tokens</span></div>
+              <button id="dialogSendBtn" class="btn-primary-generate" style="padding: 8px 20px; font-size: 0.88rem;">
+                <span class="spinner"></span>
+                <span>Gửi & Đối thoại âm thanh</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 3: Gemini 3 Flash Live (Tương tác Live siêu tốc)
+           ==================================================================== -->
+      <section id="panel-live3" class="tab-panel">
+        <div class="section-label">
+          <span>⚡ Gemini 3 Flash Live • Live API (65K TPM)</span>
+        </div>
+        <div class="input-panel">
+          <textarea id="live3Input" class="main-textarea" placeholder="Nhập câu lệnh hoặc yêu cầu trực tiếp đến Gemini 3 Flash Live..." rows="3"></textarea>
+          <div class="input-footer">
+            <div class="char-counter">Phản hồi độ trễ cực thấp • <span id="live3TokenCount">0 tokens</span></div>
+            <button id="live3SendBtn" class="btn-primary-generate" style="padding: 8px 20px; font-size: 0.88rem;">
+              <span class="spinner"></span>
+              <span>Kích hoạt Live Stream</span>
+            </button>
+          </div>
+        </div>
+        <div id="live3ResultBox" style="margin-top: 16px; display: none;" class="chat-bubble"></div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 4: Gemini 3.5 Live Translate (Dịch thuật song ngữ trực tiếp)
+           ==================================================================== -->
+      <section id="panel-translate" class="tab-panel">
+        <div class="section-label">
+          <span>🌐 Gemini 3.5 Live Translate • Live API (20K TPM)</span>
+        </div>
+        <div class="translate-grid">
+          <div class="translate-box">
+            <div class="translate-header">
+              <select id="sourceLangSelect" class="lang-select">
+                <option value="vi" selected>Tiếng Việt</option>
+                <option value="en">Tiếng Anh (English)</option>
+                <option value="ja">Tiếng Nhật (日本語)</option>
+                <option value="ko">Tiếng Hàn (한국어)</option>
+                <option value="zh">Tiếng Trung (中文)</option>
+                <option value="fr">Tiếng Pháp (Français)</option>
+              </select>
+              <button id="swapLangBtn" class="btn-swap-lang" title="Đổi chiều ngôn ngữ">⇄</button>
+            </div>
+            <textarea id="translateInput" class="translate-textarea" placeholder="Nhập văn bản cần dịch tại đây..."></textarea>
+          </div>
+
+          <div class="translate-box">
+            <div class="translate-header">
+              <select id="targetLangSelect" class="lang-select">
+                <option value="en" selected>Tiếng Anh (English)</option>
+                <option value="vi">Tiếng Việt</option>
+                <option value="ja">Tiếng Nhật (日本語)</option>
+                <option value="ko">Tiếng Hàn (한국어)</option>
+                <option value="zh">Tiếng Trung (中文)</option>
+                <option value="fr">Tiếng Pháp (Français)</option>
+              </select>
+              <span class="tab-pill-badge" id="translateTokenBadge">0 tokens</span>
+            </div>
+            <div id="translateOutput" class="translate-output" style="color: var(--text-light); font-style: italic;">
+              Bản dịch sẽ hiển thị và tự động phát âm chuẩn tại đây...
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <button id="translateActionBtn" class="btn-primary-generate">
+            <span class="spinner"></span>
+            <span>Dịch & Phát âm bản xứ</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 5: Gemini 3.5 Transcribe Live (Speech-to-Text)
+           ==================================================================== -->
+      <section id="panel-transcribe" class="tab-panel">
+        <div class="section-label">
+          <span>📝 Gemini 3.5 Transcribe Live • Live API (20K TPM • 98K Input Context)</span>
+        </div>
+        
+        <div style="display: flex; gap: 16px; margin-bottom: 18px; flex-wrap: wrap;">
+          <button id="recordMicBtn" class="transcribe-record-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+            <span id="recordMicText">Bắt đầu Ghi âm Microphone</span>
+          </button>
+
+          <label class="btn-ghost" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Tải file Audio lên (.wav, .mp3, .m4a)</span>
+            <input type="file" id="audioFileInput" accept="audio/*" style="display: none;">
+          </label>
+        </div>
+
+        <div class="input-panel">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-light); margin-bottom: 6px;">
+            Kết quả văn bản bóc tách (Transcribed Text):
+          </div>
+          <textarea id="transcribeResultText" class="main-textarea" placeholder="Nội dung giọng nói được chuyển đổi thành văn bản sẽ xuất hiện tại đây..." rows="5"></textarea>
+          <div class="input-footer">
+            <span id="transcribeStatusLabel" style="font-size: 0.78rem; color: var(--text-muted);">Sẵn sàng nhận diện giọng nói</span>
+            <button id="copyTranscribeBtn" class="btn-icon-sub">Sao chép văn bản</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 6: Gemini 3.8 Live (Trợ lý AI thế hệ mới)
+           ==================================================================== -->
+      <section id="panel-live38" class="tab-panel">
+        <div class="section-label">
+          <span>🤖 Gemini 3.8 Live • Live API (65K TPM)</span>
+        </div>
+        <div class="input-panel">
+          <textarea id="live38Input" class="main-textarea" placeholder="Hỏi bất kỳ điều gì với mô hình cao cấp Gemini 3.8 Live..." rows="3"></textarea>
+          <div class="input-footer">
+            <div class="char-counter">Khả năng xử lý đa năng cao cấp • <span id="live38TokenCount">0 tokens</span></div>
+            <button id="live38SendBtn" class="btn-primary-generate" style="padding: 8px 20px; font-size: 0.88rem;">
+              <span class="spinner"></span>
+              <span>Trò chuyện cùng Gemini 3.8</span>
+            </button>
+          </div>
+        </div>
+        <div id="live38ResultBox" style="margin-top: 16px; display: none;" class="chat-bubble"></div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 7: Gemini 3.8 Live Extended Thinking (Chuỗi tư duy sâu)
+           ==================================================================== -->
+      <section id="panel-thinking" class="tab-panel">
+        <div class="section-label">
+          <span>🧠 Gemini 3.8 Live Extended Thinking • Live API (65K TPM)</span>
+        </div>
+        <div class="input-panel">
+          <textarea id="thinkingInput" class="main-textarea" placeholder="Nhập câu đố hóc búa, bài toán logic hoặc câu hỏi cần suy luận nhiều bước..." rows="3"></textarea>
+          <div class="input-footer">
+            <div class="char-counter">Hiển thị toàn bộ chuỗi tư duy (Thinking Chain) • <span id="thinkingTokenCount">0 tokens</span></div>
+            <button id="thinkingSendBtn" class="btn-primary-generate" style="padding: 8px 20px; font-size: 0.88rem;">
+              <span class="spinner"></span>
+              <span>Kích hoạt Suy Nghĩ Sâu & Đọc</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Thinking Process Block (Collapsible) -->
+        <div id="thinkingProcessBox" class="thinking-box" style="display: none;">
+          <div class="thinking-header" id="toggleThinkingContent">
+            <div class="thinking-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a6 6 0 0 0-6 6c0 2.22 1.2 4.16 3 5.2V17a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-3.8c1.8-1.04 3-2.98 3-5.2a6 6 0 0 0-6-6Z"/><path d="M9 21h6"/></svg>
+              <span>Chuỗi tư duy nội tâm (Thinking Process Chain)</span>
+            </div>
+            <span class="thinking-token-badge">Nhấn để thu gọn/mở rộng</span>
+          </div>
+          <div id="thinkingContentText" class="thinking-content"></div>
+        </div>
+
+        <div id="thinkingFinalResultBox" style="margin-top: 14px; display: none;" class="chat-bubble"></div>
+      </section>
+
+      <!-- ====================================================================
+           SHARED AUDIO PLAYER & LIVE VISUALIZER CARD (Shared across all models)
+           ==================================================================== -->
+      <section id="playerCard" class="player-card">
+        <div class="player-header">
+          <div class="player-meta">
+            <span class="meta-status-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Sẵn sàng phát
+            </span>
+            <span class="meta-time-badge" id="playerLatencyBadge">24kHz Audio</span>
+          </div>
+
+          <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-light);" id="currentVoiceBadge">
+            Giọng đọc: Puck
+          </div>
+        </div>
+
+        <!-- Canvas Audio Waveform Visualizer -->
+        <div class="visualizer-wrapper">
+          <canvas id="visualizerCanvas"></canvas>
+          <div class="visualizer-overlay-hint">Sóng âm Gemini Live & TTS sống động</div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+          <button id="playPauseBtn" class="btn-play-pause" title="Phát / Tạm dừng">
+            <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+              <rect x="6" y="4" width="4" height="16"/>
+              <rect x="14" y="4" width="4" height="16"/>
+            </svg>
+          </button>
+
+          <div class="timeline-container">
+            <input type="range" id="timelineSlider" class="timeline-slider" min="0" max="100" value="0" step="0.1">
+            <div class="time-display">
+              <span id="currentTimeLabel">0:00</span>
+              <span id="totalDurationLabel">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speed & Downloads -->
+        <div class="player-secondary-actions">
+          <div class="speed-selector-group">
+            <button class="speed-btn" data-speed="0.8">0.8x</button>
+            <button class="speed-btn active" data-speed="1.0">1.0x</button>
+            <button class="speed-btn" data-speed="1.25">1.25x</button>
+            <button class="speed-btn" data-speed="1.5">1.5x</button>
+          </div>
+
+          <div class="extra-actions">
+            <!-- MP3 Download -->
+            <button id="downloadMp3Btn" class="btn-player-mp3" title="Tải file âm thanh MP3 128kbps">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
+              </svg>
+              <span>Tải MP3</span>
+            </button>
+
+            <!-- WAV Download -->
+            <button id="downloadBtn" class="btn-player-sub" title="Tải file âm thanh gốc WAV">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Tải WAV
+            </button>
+
+            <button id="copyAudioTextBtn" class="btn-player-sub" title="Sao chép nội dung">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+              Sao chép
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- History Section -->
+    <section class="history-section">
+      <div class="history-header">
+        <div class="history-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 14 14"/>
+          </svg>
+          Lịch sử phát âm thanh các Model
+          <span class="history-count-badge" id="historyCountBadge">0</span>
+        </div>
+
+        <button id="clearHistoryBtn" class="btn-ghost" style="padding: 5px 12px; font-size: 0.78rem;">
+          Xóa lịch sử
+        </button>
+      </div>
+
+      <div id="historyList" class="history-list">
+        <div class="history-empty" id="historyEmptyState">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+          <div>Chưa có câu nào được phát. Hãy chọn một chức năng và bắt đầu trải nghiệm!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div>Được hỗ trợ bởi hệ sinh thái <strong>Google Gemini Live API & TTS Models</strong></div>
+      <div>Giao diện hiện đại • Hạn ngạch & Token đếm trực tiếp từ Google API • Không dữ liệu giả lập</div>
+    </footer>
+  </div>
+
+  <!-- Custom Voice Modal -->
+  <div id="customVoiceModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span id="customVoiceModalTitle">Tạo Giọng Đọc Tùy Chỉnh Mới</span>
+        </div>
+        <button id="closeVoiceModalBtn" class="modal-close-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="customVoiceForm" class="modal-form">
+        <input type="hidden" id="editVoiceId" value="">
+
+        <div class="input-group">
+          <label for="customVoiceName" class="input-label">Tên giọng đọc</label>
+          <input type="text" id="customVoiceName" class="text-input" placeholder="VD: Hoàng Nam - MC Thời sự" required>
+        </div>
+
+        <div class="config-grid">
+          <div class="input-group">
+            <label for="customVoiceBase" class="input-label">Giọng nền AI (Base Voice)</label>
+            <select id="customVoiceBase" class="select-input">
+              <option value="Puck">Puck (Nam - Tự nhiên)</option>
+              <option value="Aoede">Aoede (Nữ - Trong trẻo)</option>
+              <option value="Kore">Kore (Nữ - Dịu dàng)</option>
+              <option value="Fenrir">Fenrir (Nam - Dõng dạc)</option>
+              <option value="Charon">Charon (Nam - Trầm ấm)</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="customVoiceIcon" class="input-label">Biểu tượng & Giới tính</label>
+            <select id="customVoiceIcon" class="select-input">
+              <option value="🎙️|Nam">🎙️ Nam - Phát thanh viên</option>
+              <option value="✨|Nữ">✨ Nữ - Truyền cảm</option>
+              <option value="🌸|Nữ">🌸 Nữ - Dịu dàng</option>
+              <option value="⚡|Nam">⚡ Nam - Năng động</option>
+              <option value="☕|Nam">☕ Nam - Trầm ấm</option>
+              <option value="🎭|Trung tính">🎭 Diễn viên kịch nghệ</option>
+              <option value="🌙|Nữ">🌙 Kể chuyện đêm muộn</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="customVoiceStyle" class="input-label">
+            <span>Phong cách & Hướng dẫn đọc (Voice Persona / Style Prompt)</span>
+          </label>
+          <textarea id="customVoiceStyle" class="text-input" rows="3" placeholder="VD: Hãy đọc với ngữ điệu hào hứng, vui tươi, tốc độ hơi nhanh như đang giới thiệu một công nghệ đột phá..."></textarea>
+          
+          <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-light); margin-top: 4px;">
+            Gợi ý phong cách nhanh:
+          </div>
+          <div class="style-template-chips">
+            <button type="button" class="style-chip" data-style="Đọc với giọng hào hứng, vui tươi, tràn đầy năng lượng và tự tin.">⚡ Hào hứng, sôi nổi</button>
+            <button type="button" class="style-chip" data-style="Đọc với phong cách đĩnh đạc, trang trọng, rõ ràng và chuẩn mực như người dẫn chương trình thời sự.">📻 Bản tin thời sự</button>
+            <button type="button" class="style-chip" data-style="Đọc nhẹ nhàng, chậm rãi, thì thầm ấm áp như đang đọc truyện cổ tích đêm muộn.">🌙 Thì thầm, ru ngủ</button>
+            <button type="button" class="style-chip" data-style="Đọc truyền cảm, sâu lắng, nhấn nhá từng từ ngữ với sự rung động và ấm áp.">🌸 Truyền cảm hứng</button>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelVoiceModalBtn" class="btn-ghost">Hủy bỏ</button>
+          <button type="submit" class="btn-primary-generate" style="padding: 10px 22px; font-size: 0.9rem;">
+            Lưu giọng đọc
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Hidden Audio Element -->
+  <audio id="audioElement" preload="auto"></audio>
+
+  <!-- LameJS for Pure In-Browser MP3 Encoding -->
+  <script src="lame.min.js"></script>
+  <!-- Main Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
