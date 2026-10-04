@@ -21,7 +21,11 @@ import {
   GraduationCap,
   Sparkles,
   RefreshCw,
+  FileText,
+  X,
 } from "lucide-react";
+import { collection, query, where, limit as fsLimit, getDocs } from "firebase/firestore";
+import { db } from "../../services/firebase/config";
 import {
   fetchAdminUsers,
   approveUserAccount,
@@ -64,6 +68,47 @@ export default function Students() {
 
   // Single action modal
   const [actionTarget, setActionTarget] = useState<{ user: UserProfile; type: "suspend" | "delete" | "approve" } | null>(null);
+
+  // Quick Exam History Preview state
+  const [previewStudent, setPreviewStudent] = useState<UserProfile | null>(null);
+  const [previewSubs, setPreviewSubs] = useState<any[]>([]);
+  const [previewLoading, setPreviewLoading] = useState(false);
+
+  const openExamPreview = async (stu: UserProfile) => {
+    setPreviewStudent(stu);
+    setPreviewSubs([]);
+    setPreviewLoading(true);
+    try {
+      const candidateNames = Array.from(
+        new Set([stu.uid, stu.username, stu.displayName, stu.email].filter(Boolean))
+      );
+      const subMap = new Map<string, any>();
+      for (const name of candidateNames) {
+        try {
+          const q1 = query(collection(db, "submissions"), where("studentUsername", "==", name), fsLimit(10));
+          const s1 = await getDocs(q1);
+          s1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() }));
+        } catch (_) {}
+
+        try {
+          const q2 = query(collection(db, "submissions"), where("studentId", "==", name), fsLimit(10));
+          const s2 = await getDocs(q2);
+          s2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() }));
+        } catch (_) {}
+      }
+      const list = Array.from(subMap.values());
+      list.sort((a, b) => {
+        const timeA = new Date(a.submittedAt?.toDate?.() || a.submittedAt || 0).getTime();
+        const timeB = new Date(b.submittedAt?.toDate?.() || b.submittedAt || 0).getTime();
+        return timeB - timeA;
+      });
+      setPreviewSubs(list);
+    } catch (e) {
+      console.warn("Lỗi tải nhanh bài thi:", e);
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
 
   const loadData = async () => {
     setLoading(true);
@@ -481,6 +526,14 @@ export default function Students() {
                     </td>
                     <td className="p-3.5 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => openExamPreview(student)}
+                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                          title="Xem nhanh các bài thi gần nhất"
+                        >
+                          <FileText className="w-4 h-4" />
+                        </button>
                         <Link
                           to={`/admin/users/${student.uid}`}
                           className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors"
@@ -600,6 +653,131 @@ export default function Students() {
           onConfirm={executeBulkAction}
           onCancel={() => setShowBulkModal(false)}
         />
+      )}
+
+      {/* Quick Exam History Preview Modal */}
+      {previewStudent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">
+                  {(previewStudent.displayName || previewStudent.email || "H").charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">
+                    Bài thi gần nhất: {previewStudent.displayName || "Học sinh"}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-mono">
+                    {previewStudent.email || previewStudent.username || previewStudent.uid} • Lớp: {previewStudent.studentClass || "—"}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewStudent(null)}
+                className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-5">
+              {previewLoading ? (
+                <div className="py-12 text-center text-slate-400">
+                  <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-blue-600" />
+                  <p className="text-xs">Đang tải lịch sử thi...</p>
+                </div>
+              ) : previewSubs.length === 0 ? (
+                <div className="py-12 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                  <FileText className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                  <p className="text-xs font-bold text-slate-600">Học sinh chưa làm bài thi nào</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Học sinh chưa hoàn thành bất kỳ bài thi nào trên hệ thống.
+                  </p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-100 text-slate-400 uppercase text-[10px] font-bold">
+                        <th className="pb-2.5">Tên đề thi</th>
+                        <th className="pb-2.5">Điểm số</th>
+                        <th className="pb-2.5">Đúng / Tổng</th>
+                        <th className="pb-2.5">Thời gian</th>
+                        <th className="pb-2.5">Ngày nộp</th>
+                        <th className="pb-2.5 text-right">Chi tiết</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {previewSubs.map((sub: any) => {
+                        const score = typeof sub.score === "number" ? sub.score : 0;
+                        const maxScore = sub.maxScore || 10;
+                        const ratio = maxScore > 0 ? score / maxScore : 0;
+                        const badgeColor =
+                          ratio >= 0.8
+                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            : ratio >= 0.5
+                            ? "bg-blue-50 text-blue-700 border-blue-200"
+                            : "bg-rose-50 text-rose-700 border-rose-200";
+
+                        return (
+                          <tr key={sub.id} className="hover:bg-slate-50/80 transition-colors">
+                            <td className="py-3 font-bold text-slate-900 max-w-[200px] truncate">
+                              {sub.examTitleSnapshot || sub.examTitle || sub.examId}
+                            </td>
+                            <td className="py-3">
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded-lg border font-black text-xs ${badgeColor}`}>
+                                {score} <span className="font-normal text-[10px] ml-1 opacity-70">/ {maxScore}</span>
+                              </span>
+                            </td>
+                            <td className="py-3 text-slate-600 font-medium">
+                              {sub.correctCount ?? "—"} / {sub.totalCount ?? "—"}
+                            </td>
+                            <td className="py-3 text-slate-600 font-medium">
+                              {sub.timeSpent ? `${Math.round(sub.timeSpent / 60)} phút` : "—"}
+                            </td>
+                            <td className="py-3 text-slate-500 font-mono text-[11px]">
+                              {sub.submittedAt ? formatDate(sub.submittedAt) : "—"}
+                            </td>
+                            <td className="py-3 text-right">
+                              <Link
+                                to={`/admin/exams/${sub.examId}/submissions/${sub.id}`}
+                                className="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-[11px] font-bold transition-colors inline-block"
+                              >
+                                Xem bài
+                              </Link>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-xs">
+              <Link
+                to={`/admin/users/${previewStudent.uid}`}
+                className="font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
+              >
+                <span>Mở toàn bộ hồ sơ học sinh</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setPreviewStudent(null)}
+                className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold transition-colors cursor-pointer"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

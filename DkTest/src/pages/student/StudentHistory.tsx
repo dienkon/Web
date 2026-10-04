@@ -103,44 +103,73 @@ export default function StudentHistory() {
       let fetchedSubs: Submission[] = [];
       let lastDoc: QueryDocumentSnapshot<DocumentData> | null = null;
 
-      if (studentUsername) {
+      const candidateUsernames = Array.from(
+        new Set([
+          studentUsername,
+          studentInfo?.username,
+          studentInfo?.displayName,
+          localStorage.getItem("user_id"),
+        ].filter(Boolean))
+      ) as string[];
+
+      if (candidateUsernames.length > 0) {
         const t0 = performance.now();
-        let snap;
-        try {
-          // 1. Primary query: studentUsername with submittedAt DESC (matches composite index)
-          const q = query(
-            collection(db, "submissions"),
-            where("studentUsername", "==", studentUsername),
-            orderBy("submittedAt", "desc"),
-            limit(PAGE_SIZE)
-          );
-          snap = await getDocs(q);
-        } catch {
+        const subMap = new Map<string, Submission>();
+
+        for (const cname of candidateUsernames) {
           try {
-            // 2. Secondary query: studentId with submittedAt DESC
-            const qId = query(
+            // 1. Primary query: studentUsername with submittedAt DESC
+            const q1 = query(
               collection(db, "submissions"),
-              where("studentId", "==", studentUsername),
+              where("studentUsername", "==", cname),
               orderBy("submittedAt", "desc"),
               limit(PAGE_SIZE)
             );
-            snap = await getDocs(qId);
-          } catch {
-            // 3. Fallback without composite index if index build is still propagating
-            const qFallback = query(
+            const snap1 = await getDocs(q1);
+            snap1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
+            if (!lastDoc && snap1.docs.length > 0) lastDoc = snap1.docs[snap1.docs.length - 1];
+          } catch (_) {
+            // Fallback without composite index
+            try {
+              const q1Fallback = query(
+                collection(db, "submissions"),
+                where("studentUsername", "==", cname),
+                limit(PAGE_SIZE)
+              );
+              const snap1 = await getDocs(q1Fallback);
+              snap1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
+              if (!lastDoc && snap1.docs.length > 0) lastDoc = snap1.docs[snap1.docs.length - 1];
+            } catch (__) {}
+          }
+
+          try {
+            // 2. Secondary query: studentId with submittedAt DESC
+            const q2 = query(
               collection(db, "submissions"),
-              where("studentId", "==", studentUsername),
-              limit(50)
+              where("studentId", "==", cname),
+              orderBy("submittedAt", "desc"),
+              limit(PAGE_SIZE)
             );
-            snap = await getDocs(qFallback);
+            const snap2 = await getDocs(q2);
+            snap2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
+            if (!lastDoc && snap2.docs.length > 0) lastDoc = snap2.docs[snap2.docs.length - 1];
+          } catch (_) {
+            // Fallback without composite index
+            try {
+              const q2Fallback = query(
+                collection(db, "submissions"),
+                where("studentId", "==", cname),
+                limit(PAGE_SIZE)
+              );
+              const snap2 = await getDocs(q2Fallback);
+              snap2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
+              if (!lastDoc && snap2.docs.length > 0) lastDoc = snap2.docs[snap2.docs.length - 1];
+            } catch (__) {}
           }
         }
 
-        if (snap) {
-          logQueryRead("submissions", snap.size, `StudentHistory student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
-          fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
-          lastDoc = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
-        }
+        fetchedSubs = Array.from(subMap.values());
+        logQueryRead("submissions", fetchedSubs.length, `StudentHistory student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
       }
 
       // Check local submission history IDs to ensure any freshly submitted exam shows immediately

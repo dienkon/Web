@@ -243,7 +243,7 @@ const router = createBrowserRouter([
       { path: "users/:uid", element: withSuspense(UserDetail, "Đang tải thông tin người dùng...") },
       { path: "data-health", element: withSuspense(DataHealth, "Đang kiểm tra sức khoẻ dữ liệu...") },
       { path: "audit-logs", element: withSuspense(AuditLogs, "Đang tải nhật ký hệ thống...") },
-      { path: "classes", element: withSuspense(Classes, "Đang tải danh sách lớp...") },
+      { path: "classes", element: <Navigate to="/admin/stats" replace /> },
       { path: "system-health", element: withSuspense(SystemHealth, "Đang kiểm tra hệ thống...") },
       { path: "live-proctoring", element: withSuspense(LiveProctoring, "Đang tải phòng giám sát...") },
       { path: "stats", element: withSuspense(Statistics, "Đang tổng hợp số liệu...") },

@@ -535,16 +535,53 @@ adminRouter.get("/users/:uid", async (req: AuthenticatedRequest, res: Response) 
       const relParentSnap = await adminDb.collection("relationships").where("parentUid", "==", uid).get();
       relParentSnap.forEach((d) => relationships.push({ id: d.id, ...d.data() }));
 
-      const subSnap = await adminDb
-        .collection("submissions")
-        .where("studentId", "==", uid)
-        .orderBy("submittedAt", "desc")
-        .limit(subLimit)
-        .get()
-        .catch(async () => {
-          return await adminDb!.collection("submissions").where("studentId", "==", uid).limit(subLimit).get();
-        });
-      subSnap.forEach((d) => submissions.push({ id: d.id, ...d.data() }));
+      const candidateIds = Array.from(
+        new Set(
+          [
+            uid,
+            userData.username,
+            userData.email,
+            userData.displayName,
+            studentProfile?.username,
+            studentProfile?.studentCode,
+          ].filter(Boolean)
+        )
+      );
+
+      const subMap = new Map<string, any>();
+      for (const cid of candidateIds) {
+        try {
+          const s1 = await adminDb
+            .collection("submissions")
+            .where("studentId", "==", cid)
+            .limit(subLimit * 2)
+            .get();
+          s1.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() }));
+        } catch (_) {}
+
+        try {
+          const s2 = await adminDb
+            .collection("submissions")
+            .where("studentUsername", "==", cid)
+            .limit(subLimit * 2)
+            .get();
+          s2.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() }));
+        } catch (_) {}
+      }
+
+      submissions = Array.from(subMap.values());
+      submissions.sort((a, b) => {
+        const getMs = (val: any) => {
+          if (!val) return 0;
+          if (typeof val.toDate === "function") return val.toDate().getTime();
+          if (typeof val.toMillis === "function") return val.toMillis();
+          if (typeof val.seconds === "number") return val.seconds * 1000;
+          if (val instanceof Date) return val.getTime();
+          return new Date(val).getTime() || 0;
+        };
+        return getMs(b.submittedAt) - getMs(a.submittedAt);
+      });
+      submissions = submissions.slice(0, subLimit);
 
       const logSnap = await adminDb.collection("auditLogs").where("targetUid", "==", uid).limit(logLimit).get();
       logSnap.forEach((d) => auditLogs.push({ id: d.id, ...d.data() }));
@@ -559,8 +596,29 @@ adminRouter.get("/users/:uid", async (req: AuthenticatedRequest, res: Response) 
       const allRels = await getFirestoreRestDocs("relationships");
       relationships = allRels.filter((r) => r.studentUid === uid || r.parentUid === uid);
 
-      const allSubs = await getFirestoreRestDocs("submissions", subLimit * 5);
-      submissions = allSubs.filter((s) => s.studentId === uid).slice(0, subLimit);
+      const candidateIds = Array.from(
+        new Set(
+          [
+            uid,
+            userData.username,
+            userData.email,
+            userData.displayName,
+            studentProfile?.username,
+            studentProfile?.studentCode,
+          ].filter(Boolean)
+        )
+      );
+
+      const allSubs = await getFirestoreRestDocs("submissions", 100);
+      submissions = allSubs.filter((s) =>
+        candidateIds.includes(s.studentId) || candidateIds.includes(s.studentUsername)
+      );
+      submissions.sort((a, b) => {
+        const timeA = new Date(a.submittedAt || 0).getTime();
+        const timeB = new Date(b.submittedAt || 0).getTime();
+        return timeB - timeA;
+      });
+      submissions = submissions.slice(0, subLimit);
 
       const allLogs = await getFirestoreRestDocs("auditLogs", logLimit * 5);
       auditLogs = allLogs.filter((l) => l.targetUid === uid).slice(0, logLimit);

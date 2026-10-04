@@ -44,6 +44,7 @@ import {
   isParentAuthenticated,
 } from "../../services/authService";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
+import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/statsAggregatorService";
 
 const CACHE_TTL_MS = 180000; // 3 minutes
 
@@ -136,50 +137,31 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     setLoadingTop(true);
     try {
-      // 1. Fetch Top 5 Most Attempted (strictly limit 5)
-      let attemptedList: Exam[] = [];
-      try {
-        const q = query(
-          collection(db, "exams"),
-          where("status", "==", "published"),
-          orderBy("attemptCount", "desc"),
-          limit(5)
-        );
-        const snap = await getDocs(q);
-        attemptedList = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-      } catch {
-        const q = query(
-          collection(db, "exams"),
-          where("status", "==", "published"),
-          limit(5)
-        );
-        const snap = await getDocs(q);
-        attemptedList = snap.docs
-          .map((d) => ({ id: d.id, ...d.data() } as Exam))
-          .sort((a, b) => ((b.attemptCount || b.submissionsCount || 0) - (a.attemptCount || a.submissionsCount || 0)))
-          .slice(0, 5);
+      const catalog = await getExamsCatalogSummary();
+      let published = (catalog?.exams || []).filter((e) => e.status === "published");
+
+      if (published.length === 0) {
+        // Fallback direct query if catalog is empty
+        try {
+          const q = query(collection(db, "exams"), where("status", "==", "published"));
+          const snap = await getDocs(q);
+          published = snap.docs.map((d) => ({ id: d.id, ...d.data() } as any));
+        } catch (_) {}
       }
 
-      // 2. Fetch Top 5 Newest (strictly limit 5)
-      let newestList: Exam[] = [];
-      try {
-        const q = query(
-          collection(db, "exams"),
-          where("status", "==", "published"),
-          orderBy("createdAt", "desc"),
-          limit(5)
-        );
-        const snap = await getDocs(q);
-        newestList = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-      } catch {
-        const q = query(
-          collection(db, "exams"),
-          where("status", "==", "published"),
-          limit(5)
-        );
-        const snap = await getDocs(q);
-        newestList = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-      }
+      // 1. Top 5 Newest (strictly sorted by newest first)
+      const newestList = [...published]
+        .sort((a, b) => {
+          const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+          const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+          return timeB - timeA;
+        })
+        .slice(0, 5) as unknown as Exam[];
+
+      // 2. Top 5 Most Attempted (strictly sorted by attemptCount desc)
+      const attemptedList = [...published]
+        .sort((a, b) => ((b.attemptCount || b.submissionsCount || 0) - (a.attemptCount || a.submissionsCount || 0)))
+        .slice(0, 5) as unknown as Exam[];
 
       FirestoreCache.set("home:top:attempted", attemptedList, CACHE_TTL_MS);
       FirestoreCache.set("home:top:newest", newestList, CACHE_TTL_MS);
@@ -207,6 +189,37 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     setLoadingAll(true);
     try {
+      // 1-Read catalog strategy for all exams
+      const catalog = await getExamsCatalogSummary();
+      let filtered = (catalog?.exams || []).filter((e) => e.status === "published");
+
+      if (selectedSubjectFilter !== "all") {
+        filtered = filtered.filter((e) => e.subject === selectedSubjectFilter);
+      }
+      if (selectedGradeFilter !== "all") {
+        filtered = filtered.filter((e) => e.gradeCategory === selectedGradeFilter);
+      }
+
+      // Always sort newest first
+      filtered.sort((a, b) => {
+        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+        return timeB - timeA;
+      });
+
+      if (reqId !== filterRequestIdRef.current) return;
+
+      if (filtered.length > 0) {
+        const initialBatch = filtered.slice(0, 5) as unknown as Exam[];
+        const hasMore = filtered.length > 5;
+        setAllExams(initialBatch);
+        setHasMoreAll(hasMore);
+        setAllCursor(initialBatch.length > 0 ? ({ id: initialBatch[initialBatch.length - 1].id } as any) : null);
+        FirestoreCache.set(filterCacheKey, { exams: initialBatch, hasMore }, 120000);
+        return;
+      }
+
+      // Fallback query if catalog is empty
       const conditions: any[] = [where("status", "==", "published")];
       if (selectedSubjectFilter !== "all") {
         conditions.push(where("subject", "==", selectedSubjectFilter));
@@ -215,20 +228,24 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         conditions.push(where("gradeCategory", "==", selectedGradeFilter));
       }
 
-      // Strictly limit 5 docs for initial batch
-      const q = query(collection(db, "exams"), ...conditions, limit(5));
+      const q = query(collection(db, "exams"), ...conditions);
       const snap = await getDocs(q);
-
-      // Discard result if filter changed during in-flight request
       if (reqId !== filterRequestIdRef.current) return;
 
-      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-      const hasMore = snap.docs.length === 5;
-      setAllExams(items);
-      setAllCursor(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
+      const rawItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+      rawItems.sort((a, b) => {
+        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+        return timeB - timeA;
+      });
+
+      const initialBatch = rawItems.slice(0, 5);
+      const hasMore = rawItems.length > 5;
+      setAllExams(initialBatch);
+      setAllCursor(initialBatch.length > 0 ? ({ id: initialBatch[initialBatch.length - 1].id } as any) : null);
       setHasMoreAll(hasMore);
 
-      FirestoreCache.set(filterCacheKey, { exams: items, hasMore }, 120000);
+      FirestoreCache.set(filterCacheKey, { exams: initialBatch, hasMore }, 120000);
     } catch (err) {
       if (reqId === filterRequestIdRef.current) {
         console.error("Lỗi khi tải danh sách tất cả đề thi:", err);
@@ -241,30 +258,37 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
   };
 
   const loadMoreAllExams = async () => {
-    if (!allCursor || !hasMoreAll || loadingMoreRef.current || loadingAll) return;
+    if (!hasMoreAll || loadingMoreRef.current || loadingAll) return;
     loadingMoreRef.current = true;
     setLoadingMoreAll(true);
     try {
-      const conditions: any[] = [where("status", "==", "published")];
+      // 1. Try from catalog summary with 0 reads
+      const catalog = await getExamsCatalogSummary();
+      let filtered = (catalog?.exams || []).filter((e) => e.status === "published");
+
       if (selectedSubjectFilter !== "all") {
-        conditions.push(where("subject", "==", selectedSubjectFilter));
+        filtered = filtered.filter((e) => e.subject === selectedSubjectFilter);
       }
       if (selectedGradeFilter !== "all") {
-        conditions.push(where("gradeCategory", "==", selectedGradeFilter));
+        filtered = filtered.filter((e) => e.gradeCategory === selectedGradeFilter);
       }
 
-      // Strictly limit 5 docs per pagination chunk
-      const q = query(
-        collection(db, "exams"),
-        ...conditions,
-        startAfter(allCursor),
-        limit(5)
-      );
-      const snap = await getDocs(q);
-      const newItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-      setAllExams((prev) => [...prev, ...newItems]);
-      setAllCursor(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
-      setHasMoreAll(snap.docs.length === 5);
+      filtered.sort((a, b) => {
+        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+        return timeB - timeA;
+      });
+
+      const currentCount = allExams.length;
+      if (currentCount < filtered.length) {
+        const nextBatch = filtered.slice(currentCount, currentCount + 5) as unknown as Exam[];
+        setAllExams((prev) => [...prev, ...nextBatch]);
+        setHasMoreAll(currentCount + nextBatch.length < filtered.length);
+        setAllCursor(nextBatch.length > 0 ? ({ id: nextBatch[nextBatch.length - 1].id } as any) : null);
+        return;
+      }
+
+      setHasMoreAll(false);
     } catch (err) {
       console.error("Lỗi khi cuộn tải thêm đề thi:", err);
     } finally {

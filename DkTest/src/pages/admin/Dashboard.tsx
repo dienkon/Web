@@ -42,6 +42,7 @@ import { subscribeToActiveSessions, type ActiveSession } from "../../services/re
 import { formatDate } from "../../utils/date";
 import { logQueryRead } from "../../utils/firestoreLogger";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
+import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/statsAggregatorService";
 
 export default function Dashboard() {
   const toast = useToast();
@@ -98,23 +99,31 @@ export default function Dashboard() {
         setDataHealthIssuesCount(healthRes.issues?.length || 0);
       } catch (e) {}
 
-      // 4. Fetch recent exams (capped at limit 5, with 60s memory cache)
+      // 4. Fetch recent exams (1 doc read from catalog summary!)
       try {
-        const recentExams = await FirestoreRepository.getQuery<Exam>(
-          "dashboard:recent_exams",
-          query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(5)),
-          { ttlMs: 60 * 1000, collectionName: "exams", limitApplied: 5, purpose: "Dashboard recent exams" }
-        );
-        setExams(recentExams);
-      } catch (e) {
-        try {
-          const fallbackExams = await FirestoreRepository.getQuery<Exam>(
-            "dashboard:recent_exams_fallback",
-            query(collection(db, "exams"), limit(5)),
-            { ttlMs: 60 * 1000, collectionName: "exams", limitApplied: 5, purpose: "Dashboard recent exams fallback" }
+        const catalog = await getExamsCatalogSummary();
+        if (catalog && Array.isArray(catalog.exams) && catalog.exams.length > 0) {
+          const sorted = [...catalog.exams].sort((a, b) => {
+            const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+            const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+            return timeB - timeA;
+          });
+          setExams(sorted.slice(0, 5) as unknown as Exam[]);
+        } else {
+          const recentExams = await FirestoreRepository.getQuery<Exam>(
+            "dashboard:recent_exams",
+            query(collection(db, "exams"), limit(10)),
+            { ttlMs: 60 * 1000, collectionName: "exams", limitApplied: 10, purpose: "Dashboard recent exams" }
           );
-          setExams(fallbackExams);
-        } catch (_) {}
+          recentExams.sort((a, b) => {
+            const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+            const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+            return timeB - timeA;
+          });
+          setExams(recentExams.slice(0, 5));
+        }
+      } catch (e) {
+        console.warn("Could not fetch recent exams for dashboard:", e);
       }
 
       // 5. Fetch recent submissions (Only if not already provided by system_stats/overview)

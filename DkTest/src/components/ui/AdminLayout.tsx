@@ -36,7 +36,6 @@ const navItems = [
   { name: "Giám sát Live", path: "/admin/live-proctoring", icon: Eye, hasLiveBadge: true },
   { name: "Bài nộp", path: "/admin/submissions", icon: GraduationCap },
   { name: "Thống kê", path: "/admin/stats", icon: BarChart3 },
-  { name: "Phân tích theo lớp", path: "/admin/classes", icon: Layers },
   { name: "Kiểm tra dữ liệu", path: "/admin/data-health", icon: Activity },
   { name: "Nhật ký hệ thống", path: "/admin/audit-logs", icon: FileCode },
   { name: "System Health", path: "/admin/system-health", icon: Server },

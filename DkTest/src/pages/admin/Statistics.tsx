@@ -40,6 +40,7 @@ import type { Exam, Submission, Student, Question } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
 import { logDocRead, logQueryRead, logCacheHit } from "../../utils/firestoreLogger";
+import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/statsAggregatorService";
 
 type GeneralTab = "overview" | "exams" | "students" | "cheat";
 type ExamDetailTab = "score_dist" | "questions_analysis" | "submissions_list" | "cheat_logs";
@@ -100,13 +101,18 @@ export default function Statistics() {
   const [subSearch, setSubSearch] = useState("");
   const [scoreFilter, setScoreFilter] = useState<string>("all");
 
+  // Overview & Comparison exam list pagination / view more
+  const [overviewVisibleExams, setOverviewVisibleExams] = useState(5);
+  const [examsTabVisibleCount, setExamsTabVisibleCount] = useState(10);
+  const [examsTabSearch, setExamsTabSearch] = useState("");
+
   useEffect(() => {
     if (routeExamId) {
       setSelectedExamId(routeExamId);
     }
   }, [routeExamId]);
 
-  // 1. INITIAL MINIMAL LOAD: Cached or light 5 items
+  // 1. INITIAL MINIMAL LOAD: 1-read catalog summary & light items
   useEffect(() => {
     const loadInitialOverview = async () => {
       const now = Date.now();
@@ -123,16 +129,27 @@ export default function Statistics() {
       try {
         let loadedExams: Exam[] = [];
         try {
+          const catalog = await getExamsCatalogSummary();
+          if (catalog && Array.isArray(catalog.exams) && catalog.exams.length > 0) {
+            loadedExams = catalog.exams as unknown as Exam[];
+          }
+        } catch (catErr) {
+          console.warn("Could not read catalog summary:", catErr);
+        }
+
+        if (loadedExams.length === 0) {
           const t0 = performance.now();
-          const exSnap = await getDocs(query(collection(db, "exams"), orderBy("createdAt", "desc"), limit(5)));
-          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams", 5, performance.now() - t0);
-          loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
-        } catch {
-          const t0 = performance.now();
-          const exSnap = await getDocs(query(collection(db, "exams"), limit(5)));
-          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams fallback", 5, performance.now() - t0);
+          const exSnap = await getDocs(query(collection(db, "exams")));
+          logQueryRead("exams", exSnap.size, "Statistics loadInitialOverview exams fallback", 50, performance.now() - t0);
           loadedExams = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
         }
+
+        // Always sort newest first
+        loadedExams.sort((a, b) => {
+          const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+          const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+          return timeB - timeA;
+        });
 
         let loadedSubs: Submission[] = [];
         try {
@@ -201,14 +218,27 @@ export default function Statistics() {
           setTabLoading(true);
           try {
             const t0 = performance.now();
-            // Tối ưu: Chỉ lấy 5 bài thi & 5 bài nộp gần nhất
-            const [exSnap, subSnap] = await Promise.all([
-              getDocs(query(collection(db, "exams"), orderBy("updatedAt", "desc"), limit(5))),
-              getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(5))),
-            ]);
-            logQueryRead("exams", exSnap.size, "Statistics tab exams", 5, performance.now() - t0);
-            logQueryRead("submissions", subSnap.size, "Statistics tab submissions", 5, performance.now() - t0);
-            const exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+            let exList: Exam[] = [];
+            try {
+              const catalog = await getExamsCatalogSummary();
+              if (catalog && Array.isArray(catalog.exams) && catalog.exams.length > 0) {
+                exList = catalog.exams as unknown as Exam[];
+              }
+            } catch (_) {}
+
+            if (exList.length === 0) {
+              const exSnap = await getDocs(query(collection(db, "exams")));
+              exList = exSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Exam));
+            }
+
+            exList.sort((a, b) => {
+              const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+              const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+              return timeB - timeA;
+            });
+
+            const subSnap = await getDocs(query(collection(db, "submissions"), orderBy("submittedAt", "desc"), limit(50)));
+            logQueryRead("submissions", subSnap.size, "Statistics tab submissions", 50, performance.now() - t0);
             const subList = subSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
             
             STATS_CACHE.examsTab = {
@@ -1391,17 +1421,30 @@ export default function Statistics() {
                     </div>
                   </div>
 
-                  {/* List of 5 Recent Exams with Quick Action */}
+                  {/* List of Recent Exams with Quick Action & Load More */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
-                    <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+                    <div className="p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <h3 className="font-bold text-slate-900 text-sm">
-                          5 Bài thi mới nhất (Chọn bài để xem phân tích chi tiết)
+                        <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
+                          <span>Bài thi mới nhất (Chọn bài để xem phân tích chi tiết)</span>
+                          <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200">
+                            Hiển thị {Math.min(overviewVisibleExams, exams.length)} / {exams.length} bài
+                          </span>
                         </h3>
                         <p className="text-xs text-slate-500 mt-0.5">
-                          Để xem toàn bộ bài thi, chọn tab &quot;Bảng so sánh tất cả bài thi&quot;.
+                          Nhấp vào bài thi bất kỳ để xem phân tích chuyên sâu về phổ điểm và chất lượng từng câu hỏi.
                         </p>
                       </div>
+
+                      {overviewVisibleExams < exams.length && (
+                        <button
+                          type="button"
+                          onClick={() => setOverviewVisibleExams((prev) => Math.min(exams.length, prev + 5))}
+                          className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-xs font-bold transition-colors cursor-pointer border border-blue-200 flex items-center gap-1.5"
+                        >
+                          <span>Xem thêm +5 bài</span>
+                        </button>
+                      )}
                     </div>
 
                     <div className="overflow-x-auto">
@@ -1410,12 +1453,13 @@ export default function Statistics() {
                           <tr className="bg-slate-50 font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
                             <th className="px-6 py-3.5">Bài thi</th>
                             <th className="px-6 py-3.5">Mã đề</th>
+                            <th className="px-6 py-3.5">Môn học</th>
                             <th className="px-6 py-3.5">Thời gian</th>
                             <th className="px-6 py-3.5 text-right">Chi tiết</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                          {exams.map((ex) => (
+                          {exams.slice(0, overviewVisibleExams).map((ex) => (
                             <tr
                               key={ex.id}
                               onClick={() => {
@@ -1426,7 +1470,10 @@ export default function Statistics() {
                             >
                               <td className="px-6 py-4 font-bold text-slate-900">{ex.title}</td>
                               <td className="px-6 py-4 font-mono font-bold text-slate-600">
-                                {ex.code}
+                                {ex.code || "—"}
+                              </td>
+                              <td className="px-6 py-4 font-medium text-slate-600">
+                                {ex.subject || "Khác"}
                               </td>
                               <td className="px-6 py-4 font-medium text-slate-700">
                                 {ex.timeLimit || 45} phút
@@ -1439,85 +1486,140 @@ export default function Statistics() {
                         </tbody>
                       </table>
                     </div>
+
+                    {overviewVisibleExams < exams.length && (
+                      <div className="p-3 bg-slate-50 border-t border-slate-100 text-center">
+                        <button
+                          type="button"
+                          onClick={() => setOverviewVisibleExams((prev) => Math.min(exams.length, prev + 5))}
+                          className="text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors cursor-pointer py-1 px-4 rounded-lg hover:bg-blue-50 inline-flex items-center gap-1"
+                        >
+                          <span>Xem thêm bài thi tiếp theo ({exams.length - overviewVisibleExams} bài còn lại)</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
               {/* ALL EXAMS COMPARISON TAB (ON-DEMAND LOADED) */}
-              {!tabLoading && generalTab === "exams" && (
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
-                  <div className="p-5 border-b border-slate-100 flex items-center justify-between">
-                    <div>
-                      <h3 className="font-bold text-slate-900 text-sm">
-                        Bảng so sánh chi tiết tất cả bài thi (Đã tải {allExamsList.length} bài)
-                      </h3>
-                      <p className="text-xs text-slate-500 mt-0.5">
-                        Dữ liệu được tải theo yêu cầu khi bạn chuyển vào tab này.
-                      </p>
+              {!tabLoading && generalTab === "exams" && (() => {
+                const filteredAllExams = allExamsList.filter((ex) => {
+                  if (!examsTabSearch.trim()) return true;
+                  const q = examsTabSearch.toLowerCase();
+                  return (
+                    (ex.title && ex.title.toLowerCase().includes(q)) ||
+                    (ex.code && ex.code.toLowerCase().includes(q)) ||
+                    (ex.subject && ex.subject.toLowerCase().includes(q))
+                  );
+                });
+                const visibleExams = filteredAllExams.slice(0, examsTabVisibleCount);
+
+                return (
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+                    <div className="p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
+                          <span>Bảng so sánh chi tiết tất cả bài thi</span>
+                          <span className="text-[11px] font-semibold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">
+                            Hiển thị {visibleExams.length} / {filteredAllExams.length} bài
+                          </span>
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Tải từ bộ tổng hợp chỉ 1 read duy nhất. Có thể tìm kiếm và xem thêm không giới hạn.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <div className="relative">
+                          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                          <input
+                            type="text"
+                            placeholder="Tìm kiếm bài thi..."
+                            value={examsTabSearch}
+                            onChange={(e) => setExamsTabSearch(e.target.value)}
+                            className="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 w-48 sm:w-64"
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse text-xs">
-                      <thead>
-                        <tr className="bg-slate-50 font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
-                          <th className="px-6 py-3.5">Bài thi</th>
-                          <th className="px-6 py-3.5">Mã đề</th>
-                          <th className="px-6 py-3.5">Số câu</th>
-                          <th className="px-6 py-3.5">Số bài nộp</th>
-                          <th className="px-6 py-3.5">Điểm TB</th>
-                          <th className="px-6 py-3.5">Tỷ lệ đỗ</th>
-                          <th className="px-6 py-3.5 text-right">Xem phân tích sâu</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {allExamsList.map((ex) => {
-                          const exSubs = allExamsSubmissions.filter((s) => s.examId === ex.id);
-                          const exScores = exSubs.map((s) => s.score);
-                          const exAvg =
-                            exScores.length > 0
-                              ? (exScores.reduce((a, b) => a + b, 0) / exScores.length).toFixed(2)
-                              : "---";
-                          const exPass =
-                            exSubs.length > 0
-                              ? Math.round(
-                                  (exSubs.filter((s) => s.score >= 5).length / exSubs.length) * 100
-                                )
-                              : 0;
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse text-xs">
+                        <thead>
+                          <tr className="bg-slate-50 font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                            <th className="px-6 py-3.5">Bài thi</th>
+                            <th className="px-6 py-3.5">Mã đề</th>
+                            <th className="px-6 py-3.5">Số câu</th>
+                            <th className="px-6 py-3.5">Số bài nộp</th>
+                            <th className="px-6 py-3.5">Điểm TB</th>
+                            <th className="px-6 py-3.5">Tỷ lệ đỗ</th>
+                            <th className="px-6 py-3.5 text-right">Xem phân tích sâu</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {visibleExams.map((ex) => {
+                            const exSubs = allExamsSubmissions.filter((s) => s.examId === ex.id);
+                            const exScores = exSubs.map((s) => s.score);
+                            const exAvg =
+                              exScores.length > 0
+                                ? (exScores.reduce((a, b) => a + b, 0) / exScores.length).toFixed(2)
+                                : "---";
+                            const exPass =
+                              exSubs.length > 0
+                                ? Math.round(
+                                    (exSubs.filter((s) => s.score >= 5).length / exSubs.length) * 100
+                                  )
+                                : 0;
 
-                          return (
-                            <tr key={ex.id} className="hover:bg-slate-50/70">
-                              <td className="px-6 py-4 font-bold text-slate-900">{ex.title}</td>
-                              <td className="px-6 py-4 font-mono font-bold text-slate-600">
-                                {ex.code}
-                              </td>
-                              <td className="px-6 py-4 text-slate-600">
-                                {ex.questionCount || 0} câu
-                              </td>
-                              <td className="px-6 py-4 font-medium text-slate-800">
-                                {exSubs.length} bài
-                              </td>
-                              <td className="px-6 py-4 font-extrabold text-blue-700">{exAvg}</td>
-                              <td className="px-6 py-4 font-bold text-emerald-600">{exPass}%</td>
-                              <td className="px-6 py-4 text-right">
-                                <button
-                                  onClick={() => {
-                                    setSelectedExamId(ex.id);
-                                    navigate(`/admin/exams/${ex.id}/stats`);
-                                  }}
-                                  className="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold rounded-lg transition-colors cursor-pointer"
-                                >
-                                  Phổ điểm chi tiết
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
+                            return (
+                              <tr key={ex.id} className="hover:bg-slate-50/70">
+                                <td className="px-6 py-4 font-bold text-slate-900">{ex.title}</td>
+                                <td className="px-6 py-4 font-mono font-bold text-slate-600">
+                                  {ex.code || "—"}
+                                </td>
+                                <td className="px-6 py-4 text-slate-600">
+                                  {ex.questionCount || (ex as any).totalQuestions || 0} câu
+                                </td>
+                                <td className="px-6 py-4 font-medium text-slate-800">
+                                  {ex.submissionsCount || ex.attemptCount || exSubs.length} bài
+                                </td>
+                                <td className="px-6 py-4 font-extrabold text-blue-700">{exAvg}</td>
+                                <td className="px-6 py-4 font-bold text-emerald-600">{exPass}%</td>
+                                <td className="px-6 py-4 text-right">
+                                  <button
+                                    onClick={() => {
+                                      setSelectedExamId(ex.id);
+                                      navigate(`/admin/exams/${ex.id}/stats`);
+                                    }}
+                                    className="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold rounded-lg transition-colors cursor-pointer"
+                                  >
+                                    Phổ điểm chi tiết
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {examsTabVisibleCount < filteredAllExams.length && (
+                      <div className="p-3 bg-slate-50 border-t border-slate-100 text-center">
+                        <button
+                          type="button"
+                          onClick={() => setExamsTabVisibleCount((prev) => Math.min(filteredAllExams.length, prev + 10))}
+                          className="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-200 text-blue-600 font-bold text-xs rounded-xl shadow-2xs transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                        >
+                          <span>Xem thêm 10 bài thi ({filteredAllExams.length - examsTabVisibleCount} bài còn lại)</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
               {/* STUDENTS LEADERBOARD TAB (ON-DEMAND LOADED) */}
               {!tabLoading && generalTab === "students" && (

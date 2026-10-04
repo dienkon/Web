@@ -234,3 +234,202 @@ export async function getExamAggregatedStats(examId: string): Promise<ExamAggreg
     purpose: "Specific exam aggregated stats",
   });
 }
+
+export interface ExamSummaryItem {
+  id: string;
+  title: string;
+  code?: string;
+  description?: string;
+  subject?: string;
+  gradeCategory?: string;
+  timeLimit?: number;
+  totalQuestions?: number;
+  status: "published" | "draft" | "unlisted";
+  folderId?: string | null;
+  ownerId?: string | null;
+  isFeatured?: boolean;
+  attemptCount?: number;
+  submissionsCount?: number;
+  createdAt?: any;
+  updatedAt?: any;
+}
+
+export interface ExamsCatalogSummary {
+  exams: ExamSummaryItem[];
+  totalCount: number;
+  lastUpdated: string;
+}
+
+export const getExamTimestampMs = (val: any): number => {
+  if (!val) return 0;
+  if (typeof val.toMillis === "function") return val.toMillis();
+  if (typeof val.toDate === "function") return val.toDate().getTime();
+  if (typeof val.seconds === "number") return val.seconds * 1000;
+  if (val instanceof Date) return val.getTime();
+  if (typeof val === "number") return val;
+  const parsed = new Date(val).getTime();
+  return isNaN(parsed) ? 0 : parsed;
+};
+
+/**
+ * Reads the centralized exams catalog summary in EXACTLY 1 FIRESTORE READ.
+ * Returns all active exams sorted from newest to oldest.
+ * If the doc does not exist yet, auto-heals by aggregating existing exams once.
+ */
+export async function getExamsCatalogSummary(forceRefresh = false): Promise<ExamsCatalogSummary> {
+  const cacheKey = "doc:system_stats:exams_summary";
+  if (!forceRefresh) {
+    const cached = FirestoreCache.get<ExamsCatalogSummary>(cacheKey);
+    if (cached && Array.isArray(cached.exams)) {
+      logCacheHit("Exams Catalog Summary Cache");
+      return cached;
+    }
+  }
+
+  try {
+    const t0 = performance.now();
+    const catalogRef = doc(db, "system_stats", "exams_summary");
+    const snap = await getDoc(catalogRef);
+    logDocRead("system_stats", "exams_summary", snap.exists(), performance.now() - t0, "1-read exams catalog summary");
+
+    if (snap.exists()) {
+      const data = snap.data() as ExamsCatalogSummary;
+      if (Array.isArray(data.exams)) {
+        // Ensure robust sorting by newest first
+        data.exams.sort((a, b) => {
+          const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+          const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+          return timeB - timeA;
+        });
+        FirestoreCache.set(cacheKey, data, 60 * 1000);
+        return data;
+      }
+    }
+  } catch (err) {
+    console.warn("[StatsAggregator] Warning reading system_stats/exams_summary:", err);
+  }
+
+  // Auto-heal fallback: Fetch exams collection, sort, and save to system_stats/exams_summary
+  try {
+    const t0 = performance.now();
+    const snap = await getDocs(collection(db, "exams"));
+    logQueryRead("exams", snap.size, 100, performance.now() - t0, "Auto-heal exams catalog summary");
+
+    const rawExams: ExamSummaryItem[] = snap.docs.map((d) => {
+      const data = d.data();
+      return {
+        id: d.id,
+        title: data.title || "Bài thi không tên",
+        code: data.code || "",
+        description: data.description || "",
+        subject: data.subject || "Khác",
+        gradeCategory: data.gradeCategory || "",
+        timeLimit: typeof data.timeLimit === "number" ? data.timeLimit : 45,
+        totalQuestions: Array.isArray(data.questions) ? data.questions.length : (data.totalQuestions || 0),
+        status: data.status || "published",
+        folderId: data.folderId ?? null,
+        ownerId: data.ownerId ?? null,
+        isFeatured: !!data.isFeatured,
+        attemptCount: data.attemptCount || data.submissionsCount || 0,
+        submissionsCount: data.submissionsCount || data.attemptCount || 0,
+        createdAt: data.createdAt || null,
+        updatedAt: data.updatedAt || data.createdAt || null,
+      };
+    });
+
+    rawExams.sort((a, b) => {
+      const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+      const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+      return timeB - timeA;
+    });
+
+    const catalogData: ExamsCatalogSummary = {
+      exams: rawExams,
+      totalCount: rawExams.length,
+      lastUpdated: new Date().toISOString(),
+    };
+
+    // Save to system_stats/exams_summary for future 1-read queries (non-blocking)
+    setDoc(doc(db, "system_stats", "exams_summary"), catalogData)
+      .then(() => logDocWrite("system_stats", "exams_summary", "SET", "Auto-heal persisted"))
+      .catch((e) => console.warn("[StatsAggregator] Failed to persist exams_summary auto-heal:", e));
+
+    FirestoreCache.set(cacheKey, catalogData, 60 * 1000);
+    return catalogData;
+  } catch (healErr) {
+    console.error("[StatsAggregator] Critical error building exams catalog:", healErr);
+    return { exams: [], totalCount: 0, lastUpdated: new Date().toISOString() };
+  }
+}
+
+/**
+ * Atomically synchronizes an exam change (create, update, or delete) to system_stats/exams_summary.
+ */
+export async function syncExamToCatalogSummary(
+  exam: Partial<ExamSummaryItem> & { id: string },
+  action: "upsert" | "delete"
+): Promise<void> {
+  const cacheKey = "doc:system_stats:exams_summary";
+  FirestoreCache.invalidate(cacheKey);
+
+  try {
+    const catalogRef = doc(db, "system_stats", "exams_summary");
+    const snap = await getDoc(catalogRef);
+    let currentExams: ExamSummaryItem[] = [];
+
+    if (snap.exists()) {
+      const data = snap.data() as ExamsCatalogSummary;
+      if (Array.isArray(data.exams)) {
+        currentExams = [...data.exams];
+      }
+    }
+
+    if (action === "delete") {
+      currentExams = currentExams.filter((e) => e.id !== exam.id);
+    } else {
+      const existingIdx = currentExams.findIndex((e) => e.id === exam.id);
+      const updatedItem: ExamSummaryItem = {
+        id: exam.id,
+        title: exam.title || "Bài thi",
+        code: exam.code || "",
+        description: exam.description || "",
+        subject: exam.subject || "Khác",
+        gradeCategory: exam.gradeCategory || "",
+        timeLimit: typeof exam.timeLimit === "number" ? exam.timeLimit : 45,
+        totalQuestions: exam.totalQuestions || 0,
+        status: exam.status || "published",
+        folderId: exam.folderId !== undefined ? exam.folderId : null,
+        ownerId: exam.ownerId !== undefined ? exam.ownerId : null,
+        isFeatured: exam.isFeatured !== undefined ? exam.isFeatured : false,
+        attemptCount: exam.attemptCount || 0,
+        submissionsCount: exam.submissionsCount || 0,
+        createdAt: exam.createdAt || new Date().toISOString(),
+        updatedAt: exam.updatedAt || new Date().toISOString(),
+      };
+
+      if (existingIdx >= 0) {
+        currentExams[existingIdx] = { ...currentExams[existingIdx], ...updatedItem };
+      } else {
+        currentExams.unshift(updatedItem);
+      }
+    }
+
+    currentExams.sort((a, b) => {
+      const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+      const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+      return timeB - timeA;
+    });
+
+    const newCatalog: ExamsCatalogSummary = {
+      exams: currentExams,
+      totalCount: currentExams.length,
+      lastUpdated: new Date().toISOString(),
+    };
+
+    await setDoc(catalogRef, newCatalog);
+    logDocWrite("system_stats", "exams_summary", "SET", `Catalog sync: ${action} ${exam.id}`);
+    FirestoreCache.set(cacheKey, newCatalog, 60 * 1000);
+  } catch (err) {
+    console.warn("[StatsAggregator] Warning syncing exam to catalog:", err);
+  }
+}

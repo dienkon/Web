@@ -6,6 +6,13 @@ import { deleteExamActiveSessionsFromRtdb } from "./realtimeProctoringService";
 import { FirestoreRepository } from "./firebase/firestoreRepository";
 const EXAMS_COLLECTION = "exams";
 
+import {
+  getExamsCatalogSummary,
+  syncExamToCatalogSummary,
+  getExamTimestampMs,
+  type ExamSummaryItem,
+} from "./statsAggregatorService";
+
 export const getExamList = async ({
   pageSize = 10,
   cursor = null,
@@ -24,75 +31,100 @@ export const getExamList = async ({
   isFeatured?: boolean | undefined;
 }): Promise<PaginatedResult<Exam>> => {
   try {
+    // 1. Primary Strategy: 1-READ Catalog Summary
+    // Reads full catalog in 1 doc read, filters and sorts in memory, guaranteed accurate top newest items
+    const catalog = await getExamsCatalogSummary();
+    if (catalog && Array.isArray(catalog.exams) && catalog.exams.length > 0) {
+      let filtered = catalog.exams;
+
+      if (ownerId) {
+        filtered = filtered.filter((e) => e.ownerId === ownerId);
+      }
+      if (folderId !== undefined) {
+        filtered = filtered.filter((e) => (e.folderId ?? null) === (folderId ?? null));
+      }
+      if (subject && subject !== "all") {
+        filtered = filtered.filter((e) => e.subject === subject);
+      }
+      if (gradeCategory && gradeCategory !== "all") {
+        filtered = filtered.filter((e) => e.gradeCategory === gradeCategory);
+      }
+      if (isFeatured !== undefined) {
+        filtered = filtered.filter((e) => !!e.isFeatured === !!isFeatured);
+      }
+
+      // Sort newest first
+      filtered.sort((a, b) => {
+        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
+        return timeB - timeA;
+      });
+
+      let startIndex = 0;
+      if (cursor) {
+        const cursorId = typeof cursor === "string" ? cursor : cursor?.id;
+        if (cursorId) {
+          const idx = filtered.findIndex((e) => e.id === cursorId);
+          if (idx >= 0) {
+            startIndex = idx + 1;
+          }
+        }
+      }
+
+      const paged = filtered.slice(startIndex, startIndex + pageSize);
+      const nextItem = paged[paged.length - 1];
+      const hasMore = startIndex + pageSize < filtered.length;
+
+      return {
+        items: paged as unknown as Exam[],
+        nextCursor: nextItem ? { id: nextItem.id } : null,
+        hasMore,
+      };
+    }
+
+    // 2. Direct Firestore Fallback if catalog is completely empty
     let q = collection(db, EXAMS_COLLECTION) as any;
     const conditions: any[] = [];
 
-    if (ownerId) {
-      conditions.push(where("ownerId", "==", ownerId));
-    }
-    if (folderId !== undefined) {
-      conditions.push(where("folderId", "==", folderId));
-    }
-    if (subject) {
-      conditions.push(where("subject", "==", subject));
-    }
-    if (gradeCategory) {
-      conditions.push(where("gradeCategory", "==", gradeCategory));
-    }
-    if (isFeatured !== undefined) {
-      conditions.push(where("isFeatured", "==", isFeatured));
-    }
+    if (ownerId) conditions.push(where("ownerId", "==", ownerId));
+    if (folderId !== undefined) conditions.push(where("folderId", "==", folderId));
+    if (subject && subject !== "all") conditions.push(where("subject", "==", subject));
+    if (gradeCategory && gradeCategory !== "all") conditions.push(where("gradeCategory", "==", gradeCategory));
+    if (isFeatured !== undefined) conditions.push(where("isFeatured", "==", isFeatured));
 
     if (conditions.length > 0) {
-      q = query(q, ...conditions, limit(pageSize));
-    } else {
-      q = query(q, limit(pageSize));
+      q = query(q, ...conditions);
     }
 
-    if (cursor) {
-      q = query(q, startAfter(cursor));
-    }
-
-    let snapshot;
-    try {
-      const t0 = performance.now();
-      snapshot = await getDocs(q);
-      logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList (folder: ${folderId ?? 'all'})`, pageSize, performance.now() - t0);
-    } catch (orderErr) {
-      console.warn("Filtered query failed, trying simple query fallback:", orderErr);
-      let fallbackQ = collection(db, EXAMS_COLLECTION) as any;
-      if (ownerId) {
-        fallbackQ = query(fallbackQ, where("ownerId", "==", ownerId), limit(pageSize));
-      } else {
-        fallbackQ = query(fallbackQ, limit(pageSize));
-      }
-      const t0 = performance.now();
-      snapshot = await getDocs(fallbackQ);
-      logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList fallback`, pageSize, performance.now() - t0);
-    }
+    const t0 = performance.now();
+    const snapshot = await getDocs(q);
+    logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList direct fallback`, pageSize, performance.now() - t0);
 
     const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Exam));
     
     // Ensure robust sorting by updatedAt descending (fallback to createdAt if missing)
     items.sort((a: any, b: any) => {
-      const getMs = (val: any) => {
-        if (!val) return 0;
-        if (typeof val.toDate === "function") return val.toDate().getTime();
-        if (typeof val.seconds === "number") return val.seconds * 1000;
-        if (val instanceof Date) return val.getTime();
-        return new Date(val).getTime() || 0;
-      };
-      const timeA = getMs(a.updatedAt) || getMs(a.createdAt);
-      const timeB = getMs(b.updatedAt) || getMs(b.createdAt);
+      const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
+      const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
       return timeB - timeA;
     });
 
-    const nextCursor = snapshot.docs.length > 0 ? snapshot.docs[snapshot.docs.length - 1] : null;
+    let startIndex = 0;
+    if (cursor) {
+      const cursorId = typeof cursor === "string" ? cursor : cursor?.id;
+      if (cursorId) {
+        const idx = items.findIndex((e) => e.id === cursorId);
+        if (idx >= 0) startIndex = idx + 1;
+      }
+    }
+
+    const paged = items.slice(startIndex, startIndex + pageSize);
+    const nextCursor = paged.length > 0 ? { id: paged[paged.length - 1].id } : null;
     
     return {
-      items,
+      items: paged,
       nextCursor,
-      hasMore: snapshot.docs.length === pageSize,
+      hasMore: startIndex + pageSize < items.length,
     };
   } catch (err) {
     console.error("Error fetching exam list:", err);
@@ -115,7 +147,15 @@ export const createExam = async (examData: Omit<Exam, "id" | "createdAt" | "upda
     updatedAt: serverTimestamp(),
   };
   await FirestoreRepository.setDocument(EXAMS_COLLECTION, docRef.id, newExam, {}, { purpose: "createExam" });
-  return { id: docRef.id, ...newExam, createdAt: new Date() as any, updatedAt: new Date() as any } as Exam;
+  
+  const created = { id: docRef.id, ...newExam, createdAt: new Date() as any, updatedAt: new Date() as any } as Exam;
+  
+  // Sync to 1-read catalog summary (non-blocking)
+  syncExamToCatalogSummary(created as any, "upsert").catch((e) =>
+    console.warn("[examService] Warning syncing new exam to catalog:", e)
+  );
+
+  return created;
 };
 
 export const updateExam = async (examId: string, updates: Partial<Exam>): Promise<void> => {
@@ -127,6 +167,11 @@ export const updateExam = async (examId: string, updates: Partial<Exam>): Promis
       updatedAt: serverTimestamp(),
     },
     { purpose: "updateExam" }
+  );
+
+  // Sync to 1-read catalog summary (non-blocking)
+  syncExamToCatalogSummary({ id: examId, ...updates } as any, "upsert").catch((e) =>
+    console.warn("[examService] Warning syncing updated exam to catalog:", e)
   );
 };
 
@@ -185,6 +230,10 @@ export const deleteExam = async (examId: string): Promise<void> => {
       console.warn("Could not delete active_sessions from RTDB", sessErr);
     }
 
+    // 6. Sync deletion to 1-read catalog summary
+    syncExamToCatalogSummary({ id: examId }, "delete").catch((e) =>
+      console.warn("[examService] Warning syncing exam deletion to catalog:", e)
+    );
   } catch (err) {
     console.error("Error deleting exam:", err);
     throw err;

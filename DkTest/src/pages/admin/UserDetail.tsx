@@ -32,6 +32,8 @@ import {
 } from "../../services/adminService";
 import { unlinkRelationship } from "../../services/relationshipService";
 import type { UserProfile, Submission } from "../../types";
+import { collection, query, where, limit, getDocs } from "firebase/firestore";
+import { db } from "../../services/firebase/config";
 import { formatDate } from "../../utils/date";
 import { useToast } from "../../components/ui/ToastNotification";
 import ConfirmModal from "../../components/ui/ConfirmModal";
@@ -62,6 +64,44 @@ export default function UserDetail() {
     setLoading(true);
     try {
       const res = await fetchAdminUserDetail(uid, currentSubLimit, currentLogLimit);
+      
+      // Ensure submissions are populated: if server returned empty, fallback directly to Firestore
+      let finalSubs = res.submissions || [];
+      if (finalSubs.length === 0 && res.user) {
+        try {
+          const candidateNames = Array.from(
+            new Set([uid, res.user.username, res.user.displayName, res.user.email, res.studentProfile?.username].filter(Boolean))
+          );
+          const foundMap = new Map<string, any>();
+          for (const name of candidateNames) {
+            try {
+              const q1 = query(collection(db, "submissions"), where("studentUsername", "==", name), limit(currentSubLimit));
+              const s1 = await getDocs(q1);
+              s1.docs.forEach((d) => foundMap.set(d.id, { id: d.id, ...d.data() }));
+            } catch (_) {}
+
+            try {
+              const q2 = query(collection(db, "submissions"), where("studentId", "==", name), limit(currentSubLimit));
+              const s2 = await getDocs(q2);
+              s2.docs.forEach((d) => foundMap.set(d.id, { id: d.id, ...d.data() }));
+            } catch (_) {}
+          }
+
+          if (foundMap.size > 0) {
+            const list = Array.from(foundMap.values());
+            list.sort((a, b) => {
+              const timeA = new Date(a.submittedAt?.toDate?.() || a.submittedAt || 0).getTime();
+              const timeB = new Date(b.submittedAt?.toDate?.() || b.submittedAt || 0).getTime();
+              return timeB - timeA;
+            });
+            finalSubs = list.slice(0, currentSubLimit);
+            res.submissions = finalSubs;
+          }
+        } catch (directErr) {
+          console.warn("[UserDetail] Direct submissions query fallback error:", directErr);
+        }
+      }
+
       setData(res);
       setEditName(res.user?.displayName || "");
       setEditClass(res.user?.studentClass || res.studentProfile?.className || "");
@@ -359,6 +399,102 @@ export default function UserDetail() {
                 <p className="text-[11px] font-bold text-slate-500 mt-1">Lượt đăng nhập</p>
               </div>
             </div>
+          </div>
+
+          {/* Recent Exam Submissions Card on Overview Tab */}
+          <div className="md:col-span-2 bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-blue-600" />
+                  <span>Bài thi đã làm gần nhất</span>
+                  <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                    {submissions.length} bài
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Danh sách các bài thi học sinh vừa hoàn thành gần đây nhất
+                </p>
+              </div>
+              {submissions.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("exams")}
+                  className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Xem tất cả bài thi</span>
+                  <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
+                </button>
+              )}
+            </div>
+
+            {submissions.length === 0 ? (
+              <div className="p-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                <FileText className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                <p className="text-xs font-bold text-slate-600">Học sinh chưa hoàn thành bài thi nào</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  Khi học sinh nộp bài thi trên hệ thống, kết quả và bài làm sẽ hiển thị tự động tại đây.
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-slate-100 text-slate-400 uppercase text-[10px] font-bold">
+                      <th className="pb-2.5">Đề thi</th>
+                      <th className="pb-2.5">Điểm số</th>
+                      <th className="pb-2.5">Đúng / Tổng câu</th>
+                      <th className="pb-2.5">Thời gian làm</th>
+                      <th className="pb-2.5">Ngày nộp</th>
+                      <th className="pb-2.5 text-right">Chi tiết bài làm</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {submissions.slice(0, 5).map((sub: any) => {
+                      const score = typeof sub.score === "number" ? sub.score : 0;
+                      const maxScore = sub.maxScore || 10;
+                      const ratio = maxScore > 0 ? score / maxScore : 0;
+                      const badgeColor =
+                        ratio >= 0.8
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                          : ratio >= 0.5
+                          ? "bg-blue-50 text-blue-700 border-blue-200"
+                          : "bg-rose-50 text-rose-700 border-rose-200";
+
+                      return (
+                        <tr key={sub.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="py-3 font-bold text-slate-900">
+                            {sub.examTitleSnapshot || sub.examTitle || sub.examId}
+                          </td>
+                          <td className="py-3">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-lg border font-black text-xs ${badgeColor}`}>
+                              {score} <span className="font-normal text-[10px] ml-1 opacity-70">/ {maxScore}</span>
+                            </span>
+                          </td>
+                          <td className="py-3 text-slate-600 font-medium">
+                            {sub.correctCount ?? "—"} / {sub.totalCount ?? "—"}
+                          </td>
+                          <td className="py-3 text-slate-600 font-medium">
+                            {sub.timeSpent ? `${Math.round(sub.timeSpent / 60)} phút` : "—"}
+                          </td>
+                          <td className="py-3 text-slate-500 font-mono text-[11px]">
+                            {sub.submittedAt ? formatDate(sub.submittedAt) : "—"}
+                          </td>
+                          <td className="py-3 text-right">
+                            <Link
+                              to={`/admin/exams/${sub.examId}/submissions/${sub.id}`}
+                              className="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold transition-colors inline-flex items-center gap-1"
+                            >
+                              <span>Xem bài làm</span>
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       )}
