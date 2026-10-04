@@ -1,0 +1,29 @@
+{
+  "entities": {
+    "Reaction": {
+      "title": "Reaction",
+      "description": "Chemical reaction outcome cached from virtual lab experiments",
+      "type": "object",
+      "properties": {
+        "canonicalKey": { "type": "string" },
+        "reactants": { "type": "array", "items": { "type": "string" } },
+        "isHeated": { "type": "boolean" },
+        "summary": { "type": "string" },
+        "equation": { "type": "string" },
+        "observable_changes": { "type": "string" },
+        "safety_notes": { "type": "string" },
+        "confidence": { "type": "number" },
+        "is_dangerous": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["canonicalKey", "reactants"]
+    }
+  },
+  "firestore": {
+    "/reactions/{reactionId}": {
+      "entity": "Reaction",
+      "read": true,
+      "write": true
+    }
+  }
+}

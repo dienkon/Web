@@ -1,0 +1,6 @@
+{
+  "name": "Virtual ChemLab - Phòng Thí Nghiệm Hóa Học Ảo",
+  "description": "Phòng thí nghiệm hóa học 3D tương tác dành cho giáo viên và học sinh với mô phỏng phản ứng hóa học chân thực, chuẩn độ, dụng cụ đo lường và an toàn phòng lab.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,19 +1,41 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/lab/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Phòng Thí Nghiệm Hóa Học Ảo 3D | ChemDex Virtual Lab</title>
-    <meta name="description" content="Phòng thí nghiệm hóa học ảo 3D tương tác chuẩn sư phạm Việt Nam, mô phỏng phản ứng hóa học chân thực với công nghệ Three.js và AI." />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/lab/assets/main-BFRoOmUz.js"></script>
-    <link rel="stylesheet" crossorigin href="/lab/assets/main-Dpn58J7X.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual ChemLab - Phòng Thí Nghiệm Hóa Học Ảo</title>
+    <meta name="description" content="Phòng thí nghiệm hóa học 3D tương tác dành cho giáo viên và học sinh với mô phỏng phản ứng hóa học chân thực, chuẩn độ, dụng cụ đo lường và an toàn phòng lab." />
+    <meta property="og:title" content="Virtual ChemLab - Phòng Thí Nghiệm Hóa Học Ảo" />
+    <meta property="og:description" content="Phòng thí nghiệm hóa học 3D tương tác dành cho giáo viên và học sinh với mô phỏng phản ứng hóa học chân thực, chuẩn độ, dụng cụ đo lường và an toàn phòng lab." />
+    <script>
+      (function() {
+        try {
+          var proto = window;
+          while (proto) {
+            var desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+            if (desc) {
+              if (desc.get && !desc.set) {
+                var currentFetch = window.fetch.bind(window);
+                Object.defineProperty(window, 'fetch', {
+                  get: function() { return currentFetch; },
+                  set: function(val) { currentFetch = val; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+              break;
+            }
+            proto = Object.getPrototypeOf(proto);
+          }
+        } catch (e) {
+          // ignore
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-[#0b1120] text-[#0f172a] antialiased overflow-hidden select-none">
+  <body>
     <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
