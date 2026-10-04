@@ -34,6 +34,11 @@ export interface VfxEventMap {
     color?: string;
     speed?: number;
   };
+  'flame:test': {
+    element: string;
+    color: string;
+    cobaltFilter: boolean;
+  };
 }
 
 export type VfxEventType = keyof VfxEventMap;

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useSimulationDebugStore } from '../core/debugStore';
@@ -17,29 +17,41 @@ export const SimulationDebugGizmos: React.FC = () => {
   const selectedVesselId = useAppStore(s => s.selectedVesselId);
   const vessels = useAppStore(s => s.vessels);
 
-  const gravityLineRef = useRef<THREE.Line>(null);
+  const gravityLine = useMemo(() => {
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0, 0, -0.6, 0]), 3));
+    geom.setAttribute('color', new THREE.BufferAttribute(new Float32Array([0, 1, 1, 0, 0.4, 1]), 3));
+    const mat = new THREE.LineBasicMaterial({ vertexColors: true, linewidth: 2 });
+    const line = new THREE.Line(geom, mat);
+    line.visible = false;
+    return line;
+  }, []);
+
+  const trajectoryLine = useMemo(() => {
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(24 * 3), 3));
+    const mat = new THREE.LineDashedMaterial({ color: '#22c55e', dashSize: 0.05, gapSize: 0.03 });
+    const line = new THREE.Line(geom, mat);
+    line.visible = false;
+    return line;
+  }, []);
+
   const liquidPlaneRingRef = useRef<THREE.Mesh>(null);
   const mixingRingRef = useRef<THREE.Mesh>(null);
   const sedimentBoxRef = useRef<THREE.Mesh>(null);
-  const trajectoryLineRef = useRef<THREE.Line>(null);
-
-  // Reusable points for trajectory line
-  const trajectoryPoints = useRef<THREE.Vector3[]>(
-    Array.from({ length: 24 }, () => new THREE.Vector3())
-  );
 
   useFrame(() => {
     const vessel = selectedVesselId ? vessels[selectedVesselId] : null;
     const session = PourController.getSession();
 
     // 1. Gravity Vector Gizmo
-    if (gravityLineRef.current && vessel) {
+    if (vessel) {
       if (showGravity) {
-        gravityLineRef.current.visible = true;
+        gravityLine.visible = true;
         const [vx, vy, vz] = vessel.position;
-        gravityLineRef.current.position.set(vx, vy + 0.8, vz);
+        gravityLine.position.set(vx, vy + 0.8, vz);
       } else {
-        gravityLineRef.current.visible = false;
+        gravityLine.visible = false;
       }
     }
 
@@ -89,62 +101,48 @@ export const SimulationDebugGizmos: React.FC = () => {
     }
 
     // 5. Ballistic Stream Trajectory Wireframe
-    if (trajectoryLineRef.current) {
-      if (showPourTrajectory && session && session.flow_ml_s > 0.05 && session.targetId) {
-        const srcVessel = vessels[session.sourceId];
-        const tgtVessel = vessels[session.targetId];
-        if (srcVessel && tgtVessel) {
-          trajectoryLineRef.current.visible = true;
-          const start = new THREE.Vector3(
-            srcVessel.position[0] + Math.sin(session.tilt) * 0.25,
-            srcVessel.position[1] + (session.lift || 0.4),
-            srcVessel.position[2]
-          );
-          const tgtFill = Math.min(1, tgtVessel.volume_ml / (tgtVessel.capacity_ml || 100));
-          const end = new THREE.Vector3(
-            tgtVessel.position[0],
-            tgtVessel.position[1] + tgtFill * 0.7,
-            tgtVessel.position[2]
-          );
+    if (showPourTrajectory && session && session.flow_ml_s > 0.05 && session.targetId) {
+      const srcVessel = vessels[session.sourceId];
+      const tgtVessel = vessels[session.targetId];
+      if (srcVessel && tgtVessel) {
+        trajectoryLine.visible = true;
+        const start = new THREE.Vector3(
+          srcVessel.position[0] + Math.sin(session.tilt) * 0.25,
+          srcVessel.position[1] + (session.lift || 0.4),
+          srcVessel.position[2]
+        );
+        const tgtFill = Math.min(1, tgtVessel.volume_ml / (tgtVessel.capacity_ml || 100));
+        const end = new THREE.Vector3(
+          tgtVessel.position[0],
+          tgtVessel.position[1] + tgtFill * 0.7,
+          tgtVessel.position[2]
+        );
 
-          const geom = trajectoryLineRef.current.geometry as THREE.BufferGeometry;
-          const posAttr = geom.attributes.position as THREE.BufferAttribute;
-          const count = 24;
+        const geom = trajectoryLine.geometry as THREE.BufferGeometry;
+        const posAttr = geom.attributes.position as THREE.BufferAttribute;
+        const count = 24;
 
-          for (let i = 0; i < count; i++) {
-            const t = i / (count - 1);
-            // Parabola under gravity
-            const x = THREE.MathUtils.lerp(start.x, end.x, t);
-            const z = THREE.MathUtils.lerp(start.z, end.z, t);
-            const linearY = THREE.MathUtils.lerp(start.y, end.y, t);
-            const sag = 4.0 * t * (1.0 - t) * 0.15;
-            const y = linearY - sag;
-            posAttr.setXYZ(i, x, y, z);
-          }
-          posAttr.needsUpdate = true;
+        for (let i = 0; i < count; i++) {
+          const t = i / (count - 1);
+          // Parabola under gravity
+          const x = THREE.MathUtils.lerp(start.x, end.x, t);
+          const z = THREE.MathUtils.lerp(start.z, end.z, t);
+          const linearY = THREE.MathUtils.lerp(start.y, end.y, t);
+          const sag = 4.0 * t * (1.0 - t) * 0.15;
+          const y = linearY - sag;
+          posAttr.setXYZ(i, x, y, z);
         }
-      } else {
-        trajectoryLineRef.current.visible = false;
+        posAttr.needsUpdate = true;
       }
+    } else {
+      trajectoryLine.visible = false;
     }
   });
 
   return (
     <group name="simulation_debug_gizmos">
       {/* Gravity Vector Arrow/Line */}
-      <line ref={gravityLineRef} visible={false}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[new Float32Array([0, 0, 0, 0, -0.6, 0]), 3]}
-          />
-          <bufferAttribute
-            attach="attributes-color"
-            args={[new Float32Array([0, 1, 1, 0, 0.4, 1]), 3]}
-          />
-        </bufferGeometry>
-        <lineBasicMaterial vertexColors linewidth={2} />
-      </line>
+      <primitive object={gravityLine} />
 
       {/* Horizontal Liquid Gravity Plane Ring */}
       <mesh ref={liquidPlaneRingRef} visible={false}>
@@ -165,15 +163,7 @@ export const SimulationDebugGizmos: React.FC = () => {
       </mesh>
 
       {/* Trajectory Parabola Line */}
-      <line ref={trajectoryLineRef} visible={false}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[new Float32Array(24 * 3), 3]}
-          />
-        </bufferGeometry>
-        <lineDashedMaterial color="#22c55e" dashSize={0.05} gapSize={0.03} />
-      </line>
+      <primitive object={trajectoryLine} />
     </group>
   );
 };

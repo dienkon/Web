@@ -171,15 +171,19 @@ describe('SimulationEngine Integrated Vessel Lifecycle', () => {
       name: 'Beaker 250ml',
       type: 'beaker',
       position: [0, 0, 0],
-      rotation: [0, 0, 0],
+      rotationY: 0,
+      isLocked: false,
       volume_ml: 100,
+      mass_g: 100,
       capacity_ml: 250,
       volume: 0.4,
       substances: ['H2O'],
-      contents: [{ formula: 'H2O', mass_g: 100, concentration_m: 0 }],
+      contents: [{ formula: 'H2O', moles: 5.55, mass_g: 100, concentration_M: 55.5 }],
       temperature_c: 25,
+      ph: 7.0,
       isBoiling: false,
-      hasPrecipitate: false
+      hasPrecipitate: false,
+      hasGas: false
     };
 
     const res = mgr.step(mockVessel, 0.05, {

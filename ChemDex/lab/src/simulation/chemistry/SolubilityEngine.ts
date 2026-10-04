@@ -91,6 +91,20 @@ export function getSolubilityLimit_g_100ml(formula: string, temp_c: number): num
   return Math.max(0.0000001, curve.s0 + curve.s1 * t + curve.s2 * t * t);
 }
 
+/**
+ * Returns solubility product Ksp at temperature T (°C) using van 't Hoff equation
+ */
+export function getSolubilityProduct(formula: string, temp_c: number = 25): number {
+  const curve = SOLUBILITY_DATABASE[formula];
+  if (!curve) return 1.0;
+  const T1 = 298.15;
+  const T2 = (temp_c ?? 25) + 273.15;
+  const R = 8.314;
+  const dH_J = (curve.deltaH_dissolution_kJ || 0) * 1000;
+  const lnRatio = -(dH_J / R) * (1 / T2 - 1 / T1);
+  return curve.ksp_25 * Math.exp(lnRatio);
+}
+
 export interface SaturationCheckResult {
   isSupersaturated: boolean;
   saturationRatio: number;      // > 1.0 means precipitate will form/grow

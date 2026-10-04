@@ -70,15 +70,15 @@ export const Precipitate = React.memo(function Precipitate({
         const py = liquidTopY - Math.random() * 0.15; // Form near upper reaction mixing zone
         const pz = Math.sin(angle) * r;
 
-        // Terminal settling velocity (Stokes drag)
+        // Terminal settling velocity (Stokes drag for thin platelets vs gelatinous curds)
         const settlingVy = isPbI2
-          ? -(0.14 + Math.random() * 0.08) // Flakes flutter down
+          ? -(0.065 + Math.random() * 0.04) // Hexagonal flakes flutter down gracefully
           : isCuOH2
-            ? -(0.06 + Math.random() * 0.04) // Gel settles very slowly
-            : -(0.10 + Math.random() * 0.06); // Microcrystals
+            ? -(0.05 + Math.random() * 0.035) // Gel settles very slowly
+            : -(0.09 + Math.random() * 0.05); // Microcrystals
 
         const baseSize = isPbI2
-          ? (0.024 + Math.random() * 0.02)
+          ? (0.028 + Math.random() * 0.022)
           : isCuOH2
             ? (0.045 + Math.random() * 0.035)
             : (0.018 + Math.random() * 0.016);
@@ -87,27 +87,33 @@ export const Precipitate = React.memo(function Precipitate({
           x: px,
           y: py,
           z: pz,
-          vx: (Math.random() - 0.5) * 0.04,
+          vx: (Math.random() - 0.5) * (isPbI2 ? 0.06 : 0.03),
           vy: settlingVy,
-          vz: (Math.random() - 0.5) * 0.04,
+          vz: (Math.random() - 0.5) * (isPbI2 ? 0.06 : 0.03),
           baseSize,
           size: baseSize,
-          life: 8.0,
+          life: isPbI2 ? 14.0 : 8.0,
           r: particleColor.r,
           g: particleColor.g,
           b: particleColor.b,
-          alpha: isPbI2 ? 0.95 : (isCuOH2 ? 0.75 : 0.9),
+          alpha: isPbI2 ? 0.98 : (isCuOH2 ? 0.75 : 0.9),
           rotX: Math.random() * Math.PI * 2,
           rotY: Math.random() * Math.PI * 2,
           rotZ: Math.random() * Math.PI * 2,
-          vRotX: isPbI2 ? (Math.random() - 0.5) * 4.0 : (Math.random() - 0.5) * 1.0,
-          vRotY: isPbI2 ? (Math.random() - 0.5) * 4.0 : (Math.random() - 0.5) * 1.0,
-          vRotZ: isPbI2 ? (Math.random() - 0.5) * 4.0 : (Math.random() - 0.5) * 1.0,
+          vRotX: isPbI2 ? (Math.random() - 0.5) * 5.0 : (Math.random() - 0.5) * 1.0,
+          vRotY: isPbI2 ? (Math.random() - 0.5) * 5.0 : (Math.random() - 0.5) * 1.0,
+          vRotZ: isPbI2 ? (Math.random() - 0.5) * 5.0 : (Math.random() - 0.5) * 1.0,
         });
       }
     }
 
     pool.update(dt, (p: ParticleState) => {
+      // Hexagonal flake aerodynamic flutter (tumbling leaf effect)
+      if (isPbI2 && p.y > liquidBottomY + 0.02) {
+        p.x += Math.sin(p.age * 4.5 + p.rotX) * dt * 0.06;
+        p.z += Math.cos(p.age * 4.5 + p.rotZ) * dt * 0.06;
+      }
+
       // Reached sediment floor layer
       if (p.y <= liquidBottomY + 0.02) {
         p.vy = 0;
@@ -116,8 +122,8 @@ export const Precipitate = React.memo(function Precipitate({
         p.vRotX = 0;
         p.vRotY = 0;
         p.vRotZ = 0;
-        // Fade out slowly after settling
-        if (p.age > 4.0) return false;
+        // Keep settled sediment visible during reaction
+        if (p.age > (isPbI2 ? 16.0 : 6.0)) return false;
       }
 
       return true;
@@ -129,21 +135,21 @@ export const Precipitate = React.memo(function Precipitate({
       ref={meshRef}
       args={[undefined, undefined, maxCount]}
       frustumCulled={false}
-      renderOrder={3}
+      renderOrder={4}
       visible={false}
     >
       {isPbI2 ? (
-        // Flat flake for golden rain tumbling reflection
-        <boxGeometry args={[1, 0.15, 1]} />
+        // Authentic hexagonal prism platelet for PbI2 crystalline structure
+        <cylinderGeometry args={[1, 1, 0.12, 6]} />
       ) : (
         <sphereGeometry args={[1, 8, 8]} />
       )}
       <meshStandardMaterial
         color={particleColor}
-        roughness={isPbI2 ? 0.15 : 0.85}
-        metalness={isPbI2 ? 0.85 : 0.05}
+        roughness={isPbI2 ? 0.12 : 0.85}
+        metalness={isPbI2 ? 0.92 : 0.05}
         transparent
-        opacity={isPbI2 ? 0.95 : (isCuOH2 ? 0.75 : 0.9)}
+        opacity={isPbI2 ? 0.98 : (isCuOH2 ? 0.75 : 0.9)}
         depthWrite={false}
       />
     </instancedMesh>

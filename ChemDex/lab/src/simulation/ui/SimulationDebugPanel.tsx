@@ -156,7 +156,16 @@ export const SimulationDebugPanel = React.memo(function SimulationDebugPanel() {
 
       case 8: // TEST 8: Airflow draft deflection
         if (mgr) {
-          mgr.evaporationSystem.update(0.016, 100, 1.5, true);
+          mgr.evaporationSystem.update(0.016, {
+            temp_c: 100,
+            surfaceArea_cm2: 25,
+            radius: 0.5,
+            surfaceY: 0.2,
+            mouthY: 1.0,
+            mouthRadius: 0.35,
+            isBoiling: true,
+            airflowVector: [1.5, 0, 0]
+          });
         }
         break;
     }
@@ -246,7 +255,7 @@ export const SimulationDebugPanel = React.memo(function SimulationDebugPanel() {
               {activeRxns.map(rxn => (
                 <div key={rxn.reactionId} className="space-y-1 text-[11px]">
                   <div className="font-bold text-white flex justify-between">
-                    <span>{rxn.reaction.name_vi || rxn.reaction.name}</span>
+                    <span>{rxn.reaction.summary_vi || rxn.reaction.summary_en || rxn.reaction.equation}</span>
                     <span className="text-emerald-400">{Math.round(rxn.progress * 100)}%</span>
                   </div>
                   <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">

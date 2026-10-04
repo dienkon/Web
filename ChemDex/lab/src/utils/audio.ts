@@ -329,6 +329,28 @@ class SoundEngine {
     } catch {}
   }
 
+  // Success chime for experiment completion
+  public playSuccess() {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+      const t = this.ctx.currentTime;
+      [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        const osc = this.ctx!.createOscillator();
+        const gain = this.ctx!.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, t + idx * 0.1);
+        gain.gain.setValueAtTime(0.12, t + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.1 + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx!.destination);
+        osc.start(t + idx * 0.1);
+        osc.stop(t + idx * 0.1 + 0.36);
+      });
+    } catch {}
+  }
+
   // Convenient aliases
   public playPour(durationSec: number = 1.2) { this.playLiquidPour(durationSec); }
   public playPowder() { this.playSolidDrop(); }

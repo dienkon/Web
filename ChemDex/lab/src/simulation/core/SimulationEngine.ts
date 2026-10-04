@@ -140,11 +140,18 @@ export class VesselSimulationManager {
     }
 
     // Reaction precipitate override
+    let activeSubstance = reactionPrecipitateSubstance || 
+      (vessel.substances?.find(s => s.includes('Pb') || s.includes('I')) ? 'PbI2' : 
+      (vessel.substances?.find(s => s.includes('Cu')) ? 'Cu(OH)2' : 
+      (vessel.substances?.find(s => s.includes('Ag')) ? 'AgCl' : 'BaSO4')));
+
     if (reactionPrecipitateActive) {
       hasPrecipitate = true;
       totalPrecipitate_g = Math.max(totalPrecipitate_g, 0.45);
       if (reactionPrecipitateSubstance) {
-        precipitateColor = reactionPrecipitateSubstance;
+        activeSubstance = reactionPrecipitateSubstance;
+        const pProf = getPrecipitateProfile(activeSubstance);
+        precipitateColor = pProf.color;
       }
     }
 
@@ -158,7 +165,7 @@ export class VesselSimulationManager {
         liquidBottomY: profile.baseY,
         surfaceY: fillY,
         precipitateAmount_g: totalPrecipitate_g,
-        substance: precipitateColor,
+        substance: activeSubstance,
         agitation,
         heatPower_W
       });

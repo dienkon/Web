@@ -14,6 +14,7 @@ import {
   canRedo as checkCanRedo
 } from './persistence';
 import { vfxBus } from '../vfx/bus';
+import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
 
 export type Language = 'en' | 'vi';
 export type SubstanceType = 'liquid' | 'solid' | 'gas';
@@ -22,6 +23,28 @@ export type CameraPreset = 'perspective' | 'top' | 'front' | 'side';
 
 export const CHEMICALS = CHEMICAL_DATABASE;
 export const getChemical = (formula: string) => findChemical(formula);
+
+function interpolateColorHex(hexA?: string, hexB?: string, t = 0): string {
+  if (!hexA && !hexB) return '#38bdf8';
+  if (!hexA) return hexB || '#38bdf8';
+  if (!hexB) return hexA || '#38bdf8';
+  const clampedT = Math.max(0, Math.min(1, t));
+  const parseHex = (h: string) => {
+    const clean = h.replace('#', '');
+    const num = parseInt(clean.length === 3 ? clean.split('').map(c => c + c).join('') : clean, 16);
+    return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+  };
+  try {
+    const [r1, g1, b1] = parseHex(hexA);
+    const [r2, g2, b2] = parseHex(hexB);
+    const r = Math.round(r1 + (r2 - r1) * clampedT);
+    const g = Math.round(g1 + (g2 - g1) * clampedT);
+    const b = Math.round(b1 + (b2 - b1) * clampedT);
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+  } catch {
+    return hexB || hexA || '#38bdf8';
+  }
+}
 
 // Default initial state
 const defaultVessels: Record<string, VesselState> = {
@@ -955,11 +978,12 @@ export const useAppStore = create<AppState>((set, get) => {
               state.language
             );
             if (localResult) {
+              const vfxRecipe = localResult.reaction_id ? getReactionVfxRecipe(localResult.reaction_id) : null;
               newKinetics[vId] = {
                 vesselId: vId,
                 reactionId: localResult.reaction_id,
                 startTime: Date.now(),
-                duration: 5.0,
+                duration: vfxRecipe?.duration || 5.0,
                 progress: 0,
                 reactionName: localResult.summary,
                 equation: localResult.equation,
@@ -1025,8 +1049,12 @@ export const useAppStore = create<AppState>((set, get) => {
           curPrecipAmount_g = targetPrecipMass * precipCurve;
         }
 
+        // Continuous progressive liquid color blending
+        const blendedColor = interpolateColorHex(kinetics.initialLiquidColor, kinetics.targetLiquidColor, newProgress);
+
         newVessels[vId] = {
           ...v,
+          liquidColor: blendedColor,
           hasGas: kinetics.hasGas && newProgress < 0.95,
           gasColor: kinetics.gasColor,
           hasPrecipitate: kinetics.hasPrecipitate && curPrecipAmount_g > 0.01,
@@ -1566,11 +1594,12 @@ export const useAppStore = create<AppState>((set, get) => {
             import('../utils/audio').then(({ labSound }) => labSound.playAlarm());
           }
 
+          const vfxRecipe = localResult.reaction_id ? getReactionVfxRecipe(localResult.reaction_id) : null;
           const kineticsItem: ActiveKineticsState = {
             vesselId: toId,
             reactionId: localResult.reaction_id,
             startTime: Date.now(),
-            duration: localResult.new_vessel_state.is_explosion ? 2.2 : 4.5,
+            duration: vfxRecipe?.duration || (localResult.new_vessel_state.is_explosion ? 2.2 : 5.0),
             progress: 0,
             reactionName: localResult.summary,
             equation: localResult.equation,
@@ -1810,12 +1839,12 @@ export const useAppStore = create<AppState>((set, get) => {
           import('../utils/audio').then(({ labSound }) => labSound.playAlarm());
         }
 
-        // Initialize gradual reaction kinetics (real-time kinetics over 4.5 seconds)
+        const vfxRecipe = localResult.reaction_id ? getReactionVfxRecipe(localResult.reaction_id) : null;
         const kineticsItem: ActiveKineticsState = {
           vesselId: targetId,
           reactionId: localResult.reaction_id,
           startTime: Date.now(),
-          duration: 4.5,
+          duration: vfxRecipe?.duration || (localResult.new_vessel_state.is_explosion ? 2.2 : 5.0),
           progress: 0,
           reactionName: localResult.summary,
           equation: localResult.equation,
@@ -2009,11 +2038,12 @@ export const useAppStore = create<AppState>((set, get) => {
           });
         }
 
+        const vfxRecipe = localResult.reaction_id ? getReactionVfxRecipe(localResult.reaction_id) : null;
         const kineticsItem: ActiveKineticsState = {
           vesselId: toId,
           reactionId: localResult.reaction_id,
           startTime: Date.now(),
-          duration: localResult.new_vessel_state.is_explosion ? 2.2 : 4.5,
+          duration: vfxRecipe?.duration || (localResult.new_vessel_state.is_explosion ? 2.2 : 5.0),
           progress: 0,
           reactionName: localResult.summary,
           equation: localResult.equation,

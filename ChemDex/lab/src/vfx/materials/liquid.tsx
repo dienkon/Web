@@ -66,6 +66,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uFillY: { value: baseY },
+    uBaseY: { value: baseY },
     uSurfaceRadius: { value: 0.5 },
     uLiquidColor: { value: new THREE.Color('#38bdf8') },
     uTurbidity: { value: 0.0 }, // 0 = clear, 1 = milky BaSO4/AgCl
@@ -78,6 +79,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uMixingRadius: { value: 0.0 },
     uMixingColor: { value: new THREE.Color('#ffffff') },
     uMixingStrength: { value: 0.0 },
+    uHasActiveReaction: { value: 0.0 },
+    uReactionProgress: { value: 0.0 },
+    uReactionInitialColor: { value: new THREE.Color('#38bdf8') },
+    uReactionTargetColor: { value: new THREE.Color('#38bdf8') },
   }), [baseY]);
 
   // Liquid Material with physical absorption, clearcoat, and turbidity
@@ -90,7 +95,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       clearcoat: 0.8,
       clearcoatRoughness: 0.06,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.85,
       clippingPlanes: [clippingPlane],
       clipShadows: true,
       side: THREE.DoubleSide,
@@ -102,6 +107,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
       shader.uniforms.uFillY = uniforms.uFillY;
+      shader.uniforms.uBaseY = uniforms.uBaseY;
       shader.uniforms.uLiquidColor = uniforms.uLiquidColor;
       shader.uniforms.uTurbidity = uniforms.uTurbidity;
       shader.uniforms.uBoilingIntensity = uniforms.uBoilingIntensity;
@@ -109,6 +115,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       shader.uniforms.uMixingRadius = uniforms.uMixingRadius;
       shader.uniforms.uMixingColor = uniforms.uMixingColor;
       shader.uniforms.uMixingStrength = uniforms.uMixingStrength;
+      shader.uniforms.uHasActiveReaction = uniforms.uHasActiveReaction;
+      shader.uniforms.uReactionProgress = uniforms.uReactionProgress;
+      shader.uniforms.uReactionInitialColor = uniforms.uReactionInitialColor;
+      shader.uniforms.uReactionTargetColor = uniforms.uReactionTargetColor;
 
       shader.vertexShader = `
         varying vec3 vWorldPosition;
@@ -125,6 +135,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       shader.fragmentShader = `
         uniform float uTime;
         uniform float uFillY;
+        uniform float uBaseY;
         uniform vec3 uLiquidColor;
         uniform float uTurbidity;
         uniform float uBoilingIntensity;
@@ -132,6 +143,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         uniform float uMixingRadius;
         uniform vec3 uMixingColor;
         uniform float uMixingStrength;
+        uniform float uHasActiveReaction;
+        uniform float uReactionProgress;
+        uniform vec3 uReactionInitialColor;
+        uniform vec3 uReactionTargetColor;
         varying vec3 vWorldPosition;
         ${NOISE_GLSL}
         ${shader.fragmentShader}
@@ -147,7 +162,27 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
         // Edge internal glow highlight
         gl_FragColor.rgb += uLiquidColor * rim * 0.35;
-        gl_FragColor.a = max(gl_FragColor.a, 0.85);
+        gl_FragColor.a = max(gl_FragColor.a, 0.78);
+
+        // Dynamic downward convective color dispersion front during chemical reactions
+        if (uHasActiveReaction > 0.01) {
+          float liquidHeight = max(0.02, uFillY - uBaseY);
+          float normH = clamp((vWorldPosition.y - uBaseY) / liquidHeight, 0.0, 1.0);
+
+          // Front descends from 1.05 down to -0.15 as progress increases
+          float frontPos = 1.05 - uReactionProgress * 1.25;
+
+          // 3D procedural noise creates realistic Rayleigh-Taylor convective fingers / plumes
+          vec3 nPos = vec3(vWorldPosition.xz * 4.5, vWorldPosition.y * 3.0 - uTime * 0.35);
+          float fingering = snoise(nPos) * 0.16 + snoise(nPos * 2.1) * 0.08;
+
+          float plumeFront = smoothstep(frontPos - 0.18 + fingering, frontPos + 0.12 + fingering, normH);
+          float bulkDiffusion = pow(uReactionProgress, 1.7);
+          float reactionMixFactor = clamp(max(plumeFront, bulkDiffusion), 0.0, 1.0) * uHasActiveReaction;
+
+          vec3 frontColor = mix(uReactionInitialColor, uReactionTargetColor, reactionMixFactor);
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, frontColor, uHasActiveReaction * 0.95);
+        }
 
         // Local Inflow Mixing Plume (Dynamic non-uniform color diffusion)
         if (uMixingStrength > 0.01 && uMixingRadius > 0.005) {
@@ -156,7 +191,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
           gl_FragColor.rgb = mix(gl_FragColor.rgb, uMixingColor, plumeFactor * 0.85);
         }
 
-        // Turbidity Tyndall scattering for precipitates (BaSO4, AgCl, Cu(OH)2)
+        // Turbidity Tyndall scattering for precipitates (BaSO4, AgCl, Cu(OH)2, PbI2)
         if (uTurbidity > 0.01) {
           vec3 milkyScattering = mix(vec3(0.95), uLiquidColor, 0.4);
           float depthFactor = clamp((uFillY - vWorldPosition.y) * 1.5, 0.0, 1.0);
@@ -385,6 +420,24 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, session.mixingZone.intensity, 0.25);
     } else {
       uniforms.uMixingStrength.value = THREE.MathUtils.lerp(uniforms.uMixingStrength.value, 0.0, 0.08);
+    }
+
+    // 1b. Downward convective color dispersion from active reaction kinetics
+    const kinetics = useAppStore.getState().activeKinetics[vesselId];
+    uniforms.uBaseY.value = baseY;
+    if (kinetics && kinetics.progress < 1.0) {
+      uniforms.uHasActiveReaction.value = THREE.MathUtils.lerp(uniforms.uHasActiveReaction.value, 1.0, 0.2);
+      uniforms.uReactionProgress.value = kinetics.progress;
+      if (kinetics.initialLiquidColor) {
+        _scratchTargetColor.set(kinetics.initialLiquidColor);
+        uniforms.uReactionInitialColor.value.copy(_scratchTargetColor);
+      }
+      if (kinetics.targetLiquidColor) {
+        _scratchTargetColor.set(kinetics.targetLiquidColor);
+        uniforms.uReactionTargetColor.value.copy(_scratchTargetColor);
+      }
+    } else {
+      uniforms.uHasActiveReaction.value = THREE.MathUtils.lerp(uniforms.uHasActiveReaction.value, 0.0, 0.08);
     }
 
     // 2. Gravity-aligned clipping plane and meniscus disk

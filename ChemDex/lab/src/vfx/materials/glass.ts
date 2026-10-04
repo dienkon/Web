@@ -17,19 +17,20 @@ export function getGlassMaterials(tier: QualityTier): GlassMaterialSet {
   }
 
   if (tier === 'high' || tier === 'medium') {
-    // Physical borosilicate glass with authentic clearcoat and edge reflection without depth occlusion
+    // Ultra-clear laboratory borosilicate glass (Pyrex/Duran quality)
+    // Highly transparent from side view with crisp edge Fresnel rim highlights
     const front = new THREE.MeshPhysicalMaterial({
-      roughness: 0.03,
-      metalness: 0.05,
+      roughness: 0.015,
+      metalness: 0.02,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.04,
-      envMapIntensity: 1.8,
+      clearcoatRoughness: 0.02,
+      envMapIntensity: 2.2,
       specularIntensity: 1.0,
-      color: new THREE.Color('#f0f9ff'),
+      color: new THREE.Color('#ffffff'), // Neutral clear, no cloudy cyan cast
       transparent: true,
-      opacity: 0.26,
+      opacity: 0.08, // Crystal clear looking directly into vessel from side
       side: THREE.FrontSide,
-      depthWrite: false, // Ensures liquid inside is 100% visible from all horizontal angles!
+      depthWrite: false, // Ensures liquid, plumes, and precipitate inside are 100% visible
     });
 
     front.onBeforeCompile = (shader) => {
@@ -39,22 +40,23 @@ export function getGlassMaterials(tier: QualityTier): GlassMaterialSet {
         #include <dithering_fragment>
         vec3 vDir = normalize(vViewPosition);
         float fresnel = 1.0 - abs(dot(vDir, normal));
-        fresnel = pow(fresnel, 2.6);
-        gl_FragColor.rgb += vec3(0.92, 0.97, 1.0) * fresnel * 0.85;
-        gl_FragColor.a = max(gl_FragColor.a, fresnel * 0.65);
+        // High power (3.5) keeps central line-of-sight crystal clear, shining only at silhouette edges
+        fresnel = pow(fresnel, 3.5);
+        gl_FragColor.rgb += vec3(1.0, 1.0, 1.0) * fresnel * 0.95;
+        gl_FragColor.a = mix(0.06, 0.68, fresnel);
         `
       );
     };
 
     const back = new THREE.MeshPhysicalMaterial({
-      roughness: 0.06,
-      metalness: 0.05,
-      clearcoat: 0.6,
-      clearcoatRoughness: 0.06,
-      envMapIntensity: 1.1,
-      color: new THREE.Color('#e0f2fe'),
+      roughness: 0.03,
+      metalness: 0.02,
+      clearcoat: 0.5,
+      clearcoatRoughness: 0.04,
+      envMapIntensity: 1.0,
+      color: new THREE.Color('#ffffff'),
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.05, // Subtle rear reflection
       side: THREE.BackSide,
       depthWrite: false,
     });

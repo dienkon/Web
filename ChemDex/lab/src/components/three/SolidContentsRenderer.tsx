@@ -47,16 +47,154 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 
   return (
     <group name={`solids_${vesselId}`}>
-      {solidSubstances.map((sub, idx) => (
-        <SolidSubstanceMesh
-          key={`${sub}_${idx}`}
-          substance={sub}
-          vesselRadius={radius}
-          baseY={baseY}
-          dissolveProgress={dissolving[sub] || 0}
-          isStirring={isStirring}
+      {solidSubstances.map((sub, idx) => {
+        if (sub === 'Na') {
+          return (
+            <FloatingSodiumPellet
+              key={`${sub}_${idx}`}
+              vesselId={vesselId}
+              vesselRadius={radius}
+              baseY={baseY}
+              dissolveProgress={dissolving[sub] || 0}
+            />
+          );
+        }
+        return (
+          <SolidSubstanceMesh
+            key={`${sub}_${idx}`}
+            substance={sub}
+            vesselRadius={radius}
+            baseY={baseY}
+            dissolveProgress={dissolving[sub] || 0}
+            isStirring={isStirring}
+          />
+        );
+      })}
+    </group>
+  );
+});
+
+interface FloatingSodiumPelletProps {
+  vesselId: string;
+  vesselRadius: number;
+  baseY: number;
+  dissolveProgress: number;
+}
+
+export const FloatingSodiumPellet = React.memo(function FloatingSodiumPellet({
+  vesselId,
+  vesselRadius,
+  baseY,
+  dissolveProgress,
+}: FloatingSodiumPelletProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const lightRef = useRef<THREE.PointLight>(null);
+
+  // Motion physics ref (zero GC)
+  const motion = useRef({
+    x: 0,
+    z: 0,
+    vx: 0.25,
+    vz: 0.18,
+    spin: 0,
+  });
+
+  const vessel = useAppStore(state => state.vessels[vesselId]);
+  const kinetics = useAppStore(state => state.activeKinetics[vesselId]);
+
+  const hasLiquid = (vessel?.volume_ml || 0) > 0.5;
+  const volumeFrac = Math.max(0, Math.min(1.0, (vessel?.volume_ml || 0) / (vessel?.capacity_ml || 100)));
+  const liquidSurfaceY = baseY + (vessel?.type === 'test_tube' ? 1.6 : 1.88) * volumeFrac;
+
+  const reactionProgress = kinetics?.reactionId?.includes('sodium') ? kinetics.progress : 0;
+  const effectiveProgress = Math.max(dissolveProgress, reactionProgress);
+  const isConsumed = effectiveProgress >= 0.99;
+
+  // Molten sodium droplet radius (shrinks from ~0.08 down to 0)
+  const currentScale = Math.max(0.001, 1.0 - effectiveProgress);
+
+  useFrame((state, delta) => {
+    if (!groupRef.current || !vessel || isConsumed) return;
+    const dt = Math.min(delta, 0.05);
+    const m = motion.current;
+
+    if (hasLiquid) {
+      // 1. Hydrogen gas recoil jet dynamics: random propulsion kicks across the meniscus
+      const isReacting = effectiveProgress > 0.01 && effectiveProgress < 0.98;
+      const kickStrength = isReacting ? 1.8 : 0.25;
+      m.vx += (Math.random() - 0.5) * kickStrength * dt;
+      m.vz += (Math.random() - 0.5) * kickStrength * dt;
+
+      // Hydrodynamic friction on water surface
+      const damping = Math.pow(0.86, dt * 60);
+      m.vx *= damping;
+      m.vz *= damping;
+
+      // Integrate position on surface plane
+      m.x += m.vx * dt;
+      m.z += m.vz * dt;
+      m.spin += dt * 8.0;
+
+      // Elastic boundary reflection at the glass inner wall
+      const maxR = vesselRadius * 0.72;
+      const curDist = Math.hypot(m.x, m.z);
+      if (curDist > maxR) {
+        m.x = (m.x / curDist) * maxR;
+        m.z = (m.z / curDist) * maxR;
+        m.vx = -m.vx * 0.8;
+        m.vz = -m.vz * 0.8;
+      }
+
+      // Slight floating meniscus bobbing
+      const bobbing = Math.sin(state.clock.elapsedTime * 14.0) * 0.003;
+      groupRef.current.position.set(m.x, liquidSurfaceY + 0.02 + bobbing, m.z);
+      groupRef.current.rotation.y = m.spin;
+
+      // Thermal glow during vigorous reaction (Na melts into liquid sphere, T > 98°C)
+      if (lightRef.current) {
+        const isHot = effectiveProgress > 0.35 && effectiveProgress < 0.95;
+        lightRef.current.intensity = isHot ? (1.8 + Math.random() * 0.8) : 0;
+      }
+    } else {
+      // Dry vessel: exactly 1 metallic pellet resting quietly on the floor
+      groupRef.current.position.set(0, baseY + 0.035, 0);
+      if (lightRef.current) lightRef.current.intensity = 0;
+    }
+  });
+
+  if (isConsumed) return null;
+
+  const isHotMolten = effectiveProgress > 0.35 && hasLiquid;
+
+  return (
+    <group ref={groupRef} position={[0, hasLiquid ? liquidSurfaceY + 0.02 : baseY + 0.035, 0]}>
+      {/* 1 Single Molten Metallic Sodium Pellet */}
+      <mesh scale={[currentScale, currentScale, currentScale]}>
+        <sphereGeometry args={[0.075, 20, 20]} />
+        <meshStandardMaterial
+          color={isHotMolten ? '#fbbf24' : '#f1f5f9'}
+          emissive={isHotMolten ? '#d97706' : '#000000'}
+          emissiveIntensity={isHotMolten ? 2.0 : 0}
+          roughness={isHotMolten ? 0.06 : 0.16}
+          metalness={0.96}
         />
-      ))}
+      </mesh>
+
+      {/* Exothermic Glow PointLight */}
+      <pointLight
+        ref={lightRef}
+        color="#f59e0b"
+        intensity={0}
+        distance={2.2}
+      />
+
+      {/* Trailing Micro-Steam puff when reacting */}
+      {hasLiquid && effectiveProgress > 0.05 && effectiveProgress < 0.95 && (
+        <mesh position={[0, 0.05, 0]} scale={[currentScale * 0.7, currentScale * 1.1, currentScale * 0.7]}>
+          <coneGeometry args={[0.035, 0.1, 10]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.32} depthWrite={false} />
+        </mesh>
+      )}
     </group>
   );
 });
@@ -86,7 +224,7 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   const color = chem.color || '#e2e8f0';
   const category = chem.category;
 
-  const isMetal = category === 'metal' || ['Fe', 'Cu', 'Zn', 'Mg', 'Al', 'Na'].includes(substance);
+  const isMetal = category === 'metal' || ['Fe', 'Cu', 'Zn', 'Mg', 'Al'].includes(substance);
   const isSaltCrystal = category === 'salt' || ['NaCl', 'CuSO4', 'PbI2'].includes(substance);
   const isPowder = !isMetal && !isSaltCrystal;
 

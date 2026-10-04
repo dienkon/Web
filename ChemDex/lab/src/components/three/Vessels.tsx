@@ -8,7 +8,7 @@ import { getReagentBottleLabelTexture, getVesselGraduationTexture } from '../../
 import { useQualityStore } from '../../vfx/quality';
 import { getGlassMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
 import { RealisticLiquid } from '../../vfx/materials/liquid';
-import { Bubbles, GasPlume } from '../../vfx/particles';
+import { Bubbles, GasPlume, Precipitate } from '../../vfx/particles';
 import { PourController } from '../../pour/controller/PourController';
 import { SolidContentsRenderer } from './SolidContentsRenderer';
 
@@ -597,11 +597,33 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
         <StirringRod height={2.4} isStirring={isStirring} />
       )}
 
-      {/* Precipitate Mound Layer */}
+      {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2) */}
+      {vessel.hasPrecipitate && (
+        <Precipitate
+          vesselId={id}
+          substance={
+            vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.substances?.some(s => s.includes('Pb') || s.includes('I'))
+              ? 'PbI2'
+              : (vessel.precipitateColor || 'BaSO4')
+          }
+          color={vessel.precipitateColor}
+          radius={0.78}
+          liquidTopY={-0.96 + 1.88 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 250))) - 0.04}
+          liquidBottomY={-0.88}
+          rate={vessel.substances?.some(s => s.includes('Pb') || s.includes('I')) ? 46 : 28}
+          active={true}
+        />
+      )}
+
+      {/* Precipitate Mound / Sediment Bed Layer */}
       {vessel.hasPrecipitate && (
         <mesh position={[0, -0.92, 0]} renderOrder={4}>
           <cylinderGeometry args={[0.92, 0.95, 0.12, 32]} />
-          <meshStandardMaterial color={vessel.precipitateColor || '#ffffff'} roughness={0.92} />
+          <meshStandardMaterial 
+            color={vessel.precipitateColor || '#ffffff'} 
+            roughness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24') ? 0.22 : 0.92}
+            metalness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24') ? 0.88 : 0.05}
+          />
         </mesh>
       )}
     </group>
@@ -716,11 +738,33 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
         <StirringRod height={2.8} isStirring={isStirring} />
       )}
 
-      {/* Precipitate Mound Layer */}
+      {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2) */}
+      {vessel.hasPrecipitate && (
+        <Precipitate
+          vesselId={id}
+          substance={
+            vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.substances?.some(s => s.includes('Pb') || s.includes('I'))
+              ? 'PbI2'
+              : (vessel.precipitateColor || 'BaSO4')
+          }
+          color={vessel.precipitateColor}
+          radius={0.88}
+          liquidTopY={-0.96 + 1.8 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 250))) - 0.04}
+          liquidBottomY={-0.88}
+          rate={vessel.substances?.some(s => s.includes('Pb') || s.includes('I')) ? 46 : 28}
+          active={true}
+        />
+      )}
+
+      {/* Precipitate Mound / Sediment Bed Layer */}
       {vessel.hasPrecipitate && (
         <mesh position={[0, -0.92, 0]} renderOrder={4}>
           <cylinderGeometry args={[1.15, 1.2, 0.12, 32]} />
-          <meshStandardMaterial color={vessel.precipitateColor || '#ffffff'} roughness={0.92} />
+          <meshStandardMaterial 
+            color={vessel.precipitateColor || '#ffffff'} 
+            roughness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24') ? 0.22 : 0.92}
+            metalness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24') ? 0.88 : 0.05}
+          />
         </mesh>
       )}
     </group>
@@ -845,11 +889,33 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
         <StirringRod height={1.8} isStirring={isStirring} />
       )}
 
+      {/* Dynamic Falling Precipitate Particles */}
+      {vessel.hasPrecipitate && (
+        <Precipitate
+          vesselId={id}
+          substance={
+            vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.substances?.some(s => s.includes('Pb') || s.includes('I'))
+              ? 'PbI2'
+              : (vessel.precipitateColor || 'BaSO4')
+          }
+          color={vessel.precipitateColor}
+          radius={0.16}
+          liquidTopY={-0.6 + 1.6 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 50))) - 0.03}
+          liquidBottomY={-0.54}
+          rate={vessel.substances?.some(s => s.includes('Pb') || s.includes('I')) ? 24 : 14}
+          active={true}
+        />
+      )}
+
       {/* Precipitate */}
       {vessel.hasPrecipitate && (
         <mesh position={[0, -0.55, 0]} renderOrder={4}>
           <cylinderGeometry args={[0.2, 0.2, 0.15, 16]} />
-          <meshStandardMaterial color={vessel.precipitateColor || '#ffffff'} roughness={0.8} />
+          <meshStandardMaterial 
+            color={vessel.precipitateColor || '#ffffff'} 
+            roughness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24') ? 0.22 : 0.8}
+            metalness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24') ? 0.88 : 0.05}
+          />
         </mesh>
       )}
     </group>

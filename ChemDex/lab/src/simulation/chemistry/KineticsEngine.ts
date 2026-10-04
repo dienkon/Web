@@ -144,8 +144,8 @@ export class KineticsEngine {
     let totalPrecipMass = vessel.precipitateAmount_g || 0;
     let totalHeatW = 0;
     let hasPrecip = vessel.hasPrecipitate || false;
-    let precipColor = vessel.precipitateColor;
-    let precipSubstance = undefined;
+    let precipitateColor = vessel.precipitateColor;
+    let precipitateSubstance: string | undefined = undefined;
     let hasGas = vessel.hasGas || false;
     let gasColor = vessel.gasColor;
     let targetLiquidColor = vessel.liquidColor;
@@ -210,8 +210,8 @@ export class KineticsEngine {
           // Precipitate formation
           if (pInfo.state === 's' || rxn.hasPrecipitate) {
             hasPrecip = true;
-            precipColor = rxn.precipitateColor || '#ffffff';
-            precipSubstance = rxn.precipitateFormula || pFormula;
+            precipitateColor = rxn.precipitateColor || '#ffffff';
+            precipitateSubstance = rxn.precipitateFormula || pFormula;
             const molWeight_g_mol = 120.0; // Approximation
             const dMass_g = pMoles * molWeight_g_mol;
             item.precipitateGenerationRate_g_s = dMass_g / Math.max(0.001, dt);

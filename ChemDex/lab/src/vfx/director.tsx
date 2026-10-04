@@ -303,25 +303,6 @@ export const VfxDirector = React.memo(function VfxDirector() {
                 />
               </mesh>
             )}
-
-            {/* 8. Special Effect: Sodium Molten Dart */}
-            {isSodiumDart && (
-              <group position={sodiumPos}>
-                <mesh>
-                  <sphereGeometry args={[progress > 0.45 ? 0.055 : 0.07, 16, 16]} />
-                  <meshStandardMaterial
-                    color={progress > 0.45 ? '#f59e0b' : '#e2e8f0'}
-                    emissive={progress > 0.45 ? '#d97706' : '#000000'}
-                    emissiveIntensity={progress > 0.45 ? 2.5 : 0}
-                    roughness={0.15}
-                    metalness={0.9}
-                  />
-                </mesh>
-                {progress > 0.45 && (
-                  <pointLight position={[0, 0.08, 0]} intensity={2.2} color="#fbbf24" distance={2.5} />
-                )}
-              </group>
-            )}
           </group>
         );
       })}
