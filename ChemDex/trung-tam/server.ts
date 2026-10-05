@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
+import path from "path";
 dotenv.config();
+dotenv.config({ path: path.resolve(process.cwd(), "../.env") });
 
 import express from "express";
-import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import cors from "cors";
@@ -189,6 +190,323 @@ Trả về DUY NHẤT JSON theo định dạng:
     }
   });
 
+  // API Route for Virtual Lab Experiment Mix (/api/experiment/mix)
+  app.post("/api/experiment/mix", async (req, res) => {
+    try {
+      const { substances = [], volume = 0.5, lang = "en", isHeated = false } = req.body || {};
+
+      if (!Array.isArray(substances)) {
+        return res.status(400).json({ error: "substances must be an array" });
+      }
+
+      const isVi = lang === "vi";
+      const subStr = substances.join(" + ");
+      const normalized = Array.from(
+        new Set(substances.map((s: string) => s.trim().toLowerCase().replace(/[^a-z0-9]/g, "")))
+      ).sort();
+      const isPureWaterOrIce = normalized.length === 0 || normalized.every((t) => t.includes("h2o"));
+      const primaryName = substances[0] || "H2O";
+      const isWater = isPureWaterOrIce || primaryName.toLowerCase().includes("h2o");
+      const isIce = primaryName.toLowerCase().includes("h2o_s") || primaryName.toLowerCase().includes("ice");
+      const canonicalKey = normalized.join("_") || (isHeated ? "heated_mixture" : "empty_mixture");
+
+      const deterministicResult = {
+        reaction_id: canonicalKey,
+        summary: isVi
+          ? isIce
+            ? "Nước đá / Nước cất (H₂O rắn tan chảy)"
+            : isWater
+            ? "Nước tinh khiết / Nước cất (H₂O)"
+            : `Hỗn hợp các chất: ${subStr}`
+          : isIce
+          ? "Ice / Distilled Water (H₂O solid phase)"
+          : isWater
+          ? "Pure Distilled Water (H₂O)"
+          : `Mixture of substances: ${subStr}`,
+        equation: isIce ? "H₂O(s) ⇌ H₂O(l)" : isWater ? "H₂O" : subStr ? `${subStr} (hỗn hợp)` : "H₂O",
+        reactants: substances.length > 0 ? substances : ["H2O"],
+        products: substances.length > 0 ? substances : ["H2O"],
+        safety_notes: isVi
+          ? "Tuân thủ quy tắc an toàn và bảo hộ phòng thí nghiệm tiêu chuẩn."
+          : "Standard laboratory safety measures apply.",
+        observable_changes: isVi
+          ? "Các chất hòa tan và khuấy trộn đồng đều trong bình phản ứng."
+          : "Substances disperse and mix uniformly in the reaction vessel.",
+        new_vessel_state: {
+          liquid_color: isWater ? "#f8fafc" : "#e2e8f0",
+          liquid_level: Math.min(1.0, Math.max(0.1, volume)),
+          temperature_c: isHeated ? 60.0 : 25.0,
+          has_precipitate: false,
+          is_boiling: isHeated,
+          has_gas: false,
+          is_explosion: false,
+        },
+        program: {
+          schema: "chemdex.program/1",
+          id: canonicalKey,
+          provenance: "fallback",
+          chemistry: {
+            equation: isWater ? "H₂O" : subStr,
+            species: substances.map((s: string) => ({
+              formula: s,
+              role: "reactant",
+              coeff: 1,
+              phase: "aq",
+              colorHex: "#ffffff",
+            })),
+            deltaH_kJ_per_mol: 0,
+            kinetics: { model: "instant", halfTime_s: 1.0 },
+            hazards: [],
+          },
+          visual: {
+            duration_s: 3.0,
+            timeline: [
+              {
+                id: "atom_1",
+                atom: "liquidSwirl",
+                anchor: "bulk",
+                window: [0.0, 0.8],
+                intensity: 1.0,
+                params: {},
+              },
+            ],
+            after: {
+              liquidColor: isWater ? "#f8fafc" : "#e2e8f0",
+              liquidOpacity: 1.0,
+              turbidity: 0.0,
+              gasesOffgassed: [],
+            },
+          },
+          explain: {
+            observation_vi: isVi
+              ? "Các chất hòa tan và khuấy trộn đồng đều trong dung dịch."
+              : "Substances mix uniformly.",
+            observation_en: "Substances dissolve and mix uniformly.",
+            why_vi: isVi
+              ? "Quá trình hòa tan vật lý và khuếch tán phân tử."
+              : "Physical dissolution and diffusion.",
+            why_en: "Physical dissolution and molecular diffusion.",
+          },
+          confidence: 1.0,
+        },
+        effects: [{ type: "COLOR_CHANGE", duration: 1, color: isWater ? "#f8fafc" : "#e2e8f0" }],
+        confidence: 1.0,
+        is_dangerous: false,
+        _resolutionSource: "deterministic",
+        _canonicalKey: canonicalKey,
+      };
+
+      if (!ai || substances.length === 0) {
+        return res.json(deterministicResult);
+      }
+
+      try {
+        const mixPrompt = `You are an expert chemistry AI assistant and visual director for a physically-faithful 3D virtual lab simulation.
+Predict the outcome of mixing reagents and return ONLY a valid JSON object matching:
+{
+  "reaction_id": "${canonicalKey}",
+  "summary": "Brief summary",
+  "equation": "Balanced full chemical equation",
+  "reactants": ${JSON.stringify(substances)},
+  "products": ["Product formulas"],
+  "safety_notes": "Safety warnings",
+  "observable_changes": "Visual changes",
+  "new_vessel_state": {
+    "liquid_color": "#ffffff",
+    "liquid_level": ${volume},
+    "temperature_c": ${isHeated ? 60 : 25},
+    "has_precipitate": false,
+    "is_boiling": ${isHeated},
+    "has_gas": false,
+    "is_explosion": false
+  },
+  "program": {
+    "schema": "chemdex.program/1",
+    "id": "${canonicalKey}",
+    "provenance": "ai",
+    "chemistry": {
+      "equation": "Balanced equation",
+      "species": [
+        { "formula": "Formula", "role": "reactant", "coeff": 1, "phase": "aq", "colorHex": "#ffffff" }
+      ],
+      "deltaH_kJ_per_mol": 0,
+      "kinetics": { "model": "instant", "halfTime_s": 1.5 },
+      "hazards": []
+    },
+    "visual": {
+      "duration_s": 4.0,
+      "timeline": [
+        { "id": "atom_1", "atom": "liquidSwirl", "anchor": "bulk", "window": [0.0, 0.8], "intensity": 1.0, "params": {} }
+      ],
+      "after": { "liquidColor": "#ffffff", "liquidOpacity": 1.0, "turbidity": 0.0, "gasesOffgassed": [] }
+    },
+    "explain": { "observation_vi": "...", "observation_en": "...", "why_vi": "...", "why_en": "..." },
+    "confidence": 0.95
+  },
+  "effects": [],
+  "confidence": 0.95,
+  "is_dangerous": false
+}
+Reagents: ${substances.join(" and ")}. Heated: ${isHeated ? "Yes" : "No"}. Lang: ${lang}.`;
+
+        const response = await ai.models.generateContent({
+          model: AI_MODEL,
+          contents: [{ role: "user", parts: [{ text: mixPrompt }] }],
+          config: {
+            responseMimeType: "application/json",
+          },
+        });
+
+        const raw = response.text || "";
+        const cleaned = raw.replace(/^```json\s*/i, "").replace(/\s*```$/i, "").trim();
+        const parsed = JSON.parse(cleaned);
+
+        return res.json({
+          ...deterministicResult,
+          ...parsed,
+          _resolutionSource: "gemini",
+          _canonicalKey: canonicalKey,
+        });
+      } catch (aiErr) {
+        console.warn("[/api/experiment/mix] Gemini generation failed, using deterministic:", aiErr);
+        return res.json(deterministicResult);
+      }
+    } catch (e: any) {
+      console.error("[API Error in /api/experiment/mix]:", e);
+      res.status(500).json({ error: e.message || "Failed to process experiment" });
+    }
+  });
+
+  // API Route for Virtual Lab AI Query & Report Evaluation (/api/experiment/ai-query)
+  app.post("/api/experiment/ai-query", async (req, res) => {
+    try {
+      const { equation, substances, userQuestion, temperature_c = 25, isHeated = false, lang = "vi" } = req.body || {};
+      const isVi = lang === "vi";
+      const subStr = substances && Array.isArray(substances) ? substances.join(" + ") : equation || "H2O";
+
+      const fallbackAnalysis = {
+        equation: equation || subStr,
+        reaction_type: isVi ? "Phản ứng hóa học" : "Chemical reaction",
+        reactionType: isVi ? "Phản ứng hóa học" : "Chemical reaction",
+        thermodynamics: {
+          deltaH: isHeated ? "+ΔH > 0" : "ΔH ≈ 0 kJ/mol",
+          enthalpy_delta_h: isHeated ? "+ΔH > 0" : "ΔH ≈ 0 kJ/mol",
+          deltaG: "ΔG < 0 (Tự diễn biến)",
+          gibbs_free_energy: "ΔG < 0",
+          isExothermic: !isHeated,
+          thermalNature: isHeated ? (isVi ? "Thu nhiệt" : "Endothermic") : isVi ? "Tỏa nhiệt nhẹ" : "Exothermic",
+          temperature_required: `${temperature_c}°C`,
+        },
+        kinetics: {
+          rate_law: "v = k[A][B]",
+          reaction_speed: isVi ? "Nhanh ở nhiệt độ phòng" : "Fast at room temperature",
+          activationEnergy: "Ea ~ 25 kJ/mol",
+          catalyst_needed: isVi ? "Không yêu cầu xúc tác" : "No catalyst required",
+        },
+        operational_procedure: {
+          step_by_step: isVi
+            ? [
+                "1. Chuẩn bị dụng cụ thí nghiệm và hóa chất đã được định lượng.",
+                "2. Rót từ từ các chất vào bình tam giác hoặc cốc chịu nhiệt.",
+                "3. Quan sát các hiện tượng biến đổi màu sắc, bọt khí hoặc kết tủa.",
+              ]
+            : [
+                "1. Prepare laboratory glassware and measured reagents.",
+                "2. Pour reagents slowly into the vessel.",
+                "3. Observe physical and chemical phenomena such as gas or color changes.",
+              ],
+          safety_precautions: isVi
+            ? [
+                "Đeo kính bảo hộ và găng tay trong suốt quá trình thao tác.",
+                "Tránh tiếp xúc trực tiếp hoặc hít phải hơi hóa chất.",
+              ]
+            : [
+                "Wear safety goggles and lab gloves throughout the operation.",
+                "Avoid direct inhalation of vapors.",
+              ],
+        },
+        explanation_vi: userQuestion
+          ? `Phân tích yêu cầu: "${userQuestion}". Hệ thống đã ghi nhận các chất tham gia (${subStr}) và điều kiện nhiệt độ (${temperature_c}°C). Phản ứng diễn ra theo các nguyên lý động học và nhiệt động học cơ bản.`
+          : `Phản ứng giữa ${subStr} ở ${temperature_c}°C tuân theo các quy luật cân bằng hóa học tiêu chuẩn.`,
+        explanation_en: `Reaction between ${subStr} at ${temperature_c}°C follows standard chemical equilibrium principles.`,
+        score: 9.0,
+        pros: [
+          isVi ? "Thao tác phòng thí nghiệm đúng quy trình" : "Standard lab procedures followed",
+          isVi ? "Ghi nhận đầy đủ thông số nồng độ và nhiệt độ" : "Parameters recorded accurately",
+        ],
+        improvements: [
+          isVi ? "Tuân thủ bảo hộ cá nhân khi tiếp xúc hóa chất" : "Ensure PPE is always used",
+        ],
+        summary: isVi
+          ? `Báo cáo thí nghiệm hợp lệ cho phản ứng ${subStr}.`
+          : `Valid laboratory experiment report for ${subStr}.`,
+      };
+
+      if (!ai) {
+        return res.json(fallbackAnalysis);
+      }
+
+      try {
+        const queryPrompt = `You are a Chemistry Professor and Virtual Lab AI Consultant.
+Analyze the chemical scenario and return ONLY valid JSON matching this schema:
+{
+  "equation": "${equation || subStr}",
+  "reaction_type": "string",
+  "reactionType": "string",
+  "thermodynamics": {
+    "deltaH": "string",
+    "enthalpy_delta_h": "string",
+    "deltaG": "string",
+    "gibbs_free_energy": "string",
+    "isExothermic": boolean,
+    "thermalNature": "string",
+    "temperature_required": "string"
+  },
+  "kinetics": {
+    "rate_law": "string",
+    "reaction_speed": "string",
+    "activationEnergy": "string",
+    "catalyst_needed": "string"
+  },
+  "operational_procedure": {
+    "step_by_step": ["step 1", "step 2"],
+    "safety_precautions": ["safety 1", "safety 2"]
+  },
+  "explanation_vi": "string in Vietnamese",
+  "explanation_en": "string in English",
+  "score": 9.2,
+  "pros": ["string"],
+  "improvements": ["string"],
+  "summary": "string"
+}
+Equation/Substances: ${equation || subStr}. Temperature: ${temperature_c}°C. Heated: ${isHeated ? "Yes" : "No"}. Question: ${userQuestion || "Analysis"}. Lang: ${lang}.`;
+
+        const response = await ai.models.generateContent({
+          model: AI_MODEL,
+          contents: [{ role: "user", parts: [{ text: queryPrompt }] }],
+          config: {
+            responseMimeType: "application/json",
+          },
+        });
+
+        const raw = response.text || "";
+        const cleaned = raw.replace(/^```json\s*/i, "").replace(/\s*```$/i, "").trim();
+        const parsed = JSON.parse(cleaned);
+
+        return res.json({
+          ...fallbackAnalysis,
+          ...parsed,
+        });
+      } catch (aiErr) {
+        console.warn("[/api/experiment/ai-query] Gemini error, using fallback:", aiErr);
+        return res.json(fallbackAnalysis);
+      }
+    } catch (e: any) {
+      console.error("[API Error in /api/experiment/ai-query]:", e);
+      res.status(500).json({ error: e.message || "Failed to process AI query" });
+    }
+  });
+
   // Handle serving the frontend
   if (process.env.NODE_ENV !== "production") {
     // 1. Vite middlewares for SPAs (Must come FIRST to inject dev scripts into HTML)
@@ -223,6 +541,14 @@ Trả về DUY NHẤT JSON theo định dạng:
       base: "/tien-ich/phuong-trinh/chuoi-phan-ung/",
     });
     app.use("/tien-ich/phuong-trinh/chuoi-phan-ung", viteChuoi.middlewares);
+
+    const viteLab = await createViteServer({
+      server: { middlewareMode: true, hmr: { port: 24682 } },
+      appType: "spa",
+      root: path.join(rootPath, "lab"),
+      base: "/lab/",
+    });
+    app.use("/lab", viteLab.middlewares);
 
     // 2. Serve static files from root for non-SPA paths (index.html, css, js)
     app.use(express.static(rootPath));

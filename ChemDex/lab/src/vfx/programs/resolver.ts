@@ -310,6 +310,14 @@ export async function resolveReactionProgram(
             setCachedProgram(key, val.program, env.lang);
             return { program: val.program, provenance: 'ai' };
           }
+        } else if (data.equation || data.summary) {
+          const fallback = createFallbackProgram(substances, env);
+          if (data.equation) fallback.chemistry.equation = data.equation;
+          if (data.summary) {
+            fallback.explain.observation_vi = data.observable_changes || data.summary;
+            fallback.explain.why_vi = data.summary;
+          }
+          return { program: fallback, provenance: 'fallback' };
         }
       }
     } catch {
