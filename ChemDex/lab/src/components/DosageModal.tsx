@@ -12,13 +12,12 @@ interface InnerProps {
 
 function DosageModalDialog({ pendingDispense }: InnerProps) {
   const setPendingDispense = useAppStore(state => state.setPendingDispense);
-  const vessels = useAppStore(state => state.vessels);
+  const targetVessel = useAppStore(state => state.vessels[pendingDispense.targetVesselId]);
   const triggerPour = useAppStore(state => state.triggerPour);
   const language = useAppStore(state => state.language);
 
   const { chemical, targetVesselId } = pendingDispense;
-  const chemDef = getChemical(chemical);
-  const targetVessel = vessels[targetVesselId];
+  const chemDef = React.useMemo(() => getChemical(chemical), [chemical]);
 
   const isSolid = chemDef.type === 'solid';
   const isIndicator = chemDef.category === 'indicator' || chemical === 'Phenolphthalein';
@@ -29,25 +28,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
-  // Handle keyboard shortcuts (Enter to confirm, Escape to cancel)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setPendingDispense(null);
-      } else if (e.key === 'Enter') {
-        handleConfirm();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [amount, chemical, targetVesselId]);
-
-  if (!targetVessel) {
-    setPendingDispense(null);
-    return null;
-  }
-
-  const handleConfirm = () => {
+  const handleConfirm = React.useCallback(() => {
     // Play realistic procedural audio
     if (isSolid) {
       labSound.playSolidDrop();
@@ -58,7 +39,28 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
     // Trigger pour animation and store amount with appropriate scale
     triggerPour(chemical, targetVesselId, isIndicator ? amount * 0.1 : amount);
     setPendingDispense(null);
-  };
+  }, [isSolid, chemical, targetVesselId, isIndicator, amount, triggerPour, setPendingDispense]);
+
+  const confirmRef = React.useRef(handleConfirm);
+  confirmRef.current = handleConfirm;
+
+  // Handle keyboard shortcuts (Enter to confirm, Escape to cancel)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPendingDispense(null);
+      } else if (e.key === 'Enter') {
+        confirmRef.current();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [setPendingDispense]);
+
+  if (!targetVessel) {
+    setPendingDispense(null);
+    return null;
+  }
 
   return (
     <div 

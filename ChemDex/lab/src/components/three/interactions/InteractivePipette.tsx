@@ -72,6 +72,9 @@ export const InteractivePipette = React.memo(function InteractivePipette({
         volume_ml: remainingVol,
         volume: remainingVol / targetVessel.capacity_ml,
       });
+      if (targetVessel.substances.length > 0) {
+        useAppStore.getState().touchToolChemical('pipette', targetVessel.substances[0]);
+      }
       labSound.playDrop();
     }, 200);
   };

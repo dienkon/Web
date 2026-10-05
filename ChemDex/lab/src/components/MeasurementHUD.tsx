@@ -9,6 +9,8 @@ export function MeasurementHUD() {
   const language = useAppStore(state => state.language);
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
+  const spills = useAppStore(state => state.spills);
+  const spillCount = Object.keys(spills || {}).length;
 
   const vessel = selectedVesselId ? vessels[selectedVesselId] : null;
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
@@ -41,6 +43,38 @@ export function MeasurementHUD() {
       >
         <Wand2 size={14} />
         <span>{t('Stir Rod', 'Đũa khuấy')}</span>
+      </button>
+
+      {/* Interactive Solid Spatula */}
+      <button 
+        onClick={() => setActiveTool(activeTool === 'spatula' ? 'none' : 'spatula')}
+        className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
+          activeTool === 'spatula' ? 'bg-violet-600 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+        }`}
+        title={t('Micro-Spatula (Scoop & transfer solid powder/crystals)', 'Muỗng thìa xúc hóa chất rắn')}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M18 2l4 4-14 14H4v-4L18 2z" />
+          <path d="M14 6l4 4" />
+        </svg>
+        <span>{t('Spatula', 'Thìa xúc')}</span>
+      </button>
+
+      {/* Interactive Sponge / Cleaning Wiper */}
+      <button 
+        onClick={() => setActiveTool(activeTool === 'sponge' ? 'none' : 'sponge')}
+        className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
+          activeTool === 'sponge' ? 'bg-amber-600 text-white shadow-sm ring-2 ring-amber-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+        }`}
+        title={t('Lab Cleaning Sponge (Wipe chemical spills & acid stains)', 'Khăn lau phòng thí nghiệm (Lau sạch vết đổ & axit trên bàn)')}
+      >
+        <span className="text-xs">🧽</span>
+        <span>{t('Sponge', 'Khăn lau')}</span>
+        {spillCount > 0 && (
+          <span className="px-1.5 py-0.2 bg-rose-500 text-white text-[9px] font-bold rounded-full">
+            {spillCount}
+          </span>
+        )}
       </button>
 
       {/* Thermometer Tool */}

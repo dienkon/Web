@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { ContactShadows, Grid, Environment, Lightformer, PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
@@ -6,7 +6,11 @@ import { PostFX } from '../../vfx/post/PostFX';
 import { useQualityStore, getQualitySettings, QualityTier } from '../../vfx/quality';
 import { getLaboratoryTileTexture, getSkyGradientTexture, getSunbeamTexture, getNoiseTexture } from '../../vfx/textures';
 import { SunbeamDust } from '../../vfx/environment/SunbeamDust';
-import { Beaker, Flask, TestTube, GraduatedCylinder, Bottle, BuretteApparatus, DigitalBalance } from './Vessels';
+import { 
+  Beaker, Flask, TestTube, GraduatedCylinder, WatchGlass, EvaporatingDish, Crucible, PetriDish, 
+  VolumetricFlask, SeparatoryFunnel, FilterFunnel, MortarPestle, LiebigCondenser, TestTubeRack, WashBottle, LabTongs,
+  Bottle, BuretteApparatus, DigitalBalance 
+} from './Vessels';
 import { AlcoholBurner } from './AlcoholBurner';
 import { AddingAnimation, VesselPourAnimation } from './PouringBottle';
 import { PerformanceHUD } from './PerformanceHUD';
@@ -14,12 +18,27 @@ import { CameraControls } from './CameraControls';
 import { InteractivePipette } from './interactions/InteractivePipette';
 import { InteractiveStirringRod } from './interactions/InteractiveStirringRod';
 import { InteractiveThermometer } from './interactions/InteractiveThermometer';
+import { InteractiveSpatula } from './interactions/InteractiveSpatula';
+import { InteractiveSponge } from './interactions/InteractiveSponge';
 import { WorkbenchSpills } from './WorkbenchSpills';
 import { useAppStore } from '../../store/useAppStore';
 import { VfxDirector } from '../../vfx/director';
 import { PhysicalStreamRenderer } from '../../pour/render/PhysicalStreamRenderer';
 import { SimulationDebugGizmos } from '../../simulation/render/SimulationDebugGizmos';
 import { PourController } from '../../pour/controller/PourController';
+import { wheelRouter } from '../../input/WheelRouter';
+import { HandRig } from '../../handling/HandRig';
+import { ShardsRenderer } from './ShardsRenderer';
+import { RetortStand } from '../../apparatus/Stand';
+import { RetortClamp } from '../../apparatus/Clamp';
+import { Stopper } from '../../apparatus/Stopper';
+import { PneumaticTrough } from '../../apparatus/Trough';
+import { HotPlate } from '../../apparatus/HotPlate';
+import { openRadialMenu } from '../../ui/RadialMenu';
+import { TouchGestureRecognizer } from '../../input/TouchGestures';
+import { getVesselGripSpec } from '../../handling/gripPoints';
+import { clampLift } from '../../handling/limits';
+import { VesselFloorRing } from './Vessels';
 
 function DragDropRaycaster() {
   const { camera, gl } = useThree();
@@ -75,13 +94,14 @@ function DragDropRaycaster() {
       // 2D screen projection verification if raycast missed plane boundary
       if (!closestId) {
         let minPixelDist = 130;
+        const projVec = new THREE.Vector3();
         for (const [id, vessel] of Object.entries(vessels)) {
-          const vec = new THREE.Vector3(vessel.position[0], vessel.position[1] + 0.6, vessel.position[2]);
-          vec.project(camera);
-          if (vec.z > 1) continue; // Behind camera
+          projVec.set(vessel.position[0], vessel.position[1] + 0.6, vessel.position[2]);
+          projVec.project(camera);
+          if (projVec.z > 1) continue; // Behind camera
 
-          const screenX = ((vec.x + 1) / 2) * rect.width + rect.left;
-          const screenY = ((-vec.y + 1) / 2) * rect.height + rect.top;
+          const screenX = ((projVec.x + 1) / 2) * rect.width + rect.left;
+          const screenY = ((-projVec.y + 1) / 2) * rect.height + rect.top;
 
           const dist = Math.hypot(clientX - screenX, clientY - screenY);
           if (dist < minPixelDist) {
@@ -94,13 +114,17 @@ function DragDropRaycaster() {
       return closestId;
     };
 
+    let lastHoveredId: string | null = null;
     const handleDragOver = (e: DragEvent) => {
       e.preventDefault();
       if (e.dataTransfer) {
         e.dataTransfer.dropEffect = 'copy';
       }
       const nearestId = getNearestVessel(e.clientX, e.clientY);
-      setHoveredVesselId(nearestId);
+      if (nearestId !== lastHoveredId) {
+        lastHoveredId = nearestId;
+        setHoveredVesselId(nearestId);
+      }
     };
 
     const handleDrop = (e: DragEvent) => {
@@ -114,12 +138,16 @@ function DragDropRaycaster() {
       if (targetId) {
         setPendingDispense({ chemical: formula, targetVesselId: targetId });
       }
+      lastHoveredId = null;
       setHoveredVesselId(null);
       setIsDraggingChemical(null);
     };
 
     const handleDragLeave = () => {
-      setHoveredVesselId(null);
+      if (lastHoveredId !== null) {
+        lastHoveredId = null;
+        setHoveredVesselId(null);
+      }
     };
 
     canvasEl.addEventListener('dragover', handleDragOver);
@@ -136,6 +164,67 @@ function DragDropRaycaster() {
   return null;
 }
 
+// Interactive wrapper for apparatus pieces (stands, clamps, stoppers, troughs, hotplates)
+const ApparatusInteractive = React.memo(function ApparatusInteractive({
+  id,
+  position,
+  children
+}: {
+  id: string;
+  position: [number, number, number];
+  children: React.ReactNode;
+}) {
+  const isSelected = useAppStore(state => state.selectedVesselId === id);
+  const isDragging = useAppStore(state => state.draggingVesselId === id);
+  const moveMode = useAppStore(state => state.moveMode);
+  const vessel = useAppStore(state => state.vessels[id]);
+  const setSelectedVesselId = useAppStore(state => state.setSelectedVesselId);
+  const setDraggingVesselId = useAppStore(state => state.setDraggingVesselId);
+  const setHoveredVesselId = useAppStore(state => state.setHoveredVesselId);
+  const openVesselInfo = useAppStore(state => state.openVesselInfo);
+
+  if (!vessel) return null;
+  const renderPos = isDragging ? [position[0], position[1] + 0.25, position[2]] : position;
+
+  return (
+    <group
+      position={renderPos as [number, number, number]}
+      rotation={[0, vessel.rotationY || 0, 0]}
+      onClick={(e) => {
+        e.stopPropagation();
+        openVesselInfo(id);
+      }}
+      onContextMenu={(e) => {
+        e.stopPropagation();
+        if (e.nativeEvent) e.nativeEvent.preventDefault();
+        openRadialMenu(e.clientX, e.clientY, id);
+      }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        openVesselInfo(id);
+        if (moveMode && !vessel.isLocked) {
+          setDraggingVesselId(id);
+        }
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHoveredVesselId(id);
+        document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer');
+      }}
+      onPointerOut={() => {
+        setHoveredVesselId(null);
+        document.body.style.cursor = 'auto';
+      }}
+    >
+      <VesselFloorRing
+        isSelected={isSelected}
+        isDropTarget={false}
+      />
+      {children}
+    </group>
+  );
+});
+
 // Atomic vessel renderer that only updates when its specific vessel changes
 const SceneVessel = React.memo(function SceneVessel({ id }: { id: string }) {
   const isCurrentlyPouring = useAppStore(state => state.vesselPourAnimation?.fromId === id);
@@ -150,6 +239,40 @@ const SceneVessel = React.memo(function SceneVessel({ id }: { id: string }) {
     return <TestTube position={position} id={id} />;
   } else if (type === 'cylinder') {
     return <GraduatedCylinder position={position} id={id} />;
+  } else if (type === 'watch_glass') {
+    return <WatchGlass position={position} id={id} />;
+  } else if (type === 'evaporating_dish') {
+    return <EvaporatingDish position={position} id={id} />;
+  } else if (type === 'crucible') {
+    return <Crucible position={position} id={id} />;
+  } else if (type === 'petri_dish') {
+    return <PetriDish position={position} id={id} />;
+  } else if (type === 'volumetric_flask') {
+    return <VolumetricFlask position={position} id={id} />;
+  } else if (type === 'separatory_funnel') {
+    return <SeparatoryFunnel position={position} id={id} />;
+  } else if (type === 'filter_funnel') {
+    return <FilterFunnel position={position} id={id} />;
+  } else if (type === 'mortar_pestle') {
+    return <MortarPestle position={position} id={id} />;
+  } else if (type === 'condenser') {
+    return <LiebigCondenser position={position} id={id} />;
+  } else if (type === 'test_tube_rack') {
+    return <TestTubeRack position={position} id={id} />;
+  } else if (type === 'wash_bottle') {
+    return <WashBottle position={position} id={id} />;
+  } else if (type === 'tongs') {
+    return <LabTongs position={position} id={id} />;
+  } else if (type === 'retort_stand') {
+    return <ApparatusInteractive id={id} position={position}><RetortStand position={[0, 0, 0]} /></ApparatusInteractive>;
+  } else if (type === 'retort_clamp') {
+    return <ApparatusInteractive id={id} position={position}><RetortClamp position={[0, 0, 0]} /></ApparatusInteractive>;
+  } else if (type === 'stopper') {
+    return <ApparatusInteractive id={id} position={position}><Stopper position={[0, 0, 0]} /></ApparatusInteractive>;
+  } else if (type === 'pneumatic_trough') {
+    return <ApparatusInteractive id={id} position={position}><PneumaticTrough position={[0, 0, 0]} /></ApparatusInteractive>;
+  } else if (type === 'hot_plate') {
+    return <ApparatusInteractive id={id} position={position}><HotPlate position={[0, 0, 0]} temperature_c={useAppStore.getState().vessels[id]?.temperature_c ?? 25} /></ApparatusInteractive>;
   }
   return <Beaker position={position} id={id} />;
 });
@@ -257,16 +380,46 @@ export function LabScene() {
     } else {
       // Check snapping to active alcohol burner wire gauze
       const state = useAppStore.getState();
+      let snapped = false;
       for (const b of Object.values(state.burners)) {
         const distToBurner = Math.hypot(e.point.x - b.position[0], e.point.z - b.position[2]);
         if (distToBurner < 0.85) {
           targetX = b.position[0];
           targetZ = b.position[2];
           const vesselType = state.vessels[draggingVesselId]?.type;
-          // Wire gauze surface is at b.position[1] + 1.49.
-          // Beaker, Flask, Cylinder bottom is at -1.0; TestTube bottom is at -0.82.
           targetY = b.position[1] + (vesselType === 'test_tube' ? 2.31 : 2.49);
+          snapped = true;
           break;
+        }
+      }
+
+      // Snapping filter funnel to flask/beaker neck
+      const draggedType = state.vessels[draggingVesselId]?.type;
+      if (!snapped && draggedType === 'filter_funnel') {
+        for (const [vId, other] of Object.entries(state.vessels)) {
+          if (vId !== draggingVesselId && (other.type === 'flask' || other.type === 'beaker' || other.type === 'cylinder')) {
+            const distToReceiver = Math.hypot(e.point.x - other.position[0], e.point.z - other.position[2]);
+            if (distToReceiver < 0.75) {
+              targetX = other.position[0];
+              targetZ = other.position[2];
+              targetY = other.position[1] + (other.type === 'flask' ? 1.35 : 1.15);
+              snapped = true;
+              break;
+            }
+          }
+        }
+      }
+
+      // Snapping test tube vertically above test tube rack
+      if (!snapped && draggedType === 'test_tube') {
+        for (const r of Object.values(state.vessels)) {
+          if (r.type === 'test_tube_rack') {
+            const distToRack = Math.hypot(e.point.x - r.position[0], e.point.z - r.position[2]);
+            if (distToRack < 1.2) {
+              targetY = r.position[1] + 0.45;
+              break;
+            }
+          }
         }
       }
     }
@@ -307,6 +460,32 @@ export function LabScene() {
     const nearestTarget = state.nearestPourTargetId;
     const draggedVessel = state.vessels[draggingVesselId];
 
+    // Auto-slot test tube into rack when released near rack
+    if (draggedVessel && draggedVessel.type === 'test_tube') {
+      for (const [rId, r] of Object.entries(state.vessels)) {
+        if (r.type === 'test_tube_rack' && !(r.slottedTestTubeIds || []).includes(draggingVesselId)) {
+          const distToRack = Math.hypot(draggedVessel.position[0] - r.position[0], draggedVessel.position[2] - r.position[2]);
+          if (distToRack < 1.0) {
+            state.placeTestTubeInRack(rId, draggingVesselId);
+            break;
+          }
+        }
+      }
+    }
+
+    // Auto-grip crucible/beaker when tongs are released directly over them
+    if (draggedVessel && draggedVessel.type === 'tongs' && !draggedVessel.grippedVesselId) {
+      for (const [targetVId, targetV] of Object.entries(state.vessels)) {
+        if (targetVId !== draggingVesselId && (targetV.type === 'crucible' || targetV.type === 'beaker' || targetV.type === 'test_tube')) {
+          const distToTarget = Math.hypot(draggedVessel.position[0] - targetV.position[0], draggedVessel.position[2] - targetV.position[2]);
+          if (distToTarget < 0.75) {
+            state.toggleGripWithTongs(draggingVesselId, targetVId);
+            break;
+          }
+        }
+      }
+    }
+
     if (nearestTarget && draggedVessel && state.vessels[nearestTarget]) {
       // Trigger real-time physical pouring pipeline with zero script delay
       PourController.beginPour({
@@ -333,8 +512,119 @@ export function LabScene() {
   const sunbeamMap = useMemo(() => getSunbeamTexture(), []);
   const noiseNormalMap = useMemo(() => getNoiseTexture(256, 256), []);
 
+  const touchRecognizer = useMemo(() => new TouchGestureRecognizer({
+    onTiltChange: (deltaRad) => {
+      const session = PourController.getSession();
+      const store = useAppStore.getState();
+      const heldId = store.draggingVesselId || store.selectedVesselId;
+      if (session) {
+        PourController.setTilt(session.targetTilt + deltaRad);
+      } else if (heldId) {
+        PourController.beginPour({
+          mode: 'HAND_TILT',
+          sourceId: heldId,
+          targetId: store.nearestPourTargetId || null
+        });
+        PourController.setTilt(deltaRad);
+      }
+    },
+    onYawChange: (deltaRad) => {
+      const store = useAppStore.getState();
+      const heldId = store.draggingVesselId || store.selectedVesselId;
+      if (heldId) {
+        store.rotateVessel(heldId, deltaRad);
+      }
+    },
+    onLiftChange: (deltaY) => {
+      const store = useAppStore.getState();
+      const heldId = store.draggingVesselId || store.selectedVesselId;
+      const v = heldId ? store.vessels[heldId] : null;
+      if (v && heldId) {
+        const newLift = clampLift(v.type, v.position[1] + deltaY);
+        store.updateVesselPosition(heldId, [v.position[0], newLift, v.position[2]]);
+      }
+    },
+    onLongPress: (x, y) => {
+      const store = useAppStore.getState();
+      if (store.draggingVesselId) {
+        store.setDraggingVesselId(null);
+      } else if (store.selectedVesselId) {
+        store.setDraggingVesselId(store.selectedVesselId);
+      }
+    },
+    onDoubleTap: (x, y) => {
+      const store = useAppStore.getState();
+      const targetId = store.hoveredVesselId || store.selectedVesselId;
+      if (targetId) {
+        openRadialMenu(x, y, targetId);
+      }
+    }
+  }), []);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Non-passive wheel listener for smooth parameter adjustment & camera zoom without warnings
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      wheelRouter.handleWheel(e);
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, []);
+
+  // Middle-mouse button click (auxclick / wheel button):
+  // When 2 vessels are close to each other, clicking middle mouse locks/unlocks camera to allow wheel tilting without zooming
+  useEffect(() => {
+    const onMouseDown = (e: MouseEvent) => {
+      if (e.button === 1) { // Middle mouse wheel button
+        const store = useAppStore.getState();
+        const targetId = store.nearestPourTargetId;
+        const sourceId = store.draggingVesselId || store.selectedVesselId;
+
+        if (sourceId && targetId && sourceId !== targetId) {
+          e.preventDefault();
+          const nextLocked = !store.isPourTiltLocked;
+          store.setPourTiltLocked(nextLocked);
+          if (nextLocked) {
+            PourController.beginPour({
+              mode: 'HAND_TILT',
+              sourceId,
+              targetId
+            });
+            store.showToast(
+              store.language === 'en'
+                ? '🔒 Camera locked — Scroll mouse wheel to tilt & pour'
+                : '🔒 Đã khóa góc nhìn — Lăn chuột để nghiêng bình rót',
+              'info'
+            );
+          } else {
+            const session = PourController.getSession();
+            if (session) {
+              PourController.setTilt(0);
+            }
+            store.showToast(
+              store.language === 'en' ? '🔓 Camera unlocked' : '🔓 Đã mở khóa góc nhìn',
+              'info'
+            );
+          }
+        }
+      }
+    };
+    window.addEventListener('mousedown', onMouseDown);
+    return () => window.removeEventListener('mousedown', onMouseDown);
+  }, []);
+
   return (
-    <div className="w-full h-full relative z-10 select-none" onContextMenu={(e) => e.preventDefault()}>
+    <div 
+      ref={containerRef}
+      className="w-full h-full relative z-10 select-none" 
+      onContextMenu={(e) => e.preventDefault()}
+      onTouchStart={(e) => touchRecognizer.handleTouchStart(e.nativeEvent)}
+      onTouchMove={(e) => touchRecognizer.handleTouchMove(e.nativeEvent)}
+      onTouchEnd={(e) => touchRecognizer.handleTouchEnd(e.nativeEvent)}
+    >
       {/* Non-intrusive lightweight FPS Performance HUD */}
       <PerformanceHUD />
 
@@ -455,9 +745,20 @@ export function LabScene() {
             castShadow 
             position={[0, 0, 0]}
             onPointerDown={(e) => {
+              const state = useAppStore.getState();
+              if (state.activeTool === 'sponge') {
+                state.wipeSpillAt([e.point.x, -1.155, e.point.z], 0.75);
+                return;
+              }
               // Click on empty workbench clears vessel selection
-              if (!useAppStore.getState().draggingVesselId && !useAppStore.getState().moveMode) {
-                useAppStore.getState().setSelectedVesselId(null);
+              if (!state.draggingVesselId && !state.moveMode) {
+                state.setSelectedVesselId(null);
+              }
+            }}
+            onPointerMove={(e) => {
+              const state = useAppStore.getState();
+              if (state.activeTool === 'sponge' && e.buttons === 1) {
+                state.wipeSpillAt([e.point.x, -1.155, e.point.z], 0.75);
               }
             }}
           >
@@ -588,6 +889,8 @@ export function LabScene() {
         
         {/* Realistic Workbench Spills & Overflows */}
         <WorkbenchSpills />
+        {/* Procedural Glass Shards & Fracture Pool */}
+        <ShardsRenderer />
         
         {/* Standard Laboratory Alcohol Burners (Đèn cồn thí nghiệm chuẩn) */}
         {burnerIds.map(bId => (
@@ -598,6 +901,16 @@ export function LabScene() {
         {vesselIds.map(id => (
           <SceneVessel key={id} id={id} />
         ))}
+
+        {/* Stylized Hand Rig & Grip Pivot Indicator */}
+        {draggingVesselId && vessels[draggingVesselId] && (
+          <HandRig
+            position={vessels[draggingVesselId].position}
+            visible={true}
+            gripKind={getVesselGripSpec(vessels[draggingVesselId].type).preferred}
+            tiltAngle={PourController.getSession()?.sourceId === draggingVesselId ? (PourController.getSession()?.tilt || 0) : 0}
+          />
+        )}
 
         {/* Handheld Interactive Physical Laboratory Tools */}
         {activeTool === 'pipette' && (
@@ -617,6 +930,16 @@ export function LabScene() {
           <InteractiveThermometer 
             position={selectedVessel ? [selectedVessel.position[0], selectedVessel.position[1] + 1.6, selectedVessel.position[2]] : [-2.5, 1.2, 0]}
           />
+        )}
+
+        {activeTool === 'spatula' && (
+          <InteractiveSpatula 
+            position={selectedVessel ? [selectedVessel.position[0], selectedVessel.position[1] + 1.45, selectedVessel.position[2]] : [-3.8, 1.2, 0]}
+          />
+        )}
+
+        {activeTool === 'sponge' && (
+          <InteractiveSponge />
         )}
         
         {/* Chemical Bottle/Dropper Pouring Animation */}

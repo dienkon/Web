@@ -25,6 +25,7 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
   const vessels = useAppStore(state => state.vessels);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
+  const standPos = burette.position || position;
 
   const [valveAngle, setValveAngle] = useState(burette.isDispensing ? Math.PI / 2 : 0);
   const [isValveHovered, setIsValveHovered] = useState(false);
@@ -38,8 +39,8 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
 
   // Find vessel directly beneath burette tip (around [0, 0, 0] relative to stand or world position)
   const targetVessel = useMemo(() => {
-    const tipWorldX = position[0];
-    const tipWorldZ = position[2];
+    const tipWorldX = standPos[0];
+    const tipWorldZ = standPos[2];
     for (const v of Object.values(vessels)) {
       const dx = v.position[0] - tipWorldX;
       const dz = v.position[2] - tipWorldZ;
@@ -52,16 +53,16 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
       return vessels[selectedVesselId];
     }
     return null;
-  }, [vessels, position, selectedVesselId]);
+  }, [vessels, standPos, selectedVesselId]);
 
   const fillRatio = Math.max(0, Math.min(1.0, burette.currentVolume_ml / burette.maxVolume_ml));
   const isDispensing = burette.isDispensing && burette.currentVolume_ml > 0;
 
   // Stream positions
-  const streamFromPos: [number, number, number] = [position[0], position[1] + 0.1, position[2]];
+  const streamFromPos: [number, number, number] = [standPos[0], standPos[1] + 0.1, standPos[2]];
   const streamToPos: [number, number, number] = targetVessel
     ? [targetVessel.position[0], targetVessel.position[1] + 0.35, targetVessel.position[2]]
-    : [position[0], position[1] - 0.9, position[2]];
+    : [standPos[0], standPos[1] - 0.9, standPos[2]];
 
   useFrame((_, delta) => {
     if (isDispensing && targetVessel) {
@@ -82,7 +83,7 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   };
 
   return (
-    <group position={position}>
+    <group position={standPos}>
       {/* Heavy Cast Iron Retort Base */}
       <mesh position={[-0.7, -1.05, 0]} receiveShadow castShadow>
         <boxGeometry args={[1.5, 0.16, 1.1]} />

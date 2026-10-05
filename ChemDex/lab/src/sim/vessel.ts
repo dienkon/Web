@@ -17,7 +17,17 @@ export type VesselGeometryType =
   | 'test_tube'
   | 'cylinder'
   | 'evaporating_dish'
-  | 'watch_glass';
+  | 'watch_glass'
+  | 'crucible'
+  | 'petri_dish'
+  | 'volumetric_flask'
+  | 'separatory_funnel'
+  | 'filter_funnel'
+  | 'mortar_pestle'
+  | 'condenser'
+  | 'test_tube_rack'
+  | 'wash_bottle'
+  | 'tongs';
 
 export interface VesselGeometryConfig {
   type: VesselGeometryType;
@@ -287,5 +297,175 @@ export const VESSEL_GEOMETRIES: Record<VesselGeometryType, PhysicalVesselGeometr
       const t = y / 0.012;
       return 0.015 + Math.sqrt(t) * 0.035;
     }
+  }),
+
+  // 7. Porcelain Crucible
+  'crucible': new PhysicalVesselGeometry({
+    type: 'crucible',
+    name: 'Porcelain Crucible (50mL)',
+    nominalCapacity_m3: mlToM3(50),
+    height_m: 0.065,
+    baseY_m: 0,
+    glassThickness_m: 0.0035,
+    glassMass_kg: 0.065,
+    glassCp_J_kgK: 920.0,
+    outerHeatTransferCoeff: 18.0,
+    mouthRadius_m: 0.025,
+    lipPosition_m: [0.025, 0.065, 0],
+    radiusProfile: (y) => 0.015 + (y / 0.065) * 0.010
+  }),
+
+  // 8. Petri Dish
+  'petri_dish': new PhysicalVesselGeometry({
+    type: 'petri_dish',
+    name: 'Glass Petri Dish (60mL)',
+    nominalCapacity_m3: mlToM3(60),
+    height_m: 0.018,
+    baseY_m: 0,
+    glassThickness_m: 0.0018,
+    glassMass_kg: 0.050,
+    glassCp_J_kgK: CONSTANTS.BOROSILICATE_CP,
+    outerHeatTransferCoeff: 15.0,
+    mouthRadius_m: 0.048,
+    lipPosition_m: [0.048, 0.018, 0],
+    radiusProfile: (_y) => 0.048
+  }),
+
+  // 9. Volumetric Flask
+  'volumetric_flask': new PhysicalVesselGeometry({
+    type: 'volumetric_flask',
+    name: '100mL Volumetric Flask',
+    nominalCapacity_m3: mlToM3(100),
+    height_m: 0.180,
+    baseY_m: 0,
+    glassThickness_m: 0.0018,
+    glassMass_kg: 0.095,
+    glassCp_J_kgK: CONSTANTS.BOROSILICATE_CP,
+    outerHeatTransferCoeff: 12.0,
+    mouthRadius_m: 0.009,
+    lipPosition_m: [0.009, 0.180, 0],
+    radiusProfile: (y) => {
+      if (y <= 0.08) {
+        const t = y / 0.08;
+        return 0.015 + Math.sin(t * Math.PI) * 0.025;
+      }
+      return 0.008;
+    }
+  }),
+
+  // 10. Separatory Funnel
+  'separatory_funnel': new PhysicalVesselGeometry({
+    type: 'separatory_funnel',
+    name: '150mL Separatory Funnel',
+    nominalCapacity_m3: mlToM3(150),
+    height_m: 0.220,
+    baseY_m: 0,
+    glassThickness_m: 0.0022,
+    glassMass_kg: 0.140,
+    glassCp_J_kgK: CONSTANTS.BOROSILICATE_CP,
+    outerHeatTransferCoeff: 13.0,
+    mouthRadius_m: 0.014,
+    lipPosition_m: [0.005, 0, 0], // Drains from bottom stopcock tip
+    radiusProfile: (y) => {
+      if (y <= 0.05) return 0.005;
+      if (y <= 0.16) return 0.008 + ((y - 0.05) / 0.11) * 0.032;
+      return 0.040 - ((y - 0.16) / 0.06) * 0.026;
+    }
+  }),
+
+  // 11. Filter Funnel
+  'filter_funnel': new PhysicalVesselGeometry({
+    type: 'filter_funnel',
+    name: 'Glass Filter Funnel (75mL)',
+    nominalCapacity_m3: mlToM3(75),
+    height_m: 0.150,
+    baseY_m: 0,
+    glassThickness_m: 0.0020,
+    glassMass_kg: 0.060,
+    glassCp_J_kgK: CONSTANTS.BOROSILICATE_CP,
+    outerHeatTransferCoeff: 15.0,
+    mouthRadius_m: 0.038,
+    lipPosition_m: [0.006, 0, 0],
+    radiusProfile: (y) => (y <= 0.07 ? 0.006 : 0.006 + ((y - 0.07) / 0.08) * 0.032)
+  }),
+
+  // 12. Mortar & Pestle
+  'mortar_pestle': new PhysicalVesselGeometry({
+    type: 'mortar_pestle',
+    name: 'Porcelain Mortar (80mL)',
+    nominalCapacity_m3: mlToM3(80),
+    height_m: 0.055,
+    baseY_m: 0,
+    glassThickness_m: 0.0060,
+    glassMass_kg: 0.280,
+    glassCp_J_kgK: 940.0,
+    outerHeatTransferCoeff: 16.0,
+    mouthRadius_m: 0.042,
+    lipPosition_m: [0.045, 0.055, 0],
+    radiusProfile: (y) => 0.025 + Math.sqrt(y / 0.055) * 0.017
+  }),
+
+  // 13. Liebig Condenser
+  'condenser': new PhysicalVesselGeometry({
+    type: 'condenser',
+    name: 'Liebig Condenser (120mL)',
+    nominalCapacity_m3: mlToM3(120),
+    height_m: 0.280,
+    baseY_m: 0,
+    glassThickness_m: 0.0025,
+    glassMass_kg: 0.220,
+    glassCp_J_kgK: CONSTANTS.BOROSILICATE_CP,
+    outerHeatTransferCoeff: 22.0,
+    mouthRadius_m: 0.010,
+    lipPosition_m: [0.010, 0.280, 0],
+    radiusProfile: (_y) => 0.008
+  }),
+
+  // 14. Wash Bottle
+  'wash_bottle': new PhysicalVesselGeometry({
+    type: 'wash_bottle',
+    name: 'PE Wash Bottle (250mL)',
+    nominalCapacity_m3: mlToM3(250),
+    height_m: 0.190,
+    baseY_m: 0,
+    glassThickness_m: 0.0015,
+    glassMass_kg: 0.045,
+    glassCp_J_kgK: 1800.0,
+    outerHeatTransferCoeff: 10.0,
+    mouthRadius_m: 0.004,
+    lipPosition_m: [0.035, 0.210, 0],
+    radiusProfile: (y) => (y <= 0.14 ? 0.032 : 0.032 - ((y - 0.14) / 0.05) * 0.020)
+  }),
+
+  // 15. Test Tube Rack
+  'test_tube_rack': new PhysicalVesselGeometry({
+    type: 'test_tube_rack',
+    name: 'Test Tube Rack (60mL)',
+    nominalCapacity_m3: mlToM3(60),
+    height_m: 0.120,
+    baseY_m: 0,
+    glassThickness_m: 0.003,
+    glassMass_kg: 0.180,
+    glassCp_J_kgK: 1500.0,
+    outerHeatTransferCoeff: 8.0,
+    mouthRadius_m: 0.020,
+    lipPosition_m: [0.020, 0.120, 0],
+    radiusProfile: (_y) => 0.020
+  }),
+
+  // 16. Crucible Tongs
+  'tongs': new PhysicalVesselGeometry({
+    type: 'tongs',
+    name: 'Laboratory Crucible Tongs',
+    nominalCapacity_m3: mlToM3(20),
+    height_m: 0.220,
+    baseY_m: 0,
+    glassThickness_m: 0.004,
+    glassMass_kg: 0.160,
+    glassCp_J_kgK: 460.0,
+    outerHeatTransferCoeff: 25.0,
+    mouthRadius_m: 0.015,
+    lipPosition_m: [0.015, 0.220, 0],
+    radiusProfile: (_y) => 0.012
   })
 };

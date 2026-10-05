@@ -109,11 +109,19 @@ export const GasPlume = React.memo(function GasPlume({
     }
 
     pool.update(dt, (p: ParticleState) => {
-      // Buoyancy and aerodynamic drag
+      // Buoyancy, aerodynamic drag, and bench-level pooling
       if (density === 'heavy') {
-        p.vy += -0.22 * dt; // Slow sinking
-        p.vx *= 0.98;
-        p.vz *= 0.98;
+        const benchY = origin[1] - 0.75;
+        if (p.y <= benchY) {
+          p.y = benchY;
+          p.vy = 0;
+          p.vx *= 1.02;
+          p.vz *= 1.02;
+        } else {
+          p.vy += -0.22 * dt; // Slow sinking
+          p.vx *= 0.98;
+          p.vz *= 0.98;
+        }
       } else {
         p.vy += 0.15 * dt; // Thermal lift
         // Multi-octave natural curl turbulence

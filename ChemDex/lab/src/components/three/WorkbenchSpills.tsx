@@ -46,8 +46,10 @@ function SpillPuddle({ spill }: { spill: any }) {
     });
   }, [radius]);
 
+  const puddleY = typeof position[1] === 'number' && position[1] < -0.5 ? position[1] : -1.155;
+
   return (
-    <group ref={groupRef} position={[position[0], -0.132, position[2]]}>
+    <group ref={groupRef} position={[position[0], puddleY, position[2]]}>
       {/* Main Fluid Puddle on Table Surface */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <circleGeometry args={[Math.max(0.06, radius), 32]} />

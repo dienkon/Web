@@ -14,7 +14,7 @@ export interface FlowResult {
 const GRAVITY = 981.0; // cm / s^2
 const TEAPOT_HEAD_THRESHOLD_CM = 0.12; // 1.2 mm
 const MIN_FLOW_ML_S = 0.15;
-const MAX_FLOW_ML_S = 60.0;
+const MAX_FLOW_ML_S = 22.0; // Realistic laboratory maximum pouring discharge (mL/s)
 
 /**
  * Calculates real-time weir flow discharge based on excess volume over weir crest.
@@ -25,9 +25,9 @@ export function calculateWeirFlow(
   tiltAngleRad: number,
   simTime: number = 0,
   viscosity: number = 1.0, // 1.0 for aqueous, ~1.4 for conc H2SO4, 0.8 for ethanol
-  timeCompression: number = 1.6
+  timeCompression: number = 1.0
 ): FlowResult {
-  if (currentVolume_ml <= 0.001 || tiltAngleRad <= 0.005) {
+  if (currentVolume_ml <= 0.001 || tiltAngleRad <= 0.01) {
     return {
       isPouring: false,
       flowRate_ml_s: 0,
@@ -42,7 +42,7 @@ export function calculateWeirFlow(
   const vRetained = retainedVolume(profile, tiltAngleRad);
   const excess = Math.max(0, currentVolume_ml - vRetained);
 
-  if (excess <= 0.01) {
+  if (excess <= 0.05) {
     return {
       isPouring: false,
       flowRate_ml_s: 0,
@@ -65,6 +65,13 @@ export function calculateWeirFlow(
   const rawQ_cm3_s = Cd * (2 / 3) * Math.sqrt(2 * GRAVITY) * b_cm * Math.pow(Math.max(0.01, head_cm), 1.5);
 
   let flowRate = Math.max(MIN_FLOW_ML_S, Math.min(MAX_FLOW_ML_S, rawQ_cm3_s * timeCompression));
+
+  // Inverted Drainage (K2.2): When inverted past ~117°, liquid drains under direct gravity through mouth
+  if (tiltAngleRad > Math.PI * 0.65) {
+    const inversionFactor = Math.min(1.0, (tiltAngleRad - Math.PI * 0.65) / (Math.PI * 0.35));
+    const invertedDrainRate = (currentVolume_ml * 2.8 + 8.0) * inversionFactor;
+    flowRate = Math.max(flowRate, Math.min(75.0, invertedDrainRate));
+  }
 
   // 1. Teapot Effect (Wall-clinging due to surface tension at low flow / small head)
   const isWallClinging = head_cm < TEAPOT_HEAD_THRESHOLD_CM || flowRate < 1.2;

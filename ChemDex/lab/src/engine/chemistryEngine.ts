@@ -48,7 +48,7 @@ export interface DeterministicReaction {
 
 // Canonical matching helper with exact token equality to prevent false positives (e.g. NaOH matching Na + H2O)
 function normalizeFormulaToken(f: string): string {
-  return f.replace(/\s*\([a-z]+\)/gi, '').trim().toLowerCase();
+  return f.replace(/\s*\([a-z]+\)/gi, '').replace(/[·\.]\d*H2O/gi, '').trim().toLowerCase();
 }
 
 function chemicalFormulaMatches(substance: string, required: string): boolean {
@@ -71,6 +71,11 @@ function chemicalFormulaMatches(substance: string, required: string): boolean {
 }
 
 function matchesReactants(substances: string[], required: string[]): boolean {
+  // Special case for solid CuSO4 dehydration: must not have excess bulk water
+  if (required.length === 1 && required[0] === 'CuSO4') {
+    if (substances.some(s => normalizeFormulaToken(s) === 'h2o')) return false;
+  }
+
   // Special case for Cu(OH)2: matches either direct Cu(OH)2 or mixture of CuSO4 + NaOH
   if (required.includes('Cu(OH)2') || (required.length === 1 && required[0] === 'Cu(OH)2')) {
     const hasDirect = substances.some(s => chemicalFormulaMatches(s, 'Cu(OH)2'));
@@ -464,6 +469,32 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     isDangerous: false
   },
 
+  // 15b. Thermal Dehydration: CuSO4·5H2O -> CuSO4 + 5H2O (Requires Heating)
+  {
+    id: 'cuso4_thermal_dehydration',
+    reactants: ['CuSO4'],
+    requiresHeating: true,
+    minTemp_c: 90,
+    equation: 'CuSO₄·5H₂O(s) ⎯⎯t°⎯→ CuSO₄(s) + 5H₂O↑',
+    reactionType_en: 'Thermal Dehydration',
+    reactionType_vi: 'Phản ứng mất nước kết tinh muối ngậm nước',
+    summary_en: 'Upon heating in a crucible, deep-blue copper(II) sulfate pentahydrate crystals lose water of crystallization, turning into white anhydrous powder.',
+    summary_vi: 'Khi đun nóng trong chén nung sứ, tinh thể CuSO4 màu xanh lam mất nước kết tinh chuyển thành bột CuSO4 khan màu trắng đục.',
+    observable_en: 'Vibrant blue crystals lose color and convert into a chalky-white anhydrous powder as steam escapes.',
+    observable_vi: 'Màu xanh lam chuyển dần sang màu trắng ngà của muối đồng sunfat khan khi hơi nước bay lên.',
+    stoichiometry: { 'CuSO4': 1 },
+    products: { 'CuSO4': { coeff: 1, state: 's' } },
+    deltaH_kJ: 78.0,
+    hasGas: true,
+    gasColor: '#f1f5f9',
+    gasFormula: 'H2O(steam)',
+    hasPrecipitate: true,
+    precipitateColor: '#f8fafc',
+    precipitateFormula: 'CuSO4',
+    resultingLiquidColor: '#f8fafc',
+    isDangerous: false
+  },
+
   // 16. WATER ADDED TO CONC H2SO4 (CRITICAL SAFETY HAZARD)
   {
     id: 'water_into_conc_h2so4_explosion',
@@ -561,6 +592,189 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     isDangerous: true,
     safetyNotes_en: 'Perform strictly under ventilation hood; SO2 gas is toxic and suffocating.',
     safetyNotes_vi: 'Thực hiện cẩn trọng; khí SO2 độc hại và gây ngạt đường hô hấp.'
+  },
+
+  // 20. Limewater + CO2 (White Milky Precipitate)
+  {
+    id: 'limewater_co2_milky',
+    reactants: ['Ca(OH)2', 'CO2'],
+    equation: 'Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O',
+    ionic_equation: 'Ca²⁺(aq) + 2OH⁻(aq) + CO₂(g) → CaCO₃(s)↓ + H₂O(l)',
+    reactionType_en: 'Limewater Test for CO2 (Precipitation)',
+    reactionType_vi: 'Nhận biết khí CO2 bằng nước vôi trong (Tạo kết tủa)',
+    summary_en: 'Carbon dioxide gas turns clear limewater milky due to fine insoluble calcium carbonate precipitate.',
+    summary_vi: 'Khí cacbonic làm đục nước vôi trong do tạo kết tủa canxi cacbonat màu trắng.',
+    observable_en: 'Clear solution becomes cloudy and milky-white as CaCO3 precipitate forms throughout.',
+    observable_vi: 'Dung dịch trong suốt vẩn đục dần rồi chuyển sang màu trắng đục như nước vo gạo.',
+    stoichiometry: { 'Ca(OH)2': 1, 'CO2': 1 },
+    products: { 'CaCO3': { coeff: 1, state: 's' }, 'H2O': { coeff: 1, state: 'l' } },
+    deltaH_kJ: -113.0,
+    resultingPh: 7.5,
+    hasPrecipitate: true,
+    precipitateColor: '#ffffff',
+    precipitateFormula: 'CaCO3',
+    resultingLiquidColor: '#f8fafc',
+    hasGas: false,
+    isDangerous: false
+  },
+
+  // 21. Excess CO2 with Milky Limewater (Precipitate Re-dissolution / Clarification)
+  {
+    id: 'caco3_co2_excess_clearing',
+    reactants: ['CaCO3', 'CO2'],
+    equation: 'CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước)',
+    ionic_equation: 'CaCO₃(s) + CO₂(aq) + H₂O(l) → Ca²⁺(aq) + 2HCO₃⁻(aq)',
+    reactionType_en: 'Precipitate Dissolution in Excess CO2',
+    reactionType_vi: 'Hiện tượng kết tủa tan khi sục khí CO2 dư',
+    summary_en: 'Excess carbon dioxide bubbled into milky limewater converts insoluble CaCO3 into soluble calcium bicarbonate, returning the solution to completely clear!',
+    summary_vi: 'Sục khí CO2 liên tục đến dư làm kết tủa CaCO3 tan hoàn toàn tạo canxi hiđrocacbonat, dung dịch từ đục hóa trong suốt trở lại!',
+    observable_en: 'The milky-white suspension gradually clears up from top to bottom, becoming crystal-clear transparent once again.',
+    observable_vi: 'Hiện tượng kỳ thú: Nước vôi đang đục bỗng trong dần từ trên xuống dưới rồi trở lại trong veo hoàn toàn.',
+    stoichiometry: { 'CaCO3': 1, 'CO2': 1 },
+    products: { 'Ca(HCO3)2': { coeff: 1, state: 'aq' } },
+    deltaH_kJ: -32.0,
+    resultingPh: 7.2,
+    hasPrecipitate: false,
+    resultingLiquidColor: '#f8fafc',
+    hasGas: false,
+    isDangerous: false
+  },
+
+  // 22. Al2(SO4)3 + NaOH -> Amphoteric Al(OH)3 (Forms then Dissolves in Excess Base)
+  {
+    id: 'al2so4_naoh_amphoteric',
+    reactants: ['Al2(SO4)3', 'NaOH'],
+    equation: 'Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄; Al(OH)₃ + NaOH → Na[Al(OH)₄]',
+    ionic_equation: 'Al³⁺ + 3OH⁻ → Al(OH)₃↓; Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻',
+    reactionType_en: 'Amphoteric Hydroxide Formation & Dissolution',
+    reactionType_vi: 'Tính chất lưỡng tính của nhôm hiđroxit',
+    summary_en: 'Addition of base first precipitates white gelatinous Al(OH)3, which completely redissolves in excess NaOH.',
+    summary_vi: 'Ban đầu tạo kết tủa keo trắng Al(OH)3, khi cho kiềm dư kết tủa tan hoàn toàn tạo natri aluminat trong suốt.',
+    observable_en: 'White gelatinous precipitate appears like clouds in water, then dissolves smoothly when stirred with excess NaOH.',
+    observable_vi: 'Xuất hiện kết tủa keo trắng lơ lửng, sau đó tan biến khi thêm kiềm dư tạo dung dịch trong suốt.',
+    stoichiometry: { 'Al2(SO4)3': 1, 'NaOH': 6 },
+    products: { 'Al(OH)3': { coeff: 2, state: 's' }, 'Na2SO4': { coeff: 3, state: 'aq' } },
+    deltaH_kJ: -88.0,
+    resultingPh: 12.0,
+    hasPrecipitate: true,
+    precipitateColor: '#f8fafc',
+    precipitateFormula: 'Al(OH)3',
+    resultingLiquidColor: '#f8fafc',
+    hasGas: false,
+    isDangerous: false
+  },
+
+  // 23. CuSO4 + NH3 (Pale Blue Gel -> Vivid Royal Blue Complex)
+  {
+    id: 'cuso4_nh3_complex',
+    reactants: ['CuSO4', 'NH3'],
+    equation: 'CuSO₄ + 4NH₃ + H₂O → [Cu(NH₃)₄]SO₄ (Xanh thẫm)',
+    ionic_equation: 'Cu²⁺ + 4NH₃ → [Cu(NH₃)₄]²⁺',
+    reactionType_en: 'Coordination Complex Formation',
+    reactionType_vi: 'Phản ứng tạo phức chất tetraammin đồng(II)',
+    summary_en: 'Ammonia first forms light blue precipitate which dissolves into an intensely deep royal blue tetraamminecopper(II) complex.',
+    summary_vi: 'Amoniac tác dụng với CuSO4 tạo kết tủa xanh nhạt, sau đó tan trong NH3 dư tạo dung dịch phức màu xanh lam đậm lộng lẫy.',
+    observable_en: 'Instant transformation: cloudy pale-blue precipitate dissolves into a breathtaking, crystal-clear midnight royal blue solution.',
+    observable_vi: 'Hiện tượng tuyệt đẹp: Dung dịch chuyển sang màu xanh lam đậm huyền ảo rực rỡ đặc trưng của phức đồng.',
+    stoichiometry: { 'CuSO4': 1, 'NH3': 4 },
+    products: { '[Cu(NH3)4]SO4': { coeff: 1, state: 'aq' } },
+    deltaH_kJ: -130.0,
+    resultingPh: 10.5,
+    hasPrecipitate: false,
+    resultingLiquidColor: '#1d4ed8', // Deep royal blue
+    hasGas: false,
+    isDangerous: false
+  },
+
+  // 24. FeCl3 + KSCN -> Blood-Red [Fe(SCN)]2+ Complex
+  {
+    id: 'fecl3_kscn_complex',
+    reactants: ['FeCl3', 'KSCN'],
+    equation: 'FeCl₃ + 3KSCN ⇌ Fe(SCN)₃ + 3KCl',
+    ionic_equation: 'Fe³⁺(aq) + SCN⁻(aq) ⇌ [Fe(SCN)]²⁺(aq)',
+    reactionType_en: 'Complex Ion Equilibrium (Blood-Red Test)',
+    reactionType_vi: 'Phản ứng tạo phức chất màu đỏ máu',
+    summary_en: 'Sensitive analytical test for iron(III) generating intense blood-red iron thiocyanate complex.',
+    summary_vi: 'Thuốc thử siêu nhạy tạo phức chất sắt(III) thioxianat màu đỏ máu kinh điển trong phân tích hóa học.',
+    observable_en: 'Upon contact, amber-yellow solution instantly turns dramatic deep blood-red like crimson wine.',
+    observable_vi: 'Vừa tiếp xúc, dung dịch màu vàng nâu lập tức bùng nổ chuyển sang màu đỏ máu thẫm tuyệt đẹp.',
+    stoichiometry: { 'FeCl3': 1, 'KSCN': 3 },
+    products: { 'Fe(SCN)3': { coeff: 1, state: 'aq' }, 'KCl': { coeff: 3, state: 'aq' } },
+    deltaH_kJ: -31.0,
+    resultingPh: 2.5,
+    hasPrecipitate: false,
+    resultingLiquidColor: '#881337', // Deep blood-red/burgundy
+    hasGas: false,
+    isDangerous: false
+  },
+
+  // 25. KMnO4 + H2C2O4 + H2SO4 (Autocatalytic Decolorization)
+  {
+    id: 'kmno4_oxalic_redox',
+    reactants: ['KMnO4', 'H2C2O4'],
+    equation: '2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O',
+    reactionType_en: 'Autocatalytic Redox Reaction',
+    reactionType_vi: 'Phản ứng oxi hóa khử tự xúc tác',
+    summary_en: 'Purple permanganate is reduced by oxalic acid; Mn2+ produced acts as an autocatalyst, accelerating decolorization.',
+    summary_vi: 'Kali pemanganat bị axit oxalic khử làm mất màu tím; ion Mn2+ sinh ra tự làm xúc tác thúc đẩy phản ứng tăng tốc.',
+    observable_en: 'Deep royal purple solution slowly warms up, then rapidly discharges color to completely clear with gentle CO2 effervescence.',
+    observable_vi: 'Màu tím đậm của thuốc tím ban đầu nhạt chậm, sau đó tăng tốc mất màu hoàn toàn trở nên không màu trong suốt.',
+    stoichiometry: { 'KMnO4': 2, 'H2C2O4': 5 },
+    products: { 'MnSO4': { coeff: 2, state: 'aq' }, 'CO2': { coeff: 10, state: 'g' }, 'H2O': { coeff: 8, state: 'l' } },
+    deltaH_kJ: -280.0,
+    resultingPh: 2.0,
+    hasPrecipitate: false,
+    resultingLiquidColor: '#f8fafc',
+    hasGas: true,
+    gasColor: '#f1f5f9',
+    gasFormula: 'CO2',
+    isDangerous: false
+  },
+
+  // 26. Na2S2O3 + 2HCl -> S (Colloidal Sulfur Disappearing Cross)
+  {
+    id: 'thiosulfate_acid_clock',
+    reactants: ['Na2S2O3', 'HCl'],
+    equation: 'Na₂S₂O₃ + 2HCl → 2NaCl + SO₂↑ + S↓ + H₂O',
+    reactionType_en: 'Precipitation Clock (Disappearing Cross)',
+    reactionType_vi: 'Phản ứng tạo lưu huỳnh keo (Thí nghiệm dấu nhân biến mất)',
+    summary_en: 'Acidification of thiosulfate gradually nucleates colloidal sulfur, progressively increasing opacity.',
+    summary_vi: 'Axit phân hủy natri thiosunfat tạo lưu huỳnh keo làm dung dịch đục dần từ từ che khuất dấu thập.',
+    observable_en: 'Clear solution stays clear for an induction period, then turns opalescent pale-yellow and increasingly opaque.',
+    observable_vi: 'Dung dịch trong suốt vài giây đầu, sau đó chuyển sang màu trắng đục ánh vàng sữa che mờ dần đáy cốc.',
+    stoichiometry: { 'Na2S2O3': 1, 'HCl': 2 },
+    products: { 'S': { coeff: 1, state: 's' }, 'SO2': { coeff: 1, state: 'g' }, 'NaCl': { coeff: 2, state: 'aq' } },
+    deltaH_kJ: -42.0,
+    resultingPh: 3.5,
+    hasPrecipitate: true,
+    precipitateColor: '#fef08a',
+    precipitateFormula: 'S',
+    hasGas: true,
+    gasColor: '#f1f5f9',
+    gasFormula: 'SO2',
+    isDangerous: false
+  },
+
+  // 27. Landolt Iodine Clock (Sudden Blue-Black Color Switch)
+  {
+    id: 'iodine_clock',
+    reactants: ['KIO3', 'NaHSO3'],
+    optionalAdditions: ['Starch'],
+    equation: 'IO₃⁻ + 3HSO₃⁻ → I⁻ + 3SO₄²⁻ + 3H⁺; IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O',
+    reactionType_en: 'Landolt Iodine Clock Reaction',
+    reactionType_vi: 'Phản ứng đồng hồ Iốt Landolt',
+    summary_en: 'Classic kinetic clock reaction: solution stays completely clear during bisulfite consumption, then flashes midnight blue-black instantly.',
+    summary_vi: 'Phản ứng đồng hồ kinh điển: Dung dịch trong suốt hoàn toàn trong giai đoạn trễ, sau đó chuyển sang màu xanh đen tức thì trong chớp mắt.',
+    observable_en: 'Dramatic instantaneous color switch: completely clear liquid flashes into deep midnight blue-black in less than 0.1 seconds!',
+    observable_vi: 'Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!',
+    stoichiometry: { 'KIO3': 1, 'NaHSO3': 3 },
+    products: { 'I2': { coeff: 1, state: 'aq' }, 'Na2SO4': { coeff: 3, state: 'aq' } },
+    deltaH_kJ: -120.0,
+    resultingPh: 4.0,
+    resultingLiquidColor: '#0f172a', // Midnight blue-black
+    hasPrecipitate: false,
+    hasGas: false,
+    isDangerous: false
   }
 ];
 
@@ -599,11 +813,14 @@ export function evaluateLocalChemistry(
   currentVolume_ml: number, 
   temperature_c: number, 
   isHeated: boolean,
-  lang: 'en' | 'vi' = 'vi'
+  lang: 'en' | 'vi' = 'vi',
+  contents?: { formula: string; moles: number; mass_g: number }[]
 ): MixResult | null {
   if (!substances || substances.length === 0) return null;
 
-  const canonicalKey = getCanonicalReactionKey(substances, isHeated, temperature_c, lang);
+  // Quantity-aware canonical key (P2.10)
+  const volBucket = Math.round(currentVolume_ml / 10) * 10;
+  const canonicalKey = `${getCanonicalReactionKey(substances, isHeated, temperature_c, lang)}_v${volBucket}`;
   const cached = chemistryCache.get(canonicalKey);
   if (cached) {
     return cached;
@@ -622,6 +839,26 @@ export function evaluateLocalChemistry(
 
   if (!match) return null;
 
+  // Calculate extent of reaction xi based on stoichiometry (P1.3, P4.2)
+  let xi = 0.05; // default 0.05 mol for standard 50mL 1M demo
+  if (contents && contents.length > 0) {
+    let minXi = Infinity;
+    for (const [reactantFormula, coeff] of Object.entries(match.stoichiometry)) {
+      if (coeff <= 0) continue;
+      const found = contents.find(c => chemicalFormulaMatches(c.formula, reactantFormula));
+      const availMoles = found ? found.moles : (currentVolume_ml / 1000.0) * 1.0;
+      const rXi = availMoles / coeff;
+      if (rXi < minXi) {
+        minXi = rXi;
+      }
+    }
+    if (minXi < Infinity && minXi > 0) {
+      xi = minXi;
+    }
+  } else if (currentVolume_ml > 0) {
+    xi = (currentVolume_ml / 1000.0) * 0.5;
+  }
+
   // Compute indicator effect: Phenolphthalein
   const hasPhenol = substances.some(s => s.toLowerCase().includes('phenolphthalein'));
   let liquidColor = match.resultingLiquidColor || '#f8fafc';
@@ -635,9 +872,25 @@ export function evaluateLocalChemistry(
     }
   }
 
-  // Compute temperature change: deltaT
-  const deltaT = Math.abs(match.deltaH_kJ) / 10;
-  const newTemp = Math.min(100, Math.max(25, temperature_c + (match.deltaH_kJ < 0 ? deltaT : -deltaT)));
+  // Physical reaction heat: Q = -deltaH * xi (P1.3)
+  // Total solution mass ~ currentVolume_ml * 1.0 g/mL + glass heat capacity 33.2 J/K
+  const solnMass_g = Math.max(10.0, currentVolume_ml);
+  const totalHeatCap = solnMass_g * 4.184 + 33.2; // J/K
+  const heatReleased_J = -match.deltaH_kJ * 1000.0 * xi;
+  const deltaT = heatReleased_J / totalHeatCap;
+  const newTemp = Math.min(102.5, Math.max(25.0, temperature_c + deltaT));
+
+  // Physical precipitate mass: mass_ppt = xi * coeff * Mw (P4.2)
+  let precipitateAmount_g: number | undefined = undefined;
+  if (match.hasPrecipitate) {
+    let pptMw = 100;
+    if (match.precipitateFormula) {
+      const chem = findChemical(match.precipitateFormula);
+      if (chem) pptMw = chem.molarMass;
+    }
+    const pptCoeff = match.products[match.precipitateFormula || '']?.coeff || 1;
+    precipitateAmount_g = Math.round(xi * pptCoeff * pptMw * 100) / 100;
+  }
 
   const result: MixResult = {
     reaction_id: match.id,
@@ -651,10 +904,13 @@ export function evaluateLocalChemistry(
     observable_changes: lang === 'en' ? match.observable_en : match.observable_vi,
     new_vessel_state: {
       liquid_color: liquidColor,
-      liquid_level: Math.min(1.0, currentVolume_ml / 100),
+      liquid_level: Math.min(1.0, currentVolume_ml / 250),
+      temperature_c: Math.round(newTemp * 10) / 10,
       has_precipitate: match.hasPrecipitate || false,
       precipitate_color: match.precipitateColor,
-      is_boiling: match.isBoiling || newTemp >= 95,
+      precipitate_substance: match.precipitateFormula,
+      precipitate_amount_g: precipitateAmount_g,
+      is_boiling: match.isBoiling || newTemp >= 98,
       has_gas: match.hasGas || false,
       gas_color: match.gasColor,
       is_explosion: match.id.includes('explosion') || (match.isDangerous && match.deltaH_kJ < -300)

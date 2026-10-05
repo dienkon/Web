@@ -11,35 +11,48 @@ import { LitmusTestModal } from './components/LitmusTestModal';
 import { LabReportModal } from './components/LabReportModal';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { getChemicalHazardsAndPpe } from './engine/safetyEngine';
-import { VfxGallery } from './vfx/dev/VfxGallery';
-import { SimulationDebugPanel } from './simulation/ui/SimulationDebugPanel';
+const VfxGallery = React.lazy(() => import('./vfx/dev/VfxGallery').then(m => ({ default: m.VfxGallery })));
+const SimulationDebugPanel = React.lazy(() => import('./simulation/ui/SimulationDebugPanel').then(m => ({ default: m.SimulationDebugPanel })));
+const isDev = Boolean((import.meta as any).env?.DEV) || (typeof window !== 'undefined' && window.location.search.includes('dev=1'));
 import { PourHUD } from './pour/hud/PourHUD';
 import { PourInput } from './pour/input/PourInput';
+import { ControlRing } from './ui/ControlRing';
+import { CheatSheet } from './ui/CheatSheet';
+import { Toast } from './components/Toast';
+import { RadialMenu } from './ui/RadialMenu';
+import { handleLabKeyDown } from './input/KeyMap';
 import { 
   Beaker, FlaskConical, AlertTriangle, Info, X, Plus, Move, 
   Search, ShieldAlert, Sparkles, Droplet, Flame, TestTube, Scale, BookOpen,
+  Thermometer, Pipette, Wand2, Filter, Layers,
   ChevronLeft, ChevronRight, PanelLeftClose, PanelRightClose
 } from 'lucide-react';
 
 function LeftSidebar() {
-  const { leftSidebarOpen, language, addVessel, isMixing } = useAppStore();
+  const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
+  const language = useAppStore(state => state.language);
+  const addVessel = useAppStore(state => state.addVessel);
+  const isMixing = useAppStore(state => state.isMixing);
   const [activeTab, setActiveTab] = useState<'chemicals' | 'instruments' | 'experiments' | 'safety'>('chemicals');
   const [search, setSearch] = useState('');
+  const [equipSearch, setEquipSearch] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'liquid' | 'solid' | 'indicator'>('all');
   
   if (!leftSidebarOpen) return null;
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
-  // Filter chemicals
-  const filteredChemicals = CHEMICALS.filter(c => {
-    const matchesSearch = c.formula.toLowerCase().includes(search.toLowerCase()) || 
-      (language === 'en' ? c.name_en : c.name_vi).toLowerCase().includes(search.toLowerCase());
-    if (!matchesSearch) return false;
-    if (filterType === 'all') return true;
-    if (filterType === 'indicator') return c.category === 'indicator';
-    return c.type === filterType;
-  });
+  // Filter chemicals (memoized to eliminate lag during drag and typing)
+  const filteredChemicals = React.useMemo(() => {
+    return CHEMICALS.filter(c => {
+      const matchesSearch = c.formula.toLowerCase().includes(search.toLowerCase()) || 
+        (language === 'en' ? c.name_en : c.name_vi).toLowerCase().includes(search.toLowerCase());
+      if (!matchesSearch) return false;
+      if (filterType === 'all') return true;
+      if (filterType === 'indicator') return c.category === 'indicator';
+      return c.type === filterType;
+    });
+  }, [search, filterType, language]);
 
   // Current active chemicals on workbench for safety tab
   const allWorkbenchSubstances = Array.from(new Set(
@@ -129,9 +142,9 @@ function LeftSidebar() {
 
           {/* Chemical List */}
           <div className="flex-1 overflow-y-auto p-2.5 space-y-1.5">
-            {filteredChemicals.map(chem => (
+            {filteredChemicals.map((chem, idx) => (
               <div 
-                key={chem.formula}
+                key={`${chem.formula}_${idx}`}
                 draggable={!isMixing}
                 onDragStart={(e) => {
                   if (isMixing) {
@@ -190,67 +203,166 @@ function LeftSidebar() {
         </div>
       )}
 
-      {/* INSTRUMENTS & EQUIPMENT TAB */}
-      {activeTab === 'instruments' && (
-        <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50/40">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-            {t('Glassware & Containers', 'Dụng cụ thủy tinh')}
-          </div>
-          <div className="grid grid-cols-2 gap-2.5">
-            <button 
-              onClick={() => addVessel('beaker', 'Beaker (100mL)')}
-              className="flex flex-col items-center justify-center p-3.5 bg-white border border-slate-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all shadow-xs"
-            >
-              <Beaker size={22} className="text-blue-600 mb-1.5" />
-              <span className="text-xs font-bold text-slate-800">{t('Beaker 100mL', 'Cốc mỏ 100mL')}</span>
-            </button>
-            <button 
-              onClick={() => addVessel('flask', 'Flask (250mL)')}
-              className="flex flex-col items-center justify-center p-3.5 bg-white border border-slate-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all shadow-xs"
-            >
-              <FlaskConical size={22} className="text-blue-600 mb-1.5" />
-              <span className="text-xs font-bold text-slate-800">{t('Flask 250mL', 'Bình tam giác')}</span>
-            </button>
-            <button 
-              onClick={() => addVessel('test_tube', 'Test Tube')}
-              className="flex flex-col items-center justify-center p-3.5 bg-white border border-slate-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all shadow-xs"
-            >
-              <TestTube size={22} className="text-indigo-600 mb-1.5" />
-              <span className="text-xs font-bold text-slate-800">{t('Test Tube', 'Ống nghiệm')}</span>
-            </button>
-            <button 
-              onClick={() => addVessel('cylinder', 'Cylinder 100mL')}
-              className="flex flex-col items-center justify-center p-3.5 bg-white border border-slate-200 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all shadow-xs"
-            >
-              <div className="w-3.5 h-6 border-2 border-slate-500 rounded-xs mb-1.5 flex flex-col justify-end">
-                <div className="h-2 bg-blue-400 w-full" />
-              </div>
-              <span className="text-xs font-bold text-slate-800">{t('Graduated Cylinder', 'Ống đong')}</span>
-            </button>
-          </div>
+      {/* INSTRUMENTS & EQUIPMENT TAB (OVERHAULED INTO 5 NEAT CATEGORIES) */}
+      {activeTab === 'instruments' && (() => {
+        const categories = [
+          {
+            id: 'reaction',
+            title_en: 'Reaction Vessels',
+            title_vi: 'Bình phản ứng',
+            items: [
+              { type: 'beaker', name_en: 'Beaker 100mL', name_vi: 'Cốc mỏ 100mL', cap: '100mL', icon: <Beaker size={18} className="text-blue-600" /> },
+              { type: 'flask', name_en: 'Erlenmeyer Flask', name_vi: 'Bình tam giác', cap: '250mL', icon: <FlaskConical size={18} className="text-blue-600" /> },
+              { type: 'test_tube', name_en: 'Test Tube 50mL', name_vi: 'Ống nghiệm 50mL', cap: '50mL', icon: <TestTube size={18} className="text-indigo-600" /> },
+              { type: 'volumetric_flask', name_en: 'Volumetric Flask', name_vi: 'Bình định mức', cap: '100mL', icon: <FlaskConical size={18} className="text-cyan-600" /> },
+            ]
+          },
+          {
+            id: 'volumetric',
+            title_en: 'Volumetric & Transfer',
+            title_vi: 'Định lượng & Rót dịch',
+            items: [
+              { type: 'cylinder', name_en: 'Graduated Cylinder', name_vi: 'Ống đong 100mL', cap: '100mL', icon: <div className="w-3 h-5 border-2 border-indigo-500 rounded-xs flex flex-col justify-end"><div className="h-2 bg-indigo-400 w-full" /></div> },
+              { type: 'wash_bottle', name_en: 'Wash Bottle 250mL', name_vi: 'Bình tia nước cất', cap: '250mL', icon: <Droplet size={18} className="text-sky-500" /> },
+              { type: 'tool_pipette', name_en: 'Pasteur Pipette', name_vi: 'Pipet nhỏ giọt', cap: '2mL', icon: <Pipette size={18} className="text-teal-600" /> },
+              { type: 'tool_burette', name_en: 'Burette Stand', name_vi: 'Buret chuẩn độ', cap: '50mL', icon: <div className="w-2.5 h-5 border-l-2 border-r-2 border-b-2 border-purple-500 flex flex-col justify-end"><div className="h-3 bg-purple-300 w-full" /></div> },
+            ]
+          },
+          {
+            id: 'thermal',
+            title_en: 'Thermal & Ignition',
+            title_vi: 'Đun nóng & Nhiệt độ',
+            items: [
+              { type: 'burner', name_en: 'Bunsen Burner', name_vi: 'Đèn cồn đun nóng', cap: 'Flame', icon: <Flame size={18} className="text-amber-500" /> },
+              { type: 'hot_plate', name_en: 'Hot Plate & Stirrer', name_vi: 'Bếp gia nhiệt & Khuấy từ', cap: 'Plate', icon: <div className="w-4 h-3.5 border-2 border-orange-500 rounded bg-orange-100 flex items-center justify-center text-[10px]">♨️</div> },
+              { type: 'crucible', name_en: 'Porcelain Crucible', name_vi: 'Chén nung sứ 50mL', cap: '50mL', icon: <div className="w-4 h-4 border-2 border-amber-600 rounded-b-md bg-amber-50 shadow-xs" /> },
+              { type: 'watch_glass', name_en: 'Watch Glass 40mL', name_vi: 'Kính đồng hồ 40mL', cap: '40mL', icon: <div className="w-5 h-2.5 border-b-2 border-l border-r border-cyan-500 rounded-b-full bg-cyan-100/40" /> },
+              { type: 'petri_dish', name_en: 'Petri Dish 60mL', name_vi: 'Đĩa Petri 60mL', cap: '60mL', icon: <div className="w-5 h-2 border-2 border-emerald-500 rounded-xs bg-emerald-50/50" /> },
+            ]
+          },
+          {
+            id: 'separation',
+            title_en: 'Separation & Filtration',
+            title_vi: 'Tách chiết & Lọc',
+            items: [
+              { type: 'separatory_funnel', name_en: 'Separatory Funnel', name_vi: 'Phễu chiết quả lê', cap: '150mL', icon: <div className="w-4 h-5 border-2 border-emerald-600 rounded-t-full rounded-b-xs flex items-center justify-center text-[9px] font-bold text-emerald-700">⚗️</div> },
+              { type: 'filter_funnel', name_en: 'Filter Funnel 75mL', name_vi: 'Phễu lọc có giấy lọc', cap: '75mL', icon: <Filter size={18} className="text-emerald-600" /> },
+              { type: 'evaporating_dish', name_en: 'Evaporating Dish', name_vi: 'Bát sứ cô cạn', cap: '100mL', icon: <div className="w-5 h-3 border-b-2 border-l border-r border-slate-400 rounded-b-xl bg-slate-100" /> },
+              { type: 'condenser', name_en: 'Liebig Condenser', name_vi: 'Ống sinh hàn Liebig', cap: '120mL', icon: <Layers size={18} className="text-sky-600" /> },
+              { type: 'pneumatic_trough', name_en: 'Pneumatic Trough', name_vi: 'Chậu thu khí dời nước', cap: 'Trough', icon: <div className="w-4 h-3 border-2 border-sky-500 rounded bg-sky-100 flex items-center justify-center text-[10px]">🫧</div> },
+              { type: 'stopper', name_en: 'Rubber Stopper + Tube', name_vi: 'Nút cao su & Ống dẫn khí', cap: 'Plug', icon: <div className="w-4 h-4 bg-slate-700 text-white rounded-b flex items-center justify-center text-[9px] font-bold">⊥</div> },
+            ]
+          },
+          {
+            id: 'tools',
+            title_en: 'Tools & Analytics',
+            title_vi: 'Dụng cụ & Đo lường',
+            items: [
+              { type: 'retort_stand', name_en: 'Retort Stand', name_vi: 'Giá thí nghiệm sắt', cap: 'Stand', icon: <div className="w-3 h-5 border-l-2 border-slate-700 flex flex-col justify-end"><div className="w-3 h-1 bg-slate-800" /></div> },
+              { type: 'retort_clamp', name_en: 'Retort Clamp', name_vi: 'Kẹp sắt vặn ốc', cap: 'Clamp', icon: <div className="w-4 h-2 border-t-2 border-b-2 border-slate-600" /> },
+              { type: 'mortar_pestle', name_en: 'Mortar & Pestle', name_vi: 'Cối & Chày sứ', cap: '80mL', icon: <div className="w-4 h-3.5 border-2 border-violet-500 rounded-b-lg bg-violet-50 flex items-center justify-center text-[10px]">🥣</div> },
+              { type: 'test_tube_rack', name_en: 'Test Tube Rack', name_vi: 'Giá để ống nghiệm', cap: 'Rack', icon: <div className="w-5 h-3 border-2 border-amber-800 rounded-xs flex gap-0.5 justify-center items-center"><div className="w-1 h-2 bg-blue-400 rounded-xs" /><div className="w-1 h-2 bg-purple-400 rounded-xs" /></div> },
+              { type: 'tongs', name_en: 'Crucible Tongs', name_vi: 'Kẹp gắp chén nung', cap: 'Tongs', icon: <div className="w-4 h-4 border-2 border-slate-600 rounded-full flex items-center justify-center text-[9px] font-bold">✂</div> },
+              { type: 'tool_balance', name_en: 'Analytical Balance', name_vi: 'Cân phân tích điện tử', cap: '0.001g', icon: <Scale size={18} className="text-indigo-600" /> },
+              { type: 'tool_stirring_rod', name_en: 'Glass Stirring Rod', name_vi: 'Đũa thủy tinh', cap: 'Tool', icon: <Wand2 size={18} className="text-blue-500" /> },
+              { type: 'tool_thermometer', name_en: 'Thermometer Probe', name_vi: 'Nhiệt kế điện tử', cap: 'Tool', icon: <Thermometer size={18} className="text-rose-500" /> },
+              { type: 'tool_spatula', name_en: 'Chemical Spatula', name_vi: 'Thìa lấy hóa chất', cap: 'Tool', icon: <div className="w-4 h-1 bg-slate-500 rounded-full" /> },
+              { type: 'tool_sponge', name_en: 'Cleaning Sponge', name_vi: 'Bọt biển / Khăn lau vết loang', cap: 'Clean', icon: <div className="w-4 h-3.5 border-2 border-emerald-500 rounded bg-emerald-100 flex items-center justify-center text-[10px]">🧽</div> },
+            ]
+          }
+        ];
 
-          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 pt-3 mb-1">
-            {t('Heating & Analytical Tools', 'Thiết bị đun nóng & Đo lường')}
-          </div>
-          <div className="space-y-2">
-            <button 
-              onClick={() => useAppStore.getState().addBurner()}
-              className="w-full flex items-center justify-between p-3.5 bg-white border border-slate-200 rounded-xl hover:bg-amber-50 hover:border-amber-300 transition-all shadow-xs"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
-                  <Flame size={18} />
-                </div>
-                <div className="text-left">
-                  <span className="text-xs font-bold text-slate-800 block">{t('Bunsen Burner', 'Đèn cồn đun nóng')}</span>
-                  <span className="text-[10px] text-slate-500">{t('Move under vessel to heat solution', 'Đặt dưới bình để đun sôi')}</span>
-                </div>
+        const handleEquipClick = (item: any) => {
+          if (item.type === 'burner') {
+            useAppStore.getState().addBurner();
+          } else if (item.type === 'tool_pipette') {
+            const cur = useAppStore.getState().activeTool;
+            useAppStore.getState().setActiveTool(cur === 'pipette' ? 'none' : 'pipette');
+          } else if (item.type === 'tool_stirring_rod') {
+            const cur = useAppStore.getState().activeTool;
+            useAppStore.getState().setActiveTool(cur === 'stirring_rod' ? 'none' : 'stirring_rod');
+          } else if (item.type === 'tool_thermometer') {
+            const cur = useAppStore.getState().activeTool;
+            useAppStore.getState().setActiveTool(cur === 'thermometer' ? 'none' : 'thermometer');
+          } else if (item.type === 'tool_spatula') {
+            const cur = useAppStore.getState().activeTool;
+            useAppStore.getState().setActiveTool(cur === 'spatula' ? 'none' : 'spatula');
+          } else if (item.type === 'tool_sponge') {
+            const cur = useAppStore.getState().activeTool;
+            useAppStore.getState().setActiveTool(cur === 'sponge' ? 'none' : 'sponge');
+          } else if (item.type === 'tool_balance') {
+            useAppStore.getState().setCameraPreset('front');
+          } else if (item.type === 'tool_burette') {
+            useAppStore.getState().setCameraPreset('front');
+            useAppStore.getState().setRightSidebarOpen(true);
+          } else {
+            addVessel(item.type, language === 'en' ? item.name_en : item.name_vi);
+          }
+        };
+
+        const q = equipSearch.trim().toLowerCase();
+
+        return (
+          <div className="flex-1 flex flex-col overflow-hidden bg-slate-50/40">
+            {/* Equipment Search Bar */}
+            <div className="p-2.5 border-b border-slate-100 bg-white">
+              <div className="relative">
+                <Search size={13} className="absolute left-2.5 top-2.5 text-slate-400" />
+                <input 
+                  type="text" 
+                  placeholder={t('Search 20+ apparatus...', 'Tìm hơn 20 loại dụng cụ...')} 
+                  value={equipSearch}
+                  onChange={e => setEquipSearch(e.target.value)}
+                  className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 transition-colors bg-slate-50/50"
+                />
               </div>
-              <Plus size={16} className="text-slate-400" />
-            </button>
+            </div>
+
+            {/* Categorized Sections */}
+            <div className="flex-1 p-3 overflow-y-auto space-y-3.5">
+              {categories.map(cat => {
+                const visibleItems = cat.items.filter(it => 
+                  !q || 
+                  it.name_en.toLowerCase().includes(q) || 
+                  it.name_vi.toLowerCase().includes(q) ||
+                  it.type.toLowerCase().includes(q)
+                );
+                if (visibleItems.length === 0) return null;
+
+                return (
+                  <div key={cat.id} className="space-y-1.5">
+                    <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-500 px-1">
+                      <span>{language === 'en' ? cat.title_en : cat.title_vi}</span>
+                      <span className="text-[9px] text-slate-400 font-mono">({visibleItems.length})</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      {visibleItems.map(item => (
+                        <button
+                          key={item.type}
+                          onClick={() => handleEquipClick(item)}
+                          className="flex flex-col items-center justify-center p-2.5 bg-white border border-slate-200/80 rounded-xl hover:bg-blue-50 hover:border-blue-300 hover:shadow-xs transition-all group relative text-center"
+                          title={language === 'en' ? item.name_en : item.name_vi}
+                        >
+                          <div className="mb-1.5 group-hover:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <span className="text-[11px] font-bold text-slate-800 group-hover:text-blue-700 leading-tight">
+                            {language === 'en' ? item.name_en : item.name_vi}
+                          </span>
+                          <span className="text-[9px] text-slate-400 font-mono mt-0.5">
+                            {item.cap}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* CURRICULUM & EXPERIMENTS TAB */}
       {activeTab === 'experiments' && (
@@ -270,18 +382,6 @@ function LeftSidebar() {
             <p className="text-[11px] text-amber-700 leading-relaxed">
               {t('Real-time inspection of active reagents on the workbench and mandated protective gear.', 'Kiểm tra mức độ nguy hiểm của các chất trên bàn và trang bị bảo hộ bắt buộc.')}
             </p>
-          </div>
-
-          <div>
-            <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">{t('Mandatory PPE', 'Trang thiết bị bảo hộ (PPE)')}</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {safetyInfo.ppe.map(item => (
-                <div key={item} className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
-                  <span className="text-blue-600">✓</span>
-                  <span className="capitalize">{item.replace('_', ' ')}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div>
@@ -305,8 +405,13 @@ function LeftSidebar() {
   );
 }
 
-function RightSidebar() {
-  const { rightSidebarOpen, lastMixResult, isMixing, mixError, language, selectedVesselId } = useAppStore();
+const RightSidebar = React.memo(function RightSidebar() {
+  const rightSidebarOpen = useAppStore(state => state.rightSidebarOpen);
+  const lastMixResult = useAppStore(state => state.lastMixResult);
+  const isMixing = useAppStore(state => state.isMixing);
+  const mixError = useAppStore(state => state.mixError);
+  const language = useAppStore(state => state.language);
+  const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const [activeTab, setActiveTab] = useState<'vessel' | 'reaction' | 'titration'>('vessel');
   
   // When a vessel is clicked/selected, automatically switch to vessel tab
@@ -457,7 +562,7 @@ function RightSidebar() {
       </div>
     </aside>
   );
-}
+});
 
 const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
   const nearestPourTargetId = useAppStore(state => state.nearestPourTargetId);
@@ -488,46 +593,28 @@ const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
 });
 
 export default function App() {
-  const { 
-    toggleLeftSidebar, 
-    toggleRightSidebar, 
-    leftSidebarOpen, 
-    rightSidebarOpen, 
-    selectedVesselId, 
-    setSelectedVesselId, 
-    isPresentationMode,
-    language, 
-    globalWarning, 
-    setGlobalWarning 
-  } = useAppStore();
+  const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
+  const rightSidebarOpen = useAppStore(state => state.rightSidebarOpen);
+  const isPresentationMode = useAppStore(state => state.isPresentationMode);
+  const language = useAppStore(state => state.language);
+  const toggleLeftSidebar = useAppStore(state => state.toggleLeftSidebar);
+  const toggleRightSidebar = useAppStore(state => state.toggleRightSidebar);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      handleLabKeyDown(e);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   return (
     <div className="flex flex-col h-screen w-full overflow-hidden bg-slate-50 font-sans text-slate-800 select-none">
       
-      {/* Global Warning Red Flash Alert */}
-      {globalWarning && (
-        <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center" style={{ animation: 'flash-red 1s infinite alternate' }}>
-          <div className="bg-red-600/95 backdrop-blur text-white px-8 py-6 rounded-2xl shadow-2xl max-w-lg text-center border-4 border-red-400 animate-in zoom-in duration-200 pointer-events-auto space-y-3">
-             <AlertTriangle size={48} className="mx-auto text-amber-300 animate-bounce" />
-             <h2 className="text-xl font-bold uppercase tracking-wider">{t('CRITICAL SAFETY WARNING', 'CẢNH BÁO AN TOÀN NGUY CẤP')}</h2>
-             <p className="text-sm font-medium leading-relaxed">{globalWarning}</p>
-             <button 
-               onClick={() => setGlobalWarning(null)} 
-               className="mt-4 bg-white text-red-600 px-6 py-2 rounded-lg font-bold uppercase text-xs hover:bg-red-50 transition-colors shadow-md"
-             >
-               {t('Acknowledge & Dismiss', 'Đã hiểu & Tiếp tục')}
-             </button>
-          </div>
-          <style>{`
-            @keyframes flash-red {
-              0% { box-shadow: inset 0 0 0 0 rgba(220, 38, 38, 0); background-color: rgba(220,38,38,0); }
-              100% { box-shadow: inset 0 0 120px 30px rgba(220, 38, 38, 0.45); background-color: rgba(220,38,38,0.15); }
-            }
-          `}</style>
-        </div>
-      )}
+      {/* Gentle Top-Right Toast Notification System */}
+      <Toast />
 
       {/* Chemical Measurement, Litmus Paper & Student Lab Report Dialogs */}
       <DosageModal />
@@ -536,7 +623,7 @@ export default function App() {
 
       {/* Primary Navigation Bar */}
       {!isPresentationMode && (
-        <nav className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-4 shrink-0 z-20 shadow-2xs relative">
+        <nav className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-3 md:px-4 shrink-0 z-20 shadow-2xs relative">
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-blue-600/20">
               <FlaskConical size={16} className="text-white" />
@@ -549,6 +636,37 @@ export default function App() {
                 {t('Realistic 3D Chemistry Studio', 'Phòng Thí Nghiệm Hóa Học Ảo 3D')}
               </span>
             </div>
+          </div>
+
+          {/* ChemDex Central Ecosystem Navigation Links */}
+          <div className="flex items-center gap-1 bg-slate-100/90 px-1.5 py-1 rounded-xl border border-slate-200/80 text-xs shadow-inner">
+            <a 
+              href="../" 
+              className="px-2.5 py-1 rounded-lg font-semibold text-slate-700 hover:text-blue-600 hover:bg-white transition-all flex items-center gap-1.5 shadow-2xs"
+              title="Về Trang chủ ChemDex / Bảng tuần hoàn"
+            >
+              <span className="text-blue-500 font-bold">←</span>
+              <span>ChemDex</span>
+            </a>
+            <span className="w-px h-3.5 bg-slate-300 hidden sm:block" />
+            <a 
+              href="../tai-lieu-so.html" 
+              className="hidden sm:inline-block px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-blue-600 hover:bg-white transition-all shadow-2xs"
+            >
+              {t('Documents', 'Tài liệu số')}
+            </a>
+            <a 
+              href="../tien-ich/" 
+              className="hidden md:inline-block px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-blue-600 hover:bg-white transition-all shadow-2xs"
+            >
+              {t('Utilities', 'Tiện ích')}
+            </a>
+            <a 
+              href="../trung-tam/" 
+              className="hidden lg:inline-block px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-blue-600 hover:bg-white transition-all shadow-2xs"
+            >
+              {t('Arena', 'Đấu trường')}
+            </a>
           </div>
           
           <div className="flex items-center gap-1.5">
@@ -609,6 +727,11 @@ export default function App() {
           <PourHUD />
           <PourInput />
 
+          {/* Interactive Lab Reality Tools & Controls */}
+          <ControlRing />
+          <CheatSheet />
+          <RadialMenu />
+
           {/* Dynamic Pour & Drop Target Recognition HUD */}
           <TargetRecognitionHUD />
 
@@ -621,8 +744,12 @@ export default function App() {
         </main>
 
         <RightSidebar />
-        <VfxGallery />
-        <SimulationDebugPanel />
+        {isDev && (
+          <React.Suspense fallback={null}>
+            <VfxGallery />
+            <SimulationDebugPanel />
+          </React.Suspense>
+        )}
       </div>
     </div>
   );

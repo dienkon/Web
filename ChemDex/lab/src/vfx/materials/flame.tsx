@@ -1,9 +1,10 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MeshTransmissionMaterial } from '@react-three/drei';
 import { NOISE_GLSL } from '../glsl/noise.glsl';
 import { useQualityStore } from '../quality';
+import { vfxBus } from '../bus';
 
 interface ProceduralFlameProps {
   intensity?: number; // 1 to 5
@@ -26,6 +27,8 @@ void main() {
 const FlameFragmentShader = /* glsl */ `
 uniform float uTime;
 uniform float uIntensity;
+uniform vec3 uFlameColor;
+uniform float uColorOverride;
 varying vec2 vUv;
 varying vec3 vWorldPos;
 
@@ -42,9 +45,14 @@ void main() {
   float d = abs(p.x + (n - 0.5) * 0.28 * h) / max(0.001, width);
   float body = smoothstep(1.0, 0.0, d) * smoothstep(1.0, 0.5, h + (n - 0.5) * 0.28);
   
-  // Real laboratory alcohol flame: clean blue base, bright yellow-white core, warm orange plume tip
-  vec3 col = mix(vec3(0.22, 0.55, 1.0), vec3(1.0, 0.88, 0.35), smoothstep(0.04, 0.42, h));
-  col = mix(col, vec3(1.0, 0.42, 0.08), smoothstep(0.55, 0.95, h));
+  // Real laboratory alcohol/Bunsen flame: clean blue base, bright core, warm plume tip
+  vec3 defaultCol = mix(vec3(0.22, 0.55, 1.0), vec3(1.0, 0.88, 0.35), smoothstep(0.04, 0.42, h));
+  defaultCol = mix(defaultCol, vec3(1.0, 0.42, 0.08), smoothstep(0.55, 0.95, h));
+
+  // Atomic emission spectral override (Cu 510nm, Na 589nm, K 766nm, Li 670nm, Ca 622nm, Ba 524nm)
+  vec3 emissionCol = mix(vec3(0.18, 0.45, 0.95), uFlameColor, smoothstep(0.08, 0.38, h));
+  emissionCol = mix(emissionCol, uFlameColor * 1.25 + vec3(0.15), smoothstep(0.45, 0.88, h));
+  vec3 col = mix(defaultCol, emissionCol, uColorOverride);
   
   // High intensity core glow for bloom capture
   float coreGlow = smoothstep(0.6, 0.0, d) * (1.0 - h * 0.5);
@@ -66,11 +74,28 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   const lightRef = useRef<THREE.PointLight>(null);
   const effectiveTier = useQualityStore(s => s.effectiveTier);
 
+  const overrideTimerRef = useRef(0);
+  const targetEmissionColorRef = useRef(new THREE.Color('#fb923c'));
+  const defaultLightColor = useMemo(() => new THREE.Color('#fb923c'), []);
+
   // Shader uniforms
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uIntensity: { value: intensity },
+    uFlameColor: { value: new THREE.Color('#fb923c') },
+    uColorOverride: { value: 0.0 },
   }), [intensity]);
+
+  useEffect(() => {
+    const unsub = vfxBus.on('flame:test', (e) => {
+      if (e.color) {
+        targetEmissionColorRef.current.set(e.color);
+        uniforms.uFlameColor.value.set(e.color);
+        overrideTimerRef.current = 7.5; // Hold atomic emission flame color for 7.5 seconds
+      }
+    });
+    return unsub;
+  }, [uniforms]);
 
   const flameMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
@@ -94,14 +119,35 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   }, [scale]);
 
   useFrame((state, delta) => {
+    const dt = Math.min(delta, 0.05);
     const t = state.clock.elapsedTime;
     flameMaterial.uniforms.uTime.value = t;
     flameMaterial.uniforms.uIntensity.value = intensity;
 
-    // Organic light flicker
+    if (overrideTimerRef.current > 0) {
+      overrideTimerRef.current = Math.max(0, overrideTimerRef.current - dt);
+      const targetMix = overrideTimerRef.current > 1.0 ? 1.0 : overrideTimerRef.current;
+      flameMaterial.uniforms.uColorOverride.value = THREE.MathUtils.lerp(
+        flameMaterial.uniforms.uColorOverride.value,
+        targetMix,
+        0.15
+      );
+    } else {
+      flameMaterial.uniforms.uColorOverride.value = THREE.MathUtils.lerp(
+        flameMaterial.uniforms.uColorOverride.value,
+        0.0,
+        0.08
+      );
+    }
+
+    // Organic light flicker + spectral color shift
     if (lightRef.current) {
       const flicker = Math.sin(t * 14) * 0.15 + Math.cos(t * 22) * 0.12;
-      lightRef.current.intensity = (2.2 + flicker) * (intensity / 3);
+      lightRef.current.intensity = (2.2 + flicker) * (intensity / 3) * (1.0 + flameMaterial.uniforms.uColorOverride.value * 0.35);
+      lightRef.current.color.copy(defaultLightColor).lerp(
+        targetEmissionColorRef.current,
+        flameMaterial.uniforms.uColorOverride.value
+      );
     }
 
     // Keep billboards aligned or slowly oscillating

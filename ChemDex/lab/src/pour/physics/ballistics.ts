@@ -26,32 +26,43 @@ export function calculateStreamBallistics(
     mouthY: number;
     liquidSurfaceY: number;
   } | null,
-  tableY: number = -0.135
+  tableY: number = -0.135,
+  sourceRotationY: number = 0
 ): BallisticsResult {
   const theta = sourceRotationZ; // tilt angle (radians)
 
-  // Lip in world space
+  // Lip in local space rotated by tilt and yaw
   const localLip = sourceProfile.lipLocal;
-  // Rotate (lipX, lipY) by theta around Z
-  // In our conventions, tilt towards target (left) is positive theta or negative theta
   const cosT = Math.cos(theta);
   const sinT = Math.sin(theta);
-  const worldLipX = sourcePos[0] + (localLip[0] * cosT - localLip[1] * sinT);
-  const worldLipY = sourcePos[1] + (localLip[0] * sinT + localLip[1] * cosT);
-  const worldLipZ = sourcePos[2] + localLip[2];
+  const cosY = Math.cos(sourceRotationY);
+  const sinY = Math.sin(sourceRotationY);
+
+  const tiltedX = localLip[0] * cosT - localLip[1] * sinT;
+  const tiltedY = localLip[0] * sinT + localLip[1] * cosT;
+  const tiltedZ = localLip[2];
+
+  const worldLipX = sourcePos[0] + (tiltedX * cosY + tiltedZ * sinY);
+  const worldLipY = sourcePos[1] + tiltedY;
+  const worldLipZ = sourcePos[2] + (-tiltedX * sinY + tiltedZ * cosY);
 
   // Exit velocity from Torricelli / weir head: v0 ~ sqrt(2gh)
   const h_m = Math.max(0.001, head_cm / 100);
   const exitSpeed = Math.max(0.35, Math.min(2.5, Math.sqrt(2 * 9.8 * h_m) * 1.2));
 
-  // Exit direction: tangential to tilted lip, pointing outward and down
-  const dirX = Math.sign(localLip[0]) * Math.cos(theta) * 0.8 - Math.sin(theta) * 0.4;
-  const dirY = -Math.abs(Math.sin(theta)) * 0.7 - 0.2;
-  const dirLen = Math.hypot(dirX, dirY) || 1;
+  // Exit direction: outward normal from lip rotated by tilt and yaw
+  const localDirX = Math.sign(localLip[0]) * Math.cos(theta) * 0.8 - Math.sin(theta) * 0.4;
+  const localDirY = -Math.abs(Math.sin(theta)) * 0.7 - 0.2;
+  const localDirZ = 0;
 
-  const vx = (dirX / dirLen) * exitSpeed;
-  const vy = (dirY / dirLen) * exitSpeed;
-  const vz = 0;
+  const worldDirX = localDirX * cosY + localDirZ * sinY;
+  const worldDirY = localDirY;
+  const worldDirZ = -localDirX * sinY + localDirZ * cosY;
+
+  const dirLen = Math.hypot(worldDirX, worldDirY, worldDirZ) || 1;
+  const vx = (worldDirX / dirLen) * exitSpeed;
+  const vy = (worldDirY / dirLen) * exitSpeed;
+  const vz = (worldDirZ / dirLen) * exitSpeed;
 
   // Determine target elevation y_T
   let targetY_intercept = tableY;

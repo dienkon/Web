@@ -14,6 +14,7 @@ export interface PrecipitationSimulationParams {
   substance?: string;
   agitation?: number;
   heatPower_W?: number;
+  entryPoint?: [number, number, number];
 }
 
 export class PrecipitationSystem {
@@ -76,7 +77,7 @@ export class PrecipitationSystem {
     const height = Math.max(0.05, surfaceY - liquidBottomY);
     const suspendedMassTarget_g = Math.max(0, precipitateAmount_g - this.sedimentBed.amount_g);
 
-    // 1. SPAWN SUSPENDED NUCLEI & PARTICLES IF TARGET MASS EXCEEDS CURRENT PARTICLE POPULATION
+    // 1. SPAWN SUSPENDED NUCLEI & PARTICLES AT MIXING FRONT (P4.1-lite)
     const targetParticleCount = suspendedMassTarget_g > 0.001 
       ? Math.min(this.maxParticles, Math.floor(18 + Math.min(1.0, suspendedMassTarget_g / 0.5) * (this.maxParticles - 18)))
       : 0;
@@ -85,13 +86,6 @@ export class PrecipitationSystem {
       this.spawnTimer += dt * 32;
       while (this.spawnTimer >= 1.0 && this.particles.length < targetParticleCount) {
         this.spawnTimer -= 1.0;
-
-        const angle = Math.random() * Math.PI * 2;
-        const rRatio = Math.sqrt(Math.random()) * 0.82;
-        const px = Math.cos(angle) * (rRatio * radius);
-        const pz = Math.sin(angle) * (rRatio * radius);
-        // Nucleate throughout the liquid volume or around mixing zone
-        const py = liquidBottomY + 0.04 + Math.random() * (height * 0.92);
 
         const baseRad = (this.profile.baseParticleRadius_mm / 1000) * 8.5; // scene scale
         const rho_p = this.profile.particleDensity_g_cm3 * 1000; // kg/m3
@@ -104,6 +98,30 @@ export class PrecipitationSystem {
         const stokesV = (2 / 9) * (deltaRho * 9.81 * (rPhys * rPhys)) / eta;
         const sceneSedSpeed = Math.min(0.35, Math.max(0.015, stokesV * 12.0));
 
+        // Mixing front nucleation: spawn at entryPoint or upper liquid mixing zone (P4.1-lite)
+        let px: number, py: number, pz: number, initVx: number, initVy: number, initVz: number;
+        if (params.entryPoint) {
+          const ep = params.entryPoint;
+          const spreadR = (Math.random() - 0.5) * (radius * 0.4);
+          const spreadZ = (Math.random() - 0.5) * (radius * 0.4);
+          px = THREE.MathUtils.clamp(ep[0] + spreadR, -radius * 0.7, radius * 0.7);
+          pz = THREE.MathUtils.clamp(ep[2] + spreadZ, -radius * 0.7, radius * 0.7);
+          py = Math.min(surfaceY - 0.01, ep[1] - Math.random() * 0.04);
+          initVy = -(sceneSedSpeed * 1.6 + 0.05);
+          initVx = spreadR * 0.4;
+          initVz = spreadZ * 0.4;
+        } else {
+          // Fallback: spawn in top upper liquid mixing layer with downward convective plume
+          const angle = Math.random() * Math.PI * 2;
+          const rRatio = Math.sqrt(Math.random()) * 0.55;
+          px = Math.cos(angle) * (rRatio * radius);
+          pz = Math.sin(angle) * (rRatio * radius);
+          py = surfaceY - Math.random() * Math.min(0.08, height * 0.35);
+          initVy = -(sceneSedSpeed * 1.4 + 0.04);
+          initVx = Math.cos(angle) * 0.025;
+          initVz = Math.sin(angle) * 0.025;
+        }
+
         this.particles.push({
           id: this.nextId++,
           x: px,
@@ -112,9 +130,9 @@ export class PrecipitationSystem {
           radius: baseRad * (0.8 + Math.random() * 0.4),
           mass_ug: (4 / 3) * Math.PI * Math.pow(rPhys, 3) * rho_p * 1e9,
           density: rho_p,
-          vx: (Math.random() - 0.5) * 0.02,
-          vy: -sceneSedSpeed,
-          vz: (Math.random() - 0.5) * 0.02,
+          vx: initVx,
+          vy: initVy,
+          vz: initVz,
           sedimentationSpeed: sceneSedSpeed,
           aggregationLevel: 1,
           brownianSeed: Math.random() * 20.0,

@@ -122,11 +122,11 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
             scratchPos.set(b.x, b.y, b.z);
             scratchQuat.copy(cam.quaternion);
 
-            // Aspect ratio deformation along velocity vector
-            const radX = b.radius;
-            const radY = b.radius * b.aspectRatio;
-            const radZ = b.radius;
-            scratchScale.set(radX * 2, radY * 2, radZ * 2);
+            // Volume-preserving oblate spheroidal deformation
+            const ar = Math.max(0.5, Math.min(1.2, b.aspectRatio));
+            const radY = b.radius * Math.pow(ar, 2 / 3);
+            const radH = b.radius / Math.pow(ar, 1 / 3);
+            scratchScale.set(radH * 2, radY * 2, radH * 2);
 
             scratchMat4.compose(scratchPos, scratchQuat, scratchScale);
             bubbleMeshRef.current.setMatrixAt(i, scratchMat4);
@@ -153,6 +153,12 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
       } else {
         precipitateMeshRef.current.visible = true;
         scratchColor.set(mgr.precipitationSystem.profile.color);
+        const pMat = precipitateMeshRef.current.material as THREE.MeshStandardMaterial;
+        if (pMat) {
+          pMat.color.copy(scratchColor);
+          pMat.roughness = mgr.precipitationSystem.profile.roughness;
+          pMat.metalness = mgr.precipitationSystem.profile.specularReflectivity;
+        }
 
         for (let i = 0; i < maxP; i++) {
           if (i < pList.length) {
@@ -252,9 +258,13 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         visible={false}
       >
         {mgr.precipitationSystem.profile.morphology === 'crystalline' ? (
-          <boxGeometry args={[1, 0.15, 1]} />
+          <cylinderGeometry args={[1, 1, 0.12, 6]} />
+        ) : mgr.precipitationSystem.profile.morphology === 'flocculent' ? (
+          <icosahedronGeometry args={[0.7, 0]} />
+        ) : mgr.precipitationSystem.profile.morphology === 'granular' ? (
+          <octahedronGeometry args={[0.6, 0]} />
         ) : (
-          <sphereGeometry args={[0.5, 8, 8]} />
+          <dodecahedronGeometry args={[0.45, 0]} />
         )}
         <meshStandardMaterial
           color={mgr.precipitationSystem.profile.color}

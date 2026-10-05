@@ -111,7 +111,7 @@ export const REACTION_DATABASE: Record<string, PhysicalReaction> = {
     ],
     products: [
       { s: 'AgCl(s)', n: 1, state: 's' },
-      { s: 'Na2SO4', n: 0, state: 'aq' } // Placeholder for spectator ions
+      { s: 'NaNO3', n: 1, state: 'aq' }
     ],
     dH: -65700, // Exothermic precipitation
     kinetics: {
@@ -785,6 +785,7 @@ export const REACTION_DATABASE: Record<string, PhysicalReaction> = {
       { s: 'H2O', n: 2, state: 'l' }
     ],
     products: [
+      { s: 'KOH', n: 2, state: 'aq' },
       { s: 'H2(g)', n: 1, state: 'g' }
     ],
     dH: -392000,
@@ -995,6 +996,126 @@ export const REACTION_DATABASE: Record<string, PhysicalReaction> = {
     },
     audio: { profile: 'hiss', intensity: 0.15 },
     hazards: ['toxic', 'irritant']
+  },
+
+  // 31. FeCl3 + KSCN -> [Fe(SCN)]2+ (Blood-red iron thiocyanate complex equilibrium)
+  'FeCl3+KSCN': {
+    id: 'FeCl3+KSCN',
+    name: 'Iron(III) Thiocyanate Complex Equilibrium',
+    name_vi: 'Cân bằng tạo phức chất Sắt(III) Thioxianat màu đỏ máu',
+    equation: 'FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl',
+    ionic_equation: 'Fe³⁺(aq) + SCN⁻(aq) ⇌ [Fe(SCN)]²⁺(aq)',
+    type: 'complexation',
+    reactants: [
+      { s: 'FeCl3', n: 1, state: 'aq' },
+      { s: 'KSCN', n: 1, state: 'aq' }
+    ],
+    products: [
+      { s: 'Fe(SCN)2+', n: 1, state: 'aq' }
+    ],
+    dH: -24000,
+    kinetics: { model: 'instant', A: 1e9, Ea: 12000 },
+    equilibrium: { Keq: 890 },
+    visual: {
+      colorChange: {
+        resultingAbsorptivity_RGB: [0.05, 1.85, 1.95]
+      }
+    },
+    audio: { profile: 'none', intensity: 0.0 },
+    hazards: []
+  },
+
+  // 32. 2KMnO4 + 5H2C2O4 + 3H2SO4 -> K2SO4 + 2MnSO4 + 10CO2 + 8H2O (Autocatalytic redox)
+  'KMnO4+H2C2O4': {
+    id: 'KMnO4+H2C2O4',
+    name: 'Permanganate-Oxalate Autocatalytic Redox',
+    name_vi: 'Phản ứng Oxi hóa Khử Tự Xúc Tác giữa Thuốc Tím và Axit Oxalic',
+    equation: '2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O',
+    type: 'redox',
+    reactants: [
+      { s: 'KMnO4', n: 2, state: 'aq' },
+      { s: 'H2C2O4', n: 5, state: 'aq' }
+    ],
+    products: [
+      { s: 'MnSO4', n: 2, state: 'aq' },
+      { s: 'CO2(g)', n: 10, state: 'g' }
+    ],
+    dH: -320000,
+    kinetics: {
+      model: 'arrhenius',
+      A: 3e8,
+      Ea: 42000,
+      catalysts: ['Mn2+'],
+      catalystMultiplier: 80.0
+    },
+    visual: {
+      colorChange: {
+        resultingAbsorptivity_RGB: [0.001, 0.001, 0.001]
+      },
+      gas: {
+        substanceId: 'CO2(g)',
+        color: '#ffffff',
+        density_rel_air: 1.5,
+        dissolvedBubbleSize_mm: [0.5, 1.5]
+      }
+    },
+    audio: { profile: 'fizz', intensity: 0.25 },
+    hazards: ['toxic']
+  },
+
+  // 33. 2KIO3 + 5NaHSO3 -> I2 + Starch -> Deep Midnight Blue (Landolt clock)
+  'KIO3+NaHSO3_starch': {
+    id: 'KIO3+NaHSO3_starch',
+    name: 'Landolt Iodine Clock Reaction',
+    name_vi: 'Phản ứng Đồng hồ Iốt Landolt (Đổi màu xanh đen đột ngột)',
+    equation: '2KIO₃ + 5NaHSO₃ → I₂ + 5NaHSO₄ + K₂SO₄ + H₂O',
+    type: 'redox',
+    reactants: [
+      { s: 'KIO3', n: 2, state: 'aq' },
+      { s: 'NaHSO3', n: 5, state: 'aq' }
+    ],
+    products: [
+      { s: 'I2', n: 1, state: 'aq' }
+    ],
+    dH: -185000,
+    kinetics: { model: 'arrhenius', A: 5e7, Ea: 38000 },
+    visual: {
+      colorChange: {
+        resultingAbsorptivity_RGB: [1.8, 1.8, 0.2]
+      }
+    },
+    audio: { profile: 'none', intensity: 0.0 },
+    hazards: []
+  },
+
+  // 34. Al2(SO4)3 + 6NaOH -> 2Al(OH)3(s) + 3Na2SO4 (Amphoteric precipitation)
+  'Al2(SO4)3+NaOH': {
+    id: 'Al2(SO4)3+NaOH',
+    name: 'Aluminum Hydroxide Amphoteric Precipitation',
+    name_vi: 'Kết tủa keo trắng Nhôm Hiđroxit Lưỡng tính',
+    equation: 'Al₂(SO₄)₃ + 6NaOH → 2Al(OH)₃↓ + 3Na₂SO₄',
+    ionic_equation: 'Al³⁺(aq) + 3OH⁻(aq) → Al(OH)₃(s)↓',
+    type: 'precipitation',
+    reactants: [
+      { s: 'Al2(SO4)3', n: 1, state: 'aq' },
+      { s: 'NaOH', n: 6, state: 'aq' }
+    ],
+    products: [
+      { s: 'Al(OH)3(s)', n: 2, state: 's' }
+    ],
+    dH: -128000,
+    kinetics: { model: 'instant', A: 2e10, Ea: 8000 },
+    equilibrium: { Ksp: 3.0e-34 },
+    visual: {
+      precipitate: {
+        substanceId: 'Al(OH)3(s)',
+        color: '#ffffff',
+        morphology: 'gel',
+        particleRadius_um: [0.5, 4.0]
+      }
+    },
+    audio: { profile: 'none', intensity: 0.0 },
+    hazards: []
   }
 };
 

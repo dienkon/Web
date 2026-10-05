@@ -77,8 +77,8 @@ export const Splash = React.memo(function Splash({
       // Ballistic gravity
       p.vy += -9.8 * dt;
 
-      // Die if it falls below table plane
-      if (p.y <= -1.02) {
+      // Die if it falls below workbench table surface
+      if (p.y <= -1.16) {
         return false;
       }
 
@@ -94,7 +94,7 @@ export const Splash = React.memo(function Splash({
       renderOrder={5}
       visible={false}
     >
-      <sphereGeometry args={[1, 8, 8]} />
+      <dodecahedronGeometry args={[0.75, 0]} />
       <meshStandardMaterial
         color={splashColor}
         roughness={0.1}

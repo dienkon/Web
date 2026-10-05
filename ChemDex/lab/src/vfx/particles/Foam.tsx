@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { useAppStore } from '../../store/useAppStore';
+import { getBubbleSpriteTexture } from '../textures';
 
 export interface FoamProps {
   vesselId: string;
@@ -26,6 +27,7 @@ export const Foam = React.memo(function Foam({
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
+  const bubbleTexture = useMemo(() => getBubbleSpriteTexture(128), []);
 
   const count = useMemo(() => {
     return Math.max(16, Math.floor((effectiveTier === 'high' ? 96 : effectiveTier === 'medium' ? 48 : 20) * multiplier));
@@ -40,7 +42,7 @@ export const Foam = React.memo(function Foam({
         rRatio,
         angle,
         // Realistic fine cellular froth bubbles
-        baseScale: 0.022 + (i % 4) * 0.008,
+        baseScale: 0.035 + (i % 4) * 0.012,
         verticalPhase: (i % 7) * 0.4,
         speed: 1.5 + (i % 3) * 0.5,
       };
@@ -88,12 +90,13 @@ export const Foam = React.memo(function Foam({
     const columnHeight = foamVolumeRatio * 1.2;
 
     const time = state.clock.getElapsedTime();
-    foamColor.set(vessel?.liquidColor || liquidColor).lerp(new THREE.Color('#ffffff'), 0.82);
+    foamColor.set(vessel?.liquidColor || liquidColor).lerp(new THREE.Color('#ffffff'), 0.88);
+    scratchQuat.copy(state.camera.quaternion);
 
     for (let i = 0; i < count; i++) {
       const d = clusterData[i];
       const hFrac = (i / count);
-      let y = surfaceY + hFrac * columnHeight + Math.sin(time * d.speed + d.verticalPhase) * 0.02;
+      let y = surfaceY + hFrac * columnHeight + Math.sin(time * d.speed + d.verticalPhase) * 0.015;
 
       let r = d.rRatio * radius;
 
@@ -111,8 +114,7 @@ export const Foam = React.memo(function Foam({
       );
 
       const wobbleScale = d.baseScale * (1.0 + Math.sin(time * 3.0 + i) * 0.08);
-      scratchScale.set(wobbleScale, wobbleScale * 0.85, wobbleScale);
-      scratchQuat.identity();
+      scratchScale.set(wobbleScale, wobbleScale, 1.0);
 
       scratchMat4.compose(scratchPos, scratchQuat, scratchScale);
       meshRef.current.setMatrixAt(i, scratchMat4);
@@ -133,13 +135,14 @@ export const Foam = React.memo(function Foam({
       renderOrder={4}
       visible={false}
     >
-      <sphereGeometry args={[1, 10, 10]} />
-      <meshStandardMaterial
-        roughness={0.2}
-        metalness={0.05}
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial
+        map={bubbleTexture}
+        color={foamColor}
         transparent
-        opacity={0.88}
+        opacity={0.65}
         depthWrite={false}
+        side={THREE.DoubleSide}
       />
     </instancedMesh>
   );

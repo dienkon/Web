@@ -3,7 +3,8 @@ import { useAppStore, getChemical } from '../store/useAppStore';
 import { 
   Trash2, Copy, Lock, Unlock, RotateCw, Focus, 
   Thermometer, Gauge, Beaker, Flame, Snowflake, 
-  Sparkles, FlaskConical, TestTube, Check, Edit2, ArrowRight, Bot
+  Sparkles, FlaskConical, TestTube, Check, Edit2, ArrowRight, Bot,
+  AlertTriangle, RefreshCw, Droplets, Wind, Sliders
 } from 'lucide-react';
 import { formatTemperature, formatPH, formatVolume } from '../utils/units';
 import { AIReactionQueryModal } from './AIReactionQueryModal';
@@ -19,6 +20,17 @@ export function VesselInspector() {
     removeVessel, 
     toggleLockVessel, 
     focusVessel, 
+    replaceShatteredVessel,
+    grindMortar,
+    toggleStopcock,
+    cleanVesselStain,
+    squirtWashBottle,
+    invertVolumetricFlask,
+    toggleCondenserWater,
+    sealVessel,
+    toggleGripWithTongs,
+    placeTestTubeInRack,
+    removeTestTubeFromRack,
     language 
   } = useAppStore();
 
@@ -215,6 +227,28 @@ export function VesselInspector() {
         </div>
       </div>
 
+      {/* Shattered Glassware Critical Alert */}
+      {vessel.isShattered && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-3 text-red-700 space-y-2">
+          <div className="flex items-start gap-2">
+            <AlertTriangle className="text-red-600 shrink-0 mt-0.5" size={16} />
+            <div className="text-xs">
+              <p className="font-bold">{t('Vessel Shattered!', 'Dụng cụ vỡ vụn!')}</p>
+              <p className="text-[11px] text-red-600/90 mt-0.5">
+                {vessel.shatterReason || t('Thermal shock or physical stress fractured the glassware.', 'Sốc nhiệt hoặc va đập đã phá hủy dụng cụ.')}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => replaceShatteredVessel(vessel.id)}
+            className="w-full py-1.5 px-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+          >
+            <RefreshCw size={13} />
+            <span>{t('Replace with New Glassware', 'Thay dụng cụ mới')}</span>
+          </button>
+        </div>
+      )}
+
       {/* Realtime Metrics & Gauge */}
       <div className="grid grid-cols-2 gap-2">
         {/* Volume Fill */}
@@ -285,9 +319,39 @@ export function VesselInspector() {
         </div>
       </div>
 
-      {/* Physical State Tags (Precipitate, Gas, etc) */}
-      {(vessel.hasPrecipitate || vessel.hasGas || vessel.isExplosion) && (
+      {/* Physical State Tags (Precipitate, Gas, Fog, Fumes, Bumping, Pulverized) */}
+      {(vessel.hasPrecipitate || vessel.hasGas || vessel.isExplosion || vessel.isSuperheated || vessel.bumpingSurge || (vessel.condensationMist || 0) > 0.15 || (vessel.fumingIntensity || 0) > 0.2 || vessel.isPulverized) && (
         <div className="flex flex-wrap gap-1.5">
+          {vessel.isSuperheated && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-red-50 text-red-800 border border-red-200 flex items-center gap-1 animate-pulse">
+              <Flame size={11} className="text-red-600" />
+              {t('Superheated (Bumping Risk)', 'Quá nhiệt (Nguy cơ nổ bọt)')}
+            </span>
+          )}
+          {vessel.bumpingSurge && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-orange-100 text-orange-900 border border-orange-300 flex items-center gap-1">
+              <AlertTriangle size={11} className="text-orange-600" />
+              {t('Bumping Surge!', 'Sôi trào đột ngột!')}
+            </span>
+          )}
+          {((vessel.condensationMist || 0) > 0.15) && (
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-cyan-50 text-cyan-800 border border-cyan-200 flex items-center gap-1">
+              <Droplets size={11} className="text-cyan-600" />
+              {t('Headspace Mist', 'Hơi đọng thành bình')}
+            </span>
+          )}
+          {((vessel.fumingIntensity || 0) > 0.2) && (
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 flex items-center gap-1">
+              <Wind size={11} className="text-rose-600" />
+              {t('Aerosol Fuming', 'Bốc khói hơi')}
+            </span>
+          )}
+          {vessel.isPulverized && (
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+              <Check size={11} className="text-emerald-600" />
+              {t('Finely Pulverized', 'Đã nghiền mịn')}
+            </span>
+          )}
           {vessel.hasPrecipitate && (
             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
               <Sparkles size={11} className="text-amber-600" />
@@ -300,6 +364,313 @@ export function VesselInspector() {
               {t('Gas evolving', 'Khí sủi bọt')}
             </span>
           )}
+        </div>
+      )}
+
+      {/* Evaporative Waterline Stain Ring */}
+      {((vessel.stainIntensity || 0) > 0.05) && (
+        <div className="bg-amber-50/80 border border-amber-200/90 rounded-xl p-2.5 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2">
+            <div 
+              className="w-3.5 h-3.5 rounded-full border border-black/15 shrink-0" 
+              style={{ backgroundColor: vessel.stainColor || '#b45309' }} 
+            />
+            <div>
+              <span className="font-bold text-amber-900 block">{t('Waterline Stain Ring', 'Vệt cặn bám thành bình')}</span>
+              <span className="text-[10px] text-amber-700">
+                {t('Evaporative residue deposits', 'Lắng cặn bay hơi')}: {Math.round((vessel.stainIntensity || 0) * 100)}%
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={() => cleanVesselStain(vessel.id)}
+            className="py-1 px-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-[11px] shadow-2xs transition-colors shrink-0"
+          >
+            {t('Scrub Clean', 'Cọ rửa')}
+          </button>
+        </div>
+      )}
+
+      {/* Mortar & Pestle Grinding Control */}
+      {vessel.type === 'mortar_pestle' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Mortar & Pestle Pulverizer', 'Cối & Chày Nghiền')}</span>
+            <span className="text-[10px] font-mono text-slate-500">
+              {vessel.isPulverized ? t('Powder', 'Dạng bột') : t('Solid chunks', 'Dạng hạt')}
+            </span>
+          </div>
+          <button
+            onClick={() => grindMortar(vessel.id)}
+            className="w-full py-1.5 px-3 bg-stone-700 hover:bg-stone-800 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
+          >
+            <RotateCw size={13} />
+            <span>{t('Grind Solids with Pestle', 'Dùng chày nghiền mịn chất rắn')}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Separatory Funnel Stopcock Control */}
+      {vessel.type === 'separatory_funnel' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Separatory Funnel Valve', 'Khóa van phễu chiết')}</span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+              vessel.stopcockOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'
+            }`}>
+              {vessel.stopcockOpen ? t('Open (Draining)', 'Đang mở (Xả đáy)') : t('Closed (Sealed)', 'Đang khóa')}
+            </span>
+          </div>
+          
+          {((vessel.immiscibleOrganicVolume_ml || 0) > 0) && (
+            <div className="bg-white/90 p-2 rounded-lg border border-slate-200 text-[11px] space-y-1">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-600">{t('Upper Organic Layer', 'Pha hữu cơ phía trên')}:</span>
+                <span className="font-mono font-bold text-slate-800">{vessel.immiscibleOrganicVolume_ml?.toFixed(1)} mL</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-600">{t('Lower Aqueous Layer', 'Pha nước phía dưới')}:</span>
+                <span className="font-mono font-bold text-slate-800">{vessel.volume_ml.toFixed(1)} mL</span>
+              </div>
+            </div>
+          )}
+
+          <button
+            onClick={() => toggleStopcock(vessel.id)}
+            className={`w-full py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs ${
+              vessel.stopcockOpen 
+                ? 'bg-amber-600 hover:bg-amber-700 text-white' 
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
+          >
+            <Sliders size={13} />
+            <span>{vessel.stopcockOpen ? t('Close Stopcock Valve', 'Đóng khóa van xả') : t('Open Stopcock Valve (Drain)', 'Mở khóa van xả đáy')}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Filter Funnel Filtration & Residue Control */}
+      {vessel.type === 'filter_funnel' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Gravity Filtration Funnel', 'Phễu Lọc Trọng Lực')}</span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+              vessel.isFiltrating ? 'bg-sky-100 text-sky-800' : 'bg-slate-200 text-slate-700'
+            }`}>
+              {vessel.isFiltrating ? t('Dripping Filtrate...', 'Đang lọc...') : t('Ready', 'Sẵn sàng')}
+            </span>
+          </div>
+
+          {((vessel.filterPaperResidue_g || 0) > 0 || (vessel.hasPrecipitate && (vessel.precipitateAmount_g || 0) > 0)) && (
+            <div className="bg-amber-50/90 border border-amber-200 p-2 rounded-lg text-[11px] space-y-1">
+              <div className="flex justify-between items-center font-bold text-amber-900">
+                <span>{t('Filter Paper Residue Cake', 'Cặn kết tủa trên giấy lọc')}:</span>
+                <span className="font-mono">
+                  {((vessel.filterPaperResidue_g || 0) + (vessel.hasPrecipitate ? (vessel.precipitateAmount_g || 0) : 0)).toFixed(2)} g
+                </span>
+              </div>
+              <div className="text-[10px] text-amber-700">
+                {t('Substance', 'Chất rắn')}: {vessel.filterPaperResidueSubstance || vessel.precipitateSubstance || 'Precipitate'}
+              </div>
+            </div>
+          )}
+
+          <button
+            onClick={() => setVesselState(vessel.id, { filterPaperResidue_g: 0, filterPaperResidueSubstance: undefined, hasPrecipitate: false, precipitateAmount_g: 0 })}
+            disabled={(vessel.filterPaperResidue_g || 0) === 0 && !vessel.hasPrecipitate}
+            className="w-full py-1.5 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs disabled:opacity-40"
+          >
+            <Sparkles size={13} />
+            <span>{t('Replace / Scrape Filter Paper', 'Thay giấy lọc / Thu hồi cặn')}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Volumetric Flask Inversion & Calibration Control */}
+      {vessel.type === 'volumetric_flask' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Volumetric Standard Flask (100 mL)', 'Bình Định Mức Chuẩn (100 mL)')}</span>
+            <span className="text-[10px] font-mono text-blue-600 font-bold">
+              {vessel.volume_ml.toFixed(1)} / {vessel.capacity_ml || 100} mL
+            </span>
+          </div>
+
+          <button
+            onClick={() => invertVolumetricFlask(vessel.id)}
+            className="w-full py-1.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
+            title={t('Invert flask repeatedly to homogenize and dissolve solutes', 'Dốc ngược bình nhiều lần để hòa tan hoàn toàn chất tan')}
+          >
+            <RotateCw size={13} />
+            <span>{t('Stopper & Invert Mix (Dissolve All)', 'Đậy nút & Dốc ngược trộn đều')}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Liebig Condenser Water Circulation Control */}
+      {vessel.type === 'condenser' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Liebig Condenser Jacket', 'Áo Sinh Hàn Liebig')}</span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+              vessel.coolingWaterActive ? 'bg-cyan-100 text-cyan-800' : 'bg-slate-200 text-slate-700'
+            }`}>
+              {vessel.coolingWaterActive ? t('Cooling Water ON', 'Nước làm mát ĐANG MỞ') : t('Water OFF', 'ĐANG TẮT')}
+            </span>
+          </div>
+
+          <button
+            onClick={() => toggleCondenserWater(vessel.id)}
+            className={`w-full py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs ${
+              vessel.coolingWaterActive 
+                ? 'bg-slate-600 hover:bg-slate-700 text-white' 
+                : 'bg-cyan-600 hover:bg-cyan-700 text-white'
+            }`}
+          >
+            <Droplets size={13} />
+            <span>{vessel.coolingWaterActive ? t('Turn OFF Cooling Water', 'Tắt dòng nước làm mát') : t('Turn ON Cooling Water', 'Bật dòng nước làm mát')}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Squeeze Wash Bottle Control */}
+      {vessel.type === 'wash_bottle' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Distilled Water Wash Bottle', 'Bình Tia Nước Cất')}</span>
+            <span className="text-[10px] font-mono text-slate-600 font-bold">
+              {vessel.volume_ml.toFixed(0)} / {vessel.capacity_ml || 250} mL
+            </span>
+          </div>
+
+          <button
+            onClick={() => squirtWashBottle(vessel.id)}
+            disabled={vessel.volume_ml <= 0}
+            className="w-full py-1.5 px-3 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs disabled:opacity-40"
+          >
+            <Droplets size={13} />
+            <span>{t('Squirt 15 mL Distilled Water', 'Tia 15 mL nước cất')}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Test Tube Rack Slot Management */}
+      {vessel.type === 'test_tube_rack' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Test Tube Rack (4 Slots)', 'Giá Ống Nghiệm (4 Vị Trí)')}</span>
+            <span className="text-[10px] font-mono font-bold text-amber-800">
+              {(vessel.slottedTestTubeIds?.length || 0)} / 4 {t('Slotted', 'Ống')}
+            </span>
+          </div>
+
+          {selectedVesselId && selectedVesselId !== vessel.id && vessels[selectedVesselId]?.type === 'test_tube' && !(vessel.slottedTestTubeIds || []).includes(selectedVesselId) && (vessel.slottedTestTubeIds?.length || 0) < 4 && (
+            <button
+              onClick={() => placeTestTubeInRack(vessel.id, selectedVesselId)}
+              className="w-full py-1.5 px-3 bg-amber-700 hover:bg-amber-800 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
+            >
+              <TestTube size={13} />
+              <span>{t('Insert Selected Tube into Rack', 'Cắm ống nghiệm đã chọn vào giá')}</span>
+            </button>
+          )}
+
+          {(vessel.slottedTestTubeIds || []).length > 0 && (
+            <div className="space-y-1 pt-1">
+              <span className="text-[10px] text-slate-400 font-bold block">{t('Tubes in Rack', 'Các ống đang cắm trên giá')}:</span>
+              {vessel.slottedTestTubeIds!.map((tubeId, idx) => {
+                const tube = vessels[tubeId];
+                if (!tube) return null;
+                return (
+                  <div key={tubeId} className="flex items-center justify-between bg-white p-1.5 rounded-lg border border-slate-200 text-xs">
+                    <span className="font-mono text-slate-700 truncate">{idx + 1}. {tube.name}</span>
+                    <button
+                      onClick={() => removeTestTubeFromRack(vessel.id, tubeId)}
+                      className="px-2 py-0.5 bg-slate-100 hover:bg-red-50 hover:text-red-600 rounded text-[10px] font-bold transition-colors"
+                    >
+                      {t('Eject', 'Rút ra')}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Lab Tongs Grip Management */}
+      {vessel.type === 'tongs' && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Laboratory Crucible Tongs', 'Kẹp Gắp Phòng Thí Nghiệm')}</span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+              vessel.grippedVesselId ? 'bg-amber-100 text-amber-800' : 'bg-slate-200 text-slate-700'
+            }`}>
+              {vessel.grippedVesselId ? t('Gripping Vessel', 'Đang kẹp bình') : t('Idle (Open)', 'Đang mở')}
+            </span>
+          </div>
+
+          {vessel.grippedVesselId ? (
+            <div className="bg-white p-2 rounded-lg border border-slate-200 text-xs flex justify-between items-center">
+              <span className="text-slate-700 truncate">{t('Holding', 'Đang giữ')}: <b>{vessels[vessel.grippedVesselId]?.name || vessel.grippedVesselId}</b></span>
+              <button
+                onClick={() => toggleGripWithTongs(vessel.id, vessel.grippedVesselId!)}
+                className="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-colors"
+              >
+                {t('Release', 'Nhả kẹp')}
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                if (selectedVesselId && selectedVesselId !== vessel.id) {
+                  toggleGripWithTongs(vessel.id, selectedVesselId);
+                }
+              }}
+              disabled={!selectedVesselId || selectedVesselId === vessel.id}
+              className="w-full py-1.5 px-3 bg-slate-700 hover:bg-slate-800 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs disabled:opacity-40"
+            >
+              <Sliders size={13} />
+              <span>{t('Grip Selected Target Vessel', 'Kẹp bình thí nghiệm đã chọn')}</span>
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Rubber Stopper & Overpressure Monitoring (For sealable vessels) */}
+      {['flask', 'erlenmeyer', 'test_tube', 'volumetric_flask', 'beaker'].includes(vessel.type) && (
+        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-800">{t('Rubber Stopper & Pressure', 'Nút Cao Su & Áp Suất Khí')}</span>
+            <div className="flex items-center gap-1.5">
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                vessel.isSealed ? 'bg-purple-100 text-purple-800' : 'bg-slate-200 text-slate-700'
+              }`}>
+                {vessel.isSealed ? t('Sealed', 'Đã đậy kín') : t('Open', 'Mở nắp')}
+              </span>
+              <span className="text-[10px] font-mono font-bold text-slate-600">
+                {(vessel.internalPressure_atm || 1.0).toFixed(2)} atm
+              </span>
+            </div>
+          </div>
+
+          {vessel.isSealed && (vessel.internalPressure_atm || 1.0) > 1.8 && (
+            <div className="bg-red-50 border border-red-300 p-2 rounded-lg text-[11px] text-red-800 font-bold flex items-center gap-1.5 animate-pulse">
+              <AlertTriangle size={14} className="text-red-600 shrink-0" />
+              <span>{t('CRITICAL OVERPRESSURE! Danger of explosion (> 2.50 atm)', 'NGUY HIỂM ÁP SUẤT CAO! Nguy cơ nổ vỡ bình (> 2.50 atm)')}</span>
+            </div>
+          )}
+
+          <button
+            onClick={() => sealVessel(vessel.id)}
+            className={`w-full py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs ${
+              vessel.isSealed 
+                ? 'bg-purple-700 hover:bg-purple-800 text-white' 
+                : 'bg-slate-700 hover:bg-slate-800 text-white'
+            }`}
+          >
+            <Lock size={13} />
+            <span>{vessel.isSealed ? t('Remove Stopper (Vent Pressure)', 'Tháo nút cao su (Xả khí)') : t('Seal Vessel with Stopper', 'Đậy kín nút cao su')}</span>
+          </button>
         </div>
       )}
 
@@ -401,7 +772,16 @@ export function VesselInspector() {
               gasColor: undefined, 
               isExplosion: false,
               temperature_c: 25,
-              ph: 7.0
+              ph: 7.0,
+              stainIntensity: 0,
+              stainColor: undefined,
+              stainHeight: undefined,
+              condensationMist: 0,
+              isSuperheated: false,
+              bumpingSurge: false,
+              fumingIntensity: 0,
+              immiscibleOrganicVolume_ml: 0,
+              isPulverized: false
             })}
             className="col-span-1 flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 px-1.5 rounded-lg font-semibold text-[11px] transition-colors"
             title={t('Clean/Empty Vessel', 'Rửa sạch bình')}

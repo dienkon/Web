@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore, getChemical } from '../../store/useAppStore';
@@ -8,10 +8,16 @@ import { createVesselLatheGeometry, getVesselInnerRadius } from './glass';
 import { getCausticTexture } from '../textures';
 import { SimulationEngine } from '../../simulation/core/SimulationEngine';
 import { PourController } from '../../pour/controller/PourController';
+import { vfxBus } from '../bus';
+import { reactionSimulationEngine } from '../reactions/ReactionSimulationEngine';
+import { solveLevel } from '../../pour/physics/retained';
+import { getVesselProfile } from '../../pour/physics/profiles';
+
+import { VesselType } from '../../types/chemistry';
 
 interface LiquidProps {
   vesselId: string;
-  vesselType: 'beaker' | 'flask' | 'test_tube' | 'cylinder';
+  vesselType: VesselType;
   baseY: number;
   maxHeight: number;
   capacity_ml?: number;
@@ -49,6 +55,18 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     initialized: false,
   });
 
+  // Dynamic capillary surface ripples driven by bubble bursts and surface impulses
+  const dynamicRippleRef = useRef(0);
+
+  useEffect(() => {
+    const unsub = vfxBus.on('surface:ripple', (e) => {
+      if (!e.vesselId || e.vesselId === vesselId) {
+        dynamicRippleRef.current = Math.min(1.0, dynamicRippleRef.current + (e.intensity || 0.2) * 0.35);
+      }
+    });
+    return unsub;
+  }, [vesselId]);
+
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
 
   // Dynamic clipping plane dedicated to this vessel's fluid surface
@@ -71,6 +89,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uLiquidColor: { value: new THREE.Color('#38bdf8') },
     uTurbidity: { value: 0.0 }, // 0 = clear, 1 = milky BaSO4/AgCl
     uBoilingIntensity: { value: 0.0 },
+    uDynamicRipple: { value: 0.0 },
     uSloshTilt: { value: new THREE.Vector2(0, 0) },
     uSloshSpeed: { value: 0.0 },
     uSloshAngle: { value: 0.0 },
@@ -225,6 +244,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     mat.onBeforeCompile = (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
       shader.uniforms.uBoilingIntensity = uniforms.uBoilingIntensity;
+      shader.uniforms.uDynamicRipple = uniforms.uDynamicRipple;
       shader.uniforms.uSurfaceRadius = uniforms.uSurfaceRadius;
       shader.uniforms.uSloshSpeed = uniforms.uSloshSpeed;
       shader.uniforms.uSloshAngle = uniforms.uSloshAngle;
@@ -233,6 +253,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       shader.vertexShader = `
         uniform float uTime;
         uniform float uBoilingIntensity;
+        uniform float uDynamicRipple;
         uniform float uSurfaceRadius;
         uniform float uSloshSpeed;
         uniform float uSloshAngle;
@@ -267,9 +288,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
           transformed.z += pourWave;
         }
 
-        // Boiling/effervescence wave displacement
-        if (uBoilingIntensity > 0.05) {
-          float wave = snoise(vec3(position.xy * 8.0, uTime * 6.0)) * uBoilingIntensity * 0.035;
+        // Boiling/effervescence wave displacement & dynamic bubble burst ripples
+        if (uBoilingIntensity > 0.05 || uDynamicRipple > 0.01) {
+          float totalAgitation = uBoilingIntensity + uDynamicRipple * 0.8;
+          float wave = snoise(vec3(position.xy * 8.0, uTime * 6.0)) * totalAgitation * 0.035;
           transformed.z += wave;
         }
         `
@@ -293,6 +315,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const dt = isPaused ? 0 : Math.min(delta, 0.05) * timeScale;
 
     uniforms.uTime.value = state.clock.getElapsedTime();
+
+    // Decay dynamic surface ripples
+    dynamicRippleRef.current = Math.max(0, dynamicRippleRef.current - dt * 3.0);
+    uniforms.uDynamicRipple.value = dynamicRippleRef.current;
 
     const volume = vessel.volume_ml ?? 0;
     const capacity = vessel.capacity_ml ?? capacity_ml;
@@ -350,11 +376,20 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     liquidMaterial.attenuationColor.copy(uniforms.uLiquidColor.value);
     meniscusMaterial.color.copy(uniforms.uLiquidColor.value);
 
-    // Dynamic Turbidity & Cloudiness from physical simulation
+    // Dynamic Turbidity & Cloudiness from physical simulation and dedicated reaction controller
     const simMgr = SimulationEngine.getManager(vesselId);
+    const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
     let targetTurbidity = vessel.hasPrecipitate ? 0.85 : 0.0;
     if (simMgr && simMgr.precipitationSystem.cloudiness > 0.001) {
       targetTurbidity = Math.max(targetTurbidity, simMgr.precipitationSystem.cloudiness);
+    }
+    if (simRuntime && simRuntime.progress < 1.0) {
+      // Allow controller-driven turbidity (including stage-2 redissolution in CuSO4+NH3 and Al(OH)3+NaOH)
+      if (simRuntime.reactionId.includes('cuso4_nh3') || simRuntime.reactionId === 'al_naoh' || simRuntime.reactionId.includes('al2so4_naoh')) {
+        targetTurbidity = simRuntime.turbidity;
+      } else {
+        targetTurbidity = Math.max(targetTurbidity, simRuntime.turbidity);
+      }
     }
     uniforms.uTurbidity.value = THREE.MathUtils.lerp(uniforms.uTurbidity.value, targetTurbidity, 0.08);
 
@@ -365,6 +400,9 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       : 0.0;
     if (simMgr && simMgr.boilingSystem.bubbles.length > 0) {
       targetBoiling = Math.max(targetBoiling, simMgr.boilingSystem.bubbles.length / simMgr.boilingSystem.maxBubbles);
+    }
+    if (simRuntime && simRuntime.surfaceActivity > 0.05) {
+      targetBoiling = Math.max(targetBoiling, simRuntime.surfaceActivity * 0.75);
     }
     uniforms.uBoilingIntensity.value = THREE.MathUtils.lerp(uniforms.uBoilingIntensity.value, targetBoiling, 0.1);
 
@@ -426,8 +464,15 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const kinetics = useAppStore.getState().activeKinetics[vesselId];
     uniforms.uBaseY.value = baseY;
     if (kinetics && kinetics.progress < 1.0) {
+      const rxId = (kinetics.reactionId || '').toLowerCase();
+      let effectiveShaderProgress = kinetics.progress;
+      if (rxId.includes('iodine_clock') || rxId.includes('kio3+nahso3')) {
+        effectiveShaderProgress = kinetics.progress < 0.70 ? 0.0 : Math.min(1.0, (kinetics.progress - 0.70) / 0.06);
+      } else if (rxId.includes('kmno4_oxalic') || rxId.includes('kmno4+h2c2o4')) {
+        effectiveShaderProgress = 1.0 / (1.0 + Math.exp(-12.0 * (kinetics.progress - 0.52)));
+      }
       uniforms.uHasActiveReaction.value = THREE.MathUtils.lerp(uniforms.uHasActiveReaction.value, 1.0, 0.2);
-      uniforms.uReactionProgress.value = kinetics.progress;
+      uniforms.uReactionProgress.value = effectiveShaderProgress;
       if (kinetics.initialLiquidColor) {
         _scratchTargetColor.set(kinetics.initialLiquidColor);
         uniforms.uReactionInitialColor.value.copy(_scratchTargetColor);
@@ -441,29 +486,40 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     }
 
     // 2. Gravity-aligned clipping plane and meniscus disk
-    // Get container world quaternion
+    // World gravity normal with dynamic slosh perturbation (points strictly downward in world space)
+    const worldGravityNormal = new THREE.Vector3(sl.x, -1.0, sl.z).normalize();
+    
+    // Exact liquid surface height in world space
+    const localSurfPt = new THREE.Vector3(0, fillY, 0);
+    const worldSurfPt = localSurfPt.clone().applyMatrix4(meshGroupRef.current.matrixWorld);
+
+    // Three.js evaluates clippingPlanes in world coordinates:
+    // Discards fragments where dot(worldPos, normal) + constant < 0
+    // With normal pointing down, keeps all fragments where worldPos.y <= worldSurfPt.y
+    clippingPlane.setFromNormalAndCoplanarPoint(worldGravityNormal, worldSurfPt);
+
+    // Get container world quaternion to orient the local meniscus disk
     meshGroupRef.current.getWorldQuaternion(_scratchQuat);
     const invContainerQuat = _scratchQuat.clone().invert();
 
-    // World gravity normal with dynamic slosh perturbation
-    const worldGravityNormal = new THREE.Vector3(sl.x, -1.0, sl.z).normalize();
-    // Transform into local space so that when matrixWorld rotates, the plane normal remains strictly vertical in world space!
-    _scratchNormal.copy(worldGravityNormal).applyQuaternion(invContainerQuat);
-    _localPlane.normal.copy(_scratchNormal);
-    _localPlane.constant = -_scratchNormal.y * fillY;
-
-    // Transform clipping plane into world space for WebGL local clipping
-    clippingPlane.copy(_localPlane).applyMatrix4(meshGroupRef.current.matrixWorld);
-
     // Orient meniscus surface disk according to local upward gravity normal
     if (meniscusMeshRef.current) {
-      meniscusMeshRef.current.position.set(0, fillY, 0);
-      meniscusMeshRef.current.scale.set(surfaceR, surfaceR, 1.0);
+      if (volume <= 0.05 || fillFraction <= 0.001) {
+        meniscusMeshRef.current.visible = false;
+      } else {
+        meniscusMeshRef.current.visible = true;
+        meniscusMeshRef.current.position.set(0, fillY, 0);
 
-      // Local upward normal
-      const localUpNormal = new THREE.Vector3(-sl.x, 1.0, -sl.z).normalize().applyQuaternion(invContainerQuat);
-      _scratchQuat.setFromUnitVectors(new THREE.Vector3(0, 0, 1), localUpNormal);
-      meniscusMeshRef.current.quaternion.copy(_scratchQuat);
+        // Meniscus surface scale according to vessel inner geometry
+        meniscusMeshRef.current.scale.set(surfaceR, surfaceR, 1.0);
+
+        // World up (0, 1, 0) transformed into local container space
+        const localUpNormal = new THREE.Vector3(-worldGravityNormal.x, -worldGravityNormal.y, -worldGravityNormal.z)
+          .applyQuaternion(invContainerQuat)
+          .normalize();
+        _scratchQuat.setFromUnitVectors(new THREE.Vector3(0, 0, 1), localUpNormal);
+        meniscusMeshRef.current.quaternion.copy(_scratchQuat);
+      }
     }
 
     // Update caustic projector quad under vessel
@@ -492,7 +548,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         material={meniscusMaterial}
         renderOrder={3}
       >
-        <circleGeometry args={[1.0, 32]} />
+        <ringGeometry args={[0.001, 1.0, 32, 8]} />
       </mesh>
 
       {/* Realistic Dynamic Caustic Shadow Quad on Workbench */}

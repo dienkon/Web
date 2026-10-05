@@ -5,6 +5,9 @@ import { vfxBus } from '../../vfx/bus';
 import { useAppStore } from '../../store/useAppStore';
 import { getVesselProfile } from '../physics/profiles';
 import { kineticsEngine } from '../../simulation/chemistry/KineticsEngine';
+import { clampTilt } from '../../handling/limits';
+
+let pourSessionCounter = 0;
 
 export type PourListener = (session: PourSessionState | null) => void;
 
@@ -50,7 +53,7 @@ class PourControllerClass {
     const sourceVessel = store.vessels[opts.sourceId];
     if (!sourceVessel) return;
 
-    const id = `pour_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const id = `pour_${++pourSessionCounter}`;
     const initialPos: [number, number, number] = [...sourceVessel.position];
 
     this.activeSession = {
@@ -101,7 +104,9 @@ class PourControllerClass {
    */
   public setTilt(rad: number): void {
     if (!this.activeSession) return;
-    this.activeSession.targetTilt = Math.max(0, Math.min(Math.PI * 0.9, rad));
+    const store = useAppStore.getState();
+    const sourceVessel = store.vessels[this.activeSession.sourceId];
+    this.activeSession.targetTilt = clampTilt(sourceVessel?.type, rad);
   }
 
   /**
@@ -147,8 +152,8 @@ class PourControllerClass {
       const mouthY = targetVessel.position[1] + tgtProfile.lipLocal[1];
       const mouthR = tgtProfile.mouthR;
       hoverPos = [
-        targetVessel.position[0] - mouthR * 0.7 - srcProfile.mouthR * 0.45,
-        mouthY + 0.38,
+        targetVessel.position[0] - mouthR * 0.72 - srcProfile.mouthR * 0.35,
+        mouthY + 0.32,
         targetVessel.position[2]
       ];
     }
@@ -177,14 +182,17 @@ class PourControllerClass {
 
           if (this.activeSession.lift >= 0.98) {
             this.activeSession.phase = 'tilting';
+            this.activeSession.sourcePos = [...hoverPos];
             if (this.activeSession.assist === 'high' || this.activeSession.mode === 'ASSIST') {
-              this.activeSession.targetTilt = 1.15; // ~66 degrees optimal pour angle
+              this.activeSession.targetTilt = 0.65; // Initial gentle pour angle allowing user to adjust tilt for flow rate
             }
           }
           break;
         }
 
         case 'tilting': {
+          // Lock aligned source position at rim
+          this.activeSession.sourcePos = [...hoverPos];
           // Smooth tilt towards targetTilt
           const tiltSpeed = 7.0;
           this.activeSession.tilt += (this.activeSession.targetTilt - this.activeSession.tilt) * Math.min(1, FIXED_STEP * tiltSpeed);
@@ -209,6 +217,8 @@ class PourControllerClass {
         }
 
         case 'pouring': {
+          // Lock aligned source position at rim
+          this.activeSession.sourcePos = [...hoverPos];
           // Smooth tilt response
           const tiltSpeed = 8.5;
           this.activeSession.tilt += (this.activeSession.targetTilt - this.activeSession.tilt) * Math.min(1, FIXED_STEP * tiltSpeed);
@@ -245,6 +255,20 @@ class PourControllerClass {
                 sourceVessel.substances || [],
                 event.color
               );
+              // Realistic parabolic droplet splatter eruption
+              const isAcid = (sourceVessel.ph !== undefined && sourceVessel.ph < 5.5) ||
+                (sourceVessel.substances || []).some(s => {
+                  const l = s.toLowerCase();
+                  return l.includes('hcl') || l.includes('h2so4') || l.includes('hno3') || l.includes('ch3cooh');
+                });
+              vfxBus.emit('acid:splatter', {
+                position: event.position,
+                count: Math.min(48, Math.max(12, Math.floor(event.flowRate_ml_s * 0.85))),
+                speed: 2.6 + Math.min(2.8, event.flowRate_ml_s * 0.05),
+                color: event.color,
+                substances: sourceVessel.substances || [],
+                isAcid
+              });
             }
           }
 

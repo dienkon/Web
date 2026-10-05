@@ -197,6 +197,29 @@ export const SUBSTANCE_DATABASE: Record<string, PhysicalSubstance> = {
     hazards: ['corrosive']
   },
 
+  // 6b. Potassium hydroxide
+  'KOH': {
+    id: 'KOH',
+    formula: 'KOH',
+    name: 'Potassium Hydroxide',
+    name_vi: 'Kali Hiđroxit',
+    phase_STP: 'aqueous',
+    molarMass: 0.056105,
+    density: 2040.0,
+    Cp: 4050.0,
+    boilingPoint: 378.0,
+    viscosity: 1.15e-3,
+    dH_sol: -57600, // Strongly exothermic dissolution
+    Kb: [1.0e7], // Strong base
+    ions: [
+      { species: 'K+', n: 1, charge: 1 },
+      { species: 'OH-', n: 1, charge: -1 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
+    solidAppearance: { color: '#ffffff', morphology: 'pellet' as any, glossiness: 0.4 },
+    hazards: ['corrosive']
+  },
+
   // 7. Ammonia solution
   'NH3': {
     id: 'NH3',
@@ -256,6 +279,27 @@ export const SUBSTANCE_DATABASE: Record<string, PhysicalSubstance> = {
     optical: { absorptivity_RGB: [0.0, 0.0, 0.0], scatter: 0.0 },
     solidAppearance: { color: '#ffffff', morphology: 'crystal', glossiness: 0.6 },
     hazards: []
+  },
+
+  // 9b. Sodium nitrate
+  'NaNO3': {
+    id: 'NaNO3',
+    formula: 'NaNO3',
+    name: 'Sodium Nitrate',
+    name_vi: 'Natri Nitrat',
+    phase_STP: 'aqueous',
+    molarMass: 0.08499,
+    density: 2260.0,
+    Cp: 4020.0,
+    meltingPoint: 581.0,
+    dH_sol: 20500, // Endothermic dissolution
+    ions: [
+      { species: 'Na+', n: 1, charge: 1 },
+      { species: 'NO3-', n: 1, charge: -1 }
+    ],
+    optical: { absorptivity_RGB: [0.0, 0.0, 0.0], scatter: 0.0 },
+    solidAppearance: { color: '#ffffff', morphology: 'crystal', glossiness: 0.5 },
+    hazards: ['oxidizer']
   },
 
   // 10. Silver nitrate
@@ -1042,6 +1086,129 @@ export const SUBSTANCE_DATABASE: Record<string, PhysicalSubstance> = {
     // Acid form is colorless; base form In2- is intense magenta (absorbs green ~550 nm)
     optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
     hazards: ['flammable']
+  },
+
+  // 57. Potassium Thiocyanate (KSCN)
+  'KSCN': {
+    id: 'KSCN',
+    formula: 'KSCN',
+    name: 'Potassium Thiocyanate',
+    name_vi: 'Kali Thioxianat',
+    phase_STP: 'aqueous',
+    molarMass: 0.09718,
+    density: 1020.0,
+    Cp: 4100.0,
+    ions: [
+      { species: 'K+', n: 1, charge: 1 },
+      { species: 'SCN-', n: 1, charge: -1 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
+    hazards: ['irritant']
+  },
+
+  // 58. Oxalic Acid (H2C2O4)
+  'H2C2O4': {
+    id: 'H2C2O4',
+    formula: 'H2C2O4',
+    name: 'Oxalic Acid',
+    name_vi: 'Axit Oxalic',
+    phase_STP: 'aqueous',
+    molarMass: 0.09003,
+    density: 1010.0,
+    Cp: 4120.0,
+    Ka: [0.054, 5.4e-5],
+    ions: [
+      { species: 'H+', n: 2, charge: 1 },
+      { species: 'C2O4^2-', n: 1, charge: -2 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
+    hazards: ['toxic', 'corrosive']
+  },
+
+  // 59. Potassium Iodate (KIO3)
+  'KIO3': {
+    id: 'KIO3',
+    formula: 'KIO3',
+    name: 'Potassium Iodate',
+    name_vi: 'Kali Iodat',
+    phase_STP: 'aqueous',
+    molarMass: 0.214,
+    density: 1020.0,
+    Cp: 4100.0,
+    ions: [
+      { species: 'K+', n: 1, charge: 1 },
+      { species: 'IO3-', n: 1, charge: -1 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
+    hazards: ['oxidizer']
+  },
+
+  // 60. Sodium Bisulfite (NaHSO3)
+  'NaHSO3': {
+    id: 'NaHSO3',
+    formula: 'NaHSO3',
+    name: 'Sodium Bisulfite',
+    name_vi: 'Natri Bisunfit',
+    phase_STP: 'aqueous',
+    molarMass: 0.10406,
+    density: 1020.0,
+    Cp: 4100.0,
+    ions: [
+      { species: 'Na+', n: 1, charge: 1 },
+      { species: 'HSO3-', n: 1, charge: -1 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
+    hazards: ['irritant']
+  },
+
+  // 61. Aluminum Sulfate (Al2(SO4)3)
+  'Al2(SO4)3': {
+    id: 'Al2(SO4)3',
+    formula: 'Al2(SO4)3',
+    name: 'Aluminum Sulfate',
+    name_vi: 'Nhôm Sunfat',
+    phase_STP: 'aqueous',
+    molarMass: 0.34215,
+    density: 1030.0,
+    Cp: 4050.0,
+    ions: [
+      { species: 'Al3+', n: 2, charge: 3 },
+      { species: 'SO4^2-', n: 3, charge: -2 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 },
+    hazards: ['irritant']
+  },
+
+  // 62. Iron(III) Thiocyanate Complex Ion
+  'Fe(SCN)2+': {
+    id: 'Fe(SCN)2+',
+    formula: '[Fe(SCN)]2+',
+    name: 'Iron(III) Thiocyanate Complex',
+    name_vi: 'Phức chất Sắt(III) Thioxianat',
+    phase_STP: 'aqueous',
+    molarMass: 0.114,
+    density: 1020.0,
+    Cp: 4100.0,
+    optical: { absorptivity_RGB: [0.05, 1.85, 1.95], scatter: 0.0 }, // Brilliant Blood Red
+    hazards: []
+  },
+
+  // 63. Manganese(II) Sulfate (MnSO4)
+  'MnSO4': {
+    id: 'MnSO4',
+    formula: 'MnSO4',
+    name: 'Manganese(II) Sulfate',
+    name_vi: 'Mangan(II) Sunfat',
+    phase_STP: 'aqueous',
+    molarMass: 0.151,
+    density: 1020.0,
+    Cp: 4100.0,
+    ions: [
+      { species: 'Mn2+', n: 1, charge: 2 },
+      { species: 'SO4^2-', n: 1, charge: -2 }
+    ],
+    optical: { absorptivity_RGB: [0.001, 0.001, 0.001], scatter: 0.0 }, // Pale/Colorless
+    hazards: []
   }
 };
 

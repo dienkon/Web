@@ -1,7 +1,8 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useAppStore, getChemical } from '../../store/useAppStore';
+import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
+import { labSound } from '../../utils/audio';
 import { useQualityStore } from '../../vfx/quality';
 import { getGlassMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
 
@@ -54,6 +55,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const color = chemData.color || '#38bdf8';
   const type = chemData.type;
   const isDropper = chemData.category === 'indicator' || chemical === 'Phenolphthalein' || chemical === 'MethylOrange';
+  const morphology: SolidMorphology = getSolidMorphology(chemical);
 
   const groupRef = useRef<THREE.Group>(null);
   const streamRef = useRef<THREE.Mesh>(null);
@@ -61,6 +63,8 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const dropRef = useRef<THREE.Mesh>(null);
   const solidInstancedRef = useRef<THREE.InstancedMesh>(null);
   const startTime = useRef(Date.now());
+  const soundPlayedRef = useRef(false);
+  const lastDropIndexRef = useRef(-1);
 
   // Target vessel properties
   const targetVessel = useAppStore(state => state.vessels[targetId]);
@@ -80,16 +84,16 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       const angle = (i * 2.39996) % (Math.PI * 2);
       const spreadR = Math.sqrt((i + 1) / 28) * (mouthRadius * 0.42);
       return {
-        stagger: 0.65 + i * 0.052,
+        stagger: 0.22 + i * 0.038,
         offsetX: Math.cos(angle) * spreadR,
         offsetZ: Math.sin(angle) * spreadR,
         vx: (Math.random() - 0.5) * 0.06,
         vz: (Math.random() - 0.5) * 0.06,
-        size: 0.045 + (i % 5) * 0.015,
+        size: 0.09 + (i % 5) * 0.025,
         spinX: (Math.random() - 0.5) * 8.0,
         spinY: (Math.random() - 0.5) * 8.0,
         spinZ: (Math.random() - 0.5) * 8.0,
-        pileY: ((i % 4) * 0.02),
+        pileY: ((i % 4) * 0.025),
       };
     });
   }, [mouthRadius]);
@@ -117,22 +121,44 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       const bottomY = targetY - 0.95;
       const actualSurfaceY = hasWater ? liquidSurfaceY : bottomY;
 
-      if (elapsed < 0.6) {
+      if (elapsed < 0.25) {
         // Approach vessel mouth from upper-right
-        const t = THREE.MathUtils.smoothstep(elapsed / 0.6, 0, 1);
+        const t = THREE.MathUtils.smoothstep(elapsed / 0.25, 0, 1);
         groupRef.current.position.set(
-          THREE.MathUtils.lerp(targetX + 2.2, targetX + 0.45, t),
-          THREE.MathUtils.lerp(mouthY + 1.8, mouthY + 0.55, t),
+          THREE.MathUtils.lerp(targetX + 1.8, targetX + 0.45, t),
+          THREE.MathUtils.lerp(mouthY + 1.4, mouthY + 0.55, t),
           targetZ
         );
         groupRef.current.rotation.z = THREE.MathUtils.lerp(0, 0.25, t);
         if (solidInstancedRef.current) solidInstancedRef.current.visible = false;
         if (rippleRef.current) rippleRef.current.visible = false;
-      } else if (elapsed < 2.45) {
+      } else if (elapsed < 1.4) {
+        if (!soundPlayedRef.current) {
+          soundPlayedRef.current = true;
+          if (morphology === 'GRANULES' || morphology === 'CHIPS') {
+            if (hasWater) {
+              labSound.playDroplet();
+            } else {
+              labSound.playTap();
+            }
+          } else if (morphology === 'RIBBON' || morphology === 'TURNINGS' || morphology === 'FILINGS') {
+            labSound.playTap();
+          } else if (morphology === 'PELLET') {
+            if (hasWater && (chemical === 'Na' || chemical === 'K')) {
+              labSound.playDroplet();
+              labSound.playSodiumSizzlePop(0.35);
+            } else {
+              labSound.playTap();
+            }
+          } else {
+            labSound.playPowder();
+          }
+        }
+
         // Tapping / vibrating spatula directly above vessel opening
-        const t = (elapsed - 0.6) / 1.85;
+        const t = (elapsed - 0.25) / 1.15;
         const tapVibe = Math.sin(time * 36) * 0.02;
-        const pourTilt = THREE.MathUtils.lerp(0.25, 0.52, Math.min(1, t * 1.4));
+        const pourTilt = THREE.MathUtils.lerp(0.25, 0.55, Math.min(1, t * 1.5));
         groupRef.current.position.set(targetX + 0.45, mouthY + 0.55, targetZ);
         groupRef.current.rotation.z = pourTilt + tapVibe;
 
@@ -210,15 +236,15 @@ export const AddingAnimation = React.memo(function AddingAnimation({
             }
           }
         }
-      } else if (elapsed < 3.0) {
+      } else if (elapsed < 1.7) {
         // Retract spatula and depart
-        const t = THREE.MathUtils.smoothstep((elapsed - 2.45) / 0.55, 0, 1);
+        const t = THREE.MathUtils.smoothstep((elapsed - 1.4) / 0.3, 0, 1);
         groupRef.current.position.set(
-          THREE.MathUtils.lerp(targetX + 0.45, targetX + 2.4, t),
-          THREE.MathUtils.lerp(mouthY + 0.55, mouthY + 2.2, t),
+          THREE.MathUtils.lerp(targetX + 0.45, targetX + 2.0, t),
+          THREE.MathUtils.lerp(mouthY + 0.55, mouthY + 1.8, t),
           targetZ
         );
-        groupRef.current.rotation.z = THREE.MathUtils.lerp(0.52, 0, t);
+        groupRef.current.rotation.z = THREE.MathUtils.lerp(0.55, 0, t);
         if (rippleRef.current) rippleRef.current.visible = false;
       } else {
         onComplete();
@@ -245,8 +271,14 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       } else if (elapsed < 2.4) {
         // Hover and rhythmic drop formation & detachment
         groupRef.current.position.set(targetX, mouthY + 1.45, targetZ);
+        const dropIndex = Math.floor((elapsed - 0.6) / 0.6);
         const cycleProgress = ((elapsed - 0.6) % 0.6) / 0.6; // 3 drops over 1.8s
         const tipY = mouthY + 0.45;
+
+        if (dropIndex !== lastDropIndexRef.current && cycleProgress > 0.45) {
+          lastDropIndexRef.current = dropIndex;
+          labSound.playDrop();
+        }
 
         if (dropRef.current) {
           dropRef.current.visible = true;
@@ -315,6 +347,11 @@ export const AddingAnimation = React.memo(function AddingAnimation({
 
       const isStreaming = t > 0.12 && t < 0.92;
 
+      if (isStreaming && !soundPlayedRef.current) {
+        soundPlayedRef.current = true;
+        labSound.playPour(1.4);
+      }
+
       // Spout tip in world coordinates
       const spoutX = targetX + 0.82 - Math.sin(tiltAngle) * 0.98;
       const spoutY = mouthY + 0.62 + Math.cos(tiltAngle) * 0.98;
@@ -376,37 +413,139 @@ export const AddingAnimation = React.memo(function AddingAnimation({
             <boxGeometry args={[1.5, 0.035, 0.16]} />
             <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.18} />
           </mesh>
-          {/* Blade scoop with powdered reagent resting on it */}
-          <mesh position={[-0.2, 0.04, 0]}>
-            <sphereGeometry args={[0.08, 12, 12]} />
-            <meshStandardMaterial color={color} roughness={0.92} />
-          </mesh>
+          {/* Blade scoop with solid reagent resting on it matching authentic morphology */}
+          {morphology === 'RIBBON' ? (
+            <mesh position={[-0.2, 0.08, 0]} rotation={[0.4, 0.2, -0.6]}>
+              <torusGeometry args={[0.16, 0.04, 6, 16, Math.PI * 1.5]} />
+              <meshStandardMaterial color={color} roughness={0.18} metalness={0.96} />
+            </mesh>
+          ) : morphology === 'TURNINGS' ? (
+            <mesh position={[-0.2, 0.08, 0]} rotation={[0.2, 0.5, -0.4]}>
+              <torusGeometry args={[0.14, 0.035, 6, 16, Math.PI * 1.8]} />
+              <meshStandardMaterial color="#ea580c" roughness={0.22} metalness={0.98} />
+            </mesh>
+          ) : morphology === 'FILINGS' ? (
+            <mesh position={[-0.2, 0.06, 0]} scale={[1.1, 0.6, 0.9]}>
+              <sphereGeometry args={[0.13, 12, 12]} />
+              <meshStandardMaterial color="#475569" roughness={0.35} metalness={0.92} />
+            </mesh>
+          ) : morphology === 'GRANULES' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <dodecahedronGeometry args={[0.14, 0]} />
+              <meshStandardMaterial color={color} roughness={0.4} metalness={0.88} />
+            </mesh>
+          ) : morphology === 'CHIPS' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <dodecahedronGeometry args={[0.15, 0]} />
+              <meshStandardMaterial color="#f1f5f9" roughness={0.82} metalness={0.02} />
+            </mesh>
+          ) : morphology === 'CUBIC_CRYSTAL' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <boxGeometry args={[0.18, 0.18, 0.18]} />
+              <meshStandardMaterial color={color} roughness={0.2} metalness={0.1} />
+            </mesh>
+          ) : morphology === 'PRISMATIC_CRYSTAL' ? (
+            <mesh position={[-0.2, 0.06, 0]} rotation={[0, 0, Math.PI / 4]}>
+              <cylinderGeometry args={[0.03, 0.03, 0.28, 6]} />
+              <meshStandardMaterial color="#581c87" roughness={0.12} metalness={0.65} />
+            </mesh>
+          ) : morphology === 'TABULAR_CRYSTAL' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <boxGeometry args={[0.22, 0.05, 0.18]} />
+              <meshStandardMaterial color="#ea580c" roughness={0.18} metalness={0.35} />
+            </mesh>
+          ) : morphology === 'HYDRATE_CRYSTAL' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <octahedronGeometry args={[0.15, 0]} />
+              <meshStandardMaterial color={color} roughness={0.15} metalness={0.12} />
+            </mesh>
+          ) : morphology === 'LUSTROUS_PLATES' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <boxGeometry args={[0.22, 0.05, 0.16]} />
+              <meshStandardMaterial color="#3b0764" roughness={0.18} metalness={0.75} />
+            </mesh>
+          ) : morphology === 'PELLET' ? (
+            <mesh position={[-0.2, 0.06, 0]}>
+              <boxGeometry args={[0.16, 0.14, 0.16]} />
+              <meshStandardMaterial color="#cbd5e1" roughness={0.3} metalness={0.9} />
+            </mesh>
+          ) : (
+            <mesh position={[-0.2, 0.06, 0]} scale={[1.2, 0.65, 0.95]}>
+              <sphereGeometry args={[0.15, 16, 12]} />
+              <meshStandardMaterial color={color} roughness={0.96} metalness={0.02} />
+            </mesh>
+          )}
         </group>
 
-        {/* Dynamic Falling Solid Chunks (InstancedMesh, zero allocation) */}
+        {/* Dynamic Falling Solid Particles (InstancedMesh, matches morphology) */}
         <instancedMesh
           ref={solidInstancedRef}
           args={[undefined, undefined, solidChunkCount]}
           renderOrder={5}
           visible={false}
         >
-          {chemData.category === 'metal' ? (
-            <cylinderGeometry args={[0.04, 0.05, 0.06, 6]} />
-          ) : chemData.category === 'salt' ? (
-            <boxGeometry args={[0.045, 0.045, 0.045]} />
+          {morphology === 'RIBBON' ? (
+            <torusGeometry args={[0.75, 0.16, 8, 20, Math.PI * 1.5]} />
+          ) : morphology === 'TURNINGS' ? (
+            <torusGeometry args={[0.70, 0.15, 8, 20, Math.PI * 1.8]} />
+          ) : morphology === 'FILINGS' ? (
+            <cylinderGeometry args={[0.07, 0.07, 1.0, 8]} />
+          ) : morphology === 'GRANULES' ? (
+            <dodecahedronGeometry args={[0.75, 0]} />
+          ) : morphology === 'CHIPS' ? (
+            <dodecahedronGeometry args={[0.85, 0]} />
+          ) : morphology === 'CUBIC_CRYSTAL' ? (
+            <boxGeometry args={[0.85, 0.85, 0.85]} />
+          ) : morphology === 'PRISMATIC_CRYSTAL' ? (
+            <cylinderGeometry args={[0.1, 0.1, 1.25, 6]} />
+          ) : morphology === 'TABULAR_CRYSTAL' ? (
+            <boxGeometry args={[0.85, 0.22, 1.1]} />
+          ) : morphology === 'HYDRATE_CRYSTAL' ? (
+            <octahedronGeometry args={[0.85, 0]} />
+          ) : morphology === 'LUSTROUS_PLATES' ? (
+            <boxGeometry args={[0.9, 0.25, 0.7]} />
           ) : (
-            <dodecahedronGeometry args={[0.04, 0]} />
+            <dodecahedronGeometry args={[0.55, 0]} />
           )}
           <meshStandardMaterial
-            color={color}
-            roughness={chemData.category === 'metal' ? 0.28 : 0.9}
-            metalness={chemData.category === 'metal' ? 0.88 : 0.08}
+            color={
+              morphology === 'TURNINGS' ? '#ea580c' : 
+              (morphology === 'FILINGS' ? '#475569' : 
+              (morphology === 'LUSTROUS_PLATES' ? '#3b0764' : 
+              (morphology === 'PRISMATIC_CRYSTAL' ? '#581c87' : 
+              (morphology === 'TABULAR_CRYSTAL' ? '#ea580c' : 
+              (morphology === 'CHIPS' ? '#f1f5f9' : color)))))
+            }
+            roughness={
+              morphology === 'RIBBON' ? 0.18 : 
+              (morphology === 'TURNINGS' ? 0.22 : 
+              (morphology === 'FILINGS' ? 0.35 : 
+              (morphology === 'GRANULES' ? 0.40 : 
+              (morphology === 'CHIPS' ? 0.82 :
+              (morphology === 'LUSTROUS_PLATES' ? 0.18 : 
+              (morphology === 'PRISMATIC_CRYSTAL' ? 0.12 : 
+              (morphology === 'TABULAR_CRYSTAL' ? 0.18 : 
+              (morphology === 'HYDRATE_CRYSTAL' ? 0.15 : 
+              (morphology === 'CUBIC_CRYSTAL' ? 0.20 : 0.96)))))))))
+            }
+            metalness={
+              morphology === 'RIBBON' ? 0.96 : 
+              (morphology === 'TURNINGS' ? 0.98 : 
+              (morphology === 'FILINGS' ? 0.92 : 
+              (morphology === 'GRANULES' ? 0.88 : 
+              (morphology === 'CHIPS' ? 0.02 :
+              (morphology === 'LUSTROUS_PLATES' ? 0.75 : 
+              (morphology === 'PRISMATIC_CRYSTAL' ? 0.65 : 
+              (morphology === 'TABULAR_CRYSTAL' ? 0.35 : 
+              (morphology === 'HYDRATE_CRYSTAL' ? 0.12 : 
+              (morphology === 'CUBIC_CRYSTAL' ? 0.10 : 0.02)))))))))
+            }
           />
         </instancedMesh>
 
         {/* Dynamic Concentric Water Surface Ripple on Impact */}
         <mesh ref={rippleRef} rotation={[-Math.PI / 2, 0, 0]} visible={false} renderOrder={4}>
-          <ringGeometry args={[0.02, 0.16, 24]} />
+          <ringGeometry args={[0.04, 0.25, 24]} />
           <meshBasicMaterial color="#ffffff" transparent opacity={0.75} side={THREE.DoubleSide} depthWrite={false} />
         </mesh>
       </group>

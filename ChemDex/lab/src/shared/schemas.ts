@@ -23,8 +23,11 @@ export const MixResultSchema = z.object({
   new_vessel_state: z.object({
     liquid_color: z.string().optional(),
     liquid_level: z.number(),
+    temperature_c: z.number().optional(),
     has_precipitate: z.boolean().default(false),
     precipitate_color: z.string().optional(),
+    precipitate_substance: z.string().optional(),
+    precipitate_amount_g: z.number().optional(),
     is_boiling: z.boolean().default(false),
     has_gas: z.boolean().default(false),
     gas_color: z.string().optional(),

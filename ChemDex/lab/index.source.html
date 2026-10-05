@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChemDex - Phòng Thí Nghiệm Hóa Học Ảo (Virtual ChemLab)</title>
+    <meta name="description" content="Phòng thí nghiệm hóa học 3D tương tác ChemDex với mô phỏng phản ứng hóa học chân thực, chuẩn độ, rót chất lỏng, và an toàn phòng lab." />
+    <meta property="og:title" content="ChemDex - Phòng Thí Nghiệm Hóa Học Ảo" />
+    <meta property="og:description" content="Phòng thí nghiệm hóa học 3D tương tác ChemDex với mô phỏng phản ứng hóa học chân thực, chuẩn độ, rót chất lỏng, và an toàn phòng lab." />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>
+      (function() {
+        try {
+          var proto = window;
+          while (proto) {
+            var desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+            if (desc) {
+              if (desc.get && !desc.set) {
+                var currentFetch = window.fetch.bind(window);
+                Object.defineProperty(window, 'fetch', {
+                  get: function() { return currentFetch; },
+                  set: function(val) { currentFetch = val; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+              break;
+            }
+            proto = Object.getPrototypeOf(proto);
+          }
+        } catch (e) {
+          // ignore
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

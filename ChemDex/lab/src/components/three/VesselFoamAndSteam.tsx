@@ -108,12 +108,12 @@ export const VesselFoamAndSteam = React.memo(function VesselFoamAndSteam({
           </mesh>
           {/* Multi-bubble foam clusters */}
           {foamBubbles.slice(0, foamCount).map((b, i) => (
-            <mesh key={i} position={[b.x, b.y, b.z]}>
-              <sphereGeometry args={[b.size, 10, 10]} />
+            <mesh key={i} position={[b.x, b.y, b.z]} rotation={[-Math.PI / 2, 0, 0]}>
+              <circleGeometry args={[b.size, 16]} />
               <meshStandardMaterial
                 color="#ffffff"
                 transparent
-                opacity={0.92}
+                opacity={0.65}
                 roughness={0.2}
                 metalness={0.1}
                 depthWrite={false}

@@ -72,7 +72,7 @@ export function getRetainedVolumeSamples(profile: VesselProfile): number[] {
   }
 
   const samples: number[] = new Array(SAMPLE_COUNT);
-  const maxTheta = Math.PI * 0.95; // 0 to ~171 degrees
+  const maxTheta = Math.PI; // Full range 0 to 180 degrees (inversion)
 
   // Base upright volume at theta = 0
   const rawUpright = volumeBelowPlane(profile, 0, 1, profile.lipLocal[1], 48);
@@ -81,6 +81,13 @@ export function getRetainedVolumeSamples(profile: VesselProfile): number[] {
   let prevVol = profile.capacity_ml;
 
   for (let i = 0; i < SAMPLE_COUNT; i++) {
+    if (i === SAMPLE_COUNT - 1) {
+      // Inverted pose: liquid completely drains out of open-top vessel
+      samples[i] = 0;
+      prevVol = 0;
+      continue;
+    }
+
     const theta = (i / (SAMPLE_COUNT - 1)) * maxTheta;
     // Tilted towards the pouring spout at +lipX:
     // Upward free surface normal has nx < 0 (pointing opposite to tilt) and ny > 0
@@ -107,18 +114,23 @@ export function getRetainedVolumeSamples(profile: VesselProfile): number[] {
  * Liquid spills when vessel volume exceeds this retained capacity.
  */
 export function retainedVolume(typeOrProfile: string | VesselProfile, thetaRad: number): number {
+  const absTheta = Math.abs(thetaRad);
+  if (absTheta >= Math.PI - 1e-4) {
+    return 0;
+  }
   const profile = typeof typeOrProfile === 'string' ? getVesselProfile(typeOrProfile) : typeOrProfile;
   const samples = getRetainedVolumeSamples(profile);
 
-  const maxTheta = Math.PI * 0.95;
-  const clampedTheta = Math.max(0, Math.min(maxTheta, Math.abs(thetaRad)));
+  const maxTheta = Math.PI;
+  const clampedTheta = Math.max(0, Math.min(maxTheta, absTheta));
   const frac = clampedTheta / maxTheta;
   const indexFloat = frac * (SAMPLE_COUNT - 1);
   const i0 = Math.floor(indexFloat);
   const i1 = Math.min(SAMPLE_COUNT - 1, i0 + 1);
   const t = indexFloat - i0;
 
-  return (1 - t) * samples[i0] + t * samples[i1];
+  const res = (1 - t) * samples[i0] + t * samples[i1];
+  return Math.max(0, isNaN(res) ? 0 : res);
 }
 
 /**
@@ -130,22 +142,25 @@ export function solveLevel(
   thetaRad: number,
   volume_ml: number
 ): { c: number; liquidTopY: number; surfaceArea: number } {
+  if (volume_ml <= 0.001) {
+    return { c: profile.baseY - 0.5, liquidTopY: profile.baseY, surfaceArea: 0.1 };
+  }
+
   const nx = -Math.sin(thetaRad);
   const ny = Math.cos(thetaRad);
 
   const fullVol = profile.capacity_ml;
   const targetRatio = Math.max(0.01, Math.min(1.0, volume_ml / fullVol));
 
-  const samples = getRetainedVolumeSamples(profile);
   const rawUpright = volumeBelowPlane(profile, 0, 1, profile.lipLocal[1], 24);
   const scaleToMl = rawUpright > 0 ? profile.capacity_ml / rawUpright : 1.0;
 
   // Binary search for plane offset c
-  let cMin = -2.5;
+  let cMin = -3.5;
   let cMax = 3.5;
   let bestC = (cMin + cMax) / 2;
 
-  for (let iter = 0; iter < 12; iter++) {
+  for (let iter = 0; iter < 14; iter++) {
     const mid = (cMin + cMax) / 2;
     const vol = volumeBelowPlane(profile, nx, ny, mid, 24) * scaleToMl;
     if (vol < volume_ml) {
@@ -158,8 +173,8 @@ export function solveLevel(
 
   const lipY = profile.lipLocal[1];
   const liquidTopY = profile.baseY + targetRatio * (lipY - profile.baseY);
-  const radiusAtLevel = profile.r(liquidTopY);
-  const surfaceArea = Math.PI * radiusAtLevel * radiusAtLevel;
+  const radiusAtLevel = Math.max(0.1, profile.r(liquidTopY));
+  const surfaceArea = Math.max(0.1, Math.PI * radiusAtLevel * radiusAtLevel);
 
-  return { c: bestC, liquidTopY, surfaceArea };
+  return { c: isNaN(bestC) ? 0 : bestC, liquidTopY, surfaceArea };
 }

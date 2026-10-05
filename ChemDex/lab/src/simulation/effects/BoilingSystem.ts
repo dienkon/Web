@@ -3,6 +3,7 @@ import { PhysicalBubble, BoilingStage } from '../core/SimulationTypes';
 import { DEFAULT_SIMULATION_CONFIG } from '../core/SimulationConfig';
 import { ConvectionSystem } from './ConvectionSystem';
 import { vfxBus } from '../../vfx/bus';
+import { labSound } from '../../utils/audio';
 
 export interface BoilingSimulationParams {
   temp_c: number;
@@ -23,6 +24,7 @@ export class BoilingSystem {
   public maxBubbles: number;
   private spawnTimer = 0;
   private nextId = 1;
+  private lastAudioPopTime = 0;
 
   constructor(maxBubbles = 90) {
     this.maxBubbles = maxBubbles;
@@ -146,14 +148,14 @@ export class BoilingSystem {
     for (let i = 0; i < count; i++) {
       const b = this.bubbles[i];
 
-      // Handling pop sequence at surface
+      // 1. Handling surface arrival dome, thin-film drainage and burst
       if (b.isPopping) {
-        b.popProgress += dt * 7.5; // Rapid pop sequence across ~0.13s (7-8 frames)
-        b.radius = b.baseRadius * (1.35 + b.popProgress * 0.65);
-        b.opacity = Math.max(0, 0.85 * (1.0 - b.popProgress));
+        b.popProgress += dt * 6.5; // Realistic drainage & burst sequence (~0.15s)
+        b.radius = b.baseRadius * (1.15 + b.popProgress * 0.45);
+        b.opacity = Math.max(0, 0.88 * (1.0 - b.popProgress));
 
         if (b.popProgress >= 1.0) {
-          // Finished pop
+          // Finished burst
           continue;
         }
         activeBubbles.push(b);
@@ -165,11 +167,11 @@ export class BoilingSystem {
         continue;
       }
 
-      // Check sub-boiling microbubble collapse
+      // 2. Check sub-boiling microbubble collapse
       // In sub-cooled boiling (80-92°C), microbubbles condensing as they rise into cooler upper fluid
       if (boilingStage === 'MICROBUBBLE_NUCLEATION' && b.y > liquidBottomY + height * 0.45) {
         if (Math.random() < 0.08) {
-          // Bubble collapsed and re-dissolved back into liquid
+          // Bubble collapsed and re-dissolved back into liquid with faint acoustic tick
           continue;
         }
       }
@@ -194,19 +196,27 @@ export class BoilingSystem {
       b.vy = THREE.MathUtils.lerp(b.vy, b.vy + cvy * 0.5, dt * 2.0);
       b.vz = THREE.MathUtils.lerp(b.vz, cvz + (Math.random() - 0.5) * 0.02, dt * 3.5);
 
-      // Hydrodynamic wobble oscillation
-      b.wobblePhase += dt * b.wobbleSpeed;
-      const wobbleOffsetX = Math.sin(b.wobblePhase) * b.wobbleAmp;
-      const wobbleOffsetZ = Math.cos(b.wobblePhase * 0.8) * b.wobbleAmp;
+      // Strouhal vortex-shedding helical/zigzag wobble
+      const uRise = Math.max(0.1, b.vy);
+      const diam = Math.max(0.001, b.radius * 2);
+      const strouhalFreq = (0.22 * uRise) / diam;
+      b.wobblePhase += dt * Math.min(25.0, Math.max(6.0, strouhalFreq * Math.PI * 2));
+      const wobbleAmp = Math.min(0.004, 0.18 * diam);
+      const wobbleOffsetX = Math.sin(b.wobblePhase) * wobbleAmp;
+      const wobbleOffsetZ = Math.cos(b.wobblePhase * 0.85) * wobbleAmp;
 
       // Position integration
       b.x += (b.vx + wobbleOffsetX) * dt;
       b.y += b.vy * dt;
       b.z += (b.vz + wobbleOffsetZ) * dt;
 
-      // Hydrodynamic deformation: bubble elongates along vertical velocity axis
+      // 3. Oblate spheroidal deformation (Eötvös & Weber numbers)
+      // Eo = g * Δρ * d² / σ ; We = ρ * U² * d / σ
       const speed = Math.hypot(b.vx, b.vy, b.vz);
-      b.aspectRatio = THREE.MathUtils.lerp(b.aspectRatio, Math.min(1.45, 1.0 + speed * 0.35), dt * 6.0);
+      const eo = (9.81 * 1000.0 * (diam * diam)) / 0.0728;
+      const we = (1000.0 * (speed * speed) * diam) / 0.0728;
+      const targetAspect = Math.max(0.62, Math.min(0.96, 1.0 / (1.0 + 0.163 * Math.pow(Math.max(0.01, eo), 0.75) * Math.pow(we + 0.1, 0.1))));
+      b.aspectRatio = THREE.MathUtils.lerp(b.aspectRatio, targetAspect, dt * 6.0);
 
       // Boundary collision inside vessel wall: clamp radius
       const rDist = Math.hypot(b.x, b.z);
@@ -222,7 +232,7 @@ export class BoilingSystem {
       const normH = Math.max(0, Math.min(1.0, (b.y - liquidBottomY) / height));
       b.radius = b.baseRadius * (1.0 + normH * b.growthRate);
 
-      // BUBBLE COALESCENCE (Merging nearby bubbles)
+      // 4. BUBBLE COALESCENCE (Merging nearby bubbles)
       if (boilingStage === 'ACTIVE_BOIL' || boilingStage === 'INTENSE_ROLLING_BOIL') {
         for (let j = i + 1; j < count; j++) {
           const b2 = this.bubbles[j];
@@ -243,21 +253,38 @@ export class BoilingSystem {
         continue;
       }
 
-      // CHECK MENISCUS SURFACE IMPACT
-      if (b.y >= surfaceY - b.radius * 0.4) {
+      // 5. CHECK MENISCUS SURFACE IMPACT & BURST
+      if (b.y >= surfaceY - b.radius * 0.35) {
         // Trigger surface pop!
         b.isPopping = true;
+        b.popProgress = 0.05;
         b.y = surfaceY;
 
-        // Emit small surface pop event if rolling boil
-        if (boilingIntensity > 0.4 && Math.random() < 0.25) {
+        // Audible Minnaert pop with throttle
+        const now = performance.now() * 0.001;
+        if (now - this.lastAudioPopTime > 0.045) {
+          this.lastAudioPopTime = now;
+          // Scale to mm for Minnaert formula
+          const r_mm = Math.max(0.8, b.radius * 120.0);
+          labSound.playMinnaertBubble(r_mm, true, Math.min(0.24, 0.08 + boilingIntensity * 0.12));
+        }
+
+        // Worthington micro-jet and droplet ejecta
+        if (boilingIntensity > 0.25 || Math.random() < 0.45) {
           vfxBus.emit('particle:burst', {
-            position: [b.x, surfaceY, b.z],
-            count: 3,
+            position: [b.x, surfaceY + 0.006, b.z],
+            count: Math.floor(2 + Math.random() * 3),
             color: '#f8fafc',
-            speed: 0.6
+            speed: 0.85
           });
         }
+
+        // Capillary surface ripple
+        vfxBus.emit('surface:ripple', {
+          x: b.x / radius,
+          z: b.z / radius,
+          intensity: b.radius * 2.2
+        });
       }
 
       activeBubbles.push(b);

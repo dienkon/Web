@@ -5,6 +5,7 @@ import { ParticlePool, ParticleState } from './ParticlePool';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getBubbleSpriteTexture } from '../textures';
 import { vfxBus } from '../bus';
+import { labSound } from '../../utils/audio';
 
 export interface BubblesProps {
   vesselId?: string;
@@ -112,15 +113,32 @@ export const Bubbles = React.memo(function Bubbles({
 
         // Check if reached liquid surface
         if (p.y >= surfaceY) {
-          // Pop!
+          // Film rupture & bubble pop
           p.size *= 1.25;
-          if ((gasType === 'H2' || gasType === 'boil') && Math.random() < 0.2) {
+          const isVigorous = gasType === 'H2' || gasType === 'boil';
+          const burstProb = isVigorous ? 0.38 : 0.24;
+
+          if (Math.random() < burstProb) {
+            // Worthington micro-jet and droplet ejecta
+            const ejectaColor = gasType === 'H2' ? '#fef08a' : (gasType === 'NO2' ? '#b45309' : '#f8fafc');
             vfxBus.emit('particle:burst', {
-              position: [p.x, surfaceY, p.z],
-              count: gasType === 'H2' ? 5 : 2,
-              color: gasType === 'H2' ? '#fef08a' : '#f8fafc',
-              speed: gasType === 'H2' ? 1.0 : 0.5,
+              position: [p.x, surfaceY + 0.005, p.z],
+              count: isVigorous ? 4 : 2,
+              color: ejectaColor,
+              speed: isVigorous ? 0.95 : 0.65,
             });
+
+            // Capillary surface ripple
+            vfxBus.emit('surface:ripple', {
+              x: p.x / radius,
+              z: p.z / radius,
+              intensity: Math.min(1.0, p.size * 3.0),
+              vesselId,
+            });
+
+            // Minnaert acoustic bubble burst ("bóp bóp như thiệt")
+            const radiusMm = Math.max(0.8, p.size * 160);
+            labSound.playMinnaertBubble(radiusMm, true, Math.min(0.22, 0.06 + p.size * 3.0));
           }
           return false; // Dies at surface
         }

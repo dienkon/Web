@@ -78,17 +78,45 @@ export class VesselSimulationManager {
 
     const profile = VESSEL_PROFILES[vessel.type] || VESSEL_PROFILES.beaker;
 
-    // 1. THERMAL CONDUCTION & COOLING
-    // Direct heating from burner vs Newton's law of cooling to ambient
-    const coolingRate = 0.08 * (vessel.temperature_c - ambientTemp_c);
-    const heatingRate = heatPower_W * 0.14;
-    const dT = (heatingRate - coolingRate) * dt;
-    const newTemp = Math.max(ambientTemp_c, Math.min(100.0, vessel.temperature_c + dT));
+    // 1. THERMAL CONDUCTION & COOLING (P1.1-lite)
+    const glassHeatCapacity = 33.2; // 40g * 0.83 J/(g·K)
+    const liquidMass = vessel.mass_g || (vessel.volume_ml * (vessel.density_g_ml || 1.0));
+    const liquidHeatCapacity = vessel.volume_ml > 0.05 ? liquidMass * 4.184 : 0;
+    const totalHeatCapacity = Math.max(10.0, liquidHeatCapacity + glassHeatCapacity);
+
+    const coolingPower_W = 0.35 * (vessel.temperature_c - ambientTemp_c);
+    const dT = ((heatPower_W * 8.5 - coolingPower_W) / totalHeatCapacity) * dt;
+
+    // Colligative boiling point elevation: Tb = 100 + i * Kb * m (P1.5-lite)
+    let boilingElevation_K = 0;
+    if (vessel.contents && vessel.contents.length > 0 && vessel.volume_ml > 0.5) {
+      let totalDissolvedIonMoles = 0;
+      for (const item of vessel.contents) {
+        if (item.formula === 'H2O') continue;
+        const f = item.formula.toUpperCase();
+        let vanthoff_i = 1.0;
+        if (f.includes('NACL') || f.includes('KI') || f.includes('NAOH') || f.includes('HCL')) {
+          vanthoff_i = 1.8;
+        } else if (f.includes('BACL2') || f.includes('NA2SO4') || f.includes('CACL2') || f.includes('H2SO4') || f.includes('PB(NO3)2')) {
+          vanthoff_i = 2.5;
+        } else if (f.includes('FECL3') || f.includes('AL2(SO4)3')) {
+          vanthoff_i = 3.2;
+        }
+        totalDissolvedIonMoles += (item.moles || 0) * vanthoff_i;
+      }
+      const solventKg = Math.max(0.001, (vessel.volume_ml * 0.95) / 1000.0);
+      const molality = totalDissolvedIonMoles / solventKg;
+      boilingElevation_K = Math.min(18.0, 0.512 * molality);
+    }
+
+    const boilingPoint_c = 100.0 + boilingElevation_K;
+    const maxTempPossible = (vessel.volume_ml > 0.5) ? boilingPoint_c : 450.0;
+    const newTemp = Math.max(ambientTemp_c, Math.min(maxTempPossible, vessel.temperature_c + dT));
 
     // 2. THERMODYNAMIC PHASE DETERMINATION
     const { stage: boilingStage, intensity: rawBoilingIntensity } = determineBoilingStage(
       newTemp,
-      100.0,
+      boilingPoint_c,
       heatPower_W
     );
     const isBoiling = boilingStage === 'ACTIVE_BOIL' || boilingStage === 'INTENSE_ROLLING_BOIL' || vessel.isBoiling;
@@ -139,17 +167,19 @@ export class VesselSimulationManager {
       }
     }
 
-    // Reaction precipitate override
+    // Reaction precipitate override from stoichiometry (P4.2)
     let activeSubstance = reactionPrecipitateSubstance || 
+      (vessel.precipitateSubstance || 
       (vessel.substances?.find(s => s.includes('Pb') || s.includes('I')) ? 'PbI2' : 
       (vessel.substances?.find(s => s.includes('Cu')) ? 'Cu(OH)2' : 
-      (vessel.substances?.find(s => s.includes('Ag')) ? 'AgCl' : 'BaSO4')));
+      (vessel.substances?.find(s => s.includes('Ag')) ? 'AgCl' : 'BaSO4'))));
 
-    if (reactionPrecipitateActive) {
+    if (reactionPrecipitateActive || vessel.hasPrecipitate) {
       hasPrecipitate = true;
-      totalPrecipitate_g = Math.max(totalPrecipitate_g, 0.45);
-      if (reactionPrecipitateSubstance) {
-        activeSubstance = reactionPrecipitateSubstance;
+      if (vessel.precipitateAmount_g && vessel.precipitateAmount_g > 0) {
+        totalPrecipitate_g = Math.max(totalPrecipitate_g, vessel.precipitateAmount_g);
+      }
+      if (activeSubstance) {
         const pProf = getPrecipitateProfile(activeSubstance);
         precipitateColor = pProf.color;
       }

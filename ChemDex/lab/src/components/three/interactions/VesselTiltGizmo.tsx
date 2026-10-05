@@ -31,9 +31,9 @@ export const VesselTiltGizmo = React.memo(function VesselTiltGizmo({
 
     const onPointerMove = (ev: MouseEvent) => {
       const dy = ev.clientY - dragStartY.current;
-      // Dragging downward tilts vessel forward (0 to 115 degrees = 2.0 radians)
-      const deltaAngle = (dy / 100) * 1.2;
-      const newAngle = Math.max(0, Math.min(1.95, startAngle.current + deltaAngle));
+      // Dragging downward tilts vessel forward (0 to 180 degrees = π radians)
+      const deltaAngle = (dy / 100) * 1.5;
+      const newAngle = Math.max(0, Math.min(Math.PI, startAngle.current + deltaAngle));
       onTiltChange(newAngle);
     };
 

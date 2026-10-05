@@ -18,6 +18,7 @@ export interface SimVessel {
   type: string;
   position: [number, number, number];
   rotationZ: number;
+  rotationY?: number;
   volume_ml: number;
   capacity_ml: number;
   mass_g: number;
@@ -106,7 +107,9 @@ export function stepPourSimulation(
     session.tilt,
     profile,
     flow.head_cm,
-    targetMetrics
+    targetMetrics,
+    -0.135,
+    source.rotationY || 0
   );
 
   const dV = flow.flowRate_ml_s * dt;
@@ -135,9 +138,28 @@ export function stepPourSimulation(
       contents: {}
     };
 
-    const result = transferFluidIncrement(sourceMix, targetMix, dV, target.capacity_ml);
+    // Neck intake rate limit & turbulent splash-back physics:
+    const targetProfile = getVesselProfile(target.type);
+    const maxIntakeRate = Math.max(24, (targetProfile.mouthR || 0.15) * 160);
+    let effectiveDV = dV;
+    let intakeSurplus_ml = 0;
+    if (flow.flowRate_ml_s > maxIntakeRate) {
+      const surplusRate = flow.flowRate_ml_s - maxIntakeRate;
+      intakeSurplus_ml = surplusRate * dt;
+      effectiveDV = Math.max(0, dV - intakeSurplus_ml);
+    }
+
+    // High velocity turbulent splash factor: at high flow rates (> 30 mL/s), 6-12% splashes back out
+    let turbulentSplash_ml = 0;
+    if (flow.flowRate_ml_s > 30) {
+      const splashFrac = Math.min(0.12, (flow.flowRate_ml_s - 30) * 0.0022);
+      turbulentSplash_ml = effectiveDV * splashFrac;
+      effectiveDV = Math.max(0, effectiveDV - turbulentSplash_ml);
+    }
+
+    const result = transferFluidIncrement(sourceMix, targetMix, effectiveDV, target.capacity_ml);
     accepted_ml = result.accepted_ml;
-    spilled_ml = result.overflow_ml;
+    spilled_ml = result.overflow_ml + intakeSurplus_ml + turbulentSplash_ml;
 
     newSourceVessel = {
       ...source,

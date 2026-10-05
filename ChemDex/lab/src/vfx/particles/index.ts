@@ -7,3 +7,4 @@ export * from './Splash';
 export * from './Droplets';
 export * from './Precipitate';
 export * from './Sparks';
+export * from './AcidSplatter';

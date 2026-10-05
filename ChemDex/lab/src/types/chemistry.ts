@@ -12,12 +12,26 @@ export type GHSHazard =
 
 export type PPEItem = 'goggles' | 'gloves' | 'fume_hood' | 'lab_coat';
 
+export type SolidMorphology = 
+  | 'POWDER' 
+  | 'RIBBON' 
+  | 'TURNINGS' 
+  | 'FILINGS' 
+  | 'GRANULES' 
+  | 'PELLET' 
+  | 'CHIPS' 
+  | 'CUBIC_CRYSTAL' 
+  | 'PRISMATIC_CRYSTAL' 
+  | 'TABULAR_CRYSTAL' 
+  | 'HYDRATE_CRYSTAL' 
+  | 'LUSTROUS_PLATES';
+
 export interface ChemicalDefinition {
   formula: string;
   name_en: string;
   name_vi: string;
   type: SubstanceType;
-  category?: 'acid' | 'base' | 'salt' | 'indicator' | 'metal' | 'gas' | 'oxide';
+  category?: 'acid' | 'base' | 'salt' | 'indicator' | 'metal' | 'gas' | 'oxide' | 'organic';
   color: string;
   molarMass: number; // g/mol
   density?: number; // g/mL
@@ -27,6 +41,7 @@ export interface ChemicalDefinition {
   ppe: PPEItem[];
   safetyNotes_en?: string;
   safetyNotes_vi?: string;
+  solidMorphology?: SolidMorphology;
 }
 
 export interface SubstanceContent {
@@ -37,7 +52,29 @@ export interface SubstanceContent {
   concentration_M?: number;
 }
 
-export type VesselType = 'beaker' | 'flask' | 'test_tube' | 'cylinder' | 'burette';
+export type VesselType = 
+  | 'beaker' 
+  | 'flask' 
+  | 'test_tube' 
+  | 'cylinder' 
+  | 'burette' 
+  | 'watch_glass' 
+  | 'evaporating_dish' 
+  | 'crucible' 
+  | 'petri_dish'
+  | 'volumetric_flask'
+  | 'separatory_funnel'
+  | 'filter_funnel'
+  | 'mortar_pestle'
+  | 'condenser'
+  | 'test_tube_rack'
+  | 'wash_bottle'
+  | 'tongs'
+  | 'retort_stand'
+  | 'retort_clamp'
+  | 'stopper'
+  | 'pneumatic_trough'
+  | 'hot_plate';
 
 export interface VesselState {
   id: string;
@@ -63,6 +100,8 @@ export interface VesselState {
   
   hasPrecipitate: boolean;
   precipitateColor?: string;
+  precipitateSubstance?: string;
+  precipitateMorphology?: string;
   precipitateAmount_g?: number;
   
   isBoiling: boolean;
@@ -77,6 +116,32 @@ export interface VesselState {
   evaporated_ml?: number; // evaporated volume over time
   lastReactionId?: string; // ID of active or most recent reaction
   reactionProgress?: number; // 0 to 1 kinetics progress
+
+  // Realistic Physical Mechanisms & Phenomena
+  isShattered?: boolean; // Vessel shattered from thermal shock / overpressure
+  shatterReason?: string;
+  stainColor?: string; // Solute residue ring on vessel walls
+  stainIntensity?: number; // 0 to 1 opacity of ring deposit
+  stainHeight?: number; // 0 to 1 height where evaporation ring formed
+  condensationMist?: number; // 0 to 1 fogging droplet condensation on cool headspace (T > 55°C)
+  isSuperheated?: boolean; // Superheated beyond 100°C without nucleation
+  bumpingSurge?: boolean; // Active violent ebullition surge (bumping)
+  isPulverized?: boolean; // Solid crystals in mortar ground into fine reactive powder
+  immiscibleOrganicVolume_ml?: number; // Organic layer in separatory funnel
+  immiscibleOrganicColor?: string;
+  stopcockOpen?: boolean; // Separatory funnel stopcock valve position
+  fumingIntensity?: number; // Acid/base fuming aerosol smoke intensity (0 to 1)
+  fumingColor?: string;
+  solidMorphology?: SolidMorphology;
+  isFiltrating?: boolean; // Filter funnel active filtration
+  filterPaperResidue_g?: number; // Precipitate cake retained on filter paper
+  filterPaperResidueSubstance?: string;
+  isSealed?: boolean; // Stoppered/sealed vessel (can build overpressure)
+  internalPressure_atm?: number; // Internal headspace gas pressure in atm (burst at > 2.5 atm)
+  coolingWaterActive?: boolean; // Condenser cooling water active
+  slottedTestTubeIds?: string[]; // Test tube IDs held in test tube rack
+  grippedVesselId?: string; // Vessel ID gripped by tongs
+  heldByTongsId?: string; // Tongs holding this vessel
 }
 
 export type BurnerFlameState = 

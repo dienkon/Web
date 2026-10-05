@@ -48,6 +48,9 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
 
         if (stirSpeedRef.current > 0.3 && targetVessel) {
           stirVessel(targetVessel.id);
+          if (targetVessel.substances.length > 0) {
+            useAppStore.getState().touchToolChemical('stirring_rod', targetVessel.substances[0]);
+          }
         }
       }
     };

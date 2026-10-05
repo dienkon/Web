@@ -204,32 +204,57 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
     // Continuous vs Dripping Regime
     const isDrippingRegime = flowRate < 1.2 || session.phase === 'dripping';
 
-    // 3. RENDER CONTINUOUS BALLISTIC STREAM
+    // 3. RENDER CONTINUOUS BALLISTIC STREAM WITH TRUE CURVED PARABOLIC ARCS & HYDRODYNAMIC NARROWING
     if (!isDrippingRegime && streamMeshRef.current) {
       streamMeshRef.current.visible = true;
+      streamMeshRef.current.position.set(0, 0, 0);
+      streamMeshRef.current.rotation.set(0, 0, 0);
+      streamMeshRef.current.scale.set(1, 1, 1);
 
-      // Parabolic midpoint & orientation
-      const midT = 0.5 * flightTime;
-      const midX = lipX + v0x * midT;
-      const midY = lipY + v0y * midT - 0.5 * 9.8 * midT * midT;
-      const midZ = (lipZ + targetZ) / 2;
+      const posAttr = streamGeometry.attributes.position;
+      const posArray = posAttr.array as Float32Array;
 
-      const spanX = targetX - lipX;
-      const spanY = targetY - lipY;
-      const streamLen = Math.hypot(spanX, spanY);
-      const streamAngle = Math.atan2(spanX, -spanY);
+      // Base radius at pouring weir lip
+      const baseR = Math.max(0.022, Math.min(0.072, Math.sqrt(flowRate / 30.0) * 0.058));
+      const radialSegs = 16;
+      const heightSegs = STREAM_SEGMENTS; // 24
 
-      // Width scaling: thicker at lip, narrowing under gravity acceleration
-      const baseWidth = Math.max(0.02, Math.min(0.075, Math.sqrt(flowRate / 30.0) * 0.065));
-      const turbulence = Math.sin(time * 30.0) * 0.003;
+      // Quadratic boundary matching coefficient for horizontal arc
+      const deltaXTarget = targetX - (lipX + v0x * flightTime);
+      const accelX = flightTime > 0.01 ? (2 * deltaXTarget) / (flightTime * flightTime) : 0;
 
-      streamMeshRef.current.position.set(midX, (lipY + targetY) * 0.5, midZ);
-      streamMeshRef.current.rotation.z = streamAngle;
-      streamMeshRef.current.scale.set(baseWidth + turbulence, streamLen, baseWidth + turbulence);
+      // Update each height ring of the cylinder
+      for (let j = 0; j <= heightSegs; j++) {
+        const s = j / heightSegs; // 0 at top, 1 at bottom
+        const t = s * flightTime;
 
-      const mat = streamMeshRef.current.material as THREE.MeshStandardMaterial;
+        // True ballistic parabolic trajectory point
+        const cx = lipX + v0x * t + 0.5 * accelX * t * t;
+        const cy = lipY + v0y * t - 0.5 * 9.8 * t * t;
+        const cz = lipZ + (targetZ - lipZ) * s;
+
+        // Hydrodynamic narrowing along fall (fluid accelerates -> cross-section shrinks)
+        const fallVelocityFactor = Math.sqrt(Math.max(0.25, 1.0 + 3.2 * s));
+        const currentR = Math.max(0.008, (baseR / fallVelocityFactor) * (1.0 + 0.04 * Math.sin(time * 26.0 - s * 20.0)));
+
+        for (let i = 0; i <= radialSegs; i++) {
+          const vertexIdx = (j * (radialSegs + 1) + i) * 3;
+          if (vertexIdx + 2 < posArray.length) {
+            const phi = (i / radialSegs) * Math.PI * 2;
+            posArray[vertexIdx] = cx + Math.cos(phi) * currentR;
+            posArray[vertexIdx + 1] = cy;
+            posArray[vertexIdx + 2] = cz + Math.sin(phi) * currentR;
+          }
+        }
+      }
+
+      posAttr.needsUpdate = true;
+      streamGeometry.computeVertexNormals();
+
+      const mat = streamMeshRef.current.material as THREE.MeshPhysicalMaterial;
       if (mat) {
         mat.color.set(liquidColorHex);
+        mat.opacity = sourceVessel.liquidOpacity || 0.88;
       }
     } else if (streamMeshRef.current) {
       streamMeshRef.current.visible = false;

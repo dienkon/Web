@@ -23,6 +23,16 @@ export interface VfxEventMap {
     color?: string;
     isDangerous?: boolean;
   };
+  'acid:splatter': {
+    vesselId?: string;
+    position: [number, number, number];
+    count?: number;
+    speed?: number;
+    color?: string;
+    substances?: string[];
+    isAcid?: boolean;
+    spread?: number;
+  };
   'boil': {
     vesselId: string;
     position: [number, number, number];
@@ -38,6 +48,12 @@ export interface VfxEventMap {
     element: string;
     color: string;
     cobaltFilter: boolean;
+  };
+  'surface:ripple': {
+    x: number;
+    z: number;
+    intensity: number;
+    vesselId?: string;
   };
 }
 

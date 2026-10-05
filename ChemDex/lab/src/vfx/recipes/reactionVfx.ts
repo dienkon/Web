@@ -127,6 +127,31 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     precipitate: { substance: 'Cu(OH)2', color: '#0284c7', morphology: 'gel', rate: 28, settleTime: 11.0 }
   },
 
+  // 6b. FeCl3 + 3NaOH -> Fe(OH)3(s) + 3NaCl (Rust-Brown Flocculent Precipitate)
+  'fecl3_naoh_precipitate': {
+    id: 'fecl3_naoh_precipitate',
+    name: 'Iron(III) Hydroxide Rust-Brown Flocculation',
+    duration: 8.5,
+    layers: [
+      { kind: 'precipitate', t: [0.0, 0.95], style: 'gel', color: '#9a3412', settleTime: 9.0, substance: 'Fe(OH)3' },
+      { kind: 'turbidity', t: [0.02, 0.75], color: '#b45309', peak: 0.85 },
+      { kind: 'colorFront', t: [0.05, 0.65], from: '#f59e0b', to: '#b45309', origin: 'pourPoint', speed: 1.2 }
+    ],
+    precipitate: { substance: 'Fe(OH)3', color: '#9a3412', morphology: 'gel', rate: 30, settleTime: 9.0 }
+  },
+
+  // 6c. CaCl2 + Na2CO3 -> CaCO3(s) + 2NaCl (Chalky Calcite Grains)
+  'cacl2_na2co3_precipitate': {
+    id: 'cacl2_na2co3_precipitate',
+    name: 'Calcium Carbonate Calcite Grain Precipitation',
+    duration: 7.0,
+    layers: [
+      { kind: 'precipitate', t: [0.0, 0.9], style: 'milky', color: '#e2e8f0', settleTime: 5.5, substance: 'CaCO3' },
+      { kind: 'turbidity', t: [0.0, 0.6], color: '#f1f5f9', peak: 0.88 }
+    ],
+    precipitate: { substance: 'CaCO3', color: '#e2e8f0', morphology: 'curd', rate: 32, settleTime: 5.5 }
+  },
+
   // 7. Fe + CuSO4 -> FeSO4 + Cu(s) (Reddish Copper Coating)
   'fe_cuso4_displacement': {
     id: 'fe_cuso4_displacement',
@@ -470,32 +495,49 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
  */
 export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | null {
   if (!reactionId) return null;
-  const normalized = reactionId.toLowerCase().trim();
+  const rawLower = reactionId.toLowerCase().trim();
+  const normalized = rawLower.replace(/[\s\(\)]/g, '').replace(/\+/g, '_');
 
-  if (REACTION_VFX_RECIPES[normalized]) {
-    return REACTION_VFX_RECIPES[normalized];
-  }
+  if (REACTION_VFX_RECIPES[rawLower]) return REACTION_VFX_RECIPES[rawLower];
+  if (REACTION_VFX_RECIPES[normalized]) return REACTION_VFX_RECIPES[normalized];
 
   // Canonical alias checks
   if (normalized.includes('caco3')) return REACTION_VFX_RECIPES['caco3_hcl_gas'];
-  if (normalized.includes('fe_cu') || normalized.includes('cuso4_fe')) return REACTION_VFX_RECIPES['fe_cuso4_displacement'];
+  if (normalized.includes('fe_cu') || normalized.includes('cuso4_fe') || normalized.includes('displacement')) return REACTION_VFX_RECIPES['fe_cuso4_displacement'];
   if (normalized.includes('agno3') || normalized.includes('agcl')) return REACTION_VFX_RECIPES['agno3_nacl_precipitate'];
   if (normalized.includes('pbno3') || normalized.includes('pbi2') || normalized.includes('golden_rain')) return REACTION_VFX_RECIPES['golden_rain_pbi2'];
   if (normalized.includes('h2o2') || normalized.includes('mno2')) return REACTION_VFX_RECIPES['h2o2_mno2_decomposition'];
-  if (normalized.includes('sodium_water') || normalized.includes('na_h2o') || normalized.includes('sodium_dart')) return REACTION_VFX_RECIPES['sodium_water_reaction'];
+  if (normalized.includes('sodium_water') || normalized.includes('na_h2o') || normalized.includes('sodium_dart') || normalized.includes('alkali_metal_water_na')) return REACTION_VFX_RECIPES['sodium_water_reaction'];
   if (normalized.includes('zn_hcl')) return REACTION_VFX_RECIPES['zn_hcl_gas'];
   if (normalized.includes('mg_hcl')) return REACTION_VFX_RECIPES['mg_hcl_gas'];
   if (normalized.includes('nh3_hcl') || normalized.includes('fumes')) return REACTION_VFX_RECIPES['nh3_hcl_fumes'];
-  if (normalized.includes('na2co3')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
+  if (normalized.includes('na2co3') || normalized.includes('nahco3')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
   if (normalized.includes('h2so4_naoh')) return REACTION_VFX_RECIPES['h2so4_naoh_neutralization'];
-  if (normalized.includes('hcl_naoh')) return REACTION_VFX_RECIPES['hcl_naoh_neutralization'];
+  if (normalized.includes('hcl_naoh') || normalized.includes('titration')) return REACTION_VFX_RECIPES['hcl_naoh_neutralization'];
   if (normalized.includes('cuso4_naoh')) return REACTION_VFX_RECIPES['cuso4_naoh_precipitate'];
-  if (normalized.includes('cuoh2')) return REACTION_VFX_RECIPES['cuoh2_thermal_decomposition'];
-  if (normalized.includes('iodine') || normalized.includes('i2')) return REACTION_VFX_RECIPES['iodine_sublimation'];
-  if (normalized.includes('water_into') || normalized.includes('explosion')) return REACTION_VFX_RECIPES['water_into_conc_h2so4_explosion'];
+  if (normalized.includes('fecl3_naoh') || normalized.includes('feoh3')) return REACTION_VFX_RECIPES['fecl3_naoh_precipitate'];
+  if (normalized.includes('cacl2_na2co3')) return REACTION_VFX_RECIPES['cacl2_na2co3_precipitate'];
+  if (normalized.includes('cuoh2') || normalized.includes('thermal_decomp')) return REACTION_VFX_RECIPES['cuoh2_thermal_decomposition'];
+  if (normalized.includes('iodine_sub') || normalized.includes('i2_sub')) return REACTION_VFX_RECIPES['iodine_sublimation'];
+  if (normalized.includes('water_into') || normalized.includes('explosion') || normalized.includes('hazard')) return REACTION_VFX_RECIPES['water_into_conc_h2so4_explosion'];
   if (normalized.includes('cu_hno3') || normalized.includes('no2')) return REACTION_VFX_RECIPES['cu_hno3_conc'];
   if (normalized.includes('cu_conc_h2so4') || normalized.includes('cu_h2so4')) return REACTION_VFX_RECIPES['cu_conc_h2so4_heated'];
-  if (normalized.includes('bacl2')) return REACTION_VFX_RECIPES['bacl2_h2so4_precipitate'];
+  if (normalized.includes('bacl2') || normalized.includes('baso4')) return REACTION_VFX_RECIPES['bacl2_h2so4_precipitate'];
+
+  // Complex & kinetics reactions
+  if (normalized.includes('fecl3_kscn') || normalized.includes('kscn') || normalized.includes('thiocyanate')) return REACTION_VFX_RECIPES['fecl3_kscn_complex'];
+  if (normalized.includes('kmno4') || normalized.includes('oxalic') || normalized.includes('permanganate')) return REACTION_VFX_RECIPES['kmno4_oxalic_redox'];
+  if (normalized.includes('cr2o7') || normalized.includes('chromate') || normalized.includes('dichromate')) return REACTION_VFX_RECIPES['k2cr2o7_naoh_equilibrium'];
+  if (normalized.includes('kio3') || normalized.includes('landolt') || normalized.includes('clock') || normalized.includes('iodine_clock')) return REACTION_VFX_RECIPES['iodine_clock'];
+  if (normalized.includes('na2s2o3') || normalized.includes('thiosulfate') || normalized.includes('turbidity')) return REACTION_VFX_RECIPES['na2s2o3_hcl_turbidity'];
+  if (normalized.includes('cuso4_nh3') || normalized.includes('copper_ammonia')) return REACTION_VFX_RECIPES['cuso4_nh3_complex'];
+  if (normalized.includes('al2so4') || normalized.includes('al_naoh') || normalized.includes('amphoteric')) return REACTION_VFX_RECIPES['al2so4_naoh_amphoteric'];
+
+  // Combustion & flame tests
+  if (normalized.includes('mg_o2') || normalized.includes('magnesium_burn') || normalized.includes('burn_mg') || normalized.includes('burn_magnesium')) return REACTION_VFX_RECIPES['burn_magnesium'];
+  if (normalized.includes('flame_cu') || normalized.includes('copper_flame')) return REACTION_VFX_RECIPES['flame_test_copper'];
+  if (normalized.includes('flame_na') || normalized.includes('sodium_flame')) return REACTION_VFX_RECIPES['flame_test_sodium'];
+  if (normalized.includes('flame_k') || normalized.includes('potassium_flame') || normalized.includes('k_h2o')) return REACTION_VFX_RECIPES['flame_test_potassium'];
 
   return null;
 }

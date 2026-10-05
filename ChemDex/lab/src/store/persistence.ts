@@ -13,6 +13,9 @@ export interface PersistedLabState {
 // Load locally saved state
 export function loadPersistedLabState(): PersistedLabState | null {
   try {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) {
+      return null;
+    }
     const rawVessels = localStorage.getItem(STORAGE_KEY_VESSELS);
     const rawBurners = localStorage.getItem(STORAGE_KEY_BURNERS);
     if (rawVessels) {
@@ -38,6 +41,7 @@ export function debounceSaveLocalState(
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try {
+      if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) return;
       localStorage.setItem(STORAGE_KEY_VESSELS, JSON.stringify(vessels));
       localStorage.setItem(STORAGE_KEY_BURNERS, JSON.stringify(burners));
     } catch (e) {

@@ -1,4 +1,4 @@
-import { ChemicalDefinition } from '../types/chemistry';
+import { ChemicalDefinition, SolidMorphology } from '../types/chemistry';
 
 export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
   {
@@ -108,6 +108,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Iron (Filings/Powder)',
     name_vi: 'Sắt (Bột mịn)',
     type: 'solid',
+    solidMorphology: 'FILINGS',
     color: '#475569',
     molarMass: 55.845,
     density: 7.87,
@@ -121,6 +122,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Copper (Turnings/Foil)',
     name_vi: 'Đồng (Phôi kim loại)',
     type: 'solid',
+    solidMorphology: 'TURNINGS',
     color: '#b45309',
     molarMass: 63.546,
     density: 8.96,
@@ -134,6 +136,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Zinc (Granules)',
     name_vi: 'Kẽm (Hạt kim loại)',
     type: 'solid',
+    solidMorphology: 'GRANULES',
     color: '#94a3b8',
     molarMass: 65.38,
     density: 7.14,
@@ -147,6 +150,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Magnesium (Ribbon)',
     name_vi: 'Magiê (Dải kim loại)',
     type: 'solid',
+    solidMorphology: 'RIBBON',
     color: '#e2e8f0',
     molarMass: 24.305,
     density: 1.74,
@@ -160,6 +164,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Calcium Carbonate (Limestone/Marble)',
     name_vi: 'Canxi Cacbonat (Đá vôi)',
     type: 'solid',
+    solidMorphology: 'POWDER',
     color: '#f8fafc',
     molarMass: 100.086,
     density: 2.71,
@@ -173,11 +178,27 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Sodium Chloride (Salt)',
     name_vi: 'Natri Clorua (Muối ăn)',
     type: 'solid',
+    solidMorphology: 'CUBIC_CRYSTAL',
     color: '#ffffff',
     molarMass: 58.44,
     density: 2.16,
     hazards: [],
     ppe: ['lab_coat']
+  },
+  {
+    formula: 'NaNO3',
+    name_en: 'Sodium Nitrate (1M)',
+    name_vi: 'Natri Nitrat (1M)',
+    type: 'liquid',
+    color: '#f8fafc',
+    molarMass: 84.99,
+    density: 1.05,
+    defaultConcentration: 1.0,
+    ph: 7.0,
+    hazards: ['oxidizer'],
+    ppe: ['goggles', 'lab_coat'],
+    safetyNotes_en: 'Oxidizing salt. Soluble spectator product.',
+    safetyNotes_vi: 'Muối oxi hóa tan hoàn toàn, chất chỉ thị ion trơ trong phản ứng tạo kết tủa.'
   },
   {
     formula: 'AgNO3',
@@ -287,6 +308,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Manganese Dioxide',
     name_vi: 'Mangan Đioxit',
     type: 'solid',
+    solidMorphology: 'POWDER',
     color: '#1e293b',
     molarMass: 86.94,
     density: 5.03,
@@ -311,6 +333,20 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     safetyNotes_vi: 'Dung dịch màu tím đậm, chất oxy hóa rất mạnh.'
   },
   {
+    formula: 'KMnO4 (solid)',
+    name_en: 'Potassium Permanganate Crystals',
+    name_vi: 'Kali Pemanganat Tinh Thể',
+    type: 'solid',
+    solidMorphology: 'PRISMATIC_CRYSTAL',
+    color: '#581c87',
+    molarMass: 158.034,
+    density: 2.7,
+    hazards: ['oxidizer', 'toxic'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Dark purple-bronze lustrous elongated needle crystals.',
+    safetyNotes_vi: 'Tinh thể hình kim màu tím đen ánh đồng lấp lánh.'
+  },
+  {
     formula: 'K2Cr2O7',
     name_en: 'Potassium Dichromate (0.1M)',
     name_vi: 'Kali Đicromat (0.1M)',
@@ -324,6 +360,20 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     ppe: ['goggles', 'gloves', 'fume_hood'],
     safetyNotes_en: 'Orange toxic hexavalent chromium compound.',
     safetyNotes_vi: 'Dung dịch màu cam sáng, chứa crom hóa trị VI độc hại.'
+  },
+  {
+    formula: 'K2Cr2O7 (solid)',
+    name_en: 'Potassium Dichromate Crystals',
+    name_vi: 'Kali Đicromat Tinh Thể',
+    type: 'solid',
+    solidMorphology: 'TABULAR_CRYSTAL',
+    color: '#ea580c',
+    molarMass: 294.185,
+    density: 2.68,
+    hazards: ['oxidizer', 'toxic', 'health_hazard'],
+    ppe: ['goggles', 'gloves', 'fume_hood'],
+    safetyNotes_en: 'Bright flame-orange tabular plate crystals.',
+    safetyNotes_vi: 'Tinh thể dạng phiến màu cam sáng rực rỡ.'
   },
   {
     formula: 'NH3',
@@ -360,6 +410,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Iodine (Crystals)',
     name_vi: 'Iốt (Tinh thể rắn)',
     type: 'solid',
+    solidMorphology: 'LUSTROUS_PLATES',
     color: '#3b0764',
     molarMass: 253.8,
     density: 4.93,
@@ -373,6 +424,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Sodium (Metallic piece)',
     name_vi: 'Natri (Kim loại kiềm)',
     type: 'solid',
+    solidMorphology: 'PELLET',
     color: '#cbd5e1',
     molarMass: 22.99,
     density: 0.97,
@@ -382,23 +434,11 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     safetyNotes_vi: 'Phản ứng dữ dội với nước, bốc cháy với ngọn lửa màu vàng và nổ lách tách!'
   },
   {
-    formula: 'K',
-    name_en: 'Potassium (Metallic piece)',
-    name_vi: 'Kali (Kim loại kiềm)',
-    type: 'solid',
-    color: '#e2e8f0',
-    molarMass: 39.098,
-    density: 0.86,
-    hazards: ['flammable', 'reactive_water', 'corrosive'],
-    ppe: ['goggles', 'gloves', 'fume_hood'],
-    safetyNotes_en: 'More reactive than Na. Ignites immediately with lilac-purple flame in water.',
-    safetyNotes_vi: 'Hoạt động mạnh hơn Na, bốc cháy tức thì với ngọn lửa màu tím hoa cà khi gặp nước.'
-  },
-  {
     formula: 'Al',
     name_en: 'Aluminum (Foil)',
     name_vi: 'Nhôm (Lá mỏng)',
     type: 'solid',
+    solidMorphology: 'RIBBON',
     color: '#94a3b8',
     molarMass: 26.98,
     density: 2.7,
@@ -410,6 +450,7 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Carbon (Powder)',
     name_vi: 'Cacbon (Bột than hoạt tính)',
     type: 'solid',
+    solidMorphology: 'POWDER',
     color: '#020617',
     molarMass: 12.011,
     density: 2.2,
@@ -421,17 +462,869 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Sulfur (Powder)',
     name_vi: 'Lưu huỳnh (Bột vàng)',
     type: 'solid',
+    solidMorphology: 'POWDER',
     color: '#fef08a',
     molarMass: 32.065,
     density: 2.07,
     hazards: ['irritant'],
     ppe: ['gloves', 'goggles']
+  },
+  {
+    formula: 'FeCl3',
+    name_en: 'Iron(III) Chloride (0.1M)',
+    name_vi: 'Sắt(III) Clorua (0.1M)',
+    type: 'liquid',
+    color: '#d97706',
+    molarMass: 162.2,
+    density: 1.03,
+    defaultConcentration: 0.1,
+    ph: 2.2,
+    hazards: ['corrosive', 'irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Yellow-brown acidic solution. Forms deep blood-red [Fe(SCN)]2+ complex with thiocyanate.',
+    safetyNotes_vi: 'Dung dịch màu nâu vàng có tính axit. Tạo phức chất màu đỏ máu với ion thioxianat.'
+  },
+  {
+    formula: 'KSCN',
+    name_en: 'Potassium Thiocyanate (0.1M)',
+    name_vi: 'Kali Thioxianat (0.1M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 97.18,
+    density: 1.02,
+    defaultConcentration: 0.1,
+    ph: 7.0,
+    hazards: ['irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Colorless reagent used for sensitive Fe3+ blood-red detection.',
+    safetyNotes_vi: 'Dung dịch không màu, thuốc thử siêu nhạy để nhận biết ion Fe3+ tạo màu đỏ máu.'
+  },
+  {
+    formula: 'H2C2O4',
+    name_en: 'Oxalic Acid (0.1M)',
+    name_vi: 'Axit Oxalic (0.1M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 90.03,
+    density: 1.01,
+    defaultConcentration: 0.1,
+    ph: 1.3,
+    hazards: ['toxic', 'corrosive'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Diprotic organic reducing agent. Decolorizes purple KMnO4 in an autocatalytic reaction.',
+    safetyNotes_vi: 'Axit hữu cơ hai nấc có tính khử. Làm mất màu tím của dung dịch KMnO4 theo cơ chế tự xúc tác.'
+  },
+  {
+    formula: 'Na2S2O3',
+    name_en: 'Sodium Thiosulfate (0.1M)',
+    name_vi: 'Natri Thiosunfat (0.1M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 158.11,
+    density: 1.02,
+    defaultConcentration: 0.1,
+    ph: 7.5,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Reacts with acid to produce colloidal sulfur precipitate (disappearing cross experiment).',
+    safetyNotes_vi: 'Tác dụng với axit tạo kết tủa lưu huỳnh keo đục dần (thí nghiệm dấu chữ thập biến mất).'
+  },
+  {
+    formula: 'KIO3',
+    name_en: 'Potassium Iodate (0.05M)',
+    name_vi: 'Kali Iodat (0.05M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 214.0,
+    density: 1.02,
+    defaultConcentration: 0.05,
+    ph: 6.5,
+    hazards: ['oxidizer'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Reagent A in Landolt Iodine Clock reaction.',
+    safetyNotes_vi: 'Chất oxy hóa trong phản ứng đồng hồ Iốt Landolt.'
+  },
+  {
+    formula: 'NaHSO3',
+    name_en: 'Sodium Bisulfite (0.05M)',
+    name_vi: 'Natri Bisunfit (0.05M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 104.06,
+    density: 1.02,
+    defaultConcentration: 0.05,
+    ph: 4.5,
+    hazards: ['irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Reducing agent in Landolt Iodine Clock reaction.',
+    safetyNotes_vi: 'Chất khử trong phản ứng đồng hồ Iốt Landolt.'
+  },
+  {
+    formula: 'Starch',
+    name_en: 'Starch Indicator Solution (1%)',
+    name_vi: 'Hồ Tinh Bột Chỉ Thị (1%)',
+    type: 'liquid',
+    color: '#f8fafc',
+    molarMass: 162.14,
+    density: 1.0,
+    defaultConcentration: 0.05,
+    ph: 7.0,
+    hazards: [],
+    ppe: [],
+    safetyNotes_en: 'Forms an intense midnight-blue amylose-triiodide helical inclusion complex with I2.',
+    safetyNotes_vi: 'Chỉ thị tạo phức chất màu xanh tím/đen đặc trưng với iot tự do.'
+  },
+  {
+    formula: 'Al2(SO4)3',
+    name_en: 'Aluminum Sulfate (0.1M)',
+    name_vi: 'Nhôm Sunfat (0.1M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 342.15,
+    density: 1.03,
+    defaultConcentration: 0.1,
+    ph: 3.5,
+    hazards: ['irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Forms amphoteric gelatinous Al(OH)3 precipitate that redissolves in excess NaOH.',
+    safetyNotes_vi: 'Tác dụng với bazơ tạo kết tủa keo trắng Al(OH)3 lưỡng tính, tan trong kiềm dư.'
+  },
+  {
+    formula: 'Ca(OH)2',
+    name_en: 'Calcium Hydroxide (Limewater, Saturated)',
+    name_vi: 'Canxi Hiđroxit (Nước vôi trong)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 74.093,
+    density: 1.0,
+    defaultConcentration: 0.02,
+    ph: 12.4,
+    hazards: ['irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Turns cloudy white upon bubbling with CO2 gas due to CaCO3 precipitation.',
+    safetyNotes_vi: 'Bị vẩn đục khi sục khí CO2 do tạo kết tủa canxi cacbonat CaCO3.'
+  },
+  {
+    formula: 'CaCl2',
+    name_en: 'Calcium Chloride (0.2M)',
+    name_vi: 'Canxi Clorua (0.2M)',
+    type: 'liquid',
+    color: '#ffffff',
+    molarMass: 110.98,
+    density: 1.02,
+    defaultConcentration: 0.2,
+    ph: 6.8,
+    hazards: ['irritant'],
+    ppe: ['gloves']
+  },
+  {
+    formula: 'K',
+    name_en: 'Potassium Metal (Pellet)',
+    name_vi: 'Kali Kim Loại (Viên cắt)',
+    type: 'solid',
+    solidMorphology: 'PELLET',
+    category: 'metal',
+    color: '#e2e8f0',
+    molarMass: 39.098,
+    density: 0.862,
+    hazards: ['flammable', 'reactive_water', 'corrosive'],
+    ppe: ['goggles', 'gloves', 'fume_hood', 'lab_coat'],
+    safetyNotes_en: 'VIOLENT ALKALI METAL: Floats, melts, darts with intense violet flame (766nm) and pops.',
+    safetyNotes_vi: 'KIM LOẠI KIỀM NGUY HIỂM: Nổi, nóng chảy chạy trên nước với ngọn lửa màu tím hoa cà đặc trưng và nổ nhỏ.'
+  },
+  {
+    formula: 'Mg (ribbon)',
+    name_en: 'Magnesium Ribbon (Dải kim loại)',
+    name_vi: 'Magie Dải (Ruy-băng)',
+    type: 'solid',
+    solidMorphology: 'RIBBON',
+    category: 'metal',
+    color: '#cbd5e1',
+    molarMass: 24.305,
+    density: 1.74,
+    hazards: ['flammable'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Silvery metallic ribbon. Burns with blinding ultraviolet-rich white flash.',
+    safetyNotes_vi: 'Dải kim loại màu trắng bạc lấp lánh. Khi đốt cháy phát ra ánh sáng trắng chói lòa.'
+  },
+  {
+    formula: 'Mg (powder)',
+    name_en: 'Magnesium Powder',
+    name_vi: 'Bột Magie',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'metal',
+    color: '#94a3b8',
+    molarMass: 24.305,
+    density: 1.74,
+    hazards: ['flammable', 'reactive_water'],
+    ppe: ['goggles', 'gloves', 'fume_hood'],
+    safetyNotes_en: 'Fine reactive metal powder. Highly pyrophoric when dispersed.',
+    safetyNotes_vi: 'Bột kim loại mịn hoạt động mạnh, bắt lửa nhanh khi đun nóng.'
+  },
+  {
+    formula: 'Zn (granules)',
+    name_en: 'Zinc Granules (Kẽm hạt)',
+    name_vi: 'Kẽm Hạt (Sần sùi)',
+    type: 'solid',
+    solidMorphology: 'GRANULES',
+    category: 'metal',
+    color: '#94a3b8',
+    molarMass: 65.38,
+    density: 7.14,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Irregular metallic chunks. Evolves steady hydrogen effervescence in acid.',
+    safetyNotes_vi: 'Hạt kẽm kim loại sần sùi màu xám. Sủi bọt khí H2 đều đặn khi tác dụng với axit.'
+  },
+  {
+    formula: 'Zn (dust)',
+    name_en: 'Zinc Dust (Bột kẽm)',
+    name_vi: 'Bột Kẽm Mịn',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'metal',
+    color: '#64748b',
+    molarMass: 65.38,
+    density: 7.14,
+    hazards: ['flammable'],
+    ppe: ['gloves', 'goggles'],
+    safetyNotes_en: 'High surface-area zinc powder. Reacts rapidly with acids.',
+    safetyNotes_vi: 'Bột kẽm diện tích bề mặt lớn, phản ứng rất nhanh với axit giải phóng khí.'
+  },
+  {
+    formula: 'Fe (filings)',
+    name_en: 'Iron Filings (Mạt sắt mịn)',
+    name_vi: 'Mạt Sắt Mịn',
+    type: 'solid',
+    solidMorphology: 'FILINGS',
+    category: 'metal',
+    color: '#334155',
+    molarMass: 55.845,
+    density: 7.87,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Fine ferromagnetic iron granules. Forms red-copper coating in CuSO4.',
+    safetyNotes_vi: 'Hạt mạt sắt từ tính màu xám đen. Bị đồng kim loại màu đỏ bám ngoài trong dung dịch CuSO4.'
+  },
+  {
+    formula: 'Fe (nail)',
+    name_en: 'Iron Nail (Đinh sắt bóng)',
+    name_vi: 'Đinh Sắt Sáng Bóng',
+    type: 'solid',
+    solidMorphology: 'FILINGS',
+    category: 'metal',
+    color: '#475569',
+    molarMass: 55.845,
+    density: 7.87,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Solid iron nail for electrochemical displacement experiments.',
+    safetyNotes_vi: 'Đinh sắt kim loại dùng cho các thí nghiệm ăn mòn và phản ứng đẩy kim loại.'
+  },
+  {
+    formula: 'Cu (turnings)',
+    name_en: 'Copper Turnings / Wire (Vụn đồng)',
+    name_vi: 'Đồng Vụn / Dây Đồng Ánh Đỏ',
+    type: 'solid',
+    solidMorphology: 'TURNINGS',
+    category: 'metal',
+    color: '#b45309',
+    molarMass: 63.546,
+    density: 8.96,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Reddish-orange metallic wire turnings. Dissolves in HNO3 forming green-blue Cu2+ and brown NO2 gas.',
+    safetyNotes_vi: 'Vụn dây đồng ánh đỏ. Tan trong axit HNO3 tạo dung dịch màu xanh và khí NO2 màu nâu đỏ sủi bọt mạnh.'
+  },
+  {
+    formula: 'Al (foil)',
+    name_en: 'Aluminum Foil (Lá nhôm)',
+    name_vi: 'Lá Nhôm Mỏng',
+    type: 'solid',
+    solidMorphology: 'RIBBON',
+    category: 'metal',
+    color: '#cbd5e1',
+    molarMass: 26.982,
+    density: 2.70,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Thin amphoteric metal foil. Reacts in both strong acids and NaOH with vigorous H2 evolution.',
+    safetyNotes_vi: 'Lá nhôm mỏng lưỡng tính. Tan được trong cả axit mạnh và dung dịch kiềm NaOH sủi bọt H2.'
+  },
+  {
+    formula: 'I2 (solid)',
+    name_en: 'Iodine Crystals (Tinh thể Iot)',
+    name_vi: 'Iot Tinh Thể (Tím đen thăng hoa)',
+    type: 'solid',
+    solidMorphology: 'LUSTROUS_PLATES',
+    category: 'salt',
+    color: '#3b0764',
+    molarMass: 253.808,
+    density: 4.93,
+    hazards: ['toxic', 'irritant'],
+    ppe: ['goggles', 'gloves', 'fume_hood'],
+    safetyNotes_en: 'Dark purplish-black lustrous crystals. Sublimes into dense violet vapor upon gentle heating.',
+    safetyNotes_vi: 'Tinh thể màu tím đen ánh kim. Dễ thăng hoa tạo hơi màu tím đậm khi đun nóng nhẹ.'
+  },
+  {
+    formula: 'K2CrO4',
+    name_en: 'Potassium Chromate (0.2M)',
+    name_vi: 'Kali Cromat (0.2M Vàng Chanh)',
+    type: 'liquid',
+    category: 'salt',
+    color: '#facc15',
+    molarMass: 194.19,
+    density: 1.03,
+    defaultConcentration: 0.2,
+    ph: 8.8,
+    hazards: ['toxic', 'oxidizer', 'health_hazard'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Bright yellow chromate solution. Shifts to orange dichromate upon acid addition.',
+    safetyNotes_vi: 'Dung dịch màu vàng tươi. Chuyển sang màu da cam khi thêm axit (cân bằng cromat-đicromat).'
+  },
+  {
+    formula: 'FeSO4',
+    name_en: 'Iron(II) Sulfate (0.2M)',
+    name_vi: 'Sắt(II) Sunfat (0.2M Xanh Lục Nhạt)',
+    type: 'liquid',
+    category: 'salt',
+    color: '#86efac',
+    molarMass: 151.91,
+    density: 1.03,
+    defaultConcentration: 0.2,
+    ph: 4.2,
+    hazards: ['irritant'],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Pale sea-green solution. Oxidizes easily in air to brown iron(III).',
+    safetyNotes_vi: 'Dung dịch màu xanh lục nhạt. Dễ bị oxi hóa trong không khí chuyển sang màu nâu vàng.'
+  },
+  {
+    formula: 'CuCl2',
+    name_en: 'Copper(II) Chloride (0.2M)',
+    name_vi: 'Đồng(II) Clorua (0.2M Xanh Ngọc)',
+    type: 'liquid',
+    category: 'salt',
+    color: '#06b6d4',
+    molarMass: 134.45,
+    density: 1.03,
+    defaultConcentration: 0.2,
+    ph: 3.8,
+    hazards: ['toxic', 'irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Vivid cyan-green solution. Gives bright blue-green flame test.',
+    safetyNotes_vi: 'Dung dịch màu xanh ngọc lam. Cho ngọn lửa màu xanh lục đặc trưng khi thử màu ngọn lửa.'
+  },
+  {
+    formula: 'CoCl2',
+    name_en: 'Cobalt(II) Chloride (0.1M)',
+    name_vi: 'Coban(II) Clorua (0.1M Hồng Đào)',
+    type: 'liquid',
+    category: 'salt',
+    color: '#f43f5e',
+    molarMass: 129.84,
+    density: 1.02,
+    defaultConcentration: 0.1,
+    ph: 5.0,
+    hazards: ['toxic', 'health_hazard'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Pink hexahydrate solution. Classic humidity and hydration indicator (turns deep blue when dehydrated).',
+    safetyNotes_vi: 'Dung dịch màu hồng cánh sen. Chuyển sang xanh lam thẫm khi bị khử nước hoặc đun nóng.'
+  },
+  {
+    formula: 'NiSO4',
+    name_en: 'Nickel(II) Sulfate (0.1M)',
+    name_vi: 'Niken(II) Sunfat (0.1M Xanh Lục Bảo)',
+    type: 'liquid',
+    category: 'salt',
+    color: '#10b981',
+    molarMass: 154.75,
+    density: 1.02,
+    defaultConcentration: 0.1,
+    ph: 4.5,
+    hazards: ['toxic', 'health_hazard'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Lustrous emerald green nickel solution.',
+    safetyNotes_vi: 'Dung dịch màu xanh lục bảo trong suốt.'
+  },
+  {
+    formula: 'CH3COOH (dil)',
+    name_en: 'Acetic Acid (Dilute, 1M / Vinegar)',
+    name_vi: 'Axit Axetic (Giấm Ăn 1M)',
+    type: 'liquid',
+    category: 'acid',
+    color: '#f8fafc',
+    molarMass: 60.052,
+    density: 1.01,
+    defaultConcentration: 1.0,
+    ph: 2.88,
+    hazards: ['irritant'],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Mild organic carboxylic acid with vinegar odor.',
+    safetyNotes_vi: 'Axit hữu cơ yếu có mùi giấm chua đặc trưng.'
+  },
+  {
+    formula: 'CH3COOH (glacial)',
+    name_en: 'Glacial Acetic Acid (17.4M, 99.8%)',
+    name_vi: 'Axit Axetic Băng (Nguyên chất 99.8%)',
+    type: 'liquid',
+    category: 'acid',
+    color: '#ffffff',
+    molarMass: 60.052,
+    density: 1.05,
+    defaultConcentration: 17.4,
+    ph: 1.0,
+    hazards: ['corrosive', 'flammable'],
+    ppe: ['goggles', 'gloves', 'fume_hood'],
+    safetyNotes_en: 'Concentrated pure acetic acid. Freezes at 16.6°C into ice-like crystals.',
+    safetyNotes_vi: 'Axit axetic nguyên chất ăn mòn mạnh, đóng băng như tuyết ở dưới 16.6°C.'
+  },
+  {
+    formula: 'NH3 (aq)',
+    name_en: 'Ammonia Aqueous Solution (2M)',
+    name_vi: 'Axit/Dung Dịch Amoniac (2M Khai Nồng)',
+    type: 'liquid',
+    category: 'base',
+    color: '#f1f5f9',
+    molarMass: 17.031,
+    density: 0.98,
+    defaultConcentration: 2.0,
+    ph: 11.6,
+    hazards: ['corrosive', 'irritant', 'toxic'],
+    ppe: ['goggles', 'gloves', 'fume_hood'],
+    safetyNotes_en: 'Pungent basic solution. Forms deep royal blue tetraamminecopper(II) complex with Cu2+.',
+    safetyNotes_vi: 'Dung dịch kiềm yếu mùi khai nồng. Tạo phức chất màu xanh lam thẫm đặc trưng với ion Cu2+.'
+  },
+  {
+    formula: 'KOH',
+    name_en: 'Potassium Hydroxide (1M)',
+    name_vi: 'Kali Hiđroxit (1M Kiềm Mạnh)',
+    type: 'liquid',
+    category: 'base',
+    color: '#ffffff',
+    molarMass: 56.106,
+    density: 1.05,
+    defaultConcentration: 1.0,
+    ph: 14.0,
+    hazards: ['corrosive'],
+    ppe: ['goggles', 'gloves', 'lab_coat'],
+    safetyNotes_en: 'Strong caustic alkali base. Generates substantial heat of dissolution.',
+    safetyNotes_vi: 'Chất kiềm mạnh ăn mòn da và thủy tinh, tỏa nhiều nhiệt.'
+  },
+  {
+    formula: 'C2H5OH',
+    name_en: 'Ethanol (96° / Lab Grade)',
+    name_vi: 'Cồn Etylic 96° (Rượu Etylic)',
+    type: 'liquid',
+    category: 'organic',
+    color: '#e0f2fe',
+    molarMass: 46.069,
+    density: 0.80,
+    defaultConcentration: 16.5,
+    ph: 7.0,
+    hazards: ['flammable'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Volatile flammable organic alcohol. Clean non-sooty blue flame.',
+    safetyNotes_vi: 'Cồn dễ bay hơi và dễ cháy, cháy với ngọn lửa màu xanh lam không muội than.'
+  },
+  {
+    formula: 'CH3COCH3',
+    name_en: 'Acetone (Dung môi Axeton)',
+    name_vi: 'Axeton Tinh Khiết',
+    type: 'liquid',
+    category: 'organic',
+    color: '#f8fafc',
+    molarMass: 58.08,
+    density: 0.79,
+    ph: 7.0,
+    hazards: ['flammable', 'irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Highly volatile organic solvent with sweet odor.',
+    safetyNotes_vi: 'Dung môi hữu cơ bay hơi cực nhanh, hòa tan tốt các chất hữu cơ.'
+  },
+  {
+    formula: 'C6H12O6',
+    name_en: 'D-Glucose Powder',
+    name_vi: 'Đường Glucozơ Tinh Thể',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'organic',
+    color: '#ffffff',
+    molarMass: 180.16,
+    density: 1.54,
+    ph: 7.0,
+    hazards: [],
+    ppe: [],
+    safetyNotes_en: 'Reducing monosaccharide sugar. Reduces ammoniacal silver nitrate into reflective silver mirror (Tollens test).',
+    safetyNotes_vi: 'Đường đơn có tính khử mạnh, tham gia phản ứng tráng bạc tạo lớp bạc sáng bóng.'
+  },
+  {
+    formula: 'Litmus',
+    name_en: 'Litmus Solution (Neutral Violet)',
+    name_vi: 'Dung Dịch Quỳ Tím',
+    type: 'liquid',
+    category: 'indicator',
+    color: '#7c3aed',
+    molarMass: 330.0,
+    density: 1.0,
+    defaultConcentration: 0.01,
+    ph: 7.0,
+    hazards: [],
+    ppe: [],
+    safetyNotes_en: 'Natural lichen pH indicator: Red in acid (pH < 4.5), Blue in alkali (pH > 8.3).',
+    safetyNotes_vi: 'Chỉ thị pH tự nhiên: Hóa đỏ trong môi trường axit (pH < 4.5), hóa xanh trong môi trường kiềm (pH > 8.3).'
+  },
+  {
+    formula: 'UniversalIndicator',
+    name_en: 'Universal Indicator Solution',
+    name_vi: 'Chỉ Thị Vạn Năng (Phổ pH 1-14)',
+    type: 'liquid',
+    category: 'indicator',
+    color: '#22c55e',
+    molarMass: 280.0,
+    density: 0.95,
+    defaultConcentration: 0.02,
+    ph: 7.0,
+    hazards: ['flammable'],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Continuous pH rainbow: Red (pH 1-3), Orange (pH 4-5), Yellow (pH 6), Green (pH 7), Blue (pH 8-9), Purple (pH 10-14).',
+    safetyNotes_vi: 'Dung dịch đổi màu theo dải cầu vồng từ đỏ (axit mạnh), vàng cam, lục (trung tính) đến lam và tím (kiềm mạnh).'
+  },
+  {
+    formula: 'NH4Cl',
+    name_en: 'Ammonium Chloride Powder',
+    name_vi: 'Amoni Clorua Tinh Thể Trắng',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'salt',
+    color: '#ffffff',
+    molarMass: 53.491,
+    density: 1.53,
+    ph: 5.0,
+    hazards: ['irritant'],
+    ppe: ['gloves'],
+    safetyNotes_en: 'White crystalline salt. Dissolves endothermically; sublimes/decomposes into NH3 and HCl upon heating.',
+    safetyNotes_vi: 'Muối tinh thể màu trắng tan thu nhiệt làm lạnh nước; thăng hoa phân hủy tạo khói trắng khi đun nóng.'
+  },
+  {
+    formula: 'NH4NO3',
+    name_en: 'Ammonium Nitrate (Cold Pack Salt)',
+    name_vi: 'Amoni Nitrat (Tan Thu Nhiệt Rất Lạnh)',
+    type: 'solid',
+    solidMorphology: 'GRANULES',
+    category: 'salt',
+    color: '#ffffff',
+    molarMass: 80.043,
+    density: 1.72,
+    ph: 5.5,
+    hazards: ['oxidizer', 'irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'EXTREME ENDOTHERMIC DISSOLUTION: Temperature drops dramatically towards 0°C.',
+    safetyNotes_vi: 'HÒA TAN THU NHIỆT CỰC MẠNH: Nhiệt độ dung dịch tụt nhanh xuống gần 0°C làm lạnh buốt thành cốc.'
+  },
+  {
+    formula: 'CaO',
+    name_en: 'Calcium Oxide (Quicklime)',
+    name_vi: 'Canxi Oxit (Vôi Sống)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'oxide',
+    color: '#ffffff',
+    molarMass: 56.077,
+    density: 3.34,
+    ph: 12.5,
+    hazards: ['corrosive', 'reactive_water'],
+    ppe: ['goggles', 'gloves', 'lab_coat'],
+    safetyNotes_en: 'VIOLENT EXOTHERMIC SLAKING: Reacts vigorously with water generating boiling steam and slaked lime Ca(OH)2.',
+    safetyNotes_vi: 'TỎA NHIỆT MÃNH LIỆT: Tôi vôi sống với nước tỏa nhiệt cực lớn làm nước sôi sùng sục và tạo vôi tôi Ca(OH)2.'
+  },
+  {
+    formula: 'Hexane',
+    name_en: 'Hexane (C6H14 Organic Solvent)',
+    name_vi: 'Hexan / Dung Môi Hữu Cơ (C6H14)',
+    type: 'liquid',
+    category: 'organic',
+    color: '#fef08a',
+    molarMass: 86.18,
+    density: 0.66,
+    ph: 7.0,
+    hazards: ['flammable', 'health_hazard'],
+    ppe: ['goggles', 'gloves', 'fume_hood'],
+    safetyNotes_en: 'Nonpolar immiscible organic solvent (density 0.66 g/mL). Floats as an upper phase above water in separatory funnel extraction.',
+    safetyNotes_vi: 'Dung môi hữu cơ không phân cực, không tan trong nước (khối lượng riêng 0.66 g/mL). Nổi thành lớp trên trong phễu chiết.'
+  },
+  {
+    formula: 'CuSO4·5H2O',
+    name_en: 'Copper(II) Sulfate Pentahydrate Crystals',
+    name_vi: 'Đồng(II) Sunfat Ngậm Nước (Tinh Thể Lam)',
+    type: 'solid',
+    solidMorphology: 'HYDRATE_CRYSTAL',
+    category: 'salt',
+    color: '#0284c7',
+    molarMass: 249.68,
+    density: 2.28,
+    hazards: ['toxic', 'irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Vivid azure-blue vitriol crystals. Dehydrates into white anhydrous CuSO4 powder upon heating in crucible.',
+    safetyNotes_vi: 'Tinh thể đá xanh màu xanh lam thẫm. Bị mất nước kết tinh thành bột CuSO4 khan màu trắng khi nung trong chén sứ.'
+  },
+  {
+    formula: 'Cu(OH)2',
+    name_en: 'Copper(II) Hydroxide Powder',
+    name_vi: 'Đồng(II) Hiđroxit (Bột Lam Nhạt)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'salt',
+    color: '#38bdf8',
+    molarMass: 97.56,
+    density: 3.37,
+    ph: 8.5,
+    hazards: ['irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Insoluble pale-blue base. Thermally decomposes into black copper(II) oxide (CuO) above 60-80°C.',
+    safetyNotes_vi: 'Bazơ không tan màu xanh lam nhạt. Bị nhiệt phân hủy thành bột đồng(II) oxit màu đen khi đun nóng.'
+  },
+  {
+    formula: 'CuO',
+    name_en: 'Copper(II) Oxide (Tenorite Black Powder)',
+    name_vi: 'Đồng(II) Oxit (Bột Đen Tenorit)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'oxide',
+    color: '#1e293b',
+    molarMass: 79.545,
+    density: 6.31,
+    hazards: ['toxic'],
+    ppe: ['gloves', 'lab_coat'],
+    safetyNotes_en: 'Jet-black transition metal oxide produced by thermal decomposition of Cu(OH)2 or copper oxidation.',
+    safetyNotes_vi: 'Bột oxit kim loại màu đen tuyền, sinh ra khi nhiệt phân Cu(OH)2 hoặc đốt cháy đồng.'
+  },
+  {
+    formula: 'CaCO3 (chips)',
+    name_en: 'Marble Chips (Limestone Stones)',
+    name_vi: 'Đá Vôi (Đá Marble Hạt)',
+    type: 'solid',
+    solidMorphology: 'CHIPS',
+    category: 'salt',
+    color: '#f1f5f9',
+    molarMass: 100.086,
+    density: 2.71,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Irregular dense limestone chips. Evolves steady CO2 bubbles without rapid powder clumps.',
+    safetyNotes_vi: 'Đá vôi dạng hạt cục rắn chắc, sinh khí CO2 đều đặn.'
+  },
+  {
+    formula: 'BaSO4',
+    name_en: 'Barium Sulfate Powder',
+    name_vi: 'Bari Sunfat (Bột Trắng Không Tan)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'salt',
+    color: '#ffffff',
+    molarMass: 233.39,
+    density: 4.5,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Dense insoluble white powder precipitate.',
+    safetyNotes_vi: 'Kết tủa bột màu trắng nặng, không tan trong axit.'
+  },
+  {
+    formula: 'PbI2',
+    name_en: 'Lead(II) Iodide (Golden Crystals)',
+    name_vi: 'Chì(II) Iotua (Mưa Vàng Tinh Thể)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'salt',
+    color: '#eab308',
+    molarMass: 461.01,
+    density: 6.16,
+    hazards: ['toxic', 'health_hazard'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Brilliant golden yellow crystalline flakes.',
+    safetyNotes_vi: 'Kết tủa vảy màu vàng kim tuyến óng ánh (hiện tượng mưa vàng).'
+  },
+  {
+    formula: 'AgCl',
+    name_en: 'Silver Chloride',
+    name_vi: 'Bạc Clorua (Kết Tủa Trắng Vón)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'salt',
+    color: '#ffffff',
+    molarMass: 143.32,
+    density: 5.56,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Curdy white precipitate, darkens under light.',
+    safetyNotes_vi: 'Kết tủa trắng vón như váng sữa, hóa xám tím khi gặp ánh sáng.'
+  },
+  {
+    formula: 'Fe2O3',
+    name_en: 'Iron(III) Oxide (Red Rust Powder)',
+    name_vi: 'Sắt(III) Oxit (Bột Đỏ Nâu)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'oxide',
+    color: '#991b1b',
+    molarMass: 159.69,
+    density: 5.24,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Reddish-brown rust pigment powder.',
+    safetyNotes_vi: 'Bột oxit sắt màu đỏ nâu đặc trưng.'
+  },
+  {
+    formula: 'Al(OH)3',
+    name_en: 'Aluminum Hydroxide Powder',
+    name_vi: 'Nhôm Hiđroxit (Bột Trắng Keo)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'base',
+    color: '#f8fafc',
+    molarMass: 78.00,
+    density: 2.42,
+    hazards: [],
+    ppe: ['gloves'],
+    safetyNotes_en: 'Amphoteric white hydroxide.',
+    safetyNotes_vi: 'Hiđroxit lưỡng tính màu trắng keo.'
+  },
+  {
+    formula: 'NaOH (solid)',
+    name_en: 'Sodium Hydroxide Pellets',
+    name_vi: 'Natri Hiđroxit Dạng Viên',
+    type: 'solid',
+    solidMorphology: 'PELLET',
+    category: 'base',
+    color: '#ffffff',
+    molarMass: 39.997,
+    density: 2.13,
+    hazards: ['corrosive'],
+    ppe: ['gloves', 'goggles'],
+    safetyNotes_en: 'Caustic hygroscopic white pellets.',
+    safetyNotes_vi: 'Viên hút ẩm màu trắng ăn mòn da mạnh.'
+  },
+  {
+    formula: 'KOH (solid)',
+    name_en: 'Potassium Hydroxide Pellets',
+    name_vi: 'Kali Hiđroxit Dạng Viên',
+    type: 'solid',
+    solidMorphology: 'PELLET',
+    category: 'base',
+    color: '#ffffff',
+    molarMass: 56.105,
+    density: 2.04,
+    hazards: ['corrosive'],
+    ppe: ['gloves', 'goggles'],
+    safetyNotes_en: 'Strong caustic alkali pellets.',
+    safetyNotes_vi: 'Viên kiềm bazo mạnh gây bỏng.'
+  },
+  {
+    formula: 'CoCl2.6H2O',
+    name_en: 'Cobalt(II) Chloride Hexahydrate',
+    name_vi: 'Coban(II) Clorua Ngậm 6 Nước (Đỏ Hồng)',
+    type: 'solid',
+    solidMorphology: 'HYDRATE_CRYSTAL',
+    category: 'salt',
+    color: '#e11d48',
+    molarMass: 237.93,
+    density: 1.92,
+    hazards: ['toxic', 'health_hazard'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Deep magenta/pink monoclinic hydrate crystals. Turns sky-blue when dehydrated.',
+    safetyNotes_vi: 'Tinh thể ngậm nước màu hồng đào/đỏ thắm. Chuyển sang xanh da trời khi bị nung khan.'
+  },
+  {
+    formula: 'NiSO4.6H2O',
+    name_en: 'Nickel(II) Sulfate Hexahydrate',
+    name_vi: 'Niken(II) Sunfat Ngậm 6 Nước (Lục Bảo)',
+    type: 'solid',
+    solidMorphology: 'HYDRATE_CRYSTAL',
+    category: 'salt',
+    color: '#10b981',
+    molarMass: 262.85,
+    density: 2.07,
+    hazards: ['toxic', 'health_hazard'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Vibrant emerald-green tetragonal crystals. Soluble in water giving green solution.',
+    safetyNotes_vi: 'Tinh thể màu xanh lục bảo lấp lánh, tan trong nước tạo dung dịch màu xanh lá.'
+  },
+  {
+    formula: 'FeSO4.7H2O',
+    name_en: 'Iron(II) Sulfate Heptahydrate',
+    name_vi: 'Sắt(II) Sunfat Ngậm 7 Nước (Thanh Phàn)',
+    type: 'solid',
+    solidMorphology: 'HYDRATE_CRYSTAL',
+    category: 'salt',
+    color: '#6ee7b7',
+    molarMass: 278.02,
+    density: 1.895,
+    hazards: ['irritant'],
+    ppe: ['goggles', 'gloves'],
+    safetyNotes_en: 'Pale blue-green monoclinic crystals (green vitriol). Slowly oxidizes in moist air.',
+    safetyNotes_vi: 'Tinh thể màu xanh lam nhạt/xanh ngọc (phèn sắt). Dễ bị oxy hóa ngoài không khí ẩm.'
+  },
+  {
+    formula: 'NaHCO3',
+    name_en: 'Sodium Bicarbonate (Baking Soda)',
+    name_vi: 'Natri Bicarbonat (Bột Nở / Muối Nở)',
+    type: 'solid',
+    solidMorphology: 'POWDER',
+    category: 'salt',
+    color: '#ffffff',
+    molarMass: 84.007,
+    density: 2.20,
+    hazards: [],
+    ppe: ['goggles'],
+    safetyNotes_en: 'Fine white crystalline powder. Reacts effervescently with acids producing CO2 gas.',
+    safetyNotes_vi: 'Bột màu trắng mịn, phản ứng sủi bọt mạnh với axit sinh ra khí CO2.'
   }
 ];
 
+export function isImmiscibleOrganic(substance: string): boolean {
+  if (!substance) return false;
+  const norm = substance.toLowerCase();
+  return (
+    norm.includes('hexane') ||
+    norm.includes('c6h14') ||
+    norm.includes('oil') ||
+    norm.includes('dầu') ||
+    norm.includes('ether') ||
+    norm.includes('toluene') ||
+    norm.includes('cyclohexane')
+  );
+}
+
 export function findChemical(formula: string): ChemicalDefinition {
-  const chem = CHEMICAL_DATABASE.find(c => c.formula.toLowerCase() === formula.toLowerCase() || c.formula === formula);
+  if (!formula) {
+    return {
+      formula: '',
+      name_en: '',
+      name_vi: '',
+      type: 'liquid',
+      color: '#ffffff',
+      molarMass: 50.0,
+      hazards: [],
+      ppe: ['lab_coat']
+    };
+  }
+  const norm = formula.trim().toLowerCase();
+  // 1. Exact formula match
+  let chem = CHEMICAL_DATABASE.find(c => c.formula.toLowerCase() === norm);
   if (chem) return chem;
+
+  // 2. Base formula match (e.g. 'HCl' matching 'HCl (dil)', 'H2O2' matching 'H2O2 (30%)')
+  const baseNorm = norm.replace(/\s*\([^)]*\)/gi, '').trim();
+  chem = CHEMICAL_DATABASE.find(c => {
+    const cBase = c.formula.toLowerCase().replace(/\s*\([^)]*\)/gi, '').trim();
+    return cBase === baseNorm;
+  });
+  if (chem) return chem;
+
+  // 3. Name match
+  chem = CHEMICAL_DATABASE.find(c => c.name_en.toLowerCase() === norm || c.name_vi.toLowerCase() === norm);
+  if (chem) return chem;
+
   return {
     formula,
     name_en: formula,
@@ -443,3 +1336,40 @@ export function findChemical(formula: string): ChemicalDefinition {
     ppe: ['lab_coat']
   };
 }
+
+export function getSolidMorphology(substance: string): SolidMorphology {
+  if (!substance) return 'POWDER';
+  const chem = CHEMICAL_DATABASE.find(
+    c => c.formula.toLowerCase() === substance.toLowerCase() || 
+         c.name_en.toLowerCase() === substance.toLowerCase()
+  );
+  if (chem && chem.solidMorphology) {
+    return chem.solidMorphology;
+  }
+  const s = substance.toLowerCase();
+  if (s.includes('ribbon') || s === 'mg' || s === 'al' || s.includes('foil')) return 'RIBBON';
+  if (s.includes('turning') || s.includes('wire') || s === 'cu') return 'TURNINGS';
+  if (s.includes('filing') || s.includes('nail') || s === 'fe') return 'FILINGS';
+  if (s.includes('granule') || s === 'zn') return 'GRANULES';
+  if (
+    s.includes('pellet') || 
+    s === 'na' || 
+    s === 'k' || 
+    s === 'sodium' || 
+    s === 'potassium' || 
+    s.includes('sodium metal') || 
+    s.includes('potassium metal') || 
+    s.includes('naoh') || 
+    s.includes('koh')
+  ) {
+    return 'PELLET';
+  }
+  if (s.includes('chip') || s.includes('marble') || s.includes('stone') || s.includes('pumice')) return 'CHIPS';
+  if (s.includes('nacl') || s.includes('kcl') || s.includes('table salt') || s.includes('halite')) return 'CUBIC_CRYSTAL';
+  if (s.includes('kmno4') || s.includes('permanganate')) return 'PRISMATIC_CRYSTAL';
+  if (s.includes('k2cr2o7') || s.includes('dichromate')) return 'TABULAR_CRYSTAL';
+  if (s.includes('cuso4') || s.includes('cocl2') || s.includes('niso4') || s.includes('feso4') || s.includes('hydrate') || s.includes('vitriol')) return 'HYDRATE_CRYSTAL';
+  if (s.includes('i2') || s.includes('iodine') || s.includes('iot')) return 'LUSTROUS_PLATES';
+  return 'POWDER';
+}
+
