@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { ReactionProgram } from '../../shared/programSchema';
+import { getProgramById } from '../programs/library/index';
+import { GAS_SPECIES_TABLE, GasSpecies, toRecipeStyle, normalizeMorphology } from '../catalog/vocab';
 
 export type VfxRecipeLayer =
   | { kind: 'colorFront'; t: [number, number]; from?: string; to: string; origin: 'pourPoint' | 'bottom' | 'solidSurface' | 'uniform'; speed: number }
@@ -491,6 +494,181 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
 };
 
 /**
+ * Converts a declarative ReactionProgram into a layered ReactionVfxRecipe
+ */
+export function programToRecipe(program: ReactionProgram): ReactionVfxRecipe {
+  const layers: VfxRecipeLayer[] = [];
+  let bubblesRate = 0;
+  let bubblesColor: string | undefined;
+  let bubblesGasType: string | undefined;
+  let gasColor: string | undefined;
+  let gasDensity: 'heavy' | 'light' | 'neutral' = 'neutral';
+  let gasPlumeRate = 0;
+  let steamActive = false;
+  let steamRate = 0;
+  let precipitateSubstance: string | undefined;
+  let precipitateColor = '#ffffff';
+  let precipitateMorphology: 'flake' | 'curd' | 'gel' = 'curd';
+  let foamActive = false;
+  let sparksActive = false;
+  let sparksColor = '#f59e0b';
+  let sparksRate = 30;
+  let soundEffect: 'fizz' | 'boil' | 'pop' | 'alarm' | 'pour' | undefined;
+
+  for (const atom of program.visual.timeline) {
+    const w = atom.window || [0, 1];
+    const p = atom.params || {};
+
+    switch (atom.atom) {
+      case 'nucleateBubbles': {
+        const rate = (p.bubbleRate as number) || 30;
+        const color = (p.color as string) || '#e0f2fe';
+        const gasType = (p.gasSpecies as string) || 'H2';
+        bubblesRate = Math.max(bubblesRate, rate);
+        bubblesColor = color;
+        bubblesGasType = gasType;
+        layers.push({ kind: 'bubbles', t: w, rate, color, emitter: 'bottom', gasType });
+        break;
+      }
+      case 'effervescenceBurst': {
+        const intensity = (p.intensity as number) || 2.0;
+        const rate = Math.round(intensity * 25);
+        const gasType = (p.gasSpecies as string) || 'CO2';
+        bubblesRate = Math.max(bubblesRate, rate);
+        bubblesGasType = gasType;
+        layers.push({ kind: 'bubbles', t: w, rate, emitter: 'bottom', gasType });
+        break;
+      }
+      case 'buoyantGasPlume': {
+        const color = (p.colorHex as string) || (p.color as string) || (p.gasSpecies ? GAS_SPECIES_TABLE[p.gasSpecies as GasSpecies]?.colorHex : undefined) || '#ffffff';
+        gasColor = color;
+        gasDensity = 'neutral';
+        gasPlumeRate = Math.max(gasPlumeRate, 25);
+        layers.push({ kind: 'gasPlume', t: w, color, density: 0.6, heavy: false, buoyancy: 0.3 });
+        break;
+      }
+      case 'heavyVaporPour': {
+        const color = (p.colorHex as string) || (p.color as string) || (p.gasSpecies ? GAS_SPECIES_TABLE[p.gasSpecies as GasSpecies]?.colorHex : undefined) || '#9a3412';
+        gasColor = color;
+        gasDensity = 'heavy';
+        gasPlumeRate = Math.max(gasPlumeRate, 35);
+        layers.push({ kind: 'gasPlume', t: w, color, density: 0.9, heavy: true, buoyancy: -0.2 });
+        break;
+      }
+      case 'thermalSteam': {
+        steamActive = true;
+        const density = (p.steamDensity as number) || 0.4;
+        steamRate = Math.max(steamRate, density * 30);
+        layers.push({ kind: 'steam', t: w, density });
+        break;
+      }
+      case 'precipitateNucleation':
+      case 'curdyPrecipitation':
+      case 'finePowderPrecipitation':
+      case 'flocculentPrecipitation':
+      case 'gelationNetwork':
+      case 'crystallinePlates':
+      case 'crystallineNeedles': {
+        const sub = (p.substance as string) || program.visual.after.precipitate?.substance || 'precipitate';
+        const col = (p.colorHex as string) || (p.color as string) || program.visual.after.precipitate?.color || '#ffffff';
+        const rawMorph = (p.morphology as string) || program.visual.after.precipitate?.morphology || 'curd';
+        const morph = normalizeMorphology(rawMorph);
+        const style = toRecipeStyle(morph) as any;
+        precipitateSubstance = sub;
+        precipitateColor = col;
+        precipitateMorphology = style === 'gel' ? 'gel' : style === 'flake-gold' ? 'flake' : 'curd';
+        layers.push({ kind: 'precipitate', t: w, style, color: col, settleTime: 8.0, substance: sub });
+        break;
+      }
+      case 'cellularFoamGrowth': {
+        foamActive = true;
+        const rate = (p.foamExpansionRate as number) || 20;
+        layers.push({ kind: 'foam', t: w, rate });
+        break;
+      }
+      case 'pyrotechnicSparks':
+      case 'energeticSparks': {
+        sparksActive = true;
+        sparksColor = (p.sparkColor as string) || (p.colorHex as string) || '#f59e0b';
+        sparksRate = (p.sparkCount as number) || 35;
+        break;
+      }
+      case 'combustionFlash': {
+        const col = (p.colorHex as string) || '#fef08a';
+        const intensity = (p.peakLuminance as number) || 3.0;
+        layers.push({ kind: 'flash', at: w[0], color: col, intensity, duration: 0.4 });
+        break;
+      }
+      case 'cameraShake': {
+        const trauma = (p.trauma as number) || 0.4;
+        layers.push({ kind: 'shake', t: w, trauma });
+        break;
+      }
+      case 'cameraSlowMo': {
+        const scale = (p.timeScale as number) || 0.25;
+        layers.push({ kind: 'slowmo', t: w, scale });
+        break;
+      }
+      case 'proceduralAcoustics': {
+        const profile = (p.soundProfile as string) || 'fizz_effervescence';
+        const snd = profile.includes('boil') ? 'boil' : profile.includes('pop') ? 'pop' : profile.includes('fizz') ? 'fizz' : 'pour';
+        soundEffect = snd;
+        layers.push({ kind: 'sound', at: w[0], id: snd });
+        break;
+      }
+      case 'liquidSwirl':
+      case 'beerLambertFade': {
+        const toCol = (p.endColor as string) || (p.color as string) || program.visual.after.liquidColor || '#ffffff';
+        layers.push({ kind: 'colorFront', t: w, to: toCol, origin: 'pourPoint', speed: 2.0 });
+        break;
+      }
+    }
+  }
+
+  // If program.visual.after specifies precipitate but no precipitate atom in timeline
+  if (program.visual.after.precipitate && !layers.some(l => l.kind === 'precipitate')) {
+    const afterP = program.visual.after.precipitate;
+    const morph = normalizeMorphology(afterP.morphology);
+    const style = toRecipeStyle(morph) as any;
+    precipitateSubstance = afterP.substance;
+    precipitateColor = afterP.color || '#ffffff';
+    precipitateMorphology = style === 'gel' ? 'gel' : style === 'flake-gold' ? 'flake' : 'curd';
+    layers.push({ kind: 'precipitate', t: [0.0, 0.8], style, color: precipitateColor, settleTime: 8.0, substance: precipitateSubstance });
+  }
+
+  // If program produces gas but no bubble atom in timeline
+  if (program.visual.after.gasesOffgassed && program.visual.after.gasesOffgassed.length > 0 && !layers.some(l => l.kind === 'bubbles')) {
+    const gasSpecies = program.visual.after.gasesOffgassed[0].species;
+    const gasInfo = GAS_SPECIES_TABLE[gasSpecies as GasSpecies];
+    bubblesRate = 25;
+    bubblesGasType = gasSpecies;
+    bubblesColor = gasInfo?.colorHex || '#e0f2fe';
+    layers.push({ kind: 'bubbles', t: [0.0, 0.8], rate: 25, color: bubblesColor, emitter: 'bottom', gasType: gasSpecies });
+  }
+
+  // If strongly exothermic
+  if (program.chemistry.deltaH_kJ_per_mol && program.chemistry.deltaH_kJ_per_mol < -80 && !steamActive) {
+    steamActive = true;
+    steamRate = 12;
+    layers.push({ kind: 'steam', t: [0.1, 0.8], density: 0.35 });
+  }
+
+  return {
+    id: program.id,
+    name: program.explain.observation_en || program.id,
+    duration: program.visual.duration_s || 5.0,
+    layers,
+    bubbles: bubblesRate > 0 ? { rate: bubblesRate, color: bubblesColor, gasType: bubblesGasType, emitter: 'bottom' } : undefined,
+    gasPlume: gasPlumeRate > 0 ? { color: gasColor || '#ffffff', density: gasDensity, rate: gasPlumeRate } : undefined,
+    steam: steamActive ? { active: true, rate: steamRate } : undefined,
+    precipitate: precipitateSubstance ? { substance: precipitateSubstance, color: precipitateColor, morphology: precipitateMorphology } : undefined,
+    foam: foamActive ? { active: true, growthMultiplier: 1.5 } : undefined,
+    sparks: sparksActive ? { active: true, color: sparksColor, rate: sparksRate } : undefined,
+    soundEffect
+  };
+}
+
+/**
  * Returns matching recipe by exact ID or canonical aliases
  */
 export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | null {
@@ -501,17 +679,24 @@ export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | n
   if (REACTION_VFX_RECIPES[rawLower]) return REACTION_VFX_RECIPES[rawLower];
   if (REACTION_VFX_RECIPES[normalized]) return REACTION_VFX_RECIPES[normalized];
 
+  // Check 100+ program library
+  const prog = getProgramById(reactionId) || getProgramById(rawLower) || getProgramById(normalized);
+  if (prog) {
+    return programToRecipe(prog);
+  }
+
   // Canonical alias checks
-  if (normalized.includes('caco3')) return REACTION_VFX_RECIPES['caco3_hcl_gas'];
+  if (normalized.includes('caco3_hcl')) return REACTION_VFX_RECIPES['caco3_hcl_gas'];
   if (normalized.includes('fe_cu') || normalized.includes('cuso4_fe') || normalized.includes('displacement')) return REACTION_VFX_RECIPES['fe_cuso4_displacement'];
-  if (normalized.includes('agno3') || normalized.includes('agcl')) return REACTION_VFX_RECIPES['agno3_nacl_precipitate'];
+  if (normalized.includes('agno3_nacl') || normalized.includes('agcl_precipitate')) return REACTION_VFX_RECIPES['agno3_nacl_precipitate'];
   if (normalized.includes('pbno3') || normalized.includes('pbi2') || normalized.includes('golden_rain')) return REACTION_VFX_RECIPES['golden_rain_pbi2'];
   if (normalized.includes('h2o2') || normalized.includes('mno2')) return REACTION_VFX_RECIPES['h2o2_mno2_decomposition'];
   if (normalized.includes('sodium_water') || normalized.includes('na_h2o') || normalized.includes('sodium_dart') || normalized.includes('alkali_metal_water_na')) return REACTION_VFX_RECIPES['sodium_water_reaction'];
   if (normalized.includes('zn_hcl')) return REACTION_VFX_RECIPES['zn_hcl_gas'];
   if (normalized.includes('mg_hcl')) return REACTION_VFX_RECIPES['mg_hcl_gas'];
   if (normalized.includes('nh3_hcl') || normalized.includes('fumes')) return REACTION_VFX_RECIPES['nh3_hcl_fumes'];
-  if (normalized.includes('na2co3') || normalized.includes('nahco3')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
+  if (normalized.includes('na2co3_hcl')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
+  if (normalized.includes('nahco3_hcl')) return REACTION_VFX_RECIPES['nahco3_hcl_gas'];
   if (normalized.includes('h2so4_naoh')) return REACTION_VFX_RECIPES['h2so4_naoh_neutralization'];
   if (normalized.includes('hcl_naoh') || normalized.includes('titration')) return REACTION_VFX_RECIPES['hcl_naoh_neutralization'];
   if (normalized.includes('cuso4_naoh')) return REACTION_VFX_RECIPES['cuso4_naoh_precipitate'];

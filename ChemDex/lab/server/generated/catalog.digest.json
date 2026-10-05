@@ -1,0 +1,1251 @@
+[
+  {
+    "name": "liquidSwirl",
+    "category": "liquidOptics",
+    "summary_en": "Localized turbulent swirl and color plume when two liquids or solutions meet.",
+    "useWhen": [
+      "Reagents with differing colors or densities mix",
+      "Stirring rod or pour stream impacts liquid"
+    ],
+    "avoidWhen": [
+      "Completely unmixed separate phases",
+      "Dry solids without liquid"
+    ],
+    "anchorsAllowed": [
+      "pourPoint",
+      "bulk",
+      "surface"
+    ],
+    "paramSpecs": {
+      "speed": {
+        "type": "number",
+        "default": 1.2,
+        "min": 0.1,
+        "max": 5,
+        "description": "Rotational vortex speed"
+      },
+      "diffusionRadius": {
+        "type": "number",
+        "default": 0.35,
+        "min": 0.05,
+        "max": 1,
+        "description": "Radial extent of color plume"
+      },
+      "color": {
+        "type": "color",
+        "default": "#38bdf8",
+        "description": "Incoming reagent dye color"
+      }
+    },
+    "exampleParams": {
+      "speed": 0.8,
+      "diffusionRadius": 0.25,
+      "color": "#f43f5e"
+    }
+  },
+  {
+    "name": "beerLambertFade",
+    "category": "liquidOptics",
+    "summary_en": "Physical spectrophotometric absorbance fading or deepening driven by species concentration.",
+    "useWhen": [
+      "Colored chromophore ion is consumed or formed",
+      "Titration endpoint color transition"
+    ],
+    "avoidWhen": [
+      "Gas generation without color change",
+      "Color change caused purely by suspended precipitate"
+    ],
+    "anchorsAllowed": [
+      "bulk"
+    ],
+    "paramSpecs": {
+      "startColor": {
+        "type": "color",
+        "default": "#7c3aed",
+        "description": "Initial solution color"
+      },
+      "endColor": {
+        "type": "color",
+        "default": "#f8fafc",
+        "description": "Final bleached solution color"
+      },
+      "opticalPath_cm": {
+        "type": "number",
+        "default": 4.5,
+        "min": 0.5,
+        "max": 15,
+        "description": "Cuvette or vessel diameter"
+      }
+    },
+    "exampleParams": {
+      "startColor": "#581c87",
+      "endColor": "#fdf2f8",
+      "opticalPath_cm": 5
+    }
+  },
+  {
+    "name": "turbidityShift",
+    "category": "liquidOptics",
+    "summary_en": "Loss of optical clarity due to colloidal Tyndall scattering or fine micro-crystals.",
+    "useWhen": [
+      "Milkiness or haziness develops (BaSO4, sulfur sol)",
+      "Emulsion formation"
+    ],
+    "avoidWhen": [
+      "Clear solution remaining transparent",
+      "Large chunks settling immediately without haze"
+    ],
+    "anchorsAllowed": [
+      "bulk"
+    ],
+    "paramSpecs": {
+      "maxTurbidity": {
+        "type": "number",
+        "default": 0.85,
+        "min": 0,
+        "max": 1,
+        "description": "Maximum opacity (1 = fully opaque milk)"
+      },
+      "hazeColor": {
+        "type": "color",
+        "default": "#ffffff",
+        "description": "Scatter color"
+      }
+    },
+    "exampleParams": {
+      "maxTurbidity": 0.95,
+      "hazeColor": "#ffffff"
+    }
+  },
+  {
+    "name": "fluorescenceGlow",
+    "category": "liquidOptics",
+    "summary_en": "Fluorescent emissive photon glow under excitation light.",
+    "useWhen": [
+      "Fluorescein or quinine under UV lamp",
+      "Chemiluminescent reactions like luminol"
+    ],
+    "avoidWhen": [
+      "Standard daylight non-fluorescent reagents"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "surface"
+    ],
+    "paramSpecs": {
+      "emissionColor": {
+        "type": "color",
+        "default": "#22c55e",
+        "description": "Fluorescent wavelength color"
+      },
+      "intensity": {
+        "type": "number",
+        "default": 1.5,
+        "min": 0.1,
+        "max": 3,
+        "description": "Luminance multiplier"
+      }
+    },
+    "exampleParams": {
+      "emissionColor": "#4ade80",
+      "intensity": 2
+    }
+  },
+  {
+    "name": "liquidPhaseSplit",
+    "category": "liquidOptics",
+    "summary_en": "Biphasic liquid separation showing two distinct immiscible layers and sharp boundary meniscus.",
+    "useWhen": [
+      "Extraction with ether, hexane, or ethyl acetate over water"
+    ],
+    "avoidWhen": [
+      "Miscible single-phase aqueous solutions"
+    ],
+    "anchorsAllowed": [
+      "meniscus",
+      "bulk"
+    ],
+    "paramSpecs": {
+      "topPhaseColor": {
+        "type": "color",
+        "default": "#fef08a",
+        "description": "Upper organic phase color"
+      },
+      "topPhaseFraction": {
+        "type": "number",
+        "default": 0.4,
+        "min": 0.05,
+        "max": 0.95,
+        "description": "Fraction of total liquid volume"
+      },
+      "meniscusSharpness": {
+        "type": "number",
+        "default": 0.95,
+        "min": 0.5,
+        "max": 1,
+        "description": "Interfacial clarity"
+      }
+    },
+    "exampleParams": {
+      "topPhaseColor": "#c084fc",
+      "topPhaseFraction": 0.35,
+      "meniscusSharpness": 0.95
+    }
+  },
+  {
+    "name": "nucleateBubbles",
+    "category": "gas",
+    "summary_en": "Stream of discrete buoyancy-driven bubbles rising from nucleating surface sites.",
+    "useWhen": [
+      "Gentle gas generation (metal in dilute acid, heating degassing)"
+    ],
+    "avoidWhen": [
+      "Violent explosive eruptions",
+      "Non-gas precipitation reactions"
+    ],
+    "anchorsAllowed": [
+      "bottom",
+      "bulk",
+      "surface"
+    ],
+    "paramSpecs": {
+      "bubbleRate": {
+        "type": "number",
+        "default": 25,
+        "min": 1,
+        "max": 120,
+        "description": "Bubble emission rate"
+      },
+      "meanRadius_mm": {
+        "type": "number",
+        "default": 2.2,
+        "min": 0.5,
+        "max": 6,
+        "description": "Mean bubble radius"
+      },
+      "color": {
+        "type": "color",
+        "default": "#e0f2fe",
+        "description": "Bubble refraction highlight color"
+      },
+      "gasSpecies": {
+        "type": "string",
+        "default": "H2",
+        "description": "Gas chemical species"
+      }
+    },
+    "exampleParams": {
+      "bubbleRate": 35,
+      "meanRadius_mm": 1.8,
+      "color": "#e0f2fe",
+      "gasSpecies": "H2"
+    }
+  },
+  {
+    "name": "effervescenceBurst",
+    "category": "gas",
+    "summary_en": "Vigorous effervescent froth with multi-bubble churn and rapid surface popping.",
+    "useWhen": [
+      "Carbonate + acid (CaCO3, Na2CO3, NaHCO3)",
+      "Magnesium or sodium rapid effervescence"
+    ],
+    "avoidWhen": [
+      "Slow diffusion-limited dissolution without gas"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "surface",
+      "bottom"
+    ],
+    "paramSpecs": {
+      "intensity": {
+        "type": "number",
+        "default": 2,
+        "min": 0.1,
+        "max": 5,
+        "description": "Effervescence churn intensity"
+      },
+      "churnRadius": {
+        "type": "number",
+        "default": 0.45,
+        "min": 0.1,
+        "max": 0.8,
+        "description": "Horizontal spread of boiling froth"
+      },
+      "gasSpecies": {
+        "type": "string",
+        "default": "CO2",
+        "description": "Generated gas species"
+      }
+    },
+    "exampleParams": {
+      "intensity": 3,
+      "churnRadius": 0.5,
+      "gasSpecies": "CO2"
+    }
+  },
+  {
+    "name": "buoyantGasPlume",
+    "category": "gas",
+    "summary_en": "Upwardly buoyant billowy gas cloud rising from vessel rim into the laboratory atmosphere.",
+    "useWhen": [
+      "Gas density is lighter than air (H2, NH3, steam)",
+      "Warm convective gases"
+    ],
+    "avoidWhen": [
+      "Dense gases heavier than air that spill downwards"
+    ],
+    "anchorsAllowed": [
+      "rim",
+      "headspace"
+    ],
+    "paramSpecs": {
+      "riseSpeed": {
+        "type": "number",
+        "default": 1.2,
+        "min": 0.2,
+        "max": 3,
+        "description": "Thermal/buoyancy ascent velocity"
+      },
+      "color": {
+        "type": "color",
+        "default": "#ffffff",
+        "description": "Plume optical color"
+      },
+      "opacity": {
+        "type": "number",
+        "default": 0.35,
+        "min": 0.05,
+        "max": 1,
+        "description": "Vapor cloud opacity"
+      }
+    },
+    "exampleParams": {
+      "riseSpeed": 2.2,
+      "color": "#f8fafc",
+      "opacity": 0.15
+    }
+  },
+  {
+    "name": "heavyVaporPour",
+    "category": "gas",
+    "summary_en": "Dense, heavier-than-air vapor that rolls down over the vessel lip and cascades onto the benchtop.",
+    "useWhen": [
+      "Dense colored gas (NO2 reddish-brown, Br2 dark vapor, Cl2 yellow-green, concentrated cold CO2)"
+    ],
+    "avoidWhen": [
+      "Light buoyant gases (H2, CH4, hot steam)"
+    ],
+    "anchorsAllowed": [
+      "rim",
+      "outside"
+    ],
+    "paramSpecs": {
+      "color": {
+        "type": "color",
+        "default": "#9a3412",
+        "description": "Gas color (e.g. #9a3412 for NO2)"
+      },
+      "densityMultiplier": {
+        "type": "number",
+        "default": 1.6,
+        "min": 1.2,
+        "max": 4.5,
+        "description": "Density relative to air"
+      },
+      "spillRate": {
+        "type": "number",
+        "default": 28,
+        "min": 5,
+        "max": 60,
+        "description": "Cascade density"
+      }
+    },
+    "exampleParams": {
+      "color": "#9a3412",
+      "densityMultiplier": 1.58,
+      "spillRate": 35
+    }
+  },
+  {
+    "name": "headspaceFog",
+    "category": "gas",
+    "summary_en": "Dense micro-particulate aerosol or fog filling the vessel headspace.",
+    "useWhen": [
+      "Fuming acids (concentrated HCl, HNO3)",
+      "Gas reaction forming airborne smoke (NH3 + HCl -> NH4Cl solid smoke)"
+    ],
+    "avoidWhen": [
+      "Clear odorless non-fuming solutions"
+    ],
+    "anchorsAllowed": [
+      "headspace",
+      "rim"
+    ],
+    "paramSpecs": {
+      "fogColor": {
+        "type": "color",
+        "default": "#f8fafc",
+        "description": "Aerosol smoke color"
+      },
+      "density": {
+        "type": "number",
+        "default": 0.75,
+        "min": 0.1,
+        "max": 1,
+        "description": "Fog thickness"
+      }
+    },
+    "exampleParams": {
+      "fogColor": "#ffffff",
+      "density": 0.95
+    }
+  },
+  {
+    "name": "precipitateNucleation",
+    "category": "solidPhase",
+    "summary_en": "Spontaneous homogeneous or heterogeneous nucleation of solid particles from supersaturated solution.",
+    "useWhen": [
+      "Ionic product Q > Ksp",
+      "Insoluble salt forms upon mixing"
+    ],
+    "avoidWhen": [
+      "Soluble salts remaining in solution",
+      "Gas-only reactions"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "pourPoint"
+    ],
+    "paramSpecs": {
+      "morphology": {
+        "type": "string",
+        "default": "fine_powder",
+        "description": "Precipitate morphology class"
+      },
+      "color": {
+        "type": "color",
+        "default": "#ffffff",
+        "description": "Precipitate solid color"
+      },
+      "nucleationRate": {
+        "type": "number",
+        "default": 80,
+        "min": 10,
+        "max": 200,
+        "description": "Spawn burst intensity"
+      }
+    },
+    "exampleParams": {
+      "morphology": "curd",
+      "color": "#ffffff",
+      "nucleationRate": 90
+    }
+  },
+  {
+    "name": "stokesSedimentation",
+    "category": "solidPhase",
+    "summary_en": "Stokes terminal settling velocity v = 2/9 * r^2 * g * (rho_p - rho_f) / mu, accumulating a bottom sediment bed.",
+    "useWhen": [
+      "Precipitate particles settle downwards over time",
+      "Centrifugation or gravity settling"
+    ],
+    "avoidWhen": [
+      "Colloids with Brownian motion preventing settling",
+      "Buoyant floating solids"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "bottom"
+    ],
+    "paramSpecs": {
+      "stokesRadius_um": {
+        "type": "number",
+        "default": 4.5,
+        "min": 0.1,
+        "max": 50,
+        "description": "Particle hydrodynamic radius"
+      },
+      "sedimentColor": {
+        "type": "color",
+        "default": "#ffffff",
+        "description": "Bed color"
+      },
+      "bedHeight_mm": {
+        "type": "number",
+        "default": 6,
+        "min": 0.5,
+        "max": 30,
+        "description": "Final settled bed height"
+      }
+    },
+    "exampleParams": {
+      "stokesRadius_um": 12,
+      "sedimentColor": "#facc15",
+      "bedHeight_mm": 8
+    }
+  },
+  {
+    "name": "crystalGlitter",
+    "category": "solidPhase",
+    "summary_en": "Scintillating specular glints and anisotropic highlights from reflective crystalline facets.",
+    "useWhen": [
+      "Golden rain PbI2 flakes rotating in solution",
+      "Crystalline precipitates with lustrous faces"
+    ],
+    "avoidWhen": [
+      "Amorphous matte powders",
+      "Gelatinous flocculent precipitates"
+    ],
+    "anchorsAllowed": [
+      "bulk"
+    ],
+    "paramSpecs": {
+      "glintFrequency": {
+        "type": "number",
+        "default": 8,
+        "min": 1,
+        "max": 20,
+        "description": "Tumbling flash frequency"
+      },
+      "glintColor": {
+        "type": "color",
+        "default": "#fef08a",
+        "description": "Specular glint highlight color"
+      },
+      "facetSize_mm": {
+        "type": "number",
+        "default": 0.8,
+        "min": 0.2,
+        "max": 3,
+        "description": "Crystal plate size"
+      }
+    },
+    "exampleParams": {
+      "glintFrequency": 10,
+      "glintColor": "#fef08a",
+      "facetSize_mm": 1
+    }
+  },
+  {
+    "name": "surfaceDendriteGrowth",
+    "category": "solidPhase",
+    "summary_en": "Branching metallic tree (dendrite) fractal crystallization on metal surfaces.",
+    "useWhen": [
+      "Single displacement (Cu wire in AgNO3, Zn in SnCl2, Zn in Pb(NO3)2)"
+    ],
+    "avoidWhen": [
+      "Precipitation from homogeneous ionic solution"
+    ],
+    "anchorsAllowed": [
+      "bottom",
+      "bulk"
+    ],
+    "paramSpecs": {
+      "metalColor": {
+        "type": "color",
+        "default": "#e2e8f0",
+        "description": "Deposited metal luster color"
+      },
+      "growthSpeed": {
+        "type": "number",
+        "default": 0.5,
+        "min": 0.1,
+        "max": 2,
+        "description": "Tree elongation rate"
+      }
+    },
+    "exampleParams": {
+      "metalColor": "#f1f5f9",
+      "growthSpeed": 0.8
+    }
+  },
+  {
+    "name": "metallicMirrorDeposit",
+    "category": "solidPhase",
+    "summary_en": "Deposition of a continuous, specular metallic silver or copper mirror on the inner glass wall.",
+    "useWhen": [
+      "Tollens aldehyde silver mirror test",
+      "Fehling glucose reduction to Cu2O/Cu mirror"
+    ],
+    "avoidWhen": [
+      "Suspensions that do not adhere to glass"
+    ],
+    "anchorsAllowed": [
+      "wall",
+      "wallLower"
+    ],
+    "paramSpecs": {
+      "mirrorReflectance": {
+        "type": "number",
+        "default": 0.95,
+        "min": 0.2,
+        "max": 1,
+        "description": "Specular reflectivity"
+      },
+      "metalTint": {
+        "type": "color",
+        "default": "#e2e8f0",
+        "description": "Lustrous metal tint"
+      }
+    },
+    "exampleParams": {
+      "mirrorReflectance": 0.98,
+      "metalTint": "#f8fafc"
+    }
+  },
+  {
+    "name": "solidErosion",
+    "category": "solidPhase",
+    "summary_en": "Shrinking, pitting, and thinning of solid reagent granules, nails, or ribbons as they are chemically consumed.",
+    "useWhen": [
+      "Metal ribbon burning or dissolving in acid",
+      "CaCO3 marble chips reacting with acid"
+    ],
+    "avoidWhen": [
+      "Insoluble catalyst remaining constant (MnO2)"
+    ],
+    "anchorsAllowed": [
+      "bottom",
+      "surface",
+      "bulk"
+    ],
+    "paramSpecs": {
+      "initialShape": {
+        "type": "select",
+        "default": "granule",
+        "description": "Geometry type"
+      },
+      "erosionRate": {
+        "type": "number",
+        "default": 0.2,
+        "min": 0.01,
+        "max": 1,
+        "description": "Scale contraction per second"
+      }
+    },
+    "exampleParams": {
+      "initialShape": "granule",
+      "erosionRate": 0.15
+    }
+  },
+  {
+    "name": "boilingBumping",
+    "category": "thermal",
+    "summary_en": "Violent nucleate and film boiling, bubble surging, and cavitation bumping when liquid exceeds saturation temperature.",
+    "useWhen": [
+      "Liquid heated above 98 °C",
+      "Superheated boiling bumping without boiling chips"
+    ],
+    "avoidWhen": [
+      "Room temperature liquids"
+    ],
+    "anchorsAllowed": [
+      "bottom",
+      "surface",
+      "bulk"
+    ],
+    "paramSpecs": {
+      "intensity": {
+        "type": "number",
+        "default": 2,
+        "min": 0.1,
+        "max": 4,
+        "description": "Vigor of boiling"
+      },
+      "bumpingShockwave": {
+        "type": "boolean",
+        "default": false,
+        "description": "Intermittent bumping shockwave"
+      }
+    },
+    "exampleParams": {
+      "intensity": 2.5,
+      "bumpingShockwave": false
+    }
+  },
+  {
+    "name": "thermalSteam",
+    "category": "thermal",
+    "summary_en": "Billowing warm condensing water vapor rising above warm or hot liquids.",
+    "useWhen": [
+      "Liquid temperature >= 48 °C",
+      "Exothermic dissolution or neutralization heating"
+    ],
+    "avoidWhen": [
+      "Cold or room-temperature liquids"
+    ],
+    "anchorsAllowed": [
+      "rim",
+      "surface"
+    ],
+    "paramSpecs": {
+      "steamDensity": {
+        "type": "number",
+        "default": 1,
+        "min": 0.1,
+        "max": 2.5,
+        "description": "Steam cloud density"
+      },
+      "temperature_c": {
+        "type": "number",
+        "default": 75,
+        "min": 45,
+        "max": 120,
+        "description": "Liquid temperature"
+      }
+    },
+    "exampleParams": {
+      "steamDensity": 0.8,
+      "temperature_c": 65
+    }
+  },
+  {
+    "name": "convectionCurrents",
+    "category": "thermal",
+    "summary_en": "Refractive index Schlieren striations and toroidal convective circulation within the fluid.",
+    "useWhen": [
+      "Heating from bottom burner",
+      "Mixing liquids of vastly different densities (glycerol and water)"
+    ],
+    "avoidWhen": [
+      "Stagnant isothermal liquids"
+    ],
+    "anchorsAllowed": [
+      "bulk"
+    ],
+    "paramSpecs": {
+      "schlierenStrength": {
+        "type": "number",
+        "default": 0.8,
+        "min": 0.1,
+        "max": 2,
+        "description": "Optical refractive shimmer"
+      },
+      "convectionSpeed": {
+        "type": "number",
+        "default": 1.2,
+        "min": 0.1,
+        "max": 3,
+        "description": "Circulation velocity"
+      }
+    },
+    "exampleParams": {
+      "schlierenStrength": 1.2,
+      "convectionSpeed": 1.5
+    }
+  },
+  {
+    "name": "frostCreep",
+    "category": "thermal",
+    "summary_en": "Ice crystal frost creep and cold condensation mist coating the outer glass vessel wall.",
+    "useWhen": [
+      "Endothermic dissolution with ΔT < 0 (Ba(OH)2 + NH4SCN, urea in water)",
+      "Freezing mixtures"
+    ],
+    "avoidWhen": [
+      "Exothermic reactions releasing heat"
+    ],
+    "anchorsAllowed": [
+      "wall",
+      "wallLower"
+    ],
+    "paramSpecs": {
+      "frostThickness": {
+        "type": "number",
+        "default": 0.6,
+        "min": 0.1,
+        "max": 1,
+        "description": "Frost coating opacity"
+      },
+      "frostColor": {
+        "type": "color",
+        "default": "#e0f2fe",
+        "description": "Frost crystal hue"
+      }
+    },
+    "exampleParams": {
+      "frostThickness": 0.85,
+      "frostColor": "#e0f2fe"
+    }
+  },
+  {
+    "name": "flameCone",
+    "category": "combustion",
+    "summary_en": "Premixed or diffusion laminar/turbulent flame cone with Blackbody Planck radiation or atomic emission spectrum.",
+    "useWhen": [
+      "Bunsen burner or alcohol lamp ignited",
+      "Flame emission test (Na yellow, K lilac, Cu green, Li carmine)",
+      "Ignited hydrogen pop"
+    ],
+    "avoidWhen": [
+      "Flameless aqueous reactions at room temperature"
+    ],
+    "anchorsAllowed": [
+      "flame",
+      "surface",
+      "rim"
+    ],
+    "paramSpecs": {
+      "flameColor": {
+        "type": "color",
+        "default": "#38bdf8",
+        "description": "Base flame emission color"
+      },
+      "tipColor": {
+        "type": "color",
+        "default": "#f59e0b",
+        "description": "Outer flame envelope color"
+      },
+      "height_cm": {
+        "type": "number",
+        "default": 6.5,
+        "min": 2,
+        "max": 20,
+        "description": "Flame cone height"
+      },
+      "turbulent": {
+        "type": "boolean",
+        "default": false,
+        "description": "Turbulence flicker"
+      }
+    },
+    "exampleParams": {
+      "flameColor": "#0284c7",
+      "tipColor": "#38bdf8",
+      "height_cm": 6,
+      "turbulent": false
+    }
+  },
+  {
+    "name": "pyrotechnicSparks",
+    "category": "combustion",
+    "summary_en": "Incandescent ballistic spark bursts ejected by rapid exothermic deflagration or alkali metal oxidation.",
+    "useWhen": [
+      "Sodium or potassium on water",
+      "Burning magnesium ribbon in air",
+      "Thermite reaction"
+    ],
+    "avoidWhen": [
+      "Calm non-pyrotechnic reactions"
+    ],
+    "anchorsAllowed": [
+      "surface",
+      "rim",
+      "bulk"
+    ],
+    "paramSpecs": {
+      "sparkCount": {
+        "type": "number",
+        "default": 30,
+        "min": 5,
+        "max": 150,
+        "description": "Spark particle count"
+      },
+      "sparkColor": {
+        "type": "color",
+        "default": "#fbbf24",
+        "description": "Incandescence color"
+      },
+      "speed": {
+        "type": "number",
+        "default": 3.5,
+        "min": 1,
+        "max": 8,
+        "description": "Ejection initial velocity"
+      }
+    },
+    "exampleParams": {
+      "sparkCount": 40,
+      "sparkColor": "#f59e0b",
+      "speed": 3.2
+    }
+  },
+  {
+    "name": "incandescentGlow",
+    "category": "combustion",
+    "summary_en": "Intense blinding white or red-hot radiation glow lighting up the surroundings.",
+    "useWhen": [
+      "Burning magnesium ribbon (3100 K)",
+      "Water into concentrated sulfuric acid flash"
+    ],
+    "avoidWhen": [
+      "Mild room-temperature reactions"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "surface",
+      "flame"
+    ],
+    "paramSpecs": {
+      "glowIntensity": {
+        "type": "number",
+        "default": 4,
+        "min": 1,
+        "max": 10,
+        "description": "Point light luminance"
+      },
+      "glowColor": {
+        "type": "color",
+        "default": "#ffffff",
+        "description": "Emitted light color"
+      }
+    },
+    "exampleParams": {
+      "glowIntensity": 6,
+      "glowColor": "#ffffff"
+    }
+  },
+  {
+    "name": "smokeBillow",
+    "category": "combustion",
+    "summary_en": "Dense white or dark aerosol smoke billow dispersing into the surrounding air.",
+    "useWhen": [
+      "Dense white MgO smoke from magnesium combustion",
+      "Carbon soot smoke"
+    ],
+    "avoidWhen": [
+      "Transparent clean gas evolution"
+    ],
+    "anchorsAllowed": [
+      "rim",
+      "flame"
+    ],
+    "paramSpecs": {
+      "smokeColor": {
+        "type": "color",
+        "default": "#f8fafc",
+        "description": "Aerosol color"
+      },
+      "density": {
+        "type": "number",
+        "default": 1.2,
+        "min": 0.2,
+        "max": 2,
+        "description": "Aerosol volume density"
+      }
+    },
+    "exampleParams": {
+      "smokeColor": "#ffffff",
+      "density": 1.5
+    }
+  },
+  {
+    "name": "surfaceRipple",
+    "category": "interface",
+    "summary_en": "Circular capillary wave ripples radiating outward from an impact, burst, or stirring disturbance.",
+    "useWhen": [
+      "Liquid drop falls onto surface",
+      "Bubble bursts at free-surface",
+      "Floating pellet moves"
+    ],
+    "avoidWhen": [
+      "Completely static unperturbed liquid surface"
+    ],
+    "anchorsAllowed": [
+      "surface",
+      "meniscus",
+      "pourPoint"
+    ],
+    "paramSpecs": {
+      "amplitude": {
+        "type": "number",
+        "default": 0.12,
+        "min": 0.01,
+        "max": 0.5,
+        "description": "Wave peak height"
+      },
+      "frequency": {
+        "type": "number",
+        "default": 6,
+        "min": 1,
+        "max": 15,
+        "description": "Ripple oscillation frequency"
+      },
+      "decayTime_s": {
+        "type": "number",
+        "default": 1.2,
+        "min": 0.2,
+        "max": 3,
+        "description": "Viscous damping duration"
+      }
+    },
+    "exampleParams": {
+      "amplitude": 0.08,
+      "frequency": 5,
+      "decayTime_s": 1
+    }
+  },
+  {
+    "name": "meniscusDepression",
+    "category": "interface",
+    "summary_en": "Capillary indentation and contact angle wetting depression under a floating solid piece or pellet.",
+    "useWhen": [
+      "Sodium pellet floating on water (density 0.968 g/cm3)"
+    ],
+    "avoidWhen": [
+      "Dense sunken solids resting on beaker bottom"
+    ],
+    "anchorsAllowed": [
+      "surface",
+      "meniscus"
+    ],
+    "paramSpecs": {
+      "depth_mm": {
+        "type": "number",
+        "default": 2.5,
+        "min": 0.5,
+        "max": 8,
+        "description": "Meniscus indentation depth"
+      },
+      "radius_mm": {
+        "type": "number",
+        "default": 5,
+        "min": 1,
+        "max": 15,
+        "description": "Depression radius"
+      }
+    },
+    "exampleParams": {
+      "depth_mm": 3,
+      "radius_mm": 6
+    }
+  },
+  {
+    "name": "cellularFoamGrowth",
+    "category": "interface",
+    "summary_en": "Thick expanding Voronoi cellular foam layer with polyhedral liquid film drainage.",
+    "useWhen": [
+      "Elephant's toothpaste (H2O2 + MnO2/KI + dish soap)",
+      "High-viscosity foaming effervescence"
+    ],
+    "avoidWhen": [
+      "Clean rapid gas bubbling with no foam stabilizer"
+    ],
+    "anchorsAllowed": [
+      "surface",
+      "rim"
+    ],
+    "paramSpecs": {
+      "growthRate_ml_s": {
+        "type": "number",
+        "default": 22,
+        "min": 1,
+        "max": 80,
+        "description": "Foam volume generation rate"
+      },
+      "maxFoam_ml": {
+        "type": "number",
+        "default": 150,
+        "min": 5,
+        "max": 500,
+        "description": "Maximum stable foam volume"
+      },
+      "foamColor": {
+        "type": "color",
+        "default": "#ffffff",
+        "description": "Foam surface color"
+      }
+    },
+    "exampleParams": {
+      "growthRate_ml_s": 45,
+      "maxFoam_ml": 250,
+      "foamColor": "#fef08a"
+    }
+  },
+  {
+    "name": "worthingtonMicroJet",
+    "category": "interface",
+    "summary_en": "Worthington micro-jet liquid droplet ejecta flung upward when a surface bubble dome ruptures.",
+    "useWhen": [
+      "Boiling bubble burst at surface",
+      "Vigorous gas evolution popping"
+    ],
+    "avoidWhen": [
+      "Sub-surface non-bursting bubbles"
+    ],
+    "anchorsAllowed": [
+      "surface"
+    ],
+    "paramSpecs": {
+      "jetVelocity": {
+        "type": "number",
+        "default": 1.2,
+        "min": 0.5,
+        "max": 3,
+        "description": "Ejecta vertical speed"
+      },
+      "dropletCount": {
+        "type": "number",
+        "default": 4,
+        "min": 1,
+        "max": 12,
+        "description": "Micro-droplets per burst"
+      }
+    },
+    "exampleParams": {
+      "jetVelocity": 1.5,
+      "dropletCount": 5
+    }
+  },
+  {
+    "name": "wallCondensationDroplets",
+    "category": "wall",
+    "summary_en": "Microscopic dew film and discrete droplets condensing on the inner glass vessel wall, sliding down above pinning radius.",
+    "useWhen": [
+      "Warm vapor enters cooler vessel headspace",
+      "Distillation or boiling in Erlenmeyer flask"
+    ],
+    "avoidWhen": [
+      "Completely dry glassware at uniform room temperature"
+    ],
+    "anchorsAllowed": [
+      "wall",
+      "wallUpper",
+      "headspace"
+    ],
+    "paramSpecs": {
+      "condensationRate": {
+        "type": "number",
+        "default": 0.75,
+        "min": 0.1,
+        "max": 2,
+        "description": "Droplet accumulation rate"
+      },
+      "maxDropletSize_mm": {
+        "type": "number",
+        "default": 2.2,
+        "min": 0.5,
+        "max": 4,
+        "description": "Pinning slide threshold"
+      }
+    },
+    "exampleParams": {
+      "condensationRate": 0.8,
+      "maxDropletSize_mm": 2.5
+    }
+  },
+  {
+    "name": "residueStain",
+    "category": "wall",
+    "summary_en": "Persistent chemical residue ring, meniscus dried salt crust, or brown MnO2/Fe3+ glass stain.",
+    "useWhen": [
+      "Liquid evaporates leaving behind solute",
+      "KMnO4 or FeCl3 stains glassware"
+    ],
+    "avoidWhen": [
+      "Pure distilled water evaporation without non-volatile solutes"
+    ],
+    "anchorsAllowed": [
+      "wall",
+      "wallLower",
+      "meniscus",
+      "bottom"
+    ],
+    "paramSpecs": {
+      "stainColor": {
+        "type": "color",
+        "default": "#78350f",
+        "description": "Residue color"
+      },
+      "opacity": {
+        "type": "number",
+        "default": 0.85,
+        "min": 0.1,
+        "max": 1,
+        "description": "Stain film opacity"
+      },
+      "ringThickness_mm": {
+        "type": "number",
+        "default": 2,
+        "min": 0.5,
+        "max": 6,
+        "description": "Evaporated meniscus ring width"
+      }
+    },
+    "exampleParams": {
+      "stainColor": "#451a03",
+      "opacity": 0.9,
+      "ringThickness_mm": 2.5
+    }
+  },
+  {
+    "name": "proceduralAcoustics",
+    "category": "audio",
+    "summary_en": "Procedural synthesized acoustic soundscape (Minnaert bubble chirp, gas cavitation hiss, boiling rumble, pop, glass clink).",
+    "useWhen": [
+      "Any audible phenomenon (gas generation, boiling, ignition, pour, explosion)"
+    ],
+    "avoidWhen": [
+      "Muted or silent events"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "surface",
+      "rim"
+    ],
+    "paramSpecs": {
+      "soundProfile": {
+        "type": "select",
+        "default": "fizz_effervescence",
+        "description": "Acoustic synthesizer mode"
+      },
+      "volume": {
+        "type": "number",
+        "default": 0.7,
+        "min": 0,
+        "max": 1,
+        "description": "Master gain"
+      },
+      "pitchMultiplier": {
+        "type": "number",
+        "default": 1,
+        "min": 0.5,
+        "max": 2,
+        "description": "Frequency scaling"
+      }
+    },
+    "exampleParams": {
+      "soundProfile": "fizz_effervescence",
+      "volume": 0.8,
+      "pitchMultiplier": 1
+    }
+  },
+  {
+    "name": "cameraShake",
+    "category": "camera",
+    "summary_en": "Impulsive camera viewport shake and motion dampening upon rapid energetic deflagration or explosion.",
+    "useWhen": [
+      "Explosive gas pop (H2 + O2)",
+      "Acid splatter explosion (water into conc. H2SO4)",
+      "Vigorous sodium detonation"
+    ],
+    "avoidWhen": [
+      "Smooth calm reactions"
+    ],
+    "anchorsAllowed": [
+      "bulk",
+      "outside"
+    ],
+    "paramSpecs": {
+      "intensity": {
+        "type": "number",
+        "default": 0.8,
+        "min": 0.1,
+        "max": 2,
+        "description": "Shake displacement magnitude"
+      },
+      "decay_s": {
+        "type": "number",
+        "default": 0.6,
+        "min": 0.1,
+        "max": 2,
+        "description": "Duration to return to rest"
+      }
+    },
+    "exampleParams": {
+      "intensity": 0.3,
+      "decay_s": 0.3
+    }
+  }
+]

@@ -51,6 +51,7 @@ export const CameraControls = React.memo(function CameraControls({
   const isDraggingVessel = useAppStore(state => !!state.draggingVesselId);
   const cameraPanMode = useAppStore(state => state.cameraPanMode);
   const isScreenLocked = useAppStore(state => state.isScreenLocked);
+  const isPouring = useAppStore(state => state.isPouring);
   const isPourTiltLocked = useAppStore(state => state.isPourTiltLocked);
 
   const { gl } = useThree();
@@ -165,8 +166,8 @@ export const CameraControls = React.memo(function CameraControls({
     }
   });
 
-  // Temporarily disable controls while actively dragging a vessel in 3D space, when screen is locked, or when pour tilt is locked
-  const isCameraFrozen = isDraggingVessel || isScreenLocked || isPourTiltLocked;
+  // Auto-lock controls while actively pouring, dragging a vessel in 3D space, or when screen is locked
+  const isCameraFrozen = isDraggingVessel || isScreenLocked || isPourTiltLocked || isPouring;
   const controlsActive = !isCameraFrozen;
 
   return (

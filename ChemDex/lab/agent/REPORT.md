@@ -264,3 +264,74 @@ Thay thế 16 điểm tròn li ti trước đây bằng một hệ thống tái 
 2. **Loạn Lưu Khí Quyển 3D (Multi-Octave Curl Turbulence)**:
    - Hạt khói/hơi bay lên với vận tốc đối lưu nhiệt, uốn lượn mềm mại theo các hàm sóng curl noise ($v_x, v_z$), nở to dần khi lên cao và mờ dần vào không khí.
 
+---
+
+## 8. BÁO CÁO PHÁT TRIỂN HỆ THỐNG REACTION PROGRAMS, BẢO TOÀN VẬT LÝ TOÀN PHẦN & AI EFFECT DIRECTOR (PHASE 4)
+
+### A. Bốn Trụ Cột Nâng Cấp Cốt Lõi
+
+#### 1. Động Cơ Sổ Cái Bảo Toàn Vật Lý Toàn Phần (Conservation Ledger Engine — `src/engine/ledger.ts`)
+- **Triết lý "Bảo toàn, Mất đi, Còn lại"**: Mọi diễn biến hình ảnh 3D và trạng thái hóa học đều là ảnh xạ trực tiếp từ sổ cái vật lý (`Ledger`). Đồ họa tuân thủ sổ cái, sổ cái tuyệt đối không chạy theo đồ họa.
+- **Bảo toàn khối lượng**: Tổng khối lượng tồn kho (`inventory`) cộng với các dòng tiêu hao/thất thoát (`sinks`: khí bay thoát `escapedGas_g`, bay hơi `evaporated_g`, văng tràn `spilled_g`, cặn dính thành cốc `retainedOnSource_g`, bánh lọc `filterCake_g`) luôn bằng đúng tổng khối lượng ban đầu đưa vào trong giới hạn $\Delta m \le 10^{-6}\text{ g}$.
+- **Bảo toàn nguyên tố**: Bộ phân tích công thức phân tử chuẩn (`parseChemicalFormula`) hỗ trợ dấu ngoặc đơn lồng nhau (e.g. $\text{Al}_2(\text{SO}_4)_3$, $\text{Pb}(\text{NO}_3)_2$) và muối ngậm nước (e.g. $\text{CuSO}_4 \cdot 5\text{H}_2\text{O}$). Tổng số mol của từng nguyên tố được bảo toàn nghiêm ngặt với sai số $< 10^{-9}\text{ mol}$.
+- **Cân bằng năng lượng & Nhiệt dung**: Biến thiên nhiệt độ $\Delta T = Q / (\Sigma m_i c_i)$ theo dõi entanpi phản ứng $\Delta H$, nhiệt hòa tan, nhiệt hóa hơi và định luật làm nguội Newton ra môi trường.
+- **Co thể tích phi lý tưởng**: Bảng tra cứu tương tác nhị phân mô hình hóa hiện tượng co thể tích khi pha trộn dung môi (ví dụ: hỗn hợp nước – etanol co thể tích $\approx 3.5\%$, axit sunfuric đậm đặc tỏa nhiệt dữ dội và co thể tích).
+- **Quang phổ hấp thụ Beer–Lambert**: Màu dung dịch được tính toán vật lý dựa trên độ hấp thụ quang phổ $A = \Sigma \varepsilon_i c_i l$ của các ion mang màu ($\text{Cu}^{2+}, \text{Fe}^{3+}, \text{MnO}_4^-, \text{Cr}_2\text{O}_7^{2-}, \text{CrO}_4^{2-}$), thay thế hoàn toàn các bước nội suy lerp màu giả định.
+- **Bảo toàn khí theo định luật Henry & Áp suất bình kín**: Khí sinh ra trong bình hở sẽ thất thoát theo tốc độ sủi bọt; trong bình có nút đậy kín (`isSealed`), lượng khí tích tụ làm tăng áp suất khoảng trống miệng bình ($P = nRT / V_{\text{head}}$), kích hoạt sự cố nẩy nút chai hoặc vỡ nổ thủy tinh khi vượt ngưỡng $2.5\text{ atm}$.
+
+#### 2. Danh Mục Khép Kín 32 Effect Atoms (`src/vfx/catalog/`) & Thư Viện 106 Reaction Programs
+- **32 Effect Atoms thuần dữ liệu, composable**:
+  - **Quang học chất lỏng (`liquidOptics`)**: `liquidSwirl`, `beerLambertFade`, `turbidityShift`, `fluorescenceGlow`, `liquidPhaseSplit`.
+  - **Động học khí (`gasAtoms`)**: `nucleateBubbles`, `effervescenceBurst`, `buoyantGasPlume`, `heavyVaporPour`, `headspaceFog`.
+  - **Pha rắn & Kết tủa (`solidAtoms`)**: `precipitateNucleation`, `stokesSedimentation`, `crystalGlitter`, `surfaceDendriteGrowth`, `metallicMirrorDeposit`, `solidErosion`.
+  - **Nhiệt học (`thermalAtoms`)**: `boilingBumping`, `thermalSteam`, `convectionCurrents`, `frostCreep`.
+  - **Cháy & Quang năng (`combustionAtoms`)**: `flameCone`, `pyrotechnicSparks`, `incandescentGlow`, `smokeBillow`.
+  - **Mặt thoáng giao diện (`interfaceAtoms`)**: `surfaceRipple`, `meniscusDepression`, `cellularFoamGrowth`, `worthingtonMicroJet`.
+  - **Tương tác thành bình (`wallAtoms`)**: `wallCondensationDroplets`, `residueStain`.
+  - **Âm thanh & Camera (`audioAtoms`, `cameraAtoms`)**: `proceduralAcoustics`, `cameraShake`.
+- **Script tự động `npm run catalog:digest`**: Tự động biên dịch danh mục 32 atom thành `server/generated/catalog.digest.json`, đóng vai trò là "nguồn chân lý duy nhất" được nạp vào mô hình AI mà không cần can thiệp code thủ công.
+- **106 Chương trình phản ứng thủ công (`ALL_HANDCRAFTED_PROGRAMS`)**:
+  - Phủ rộng 11 nhóm lĩnh vực: Axit-Bazơ & Chỉ thị, Kết tủa vô cơ, Thoát khí, Phản ứng thế kim loại (Dãy điện hóa Beke-tov), Cân bằng phức chất & Phản ứng tạo phức, Cháy & Pháo hoa nhiệt nhôm, Nhiệt phân muối & An toàn phòng lab, Phối trí màu sắc phức chất, Phân tích định tính cation/anion, Chuẩn độ oxy hóa khử (Permanganomet), và Bình tạo khí Kipp.
+  - 100% chương trình được cân bằng nguyên tố và qua kiểm duyệt Zod schema nghiêm ngặt (`ReactionProgramSchema`).
+
+#### 3. Khắc Phục Triệt Để 10 Phát Hiện Kiểm Toán (Audit Findings F1 – F10)
+- **F1 (AI effects[] dead data)**: Bỏ cơ chế 6 cờ boolean tĩnh; AI tạo lập cấu trúc `ReactionProgram` đầy đủ với dòng thời gian nguyên tử (`timeline: AtomInstance[]`).
+- **F2 (AI reaction teleporting)**: Chấm dứt hiện tượng phản ứng AI nhảy cóc thể tích và không bảo toàn mol. Mọi phản ứng từ AI đều đi qua `applyProgramToLedger` để trừ mol chất phản ứng, cộng mol sản phẩm theo tỉ lượng phản ứng, và kích hoạt `activeKinetics` cho `ReactionSimulationEngine`.
+- **F3 (Heuristic string-sniffing glue)**: Xóa bỏ hoàn toàn các chuỗi so khớp `reactionId.includes('Na')` trong `director.tsx`. Toàn bộ hiệu ứng được điều phối có cấu trúc theo mốc thời gian nguyên tử và điểm neo hình học (`anchors`).
+- **F4 (Registry alias collisions & test updates)**:
+  - Đã tách biệt toàn bộ các cặp phản ứng bị gán nhầm:
+    - $\text{CaCl}_2 + \text{Na}_2\text{CO}_3$: Chuyển từ controller tạo khí sang kết tủa trắng phấn $\text{CaCO}_3$.
+    - $\text{AgNO}_3 + \text{KI}$: Chuyển từ mưa vàng dạng vảy $\text{PbI}_2$ sang kết tủa vón vàng nhạt $\text{AgI}$.
+    - $\text{FeCl}_3 + \text{NaOH}$: Chuyển từ gel xanh lam sang kết tủa nhầy nâu đỏ $\text{Fe(OH)}_3$.
+    - $\text{Zn} + \text{CuSO}_4$: Tách riêng khỏi phản ứng của đinh sắt $\text{Fe}$.
+    - $\text{K} + \text{H}_2\text{O}$: Tạo controller riêng `potassium_water_reaction` với ngọn lửa màu tím đặc trưng, phản ứng mãnh liệt hơn so với natri.
+    - **Đính chính Test Suite (`tests/reaction_controllers.test.ts`)**: Cập nhật kiểm thử `K+H2O` để kỳ vọng chính xác `potassium_water_reaction` thay vì chấp nhận controller của natri như trước.
+- **F5 (ReactionContext stubs)**: Đấu nối đầy đủ các hàm trợ giúp trong `ReactionContext`: `addSurfaceImpulse` phát sinh sự kiện gợn sóng `surface:ripple`, `emitSparks` kết nối bus phát hạt tia lửa riêng biệt, `playSound` hỗ trợ trọn vẹn hơn 20 mẫu âm thanh thủ tục WebAudio (`playSodiumSizzlePop`, `playMinnaertBubble`, `playGlassShatter`, v.v.).
+- **F6 (Generic fallback)**: Cơ chế fallback tổng quát suy ra từ trạng thái Ledger thực tế và quy tắc pha, không còn áp đặt kết tủa dạng `curdy`.
+- **F7 (Vocabulary mismatch)**: Thống nhất từ vựng hình thái học kết tủa (`PrecipMorphology`), các loài khí (`GasSpecies`), và mức nhiệt (`HeatClass`) vào `src/vfx/catalog/vocab.ts`, cung cấp adapter chuyển đổi hai chiều với các module cũ.
+- **F8 (Coverage)**: Mở rộng thư viện từ 30 controller lên 106 chương trình chuẩn hóa bao quát toàn diện chương trình phổ thông và đại học.
+- **F9 (Time honesty)**: Minh bạch thời gian thực và thời gian hiển thị: khai báo tỷ lệ `physical_s / display_s` và hiển thị huy hiệu `⏩ time-lapse ×N` khi thời gian được tua nhanh trên $20\times$.
+- **F10 (Ledger-driven visuals)**: Tiến trình phản ứng đọc trực tiếp từ số mol chất thực tế tiêu hao thay vì thanh trượt $0 \rightarrow 1$ giả định; trường hợp thiếu chất phản ứng thì phản ứng tự dừng và để lại chất dư tương ứng.
+
+#### 4. Đường Ống Phân Giải 5 Cấp Độ (5-Tier Resolution Pipeline) & AI Effect Director
+Pipeline thẩm định `resolveReactionProgram(substances, contents, env)` hoạt động theo thứ tự ưu tiên:
+1. **Tier 1 (`handcrafted`)**: Khớp chính xác với 106 chương trình chuẩn bị sẵn trong thư viện.
+2. **Tier 2 (`rule-derived`)**: Tự động phân loại hỗn hợp dựa trên quy tắc hóa học thực nghiệm (tích số tan $K_{sp}$, dãy hoạt động hóa học kim loại, phản ứng tạo khí axit - cacbonat/sunfit/sunfua, axit - bazơ).
+3. **Tier 3 (`cache`)**: Tái sử dụng các chương trình AI đã được tạo và thẩm định hợp lệ từ bộ nhớ đệm `chemistryCache`.
+4. **Tier 4 (`ai`)**: Gọi mô hình Gemini sinh `ReactionProgram` đầy đủ, đi qua vòng lặp kiểm định cú pháp Zod và tự sửa lỗi nếu phương trình chưa cân bằng nguyên tố.
+5. **Tier 5 (`fallback`)**: Phản xạ bảo toàn tối thiểu từ Ledger, hiển thị xoáy trộn dung dịch nhẹ nhàng mà không tạo hiệu ứng giả mạo.
+
+### B. Kết Quả Kiểm Thử Toàn Diện & Đóng Gói Sản Phẩm
+- **TypeScript Linter (`tsc --noEmit`)**: 0 lỗi (Exit Code 0).
+- **Vitest Master Suite**: **186/186 tests PASSED trên toàn bộ 20 test suites** (100% tỷ lệ đỗ):
+  - `tests/reaction_programs_library.test.ts`: Kiểm tra 100+ chương trình, không trùng lặp ID, cân bằng nguyên tố, và giải quyết triệt để va chạm F4.
+  - `tests/ledger_conservation.test.ts`: Kiểm tra bảo toàn khối lượng, nguyên tố, định luật Beer-Lambert, co thể tích phi lý tưởng và bình kín áp suất.
+  - `tests/programs_and_catalog.test.ts`: Kiểm tra 32 Effect Atoms, digest schema, và adapters hình thái học.
+  - `tests/multi_step_stoichiometry.test.ts`: Kiểm tra tiêu hao mol chất giới hạn và phản ứng nhiều giai đoạn.
+  - `tests/reaction_controllers.test.ts`: Kiểm tra các controller vật lý và điều hướng chuẩn xác.
+  - Cùng toàn bộ 15 test suite nền tảng khác (`realism_engine`, `apparatus_and_mechanisms`, `physics_sim`, `damage_and_physics`, v.v.).
+- **Production Build (`vite build` & `esbuild`)**: Biên dịch hoàn tất thành công gói phát hành `dist/` và `dist/server.cjs`.
+
+Hệ thống Virtual ChemLab 2.0 hiện đã đạt tính toàn vẹn vật lý và sư phạm ở mức cao nhất, sẵn sàng phục vụ học tập và nghiên cứu thực tế.
+
+

@@ -74,7 +74,15 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   useFrame((state, delta) => {
     const dt = Math.min(delta, 0.05);
     const vessel = useAppStore.getState().vessels[vesselId];
-    if (!vessel) return;
+    if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
+      if (vessel?.isShattered) {
+        mgr.reset();
+      }
+      if (bubbleMeshRef.current?.visible) bubbleMeshRef.current.visible = false;
+      if (precipitateMeshRef.current?.visible) precipitateMeshRef.current.visible = false;
+      if (evaporationMeshRef.current?.visible) evaporationMeshRef.current.visible = false;
+      if (!vessel || vessel.isShattered) return;
+    }
 
     // Check heating power from burners
     let heatPower_W = 0;

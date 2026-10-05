@@ -50,6 +50,8 @@ export interface SubstanceContent {
   mass_g: number;
   volume_ml?: number;
   concentration_M?: number;
+  phase?: string;
+  state?: string;
 }
 
 export type VesselType = 
@@ -90,6 +92,7 @@ export interface VesselState {
   volume: number; // normalized 0 to 1 for 3D display
   volume_ml: number; // actual volume in mL
   mass_g: number; // authoritative total mass in grams
+  tare_g?: number; // tare weight of empty vessel in grams
   density_g_ml?: number; // density in g/mL (default ~1.0)
   
   temperature_c: number; // in Celsius (ambient ~25°C)

@@ -177,16 +177,12 @@ export class ReactionSimulationEngine {
       dt,
       timeScale,
       addSurfaceImpulse: (normX, normZ, amplitude, radiusSigma = 0.08) => {
-        // Direct coupling with surface ripples
-        vfxBus.emit('particle:burst', {
-          position: [
-            vessel.position[0] + normX * 0.4,
-            vessel.position[1] + 0.1,
-            vessel.position[2] + normZ * 0.4,
-          ],
-          count: 1,
-          color: '#ffffff',
-          speed: 0.1,
+        // Direct coupling with surface ripples (fixing F5)
+        vfxBus.emit('surface:ripple', {
+          x: normX,
+          z: normZ,
+          intensity: amplitude,
+          vesselId: vessel.id
         });
       },
       emitBurst: (pos, count, color = '#ffffff', speed = 1.5) => {
@@ -198,20 +194,34 @@ export class ReactionSimulationEngine {
         });
       },
       emitSparks: (pos, count, color = '#f59e0b') => {
-        vfxBus.emit('particle:burst', {
+        // Distinct sparks event on bus (fixing F5)
+        vfxBus.emit('sparks', {
           position: [vessel.position[0] + pos[0], vessel.position[1] + pos[1], vessel.position[2] + pos[2]],
           count,
           color,
-          speed: 2.5,
+          speed: 3.5,
         });
       },
       playSound: (soundId: string) => {
+        // Comprehensive mapping to procedural WebAudio synthesis (fixing F5)
         if (soundId === 'fizz') labSound.playFizz();
-        else if (soundId === 'boil') labSound.playFizzBubble();
+        else if (soundId === 'boil') labSound.playBoil();
+        else if (soundId === 'bubble' || soundId === 'minnaert') labSound.playMinnaertBubble();
         else if (soundId === 'pop') labSound.playPop();
         else if (soundId === 'ignite') labSound.playBurnerIgnite();
         else if (soundId === 'alarm') labSound.playWarningAlarm();
         else if (soundId === 'pour') labSound.playLiquidPour();
+        else if (soundId === 'sodium_sizzle' || soundId === 'sizzle') labSound.playSodiumSizzlePop();
+        else if (soundId === 'glass_shatter' || soundId === 'shatter') labSound.playGlassShatter();
+        else if (soundId === 'explosion') labSound.playExplosion();
+        else if (soundId === 'clink' || soundId === 'tap') labSound.playGlassClink();
+        else if (soundId === 'bumping') labSound.playBumpingSurge();
+        else if (soundId === 'stir') labSound.playStir();
+        else if (soundId === 'droplet' || soundId === 'drop') labSound.playDroplet();
+        else if (soundId === 'powder' || soundId === 'solid_drop') labSound.playSolidDrop();
+        else if (soundId === 'grind') labSound.playPestleGrind();
+        else if (soundId === 'wipe') labSound.playSpongeWipe();
+        else if (soundId === 'success') labSound.playSuccess();
       },
     };
   }

@@ -496,7 +496,12 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     });
   }, [substance, count, effectiveRadius, isRibbon, isTurnings, isFilings, isGranules, isChips, isCubic, isPrismatic, isTabular, isHydrate, isPowder, vesselScale]);
 
-  const currentScale = Math.max(0, 1.0 - dissolveProgress);
+  const content = vessel?.contents?.find(c => 
+    c.formula.toLowerCase() === substance.toLowerCase() || 
+    c.formula.replace(/\s*\(.*\)/g, '').toLowerCase() === substance.replace(/\s*\(.*\)/g, '').toLowerCase()
+  );
+  const remainingMoleFraction = content ? (content.moles <= 1e-6 ? 0 : Math.min(1.0, content.moles / ((content as any).initialMoles || 0.04))) : 1.0;
+  const currentScale = Math.max(0, Math.min(1.0, (1.0 - dissolveProgress) * remainingMoleFraction));
 
   useFrame((state) => {
     if (currentScale <= 0.001) return;

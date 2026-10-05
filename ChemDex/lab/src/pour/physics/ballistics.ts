@@ -92,8 +92,8 @@ export function calculateStreamBallistics(
 
   if (targetVessel) {
     const distToCenter = Math.hypot(landX - targetVessel.position[0], landZ - targetVessel.position[2]);
-    const insideRadius = targetVessel.mouthR * 0.85;
-    const rimRadius = targetVessel.mouthR * 1.15;
+    const insideRadius = targetVessel.mouthR * 1.35;
+    const rimRadius = targetVessel.mouthR * 1.75;
 
     if (distToCenter <= insideRadius) {
       landingKind = 'inside';

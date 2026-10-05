@@ -6,6 +6,8 @@ interface VesselFoamAndSteamProps {
   radius: number;
   height: number;
   liquidY: number; // Y position of liquid surface
+  volume_ml?: number;
+  isShattered?: boolean;
   temperature_c: number;
   isBoiling: boolean;
   boilingIntensity?: number;
@@ -20,6 +22,8 @@ export const VesselFoamAndSteam = React.memo(function VesselFoamAndSteam({
   radius,
   height,
   liquidY,
+  volume_ml,
+  isShattered = false,
   temperature_c,
   isBoiling,
   boilingIntensity = 0.5,
@@ -29,12 +33,17 @@ export const VesselFoamAndSteam = React.memo(function VesselFoamAndSteam({
   hasGas = false,
   gasColor = '#cbd5e1'
 }: VesselFoamAndSteamProps) {
+  if (isShattered || (volume_ml !== undefined && volume_ml <= 0.2)) {
+    return null;
+  }
+
   const steamRef = useRef<THREE.InstancedMesh>(null);
   const foamRef = useRef<THREE.Group>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
-  // Number of rising steam/vapor particles when hot or boiling
-  const steamCount = (isBoiling || temperature_c >= 75) ? 18 : 0;
+  // Number of rising steam/vapor particles when hot or boiling AND liquid is present
+  const hasLiquid = volume_ml === undefined || volume_ml > 0.2;
+  const steamCount = (hasLiquid && (isBoiling || temperature_c >= 75)) ? 18 : 0;
 
   const steamParticles = useMemo(() => {
     return Array.from({ length: 18 }).map(() => ({

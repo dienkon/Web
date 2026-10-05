@@ -7,15 +7,23 @@ dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 import { GoogleGenAI } from '@google/genai';
 import { MixResultSchema } from '../src/shared/schemas';
 
-export const CURRENT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
+export const CURRENT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+
+export function isGeminiConfigured(): boolean {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return false;
+  const trimmed = apiKey.trim();
+  if (trimmed.startsWith('AQ.') || trimmed === 'MY_GEMINI_API_KEY' || trimmed.includes('placeholder')) {
+    return false;
+  }
+  return true;
+}
 
 let _ai: GoogleGenAI | null = null;
-export function getAIClient(): GoogleGenAI {
+export function getAIClient(): GoogleGenAI | null {
+  if (!isGeminiConfigured()) return null;
   if (!_ai) {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      throw new Error('GEMINI_API_KEY is not set');
-    }
+    const apiKey = process.env.GEMINI_API_KEY!.trim();
     _ai = new GoogleGenAI({ apiKey });
   }
   return _ai;
@@ -36,12 +44,36 @@ export function safeParseJson(raw: string): any {
   }
 }
 
-const SYSTEM_PROMPT = `You are an expert chemistry AI assistant for a 3D virtual lab simulation.
-Your task is to generate a structured JSON result for mixing specified chemicals.
+import fs from 'fs';
+import { validateProgram } from '../src/shared/programSchema';
+
+let _cachedCatalogDigestText = '';
+function getCatalogDigestPrompt(): string {
+  if (_cachedCatalogDigestText) return _cachedCatalogDigestText;
+  try {
+    const digestPath = path.resolve(process.cwd(), 'server/generated/catalog.digest.json');
+    if (fs.existsSync(digestPath)) {
+      const digest = JSON.parse(fs.readFileSync(digestPath, 'utf-8'));
+      _cachedCatalogDigestText = `AVAILABLE EFFECT ATOMS CATALOG (use ONLY these atom names in program.visual.timeline):\n` +
+        digest.map((a: any) => `- "${a.name}" (${a.category}): ${a.summary_en}. Use when: ${a.useWhen?.join(', ')}. Avoid when: ${a.avoidWhen?.join(', ')}`).join('\n');
+    }
+  } catch (err) {
+    console.warn('[AI] Could not load catalog.digest.json:', err);
+  }
+  return _cachedCatalogDigestText;
+}
+
+const SYSTEM_PROMPT = `You are an expert chemistry AI assistant and visual director for a physically-faithful 3D virtual lab simulation.
+Your task is to predict the chemical outcome of mixing reagents and compose a declarative ReactionProgram.
+
+SAFETY & EDUCATIONAL FRAMING:
+This is an educational visual simulation. Dangerous combinations (acid+bleach -> Cl2, water into conc. H2SO4, heavy metals, toxic gases) MUST be shown with hazard overlays and safety warnings, NEVER with step-by-step real-world synthesis instructions or quantities.
+
 You MUST return ONLY valid JSON matching this schema:
 {
+  "reaction_id": "String (lowercase canonical id, e.g. 'caco3_hcl')",
   "summary": "String describing the reaction briefly",
-  "equation": "String, e.g., HCl + NaOH -> NaCl + H2O (can be No Reaction)",
+  "equation": "Balanced full equation with states, e.g. CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)",
   "ionic_equation": "String (optional)",
   "conditions": "String (optional)",
   "reactants": ["Array of chemical formulas"],
@@ -54,65 +86,118 @@ You MUST return ONLY valid JSON matching this schema:
     "liquid_level": number (0 to 1, estimate volume increase),
     "has_precipitate": boolean,
     "precipitate_color": "Hex string (optional)",
+    "precipitate_substance": "Formula string (optional)",
+    "precipitate_amount_g": number,
     "is_boiling": boolean,
     "has_gas": boolean,
     "gas_color": "Hex string (optional)",
     "is_explosion": boolean
   },
+
+  "program": {
+    "schema": "chemdex.program/1",
+    "id": "canonical_id",
+    "provenance": "ai",
+    "chemistry": {
+      "equation": "Balanced equation",
+      "species": [
+        { "formula": "Formula", "role": "reactant|product", "coeff": 1, "phase": "s|l|g|aq", "colorHex": "#ffffff" }
+      ],
+      "deltaH_kJ_per_mol": number,
+      "kinetics": { "model": "instant|first_order|second_order|surface_limited", "halfTime_s": 1.5 },
+      "hazards": ["GHS05_corrosive", "GHS06_toxic", etc.]
+    },
+    "visual": {
+      "duration_s": 5.0,
+      "timeline": [
+        {
+          "id": "atom_1",
+          "atom": "AtomNameFromCatalog",
+          "anchor": "bulk|bottom|surface|rim|pourPoint|headspace",
+          "window": [0.0, 0.8],
+          "intensity": 1.0,
+          "params": {}
+        }
+      ],
+      "after": {
+        "liquidColor": "#ffffff",
+        "liquidOpacity": 1.0,
+        "turbidity": 0.0,
+        "precipitate": { "substance": "Formula", "morphology": "fine_powder|curd|floc|gel|crystal_plate|amorphous_black", "color": "#ffffff", "mass_g": "fromLedger" },
+        "gasesOffgassed": [{ "species": "GasFormula", "mol": "fromLedger", "escaped": true }]
+      }
+    },
+    "explain": { "observation_vi": "...", "observation_en": "...", "why_vi": "...", "why_en": "..." },
+    "confidence": 0.95
+  },
   
-  "effects": [
-    {
-      "type": "COLOR_CHANGE" | "PRECIPITATE" | "GAS" | "BOIL" | "EXPLOSION" | "CLEAR",
-      "duration": number (in seconds, e.g. 2),
-      "color": "Hex string (optional, e.g., gas color or new liquid color)"
-    }
-  ],
-  
+  "effects": [],
   "confidence": 0.0 to 1.0 (float),
-  "is_dangerous": boolean (true if explosion risk, highly toxic, etc.),
-  "warning_message": "String (optional). Strong warning if dangerous (e.g., Water poured into Conc. Acid)."
+  "is_dangerous": boolean,
+  "warning_message": "String (optional). Strong warning if dangerous (e.g. Water poured into Conc. Acid)."
 }
+
+${getCatalogDigestPrompt()}
 
 RULES:
 1. ONLY return the JSON object. Do not include markdown code blocks (\`\`\`json).
-2. Write text fields (summary, safety_notes, observable_changes, warning_message) in the requested language.
-3. Be realistic with colors and physical states (e.g. CuSO4 is blue, Fe is solid).
-4. Predict the resulting volume (liquid_level) by adding the volumes of mixed liquids.
-5. Generate appropriate effects (e.g., if gas is produced, add a 'GAS' effect). Ensure reactions are realistic.
-6. If mixing water into concentrated acid, it MUST cause boiling/splashing and return a warning_message!`;
+2. Balance all chemical equations accurately.
+3. Use ONLY atom names defined in the catalog above.
+4. Colors must be lowercase 6-digit hex format (#ffffff).
+5. If mixing water into concentrated acid, set is_dangerous=true, is_explosion=true, and return warning_message.`;
 
 export async function generateMixResult(substances: string[], currentVolume: number = 0.5, lang: string = 'en', isHeated: boolean = false) {
   const ai = getAIClient();
-  const input = `Mix the following substances: ${substances.join(' and ')}. Current liquid level is ${currentVolume}. Heated: ${isHeated ? 'Yes' : 'No'}. Language: ${lang === 'vi' ? 'Vietnamese' : 'English'}.`;
-
-  const preferredModel = CURRENT_GEMINI_MODEL;
-  let response;
-  try {
-    response = await ai.models.generateContent({
-      model: preferredModel,
-      contents: [{ role: 'user', parts: [{ text: input }] }],
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-        responseMimeType: 'application/json',
-      }
-    });
-  } catch (err) {
-    console.warn(`[AI Warning] ${preferredModel} fallback triggered:`, err);
-    response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: [{ role: 'user', parts: [{ text: input }] }],
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-        responseMimeType: 'application/json',
-      }
-    });
+  if (!ai) {
+    console.log('[AI Notice] Gemini API key not configured or unsupported. Using deterministic chemistry engine.');
+    return null;
   }
 
-  const text = response.text;
-  if (!text) throw new Error("No response from AI");
-  
-  const parsed = safeParseJson(text);
-  return MixResultSchema.parse(parsed); // Validate with Zod
+  const input = `Mix the following substances: ${substances.join(' and ')}. Current liquid level is ${currentVolume}. Heated: ${isHeated ? 'Yes' : 'No'}. Language: ${lang === 'vi' ? 'Vietnamese' : 'English'}. Compose both summary and program.`;
+  const preferredModel = CURRENT_GEMINI_MODEL;
+  let response;
+
+  try {
+    try {
+      response = await ai.models.generateContent({
+        model: preferredModel,
+        contents: [{ role: 'user', parts: [{ text: input }] }],
+        config: {
+          systemInstruction: SYSTEM_PROMPT,
+          responseMimeType: 'application/json',
+        }
+      });
+    } catch (err: any) {
+      console.warn(`[AI Warning] ${preferredModel} failed, trying fallback:`, err?.message || err);
+      response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: [{ role: 'user', parts: [{ text: input }] }],
+        config: {
+          systemInstruction: SYSTEM_PROMPT,
+          responseMimeType: 'application/json',
+        }
+      });
+    }
+
+    const text = response.text;
+    if (!text) return null;
+    
+    const parsed = safeParseJson(text);
+
+    // Validate and repair ReactionProgram if present
+    if (parsed.program) {
+      const val = validateProgram(parsed.program);
+      if (val.valid && val.program) {
+        parsed.program = val.program;
+        parsed.reaction_id = parsed.reaction_id || val.program.id;
+      }
+    }
+
+    return MixResultSchema.parse(parsed); // Validate with Zod
+  } catch (err: any) {
+    console.warn('[AI Warning] Gemini API unavailable, falling back to local chemistry solver:', err?.message || err);
+    return null;
+  }
 }
 
 export interface ChemistryQueryParams {

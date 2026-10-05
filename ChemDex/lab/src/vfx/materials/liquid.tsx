@@ -349,8 +349,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       return c && c.type !== 'solid';
     });
 
-    // Hide fluid when empty, or if vessel only contains dry solids without solvent
-    if (fillFraction <= 0.002 || volume <= 0.05 || (!hasLiquidSubstance && !vessel.liquidColor)) {
+    // Hide fluid when empty, shattered, or if vessel only contains dry solids without solvent
+    if (vessel.isShattered || fillFraction <= 0.002 || volume <= 0.05 || (!hasLiquidSubstance && !vessel.liquidColor)) {
       if (liquidMeshRef.current) liquidMeshRef.current.visible = false;
       if (meniscusMeshRef.current) meniscusMeshRef.current.visible = false;
       if (causticMeshRef.current) causticMeshRef.current.visible = false;

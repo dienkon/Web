@@ -1,6 +1,7 @@
 import { ReactionVfxRecipe, VfxRecipeLayer } from './reactionVfx';
 import { MixResult } from '../../shared/schemas';
 import { VesselState } from '../../types/chemistry';
+import { normalizeMorphology, toRecipeStyle } from '../catalog/vocab';
 
 /**
  * Derives dynamic procedural VFX recipe from MixResult or VesselState properties
@@ -15,9 +16,15 @@ export function getGenericVfxRecipe(
   const hasPrecipitate = mixResult?.new_vessel_state?.has_precipitate ?? vessel?.hasPrecipitate ?? false;
   const precipitateColor = mixResult?.new_vessel_state?.precipitate_color ?? vessel?.precipitateColor ?? '#cbd5e1';
 
+  const rawMorph = vessel?.precipitateMorphology || (mixResult as any)?.program?.visual?.after?.precipitate?.morphology;
+  const canonicalMorph = normalizeMorphology(rawMorph);
+  const precipitateStyle = toRecipeStyle(canonicalMorph) as 'milky' | 'curdy' | 'flake-gold' | 'gel' | 'powder-black' | 'metal-copper';
+  const precipitateMorphologySummary: 'flake' | 'curd' | 'gel' = precipitateStyle === 'gel' ? 'gel' : precipitateStyle === 'flake-gold' ? 'flake' : 'curd';
+
   const isExplosion = mixResult?.new_vessel_state?.is_explosion ?? vessel?.isExplosion ?? false;
   const temp = vessel?.temperature_c ?? 25;
   const isBoiling = (mixResult?.new_vessel_state?.is_boiling ?? vessel?.isBoiling ?? false) || temp >= 98;
+  const isHeavyGas = gasColor.toLowerCase().includes('9a3412') || gasColor.toLowerCase().includes('b45309') || gasColor.toLowerCase().includes('brown') || gasColor.toLowerCase().includes('yellow');
 
   const layers: VfxRecipeLayer[] = [];
 
@@ -37,9 +44,9 @@ export function getGenericVfxRecipe(
       kind: 'gasPlume',
       t: [0.05, 0.95],
       color: gasColor,
-      density: 0.45,
-      heavy: false,
-      buoyancy: 0.25
+      density: isHeavyGas ? 0.75 : 0.45,
+      heavy: isHeavyGas,
+      buoyancy: isHeavyGas ? -0.15 : 0.25
     });
   }
 
@@ -55,10 +62,10 @@ export function getGenericVfxRecipe(
     layers.push({
       kind: 'precipitate',
       t: [0.0, 0.9],
-      style: 'curdy',
+      style: precipitateStyle,
       color: precipitateColor,
-      settleTime: 5.0,
-      substance: 'precipitate'
+      settleTime: canonicalMorph === 'fine_powder' ? 15.0 : 6.0,
+      substance: vessel?.precipitateSubstance || 'precipitate'
     });
   }
 
@@ -90,10 +97,10 @@ export function getGenericVfxRecipe(
 
     gasPlume: hasGas ? {
       color: gasColor,
-      density: 'neutral',
-      rate: 20,
+      density: isHeavyGas ? 'heavy' : 'neutral',
+      rate: isHeavyGas ? 30 : 20,
       turbidity: 0.6,
-      buoyancy: 0.25
+      buoyancy: isHeavyGas ? -0.15 : 0.25
     } : undefined,
 
     steam: (isBoiling || temp >= 48) ? {
@@ -102,11 +109,11 @@ export function getGenericVfxRecipe(
     } : undefined,
 
     precipitate: hasPrecipitate ? {
-      substance: 'precipitate',
+      substance: vessel?.precipitateSubstance || 'precipitate',
       color: precipitateColor,
-      morphology: 'curd',
+      morphology: precipitateMorphologySummary,
       rate: 20,
-      settleTime: 5.0
+      settleTime: canonicalMorph === 'fine_powder' ? 15.0 : 6.0
     } : undefined,
 
     sparks: isExplosion ? {

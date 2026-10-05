@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { MixResult } from '../shared/schemas';
 import { CHEMICAL_DATABASE, findChemical, isImmiscibleOrganic, getSolidMorphology } from '../data/chemicals';
 import { VesselState, BurnerState, BuretteState, TitrationPoint, VesselType, SpillState, BurnerFlameState, SolidMorphology } from '../types/chemistry';
-import { evaluateLocalChemistry, findPendingReaction, initReactionCache } from '../engine/chemistryEngine';
+import { evaluateLocalChemistry, findPendingReaction, initReactionCache, executeMultiStepReactions } from '../engine/chemistryEngine';
 import { checkSafetyViolations } from '../engine/safetyEngine';
 import { 
   loadPersistedLabState, 
@@ -19,6 +19,9 @@ import { ExperimentDifficultyMode, ExamReportCard, experimentEngine } from '../e
 import { labSound } from '../utils/audio';
 import { ppeService } from '../safety/Ppe';
 import { shardManager } from '../damage/Shards';
+import { applyProgramToLedger } from '../engine/ledger';
+import { resolveReactionProgram } from '../vfx/programs/resolver';
+import { ReactionProgram } from '../shared/programSchema';
 
 export type Language = 'en' | 'vi';
 export type SubstanceType = 'liquid' | 'solid' | 'gas';
@@ -137,6 +140,12 @@ export interface ActiveKineticsState {
   precipitateMorphology?: string;
   dissolvingReactants: string[];
   targetTemp: number;
+  timeWarp?: {
+    physical_s: number;
+    note_vi?: string;
+    note_en?: string;
+  };
+  program?: ReactionProgram;
 }
 
 const DISSOLVING_SOLID_REACTANTS = [
@@ -213,6 +222,9 @@ export interface AppState {
   isScreenLocked: boolean;
   toggleScreenLock: () => void;
   setScreenLocked: (locked: boolean) => void;
+
+  isPouring: boolean;
+  setIsPouring: (isPouring: boolean) => void;
 
   stirringVesselId: string | null;
   setStirringVesselId: (id: string | null) => void;
@@ -1338,6 +1350,9 @@ export const useAppStore = create<AppState>((set, get) => {
     toggleScreenLock: () => set(s => ({ isScreenLocked: !s.isScreenLocked })),
     setScreenLocked: (locked) => set({ isScreenLocked: locked }),
 
+    isPouring: false,
+    setIsPouring: (isPouring: boolean) => set(s => s.isPouring === isPouring ? s : ({ isPouring })),
+
     stirringVesselId: null,
     setStirringVesselId: (id) => set({ stirringVesselId: id }),
 
@@ -1510,7 +1525,7 @@ export const useAppStore = create<AppState>((set, get) => {
           continue;
         }
 
-        const isBoilingNow = roundedTemp >= (normalBoilingPoint_c - 5.0) && currentVol > 0;
+        const isBoilingNow = roundedTemp >= (normalBoilingPoint_c - 5.0) && currentVol > 0.5;
         const boilingIntensity = isBoilingNow 
           ? Math.min(1.0, Math.max(0.1, (roundedTemp - (normalBoilingPoint_c - 5.0)) / 5.0)) 
           : 0;
@@ -2352,11 +2367,28 @@ export const useAppStore = create<AppState>((set, get) => {
           hasPrecipitate: false,
           isBoiling: false,
           hasGas: false,
-          foam_ml: 0
+          foam_ml: 0,
+          fumingIntensity: 0,
+          condensationMist: 0,
+          bumpingSurge: false,
+          precipitateAmount_g: 0,
+          liquidColor: undefined
         };
         const updated = { ...s.vessels, [id]: updatedVessel };
+        const updatedKinetics = { ...s.activeKinetics };
+        delete updatedKinetics[id];
+        const updatedPending = { ...s.pendingReactions };
+        delete updatedPending[id];
+        const updatedDissolving = { ...s.dissolvingSubstances };
+        delete updatedDissolving[id];
+
         debounceSaveLocalState(updated, s.burners);
-        return { vessels: updated };
+        return { 
+          vessels: updated,
+          activeKinetics: updatedKinetics,
+          pendingReactions: updatedPending,
+          dissolvingSubstances: updatedDissolving
+        };
       });
     },
 
@@ -3359,17 +3391,21 @@ export const useAppStore = create<AppState>((set, get) => {
         return;
       }
 
-      // 2. Try local deterministic chemistry engine first (Instant & completely offline)
-      const localResult = evaluateLocalChemistry(
-        newSubstances, 
-        newTotalVolume_ml, 
-        vessel.temperature_c, 
-        isHeated, 
+      // 2. Try multi-step stoichiometric chemistry engine first (Instant & completely offline)
+      const multiStep = executeMultiStepReactions(
+        existingContents,
+        newSubstances,
+        newTotalVolume_ml,
+        vessel.temperature_c,
+        isHeated,
         get().language
       );
 
-      if (localResult) {
-        if (localResult.new_vessel_state?.is_explosion) {
+      if (multiStep.reactionsOccurred.length > 0 && multiStep.combinedMixResult) {
+        const localResult = multiStep.combinedMixResult;
+        const primaryRx = multiStep.reactionsOccurred[0];
+
+        if (multiStep.isExplosion) {
           vfxBus.emit('explosion', {
             vesselId: targetId,
             position: vessel.position,
@@ -3378,54 +3414,54 @@ export const useAppStore = create<AppState>((set, get) => {
           });
           labSound.playExplosion();
           labSound.playAlarm();
-        } else if (localResult.new_vessel_state?.has_gas || localResult.new_vessel_state?.is_boiling) {
+        } else if (multiStep.hasGas || multiStep.isBoiling) {
           labSound.playFizz();
         } else if (localResult.is_dangerous) {
           labSound.playAlarm();
         }
 
-        const vfxRecipe = localResult.reaction_id ? getReactionVfxRecipe(localResult.reaction_id) : null;
+        const vfxRecipe = primaryRx.reactionId ? getReactionVfxRecipe(primaryRx.reactionId) : null;
         const kineticsItem: ActiveKineticsState = {
           vesselId: targetId,
-          reactionId: localResult.reaction_id,
+          reactionId: primaryRx.reactionId,
           startTime: Date.now(),
-          duration: vfxRecipe?.duration || (localResult.new_vessel_state.is_explosion ? 2.2 : 5.0),
+          duration: vfxRecipe?.duration || (multiStep.isExplosion ? 2.2 : 5.0),
           progress: 0,
           reactionName: localResult.summary,
           equation: localResult.equation,
           initialLiquidColor: vessel.liquidColor || chemData.color,
-          targetLiquidColor: localResult.new_vessel_state.liquid_color || vessel.liquidColor || chemData.color,
-          hasGas: !!localResult.new_vessel_state.has_gas,
-          gasColor: localResult.new_vessel_state.gas_color,
-          hasPrecipitate: !!localResult.new_vessel_state.has_precipitate,
-          precipitateColor: localResult.new_vessel_state.precipitate_color,
-          precipitateSubstance: vfxRecipe?.precipitate?.substance,
+          targetLiquidColor: multiStep.finalLiquidColor || vessel.liquidColor || chemData.color,
+          hasGas: multiStep.hasGas,
+          gasColor: multiStep.gasColor,
+          hasPrecipitate: multiStep.hasPrecipitate,
+          precipitateColor: multiStep.precipitateColor,
+          precipitateSubstance: multiStep.precipitateSubstance || vfxRecipe?.precipitate?.substance,
           dissolvingReactants: extractDissolvingReactants(newSubstances),
-          targetTemp: localResult.new_vessel_state.temperature_c ?? (localResult.new_vessel_state.is_boiling ? 100 : (localResult.is_dangerous ? 75 : (isHeated ? Math.min(95, vessel.temperature_c + 20) : vessel.temperature_c)))
+          targetTemp: multiStep.finalTemperature_c
         };
 
-        // Calculate updated vessel state
+        // Calculate updated vessel state with clean stoichiometric consumption of moles and products
         const updatedVessel: VesselState = {
           ...vessel,
-          substances: newSubstances,
-          contents: existingContents,
+          substances: multiStep.updatedSubstances,
+          contents: multiStep.updatedContents,
           volume_ml: newTotalVolume_ml,
           immiscibleOrganicVolume_ml: newImmOrganicVol,
           immiscibleOrganicColor: newImmOrganicColor,
           mass_g: newTotalMass_g,
           density_g_ml: newDensity,
           volume: Math.min(1.0, newTotalVolume_ml / vessel.capacity_ml),
-          liquidColor: newLiquidColor,
-          hasPrecipitate: false, // will appear as kinetics progresses
-          precipitateColor: localResult.new_vessel_state.precipitate_color,
-          precipitateSubstance: vfxRecipe?.precipitate?.substance,
-          precipitateAmount_g: 0,
-          isBoiling: localResult.new_vessel_state.is_boiling,
-          hasGas: localResult.new_vessel_state.has_gas,
-          gasColor: localResult.new_vessel_state.gas_color,
-          isExplosion: localResult.new_vessel_state.is_explosion,
-          temperature_c: localResult.new_vessel_state.temperature_c ?? (localResult.new_vessel_state.is_boiling ? 100 : (localResult.is_dangerous ? 75 : (isHeated ? Math.min(95, vessel.temperature_c + 20) : vessel.temperature_c))),
-          ph: chemData.ph !== undefined ? chemData.ph : vessel.ph
+          liquidColor: multiStep.finalLiquidColor || newLiquidColor,
+          hasPrecipitate: multiStep.hasPrecipitate,
+          precipitateColor: multiStep.precipitateColor,
+          precipitateSubstance: multiStep.precipitateSubstance || vfxRecipe?.precipitate?.substance,
+          precipitateAmount_g: multiStep.precipitateAmount_g || 0,
+          isBoiling: multiStep.isBoiling,
+          hasGas: multiStep.hasGas,
+          gasColor: multiStep.gasColor,
+          isExplosion: multiStep.isExplosion,
+          temperature_c: multiStep.finalTemperature_c,
+          ph: multiStep.finalPh
         };
 
         set(s => {
@@ -3446,29 +3482,16 @@ export const useAppStore = create<AppState>((set, get) => {
         return;
       }
 
-      // 2. Fallback to API if not in deterministic local list
+      // 2. Resolve program via 5-tier resolution pipeline and apply Conservation Ledger
       set({ isMixing: true, mixError: null });
       try {
-        const res = await fetch('/api/experiment/mix', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            substances: newSubstances, 
-            volume: (newTotalVolume_ml / 100), 
-            lang: get().language, 
-            isHeated 
-          })
-        });
+        const { program: resolvedProgram } = await resolveReactionProgram(
+          newSubstances,
+          existingContents,
+          { isHeated, volume_ml: newTotalVolume_ml, lang: get().language }
+        );
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to mix');
-        const result = data as MixResult;
-
-        if (result.warning_message) {
-          set({ globalWarning: result.warning_message });
-        }
-
-        const updatedVessel: VesselState = {
+        const baseVessel: VesselState = {
           ...vessel,
           substances: newSubstances,
           contents: existingContents,
@@ -3478,23 +3501,101 @@ export const useAppStore = create<AppState>((set, get) => {
           immiscibleOrganicVolume_ml: newImmOrganicVol,
           immiscibleOrganicColor: newImmOrganicColor,
           volume: Math.min(1.0, newTotalVolume_ml / vessel.capacity_ml),
-          liquidColor: result.new_vessel_state.liquid_color || chemData.color,
-          hasPrecipitate: result.new_vessel_state.has_precipitate,
-          precipitateColor: result.new_vessel_state.precipitate_color,
-          isBoiling: result.new_vessel_state.is_boiling,
-          hasGas: result.new_vessel_state.has_gas,
-          gasColor: result.new_vessel_state.gas_color,
-          isExplosion: result.new_vessel_state.is_explosion,
           temperature_c: isHeated ? 80 : vessel.temperature_c
         };
 
+        const ledgerResult = applyProgramToLedger(resolvedProgram, baseVessel, 1.0);
+        const finalContents = ledgerResult.contents || existingContents;
+        const activeSubstances = Array.from(new Set(
+          finalContents
+            .filter(c => (c.moles || 0) > 1e-6)
+            .map(c => c.formula)
+            .concat((ledgerResult.hasPrecipitate && ledgerResult.precipitateSubstance) ? [ledgerResult.precipitateSubstance] : [])
+        ));
+
+        const isHazardExplosion = resolvedProgram.chemistry.hazards?.some(h => h.includes('01') || h.includes('02')) || false;
+
+        const updatedVessel: VesselState = {
+          ...baseVessel,
+          substances: activeSubstances.length > 0 ? activeSubstances : newSubstances,
+          contents: finalContents,
+          liquidColor: ledgerResult.liquidColor || chemData.color,
+          hasPrecipitate: ledgerResult.hasPrecipitate ?? false,
+          precipitateColor: ledgerResult.precipitateColor,
+          precipitateSubstance: ledgerResult.precipitateSubstance,
+          precipitateMorphology: ledgerResult.precipitateMorphology as any,
+          precipitateAmount_g: ledgerResult.precipitateAmount_g,
+          isBoiling: ledgerResult.isBoiling ?? false,
+          hasGas: ledgerResult.hasGas ?? false,
+          gasColor: ledgerResult.gasColor,
+          isExplosion: isHazardExplosion,
+          temperature_c: ledgerResult.temperature_c ?? (isHeated ? 80 : vessel.temperature_c),
+          mass_g: ledgerResult.mass_g ?? baseVessel.mass_g,
+          internalPressure_atm: ledgerResult.internalPressure_atm ?? baseVessel.internalPressure_atm
+        };
+
+        const warningMsg = get().language === 'vi' ? resolvedProgram.chemistry.warning_vi : resolvedProgram.chemistry.warning_en;
+        if (warningMsg) {
+          set({ globalWarning: warningMsg });
+        }
+
+        const kineticsItem: ActiveKineticsState = {
+          vesselId: targetId,
+          reactionId: resolvedProgram.id,
+          startTime: Date.now(),
+          duration: resolvedProgram.visual.duration_s || 5.0,
+          progress: 0,
+          reactionName: get().language === 'vi' ? resolvedProgram.explain.observation_vi : resolvedProgram.explain.observation_en,
+          equation: resolvedProgram.chemistry.equation,
+          initialLiquidColor: vessel.liquidColor || chemData.color,
+          targetLiquidColor: updatedVessel.liquidColor || chemData.color,
+          hasGas: updatedVessel.hasGas,
+          gasColor: updatedVessel.gasColor,
+          hasPrecipitate: updatedVessel.hasPrecipitate,
+          precipitateColor: updatedVessel.precipitateColor,
+          precipitateSubstance: updatedVessel.precipitateSubstance,
+          precipitateMorphology: updatedVessel.precipitateMorphology,
+          dissolvingReactants: extractDissolvingReactants(newSubstances),
+          targetTemp: updatedVessel.temperature_c,
+          timeWarp: resolvedProgram.visual.timeWarp,
+          program: resolvedProgram
+        };
+
+        if (updatedVessel.isExplosion) {
+          vfxBus.emit('explosion', {
+            vesselId: targetId,
+            position: vessel.position,
+            intensity: 1.0,
+            isDangerous: true
+          });
+          labSound.playExplosion();
+          labSound.playAlarm();
+        } else if (updatedVessel.hasGas || updatedVessel.isBoiling) {
+          labSound.playFizz();
+        }
+
         set(s => {
           const updated = { ...s.vessels, [targetId]: updatedVessel };
+          const activeKinetics = { ...s.activeKinetics, [targetId]: kineticsItem };
           pushHistorySnapshot('POUR', updated, s.burners, `Added ${newChemical} to ${vessel.name}`, `Đã thêm ${newChemical} vào ${vessel.name}`);
           debounceSaveLocalState(updated, s.burners);
           return {
-            lastMixResult: result,
+            lastMixResult: {
+              reaction_detected: true,
+              summary: kineticsItem.reactionName,
+              equation: kineticsItem.equation,
+              new_vessel_state: {
+                liquid_color: updatedVessel.liquidColor,
+                has_precipitate: updatedVessel.hasPrecipitate,
+                precipitate_color: updatedVessel.precipitateColor,
+                is_boiling: updatedVessel.isBoiling,
+                has_gas: updatedVessel.hasGas,
+                gas_color: updatedVessel.gasColor,
+                is_explosion: updatedVessel.isExplosion
+              }
+            } as unknown as MixResult,
             vessels: updated,
+            activeKinetics,
             rightSidebarOpen: true,
             selectedVesselId: targetId,
             canUndo: checkCanUndo(),
@@ -3503,24 +3604,6 @@ export const useAppStore = create<AppState>((set, get) => {
         });
       } catch (e: any) {
         set({ mixError: e.message });
-        // Smooth local state update even if API fails or is offline!
-        set(s => {
-          const updatedVessel: VesselState = {
-            ...vessel,
-            substances: newSubstances,
-            contents: existingContents,
-            mass_g: newTotalMass_g,
-            density_g_ml: newDensity,
-            volume_ml: newTotalVolume_ml,
-            immiscibleOrganicVolume_ml: newImmOrganicVol,
-            immiscibleOrganicColor: newImmOrganicColor,
-            volume: Math.min(1.0, newTotalVolume_ml / vessel.capacity_ml),
-            liquidColor: chemData.color || vessel.liquidColor
-          };
-          const updated = { ...s.vessels, [targetId]: updatedVessel };
-          debounceSaveLocalState(updated, s.burners);
-          return { vessels: updated };
-        });
       } finally {
         set({ isMixing: false });
       }
@@ -3580,8 +3663,54 @@ export const useAppStore = create<AppState>((set, get) => {
       const combinedPrecipitateSub = from.precipitateSubstance || to.precipitateSubstance;
       const combinedPrecipitateCol = from.precipitateColor || to.precipitateColor;
 
-      // Empty source container
-      const emptiedFrom: VesselState = {
+      // Calculate transferred contents and remaining source contents based on volume fraction
+      const fromVol = Math.max(0.001, from.volume_ml);
+      const pouredFraction = Math.min(1.0, accepted_ml / fromVol);
+      const transferredContents: typeof from.contents = [];
+      const remainingFromContents: typeof from.contents = [];
+
+      for (const item of (from.contents || [])) {
+        const tMoles = item.moles * pouredFraction;
+        const tMass = item.mass_g * pouredFraction;
+        const rMoles = Math.max(0, item.moles - tMoles);
+        const rMass = Math.max(0, item.mass_g - tMass);
+
+        if (tMoles > 1e-6) {
+          transferredContents.push({
+            ...item,
+            moles: tMoles,
+            mass_g: tMass,
+            volume_ml: item.volume_ml ? item.volume_ml * pouredFraction : undefined
+          });
+        }
+        if (rMoles > 1e-6) {
+          remainingFromContents.push({
+            ...item,
+            moles: rMoles,
+            mass_g: rMass,
+            volume_ml: item.volume_ml ? item.volume_ml * (1 - pouredFraction) : undefined
+          });
+        }
+      }
+
+      // Combine into recipient contents
+      const combinedContents = (to.contents || []).map(c => ({ ...c }));
+      for (const item of transferredContents) {
+        const existing = combinedContents.find(c => c.formula === item.formula);
+        if (existing) {
+          existing.moles += item.moles;
+          existing.mass_g += item.mass_g;
+          if (item.volume_ml) {
+            existing.volume_ml = (existing.volume_ml || 0) + item.volume_ml;
+          }
+        } else {
+          combinedContents.push({ ...item });
+        }
+      }
+
+      // Calculate remaining source container state
+      const remainingFromVol = Math.max(0, from.volume_ml - accepted_ml);
+      const updatedFrom: VesselState = remainingFromVol <= 0.05 ? {
         ...from,
         substances: [],
         contents: [],
@@ -3602,12 +3731,31 @@ export const useAppStore = create<AppState>((set, get) => {
         hasGas: false,
         gasColor: undefined,
         isExplosion: false
+      } : {
+        ...from,
+        volume_ml: remainingFromVol,
+        volume: Math.min(1.0, remainingFromVol / from.capacity_ml),
+        contents: remainingFromContents,
+        substances: remainingFromContents.filter(c => c.moles > 1e-6 && c.formula !== 'H2O').map(c => c.formula),
+        mass_g: Math.max(0, (from.mass_g || 0) - acceptedMass_g)
       };
 
-      // 1. Try local engine first
-      const localResult = evaluateLocalChemistry(combinedSubstances, newToVolume_ml, to.temperature_c, isHeated, get().language);
-      if (localResult) {
-        if (localResult.new_vessel_state?.is_explosion) {
+      // 1. Try multi-step stoichiometric chemistry engine first
+      const targetTemp = isHeated ? 75 : Math.round((from.temperature_c + to.temperature_c) / 2);
+      const multiStep = executeMultiStepReactions(
+        combinedContents,
+        combinedSubstances,
+        newToVolume_ml,
+        targetTemp,
+        isHeated,
+        get().language
+      );
+
+      if (multiStep.reactionsOccurred.length > 0 && multiStep.combinedMixResult) {
+        const localResult = multiStep.combinedMixResult;
+        const primaryRx = multiStep.reactionsOccurred[0];
+
+        if (multiStep.isExplosion) {
           vfxBus.emit('explosion', {
             vesselId: toId,
             position: to.position,
@@ -3616,30 +3764,36 @@ export const useAppStore = create<AppState>((set, get) => {
           });
           labSound.playExplosion();
           labSound.playAlarm();
+        } else if (multiStep.hasGas || multiStep.isBoiling) {
+          labSound.playFizz();
+        } else if (localResult.is_dangerous) {
+          labSound.playAlarm();
         }
 
-        const vfxRecipe = localResult.reaction_id ? getReactionVfxRecipe(localResult.reaction_id) : null;
+        const vfxRecipe = primaryRx.reactionId ? getReactionVfxRecipe(primaryRx.reactionId) : null;
         const kineticsItem: ActiveKineticsState = {
           vesselId: toId,
-          reactionId: localResult.reaction_id,
+          reactionId: primaryRx.reactionId,
           startTime: Date.now(),
-          duration: vfxRecipe?.duration || (localResult.new_vessel_state.is_explosion ? 2.2 : 5.0),
+          duration: vfxRecipe?.duration || (multiStep.isExplosion ? 2.2 : 5.0),
           progress: 0,
           reactionName: localResult.summary,
           equation: localResult.equation,
           initialLiquidColor: to.liquidColor || from.liquidColor || '#38bdf8',
-          targetLiquidColor: localResult.new_vessel_state.liquid_color || from.liquidColor || to.liquidColor || '#38bdf8',
-          hasGas: !!localResult.new_vessel_state.has_gas,
-          gasColor: localResult.new_vessel_state.gas_color,
-          hasPrecipitate: !!localResult.new_vessel_state.has_precipitate || transferredPrecipitate || to.hasPrecipitate,
-          precipitateColor: localResult.new_vessel_state.precipitate_color || combinedPrecipitateCol,
+          targetLiquidColor: multiStep.finalLiquidColor || from.liquidColor || to.liquidColor || '#38bdf8',
+          hasGas: multiStep.hasGas,
+          gasColor: multiStep.gasColor,
+          hasPrecipitate: multiStep.hasPrecipitate || transferredPrecipitate || to.hasPrecipitate,
+          precipitateColor: multiStep.precipitateColor || combinedPrecipitateCol,
+          precipitateSubstance: multiStep.precipitateSubstance || combinedPrecipitateSub,
           dissolvingReactants: extractDissolvingReactants(combinedSubstances),
-          targetTemp: localResult.new_vessel_state.temperature_c ?? (isHeated ? 75 : Math.round((from.temperature_c + to.temperature_c) / 2))
+          targetTemp: multiStep.finalTemperature_c
         };
 
         const updatedTo: VesselState = {
           ...to,
-          substances: combinedSubstances,
+          substances: multiStep.updatedSubstances,
+          contents: multiStep.updatedContents,
           volume_ml: newToVolume_ml,
           immiscibleOrganicVolume_ml: newToOrganicVol,
           immiscibleOrganicColor: newToOrganicColor,
@@ -3648,20 +3802,21 @@ export const useAppStore = create<AppState>((set, get) => {
           mass_g: newToMass_g,
           density_g_ml: newToDensity,
           volume: Math.min(1.0, newToVolume_ml / to.capacity_ml),
-          liquidColor: to.liquidColor || from.liquidColor,
-          hasPrecipitate: !!localResult.new_vessel_state.has_precipitate || transferredPrecipitate || to.hasPrecipitate,
-          precipitateColor: localResult.new_vessel_state.precipitate_color || combinedPrecipitateCol,
-          precipitateSubstance: combinedPrecipitateSub,
-          precipitateAmount_g: localResult.new_vessel_state.precipitate_amount_g ?? (combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined),
-          isBoiling: localResult.new_vessel_state.is_boiling,
-          hasGas: localResult.new_vessel_state.has_gas,
-          gasColor: localResult.new_vessel_state.gas_color,
-          isExplosion: localResult.new_vessel_state.is_explosion,
-          temperature_c: localResult.new_vessel_state.temperature_c ?? (isHeated ? 75 : Math.round((from.temperature_c + to.temperature_c) / 2))
+          liquidColor: multiStep.finalLiquidColor || to.liquidColor || from.liquidColor,
+          hasPrecipitate: multiStep.hasPrecipitate || transferredPrecipitate || to.hasPrecipitate,
+          precipitateColor: multiStep.precipitateColor || combinedPrecipitateCol,
+          precipitateSubstance: multiStep.precipitateSubstance || combinedPrecipitateSub,
+          precipitateAmount_g: multiStep.precipitateAmount_g ?? (combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined),
+          isBoiling: multiStep.isBoiling,
+          hasGas: multiStep.hasGas,
+          gasColor: multiStep.gasColor,
+          isExplosion: multiStep.isExplosion,
+          temperature_c: multiStep.finalTemperature_c,
+          ph: multiStep.finalPh
         };
 
         set(s => {
-          const updated = { ...s.vessels, [fromId]: emptiedFrom, [toId]: updatedTo };
+          const updated = { ...s.vessels, [fromId]: updatedFrom, [toId]: updatedTo };
           const activeKinetics = { ...s.activeKinetics, [toId]: kineticsItem };
           pushHistorySnapshot('POUR', updated, s.burners, `Poured ${from.name} into ${to.name}`, `Đã rót ${from.name} vào ${to.name}`);
           debounceSaveLocalState(updated, s.burners);
@@ -3678,30 +3833,19 @@ export const useAppStore = create<AppState>((set, get) => {
         return;
       }
 
-      // 2. Fallback to API if not in deterministic list
+      // 2. Resolve program via 5-tier resolution pipeline and apply Conservation Ledger
       set({ isMixing: true, mixError: null });
       try {
-        const res = await fetch('/api/experiment/mix', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            substances: combinedSubstances, 
-            volume: (newToVolume_ml / 100), 
-            lang: get().language, 
-            isHeated 
-          })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to mix');
-        const result = data as MixResult;
+        const { program: resolvedProgram } = await resolveReactionProgram(
+          combinedSubstances,
+          combinedContents,
+          { isHeated, volume_ml: newToVolume_ml, lang: get().language }
+        );
 
-        if (result.warning_message) {
-          set({ globalWarning: result.warning_message });
-        }
-
-        const updatedTo: VesselState = {
+        const baseTo: VesselState = {
           ...to,
           substances: combinedSubstances,
+          contents: combinedContents,
           volume_ml: newToVolume_ml,
           immiscibleOrganicVolume_ml: newToOrganicVol,
           immiscibleOrganicColor: newToOrganicColor,
@@ -3710,24 +3854,107 @@ export const useAppStore = create<AppState>((set, get) => {
           mass_g: newToMass_g,
           density_g_ml: newToDensity,
           volume: Math.min(1.0, newToVolume_ml / to.capacity_ml),
-          liquidColor: result.new_vessel_state.liquid_color || from.liquidColor || to.liquidColor,
-          hasPrecipitate: result.new_vessel_state.has_precipitate || transferredPrecipitate || to.hasPrecipitate,
-          precipitateColor: result.new_vessel_state.precipitate_color || combinedPrecipitateCol,
-          precipitateSubstance: combinedPrecipitateSub,
+          temperature_c: targetTemp,
+          hasPrecipitate: transferredPrecipitate || to.hasPrecipitate,
           precipitateAmount_g: combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined,
-          isBoiling: result.new_vessel_state.is_boiling,
-          hasGas: result.new_vessel_state.has_gas,
-          gasColor: result.new_vessel_state.gas_color,
-          isExplosion: result.new_vessel_state.is_explosion
+          precipitateColor: combinedPrecipitateCol,
+          precipitateSubstance: combinedPrecipitateSub
         };
 
+        const ledgerResult = applyProgramToLedger(resolvedProgram, baseTo, 1.0);
+        const finalContents = ledgerResult.contents || combinedContents;
+        const activeSubstances = Array.from(new Set(
+          finalContents
+            .filter(c => (c.moles || 0) > 1e-6)
+            .map(c => c.formula)
+            .concat((ledgerResult.hasPrecipitate && ledgerResult.precipitateSubstance) ? [ledgerResult.precipitateSubstance] : (combinedPrecipitateSub ? [combinedPrecipitateSub] : []))
+        ));
+
+        const isHazardExplosion = resolvedProgram.chemistry.hazards?.some(h => h.includes('01') || h.includes('02')) || false;
+
+        const updatedTo: VesselState = {
+          ...baseTo,
+          substances: activeSubstances.length > 0 ? activeSubstances : combinedSubstances,
+          contents: finalContents,
+          liquidColor: ledgerResult.liquidColor || from.liquidColor || to.liquidColor,
+          hasPrecipitate: ledgerResult.hasPrecipitate || transferredPrecipitate || to.hasPrecipitate,
+          precipitateColor: ledgerResult.precipitateColor || combinedPrecipitateCol,
+          precipitateSubstance: ledgerResult.precipitateSubstance || combinedPrecipitateSub,
+          precipitateMorphology: (ledgerResult.precipitateMorphology as any) || (isPulverizedTo ? 'POWDER' : (to.precipitateMorphology || from.precipitateMorphology)),
+          precipitateAmount_g: (ledgerResult.precipitateAmount_g && ledgerResult.precipitateAmount_g > 0)
+            ? ledgerResult.precipitateAmount_g
+            : (combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined),
+          isBoiling: ledgerResult.isBoiling ?? false,
+          hasGas: ledgerResult.hasGas ?? false,
+          gasColor: ledgerResult.gasColor,
+          isExplosion: isHazardExplosion,
+          temperature_c: ledgerResult.temperature_c ?? targetTemp,
+          mass_g: ledgerResult.mass_g ?? baseTo.mass_g,
+          internalPressure_atm: ledgerResult.internalPressure_atm ?? baseTo.internalPressure_atm
+        };
+
+        const warningMsg = get().language === 'vi' ? resolvedProgram.chemistry.warning_vi : resolvedProgram.chemistry.warning_en;
+        if (warningMsg) {
+          set({ globalWarning: warningMsg });
+        }
+
+        const kineticsItem: ActiveKineticsState = {
+          vesselId: toId,
+          reactionId: resolvedProgram.id,
+          startTime: Date.now(),
+          duration: resolvedProgram.visual.duration_s || 5.0,
+          progress: 0,
+          reactionName: get().language === 'vi' ? resolvedProgram.explain.observation_vi : resolvedProgram.explain.observation_en,
+          equation: resolvedProgram.chemistry.equation,
+          initialLiquidColor: to.liquidColor || from.liquidColor || '#38bdf8',
+          targetLiquidColor: updatedTo.liquidColor || '#38bdf8',
+          hasGas: updatedTo.hasGas,
+          gasColor: updatedTo.gasColor,
+          hasPrecipitate: updatedTo.hasPrecipitate,
+          precipitateColor: updatedTo.precipitateColor,
+          precipitateSubstance: updatedTo.precipitateSubstance,
+          precipitateMorphology: updatedTo.precipitateMorphology,
+          dissolvingReactants: extractDissolvingReactants(combinedSubstances),
+          targetTemp: updatedTo.temperature_c,
+          timeWarp: resolvedProgram.visual.timeWarp,
+          program: resolvedProgram
+        };
+
+        if (updatedTo.isExplosion) {
+          vfxBus.emit('explosion', {
+            vesselId: toId,
+            position: to.position,
+            intensity: 1.0,
+            isDangerous: true
+          });
+          labSound.playExplosion();
+          labSound.playAlarm();
+        } else if (updatedTo.hasGas || updatedTo.isBoiling) {
+          labSound.playFizz();
+        }
+
         set(s => {
-          const updated = { ...s.vessels, [fromId]: emptiedFrom, [toId]: updatedTo };
+          const updated = { ...s.vessels, [fromId]: updatedFrom, [toId]: updatedTo };
+          const activeKinetics = { ...s.activeKinetics, [toId]: kineticsItem };
           pushHistorySnapshot('POUR', updated, s.burners, `Poured ${from.name} into ${to.name}`, `Đã rót ${from.name} vào ${to.name}`);
           debounceSaveLocalState(updated, s.burners);
           return {
-            lastMixResult: result,
+            lastMixResult: {
+              reaction_detected: true,
+              summary: kineticsItem.reactionName,
+              equation: kineticsItem.equation,
+              new_vessel_state: {
+                liquid_color: updatedTo.liquidColor,
+                has_precipitate: updatedTo.hasPrecipitate,
+                precipitate_color: updatedTo.precipitateColor,
+                is_boiling: updatedTo.isBoiling,
+                has_gas: updatedTo.hasGas,
+                gas_color: updatedTo.gasColor,
+                is_explosion: updatedTo.isExplosion
+              }
+            } as unknown as MixResult,
             vessels: updated,
+            activeKinetics,
             rightSidebarOpen: true,
             selectedVesselId: toId,
             canUndo: checkCanUndo(),
@@ -3736,28 +3963,6 @@ export const useAppStore = create<AppState>((set, get) => {
         });
       } catch (e: any) {
         set({ mixError: e.message });
-        const updatedTo: VesselState = {
-          ...to,
-          substances: combinedSubstances,
-          volume_ml: newToVolume_ml,
-          immiscibleOrganicVolume_ml: newToOrganicVol,
-          immiscibleOrganicColor: newToOrganicColor,
-          isPulverized: isPulverizedTo,
-          precipitateMorphology: isPulverizedTo ? 'POWDER' : (to.precipitateMorphology || from.precipitateMorphology),
-          mass_g: newToMass_g,
-          density_g_ml: newToDensity,
-          volume: Math.min(1.0, newToVolume_ml / to.capacity_ml),
-          liquidColor: from.liquidColor || to.liquidColor,
-          hasPrecipitate: transferredPrecipitate || to.hasPrecipitate,
-          precipitateColor: combinedPrecipitateCol,
-          precipitateSubstance: combinedPrecipitateSub,
-          precipitateAmount_g: combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined
-        };
-        set(s => {
-          const updated = { ...s.vessels, [fromId]: emptiedFrom, [toId]: updatedTo };
-          debounceSaveLocalState(updated, s.burners);
-          return { vessels: updated };
-        });
       } finally {
         set({ isMixing: false });
       }

@@ -6,7 +6,30 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     base: '/lab/',
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      {
+        name: 'dev-serve-source-html',
+        apply: 'serve',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            const rawUrl = req.url?.split('?')[0] || '';
+            if (
+              rawUrl === '/' ||
+              rawUrl === '/index.html' ||
+              rawUrl === '/lab' ||
+              rawUrl === '/lab/' ||
+              rawUrl === '/lab/index.html'
+            ) {
+              const query = req.url?.includes('?') ? '?' + req.url.split('?')[1] : '';
+              req.url = '/index.source.html' + query;
+            }
+            next();
+          });
+        },
+      },
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

@@ -73,6 +73,13 @@ export const Foam = React.memo(function Foam({
     if (!meshRef.current || !active) return;
 
     const vessel = useAppStore.getState().vessels[vesselId];
+    if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
+      if (meshRef.current.visible) {
+        meshRef.current.visible = false;
+      }
+      return;
+    }
+
     const foamMl = vessel?.foam_ml ?? 0;
 
     if (foamMl <= 0.05) {

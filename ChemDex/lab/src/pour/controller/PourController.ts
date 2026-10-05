@@ -96,6 +96,8 @@ class PourControllerClass {
       mode: opts.mode
     });
 
+    useAppStore.getState().setIsPouring(true);
+
     this.notify();
   }
 
@@ -141,7 +143,7 @@ class PourControllerClass {
     const srcProfile = getVesselProfile(sourceVessel.type);
     const tgtProfile = targetVessel ? getVesselProfile(targetVessel.type) : null;
 
-    // Calculate hover pouring position over recipient rim
+    // Calculate hover pouring position: anchor spout lip directly above recipient mouth
     let hoverPos: [number, number, number] = [
       sourceVessel.position[0],
       sourceVessel.position[1] + 0.6,
@@ -151,9 +153,16 @@ class PourControllerClass {
     if (targetVessel && tgtProfile) {
       const mouthY = targetVessel.position[1] + tgtProfile.lipLocal[1];
       const mouthR = tgtProfile.mouthR;
+      const tilt = this.activeSession.tilt || 0.65;
+      const cosT = Math.cos(tilt);
+      const sinT = Math.sin(tilt);
+      const lipLocal = srcProfile.lipLocal;
+      const tiltedLipX = lipLocal[0] * cosT + lipLocal[1] * sinT;
+      const tiltedLipY = -lipLocal[0] * sinT + lipLocal[1] * cosT;
+
       hoverPos = [
-        targetVessel.position[0] - mouthR * 0.72 - srcProfile.mouthR * 0.35,
-        mouthY + 0.32,
+        (targetVessel.position[0] - mouthR * 0.2) - tiltedLipX,
+        (mouthY + 0.22) - tiltedLipY,
         targetVessel.position[2]
       ];
     }
@@ -202,6 +211,7 @@ class PourControllerClass {
           const physSession: PourPhysicsSession = {
             sourceId: this.activeSession.sourceId,
             targetId: this.activeSession.targetId,
+            sourcePos: this.activeSession.sourcePos,
             tilt: this.activeSession.tilt,
             isStreaming: false,
             totalTransferred_ml: this.activeSession.transferred_ml,
@@ -227,6 +237,7 @@ class PourControllerClass {
           const physSession: PourPhysicsSession = {
             sourceId: this.activeSession.sourceId,
             targetId: this.activeSession.targetId,
+            sourcePos: this.activeSession.sourcePos,
             tilt: this.activeSession.tilt,
             isStreaming: true,
             totalTransferred_ml: this.activeSession.transferred_ml,
@@ -425,6 +436,8 @@ class PourControllerClass {
       transferred_ml: session.transferred_ml
     });
 
+    useAppStore.getState().setIsPouring(false);
+
     this.notify();
   }
 
@@ -441,6 +454,7 @@ class PourControllerClass {
     } else {
       const session = this.activeSession;
       this.activeSession = null;
+      useAppStore.getState().setIsPouring(false);
       storeBridge.cancelPour(session);
       this.notify();
     }

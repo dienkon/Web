@@ -22,6 +22,14 @@ import {
   Al2So43NaOhAmphotericController
 } from './controllers/PrecipitationControllers';
 import {
+  CaCo3PrecipitationController,
+  AgIPrecipitationController,
+  FeOH3FlocPrecipitationController,
+  ZnCuSo4DisplacementController,
+  PotassiumWaterController,
+  NaHCo3HclGasController
+} from './controllers/DisambiguatedControllers';
+import {
   CaCo3HclGasController,
   ZnHclGasController,
   MgHclGasController,
@@ -50,7 +58,7 @@ import {
 
 const CONTROLLERS: Record<string, ReactionVisualController> = {};
 
-// Register all 30 controllers
+// Register all controllers
 function register(ctrl: ReactionVisualController, aliases: string[] = []) {
   CONTROLLERS[ctrl.id] = ctrl;
   for (const alias of aliases) {
@@ -71,18 +79,38 @@ register(new BaSO4PrecipitationController(), [
   'baso4_precipitate', 'bacl2_na2so4', 'BaCl2+Na2SO4', 'mass_conservation_bacl2_na2so4', 'bacl2_na2so4_conservation', 'bacl2_h2so4_precipitate'
 ]);
 register(new AgClCurdyPrecipitationController(), [
-  'agcl_precipitate', 'agcl_curdy_precipitation', 'AgNO3+NaCl', 'agno3_nacl_precipitate', 'cacl2_na2co3_precipitate'
+  'agcl_precipitate', 'agcl_curdy_precipitation', 'AgNO3+NaCl', 'agno3_nacl_precipitate'
 ]);
 register(new PbI2GoldenRainController(), [
-  'golden_rain', 'pbi2_precipitation', 'golden_rain_synthesis', 'golden_rain_pbi2', 'Pb(NO3)2+KI', 'AgNO3+KI'
+  'golden_rain', 'pbi2_precipitation', 'golden_rain_synthesis', 'golden_rain_pbi2', 'Pb(NO3)2+KI'
 ]);
 register(new CuOH2GelPrecipitationController(), [
-  'cuoh2_precipitate', 'cuso4_naoh', 'CuSO4+NaOH', 'cuso4_naoh_precipitate', 'fecl3_naoh_precipitate', 'FeCl3+NaOH'
+  'cuoh2_precipitate', 'cuso4_naoh', 'CuSO4+NaOH', 'cuso4_naoh_precipitate'
+]);
+
+// Dedicated controllers resolving F4 collisions
+register(new CaCo3PrecipitationController(), [
+  'cacl2_na2co3_precipitate', 'CaCl2+Na2CO3', 'cacl2_na2co3', 'caco3_precipitation'
+]);
+register(new AgIPrecipitationController(), [
+  'agno3_ki_precipitate', 'AgNO3+KI', 'agno3_ki'
+]);
+register(new FeOH3FlocPrecipitationController(), [
+  'fecl3_naoh_precipitate', 'FeCl3+NaOH', 'fecl3_naoh'
+]);
+register(new ZnCuSo4DisplacementController(), [
+  'zn_cuso4_displacement', 'Zn+CuSO4', 'zn_cuso4'
+]);
+register(new PotassiumWaterController(), [
+  'potassium_water_reaction', 'K+H2O', 'potassium_water'
+]);
+register(new NaHCo3HclGasController(), [
+  'nahco3_hcl_gas', 'NaHCO3+HCl', 'nahco3_hcl'
 ]);
 
 // 07: Redox Surface Plating
 register(new FeCuSo4DisplacementController(), [
-  'single_displacement_copper', 'fe_cuso4', 'Fe+CuSO4', 'fe_cuso4_displacement', 'Zn+CuSO4'
+  'single_displacement_copper', 'fe_cuso4', 'Fe+CuSO4', 'fe_cuso4_displacement'
 ]);
 
 // 08 - 11: Gas Evolution
@@ -104,7 +132,7 @@ register(new Nh3HclFumesController(), [
   'nh3_hcl', 'ammonium_chloride_fumes', 'NH3+HCl_fumes', 'nh3_hcl_fumes'
 ]);
 register(new Na2Co3HclGasController(), [
-  'na2co3_hcl', 'carbonate_effervescence', 'na2co3_hcl_gas', 'NaHCO3+HCl', 'CaCl2+Na2CO3'
+  'na2co3_hcl', 'carbonate_effervescence', 'na2co3_hcl_gas'
 ]);
 
 // 14 - 16: Thermal & Safety
@@ -120,7 +148,7 @@ register(new WaterIntoConcH2so4ExplosionController(), [
 
 // 17: Sodium & Alkali Metal + Water Special Case
 register(new SodiumWaterController(), [
-  'sodium_water', 'alkali_metal_water_na', 'Na+H2O', 'K+H2O', 'sodium_water_reaction', 'alkali_metal_water'
+  'sodium_water', 'alkali_metal_water_na', 'Na+H2O', 'sodium_water_reaction', 'alkali_metal_water'
 ]);
 
 // 18 - 19: Copper Acids

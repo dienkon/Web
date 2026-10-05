@@ -6,6 +6,7 @@ import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getBubbleSpriteTexture } from '../textures';
 import { vfxBus } from '../bus';
 import { labSound } from '../../utils/audio';
+import { useAppStore } from '../../store/useAppStore';
 
 export interface BubblesProps {
   vesselId?: string;
@@ -54,6 +55,14 @@ export const Bubbles = React.memo(function Bubbles({
   useFrame((state, delta) => {
     if (!meshRef.current) return;
     const dt = Math.min(delta, 0.05);
+
+    if (vesselId) {
+      const vessel = useAppStore.getState().vessels[vesselId];
+      if (vessel && (vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.5)) {
+        pool.clear(meshRef.current);
+        return;
+      }
+    }
 
     // Spawning logic
     if (active && rate > 0) {

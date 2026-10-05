@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getSoftParticleTexture } from '../textures';
+import { useAppStore } from '../../store/useAppStore';
 
 export interface GasPlumeProps {
   vesselId?: string;
@@ -18,6 +19,7 @@ export interface GasPlumeProps {
 }
 
 export const GasPlume = React.memo(function GasPlume({
+  vesselId,
   origin = [0, 1.2, 0],
   surfaceY,
   radius = 0.45,
@@ -53,6 +55,14 @@ export const GasPlume = React.memo(function GasPlume({
   useFrame((state, delta) => {
     if (!meshRef.current) return;
     const dt = Math.min(delta, 0.05);
+
+    if (vesselId) {
+      const vessel = useAppStore.getState().vessels[vesselId];
+      if (vessel && (vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.5)) {
+        pool.clear(meshRef.current);
+        return;
+      }
+    }
 
     if (active && rate > 0) {
       spawnTimer.current += dt * rate * multiplier;

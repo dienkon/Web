@@ -153,7 +153,7 @@ describe('Reaction Controllers: Physical Chemistry & VFX Master Suite', () => {
     it('resolves chemical formula strings and normalized variations correctly', () => {
       expect(getReactionController('Na+H2O')?.id).toBe('sodium_water_reaction');
       expect(getReactionController('na + h2o')?.id).toBe('sodium_water_reaction');
-      expect(getReactionController('K+H2O')?.id).toBe('sodium_water_reaction');
+      expect(getReactionController('K+H2O')?.id).toBe('potassium_water_reaction');
       expect(getReactionController('Zn+HCl')?.id).toBe('zn_hcl_gas');
       expect(getReactionController('ZN + HCL')?.id).toBe('zn_hcl_gas');
       expect(getReactionController('HCl+NaOH')?.id).toBe('hcl_naoh_neutralization');

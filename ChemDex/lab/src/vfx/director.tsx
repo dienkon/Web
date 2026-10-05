@@ -75,9 +75,15 @@ export const VfxDirector = React.memo(function VfxDirector() {
       }
     });
 
+    const unsubSparks = vfxBus.on('sparks', (e) => {
+      flashIntensityRef.current = Math.max(flashIntensityRef.current, 1.8);
+      if (e.color) flashColorRef.current.set(e.color);
+    });
+
     return () => {
       unsubExplosion();
       unsubBurst();
+      unsubSparks();
     };
   }, [addSpill]);
 
@@ -186,8 +192,14 @@ export const VfxDirector = React.memo(function VfxDirector() {
 
       {/* Render active reaction VFX per vessel */}
       {Object.entries(vessels).map(([vesselId, vessel]) => {
+        // If vessel is shattered, completely suppress all ongoing and active reaction effects
+        if (vessel.isShattered) {
+          return null;
+        }
+
         const kinetics = activeKinetics[vesselId];
-        const isHotOrActive = vessel.isBoiling || vessel.hasGas || vessel.hasPrecipitate || vessel.isExplosion || vessel.temperature_c >= 48;
+        const hasLiquid = (vessel.volume_ml ?? 0) > 0.5;
+        const isHotOrActive = (hasLiquid && vessel.isBoiling) || (hasLiquid && vessel.hasGas) || (hasLiquid && vessel.hasPrecipitate) || vessel.isExplosion || (hasLiquid && vessel.temperature_c >= 48);
         const rawRecipe: ReactionVfxRecipe | null = kinetics?.reactionId 
           ? getReactionVfxRecipe(kinetics.reactionId)
           : (kinetics ? getGenericVfxRecipe(null, vessel) : (isHotOrActive ? getGenericVfxRecipe(null, vessel) : null));
@@ -207,25 +219,25 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const mouthY = pos[1] + (vessel.type === 'cylinder' ? 1.7 : vessel.type === 'flask' ? 1.45 : 1.0);
         const vesselRadius = vessel.type === 'test_tube' ? 0.18 : 0.6;
 
-        const effectiveBubbleRate = simRuntime && simRuntime.gasGenerationRate > 0
+        const effectiveBubbleRate = hasLiquid ? (simRuntime && simRuntime.gasGenerationRate > 0
           ? simRuntime.gasGenerationRate * 45
-          : (sampled.bubblesRate > 0 ? sampled.bubblesRate : (activeRecipe.bubbles?.rate || 0));
+          : (sampled.bubblesRate > 0 ? sampled.bubblesRate : (activeRecipe.bubbles?.rate || 0))) : 0;
 
-        const effectiveGasDensity = simRuntime && simRuntime.gasGenerationRate > 0
+        const effectiveGasDensity = hasLiquid ? (simRuntime && simRuntime.gasGenerationRate > 0
           ? Math.min(1.0, simRuntime.gasGenerationRate * 0.75)
-          : (sampled.gasDensity > 0 ? sampled.gasDensity : (activeRecipe.gasPlume ? 0.5 : 0));
+          : (sampled.gasDensity > 0 ? sampled.gasDensity : (activeRecipe.gasPlume ? 0.5 : 0))) : 0;
 
         const effectiveGasColor = (simRuntime?.customData?.gasColor as string)
           || sampled.gasColor
           || activeRecipe.gasPlume?.color
           || '#ffffff';
 
-        const effectivePrecipitate = (simRuntime && (simRuntime.precipitateRate > 0 || simRuntime.turbidity > 0.05))
+        const effectivePrecipitate = hasLiquid && ((simRuntime && (simRuntime.precipitateRate > 0 || simRuntime.turbidity > 0.05))
           || sampled.precipitateActive
-          || !!activeRecipe.precipitate;
+          || !!activeRecipe.precipitate);
 
-        const effectiveFoamRate = sampled.foamRate > 0 ? sampled.foamRate : (activeRecipe.foam?.active ? 20 : 0);
-        const effectiveSteamActive = sampled.steamDensity > 0 || !!activeRecipe.steam?.active || vessel.isBoiling || (vessel.temperature_c ?? 25) >= 48;
+        const effectiveFoamRate = hasLiquid ? (sampled.foamRate > 0 ? sampled.foamRate : (activeRecipe.foam?.active ? 20 : 0)) : 0;
+        const effectiveSteamActive = hasLiquid && (sampled.steamDensity > 0 || !!activeRecipe.steam?.active || vessel.isBoiling || (vessel.temperature_c ?? 25) >= 48);
         const effectiveGasSpecies = (simRuntime?.customData?.gasSpecies as string) || activeRecipe.bubbles?.gasType || 'gas';
 
         return (
@@ -284,17 +296,13 @@ export const VfxDirector = React.memo(function VfxDirector() {
               />
             )}
 
-            {/* Supplementary Sparks & Flashes */}
-            {(activeRecipe.sparks?.active ||
-              kinetics?.reactionId?.includes('sodium') ||
-              kinetics?.reactionId?.includes('Na') ||
-              kinetics?.reactionId?.includes('magnesium') ||
-              kinetics?.reactionId?.includes('Mg')) && (
+            {/* Declarative Sparks & Energetic Micro-Flashes */}
+            {(activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks) && (
               <Sparks
                 origin={[0, liquidTopY - pos[1], 0]}
                 rate={activeRecipe.sparks?.rate || 30}
                 burstCount={activeRecipe.sparks?.burstCount || 15}
-                color={activeRecipe.sparks?.color || '#f59e0b'}
+                color={activeRecipe.sparks?.color || (simRuntime?.customData?.sparkColor as string) || '#f59e0b'}
                 active={true}
               />
             )}

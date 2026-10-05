@@ -49,6 +49,11 @@ export const Steam = React.memo(function Steam({
     const dt = Math.min(delta, 0.05);
 
     const vessel = useAppStore.getState().vessels[vesselId];
+    if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.5) {
+      pool.clear(meshRef.current);
+      return;
+    }
+
     const currentTemp = temperature_c ?? (vessel?.temperature_c || 25);
     const isBoiling = vessel?.isBoiling || currentTemp >= 98;
 

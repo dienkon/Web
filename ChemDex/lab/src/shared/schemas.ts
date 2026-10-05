@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { ReactionProgramSchema } from './programSchema';
+
 export const EffectTypeSchema = z.enum([
   'COLOR_CHANGE',
   'PRECIPITATE',
@@ -11,6 +13,7 @@ export const EffectTypeSchema = z.enum([
 
 export const MixResultSchema = z.object({
   reaction_id: z.string().optional(),
+  program: ReactionProgramSchema.optional(),
   summary: z.string(),
   equation: z.string(),
   ionic_equation: z.string().optional(),

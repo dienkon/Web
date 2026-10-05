@@ -44,6 +44,12 @@ export interface VfxEventMap {
     color?: string;
     speed?: number;
   };
+  'sparks': {
+    position: [number, number, number];
+    count: number;
+    color?: string;
+    speed?: number;
+  };
   'flame:test': {
     element: string;
     color: string;

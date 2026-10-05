@@ -31,6 +31,7 @@ export interface SimVessel {
 export interface PourPhysicsSession {
   sourceId: string;
   targetId: string | null;
+  sourcePos?: [number, number, number];
   tilt: number;
   isStreaming: boolean;
   totalTransferred_ml: number;
@@ -102,8 +103,9 @@ export function stepPourSimulation(
     liquidSurfaceY: target.position[1] - 0.92 + Math.max(0.08, target.volume_ml / target.capacity_ml) * 1.8
   } : null;
 
+  const actualSourcePos = session.sourcePos || source.position;
   const ballistics: BallisticsResult = calculateStreamBallistics(
-    source.position,
+    actualSourcePos,
     session.tilt,
     profile,
     flow.head_cm,
@@ -128,7 +130,8 @@ export function stepPourSimulation(
   let newSourceVessel = { ...source };
   let newTargetVessel = target ? { ...target } : null;
 
-  if (ballistics.landingKind === 'inside' && target) {
+  const landsInTarget = (ballistics.landingKind === 'inside' || ballistics.landingKind === 'rim') && target !== null;
+  if (landsInTarget && target) {
     const targetMix: MixingState = {
       volume_ml: target.volume_ml,
       mass_g: target.mass_g || target.volume_ml * target.density_g_ml,
@@ -141,31 +144,32 @@ export function stepPourSimulation(
     // Neck intake rate limit & turbulent splash-back physics:
     const targetProfile = getVesselProfile(target.type);
     const maxIntakeRate = Math.max(24, (targetProfile.mouthR || 0.15) * 160);
-    let effectiveDV = dV;
+    const actualDV = Math.max(0, Math.min(source.volume_ml, dV));
+
     let intakeSurplus_ml = 0;
     if (flow.flowRate_ml_s > maxIntakeRate) {
       const surplusRate = flow.flowRate_ml_s - maxIntakeRate;
-      intakeSurplus_ml = surplusRate * dt;
-      effectiveDV = Math.max(0, dV - intakeSurplus_ml);
+      intakeSurplus_ml = Math.min(actualDV, surplusRate * dt);
     }
 
-    // High velocity turbulent splash factor: at high flow rates (> 30 mL/s), 6-12% splashes back out
+    let targetIntakeDV = Math.max(0, actualDV - intakeSurplus_ml);
     let turbulentSplash_ml = 0;
     if (flow.flowRate_ml_s > 30) {
       const splashFrac = Math.min(0.12, (flow.flowRate_ml_s - 30) * 0.0022);
-      turbulentSplash_ml = effectiveDV * splashFrac;
-      effectiveDV = Math.max(0, effectiveDV - turbulentSplash_ml);
+      turbulentSplash_ml = targetIntakeDV * splashFrac;
+      targetIntakeDV = Math.max(0, targetIntakeDV - turbulentSplash_ml);
     }
 
-    const result = transferFluidIncrement(sourceMix, targetMix, effectiveDV, target.capacity_ml);
+    const result = transferFluidIncrement(sourceMix, targetMix, targetIntakeDV, target.capacity_ml);
     accepted_ml = result.accepted_ml;
-    spilled_ml = result.overflow_ml + intakeSurplus_ml + turbulentSplash_ml;
+    spilled_ml = Math.max(0, actualDV - accepted_ml);
 
+    const transferredMass_g = actualDV * (source.density_g_ml || 1.0);
     newSourceVessel = {
       ...source,
-      volume_ml: result.newSource.volume_ml,
-      mass_g: result.newSource.mass_g,
-      density_g_ml: result.newSource.density_g_ml
+      volume_ml: Math.max(0, source.volume_ml - actualDV),
+      mass_g: Math.max(0, (source.mass_g || (source.volume_ml * (source.density_g_ml || 1.0))) - transferredMass_g),
+      density_g_ml: result.newSource.density_g_ml || source.density_g_ml
     };
 
     newTargetVessel = {

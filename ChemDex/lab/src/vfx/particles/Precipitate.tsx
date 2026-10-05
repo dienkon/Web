@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
+import { useAppStore } from '../../store/useAppStore';
 
 export type PrecipitateMorphologyType =
   | 'FINE_POWDER'       // e.g. BaSO4, fine micro-crystals with high turbidity
@@ -40,6 +41,7 @@ export function resolveMorphology(substance?: string, explicit?: PrecipitateMorp
 }
 
 export const Precipitate = React.memo(function Precipitate({
+  vesselId,
   substance = 'BaSO4',
   morphology: explicitMorphology,
   color,
@@ -90,6 +92,14 @@ export const Precipitate = React.memo(function Precipitate({
   useFrame((_, delta) => {
     if (!meshRef.current) return;
     const dt = Math.min(delta, 0.05);
+
+    if (vesselId) {
+      const vessel = useAppStore.getState().vessels[vesselId];
+      if (vessel && (vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2)) {
+        pool.clear(meshRef.current);
+        return;
+      }
+    }
 
     if (active && rate > 0) {
       spawnTimer.current += dt * rate * multiplier;

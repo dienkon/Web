@@ -1976,9 +1976,13 @@ export const VesselPhysicalEffects = React.memo(function VesselPhysicalEffects({
   surgeRadius?: number;
   surgeY?: number;
 }) {
+  if (vessel.isShattered) return null;
+
+  const hasLiquid = vessel.volume_ml > 0.5;
+
   return (
     <>
-      {(vessel.temperature_c > 55 || (vessel.condensationMist || 0) > 0) && (
+      {hasLiquid && (vessel.temperature_c > 55 || (vessel.condensationMist || 0) > 0) && (
         <CondensationFog 
           radius={fogRadius} 
           height={fogHeight} 
@@ -1994,14 +1998,14 @@ export const VesselPhysicalEffects = React.memo(function VesselPhysicalEffects({
           intensity={vessel.stainIntensity} 
         />
       )}
-      {(vessel.fumingIntensity || 0) > 0 && !vessel.isSealed && (
+      {hasLiquid && (vessel.fumingIntensity || 0) > 0 && !vessel.isSealed && (
         <AcidBaseFume 
           yOffset={fumeY} 
           color={vessel.fumingColor || '#f8fafc'} 
           intensity={vessel.fumingIntensity} 
         />
       )}
-      {vessel.bumpingSurge && (
+      {hasLiquid && vessel.bumpingSurge && (
         <BoilingBumpingBurst 
           radius={surgeRadius} 
           yOffset={surgeY} 

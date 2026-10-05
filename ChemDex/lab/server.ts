@@ -1,5 +1,9 @@
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
+
+// Resolve directory safely across both ESM (tsx) and CJS (esbuild bundle)
+const currentDir = typeof __dirname !== 'undefined' ? __dirname : process.cwd();
 
 // Load environment variables (.env in lab or ChemDex root)
 dotenv.config();
@@ -69,9 +73,36 @@ async function startServer() {
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
       server: { middlewareMode: true },
-      appType: 'spa',
+      appType: 'custom',
     });
     app.use(vite.middlewares);
+
+    // Dev SPA fallback: Always serve transformed index.source.html to load /src/main.tsx with HMR
+    app.use('*', async (req, res, next) => {
+      if (req.method !== 'GET') return next();
+      if (req.originalUrl.startsWith('/api')) return next();
+
+      const url = req.originalUrl;
+      // If hitting the naked root on port 6767, redirect to base /lab/
+      if (url === '/' || url === '') {
+        return res.redirect('/lab/');
+      }
+
+      // If this is a static asset request with an extension (other than .html), pass to next
+      if (req.path.includes('.') && !req.path.endsWith('.html')) {
+        return next();
+      }
+
+      try {
+        const templatePath = path.resolve(currentDir, 'index.source.html');
+        let template = fs.readFileSync(templatePath, 'utf-8');
+        template = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+      } catch (e: any) {
+        vite.ssrFixStacktrace(e);
+        next(e);
+      }
+    });
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
