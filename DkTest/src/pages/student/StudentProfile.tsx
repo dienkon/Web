@@ -22,6 +22,7 @@ import {
   Send,
   AlertCircle,
   RefreshCw,
+  HelpCircle,
 } from "lucide-react";
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
@@ -51,11 +52,13 @@ import { useToast } from "../../components/ui/ToastNotification";
 import EmailVerificationBanner from "../../components/auth/EmailVerificationBanner";
 import UserAvatar from "../../components/common/UserAvatar";
 import { broadcastAvatarUpdate } from "../../utils/avatarSync";
+import { useStudentOnboarding } from "../../features/student-onboarding";
 
 export default function StudentProfile() {
   const { showToast } = useToast();
   const navigate = useNavigate();
   const { user, userProfile, role, refreshProfile } = useAuth();
+  const { replayTutorial } = useStudentOnboarding();
 
   const [displayName, setDisplayName] = useState("");
   const [username, setUsername] = useState("");
@@ -590,7 +593,10 @@ export default function StudentProfile() {
         </div>
 
         {/* Header Profile Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-6">
+        <div
+          data-tour-id="profile-page-overview"
+          className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center gap-6"
+        >
           <div className="relative group shrink-0">
             <UserAvatar
               src={avatarUrl}
@@ -927,6 +933,32 @@ export default function StudentProfile() {
             </button>
           </div>
         </form>
+
+        {/* Onboarding Tutorial Replay Card */}
+        <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 rounded-3xl p-6 sm:p-7 border border-indigo-100 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+          <div className="space-y-1.5 max-w-xl">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900">
+                Hướng Dẫn Sử Dụng & Trải Nghiệm DkTEST
+              </h3>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Khám phá toàn bộ thanh công cụ, các tính năng chính và trải nghiệm bài thi thử nghiệm 7 dạng câu hỏi (chế độ an toàn sandbox, không ghi đè vào dữ liệu thật).
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={replayTutorial}
+            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-md hover:shadow-lg flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span>Xem lại hướng dẫn</span>
+          </button>
+        </div>
 
         {/* Modal: Change / Link Email with Verification */}
         {isChangingEmail && (

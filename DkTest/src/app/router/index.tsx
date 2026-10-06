@@ -58,6 +58,8 @@ const Community = lazyWithRetry(() => import("../../pages/student/Community"), "
 const AiTutorPage = lazyWithRetry(() => import("../../pages/student/AiTutorPage"), "AiTutorPage");
 const PracticePage = lazyWithRetry(() => import("../../pages/student/PracticePage"), "PracticePage");
 const PracticeSessionPage = lazyWithRetry(() => import("../../practice/pages/PracticeSessionPage"), "PracticeSessionPage");
+const StudentTutorialExam = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialExam"), "StudentTutorialExam");
+const StudentTutorialResult = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialResult"), "StudentTutorialResult");
 const NotFoundPage = lazyWithRetry(() => import("../../pages/NotFoundPage"), "NotFoundPage");
 
 const router = createBrowserRouter([
@@ -272,6 +274,8 @@ const router = createBrowserRouter([
       { path: "student/exam/:examId", element: withSuspense(ExamIntro, "Đang nạp thông tin đề thi...") },
       { path: "student/exam/:examId/take", element: withSuspense(TakingExam, "Đang khởi tạo phòng thi...") },
       { path: "student/exam/:examId/result/:submissionId", element: withSuspense(ExamResult, "Đang tính điểm bài làm...") },
+      { path: "student/tutorial/exam", element: withSuspense(StudentTutorialExam, "Đang khởi tạo bài thi trải nghiệm...") },
+      { path: "student/tutorial/result", element: withSuspense(StudentTutorialResult, "Đang tải kết quả bài thi trải nghiệm...") },
       { path: "*", element: withSuspense(NotFoundPage) },
     ],
   },

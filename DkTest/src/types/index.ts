@@ -392,6 +392,7 @@ export interface UserProfile {
   contactEmail?: string;
   pendingEmail?: string | null;
   pendingEmailRequestedAt?: string;
+  studentOnboardingStatus?: "pending" | "completed" | "skipped";
 }
 
 export interface StudentProfile {

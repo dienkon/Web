@@ -232,6 +232,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         profileCompleted: 60,
         studentClass: extraFields?.studentClass || "",
         phone: extraFields?.phone || "",
+        studentOnboardingStatus: newRole === "student" ? "pending" : undefined,
       };
 
       await setDoc(userRef, newProfile);

@@ -1177,7 +1177,7 @@ export default function Community() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6 px-3 sm:px-4 py-4 pb-16">
+    <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6 px-3 sm:px-4 py-4 pb-16" data-tour-id="community-page-overview">
       {/* Shared Post Popup Modal if accessed via share URL */}
       {sharedPost && (
         <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">

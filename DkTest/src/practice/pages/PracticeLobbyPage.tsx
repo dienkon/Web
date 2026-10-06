@@ -243,7 +243,7 @@ export default function PracticeLobbyPage() {
       </div>
 
       {/* Main Container */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 -mt-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 -mt-6" data-tour-id="practice-page-overview">
         {/* Navigation Tabs between Topic Library and Old Exams Review */}
         <div className="flex items-center gap-2 mb-6 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200 shadow-xs max-w-fit">
           <button

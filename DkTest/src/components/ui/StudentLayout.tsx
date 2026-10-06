@@ -26,11 +26,17 @@ import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "..
 import { useAuth } from "../../context/AuthContext";
 import UserAvatar from "../common/UserAvatar";
 import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
+import {
+  StudentOnboardingProvider,
+  useStudentOnboarding,
+  TOUR_DATA_IDS,
+} from "../../features/student-onboarding";
 
-export default function StudentLayout() {
+function StudentLayoutContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const { userProfile, role, logout } = useAuth();
+  const { triggerAction } = useStudentOnboarding();
   const [studentInfo, setStudentInfo] = useState<{ username?: string; displayName?: string; avatarUrl?: string } | null>(null);
   const [liveAvatar, setLiveAvatar] = useState<string>("");
   const [isAdmin, setIsAdmin] = useState(false);
@@ -129,18 +135,18 @@ export default function StudentLayout() {
     navigate("/login", { replace: true });
   };
 
-  const isTakingExam = location.pathname.includes("/take");
-  const isExamResult = location.pathname.includes("/result/");
+  const isTakingExam = location.pathname.includes("/take") || location.pathname.includes("/tutorial/exam");
+  const isExamResult = location.pathname.includes("/result/") || location.pathname.includes("/tutorial/result");
   const isParentViewing = isExamResult && localStorage.getItem("auth_role") === "parent";
   const hideStudentNav = isTakingExam || isExamResult;
 
   const navItems = [
-    { to: "/", label: "Đề thi", icon: BookOpen },
-    { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500" },
-    { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500" },
-    { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500" },
-    { to: "/student/history", label: "Lịch sử bài làm", icon: History },
-    { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User },
+    { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
+    { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
+    { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
+    { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500", tourId: TOUR_DATA_IDS.NAV_COMMUNITY, actionKey: "click_community" },
+    { to: "/student/history", label: "Lịch sử bài làm", icon: History, tourId: TOUR_DATA_IDS.NAV_HISTORY, actionKey: "click_history" },
+    { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User, tourId: TOUR_DATA_IDS.NAV_PROFILE, actionKey: "click_profile" },
     { to: "/legal-policy", label: "Bản quyền & Pháp lý", icon: ShieldCheck },
   ];
 
@@ -167,7 +173,12 @@ export default function StudentLayout() {
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-slate-500" />
             </Link>
 
-            <Link to="/" className="flex items-center group">
+            <Link
+              to="/"
+              data-tour-id={TOUR_DATA_IDS.BRAND_LOGO}
+              onClick={() => triggerAction("click_logo_home")}
+              className="flex items-center group"
+            >
               <BrandLogo size="sm" badgeText="Thi Trực Tuyến" theme="blue" />
             </Link>
           </div>
@@ -209,6 +220,8 @@ export default function StudentLayout() {
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <Link
                   to="/student/profile"
+                  data-tour-id={TOUR_DATA_IDS.HEADER_AVATAR}
+                  onClick={() => triggerAction("click_profile")}
                   className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60"
                   title="Chỉnh sửa hồ sơ cá nhân"
                 >
@@ -277,6 +290,10 @@ export default function StudentLayout() {
                   <Link
                     key={item.to}
                     to={item.to}
+                    data-tour-id={item.tourId}
+                    onClick={() => {
+                      if (item.actionKey) triggerAction(item.actionKey);
+                    }}
                     title={isSidebarCollapsed ? item.label : undefined}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
                       isActive
@@ -378,7 +395,11 @@ export default function StudentLayout() {
                     <Link
                       key={item.to}
                       to={item.to}
-                      onClick={() => setIsMobileDrawerOpen(false)}
+                      data-tour-id={item.tourId}
+                      onClick={() => {
+                        setIsMobileDrawerOpen(false);
+                        if (item.actionKey) triggerAction(item.actionKey);
+                      }}
                       className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
                         isActive
                           ? "bg-blue-50 text-blue-700 border border-blue-100 shadow-2xs"
@@ -435,6 +456,10 @@ export default function StudentLayout() {
               <Link
                 key={item.to}
                 to={item.to}
+                data-tour-id={item.tourId}
+                onClick={() => {
+                  if (item.actionKey) triggerAction(item.actionKey);
+                }}
                 title={item.label}
                 aria-label={item.label}
                 className={`p-2.5 rounded-2xl transition-all flex items-center justify-center cursor-pointer ${
@@ -461,5 +486,13 @@ export default function StudentLayout() {
         variant="danger"
       />
     </div>
+  );
+}
+
+export default function StudentLayout() {
+  return (
+    <StudentOnboardingProvider>
+      <StudentLayoutContent />
+    </StudentOnboardingProvider>
   );
 }

@@ -49,6 +49,7 @@ import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/stats
 const CACHE_TTL_MS = 180000; // 3 minutes
 
 import { invalidateHomeTopCache } from "../../services/examCacheService";
+import { StudentTutorialBanner } from "../../features/student-onboarding";
 export { invalidateHomeTopCache };
 
 export default function Home() {
@@ -407,6 +408,9 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         </div>
       </div>
 
+      {/* Student Onboarding Tutorial Banner */}
+      <StudentTutorialBanner />
+
       {/* Feature Introductions Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md transition-all space-y-3">
@@ -441,7 +445,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       </div>
 
       {/* Available Published Exams Section */}
-      <div className="space-y-6">
+      <div className="space-y-6" data-tour-id="home-exam-library-intro">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">

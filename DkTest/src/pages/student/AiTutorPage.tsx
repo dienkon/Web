@@ -347,6 +347,7 @@ export default function AiTutorPage() {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className="max-w-4xl mx-auto h-[calc(100vh-8.5rem)] min-h-[620px] flex flex-col bg-white rounded-3xl shadow-xs border border-indigo-100 overflow-hidden mt-3 relative"
+      data-tour-id="ai-tutor-page-overview"
     >
       {/* Drag overlay indicator */}
       {isDragging && (

@@ -340,7 +340,7 @@ export default function StudentHistory() {
 
   return (
     <div className="min-h-screen bg-slate-50/60 py-8 px-4 font-sans">
-      <div className="max-w-5xl w-full mx-auto space-y-6">
+      <div className="max-w-5xl w-full mx-auto space-y-6" data-tour-id="history-page-overview">
         {/* Header Title */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
