@@ -331,6 +331,9 @@ Pipeline thẩm định `resolveReactionProgram(substances, contents, env)` ho�
   - `tests/reaction_controllers.test.ts`: Kiểm tra các controller vật lý và điều hướng chuẩn xác.
   - Cùng toàn bộ 15 test suite nền tảng khác (`realism_engine`, `apparatus_and_mechanisms`, `physics_sim`, `damage_and_physics`, v.v.).
 - **Production Build (`vite build` & `esbuild`)**: Biên dịch hoàn tất thành công gói phát hành `dist/` và `dist/server.cjs`.
+- **Nâng Cấp VFX Studio Developer Gallery (`src/vfx/dev/VfxGallery.tsx`)**:
+  - Bổ sung tab **Programs**: Duyệt toàn bộ 106 chương trình phản ứng, tra cứu theo phương trình, phân loại theo nhóm, kích hoạt phản ứng trực tiếp vào bình thí nghiệm với sổ cái bảo toàn `applyProgramToLedger`, thanh trượt scrub timeline 0–100%, và thanh tra sâu cơ chế hóa học.
+  - Bổ sung tab **Atoms**: Tra cứu danh mục khép kín 32 Effect Atoms, ngân sách phần cứng, điểm neo hình học, bộ tham số hợp lệ, và thử nghiệm trực tiếp các bộ presets mẫu.
 
 Hệ thống Virtual ChemLab 2.0 hiện đã đạt tính toàn vẹn vật lý và sư phạm ở mức cao nhất, sẵn sàng phục vụ học tập và nghiên cứu thực tế.
 
