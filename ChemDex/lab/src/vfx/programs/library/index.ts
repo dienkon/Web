@@ -17,6 +17,7 @@ import { COORDINATION_PROGRAMS } from './coordinationPrograms';
 import { INORGANIC_ANALYSIS_PROGRAMS } from './inorganicAnalysisPrograms';
 import { REDOX_TITRATION_PROGRAMS } from './redoxTitrationPrograms';
 import { GAS_GENERATION_PROGRAMS } from './gasGenerationPrograms';
+import { PHYSICAL_SOLUTION_PROGRAMS } from './physicalSolutionPrograms';
 
 export const ALL_HANDCRAFTED_PROGRAMS: ReactionProgram[] = [
   ...ACID_BASE_PROGRAMS,
@@ -29,7 +30,8 @@ export const ALL_HANDCRAFTED_PROGRAMS: ReactionProgram[] = [
   ...COORDINATION_PROGRAMS,
   ...INORGANIC_ANALYSIS_PROGRAMS,
   ...REDOX_TITRATION_PROGRAMS,
-  ...GAS_GENERATION_PROGRAMS
+  ...GAS_GENERATION_PROGRAMS,
+  ...PHYSICAL_SOLUTION_PROGRAMS
 ];
 
 export const PROGRAMS_BY_ID = new Map<string, ReactionProgram>();

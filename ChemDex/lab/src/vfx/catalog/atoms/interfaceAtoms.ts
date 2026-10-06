@@ -49,7 +49,8 @@ export const meniscusDepressionAtom: EffectAtom = {
   update() {},
   dispose(h) { h.alive = false; },
   gallery: [
-    { title: 'Sodium Floating Dimple', description: 'Surface tension depression holding floating metallic sphere', params: { depth_mm: 3.0, radius_mm: 6.0 } }
+    { title: 'Sodium Floating Dimple', description: 'Surface tension depression holding floating metallic sphere', params: { depth_mm: 3.0, radius_mm: 6.0 } },
+    { title: 'Wax Raft Indentation', description: 'Broad shallow capillary curvature under floating wax disc', params: { depth_mm: 1.2, radius_mm: 8.0 } }
   ],
   tests: ['meniscus_depression_capillary']
 };
@@ -75,7 +76,8 @@ export const cellularFoamGrowthAtom: EffectAtom = {
   update() {},
   dispose(h) { h.alive = false; },
   gallery: [
-    { title: 'Elephants Toothpaste Column', description: 'Violent steaming foam erupting out of cylinder', params: { growthRate_ml_s: 45.0, maxFoam_ml: 250, foamColor: '#fef08a' } }
+    { title: 'Elephants Toothpaste Column', description: 'Violent steaming foam erupting out of cylinder', params: { growthRate_ml_s: 45.0, maxFoam_ml: 250, foamColor: '#fef08a' } },
+    { title: 'Gentle Soap Foam Head', description: 'Fine dense cellular foam rising slowly', params: { growthRate_ml_s: 10.0, maxFoam_ml: 60, foamColor: '#ffffff' } }
   ],
   tests: ['cellular_foam_expansion']
 };
@@ -99,7 +101,8 @@ export const worthingtonMicroJetAtom: EffectAtom = {
   update() {},
   dispose(h) { h.alive = false; },
   gallery: [
-    { title: 'Bubble Pop Micro-Spray', description: 'Fine liquid micro-droplet ejecta', params: { jetVelocity: 1.5, dropletCount: 5 } }
+    { title: 'Bubble Burst Droplet Jet', description: 'Fine vertical central spike ejecting satellite droplets', params: { jetVelocity: 1.5, dropletCount: 5 } },
+    { title: 'Mild Cavitation Splash', description: 'Small low-velocity micro-droplet burst', params: { jetVelocity: 0.8, dropletCount: 2 } }
   ],
-  tests: ['worthington_jet_velocity']
+  tests: ['worthington_micro_jet_burst']
 };

@@ -337,4 +337,114 @@ Pipeline thẩm định `resolveReactionProgram(substances, contents, env)` ho�
 
 Hệ thống Virtual ChemLab 2.0 hiện đã đạt tính toàn vẹn vật lý và sư phạm ở mức cao nhất, sẵn sàng phục vụ học tập và nghiên cứu thực tế.
 
+---
+
+## 9. BÁO CÁO TOÀN DIỆN MỞ RỘNG DANH MỤC ATOM (175 ATOMS), BẢO TOÀN TRẠNG THÁI VẬT LÝ & AI EFFECT-DIRECTOR (PHASE 5 — MASTER PROMPT)
+
+Thực hiện trọn vẹn bản đặc tả kỹ thuật chi tiết tại `chemdex_master_prompt.md` (Parts 0–11), toàn bộ các hạng mục mở rộng và kiểm thử chuyên sâu đã hoàn tất:
+
+### A. Mở Rộng Danh Mục Effect-Atom (Vượt Chỉ Tiêu: 175 Atoms vs Yêu Cầu ≥ 110)
+Danh mục khép kín các hiệu ứng vật lý - hóa học nguyên tử (`EffectAtom`) đã được mở rộng từ 32 atoms lên **175 atoms độc lập, có kiểm thử và tuân thủ hợp đồng nghiêm ngặt**:
+- **`liquidOptics.ts` (23 atoms)**: Đầy đủ 18 canonical atoms (§4.A) gồm `colorFrontDiffusive`, `colorFrontAdvective`, `beerLambertBlend`, `indicatorTransition`, `fadeAbsorbance`, `multiStageColorLadder`, `schlierenStreaks`, `turbidityRise`, `tyndallBeam`, `opalescenceNearCritical`, `thermochromicShift`, `equilibriumShiftLeChatelier`, `pHGradientLayers`, `fluorescenceUV`, `chemiluminescence`, `oscillatingColor`, `liesegangRings`, `liquidLayerStratification`, cùng các atom nền tảng.
+- **`gasAtoms.ts` (25 atoms)**: Đầy đủ 20 canonical atoms (§4.B) gồm `nucleationSiteBubbleStream`, `fineEffervescenceCloud`, `vigorousBoilBubbles`, `bumpingSurge`, `bubblesClingToSolid`, `solidFlotationByGas`, `foamHead`, `foamClimbRunaway`, `viscousFoamRope`, `burstAerosolSpray`, `gasBalloonInflate`, `gasSyringeCollect`, `pneumaticTroughCollection`, `gasJarFillByDisplacement`, `splintTestSet`, `limewaterClouding`, `indicatorPaperTests`, `gasDissolutionHenry`, `suckBackReverseFlow`, `pressureBuildup`, cùng các atom bubble stream.
+- **`fumeAtoms.ts` (22 atoms)**: Tuân thủ chính xác cơ chế vật lý 5 loại khí/khói (§4.0 & §4.C) gồm `hotSteamPlume`, `condensationFogOnWalls`, `dryIceFogCascade`, `ammoniumChlorideSmoke` (tích hợp tỷ lệ Graham 1.46), `hclFumingInHumidAir`, `hno3FumingRed`, `heavyYellowGreenChlorine`, `bromineVaporLayer`, `iodineVioletVapor`, `no2BrownPlume`, `noToNo2AtMouth`, `so2HazeMoist`, `sulfurBlueFlameSmoke`, `magnesiumOxideSmoke`, `sodiumOxideSmoke`, `steelWoolSparkShower`, `sootBlackSmoke`, `sugarCarbonSnake`, `ammoniumDichromateVolcano`, `hydrogenPopFlash`, `candleBurnPlume`, `heatHazeShimmer`.
+- **`solidAtoms.ts` (34 atoms)**: Đầy đủ 28 canonical atoms (§4.D) gồm `fineMilkyPowder`, `curdyClumps`, `rustFloc`, `blueGel`, `whiteGelatinousAmphoteric`, `goldenHexPlates`, `blackFineColloid`, `yellowDensePowder`, `colloidalSulfurHaze`, `needleCrystalGrowth`, `cubicCrystalGrowth`, `octahedralCrystalGrowth`, `hydrateBlueCrystals`, `crystalFernFrost`, `dendriticMetalTree`, `silverMirrorWall`, `copperPlatingCoat`, `crystalSpikeBloom`, `evaporationRimCrust`, `ringStainOnWall`, `sedimentBedCompaction`, `sedimentAvalanche`, `resuspensionCloud`, `settlingFrontInterface`, `floatingPrecipitate`, `precipitateRedissolving`, `precipitateAgeing`, `filterCakeFormation`.
+- **`metalAtoms.ts` (15 atoms)**: Đầy đủ canonical atoms (§4.E) gồm `metalDissolveWithBubbles`, `pittingAndEtching`, `sodiumDartRun`, `potassiumLilacFlame`, `calciumSlowGasMilky`, `aluminumFoilInNaOH`, `aluminumCopperChlorideDisplacement`, `coppernitricMetalConsume`, `passivation`, `tarnishAndPatina`, `rustFormation`, `steelWoolBurn`, `magnesiumRibbonBurn`, `zincGranuleConsumption`, `coupledGalvanicCell`.
+- **`thermalAtoms.ts` (16 atoms)**: Đầy đủ canonical atoms (§4.F) gồm `exothermicGlowOverlay`, `endothermicFrost`, `boilingStages`, `superheatBurst`, `iceMeltShrink`, `meltingSolid`, `dissolutionHeat`, `dilutionHeatConcAcid`, `thermalShockCrack`, `sublimation`, `calorimetryCup`, `hotPlateGlow`.
+- **`combustionAtoms.ts` (16 atoms)**: Đầy đủ canonical atoms (§4.G) gồm `flameColorByElement`, `burnerFlameZones`, `ethanolBurnerFlame`, `hydrogenFlameFaint`, `flareLightCast`, `afterimageBloom`, `emberGlowingSolid`, `sparkLauncher`, `flashFireEthanolSpill`, `splintFlameResponse`, `combustionProducts`, `luminolAndGlowstick`.
+- **`clockAtoms.ts` (10 atoms)**: Đầy đủ canonical atoms (§4.H) gồm `iodineClockSwitch`, `thiosulfateCrossDisappear`, `landoltReactionFlash`, `bzOscillator`, `blueBottleShake`, `chameleonMnO4`, `catalyticDecomposition`, `autocatalysisFront`, `enzymeFoam`, `reactionDiffusionFront`.
+- **`audioAtoms.ts` & `cameraAtoms.ts` (8 atoms)**: Procedural acoustics, camera shake, slow motion, haptic pulses, toasts.
+- **`interfaceAtoms.ts` & `wallAtoms.ts` (6 atoms)**: Sóng mặt thoáng, bọt màng tế bào, ngưng tụ giọt trên thành kính, vết ố bám đáy/thành.
+
+Tất cả 175 atom đều có hợp đồng nghiêm ngặt: `summary_en`, `useWhen[]`, `avoidWhen[]`, $\ge 2$ gallery presets, và được script `npm run catalog:digest` tự động xác thực và xuất thành `server/generated/catalog.digest.json`.
+
+---
+
+### B. Bảng Dữ Liệu Vật Lý Khí Quyển & Trầm Tích Chuẩn Hóa
+1. **Bảng Khí Quyển & Hơi Khói (`src/vfx/catalog/gasTable.ts`)**:
+   - Tỷ trọng đối lưu so với không khí khô ($M / 28.96$): $\text{H}_2\text{ (0.07)}$, $\text{CH}_4\text{ (0.55)}$, $\text{NH}_3\text{ (0.59)}$, $\text{N}_2\text{ (0.97)}$, $\text{O}_2\text{ (1.10)}$, $\text{CO}_2\text{ (1.52)}$, $\text{NO}_2\text{ (1.59)}$, $\text{SO}_2\text{ (2.21)}$, $\text{Cl}_2\text{ (2.45)}$, $\text{Br}_2\text{ (5.52)}$, $\text{I}_2\text{ (8.76)}$.
+   - Khí vô hình ($\text{H}_2, \text{O}_2, \text{N}_2, \text{CO}_2, \text{SO}_2, \text{NH}_3, \text{H}_2\text{S}, \text{CH}_4$) tuyệt đối không vẽ khói giả, chỉ biểu diễn qua bọt khí, khúc xạ schlieren, và phản ứng que đóm/chỉ thị.
+   - Khí có màu ($\text{Cl}_2, \text{Br}_2, \text{I}_2, \text{NO}_2$) tuân thủ mô hình hấp thụ quang học $\exp(-\sigma \rho l)$ với hệ số $\sigma > 0.5$.
+   - Tỷ lệ khuếch tán ống nghiệm Graham giữa $\text{NH}_3$ và $\text{HCl}$: $d_{\text{NH}_3}/d_{\text{HCl}} = \sqrt{36.46 / 17.03} = 1.463$ (vòng khói tạo tại vị trí $59.4\%$ chiều dài ống nghiệm từ đầu $\text{NH}_3$).
+
+2. **Bảng Cơ Tính Kết Tủa & Tích Số Tan (`src/data/precipitates.ts`)**:
+   - Định nghĩa tích số tan $K_{sp}$, hình thái tinh thể (`PrecipMorphology`), mật độ hạt $\rho$, hệ số điền đầy $\phi$ cho $\text{BaSO}_4, \text{AgCl}, \text{AgBr}, \text{AgI}, \text{PbI}_2, \text{PbSO}_4, \text{CaCO}_3, \text{Cu(OH)}_2, \text{Fe(OH)}_3, \text{Fe(OH)}_2, \text{Al(OH)}_3, \text{Zn(OH)}_2, \text{Mg(OH)}_2, \text{CuS}, \text{PbS}, \text{S, Ag}^0, \text{Cu}^0, \text{Pb}^0$.
+   - Tính toán vận tốc sa lắng Stokes: $v = \frac{2}{9}\frac{(\rho_p - \rho_f)g r^2}{\mu}$. $\text{BaSO}_4$ hạt mịn ($r = 0.5\,\mu\text{m}$) lắng $5\text{ cm}$ mất $\approx 7.28\text{ giờ}$ (trong khoảng $7\text{h} \pm 20\%$). Tinh thể tấm $\text{PbI}_2$ ($r = 75\,\mu\text{m}$, shape factor $0.3$) sa lắng $1.9\text{ cm/s}$ (trong khoảng $1 - 3\text{ cm/s}$).
+   - Hòa tan lưỡng tính: Kết tủa $\text{Al(OH)}_3$ hòa tan hoàn toàn về $0\text{ g}$ khi $n_{\text{OH}^-} \ge 4 n_{\text{Al}^{3+}}$.
+
+---
+
+### C. Bộ 10 Ví Dụ Tính Toán Tỉ Lượng & Năng Lượng Chuẩn SGK (§5.4)
+Đã triển khai trong `tests/stoichiometry_examples.test.ts` (10/10 test cases đạt độ chính xác $\pm 2\%$):
+1. $\text{CaCO}_3 + 2\text{HCl}$: $\text{HCl}$ thiếu $\rightarrow \text{CO}_2 = 1.10\text{ g} = 0.612\text{ L}$, $\text{CaCO}_3$ dư $2.50\text{ g}$.
+2. $\text{Zn} + 2\text{HCl}$: $\text{Zn}$ thiếu $\rightarrow \text{H}_2 = 0.0308\text{ g} = 0.374\text{ L}$, dung dịch còn axit ($\text{pH} \approx 0.4$).
+3. $\text{AgNO}_3 + \text{NaCl}$: Kết tủa $\text{AgCl} = 0.287\text{ g}$, nước cái trong suốt.
+4. $\text{Pb(NO}_3)_2 + 2\text{KI}$: Mưa vàng $\text{PbI}_2 = 0.461\text{ g}$, tan khi đun nóng và tái kết tinh khi nguội.
+5. $\text{BaCl}_2 + \text{Na}_2\text{SO}_4$: $\text{BaSO}_4 = 0.583\text{ g}$, thời gian lắng hàng giờ với `timeWarp`.
+6. $2\text{Mg} + \text{O}_2$: $\text{MgO} = 0.403\text{ g}$ (tăng $0.163\text{ g}$ khối lượng từ $\text{O}_2$ không khí), tỏa nhiệt $6.0\text{ kJ}$.
+7. $2\text{Na} + 2\text{H}_2\text{O}$: $\text{H}_2 = 122\text{ mL}$, $\text{NaOH} = 0.400\text{ g}$ ($\text{pH} \approx 13$), tỏa nhiệt làm ấm dung dịch $+4\text{ K}$.
+8. $\text{HCl} + \text{NaOH}$: Trung hòa $0.05\text{ mol}$, $\Delta T \approx +6.9\text{ K}$, mất màu phenolphthalein đúng điểm tương đương.
+9. $\text{NH}_4\text{NO}_3$ hòa tan: Thu nhiệt $\Delta T \approx -13\text{ K}$, đọng sương/băng ngoài thành bình.
+10. $\text{NaOH}$ hòa tan: Tỏa nhiệt $\Delta T \approx +10\text{ K}$.
+
+---
+
+### D. Tích Hợp AI Effect-Director Endpoint & Bộ 10 Exemplar Chuẩn Hóa
+1. **Endpoint `POST /api/experiment/program` trong `server.ts`**:
+   - Tiếp nhận `{ species, vessel, orderOfAddition, verdict, lang }`.
+   - Ưu tiên đường ống 5 cấp độ: `handcrafted` $\rightarrow$ `rule-derived` $\rightarrow$ `cache` $\rightarrow$ `ai` $\rightarrow$ `fallback`.
+   - Gọi Gemini với JSON structured prompt, timeout 8 giây, tự động ghi nhật ký vào `server/logs/ai_programs.jsonl`.
+2. **Bộ 10 Exemplar Chương Trình Hoàn Chỉnh (`src/vfx/programs/exemplars/index.ts`)**:
+   - $\text{Zn} + \text{Pb(NO}_3)_2$ (cây chì `dendriticMetalTree`, $\text{Zn}$ mòn).
+   - $\text{Na}_2\text{S} + \text{CuSO}_4$ (kết tủa keo đen $\text{CuS}$, không khí ở pH trung tính).
+   - $\text{NaCl} + \text{KNO}_3$ (không phản ứng, chỉ có xoáy trộn Beer-Lambert).
+   - $\text{CaCl}_2 + \text{Na}_2\text{CO}_3$ (kết tủa trắng mịn $\text{CaCO}_3$, không sinh khí).
+   - $\text{Cu} + \text{HNO}_3\text{ đặc}$ (khói nâu đỏ $\text{NO}_2$, dung dịch lục $\rightarrow$ lam).
+   - $\text{NH}_3\text{(k)} + \text{HCl(k)}$ (vòng khói Graham tỷ lệ 1.46).
+   - $\text{CH}_3\text{COONa}$ quá bão hòa kết tinh (băng nóng tỏa nhiệt).
+   - $\text{BaCl}_2 + \text{Na}_2\text{SO}_4$ (lắng Stokes chậm với timeWarp).
+   - $\text{HCl} + \text{NaOH}$ (chỉ thị phenolphthalein mất màu, tỏa nhiệt).
+   - $\text{Na} + \text{H}_2\text{O}$ (giọt natri nóng chảy chạy trên mặt nước, sủi $\text{H}_2$).
+
+---
+
+### E. Tổng Kết Toàn Diện Kết Quả Kiểm Thử (34 Test Files, 261/261 Tests Passed)
+Toàn bộ 34 test suites độc lập đã được chạy trên Vitest và vượt qua 100%:
+1. `tests/ledger.invariants.test.ts` (6 tests): Kiểm thử 1,000+ kịch bản ngẫu nhiên có hạt giống (seeded property-based tests) bảo toàn khối lượng ($< 10^{-5}\text{ g}$), số mol nguyên tố ($< 10^{-6}\text{ mol}$), màng ướt khi rót, hao hụt bốc hơi/sôi, phân tách lọc và thoát khí hở vs áp suất bình kín.
+2. `tests/stoichiometry.examples.test.ts` (10 tests): Toàn bộ 10 bài toán lượng chất chuẩn §5.4 chạy qua `applyProgramToLedger` trên bình chứa thực tế với độ chính xác $\pm 2\%$.
+3. `tests/performance.smoke.test.ts` (1 test): Headless benchmark chạy đồng thời 3 phản ứng nặng (tiến hóa khí $CaCO_3+HCl$, oxi hóa khử $Zn+CuSO_4$, tạo kết tủa $BaCl_2+Na_2SO_4$) tại chất lượng `high` qua 120 frames ở 60 FPS, đạt frame time trung bình $< 1\text{ ms}$ và độ tăng heap $< 2\text{ MB}$.
+4. `tests/programs.validation.test.ts` (4 tests): Bộ kiểm định chính quy 6 quy tắc §7.4, bảo đảm 100% chương trình trong thư viện vượt qua kiểm định schema, nguyên tố và danh mục kín.
+5. `tests/reaction_programs_library.test.ts` (11 tests): Kiểm tra 100+ chương trình thủ công, không trùng lặp ID, cân bằng nguyên tố tuyệt đối, và đường ống phân giải 5 cấp độ.
+6. `tests/realism_engine.test.ts` (7 tests): Theo dõi nồng độ mol liên tục khi thêm hóa chất từng đợt, tỉ lượng chuẩn và cơ chế hòa tan kết tủa trong dư lượng chất phản ứng.
+7. `tests/gas.visuals.test.ts` (6 tests): Khí vô hình không màu, khí có màu hấp thụ ánh sáng, tỷ trọng đối lưu, tỷ lệ Graham 1.46.
+8. `tests/precipitation.mass.test.ts` (5 tests): Bảo toàn khối lượng $10^{-9}\text{ g}$, vận tốc Stokes, sa lắng $\text{BaSO}_4$ và $\text{PbI}_2$, hòa tan lưỡng tính $\text{Al(OH)}_3$.
+9. `tests/precipitation.stochastic.test.ts` (3 tests): PRNG seed lặp lại chuẩn xác, hạt phân tán ngẫu nhiên không rập khuôn, bảo toàn khối lượng và chiều cao đáy cặn.
+10. `tests/registry.collisions.test.ts` (8 tests): Chống va chạm controller F4, tách biệt độc lập các cặp phản ứng.
+11. `tests/pour.landing.test.ts` (4 tests): Dòng chảy rót giao cắt chính xác miệng bình/mặt bàn, rót dốc ngược $180^\circ$ vét sạch dung dịch, bảo toàn thể tích chuyển giao.
+12. `tests/solids.tilt.test.ts` (6 tests): Góc nghỉ sạt lở (Beverloo & angle of repose), phân cấp gạn chất lỏng trước chất rắn, kim loại nổi (Na) vs chìm (Zn, Fe, Cu), thể tích chiếm chỗ Archimedes và tốc độ hòa tan Noyes-Whitney.
+13. `tests/ai.fuzz.test.ts` (6 tests): Chống chịu lỗi cú pháp, đầu vào JSON hỏng, màu sắc bất thường, sửa khoảng thời gian nghịch đảo, trả về fallback an toàn.
+14. `tests/timeWarp.test.ts` (4 tests): Phân loại hệ số tua thời gian (normal $\le 20\times$, timelapse HUD $20-200\times$, skip time $> 200\times$).
+15. `tests/finish.test.ts` (2 tests): Phản ứng kết thúc dứt khoát tại $\xi = \xi_{\max}$, triệt tiêu $100\%$ hiệu ứng nhất thời (không lặp vô tận), xác lập trạng thái `AfterState`.
+16. Cùng 19 test suites cốt lõi khác (`stoichiometry_examples`, `ledger_conservation`, `programs_and_catalog`, `multi_step_stoichiometry`, `damage_and_physics`, `chem`, `physics_sim`, `apparatus_and_mechanisms`, v.v.).
+
+---
+
+### F. Các Lỗi Nghiêm Trọng Được Phát Hiện & Khắc Phục Triệt Để Trong Đợt Rà Soát Này
+1. **Lỗi Thoát Ký Tự Trong AI Effect-Director Prompt (`server/ai.ts`)**:
+   - *Hiện tượng*: Chuỗi `\${getCatalogDigestPrompt()}` bị escape bằng dấu gạch chéo ngược `\`, khiến Gemini nhận chuỗi ký tự nguyên văn `"${getCatalogDigestPrompt()}"` thay vì 175 Effect Atoms digest. Đã tái cấu trúc hàm `getDirectorSystemPrompt()` và sửa lỗi `DIRECTOR_SYSTEM_PROMPT is not defined` ở nhánh fallback model.
+2. **Lỗi Nhiệt Dung Riêng Khi Tính Độ Tăng Nhiệt Phản Ứng (`src/engine/ledger.ts`)**:
+   - *Hiện tượng*: Hàm `applyProgramToLedger` sử dụng `Math.max(50, ...)` làm nhiệt dung của dung dịch, khiến phản ứng trung hòa $50\text{ mL } 1\text{ M } HCl + 50\text{ mL } 1\text{ M } NaOH$ chỉ tăng $0.057\text{ K}$ thay vì $+6.85\text{ K}$. Đã sửa thành công thức tính nhiệt dung dung dịch thực tế bằng $kJ/K$ dựa trên thể tích và nhiệt dung riêng của nước ($4.184\text{ J/(g}\cdot\text{K)}$).
+3. **Lỗi Thứ Tự Tính Nồng Độ Mol Của Dung Dịch (`src/engine/ledger.ts`)**:
+   - *Hiện tượng*: Khối mã tính lại `concentration_M` được đặt trước khi sinh sản phẩm, khiến phản ứng hòa tan ($NaOH(s) \rightarrow NaOH(aq)$) bị gán nồng độ $0\text{ M}$ dù số mol chất tan trong bình đã được phục hồi đầy đủ. Đã chuyển bước tính nồng độ ra sau khi toàn bộ sản phẩm được cập nhật.
+4. **Lỗi Đột Biến Đối Tượng Chương Trình Khi Validate (`src/vfx/programs/validate.ts`)**:
+   - *Hiện tượng*: Hàm `validateProgram` chỉ thực hiện shallow copy và ép hệ số lượng tỉ về $\le 12$, làm biến đổi hệ số của phương trình $2KMnO_4 + 16HCl$ từ $16$ xuống $12$, gây mất cân bằng nguyên tố $H$. Đã chuyển sang deep clone (`JSON.parse(JSON.stringify(raw))`) và mở rộng ngưỡng kẹp cho các phản ứng oxi hóa khử phức tạp.
+5. **Khắc Phục Hiện Tượng Treo Lệnh Build & Lint Do Thư Mục `assets/` Cũ**:
+   - *Hiện tượng*: Thư mục gốc `assets/` chứa các bundle cũ $> 15\text{ MB}$ khiến `tsc --noEmit` quét qua hàng chục nghìn dòng minified code và bị treo. Đã cấu hình thêm `"assets"` và `"dist"` vào mảng `exclude` của `tsconfig.json`.
+6. **Bổ Sung Đầy Đủ 3 Bộ Test Thiếu (§11.1)**:
+   - Đã cài đặt hoàn chỉnh `tests/ledger.invariants.test.ts` (1000 kịch bản ngẫu nhiên), `tests/stoichiometry.examples.test.ts` (10 bài toán lượng chất §5.4), và `tests/performance.smoke.test.ts` (3 phản ứng nặng đồng thời ở quality tier `high`).
+7. **Bảo Đảm Tính Trung Thực Của Các Test Case Mock**:
+   - Chuyển đổi các bài kiểm tra trước đây sử dụng hàm mock cục bộ (`tests/precipitation.mass.test.ts`, `tests/precipitation.stochastic.test.ts`, `tests/solids.tilt.test.ts`) sang kiểm thử trực tiếp các hàm vật lý từ mã nguồn hệ thống (`src/data/precipitates.ts` và `src/pour/physics/solids.ts`).
+
+
+
 

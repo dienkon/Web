@@ -13,18 +13,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 describe('Effect-Atom Catalog & Schema Verification Suite', () => {
-  it('contains all 32 closed Effect Atoms across 10 categories', () => {
+  it('contains at least 110 closed Effect Atoms across all categories', () => {
     expect(EFFECT_ATOM_CATALOG).toBeDefined();
-    expect(EFFECT_ATOM_CATALOG.length).toBe(32);
+    expect(EFFECT_ATOM_CATALOG.length).toBeGreaterThanOrEqual(110);
 
     const categories = new Set(EFFECT_ATOM_CATALOG.map(a => a.category));
     expect(categories.size).toBeGreaterThanOrEqual(9);
 
-    // Verify all 32 atom names can be looked up
+    // Verify all atom names can be looked up
     for (const atom of EFFECT_ATOM_CATALOG) {
       expect(atom.name).toBeTruthy();
       expect(atom.summary_en).toBeTruthy();
       expect(atom.params).toBeDefined();
+      expect(atom.gallery.length).toBeGreaterThanOrEqual(2);
       expect(getEffectAtom(atom.name)).toBe(atom);
     }
   });
@@ -51,14 +52,14 @@ describe('Effect-Atom Catalog & Schema Verification Suite', () => {
     }
   });
 
-  it('matches generated catalog.digest.json with exactly 32 atom definitions', () => {
+  it('matches generated catalog.digest.json with >= 110 atom definitions', () => {
     const digestPath = path.resolve(__dirname, '../server/generated/catalog.digest.json');
     expect(fs.existsSync(digestPath)).toBe(true);
 
     const raw = fs.readFileSync(digestPath, 'utf8');
     const digest = JSON.parse(raw);
     expect(Array.isArray(digest)).toBe(true);
-    expect(digest.length).toBe(32);
+    expect(digest.length).toBeGreaterThanOrEqual(110);
 
     for (const atom of digest) {
       expect(atom.name).toBeTruthy();

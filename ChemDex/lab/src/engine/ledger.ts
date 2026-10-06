@@ -511,16 +511,6 @@ export function applyProgramToLedger(
     }
   }
 
-  // Recalculate concentration_M for aqueous species based on current vessel volume
-  if (vessel.volume_ml && vessel.volume_ml > 0) {
-    const vol_L = vessel.volume_ml / 1000.0;
-    for (const item of currentContents) {
-      if (item.state !== 's' && item.phase !== 's') {
-        item.concentration_M = item.moles / vol_L;
-      }
-    }
-  }
-
   // 2. Generate products
   let totalPrecipitateG = vessel.precipitateAmount_g || 0;
   let hasGas = vessel.hasGas || false;
@@ -574,13 +564,25 @@ export function applyProgramToLedger(
     }
   }
 
+  // Recalculate concentration_M for aqueous species based on current vessel volume
+  if (vessel.volume_ml && vessel.volume_ml > 0) {
+    const vol_L = vessel.volume_ml / 1000.0;
+    for (const item of currentContents) {
+      if (item.state !== 's' && item.phase !== 's') {
+        item.concentration_M = item.moles / vol_L;
+      }
+    }
+  }
+
   // 3. Update thermodynamics & temperature
   let currentTemp = vessel.temperature_c ?? 25.0;
   if (program.chemistry.deltaH_kJ_per_mol && molesOfReaction > 0) {
     const q_kJ = -program.chemistry.deltaH_kJ_per_mol * molesOfReaction; // Exo is negative ΔH -> Q > 0
-    const heatCapacity = Math.max(50, (vessel.volume_ml || 50) * 4.184 / 1000); // kJ/K
-    const deltaT = q_kJ / heatCapacity;
-    currentTemp = Math.max(0, Math.min(100, currentTemp + deltaT));
+    // Heat capacity of water/aqueous solution: 4.184 J/(g*K) = 0.004184 kJ/(g*K)
+    const mass_solution_g = vessel.volume_ml ? vessel.volume_ml * 1.0 : 50.0;
+    const heatCapacity_kJ_per_K = Math.max(0.01, (mass_solution_g * 4.184) / 1000.0);
+    const deltaT = q_kJ / heatCapacity_kJ_per_K;
+    currentTemp = Math.max(-20, Math.min(100, currentTemp + deltaT));
   }
 
   // 4. Update mass and headspace pressure

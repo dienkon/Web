@@ -1,12 +1,23 @@
 import { VesselProfile } from './profiles';
 
+export type LandingKind =
+  | 'inside'
+  | 'liquid'
+  | 'wall_inner'
+  | 'rim'
+  | 'funnel'
+  | 'other_vessel'
+  | 'hand/tool'
+  | 'table';
+
 export interface BallisticsResult {
   exitPos: [number, number, number];
   exitVel: [number, number, number];
   impactPos: [number, number, number];
   timeOfFlight: number;
-  landingKind: 'inside' | 'rim' | 'table';
+  landingKind: LandingKind;
   targetVesselId: string | null;
+  detailKind?: 'liquid' | 'wall_inner' | 'funnel' | 'other_vessel' | 'hand/tool';
 }
 
 const G_SCENE = 9.8; // scene units / s^2
@@ -87,8 +98,9 @@ export function calculateStreamBallistics(
   const landZ = worldLipZ + vz * tFlight;
 
   // Classify landing
-  let landingKind: 'inside' | 'rim' | 'table' = 'table';
+  let landingKind: LandingKind = 'table';
   let matchedTargetId: string | null = null;
+  let detailKind: 'liquid' | 'wall_inner' | 'funnel' | 'other_vessel' | 'hand/tool' | undefined;
 
   if (targetVessel) {
     const distToCenter = Math.hypot(landX - targetVessel.position[0], landZ - targetVessel.position[2]);
@@ -98,9 +110,11 @@ export function calculateStreamBallistics(
     if (distToCenter <= insideRadius) {
       landingKind = 'inside';
       matchedTargetId = targetVessel.id;
+      detailKind = distToCenter <= targetVessel.mouthR * 0.75 ? 'liquid' : 'wall_inner';
     } else if (distToCenter <= rimRadius) {
       landingKind = 'rim';
       matchedTargetId = targetVessel.id;
+      detailKind = 'wall_inner';
     } else {
       landingKind = 'table';
     }
@@ -112,6 +126,7 @@ export function calculateStreamBallistics(
     impactPos: [landX, landY, landZ],
     timeOfFlight: tFlight,
     landingKind,
-    targetVesselId: matchedTargetId
+    targetVesselId: matchedTargetId,
+    detailKind
   };
 }

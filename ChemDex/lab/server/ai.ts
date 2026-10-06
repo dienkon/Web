@@ -351,3 +351,137 @@ Language: ${lang === 'en' ? 'English' : 'Vietnamese'}.`;
   return normalized;
 }
 
+export interface ProgramDirectorRequest {
+  species: Array<{
+    formula: string;
+    phase?: string;
+    moles?: number;
+    mass_g?: number;
+    volume_ml?: number;
+    conc_M?: number;
+  }>;
+  vessel?: {
+    type?: string;
+    capacity_ml?: number;
+    T_c?: number;
+    sealed?: boolean;
+    stirred?: boolean;
+    heated?: boolean;
+    atmosphere?: string;
+  };
+  orderOfAddition?: string[];
+  verdict?: any;
+  lang?: string;
+}
+
+export function logAIProgram(entry: {
+  timestamp: string;
+  request: ProgramDirectorRequest;
+  program: any;
+  validation: { valid: boolean; errors: string[] };
+}) {
+  try {
+    const logsDir = path.resolve(process.cwd(), 'server/logs');
+    if (!fs.existsSync(logsDir)) {
+      fs.mkdirSync(logsDir, { recursive: true });
+    }
+    const logFile = path.join(logsDir, 'ai_programs.jsonl');
+    fs.appendFileSync(logFile, JSON.stringify(entry) + '\n', 'utf-8');
+  } catch (err) {
+    console.warn('[AI Logging] Failed to append to ai_programs.jsonl:', err);
+  }
+}
+
+export function getDirectorSystemPrompt(): string {
+  return `You are the Effect Director of a physically faithful virtual chemistry lab (ChemDex).
+Your job: given the chemistry verdict and the experimental situation, output ONE JSON object
+conforming exactly to the supplied ReactionProgram schema. You output DATA ONLY.
+
+HARD RULES:
+1. Use ONLY effect atoms that appear in the provided catalog digest, with parameters inside the stated ranges. Never invent atom names, anchors, gases, morphologies or fields.
+2. Chemistry first. Provide a balanced equation with states (s,l,g,aq), limiting-reagent logic, and realistic products. If nothing happens under given conditions, return kind "no_reaction", a mixing-only timeline, and explain why.
+3. Be quantitative: use the given moles/volumes; decide limiting reagent; state product moles; never produce more than limiting reagent allows. Conservation of mass, atoms and charge is mandatory.
+4. Physical appearance must match real observations: colors from known ion colors; precipitate morphology, color and settling behavior; gas identity, color, density relative to air, odor tag; heat sign and magnitude; speed (instant / seconds / minutes / needs heating); induction periods and stochastic crystallization where real.
+5. Invisible gases (H2, O2, CO2, SO2, NH3, H2S, CH4) are NEVER drawn as colored smoke. Show them through bubbles, indicator tests, balloon/pressure effects. Visible "steam"/fog is condensed droplets.
+6. Heavy gases sink and pool; light gases rise. Choose atoms and anchors accordingly.
+7. Ledger binding: prefer binding intensities to species rates/amounts ("rate:CO2", "amount:Zn(s)").
+8. Time honesty: set visual.duration_s for display and timeWarp.physical_s when real process is much slower.
+9. Safety: never provide synthesis or misuse guidance. For toxic-gas-forming or energetic combinations return conservative visuals, hazards[], and clear warnings; for out-of-scope compounds return kind "out_of_scope".
+10. Language: all *_vi fields in Vietnamese, *_en in English; short, observational, like a lab notebook.
+11. Output JSON only, no markdown, no comments. Maximum 24 atoms. Colors as #rrggbb.
+
+${getCatalogDigestPrompt()}`;
+}
+
+export async function generateProgramFromAI(req: ProgramDirectorRequest): Promise<any | null> {
+  const ai = getAIClient();
+  if (!ai) {
+    console.log('[AI Notice] Gemini API key not configured. Cannot run AI effect director.');
+    return null;
+  }
+
+  const situationDescription = `Experimental situation:
+Species: ${req.species.map(s => `${s.formula} (${s.phase || 'aq'}, moles: ${s.moles ?? 'unknown'}, conc: ${s.conc_M ?? 'unknown'} M)`).join(', ')}
+Vessel: ${req.vessel?.type || 'beaker'}, capacity: ${req.vessel?.capacity_ml || 100} mL, T: ${req.vessel?.T_c ?? 25} C, sealed: ${req.vessel?.sealed ? 'Yes' : 'No'}, heated: ${req.vessel?.heated ? 'Yes' : 'No'}
+Order of addition: ${req.orderOfAddition?.join(' -> ') || 'simultaneous'}
+Verdict: ${JSON.stringify(req.verdict || {})}
+Language: ${req.lang || 'en'}`;
+
+  const preferredModel = CURRENT_GEMINI_MODEL;
+  let responseText: string | null = null;
+  const systemInstruction = getDirectorSystemPrompt();
+
+  try {
+    const res = await ai.models.generateContent({
+      model: preferredModel,
+      contents: [{ role: 'user', parts: [{ text: situationDescription }] }],
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+      }
+    });
+    responseText = res.text || null;
+  } catch (err: any) {
+    console.warn(`[AI Warning] ${preferredModel} failed in generateProgramFromAI, trying fallback:`, err?.message || err);
+    try {
+      const resFallback = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: [{ role: 'user', parts: [{ text: situationDescription }] }],
+        config: {
+          systemInstruction,
+          responseMimeType: 'application/json',
+        }
+      });
+      responseText = resFallback.text || null;
+    } catch (fErr) {
+      console.warn('[AI Error] Fallback model also failed in generateProgramFromAI:', fErr);
+      return null;
+    }
+  }
+
+  if (!responseText) return null;
+
+  try {
+    const rawProgram = safeParseJson(responseText);
+    const validation = validateProgram(rawProgram);
+    
+    // Log to server/logs/ai_programs.jsonl
+    logAIProgram({
+      timestamp: new Date().toISOString(),
+      request: req,
+      program: rawProgram,
+      validation: { valid: validation.valid, errors: validation.errors }
+    });
+
+    if (validation.valid && validation.program) {
+      return validation.program;
+    } else {
+      console.warn('[AI Warning] AI Program failed validation:', validation.errors);
+      return validation.program || null;
+    }
+  } catch (parseErr) {
+    console.error('[AI Error] Failed to parse AI Program JSON:', parseErr);
+    return null;
+  }
+}
+

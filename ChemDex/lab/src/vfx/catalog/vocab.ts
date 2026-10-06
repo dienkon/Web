@@ -460,6 +460,26 @@ export type Anchor =
   | 'flame'
   | 'thermometer';
 
+export const ANCHORS: Anchor[] = [
+  'pourPoint',
+  'stream',
+  'bottom',
+  'surface',
+  'meniscus',
+  'wall',
+  'wallLower',
+  'wallUpper',
+  'rim',
+  'headspace',
+  'outside',
+  'bulk',
+  'flame',
+  'thermometer'
+];
+
+export const PRECIP_MORPHOLOGIES: PrecipMorphology[] = Object.keys(PRECIP_MORPHOLOGY_PROPERTIES) as PrecipMorphology[];
+export const GAS_SPECIES: GasSpecies[] = Object.keys(GAS_SPECIES_TABLE) as GasSpecies[];
+
 // 6. Adapters for Legacy Types (F7)
 export function normalizeMorphology(raw?: string): PrecipMorphology {
   if (!raw) return 'fine_powder';

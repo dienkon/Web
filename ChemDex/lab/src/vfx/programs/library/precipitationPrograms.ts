@@ -13,7 +13,7 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
     schema: 'chemdex.program/1',
     id: 'bacl2_na2so4',
     provenance: 'handcrafted',
-    controller: 'bacl2_h2so4_precipitate',
+    controller: 'bacl2_na2so4_precipitate',
     chemistry: {
       equation: 'BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)',
       ionic: 'Ba(2+)(aq) + SO4(2-)(aq) -> BaSO4(s)',

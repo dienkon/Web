@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { ParticlePool, ParticleState } from './ParticlePool';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { useAppStore } from '../../store/useAppStore';
+import { PRNG } from '../../core/rng';
 
 export type PrecipitateMorphologyType =
   | 'FINE_POWDER'       // e.g. BaSO4, fine micro-crystals with high turbidity
@@ -69,6 +70,7 @@ export const Precipitate = React.memo(function Precipitate({
   }, [effectiveTier, multiplier]);
 
   const pool = useMemo(() => new ParticlePool(maxCount), [maxCount]);
+  const rng = useMemo(() => new PRNG(), []);
   const spawnTimer = useRef(0);
 
   const particleColor = useMemo(() => {
@@ -107,10 +109,10 @@ export const Precipitate = React.memo(function Precipitate({
       while (spawnTimer.current >= 1.0) {
         spawnTimer.current -= 1.0;
 
-        const angle = Math.random() * Math.PI * 2;
-        const r = Math.sqrt(Math.random()) * radius * 0.85;
+        const angle = rng.next() * Math.PI * 2;
+        const r = Math.sqrt(rng.next()) * radius * 0.85;
         const px = Math.cos(angle) * r;
-        const py = liquidTopY - Math.random() * 0.15; // Form near upper reaction mixing zone
+        const py = liquidTopY - rng.next() * 0.15; // Form near upper reaction mixing zone
         const pz = Math.sin(angle) * r;
 
         // Stokes drag terminal sedimentation velocity based on morphology and density
@@ -119,37 +121,37 @@ export const Precipitate = React.memo(function Precipitate({
 
         switch (morphology) {
           case 'CRYSTAL_PLATE':
-            settlingVy = -(0.065 + Math.random() * 0.04); // Flakes flutter gracefully
-            baseSize = 0.028 + Math.random() * 0.022;
+            settlingVy = -(0.065 + rng.next() * 0.04); // Flakes flutter gracefully
+            baseSize = 0.028 + rng.next() * 0.022;
             break;
           case 'GEL':
-            settlingVy = -(0.045 + Math.random() * 0.03); // Gel settles very slowly
-            baseSize = 0.045 + Math.random() * 0.035;
+            settlingVy = -(0.045 + rng.next() * 0.03); // Gel settles very slowly
+            baseSize = 0.045 + rng.next() * 0.035;
             break;
           case 'FLOC':
-            settlingVy = -(0.060 + Math.random() * 0.04);
-            baseSize = 0.038 + Math.random() * 0.03;
+            settlingVy = -(0.060 + rng.next() * 0.04);
+            baseSize = 0.038 + rng.next() * 0.03;
             break;
           case 'CURD':
-            settlingVy = -(0.095 + Math.random() * 0.05);
-            baseSize = 0.032 + Math.random() * 0.025;
+            settlingVy = -(0.095 + rng.next() * 0.05);
+            baseSize = 0.032 + rng.next() * 0.025;
             break;
           case 'METALLIC_DEPOSIT':
-            settlingVy = -(0.14 + Math.random() * 0.06); // Heavy copper/metal sinks rapidly
-            baseSize = 0.025 + Math.random() * 0.02;
+            settlingVy = -(0.14 + rng.next() * 0.06); // Heavy copper/metal sinks rapidly
+            baseSize = 0.025 + rng.next() * 0.02;
             break;
           case 'IRREGULAR_GRAIN':
-            settlingVy = -(0.11 + Math.random() * 0.05);
-            baseSize = 0.026 + Math.random() * 0.02;
+            settlingVy = -(0.11 + rng.next() * 0.05);
+            baseSize = 0.026 + rng.next() * 0.02;
             break;
           case 'CRYSTAL_ROD':
-            settlingVy = -(0.085 + Math.random() * 0.045);
-            baseSize = 0.025 + Math.random() * 0.02;
+            settlingVy = -(0.085 + rng.next() * 0.045);
+            baseSize = 0.025 + rng.next() * 0.02;
             break;
           case 'FINE_POWDER':
           default:
-            settlingVy = -(0.075 + Math.random() * 0.045);
-            baseSize = 0.018 + Math.random() * 0.015;
+            settlingVy = -(0.075 + rng.next() * 0.045);
+            baseSize = 0.018 + rng.next() * 0.015;
             break;
         }
 
@@ -157,9 +159,9 @@ export const Precipitate = React.memo(function Precipitate({
           x: px,
           y: py,
           z: pz,
-          vx: (Math.random() - 0.5) * (isCrystalline ? 0.05 : 0.025),
+          vx: (rng.next() - 0.5) * (isCrystalline ? 0.05 : 0.025),
           vy: settlingVy,
-          vz: (Math.random() - 0.5) * (isCrystalline ? 0.05 : 0.025),
+          vz: (rng.next() - 0.5) * (isCrystalline ? 0.05 : 0.025),
           baseSize,
           size: baseSize,
           life: isCrystalline ? 14.0 : 9.0,
@@ -167,12 +169,12 @@ export const Precipitate = React.memo(function Precipitate({
           g: particleColor.g,
           b: particleColor.b,
           alpha: isGel ? 0.68 : (morphology === 'FINE_POWDER' ? 0.88 : 0.98),
-          rotX: Math.random() * Math.PI * 2,
-          rotY: Math.random() * Math.PI * 2,
-          rotZ: Math.random() * Math.PI * 2,
-          vRotX: isCrystalline ? (Math.random() - 0.5) * 5.0 : (Math.random() - 0.5) * 1.5,
-          vRotY: isCrystalline ? (Math.random() - 0.5) * 5.0 : (Math.random() - 0.5) * 1.5,
-          vRotZ: isCrystalline ? (Math.random() - 0.5) * 5.0 : (Math.random() - 0.5) * 1.5,
+          rotX: rng.next() * Math.PI * 2,
+          rotY: rng.next() * Math.PI * 2,
+          rotZ: rng.next() * Math.PI * 2,
+          vRotX: isCrystalline ? (rng.next() - 0.5) * 5.0 : (rng.next() - 0.5) * 1.5,
+          vRotY: isCrystalline ? (rng.next() - 0.5) * 5.0 : (rng.next() - 0.5) * 1.5,
+          vRotZ: isCrystalline ? (rng.next() - 0.5) * 5.0 : (rng.next() - 0.5) * 1.5,
         });
       }
     }

@@ -23,7 +23,8 @@ export const wallCondensationDropletsAtom: EffectAtom = {
   update() {},
   dispose(h) { h.alive = false; },
   gallery: [
-    { title: 'Flask Headspace Condensation', description: 'Beaded water dew droplets sliding down neck', params: { condensationRate: 0.8, maxDropletSize_mm: 2.5 } }
+    { title: 'Flask Headspace Condensation', description: 'Beaded water dew droplets sliding down neck', params: { condensationRate: 0.8, maxDropletSize_mm: 2.5 } },
+    { title: 'Thin Wall Mist Film', description: 'Fine microscopic dew fog on cool glassware', params: { condensationRate: 0.3, maxDropletSize_mm: 1.0 } }
   ],
   tests: ['wall_condensation_droplets']
 };
@@ -52,7 +53,8 @@ export const residueStainAtom: EffectAtom = {
   },
   dispose(h) { h.alive = false; },
   gallery: [
-    { title: 'Permanganate Brown Stain', description: 'Persistent brown MnO2 ring on glass meniscus', params: { stainColor: '#451a03', opacity: 0.9, ringThickness_mm: 2.5 } }
+    { title: 'Permanganate Brown Stain', description: 'Persistent brown MnO2 ring on glass meniscus', params: { stainColor: '#451a03', opacity: 0.9, ringThickness_mm: 2.5 } },
+    { title: 'Iron Oxide Wall Discoloration', description: 'Rust-colored trace ring clinging to glass contact line', params: { stainColor: '#9a3412', opacity: 0.7, ringThickness_mm: 1.5 } }
   ],
   tests: ['residue_stain_persistence']
 };

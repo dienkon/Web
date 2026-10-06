@@ -129,3 +129,92 @@ export function willSolidFloat(formula: string, liquidDensity_g_cm3: number = 1.
   const prop = getSolidProperty(formula);
   return prop.density_g_cm3 < liquidDensity_g_cm3;
 }
+
+/**
+ * Returns angle of repose (in radians) for a solid reagent (§8.5.2).
+ * Dry powders: ~32°, coarse granules: ~28°, wet powders: ~48°.
+ */
+export function calculateAngleOfRepose(formula: string, isWet: boolean = false): number {
+  if (isWet) return (48.0 * Math.PI) / 180;
+  const prop = getSolidProperty(formula);
+  if (prop.isPowder) return (32.0 * Math.PI) / 180;
+  return (28.0 * Math.PI) / 180;
+}
+
+/**
+ * Calculates Beverloo granular mass discharge rate through an opening (§8.5.1).
+ * Q = C * rho_b * sqrt(g) * (D - k * d)^(5/2) [in g/s]
+ * Returns 0 if tilt is below angle of repose or opening is too narrow (arching/jamming).
+ */
+export function calculateGranularFlowRate(
+  formula: string,
+  openingDiameter_cm: number,
+  tilt_rad: number,
+  isWet: boolean = false
+): number {
+  const thetaRepose = calculateAngleOfRepose(formula, isWet);
+  if (tilt_rad < thetaRepose) return 0;
+
+  const prop = getSolidProperty(formula);
+  const C = 0.58;
+  const k = 1.4;
+  const d_cm = prop.particleSize_cm;
+  const D_eff = openingDiameter_cm - k * d_cm;
+
+  if (D_eff <= 0) return 0; // Jamming / arching condition
+
+  const g_cgs = 980.665; // cm/s^2
+  const rho_b = prop.density_g_cm3 * 0.6; // bulk packed density estimate
+  const tiltFactor = Math.sin(tilt_rad);
+
+  const Q_mass_gps = C * rho_b * Math.sqrt(g_cgs) * Math.pow(D_eff, 2.5) * tiltFactor;
+  return Math.max(0, Q_mass_gps);
+}
+
+/**
+ * Determines whether solids will slump / avalanche inside vessel at given tilt (§8.5.3).
+ */
+export function shouldSolidsSlump(formula: string, tilt_rad: number, isWet: boolean = false): boolean {
+  const thetaRepose = calculateAngleOfRepose(formula, isWet);
+  return tilt_rad >= thetaRepose;
+}
+
+/**
+ * Evaluates whether solid is currently pouring / decanting out of vessel (§8.5.3).
+ * Floating solids leave with liquid at lower tilt (~25°).
+ * Heavy sinking solids stay on bottom until steep tilt (~55°).
+ */
+export function isSolidDecanting(
+  formula: string,
+  tilt_rad: number,
+  liquidPresent: boolean = true
+): boolean {
+  const tiltDeg = (tilt_rad * 180) / Math.PI;
+  if (liquidPresent && willSolidFloat(formula)) {
+    return tiltDeg > 25.0; // Floats out with liquid
+  }
+  return tiltDeg > 55.0; // Overcomes static friction and decants over rim
+}
+
+/**
+ * Noyes-Whitney solid dissolution rate dm/dt (§8.5.4):
+ * dm/dt = k * A * (c_s - c)
+ * Stirring increases mass transfer coefficient k.
+ */
+export function calculateNoyesWhitneyDissolution(
+  formula: string,
+  remainingMass_g: number,
+  conc_M: number,
+  satConc_M: number,
+  stirred: boolean = false
+): number {
+  if (remainingMass_g <= 0 || conc_M >= satConc_M) return 0;
+  const prop = getSolidProperty(formula);
+
+  // Surface area A proportional to mass^(2/3)
+  const areaFactor = Math.pow(remainingMass_g / prop.density_g_cm3, 2 / 3);
+  const kRate = stirred ? 0.08 : 0.02; // Mass transfer coeff
+  const drivingForce = Math.max(0, satConc_M - conc_M);
+
+  return kRate * areaFactor * drivingForce;
+}

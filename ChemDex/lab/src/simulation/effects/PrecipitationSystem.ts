@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { PhysicalPrecipitateParticle, PrecipitateProfile, SedimentBedState } from '../core/SimulationTypes';
 import { getPrecipitateProfile } from '../core/SimulationConfig';
 import { ConvectionSystem } from './ConvectionSystem';
+import { PRNG } from '../../core/rng';
 
 export interface PrecipitationSimulationParams {
   temp_c: number;
@@ -26,10 +27,12 @@ export class PrecipitationSystem {
 
   private spawnTimer = 0;
   private nextId = 1;
+  private rng: PRNG;
 
-  constructor(maxParticles = 140, substance = 'BaSO4') {
+  constructor(maxParticles = 140, substance = 'BaSO4', rng?: PRNG) {
     this.maxParticles = maxParticles;
     this.profile = getPrecipitateProfile(substance);
+    this.rng = rng || new PRNG();
     this.sedimentBed = {
       amount_g: 0,
       thickness: 0,
@@ -102,21 +105,21 @@ export class PrecipitationSystem {
         let px: number, py: number, pz: number, initVx: number, initVy: number, initVz: number;
         if (params.entryPoint) {
           const ep = params.entryPoint;
-          const spreadR = (Math.random() - 0.5) * (radius * 0.4);
-          const spreadZ = (Math.random() - 0.5) * (radius * 0.4);
+          const spreadR = (this.rng.next() - 0.5) * (radius * 0.4);
+          const spreadZ = (this.rng.next() - 0.5) * (radius * 0.4);
           px = THREE.MathUtils.clamp(ep[0] + spreadR, -radius * 0.7, radius * 0.7);
           pz = THREE.MathUtils.clamp(ep[2] + spreadZ, -radius * 0.7, radius * 0.7);
-          py = Math.min(surfaceY - 0.01, ep[1] - Math.random() * 0.04);
+          py = Math.min(surfaceY - 0.01, ep[1] - this.rng.next() * 0.04);
           initVy = -(sceneSedSpeed * 1.6 + 0.05);
           initVx = spreadR * 0.4;
           initVz = spreadZ * 0.4;
         } else {
           // Fallback: spawn in top upper liquid mixing layer with downward convective plume
-          const angle = Math.random() * Math.PI * 2;
-          const rRatio = Math.sqrt(Math.random()) * 0.55;
+          const angle = this.rng.next() * Math.PI * 2;
+          const rRatio = Math.sqrt(this.rng.next()) * 0.55;
           px = Math.cos(angle) * (rRatio * radius);
           pz = Math.sin(angle) * (rRatio * radius);
-          py = surfaceY - Math.random() * Math.min(0.08, height * 0.35);
+          py = surfaceY - this.rng.next() * Math.min(0.08, height * 0.35);
           initVy = -(sceneSedSpeed * 1.4 + 0.04);
           initVx = Math.cos(angle) * 0.025;
           initVz = Math.sin(angle) * 0.025;
@@ -127,7 +130,7 @@ export class PrecipitationSystem {
           x: px,
           y: py,
           z: pz,
-          radius: baseRad * (0.8 + Math.random() * 0.4),
+          radius: baseRad * (0.8 + this.rng.next() * 0.4),
           mass_ug: (4 / 3) * Math.PI * Math.pow(rPhys, 3) * rho_p * 1e9,
           density: rho_p,
           vx: initVx,
@@ -135,7 +138,7 @@ export class PrecipitationSystem {
           vz: initVz,
           sedimentationSpeed: sceneSedSpeed,
           aggregationLevel: 1,
-          brownianSeed: Math.random() * 20.0,
+          brownianSeed: this.rng.next() * 20.0,
           opacity: 0.92,
           age: 0,
           settled: false

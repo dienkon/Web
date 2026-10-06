@@ -91,7 +91,7 @@ export const COORDINATION_PROGRAMS: ReactionProgram[] = [
     schema: 'chemdex.program/1',
     id: 'fecl3_3kscn',
     provenance: 'handcrafted',
-    controller: 'fecl3_kscn_complex',
+    controller: 'fecl3_3kscn_complex',
     chemistry: {
       equation: 'FeCl3(aq) + 3KSCN(aq) <-> Fe(SCN)3(aq) + 3KCl(aq)',
       ionic: 'Fe(3+)(aq) + 3SCN-(aq) <-> Fe(SCN)3(aq)',

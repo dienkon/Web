@@ -1,6 +1,6 @@
 import { VesselProfile, getVesselProfile } from './profiles';
 import { calculateWeirFlow, FlowResult } from './flow';
-import { calculateStreamBallistics, BallisticsResult } from './ballistics';
+import { calculateStreamBallistics, BallisticsResult, LandingKind } from './ballistics';
 import { transferFluidIncrement, MixingState } from './mixing';
 
 export interface PourEvent {
@@ -9,7 +9,7 @@ export interface PourEvent {
   color: string;
   volume_ml: number;
   flowRate_ml_s: number;
-  landingKind?: 'inside' | 'rim' | 'table';
+  landingKind?: LandingKind;
   targetVesselId?: string | null;
 }
 
