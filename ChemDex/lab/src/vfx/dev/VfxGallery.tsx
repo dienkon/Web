@@ -11,6 +11,11 @@ import { proceduralAudio } from '../../audio/procedural';
 import { LegacyAdapter } from '../../adapters/legacy';
 import { ThermometerProbe, formatHazardBadge } from '../../ui/overlays';
 import { reactionSimulationEngine } from '../reactions/ReactionSimulationEngine';
+import { ALL_HANDCRAFTED_PROGRAMS, getProgramById } from '../programs/library';
+import { EFFECT_ATOM_CATALOG, getEffectAtom } from '../catalog';
+import { ReactionProgram } from '../../shared/programSchema';
+import { EffectAtom } from '../catalog/types';
+import { applyProgramToLedger } from '../../engine/ledger';
 import { 
   Sparkles, Play, Pause, RotateCcw, AlertTriangle, Flame, Droplets,
   Layers, Gauge, CheckCircle2, ChevronDown, ChevronUp, X, Thermometer,
@@ -18,7 +23,7 @@ import {
   Wind, Zap, Info, Filter, SlidersHorizontal, Clock, Cpu
 } from 'lucide-react';
 
-type StudioTab = 'reactions' | 'morphology' | 'physics' | 'flames' | 'telemetry';
+type StudioTab = 'reactions' | 'programs' | 'atoms' | 'morphology' | 'physics' | 'flames' | 'telemetry';
 
 export const PRECIPITATE_MORPHOLOGIES = [
   {
@@ -111,6 +116,13 @@ export const VfxGallery: React.FC = () => {
   const [selectedVesselId, setSelectedVesselId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
+
+  // Reaction Programs & Effect Atoms Studio State
+  const [selectedProgramId, setSelectedProgramId] = useState<string | null>(null);
+  const [programSearch, setProgramSearch] = useState<string>('');
+  const [programCategoryFilter, setProgramCategoryFilter] = useState<string>('all');
+  const [selectedAtomName, setSelectedAtomName] = useState<string | null>(null);
+  const [atomCategoryFilter, setAtomCategoryFilter] = useState<string>('all');
 
   // Interactive Physics Controls State
   const [stirrerRpm, setStirrerRpm] = useState<number>(0);
@@ -819,6 +831,160 @@ export const VfxGallery: React.FC = () => {
     }
   };
 
+  const executeProgram = (prog: ReactionProgram) => {
+    setActiveTestId(prog.id);
+    const targetId = getOrCreateTargetVesselId();
+    const currentVessel = useAppStore.getState().vessels[targetId];
+    if (!currentVessel) return;
+
+    proceduralAudio.init();
+    proceduralAudio.resume();
+
+    const reactants = prog.chemistry.species.filter(s => s.role === 'reactant');
+    const reactantSubstances = reactants.map(r => r.formula);
+    const baseContents = reactants.map(r => ({
+      formula: r.formula,
+      moles: r.coeff * 0.05,
+      mass_g: r.coeff * 0.05 * 58.4,
+      volume_ml: r.phase === 'aq' || r.phase === 'l' ? 30 : 0
+    }));
+
+    const baseVessel: any = {
+      ...currentVessel,
+      substances: reactantSubstances,
+      contents: baseContents,
+      volume_ml: 65,
+      volume: 0.65,
+      liquidColor: '#f8fafc',
+      temperature_c: 25
+    };
+
+    const ledgerResult = applyProgramToLedger(prog, baseVessel, 1.0);
+    const duration = prog.visual.duration_s || 5.0;
+
+    const kineticsItem: any = {
+      vesselId: targetId,
+      reactionId: prog.id,
+      startTime: Date.now(),
+      duration,
+      progress: 0,
+      reactionName: language === 'vi' ? prog.explain.observation_vi : prog.explain.observation_en,
+      equation: prog.chemistry.equation,
+      initialLiquidColor: '#f8fafc',
+      targetLiquidColor: ledgerResult.liquidColor || '#f8fafc',
+      hasGas: ledgerResult.hasGas,
+      gasColor: ledgerResult.gasColor,
+      hasPrecipitate: ledgerResult.hasPrecipitate,
+      precipitateColor: ledgerResult.precipitateColor,
+      precipitateSubstance: ledgerResult.precipitateSubstance,
+      precipitateMorphology: ledgerResult.precipitateMorphology,
+      targetTemp: ledgerResult.temperature_c,
+      timeWarp: prog.visual.timeWarp,
+      program: prog
+    };
+
+    useAppStore.setState(s => ({
+      vessels: {
+        ...s.vessels,
+        [targetId]: {
+          ...s.vessels[targetId],
+          substances: reactantSubstances,
+          contents: baseContents,
+          volume_ml: 65,
+          volume: 0.65,
+          liquidColor: '#f8fafc',
+          temperature_c: 25,
+          hasGas: false,
+          hasPrecipitate: false,
+          precipitateAmount_g: 0
+        }
+      },
+      activeKinetics: {
+        ...s.activeKinetics,
+        [targetId]: kineticsItem
+      }
+    }));
+
+    reactionSimulationEngine.startReaction(targetId, prog.id, {
+      duration,
+      currentColor: '#f8fafc',
+      targetColor: ledgerResult.liquidColor || '#f8fafc',
+      temperature: ledgerResult.temperature_c || 25
+    });
+
+    if (ledgerResult.hasGas) {
+      labSound.playFizz();
+    }
+  };
+
+  const executeAtomPreset = (atom: EffectAtom, presetIndex: number) => {
+    const targetId = getOrCreateTargetVesselId();
+    const currentVessel = useAppStore.getState().vessels[targetId];
+    if (!currentVessel) return;
+
+    proceduralAudio.init();
+    proceduralAudio.resume();
+
+    const preset = atom.gallery[presetIndex] || atom.gallery[0];
+    if (!preset) return;
+
+    if (atom.category === 'gas' || atom.name.includes('bubbles') || atom.name.includes('Burst') || atom.name.includes('Plume')) {
+      labSound.playFizz();
+      useAppStore.setState(s => ({
+        vessels: {
+          ...s.vessels,
+          [targetId]: {
+            ...s.vessels[targetId],
+            hasGas: true,
+            gasColor: (preset.params as any)?.gasColor || (preset.params as any)?.color || '#ffffff',
+            volume_ml: Math.max(60, s.vessels[targetId].volume_ml || 60)
+          }
+        }
+      }));
+    } else if (atom.category === 'solidPhase' || atom.name.includes('precipitate') || atom.name.includes('Sedimentation') || atom.name.includes('crystal')) {
+      labSound.playPowder();
+      useAppStore.setState(s => ({
+        vessels: {
+          ...s.vessels,
+          [targetId]: {
+            ...s.vessels[targetId],
+            hasPrecipitate: true,
+            precipitateColor: (preset.params as any)?.color || '#ffffff',
+            precipitateSubstance: (preset.params as any)?.substance || 'BaSO4',
+            precipitateAmount_g: 0.75,
+            volume_ml: Math.max(60, s.vessels[targetId].volume_ml || 60)
+          }
+        }
+      }));
+    } else if (atom.category === 'combustion' || atom.name.includes('Sparks') || atom.name.includes('Flame')) {
+      labSound.playBurnerIgnite();
+      vfxBus.emit('sparks', {
+        position: currentVessel.position,
+        count: 30,
+        color: (preset.params as any)?.color || '#f59e0b',
+        speed: 3.5
+      });
+    } else if (atom.category === 'interface' || atom.name.includes('Ripple')) {
+      vfxBus.emit('surface:ripple', {
+        x: 0,
+        z: 0,
+        intensity: 1.0,
+        vesselId: targetId
+      });
+    } else {
+      useAppStore.setState(s => ({
+        vessels: {
+          ...s.vessels,
+          [targetId]: {
+            ...s.vessels[targetId],
+            liquidColor: (preset.params as any)?.color || '#38bdf8',
+            volume_ml: Math.max(60, s.vessels[targetId].volume_ml || 60)
+          }
+        }
+      }));
+    }
+  };
+
   const handleTriggerSuperheatBump = () => {
     const targetId = getOrCreateTargetVesselId();
     labSound.playPop();
@@ -1145,22 +1311,46 @@ export const VfxGallery: React.FC = () => {
           </div>
 
           {/* 3. Navigation Tabs */}
-          <div className="flex border-b border-slate-800 bg-slate-900/40 text-[11px] font-bold select-none">
+          <div className="flex border-b border-slate-800 bg-slate-900/40 text-[11px] font-bold select-none overflow-x-auto">
             <button
               onClick={() => setActiveTab('reactions')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
                 activeTab === 'reactions'
                   ? 'border-indigo-500 text-indigo-300 bg-indigo-500/10'
                   : 'border-transparent text-slate-400 hover:text-slate-200'
               }`}
             >
               <Beaker size={13} />
-              <span>Reactions</span>
+              <span>Legacy</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('programs')}
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+                activeTab === 'programs'
+                  ? 'border-blue-500 text-blue-300 bg-blue-500/10'
+                  : 'border-transparent text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Layers size={13} />
+              <span>Programs ({ALL_HANDCRAFTED_PROGRAMS.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('atoms')}
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
+                activeTab === 'atoms'
+                  ? 'border-cyan-500 text-cyan-300 bg-cyan-500/10'
+                  : 'border-transparent text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Cpu size={13} />
+              <span>Atoms ({EFFECT_ATOM_CATALOG.length})</span>
             </button>
 
             <button
               onClick={() => setActiveTab('morphology')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
                 activeTab === 'morphology'
                   ? 'border-violet-500 text-violet-300 bg-violet-500/10'
                   : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -1172,7 +1362,7 @@ export const VfxGallery: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('physics')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
                 activeTab === 'physics'
                   ? 'border-cyan-500 text-cyan-300 bg-cyan-500/10'
                   : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -1184,7 +1374,7 @@ export const VfxGallery: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('flames')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
                 activeTab === 'flames'
                   ? 'border-amber-500 text-amber-300 bg-amber-500/10'
                   : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -1196,7 +1386,7 @@ export const VfxGallery: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('telemetry')}
-              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 text-center border-b-2 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap px-2 ${
                 activeTab === 'telemetry'
                   ? 'border-emerald-500 text-emerald-300 bg-emerald-500/10'
                   : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -1342,6 +1532,361 @@ export const VfxGallery: React.FC = () => {
                       </div>
                     );
                   })}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2: REACTION PROGRAMS MASTER LIBRARY (106 PROGRAMS) */}
+            {activeTab === 'programs' && (
+              <div className="space-y-3">
+                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-blue-300">
+                    <span className="flex items-center gap-1.5">
+                      <Layers size={14} className="text-blue-400" />
+                      Reaction Programs Master Catalog ({ALL_HANDCRAFTED_PROGRAMS.length} Balanced Programs)
+                    </span>
+                    <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full font-mono">
+                      Declarative JSON / Zod
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 leading-relaxed">
+                    Closed Effect-Atom compositions with stoichiometric elemental balance, deltaH enthalpy, GHS hazard tagging, and physical time honesty.
+                  </p>
+
+                  {/* Filter and Search Bar */}
+                  <div className="flex items-center gap-2 pt-1">
+                    <input
+                      type="text"
+                      placeholder="Search equation, ID, formula..."
+                      value={programSearch}
+                      onChange={(e) => setProgramSearch(e.target.value)}
+                      className="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    />
+                    <select
+                      value={programCategoryFilter}
+                      onChange={(e) => setProgramCategoryFilter(e.target.value)}
+                      className="bg-slate-950/80 border border-slate-700/80 rounded-lg px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-blue-500"
+                    >
+                      <option value="all">All Categories</option>
+                      <option value="acid">Acid-Base</option>
+                      <option value="precip">Precipitation</option>
+                      <option value="gas">Gas Evolution</option>
+                      <option value="redox">Redox & Displacement</option>
+                      <option value="complex">Complexation</option>
+                      <option value="pyro">Pyrotechnics & Fire</option>
+                      <option value="decomp">Decomposition & Safety</option>
+                      <option value="coord">Coordination</option>
+                      <option value="analysis">Inorganic Analysis</option>
+                      <option value="titration">Redox Titration</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Scrubber for current kinetics if active */}
+                {currentActiveKinetics && (
+                  <div className="bg-gradient-to-r from-blue-950/70 via-indigo-950/60 to-slate-900/90 p-3 rounded-xl border border-blue-500/40 space-y-2 shadow-xl">
+                    <div className="flex justify-between items-center text-[10px]">
+                      <span className="font-bold text-blue-200 truncate max-w-[220px]">
+                        Active: {currentActiveKinetics.reactionName}
+                      </span>
+                      <div className="flex items-center gap-1.5 font-mono text-blue-300 font-bold">
+                        <span className="text-[11px] text-amber-300">
+                          {Math.round(currentActiveKinetics.progress * 100)}%
+                        </span>
+                        <span className="text-[9px] text-slate-400">
+                          ({(currentActiveKinetics.progress * (currentActiveKinetics.duration || 5.0)).toFixed(1)}s / {(currentActiveKinetics.duration || 5.0).toFixed(1)}s)
+                        </span>
+                      </div>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.005"
+                      value={currentActiveKinetics.progress}
+                      onChange={(e) => handleScrubReaction(currentActiveKinetics.vesselId, parseFloat(e.target.value))}
+                      className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-400 focus:outline-none"
+                    />
+                  </div>
+                )}
+
+                {/* Programs List */}
+                <div className="grid grid-cols-1 gap-2">
+                  {ALL_HANDCRAFTED_PROGRAMS
+                    .filter((p) => {
+                      const matchesSearch = !programSearch || 
+                        p.id.toLowerCase().includes(programSearch.toLowerCase()) ||
+                        p.chemistry.equation.toLowerCase().includes(programSearch.toLowerCase()) ||
+                        p.explain.observation_en.toLowerCase().includes(programSearch.toLowerCase()) ||
+                        p.explain.observation_vi.toLowerCase().includes(programSearch.toLowerCase());
+                      const matchesCategory = programCategoryFilter === 'all' ||
+                        (programCategoryFilter === 'acid' && (p.id.includes('acid') || p.id.includes('neutralization') || p.id.includes('hcl') || p.id.includes('h2so4'))) ||
+                        (programCategoryFilter === 'precip' && (p.id.includes('precip') || p.chemistry.species.some(s => s.role === 'product' && s.phase === 's'))) ||
+                        (programCategoryFilter === 'gas' && (p.id.includes('gas') || p.chemistry.species.some(s => s.role === 'product' && s.phase === 'g'))) ||
+                        (programCategoryFilter === 'redox' && (p.id.includes('redox') || p.id.includes('displacement'))) ||
+                        (programCategoryFilter === 'complex' && p.id.includes('complex')) ||
+                        (programCategoryFilter === 'pyro' && (p.id.includes('burn') || p.id.includes('fire') || p.id.includes('pyro') || p.id.includes('flare') || p.id.includes('thermite'))) ||
+                        (programCategoryFilter === 'decomp' && p.id.includes('decomp')) ||
+                        (programCategoryFilter === 'coord' && p.id.includes('coord')) ||
+                        (programCategoryFilter === 'analysis' && p.id.includes('analysis')) ||
+                        (programCategoryFilter === 'titration' && p.id.includes('titration'));
+                      return matchesSearch && matchesCategory;
+                    })
+                    .map((prog) => {
+                      const isSelected = selectedProgramId === prog.id;
+                      const isRunning = activeTestId === prog.id;
+                      const hasGas = prog.chemistry.species.some(s => s.role === 'product' && s.phase === 'g');
+                      const hasPrecip = prog.chemistry.species.some(s => s.role === 'product' && s.phase === 's');
+
+                      return (
+                        <div
+                          key={prog.id}
+                          className={`bg-slate-900/50 border p-3 rounded-xl space-y-2 transition-all ${
+                            isRunning
+                              ? 'border-blue-500 bg-blue-950/20 shadow-md ring-1 ring-blue-500/40'
+                              : isSelected
+                              ? 'border-slate-700 bg-slate-900/80'
+                              : 'border-slate-800/80 hover:border-slate-700'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div 
+                              className="cursor-pointer flex-1"
+                              onClick={() => setSelectedProgramId(isSelected ? null : prog.id)}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="font-mono text-[10px] font-bold text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded">
+                                  {prog.id}
+                                </span>
+                                {hasPrecip && (
+                                  <span className="text-[9px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.2 rounded font-semibold">
+                                    Precipitate
+                                  </span>
+                                )}
+                                {hasGas && (
+                                  <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-semibold">
+                                    Gas
+                                  </span>
+                                )}
+                                {prog.visual.timeWarp && (
+                                  <span className="text-[9px] bg-violet-500/20 text-violet-300 px-1.5 py-0.2 rounded font-semibold">
+                                    time-lapse
+                                  </span>
+                                )}
+                              </div>
+                              <h4 className="text-xs font-bold text-slate-100 mt-1 font-mono">
+                                {prog.chemistry.equation}
+                              </h4>
+                              <p className="text-[10px] text-slate-400 mt-0.5">
+                                {language === 'vi' ? prog.explain.observation_vi : prog.explain.observation_en}
+                              </p>
+                            </div>
+
+                            <button
+                              onClick={() => executeProgram(prog)}
+                              className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs shrink-0"
+                            >
+                              <Play size={10} />
+                              <span>Run Program</span>
+                            </button>
+                          </div>
+
+                          {/* Expanded Program Deep Inspector */}
+                          {isSelected && (
+                            <div className="pt-2 border-t border-slate-800/80 space-y-2 text-[10px]">
+                              {/* Kinetics & Energy */}
+                              <div className="grid grid-cols-2 gap-2 bg-slate-950/60 p-2 rounded-lg font-mono">
+                                <div>
+                                  <span className="text-slate-500">Model: </span>
+                                  <span className="text-indigo-300">{prog.chemistry.kinetics.model}</span>
+                                </div>
+                                <div>
+                                  <span className="text-slate-500">Duration: </span>
+                                  <span className="text-amber-300">{prog.visual.duration_s}s</span>
+                                </div>
+                                <div>
+                                  <span className="text-slate-500">Enthalpy dH: </span>
+                                  <span className={prog.chemistry.deltaH_kJ_per_mol && prog.chemistry.deltaH_kJ_per_mol < 0 ? 'text-rose-400' : 'text-cyan-400'}>
+                                    {prog.chemistry.deltaH_kJ_per_mol ? `${prog.chemistry.deltaH_kJ_per_mol} kJ/mol` : 'Neutral'}
+                                  </span>
+                                </div>
+                                <div>
+                                  <span className="text-slate-500">Confidence: </span>
+                                  <span className="text-emerald-400">{(prog.confidence * 100).toFixed(0)}%</span>
+                                </div>
+                              </div>
+
+                              {/* Timeline Atoms */}
+                              <div>
+                                <span className="font-bold text-slate-300 block mb-1">Effect Atoms Timeline:</span>
+                                <div className="space-y-1">
+                                  {prog.visual.timeline.map((atomInst, idx) => (
+                                    <div key={idx} className="flex items-center justify-between bg-slate-950/40 px-2 py-1 rounded text-[9px] font-mono">
+                                      <span className="text-cyan-400 font-bold">{atomInst.atom}</span>
+                                      <span className="text-slate-400">anchor: {atomInst.anchor}</span>
+                                      <span className="text-amber-300">[{atomInst.window[0] * 100}% - {atomInst.window[1] * 100}%]</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Chemical Mechanism */}
+                              <div className="bg-slate-950/40 p-2 rounded text-[10px] text-slate-300">
+                                <span className="font-bold text-slate-400 block mb-0.5">Mechanism:</span>
+                                {language === 'vi' ? prog.explain.why_vi : prog.explain.why_en}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3: EFFECT ATOM MASTER CATALOG (32 ATOMS) */}
+            {activeTab === 'atoms' && (
+              <div className="space-y-3">
+                <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-cyan-300">
+                    <span className="flex items-center gap-1.5">
+                      <Cpu size={14} className="text-cyan-400" />
+                      Closed Effect Atom Master Catalog ({EFFECT_ATOM_CATALOG.length} Modular Atoms)
+                    </span>
+                    <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-mono">
+                      Zero-Allocation
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 leading-relaxed">
+                    Modular building blocks with strictly validated parameter schemas, anchor geometry bindings, and zero-allocation particle pools.
+                  </p>
+
+                  {/* Category Filter */}
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {['all', 'liquidOptics', 'gas', 'solidPhase', 'thermal', 'interface', 'combustion', 'wall', 'audio', 'camera'].map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => setAtomCategoryFilter(cat)}
+                        className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase transition-all ${
+                          atomCategoryFilter === cat
+                            ? 'bg-cyan-600 text-white shadow-xs'
+                            : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Atoms List */}
+                <div className="grid grid-cols-1 gap-2">
+                  {EFFECT_ATOM_CATALOG
+                    .filter((atom) => atomCategoryFilter === 'all' || atom.category === atomCategoryFilter)
+                    .map((atom) => {
+                      const isSelected = selectedAtomName === atom.name;
+
+                      return (
+                        <div
+                          key={atom.name}
+                          className={`bg-slate-900/50 border p-3 rounded-xl space-y-2 transition-all ${
+                            isSelected
+                              ? 'border-cyan-500 bg-cyan-950/20 shadow-md'
+                              : 'border-slate-800/80 hover:border-slate-700'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div 
+                              className="cursor-pointer flex-1"
+                              onClick={() => setSelectedAtomName(isSelected ? null : atom.name)}
+                            >
+                              <div className="flex items-center gap-2">
+                                <h4 className="text-xs font-bold text-slate-100 font-mono text-cyan-300">
+                                  {atom.name}
+                                </h4>
+                                <span className="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.2 rounded font-mono">
+                                  {atom.category}
+                                </span>
+                                <span className="text-[9px] bg-slate-800/80 text-amber-300 px-1.5 py-0.2 rounded font-mono">
+                                  cost: {atom.budget.shaderCost}/3
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-slate-400 mt-1">
+                                {atom.summary_en}
+                              </p>
+                            </div>
+
+                            <button
+                              onClick={() => executeAtomPreset(atom, 0)}
+                              className="px-2.5 py-1 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-[10px] font-bold flex items-center gap-1 transition-colors shadow-xs shrink-0"
+                            >
+                              <Play size={10} />
+                              <span>Test Preset</span>
+                            </button>
+                          </div>
+
+                          {/* Expanded Atom Details */}
+                          {isSelected && (
+                            <div className="pt-2 border-t border-slate-800/80 space-y-2 text-[10px]">
+                              {/* Use When / Avoid When */}
+                              <div className="grid grid-cols-2 gap-2">
+                                <div className="bg-emerald-950/30 border border-emerald-800/40 p-2 rounded text-emerald-300">
+                                  <span className="font-bold block text-emerald-400 mb-0.5">Use When:</span>
+                                  {atom.useWhen.join('; ')}
+                                </div>
+                                <div className="bg-rose-950/30 border border-rose-800/40 p-2 rounded text-rose-300">
+                                  <span className="font-bold block text-rose-400 mb-0.5">Avoid When:</span>
+                                  {atom.avoidWhen.join('; ')}
+                                </div>
+                              </div>
+
+                              {/* Allowed Anchors */}
+                              <div className="bg-slate-950/60 p-2 rounded font-mono text-[9px] text-slate-400">
+                                <span className="font-bold text-slate-300">Allowed Anchors: </span>
+                                {atom.anchorsAllowed.join(', ')}
+                              </div>
+
+                              {/* Parameter Specs */}
+                              <div>
+                                <span className="font-bold text-slate-300 block mb-1">Parameters Schema:</span>
+                                <div className="space-y-1">
+                                  {Object.entries(atom.params).map(([paramName, spec]: [string, any]) => (
+                                    <div key={paramName} className="flex items-center justify-between bg-slate-950/40 px-2 py-1 rounded text-[9px] font-mono">
+                                      <span className="text-indigo-300 font-bold">{paramName}</span>
+                                      <span className="text-slate-500">type: {spec.type}</span>
+                                      <span className="text-amber-400">default: {JSON.stringify(spec.default)}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Presets Gallery */}
+                              {atom.gallery && atom.gallery.length > 0 && (
+                                <div>
+                                  <span className="font-bold text-slate-300 block mb-1">Gallery Presets ({atom.gallery.length}):</span>
+                                  <div className="space-y-1.5">
+                                    {atom.gallery.map((preset, pIdx) => (
+                                      <div key={pIdx} className="flex items-center justify-between bg-slate-950/60 p-2 rounded">
+                                        <div>
+                                          <span className="font-bold text-slate-200 block">{preset.title}</span>
+                                          <span className="text-[9px] text-slate-400">{preset.description}</span>
+                                        </div>
+                                        <button
+                                          onClick={() => executeAtomPreset(atom, pIdx)}
+                                          className="px-2 py-0.5 bg-slate-800 hover:bg-cyan-600 text-slate-300 hover:text-white rounded text-[9px] font-bold transition-colors"
+                                        >
+                                          Spawn #{pIdx + 1}
+                                        </button>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             )}
