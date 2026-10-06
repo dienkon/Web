@@ -219,18 +219,21 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
       const radialSegs = 16;
       const heightSegs = STREAM_SEGMENTS; // 24
 
-      // Quadratic boundary matching coefficient for horizontal arc
+      // Quadratic boundary matching coefficient for horizontal arc and vertical arc
       const deltaXTarget = targetX - (lipX + v0x * flightTime);
       const accelX = flightTime > 0.01 ? (2 * deltaXTarget) / (flightTime * flightTime) : 0;
+
+      const deltaYTarget = targetY - (lipY + v0y * flightTime);
+      const accelY = flightTime > 0.01 ? (2 * deltaYTarget) / (flightTime * flightTime) : -9.8;
 
       // Update each height ring of the cylinder
       for (let j = 0; j <= heightSegs; j++) {
         const s = j / heightSegs; // 0 at top, 1 at bottom
         const t = s * flightTime;
 
-        // True ballistic parabolic trajectory point
+        // True ballistic parabolic trajectory point connecting lip (s=0) to recipient surface (s=1)
         const cx = lipX + v0x * t + 0.5 * accelX * t * t;
-        const cy = lipY + v0y * t - 0.5 * 9.8 * t * t;
+        const cy = lipY + v0y * t + 0.5 * accelY * t * t;
         const cz = lipZ + (targetZ - lipZ) * s;
 
         // Hydrodynamic narrowing along fall (fluid accelerates -> cross-section shrinks)
@@ -273,9 +276,11 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
           slot.x = lipX + (Math.random() - 0.5) * 0.02;
           slot.y = lipY - 0.02;
           slot.z = lipZ + (Math.random() - 0.5) * 0.02;
-          slot.vx = v0x * (0.8 + Math.random() * 0.4);
+          const dropFallDist = Math.max(0.02, slot.y - targetY);
+          const dropFlightTime = Math.max(0.08, Math.sqrt(2 * dropFallDist / 9.8));
+          slot.vx = (targetX - slot.x) / dropFlightTime + (Math.random() - 0.5) * 0.03;
           slot.vy = v0y * 0.6;
-          slot.vz = (Math.random() - 0.5) * 0.05;
+          slot.vz = (targetZ - slot.z) / dropFlightTime + (Math.random() - 0.5) * 0.03;
           slot.radius = Math.max(0.014, Math.min(0.035, 0.018 * Math.sqrt(Math.max(0.2, flowRate))));
           slot.targetY = targetY;
           slot.color = liquidColorHex;

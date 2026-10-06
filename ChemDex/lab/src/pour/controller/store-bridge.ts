@@ -10,8 +10,22 @@ export const storeBridge = {
    * Commits an inter-vessel pour: transfers substances, conserves mass/moles/temp,
    * creates exactly 1 history undo snapshot, and triggers chemistry reaction kinetics.
    */
-  commitVesselPour: async (fromId: string, toId: string, poured_ml: number): Promise<void> => {
+  commitVesselPour: async (
+    fromId: string,
+    toId: string,
+    poured_ml: number,
+    initialFromVol?: number,
+    initialToVol?: number
+  ): Promise<void> => {
     const store = useAppStore.getState();
+    const from = store.vessels[fromId];
+    const to = store.vessels[toId];
+    if (from && initialFromVol !== undefined) {
+      from.volume_ml = initialFromVol;
+    }
+    if (to && initialToVol !== undefined) {
+      to.volume_ml = initialToVol;
+    }
     await store.pourVessel(fromId, toId, poured_ml);
   },
 

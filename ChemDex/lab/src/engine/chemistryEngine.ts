@@ -51,7 +51,7 @@ function normalizeFormulaToken(f: string): string {
   return f.replace(/\s*\([a-z]+\)/gi, '').replace(/[·\.]\d*H2O/gi, '').trim().toLowerCase();
 }
 
-function chemicalFormulaMatches(substance: string, required: string): boolean {
+export function chemicalFormulaMatches(substance: string, required: string): boolean {
   const normSub = normalizeFormulaToken(substance);
   const normReq = normalizeFormulaToken(required);
 

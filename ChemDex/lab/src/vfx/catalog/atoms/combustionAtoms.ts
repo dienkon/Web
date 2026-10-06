@@ -303,9 +303,31 @@ export const flameConeAtom: EffectAtom = {
   },
   budget: { shaderCost: 2 },
   anchorsAllowed: ['flame', 'surface', 'rim'],
-  mount(ctx, p) { return { atom: 'flameCone', instanceId: `fc_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'flameCone',
+      instanceId: `fc_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        flameColor: p.flameColor ?? '#f97316',
+        tipColor: p.tipColor ?? '#f59e0b',
+        height_cm: p.height_cm ?? 6.5
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.temperature_c = Math.max(vessel.temperature_c || 25, 450);
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Premixed Blue Burner', description: 'Clean blue flame', params: { flameColor: '#0284c7', tipColor: '#38bdf8', height_cm: 6.0, turbulent: false } },
     { title: 'Copper Flame Test', description: 'Emerald green emission', params: { flameColor: '#10b981', tipColor: '#06b6d4', height_cm: 7.5, turbulent: true } }
@@ -327,9 +349,32 @@ export const pyrotechnicSparksAtom: EffectAtom = {
   },
   budget: { particles: 64, shaderCost: 1 },
   anchorsAllowed: ['surface', 'rim', 'bulk'],
-  mount(ctx, p) { return { atom: 'pyrotechnicSparks', instanceId: `ps_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'pyrotechnicSparks',
+      instanceId: `ps_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        sparkCount: p.sparkCount ?? 30,
+        sparkColor: p.sparkColor ?? '#fbbf24',
+        activeSparks: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    h.custom.activeSparks = Math.round((h.custom.sparkCount ?? 30) * Math.max(0, 1.0 - h.custom.elapsed * 0.25));
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.hasGas = true;
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Sodium Skittering Sparks', description: 'Golden sparks bursting', params: { sparkCount: 40, sparkColor: '#f59e0b', speed: 3.2 } },
     { title: 'Magnesium Sparks', description: 'White spark shower', params: { sparkCount: 90, sparkColor: '#ffffff', speed: 5.5 } }

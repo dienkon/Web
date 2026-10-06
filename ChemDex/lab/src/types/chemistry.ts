@@ -52,6 +52,8 @@ export interface SubstanceContent {
   concentration_M?: number;
   phase?: string;
   state?: string;
+  initialMoles?: number;
+  initialMass_g?: number;
 }
 
 export type VesselType = 
@@ -85,6 +87,7 @@ export interface VesselState {
   capacity_ml: number; // e.g. 100, 250, 50
   position: [number, number, number];
   rotationY: number;
+  rotationZ?: number;
   isLocked: boolean;
   
   substances: string[]; // formulas present
@@ -100,6 +103,7 @@ export interface VesselState {
   
   liquidColor?: string;
   liquidOpacity?: number;
+  turbidity?: number;
   
   hasPrecipitate: boolean;
   precipitateColor?: string;
@@ -145,6 +149,7 @@ export interface VesselState {
   slottedTestTubeIds?: string[]; // Test tube IDs held in test tube rack
   grippedVesselId?: string; // Vessel ID gripped by tongs
   heldByTongsId?: string; // Tongs holding this vessel
+  residues?: Array<{ where: string; kind: string; color: string; amount: number }>;
 }
 
 export type BurnerFlameState = 

@@ -379,7 +379,9 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     // Dynamic Turbidity & Cloudiness from physical simulation and dedicated reaction controller
     const simMgr = SimulationEngine.getManager(vesselId);
     const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
-    let targetTurbidity = vessel.hasPrecipitate ? 0.85 : 0.0;
+    let targetTurbidity = (vessel.turbidity !== undefined && vessel.turbidity > 0)
+      ? vessel.turbidity
+      : (vessel.hasPrecipitate ? 0.85 : 0.0);
     if (simMgr && simMgr.precipitationSystem.cloudiness > 0.001) {
       targetTurbidity = Math.max(targetTurbidity, simMgr.precipitationSystem.cloudiness);
     }

@@ -674,9 +674,49 @@ export const precipitateNucleationAtom: EffectAtom = {
   },
   budget: { particles: 96, shaderCost: 1 },
   anchorsAllowed: ['bulk'],
-  mount(ctx, p) { return { atom: 'precipitateNucleation', instanceId: `pn_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'precipitateNucleation',
+      instanceId: `pn_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        spawnedParticles: 0,
+        activeParticles: 0,
+        maxParticles: p.nucleationRate ?? 80,
+        burstCompleted: false
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const rate = h.custom.nucleationRate ?? 80;
+    const newSpawns = Math.min(
+      h.custom.maxParticles - h.custom.spawnedParticles,
+      Math.ceil(rate * dt * 2.0)
+    );
+    if (newSpawns > 0) {
+      h.custom.spawnedParticles += newSpawns;
+      h.custom.activeParticles += newSpawns;
+    }
+    if (h.custom.spawnedParticles >= h.custom.maxParticles) {
+      h.custom.burstCompleted = true;
+    }
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    const spawnRatio = h.custom.maxParticles > 0 ? h.custom.spawnedParticles / h.custom.maxParticles : 1.0;
+    vessel.turbidity = Math.min(1.0, Math.max(vessel.turbidity || 0, spawnRatio * 0.85));
+    if (h.custom.color) {
+      vessel.liquidColor = h.custom.color;
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+    if (h.custom) h.custom.activeParticles = 0;
+  },
   gallery: [
     { title: 'AgCl Curds', description: 'White curds', params: { morphology: 'curd', color: '#ffffff', nucleationRate: 90 } },
     { title: 'Cu(OH)2 Gel', description: 'Cyan gel', params: { morphology: 'gel', color: '#38bdf8', nucleationRate: 60 } }
@@ -698,9 +738,48 @@ export const stokesSedimentationAtom: EffectAtom = {
   },
   budget: { particles: 64, shaderCost: 1 },
   anchorsAllowed: ['bulk', 'bottom'],
-  mount(ctx, p) { return { atom: 'stokesSedimentation', instanceId: `ss_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'stokesSedimentation',
+      instanceId: `ss_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        settlingProgress: 0,
+        currentBedHeight_mm: 0,
+        targetBedHeight_mm: p.bedHeight_mm ?? 6.0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const r_um = h.custom.stokesRadius_um ?? 4.5;
+    const velocityScale = Math.min(2.0, Math.max(0.1, (r_um * r_um) / 10.0));
+    h.custom.settlingProgress = Math.min(1.0, (h.custom.settlingProgress || 0) + dt * 0.15 * velocityScale);
+    h.custom.currentBedHeight_mm = (h.custom.targetBedHeight_mm || 6.0) * h.custom.settlingProgress;
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    if (h.custom.currentBedHeight_mm > 0) {
+      if (!vessel.residues) vessel.residues = [];
+      const existing = vessel.residues.find(r => r.where === 'bottom');
+      if (existing) {
+        existing.amount = h.custom.currentBedHeight_mm;
+      } else {
+        vessel.residues.push({
+          where: 'bottom',
+          kind: 'sediment_bed',
+          color: h.custom.sedimentColor || '#ffffff',
+          amount: h.custom.currentBedHeight_mm
+        });
+      }
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Lead Iodide Bed', description: 'Rapid settling of dense golden flakes', params: { stokesRadius_um: 12.0, sedimentColor: '#facc15', bedHeight_mm: 8.0 } },
     { title: 'Fine Powder Bed', description: 'Slow settling white bed', params: { stokesRadius_um: 1.0, sedimentColor: '#ffffff', bedHeight_mm: 3.0 } }
@@ -721,9 +800,36 @@ export const crystalGlitterAtom: EffectAtom = {
   },
   budget: { particles: 48, shaderCost: 2 },
   anchorsAllowed: ['bulk'],
-  mount(ctx, p) { return { atom: 'crystalGlitter', instanceId: `cg_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'crystalGlitter',
+      instanceId: `cg_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        glintFrequency: p.glintFrequency ?? 8,
+        glintColor: p.glintColor ?? '#fef08a',
+        activeGlints: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const freq = h.custom.glintFrequency ?? 8;
+    h.custom.activeGlints = Math.round(Math.abs(Math.sin(h.custom.elapsed * freq * 1.5)) * 12);
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.hasPrecipitate = true;
+    if (h.custom.glintColor && !vessel.precipitateColor) {
+      vessel.precipitateColor = h.custom.glintColor;
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Golden Rain Glints', description: 'Hexagonal PbI2 plates sparkling', params: { glintFrequency: 10, glintColor: '#fef08a' } },
     { title: 'Silver Plate Glints', description: 'White crystalline sparkling', params: { glintFrequency: 6, glintColor: '#ffffff' } }
@@ -744,9 +850,49 @@ export const surfaceDendriteGrowthAtom: EffectAtom = {
   },
   budget: { shaderCost: 2 },
   anchorsAllowed: ['bottom', 'bulk'],
-  mount(ctx, p) { return { atom: 'surfaceDendriteGrowth', instanceId: `sdg_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'surfaceDendriteGrowth',
+      instanceId: `sdg_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        growthSpeed: p.growthSpeed ?? 0.5,
+        metalColor: p.metalColor ?? '#e2e8f0',
+        growthProgress: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    h.custom.growthProgress = Math.min(1.0, (h.custom.growthProgress || 0) + dt * 0.15 * (h.custom.growthSpeed || 0.5));
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.hasPrecipitate = true;
+    if (h.custom.metalColor) {
+      vessel.precipitateColor = h.custom.metalColor;
+    }
+    if (h.custom.growthProgress > 0) {
+      if (!vessel.residues) vessel.residues = [];
+      const existing = vessel.residues.find(r => r.kind === 'metallic_dendrite');
+      if (existing) {
+        existing.amount = h.custom.growthProgress * 5.0;
+      } else {
+        vessel.residues.push({
+          where: 'bottom',
+          kind: 'metallic_dendrite',
+          color: h.custom.metalColor || '#e2e8f0',
+          amount: h.custom.growthProgress * 5.0
+        });
+      }
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Silver Tree', description: 'Branching silver dendrites on copper wire', params: { metalColor: '#f1f5f9', growthSpeed: 0.6 } },
     { title: 'Lead Tree', description: 'Gray metallic branches on zinc', params: { metalColor: '#94a3b8', growthSpeed: 0.4 } }
@@ -790,9 +936,33 @@ export const solidErosionAtom: EffectAtom = {
   budget: { shaderCost: 1 },
   anchorsAllowed: ['bottom'],
   ledgerInputs: ['amount:reactant'],
-  mount(ctx, p) { return { atom: 'solidErosion', instanceId: `se_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'solidErosion',
+      instanceId: `se_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        erosionRate: p.erosionRate ?? 1.0,
+        erosionProgress: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    h.custom.erosionProgress = Math.min(1.0, (h.custom.erosionProgress || 0) + dt * 0.2 * (h.custom.erosionRate || 1.0));
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    if (h.custom.erosionProgress > 0) {
+      vessel.turbidity = Math.max(vessel.turbidity || 0, h.custom.erosionProgress * 0.35);
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Zinc Granule Erosion', description: 'Pellet shrinking and rounding in acid', params: { erosionRate: 1.2 } },
     { title: 'Marble Chip Dissolution', description: 'Calcite fragment thinning smoothly', params: { erosionRate: 0.8 } }

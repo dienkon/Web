@@ -178,3 +178,22 @@ export function solveLevel(
 
   return { c: isNaN(bestC) ? 0 : bestC, liquidTopY, surfaceArea };
 }
+
+/**
+ * Finds the optimal tilt angle (radians) required for liquid to reach the pouring lip
+ * and establish controlled weir flow discharge (§3.2 Step C).
+ */
+export function findPouringTilt(profile: VesselProfile, currentVolume_ml: number): number {
+  if (currentVolume_ml <= 0.05) return 0;
+  const samples = getRetainedVolumeSamples(profile);
+  const targetRetained = currentVolume_ml * 0.85; // ensure excess volume exists for weir flow
+  const maxTheta = Math.PI;
+
+  for (let i = 0; i < samples.length; i++) {
+    if (samples[i] <= targetRetained) {
+      const theta = (i / (samples.length - 1)) * maxTheta;
+      return Math.max(0.55, Math.min(2.1, theta + 0.12));
+    }
+  }
+  return 1.65; // ~95 degrees
+}

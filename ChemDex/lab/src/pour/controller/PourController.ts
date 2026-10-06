@@ -4,6 +4,7 @@ import { storeBridge } from './store-bridge';
 import { vfxBus } from '../../vfx/bus';
 import { useAppStore } from '../../store/useAppStore';
 import { getVesselProfile } from '../physics/profiles';
+import { findPouringTilt } from '../physics/retained';
 import { kineticsEngine } from '../../simulation/chemistry/KineticsEngine';
 import { clampTilt } from '../../handling/limits';
 
@@ -55,6 +56,7 @@ class PourControllerClass {
 
     const id = `pour_${++pourSessionCounter}`;
     const initialPos: [number, number, number] = [...sourceVessel.position];
+    const targetVessel = opts.targetId ? store.vessels[opts.targetId] : undefined;
 
     this.activeSession = {
       id,
@@ -81,6 +83,8 @@ class PourControllerClass {
       sourcePos: [...initialPos],
       sourceRotationZ: 0,
       initialSourcePos: [...initialPos],
+      initialFromVolume_ml: sourceVessel.volume_ml,
+      initialToVolume_ml: targetVessel ? targetVessel.volume_ml : undefined,
       mixingZone: {
         active: false,
         point: [0, 0, 0],
@@ -117,7 +121,7 @@ class PourControllerClass {
    */
   public tick(
     delta: number,
-    vesselsMap: Record<string, SimVessel>,
+    vesselsMap?: Record<string, SimVessel>,
     isPaused: boolean = false,
     timeScale: number = 1.0
   ): void {
@@ -132,6 +136,7 @@ class PourControllerClass {
 
     const store = useAppStore.getState();
     const liveVessels = store.vessels;
+    const effectiveVesselsMap = vesselsMap || (liveVessels as any);
     const sourceVessel = liveVessels[this.activeSession.sourceId];
     const targetVessel = this.activeSession.targetId ? liveVessels[this.activeSession.targetId] : null;
 
@@ -154,16 +159,17 @@ class PourControllerClass {
       const mouthY = targetVessel.position[1] + tgtProfile.lipLocal[1];
       const mouthR = tgtProfile.mouthR;
       const tilt = this.activeSession.tilt || 0.65;
-      const cosT = Math.cos(tilt);
-      const sinT = Math.sin(tilt);
+      const phi = -tilt;
+      const cosT = Math.cos(phi);
+      const sinT = Math.sin(phi);
       const lipLocal = srcProfile.lipLocal;
-      const tiltedLipX = lipLocal[0] * cosT + lipLocal[1] * sinT;
-      const tiltedLipY = -lipLocal[0] * sinT + lipLocal[1] * cosT;
+      const tiltedLipX = lipLocal[0] * cosT - lipLocal[1] * sinT;
+      const tiltedLipY = lipLocal[0] * sinT + lipLocal[1] * cosT;
 
       hoverPos = [
-        (targetVessel.position[0] - mouthR * 0.2) - tiltedLipX,
+        (targetVessel.position[0] - mouthR * 0.25) - tiltedLipX,
         (mouthY + 0.22) - tiltedLipY,
-        targetVessel.position[2]
+        targetVessel.position[2] - (lipLocal[2] || 0)
       ];
     }
 
@@ -193,7 +199,7 @@ class PourControllerClass {
             this.activeSession.phase = 'tilting';
             this.activeSession.sourcePos = [...hoverPos];
             if (this.activeSession.assist === 'high' || this.activeSession.mode === 'ASSIST') {
-              this.activeSession.targetTilt = 0.65; // Initial gentle pour angle allowing user to adjust tilt for flow rate
+              this.activeSession.targetTilt = findPouringTilt(srcProfile, sourceVessel.volume_ml);
             }
           }
           break;
@@ -213,13 +219,15 @@ class PourControllerClass {
             targetId: this.activeSession.targetId,
             sourcePos: this.activeSession.sourcePos,
             tilt: this.activeSession.tilt,
+            sourceRotationZ: this.activeSession.sourceRotationZ,
             isStreaming: false,
             totalTransferred_ml: this.activeSession.transferred_ml,
             totalSpilled_ml: this.activeSession.spilled_ml,
-            lastFlowRate: 0
+            lastFlowRate: 0,
+            assist: this.activeSession.assist || 'high'
           };
 
-          const check = stepPourSimulation(physSession, vesselsMap, FIXED_STEP, this.simTime);
+          const check = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime);
           if (check.nextSession.isStreaming && check.nextSession.lastFlowRate > 0.05) {
             this.activeSession.phase = 'pouring';
           }
@@ -239,13 +247,15 @@ class PourControllerClass {
             targetId: this.activeSession.targetId,
             sourcePos: this.activeSession.sourcePos,
             tilt: this.activeSession.tilt,
+            sourceRotationZ: this.activeSession.sourceRotationZ,
             isStreaming: true,
             totalTransferred_ml: this.activeSession.transferred_ml,
             totalSpilled_ml: this.activeSession.spilled_ml,
-            lastFlowRate: this.activeSession.flow_ml_s
+            lastFlowRate: this.activeSession.flow_ml_s,
+            assist: this.activeSession.assist || 'high'
           };
 
-          const result = stepPourSimulation(physSession, vesselsMap, FIXED_STEP, this.simTime);
+          const result = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime);
 
           this.activeSession.transferred_ml = result.nextSession.totalTransferred_ml;
           this.activeSession.spilled_ml = result.nextSession.totalSpilled_ml;
@@ -355,14 +365,17 @@ class PourControllerClass {
           const physSession: PourPhysicsSession = {
             sourceId: this.activeSession.sourceId,
             targetId: this.activeSession.targetId,
+            sourcePos: this.activeSession.sourcePos,
             tilt: this.activeSession.tilt,
+            sourceRotationZ: this.activeSession.sourceRotationZ,
             isStreaming: false,
             totalTransferred_ml: this.activeSession.transferred_ml,
             totalSpilled_ml: this.activeSession.spilled_ml,
-            lastFlowRate: this.activeSession.flow_ml_s
+            lastFlowRate: this.activeSession.flow_ml_s,
+            assist: this.activeSession.assist || 'high'
           };
 
-          const result = stepPourSimulation(physSession, vesselsMap, FIXED_STEP, this.simTime);
+          const result = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime);
           this.activeSession.flow_ml_s = result.nextSession.lastFlowRate;
 
           // Transition to returning once stream stops and tilt is upright
@@ -427,7 +440,13 @@ class PourControllerClass {
         await storeBridge.commitAddChemical(session.targetId, session.chemical, amount);
       }
     } else if (session.targetId) {
-      await storeBridge.commitVesselPour(session.sourceId, session.targetId, session.transferred_ml);
+      await storeBridge.commitVesselPour(
+        session.sourceId,
+        session.targetId,
+        session.transferred_ml,
+        session.initialFromVolume_ml,
+        session.initialToVolume_ml
+      );
     }
 
     vfxBus.emit('pour:end', {

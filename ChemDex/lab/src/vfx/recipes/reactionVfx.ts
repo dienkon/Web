@@ -29,7 +29,7 @@ export interface ReactionVfxRecipe {
   bubbles?: { rate: number; gasType?: string; color?: string; emitter?: 'solid' | 'bulk' | 'bottom' | 'surfaceOnly' };
   gasPlume?: { color: string; density: 'heavy' | 'light' | 'neutral'; rate: number; turbidity?: number; buoyancy?: number };
   steam?: { active: boolean; rate?: number };
-  precipitate?: { substance: string; color: string; morphology: 'flake' | 'curd' | 'gel'; rate?: number; settleTime?: number };
+  precipitate?: { substance: string; color: string; morphology: 'flake' | 'curd' | 'gel' | 'powder' | 'floc' | string; rate?: number; settleTime?: number };
   foam?: { active: boolean; growthMultiplier?: number; viscous?: boolean };
   sparks?: { active: boolean; rate?: number; burstCount?: number; color?: string };
   specialEffect?: 
@@ -103,6 +103,19 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     precipitate: { substance: 'AgCl', color: '#f8fafc', morphology: 'curd', rate: 35, settleTime: 6.0 }
   },
 
+  // 4b. AgNO3 + KI -> AgI(s) + KNO3 (Pale Yellow Curd)
+  'agno3_ki_precipitate': {
+    id: 'agno3_ki_precipitate',
+    name: 'Silver Iodide Pale Yellow Curdy Precipitation',
+    duration: 7.5,
+    layers: [
+      { kind: 'precipitate', t: [0.0, 0.85], style: 'curdy', color: '#fef08a', settleTime: 6.5, substance: 'AgI' },
+      { kind: 'turbidity', t: [0.0, 0.5], color: '#fef9c3', peak: 0.85 },
+      { kind: 'sound', at: 0.02, id: 'pour' }
+    ],
+    precipitate: { substance: 'AgI', color: '#fef08a', morphology: 'curd', rate: 30, settleTime: 6.5 }
+  },
+
   // 5. 2KI + Pb(NO3)2 -> PbI2(s) + 2KNO3 ("Golden Rain")
   'golden_rain_pbi2': {
     id: 'golden_rain_pbi2',
@@ -136,11 +149,11 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     name: 'Iron(III) Hydroxide Rust-Brown Flocculation',
     duration: 8.5,
     layers: [
-      { kind: 'precipitate', t: [0.0, 0.95], style: 'gel', color: '#9a3412', settleTime: 9.0, substance: 'Fe(OH)3' },
+      { kind: 'precipitate', t: [0.0, 0.95], style: 'curdy', color: '#9a3412', settleTime: 9.0, substance: 'Fe(OH)3' },
       { kind: 'turbidity', t: [0.02, 0.75], color: '#b45309', peak: 0.85 },
       { kind: 'colorFront', t: [0.05, 0.65], from: '#f59e0b', to: '#b45309', origin: 'pourPoint', speed: 1.2 }
     ],
-    precipitate: { substance: 'Fe(OH)3', color: '#9a3412', morphology: 'gel', rate: 30, settleTime: 9.0 }
+    precipitate: { substance: 'Fe(OH)3', color: '#9a3412', morphology: 'floc', rate: 30, settleTime: 9.0 }
   },
 
   // 6c. CaCl2 + Na2CO3 -> CaCO3(s) + 2NaCl (Chalky Calcite Grains)
@@ -152,7 +165,7 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
       { kind: 'precipitate', t: [0.0, 0.9], style: 'milky', color: '#e2e8f0', settleTime: 5.5, substance: 'CaCO3' },
       { kind: 'turbidity', t: [0.0, 0.6], color: '#f1f5f9', peak: 0.88 }
     ],
-    precipitate: { substance: 'CaCO3', color: '#e2e8f0', morphology: 'curd', rate: 32, settleTime: 5.5 }
+    precipitate: { substance: 'CaCO3', color: '#e2e8f0', morphology: 'powder', rate: 32, settleTime: 5.5 }
   },
 
   // 7. Fe + CuSO4 -> FeSO4 + Cu(s) (Reddish Copper Coating)
@@ -166,6 +179,20 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
       { kind: 'colorFront', t: [0.12, 0.9], from: '#0284c7', to: '#86efac', origin: 'solidSurface', speed: 0.85 }
     ],
     precipitate: { substance: 'Cu', color: '#b45309', morphology: 'curd', rate: 14 },
+    specialEffect: 'copper_plating'
+  },
+
+  // 7b. Zn + CuSO4 -> ZnSO4 + Cu(s) (Spongy Dark Copper & Decolorization to Colorless ZnSO4)
+  'zn_cuso4_displacement': {
+    id: 'zn_cuso4_displacement',
+    name: 'Zinc in Copper Sulfate (Displacement)',
+    duration: 12.0,
+    layers: [
+      { kind: 'solidDissolve', target: 'Zn', style: 'coat-copper' },
+      { kind: 'precipitate', t: [0.1, 0.95], style: 'metal-copper', color: '#451a03', settleTime: 10.0, substance: 'Cu' },
+      { kind: 'colorFront', t: [0.1, 0.9], from: '#0284c7', to: '#f8fafc', origin: 'solidSurface', speed: 0.9 }
+    ],
+    precipitate: { substance: 'Cu', color: '#451a03', morphology: 'curd', rate: 16 },
     specialEffect: 'copper_plating'
   },
 
@@ -267,6 +294,21 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     soundEffect: 'fizz'
   },
 
+  // 13b. NaHCO3 + HCl -> NaCl + CO2(g) + H2O (Bicarbonate Rapid Effervescence)
+  'nahco3_hcl_gas': {
+    id: 'nahco3_hcl_gas',
+    name: 'Sodium Bicarbonate Rapid Acid Effervescence',
+    duration: 4.5,
+    layers: [
+      { kind: 'bubbles', t: [0.0, 0.85], rate: 110, emitter: 'bulk', color: '#f8fafc', gasType: 'CO2' },
+      { kind: 'gasPlume', t: [0.05, 0.75], color: '#f1f5f9', density: 0.4, heavy: true, buoyancy: -0.08 },
+      { kind: 'sound', at: 0.02, id: 'fizz' }
+    ],
+    bubbles: { rate: 110, gasType: 'CO2', color: '#f8fafc', emitter: 'bulk' },
+    gasPlume: { color: '#f1f5f9', density: 'neutral', rate: 18, turbidity: 0.35 },
+    soundEffect: 'fizz'
+  },
+
   // 14. Cu(OH)2 -> CuO + H2O (Thermal Decomposition Blue -> Jet Black)
   'cuoh2_thermal_decomposition': {
     id: 'cuoh2_thermal_decomposition',
@@ -329,6 +371,26 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     gasPlume: { color: '#ffffff', density: 'light', rate: 28, turbidity: 0.7 },
     sparks: { active: true, rate: 30, burstCount: 16, color: '#f59e0b' },
     specialEffect: 'sodium_dart',
+    soundEffect: 'pop'
+  },
+
+  // 17b. 2K + 2H2O -> 2KOH + H2(g) (Violent Lilac Reaction, Sparks & Pop)
+  'potassium_water_reaction': {
+    id: 'potassium_water_reaction',
+    name: 'Potassium Metal Violent Water Reaction & Lilac Flame',
+    duration: 7.0,
+    layers: [
+      { kind: 'bubbles', t: [0.0, 0.95], rate: 90, emitter: 'surfaceOnly', color: '#c084fc', gasType: 'H2' },
+      { kind: 'gasPlume', t: [0.05, 0.95], color: '#f3e8ff', density: 0.7, heavy: false, buoyancy: 0.45 },
+      { kind: 'colorFront', t: [0.08, 0.85], to: '#f43f5e', origin: 'pourPoint', speed: 1.5 },
+      { kind: 'light', t: [0.2, 0.95], color: '#c084fc', intensity: 3.2, flicker: 0.3 },
+      { kind: 'flash', at: 0.5, color: '#c084fc', intensity: 3.0, duration: 0.3 },
+      { kind: 'burst', at: 0.85, droplets: 45, speed: 3.2, steam: 0.6, shockwave: false },
+      { kind: 'sound', at: 0.85, id: 'pop' }
+    ],
+    bubbles: { rate: 90, gasType: 'H2', color: '#c084fc', emitter: 'surfaceOnly' },
+    gasPlume: { color: '#f3e8ff', density: 'light', rate: 35, turbidity: 0.75 },
+    sparks: { active: true, rate: 45, burstCount: 22, color: '#c084fc' },
     soundEffect: 'pop'
   },
 
@@ -687,16 +749,19 @@ export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | n
 
   // Canonical alias checks
   if (normalized.includes('caco3_hcl')) return REACTION_VFX_RECIPES['caco3_hcl_gas'];
-  if (normalized.includes('fe_cu') || normalized.includes('cuso4_fe') || normalized.includes('displacement')) return REACTION_VFX_RECIPES['fe_cuso4_displacement'];
+  if (normalized.includes('zn_cuso4') || normalized.includes('cuso4_zn')) return REACTION_VFX_RECIPES['zn_cuso4_displacement'];
+  if (normalized.includes('fe_cu') || normalized.includes('cuso4_fe') || (normalized.includes('displacement') && normalized.includes('fe'))) return REACTION_VFX_RECIPES['fe_cuso4_displacement'];
+  if (normalized.includes('agno3_ki') || normalized.includes('ki_agno3')) return REACTION_VFX_RECIPES['agno3_ki_precipitate'];
   if (normalized.includes('agno3_nacl') || normalized.includes('agcl_precipitate')) return REACTION_VFX_RECIPES['agno3_nacl_precipitate'];
   if (normalized.includes('pbno3') || normalized.includes('pbi2') || normalized.includes('golden_rain')) return REACTION_VFX_RECIPES['golden_rain_pbi2'];
   if (normalized.includes('h2o2') || normalized.includes('mno2')) return REACTION_VFX_RECIPES['h2o2_mno2_decomposition'];
+  if (normalized.includes('potassium_water') || normalized.includes('k_h2o') || normalized.includes('k+h2o') || normalized.includes('alkali_metal_water_k')) return REACTION_VFX_RECIPES['potassium_water_reaction'];
   if (normalized.includes('sodium_water') || normalized.includes('na_h2o') || normalized.includes('sodium_dart') || normalized.includes('alkali_metal_water_na')) return REACTION_VFX_RECIPES['sodium_water_reaction'];
   if (normalized.includes('zn_hcl')) return REACTION_VFX_RECIPES['zn_hcl_gas'];
   if (normalized.includes('mg_hcl')) return REACTION_VFX_RECIPES['mg_hcl_gas'];
   if (normalized.includes('nh3_hcl') || normalized.includes('fumes')) return REACTION_VFX_RECIPES['nh3_hcl_fumes'];
-  if (normalized.includes('na2co3_hcl')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
-  if (normalized.includes('nahco3_hcl')) return REACTION_VFX_RECIPES['nahco3_hcl_gas'];
+  if (normalized.includes('nahco3_hcl') || normalized.includes('hcl_nahco3')) return REACTION_VFX_RECIPES['nahco3_hcl_gas'];
+  if (normalized.includes('na2co3_hcl') || normalized.includes('hcl_na2co3')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
   if (normalized.includes('h2so4_naoh')) return REACTION_VFX_RECIPES['h2so4_naoh_neutralization'];
   if (normalized.includes('hcl_naoh') || normalized.includes('titration')) return REACTION_VFX_RECIPES['hcl_naoh_neutralization'];
   if (normalized.includes('cuso4_naoh')) return REACTION_VFX_RECIPES['cuso4_naoh_precipitate'];
@@ -722,7 +787,7 @@ export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | n
   if (normalized.includes('mg_o2') || normalized.includes('magnesium_burn') || normalized.includes('burn_mg') || normalized.includes('burn_magnesium')) return REACTION_VFX_RECIPES['burn_magnesium'];
   if (normalized.includes('flame_cu') || normalized.includes('copper_flame')) return REACTION_VFX_RECIPES['flame_test_copper'];
   if (normalized.includes('flame_na') || normalized.includes('sodium_flame')) return REACTION_VFX_RECIPES['flame_test_sodium'];
-  if (normalized.includes('flame_k') || normalized.includes('potassium_flame') || normalized.includes('k_h2o')) return REACTION_VFX_RECIPES['flame_test_potassium'];
+  if (normalized.includes('flame_k') || normalized.includes('potassium_flame')) return REACTION_VFX_RECIPES['flame_test_potassium'];
 
   return null;
 }

@@ -490,9 +490,34 @@ export const nucleateBubblesAtom: EffectAtom = {
   },
   budget: { particles: 50, shaderCost: 1 },
   anchorsAllowed: ['bottom', 'bulk'],
-  mount(ctx, p) { return { atom: 'nucleateBubbles', instanceId: `nb_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'nucleateBubbles',
+      instanceId: `nb_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        bubbleRate: p.bubbleRate ?? 10.0,
+        activeBubbleCount: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const rate = h.custom.bubbleRate ?? 10.0;
+    h.custom.activeBubbleCount = Math.min(60, Math.floor(h.custom.elapsed * rate));
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.hasGas = true;
+    vessel.gasRate = Math.max(vessel.gasRate || 0, h.custom.bubbleRate || 10.0);
+  },
+  dispose(h) {
+    h.alive = false;
+    if (h.custom) h.custom.activeBubbleCount = 0;
+  },
   gallery: [
     { title: 'Standard Bubbles', description: 'Steady bubble streams', params: { bubbleRate: 12.0 } },
     { title: 'Vigorous Fizz', description: 'Fast bubble generation', params: { bubbleRate: 35.0 } }
@@ -512,9 +537,35 @@ export const effervescenceBurstAtom: EffectAtom = {
   },
   budget: { particles: 120, shaderCost: 1 },
   anchorsAllowed: ['bulk'],
-  mount(ctx, p) { return { atom: 'effervescenceBurst', instanceId: `eb_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'effervescenceBurst',
+      instanceId: `eb_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        intensity: p.intensity ?? 1.5,
+        bubbleRate: (p.intensity ?? 1.5) * 25.0,
+        producedFoam_ml: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const intensity = h.custom.intensity ?? 1.5;
+    h.custom.producedFoam_ml = Math.min(25.0, (h.custom.producedFoam_ml || 0) + dt * 1.5 * intensity);
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.hasGas = true;
+    vessel.gasRate = Math.max(vessel.gasRate || 0, h.custom.bubbleRate || 35.0);
+    vessel.foam_ml = Math.min(40.0, (vessel.foam_ml || 0) + (h.custom.producedFoam_ml || 0) * 0.1);
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Intense Effervescence', description: 'Dense micro-bubbles throughout liquid', params: { intensity: 2.0 } },
     { title: 'Mild Fizz', description: 'Gentle bubbling', params: { intensity: 0.8 } }
@@ -534,9 +585,33 @@ export const buoyantGasPlumeAtom: EffectAtom = {
   },
   budget: { particles: 60, shaderCost: 2 },
   anchorsAllowed: ['rim'],
-  mount(ctx, p) { return { atom: 'buoyantGasPlume', instanceId: `bgp_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'buoyantGasPlume',
+      instanceId: `bgp_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        plumeSpeed: p.plumeSpeed ?? 0.6,
+        colorHex: p.colorHex || p.color || '#ffffff'
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.hasGas = true;
+    if (h.custom.colorHex) {
+      vessel.gasColor = h.custom.colorHex;
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Rising Warm Plume', description: 'Vapor curling upward', params: { plumeSpeed: 0.8 } },
     { title: 'Gentle Drift', description: 'Slow rising wisp', params: { plumeSpeed: 0.3 } }
@@ -578,9 +653,33 @@ export const headspaceFogAtom: EffectAtom = {
   },
   budget: { particles: 40, shaderCost: 1 },
   anchorsAllowed: ['headspace'],
-  mount(ctx, p) { return { atom: 'headspaceFog', instanceId: `hsf_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'headspaceFog',
+      instanceId: `hsf_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        opacity: p.opacity ?? 0.5,
+        currentFog: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const target = h.custom.opacity ?? 0.5;
+    h.custom.currentFog = Math.min(target, (h.custom.currentFog || 0) + dt * 0.3);
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.fumingIntensity = Math.max(vessel.fumingIntensity || 0, h.custom.currentFog || 0);
+    vessel.condensationMist = Math.max(vessel.condensationMist || 0, (h.custom.currentFog || 0) * 0.7);
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Acid Headspace Fume', description: 'White misty aerosol inside neck', params: { opacity: 0.6 } },
     { title: 'Faint Headspace Haze', description: 'Thin vapor collecting under stopper', params: { opacity: 0.25 } }

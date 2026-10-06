@@ -33,10 +33,12 @@ export interface PourPhysicsSession {
   targetId: string | null;
   sourcePos?: [number, number, number];
   tilt: number;
+  sourceRotationZ?: number;
   isStreaming: boolean;
   totalTransferred_ml: number;
   totalSpilled_ml: number;
   lastFlowRate: number;
+  assist?: 'off' | 'low' | 'high';
 }
 
 /**
@@ -104,14 +106,18 @@ export function stepPourSimulation(
   } : null;
 
   const actualSourcePos = session.sourcePos || source.position;
+  const assistMode = session.assist || (session.targetId ? 'high' : 'off');
+  const rotZ = session.sourceRotationZ !== undefined ? session.sourceRotationZ : -session.tilt;
+
   const ballistics: BallisticsResult = calculateStreamBallistics(
     actualSourcePos,
-    session.tilt,
+    rotZ,
     profile,
     flow.head_cm,
     targetMetrics,
     -0.135,
-    source.rotationY || 0
+    source.rotationY || 0,
+    assistMode
   );
 
   const dV = flow.flowRate_ml_s * dt;
@@ -141,23 +147,25 @@ export function stepPourSimulation(
       contents: {}
     };
 
-    // Neck intake rate limit & turbulent splash-back physics:
-    const targetProfile = getVesselProfile(target.type);
-    const maxIntakeRate = Math.max(24, (targetProfile.mouthR || 0.15) * 160);
     const actualDV = Math.max(0, Math.min(source.volume_ml, dV));
+    const availableCapacity = Math.max(0, target.capacity_ml - target.volume_ml);
 
-    let intakeSurplus_ml = 0;
-    if (flow.flowRate_ml_s > maxIntakeRate) {
-      const surplusRate = flow.flowRate_ml_s - maxIntakeRate;
-      intakeSurplus_ml = Math.min(actualDV, surplusRate * dt);
-    }
+    let targetIntakeDV = actualDV;
 
-    let targetIntakeDV = Math.max(0, actualDV - intakeSurplus_ml);
-    let turbulentSplash_ml = 0;
-    if (flow.flowRate_ml_s > 30) {
-      const splashFrac = Math.min(0.12, (flow.flowRate_ml_s - 30) * 0.0022);
-      turbulentSplash_ml = targetIntakeDV * splashFrac;
-      targetIntakeDV = Math.max(0, targetIntakeDV - turbulentSplash_ml);
+    // Only apply neck choke & turbulent splashing if precision assist is explicitly turned off
+    if (assistMode === 'off') {
+      const targetProfile = getVesselProfile(target.type);
+      const maxIntakeRate = Math.max(24, (targetProfile.mouthR || 0.15) * 160);
+      if (flow.flowRate_ml_s > maxIntakeRate) {
+        const surplusRate = flow.flowRate_ml_s - maxIntakeRate;
+        const surplus_ml = Math.min(actualDV, surplusRate * dt);
+        targetIntakeDV = Math.max(0, actualDV - surplus_ml);
+      }
+      if (flow.flowRate_ml_s > 30) {
+        const splashFrac = Math.min(0.12, (flow.flowRate_ml_s - 30) * 0.0022);
+        const turbulentSplash_ml = targetIntakeDV * splashFrac;
+        targetIntakeDV = Math.max(0, targetIntakeDV - turbulentSplash_ml);
+      }
     }
 
     const result = transferFluidIncrement(sourceMix, targetMix, targetIntakeDV, target.capacity_ml);

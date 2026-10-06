@@ -116,6 +116,14 @@ export interface VesselPatch {
   turbidity?: number;
   foam_ml?: number;
   temperature_c?: number;
+  hasGas?: boolean;
+  gasRate?: number;
+  gasColor?: string;
+  hasPrecipitate?: boolean;
+  precipitateColor?: string;
+  precipitateMorphology?: string;
+  fumingIntensity?: number;
+  condensationMist?: number;
   residues?: Array<{ where: string; kind: string; color: string; amount: number }>;
 }
 

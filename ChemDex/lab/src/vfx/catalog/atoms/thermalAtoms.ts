@@ -328,9 +328,34 @@ export const thermalSteamAtom: EffectAtom = {
   },
   budget: { particles: 48, shaderCost: 1 },
   anchorsAllowed: ['rim', 'surface'],
-  mount(ctx, p) { return { atom: 'thermalSteam', instanceId: `ts_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'thermalSteam',
+      instanceId: `ts_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        steamDensity: p.steamDensity ?? 1.0,
+        temperature_c: p.temperature_c ?? 75,
+        steamVigor: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const target = h.custom.steamDensity ?? 1.0;
+    h.custom.steamVigor = Math.min(target, (h.custom.steamVigor || 0) + dt * 0.4);
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.temperature_c = Math.max(vessel.temperature_c || 25, h.custom.temperature_c || 75);
+    vessel.fumingIntensity = Math.max(vessel.fumingIntensity || 0, (h.custom.steamVigor || 0) * 0.6);
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Simmering Vapor', description: 'Gentle steam wisps', params: { steamDensity: 0.8, temperature_c: 65 } },
     { title: 'Boiling Steam', description: 'Dense white cloud', params: { steamDensity: 2.2, temperature_c: 100 } }

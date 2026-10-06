@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { MixResult } from '../shared/schemas';
 import { CHEMICAL_DATABASE, findChemical, isImmiscibleOrganic, getSolidMorphology } from '../data/chemicals';
 import { VesselState, BurnerState, BuretteState, TitrationPoint, VesselType, SpillState, BurnerFlameState, SolidMorphology } from '../types/chemistry';
-import { evaluateLocalChemistry, findPendingReaction, initReactionCache, executeMultiStepReactions } from '../engine/chemistryEngine';
+import { evaluateLocalChemistry, findPendingReaction, initReactionCache, executeMultiStepReactions, chemicalFormulaMatches } from '../engine/chemistryEngine';
 import { checkSafetyViolations } from '../engine/safetyEngine';
 import { 
   loadPersistedLabState, 
@@ -146,17 +146,17 @@ export interface ActiveKineticsState {
     note_en?: string;
   };
   program?: ReactionProgram;
+  initialVesselBaseline?: VesselState;
 }
 
-const DISSOLVING_SOLID_REACTANTS = [
-  'Cu(OH)2', 'Cu', 'Fe', 'CaCO3', 'Zn', 'BaSO4', 'NaCl', 'Na', 'Al', 'Mg', 'K', 'I2'
-];
-
-export function extractDissolvingReactants(substances: string[]): string[] {
+export function extractDissolvingReactants(substances: string[], activeReactants?: string[]): string[] {
+  if (!activeReactants || activeReactants.length === 0) {
+    return [];
+  }
   return substances.filter(s => {
-    if (DISSOLVING_SOLID_REACTANTS.includes(s)) return true;
     const chem = getChemical(s);
-    return chem && chem.type === 'solid';
+    if (!chem || chem.type !== 'solid') return false;
+    return activeReactants.some(r => chemicalFormulaMatches(s, r));
   });
 }
 
@@ -233,6 +233,7 @@ export interface AppState {
   pendingReactions: Record<string, PendingReactionState>;
   dissolvingSubstances: Record<string, Record<string, number>>; // vesselId -> substance -> fraction (0..1)
   tickSimulation: (dt: number) => void;
+  tick: (dt: number) => void;
 
   // Workbench Grid & Tools
   snapToGrid: boolean;
@@ -1955,37 +1956,104 @@ export const useAppStore = create<AppState>((set, get) => {
           }
         }
 
-        newVessels[vId] = {
-          ...newVessels[vId],
-          liquidColor: blendedColor,
-          hasGas: kinetics.hasGas && newProgress < 0.95,
-          gasColor: kinetics.gasColor,
-          hasPrecipitate: activeHasPrecip && curPrecipAmount_g > 0.01,
-          precipitateColor: activePrecipColor,
-          precipitateSubstance: activePrecipSubstance,
-          precipitateMorphology: activePrecipMorphology,
-          precipitateAmount_g: curPrecipAmount_g,
-          foam_ml: updatedFoam
-        };
-        vesselsUpdated = true;
+        if (kinetics.program && kinetics.initialVesselBaseline) {
+          const xi = newProgress;
+          const ledgerStep = applyProgramToLedger(kinetics.program, kinetics.initialVesselBaseline, xi);
+          const currentStepContents = ledgerStep.contents || kinetics.initialVesselBaseline.contents || [];
+          const currentStepSubstances = Array.from(new Set(
+            currentStepContents
+              .filter(c => (c.moles || 0) > 1e-6)
+              .map(c => c.formula)
+              .concat((ledgerStep.hasPrecipitate && ledgerStep.precipitateSubstance) ? [ledgerStep.precipitateSubstance] : [])
+          ));
 
-        if (newProgress >= 1.0) {
-          const remainingSubstances = v.substances.filter(sub => !kinetics.dissolvingReactants.includes(sub));
-          const finalHasPrecip = (rxId.includes('cuso4_nh3') || rxId === 'cuso4+nh3' || rxId === 'al_naoh' || rxId.includes('al2so4_naoh'))
-            ? false
-            : kinetics.hasPrecipitate;
+          curPrecipAmount_g = ledgerStep.precipitateAmount_g || 0;
+          activeHasPrecip = ledgerStep.hasPrecipitate ?? false;
+          if (ledgerStep.precipitateSubstance) activePrecipSubstance = ledgerStep.precipitateSubstance;
+          if (ledgerStep.precipitateColor) activePrecipColor = ledgerStep.precipitateColor;
+
+          const targetTurbidity = kinetics.program.visual?.after?.turbidity || 0.85;
+          const currentTurbidity = targetTurbidity * Math.min(1.0, newProgress / 0.4);
+
           newVessels[vId] = {
             ...newVessels[vId],
-            substances: remainingSubstances,
-            liquidColor: kinetics.targetLiquidColor,
-            hasPrecipitate: finalHasPrecip,
+            contents: currentStepContents,
+            substances: currentStepSubstances.length > 0 ? currentStepSubstances : newVessels[vId].substances,
+            mass_g: ledgerStep.mass_g ?? newVessels[vId].mass_g,
+            temperature_c: ledgerStep.temperature_c ?? newVessels[vId].temperature_c,
+            internalPressure_atm: ledgerStep.internalPressure_atm ?? newVessels[vId].internalPressure_atm,
+            liquidColor: blendedColor,
+            turbidity: currentTurbidity,
+            hasGas: (ledgerStep.hasGas ?? false) && newProgress < 0.95,
+            gasColor: ledgerStep.gasColor || kinetics.gasColor,
+            hasPrecipitate: activeHasPrecip && curPrecipAmount_g > 0.001,
+            precipitateColor: activePrecipColor,
+            precipitateSubstance: activePrecipSubstance,
+            precipitateMorphology: (ledgerStep.precipitateMorphology as any) || activePrecipMorphology,
+            precipitateAmount_g: curPrecipAmount_g,
+            foam_ml: updatedFoam
+          };
+          vesselsUpdated = true;
+        } else {
+          newVessels[vId] = {
+            ...newVessels[vId],
+            liquidColor: blendedColor,
+            hasGas: kinetics.hasGas && newProgress < 0.95,
+            gasColor: kinetics.gasColor,
+            hasPrecipitate: activeHasPrecip && curPrecipAmount_g > 0.01,
             precipitateColor: activePrecipColor,
             precipitateSubstance: activePrecipSubstance,
             precipitateMorphology: activePrecipMorphology,
-            precipitateAmount_g: finalHasPrecip ? (v.precipitateAmount_g || 0.85) : 0,
-            hasGas: false
+            precipitateAmount_g: curPrecipAmount_g,
+            foam_ml: updatedFoam
           };
+          vesselsUpdated = true;
+        }
+
+        if (newProgress >= 1.0) {
+          if (kinetics.program && kinetics.initialVesselBaseline) {
+            const finalLedger = applyProgramToLedger(kinetics.program, kinetics.initialVesselBaseline, 1.0);
+            const finalContents = finalLedger.contents || [];
+            const finalSubstances = Array.from(new Set(
+              finalContents
+                .filter(c => (c.moles || 0) > 1e-6)
+                .map(c => c.formula)
+                .concat((finalLedger.hasPrecipitate && finalLedger.precipitateSubstance) ? [finalLedger.precipitateSubstance] : [])
+            ));
+            newVessels[vId] = {
+              ...newVessels[vId],
+              contents: finalContents,
+              substances: finalSubstances.length > 0 ? finalSubstances : newVessels[vId].substances,
+              mass_g: finalLedger.mass_g ?? newVessels[vId].mass_g,
+              liquidColor: finalLedger.liquidColor || kinetics.targetLiquidColor,
+              hasPrecipitate: finalLedger.hasPrecipitate ?? false,
+              precipitateColor: finalLedger.precipitateColor || activePrecipColor,
+              precipitateSubstance: finalLedger.precipitateSubstance || activePrecipSubstance,
+              precipitateMorphology: (finalLedger.precipitateMorphology as any) || activePrecipMorphology,
+              precipitateAmount_g: finalLedger.precipitateAmount_g,
+              turbidity: kinetics.program.visual?.after?.turbidity || 0.85,
+              hasGas: false,
+              foam_ml: 0
+            };
+          } else {
+            const remainingSubstances = v.substances.filter(sub => !kinetics.dissolvingReactants.includes(sub));
+            const finalHasPrecip = (rxId.includes('cuso4_nh3') || rxId === 'cuso4+nh3' || rxId === 'al_naoh' || rxId.includes('al2so4_naoh'))
+              ? false
+              : kinetics.hasPrecipitate;
+            newVessels[vId] = {
+              ...newVessels[vId],
+              substances: remainingSubstances,
+              liquidColor: kinetics.targetLiquidColor,
+              hasPrecipitate: finalHasPrecip,
+              precipitateColor: activePrecipColor,
+              precipitateSubstance: activePrecipSubstance,
+              precipitateMorphology: activePrecipMorphology,
+              precipitateAmount_g: finalHasPrecip ? (v.precipitateAmount_g || 0.85) : 0,
+              hasGas: false
+            };
+          }
           delete newKinetics[vId];
+          delete newDissolving[vId];
         }
       }
 
@@ -2004,6 +2072,9 @@ export const useAppStore = create<AppState>((set, get) => {
           dissolvingSubstances: newDissolving
         });
       }
+    },
+    tick: (dt: number) => {
+      get().tickSimulation(dt);
     },
 
     snapToGrid: false,
@@ -2925,12 +2996,17 @@ export const useAppStore = create<AppState>((set, get) => {
       const newFromVol = Math.max(0, from.volume_ml - poured_ml);
       const newFromMass = Math.max(0, (from.mass_g || 0) - pouredMass_g);
 
+      const solidSubs = from.substances.filter(s => getChemical(s)?.type === 'solid');
+      const solidContents = (from.contents || []).filter(c => getChemical(c.formula)?.type === 'solid');
+      const solidMass = solidContents.reduce((sum, c) => sum + (c.mass_g || 0), 0);
+
       const updatedFrom: VesselState = {
         ...from,
         volume_ml: newFromVol,
-        mass_g: newFromMass,
+        mass_g: newFromVol <= 0.05 ? solidMass : Math.max(solidMass, newFromMass),
         volume: Math.min(1.0, newFromVol / from.capacity_ml),
-        substances: newFromVol <= 0.05 ? [] : from.substances,
+        substances: newFromVol <= 0.05 ? solidSubs : from.substances,
+        contents: newFromVol <= 0.05 ? solidContents : from.contents,
         liquidColor: newFromVol <= 0.05 ? undefined : from.liquidColor,
       };
 
@@ -3290,6 +3366,10 @@ export const useAppStore = create<AppState>((set, get) => {
       if (existingItem) {
         existingItem.mass_g += isSolid ? acceptedMass_g : (chemData.defaultConcentration ? soluteMass_g : acceptedMass_g);
         existingItem.moles += addedMoles;
+        if (isSolid) {
+          existingItem.initialMoles = (existingItem.initialMoles || (existingItem.moles - addedMoles)) + addedMoles;
+          existingItem.initialMass_g = (existingItem.initialMass_g || (existingItem.mass_g - acceptedMass_g)) + acceptedMass_g;
+        }
         if (!isSolid) {
           existingItem.volume_ml = (existingItem.volume_ml || 0) + accepted_ml;
         }
@@ -3302,6 +3382,8 @@ export const useAppStore = create<AppState>((set, get) => {
           moles: addedMoles,
           mass_g: isSolid ? acceptedMass_g : (chemData.defaultConcentration ? soluteMass_g : acceptedMass_g),
           volume_ml: !isSolid ? accepted_ml : 0,
+          initialMoles: isSolid ? addedMoles : undefined,
+          initialMass_g: isSolid ? acceptedMass_g : undefined,
           concentration_M: newTotalVolume_ml > 0 && !isSolid
             ? (addedMoles / (newTotalVolume_ml / 1000.0))
             : (chemData.defaultConcentration || 0)
@@ -3504,34 +3586,28 @@ export const useAppStore = create<AppState>((set, get) => {
           temperature_c: isHeated ? 80 : vessel.temperature_c
         };
 
-        const ledgerResult = applyProgramToLedger(resolvedProgram, baseVessel, 1.0);
-        const finalContents = ledgerResult.contents || existingContents;
-        const activeSubstances = Array.from(new Set(
-          finalContents
-            .filter(c => (c.moles || 0) > 1e-6)
-            .map(c => c.formula)
-            .concat((ledgerResult.hasPrecipitate && ledgerResult.precipitateSubstance) ? [ledgerResult.precipitateSubstance] : [])
-        ));
+        const finalLedger = applyProgramToLedger(resolvedProgram, baseVessel, 1.0);
+        const initialLedger = applyProgramToLedger(resolvedProgram, baseVessel, 0.0);
 
         const isHazardExplosion = resolvedProgram.chemistry.hazards?.some(h => h.includes('01') || h.includes('02')) || false;
 
-        const updatedVessel: VesselState = {
+        // Grounded initial state at xi = 0 (before progression begins):
+        const startingVessel: VesselState = {
           ...baseVessel,
-          substances: activeSubstances.length > 0 ? activeSubstances : newSubstances,
-          contents: finalContents,
-          liquidColor: ledgerResult.liquidColor || chemData.color,
-          hasPrecipitate: ledgerResult.hasPrecipitate ?? false,
-          precipitateColor: ledgerResult.precipitateColor,
-          precipitateSubstance: ledgerResult.precipitateSubstance,
-          precipitateMorphology: ledgerResult.precipitateMorphology as any,
-          precipitateAmount_g: ledgerResult.precipitateAmount_g,
-          isBoiling: ledgerResult.isBoiling ?? false,
-          hasGas: ledgerResult.hasGas ?? false,
-          gasColor: ledgerResult.gasColor,
-          isExplosion: isHazardExplosion,
-          temperature_c: ledgerResult.temperature_c ?? (isHeated ? 80 : vessel.temperature_c),
-          mass_g: ledgerResult.mass_g ?? baseVessel.mass_g,
-          internalPressure_atm: ledgerResult.internalPressure_atm ?? baseVessel.internalPressure_atm
+          substances: newSubstances,
+          contents: initialLedger.contents || existingContents,
+          liquidColor: baseVessel.liquidColor || newLiquidColor,
+          hasPrecipitate: vessel.hasPrecipitate ?? false,
+          precipitateColor: vessel.precipitateColor,
+          precipitateSubstance: vessel.precipitateSubstance,
+          precipitateMorphology: vessel.precipitateMorphology,
+          precipitateAmount_g: vessel.precipitateAmount_g || 0,
+          isBoiling: false,
+          hasGas: false,
+          gasColor: undefined,
+          isExplosion: false,
+          temperature_c: baseVessel.temperature_c,
+          mass_g: baseVessel.mass_g
         };
 
         const warningMsg = get().language === 'vi' ? resolvedProgram.chemistry.warning_vi : resolvedProgram.chemistry.warning_en;
@@ -3539,29 +3615,34 @@ export const useAppStore = create<AppState>((set, get) => {
           set({ globalWarning: warningMsg });
         }
 
+        const hasProducts = resolvedProgram.chemistry.species.some(s => s.role === 'product');
+        const reactantFormulas = hasProducts
+          ? resolvedProgram.chemistry.species.filter(s => s.role === 'reactant').map(s => s.formula)
+          : [];
         const kineticsItem: ActiveKineticsState = {
           vesselId: targetId,
           reactionId: resolvedProgram.id,
           startTime: Date.now(),
-          duration: resolvedProgram.visual.duration_s || 5.0,
+          duration: resolvedProgram.visual?.duration_s || 5.0,
           progress: 0,
           reactionName: get().language === 'vi' ? resolvedProgram.explain.observation_vi : resolvedProgram.explain.observation_en,
           equation: resolvedProgram.chemistry.equation,
-          initialLiquidColor: vessel.liquidColor || chemData.color,
-          targetLiquidColor: updatedVessel.liquidColor || chemData.color,
-          hasGas: updatedVessel.hasGas,
-          gasColor: updatedVessel.gasColor,
-          hasPrecipitate: updatedVessel.hasPrecipitate,
-          precipitateColor: updatedVessel.precipitateColor,
-          precipitateSubstance: updatedVessel.precipitateSubstance,
-          precipitateMorphology: updatedVessel.precipitateMorphology,
-          dissolvingReactants: extractDissolvingReactants(newSubstances),
-          targetTemp: updatedVessel.temperature_c,
-          timeWarp: resolvedProgram.visual.timeWarp,
-          program: resolvedProgram
+          initialLiquidColor: startingVessel.liquidColor || chemData.color,
+          targetLiquidColor: finalLedger.liquidColor || chemData.color,
+          hasGas: finalLedger.hasGas ?? false,
+          gasColor: finalLedger.gasColor,
+          hasPrecipitate: finalLedger.hasPrecipitate ?? false,
+          precipitateColor: finalLedger.precipitateColor,
+          precipitateSubstance: finalLedger.precipitateSubstance,
+          precipitateMorphology: (finalLedger.precipitateMorphology as any) || (resolvedProgram.visual?.after?.precipitate?.morphology as any),
+          dissolvingReactants: extractDissolvingReactants(newSubstances, reactantFormulas),
+          targetTemp: finalLedger.temperature_c ?? baseVessel.temperature_c,
+          timeWarp: resolvedProgram.visual?.timeWarp,
+          program: resolvedProgram,
+          initialVesselBaseline: baseVessel
         };
 
-        if (updatedVessel.isExplosion) {
+        if (isHazardExplosion) {
           vfxBus.emit('explosion', {
             vesselId: targetId,
             position: vessel.position,
@@ -3570,12 +3651,12 @@ export const useAppStore = create<AppState>((set, get) => {
           });
           labSound.playExplosion();
           labSound.playAlarm();
-        } else if (updatedVessel.hasGas || updatedVessel.isBoiling) {
+        } else if (finalLedger.hasGas || finalLedger.isBoiling) {
           labSound.playFizz();
         }
 
         set(s => {
-          const updated = { ...s.vessels, [targetId]: updatedVessel };
+          const updated = { ...s.vessels, [targetId]: startingVessel };
           const activeKinetics = { ...s.activeKinetics, [targetId]: kineticsItem };
           pushHistorySnapshot('POUR', updated, s.burners, `Added ${newChemical} to ${vessel.name}`, `Đã thêm ${newChemical} vào ${vessel.name}`);
           debounceSaveLocalState(updated, s.burners);
@@ -3585,13 +3666,13 @@ export const useAppStore = create<AppState>((set, get) => {
               summary: kineticsItem.reactionName,
               equation: kineticsItem.equation,
               new_vessel_state: {
-                liquid_color: updatedVessel.liquidColor,
-                has_precipitate: updatedVessel.hasPrecipitate,
-                precipitate_color: updatedVessel.precipitateColor,
-                is_boiling: updatedVessel.isBoiling,
-                has_gas: updatedVessel.hasGas,
-                gas_color: updatedVessel.gasColor,
-                is_explosion: updatedVessel.isExplosion
+                liquid_color: startingVessel.liquidColor,
+                has_precipitate: startingVessel.hasPrecipitate,
+                precipitate_color: startingVessel.precipitateColor,
+                is_boiling: startingVessel.isBoiling,
+                has_gas: startingVessel.hasGas,
+                gas_color: startingVessel.gasColor,
+                is_explosion: startingVessel.isExplosion
               }
             } as unknown as MixResult,
             vessels: updated,
@@ -3670,6 +3751,13 @@ export const useAppStore = create<AppState>((set, get) => {
       const remainingFromContents: typeof from.contents = [];
 
       for (const item of (from.contents || [])) {
+        const isSolid = getChemical(item.formula)?.type === 'solid';
+        if (isSolid) {
+          // Inert and resting solids remain in the source vessel when decanting liquid
+          remainingFromContents.push({ ...item });
+          continue;
+        }
+
         const tMoles = item.moles * pouredFraction;
         const tMass = item.mass_g * pouredFraction;
         const rMoles = Math.max(0, item.moles - tMoles);
@@ -3710,16 +3798,20 @@ export const useAppStore = create<AppState>((set, get) => {
 
       // Calculate remaining source container state
       const remainingFromVol = Math.max(0, from.volume_ml - accepted_ml);
+      const remainingSolidSubs = from.substances.filter(s => getChemical(s)?.type === 'solid');
+      const remainingSolidContents = remainingFromContents.filter(c => getChemical(c.formula)?.type === 'solid');
+      const remainingSolidMass = remainingSolidContents.reduce((sum, c) => sum + (c.mass_g || 0), 0);
+
       const updatedFrom: VesselState = remainingFromVol <= 0.05 ? {
         ...from,
-        substances: [],
-        contents: [],
+        substances: remainingSolidSubs,
+        contents: remainingSolidContents,
         volume: 0,
         volume_ml: 0,
         immiscibleOrganicVolume_ml: 0,
         immiscibleOrganicColor: undefined,
-        isPulverized: false,
-        mass_g: 0,
+        isPulverized: remainingSolidSubs.length > 0 ? from.isPulverized : false,
+        mass_g: remainingSolidMass,
         density_g_ml: 1.0,
         foam_ml: 0,
         liquidColor: undefined,
@@ -3861,36 +3953,27 @@ export const useAppStore = create<AppState>((set, get) => {
           precipitateSubstance: combinedPrecipitateSub
         };
 
-        const ledgerResult = applyProgramToLedger(resolvedProgram, baseTo, 1.0);
-        const finalContents = ledgerResult.contents || combinedContents;
-        const activeSubstances = Array.from(new Set(
-          finalContents
-            .filter(c => (c.moles || 0) > 1e-6)
-            .map(c => c.formula)
-            .concat((ledgerResult.hasPrecipitate && ledgerResult.precipitateSubstance) ? [ledgerResult.precipitateSubstance] : (combinedPrecipitateSub ? [combinedPrecipitateSub] : []))
-        ));
+        const finalLedger = applyProgramToLedger(resolvedProgram, baseTo, 1.0);
+        const initialLedger = applyProgramToLedger(resolvedProgram, baseTo, 0.0);
 
         const isHazardExplosion = resolvedProgram.chemistry.hazards?.some(h => h.includes('01') || h.includes('02')) || false;
 
-        const updatedTo: VesselState = {
+        // Grounded initial state at xi = 0 (before progression begins):
+        const startingTo: VesselState = {
           ...baseTo,
-          substances: activeSubstances.length > 0 ? activeSubstances : combinedSubstances,
-          contents: finalContents,
-          liquidColor: ledgerResult.liquidColor || from.liquidColor || to.liquidColor,
-          hasPrecipitate: ledgerResult.hasPrecipitate || transferredPrecipitate || to.hasPrecipitate,
-          precipitateColor: ledgerResult.precipitateColor || combinedPrecipitateCol,
-          precipitateSubstance: ledgerResult.precipitateSubstance || combinedPrecipitateSub,
-          precipitateMorphology: (ledgerResult.precipitateMorphology as any) || (isPulverizedTo ? 'POWDER' : (to.precipitateMorphology || from.precipitateMorphology)),
-          precipitateAmount_g: (ledgerResult.precipitateAmount_g && ledgerResult.precipitateAmount_g > 0)
-            ? ledgerResult.precipitateAmount_g
-            : (combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined),
-          isBoiling: ledgerResult.isBoiling ?? false,
-          hasGas: ledgerResult.hasGas ?? false,
-          gasColor: ledgerResult.gasColor,
-          isExplosion: isHazardExplosion,
-          temperature_c: ledgerResult.temperature_c ?? targetTemp,
-          mass_g: ledgerResult.mass_g ?? baseTo.mass_g,
-          internalPressure_atm: ledgerResult.internalPressure_atm ?? baseTo.internalPressure_atm
+          substances: combinedSubstances,
+          contents: initialLedger.contents || combinedContents,
+          liquidColor: baseTo.liquidColor || from.liquidColor || to.liquidColor,
+          hasPrecipitate: transferredPrecipitate || to.hasPrecipitate,
+          precipitateAmount_g: combinedPrecipitateG > 0 ? combinedPrecipitateG : undefined,
+          precipitateColor: combinedPrecipitateCol,
+          precipitateSubstance: combinedPrecipitateSub,
+          isBoiling: false,
+          hasGas: false,
+          gasColor: undefined,
+          isExplosion: false,
+          temperature_c: baseTo.temperature_c,
+          mass_g: baseTo.mass_g
         };
 
         const warningMsg = get().language === 'vi' ? resolvedProgram.chemistry.warning_vi : resolvedProgram.chemistry.warning_en;
@@ -3898,29 +3981,34 @@ export const useAppStore = create<AppState>((set, get) => {
           set({ globalWarning: warningMsg });
         }
 
+        const hasProducts = resolvedProgram.chemistry.species.some(s => s.role === 'product');
+        const reactantFormulas = hasProducts
+          ? resolvedProgram.chemistry.species.filter(s => s.role === 'reactant').map(s => s.formula)
+          : [];
         const kineticsItem: ActiveKineticsState = {
           vesselId: toId,
           reactionId: resolvedProgram.id,
           startTime: Date.now(),
-          duration: resolvedProgram.visual.duration_s || 5.0,
+          duration: resolvedProgram.visual?.duration_s || 5.0,
           progress: 0,
           reactionName: get().language === 'vi' ? resolvedProgram.explain.observation_vi : resolvedProgram.explain.observation_en,
           equation: resolvedProgram.chemistry.equation,
-          initialLiquidColor: to.liquidColor || from.liquidColor || '#38bdf8',
-          targetLiquidColor: updatedTo.liquidColor || '#38bdf8',
-          hasGas: updatedTo.hasGas,
-          gasColor: updatedTo.gasColor,
-          hasPrecipitate: updatedTo.hasPrecipitate,
-          precipitateColor: updatedTo.precipitateColor,
-          precipitateSubstance: updatedTo.precipitateSubstance,
-          precipitateMorphology: updatedTo.precipitateMorphology,
-          dissolvingReactants: extractDissolvingReactants(combinedSubstances),
-          targetTemp: updatedTo.temperature_c,
-          timeWarp: resolvedProgram.visual.timeWarp,
-          program: resolvedProgram
+          initialLiquidColor: startingTo.liquidColor || '#38bdf8',
+          targetLiquidColor: finalLedger.liquidColor || '#38bdf8',
+          hasGas: finalLedger.hasGas ?? false,
+          gasColor: finalLedger.gasColor,
+          hasPrecipitate: finalLedger.hasPrecipitate ?? false,
+          precipitateColor: finalLedger.precipitateColor,
+          precipitateSubstance: finalLedger.precipitateSubstance,
+          precipitateMorphology: (finalLedger.precipitateMorphology as any) || (resolvedProgram.visual?.after?.precipitate?.morphology as any),
+          dissolvingReactants: extractDissolvingReactants(combinedSubstances, reactantFormulas),
+          targetTemp: finalLedger.temperature_c ?? targetTemp,
+          timeWarp: resolvedProgram.visual?.timeWarp,
+          program: resolvedProgram,
+          initialVesselBaseline: baseTo
         };
 
-        if (updatedTo.isExplosion) {
+        if (isHazardExplosion) {
           vfxBus.emit('explosion', {
             vesselId: toId,
             position: to.position,
@@ -3929,12 +4017,12 @@ export const useAppStore = create<AppState>((set, get) => {
           });
           labSound.playExplosion();
           labSound.playAlarm();
-        } else if (updatedTo.hasGas || updatedTo.isBoiling) {
+        } else if (finalLedger.hasGas || finalLedger.isBoiling) {
           labSound.playFizz();
         }
 
         set(s => {
-          const updated = { ...s.vessels, [fromId]: updatedFrom, [toId]: updatedTo };
+          const updated = { ...s.vessels, [fromId]: updatedFrom, [toId]: startingTo };
           const activeKinetics = { ...s.activeKinetics, [toId]: kineticsItem };
           pushHistorySnapshot('POUR', updated, s.burners, `Poured ${from.name} into ${to.name}`, `Đã rót ${from.name} vào ${to.name}`);
           debounceSaveLocalState(updated, s.burners);
@@ -3944,13 +4032,13 @@ export const useAppStore = create<AppState>((set, get) => {
               summary: kineticsItem.reactionName,
               equation: kineticsItem.equation,
               new_vessel_state: {
-                liquid_color: updatedTo.liquidColor,
-                has_precipitate: updatedTo.hasPrecipitate,
-                precipitate_color: updatedTo.precipitateColor,
-                is_boiling: updatedTo.isBoiling,
-                has_gas: updatedTo.hasGas,
-                gas_color: updatedTo.gasColor,
-                is_explosion: updatedTo.isExplosion
+                liquid_color: startingTo.liquidColor,
+                has_precipitate: startingTo.hasPrecipitate,
+                precipitate_color: startingTo.precipitateColor,
+                is_boiling: startingTo.isBoiling,
+                has_gas: startingTo.hasGas,
+                gas_color: startingTo.gasColor,
+                is_explosion: startingTo.isExplosion
               }
             } as unknown as MixResult,
             vessels: updated,

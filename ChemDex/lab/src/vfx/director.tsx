@@ -9,6 +9,8 @@ import { Bubbles, GasPlume, Steam, Precipitate, Sparks, Foam, Splash, AcidSplatt
 import { PhysicalSimulationRenderer } from '../simulation/render/PhysicalSimulationRenderer';
 import { labSound } from '../utils/audio';
 import { reactionSimulationEngine } from './reactions/ReactionSimulationEngine';
+import { programPlayer } from './programs/player/ProgramPlayer';
+import { LedgerView } from './catalog/types';
 
 // Expanding shockwave ripple on table surface
 interface ShockwaveSlot {
@@ -111,6 +113,57 @@ export const VfxDirector = React.memo(function VfxDirector() {
 
     // 2. Step fixed-timestep reaction simulation engine
     reactionSimulationEngine.update(dt, 1.0);
+
+    // 2b. Sync active ReactionProgram timelines with ProgramPlayer
+    const ledgerViews: Record<string, LedgerView> = {};
+    for (const [vesselId, kinetics] of Object.entries(activeKinetics)) {
+      if (kinetics && kinetics.program) {
+        let session = programPlayer.getSession(vesselId);
+        if (!session || session.program.id !== kinetics.program.id) {
+          const v = vessels[vesselId];
+          session = programPlayer.startProgram(vesselId, kinetics.program, {
+            position: v ? v.position : [0, 0, 0],
+            dimensions: {
+              radius: 0.045,
+              height: 0.12,
+              liquidY: v ? 0.02 + 0.08 * (v.volume || 0.5) : 0.05,
+              mouthY: 0.12
+            }
+          });
+        }
+        const v = vessels[vesselId];
+        ledgerViews[vesselId] = {
+          time_s: session ? session.elapsed_s : 0,
+          temperature_c: v?.temperature_c || 25,
+          pressure_atm: 1.0,
+          pH: v?.ph || 7.0,
+          turbidity: v?.turbidity || 0,
+          liquidColor: v?.liquidColor || '#38bdf8',
+          gasHoldup: v?.hasGas ? 0.2 : 0,
+          foam_ml: v?.foam_ml || 0,
+          speciesAmounts: {},
+          speciesRates: {},
+          heatRate_W: 0
+        };
+      }
+    }
+    for (const session of programPlayer.getAllSessions()) {
+      if (!activeKinetics[session.vesselId]) {
+        programPlayer.stopProgram(session.vesselId);
+      }
+    }
+    const patches = programPlayer.update(dt, ledgerViews);
+    const storeVessels = useAppStore.getState().vessels;
+    for (const [vesselId, patch] of Object.entries(patches)) {
+      const v = storeVessels[vesselId];
+      if (!v) continue;
+      if (patch.turbidity !== undefined) v.turbidity = patch.turbidity;
+      if (patch.liquidColor !== undefined) v.liquidColor = patch.liquidColor;
+      if (patch.liquidOpacity !== undefined) v.liquidOpacity = patch.liquidOpacity;
+      if (patch.foam_ml !== undefined) v.foam_ml = patch.foam_ml;
+      if (patch.temperature_c !== undefined) v.temperature_c = patch.temperature_c;
+      if (patch.residues !== undefined) v.residues = patch.residues;
+    }
 
     // 3. Decay flash flare without React state dispatch
     if (flashLightRef.current) {

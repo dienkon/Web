@@ -47,6 +47,8 @@ export interface PourSessionState {
   sourcePos?: [number, number, number];
   sourceRotationZ?: number;
   initialSourcePos?: [number, number, number];
+  initialFromVolume_ml?: number;
+  initialToVolume_ml?: number;
   mixingZone?: {
     active: boolean;
     point: [number, number, number];

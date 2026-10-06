@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
+import { PourController } from '../../pour/controller/PourController';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -500,18 +501,30 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     c.formula.toLowerCase() === substance.toLowerCase() || 
     c.formula.replace(/\s*\(.*\)/g, '').toLowerCase() === substance.replace(/\s*\(.*\)/g, '').toLowerCase()
   );
-  const remainingMoleFraction = content ? (content.moles <= 1e-6 ? 0 : Math.min(1.0, content.moles / ((content as any).initialMoles || 0.04))) : 1.0;
-  const currentScale = Math.max(0, Math.min(1.0, (1.0 - dissolveProgress) * remainingMoleFraction));
+  const initMoles = content?.initialMoles || content?.moles;
+  const remainingMoleFraction = content 
+    ? (content.moles <= 1e-6 ? 0 : (initMoles && initMoles > 1e-6 ? Math.min(1.0, content.moles / initMoles) : 1.0))
+    : 1.0;
+  // Visual scale follows remaining moles via cubic root (volume ~ r^3), never disappears prematurely
+  const currentScale = Math.max(0, Math.min(1.0, Math.cbrt(remainingMoleFraction)));
 
   useFrame((state) => {
     if (currentScale <= 0.001) return;
+
+    // Physical tilt slide displacement based on vessel rotation (including live pour controller)
+    const pourSession = PourController.getSession();
+    const tiltZ = (pourSession && pourSession.sourceId === vesselId)
+      ? (pourSession.sourceRotationZ ?? -pourSession.tilt)
+      : (vessel?.rotationZ || 0);
+    const tiltSlideX = Math.sin(tiltZ) * effectiveRadius * 0.45;
+    const tiltSlideY = -Math.abs(Math.sin(tiltZ)) * 0.08;
 
     // 1. Animate central powder mound scale if powder
     if (moundRef.current && isPowder) {
       const moundHeight = 0.28 * currentScale * vesselScale;
       const moundRad = effectiveRadius * 0.92 * Math.sqrt(currentScale);
       moundRef.current.scale.set(moundRad, moundHeight, moundRad);
-      moundRef.current.position.set(0, baseY + moundHeight * 0.48, 0);
+      moundRef.current.position.set(tiltSlideX, baseY + moundHeight * 0.48 + tiltSlideY, 0);
     }
 
     // 2. Animate chunks/granules instanced mesh
@@ -523,9 +536,9 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
         const c = chunkData[i];
         const s = c.scale * currentScale;
 
-        const px = Math.cos(stirRot) * c.x - Math.sin(stirRot) * c.z;
+        const px = Math.cos(stirRot) * c.x - Math.sin(stirRot) * c.z + tiltSlideX;
         const pz = Math.sin(stirRot) * c.x + Math.cos(stirRot) * c.z;
-        const py = baseY + c.y + (isPowder ? 0.04 : 0.07);
+        const py = baseY + c.y + (isPowder ? 0.04 : 0.07) + tiltSlideY;
 
         _dummyPos.set(px, py, pz);
         _dummyEuler.set(c.rotX, c.rotY + stirRot, c.rotZ);

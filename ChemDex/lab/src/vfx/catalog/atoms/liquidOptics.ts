@@ -459,9 +459,35 @@ export const liquidSwirlAtom: EffectAtom = {
   },
   budget: { shaderCost: 1 },
   anchorsAllowed: ['pourPoint', 'bulk', 'surface'],
-  mount(ctx, p) { return { atom: 'liquidSwirl', instanceId: `swirl_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update(h, dt) {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'liquidSwirl',
+      instanceId: `swirl_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        speed: p.speed ?? 1.2,
+        color: p.color ?? '#38bdf8',
+        diffusionRadius: p.diffusionRadius ?? 0.35,
+        mixProgress: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    h.custom.mixProgress = Math.min(1.0, (h.custom.mixProgress || 0) + dt * 0.5 * (h.custom.speed || 1.2));
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    if (h.custom.color && (h.custom.mixProgress || 0) > 0.15) {
+      vessel.liquidColor = h.custom.color;
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Gentle Swirl', description: 'Slow indicator diffusion', params: { speed: 0.8, diffusionRadius: 0.25, color: '#f43f5e' } },
     { title: 'Vigorous Agitation', description: 'Fast magnetic stir vortex', params: { speed: 3.5, diffusionRadius: 0.6, color: '#8b5cf6' } }
@@ -483,9 +509,38 @@ export const beerLambertFadeAtom: EffectAtom = {
   },
   budget: { shaderCost: 1 },
   anchorsAllowed: ['bulk'],
-  mount(ctx, p) { return { atom: 'beerLambertFade', instanceId: `blf_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'beerLambertFade',
+      instanceId: `blf_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        startColor: p.startColor ?? '#7c3aed',
+        endColor: p.endColor ?? '#f8fafc',
+        duration_s: 4.0,
+        fadeProgress: 0
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    h.custom.fadeProgress = Math.min(1.0, h.custom.elapsed / (h.custom.duration_s || 4.0));
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    const prog = h.custom.fadeProgress || 0;
+    if (prog >= 0.99) {
+      vessel.liquidColor = h.custom.endColor;
+    } else if (prog > 0.01) {
+      vessel.liquidColor = prog > 0.5 ? h.custom.endColor : h.custom.startColor;
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Permanganate Bleach', description: 'KMnO4 decolorize into Mn2+', params: { startColor: '#581c87', endColor: '#fdf2f8', opticalPath_cm: 5.0 } },
     { title: 'Iodine Fading', description: 'Iodine brown fading with thiosulfate', params: { startColor: '#78350f', endColor: '#fefce8', opticalPath_cm: 4.0 } }
@@ -506,9 +561,35 @@ export const turbidityShiftAtom: EffectAtom = {
   },
   budget: { shaderCost: 1 },
   anchorsAllowed: ['bulk'],
-  mount(ctx, p) { return { atom: 'turbidityShift', instanceId: `ts_${Date.now()}`, alive: true, custom: { ...p } }; },
-  update() {},
-  dispose(h) { h.alive = false; },
+  mount(ctx, p) {
+    return {
+      atom: 'turbidityShift',
+      instanceId: `ts_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      alive: true,
+      custom: {
+        ...p,
+        elapsed: 0,
+        currentTurbidity: 0,
+        targetTurbidity: p.maxTurbidity ?? 0.85
+      }
+    };
+  },
+  update(h, dt, s) {
+    if (!h.alive) return;
+    h.custom.elapsed += dt;
+    const target = h.custom.targetTurbidity ?? 0.85;
+    h.custom.currentTurbidity = Math.min(target, (h.custom.currentTurbidity || 0) + dt * 0.45);
+  },
+  writeBack(h, vessel) {
+    if (!h.alive) return;
+    vessel.turbidity = Math.max(vessel.turbidity || 0, h.custom.currentTurbidity || 0);
+    if (h.custom.hazeColor) {
+      vessel.liquidColor = h.custom.hazeColor;
+    }
+  },
+  dispose(h) {
+    h.alive = false;
+  },
   gallery: [
     { title: 'Milky Barium Sulfate', description: 'Dense white Tyndall scattering', params: { maxTurbidity: 0.95, hazeColor: '#ffffff' } },
     { title: 'Sulfur Sol', description: 'Pale cream turbidity', params: { maxTurbidity: 0.75, hazeColor: '#fef08a' } }
