@@ -414,7 +414,9 @@ export default function ExamIntro() {
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">
                 <Clock className="w-5 h-5 text-blue-600 mx-auto mb-1" />
                 <span className="text-[11px] text-slate-400 font-semibold block">Thời gian thi</span>
-                <span className="text-base font-extrabold text-slate-800">{exam.timeLimit || 45} phút</span>
+                <span className={`text-base font-extrabold ${exam.isUnlimitedTime || exam.unlimitedTime || exam.timeLimit === 0 ? "text-emerald-600" : "text-slate-800"}`}>
+                  {exam.isUnlimitedTime || exam.unlimitedTime || exam.timeLimit === 0 ? "Không giới hạn" : `${exam.timeLimit || 45} phút`}
+                </span>
               </div>
 
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-center">

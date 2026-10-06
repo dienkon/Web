@@ -23,22 +23,10 @@ export function getQuestionSignature(q: Question): string {
 }
 
 /**
- * Deduplicates questions based on originalQuestionId and text signature across multi-exam reviews.
+ * Returns all review questions directly without deduplication (per user directive).
  */
 export function deduplicateQuestions(questions: Question[]): Question[] {
-  const seen = new Set<string>();
-  const result: Question[] = [];
-  for (const q of questions) {
-    if (!q) continue;
-    const origId = (q as any).originalQuestionId || q.id || "";
-    const sig = getQuestionSignature(q);
-    const key = `${origId}_${sig}`;
-    if (!seen.has(key)) {
-      seen.add(key);
-      result.push(q);
-    }
-  }
-  return result;
+  return questions.filter(Boolean);
 }
 
 /**
@@ -73,12 +61,11 @@ export function filterQuestionsBySubmission(
 }
 
 /**
- * Fetches all questions for a given exam from Firestore (handling both monolithic questions array and subcollections)
+ * Fetches all questions for a given exam from Firestore (handling both monolithic questions array and subcollections),
+ * ensuring the most complete question set is always loaded and no questions are missing.
  */
 export async function getExamQuestionsSafe(examId: string, fallbackQuestions?: Question[]): Promise<Question[]> {
-  if (fallbackQuestions && fallbackQuestions.length > 0) {
-    return fallbackQuestions;
-  }
+  let masterQuestions: Question[] = [];
 
   try {
     const examDoc = await getDoc(doc(db, EXAMS_COLLECTION, examId));
@@ -86,20 +73,34 @@ export async function getExamQuestionsSafe(examId: string, fallbackQuestions?: Q
     if (examDoc.exists()) {
       const data = examDoc.data();
       if (Array.isArray(data.questions) && data.questions.length > 0) {
-        return data.questions as Question[];
+        masterQuestions = data.questions as Question[];
       }
     }
 
-    // Fallback: Check subcollection
-    const qSnap = await getDocs(collection(db, `${EXAMS_COLLECTION}/${examId}/questions`));
-    console.warn(`[Firestore] READ_MANY (${qSnap.size} docs): ${EXAMS_COLLECTION}/${examId}/questions (subcollection fallback)`);
-    if (!qSnap.empty) {
-      const qs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
-      qs.sort((a, b) => (a.order || 0) - (b.order || 0));
-      return qs;
+    // Fallback: Check subcollection if root document questions array is empty
+    if (masterQuestions.length === 0) {
+      const qSnap = await getDocs(collection(db, `${EXAMS_COLLECTION}/${examId}/questions`));
+      console.warn(`[Firestore] READ_MANY (${qSnap.size} docs): ${EXAMS_COLLECTION}/${examId}/questions (subcollection fallback)`);
+      if (!qSnap.empty) {
+        const qs = qSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Question));
+        qs.sort((a, b) => (a.order || 0) - (b.order || 0));
+        masterQuestions = qs;
+      }
     }
   } catch (err) {
     console.error("Error fetching questions for examId:", examId, err);
+  }
+
+  // If master questions were found, return whichever has the most complete question set
+  if (masterQuestions.length > 0) {
+    if (fallbackQuestions && fallbackQuestions.length > masterQuestions.length) {
+      return fallbackQuestions;
+    }
+    return masterQuestions;
+  }
+
+  if (fallbackQuestions && fallbackQuestions.length > 0) {
+    return fallbackQuestions;
   }
 
   return [];
@@ -110,6 +111,8 @@ export interface CreateRetakeOptions {
   submission: Submission;
   mode: "all" | "correct" | "wrong";
   questions?: Question[];
+  durationMode?: "unlimited" | "auto" | "custom";
+  customDuration?: number;
 }
 
 /**
@@ -133,8 +136,8 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     }
   } catch {}
 
-  // 1. If mode === 'all': Fresh start for the existing exam
-  if (mode === "all") {
+  // 1. If mode === 'all' and no durationMode or customDuration specified:
+  if (mode === "all" && !options.durationMode && options.customDuration === undefined) {
     // Clear in-progress session and snapshot
     clearActiveExamSession(examId);
     try {
@@ -143,13 +146,16 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     return examId;
   }
 
-  // 2. If mode is 'correct' or 'wrong': Create a focused practice exam inside student folder
+  // 2. Load questions
   const rawQuestions = await getExamQuestionsSafe(
     examId,
     submission.shuffledQuestionsSnapshot || options.questions
   );
 
-  const filteredQuestions = filterQuestionsBySubmission(rawQuestions, submission, mode);
+  const filteredQuestions =
+    mode === "all"
+      ? rawQuestions
+      : filterQuestionsBySubmission(rawQuestions, submission, mode);
 
   if (filteredQuestions.length === 0) {
     throw new Error(
@@ -167,32 +173,45 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     console.warn("Could not get or create student folder:", fErr);
   }
 
-  // Re-index question orders
-  const preparedQuestions: Question[] = filteredQuestions.map((q, idx) => ({
-    ...q,
-    order: idx,
-    originalExamId: examId,
-    originalQuestionId: (q as any).originalQuestionId || q.id,
-  }));
+  // Re-index question orders and assign distinct unique IDs
+  const cleanExam = String(examId).replace(/[^a-zA-Z0-9_-]/g, "_");
+  const preparedQuestions: Question[] = filteredQuestions.map((q, idx) => {
+    const origId = (q as any).originalQuestionId || q.id || `q_${idx + 1}`;
+    const cleanOrigId = String(origId).replace(/[^a-zA-Z0-9_-]/g, "_");
+    const uniqueId = `retake_${cleanExam}_${cleanOrigId}_${idx + 1}_${Math.random().toString(36).slice(2, 7)}`;
+    return {
+      ...q,
+      id: uniqueId,
+      order: idx,
+      originalExamId: examId,
+      originalQuestionId: origId,
+    };
+  });
 
-  const modeLabel = mode === "correct" ? "Làm lại câu đúng" : "Làm lại câu sai";
-  const originalDuration = originalExam.duration || originalExam.timeLimit || 45;
-  const scaledDuration = Math.max(
-    5,
-    Math.min(
-      originalDuration,
-      Math.round((originalDuration * preparedQuestions.length) / Math.max(1, rawQuestions.length))
-    )
-  );
+  const modeLabel =
+    mode === "all"
+      ? "Làm lại toàn bộ"
+      : mode === "correct"
+      ? "Làm lại câu đúng"
+      : "Làm lại câu sai";
+
+  const isUnlimited = options.durationMode === "unlimited" || options.customDuration === 0;
+  const scaledDuration = isUnlimited
+    ? 0
+    : options.durationMode === "custom" && options.customDuration && options.customDuration > 0
+    ? options.customDuration
+    : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
 
   const docRef = doc(collection(db, EXAMS_COLLECTION));
   const newExamData = {
     title: `[${modeLabel}] ${originalExam.title || submission.examTitleSnapshot || "Đề thi"}`,
     code: `RETAKE_${Date.now().toString().slice(-4)}`,
-    description: `Bài làm lại ${mode === "correct" ? "các câu đúng" : "các câu sai"} từ bài thi gốc. Tổng cộng ${preparedQuestions.length} câu hỏi.`,
+    description: `Bài làm lại ${modeLabel.toLowerCase()} từ bài thi gốc. Tổng cộng ${preparedQuestions.length} câu hỏi.`,
     folderId: studentFolderId,
     timeLimit: scaledDuration,
     duration: scaledDuration,
+    isUnlimitedTime: isUnlimited,
+    unlimitedTime: isUnlimited,
     questionCount: preparedQuestions.length,
     totalQuestions: preparedQuestions.length,
     maxScore: originalExam.maxScore || 10,
@@ -240,6 +259,7 @@ export interface CreateAggregatedReviewOptions {
   items: ReviewExamAggregateItem[];
   mode: "all" | "wrong";
   customDuration?: number;
+  durationMode?: "unlimited" | "auto" | "custom";
   shuffleQuestions?: boolean;
 }
 
@@ -315,7 +335,7 @@ export async function createAggregatedReviewExam(
     const origExam = (q as any).originalExamId || (q as any).examId || "ex";
     const cleanExam = String(origExam).replace(/[^a-zA-Z0-9_-]/g, "_");
     const cleanOrigId = String(origId).replace(/[^a-zA-Z0-9_-]/g, "_");
-    const uniqueId = `agg_${cleanExam}_${cleanOrigId}_${idx + 1}`;
+    const uniqueId = `agg_${cleanExam}_${cleanOrigId}_${idx + 1}_${Math.random().toString(36).slice(2, 7)}`;
 
     return {
       ...q,
@@ -328,9 +348,12 @@ export async function createAggregatedReviewExam(
   });
 
   const modeTitle = mode === "all" ? "Ôn tập tổng hợp" : "Chinh phục câu sai";
-  const estimatedDuration =
-    customDuration ||
-    Math.max(10, Math.min(180, Math.round(finalQuestions.length * 1.5)));
+  const isUnlimited = options.durationMode === "unlimited" || customDuration === 0;
+  const estimatedDuration = isUnlimited
+    ? 0
+    : options.durationMode === "custom" && customDuration && customDuration > 0
+    ? customDuration
+    : Math.max(5, Math.min(180, Math.round(finalQuestions.length * 1.5)));
 
   // Retrieve student identifier and display name
   let studentIdentifier = "student";
@@ -360,6 +383,8 @@ export async function createAggregatedReviewExam(
     folderId: studentFolderId,
     timeLimit: estimatedDuration,
     duration: estimatedDuration,
+    isUnlimitedTime: isUnlimited,
+    unlimitedTime: isUnlimited,
     questionCount: finalQuestions.length,
     totalQuestions: finalQuestions.length,
     maxScore: 10,

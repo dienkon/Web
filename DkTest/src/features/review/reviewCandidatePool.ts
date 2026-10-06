@@ -33,14 +33,15 @@ export async function buildReviewCandidatePool(
 }> {
   const candidates: ReviewQuestionCandidate[] = [];
   const candidateMap = new Map<string, ReviewQuestionCandidate>();
-  const seenSignatures = new Set<string>();
 
-  for (const source of sources) {
+  for (let sIdx = 0; sIdx < sources.length; sIdx++) {
+    const source = sources[sIdx];
+    // Always load master questions from exam first to ensure NO questions are missing
     const rawQuestions = await getExamQuestionsSafe(
       source.examId,
       source.questions ||
-        source.submission?.shuffledQuestionsSnapshot ||
-        source.exam.questions
+        source.exam.questions ||
+        source.submission?.shuffledQuestionsSnapshot
     );
 
     const submission = source.submission;
@@ -57,15 +58,26 @@ export async function buildReviewCandidatePool(
       });
     }
 
-    rawQuestions.forEach((q, idx) => {
-      const origId = (q as any).originalQuestionId || q.id || `q_${idx + 1}`;
-      const candidateKey = `${source.examId}::${origId}`;
+    rawQuestions.forEach((q, qIdx) => {
+      // Retain original ID for submission answering and mastery tracking
+      const origId = (q as any).originalQuestionId || q.id || `q_${qIdx + 1}`;
+      const cleanExam = String(source.examId || `ex_${sIdx + 1}`).replace(/[^a-zA-Z0-9_-]/g, "_");
+      const cleanOrigId = String(origId).replace(/[^a-zA-Z0-9_-]/g, "_");
 
-      // Calculate answer status based on submission
+      // AUTO ĐỔI ID RIÊNG BIỆT HOÀN TOÀN, KHÔNG DÙNG ID CỦA BÀI GỐC
+      const uniqueCandidateId = `rev_${cleanExam}_q${qIdx + 1}_${cleanOrigId}_${Math.random().toString(36).slice(2, 7)}`;
+
+      // Calculate answer status based on submission using original question ID or key
       let answerStatus: "correct" | "wrong" | "unanswered" | "unattempted" = "unattempted";
 
       if (submission) {
-        const studentAns = submission.answers?.[q.id];
+        const studentAns =
+          submission.answers?.[origId] ??
+          submission.answers?.[q.id] ??
+          (submission.answers
+            ? Object.entries(submission.answers).find(([k]) => k === origId || k === q.id)?.[1]
+            : undefined);
+
         const isAnswerEmpty =
           studentAns === undefined ||
           studentAns === null ||
@@ -85,16 +97,21 @@ export async function buildReviewCandidatePool(
       const snippet = cleanTextSnippet(q.text || "");
       const diff = q.difficulty || "unspecified";
 
+      // Question object has its OWN SEPARATE ID, NEVER reusing the original question id
+      const newQuestionObj: Question = {
+        ...q,
+        id: uniqueCandidateId, // Auto đổi ID riêng
+        originalQuestionId: origId,
+        originalExamId: source.examId,
+        order: candidates.length,
+      };
+
       const candidate: ReviewQuestionCandidate = {
-        candidateId: candidateKey,
+        candidateId: uniqueCandidateId, // ID ứng viên riêng
         sourceExamId: source.examId,
         sourceExamTitle: source.examTitle,
         originalQuestionId: origId,
-        question: {
-          ...q,
-          originalQuestionId: origId,
-          originalExamId: source.examId,
-        },
+        question: newQuestionObj,
         answerStatus,
         type: q.type || "single_choice",
         difficulty: diff,
@@ -102,17 +119,13 @@ export async function buildReviewCandidatePool(
         sectionId: q.sectionId,
         tags: Array.isArray(q.tags) ? q.tags : [],
         points: q.points || 1,
-        order: q.order ?? idx,
+        order: candidates.length,
         textSnippet: snippet,
       };
 
-      // Guard against exact duplicates across combined sources
-      const sig = `${getQuestionSignature(q)}_${q.type}`;
-      if (!seenSignatures.has(sig)) {
-        seenSignatures.add(sig);
-        candidates.push(candidate);
-        candidateMap.set(candidateKey, candidate);
-      }
+      // Đưa toàn bộ câu hỏi vào danh sách ứng viên, không bỏ sót bất kỳ câu nào
+      candidates.push(candidate);
+      candidateMap.set(uniqueCandidateId, candidate);
     });
   }
 

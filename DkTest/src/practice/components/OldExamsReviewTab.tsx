@@ -80,6 +80,7 @@ export default function OldExamsReviewTab() {
 
   // Review Mode & Configuration
   const [reviewMode, setReviewMode] = useState<"all" | "wrong" | "correct" | "custom">("wrong");
+  const [durationMode, setDurationMode] = useState<"unlimited" | "auto">("unlimited");
   const [shuffleQuestions, setShuffleQuestions] = useState(true);
   const [isStarting, setIsStarting] = useState(false);
   const [isCustomConfigOpen, setIsCustomConfigOpen] = useState(false);
@@ -295,11 +296,13 @@ export default function OldExamsReviewTab() {
     }
 
     if (!sub) {
-      // Unattempted exam: no submission exists
+      // Unattempted exam: no submission exists, fetch full master questions
+      const masterQuestions = await getExamQuestionsSafe(examId, examData.questions);
       const total =
+        masterQuestions.length ||
         examData.totalQuestions ||
         examData.questionCount ||
-        (Array.isArray(examData.questions) ? examData.questions.length : 10);
+        10;
 
       return {
         examId,
@@ -314,18 +317,20 @@ export default function OldExamsReviewTab() {
         wrongCount: 0,
         unansweredCount: total,
         exam: examData,
+        questions: masterQuestions,
       };
     }
 
     // Has submission: calculate mastery and wrong/correct questions
     const masteredSet = await getMasteredQuestionsForExam(username, examId);
 
-    const examQuestions =
-      sub.shuffledQuestionsSnapshot && sub.shuffledQuestionsSnapshot.length > 0
-        ? sub.shuffledQuestionsSnapshot
-        : examData.questions && examData.questions.length > 0
+    // Always load the most complete question set from master exam doc/subcollection
+    const examQuestions = await getExamQuestionsSafe(
+      examId,
+      examData.questions && examData.questions.length > 0
         ? examData.questions
-        : await getExamQuestionsSafe(examId);
+        : sub.shuffledQuestionsSnapshot
+    );
 
     const rawWrongQuestions = filterQuestionsBySubmission(examQuestions, sub, "wrong");
     const stillWrongQuestions = rawWrongQuestions.filter((q) => !masteredSet.has(q.id));
@@ -615,6 +620,7 @@ export default function OldExamsReviewTab() {
       const result = await createAggregatedReviewExam({
         items: aggregatePayload,
         mode: reviewMode === "wrong" ? "wrong" : "all",
+        durationMode,
         shuffleQuestions,
       });
 
@@ -1040,7 +1046,7 @@ export default function OldExamsReviewTab() {
                 </span>
               </div>
               <p className="text-xs text-slate-500">
-                Các câu hỏi trùng lặp giữa các đề sẽ được hệ thống tự động loại trừ an toàn.
+                Hệ thống sẽ tổng hợp đầy đủ các câu hỏi từ các đề thi đã chọn.
               </p>
             </div>
 
@@ -1103,6 +1109,37 @@ export default function OldExamsReviewTab() {
                   <span>✨ Yêu cầu riêng</span>
                 </button>
               </div>
+
+              {/* Duration Switcher (When not in custom mode) */}
+              {reviewMode !== "custom" && (
+                <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setDurationMode("unlimited")}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                      durationMode === "unlimited"
+                        ? "bg-emerald-600 text-white shadow-2xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                    title="Làm bài không giới hạn thời gian (Vô hạn)"
+                  >
+                    <span>♾️ Vô hạn time</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setDurationMode("auto")}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                      durationMode === "auto"
+                        ? "bg-blue-600 text-white shadow-2xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                    title="Thời gian làm bài tính 1.5 phút/câu"
+                  >
+                    <span>⏱️ 1.5p/câu</span>
+                  </button>
+                </div>
+              )}
 
               {/* Start Button */}
               <button

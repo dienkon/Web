@@ -196,8 +196,9 @@ HƯỚNG DẪN ĐẶC BIỆT DÀNH CHO GIA SƯ AI:
     })
   );
 
-  // Model fallback list to ensure high availability
+  // Model list strictly prioritized for gemini-3.5-flash-lite across DkTEST
   const candidateModels = [
+    "gemini-3.5-flash-lite",
     defaultModel,
     "gemini-2.5-flash",
     "gemini-2.0-flash",

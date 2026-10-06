@@ -318,7 +318,7 @@ export default function AiTutorChat({
               </div>
               <div>
                 <h3 className="font-extrabold text-sm">Gia sư AI DkTEST</h3>
-                <p className="text-[10px] text-indigo-100">Hỗ trợ nhận diện ảnh đề bài & LaTeX</p>
+                <p className="text-[10px] text-indigo-100">gemini-3.5-flash-lite • Ảnh & LaTeX</p>
               </div>
             </div>
             <button

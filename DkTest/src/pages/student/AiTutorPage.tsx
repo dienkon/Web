@@ -369,8 +369,8 @@ export default function AiTutorPage() {
           <div>
             <h2 className="font-extrabold text-base sm:text-lg tracking-tight flex items-center gap-2">
               Gia sư AI DkTEST
-              <span className="px-2 py-0.5 text-[10px] bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 rounded-full font-bold uppercase tracking-wider">
-                Multimodal Vision
+              <span className="px-2 py-0.5 text-[10px] bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 rounded-full font-bold tracking-wider">
+                gemini-3.5-flash-lite
               </span>
             </h2>
             <p className="text-xs text-indigo-100 font-medium">Nhận diện ảnh chụp đề bài, KaTeX, Bảng biểu HTML & Khối mã Discord</p>

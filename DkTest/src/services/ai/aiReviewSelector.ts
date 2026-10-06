@@ -13,35 +13,24 @@ export async function selectReviewQuestionsWithAi(
 
   const ai = getAiClient(customApiKey);
 
-  // Keep payload compact to stay well within token limits
-  const candidateSummary = candidates.map((c, index) => ({
-    idx: index + 1,
-    id: c.id,
-    type: c.type,
-    difficulty: c.difficulty,
-    status: c.status,
-    section: c.section || "",
-    snippet: c.textSnippet.substring(0, 100),
-    tags: (c.tags || []).slice(0, 3).join(", "),
-  }));
-
   const systemInstructions = `Bạn là Trợ lý Sư phạm AI của nền tảng thi DkTEST.
-Nhiệm vụ của bạn là tuyển chọn ra khoảng ${Math.max(1, targetCount)} câu hỏi phù hợp nhất từ kho câu hỏi ứng viên được cung cấp bên dưới, dựa trên yêu cầu học tập của học sinh.
+Nhiệm vụ của bạn là đọc kỹ toàn bộ danh sách câu hỏi và các đáp án (dưới dạng JSON bên dưới), sau đó phân tích và tuyển chọn ra khoảng ${Math.max(1, targetCount)} câu hỏi phù hợp nhất theo yêu cầu học tập của học sinh.
 
 YÊU CẦU CỦA HỌC SINH:
 "${userPrompt}"
 
-DANH SÁCH ỨNG VIÊN CÂU HỎI (${candidates.length} câu):
-${JSON.stringify(candidateSummary, null, 2)}
+DANH SÁCH TOÀN BỘ CÂU HỎI VÀ CÁC ĐÁP ÁN (${candidates.length} câu):
+${JSON.stringify(candidates, null, 2)}
 
-QUY TẮC TỐI THƯỢNG:
-1. BẠN CHỈ ĐƯỢC CHỌN các ID nằm CHÍNH XÁC trong danh sách ứng viên trên.
-2. TUYỆT ĐỐI KHÔNG tự bịa ra ID mới, không thay đổi cú pháp ID.
-3. TUYỆT ĐỐI KHÔNG sinh nội dung câu hỏi, không sinh đáp án, không trả về câu hỏi mới.
-4. BẠN PHẢI TRẢ VỀ DUY NHẤT một chuỗi JSON hợp lệ (không kèm Markdown block) có cấu trúc:
+QUY TẮC BẮT BUỘC:
+1. Đọc kỹ nội dung câu hỏi ('text') và các đáp án ('options' / 'statements' / 'matchingLeft'...) để hiểu đúng chủ đề, dạng bài, kiến thức mà câu hỏi kiểm tra.
+2. BẠN CHỈ ĐƯỢC CHỌN các ID nằm CHÍNH XÁC trong danh sách câu hỏi trên.
+3. TUYỆT ĐỐI KHÔNG tự bịa ra ID mới, không thay đổi cú pháp ID.
+4. TUYỆT ĐỐI KHÔNG sinh lại nội dung câu hỏi hay đáp án.
+5. BẠN PHẢI TRẢ VỀ DUY NHẤT một chuỗi JSON hợp lệ (không kèm Markdown block) có cấu trúc:
 {
   "questionIds": ["id_1", "id_2", ...],
-  "reasoning": "Tóm tắt ngắn gọn tiêu chí đã chọn (1-2 câu tiếng Việt)"
+  "reasoning": "Tóm tắt ngắn gọn lý do đã chọn các câu hỏi này (1-2 câu tiếng Việt)"
 }`;
 
   const candidateModels = [

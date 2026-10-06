@@ -10,6 +10,7 @@ import {
   AlertCircle,
   Sparkles,
   HelpCircle,
+  Clock,
 } from "lucide-react";
 import type { Exam, Submission, Question } from "../../types";
 import { createRetakeExam } from "../../services/reviewExamService";
@@ -43,6 +44,7 @@ export default function RetakeModal({
   const [selectedMode, setSelectedMode] = useState<"all" | "correct" | "wrong" | "custom">(() => {
     return wrongCount > 0 ? "wrong" : "all";
   });
+  const [durationMode, setDurationMode] = useState<"unlimited" | "auto">("unlimited");
   const [isStarting, setIsStarting] = useState(false);
   const [isCustomConfigOpen, setIsCustomConfigOpen] = useState(false);
 
@@ -60,6 +62,18 @@ export default function RetakeModal({
   }, [isOpen, wrongCount]);
 
   const sourceExam: ReviewSourceExam = useMemo(() => {
+    const candidateQuestions =
+      (questions && questions.length > 0 ? questions : undefined) ||
+      (exam?.questions && exam.questions.length > 0 ? exam.questions : undefined) ||
+      submission?.shuffledQuestionsSnapshot;
+
+    const realTotal =
+      exam?.totalQuestions ||
+      exam?.questionCount ||
+      candidateQuestions?.length ||
+      totalQuestions ||
+      10;
+
     const targetExam =
       exam ||
       ({
@@ -67,9 +81,9 @@ export default function RetakeModal({
         title: submission?.examTitleSnapshot || "Đề thi",
         timeLimit: 45,
         duration: 45,
-        questionCount: totalQuestions,
-        totalQuestions,
-        questions: questions || submission?.shuffledQuestionsSnapshot || [],
+        questionCount: realTotal,
+        totalQuestions: realTotal,
+        questions: candidateQuestions || [],
       } as unknown as Exam);
 
     return {
@@ -83,12 +97,12 @@ export default function RetakeModal({
       maxScore: submission?.maxScore,
       correctCount,
       wrongCount,
-      unansweredCount: Math.max(0, totalQuestions - correctCount - wrongCount),
-      totalCount: totalQuestions,
+      unansweredCount: Math.max(0, realTotal - correctCount - wrongCount),
+      totalCount: realTotal,
       submittedAt: submission?.submittedAt,
       submission: submission || undefined,
       exam: targetExam,
-      questions,
+      questions: candidateQuestions,
     };
   }, [exam, submission, questions, totalQuestions, correctCount, wrongCount]);
 
@@ -115,6 +129,7 @@ export default function RetakeModal({
         submission,
         mode: selectedMode,
         questions,
+        durationMode,
       });
 
       showSuccessToast(
@@ -380,6 +395,47 @@ export default function RetakeModal({
               {selectedMode === "custom" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
             </div>
           </button>
+
+          {/* Quick Duration Selector (Unlimited vs 1.5 min/question) */}
+          {selectedMode !== "custom" && (
+            <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl space-y-2 mt-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-blue-600" />
+                  Thời gian làm bài:
+                </span>
+                <span className={`text-xs font-extrabold ${durationMode === "unlimited" ? "text-emerald-600" : "text-blue-600"}`}>
+                  {durationMode === "unlimited"
+                    ? "Vô hạn (Không giới hạn)"
+                    : `${Math.round(totalQuestions * 1.5)} phút (1.5p/câu)`}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setDurationMode("unlimited")}
+                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    durationMode === "unlimited"
+                      ? "bg-emerald-600 text-white border-emerald-600 shadow-2xs"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>♾️ Vô hạn thời gian</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDurationMode("auto")}
+                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    durationMode === "auto"
+                      ? "bg-blue-600 text-white border-blue-600 shadow-2xs"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>⏱️ 1,5 phút / câu</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer Actions */}

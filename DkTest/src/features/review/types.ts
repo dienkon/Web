@@ -62,8 +62,9 @@ export interface ReviewFilterConfig {
   answerStatus: QuestionAnswerStatus;
   /** Desired number of questions */
   questionCount: number;
-  /** Exam duration in minutes, or 'auto' for 1.5 min per question */
-  durationMinutes: number | "auto";
+  /** Exam duration in minutes, 'auto' for 1.5 min per question, or 'unlimited' for no time limit */
+  durationMinutes: number | "auto" | "unlimited";
+  durationMode?: "unlimited" | "auto" | "custom";
   /** Whether to shuffle questions */
   shuffleQuestions: boolean;
   /** Whether to shuffle options inside questions */
@@ -73,14 +74,18 @@ export interface ReviewFilterConfig {
 }
 
 export interface AiCandidateDTO {
-  id: string; // sourceExamId::originalQuestionId
-  examTitle: string;
-  type: string;
-  difficulty: string;
-  status: string;
+  id: string; // Unique question candidate ID
+  type: string; // Question type
+  text: string; // Full complete question text
+  difficulty?: string;
   section?: string;
-  textSnippet: string;
-  tags?: string[];
+  examTitle?: string;
+  // Options / choices for different question types (excluding answers)
+  options?: Array<{ id?: string; text: string }>;
+  statements?: Array<{ id?: string; text: string }>;
+  matchingLeft?: Array<{ label?: string; text: string }>;
+  matchingRight?: Array<{ label?: string; text: string }>;
+  orderingItems?: Array<{ id?: string; text: string }>;
 }
 
 export interface AiReviewSelectionRequest {

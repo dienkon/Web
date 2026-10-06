@@ -10,6 +10,7 @@ export interface BuildReviewExamOptions {
   title?: string;
   description?: string;
   customDuration?: number;
+  durationMode?: "unlimited" | "auto" | "custom";
   shuffleQuestions?: boolean;
   shuffleOptions?: boolean;
   sourceExamCount?: number;
@@ -34,6 +35,7 @@ export async function buildReviewExam(
     title,
     description,
     customDuration,
+    durationMode,
     shuffleQuestions = false,
     shuffleOptions = true,
     sourceExamCount = 1,
@@ -101,11 +103,13 @@ export async function buildReviewExam(
     };
   });
 
-  // Calculate duration (custom or 1.5 mins per question, clamp between 5 and 180 mins)
-  const duration =
-    customDuration && customDuration > 0
-      ? customDuration
-      : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
+  // Calculate duration (unlimited = 0, custom, or 1.5 mins per question)
+  const isUnlimited = durationMode === "unlimited" || customDuration === 0;
+  const duration = isUnlimited
+    ? 0
+    : durationMode === "custom" && customDuration && customDuration > 0
+    ? customDuration
+    : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
 
   const defaultTitle =
     sourceExamCount > 1
@@ -122,6 +126,8 @@ export async function buildReviewExam(
     folderId: studentFolderId,
     timeLimit: duration,
     duration: duration,
+    isUnlimitedTime: isUnlimited,
+    unlimitedTime: isUnlimited,
     questionCount: preparedQuestions.length,
     totalQuestions: preparedQuestions.length,
     maxScore: 10,

@@ -78,7 +78,7 @@ export default function CustomReviewConfigurator({
   const [selectedSections, setSelectedSections] = useState<Set<string>>(new Set());
   const [answerStatus, setAnswerStatus] = useState<QuestionAnswerStatus>("all");
   const [questionCount, setQuestionCount] = useState<number>(20);
-  const [durationMode, setDurationMode] = useState<"auto" | "custom">("auto");
+  const [durationMode, setDurationMode] = useState<"unlimited" | "auto" | "custom">("unlimited");
   const [customDuration, setCustomDuration] = useState<number>(30);
   const [shuffleQuestions, setShuffleQuestions] = useState(true);
   const [shuffleOptions, setShuffleOptions] = useState(true);
@@ -110,17 +110,9 @@ export default function CustomReviewConfigurator({
         setCandidates(loadedCandidates);
         setCandidateMap(loadedMap);
 
-        // Check if any source has submissions
-        const anySubmissions = sources.some((s) => s.hasAttempt && s.submission);
-        if (anySubmissions) {
-          const wrongCount = loadedCandidates.filter((c) => c.answerStatus === "wrong").length;
-          setAnswerStatus(wrongCount > 0 ? "wrong" : "all");
-        } else {
-          setAnswerStatus("all");
-        }
-
-        const initialTarget = Math.min(20, Math.max(5, loadedCandidates.length));
-        setQuestionCount(initialTarget);
+        // Default to reading ALL questions by default so nothing is missing
+        setAnswerStatus("all");
+        setQuestionCount(loadedCandidates.length);
       })
       .catch((err) => {
         console.error("Error building candidate pool:", err);
@@ -182,8 +174,9 @@ export default function CustomReviewConfigurator({
     return hardFilteredCandidates.slice(0, questionCount);
   }, [aiSelectedCandidates, hardFilteredCandidates, questionCount]);
 
-  // Calculate estimated duration
+  // Calculate estimated duration (0 for unlimited, or minutes)
   const estimatedDurationMinutes = useMemo(() => {
+    if (durationMode === "unlimited") return 0;
     if (durationMode === "custom") return customDuration;
     return Math.max(5, Math.min(180, Math.round(finalCandidates.length * 1.5)));
   }, [durationMode, customDuration, finalCandidates.length]);
@@ -272,7 +265,8 @@ export default function CustomReviewConfigurator({
     try {
       const result = await buildReviewExam({
         candidates: finalCandidates,
-        customDuration: estimatedDurationMinutes,
+        customDuration: durationMode === "unlimited" ? 0 : estimatedDurationMinutes,
+        durationMode,
         shuffleQuestions,
         shuffleOptions,
         sourceExamCount: sources.length,
@@ -372,6 +366,7 @@ export default function CustomReviewConfigurator({
                     onClick={() => {
                       setAnswerStatus("all");
                       setAiSelectedCandidates(null);
+                      setQuestionCount(poolStats.total);
                     }}
                     className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                       answerStatus === "all"
@@ -394,6 +389,7 @@ export default function CustomReviewConfigurator({
                     onClick={() => {
                       setAnswerStatus("wrong");
                       setAiSelectedCandidates(null);
+                      setQuestionCount(poolStats.byStatus.wrong);
                     }}
                     className={`p-3 rounded-2xl border text-left transition-all ${
                       !hasSubmissions || poolStats.byStatus.wrong === 0
@@ -418,6 +414,7 @@ export default function CustomReviewConfigurator({
                     onClick={() => {
                       setAnswerStatus("correct");
                       setAiSelectedCandidates(null);
+                      setQuestionCount(poolStats.byStatus.correct);
                     }}
                     className={`p-3 rounded-2xl border text-left transition-all ${
                       !hasSubmissions || poolStats.byStatus.correct === 0
@@ -442,6 +439,7 @@ export default function CustomReviewConfigurator({
                     onClick={() => {
                       setAnswerStatus("unanswered");
                       setAiSelectedCandidates(null);
+                      setQuestionCount(poolStats.byStatus.unanswered);
                     }}
                     className={`p-3 rounded-2xl border text-left transition-all ${
                       !hasSubmissions || poolStats.byStatus.unanswered === 0
@@ -466,6 +464,7 @@ export default function CustomReviewConfigurator({
                     onClick={() => {
                       setAnswerStatus("wrong_or_unanswered");
                       setAiSelectedCandidates(null);
+                      setQuestionCount(poolStats.byStatus.wrong + poolStats.byStatus.unanswered);
                     }}
                     className={`p-3 rounded-2xl border text-left transition-all col-span-2 sm:col-span-2 ${
                       !hasSubmissions || (poolStats.byStatus.wrong + poolStats.byStatus.unanswered === 0)
@@ -767,34 +766,48 @@ export default function CustomReviewConfigurator({
                     <label className="text-xs font-extrabold uppercase tracking-wider text-slate-700">
                       Thời gian làm bài
                     </label>
-                    <span className="text-xs font-extrabold text-blue-600">
-                      {estimatedDurationMinutes} phút
+                    <span className={`text-xs font-extrabold ${durationMode === "unlimited" ? "text-emerald-600" : "text-blue-600"}`}>
+                      {durationMode === "unlimited"
+                        ? "Vô hạn (Không giới hạn)"
+                        : `${estimatedDurationMinutes} phút`}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setDurationMode("unlimited")}
+                      className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                        durationMode === "unlimited"
+                          ? "bg-emerald-600 text-white border-emerald-600 shadow-2xs"
+                          : "bg-white hover:bg-slate-100 text-slate-700 border-slate-200"
+                      }`}
+                    >
+                      <span>♾️ Vô hạn</span>
+                    </button>
+
                     <button
                       type="button"
                       onClick={() => setDurationMode("auto")}
-                      className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                      className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1 ${
                         durationMode === "auto"
                           ? "bg-blue-600 text-white border-blue-600 shadow-2xs"
                           : "bg-white hover:bg-slate-100 text-slate-700 border-slate-200"
                       }`}
                     >
-                      Tự động (1.5p/câu)
+                      <span>⏱️ 1.5p/câu</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setDurationMode("custom")}
-                      className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                      className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1 ${
                         durationMode === "custom"
                           ? "bg-blue-600 text-white border-blue-600 shadow-2xs"
                           : "bg-white hover:bg-slate-100 text-slate-700 border-slate-200"
                       }`}
                     >
-                      Tùy chỉnh
+                      <span>Tùy chỉnh</span>
                     </button>
                   </div>
 
@@ -810,6 +823,17 @@ export default function CustomReviewConfigurator({
                       />
                       <span className="text-xs font-medium text-slate-500">phút (5 - 180 phút)</span>
                     </div>
+                  )}
+
+                  {durationMode === "unlimited" && (
+                    <p className="text-[11px] text-emerald-700 font-medium pt-0.5">
+                      💡 Bài thi ôn tập tự do, không đếm ngược áp lực và không tự động nộp bài khi hết giờ.
+                    </p>
+                  )}
+                  {durationMode === "auto" && (
+                    <p className="text-[11px] text-blue-700 font-medium pt-0.5">
+                      ⏱️ Tự động tính 1.5 phút/câu: ~{Math.round(finalCandidates.length * 1.5)} phút.
+                    </p>
                   )}
                 </div>
               </div>
@@ -893,7 +917,10 @@ export default function CustomReviewConfigurator({
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 sm:p-5 border-t border-slate-100 bg-slate-50/70 shrink-0">
           <div className="space-y-0.5">
             <div className="text-xs font-extrabold text-slate-800">
-              Tổng số {finalCandidates.length} câu hỏi • {estimatedDurationMinutes} phút
+              Tổng số {finalCandidates.length} câu hỏi •{" "}
+              {durationMode === "unlimited"
+                ? "Không giới hạn thời gian (Vô hạn)"
+                : `${estimatedDurationMinutes} phút`}
             </div>
             <p className="text-[11px] text-slate-400">
               Đề thi ôn tập sẽ được tạo riêng và lưu an toàn vào Thư mục của bạn.

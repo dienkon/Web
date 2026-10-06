@@ -13,31 +13,68 @@ export interface RequestAiQuestionSelectionOptions {
 }
 
 /**
- * Prepares compact AI candidate DTOs to avoid sending excessive token weight.
+ * Prepares complete AI candidate DTOs including full question text and all answer options.
+ * Does NOT include secret answers or explanations.
  */
 export function prepareAiCandidateDTOs(
   candidates: ReviewQuestionCandidate[]
 ): AiCandidateDTO[] {
-  // Cap at 200 items to avoid token blowout
-  const cappedCandidates = candidates.slice(0, 200);
+  return candidates.map((c) => {
+    const q = c.question;
+    const dto: AiCandidateDTO = {
+      id: c.candidateId,
+      type: c.type,
+      text: q.text || "", // Full complete question text
+    };
 
-  return cappedCandidates.map((c) => ({
-    id: c.candidateId,
-    examTitle: c.sourceExamTitle,
-    type: c.type,
-    difficulty: c.difficulty,
-    status:
-      c.answerStatus === "wrong"
-        ? "Đã làm sai"
-        : c.answerStatus === "correct"
-        ? "Đã làm đúng"
-        : c.answerStatus === "unanswered"
-        ? "Bỏ trống"
-        : "Chưa từng làm",
-    section: c.sectionTitle,
-    textSnippet: c.textSnippet,
-    tags: c.tags,
-  }));
+    if (c.difficulty && c.difficulty !== "unspecified") {
+      dto.difficulty = c.difficulty;
+    }
+    if (c.sectionTitle) {
+      dto.section = c.sectionTitle;
+    }
+    if (c.sourceExamTitle) {
+      dto.examTitle = c.sourceExamTitle;
+    }
+
+    // Include choices/options for each question type
+    if (Array.isArray(q.options) && q.options.length > 0) {
+      dto.options = q.options.map((opt) => ({
+        id: opt.id,
+        text: opt.text || "",
+      }));
+    }
+
+    if (Array.isArray(q.statements) && q.statements.length > 0) {
+      dto.statements = q.statements.map((stmt) => ({
+        id: stmt.id,
+        text: stmt.text || "",
+      }));
+    }
+
+    if (Array.isArray(q.matchingLeft) && q.matchingLeft.length > 0) {
+      dto.matchingLeft = q.matchingLeft.map((m) => ({
+        label: m.label,
+        text: m.text || "",
+      }));
+    }
+
+    if (Array.isArray(q.matchingRight) && q.matchingRight.length > 0) {
+      dto.matchingRight = q.matchingRight.map((m) => ({
+        label: m.label,
+        text: m.text || "",
+      }));
+    }
+
+    if (Array.isArray(q.orderingItems) && q.orderingItems.length > 0) {
+      dto.orderingItems = q.orderingItems.map((item) => ({
+        id: item.id,
+        text: item.text || "",
+      }));
+    }
+
+    return dto;
+  });
 }
 
 /**
@@ -107,20 +144,23 @@ export async function requestAiQuestionSelection(
     try {
       const ai = getAiClient(customApiKey);
       const systemInstructions = `Bạn là Trợ lý Sư phạm AI của nền tảng DkTEST.
-Chọn khoảng ${targetCount} câu hỏi phù hợp nhất với yêu cầu: "${userPrompt}".
-DANH SÁCH CÂU HỎI:
-${JSON.stringify(
-  candidateDTOs.map((c) => ({
-    id: c.id,
-    type: c.type,
-    difficulty: c.difficulty,
-    status: c.status,
-    snippet: c.textSnippet.substring(0, 100),
-  })),
-  null,
-  2
-)}
-QUY TẮC: CHỈ trả về JSON { "questionIds": ["..."], "reasoning": "..." }. CHỈ chọn các ID có trong danh sách trên!`;
+Nhiệm vụ của bạn là đọc kỹ toàn bộ danh sách câu hỏi và các đáp án (dưới dạng JSON bên dưới), sau đó phân tích và tuyển chọn ra khoảng ${Math.max(1, targetCount)} câu hỏi phù hợp nhất theo yêu cầu học tập của học sinh.
+
+YÊU CẦU CỦA HỌC SINH:
+"${userPrompt}"
+
+DANH SÁCH TOÀN BỘ CÂU HỎI VÀ CÁC ĐÁP ÁN:
+${JSON.stringify(candidateDTOs, null, 2)}
+
+QUY TẮC BẮT BUỘC:
+1. Đọc kỹ nội dung câu hỏi ('text') và các đáp án ('options' / 'statements'...) để hiểu bài.
+2. CHỈ ĐƯỢC CHỌN các ID nằm CHÍNH XÁC trong danh sách câu hỏi trên.
+3. TUYỆT ĐỐI KHÔNG tự tạo ID mới, không sinh lại nội dung câu hỏi hay đáp án.
+4. Bắt buộc trả về duy nhất chuỗi JSON:
+{
+  "questionIds": ["id_1", "id_2", ...],
+  "reasoning": "Tóm tắt ngắn gọn lý do đã chọn các câu hỏi này (1-2 câu tiếng Việt)"
+}`;
 
       const res = await ai.models.generateContent({
         model: "gemini-3.5-flash-lite",

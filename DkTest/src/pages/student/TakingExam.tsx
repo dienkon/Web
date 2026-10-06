@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Clock,
@@ -146,6 +146,16 @@ export default function TakingExam() {
   );
   const [showScratchpad, setShowScratchpad] = useState(false);
   const [showCasio, setShowCasio] = useState(false);
+
+  const isUnlimitedExamTime = useMemo(() => {
+    return Boolean(
+      exam?.isUnlimitedTime ||
+      exam?.unlimitedTime ||
+      exam?.timeLimit === 0 ||
+      exam?.duration === 0 ||
+      (exam as any)?.timeLimit === -1
+    );
+  }, [exam]);
   
   // Force scroll mode on resize if mobile
   useEffect(() => {
@@ -792,7 +802,14 @@ export default function TakingExam() {
         
         // Active Exam Session & Timer Logic
         let startTime = Date.now();
-        const durationMinutes = examData.timeLimit || 45;
+        const isExamUnlimitedTime = Boolean(
+          examData.isUnlimitedTime ||
+          examData.unlimitedTime ||
+          examData.timeLimit === 0 ||
+          examData.duration === 0 ||
+          (examData as any).timeLimit === -1
+        );
+        const durationMinutes = isExamUnlimitedTime ? 0 : (examData.timeLimit || 45);
         let initialRemainingSec = 0;
 
         if (isResuming && inProgressSession) {
@@ -844,16 +861,18 @@ export default function TakingExam() {
 
           startTime = inProgressSession.startTime;
           startTimeRef.current = startTime;
-          let remainingSec = calculateRemainingSeconds({
-            startTime,
-            durationMinutes,
-            totalPausedDurationMs: totalPausedDurationMsRef.current,
-            isPaused: !!(inProgressSession as any).isPaused,
-            pauseStartedAt: (inProgressSession as any).pauseStartedAt,
-          });
+          let remainingSec = isExamUnlimitedTime
+            ? Math.floor((Date.now() - startTime - totalPausedDurationMsRef.current) / 1000)
+            : calculateRemainingSeconds({
+                startTime,
+                durationMinutes,
+                totalPausedDurationMs: totalPausedDurationMsRef.current,
+                isPaused: !!(inProgressSession as any).isPaused,
+                pauseStartedAt: (inProgressSession as any).pauseStartedAt,
+              });
 
           // Cap remaining time if exam closeTime is scheduled
-          if (examData.closeTime) {
+          if (!isExamUnlimitedTime && examData.closeTime) {
             const msUntilClose = new Date(examData.closeTime).getTime() - Date.now();
             const secUntilClose = Math.max(0, Math.floor(msUntilClose / 1000));
             if (remainingSec > secUntilClose) {
@@ -861,7 +880,7 @@ export default function TakingExam() {
             }
           }
 
-          if (remainingSec <= 0) {
+          if (!isExamUnlimitedTime && remainingSec <= 0) {
             setTimeLeft(0);
             initialRemainingSec = 0;
           } else {
@@ -884,8 +903,8 @@ export default function TakingExam() {
           startTimeRef.current = startTime;
           localStorage.setItem(`exam_startTime_${examId}_${studentIdentifier}`, startTime.toString());
 
-          let remainingSec = durationMinutes * 60;
-          if (examData.closeTime) {
+          let remainingSec = isExamUnlimitedTime ? 0 : durationMinutes * 60;
+          if (!isExamUnlimitedTime && examData.closeTime) {
             const msUntilClose = new Date(examData.closeTime).getTime() - Date.now();
             const secUntilClose = Math.max(0, Math.floor(msUntilClose / 1000));
             if (remainingSec > secUntilClose) {
@@ -893,7 +912,7 @@ export default function TakingExam() {
             }
           }
 
-          if (remainingSec <= 0) {
+          if (!isExamUnlimitedTime && remainingSec <= 0) {
             setTimeLeft(0);
             initialRemainingSec = 0;
           } else {
@@ -977,6 +996,15 @@ export default function TakingExam() {
   // Authoritative timer countdown & auto-submit when remaining time expires (Directive 9 & 10)
   useEffect(() => {
     if (loading || !exam || isPaused || sessionStatus !== "taking" || submitting) return;
+
+    // For unlimited time exams: count UP (stopwatch) and never auto-submit on timeout
+    if (isUnlimitedExamTime) {
+      const timer = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTimeRef.current - totalPausedDurationMsRef.current) / 1000);
+        setTimeLeft(Math.max(0, elapsed));
+      }, 1000);
+      return () => clearInterval(timer);
+    }
     
     // If timer is already at 0, trigger auto submit immediately
     if (timeLeft <= 0) {
@@ -1016,15 +1044,15 @@ export default function TakingExam() {
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [loading, timeLeft, exam, isPaused, sessionStatus, submitting]);
+  }, [loading, timeLeft, exam, isPaused, sessionStatus, submitting, isUnlimitedExamTime]);
 
-  // Guaranteed safeguard auto-submit when timeLeft is 0
+  // Guaranteed safeguard auto-submit when timeLeft is 0 (Timed exams only)
   useEffect(() => {
-    if (!loading && exam && timeLeft <= 0 && !hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
+    if (!isUnlimitedExamTime && !loading && exam && timeLeft <= 0 && !hasAutoSubmittedRef.current && !isSubmittingRef.current && !submitting) {
       hasAutoSubmittedRef.current = true;
       handleAutoSubmit();
     }
-  }, [loading, exam, timeLeft, submitting]);
+  }, [loading, exam, timeLeft, submitting, isUnlimitedExamTime]);
 
   // Continuously sync in-progress answers & state to localStorage (guaranteeing zero loss on refresh)
   useEffect(() => {
@@ -2110,16 +2138,27 @@ export default function TakingExam() {
             </div>
           )}
 
-          <div
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono font-bold text-sm sm:text-base border ${
-              timeLeft < 300
-                ? "bg-red-50 text-red-600 border-red-200 animate-bounce"
-                : "bg-blue-50 text-blue-700 border-blue-200"
-            }`}
-          >
-            <Clock className="w-4 h-4" />
-            <span>{formatTime(timeLeft)}</span>
-          </div>
+          {isUnlimitedExamTime ? (
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono font-bold text-xs sm:text-sm bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs"
+              title="Bài ôn tập tự do - Không giới hạn thời gian làm bài"
+            >
+              <Clock className="w-4 h-4 text-emerald-600" />
+              <span>Vô hạn</span>
+              <span className="text-[11px] text-emerald-600/80 font-normal">({formatTime(timeLeft)})</span>
+            </div>
+          ) : (
+            <div
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono font-bold text-sm sm:text-base border ${
+                timeLeft < 300
+                  ? "bg-red-50 text-red-600 border-red-200 animate-bounce"
+                  : "bg-blue-50 text-blue-700 border-blue-200"
+              }`}
+            >
+              <Clock className="w-4 h-4" />
+              <span>{formatTime(timeLeft)}</span>
+            </div>
+          )}
 
           <button
             type="button"
@@ -2500,8 +2539,10 @@ export default function TakingExam() {
                 <strong className="text-red-600 font-bold">{questions.length - answeredCount}</strong>
               </div>
               <div className="flex justify-between">
-                <span>Thời gian còn lại:</span>
-                <strong className="text-blue-600 font-bold">{formatTime(timeLeft)}</strong>
+                <span>{isUnlimitedExamTime ? "Thời gian đã làm:" : "Thời gian còn lại:"}</span>
+                <strong className={isUnlimitedExamTime ? "text-emerald-700 font-bold" : "text-blue-600 font-bold"}>
+                  {isUnlimitedExamTime ? `${formatTime(timeLeft)} (Không giới hạn)` : formatTime(timeLeft)}
+                </strong>
               </div>
             </div>
 

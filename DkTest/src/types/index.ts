@@ -35,6 +35,8 @@ export interface Exam {
 
   timeLimit: number; // in minutes
   duration?: number; // alias for timeLimit in minutes
+  isUnlimitedTime?: boolean; // Unlimited exam duration without countdown pressure
+  unlimitedTime?: boolean; // Alias for isUnlimitedTime
 
   shuffleQuestions: boolean;
   shuffleOptions: boolean;

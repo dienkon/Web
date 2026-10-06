@@ -114,6 +114,10 @@ export function calculateRemainingSeconds(params: {
   currentTime?: number;
 }): number {
   const { durationMinutes } = params;
+  if (!durationMinutes || durationMinutes <= 0) {
+    // Unlimited time mode: never expires
+    return 999999;
+  }
   const totalLimitMs = Math.max(1, durationMinutes) * 60 * 1000;
   const elapsedMs = calculateEffectiveElapsedMs(params);
   const remainingMs = totalLimitMs - elapsedMs;
