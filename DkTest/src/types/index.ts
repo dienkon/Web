@@ -200,6 +200,10 @@ export interface Question {
   shuffleOptions?: boolean; // Cho phép/không cho phép đảo thứ tự đáp án câu này (mặc định true)
   shuffleStatements?: boolean; // Cho phép/không cho phép đảo thứ tự ý Đúng/Sai (mặc định true)
 
+  // Review & Provenance tracking
+  originalQuestionId?: string;
+  originalExamId?: string;
+
   // Question-level listening audio
   audioConfig?: ExamAudioConfig;
   audioUrl?: string | null;

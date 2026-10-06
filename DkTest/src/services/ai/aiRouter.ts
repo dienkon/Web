@@ -4,6 +4,7 @@ import { parseDocxFile, processExamInChunks, processExamFromPromptStream } from 
 import { askTutor } from "./aiTutor.js";
 import { analyzeExamPerformance, analyzeStructuredExamPerformance } from "./aiAnalytics.js";
 import { lookupAndTranslate } from "./aiLookup.js";
+import { selectReviewQuestionsWithAi } from "./aiReviewSelector.js";
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
@@ -159,5 +160,33 @@ aiRouter.post("/lookup", async (req, res) => {
   } catch (err: any) {
     console.error("Error in AI Lookup:", err);
     res.status(500).json({ error: err.message || "Tra cứu thất bại" });
+  }
+});
+
+// 6. Select Review Questions using Gemini AI
+aiRouter.post("/select-review-questions", express.json(), async (req, res) => {
+  try {
+    const { candidates, userPrompt, targetCount, apiKey } = req.body;
+    const customApiKey = (req.headers["x-gemini-api-key"] as string) || apiKey;
+
+    if (!userPrompt || typeof userPrompt !== "string") {
+      return res.status(400).json({ error: "Yêu cầu của học sinh không được để trống." });
+    }
+
+    if (!Array.isArray(candidates) || candidates.length === 0) {
+      return res.status(400).json({ error: "Danh sách ứng viên câu hỏi trống." });
+    }
+
+    const result = await selectReviewQuestionsWithAi(
+      candidates,
+      userPrompt.trim(),
+      Number(targetCount) || 10,
+      customApiKey
+    );
+
+    res.json(result);
+  } catch (err: any) {
+    console.error("Error in AI Select Review Questions:", err);
+    res.status(500).json({ error: err.message || "Không thể lọc câu hỏi qua AI" });
   }
 });

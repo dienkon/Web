@@ -23,10 +23,22 @@ export function getQuestionSignature(q: Question): string {
 }
 
 /**
- * Returns all review questions directly without deduplication (per user directive).
+ * Deduplicates questions based on originalQuestionId and text signature across multi-exam reviews.
  */
 export function deduplicateQuestions(questions: Question[]): Question[] {
-  return questions.filter(Boolean);
+  const seen = new Set<string>();
+  const result: Question[] = [];
+  for (const q of questions) {
+    if (!q) continue;
+    const origId = (q as any).originalQuestionId || q.id || "";
+    const sig = getQuestionSignature(q);
+    const key = `${origId}_${sig}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push(q);
+    }
+  }
+  return result;
 }
 
 /**

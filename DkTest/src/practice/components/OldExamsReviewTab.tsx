@@ -19,6 +19,11 @@ import {
   RotateCcw,
   Sliders,
   Check,
+  Link as LinkIcon,
+  Plus,
+  Trash2,
+  ExternalLink,
+  Info,
 } from "lucide-react";
 import {
   collection,
@@ -32,40 +37,41 @@ import {
 import { db } from "../../services/firebase/config";
 import type { Submission, Exam, Question } from "../../types";
 import { formatDate, getTimestampMillis } from "../../utils/date";
-import { createAggregatedReviewExam, filterQuestionsBySubmission, getExamQuestionsSafe } from "../../services/reviewExamService";
+import {
+  createAggregatedReviewExam,
+  filterQuestionsBySubmission,
+  getExamQuestionsSafe,
+} from "../../services/reviewExamService";
 import { getMasteredQuestionsForExam } from "../../services/reviewMasteryService";
 import { useToast } from "../../components/ui/ToastNotification";
+import CustomReviewConfigurator from "../../features/review/components/CustomReviewConfigurator";
+import {
+  parseExamReferences,
+  resolveExamReferences,
+} from "../../features/review/reviewLinkResolver";
+import type { ReviewSourceExam } from "../../features/review/types";
 
-interface ExamReviewItem {
-  examId: string;
-  examTitle: string;
-  examCode?: string;
-  subject?: string;
-  category?: string;
-  latestScore: number;
-  maxScore: number;
-  correctCount: number;
-  totalCount: number;
-  wrongCount: number;
-  submittedAt: any;
-  submission: Submission;
-  exam: Exam;
-  correctedInReviewCount: number;
-  stillWrongQuestions: Question[];
-}
+const IMPORTED_STORAGE_KEY = "dktest_imported_review_refs";
 
 export default function OldExamsReviewTab() {
   const navigate = useNavigate();
-  const { error: showErrorToast, success: showSuccessToast } = useToast();
+  const { error: showErrorToast, success: showSuccessToast, info: showInfoToast } = useToast();
 
   const [loading, setLoading] = useState(true);
-  const [examItems, setExamItems] = useState<ExamReviewItem[]>([]);
+  const [examItems, setExamItems] = useState<ReviewSourceExam[]>([]);
+  const [importedItems, setImportedItems] = useState<ReviewSourceExam[]>([]);
   const [selectedExamIds, setSelectedExamIds] = useState<Set<string>>(new Set());
+
+  // Link/Code Import State
+  const [importInput, setImportInput] = useState("");
+  const [isImporting, setIsImporting] = useState(false);
+  const [showImportBox, setShowImportBox] = useState(false);
 
   // Pagination & Read-optimization: Load 1 exam first, then +5 on "Load more"
   const [allCandidates, setAllCandidates] = useState<Array<[string, Submission]>>([]);
   const [studentUser, setStudentUser] = useState<string>("");
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [userSubmissionsMap, setUserSubmissionsMap] = useState<Map<string, Submission>>(new Map());
 
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
@@ -73,9 +79,10 @@ export default function OldExamsReviewTab() {
   const [onlyWithErrors, setOnlyWithErrors] = useState(false);
 
   // Review Mode & Configuration
-  const [reviewMode, setReviewMode] = useState<"all" | "wrong">("wrong");
+  const [reviewMode, setReviewMode] = useState<"all" | "wrong" | "correct" | "custom">("wrong");
   const [shuffleQuestions, setShuffleQuestions] = useState(true);
   const [isStarting, setIsStarting] = useState(false);
+  const [isCustomConfigOpen, setIsCustomConfigOpen] = useState(false);
 
   useEffect(() => {
     loadUserExamHistory();
@@ -84,7 +91,9 @@ export default function OldExamsReviewTab() {
   const loadUserExamHistory = async () => {
     setLoading(true);
     try {
-      const infoStr = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+      const infoStr =
+        localStorage.getItem("student_info") ||
+        localStorage.getItem("current_student_session");
       let studentUsername = "";
       if (infoStr) {
         try {
@@ -104,7 +113,9 @@ export default function OldExamsReviewTab() {
           where("studentId", "==", studentUsername)
         );
         const snap = await getDocs(q);
-        console.warn(`[Firestore] READ_MANY (${snap.size} docs): submissions (loadUserExamHistory for student ${studentUsername})`);
+        console.warn(
+          `[Firestore] READ_MANY (${snap.size} docs): submissions (loadUserExamHistory for student ${studentUsername})`
+        );
         fetchedSubs = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
       }
 
@@ -134,7 +145,7 @@ export default function OldExamsReviewTab() {
         return timeB - timeA;
       });
 
-      // 1. Filter out all retake and review submissions (they only belong in personal history, not review lobby)
+      // Filter out all retake and review submissions
       const validOriginalSubs = fetchedSubs.filter((sub) => {
         if ((sub as any).isRetake || (sub as any).isAggregatedReview) return false;
         const title = sub.examTitleSnapshot || "";
@@ -142,7 +153,7 @@ export default function OldExamsReviewTab() {
         return true;
       });
 
-      // 2. Group submissions by examId, keeping ONLY the single latest submission for each exam
+      // Group submissions by examId, keeping ONLY the single latest submission for each exam
       const latestSubByExam = new Map<string, Submission>();
       for (const sub of validOriginalSubs) {
         const eId = sub.examId;
@@ -152,20 +163,25 @@ export default function OldExamsReviewTab() {
         }
       }
 
+      setUserSubmissionsMap(latestSubByExam);
+
       const allCandidatesList = Array.from(latestSubByExam.entries());
       setAllCandidates(allCandidatesList);
       setStudentUser(studentUsername);
 
-      // 3. Directive: Initial load only fetches 1 most recent exam to conserve Firestore reads
+      // Directive: Initial load only fetches 1 most recent exam to conserve Firestore reads
       const initialCandidate = allCandidatesList.slice(0, 1);
-      const items: ExamReviewItem[] = [];
+      const items: ReviewSourceExam[] = [];
 
       for (const [examId, sub] of initialCandidate) {
-        const item = await fetchSingleExamReviewItem(examId, sub, studentUsername);
+        const item = await fetchSingleExamReviewItem(examId, sub, studentUsername, "history");
         if (item) items.push(item);
       }
 
       setExamItems(items);
+
+      // Load saved imported references from localStorage
+      await restoreImportedExams(latestSubByExam, studentUsername);
     } catch (err) {
       console.error("Lỗi khi tải lịch sử ôn tập:", err);
       showErrorToast("Không thể tải lịch sử làm bài.");
@@ -174,12 +190,44 @@ export default function OldExamsReviewTab() {
     }
   };
 
-  // Helper to fetch details and mastery for a single exam item
+  // Restore imported exams from localStorage
+  const restoreImportedExams = async (
+    subMap: Map<string, Submission>,
+    studentUsername: string
+  ) => {
+    try {
+      const savedRefsRaw = localStorage.getItem(IMPORTED_STORAGE_KEY);
+      if (!savedRefsRaw) return;
+      const savedRefs: string[] = JSON.parse(savedRefsRaw);
+      if (!Array.isArray(savedRefs) || savedRefs.length === 0) return;
+
+      const { resolved } = await resolveExamReferences(savedRefs);
+      const restoredItems: ReviewSourceExam[] = [];
+
+      for (const res of resolved) {
+        const sub = subMap.get(res.exam.id);
+        const item = await buildSourceExamFromResolved(
+          res.exam,
+          sub,
+          studentUsername,
+          res.resolvedBy === "code" ? "imported_code" : "imported_link"
+        );
+        if (item) restoredItems.push(item);
+      }
+
+      setImportedItems(restoredItems);
+    } catch (err) {
+      console.warn("Could not restore imported exams:", err);
+    }
+  };
+
+  // Helper to fetch details and mastery for a single history exam item
   const fetchSingleExamReviewItem = async (
     examId: string,
     sub: Submission,
-    username: string
-  ): Promise<ExamReviewItem | null> => {
+    username: string,
+    sourceType: "history" | "imported_link" | "imported_code" = "history"
+  ): Promise<ReviewSourceExam | null> => {
     try {
       let examData: Exam | null = null;
       const eDoc = await getDoc(doc(db, "exams", examId));
@@ -199,7 +247,7 @@ export default function OldExamsReviewTab() {
         } as unknown as Exam;
       }
 
-      // Strict filter: Exclude if exam itself is a retake or review exam
+      // Exclude if exam itself is a retake or review exam
       if (
         examData.isRetake ||
         examData.isAggregatedReview ||
@@ -209,81 +257,117 @@ export default function OldExamsReviewTab() {
         return null;
       }
 
-      // Query review mastery for this exam & student
-      const masteredSet = await getMasteredQuestionsForExam(username, examId);
-
-      const examQuestions =
-        sub.shuffledQuestionsSnapshot && sub.shuffledQuestionsSnapshot.length > 0
-          ? sub.shuffledQuestionsSnapshot
-          : examData.questions && examData.questions.length > 0
-          ? examData.questions
-          : await getExamQuestionsSafe(examId);
-
-      // Get wrong questions from the latest submission
-      const rawWrongQuestions = filterQuestionsBySubmission(examQuestions, sub, "wrong");
-
-      // Mastery update: questions that were answered correctly in retakes are now marked correct in review!
-      const stillWrongQuestions = rawWrongQuestions.filter((q) => !masteredSet.has(q.id));
-      const correctedCount = rawWrongQuestions.length - stillWrongQuestions.length;
-
-      const total =
-        sub.totalCount ||
-        examData.totalQuestions ||
-        examData.questionCount ||
-        examQuestions.length ||
-        10;
-      const effectiveWrongCount = stillWrongQuestions.length;
-      const effectiveCorrectCount = Math.min(
-        total,
-        (sub.correctCount ?? (total - rawWrongQuestions.length)) + correctedCount
-      );
-      const effectiveScore = Math.min(
-        sub.maxScore || 10,
-        Math.round(((effectiveCorrectCount / total) * (sub.maxScore || 10)) * 10) / 10
-      );
-
-      // Determine Category/Subject tag
-      let category = examData.subject || "Khác";
-      const titleLower = (examData.title || "").toLowerCase();
-      if (titleLower.includes("toán") || titleLower.includes("math")) {
-        category = "Toán học";
-      } else if (
-        titleLower.includes("tiếng anh") ||
-        titleLower.includes("english") ||
-        titleLower.includes("anh văn")
-      ) {
-        category = "Tiếng Anh";
-      } else if (
-        titleLower.includes("lý") ||
-        titleLower.includes("hóa") ||
-        titleLower.includes("sinh")
-      ) {
-        category = "KHTN";
-      } else if (titleLower.includes("khảo sát") || titleLower.includes("thử")) {
-        category = "Thi thử";
-      }
-
-      return {
-        examId,
-        examTitle: examData.title || sub.examTitleSnapshot || "Bài kiểm tra",
-        examCode: examData.code || sub.examCodeSnapshot,
-        subject: examData.subject || category,
-        category,
-        latestScore: effectiveScore,
-        maxScore: sub.maxScore || 10,
-        correctCount: effectiveCorrectCount,
-        totalCount: total,
-        wrongCount: effectiveWrongCount,
-        submittedAt: sub.submittedAt,
-        submission: sub,
-        exam: examData,
-        correctedInReviewCount: correctedCount,
-        stillWrongQuestions,
-      };
+      return await buildSourceExamFromResolved(examData, sub, username, sourceType);
     } catch (itemErr) {
       console.warn("Could not process exam history item", examId, itemErr);
       return null;
     }
+  };
+
+  // Builds a ReviewSourceExam from an Exam and optional Submission
+  const buildSourceExamFromResolved = async (
+    examData: Exam,
+    sub: Submission | undefined,
+    username: string,
+    sourceType: "history" | "imported_link" | "imported_code"
+  ): Promise<ReviewSourceExam> => {
+    const examId = examData.id;
+
+    // Determine Category/Subject tag
+    let category = examData.subject || "Khác";
+    const titleLower = (examData.title || "").toLowerCase();
+    if (titleLower.includes("toán") || titleLower.includes("math")) {
+      category = "Toán học";
+    } else if (
+      titleLower.includes("tiếng anh") ||
+      titleLower.includes("english") ||
+      titleLower.includes("anh văn")
+    ) {
+      category = "Tiếng Anh";
+    } else if (
+      titleLower.includes("lý") ||
+      titleLower.includes("hóa") ||
+      titleLower.includes("sinh")
+    ) {
+      category = "KHTN";
+    } else if (titleLower.includes("khảo sát") || titleLower.includes("thử")) {
+      category = "Thi thử";
+    }
+
+    if (!sub) {
+      // Unattempted exam: no submission exists
+      const total =
+        examData.totalQuestions ||
+        examData.questionCount ||
+        (Array.isArray(examData.questions) ? examData.questions.length : 10);
+
+      return {
+        examId,
+        examTitle: examData.title || "Bài kiểm tra",
+        examCode: examData.code,
+        subject: examData.subject || category,
+        category,
+        sourceType,
+        hasAttempt: false,
+        totalCount: total,
+        correctCount: 0,
+        wrongCount: 0,
+        unansweredCount: total,
+        exam: examData,
+      };
+    }
+
+    // Has submission: calculate mastery and wrong/correct questions
+    const masteredSet = await getMasteredQuestionsForExam(username, examId);
+
+    const examQuestions =
+      sub.shuffledQuestionsSnapshot && sub.shuffledQuestionsSnapshot.length > 0
+        ? sub.shuffledQuestionsSnapshot
+        : examData.questions && examData.questions.length > 0
+        ? examData.questions
+        : await getExamQuestionsSafe(examId);
+
+    const rawWrongQuestions = filterQuestionsBySubmission(examQuestions, sub, "wrong");
+    const stillWrongQuestions = rawWrongQuestions.filter((q) => !masteredSet.has(q.id));
+    const correctedCount = rawWrongQuestions.length - stillWrongQuestions.length;
+
+    const total =
+      sub.totalCount ||
+      examData.totalQuestions ||
+      examData.questionCount ||
+      examQuestions.length ||
+      10;
+    const effectiveWrongCount = stillWrongQuestions.length;
+    const effectiveCorrectCount = Math.min(
+      total,
+      (sub.correctCount ?? (total - rawWrongQuestions.length)) + correctedCount
+    );
+    const effectiveScore = Math.min(
+      sub.maxScore || 10,
+      Math.round(((effectiveCorrectCount / total) * (sub.maxScore || 10)) * 10) / 10
+    );
+
+    return {
+      examId,
+      examTitle: examData.title || sub.examTitleSnapshot || "Bài kiểm tra",
+      examCode: examData.code || sub.examCodeSnapshot,
+      subject: examData.subject || category,
+      category,
+      sourceType,
+      hasAttempt: true,
+      latestScore: effectiveScore,
+      maxScore: sub.maxScore || 10,
+      correctCount: effectiveCorrectCount,
+      totalCount: total,
+      wrongCount: effectiveWrongCount,
+      unansweredCount: Math.max(0, total - effectiveCorrectCount - effectiveWrongCount),
+      submittedAt: sub.submittedAt,
+      submission: sub,
+      exam: examData,
+      questions: examQuestions,
+      stillWrongQuestions,
+      correctedInReviewCount: correctedCount,
+    };
   };
 
   // Handler: Load 5 more exams on user request
@@ -292,10 +376,10 @@ export default function OldExamsReviewTab() {
     setIsLoadingMore(true);
     try {
       const nextCandidates = allCandidates.slice(examItems.length, examItems.length + 5);
-      const newItems: ExamReviewItem[] = [];
+      const newItems: ReviewSourceExam[] = [];
 
       for (const [examId, sub] of nextCandidates) {
-        const item = await fetchSingleExamReviewItem(examId, sub, studentUser);
+        const item = await fetchSingleExamReviewItem(examId, sub, studentUser, "history");
         if (item) newItems.push(item);
       }
 
@@ -308,18 +392,126 @@ export default function OldExamsReviewTab() {
     }
   };
 
+  // Handler: Import exams by links or codes
+  const handleImportReferences = async () => {
+    if (!importInput.trim()) {
+      showErrorToast("Vui lòng dán ít nhất một link bài thi hoặc mã đề!");
+      return;
+    }
+
+    const parsedRefs = parseExamReferences(importInput);
+    if (parsedRefs.length === 0) {
+      showErrorToast("Không nhận diện được link hoặc mã đề hợp lệ. Vui lòng kiểm tra lại!");
+      return;
+    }
+
+    setIsImporting(true);
+    try {
+      const { resolved, failed } = await resolveExamReferences(parsedRefs);
+
+      if (resolved.length === 0) {
+        showErrorToast("Không tìm thấy bài thi nào tương ứng với các link/mã đề đã nhập.");
+        setIsImporting(false);
+        return;
+      }
+
+      const existingIds = new Set([
+        ...examItems.map((i) => i.examId),
+        ...importedItems.map((i) => i.examId),
+      ]);
+
+      const newlyImported: ReviewSourceExam[] = [];
+      const newIdsToSelect: string[] = [];
+
+      for (const res of resolved) {
+        if (!existingIds.has(res.exam.id)) {
+          const sub = userSubmissionsMap.get(res.exam.id);
+          const item = await buildSourceExamFromResolved(
+            res.exam,
+            sub,
+            studentUser,
+            res.resolvedBy === "code" ? "imported_code" : "imported_link"
+          );
+          if (item) {
+            newlyImported.push(item);
+            existingIds.add(res.exam.id);
+            newIdsToSelect.push(item.examId);
+          }
+        } else {
+          newIdsToSelect.push(res.exam.id);
+        }
+      }
+
+      const updatedImported = [...importedItems, ...newlyImported];
+      setImportedItems(updatedImported);
+
+      // Save imported references into localStorage
+      const savedRefs = updatedImported.map((i) => i.examCode || i.examId);
+      localStorage.setItem(IMPORTED_STORAGE_KEY, JSON.stringify(savedRefs));
+
+      // Auto-select newly added exams
+      setSelectedExamIds((prev) => {
+        const next = new Set(prev);
+        newIdsToSelect.forEach((id) => next.add(id));
+        return next;
+      });
+
+      setImportInput("");
+      showSuccessToast(
+        `Đã thêm thành công ${resolved.length} bài thi vào danh sách ôn tập!${
+          failed.length > 0 ? ` (${failed.length} link/mã không tìm thấy)` : ""
+        }`
+      );
+    } catch (err: any) {
+      console.error("Error importing exam references:", err);
+      showErrorToast(err?.message || "Không thể tải bài thi từ link/mã đề.");
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  // Remove an imported exam
+  const handleRemoveImportedItem = (examId: string) => {
+    const nextImported = importedItems.filter((i) => i.examId !== examId);
+    setImportedItems(nextImported);
+
+    const savedRefs = nextImported.map((i) => i.examCode || i.examId);
+    localStorage.setItem(IMPORTED_STORAGE_KEY, JSON.stringify(savedRefs));
+
+    setSelectedExamIds((prev) => {
+      const next = new Set(prev);
+      next.delete(examId);
+      return next;
+    });
+
+    showInfoToast("Đã xóa bài thi khỏi danh sách đã thêm.");
+  };
+
+  // Combined list of history exams + imported exams
+  const combinedItems = useMemo(() => {
+    const list: ReviewSourceExam[] = [...examItems];
+    const historyIds = new Set(examItems.map((i) => i.examId));
+
+    for (const imp of importedItems) {
+      if (!historyIds.has(imp.examId)) {
+        list.push(imp);
+      }
+    }
+    return list;
+  }, [examItems, importedItems]);
+
   // Distinct categories available in items
   const categories = useMemo(() => {
     const set = new Set<string>();
-    examItems.forEach((i) => {
+    combinedItems.forEach((i) => {
       if (i.category) set.add(i.category);
     });
     return Array.from(set);
-  }, [examItems]);
+  }, [combinedItems]);
 
-  // Filtered exam items
+  // Filtered items
   const filteredItems = useMemo(() => {
-    return examItems.filter((item) => {
+    return combinedItems.filter((item) => {
       if (selectedCategory !== "all" && item.category !== selectedCategory) {
         return false;
       }
@@ -334,7 +526,7 @@ export default function OldExamsReviewTab() {
       }
       return true;
     });
-  }, [examItems, selectedCategory, onlyWithErrors, searchQuery]);
+  }, [combinedItems, selectedCategory, onlyWithErrors, searchQuery]);
 
   // Handle item selection toggling
   const toggleSelectExam = (examId: string) => {
@@ -360,8 +552,8 @@ export default function OldExamsReviewTab() {
 
   // Selected items summary statistics
   const selectedItems = useMemo(() => {
-    return examItems.filter((i) => selectedExamIds.has(i.examId));
-  }, [examItems, selectedExamIds]);
+    return combinedItems.filter((i) => selectedExamIds.has(i.examId));
+  }, [combinedItems, selectedExamIds]);
 
   const totalQuestionsInSelection = useMemo(() => {
     return selectedItems.reduce((sum, item) => sum + item.totalCount, 0);
@@ -371,16 +563,35 @@ export default function OldExamsReviewTab() {
     return selectedItems.reduce((sum, item) => sum + item.wrongCount, 0);
   }, [selectedItems]);
 
-  // Start Aggregated Review Exam
+  const totalCorrectInSelection = useMemo(() => {
+    return selectedItems.reduce((sum, item) => sum + item.correctCount, 0);
+  }, [selectedItems]);
+
+  const hasUnattemptedInSelection = useMemo(() => {
+    return selectedItems.some((i) => !i.hasAttempt);
+  }, [selectedItems]);
+
+  // Start Review Exam
   const handleStartReviewExam = async () => {
     if (selectedItems.length === 0) {
       showErrorToast("Vui lòng chọn ít nhất một bài thi để bắt đầu ôn tập!");
       return;
     }
 
-    if (reviewMode === "wrong" && totalWrongInSelection === 0) {
-      showErrorToast("Các bài thi bạn chọn không có câu sai nào! Vui lòng chọn chế độ 'Làm lại tất cả'.");
+    if (reviewMode === "custom") {
+      setIsCustomConfigOpen(true);
       return;
+    }
+
+    if (reviewMode === "wrong") {
+      if (totalWrongInSelection === 0) {
+        showErrorToast(
+          hasUnattemptedInSelection
+            ? "Các bài thi bạn chọn có đề chưa làm hoặc không có câu sai! Vui lòng chọn 'Làm lại tất cả' hoặc 'Yêu cầu riêng'."
+            : "Các bài thi bạn chọn không có câu sai nào! Vui lòng chọn chế độ 'Làm lại tất cả'."
+        );
+        return;
+      }
     }
 
     setIsStarting(true);
@@ -390,13 +601,20 @@ export default function OldExamsReviewTab() {
         submission: item.submission,
         questions:
           reviewMode === "wrong"
-            ? item.stillWrongQuestions
-            : item.submission.shuffledQuestionsSnapshot || item.exam.questions,
+            ? item.stillWrongQuestions || []
+            : reviewMode === "correct"
+            ? (item.questions || []).filter((q) => {
+                const ans = item.submission?.answers?.[q.id];
+                return ans !== undefined && ans !== null && ans !== "";
+              })
+            : item.submission?.shuffledQuestionsSnapshot ||
+              item.exam.questions ||
+              item.questions,
       }));
 
       const result = await createAggregatedReviewExam({
         items: aggregatePayload,
-        mode: reviewMode,
+        mode: reviewMode === "wrong" ? "wrong" : "all",
         shuffleQuestions,
       });
 
@@ -422,26 +640,26 @@ export default function OldExamsReviewTab() {
             <span>Ôn tập thông minh & Chinh phục điểm yếu</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Ôn tập bài thi cũ
+            Ôn bài cũ & Luyện đề đa nguồn
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
-            Chọn một hoặc nhiều đề thi từ lịch sử bài làm của bạn. Hệ thống sẽ tự động tổng hợp,
-            khử các câu hỏi trùng lặp và tạo thành một đề kiểm tra hoàn chỉnh để bạn rèn luyện lại.
+            Hỗ trợ 3 nguồn bài linh hoạt: lịch sử bài đã làm, bài thêm bằng link/mã đề, và tổng hợp
+            nhiều bài song song. Tùy biến dạng câu, độ khó hoặc nhờ Gemini AI tuyển chọn đề riêng.
           </p>
         </div>
 
         {/* Quick counters */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full md:w-auto shrink-0">
           <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-2xl text-center">
-            <span className="text-[11px] font-semibold text-slate-400 block">Đề đã làm</span>
+            <span className="text-[11px] font-semibold text-slate-400 block">Đề khả dụng</span>
             <span className="text-lg sm:text-xl font-black text-slate-800">
-              {examItems.length} đề
+              {combinedItems.length} đề
             </span>
           </div>
           <div className="p-3.5 bg-rose-50/70 border border-rose-200/80 rounded-2xl text-center">
             <span className="text-[11px] font-semibold text-rose-500 block">Câu cần khắc phục</span>
             <span className="text-lg sm:text-xl font-black text-rose-700">
-              {examItems.reduce((acc, i) => acc + i.wrongCount, 0)} câu
+              {combinedItems.reduce((acc, i) => acc + i.wrongCount, 0)} câu
             </span>
           </div>
           <div className="p-3.5 bg-blue-50/70 border border-blue-200/80 rounded-2xl text-center col-span-2 sm:col-span-1">
@@ -451,6 +669,122 @@ export default function OldExamsReviewTab() {
             </span>
           </div>
         </div>
+      </div>
+
+      {/* Section: Thêm bài thi bằng Link / Mã đề */}
+      <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-200/70 flex items-center justify-center text-indigo-600">
+              <LinkIcon className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-sm font-extrabold text-slate-900 tracking-tight">
+                Thêm bài thi bằng Link hoặc Mã đề
+              </h3>
+              <p className="text-[11px] text-slate-400 font-medium">
+                Dán một hoặc nhiều link bài thi (ví dụ: https://.../student/exam/ID) hoặc mã đề để ôn tập cùng lúc.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setShowImportBox(!showImportBox)}
+            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
+          >
+            {showImportBox ? "Thu gọn" : "➕ Dán link / mã"}
+          </button>
+        </div>
+
+        {showImportBox && (
+          <div className="p-4 bg-slate-50/80 border border-slate-200 rounded-2xl space-y-3 animate-in fade-in">
+            <textarea
+              rows={3}
+              value={importInput}
+              onChange={(e) => setImportInput(e.target.value)}
+              placeholder="Dán link bài thi hoặc mã đề vào đây...&#10;Ví dụ: https://dk-test-v3.vercel.app/student/exam/EXAM_ID&#10;Hoặc mã đề: TOAN12_001 (hỗ trợ nhiều dòng)"
+              className="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
+            />
+
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+                <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <span>Hỗ trợ URL đầy đủ, đường dẫn tương đối, hoặc mã đề trực tiếp.</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleImportReferences}
+                disabled={isImporting || !importInput.trim()}
+                className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {isImporting ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Đang tìm & thêm bài thi...</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Thêm vào danh sách ôn</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Imported Items Badges */}
+        {importedItems.length > 0 && (
+          <div className="space-y-2 pt-2 border-t border-slate-100">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+              Đề thi đã thêm thủ công ({importedItems.length}):
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {importedItems.map((item) => {
+                const isSelected = selectedExamIds.has(item.examId);
+                return (
+                  <div
+                    key={item.examId}
+                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+                      isSelected
+                        ? "bg-indigo-50 border-indigo-300 text-indigo-900 shadow-2xs"
+                        : "bg-slate-50 border-slate-200 text-slate-700"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleSelectExam(item.examId)}
+                      className="cursor-pointer hover:underline truncate max-w-[200px]"
+                    >
+                      {item.examTitle}
+                    </button>
+
+                    <span
+                      className={`text-[10px] px-1.5 py-0.2 rounded-md ${
+                        item.hasAttempt
+                          ? "bg-emerald-100 text-emerald-800"
+                          : "bg-amber-100 text-amber-800"
+                      }`}
+                    >
+                      {item.hasAttempt ? "Đã làm" : "Chưa làm"}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImportedItem(item.examId)}
+                      className="text-slate-400 hover:text-rose-600 p-0.5 rounded-md hover:bg-rose-50 transition-colors cursor-pointer"
+                      title="Xóa bài thi này"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Filter and Selection Tools */}
@@ -502,7 +836,7 @@ export default function OldExamsReviewTab() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              Tất cả ({examItems.length})
+              Tất cả ({combinedItems.length})
             </button>
             {categories.map((cat) => (
               <button
@@ -515,7 +849,7 @@ export default function OldExamsReviewTab() {
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
-                {cat} ({examItems.filter((i) => i.category === cat).length})
+                {cat} ({combinedItems.filter((i) => i.category === cat).length})
               </button>
             ))}
           </div>
@@ -527,16 +861,20 @@ export default function OldExamsReviewTab() {
               onChange={(e) => setOnlyWithErrors(e.target.checked)}
               className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer"
             />
-            <span>Chỉ hiện bài có câu sai ({examItems.filter((i) => i.wrongCount > 0).length})</span>
+            <span>
+              Chỉ hiện bài có câu sai ({combinedItems.filter((i) => i.wrongCount > 0).length})
+            </span>
           </label>
         </div>
       </div>
 
-      {/* List of Previous Exams */}
+      {/* List of Exams */}
       {loading ? (
         <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl space-y-3">
           <Loader2 className="w-7 h-7 text-blue-600 animate-spin mx-auto" />
-          <p className="text-xs font-semibold text-slate-500">Đang tải lịch sử bài thi và phân tích ôn tập...</p>
+          <p className="text-xs font-semibold text-slate-500">
+            Đang tải danh sách bài thi và phân tích ôn tập...
+          </p>
         </div>
       ) : filteredItems.length === 0 ? (
         <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl space-y-3">
@@ -545,128 +883,146 @@ export default function OldExamsReviewTab() {
           <p className="text-xs text-slate-400 max-w-sm mx-auto">
             {searchQuery || selectedCategory !== "all" || onlyWithErrors
               ? "Không có bài thi nào phù hợp với bộ lọc hiện tại. Vui lòng thử lại tiêu chí khác."
-              : "Bạn chưa hoàn thành bài thi gốc nào để ôn tập. Hãy làm một bài thi để bắt đầu!"}
+              : "Bạn có thể dán link bài thi hoặc mã đề ở trên để bắt đầu ôn tập ngay!"}
           </p>
         </div>
       ) : (
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-3">
             {filteredItems.map((item) => {
-            const isSelected = selectedExamIds.has(item.examId);
+              const isSelected = selectedExamIds.has(item.examId);
 
-            return (
-              <div
-                key={item.examId}
-                onClick={() => toggleSelectExam(item.examId)}
-                className={`group p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 ${
-                  isSelected
-                    ? "bg-blue-50/60 border-blue-300 shadow-xs"
-                    : "bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-2xs"
-                }`}
+              return (
+                <div
+                  key={item.examId}
+                  onClick={() => toggleSelectExam(item.examId)}
+                  className={`group p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 ${
+                    isSelected
+                      ? "bg-blue-50/60 border-blue-300 shadow-xs"
+                      : "bg-white border-slate-200/80 hover:border-slate-300 hover:shadow-2xs"
+                  }`}
+                >
+                  <div className="flex items-start gap-3.5 min-w-0 flex-1">
+                    {/* Custom Checkbox */}
+                    <div
+                      className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
+                        isSelected
+                          ? "bg-blue-600 border-blue-600 text-white"
+                          : "bg-white border-slate-300 text-transparent"
+                      }`}
+                    >
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                    </div>
+
+                    <div className="min-w-0 space-y-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-sm text-slate-900 leading-snug line-clamp-1">
+                          {item.examTitle}
+                        </span>
+
+                        {item.examCode && (
+                          <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md border border-slate-200">
+                            {item.examCode}
+                          </span>
+                        )}
+
+                        {/* Source Badges */}
+                        {item.sourceType === "imported_link" && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200">
+                            Link bài thi
+                          </span>
+                        )}
+                        {item.sourceType === "imported_code" && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200">
+                            Mã đề
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-2.5 text-xs text-slate-400 font-medium flex-wrap pt-0.5">
+                        {item.hasAttempt ? (
+                          <>
+                            <span className="flex items-center gap-1 text-slate-700 font-bold">
+                              Điểm: {item.latestScore}/{item.maxScore}
+                            </span>
+                            <span className="flex items-center gap-1 text-emerald-600 font-semibold">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              {item.correctCount} đúng
+                            </span>
+                            {item.wrongCount > 0 ? (
+                              <span className="flex items-center gap-1 text-rose-600 font-semibold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+                                <XCircle className="w-3.5 h-3.5" />
+                                {item.wrongCount} câu sai
+                              </span>
+                            ) : (
+                              <span className="flex items-center gap-1 text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                Không còn câu sai
+                              </span>
+                            )}
+                            {item.correctedInReviewCount && item.correctedInReviewCount > 0 ? (
+                              <span className="flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                                Đã sửa đúng {item.correctedInReviewCount} câu
+                              </span>
+                            ) : null}
+                            {item.submittedAt && (
+                              <span className="flex items-center gap-1 text-slate-400">
+                                <Calendar className="w-3.5 h-3.5" />
+                                {formatDate(item.submittedAt)}
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <span className="flex items-center gap-1 text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
+                            <BookOpen className="w-3.5 h-3.5" />
+                            Chưa từng làm đề này • Sẵn sàng ôn tập
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="shrink-0 text-right">
+                    <span className="text-[11px] font-bold px-2 py-1 rounded-lg bg-slate-100 text-slate-600">
+                      {item.totalCount} câu
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Load More (+5 Exams) Button */}
+          {allCandidates.length > examItems.length && (
+            <div className="flex flex-col items-center justify-center py-6 gap-2 border-t border-slate-100 mt-4">
+              <button
+                type="button"
+                onClick={handleLoadMoreExams}
+                disabled={isLoadingMore}
+                className="px-6 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-2xl text-xs font-bold transition-all shadow-2xs hover:shadow-xs flex items-center gap-2 cursor-pointer active:scale-95"
               >
-                <div className="flex items-start gap-3.5 min-w-0 flex-1">
-                  {/* Custom Checkbox */}
-                  <div
-                    className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
-                      isSelected
-                        ? "bg-blue-600 border-blue-600 text-white"
-                        : "bg-white border-slate-300 text-transparent"
-                    }`}
-                  >
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </div>
-
-                  <div className="min-w-0 space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-bold text-sm text-slate-900 leading-snug line-clamp-1">
-                        {item.examTitle}
-                      </span>
-                      {item.examCode && (
-                        <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md border border-slate-200">
-                          {item.examCode}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-2.5 text-xs text-slate-400 font-medium flex-wrap pt-0.5">
-                      <span className="flex items-center gap-1 text-slate-700 font-bold">
-                        Điểm: {item.latestScore}/{item.maxScore}
-                      </span>
-                      <span className="flex items-center gap-1 text-emerald-600 font-semibold">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        {item.correctCount} đúng
-                      </span>
-                      {item.wrongCount > 0 ? (
-                        <span className="flex items-center gap-1 text-rose-600 font-semibold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
-                          <XCircle className="w-3.5 h-3.5" />
-                          {item.wrongCount} câu sai
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1 text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          Không còn câu sai
-                        </span>
-                      )}
-                      {item.correctedInReviewCount > 0 && (
-                        <span className="flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                          <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                          Đã làm đúng lại {item.correctedInReviewCount} câu
-                        </span>
-                      )}
-                      <span className="flex items-center gap-1 text-slate-400">
-                        <Calendar className="w-3.5 h-3.5" />
-                        {formatDate(item.submittedAt)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="shrink-0 text-right">
-                  <span className="text-[11px] font-bold px-2 py-1 rounded-lg bg-slate-100 text-slate-600">
-                    {item.totalCount} câu
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+                {isLoadingMore ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                    <span>Đang tải thêm 5 bài thi cũ...</span>
+                  </>
+                ) : (
+                  <>
+                    <ArrowRight className="w-4 h-4 text-blue-600" />
+                    <span>Tải thêm bài thi cũ (+5 bài)</span>
+                  </>
+                )}
+              </button>
+              <span className="text-[11px] text-slate-400 font-medium">
+                Đang hiển thị {examItems.length} / {allCandidates.length} bài thi từ lịch sử
+              </span>
+            </div>
+          )}
         </div>
-
-        {/* Load More (+5 Exams) Button to save Firestore Read quota */}
-        {allCandidates.length > examItems.length && (
-          <div className="flex flex-col items-center justify-center py-6 gap-2 border-t border-slate-100 mt-4">
-            <button
-              type="button"
-              onClick={handleLoadMoreExams}
-              disabled={isLoadingMore}
-              className="px-6 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-2xl text-xs font-bold transition-all shadow-2xs hover:shadow-xs flex items-center gap-2 cursor-pointer active:scale-95"
-            >
-              {isLoadingMore ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                  <span>Đang tải thêm 5 bài thi cũ...</span>
-                </>
-              ) : (
-                <>
-                  <ArrowRight className="w-4 h-4 text-blue-600" />
-                  <span>Tải thêm bài thi cũ (+5 bài)</span>
-                </>
-              )}
-            </button>
-            <span className="text-[11px] text-slate-400 font-medium">
-              Đang hiển thị {examItems.length} / {allCandidates.length} bài thi cũ
-            </span>
-          </div>
-        )}
-
-        {allCandidates.length > 0 && examItems.length >= allCandidates.length && allCandidates.length > 1 && (
-          <div className="text-center py-5 text-xs text-slate-400 font-medium">
-            ✓ Đã tải toàn bộ {allCandidates.length} bài thi cũ
-          </div>
-        )}
-      </div>
       )}
 
-      {/* Floating Bottom Action Bar (When 1+ exams selected) */}
+      {/* Floating Bottom Action Bar */}
       {selectedExamIds.size > 0 && (
         <div className="sticky bottom-6 z-40 bg-white border border-slate-200/90 rounded-3xl p-5 shadow-2xl animate-in slide-in-from-bottom-4 duration-300">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
@@ -677,42 +1033,74 @@ export default function OldExamsReviewTab() {
                   Đã chọn {selectedExamIds.size} đề thi
                 </span>
                 <span className="text-xs text-slate-500 font-semibold">
-                  Tổng số ~{totalQuestionsInSelection} câu hỏi • Phát hiện {totalWrongInSelection} câu sai
+                  Tổng số ~{totalQuestionsInSelection} câu hỏi
+                  {totalWrongInSelection > 0 && ` • ${totalWrongInSelection} câu sai`}
+                  {totalCorrectInSelection > 0 && ` • ${totalCorrectInSelection} câu đúng`}
+                  {hasUnattemptedInSelection && ` • Có đề chưa làm`}
                 </span>
               </div>
               <p className="text-xs text-slate-500">
-                Các câu hỏi trùng lặp giữa các đề sẽ được hệ thống tự động loại trừ (chỉ giữ lại 1 câu duy nhất).
+                Các câu hỏi trùng lặp giữa các đề sẽ được hệ thống tự động loại trừ an toàn.
               </p>
             </div>
 
             {/* Mode Selector & Start CTA */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
               {/* Mode Switcher */}
-              <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200 shrink-0">
+              <div className="flex bg-slate-100 p-1 rounded-2xl border border-slate-200 shrink-0 flex-wrap sm:flex-nowrap">
                 <button
                   type="button"
                   onClick={() => setReviewMode("wrong")}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                     reviewMode === "wrong"
                       ? "bg-white text-rose-700 shadow-2xs"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <XCircle className="w-3.5 h-3.5 text-rose-500" />
-                  <span>Làm lại câu sai ({totalWrongInSelection})</span>
+                  <span>Câu sai ({totalWrongInSelection})</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setReviewMode("all")}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                     reviewMode === "all"
                       ? "bg-white text-blue-700 shadow-2xs"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <Layers className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Làm lại tất cả</span>
+                  <span>Tất cả</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setReviewMode("correct")}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    reviewMode === "correct"
+                      ? "bg-white text-emerald-700 shadow-2xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Câu đúng ({totalCorrectInSelection})</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setReviewMode("custom");
+                    setIsCustomConfigOpen(true);
+                  }}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    reviewMode === "custom"
+                      ? "bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-2xs"
+                      : "text-indigo-600 hover:text-indigo-900 hover:bg-white/60"
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>✨ Yêu cầu riêng</span>
                 </button>
               </div>
 
@@ -726,7 +1114,12 @@ export default function OldExamsReviewTab() {
                 {isStarting ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Đang tổng hợp đề thi...</span>
+                    <span>Đang chuẩn bị đề thi...</span>
+                  </>
+                ) : reviewMode === "custom" ? (
+                  <>
+                    <span>Mở bộ cấu hình</span>
+                    <Sparkles className="w-4 h-4" />
                   </>
                 ) : (
                   <>
@@ -738,6 +1131,15 @@ export default function OldExamsReviewTab() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Custom Review Configurator Modal */}
+      {isCustomConfigOpen && (
+        <CustomReviewConfigurator
+          isOpen={isCustomConfigOpen}
+          onClose={() => setIsCustomConfigOpen(false)}
+          sources={selectedItems}
+        />
       )}
     </div>
   );

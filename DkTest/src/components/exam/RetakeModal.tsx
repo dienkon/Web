@@ -14,6 +14,8 @@ import {
 import type { Exam, Submission, Question } from "../../types";
 import { createRetakeExam } from "../../services/reviewExamService";
 import { useToast } from "../ui/ToastNotification";
+import CustomReviewConfigurator from "../../features/review/components/CustomReviewConfigurator";
+import type { ReviewSourceExam } from "../../features/review/types";
 
 export interface RetakeModalProps {
   isOpen: boolean;
@@ -38,10 +40,11 @@ export default function RetakeModal({
   const wrongCount = Math.max(0, totalQuestions - correctCount);
 
   // Default selection: if there are wrong questions, default to 'wrong', else 'all'
-  const [selectedMode, setSelectedMode] = useState<"all" | "correct" | "wrong">(() => {
+  const [selectedMode, setSelectedMode] = useState<"all" | "correct" | "wrong" | "custom">(() => {
     return wrongCount > 0 ? "wrong" : "all";
   });
   const [isStarting, setIsStarting] = useState(false);
+  const [isCustomConfigOpen, setIsCustomConfigOpen] = useState(false);
 
   // Sync mode if counts change
   React.useEffect(() => {
@@ -52,27 +55,56 @@ export default function RetakeModal({
         setSelectedMode("all");
       }
       setIsStarting(false);
+      setIsCustomConfigOpen(false);
     }
   }, [isOpen, wrongCount]);
+
+  const sourceExam: ReviewSourceExam = useMemo(() => {
+    const targetExam =
+      exam ||
+      ({
+        id: submission?.examId || "",
+        title: submission?.examTitleSnapshot || "Đề thi",
+        timeLimit: 45,
+        duration: 45,
+        questionCount: totalQuestions,
+        totalQuestions,
+        questions: questions || submission?.shuffledQuestionsSnapshot || [],
+      } as unknown as Exam);
+
+    return {
+      examId: targetExam.id,
+      examTitle: targetExam.title || submission?.examTitleSnapshot || "Đề thi",
+      examCode: targetExam.code || submission?.examCodeSnapshot,
+      subject: targetExam.subject,
+      sourceType: "history",
+      hasAttempt: !!submission,
+      latestScore: submission?.score,
+      maxScore: submission?.maxScore,
+      correctCount,
+      wrongCount,
+      unansweredCount: Math.max(0, totalQuestions - correctCount - wrongCount),
+      totalCount: totalQuestions,
+      submittedAt: submission?.submittedAt,
+      submission: submission || undefined,
+      exam: targetExam,
+      questions,
+    };
+  }, [exam, submission, questions, totalQuestions, correctCount, wrongCount]);
 
   if (!isOpen) return null;
 
   const handleStart = async () => {
     if (!exam && !submission) return;
 
+    if (selectedMode === "custom") {
+      setIsCustomConfigOpen(true);
+      return;
+    }
+
     setIsStarting(true);
     try {
-      const targetExam =
-        exam ||
-        ({
-          id: submission?.examId,
-          title: submission?.examTitleSnapshot || "Đề thi",
-          timeLimit: 45,
-          duration: 45,
-          questionCount: totalQuestions,
-          totalQuestions,
-          questions: questions || submission?.shuffledQuestionsSnapshot || [],
-        } as unknown as Exam);
+      const targetExam = sourceExam.exam;
 
       if (!submission) {
         throw new Error("Không tìm thấy thông tin bài nộp để xác định câu đúng/sai.");
@@ -302,6 +334,52 @@ export default function RetakeModal({
               {selectedMode === "wrong" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
             </div>
           </button>
+
+          {/* Option 4: Làm lại với yêu cầu riêng */}
+          <button
+            type="button"
+            onClick={() => setSelectedMode("custom")}
+            disabled={isStarting}
+            className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-3 ${
+              selectedMode === "custom"
+                ? "bg-linear-to-r from-indigo-50/90 to-purple-50/70 border-indigo-500 ring-2 ring-indigo-500/20 shadow-2xs"
+                : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/60"
+            }`}
+          >
+            <div className="flex items-start gap-3 min-w-0">
+              <div
+                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                  selectedMode === "custom"
+                    ? "bg-linear-to-tr from-indigo-600 to-purple-600 text-white shadow-2xs"
+                    : "bg-indigo-50 text-indigo-600"
+                }`}
+              >
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-slate-900">
+                    Làm lại với yêu cầu riêng
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-linear-to-r from-indigo-100 to-purple-100 text-indigo-800">
+                    ✨ AI & Tùy biến
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  Chọn dạng câu hỏi, độ khó, hoặc nhập yêu cầu tự nhiên để Gemini tuyển chọn đề thi riêng cho bạn.
+                </p>
+              </div>
+            </div>
+            <div
+              className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 mt-1 transition-all ${
+                selectedMode === "custom"
+                  ? "border-indigo-600 bg-indigo-600 text-white"
+                  : "border-slate-300 bg-white"
+              }`}
+            >
+              {selectedMode === "custom" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
+            </div>
+          </button>
         </div>
 
         {/* Footer Actions */}
@@ -326,6 +404,11 @@ export default function RetakeModal({
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 <span>Đang chuẩn bị đề thi...</span>
               </>
+            ) : selectedMode === "custom" ? (
+              <>
+                <span>Mở cấu hình riêng</span>
+                <Sparkles className="w-3.5 h-3.5" />
+              </>
             ) : (
               <>
                 <span>Bắt đầu làm bài</span>
@@ -335,6 +418,18 @@ export default function RetakeModal({
           </button>
         </div>
       </div>
+
+      {/* Custom Review Configurator Modal */}
+      {isCustomConfigOpen && (
+        <CustomReviewConfigurator
+          isOpen={isCustomConfigOpen}
+          onClose={() => {
+            setIsCustomConfigOpen(false);
+            onClose();
+          }}
+          sources={[sourceExam]}
+        />
+      )}
     </div>
   );
 }
