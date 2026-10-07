@@ -1,375 +1,2236 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 - Không Tìm Thấy Trang | ChemDex Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>404 - Phản Ứng Lỗi | ChemDex Virtual Laboratory</title>
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon/logo.png" />
   <link rel="shortcut icon" href="/assets/icon/logo.png" />
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <!-- FontAwesome -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <!-- Tailwind CSS CDN for instant styling -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            chem: {
-              cyan: '#06b6d4',
-              emerald: '#10b981',
-              violet: '#8b5cf6',
-              amber: '#f59e0b',
-              dark: '#0a0f1d'
-            }
-          },
-          animation: {
-            'float': 'floating 6s ease-in-out infinite',
-            'float-slow': 'floating 9s ease-in-out infinite',
-            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-            'spin-slow': 'spin 20s linear infinite',
-            'bubble': 'rise 4s ease-in infinite',
-          },
-          keyframes: {
-            floating: {
-              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-              '50%': { transform: 'translateY(-18px) rotate(2deg)' }
-            },
-            pulseGlow: {
-              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-              '50%': { opacity: '0.8', transform: 'scale(1.08)' }
-            },
-            rise: {
-              '0%': { transform: 'translateY(100%) scale(0.6)', opacity: '0' },
-              '50%': { opacity: '0.8' },
-              '100%': { transform: 'translateY(-120%) scale(1.1)', opacity: '0' }
-            }
-          }
-        }
-      }
-    }
-  </script>
+
   <style>
+    /* ==========================================================================
+       CHEMDEX 404 - FUTURISTIC CHEMICAL LABORATORY DESIGN SYSTEM
+       ========================================================================== */
+    :root {
+      --bg-space: #030712;
+      --bg-lab-dark: #050b18;
+      --cyan-neon: #00f2fe;
+      --cyan-glow: #06b6d4;
+      --blue-electric: #3b82f6;
+      --violet-neon: #a855f7;
+      --purple-deep: #7c3aed;
+      --emerald-glow: #10b981;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-cyan: rgba(6, 182, 212, 0.35);
+      --glass-surface: rgba(8, 17, 33, 0.78);
+      --glass-panel: rgba(12, 25, 48, 0.65);
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html,
     body {
-      background-color: #070b14;
-      color: #f1f5f9;
-      overflow-x: hidden;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    /* Ambient background grid */
-    .lab-grid {
-      background-image: 
-        radial-gradient(rgba(6, 182, 212, 0.12) 1px, transparent 1px),
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 32px 32px, 64px 64px, 64px 64px;
-    }
-
-    /* Flask liquid animation */
-    .flask-liquid {
-      animation: wave 3.5s ease-in-out infinite alternate;
-    }
-    @keyframes wave {
-      0% { transform: translateY(2px) skewX(1deg); }
-      100% { transform: translateY(-4px) skewX(-1.5deg); }
-    }
-
-    /* Glass card */
-    .glass-card {
-      background: rgba(15, 23, 42, 0.72);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(6, 182, 212, 0.12);
-    }
-
-    /* Hexagon pattern */
-    .hex-cell {
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    }
-
-    /* Glow pulse button */
-    .btn-glow {
-      position: relative;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(6, 182, 212, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-    .btn-glow:hover {
-      box-shadow: 0 0 40px rgba(6, 182, 212, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-      transform: translateY(-2px) scale(1.02);
-    }
-    .btn-glow:active {
-      transform: translateY(1px) scale(0.98);
-    }
-
-    /* Particle canvas */
-    #bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-space);
+      color: var(--text-white);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      position: relative;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    ::selection {
+      background: var(--cyan-glow);
+      color: #000;
+    }
+
+    /* Fullscreen Lab Viewport */
+    .lab-viewport {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      perspective: 1200px;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    /* ==========================================================================
+       LAYER 0 & 1: DEEP BACKGROUND & SCI-FI ATMOSPHERICS
+       ========================================================================== */
+    .lab-bg-room {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(6, 182, 212, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 15% 45%, rgba(59, 130, 246, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 40%, rgba(139, 92, 246, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 100%, rgba(2, 6, 23, 0.95) 0%, #030712 100%);
+      transition: opacity 1.2s ease;
+    }
+
+    /* Ambient Depth Grid & Perspective Horizon */
+    .lab-grid-floor {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 60vh;
+      background-image:
+        linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(59, 130, 246, 0.07) 1px, transparent 1px);
+      background-size: 48px 24px;
+      transform: perspective(600px) rotateX(65deg);
+      transform-origin: bottom center;
+      opacity: 0.4;
+      mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 90%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 90%);
       pointer-events: none;
       z-index: 1;
     }
+
+    /* Overhead Cold Light Beams */
+    .lab-light-shaft {
+      position: fixed;
+      top: -10%;
+      width: 450px;
+      height: 90vh;
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.12) 0%, rgba(59, 130, 246, 0.03) 60%, transparent 100%);
+      transform-origin: top center;
+      filter: blur(40px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lab-light-shaft.left {
+      left: 15%;
+      transform: rotate(-14deg);
+    }
+
+    .lab-light-shaft.center {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.15) 0%, rgba(139, 92, 246, 0.04) 50%, transparent 100%);
+    }
+
+    .lab-light-shaft.right {
+      right: 15%;
+      transform: rotate(14deg);
+    }
+
+    /* Blurred Background Laboratory Equipment Shelves */
+    .lab-bg-shelves {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      filter: blur(14px);
+      transform: scale(1.05);
+      transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), filter 1.8s ease, transform 1.8s ease;
+    }
+
+    .lab-bg-shelves svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Canvas for Real-time Chemical Particle System + Convergence */
+    #lab-particle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       LAYER 2: MIDGROUND HOLOGRAPHIC SCIENTIFIC SCREENS (LEFT & RIGHT)
+       ========================================================================== */
+    .lab-hologram-monitor {
+      position: absolute;
+      top: 18%;
+      width: 250px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(8, 20, 42, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.6),
+        0 0 25px rgba(6, 182, 212, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lab-hologram-monitor.left {
+      left: 4%;
+      transform: translateY(30px) rotateY(16deg) scale(0.95);
+      transform-origin: center right;
+    }
+
+    .lab-hologram-monitor.right {
+      right: 4%;
+      transform: translateY(30px) rotateY(-16deg) scale(0.95);
+      transform-origin: center left;
+    }
+
+    .holo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .holo-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--cyan-neon);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .holo-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan-neon);
+      box-shadow: 0 0 8px var(--cyan-neon);
+      animation: pulse-dot 2s infinite ease-in-out;
+    }
+
+    .holo-body {
+      font-size: 10px;
+      line-height: 1.6;
+      color: rgba(226, 232, 240, 0.7);
+      font-family: var(--font-mono);
+    }
+
+    .holo-body span.highlight {
+      color: var(--cyan-neon);
+      font-weight: 600;
+    }
+
+    .holo-badge-grid {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .holo-badge {
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      font-size: 9px;
+      font-weight: 700;
+      color: #7dd3fc;
+    }
+
+    /* 3D Ball-and-Stick Rotating Molecule Graphic inside Left Monitor */
+    .holo-molecule-svg {
+      width: 100%;
+      height: 75px;
+      margin-top: 4px;
+      filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.5));
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: scale(0.9);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    /* ==========================================================================
+       LAYER 3: FOREGROUND LABORATORY EQUIPMENT (LEFT BEAKER & RIGHT RACK)
+       ========================================================================== */
+    .lab-foreground-object {
+      position: absolute;
+      bottom: 6%;
+      z-index: 6;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(40px) scale(0.94);
+      filter: blur(8px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
+    }
+
+    .lab-foreground-object.left-beaker {
+      left: 2%;
+      width: 220px;
+      height: 290px;
+    }
+
+    .lab-foreground-object.right-tubes {
+      right: 2%;
+      width: 240px;
+      height: 300px;
+    }
+
+    .lab-foreground-object svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(6, 182, 212, 0.3));
+    }
+
+    /* ==========================================================================
+       HERO CENTERPIECE: STAGE, PEDESTAL, FLASK & 404 SIGNATURE HOLOGRAM
+       ========================================================================== */
+    .center-stage-container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 1rem;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Central Pedestal / Sci-Fi Dais Platform */
+    .sci-fi-pedestal {
+      position: relative;
+      width: 380px;
+      height: 110px;
+      margin-top: -30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .pedestal-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 35px rgba(6, 182, 212, 0.5));
+    }
+
+    /* Impact Ring Animation when Flask Lands */
+    .pedestal-impact-ripple {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      width: 40px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--cyan-neon);
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 0 20px var(--cyan-neon), inset 0 0 15px var(--cyan-neon);
+    }
+
+    .pedestal-impact-ripple.active {
+      animation: ripple-shockwave 0.8s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes ripple-shockwave {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(6.5);
+        opacity: 0;
+      }
+    }
+
+    /* Flask Elevator Wrapper (Emerges from beneath the dais) */
+    .flask-elevator-track {
+      position: relative;
+      width: 220px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 12;
+      overflow: visible;
+      cursor: pointer;
+    }
+
+    .hero-flask-wrapper {
+      position: relative;
+      width: 180px;
+      height: 230px;
+      transform-origin: bottom center;
+      /* Emergence initial state */
+      transform: translateY(180px) scale(0.85);
+      opacity: 0;
+      filter: blur(10px);
+      transition: none;
+      /* Managed by JS timeline with spring physics */
+    }
+
+    /* Flask wobble keyframe */
+    @keyframes flask-wobble-shake {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      20% {
+        transform: translateY(-4px) rotate(-3.5deg);
+      }
+
+      40% {
+        transform: translateY(0) rotate(3deg);
+      }
+
+      60% {
+        transform: translateY(-2px) rotate(-1.5deg);
+      }
+
+      80% {
+        transform: translateY(0) rotate(1deg);
+      }
+
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    /* Flask idle floating after intro */
+    .hero-flask-wrapper.idle-floating {
+      animation: flask-idle-breath 5.5s ease-in-out infinite;
+    }
+
+    @keyframes flask-idle-breath {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-5px) rotate(0.6deg);
+      }
+    }
+
+    /* The Flask SVG */
+    .flask-glass-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.65)) drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
+    }
+
+    /* Liquid inside Flask with Physics Wave */
+    .liquid-wave-path {
+      transition: fill 1s ease;
+      animation: liquid-fluid-slosh 3.8s ease-in-out infinite alternate;
+      transform-origin: 50% 65%;
+    }
+
+    @keyframes liquid-fluid-slosh {
+      0% {
+        transform: translateY(1.5px) rotate(-1.5deg);
+      }
+
+      50% {
+        transform: translateY(-2px) rotate(1.2deg);
+      }
+
+      100% {
+        transform: translateY(2px) rotate(-0.8deg);
+      }
+    }
+
+    /* Reactive Chemical Fluid Glow */
+    .liquid-core-glow {
+      opacity: 0.6;
+      transition: opacity 1s ease, filter 1s ease;
+    }
+
+    .liquid-core-glow.active {
+      opacity: 0.95;
+      filter: drop-shadow(0 0 20px #00f2fe);
+    }
+
+    /* Chemical Notation Floating Fragments */
+    .chem-notation-particle {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(6, 182, 212, 0.85);
+      text-shadow: 0 0 8px rgba(6, 182, 212, 0.9);
+      pointer-events: none;
+      opacity: 0;
+      transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.8s ease;
+    }
+
+    /* Rising Bioluminescent Vapor Streams */
+    .vapor-emitter-anchor {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 20px;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    /* ==========================================================================
+       THE HOLOGRAPHIC 404 (SIGNATURE VISUAL)
+       ========================================================================== */
+    .hologram-404-container {
+      position: relative;
+      margin-bottom: -15px;
+      width: 100%;
+      max-width: 620px;
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      opacity: 0;
+      transform: scale(0.92) translateY(15px);
+      filter: blur(12px);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+    }
+
+    .hologram-404-container.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0px);
+    }
+
+    .hologram-404-container.idle-glow {
+      animation: holo-404-breathe 4s ease-in-out infinite;
+    }
+
+    @keyframes holo-404-breathe {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.65)) drop-shadow(0 0 50px rgba(168, 85, 247, 0.35));
+        transform: translateY(0px);
+      }
+
+      50% {
+        filter: drop-shadow(0 0 45px rgba(6, 182, 212, 0.85)) drop-shadow(0 0 75px rgba(168, 85, 247, 0.55));
+        transform: translateY(-4px);
+      }
+    }
+
+    /* The SVG 404 Artwork with Volumetric Glass, Nebula Gradient & Molecular Lattice */
+    .holo-404-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Molecular Nodes on the 404 glyphs */
+    .molecule-node-circle {
+      animation: node-pulse-shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes node-pulse-shimmer {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 6px var(--cyan-neon));
+      }
+
+      50% {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 12px #c084fc);
+      }
+    }
+
+    /* ==========================================================================
+       HUD STATUS BADGE (MOUNTED BELOW PLATFORM)
+       ========================================================================== */
+    .hud-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 20px;
+      border-radius: 9999px;
+      background: rgba(6, 22, 44, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(6, 182, 212, 0.45);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.7),
+        0 0 25px rgba(6, 182, 212, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cyan-neon);
+      margin-top: 10px;
+      margin-bottom: 1.25rem;
+      z-index: 25;
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(6px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+    }
+
+    .hud-status-badge.visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .hud-flask-icon {
+      font-size: 13px;
+      color: var(--cyan-neon);
+      filter: drop-shadow(0 0 6px var(--cyan-neon));
+      animation: pulse-dot 2.5s infinite;
+    }
+
+    .hud-divider {
+      color: rgba(6, 182, 212, 0.4);
+    }
+
+    /* ==========================================================================
+       INFORMATION CONTENT & ACTIONS
+       ========================================================================== */
+    .lab-content-card {
+      position: relative;
+      z-index: 30;
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Headline: Liên Kết Bị Đứt Gãy! */
+    .lab-main-title {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.85rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 45%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.45));
+      opacity: 0;
+      transform: translateY(25px);
+      filter: blur(12px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s ease;
+    }
+
+    /* Subtitle Description */
+    .lab-description {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      line-height: 1.65;
+      color: #cbd5e1;
+      max-width: 580px;
+      margin: 0 auto 1.85rem;
+      font-weight: 450;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Primary & Secondary Action Buttons */
+    .lab-actions-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Primary Button: VỀ TRANG CHỦ CHEMDEX → */
+    .btn-chem-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 34px;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #00f2fe 0%, #06b6d4 50%, #38bdf8 100%);
+      color: #020617;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow:
+        0 0 35px rgba(6, 182, 212, 0.55),
+        0 10px 25px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-chem-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 0 50px rgba(6, 182, 212, 0.85),
+        0 15px 35px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      color: #000;
+    }
+
+    .btn-chem-primary:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .btn-chem-primary .fa-arrow-right {
+      transition: transform 0.25s ease;
+    }
+
+    .btn-chem-primary:hover .fa-arrow-right {
+      transform: translateX(4px);
+    }
+
+    /* Secondary Button: ← Trang Trước */
+    .btn-chem-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #f1f5f9;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .btn-chem-secondary:hover {
+      transform: translateY(-2px);
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(6, 182, 212, 0.5);
+      color: #fff;
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.25), 0 10px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-chem-secondary:active {
+      transform: translateY(1px);
+    }
+
+    /* ==========================================================================
+       SECTION DIVIDER & EXPERIMENT SHORTCUTS
+       ========================================================================== */
+    .shortcuts-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .shortcuts-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: scaleX(0.9);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.35), transparent);
+    }
+
+    .divider-text {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .shortcuts-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .shortcut-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .shortcut-pill:hover {
+      transform: translateY(-3px);
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(6, 182, 212, 0.4);
+      color: #fff;
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.25), 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .shortcut-pill.lab3d:hover {
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+    }
+
+    .shortcut-pill.safety:hover {
+      border-color: rgba(16, 185, 129, 0.6);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+    }
+
+    .shortcut-pill.center:hover {
+      border-color: rgba(168, 85, 247, 0.6);
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);
+    }
+
+    .shortcut-pill .icon-box {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .shortcut-pill:hover .icon-box {
+      transform: scale(1.12) rotate(4deg);
+    }
+
+    .shortcut-pill.lab3d .icon-box {
+      color: var(--cyan-neon);
+      background: rgba(6, 182, 212, 0.15);
+    }
+
+    .shortcut-pill.safety .icon-box {
+      color: var(--emerald-glow);
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .shortcut-pill.center .icon-box {
+      color: var(--violet-neon);
+      background: rgba(168, 85, 247, 0.15);
+    }
+
+    /* Footer Meta */
+    .lab-footer-meta {
+      margin-top: 2rem;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      z-index: 30;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    /* Interactive Replay Badge */
+    .lab-replay-btn {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 9999px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      opacity: 0;
+    }
+
+    .lab-replay-btn:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: var(--cyan-neon);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+    }
+
+    .lab-replay-btn i {
+      transition: transform 0.4s ease;
+    }
+
+    .lab-replay-btn:hover i {
+      transform: rotate(180deg);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE ADAPTATIONS
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .lab-hologram-monitor {
+        display: none;
+      }
+
+      .lab-foreground-object.left-beaker {
+        width: 160px;
+        height: 220px;
+        opacity: 0.3 !important;
+      }
+
+      .lab-foreground-object.right-tubes {
+        width: 170px;
+        height: 230px;
+        opacity: 0.3 !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .lab-foreground-object {
+        display: none;
+      }
+
+      .sci-fi-pedestal {
+        width: 300px;
+        height: 90px;
+        margin-top: -20px;
+      }
+
+      .flask-elevator-track {
+        width: 170px;
+        height: 200px;
+      }
+
+      .hero-flask-wrapper {
+        width: 145px;
+        height: 195px;
+      }
+
+      .hologram-404-container {
+        height: 150px;
+        margin-bottom: -10px;
+      }
+
+      .lab-main-title {
+        font-size: 1.85rem;
+      }
+
+      .lab-actions-group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn-chem-primary,
+      .btn-chem-secondary {
+        width: 100%;
+      }
+
+      .shortcuts-grid {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .shortcut-pill {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .lab-replay-btn {
+        top: 0.75rem;
+        right: 0.75rem;
+        padding: 6px 10px;
+        font-size: 10px;
+      }
+    }
+
+    /* Accessibility: Prefers Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001s !important;
+      }
+
+      .hero-flask-wrapper {
+        transform: translateY(0) scale(1) !important;
+        opacity: 1 !important;
+        filter: blur(0) !important;
+      }
+
+      .hologram-404-container,
+      .hud-status-badge,
+      .lab-main-title,
+      .lab-description,
+      .lab-actions-group,
+      .shortcuts-divider,
+      .shortcut-pill,
+      .lab-footer-meta,
+      .sci-fi-pedestal,
+      .lab-replay-btn {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen relative flex items-center justify-center p-4 selection:bg-cyan-500 selection:text-black">
 
-  <!-- Interactive Chemical Particles Canvas -->
-  <canvas id="bg-canvas"></canvas>
+<body>
 
-  <!-- Ambient Light Orbs -->
-  <div class="fixed top-1/4 -left-32 w-96 h-96 bg-cyan-600/20 rounded-full blur-[130px] pointer-events-none animate-pulse-glow"></div>
-  <div class="fixed bottom-1/4 -right-32 w-96 h-96 bg-violet-600/20 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" style="animation-delay: 1.5s;"></div>
-  <div class="fixed -bottom-20 left-1/3 w-80 h-80 bg-emerald-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+  <!-- Replay Button (Discreet Floating Control) -->
+  <button id="btn-replay" class="lab-replay-btn" title="Khởi động lại trải nghiệm phòng lab">
+    <i class="fa-solid fa-arrows-rotate"></i>
+    <span>REBOOT SIMULATION</span>
+  </button>
 
-  <!-- Decorative Molecular Ring in background -->
-  <div class="fixed inset-0 flex items-center justify-center pointer-events-none opacity-20 z-0">
-    <div class="w-[620px] h-[620px] rounded-full border border-dashed border-cyan-400/40 animate-spin-slow"></div>
-    <div class="w-[850px] h-[850px] rounded-full border border-dotted border-violet-400/30 animate-spin-slow absolute" style="animation-direction: reverse; animation-duration: 35s;"></div>
+  <!-- Deep Background Room & Atmospherics -->
+  <div class="lab-bg-room" id="lab-bg-room"></div>
+  <div class="lab-grid-floor"></div>
+
+  <!-- Overhead Cold Light Shafts -->
+  <div class="lab-light-shaft left" id="shaft-left"></div>
+  <div class="lab-light-shaft center" id="shaft-center"></div>
+  <div class="lab-light-shaft right" id="shaft-right"></div>
+
+  <!-- Distant Background Shelves (Blurred Depth Layer) -->
+  <div class="lab-bg-shelves" id="lab-shelves">
+    <svg viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- Background Lab Shelves & Equipment Silhouettes -->
+      <line x1="100" y1="280" x2="600" y2="280" stroke="rgba(6, 182, 212, 0.15)" stroke-width="4" />
+      <line x1="100" y1="420" x2="600" y2="420" stroke="rgba(6, 182, 212, 0.15)" stroke-width="4" />
+      <line x1="1000" y1="280" x2="1500" y2="280" stroke="rgba(168, 85, 247, 0.12)" stroke-width="4" />
+      <line x1="1000" y1="420" x2="1500" y2="420" stroke="rgba(168, 85, 247, 0.12)" stroke-width="4" />
+
+      <!-- Glowing Chemical Reagent Bottles on Shelves -->
+      <rect x="180" y="210" width="34" height="70" rx="4" fill="rgba(6, 182, 212, 0.25)" />
+      <rect x="230" y="225" width="28" height="55" rx="3" fill="rgba(59, 130, 246, 0.3)" />
+      <rect x="275" y="195" width="42" height="85" rx="5" fill="rgba(16, 185, 129, 0.25)" />
+      <rect x="330" y="235" width="30" height="45" rx="4" fill="rgba(245, 158, 11, 0.2)" />
+      <circle cx="410" cy="245" r="28" fill="rgba(6, 182, 212, 0.2)" />
+
+      <!-- Right Shelves Reagents -->
+      <rect x="1050" y="200" width="38" height="80" rx="4" fill="rgba(168, 85, 247, 0.25)" />
+      <rect x="1110" y="220" width="30" height="60" rx="3" fill="rgba(6, 182, 212, 0.2)" />
+      <rect x="1160" y="190" width="45" height="90" rx="5" fill="rgba(59, 130, 246, 0.25)" />
+      <rect x="1225" y="230" width="32" height="50" rx="4" fill="rgba(244, 63, 94, 0.18)" />
+
+      <!-- Ambient Molecular Diagram Lines -->
+      <path d="M720 180 L760 150 L800 180 L800 230 L760 260 L720 230 Z" stroke="rgba(6, 182, 212, 0.18)"
+        stroke-width="1.5" stroke-dasharray="4 4" />
+      <path d="M800 180 L840 150 L880 180" stroke="rgba(168, 85, 247, 0.15)" stroke-width="1.5" />
+    </svg>
   </div>
 
-  <!-- Main Container -->
-  <main class="relative z-10 w-full max-w-2xl mx-auto my-auto text-center">
-    
-    <!-- Glass Laboratory Card -->
-    <div class="glass-card rounded-3xl p-6 sm:p-10 md:p-12 relative overflow-hidden border border-cyan-500/20">
-      
-      <!-- Top Lab Header Badge -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider mb-6 shadow-inner">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <i class="fa-solid fa-triangle-exclamation text-[11px]"></i>
-        <span>Phản Ứng Lỗi (Status Code 404)</span>
+  <!-- Particle Simulation Canvas -->
+  <canvas id="lab-particle-canvas"></canvas>
+
+  <!-- Left Hologram Monitor (Chemistry Experiment Knowledge Discovery) -->
+  <div class="lab-hologram-monitor left" id="monitor-left">
+    <div class="holo-header">
+      <div class="holo-title">
+        <i class="fa-solid fa-atom"></i>
+        <span>CHEMDEX</span>
+      </div>
+      <div class="holo-status-dot"></div>
+    </div>
+    <div class="holo-body">
+      <div class="holo-badge-grid">
+        <div class="holo-badge">CHEMISTRY</div>
+        <div class="holo-badge">VIRTUAL</div>
+      </div>
+      <p style="margin-bottom: 6px;">EXPERIMENT PROTOCOL</p>
+      <p style="color: var(--cyan-neon); font-size: 9px; margin-bottom: 8px;">KNOWLEDGE DISCOVERY</p>
+
+      <!-- Interactive Rotating Molecule SVG -->
+      <svg class="holo-molecule-svg" viewBox="0 0 120 70">
+        <!-- Bond Lines -->
+        <line x1="30" y1="35" x2="60" y2="20" stroke="#00f2fe" stroke-width="2" opacity="0.7" />
+        <line x1="60" y1="20" x2="90" y2="35" stroke="#00f2fe" stroke-width="2" opacity="0.7" />
+        <line x1="60" y1="20" x2="60" y2="55" stroke="#a855f7" stroke-width="2" opacity="0.7" />
+        <line x1="30" y1="35" x2="15" y2="55" stroke="#38bdf8" stroke-width="2" opacity="0.7" />
+        <line x1="90" y1="35" x2="105" y2="55" stroke="#38bdf8" stroke-width="2" opacity="0.7" />
+        <!-- Molecule Spheres -->
+        <circle cx="60" cy="20" r="8" fill="#00f2fe" filter="drop-shadow(0 0 4px #00f2fe)" />
+        <circle cx="30" cy="35" r="7" fill="#38bdf8" />
+        <circle cx="90" cy="35" r="7" fill="#38bdf8" />
+        <circle cx="60" cy="55" r="9" fill="#a855f7" filter="drop-shadow(0 0 6px #a855f7)" />
+        <circle cx="15" cy="55" r="5" fill="#7dd3fc" />
+        <circle cx="105" cy="55" r="5" fill="#7dd3fc" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Right Hologram Monitor (Periodic Table & Mission Status) -->
+  <div class="lab-hologram-monitor right" id="monitor-right">
+    <div class="holo-header">
+      <div class="holo-title">
+        <i class="fa-solid fa-microscope"></i>
+        <span>SYSTEM LOG</span>
+      </div>
+      <div class="holo-status-dot"></div>
+    </div>
+    <div class="holo-body">
+      <div class="holo-badge-grid">
+        <div class="holo-badge">04</div>
+        <div class="holo-badge">16</div>
+        <div class="holo-badge">Ch</div>
+      </div>
+      <p style="margin-bottom: 4px;">KHÁM PHÁ THÍ NGHIỆM</p>
+      <p style="margin-bottom: 4px;">KIẾN THỨC TOÀN DIỆN</p>
+      <p
+        style="color: #a855f7; font-size: 9.5px; margin-top: 6px; border-top: 1px dashed rgba(168, 85, 247, 0.3); padding-top: 6px;">
+        VÌ MỘT THẾ GIỚI HÓA HỌC TỐT ĐẸP HƠN
+      </p>
+    </div>
+  </div>
+
+  <!-- Foreground Left: Sharp Glass Erlenmeyer Beaker -->
+  <div class="lab-foreground-object left-beaker" id="fg-left">
+    <svg viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Beaker Outline -->
+      <path d="M40 30 H120 V50 L140 180 C143 198 130 210 115 210 H45 C30 210 17 198 20 180 L40 50 Z"
+        stroke="rgba(125, 211, 252, 0.65)" stroke-width="3" fill="rgba(8, 20, 40, 0.35)" />
+      <!-- Beaker Liquid with Cyan-Blue Glow -->
+      <path
+        d="M26 140 C45 136 75 142 105 137 C122 134 132 138 134 140 L140 180 C143 198 130 210 115 210 H45 C30 210 17 198 20 180 Z"
+        fill="url(#fg-beaker-gradient)" opacity="0.85" />
+      <!-- Liquid Surface Highlight -->
+      <ellipse cx="80" cy="138" rx="54" ry="7" fill="rgba(165, 243, 252, 0.5)" />
+      <!-- Graduations -->
+      <line x1="45" y1="80" x2="65" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" />
+      <line x1="40" y1="110" x2="65" y2="110" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" />
+      <line x1="35" y1="140" x2="65" y2="140" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" />
+      <line x1="30" y1="170" x2="65" y2="170" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" />
+      <!-- Glass Specular Highlight -->
+      <path d="M42 55 L24 175" stroke="rgba(255, 255, 255, 0.6)" stroke-width="2" stroke-linecap="round" />
+      <defs>
+        <linearGradient id="fg-beaker-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00f2fe" />
+          <stop offset="60%" stop-color="#0284c7" />
+          <stop offset="100%" stop-color="#0f172a" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Foreground Right: Test Tube Rack & Microscope Silhouette -->
+  <div class="lab-foreground-object right-tubes" id="fg-right">
+    <svg viewBox="0 0 180 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Rack Base & Bars -->
+      <rect x="15" y="195" width="150" height="15" rx="3" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(56, 189, 248, 0.3)"
+        stroke-width="1.5" />
+      <rect x="15" y="75" width="150" height="8" rx="2" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(56, 189, 248, 0.3)"
+        stroke-width="1.5" />
+
+      <!-- Tube 1 (Cyan Reactive Liquid) -->
+      <rect x="35" y="40" width="18" height="155" rx="9" fill="rgba(8, 20, 42, 0.3)" stroke="rgba(125, 211, 252, 0.7)"
+        stroke-width="2" />
+      <path d="M35 110 H53 V186 C53 191 49 195 44 195 C39 195 35 191 35 186 Z" fill="#00f2fe" opacity="0.85"
+        filter="drop-shadow(0 0 6px #00f2fe)" />
+
+      <!-- Tube 2 (Violet / Indigo Liquid) -->
+      <rect x="68" y="40" width="18" height="155" rx="9" fill="rgba(8, 20, 42, 0.3)" stroke="rgba(192, 132, 252, 0.7)"
+        stroke-width="2" />
+      <path d="M68 95 H86 V186 C86 191 82 195 77 195 C72 195 68 191 68 186 Z" fill="#a855f7" opacity="0.85"
+        filter="drop-shadow(0 0 6px #a855f7)" />
+
+      <!-- Tube 3 (Electric Blue Liquid) -->
+      <rect x="101" y="40" width="18" height="155" rx="9" fill="rgba(8, 20, 42, 0.3)" stroke="rgba(125, 211, 252, 0.7)"
+        stroke-width="2" />
+      <path d="M101 130 H119 V186 C119 191 115 195 110 195 C105 195 101 191 101 186 Z" fill="#38bdf8" opacity="0.85" />
+
+      <!-- Tube 4 (Amber Reagent) -->
+      <rect x="134" y="40" width="18" height="155" rx="9" fill="rgba(8, 20, 42, 0.3)" stroke="rgba(251, 191, 36, 0.6)"
+        stroke-width="2" />
+      <path d="M134 120 H152 V186 C152 191 148 195 143 195 C138 195 134 191 134 186 Z" fill="#f59e0b" opacity="0.8"
+        filter="drop-shadow(0 0 5px #f59e0b)" />
+    </svg>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN SCENE WRAPPER
+       ========================================================================== -->
+  <main class="lab-viewport">
+
+    <!-- Hero Laboratory Centerpiece (404 Hologram + Emerged Flask + Sci-Fi Dais) -->
+    <div class="center-stage-container" id="center-stage">
+
+      <!-- Signature Holographic 404 Interwoven with Molecular Network -->
+      <div class="hologram-404-container" id="holo-404">
+        <svg class="holo-404-svg" viewBox="0 0 600 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Luminous Hologram Gradients -->
+            <linearGradient id="holo-glass-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.9" />
+              <stop offset="45%" stop-color="#38bdf8" stop-opacity="0.8" />
+              <stop offset="75%" stop-color="#a855f7" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#c084fc" stop-opacity="0.95" />
+            </linearGradient>
+
+            <linearGradient id="holo-inner-grad" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stop-color="rgba(255, 255, 255, 0.6)" />
+              <stop offset="60%" stop-color="rgba(6, 182, 212, 0.25)" />
+              <stop offset="100%" stop-color="rgba(168, 85, 247, 0.3)" />
+            </linearGradient>
+
+            <!-- Glow Filters -->
+            <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="8" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
+            <filter id="intense-glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="15" result="blur1" />
+              <feGaussianBlur stdDeviation="6" result="blur2" />
+              <feMerge>
+                <feMergeNode in="blur1" />
+                <feMergeNode in="blur2" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Molecular Bond Lines Interconnecting the 404 Structure -->
+          <g stroke="#00f2fe" stroke-width="2" opacity="0.65" filter="url(#neon-glow)">
+            <line x1="80" y1="140" x2="160" y2="40" />
+            <line x1="160" y1="40" x2="160" y2="140" />
+            <line x1="60" y1="110" x2="200" y2="110" />
+            <!-- Bond between 4 and 0 -->
+            <line x1="200" y1="110" x2="245" y2="90" stroke="#a855f7" stroke-dasharray="4 3" />
+            <!-- Bonds on 0 -->
+            <line x1="245" y1="90" x2="300" y2="40" />
+            <line x1="300" y1="40" x2="355" y2="90" />
+            <line x1="355" y1="90" x2="300" y2="140" />
+            <line x1="300" y1="140" x2="245" y2="90" />
+            <!-- Bond between 0 and second 4 -->
+            <line x1="355" y1="90" x2="400" y2="110" stroke="#a855f7" stroke-dasharray="4 3" />
+            <!-- Bonds on second 4 -->
+            <line x1="420" y1="140" x2="500" y2="40" />
+            <line x1="500" y1="40" x2="500" y2="140" />
+            <line x1="400" y1="110" x2="540" y2="110" />
+          </g>
+
+          <!-- Volumetric 404 Glyphs (First '4') -->
+          <g filter="url(#intense-glow)">
+            <!-- Outer Glass Stroke -->
+            <path d="M140 35 L65 118 H152 V148 H172 V118 H195 V96 H172 V35 H140 Z M148 62 V96 H97 L148 62 Z"
+              fill="url(#holo-inner-grad)" stroke="url(#holo-glass-grad)" stroke-width="4" stroke-linejoin="round" />
+            <!-- Specular Edge Shimmer -->
+            <path d="M140 38 L68 116 H148" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+          </g>
+
+          <!-- Volumetric 404 Glyphs (Central '0') - Positioned above the flask -->
+          <g filter="url(#intense-glow)">
+            <!-- Outer Glass Loop -->
+            <path
+              d="M300 32 C260 32 235 62 235 95 C235 128 260 158 300 158 C340 158 365 128 365 95 C365 62 340 32 300 32 Z M300 58 C325 58 338 74 338 95 C338 116 325 132 300 132 C275 132 262 116 262 95 C262 74 275 58 300 58 Z"
+              fill="url(#holo-inner-grad)" stroke="url(#holo-glass-grad)" stroke-width="4" stroke-linejoin="round" />
+            <!-- Inner Glowing Liquid Sparkles -->
+            <ellipse cx="300" cy="95" rx="20" ry="25" fill="none" stroke="rgba(0, 242, 254, 0.4)" stroke-width="1.5"
+              stroke-dasharray="5 3" />
+            <path d="M260 55 C275 42 325 42 340 55" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"
+              opacity="0.8" />
+          </g>
+
+          <!-- Volumetric 404 Glyphs (Second '4') -->
+          <g filter="url(#intense-glow)">
+            <!-- Outer Glass Stroke -->
+            <path d="M480 35 L405 118 H492 V148 H512 V118 H535 V96 H512 V35 H480 Z M488 62 V96 H437 L488 62 Z"
+              fill="url(#holo-inner-grad)" stroke="url(#holo-glass-grad)" stroke-width="4" stroke-linejoin="round" />
+            <!-- Specular Edge Shimmer -->
+            <path d="M480 38 L408 116 H488" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+          </g>
+
+          <!-- Interactive Glowing Molecular Lattice Nodes (Spheres) -->
+          <g id="molecular-nodes-group">
+            <circle class="molecule-node-circle" cx="65" cy="118" r="8" fill="#00f2fe" />
+            <circle class="molecule-node-circle" cx="152" cy="118" r="7" fill="#a855f7" />
+            <circle class="molecule-node-circle" cx="172" cy="35" r="9" fill="#00f2fe" />
+            <circle class="molecule-node-circle" cx="195" cy="107" r="6" fill="#38bdf8" />
+            <circle class="molecule-node-circle" cx="140" cy="35" r="7" fill="#c084fc" />
+
+            <!-- Nodes on 0 -->
+            <circle class="molecule-node-circle" cx="235" cy="95" r="9" fill="#00f2fe" />
+            <circle class="molecule-node-circle" cx="300" cy="32" r="10" fill="#a855f7" />
+            <circle class="molecule-node-circle" cx="365" cy="95" r="9" fill="#00f2fe" />
+            <circle class="molecule-node-circle" cx="300" cy="158" r="8" fill="#38bdf8" />
+
+            <!-- Nodes on second 4 -->
+            <circle class="molecule-node-circle" cx="405" cy="118" r="8" fill="#a855f7" />
+            <circle class="molecule-node-circle" cx="492" cy="118" r="7" fill="#00f2fe" />
+            <circle class="molecule-node-circle" cx="512" cy="35" r="9" fill="#c084fc" />
+            <circle class="molecule-node-circle" cx="535" cy="107" r="6" fill="#38bdf8" />
+            <circle class="molecule-node-circle" cx="480" cy="35" r="7" fill="#00f2fe" />
+          </g>
+        </svg>
       </div>
 
-      <!-- Center Scientific 404 Illustration -->
-      <div class="relative flex items-center justify-center my-3 select-none">
-        
-        <!-- Big Number 4 -->
-        <span class="text-7xl sm:text-8xl md:text-9xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-slate-200 via-slate-400 to-slate-700 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
-          4
-        </span>
+      <!-- Flask Elevator Mechanism -->
+      <div class="flask-elevator-track" id="flask-track" title="Nhấp vào bình để kích hoạt phản ứng hóa học!">
 
-        <!-- Chemistry Flask replacing the '0' -->
-        <div class="relative mx-2 sm:mx-4 w-28 h-36 sm:w-36 sm:h-44 md:w-40 md:h-48 flex items-center justify-center animate-float">
-          
-          <!-- Outer Flask SVG -->
-          <svg class="w-full h-full drop-shadow-[0_0_25px_rgba(6,182,212,0.6)]" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Flask Neck & Lip -->
-            <rect x="42" y="10" width="16" height="30" rx="2" stroke="#38bdf8" stroke-width="3" fill="rgba(15, 23, 42, 0.4)" />
-            <path d="M38 10 H62" stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" />
-            
-            <!-- Flask Body -->
-            <path d="M42 38 L14 96 C10 104 16 114 26 114 H74 C84 114 90 104 86 96 L58 38 Z" 
-                  stroke="#38bdf8" stroke-width="3.5" fill="rgba(8, 20, 36, 0.7)" stroke-linejoin="round" />
-            
-            <!-- Graduations -->
-            <line x1="48" y1="58" x2="56" y2="58" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
-            <line x1="45" y1="72" x2="58" y2="72" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
-            <line x1="40" y1="86" x2="60" y2="86" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
-            <line x1="33" y1="100" x2="62" y2="100" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" />
+        <!-- Hero Erlenmeyer Flask -->
+        <div class="hero-flask-wrapper" id="hero-flask">
 
-            <!-- Liquid with Wave Animation -->
-            <g clip-path="url(#flask-clip)">
-              <path class="flask-liquid" d="M10 82 Q30 76 50 82 T90 82 L90 120 L10 120 Z" fill="url(#liquid-gradient)" opacity="0.9" />
-              <!-- Highlight on liquid surface -->
-              <ellipse cx="50" cy="82" rx="36" ry="4" fill="#a5f3fc" opacity="0.4" />
+          <!-- Rising Vapor Emitter Anchor -->
+          <div class="vapor-emitter-anchor" id="vapor-emitter"></div>
+
+          <!-- Chemical Notation Floating Fragments -->
+          <div class="chem-notation-particle" id="notation-1" style="bottom: 70px; left: -15px;">H₂</div>
+          <div class="chem-notation-particle" id="notation-2" style="bottom: 120px; right: -20px;">O₂</div>
+          <div class="chem-notation-particle" id="notation-3" style="bottom: 150px; left: 10px;">Na⁺</div>
+          <div class="chem-notation-particle" id="notation-4" style="bottom: 170px; right: 15px;">Cl⁻</div>
+          <div class="chem-notation-particle" id="notation-5" style="bottom: 90px; right: -30px;">e⁻</div>
+
+          <!-- SVG Flask Artwork -->
+          <svg class="flask-glass-svg" viewBox="0 0 140 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Liquid Gradient (Cyan - Electric Blue - Violet) -->
+              <linearGradient id="flask-liquid-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe" />
+                <stop offset="45%" stop-color="#0284c7" />
+                <stop offset="85%" stop-color="#9333ea" />
+                <stop offset="100%" stop-color="#6b21a8" />
+              </linearGradient>
+
+              <!-- Glass Highlight Gradients -->
+              <linearGradient id="glass-specular" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
+                <stop offset="40%" stop-color="rgba(255,255,255,0.2)" />
+                <stop offset="100%" stop-color="transparent" />
+              </linearGradient>
+
+              <!-- Clip Path matching exact inside shape of Erlenmeyer body -->
+              <clipPath id="flask-interior-clip">
+                <path d="M58 55 L24 140 C19 152 28 165 42 165 H98 C112 165 121 152 116 140 L82 55 Z" />
+              </clipPath>
+            </defs>
+
+            <!-- Flask Glass Body -->
+            <path d="M58 20 H82 V55 L118 142 C124 156 114 170 98 170 H42 C26 170 16 156 22 142 L58 55 Z"
+              fill="rgba(8, 20, 42, 0.55)" stroke="rgba(125, 211, 252, 0.85)" stroke-width="3"
+              stroke-linejoin="round" />
+
+            <!-- Flask Lip Ring -->
+            <rect x="54" y="16" width="32" height="7" rx="3.5" fill="rgba(8, 20, 42, 0.7)" stroke="#38bdf8"
+              stroke-width="2.5" />
+
+            <!-- Liquid Fill Clamped to Interior -->
+            <g clip-path="url(#flask-interior-clip)">
+              <!-- Base Liquid Fill -->
+              <rect x="10" y="90" width="120" height="85" fill="url(#flask-liquid-grad)" opacity="0.95" />
+
+              <!-- Core Reactive Radiance -->
+              <circle cx="70" cy="140" r="35" fill="url(#intense-glow)" class="liquid-core-glow"
+                id="flask-liquid-core" />
+
+              <!-- Fluid Animated Wave Surface -->
+              <path class="liquid-wave-path" id="liquid-wave" d="M15 98 Q42 90 70 98 T125 98 L125 170 L15 170 Z"
+                fill="url(#flask-liquid-grad)" opacity="0.9" />
+
+              <!-- Surface Meniscus Highlight -->
+              <ellipse cx="70" cy="98" rx="42" ry="5.5" fill="#a5f3fc" opacity="0.55" />
+
+              <!-- Rising Animated Bubbles inside Liquid -->
+              <circle cx="50" cy="150" r="3" fill="#ffffff" opacity="0.8">
+                <animate attributeName="cy" values="160;98" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.9;0" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="cx" values="50;53;48" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="75" cy="155" r="4" fill="#67e8f9" opacity="0.9">
+                <animate attributeName="cy" values="165;98" dur="1.8s" begin="0.6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="0.6s" repeatCount="indefinite" />
+                <animate attributeName="cx" values="75;72;77" dur="1.8s" begin="0.6s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="90" cy="158" r="2.5" fill="#e0e7ff" opacity="0.8">
+                <animate attributeName="cy" values="162;98" dur="2.8s" begin="1.1s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.8;0" dur="2.8s" begin="1.1s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="62" cy="162" r="4.5" fill="#c084fc" opacity="0.85">
+                <animate attributeName="cy" values="168;98" dur="2.1s" begin="1.4s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.9;0" dur="2.1s" begin="1.4s" repeatCount="indefinite" />
+              </circle>
             </g>
 
-            <!-- Clip path strictly inside flask body -->
-            <clipPath id="flask-clip">
-              <path d="M42 38 L14 96 C10 104 16 114 26 114 H74 C84 114 90 104 86 96 L58 38 Z" />
-            </clipPath>
+            <!-- Flask Measurement Graduations -->
+            <line x1="62" y1="80" x2="74" y2="80" stroke="rgba(255,255,255,0.5)" stroke-width="1.8"
+              stroke-linecap="round" />
+            <line x1="58" y1="100" x2="72" y2="100" stroke="rgba(255,255,255,0.5)" stroke-width="1.8"
+              stroke-linecap="round" />
+            <line x1="52" y1="120" x2="70" y2="120" stroke="rgba(255,255,255,0.5)" stroke-width="1.8"
+              stroke-linecap="round" />
+            <line x1="45" y1="140" x2="68" y2="140" stroke="rgba(255,255,255,0.5)" stroke-width="1.8"
+              stroke-linecap="round" />
 
-            <!-- Gradient Definition for liquid -->
-            <defs>
-              <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#06b6d4" />
-                <stop offset="50%" stop-color="#3b82f6" />
-                <stop offset="100%" stop-color="#8b5cf6" />
-              </linearGradient>
-            </defs>
+            <!-- Realist Glass Specular Edge Highlights -->
+            <path d="M60 25 L28 145" stroke="url(#glass-specular)" stroke-width="3" stroke-linecap="round"
+              opacity="0.85" />
+            <path d="M80 25 L112 145" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" />
           </svg>
-
-          <!-- Animated Rising Bubbles inside Flask -->
-          <div class="absolute inset-x-8 bottom-4 top-16 overflow-hidden pointer-events-none">
-            <span class="absolute w-2 h-2 rounded-full bg-cyan-200/80 left-4 bottom-2 animate-bubble" style="animation-duration: 2.8s;"></span>
-            <span class="absolute w-2.5 h-2.5 rounded-full bg-white/90 left-8 bottom-3 animate-bubble" style="animation-duration: 3.4s; animation-delay: 0.6s;"></span>
-            <span class="absolute w-1.5 h-1.5 rounded-full bg-cyan-300/80 left-12 bottom-1 animate-bubble" style="animation-duration: 2.2s; animation-delay: 1.1s;"></span>
-            <span class="absolute w-3 h-3 rounded-full bg-violet-300/80 left-6 bottom-4 animate-bubble" style="animation-duration: 4s; animation-delay: 1.7s;"></span>
-          </div>
-
-          <!-- Rising Vapor above the neck -->
-          <div class="absolute -top-6 inset-x-0 flex justify-center items-center pointer-events-none">
-            <div class="w-1.5 h-6 bg-cyan-400/40 rounded-full blur-[2px] animate-pulse"></div>
-            <div class="w-2 h-8 bg-sky-300/50 rounded-full blur-[2px] -ml-1 animate-pulse" style="animation-delay: 0.5s;"></div>
-          </div>
         </div>
-
-        <!-- Big Number 4 (Second) -->
-        <span class="text-7xl sm:text-8xl md:text-9xl font-black font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-slate-200 via-slate-400 to-slate-700 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
-          4
-        </span>
       </div>
 
-      <!-- Vivid Heading -->
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
-        Liên Kết Bị Đứt Gãy!
+      <!-- Sci-Fi Dais / Concentric Platform -->
+      <div class="sci-fi-pedestal" id="pedestal">
+        <div class="pedestal-impact-ripple" id="impact-ripple"></div>
+        <svg class="pedestal-svg" viewBox="0 0 380 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ped-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="transparent" />
+              <stop offset="25%" stop-color="#00f2fe" />
+              <stop offset="50%" stop-color="#ffffff" />
+              <stop offset="75%" stop-color="#00f2fe" />
+              <stop offset="100%" stop-color="transparent" />
+            </linearGradient>
+            <linearGradient id="ped-metal-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#1e293b" />
+              <stop offset="60%" stop-color="#0f172a" />
+              <stop offset="100%" stop-color="#020617" />
+            </linearGradient>
+          </defs>
+
+          <!-- Outer Base Rim -->
+          <ellipse cx="190" cy="55" rx="175" ry="42" fill="url(#ped-metal-grad)" stroke="rgba(56, 189, 248, 0.4)"
+            stroke-width="2" />
+
+          <!-- Concentric Outer Neon Ring -->
+          <ellipse cx="190" cy="52" rx="155" ry="34" fill="none" stroke="rgba(6, 182, 212, 0.65)" stroke-width="2.5"
+            stroke-dasharray="12 4" />
+
+          <!-- Concentric Inner Elevated Dais -->
+          <ellipse cx="190" cy="48" rx="125" ry="26" fill="#091426" stroke="#00f2fe" stroke-width="3"
+            filter="drop-shadow(0 0 12px #00f2fe)" />
+
+          <!-- High-Intensity Center Emitter Hatch -->
+          <ellipse cx="190" cy="48" rx="80" ry="16" fill="rgba(6, 182, 212, 0.35)" stroke="#a5f3fc" stroke-width="2" />
+          <ellipse cx="190" cy="48" rx="55" ry="10" fill="#00f2fe" opacity="0.6" filter="blur(3px)" />
+
+          <!-- Front Notch Indicator Marks -->
+          <line x1="190" y1="75" x2="190" y2="92" stroke="#00f2fe" stroke-width="3" />
+          <line x1="140" y1="72" x2="135" y2="87" stroke="#38bdf8" stroke-width="2" />
+          <line x1="240" y1="72" x2="245" y2="87" stroke="#38bdf8" stroke-width="2" />
+        </svg>
+      </div>
+
+      <!-- HUD Status Badge: ⚗ PHẢN ỨNG LỖI · STATUS 404 -->
+      <div class="hud-status-badge" id="hud-status">
+        <i class="fa-solid fa-flask-vial hud-flask-icon"></i>
+        <span>PHẢN ỨNG LỖI</span>
+        <span class="hud-divider">·</span>
+        <span>STATUS 404</span>
+      </div>
+
+    </div>
+
+    <!-- ==========================================================================
+         INFORMATION & NAVIGATION ACTIONS
+         ========================================================================== -->
+    <div class="lab-content-card">
+
+      <!-- Headline: Liên Kết Bị Đứt Gãy! -->
+      <h1 class="lab-main-title" id="title-headline">
+        Page Not Found
       </h1>
 
       <!-- Informative Subtitle -->
-      <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-lg mx-auto mb-8 font-medium">
-        Đường dẫn bạn vừa truy cập có thể chứa ký tự chưa chuẩn xác hoặc chất phản ứng này đã bị phân rã khỏi hệ thống phòng thí nghiệm ChemDex.
+      <p class="lab-description" id="desc-text">
       </p>
 
-      <!-- Center Primary CTA Button: Quay Về Trang Chủ -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8">
-        <a 
-          href="/" 
-          id="btn-return-home"
-          class="btn-glow w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-slate-950 font-extrabold text-sm sm:text-base rounded-2xl shadow-xl transition-all uppercase tracking-wider"
-        >
-          <i class="fa-solid fa-house-chimney text-base"></i>
-          <span>Về Trang Chủ ChemDex</span>
+      <!-- Primary Action Buttons -->
+      <div class="lab-actions-group" id="btn-group">
+        <a href="/" class="btn-chem-primary" id="btn-home">
+          <i class="fa-solid fa-house-chimney"></i>
+          <span>VỀ TRANG CHỦ CHEMDEX</span>
+          <i class="fa-solid fa-arrow-right"></i>
         </a>
 
-        <button 
-          onclick="window.history.length > 1 ? window.history.back() : window.location.href='/'"
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-bold text-sm sm:text-base rounded-2xl border border-slate-700/80 transition-all hover:text-white"
-        >
+        <button onclick="window.history.length > 1 ? window.history.back() : window.location.href='/'"
+          class="btn-chem-secondary" id="btn-back">
           <i class="fa-solid fa-arrow-left"></i>
           <span>Trang Trước</span>
         </button>
       </div>
 
-      <!-- Quick Exploration Shortcuts (Lab 3D, Lab Safety, Periodic Table) -->
-      <div class="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs text-slate-400">
-        <span class="text-slate-500 font-semibold uppercase tracking-wider text-[11px] mr-1">Lối tắt thí nghiệm:</span>
-        
-        <a href="/lab-3d/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/60 hover:bg-cyan-500/10 hover:text-cyan-400 border border-slate-700/50 hover:border-cyan-500/40 transition-all">
-          <i class="fa-solid fa-cube text-cyan-400"></i>
-          <span>Phòng Thí Nghiệm 3D</span>
-        </a>
+      <!-- Experiment Shortcuts -->
+      <div class="shortcuts-section">
+        <!-- Divider: · · · LỐI TẮT THÍ NGHIỆM · · · -->
+        <div class="shortcuts-divider" id="shortcuts-divider">
+          <span class="divider-line"></span>
+          <span class="divider-text">
+            <span>·</span>
+            <span>LỐI TẮT THÍ NGHIỆM</span>
+            <span>·</span>
+          </span>
+          <span class="divider-line"></span>
+        </div>
 
-        <a href="/lab-safety/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/60 hover:bg-emerald-500/10 hover:text-emerald-400 border border-slate-700/50 hover:border-emerald-500/40 transition-all">
-          <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-          <span>An Toàn Phòng Lab</span>
-        </a>
+        <!-- 3 Modern Shortcut Cards -->
+        <div class="shortcuts-grid">
+          <a href="/lab-3d/" class="shortcut-pill lab3d" id="shortcut-1">
+            <span class="icon-box"><i class="fa-solid fa-cube"></i></span>
+            <span>Phòng Thí Nghiệm 3D</span>
+          </a>
 
-        <a href="/trung-tam/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/60 hover:bg-violet-500/10 hover:text-violet-400 border border-slate-700/50 hover:border-violet-500/40 transition-all">
-          <i class="fa-solid fa-atom text-violet-400"></i>
-          <span>Trung Tâm Tri Thức</span>
-        </a>
+          <a href="/lab-safety/" class="shortcut-pill safety" id="shortcut-2">
+            <span class="icon-box"><i class="fa-solid fa-shield-halved"></i></span>
+            <span>An Toàn Phòng Lab</span>
+          </a>
+
+          <a href="/trung-tam/" class="shortcut-pill center" id="shortcut-3">
+            <span class="icon-box"><i class="fa-solid fa-book-open"></i></span>
+            <span>Trung Tâm Tri Thức</span>
+          </a>
+        </div>
       </div>
 
     </div>
 
-    <!-- Small Footer Note -->
-    <div class="mt-6 text-slate-500 text-xs font-mono">
-      ChemDex Virtual Chemical Laboratory &copy; 2026
+    <!-- Footer Copyright Note -->
+    <div class="lab-footer-meta" id="footer-meta">
+      CHEMDEX VIRTUAL CHEMICAL LABORATORY SYSTEM &copy; 2026
     </div>
 
   </main>
 
-  <!-- Interactive Chemistry Canvas Script -->
+  <!-- ==========================================================================
+       CINEMATIC TIMELINE, PHYSICS, AND CONVERGENCE PARTICLE ENGINE
+       ========================================================================== -->
   <script>
-    (function() {
-      const canvas = document.getElementById('bg-canvas');
-      if (!canvas) return;
+    (function () {
+      'use strict';
+
+      // Check for prefers-reduced-motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // DOM Elements Cache
+      const canvas = document.getElementById('lab-particle-canvas');
       const ctx = canvas.getContext('2d');
-      let width, height;
-      let particles = [];
-      const PARTICLE_COUNT = 45;
-
-      const colors = [
-        'rgba(6, 182, 212, 0.45)',  // cyan
-        'rgba(59, 130, 246, 0.45)', // blue
-        'rgba(139, 92, 246, 0.45)', // violet
-        'rgba(16, 185, 129, 0.4)'   // emerald
+      const heroFlask = document.getElementById('hero-flask');
+      const flaskTrack = document.getElementById('flask-track');
+      const pedestal = document.getElementById('pedestal');
+      const impactRipple = document.getElementById('impact-ripple');
+      const holo404 = document.getElementById('holo-404');
+      const hudStatus = document.getElementById('hud-status');
+      const titleHeadline = document.getElementById('title-headline');
+      const descText = document.getElementById('desc-text');
+      const btnGroup = document.getElementById('btn-group');
+      const shortcutsDivider = document.getElementById('shortcuts-divider');
+      const shortcuts = [
+        document.getElementById('shortcut-1'),
+        document.getElementById('shortcut-2'),
+        document.getElementById('shortcut-3')
       ];
+      const footerMeta = document.getElementById('footer-meta');
+      const btnReplay = document.getElementById('btn-replay');
+      const monitorLeft = document.getElementById('monitor-left');
+      const monitorRight = document.getElementById('monitor-right');
+      const fgLeft = document.getElementById('fg-left');
+      const fgRight = document.getElementById('fg-right');
+      const shelves = document.getElementById('lab-shelves');
+      const shaftLeft = document.getElementById('shaft-left');
+      const shaftCenter = document.getElementById('shaft-center');
+      const shaftRight = document.getElementById('shaft-right');
+      const liquidCore = document.getElementById('flask-liquid-core');
+      const liquidWave = document.getElementById('liquid-wave');
 
-      function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
       }
-      window.addEventListener('resize', resize);
-      resize();
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
 
-      // Particle class representing floating ions/molecules
-      class MoleculeParticle {
-        constructor() {
-          this.init();
+      // ==========================================================================
+      // PARTICLE ENGINE: AMBIENT LAB IONS + VAPOR FORMATION + 404 CONVERGENCE
+      // ==========================================================================
+      const AMBIENT_PARTICLE_COUNT = 45;
+      const VAPOR_PARTICLE_COUNT = 90;
+      let ambientParticles = [];
+      let vaporParticles = [];
+      let target404Coords = [];
+      let convergenceActive = false;
+      let convergenceProgress = 0; // 0 to 1
+
+      // Generate Target Coordinates for 404 from the Holo SVG or geometry
+      function generate404Coordinates() {
+        target404Coords = [];
+        const holoRect = holo404.getBoundingClientRect();
+        const centerX = holoRect.left + holoRect.width / 2;
+        const centerY = holoRect.top + holoRect.height / 2;
+        const scale = Math.min(holoRect.width / 600, 1);
+
+        // Predefined relative points matching the digits '4', '0', '4'
+        // First 4:
+        const first4Points = [
+          [-190, -45], [-175, -20], [-160, 5], [-145, 30],
+          [-130, 25], [-115, 25], [-100, 25], [-85, 25], [-70, 25],
+          [-115, -45], [-115, -20], [-115, 5], [-115, 30], [-115, 55]
+        ];
+
+        // Center 0 (ring):
+        const zeroPoints = [];
+        const numZeroPts = 24;
+        for (let i = 0; i < numZeroPts; i++) {
+          const angle = (i / numZeroPts) * Math.PI * 2;
+          const rx = 52 * scale;
+          const ry = 48 * scale;
+          zeroPoints.push([Math.cos(angle) * rx, Math.sin(angle) * ry]);
         }
-        init() {
+
+        // Second 4:
+        const second4Points = [
+          [75, -45], [90, -20], [105, 5], [120, 30],
+          [135, 25], [150, 25], [165, 25], [180, 25], [195, 25],
+          [150, -45], [150, -20], [150, 5], [150, 30], [150, 55]
+        ];
+
+        const allOffsets = [...first4Points, ...zeroPoints, ...second4Points];
+        for (let pt of allOffsets) {
+          target404Coords.push({
+            x: centerX + pt[0] * scale,
+            y: centerY + pt[1] * scale
+          });
+        }
+      }
+      setTimeout(generate404Coordinates, 500);
+      window.addEventListener('resize', generate404Coordinates);
+
+      // Ambient Lab Particles Class
+      class AmbientParticle {
+        constructor() {
+          this.reset(true);
+        }
+        reset(randomY) {
           this.x = Math.random() * width;
-          this.y = Math.random() * height;
-          this.radius = Math.random() * 3 + 1.5;
-          this.vx = (Math.random() - 0.5) * 0.6;
-          this.vy = (Math.random() - 0.5) * 0.6;
-          this.color = colors[Math.floor(Math.random() * colors.length)];
-          this.bondDistance = 110;
+          this.y = randomY ? Math.random() * height : height + 10;
+          this.radius = Math.random() * 2.2 + 0.8;
+          this.vx = (Math.random() - 0.5) * 0.45;
+          this.vy = -(Math.random() * 0.5 + 0.15);
+          this.alpha = Math.random() * 0.45 + 0.15;
+          this.colorType = Math.random() > 0.4 ? '#00f2fe' : '#a855f7';
         }
         update() {
           this.x += this.vx;
           this.y += this.vy;
-          if (this.x < 0 || this.x > width) this.vx *= -1;
-          if (this.y < 0 || this.y > height) this.vy *= -1;
+          if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+            this.reset(false);
+          }
         }
         draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
+          ctx.fillStyle = this.colorType;
+          ctx.globalAlpha = this.alpha;
           ctx.fill();
         }
       }
 
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push(new MoleculeParticle());
-      }
+      // Vapor Particle with Organic Turbulence & 404 Convergence
+      class VaporParticle {
+        constructor(index) {
+          this.index = index;
+          this.reset();
+        }
+        reset() {
+          const trackRect = flaskTrack.getBoundingClientRect();
+          this.originX = trackRect.left + trackRect.width / 2;
+          this.originY = trackRect.top + 30; // Neck mouth of flask
+          this.x = this.originX + (Math.random() - 0.5) * 14;
+          this.y = this.originY + (Math.random() - 0.5) * 6;
+          this.vx = (Math.random() - 0.5) * 1.2;
+          this.vy = -(Math.random() * 2.2 + 1.2);
+          this.radius = Math.random() * 3.5 + 1.5;
+          this.alpha = 0;
+          this.maxAlpha = Math.random() * 0.7 + 0.3;
+          this.age = 0;
+          this.lifespan = Math.random() * 120 + 80;
+          this.active = false;
+          this.converged = false;
+          this.color = Math.random() > 0.45 ? '#00f2fe' : '#c084fc';
+        }
+        spawn() {
+          this.active = true;
+          this.age = 0;
+          this.alpha = 0.1;
+        }
+        update() {
+          if (!this.active) return;
+          this.age++;
 
-      function animate() {
-        ctx.clearRect(0, 0, width, height);
-
-        // Draw molecular chemical bonds between nearby particles
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
+          if (convergenceActive && target404Coords.length > 0) {
+            // Target point assigned modulo array length
+            const target = target404Coords[this.index % target404Coords.length];
+            const dx = target.x - this.x;
+            const dy = target.y - this.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist < 110) {
-              const alpha = (1 - dist / 110) * 0.22;
+            // Swirling attraction force
+            const speed = 0.08 + convergenceProgress * 0.05;
+            this.vx += (dx * speed - this.vx * 0.15);
+            this.vy += (dy * speed - this.vy * 0.15);
+
+            // Add slight spiral turbulence
+            this.vx += Math.sin(this.age * 0.1) * 0.4;
+            this.vy += Math.cos(this.age * 0.1) * 0.4;
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            this.alpha = Math.min(this.alpha + 0.04, this.maxAlpha);
+            if (dist < 15) {
+              this.converged = true;
+            }
+          } else {
+            // Natural billowing vapor physics
+            this.vx += Math.sin(this.age * 0.08) * 0.15;
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Fade in then fade out
+            if (this.age < 25) {
+              this.alpha = (this.age / 25) * this.maxAlpha;
+            } else {
+              this.alpha = (1 - (this.age - 25) / (this.lifespan - 25)) * this.maxAlpha;
+            }
+
+            if (this.age >= this.lifespan) {
+              this.reset();
+              this.spawn();
+            }
+          }
+        }
+        draw() {
+          if (!this.active || this.alpha <= 0.01) return;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = Math.max(0, Math.min(this.alpha, 1));
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = this.color;
+          ctx.fill();
+          ctx.shadowBlur = 0; // reset
+        }
+      }
+
+      // Initialize Ambient Particles
+      for (let i = 0; i < AMBIENT_PARTICLE_COUNT; i++) {
+        ambientParticles.push(new AmbientParticle());
+      }
+
+      // Initialize Vapor Pool
+      for (let i = 0; i < VAPOR_PARTICLE_COUNT; i++) {
+        vaporParticles.push(new VaporParticle(i));
+      }
+
+      // Main Particle Animation Loop
+      function particleLoop() {
+        ctx.clearRect(0, 0, width, height);
+
+        // 1. Draw Chemical Molecular Bonds between nearby ambient particles
+        for (let i = 0; i < ambientParticles.length; i++) {
+          for (let j = i + 1; j < ambientParticles.length; j++) {
+            const p1 = ambientParticles[i];
+            const p2 = ambientParticles[j];
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 95) {
+              const bondAlpha = (1 - dist / 95) * 0.22;
               ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(6, 182, 212, ${alpha})`;
-              ctx.lineWidth = 1;
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = '#00f2fe';
+              ctx.globalAlpha = bondAlpha;
+              ctx.lineWidth = 0.8;
               ctx.stroke();
             }
           }
         }
 
-        // Draw particles
-        particles.forEach(p => {
+        // 2. Update and render ambient particles
+        for (let p of ambientParticles) {
           p.update();
           p.draw();
+        }
+
+        // 3. Update and render vapor & convergence particles
+        for (let vp of vaporParticles) {
+          vp.update();
+          vp.draw();
+        }
+
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(particleLoop);
+      }
+      requestAnimationFrame(particleLoop);
+
+      // ==========================================================================
+      // CHOREOGRAPHED CINEMATIC SEQUENCE TIMELINE
+      // ==========================================================================
+      let timelineRunning = false;
+      let timelineTimeouts = [];
+
+      function clearTimelineTimeouts() {
+        timelineTimeouts.forEach(t => clearTimeout(t));
+        timelineTimeouts = [];
+      }
+
+      function addTimelineStep(delay, fn) {
+        const id = setTimeout(fn, delay);
+        timelineTimeouts.push(id);
+      }
+
+      function startCinematicSequence() {
+        if (timelineRunning) return;
+        timelineRunning = true;
+        clearTimelineTimeouts();
+
+        if (prefersReducedMotion) {
+          // Instant full state for reduced motion accessibility
+          showFinalStateInstantly();
+          timelineRunning = false;
+          return;
+        }
+
+        // Initial State Reset
+        convergenceActive = false;
+        convergenceProgress = 0;
+        vaporParticles.forEach(p => p.reset());
+
+        // 0ms: Dark laboratory boot-up
+        shaftLeft.style.opacity = '0';
+        shaftCenter.style.opacity = '0';
+        shaftRight.style.opacity = '0';
+        shelves.style.opacity = '0';
+        monitorLeft.style.opacity = '0';
+        monitorRight.style.opacity = '0';
+        fgLeft.style.opacity = '0';
+        fgRight.style.opacity = '0';
+        pedestal.style.opacity = '0';
+        pedestal.style.transform = 'scale(0.85)';
+        heroFlask.style.opacity = '0';
+        heroFlask.style.transform = 'translateY(180px) scale(0.85)';
+        heroFlask.style.filter = 'blur(10px)';
+        heroFlask.classList.remove('idle-floating');
+        holo404.classList.remove('visible', 'idle-glow');
+        hudStatus.classList.remove('visible');
+        titleHeadline.style.opacity = '0';
+        titleHeadline.style.transform = 'translateY(25px)';
+        titleHeadline.style.filter = 'blur(12px)';
+        descText.style.opacity = '0';
+        descText.style.transform = 'translateY(20px)';
+        btnGroup.style.opacity = '0';
+        btnGroup.style.transform = 'translateY(18px)';
+        shortcutsDivider.style.opacity = '0';
+        shortcuts.forEach(s => {
+          s.style.opacity = '0';
+          s.style.transform = 'translateY(15px)';
+        });
+        footerMeta.style.opacity = '0';
+        btnReplay.style.opacity = '0';
+        liquidCore.classList.remove('active');
+
+        // Reset notations
+        for (let i = 1; i <= 5; i++) {
+          const notEl = document.getElementById(`notation-${i}`);
+          if (notEl) notEl.style.opacity = '0';
+        }
+
+        // --- TIMELINE EXECUTION ---
+
+        // 300ms: Foreground lab objects emerge (staggered sharp focus)
+        addTimelineStep(300, () => {
+          fgLeft.style.opacity = '1';
+          fgLeft.style.transform = 'translateY(0) scale(1)';
+          fgLeft.style.filter = 'blur(0)';
+        });
+        addTimelineStep(450, () => {
+          fgRight.style.opacity = '1';
+          fgRight.style.transform = 'translateY(0) scale(1)';
+          fgRight.style.filter = 'blur(0)';
         });
 
-        requestAnimationFrame(animate);
+        // 800ms: Midground lab & monitors emerge (depth of field soft focus)
+        addTimelineStep(800, () => {
+          shelves.style.opacity = '0.75';
+          shelves.style.transform = 'scale(1)';
+          shelves.style.filter = 'blur(8px)';
+          shaftLeft.style.opacity = '0.7';
+          shaftRight.style.opacity = '0.7';
+        });
+
+        addTimelineStep(1000, () => {
+          monitorLeft.style.opacity = '1';
+          monitorLeft.style.transform = 'translateY(0) rotateY(16deg) scale(1)';
+          monitorRight.style.opacity = '1';
+          monitorRight.style.transform = 'translateY(0) rotateY(-16deg) scale(1)';
+        });
+
+        // 1200ms: Overhead central light beam activates
+        addTimelineStep(1200, () => {
+          shaftCenter.style.opacity = '1';
+        });
+
+        // 1400ms: HUD Status Badge appears
+        addTimelineStep(1400, () => {
+          hudStatus.classList.add('visible');
+        });
+
+        // 1700ms: Sci-Fi Pedestal Platform Awakens
+        addTimelineStep(1700, () => {
+          pedestal.style.opacity = '1';
+          pedestal.style.transform = 'scale(1)';
+        });
+
+        // 1800ms: HERO FLASK EMERGENCE (Rises from underneath the platform)
+        addTimelineStep(1800, () => {
+          generate404Coordinates();
+          // Custom Spring emergence animation
+          heroFlask.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.25), opacity 0.4s ease, filter 0.4s ease';
+          heroFlask.style.transform = 'translateY(0) scale(1)';
+          heroFlask.style.opacity = '1';
+          heroFlask.style.filter = 'blur(0px)';
+        });
+
+        // 2200ms: Flask Landing Impact (Shockwave ripple on platform)
+        addTimelineStep(2200, () => {
+          impactRipple.classList.remove('active');
+          void impactRipple.offsetWidth; // Trigger reflow
+          impactRipple.classList.add('active');
+        });
+
+        // 2400ms: Flask Wobble & Fluid Inertia
+        addTimelineStep(2400, () => {
+          heroFlask.style.transition = 'none';
+          heroFlask.style.animation = 'flask-wobble-shake 0.75s ease-in-out forwards';
+
+          // Fluid sloshing response
+          liquidWave.style.transform = 'translateY(-6px) rotate(4deg)';
+          setTimeout(() => {
+            liquidWave.style.transform = 'translateY(4px) rotate(-3.5deg)';
+            setTimeout(() => {
+              liquidWave.style.transform = '';
+            }, 300);
+          }, 300);
+        });
+
+        // 2700ms: Chemical Reaction Ignites!
+        addTimelineStep(2700, () => {
+          liquidCore.classList.add('active');
+
+          // Release chemical notation particles
+          for (let i = 1; i <= 5; i++) {
+            const notEl = document.getElementById(`notation-${i}`);
+            if (notEl) {
+              setTimeout(() => {
+                notEl.style.opacity = '0.9';
+                notEl.style.transform = 'translateY(-30px) scale(1.15)';
+              }, (i - 1) * 120);
+            }
+          }
+        });
+
+        // 3000ms: Rising Vapor Billows from Flask Mouth
+        addTimelineStep(3000, () => {
+          for (let i = 0; i < 40; i++) {
+            setTimeout(() => {
+              vaporParticles[i].spawn();
+            }, i * 15);
+          }
+        });
+
+        // 3400ms - 3800ms: Vapor & Particles CONVERGE INTO "404"
+        addTimelineStep(3400, () => {
+          convergenceActive = true;
+          // Spawn remaining vapor particles directed to convergence
+          for (let i = 40; i < VAPOR_PARTICLE_COUNT; i++) {
+            setTimeout(() => {
+              vaporParticles[i].spawn();
+            }, (i - 40) * 10);
+          }
+
+          let startT = performance.now();
+          function rampConvergence(now) {
+            let elapsed = (now - startT) / 500;
+            convergenceProgress = Math.min(elapsed, 1);
+            if (elapsed < 1) {
+              requestAnimationFrame(rampConvergence);
+            }
+          }
+          requestAnimationFrame(rampConvergence);
+        });
+
+        // 3700ms: Holographic 404 Illuminates & Locks In
+        addTimelineStep(3700, () => {
+          holo404.classList.add('visible');
+        });
+
+        // 3900ms: Headline: Liên Kết Bị Đứt Gãy!
+        addTimelineStep(3900, () => {
+          titleHeadline.style.opacity = '1';
+          titleHeadline.style.transform = 'translateY(0)';
+          titleHeadline.style.filter = 'blur(0)';
+        });
+
+        // 4100ms: Description Text
+        addTimelineStep(4100, () => {
+          descText.style.opacity = '1';
+          descText.style.transform = 'translateY(0)';
+        });
+
+        // 4250ms: Primary & Secondary Action Buttons
+        addTimelineStep(4250, () => {
+          btnGroup.style.opacity = '1';
+          btnGroup.style.transform = 'translateY(0)';
+        });
+
+        // 4500ms: Experiment Shortcuts (Staggered 0ms, 100ms, 200ms)
+        addTimelineStep(4500, () => {
+          shortcutsDivider.style.opacity = '1';
+          shortcutsDivider.style.transform = 'scaleX(1)';
+
+          shortcuts.forEach((sc, idx) => {
+            setTimeout(() => {
+              sc.style.opacity = '1';
+              sc.style.transform = 'translateY(0)';
+            }, idx * 110);
+          });
+
+          footerMeta.style.opacity = '1';
+          btnReplay.style.opacity = '1';
+
+          // Enter Long-term Idle State
+          heroFlask.style.animation = '';
+          heroFlask.classList.add('idle-floating');
+          holo404.classList.add('idle-glow');
+          timelineRunning = false;
+        });
       }
-      animate();
+
+      // Fast-forward to final state for reduced motion or quick jumps
+      function showFinalStateInstantly() {
+        shaftLeft.style.opacity = '0.7';
+        shaftCenter.style.opacity = '1';
+        shaftRight.style.opacity = '0.7';
+        shelves.style.opacity = '0.75';
+        shelves.style.filter = 'blur(8px)';
+        monitorLeft.style.opacity = '1';
+        monitorLeft.style.transform = 'translateY(0) rotateY(16deg) scale(1)';
+        monitorRight.style.opacity = '1';
+        monitorRight.style.transform = 'translateY(0) rotateY(-16deg) scale(1)';
+        fgLeft.style.opacity = '1';
+        fgLeft.style.transform = 'none';
+        fgLeft.style.filter = 'none';
+        fgRight.style.opacity = '1';
+        fgRight.style.transform = 'none';
+        fgRight.style.filter = 'none';
+        pedestal.style.opacity = '1';
+        pedestal.style.transform = 'scale(1)';
+        heroFlask.style.opacity = '1';
+        heroFlask.style.transform = 'none';
+        heroFlask.style.filter = 'none';
+        heroFlask.classList.add('idle-floating');
+        holo404.classList.add('visible', 'idle-glow');
+        hudStatus.classList.add('visible');
+        titleHeadline.style.opacity = '1';
+        titleHeadline.style.transform = 'none';
+        titleHeadline.style.filter = 'none';
+        descText.style.opacity = '1';
+        descText.style.transform = 'none';
+        btnGroup.style.opacity = '1';
+        btnGroup.style.transform = 'none';
+        shortcutsDivider.style.opacity = '1';
+        shortcutsDivider.style.transform = 'scaleX(1)';
+        shortcuts.forEach(s => {
+          s.style.opacity = '1';
+          s.style.transform = 'none';
+        });
+        footerMeta.style.opacity = '1';
+        btnReplay.style.opacity = '1';
+        liquidCore.classList.add('active');
+        generate404Coordinates();
+      }
+
+      // Start sequence on page load
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(startCinematicSequence, 100);
+      });
+
+      // Replay Button Click
+      btnReplay.addEventListener('click', () => {
+        timelineRunning = false;
+        startCinematicSequence();
+      });
+
+      // Interactive Click on Flask: Mini Chemical Reaction Burst!
+      flaskTrack.addEventListener('click', () => {
+        heroFlask.classList.remove('idle-floating');
+        heroFlask.style.animation = 'flask-wobble-shake 0.6s ease-in-out forwards';
+
+        impactRipple.classList.remove('active');
+        void impactRipple.offsetWidth;
+        impactRipple.classList.add('active');
+
+        // Spawn a burst of vapor particles
+        for (let i = 0; i < 25; i++) {
+          setTimeout(() => {
+            const vp = vaporParticles[Math.floor(Math.random() * vaporParticles.length)];
+            if (vp) vp.spawn();
+          }, i * 20);
+        }
+
+        setTimeout(() => {
+          heroFlask.style.animation = '';
+          heroFlask.classList.add('idle-floating');
+        }, 650);
+      });
+
+      // ==========================================================================
+      // MULTI-LAYER MOUSE PARALLAX (FOREGROUND 6px, MIDGROUND 3px, BACKGROUND 1px)
+      // ==========================================================================
+      let mouseX = 0;
+      let mouseY = 0;
+      let targetX = 0;
+      let targetY = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        const nx = (e.clientX / width - 0.5) * 2; // -1 to 1
+        const ny = (e.clientY / height - 0.5) * 2;
+        targetX = nx;
+        targetY = ny;
+      });
+
+      function parallaxLoop() {
+        if (!prefersReducedMotion) {
+          mouseX += (targetX - mouseX) * 0.05;
+          mouseY += (targetY - mouseY) * 0.05;
+
+          // Foreground Objects (±6px)
+          if (fgLeft) fgLeft.style.transform = `translate(${mouseX * 7}px, ${mouseY * 5}px)`;
+          if (fgRight) fgRight.style.transform = `translate(${mouseX * 7}px, ${mouseY * 5}px)`;
+
+          // Midground Monitors (±3.5px)
+          if (monitorLeft) monitorLeft.style.transform = `translate(${mouseX * 3.5}px, ${mouseY * 2.5}px) rotateY(${16 + mouseX * 3}deg)`;
+          if (monitorRight) monitorRight.style.transform = `translate(${mouseX * 3.5}px, ${mouseY * 2.5}px) rotateY(${-16 + mouseX * 3}deg)`;
+
+          // Background Shelves & Lights (±1.2px)
+          if (shelves) shelves.style.transform = `scale(1) translate(${mouseX * -1.5}px, ${mouseY * -1}px)`;
+        }
+        requestAnimationFrame(parallaxLoop);
+      }
+      requestAnimationFrame(parallaxLoop);
+
     })();
   </script>
-
 </body>
+
 </html>

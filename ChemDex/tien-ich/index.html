@@ -332,7 +332,7 @@
 
       <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
         <a
-          href="../"
+          href="/"
           class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
         >
           <i class="fa-solid fa-table-cells text-blue-400 w-5"></i>
@@ -340,7 +340,7 @@
         </a>
 
         <a
-          href="../trung-tam/tai-lieu-so"
+          href="/trung-tam/tai-lieu-so/"
           class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
         >
           <i class="fa-solid fa-book-open text-emerald-400 w-5"></i>
@@ -348,20 +348,20 @@
         </a>
 
         <a
-  href="../trung-tam/cong-dong"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
->
-  <i class="fa-solid fa-users text-sky-400 w-5"></i>
-  <span class="font-medium">Cộng đồng</span>
-</a>
+          href="/trung-tam/cong-dong/"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-users text-sky-400 w-5"></i>
+          <span class="font-medium">Cộng đồng</span>
+        </a>
 
         <a
-  href="./"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 bg-slate-800 text-white shadow-md active-nav transition-all"
->
-  <i class="fa-solid fa-toolbox text-blue-400 w-5"></i>
-  <span class="font-medium">Tiện Ích Học Tập</span>
-</a>
+          href="/tien-ich/"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 bg-slate-800 text-white shadow-md active-nav transition-all"
+        >
+          <i class="fa-solid fa-toolbox text-blue-400 w-5"></i>
+          <span class="font-medium">Tiện Ích Học Tập</span>
+        </a>
         <!-- THÍ NGHIỆM DROPDOWN ACCORDION -->
         <div class="space-y-1">
           <button
@@ -381,21 +381,21 @@
             class="hidden pl-4 pr-1 py-1 space-y-1 bg-slate-900/40 rounded-xl border border-slate-700/40 transition-all"
           >
             <a
-              href="../lab-safety/"
+              href="/lab-safety/"
               class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-emerald-300 hover:text-white hover:bg-emerald-500/20 transition-all font-medium"
             >
               <i class="fa-solid fa-shield-halved text-emerald-400 w-4 text-center"></i>
               <span>An toàn phòng thí nghiệm</span>
             </a>
             <a
-              href="../thi-nghiem.html"
+              href="/thi-nghiem.html"
               class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition-all font-medium"
             >
               <i class="fa-solid fa-flask-vial text-cyan-400 w-4 text-center"></i>
               <span>Lab 2D</span>
             </a>
             <a
-              href="../lab-3d/"
+              href="/lab-3d/"
               class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-purple-300 hover:text-white hover:bg-purple-500/20 transition-all font-medium"
             >
               <i class="fa-solid fa-cubes text-purple-400 w-4 text-center"></i>
@@ -405,12 +405,12 @@
         </div>
 
         <a
-  href="../dau-truong/"
-  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
->
-  <i class="fa-solid fa-trophy text-yellow-400 w-5"></i>
-  <span class="font-medium">Đấu Trường</span>
-</a>
+          href="/dau-truong/"
+          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+        >
+          <i class="fa-solid fa-trophy text-yellow-400 w-5"></i>
+          <span class="font-medium">Đấu Trường</span>
+        </a>
 
       </nav>
     </aside>
@@ -511,9 +511,12 @@
         }
 
         function safeHref(value) {
-          const href = String(value ?? "").trim();
+          let href = String(value ?? "").trim();
           if (!href) return "#";
           if (/^(javascript|data|vbscript):/i.test(href)) return "#";
+          if (href.startsWith("./")) {
+            href = "/tien-ich/" + href.slice(2);
+          }
           return href;
         }
 
@@ -558,7 +561,7 @@
 
           const title = raw.title ?? raw.name ?? raw.label ?? raw.text ?? `Tính năng ${index + 1}`;
           const description = raw.description ?? raw.desc ?? raw.subtitle ?? raw.summary ?? "";
-          const href = raw.href ?? raw.path ?? raw.url ?? raw.link ?? raw.route ?? (raw.id ? `./${raw.id}/` : "#");
+          const href = raw.href ?? raw.path ?? raw.url ?? raw.link ?? raw.route ?? (raw.id ? `/tien-ich/${raw.id}/` : "#");
           const category = raw.category ?? raw.group ?? raw.section ?? raw.type ?? "Tính năng mới";
           const icon = raw.icon ?? raw.faIcon ?? raw.iconClass ?? "fa-toolbox";
           const color = raw.color ?? raw.theme ?? raw.accent ?? "blue";

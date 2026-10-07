@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".",
   "cleanUrls": false,
-  "trailingSlash": false,
+  "trailingSlash": true,
   "redirects": [
     {
       "source": "/lab",
@@ -16,29 +16,9 @@
       "permanent": true
     },
     {
-      "source": "/lab-3d",
-      "destination": "/lab-3d/",
-      "permanent": true
-    },
-    {
-      "source": "/lab-safety",
-      "destination": "/lab-safety/",
-      "permanent": true
-    },
-    {
-      "source": "/lab-2d",
-      "destination": "/lab-2d/",
-      "permanent": true
-    },
-    {
-      "source": "/dau-truong",
-      "destination": "/dau-truong/",
-      "permanent": true
-    },
-    {
-      "source": "/trung-tam",
-      "destination": "/trung-tam/",
-      "permanent": true
+      "source": "/thi-nghiem",
+      "destination": "/thi-nghiem.html",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -69,6 +49,14 @@
     {
       "source": "/lab-safety/assets/:path*",
       "destination": "/lab-safety/dist/assets/:path*"
+    },
+    {
+      "source": "/lab-safety/teacher.glb",
+      "destination": "/lab-safety/dist/teacher.glb"
+    },
+    {
+      "source": "/lab-safety/SYMBOLS-IMG/:path*",
+      "destination": "/lab-safety/dist/SYMBOLS-IMG/:path*"
     },
     {
       "source": "/lab-safety/:path*",
