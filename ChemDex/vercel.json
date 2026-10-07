@@ -1,6 +1,9 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": ".",
+  "cleanUrls": false,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/lab",
@@ -40,123 +43,55 @@
   ],
   "rewrites": [
     {
-      "source": "/trung-tam/assets/(.*)",
-      "destination": "/trung-tam/dist/assets/$1"
+      "source": "/trung-tam/assets/:path*",
+      "destination": "/trung-tam/dist/assets/:path*"
     },
     {
-      "source": "/trung-tam/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/trung-tam/dist/$1"
-    },
-    {
-      "source": "/trung-tam/(.*)",
+      "source": "/trung-tam/:path*",
       "destination": "/trung-tam/dist/index.html"
     },
     {
-      "source": "/trung-tam/?$",
-      "destination": "/trung-tam/dist/index.html"
+      "source": "/dau-truong/assets/:path*",
+      "destination": "/dau-truong/dist/assets/:path*"
     },
     {
-      "source": "/dau-truong/assets/(.*)",
-      "destination": "/dau-truong/dist/assets/$1"
-    },
-    {
-      "source": "/dau-truong/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/dau-truong/dist/$1"
-    },
-    {
-      "source": "/dau-truong/(.*)",
+      "source": "/dau-truong/:path*",
       "destination": "/dau-truong/dist/index.html"
     },
     {
-      "source": "/dau-truong/?$",
-      "destination": "/dau-truong/dist/index.html"
+      "source": "/lab-3d/assets/:path*",
+      "destination": "/lab-3d/dist/assets/:path*"
     },
     {
-      "source": "/lab/assets/(.*)",
-      "destination": "/lab-3d/dist/assets/$1"
-    },
-    {
-      "source": "/lab/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/lab-3d/dist/$1"
-    },
-    {
-      "source": "/lab/(.*)",
+      "source": "/lab-3d/:path*",
       "destination": "/lab-3d/dist/index.html"
     },
     {
-      "source": "/lab/?$",
-      "destination": "/lab-3d/dist/index.html"
+      "source": "/lab-safety/assets/:path*",
+      "destination": "/lab-safety/dist/assets/:path*"
     },
     {
-      "source": "/lab-3d/assets/(.*)",
-      "destination": "/lab-3d/dist/assets/$1"
-    },
-    {
-      "source": "/lab-3d/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/lab-3d/dist/$1"
-    },
-    {
-      "source": "/lab-3d/(.*)",
-      "destination": "/lab-3d/dist/index.html"
-    },
-    {
-      "source": "/lab-3d/?$",
-      "destination": "/lab-3d/dist/index.html"
-    },
-    {
-      "source": "/lab-safety/assets/(.*)",
-      "destination": "/lab-safety/dist/assets/$1"
-    },
-    {
-      "source": "/lab-safety/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/lab-safety/dist/$1"
-    },
-    {
-      "source": "/lab-safety/(.*)",
+      "source": "/lab-safety/:path*",
       "destination": "/lab-safety/dist/index.html"
     },
     {
-      "source": "/lab-safety/?$",
-      "destination": "/lab-safety/dist/index.html"
-    },
-    {
-      "source": "/lab-2d/(.*)",
+      "source": "/lab-2d/:path*",
       "destination": "/lab-2d/index.html"
     },
     {
-      "source": "/lab-2d/?$",
-      "destination": "/lab-2d/index.html"
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/assets/:path*",
+      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/assets/:path*"
     },
     {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/assets/(.*)",
-      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/assets/$1"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/$1"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/(.*)",
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/:path*",
       "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
     },
     {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/?$",
-      "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/assets/:path*",
+      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/assets/:path*"
     },
     {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/assets/(.*)",
-      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/assets/$1"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/$1"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/(.*)",
-      "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
-    },
-    {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/?$",
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/:path*",
       "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
     },
     {
