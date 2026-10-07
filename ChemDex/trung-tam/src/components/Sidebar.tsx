@@ -23,7 +23,7 @@ export function Sidebar({ currentView = 'library', onNavigate = () => {},
   simpleMenuOnly = false,
   isDesktopCollapsed = false
 }: SidebarProps) {
-  
+  const [isLabOpen, setIsLabOpen] = React.useState(false);
   const isSimplified = simpleMenuOnly || currentView === 'community';
 
   const content = (
@@ -83,13 +83,45 @@ export function Sidebar({ currentView = 'library', onNavigate = () => {},
           <span className="font-medium">Tiện Ích Học Tập</span>
         </a>
 
-        <a
-          href="/lab/"
-          className="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
-        >
-          <i className="fa-solid fa-flask text-purple-400 w-5"></i>
-          <span className="font-medium">Thí Nghiệm</span>
-        </a>
+        {/* Thí Nghiệm Dropdown Accordion */}
+        <div className="space-y-1">
+          <button
+            type="button"
+            onClick={() => setIsLabOpen(prev => !prev)}
+            className="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"
+          >
+            <div className="flex items-center gap-3">
+              <i className="fa-solid fa-flask text-purple-400 w-5"></i>
+              <span className="font-medium">Thí Nghiệm</span>
+            </div>
+            <i className={`fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200 ${isLabOpen ? 'rotate-180' : ''}`}></i>
+          </button>
+          {isLabOpen && (
+            <div className="pl-4 pr-1 py-1 space-y-1 bg-slate-900/40 rounded-xl border border-slate-700/40 transition-all">
+              <a
+                href="/lab-safety/"
+                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-emerald-300 hover:text-white hover:bg-emerald-500/20 transition-all font-medium"
+              >
+                <i className="fa-solid fa-shield-halved text-emerald-400 w-4 text-center"></i>
+                <span>An toàn phòng thí nghiệm</span>
+              </a>
+              <a
+                href="/thi-nghiem.html"
+                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition-all font-medium"
+              >
+                <i className="fa-solid fa-flask-vial text-cyan-400 w-4 text-center"></i>
+                <span>Lab 2D</span>
+              </a>
+              <a
+                href="/lab-3d/"
+                className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-purple-300 hover:text-white hover:bg-purple-500/20 transition-all font-medium"
+              >
+                <i className="fa-solid fa-cubes text-purple-400 w-4 text-center"></i>
+                <span>Lab 3D</span>
+              </a>
+            </div>
+          )}
+        </div>
 
         <a
           href="/dau-truong/"

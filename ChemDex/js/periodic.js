@@ -208,6 +208,18 @@ function toggleSidebar(forceState) {
   }
 }
 
+function toggleLabMenu() {
+  const submenu = document.getElementById("lab-submenu");
+  const chevron = document.getElementById("lab-menu-chevron");
+  if (submenu) {
+    const isHidden = submenu.classList.contains("hidden");
+    submenu.classList.toggle("hidden");
+    if (chevron) {
+      chevron.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
+    }
+  }
+}
+
 // --- DRAGGABLE BẢNG TUẦN HOÀN ---
 const dragContainer = document.getElementById("dragContainer");
 let isDown = false,
@@ -1214,6 +1226,7 @@ export {
   removeHighlight,
   nav,
   toggleSidebar,
+  toggleLabMenu,
   showNoData,
   showElementDetails,
   simDragStart,

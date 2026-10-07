@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/lab/',
+    base: './',
     plugins: [
       react(),
       tailwindcss(),
@@ -18,9 +18,9 @@ export default defineConfig(() => {
             if (
               rawUrl === '/' ||
               rawUrl === '/index.html' ||
-              rawUrl === '/lab' ||
-              rawUrl === '/lab/' ||
-              rawUrl === '/lab/index.html'
+              rawUrl === '/lab-safety' ||
+              rawUrl === '/lab-safety/' ||
+              rawUrl === '/lab-safety/index.html'
             ) {
               const query = req.url?.includes('?') ? '?' + req.url.split('?')[1] : '';
               req.url = '/index.source.html' + query;
@@ -43,21 +43,10 @@ export default defineConfig(() => {
       },
     },
     server: {
-      port: 6767,
-      proxy: {
-        '/api': {
-          target: 'http://localhost:5500',
-          changeOrigin: true,
-        },
-      },
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+      port: 3000,
+      host: '0.0.0.0',
       hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
-    },
-    preview: {
-      port: 6767,
     },
   };
 });

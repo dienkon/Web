@@ -225,7 +225,7 @@ export function ReaderView({ doc, onBack, isBookmarked, onToggleBookmark, onTagC
               </a>
 
               <a 
-                href="/lab/" 
+                href="/lab-safety/" 
                 className="flex items-center justify-between p-4 bg-slate-900/50 hover:bg-slate-800 rounded-xl border border-slate-700/50 transition-all group"
               >
                 <div>

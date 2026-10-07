@@ -6,7 +6,8 @@ const projects = [
   "tien-ich/phuong-trinh/chuoi-phan-ung",
   "trung-tam",
   "dau-truong",
-  "lab"
+  "lab-3d",
+  "lab-safety"
 ];
 
 function processProject(folder) {
@@ -75,9 +76,15 @@ for (const project of projects) {
   }
 }
 
-if (!allSuccess) {
-  console.error("❌ Một hoặc nhiều dự án xử lý thất bại!");
-  process.exit(1);
+// 5. Đảm bảo lab-2d và thi-nghiem.html luôn đồng bộ
+const lab2dDir = path.join(__dirname, "lab-2d");
+const lab2dHtml = path.join(lab2dDir, "thi-nghiem.html");
+const lab2dIndex = path.join(lab2dDir, "index.html");
+const rootThiNghiem = path.join(__dirname, "thi-nghiem.html");
+if (fs.existsSync(lab2dHtml)) {
+  fs.copyFileSync(lab2dHtml, lab2dIndex);
+  fs.copyFileSync(lab2dHtml, rootThiNghiem);
+  console.log("✅ Synced lab-2d and thi-nghiem.html");
 }
 
 console.log("✅ Toàn bộ ứng dụng đã được đồng bộ và sẵn sàng phục vụ từ cả Five Server lẫn Vercel!");

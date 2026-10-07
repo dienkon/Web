@@ -8,6 +8,7 @@ import {
   interlinkElement,
   showElementDetails,
   toggleSidebar,
+  toggleLabMenu,
   toggleFilter,
   applyFilter,
   highlightCategory,
@@ -25,6 +26,7 @@ import { mountChatbotWidget } from "./chatbot.js";
 Object.assign(window, {
   nav,
   toggleSidebar,
+  toggleLabMenu,
   toggleFilter,
   applyFilter,
   highlightCategory,

@@ -132,13 +132,47 @@
   <span class="font-medium">Tiện Ích Học Tập</span>
 </a>
 
-        <a
-          href="./lab/"
-          class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
-        >
-          <i class="fa-solid fa-flask text-purple-400 w-5"></i>
-          <span class="font-medium">Thí Nghiệm</span>
-        </a>
+        <!-- THÍ NGHIỆM DROPDOWN ACCORDION -->
+        <div class="space-y-1">
+          <button
+            type="button"
+            id="lab-menu-toggle"
+            onclick="toggleLabMenu()"
+            class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"
+          >
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-flask text-purple-400 w-5"></i>
+              <span class="font-medium">Thí Nghiệm</span>
+            </div>
+            <i id="lab-menu-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div
+            id="lab-submenu"
+            class="hidden pl-4 pr-1 py-1 space-y-1 bg-slate-900/40 rounded-xl border border-slate-700/40 transition-all"
+          >
+            <a
+              href="./lab-safety/"
+              class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-emerald-300 hover:text-white hover:bg-emerald-500/20 transition-all font-medium"
+            >
+              <i class="fa-solid fa-shield-halved text-emerald-400 w-4 text-center"></i>
+              <span>An toàn phòng thí nghiệm</span>
+            </a>
+            <a
+              href="./thi-nghiem.html"
+              class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition-all font-medium"
+            >
+              <i class="fa-solid fa-flask-vial text-cyan-400 w-4 text-center"></i>
+              <span>Lab 2D</span>
+            </a>
+            <a
+              href="./lab-3d/"
+              class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-purple-300 hover:text-white hover:bg-purple-500/20 transition-all font-medium"
+            >
+              <i class="fa-solid fa-cubes text-purple-400 w-4 text-center"></i>
+              <span>Lab 3D</span>
+            </a>
+          </div>
+        </div>
 
         <a
   href="./dau-truong/"

@@ -1,6 +1,43 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/lab",
+      "destination": "/lab-3d/",
+      "permanent": true
+    },
+    {
+      "source": "/lab/:path*",
+      "destination": "/lab-3d/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/lab-3d",
+      "destination": "/lab-3d/",
+      "permanent": true
+    },
+    {
+      "source": "/lab-safety",
+      "destination": "/lab-safety/",
+      "permanent": true
+    },
+    {
+      "source": "/lab-2d",
+      "destination": "/lab-2d/",
+      "permanent": true
+    },
+    {
+      "source": "/dau-truong",
+      "destination": "/dau-truong/",
+      "permanent": true
+    },
+    {
+      "source": "/trung-tam",
+      "destination": "/trung-tam/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/trung-tam/assets/(.*)",
@@ -15,7 +52,7 @@
       "destination": "/trung-tam/dist/index.html"
     },
     {
-      "source": "/trung-tam",
+      "source": "/trung-tam/?$",
       "destination": "/trung-tam/dist/index.html"
     },
     {
@@ -31,24 +68,64 @@
       "destination": "/dau-truong/dist/index.html"
     },
     {
-      "source": "/dau-truong",
+      "source": "/dau-truong/?$",
       "destination": "/dau-truong/dist/index.html"
     },
     {
       "source": "/lab/assets/(.*)",
-      "destination": "/lab/dist/assets/$1"
+      "destination": "/lab-3d/dist/assets/$1"
     },
     {
       "source": "/lab/(.*\\.[a-zA-Z0-9]+)$",
-      "destination": "/lab/dist/$1"
+      "destination": "/lab-3d/dist/$1"
     },
     {
       "source": "/lab/(.*)",
-      "destination": "/lab/dist/index.html"
+      "destination": "/lab-3d/dist/index.html"
     },
     {
-      "source": "/lab",
-      "destination": "/lab/dist/index.html"
+      "source": "/lab/?$",
+      "destination": "/lab-3d/dist/index.html"
+    },
+    {
+      "source": "/lab-3d/assets/(.*)",
+      "destination": "/lab-3d/dist/assets/$1"
+    },
+    {
+      "source": "/lab-3d/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/lab-3d/dist/$1"
+    },
+    {
+      "source": "/lab-3d/(.*)",
+      "destination": "/lab-3d/dist/index.html"
+    },
+    {
+      "source": "/lab-3d/?$",
+      "destination": "/lab-3d/dist/index.html"
+    },
+    {
+      "source": "/lab-safety/assets/(.*)",
+      "destination": "/lab-safety/dist/assets/$1"
+    },
+    {
+      "source": "/lab-safety/(.*\\.[a-zA-Z0-9]+)$",
+      "destination": "/lab-safety/dist/$1"
+    },
+    {
+      "source": "/lab-safety/(.*)",
+      "destination": "/lab-safety/dist/index.html"
+    },
+    {
+      "source": "/lab-safety/?$",
+      "destination": "/lab-safety/dist/index.html"
+    },
+    {
+      "source": "/lab-2d/(.*)",
+      "destination": "/lab-2d/index.html"
+    },
+    {
+      "source": "/lab-2d/?$",
+      "destination": "/lab-2d/index.html"
     },
     {
       "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/assets/(.*)",
@@ -63,7 +140,7 @@
       "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
     },
     {
-      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh",
+      "source": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/?$",
       "destination": "/tien-ich/phuong-trinh/nhan-dien-pthh-thong-minh/dist/index.html"
     },
     {
@@ -79,8 +156,12 @@
       "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
     },
     {
-      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung",
+      "source": "/tien-ich/phuong-trinh/chuoi-phan-ung/?$",
       "destination": "/tien-ich/phuong-trinh/chuoi-phan-ung/dist/index.html"
+    },
+    {
+      "source": "/404",
+      "destination": "/404.html"
     }
   ]
 }

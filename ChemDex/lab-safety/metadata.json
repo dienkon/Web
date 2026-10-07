@@ -1,0 +1,6 @@
+{
+  "name": "Laboratory Safety VR",
+  "description": "An interactive 3D laboratory safety practice simulation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
