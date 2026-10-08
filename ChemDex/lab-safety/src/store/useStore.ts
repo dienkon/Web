@@ -3,6 +3,7 @@ import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, Se
 import { INITIAL_TASKS } from '../data/tasks';
 import { SAFETY_RULES } from '../data/rules';
 import { soundManager } from '../audio/soundManager';
+import { MistakeRegistry } from '../core/MistakeRegistry';
 
 // Shared mutable coordinate store for high-frequency 60Hz Three.js frames
 // This completely avoids React tree re-renders per frame!
@@ -187,12 +188,12 @@ export const useStore = create<GameState>((set, get) => ({
   },
 
   addError: (id: MistakeId, ctx?: any) => {
-    const penalty = ctx?.penalty || 5;
+    const entry = MistakeRegistry[id];
+    const penalty = ctx?.penalty || entry?.penalty || 5;
     soundManager.play('error');
-    // In a real scenario, we would map id to actual MistakeDefinition
-    // using a MistakeRegistry. For now, creating fallback strings.
-    const ruleTitle = `Lỗi: ${id}`;
-    const consequence = 'Hành vi vi phạm quy định an toàn phòng lab!';
+    
+    const ruleTitle = entry?.title || `Lỗi: ${id}`;
+    const consequence = entry?.consequence || 'Hành vi vi phạm quy định an toàn phòng lab!';
     const dangerLevel = 'medium';
 
     set((state) => {

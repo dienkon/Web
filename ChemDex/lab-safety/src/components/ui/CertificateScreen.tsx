@@ -69,10 +69,18 @@ export const CertificateScreen: React.FC = () => {
     { key: 'waste', label: vi.certificate.axisWaste },
   ];
 
+  const mistakeCategories: Record<string, string> = {
+    ppe_missing: 'ppe',
+    wrong_trash: 'waste',
+    glass_hazard: 'glass',
+    spill_hazard: 'chemical',
+    fire_hazard: 'heat',
+    general_error: 'firstaid'
+  };
+
   const axisScores = categories.map((cat) => {
     const catErrors = mistakes.filter((m) => {
-      const r = SAFETY_RULES.find((rule) => rule.id.toString() === m.id);
-      return r?.category === cat.key;
+      return mistakeCategories[m.id] === cat.key;
     }).length;
     // Base 100%, deduct 15% per category error, min 40%
     return Math.max(40, 100 - catErrors * 15);
@@ -92,8 +100,17 @@ export const CertificateScreen: React.FC = () => {
 
   // "3 điều cần ôn" (extract up to 3 distinct rules from mistakes or fallback recommendations)
   const reviewRules = React.useMemo(() => {
-    const mistakeRuleIds = Array.from(new Set(mistakes.map((m) => m.id)));
-    const selected = mistakeRuleIds.map((id) => SAFETY_RULES.find((r) => r.id.toString() === id)).filter(Boolean);
+    const mistakeToRuleIds: Record<string, number[]> = {
+      ppe_missing: [3, 4, 5, 6, 7],
+      wrong_trash: [24, 16],
+      glass_hazard: [9, 19],
+      spill_hazard: [22, 17],
+      fire_hazard: [21, 2],
+      general_error: [10, 1]
+    };
+    
+    const mistakeRuleIds = Array.from(new Set(mistakes.flatMap((m) => mistakeToRuleIds[m.id] || [])));
+    const selected = mistakeRuleIds.map((id) => SAFETY_RULES.find((r) => r.id === id)).filter(Boolean);
     if (selected.length < 3) {
       // Add standard key rules (e.g. 17 acid dilution, 4 goggles, 18 heating)
       const defaults = [17, 4, 18, 13, 24];
