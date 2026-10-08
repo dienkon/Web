@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, SettingsState, MistakeRecord, ErrorBannerData } from '../types';
+import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, SettingsState, MistakeRecord, ErrorBannerData, MistakeId } from '../types';
 import { INITIAL_TASKS } from '../data/tasks';
 import { SAFETY_RULES } from '../data/rules';
 import { soundManager } from '../audio/soundManager';
@@ -186,18 +186,20 @@ export const useStore = create<GameState>((set, get) => ({
     get().saveGame();
   },
 
-  addError: (ruleId: number, penalty: number = 5) => {
+  addError: (id: MistakeId, ctx?: any) => {
+    const penalty = ctx?.penalty || 5;
     soundManager.play('error');
-    const rule = SAFETY_RULES.find(r => r.id === ruleId);
-    const ruleTitle = rule ? rule.title : `Quy tắc #${ruleId}`;
-    const consequence = rule?.consequence || 'Hành vi vi phạm quy định an toàn phòng lab!';
-    const dangerLevel = rule?.dangerLevel || 'medium';
+    // In a real scenario, we would map id to actual MistakeDefinition
+    // using a MistakeRegistry. For now, creating fallback strings.
+    const ruleTitle = `Lỗi: ${id}`;
+    const consequence = 'Hành vi vi phạm quy định an toàn phòng lab!';
+    const dangerLevel = 'medium';
 
     set((state) => {
       const newMistakes: MistakeRecord[] = [
         ...state.mistakes,
         {
-          ruleId,
+          id,
           title: ruleTitle,
           penalty,
           consequence,
@@ -210,7 +212,7 @@ export const useStore = create<GameState>((set, get) => ({
         score: Math.max(0, state.score - penalty),
         mistakes: newMistakes,
         activeErrorBanner: {
-          ruleId,
+          id,
           title: ruleTitle,
           consequence,
           dangerLevel,
@@ -222,11 +224,19 @@ export const useStore = create<GameState>((set, get) => ({
 
   dismissErrorBanner: () => set({ activeErrorBanner: null }),
 
-  equipItem: (item: keyof PlayerState) => {
+  equipItem: (item: string) => {
     soundManager.play('snap');
-    set((state) => ({
-      player: { ...state.player, [item]: true }
-    }));
+    set((state) => {
+      const newPlayer = JSON.parse(JSON.stringify(state.player));
+      if (item in newPlayer.equipment) {
+        newPlayer.equipment[item] = true;
+      } else if (item in newPlayer.inventory) {
+        newPlayer.inventory[item] = true;
+      } else if (item in newPlayer.flags) {
+        newPlayer.flags[item] = true;
+      }
+      return { player: newPlayer };
+    });
   },
 
   updateCharacter: (profile: Partial<CharacterProfile>) => {

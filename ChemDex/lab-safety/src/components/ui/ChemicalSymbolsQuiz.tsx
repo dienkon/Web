@@ -76,7 +76,7 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
       // Wrong!
       setIsWrong(true);
       playSound('error');
-      addError(1001, 5); // Minus 5 points
+      addError('general_error', { penalty: 5 }); // Minus 5 points
       timeout2Ref.current = setTimeout(() => {
         setShowResult(false);
         setSelectedAnswer(null);

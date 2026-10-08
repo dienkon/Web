@@ -174,7 +174,7 @@ export const BandageWrappingQuiz: React.FC = () => {
     } else {
       setIsCorrect(false);
       playSound('error');
-      addError(15); // Rule 15
+      addError('general_error'); // Rule 15
     }
   };
 

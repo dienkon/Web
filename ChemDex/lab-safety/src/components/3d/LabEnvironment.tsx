@@ -305,7 +305,7 @@ export const LabEnvironment: React.FC = () => {
     const distance = Math.sqrt(dx*dx + dz*dz);
 
     if (distance < 0.8) {
-      useStore.getState().addError(16, 5); // Stand too close
+      useStore.getState().addError('general_error', { penalty: 5 }); // Stand too close
       useStore.getState().startDialog([
         "CẢNH BÁO: BẠN ĐỨNG QUÁ GẦN ĐÁM CHÁY!",
         "Đứng gần ngọn lửa sẽ gây bỏng và ngạt khí. Hãy lùi lại khoảng cách an toàn (ra khỏi vùng cháy) rồi mới xịt!"
@@ -331,7 +331,7 @@ export const LabEnvironment: React.FC = () => {
         setIsSpraying(false);
         // Set extinguished in state
         useStore.setState((state) => ({
-          player: { ...state.player, fireExtinguished: true }
+          player: { ...state.player, flags: { ...state.player.flags, fireExtinguished: true } }
         }));
         completeTask('task_fire_extinguisher');
         
@@ -1271,7 +1271,7 @@ export const LabEnvironment: React.FC = () => {
             useStore.setState((state: any) => ({
               player: {
                 ...state.player,
-                hasSweeper: true
+                inventory: { ...state.player.inventory, hasSweeper: true }
               }
             }));
             useStore.getState().startDialog([
@@ -1319,7 +1319,7 @@ export const LabEnvironment: React.FC = () => {
               return;
             }
             useStore.setState((state: any) => ({
-              player: { ...state.player, isHoldingTrash: true, heldTrashType: 'domestic', trash1Picked: true }
+              player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: true, heldTrashType: 'domestic' }, flags: { ...state.player.flags, trash1Picked: true } }
             }));
             useStore.getState().startDialog([
               "Em đã nhặt một vỏ chai nhựa rỗng (Rác sinh hoạt).",
@@ -1353,9 +1353,9 @@ export const LabEnvironment: React.FC = () => {
               return;
             }
             if (!player.inventory.hasSweeper) {
-              useStore.getState().addError(301, 10);
+              useStore.getState().addError('general_error', { penalty: 10 });
               useStore.setState((state: any) => ({
-                player: { ...state.player, isHoldingTrash: true, heldTrashType: 'chemical', trash2Picked: true }
+                player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: true, heldTrashType: 'chemical' }, flags: { ...state.player.flags, trash2Picked: true } }
               }));
               useStore.getState().startDialog([
                 "CẢNH BÁO: Em nhặt trực tiếp rác hóa chất nguy hại mà không dùng dụng cụ chuyên dụng!",
@@ -1363,7 +1363,7 @@ export const LabEnvironment: React.FC = () => {
               ]);
             } else {
               useStore.setState((state: any) => ({
-                player: { ...state.player, isHoldingTrash: true, heldTrashType: 'chemical', trash2Picked: true }
+                player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: true, heldTrashType: 'chemical' }, flags: { ...state.player.flags, trash2Picked: true } }
               }));
               useStore.getState().startDialog([
                 "Rất tốt! Nhặt rác hóa chất bằng dụng cụ an toàn.",
@@ -1398,9 +1398,9 @@ export const LabEnvironment: React.FC = () => {
               return;
             }
             if (!player.inventory.hasSweeper) {
-              useStore.getState().addError(301, 10);
+              useStore.getState().addError('general_error', { penalty: 10 });
               useStore.setState((state: any) => ({
-                player: { ...state.player, isHoldingTrash: true, heldTrashType: 'sharps', trash3Picked: true }
+                player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: true, heldTrashType: 'sharps' }, flags: { ...state.player.flags, trash3Picked: true } }
               }));
               useStore.getState().startDialog([
                 "CẢNH BÁO: Nhặt thủy tinh vỡ bằng tay có thể làm rách găng và đứt tay!",
@@ -1408,7 +1408,7 @@ export const LabEnvironment: React.FC = () => {
               ]);
             } else {
               useStore.setState((state: any) => ({
-                player: { ...state.player, isHoldingTrash: true, heldTrashType: 'sharps', trash3Picked: true }
+                player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: true, heldTrashType: 'sharps' }, flags: { ...state.player.flags, trash3Picked: true } }
               }));
               useStore.getState().startDialog([
                 "Rất tốt! Nhặt mảnh vỡ an toàn.",
@@ -1448,12 +1448,12 @@ export const LabEnvironment: React.FC = () => {
                 return;
               }
               if (player.inventory.heldTrashType !== 'domestic') {
-                useStore.getState().addError(302, 5);
+                useStore.getState().addError('general_error', { penalty: 5 });
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Em đã vứt nhầm rác vào Thùng Sinh Hoạt.", "Bị phạt -5 ĐIỂM! Khăn lau hóa chất hoặc thủy tinh vỡ không được bỏ vào đây."]);
                 return;
               }
               const newTrashCount = player.flags.trashCount + 1;
-              useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
+              useStore.setState((state: any) => ({ player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: false, heldTrashType: null }, flags: { ...state.player.flags, trashCount: newTrashCount } } }));
               if (newTrashCount < 3) {
                 useStore.getState().startDialog([`Xoẹt! Đã vứt rác. Tiến độ: ${newTrashCount}/3 mẩu rác.`]);
               } else {
@@ -1487,12 +1487,12 @@ export const LabEnvironment: React.FC = () => {
                 return;
               }
               if (player.inventory.heldTrashType !== 'chemical') {
-                useStore.getState().addError(302, 5);
+                useStore.getState().addError('general_error', { penalty: 5 });
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Đây là thùng dành riêng cho rác dính hóa chất.", "Bị phạt -5 ĐIỂM! Rác sinh hoạt hoặc thủy tinh vỡ nên bỏ đúng thùng."]);
                 return;
               }
               const newTrashCount = player.flags.trashCount + 1;
-              useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
+              useStore.setState((state: any) => ({ player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: false, heldTrashType: null }, flags: { ...state.player.flags, trashCount: newTrashCount } } }));
               if (newTrashCount < 3) {
                 useStore.getState().startDialog([`Xoẹt! Đã vứt rác hóa chất an toàn. Tiến độ: ${newTrashCount}/3 mẩu rác.`]);
               } else {
@@ -1530,12 +1530,12 @@ export const LabEnvironment: React.FC = () => {
                 return;
               }
               if (player.inventory.heldTrashType !== 'sharps') {
-                useStore.getState().addError(302, 5);
+                useStore.getState().addError('general_error', { penalty: 5 });
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Đây là thùng dành riêng cho vật sắc nhọn/thủy tinh vỡ.", "Bị phạt -5 ĐIỂM! Rác sinh hoạt hoặc khăn lau hóa chất phải bỏ thùng khác."]);
                 return;
               }
               const newTrashCount = player.flags.trashCount + 1;
-              useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
+              useStore.setState((state: any) => ({ player: { ...state.player, inventory: { ...state.player.inventory, isHoldingTrash: false, heldTrashType: null }, flags: { ...state.player.flags, trashCount: newTrashCount } } }));
               if (newTrashCount < 3) {
                 useStore.getState().startDialog([`Xoẹt! Đã vứt thủy tinh vỡ an toàn. Tiến độ: ${newTrashCount}/3 mẩu rác.`]);
               } else {

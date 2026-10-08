@@ -71,7 +71,7 @@ export const CertificateScreen: React.FC = () => {
 
   const axisScores = categories.map((cat) => {
     const catErrors = mistakes.filter((m) => {
-      const r = SAFETY_RULES.find((rule) => rule.id === m.ruleId);
+      const r = SAFETY_RULES.find((rule) => rule.id.toString() === m.id);
       return r?.category === cat.key;
     }).length;
     // Base 100%, deduct 15% per category error, min 40%
@@ -92,8 +92,8 @@ export const CertificateScreen: React.FC = () => {
 
   // "3 điều cần ôn" (extract up to 3 distinct rules from mistakes or fallback recommendations)
   const reviewRules = React.useMemo(() => {
-    const mistakeRuleIds = Array.from(new Set(mistakes.map((m) => m.ruleId)));
-    const selected = mistakeRuleIds.map((id) => SAFETY_RULES.find((r) => r.id === id)).filter(Boolean);
+    const mistakeRuleIds = Array.from(new Set(mistakes.map((m) => m.id)));
+    const selected = mistakeRuleIds.map((id) => SAFETY_RULES.find((r) => r.id.toString() === id)).filter(Boolean);
     if (selected.length < 3) {
       // Add standard key rules (e.g. 17 acid dilution, 4 goggles, 18 heating)
       const defaults = [17, 4, 18, 13, 24];

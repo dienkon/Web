@@ -115,7 +115,7 @@ export const InteractableItem: React.FC<Props> = ({
     if (requiredEquipment) {
       const missing = requiredEquipment.filter(key => !(key in player.equipment ? (player.equipment as any)[key] : key in player.inventory ? (player.inventory as any)[key] : (player.flags as any)[key]));
       if (missing.length > 0) {
-        addError(3);
+        addError('general_error');
         const vietnameseNames: Record<string, string> = {
           hasGoggles: 'Kính bảo hộ',
           hasLabCoat: 'Áo Blouse',
