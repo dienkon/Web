@@ -35,11 +35,11 @@ export const InteractiveTasks: React.FC = () => {
       <InteractionManager />
 
       {/* ================= GIAI ĐOẠN 1: CHUẨN BỊ & PPE ================= */}
-      {/* Task: Nói chuyện với thầy giáo */}
+      {/* Task: Nói chuyện với thầy giáo (teacher.glb tại 0, 0, -4.5) */}
       <InteractableItem
         id="teacher_talk"
-        position={[0.0, 0, -2.4]}
-        label="Nói chuyện với Thầy giáo (Click / Phím E)"
+        position={[0.0, 0, -4.5]}
+        label="Nói chuyện với Thầy giáo (Phím E / Click)"
         type="action"
         taskId="task_talk"
         dialogCallback={handleTeacherClick}
@@ -47,16 +47,16 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group position={[0, 1.2, 0]}>
           <mesh visible={false}>
-            <boxGeometry args={[0.8, 1.8, 0.8]} />
+            <boxGeometry args={[0.9, 1.9, 0.9]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Đọc bảng nội quy */}
+      {/* Task: Đọc bảng nội quy an toàn trên tường Tây */}
       <InteractableItem
         id="rules_board"
-        position={[0.0, 1.6, -4.38]}
+        position={[-9.85, 1.8, 5.0]}
         label="Đọc Bảng Nội Quy An Toàn (Phím E)"
         type="learn"
         ruleId={1}
@@ -65,26 +65,26 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[3.6, 1.2, 0.2]} />
+            <boxGeometry args={[0.3, 1.4, 2.0]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Kiểm tra giày kín mũi tại thảm */}
+      {/* Task: Kiểm tra giày kín mũi tại thảm cửa vào */}
       <InteractableItem
         id="shoes_mat"
-        position={[-4.0, 0.05, 3.4]}
+        position={[-6.0, 0.05, 6.8]}
         label="Kiểm tra giày kín mũi tại Thảm (Phím E)"
         type="action"
         taskId="task_shoes"
         equipKey="hasClosedShoes"
-        successMessage="Đã xác nhận mang giày da kín mũi đạt chuẩn an toàn phòng thí nghiệm!"
+        successMessage="Đã xác nhận mang giày thể thao / giày bảo hộ kín mũi đạt chuẩn an toàn phòng thí nghiệm!"
         isGlowing={!isTaskDone('task_shoes')}
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[1.2, 0.1, 0.9]} />
+            <boxGeometry args={[1.6, 0.1, 1.2]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
@@ -93,7 +93,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Buộc tóc gọn gàng trước gương */}
       <InteractableItem
         id="mirror_hair"
-        position={[-1.0, 1.45, 4.38]}
+        position={[-3.0, 1.5, 7.1]}
         label="Buộc tóc gọn gàng trước gương (Phím E)"
         type="action"
         taskId="task_hair"
@@ -103,7 +103,7 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[1.0, 0.9, 0.1]} />
+            <boxGeometry args={[1.2, 1.1, 0.2]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
@@ -112,7 +112,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Trang bị Kính bảo hộ */}
       <InteractableItem
         id="equip_goggles"
-        position={[-1.0, 1.1, 4.35]}
+        position={[-3.0, 1.25, 7.1]}
         label="Lấy Kính bảo hộ (Phím E)"
         type="equip"
         equipKey="hasGoggles"
@@ -122,7 +122,7 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.6, 0.4, 0.3]} />
+            <boxGeometry args={[0.7, 0.4, 0.3]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
@@ -131,7 +131,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Mặc Áo blouse trắng */}
       <InteractableItem
         id="equip_coat"
-        position={[-1.8, 1.2, 4.3]}
+        position={[-4.0, 1.35, 7.1]}
         label="Mặc Áo blouse trắng (Phím E)"
         type="equip"
         equipKey="hasLabCoat"
@@ -141,16 +141,16 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.8, 1.0, 0.3]} />
+            <boxGeometry args={[0.9, 1.1, 0.3]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Đeo Găng tay bảo hộ */}
+      {/* Task: Đeo Găng tay bảo hộ Nitrile */}
       <InteractableItem
         id="equip_gloves"
-        position={[-0.3, 1.1, 4.35]}
+        position={[-2.05, 1.25, 7.1]}
         label="Đeo Găng tay bảo hộ Nitrile (Phím E)"
         type="equip"
         equipKey="hasGloves"
@@ -160,7 +160,7 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.5, 0.4, 0.3]} />
+            <boxGeometry args={[0.6, 0.4, 0.3]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
@@ -169,7 +169,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Đeo Khẩu trang phòng độc */}
       <InteractableItem
         id="equip_mask"
-        position={[-0.3, 0.7, 4.35]}
+        position={[-2.5, 0.65, 7.1]}
         label="Đeo Khẩu trang phòng độc (Phím E)"
         type="equip"
         equipKey="hasMask"
@@ -179,17 +179,17 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.4, 0.3, 0.3]} />
+            <boxGeometry args={[0.5, 0.3, 0.3]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
       {/* ================= GIAI ĐOẠN 2: THAO TÁC AN TOÀN & SỰ CỐ ================= */}
-      {/* Task: Tìm hiểu bình chữa cháy & P.A.S.S */}
+      {/* Task: Tìm hiểu bình chữa cháy & P.A.SS tại Tường Tây */}
       <InteractableItem
         id="extinguisher_learn"
-        position={[-5.82, 1.0, -0.8]}
+        position={[-9.85, 1.1, -1.5]}
         label="Lấy Bình chữa cháy & Học quy trình P.A.S.S (Phím E)"
         type="learn"
         taskId="task_fire_extinguisher"
@@ -201,16 +201,16 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.4, 0.9, 0.5]} />
+            <boxGeometry args={[0.4, 1.0, 0.6]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Biểu tượng hóa chất GHS */}
+      {/* Task: Biểu tượng hóa chất GHS trên Tường Bắc */}
       <InteractableItem
         id="symbols_quiz"
-        position={[3.2, 1.9, -4.38]}
+        position={[5.5, 2.0, -7.42]}
         label="Bảng nhận diện Biểu tượng GHS (Phím E)"
         type="learn"
         taskId="task_chemical_symbols"
@@ -221,16 +221,16 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[1.8, 1.1, 0.2]} />
+            <boxGeometry args={[2.8, 1.6, 0.3]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Quy tắc pha loãng Axit Sunfuric */}
+      {/* Task: Quy tắc pha loãng Axit Sunfuric tại Bàn 4 */}
       <InteractableItem
         id="acid_dilute_demo"
-        position={[-2.1, 0.95, -1.0]}
+        position={[4.2, 0.95, 2.2]}
         label="Tìm hiểu Quy tắc pha loãng Axit (Phím E)"
         type="learn"
         ruleId={3}
@@ -243,16 +243,16 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.6, 0.4, 0.6]} />
+            <boxGeometry args={[0.8, 0.5, 0.8]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Quấn băng gạc sơ cứu vết thương */}
+      {/* Task: Quấn băng gạc sơ cứu vết thương tại Tường Tây */}
       <InteractableItem
         id="first_aid_bandage"
-        position={[-5.82, 1.5, 1.2]}
+        position={[-9.85, 1.4, 1.0]}
         label="Hộp sơ cứu - Học quấn băng gạc (Phím E)"
         type="learn"
         taskId="task_bandage"
@@ -263,17 +263,17 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.3, 0.4, 0.4]} />
+            <boxGeometry args={[0.3, 0.5, 0.5]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
       {/* ================= GIAI ĐOẠN 3: XỬ LÝ TRÀN HÓA CHẤT & RÁC THẢI ================= */}
-      {/* Task: Lấy Spill Kit */}
+      {/* Task: Lấy Spill Kit tại Tường Tây */}
       <InteractableItem
         id="spill_kit_box"
-        position={[-5.8, 0.3, 2.0]}
+        position={[-9.3, 0.3, 3.0]}
         label="Lấy Bộ xử lý hóa chất tràn (Spill Kit) (Phím E)"
         type="action"
         taskId="task_spill_kit"
@@ -283,16 +283,16 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.5, 0.6, 0.5]} />
+            <boxGeometry args={[0.6, 0.8, 0.6]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Trung hòa & Lau dọn vũng hóa chất tại lối đi */}
+      {/* Task: Trung hòa & Lau dọn vũng hóa chất tại lối đi giữa các bàn */}
       <InteractableItem
         id="spill_puddle"
-        position={[0.0, 0.02, 0.4]}
+        position={[2.5, 0.02, 1.0]}
         label={
           !isTaskDone('task_spill_neutralize')
             ? 'Rải bột trung hòa vũng Axit (Phím E)'
@@ -325,21 +325,21 @@ export const InteractiveTasks: React.FC = () => {
         {/* Visual Chemical Puddle */}
         <group>
           <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-            <circleGeometry args={[0.5, 32]} />
+            <circleGeometry args={[0.65, 32]} />
             <meshStandardMaterial
               color={!isTaskDone('task_spill_neutralize') ? '#0284c7' : '#e2e8f0'}
               roughness={0.1}
               transparent
-              opacity={0.7}
+              opacity={0.75}
             />
           </mesh>
         </group>
       </InteractableItem>
 
-      {/* Task: Thu gom rác thải nguy hại vào thùng rác */}
+      {/* Task: Thu gom rác thải nguy hại vào trạm thùng rác Tường Đông */}
       <InteractableItem
         id="waste_bins"
-        position={[5.3, 0.3, 3.5]}
+        position={[8.8, 0.3, 5.0]}
         label="Phân loại & Thu gom rác thải nguy hại (Phím E)"
         type="action"
         taskId="task_trash_disposal"
@@ -348,7 +348,7 @@ export const InteractiveTasks: React.FC = () => {
       >
         <group>
           <mesh visible={false}>
-            <boxGeometry args={[0.8, 0.8, 1.5]} />
+            <boxGeometry args={[1.0, 0.9, 2.0]} />
             <meshBasicMaterial transparent opacity={0} />
           </mesh>
         </group>

@@ -71,34 +71,34 @@ export const LabScene: React.FC = () => {
 
         {/* Art direction: Sunlit White Lab base & Fog */}
         <color attach="background" args={['#F7FAFD']} />
-        <fog attach="fog" args={['#F7FAFD', 18, 60]} />
+        <fog attach="fog" args={['#F7FAFD', 25, 80]} />
         
         {/* Fill lighting */}
-        <ambientLight intensity={0.9} color="#ffffff" />
+        <ambientLight intensity={0.95} color="#ffffff" />
 
         {/* Warm-white "sun" directional light through north windows */}
         <directionalLight 
           castShadow={settings.graphicsQuality !== 'low'}
-          position={[6, 12, -8]} 
-          intensity={1.6} 
-          color="#FFF4E0"
-          shadow-mapSize={[1024, 1024]}
-          shadow-camera-left={-12}
-          shadow-camera-right={12}
-          shadow-camera-top={12}
-          shadow-camera-bottom={-12}
+          position={[8, 14, -10]} 
+          intensity={1.7} 
+          color="#FFF5E4"
+          shadow-mapSize={[2048, 2048]}
+          shadow-camera-left={-16}
+          shadow-camera-right={16}
+          shadow-camera-top={16}
+          shadow-camera-bottom={-16}
           shadow-bias={-0.0005}
         />
 
         {/* Soft cool fill from south/entry */}
         <directionalLight 
-          position={[-8, 6, 8]} 
-          intensity={0.5} 
+          position={[-10, 8, 10]} 
+          intensity={0.6} 
           color="#E6F7FA"
         />
 
         {/* Overhead soft white LED panel lighting */}
-        <pointLight position={[0, 3.0, 0]} intensity={0.8} color="#ffffff" distance={15} />
+        <pointLight position={[0, 3.5, 0]} intensity={0.9} color="#ffffff" distance={25} />
 
         <Suspense fallback={<Loader />}>
           {/* In Start screen: Player stands idling on the right half facing camera */}

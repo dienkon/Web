@@ -160,12 +160,13 @@ export const InteractableItem: React.FC<Props> = ({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'KeyE') {
+      if (e.code === 'KeyE' || e.code === 'Enter' || e.code === 'Space') {
         if (disabled) return;
         if (type === 'equip' && isCompleted) return;
         if (isDialogActive) return;
         
         if (showPrompt) {
+          e.preventDefault();
           handleClickRef.current();
         }
       }

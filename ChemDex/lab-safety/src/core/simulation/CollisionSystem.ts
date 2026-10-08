@@ -13,51 +13,49 @@ export interface ColliderCylinder {
   radius: number;
 }
 
-// Room dimensions: X: -6.0 -> +6.0 (12m), Z: -4.5 -> +4.5 (9m)
+// Grand Modern Chemical Laboratory: 20m (X: -10.0 -> +10.0), 15m (Z: -7.5 -> +7.5), 3.8m (Y)
 export const LAB_BOUNDS = {
-  minX: -5.85,
-  maxX: 5.85,
-  minZ: -4.35,
-  maxZ: 4.35,
+  minX: -9.85,
+  maxX: 9.85,
+  minZ: -7.35,
+  maxZ: 7.35,
 };
 
-// Initial obstacles based on 4 bench islands and perimeter furniture
+// Obstacle colliders for expanded room
 export const INITIAL_COLLIDER_BOXES: ColliderBox[] = [
-  // Bench 1: (-2.1, -1.0), size: 2.4 x 1.3
-  { id: 'bench_1', minX: -3.3, maxX: -0.9, minZ: -1.65, maxZ: -0.35 },
-  // Bench 2: (+2.1, -1.0), size: 2.4 x 1.3
-  { id: 'bench_2', minX: 0.9, maxX: 3.3, minZ: -1.65, maxZ: -0.35 },
-  // Bench 3: (-2.1, +1.8), size: 2.4 x 1.3
-  { id: 'bench_3', minX: -3.3, maxX: -0.9, minZ: 1.15, maxZ: 2.45 },
-  // Bench 4: (+2.1, +1.8), size: 2.4 x 1.3
-  { id: 'bench_4', minX: 0.9, maxX: 3.3, minZ: 1.15, maxZ: 2.45 },
-  // Teacher Bench: (0, -3.2), size: 2.4 x 0.9
-  { id: 'bench_teacher', minX: -1.2, maxX: 1.2, minZ: -3.65, maxZ: -2.75 },
-  // Fume hood: (+4.3, -3.7), size: 1.8 x 0.9
-  { id: 'fume_hood', minX: 3.4, maxX: 5.2, minZ: -4.15, maxZ: -3.25 },
-  // East Cabinets: x ~ 5.45
-  { id: 'cab_flammable', minX: 5.0, maxX: 5.9, minZ: -2.4, maxZ: -1.6 },
-  { id: 'cab_acid', minX: 5.0, maxX: 5.9, minZ: -1.3, maxZ: -0.5 },
-  { id: 'cab_base', minX: 5.0, maxX: 5.9, minZ: -0.2, maxZ: 0.6 },
-  { id: 'shelf_general', minX: 5.1, maxX: 5.9, minZ: 1.0, maxZ: 1.8 },
-  // PPE locker bank: (-1.0, +4.25), size: 2.4 x 0.5
-  { id: 'ppe_locker', minX: -2.2, maxX: 0.2, minZ: 4.0, maxZ: 4.5 },
-  // Handwash sink: (+3.2, +4.2), size: 1.4 x 0.6
-  { id: 'sink_handwash', minX: 2.5, maxX: 3.9, minZ: 3.9, maxZ: 4.5 },
+  // Bench 1 (North-West Analytical): (-4.2, -2.2), size: 3.2 x 1.4
+  { id: 'bench_1', minX: -5.8, maxX: -2.6, minZ: -2.9, maxZ: -1.5 },
+  // Bench 2 (North-East Heating): (+4.2, -2.2), size: 3.2 x 1.4
+  { id: 'bench_2', minX: 2.6, maxX: 5.8, minZ: -2.9, maxZ: -1.5 },
+  // Bench 3 (South-West Inorganic): (-4.2, +2.2), size: 3.2 x 1.4
+  { id: 'bench_3', minX: -5.8, maxX: -2.6, minZ: 1.5, maxZ: 2.9 },
+  // Bench 4 (South-East Scenario): (+4.2, +2.2), size: 3.2 x 1.4
+  { id: 'bench_4', minX: 2.6, maxX: 5.8, minZ: 1.5, maxZ: 2.9 },
+  // Teacher Demo Bench: (0, -5.5), size: 3.0 x 1.1
+  { id: 'bench_teacher', minX: -1.6, maxX: 1.6, minZ: -6.1, maxZ: -4.9 },
+  // Fume Hoods at East Wall: (+8.8, -3.5), size: 2.2 x 1.1
+  { id: 'fume_hood', minX: 7.7, maxX: 9.8, minZ: -4.8, maxZ: -2.2 },
+  // Chemical Storage Cabinets: (+9.4, 0.5)
+  { id: 'cab_chemicals', minX: 8.8, maxX: 9.9, minZ: -1.2, maxZ: 2.2 },
+  // PPE Locker Station at South Wall: (-3.0, +7.1), size: 3.0 x 0.6
+  { id: 'ppe_locker', minX: -4.6, maxX: -1.4, minZ: 6.8, maxZ: 7.4 },
+  // Handwash Sink Station: (+3.5, +7.1), size: 2.0 x 0.6
+  { id: 'sink_handwash', minX: 2.5, maxX: 4.5, minZ: 6.8, maxZ: 7.4 },
 ];
 
 export const INITIAL_COLLIDER_CYLINDERS: ColliderCylinder[] = [
-  // Emergency shower column (-5.2, -3.3)
-  { id: 'shower_emergency', x: -5.2, z: -3.3, radius: 0.25 },
-  // Waste bins cluster
-  { id: 'bin_general', x: 5.3, z: 3.0, radius: 0.25 },
-  { id: 'bin_chemical', x: 5.3, z: 3.55, radius: 0.25 },
-  { id: 'bin_glass', x: 5.3, z: 4.1, radius: 0.25 },
+  // Emergency Shower & Eyewash Station (-9.2, -4.0)
+  { id: 'shower_emergency', x: -9.2, z: -4.0, radius: 0.35 },
+  // Chemical Spill Kit Drum / Cart (-9.3, 3.0)
+  { id: 'spill_kit_cart', x: -9.3, z: 3.0, radius: 0.35 },
+  // Multi-stream Waste Bins (East wall at Z ~ 5.0)
+  { id: 'bin_biohazard', x: 8.8, z: 4.5, radius: 0.3 },
+  { id: 'bin_chemical', x: 8.8, z: 5.2, radius: 0.3 },
+  { id: 'bin_glass', x: 8.8, z: 5.9, radius: 0.3 },
 ];
 
 /**
  * Checks capsule collision against walls and obstacles, sliding smoothly.
- * Player is approximated as a vertical capsule with radius r.
  */
 export function resolveCapsuleMovement(
   currentPos: [number, number, number],
@@ -88,7 +86,7 @@ export function resolveCapsuleMovement(
     collided = true;
   }
 
-  // 2. Slide resolution against Box Colliders (Axis-aligned with expanded minkowski radius)
+  // 2. Slide resolution against Box Colliders
   for (const box of boxColliders) {
     const minX = box.minX - radius;
     const maxX = box.maxX + radius;
@@ -97,47 +95,34 @@ export function resolveCapsuleMovement(
 
     if (nextX > minX && nextX < maxX && nextZ > minZ && nextZ < maxZ) {
       collided = true;
-      // Resolve along X first if player was outside in X
-      const curX = currentPos[0];
-      const curZ = currentPos[2];
+      // Resolve along closest axis (smooth wall-slide)
+      const distMinX = Math.abs(nextX - minX);
+      const distMaxX = Math.abs(nextX - maxX);
+      const distMinZ = Math.abs(nextZ - minZ);
+      const distMaxZ = Math.abs(nextZ - maxZ);
+      const minDist = Math.min(distMinX, distMaxX, distMinZ, distMaxZ);
 
-      const wasOutsideX = curX <= minX || curX >= maxX;
-      const wasOutsideZ = curZ <= minZ || curZ >= maxZ;
-
-      if (wasOutsideX && !wasOutsideZ) {
-        nextX = curX; // cancel X move, keep Z slide
-      } else if (wasOutsideZ && !wasOutsideX) {
-        nextZ = curZ; // cancel Z move, keep X slide
-      } else {
-        // Both collided - find shortest separation distance
-        const dxMin = Math.abs(nextX - minX);
-        const dxMax = Math.abs(nextX - maxX);
-        const dzMin = Math.abs(nextZ - minZ);
-        const dzMax = Math.abs(nextZ - maxZ);
-        const minOverlap = Math.min(dxMin, dxMax, dzMin, dzMax);
-
-        if (minOverlap === dxMin) nextX = minX;
-        else if (minOverlap === dxMax) nextX = maxX;
-        else if (minOverlap === dzMin) nextZ = minZ;
-        else nextZ = maxZ;
-      }
+      if (minDist === distMinX) nextX = minX;
+      else if (minDist === distMaxX) nextX = maxX;
+      else if (minDist === distMinZ) nextZ = minZ;
+      else if (minDist === distMaxZ) nextZ = maxZ;
     }
   }
 
   // 3. Slide resolution against Cylinder Colliders
   for (const cyl of cylinderColliders) {
-    const minDist = cyl.radius + radius;
     const dx = nextX - cyl.x;
     const dz = nextZ - cyl.z;
     const distSq = dx * dx + dz * dz;
+    const minDist = radius + cyl.radius;
 
-    if (distSq < minDist * minDist && distSq > 0.0001) {
+    if (distSq < minDist * minDist) {
       collided = true;
       const dist = Math.sqrt(distSq);
-      const normalX = dx / dist;
-      const normalZ = dz / dist;
-      nextX = cyl.x + normalX * minDist;
-      nextZ = cyl.z + normalZ * minDist;
+      if (dist > 0.0001) {
+        nextX = cyl.x + (dx / dist) * minDist;
+        nextZ = cyl.z + (dz / dist) * minDist;
+      }
     }
   }
 

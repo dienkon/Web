@@ -39,6 +39,26 @@ export const TeacherDialog: React.FC = () => {
     return () => clearInterval(interval);
   }, [isDialogActive, currentDialogIndex, currentMessage]);
 
+  useEffect(() => {
+    if (!isDialogActive) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Space' || e.code === 'Enter' || e.code === 'KeyE') {
+        e.preventDefault();
+        if (isTyping) {
+          setDisplayedText(currentMessage);
+          setIsTyping(false);
+        } else {
+          nextDialog();
+        }
+      } else if (e.code === 'Backspace' || e.code === 'Escape') {
+        e.preventDefault();
+        closeDialog();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isDialogActive, isTyping, currentMessage, nextDialog, closeDialog]);
+
   if (!isDialogActive || dialogMessages.length === 0) return null;
 
   const handleCardClick = () => {
@@ -117,9 +137,11 @@ export const TeacherDialog: React.FC = () => {
 
         {/* Footer Hint */}
         <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-          <span className="flex items-center gap-1">
-            <Volume2 className="w-3.5 h-3.5 text-cyan-500" />
-            <span>Âm lượng thoại bật</span>
+          <span className="flex items-center gap-2">
+            <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] font-bold">Space / E</span>
+            <span>{isTyping ? 'Hiện hết' : 'Tiếp tục'}</span>
+            <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] font-bold ml-1">Backspace</span>
+            <span>Bỏ qua</span>
           </span>
           <span className="font-semibold text-[var(--primary-600)] group-hover:translate-x-0.5 transition-transform">
             {isTyping ? vi.dialog.tapToReveal : vi.dialog.tapToContinue} →

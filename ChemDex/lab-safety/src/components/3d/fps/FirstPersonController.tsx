@@ -197,6 +197,48 @@ export const FirstPersonController: React.FC = () => {
         case 'ControlRight':
           keys.current.crouch = !keys.current.crouch; // Toggle crouch
           break;
+        case 'Tab':
+          e.preventDefault();
+          useStore.getState().setShowRulesList(!useStore.getState().showRulesList);
+          break;
+        case 'Backspace':
+        case 'KeyQ': {
+          const store = useStore.getState();
+          if (store.showRulesList) {
+            store.setShowRulesList(false);
+          } else if (store.showSettings) {
+            store.setShowSettings(false);
+          } else if (store.player.inventory.hasSweeper || store.player.inventory.isHoldingTrash) {
+            // Put down / unequip held item
+            const newPlayer = JSON.parse(JSON.stringify(store.player));
+            newPlayer.inventory.hasSweeper = false;
+            newPlayer.inventory.isHoldingTrash = false;
+            useStore.setState({ player: newPlayer });
+          }
+          break;
+        }
+        case 'Digit1':
+        case 'Digit2':
+        case 'Digit3':
+        case 'Digit4':
+        case 'Digit5':
+        case 'Digit6': {
+          // Select inventory item or quick inspect
+          const slot = parseInt(e.code.replace('Digit', ''), 10);
+          const store = useStore.getState();
+          if (slot === 1 && store.player.equipment.hasGoggles) {
+            store.startDialog(['Kính bảo hộ: Đang được trang bị đúng quy cách, chống văng bắn hóa chất vào mắt.']);
+          } else if (slot === 2 && store.player.equipment.hasLabCoat) {
+            store.startDialog(['Áo Blouse: Vải cotton chịu nhiệt đạt chuẩn, bảo vệ cơ thể khỏi tác nhân ăn mòn.']);
+          } else if (slot === 3 && store.player.equipment.hasGloves) {
+            store.startDialog(['Găng tay Nitrile: Đã đeo ôm sát tay, kháng axit và dung môi hữu cơ.']);
+          } else if (slot === 4 && store.player.inventory.hasSweeper) {
+            store.startDialog(['Bộ dụng cụ dọn tràn Spill Kit: Bột trung hòa NaHCO3 và xẻng gom chất thải.']);
+          } else if (slot === 5 && store.player.inventory.hasFireExtinguisher) {
+            store.startDialog(['Bình chữa cháy: Đã rút chốt an toàn, sẵn sàng bóp cò xịt vào gốc đám cháy.']);
+          }
+          break;
+        }
       }
     };
 

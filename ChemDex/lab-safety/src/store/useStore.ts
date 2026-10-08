@@ -9,8 +9,8 @@ import { MistakeRegistry } from '../core/MistakeRegistry';
 // Shared mutable coordinate store for high-frequency 60Hz Three.js frames
 // This completely avoids React tree re-renders per frame!
 export const playerCoords = {
-  position: [0, 0, 3.5] as [number, number, number],
-  rotationY: 0,
+  position: [-6.0, 0, 5.8] as [number, number, number],
+  rotationY: Math.PI,
   isMoving: false,
 };
 
@@ -106,7 +106,7 @@ export const useStore = create<GameState>((set, get) => ({
       mistakes: [],
       tasks: INITIAL_TASKS.map(t => ({ ...t, completed: false })),
       achievements: [],
-      playerPosition: [-4.0, 0, 3.2],
+      playerPosition: [-6.0, 0, 5.8],
       playerRotationY: Math.PI,
       isMoving: false,
       currentPhase: 1,
@@ -120,6 +120,9 @@ export const useStore = create<GameState>((set, get) => ({
       joystickVec: { x: 0, y: 0 },
       player: { equipment: { hasGoggles: false, hasLabCoat: false, hasGloves: false, hasMask: false, hairTied: false, hasClosedShoes: false }, inventory: { hasFireExtinguisher: false, isHoldingTrash: false, heldTrashType: null, hasSweeper: false }, flags: { fireExtinguished: false, trashCount: 0, trash1Picked: false, trash2Picked: false, trash3Picked: false } }
     });
+    playerCoords.position = [-6.0, 0, 5.8];
+    playerCoords.rotationY = Math.PI;
+    playerCoords.isMoving = false;
     get().saveGame();
   },
 
@@ -130,7 +133,7 @@ export const useStore = create<GameState>((set, get) => ({
         const parsed = JSON.parse(saved);
         set({ ...parsed, view: 'game', runState: 'RUNNING' });
         // Spawn player near entrance or checkpoint
-        playerCoords.position = [-4.0, 0, 3.2];
+        playerCoords.position = [-6.0, 0, 5.8];
         playerCoords.rotationY = Math.PI;
         playerCoords.isMoving = false;
       } else {

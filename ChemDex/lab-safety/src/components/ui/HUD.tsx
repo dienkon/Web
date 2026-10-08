@@ -241,20 +241,38 @@ export const HUD: React.FC = () => {
           <VirtualJoystick onMove={(vec) => setJoystickVec(vec)} />
         </div>
 
-        {/* Bottom-Center: Desktop Interaction Prompt */}
-        <div className="hidden lg:flex flex-col items-center pointer-events-auto">
+        {/* Bottom-Center: Desktop Interaction Prompt & Key Shortcuts */}
+        <div className="hidden lg:flex flex-col items-center pointer-events-auto gap-2">
           {activeInteraction && (
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 10 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               className="px-5 py-2.5 white-glass rounded-2xl border border-[var(--primary)] shadow-md flex items-center gap-3"
             >
-              <Keycap label="E" />
+              <div className="flex gap-1.5">
+                <Keycap label="E" />
+                <Keycap label="Space" />
+              </div>
               <span className="text-sm font-bold text-[var(--ink)]">
                 {activeInteraction}
               </span>
             </motion.div>
           )}
+
+          {/* Persistent subtle Hotkey Ribbon */}
+          <div className="px-3.5 py-1.5 rounded-full bg-slate-900/60 backdrop-blur-md text-white/90 text-[11px] font-semibold flex items-center gap-3 border border-white/10 shadow-lg">
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">WASD</span> Di chuyển</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">Shift</span> Chạy</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-amber-400 font-mono font-bold">E / Space</span> Tương tác</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-rose-400 font-mono font-bold">Backspace / Q</span> Cất / Đóng</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">Tab</span> Sổ tay</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">1-6</span> Dụng cụ</span>
+          </div>
         </div>
 
         {/* Bottom-Right: Mobile Big 64px Interact Button */}
