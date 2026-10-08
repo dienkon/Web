@@ -10,6 +10,8 @@ import { Viewmodel } from './fps/Viewmodel';
 import { PlayerModel } from './PlayerModel';
 import { FPSCrosshair } from '../ui/hud/FPSCrosshair';
 import { PPEOverlay } from '../ui/hud/PPEOverlay';
+import { ExtinguisherHUD } from '../ui/hud/ExtinguisherHUD';
+import { FireFX } from './fx/FireFX';
 
 const Loader = () => {
   const { progress } = useProgress();
@@ -35,6 +37,8 @@ export const LabScene: React.FC = () => {
       <FPSCrosshair />
       {/* First-person goggles / mask overlay */}
       <PPEOverlay />
+      {/* Real-time P.A.S.S Extinguisher Gauge */}
+      <ExtinguisherHUD />
 
       <Canvas
         shadows={settings.graphicsQuality !== 'low' ? 'percentage' : false}
@@ -108,6 +112,9 @@ export const LabScene: React.FC = () => {
 
           {/* Modular Standard Laboratory Room (Milestone 2) */}
           <LabStandardRoom />
+
+          {/* Dynamic 3D Fire & Particle simulation (Milestone 5) */}
+          <FireFX />
         </Suspense>
 
         {settings.graphicsQuality !== 'low' && (
