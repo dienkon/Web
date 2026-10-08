@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useStore, playerCoords } from '../../../store/useStore';
 import { resolveCapsuleMovement, LAB_BOUNDS } from '../../../core/simulation/CollisionSystem';
+import { spatialSound } from '../../../audio/SpatialSoundEngine';
 
 interface KeysState {
   w: boolean;
@@ -473,6 +474,16 @@ export const FirstPersonController: React.FC = () => {
       playerCoords.position[1] + currentEyeHeight.current + bobY,
       playerCoords.position[2]
     );
+
+    // Update 3D Audio Listener and Footsteps
+    spatialSound.updateListener(
+      playerCoords.position[0],
+      playerCoords.position[1],
+      playerCoords.position[2],
+      -Math.sin(yaw.current),
+      -Math.cos(yaw.current)
+    );
+    spatialSound.tickFootsteps(playerCoords.isMoving, Boolean(shift));
   });
 
   return null;

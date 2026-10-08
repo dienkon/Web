@@ -125,7 +125,116 @@ export const CertificateScreen: React.FC = () => {
     return selected.slice(0, 3) as typeof SAFETY_RULES;
   }, [mistakes]);
 
-  const handlePrintOrDownload = () => {
+  // High-Resolution PNG Certificate Generator (Off-screen HTML5 Canvas)
+  const downloadPNG = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1600;
+    canvas.height = 1000;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // 1. Crisp Certificate Background
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Subtle guilloche pattern / gradient border
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    grad.addColorStop(0, '#06B6D4');
+    grad.addColorStop(0.5, '#3B82F6');
+    grad.addColorStop(1, '#6366F1');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, 24);
+
+    // Double Gold/Cyan Borders
+    ctx.strokeStyle = '#0284C7';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(30, 45, canvas.width - 60, canvas.height - 75);
+
+    ctx.strokeStyle = '#CBD5E1';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 6]);
+    ctx.strokeRect(45, 60, canvas.width - 90, canvas.height - 105);
+    ctx.setLineDash([]);
+
+    // Header Title
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 28px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('BỘ GIÁO DỤC & ĐÀO TẠO · VIỆN THỰC HÀNH AN TOÀN HÓA HỌC', canvas.width / 2, 120);
+
+    ctx.fillStyle = '#0284C7';
+    ctx.font = '900 48px sans-serif';
+    ctx.fillText('CHỨNG CHỈ TỐT NGHIỆP AN TOÀN PHÒNG THÍ NGHIỆM', canvas.width / 2, 190);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '500 22px sans-serif';
+    ctx.fillText('Chứng nhận học viên đã hoàn thành xuất sắc khóa huấn luyện & thực hành an toàn hóa học', canvas.width / 2, 235);
+
+    // Student Name
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText('Học Viên Được Vinh Danh:', canvas.width / 2, 320);
+
+    ctx.fillStyle = '#0284C7';
+    ctx.font = '900 52px sans-serif';
+    ctx.fillText(character.name || 'Học Sinh', canvas.width / 2, 390);
+
+    // Score & Details Box
+    ctx.fillStyle = '#F8FAFC';
+    ctx.fillRect(canvas.width / 2 - 450, 440, 900, 160);
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(canvas.width / 2 - 450, 440, 900, 160);
+
+    // Grid of scores
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#475569';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText(`Điểm Đánh Giá: ${score}/100`, canvas.width / 2 - 400, 490);
+    ctx.fillText(`Xếp Loại: ${grade.title}`, canvas.width / 2 - 400, 545);
+
+    ctx.fillText(`Thời Gian: ${timeFormatted}`, canvas.width / 2 + 80, 490);
+    ctx.fillText(`Ngày Cấp: ${dateFormatted}`, canvas.width / 2 + 80, 545);
+
+    // Footer Signatures & Official Stamp
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillStyle = '#0F172A';
+    ctx.fillText('GIẢNG VIÊN HƯỚNG DẪN', canvas.width / 4, 760);
+    ctx.fillText('HỘI ĐỒNG AN TOÀN LAO ĐỘNG', (canvas.width * 3) / 4, 760);
+
+    ctx.font = 'italic 26px serif';
+    ctx.fillStyle = '#0284C7';
+    ctx.fillText('Thầy Giáo Hóa Học', canvas.width / 4, 830);
+    ctx.fillText('TS. Vũ An Toàn', (canvas.width * 3) / 4, 830);
+
+    // Official Red Circular Stamp in Center
+    ctx.save();
+    ctx.translate(canvas.width / 2, 790);
+    ctx.strokeStyle = '#DC2626';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(0, 0, 70, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillStyle = '#DC2626';
+    ctx.fillText('VIỆN AN TOÀN HÓA HỌC', 0, -25);
+    ctx.font = '900 16px sans-serif';
+    ctx.fillText('ĐÃ XÁC THỰC', 0, 5);
+    ctx.font = 'bold 11px sans-serif';
+    ctx.fillText(certId, 0, 30);
+    ctx.restore();
+
+    // Trigger Download
+    const dataUrl = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = `Chung_Chi_An_Toan_Hoa_Hoc_${(character.name || 'HocSinh').replace(/\s+/g, '_')}.png`;
+    a.click();
+  };
+
+  const handlePrint = () => {
     window.print();
   };
 
@@ -328,12 +437,21 @@ export const CertificateScreen: React.FC = () => {
         {/* ================= ACTION BUTTONS ================= */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Button
-            variant="secondary"
+            variant="primary"
             size="md"
             icon={<Download className="w-4 h-4" />}
-            onClick={handlePrintOrDownload}
+            onClick={downloadPNG}
           >
-            {vi.certificate.downloadPDF}
+            Tải Chứng Chỉ Ảnh (PNG)
+          </Button>
+
+          <Button
+            variant="secondary"
+            size="md"
+            icon={<Award className="w-4 h-4" />}
+            onClick={handlePrint}
+          >
+            In / Xuất Bằng Khen (PDF)
           </Button>
 
           <Button
@@ -344,16 +462,6 @@ export const CertificateScreen: React.FC = () => {
           >
             {vi.certificate.playAgain}
           </Button>
-
-          <a href="/lab-3d/">
-            <Button
-              variant="primary"
-              size="md"
-              icon={<ExternalLink className="w-4 h-4" />}
-            >
-              {vi.certificate.goToLab}
-            </Button>
-          </a>
         </div>
 
       </div>

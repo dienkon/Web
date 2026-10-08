@@ -10,6 +10,10 @@ import { HandwashSink } from './Sinks';
 import { LabDecor } from './Decor';
 import { InteractiveTasks } from './InteractiveTasks';
 import { ObjectiveMarker } from './ObjectiveMarker';
+import { FireEmergencyScenario } from './FireEmergencyScenario';
+import { AcidDilutionStation } from './AcidDilutionStation';
+import { PHTestingMinigame } from './PHTestingMinigame';
+import { HazardHuntManager } from './HazardHuntManager';
 
 export const LabStandardRoom: React.FC = () => {
   return (
@@ -44,6 +48,18 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 10. 3D Animated Navigation Arrow & Sonar Waypoint */}
       <ObjectiveMarker />
+
+      {/* 11. Real-time Physical Fire Emergency Scenario (PASS Suppression) */}
+      <FireEmergencyScenario />
+
+      {/* 12. Fluid Simulation: Acid Dilution Lab Station */}
+      <AcidDilutionStation />
+
+      {/* 13. Chemical Color Indicator: pH Litmus Testing Minigame */}
+      <PHTestingMinigame />
+
+      {/* 14. Safety Hazard Hunt & Inspection Mode */}
+      <HazardHuntManager />
     </group>
   );
 };
