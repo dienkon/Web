@@ -58,7 +58,7 @@ export const LabScene: React.FC = () => {
             minDistance={2}
             maxDistance={8}
             maxPolarAngle={Math.PI / 2 - 0.05}
-            target={[0, 1.2, 0]}
+            target={[1.2, 1.05, 0]}
             autoRotate={true}
             autoRotateSpeed={0.8}
           />
@@ -101,11 +101,11 @@ export const LabScene: React.FC = () => {
         <pointLight position={[0, 3.0, 0]} intensity={0.8} color="#ffffff" distance={15} />
 
         <Suspense fallback={<Loader />}>
-          {/* In Start screen: Player stands idling in the foreground facing camera */}
+          {/* In Start screen: Player stands idling on the right half facing camera */}
           {view === 'start' && (
             <PlayerModel 
-              position={[0, 0, 0]}
-              rotationY={Math.PI}
+              position={[1.2, 0, 0]}
+              rotationY={Math.PI * 0.85}
               isMoving={false}
             />
           )}

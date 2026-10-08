@@ -124,6 +124,7 @@ export interface SettingsState {
   largeText: boolean;
   leftHanded: boolean;
   cameraSensitivity: number;
+  safeEffects: boolean;
 }
 
 export interface GameState {

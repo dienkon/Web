@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useStore, playerCoords } from '../../../store/useStore';
-import { resolveCapsuleMovement } from '../../../core/simulation/CollisionSystem';
+import { resolveCapsuleMovement, LAB_BOUNDS } from '../../../core/simulation/CollisionSystem';
 
 interface KeysState {
   w: boolean;
@@ -23,12 +23,19 @@ export const FirstPersonController: React.FC = () => {
   const settings = useStore((s) => s.settings);
 
   // Pitch (vertical) and Yaw (horizontal) angles in radians
-  const yaw = useRef<number>(Math.PI); // Facing North (-z) by default
+  // Initial yaw = Math.PI (facing North / -Z into the lab from South entrance)
+  const yaw = useRef<number>(Math.PI);
   const pitch = useRef<number>(0);
   const isLocked = useRef<boolean>(false);
 
-  // Crouch state & head height lerping
-  // Standing eye height = 1.62m, crouched = 1.05m
+  // Mouse Drag fallback when pointer lock is not active
+  const isDragging = useRef<boolean>(false);
+  const lastMousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Touch drag for mobile look
+  const lastTouchPos = useRef<{ x: number; y: number } | null>(null);
+
+  // Crouch state & head height lerping (standing = 1.62m, crouched = 1.05m)
   const currentEyeHeight = useRef<number>(1.62);
   const headBobTimer = useRef<number>(0);
 
@@ -42,11 +49,7 @@ export const FirstPersonController: React.FC = () => {
     crouch: false,
   });
 
-  // Stuck prevention: track time player has been stationary while pushing input
-  const stuckTimer = useRef<number>(0);
-  const lastRecordedPos = useRef<[number, number]>([playerCoords.position[0], playerCoords.position[2]]);
-
-  // Pointer lock handling
+  // Pointer lock & drag event listeners
   useEffect(() => {
     const canvas = gl.domElement;
 
@@ -55,52 +58,134 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const onClick = () => {
-      if (view === 'game' && !isDialogActive && runState !== 'PAUSED') {
+      if (view === 'game' && !isDialogActive) {
         if (!isLocked.current && canvas.requestPointerLock) {
-          canvas.requestPointerLock();
+          try {
+            const p = canvas.requestPointerLock();
+            if (p && typeof (p as any).catch === 'function') {
+              (p as any).catch(() => {});
+            }
+          } catch {}
         }
       }
     };
 
+    const onMouseDown = (e: MouseEvent) => {
+      if (view !== 'game' || isDialogActive) return;
+      isDragging.current = true;
+      lastMousePos.current = { x: e.clientX, y: e.clientY };
+    };
+
+    const onMouseUp = () => {
+      isDragging.current = false;
+    };
+
     const onMouseMove = (e: MouseEvent) => {
-      if (!isLocked.current) return;
+      if (view !== 'game' || isDialogActive) return;
 
       const sensitivity = (settings.cameraSensitivity || 1.0) * 0.0022;
-      yaw.current -= e.movementX * sensitivity;
-      pitch.current -= e.movementY * sensitivity;
 
-      // Limit pitch to +/- 85 degrees (1.48 rad)
+      if (isLocked.current) {
+        // Pointer lock mode
+        yaw.current -= e.movementX * sensitivity;
+        pitch.current -= e.movementY * sensitivity;
+      } else if (isDragging.current) {
+        // Drag to look fallback
+        const dx = e.clientX - lastMousePos.current.x;
+        const dy = e.clientY - lastMousePos.current.y;
+        yaw.current -= dx * sensitivity;
+        pitch.current -= dy * sensitivity;
+        lastMousePos.current = { x: e.clientX, y: e.clientY };
+      }
+
+      // Clamp pitch to +/- 85 degrees
       const maxPitch = (85 * Math.PI) / 180;
       pitch.current = Math.max(-maxPitch, Math.min(maxPitch, pitch.current));
     };
 
+    // Touch controls for mobile look
+    const onTouchStart = (e: TouchEvent) => {
+      if (view !== 'game' || isDialogActive || e.touches.length === 0) return;
+      for (let i = 0; i < e.touches.length; i++) {
+        const touch = e.touches[i];
+        // If touch starts on the right half of screen, use it for camera rotation
+        if (touch.clientX > window.innerWidth * 0.35) {
+          lastTouchPos.current = { x: touch.clientX, y: touch.clientY };
+          break;
+        }
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (view !== 'game' || isDialogActive || !lastTouchPos.current || e.touches.length === 0) return;
+      for (let i = 0; i < e.touches.length; i++) {
+        const touch = e.touches[i];
+        if (touch.clientX > window.innerWidth * 0.3) {
+          const dx = touch.clientX - lastTouchPos.current.x;
+          const dy = touch.clientY - lastTouchPos.current.y;
+          const sensitivity = (settings.cameraSensitivity || 1.0) * 0.0035;
+
+          yaw.current -= dx * sensitivity;
+          pitch.current -= dy * sensitivity;
+
+          const maxPitch = (85 * Math.PI) / 180;
+          pitch.current = Math.max(-maxPitch, Math.min(maxPitch, pitch.current));
+
+          lastTouchPos.current = { x: touch.clientX, y: touch.clientY };
+          break;
+        }
+      }
+    };
+
+    const onTouchEnd = () => {
+      lastTouchPos.current = null;
+    };
+
     document.addEventListener('pointerlockchange', onPointerLockChange);
     canvas.addEventListener('click', onClick);
+    canvas.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
     window.addEventListener('mousemove', onMouseMove);
+
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchcancel', onTouchEnd);
 
     return () => {
       document.removeEventListener('pointerlockchange', onPointerLockChange);
       canvas.removeEventListener('click', onClick);
+      canvas.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mouseup', onMouseUp);
       window.removeEventListener('mousemove', onMouseMove);
-    };
-  }, [gl, view, isDialogActive, runState, settings.cameraSensitivity]);
 
-  // Keyboard listeners
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [gl, view, isDialogActive, settings.cameraSensitivity]);
+
+  // Keyboard listeners (WASD + Arrow Keys + Shift + C/Ctrl)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (view !== 'game' || isDialogActive || runState === 'PAUSED') return;
+      if (view !== 'game' || isDialogActive) return;
 
       switch (e.code) {
         case 'KeyW':
+        case 'ArrowUp':
           keys.current.w = true;
           break;
         case 'KeyS':
+        case 'ArrowDown':
           keys.current.s = true;
           break;
         case 'KeyA':
+        case 'ArrowLeft':
           keys.current.a = true;
           break;
         case 'KeyD':
+        case 'ArrowRight':
           keys.current.d = true;
           break;
         case 'ShiftLeft':
@@ -110,10 +195,7 @@ export const FirstPersonController: React.FC = () => {
         case 'KeyC':
         case 'ControlLeft':
         case 'ControlRight':
-          keys.current.crouch = !keys.current.crouch; // toggle crouch
-          break;
-        case 'Escape':
-          // Esc releases pointer lock automatically by browser
+          keys.current.crouch = !keys.current.crouch; // Toggle crouch
           break;
       }
     };
@@ -121,15 +203,19 @@ export const FirstPersonController: React.FC = () => {
     const handleKeyUp = (e: KeyboardEvent) => {
       switch (e.code) {
         case 'KeyW':
+        case 'ArrowUp':
           keys.current.w = false;
           break;
         case 'KeyS':
+        case 'ArrowDown':
           keys.current.s = false;
           break;
         case 'KeyA':
+        case 'ArrowLeft':
           keys.current.a = false;
           break;
         case 'KeyD':
+        case 'ArrowRight':
           keys.current.d = false;
           break;
         case 'ShiftLeft':
@@ -146,18 +232,18 @@ export const FirstPersonController: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [view, isDialogActive, runState]);
+  }, [view, isDialogActive]);
 
   // Frame update
   useFrame((_, delta) => {
-    if (view !== 'game' || runState === 'PAUSED') {
+    if (view !== 'game') {
       playerCoords.isMoving = false;
       return;
     }
 
     if (isDialogActive) {
       playerCoords.isMoving = false;
-      // Keep camera oriented
+      // Keep camera oriented towards current pitch/yaw
       const euler = new THREE.Euler(pitch.current, yaw.current, 0, 'YXZ');
       camera.quaternion.setFromEuler(euler);
       camera.position.set(
@@ -174,7 +260,11 @@ export const FirstPersonController: React.FC = () => {
 
     // Speeds: Crouch = 0.9 m/s, Walk = 1.6 m/s, Run = 3.2 m/s
     const targetEyeH = crouch ? 1.05 : 1.62;
-    currentEyeHeight.current = THREE.MathUtils.lerp(currentEyeHeight.current, targetEyeH, delta * 10);
+    currentEyeHeight.current = THREE.MathUtils.lerp(
+      currentEyeHeight.current,
+      targetEyeH,
+      Math.min(1, delta * 10)
+    );
 
     let moveSpeed = 1.6;
     if (crouch) {
@@ -210,7 +300,7 @@ export const FirstPersonController: React.FC = () => {
     }
 
     if (hasJoy) {
-      // Joystick Y is forward/back (-y = forward in joystick standard), X is strafe
+      // Joystick movement
       inputX += -forwardX * joystickVec.y + rightX * joystickVec.x;
       inputZ += -forwardZ * joystickVec.y + rightZ * joystickVec.x;
     }
@@ -228,12 +318,12 @@ export const FirstPersonController: React.FC = () => {
       const targetX = playerCoords.position[0] + deltaX;
       const targetZ = playerCoords.position[2] + deltaZ;
 
-      // Solve collision and wall slide
+      // Solve collision and smooth wall slide
       const resolved = resolveCapsuleMovement(
         playerCoords.position,
         targetX,
         targetZ,
-        0.28 // capsule radius
+        0.28 // Capsule radius
       );
 
       playerCoords.position[0] = resolved.x;
@@ -241,31 +331,24 @@ export const FirstPersonController: React.FC = () => {
       playerCoords.rotationY = yaw.current;
       playerCoords.isMoving = true;
 
-      // Head bobbing (subtle, disabled if reduceMotion is on)
+      // Head bobbing (disabled if reduceMotion is on)
       if (!settings.reduceMotion) {
         headBobTimer.current += delta * (shift ? 14 : 9);
       }
-
-      // Anti-stuck watchdog
-      const dX = resolved.x - lastRecordedPos.current[0];
-      const dZ = resolved.z - lastRecordedPos.current[1];
-      if (dX * dX + dZ * dZ < 0.0001) {
-        stuckTimer.current += delta;
-        if (stuckTimer.current > 2.0) {
-          // Push player back to entrance area (-4.0, +3.5) if stuck for 2 seconds
-          playerCoords.position[0] = -4.0;
-          playerCoords.position[2] = 3.5;
-          stuckTimer.current = 0;
-        }
-      } else {
-        stuckTimer.current = 0;
-        lastRecordedPos.current = [resolved.x, resolved.z];
-      }
     } else {
       playerCoords.isMoving = false;
-      stuckTimer.current = 0;
       headBobTimer.current = 0;
     }
+
+    // Clamp coordinates within room boundary safeguards
+    playerCoords.position[0] = Math.max(
+      LAB_BOUNDS.minX + 0.28,
+      Math.min(LAB_BOUNDS.maxX - 0.28, playerCoords.position[0])
+    );
+    playerCoords.position[2] = Math.max(
+      LAB_BOUNDS.minZ + 0.28,
+      Math.min(LAB_BOUNDS.maxZ - 0.28, playerCoords.position[2])
+    );
 
     // Compute head-bob offset
     let bobY = 0;

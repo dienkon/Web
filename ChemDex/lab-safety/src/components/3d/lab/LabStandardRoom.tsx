@@ -8,6 +8,7 @@ import { StorageCabinets } from './StorageCabinets';
 import { WasteStation } from './WasteStation';
 import { HandwashSink } from './Sinks';
 import { LabDecor } from './Decor';
+import { InteractiveTasks } from './InteractiveTasks';
 
 export const LabStandardRoom: React.FC = () => {
   return (
@@ -36,6 +37,9 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 8. North Teaching Wall & Ambient Decor */}
       <LabDecor />
+
+      {/* 9. Interactive Task Collider Triggers & Prompt Logic */}
+      <InteractiveTasks />
     </group>
   );
 };

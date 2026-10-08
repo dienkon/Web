@@ -33,6 +33,7 @@ const DEFAULT_SETTINGS: SettingsState = {
   largeText: false,
   leftHanded: false,
   cameraSensitivity: 1.0,
+  safeEffects: false,
 };
 
 function loadStoredCharacter(): CharacterProfile {
@@ -92,20 +93,21 @@ export const useStore = create<GameState>((set, get) => ({
   setGameMode: (gameMode: GameMode) => set({ gameMode }),
 
   startGame: () => {
-    playerCoords.position = [0, 0, 3.5];
-    playerCoords.rotationY = 0;
+    playerCoords.position = [-4.0, 0, 3.2];
+    playerCoords.rotationY = Math.PI;
     playerCoords.isMoving = false;
 
     set({
       view: 'game',
+      runState: 'RUNNING',
       startTime: Date.now(),
       score: 100,
       errors: 0,
       mistakes: [],
       tasks: INITIAL_TASKS.map(t => ({ ...t, completed: false })),
       achievements: [],
-      playerPosition: [0, 0, 3.5],
-      playerRotationY: 0,
+      playerPosition: [-4.0, 0, 3.2],
+      playerRotationY: Math.PI,
       isMoving: false,
       currentPhase: 1,
       showRulesList: false,
@@ -126,18 +128,10 @@ export const useStore = create<GameState>((set, get) => ({
       const saved = localStorage.getItem('labSafetySave');
       if (saved) {
         const parsed = JSON.parse(saved);
-        set({ ...parsed, view: 'game' });
-        // Spawn player near checkpoint of current phase
-        if (parsed.currentPhase === 1) {
-          playerCoords.position = [0, 0, 3.5];
-        } else if (parsed.currentPhase === 2) {
-          playerCoords.position = [1.5, 0, 2.5]; 
-        } else if (parsed.currentPhase === 3) {
-          playerCoords.position = [-2.5, 0, 3]; 
-        } else {
-           playerCoords.position = [0, 0, 3.5];
-        }
-        playerCoords.rotationY = 0;
+        set({ ...parsed, view: 'game', runState: 'RUNNING' });
+        // Spawn player near entrance or checkpoint
+        playerCoords.position = [-4.0, 0, 3.2];
+        playerCoords.rotationY = Math.PI;
         playerCoords.isMoving = false;
       } else {
         get().startGame();
@@ -259,6 +253,7 @@ export const useStore = create<GameState>((set, get) => ({
         localStorage.setItem('labSafetySettings', JSON.stringify(updated));
       } catch {}
       soundManager.setVolumes(updated.sfxVolume, updated.musicVolume);
+      soundManager.setSafeEffects(updated.safeEffects || updated.reduceMotion);
       return { settings: updated };
     });
   },

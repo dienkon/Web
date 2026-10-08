@@ -110,6 +110,13 @@ export const SettingsModal: React.FC = () => {
             />
           </div>
           <div className="flex items-center justify-between py-1">
+            <span className="text-sm font-semibold text-[var(--ink)]">Hiệu ứng an toàn (giảm nháy, rung, âm thanh lớn)</span>
+            <Switch
+              checked={settings.safeEffects}
+              onChange={(v) => updateSettings({ safeEffects: v })}
+            />
+          </div>
+          <div className="flex items-center justify-between py-1">
             <span className="text-sm font-semibold text-[var(--ink)]">{vi.settings.leftHanded}</span>
             <Switch
               checked={settings.leftHanded}
