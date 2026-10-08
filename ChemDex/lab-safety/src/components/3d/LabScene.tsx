@@ -4,9 +4,11 @@ import { OrbitControls, PerspectiveCamera, Html, useProgress } from '@react-thre
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { LabEnvironment } from './LabEnvironment';
+import { LabBaseRoom } from './lab/Architecture';
 import { useStore } from '../../store/useStore';
-import { ThirdPersonController } from './ThirdPersonController';
+import { FirstPersonController } from './fps/FirstPersonController';
 import { PlayerModel } from './PlayerModel';
+import { FPSCrosshair } from '../ui/hud/FPSCrosshair';
 
 const Loader = () => {
   const { progress } = useProgress();
@@ -28,6 +30,9 @@ export const LabScene: React.FC = () => {
 
   return (
     <div className="absolute inset-0 bg-[#F7FAFD]">
+      {/* 2D FPS Crosshair & Interaction Tooltip Overlay */}
+      <FPSCrosshair />
+
       <Canvas
         shadows={settings.graphicsQuality !== 'low' ? 'percentage' : false}
         dpr={settings.graphicsQuality === 'low' ? 1 : [1, 2]}
@@ -38,7 +43,7 @@ export const LabScene: React.FC = () => {
           outputColorSpace: THREE.SRGBColorSpace,
         }}
       >
-        <PerspectiveCamera makeDefault position={[0, 2.5, 6]} fov={55} />
+        <PerspectiveCamera makeDefault position={[0, 2.5, 6]} fov={72} />
         
         {view === 'start' ? (
           <OrbitControls 
@@ -51,7 +56,7 @@ export const LabScene: React.FC = () => {
             autoRotateSpeed={0.8}
           />
         ) : (
-          <ThirdPersonController />
+          <FirstPersonController />
         )}
 
         {/* Art direction: Sunlit White Lab base & Fog */}
@@ -83,7 +88,7 @@ export const LabScene: React.FC = () => {
         />
 
         {/* Overhead soft white LED panel lighting */}
-        <pointLight position={[0, 6, 0]} intensity={0.6} color="#ffffff" distance={15} />
+        <pointLight position={[0, 3.0, 0]} intensity={0.8} color="#ffffff" distance={15} />
 
         <Suspense fallback={<Loader />}>
           {/* In Start screen: Player stands idling in the foreground facing camera */}
@@ -95,11 +100,10 @@ export const LabScene: React.FC = () => {
             />
           )}
 
-          {/* In Game mode: Player is controlled by ThirdPersonController via playerCoords */}
-          {view === 'game' && (
-            <PlayerModel />
-          )}
+          {/* Standard architectural room envelope (M1) */}
+          <LabBaseRoom />
 
+          {/* Existing interactables and props until M2 rebuilds modular stations */}
           <LabEnvironment />
         </Suspense>
 
