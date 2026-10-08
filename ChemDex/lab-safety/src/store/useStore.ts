@@ -79,6 +79,7 @@ export const useStore = create<GameState>((set, get) => ({
   showChemicalSymbolsQuiz: false,
   waterEffect: { active: false, type: 'shower' },
   showMinimap: false,
+  isFlashlightOn: false,
   
   character: loadStoredCharacter(),
   settings: loadStoredSettings(),
@@ -318,6 +319,10 @@ export const useStore = create<GameState>((set, get) => ({
   setShowChemicalSymbolsQuiz: (show: boolean) => set({ showChemicalSymbolsQuiz: show }),
   setWaterEffect: (waterEffect) => set({ waterEffect }),
   setShowMinimap: (show: boolean) => set({ showMinimap: show }),
+  toggleFlashlight: () => {
+    soundManager.play('click');
+    set((state) => ({ isFlashlightOn: !state.isFlashlightOn }));
+  },
   setCurrentPhase: (phase: number) => {
     set({ currentPhase: phase });
     get().saveGame();

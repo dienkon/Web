@@ -215,6 +215,27 @@ export const LabMinimapHUD: React.FC = () => {
             💨
           </div>
           <div
+            className="absolute text-[8px] sm:text-[10px] font-bold text-amber-400"
+            style={{ left: '67.5%', top: '33.3%' }}
+            title="Đèn Khí Bunsen & Van Gas Bàn 2"
+          >
+            🔥
+          </div>
+          <div
+            className="absolute text-[8px] sm:text-[10px] font-bold text-amber-500"
+            style={{ left: '62.5%', top: '56.6%' }}
+            title="Vị Trí Sự Cố Tràn Đổ Hóa Chất"
+          >
+            ⚠️
+          </div>
+          <div
+            className="absolute text-[8px] sm:text-[10px] font-bold text-yellow-300"
+            style={{ right: '1%', top: '50%' }}
+            title="Tủ Lưu Trữ Hóa Chất Cách Ly (GHS)"
+          >
+            🗄️
+          </div>
+          <div
             className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-400"
             style={{ left: '29%', bottom: '2%' }}
             title="Cửa Thoát Hiểm A"

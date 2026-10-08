@@ -164,6 +164,8 @@ export interface GameState {
   setWaterEffect: (effect: { active: boolean; type: 'shower' | 'eyewash' | 'acid_splash' }) => void;
   showMinimap: boolean;
   setShowMinimap: (show: boolean) => void;
+  isFlashlightOn: boolean;
+  toggleFlashlight: () => void;
   
   // Joystick vector for touch
   joystickVec: { x: number; y: number };

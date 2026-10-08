@@ -289,52 +289,7 @@ export const InteractiveTasks: React.FC = () => {
         </group>
       </InteractableItem>
 
-      {/* Task: Trung hòa & Lau dọn vũng hóa chất tại lối đi giữa các bàn */}
-      <InteractableItem
-        id="spill_puddle"
-        position={[2.5, 0.02, 1.0]}
-        label={
-          !isTaskDone('task_spill_neutralize')
-            ? 'Rải bột trung hòa vũng Axit (Phím E)'
-            : 'Lau dọn sạch vũng hóa chất (Phím E)'
-        }
-        type="action"
-        taskId={
-          !isTaskDone('task_spill_neutralize')
-            ? 'task_spill_neutralize'
-            : 'task_spill_wipe'
-        }
-        visible={currentPhase === 3 && !isTaskDone('task_spill_wipe')}
-        isGlowing={currentPhase === 3 && !isTaskDone('task_spill_wipe')}
-        dialogCallback={() => {
-          if (!isTaskDone('task_spill_neutralize')) {
-            startDialog([
-              'Đã rải bột Sodium Bicarbonate (NaHCO3) lên vũng axit!',
-              'Bọt khí CO2 sủi mạnh do phản ứng trung hòa sinh nhiệt. Vũng hóa chất đã chuyển sang môi trường trung tính an toàn.',
-            ]);
-            completeTask('task_spill_neutralize');
-          } else {
-            startDialog([
-              'Đã dùng giấy thấm và cây lau gom toàn bộ hỗn hợp trung hòa vào túi chất thải nguy hại.',
-              'Mặt sàn đã khô ráo và an toàn tuyệt đối!',
-            ]);
-            completeTask('task_spill_wipe');
-          }
-        }}
-      >
-        {/* Visual Chemical Puddle */}
-        <group>
-          <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-            <circleGeometry args={[0.65, 32]} />
-            <meshStandardMaterial
-              color={!isTaskDone('task_spill_neutralize') ? '#0284c7' : '#e2e8f0'}
-              roughness={0.1}
-              transparent
-              opacity={0.75}
-            />
-          </mesh>
-        </group>
-      </InteractableItem>
+      {/* Chemical Spill is dynamically simulated via ChemicalSpillSimulation */}
 
       {/* Task: Thu gom rác thải nguy hại vào trạm thùng rác Tường Đông */}
       <InteractableItem

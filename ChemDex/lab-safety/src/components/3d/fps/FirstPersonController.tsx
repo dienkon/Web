@@ -59,6 +59,10 @@ export const FirstPersonController: React.FC = () => {
   const currentEyeHeight = useRef<number>(1.62);
   const headBobTimer = useRef<number>(0);
 
+  // FPS Flashlight (Key F)
+  const spotLightRef = useRef<THREE.SpotLight>(null);
+  const spotLightTarget = useRef(new THREE.Object3D());
+
   // Key states
   const keys = useRef<KeysState>({
     w: false,
@@ -232,6 +236,9 @@ export const FirstPersonController: React.FC = () => {
         case 'ControlLeft':
         case 'ControlRight':
           keys.current.crouch = !keys.current.crouch; // Toggle crouch
+          break;
+        case 'KeyF':
+          useStore.getState().toggleFlashlight();
           break;
         case 'Tab':
           e.preventDefault();
@@ -484,7 +491,37 @@ export const FirstPersonController: React.FC = () => {
       -Math.cos(yaw.current)
     );
     spatialSound.tickFootsteps(playerCoords.isMoving, Boolean(shift));
+
+    // Update FPS Flashlight
+    const isFlashlightOn = useStore.getState().isFlashlightOn;
+    if (spotLightRef.current) {
+      spotLightRef.current.position.copy(camera.position);
+      const lookDirX = -Math.sin(yaw.current) * Math.cos(pitch.current);
+      const lookDirY = Math.sin(pitch.current);
+      const lookDirZ = -Math.cos(yaw.current) * Math.cos(pitch.current);
+      spotLightTarget.current.position.set(
+        camera.position.x + lookDirX * 10,
+        camera.position.y + lookDirY * 10,
+        camera.position.z + lookDirZ * 10
+      );
+      spotLightTarget.current.updateMatrixWorld();
+    }
   });
 
-  return null;
+  const isFlashlightOn = useStore((s) => s.isFlashlightOn);
+
+  return (
+    <>
+      <primitive object={spotLightTarget.current} />
+      <spotLight
+        ref={spotLightRef}
+        target={spotLightTarget.current}
+        intensity={isFlashlightOn ? 3.2 : 0}
+        angle={0.52}
+        penumbra={0.6}
+        color="#F8FAFC"
+        distance={22}
+      />
+    </>
+  );
 };

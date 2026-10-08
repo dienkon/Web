@@ -17,6 +17,9 @@ import { HazardHuntManager } from './HazardHuntManager';
 import { EmergencyShowerStation } from './EmergencyShowerStation';
 import { InteractiveFumeHood } from './InteractiveFumeHood';
 import { FirstAidTreatmentStation } from './FirstAidTreatmentStation';
+import { ChemicalSpillSimulation } from './ChemicalSpillSimulation';
+import { BunsenBurnerStation } from './BunsenBurnerStation';
+import { ChemicalStorageStation } from './ChemicalStorageStation';
 
 export const LabStandardRoom: React.FC = () => {
   return (
@@ -33,15 +36,17 @@ export const LabStandardRoom: React.FC = () => {
       <EmergencyShowerStation />
       <FirstAidTreatmentStation />
 
-      {/* 4. Island Benches (4 benches with scenario equipment) */}
+      {/* 4. Island Benches (4 benches with Bunsen Burner & Lab Equipment) */}
       <IslandBenches />
+      <BunsenBurnerStation />
 
       {/* 5. Northeast Fume Hood (Base Shell + Interactive Sliding Sash & Vapors) */}
       <FumeHood />
       <InteractiveFumeHood />
 
-      {/* 6. East Wall (Chemical Storage Cabinets & Shelving) */}
+      {/* 6. East Wall (Chemical Storage Cabinets & GHS Incompatibility Sorter) */}
       <StorageCabinets />
+      <ChemicalStorageStation />
 
       {/* 7. Southeast Waste Segregation Station */}
       <WasteStation />
@@ -64,7 +69,10 @@ export const LabStandardRoom: React.FC = () => {
       {/* 13. Chemical Color Indicator: pH Litmus Testing Minigame */}
       <PHTestingMinigame />
 
-      {/* 14. Safety Hazard Hunt & Inspection Mode */}
+      {/* 14. Real-time Physical Chemical Spill & Neutralization Simulation */}
+      <ChemicalSpillSimulation />
+
+      {/* 15. Safety Hazard Hunt & Inspection Mode */}
       <HazardHuntManager />
     </group>
   );

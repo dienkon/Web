@@ -33,6 +33,8 @@ export const HUD: React.FC = () => {
   const setShowRulesList = useStore((s) => s.setShowRulesList);
   const setActiveRuleDialog = useStore((s) => s.setActiveRuleDialog);
   const waterEffect = useStore((s) => s.waterEffect);
+  const isFlashlightOn = useStore((s) => s.isFlashlightOn);
+  const toggleFlashlight = useStore((s) => s.toggleFlashlight);
 
   const [showTaskListSheet, setShowTaskListSheet] = useState(false);
   const [scoreDelta, setScoreDelta] = useState<number | null>(null);
@@ -248,6 +250,20 @@ export const HUD: React.FC = () => {
               DEV: SKIP
             </button>
           )}
+
+          {/* Flashlight Button [F] */}
+          <button
+            onClick={toggleFlashlight}
+            className={`w-10 h-10 rounded-full flex items-center justify-center border shadow-xs active:scale-95 transition-all cursor-pointer ${
+              isFlashlightOn
+                ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-amber-300/40'
+                : 'white-glass hover:bg-white text-[var(--ink-2)] hover:text-[var(--ink)] border-[var(--line)]'
+            }`}
+            title="Bật/Tắt Đèn Pin Soi Sáng [F]"
+            aria-label="Đèn pin"
+          >
+            <span className="text-base">{isFlashlightOn ? '🔦' : '🕯️'}</span>
+          </button>
 
           {/* Settings / Pause Button */}
           <button
