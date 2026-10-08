@@ -159,6 +159,12 @@ export interface GameState {
   showBandageQuiz: boolean;
   showChemicalSymbolsQuiz: boolean;
   
+  // Dynamic screen effects (water spray, chemical splash)
+  waterEffect: { active: boolean; type: 'shower' | 'eyewash' | 'acid_splash' };
+  setWaterEffect: (effect: { active: boolean; type: 'shower' | 'eyewash' | 'acid_splash' }) => void;
+  showMinimap: boolean;
+  setShowMinimap: (show: boolean) => void;
+  
   // Joystick vector for touch
   joystickVec: { x: number; y: number };
   setJoystickVec: (vec: { x: number; y: number }) => void;

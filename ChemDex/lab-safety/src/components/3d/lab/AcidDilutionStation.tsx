@@ -12,6 +12,7 @@ export const AcidDilutionStation: React.FC = () => {
   const startDialog = useStore((s) => s.startDialog);
   const player = useStore((s) => s.player);
   const addError = useStore((s) => s.addError);
+  const setWaterEffect = useStore((s) => s.setWaterEffect);
 
   const [isOpen, setIsOpen] = useState(false);
   const [reactionState, setReactionState] = useState<'idle' | 'safe' | 'exploded'>('idle');
@@ -41,6 +42,12 @@ export const AcidDilutionStation: React.FC = () => {
     setReactionState('exploded');
     soundManager.play('fizz');
     soundManager.play('shatter');
+
+    // Trigger visual acid splatter droplets on player goggles/screen
+    setWaterEffect({ active: true, type: 'acid_splash' });
+    setTimeout(() => {
+      setWaterEffect({ active: false, type: 'acid_splash' });
+    }, 4500);
 
     if (!player.equipment.hasGoggles) {
       addError('ppe_missing', { penalty: 15 });

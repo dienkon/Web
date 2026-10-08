@@ -14,6 +14,9 @@ import { FireEmergencyScenario } from './FireEmergencyScenario';
 import { AcidDilutionStation } from './AcidDilutionStation';
 import { PHTestingMinigame } from './PHTestingMinigame';
 import { HazardHuntManager } from './HazardHuntManager';
+import { EmergencyShowerStation } from './EmergencyShowerStation';
+import { InteractiveFumeHood } from './InteractiveFumeHood';
+import { FirstAidTreatmentStation } from './FirstAidTreatmentStation';
 
 export const LabStandardRoom: React.FC = () => {
   return (
@@ -25,14 +28,17 @@ export const LabStandardRoom: React.FC = () => {
       <PPEStation />
       <HandwashSink />
 
-      {/* 3. West Wall (Emergency Safety Wall) */}
+      {/* 3. West Wall (Emergency Safety Wall + Interactive Shower & First Aid) */}
       <SafetyWall />
+      <EmergencyShowerStation />
+      <FirstAidTreatmentStation />
 
       {/* 4. Island Benches (4 benches with scenario equipment) */}
       <IslandBenches />
 
-      {/* 5. Northeast Fume Hood */}
+      {/* 5. Northeast Fume Hood (Base Shell + Interactive Sliding Sash & Vapors) */}
       <FumeHood />
+      <InteractiveFumeHood />
 
       {/* 6. East Wall (Chemical Storage Cabinets & Shelving) */}
       <StorageCabinets />

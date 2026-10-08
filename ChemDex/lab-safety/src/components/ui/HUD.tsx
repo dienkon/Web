@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { getActiveObjective } from '../3d/lab/ObjectiveMarker';
+import { WaterDropletsOverlay } from './hud/WaterDropletsOverlay';
+import { LabMinimapHUD } from './hud/LabMinimapHUD';
 
 export const HUD: React.FC = () => {
   const currentPhase = useStore((s) => s.currentPhase);
@@ -30,6 +32,7 @@ export const HUD: React.FC = () => {
   const setShowSettings = useStore((s) => s.setShowSettings);
   const setShowRulesList = useStore((s) => s.setShowRulesList);
   const setActiveRuleDialog = useStore((s) => s.setActiveRuleDialog);
+  const waterEffect = useStore((s) => s.waterEffect);
 
   const [showTaskListSheet, setShowTaskListSheet] = useState(false);
   const [scoreDelta, setScoreDelta] = useState<number | null>(null);
@@ -402,6 +405,12 @@ export const HUD: React.FC = () => {
           ))}
         </div>
       </Sheet>
+
+      {/* 2D Architectural Minimap Radar */}
+      <LabMinimapHUD />
+
+      {/* Screen Water / Chemical Splatter Overlay */}
+      <WaterDropletsOverlay active={waterEffect.active} type={waterEffect.type} />
 
     </div>
   );

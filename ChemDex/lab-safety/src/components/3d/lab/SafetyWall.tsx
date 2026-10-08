@@ -32,11 +32,6 @@ export const SafetyWall: React.FC = () => {
             <coneGeometry args={[0.18, 0.12, 24]} />
             <meshStandardMaterial color="#CBD5E1" metalness={0.95} roughness={0.1} />
           </mesh>
-          {/* High-visibility Triangular Pull Rod */}
-          <mesh position={[0.4, -0.65, 0]}>
-            <cylinderGeometry args={[0.006, 0.006, 1.1]} />
-            <meshStandardMaterial color="#EAB308" metalness={0.8} />
-          </mesh>
         </group>
 
         {/* Dual Aerated Eyewash Bowl & Spray Heads at Y = 1.05m */}
@@ -118,22 +113,7 @@ export const SafetyWall: React.FC = () => {
         </mesh>
       </group>
 
-      {/* ================= 4. WALL-MOUNTED FIRST AID STATION (-9.85, 1.4, 1.0) ================= */}
-      <group position={[-9.85, 1.4, 1.0]}>
-        <mesh castShadow>
-          <boxGeometry args={[0.16, 0.45, 0.45]} />
-          <meshStandardMaterial color="#F8FAFC" roughness={0.3} />
-        </mesh>
-        {/* Green Medical Cross */}
-        <mesh position={[0.085, 0, 0]}>
-          <boxGeometry args={[0.01, 0.22, 0.07]} />
-          <meshStandardMaterial color="#16A34A" />
-        </mesh>
-        <mesh position={[0.085, 0, 0]}>
-          <boxGeometry args={[0.01, 0.07, 0.22]} />
-          <meshStandardMaterial color="#16A34A" />
-        </mesh>
-      </group>
+      {/* First Aid Station is now dynamically mounted via Interactive FirstAidTreatmentStation */}
 
       {/* ================= 5. MOBILE CHEMICAL SPILL KIT CART (-9.3, 0, 3.0) ================= */}
       <group position={[-9.3, 0, 3.0]}>

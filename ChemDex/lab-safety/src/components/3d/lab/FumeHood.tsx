@@ -21,17 +21,6 @@ export const FumeHood: React.FC = () => {
         <meshStandardMaterial color="#0F172A" roughness={0.15} />
       </mesh>
 
-      {/* Safety Laminated Glass Vertical Sliding Sash with Airfoil */}
-      <mesh position={[0, 1.62, 0.52]}>
-        <boxGeometry args={[2.18, 0.82, 0.02]} />
-        <meshPhysicalMaterial transparent opacity={0.32} roughness={0.04} color="#BAE6FD" />
-      </mesh>
-      {/* Aluminum Sash Handle */}
-      <mesh position={[0, 1.22, 0.535]}>
-        <boxGeometry args={[2.15, 0.035, 0.02]} />
-        <meshStandardMaterial color="#94A3B8" metalness={0.9} />
-      </mesh>
-
       {/* Sash Maximum Operating Height Line (Red 45cm Indicator) */}
       <mesh position={[0, 1.28, 0.54]}>
         <boxGeometry args={[2.18, 0.015, 0.005]} />

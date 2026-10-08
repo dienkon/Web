@@ -77,6 +77,8 @@ export const useStore = create<GameState>((set, get) => ({
   showFireExtinguisherQuiz: false,
   showBandageQuiz: false,
   showChemicalSymbolsQuiz: false,
+  waterEffect: { active: false, type: 'shower' },
+  showMinimap: false,
   
   character: loadStoredCharacter(),
   settings: loadStoredSettings(),
@@ -314,6 +316,8 @@ export const useStore = create<GameState>((set, get) => ({
   setShowFireExtinguisherQuiz: (show: boolean) => set({ showFireExtinguisherQuiz: show }),
   setShowBandageQuiz: (show: boolean) => set({ showBandageQuiz: show }),
   setShowChemicalSymbolsQuiz: (show: boolean) => set({ showChemicalSymbolsQuiz: show }),
+  setWaterEffect: (waterEffect) => set({ waterEffect }),
+  setShowMinimap: (show: boolean) => set({ showMinimap: show }),
   setCurrentPhase: (phase: number) => {
     set({ currentPhase: phase });
     get().saveGame();
