@@ -147,6 +147,58 @@ export const useStore = create<GameState>((set, get) => ({
         trash3Picked: false,
       }
     });
+    get().saveGame();
+  },
+
+  resumeGame: () => {
+    try {
+      const saved = localStorage.getItem('labSafetySave');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        set({ ...parsed, view: 'game' });
+        // Spawn player near checkpoint of current phase
+        if (parsed.currentPhase === 1) {
+          playerCoords.position = [0, 0, 3.5];
+        } else if (parsed.currentPhase === 2) {
+          playerCoords.position = [1.5, 0, 2.5]; 
+        } else if (parsed.currentPhase === 3) {
+          playerCoords.position = [-2.5, 0, 3]; 
+        } else {
+           playerCoords.position = [0, 0, 3.5];
+        }
+        playerCoords.rotationY = 0;
+        playerCoords.isMoving = false;
+      } else {
+        get().startGame();
+      }
+    } catch {
+      get().startGame();
+    }
+  },
+
+  saveGame: () => {
+    const state = get();
+    if (state.view !== 'game') return; // only save if in game
+    const stateToSave = {
+      gameMode: state.gameMode,
+      score: state.score,
+      errors: state.errors,
+      mistakes: state.mistakes,
+      startTime: state.startTime,
+      endTime: state.endTime,
+      tasks: state.tasks,
+      player: state.player,
+      character: state.character,
+      settings: state.settings,
+      currentPhase: state.currentPhase,
+      achievements: state.achievements,
+      playerPosition: playerCoords.position,
+      playerRotationY: playerCoords.rotationY,
+    };
+    try {
+      localStorage.setItem('labSafetySave', JSON.stringify(stateToSave));
+      localStorage.setItem('hasCompletedSafetyTraining', 'true');
+    } catch {}
   },
 
   endGame: () => {
@@ -161,23 +213,9 @@ export const useStore = create<GameState>((set, get) => ({
     soundManager.play('success');
     set((state) => {
       const newTasks = state.tasks.map(t => t.id === taskId ? { ...t, completed: true } : t);
-      
-      // Auto-advance phase when appropriate
-      const phase1Ids = ['task_talk', 'task_rules', 'task_goggles', 'task_coat', 'task_gloves', 'task_mask', 'task_hair', 'task_shoes'];
-      const phase2Ids = ['task_fire_extinguisher', 'task_chemical_symbols', 'task_inspect_acid', 'task_bandage'];
-      
-      let nextPhase = state.currentPhase;
-      const allPhase1Done = phase1Ids.every(id => newTasks.find(t => t.id === id)?.completed);
-      const allPhase2Done = phase2Ids.every(id => newTasks.find(t => t.id === id)?.completed);
-
-      if (state.currentPhase === 1 && allPhase1Done) {
-        nextPhase = 2;
-      } else if (state.currentPhase === 2 && allPhase2Done) {
-        nextPhase = 3;
-      }
-
-      return { tasks: newTasks, currentPhase: nextPhase };
+      return { tasks: newTasks };
     });
+    get().saveGame();
   },
 
   addError: (ruleId: number, penalty: number = 5) => {
@@ -280,7 +318,16 @@ export const useStore = create<GameState>((set, get) => ({
     });
   },
 
-  closeDialog: () => set({ isDialogActive: false }),
+  closeDialog: () => {
+    soundManager.play('click');
+    set((state) => {
+      if (state.dialogCallback) {
+        const cb = state.dialogCallback;
+        setTimeout(() => cb(), 50);
+      }
+      return { isDialogActive: false, dialogCallback: null };
+    });
+  },
 
   setShowRulesList: (show: boolean) => set({ showRulesList: show }),
   setShowCharacterCreator: (show: boolean) => set({ showCharacterCreator: show }),
@@ -288,7 +335,10 @@ export const useStore = create<GameState>((set, get) => ({
   setShowFireExtinguisherQuiz: (show: boolean) => set({ showFireExtinguisherQuiz: show }),
   setShowBandageQuiz: (show: boolean) => set({ showBandageQuiz: show }),
   setShowChemicalSymbolsQuiz: (show: boolean) => set({ showChemicalSymbolsQuiz: show }),
-  setCurrentPhase: (phase: number) => set({ currentPhase: phase }),
+  setCurrentPhase: (phase: number) => {
+    set({ currentPhase: phase });
+    get().saveGame();
+  },
 
   setPlayerPosition: (pos: [number, number, number]) => {
     playerCoords.position = pos;

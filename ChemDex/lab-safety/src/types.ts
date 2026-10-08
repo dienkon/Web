@@ -116,6 +116,8 @@ export interface GameState {
   setView: (view: ViewState) => void;
   setGameMode: (mode: GameMode) => void;
   startGame: () => void;
+  resumeGame: () => void;
+  saveGame: () => void;
   endGame: () => void;
   completeTask: (taskId: string) => void;
   addError: (ruleId: number, penalty?: number) => void;

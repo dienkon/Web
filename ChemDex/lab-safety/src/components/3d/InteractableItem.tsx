@@ -189,6 +189,11 @@ export const InteractableItem: React.FC<Props> = ({
     };
   }, [id, label]);
 
+  const handleClickRef = useRef(handleClick);
+  useEffect(() => {
+    handleClickRef.current = handleClick;
+  }, [handleClick]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'KeyE') {
@@ -197,7 +202,7 @@ export const InteractableItem: React.FC<Props> = ({
         if (isDialogActive) return;
         
         if (showPrompt) {
-          handleClick();
+          handleClickRef.current();
         }
       }
     };

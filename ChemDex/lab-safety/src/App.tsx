@@ -48,7 +48,6 @@ export default function App() {
         <>
           <HUD />
           <TeacherDialog />
-          <RuleDialog />
           {showRulesList && <RulesListScreen onClose={() => setShowRulesList(false)} />}
           <FireExtinguisherQuiz />
           <BandageWrappingQuiz />
@@ -66,6 +65,7 @@ export default function App() {
       {view === 'certificate' && <CertificateScreen />}
 
       {/* Global Modals */}
+      <RuleDialog />
       <CharacterCreatorModal />
       <SettingsModal />
 

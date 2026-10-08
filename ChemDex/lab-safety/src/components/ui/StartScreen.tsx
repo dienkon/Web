@@ -19,6 +19,7 @@ import {
 
 export const StartScreen: React.FC = () => {
   const startGame = useStore((s) => s.startGame);
+  const resumeGame = useStore((s) => s.resumeGame);
   const gameMode = useStore((s) => s.gameMode);
   const setGameMode = useStore((s) => s.setGameMode);
   const setShowRulesList = useStore((s) => s.setShowRulesList);
@@ -30,7 +31,7 @@ export const StartScreen: React.FC = () => {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('hasCompletedSafetyTraining');
+      const saved = localStorage.getItem('labSafetySave');
       if (saved) setHasSave(true);
     } catch {}
   }, []);
@@ -87,9 +88,17 @@ export const StartScreen: React.FC = () => {
             size="lg"
             className="w-full text-base shadow-lg shadow-cyan-500/25 justify-center"
             icon={<Play className="w-5 h-5 fill-current" />}
-            onClick={() => startGame()}
+            onClick={() => {
+              if (hasSave) {
+                if (window.confirm("Bạn có chắc chắn muốn chơi mới? Toàn bộ tiến trình cũ sẽ bị xóa.")) {
+                  startGame();
+                }
+              } else {
+                startGame();
+              }
+            }}
           >
-            {vi.menu.start}
+            {hasSave ? vi.menu.start + " (Chơi mới)" : vi.menu.start}
           </Button>
 
           {/* Continue (if save exists) */}
@@ -99,7 +108,7 @@ export const StartScreen: React.FC = () => {
               size="lg"
               className="w-full justify-center"
               icon={<RotateCcw className="w-5 h-5 text-emerald-600" />}
-              onClick={() => startGame()}
+              onClick={() => resumeGame()}
             >
               {vi.menu.continue}
             </Button>

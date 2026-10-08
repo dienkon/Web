@@ -43,6 +43,16 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
     setIsWrong(false);
   }, [currentIndex, currentSymbol]);
 
+  const timeout1Ref = React.useRef<NodeJS.Timeout | undefined>(undefined);
+  const timeout2Ref = React.useRef<NodeJS.Timeout | undefined>(undefined);
+
+  React.useEffect(() => {
+    return () => {
+      clearTimeout(timeout1Ref.current);
+      clearTimeout(timeout2Ref.current);
+    };
+  }, []);
+
   const handleSelect = (option: string) => {
     if (showResult) return;
     setSelectedAnswer(option);
@@ -52,7 +62,7 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
       // Correct!
       setIsWrong(false);
       playSound('success');
-      setTimeout(() => {
+      timeout1Ref.current = setTimeout(() => {
         if (currentIndex < SYMBOLS.length - 1) {
           setCurrentIndex(prev => prev + 1);
         } else {
@@ -67,7 +77,7 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
       setIsWrong(true);
       playSound('error');
       addError(1001, 5); // Minus 5 points
-      setTimeout(() => {
+      timeout2Ref.current = setTimeout(() => {
         setShowResult(false);
         setSelectedAnswer(null);
       }, 2000);

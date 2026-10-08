@@ -547,34 +547,62 @@ const TeacherFallbackModel: React.FC = () => {
   );
 };
 
-const TeacherModel: React.FC = () => {
-  try {
-    const { scene } = useGLTF('/teacher.glb');
-    const clonedScene = useMemo(() => scene.clone(), [scene]);
+const TeacherGLTF: React.FC = () => {
+  const { scene } = useGLTF('/teacher.glb');
+  const clonedScene = useMemo(() => scene.clone(), [scene]);
 
-    useEffect(() => {
-      clonedScene.traverse((child) => {
-        if ((child as any).isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-          if ((child as any).material) {
-            (child as any).material.roughness = 0.5;
-            (child as any).material.metalness = 0.15;
-          }
+  useEffect(() => {
+    clonedScene.traverse((child) => {
+      if ((child as any).isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if ((child as any).material) {
+          (child as any).material.roughness = 0.5;
+          (child as any).material.metalness = 0.15;
         }
-      });
-    }, [clonedScene]);
+      }
+    });
+  }, [clonedScene]);
 
-    return (
-      <group position={[0, 0.42, 0]} rotation={[0, 0, 0]}>
-        <primitive object={clonedScene} scale={1.2} />
-      </group>
-    );
-  } catch (err) {
-    console.warn("Failed to load teacher.glb model, using fallbacks", err);
-    return <TeacherFallbackModel />;
-  }
+  return (
+    <group position={[0, 0.42, 0]} rotation={[0, 0, 0]}>
+      <primitive object={clonedScene} scale={1.2} />
+    </group>
+  );
 };
+
+class TeacherErrorBoundary extends React.Component<{ children: React.ReactNode, fallback: React.ReactNode }, { hasError: boolean }> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true };
+  }
+  componentDidCatch(error: any) {
+    console.warn("Failed to load teacher.glb model, using fallbacks", error);
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+const TeacherModel: React.FC = () => {
+  return (
+    <TeacherErrorBoundary fallback={<TeacherFallbackModel />}>
+      <React.Suspense fallback={<TeacherFallbackModel />}>
+        <TeacherGLTF />
+      </React.Suspense>
+    </TeacherErrorBoundary>
+  );
+};
+
+try {
+  useGLTF.preload('/teacher.glb');
+} catch (e) {}
 
 interface SideTableProps {
   position: [number, number, number];
@@ -2147,6 +2175,7 @@ export const LabEnvironment: React.FC = () => {
               if (player.heldTrashType !== 'domestic') {
                 useStore.getState().addError(302, 5);
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Em đã vứt nhầm rác vào Thùng Sinh Hoạt.", "Bị phạt -5 ĐIỂM! Khăn lau hóa chất hoặc thủy tinh vỡ không được bỏ vào đây."]);
+                return;
               }
               const newTrashCount = player.trashCount + 1;
               useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
@@ -2185,6 +2214,7 @@ export const LabEnvironment: React.FC = () => {
               if (player.heldTrashType !== 'chemical') {
                 useStore.getState().addError(302, 5);
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Đây là thùng dành riêng cho rác dính hóa chất.", "Bị phạt -5 ĐIỂM! Rác sinh hoạt hoặc thủy tinh vỡ nên bỏ đúng thùng."]);
+                return;
               }
               const newTrashCount = player.trashCount + 1;
               useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
@@ -2227,6 +2257,7 @@ export const LabEnvironment: React.FC = () => {
               if (player.heldTrashType !== 'sharps') {
                 useStore.getState().addError(302, 5);
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Đây là thùng dành riêng cho vật sắc nhọn/thủy tinh vỡ.", "Bị phạt -5 ĐIỂM! Rác sinh hoạt hoặc khăn lau hóa chất phải bỏ thùng khác."]);
+                return;
               }
               const newTrashCount = player.trashCount + 1;
               useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
