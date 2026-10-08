@@ -1,5 +1,6 @@
 export type ViewState = 'start' | 'game' | 'certificate';
 export type GameMode = 'learn' | 'challenge' | 'exam';
+export type GameRunState = 'RUNNING' | 'PAUSED';
 
 export type TaskId = 'task_talk' | 'task_rules' | 'task_goggles' | 'task_coat' | 'task_gloves' | 'task_mask' | 'task_hair' | 'task_shoes' | 'task_fire_extinguisher' | 'task_chemical_symbols' | 'task_inspect_acid' | 'task_bandage' | 'task_spill_kit' | 'task_spill_neutralize' | 'task_spill_wipe' | 'task_trash_disposal';
 export type PhaseId = 'phase_1' | 'phase_2' | 'phase_3';
@@ -45,6 +46,8 @@ export interface Rule {
   wrong?: string;
   consequence?: string;
   category?: 'ppe' | 'chemical' | 'heat' | 'glass' | 'firstaid' | 'waste';
+  reviewStatus?: 'draft' | 'needs-review' | 'reviewed';
+  sources?: string[];
 }
 
 export interface PlayerState {
@@ -97,7 +100,7 @@ export interface ErrorBannerData {
 }
 
 export interface SettingsState {
-  graphicsQuality: 'auto' | 'high' | 'medium' | 'low';
+  graphicsQuality: 'ultra' | 'high' | 'medium' | 'low' | 'potato' | 'auto';
   musicVolume: number;
   sfxVolume: number;
   voiceVolume: number;
@@ -121,6 +124,8 @@ export interface GameState {
   character: CharacterProfile;
   settings: SettingsState;
   currentPhase: number;
+  runState: GameRunState;
+  setRunState: (state: GameRunState) => void;
   achievements: string[];
   
   // UI Panels

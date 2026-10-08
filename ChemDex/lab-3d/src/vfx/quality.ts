@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type QualityTier = 'low' | 'medium' | 'high';
+export type QualityTier = 'potato' | 'low' | 'medium' | 'high' | 'ultra';
 export type QualityPreference = 'auto' | QualityTier;
 
 export interface QualitySettings {
@@ -16,22 +16,39 @@ export interface QualitySettings {
   maxLiveParticles: number;
   tableReflector: boolean;
   heatHaze: boolean;
+  shadowBudget: number; // Add shadow budgeting
 }
 
 export const QUALITY_CONFIGS: Record<QualityTier, QualitySettings> = {
+  ultra: {
+    dprMax: 2.0,
+    glassTransmission: true,
+    transmissionResolutionScale: 1.0,
+    usePostFX: true,
+    useN8AO: true,
+    useBloom: true,
+    useSMAA: true,
+    useVignette: true,
+    particleMultiplier: 1.25,
+    maxLiveParticles: 3000,
+    tableReflector: true,
+    heatHaze: true,
+    shadowBudget: 2048,
+  },
   high: {
     dprMax: 1.5,
     glassTransmission: true,
     transmissionResolutionScale: 0.75,
     usePostFX: true,
-    useN8AO: false, // Heavy SSAO disabled by default to maintain consistent 60 FPS
+    useN8AO: false,
     useBloom: true,
     useSMAA: true,
     useVignette: false,
     particleMultiplier: 0.85,
     maxLiveParticles: 1800,
-    tableReflector: false, // Matte non-glare epoxy bench as requested
+    tableReflector: false,
     heatHaze: true,
+    shadowBudget: 1024,
   },
   medium: {
     dprMax: 1.25,
@@ -46,6 +63,7 @@ export const QUALITY_CONFIGS: Record<QualityTier, QualitySettings> = {
     maxLiveParticles: 1000,
     tableReflector: false,
     heatHaze: false,
+    shadowBudget: 512,
   },
   low: {
     dprMax: 1.0,
@@ -60,15 +78,31 @@ export const QUALITY_CONFIGS: Record<QualityTier, QualitySettings> = {
     maxLiveParticles: 500,
     tableReflector: false,
     heatHaze: false,
+    shadowBudget: 256,
   },
+  potato: {
+    dprMax: 0.75,
+    glassTransmission: false,
+    transmissionResolutionScale: 0.1,
+    usePostFX: false,
+    useN8AO: false,
+    useBloom: false,
+    useSMAA: false,
+    useVignette: false,
+    particleMultiplier: 0.1,
+    maxLiveParticles: 100,
+    tableReflector: false,
+    heatHaze: false,
+    shadowBudget: 0, // No shadows
+  }
 };
 
 const STORAGE_KEY = 'chemlab_vfx_quality_preference';
 
 function getInitialPreference(): QualityPreference {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === 'auto' || saved === 'low' || saved === 'medium' || saved === 'high') {
+    const saved = localStorage.getItem(STORAGE_KEY) as QualityPreference;
+    if (['auto', 'potato', 'low', 'medium', 'high', 'ultra'].includes(saved)) {
       return saved;
     }
   } catch {
@@ -105,19 +139,27 @@ export const useQualityStore = create<QualityStoreState>((set, get) => ({
   handlePerformanceDecline: () => {
     const { preference, effectiveTier } = get();
     if (preference !== 'auto') return;
-    if (effectiveTier === 'high') {
+    if (effectiveTier === 'ultra') {
+      set({ effectiveTier: 'high' });
+    } else if (effectiveTier === 'high') {
       set({ effectiveTier: 'medium' });
     } else if (effectiveTier === 'medium') {
       set({ effectiveTier: 'low' });
+    } else if (effectiveTier === 'low') {
+      set({ effectiveTier: 'potato' });
     }
   },
   handlePerformanceIncline: () => {
     const { preference, effectiveTier } = get();
     if (preference !== 'auto') return;
-    if (effectiveTier === 'low') {
+    if (effectiveTier === 'potato') {
+      set({ effectiveTier: 'low' });
+    } else if (effectiveTier === 'low') {
       set({ effectiveTier: 'medium' });
     } else if (effectiveTier === 'medium') {
       set({ effectiveTier: 'high' });
+    } else if (effectiveTier === 'high') {
+      set({ effectiveTier: 'ultra' });
     }
   },
 }));

@@ -1,20 +1,30 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# LABORATORY SAFETY 3D
+Mô phỏng an toàn phòng thí nghiệm tương tác 3D.
 
-# Run and deploy your AI Studio app
+## Giới thiệu
+Ứng dụng đào tạo an toàn hóa học, giúp người học nhận biết và thực hành các quy tắc an toàn trong phòng thí nghiệm (Sử dụng PPE, xử lý hóa chất tràn, phân loại rác, sử dụng bình chữa cháy).
 
-This contains everything you need to run your app locally.
+## Getting Started
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
 
-View your app in AI Studio: https://ai.studio/apps/92af132a-36a9-4af9-bac2-acc63fe22189
+## Scripts
+- \`npm run dev\`: Khởi chạy môi trường phát triển
+- \`npm run build\`: Đóng gói ứng dụng cho production (dùng \`base: './'\` để deploy được mọi nơi)
+- \`npm run lint\`: Chạy kiểm tra TypeScript
 
-## Run Locally
+## Kiến trúc
+- **Core Engine:** Các file engine thuần chức năng nằm ở \`src/core\` (PhaseEngine, ScoreEngine, MistakeRegistry).
+- **Store:** Zustand store tối giản chỉ dùng kết nối UI. Trạng thái người chơi được gộp vào \`equipment, inventory, flags\`.
+- **UI:** Render qua HUD, Certificate, Quiz.
+- **3D / Simulation:** SimulationClock và hệ thống particle xử lý VFX độc lập với React state.
 
-**Prerequisites:**  Node.js
+## Chất lượng (Performance Budget)
+- Sử dụng dynamic \`graphicsQuality\` scale tự động từ đo đạc FPS thật.
+- Các vật thể nhỏ không tham gia \`castShadow\`.
+- Bloom / PostProcessing tự động vô hiệu hóa trên mobile hoặc preset \`low\`.
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Hạn chế Nội dung
+Các nội dung an toàn trong mô phỏng (quấn băng, trung hòa, chữa cháy) chỉ mang tính minh họa học tập. **KHÔNG** dùng làm quy trình đào tạo chính thức cho cơ sở thực tế (Cần đối chiếu nội quy nhà trường và phiếu an toàn SDS của hóa chất).

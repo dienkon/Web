@@ -1,3 +1,4 @@
+import { AnalyticsService } from '../systems/analytics/AnalyticsService';
 import { create } from 'zustand';
 import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, SettingsState, MistakeRecord, ErrorBannerData, MistakeId } from '../types';
 import { INITIAL_TASKS } from '../data/tasks';
@@ -61,6 +62,7 @@ export const useStore = create<GameState>((set, get) => ({
   tasks: INITIAL_TASKS,
   achievements: [],
   currentPhase: 1,
+  runState: 'PAUSED',
   activeRuleDialog: null,
   activeInteraction: null,
   activeErrorBanner: null,
@@ -332,4 +334,6 @@ export const useStore = create<GameState>((set, get) => ({
     playerCoords.isMoving = isMoving;
     set({ isMoving });
   }
+,
+  setRunState: (state: any) => set({ runState: state })
 }));

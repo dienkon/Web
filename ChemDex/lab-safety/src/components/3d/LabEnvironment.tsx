@@ -148,6 +148,7 @@ const getActiveTargetPosition = (
 };
 
 export const LabEnvironment: React.FC = () => {
+  const settings = useStore(s => s.settings);
   const currentPhase = useStore((s) => s.currentPhase);
   const player = useStore((s) => s.player);
   const tasks = useStore((s) => s.tasks);
@@ -361,7 +362,7 @@ export const LabEnvironment: React.FC = () => {
       <InteractionManager />
       {/* Light setups & shadow adjustments */}
       {/* Glossy white epoxy floor */}
-      <mesh receiveShadow position={[0, -0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0, -0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[22, 22]} />
         <meshStandardMaterial color="#FFFFFF" roughness={0.25} metalness={0.05} />
       </mesh>
@@ -370,22 +371,22 @@ export const LabEnvironment: React.FC = () => {
       <gridHelper args={[22, 22, '#cbd5e1', '#e2e8f0']} position={[0, 0.005, 0]} />
 
       {/* Walls */}
-      <mesh receiveShadow castShadow position={[0, 2, -10]}>
+      <mesh receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} position={[0, 2, -10]}>
         <boxGeometry args={[20, 4, 0.5]} />
         <meshStandardMaterial color="#f8fafc" />
       </mesh>
-      <mesh receiveShadow castShadow position={[-10, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+      <mesh receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} position={[-10, 2, 0]} rotation={[0, Math.PI / 2, 0]}>
         <boxGeometry args={[20, 4, 0.5]} />
         <meshStandardMaterial color="#f8fafc" />
       </mesh>
-      <mesh receiveShadow castShadow position={[10, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
+      <mesh receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} position={[10, 2, 0]} rotation={[0, -Math.PI / 2, 0]}>
         <boxGeometry args={[20, 4, 0.5]} />
         <meshStandardMaterial color="#f8fafc" />
       </mesh>
 
       {/* Whiteboard with Safety title in Beautiful standard signed Vietnamese */}
       <group position={[0, 2.1, -9.7]}>
-        <mesh receiveShadow castShadow>
+        <mesh receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
           <boxGeometry args={[6.5, 2.8, 0.1]} />
           <meshStandardMaterial color="#ffffff" roughness={0.15} metalness={0.05} />
         </mesh>
@@ -434,35 +435,35 @@ export const LabEnvironment: React.FC = () => {
       {/* Decorative Wooden Shelves on Walls */}
       {/* Back Wall Left Shelf */}
       <group position={[-5, 1.55, -9.5]}>
-        <mesh castShadow receiveShadow>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[3, 0.04, 0.4]} />
           <meshStandardMaterial color="#5c2d0c" roughness={0.7} />
         </mesh>
       </group>
       {/* Back Wall Right Shelf */}
       <group position={[5, 1.55, -9.5]}>
-        <mesh castShadow receiveShadow>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[3, 0.04, 0.4]} />
           <meshStandardMaterial color="#5c2d0c" roughness={0.7} />
         </mesh>
       </group>
       {/* Left Wall Shelf */}
       <group position={[-9.5, 1.55, -3.2]} rotation={[0, Math.PI / 2, 0]}>
-        <mesh castShadow receiveShadow>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[2.5, 0.04, 0.4]} />
           <meshStandardMaterial color="#5c2d0c" roughness={0.7} />
         </mesh>
       </group>
       {/* Right Wall Shelf 1 */}
       <group position={[9.5, 1.55, -2.4]} rotation={[0, Math.PI / 2, 0]}>
-        <mesh castShadow receiveShadow>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[2.5, 0.04, 0.4]} />
           <meshStandardMaterial color="#5c2d0c" roughness={0.7} />
         </mesh>
       </group>
       {/* Right Wall Shelf 2 */}
       <group position={[9.5, 1.55, 2.4]} rotation={[0, Math.PI / 2, 0]}>
-        <mesh castShadow receiveShadow>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[2.5, 0.04, 0.4]} />
           <meshStandardMaterial color="#5c2d0c" roughness={0.7} />
         </mesh>
@@ -477,25 +478,25 @@ export const LabEnvironment: React.FC = () => {
       {/* Main Lab Table - Solid Light Yellow */}
       <group position={[0, 0.9, 0]}>
         {/* Table Top with Solid Light Yellow */}
-        <mesh castShadow receiveShadow position={[0, 0, 0]}>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0, 0, 0]}>
           <boxGeometry args={[8, 0.1, 3]} />
           <meshStandardMaterial color="#fef9c3" roughness={0.3} metalness={0.05} />
         </mesh>
         
         {/* Table Legs with rich details */}
-        <mesh castShadow receiveShadow position={[-3.8, -0.45, -1.3]}>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[-3.8, -0.45, -1.3]}>
           <boxGeometry args={[0.15, 0.9, 0.15]} />
           <meshStandardMaterial color="#1e293b" roughness={0.6} />
         </mesh>
-        <mesh castShadow receiveShadow position={[3.8, -0.45, -1.3]}>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[3.8, -0.45, -1.3]}>
           <boxGeometry args={[0.15, 0.9, 0.15]} />
           <meshStandardMaterial color="#1e293b" roughness={0.6} />
         </mesh>
-        <mesh castShadow receiveShadow position={[-3.8, -0.45, 1.3]}>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[-3.8, -0.45, 1.3]}>
           <boxGeometry args={[0.15, 0.9, 0.15]} />
           <meshStandardMaterial color="#1e293b" roughness={0.6} />
         </mesh>
-        <mesh castShadow receiveShadow position={[3.8, -0.45, 1.3]}>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[3.8, -0.45, 1.3]}>
           <boxGeometry args={[0.15, 0.9, 0.15]} />
           <meshStandardMaterial color="#1e293b" roughness={0.6} />
         </mesh>
@@ -503,21 +504,21 @@ export const LabEnvironment: React.FC = () => {
         {/* ULTRA-DETAILED TEST TUBE RACK (Giá ống nghiệm chi tiết với vạch chia độ và bọt khí) */}
         <group position={[-0.3, 0.05, -0.6]}>
           {/* Wooden Rack Base */}
-          <mesh castShadow receiveShadow position={[0, 0.01, 0]}>
+          <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0, 0.01, 0]}>
             <boxGeometry args={[0.5, 0.02, 0.16]} />
             <meshStandardMaterial color="#854d0e" roughness={0.7} /> {/* Brown wood */}
           </mesh>
           {/* Wooden Rack Top Plate (with holes) */}
-          <mesh castShadow receiveShadow position={[0, 0.16, 0]}>
+          <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0, 0.16, 0]}>
             <boxGeometry args={[0.5, 0.02, 0.16]} />
             <meshStandardMaterial color="#854d0e" roughness={0.7} />
           </mesh>
           {/* Wooden Rack Side Posts */}
-          <mesh castShadow receiveShadow position={[-0.24, 0.08, 0]}>
+          <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[-0.24, 0.08, 0]}>
             <boxGeometry args={[0.02, 0.16, 0.14]} />
             <meshStandardMaterial color="#a16207" roughness={0.7} />
           </mesh>
-          <mesh castShadow receiveShadow position={[0.24, 0.08, 0]}>
+          <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0.24, 0.08, 0]}>
             <boxGeometry args={[0.02, 0.16, 0.14]} />
             <meshStandardMaterial color="#a16207" roughness={0.7} />
           </mesh>
@@ -525,30 +526,30 @@ export const LabEnvironment: React.FC = () => {
           {/* Test Tube 1: CuSO4 (Blue with bubbles and graduation ticks) */}
           <group position={[-0.15, 0.12, 0]}>
             {/* Glass Tube body */}
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.02, 0.02, 0.18, 12]} />
               <meshStandardMaterial color="#ffffff" opacity={0.3} transparent roughness={0.1} />
             </mesh>
             {/* Blue fluid */}
-            <mesh position={[0, -0.03, 0]} castShadow>
+            <mesh position={[0, -0.03, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.018, 0.018, 0.12, 12]} />
               <meshStandardMaterial color="#2563eb" opacity={0.75} transparent roughness={0.1} />
             </mesh>
             {/* Fluid bubbles */}
-            <mesh position={[0.005, 0.01, 0.005]} castShadow>
+            <mesh position={[0.005, 0.01, 0.005]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <sphereGeometry args={[0.004, 8, 8]} />
               <meshStandardMaterial color="#60a5fa" roughness={0.1} />
             </mesh>
-            <mesh position={[-0.005, -0.02, -0.005]} castShadow>
+            <mesh position={[-0.005, -0.02, -0.005]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <sphereGeometry args={[0.003, 8, 8]} />
               <meshStandardMaterial color="#60a5fa" roughness={0.1} />
             </mesh>
             {/* White graduation tick marks */}
-            <mesh position={[0, 0, 0.019]} castShadow>
+            <mesh position={[0, 0, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
-            <mesh position={[0, -0.03, 0.019]} castShadow>
+            <mesh position={[0, -0.03, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
@@ -557,21 +558,21 @@ export const LabEnvironment: React.FC = () => {
           {/* Test Tube 2: KMnO4 (Deep Purple with graduation ticks) */}
           <group position={[-0.05, 0.12, 0]}>
             {/* Glass Tube body */}
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.02, 0.02, 0.18, 12]} />
               <meshStandardMaterial color="#ffffff" opacity={0.3} transparent roughness={0.1} />
             </mesh>
             {/* Purple fluid */}
-            <mesh position={[0, -0.04, 0]} castShadow>
+            <mesh position={[0, -0.04, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.018, 0.018, 0.1, 12]} />
               <meshStandardMaterial color="#a21caf" opacity={0.8} transparent roughness={0.1} />
             </mesh>
             {/* White graduation tick marks */}
-            <mesh position={[0, 0, 0.019]} castShadow>
+            <mesh position={[0, 0, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
-            <mesh position={[0, -0.03, 0.019]} castShadow>
+            <mesh position={[0, -0.03, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
@@ -580,21 +581,21 @@ export const LabEnvironment: React.FC = () => {
           {/* Test Tube 3: Methyl Orange (Orange/Yellow fluid) */}
           <group position={[0.05, 0.12, 0]}>
             {/* Glass Tube body */}
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.02, 0.02, 0.18, 12]} />
               <meshStandardMaterial color="#ffffff" opacity={0.3} transparent roughness={0.1} />
             </mesh>
             {/* Orange fluid */}
-            <mesh position={[0, -0.02, 0]} castShadow>
+            <mesh position={[0, -0.02, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.018, 0.018, 0.14, 12]} />
               <meshStandardMaterial color="#f97316" opacity={0.75} transparent roughness={0.1} />
             </mesh>
             {/* White graduation tick marks */}
-            <mesh position={[0, 0.02, 0.019]} castShadow>
+            <mesh position={[0, 0.02, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
-            <mesh position={[0, -0.02, 0.019]} castShadow>
+            <mesh position={[0, -0.02, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
@@ -603,21 +604,21 @@ export const LabEnvironment: React.FC = () => {
           {/* Test Tube 4: Phenolphthalein (Clear water-like fluid) */}
           <group position={[0.15, 0.12, 0]}>
             {/* Glass Tube body */}
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.02, 0.02, 0.18, 12]} />
               <meshStandardMaterial color="#ffffff" opacity={0.3} transparent roughness={0.1} />
             </mesh>
             {/* Clear fluid */}
-            <mesh position={[0, -0.04, 0]} castShadow>
+            <mesh position={[0, -0.04, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.018, 0.018, 0.1, 12]} />
               <meshStandardMaterial color="#ffffff" opacity={0.4} transparent roughness={0.1} />
             </mesh>
             {/* White graduation tick marks */}
-            <mesh position={[0, 0, 0.019]} castShadow>
+            <mesh position={[0, 0, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
-            <mesh position={[0, -0.03, 0.019]} castShadow>
+            <mesh position={[0, -0.03, 0.019]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.015, 0.0015, 0.001]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
@@ -641,21 +642,21 @@ export const LabEnvironment: React.FC = () => {
         >
           <group position={[0, 0.05, 0]}>
             {/* Lenses */}
-            <mesh position={[-0.1, 0, 0]} castShadow receiveShadow>
+            <mesh position={[-0.1, 0, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.15, 0.05, 0.02]} />
               <meshStandardMaterial color="#38bdf8" opacity={0.6} transparent roughness={0.1} />
             </mesh>
-            <mesh position={[0.1, 0, 0]} castShadow receiveShadow>
+            <mesh position={[0.1, 0, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.15, 0.05, 0.02]} />
               <meshStandardMaterial color="#38bdf8" opacity={0.6} transparent roughness={0.1} />
             </mesh>
             {/* Frame */}
-            <mesh position={[0, 0.03, 0]} castShadow receiveShadow>
+            <mesh position={[0, 0.03, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.35, 0.02, 0.03]} />
               <meshStandardMaterial color="#0f172a" />
             </mesh>
             {/* Detailed black strap */}
-            <mesh position={[0, 0.01, -0.06]} castShadow receiveShadow>
+            <mesh position={[0, 0.01, -0.06]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.28, 0.01, 0.1]} />
               <meshStandardMaterial color="#1e293b" roughness={0.9} />
             </mesh>
@@ -675,17 +676,17 @@ export const LabEnvironment: React.FC = () => {
         >
           <group position={[0, 0.05, 0]}>
             {/* Folded Coat Body */}
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.4, 0.06, 0.3]} />
               <meshStandardMaterial color="#ffffff" roughness={0.9} />
             </mesh>
             {/* Collar / Fold detail */}
-            <mesh position={[0, 0.035, 0.05]} castShadow receiveShadow>
+            <mesh position={[0, 0.035, 0.05]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.38, 0.02, 0.2]} />
               <meshStandardMaterial color="#f1f5f9" roughness={1} />
             </mesh>
             {/* Pocket */}
-            <mesh position={[0.1, 0.045, 0.1]} castShadow receiveShadow>
+            <mesh position={[0.1, 0.045, 0.1]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.08, 0.01, 0.08]} />
               <meshStandardMaterial color="#e2e8f0" />
             </mesh>
@@ -705,12 +706,12 @@ export const LabEnvironment: React.FC = () => {
         >
           <group position={[0, 0.05, 0]}>
             {/* Glove 1 */}
-            <mesh position={[-0.05, 0, 0]} rotation={[0, 0.2, 0]} castShadow receiveShadow>
+            <mesh position={[-0.05, 0, 0]} rotation={[0, 0.2, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.1, 0.02, 0.2]} />
               <meshStandardMaterial color="#38bdf8" roughness={0.4} />
             </mesh>
             {/* Glove 2 */}
-            <mesh position={[0.05, 0.02, 0.02]} rotation={[0, -0.1, 0]} castShadow receiveShadow>
+            <mesh position={[0.05, 0.02, 0.02]} rotation={[0, -0.1, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.1, 0.02, 0.2]} />
               <meshStandardMaterial color="#38bdf8" roughness={0.4} />
             </mesh>
@@ -730,16 +731,16 @@ export const LabEnvironment: React.FC = () => {
         >
           <group position={[0, 0.04, 0]}>
             {/* Mask plate */}
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.2, 0.04, 0.12]} />
               <meshStandardMaterial color="#0284c7" roughness={0.7} />
             </mesh>
             {/* Active canisters */}
-            <mesh position={[-0.07, 0, 0.04]} castShadow receiveShadow>
+            <mesh position={[-0.07, 0, 0.04]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.045, 0.045, 0.06, 12]} />
               <meshStandardMaterial color="#475569" />
             </mesh>
-            <mesh position={[0.07, 0, 0.04]} castShadow receiveShadow>
+            <mesh position={[0.07, 0, 0.04]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.045, 0.045, 0.06, 12]} />
               <meshStandardMaterial color="#475569" />
             </mesh>
@@ -760,17 +761,17 @@ export const LabEnvironment: React.FC = () => {
         >
           <group>
             {/* Mirror stands */}
-            <mesh position={[0, 0.15, 0]} castShadow receiveShadow>
+            <mesh position={[0, 0.15, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.05, 0.05, 0.3, 16]} />
               <meshStandardMaterial color="#64748b" metalness={0.7} />
             </mesh>
             {/* Mirror glass frame */}
-            <mesh position={[0, 0.4, 0]} castShadow receiveShadow>
+            <mesh position={[0, 0.4, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.4, 0.5, 0.04]} />
               <meshStandardMaterial color="#334155" />
             </mesh>
             {/* Reflective mirror surface */}
-            <mesh position={[0, 0.4, 0.021]} castShadow receiveShadow>
+            <mesh position={[0, 0.4, 0.021]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <planeGeometry args={[0.34, 0.44]} />
               <meshStandardMaterial color="#93c5fd" opacity={0.65} transparent roughness={0.1} metalness={0.8} />
             </mesh>
@@ -797,12 +798,12 @@ export const LabEnvironment: React.FC = () => {
         >
           <group>
             {/* Board Background */}
-            <mesh castShadow receiveShadow position={[0, 0, 0.05]}>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0, 0, 0.05]}>
               <boxGeometry args={[1.5, 1.2, 0.05]} />
               <meshStandardMaterial color="#ffffff" roughness={0.7} />
             </mesh>
             {/* Board Frame */}
-            <mesh castShadow receiveShadow position={[0, 0, 0.04]}>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} position={[0, 0, 0.04]}>
               <boxGeometry args={[1.6, 1.3, 0.06]} />
               <meshStandardMaterial color="#475569" roughness={0.8} />
             </mesh>
@@ -843,12 +844,12 @@ export const LabEnvironment: React.FC = () => {
           <group>
             {/* Beaker with water */}
             <group position={[-0.25, 0, 0]}>
-              <mesh castShadow receiveShadow>
+              <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.15, 0.15, 0.3, 16]} />
                 <meshStandardMaterial color="#ffffff" transparent opacity={0.4} roughness={0.2} />
               </mesh>
               {/* Water fluid */}
-              <mesh position={[0, -0.05, 0]} castShadow receiveShadow>
+              <mesh position={[0, -0.05, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.14, 0.14, 0.18, 16]} />
                 <meshStandardMaterial color="#3b82f6" opacity={0.7} transparent roughness={0.1} />
               </mesh>
@@ -865,12 +866,12 @@ export const LabEnvironment: React.FC = () => {
 
             {/* Acid Pipette container */}
             <group position={[0.25, 0, 0]}>
-              <mesh castShadow receiveShadow>
+              <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.1, 0.1, 0.3, 16]} />
                 <meshStandardMaterial color="#ffffff" transparent opacity={0.4} roughness={0.2} />
               </mesh>
               {/* Acid fluid */}
-              <mesh position={[0, -0.05, 0]} castShadow receiveShadow>
+              <mesh position={[0, -0.05, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.09, 0.09, 0.18, 16]} />
                 <meshStandardMaterial color="#ef4444" opacity={0.8} transparent roughness={0.1} />
               </mesh>
@@ -906,11 +907,11 @@ export const LabEnvironment: React.FC = () => {
         }}
       >
         <group rotation={[0, Math.PI / 2, 0]}>
-          <mesh castShadow receiveShadow>
+          <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <boxGeometry args={[2.5, 1.8, 0.08]} />
             <meshStandardMaterial color="#0f172a" roughness={0.7} />
           </mesh>
-          <mesh position={[0, 0, 0.042]} castShadow receiveShadow>
+          <mesh position={[0, 0, 0.042]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <planeGeometry args={[2.3, 1.6]} />
             <meshStandardMaterial color="#f8fafc" />
           </mesh>
@@ -947,17 +948,17 @@ export const LabEnvironment: React.FC = () => {
         isGlowing={currentPhase === 1 && hairCompleted && !shoesCompleted}
         successMessage="Em đã kiểm tra giày thành công: Đã mang giày bảo hộ kín mũi bọc cao su dày đạt tiêu chuẩn an toàn phòng thí nghiệm!"
       >
-        <mesh receiveShadow castShadow>
+        <mesh receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
           <boxGeometry args={[1.2, 0.02, 1.2]} />
           <meshStandardMaterial color="#059669" roughness={1.0} /> {/* Green Safety Mat */}
         </mesh>
         {/* Render outline of shoes on the mat using small 3D box shapes */}
         <group position={[0, 0.015, 0]}>
-          <mesh position={[-0.15, 0, 0]} castShadow receiveShadow>
+          <mesh position={[-0.15, 0, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <boxGeometry args={[0.14, 0.03, 0.35]} />
             <meshStandardMaterial color="#047857" />
           </mesh>
-          <mesh position={[0.15, 0, 0]} castShadow receiveShadow>
+          <mesh position={[0.15, 0, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <boxGeometry args={[0.14, 0.03, 0.35]} />
             <meshStandardMaterial color="#047857" />
           </mesh>
@@ -977,37 +978,37 @@ export const LabEnvironment: React.FC = () => {
           {/* Flame clickable interaction group */}
           <group onClick={(e) => { e.stopPropagation(); handleFireClick(); }}>
             {/* Heat Ring Base */}
-            <mesh rotation={[-Math.PI/2, 0, 0]} receiveShadow>
+            <mesh rotation={[-Math.PI/2, 0, 0]} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <ringGeometry args={[0, 0.65, 32]} />
               <meshBasicMaterial color="#ef4444" opacity={0.3} transparent />
             </mesh>
             
             {/* Multi-layered flickering flame */}
             <group ref={fireGroupRef}>
-              <mesh position={[0, 0.4, 0]} castShadow>
+              <mesh position={[0, 0.4, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
                 <sphereGeometry args={[0.3, 16, 16]} />
                 <meshBasicMaterial color="#ea580c" />
               </mesh>
-              <mesh position={[0, 0.7, 0]} scale={[0.7, 1.4, 0.7]} castShadow>
+              <mesh position={[0, 0.7, 0]} scale={[0.7, 1.4, 0.7]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
                 <sphereGeometry args={[0.22, 16, 16]} />
                 <meshBasicMaterial color="#f97316" />
               </mesh>
-              <mesh position={[0.12, 0.9, -0.08]} scale={[0.4, 1.2, 0.4]} castShadow>
+              <mesh position={[0.12, 0.9, -0.08]} scale={[0.4, 1.2, 0.4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
                 <sphereGeometry args={[0.18, 16, 16]} />
                 <meshBasicMaterial color="#eab308" />
               </mesh>
-              <mesh position={[-0.12, 0.8, 0.08]} scale={[0.4, 1.1, 0.4]} castShadow>
+              <mesh position={[-0.12, 0.8, 0.08]} scale={[0.4, 1.1, 0.4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
                 <sphereGeometry args={[0.16, 16, 16]} />
                 <meshBasicMaterial color="#f97316" />
               </mesh>
-              <mesh position={[0.04, 1.12, 0.04]} scale={[0.2, 0.8, 0.2]} castShadow>
+              <mesh position={[0.04, 1.12, 0.04]} scale={[0.2, 0.8, 0.2]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
                 <sphereGeometry args={[0.08, 16, 16]} />
                 <meshBasicMaterial color="#ffffff" />
               </mesh>
             </group>
 
             {/* Glowing point light */}
-            <pointLight ref={fireLightRef} distance={5} intensity={2.2} color="#f97316" position={[0, 0.6, 0]} castShadow />
+            <pointLight ref={fireLightRef} distance={5} intensity={2.2} color="#f97316" position={[0, 0.6, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} />
             
             <Html position={[0, 1.4, 0]} center>
               <div className="bg-red-600 text-white font-black text-xs px-2.5 py-1 rounded shadow-lg border border-red-400 whitespace-nowrap animate-pulse select-none">
@@ -1021,7 +1022,7 @@ export const LabEnvironment: React.FC = () => {
       {/* CO2 Jet Spray cloud stream stretching from player to fire */}
       {isSpraying && sprayVector && (
         <group position={sprayVector.center} rotation={[0, sprayVector.angleY + Math.PI/2, 0]}>
-          <mesh castShadow receiveShadow>
+          <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             {/* Cone pointing towards fire */}
             <coneGeometry args={[0.65, sprayVector.distance, 16]} />
             <meshBasicMaterial color="#f8fafc" opacity={0.7} transparent />
@@ -1047,7 +1048,7 @@ export const LabEnvironment: React.FC = () => {
         disabled={currentPhase < 3}
         isGlowing={currentPhase === 3 && !spillKitCompleted}
       >
-        <Box args={[0.5, 0.5, 0.5]} castShadow receiveShadow>
+        <Box args={[0.5, 0.5, 0.5]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <meshStandardMaterial color="#eab308" roughness={0.3} />
         </Box>
         <Text font={VIETNAMESE_FONT} position={[0, 0.3, 0.26]} fontSize={0.08} color="black">SPILL KIT</Text>
@@ -1078,20 +1079,20 @@ export const LabEnvironment: React.FC = () => {
             {!spillNeutralizeCompleted ? (
               <>
                 {/* Green toxic chemical puddle */}
-                <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+                <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <ringGeometry args={[0, 0.7, 32]} />
                   <meshStandardMaterial color="#22c55e" opacity={0.85} transparent roughness={0.1} />
                 </mesh>
                 {/* Toxic bubbles */}
-                <mesh position={[-0.2, 0.04, 0.1]} castShadow receiveShadow>
+                <mesh position={[-0.2, 0.04, 0.1]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <sphereGeometry args={[0.06, 16, 16]} />
                   <meshStandardMaterial color="#4ade80" roughness={0.1} />
                 </mesh>
-                <mesh position={[0.3, 0.03, -0.2]} castShadow receiveShadow>
+                <mesh position={[0.3, 0.03, -0.2]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <sphereGeometry args={[0.08, 16, 16]} />
                   <meshStandardMaterial color="#4ade80" roughness={0.1} />
                 </mesh>
-                <mesh position={[0.1, 0.04, 0.25]} castShadow receiveShadow>
+                <mesh position={[0.1, 0.04, 0.25]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <sphereGeometry args={[0.05, 16, 16]} />
                   <meshStandardMaterial color="#4ade80" roughness={0.1} />
                 </mesh>
@@ -1099,16 +1100,16 @@ export const LabEnvironment: React.FC = () => {
             ) : (
               <>
                 {/* White neutralized foam/salt puddle */}
-                <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+                <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <ringGeometry args={[0, 0.72, 32]} />
                   <meshStandardMaterial color="#f1f5f9" opacity={0.9} roughness={0.9} />
                 </mesh>
                 {/* Dry white foam mounds */}
-                <mesh position={[-0.15, 0.03, 0.05]} castShadow receiveShadow>
+                <mesh position={[-0.15, 0.03, 0.05]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <sphereGeometry args={[0.07, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2]} />
                   <meshStandardMaterial color="#ffffff" roughness={1.0} />
                 </mesh>
-                <mesh position={[0.2, 0.02, -0.1]} castShadow receiveShadow>
+                <mesh position={[0.2, 0.02, -0.1]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                   <sphereGeometry args={[0.09, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2]} />
                   <meshStandardMaterial color="#ffffff" roughness={1.0} />
                 </mesh>
@@ -1136,20 +1137,20 @@ export const LabEnvironment: React.FC = () => {
         }}
       >
         <group rotation={[0, Math.PI / 2, 0]}>
-          <Cylinder args={[0.15, 0.15, 0.8, 16]} castShadow receiveShadow>
+          <Cylinder args={[0.15, 0.15, 0.8, 16]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <meshStandardMaterial color="#ef4444" roughness={0.3} metalness={0.2} />
           </Cylinder>
-          <mesh position={[0, 0.4, 0]} castShadow receiveShadow>
+          <mesh position={[0, 0.4, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <cylinderGeometry args={[0.04, 0.04, 0.1, 16]} />
             <meshStandardMaterial color="#1e293b" />
           </mesh>
-          <mesh position={[0.05, 0.42, 0]} rotation={[0, 0, 0.4]} castShadow receiveShadow>
+          <mesh position={[0.05, 0.42, 0]} rotation={[0, 0, 0.4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <boxGeometry args={[0.12, 0.02, 0.03]} />
             <meshStandardMaterial color="#ef4444" />
           </mesh>
           {/* Detailed Pressure Gauge */}
           <group position={[0.11, 0.35, 0.05]} rotation={[0, 0.5, 0]}>
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.04, 0.04, 0.02, 12]} />
               <meshStandardMaterial color="#cbd5e1" metalness={0.8} />
             </mesh>
@@ -1161,18 +1162,18 @@ export const LabEnvironment: React.FC = () => {
               <boxGeometry args={[0.02, 0.001, 0.015]} />
               <meshBasicMaterial color="#22c55e" />
             </mesh>
-            <mesh position={[0, 0, 0.013]} rotation={[0, 0, -0.4]} castShadow>
+            <mesh position={[0, 0, 0.013]} rotation={[0, 0, -0.4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.002, 0.03, 0.002]} />
               <meshBasicMaterial color="#eab308" />
             </mesh>
           </group>
           {/* Black Nozzle Hose & Flared Horn */}
           <group position={[-0.1, 0.3, 0]}>
-            <mesh position={[0.08, -0.22, 0]} castShadow receiveShadow>
+            <mesh position={[0.08, -0.22, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <cylinderGeometry args={[0.016, 0.016, 0.4, 8]} />
               <meshStandardMaterial color="#1e293b" roughness={0.9} />
             </mesh>
-            <mesh position={[0.08, -0.45, 0]} castShadow receiveShadow>
+            <mesh position={[0.08, -0.45, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <coneGeometry args={[0.05, 0.12, 8]} />
               <meshStandardMaterial color="#0f172a" roughness={0.8} />
             </mesh>
@@ -1183,17 +1184,17 @@ export const LabEnvironment: React.FC = () => {
       {/* Fume Hood placeholder with detailed geometry */}
       <group position={[-9.2, 1.5, -4]}>
         {/* Main Chamber */}
-        <mesh castShadow receiveShadow>
+        <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[1.5, 3, 2]} />
           <meshStandardMaterial color="#e2e8f0" metalness={0.15} roughness={0.4} />
         </mesh>
         {/* Transparent sliding glass shield */}
-        <mesh position={[0.76, 0.5, 0]} castShadow receiveShadow>
+        <mesh position={[0.76, 0.5, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <boxGeometry args={[0.05, 1.2, 1.8]} />
           <meshStandardMaterial color="#38bdf8" opacity={0.45} transparent roughness={0.05} />
         </mesh>
         {/* Fume Exhaust pipe */}
-        <mesh position={[0, 1.6, 0]} castShadow receiveShadow>
+        <mesh position={[0, 1.6, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
           <cylinderGeometry args={[0.22, 0.22, 0.4, 16]} />
           <meshStandardMaterial color="#94a3b8" />
         </mesh>
@@ -1241,16 +1242,16 @@ export const LabEnvironment: React.FC = () => {
         }}
       >
         <group rotation={[0, Math.PI / 2, 0]}>
-          <Box args={[0.3, 0.35, 0.08]} castShadow receiveShadow>
+          <Box args={[0.3, 0.35, 0.08]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
             <meshStandardMaterial color="#ef4444" roughness={0.3} />
           </Box>
           {/* White cross symbol on the red first aid box */}
           <group position={[0, 0, 0.042]}>
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.04, 0.16, 0.01]} />
               <meshStandardMaterial color="#ffffff" />
             </mesh>
-            <mesh castShadow receiveShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
               <boxGeometry args={[0.16, 0.04, 0.01]} />
               <meshStandardMaterial color="#ffffff" />
             </mesh>
@@ -1283,22 +1284,22 @@ export const LabEnvironment: React.FC = () => {
         >
           <group rotation={[0.2, 0.5, 0]}>
             {/* Broom Handle */}
-            <mesh castShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.015, 0.015, 0.4, 8]} />
               <meshStandardMaterial color="#eab308" roughness={0.3} /> {/* Yellow handle */}
             </mesh>
             {/* Broom Bristles base */}
-            <mesh position={[0, -0.2, 0]} castShadow>
+            <mesh position={[0, -0.2, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.12, 0.05, 0.03]} />
               <meshStandardMaterial color="#22c55e" roughness={0.8} /> {/* Green brush head */}
             </mesh>
             {/* Dustpan handle */}
-            <mesh position={[0.08, -0.05, 0]} rotation={[0, 0, -0.1]} castShadow>
+            <mesh position={[0.08, -0.05, 0]} rotation={[0, 0, -0.1]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.01, 0.01, 0.3, 8]} />
               <meshStandardMaterial color="#475569" roughness={0.4} />
             </mesh>
             {/* Dustpan scoop */}
-            <mesh position={[0.08, -0.2, 0]} castShadow>
+            <mesh position={[0.08, -0.2, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <boxGeometry args={[0.14, 0.04, 0.14]} />
               <meshStandardMaterial color="#1e293b" roughness={0.5} />
             </mesh>
@@ -1328,11 +1329,11 @@ export const LabEnvironment: React.FC = () => {
           }}
         >
           <group>
-            <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
+            <mesh rotation={[Math.PI / 2, 0, 0]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.06, 0.06, 0.2, 12]} />
               <meshStandardMaterial color="#94a3b8" roughness={0.3} opacity={0.6} transparent />
             </mesh>
-            <mesh position={[0.1, 0, 0]} rotation={[0, 0, Math.PI / 4]} castShadow>
+            <mesh position={[0.1, 0, 0]} rotation={[0, 0, Math.PI / 4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.02, 0.02, 0.05, 12]} />
               <meshStandardMaterial color="#ef4444" roughness={0.6} />
             </mesh>
@@ -1373,7 +1374,7 @@ export const LabEnvironment: React.FC = () => {
           }}
         >
           <group>
-            <mesh castShadow>
+            <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <dodecahedronGeometry args={[0.1]} />
               <meshStandardMaterial color="#c084fc" emissive="#a855f7" emissiveIntensity={0.6} roughness={0.2} />
             </mesh>
@@ -1418,11 +1419,11 @@ export const LabEnvironment: React.FC = () => {
           }}
         >
           <group>
-            <mesh rotation={[0, 0, Math.PI / 4]} castShadow>
+            <mesh rotation={[0, 0, Math.PI / 4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.02, 0.01, 0.15, 6]} />
               <meshStandardMaterial color="#cbd5e1" roughness={0.1} opacity={0.9} transparent />
             </mesh>
-            <mesh position={[0.05, -0.05, 0.05]} rotation={[0, Math.PI/3, Math.PI / 4]} castShadow>
+            <mesh position={[0.05, -0.05, 0.05]} rotation={[0, Math.PI/3, Math.PI / 4]} castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"}>
               <cylinderGeometry args={[0.02, 0.01, 0.08, 6]} />
               <meshStandardMaterial color="#cbd5e1" roughness={0.1} opacity={0.9} transparent />
             </mesh>
@@ -1463,7 +1464,7 @@ export const LabEnvironment: React.FC = () => {
             }}
           >
             <group>
-              <mesh castShadow receiveShadow>
+              <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.25, 0.2, 0.9, 16]} />
                 <meshStandardMaterial color="#16a34a" roughness={0.5} />
               </mesh>
@@ -1502,7 +1503,7 @@ export const LabEnvironment: React.FC = () => {
             }}
           >
             <group>
-              <mesh castShadow receiveShadow>
+              <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.25, 0.2, 0.9, 16]} />
                 <meshStandardMaterial color="#facc15" roughness={0.5} />
               </mesh>
@@ -1545,7 +1546,7 @@ export const LabEnvironment: React.FC = () => {
             }}
           >
             <group>
-              <mesh castShadow receiveShadow>
+              <mesh castShadow={settings.graphicsQuality === "ultra" || settings.graphicsQuality === "high"} receiveShadow={settings.graphicsQuality !== "potato" && settings.graphicsQuality !== "low"}>
                 <cylinderGeometry args={[0.25, 0.2, 0.9, 4]} />
                 <meshStandardMaterial color="#facc15" roughness={0.5} />
               </mesh>
