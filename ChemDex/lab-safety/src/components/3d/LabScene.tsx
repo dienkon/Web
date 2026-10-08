@@ -6,8 +6,10 @@ import * as THREE from 'three';
 import { LabStandardRoom } from './lab/LabStandardRoom';
 import { useStore } from '../../store/useStore';
 import { FirstPersonController } from './fps/FirstPersonController';
+import { Viewmodel } from './fps/Viewmodel';
 import { PlayerModel } from './PlayerModel';
 import { FPSCrosshair } from '../ui/hud/FPSCrosshair';
+import { PPEOverlay } from '../ui/hud/PPEOverlay';
 
 const Loader = () => {
   const { progress } = useProgress();
@@ -31,6 +33,8 @@ export const LabScene: React.FC = () => {
     <div className="absolute inset-0 bg-[#F7FAFD]">
       {/* 2D FPS Crosshair & Interaction Tooltip Overlay */}
       <FPSCrosshair />
+      {/* First-person goggles / mask overlay */}
+      <PPEOverlay />
 
       <Canvas
         shadows={settings.graphicsQuality !== 'low' ? 'percentage' : false}
@@ -55,7 +59,10 @@ export const LabScene: React.FC = () => {
             autoRotateSpeed={0.8}
           />
         ) : (
-          <FirstPersonController />
+          <>
+            <FirstPersonController />
+            <Viewmodel />
+          </>
         )}
 
         {/* Art direction: Sunlit White Lab base & Fog */}
