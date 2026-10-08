@@ -3,8 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Html, useProgress } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
-import { LabEnvironment } from './LabEnvironment';
-import { LabBaseRoom } from './lab/Architecture';
+import { LabStandardRoom } from './lab/LabStandardRoom';
 import { useStore } from '../../store/useStore';
 import { FirstPersonController } from './fps/FirstPersonController';
 import { PlayerModel } from './PlayerModel';
@@ -100,11 +99,8 @@ export const LabScene: React.FC = () => {
             />
           )}
 
-          {/* Standard architectural room envelope (M1) */}
-          <LabBaseRoom />
-
-          {/* Existing interactables and props until M2 rebuilds modular stations */}
-          <LabEnvironment />
+          {/* Modular Standard Laboratory Room (Milestone 2) */}
+          <LabStandardRoom />
         </Suspense>
 
         {settings.graphicsQuality !== 'low' && (
