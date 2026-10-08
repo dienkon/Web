@@ -55,7 +55,20 @@ export const INITIAL_COLLIDER_CYLINDERS: ColliderCylinder[] = [
 ];
 
 /**
- * Checks capsule collision against walls and obstacles, sliding smoothly.
+ * Helper to check if a circle at (x, z) with radius r intersects an AABB box
+ */
+function testBoxCollision(x: number, z: number, radius: number, box: ColliderBox): boolean {
+  return (
+    x > box.minX - radius &&
+    x < box.maxX + radius &&
+    z > box.minZ - radius &&
+    z < box.maxZ + radius
+  );
+}
+
+/**
+ * Checks capsule collision against walls and obstacles, sliding smoothly without any jitter/stutter.
+ * Uses independent axis resolution (Separating Axis Theorem for character sliding).
  */
 export function resolveCapsuleMovement(
   currentPos: [number, number, number],
@@ -65,54 +78,45 @@ export function resolveCapsuleMovement(
   boxColliders: ColliderBox[] = INITIAL_COLLIDER_BOXES,
   cylinderColliders: ColliderCylinder[] = INITIAL_COLLIDER_CYLINDERS
 ): { x: number; z: number; collided: boolean } {
-  let nextX = targetX;
-  let nextZ = targetZ;
   let collided = false;
+  const startX = currentPos[0];
+  const startZ = currentPos[2];
 
-  // 1. Boundary clamping (Walls)
-  if (nextX < LAB_BOUNDS.minX + radius) {
-    nextX = LAB_BOUNDS.minX + radius;
-    collided = true;
-  } else if (nextX > LAB_BOUNDS.maxX - radius) {
-    nextX = LAB_BOUNDS.maxX - radius;
+  // 1. Boundary clamping (Outer Room Walls)
+  let testX = Math.max(LAB_BOUNDS.minX + radius, Math.min(LAB_BOUNDS.maxX - radius, targetX));
+  let testZ = Math.max(LAB_BOUNDS.minZ + radius, Math.min(LAB_BOUNDS.maxZ - radius, targetZ));
+
+  if (testX !== targetX || testZ !== targetZ) {
     collided = true;
   }
 
-  if (nextZ < LAB_BOUNDS.minZ + radius) {
-    nextZ = LAB_BOUNDS.minZ + radius;
-    collided = true;
-  } else if (nextZ > LAB_BOUNDS.maxZ - radius) {
-    nextZ = LAB_BOUNDS.maxZ - radius;
-    collided = true;
-  }
-
-  // 2. Slide resolution against Box Colliders
+  // 2. Axis-Separated Box Sliding:
+  // Step A: Test X movement alone while keeping old Z
+  let canMoveX = true;
   for (const box of boxColliders) {
-    const minX = box.minX - radius;
-    const maxX = box.maxX + radius;
-    const minZ = box.minZ - radius;
-    const maxZ = box.maxZ + radius;
-
-    if (nextX > minX && nextX < maxX && nextZ > minZ && nextZ < maxZ) {
+    if (testBoxCollision(testX, startZ, radius, box)) {
+      canMoveX = false;
       collided = true;
-      // Resolve along closest axis (smooth wall-slide)
-      const distMinX = Math.abs(nextX - minX);
-      const distMaxX = Math.abs(nextX - maxX);
-      const distMinZ = Math.abs(nextZ - minZ);
-      const distMaxZ = Math.abs(nextZ - maxZ);
-      const minDist = Math.min(distMinX, distMaxX, distMinZ, distMaxZ);
-
-      if (minDist === distMinX) nextX = minX;
-      else if (minDist === distMaxX) nextX = maxX;
-      else if (minDist === distMinZ) nextZ = minZ;
-      else if (minDist === distMaxZ) nextZ = maxZ;
+      break;
     }
   }
+  let resolvedX = canMoveX ? testX : startX;
 
-  // 3. Slide resolution against Cylinder Colliders
+  // Step B: Test Z movement alone while keeping newly resolved X
+  let canMoveZ = true;
+  for (const box of boxColliders) {
+    if (testBoxCollision(resolvedX, testZ, radius, box)) {
+      canMoveZ = false;
+      collided = true;
+      break;
+    }
+  }
+  let resolvedZ = canMoveZ ? testZ : startZ;
+
+  // 3. Cylinder Colliders Resolution (smooth radial push)
   for (const cyl of cylinderColliders) {
-    const dx = nextX - cyl.x;
-    const dz = nextZ - cyl.z;
+    const dx = resolvedX - cyl.x;
+    const dz = resolvedZ - cyl.z;
     const distSq = dx * dx + dz * dz;
     const minDist = radius + cyl.radius;
 
@@ -120,11 +124,11 @@ export function resolveCapsuleMovement(
       collided = true;
       const dist = Math.sqrt(distSq);
       if (dist > 0.0001) {
-        nextX = cyl.x + (dx / dist) * minDist;
-        nextZ = cyl.z + (dz / dist) * minDist;
+        resolvedX = cyl.x + (dx / dist) * minDist;
+        resolvedZ = cyl.z + (dz / dist) * minDist;
       }
     }
   }
 
-  return { x: nextX, z: nextZ, collided };
+  return { x: resolvedX, z: resolvedZ, collided };
 }

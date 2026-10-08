@@ -42,9 +42,10 @@ export const LabScene: React.FC = () => {
 
       <Canvas
         shadows={settings.graphicsQuality !== 'low' ? 'percentage' : false}
-        dpr={settings.graphicsQuality === 'low' ? 1 : [1, 2]}
+        dpr={settings.graphicsQuality === 'low' ? 1 : Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 1.5)}
         gl={{
-          antialias: true,
+          antialias: settings.graphicsQuality !== 'low',
+          powerPreference: 'high-performance',
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.05,
           outputColorSpace: THREE.SRGBColorSpace,
@@ -82,7 +83,7 @@ export const LabScene: React.FC = () => {
           position={[8, 14, -10]} 
           intensity={1.7} 
           color="#FFF5E4"
-          shadow-mapSize={[2048, 2048]}
+          shadow-mapSize={settings.graphicsQuality === 'high' ? [1024, 1024] : [512, 512]}
           shadow-camera-left={-16}
           shadow-camera-right={16}
           shadow-camera-top={16}

@@ -18,15 +18,34 @@ export const FirstPersonController: React.FC = () => {
 
   const view = useStore((s) => s.view);
   const isDialogActive = useStore((s) => s.isDialogActive);
+  const showRulesList = useStore((s) => s.showRulesList);
+  const showSettings = useStore((s) => s.showSettings);
+  const showFireExtinguisherQuiz = useStore((s) => s.showFireExtinguisherQuiz);
+  const showBandageQuiz = useStore((s) => s.showBandageQuiz);
+  const showChemicalSymbolsQuiz = useStore((s) => s.showChemicalSymbolsQuiz);
+  const activeRuleDialog = useStore((s) => s.activeRuleDialog);
+
+  const isModalOrQuestActive =
+    isDialogActive ||
+    showRulesList ||
+    showSettings ||
+    showFireExtinguisherQuiz ||
+    showBandageQuiz ||
+    showChemicalSymbolsQuiz ||
+    Boolean(activeRuleDialog);
+
   const runState = useStore((s) => s.runState);
   const joystickVec = useStore((s) => s.joystickVec) || { x: 0, y: 0 };
   const settings = useStore((s) => s.settings);
 
-  // Pitch (vertical) and Yaw (horizontal) angles in radians
-  // Initial yaw = Math.PI (facing North / -Z into the lab from South entrance)
+  // Pitch and Yaw angles
   const yaw = useRef<number>(Math.PI);
   const pitch = useRef<number>(0);
   const isLocked = useRef<boolean>(false);
+
+  // Velocity smoothing for zero stutter / butter-smooth movement
+  const currentVelX = useRef<number>(0);
+  const currentVelZ = useRef<number>(0);
 
   // Mouse Drag fallback when pointer lock is not active
   const isDragging = useRef<boolean>(false);
@@ -49,16 +68,32 @@ export const FirstPersonController: React.FC = () => {
     crouch: false,
   });
 
+  // Automatically release pointer lock whenever a quest, quiz, or dialog modal opens!
+  useEffect(() => {
+    if (isModalOrQuestActive) {
+      if (document.pointerLockElement) {
+        try {
+          document.exitPointerLock();
+        } catch {}
+      }
+      isLocked.current = false;
+      isDragging.current = false;
+      gl.domElement.style.cursor = 'default';
+    }
+  }, [isModalOrQuestActive, gl.domElement]);
+
   // Pointer lock & drag event listeners
   useEffect(() => {
     const canvas = gl.domElement;
 
     const onPointerLockChange = () => {
-      isLocked.current = document.pointerLockElement === canvas;
+      const locked = document.pointerLockElement === canvas;
+      isLocked.current = locked;
+      canvas.style.cursor = locked ? 'none' : 'default';
     };
 
     const onClick = () => {
-      if (view === 'game' && !isDialogActive) {
+      if (view === 'game' && !isModalOrQuestActive) {
         if (!isLocked.current && canvas.requestPointerLock) {
           try {
             const p = canvas.requestPointerLock();
@@ -71,7 +106,7 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const onMouseDown = (e: MouseEvent) => {
-      if (view !== 'game' || isDialogActive) return;
+      if (view !== 'game' || isModalOrQuestActive) return;
       isDragging.current = true;
       lastMousePos.current = { x: e.clientX, y: e.clientY };
     };
@@ -81,7 +116,7 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      if (view !== 'game' || isDialogActive) return;
+      if (view !== 'game' || isModalOrQuestActive) return;
 
       const sensitivity = (settings.cameraSensitivity || 1.0) * 0.0022;
 
@@ -105,7 +140,7 @@ export const FirstPersonController: React.FC = () => {
 
     // Touch controls for mobile look
     const onTouchStart = (e: TouchEvent) => {
-      if (view !== 'game' || isDialogActive || e.touches.length === 0) return;
+      if (view !== 'game' || isModalOrQuestActive || e.touches.length === 0) return;
       for (let i = 0; i < e.touches.length; i++) {
         const touch = e.touches[i];
         // If touch starts on the right half of screen, use it for camera rotation
@@ -117,7 +152,7 @@ export const FirstPersonController: React.FC = () => {
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      if (view !== 'game' || isDialogActive || !lastTouchPos.current || e.touches.length === 0) return;
+      if (view !== 'game' || isModalOrQuestActive || !lastTouchPos.current || e.touches.length === 0) return;
       for (let i = 0; i < e.touches.length; i++) {
         const touch = e.touches[i];
         if (touch.clientX > window.innerWidth * 0.3) {
@@ -164,12 +199,12 @@ export const FirstPersonController: React.FC = () => {
       window.removeEventListener('touchend', onTouchEnd);
       window.removeEventListener('touchcancel', onTouchEnd);
     };
-  }, [gl, view, isDialogActive, settings.cameraSensitivity]);
+  }, [gl, view, isModalOrQuestActive, settings.cameraSensitivity]);
 
   // Keyboard listeners (WASD + Arrow Keys + Shift + C/Ctrl)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (view !== 'game' || isDialogActive) return;
+      if (view !== 'game' || isModalOrQuestActive) return;
 
       switch (e.code) {
         case 'KeyW':
@@ -283,8 +318,10 @@ export const FirstPersonController: React.FC = () => {
       return;
     }
 
-    if (isDialogActive) {
+    if (isModalOrQuestActive) {
       playerCoords.isMoving = false;
+      currentVelX.current = 0;
+      currentVelZ.current = 0;
       // Keep camera oriented towards current pitch/yaw
       const euler = new THREE.Euler(pitch.current, yaw.current, 0, 'YXZ');
       camera.quaternion.setFromEuler(euler);
@@ -349,13 +386,34 @@ export const FirstPersonController: React.FC = () => {
 
     const inputLenSq = inputX * inputX + inputZ * inputZ;
 
+    // Target velocity in world space
+    let targetVelX = 0;
+    let targetVelZ = 0;
     if (inputLenSq > 0.001) {
       const invLen = 1 / Math.sqrt(inputLenSq);
-      const dirX = inputX * invLen;
-      const dirZ = inputZ * invLen;
+      targetVelX = inputX * invLen * moveSpeed;
+      targetVelZ = inputZ * invLen * moveSpeed;
+    }
 
-      const deltaX = dirX * moveSpeed * delta;
-      const deltaZ = dirZ * moveSpeed * delta;
+    // Damped acceleration & deceleration for silky-smooth response (eliminates all stutter)
+    const dampSpeed = hasInput ? 18 : 22;
+    currentVelX.current = THREE.MathUtils.lerp(
+      currentVelX.current,
+      targetVelX,
+      Math.min(1, delta * dampSpeed)
+    );
+    currentVelZ.current = THREE.MathUtils.lerp(
+      currentVelZ.current,
+      targetVelZ,
+      Math.min(1, delta * dampSpeed)
+    );
+
+    const currentSpeedSq =
+      currentVelX.current * currentVelX.current + currentVelZ.current * currentVelZ.current;
+
+    if (currentSpeedSq > 0.0001) {
+      const deltaX = currentVelX.current * delta;
+      const deltaZ = currentVelZ.current * delta;
 
       const targetX = playerCoords.position[0] + deltaX;
       const targetZ = playerCoords.position[2] + deltaZ;
@@ -367,6 +425,14 @@ export const FirstPersonController: React.FC = () => {
         targetZ,
         0.28 // Capsule radius
       );
+
+      // Damp velocity component if stopped against obstacle to avoid stick/jerk
+      if (Math.abs(resolved.x - targetX) > 0.0001) {
+        currentVelX.current = 0;
+      }
+      if (Math.abs(resolved.z - targetZ) > 0.0001) {
+        currentVelZ.current = 0;
+      }
 
       playerCoords.position[0] = resolved.x;
       playerCoords.position[2] = resolved.z;

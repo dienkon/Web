@@ -13,9 +13,11 @@ import {
   ShieldAlert,
   Sparkles,
   CheckCircle2,
-  Hand
+  Hand,
+  Navigation
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { getActiveObjective } from '../3d/lab/ObjectiveMarker';
 
 export const HUD: React.FC = () => {
   const currentPhase = useStore((s) => s.currentPhase);
@@ -32,6 +34,50 @@ export const HUD: React.FC = () => {
   const [showTaskListSheet, setShowTaskListSheet] = useState(false);
   const [scoreDelta, setScoreDelta] = useState<number | null>(null);
   const prevScoreRef = useRef(score);
+
+  // Real-time navigation compass & distance to active 3D objective
+  const [navInfo, setNavInfo] = useState<{
+    title: string;
+    distance: number;
+    angleDeg: number;
+  } | null>(null);
+
+  useEffect(() => {
+    const updateNav = () => {
+      const state = useStore.getState();
+      if (state.view !== 'game') {
+        setNavInfo(null);
+        return;
+      }
+      const activeObj = getActiveObjective(
+        state.currentPhase,
+        state.tasks,
+        state.player.flags
+      );
+      if (!activeObj) {
+        setNavInfo(null);
+        return;
+      }
+
+      const dx = activeObj.position[0] - playerCoords.position[0];
+      const dz = activeObj.position[2] - playerCoords.position[2];
+      const dist = Math.hypot(dx, dz);
+
+      const targetAngle = Math.atan2(dx, dz);
+      let diff = targetAngle - playerCoords.rotationY;
+      diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+      const angleDeg = (-diff * 180) / Math.PI;
+
+      setNavInfo({
+        title: activeObj.title,
+        distance: parseFloat(dist.toFixed(1)),
+        angleDeg: Math.round(angleDeg),
+      });
+    };
+
+    const timer = setInterval(updateNav, 80);
+    return () => clearInterval(timer);
+  }, []);
 
   // Auto-dismiss error banner after 4 seconds
   useEffect(() => {
@@ -137,12 +183,29 @@ export const HUD: React.FC = () => {
           </div>
         </div>
 
-        {/* Top-Center: Phase Pill */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-auto">
+        {/* Top-Center: Phase Pill & Waypoint Compass Guidance */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-auto flex flex-col items-center gap-1.5">
           <div className="px-4 py-1.5 white-glass rounded-full text-xs font-extrabold text-[var(--primary-600)] border border-cyan-100/80 shadow-xs flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse" />
             <span>{phaseTitle}</span>
           </div>
+
+          {navInfo && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-slate-950/85 backdrop-blur-md rounded-full text-[11px] font-bold text-white border border-cyan-400/40 shadow-lg">
+              <div
+                className="w-4 h-4 flex items-center justify-center transition-transform duration-100"
+                style={{ transform: `rotate(${navInfo.angleDeg}deg)` }}
+              >
+                <Navigation className="w-3.5 h-3.5 text-cyan-400 fill-cyan-400" />
+              </div>
+              <span className="text-slate-200 max-w-[170px] sm:max-w-[260px] truncate">
+                {navInfo.title}
+              </span>
+              <span className="font-mono text-[10px] text-cyan-300 bg-cyan-950/80 px-1.5 py-0.5 rounded border border-cyan-500/30">
+                {navInfo.distance}m
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Top-Right: Score chip, Dev Skip (only in dev), Pause button */}

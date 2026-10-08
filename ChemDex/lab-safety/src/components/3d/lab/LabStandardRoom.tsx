@@ -9,6 +9,7 @@ import { WasteStation } from './WasteStation';
 import { HandwashSink } from './Sinks';
 import { LabDecor } from './Decor';
 import { InteractiveTasks } from './InteractiveTasks';
+import { ObjectiveMarker } from './ObjectiveMarker';
 
 export const LabStandardRoom: React.FC = () => {
   return (
@@ -40,6 +41,9 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 9. Interactive Task Collider Triggers & Prompt Logic */}
       <InteractiveTasks />
+
+      {/* 10. 3D Animated Navigation Arrow & Sonar Waypoint */}
+      <ObjectiveMarker />
     </group>
   );
 };

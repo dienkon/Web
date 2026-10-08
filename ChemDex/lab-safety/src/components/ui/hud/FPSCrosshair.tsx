@@ -10,8 +10,24 @@ export const FPSCrosshair: React.FC<Props> = ({ showCrosshair = true }) => {
   const activeInteraction = useStore((s) => s.activeInteraction);
   const isDialogActive = useStore((s) => s.isDialogActive);
   const runState = useStore((s) => s.runState);
+  const showRulesList = useStore((s) => s.showRulesList);
+  const showSettings = useStore((s) => s.showSettings);
+  const showFireExtinguisherQuiz = useStore((s) => s.showFireExtinguisherQuiz);
+  const showBandageQuiz = useStore((s) => s.showBandageQuiz);
+  const showChemicalSymbolsQuiz = useStore((s) => s.showChemicalSymbolsQuiz);
+  const activeRuleDialog = useStore((s) => s.activeRuleDialog);
 
-  if (view !== 'game' || isDialogActive || runState === 'PAUSED' || !showCrosshair) {
+  const isModalOrQuestActive =
+    isDialogActive ||
+    showRulesList ||
+    showSettings ||
+    showFireExtinguisherQuiz ||
+    showBandageQuiz ||
+    showChemicalSymbolsQuiz ||
+    Boolean(activeRuleDialog) ||
+    runState === 'PAUSED';
+
+  if (view !== 'game' || isModalOrQuestActive || !showCrosshair) {
     return null;
   }
 
