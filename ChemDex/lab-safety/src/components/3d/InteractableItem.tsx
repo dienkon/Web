@@ -15,10 +15,10 @@ interface Props {
   label: string;
   children: React.ReactNode;
   type: 'equip' | 'action' | 'learn';
-  equipKey?: keyof PlayerState;
+  equipKey?: any;
   taskId?: string;
   ruleId?: number;
-  requiredEquipment?: (keyof PlayerState)[];
+  requiredEquipment?: (any)[];
   successMessage?: string;
   dialogSequence?: string[];
   dialogCallback?: () => void;
@@ -113,7 +113,7 @@ export const InteractableItem: React.FC<Props> = ({
     }
     
     if (requiredEquipment) {
-      const missing = requiredEquipment.filter(key => !player[key]);
+      const missing = requiredEquipment.filter(key => !(key in player.equipment ? (player.equipment as any)[key] : key in player.inventory ? (player.inventory as any)[key] : (player.flags as any)[key]));
       if (missing.length > 0) {
         addError(3);
         const vietnameseNames: Record<string, string> = {

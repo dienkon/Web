@@ -24,21 +24,27 @@ export interface Rule {
 }
 
 export interface PlayerState {
-  hasGoggles: boolean;
-  hasLabCoat: boolean;
-  hasGloves: boolean;
-  hasMask: boolean;
-  hairTied: boolean;
-  hasClosedShoes: boolean;
-  hasFireExtinguisher?: boolean;
-  fireExtinguished?: boolean;
-  isHoldingTrash?: boolean;
-  heldTrashType?: 'domestic' | 'chemical' | 'sharps' | null;
-  hasSweeper?: boolean;
-  trashCount?: number;
-  trash1Picked?: boolean;
-  trash2Picked?: boolean;
-  trash3Picked?: boolean;
+  equipment: {
+    hasGoggles: boolean;
+    hasLabCoat: boolean;
+    hasGloves: boolean;
+    hasMask: boolean;
+    hairTied: boolean;
+    hasClosedShoes: boolean;
+  };
+  inventory: {
+    hasFireExtinguisher?: boolean;
+    isHoldingTrash?: boolean;
+    heldTrashType?: 'domestic' | 'chemical' | 'sharps' | null;
+    hasSweeper?: boolean;
+  };
+  flags: {
+    fireExtinguished?: boolean;
+    trashCount?: number;
+    trash1Picked?: boolean;
+    trash2Picked?: boolean;
+    trash3Picked?: boolean;
+  };
 }
 
 export interface CharacterProfile {

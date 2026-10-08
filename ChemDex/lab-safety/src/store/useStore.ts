@@ -77,23 +77,7 @@ export const useStore = create<GameState>((set, get) => ({
   character: loadStoredCharacter(),
   settings: loadStoredSettings(),
 
-  player: {
-    hasGoggles: false,
-    hasLabCoat: false,
-    hasGloves: false,
-    hasMask: false,
-    hairTied: false,
-    hasClosedShoes: false,
-    hasFireExtinguisher: false,
-    fireExtinguished: false,
-    isHoldingTrash: false,
-    heldTrashType: null,
-    hasSweeper: false,
-    trashCount: 0,
-    trash1Picked: false,
-    trash2Picked: false,
-    trash3Picked: false,
-  },
+  player: { equipment: { hasGoggles: false, hasLabCoat: false, hasGloves: false, hasMask: false, hairTied: false, hasClosedShoes: false }, inventory: { hasFireExtinguisher: false, isHoldingTrash: false, heldTrashType: null, hasSweeper: false }, flags: { fireExtinguished: false, trashCount: 0, trash1Picked: false, trash2Picked: false, trash3Picked: false } },
 
   playerPosition: [0, 0, 3.5],
   playerRotationY: 0,
@@ -129,23 +113,7 @@ export const useStore = create<GameState>((set, get) => ({
       showChemicalSymbolsQuiz: false,
       activeErrorBanner: null,
       joystickVec: { x: 0, y: 0 },
-      player: {
-        hasGoggles: false,
-        hasLabCoat: false,
-        hasGloves: false,
-        hasMask: false,
-        hairTied: false,
-        hasClosedShoes: false,
-        hasFireExtinguisher: false,
-        fireExtinguished: false,
-        isHoldingTrash: false,
-        heldTrashType: null,
-        hasSweeper: false,
-        trashCount: 0,
-        trash1Picked: false,
-        trash2Picked: false,
-        trash3Picked: false,
-      }
+      player: { equipment: { hasGoggles: false, hasLabCoat: false, hasGloves: false, hasMask: false, hairTied: false, hasClosedShoes: false }, inventory: { hasFireExtinguisher: false, isHoldingTrash: false, heldTrashType: null, hasSweeper: false }, flags: { fireExtinguished: false, trashCount: 0, trash1Picked: false, trash2Picked: false, trash3Picked: false } }
     });
     get().saveGame();
   },

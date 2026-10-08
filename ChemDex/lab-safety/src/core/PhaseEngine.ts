@@ -72,7 +72,7 @@ export class PhaseEngine {
     // If we have specific logic, we handle it
     return phase.requiredTasks.every(taskId => {
       if (taskId === 'task_trash_disposal') {
-        return (playerState.trashCount || 0) >= 3;
+        return (playerState.flags.trashCount || 0) >= 3;
       }
       const t = tasksState.find(t => t.id === taskId);
       return t ? t.completed : false;
@@ -193,7 +193,7 @@ export class PhaseEngine {
         ] };
       }
       
-      if ((playerState.trashCount || 0) < 3) {
+      if ((playerState.flags.trashCount || 0) < 3) {
         return { seq: [
           "Rất giỏi! Vũng hóa chất tràn nguy hại đã được em dọn dẹp sạch sẽ hoàn toàn bằng Spill Kit.",
           "Tuy nhiên, trên sàn phòng học hiện tại đang sót lại 3 mẩu rác hóa chất nguy hại phát sáng màu tím rực rỡ.",

@@ -109,10 +109,10 @@ const getActiveTargetPosition = (
     return [2, 0.8, -5]; // Teacher to report Phase 1
   }
   if (currentPhase === 2) {
-    if (!player.hasFireExtinguisher && !player.fireExtinguished) {
+    if (!player.inventory.hasFireExtinguisher && !player.flags.fireExtinguished) {
       return [-9.5, 1.5, 0]; // Fire Extinguisher on Wall
     }
-    if (!player.fireExtinguished) {
+    if (!player.flags.fireExtinguished) {
       return [-4, 0.05, 2.5]; // Fire in corner
     }
     if (!chemicalSymbolsCompleted) {
@@ -134,13 +134,13 @@ const getActiveTargetPosition = (
       return [4, 0.015, 0.5]; // Spill vũng nước
     }
     // Trash task logic:
-    if (player.trashCount < 3) {
-      if (player.isHoldingTrash) {
+    if (player.flags.trashCount < 3) {
+      if (player.inventory.isHoldingTrash) {
         return [10.5, 0.45, 7.5]; // Bins
       }
-      if (!player.trash1Picked) return [-3.0, 0.15, 2.5]; // Trash 1
-      if (!player.trash2Picked) return [4.5, 0.15, -4.5]; // Trash 2
-      if (!player.trash3Picked) return [-2.0, 0.15, -3.5]; // Trash 3
+      if (!player.flags.trash1Picked) return [-3.0, 0.15, 2.5]; // Trash 1
+      if (!player.flags.trash2Picked) return [4.5, 0.15, -4.5]; // Trash 2
+      if (!player.flags.trash3Picked) return [-2.0, 0.15, -3.5]; // Trash 3
     }
     return [2, 0.8, -5]; // Teacher to report Phase 3 / Finish
   }
@@ -288,9 +288,9 @@ export const LabEnvironment: React.FC = () => {
 
   // Safe action step handler for fire extinguishing
   const handleFireClick = () => {
-    if (player.fireExtinguished) return;
+    if (player.flags.fireExtinguished) return;
 
-    if (!player.hasFireExtinguisher) {
+    if (!player.inventory.hasFireExtinguisher) {
       useStore.getState().startDialog([
         "CẢNH BÁO NGUY HIỂM: Đám cháy hóa chất hữu cơ cực kỳ dữ dội đang xảy ra ở góc phòng!",
         "Tuyệt đối KHÔNG ĐƯỢC dùng nước để dập lửa! Nước gặp kim loại kiềm hoặc các dung môi phản ứng mạnh sẽ làm đám cháy nổ to hơn và bắn hóa chất tung tóe.",
@@ -965,7 +965,7 @@ export const LabEnvironment: React.FC = () => {
       </InteractableItem>
 
       {/* 3D Chemical Fire in Giai đoạn 2 (Flickering & point lights) */}
-      {currentPhase === 2 && !player.fireExtinguished && (
+      {currentPhase === 2 && !player.flags.fireExtinguished && (
         <InteractableItem
           id="chemical_fire_item"
           position={[-4, 0.05, 2.5]}
@@ -1126,7 +1126,7 @@ export const LabEnvironment: React.FC = () => {
         type="action"
         visible={currentPhase >= 2}
         disabled={currentPhase < 2}
-        isGlowing={currentPhase === 2 && !player.hasFireExtinguisher}
+        isGlowing={currentPhase === 2 && !player.inventory.hasFireExtinguisher}
         dialogSequence={[
           "Bình cứu hỏa CO2 là thiết bị quan trọng dùng để dập tắt nhanh các đám cháy điện hoặc hóa chất nhỏ.",
           "Chúng ta sẽ tiến hành Quy trình kiểm tra huấn luyện P.A.S.S chuẩn ngay bây giờ."
@@ -1211,7 +1211,7 @@ export const LabEnvironment: React.FC = () => {
           !talkCompleted || 
           (rulesCompleted && gogglesCompleted && coatCompleted && glovesCompleted && maskCompleted && hairCompleted && shoesCompleted && currentPhase === 1) || 
           (fireExtCompleted && chemicalSymbolsCompleted && acidCompleted && currentPhase === 2) ||
-          (spillWipeCompleted && currentPhase === 3 && (player.trashCount === 0 || player.trashCount === 3))
+          (spillWipeCompleted && currentPhase === 3 && (player.flags.trashCount === 0 || player.flags.trashCount === 3))
         }
       >
         <TeacherModel />
@@ -1260,13 +1260,13 @@ export const LabEnvironment: React.FC = () => {
 
       {/* --- Phase 3: Hazardous Chemical Trash Items --- */}
       {/* Chemical Sweeper Tool (Broom & Dustpan) - resting on Right Side Table */}
-      {currentPhase === 3 && !player.hasSweeper && (
+      {currentPhase === 3 && !player.inventory.hasSweeper && (
         <InteractableItem
           id="sweeper_tool"
           position={[6.0, 1.0, -5.5]}
           label="Dụng cụ quét dọn hóa chất (Chổi & Hốt rác)"
           type="action"
-          isGlowing={currentPhase === 3 && !player.hasSweeper}
+          isGlowing={currentPhase === 3 && !player.inventory.hasSweeper}
           dialogCallback={() => {
             useStore.setState((state: any) => ({
               player: {
@@ -1306,7 +1306,7 @@ export const LabEnvironment: React.FC = () => {
         </InteractableItem>
       )}
 
-      {currentPhase === 3 && !player.trash1Picked && (
+      {currentPhase === 3 && !player.flags.trash1Picked && (
         <InteractableItem
           id="trash_1"
           position={[-3.0, 0.15, 2.5]}
@@ -1314,7 +1314,7 @@ export const LabEnvironment: React.FC = () => {
           type="action"
           requiredEquipment={['hasGoggles', 'hasLabCoat', 'hasGloves', 'hasMask']}
           dialogCallback={() => {
-            if (player.isHoldingTrash) {
+            if (player.inventory.isHoldingTrash) {
               useStore.getState().startDialog(["Bạn đang cầm một mẩu rác rồi, hãy phân loại và vứt đi đã!"]);
               return;
             }
@@ -1340,7 +1340,7 @@ export const LabEnvironment: React.FC = () => {
         </InteractableItem>
       )}
 
-      {currentPhase === 3 && !player.trash2Picked && (
+      {currentPhase === 3 && !player.flags.trash2Picked && (
         <InteractableItem
           id="trash_2"
           position={[4.5, 0.15, -4.5]}
@@ -1348,11 +1348,11 @@ export const LabEnvironment: React.FC = () => {
           type="action"
           requiredEquipment={['hasGoggles', 'hasLabCoat', 'hasGloves', 'hasMask']}
           dialogCallback={() => {
-            if (player.isHoldingTrash) {
+            if (player.inventory.isHoldingTrash) {
               useStore.getState().startDialog(["Bạn đang cầm một mẩu rác rồi, hãy phân loại và vứt đi đã!"]);
               return;
             }
-            if (!player.hasSweeper) {
+            if (!player.inventory.hasSweeper) {
               useStore.getState().addError(301, 10);
               useStore.setState((state: any) => ({
                 player: { ...state.player, isHoldingTrash: true, heldTrashType: 'chemical', trash2Picked: true }
@@ -1385,7 +1385,7 @@ export const LabEnvironment: React.FC = () => {
         </InteractableItem>
       )}
 
-      {currentPhase === 3 && !player.trash3Picked && (
+      {currentPhase === 3 && !player.flags.trash3Picked && (
         <InteractableItem
           id="trash_3"
           position={[-2.0, 0.15, -3.5]}
@@ -1393,11 +1393,11 @@ export const LabEnvironment: React.FC = () => {
           type="action"
           requiredEquipment={['hasGoggles', 'hasLabCoat', 'hasGloves', 'hasMask']}
           dialogCallback={() => {
-            if (player.isHoldingTrash) {
+            if (player.inventory.isHoldingTrash) {
               useStore.getState().startDialog(["Bạn đang cầm một mẩu rác rồi, hãy phân loại và vứt đi đã!"]);
               return;
             }
-            if (!player.hasSweeper) {
+            if (!player.inventory.hasSweeper) {
               useStore.getState().addError(301, 10);
               useStore.setState((state: any) => ({
                 player: { ...state.player, isHoldingTrash: true, heldTrashType: 'sharps', trash3Picked: true }
@@ -1441,18 +1441,18 @@ export const LabEnvironment: React.FC = () => {
             label="Thùng Rác Sinh Hoạt (Màu Xanh lá)"
             type="action"
             requiredEquipment={['hasGoggles', 'hasLabCoat', 'hasGloves', 'hasMask']}
-            isGlowing={currentPhase === 3 && player.isHoldingTrash && player.heldTrashType === 'domestic'}
+            isGlowing={currentPhase === 3 && player.inventory.isHoldingTrash && player.inventory.heldTrashType === 'domestic'}
             dialogCallback={() => {
-              if (!player.isHoldingTrash) {
+              if (!player.inventory.isHoldingTrash) {
                 useStore.getState().startDialog(["Thùng rác sinh hoạt. Em hãy đi nhặt rác để bỏ vào đây nhé!"]);
                 return;
               }
-              if (player.heldTrashType !== 'domestic') {
+              if (player.inventory.heldTrashType !== 'domestic') {
                 useStore.getState().addError(302, 5);
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Em đã vứt nhầm rác vào Thùng Sinh Hoạt.", "Bị phạt -5 ĐIỂM! Khăn lau hóa chất hoặc thủy tinh vỡ không được bỏ vào đây."]);
                 return;
               }
-              const newTrashCount = player.trashCount + 1;
+              const newTrashCount = player.flags.trashCount + 1;
               useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
               if (newTrashCount < 3) {
                 useStore.getState().startDialog([`Xoẹt! Đã vứt rác. Tiến độ: ${newTrashCount}/3 mẩu rác.`]);
@@ -1468,7 +1468,7 @@ export const LabEnvironment: React.FC = () => {
                 <meshStandardMaterial color="#16a34a" roughness={0.5} />
               </mesh>
               <Text font={VIETNAMESE_FONT} position={[0, 0.2, 0.26]} fontSize={0.06} color="#ffffff" anchorX="center" anchorY="middle">SINH HOẠT</Text>
-              {player.isHoldingTrash && <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.44, 0]}><ringGeometry args={[0.4, 0.5, 32]} /><meshBasicMaterial color="#4ade80" opacity={0.6} transparent /></mesh>}
+              {player.inventory.isHoldingTrash && <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.44, 0]}><ringGeometry args={[0.4, 0.5, 32]} /><meshBasicMaterial color="#4ade80" opacity={0.6} transparent /></mesh>}
             </group>
           </InteractableItem>
 
@@ -1480,18 +1480,18 @@ export const LabEnvironment: React.FC = () => {
             label="Thùng Rác Hóa Chất Nguy Hại (Màu Vàng)"
             type="action"
             requiredEquipment={['hasGoggles', 'hasLabCoat', 'hasGloves', 'hasMask']}
-            isGlowing={currentPhase === 3 && player.isHoldingTrash && player.heldTrashType === 'chemical'}
+            isGlowing={currentPhase === 3 && player.inventory.isHoldingTrash && player.inventory.heldTrashType === 'chemical'}
             dialogCallback={() => {
-              if (!player.isHoldingTrash) {
+              if (!player.inventory.isHoldingTrash) {
                 useStore.getState().startDialog(["Thùng Rác Hóa Chất Nguy Hại chuyên dụng. Em hãy đi nhặt rác để bỏ vào đây nhé!"]);
                 return;
               }
-              if (player.heldTrashType !== 'chemical') {
+              if (player.inventory.heldTrashType !== 'chemical') {
                 useStore.getState().addError(302, 5);
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Đây là thùng dành riêng cho rác dính hóa chất.", "Bị phạt -5 ĐIỂM! Rác sinh hoạt hoặc thủy tinh vỡ nên bỏ đúng thùng."]);
                 return;
               }
-              const newTrashCount = player.trashCount + 1;
+              const newTrashCount = player.flags.trashCount + 1;
               useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
               if (newTrashCount < 3) {
                 useStore.getState().startDialog([`Xoẹt! Đã vứt rác hóa chất an toàn. Tiến độ: ${newTrashCount}/3 mẩu rác.`]);
@@ -1511,7 +1511,7 @@ export const LabEnvironment: React.FC = () => {
                 <meshStandardMaterial color="#ef4444" />
               </mesh>
               <Text font={VIETNAMESE_FONT} position={[0, -0.05, 0.26]} fontSize={0.05} color="#000000" anchorX="center" anchorY="middle">HÓA CHẤT</Text>
-              {player.isHoldingTrash && <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.44, 0]}><ringGeometry args={[0.4, 0.5, 32]} /><meshBasicMaterial color="#fef08a" opacity={0.6} transparent /></mesh>}
+              {player.inventory.isHoldingTrash && <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.44, 0]}><ringGeometry args={[0.4, 0.5, 32]} /><meshBasicMaterial color="#fef08a" opacity={0.6} transparent /></mesh>}
             </group>
           </InteractableItem>
 
@@ -1523,18 +1523,18 @@ export const LabEnvironment: React.FC = () => {
             label="Thùng Vật Sắc Nhọn / Thủy tinh vỡ"
             type="action"
             requiredEquipment={['hasGoggles', 'hasLabCoat', 'hasGloves', 'hasMask']}
-            isGlowing={currentPhase === 3 && player.isHoldingTrash && player.heldTrashType === 'sharps'}
+            isGlowing={currentPhase === 3 && player.inventory.isHoldingTrash && player.inventory.heldTrashType === 'sharps'}
             dialogCallback={() => {
-              if (!player.isHoldingTrash) {
+              if (!player.inventory.isHoldingTrash) {
                 useStore.getState().startDialog(["Thùng Vật Sắc Nhọn (Thủy tinh vỡ, kim tiêm, dao mổ). Em hãy đi nhặt rác để bỏ vào đây nhé!"]);
                 return;
               }
-              if (player.heldTrashType !== 'sharps') {
+              if (player.inventory.heldTrashType !== 'sharps') {
                 useStore.getState().addError(302, 5);
                 useStore.getState().startDialog(["SAI QUY ĐỊNH! Đây là thùng dành riêng cho vật sắc nhọn/thủy tinh vỡ.", "Bị phạt -5 ĐIỂM! Rác sinh hoạt hoặc khăn lau hóa chất phải bỏ thùng khác."]);
                 return;
               }
-              const newTrashCount = player.trashCount + 1;
+              const newTrashCount = player.flags.trashCount + 1;
               useStore.setState((state: any) => ({ player: { ...state.player, isHoldingTrash: false, heldTrashType: null, trashCount: newTrashCount } }));
               if (newTrashCount < 3) {
                 useStore.getState().startDialog([`Xoẹt! Đã vứt thủy tinh vỡ an toàn. Tiến độ: ${newTrashCount}/3 mẩu rác.`]);
@@ -1554,7 +1554,7 @@ export const LabEnvironment: React.FC = () => {
                 <meshStandardMaterial color="#000000" />
               </mesh>
               <Text font={VIETNAMESE_FONT} position={[0, -0.05, 0.22]} rotation={[0, Math.PI/4, 0]} fontSize={0.04} color="#000000" anchorX="center" anchorY="middle">SẮC NHỌN</Text>
-              {player.isHoldingTrash && <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.44, 0]}><ringGeometry args={[0.4, 0.5, 32]} /><meshBasicMaterial color="#fef08a" opacity={0.6} transparent /></mesh>}
+              {player.inventory.isHoldingTrash && <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -0.44, 0]}><ringGeometry args={[0.4, 0.5, 32]} /><meshBasicMaterial color="#fef08a" opacity={0.6} transparent /></mesh>}
             </group>
           </InteractableItem>
         </group>

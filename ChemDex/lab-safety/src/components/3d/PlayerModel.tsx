@@ -69,7 +69,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
     }
     
     // Override arm poses if holding tools or trash
-    if (player.hasSweeper) {
+    if (player.inventory.hasSweeper) {
       if (leftArmRef.current) {
         leftArmRef.current.rotation.x = -Math.PI / 2.5;
         leftArmRef.current.rotation.z = Math.PI / 8;
@@ -78,7 +78,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
         rightArmRef.current.rotation.x = -Math.PI / 3;
         rightArmRef.current.rotation.z = -Math.PI / 8;
       }
-    } else if (player.isHoldingTrash) {
+    } else if (player.inventory.isHoldingTrash) {
       if (rightArmRef.current) {
         rightArmRef.current.rotation.x = -Math.PI / 2;
       }
@@ -93,7 +93,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
     <group ref={rootGroupRef}>
       <group ref={modelRef}>
         {/* Floating/Carried Trash indicator banner */}
-        {player.isHoldingTrash && (
+        {player.inventory.isHoldingTrash && (
           <group position={[0, 1.9, 0]}>
             <Html center>
               <div className="bg-purple-600/95 backdrop-blur-sm text-white font-black text-[9px] px-2.5 py-1.5 rounded-xl shadow-lg border border-purple-400 whitespace-nowrap animate-bounce select-none flex items-center gap-1.5">
@@ -129,7 +129,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
         </group>
 
         {/* Goggles (Conditional render) */}
-        {player.hasGoggles && (
+        {player.equipment.hasGoggles && (
           <group position={[0, 1.48, 0.14]}>
             {/* Cyan lenses */}
             <mesh position={[-0.07, 0, 0.05]} castShadow>
@@ -186,7 +186,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
         )}
 
         {/* Industrial Respirator Mask (Conditional render) */}
-        {player.hasMask && (
+        {player.equipment.hasMask && (
           <group position={[0, 1.36, 0.13]}>
             {/* Main mask seal wedge covering mouth and nose */}
             <mesh castShadow position={[0, 0, 0.02]}>
@@ -255,7 +255,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
         )}
 
         {/* Hair Styles (Handsome Male Style) */}
-        {player.hairTied ? (
+        {player.equipment.hairTied ? (
           /* Neat Male Hair: Styled back with a black safety headband */
           <group position={[0, 1.45, 0]}>
             {/* Base Hair on Head */}
@@ -305,7 +305,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
         )}
 
         {/* Torso: Shirt or Lab Coat */}
-        {player.hasLabCoat ? (
+        {player.equipment.hasLabCoat ? (
           /* Lab Coat Torso (White, premium boxy style) */
           <group position={[0, 0.85, 0]}>
             {/* Main Lab Coat Outer Shell */}
@@ -399,19 +399,19 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
           castShadow
         >
           <cylinderGeometry args={[0.05, 0.05, 0.45, 16]} />
-          <meshStandardMaterial color={player.hasLabCoat ? "#ffffff" : shirtColor} roughness={0.8} />
+          <meshStandardMaterial color={player.equipment.hasLabCoat ? "#ffffff" : shirtColor} roughness={0.8} />
           
           {/* Hand / Glove */}
           <group position={[0, -0.25, 0]}>
             <mesh castShadow>
               <sphereGeometry args={[0.06, 16, 16]} />
               <meshStandardMaterial 
-                color={player.hasGloves ? "#22d3ee" : skinColor} 
-                roughness={player.hasGloves ? 0.3 : 0.6} 
+                color={player.equipment.hasGloves ? "#22d3ee" : skinColor} 
+                roughness={player.equipment.hasGloves ? 0.3 : 0.6} 
               />
             </mesh>
             {/* Glove safety cuff extending up the forearm */}
-            {player.hasGloves && (
+            {player.equipment.hasGloves && (
               <mesh position={[0, 0.08, 0]} castShadow>
                 <cylinderGeometry args={[0.055, 0.052, 0.12, 16]} />
                 <meshStandardMaterial color="#22d3ee" roughness={0.4} />
@@ -419,7 +419,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
             )}
 
             {/* HIGHLY DETAILED DUSTPAN (Đồ hốt rác on Left Hand) */}
-            {player.hasSweeper && (
+            {player.inventory.hasSweeper && (
               <group position={[0, -0.05, 0.1]} rotation={[Math.PI / 6, 0, 0]}>
                 {/* Dustpan Handle */}
                 <mesh castShadow position={[0, 0.08, -0.05]} rotation={[-Math.PI / 4, 0, 0]}>
@@ -448,21 +448,21 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
                 </mesh>
 
                 {/* If holding trash AND has sweeper, the chemical trash piece sits directly on the scoop! */}
-                {player.isHoldingTrash && (
+                {player.inventory.isHoldingTrash && (
                   <>
-                    {(!player.heldTrashType || player.heldTrashType === 'chemical') && (
+                    {(!player.inventory.heldTrashType || player.inventory.heldTrashType === 'chemical') && (
                       <mesh position={[0, 0.05, 0.08]} castShadow>
                         <dodecahedronGeometry args={[0.06]} />
                         <meshStandardMaterial color="#c084fc" emissive="#a855f7" emissiveIntensity={0.8} roughness={0.2} />
                       </mesh>
                     )}
-                    {player.heldTrashType === 'domestic' && (
+                    {player.inventory.heldTrashType === 'domestic' && (
                       <mesh position={[0, 0.05, 0.08]} rotation={[Math.PI / 2, 0, 0]} castShadow>
                         <cylinderGeometry args={[0.03, 0.03, 0.1, 12]} />
                         <meshStandardMaterial color="#94a3b8" roughness={0.3} opacity={0.7} transparent />
                       </mesh>
                     )}
-                    {player.heldTrashType === 'sharps' && (
+                    {player.inventory.heldTrashType === 'sharps' && (
                       <mesh position={[0, 0.05, 0.08]} rotation={[0, 0, Math.PI / 4]} castShadow>
                         <cylinderGeometry args={[0.015, 0.01, 0.1, 6]} />
                         <meshStandardMaterial color="#cbd5e1" roughness={0.1} opacity={0.9} transparent />
@@ -483,19 +483,19 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
           castShadow
         >
           <cylinderGeometry args={[0.05, 0.05, 0.45, 16]} />
-          <meshStandardMaterial color={player.hasLabCoat ? "#ffffff" : shirtColor} roughness={0.8} />
+          <meshStandardMaterial color={player.equipment.hasLabCoat ? "#ffffff" : shirtColor} roughness={0.8} />
           
           {/* Hand / Glove */}
           <group position={[0, -0.25, 0]}>
             <mesh castShadow>
               <sphereGeometry args={[0.06, 16, 16]} />
               <meshStandardMaterial 
-                color={player.hasGloves ? "#22d3ee" : skinColor} 
-                roughness={player.hasGloves ? 0.3 : 0.6} 
+                color={player.equipment.hasGloves ? "#22d3ee" : skinColor} 
+                roughness={player.equipment.hasGloves ? 0.3 : 0.6} 
               />
             </mesh>
             {/* Glove safety cuff extending up the forearm */}
-            {player.hasGloves && (
+            {player.equipment.hasGloves && (
               <mesh position={[0, 0.08, 0]} castShadow>
                 <cylinderGeometry args={[0.055, 0.052, 0.12, 16]} />
                 <meshStandardMaterial color="#22d3ee" roughness={0.4} />
@@ -503,7 +503,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
             )}
 
             {/* HIGHLY DETAILED BROOM (Chổi quét on Right Hand) */}
-            {player.hasSweeper && (
+            {player.inventory.hasSweeper && (
               <group position={[0, -0.05, 0.1]} rotation={[Math.PI / 4, 0, -Math.PI / 12]}>
                 {/* Broom Stick/Handle */}
                 <mesh castShadow position={[0, 0.15, -0.05]}>
@@ -524,21 +524,21 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
             )}
 
             {/* If holding trash but barehanded (no sweeper), trash piece sits in the right hand! */}
-            {player.isHoldingTrash && !player.hasSweeper && (
+            {player.inventory.isHoldingTrash && !player.inventory.hasSweeper && (
               <>
-                {(!player.heldTrashType || player.heldTrashType === 'chemical') && (
+                {(!player.inventory.heldTrashType || player.inventory.heldTrashType === 'chemical') && (
                   <mesh position={[0, -0.08, 0.05]} castShadow>
                     <dodecahedronGeometry args={[0.06]} />
                     <meshStandardMaterial color="#c084fc" emissive="#a855f7" emissiveIntensity={0.8} roughness={0.2} />
                   </mesh>
                 )}
-                {player.heldTrashType === 'domestic' && (
+                {player.inventory.heldTrashType === 'domestic' && (
                   <mesh position={[0, -0.08, 0.05]} rotation={[Math.PI / 2, 0, 0]} castShadow>
                     <cylinderGeometry args={[0.03, 0.03, 0.1, 12]} />
                     <meshStandardMaterial color="#94a3b8" roughness={0.3} opacity={0.7} transparent />
                   </mesh>
                 )}
-                {player.heldTrashType === 'sharps' && (
+                {player.inventory.heldTrashType === 'sharps' && (
                   <mesh position={[0, -0.08, 0.05]} rotation={[0, 0, Math.PI / 4]} castShadow>
                     <cylinderGeometry args={[0.015, 0.01, 0.1, 6]} />
                     <meshStandardMaterial color="#cbd5e1" roughness={0.1} opacity={0.9} transparent />
@@ -561,7 +561,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
           
           {/* Shoe / Feet */}
           <group position={[0, -0.28, 0.04]}>
-            {player.hasClosedShoes ? (
+            {player.equipment.hasClosedShoes ? (
               /* Highly detailed safety leather boot */
               <group>
                 {/* Boot sole */}
@@ -631,7 +631,7 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
           
           {/* Shoe / Feet */}
           <group position={[0, -0.28, 0.04]}>
-            {player.hasClosedShoes ? (
+            {player.equipment.hasClosedShoes ? (
               /* Highly detailed safety leather boot */
               <group>
                 {/* Boot sole */}
