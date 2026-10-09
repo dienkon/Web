@@ -49,6 +49,7 @@ const QUESTION_TYPE_LABELS: Record<QuestionType, string> = {
   matching: "Nối cặp",
   short_answer: "Tự luận ngắn",
   ordering: "Sắp xếp thứ tự",
+  essay: "Tự luận dài",
 };
 
 const DIFFICULTY_LABELS: Record<string, string> = {

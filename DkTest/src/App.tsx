@@ -6,15 +6,18 @@
 import { AppRouter } from './app/router';
 import { ToastProvider } from './components/ui/ToastNotification';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { DebugDiagnostics } from './components/common/DebugDiagnostics';
 
 export default function App() {
   return (
-    <ToastProvider>
-      <AuthProvider>
-        <AppRouter />
-        <DebugDiagnostics />
-      </AuthProvider>
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AppRouter />
+          <DebugDiagnostics />
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }

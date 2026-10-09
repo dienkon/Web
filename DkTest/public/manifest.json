@@ -1,0 +1,22 @@
+{
+  "name": "DkTEST - Hệ thống thi trực tuyến",
+  "short_name": "DkTEST",
+  "description": "Nền tảng thi và khảo thí trực tuyến hiện đại với bảo mật thời gian thực và AI sư phạm.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

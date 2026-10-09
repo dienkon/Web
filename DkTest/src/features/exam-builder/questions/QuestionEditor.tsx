@@ -7,6 +7,7 @@ import ShortAnswerEditor from "./ShortAnswerEditor";
 import OrderingEditor from "./OrderingEditor";
 import FillBlankEditor from "./FillBlankEditor";
 import MatchingEditor from "./MatchingEditor";
+import EssayEditor from "./EssayEditor";
 import RichTextEditor from "../editor/RichTextEditor";
 import AudioConfigEditor from "../../../components/exam/AudioConfigEditor";
 import { Pin, Shuffle } from "lucide-react";
@@ -50,6 +51,7 @@ export default function QuestionEditor({ question }: { question: Question }) {
         {question.type === "ordering" && <OrderingEditor question={question} update={update} />}
         {question.type === "fill_blank" && <FillBlankEditor question={question} update={update} />}
         {question.type === "matching" && <MatchingEditor question={question} update={update} />}
+        {question.type === "essay" && <EssayEditor question={question} update={update} />}
       </div>
 
       {/* Points & Difficulty & Specific Shuffling Controls */}

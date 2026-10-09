@@ -39,6 +39,7 @@ import RetakeModal from "../../components/exam/RetakeModal";
 import { logDocRead, logQueryRead } from "../../utils/firestoreLogger";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
+import { StudentAssignmentNotice } from "../../features/assignments/StudentAssignmentNotice";
 
 export default function StudentHistory() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ export default function StudentHistory() {
         } catch {}
       }
 
-      const PAGE_SIZE = 15;
+      const PAGE_SIZE = 5;
 
       // Check cache first
       if (studentUsername) {
@@ -103,73 +104,69 @@ export default function StudentHistory() {
       let fetchedSubs: Submission[] = [];
       let lastDoc: QueryDocumentSnapshot<DocumentData> | null = null;
 
-      const candidateUsernames = Array.from(
-        new Set([
-          studentUsername,
-          studentInfo?.username,
-          studentInfo?.displayName,
-          localStorage.getItem("user_id"),
-        ].filter(Boolean))
-      ) as string[];
+      const targetUsername =
+        studentUsername ||
+        studentInfo?.username ||
+        studentInfo?.displayName ||
+        localStorage.getItem("user_id") ||
+        "";
 
-      if (candidateUsernames.length > 0) {
+      if (targetUsername) {
         const t0 = performance.now();
         const subMap = new Map<string, Submission>();
 
-        for (const cname of candidateUsernames) {
+        // 1. Try studentUsername with submittedAt DESC and limit = 5
+        try {
+          const q1 = query(
+            collection(db, "submissions"),
+            where("studentUsername", "==", targetUsername),
+            orderBy("submittedAt", "desc"),
+            limit(PAGE_SIZE)
+          );
+          const snap1 = await getDocs(q1);
+          snap1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
+          if (snap1.docs.length > 0) lastDoc = snap1.docs[snap1.docs.length - 1];
+        } catch (_) {
           try {
-            // 1. Primary query: studentUsername with submittedAt DESC
-            const q1 = query(
+            const q1Fallback = query(
               collection(db, "submissions"),
-              where("studentUsername", "==", cname),
-              orderBy("submittedAt", "desc"),
+              where("studentUsername", "==", targetUsername),
               limit(PAGE_SIZE)
             );
-            const snap1 = await getDocs(q1);
+            const snap1 = await getDocs(q1Fallback);
             snap1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
-            if (!lastDoc && snap1.docs.length > 0) lastDoc = snap1.docs[snap1.docs.length - 1];
-          } catch (_) {
-            // Fallback without composite index
-            try {
-              const q1Fallback = query(
-                collection(db, "submissions"),
-                where("studentUsername", "==", cname),
-                limit(PAGE_SIZE)
-              );
-              const snap1 = await getDocs(q1Fallback);
-              snap1.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
-              if (!lastDoc && snap1.docs.length > 0) lastDoc = snap1.docs[snap1.docs.length - 1];
-            } catch (__) {}
-          }
+            if (snap1.docs.length > 0) lastDoc = snap1.docs[snap1.docs.length - 1];
+          } catch (__) {}
+        }
 
+        // 2. If no submissions found by studentUsername, try studentId
+        if (subMap.size === 0) {
           try {
-            // 2. Secondary query: studentId with submittedAt DESC
             const q2 = query(
               collection(db, "submissions"),
-              where("studentId", "==", cname),
+              where("studentId", "==", targetUsername),
               orderBy("submittedAt", "desc"),
               limit(PAGE_SIZE)
             );
             const snap2 = await getDocs(q2);
             snap2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
-            if (!lastDoc && snap2.docs.length > 0) lastDoc = snap2.docs[snap2.docs.length - 1];
+            if (snap2.docs.length > 0) lastDoc = snap2.docs[snap2.docs.length - 1];
           } catch (_) {
-            // Fallback without composite index
             try {
               const q2Fallback = query(
                 collection(db, "submissions"),
-                where("studentId", "==", cname),
+                where("studentId", "==", targetUsername),
                 limit(PAGE_SIZE)
               );
               const snap2 = await getDocs(q2Fallback);
               snap2.docs.forEach((d) => subMap.set(d.id, { id: d.id, ...d.data() } as Submission));
-              if (!lastDoc && snap2.docs.length > 0) lastDoc = snap2.docs[snap2.docs.length - 1];
+              if (snap2.docs.length > 0) lastDoc = snap2.docs[snap2.docs.length - 1];
             } catch (__) {}
           }
         }
 
         fetchedSubs = Array.from(subMap.values());
-        logQueryRead("submissions", fetchedSubs.length, `StudentHistory student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
+        logQueryRead("submissions", fetchedSubs.length, `StudentHistory student=${targetUsername}`, PAGE_SIZE, performance.now() - t0);
       }
 
       // Check local submission history IDs to ensure any freshly submitted exam shows immediately
@@ -177,7 +174,7 @@ export default function StudentHistory() {
       const localIds: string[] = localHistStr ? JSON.parse(localHistStr) : [];
       if (localIds.length > 0) {
         const existingIds = new Set(fetchedSubs.map((s) => s.id));
-        const missingLocalIds = Array.from(new Set(localIds)).filter((id) => !existingIds.has(id)).slice(0, 10);
+        const missingLocalIds = Array.from(new Set(localIds)).filter((id) => !existingIds.has(id)).slice(0, 5);
 
         for (const id of missingLocalIds) {
           try {
@@ -195,8 +192,8 @@ export default function StudentHistory() {
         }
       }
 
-      // Fallback: If no student login & no local IDs, fetch recent public submissions
-      if (fetchedSubs.length === 0 && !studentUsername) {
+      // Fallback: If no student login & no local IDs, fetch recent public submissions (max 5)
+      if (fetchedSubs.length === 0 && !targetUsername) {
         const t0 = performance.now();
         let recentSnap;
         try {
@@ -237,9 +234,9 @@ export default function StudentHistory() {
     setLoadingMore(true);
 
     try {
-      const studentUsername = studentInfo?.username || studentInfo?.displayName || "";
+      const studentUsername = studentInfo?.username || studentInfo?.displayName || localStorage.getItem("user_id") || "";
       const t0 = performance.now();
-      const PAGE_SIZE = 15;
+      const PAGE_SIZE = 5;
       let snap;
 
       try {
@@ -272,15 +269,15 @@ export default function StudentHistory() {
         }
       }
 
-      logQueryRead("submissions", snap.size, `StudentHistory loadMore student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
-      const newItems = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission));
+      logQueryRead("submissions", snap ? snap.size : 0, `StudentHistory loadMore student=${studentUsername}`, PAGE_SIZE, performance.now() - t0);
+      const newItems = snap ? snap.docs.map((d) => ({ id: d.id, ...d.data() } as Submission)) : [];
 
       // Sort newest first
       newItems.sort((a, b) => getTimestampMillis(b.submittedAt) - getTimestampMillis(a.submittedAt));
 
       setSubmissions((prev) => [...prev, ...newItems]);
-      setLastDocSnapshot(snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
-      setHasMore(snap.docs.length >= PAGE_SIZE);
+      setLastDocSnapshot(snap && snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null);
+      setHasMore(newItems.length >= PAGE_SIZE);
     } catch (err) {
       console.error("Lỗi khi tải thêm lịch sử bài thi:", err);
     } finally {
@@ -366,6 +363,9 @@ export default function StudentHistory() {
             </Link>
           </div>
         </div>
+        
+        {/* Student Assigned Homework Notice */}
+        <StudentAssignmentNotice />
 
         {/* Stats Quick Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

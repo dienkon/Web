@@ -27,6 +27,7 @@ import {
   ArrowRight,
   RotateCw,
   Loader2,
+  Code2,
 } from "lucide-react";
 import { getExamList, deleteExam } from "../../services/examService";
 import {
@@ -445,7 +446,11 @@ export default function ExamList() {
   };
 
   const handleCopyStudentLink = (examId: string) => {
-    const url = `${window.location.origin}/student/exam/${examId}`;
+    const target = exams.find((e) => e.id === examId);
+    const isCodeExam = (target as any)?.examType === "code" || (target as any)?.type === "code";
+    const url = isCodeExam
+      ? (target as any)?.shareUrl || `${window.location.origin}/code-exam/${examId}`
+      : `${window.location.origin}/student/exam/${examId}`;
     navigator.clipboard.writeText(url);
     setCopiedExamId(examId);
     setTimeout(() => setCopiedExamId(null), 2500);
@@ -535,6 +540,14 @@ export default function ExamList() {
             <Sparkles className="w-4 h-4 text-purple-500" />
             AI tạo đề
           </button>
+          <Link
+            to="/admin/code-exam/new"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-xl hover:bg-indigo-100 transition-colors text-sm font-bold shadow-2xs cursor-pointer"
+            title="Soạn đề thi CODE tự do (HTML - CSS - JS Sandbox)"
+          >
+            <Code2 className="w-4 h-4 text-indigo-600" />
+            Tạo đề CODE
+          </Link>
           <Link
             to={isParentMode ? "/parent/exams/new" : "/admin/exams/new"}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-sm font-semibold shadow-xs"
@@ -863,6 +876,7 @@ export default function ExamList() {
                 {filteredExams.map((exam) => {
                   const folder = folders.find((f) => f.id === exam.folderId);
                   const isSelected = selectedExamIds.includes(exam.id);
+                  const isCodeExam = (exam as any).examType === "code" || (exam as any).type === "code";
 
                   return (
                     <tr
@@ -898,10 +912,16 @@ export default function ExamList() {
                       <td className="px-6 py-4">
                         <div className="space-y-1">
                           <Link
-                            to={`/${isParentMode ? "parent" : "admin"}/exams/${exam.id}`}
+                            to={isCodeExam ? `/admin/code-exam/${exam.id}` : `/${isParentMode ? "parent" : "admin"}/exams/${exam.id}`}
                             className="font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-1 flex items-center gap-2"
                           >
                             <span>{exam.title || "Bài thi chưa đặt tên"}</span>
+                            {isCodeExam && (
+                              <span className="bg-indigo-100 text-indigo-700 text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-indigo-200 flex items-center gap-1">
+                                <Code2 className="w-3 h-3 text-indigo-600" />
+                                CODE
+                              </span>
+                            )}
                             {exam.isFeatured && (
                               <span className="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-amber-200">
                                 HOT
@@ -990,17 +1010,17 @@ export default function ExamList() {
                           </button>
 
                           <Link
-                            to={`/${isParentMode ? "parent" : "admin"}/exams/${exam.id}/edit`}
+                            to={isCodeExam ? `/admin/code-exam/${exam.id}` : `/${isParentMode ? "parent" : "admin"}/exams/${exam.id}/edit`}
                             className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                            title="Chỉnh sửa đề thi"
+                            title={isCodeExam ? "Chỉnh sửa mã nguồn đề CODE" : "Chỉnh sửa đề thi"}
                           >
                             <Edit2 className="w-4 h-4" />
                           </Link>
 
                           <Link
-                            to={`/${isParentMode ? "parent" : "admin"}/exams/${exam.id}`}
+                            to={isCodeExam ? `/code-exam/${exam.id}` : `/${isParentMode ? "parent" : "admin"}/exams/${exam.id}`}
                             className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
-                            title="Chi tiết đề thi"
+                            title={isCodeExam ? "Mở phòng thi CODE Sandbox" : "Chi tiết đề thi"}
                           >
                             <Eye className="w-4 h-4" />
                           </Link>

@@ -338,31 +338,85 @@ export default function InteractiveMatchingBoard({
       return;
     }
 
-    const handlePointerMove = (e: MouseEvent | PointerEvent) => {
+    const handlePointerMove = (e: MouseEvent | PointerEvent | TouchEvent) => {
       const container = containerRef.current;
       if (!container) return;
       const rect = container.getBoundingClientRect();
+
+      let clientX = 0;
+      let clientY = 0;
+      if ("touches" in e && e.touches.length > 0) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else if ("clientX" in e) {
+        clientX = (e as MouseEvent).clientX;
+        clientY = (e as MouseEvent).clientY;
+      } else {
+        return;
+      }
+
       setPointerPos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+        x: clientX - rect.left,
+        y: clientY - rect.top,
       });
+
+      // Use elementFromPoint for ultra-smooth drag targeting on both PC & mobile touch
+      const elUnderPointer = document.elementFromPoint(clientX, clientY);
+      const rightCard = elUnderPointer?.closest("[data-right-card-label]") as HTMLElement | null;
+      if (rightCard) {
+        const rLabel = rightCard.getAttribute("data-right-card-label");
+        if (rLabel) {
+          setHoveredRight(rLabel);
+        }
+      } else {
+        setHoveredRight(null);
+      }
     };
 
-    const handlePointerUp = () => {
-      // If pointer released outside any right element, keep selected or cancel
-      if (isDragging) {
+    const handlePointerUp = (e: MouseEvent | PointerEvent | TouchEvent) => {
+      if (isDragging && selectedLeft) {
+        let clientX = 0;
+        let clientY = 0;
+        if ("changedTouches" in e && e.changedTouches.length > 0) {
+          clientX = e.changedTouches[0].clientX;
+          clientY = e.changedTouches[0].clientY;
+        } else if ("clientX" in e) {
+          clientX = (e as MouseEvent).clientX;
+          clientY = (e as MouseEvent).clientY;
+        }
+
+        if (clientX && clientY) {
+          const elUnderPointer = document.elementFromPoint(clientX, clientY);
+          const rightCard = elUnderPointer?.closest("[data-right-card-label]") as HTMLElement | null;
+          if (rightCard) {
+            const rLabel = rightCard.getAttribute("data-right-card-label");
+            if (rLabel) {
+              const newMatches = { ...matchesRef.current, [selectedLeft]: rLabel };
+              onChange?.(newMatches);
+              setSelectedLeft(null);
+              setPointerPos(null);
+              setHoveredRight(null);
+              setIsDragging(false);
+              return;
+            }
+          }
+        }
         setIsDragging(false);
       }
     };
 
-    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointermove", handlePointerMove, { passive: false });
     window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("touchmove", handlePointerMove, { passive: false });
+    window.addEventListener("touchend", handlePointerUp);
 
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("touchmove", handlePointerMove);
+      window.removeEventListener("touchend", handlePointerUp);
     };
-  }, [selectedLeft, isDragging]);
+  }, [selectedLeft, isDragging, onChange]);
 
   // Connect or disconnect left item
   const handleLeftClick = (leftKey: string) => {
@@ -434,6 +488,21 @@ export default function InteractiveMatchingBoard({
       x: dotRect.left + dotRect.width / 2 - containerRect.left,
       y: dotRect.top + dotRect.height / 2 - containerRect.top,
       color: LINE_COLORS[leftIdx % LINE_COLORS.length],
+    };
+  };
+
+  // Target dot coordinates for magnetic snapping when hovering/dragging over a right item
+  const getHoveredRightTargetDot = () => {
+    if (!hoveredRight || !containerRef.current) return null;
+    const rIdx = findRightIndex(hoveredRight);
+    if (rIdx === -1) return null;
+    const dot = containerRef.current.querySelector(`[data-anchor-right="${rIdx}"]`);
+    if (!dot) return null;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const dotRect = dot.getBoundingClientRect();
+    return {
+      x: dotRect.left + dotRect.width / 2 - containerRect.left,
+      y: dotRect.top + dotRect.height / 2 - containerRect.top,
     };
   };
 
@@ -562,33 +631,38 @@ export default function InteractiveMatchingBoard({
             );
           })}
 
-          {/* Active Live Rubberband Line (following mouse/pointer while connecting) */}
-          {activeStart && pointerPos && !readOnly && !isReview && (
-            <g>
-              <line
-                x1={activeStart.x}
-                y1={activeStart.y}
-                x2={pointerPos.x}
-                y2={pointerPos.y}
-                stroke="#ffffff"
-                strokeWidth={6}
-                strokeLinecap="round"
-              />
-              <line
-                x1={activeStart.x}
-                y1={activeStart.y}
-                x2={pointerPos.x}
-                y2={pointerPos.y}
-                stroke={activeStart.color || "#2563eb"}
-                strokeWidth={3.5}
-                strokeDasharray="6,4"
-                strokeLinecap="round"
-                className="animate-pulse"
-              />
-              {/* Pointer Tip Dot */}
-              <circle cx={pointerPos.x} cy={pointerPos.y} r={5} fill={activeStart.color || "#2563eb"} />
-            </g>
-          )}
+          {/* Active Live Rubberband Line (following mouse/pointer with magnetic snap) */}
+          {activeStart && pointerPos && !readOnly && !isReview && (() => {
+            const snapDot = getHoveredRightTargetDot();
+            const targetX = snapDot ? snapDot.x : pointerPos.x;
+            const targetY = snapDot ? snapDot.y : pointerPos.y;
+            return (
+              <g>
+                <line
+                  x1={activeStart.x}
+                  y1={activeStart.y}
+                  x2={targetX}
+                  y2={targetY}
+                  stroke="#ffffff"
+                  strokeWidth={6}
+                  strokeLinecap="round"
+                />
+                <line
+                  x1={activeStart.x}
+                  y1={activeStart.y}
+                  x2={targetX}
+                  y2={targetY}
+                  stroke={activeStart.color || "#2563eb"}
+                  strokeWidth={3.5}
+                  strokeDasharray={snapDot ? undefined : "6,4"}
+                  strokeLinecap="round"
+                  className={snapDot ? "" : "animate-pulse"}
+                />
+                {/* Pointer Tip Dot */}
+                <circle cx={targetX} cy={targetY} r={snapDot ? 7 : 5} fill={activeStart.color || "#2563eb"} />
+              </g>
+            );
+          })()}
         </svg>
 
         {/* 2 Columns Grid */}
@@ -685,6 +759,7 @@ export default function InteractiveMatchingBoard({
               return (
                 <div
                   key={item.id || idx}
+                  data-right-card-label={label}
                   onClick={() => handleRightClick(label)}
                   onPointerEnter={() => {
                     if (selectedLeft) setHoveredRight(label);

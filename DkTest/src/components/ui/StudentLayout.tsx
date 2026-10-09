@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
+import { getGamificationStats } from "../../services/gamificationService";
 import {
   LogOut,
   ArrowLeft,
@@ -15,9 +16,9 @@ import {
   ChevronRight,
   Sparkles,
   Clock,
-  Play,
   HeartHandshake,
   BrainCircuit,
+  MapPin,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
@@ -25,6 +26,7 @@ import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/
 import { isAdminAuthenticated, clearStudentSession, clearAdminSession } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 import UserAvatar from "../common/UserAvatar";
+import ThemeToggle from "./ThemeToggle";
 import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
 import {
   StudentOnboardingProvider,
@@ -61,6 +63,11 @@ function StudentLayoutContent() {
             role: "student",
           }
         : null);
+
+  const gameStats = useMemo(
+    () => getGamificationStats(currentAccount?.username || ""),
+    [currentAccount?.username]
+  );
 
   // Real-time listener for avatar changes across the application
   useEffect(() => {
@@ -142,6 +149,7 @@ function StudentLayoutContent() {
 
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
+    { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
     { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500", tourId: TOUR_DATA_IDS.NAV_COMMUNITY, actionKey: "click_community" },
@@ -216,8 +224,22 @@ function StudentLayoutContent() {
               </Link>
             )}
 
+            {/* Theme Switcher */}
+            <ThemeToggle variant="icon" />
+
             {currentAccount ? (
               <div className="flex items-center gap-1.5 sm:gap-2">
+                {/* Gamification Streak & XP Badge */}
+                <Link
+                  to="/student/profile"
+                  className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-xl transition-colors text-xs font-bold text-amber-800 dark:text-amber-300 shadow-2xs"
+                  title={`Chuỗi học tập liên tục: ${gameStats.currentStreak} ngày | Cấp độ: ${gameStats.levelTitle} (${gameStats.totalXP} XP)`}
+                >
+                  <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500 animate-pulse" />
+                  <span>{gameStats.currentStreak}</span>
+                  <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium ml-0.5">Lv.{gameStats.level}</span>
+                </Link>
+
                 <Link
                   to="/student/profile"
                   data-tour-id={TOUR_DATA_IDS.HEADER_AVATAR}
@@ -349,13 +371,16 @@ function StudentLayoutContent() {
             <div className="fixed inset-y-0 left-0 max-w-xs w-3/4 bg-white shadow-2xl z-10 p-5 flex flex-col space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <BrandLogo size="xs" badgeText="Phòng thi" theme="blue" />
-                <button
-                  type="button"
-                  onClick={() => setIsMobileDrawerOpen(false)}
-                  className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <ThemeToggle variant="icon" />
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileDrawerOpen(false)}
+                    className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               {/* Student Profile Preview */}

@@ -9,7 +9,7 @@ export interface CurrentUser {
   studentClass?: string;
 }
 
-const DEFAULT_ADMIN_PASS = "Dienkon";
+const DEFAULT_ADMIN_PASS = "AdminSecure#2026";
 
 /**
  * Validates admin password securely
@@ -23,6 +23,7 @@ export const ADMIN_EMAILS = [
   "duongthanhdien3456@gmail.com",
   "dienkon@gmail.com",
   "admin@dktest.local",
+  "admin@dktest.edu.vn",
 ];
 
 export function isAdminEmail(email?: string | null): boolean {

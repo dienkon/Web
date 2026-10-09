@@ -226,12 +226,12 @@ export default function Settings() {
               </div>
 
               <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Mật khẩu hiện tại</p>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Trạng thái bảo mật</p>
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-sm font-bold bg-white px-3 py-1.5 rounded-lg border border-slate-200 text-slate-800">
-                    {currentSavedPassword}
+                    ••••••••••••
                   </span>
-                  <span className="text-xs text-slate-400">(Mặc định ban đầu: Dienkon)</span>
+                  <span className="text-xs text-emerald-600 font-medium">Đã thiết lập & bảo vệ</span>
                 </div>
               </div>
 

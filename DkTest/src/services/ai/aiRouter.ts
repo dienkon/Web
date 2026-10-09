@@ -190,3 +190,22 @@ aiRouter.post("/select-review-questions", express.json(), async (req, res) => {
     res.status(500).json({ error: err.message || "Không thể lọc câu hỏi qua AI" });
   }
 });
+
+// 7. Grade Essay Question with Gemini AI
+aiRouter.post("/grade-essay", express.json(), async (req, res) => {
+  try {
+    const { question, studentAnswer, apiKey } = req.body;
+    const customApiKey = (req.headers["x-gemini-api-key"] as string) || apiKey;
+
+    if (!question || typeof question !== "object") {
+      return res.status(400).json({ error: "Thông tin câu hỏi không hợp lệ." });
+    }
+
+    const { gradeEssayWithGemini } = await import("./aiEssayGrader.js");
+    const result = await gradeEssayWithGemini(question, studentAnswer || "", customApiKey);
+    res.json(result);
+  } catch (err: any) {
+    console.error("Error in AI Grade Essay:", err);
+    res.status(500).json({ error: err.message || "Không thể chấm bài tự luận qua AI" });
+  }
+});

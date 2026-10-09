@@ -27,11 +27,14 @@ import NotificationCenter from "./NotificationCenter";
 import { subscribeToActiveSessions, type ActiveSession } from "../../services/realtimeProctoringService";
 import { isAdminAuthenticated, clearAdminSession } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { name: "Tổng quan", path: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Học sinh", path: "/admin/students", icon: Users },
   { name: "Phụ huynh", path: "/admin/parents", icon: HeartHandshake },
+  { name: "Lớp học", path: "/admin/classes", icon: Layers },
+  { name: "Ngân hàng câu hỏi", path: "/admin/question-bank", icon: Sparkles },
   { name: "Bài thi", path: "/admin/exams", icon: FileText },
   { name: "Giám sát Live", path: "/admin/live-proctoring", icon: Eye, hasLiveBadge: true },
   { name: "Bài nộp", path: "/admin/submissions", icon: GraduationCap },
@@ -233,6 +236,9 @@ export default function AdminLayout() {
           <div className="flex items-center gap-3">
             {/* Notification Center */}
             <NotificationCenter />
+
+            {/* Dark Mode Switcher */}
+            <ThemeToggle variant="dropdown" />
 
             {/* Quick Role Switcher */}
             <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-600">
