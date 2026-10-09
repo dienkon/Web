@@ -37,10 +37,22 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Pre-Boot Resilience & Anti-Blank Screen Shield -->
     <script>
       (function() {
+        // Theme Pre-boot initialization (avoids FOUC)
+        try {
+          var savedTheme = localStorage.getItem('dktest_theme');
+          var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (savedTheme === 'dark' || ((!savedTheme || savedTheme === 'system') && systemDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+
         // 0. Ancient Browser Detection Guard (Pre-ES6 check)
         if (typeof Promise === 'undefined' || typeof Symbol === 'undefined' || typeof Map === 'undefined') {
           window.__DK_BROWSER_UNSUPPORTED__ = true;
@@ -386,15 +398,15 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-CvzwLWMi.js"></script>
+    <script type="module" crossorigin src="/assets/index-D8-ezkqm.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DkJUajiB.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-Fk9TjOZE.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-C94sS-XP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BvmnIVAj.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-math-ChYs3Gtv.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-mathlive-ChYs3Gtv.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-BHiMILDG.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-8sKS9t7I.css">
   </head>
 
   <body>

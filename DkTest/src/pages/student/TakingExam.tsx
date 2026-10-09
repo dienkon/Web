@@ -25,6 +25,9 @@ import {
   ArrowDown,
   GripVertical,
   Monitor,
+  Keyboard,
+  Type,
+  FileSignature,
 } from "lucide-react";
 import ScratchpadModal from "../../features/student-exam/components/ScratchpadModal";
 import CasioCalculator from "../../components/exam/CasioCalculator";
@@ -146,6 +149,18 @@ export default function TakingExam() {
   );
   const [showScratchpad, setShowScratchpad] = useState(false);
   const [showCasio, setShowCasio] = useState(false);
+  const [isOnline, setIsOnline] = useState<boolean>(() => (typeof navigator !== "undefined" ? navigator.onLine : true));
+  const [showReconnectedNotice, setShowReconnectedNotice] = useState(false);
+  const [fontSizeLevel, setFontSizeLevel] = useState<"sm" | "base" | "lg" | "xl">(() => {
+    const saved = getStoredItem("dktest_exam_font_size", "base");
+    return (["sm", "base", "lg", "xl"].includes(saved) ? saved : "base") as "sm" | "base" | "lg" | "xl";
+  });
+  const [showShortcutsModal, setShowShortcutsModal] = useState(false);
+
+  const handleSetFontSize = (size: "sm" | "base" | "lg" | "xl") => {
+    setFontSizeLevel(size);
+    setStoredItem("dktest_exam_font_size", size);
+  };
 
   const isUnlimitedExamTime = useMemo(() => {
     return Boolean(
@@ -372,6 +387,28 @@ export default function TakingExam() {
       console.warn("[RTDB Live] Session sync error:", e);
     }
   };
+
+  // Network Connectivity Resilience (Directive 26)
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      setShowReconnectedNotice(true);
+      syncCurrentSession(true);
+      setTimeout(() => setShowReconnectedNotice(false), 4500);
+    };
+
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [answers, activeQuestionIdx, timeLeft, warnings, exam, examId]);
 
   // Multi-tab protection (Directive 24)
   useEffect(() => {
@@ -1341,6 +1378,12 @@ export default function TakingExam() {
         }
       });
 
+      // Check if exam has essay questions and whether manual grading is required
+      const hasManualEssay = questions.some(
+        (q) => q.type === "essay" && q.essayGradingMode === "manual"
+      );
+      const gradingStatus: "graded" | "pending_review" = hasManualEssay ? "pending_review" : "graded";
+
       const sub = await createSubmission(
         {
           examId,
@@ -1367,6 +1410,7 @@ export default function TakingExam() {
           originalExamId: exam.originalExamId || null,
           attemptId,
           submissionReason: reason,
+          gradingStatus,
         },
         submissionId
       );
@@ -1486,6 +1530,160 @@ export default function TakingExam() {
     }
   };
 
+  // Dedicated Instant Local Storage Sync on Every Answer Change (User Directive)
+  const updateAnswer = (qId: string, valOrUpdater: any) => {
+    setAnswers((prev) => {
+      const nextVal = typeof valOrUpdater === "function" ? valOrUpdater(prev[qId]) : valOrUpdater;
+      const next = { ...prev, [qId]: nextVal };
+      try {
+        if (examId) {
+          const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+          const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).displayName || "student") : "student";
+          localStorage.setItem(`dktest_temp_answers_${examId}_${u}`, JSON.stringify(next));
+          localStorage.setItem(`dktest_temp_answers_${examId}`, JSON.stringify(next));
+        }
+      } catch (e) {}
+      return next;
+    });
+  };
+
+  // Keyboard navigation & quick shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if typing inside text inputs, textareas or contenteditable elements
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable ||
+          target.closest("input, textarea, [contenteditable='true']"))
+      ) {
+        return;
+      }
+
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+      // Escape closes active overlay modals
+      if (e.key === "Escape") {
+        if (showShortcutsModal) {
+          setShowShortcutsModal(false);
+          return;
+        }
+        if (showScratchpad) {
+          setShowScratchpad(false);
+          return;
+        }
+        if (showCasio) {
+          setShowCasio(false);
+          return;
+        }
+      }
+
+      // '?' opens shortcuts cheat-sheet modal
+      if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+        e.preventDefault();
+        setShowShortcutsModal((prev) => !prev);
+        return;
+      }
+
+      // Do not navigate/answer if exam is not in active taking status
+      if (sessionStatus !== "taking" || submitting || isPaused || isSuspended) return;
+
+      // 'f' or 'F' toggles bookmark/flag
+      if (e.key === "f" || e.key === "F") {
+        const q = questions[activeQuestionIdx];
+        if (q?.id) {
+          e.preventDefault();
+          setFlagged((prev) => ({ ...prev, [q.id]: !prev[q.id] }));
+        }
+        return;
+      }
+
+      // 's' or 'S' toggles scratchpad
+      if (e.key === "s" || e.key === "S") {
+        e.preventDefault();
+        setShowScratchpad((prev) => !prev);
+        return;
+      }
+
+      // 'c' or 'C' toggles Casio FX-580
+      if (e.key === "c" || e.key === "C") {
+        e.preventDefault();
+        setShowCasio((prev) => !prev);
+        return;
+      }
+
+      // Navigation: ArrowRight, PageDown
+      if (e.key === "ArrowRight" || e.key === "PageDown") {
+        e.preventDefault();
+        if (activeQuestionIdx < questions.length - 1) {
+          const nextIdx = activeQuestionIdx + 1;
+          setActiveQuestionIdx(nextIdx);
+          if (displayMode === "scroll") {
+            const el = document.getElementById(`q-card-${nextIdx}`);
+            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+        return;
+      }
+
+      // Navigation: ArrowLeft, PageUp
+      if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        if (activeQuestionIdx > 0) {
+          const prevIdx = activeQuestionIdx - 1;
+          setActiveQuestionIdx(prevIdx);
+          if (displayMode === "scroll") {
+            const el = document.getElementById(`q-card-${prevIdx}`);
+            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+        return;
+      }
+
+      // Quick Option Selection: 1-4 or A-D
+      const keyUpper = e.key.toUpperCase();
+      let optIndex = -1;
+      if (keyUpper === "1" || keyUpper === "A") optIndex = 0;
+      else if (keyUpper === "2" || keyUpper === "B") optIndex = 1;
+      else if (keyUpper === "3" || keyUpper === "C") optIndex = 2;
+      else if (keyUpper === "4" || keyUpper === "D") optIndex = 3;
+
+      if (optIndex >= 0) {
+        const q = questions[activeQuestionIdx];
+        if (q && q.options && q.options[optIndex]) {
+          const chosenOpt = q.options[optIndex];
+          e.preventDefault();
+          if (q.type === "single_choice") {
+            updateAnswer(q.id, chosenOpt.id);
+          } else if (q.type === "multiple_choice") {
+            updateAnswer(q.id, (prevVal: string[] = []) => {
+              const existing = Array.isArray(prevVal) ? prevVal : [];
+              return existing.includes(chosenOpt.id)
+                ? existing.filter((id) => id !== chosenOpt.id)
+                : [...existing, chosenOpt.id];
+            });
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    activeQuestionIdx,
+    questions,
+    sessionStatus,
+    submitting,
+    isPaused,
+    isSuspended,
+    showShortcutsModal,
+    showScratchpad,
+    showCasio,
+    displayMode,
+  ]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
@@ -1506,26 +1704,23 @@ export default function TakingExam() {
     return true;
   }).length;
 
-  // Dedicated Instant Local Storage Sync on Every Answer Change (User Directive)
-  const updateAnswer = (qId: string, valOrUpdater: any) => {
-    setAnswers((prev) => {
-      const nextVal = typeof valOrUpdater === "function" ? valOrUpdater(prev[qId]) : valOrUpdater;
-      const next = { ...prev, [qId]: nextVal };
-      try {
-        if (examId) {
-          const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
-          const u = sInfo ? (JSON.parse(sInfo).username || JSON.parse(sInfo).displayName || "student") : "student";
-          localStorage.setItem(`dktest_temp_answers_${examId}_${u}`, JSON.stringify(next));
-          localStorage.setItem(`dktest_temp_answers_${examId}`, JSON.stringify(next));
-        }
-      } catch (e) {}
-      return next;
-    });
-  };
-
   // Single Question Card Component Render
   const renderQuestionCard = (q: Question, qIdx: number) => {
     const qSection = q.sectionId ? sections.find((s) => s.id === q.sectionId) : null;
+
+    const promptFontSizeClass = {
+      sm: "text-sm lg:text-base leading-relaxed",
+      base: "text-base lg:text-lg leading-relaxed",
+      lg: "text-lg lg:text-xl leading-relaxed",
+      xl: "text-xl lg:text-2xl leading-relaxed",
+    }[fontSizeLevel] || "text-base lg:text-lg leading-relaxed";
+
+    const optionFontSizeClass = {
+      sm: "text-xs lg:text-sm",
+      base: "text-sm",
+      lg: "text-base",
+      xl: "text-lg",
+    }[fontSizeLevel] || "text-sm";
 
     return (
       <div
@@ -1552,6 +1747,7 @@ export default function TakingExam() {
               {q.type === "ordering" && "Sắp xếp thứ tự"}
               {q.type === "fill_blank" && "Điền vào chỗ trống"}
               {q.type === "matching" && "Nối bảng (2 cột)"}
+              {q.type === "essay" && "Câu hỏi tự luận"}
             </span>
           </div>
 
@@ -1577,8 +1773,8 @@ export default function TakingExam() {
         </div>
 
         {/* Question Prompt */}
-        <div className="text-slate-900 text-base lg:text-lg font-medium leading-relaxed">
-          {q.type === "fill_blank" || q.text?.includes("[_]") || q.text?.includes("[blank]") ? (
+        <div className={`text-slate-900 dark:text-slate-100 font-medium ${promptFontSizeClass}`}>
+          {q.type === "fill_blank" || /\[_+\]|\[blank\d*\]|(?<![\w\\])_{3,}/i.test(q.text || "") ? (
             <InteractiveFillBlankText
               content={q.text}
               answers={typeof answers[q.id] === "object" && answers[q.id] ? answers[q.id] : {}}
@@ -1645,7 +1841,7 @@ export default function TakingExam() {
                     >
                       {letter}
                     </span>
-                    <div className="flex-1 text-sm pt-0.5">
+                    <div className={`flex-1 ${optionFontSizeClass} pt-0.5`}>
                       <LatexPreview content={opt.text} />
                     </div>
                   </button>
@@ -1689,7 +1885,7 @@ export default function TakingExam() {
                     >
                       {letter}
                     </span>
-                    <div className="flex-1 text-sm pt-0.5">
+                    <div className={`flex-1 ${optionFontSizeClass} pt-0.5`}>
                       <LatexPreview content={opt.text} />
                     </div>
                   </button>
@@ -1908,13 +2104,98 @@ export default function TakingExam() {
               />
             </div>
           )}
+
+          {/* 8. Essay (Tự luận) */}
+          {q.type === "essay" && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between flex-wrap gap-2 text-xs text-slate-500">
+                <label className="font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <FileSignature className="w-4 h-4 text-indigo-600" />
+                  Khu vực bài làm tự luận:
+                </label>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`px-2 py-0.5 rounded-md font-semibold text-[11px] ${
+                      q.essayGradingMode === "manual"
+                        ? "bg-amber-50 text-amber-700 border border-amber-200"
+                        : "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                    }`}
+                  >
+                    {q.essayGradingMode === "manual" ? "Giáo viên duyệt thủ công" : "AI chấm tự động"}
+                  </span>
+                  {(q.essayMinWords || q.essayMaxWords) && (
+                    <span className="text-[11px] text-slate-500 font-medium bg-slate-100 px-2 py-0.5 rounded-md">
+                      {q.essayMinWords ? `Tối thiểu: ${q.essayMinWords} từ` : ""}
+                      {q.essayMinWords && q.essayMaxWords ? " • " : ""}
+                      {q.essayMaxWords ? `Tối đa: ${q.essayMaxWords} từ` : ""}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Large Textarea for Essay - Spacious on both PC and Mobile */}
+              <div className="relative rounded-2xl border-2 border-slate-200 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100/60 bg-white shadow-2xs transition-all">
+                <textarea
+                  value={typeof answers[q.id] === "string" ? answers[q.id] : ""}
+                  onChange={(e) => updateAnswer(q.id, e.target.value)}
+                  placeholder="Nhập nội dung bài làm tự luận chi tiết tại đây (hỗ trợ xuống dòng, phân đoạn, lập luận rõ ràng)..."
+                  className="w-full min-h-[260px] sm:min-h-[340px] p-4 sm:p-6 text-sm sm:text-base text-slate-800 placeholder-slate-400 bg-transparent resize-y outline-hidden leading-relaxed font-sans"
+                  spellCheck={false}
+                />
+
+                {/* Footer Word & Character Counter */}
+                <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50/90 border-t border-slate-100 rounded-b-2xl text-xs text-slate-500 font-medium flex-wrap gap-2">
+                  <div className="flex items-center gap-3">
+                    <span>
+                      Số từ:{" "}
+                      <strong className="text-slate-800 font-bold">
+                        {typeof answers[q.id] === "string" && answers[q.id].trim()
+                          ? answers[q.id].trim().split(/\s+/).length
+                          : 0}
+                      </strong>
+                    </span>
+                    <span>
+                      Ký tự:{" "}
+                      <strong className="text-slate-800 font-bold">
+                        {typeof answers[q.id] === "string" ? answers[q.id].length : 0}
+                      </strong>
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Tự động lưu bài làm
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none pt-16">
+    <div className="min-h-screen bg-slate-100 flex flex-col font-sans select-none pt-16 overscroll-y-contain overscroll-x-none touch-pan-y">
+      {/* Offline Alert Banner (Directive 26) */}
+      {!isOnline && (
+        <div className="fixed top-16 left-0 right-0 z-[105] bg-amber-500 text-white px-4 py-2 shadow-md flex items-center justify-center animate-in slide-in-from-top duration-200">
+          <div className="flex items-center gap-2 text-xs font-bold">
+            <AlertTriangle className="w-4 h-4 shrink-0 animate-pulse text-amber-100" />
+            <span>Mất kết nối Internet tạm thời! Đừng lo lắng, câu trả lời của bạn vẫn được lưu an toàn trên máy này. Hãy tiếp tục làm bài, hệ thống sẽ tự động đồng bộ khi có mạng.</span>
+          </div>
+        </div>
+      )}
+
+      {/* Reconnected Notice Banner (Directive 26) */}
+      {showReconnectedNotice && (
+        <div className="fixed top-16 left-0 right-0 z-[105] bg-emerald-600 text-white px-4 py-2 shadow-md flex items-center justify-center animate-in slide-in-from-top duration-200">
+          <div className="flex items-center gap-2 text-xs font-bold">
+            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-100" />
+            <span>Đã kết nối Internet trở lại! Đã đồng bộ an toàn dữ liệu bài thi với máy chủ.</span>
+          </div>
+        </div>
+      )}
+
       {/* Multi-Tab Protection Overlay (Directive 24) */}
       {isBlockedByOtherTab && (
         <div className="fixed inset-0 z-[120] bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-4">
@@ -2130,6 +2411,42 @@ export default function TakingExam() {
             {showMap ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             <span className="hidden md:inline">{showMap ? "Ẩn sơ đồ" : "Hiện sơ đồ"}</span>
           </button>
+
+          {/* Font Size Selector */}
+          <div className="hidden md:flex items-center bg-slate-100 rounded-xl p-0.5 border border-slate-200" title="Điều chỉnh cỡ chữ hiển thị đề thi">
+            <button
+              type="button"
+              onClick={() => handleSetFontSize("sm")}
+              className={`px-2 py-1 text-[11px] font-bold rounded-lg transition-all cursor-pointer ${
+                fontSizeLevel === "sm" ? "bg-white text-blue-700 shadow-2xs" : "text-slate-500 hover:text-slate-900"
+              }`}
+              title="Cỡ chữ nhỏ (A-)"
+            >
+              A-
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSetFontSize("base")}
+              className={`px-2 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                fontSizeLevel === "base" ? "bg-white text-blue-700 shadow-2xs" : "text-slate-500 hover:text-slate-900"
+              }`}
+              title="Cỡ chữ chuẩn (A)"
+            >
+              A
+            </button>
+            <button
+              type="button"
+              onClick={() => handleSetFontSize(fontSizeLevel === "base" ? "lg" : "xl")}
+              className={`px-2 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                fontSizeLevel === "lg" || fontSizeLevel === "xl" ? "bg-white text-blue-700 shadow-2xs" : "text-slate-500 hover:text-slate-900"
+              }`}
+              title="Cỡ chữ to (A+)"
+            >
+              A+
+            </button>
+          </div>
+
+          {/* Shortcuts guide button removed per user request: user knows shortcuts */}
 
           {warnings > 0 && (
             <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 bg-red-50 text-red-700 border border-red-200 rounded-lg text-xs font-bold animate-pulse">
@@ -2659,6 +2976,92 @@ export default function TakingExam() {
           >
             Dừng chia sẻ
           </button>
+        </div>
+      )}
+
+      {/* Keyboard Shortcuts Cheat-Sheet Modal */}
+      {showShortcutsModal && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150"
+          onClick={() => setShowShortcutsModal(false)}
+        >
+          <div
+            className="bg-white rounded-3xl shadow-2xl border border-slate-200 max-w-md w-full p-6 space-y-5 animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
+                  <Keyboard className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">Phím tắt làm bài thi</h3>
+                  <p className="text-xs text-slate-500">Thao tác siêu tốc không cần rê chuột</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowShortcutsModal(false)}
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Chọn đáp án A, B, C, D</span>
+                <div className="flex items-center gap-1 font-mono">
+                  <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800">1-4</kbd>
+                  <span className="text-slate-400">hoặc</span>
+                  <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800">A-D</kbd>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Câu trước / Câu kế tiếp</span>
+                <div className="flex items-center gap-1 font-mono">
+                  <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800">←</kbd>
+                  <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800">→</kbd>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Đánh dấu cờ (Bookmark câu)</span>
+                <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800 font-mono">F</kbd>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Bật / Tắt Bảng nháp</span>
+                <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800 font-mono">S</kbd>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Mở máy tính CASIO FX-580</span>
+                <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800 font-mono">C</kbd>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Mở lại bảng hướng dẫn này</span>
+                <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800 font-mono">?</kbd>
+              </div>
+
+              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-700 font-medium">Đóng các cửa sổ bật lên</span>
+                <kbd className="px-2 py-1 bg-white border border-slate-300 rounded shadow-2xs font-bold text-slate-800 font-mono">Esc</kbd>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => setShowShortcutsModal(false)}
+                className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs transition-colors cursor-pointer shadow-xs"
+              >
+                Đã hiểu
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

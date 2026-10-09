@@ -40,6 +40,71 @@ export interface ExamGradingSummary {
 }
 
 /**
+ * Safely parses string into numeric value, supporting Vietnamese decimal comma (0,5 -> 0.5)
+ * and simple fractions (1/2 -> 0.5).
+ */
+export function parseNumericValue(str: string): number | null {
+  if (!str) return null;
+  const clean = str.trim();
+  // Match single decimal number with either dot or comma: "0,5" or "-12.34"
+  const normalized = clean.replace(/^([+-]?\d+),(\d+)$/, "$1.$2");
+  // Match simple fraction: "1/2" or "-3/4"
+  const fractionMatch = normalized.match(/^([+-]?\d+)\s*\/\s*(\d+)$/);
+  if (fractionMatch) {
+    const num = Number(fractionMatch[1]);
+    const den = Number(fractionMatch[2]);
+    if (den !== 0) return num / den;
+  }
+  const val = Number(normalized);
+  return !isNaN(val) && isFinite(val) ? val : null;
+}
+
+/**
+ * Intelligent comparison for short answer & fill-in-the-blank questions:
+ * Supports exact text, normalized spaces ("x + y" == "x+y"),
+ * decimal comma/dot equivalence ("0,5" == "0.5"), and numeric fraction equivalence ("1/2" == "0.5").
+ */
+export function isAnswerMatch(userInput: string, targetAnswer: string, caseSensitive: boolean = false): boolean {
+  if (userInput === undefined || userInput === null || targetAnswer === undefined || targetAnswer === null) return false;
+  const cleanUser = String(userInput).trim();
+  const cleanTarget = String(targetAnswer).trim();
+
+  // 1. Exact or case-insensitive string match
+  if (caseSensitive) {
+    if (cleanUser === cleanTarget) return true;
+  } else {
+    if (cleanUser.toLowerCase() === cleanTarget.toLowerCase()) return true;
+  }
+
+  // 2. Normalized spaces match ("x + 1" == "x+1")
+  const compactUser = cleanUser.replace(/\s+/g, "");
+  const compactTarget = cleanTarget.replace(/\s+/g, "");
+  if (!caseSensitive && compactUser.toLowerCase() === compactTarget.toLowerCase()) {
+    return true;
+  } else if (caseSensitive && compactUser === compactTarget) {
+    return true;
+  }
+
+  // 3. Decimal comma match ("0,5" vs "0.5")
+  const dotUser = cleanUser.replace(",", ".");
+  const dotTarget = cleanTarget.replace(",", ".");
+  if (!caseSensitive && dotUser.toLowerCase() === dotTarget.toLowerCase()) {
+    return true;
+  }
+
+  // 4. Numeric & fraction numerical equivalence (e.g. 0.5 vs 1/2 or 0,5)
+  const numUser = parseNumericValue(cleanUser);
+  const numTarget = parseNumericValue(cleanTarget);
+  if (numUser !== null && numTarget !== null) {
+    if (Math.abs(numUser - numTarget) < 1e-6) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
  * Normalizes answer values for evaluation.
  */
 function isAnswerEmpty(val: any): boolean {
@@ -248,12 +313,9 @@ export function gradeQuestion(params: {
       };
     }
 
-    const accepted = (question.acceptedAnswers || []).map((acc) => {
-      const trimmed = question.trimWhitespace !== false ? acc.trim() : acc;
-      return question.caseSensitive ? trimmed : trimmed.toLowerCase();
-    });
-
-    const isCorrect = accepted.includes(compareUser);
+    const isCorrect = (question.acceptedAnswers || []).some((acc) =>
+      isAnswerMatch(cleanUser, acc, Boolean(question.caseSensitive))
+    );
 
     return {
       questionId: question.id,
@@ -336,13 +398,11 @@ export function gradeQuestion(params: {
       if (rawVal !== undefined && rawVal !== null && String(rawVal).trim() !== "") {
         answeredBlanks++;
         const userVal = question.trimWhitespace !== false ? String(rawVal).trim() : String(rawVal);
-        const compareUser = question.caseSensitive ? userVal : userVal.toLowerCase();
         const validOptions = acceptedMap[idx] || [];
 
-        const isMatch = validOptions.some((opt) => {
-          const target = question.trimWhitespace !== false ? opt.trim() : opt;
-          return (question.caseSensitive ? target : target.toLowerCase()) === compareUser;
-        });
+        const isMatch = validOptions.some((opt) =>
+          isAnswerMatch(userVal, opt, Boolean(question.caseSensitive))
+        );
 
         if (isMatch) correctBlanks++;
       }
@@ -442,6 +502,32 @@ export function gradeQuestion(params: {
     };
   }
 
+  // 8. Essay (Tự luận)
+  if (qType === "essay") {
+    const studentText = typeof answer === "string" ? answer.trim() : "";
+    if (!studentText) {
+      return {
+        questionId: question.id,
+        status: "unanswered",
+        earnedPoints: 0,
+        maxPoints,
+        scoreRatio: 0,
+        normalizedAnswer: "",
+        feedbackMetadata: { details: "Chưa nhập câu trả lời tự luận" },
+      };
+    }
+
+    return {
+      questionId: question.id,
+      status: "partial",
+      earnedPoints: 0,
+      maxPoints,
+      scoreRatio: 0,
+      normalizedAnswer: studentText,
+      feedbackMetadata: { details: "Bài làm tự luận đang chờ chấm điểm" },
+    };
+  }
+
   // Default fallback
   return {
     questionId: question.id,
@@ -457,12 +543,25 @@ export function gradeQuestion(params: {
  * Calculates complete exam score across all questions using a 10.0 scale.
  */
 export function calculateExamScore(
-  questions: Question[],
-  answers: Record<string, any>,
-  options?: { totalScale?: number }
+  questionsOrParams: Question[] | { questions: Question[]; answers: Record<string, any>; options?: { totalScale?: number; essayScores?: Record<string, { score: number; maxScore?: number; feedback?: string }> } },
+  maybeAnswers?: Record<string, any>,
+  options?: { totalScale?: number; essayScores?: Record<string, { score: number; maxScore?: number; feedback?: string }> }
 ): ExamGradingSummary {
+  let questions: Question[];
+  let answers: Record<string, any>;
+  let opts = options;
+
+  if (Array.isArray(questionsOrParams)) {
+    questions = questionsOrParams;
+    answers = maybeAnswers || {};
+  } else {
+    questions = questionsOrParams.questions || [];
+    answers = questionsOrParams.answers || {};
+    opts = questionsOrParams.options || options;
+  }
+
   const totalCount = questions.length;
-  const targetScale = options?.totalScale || 10.0;
+  const targetScale = opts?.totalScale || 10.0;
 
   if (totalCount === 0) {
     return {
@@ -496,6 +595,24 @@ export function calculateExamScore(
       answer: answers[q.id],
       pointPerQuestion,
     });
+
+    // If essay score was provided (from AI or manual teacher grading)
+    if (q.type === "essay" && opts?.essayScores?.[q.id]) {
+      const essayScoreItem = opts.essayScores[q.id];
+      const earned = Math.min(pointPerQuestion, Math.max(0, Number(essayScoreItem.score || 0)));
+      res.earnedPoints = Math.round(earned * 100) / 100;
+      res.scoreRatio = res.maxPoints > 0 ? res.earnedPoints / res.maxPoints : 0;
+      if (res.scoreRatio >= 0.8) {
+        res.status = "correct";
+      } else if (res.scoreRatio > 0) {
+        res.status = "partial";
+      } else {
+        res.status = "incorrect";
+      }
+      if (essayScoreItem.feedback) {
+        res.feedbackMetadata = { ...(res.feedbackMetadata || {}), details: essayScoreItem.feedback };
+      }
+    }
 
     results[q.id] = res;
     totalEarned += res.earnedPoints;

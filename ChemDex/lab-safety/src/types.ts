@@ -1,5 +1,45 @@
 export type ViewState = 'start' | 'game' | 'certificate';
 export type GameMode = 'learn' | 'challenge' | 'exam';
+export type GameRunState = 'RUNNING' | 'PAUSED';
+
+export type TaskId = 'task_talk' | 'task_rules' | 'task_goggles' | 'task_coat' | 'task_gloves' | 'task_mask' | 'task_hair' | 'task_shoes' | 'task_fire_extinguisher' | 'task_chemical_symbols' | 'task_inspect_acid' | 'task_bandage' | 'task_spill_kit' | 'task_spill_neutralize' | 'task_spill_wipe' | 'task_trash_disposal';
+export type PhaseId = 'phase_1' | 'phase_2' | 'phase_3';
+export type MistakeId =
+  | 'ppe_missing'
+  | 'wrong_trash'
+  | 'glass_hazard'
+  | 'spill_hazard'
+  | 'fire_hazard'
+  | 'general_error'
+  | 'WRONG_EXTINGUISHER'
+  | 'WRONG_EXTINGUISHER_ELECTRICAL'
+  | 'NO_PIN_PULLED'
+  | 'AIM_AT_FLAME_NOT_BASE'
+  | 'BAD_DISTANCE'
+  | 'NO_ALARM'
+  | 'LOST_EXIT_PATH'
+  | 'FIGHT_FIRE_TOO_LATE'
+  | 'TOUCH_CO2_HORN';
+
+export interface TaskDefinition {
+  id: TaskId;
+  titleKey: string;
+  prerequisites: TaskId[];
+  target: { type: string; value: string };
+  completion: { condition: string; auto: boolean };
+}
+
+export interface PhaseDefinition {
+  id: PhaseId;
+  title: string;
+}
+
+export interface MistakeDefinition {
+  id: MistakeId;
+  title: string;
+  penalty: number;
+  consequence: string;
+}
 
 export interface Task {
   id: string;
@@ -21,24 +61,32 @@ export interface Rule {
   wrong?: string;
   consequence?: string;
   category?: 'ppe' | 'chemical' | 'heat' | 'glass' | 'firstaid' | 'waste';
+  reviewStatus?: 'draft' | 'needs-review' | 'reviewed';
+  sources?: string[];
 }
 
 export interface PlayerState {
-  hasGoggles: boolean;
-  hasLabCoat: boolean;
-  hasGloves: boolean;
-  hasMask: boolean;
-  hairTied: boolean;
-  hasClosedShoes: boolean;
-  hasFireExtinguisher?: boolean;
-  fireExtinguished?: boolean;
-  isHoldingTrash?: boolean;
-  heldTrashType?: 'domestic' | 'chemical' | 'sharps' | null;
-  hasSweeper?: boolean;
-  trashCount?: number;
-  trash1Picked?: boolean;
-  trash2Picked?: boolean;
-  trash3Picked?: boolean;
+  equipment: {
+    hasGoggles: boolean;
+    hasLabCoat: boolean;
+    hasGloves: boolean;
+    hasMask: boolean;
+    hairTied: boolean;
+    hasClosedShoes: boolean;
+  };
+  inventory: {
+    hasFireExtinguisher?: boolean;
+    isHoldingTrash?: boolean;
+    heldTrashType?: 'domestic' | 'chemical' | 'sharps' | null;
+    hasSweeper?: boolean;
+  };
+  flags: {
+    fireExtinguished?: boolean;
+    trashCount?: number;
+    trash1Picked?: boolean;
+    trash2Picked?: boolean;
+    trash3Picked?: boolean;
+  };
 }
 
 export interface CharacterProfile {
@@ -51,7 +99,7 @@ export interface CharacterProfile {
 }
 
 export interface MistakeRecord {
-  ruleId: number;
+  id: MistakeId;
   title: string;
   penalty: number;
   consequence: string;
@@ -59,7 +107,7 @@ export interface MistakeRecord {
 }
 
 export interface ErrorBannerData {
-  ruleId: number;
+  id: MistakeId;
   title: string;
   consequence: string;
   dangerLevel: 'low' | 'medium' | 'high' | 'critical';
@@ -67,7 +115,7 @@ export interface ErrorBannerData {
 }
 
 export interface SettingsState {
-  graphicsQuality: 'auto' | 'high' | 'medium' | 'low';
+  graphicsQuality: 'ultra' | 'high' | 'medium' | 'low' | 'potato' | 'auto';
   musicVolume: number;
   sfxVolume: number;
   voiceVolume: number;
@@ -76,6 +124,7 @@ export interface SettingsState {
   largeText: boolean;
   leftHanded: boolean;
   cameraSensitivity: number;
+  safeEffects: boolean;
 }
 
 export interface GameState {
@@ -91,6 +140,8 @@ export interface GameState {
   character: CharacterProfile;
   settings: SettingsState;
   currentPhase: number;
+  runState: GameRunState;
+  setRunState: (state: GameRunState) => void;
   achievements: string[];
   
   // UI Panels
@@ -108,6 +159,14 @@ export interface GameState {
   showBandageQuiz: boolean;
   showChemicalSymbolsQuiz: boolean;
   
+  // Dynamic screen effects (water spray, chemical splash)
+  waterEffect: { active: boolean; type: 'shower' | 'eyewash' | 'acid_splash' };
+  setWaterEffect: (effect: { active: boolean; type: 'shower' | 'eyewash' | 'acid_splash' }) => void;
+  showMinimap: boolean;
+  setShowMinimap: (show: boolean) => void;
+  isFlashlightOn: boolean;
+  toggleFlashlight: () => void;
+  
   // Joystick vector for touch
   joystickVec: { x: number; y: number };
   setJoystickVec: (vec: { x: number; y: number }) => void;
@@ -116,11 +175,13 @@ export interface GameState {
   setView: (view: ViewState) => void;
   setGameMode: (mode: GameMode) => void;
   startGame: () => void;
+  resumeGame: () => void;
+  saveGame: () => void;
   endGame: () => void;
   completeTask: (taskId: string) => void;
-  addError: (ruleId: number, penalty?: number) => void;
+  addError: (id: MistakeId, ctx?: any) => void;
   dismissErrorBanner: () => void;
-  equipItem: (item: keyof PlayerState) => void;
+  equipItem: (item: string) => void;
   updateCharacter: (profile: Partial<CharacterProfile>) => void;
   updateSettings: (settings: Partial<SettingsState>) => void;
   setActiveRuleDialog: (rule: Rule | null) => void;

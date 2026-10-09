@@ -18,6 +18,18 @@ export const RuleDialog: React.FC = () => {
     setActiveRule(null);
   };
 
+  React.useEffect(() => {
+    if (!activeRule) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Backspace' || e.code === 'Escape' || e.code === 'KeyE' || e.code === 'Space') {
+        e.preventDefault();
+        handleClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeRule]);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F2233]/50 backdrop-blur-xs select-none">
       <div className="w-full max-w-sm sm:max-w-md perspective-[1000px]">

@@ -4,6 +4,7 @@ import {
   Download,
   Printer,
   FileCode,
+  FileDown,
   CheckCircle2,
   Settings,
   Eye,
@@ -18,6 +19,7 @@ import {
   downloadLatexSource,
   generateExamHtmlForPrint,
 } from "../../../services/latexExportService";
+import { exportExamToWordFile } from "../../../services/wordExportService";
 import { useToast } from "../../../components/ui/ToastNotification";
 
 interface Props {
@@ -45,6 +47,7 @@ export default function ExamExportModal({
   const [includeExplanation, setIncludeExplanation] = useState(true);
 
   const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [isExportingWord, setIsExportingWord] = useState(false);
   const [previewHtml, setPreviewHtml] = useState<string>("");
   const [showPreviewModal, setShowPreviewModal] = useState(false);
 
@@ -57,6 +60,21 @@ export default function ExamExportModal({
     examCode,
     subjectName,
     gradeName,
+  };
+
+  const handleExportWord = async () => {
+    setIsExportingWord(true);
+    try {
+      await exportExamToWordFile(exam, sections, questions, {
+        ...currentOptions,
+      });
+      toast.success("Đã xuất file Word (.doc) thành công!");
+    } catch (err: any) {
+      console.error("Word Export error:", err);
+      toast.error(`Lỗi xuất file Word: ${err.message || "Vui lòng thử lại"}`);
+    } finally {
+      setIsExportingWord(false);
+    }
   };
 
   const handleExportPdf = async (includeAns: boolean) => {
@@ -274,12 +292,12 @@ export default function ExamExportModal({
               Tùy chọn tải về & In ấn
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               {/* Export PDF */}
               <button
                 onClick={() => handleExportPdf(activeTab === "answers")}
                 disabled={isExportingPdf}
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium text-sm shadow-xs transition-all disabled:opacity-50 cursor-pointer"
+                className="flex items-center justify-center gap-2 py-3 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium text-xs sm:text-sm shadow-xs transition-all disabled:opacity-50 cursor-pointer"
               >
                 {isExportingPdf ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -289,10 +307,24 @@ export default function ExamExportModal({
                 <span>Xuất PDF {activeTab === "answers" ? "Đáp án" : "Đề thi"}</span>
               </button>
 
+              {/* Export Word */}
+              <button
+                onClick={handleExportWord}
+                disabled={isExportingWord}
+                className="flex items-center justify-center gap-2 py-3 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-xs sm:text-sm shadow-xs transition-all disabled:opacity-50 cursor-pointer"
+              >
+                {isExportingWord ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <FileDown className="w-4 h-4" />
+                )}
+                <span>Xuất Word (.doc)</span>
+              </button>
+
               {/* Download LaTeX Source */}
               <button
                 onClick={() => handleDownloadLatex(activeTab === "answers")}
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl font-medium text-sm shadow-2xs transition-all cursor-pointer"
+                className="flex items-center justify-center gap-2 py-3 px-3 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl font-medium text-xs sm:text-sm shadow-2xs transition-all cursor-pointer"
               >
                 <FileCode className="w-4 h-4 text-amber-600" />
                 <span>Tải mã LaTeX (.tex)</span>
@@ -301,7 +333,7 @@ export default function ExamExportModal({
               {/* Print Direct */}
               <button
                 onClick={() => handlePrint(activeTab === "answers")}
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl font-medium text-sm shadow-2xs transition-all cursor-pointer"
+                className="flex items-center justify-center gap-2 py-3 px-3 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl font-medium text-xs sm:text-sm shadow-2xs transition-all cursor-pointer"
               >
                 <Printer className="w-4 h-4 text-emerald-600" />
                 <span>In trực tiếp</span>

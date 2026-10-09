@@ -13,9 +13,13 @@ import {
   ShieldAlert,
   Sparkles,
   CheckCircle2,
-  Hand
+  Hand,
+  Navigation
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { getActiveObjective } from '../3d/lab/ObjectiveMarker';
+import { WaterDropletsOverlay } from './hud/WaterDropletsOverlay';
+import { LabMinimapHUD } from './hud/LabMinimapHUD';
 
 export const HUD: React.FC = () => {
   const currentPhase = useStore((s) => s.currentPhase);
@@ -28,10 +32,57 @@ export const HUD: React.FC = () => {
   const setShowSettings = useStore((s) => s.setShowSettings);
   const setShowRulesList = useStore((s) => s.setShowRulesList);
   const setActiveRuleDialog = useStore((s) => s.setActiveRuleDialog);
+  const waterEffect = useStore((s) => s.waterEffect);
+  const isFlashlightOn = useStore((s) => s.isFlashlightOn);
+  const toggleFlashlight = useStore((s) => s.toggleFlashlight);
 
   const [showTaskListSheet, setShowTaskListSheet] = useState(false);
   const [scoreDelta, setScoreDelta] = useState<number | null>(null);
   const prevScoreRef = useRef(score);
+
+  // Real-time navigation compass & distance to active 3D objective
+  const [navInfo, setNavInfo] = useState<{
+    title: string;
+    distance: number;
+    angleDeg: number;
+  } | null>(null);
+
+  useEffect(() => {
+    const updateNav = () => {
+      const state = useStore.getState();
+      if (state.view !== 'game') {
+        setNavInfo(null);
+        return;
+      }
+      const activeObj = getActiveObjective(
+        state.currentPhase,
+        state.tasks,
+        state.player.flags
+      );
+      if (!activeObj) {
+        setNavInfo(null);
+        return;
+      }
+
+      const dx = activeObj.position[0] - playerCoords.position[0];
+      const dz = activeObj.position[2] - playerCoords.position[2];
+      const dist = Math.hypot(dx, dz);
+
+      const targetAngle = Math.atan2(dx, dz);
+      let diff = targetAngle - playerCoords.rotationY;
+      diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+      const angleDeg = (-diff * 180) / Math.PI;
+
+      setNavInfo({
+        title: activeObj.title,
+        distance: parseFloat(dist.toFixed(1)),
+        angleDeg: Math.round(angleDeg),
+      });
+    };
+
+    const timer = setInterval(updateNav, 80);
+    return () => clearInterval(timer);
+  }, []);
 
   // Auto-dismiss error banner after 4 seconds
   useEffect(() => {
@@ -137,12 +188,29 @@ export const HUD: React.FC = () => {
           </div>
         </div>
 
-        {/* Top-Center: Phase Pill */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-auto">
+        {/* Top-Center: Phase Pill & Waypoint Compass Guidance */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-auto flex flex-col items-center gap-1.5">
           <div className="px-4 py-1.5 white-glass rounded-full text-xs font-extrabold text-[var(--primary-600)] border border-cyan-100/80 shadow-xs flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse" />
             <span>{phaseTitle}</span>
           </div>
+
+          {navInfo && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-slate-950/85 backdrop-blur-md rounded-full text-[11px] font-bold text-white border border-cyan-400/40 shadow-lg">
+              <div
+                className="w-4 h-4 flex items-center justify-center transition-transform duration-100"
+                style={{ transform: `rotate(${navInfo.angleDeg}deg)` }}
+              >
+                <Navigation className="w-3.5 h-3.5 text-cyan-400 fill-cyan-400" />
+              </div>
+              <span className="text-slate-200 max-w-[170px] sm:max-w-[260px] truncate">
+                {navInfo.title}
+              </span>
+              <span className="font-mono text-[10px] text-cyan-300 bg-cyan-950/80 px-1.5 py-0.5 rounded border border-cyan-500/30">
+                {navInfo.distance}m
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Top-Right: Score chip, Dev Skip (only in dev), Pause button */}
@@ -182,6 +250,20 @@ export const HUD: React.FC = () => {
               DEV: SKIP
             </button>
           )}
+
+          {/* Flashlight Button [F] */}
+          <button
+            onClick={toggleFlashlight}
+            className={`w-10 h-10 rounded-full flex items-center justify-center border shadow-xs active:scale-95 transition-all cursor-pointer ${
+              isFlashlightOn
+                ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-amber-300/40'
+                : 'white-glass hover:bg-white text-[var(--ink-2)] hover:text-[var(--ink)] border-[var(--line)]'
+            }`}
+            title="Bật/Tắt Đèn Pin Soi Sáng [F]"
+            aria-label="Đèn pin"
+          >
+            <span className="text-base">{isFlashlightOn ? '🔦' : '🕯️'}</span>
+          </button>
 
           {/* Settings / Pause Button */}
           <button
@@ -241,20 +323,38 @@ export const HUD: React.FC = () => {
           <VirtualJoystick onMove={(vec) => setJoystickVec(vec)} />
         </div>
 
-        {/* Bottom-Center: Desktop Interaction Prompt */}
-        <div className="hidden lg:flex flex-col items-center pointer-events-auto">
+        {/* Bottom-Center: Desktop Interaction Prompt & Key Shortcuts */}
+        <div className="hidden lg:flex flex-col items-center pointer-events-auto gap-2">
           {activeInteraction && (
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 10 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               className="px-5 py-2.5 white-glass rounded-2xl border border-[var(--primary)] shadow-md flex items-center gap-3"
             >
-              <Keycap label="E" />
+              <div className="flex gap-1.5">
+                <Keycap label="E" />
+                <Keycap label="Space" />
+              </div>
               <span className="text-sm font-bold text-[var(--ink)]">
                 {activeInteraction}
               </span>
             </motion.div>
           )}
+
+          {/* Persistent subtle Hotkey Ribbon */}
+          <div className="px-3.5 py-1.5 rounded-full bg-slate-900/60 backdrop-blur-md text-white/90 text-[11px] font-semibold flex items-center gap-3 border border-white/10 shadow-lg">
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">WASD</span> Di chuyển</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">Shift</span> Chạy</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-amber-400 font-mono font-bold">E / Space</span> Tương tác</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-rose-400 font-mono font-bold">Backspace / Q</span> Cất / Đóng</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">Tab</span> Sổ tay</span>
+            <span className="text-white/30">|</span>
+            <span className="flex items-center gap-1"><span className="text-cyan-400 font-mono font-bold">1-6</span> Dụng cụ</span>
+          </div>
         </div>
 
         {/* Bottom-Right: Mobile Big 64px Interact Button */}
@@ -321,6 +421,12 @@ export const HUD: React.FC = () => {
           ))}
         </div>
       </Sheet>
+
+      {/* 2D Architectural Minimap Radar */}
+      <LabMinimapHUD />
+
+      {/* Screen Water / Chemical Splatter Overlay */}
+      <WaterDropletsOverlay active={waterEffect.active} type={waterEffect.type} />
 
     </div>
   );

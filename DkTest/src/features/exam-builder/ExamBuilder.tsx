@@ -7,6 +7,7 @@ import ExamOutline from "./components/ExamOutline";
 import ExamMetaEditor from "./components/ExamMetaEditor";
 import QuestionList from "./components/QuestionList";
 import ExamVisualPreviewEditor from "./components/ExamVisualPreviewEditor";
+import DualPaneSplitEditor from "./components/DualPaneSplitEditor";
 import {
   Loader2,
   PanelLeftClose,
@@ -14,9 +15,10 @@ import {
   FileQuestion,
   Settings2,
   CheckSquare,
+  Columns,
 } from "lucide-react";
 
-type EditorTab = "questions" | "preview_edit" | "settings";
+type EditorTab = "questions" | "split_editor" | "preview_edit" | "settings";
 
 function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
   const { examId } = useParams();
@@ -114,6 +116,19 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
 
             <button
               type="button"
+              onClick={() => setActiveTab("split_editor")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeTab === "split_editor"
+                  ? "bg-blue-600 text-white shadow-2xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Columns className="w-3.5 h-3.5" />
+              <span>Soạn chia đôi (Song song)</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setActiveTab("preview_edit")}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 activeTab === "preview_edit"
@@ -163,7 +178,7 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
         {/* Main Editor Area */}
         <main
           className={`flex-1 min-h-0 relative ${
-            activeTab === "preview_edit"
+            activeTab === "preview_edit" || activeTab === "split_editor"
               ? "overflow-hidden flex flex-col"
               : "overflow-y-auto p-4 md:p-8 scroll-smooth"
           }`}
@@ -171,6 +186,12 @@ function ExamBuilderInner({ isNew }: { isNew?: boolean }) {
           {activeTab === "questions" && (
             <div className="max-w-4xl mx-auto space-y-6 pb-32">
               <QuestionList />
+            </div>
+          )}
+
+          {activeTab === "split_editor" && (
+            <div className="w-full h-full min-h-0 flex-1 flex flex-col overflow-hidden">
+              <DualPaneSplitEditor />
             </div>
           )}
 

@@ -79,11 +79,42 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
   const preference = useQualityStore(state => state.preference);
   const effectiveTier = useQualityStore(state => state.effectiveTier);
   const setPreference = useQualityStore(state => state.setPreference);
+  const handlePerformanceDecline = useQualityStore(state => state.handlePerformanceDecline);
+  const handlePerformanceIncline = useQualityStore(state => state.handlePerformanceIncline);
+
+  // Dynamic Resolution / Quality Scaling based on FPS
+  const lowFpsFramesRef = useRef(0);
+  const highFpsFramesRef = useRef(0);
+
+  useEffect(() => {
+    if (preference !== 'auto') return;
+    
+    if (stats.fps < 45) {
+      lowFpsFramesRef.current++;
+      highFpsFramesRef.current = 0;
+      if (lowFpsFramesRef.current > 3) {
+        handlePerformanceDecline();
+        lowFpsFramesRef.current = 0;
+      }
+    } else if (stats.fps >= 58) {
+      highFpsFramesRef.current++;
+      lowFpsFramesRef.current = 0;
+      if (highFpsFramesRef.current > 5) {
+        handlePerformanceIncline();
+        highFpsFramesRef.current = 0;
+      }
+    } else {
+      lowFpsFramesRef.current = 0;
+      highFpsFramesRef.current = 0;
+    }
+  }, [stats.fps, preference, handlePerformanceDecline, handlePerformanceIncline]);
 
   const cycleQuality = () => {
-    if (preference === 'auto') setPreference('high');
+    if (preference === 'auto') setPreference('ultra');
+    else if (preference === 'ultra') setPreference('high');
     else if (preference === 'high') setPreference('medium');
     else if (preference === 'medium') setPreference('low');
+    else if (preference === 'low') setPreference('potato');
     else setPreference('auto');
   };
 
@@ -120,7 +151,7 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
 
         <button
           onClick={cycleQuality}
-          title="Click to toggle VFX graphics quality (Auto / High / Medium / Low)"
+          title="Click to toggle VFX graphics quality (Auto / Ultra / High / Medium / Low / Potato)"
           className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700/80 transition-colors cursor-pointer"
         >
           {preference === 'auto' ? `Auto (${effectiveTier[0].toUpperCase()})` : preference.toUpperCase()}

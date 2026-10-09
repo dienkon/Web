@@ -76,31 +76,39 @@ export async function apiClient<T = any>(
   if (requiresAuth) {
     const token = await getAuthToken();
     const adminToken = localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token");
+    const isAdminRoute = cleanEndpoint.startsWith("/api/admin");
 
-    if (token) {
-      requestHeaders["Authorization"] = `Bearer ${token}`;
-    } else if (adminToken) {
-      // Fallback: If not logged into Firebase but admin session exists
+    if (isAdminRoute && adminToken) {
+      // Prioritize adminToken when accessing admin routes
       requestHeaders["Authorization"] = `Bearer ${adminToken}`;
-    }
-
-    if (adminToken) {
       requestHeaders["X-Admin-Token"] = adminToken;
-    }
-    let authRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
-    if (adminToken || localStorage.getItem("admin_info")) {
-      try {
-        const raw = localStorage.getItem("admin_info");
-        if (raw) {
-          const info = JSON.parse(raw);
-          if (info.email === "duongthanhdien3456@gmail.com" || info.role === "admin") {
-            authRole = "admin";
+      requestHeaders["X-Auth-Role"] = "admin";
+    } else {
+      if (token) {
+        requestHeaders["Authorization"] = `Bearer ${token}`;
+      } else if (adminToken) {
+        // Fallback: If not logged into Firebase but admin session exists
+        requestHeaders["Authorization"] = `Bearer ${adminToken}`;
+      }
+
+      if (adminToken) {
+        requestHeaders["X-Admin-Token"] = adminToken;
+      }
+      let authRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
+      if (adminToken || localStorage.getItem("admin_info")) {
+        try {
+          const raw = localStorage.getItem("admin_info");
+          if (raw) {
+            const info = JSON.parse(raw);
+            if (info.role === "admin" || info.role === "super_admin") {
+              authRole = "admin";
+            }
           }
-        }
-      } catch {}
-    }
-    if (authRole) {
-      requestHeaders["X-Auth-Role"] = authRole;
+        } catch {}
+      }
+      if (authRole) {
+        requestHeaders["X-Auth-Role"] = authRole;
+      }
     }
   }
 

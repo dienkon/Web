@@ -128,7 +128,8 @@ export type QuestionType =
   | "short_answer"
   | "ordering"
   | "fill_blank"
-  | "matching";
+  | "matching"
+  | "essay";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
@@ -190,11 +191,19 @@ export interface Question {
   matchingRight?: MatchingItem[]; // Cột 2 (hàng a -> z)
   correctMatches?: Record<string, string>; // left key/id -> right key/id (e.g. { "1": "c", "2": "a" })
 
+  // for essay questions (câu hỏi tự luận)
+  essayRubric?: string; // Barem đáp án / gợi ý giải
+  essayGradingPrompt?: string; // Prompt hướng dẫn AI chấm điểm
+  essayGradingMode?: "ai" | "manual"; // "ai" (AI Gemini chấm) | "manual" (Giáo viên duyệt thủ công)
+  essayMinWords?: number;
+  essayMaxWords?: number;
+
   explanation?: string;
 
   points: number;
   order: number;
   difficulty?: Difficulty;
+  level?: "NB" | "TH" | "VD" | "VDC" | string;
   tags?: string[];
 
   // Detailed shuffling controls
@@ -331,6 +340,17 @@ export interface Submission {
   isRetake?: boolean;
   isAggregatedReview?: boolean;
   originalExamId?: string | null;
+  gradingStatus?: "graded" | "pending_review";
+  essayScores?: Record<
+    string,
+    {
+      score: number;
+      maxScore?: number;
+      feedback?: string;
+      gradedBy?: "ai" | "admin";
+      reviewedAt?: any;
+    }
+  >;
 }
 
 export interface PaginatedResult<T> {

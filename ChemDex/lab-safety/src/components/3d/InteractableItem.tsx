@@ -4,6 +4,7 @@ import { Text, Html } from '@react-three/drei';
 import { useSpring, a } from '@react-spring/three';
 import * as THREE from 'three';
 import { useStore, playerCoords } from '../../store/useStore';
+import { useInteractionStore } from '../../core/InteractionSystem';
 import { PlayerState } from '../../types';
 import { SAFETY_RULES } from '../../data/rules';
 
@@ -14,10 +15,10 @@ interface Props {
   label: string;
   children: React.ReactNode;
   type: 'equip' | 'action' | 'learn';
-  equipKey?: keyof PlayerState;
+  equipKey?: any;
   taskId?: string;
   ruleId?: number;
-  requiredEquipment?: (keyof PlayerState)[];
+  requiredEquipment?: (any)[];
   successMessage?: string;
   dialogSequence?: string[];
   dialogCallback?: () => void;
@@ -26,7 +27,6 @@ interface Props {
   isGlowing?: boolean;
 }
 
-const nearbyRegistry: Record<string, number> = {};
 let lastInteractionTime = 0;
 const GLOBAL_COOLDOWN_MS = 600;
 
@@ -39,9 +39,7 @@ export const InteractableItem: React.FC<Props> = ({
   const hintRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [animating, setAnimating] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(false);
 
-  // Narrow discrete selectors only!
   const isCompleted = useStore((s) => s.tasks.find((t) => t.id === taskId)?.completed);
   const player = useStore((s) => s.player);
   const completeTask = useStore((s) => s.completeTask);
@@ -50,7 +48,18 @@ export const InteractableItem: React.FC<Props> = ({
   const addError = useStore((s) => s.addError);
   const startDialog = useStore((s) => s.startDialog);
   const isDialogActive = useStore((s) => s.isDialogActive);
-  const setActiveInteraction = useStore((s) => s.setActiveInteraction);
+
+  const nearestId = useInteractionStore((s) => s.nearestId);
+  const register = useInteractionStore((s) => s.register);
+  const unregister = useInteractionStore((s) => s.unregister);
+
+  const isActive = visible && !disabled && !(type === 'equip' && isCompleted);
+  const showPrompt = nearestId === id && isActive;
+
+  useEffect(() => {
+    register({ id, position, label, isActive });
+    return () => unregister(id);
+  }, [id, position, label, isActive, register, unregister]);
 
   useFrame((state) => {
     if (group.current && !animating && !disabled) {
@@ -70,41 +79,6 @@ export const InteractableItem: React.FC<Props> = ({
       const bob = Math.sin(state.clock.getElapsedTime() * 5) * 0.08;
       hintRef.current.position.y = 1.05 + bob;
       hintRef.current.rotation.y = state.clock.getElapsedTime() * 2.5;
-    }
-
-    // High performance proximity check reading transient playerCoords directly
-    const dx = playerCoords.position[0] - position[0];
-    const dz = playerCoords.position[2] - position[2];
-    const currentDist = Math.sqrt(dx * dx + dz * dz);
-    const near = currentDist <= 2.5 && visible && !disabled && !(type === 'equip' && isCompleted);
-
-    if (near) {
-      nearbyRegistry[id] = currentDist;
-    } else {
-      delete nearbyRegistry[id];
-    }
-
-    let closest = false;
-    const nearbyIds = Object.keys(nearbyRegistry);
-    if (nearbyIds.length > 0) {
-      let minId = '';
-      let minDist = Infinity;
-      for (const nId of nearbyIds) {
-        if (nearbyRegistry[nId] < minDist) {
-          minDist = nearbyRegistry[nId];
-          minId = nId;
-        }
-      }
-      closest = (minId === id);
-    }
-
-    if (showPrompt !== closest) {
-      setShowPrompt(closest);
-      if (closest) {
-        setActiveInteraction(label);
-      } else if (useStore.getState().activeInteraction === label) {
-        setActiveInteraction(null);
-      }
     }
   });
 
@@ -138,11 +112,10 @@ export const InteractableItem: React.FC<Props> = ({
       return;
     }
     
-    // Check prerequisites
     if (requiredEquipment) {
-      const missing = requiredEquipment.filter(key => !player[key]);
+      const missing = requiredEquipment.filter(key => !(key in player.equipment ? (player.equipment as any)[key] : key in player.inventory ? (player.inventory as any)[key] : (player.flags as any)[key]));
       if (missing.length > 0) {
-        addError(3);
+        addError('general_error');
         const vietnameseNames: Record<string, string> = {
           hasGoggles: 'Kính bảo hộ',
           hasLabCoat: 'Áo Blouse',
@@ -180,24 +153,21 @@ export const InteractableItem: React.FC<Props> = ({
     }
   };
 
+  const handleClickRef = useRef(handleClick);
   useEffect(() => {
-    return () => {
-      delete nearbyRegistry[id];
-      if (useStore.getState().activeInteraction === label) {
-        useStore.getState().setActiveInteraction(null);
-      }
-    };
-  }, [id, label]);
+    handleClickRef.current = handleClick;
+  }, [handleClick]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'KeyE') {
+      if (e.code === 'KeyE' || e.code === 'Enter' || e.code === 'Space') {
         if (disabled) return;
         if (type === 'equip' && isCompleted) return;
         if (isDialogActive) return;
         
         if (showPrompt) {
-          handleClick();
+          e.preventDefault();
+          handleClickRef.current();
         }
       }
     };
@@ -221,7 +191,6 @@ export const InteractableItem: React.FC<Props> = ({
         {children}
       </a.group>
 
-      {/* Floating 3D Interaction Prompt Badge */}
       {showPrompt && !disabled && !(type === 'equip' && isCompleted) && (
         <Html position={[0, 1.8, 0]} center distanceFactor={8} zIndexRange={[100, 0]}>
           <div 
@@ -236,7 +205,6 @@ export const InteractableItem: React.FC<Props> = ({
         </Html>
       )}
 
-      {/* Glowing Objective Aura */}
       {isGlowing && !isCompleted && (
         <mesh ref={glowRef} position={[0, 0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[0.5, 0.7, 32]} />
@@ -244,7 +212,6 @@ export const InteractableItem: React.FC<Props> = ({
         </mesh>
       )}
 
-      {/* Bobbing Objective Pin */}
       {isGlowing && !isCompleted && (
         <mesh ref={hintRef} position={[0, 1.2, 0]}>
           <coneGeometry args={[0.15, 0.35, 16]} />

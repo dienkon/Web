@@ -149,7 +149,7 @@ export const FireExtinguisherQuiz: React.FC = () => {
       setIsCorrect(false);
       playSound('error');
       // Deduct score and log safety error!
-      addError(12); // Rule 12
+      addError('general_error'); // Rule 12
     }
   };
 
@@ -165,7 +165,7 @@ export const FireExtinguisherQuiz: React.FC = () => {
       playSound('complete');
       // Update player state to have the fire extinguisher ready!
       useStore.setState((state) => ({
-        player: { ...state.player, hasFireExtinguisher: true }
+        player: { ...state.player, inventory: { ...state.player.inventory, hasFireExtinguisher: true } }
       }));
       
       // Close the modal and show instruction

@@ -53,6 +53,7 @@ import EmailVerificationBanner from "../../components/auth/EmailVerificationBann
 import UserAvatar from "../../components/common/UserAvatar";
 import { broadcastAvatarUpdate } from "../../utils/avatarSync";
 import { useStudentOnboarding } from "../../features/student-onboarding";
+import { getGamificationStats } from "../../services/gamificationService";
 
 export default function StudentProfile() {
   const { showToast } = useToast();
@@ -655,55 +656,85 @@ export default function StudentProfile() {
           </div>
         </div>
 
-        {/* Achievements Section (Calculated from Real Data) */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-3">
-          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-            <Trophy className="w-4 h-4 text-amber-500" />
-            <span>Thành tích học tập</span>
-          </h3>
+        {/* Gamification, Streak & Achievements Section */}
+        {(() => {
+          const gameStats = getGamificationStats(username || userProfile?.username || "");
+          return (
+            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 flex items-center justify-center font-black text-xl">
+                    🔥
+                  </div>
+                  <div>
+                    <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                      <span>Cấp độ: {gameStats.levelTitle}</span>
+                      <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold border border-indigo-200">
+                        Lv.{gameStats.level}
+                      </span>
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Chuỗi học tập liên tục: <strong className="text-amber-600">{gameStats.currentStreak} ngày</strong> (Kỷ lục: {gameStats.longestStreak} ngày)
+                    </p>
+                  </div>
+                </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
-              examCount >= 1 ? "bg-amber-50/70 border-amber-200 text-amber-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
-            }`}>
-              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center mx-auto">
-                <Award className="w-4 h-4" />
+                <div className="text-right sm:text-right">
+                  <span className="text-xs font-extrabold text-indigo-600">
+                    {gameStats.totalXP} XP
+                  </span>
+                  <span className="text-[10px] text-slate-400 block">
+                    Cần {gameStats.nextLevelXP} XP để thăng hạng
+                  </span>
+                </div>
               </div>
-              <p className="text-xs font-bold">Khởi Đầu Tốt</p>
-              <p className="text-[10px] opacity-80">Hoàn thành bài thi đầu tiên</p>
-            </div>
 
-            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
-              hasPerfectScore ? "bg-emerald-50/70 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
-            }`}>
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-600 flex items-center justify-center mx-auto">
-                <Trophy className="w-4 h-4" />
+              {/* XP Progress Bar */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-600">
+                  <span>Tiến độ cấp độ {gameStats.level}</span>
+                  <span>{gameStats.progressPercent}%</span>
+                </div>
+                <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                  <div
+                    className="h-full bg-gradient-to-r from-amber-500 to-indigo-600 rounded-full transition-all duration-500"
+                    style={{ width: `${gameStats.progressPercent}%` }}
+                  />
+                </div>
               </div>
-              <p className="text-xs font-bold">Điểm Tuyệt Đối</p>
-              <p className="text-[10px] opacity-80">Đạt điểm tối đa một bài thi</p>
-            </div>
 
-            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
-              examCount >= 10 ? "bg-blue-50/70 border-blue-200 text-blue-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
-            }`}>
-              <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-600 flex items-center justify-center mx-auto">
-                <BookOpen className="w-4 h-4" />
-              </div>
-              <p className="text-xs font-bold">Chăm Chỉ</p>
-              <p className="text-[10px] opacity-80">Hoàn thành 10 bài thi</p>
-            </div>
+              {/* Badges Grid */}
+              <div className="space-y-2 pt-2">
+                <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <Trophy className="w-4 h-4 text-amber-500" />
+                  <span>Huy hiệu đã đạt ({gameStats.badges.filter((b) => b.unlockedAt).length}/{gameStats.badges.length})</span>
+                </h4>
 
-            <div className={`p-3 rounded-2xl border text-center space-y-1 ${
-              averageScore >= 8 ? "bg-purple-50/70 border-purple-200 text-purple-900" : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
-            }`}>
-              <div className="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-600 flex items-center justify-center mx-auto">
-                <Sparkles className="w-4 h-4" />
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {gameStats.badges.map((b) => {
+                    const isUnlocked = Boolean(b.unlockedAt);
+                    return (
+                      <div
+                        key={b.id}
+                        className={`p-3 rounded-2xl border text-center space-y-1 transition-all ${
+                          isUnlocked
+                            ? "bg-amber-50/70 border-amber-200 text-amber-950 shadow-2xs"
+                            : "bg-slate-50 border-slate-100 text-slate-400 opacity-60"
+                        }`}
+                      >
+                        <div className="w-9 h-9 rounded-xl bg-white border border-slate-200/60 flex items-center justify-center mx-auto text-lg shadow-2xs">
+                          {b.icon}
+                        </div>
+                        <p className="text-xs font-bold truncate">{b.title}</p>
+                        <p className="text-[10px] opacity-80 line-clamp-2">{b.description}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-              <p className="text-xs font-bold">Học Sinh Giỏi</p>
-              <p className="text-[10px] opacity-80">Điểm trung bình từ 8.0</p>
             </div>
-          </div>
-        </div>
+          );
+        })()}
 
         {/* Parent Link Invitation Section */}
         <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">

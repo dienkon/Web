@@ -34,8 +34,9 @@ export default function InteractiveFillBlankText({
     if (!content) return "";
 
     let blankCounter = 0;
-    // Replace each [_] or [blank] with a protected token before markdown/latex rendering
-    const tokenized = content.replace(/\[_\]|\[blank\]/gi, () => {
+    // Comprehensive blank patterns: [_], [___], [blank], [blank1], ____, (...), [...]
+    const blankRegex = /\[_+\]|\[blank\d*\]|(?<![\w\\])_{3,}|\[\s*\.{3,}\s*\]|\(\s*\.{3,}\s*\)|\(\s*_{2,}\s*\)/gi;
+    const tokenized = content.replace(blankRegex, () => {
       const idx = blankCounter++;
       return `\uE007BLANK_TOKEN_${idx}\uE008`;
     });
@@ -75,20 +76,24 @@ export default function InteractiveFillBlankText({
 
         rendered = rendered.split(token).join(badgeHtml);
       } else {
-        const inputWidth = Math.max(75, (currentVal.length + 3) * 11);
+        const inputWidth = Math.max(85, (currentVal.length + 3) * 11);
         const inputHtml = `
-          <span class="inline-flex items-center align-middle mx-1 my-0.5 relative group">
-            <span class="absolute -top-3 left-1 text-[9px] font-black uppercase text-indigo-500 tracking-wider bg-white px-1 rounded-full shadow-2xs border border-indigo-100 pointer-events-none select-none">
+          <span class="inline-flex items-center align-middle mx-1 my-1 relative group cursor-text" data-blank-wrapper="${i}">
+            <span class="absolute -top-3 left-1 text-[9px] font-black uppercase text-blue-600 tracking-wider bg-white dark:bg-slate-800 px-1 rounded-full shadow-2xs border border-blue-200 dark:border-blue-700 pointer-events-none select-none z-10">
               #${i + 1}
             </span>
             <input
               type="text"
               data-blank-index="${i}"
-              class="dk-interactive-blank-input font-mono font-bold text-sm text-indigo-900 bg-indigo-50/70 hover:bg-indigo-50 focus:bg-white border-b-2 border-indigo-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-300 rounded px-2.5 py-1 text-center outline-none transition-all shadow-2xs placeholder:text-indigo-300 placeholder:font-normal"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="none"
+              spellcheck="false"
+              class="dk-interactive-blank-input font-mono font-bold text-sm sm:text-base text-blue-900 dark:text-blue-100 bg-blue-50/80 hover:bg-blue-50 focus:bg-white dark:bg-slate-800 dark:focus:bg-slate-900 border-b-2 border-blue-500 focus:border-blue-600 focus:ring-2 focus:ring-blue-400 rounded-md px-2.5 py-1 text-center outline-none transition-all shadow-xs placeholder:text-blue-300 dark:placeholder:text-blue-600 placeholder:font-normal cursor-text pointer-events-auto"
               placeholder="_____"
               value="${escapeHtml(currentVal)}"
-              style="min-width: 75px; width: ${inputWidth}px;"
-              title="Nhấp để nhập câu trả lời cho ô trống #${i + 1}"
+              style="min-width: 85px; width: ${inputWidth}px; z-index: 20;"
+              title="Nhấp trực tiếp vào đây để nhập đáp án ô #${i + 1}"
             />
           </span>
         `.trim();
@@ -115,12 +120,12 @@ export default function InteractiveFillBlankText({
       const expectedVal = answers[idx] || "";
       if (inp.value !== expectedVal && document.activeElement !== inp) {
         inp.value = expectedVal;
-        inp.style.width = `${Math.max(75, (expectedVal.length + 3) * 11)}px`;
+        inp.style.width = `${Math.max(85, (expectedVal.length + 3) * 11)}px`;
       }
     });
   }, [answers, isReview]);
 
-  // Handle live typing via event delegation
+  // Handle live typing & direct click focus via event delegation
   useEffect(() => {
     const container = containerRef.current;
     if (!container || isReview) return;
@@ -133,16 +138,40 @@ export default function InteractiveFillBlankText({
       const val = target.value;
 
       // Adjust input width to fit content smoothly
-      target.style.width = `${Math.max(75, (val.length + 3) * 11)}px`;
+      target.style.width = `${Math.max(85, (val.length + 3) * 11)}px`;
 
       if (onAnswerChangeRef.current) {
         onAnswerChangeRef.current(idx, val);
       }
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.classList.contains("dk-interactive-blank-input")) {
+        // Prevent outer exam hotkeys (like 1-4, A-D, F, S, C) from firing while typing
+        e.stopPropagation();
+      }
+    };
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const wrapper = target?.closest("[data-blank-wrapper]");
+      if (wrapper) {
+        const inp = wrapper.querySelector<HTMLInputElement>("input");
+        if (inp && document.activeElement !== inp) {
+          inp.focus();
+        }
+      }
+    };
+
     container.addEventListener("input", handleInput);
+    container.addEventListener("keydown", handleKeyDown, true);
+    container.addEventListener("click", handleClick);
+
     return () => {
       container.removeEventListener("input", handleInput);
+      container.removeEventListener("keydown", handleKeyDown, true);
+      container.removeEventListener("click", handleClick);
     };
   }, [isReview]);
 

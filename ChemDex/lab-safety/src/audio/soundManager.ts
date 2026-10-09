@@ -7,6 +7,7 @@ class SoundManager {
   private ctx: AudioContext | null = null;
   private sfxVolume: number = 0.8;
   private musicVolume: number = 0.5;
+  private safeEffects = false;
   private continuousSounds: Map<string, { stop: () => void }> = new Map();
 
   private initCtx() {
@@ -24,6 +25,14 @@ class SoundManager {
   public setVolumes(sfx: number, music: number) {
     this.sfxVolume = Math.max(0, Math.min(1, sfx));
     this.musicVolume = Math.max(0, Math.min(1, music));
+  }
+
+  public setSafeEffects(enabled: boolean) {
+    this.safeEffects = enabled;
+  }
+
+  public getSafeEffects() {
+    return this.safeEffects;
   }
 
   public play(name: 'click' | 'success' | 'error' | 'snap' | 'pop' | 'chime' | 'shatter' | 'step' | 'fizz' | 'water' | 'complete') {

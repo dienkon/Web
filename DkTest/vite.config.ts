@@ -47,13 +47,14 @@ export default defineConfig(() => {
               if (id.includes('katex') || id.includes('react-katex')) {
                 return 'vendor-katex';
               }
-              if (
-                id.includes('mathjs') ||
-                id.includes('nerdamer') ||
-                id.includes('mathlive') ||
-                id.includes('@cortex-js')
-              ) {
-                return 'vendor-math';
+              if (id.includes('mathlive') || id.includes('@cortex-js')) {
+                return 'vendor-mathlive';
+              }
+              if (id.includes('nerdamer')) {
+                return 'vendor-nerdamer';
+              }
+              if (id.includes('mathjs')) {
+                return 'vendor-mathjs';
               }
               if (id.includes('recharts')) {
                 return 'vendor-charts';

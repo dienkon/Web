@@ -10,6 +10,7 @@
     "start": "node dist/server.cjs",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
+    "test": "vitest run",
     "kill:port": "powershell -Command \"Get-NetTCPConnection -LocalPort 3636 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\"",
     "bootstrap:admin": "tsx scripts/bootstrap-super-admin.ts"
   },
@@ -64,7 +65,8 @@
     "esbuild": "^0.25.0",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "vitest": "^5.0.3"
   },
   "overrides": {
     "jose": "4.15.9"

@@ -1,14 +1,16 @@
+import { AnalyticsService } from '../systems/analytics/AnalyticsService';
 import { create } from 'zustand';
-import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, SettingsState, MistakeRecord, ErrorBannerData } from '../types';
+import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, SettingsState, MistakeRecord, ErrorBannerData, MistakeId } from '../types';
 import { INITIAL_TASKS } from '../data/tasks';
 import { SAFETY_RULES } from '../data/rules';
 import { soundManager } from '../audio/soundManager';
+import { MistakeRegistry } from '../core/MistakeRegistry';
 
 // Shared mutable coordinate store for high-frequency 60Hz Three.js frames
 // This completely avoids React tree re-renders per frame!
 export const playerCoords = {
-  position: [0, 0, 3.5] as [number, number, number],
-  rotationY: 0,
+  position: [-6.0, 0, 5.8] as [number, number, number],
+  rotationY: Math.PI,
   isMoving: false,
 };
 
@@ -31,6 +33,7 @@ const DEFAULT_SETTINGS: SettingsState = {
   largeText: false,
   leftHanded: false,
   cameraSensitivity: 1.0,
+  safeEffects: false,
 };
 
 function loadStoredCharacter(): CharacterProfile {
@@ -60,6 +63,7 @@ export const useStore = create<GameState>((set, get) => ({
   tasks: INITIAL_TASKS,
   achievements: [],
   currentPhase: 1,
+  runState: 'PAUSED',
   activeRuleDialog: null,
   activeInteraction: null,
   activeErrorBanner: null,
@@ -73,27 +77,14 @@ export const useStore = create<GameState>((set, get) => ({
   showFireExtinguisherQuiz: false,
   showBandageQuiz: false,
   showChemicalSymbolsQuiz: false,
+  waterEffect: { active: false, type: 'shower' },
+  showMinimap: false,
+  isFlashlightOn: false,
   
   character: loadStoredCharacter(),
   settings: loadStoredSettings(),
 
-  player: {
-    hasGoggles: false,
-    hasLabCoat: false,
-    hasGloves: false,
-    hasMask: false,
-    hairTied: false,
-    hasClosedShoes: false,
-    hasFireExtinguisher: false,
-    fireExtinguished: false,
-    isHoldingTrash: false,
-    heldTrashType: null,
-    hasSweeper: false,
-    trashCount: 0,
-    trash1Picked: false,
-    trash2Picked: false,
-    trash3Picked: false,
-  },
+  player: { equipment: { hasGoggles: false, hasLabCoat: false, hasGloves: false, hasMask: false, hairTied: false, hasClosedShoes: false }, inventory: { hasFireExtinguisher: false, isHoldingTrash: false, heldTrashType: null, hasSweeper: false }, flags: { fireExtinguished: false, trashCount: 0, trash1Picked: false, trash2Picked: false, trash3Picked: false } },
 
   playerPosition: [0, 0, 3.5],
   playerRotationY: 0,
@@ -105,20 +96,21 @@ export const useStore = create<GameState>((set, get) => ({
   setGameMode: (gameMode: GameMode) => set({ gameMode }),
 
   startGame: () => {
-    playerCoords.position = [0, 0, 3.5];
-    playerCoords.rotationY = 0;
+    playerCoords.position = [-4.0, 0, 3.2];
+    playerCoords.rotationY = Math.PI;
     playerCoords.isMoving = false;
 
     set({
       view: 'game',
+      runState: 'RUNNING',
       startTime: Date.now(),
       score: 100,
       errors: 0,
       mistakes: [],
       tasks: INITIAL_TASKS.map(t => ({ ...t, completed: false })),
       achievements: [],
-      playerPosition: [0, 0, 3.5],
-      playerRotationY: 0,
+      playerPosition: [-6.0, 0, 5.8],
+      playerRotationY: Math.PI,
       isMoving: false,
       currentPhase: 1,
       showRulesList: false,
@@ -129,24 +121,55 @@ export const useStore = create<GameState>((set, get) => ({
       showChemicalSymbolsQuiz: false,
       activeErrorBanner: null,
       joystickVec: { x: 0, y: 0 },
-      player: {
-        hasGoggles: false,
-        hasLabCoat: false,
-        hasGloves: false,
-        hasMask: false,
-        hairTied: false,
-        hasClosedShoes: false,
-        hasFireExtinguisher: false,
-        fireExtinguished: false,
-        isHoldingTrash: false,
-        heldTrashType: null,
-        hasSweeper: false,
-        trashCount: 0,
-        trash1Picked: false,
-        trash2Picked: false,
-        trash3Picked: false,
-      }
+      player: { equipment: { hasGoggles: false, hasLabCoat: false, hasGloves: false, hasMask: false, hairTied: false, hasClosedShoes: false }, inventory: { hasFireExtinguisher: false, isHoldingTrash: false, heldTrashType: null, hasSweeper: false }, flags: { fireExtinguished: false, trashCount: 0, trash1Picked: false, trash2Picked: false, trash3Picked: false } }
     });
+    playerCoords.position = [-6.0, 0, 5.8];
+    playerCoords.rotationY = Math.PI;
+    playerCoords.isMoving = false;
+    get().saveGame();
+  },
+
+  resumeGame: () => {
+    try {
+      const saved = localStorage.getItem('labSafetySave');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        set({ ...parsed, view: 'game', runState: 'RUNNING' });
+        // Spawn player near entrance or checkpoint
+        playerCoords.position = [-6.0, 0, 5.8];
+        playerCoords.rotationY = Math.PI;
+        playerCoords.isMoving = false;
+      } else {
+        get().startGame();
+      }
+    } catch {
+      get().startGame();
+    }
+  },
+
+  saveGame: () => {
+    const state = get();
+    if (state.view !== 'game') return; // only save if in game
+    const stateToSave = {
+      gameMode: state.gameMode,
+      score: state.score,
+      errors: state.errors,
+      mistakes: state.mistakes,
+      startTime: state.startTime,
+      endTime: state.endTime,
+      tasks: state.tasks,
+      player: state.player,
+      character: state.character,
+      settings: state.settings,
+      currentPhase: state.currentPhase,
+      achievements: state.achievements,
+      playerPosition: playerCoords.position,
+      playerRotationY: playerCoords.rotationY,
+    };
+    try {
+      localStorage.setItem('labSafetySave', JSON.stringify(stateToSave));
+      localStorage.setItem('hasCompletedSafetyTraining', 'true');
+    } catch {}
   },
 
   endGame: () => {
@@ -161,37 +184,25 @@ export const useStore = create<GameState>((set, get) => ({
     soundManager.play('success');
     set((state) => {
       const newTasks = state.tasks.map(t => t.id === taskId ? { ...t, completed: true } : t);
-      
-      // Auto-advance phase when appropriate
-      const phase1Ids = ['task_talk', 'task_rules', 'task_goggles', 'task_coat', 'task_gloves', 'task_mask', 'task_hair', 'task_shoes'];
-      const phase2Ids = ['task_fire_extinguisher', 'task_chemical_symbols', 'task_inspect_acid', 'task_bandage'];
-      
-      let nextPhase = state.currentPhase;
-      const allPhase1Done = phase1Ids.every(id => newTasks.find(t => t.id === id)?.completed);
-      const allPhase2Done = phase2Ids.every(id => newTasks.find(t => t.id === id)?.completed);
-
-      if (state.currentPhase === 1 && allPhase1Done) {
-        nextPhase = 2;
-      } else if (state.currentPhase === 2 && allPhase2Done) {
-        nextPhase = 3;
-      }
-
-      return { tasks: newTasks, currentPhase: nextPhase };
+      return { tasks: newTasks };
     });
+    get().saveGame();
   },
 
-  addError: (ruleId: number, penalty: number = 5) => {
+  addError: (id: MistakeId, ctx?: any) => {
+    const entry = MistakeRegistry[id];
+    const penalty = ctx?.penalty || entry?.penalty || 5;
     soundManager.play('error');
-    const rule = SAFETY_RULES.find(r => r.id === ruleId);
-    const ruleTitle = rule ? rule.title : `Quy tắc #${ruleId}`;
-    const consequence = rule?.consequence || 'Hành vi vi phạm quy định an toàn phòng lab!';
-    const dangerLevel = rule?.dangerLevel || 'medium';
+    
+    const ruleTitle = entry?.title || `Lỗi: ${id}`;
+    const consequence = entry?.consequence || 'Hành vi vi phạm quy định an toàn phòng lab!';
+    const dangerLevel = 'medium';
 
     set((state) => {
       const newMistakes: MistakeRecord[] = [
         ...state.mistakes,
         {
-          ruleId,
+          id,
           title: ruleTitle,
           penalty,
           consequence,
@@ -204,7 +215,7 @@ export const useStore = create<GameState>((set, get) => ({
         score: Math.max(0, state.score - penalty),
         mistakes: newMistakes,
         activeErrorBanner: {
-          ruleId,
+          id,
           title: ruleTitle,
           consequence,
           dangerLevel,
@@ -216,11 +227,19 @@ export const useStore = create<GameState>((set, get) => ({
 
   dismissErrorBanner: () => set({ activeErrorBanner: null }),
 
-  equipItem: (item: keyof PlayerState) => {
+  equipItem: (item: string) => {
     soundManager.play('snap');
-    set((state) => ({
-      player: { ...state.player, [item]: true }
-    }));
+    set((state) => {
+      const newPlayer = JSON.parse(JSON.stringify(state.player));
+      if (item in newPlayer.equipment) {
+        newPlayer.equipment[item] = true;
+      } else if (item in newPlayer.inventory) {
+        newPlayer.inventory[item] = true;
+      } else if (item in newPlayer.flags) {
+        newPlayer.flags[item] = true;
+      }
+      return { player: newPlayer };
+    });
   },
 
   updateCharacter: (profile: Partial<CharacterProfile>) => {
@@ -240,6 +259,7 @@ export const useStore = create<GameState>((set, get) => ({
         localStorage.setItem('labSafetySettings', JSON.stringify(updated));
       } catch {}
       soundManager.setVolumes(updated.sfxVolume, updated.musicVolume);
+      soundManager.setSafeEffects(updated.safeEffects || updated.reduceMotion);
       return { settings: updated };
     });
   },
@@ -280,7 +300,16 @@ export const useStore = create<GameState>((set, get) => ({
     });
   },
 
-  closeDialog: () => set({ isDialogActive: false }),
+  closeDialog: () => {
+    soundManager.play('click');
+    set((state) => {
+      if (state.dialogCallback) {
+        const cb = state.dialogCallback;
+        setTimeout(() => cb(), 50);
+      }
+      return { isDialogActive: false, dialogCallback: null };
+    });
+  },
 
   setShowRulesList: (show: boolean) => set({ showRulesList: show }),
   setShowCharacterCreator: (show: boolean) => set({ showCharacterCreator: show }),
@@ -288,7 +317,16 @@ export const useStore = create<GameState>((set, get) => ({
   setShowFireExtinguisherQuiz: (show: boolean) => set({ showFireExtinguisherQuiz: show }),
   setShowBandageQuiz: (show: boolean) => set({ showBandageQuiz: show }),
   setShowChemicalSymbolsQuiz: (show: boolean) => set({ showChemicalSymbolsQuiz: show }),
-  setCurrentPhase: (phase: number) => set({ currentPhase: phase }),
+  setWaterEffect: (waterEffect) => set({ waterEffect }),
+  setShowMinimap: (show: boolean) => set({ showMinimap: show }),
+  toggleFlashlight: () => {
+    soundManager.play('click');
+    set((state) => ({ isFlashlightOn: !state.isFlashlightOn }));
+  },
+  setCurrentPhase: (phase: number) => {
+    set({ currentPhase: phase });
+    get().saveGame();
+  },
 
   setPlayerPosition: (pos: [number, number, number]) => {
     playerCoords.position = pos;
@@ -303,4 +341,6 @@ export const useStore = create<GameState>((set, get) => ({
     playerCoords.isMoving = isMoving;
     set({ isMoving });
   }
+,
+  setRunState: (state: any) => set({ runState: state })
 }));

@@ -1,4 +1,4 @@
-import { CircleDot, CheckSquare, ToggleLeft, AlignLeft, ArrowUpDown, FormInput, Table2, X } from "lucide-react";
+import { CircleDot, CheckSquare, ToggleLeft, AlignLeft, ArrowUpDown, FormInput, Table2, FileSignature, X } from "lucide-react";
 import { QuestionType } from "../../../types";
 
 interface Props {
@@ -15,6 +15,7 @@ export default function QuestionTypeSelector({ onSelect, onClose }: Props) {
     { type: "ordering", icon: ArrowUpDown, label: "Sắp xếp thứ tự", desc: "Kéo thả sắp xếp các bước/mục theo thứ tự đúng" },
     { type: "fill_blank", icon: FormInput, label: "Điền vào chỗ trống / Điền lỗ", desc: "Tự động phát hiện [_] và tạo ô điền từ trực tiếp" },
     { type: "matching", icon: Table2, label: "Nối bảng (2 cột)", desc: "Bảng 2 cột (1->n và a->z), học sinh nối line tương ứng" },
+    { type: "essay", icon: FileSignature, label: "Tự luận", desc: "Câu hỏi tự luận mở rộng, hỗ trợ AI chấm điểm hoặc Giáo viên tự duyệt" },
   ];
 
   return (

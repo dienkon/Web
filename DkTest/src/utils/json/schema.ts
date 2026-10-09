@@ -4,8 +4,14 @@ export const CURRENT_EXAM_JSON_VERSION = 3;
 
 export const QuestionSchemaV3 = z.object({
   id: z.string(),
-  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank", "matching"]),
+  type: z.enum(["single_choice", "multiple_choice", "true_false", "short_answer", "ordering", "fill_blank", "matching", "essay"]),
   text: z.string(),
+  level: z.string().optional(),
+  essayRubric: z.string().optional(),
+  essayGradingPrompt: z.string().optional(),
+  essayGradingMode: z.enum(["ai", "manual"]).optional(),
+  essayMinWords: z.number().optional(),
+  essayMaxWords: z.number().optional(),
   options: z.array(z.object({
     id: z.string(),
     text: z.string()

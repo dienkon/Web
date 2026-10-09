@@ -2,7 +2,7 @@ import { Rule } from '../types';
 
 export const SAFETY_RULES: Rule[] = [
   {
-    id: 1,
+    id: 1, reviewStatus: 'needs-review',
     title: 'Đọc kỹ hướng dẫn',
     description: 'Đọc kỹ tài liệu hướng dẫn và quy trình trước khi tiến hành bất kỳ thí nghiệm nào.',
     dangerLevel: 'low',
@@ -14,7 +14,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'firstaid'
   },
   {
-    id: 2,
+    id: 2, reviewStatus: 'needs-review',
     title: 'Tuân thủ hướng dẫn giáo viên',
     description: 'Chỉ tiến hành thí nghiệm khi có sự cho phép và giám sát của giáo viên.',
     dangerLevel: 'medium',
@@ -26,7 +26,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'firstaid'
   },
   {
-    id: 3,
+    id: 3, reviewStatus: 'needs-review',
     title: 'Mặc áo blouse phòng thí nghiệm',
     description: 'Mặc áo blouse cài kín cúc để che chắn da và quần áo thường ngày.',
     dangerLevel: 'high',
@@ -38,7 +38,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'ppe'
   },
   {
-    id: 4,
+    id: 4, reviewStatus: 'needs-review',
     title: 'Đeo kính bảo hộ',
     description: 'Đeo kính bảo hộ có chắn cạnh bên trong suốt thời gian có mặt trong phòng lab.',
     dangerLevel: 'critical',
@@ -50,7 +50,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'ppe'
   },
   {
-    id: 5,
+    id: 5, reviewStatus: 'needs-review',
     title: 'Đeo găng tay nitrile bảo hộ',
     description: 'Đeo găng tay chống hóa chất đúng kích cỡ, kéo phủ cổ tay áo blouse.',
     dangerLevel: 'high',
@@ -62,7 +62,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'ppe'
   },
   {
-    id: 6,
+    id: 6, reviewStatus: 'needs-review',
     title: 'Buộc gọn gàng tóc dài',
     description: 'Tóc dài phải buộc túm gọn gàng phía sau gáy trước khi làm việc.',
     dangerLevel: 'high',
@@ -74,7 +74,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'ppe'
   },
   {
-    id: 7,
+    id: 7, reviewStatus: 'needs-review',
     title: 'Đi giày kín mũi và gót',
     description: 'Mang giày kín ngón chân và đế chống trơn trượt trong phòng lab.',
     dangerLevel: 'medium',
@@ -86,7 +86,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'ppe'
   },
   {
-    id: 8,
+    id: 8, reviewStatus: 'needs-review',
     title: 'Tuyệt đối không ăn uống',
     description: 'Không mang thức ăn, nước uống, kẹo cao su vào phòng thí nghiệm.',
     dangerLevel: 'high',
@@ -98,7 +98,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 9,
+    id: 9, reviewStatus: 'needs-review',
     title: 'Không chạy nhảy hay đùa giỡn',
     description: 'Đi lại cẩn trọng, từ tốn, giữ khoảng cách an toàn với các bàn thí nghiệm.',
     dangerLevel: 'medium',
@@ -110,7 +110,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'firstaid'
   },
   {
-    id: 10,
+    id: 10, reviewStatus: 'needs-review',
     title: 'Tác phong nghiêm túc',
     description: 'Giữ thái độ tập trung, trật tự, tôn trọng không gian thực hành chung.',
     dangerLevel: 'medium',
@@ -122,7 +122,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'firstaid'
   },
   {
-    id: 11,
+    id: 11, reviewStatus: 'needs-review',
     title: 'Không ngửi trực tiếp hóa chất',
     description: 'Sử dụng kỹ thuật phẩy tay (wafting) để đưa một lượng nhỏ hơi về phía mũi.',
     dangerLevel: 'critical',
@@ -134,7 +134,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 12,
+    id: 12, reviewStatus: 'needs-review',
     title: 'Tuyệt đối không nếm hóa chất',
     description: 'Không bao giờ nếm thử bất kỳ hóa chất hay dung dịch nào trong phòng lab.',
     dangerLevel: 'critical',
@@ -146,7 +146,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 13,
+    id: 13, reviewStatus: 'needs-review',
     title: 'Dùng quả bóp cao su cho pipet',
     description: 'Luôn sử dụng quả bóp cao su hoặc micropipet hút mẫu, không hút bằng miệng.',
     dangerLevel: 'critical',
@@ -158,7 +158,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 14,
+    id: 14, reviewStatus: 'needs-review',
     title: 'Đọc kỹ nhãn hóa chất ít nhất hai lần',
     description: 'Kiểm tra tên hóa chất, nồng độ, biểu tượng cảnh báo và hạn sử dụng trước khi lấy.',
     dangerLevel: 'high',
@@ -170,7 +170,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 15,
+    id: 15, reviewStatus: 'needs-review',
     title: 'Lấy lượng hóa chất vừa đủ',
     description: 'Chỉ lấy đúng thể tích hoặc khối lượng quy định trong bài thực hành.',
     dangerLevel: 'low',
@@ -182,7 +182,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 16,
+    id: 16, reviewStatus: 'needs-review',
     title: 'Không đổ hóa chất thừa lại chai gốc',
     description: 'Hóa chất đã lấy ra không được đổ ngược lại bình chứa ban đầu.',
     dangerLevel: 'medium',
@@ -194,7 +194,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'waste'
   },
   {
-    id: 17,
+    id: 17, reviewStatus: 'needs-review',
     title: 'Pha loãng axit: Luôn rót axit vào nước',
     description: 'Luôn rót từ từ axit sunfuric vào nước dọc theo thành cốc, khuấy đều.',
     dangerLevel: 'critical',
@@ -206,7 +206,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 18,
+    id: 18, reviewStatus: 'needs-review',
     title: 'Đun nóng ống nghiệm an toàn',
     description: 'Nghiêng ống nghiệm 45 độ, hướng miệng ống về phía không có người.',
     dangerLevel: 'high',
@@ -218,7 +218,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'heat'
   },
   {
-    id: 19,
+    id: 19, reviewStatus: 'needs-review',
     title: 'Sử dụng kẹp gỗ gắp ống nghiệm',
     description: 'Kẹp ống nghiệm ở vị trí 1/3 từ miệng ống xuống, không dùng tay trần.',
     dangerLevel: 'medium',
@@ -230,7 +230,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'heat'
   },
   {
-    id: 20,
+    id: 20, reviewStatus: 'needs-review',
     title: 'Không chạm trực tiếp vào hóa chất',
     description: 'Dùng thìa xúc hóa chất hoặc kẹp gắp đối với hóa chất dạng rắn.',
     dangerLevel: 'high',
@@ -242,7 +242,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 21,
+    id: 21, reviewStatus: 'needs-review',
     title: 'Không tự ý pha trộn hóa chất lạ',
     description: 'Chỉ phối trộn các chất theo đúng công thức được giáo viên phê duyệt.',
     dangerLevel: 'critical',
@@ -254,7 +254,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'chemical'
   },
   {
-    id: 22,
+    id: 22, reviewStatus: 'needs-review',
     title: 'Báo cáo ngay mọi sự cố cho giáo viên',
     description: 'Báo cáo lập tức khi có hóa chất đổ tràn, kính vỡ hoặc người bị thương.',
     dangerLevel: 'high',
@@ -266,7 +266,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'firstaid'
   },
   {
-    id: 23,
+    id: 23, reviewStatus: 'needs-review',
     title: 'Dọn dẹp bàn làm việc và trả dụng cụ',
     description: 'Lau sạch mặt bàn và rửa sạch dụng cụ thí nghiệm sau khi kết thúc buổi học.',
     dangerLevel: 'low',
@@ -278,7 +278,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'waste'
   },
   {
-    id: 24,
+    id: 24, reviewStatus: 'needs-review',
     title: 'Phân loại rác thải phòng thí nghiệm',
     description: 'Phân loại rác vào đúng 4 thùng: sinh hoạt, hóa chất nguy hại, thủy tinh sắc nhọn, giấy.',
     dangerLevel: 'medium',
@@ -290,7 +290,7 @@ export const SAFETY_RULES: Rule[] = [
     category: 'waste'
   },
   {
-    id: 25,
+    id: 25, reviewStatus: 'needs-review',
     title: 'Rửa tay sạch bằng xà phòng trước khi về',
     description: 'Rửa tay dưới vòi nước chảy bằng xà phòng ít nhất 30 giây trước khi rời phòng lab.',
     dangerLevel: 'medium',

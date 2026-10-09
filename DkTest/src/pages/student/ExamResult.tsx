@@ -33,6 +33,7 @@ import {
   PieChart,
   Eye,
   EyeOff,
+  FileSignature,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
@@ -99,9 +100,6 @@ export default function ExamResult() {
   const [showResultCharts, setShowResultCharts] = useState(false);
   const [showAiAnalysis, setShowAiAnalysis] = useState(true);
 
-  const DISCORD_WEBHOOK_URL =
-    "https://discord.com/api/webhooks/1500812404190085120/R1oclYbsjomTS5AUdbVkCD1hw1FqZZhb8LzvrfsyJVozADVmXWDlf4Mk3HlGUKqRI8zn";
-
   const handleSendReport = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!reportingQuestion || !reportReason.trim()) return;
@@ -117,57 +115,31 @@ export default function ExamResult() {
         } catch (e) {}
       }
 
-      const payload = {
-        embeds: [
-          {
-            title: "🚩 BÁO CÁO CÂU HỎI BÀI THI CÓ LỖI",
-            color: 15158332,
-            fields: [
-              {
-                name: "📌 Thông tin bài thi",
-                value: `**Tên:** ${exam?.title || "N/A"}\n**Mã đề:** \`${exam?.code || submission?.examId || "N/A"}\``,
-                inline: false,
-              },
-              {
-                name: "👤 Thí sinh báo cáo",
-                value: `\`${studentEmail}\``,
-                inline: true,
-              },
-              {
-                name: "🔢 Vị trí câu hỏi",
-                value: `Đề hiện tại: **Câu ${reportingQuestion.currentIndex + 1}**\nĐề gốc: **Câu ${reportingQuestion.originalIndex + 1}**`,
-                inline: true,
-              },
-              {
-                name: "❓ Nội dung câu hỏi",
-                value: reportingQuestion.question.text ? reportingQuestion.question.text.substring(0, 300) : "(Trống)",
-                inline: false,
-              },
-              {
-                name: "📝 Lý do báo cáo từ thí sinh",
-                value: reportReason.trim(),
-                inline: false,
-              },
-            ],
-            footer: {
-              text: "Hệ thống báo cáo tự động DkTEST",
-            },
-            timestamp: new Date().toISOString(),
-          },
-        ],
+      const reportPayload = {
+        examTitle: exam?.title || "N/A",
+        examCode: exam?.code || submission?.examId || "N/A",
+        studentEmail,
+        questionIndex: reportingQuestion.currentIndex,
+        originalIndex: reportingQuestion.originalIndex,
+        questionText: reportingQuestion.question.text || "",
+        reason: reportReason.trim(),
       };
 
-      await fetch(DISCORD_WEBHOOK_URL, {
+      const res = await fetch("/api/report-question", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(reportPayload),
       });
+
+      if (!res.ok) {
+        throw new Error(`Report API HTTP ${res.status}`);
+      }
 
       setReportingQuestion(null);
       setReportReason("");
-      showErrorToast("Đã gửi báo cáo thành công tới quản trị viên qua Discord!");
+      showSuccessToast("Đã gửi báo cáo câu hỏi thành công tới ban quản trị!");
     } catch (err) {
-      console.error("Lỗi gửi Discord webhook:", err);
+      console.error("Lỗi gửi báo cáo câu hỏi:", err);
       showErrorToast("Gửi báo cáo thất bại. Vui lòng kiểm tra lại đường truyền!");
     } finally {
       setIsSubmittingReport(false);
@@ -464,8 +436,9 @@ export default function ExamResult() {
 
   const authRole = localStorage.getItem("auth_role") || (window.location.pathname.startsWith("/admin") ? "admin" : null);
   const isPrivileged = authRole === "admin" || authRole === "parent" || (exam?.ownerId && localStorage.getItem("user_id") === exam.ownerId);
-  const allowShowScore = isPrivileged || (exam?.showResults !== false && (exam as any)?.showScore !== false);
-  const allowShowDetails = isPrivileged || (exam?.showDetails !== false);
+  const isPendingReview = submission.gradingStatus === "pending_review";
+  const allowShowScore = !isPendingReview && (isPrivileged || (exam?.showResults !== false && (exam as any)?.showScore !== false));
+  const allowShowDetails = !isPendingReview && (isPrivileged || (exam?.showDetails !== false));
 
   return (
     <div className="min-h-screen bg-slate-50/70 py-8 px-4 font-sans print:bg-white print:p-0">
@@ -530,6 +503,23 @@ export default function ExamResult() {
           </button>
         </div>
 
+        {/* Pending Review Banner for Essay Questions */}
+        {isPendingReview && (
+          <div className="bg-amber-50 border border-amber-200/90 rounded-3xl p-5 sm:p-6 shadow-2xs flex items-start sm:items-center gap-4 text-amber-900 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="w-12 h-12 rounded-2xl bg-amber-100/90 border border-amber-200 flex items-center justify-center shrink-0">
+              <Clock className="w-6 h-6 text-amber-700 animate-pulse" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-base font-extrabold text-amber-950 flex items-center gap-2">
+                Bài thi có câu hỏi tự luận đang chờ giáo viên chấm điểm
+              </h3>
+              <p className="text-xs sm:text-sm text-amber-800 leading-relaxed font-medium">
+                Hệ thống đã ghi nhận toàn bộ bài làm của bạn. Theo cài đặt của giáo viên, bài thi này cần được chấm và duyệt phần tự luận thủ công trước khi công bố điểm số và kết quả chi tiết. Vui lòng quay lại kiểm tra sau!
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Score Card Hero */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 lg:p-8 shadow-xs overflow-hidden relative">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-100">
@@ -566,6 +556,18 @@ export default function ExamResult() {
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 font-medium">Tỷ lệ đúng: {scorePercentage}%</p>
+                </div>
+              </div>
+            ) : isPendingReview ? (
+              <div className="flex items-center gap-3 bg-amber-50 border border-amber-200/80 rounded-2xl p-4 shrink-0 text-amber-900 max-w-sm">
+                <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+                  <Clock className="w-6 h-6 text-amber-700 animate-pulse" />
+                </div>
+                <div className="space-y-0.5">
+                  <span className="text-xs font-bold text-amber-900 block">Chờ chấm tự luận</span>
+                  <p className="text-[11px] text-amber-700 font-medium leading-relaxed">
+                    Điểm số tạm khóa và sẽ được mở ngay sau khi giáo viên duyệt bài tự luận.
+                  </p>
                 </div>
               </div>
             ) : (
@@ -620,7 +622,9 @@ export default function ExamResult() {
             <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-center">
               <BookOpen className="w-4 h-4 text-indigo-600 mx-auto mb-1" />
               <span className="text-[11px] text-slate-400 font-semibold block">Trạng thái</span>
-              <span className="text-sm font-extrabold text-indigo-700">Đã chấm điểm</span>
+              <span className="text-sm font-extrabold text-indigo-700">
+                {isPendingReview ? "Chờ duyệt tự luận" : "Đã chấm điểm"}
+              </span>
             </div>
           </div>
         </div>
@@ -1654,6 +1658,66 @@ export default function ExamResult() {
                           }
                           correctMatches={q.correctMatches || {}}
                         />
+                      </div>
+                    )}
+
+                    {/* 8. Essay Review (Tự luận) */}
+                    {q.type === "essay" && (
+                      <div className="space-y-4 pt-2">
+                        <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-2">
+                          <div className="flex items-center justify-between text-xs text-slate-500 font-semibold flex-wrap gap-2">
+                            <span className="flex items-center gap-1.5 text-slate-700">
+                              <FileSignature className="w-4 h-4 text-indigo-600" />
+                              Bài làm của bạn:
+                            </span>
+                            <span>
+                              {typeof studentAns === "string" && studentAns.trim()
+                                ? `${studentAns.trim().split(/\s+/).length} từ • ${studentAns.length} ký tự`
+                                : "Chưa làm bài"}
+                            </span>
+                          </div>
+                          <div className="p-3.5 bg-white rounded-xl border border-slate-200/80 text-xs sm:text-sm text-slate-800 whitespace-pre-wrap leading-relaxed font-sans min-h-[90px]">
+                            {studentAns ? String(studentAns) : <span className="text-slate-400 italic">Thí sinh chưa nộp câu trả lời cho câu này.</span>}
+                          </div>
+                        </div>
+
+                        {/* Grading Status & Feedback */}
+                        {submission.essayScores?.[q.id] ? (
+                          <div className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/60 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+                                <Award className="w-4 h-4 text-emerald-600" />
+                                Điểm tự luận đạt được:
+                              </span>
+                              <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-black text-xs">
+                                {submission.essayScores[q.id].score} / {submission.essayScores[q.id].maxScore || q.points || 10} điểm
+                              </span>
+                            </div>
+                            {submission.essayScores[q.id].feedback && (
+                              <div className="text-xs text-emerald-950 bg-white/80 p-3 rounded-xl border border-emerald-100">
+                                <strong>Nhận xét:</strong> {submission.essayScores[q.id].feedback}
+                              </div>
+                            )}
+                          </div>
+                        ) : isPendingReview ? (
+                          <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50/70 flex items-center gap-3 text-amber-900">
+                            <Clock className="w-5 h-5 text-amber-600 shrink-0 animate-pulse" />
+                            <div className="text-xs space-y-0.5">
+                              <p className="font-bold">Đang chờ giáo viên chấm điểm</p>
+                              <p className="text-amber-700 font-medium">Giáo viên sẽ xem bài làm tự luận của bạn và cho điểm cùng nhận xét chi tiết sau.</p>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {/* Barem / Rubric if available */}
+                        {q.essayRubric && (
+                          <div className="p-3.5 rounded-2xl border border-indigo-100 bg-indigo-50/60 space-y-1.5">
+                            <span className="text-xs font-bold text-indigo-900 block">Barem thang điểm & Gợi ý làm bài:</span>
+                            <div className="text-xs text-indigo-950 whitespace-pre-wrap leading-relaxed">
+                              {q.essayRubric}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
 

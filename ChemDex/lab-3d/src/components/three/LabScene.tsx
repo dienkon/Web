@@ -705,9 +705,9 @@ export function LabScene() {
         <directionalLight 
           position={[6, 14, 7]} 
           intensity={2.0} 
-          castShadow 
-          shadow-mapSize-width={1024} 
-          shadow-mapSize-height={1024} 
+          castShadow={qualitySettings.shadowBudget > 0} 
+          shadow-mapSize-width={qualitySettings.shadowBudget > 0 ? qualitySettings.shadowBudget : 512} 
+          shadow-mapSize-height={qualitySettings.shadowBudget > 0 ? qualitySettings.shadowBudget : 512} 
           shadow-camera-left={-16}
           shadow-camera-right={16}
           shadow-camera-top={16}
@@ -885,7 +885,17 @@ export function LabScene() {
         {/* Burette Apparatus */}
         <BuretteApparatus position={[5.0, 0.0, 1.5]} />
 
-        <ContactShadows position={[0, -1.16, 0]} opacity={0.65} scale={24} blur={1.8} far={4.5} color="#0f172a" />
+        {qualitySettings.shadowBudget > 0 && (
+          <ContactShadows 
+            position={[0, -1.16, 0]} 
+            opacity={0.65} 
+            scale={24} 
+            blur={1.8} 
+            far={4.5} 
+            color="#0f172a" 
+            resolution={qualitySettings.shadowBudget} 
+          />
+        )}
         
         {/* Realistic Workbench Spills & Overflows */}
         <WorkbenchSpills />

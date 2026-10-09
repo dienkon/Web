@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from './store/useStore';
 import { StartScreen } from './components/ui/StartScreen';
-import { CertificateScreen } from './components/ui/CertificateScreen';
+import { lazy, Suspense } from 'react';
+const CertificateScreen = lazy(() => import('./components/ui/CertificateScreen').then(m => ({ default: m.CertificateScreen })));
 import { HUD } from './components/ui/HUD';
 import { RuleDialog } from './components/ui/RuleDialog';
 import { LabScene } from './components/3d/LabScene';
 import { RulesListScreen } from './components/ui/RulesListScreen';
 import { CharacterCreatorModal } from './components/ui/CharacterCreatorModal';
 import { SettingsModal } from './components/ui/SettingsModal';
+import { PerformanceHUD } from './systems/performance/PerformanceHUD';
 import { TeacherDialog } from './components/ui/TeacherDialog';
-import { FireExtinguisherQuiz } from './components/ui/FireExtinguisherQuiz';
-import { BandageWrappingQuiz } from './components/ui/BandageWrappingQuiz';
-import { ChemicalSymbolsQuiz } from './components/ui/ChemicalSymbolsQuiz';
+const FireExtinguisherQuiz = lazy(() => import('./components/ui/FireExtinguisherQuiz').then(m => ({ default: m.FireExtinguisherQuiz })));
+const BandageWrappingQuiz = lazy(() => import('./components/ui/BandageWrappingQuiz').then(m => ({ default: m.BandageWrappingQuiz })));
+const ChemicalSymbolsQuiz = lazy(() => import('./components/ui/ChemicalSymbolsQuiz').then(m => ({ default: m.ChemicalSymbolsQuiz })));
 import { motion, AnimatePresence } from 'framer-motion';
 import { Smartphone, X } from 'lucide-react';
 
@@ -47,12 +49,12 @@ export default function App() {
       {view === 'game' && (
         <>
           <HUD />
+          {import.meta.env.DEV && <PerformanceHUD />}
           <TeacherDialog />
-          <RuleDialog />
           {showRulesList && <RulesListScreen onClose={() => setShowRulesList(false)} />}
-          <FireExtinguisherQuiz />
-          <BandageWrappingQuiz />
-          <ChemicalSymbolsQuiz />
+          <Suspense fallback={null}><FireExtinguisherQuiz /></Suspense>
+          <Suspense fallback={null}><BandageWrappingQuiz /></Suspense>
+          <Suspense fallback={null}><ChemicalSymbolsQuiz /></Suspense>
         </>
       )}
 
@@ -63,9 +65,10 @@ export default function App() {
           {showRulesList && <RulesListScreen onClose={() => setShowRulesList(false)} />}
         </>
       )}
-      {view === 'certificate' && <CertificateScreen />}
+      {view === 'certificate' && <Suspense fallback={null}><CertificateScreen /></Suspense>}
 
       {/* Global Modals */}
+      <RuleDialog />
       <CharacterCreatorModal />
       <SettingsModal />
 

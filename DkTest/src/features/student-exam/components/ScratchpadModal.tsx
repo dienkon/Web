@@ -8,6 +8,8 @@ import {
   Pencil,
   Eraser,
   RotateCcw,
+  RotateCw,
+  ImagePlus,
   Trash2,
   ChevronLeft,
   ChevronRight,
@@ -22,6 +24,8 @@ import {
   Send,
   ChevronUp,
   ChevronDown,
+  Move,
+  Plus,
 } from "lucide-react";
 
 interface Props {
@@ -47,6 +51,11 @@ interface Stroke {
   color: string;
   size: number;
   isEraser: boolean;
+  imageSrc?: string;
+  imageX?: number;
+  imageY?: number;
+  imageW?: number;
+  imageH?: number;
 }
 
 const COLOR_PALETTE = [
@@ -75,11 +84,19 @@ export default function ScratchpadModal({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [tool, setTool] = useState<"pen" | "eraser">("pen");
+  const [tool, setTool] = useState<"pen" | "eraser" | "move">("pen");
   const [color, setColor] = useState<string>("#2563eb");
   const [size, setSize] = useState<number>(4);
   const [isDrawing, setIsDrawing] = useState(false);
   const [showQuestionPanel, setShowQuestionPanel] = useState(true);
+  const [showBrushSettings, setShowBrushSettings] = useState(false);
+  const [extraHeight, setExtraHeight] = useState<number>(0);
+
+  // Selected image and transform states for Move / Transform tool
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const isTransformingRef = useRef<"move" | "tl" | "tr" | "bl" | "br" | null>(null);
+  const transformStartPosRef = useRef<StrokePoint | null>(null);
+  const initialImageBoundsRef = useRef<{ x: number; y: number; w: number; h: number } | null>(null);
 
   // Resizable panel width state
   const [panelWidth, setPanelWidth] = useState<number>(460);
@@ -88,7 +105,10 @@ export default function ScratchpadModal({
   // Store stroke history per questionId
   const [drawings, setDrawings] = useState<Record<string, Stroke[]>>({});
   const currentStrokesRef = useRef<Stroke[]>([]);
+  const redoStrokesRef = useRef<Stroke[]>([]);
   const activeStrokeRef = useRef<Stroke | null>(null);
+  const imageElementsCache = useRef<Record<string, HTMLImageElement>>({});
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const currentQ = questions[activeQuestionIdx];
 
@@ -144,6 +164,7 @@ export default function ScratchpadModal({
   }, [activeQuestionIdx, drawings, currentQ?.id]);
 
   // Adjust canvas size to parent container with High DPI scaling
+  // Adjust canvas size to parent container with High DPI scaling and extra height expansion
   const resizeCanvas = () => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -151,11 +172,12 @@ export default function ScratchpadModal({
 
     const rect = container.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
+    const totalHeight = Math.max(rect.height, rect.height + extraHeight);
 
     canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    canvas.height = totalHeight * dpr;
     canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
+    canvas.style.height = `${totalHeight}px`;
 
     const ctx = canvas.getContext("2d");
     if (ctx) {
@@ -170,7 +192,7 @@ export default function ScratchpadModal({
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
     return () => window.removeEventListener("resize", resizeCanvas);
-  }, [isOpen, showQuestionPanel, panelWidth]);
+  }, [isOpen, showQuestionPanel, panelWidth, extraHeight]);
 
   // Redraw canvas from currentStrokesRef
   const redrawCanvas = () => {
@@ -196,6 +218,27 @@ export default function ScratchpadModal({
 
     const strokes = currentStrokesRef.current;
     strokes.forEach((stroke) => {
+      // Draw pasted/uploaded image stroke
+      if (stroke.imageSrc) {
+        let img = imageElementsCache.current[stroke.imageSrc];
+        if (!img) {
+          img = new Image();
+          img.src = stroke.imageSrc;
+          imageElementsCache.current[stroke.imageSrc] = img;
+          img.onload = () => redrawCanvas();
+        }
+        if (img.complete && img.naturalWidth > 0) {
+          ctx.drawImage(
+            img,
+            stroke.imageX ?? 40,
+            stroke.imageY ?? 40,
+            stroke.imageW ?? 300,
+            stroke.imageH ?? 200
+          );
+        }
+        return;
+      }
+
       if (stroke.points.length === 0) return;
 
       ctx.beginPath();
@@ -217,6 +260,41 @@ export default function ScratchpadModal({
       }
       ctx.stroke();
     });
+
+    // Draw selection outline and transform handles when tool === "move"
+    if (tool === "move" && selectedImageIndex !== null) {
+      const selectedStroke = strokes[selectedImageIndex];
+      if (selectedStroke && selectedStroke.imageSrc) {
+        const sx = selectedStroke.imageX ?? 40;
+        const sy = selectedStroke.imageY ?? 40;
+        const sw = selectedStroke.imageW ?? 300;
+        const sh = selectedStroke.imageH ?? 200;
+
+        ctx.save();
+        ctx.strokeStyle = "#2563eb";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.strokeRect(sx, sy, sw, sh);
+
+        ctx.setLineDash([]);
+        const handles = [
+          { x: sx, y: sy },
+          { x: sx + sw, y: sy },
+          { x: sx, y: sy + sh },
+          { x: sx + sw, y: sy + sh },
+        ];
+        handles.forEach((h) => {
+          ctx.beginPath();
+          ctx.arc(h.x, h.y, 6, 0, Math.PI * 2);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+          ctx.strokeStyle = "#2563eb";
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+        });
+        ctx.restore();
+      }
+    }
 
     ctx.globalCompositeOperation = "source-over";
   };
@@ -250,7 +328,70 @@ export default function ScratchpadModal({
     const pt = getCoordinates(e);
     if (!pt) return;
 
+    if (tool === "move") {
+      const strokes = currentStrokesRef.current;
+      // 1. Check if clicked a handle on the currently selected image
+      if (selectedImageIndex !== null) {
+        const selStroke = strokes[selectedImageIndex];
+        if (selStroke && selStroke.imageSrc) {
+          const sx = selStroke.imageX ?? 40;
+          const sy = selStroke.imageY ?? 40;
+          const sw = selStroke.imageW ?? 300;
+          const sh = selStroke.imageH ?? 200;
+          const R = 14;
+
+          let handleHit: "tl" | "tr" | "bl" | "br" | null = null;
+          if (Math.hypot(pt.x - sx, pt.y - sy) <= R) handleHit = "tl";
+          else if (Math.hypot(pt.x - (sx + sw), pt.y - sy) <= R) handleHit = "tr";
+          else if (Math.hypot(pt.x - sx, pt.y - (sy + sh)) <= R) handleHit = "bl";
+          else if (Math.hypot(pt.x - (sx + sw), pt.y - (sy + sh)) <= R) handleHit = "br";
+
+          if (handleHit) {
+            isTransformingRef.current = handleHit;
+            transformStartPosRef.current = pt;
+            initialImageBoundsRef.current = { x: sx, y: sy, w: sw, h: sh };
+            return;
+          }
+        }
+      }
+
+      // 2. Check if clicked on any image to select and drag
+      let hitIdx: number | null = null;
+      for (let i = strokes.length - 1; i >= 0; i--) {
+        const s = strokes[i];
+        if (s.imageSrc) {
+          const sx = s.imageX ?? 40;
+          const sy = s.imageY ?? 40;
+          const sw = s.imageW ?? 300;
+          const sh = s.imageH ?? 200;
+          if (pt.x >= sx && pt.x <= sx + sw && pt.y >= sy && pt.y <= sy + sh) {
+            hitIdx = i;
+            break;
+          }
+        }
+      }
+
+      if (hitIdx !== null) {
+        setSelectedImageIndex(hitIdx);
+        isTransformingRef.current = "move";
+        transformStartPosRef.current = pt;
+        const s = strokes[hitIdx];
+        initialImageBoundsRef.current = {
+          x: s.imageX ?? 40,
+          y: s.imageY ?? 40,
+          w: s.imageW ?? 300,
+          h: s.imageH ?? 200,
+        };
+      } else {
+        setSelectedImageIndex(null);
+      }
+      redrawCanvas();
+      return;
+    }
+
+    // Normal drawing / eraser
     setIsDrawing(true);
+    redoStrokesRef.current = [];
     const newStroke: Stroke = {
       points: [pt],
       color,
@@ -263,15 +404,56 @@ export default function ScratchpadModal({
   };
 
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDrawing || !activeStrokeRef.current) return;
     e.preventDefault();
     const pt = getCoordinates(e);
     if (!pt) return;
 
+    if (tool === "move") {
+      if (
+        isTransformingRef.current &&
+        transformStartPosRef.current &&
+        initialImageBoundsRef.current &&
+        selectedImageIndex !== null
+      ) {
+        const dx = pt.x - transformStartPosRef.current.x;
+        const dy = pt.y - transformStartPosRef.current.y;
+        const init = initialImageBoundsRef.current;
+        const st = currentStrokesRef.current[selectedImageIndex];
+        if (!st) return;
+
+        if (isTransformingRef.current === "move") {
+          st.imageX = Math.round(init.x + dx);
+          st.imageY = Math.round(init.y + dy);
+        } else if (isTransformingRef.current === "br") {
+          st.imageW = Math.max(50, Math.round(init.w + dx));
+          st.imageH = Math.max(40, Math.round(init.h + dy));
+        } else if (isTransformingRef.current === "bl") {
+          const newW = Math.max(50, Math.round(init.w - dx));
+          st.imageX = Math.round(init.x + (init.w - newW));
+          st.imageW = newW;
+          st.imageH = Math.max(40, Math.round(init.h + dy));
+        } else if (isTransformingRef.current === "tr") {
+          const newH = Math.max(40, Math.round(init.h - dy));
+          st.imageY = Math.round(init.y + (init.h - newH));
+          st.imageW = Math.max(50, Math.round(init.w + dx));
+          st.imageH = newH;
+        } else if (isTransformingRef.current === "tl") {
+          const newW = Math.max(50, Math.round(init.w - dx));
+          const newH = Math.max(40, Math.round(init.h - dy));
+          st.imageX = Math.round(init.x + (init.w - newW));
+          st.imageY = Math.round(init.y + (init.h - newH));
+          st.imageW = newW;
+          st.imageH = newH;
+        }
+        redrawCanvas();
+      }
+      return;
+    }
+
+    if (!isDrawing || !activeStrokeRef.current) return;
     activeStrokeRef.current.points.push(pt);
     redrawCanvas();
   };
-
 
   const notifyUpdate = () => {
     if (onScratchpadUpdate && canvasRef.current) {
@@ -292,6 +474,23 @@ export default function ScratchpadModal({
   };
 
   const handleEnd = () => {
+    if (tool === "move") {
+      if (isTransformingRef.current) {
+        isTransformingRef.current = null;
+        transformStartPosRef.current = null;
+        initialImageBoundsRef.current = null;
+        if (currentQ) {
+          const updated = {
+            ...drawings,
+            [currentQ.id]: [...currentStrokesRef.current],
+          };
+          saveDrawingsToStorage(updated);
+          notifyUpdate();
+        }
+      }
+      return;
+    }
+
     if (!isDrawing) return;
     setIsDrawing(false);
     activeStrokeRef.current = null;
@@ -306,9 +505,42 @@ export default function ScratchpadModal({
     }
   };
 
+  const handleDeleteSelectedImage = () => {
+    if (selectedImageIndex === null) return;
+    const target = currentStrokesRef.current[selectedImageIndex];
+    if (target) {
+      redoStrokesRef.current.push(target);
+      currentStrokesRef.current.splice(selectedImageIndex, 1);
+      setSelectedImageIndex(null);
+      redrawCanvas();
+      if (currentQ) {
+        saveDrawingsToStorage({
+          ...drawings,
+          [currentQ.id]: [...currentStrokesRef.current],
+        });
+        notifyUpdate();
+      }
+    }
+  };
+
+  const handleExpandScratchpad = () => {
+    setExtraHeight((prev) => prev + 600);
+    setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollTo({
+          top: containerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, 100);
+  };
+
   const handleUndo = () => {
     if (currentStrokesRef.current.length === 0) return;
-    currentStrokesRef.current.pop();
+    const popped = currentStrokesRef.current.pop();
+    if (popped) {
+      redoStrokesRef.current.push(popped);
+    }
     redrawCanvas();
     if (currentQ) {
       const updated = {
@@ -320,7 +552,159 @@ export default function ScratchpadModal({
     }
   };
 
+  const handleRedo = () => {
+    if (redoStrokesRef.current.length === 0) return;
+    const restored = redoStrokesRef.current.pop();
+    if (restored) {
+      currentStrokesRef.current.push(restored);
+    }
+    redrawCanvas();
+    if (currentQ) {
+      const updated = {
+        ...drawings,
+        [currentQ.id]: [...currentStrokesRef.current],
+      };
+      saveDrawingsToStorage(updated);
+      notifyUpdate();
+    }
+  };
+
+  const pasteImageToCanvas = (dataUrl: string) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const canvasW = canvas.width / dpr;
+    const canvasH = canvas.height / dpr;
+
+    const tempImg = new Image();
+    tempImg.onload = () => {
+      let w = tempImg.naturalWidth;
+      let h = tempImg.naturalHeight;
+      const maxW = Math.min(canvasW * 0.75, 450);
+      const maxH = Math.min(canvasH * 0.75, 350);
+
+      if (w > maxW || h > maxH) {
+        const ratio = Math.min(maxW / w, maxH / h);
+        w = Math.round(w * ratio);
+        h = Math.round(h * ratio);
+      }
+
+      const x = Math.max(20, Math.round((canvasW - w) / 2));
+      const y = Math.max(20, Math.round((canvasH - h) / 2));
+
+      const imageStroke: Stroke = {
+        points: [],
+        color: "transparent",
+        size: 0,
+        isEraser: false,
+        imageSrc: dataUrl,
+        imageX: x,
+        imageY: y,
+        imageW: w,
+        imageH: h,
+      };
+
+      redoStrokesRef.current = [];
+      currentStrokesRef.current = [...currentStrokesRef.current, imageStroke];
+      imageElementsCache.current[dataUrl] = tempImg;
+      const newIdx = currentStrokesRef.current.length - 1;
+      setSelectedImageIndex(newIdx);
+      setTool("move");
+      redrawCanvas();
+
+      if (currentQ) {
+        const updated = {
+          ...drawings,
+          [currentQ.id]: [...currentStrokesRef.current],
+        };
+        saveDrawingsToStorage(updated);
+        notifyUpdate();
+      }
+    };
+    tempImg.src = dataUrl;
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      if (dataUrl) {
+        pasteImageToCanvas(dataUrl);
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  // Keyboard shortcut listener for Ctrl+Z (Undo), Ctrl+Y (Redo), and Ctrl+V (Paste Image) & Delete image
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
+        return;
+      }
+
+      if ((e.key === "Delete" || e.key === "Backspace") && selectedImageIndex !== null && tool === "move") {
+        e.preventDefault();
+        handleDeleteSelectedImage();
+        return;
+      }
+
+      if ((e.ctrlKey || e.metaKey) && (e.key === "z" || e.key === "Z")) {
+        e.preventDefault();
+        if (e.shiftKey) {
+          handleRedo();
+        } else {
+          handleUndo();
+        }
+      } else if ((e.ctrlKey || e.metaKey) && (e.key === "y" || e.key === "Y")) {
+        e.preventDefault();
+        handleRedo();
+      }
+    };
+
+    const handlePaste = (e: ClipboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
+        return;
+      }
+
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          const file = items[i].getAsFile();
+          if (file) {
+            e.preventDefault();
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              const dataUrl = event.target?.result as string;
+              if (dataUrl) {
+                pasteImageToCanvas(dataUrl);
+              }
+            };
+            reader.readAsDataURL(file);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("paste", handlePaste);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("paste", handlePaste);
+    };
+  }, [isOpen, currentQ?.id]);
+
   const handleClear = () => {
+    redoStrokesRef.current = [];
     currentStrokesRef.current = [];
     redrawCanvas();
     if (currentQ) {
@@ -761,111 +1145,232 @@ export default function ScratchpadModal({
           </div>
         )}
 
-        {/* Canvas Area Container */}
-        <div ref={containerRef} className="flex-1 bg-white relative touch-none overflow-hidden">
-          <canvas
-            ref={canvasRef}
-            onMouseDown={handleStart}
-            onMouseMove={handleMove}
-            onMouseUp={handleEnd}
-            onMouseLeave={handleEnd}
-            onTouchStart={handleStart}
-            onTouchMove={handleMove}
-            onTouchEnd={handleEnd}
-            className="w-full h-full cursor-crosshair touch-none block"
+        {/* Canvas Area Container with Vertical Scrollability */}
+        <div className="flex-1 relative flex flex-col overflow-hidden bg-white">
+          <div
+            ref={containerRef}
+            className="flex-1 w-full h-full overflow-y-auto overflow-x-hidden relative touch-none select-none"
+          >
+            <canvas
+              ref={canvasRef}
+              onMouseDown={handleStart}
+              onMouseMove={handleMove}
+              onMouseUp={handleEnd}
+              onMouseLeave={handleEnd}
+              onTouchStart={handleStart}
+              onTouchMove={handleMove}
+              onTouchEnd={handleEnd}
+              className={`block touch-none ${
+                tool === "move" ? "cursor-move" : tool === "eraser" ? "cursor-cell" : "cursor-crosshair"
+              }`}
+            />
+          </div>
+
+          {/* Hidden File Input for Image Upload / Paste fallback */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileUpload}
           />
 
-          {/* Floating Canvas Drawing Tools Toolbar */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-md text-white p-2 sm:p-2.5 rounded-2xl border border-slate-700 shadow-2xl flex items-center gap-2 sm:gap-3 max-w-[95vw] overflow-x-auto">
-            {/* Tool Selector: Pen vs Eraser */}
-            <div className="flex items-center bg-slate-800 p-1 rounded-xl">
+          {/* Floating Canvas Drawing Tools Toolbar (Compact Capsule) */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/90 hover:bg-slate-900 backdrop-blur-md text-white py-1.5 px-3 rounded-full border border-slate-700/80 shadow-2xl flex items-center gap-1.5 sm:gap-2 max-w-[95vw] transition-all select-none z-20">
+            {/* Tool Selector: Pen vs Eraser vs Move */}
+            <div className="flex items-center bg-slate-800/80 p-0.5 rounded-full">
               <button
                 type="button"
-                onClick={() => setTool("pen")}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                onClick={() => {
+                  setTool("pen");
+                  setSelectedImageIndex(null);
+                }}
+                className={`p-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   tool === "pen" ? "bg-blue-600 text-white shadow-xs" : "text-slate-400 hover:text-white"
                 }`}
+                title="Bút vẽ"
               >
                 <Pencil className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Bút vẽ</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => setTool("eraser")}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                onClick={() => {
+                  setTool("eraser");
+                  setSelectedImageIndex(null);
+                }}
+                className={`p-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   tool === "eraser" ? "bg-amber-600 text-white shadow-xs" : "text-slate-400 hover:text-white"
                 }`}
+                title="Tẩy nét vẽ"
               >
                 <Eraser className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Tẩy</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setTool("move");
+                  setShowBrushSettings(false);
+                }}
+                className={`p-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  tool === "move" ? "bg-emerald-600 text-white shadow-xs" : "text-slate-400 hover:text-white"
+                }`}
+                title="Di chuyển & chỉnh kích thước ảnh dán (Kéo rê hoặc kéo 4 góc)"
+              >
+                <Move className="w-3.5 h-3.5" />
               </button>
             </div>
 
-            <div className="w-px h-6 bg-slate-800" />
+            <div className="w-px h-5 bg-slate-700/60" />
 
-            {/* Color Palette */}
-            {tool === "pen" && (
-              <div className="flex items-center gap-1.5">
-                {COLOR_PALETTE.map((c) => (
-                  <button
-                    key={c.value}
-                    type="button"
-                    onClick={() => setColor(c.value)}
-                    style={{ backgroundColor: c.value }}
-                    className={`w-6 h-6 rounded-full border-2 transition-all cursor-pointer ${
-                      color === c.value
-                        ? "border-white scale-125 shadow-md"
-                        : "border-transparent opacity-80 hover:opacity-100"
-                    }`}
-                    title={c.name}
-                  />
-                ))}
-              </div>
-            )}
+            {/* Compact Color & Size Capsule with Vertical Popover Upwards */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowBrushSettings(!showBrushSettings)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all border cursor-pointer ${
+                  showBrushSettings
+                    ? "bg-slate-700 border-blue-400 text-white"
+                    : "bg-slate-800/80 border-slate-700/80 text-slate-300 hover:text-white"
+                }`}
+                title="Chọn màu & cỡ nét (Bấm để sổ lên)"
+              >
+                <span
+                  className="w-3.5 h-3.5 rounded-full border border-white/60 shadow-2xs shrink-0"
+                  style={{ backgroundColor: color }}
+                />
+                <span className="text-[11px] font-mono">{size}px</span>
+                <ChevronUp className={`w-3 h-3 transition-transform ${showBrushSettings ? "rotate-180 text-blue-400" : "text-slate-400"}`} />
+              </button>
 
-            <div className="w-px h-6 bg-slate-800" />
+              {/* Vertical Popover upward */}
+              {showBrushSettings && (
+                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl flex flex-col gap-3 min-w-[210px] z-50 animate-in fade-in slide-in-from-bottom-2 duration-150">
+                  {/* Color Palette */}
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center justify-between">
+                      <span>Màu nét vẽ</span>
+                      <span className="text-[9px] text-blue-400 font-mono">
+                        {COLOR_PALETTE.find((c) => c.value === color)?.name || color}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      {COLOR_PALETTE.map((c) => (
+                        <button
+                          key={c.value}
+                          type="button"
+                          onClick={() => {
+                            setColor(c.value);
+                            setTool("pen");
+                          }}
+                          style={{ backgroundColor: c.value }}
+                          className={`w-6 h-6 rounded-full border-2 transition-all cursor-pointer ${
+                            color === c.value && tool === "pen"
+                              ? "border-white scale-110 ring-2 ring-blue-500 shadow-sm"
+                              : "border-transparent opacity-80 hover:opacity-100 hover:scale-105"
+                          }`}
+                          title={c.name}
+                        />
+                      ))}
+                    </div>
+                  </div>
 
-            {/* Stroke Size Selector */}
-            <div className="flex items-center gap-1">
-              {STROKE_SIZES.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setSize(s)}
-                  className={`w-7 h-7 rounded-lg text-[10px] font-mono font-bold flex items-center justify-center transition-all cursor-pointer ${
-                    size === s
-                      ? "bg-slate-700 text-white border border-slate-500"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  <span
-                    className="rounded-full bg-current inline-block"
-                    style={{ width: Math.max(4, s), height: Math.max(4, s) }}
-                  />
-                </button>
-              ))}
+                  {/* Stroke Size Selector */}
+                  <div className="border-t border-slate-800 pt-2">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                      Độ dày nét bút
+                    </div>
+                    <div className="grid grid-cols-4 gap-1">
+                      {STROKE_SIZES.map((s) => (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => setSize(s)}
+                          className={`py-1.5 px-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+                            size === s
+                              ? "bg-blue-600 text-white font-bold shadow-xs"
+                              : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                          }`}
+                          title={`Cỡ nét ${s}px`}
+                        >
+                          <span
+                            className="rounded-full bg-current inline-block"
+                            style={{ width: Math.max(3, s), height: Math.max(3, s) }}
+                          />
+                          <span className="text-[10px] font-mono">{s}px</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="w-px h-6 bg-slate-800" />
+            <div className="w-px h-5 bg-slate-700/60" />
 
-            {/* Undo & Clear Buttons */}
+            {/* Undo (Ctrl+Z) & Redo (Ctrl+Y) */}
             <button
               type="button"
               onClick={handleUndo}
-              className="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
-              title="Hoàn tác nét vẽ"
+              className="p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+              title="Hoàn tác (Ctrl+Z)"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3.5 h-3.5" />
             </button>
 
             <button
               type="button"
-              onClick={handleClear}
-              className="p-1.5 rounded-xl bg-red-950/60 hover:bg-red-900 text-red-300 hover:text-red-100 transition-colors cursor-pointer"
-              title="Xóa toàn bộ nét vẽ"
+              onClick={handleRedo}
+              className="p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+              title="Làm lại (Ctrl+Y)"
             >
-              <Trash2 className="w-4 h-4" />
+              <RotateCw className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Paste / Insert Image (Ctrl+V) */}
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="p-1.5 rounded-full bg-slate-800/80 hover:bg-blue-600/80 text-blue-300 hover:text-white transition-colors cursor-pointer"
+              title="Dán hoặc tải ảnh vào nháp (Ctrl+V)"
+            >
+              <ImagePlus className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Delete selected image if any */}
+            {tool === "move" && selectedImageIndex !== null && (
+              <button
+                type="button"
+                onClick={handleDeleteSelectedImage}
+                className="p-1.5 rounded-full bg-amber-900/60 hover:bg-amber-700 text-amber-200 transition-colors cursor-pointer"
+                title="Xóa ảnh đang chọn (Delete)"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            )}
+
+            {/* Clear All */}
+            <button
+              type="button"
+              onClick={handleClear}
+              className="p-1.5 rounded-full bg-red-950/60 hover:bg-red-800 text-red-300 hover:text-red-100 transition-colors cursor-pointer"
+              title="Xóa toàn bộ nháp"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+
+            <div className="w-px h-5 bg-slate-700/60" />
+
+            {/* Expand Scratchpad Area (+600px Height & Scroll) */}
+            <button
+              type="button"
+              onClick={handleExpandScratchpad}
+              className="px-2.5 py-1 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1 transition-all cursor-pointer shadow-xs shadow-indigo-600/30"
+              title="Cuộn mở rộng thêm 600px diện tích nháp mới"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Thêm chỗ nháp</span>
             </button>
           </div>
         </div>

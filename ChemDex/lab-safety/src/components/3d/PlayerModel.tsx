@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { PlayerState } from '../../types';
 import { useStore, playerCoords } from '../../store/useStore';
@@ -12,19 +11,23 @@ interface PlayerModelProps {
   player?: PlayerState;
 }
 
-export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, isMoving: propIsMoving, player: propPlayer }) => {
+export const PlayerModel: React.FC<PlayerModelProps> = ({
+  position,
+  rotationY,
+  isMoving: propIsMoving,
+  player: propPlayer,
+}) => {
   const rootGroupRef = useRef<THREE.Group>(null);
   const modelRef = useRef<THREE.Group>(null);
-  const storePlayer = useStore(s => s.player);
-  const character = useStore(s => s.character);
+  const storePlayer = useStore((s) => s.player);
   const player = propPlayer || storePlayer;
-  
-  // Animation refs
-  const leftLegRef = useRef<THREE.Mesh>(null);
-  const rightLegRef = useRef<THREE.Mesh>(null);
-  const leftArmRef = useRef<THREE.Mesh>(null);
-  const rightArmRef = useRef<THREE.Mesh>(null);
-  const hairTieRef = useRef<THREE.Group>(null);
+
+  // Limb pivot groups for smooth biomechanical animations
+  const leftLegPivot = useRef<THREE.Group>(null);
+  const rightLegPivot = useRef<THREE.Group>(null);
+  const leftArmPivot = useRef<THREE.Group>(null);
+  const rightArmPivot = useRef<THREE.Group>(null);
+  const headGroupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
     if (rootGroupRef.current) {
@@ -37,658 +40,506 @@ export const PlayerModel: React.FC<PlayerModelProps> = ({ position, rotationY, i
           playerCoords.position[2]
         );
       }
-      rootGroupRef.current.rotation.y = rotationY !== undefined ? rotationY : playerCoords.rotationY;
+      rootGroupRef.current.rotation.y =
+        rotationY !== undefined ? rotationY : playerCoords.rotationY;
     }
 
     const t = state.clock.getElapsedTime();
     const isMoving = propIsMoving !== undefined ? propIsMoving : playerCoords.isMoving;
-    
+
     if (isMoving) {
-      // Swing legs
-      if (leftLegRef.current) leftLegRef.current.rotation.x = Math.sin(t * 12) * 0.5;
-      if (rightLegRef.current) rightLegRef.current.rotation.x = -Math.sin(t * 12) * 0.5;
-      
-      // Swing arms
-      if (leftArmRef.current) leftArmRef.current.rotation.x = -Math.sin(t * 12) * 0.5;
-      if (rightArmRef.current) rightArmRef.current.rotation.x = Math.sin(t * 12) * 0.5;
-      
-      // Bob body slightly
+      // Natural walking swing from hip and shoulder joints
+      if (leftLegPivot.current) leftLegPivot.current.rotation.x = Math.sin(t * 10) * 0.45;
+      if (rightLegPivot.current) rightLegPivot.current.rotation.x = -Math.sin(t * 10) * 0.45;
+
+      if (leftArmPivot.current) leftArmPivot.current.rotation.x = -Math.sin(t * 10) * 0.42;
+      if (rightArmPivot.current) rightArmPivot.current.rotation.x = Math.sin(t * 10) * 0.42;
+
       if (modelRef.current) {
-        modelRef.current.position.y = Math.abs(Math.sin(t * 24)) * 0.05;
+        modelRef.current.position.y = Math.abs(Math.sin(t * 20)) * 0.025;
+      }
+      if (headGroupRef.current) {
+        headGroupRef.current.rotation.y = Math.sin(t * 10) * 0.03;
       }
     } else {
-      // Idle breathing animation
-      if (leftLegRef.current) leftLegRef.current.rotation.x = 0;
-      if (rightLegRef.current) rightLegRef.current.rotation.x = 0;
-      if (leftArmRef.current) leftArmRef.current.rotation.x = Math.sin(t * 2) * 0.05;
-      if (rightArmRef.current) rightArmRef.current.rotation.x = -Math.sin(t * 2) * 0.05;
-      
+      // Gentle breathing idle animation
+      if (leftLegPivot.current) leftLegPivot.current.rotation.x = 0;
+      if (rightLegPivot.current) rightLegPivot.current.rotation.x = 0;
+
+      if (leftArmPivot.current) {
+        leftArmPivot.current.rotation.x = Math.sin(t * 2) * 0.03;
+        leftArmPivot.current.rotation.z = 0.28 + Math.sin(t * 2) * 0.015;
+      }
+      if (rightArmPivot.current) {
+        rightArmPivot.current.rotation.x = -Math.sin(t * 2) * 0.03;
+        rightArmPivot.current.rotation.z = -0.28 - Math.sin(t * 2) * 0.015;
+      }
+
       if (modelRef.current) {
-        modelRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 2) * 0.01;
+        modelRef.current.position.y = Math.sin(t * 2) * 0.008;
       }
-    }
-    
-    // Override arm poses if holding tools or trash
-    if (player.hasSweeper) {
-      if (leftArmRef.current) {
-        leftArmRef.current.rotation.x = -Math.PI / 2.5;
-        leftArmRef.current.rotation.z = Math.PI / 8;
-      }
-      if (rightArmRef.current) {
-        rightArmRef.current.rotation.x = -Math.PI / 3;
-        rightArmRef.current.rotation.z = -Math.PI / 8;
-      }
-    } else if (player.isHoldingTrash) {
-      if (rightArmRef.current) {
-        rightArmRef.current.rotation.x = -Math.PI / 2;
+      if (headGroupRef.current) {
+        headGroupRef.current.rotation.y = Math.sin(t * 1.5) * 0.025;
       }
     }
   });
 
-  const skinColor = character.skinTone || '#f7d3ba';
-  const hairColor = character.hairColor || '#2b1d0c';
-  const shirtColor = character.shirtColor || '#0ea5b7';
+  // Color Palette matching reference turnaround image:
+  const skinColor = '#FAD9C0'; // Warm peach skin tone
+  const hairColor = '#6A3B1F'; // Warm chestnut brown
+  const shirtColor = '#3897DC'; // Soft sky blue collared polo
+  const labCoatColor = '#FFFFFF';
+  const pocketColor = '#F3F4F6';
+  const pantsColor = '#243344'; // Navy slate trousers
+  const cuffColor = '#304255'; // Rolled ankle cuff ring
+  const shoeCanvasColor = '#2A3C50'; // Navy sneaker canvas
+  const whiteTrim = '#FFFFFF'; // Rubber soles, toe caps, laces, lab coat
+  const goggleFrame = '#FFFFFF';
+  const goggleStrap = '#2B3746'; // Dark charcoal strap
+  const goggleLens = '#E0F2FE';
+
+  const hasGloves = player.equipment.hasGloves;
+  const hasMask = player.equipment.hasMask;
 
   return (
-    <group ref={rootGroupRef}>
-      <group ref={modelRef}>
-        {/* Floating/Carried Trash indicator banner */}
-        {player.isHoldingTrash && (
-          <group position={[0, 1.9, 0]}>
-            <Html center>
-              <div className="bg-purple-600/95 backdrop-blur-sm text-white font-black text-[9px] px-2.5 py-1.5 rounded-xl shadow-lg border border-purple-400 whitespace-nowrap animate-bounce select-none flex items-center gap-1.5">
-                <span className="text-sm">☣️</span> ĐANG CẦM RÁC HOÁ CHẤT
-              </div>
-            </Html>
+    <group ref={rootGroupRef} position={position || [0, 0, 0]} rotation={[0, rotationY || 0, 0]}>
+      <group ref={modelRef} scale={[0.85, 0.85, 0.85]}>
+        
+        {/* ================= 1. HIPS, LEGS & SNEAKERS ================= */}
+        <group position={[0, 0.78, 0]}>
+          {/* Pelvis connecting block */}
+          <mesh position={[0, -0.05, 0]}>
+            <boxGeometry args={[0.28, 0.12, 0.2]} />
+            <meshStandardMaterial color={pantsColor} roughness={0.65} />
+          </mesh>
+
+          {/* LEFT LEG (Pivot at Hip X = -0.11) */}
+          <group ref={leftLegPivot} position={[-0.11, -0.05, 0]}>
+            {/* Smooth Trouser Leg (Tapered Cylinder) */}
+            <mesh position={[0, -0.3, 0]} castShadow>
+              <cylinderGeometry args={[0.072, 0.078, 0.58, 20]} />
+              <meshStandardMaterial color={pantsColor} roughness={0.65} />
+            </mesh>
+
+            {/* Rolled Ankle Cuff (Thick clean ring) */}
+            <mesh position={[0, -0.58, 0]} castShadow>
+              <cylinderGeometry args={[0.088, 0.088, 0.055, 20]} />
+              <meshStandardMaterial color={cuffColor} roughness={0.6} />
+            </mesh>
+
+            {/* Exposed Skin Ankle */}
+            <mesh position={[0, -0.63, 0]}>
+              <cylinderGeometry args={[0.058, 0.058, 0.05, 16]} />
+              <meshStandardMaterial color={skinColor} roughness={0.5} />
+            </mesh>
+
+            {/* LEFT SNEAKER */}
+            <group position={[0, -0.68, 0.02]}>
+              {/* White Rubber Outsole */}
+              <mesh position={[0, -0.045, 0.03]} castShadow receiveShadow>
+                <boxGeometry args={[0.138, 0.04, 0.27]} />
+                <meshStandardMaterial color={whiteTrim} roughness={0.4} />
+              </mesh>
+              {/* Navy Canvas Upper */}
+              <mesh position={[0, 0.015, 0.01]} castShadow>
+                <boxGeometry args={[0.132, 0.08, 0.24]} />
+                <meshStandardMaterial color={shoeCanvasColor} roughness={0.65} />
+              </mesh>
+              {/* White Rubber Toe Cap */}
+              <mesh position={[0, -0.005, 0.12]} castShadow>
+                <sphereGeometry args={[0.068, 16, 12, 0, Math.PI, 0, Math.PI / 2]} />
+                <meshStandardMaterial color={whiteTrim} roughness={0.35} />
+              </mesh>
+              {/* White Laces */}
+              {[-0.01, 0.025, 0.06].map((lz, idx) => (
+                <mesh key={idx} position={[0, 0.06, lz]}>
+                  <boxGeometry args={[0.08, 0.012, 0.016]} />
+                  <meshStandardMaterial color={whiteTrim} roughness={0.3} />
+                </mesh>
+              ))}
+            </group>
           </group>
-        )}
 
-        {/* Head */}
-        <mesh position={[0, 1.45, 0]} castShadow>
-          <sphereGeometry args={[0.2, 32, 32]} />
-          <meshStandardMaterial color={skinColor} roughness={0.4} /> {/* skin */}
-        </mesh>
+          {/* RIGHT LEG (Pivot at Hip X = +0.11) */}
+          <group ref={rightLegPivot} position={[0.11, -0.05, 0]}>
+            {/* Smooth Trouser Leg */}
+            <mesh position={[0, -0.3, 0]} castShadow>
+              <cylinderGeometry args={[0.072, 0.078, 0.58, 20]} />
+              <meshStandardMaterial color={pantsColor} roughness={0.65} />
+            </mesh>
 
-        {/* Eyes / Face Details */}
-        <group position={[0, 1.45, 0.15]}>
-          {/* Eyes */}
-          <mesh position={[-0.07, 0.03, 0.04]} castShadow>
-            <sphereGeometry args={[0.02, 16, 16]} />
-            <meshStandardMaterial color="#0f172a" />
-          </mesh>
-          <mesh position={[0.07, 0.03, 0.04]} castShadow>
-            <sphereGeometry args={[0.02, 16, 16]} />
-            <meshStandardMaterial color="#0f172a" />
-          </mesh>
-          
-          {/* Smile */}
-          <mesh position={[0, -0.05, 0.04]} rotation={[0.2, 0, 0]}>
-            <torusGeometry args={[0.03, 0.008, 8, 16, Math.PI]} />
-            <meshStandardMaterial color="#e11d48" />
-          </mesh>
+            {/* Rolled Ankle Cuff */}
+            <mesh position={[0, -0.58, 0]} castShadow>
+              <cylinderGeometry args={[0.088, 0.088, 0.055, 20]} />
+              <meshStandardMaterial color={cuffColor} roughness={0.6} />
+            </mesh>
+
+            {/* Exposed Skin Ankle */}
+            <mesh position={[0, -0.63, 0]}>
+              <cylinderGeometry args={[0.058, 0.058, 0.05, 16]} />
+              <meshStandardMaterial color={skinColor} roughness={0.5} />
+            </mesh>
+
+            {/* RIGHT SNEAKER */}
+            <group position={[0, -0.68, 0.02]}>
+              {/* White Rubber Outsole */}
+              <mesh position={[0, -0.045, 0.03]} castShadow receiveShadow>
+                <boxGeometry args={[0.138, 0.04, 0.27]} />
+                <meshStandardMaterial color={whiteTrim} roughness={0.4} />
+              </mesh>
+              {/* Navy Canvas Upper */}
+              <mesh position={[0, 0.015, 0.01]} castShadow>
+                <boxGeometry args={[0.132, 0.08, 0.24]} />
+                <meshStandardMaterial color={shoeCanvasColor} roughness={0.65} />
+              </mesh>
+              {/* White Rubber Toe Cap */}
+              <mesh position={[0, -0.005, 0.12]} castShadow>
+                <sphereGeometry args={[0.068, 16, 12, 0, Math.PI, 0, Math.PI / 2]} />
+                <meshStandardMaterial color={whiteTrim} roughness={0.35} />
+              </mesh>
+              {/* White Laces */}
+              {[-0.01, 0.025, 0.06].map((lz, idx) => (
+                <mesh key={idx} position={[0, 0.06, lz]}>
+                  <boxGeometry args={[0.08, 0.012, 0.016]} />
+                  <meshStandardMaterial color={whiteTrim} roughness={0.3} />
+                </mesh>
+              ))}
+            </group>
+          </group>
         </group>
 
-        {/* Goggles (Conditional render) */}
-        {player.hasGoggles && (
-          <group position={[0, 1.48, 0.14]}>
-            {/* Cyan lenses */}
-            <mesh position={[-0.07, 0, 0.05]} castShadow>
-              <boxGeometry args={[0.08, 0.06, 0.02]} />
-              <meshStandardMaterial color="#22d3ee" opacity={0.65} transparent roughness={0.1} metalness={0.2} />
-            </mesh>
-            <mesh position={[0.07, 0, 0.05]} castShadow>
-              <boxGeometry args={[0.08, 0.06, 0.02]} />
-              <meshStandardMaterial color="#22d3ee" opacity={0.65} transparent roughness={0.1} metalness={0.2} />
-            </mesh>
-            {/* Lense Reflective Highlights */}
-            <mesh position={[-0.05, 0.015, 0.062]} rotation={[0, 0, -0.4]}>
-              <boxGeometry args={[0.015, 0.03, 0.001]} />
-              <meshBasicMaterial color="#ffffff" opacity={0.8} transparent />
-            </mesh>
-            <mesh position={[0.09, 0.015, 0.062]} rotation={[0, 0, -0.4]}>
-              <boxGeometry args={[0.015, 0.03, 0.001]} />
-              <meshBasicMaterial color="#ffffff" opacity={0.8} transparent />
-            </mesh>
-            {/* Goggles Frame - Bold Professional Look */}
-            <mesh position={[0, 0, 0.04]}>
-              <boxGeometry args={[0.22, 0.08, 0.03]} />
-              <meshStandardMaterial color="#0e7490" roughness={0.4} metalness={0.1} />
-            </mesh>
-            {/* High-visibility safety-yellow frame accents */}
-            <mesh position={[0, 0.041, 0.042]}>
-              <boxGeometry args={[0.23, 0.012, 0.028]} />
-              <meshStandardMaterial color="#f59e0b" emissive="#d97706" emissiveIntensity={0.2} roughness={0.5} />
-            </mesh>
-            <mesh position={[0, -0.041, 0.042]}>
-              <boxGeometry args={[0.23, 0.012, 0.028]} />
-              <meshStandardMaterial color="#f59e0b" emissive="#d97706" emissiveIntensity={0.2} roughness={0.5} />
-            </mesh>
-            {/* Chemical splash side guards */}
-            <mesh position={[-0.11, 0, 0.02]} rotation={[0, -Math.PI / 4, 0]}>
-              <boxGeometry args={[0.02, 0.078, 0.05]} />
-              <meshStandardMaterial color="#ffffff" opacity={0.4} transparent roughness={0.3} />
-            </mesh>
-            <mesh position={[0.11, 0, 0.02]} rotation={[0, Math.PI / 4, 0]}>
-              <boxGeometry args={[0.02, 0.078, 0.05]} />
-              <meshStandardMaterial color="#ffffff" opacity={0.4} transparent roughness={0.3} />
-            </mesh>
-            {/* Inner Dark Rim */}
-            <mesh position={[0, 0, 0.035]}>
-              <boxGeometry args={[0.23, 0.085, 0.01]} />
-              <meshStandardMaterial color="#0f172a" roughness={0.9} />
-            </mesh>
-            {/* Strap around head */}
-            <mesh position={[0, 0, -0.1]} rotation={[Math.PI / 2, 0, 0]}>
-              <torusGeometry args={[0.2, 0.015, 8, 32]} />
-              <meshStandardMaterial color="#1e293b" />
-            </mesh>
-          </group>
-        )}
-
-        {/* Industrial Respirator Mask (Conditional render) */}
-        {player.hasMask && (
-          <group position={[0, 1.36, 0.13]}>
-            {/* Main mask seal wedge covering mouth and nose */}
-            <mesh castShadow position={[0, 0, 0.02]}>
-              <boxGeometry args={[0.15, 0.12, 0.07]} />
-              <meshStandardMaterial color="#334155" roughness={0.8} /> {/* Dark Slate Face Seal */}
-            </mesh>
-            {/* Central inhalation/exhalation valve */}
-            <mesh position={[0, -0.02, 0.06]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-              <cylinderGeometry args={[0.025, 0.025, 0.015, 16]} />
-              <meshStandardMaterial color="#1e293b" roughness={0.5} />
-            </mesh>
-            <mesh position={[0, -0.02, 0.068]} rotation={[Math.PI / 2, 0, 0]}>
-              <cylinderGeometry args={[0.015, 0.015, 0.002, 16]} />
-              <meshStandardMaterial color="#ef4444" roughness={0.3} /> {/* Red accents */}
-            </mesh>
-            {/* Dual Chemical Filter Canisters - Left */}
-            <group position={[-0.08, -0.02, 0.04]} rotation={[0, -0.5, 0]}>
-              <mesh castShadow>
-                <cylinderGeometry args={[0.035, 0.035, 0.04, 16]} />
-                <meshStandardMaterial color="#f59e0b" roughness={0.3} metalness={0.7} /> {/* Gold Filters */}
-              </mesh>
-              {/* 3M safety stripe label detail */}
-              <mesh position={[0, 0, 0.001]}>
-                <cylinderGeometry args={[0.036, 0.036, 0.01, 16]} />
-                <meshStandardMaterial color="#ffffff" roughness={0.6} />
-              </mesh>
-              <mesh position={[0, 0, 0.001]}>
-                <cylinderGeometry args={[0.037, 0.037, 0.004, 16]} />
-                <meshStandardMaterial color="#ef4444" roughness={0.4} /> {/* Active gas absorption indicator */}
-              </mesh>
-              <mesh position={[0, 0.021, 0]}>
-                <cylinderGeometry args={[0.037, 0.037, 0.005, 16]} />
-                <meshStandardMaterial color="#1e293b" roughness={0.7} />
-              </mesh>
-            </group>
-            {/* Dual Chemical Filter Canisters - Right */}
-            <group position={[0.08, -0.02, 0.04]} rotation={[0, 0.5, 0]}>
-              <mesh castShadow>
-                <cylinderGeometry args={[0.035, 0.035, 0.04, 16]} />
-                <meshStandardMaterial color="#f59e0b" roughness={0.3} metalness={0.7} />
-              </mesh>
-              {/* 3M safety stripe label detail */}
-              <mesh position={[0, 0, 0.001]}>
-                <cylinderGeometry args={[0.036, 0.036, 0.01, 16]} />
-                <meshStandardMaterial color="#ffffff" roughness={0.6} />
-              </mesh>
-              <mesh position={[0, 0, 0.001]}>
-                <cylinderGeometry args={[0.037, 0.037, 0.004, 16]} />
-                <meshStandardMaterial color="#ef4444" roughness={0.4} />
-              </mesh>
-              <mesh position={[0, 0.021, 0]}>
-                <cylinderGeometry args={[0.037, 0.037, 0.005, 16]} />
-                <meshStandardMaterial color="#1e293b" roughness={0.7} />
-              </mesh>
-            </group>
-            {/* Elastic Face Harness Straps around ears/neck */}
-            <mesh position={[-0.09, 0, -0.04]} rotation={[0, -0.2, 0]}>
-              <boxGeometry args={[0.008, 0.015, 0.12]} />
-              <meshStandardMaterial color="#1e293b" />
-            </mesh>
-            <mesh position={[0.09, 0, -0.04]} rotation={[0, 0.2, 0]}>
-              <boxGeometry args={[0.008, 0.015, 0.12]} />
-              <meshStandardMaterial color="#1e293b" />
-            </mesh>
-          </group>
-        )}
-
-        {/* Hair Styles (Handsome Male Style) */}
-        {player.hairTied ? (
-          /* Neat Male Hair: Styled back with a black safety headband */
-          <group position={[0, 1.45, 0]}>
-            {/* Base Hair on Head */}
-            <mesh position={[0, 0.06, -0.01]} castShadow>
-              <sphereGeometry args={[0.21, 32, 32]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-            {/* Front Fringe (Neat, combed back/up) */}
-            <mesh position={[0, 0.18, 0.08]} rotation={[-0.3, 0, 0]} castShadow>
-              <boxGeometry args={[0.18, 0.06, 0.12]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-            {/* Sporty Headband / Hair band for safety */}
-            <mesh position={[0, 0.08, 0.05]} rotation={[0.2, 0, 0]} castShadow>
-              <torusGeometry args={[0.21, 0.02, 8, 32]} />
-              <meshStandardMaterial color="#ef4444" emissive="#b91c1c" emissiveIntensity={0.2} /> {/* Red Safety Headband */}
-            </mesh>
-          </group>
-        ) : (
-          /* Default Handsome Male Hair: Slightly fluffy/messy short hair with a modern fringe */
-          <group position={[0, 1.45, 0]}>
-            {/* Base Hair */}
-            <mesh position={[0, 0.06, -0.01]} castShadow>
-              <sphereGeometry args={[0.21, 32, 32]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-            {/* Fluffy Front Fringe/Bangs */}
-            <mesh position={[0, 0.15, 0.12]} rotation={[0.2, 0, 0]} castShadow>
-              <boxGeometry args={[0.2, 0.1, 0.1]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-            {/* Cool hair spikes/fluff on top */}
-            <mesh position={[0, 0.22, 0.02]} rotation={[0.1, 0.1, 0]} castShadow>
-              <boxGeometry args={[0.14, 0.08, 0.14]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-            {/* Neat short sideburns */}
-            <mesh position={[-0.19, 0.02, 0.05]} castShadow>
-              <boxGeometry args={[0.03, 0.12, 0.05]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-            <mesh position={[0.19, 0.02, 0.05]} castShadow>
-              <boxGeometry args={[0.03, 0.12, 0.05]} />
-              <meshStandardMaterial color={hairColor} roughness={0.85} />
-            </mesh>
-          </group>
-        )}
-
-        {/* Torso: Shirt or Lab Coat */}
-        {player.hasLabCoat ? (
-          /* Lab Coat Torso (White, premium boxy style) */
-          <group position={[0, 0.85, 0]}>
-            {/* Main Lab Coat Outer Shell */}
-            <mesh castShadow>
-              <cylinderGeometry args={[0.18, 0.22, 0.7, 16]} />
-              <meshStandardMaterial color="#ffffff" roughness={0.8} /> {/* White Coat */}
-            </mesh>
-            {/* Left Collar Lapel */}
-            <mesh position={[-0.08, 0.22, 0.16]} rotation={[0, 0.2, -0.2]} castShadow>
-              <boxGeometry args={[0.04, 0.16, 0.02]} />
-              <meshStandardMaterial color="#f8fafc" roughness={0.7} />
-            </mesh>
-            {/* Right Collar Lapel */}
-            <mesh position={[0.08, 0.22, 0.16]} rotation={[0, -0.2, 0.2]} castShadow>
-              <boxGeometry args={[0.04, 0.16, 0.02]} />
-              <meshStandardMaterial color="#f8fafc" roughness={0.7} />
-            </mesh>
-            {/* Breast Pocket on Left Chest */}
-            <group position={[0.09, 0.05, 0.16]} rotation={[0, 0.3, 0]}>
-              {/* Pocket body */}
-              <mesh castShadow>
-                <boxGeometry args={[0.07, 0.09, 0.01]} />
-                <meshStandardMaterial color="#f1f5f9" roughness={0.6} />
-              </mesh>
-              {/* Blue Pen clipped inside pocket */}
-              <mesh position={[-0.015, 0.04, 0.008]} castShadow>
-                <cylinderGeometry args={[0.005, 0.005, 0.04, 8]} />
-                <meshStandardMaterial color="#1d4ed8" roughness={0.3} /> {/* Navy Blue Pen */}
-              </mesh>
-              <mesh position={[-0.015, 0.02, 0.012]} castShadow>
-                <boxGeometry args={[0.002, 0.02, 0.004]} />
-                <meshStandardMaterial color="#cbd5e1" metalness={0.8} /> {/* Silver Pen Clip */}
-              </mesh>
-              {/* Student Researcher ID Badge */}
-              <group position={[0.02, 0.01, 0.008]} rotation={[0, 0, -0.05]}>
-                <mesh castShadow>
-                  <boxGeometry args={[0.03, 0.045, 0.004]} />
-                  <meshStandardMaterial color="#ffffff" roughness={0.5} />
-                </mesh>
-                {/* ID photo placeholder */}
-                <mesh position={[0, 0.01, 0.003]}>
-                  <planeGeometry args={[0.02, 0.018]} />
-                  <meshBasicMaterial color="#38bdf8" />
-                </mesh>
-                {/* Green safety clip */}
-                <mesh position={[0, 0.026, -0.002]}>
-                  <boxGeometry args={[0.01, 0.01, 0.01]} />
-                  <meshStandardMaterial color="#22c55e" />
-                </mesh>
-              </group>
-            </group>
-            {/* Inner Shirt Detail visible at Collar */}
-            <mesh position={[0, 0.25, 0.15]} rotation={[0, 0, 0]}>
-              <planeGeometry args={[0.1, 0.2]} />
-              <meshStandardMaterial color="#0284c7" /> {/* Blue school shirt */}
-            </mesh>
-            {/* Red school tie */}
-            <mesh position={[0, 0.2, 0.151]}>
-              <planeGeometry args={[0.03, 0.15]} />
-              <meshStandardMaterial color="#ef4444" />
-            </mesh>
-            {/* Buttoned lab coat seam */}
-            <mesh position={[0, 0, 0.19]}>
-              <boxGeometry args={[0.01, 0.5, 0.01]} />
-              <meshStandardMaterial color="#cbd5e1" />
-            </mesh>
-            {/* Small shiny silver buttons */}
-            <mesh position={[0, 0.1, 0.195]}>
-              <sphereGeometry args={[0.015, 8, 8]} />
-              <meshStandardMaterial color="#64748b" metalness={0.8} roughness={0.2} />
-            </mesh>
-            <mesh position={[0, -0.1, 0.195]}>
-              <sphereGeometry args={[0.015, 8, 8]} />
-              <meshStandardMaterial color="#64748b" metalness={0.8} roughness={0.2} />
-            </mesh>
-          </group>
-        ) : (
-          /* Standard School uniform Shirt (Blue/white) */
-          <mesh position={[0, 0.85, 0]} castShadow>
-            <cylinderGeometry args={[0.16, 0.2, 0.7, 16]} />
-            <meshStandardMaterial color={shirtColor} roughness={0.6} />
+        {/* ================= 2. TORSO, SHIRT & LAB COAT ================= */}
+        <group position={[0, 1.08, 0]}>
+          {/* Main Solid Torso with White Lab Coat Exterior */}
+          <mesh position={[0, 0.06, 0]} castShadow>
+            <cylinderGeometry args={[0.22, 0.24, 0.48, 24]} />
+            <meshStandardMaterial color={labCoatColor} roughness={0.4} />
           </mesh>
-        )}
 
-        {/* Arms and Hands */}
-        {/* Left Arm */}
-        <mesh 
-          ref={leftArmRef} 
-          position={[-0.26, 0.95, 0]} 
-          rotation={[0, 0, 0.15]}
-          castShadow
-        >
-          <cylinderGeometry args={[0.05, 0.05, 0.45, 16]} />
-          <meshStandardMaterial color={player.hasLabCoat ? "#ffffff" : shirtColor} roughness={0.8} />
-          
-          {/* Hand / Glove */}
-          <group position={[0, -0.25, 0]}>
-            <mesh castShadow>
-              <sphereGeometry args={[0.06, 16, 16]} />
-              <meshStandardMaterial 
-                color={player.hasGloves ? "#22d3ee" : skinColor} 
-                roughness={player.hasGloves ? 0.3 : 0.6} 
-              />
+          {/* Inner Light-Blue Collared Shirt (Clean front inset) */}
+          <mesh position={[0, 0.1, 0.1]}>
+            <boxGeometry args={[0.16, 0.38, 0.08]} />
+            <meshStandardMaterial color={shirtColor} roughness={0.55} />
+          </mesh>
+
+          {/* Blue Shirt Collar Lapels */}
+          <group position={[0, 0.28, 0.13]}>
+            <mesh position={[-0.045, -0.02, 0.015]} rotation={[0.2, -0.2, -0.3]}>
+              <boxGeometry args={[0.065, 0.065, 0.015]} />
+              <meshStandardMaterial color={shirtColor} roughness={0.5} />
             </mesh>
-            {/* Glove safety cuff extending up the forearm */}
-            {player.hasGloves && (
-              <mesh position={[0, 0.08, 0]} castShadow>
-                <cylinderGeometry args={[0.055, 0.052, 0.12, 16]} />
-                <meshStandardMaterial color="#22d3ee" roughness={0.4} />
-              </mesh>
-            )}
-
-            {/* HIGHLY DETAILED DUSTPAN (Đồ hốt rác on Left Hand) */}
-            {player.hasSweeper && (
-              <group position={[0, -0.05, 0.1]} rotation={[Math.PI / 6, 0, 0]}>
-                {/* Dustpan Handle */}
-                <mesh castShadow position={[0, 0.08, -0.05]} rotation={[-Math.PI / 4, 0, 0]}>
-                  <cylinderGeometry args={[0.012, 0.012, 0.2, 8]} />
-                  <meshStandardMaterial color="#475569" roughness={0.5} />
-                </mesh>
-                {/* Dustpan Base Scoop */}
-                <mesh castShadow position={[0, -0.05, 0.1]}>
-                  <boxGeometry args={[0.22, 0.02, 0.22]} />
-                  <meshStandardMaterial color="#0284c7" roughness={0.4} />
-                </mesh>
-                {/* Dustpan Left Wall */}
-                <mesh castShadow position={[-0.11, -0.01, 0.1]}>
-                  <boxGeometry args={[0.02, 0.06, 0.22]} />
-                  <meshStandardMaterial color="#0369a1" roughness={0.4} />
-                </mesh>
-                {/* Dustpan Right Wall */}
-                <mesh castShadow position={[0.11, -0.01, 0.1]}>
-                  <boxGeometry args={[0.02, 0.06, 0.22]} />
-                  <meshStandardMaterial color="#0369a1" roughness={0.4} />
-                </mesh>
-                {/* Dustpan Back Wall */}
-                <mesh castShadow position={[0, -0.01, -0.01]}>
-                  <boxGeometry args={[0.22, 0.06, 0.02]} />
-                  <meshStandardMaterial color="#0369a1" roughness={0.4} />
-                </mesh>
-
-                {/* If holding trash AND has sweeper, the chemical trash piece sits directly on the scoop! */}
-                {player.isHoldingTrash && (
-                  <>
-                    {(!player.heldTrashType || player.heldTrashType === 'chemical') && (
-                      <mesh position={[0, 0.05, 0.08]} castShadow>
-                        <dodecahedronGeometry args={[0.06]} />
-                        <meshStandardMaterial color="#c084fc" emissive="#a855f7" emissiveIntensity={0.8} roughness={0.2} />
-                      </mesh>
-                    )}
-                    {player.heldTrashType === 'domestic' && (
-                      <mesh position={[0, 0.05, 0.08]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-                        <cylinderGeometry args={[0.03, 0.03, 0.1, 12]} />
-                        <meshStandardMaterial color="#94a3b8" roughness={0.3} opacity={0.7} transparent />
-                      </mesh>
-                    )}
-                    {player.heldTrashType === 'sharps' && (
-                      <mesh position={[0, 0.05, 0.08]} rotation={[0, 0, Math.PI / 4]} castShadow>
-                        <cylinderGeometry args={[0.015, 0.01, 0.1, 6]} />
-                        <meshStandardMaterial color="#cbd5e1" roughness={0.1} opacity={0.9} transparent />
-                      </mesh>
-                    )}
-                  </>
-                )}
-              </group>
-            )}
-          </group>
-        </mesh>
-
-        {/* Right Arm */}
-        <mesh 
-          ref={rightArmRef} 
-          position={[0.26, 0.95, 0]} 
-          rotation={[0, 0, -0.15]}
-          castShadow
-        >
-          <cylinderGeometry args={[0.05, 0.05, 0.45, 16]} />
-          <meshStandardMaterial color={player.hasLabCoat ? "#ffffff" : shirtColor} roughness={0.8} />
-          
-          {/* Hand / Glove */}
-          <group position={[0, -0.25, 0]}>
-            <mesh castShadow>
-              <sphereGeometry args={[0.06, 16, 16]} />
-              <meshStandardMaterial 
-                color={player.hasGloves ? "#22d3ee" : skinColor} 
-                roughness={player.hasGloves ? 0.3 : 0.6} 
-              />
+            <mesh position={[0.045, -0.02, 0.015]} rotation={[0.2, 0.2, 0.3]}>
+              <boxGeometry args={[0.065, 0.065, 0.015]} />
+              <meshStandardMaterial color={shirtColor} roughness={0.5} />
             </mesh>
-            {/* Glove safety cuff extending up the forearm */}
-            {player.hasGloves && (
-              <mesh position={[0, 0.08, 0]} castShadow>
-                <cylinderGeometry args={[0.055, 0.052, 0.12, 16]} />
-                <meshStandardMaterial color="#22d3ee" roughness={0.4} />
+          </group>
+
+          {/* White Lab Coat Lapels (Flat, Clean Framing the Shirt) */}
+          <group position={[0, 0.18, 0.13]}>
+            <mesh position={[-0.1, 0, 0.01]} rotation={[0.1, -0.15, -0.15]}>
+              <boxGeometry args={[0.09, 0.24, 0.02]} />
+              <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+            </mesh>
+            <mesh position={[0.1, 0, 0.01]} rotation={[0.1, 0.15, 0.15]}>
+              <boxGeometry args={[0.09, 0.24, 0.02]} />
+              <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+            </mesh>
+          </group>
+
+          {/* Lower Coat Skirt (Mid-Thigh Length) */}
+          <mesh position={[0, -0.28, 0]} castShadow>
+            <cylinderGeometry args={[0.242, 0.27, 0.36, 24]} />
+            <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+          </mesh>
+
+          {/* Front Coat Opening Seam Split */}
+          <mesh position={[0, -0.28, 0.13]}>
+            <boxGeometry args={[0.06, 0.36, 0.02]} />
+            <meshStandardMaterial color={pantsColor} roughness={0.6} />
+          </mesh>
+
+          {/* Two Rectangular Front Patch Pockets */}
+          <group position={[-0.145, -0.3, 0.135]} rotation={[0, -0.1, 0]}>
+            <mesh castShadow>
+              <boxGeometry args={[0.095, 0.135, 0.018]} />
+              <meshStandardMaterial color={pocketColor} roughness={0.45} />
+            </mesh>
+            <mesh position={[0, 0.065, 0.005]}>
+              <boxGeometry args={[0.098, 0.014, 0.02]} />
+              <meshStandardMaterial color={whiteTrim} roughness={0.35} />
+            </mesh>
+          </group>
+          <group position={[0.145, -0.3, 0.135]} rotation={[0, 0.1, 0]}>
+            <mesh castShadow>
+              <boxGeometry args={[0.095, 0.135, 0.018]} />
+              <meshStandardMaterial color={pocketColor} roughness={0.45} />
+            </mesh>
+            <mesh position={[0, 0.065, 0.005]}>
+              <boxGeometry args={[0.098, 0.014, 0.02]} />
+              <meshStandardMaterial color={whiteTrim} roughness={0.35} />
+            </mesh>
+          </group>
+
+          {/* ================= 3. SEAMLESS ARMS & HANDS ================= */}
+          {/* LEFT ARM (Pivot at Shoulder X = -0.28, Y = 0.2, Z = 0) */}
+          <group ref={leftArmPivot} position={[-0.28, 0.2, 0]}>
+            {/* Seamless Arm: Full Natural Sleeve */}
+            <mesh position={[-0.06, -0.16, 0]} rotation={[0, 0, 0.28]} castShadow>
+              <cylinderGeometry args={[0.068, 0.062, 0.36, 18]} />
+              <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+            </mesh>
+            {/* Forearm Sleeve */}
+            <mesh position={[-0.15, -0.42, 0]} rotation={[0, 0, 0.28]} castShadow>
+              <cylinderGeometry args={[0.062, 0.058, 0.3, 18]} />
+              <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+            </mesh>
+            {/* Wrist Cuff Rim */}
+            <mesh position={[-0.19, -0.54, 0]} rotation={[0, 0, 0.28]}>
+              <cylinderGeometry args={[0.065, 0.065, 0.035, 18]} />
+              <meshStandardMaterial color={pocketColor} roughness={0.4} />
+            </mesh>
+
+            {/* Natural Cartoon Hand */}
+            <group position={[-0.22, -0.61, 0]} rotation={[0, 0, 0.28]}>
+              <mesh castShadow>
+                <boxGeometry args={[0.072, 0.09, 0.04]} />
+                <meshStandardMaterial 
+                  color={hasGloves ? '#0EA5E9' : skinColor} 
+                  roughness={hasGloves ? 0.3 : 0.5} 
+                />
               </mesh>
-            )}
+              {/* Rounded Thumb */}
+              <mesh position={[0.04, -0.01, 0.01]} rotation={[0, 0, -0.4]} castShadow>
+                <capsuleGeometry args={[0.016, 0.035, 8, 8]} />
+                <meshStandardMaterial 
+                  color={hasGloves ? '#0EA5E9' : skinColor} 
+                  roughness={hasGloves ? 0.3 : 0.5} 
+                />
+              </mesh>
+            </group>
+          </group>
 
-            {/* HIGHLY DETAILED BROOM (Chổi quét on Right Hand) */}
-            {player.hasSweeper && (
-              <group position={[0, -0.05, 0.1]} rotation={[Math.PI / 4, 0, -Math.PI / 12]}>
-                {/* Broom Stick/Handle */}
-                <mesh castShadow position={[0, 0.15, -0.05]}>
-                  <cylinderGeometry args={[0.012, 0.012, 0.5, 8]} />
-                  <meshStandardMaterial color="#d97706" roughness={0.6} /> {/* Wooden stick */}
-                </mesh>
-                {/* Broom Connector Cap */}
-                <mesh castShadow position={[0, -0.1, -0.05]}>
-                  <cylinderGeometry args={[0.025, 0.02, 0.06, 8]} />
-                  <meshStandardMaterial color="#ef4444" roughness={0.4} />
-                </mesh>
-                {/* Broom Bristles */}
-                <mesh castShadow position={[0, -0.16, -0.05]} rotation={[0, 0, 0]}>
-                  <coneGeometry args={[0.06, 0.12, 8]} />
-                  <meshStandardMaterial color="#f59e0b" roughness={0.8} /> {/* Yellow fibers */}
+          {/* RIGHT ARM (Pivot at Shoulder X = +0.28, Y = 0.2, Z = 0) */}
+          <group ref={rightArmPivot} position={[0.28, 0.2, 0]}>
+            {/* Seamless Arm: Full Natural Sleeve */}
+            <mesh position={[0.06, -0.16, 0]} rotation={[0, 0, -0.28]} castShadow>
+              <cylinderGeometry args={[0.068, 0.062, 0.36, 18]} />
+              <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+            </mesh>
+            {/* Forearm Sleeve */}
+            <mesh position={[0.15, -0.42, 0]} rotation={[0, 0, -0.28]} castShadow>
+              <cylinderGeometry args={[0.062, 0.058, 0.3, 18]} />
+              <meshStandardMaterial color={labCoatColor} roughness={0.4} />
+            </mesh>
+            {/* Wrist Cuff Rim */}
+            <mesh position={[0.19, -0.54, 0]} rotation={[0, 0, -0.28]}>
+              <cylinderGeometry args={[0.065, 0.065, 0.035, 18]} />
+              <meshStandardMaterial color={pocketColor} roughness={0.4} />
+            </mesh>
+
+            {/* Natural Cartoon Hand */}
+            <group position={[0.22, -0.61, 0]} rotation={[0, 0, -0.28]}>
+              <mesh castShadow>
+                <boxGeometry args={[0.072, 0.09, 0.04]} />
+                <meshStandardMaterial 
+                  color={hasGloves ? '#0EA5E9' : skinColor} 
+                  roughness={hasGloves ? 0.3 : 0.5} 
+                />
+              </mesh>
+              {/* Rounded Thumb */}
+              <mesh position={[-0.04, -0.01, 0.01]} rotation={[0, 0, 0.4]} castShadow>
+                <capsuleGeometry args={[0.016, 0.035, 8, 8]} />
+                <meshStandardMaterial 
+                  color={hasGloves ? '#0EA5E9' : skinColor} 
+                  roughness={hasGloves ? 0.3 : 0.5} 
+                />
+              </mesh>
+            </group>
+          </group>
+
+          {/* ================= 4. NECK & SMOOTH CUTE HEAD ================= */}
+          {/* Smooth Neck connecting to body */}
+          <mesh position={[0, 0.32, 0]} castShadow>
+            <cylinderGeometry args={[0.082, 0.098, 0.16, 20]} />
+            <meshStandardMaterial color={skinColor} roughness={0.5} />
+          </mesh>
+
+          {/* Head Group (Smooth Single Head Sphere, NO separate puffy cheek lumps) */}
+          <group ref={headGroupRef} position={[0, 0.56, 0]}>
+            {/* Cute Smooth Head */}
+            <mesh castShadow>
+              <sphereGeometry args={[0.245, 32, 32]} />
+              <meshStandardMaterial color={skinColor} roughness={0.45} />
+            </mesh>
+
+            {/* Cute Soft Blush (Flat on skin) */}
+            <mesh position={[-0.14, -0.04, 0.195]} rotation={[0, -0.32, 0]}>
+              <circleGeometry args={[0.042, 16]} />
+              <meshBasicMaterial color="#FB7185" transparent opacity={0.65} />
+            </mesh>
+            <mesh position={[0.14, -0.04, 0.195]} rotation={[0, 0.32, 0]}>
+              <circleGeometry args={[0.042, 16]} />
+              <meshBasicMaterial color="#FB7185" transparent opacity={0.65} />
+            </mesh>
+
+            {/* Tiny Cute Button Nose */}
+            <mesh position={[0, -0.02, 0.245]}>
+              <sphereGeometry args={[0.018, 12, 12]} />
+              <meshStandardMaterial color="#FCA5A5" roughness={0.5} />
+            </mesh>
+
+            {/* Big Friendly Smiling Anime Eyes */}
+            {/* Left Eye */}
+            <group position={[-0.082, 0.04, 0.23]} rotation={[0, -0.18, 0]}>
+              <mesh>
+                <circleGeometry args={[0.036, 20]} />
+                <meshBasicMaterial color="#291811" />
+              </mesh>
+              {/* White Specular Sparkle */}
+              <mesh position={[0.01, 0.012, 0.002]}>
+                <circleGeometry args={[0.012, 12]} />
+                <meshBasicMaterial color="#FFFFFF" />
+              </mesh>
+              <mesh position={[-0.008, -0.008, 0.002]}>
+                <circleGeometry args={[0.006, 10]} />
+                <meshBasicMaterial color="#FFFFFF" />
+              </mesh>
+              {/* Eyebrow */}
+              <mesh position={[0, 0.05, 0.002]} rotation={[0, 0, 0.1]}>
+                <boxGeometry args={[0.06, 0.01, 0.002]} />
+                <meshBasicMaterial color="#532E16" />
+              </mesh>
+            </group>
+
+            {/* Right Eye */}
+            <group position={[0.082, 0.04, 0.23]} rotation={[0, 0.18, 0]}>
+              <mesh>
+                <circleGeometry args={[0.036, 20]} />
+                <meshBasicMaterial color="#291811" />
+              </mesh>
+              {/* White Specular Sparkle */}
+              <mesh position={[0.006, 0.012, 0.002]}>
+                <circleGeometry args={[0.012, 12]} />
+                <meshBasicMaterial color="#FFFFFF" />
+              </mesh>
+              <mesh position={[-0.012, -0.008, 0.002]}>
+                <circleGeometry args={[0.006, 10]} />
+                <meshBasicMaterial color="#FFFFFF" />
+              </mesh>
+              {/* Eyebrow */}
+              <mesh position={[0, 0.05, 0.002]} rotation={[0, 0, -0.1]}>
+                <boxGeometry args={[0.06, 0.01, 0.002]} />
+                <meshBasicMaterial color="#532E16" />
+              </mesh>
+            </group>
+
+            {/* Happy Curved Smile */}
+            <group position={[0, -0.08, 0.236]}>
+              <mesh rotation={[0, 0, 0]}>
+                <torusGeometry args={[0.03, 0.006, 8, 16, Math.PI]} />
+                <meshBasicMaterial color="#581C20" />
+              </mesh>
+              <mesh position={[0, -0.012, 0]}>
+                <circleGeometry args={[0.018, 14, Math.PI, Math.PI]} />
+                <meshBasicMaterial color="#FB7185" />
+              </mesh>
+            </group>
+
+            {/* Ears */}
+            <mesh position={[-0.235, 0.02, 0]} rotation={[0, -0.25, 0]}>
+              <sphereGeometry args={[0.05, 12, 12]} />
+              <meshStandardMaterial color={skinColor} roughness={0.5} />
+            </mesh>
+            <mesh position={[0.235, 0.02, 0]} rotation={[0, 0.25, 0]}>
+              <sphereGeometry args={[0.05, 12, 12]} />
+              <meshStandardMaterial color={skinColor} roughness={0.5} />
+            </mesh>
+
+            {/* ================= 5. STYLED CHESTNUT HAIR (CLEAN VOLUME) ================= */}
+            {/* Smooth Top & Back Hair Cap (No separate sausages) */}
+            <mesh position={[0, 0.06, -0.03]} castShadow>
+              <sphereGeometry args={[0.258, 28, 28]} />
+              <meshStandardMaterial color={hairColor} roughness={0.7} />
+            </mesh>
+            {/* Back Hair Rounding */}
+            <mesh position={[0, -0.04, -0.09]} castShadow>
+              <sphereGeometry args={[0.21, 20, 20]} />
+              <meshStandardMaterial color={hairColor} roughness={0.7} />
+            </mesh>
+
+            {/* Stylized Smooth Front Fringe Bangs (Hugging the brow naturally) */}
+            <group position={[0, 0.14, 0.18]}>
+              {/* Left Wing Bang */}
+              <mesh position={[-0.11, 0, 0.01]} rotation={[0.2, -0.2, -0.35]}>
+                <boxGeometry args={[0.11, 0.09, 0.04]} />
+                <meshStandardMaterial color={hairColor} roughness={0.7} />
+              </mesh>
+              {/* Center Bang */}
+              <mesh position={[-0.01, 0.02, 0.03]} rotation={[0.15, 0, -0.05]}>
+                <boxGeometry args={[0.12, 0.1, 0.04]} />
+                <meshStandardMaterial color={hairColor} roughness={0.7} />
+              </mesh>
+              {/* Right Wing Bang */}
+              <mesh position={[0.1, 0, 0.01]} rotation={[0.2, 0.2, 0.35]}>
+                <boxGeometry args={[0.11, 0.09, 0.04]} />
+                <meshStandardMaterial color={hairColor} roughness={0.7} />
+              </mesh>
+            </group>
+
+            {/* Sideburns framing the face */}
+            <mesh position={[-0.22, 0.02, 0.09]} rotation={[0.1, 0, -0.15]}>
+              <boxGeometry args={[0.04, 0.1, 0.05]} />
+              <meshStandardMaterial color={hairColor} roughness={0.7} />
+            </mesh>
+            <mesh position={[0.22, 0.02, 0.09]} rotation={[0.1, 0, 0.15]}>
+              <boxGeometry args={[0.04, 0.1, 0.05]} />
+              <meshStandardMaterial color={hairColor} roughness={0.7} />
+            </mesh>
+
+            {/* ================= 6. FOREHEAD GOGGLES (FLUSH & CLEAN) ================= */}
+            <group position={[0, 0.19, 0.13]} rotation={[0.18, 0, 0]}>
+              {/* White Curved Goggle Bezel */}
+              <mesh castShadow>
+                <boxGeometry args={[0.31, 0.11, 0.06]} />
+                <meshStandardMaterial color={goggleFrame} roughness={0.3} />
+              </mesh>
+              {/* Clear Glass Visor Lens */}
+              <mesh position={[0, 0, 0.025]}>
+                <boxGeometry args={[0.27, 0.08, 0.03]} />
+                <meshPhysicalMaterial 
+                  color={goggleLens} 
+                  transparent 
+                  opacity={0.65} 
+                  roughness={0.08}
+                  reflectivity={0.9} 
+                />
+              </mesh>
+              {/* Dark Charcoal Head Strap wrapping around head */}
+              <mesh position={[-0.165, -0.015, -0.14]} rotation={[0, -0.22, 0]}>
+                <boxGeometry args={[0.025, 0.038, 0.28]} />
+                <meshStandardMaterial color={goggleStrap} roughness={0.8} />
+              </mesh>
+              <mesh position={[0.165, -0.015, -0.14]} rotation={[0, 0.22, 0]}>
+                <boxGeometry args={[0.025, 0.038, 0.28]} />
+                <meshStandardMaterial color={goggleStrap} roughness={0.8} />
+              </mesh>
+              <mesh position={[0, -0.045, -0.26]}>
+                <boxGeometry args={[0.31, 0.038, 0.025]} />
+                <meshStandardMaterial color={goggleStrap} roughness={0.8} />
+              </mesh>
+            </group>
+
+            {/* Optional Surgical Mask when equipped */}
+            {hasMask && (
+              <group position={[0, -0.06, 0.22]}>
+                <mesh castShadow>
+                  <boxGeometry args={[0.2, 0.11, 0.05]} />
+                  <meshStandardMaterial color="#38BDF8" roughness={0.6} />
                 </mesh>
               </group>
-            )}
-
-            {/* If holding trash but barehanded (no sweeper), trash piece sits in the right hand! */}
-            {player.isHoldingTrash && !player.hasSweeper && (
-              <>
-                {(!player.heldTrashType || player.heldTrashType === 'chemical') && (
-                  <mesh position={[0, -0.08, 0.05]} castShadow>
-                    <dodecahedronGeometry args={[0.06]} />
-                    <meshStandardMaterial color="#c084fc" emissive="#a855f7" emissiveIntensity={0.8} roughness={0.2} />
-                  </mesh>
-                )}
-                {player.heldTrashType === 'domestic' && (
-                  <mesh position={[0, -0.08, 0.05]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-                    <cylinderGeometry args={[0.03, 0.03, 0.1, 12]} />
-                    <meshStandardMaterial color="#94a3b8" roughness={0.3} opacity={0.7} transparent />
-                  </mesh>
-                )}
-                {player.heldTrashType === 'sharps' && (
-                  <mesh position={[0, -0.08, 0.05]} rotation={[0, 0, Math.PI / 4]} castShadow>
-                    <cylinderGeometry args={[0.015, 0.01, 0.1, 6]} />
-                    <meshStandardMaterial color="#cbd5e1" roughness={0.1} opacity={0.9} transparent />
-                  </mesh>
-                )}
-              </>
             )}
           </group>
-        </mesh>
-
-        {/* Legs and Shoes */}
-        {/* Left Leg */}
-        <mesh 
-          ref={leftLegRef} 
-          position={[-0.1, 0.3, 0]} 
-          castShadow
-        >
-          <cylinderGeometry args={[0.06, 0.06, 0.5, 16]} />
-          <meshStandardMaterial color="#1e293b" roughness={0.7} /> {/* Slate pants */}
-          
-          {/* Shoe / Feet */}
-          <group position={[0, -0.28, 0.04]}>
-            {player.hasClosedShoes ? (
-              /* Highly detailed safety leather boot */
-              <group>
-                {/* Boot sole */}
-                <mesh position={[0, -0.04, 0.01]} castShadow>
-                  <boxGeometry args={[0.085, 0.02, 0.19]} />
-                  <meshStandardMaterial color="#020617" roughness={0.9} />
-                </mesh>
-                {/* Boot main upper */}
-                <mesh position={[0, -0.01, 0.01]} castShadow>
-                  <boxGeometry args={[0.08, 0.06, 0.18]} />
-                  <meshStandardMaterial color="#0f172a" roughness={0.8} /> {/* Black Leather */}
-                </mesh>
-                {/* Boot steel toe curve */}
-                <mesh position={[0, -0.01, 0.09]} castShadow>
-                  <sphereGeometry args={[0.038, 16, 16]} />
-                  <meshStandardMaterial color="#0f172a" roughness={0.8} />
-                </mesh>
-                {/* Visual white laces */}
-                <mesh position={[0, 0.022, 0.02]} rotation={[0, 0, 0]} castShadow>
-                  <boxGeometry args={[0.03, 0.005, 0.06]} />
-                  <meshBasicMaterial color="#ffffff" opacity={0.8} transparent />
-                </mesh>
-              </group>
-            ) : (
-              /* High hazard open sandals displaying vulnerable toes */
-              <group>
-                {/* Sandal Sole */}
-                <mesh position={[0, -0.03, 0.01]} castShadow>
-                  <boxGeometry args={[0.075, 0.015, 0.15]} />
-                  <meshStandardMaterial color="#78350f" roughness={0.9} /> {/* Brown Sole */}
-                </mesh>
-                {/* Bare foot skin box */}
-                <mesh position={[0, -0.01, 0.01]} castShadow>
-                  <boxGeometry args={[0.07, 0.03, 0.14]} />
-                  <meshStandardMaterial color="#fcd34d" roughness={0.6} />
-                </mesh>
-                {/* Exposed Toes (5 funny little spheres) */}
-                <group position={[0, -0.01, 0.08]}>
-                  <mesh position={[-0.024, 0, 0]} castShadow><sphereGeometry args={[0.012, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[-0.012, -0.002, 0]} castShadow><sphereGeometry args={[0.009, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[0, -0.003, 0]} castShadow><sphereGeometry args={[0.008, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[0.012, -0.004, 0]} castShadow><sphereGeometry args={[0.007, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[0.024, -0.005, 0]} castShadow><sphereGeometry args={[0.006, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                </group>
-                {/* Criss-cross red plastic straps */}
-                <mesh position={[0, 0.01, 0]} rotation={[0.2, 0, 0.3]} castShadow>
-                  <boxGeometry args={[0.015, 0.004, 0.1]} />
-                  <meshStandardMaterial color="#ef4444" roughness={0.4} />
-                </mesh>
-                <mesh position={[0, 0.01, 0]} rotation={[0.2, 0, -0.3]} castShadow>
-                  <boxGeometry args={[0.015, 0.004, 0.1]} />
-                  <meshStandardMaterial color="#ef4444" roughness={0.4} />
-                </mesh>
-              </group>
-            )}
-          </group>
-        </mesh>
-
-        {/* Right Leg */}
-        <mesh 
-          ref={rightLegRef} 
-          position={[0.1, 0.3, 0]} 
-          castShadow
-        >
-          <cylinderGeometry args={[0.06, 0.06, 0.5, 16]} />
-          <meshStandardMaterial color="#1e293b" roughness={0.7} /> {/* Slate pants */}
-          
-          {/* Shoe / Feet */}
-          <group position={[0, -0.28, 0.04]}>
-            {player.hasClosedShoes ? (
-              /* Highly detailed safety leather boot */
-              <group>
-                {/* Boot sole */}
-                <mesh position={[0, -0.04, 0.01]} castShadow>
-                  <boxGeometry args={[0.085, 0.02, 0.19]} />
-                  <meshStandardMaterial color="#020617" roughness={0.9} />
-                </mesh>
-                {/* Boot main upper */}
-                <mesh position={[0, -0.01, 0.01]} castShadow>
-                  <boxGeometry args={[0.08, 0.06, 0.18]} />
-                  <meshStandardMaterial color="#0f172a" roughness={0.8} />
-                </mesh>
-                {/* Boot steel toe curve */}
-                <mesh position={[0, -0.01, 0.09]} castShadow>
-                  <sphereGeometry args={[0.038, 16, 16]} />
-                  <meshStandardMaterial color="#0f172a" roughness={0.8} />
-                </mesh>
-                {/* Visual white laces */}
-                <mesh position={[0, 0.022, 0.02]} rotation={[0, 0, 0]} castShadow>
-                  <boxGeometry args={[0.03, 0.005, 0.06]} />
-                  <meshBasicMaterial color="#ffffff" opacity={0.8} transparent />
-                </mesh>
-              </group>
-            ) : (
-              /* High hazard open sandals displaying vulnerable toes */
-              <group>
-                {/* Sandal Sole */}
-                <mesh position={[0, -0.03, 0.01]} castShadow>
-                  <boxGeometry args={[0.075, 0.015, 0.15]} />
-                  <meshStandardMaterial color="#78350f" roughness={0.9} />
-                </mesh>
-                {/* Bare foot skin box */}
-                <mesh position={[0, -0.01, 0.01]} castShadow>
-                  <boxGeometry args={[0.07, 0.03, 0.14]} />
-                  <meshStandardMaterial color="#fcd34d" roughness={0.6} />
-                </mesh>
-                {/* Exposed Toes (5 funny little spheres) */}
-                <group position={[0, -0.01, 0.08]}>
-                  <mesh position={[-0.024, 0, 0]} castShadow><sphereGeometry args={[0.012, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[-0.012, -0.002, 0]} castShadow><sphereGeometry args={[0.009, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[0, -0.003, 0]} castShadow><sphereGeometry args={[0.008, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[0.012, -0.004, 0]} castShadow><sphereGeometry args={[0.007, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                  <mesh position={[0.024, -0.005, 0]} castShadow><sphereGeometry args={[0.006, 8, 8]} /><meshStandardMaterial color="#fcd34d" /></mesh>
-                </group>
-                {/* Criss-cross red plastic straps */}
-                <mesh position={[0, 0.01, 0]} rotation={[0.2, 0, 0.3]} castShadow>
-                  <boxGeometry args={[0.015, 0.004, 0.1]} />
-                  <meshStandardMaterial color="#ef4444" roughness={0.4} />
-                </mesh>
-                <mesh position={[0, 0.01, 0]} rotation={[0.2, 0, -0.3]} castShadow>
-                  <boxGeometry args={[0.015, 0.004, 0.1]} />
-                  <meshStandardMaterial color="#ef4444" roughness={0.4} />
-                </mesh>
-              </group>
-            )}
-          </group>
-        </mesh>
+        </group>
       </group>
     </group>
   );

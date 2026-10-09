@@ -10,9 +10,22 @@ import {
   ExternalLink,
   Loader2,
   ChevronRight,
+  Plus,
+  Calendar,
+  Trash2,
+  Clock,
+  CheckCircle2,
 } from "lucide-react";
 import { fetchAdminUsers, fetchAdminStats } from "../../services/adminService";
-import type { UserProfile } from "../../types";
+import {
+  fetchAssignments,
+  createAssignment,
+  deleteAssignment,
+  toggleAssignmentStatus,
+  type ClassAssignment,
+} from "../../services/assignmentService";
+import { getExamList } from "../../services/examService";
+import type { UserProfile, Exam } from "../../types";
 import { useToast } from "../../components/ui/ToastNotification";
 
 interface ClassStat {
@@ -23,7 +36,7 @@ interface ClassStat {
 }
 
 export default function Classes() {
-  const { showErrorToast } = useToast();
+  const { showErrorToast, showSuccessToast } = useToast();
   const [loading, setLoading] = useState(true);
   const [classMap, setClassMap] = useState<Record<string, ClassStat>>({});
   const [search, setSearch] = useState("");
@@ -32,6 +45,37 @@ export default function Classes() {
   const [classStudentLimit, setClassStudentLimit] = useState(5);
   const [loadingStudents, setLoadingStudents] = useState(false);
   const [hasMoreStudents, setHasMoreStudents] = useState(true);
+
+  // Homework Assignments States
+  const [assignments, setAssignments] = useState<ClassAssignment[]>([]);
+  const [availableExams, setAvailableExams] = useState<Exam[]>([]);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [selectedExamId, setSelectedExamId] = useState("");
+  const [assignDueDate, setAssignDueDate] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    return d.toISOString().split("T")[0];
+  });
+  const [assignPassingScore, setAssignPassingScore] = useState(5.0);
+
+  const loadAssignmentsForClass = async (cName: string) => {
+    try {
+      const list = await fetchAssignments(cName);
+      setAssignments(list);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getExamList({ pageSize: 50 }).then((res) => {
+      const published = (res.items || []).filter((x) => x.status === "published");
+      setAvailableExams(published);
+      if (published.length > 0) {
+        setSelectedExamId(published[0].id);
+      }
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const loadClassData = async () => {
@@ -86,6 +130,7 @@ export default function Classes() {
     setSelectedClass(cName);
     setClassStudentLimit(customLimit);
     setLoadingStudents(true);
+    loadAssignmentsForClass(cName);
     try {
       const data = await fetchAdminUsers({
         limit: customLimit,
@@ -100,6 +145,44 @@ export default function Classes() {
     } finally {
       setLoadingStudents(false);
     }
+  };
+
+  const handleCreateAssignment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedExamId || !selectedClass) return;
+    const exam = availableExams.find((x) => x.id === selectedExamId);
+    if (!exam) return;
+
+    try {
+      await createAssignment({
+        examId: exam.id,
+        examTitle: exam.title,
+        examCode: exam.code,
+        targetClass: selectedClass,
+        dueDate: assignDueDate,
+        passingScore: assignPassingScore,
+        createdBy: "admin",
+        status: "open",
+      });
+      showSuccessToast(`Đã giao bài thi "${exam.title}" cho lớp ${selectedClass}!`);
+      setShowAssignModal(false);
+      loadAssignmentsForClass(selectedClass);
+    } catch {
+      showErrorToast("Giao bài tập thất bại.");
+    }
+  };
+
+  const handleToggleStatus = async (id: string) => {
+    await toggleAssignmentStatus(id);
+    if (selectedClass) loadAssignmentsForClass(selectedClass);
+    showSuccessToast("Đã cập nhật trạng thái bài tập!");
+  };
+
+  const handleDeleteAssignment = async (id: string) => {
+    if (!window.confirm("Bạn có chắc chắn muốn xóa bài tập này?")) return;
+    await deleteAssignment(id);
+    if (selectedClass) loadAssignmentsForClass(selectedClass);
+    showSuccessToast("Đã xóa bài tập!");
   };
 
   const handleLoadMoreStudents = () => {
@@ -187,55 +270,234 @@ export default function Classes() {
         </div>
       )}
 
-      {/* Selected Class Drill-down Table */}
+      {/* Selected Class Drill-down Table & Assignments */}
       {selectedClass && (
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 animate-in fade-in">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-black text-slate-900">
-              Danh sách học sinh lớp: <span className="text-indigo-600">{selectedClass}</span> ({classStudents.length})
-            </h3>
-            <button
-              onClick={() => setSelectedClass(null)}
-              className="text-xs font-bold text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
-            >
-              Đóng lại
-            </button>
-          </div>
-
-          <div className="divide-y divide-slate-100 text-xs">
-            {classStudents.map((s) => (
-              <div key={s.uid} className="py-2.5 flex items-center justify-between">
-                <div>
-                  <Link
-                    to={`/admin/users/${s.uid}`}
-                    className="font-bold text-slate-900 hover:text-indigo-600 transition-colors"
-                  >
-                    {s.displayName || "Học sinh"}
-                  </Link>
-                  <p className="text-[10px] text-slate-400">{s.email || s.uid}</p>
-                </div>
-                <Link
-                  to={`/admin/users/${s.uid}`}
-                  className="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold text-[11px] transition-colors"
-                >
-                  Xem hồ sơ
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          {hasMoreStudents && classStudents.length >= classStudentLimit && (
-            <div className="pt-2 text-center">
+        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-6 animate-in fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+            <div>
+              <h3 className="text-base font-black text-slate-900">
+                Chi tiết lớp: <span className="text-indigo-600">{selectedClass}</span>
+              </h3>
+              <p className="text-xs text-slate-500">
+                Quản lý bài tập về nhà và hồ sơ học sinh trong lớp
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={handleLoadMoreStudents}
-                disabled={loadingStudents}
-                className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-indigo-200 disabled:opacity-50"
+                onClick={() => setShowAssignModal(true)}
+                className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer"
               >
-                {loadingStudents ? "Đang tải thêm..." : "Tải thêm 5 học sinh"}
+                <Plus className="w-3.5 h-3.5" />
+                <span>Giao bài tập về nhà</span>
+              </button>
+              <button
+                onClick={() => setSelectedClass(null)}
+                className="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+              >
+                Đóng lại
               </button>
             </div>
-          )}
+          </div>
+
+          {/* Assignments Section */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Calendar className="w-4 h-4 text-indigo-600" />
+              <span>Bài tập đã giao ({assignments.length})</span>
+            </h4>
+
+            {assignments.length === 0 ? (
+              <div className="p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                Chưa có bài tập nào được giao cho lớp {selectedClass}. Hãy bấm &ldquo;Giao bài tập về nhà&rdquo; để thêm mới.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {assignments.map((asgn) => (
+                  <div
+                    key={asgn.id}
+                    className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-2.5"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-bold text-xs text-slate-900 truncate">
+                        {asgn.examTitle}
+                      </span>
+                      <span
+                        className={`px-2 py-0.5 rounded-lg text-[10px] font-bold ${
+                          asgn.status === "open"
+                            ? "bg-emerald-100 text-emerald-800"
+                            : "bg-slate-200 text-slate-600"
+                        }`}
+                      >
+                        {asgn.status === "open" ? "Đang mở" : "Đã khóa"}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px] text-slate-500">
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-slate-400" />
+                        Hạn: {asgn.dueDate || "Không giới hạn"}
+                      </span>
+                      <span>Điểm đạt: {asgn.passingScore} đ</span>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-200 flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleStatus(asgn.id)}
+                        className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 cursor-pointer"
+                      >
+                        {asgn.status === "open" ? "Khóa bài" : "Mở lại"}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteAssignment(asgn.id)}
+                        className="p-1 text-slate-400 hover:text-red-600 rounded-md transition-colors cursor-pointer"
+                        title="Xóa bài tập"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Students List Section */}
+          <div className="space-y-3 pt-3 border-t border-slate-100">
+            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Users className="w-4 h-4 text-indigo-600" />
+              <span>Danh sách học sinh ({classStudents.length})</span>
+            </h4>
+
+            <div className="divide-y divide-slate-100 text-xs">
+              {classStudents.map((s) => (
+                <div key={s.uid} className="py-2.5 flex items-center justify-between">
+                  <div>
+                    <Link
+                      to={`/admin/users/${s.uid}`}
+                      className="font-bold text-slate-900 hover:text-indigo-600 transition-colors"
+                    >
+                      {s.displayName || "Học sinh"}
+                    </Link>
+                    <p className="text-[10px] text-slate-400">{s.email || s.uid}</p>
+                  </div>
+                  <Link
+                    to={`/admin/users/${s.uid}`}
+                    className="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold text-[11px] transition-colors"
+                  >
+                    Xem hồ sơ
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            {hasMoreStudents && classStudents.length >= classStudentLimit && (
+              <div className="pt-2 text-center">
+                <button
+                  type="button"
+                  onClick={handleLoadMoreStudents}
+                  disabled={loadingStudents}
+                  className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-xl transition-colors cursor-pointer border border-indigo-200 disabled:opacity-50"
+                >
+                  {loadingStudents ? "Đang tải thêm..." : "Tải thêm 5 học sinh"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Assign Homework Modal */}
+      {showAssignModal && selectedClass && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in"
+          onClick={() => setShowAssignModal(false)}
+        >
+          <div
+            className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-indigo-600" />
+                <span>Giao Bài Tập - Lớp {selectedClass}</span>
+              </h3>
+              <button
+                type="button"
+                onClick={() => setShowAssignModal(false)}
+                className="p-1 text-slate-400 hover:text-slate-700 rounded-lg cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateAssignment} className="space-y-4 text-xs">
+              <div>
+                <label className="font-bold text-slate-700">Chọn đề thi để giao</label>
+                <select
+                  value={selectedExamId}
+                  onChange={(e) => setSelectedExamId(e.target.value)}
+                  className="w-full mt-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800"
+                  required
+                >
+                  {availableExams.length === 0 ? (
+                    <option value="">Chưa có bài thi nào được xuất bản</option>
+                  ) : (
+                    availableExams.map((x) => (
+                      <option key={x.id} value={x.id}>
+                        {x.title} ({x.code || "EXAM"})
+                      </option>
+                    ))
+                  )}
+                </select>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700">Hạn chót nộp bài</label>
+                <input
+                  type="date"
+                  value={assignDueDate}
+                  onChange={(e) => setAssignDueDate(e.target.value)}
+                  className="w-full mt-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700">Điểm tối thiểu để Đạt</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  step="0.5"
+                  value={assignPassingScore}
+                  onChange={(e) => setAssignPassingScore(Number(e.target.value) || 5.0)}
+                  className="w-full mt-1 p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold"
+                  required
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAssignModal(false)}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  disabled={availableExams.length === 0}
+                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-xs disabled:opacity-50"
+                >
+                  Xác nhận giao bài
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

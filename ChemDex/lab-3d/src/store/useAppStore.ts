@@ -174,9 +174,14 @@ export interface ToastInfo {
   type?: 'info' | 'warning' | 'success';
 }
 
+export type GameRunState = 'RUNNING' | 'PAUSED';
+
 export interface AppState {
   language: Language;
   setLanguage: (lang: Language) => void;
+
+  gameRunState: GameRunState;
+  setGameRunState: (state: GameRunState) => void;
 
   globalWarning: string | null;
   setGlobalWarning: (warning: string | null) => void;
@@ -431,6 +436,9 @@ export const useAppStore = create<AppState>((set, get) => {
   return {
     language: 'vi',
     setLanguage: (lang) => set({ language: lang }),
+
+    gameRunState: 'RUNNING',
+    setGameRunState: (state) => set({ gameRunState: state }),
 
     globalWarning: null,
     setGlobalWarning: (warning) => {

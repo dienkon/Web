@@ -1,20 +1,17 @@
-# Architectural Decisions: Lab Safety 3D ("Bright White Lab")
+# Architecture Decisions
 
-## 1. State Management & Per-Frame Performance
-- **Decision:** Keep player position and camera target in shared mutable vectors/refs (`playerTransformRef`) instead of pushing coordinates to Zustand at 60 Hz.
-- **Rationale:** React component tree renders will only fire on discrete state transitions (task complete, rule violation, dialog state, item equip), maintaining 60 FPS on mobile devices.
+## ADR 1: Engine Tách Rời (Sprint 2)
+Quyết định: Sử dụng các lớp thuần (PhaseEngine, ScoreEngine, MistakeRegistry) nằm ngoài Zustand để xử lý logic.
+Lý do: Giảm sự cồng kềnh cho store, tách biệt logic nghiệp vụ khỏi UI.
 
-## 2. Asset Pipeline & Offline Resilience
-- **Decision:** Bundle font definitions and procedural 3D fallbacks (RoundedBox, Lathe, Extrude primitives) for every GLB model and texture.
-- **Rationale:** Zero downtime or blank screens if large GLB assets fail to load or take excessive time over mobile 3G/4G networks.
+## ADR 2: Interaction System 1-Scan (Sprint 2)
+Quyết định: Chỉ sử dụng 1 \`useFrame\` duy nhất trong \`InteractionManager\` tính toán khoảng cách thay vì gắn vào từng object.
+Lý do: Giải quyết overhead gọi hàm 60 lần / giây trên 20+ object.
 
-## 3. UI System & Design Tokens
-- **Decision:** Strictly light theme ("Bright White Lab") with clean CSS variables (`--bg`, `--surface`, `--ink`, `--primary`, `--danger`, `--warning`, `--mandatory`, `--safe`).
-- **Rationale:** Maximizes readability and matches modern laboratory aesthetics.
+## ADR 3: State Derived VFX (Sprint 5)
+Quyết định: Hiệu ứng phản ứng (lửa, khói) không phải "phát 1 lần", mà phụ thuộc hoàn toàn vào state của \`SimState\` tại bất kỳ frame nào.
+Lý do: Giúp code dễ replay, state-machine có thể khôi phục lại khi save/resume.
 
-## 4. Mobile & Orientation Support
-- **Decision:** Support both portrait and landscape orientation natively. Never block the user with an undismissible lock screen; instead adapt HUD layouts gracefully.
-
-## 5. Deployment & Routing (Vercel & ChemDex Suite)
-- **Decision:** Use `base: './'` in `vite.config.ts` for both `lab-safety` and `lab-3d` to guarantee seamless asset loading under `/lab-safety/`, `/lab-3d/`, or `/lab/` proxies.
-- **Decision:** Create a dedicated, vibrant animated 404 page (`404.html`) in ChemDex root for unmatched paths.
+## ADR 4: Dynamic Performance (Sprint 3)
+Quyết định: Cập nhật FPS định kỳ mỗi giây và hạ đồ họa tự động (\`graphicsQuality: auto\`) nếu liên tục thấp.
+Lý do: Giữ mức 30fps ổn định tối thiểu cho thiết bị cấu hình thấp.
