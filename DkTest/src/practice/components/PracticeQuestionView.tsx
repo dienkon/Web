@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Check, X, ArrowRight, Lightbulb, Sparkles, HelpCircle, Trophy } from "lucide-react";
+import { Check, X, ArrowRight, Lightbulb, Sparkles, HelpCircle, Trophy, AlertTriangle } from "lucide-react";
 import { PracticeQuestion, PracticeUserAnswer } from "../core/types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 
@@ -128,6 +128,27 @@ export default function PracticeQuestionView({
               </div>
             );
           })()}
+
+          {/* Progressive Hints Drawer (if available before submission) */}
+          {(() => {
+            const hints = question.hints || question.metadata?.hints || [];
+            if (hints.length === 0) return null;
+            return (
+              <details className="mt-3 text-left bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3 text-xs sm:text-sm text-amber-900 group">
+                <summary className="font-semibold cursor-pointer flex items-center gap-2 text-amber-800 select-none">
+                  <Lightbulb className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Gợi ý phương pháp giải ({hints.length})</span>
+                </summary>
+                <div className="mt-2.5 pl-6 space-y-1.5 text-slate-700 border-t border-amber-200/60 pt-2">
+                  {hints.map((hint, hIdx) => (
+                    <div key={hIdx} className="leading-relaxed">
+                      • <LatexPreview content={hint} />
+                    </div>
+                  ))}
+                </div>
+              </details>
+            );
+          })()}
         </div>
 
         {/* Input Interface */}
@@ -135,22 +156,31 @@ export default function PracticeQuestionView({
           {/* Numeric Input */}
           {question.type === "numeric" && (
             <div className="w-full max-w-xs flex flex-col items-center gap-3">
-              <input
-                ref={numericInputRef}
-                type="text"
-                inputMode="decimal"
-                disabled={isSubmitted || disabled}
-                value={currentAnswer ?? ""}
-                onChange={(e) => onChangeAnswer(e.target.value)}
-                placeholder="Nhập kết quả..."
-                className={`w-full text-center text-2xl font-bold px-4 py-3.5 rounded-2xl border-2 transition-all outline-hidden ${
-                  isSubmitted
-                    ? userResult?.isCorrect
-                      ? "bg-emerald-50 border-emerald-400 text-emerald-800"
-                      : "bg-rose-50 border-rose-400 text-rose-800"
-                    : "bg-slate-50/80 border-slate-300 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
-                }`}
-              />
+              <div className="w-full relative flex items-center">
+                <input
+                  ref={numericInputRef}
+                  type="text"
+                  inputMode="decimal"
+                  disabled={isSubmitted || disabled}
+                  value={currentAnswer ?? ""}
+                  onChange={(e) => onChangeAnswer(e.target.value)}
+                  placeholder="Nhập kết quả..."
+                  className={`w-full text-center text-2xl font-bold px-4 py-3.5 rounded-2xl border-2 transition-all outline-hidden ${
+                    (question.unit || question.metadata?.unit) ? "pr-14" : ""
+                  } ${
+                    isSubmitted
+                      ? userResult?.isCorrect
+                        ? "bg-emerald-50 border-emerald-400 text-emerald-800"
+                        : "bg-rose-50 border-rose-400 text-rose-800"
+                      : "bg-slate-50/80 border-slate-300 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+                  }`}
+                />
+                {(question.unit || question.metadata?.unit) && (
+                  <span className="absolute right-3.5 text-sm font-bold text-slate-500 bg-slate-200/70 px-2 py-1 rounded-lg pointer-events-none">
+                    {question.unit || question.metadata?.unit}
+                  </span>
+                )}
+              </div>
 
               {/* Distractor option buttons for quick click */}
               {question.options && question.options.length > 0 && !isSubmitted && (
@@ -173,6 +203,104 @@ export default function PracticeQuestionView({
               )}
             </div>
           )}
+
+          {/* True/False Cluster (Part II Format: 4 sub-statements a, b, c, d) */}
+          {question.type === "true_false_group" && (() => {
+            const statements = question.trueFalseStatements || question.metadata?.trueFalseStatements || [];
+            const ansMap = (typeof currentAnswer === "object" && currentAnswer !== null) ? currentAnswer : {};
+
+            return (
+              <div className="w-full space-y-3 mt-2">
+                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 text-left">
+                  Chọn Đúng hoặc Sai cho mỗi ý sau:
+                </div>
+                {statements.map((stmt, sIdx) => {
+                  const letter = stmt.id || ["a", "b", "c", "d"][sIdx] || `${sIdx + 1}`;
+                  const userVal = ansMap[stmt.id];
+                  const isAnswered = userVal !== undefined;
+                  const isStmtCorrect = isSubmitted && userVal === stmt.isCorrect;
+                  const isStmtWrong = isSubmitted && isAnswered && userVal !== stmt.isCorrect;
+
+                  return (
+                    <div
+                      key={stmt.id}
+                      className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                        isSubmitted
+                          ? isStmtCorrect
+                            ? "bg-emerald-50/70 border-emerald-300"
+                            : "bg-rose-50/70 border-rose-300"
+                          : isAnswered
+                          ? "bg-blue-50/40 border-blue-200"
+                          : "bg-slate-50/60 border-slate-200"
+                      }`}
+                    >
+                      {/* Statement content */}
+                      <div className="flex items-start gap-2.5 flex-1 text-left">
+                        <span className="w-6 h-6 rounded-lg bg-slate-200/80 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                          {letter})
+                        </span>
+                        <div className="text-sm sm:text-base text-slate-800 leading-snug">
+                          {stmt.latex ? <LatexPreview content={stmt.latex} /> : <LatexPreview content={stmt.text} />}
+                          {isSubmitted && stmt.explanation && (
+                            <div className="text-xs text-slate-600 mt-1 font-normal italic">
+                              ↳ <LatexPreview content={stmt.explanation} />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* True / False Toggle Buttons */}
+                      <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                        <button
+                          type="button"
+                          disabled={isSubmitted || disabled}
+                          onClick={() => {
+                            onChangeAnswer({ ...ansMap, [stmt.id]: true });
+                          }}
+                          className={`min-w-[70px] min-h-[44px] px-3 py-2 text-xs sm:text-sm font-bold rounded-xl border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                            userVal === true
+                              ? isSubmitted
+                                ? stmt.isCorrect
+                                  ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                                  : "bg-rose-600 text-white border-rose-600"
+                                : "bg-blue-600 text-white border-blue-600 shadow-sm"
+                              : isSubmitted && stmt.isCorrect
+                              ? "bg-emerald-100 text-emerald-800 border-emerald-400 font-bold"
+                              : "bg-white text-slate-700 hover:bg-slate-100 border-slate-300"
+                          }`}
+                        >
+                          {isSubmitted && stmt.isCorrect && <Check className="w-3.5 h-3.5" />}
+                          Đúng
+                        </button>
+
+                        <button
+                          type="button"
+                          disabled={isSubmitted || disabled}
+                          onClick={() => {
+                            onChangeAnswer({ ...ansMap, [stmt.id]: false });
+                          }}
+                          className={`min-w-[70px] min-h-[44px] px-3 py-2 text-xs sm:text-sm font-bold rounded-xl border-2 transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                            userVal === false
+                              ? isSubmitted
+                                ? !stmt.isCorrect
+                                  ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                                  : "bg-rose-600 text-white border-rose-600"
+                                : "bg-blue-600 text-white border-blue-600 shadow-sm"
+                              : isSubmitted && !stmt.isCorrect
+                              ? "bg-emerald-100 text-emerald-800 border-emerald-400 font-bold"
+                              : "bg-white text-slate-700 hover:bg-slate-100 border-slate-300"
+                          }`}
+                        >
+                          {isSubmitted && !stmt.isCorrect && <Check className="w-3.5 h-3.5" />}
+                          Sai
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
 
           {/* Fraction Input */}
           {question.type === "fraction" && (
@@ -326,7 +454,12 @@ export default function PracticeQuestionView({
                 currentAnswer === undefined ||
                 currentAnswer === null ||
                 currentAnswer === "" ||
-                (question.type === "fraction" && (!currentAnswer.numerator || !currentAnswer.denominator))
+                (question.type === "fraction" && (!currentAnswer.numerator || !currentAnswer.denominator)) ||
+                (question.type === "true_false_group" && (() => {
+                  const stmts = question.trueFalseStatements || question.metadata?.trueFalseStatements || [];
+                  if (stmts.length === 0) return false;
+                  return !currentAnswer || typeof currentAnswer !== "object" || Object.keys(currentAnswer).length < stmts.length;
+                })())
               }
               onClick={onSubmitAnswer}
               className="w-full max-w-sm px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 active:scale-98 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none cursor-pointer"
@@ -362,6 +495,8 @@ export default function PracticeQuestionView({
           className={`rounded-3xl p-5 sm:p-6 border transition-all ${
             userResult.isCorrect
               ? "bg-emerald-50/80 border-emerald-200 text-emerald-950"
+              : (userResult.scoreRatio && userResult.scoreRatio > 0)
+              ? "bg-blue-50/80 border-blue-200 text-blue-950"
               : "bg-rose-50/80 border-rose-200 text-rose-950"
           }`}
         >
@@ -369,17 +504,35 @@ export default function PracticeQuestionView({
             <div className="flex items-center gap-3">
               <div
                 className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
-                  userResult.isCorrect ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
+                  userResult.isCorrect
+                    ? "bg-emerald-500 text-white"
+                    : (userResult.scoreRatio && userResult.scoreRatio > 0)
+                    ? "bg-blue-600 text-white"
+                    : "bg-rose-500 text-white"
                 }`}
               >
-                {userResult.isCorrect ? <Check className="w-6 h-6 stroke-[3]" /> : <X className="w-6 h-6 stroke-[3]" />}
+                {userResult.isCorrect ? (
+                  <Check className="w-6 h-6 stroke-[3]" />
+                ) : (userResult.scoreRatio && userResult.scoreRatio > 0) ? (
+                  <Check className="w-6 h-6 stroke-[3]" />
+                ) : (
+                  <X className="w-6 h-6 stroke-[3]" />
+                )}
               </div>
               <div>
                 <h4 className="font-bold text-base sm:text-lg">
-                  {userResult.isCorrect ? "Chính xác! Xuất sắc!" : "Chưa chính xác rồi!"}
+                  {userResult.isCorrect
+                    ? "Chính xác! Xuất sắc!"
+                    : (userResult.scoreRatio && userResult.scoreRatio > 0)
+                    ? `Đúng một phần (${userResult.scoreRatio * 100}% đáp án đúng)`
+                    : "Chưa chính xác rồi!"}
                 </h4>
                 <p className="text-xs sm:text-sm opacity-80">
-                  {userResult.isCorrect ? `+${userResult.scoreEarned} điểm` : "Hãy xem kỹ lời giải chi tiết bên dưới nhé"}
+                  {userResult.isCorrect
+                    ? `+${userResult.scoreEarned} điểm`
+                    : (userResult.scoreRatio && userResult.scoreRatio > 0)
+                    ? `+${userResult.scoreEarned} điểm (Áp dụng thang điểm Quyết định 764 Bộ GD&ĐT)`
+                    : "Hãy xem kỹ lời giải chi tiết bên dưới nhé"}
                 </p>
               </div>
             </div>
@@ -394,6 +547,29 @@ export default function PracticeQuestionView({
               </button>
             )}
           </div>
+
+          {/* Misconceptions / Bẫy thường gặp callout */}
+          {(() => {
+            const misconceptions = question.misconceptions || question.metadata?.misconceptions || [];
+            if (!userResult.isCorrect && misconceptions.length > 0) {
+              return (
+                <div className="mt-3.5 p-3.5 bg-amber-100/70 border border-amber-300 rounded-2xl text-amber-950 text-xs sm:text-sm">
+                  <div className="font-bold flex items-center gap-1.5 mb-1.5 text-amber-900">
+                    <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span>Lưu ý bẫy đề thi & sai lầm thường gặp:</span>
+                  </div>
+                  <ul className="space-y-1 pl-4 list-disc">
+                    {misconceptions.map((m, mIdx) => (
+                      <li key={mIdx}>
+                        <LatexPreview content={m} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+            return null;
+          })()}
 
           {/* Explanation content */}
           {(showExplanation || !userResult.isCorrect) && question.explanation && (

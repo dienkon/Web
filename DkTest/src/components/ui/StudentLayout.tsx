@@ -19,6 +19,7 @@ import {
   HeartHandshake,
   BrainCircuit,
   MapPin,
+  KeyRound,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
@@ -150,6 +151,7 @@ function StudentLayoutContent() {
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
+    { to: "/student/escape-room", label: "Phòng Mật Mã", icon: KeyRound, iconColor: "text-purple-500", actionKey: "click_escape_room" },
     { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500", tourId: TOUR_DATA_IDS.NAV_COMMUNITY, actionKey: "click_community" },

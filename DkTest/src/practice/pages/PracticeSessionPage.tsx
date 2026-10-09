@@ -223,17 +223,66 @@ export default function PracticeSessionPage() {
   const handleSubmitAnswer = () => {
     if (!currentQuestion || isSubmitted) return;
 
-    const validationRes = mode.validateAnswer(currentQuestion, currentAnswer);
-    const isCorrect = typeof validationRes === "boolean" ? validationRes : validationRes.isCorrect;
+    let isCorrect = false;
+    let scoreRatio = 1.0;
+    let subResults: Record<string, boolean> | undefined = undefined;
+    let subAnswers: Record<string, boolean> | undefined = undefined;
 
-    const scoreEarned = mode.calculateScore(currentQuestion, currentAnswer, {
+    if (currentQuestion.type === "true_false_group") {
+      const statements = currentQuestion.trueFalseStatements || currentQuestion.metadata?.trueFalseStatements || [];
+      const userAnswersMap = (typeof currentAnswer === "object" && currentAnswer !== null) ? currentAnswer : {};
+      subAnswers = userAnswersMap;
+      subResults = {};
+      let correctSubCount = 0;
+
+      statements.forEach((stmt) => {
+        const uVal = userAnswersMap[stmt.id];
+        const isMatch = uVal === stmt.isCorrect;
+        subResults![stmt.id] = isMatch;
+        if (isMatch) correctSubCount++;
+      });
+
+      // Ministry 2025 non-linear scoring curve (Quyết định số 764/QĐ-BGDĐT)
+      // 1 ý đúng = 0.1, 2 ý đúng = 0.25, 3 ý đúng = 0.5, 4 ý đúng = 1.0
+      if (correctSubCount === 1) scoreRatio = 0.1;
+      else if (correctSubCount === 2) scoreRatio = 0.25;
+      else if (correctSubCount === 3) scoreRatio = 0.5;
+      else if (correctSubCount === 4) scoreRatio = 1.0;
+      else scoreRatio = 0.0;
+
+      isCorrect = correctSubCount === statements.length;
+    } else if (currentQuestion.type === "numeric") {
+      const validationRes = mode.validateAnswer(currentQuestion, currentAnswer);
+      isCorrect = typeof validationRes === "boolean" ? validationRes : validationRes.isCorrect;
+
+      // Tolerance check for decimal responses
+      if (!isCorrect) {
+        const normUser = parseFloat(String(currentAnswer).trim().replace(",", "."));
+        const normCorrect = parseFloat(String(currentQuestion.correctAnswer).trim().replace(",", "."));
+        const tolerance = currentQuestion.tolerance ?? currentQuestion.metadata?.tolerance ?? 0.05;
+
+        if (!isNaN(normUser) && !isNaN(normCorrect)) {
+          isCorrect = Math.abs(normUser - normCorrect) <= tolerance;
+        }
+      }
+    } else {
+      const validationRes = mode.validateAnswer(currentQuestion, currentAnswer);
+      isCorrect = typeof validationRes === "boolean" ? validationRes : validationRes.isCorrect;
+    }
+
+    const baseScoreEarned = mode.calculateScore(currentQuestion, currentAnswer, {
       difficulty: typeof session.difficulty === "number" ? session.difficulty : 1,
       combo: isCorrect ? session.currentStreak + 1 : 0,
       isCorrect,
     });
 
+    const scoreEarned = currentQuestion.type === "true_false_group"
+      ? Math.round(baseScoreEarned * scoreRatio)
+      : (isCorrect ? baseScoreEarned : 0);
+
+    const isAnyCredit = isCorrect || scoreRatio > 0;
     if (soundEnabled) {
-      playSound(isCorrect ? "correct" : "wrong");
+      playSound(isAnyCredit ? "correct" : "wrong");
     }
 
     const newStreak = isCorrect ? session.currentStreak + 1 : 0;
@@ -243,7 +292,7 @@ export default function PracticeSessionPage() {
     const newScore = session.score + scoreEarned;
 
     let newHearts = session.heartsRemaining;
-    if (mode.gameRule === "survival_3hearts" && !isCorrect && newHearts !== undefined) {
+    if (mode.gameRule === "survival_3hearts" && !isAnyCredit && newHearts !== undefined) {
       newHearts = Math.max(0, newHearts - 1);
     }
 
@@ -254,8 +303,12 @@ export default function PracticeSessionPage() {
       questionType: currentQuestion.type,
       codeSnippet: currentQuestion.codeSnippet || currentQuestion.metadata?.codeSnippet,
       options: currentQuestion.options,
+      trueFalseStatements: currentQuestion.trueFalseStatements || currentQuestion.metadata?.trueFalseStatements,
       userAnswer: currentAnswer,
       correctAnswer: currentQuestion.correctAnswer,
+      subAnswers,
+      subResults,
+      scoreRatio,
       isCorrect,
       scoreEarned,
       explanation: currentQuestion.explanation,

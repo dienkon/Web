@@ -46,6 +46,7 @@ const Settings = lazyWithRetry(() => import("../../pages/admin/Settings"), "Sett
 const LiveProctoring = lazyWithRetry(() => import("../../pages/admin/LiveProctoring"), "LiveProctoring");
 const LiveMonitor = lazyWithRetry(() => import("../../pages/admin/LiveMonitor"), "LiveMonitor");
 const QuestionBank = lazyWithRetry(() => import("../../pages/admin/QuestionBank"), "QuestionBank");
+const JourneyCreatorStudio = lazyWithRetry(() => import("../../pages/admin/JourneyCreatorStudio"), "JourneyCreatorStudio");
 const LegalPolicy = lazyWithRetry(() => import("../../pages/LegalPolicy"), "LegalPolicy");
 
 // Lazy-loaded Student Pages
@@ -62,6 +63,7 @@ const PracticeSessionPage = lazyWithRetry(() => import("../../practice/pages/Pra
 const StudentTutorialExam = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialExam"), "StudentTutorialExam");
 const StudentTutorialResult = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialResult"), "StudentTutorialResult");
 const LearningJourney = lazyWithRetry(() => import("../../pages/student/LearningJourney"), "LearningJourney");
+const EscapeRoomGame = lazyWithRetry(() => import("../../pages/student/EscapeRoomGame"), "EscapeRoomGame");
 const CodeExamBuilder = lazyWithRetry(() => import("../../pages/admin/CodeExamBuilder"), "CodeExamBuilder");
 const CodeExamTaking = lazyWithRetry(() => import("../../pages/student/CodeExamTaking"), "CodeExamTaking");
 const NotFoundPage = lazyWithRetry(() => import("../../pages/NotFoundPage"), "NotFoundPage");
@@ -254,6 +256,7 @@ const router = createBrowserRouter([
       { path: "code-exam/:id", element: withSuspense(CodeExamBuilder, "Đang mở trình sửa đề CODE...") },
       { path: "code-exam/edit/:id", element: withSuspense(CodeExamBuilder, "Đang mở trình sửa đề CODE...") },
       { path: "question-bank", element: withSuspense(QuestionBank, "Đang tải ngân hàng câu hỏi...") },
+      { path: "journey-studio", element: withSuspense(JourneyCreatorStudio, "Đang nạp xưởng thiết kế chiến dịch...") },
       { path: "system-health", element: withSuspense(SystemHealth, "Đang kiểm tra hệ thống...") },
       { path: "live-proctoring", element: withSuspense(LiveProctoring, "Đang tải phòng giám sát...") },
       { path: "stats", element: withSuspense(Statistics, "Đang tổng hợp số liệu...") },
@@ -276,6 +279,8 @@ const router = createBrowserRouter([
       { path: "exams", element: withSuspense(Home, "Đang tải danh sách đề thi...") },
       { path: "journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
       { path: "student/journey", element: withSuspense(LearningJourney, "Đang tải bản đồ hành trình...") },
+      { path: "escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
+      { path: "student/escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
       { path: "student", element: <Navigate to="/student/history" replace /> },
       { path: "student/practice", element: withSuspense(PracticePage, "Đang tải góc luyện tập...") },
       { path: "student/practice/:modeId", element: withSuspense(PracticeSessionPage, "Đang tải phòng luyện tập...") },

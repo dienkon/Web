@@ -70,10 +70,46 @@ import { englishScrambledSentencesMode } from "./english/scrambledSentences";
 
 // Group J: Computer Science / Tin học THPTQG
 import { codeTraceLoopMode } from "./cs/codeTraceLoop";
+import { csDatabaseSqlMode } from "./cs/csDatabaseSqlMode";
+import { csNetworkSecurityMode } from "./cs/csNetworkSecurityMode";
+
+// Group K: Physics / Vật lý THPTQG
+import { physicsThermalGasMode } from "./physics/physicsThermalGasMode";
+import { physicsIdealGasLawsMode } from "./physics/physicsIdealGasLawsMode";
+import { physicsNuclearPhysicsMode } from "./physics/physicsNuclearPhysicsMode";
+
+// Group L: Chemistry / Hóa học THPTQG
+import { chemistryEsterLipidMode } from "./chemistry/chemistryEsterLipidMode";
+import { chemistryCarbohydrateMode } from "./chemistry/chemistryCarbohydrateMode";
+import { chemistryNitrogenPolymersMode } from "./chemistry/chemistryNitrogenPolymersMode";
+import { chemistryElectrochemMetalsMode } from "./chemistry/chemistryElectrochemMetalsMode";
+
+// Group M: Mathematics / Toán học THPTQG
+import { mathCalculusAnalysisMode } from "./math/mathCalculusAnalysisMode";
+import { mathOxyzGeometryMode } from "./math/mathOxyzGeometryMode";
+import { mathStatisticsDispersionMode } from "./math/mathStatisticsDispersionMode";
 
 export const ALL_PRACTICE_MODES: PracticeMode[] = [
-  // Computer Science / Tin học
+  // Grade 12 Math THPTQG
+  mathCalculusAnalysisMode,
+  mathOxyzGeometryMode,
+  mathStatisticsDispersionMode,
+
+  // Grade 12 Physics THPTQG
+  physicsThermalGasMode,
+  physicsIdealGasLawsMode,
+  physicsNuclearPhysicsMode,
+
+  // Grade 12 Chemistry THPTQG
+  chemistryEsterLipidMode,
+  chemistryCarbohydrateMode,
+  chemistryNitrogenPolymersMode,
+  chemistryElectrochemMetalsMode,
+
+  // Grade 12 Computer Science / Tin học THPTQG
   codeTraceLoopMode,
+  csDatabaseSqlMode,
+  csNetworkSecurityMode,
 
   // English Learning
   englishVocabTopicMode,

@@ -68,6 +68,13 @@ export class PracticeHistoryService {
       }
 
       localStorage.setItem(LOCAL_STATS_KEY, JSON.stringify(stats));
+
+      // Synchronize into canonical learning_activities (non-blocking)
+      import("../../services/learningActivityService").then(({ syncFromPracticeResult }) => {
+        const studentUid = localStorage.getItem("user_id") || "student_guest";
+        const username = localStorage.getItem("student_name") || "Học sinh";
+        syncFromPracticeResult(result, studentUid, username).catch(() => {});
+      }).catch(() => {});
     } catch (e) {
       console.warn("Failed to persist practice history locally:", e);
     }

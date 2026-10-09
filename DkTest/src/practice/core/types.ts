@@ -11,7 +11,9 @@ export type PracticeCategory =
   | "geometry"
   | "word_problems"
   | "english"
-  | "cs";
+  | "cs"
+  | "physics"
+  | "chemistry";
 
 export type QuestionInputType =
   | "numeric"
@@ -20,7 +22,10 @@ export type QuestionInputType =
   | "comparison"
   | "step_error"
   | "number_line"
-  | "expression_builder";
+  | "expression_builder"
+  | "true_false_group"
+  | "matching"
+  | "code_trace";
 
 export type PracticeGameRule =
   | "standard"
@@ -35,6 +40,14 @@ export interface FractionValue {
   denominator: number;
 }
 
+export interface TrueFalseStatement {
+  id: string; // e.g. "a", "b", "c", "d"
+  text: string;
+  latex?: string;
+  isCorrect: boolean; // boolean expected (true = Đúng, false = Sai)
+  explanation?: string;
+}
+
 export type PracticeAnswerValue =
   | number
   | string
@@ -42,7 +55,8 @@ export type PracticeAnswerValue =
   | FractionValue
   | { numerator: number | string; denominator: number | string }
   | number[]
-  | string[];
+  | string[]
+  | Record<string, boolean>;
 
 export interface PracticeQuestion {
   id: string;
@@ -53,6 +67,19 @@ export interface PracticeQuestion {
   codeSnippet?: { python: string; cpp: string };
   correctAnswer: PracticeAnswerValue;
   options?: Array<{ id: string; text: string; latex?: string }>;
+  trueFalseStatements?: TrueFalseStatement[];
+  tolerance?: number;
+  unit?: string;
+  hints?: string[];
+  misconceptions?: string[];
+  curriculumMeta?: {
+    subject: string;
+    chapterId?: string;
+    topicId?: string;
+    skillId?: string;
+    formatPart?: "part1_single_choice" | "part2_true_false" | "part3_short_answer";
+    cognitiveLevel?: "remember" | "understand" | "apply" | "analyze";
+  };
   explanation: string;
   difficulty: number;
   metadata?: {
@@ -62,7 +89,11 @@ export interface PracticeQuestion {
     targetValue?: number;
     availableCards?: Array<{ id: string; label: string; value: number | string; type: "number" | "op" }>;
     hints?: string[];
+    misconceptions?: string[];
+    unit?: string;
+    tolerance?: number;
     codeSnippet?: { python: string; cpp: string };
+    trueFalseStatements?: TrueFalseStatement[];
   };
 }
 
@@ -104,6 +135,9 @@ export interface UserQuestionAttempt {
   scoreAwarded: number;
   answeredAt: number;
   isFlagged?: boolean;
+  subAnswers?: Record<string, boolean>;
+  subResults?: Record<string, boolean>;
+  scoreRatio?: number;
 }
 
 export interface PracticeUserAnswer {
@@ -113,8 +147,12 @@ export interface PracticeUserAnswer {
   questionType?: QuestionInputType;
   codeSnippet?: { python: string; cpp: string };
   options?: Array<{ id: string; text: string; latex?: string }>;
+  trueFalseStatements?: TrueFalseStatement[];
   userAnswer: any;
   correctAnswer: any;
+  subAnswers?: Record<string, boolean>;
+  subResults?: Record<string, boolean>;
+  scoreRatio?: number;
   isCorrect: boolean;
   scoreEarned: number;
   explanation?: string;

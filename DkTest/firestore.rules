@@ -180,6 +180,72 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // 11. Learning Intelligence: Learning Activities
+    match /learning_activities/{actId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid ||
+        request.auth.uid != null
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid
+      );
+      allow delete: if isAdmin();
+    }
+
+    // 12. Learning Intelligence: Revision Programs & Tasks
+    match /revision_programs/{programId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid ||
+        request.auth.uid != null
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid
+      );
+      allow delete: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid
+      );
+    }
+    match /revision_tasks/{taskId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid ||
+        request.auth.uid != null
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid
+      );
+      allow delete: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.studentUid == request.auth.uid
+      );
+    }
+
+    // 13. Learning Intelligence: Topic Mastery & Evidence
+    match /topic_mastery/{docId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // 14. Old Exams & Journey Progress
+    match /student_review_mastery/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+    match /journey_progress/{docId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
     // Default deny for anything else
     match /{document=**} {
       allow read, write: if false;

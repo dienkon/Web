@@ -19,7 +19,37 @@ export interface JourneyQuestion {
   explanation: string;
 }
 
-export const JOURNEY_QUESTIONS_100: JourneyQuestion[] = [
+/**
+ * Deterministically shuffles options of a question based on its ID
+ * so correctIndex is evenly distributed across 0, 1, 2, 3 while preserving correctness.
+ */
+export function shuffleQuestionOptions<T extends { id: string; options: string[]; correctIndex: number }>(q: T): T {
+  let hash = 0;
+  for (let i = 0; i < q.id.length; i++) {
+    hash = ((hash << 5) - hash) + q.id.charCodeAt(i);
+    hash |= 0;
+  }
+  const seed = Math.abs(hash);
+
+  const indexed = q.options.map((opt, idx) => ({ opt, isCorrect: idx === q.correctIndex }));
+  const shuffled = [...indexed];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = (seed + i * 37) % (i + 1);
+    const temp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = temp;
+  }
+
+  const newCorrectIndex = shuffled.findIndex((item) => item.isCorrect);
+  return {
+    ...q,
+    options: shuffled.map((item) => item.opt),
+    correctIndex: newCorrectIndex >= 0 ? newCorrectIndex : 0,
+  };
+}
+
+const RAW_JOURNEY_QUESTIONS_100: JourneyQuestion[] = [
   // ===================== MÀN 1: KHỞI ĐỘNG CƠ BẢN (TOÁN - ĐẠO HÀM & TÍNH ĐƠN ĐIỆU) =====================
   {
     id: "q_1_1",
@@ -1305,6 +1335,8 @@ export const JOURNEY_QUESTIONS_100: JourneyQuestion[] = [
     explanation: "y = m(x³ + 2x + 3) - x³ + x - 2. Điểm cố định thỏa mãn x³ + 2x + 3 = 0 <=> (x + 1)(x² - x + 3) = 0 <=> x = -1. Khi x = -1 thì y = -(-1)³ + (-1) - 2 = 1 - 1 - 2 = -2. Điểm cố định là M(-1; -2).",
   },
 ];
+
+export const JOURNEY_QUESTIONS_100: JourneyQuestion[] = RAW_JOURNEY_QUESTIONS_100.map(shuffleQuestionOptions);
 
 /**
  * Lấy danh sách câu hỏi theo cấp độ (Level 1 - 25)

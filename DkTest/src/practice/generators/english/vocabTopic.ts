@@ -46,16 +46,15 @@ export const englishVocabTopicMode: PracticeMode = {
         difficulty: context.difficulty,
       };
     } else {
-      const shuffledOptions = [...item.options].sort(() => Math.random() - 0.5);
+      const choices = [item.en, "perspective", "substantial", "counterpart"].sort(() => Math.random() - 0.5);
+      const correctIdx = choices.indexOf(item.en);
 
       return {
         id: `vocab_${Date.now()}_${Math.random()}`,
         type: "choice",
         prompt: `Từ tiếng Anh nào mang nghĩa **"${item.vi}"** (Chủ đề: ${item.topic})?`,
-        options: [item.en, "perspective", "substantial", "counterpart"]
-          .sort(() => Math.random() - 0.5)
-          .map((opt, idx) => ({ id: String.fromCharCode(65 + idx), text: opt })),
-        correctAnswer: "A",
+        options: choices.map((opt, idx) => ({ id: String.fromCharCode(65 + idx), text: opt })),
+        correctAnswer: String.fromCharCode(65 + correctIdx),
         explanation: `Từ tiếng Anh chính xác cho "${item.vi}" là **${item.en}**.`,
         difficulty: context.difficulty,
       };

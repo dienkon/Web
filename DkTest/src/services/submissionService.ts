@@ -225,6 +225,33 @@ export const createSubmission = async (
     }
   }
 
+  // Synchronize into canonical learning_activities (non-blocking)
+  import("./learningActivityService").then(({ syncFromSubmission }) => {
+    const studentUid = submissionData.studentId || submissionData.ownerId || "student";
+    syncFromSubmission(
+      { id: docRef.id, ...finalSubObject },
+      {
+        id: submissionData.examId,
+        title: submissionData.examTitleSnapshot,
+        code: submissionData.examCodeSnapshot || "",
+        timeLimit: 0,
+        shuffleQuestions: false,
+        shuffleOptions: false,
+        showResults: true,
+        showDetails: true,
+        allowSubExam: false,
+        maxAttempts: 0,
+        status: "published",
+        questionCount: submissionData.totalCount || 0,
+        createdAt: null as any,
+        updatedAt: null as any,
+      },
+      studentUid
+    ).catch((actErr) => {
+      console.warn("[SubmissionService] Warning syncing to learning_activities:", actErr);
+    });
+  }).catch(() => {});
+
   return { id: docRef.id, ...newSubmission, submittedAt: new Date() as any } as Submission;
 };
 

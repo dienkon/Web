@@ -211,27 +211,75 @@ export default function PracticeSummaryModal({ mode, session, onRestart, onBackT
                   </div>
 
                   {/* Answers Comparison */}
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs sm:text-sm bg-white/80 p-3 rounded-2xl border border-black/5">
-                    <div>
-                      <span className="text-slate-500 font-medium">Bạn đã trả lời: </span>
-                      <span className={`font-bold ${ans.isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
-                        {typeof ans.userAnswer === "object" && ans.userAnswer !== null
-                          ? `${ans.userAnswer.numerator ?? ""}/${ans.userAnswer.denominator ?? ""}`
-                          : String(ans.userAnswer ?? "Chưa trả lời")}
-                      </span>
+                  {ans.questionType === "true_false_group" && ans.trueFalseStatements ? (
+                    <div className="space-y-2 bg-white/80 p-3.5 rounded-2xl border border-black/5 text-xs sm:text-sm">
+                      <div className="font-semibold text-slate-700 mb-1 flex items-center justify-between">
+                        <span>Kết quả từng ý Đúng/Sai (QĐ 764 BGD&ĐT):</span>
+                        {ans.scoreRatio !== undefined && (
+                          <span className="text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-200">
+                            Hệ số điểm: {(ans.scoreRatio * 100).toFixed(0)}% (+{ans.scoreEarned}đ)
+                          </span>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {ans.trueFalseStatements.map((stmt) => {
+                          const userChoice = ans.subAnswers ? ans.subAnswers[stmt.id] : undefined;
+                          const isMatch = ans.subResults ? ans.subResults[stmt.id] : userChoice === stmt.isCorrect;
+                          return (
+                            <div
+                              key={stmt.id}
+                              className={`p-2.5 rounded-xl border flex items-center justify-between gap-2 ${
+                                isMatch ? "bg-emerald-50/70 border-emerald-300" : "bg-rose-50/70 border-rose-300"
+                              }`}
+                            >
+                              <div className="flex items-center gap-1.5 font-medium truncate">
+                                <span className="font-bold text-slate-700">{stmt.id})</span>
+                                <span className="text-slate-600 truncate">{stmt.text}</span>
+                              </div>
+                              <div className="flex items-center gap-2 shrink-0 text-xs">
+                                <span className="text-slate-500">
+                                  Bạn:{" "}
+                                  <b className={isMatch ? "text-emerald-700" : "text-rose-700"}>
+                                    {userChoice === true ? "Đ" : userChoice === false ? "S" : "-"}
+                                  </b>
+                                </span>
+                                <span>
+                                  / Đ/án: <b className="text-emerald-700">{stmt.isCorrect ? "Đ" : "S"}</b>
+                                </span>
+                                {isMatch ? (
+                                  <Check className="w-4 h-4 text-emerald-600" />
+                                ) : (
+                                  <X className="w-4 h-4 text-rose-600" />
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-
-                    {!ans.isCorrect && (
+                  ) : (
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs sm:text-sm bg-white/80 p-3 rounded-2xl border border-black/5">
                       <div>
-                        <span className="text-slate-500 font-medium">Đáp án chính xác: </span>
-                        <span className="font-bold text-emerald-700">
-                          {typeof ans.correctAnswer === "object" && ans.correctAnswer !== null
-                            ? `${ans.correctAnswer.numerator ?? ""}/${ans.correctAnswer.denominator ?? ""}`
-                            : String(ans.correctAnswer ?? "")}
+                        <span className="text-slate-500 font-medium">Bạn đã trả lời: </span>
+                        <span className={`font-bold ${ans.isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
+                          {typeof ans.userAnswer === "object" && ans.userAnswer !== null
+                            ? `${ans.userAnswer.numerator ?? ""}/${ans.userAnswer.denominator ?? ""}`
+                            : String(ans.userAnswer ?? "Chưa trả lời")}
                         </span>
                       </div>
-                    )}
-                  </div>
+
+                      {!ans.isCorrect && (
+                        <div>
+                          <span className="text-slate-500 font-medium">Đáp án chính xác: </span>
+                          <span className="font-bold text-emerald-700">
+                            {typeof ans.correctAnswer === "object" && ans.correctAnswer !== null
+                              ? `${ans.correctAnswer.numerator ?? ""}/${ans.correctAnswer.denominator ?? ""}`
+                              : String(ans.correctAnswer ?? "")}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Detailed Explanation */}
                   {ans.explanation && (

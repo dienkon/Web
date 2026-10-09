@@ -13,6 +13,10 @@ export class PracticeRegistryClass {
       ALL_PRACTICE_MODES.forEach((mode) => {
         if (mode && mode.id) {
           this.modes.set(mode.id, mode);
+          const altHyphen = mode.id.replace(/_/g, "-");
+          const altUnderscore = mode.id.replace(/-/g, "_");
+          this.modes.set(altHyphen, mode);
+          this.modes.set(altUnderscore, mode);
         }
       });
     }
@@ -22,6 +26,10 @@ export class PracticeRegistryClass {
     this.initModes();
     if (mode && mode.id) {
       this.modes.set(mode.id, mode);
+      const altHyphen = mode.id.replace(/_/g, "-");
+      const altUnderscore = mode.id.replace(/-/g, "_");
+      this.modes.set(altHyphen, mode);
+      this.modes.set(altUnderscore, mode);
     }
   }
 
