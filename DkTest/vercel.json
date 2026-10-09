@@ -3,9 +3,6 @@
   "functions": {
     "api/*.ts": {
       "includeFiles": "server/**"
-    },
-    "api/**/*.ts": {
-      "includeFiles": "server/**"
     }
   },
   "headers": [
@@ -70,7 +67,7 @@
   "rewrites": [
     {
       "source": "/student/exam/:examId",
-      "destination": "/api/ai/exam-meta?examId=:examId"
+      "destination": "/api/exam-meta?examId=:examId"
     },
     {
       "source": "/api/admin/:match*",
@@ -87,6 +84,14 @@
     {
       "source": "/api/auth",
       "destination": "/api/auth"
+    },
+    {
+      "source": "/api/ai/:match*",
+      "destination": "/api/ai"
+    },
+    {
+      "source": "/api/ai",
+      "destination": "/api/ai"
     },
     {
       "source": "/((?!api/).*)",
