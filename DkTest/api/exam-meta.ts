@@ -1,4 +1,6 @@
-import { renderExamPageHtml } from "../../src/services/server/examMetadata.js";
+import { renderExamPageHtml } from "../src/services/server/examMetadata.js";
+
+export const maxDuration = 30;
 
 export default async function handler(req: any, res: any) {
   try {
@@ -49,7 +51,7 @@ export default async function handler(req: any, res: any) {
     );
     return res.status(status).send(html);
   } catch (err: any) {
-    console.error("[api/ai/exam-meta] Error processing request:", err);
+    console.error("[api/exam-meta] Error processing request:", err);
 
     // Fallback safe production HTML on unexpected error
     res.setHeader("Content-Type", "text/html; charset=utf-8");

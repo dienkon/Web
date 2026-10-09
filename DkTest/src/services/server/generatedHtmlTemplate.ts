@@ -126,7 +126,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         // 4. crypto.randomUUID shim (Safe for HTTP / older Android WebViews)
         if (typeof window !== 'undefined' && window.crypto && !window.crypto.randomUUID) {
           window.crypto.randomUUID = function() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) { 
               var r = Math.random() * 16 | 0;
               var v = c === 'x' ? r : (r & 0x3 | 0x8);
               return v.toString(16);
@@ -398,7 +398,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-D8-ezkqm.js"></script>
+    <script type="module" crossorigin src="/assets/index-KP2IsJpt.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DkJUajiB.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-icons-C94sS-XP.js">
@@ -423,6 +423,6 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         <div class="dk-boot-bar"></div>
       </div>
     </div>
-
+
   </body>
 </html>`;
