@@ -386,6 +386,10 @@ export default function LearningJourney() {
     localStorage.setItem("dktest_journey_quality", q);
   }, []);
 
+  const handleSelectNode = useCallback((node: Journey3DNode | null) => {
+    setSelectedNode(node);
+  }, []);
+
   // Collectibles & Missions
   const collectibles = useMemo(() => {
     return getStudentCollectibles(levelsProgress);
@@ -1076,7 +1080,7 @@ export default function LearningJourney() {
                     nodes={journeyNodes}
                     activeSubject={activeSubject}
                     currentLevel={currentLevel}
-                    onSelectNode={(node) => setSelectedNode(node)}
+                    onSelectNode={handleSelectNode}
                     onStartChallenge={(lvl) => handleOpenLevelModal(lvl)}
                   />
                 ) : (
@@ -1085,7 +1089,7 @@ export default function LearningJourney() {
                     activeSubject={activeSubject}
                     currentLevel={currentLevel}
                     selectedNodeId={selectedNode?.id || null}
-                    onSelectNode={(node) => setSelectedNode(node)}
+                    onSelectNode={handleSelectNode}
                     quality={quality}
                     onQualityChange={handleQualityChange}
                     reducedMotion={reducedMotion}

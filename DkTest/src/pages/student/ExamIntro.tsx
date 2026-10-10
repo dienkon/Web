@@ -342,6 +342,12 @@ export default function ExamIntro() {
       })
     );
 
+    // If not resuming an in-progress session, clear any stale state from previous submissions first
+    const active = hasActiveExamInProgress(exam.id);
+    if (!active) {
+      clearActiveExamSession(exam.id, finalCode);
+    }
+
     // Save sub-exam preference
     if (exam.allowSubExam || exam.subExamConfig?.enabled || useSubExam) {
       const activeCfg = {
@@ -352,12 +358,6 @@ export default function ExamIntro() {
         useSubExam,
         config: activeCfg,
       }));
-    }
-
-    // If not resuming an in-progress session, clear any stale state from previous submissions
-    const active = hasActiveExamInProgress(exam.id);
-    if (!active) {
-      clearActiveExamSession(exam.id, finalCode);
     }
 
     navigate(`/student/exam/${exam.id}/take`);

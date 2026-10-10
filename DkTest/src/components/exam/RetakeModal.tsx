@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { Exam, Submission, Question, Section } from "../../types";
 import { createRetakeExam } from "../../services/reviewExamService";
+import { clearActiveExamSession, getStudentIdentifier } from "../../services/examSessionService";
 import { useToast } from "../ui/ToastNotification";
 import CustomReviewConfigurator from "../../features/review/components/CustomReviewConfigurator";
 import type { ReviewSourceExam } from "../../features/review/types";
@@ -122,6 +123,60 @@ export default function RetakeModal({
     try {
       const targetExam = sourceExam.exam;
 
+      // When retaking the whole exam, use original exam data directly so submission records under original exam ID and ranks on its leaderboard!
+      if (selectedMode === "all") {
+        const originalExamId =
+          targetExam.originalExamId ||
+          (submission as any)?.originalExamId ||
+          targetExam.id ||
+          submission?.examId;
+
+        if (!originalExamId) {
+          throw new Error("Không tìm thấy mã bài thi gốc để làm lại.");
+        }
+
+        const studentIdentifier = getStudentIdentifier();
+
+        // Clear any active session & stale snapshot for original exam so it starts completely fresh
+        clearActiveExamSession(originalExamId, studentIdentifier);
+        try {
+          localStorage.removeItem(`attemptSnapshot_${originalExamId}_${studentIdentifier}`);
+          localStorage.removeItem(`dktest_temp_answers_${originalExamId}_${studentIdentifier}`);
+          localStorage.removeItem(`dktest_temp_answers_${originalExamId}`);
+        } catch {}
+
+        // Preserve candidate session identity
+        if (submission?.studentUsername) {
+          try {
+            const prevSession = localStorage.getItem("current_student_session");
+            const parsedPrev = prevSession ? JSON.parse(prevSession) : {};
+            localStorage.setItem(
+              "current_student_session",
+              JSON.stringify({
+                ...parsedPrev,
+                name: submission.studentNameSnapshot || parsedPrev.name || "Thí sinh",
+                code: submission.studentUsername || parsedPrev.code || "student",
+                username: submission.studentUsername || parsedPrev.username || "student",
+                studentClass: submission.studentClassSnapshot || parsedPrev.studentClass || "",
+                startTime: Date.now(),
+              })
+            );
+          } catch {}
+        }
+
+        showSuccessToast("Bắt đầu làm lại toàn bộ bài thi!");
+        onClose();
+
+        const queryParams = new URLSearchParams();
+        queryParams.set("retake", "true");
+        if (durationMode === "unlimited") {
+          queryParams.set("unlimited", "true");
+        }
+
+        navigate(`/student/exam/${originalExamId}/take?${queryParams.toString()}`);
+        return;
+      }
+
       if (!submission) {
         throw new Error("Không tìm thấy thông tin bài nộp để xác định câu đúng/sai.");
       }
@@ -136,9 +191,7 @@ export default function RetakeModal({
       });
 
       showSuccessToast(
-        selectedMode === "all"
-          ? "Bắt đầu làm lại toàn bộ bài thi!"
-          : selectedMode === "correct"
+        selectedMode === "correct"
           ? `Bắt đầu làm lại ${correctCount} câu đúng!`
           : `Bắt đầu làm lại ${wrongCount} câu sai!`
       );

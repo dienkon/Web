@@ -47,7 +47,7 @@ export interface ActiveExamSession {
 const GLOBAL_ACTIVE_SESSION_KEY = "dktest:session:active";
 const LEGACY_GLOBAL_KEY = "active_exam_session";
 
-function getStudentIdentifier(): string {
+export function getStudentIdentifier(): string {
   try {
     const currentSessionStr = localStorage.getItem("current_student_session");
     if (currentSessionStr) {
@@ -421,7 +421,6 @@ export function clearActiveExamSession(examId?: string, username?: string) {
       localStorage.removeItem(`attemptSnapshot_${examId}_${studentUsername}`);
       localStorage.removeItem(`dktest_temp_answers_${examId}_${studentUsername}`);
       localStorage.removeItem(`dktest_temp_answers_${examId}`);
-      localStorage.removeItem(`custom_sub_exam_config_${examId}`);
 
       // Thoroughly scan and remove any lingering keys related to this examId
       try {

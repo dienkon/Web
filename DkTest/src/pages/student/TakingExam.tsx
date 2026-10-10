@@ -163,7 +163,9 @@ export default function TakingExam() {
   };
 
   const isUnlimitedExamTime = useMemo(() => {
+    const isUrlUnlimited = new URLSearchParams(window.location.search).get("unlimited") === "true";
     return Boolean(
+      isUrlUnlimited ||
       exam?.isUnlimitedTime ||
       exam?.unlimitedTime ||
       exam?.timeLimit === 0 ||
@@ -596,6 +598,19 @@ export default function TakingExam() {
           };
         }
         
+        const urlParams = new URLSearchParams(window.location.search);
+        const isQueryUnlimited = urlParams.get("unlimited") === "true";
+        const queryDuration = parseInt(urlParams.get("duration") || "0", 10);
+        if (isQueryUnlimited) {
+          examData.isUnlimitedTime = true;
+          examData.unlimitedTime = true;
+          examData.timeLimit = 0;
+          examData.duration = 0;
+        } else if (queryDuration > 0) {
+          examData.timeLimit = queryDuration;
+          examData.duration = queryDuration;
+        }
+
         setExam(examData);
 
         // Retrieve student session name or profile
@@ -680,8 +695,9 @@ export default function TakingExam() {
           return;
         }
 
-        // Check max attempts only when starting a fresh attempt
-        if (examData.maxAttempts && examData.maxAttempts > 0 && !isResuming) {
+        // Check max attempts only when starting a fresh attempt (skip if retake explicitly initiated)
+        const isRetakeQuery = urlParams.get("retake") === "true";
+        if (examData.maxAttempts && examData.maxAttempts > 0 && !isResuming && !isRetakeQuery) {
           try {
             const subsRef = collection(db, "submissions");
             const maxAttLimit = examData.maxAttempts + 1;
@@ -854,11 +870,15 @@ export default function TakingExam() {
             selectedQuestionIds: allQuestions.map(q => q.id),
             questionOrder: allQuestions.map(q => q.id),
             shuffledQuestions: allQuestions,
+            isSubExam: isSubExamUsedRef.current,
             configSnapshot: subExamConfigUsedRef.current,
             createdAt: Date.now(),
             answers: {},
           };
           localStorage.setItem(snapshotKey, JSON.stringify(newSnapshot));
+          try {
+            localStorage.removeItem(`custom_sub_exam_config_${examId}`);
+          } catch {}
         }
 
         setQuestions(allQuestions);
@@ -866,13 +886,14 @@ export default function TakingExam() {
         // Active Exam Session & Timer Logic
         let startTime = Date.now();
         const isExamUnlimitedTime = Boolean(
+          isQueryUnlimited ||
           examData.isUnlimitedTime ||
           examData.unlimitedTime ||
           examData.timeLimit === 0 ||
           examData.duration === 0 ||
           (examData as any).timeLimit === -1
         );
-        const durationMinutes = isExamUnlimitedTime ? 0 : (examData.timeLimit || 45);
+        const durationMinutes = isExamUnlimitedTime ? 0 : (queryDuration > 0 ? queryDuration : (examData.timeLimit || 45));
         let initialRemainingSec = 0;
 
         if (isResuming && inProgressSession) {
@@ -2366,9 +2387,16 @@ export default function TakingExam() {
             Dk
           </div>
           <div className="min-w-0">
-            <h1 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
-              {exam?.title}
-            </h1>
+            <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+              <h1 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
+                {exam?.title}
+              </h1>
+              {isSubExamUsedRef.current && (
+                <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700 border border-purple-200 shrink-0">
+                  Đề con ({questions.length} câu)
+                </span>
+              )}
+            </div>
             <p className="text-[11px] text-slate-500 font-medium truncate">
               Thí sinh: <strong className="text-slate-800">{studentName}</strong>
             </p>

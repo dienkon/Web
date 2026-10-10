@@ -128,9 +128,8 @@ export default function World3DViewport({
         top: targetY,
         behavior: "smooth",
       });
-      onSelectNode(currentNode);
     }
-  }, [nodes, currentLevel, onSelectNode]);
+  }, [nodes, currentLevel]);
 
   // Auto smooth scroll to current level on load or subject change
   useEffect(() => {
