@@ -144,6 +144,12 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
   if (!studentUid && auth.currentUser) {
     studentUid = auth.currentUser.uid;
   }
+  if (!studentUid && submission?.studentId) {
+    studentUid = submission.studentId;
+  }
+  if ((!studentIdentifier || studentIdentifier === "student") && submission?.studentUsername) {
+    studentIdentifier = submission.studentUsername;
+  }
   if (!studentDisplayName && auth.currentUser?.displayName) {
     studentDisplayName = auth.currentUser.displayName;
   }
@@ -344,8 +350,8 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     creatorRole: "student",
     originalExamId: examId,
     requiredOriginalExamId: isOriginalPaid ? examId : null,
-    accessMode: examAccessMode as "free" | "paid",
-    priceVnd: examPriceVnd,
+    accessMode: "free" as const,
+    priceVnd: 0,
     isDerivedFromPaidExam: isOriginalPaid,
     shuffleQuestions: inheritShuffleQuestions,
     shuffleOptions: inheritShuffleOptions,
@@ -514,6 +520,14 @@ export async function createAggregatedReviewExam(
   if (!studentUid && auth.currentUser) {
     studentUid = auth.currentUser.uid;
   }
+  const submissionStudentId = items.find((i) => i.submission?.studentId)?.submission?.studentId;
+  const submissionStudentUsername = items.find((i) => i.submission?.studentUsername)?.submission?.studentUsername;
+  if (!studentUid && submissionStudentId) {
+    studentUid = submissionStudentId;
+  }
+  if ((!studentIdentifier || studentIdentifier === "student") && submissionStudentUsername) {
+    studentIdentifier = submissionStudentUsername;
+  }
   if (!studentDisplayName && auth.currentUser?.displayName) {
     studentDisplayName = auth.currentUser.displayName;
   }
@@ -530,9 +544,6 @@ export async function createAggregatedReviewExam(
     (item) => item.exam?.accessMode === "paid" || ((item.exam?.priceVnd || 0) > 0)
   );
   const sourceExamIds = items.map((i) => i.exam?.id).filter(Boolean) as string[];
-  const maxPriceVnd = hasPaidSource
-    ? Math.max(...items.map((i) => i.exam?.priceVnd || 0))
-    : 0;
 
   const docRef = doc(collection(db, EXAMS_COLLECTION));
   const newExamData = {
@@ -562,8 +573,8 @@ export async function createAggregatedReviewExam(
     allowedUid: studentUid,
     creatorUsername: studentIdentifier,
     creatorRole: "student",
-    accessMode: (hasPaidSource ? "paid" : "free") as "free" | "paid",
-    priceVnd: maxPriceVnd,
+    accessMode: "free" as const,
+    priceVnd: 0,
     isDerivedFromPaidExam: hasPaidSource,
     shuffleQuestions: Boolean(shuffleQuestions),
     shuffleOptions: true,

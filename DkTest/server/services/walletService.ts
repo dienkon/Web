@@ -826,24 +826,57 @@ export async function checkExamAccess(
   // SECURITY CHECK: RETAKE / PERSONAL / DERIVED EXAMS LOCKDOWN
   // Ngăn chặn hoàn toàn việc lách luật đề trả phí qua tính năng Retake
   // ------------------------------------------------------------------
-  const isRetakeExam = Boolean(
-    examData.isRetake ||
-    (examData as any).isPersonalRetake ||
-    (examData.isPractice && (examData as any).creatorUid)
+  const isPersonalRetakeExam = Boolean(
+    (examData as any).isPersonalRetake === true ||
+    (examData.isRetake && (examData as any).creatorRole === "student") ||
+    (examData as any).isAggregatedReview === true
   );
 
-  if (isRetakeExam) {
-    // 1. Phải đăng nhập mới được truy cập bài làm lại cá nhân
-    if (!uid) {
+  if (isPersonalRetakeExam) {
+    // Collect all parent exams to inspect (supports single originalExamId or multi-source aggregated review)
+    const parentExamIds: string[] = [];
+    if ((examData as any).originalExamId) {
+      parentExamIds.push((examData as any).originalExamId);
+    }
+    if (Array.isArray((examData as any).sourceExamIds)) {
+      for (const sid of (examData as any).sourceExamIds) {
+        if (sid && !parentExamIds.includes(sid)) parentExamIds.push(sid);
+      }
+    }
+
+    // Determine if any source/original exam is paid
+    let hasPaidSource = Boolean((examData as any).isDerivedFromPaidExam);
+    const paidSources: { id: string; title: string; price: number }[] = [];
+
+    for (const pId of parentExamIds) {
+      let pData: any = null;
+      if (adminDb) {
+        const snap = await adminDb.collection("exams").doc(pId).get();
+        if (snap.exists) pData = snap.data();
+      } else {
+        pData = await getFirestoreRestDoc("exams", pId);
+      }
+      if (pData) {
+        const pPrice = sanitizeVnd(pData.priceVnd);
+        const pMode = (pData.accessMode as "free" | "paid") || "free";
+        if (pMode === "paid" || pPrice > 0) {
+          hasPaidSource = true;
+          paidSources.push({ id: pId, title: pData.title || "Đề thi gốc", price: pPrice });
+        }
+      }
+    }
+
+    // 1. If derived from paid exams, visitor MUST be authenticated
+    if (hasPaidSource && !uid) {
       return {
         hasAccess: false,
         isFree: false,
         unlocked: false,
-        priceVnd,
+        priceVnd: priceVnd || (paidSources[0]?.price || 0),
         accessMode: "paid",
         salesEnabled: false,
         userBalance: 0,
-        missingVnd: priceVnd,
+        missingVnd: priceVnd || (paidSources[0]?.price || 0),
         canUnlock: false,
         examTitle,
         rejectionReason: "personal_retake_unauthenticated",
@@ -851,11 +884,34 @@ export async function checkExamAccess(
       };
     }
 
-    // 2. Kiểm tra quyền sở hữu chính chủ (Personal Ownership Gate)
+    // 2. Personal Ownership Gate (Chặn thí sinh khác dùng liên kết/mã đề làm lại của nhau)
     const creatorUid = (examData as any).creatorUid;
     const allowedUid = (examData as any).allowedUid;
-    if (creatorUid || allowedUid) {
-      if (uid !== creatorUid && uid !== allowedUid) {
+    const creatorUsername = (examData as any).creatorUsername;
+
+    if (uid && (creatorUid || allowedUid || creatorUsername)) {
+      const uidMatches = Boolean(
+        (creatorUid && uid === creatorUid) ||
+        (allowedUid && uid === allowedUid)
+      );
+
+      let usernameMatches = false;
+      if (creatorUsername) {
+        let currentUsername = "";
+        if (adminDb) {
+          const uSnap = await adminDb.collection("users").doc(uid).get();
+          if (uSnap.exists) currentUsername = (uSnap.data() as any)?.username || "";
+        } else {
+          const uDoc = await getFirestoreRestDoc("users", uid);
+          if (uDoc) currentUsername = uDoc.username || "";
+        }
+        if (currentUsername && currentUsername.trim().toLowerCase() === creatorUsername.trim().toLowerCase()) {
+          usernameMatches = true;
+        }
+      }
+
+      // If owner is explicitly recorded and neither UID nor username matches:
+      if ((creatorUid || allowedUid) && !uidMatches && !usernameMatches) {
         return {
           hasAccess: false,
           isFree: false,
@@ -873,56 +929,56 @@ export async function checkExamAccess(
       }
     }
 
-    // 3. Kiểm tra quyền sở hữu đối với Đề gốc (Original Exam Entitlement Gate)
-    const originalExamId = (examData as any).originalExamId;
-    if (originalExamId) {
-      let origExamData: any = null;
-      if (adminDb) {
-        const origSnap = await adminDb.collection("exams").doc(originalExamId).get();
-        if (origSnap.exists) origExamData = origSnap.data();
-      } else {
-        origExamData = await getFirestoreRestDoc("exams", originalExamId);
-      }
+    // 3. Original Exam Entitlement Gate: Student must own all paid source/parent exams
+    if (hasPaidSource && uid) {
+      for (const p of paidSources) {
+        const parentEntitlementId = `${uid}_${p.id}`;
+        let parentEntitlement: ExamEntitlement | null = null;
+        if (adminDb) {
+          const peSnap = await adminDb.collection("exam_entitlements").doc(parentEntitlementId).get();
+          if (peSnap.exists) parentEntitlement = peSnap.data() as ExamEntitlement;
+        } else {
+          parentEntitlement = await getFirestoreRestDoc("exam_entitlements", parentEntitlementId);
+        }
 
-      if (origExamData) {
-        const origPrice = sanitizeVnd(origExamData.priceVnd);
-        const origAccessMode = (origExamData.accessMode as "free" | "paid") || "free";
-        const isOrigPaid = origAccessMode === "paid" || origPrice > 0;
-
-        if (isOrigPaid) {
-          const parentEntitlementId = `${uid}_${originalExamId}`;
-          let parentEntitlement: ExamEntitlement | null = null;
-          if (adminDb) {
-            const peSnap = await adminDb.collection("exam_entitlements").doc(parentEntitlementId).get();
-            if (peSnap.exists) parentEntitlement = peSnap.data() as ExamEntitlement;
-          } else {
-            parentEntitlement = await getFirestoreRestDoc("exam_entitlements", parentEntitlementId);
-          }
-
-          const isParentUnlocked = Boolean(parentEntitlement && parentEntitlement.status === "active");
-          if (!isParentUnlocked) {
-            const wallet = await getOrCreateWallet(uid);
-            const userBalance = sanitizeVnd(wallet.balanceVnd);
-            return {
-              hasAccess: false,
-              isFree: false,
-              unlocked: false,
-              priceVnd: origPrice,
-              accessMode: "paid",
-              salesEnabled: origExamData.salesEnabled !== false,
-              userBalance,
-              missingVnd: Math.max(0, origPrice - userBalance),
-              canUnlock: userBalance >= origPrice,
-              examTitle,
-              parentExamId: originalExamId,
-              parentExamTitle: origExamData.title || "Đề thi gốc",
-              rejectionReason: "parent_exam_locked",
-              message: `Bài thi làm lại này thuộc về đề thi trả phí [${origExamData.title || "Đề thi gốc"}]. Bạn cần sở hữu đề thi gốc trước khi có thể làm bài!`,
-            };
-          }
+        const isParentUnlocked = Boolean(parentEntitlement && parentEntitlement.status === "active");
+        if (!isParentUnlocked) {
+          const wallet = await getOrCreateWallet(uid);
+          const userBalance = sanitizeVnd(wallet.balanceVnd);
+          return {
+            hasAccess: false,
+            isFree: false,
+            unlocked: false,
+            priceVnd: p.price,
+            accessMode: "paid",
+            salesEnabled: false,
+            userBalance,
+            missingVnd: Math.max(0, p.price - userBalance),
+            canUnlock: userBalance >= p.price,
+            examTitle,
+            parentExamId: p.id,
+            parentExamTitle: p.title,
+            rejectionReason: "parent_exam_locked",
+            message: `Bài thi ôn tập/làm lại này thuộc về đề thi trả phí [${p.title}]. Bạn cần sở hữu đề thi gốc trước khi có thể làm bài!`,
+          };
         }
       }
     }
+
+    // If passed all personal retake verification checks, grant immediate access!
+    return {
+      hasAccess: true,
+      isFree: true,
+      unlocked: true,
+      priceVnd: 0,
+      accessMode: "free",
+      salesEnabled: false,
+      userBalance: 0,
+      missingVnd: 0,
+      canUnlock: true,
+      examTitle,
+      parentExamId: (examData as any).originalExamId,
+    };
   }
 
   // If free (and not blocked by retake rules), all authenticated students have access

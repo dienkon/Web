@@ -1,5 +1,5 @@
 import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
+import { auth, db } from "../../services/firebase/config";
 import type { Question } from "../../types";
 import { clearActiveExamSession } from "../../services/examSessionService";
 import { getOrCreateStudentFolder } from "../../services/folderService";
@@ -48,16 +48,24 @@ export async function buildReviewExam(
   // Retrieve student credentials
   let studentIdentifier = "student";
   let studentDisplayName = "";
+  let studentUid = "";
   try {
     const sInfo =
       localStorage.getItem("student_info") ||
       localStorage.getItem("current_student_session");
     if (sInfo) {
       const parsed = JSON.parse(sInfo);
-      studentIdentifier = parsed.username || parsed.displayName || "student";
+      studentIdentifier = parsed.username || parsed.code || parsed.displayName || "student";
       studentDisplayName = parsed.displayName || parsed.name || "";
+      studentUid = parsed.uid || "";
     }
   } catch {}
+  if (!studentUid && auth.currentUser) {
+    studentUid = auth.currentUser.uid;
+  }
+  if (!studentDisplayName && auth.currentUser?.displayName) {
+    studentDisplayName = auth.currentUser.displayName;
+  }
 
   // Resolve student folder in Drive
   let studentFolderId: string | null = null;
@@ -116,6 +124,10 @@ export async function buildReviewExam(
       ? `[Ôn tập tổng hợp] ${preparedQuestions.length} câu hỏi (${sourceExamCount} đề)`
       : `[Ôn tập theo yêu cầu] ${preparedQuestions.length} câu hỏi`;
 
+  const sourceExamIds = Array.from(
+    new Set(candidates.map((c) => c.sourceExamId).filter(Boolean))
+  ) as string[];
+
   const docRef = doc(collection(db, "exams"));
   const newExamData = {
     title: title || defaultTitle,
@@ -138,10 +150,18 @@ export async function buildReviewExam(
     isPublic: false,
     isPractice: true,
     isRetake: true,
-    isAggregatedReview: sourceExamCount > 1,
+    isPersonalRetake: true,
+    isAggregatedReview: sourceExamCount > 1 || sourceExamIds.length > 1,
     sourceExamCount,
+    sourceExamIds,
+    originalExamId: sourceExamIds[0] || undefined,
+    creatorUid: studentUid,
+    allowedUid: studentUid,
     creatorUsername: studentIdentifier,
     creatorRole: "student",
+    accessMode: "free" as const,
+    priceVnd: 0,
+    isDerivedFromPaidExam: true,
     shuffleQuestions: false, // Questions already shuffled if requested
     shuffleOptions,
     showResults: true,
@@ -163,6 +183,9 @@ export async function buildReviewExam(
   clearActiveExamSession(docRef.id);
   try {
     localStorage.removeItem(`attemptSnapshot_${docRef.id}_${studentIdentifier}`);
+    if (studentUid) {
+      localStorage.removeItem(`attemptSnapshot_${docRef.id}_${studentUid}`);
+    }
   } catch {}
 
   return {

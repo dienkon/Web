@@ -614,17 +614,23 @@ export default function TakingExam() {
 
         setExam(examData);
 
-        // Enforce Paid & Personal Retake Exam Entitlement Check (Khóa hoàn toàn mọi hình thức lách luật)
-        const isRetakeOrPersonal = Boolean(
-          examData.isRetake ||
-          (examData as any).isPersonalRetake ||
-          (examData.isPractice && (examData as any).creatorUid) ||
-          (examData as any).originalExamId
+        // Enforce Paid & Personal Retake Exam Entitlement Check
+        const isPersonalRetake = Boolean(
+          (examData as any).isPersonalRetake === true ||
+          (examData.isRetake && (examData as any).creatorRole === "student") ||
+          (examData as any).isAggregatedReview === true
         );
         const isPaid = examData.accessMode === "paid" || ((examData.priceVnd || 0) > 0);
 
-        if (isPaid || isRetakeOrPersonal) {
-          // 1. Kiểm tra nhanh quyền sở hữu cá nhân ở client
+        const currentRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
+        const isAdmin = Boolean(
+          currentRole === "admin" ||
+          currentRole === "super_admin" ||
+          localStorage.getItem("admin_token")
+        );
+
+        if (isPersonalRetake && !isAdmin) {
+          // 1. Kiểm tra quyền sở hữu cá nhân ở client (ngăn chia sẻ mã đề/link retake cho bạn khác)
           let currentUid = auth.currentUser?.uid || "";
           let currentUsername = "";
           try {
@@ -640,21 +646,29 @@ export default function TakingExam() {
           const allowedUid = (examData as any).allowedUid;
           const creatorUsername = (examData as any).creatorUsername;
 
-          if (isRetakeOrPersonal && (creatorUid || allowedUid)) {
-            if (currentUid && creatorUid && currentUid !== creatorUid && currentUid !== allowedUid) {
-              showErrorToast("Đây là bài làm lại cá nhân của thí sinh khác. Bạn không thể làm bài này!");
-              navigate("/student", { replace: true });
-              return;
-            }
-          } else if (isRetakeOrPersonal && creatorUsername && currentUsername) {
-            if (creatorUsername !== currentUsername) {
+          const uidMatches = Boolean(
+            (currentUid && creatorUid && currentUid === creatorUid) ||
+            (currentUid && allowedUid && currentUid === allowedUid)
+          );
+          const usernameMatches = Boolean(
+            currentUsername &&
+            creatorUsername &&
+            currentUsername.trim().toLowerCase() === creatorUsername.trim().toLowerCase()
+          );
+
+          const hasOwnerDefined = Boolean(creatorUid || allowedUid || creatorUsername);
+          if (hasOwnerDefined && !uidMatches && !usernameMatches) {
+            // Chỉ chặn khi đã xác định rõ danh tính người truy cập khác biệt hoàn toàn với chủ sở hữu
+            if ((currentUid || currentUsername) && (creatorUid || creatorUsername)) {
               showErrorToast("Đây là bài làm lại cá nhân của thí sinh khác. Bạn không thể làm bài này!");
               navigate("/student", { replace: true });
               return;
             }
           }
+        }
 
-          // 2. Kiểm tra xác thực quyền truy cập từ Server (Backend Gate)
+        // 2. Kiểm tra xác thực quyền truy cập từ Server (Backend Gate)
+        if (isPaid || isPersonalRetake) {
           try {
             const { checkExamAccess } = await import("../../services/walletClientService");
             const access = await checkExamAccess(examId);
@@ -675,9 +689,11 @@ export default function TakingExam() {
             }
           } catch (accessErr: any) {
             console.error("Access verification failed:", accessErr);
-            showErrorToast("Không thể xác thực quyền truy cập bài thi!");
-            navigate(`/student/exam/${examId}`, { replace: true });
-            return;
+            if (isPaid) {
+              showErrorToast("Không thể xác thực quyền truy cập bài thi!");
+              navigate(`/student/exam/${examId}`, { replace: true });
+              return;
+            }
           }
         }
 
