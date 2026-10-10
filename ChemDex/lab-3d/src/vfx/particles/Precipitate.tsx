@@ -19,7 +19,7 @@ export type PrecipitateMorphologyType =
 export interface PrecipitateProps {
   vesselId?: string;
   substance?: string; // 'PbI2' | 'BaSO4' | 'AgCl' | 'Cu(OH)2' | string
-  morphology?: PrecipitateMorphologyType;
+  morphology?: PrecipitateMorphologyType | string;
   color?: string;
   radius?: number;
   liquidTopY?: number;
@@ -28,8 +28,21 @@ export interface PrecipitateProps {
   active?: boolean;
 }
 
-export function resolveMorphology(substance?: string, explicit?: PrecipitateMorphologyType): PrecipitateMorphologyType {
-  if (explicit) return explicit;
+export function resolveMorphology(substance?: string, explicit?: PrecipitateMorphologyType | string): PrecipitateMorphologyType {
+  if (explicit) {
+    const exp = explicit.toUpperCase().trim();
+    if (exp === 'CRYSTAL_PLATE' || exp === 'CRYSTAL_ROD' || exp === 'GEL' || exp === 'FLOC' || exp === 'CURD' || exp === 'FINE_POWDER' || exp === 'IRREGULAR_GRAIN' || exp === 'METALLIC_DEPOSIT') {
+      return exp as PrecipitateMorphologyType;
+    }
+    if (exp.includes('PLATE') || exp.includes('CRYSTAL') || exp.includes('GOLD')) return 'CRYSTAL_PLATE';
+    if (exp.includes('GEL')) return 'GEL';
+    if (exp.includes('CURD')) return 'CURD';
+    if (exp.includes('FLOC')) return 'FLOC';
+    if (exp.includes('ROD') || exp.includes('NEEDLE')) return 'CRYSTAL_ROD';
+    if (exp.includes('GRAIN') || exp.includes('GRANUL')) return 'IRREGULAR_GRAIN';
+    if (exp.includes('METAL') || exp.includes('COPPER')) return 'METALLIC_DEPOSIT';
+    if (exp.includes('POWDER') || exp.includes('MILKY')) return 'FINE_POWDER';
+  }
   const s = (substance || '').toLowerCase();
   if (s.includes('pbi2') || s.includes('lead') || s.includes('gold')) return 'CRYSTAL_PLATE';
   if (s.includes('cu(oh)2') || s.includes('al(oh)3') || s.includes('gel')) return 'GEL';
@@ -66,7 +79,9 @@ export const Precipitate = React.memo(function Precipitate({
   const isGel = morphology === 'GEL';
 
   const maxCount = useMemo(() => {
-    return Math.max(20, Math.floor((effectiveTier === 'high' ? 180 : effectiveTier === 'medium' ? 90 : 40) * multiplier));
+    const isHighOrUltra = effectiveTier === 'high' || effectiveTier === 'ultra';
+    const base = isHighOrUltra ? 180 : effectiveTier === 'medium' ? 90 : 40;
+    return Math.max(20, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
   const pool = useMemo(() => new ParticlePool(maxCount), [maxCount]);

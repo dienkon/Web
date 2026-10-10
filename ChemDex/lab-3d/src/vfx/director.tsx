@@ -308,6 +308,21 @@ export const VfxDirector = React.memo(function VfxDirector() {
               reactionPrecipitateSubstance={vessel.precipitateSubstance || sampled.precipitateSubstance || activeRecipe.precipitate?.substance}
             />
 
+            {/* 8-Morphology Precipitate Particle Cascades (PbI2 Golden Rain, AgCl Curd, Fe(OH)3 Floc, Cu(OH)2 Gel, etc.) */}
+            {effectivePrecipitate && (
+              <Precipitate
+                vesselId={vesselId}
+                substance={vessel.precipitateSubstance || sampled.precipitateSubstance || activeRecipe.precipitate?.substance || 'BaSO4'}
+                morphology={vessel.precipitateMorphology}
+                color={vessel.precipitateColor || sampled.precipitateColor || activeRecipe.precipitate?.color}
+                radius={vesselRadius * 0.8}
+                liquidTopY={liquidTopY - pos[1]}
+                liquidBottomY={-0.85}
+                rate={activeRecipe.precipitate?.rate || (simRuntime && simRuntime.precipitateRate > 0 ? simRuntime.precipitateRate * 35 : 25)}
+                active={true}
+              />
+            )}
+
             {/* Gas-Specific Effervescence Bubbles with Worthington Micro-Jets & Minnaert Pops */}
             {effectiveBubbleRate > 0 && (
               <Bubbles

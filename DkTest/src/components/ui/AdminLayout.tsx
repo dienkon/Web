@@ -21,6 +21,8 @@ import {
   Server,
   Layers,
   Compass,
+  Wallet,
+  Globe,
 } from "lucide-react";
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
@@ -33,11 +35,13 @@ import ThemeToggle from "./ThemeToggle";
 const navItems = [
   { name: "Tổng quan", path: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Học sinh", path: "/admin/students", icon: Users },
+  { name: "Ví & Công nợ", path: "/admin/wallet", icon: Wallet },
   { name: "Phụ huynh", path: "/admin/parents", icon: HeartHandshake },
   { name: "Lớp học", path: "/admin/classes", icon: Layers },
   { name: "Ngân hàng câu hỏi", path: "/admin/question-bank", icon: Sparkles },
   { name: "Xưởng Chiến Dịch", path: "/admin/journey-studio", icon: Compass },
   { name: "Bài thi", path: "/admin/exams", icon: FileText },
+  { name: "Web Importer", path: "/admin/exams/web-importer", icon: Globe },
   { name: "Giám sát Live", path: "/admin/live-proctoring", icon: Eye, hasLiveBadge: true },
   { name: "Bài nộp", path: "/admin/submissions", icon: GraduationCap },
   { name: "Thống kê", path: "/admin/stats", icon: BarChart3 },

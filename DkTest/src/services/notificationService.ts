@@ -22,19 +22,25 @@ const NOTIF_COLLECTION = "notifications";
 
 export async function fetchUserNotifications(
   uid: string,
-  forceRefresh: boolean = false
+  forceRefresh: boolean = false,
+  isAdmin: boolean = false
 ): Promise<SystemNotification[]> {
-  if (!uid) return [];
-  const key = `notifications:${uid}`;
+  const targetUid = uid || (isAdmin ? "admin_master" : "");
+  if (!targetUid && !isAdmin) return [];
+  const key = `notifications:${targetUid}:${isAdmin ? "admin" : "user"}`;
 
   return FirestoreCache.getOrFetch<SystemNotification[]>(
     key,
     async () => {
       try {
+        const recipients = isAdmin
+          ? Array.from(new Set([targetUid, "all", "admin"].filter(Boolean)))
+          : Array.from(new Set([targetUid, "all"].filter(Boolean)));
+
         const q = query(
           collection(db, NOTIF_COLLECTION),
-          where("recipientUid", "in", [uid, "all"]),
-          limit(20)
+          where("recipientUid", "in", recipients),
+          limit(30)
         );
         const snap = await getDocs(q);
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SystemNotification));
@@ -49,7 +55,7 @@ export async function fetchUserNotifications(
         return [];
       }
     },
-    30 * 1000, // 30s TTL
+    15 * 1000, // 15s TTL
     forceRefresh
   );
 }

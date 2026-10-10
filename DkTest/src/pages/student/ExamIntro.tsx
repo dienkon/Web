@@ -19,6 +19,10 @@ import {
   GraduationCap,
   Users,
   Edit3,
+  Wallet,
+  Unlock,
+  Coins,
+  X,
 } from "lucide-react";
 import { getExam } from "../../services/examService";
 import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
@@ -32,6 +36,7 @@ import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
 import StudentSubExamConfig from "../../features/sub-exam/components/StudentSubExamConfig";
 import { getLinkedChildrenForParent, type LinkedChildInfo } from "../../services/parentService";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
+import { checkExamAccess, unlockExam, type ExamAccessInfo } from "../../services/walletClientService";
 
 export default function ExamIntro() {
   const { examId } = useParams<{ examId: string }>();
@@ -53,6 +58,13 @@ export default function ExamIntro() {
   const [sections, setSections] = useState<Section[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
 
+  // Exam Access & Paid Unlock states
+  const [accessInfo, setAccessInfo] = useState<ExamAccessInfo | null>(null);
+  const [checkingAccess, setCheckingAccess] = useState<boolean>(false);
+  const [showUnlockModal, setShowUnlockModal] = useState<boolean>(false);
+  const [unlocking, setUnlocking] = useState<boolean>(false);
+  const [unlockSuccessMsg, setUnlockSuccessMsg] = useState<string>("");
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<{ username?: string; displayName?: string; role?: string } | null>(null);
   const [parentInfo, setParentInfo] = useState<{ username: string; displayName: string } | null>(null);
@@ -61,6 +73,51 @@ export default function ExamIntro() {
   const [attemptCount, setAttemptCount] = useState<number>(0);
   const [checkingAttempts, setCheckingAttempts] = useState<boolean>(false);
   const [hasActiveExam, setHasActiveExam] = useState<boolean>(false);
+
+  const loadExamAccess = async (targetExamId: string) => {
+    try {
+      setCheckingAccess(true);
+      const res = await checkExamAccess(targetExamId);
+      setAccessInfo(res);
+      return res;
+    } catch (e) {
+      console.warn("Could not check exam access:", e);
+      return null;
+    } finally {
+      setCheckingAccess(false);
+    }
+  };
+
+  const handleExecuteUnlock = async () => {
+    if (!exam) return;
+    try {
+      setUnlocking(true);
+      setPasswordError("");
+      const res = await unlockExam(exam.id);
+      setShowUnlockModal(false);
+      setUnlockSuccessMsg("Chúc mừng! Bạn đã mở khóa vĩnh viễn đề thi này thành công.");
+      const updatedAccess = await loadExamAccess(exam.id);
+      if (updatedAccess?.hasAccess) {
+        // Load questions now that student is entitled
+        const isSubExamAllowed = Boolean(exam?.allowSubExam || exam?.subExamConfig?.enabled);
+        if (isSubExamAllowed && questions.length === 0) {
+          try {
+            const qs = await FirestoreRepository.getQuery<Question>(
+              `exams/${exam.id}/questions`,
+              query(collection(db, `exams/${exam.id}/questions`), orderBy("order", "asc")),
+              { ttlMs: 180000, caller: "ExamIntro:questions" }
+            );
+            setQuestions(qs);
+          } catch (e) {}
+        }
+      }
+    } catch (err: any) {
+      console.error("Unlock error:", err);
+      setPasswordError(err.message || "Mở khóa đề thi thất bại");
+    } finally {
+      setUnlocking(false);
+    }
+  };
 
   useEffect(() => {
     const role = localStorage.getItem("auth_role");
@@ -94,7 +151,6 @@ export default function ExamIntro() {
           getLinkedChildrenForParent(pObj.username).then((children) => {
             if (children && children.length > 0) {
               setLinkedChildren(children);
-              // Default to the first child
               const firstChild = children[0];
               setSelectedChild(firstChild.username);
               setStudentName(firstChild.displayName || firstChild.username);
@@ -167,8 +223,15 @@ export default function ExamIntro() {
           document.title = t.toLowerCase().includes("dktest") ? t : `${t} | DkTEST`;
         }
 
+        // Check paid entitlement before loading any questions to prevent unauthorized content leakage
+        let hasEntitlement = true;
+        if (foundExam) {
+          const access = await loadExamAccess(foundExam.id);
+          hasEntitlement = access ? access.hasAccess : (foundExam.accessMode !== "paid");
+        }
+
         const isSubExamAllowed = Boolean(foundExam?.allowSubExam || foundExam?.subExamConfig?.enabled);
-        if (isSubExamAllowed) {
+        if (isSubExamAllowed && hasEntitlement && foundExam) {
           let qs: Question[] = Array.isArray((foundExam as any).questions) ? (foundExam as any).questions : [];
           let ss: Section[] = Array.isArray((foundExam as any).sections) ? (foundExam as any).sections : [];
 
@@ -285,7 +348,14 @@ export default function ExamIntro() {
     exam.maxAttempts > 0 &&
     attemptCount >= exam.maxAttempts
   );
-  const isExamBlocked = isNotOpenYet || isClosed || isAttemptLimitReached;
+  const isPersonalRetakeForbidden = Boolean(accessInfo && !accessInfo.hasAccess && accessInfo.rejectionReason === "personal_retake_forbidden");
+  const isParentExamLocked = Boolean(accessInfo && !accessInfo.hasAccess && accessInfo.rejectionReason === "parent_exam_locked");
+  const isPaidLocked = !!(
+    (exam?.accessMode === "paid" || isParentExamLocked || isPersonalRetakeForbidden) &&
+    accessInfo &&
+    !accessInfo.hasAccess
+  );
+  const isExamBlocked = isNotOpenYet || isClosed || isAttemptLimitReached || isPaidLocked || isPersonalRetakeForbidden || isParentExamLocked;
 
   const formatDateTime = (dateStr?: string) => {
     if (!dateStr) return "";
@@ -307,10 +377,16 @@ export default function ExamIntro() {
     if (!exam) return;
 
     if (isExamBlocked) {
-      if (isNotOpenYet) {
+      if (isPersonalRetakeForbidden) {
+        setPasswordError(accessInfo?.message || "Đây là bài làm lại cá nhân của thí sinh khác. Bạn không thể làm bài này!");
+      } else if (isParentExamLocked) {
+        setPasswordError(accessInfo?.message || "Bài làm lại này thuộc về đề thi trả phí. Bạn cần sở hữu đề gốc trước khi làm bài!");
+      } else if (isNotOpenYet) {
         setPasswordError(`Đề thi chưa đến thời gian mở! Dự kiến mở lúc: ${formatDateTime(exam.openTime)}`);
       } else if (isClosed) {
         setPasswordError(`Đề thi đã đóng nhận bài vào lúc: ${formatDateTime(exam.closeTime)}!`);
+      } else if (isPaidLocked) {
+        setPasswordError(`Đề thi này yêu cầu mở khóa trả phí (${(exam?.priceVnd || 0).toLocaleString("vi-VN")}đ) trước khi làm bài!`);
       } else if (isAttemptLimitReached) {
         setPasswordError(`Bạn đã sử dụng hết số lần làm bài quy định (${attemptCount}/${exam.maxAttempts} lần)!`);
       }
@@ -454,6 +530,224 @@ export default function ExamIntro() {
               </div>
             </div>
 
+            {/* Security Alert: Personal Retake Exam Forbidden */}
+            {isPersonalRetakeForbidden && (
+              <div className="p-4 rounded-2xl border border-rose-200 bg-rose-50/80 text-rose-950 space-y-2">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 rounded-xl bg-rose-100 text-rose-700 shrink-0">
+                    <ShieldAlert className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm text-rose-900">
+                      Bảo Mật: Bài Làm Lại Cá Nhân Của Thí Sinh Khác
+                    </h4>
+                    <p className="text-xs text-rose-700 mt-1 leading-relaxed">
+                      {accessInfo?.message || "Đề thi này là bài làm lại cá nhân được tạo riêng cho một thí sinh khác. Vì chính sách bảo mật nội dung đề thi, hệ thống không cho phép chia sẻ mã đề hoặc liên kết này cho người khác."}
+                    </p>
+                    <div className="mt-2.5">
+                      <Link
+                        to="/student"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition-colors"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" /> Về trang học sinh
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Security Alert: Parent Exam Locked */}
+            {isParentExamLocked && (
+              <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50/80 text-amber-950 space-y-2">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 rounded-xl bg-amber-100 text-amber-700 shrink-0">
+                    <Lock className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-black text-sm text-amber-900">
+                      Yêu Cầu Mở Khóa Đề Thi Gốc
+                    </h4>
+                    <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                      {accessInfo?.message || `Bài làm lại này phát sinh từ đề thi trả phí [${accessInfo?.parentExamTitle || "Đề gốc"}]. Bạn cần sở hữu đề thi gốc trước khi có thể làm bài.`}
+                    </p>
+                    {accessInfo?.parentExamId && (
+                      <div className="mt-2.5">
+                        <Link
+                          to={`/student/exam/${accessInfo.parentExamId}`}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-colors"
+                        >
+                          <Unlock className="w-3.5 h-3.5" />
+                          <span>Mở khóa đề thi gốc ({accessInfo?.parentExamTitle || "Xem đề gốc"})</span>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Paid Exam Access & Unlock Card */}
+            {exam.accessMode === "paid" && (
+              <div
+                className={`p-4 rounded-2xl border transition-all ${
+                  accessInfo?.hasAccess
+                    ? "bg-emerald-50/70 border-emerald-200 text-emerald-950"
+                    : "bg-amber-50/70 border-amber-200 text-amber-950"
+                }`}
+              >
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <div
+                      className={`p-2.5 rounded-xl ${
+                        accessInfo?.hasAccess
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-amber-100 text-amber-700"
+                      }`}
+                    >
+                      {accessInfo?.hasAccess ? (
+                        <CheckCircle2 className="w-5 h-5" />
+                      ) : (
+                        <Wallet className="w-5 h-5" />
+                      )}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-black text-sm">
+                          {accessInfo?.hasAccess
+                            ? "Đề thi đã được mở khóa vĩnh viễn"
+                            : `Đề thi trả phí — ${(exam.priceVnd || 0).toLocaleString("vi-VN")}đ`}
+                        </span>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
+                            accessInfo?.hasAccess
+                              ? "bg-emerald-200 text-emerald-800"
+                              : "bg-amber-200 text-amber-800"
+                          }`}
+                        >
+                          {accessInfo?.hasAccess ? "Đã mở khóa" : "Chưa mở khóa"}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-600 mt-0.5">
+                        {accessInfo?.hasAccess
+                          ? "Bạn có toàn quyền truy cập làm bài, xem đáp án và ôn tập không giới hạn thời gian."
+                          : `Số dư ví DkTEST hiện tại: ${(accessInfo?.userBalance || 0).toLocaleString(
+                              "vi-VN"
+                            )}đ`}
+                      </p>
+                      {unlockSuccessMsg && (
+                        <p className="text-xs font-bold text-emerald-700 mt-1">{unlockSuccessMsg}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {!accessInfo?.hasAccess && (
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      {accessInfo?.canUnlock ? (
+                        <button
+                          type="button"
+                          onClick={() => setShowUnlockModal(true)}
+                          className="w-full sm:w-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <Unlock className="w-3.5 h-3.5" />
+                          <span>Mở khóa vĩnh viễn</span>
+                        </button>
+                      ) : !isLoggedIn ? (
+                        <Link
+                          to={`/login?redirect=${encodeURIComponent(`/student/exam/${exam.id}`)}`}
+                          className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors text-center"
+                        >
+                          Đăng nhập để mở khóa
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/student/wallet"
+                          className="w-full sm:w-auto px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center justify-center gap-1.5"
+                        >
+                          <Wallet className="w-3.5 h-3.5" />
+                          <span>
+                            Nạp thêm {(accessInfo?.missingVnd || 0).toLocaleString("vi-VN")}đ
+                          </span>
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Modal Confirm Unlock */}
+            {showUnlockModal && (
+              <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
+                  <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                      <Unlock className="w-5 h-5 text-emerald-600" />
+                      <span>Xác Nhận Mở Khóa Đề Thi</span>
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setShowUnlockModal(false)}
+                      className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <p className="text-xs text-slate-600">
+                    Bạn đang thực hiện mở khóa vĩnh viễn đề thi <strong>"{exam.title}"</strong>.
+                  </p>
+
+                  <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Giá mở khóa:</span>
+                      <strong className="text-slate-900 font-black">
+                        {(exam.priceVnd || 0).toLocaleString("vi-VN")}đ
+                      </strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Số dư hiện tại:</span>
+                      <span className="font-bold text-emerald-700">
+                        {(accessInfo?.userBalance || 0).toLocaleString("vi-VN")}đ
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-t border-slate-200 pt-2">
+                      <span className="text-slate-500">Số dư sau mở khóa:</span>
+                      <strong className="text-slate-900">
+                        {Math.max(
+                          0,
+                          (accessInfo?.userBalance || 0) - (exam.priceVnd || 0)
+                        ).toLocaleString("vi-VN")}
+                        đ
+                      </strong>
+                    </div>
+                  </div>
+
+                  <p className="text-[11px] text-slate-500">
+                    💡 Sau khi mở khóa thành công, quyền làm bài và xem lời giải của đề thi này sẽ thuộc về tài khoản của bạn vĩnh viễn.
+                  </p>
+
+                  <div className="flex items-center justify-end gap-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowUnlockModal(false)}
+                      className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+                    >
+                      Hủy bỏ
+                    </button>
+                    <button
+                      type="button"
+                      disabled={unlocking}
+                      onClick={handleExecuteUnlock}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+                    >
+                      {unlocking ? "Đang giao dịch..." : "Xác nhận mở khóa"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Schedule Info (Open & Close Times) if configured */}
             {(exam.openTime || exam.closeTime) && (
               <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-around gap-2 text-xs font-medium">
@@ -589,6 +883,8 @@ export default function ExamIntro() {
                     ? "Chưa đến giờ mở đề"
                     : isClosed
                     ? "Đề thi đã đóng nhận bài"
+                    : isPaidLocked
+                    ? "Cần mở khóa đề thi trước"
                     : isAttemptLimitReached
                     ? "Đã hết số lần làm bài"
                     : hasActiveExam

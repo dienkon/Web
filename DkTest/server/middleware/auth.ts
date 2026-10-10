@@ -25,7 +25,13 @@ export async function requireAuth(
     return next();
   }
 
-  // 1. Check for dedicated Admin Token in header with configured secret key or admin session token
+  const isAdminRoute = Boolean(
+    req.baseUrl?.startsWith("/api/admin") ||
+    req.originalUrl?.startsWith("/api/admin") ||
+    req.path?.startsWith("/api/admin")
+  );
+
+  // 1. Check for dedicated Admin Token in header with configured secret key or admin session token ONLY on admin routes
   const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
   const adminHeaderToken = (req.headers["x-admin-token"] as string) || "";
   const clientAuthRole = (req.headers["x-auth-role"] as string) || "";
@@ -35,7 +41,7 @@ export async function requireAuth(
     (adminHeaderToken && adminHeaderToken.startsWith("dk_admin_"))
   );
 
-  if (isValidAdminHeader) {
+  if (isAdminRoute && isValidAdminHeader) {
     req.user = {
       uid: "admin_master",
       email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
@@ -62,13 +68,13 @@ export async function requireAuth(
     });
   }
 
-  // 2. Check if Bearer token matches dedicated admin secret key or client-issued admin token
+  // 2. Check if Bearer token matches dedicated admin secret key or client-issued admin token ONLY on admin routes
   const isValidBearerAdmin = Boolean(
     (configuredAdminKey && idToken === configuredAdminKey) ||
     (idToken && idToken.startsWith("dk_admin_"))
   );
 
-  if (isValidBearerAdmin) {
+  if (isAdminRoute && isValidBearerAdmin) {
     req.user = {
       uid: "admin_master",
       email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
@@ -154,8 +160,8 @@ export async function requireAuth(
     const lowerEmail = (email || "").toLowerCase().trim();
     if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
       role = "super_admin";
-    } else if (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin") {
-      // If client is operating under an active admin session, escalate to admin
+    } else if (isAdminRoute && (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin")) {
+      // If client is operating under an active admin session, escalate to admin ONLY on admin routes
       role = role === "super_admin" ? "super_admin" : "admin";
     } else if (!role) {
       role = "student";

@@ -79,34 +79,21 @@ export async function apiClient<T = any>(
     const isAdminRoute = cleanEndpoint.startsWith("/api/admin");
 
     if (isAdminRoute && adminToken) {
-      // Prioritize adminToken when accessing admin routes
+      // Prioritize adminToken when accessing dedicated admin routes
       requestHeaders["Authorization"] = `Bearer ${adminToken}`;
       requestHeaders["X-Admin-Token"] = adminToken;
       requestHeaders["X-Auth-Role"] = "admin";
     } else {
+      // Non-admin routes (student wallet, exams, profile, etc.)
       if (token) {
         requestHeaders["Authorization"] = `Bearer ${token}`;
-      } else if (adminToken) {
-        // Fallback: If not logged into Firebase but admin session exists
+      } else if (isAdminRoute && adminToken) {
         requestHeaders["Authorization"] = `Bearer ${adminToken}`;
       }
 
-      if (adminToken) {
-        requestHeaders["X-Admin-Token"] = adminToken;
-      }
-      let authRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
-      if (adminToken || localStorage.getItem("admin_info")) {
-        try {
-          const raw = localStorage.getItem("admin_info");
-          if (raw) {
-            const info = JSON.parse(raw);
-            if (info.role === "admin" || info.role === "super_admin") {
-              authRole = "admin";
-            }
-          }
-        } catch {}
-      }
-      if (authRole) {
+      // STRICT ISOLATION: Never leak X-Admin-Token or force admin role on student/general endpoints!
+      const authRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
+      if (authRole && authRole !== "admin") {
         requestHeaders["X-Auth-Role"] = authRole;
       }
     }

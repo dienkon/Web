@@ -986,10 +986,27 @@ export function StudentOnboardingProvider({ children }: { children: ReactNode })
   );
 }
 
-export function useStudentOnboarding() {
+const DEFAULT_ONBOARDING_VALUE: StudentOnboardingContextValue = {
+  isTutorialActive: false,
+  currentStepId: null,
+  currentStepConfig: null,
+  isWelcomeModalOpen: false,
+  isFinishModalOpen: false,
+  isSkipModalOpen: false,
+  targetRect: null,
+  answersDraft: {},
+  updateDemoAnswer: () => {},
+  startTutorial: () => {},
+  replayTutorial: () => {},
+  nextStep: () => {},
+  skipTutorial: () => {},
+  confirmSkip: () => {},
+  cancelSkip: () => {},
+  completeTutorial: () => {},
+  triggerAction: () => {},
+};
+
+export function useStudentOnboarding(): StudentOnboardingContextValue {
   const ctx = useContext(StudentOnboardingContext);
-  if (!ctx) {
-    throw new Error("useStudentOnboarding must be used within a StudentOnboardingProvider");
-  }
-  return ctx;
+  return ctx || DEFAULT_ONBOARDING_VALUE;
 }

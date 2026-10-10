@@ -20,6 +20,7 @@ import {
   BrainCircuit,
   MapPin,
   KeyRound,
+  Wallet,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
@@ -32,8 +33,8 @@ import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
 import {
   StudentOnboardingProvider,
   useStudentOnboarding,
-  TOUR_DATA_IDS,
-} from "../../features/student-onboarding";
+} from "../../features/student-onboarding/StudentOnboardingContext";
+import { TOUR_DATA_IDS } from "../../features/student-onboarding/StudentOnboardingTypes";
 
 function StudentLayoutContent() {
   const navigate = useNavigate();
@@ -157,6 +158,7 @@ function StudentLayoutContent() {
     { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500", tourId: TOUR_DATA_IDS.NAV_COMMUNITY, actionKey: "click_community" },
+    { to: "/student/wallet", label: "Ví DkTEST", icon: Wallet, iconColor: "text-emerald-600", actionKey: "click_wallet" },
     { to: "/student/history", label: "Lịch sử bài làm", icon: History, tourId: TOUR_DATA_IDS.NAV_HISTORY, actionKey: "click_history" },
     { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User, tourId: TOUR_DATA_IDS.NAV_PROFILE, actionKey: "click_profile" },
     { to: "/legal-policy", label: "Bản quyền & Pháp lý", icon: ShieldCheck },

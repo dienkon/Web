@@ -34,7 +34,9 @@ export const Bubbles = React.memo(function Bubbles({
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
 
   const maxCount = useMemo(() => {
-    return Math.max(16, Math.floor((effectiveTier === 'high' ? 120 : effectiveTier === 'medium' ? 60 : 25) * multiplier));
+    const isHighOrUltra = effectiveTier === 'high' || effectiveTier === 'ultra';
+    const base = isHighOrUltra ? 120 : effectiveTier === 'medium' ? 60 : 25;
+    return Math.max(16, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
   const pool = useMemo(() => new ParticlePool(maxCount), [maxCount]);

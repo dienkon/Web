@@ -30,7 +30,9 @@ export const Foam = React.memo(function Foam({
   const bubbleTexture = useMemo(() => getBubbleSpriteTexture(128), []);
 
   const count = useMemo(() => {
-    return Math.max(16, Math.floor((effectiveTier === 'high' ? 96 : effectiveTier === 'medium' ? 48 : 20) * multiplier));
+    const isHighOrUltra = effectiveTier === 'high' || effectiveTier === 'ultra';
+    const base = isHighOrUltra ? 96 : effectiveTier === 'medium' ? 48 : 20;
+    return Math.max(16, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
   // Persistent pseudo-random positions for the foam cluster

@@ -14,6 +14,7 @@ export interface Folder {
   createdAt?: Timestamp | any;
   updatedAt?: Timestamp | any;
   examCount?: number;
+  isPublic?: boolean; // Cho phép học sinh xem và duyệt trong Kho đề
 }
 
 export interface Exam {
@@ -70,6 +71,12 @@ export interface Exam {
   isPublic?: boolean;
   visibility?: "public" | "private" | "unlisted";
 
+  // Access & Pricing Configuration (Phần A)
+  accessMode?: "free" | "paid";
+  priceVnd?: number; // Integer VND >= 0
+  salesEnabled?: boolean;
+  sourceExamIds?: string[]; // Provenance for merged exams
+
   questionCount: number;
   totalQuestions?: number; // alias for questionCount
   maxScore?: number;
@@ -102,6 +109,8 @@ export interface Section {
   title: string;
   description?: string;
   order: number;
+  parentSectionId?: string | null; // Nested Section support
+  depth?: number; // Depth 0 for top-level, 1 for subsections, etc.
   instructions?: string;
   questionCount: number;
   enabled: boolean;
@@ -214,6 +223,8 @@ export interface Question {
   // Review & Provenance tracking
   originalQuestionId?: string;
   originalExamId?: string;
+  originalExamTitle?: string;
+  mergedAt?: string;
 
   // Question-level listening audio
   audioConfig?: ExamAudioConfig;
@@ -555,6 +566,149 @@ export interface SystemNotification {
   link?: string;
   createdAt: any;
 }
+
+// -------------------------------------------------------------
+// Virtual Wallet, Deposit Requests, Entitlements & Debt Ledger
+// -------------------------------------------------------------
+
+export interface StudentWallet {
+  uid: string;
+  balanceVnd: number; // Positive integer VND >= 0
+  totalCreditedVnd: number; // Aggregate total confirmed deposits
+  totalSpentVnd: number; // Aggregate total spent on unlocks
+  profileCompleted: boolean;
+  fullName?: string;
+  currentClass?: string;
+  verifiedName?: string; // Tên xác thực của ví (KYC / tên chính chủ)
+  isVerified?: boolean; // Đã xác thực danh tính ví hay chưa
+  verifiedAt?: any;
+  verifiedBy?: string;
+  createdAt: any;
+  updatedAt: any;
+}
+
+export type WalletTransactionType =
+  | "deposit_credit"
+  | "exam_unlock_debit"
+  | "admin_adjustment_credit"
+  | "admin_adjustment_debit"
+  | "debt_payment"
+  | "debt_adjustment"
+  | "refund_credit";
+
+export interface WalletTransaction {
+  id: string;
+  uid: string;
+  type: WalletTransactionType;
+  amountVnd: number; // Always positive integer VND
+  balanceBeforeVnd: number;
+  balanceAfterVnd: number;
+  examId?: string;
+  examTitleSnapshot?: string;
+  depositRequestId?: string;
+  debtRecordId?: string;
+  idempotencyKey?: string;
+  actorUid: string;
+  actorName?: string;
+  note?: string;
+  description?: string; // Compatibility alias for note
+  createdAt: any;
+  metadata?: Record<string, any>;
+}
+
+export type DepositRequestStatus = "pending" | "approved" | "rejected" | "cancelled";
+
+export interface DepositRequest {
+  id: string;
+  uid: string;
+  studentUid?: string; // Compatibility alias for uid
+  amountVnd: number; // 1,000 to 20,000 VND
+  status: DepositRequestStatus;
+  studentNameSnapshot: string;
+  studentName?: string; // Compatibility alias
+  studentClassSnapshot: string;
+  studentClass?: string; // Compatibility alias
+  createdAt: any;
+  requestedAt?: any; // Compatibility alias
+  processedAt?: any;
+  processedBy?: string;
+  reviewedBy?: string; // Compatibility alias
+  processedByName?: string;
+  rejectionReason?: string;
+  externalCollectionNote?: string;
+  reviewNote?: string; // Compatibility alias
+  idempotencyKey?: string;
+}
+
+export interface ExamEntitlement {
+  id: string; // Deterministic: `${uid}_${examId}`
+  uid: string;
+  examId: string;
+  status: "active" | "revoked";
+  source: "purchase" | "admin_grant" | "free_migration";
+  pricePaidVnd?: number;
+  transactionId?: string;
+  grantedAt: any;
+  grantedBy?: string;
+  examTitleSnapshot?: string;
+}
+
+export interface DebtRecord {
+  id: string;
+  uid: string;
+  studentNameSnapshot: string;
+  studentClassSnapshot: string;
+  type: "exam_receivable" | "manual_receivable" | "cash_collection" | "adjustment";
+  amountVnd: number; // Original receivable amount
+  collectedVnd: number; // Paid amount
+  allocatedVnd: number;
+  remainingVnd: number; // amountVnd - collectedVnd - adjustedVnd
+  adjustedVnd: number;
+  examId?: string;
+  transactionId?: string;
+  status: "unpaid" | "partial" | "paid" | "written_off";
+  note?: string;
+  reason?: string; // Compatibility alias
+  createdAt: any;
+  updatedAt: any;
+}
+
+export interface StudentDebtSummary {
+  uid: string;
+  fullName: string;
+  studentClass: string;
+  currentClass?: string; // Compatibility alias
+  username?: string;
+  email?: string;
+  verifiedName?: string; // Tên xác thực của ví (KYC)
+  isVerified?: boolean; // Huy hiệu xác thực ví
+  balanceVnd: number;
+  totalReceivableVnd: number;
+  totalReceivablesVnd?: number; // Compatibility alias
+  totalCollectedVnd: number;
+  totalAdjustmentsVnd?: number; // Compatibility alias
+  totalAdjustedVnd?: number;
+  remainingDebtVnd: number;
+  totalPurchasesCount: number;
+  debtStatus: "in_debt" | "paid" | "has_credit";
+  lastActivityAt?: any;
+}
+
+export interface StudentWalletProfileDetail {
+  uid: string;
+  username?: string;
+  displayName?: string;
+  email?: string;
+  phone?: string;
+  studentClass?: string;
+  school?: string;
+  avatarUrl?: string;
+  role?: string;
+  status?: string;
+  createdAt?: any;
+  lastActive?: any;
+}
+
 
 
 

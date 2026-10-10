@@ -9,6 +9,8 @@ import { aiRouter } from "./src/services/ai/aiRouter.js";
 import { renderExamPageHtml } from "./src/services/server/examMetadata.js";
 import { adminRouter } from "./server/routes/adminRoutes.js";
 import { authRouter } from "./server/routes/authRoutes.js";
+import { walletRouter } from "./server/routes/walletRoutes.js";
+import { webImporterRouter } from "./server/routes/webImporterRoutes.js";
 import { initFirebaseAdmin } from "./server/firebaseAdmin.js";
 
 async function startServer() {
@@ -55,6 +57,12 @@ async function startServer() {
 
   // AI Router
   app.use("/api/ai", aiRouter);
+
+  // Wallet and Exam Unlock Router
+  app.use("/api", walletRouter);
+
+  // Web to DkTEST Importer Router
+  app.use("/api/web-importer", webImporterRouter);
 
   // Question error report handler (proxies securely to Discord)
   app.post("/api/report-question", async (req, res) => {

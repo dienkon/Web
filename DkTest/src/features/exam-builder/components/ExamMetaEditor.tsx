@@ -26,6 +26,7 @@ import {
   Play,
   Volume2,
   Award,
+  Coins,
 } from "lucide-react";
 import React, { useState, useRef } from "react";
 import type { ExamAttachment, ExamAudioConfig } from "../../../types";
@@ -970,6 +971,140 @@ export default function ExamMetaEditor() {
             </span>
           </button>
         </div>
+      </div>
+
+      {/* 5. Quyền truy cập & Giá mở khóa (Phần A) */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+            <Coins className="w-4 h-4 text-amber-500" />
+            5. Quyền truy cập & Giá mở khóa vĩnh viễn
+          </h3>
+          <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${
+            state.examMeta.accessMode === "paid"
+              ? "bg-amber-100 text-amber-800 border border-amber-200"
+              : "bg-emerald-100 text-emerald-800 border border-emerald-200"
+          }`}>
+            {state.examMeta.accessMode === "paid" ? "💳 ĐỀ THI TRẢ PHÍ" : "🎁 ĐỀ THI MIỄN PHÍ"}
+          </span>
+        </div>
+
+        {/* Access mode selection */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div
+            onClick={() => actions.setExamMeta({ accessMode: "free", priceVnd: 0 })}
+            className={`p-4 rounded-xl border cursor-pointer transition-all ${
+              state.examMeta.accessMode !== "paid"
+                ? "bg-emerald-50/70 border-emerald-500 ring-2 ring-emerald-500/20"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100/70"
+            }`}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-lg">🎁</span>
+              <span className="font-bold text-xs text-slate-900">Miễn phí cho mọi thí sinh</span>
+            </div>
+            <p className="text-[11px] text-slate-500">
+              Thí sinh có thể vào thi, xem thông tin và ôn tập trực tiếp mà không cần trừ số dư ví DkTEST.
+            </p>
+          </div>
+
+          <div
+            onClick={() => {
+              const currentPrice = state.examMeta.priceVnd && state.examMeta.priceVnd > 0 ? state.examMeta.priceVnd : 5000;
+              actions.setExamMeta({ accessMode: "paid", priceVnd: currentPrice, salesEnabled: state.examMeta.salesEnabled ?? true });
+            }}
+            className={`p-4 rounded-xl border cursor-pointer transition-all ${
+              state.examMeta.accessMode === "paid"
+                ? "bg-amber-50/70 border-amber-500 ring-2 ring-amber-500/20"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100/70"
+            }`}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-lg">💳</span>
+              <span className="font-bold text-xs text-slate-900">Thu phí mở khóa (Ví DkTEST)</span>
+            </div>
+            <p className="text-[11px] text-slate-500">
+              Thí sinh phải thanh toán bằng số dư ví ảo DkTEST một lần để được quyền làm bài và ôn tập vĩnh viễn.
+            </p>
+          </div>
+        </div>
+
+        {/* Paid Config Fields */}
+        {state.examMeta.accessMode === "paid" && (
+          <div className="space-y-4 pt-2 border-t border-slate-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Giá mở khóa vĩnh viễn (VND) <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min="1000"
+                    step="500"
+                    value={state.examMeta.priceVnd || ""}
+                    onChange={(e) => {
+                      const val = Math.max(0, parseInt(e.target.value || "0", 10));
+                      actions.setExamMeta({ priceVnd: val });
+                    }}
+                    placeholder="Ví dụ: 5000"
+                    className="w-full pl-3 pr-12 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
+                    VNĐ
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+                  {[2000, 5000, 10000, 15000, 20000].map((quick) => (
+                    <button
+                      key={quick}
+                      type="button"
+                      onClick={() => actions.setExamMeta({ priceVnd: quick })}
+                      className="px-2 py-0.5 text-[10px] font-bold bg-slate-100 hover:bg-amber-100 hover:text-amber-800 text-slate-600 rounded-lg transition-colors cursor-pointer border border-slate-200/60"
+                    >
+                      {quick.toLocaleString("vi-VN")}đ
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  Trạng thái mở bán
+                </label>
+                <div className="flex items-center gap-3 pt-1">
+                  <label className="inline-flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={state.examMeta.salesEnabled !== false}
+                      onChange={(e) => actions.setExamMeta({ salesEnabled: e.target.checked })}
+                      className="w-4 h-4 text-amber-600 rounded-md border-slate-300 focus:ring-amber-500"
+                    />
+                    <span className="text-xs font-semibold text-slate-700">
+                      Cho phép thí sinh mua quyền mở khóa
+                    </span>
+                  </label>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Nếu tắt, những học sinh đã mua trước đó vẫn giữ quyền làm bài vĩnh viễn, nhưng học sinh mới sẽ không thể mua thêm.
+                </p>
+              </div>
+            </div>
+
+            {/* Warning Alert */}
+            <div className="p-3.5 bg-amber-50/80 border border-amber-200 rounded-xl text-amber-900 text-xs flex items-start gap-2.5">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div className="space-y-1 leading-relaxed">
+                <span className="font-bold block text-amber-950">Quy tắc bảo mật đề trả phí:</span>
+                <span>
+                  • Nội dung câu hỏi và đáp án sẽ được bảo vệ phía server, không tải về máy thí sinh khi chưa mở khóa.
+                  <br />
+                  • Thí sinh chỉ cần mở khóa 1 lần duy nhất để sử dụng vĩnh viễn cho tài khoản đó.
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

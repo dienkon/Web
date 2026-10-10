@@ -187,11 +187,23 @@ function clearServerRestCache(keyPattern) {
 function getFirebaseApiKey() {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
+var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set([
+  "wallets",
+  "deposit_requests",
+  "wallet_transactions",
+  "debt_records",
+  "exam_entitlements",
+  "system_stats",
+  "exams",
+  "users",
+  "notifications"
+]);
 async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
   const now = Date.now();
-  if (useCache) {
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
     const cached = serverRestCache.get(cacheKey);
     if (cached && cached.expiresAt > now) {
       console.log(`[Server Firestore CACHE_HIT: 0 reads] Collection: "${collectionName}" | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`);
@@ -212,7 +224,7 @@ async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = tr
     const data = await res.json();
     const docs = (data.documents || []).map(decodeFirestoreDocument);
     console.log(`[Server Firestore READ: ${docs.length} docs] Collection: "${collectionName}" (limit: ${safePageSize}) | Elapsed: ${elapsed}ms`);
-    if (useCache) {
+    if (shouldCache) {
       serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
     }
     return docs;
@@ -224,7 +236,8 @@ async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = tr
 async function getFirestoreRestDoc(collectionName, docId, useCache = true, cacheTtlMs = 3e4) {
   const cacheKey = `doc_${collectionName}_${docId}`;
   const now = Date.now();
-  if (useCache) {
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
     const cached = serverRestCache.get(cacheKey);
     if (cached && cached.expiresAt > now) {
       console.log(`[Server Firestore CACHE_HIT: 0 reads] Doc: "${collectionName}/${docId}" | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`);
@@ -293,13 +306,16 @@ async function requireAuth(req, res, next) {
   if (req.method === "OPTIONS") {
     return next();
   }
+  const isAdminRoute = Boolean(
+    req.baseUrl?.startsWith("/api/admin") || req.originalUrl?.startsWith("/api/admin") || req.path?.startsWith("/api/admin")
+  );
   const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
   const adminHeaderToken = req.headers["x-admin-token"] || "";
   const clientAuthRole = req.headers["x-auth-role"] || "";
   const isValidAdminHeader = Boolean(
     configuredAdminKey && adminHeaderToken && adminHeaderToken === configuredAdminKey || adminHeaderToken && adminHeaderToken.startsWith("dk_admin_")
   );
-  if (isValidAdminHeader) {
+  if (isAdminRoute && isValidAdminHeader) {
     req.user = {
       uid: "admin_master",
       email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
@@ -326,7 +342,7 @@ async function requireAuth(req, res, next) {
   const isValidBearerAdmin = Boolean(
     configuredAdminKey && idToken === configuredAdminKey || idToken && idToken.startsWith("dk_admin_")
   );
-  if (isValidBearerAdmin) {
+  if (isAdminRoute && isValidBearerAdmin) {
     req.user = {
       uid: "admin_master",
       email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
@@ -401,7 +417,7 @@ async function requireAuth(req, res, next) {
     const lowerEmail = (email || "").toLowerCase().trim();
     if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
       role = "super_admin";
-    } else if (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin") {
+    } else if (isAdminRoute && (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin")) {
       role = role === "super_admin" ? "super_admin" : "admin";
     } else if (!role) {
       role = "student";
@@ -467,6 +483,1462 @@ async function requireSuperAdmin(req, res, next) {
   });
 }
 
+// server/services/walletService.ts
+function sanitizeVnd(val) {
+  if (typeof val !== "number" || isNaN(val) || !isFinite(val)) {
+    val = parseInt(String(val || 0), 10);
+  }
+  if (isNaN(val) || !isFinite(val) || val < 0) return 0;
+  return Math.floor(val);
+}
+async function getOrCreateWallet(uid, initialData) {
+  if (!uid || typeof uid !== "string") {
+    throw new Error("UID kh\xF4ng h\u1EE3p l\u1EC7.");
+  }
+  const cleanUid = uid.trim();
+  if (adminDb) {
+    const walletRef = adminDb.collection("wallets").doc(cleanUid);
+    const snap = await walletRef.get();
+    if (snap.exists) {
+      const data = snap.data();
+      return {
+        uid: cleanUid,
+        balanceVnd: sanitizeVnd(data.balanceVnd),
+        totalCreditedVnd: sanitizeVnd(data.totalCreditedVnd),
+        totalSpentVnd: sanitizeVnd(data.totalSpentVnd),
+        profileCompleted: Boolean(data.profileCompleted),
+        fullName: data.fullName || "",
+        currentClass: data.currentClass || "",
+        createdAt: data.createdAt || (/* @__PURE__ */ new Date()).toISOString(),
+        updatedAt: data.updatedAt || (/* @__PURE__ */ new Date()).toISOString()
+      };
+    }
+    let defaultName = initialData?.fullName || "";
+    let defaultClass = initialData?.currentClass || "";
+    if (!defaultName) {
+      try {
+        const uDoc = await adminDb.collection("users").doc(cleanUid).get();
+        if (uDoc.exists) {
+          const uData = uDoc.data();
+          defaultName = uData?.fullName || uData?.displayName || "";
+          defaultClass = defaultClass || uData?.studentClass || "";
+        }
+      } catch (e) {
+      }
+    }
+    const now2 = (/* @__PURE__ */ new Date()).toISOString();
+    const newWallet2 = {
+      uid: cleanUid,
+      balanceVnd: 0,
+      totalCreditedVnd: 0,
+      totalSpentVnd: 0,
+      profileCompleted: Boolean(defaultName && defaultClass),
+      fullName: defaultName,
+      currentClass: defaultClass,
+      createdAt: now2,
+      updatedAt: now2
+    };
+    await walletRef.set(newWallet2);
+    return await autoApprovePendingRequestsForUser(cleanUid, newWallet2);
+  }
+  const existing = await getFirestoreRestDoc("wallets", cleanUid);
+  if (existing) {
+    const w = {
+      uid: cleanUid,
+      balanceVnd: sanitizeVnd(existing.balanceVnd),
+      totalCreditedVnd: sanitizeVnd(existing.totalCreditedVnd),
+      totalSpentVnd: sanitizeVnd(existing.totalSpentVnd),
+      profileCompleted: Boolean(existing.profileCompleted),
+      fullName: existing.fullName || "",
+      currentClass: existing.currentClass || "",
+      createdAt: existing.createdAt || (/* @__PURE__ */ new Date()).toISOString(),
+      updatedAt: existing.updatedAt || (/* @__PURE__ */ new Date()).toISOString()
+    };
+    return await autoApprovePendingRequestsForUser(cleanUid, w);
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const newWallet = {
+    uid: cleanUid,
+    balanceVnd: 0,
+    totalCreditedVnd: 0,
+    totalSpentVnd: 0,
+    profileCompleted: Boolean(initialData?.fullName && initialData?.currentClass),
+    fullName: initialData?.fullName || "",
+    currentClass: initialData?.currentClass || "",
+    createdAt: now,
+    updatedAt: now
+  };
+  await setFirestoreRestDoc("wallets", cleanUid, newWallet);
+  return await autoApprovePendingRequestsForUser(cleanUid, newWallet);
+}
+async function autoApprovePendingRequestsForUser(uid, wallet) {
+  try {
+    const pendingRequests = await getStudentDepositRequests(uid);
+    const unapproved = pendingRequests.filter((r) => r.status === "pending");
+    if (unapproved.length === 0) return wallet;
+    let balanceAdd = 0;
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    for (const req of unapproved) {
+      const amt = sanitizeVnd(req.amountVnd);
+      if (amt <= 0) continue;
+      balanceAdd += amt;
+      const approvedReq = {
+        ...req,
+        status: "approved",
+        processedAt: now,
+        processedBy: "system",
+        processedByName: "H\u1EC7 th\u1ED1ng t\u1EF1 \u0111\u1ED9ng duy\u1EC7t",
+        externalCollectionNote: "\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng. C\u1EA7n thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi."
+      };
+      if (adminDb) {
+        await adminDb.collection("deposit_requests").doc(req.id).set(approvedReq, { merge: true });
+      } else {
+        await setFirestoreRestDoc("deposit_requests", req.id, approvedReq);
+      }
+      const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      const ledgerEntry = {
+        id: txId,
+        uid,
+        type: "deposit_credit",
+        amountVnd: amt,
+        balanceBeforeVnd: wallet.balanceVnd,
+        balanceAfterVnd: wallet.balanceVnd + balanceAdd,
+        depositRequestId: req.id,
+        idempotencyKey: req.id,
+        actorUid: "system",
+        actorName: "H\u1EC7 th\u1ED1ng t\u1EF1 \u0111\u1ED9ng duy\u1EC7t",
+        note: `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${amt.toLocaleString("vi-VN")}\u0111 (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)`,
+        createdAt: now
+      };
+      const debtEntry = {
+        id: debtId,
+        uid,
+        studentNameSnapshot: wallet.fullName || "",
+        studentClassSnapshot: wallet.currentClass || "",
+        type: "manual_receivable",
+        amountVnd: amt,
+        collectedVnd: 0,
+        allocatedVnd: 0,
+        remainingVnd: amt,
+        adjustedVnd: 0,
+        transactionId: txId,
+        status: "unpaid",
+        note: `Ti\u1EC1n n\u1EA1p v\xED t\u1EF1 \u0111\u1ED9ng #${req.id} (c\u1EA7n thu ngo\xE0i \u0111\u1EDDi)`,
+        createdAt: now,
+        updatedAt: now
+      };
+      if (adminDb) {
+        await adminDb.collection("wallet_transactions").doc(txId).set(ledgerEntry);
+        await adminDb.collection("debt_records").doc(debtId).set(debtEntry);
+      } else {
+        await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
+        await setFirestoreRestDoc("debt_records", debtId, debtEntry);
+      }
+    }
+    if (balanceAdd > 0) {
+      const updatedWallet = {
+        ...wallet,
+        balanceVnd: sanitizeVnd(wallet.balanceVnd) + balanceAdd,
+        totalCreditedVnd: sanitizeVnd(wallet.totalCreditedVnd) + balanceAdd,
+        updatedAt: now
+      };
+      if (adminDb) {
+        await adminDb.collection("wallets").doc(uid).set(updatedWallet, { merge: true });
+      } else {
+        await setFirestoreRestDoc("wallets", uid, updatedWallet);
+      }
+      return updatedWallet;
+    }
+  } catch (err) {
+    console.warn(`[AutoApprove] Error auto-approving pending requests for ${uid}:`, err);
+  }
+  return wallet;
+}
+async function approveDepositRequest(requestId, adminUid, adminName, externalCollectionNote) {
+  if (!requestId) throw new Error("M\xE3 y\xEAu c\u1EA7u n\u1EA1p kh\xF4ng h\u1EE3p l\u1EC7.");
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  if (adminDb) {
+    return await adminDb.runTransaction(async (transaction) => {
+      const reqRef = adminDb.collection("deposit_requests").doc(requestId);
+      const reqDoc = await transaction.get(reqRef);
+      if (!reqDoc.exists) {
+        throw new Error("Kh\xF4ng t\xECm th\u1EA5y y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.");
+      }
+      const reqData2 = reqDoc.data();
+      if (reqData2.status === "approved") {
+        const wDoc = await transaction.get(adminDb.collection("wallets").doc(reqData2.uid));
+        const currentBal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
+        return { success: true, newBalanceVnd: currentBal, transactionId: "" };
+      }
+      if (reqData2.status !== "pending") {
+        throw new Error(`Y\xEAu c\u1EA7u n\u1EA1p kh\xF4ng th\u1EC3 duy\u1EC7t (tr\u1EA1ng th\xE1i hi\u1EC7n t\u1EA1i: ${reqData2.status}).`);
+      }
+      const amount2 = sanitizeVnd(reqData2.amountVnd);
+      const walletRef = adminDb.collection("wallets").doc(reqData2.uid);
+      const walletDoc = await transaction.get(walletRef);
+      let prevBalance = 0;
+      let totalCredited = 0;
+      let totalSpent = 0;
+      let fullName = reqData2.studentNameSnapshot || "";
+      let currentClass = reqData2.studentClassSnapshot || "";
+      if (walletDoc.exists) {
+        const wData = walletDoc.data();
+        prevBalance = sanitizeVnd(wData.balanceVnd);
+        totalCredited = sanitizeVnd(wData.totalCreditedVnd);
+        totalSpent = sanitizeVnd(wData.totalSpentVnd);
+        fullName = wData.fullName || fullName;
+        currentClass = wData.currentClass || currentClass;
+      }
+      const newBalance2 = prevBalance + amount2;
+      const newTotalCredited = totalCredited + amount2;
+      transaction.set(
+        walletRef,
+        {
+          uid: reqData2.uid,
+          balanceVnd: newBalance2,
+          totalCreditedVnd: newTotalCredited,
+          totalSpentVnd: totalSpent,
+          profileCompleted: true,
+          fullName,
+          currentClass,
+          updatedAt: now
+        },
+        { merge: true }
+      );
+      transaction.update(reqRef, {
+        status: "approved",
+        processedAt: now,
+        processedBy: adminUid,
+        processedByName: adminName,
+        externalCollectionNote: externalCollectionNote || "Admin x\xE1c nh\u1EADn \u0111\xE3 thu ti\u1EC1n ngo\xE0i \u0111\u1EDDi."
+      });
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
+      const ledgerEntry2 = {
+        id: txId,
+        uid: reqData2.uid,
+        type: "deposit_credit",
+        amountVnd: amount2,
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance2,
+        depositRequestId: requestId,
+        idempotencyKey: requestId,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: `N\u1EA1p ti\u1EC1n \u1EA3o qua y\xEAu c\u1EA7u #${requestId}: +${amount2.toLocaleString("vi-VN")}\u0111`,
+        createdAt: now
+      };
+      transaction.set(txRef, ledgerEntry2);
+      return {
+        success: true,
+        newBalanceVnd: newBalance2,
+        transactionId: txId
+      };
+    });
+  }
+  const reqData = await getFirestoreRestDoc("deposit_requests", requestId);
+  if (!reqData) throw new Error("Kh\xF4ng t\xECm th\u1EA5y y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.");
+  if (reqData.status === "approved") {
+    const w = await getOrCreateWallet(reqData.uid);
+    return { success: true, newBalanceVnd: w.balanceVnd, transactionId: "" };
+  }
+  if (reqData.status !== "pending") {
+    throw new Error(`Y\xEAu c\u1EA7u n\u1EA1p kh\xF4ng th\u1EC3 duy\u1EC7t (tr\u1EA1ng th\xE1i: ${reqData.status}).`);
+  }
+  const amount = sanitizeVnd(reqData.amountVnd);
+  const wallet = await getOrCreateWallet(reqData.uid);
+  const newBalance = wallet.balanceVnd + amount;
+  await setFirestoreRestDoc("wallets", reqData.uid, {
+    ...wallet,
+    balanceVnd: newBalance,
+    totalCreditedVnd: wallet.totalCreditedVnd + amount,
+    updatedAt: now
+  });
+  await setFirestoreRestDoc("deposit_requests", requestId, {
+    ...reqData,
+    status: "approved",
+    processedAt: now,
+    processedBy: adminUid,
+    processedByName: adminName,
+    externalCollectionNote: externalCollectionNote || "Admin x\xE1c nh\u1EADn thu ti\u1EC1n"
+  });
+  const ledgerEntry = {
+    id: txId,
+    uid: reqData.uid,
+    type: "deposit_credit",
+    amountVnd: amount,
+    balanceBeforeVnd: wallet.balanceVnd,
+    balanceAfterVnd: newBalance,
+    depositRequestId: requestId,
+    idempotencyKey: requestId,
+    actorUid: adminUid,
+    actorName: adminName,
+    note: `N\u1EA1p ti\u1EC1n \u1EA3o qua y\xEAu c\u1EA7u #${requestId}: +${amount.toLocaleString("vi-VN")}\u0111`,
+    createdAt: now
+  };
+  await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
+  return { success: true, newBalanceVnd: newBalance, transactionId: txId };
+}
+async function rejectDepositRequest(requestId, adminUid, adminName, reason) {
+  if (!requestId) throw new Error("M\xE3 y\xEAu c\u1EA7u n\u1EA1p kh\xF4ng h\u1EE3p l\u1EC7.");
+  const cleanReason = String(reason || "").trim();
+  if (!cleanReason) throw new Error("Vui l\xF2ng nh\u1EADp l\xFD do t\u1EEB ch\u1ED1i y\xEAu c\u1EA7u.");
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  if (adminDb) {
+    const reqRef = adminDb.collection("deposit_requests").doc(requestId);
+    const snap = await reqRef.get();
+    if (!snap.exists) throw new Error("Kh\xF4ng t\xECm th\u1EA5y y\xEAu c\u1EA7u n\u1EA1p.");
+    const data2 = snap.data();
+    if (data2.status !== "pending") {
+      throw new Error(`Kh\xF4ng th\u1EC3 t\u1EEB ch\u1ED1i y\xEAu c\u1EA7u \u1EDF tr\u1EA1ng th\xE1i "${data2.status}".`);
+    }
+    const updates = {
+      status: "rejected",
+      rejectionReason: cleanReason,
+      processedAt: now,
+      processedBy: adminUid,
+      processedByName: adminName
+    };
+    await reqRef.update(updates);
+    return { ...data2, ...updates };
+  }
+  const data = await getFirestoreRestDoc("deposit_requests", requestId);
+  if (!data) throw new Error("Kh\xF4ng t\xECm th\u1EA5y y\xEAu c\u1EA7u n\u1EA1p.");
+  if (data.status !== "pending") {
+    throw new Error(`Kh\xF4ng th\u1EC3 t\u1EEB ch\u1ED1i y\xEAu c\u1EA7u \u1EDF tr\u1EA1ng th\xE1i "${data.status}".`);
+  }
+  const updated = {
+    ...data,
+    status: "rejected",
+    rejectionReason: cleanReason,
+    processedAt: now,
+    processedBy: adminUid,
+    processedByName: adminName
+  };
+  await setFirestoreRestDoc("deposit_requests", requestId, updated);
+  return updated;
+}
+async function recordManualCashCollection(adminUid, adminName, studentUid, data) {
+  const amount = sanitizeVnd(data.amountVnd);
+  if (amount <= 0) throw new Error("S\u1ED1 ti\u1EC1n thu ph\u1EA3i l\u1EDBn h\u01A1n 0\u0111.");
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const collDate = data.collectionDate || now;
+  const paymentMethod = data.paymentMethod || "Ti\u1EC1n m\u1EB7t";
+  const note = String(data.note || "").trim();
+  const wallet = await getOrCreateWallet(studentUid);
+  const recordId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  if (adminDb) {
+    const receivablesSnap = await adminDb.collection("debt_records").where("uid", "==", studentUid).get();
+    const unpaidDocs = receivablesSnap.docs.filter((d) => {
+      const status = d.data().status;
+      return status === "unpaid" || status === "partial";
+    }).sort((a, b) => {
+      const tA = new Date(a.data().createdAt || 0).getTime();
+      const tB = new Date(b.data().createdAt || 0).getTime();
+      return tA - tB;
+    });
+    let remainingToAllocate2 = amount;
+    const batch = adminDb.batch();
+    for (const doc of unpaidDocs) {
+      if (remainingToAllocate2 <= 0) break;
+      const rec = doc.data();
+      const currentRemaining = sanitizeVnd(rec.remainingVnd);
+      if (currentRemaining <= 0) continue;
+      const allocation = Math.min(remainingToAllocate2, currentRemaining);
+      const newRemaining = currentRemaining - allocation;
+      const newCollected = sanitizeVnd(rec.collectedVnd) + allocation;
+      const newStatus = newRemaining === 0 ? "paid" : "partial";
+      batch.update(doc.ref, {
+        collectedVnd: newCollected,
+        remainingVnd: newRemaining,
+        status: newStatus,
+        updatedAt: now
+      });
+      remainingToAllocate2 -= allocation;
+    }
+    let newBal2 = wallet.balanceVnd;
+    if (data.creditToWallet) {
+      newBal2 = wallet.balanceVnd + amount;
+      const walletRef = adminDb.collection("wallets").doc(studentUid);
+      batch.update(walletRef, {
+        balanceVnd: newBal2,
+        totalCreditedVnd: sanitizeVnd(wallet.totalCreditedVnd) + amount,
+        updatedAt: now
+      });
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
+      const txEntry = {
+        id: txId,
+        uid: studentUid,
+        type: "deposit_credit",
+        amountVnd: amount,
+        balanceBeforeVnd: wallet.balanceVnd,
+        balanceAfterVnd: newBal2,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: `Thu ti\u1EC1n th\u1EF1c t\u1EBF (${paymentMethod}): +${amount.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED. ${note}`,
+        createdAt: now
+      };
+      batch.set(txRef, txEntry);
+    } else {
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
+      const txEntry = {
+        id: txId,
+        uid: studentUid,
+        type: "debt_payment",
+        amountVnd: amount,
+        balanceBeforeVnd: wallet.balanceVnd,
+        balanceAfterVnd: wallet.balanceVnd,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: `Ghi nh\u1EADn thu ti\u1EC1n ngo\xE0i \u0111\u1EDDi (${paymentMethod}): ${amount.toLocaleString("vi-VN")}\u0111. ${note}`,
+        createdAt: now
+      };
+      batch.set(txRef, txEntry);
+    }
+    const debtRef = adminDb.collection("debt_records").doc(recordId);
+    const debtEntry2 = {
+      id: recordId,
+      uid: studentUid,
+      studentNameSnapshot: wallet.fullName || "",
+      studentClassSnapshot: wallet.currentClass || "",
+      type: "manual_receivable",
+      amountVnd: amount,
+      collectedVnd: amount,
+      allocatedVnd: amount - remainingToAllocate2,
+      remainingVnd: 0,
+      adjustedVnd: 0,
+      transactionId: txId,
+      status: "paid",
+      note: `Ghi nh\u1EADn thu tr\u1EF1c ti\u1EBFp: ${paymentMethod}${data.referenceCode ? ` (M\xE3: ${data.referenceCode})` : ""}. ${note}`,
+      createdAt: collDate,
+      updatedAt: now
+    };
+    batch.set(debtRef, debtEntry2);
+    await batch.commit();
+    return { success: true, debtRecordId: recordId, newBalanceVnd: newBal2 };
+  }
+  const allDebts = await getFirestoreRestDocs("debt_records", 100);
+  const studentDebts = allDebts.filter((d) => d.uid === studentUid && (d.status === "unpaid" || d.status === "partial"));
+  studentDebts.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
+  let remainingToAllocate = amount;
+  for (const debt of studentDebts) {
+    if (remainingToAllocate <= 0) break;
+    const debtRem = Math.max(0, sanitizeVnd(debt.remainingVnd));
+    if (debtRem <= 0) continue;
+    const paymentPortion = Math.min(debtRem, remainingToAllocate);
+    const newRem = debtRem - paymentPortion;
+    const newCollected = sanitizeVnd(debt.collectedVnd) + paymentPortion;
+    const newAllocated = sanitizeVnd(debt.allocatedVnd) + paymentPortion;
+    const newStatus = newRem === 0 ? "paid" : "partial";
+    await setFirestoreRestDoc("debt_records", debt.id, {
+      ...debt,
+      collectedVnd: newCollected,
+      allocatedVnd: newAllocated,
+      remainingVnd: newRem,
+      status: newStatus,
+      updatedAt: now
+    });
+    remainingToAllocate -= paymentPortion;
+  }
+  let newBal = wallet.balanceVnd;
+  if (data.creditToWallet) {
+    newBal = wallet.balanceVnd + amount;
+    await setFirestoreRestDoc("wallets", studentUid, {
+      ...wallet,
+      balanceVnd: newBal,
+      totalCreditedVnd: sanitizeVnd(wallet.totalCreditedVnd) + amount,
+      updatedAt: now
+    });
+    const txEntry = {
+      id: txId,
+      uid: studentUid,
+      type: "deposit_credit",
+      amountVnd: amount,
+      balanceBeforeVnd: wallet.balanceVnd,
+      balanceAfterVnd: newBal,
+      actorUid: adminUid,
+      actorName: adminName,
+      note: `Thu ti\u1EC1n th\u1EF1c t\u1EBF (${paymentMethod}): +${amount.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED. ${note}`,
+      createdAt: now
+    };
+    await setFirestoreRestDoc("wallet_transactions", txId, txEntry);
+  } else {
+    const txEntry = {
+      id: txId,
+      uid: studentUid,
+      type: "debt_payment",
+      amountVnd: amount,
+      balanceBeforeVnd: wallet.balanceVnd,
+      balanceAfterVnd: wallet.balanceVnd,
+      actorUid: adminUid,
+      actorName: adminName,
+      note: `Ghi nh\u1EADn thu ti\u1EC1n ngo\xE0i \u0111\u1EDDi (${paymentMethod}): ${amount.toLocaleString("vi-VN")}\u0111. ${note}`,
+      createdAt: now
+    };
+    await setFirestoreRestDoc("wallet_transactions", txId, txEntry);
+  }
+  const debtEntry = {
+    id: recordId,
+    uid: studentUid,
+    studentNameSnapshot: wallet.fullName || "",
+    studentClassSnapshot: wallet.currentClass || "",
+    type: "manual_receivable",
+    amountVnd: amount,
+    collectedVnd: amount,
+    allocatedVnd: amount - remainingToAllocate,
+    remainingVnd: 0,
+    adjustedVnd: 0,
+    transactionId: txId,
+    status: "paid",
+    note: `Ghi nh\u1EADn thu tr\u1EF1c ti\u1EBFp: ${paymentMethod}${data.referenceCode ? ` (M\xE3: ${data.referenceCode})` : ""}. ${note}`,
+    createdAt: collDate,
+    updatedAt: now
+  };
+  await setFirestoreRestDoc("debt_records", recordId, debtEntry);
+  return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
+}
+async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
+  const amount = sanitizeVnd(data.amountVnd);
+  if (amount <= 0) throw new Error("S\u1ED1 ti\u1EC1n \u0111i\u1EC1u ch\u1EC9nh ph\u1EA3i l\u1EDBn h\u01A1n 0\u0111.");
+  const reason = String(data.reason || "").trim();
+  if (!reason) throw new Error("Vui l\xF2ng nh\u1EADp l\xFD do \u0111i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3.");
+  const wallet = await getOrCreateWallet(studentUid);
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const recordId = `adj_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  if (adminDb) {
+    const batch = adminDb.batch();
+    const debtRef = adminDb.collection("debt_records").doc(recordId);
+    const debtDoc = {
+      id: recordId,
+      uid: studentUid,
+      studentNameSnapshot: wallet.fullName || "",
+      studentClassSnapshot: wallet.currentClass || "",
+      type: "manual_receivable",
+      amountVnd: data.type === "increase" ? amount : 0,
+      collectedVnd: 0,
+      allocatedVnd: 0,
+      remainingVnd: data.type === "increase" ? amount : 0,
+      adjustedVnd: data.type === "decrease" ? amount : 0,
+      transactionId: txId,
+      status: data.type === "increase" ? "unpaid" : "paid",
+      note: `\u0110i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3 (${data.type === "increase" ? "T\u0103ng n\u1EE3" : "Gi\u1EA3m n\u1EE3/Xo\xE1 n\u1EE3"}): ${reason}`,
+      createdAt: now,
+      updatedAt: now
+    };
+    batch.set(debtRef, debtDoc);
+    const txRef = adminDb.collection("wallet_transactions").doc(txId);
+    const txDoc = {
+      id: txId,
+      uid: studentUid,
+      type: "debt_adjustment",
+      amountVnd: amount,
+      balanceBeforeVnd: wallet.balanceVnd,
+      balanceAfterVnd: wallet.balanceVnd,
+      actorUid: adminUid,
+      actorName: adminName,
+      note: `\u0110i\u1EC1u ch\u1EC9nh n\u1EE3 ${data.type === "increase" ? "+" : "-"}${amount.toLocaleString("vi-VN")}\u0111: ${reason}`,
+      createdAt: now
+    };
+    batch.set(txRef, txDoc);
+    await batch.commit();
+  } else {
+    const debtDoc = {
+      id: recordId,
+      uid: studentUid,
+      studentNameSnapshot: wallet.fullName || "",
+      studentClassSnapshot: wallet.currentClass || "",
+      type: "manual_receivable",
+      amountVnd: data.type === "increase" ? amount : 0,
+      collectedVnd: 0,
+      allocatedVnd: 0,
+      remainingVnd: data.type === "increase" ? amount : 0,
+      adjustedVnd: data.type === "decrease" ? amount : 0,
+      transactionId: txId,
+      status: data.type === "increase" ? "unpaid" : "paid",
+      note: `\u0110i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3 (${data.type === "increase" ? "T\u0103ng n\u1EE3" : "Gi\u1EA3m n\u1EE3/Xo\xE1 n\u1EE3"}): ${reason}`,
+      createdAt: now,
+      updatedAt: now
+    };
+    await setFirestoreRestDoc("debt_records", recordId, debtDoc);
+    const txDoc = {
+      id: txId,
+      uid: studentUid,
+      type: "debt_adjustment",
+      amountVnd: amount,
+      balanceBeforeVnd: wallet.balanceVnd,
+      balanceAfterVnd: wallet.balanceVnd,
+      actorUid: adminUid,
+      actorName: adminName,
+      note: `\u0110i\u1EC1u ch\u1EC9nh n\u1EE3 ${data.type === "increase" ? "+" : "-"}${amount.toLocaleString("vi-VN")}\u0111: ${reason}`,
+      createdAt: now
+    };
+    await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
+  }
+  return { success: true, recordId };
+}
+async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, examId, action, reason) {
+  if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
+  if (!examId) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh b\xE0i thi.");
+  const cleanReason = String(reason || "").trim();
+  if (!cleanReason) throw new Error("Vui l\xF2ng nh\u1EADp l\xFD do c\u1EA5p/thu h\u1ED3i quy\u1EC1n truy c\u1EADp.");
+  const entitlementId = `${studentUid}_${examId}`;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  let examTitle = "B\xE0i thi";
+  if (adminDb) {
+    const eSnap = await adminDb.collection("exams").doc(examId).get();
+    if (eSnap.exists) examTitle = eSnap.data()?.title || examTitle;
+  }
+  const entitlement = {
+    id: entitlementId,
+    uid: studentUid,
+    examId,
+    status: action === "grant" ? "active" : "revoked",
+    source: "admin_grant",
+    pricePaidVnd: 0,
+    grantedAt: now,
+    grantedBy: adminUid,
+    examTitleSnapshot: examTitle
+  };
+  if (adminDb) {
+    await adminDb.collection("exam_entitlements").doc(entitlementId).set(entitlement, { merge: true });
+    const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const txRef = adminDb.collection("wallet_transactions").doc(txId);
+    const wallet = await getOrCreateWallet(studentUid);
+    const txDoc = {
+      id: txId,
+      uid: studentUid,
+      type: "admin_adjustment_credit",
+      amountVnd: 0,
+      balanceBeforeVnd: wallet.balanceVnd,
+      balanceAfterVnd: wallet.balanceVnd,
+      examId,
+      examTitleSnapshot: examTitle,
+      actorUid: adminUid,
+      actorName: adminName,
+      note: `${action === "grant" ? "C\u1EA5p quy\u1EC1n truy c\u1EADp th\u1EE7 c\xF4ng" : "Thu h\u1ED3i quy\u1EC1n truy c\u1EADp"} \u0111\u1EC1 thi "${examTitle}": ${cleanReason}`,
+      createdAt: now
+    };
+    await txRef.set(txDoc);
+  } else {
+    await setFirestoreRestDoc("exam_entitlements", entitlementId, entitlement);
+  }
+  return { success: true, entitlement };
+}
+async function getWalletOverview() {
+  let totalWallets = 0;
+  let totalVirtualBalanceVnd = 0;
+  let totalConfirmedCreditedVnd = 0;
+  let totalUnlockedSpendingVnd = 0;
+  let pendingRequestsTotalVnd = 0;
+  let pendingRequestsCount = 0;
+  let totalOutstandingDebtVnd = 0;
+  let studentsInDebtCount = 0;
+  let recentRequests = [];
+  if (adminDb) {
+    const walletsSnap = await adminDb.collection("wallets").get();
+    totalWallets = walletsSnap.size;
+    walletsSnap.docs.forEach((doc) => {
+      const w = doc.data();
+      totalVirtualBalanceVnd += sanitizeVnd(w.balanceVnd);
+      totalConfirmedCreditedVnd += sanitizeVnd(w.totalCreditedVnd);
+      totalUnlockedSpendingVnd += sanitizeVnd(w.totalSpentVnd);
+    });
+    const pendingSnap = await adminDb.collection("deposit_requests").where("status", "==", "pending").get();
+    pendingRequestsCount = pendingSnap.size;
+    pendingSnap.docs.forEach((doc) => {
+      pendingRequestsTotalVnd += sanitizeVnd(doc.data().amountVnd);
+    });
+    const recentSnap = await adminDb.collection("deposit_requests").orderBy("createdAt", "desc").limit(10).get();
+    recentRequests = recentSnap.docs.map((d) => d.data());
+    const debtsSnap = await adminDb.collection("debt_records").where("status", "in", ["unpaid", "partial"]).get();
+    const studentsInDebtSet = /* @__PURE__ */ new Set();
+    debtsSnap.docs.forEach((d) => {
+      const rec = d.data();
+      const rem = sanitizeVnd(rec.remainingVnd);
+      if (rem > 0) {
+        totalOutstandingDebtVnd += rem;
+        studentsInDebtSet.add(rec.uid);
+      }
+    });
+    studentsInDebtCount = studentsInDebtSet.size;
+  } else {
+    const [wallets, reqs, debts] = await Promise.all([
+      getFirestoreRestDocs("wallets", 100),
+      getFirestoreRestDocs("deposit_requests", 100),
+      getFirestoreRestDocs("debt_records", 100)
+    ]);
+    totalWallets = wallets.length;
+    wallets.forEach((w) => {
+      totalVirtualBalanceVnd += sanitizeVnd(w.balanceVnd);
+      totalConfirmedCreditedVnd += sanitizeVnd(w.totalCreditedVnd);
+      totalUnlockedSpendingVnd += sanitizeVnd(w.totalSpentVnd);
+    });
+    const pendingReqs = reqs.filter((r) => r.status === "pending");
+    pendingRequestsCount = pendingReqs.length;
+    pendingReqs.forEach((r) => {
+      pendingRequestsTotalVnd += sanitizeVnd(r.amountVnd);
+    });
+    const sortedReqs = [...reqs].sort(
+      (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+    );
+    recentRequests = sortedReqs.slice(0, 10);
+    const studentsInDebtSet = /* @__PURE__ */ new Set();
+    debts.forEach((rec) => {
+      if (rec.status === "unpaid" || rec.status === "partial") {
+        const rem = sanitizeVnd(rec.remainingVnd);
+        if (rem > 0) {
+          totalOutstandingDebtVnd += rem;
+          studentsInDebtSet.add(rec.uid);
+        }
+      }
+    });
+    studentsInDebtCount = studentsInDebtSet.size;
+  }
+  return {
+    totalWallets,
+    totalVirtualBalanceVnd,
+    totalConfirmedCreditedVnd,
+    totalUnlockedSpendingVnd,
+    pendingRequestsTotalVnd,
+    pendingRequestsCount,
+    totalOutstandingDebtVnd,
+    studentsInDebtCount,
+    recentRequests
+  };
+}
+async function getStudentDebtSummaries(options) {
+  let walletsList = [];
+  let debtsList = [];
+  let entsList = [];
+  const userMap = /* @__PURE__ */ new Map();
+  if (adminDb) {
+    const [walletsSnap, debtsSnap, entsSnap, usersSnap] = await Promise.all([
+      adminDb.collection("wallets").get(),
+      adminDb.collection("debt_records").get(),
+      adminDb.collection("exam_entitlements").where("status", "==", "active").get(),
+      adminDb.collection("users").get()
+    ]);
+    walletsList = walletsSnap.docs.map((d) => d.data());
+    debtsList = debtsSnap.docs.map((d) => d.data());
+    entsList = entsSnap.docs.map((d) => d.data());
+    usersSnap.docs.forEach((d) => {
+      const u = d.data();
+      userMap.set(d.id, {
+        username: u.username || "",
+        email: u.email || "",
+        displayName: u.displayName || u.fullName || ""
+      });
+    });
+  } else {
+    const [wallets, debts, ents, users] = await Promise.all([
+      getFirestoreRestDocs("wallets", 100),
+      getFirestoreRestDocs("debt_records", 100),
+      getFirestoreRestDocs("exam_entitlements", 100),
+      getFirestoreRestDocs("users", 100)
+    ]);
+    walletsList = wallets;
+    debtsList = debts;
+    entsList = ents.filter((e) => e.status === "active");
+    users.forEach((u) => {
+      const uid = u.id || u.uid;
+      if (uid) {
+        userMap.set(uid, {
+          username: u.username || "",
+          email: u.email || "",
+          displayName: u.displayName || u.fullName || ""
+        });
+      }
+    });
+  }
+  const debtByUid = /* @__PURE__ */ new Map();
+  debtsList.forEach((rec) => {
+    const uid = rec.uid;
+    if (!debtByUid.has(uid)) {
+      debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 });
+    }
+    const curr = debtByUid.get(uid);
+    curr.totalReceivable += sanitizeVnd(rec.amountVnd);
+    curr.totalCollected += sanitizeVnd(rec.collectedVnd);
+    curr.remainingDebt += Math.max(0, sanitizeVnd(rec.remainingVnd));
+  });
+  const unlocksByUid = /* @__PURE__ */ new Map();
+  entsList.forEach((d) => {
+    const uid = d.uid;
+    unlocksByUid.set(uid, (unlocksByUid.get(uid) || 0) + 1);
+  });
+  let summaries = [];
+  walletsList.forEach((w) => {
+    const debtInfo = debtByUid.get(w.uid) || {
+      totalReceivable: 0,
+      totalCollected: 0,
+      remainingDebt: 0
+    };
+    let debtStatus = "paid";
+    if (debtInfo.remainingDebt > 0) {
+      debtStatus = "in_debt";
+    } else if (w.balanceVnd > 0) {
+      debtStatus = "has_credit";
+    }
+    const userInfo = userMap.get(w.uid);
+    summaries.push({
+      uid: w.uid,
+      fullName: w.fullName || userInfo?.displayName || "Ch\u01B0a c\u1EADp nh\u1EADt",
+      studentClass: w.currentClass || "\u2014",
+      currentClass: w.currentClass || "\u2014",
+      username: userInfo?.username || "",
+      email: userInfo?.email || "",
+      verifiedName: w.verifiedName || w.fullName || "",
+      isVerified: Boolean(w.isVerified),
+      balanceVnd: sanitizeVnd(w.balanceVnd),
+      totalReceivableVnd: debtInfo.totalReceivable,
+      totalReceivablesVnd: debtInfo.totalReceivable,
+      totalCollectedVnd: debtInfo.totalCollected,
+      totalAdjustmentsVnd: 0,
+      totalAdjustedVnd: 0,
+      remainingDebtVnd: debtInfo.remainingDebt,
+      totalPurchasesCount: unlocksByUid.get(w.uid) || 0,
+      debtStatus,
+      lastActivityAt: w.updatedAt || w.createdAt
+    });
+  });
+  if (options?.className && options.className !== "all") {
+    summaries = summaries.filter(
+      (s) => s.studentClass.toLowerCase() === options.className?.toLowerCase()
+    );
+  }
+  if (options?.filterStatus && options.filterStatus !== "all") {
+    summaries = summaries.filter((s) => s.debtStatus === options.filterStatus);
+  }
+  if (options?.search) {
+    const q = options.search.toLowerCase().trim();
+    summaries = summaries.filter(
+      (s) => s.fullName.toLowerCase().includes(q) || s.username && s.username.toLowerCase().includes(q) || s.verifiedName && s.verifiedName.toLowerCase().includes(q) || s.studentClass.toLowerCase().includes(q) || s.uid.toLowerCase().includes(q)
+    );
+  }
+  summaries.sort((a, b) => {
+    if (b.remainingDebtVnd !== a.remainingDebtVnd) {
+      return b.remainingDebtVnd - a.remainingDebtVnd;
+    }
+    return b.balanceVnd - a.balanceVnd;
+  });
+  const total = summaries.length;
+  const offset = options?.offset || 0;
+  const limitCount = options?.limit || 50;
+  const paged = summaries.slice(offset, offset + limitCount);
+  return { items: paged, total };
+}
+async function getStudentWalletDetails(studentUid) {
+  if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
+  const wallet = await getOrCreateWallet(studentUid);
+  let transactions = [];
+  let depositRequests = [];
+  let entitlements = [];
+  let debtRecords = [];
+  let studentProfile = null;
+  if (adminDb) {
+    const [txSnap, reqSnap, entSnap, debtSnap, uDoc, sDoc] = await Promise.all([
+      adminDb.collection("wallet_transactions").where("uid", "==", studentUid).orderBy("createdAt", "desc").limit(50).get(),
+      adminDb.collection("deposit_requests").where("uid", "==", studentUid).orderBy("createdAt", "desc").limit(50).get(),
+      adminDb.collection("exam_entitlements").where("uid", "==", studentUid).orderBy("grantedAt", "desc").limit(50).get(),
+      adminDb.collection("debt_records").where("uid", "==", studentUid).orderBy("createdAt", "desc").limit(50).get(),
+      adminDb.collection("users").doc(studentUid).get(),
+      adminDb.collection("students").doc(studentUid).get()
+    ]);
+    transactions = txSnap.docs.map((d) => d.data());
+    depositRequests = reqSnap.docs.map((d) => d.data());
+    entitlements = entSnap.docs.map((d) => d.data());
+    debtRecords = debtSnap.docs.map((d) => d.data());
+    const uData = uDoc.exists ? uDoc.data() : null;
+    const sData = sDoc.exists ? sDoc.data() : null;
+    studentProfile = {
+      uid: studentUid,
+      username: uData?.username || sData?.username || "",
+      displayName: uData?.displayName || uData?.fullName || sData?.displayName || wallet.fullName || "",
+      email: uData?.email || sData?.email || "",
+      phone: uData?.phone || sData?.phone || "",
+      studentClass: uData?.studentClass || sData?.studentClass || wallet.currentClass || "",
+      school: sData?.school || uData?.school || "",
+      avatarUrl: uData?.photoURL || uData?.avatarUrl || sData?.avatarUrl || "",
+      role: uData?.role || "student",
+      status: uData?.status || "active",
+      createdAt: uData?.createdAt || sData?.createdAt || wallet.createdAt,
+      lastActive: uData?.lastLogin || uData?.updatedAt || wallet.updatedAt
+    };
+  } else {
+    const [allTxs, allReqs, allEnts, allDebts, uData, sData] = await Promise.all([
+      getFirestoreRestDocs("wallet_transactions", 100),
+      getFirestoreRestDocs("deposit_requests", 100),
+      getFirestoreRestDocs("exam_entitlements", 100),
+      getFirestoreRestDocs("debt_records", 100),
+      getFirestoreRestDoc("users", studentUid),
+      getFirestoreRestDoc("students", studentUid)
+    ]);
+    transactions = allTxs.filter((t) => t.uid === studentUid).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 50);
+    depositRequests = allReqs.filter((r) => r.uid === studentUid).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 50);
+    entitlements = allEnts.filter((e) => e.uid === studentUid).sort((a, b) => new Date(b.grantedAt || 0).getTime() - new Date(a.grantedAt || 0).getTime()).slice(0, 50);
+    debtRecords = allDebts.filter((d) => d.uid === studentUid).sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 50);
+    studentProfile = {
+      uid: studentUid,
+      username: uData?.username || sData?.username || "",
+      displayName: uData?.displayName || uData?.fullName || sData?.displayName || wallet.fullName || "",
+      email: uData?.email || sData?.email || "",
+      phone: uData?.phone || sData?.phone || "",
+      studentClass: uData?.studentClass || sData?.studentClass || wallet.currentClass || "",
+      school: sData?.school || uData?.school || "",
+      avatarUrl: uData?.photoURL || uData?.avatarUrl || sData?.avatarUrl || "",
+      role: uData?.role || "student",
+      status: uData?.status || "active",
+      createdAt: uData?.createdAt || sData?.createdAt || wallet.createdAt,
+      lastActive: uData?.lastLogin || uData?.updatedAt || wallet.updatedAt
+    };
+  }
+  return {
+    wallet,
+    studentProfile,
+    transactions,
+    depositRequests,
+    entitlements,
+    debtRecords
+  };
+}
+async function getDepositRequests(options) {
+  let list = [];
+  if (adminDb) {
+    let q = adminDb.collection("deposit_requests");
+    if (options?.status && options.status !== "all") {
+      q = q.where("status", "==", options.status);
+    }
+    q = q.orderBy("createdAt", "desc").limit(options?.limit || 50);
+    const snap = await q.get();
+    list = snap.docs.map((d) => d.data());
+  } else {
+    const docs = await getFirestoreRestDocs("deposit_requests", 100);
+    list = docs;
+    if (options?.status && options.status !== "all") {
+      list = list.filter((r) => r.status === options.status);
+    }
+    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    if (options?.limit) {
+      list = list.slice(0, options.limit);
+    }
+  }
+  if (options?.search) {
+    const term = options.search.toLowerCase().trim();
+    list = list.filter(
+      (r) => (r.studentNameSnapshot || "").toLowerCase().includes(term) || (r.studentClassSnapshot || "").toLowerCase().includes(term) || (r.id || "").toLowerCase().includes(term) || (r.uid || "").toLowerCase().includes(term)
+    );
+  }
+  return list;
+}
+async function getStudentDepositRequests(uid, limitCount = 30) {
+  if (adminDb) {
+    const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
+    return snap.docs.map((d) => d.data());
+  }
+  const docs = await getFirestoreRestDocs("deposit_requests", 100);
+  const filtered = docs.filter((d) => d.uid === uid);
+  filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  return filtered.slice(0, limitCount);
+}
+async function updateStudentWalletProfile(studentUid, data) {
+  if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
+  const wallet = await getOrCreateWallet(studentUid);
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const updateFields = {
+    updatedAt: now
+  };
+  if (data.fullName !== void 0) updateFields.fullName = String(data.fullName).trim();
+  if (data.currentClass !== void 0) updateFields.currentClass = String(data.currentClass).trim();
+  if (data.verifiedName !== void 0) updateFields.verifiedName = String(data.verifiedName).trim();
+  if (data.isVerified !== void 0) {
+    updateFields.isVerified = Boolean(data.isVerified);
+    if (data.isVerified) {
+      updateFields.verifiedAt = now;
+      if (data.adminUid) updateFields.verifiedBy = data.adminUid;
+    }
+  }
+  const updatedWallet = {
+    ...wallet,
+    ...updateFields
+  };
+  if (adminDb) {
+    await adminDb.collection("wallets").doc(studentUid).set(updatedWallet, { merge: true });
+  } else {
+    await setFirestoreRestDoc("wallets", studentUid, updatedWallet);
+  }
+  return updatedWallet;
+}
+async function syncStudentsToWallets() {
+  let createdCount = 0;
+  let updatedCount = 0;
+  const studentsMap = /* @__PURE__ */ new Map();
+  if (adminDb) {
+    const usersSnap = await adminDb.collection("users").get();
+    usersSnap.docs.forEach((doc) => {
+      const data = doc.data();
+      const role = data.role || "student";
+      if (role === "student" || !role) {
+        studentsMap.set(doc.id, {
+          uid: doc.id,
+          displayName: data.displayName || data.fullName || data.name || data.username || "",
+          username: data.username || "",
+          studentClass: data.studentClass || data.class || ""
+        });
+      }
+    });
+    const studentsSnap = await adminDb.collection("students").get();
+    studentsSnap.docs.forEach((doc) => {
+      const data = doc.data();
+      const uid = doc.id;
+      if (!studentsMap.has(uid)) {
+        studentsMap.set(uid, {
+          uid,
+          displayName: data.displayName || data.fullName || data.name || data.username || "",
+          username: data.username || "",
+          studentClass: data.studentClass || data.class || ""
+        });
+      } else {
+        const curr = studentsMap.get(uid);
+        if (!curr.displayName && (data.displayName || data.fullName)) {
+          curr.displayName = data.displayName || data.fullName;
+        }
+        if (!curr.studentClass && data.studentClass) {
+          curr.studentClass = data.studentClass;
+        }
+      }
+    });
+    const walletsSnap = await adminDb.collection("wallets").get();
+    const existingWallets = /* @__PURE__ */ new Map();
+    walletsSnap.docs.forEach((doc) => {
+      existingWallets.set(doc.id, doc.data());
+    });
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const batch = adminDb.batch();
+    let opCount = 0;
+    for (const [uid, student] of studentsMap.entries()) {
+      const existing = existingWallets.get(uid);
+      if (!existing) {
+        const newWallet = {
+          uid,
+          balanceVnd: 0,
+          totalCreditedVnd: 0,
+          totalSpentVnd: 0,
+          profileCompleted: Boolean(student.displayName && student.studentClass),
+          fullName: student.displayName || student.username || `H\u1ECDc sinh #${uid.slice(0, 5)}`,
+          currentClass: student.studentClass || "",
+          verifiedName: student.displayName || "",
+          isVerified: false,
+          createdAt: now,
+          updatedAt: now
+        };
+        batch.set(adminDb.collection("wallets").doc(uid), newWallet);
+        createdCount++;
+        opCount++;
+      } else {
+        let needUpdate = false;
+        const updates = { updatedAt: now };
+        if (!existing.fullName && student.displayName) {
+          updates.fullName = student.displayName;
+          needUpdate = true;
+        }
+        if (!existing.currentClass && student.studentClass) {
+          updates.currentClass = student.studentClass;
+          needUpdate = true;
+        }
+        if (!existing.verifiedName && (existing.fullName || student.displayName)) {
+          updates.verifiedName = existing.fullName || student.displayName;
+          needUpdate = true;
+        }
+        if (needUpdate) {
+          batch.set(adminDb.collection("wallets").doc(uid), updates, { merge: true });
+          updatedCount++;
+          opCount++;
+        }
+      }
+      if (opCount >= 400) {
+        await batch.commit();
+        opCount = 0;
+      }
+    }
+    if (opCount > 0) {
+      await batch.commit();
+    }
+  } else {
+    const [usersList, studentsList, walletsList] = await Promise.all([
+      getFirestoreRestDocs("users", 200),
+      getFirestoreRestDocs("students", 200),
+      getFirestoreRestDocs("wallets", 200)
+    ]);
+    usersList.forEach((data) => {
+      const uid = data.id || data.uid;
+      if (uid && (data.role === "student" || !data.role)) {
+        studentsMap.set(uid, {
+          uid,
+          displayName: data.displayName || data.fullName || data.name || data.username || "",
+          username: data.username || "",
+          studentClass: data.studentClass || data.class || ""
+        });
+      }
+    });
+    studentsList.forEach((data) => {
+      const uid = data.id || data.uid;
+      if (uid) {
+        if (!studentsMap.has(uid)) {
+          studentsMap.set(uid, {
+            uid,
+            displayName: data.displayName || data.fullName || data.name || data.username || "",
+            username: data.username || "",
+            studentClass: data.studentClass || data.class || ""
+          });
+        }
+      }
+    });
+    const existingWallets = /* @__PURE__ */ new Map();
+    walletsList.forEach((w) => {
+      const uid = w.id || w.uid;
+      if (uid) existingWallets.set(uid, w);
+    });
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    for (const [uid, student] of studentsMap.entries()) {
+      const existing = existingWallets.get(uid);
+      if (!existing) {
+        const newWallet = {
+          uid,
+          balanceVnd: 0,
+          totalCreditedVnd: 0,
+          totalSpentVnd: 0,
+          profileCompleted: Boolean(student.displayName && student.studentClass),
+          fullName: student.displayName || student.username || `H\u1ECDc sinh #${uid.slice(0, 5)}`,
+          currentClass: student.studentClass || "",
+          verifiedName: student.displayName || "",
+          isVerified: false,
+          createdAt: now,
+          updatedAt: now
+        };
+        await setFirestoreRestDoc("wallets", uid, newWallet);
+        createdCount++;
+      } else {
+        let needUpdate = false;
+        const updates = { ...existing, updatedAt: now };
+        if (!existing.fullName && student.displayName) {
+          updates.fullName = student.displayName;
+          needUpdate = true;
+        }
+        if (!existing.currentClass && student.studentClass) {
+          updates.currentClass = student.studentClass;
+          needUpdate = true;
+        }
+        if (!existing.verifiedName && (existing.fullName || student.displayName)) {
+          updates.verifiedName = existing.fullName || student.displayName;
+          needUpdate = true;
+        }
+        if (needUpdate) {
+          await setFirestoreRestDoc("wallets", uid, updates);
+          updatedCount++;
+        }
+      }
+    }
+  }
+  return {
+    totalStudents: studentsMap.size,
+    createdCount,
+    updatedCount
+  };
+}
+
+// server/services/examMergeService.ts
+async function mergeExams(options) {
+  const {
+    title,
+    description = "",
+    subject = "Kh\xE1c",
+    gradeCategory = "Kh\xE1c",
+    folderId = null,
+    timeLimit = 90,
+    sourceExamIds,
+    organizeMode = "by_source_exam",
+    shuffleQuestions = false,
+    shuffleOptions = false,
+    actorUid = "admin",
+    actorName = "Admin"
+  } = options;
+  if (!title || !title.trim()) {
+    throw new Error("Vui l\xF2ng nh\u1EADp t\xEAn b\xE0i thi m\u1EDBi.");
+  }
+  if (!Array.isArray(sourceExamIds) || sourceExamIds.length < 2) {
+    throw new Error("C\u1EA7n ch\u1ECDn \xEDt nh\u1EA5t 2 b\xE0i thi h\u1EE3p l\u1EC7 \u0111\u1EC3 th\u1EF1c hi\u1EC7n g\u1ED9p \u0111\u1EC1.");
+  }
+  const loadedSources = [];
+  for (const srcId of sourceExamIds) {
+    let examData = null;
+    let sections = [];
+    let questions = [];
+    if (adminDb) {
+      const examDoc = await adminDb.collection("exams").doc(srcId).get();
+      if (!examDoc.exists) {
+        throw new Error(`Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi ngu\u1ED3n v\u1EDBi ID: ${srcId}`);
+      }
+      examData = { id: examDoc.id, ...examDoc.data() };
+      const secSnap = await adminDb.collection("exams").doc(srcId).collection("sections").orderBy("order", "asc").get();
+      if (!secSnap.empty) {
+        sections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      } else if (Array.isArray(examData.sections) && examData.sections.length > 0) {
+        sections = [...examData.sections];
+      }
+      const qSnap = await adminDb.collection("exams").doc(srcId).collection("questions").orderBy("order", "asc").get();
+      if (!qSnap.empty) {
+        questions = qSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      } else if (Array.isArray(examData.questions) && examData.questions.length > 0) {
+        questions = [...examData.questions];
+      }
+    } else {
+      examData = await getFirestoreRestDoc("exams", srcId);
+      if (!examData) {
+        throw new Error(`Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi ngu\u1ED3n v\u1EDBi ID: ${srcId}`);
+      }
+      const restSecs = await getFirestoreRestDocs(`exams/${srcId}/sections`, 100);
+      if (restSecs && restSecs.length > 0) {
+        sections = restSecs;
+      } else if (Array.isArray(examData.sections) && examData.sections.length > 0) {
+        sections = [...examData.sections];
+      }
+      const restQs = await getFirestoreRestDocs(`exams/${srcId}/questions`, 100);
+      if (restQs && restQs.length > 0) {
+        questions = restQs;
+      } else if (Array.isArray(examData.questions) && examData.questions.length > 0) {
+        questions = [...examData.questions];
+      }
+    }
+    loadedSources.push({
+      exam: examData,
+      sections,
+      questions
+    });
+  }
+  const newExamId = adminDb ? adminDb.collection("exams").doc().id : `exam_mrg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const generatedCode = options.code?.trim().toUpperCase() || `MERGED-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+  const newSections = [];
+  const newQuestions = [];
+  let globalQuestionOrder = 0;
+  let globalSectionOrder = 0;
+  let totalCalculatedPoints = 0;
+  for (let sIdx = 0; sIdx < loadedSources.length; sIdx++) {
+    const src = loadedSources[sIdx];
+    const sourceExam = src.exam;
+    if (organizeMode === "by_source_exam") {
+      const parentSectionId = `sec_p_${newExamId}_${sIdx + 1}`;
+      const parentSection = {
+        id: parentSectionId,
+        examId: newExamId,
+        title: `Ph\u1EA7n ${sIdx + 1}: ${sourceExam.title}`,
+        description: sourceExam.description || "",
+        order: globalSectionOrder++,
+        parentSectionId: null,
+        depth: 0,
+        questionCount: src.questions.length,
+        enabled: true
+      };
+      newSections.push(parentSection);
+      const sectionIdMap = /* @__PURE__ */ new Map();
+      if (src.sections.length > 0) {
+        src.sections.forEach((oldSec, idx) => {
+          const childSecId = `sec_c_${newExamId}_${sIdx + 1}_${idx + 1}`;
+          sectionIdMap.set(oldSec.id, childSecId);
+          const childSec = {
+            ...oldSec,
+            id: childSecId,
+            examId: newExamId,
+            title: oldSec.title,
+            description: oldSec.description || "",
+            order: globalSectionOrder++,
+            parentSectionId,
+            depth: 1,
+            questionCount: src.questions.filter((q) => q.sectionId === oldSec.id).length,
+            enabled: true
+          };
+          newSections.push(childSec);
+        });
+      } else {
+        const singleChildId = `sec_c_${newExamId}_${sIdx + 1}_sub`;
+        sectionIdMap.set("default", singleChildId);
+        newSections.push({
+          id: singleChildId,
+          examId: newExamId,
+          title: sourceExam.subject ? `M\xF4n ${sourceExam.subject}` : "To\xE0n b\u1ED9 c\xE2u h\u1ECFi",
+          order: globalSectionOrder++,
+          parentSectionId,
+          depth: 1,
+          questionCount: src.questions.length,
+          enabled: true
+        });
+      }
+      src.questions.forEach((oldQ, qIdx) => {
+        let assignedSectionId = oldQ.sectionId ? sectionIdMap.get(oldQ.sectionId) : sectionIdMap.get("default");
+        if (!assignedSectionId && newSections.length > 0) {
+          assignedSectionId = newSections[newSections.length - 1].id;
+        }
+        const newQId = `q_mrg_${newExamId}_${sIdx + 1}_${qIdx + 1}_${Math.random().toString(36).substring(2, 6)}`;
+        const pts = typeof oldQ.points === "number" && !isNaN(oldQ.points) ? oldQ.points : 1;
+        totalCalculatedPoints += pts;
+        const clonedQuestion = {
+          ...oldQ,
+          id: newQId,
+          examId: newExamId,
+          sectionId: assignedSectionId,
+          order: globalQuestionOrder++,
+          points: pts,
+          originalExamId: sourceExam.id,
+          originalQuestionId: oldQ.id
+        };
+        newQuestions.push(clonedQuestion);
+      });
+    } else {
+      const sectionIdMap = /* @__PURE__ */ new Map();
+      src.sections.forEach((oldSec, idx) => {
+        const mappedId = `sec_${newExamId}_${sIdx + 1}_${idx + 1}`;
+        sectionIdMap.set(oldSec.id, mappedId);
+        const clonedSec = {
+          ...oldSec,
+          id: mappedId,
+          examId: newExamId,
+          order: globalSectionOrder++,
+          parentSectionId: null,
+          depth: oldSec.depth ?? 0
+        };
+        newSections.push(clonedSec);
+      });
+      newSections.forEach((sec) => {
+        if (sec.parentSectionId && sectionIdMap.has(sec.parentSectionId)) {
+          sec.parentSectionId = sectionIdMap.get(sec.parentSectionId);
+        }
+      });
+      src.questions.forEach((oldQ, qIdx) => {
+        const assignedSectionId = oldQ.sectionId ? sectionIdMap.get(oldQ.sectionId) || null : null;
+        const newQId = `q_mrg_${newExamId}_${sIdx + 1}_${qIdx + 1}_${Math.random().toString(36).substring(2, 6)}`;
+        const pts = typeof oldQ.points === "number" && !isNaN(oldQ.points) ? oldQ.points : 1;
+        totalCalculatedPoints += pts;
+        const clonedQuestion = {
+          ...oldQ,
+          id: newQId,
+          examId: newExamId,
+          sectionId: assignedSectionId,
+          order: globalQuestionOrder++,
+          points: pts,
+          originalExamId: sourceExam.id,
+          originalQuestionId: oldQ.id
+        };
+        newQuestions.push(clonedQuestion);
+      });
+    }
+  }
+  const now = /* @__PURE__ */ new Date();
+  const newExam = {
+    id: newExamId,
+    title: title.trim(),
+    code: generatedCode,
+    description: description.trim(),
+    timeLimit,
+    duration: timeLimit,
+    shuffleQuestions,
+    shuffleOptions,
+    status: "draft",
+    folderId,
+    subject,
+    gradeCategory,
+    questionCount: newQuestions.length,
+    totalQuestions: newQuestions.length,
+    maxScore: totalCalculatedPoints || 10,
+    showResults: true,
+    showScore: true,
+    showDetails: true,
+    allowSubExam: false,
+    maxAttempts: 0,
+    sourceExamIds,
+    sourceExamCount: sourceExamIds.length,
+    isAggregatedReview: false,
+    accessMode: "free",
+    priceVnd: 0,
+    salesEnabled: true,
+    sections: newSections,
+    createdAt: now,
+    updatedAt: now
+  };
+  if (adminDb) {
+    const BATCH_SIZE = 400;
+    const writeOps = [];
+    writeOps.push({ ref: adminDb.collection("exams").doc(newExamId), data: newExam });
+    for (const sec of newSections) {
+      const secRef = adminDb.collection("exams").doc(newExamId).collection("sections").doc(sec.id);
+      writeOps.push({ ref: secRef, data: sec });
+    }
+    for (const q of newQuestions) {
+      const qRef = adminDb.collection("exams").doc(newExamId).collection("questions").doc(q.id);
+      writeOps.push({ ref: qRef, data: q });
+    }
+    for (let i = 0; i < writeOps.length; i += BATCH_SIZE) {
+      const chunk = writeOps.slice(i, i + BATCH_SIZE);
+      const batch = adminDb.batch();
+      for (const op of chunk) {
+        batch.set(op.ref, op.data);
+      }
+      await batch.commit();
+    }
+  } else {
+    await setFirestoreRestDoc("exams", newExamId, {
+      ...newExam,
+      sections: newSections,
+      questions: newQuestions
+    });
+    for (const sec of newSections) {
+      await setFirestoreRestDoc(`exams/${newExamId}/sections`, sec.id, sec);
+    }
+    for (const q of newQuestions) {
+      await setFirestoreRestDoc(`exams/${newExamId}/questions`, q.id, q);
+    }
+  }
+  try {
+    const auditData = {
+      actorUid,
+      actorName,
+      action: "MERGE_EXAMS",
+      targetUid: newExamId,
+      targetType: "exam",
+      metadata: {
+        newExamTitle: title,
+        sourceExamIds,
+        totalSections: newSections.length,
+        totalQuestions: newQuestions.length
+      },
+      timestamp: now.toISOString()
+    };
+    if (adminDb) {
+      const auditRef = adminDb.collection("auditLogs").doc();
+      await auditRef.set({
+        id: auditRef.id,
+        ...auditData
+      });
+    } else {
+      const auditId = `audit_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      await setFirestoreRestDoc("auditLogs", auditId, {
+        id: auditId,
+        ...auditData
+      });
+    }
+  } catch (auditErr) {
+    console.warn("[examMergeService] Failed to record merge audit log:", auditErr);
+  }
+  return {
+    newExamId,
+    exam: newExam,
+    totalSections: newSections.length,
+    totalQuestions: newQuestions.length,
+    totalPoints: totalCalculatedPoints
+  };
+}
+
 // server/routes/adminRoutes.ts
 var adminRouter = Router();
 var userListCache = /* @__PURE__ */ new Map();
@@ -474,6 +1946,13 @@ function invalidateUserListCache() {
   userListCache.clear();
 }
 adminRouter.use(requireAdmin);
+adminRouter.use((_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.setHeader("Surrogate-Control", "no-store");
+  next();
+});
 async function recordAuditLog(actor, action, targetUid, targetType, metadata, req) {
   const logId = `log_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
   const logData = {
@@ -1706,6 +3185,256 @@ adminRouter.put("/settings", requireSuperAdmin, async (req, res) => {
     return res.json({ success: true, message: "\u0110\xE3 l\u01B0u c\xE0i \u0111\u1EB7t h\u1EC7 th\u1ED1ng th\xE0nh c\xF4ng." });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message });
+  }
+});
+adminRouter.get("/wallet/overview", async (req, res) => {
+  try {
+    const overview = await getWalletOverview();
+    return res.json({ success: true, overview });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/wallet/students", async (req, res) => {
+  try {
+    const { search, filterStatus, className, limit, offset } = req.query;
+    const result = await getStudentDebtSummaries({
+      search,
+      filterStatus,
+      className,
+      limit: limit ? Number(limit) : 50,
+      offset: offset ? Number(offset) : 0
+    });
+    return res.json({ success: true, items: result.items, total: result.total });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/wallet/students/:uid/details", async (req, res) => {
+  try {
+    const uid = req.params.uid;
+    const details = await getStudentWalletDetails(uid);
+    return res.json({ success: true, ...details });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/wallet/sync-students", async (req, res) => {
+  try {
+    const result = await syncStudentsToWallets();
+    await recordAuditLog(
+      req.user,
+      "SYNC_STUDENTS_TO_WALLETS",
+      "wallets",
+      "wallet_system",
+      result,
+      req
+    );
+    return res.json({
+      success: true,
+      message: `\u0110\u1ED3ng b\u1ED9 v\xED h\u1ECDc sinh th\xE0nh c\xF4ng! T\u1ED5ng c\u1ED9ng ${result.totalStudents} h\u1ECDc sinh (T\u1EA1o m\u1EDBi: ${result.createdCount}, C\u1EADp nh\u1EADt: ${result.updatedCount}).`,
+      ...result
+    });
+  } catch (err) {
+    return res.status(500).json({ error: "sync_error", message: err.message || String(err) });
+  }
+});
+adminRouter.patch("/wallet/students/:uid/profile", async (req, res) => {
+  try {
+    const studentUid = req.params.uid;
+    const { verifiedName, isVerified, fullName, currentClass } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const updated = await updateStudentWalletProfile(studentUid, {
+      verifiedName,
+      isVerified,
+      fullName,
+      currentClass,
+      adminUid
+    });
+    await recordAuditLog(
+      req.user,
+      "UPDATE_STUDENT_WALLET_PROFILE",
+      studentUid,
+      "student_wallet",
+      { verifiedName, isVerified, fullName, currentClass },
+      req
+    );
+    return res.json({
+      success: true,
+      message: "C\u1EADp nh\u1EADt h\u1ED3 s\u01A1 v\xE0 t\xEAn x\xE1c th\u1EF1c v\xED h\u1ECDc sinh th\xE0nh c\xF4ng!",
+      wallet: updated
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "profile_update_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/wallet/deposit-requests", async (req, res) => {
+  try {
+    const { status, search, limit } = req.query;
+    const requests = await getDepositRequests({
+      status,
+      search,
+      limit: limit ? Number(limit) : 50
+    });
+    return res.json({ success: true, items: requests });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/wallet/deposit-requests/:id/approve", async (req, res) => {
+  try {
+    const requestId = req.params.id;
+    const { externalCollectionNote } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await approveDepositRequest(requestId, adminUid, adminName, externalCollectionNote);
+    await recordAuditLog(
+      req.user,
+      "APPROVE_DEPOSIT_REQUEST",
+      requestId,
+      "deposit_request",
+      { newBalanceVnd: result.newBalanceVnd, externalCollectionNote },
+      req
+    );
+    return res.json({
+      success: true,
+      message: "\u0110\xE3 ph\xEA duy\u1EC7t y\xEAu c\u1EA7u n\u1EA1p v\xE0 c\u1ED9ng ti\u1EC1n v\xE0o v\xED th\xE0nh c\xF4ng!",
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "approval_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/wallet/deposit-requests/:id/reject", async (req, res) => {
+  try {
+    const requestId = req.params.id;
+    const { reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await rejectDepositRequest(requestId, adminUid, adminName, reason);
+    await recordAuditLog(
+      req.user,
+      "REJECT_DEPOSIT_REQUEST",
+      requestId,
+      "deposit_request",
+      { reason },
+      req
+    );
+    return res.json({
+      success: true,
+      message: "\u0110\xE3 t\u1EEB ch\u1ED1i y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.",
+      request: result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "rejection_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/wallet/students/:uid/collections", async (req, res) => {
+  try {
+    const studentUid = req.params.uid;
+    const { amountVnd, collectionDate, paymentMethod, referenceCode, note, creditToWallet } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await recordManualCashCollection(adminUid, adminName, studentUid, {
+      amountVnd: Number(amountVnd),
+      collectionDate,
+      paymentMethod,
+      referenceCode,
+      note,
+      creditToWallet: Boolean(creditToWallet)
+    });
+    await recordAuditLog(
+      req.user,
+      "MANUAL_CASH_COLLECTION",
+      studentUid,
+      "student_wallet",
+      { amountVnd, paymentMethod, creditToWallet, note },
+      req
+    );
+    return res.json({
+      success: true,
+      message: "\u0110\xE3 ghi nh\u1EADn kho\u1EA3n thu ti\u1EC1n ngo\xE0i h\u1EC7 th\u1ED1ng th\xE0nh c\xF4ng!",
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "collection_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/wallet/students/:uid/debt-adjustments", async (req, res) => {
+  try {
+    const studentUid = req.params.uid;
+    const { amountVnd, type, reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await adjustStudentDebt(adminUid, adminName, studentUid, {
+      amountVnd: Number(amountVnd),
+      type,
+      reason
+    });
+    await recordAuditLog(
+      req.user,
+      "ADJUST_STUDENT_DEBT",
+      studentUid,
+      "student_debt",
+      { amountVnd, type, reason },
+      req
+    );
+    return res.json({
+      success: true,
+      message: "\u0110\xE3 c\u1EADp nh\u1EADt \u0111i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3 th\xE0nh c\xF4ng!",
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "debt_adjustment_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/exam-entitlements/grant", async (req, res) => {
+  try {
+    const { studentUid, examId, action, reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await grantOrRevokeExamEntitlement(
+      adminUid,
+      adminName,
+      studentUid,
+      examId,
+      action || "grant",
+      reason
+    );
+    await recordAuditLog(
+      req.user,
+      action === "revoke" ? "REVOKE_EXAM_ENTITLEMENT" : "GRANT_EXAM_ENTITLEMENT",
+      studentUid,
+      "exam_entitlement",
+      { examId, action, reason },
+      req
+    );
+    return res.json({
+      success: true,
+      message: action === "revoke" ? "\u0110\xE3 thu h\u1ED3i quy\u1EC1n truy c\u1EADp b\xE0i thi." : "\u0110\xE3 c\u1EA5p quy\u1EC1n truy c\u1EADp b\xE0i thi th\xE0nh c\xF4ng!",
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "entitlement_grant_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/exams/merge", async (req, res) => {
+  try {
+    const payload = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await mergeExams({
+      ...payload,
+      actorUid: adminUid,
+      actorName: adminName
+    });
+    return res.status(201).json({
+      success: true,
+      message: `\u0110\xE3 g\u1ED9p ${payload.sourceExamIds?.length || 0} b\xE0i thi th\xE0nh c\xF4ng!`,
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "merge_error", message: err.message || String(err) });
   }
 });
 export {

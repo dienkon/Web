@@ -94,6 +94,18 @@
       "destination": "/api/ai"
     },
     {
+      "source": "/api/wallet/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/wallet",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/exams/:match*",
+      "destination": "/api/wallet"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

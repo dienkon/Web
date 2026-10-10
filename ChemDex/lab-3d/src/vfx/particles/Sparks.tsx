@@ -25,7 +25,9 @@ export const Sparks = React.memo(function Sparks({
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
 
   const maxCount = useMemo(() => {
-    return Math.max(16, Math.floor((effectiveTier === 'high' ? 100 : effectiveTier === 'medium' ? 50 : 20) * multiplier));
+    const isHighOrUltra = effectiveTier === 'high' || effectiveTier === 'ultra';
+    const base = isHighOrUltra ? 100 : effectiveTier === 'medium' ? 50 : 20;
+    return Math.max(16, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
   const pool = useMemo(() => new ParticlePool(maxCount), [maxCount]);

@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useExamEditorContext } from "../context/ExamEditorContext";
-import { List, AlignLeft, Layers, Plus, ChevronDown, ChevronRight, ChevronsDownUp, ChevronsUpDown, HelpCircle } from "lucide-react";
+import {
+  List,
+  AlignLeft,
+  Layers,
+  Folder,
+  CornerDownRight,
+  Plus,
+  ChevronDown,
+  ChevronRight,
+  ChevronsDownUp,
+  ChevronsUpDown,
+  HelpCircle,
+} from "lucide-react";
+import { buildSectionTree, SectionTreeNode } from "../../../utils/sectionTree";
 
 export default function ExamOutline() {
   const { state, actions } = useExamEditorContext();
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({});
   const [isRootCollapsed, setIsRootCollapsed] = useState(false);
 
+  const sectionTree = useMemo(() => {
+    return buildSectionTree(state.sections, state.questions);
+  }, [state.sections, state.questions]);
+
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
-      // Trigger a highlight effect
       el.classList.add("ring-4", "ring-blue-400", "ring-offset-2", "transition-all", "duration-300");
       setTimeout(() => {
         el.classList.remove("ring-4", "ring-blue-400", "ring-offset-2");
@@ -41,7 +57,7 @@ export default function ExamOutline() {
     setIsRootCollapsed(true);
   };
 
-  const rootQuestions = state.questions.filter((q) => !q.sectionId);
+  const rootQuestions = sectionTree.rootQuestions;
 
   return (
     <div className="flex flex-col h-full bg-white select-none">
@@ -143,32 +159,34 @@ export default function ExamOutline() {
           </div>
         )}
 
-        {/* Section Groups */}
-        {state.sections.map((sec, secIdx) => {
-          const secQs = state.questions.filter((q) => q.sectionId === sec.id);
-          const isCollapsed = !!collapsedSections[sec.id];
-          const isActSec = state.activeSectionId === sec.id;
+        {/* Section Groups with Tree Hierarchy */}
+        {sectionTree.tree.map((secNode, secIdx) => {
+          const isParent = secNode.subsections.length > 0;
+          const isCollapsed = !!collapsedSections[secNode.id];
+          const isActSec = state.activeSectionId === secNode.id;
 
           return (
-            <div key={sec.id} className="pt-1.5">
-              {/* Section Header Accordion */}
+            <div key={secNode.id} className="pt-1.5">
+              {/* Parent / Root Section Header Accordion */}
               <div
                 className={`flex items-center justify-between p-2 rounded-xl transition-all cursor-pointer ${
                   isActSec
                     ? "bg-slate-100 text-slate-900 font-bold"
+                    : isParent
+                    ? "bg-purple-50/50 hover:bg-purple-50 text-slate-800"
                     : "text-slate-700 hover:bg-slate-50"
                 }`}
                 onClick={() => {
-                  actions.setActiveSection(sec.id);
-                  handleScrollTo(`section-${sec.id}`);
+                  actions.setActiveSection(secNode.id);
+                  handleScrollTo(`section-${secNode.id}`);
                 }}
               >
                 <div className="flex items-center gap-1.5 min-w-0 flex-1">
                   <button
                     type="button"
-                    onClick={(e) => toggleSectionCollapse(sec.id, e)}
+                    onClick={(e) => toggleSectionCollapse(secNode.id, e)}
                     className="p-0.5 hover:bg-slate-200 rounded text-slate-400 hover:text-slate-700 transition-colors shrink-0"
-                    title={isCollapsed ? "Mở rộng phần" : "Thu gọn phần"}
+                    title={isCollapsed ? "Mở rộng" : "Thu gọn"}
                   >
                     {isCollapsed ? (
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -176,54 +194,146 @@ export default function ExamOutline() {
                       <ChevronDown className="w-3.5 h-3.5" />
                     )}
                   </button>
-                  <Layers className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                  {isParent ? (
+                    <Folder className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                  ) : (
+                    <Layers className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                  )}
                   <span className="truncate text-xs font-bold">
-                    {sec.title || `Phần ${secIdx + 1}`}
+                    {secNode.title || `Phần ${secIdx + 1}`}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold bg-slate-200/80 text-slate-600 px-1.5 py-0.5 rounded ml-1 shrink-0">
-                  {secQs.length}
+                <span
+                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ml-1 shrink-0 ${
+                    isParent
+                      ? "bg-purple-100 text-purple-700 font-black"
+                      : "bg-slate-200/80 text-slate-600"
+                  }`}
+                  title={isParent ? `${secNode.subsections.length} phần con, tổng ${secNode.totalQuestionCount} câu` : `${secNode.totalQuestionCount} câu`}
+                >
+                  {secNode.totalQuestionCount}
                 </span>
               </div>
 
-              {/* Collapsible Questions inside Section */}
+              {/* Children when expanded */}
               {!isCollapsed && (
-                <div className="mt-1 space-y-0.5 pl-2 border-l-2 border-blue-100 ml-3.5">
-                  {secQs.length === 0 ? (
-                    <div className="py-1 px-2 text-[11px] text-slate-400 italic">Chưa có câu hỏi</div>
-                  ) : (
-                    secQs.map((q) => {
-                      const globalIdx = state.questions.findIndex((item) => item.id === q.id) + 1;
-                      const isActQ = state.activeQuestionId === q.id;
-                      return (
-                        <button
-                          type="button"
-                          key={q.id}
-                          onClick={() => {
-                            actions.setActiveQuestion(q.id);
-                            actions.setActiveSection(sec.id);
-                            handleScrollTo(`question-${q.id}`);
-                          }}
-                          className={`w-full text-left px-2.5 py-1.5 text-xs rounded-lg transition-all flex items-center gap-2 ${
-                            isActQ
-                              ? "bg-blue-50 text-blue-700 font-bold shadow-2xs"
-                              : "text-slate-600 hover:bg-slate-50"
+                <div className="mt-1 space-y-1.5 pl-2 border-l-2 border-slate-200 ml-3.5">
+                  {/* Direct questions if any */}
+                  {secNode.directQuestions.map((q) => {
+                    const globalIdx = state.questions.findIndex((item) => item.id === q.id) + 1;
+                    const isActQ = state.activeQuestionId === q.id;
+                    return (
+                      <button
+                        type="button"
+                        key={q.id}
+                        onClick={() => {
+                          actions.setActiveQuestion(q.id);
+                          actions.setActiveSection(secNode.id);
+                          handleScrollTo(`question-${q.id}`);
+                        }}
+                        className={`w-full text-left px-2 py-1 text-xs rounded-lg transition-all flex items-center gap-2 ${
+                          isActQ
+                            ? "bg-blue-50 text-blue-700 font-bold shadow-2xs"
+                            : "text-slate-600 hover:bg-slate-50"
+                        }`}
+                      >
+                        <span
+                          className={`w-4 h-4 flex items-center justify-center rounded text-[10px] font-mono font-bold shrink-0 ${
+                            isActQ ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600 border border-slate-200"
                           }`}
                         >
-                          <span
-                            className={`w-4 h-4 flex items-center justify-center rounded text-[10px] font-mono font-bold shrink-0 ${
-                              isActQ ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600 border border-slate-200"
-                            }`}
-                          >
-                            {globalIdx}
+                          {globalIdx}
+                        </span>
+                        <span className="truncate">
+                          {q.text ? q.text.replace(/<[^>]*>?/gm, "").substring(0, 28) : `Câu ${globalIdx}`}
+                        </span>
+                      </button>
+                    );
+                  })}
+
+                  {/* Subsections */}
+                  {secNode.subsections.map((subNode, subIdx) => {
+                    const isSubCollapsed = !!collapsedSections[subNode.id];
+                    const isActSub = state.activeSectionId === subNode.id;
+
+                    return (
+                      <div key={subNode.id} className="pt-0.5">
+                        <div
+                          className={`flex items-center justify-between p-1.5 rounded-lg transition-all cursor-pointer ${
+                            isActSub
+                              ? "bg-blue-50 text-blue-800 font-bold"
+                              : "text-slate-600 hover:bg-slate-50"
+                          }`}
+                          onClick={() => {
+                            actions.setActiveSection(subNode.id);
+                            handleScrollTo(`section-${subNode.id}`);
+                          }}
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                            <button
+                              type="button"
+                              onClick={(e) => toggleSectionCollapse(subNode.id, e)}
+                              className="p-0.5 hover:bg-slate-200 rounded text-slate-400 hover:text-slate-600 shrink-0"
+                            >
+                              {isSubCollapsed ? (
+                                <ChevronRight className="w-3 h-3" />
+                              ) : (
+                                <ChevronDown className="w-3 h-3" />
+                              )}
+                            </button>
+                            <CornerDownRight className="w-3 h-3 text-purple-400 shrink-0" />
+                            <span className="truncate text-[11px] font-semibold text-slate-700">
+                              {subNode.title || `Phần con ${subIdx + 1}`}
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-mono bg-slate-100 text-slate-500 px-1 py-0.2 rounded shrink-0">
+                            {subNode.directQuestions.length}
                           </span>
-                          <span className="truncate">
-                            {q.text ? q.text.replace(/<[^>]*>?/gm, "").substring(0, 30) : `Câu ${globalIdx}`}
-                          </span>
-                        </button>
-                      );
-                    })
-                  )}
+                        </div>
+
+                        {/* Questions inside subsection */}
+                        {!isSubCollapsed && (
+                          <div className="mt-0.5 space-y-0.5 pl-3 border-l border-purple-200 ml-3">
+                            {subNode.directQuestions.length === 0 ? (
+                              <div className="py-1 px-1.5 text-[10px] text-slate-400 italic">Chưa có câu hỏi</div>
+                            ) : (
+                              subNode.directQuestions.map((q) => {
+                                const globalIdx = state.questions.findIndex((item) => item.id === q.id) + 1;
+                                const isActQ = state.activeQuestionId === q.id;
+                                return (
+                                  <button
+                                    type="button"
+                                    key={q.id}
+                                    onClick={() => {
+                                      actions.setActiveQuestion(q.id);
+                                      actions.setActiveSection(subNode.id);
+                                      handleScrollTo(`question-${q.id}`);
+                                    }}
+                                    className={`w-full text-left px-2 py-1 text-xs rounded-lg transition-all flex items-center gap-2 ${
+                                      isActQ
+                                        ? "bg-blue-50 text-blue-700 font-bold shadow-2xs"
+                                        : "text-slate-600 hover:bg-slate-50"
+                                    }`}
+                                  >
+                                    <span
+                                      className={`w-4 h-4 flex items-center justify-center rounded text-[10px] font-mono font-bold shrink-0 ${
+                                        isActQ ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600 border border-slate-200"
+                                      }`}
+                                    >
+                                      {globalIdx}
+                                    </span>
+                                    <span className="truncate text-[11px]">
+                                      {q.text ? q.text.replace(/<[^>]*>?/gm, "").substring(0, 26) : `Câu ${globalIdx}`}
+                                    </span>
+                                  </button>
+                                );
+                              })
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

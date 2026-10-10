@@ -28,7 +28,9 @@ export const Steam = React.memo(function Steam({
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
 
   const maxCount = useMemo(() => {
-    return Math.max(12, Math.floor((effectiveTier === 'high' ? 90 : effectiveTier === 'medium' ? 45 : 18) * multiplier));
+    const isHighOrUltra = effectiveTier === 'high' || effectiveTier === 'ultra';
+    const base = isHighOrUltra ? 90 : effectiveTier === 'medium' ? 45 : 18;
+    return Math.max(12, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
   const pool = useMemo(() => new ParticlePool(maxCount), [maxCount]);

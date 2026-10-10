@@ -1,6 +1,22 @@
 import { useExamEditorContext } from "../context/ExamEditorContext";
 import { Section } from "../../../types";
-import { Settings, Trash2, GripVertical, Plus, Shuffle, Lock, Pin, Sparkles, Eye, Code, ChevronDown, ChevronUp, Headphones } from "lucide-react";
+import {
+  Settings,
+  Trash2,
+  GripVertical,
+  Plus,
+  Shuffle,
+  Lock,
+  Pin,
+  Sparkles,
+  Eye,
+  Code,
+  ChevronDown,
+  ChevronUp,
+  Headphones,
+  CornerDownRight,
+  FolderPlus,
+} from "lucide-react";
 import QuestionCard from "./QuestionCard";
 import QuestionTypeSelector from "./QuestionTypeSelector";
 import { useState, useEffect } from "react";
@@ -8,7 +24,13 @@ import ConfirmModal from "../../../components/ui/ConfirmModal";
 import LatexPreview from "../editor/LatexPreview";
 import AudioConfigEditor from "../../../components/exam/AudioConfigEditor";
 
-export default function SectionEditor({ section }: { section: Section }) {
+export default function SectionEditor({
+  section,
+  parentSection,
+}: {
+  section: Section;
+  parentSection?: Section;
+}) {
   const { state, actions } = useExamEditorContext();
   const [showSettings, setShowSettings] = useState(false);
   const [showTypeSelector, setShowTypeSelector] = useState(false);
@@ -81,6 +103,14 @@ export default function SectionEditor({ section }: { section: Section }) {
               <GripVertical className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0 pr-2">
+              {(parentSection || section.parentSectionId) && (
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-purple-700 mb-0.5">
+                  <CornerDownRight className="w-3 h-3 text-purple-500 shrink-0" />
+                  <span className="truncate">
+                    Phần con thuộc: {parentSection?.title || state.sections.find((s) => s.id === section.parentSectionId)?.title || "Phần cha"}
+                  </span>
+                </div>
+              )}
               <input
                 type="text"
                 value={section.title || ""}
@@ -95,6 +125,18 @@ export default function SectionEditor({ section }: { section: Section }) {
             <span className="text-xs font-mono font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-lg">
               {secQuestions.length} câu
             </span>
+
+            {!section.parentSectionId && !parentSection && (
+              <button
+                type="button"
+                onClick={() => actions.addSection(section.id)}
+                className="hidden sm:flex items-center gap-1 text-[11px] font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-md transition-colors cursor-pointer"
+                title="Thêm phần con vào phần thi này"
+              >
+                <FolderPlus className="w-3.5 h-3.5 text-purple-600" />
+                <span>+ Phần con</span>
+              </button>
+            )}
 
             {section.disableQuestionShuffle && (
               <span
@@ -230,6 +272,36 @@ export default function SectionEditor({ section }: { section: Section }) {
                   </span>
                 </div>
               </label>
+            </div>
+
+            {/* Hierarchical Parent Selector */}
+            <div className="pt-3 border-t border-slate-200">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Phần thi cha (Cấu trúc phân cấp lồng nhau)
+              </label>
+              <select
+                value={section.parentSectionId || ""}
+                onChange={(e) => {
+                  const pId = e.target.value || null;
+                  actions.updateSection(section.id, {
+                    parentSectionId: pId,
+                    depth: pId ? 1 : 0,
+                  });
+                }}
+                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 font-semibold text-slate-700"
+              >
+                <option value="">-- Là phần thi độc lập (Cấp gốc) --</option>
+                {state.sections
+                  .filter((s) => s.id !== section.id && !s.parentSectionId)
+                  .map((p) => (
+                    <option key={p.id} value={p.id}>
+                      Phần cha: {p.title || `Phần (${p.id})`}
+                    </option>
+                  ))}
+              </select>
+              <p className="text-[11px] text-slate-400 mt-1">
+                Gán phần này vào một phần thi cha để gom nhóm đề thi khi gộp bài hoặc chia chương mục lớn.
+              </p>
             </div>
 
             {isSectionSubExam && (

@@ -1,6 +1,9 @@
 import { doc, setDoc, collection } from "firebase/firestore";
 import { db } from "./firebase/config";
 import { ExportV3 } from "../utils/json/schema";
+import { FirestoreCache } from "./firebase/firestoreCache";
+import { invalidateHomeTopCache } from "./examCacheService";
+import { syncExamToCatalogSummary } from "./statsAggregatorService";
 
 export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "update_exam" | "question_bank", targetSectionId?: string, targetExamId?: string) {
   if (mode === "new_exam" || (mode === "question_bank" && !targetExamId)) {
@@ -13,6 +16,9 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
       description: data.exam?.description || "",
       subject: data.exam?.subject || "",
       gradeCategory: data.exam?.gradeCategory || "",
+      accessMode: (data.exam as any)?.accessMode || "free",
+      priceVnd: (data.exam as any)?.priceVnd || 0,
+      salesEnabled: (data.exam as any)?.salesEnabled ?? true,
       status: "draft" as const,
       folderId: null,
     };
@@ -26,19 +32,28 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
     const sections = [];
     
     if (data.sections && data.sections.length > 0) {
+      // Pre-populate oldId -> newId map
+      for (const sec of data.sections) {
+        sectionMap.set(sec.id, doc(collection(db, "exams")).id);
+      }
+
       for (const [idx, sec] of data.sections.entries()) {
-        const newSecId = doc(collection(db, "exams")).id; // generate dummy ids
+        const newSecId = sectionMap.get(sec.id)!;
+        const mappedParentId = sec.parentSectionId ? sectionMap.get(sec.parentSectionId) || null : null;
+        const depth = (sec as any).depth !== undefined ? (sec as any).depth : (mappedParentId ? 1 : 0);
+
         const newSec = {
           id: newSecId,
           title: sec.title,
           description: sec.description || "",
           order: sec.order ?? idx,
           examId,
+          parentSectionId: mappedParentId,
+          depth,
           questionCount: 0,
           enabled: true,
         };
         sections.push(newSec);
-        sectionMap.set(sec.id, newSec.id);
       }
     } else {
       // Default section
@@ -49,6 +64,8 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
         description: "",
         order: 0,
         examId,
+        parentSectionId: null,
+        depth: 0,
         questionCount: 0,
         enabled: true,
       };
@@ -86,6 +103,19 @@ export async function importJsonToFirestore(data: ExportV3, mode: "new_exam" | "
     
     console.warn(`[Firestore] WRITE (1 doc): exams/${examId} (JSON import)`);
     await setDoc(examRef, fullExamDoc, { merge: true });
+
+    // Invalidate caches immediately
+    FirestoreCache.invalidate("doc:system_stats:exams_summary");
+    FirestoreCache.invalidate(`doc:exams:${examId}`);
+    FirestoreCache.invalidatePrefix("doc:exams");
+    FirestoreCache.invalidatePrefix("query:exams");
+    invalidateHomeTopCache();
+
+    try {
+      await syncExamToCatalogSummary({ ...fullExamDoc, id: examId } as any, "upsert");
+    } catch (e) {
+      console.warn("[jsonImportService] Warning syncing to catalog:", e);
+    }
     
     return examId;
   } else if (mode === "question_bank" && targetExamId) {

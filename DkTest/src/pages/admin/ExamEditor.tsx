@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Save, AlertCircle, CheckCircle2, Loader2, ArrowLeft } from "lucide-react";
+import { Save, AlertCircle, CheckCircle2, Loader2, ArrowLeft, Coins } from "lucide-react";
 import ExamStructureEditor from "../../components/exam/ExamStructureEditor";
 import { getExam, updateExam, createExam } from "../../services/examService";
 import type { Exam } from "../../types";
@@ -318,6 +318,72 @@ export default function ExamEditor({ isNew }: { isNew?: boolean }) {
               />
             </div>
             
+            <div className="mt-4 p-4 rounded-xl border border-amber-200 bg-amber-50/50 space-y-3">
+              <label className="block text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                <Coins className="w-4 h-4 text-amber-500" />
+                Quyền truy cập & Giá mở khóa
+              </label>
+
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleChange("accessMode", "free");
+                    handleChange("priceVnd", 0);
+                  }}
+                  className={`px-3 py-2 rounded-lg text-xs font-bold border transition-all ${
+                    exam.accessMode !== "paid"
+                      ? "bg-emerald-600 text-white border-emerald-600"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                  }`}
+                >
+                  🎁 Miễn phí
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleChange("accessMode", "paid");
+                    if (!exam.priceVnd || exam.priceVnd <= 0) handleChange("priceVnd", 5000);
+                  }}
+                  className={`px-3 py-2 rounded-lg text-xs font-bold border transition-all ${
+                    exam.accessMode === "paid"
+                      ? "bg-amber-600 text-white border-amber-600"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                  }`}
+                >
+                  💳 Trả phí ví
+                </button>
+              </div>
+
+              {exam.accessMode === "paid" && (
+                <div className="space-y-3 pt-2">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Giá mở khóa (VNĐ) <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min={1000}
+                      step={500}
+                      value={exam.priceVnd || ""}
+                      onChange={(e) => handleChange("priceVnd", Math.max(0, parseInt(e.target.value || "0", 10)))}
+                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold"
+                      placeholder="Ví dụ: 5000"
+                    />
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={exam.salesEnabled !== false}
+                      onChange={(e) => handleChange("salesEnabled", e.target.checked)}
+                      className="w-4 h-4 rounded text-amber-600"
+                    />
+                    <span className="text-xs font-medium text-slate-700">Mở bán quyền truy cập</span>
+                  </label>
+                </div>
+              )}
+            </div>
+
             <div className="mt-4">
               <label className="block text-sm font-medium text-slate-700 mb-1">Trạng thái</label>
               <select 

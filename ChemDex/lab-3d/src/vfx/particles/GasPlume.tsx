@@ -34,7 +34,9 @@ export const GasPlume = React.memo(function GasPlume({
   const multiplier = QUALITY_CONFIGS[effectiveTier].particleMultiplier;
 
   const maxCount = useMemo(() => {
-    return Math.max(16, Math.floor((effectiveTier === 'high' ? 140 : effectiveTier === 'medium' ? 70 : 30) * multiplier));
+    const isHighOrUltra = effectiveTier === 'high' || effectiveTier === 'ultra';
+    const base = isHighOrUltra ? 140 : effectiveTier === 'medium' ? 70 : 30;
+    return Math.max(16, Math.floor(base * multiplier));
   }, [effectiveTier, multiplier]);
 
   const pool = useMemo(() => new ParticlePool(maxCount), [maxCount]);

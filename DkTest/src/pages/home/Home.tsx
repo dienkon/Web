@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Fragment } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Sparkles,
@@ -23,6 +23,12 @@ import {
   Code,
   Loader2,
   TrendingUp,
+  Folder as FolderIcon,
+  ChevronRight,
+  Home as HomeIcon,
+  Globe,
+  RotateCw,
+  Lock,
 } from "lucide-react";
 import {
   collection,
@@ -36,7 +42,8 @@ import {
   type DocumentData,
 } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
-import type { Exam } from "../../types";
+import type { Exam, Folder } from "../../types";
+import { getPublicFolders, getPublicExamsInFolder } from "../../services/folderService";
 import { MASTER_SCHEMA_JSON_STRING } from "../../utils/prompt/chatGptMasterPrompt";
 import {
   isAdminAuthenticated,
@@ -48,8 +55,16 @@ import { getExamsCatalogSummary, getExamTimestampMs } from "../../services/stats
 
 const CACHE_TTL_MS = 180000; // 3 minutes
 
+const FOLDER_COLOR_CLASSES: Record<string, string> = {
+  emerald: "bg-emerald-50 text-emerald-900 border-emerald-200 hover:border-emerald-300 hover:bg-emerald-100/60",
+  blue: "bg-blue-50 text-blue-900 border-blue-200 hover:border-blue-300 hover:bg-blue-100/60",
+  indigo: "bg-indigo-50 text-indigo-900 border-indigo-200 hover:border-indigo-300 hover:bg-indigo-100/60",
+  amber: "bg-amber-50 text-amber-900 border-amber-200 hover:border-amber-300 hover:bg-amber-100/60",
+  rose: "bg-rose-50 text-rose-900 border-rose-200 hover:border-rose-300 hover:bg-rose-100/60",
+};
+
 import { invalidateHomeTopCache } from "../../services/examCacheService";
-import { StudentTutorialBanner } from "../../features/student-onboarding";
+import StudentTutorialBanner from "../../features/student-onboarding/StudentTutorialBanner";
 import { StudentAssignmentNotice } from "../../features/assignments/StudentAssignmentNotice";
 import ExamCountdownMainboard from "../../components/home/ExamCountdownMainboard";
 export { invalidateHomeTopCache };
@@ -83,6 +98,7 @@ export default function Home() {
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const loadingMoreRef = useRef(false);
   const filterRequestIdRef = useRef(0);
+  const allFilteredExamsRef = useRef<Exam[]>([]);
 
   const [searchError, setSearchError] = useState("");
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string>("all");
@@ -93,6 +109,73 @@ export default function Home() {
   // Auth required modal
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [targetExamId, setTargetExamId] = useState<string | null>(null);
+
+  // Public Folder Browser State for "Kho đề" (bấm tới đâu load tới đó)
+  const [catalogViewMode, setCatalogViewMode] = useState<"folder" | "flat">("folder");
+  const [folderCurrentId, setFolderCurrentId] = useState<string | null>(null);
+  const [folderBreadcrumbs, setFolderBreadcrumbs] = useState<{ id: string | null; name: string }[]>([
+    { id: null, name: "Kho đề gốc" },
+  ]);
+  const [publicFolders, setPublicFolders] = useState<Folder[]>([]);
+  const [rootPublicFolders, setRootPublicFolders] = useState<Folder[]>([]);
+  const [folderExams, setFolderExams] = useState<Exam[]>([]);
+  const [loadingFolderContent, setLoadingFolderContent] = useState(false);
+  const folderBrowseCacheRef = useRef<
+    Map<string, { folders: Folder[]; exams: Exam[]; timestamp: number }>
+  >(new Map());
+
+  const loadPublicFolderData = async (folderId: string | null, forceReload = false) => {
+    const cacheKey = folderId || "root";
+    if (forceReload) {
+      folderBrowseCacheRef.current.delete(cacheKey);
+    }
+    const cached = folderBrowseCacheRef.current.get(cacheKey);
+    if (!forceReload && cached && Date.now() - cached.timestamp < 30000) {
+      setPublicFolders(cached.folders);
+      if (!folderId) {
+        setRootPublicFolders(cached.folders);
+      }
+      setFolderExams(cached.exams);
+      setLoadingFolderContent(false);
+      return;
+    }
+
+    setLoadingFolderContent(true);
+    try {
+      const [foldersRes, examsRes] = await Promise.all([
+        getPublicFolders(folderId),
+        getPublicExamsInFolder(folderId),
+      ]);
+      folderBrowseCacheRef.current.set(cacheKey, {
+        folders: foldersRes,
+        exams: examsRes,
+        timestamp: Date.now(),
+      });
+      setPublicFolders(foldersRes);
+      if (!folderId) {
+        setRootPublicFolders(foldersRes);
+      }
+      setFolderExams(examsRes);
+    } catch (err) {
+      console.error("Lỗi khi duyệt thư mục công khai:", err);
+    } finally {
+      setLoadingFolderContent(false);
+    }
+  };
+
+  const handleEnterFolder = (folder: Folder) => {
+    const nextCrumbs = [...folderBreadcrumbs, { id: folder.id, name: folder.name }];
+    setFolderBreadcrumbs(nextCrumbs);
+    setFolderCurrentId(folder.id);
+    loadPublicFolderData(folder.id);
+  };
+
+  const handleNavigateBreadcrumb = (crumbId: string | null, index: number) => {
+    const nextCrumbs = folderBreadcrumbs.slice(0, index + 1);
+    setFolderBreadcrumbs(nextCrumbs);
+    setFolderCurrentId(crumbId);
+    loadPublicFolderData(crumbId);
+  };
 
   const HOME_MASTER_PROMPT = `Bạn là trợ lý chuyên nghiệp soạn đề thi chuẩn DkTEST (phiên bản 2026 hỗ trợ toàn diện 6 dạng câu hỏi, âm thanh nghe MP3, tệp đính kèm, LaTeX, bảng HTML, khối mã Discord, khối nguyên bản <raw>).
 
@@ -127,7 +210,20 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     }
 
     loadTopExams();
+    loadPublicFolderData(null);
   }, []);
+
+  useEffect(() => {
+    if (activeTab === "all") {
+      if (catalogViewMode === "folder") {
+        loadPublicFolderData(folderCurrentId);
+      } else {
+        if (allExams.length === 0) {
+          loadInitialAllExams();
+        }
+      }
+    }
+  }, [activeTab, catalogViewMode]);
 
   const loadTopExams = async () => {
     const cachedAttempted = FirestoreCache.get<Exam[]>("home:top:attempted");
@@ -141,17 +237,9 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     setLoadingTop(true);
     try {
-      const catalog = await getExamsCatalogSummary();
-      let published = (catalog?.exams || []).filter((e) => e.status === "published");
-
-      if (published.length === 0) {
-        // Fallback direct query if catalog is empty
-        try {
-          const q = query(collection(db, "exams"), where("status", "==", "published"));
-          const snap = await getDocs(q);
-          published = snap.docs.map((d) => ({ id: d.id, ...d.data() } as any));
-        } catch (_) {}
-      }
+      const q = query(collection(db, "exams"), where("status", "==", "published"));
+      const snap = await getDocs(q);
+      const published = snap.docs.map((d) => ({ id: d.id, ...d.data() } as any));
 
       // 1. Top 5 Newest (strictly sorted by newest first)
       const newestList = [...published]
@@ -167,8 +255,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         .sort((a, b) => ((b.attemptCount || b.submissionsCount || 0) - (a.attemptCount || a.submissionsCount || 0)))
         .slice(0, 5) as unknown as Exam[];
 
-      FirestoreCache.set("home:top:attempted", attemptedList, CACHE_TTL_MS);
-      FirestoreCache.set("home:top:newest", newestList, CACHE_TTL_MS);
+      FirestoreCache.set("home:top:attempted", attemptedList, 30000);
+      FirestoreCache.set("home:top:newest", newestList, 30000);
 
       setTopAttemptedExams(attemptedList);
       setTopNewestExams(newestList);
@@ -182,10 +270,12 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
   const loadInitialAllExams = async () => {
     const reqId = ++filterRequestIdRef.current;
     const filterCacheKey = `home:filter:${selectedSubjectFilter}:${selectedGradeFilter}`;
-    const cachedFilter = FirestoreCache.get<{ exams: Exam[]; hasMore: boolean }>(filterCacheKey);
+    const cachedFilter = FirestoreCache.get<{ allItems: Exam[] }>(filterCacheKey);
     if (cachedFilter) {
-      setAllExams(cachedFilter.exams);
-      setHasMoreAll(cachedFilter.hasMore);
+      allFilteredExamsRef.current = cachedFilter.allItems;
+      const initialBatch = cachedFilter.allItems.slice(0, 5);
+      setAllExams(initialBatch);
+      setHasMoreAll(cachedFilter.allItems.length > 5);
       setAllCursor(null);
       setLoadingAll(false);
       return;
@@ -193,37 +283,6 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
 
     setLoadingAll(true);
     try {
-      // 1-Read catalog strategy for all exams
-      const catalog = await getExamsCatalogSummary();
-      let filtered = (catalog?.exams || []).filter((e) => e.status === "published");
-
-      if (selectedSubjectFilter !== "all") {
-        filtered = filtered.filter((e) => e.subject === selectedSubjectFilter);
-      }
-      if (selectedGradeFilter !== "all") {
-        filtered = filtered.filter((e) => e.gradeCategory === selectedGradeFilter);
-      }
-
-      // Always sort newest first
-      filtered.sort((a, b) => {
-        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
-        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
-        return timeB - timeA;
-      });
-
-      if (reqId !== filterRequestIdRef.current) return;
-
-      if (filtered.length > 0) {
-        const initialBatch = filtered.slice(0, 5) as unknown as Exam[];
-        const hasMore = filtered.length > 5;
-        setAllExams(initialBatch);
-        setHasMoreAll(hasMore);
-        setAllCursor(initialBatch.length > 0 ? ({ id: initialBatch[initialBatch.length - 1].id } as any) : null);
-        FirestoreCache.set(filterCacheKey, { exams: initialBatch, hasMore }, 120000);
-        return;
-      }
-
-      // Fallback query if catalog is empty
       const conditions: any[] = [where("status", "==", "published")];
       if (selectedSubjectFilter !== "all") {
         conditions.push(where("subject", "==", selectedSubjectFilter));
@@ -243,13 +302,16 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         return timeB - timeA;
       });
 
+      if (reqId !== filterRequestIdRef.current) return;
+
+      allFilteredExamsRef.current = rawItems;
       const initialBatch = rawItems.slice(0, 5);
       const hasMore = rawItems.length > 5;
       setAllExams(initialBatch);
       setAllCursor(initialBatch.length > 0 ? ({ id: initialBatch[initialBatch.length - 1].id } as any) : null);
       setHasMoreAll(hasMore);
 
-      FirestoreCache.set(filterCacheKey, { exams: initialBatch, hasMore }, 120000);
+      FirestoreCache.set(filterCacheKey, { allItems: rawItems }, 30000);
     } catch (err) {
       if (reqId === filterRequestIdRef.current) {
         console.error("Lỗi khi tải danh sách tất cả đề thi:", err);
@@ -266,26 +328,10 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
     loadingMoreRef.current = true;
     setLoadingMoreAll(true);
     try {
-      // 1. Try from catalog summary with 0 reads
-      const catalog = await getExamsCatalogSummary();
-      let filtered = (catalog?.exams || []).filter((e) => e.status === "published");
-
-      if (selectedSubjectFilter !== "all") {
-        filtered = filtered.filter((e) => e.subject === selectedSubjectFilter);
-      }
-      if (selectedGradeFilter !== "all") {
-        filtered = filtered.filter((e) => e.gradeCategory === selectedGradeFilter);
-      }
-
-      filtered.sort((a, b) => {
-        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
-        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
-        return timeB - timeA;
-      });
-
+      const filtered = allFilteredExamsRef.current;
       const currentCount = allExams.length;
       if (currentCount < filtered.length) {
-        const nextBatch = filtered.slice(currentCount, currentCount + 5) as unknown as Exam[];
+        const nextBatch = filtered.slice(currentCount, currentCount + 5);
         setAllExams((prev) => [...prev, ...nextBatch]);
         setHasMoreAll(currentCount + nextBatch.length < filtered.length);
         setAllCursor(nextBatch.length > 0 ? ({ id: nextBatch[nextBatch.length - 1].id } as any) : null);
@@ -456,6 +502,98 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         </Link>
       </div>
 
+      {/* Public Shared Folders Showcase (Hiển thị ngay ngoài Home khi Admin chia sẻ) */}
+      {rootPublicFolders.length > 0 && (
+        <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs space-y-4 animate-in fade-in">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                <FolderIcon className="w-5 h-5 fill-current" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base sm:text-lg font-black text-slate-900">
+                    Thư Mục Đề Thi Được Chia Sẻ
+                  </h3>
+                  <span className="px-2 py-0.5 text-[11px] font-black bg-blue-100 text-blue-700 rounded-full">
+                    {rootPublicFolders.length} thư mục
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium">
+                  Các thư mục đề thi ôn tập được giáo viên công khai cho học sinh làm bài
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-end sm:self-auto">
+              <button
+                type="button"
+                onClick={() => loadPublicFolderData(null, true)}
+                disabled={loadingFolderContent}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:text-blue-600 hover:bg-blue-50 text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
+                title="Làm mới thư mục chia sẻ"
+              >
+                <RotateCw className={`w-3.5 h-3.5 text-slate-600 ${loadingFolderContent ? "animate-spin text-blue-600" : ""}`} />
+                <span>Làm mới</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab("all");
+                  setCatalogViewMode("folder");
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <span>Xem kho đề</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            {rootPublicFolders.map((folder) => {
+              const colorClass =
+                (folder.color && FOLDER_COLOR_CLASSES[folder.color]) ||
+                FOLDER_COLOR_CLASSES["blue"];
+
+              return (
+                <div
+                  key={folder.id}
+                  onClick={() => {
+                    setActiveTab("all");
+                    setCatalogViewMode("folder");
+                    handleEnterFolder(folder);
+                  }}
+                  className={`group p-4 rounded-2xl border transition-all cursor-pointer hover:shadow-md flex flex-col justify-between space-y-3 ${colorClass}`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 line-clamp-1 font-extrabold text-sm">
+                      <FolderIcon className="w-4 h-4 shrink-0 fill-current" />
+                      <span className="truncate">{folder.name}</span>
+                    </div>
+                    <span className="px-1.5 py-0.5 text-[9px] font-extrabold bg-white/90 rounded-md border border-black/5 shrink-0 flex items-center gap-1 text-emerald-700">
+                      <Globe className="w-2.5 h-2.5 text-emerald-600" />
+                      Công khai
+                    </span>
+                  </div>
+
+                  {folder.description && (
+                    <p className="text-[11px] opacity-80 line-clamp-2 font-medium">
+                      {folder.description}
+                    </p>
+                  )}
+
+                  <div className="pt-2 border-t border-black/5 flex items-center justify-between text-xs font-bold opacity-90 group-hover:opacity-100">
+                    <span className="text-[11px]">Bấm vào để mở đề thi</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Available Published Exams Section */}
       <div className="space-y-6" data-tour-id="home-exam-library-intro">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -469,7 +607,7 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
             </p>
           </div>
 
-          {/* Navigation Tabs: Top 5 Nhiều lượt làm, Top 5 Mới nhất, Xem tất cả */}
+          {/* Navigation Tabs: Top 5 Nhiều lượt làm, Top 5 Mới nhất, Thư mục chia sẻ, Xem tất cả */}
           <div className="flex items-center gap-1.5 p-1 bg-slate-200/70 rounded-2xl self-stretch md:self-auto overflow-x-auto">
             <button
               type="button"
@@ -501,79 +639,150 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
               type="button"
               onClick={() => {
                 setActiveTab("all");
+                setCatalogViewMode("folder");
+                loadPublicFolderData(folderCurrentId);
+              }}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                activeTab === "all" && catalogViewMode === "folder"
+                  ? "bg-white text-blue-700 shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <FolderIcon className="w-3.5 h-3.5 text-blue-600" />
+              <span>Thư mục chia sẻ {rootPublicFolders.length > 0 ? `(${rootPublicFolders.length})` : ""}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab("all");
+                setCatalogViewMode("flat");
                 if (allExams.length === 0) loadInitialAllExams();
               }}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === "all"
+                activeTab === "all" && catalogViewMode === "flat"
                   ? "bg-white text-indigo-700 shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
               <Layers className="w-3.5 h-3.5 text-indigo-500" />
-              <span>Xem tất cả (Kho đề)</span>
+              <span>Tất cả đề thi</span>
             </button>
           </div>
         </div>
 
-        {/* Tab 3 Only: Filter Bar for 'All Exams' */}
+        {/* Tab 3: Mode Switcher & Filter Bar for Kho đề */}
         {activeTab === "all" && (
-          <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-3 animate-in fade-in">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={examSearchText}
-                  onChange={(e) => setExamSearchText(e.target.value)}
-                  placeholder="Tìm tên bài thi hoặc mã đề (Vd: TOAN12, GK1)..."
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+          <div className="space-y-3 animate-in fade-in">
+            {/* View Mode Switcher: Duyệt theo Thư mục vs Xem tất cả phẳng */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setCatalogViewMode("folder")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    catalogViewMode === "folder"
+                      ? "bg-white text-blue-700 shadow-2xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <FolderIcon className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Duyệt theo Thư mục</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCatalogViewMode("flat");
+                    if (allExams.length === 0) loadInitialAllExams();
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    catalogViewMode === "flat"
+                      ? "bg-white text-indigo-700 shadow-2xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <Layers className="w-3.5 h-3.5 text-indigo-500" />
+                  <span>Tất cả đề thi ({allExams.length})</span>
+                </button>
               </div>
 
-              <div className="flex items-center gap-2 overflow-x-auto">
-                <select
-                  value={selectedSubjectFilter}
-                  onChange={(e) => setSelectedSubjectFilter(e.target.value)}
-                  className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-                >
-                  <option value="all">Môn học: Tất cả</option>
-                  {["Toán", "Vật Lý", "Hóa Học", "Tiếng Anh", "Ngữ Văn", "Sinh Học", "Lịch Sử", "Địa Lý", "Tin Học", "GDCD", "Khác"].map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  value={selectedGradeFilter}
-                  onChange={(e) => setSelectedGradeFilter(e.target.value)}
-                  className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-                >
-                  <option value="all">Kỳ thi/Cấp: Tất cả</option>
-                  {["Cấp 1", "Cấp 2", "Cấp 3", "THPT Quốc Gia", "Đánh Giá Năng Lực"].map((g) => (
-                    <option key={g} value={g}>
-                      {g}
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  value={selectedDurationFilter}
-                  onChange={(e) => setSelectedDurationFilter(e.target.value)}
-                  className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-                >
-                  <option value="all">Thời lượng: Tất cả</option>
-                  <option value="short">&lt; 15 phút (Test nhanh)</option>
-                  <option value="standard">15 - 45 phút (1 tiết)</option>
-                  <option value="long">45 - 90 phút (Học kỳ)</option>
-                  <option value="extended">&gt; 90 phút (THPT/ĐGNL)</option>
-                  <option value="unlimited">Tự do / Vô hạn (Ôn tập)</option>
-                </select>
-              </div>
+              {catalogViewMode === "folder" && (
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => loadPublicFolderData(folderCurrentId, true)}
+                    disabled={loadingFolderContent}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:text-blue-600 hover:bg-blue-50 text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
+                    title="Tải lại nội dung thư mục"
+                  >
+                    <RotateCw className={`w-3.5 h-3.5 text-slate-600 ${loadingFolderContent ? "animate-spin text-blue-600" : ""}`} />
+                    <span>Làm mới</span>
+                  </button>
+                </div>
+              )}
             </div>
-            <p className="text-[11px] text-slate-400 pl-1">
-              * Dữ liệu được tải theo từng đợt 5 bài khi bạn cuộn trang để tối ưu hóa tốc độ và giảm thiểu lượt đọc cơ sở dữ liệu.
-            </p>
+
+            {/* Filter bar only for flat list mode */}
+            {catalogViewMode === "flat" && (
+              <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-3 animate-in fade-in">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <div className="relative flex-1">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={examSearchText}
+                      onChange={(e) => setExamSearchText(e.target.value)}
+                      placeholder="Tìm tên bài thi hoặc mã đề (Vd: TOAN12, GK1)..."
+                      className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 overflow-x-auto">
+                    <select
+                      value={selectedSubjectFilter}
+                      onChange={(e) => setSelectedSubjectFilter(e.target.value)}
+                      className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                    >
+                      <option value="all">Môn học: Tất cả</option>
+                      {["Toán", "Vật Lý", "Hóa Học", "Tiếng Anh", "Ngữ Văn", "Sinh Học", "Lịch Sử", "Địa Lý", "Tin Học", "GDCD", "Khác"].map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      value={selectedGradeFilter}
+                      onChange={(e) => setSelectedGradeFilter(e.target.value)}
+                      className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                    >
+                      <option value="all">Kỳ thi/Cấp: Tất cả</option>
+                      {["Cấp 1", "Cấp 2", "Cấp 3", "THPT Quốc Gia", "Đánh Giá Năng Lực"].map((g) => (
+                        <option key={g} value={g}>
+                          {g}
+                        </option>
+                      ))}
+                    </select>
+
+                    <select
+                      value={selectedDurationFilter}
+                      onChange={(e) => setSelectedDurationFilter(e.target.value)}
+                      className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                    >
+                      <option value="all">Thời lượng: Tất cả</option>
+                      <option value="short">&lt; 15 phút (Test nhanh)</option>
+                      <option value="standard">15 - 45 phút (1 tiết)</option>
+                      <option value="long">45 - 90 phút (Học kỳ)</option>
+                      <option value="extended">&gt; 90 phút (THPT/ĐGNL)</option>
+                      <option value="unlimited">Tự do / Vô hạn (Ôn tập)</option>
+                    </select>
+                  </div>
+                </div>
+                <p className="text-[11px] text-slate-400 pl-1">
+                  * Dữ liệu được tải theo từng đợt 5 bài khi bạn cuộn trang để tối ưu hóa tốc độ và giảm thiểu lượt đọc cơ sở dữ liệu.
+                </p>
+              </div>
+            )}
           </div>
         )}
 
@@ -780,142 +989,359 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
           </div>
         )}
 
-        {/* Tab 3: All Exams (On-demand Infinite Scroll, reads 10 at a time) */}
+        {/* Tab 3: All Exams (Folder Browser or Flat Infinite Scroll) */}
         {activeTab === "all" && (
           <div className="space-y-4">
-            {loadingAll ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="h-36 bg-white rounded-3xl border border-slate-200 animate-pulse" />
-                ))}
-              </div>
-            ) : (() => {
-              const displayExams = allExams.filter((exam) => {
-                const matchText =
-                  !examSearchText.trim() ||
-                  exam.title.toLowerCase().includes(examSearchText.toLowerCase()) ||
-                  (exam.code && exam.code.toLowerCase().includes(examSearchText.toLowerCase()));
-                if (!matchText) return false;
-
-                if (selectedDurationFilter !== "all") {
-                  const t = exam.timeLimit ?? 0;
-                  const isUnlim = t === 0 || exam.isUnlimitedTime;
-                  if (selectedDurationFilter === "unlimited") return isUnlim;
-                  if (isUnlim) return false;
-                  if (selectedDurationFilter === "short") return t < 15;
-                  if (selectedDurationFilter === "standard") return t >= 15 && t <= 45;
-                  if (selectedDurationFilter === "long") return t > 45 && t <= 90;
-                  if (selectedDurationFilter === "extended") return t > 90;
-                }
-                return true;
-              });
-
-              if (displayExams.length === 0) {
-                return (
-                  <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-3">
-                    <BookOpen className="w-12 h-12 bg-slate-100 rounded-2xl p-2.5 mx-auto text-slate-400" />
-                    <h3 className="font-bold text-slate-800 text-sm">Không tìm thấy bài thi phù hợp</h3>
-                    <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                      Hãy thử thay đổi từ khóa hoặc bộ lọc môn học/cấp thi.
-                    </p>
+            {catalogViewMode === "folder" ? (
+              <div className="space-y-5 animate-in fade-in">
+                {/* Google Drive Style Breadcrumb Bar */}
+                <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs space-y-2">
+                  <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+                    <div className="flex items-center gap-1.5 overflow-x-auto text-xs font-extrabold scrollbar-none py-0.5">
+                      {folderBreadcrumbs.map((crumb, idx) => {
+                        const isLast = idx === folderBreadcrumbs.length - 1;
+                        return (
+                          <Fragment key={crumb.id || idx}>
+                            {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
+                            <button
+                              type="button"
+                              onClick={() => handleNavigateBreadcrumb(crumb.id, idx)}
+                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                                isLast
+                                  ? "bg-blue-600 text-white shadow-2xs"
+                                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                              }`}
+                            >
+                              {idx === 0 ? <HomeIcon className="w-3.5 h-3.5 text-blue-300" /> : <FolderIcon className="w-3.5 h-3.5" />}
+                              <span>{crumb.name}</span>
+                            </button>
+                          </Fragment>
+                        );
+                      })}
+                    </div>
                   </div>
-                );
-              }
+                  <p className="text-[11px] text-slate-400">
+                    * Bấm vào từng thư mục để tải nội dung trên yêu cầu (lazy-load), giúp tiết kiệm dữ liệu mạng.
+                  </p>
+                </div>
 
-              return (
-                <div className="space-y-6">
+                {loadingFolderContent ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {displayExams.map((exam) => (
-                      <div
-                        key={exam.id}
-                        className="bg-white rounded-3xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-3"
-                      >
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100 font-mono">
-                                {exam.code || "EXAM"}
-                              </span>
-                              {exam.subject && (
-                                <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg">
-                                  {exam.subject}
-                                </span>
-                              )}
-                              {exam.gradeCategory && (
-                                <span className="text-[11px] font-semibold text-slate-500 bg-slate-50 px-2 py-0.5 rounded-lg border border-slate-100">
-                                  {exam.gradeCategory}
-                                </span>
-                              )}
-                            </div>
-                            <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
-                              <Clock className="w-3.5 h-3.5 text-slate-400" />
-                              {exam.timeLimit ? `${exam.timeLimit} phút` : "Không giới hạn"}
-                            </span>
-                          </div>
-
-                          <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors line-clamp-1">
-                            {exam.title || "Bài thi chưa có tên"}
-                          </h3>
-
-                          {exam.description && (
-                            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                              {exam.description}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-                            <span className="flex items-center gap-1">
-                              <Layers className="w-3.5 h-3.5 text-slate-400" />
-                              {exam.questionCount || 0} câu
-                            </span>
-                            {exam.attemptCount ? (
-                              <>
-                                <span>•</span>
-                                <span className="text-amber-600 font-bold">{exam.attemptCount} lượt làm</span>
-                              </>
-                            ) : null}
-                          </div>
-
-                          <button
-                            type="button"
-                            onClick={() => handleStartExamFlow(exam.id)}
-                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
-                          >
-                            <span>Vào làm bài</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className="h-32 bg-white rounded-3xl border border-slate-200 animate-pulse" />
                     ))}
                   </div>
+                ) : (
+                  <div className="space-y-6">
+                    {/* Subfolders Grid */}
+                    {publicFolders.length > 0 && (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
+                            <FolderIcon className="w-4 h-4 text-blue-600" />
+                            <span>Thư mục con ({publicFolders.length})</span>
+                          </h4>
+                        </div>
 
-                  {/* Infinite scroll sentinel & Load More trigger */}
-                  <div ref={sentinelRef} className="py-2 text-center">
-                    {loadingMoreAll ? (
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-2xl border border-slate-200 shadow-2xs text-xs font-bold text-blue-600">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Đang đọc thêm 5 bài thi từ máy chủ...</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                          {publicFolders.map((f) => {
+                            const colorClass =
+                              (f.color && FOLDER_COLOR_CLASSES[f.color]) ||
+                              FOLDER_COLOR_CLASSES["blue"];
+
+                            return (
+                              <div
+                                key={f.id}
+                                onClick={() => handleEnterFolder(f)}
+                                className={`group p-4 rounded-2xl border transition-all cursor-pointer hover:shadow-md flex flex-col justify-between space-y-2.5 ${colorClass}`}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="flex items-center gap-2 line-clamp-1 font-extrabold text-xs">
+                                    <FolderIcon className="w-4 h-4 shrink-0 fill-current" />
+                                    <span className="truncate">{f.name}</span>
+                                  </div>
+                                  <span className="px-1.5 py-0.5 text-[9px] font-extrabold bg-white/80 rounded-md border border-black/5 shrink-0 flex items-center gap-1">
+                                    <Globe className="w-2.5 h-2.5 text-emerald-600" />
+                                    Công khai
+                                  </span>
+                                </div>
+
+                                {f.description && (
+                                  <p className="text-[11px] opacity-80 line-clamp-2 font-medium">
+                                    {f.description}
+                                  </p>
+                                )}
+
+                                <div className="flex items-center justify-between text-[10px] font-bold opacity-75 pt-1.5 border-t border-black/5">
+                                  <span>Thư mục</span>
+                                  <span className="flex items-center gap-1 text-blue-700 group-hover:translate-x-0.5 transition-transform">
+                                    Mở thư mục <ChevronRight className="w-3 h-3" />
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    ) : hasMoreAll ? (
-                      <button
-                        type="button"
-                        onClick={loadMoreAllExams}
-                        className="px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1.5"
-                      >
-                        <Layers className="w-3.5 h-3.5 text-blue-600" />
-                        <span>Tải thêm 5 bài thi tiếp theo (Hoặc cuộn xuống)</span>
-                      </button>
-                    ) : (
-                      <p className="text-xs font-semibold text-slate-400">
-                        ✨ Bạn đã xem hết toàn bộ {allExams.length} bài thi phù hợp
-                      </p>
+                    )}
+
+                    {/* Exams inside this folder */}
+                    {folderExams.length > 0 && (
+                      <div className="space-y-3">
+                        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
+                          <BookOpen className="w-4 h-4 text-emerald-600" />
+                          <span>Bài thi trong thư mục ({folderExams.length})</span>
+                        </h4>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {folderExams.map((exam) => {
+                            const isPaid = exam.accessMode === "paid" || (exam as any).accessConfig?.mode === "paid";
+                            const price = isPaid ? (exam.priceVnd || (exam as any).accessConfig?.priceVnd || 0) : 0;
+
+                            return (
+                              <div
+                                key={exam.id}
+                                className="bg-white rounded-3xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-3"
+                              >
+                                <div className="space-y-2">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100 font-mono">
+                                        {exam.code || "EXAM"}
+                                      </span>
+                                      {exam.subject && (
+                                        <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg">
+                                          {exam.subject}
+                                        </span>
+                                      )}
+                                      {exam.gradeCategory && (
+                                        <span className="text-[11px] font-semibold text-slate-500 bg-slate-50 px-2 py-0.5 rounded-lg border border-slate-100">
+                                          {exam.gradeCategory}
+                                        </span>
+                                      )}
+                                    </div>
+
+                                    {/* Giá tiền hoặc Miễn phí */}
+                                    {isPaid ? (
+                                      <span className="text-xs font-black text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                                        💰 {price.toLocaleString("vi-VN")} đ
+                                      </span>
+                                    ) : (
+                                      <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                                        Miễn phí
+                                      </span>
+                                    )}
+                                  </div>
+
+                                  <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors line-clamp-1">
+                                    {exam.title || "Bài thi chưa có tên"}
+                                  </h3>
+
+                                  {exam.description && (
+                                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                                      {exam.description}
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                                    <span className="flex items-center gap-1">
+                                      <Clock className="w-3.5 h-3.5 text-slate-400" />
+                                      {exam.timeLimit ? `${exam.timeLimit}p` : "Tự do"}
+                                    </span>
+                                    <span>•</span>
+                                    <span className="flex items-center gap-1">
+                                      <Layers className="w-3.5 h-3.5 text-slate-400" />
+                                      {exam.questionCount || 0} câu
+                                    </span>
+                                    {exam.attemptCount ? (
+                                      <>
+                                        <span>•</span>
+                                        <span className="text-amber-600 font-bold">{exam.attemptCount} lượt làm</span>
+                                      </>
+                                    ) : null}
+                                  </div>
+
+                                  <button
+                                    type="button"
+                                    onClick={() => handleStartExamFlow(exam.id)}
+                                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                                  >
+                                    <span>Vào làm bài</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Empty State */}
+                    {publicFolders.length === 0 && folderExams.length === 0 && (
+                      <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-3">
+                        <FolderIcon className="w-12 h-12 bg-slate-100 rounded-2xl p-2.5 mx-auto text-slate-400" />
+                        <h3 className="font-bold text-slate-800 text-sm">
+                          {folderCurrentId ? "Thư mục này hiện chưa có bài thi nào" : "Chưa có thư mục công khai nào trong Kho đề"}
+                        </h3>
+                        <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                          {folderCurrentId
+                            ? "Các bài thi trong thư mục này có thể đang ở chế độ nháp hoặc chưa được xuất bản."
+                            : "Giáo viên hoặc Quản trị viên có thể bật 'Công khai' cho thư mục trong trang Quản lý bài thi."}
+                        </p>
+                        {folderCurrentId && (
+                          <button
+                            type="button"
+                            onClick={() => handleNavigateBreadcrumb(null, 0)}
+                            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                          >
+                            <HomeIcon className="w-3.5 h-3.5" />
+                            <span>Quay về Kho đề gốc</span>
+                          </button>
+                        )}
+                      </div>
                     )}
                   </div>
+                )}
+              </div>
+            ) : (
+              /* Flat List Mode */
+              loadingAll ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="h-36 bg-white rounded-3xl border border-slate-200 animate-pulse" />
+                  ))}
                 </div>
-              );
-            })()}
+              ) : (() => {
+                const displayExams = allExams.filter((exam) => {
+                  const matchText =
+                    !examSearchText.trim() ||
+                    exam.title.toLowerCase().includes(examSearchText.toLowerCase()) ||
+                    (exam.code && exam.code.toLowerCase().includes(examSearchText.toLowerCase()));
+                  if (!matchText) return false;
+
+                  if (selectedDurationFilter !== "all") {
+                    const t = exam.timeLimit ?? 0;
+                    const isUnlim = t === 0 || exam.isUnlimitedTime;
+                    if (selectedDurationFilter === "unlimited") return isUnlim;
+                    if (isUnlim) return false;
+                    if (selectedDurationFilter === "short") return t < 15;
+                    if (selectedDurationFilter === "standard") return t >= 15 && t <= 45;
+                    if (selectedDurationFilter === "long") return t > 45 && t <= 90;
+                    if (selectedDurationFilter === "extended") return t > 90;
+                  }
+                  return true;
+                });
+
+                if (displayExams.length === 0) {
+                  return (
+                    <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-3">
+                      <BookOpen className="w-12 h-12 bg-slate-100 rounded-2xl p-2.5 mx-auto text-slate-400" />
+                      <h3 className="font-bold text-slate-800 text-sm">Không tìm thấy bài thi phù hợp</h3>
+                      <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                        Hãy thử thay đổi từ khóa hoặc bộ lọc môn học/cấp thi.
+                      </p>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {displayExams.map((exam) => (
+                        <div
+                          key={exam.id}
+                          className="bg-white rounded-3xl border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group space-y-3"
+                        >
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-lg border border-blue-100 font-mono">
+                                  {exam.code || "EXAM"}
+                                </span>
+                                {exam.subject && (
+                                  <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg">
+                                    {exam.subject}
+                                  </span>
+                                )}
+                                {exam.gradeCategory && (
+                                  <span className="text-[11px] font-semibold text-slate-500 bg-slate-50 px-2 py-0.5 rounded-lg border border-slate-100">
+                                    {exam.gradeCategory}
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                                {exam.timeLimit ? `${exam.timeLimit} phút` : "Không giới hạn"}
+                              </span>
+                            </div>
+
+                            <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors line-clamp-1">
+                              {exam.title || "Bài thi chưa có tên"}
+                            </h3>
+
+                            {exam.description && (
+                              <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                                {exam.description}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                              <span className="flex items-center gap-1">
+                                <Layers className="w-3.5 h-3.5 text-slate-400" />
+                                {exam.questionCount || 0} câu
+                              </span>
+                              {exam.attemptCount ? (
+                                <>
+                                  <span>•</span>
+                                  <span className="text-amber-600 font-bold">{exam.attemptCount} lượt làm</span>
+                                </>
+                              ) : null}
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => handleStartExamFlow(exam.id)}
+                              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
+                            >
+                              <span>Vào làm bài</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Infinite scroll sentinel & Load More trigger */}
+                    <div ref={sentinelRef} className="py-2 text-center">
+                      {loadingMoreAll ? (
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-2xl border border-slate-200 shadow-2xs text-xs font-bold text-blue-600">
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Đang đọc thêm 5 bài thi từ máy chủ...</span>
+                        </div>
+                      ) : hasMoreAll ? (
+                        <button
+                          type="button"
+                          onClick={loadMoreAllExams}
+                          className="px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1.5"
+                        >
+                          <Layers className="w-3.5 h-3.5 text-blue-600" />
+                          <span>Tải thêm 5 bài thi tiếp theo (Hoặc cuộn xuống)</span>
+                        </button>
+                      ) : (
+                        <p className="text-xs font-semibold text-slate-400">
+                          ✨ Bạn đã xem hết toàn bộ {allExams.length} bài thi phù hợp
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()
+            )}
           </div>
         )}
       </div>

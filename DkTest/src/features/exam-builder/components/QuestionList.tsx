@@ -5,6 +5,9 @@ import {
   X,
   Filter,
   Layers,
+  Folder,
+  Trash2,
+  CornerDownRight,
   HelpCircle,
   Sparkles,
 } from "lucide-react";
@@ -13,6 +16,7 @@ import QuestionCard from "./QuestionCard";
 import QuestionTypeSelector from "./QuestionTypeSelector";
 import { useState, useMemo } from "react";
 import { QuestionType } from "../../../types";
+import { buildSectionTree } from "../../../utils/sectionTree";
 
 export default function QuestionList() {
   const { state, actions } = useExamEditorContext();
@@ -60,6 +64,10 @@ export default function QuestionList() {
   const matchingQuestions = useMemo(() => {
     return state.questions.filter(matchesQuestion);
   }, [state.questions, searchQuery, selectedTypeFilter, selectedSectionFilter]);
+
+  const sectionTree = useMemo(() => {
+    return buildSectionTree(state.sections, state.questions);
+  }, [state.sections, state.questions]);
 
   // Group questions
   const rootQuestions = state.questions
@@ -111,19 +119,35 @@ export default function QuestionList() {
               <option value="short_answer">Điền ngắn</option>
             </select>
 
-            {/* Section Filter */}
+            {/* Section Filter with Hierarchical groups */}
             <select
               value={selectedSectionFilter}
               onChange={(e) => setSelectedSectionFilter(e.target.value)}
-              className="flex-1 sm:flex-none px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 sm:flex-none px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 max-w-[200px]"
             >
-              <option value="all">Tất cả phần</option>
+              <option value="all">Tất cả phần thi</option>
               <option value="root">Chưa gán phần</option>
-              {state.sections.map((sec, idx) => (
-                <option key={sec.id} value={sec.id}>
-                  {sec.title || `Phần ${idx + 1}`}
-                </option>
-              ))}
+              {sectionTree.tree.map((rootSec) => {
+                if (rootSec.subsections.length > 0) {
+                  return (
+                    <optgroup key={rootSec.id} label={`📁 ${rootSec.title || "Phần cha"}`}>
+                      <option value={rootSec.id}>
+                        {rootSec.title} (Toàn bộ {rootSec.totalQuestionCount} câu)
+                      </option>
+                      {rootSec.subsections.map((sub) => (
+                        <option key={sub.id} value={sub.id}>
+                          ↳ {sub.title} ({sub.directQuestions.length} câu)
+                        </option>
+                      ))}
+                    </optgroup>
+                  );
+                }
+                return (
+                  <option key={rootSec.id} value={rootSec.id}>
+                    {rootSec.title} ({rootSec.totalQuestionCount} câu)
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -194,13 +218,106 @@ export default function QuestionList() {
         </div>
       )}
 
-      {/* Sections */}
-      {state.sections
-        .filter((sec) => selectedSectionFilter === "all" || selectedSectionFilter === sec.id)
-        .sort((a, b) => a.order - b.order)
-        .map((sec) => (
-          <SectionEditor key={sec.id} section={sec} />
-        ))}
+      {/* Sections with Nested Hierarchy Support */}
+      {sectionTree.tree.map((node) => {
+        // If node has subsections, render Parent Section Container
+        if (node.subsections.length > 0) {
+          const isRelevant =
+            selectedSectionFilter === "all" ||
+            selectedSectionFilter === node.id ||
+            node.subsections.some((s) => s.id === selectedSectionFilter);
+
+          if (!isRelevant) return null;
+
+          return (
+            <div
+              id={`section-${node.id}`}
+              key={node.id}
+              className="bg-purple-50/25 border-2 border-purple-200/90 rounded-3xl p-4 sm:p-6 space-y-5 shadow-xs scroll-mt-20"
+            >
+              {/* Parent Section Header Card */}
+              <div className="bg-white border border-purple-200 rounded-2xl p-4 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="p-2.5 bg-purple-100 text-purple-700 rounded-xl shrink-0">
+                    <Folder className="w-5 h-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <input
+                        type="text"
+                        value={node.title || ""}
+                        onChange={(e) => actions.updateSection(node.id, { title: e.target.value })}
+                        placeholder="Tên phần thi cha (Vd: Phần 1 - Đề kiểm tra Toán)"
+                        className="text-base sm:text-lg font-black text-slate-800 bg-transparent border-none focus:outline-none focus:ring-0 p-0 truncate max-w-md"
+                      />
+                      <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full shrink-0">
+                        Phần cha ({node.subsections.length} phần con)
+                      </span>
+                    </div>
+                    {node.description && (
+                      <p className="text-xs text-slate-500 mt-1 line-clamp-2">{node.description}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                  <span className="text-xs font-mono font-bold bg-purple-100 text-purple-800 px-2.5 py-1 rounded-xl">
+                    Tổng {node.totalQuestionCount} câu
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => actions.addSection(node.id)}
+                    className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
+                    title="Thêm phần con vào phần thi cha này"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> Thêm phần con
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => actions.deleteSection(node.id)}
+                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer"
+                    title="Xóa phần cha này (các phần con sẽ được giữ lại)"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Direct questions in parent section (if any) */}
+              {node.directQuestions.length > 0 && (
+                <div className="space-y-4">
+                  {node.directQuestions
+                    .filter(matchesQuestion)
+                    .map((q) => (
+                      <QuestionCard key={q.id} question={q} />
+                    ))}
+                </div>
+              )}
+
+              {/* Subsections list with indented layout */}
+              <div className="space-y-4 pl-1 sm:pl-3 border-l-2 border-purple-200 ml-2">
+                {node.subsections
+                  .filter(
+                    (sub) =>
+                      selectedSectionFilter === "all" ||
+                      selectedSectionFilter === node.id ||
+                      selectedSectionFilter === sub.id
+                  )
+                  .map((subSec) => (
+                    <SectionEditor key={subSec.id} section={subSec} parentSection={node} />
+                  ))}
+              </div>
+            </div>
+          );
+        }
+
+        // Standard root section without subsections
+        if (selectedSectionFilter !== "all" && selectedSectionFilter !== node.id) {
+          return null;
+        }
+
+        return <SectionEditor key={node.id} section={node} />;
+      })}
 
       {/* Add Section */}
       {!isFiltering && (

@@ -6,19 +6,35 @@ import type { SystemNotification } from "../../types";
 import { Link } from "react-router-dom";
 
 export default function NotificationCenter() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const [notifications, setNotifications] = useState<SystemNotification[]>([]);
   const [open, setOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!user) return;
-    fetchUserNotifications(user.uid).then((list) => {
+  const isAdmin =
+    role === "admin" ||
+    role === "super_admin" ||
+    Boolean(localStorage.getItem("admin_token") || localStorage.getItem("dktest:admin_token"));
+
+  const loadNotifications = (forceRefresh: boolean = false) => {
+    const targetUid = user?.uid || (isAdmin ? "admin_master" : "");
+    if (!targetUid && !isAdmin) return;
+
+    fetchUserNotifications(targetUid, forceRefresh, isAdmin).then((list) => {
       setNotifications(list);
       setUnreadCount(list.filter((n) => !n.read).length);
     });
-  }, [user]);
+  };
+
+  useEffect(() => {
+    loadNotifications(true);
+    // Poll every 30 seconds for live notification updates
+    const interval = setInterval(() => {
+      loadNotifications(true);
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [user?.uid, role, isAdmin]);
 
   // Click outside listener
   useEffect(() => {

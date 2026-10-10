@@ -187,11 +187,23 @@ function clearServerRestCache(keyPattern) {
 function getFirebaseApiKey() {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
+var UNCACHED_COLLECTIONS = /* @__PURE__ */ new Set([
+  "wallets",
+  "deposit_requests",
+  "wallet_transactions",
+  "debt_records",
+  "exam_entitlements",
+  "system_stats",
+  "exams",
+  "users",
+  "notifications"
+]);
 async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 2e4) {
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
   const now = Date.now();
-  if (useCache) {
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
     const cached = serverRestCache.get(cacheKey);
     if (cached && cached.expiresAt > now) {
       console.log(`[Server Firestore CACHE_HIT: 0 reads] Collection: "${collectionName}" | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`);
@@ -212,7 +224,7 @@ async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = tr
     const data = await res.json();
     const docs = (data.documents || []).map(decodeFirestoreDocument);
     console.log(`[Server Firestore READ: ${docs.length} docs] Collection: "${collectionName}" (limit: ${safePageSize}) | Elapsed: ${elapsed}ms`);
-    if (useCache) {
+    if (shouldCache) {
       serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
     }
     return docs;
@@ -224,7 +236,8 @@ async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = tr
 async function getFirestoreRestDoc(collectionName, docId, useCache = true, cacheTtlMs = 3e4) {
   const cacheKey = `doc_${collectionName}_${docId}`;
   const now = Date.now();
-  if (useCache) {
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
     const cached = serverRestCache.get(cacheKey);
     if (cached && cached.expiresAt > now) {
       console.log(`[Server Firestore CACHE_HIT: 0 reads] Doc: "${collectionName}/${docId}" | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`);

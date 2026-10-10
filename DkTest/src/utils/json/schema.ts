@@ -58,7 +58,16 @@ export const SectionSchemaV3 = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  order: z.number().optional()
+  order: z.number().optional(),
+  parentSectionId: z.string().nullable().optional(),
+  depth: z.number().optional(),
+  instructions: z.string().optional(),
+  enabled: z.boolean().optional(),
+  totalPoints: z.number().optional(),
+  pointsPerQuestion: z.number().optional(),
+  disableQuestionShuffle: z.boolean().optional(),
+  pinOrder: z.boolean().optional(),
+  audioConfig: z.any().optional(),
 });
 
 export const ExamSchemaV3 = z.object({
@@ -73,6 +82,9 @@ export const ExamSchemaV3 = z.object({
   gradeCategory: z.string().optional(),
   audioConfig: z.any().optional(),
   attachments: z.any().optional(),
+  accessMode: z.enum(["free", "paid"]).optional(),
+  priceVnd: z.number().optional(),
+  salesEnabled: z.boolean().optional(),
 });
 
 export const FullExportSchemaV3 = z.object({

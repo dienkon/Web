@@ -10,6 +10,20 @@ import {
   clearServerRestCache,
 } from "../firebaseAdmin.js";
 import { requireAdmin, requireSuperAdmin, type AuthenticatedRequest } from "../middleware/auth.js";
+import {
+  getWalletOverview,
+  getStudentDebtSummaries,
+  getStudentWalletDetails,
+  getDepositRequests,
+  approveDepositRequest,
+  rejectDepositRequest,
+  recordManualCashCollection,
+  adjustStudentDebt,
+  grantOrRevokeExamEntitlement,
+  syncStudentsToWallets,
+  updateStudentWalletProfile,
+} from "../services/walletService.js";
+import { mergeExams } from "../services/examMergeService.js";
 
 export const adminRouter = Router();
 
@@ -21,6 +35,15 @@ export function invalidateUserListCache() {
 
 // Apply requireAdmin to all admin routes
 adminRouter.use(requireAdmin);
+
+// Disable HTTP caching for admin responses
+adminRouter.use((_req, res, next) => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.setHeader("Surrogate-Control", "no-store");
+  next();
+});
 
 /**
  * Helper to record audit log
@@ -1501,3 +1524,300 @@ adminRouter.put("/settings", requireSuperAdmin, async (req: AuthenticatedRequest
     return res.status(500).json({ error: "server_error", message: err.message });
   }
 });
+
+// -------------------------------------------------------------
+// WALLET, DEBT & EXAM MERGE MANAGEMENT (PHẦN C & PHẦN F)
+// -------------------------------------------------------------
+
+// GET /api/admin/wallet/overview
+adminRouter.get("/wallet/overview", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const overview = await getWalletOverview();
+    return res.json({ success: true, overview });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/wallet/students
+adminRouter.get("/wallet/students", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { search, filterStatus, className, limit, offset } = req.query;
+    const result = await getStudentDebtSummaries({
+      search: search as string,
+      filterStatus: filterStatus as any,
+      className: className as string,
+      limit: limit ? Number(limit) : 50,
+      offset: offset ? Number(offset) : 0,
+    });
+    return res.json({ success: true, items: result.items, total: result.total });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/wallet/students/:uid/details
+adminRouter.get("/wallet/students/:uid/details", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.params.uid;
+    const details = await getStudentWalletDetails(uid);
+    return res.json({ success: true, ...details });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/wallet/sync-students
+adminRouter.post("/wallet/sync-students", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const result = await syncStudentsToWallets();
+    await recordAuditLog(
+      req.user,
+      "SYNC_STUDENTS_TO_WALLETS",
+      "wallets",
+      "wallet_system",
+      result,
+      req
+    );
+    return res.json({
+      success: true,
+      message: `Đồng bộ ví học sinh thành công! Tổng cộng ${result.totalStudents} học sinh (Tạo mới: ${result.createdCount}, Cập nhật: ${result.updatedCount}).`,
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(500).json({ error: "sync_error", message: err.message || String(err) });
+  }
+});
+
+// PATCH /api/admin/wallet/students/:uid/profile
+adminRouter.patch("/wallet/students/:uid/profile", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const studentUid = req.params.uid;
+    const { verifiedName, isVerified, fullName, currentClass } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+
+    const updated = await updateStudentWalletProfile(studentUid, {
+      verifiedName,
+      isVerified,
+      fullName,
+      currentClass,
+      adminUid,
+    });
+
+    await recordAuditLog(
+      req.user,
+      "UPDATE_STUDENT_WALLET_PROFILE",
+      studentUid,
+      "student_wallet",
+      { verifiedName, isVerified, fullName, currentClass },
+      req
+    );
+
+    return res.json({
+      success: true,
+      message: "Cập nhật hồ sơ và tên xác thực ví học sinh thành công!",
+      wallet: updated,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "profile_update_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/wallet/deposit-requests
+adminRouter.get("/wallet/deposit-requests", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { status, search, limit } = req.query;
+    const requests = await getDepositRequests({
+      status: status as string,
+      search: search as string,
+      limit: limit ? Number(limit) : 50,
+    });
+    return res.json({ success: true, items: requests });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/wallet/deposit-requests/:id/approve
+adminRouter.post("/wallet/deposit-requests/:id/approve", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const requestId = req.params.id;
+    const { externalCollectionNote } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+
+    const result = await approveDepositRequest(requestId, adminUid, adminName, externalCollectionNote);
+    await recordAuditLog(
+      req.user,
+      "APPROVE_DEPOSIT_REQUEST",
+      requestId,
+      "deposit_request",
+      { newBalanceVnd: result.newBalanceVnd, externalCollectionNote },
+      req
+    );
+
+    return res.json({
+      success: true,
+      message: "Đã phê duyệt yêu cầu nạp và cộng tiền vào ví thành công!",
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "approval_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/wallet/deposit-requests/:id/reject
+adminRouter.post("/wallet/deposit-requests/:id/reject", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const requestId = req.params.id;
+    const { reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+
+    const result = await rejectDepositRequest(requestId, adminUid, adminName, reason);
+    await recordAuditLog(
+      req.user,
+      "REJECT_DEPOSIT_REQUEST",
+      requestId,
+      "deposit_request",
+      { reason },
+      req
+    );
+
+    return res.json({
+      success: true,
+      message: "Đã từ chối yêu cầu nạp tiền.",
+      request: result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "rejection_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/wallet/students/:uid/collections
+adminRouter.post("/wallet/students/:uid/collections", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const studentUid = req.params.uid;
+    const { amountVnd, collectionDate, paymentMethod, referenceCode, note, creditToWallet } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+
+    const result = await recordManualCashCollection(adminUid, adminName, studentUid, {
+      amountVnd: Number(amountVnd),
+      collectionDate,
+      paymentMethod,
+      referenceCode,
+      note,
+      creditToWallet: Boolean(creditToWallet),
+    });
+
+    await recordAuditLog(
+      req.user,
+      "MANUAL_CASH_COLLECTION",
+      studentUid,
+      "student_wallet",
+      { amountVnd, paymentMethod, creditToWallet, note },
+      req
+    );
+
+    return res.json({
+      success: true,
+      message: "Đã ghi nhận khoản thu tiền ngoài hệ thống thành công!",
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "collection_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/wallet/students/:uid/debt-adjustments
+adminRouter.post("/wallet/students/:uid/debt-adjustments", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const studentUid = req.params.uid;
+    const { amountVnd, type, reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+
+    const result = await adjustStudentDebt(adminUid, adminName, studentUid, {
+      amountVnd: Number(amountVnd),
+      type,
+      reason,
+    });
+
+    await recordAuditLog(
+      req.user,
+      "ADJUST_STUDENT_DEBT",
+      studentUid,
+      "student_debt",
+      { amountVnd, type, reason },
+      req
+    );
+
+    return res.json({
+      success: true,
+      message: "Đã cập nhật điều chỉnh công nợ thành công!",
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "debt_adjustment_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/exam-entitlements/grant
+adminRouter.post("/exam-entitlements/grant", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { studentUid, examId, action, reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+
+    const result = await grantOrRevokeExamEntitlement(
+      adminUid,
+      adminName,
+      studentUid,
+      examId,
+      action || "grant",
+      reason
+    );
+
+    await recordAuditLog(
+      req.user,
+      action === "revoke" ? "REVOKE_EXAM_ENTITLEMENT" : "GRANT_EXAM_ENTITLEMENT",
+      studentUid,
+      "exam_entitlement",
+      { examId, action, reason },
+      req
+    );
+
+    return res.json({
+      success: true,
+      message: action === "revoke" ? "Đã thu hồi quyền truy cập bài thi." : "Đã cấp quyền truy cập bài thi thành công!",
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "entitlement_grant_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/exams/merge
+adminRouter.post("/exams/merge", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const payload = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+
+    const result = await mergeExams({
+      ...payload,
+      actorUid: adminUid,
+      actorName: adminName,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: `Đã gộp ${payload.sourceExamIds?.length || 0} bài thi thành công!`,
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "merge_error", message: err.message || String(err) });
+  }
+});
+

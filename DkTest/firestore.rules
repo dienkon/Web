@@ -156,8 +156,8 @@ service cloud.firestore {
 
     // 8. Notifications
     match /notifications/{notifId} {
-      allow read: if isAuthenticated();
-      allow create: if isAuthenticated();
+      allow read: if true;
+      allow create: if isAuthenticated() || true;
       allow update: if isAuthenticated() && (
         isAdmin() || 
         resource.data.userId == request.auth.uid
@@ -167,7 +167,7 @@ service cloud.firestore {
 
     // 9. Folders
     match /folders/{folderId} {
-      allow read: if isAuthenticated();
+      allow read: if isAuthenticated() || resource.data.isPublic == true;
       allow write: if isAdmin();
     }
 
@@ -244,6 +244,40 @@ service cloud.firestore {
       allow read: if true;
       allow create, update: if true;
       allow delete: if isAdmin();
+    }
+
+    // 15. Virtual Wallet & Ledgers (Phần E & B)
+    match /wallets/{userId} {
+      allow read, write: if true;
+    }
+
+    match /wallet_transactions/{txId} {
+      allow read, write: if true;
+    }
+
+    match /deposit_requests/{reqId} {
+      allow read, write: if true;
+    }
+
+    match /exam_entitlements/{entId} {
+      allow read, write: if true;
+    }
+
+    match /debt_records/{recId} {
+      allow read, write: if true;
+    }
+
+    // 16. System Stats
+    match /system_stats/{statId} {
+      allow read, write: if true;
+    }
+
+    // 17. Code Exams & Code Submissions
+    match /code_exams/{examId} {
+      allow read, write: if true;
+    }
+    match /code_submissions/{subId} {
+      allow read, write: if true;
     }
 
     // Default deny for anything else

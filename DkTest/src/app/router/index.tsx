@@ -47,10 +47,13 @@ const LiveProctoring = lazyWithRetry(() => import("../../pages/admin/LiveProctor
 const LiveMonitor = lazyWithRetry(() => import("../../pages/admin/LiveMonitor"), "LiveMonitor");
 const QuestionBank = lazyWithRetry(() => import("../../pages/admin/QuestionBank"), "QuestionBank");
 const JourneyCreatorStudio = lazyWithRetry(() => import("../../pages/admin/JourneyCreatorStudio"), "JourneyCreatorStudio");
+const WalletManagement = lazyWithRetry(() => import("../../pages/admin/WalletManagement"), "WalletManagement");
+const WebImporter = lazyWithRetry(() => import("../../pages/admin/WebImporter"), "WebImporter");
 const LegalPolicy = lazyWithRetry(() => import("../../pages/LegalPolicy"), "LegalPolicy");
 
 // Lazy-loaded Student Pages
 const Home = lazyWithRetry(() => import("../../pages/home/Home"), "Home");
+const StudentWallet = lazyWithRetry(() => import("../../pages/student/StudentWallet"), "StudentWallet");
 const ExamIntro = lazyWithRetry(() => import("../../pages/student/ExamIntro"), "ExamIntro");
 const TakingExam = lazyWithRetry(() => import("../../pages/student/TakingExam"), "TakingExam");
 const ExamResult = lazyWithRetry(() => import("../../pages/student/ExamResult"), "ExamResult");
@@ -225,6 +228,7 @@ const router = createBrowserRouter([
       { path: "exams", element: withSuspense(ExamList, "Đang tải danh sách đề...") },
       { path: "exams/import-word", element: withSuspense(AiWordImport, "Đang nạp trình nhập Word...") },
       { path: "exams/import-prompt", element: withSuspense(AiPromptImport, "Đang nạp AI Prompt Import...") },
+      { path: "exams/web-importer", element: withSuspense(WebImporter, "Đang nạp Web-to-DkTEST Importer...") },
       {
         path: "exams/new",
         element: (
@@ -261,6 +265,7 @@ const router = createBrowserRouter([
       { path: "live-proctoring", element: withSuspense(LiveProctoring, "Đang tải phòng giám sát...") },
       { path: "stats", element: withSuspense(Statistics, "Đang tổng hợp số liệu...") },
       { path: "settings", element: withSuspense(Settings, "Đang tải cài đặt...") },
+      { path: "wallet", element: withSuspense(WalletManagement, "Đang tải quản lý ví & công nợ...") },
       { path: "legal-policy", element: withSuspense(LegalPolicy, "Đang tải điều khoản...") },
       { path: "*", element: withSuspense(NotFoundPage) },
     ],
@@ -288,6 +293,8 @@ const router = createBrowserRouter([
       { path: "practice/:modeId", element: withSuspense(PracticeSessionPage, "Đang tải phòng luyện tập...") },
       { path: "student/community", element: withSuspense(Community, "Đang tải cộng đồng...") },
       { path: "student/ai-tutor", element: withSuspense(AiTutorPage, "Đang kết nối Gia sư AI...") },
+      { path: "student/wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
+      { path: "wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
       { path: "student/history", element: withSuspense(StudentHistory, "Đang tải lịch sử bài làm...") },
       { path: "student/profile", element: withSuspense(StudentProfile, "Đang tải hồ sơ cá nhân...") },
       { path: "legal-policy", element: withSuspense(LegalPolicy, "Đang tải chính sách...") },

@@ -38,6 +38,7 @@ import { buildSubExamAttempt } from "../../features/sub-exam/engine/buildSubExam
 import { organizeAndShuffleExam } from "../../utils/examShuffler";
 import { saveStudentProfile } from "../../services/studentService";
 import { recordQuestionMastery } from "../../services/reviewMasteryService";
+import { auth } from "../../services/firebase/config";
 import { getCachedAvatar } from "../../utils/avatarSync";
 import {
   syncRealtimeSession,
@@ -612,6 +613,73 @@ export default function TakingExam() {
         }
 
         setExam(examData);
+
+        // Enforce Paid & Personal Retake Exam Entitlement Check (Khóa hoàn toàn mọi hình thức lách luật)
+        const isRetakeOrPersonal = Boolean(
+          examData.isRetake ||
+          (examData as any).isPersonalRetake ||
+          (examData.isPractice && (examData as any).creatorUid) ||
+          (examData as any).originalExamId
+        );
+        const isPaid = examData.accessMode === "paid" || ((examData.priceVnd || 0) > 0);
+
+        if (isPaid || isRetakeOrPersonal) {
+          // 1. Kiểm tra nhanh quyền sở hữu cá nhân ở client
+          let currentUid = auth.currentUser?.uid || "";
+          let currentUsername = "";
+          try {
+            const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+            if (sInfo) {
+              const parsed = JSON.parse(sInfo);
+              if (!currentUid) currentUid = parsed.uid || "";
+              currentUsername = parsed.username || parsed.code || "";
+            }
+          } catch {}
+
+          const creatorUid = (examData as any).creatorUid;
+          const allowedUid = (examData as any).allowedUid;
+          const creatorUsername = (examData as any).creatorUsername;
+
+          if (isRetakeOrPersonal && (creatorUid || allowedUid)) {
+            if (currentUid && creatorUid && currentUid !== creatorUid && currentUid !== allowedUid) {
+              showErrorToast("Đây là bài làm lại cá nhân của thí sinh khác. Bạn không thể làm bài này!");
+              navigate("/student", { replace: true });
+              return;
+            }
+          } else if (isRetakeOrPersonal && creatorUsername && currentUsername) {
+            if (creatorUsername !== currentUsername) {
+              showErrorToast("Đây là bài làm lại cá nhân của thí sinh khác. Bạn không thể làm bài này!");
+              navigate("/student", { replace: true });
+              return;
+            }
+          }
+
+          // 2. Kiểm tra xác thực quyền truy cập từ Server (Backend Gate)
+          try {
+            const { checkExamAccess } = await import("../../services/walletClientService");
+            const access = await checkExamAccess(examId);
+            if (!access.hasAccess) {
+              if (access.rejectionReason === "personal_retake_forbidden") {
+                showErrorToast(access.message || "Đây là bài làm lại cá nhân của thí sinh khác. Bạn không có quyền truy cập!");
+                navigate("/student", { replace: true });
+                return;
+              }
+              if (access.rejectionReason === "parent_exam_locked" && access.parentExamId) {
+                showErrorToast(access.message || `Đề thi này yêu cầu mở khóa đề gốc trước khi làm bài!`);
+                navigate(`/student/exam/${access.parentExamId}`, { replace: true });
+                return;
+              }
+              showErrorToast(access.message || `Đề thi này yêu cầu mở khóa (${(examData.priceVnd || 0).toLocaleString("vi-VN")}đ) trước khi làm bài!`);
+              navigate(`/student/exam/${examId}`, { replace: true });
+              return;
+            }
+          } catch (accessErr: any) {
+            console.error("Access verification failed:", accessErr);
+            showErrorToast("Không thể xác thực quyền truy cập bài thi!");
+            navigate(`/student/exam/${examId}`, { replace: true });
+            return;
+          }
+        }
 
         // Retrieve student session name or profile
         const sessionStr = localStorage.getItem("current_student_session");
@@ -1754,6 +1822,7 @@ export default function TakingExam() {
   // Single Question Card Component Render
   const renderQuestionCard = (q: Question, qIdx: number) => {
     const qSection = q.sectionId ? sections.find((s) => s.id === q.sectionId) : null;
+    const parentSection = qSection?.parentSectionId ? sections.find((s) => s.id === qSection.parentSectionId) : null;
 
     const promptFontSizeClass = {
       sm: "text-sm lg:text-base leading-relaxed",
@@ -1782,8 +1851,8 @@ export default function TakingExam() {
               Câu {qIdx + 1}
             </span>
             {qSection && (
-              <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-lg text-xs font-bold truncate max-w-[220px]">
-                {qSection.title}
+              <span className="px-2.5 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-lg text-xs font-bold truncate max-w-[280px]">
+                {parentSection ? `${parentSection.title} > ${qSection.title}` : qSection.title}
               </span>
             )}
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -2578,14 +2647,35 @@ export default function TakingExam() {
                     : -1;
 
                   if (currentSection) {
+                    const parentSec = currentSection.parentSectionId
+                      ? sections.find((s) => s.id === currentSection.parentSectionId)
+                      : null;
+
                     return (
                       <div className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5">
                         <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
-                          <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
-                            <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
-                              {currentSection.title}
-                            </h3>
-                          </div>
+                          {parentSec ? (
+                            <div className="border-b border-slate-100 pb-3 space-y-1">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-black flex items-center gap-1">
+                                  <span>📁 {parentSec.title}</span>
+                                </span>
+                                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                                <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
+                                  {currentSection.title}
+                                </h3>
+                              </div>
+                              {parentSec.description && (
+                                <p className="text-xs text-slate-500 italic">{parentSec.description}</p>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
+                              <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
+                                {currentSection.title}
+                              </h3>
+                            </div>
+                          )}
                           {currentSection.description && (
                             <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
                               <LatexPreview content={currentSection.description} />
@@ -2679,24 +2769,58 @@ export default function TakingExam() {
 
                 return groups.map((group, gIdx) => {
                   if (group.section) {
-                    const secIndex = sections.findIndex((s) => s.id === group.section?.id);
+                    const sec = group.section;
+                    const parentSec = sec.parentSectionId
+                      ? sections.find((s) => s.id === sec.parentSectionId)
+                      : null;
+                    const prevGroup = gIdx > 0 ? groups[gIdx - 1] : null;
+                    const prevParentId = prevGroup?.section?.parentSectionId || null;
+                    const isNewParent = Boolean(parentSec && parentSec.id !== prevParentId);
+
                     return (
-                      <div
-                        key={`take-sec-${group.section.id}-${gIdx}`}
-                        className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5"
-                      >
-                        {/* Section Header */}
-                        <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
-                          <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
-                            <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
-                              {group.section.title}
-                            </h3>
-                          </div>
-                          {group.section.description && (
-                            <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
-                              <LatexPreview content={group.section.description} />
+                      <React.Fragment key={`take-sec-frag-${sec.id}-${gIdx}`}>
+                        {isNewParent && parentSec && (
+                          <div className="bg-gradient-to-r from-purple-800 to-indigo-900 text-white rounded-3xl p-5 sm:p-6 shadow-md space-y-2 mt-4 border border-purple-600/30">
+                            <div className="flex items-center gap-2.5">
+                              <span className="p-2 bg-white/15 rounded-xl backdrop-blur-xs text-base">
+                                📁
+                              </span>
+                              <div>
+                                <span className="text-[10px] uppercase tracking-wider text-purple-200 font-extrabold block">
+                                  Phần thi lớn
+                                </span>
+                                <h2 className="text-lg sm:text-xl font-black">{parentSec.title}</h2>
+                              </div>
                             </div>
-                          )}
+                            {parentSec.description && (
+                              <p className="text-xs sm:text-sm text-purple-100/90 font-medium pl-1 leading-relaxed">
+                                {parentSec.description}
+                              </p>
+                            )}
+                          </div>
+                        )}
+
+                        <div
+                          key={`take-sec-${sec.id}-${gIdx}`}
+                          className="bg-slate-50/50 border-2 border-slate-300 rounded-3xl p-4 sm:p-6 shadow-xs space-y-5"
+                        >
+                          {/* Section Header */}
+                          <div className="space-y-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xs">
+                            <div className="flex items-center gap-2.5 flex-wrap border-b border-slate-100 pb-3">
+                              {parentSec && (
+                                <span className="px-2.5 py-1 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold">
+                                  {parentSec.title}
+                                </span>
+                              )}
+                              <h3 className="font-extrabold text-base sm:text-lg text-slate-900">
+                                {sec.title}
+                              </h3>
+                            </div>
+                            {sec.description && (
+                              <div className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed bg-slate-50 border border-slate-200 rounded-xl p-4">
+                                <LatexPreview content={sec.description} />
+                              </div>
+                            )}
 
                           {/* Section Audio Player (Scroll View) */}
                           {(group.section.audioConfig?.url || (group.section as any).audioUrl) && (
@@ -2724,8 +2848,9 @@ export default function TakingExam() {
                           {group.items.map(({ question: q, index: qIdx }) => renderQuestionCard(q, qIdx))}
                         </div>
                       </div>
-                    );
-                  }
+                    </React.Fragment>
+                  );
+                }
 
                   return (
                     <div key={`take-outside-${gIdx}`} className="space-y-4">
@@ -2810,6 +2935,10 @@ export default function TakingExam() {
                       return true;
                     }).length;
 
+                    const parentSec = sec?.parentSectionId
+                      ? sections.find((s) => s.id === sec.parentSectionId)
+                      : null;
+
                     const groupTitle = sec
                       ? sec.title
                       : (sections && sections.length > 0 ? "Câu hỏi khác" : "Danh sách câu hỏi");
@@ -2817,7 +2946,16 @@ export default function TakingExam() {
                     return (
                       <div key={sec ? sec.id : `no-sec-map-${groupIdx}`} className="space-y-2 bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80">
                         <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                          <span className="truncate pr-2">{groupTitle}</span>
+                          {parentSec ? (
+                            <div className="flex items-center gap-1.5 min-w-0 pr-2">
+                              <span className="text-[10px] font-black text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded shrink-0">
+                                {parentSec.title}
+                              </span>
+                              <span className="truncate text-xs font-bold text-slate-700">{groupTitle}</span>
+                            </div>
+                          ) : (
+                            <span className="truncate pr-2">{groupTitle}</span>
+                          )}
                           <span className="text-[11px] font-semibold text-slate-400 shrink-0">
                             {secAnswered}/{secQuestions.length}
                           </span>

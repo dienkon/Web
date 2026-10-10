@@ -4,15 +4,24 @@
  */
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { useStudentOnboarding } from "./StudentOnboardingContext";
 import { TOUR_DATA_IDS } from "./StudentOnboardingTypes";
 
 export default function StudentTutorialBanner() {
+  const navigate = useNavigate();
   const { isTutorialActive, triggerAction, currentStepId } = useStudentOnboarding();
 
   // Highlight or render when in tutorial mode, or prominently on Home
   const isTargeted = currentStepId === "home_demo_card";
+
+  const handleStart = () => {
+    try {
+      triggerAction("start_demo_exam");
+    } catch {}
+    navigate("/student/tutorial/exam");
+  };
 
   return (
     <div
@@ -84,7 +93,7 @@ export default function StudentTutorialBanner() {
 
         <button
           type="button"
-          onClick={() => triggerAction("start_demo_exam")}
+          onClick={handleStart}
           className={`px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-black transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer shrink-0 self-stretch md:self-auto ${
             isTargeted
               ? "bg-white text-blue-700 hover:bg-blue-50"

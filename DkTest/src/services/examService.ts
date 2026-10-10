@@ -6,12 +6,15 @@ import { deleteExamActiveSessionsFromRtdb } from "./realtimeProctoringService";
 import { FirestoreRepository } from "./firebase/firestoreRepository";
 const EXAMS_COLLECTION = "exams";
 
+import { FirestoreCache } from "./firebase/firestoreCache";
 import {
   getExamsCatalogSummary,
   syncExamToCatalogSummary,
   getExamTimestampMs,
   type ExamSummaryItem,
 } from "./statsAggregatorService";
+
+import { invalidateHomeTopCache } from "./examCacheService";
 
 export const getExamList = async ({
   pageSize = 10,
@@ -21,6 +24,7 @@ export const getExamList = async ({
   subject = undefined,
   gradeCategory = undefined,
   isFeatured = undefined,
+  forceRefresh = false,
 }: {
   pageSize?: number;
   cursor?: any;
@@ -29,60 +33,24 @@ export const getExamList = async ({
   subject?: string | undefined;
   gradeCategory?: string | undefined;
   isFeatured?: boolean | undefined;
+  forceRefresh?: boolean;
 }): Promise<PaginatedResult<Exam>> => {
   try {
-    // 1. Primary Strategy: 1-READ Catalog Summary
-    // Reads full catalog in 1 doc read, filters and sorts in memory, guaranteed accurate top newest items
-    const catalog = await getExamsCatalogSummary();
-    if (catalog && Array.isArray(catalog.exams) && catalog.exams.length > 0) {
-      let filtered = catalog.exams;
+    const cursorKey = cursor ? (typeof cursor === "string" ? cursor : cursor.id || "c") : "start";
+    const cacheKey = `query:exams:${ownerId || "all"}:${folderId ?? "all"}:${subject || "all"}:${gradeCategory || "all"}:${isFeatured ?? "all"}:${pageSize}:${cursorKey}`;
 
-      if (ownerId) {
-        filtered = filtered.filter((e) => e.ownerId === ownerId);
+    if (forceRefresh) {
+      FirestoreCache.invalidatePrefix("query:exams");
+      FirestoreCache.invalidatePrefix("doc:exams");
+      FirestoreCache.invalidate("doc:system_stats:exams_summary");
+    } else {
+      const cached = FirestoreCache.get<PaginatedResult<Exam>>(cacheKey);
+      if (cached && Array.isArray(cached.items)) {
+        return cached;
       }
-      if (folderId !== undefined) {
-        filtered = filtered.filter((e) => (e.folderId ?? null) === (folderId ?? null));
-      }
-      if (subject && subject !== "all") {
-        filtered = filtered.filter((e) => e.subject === subject);
-      }
-      if (gradeCategory && gradeCategory !== "all") {
-        filtered = filtered.filter((e) => e.gradeCategory === gradeCategory);
-      }
-      if (isFeatured !== undefined) {
-        filtered = filtered.filter((e) => !!e.isFeatured === !!isFeatured);
-      }
-
-      // Sort newest first
-      filtered.sort((a, b) => {
-        const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
-        const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
-        return timeB - timeA;
-      });
-
-      let startIndex = 0;
-      if (cursor) {
-        const cursorId = typeof cursor === "string" ? cursor : cursor?.id;
-        if (cursorId) {
-          const idx = filtered.findIndex((e) => e.id === cursorId);
-          if (idx >= 0) {
-            startIndex = idx + 1;
-          }
-        }
-      }
-
-      const paged = filtered.slice(startIndex, startIndex + pageSize);
-      const nextItem = paged[paged.length - 1];
-      const hasMore = startIndex + pageSize < filtered.length;
-
-      return {
-        items: paged as unknown as Exam[],
-        nextCursor: nextItem ? { id: nextItem.id } : null,
-        hasMore,
-      };
     }
 
-    // 2. Direct Firestore Fallback if catalog is completely empty
+    // DIRECT FIRESTORE READ - PRIORITY #1 (Source of Truth)
     let q = collection(db, EXAMS_COLLECTION) as any;
     const conditions: any[] = [];
 
@@ -98,11 +66,11 @@ export const getExamList = async ({
 
     const t0 = performance.now();
     const snapshot = await getDocs(q);
-    logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList direct fallback`, pageSize, performance.now() - t0);
+    logQueryRead(EXAMS_COLLECTION, snapshot.size, `getExamList direct firestore`, pageSize, performance.now() - t0);
 
     const items = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) } as Exam));
     
-    // Ensure robust sorting by updatedAt descending (fallback to createdAt if missing)
+    // Robust sorting by newest first (updatedAt desc, fallback to createdAt desc)
     items.sort((a: any, b: any) => {
       const timeA = getExamTimestampMs(a.updatedAt) || getExamTimestampMs(a.createdAt);
       const timeB = getExamTimestampMs(b.updatedAt) || getExamTimestampMs(b.createdAt);
@@ -121,20 +89,26 @@ export const getExamList = async ({
     const paged = items.slice(startIndex, startIndex + pageSize);
     const nextCursor = paged.length > 0 ? { id: paged[paged.length - 1].id } : null;
     
-    return {
+    const result: PaginatedResult<Exam> = {
       items: paged,
       nextCursor,
       hasMore: startIndex + pageSize < items.length,
     };
+
+    // Cache briefly in RAM (15 seconds TTL) for instant back-and-forth clicks
+    FirestoreCache.set(cacheKey, result, 15 * 1000);
+
+    return result;
   } catch (err) {
-    console.error("Error fetching exam list:", err);
+    console.error("Error fetching exam list from Firestore:", err);
     throw err;
   }
 };
 
-export const getExam = async (examId: string): Promise<Exam | null> => {
+export const getExam = async (examId: string, forceRefresh = false): Promise<Exam | null> => {
   return FirestoreRepository.getDocument<Exam>(EXAMS_COLLECTION, examId, {
-    ttlMs: 3 * 60 * 1000,
+    ttlMs: 30 * 1000,
+    forceRefresh,
     purpose: "getExam",
   });
 };
@@ -150,10 +124,18 @@ export const createExam = async (examData: Omit<Exam, "id" | "createdAt" | "upda
   
   const created = { id: docRef.id, ...newExam, createdAt: new Date() as any, updatedAt: new Date() as any } as Exam;
   
-  // Sync to 1-read catalog summary (non-blocking)
-  syncExamToCatalogSummary(created as any, "upsert").catch((e) =>
-    console.warn("[examService] Warning syncing new exam to catalog:", e)
-  );
+  // Invalidate in-memory caches immediately
+  FirestoreCache.invalidate("doc:system_stats:exams_summary");
+  FirestoreCache.invalidatePrefix("doc:exams");
+  FirestoreCache.invalidatePrefix("query:exams");
+  invalidateHomeTopCache();
+
+  // Sync to 1-read catalog summary (await to guarantee write committed)
+  try {
+    await syncExamToCatalogSummary(created as any, "upsert");
+  } catch (e) {
+    console.warn("[examService] Warning syncing new exam to catalog:", e);
+  }
 
   return created;
 };
@@ -169,10 +151,19 @@ export const updateExam = async (examId: string, updates: Partial<Exam>): Promis
     { purpose: "updateExam" }
   );
 
-  // Sync to 1-read catalog summary (non-blocking)
-  syncExamToCatalogSummary({ id: examId, ...updates } as any, "upsert").catch((e) =>
-    console.warn("[examService] Warning syncing updated exam to catalog:", e)
-  );
+  // Invalidate in-memory caches immediately
+  FirestoreCache.invalidate("doc:system_stats:exams_summary");
+  FirestoreCache.invalidate(`doc:exams:${examId}`);
+  FirestoreCache.invalidatePrefix("doc:exams");
+  FirestoreCache.invalidatePrefix("query:exams");
+  invalidateHomeTopCache();
+
+  // Sync to 1-read catalog summary (await to guarantee write committed)
+  try {
+    await syncExamToCatalogSummary({ id: examId, ...updates } as any, "upsert");
+  } catch (e) {
+    console.warn("[examService] Warning syncing updated exam to catalog:", e);
+  }
 };
 
 /**
@@ -230,17 +221,36 @@ export const deleteExam = async (examId: string): Promise<void> => {
       console.warn("Could not delete active_sessions from RTDB", sessErr);
     }
 
-    // 5.1 If it's a code exam, clean up from code_exams collection
+    // 5.1 If it's a code exam, clean up from code_exams collection and localStorage
     try {
       await deleteDoc(doc(db, "code_exams", examId));
     } catch (codeErr) {
       // non-blocking
     }
+    try {
+      const localStr = localStorage.getItem("dktest_local_code_exams");
+      if (localStr) {
+        const local = JSON.parse(localStr);
+        if (local[examId]) {
+          delete local[examId];
+          localStorage.setItem("dktest_local_code_exams", JSON.stringify(local));
+        }
+      }
+    } catch (_) {}
+
+    // Invalidate in-memory caches immediately
+    FirestoreCache.invalidate("doc:system_stats:exams_summary");
+    FirestoreCache.invalidate(`doc:exams:${examId}`);
+    FirestoreCache.invalidatePrefix("doc:exams");
+    FirestoreCache.invalidatePrefix("query:exams");
+    invalidateHomeTopCache();
 
     // 6. Sync deletion to 1-read catalog summary
-    syncExamToCatalogSummary({ id: examId }, "delete").catch((e) =>
-      console.warn("[examService] Warning syncing exam deletion to catalog:", e)
-    );
+    try {
+      await syncExamToCatalogSummary({ id: examId }, "delete");
+    } catch (e) {
+      console.warn("[examService] Warning syncing exam deletion to catalog:", e);
+    }
   } catch (err) {
     console.error("Error deleting exam:", err);
     throw err;

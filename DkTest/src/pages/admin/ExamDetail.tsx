@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
@@ -16,12 +16,15 @@ import {
   Copy,
   ExternalLink,
   Layers,
+  Folder,
+  CornerDownRight,
   Sparkles,
 } from "lucide-react";
 import { getExam, deleteExam } from "../../services/examService";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import type { Exam, Section, Question } from "../../types";
+import { buildSectionTree } from "../../utils/sectionTree";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import ExamPreviewModal from "../../features/exam-builder/components/ExamPreviewModal";
 import ExamExportModal from "../../features/exam-builder/components/ExamExportModal";
@@ -133,6 +136,10 @@ export default function ExamDetail() {
   }
 
   const studentLink = `${window.location.origin}/student/exam/${exam.id}`;
+
+  const sectionTree = useMemo(() => {
+    return buildSectionTree(sections, questions);
+  }, [sections, questions]);
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">
@@ -301,30 +308,121 @@ export default function ExamDetail() {
           Nội dung chi tiết đề thi ({questions.length} câu hỏi)
         </h2>
 
-        {sections.length > 0 ? (
-          sections.map((sec, secIdx) => {
-            const secQuestions = questions.filter((q) => q.sectionId === sec.id);
+        {sectionTree.tree.length > 0 ? (
+          sectionTree.tree.map((node, secIdx) => {
+            // Nested Parent Section Container
+            if (node.subsections.length > 0) {
+              return (
+                <div
+                  key={node.id}
+                  className="bg-purple-50/20 border-2 border-purple-200 rounded-3xl p-5 sm:p-6 space-y-5 shadow-xs"
+                >
+                  {/* Parent Section Header */}
+                  <div className="flex items-center justify-between border-b border-purple-200/80 pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-purple-100 text-purple-700 rounded-xl">
+                        <Folder className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-black text-slate-800 text-base sm:text-lg">
+                            {node.title || `Phần ${secIdx + 1}`}
+                          </h3>
+                          <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                            Phần cha ({node.subsections.length} phần con)
+                          </span>
+                        </div>
+                        {node.description && (
+                          <p className="text-xs text-slate-500 mt-0.5">{node.description}</p>
+                        )}
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold bg-purple-100 text-purple-800 px-2.5 py-1 rounded-lg font-mono">
+                      Tổng {node.totalQuestionCount} câu
+                    </span>
+                  </div>
+
+                  {/* Direct questions in parent if any */}
+                  {node.directQuestions.length > 0 && (
+                    <div className="space-y-4">
+                      {node.directQuestions.map((q) => {
+                        const globalIdx = questions.findIndex((item) => item.id === q.id);
+                        return (
+                          <QuestionDetailCard
+                            key={q.id}
+                            question={q}
+                            index={globalIdx !== -1 ? globalIdx + 1 : 1}
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Subsections with indented layout */}
+                  <div className="space-y-5 pl-2 sm:pl-4 border-l-2 border-purple-200 ml-2">
+                    {node.subsections.map((subNode, subIdx) => (
+                      <div
+                        key={subNode.id}
+                        className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs space-y-4 p-5"
+                      >
+                        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                          <div className="flex items-center gap-2">
+                            <CornerDownRight className="w-4 h-4 text-purple-500 shrink-0" />
+                            <div>
+                              <h4 className="font-bold text-slate-800 text-sm sm:text-base">
+                                {subNode.title || `Phần con ${subIdx + 1}`}
+                              </h4>
+                              {subNode.description && (
+                                <p className="text-xs text-slate-500 mt-0.5">{subNode.description}</p>
+                              )}
+                            </div>
+                          </div>
+                          <span className="text-xs font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-mono">
+                            {subNode.directQuestions.length} câu
+                          </span>
+                        </div>
+
+                        <div className="space-y-4">
+                          {subNode.directQuestions.map((q) => {
+                            const globalIdx = questions.findIndex((item) => item.id === q.id);
+                            return (
+                              <QuestionDetailCard
+                                key={q.id}
+                                question={q}
+                                index={globalIdx !== -1 ? globalIdx + 1 : 1}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            // Normal Flat Section
             return (
               <div
-                key={sec.id}
+                key={node.id}
                 className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs space-y-4 p-5"
               >
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <div>
                     <h3 className="font-bold text-slate-800 text-base">
-                      {sec.title || `Phần ${secIdx + 1}`}
+                      {node.title || `Phần ${secIdx + 1}`}
                     </h3>
-                    {sec.description && (
-                      <p className="text-xs text-slate-500 mt-0.5">{sec.description}</p>
+                    {node.description && (
+                      <p className="text-xs text-slate-500 mt-0.5">{node.description}</p>
                     )}
                   </div>
                   <span className="text-xs font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg">
-                    {secQuestions.length} câu
+                    {node.directQuestions.length} câu
                   </span>
                 </div>
 
                 <div className="space-y-4">
-                  {secQuestions.map((q) => {
+                  {node.directQuestions.map((q) => {
                     const globalIdx = questions.findIndex((item) => item.id === q.id);
                     return (
                       <QuestionDetailCard
@@ -343,6 +441,30 @@ export default function ExamDetail() {
             {questions.map((q, qIdx) => (
               <QuestionDetailCard key={q.id} question={q} index={qIdx + 1} />
             ))}
+          </div>
+        )}
+
+        {/* Any questions unassigned to any section */}
+        {sectionTree.rootQuestions.length > 0 && sectionTree.tree.length > 0 && (
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-2xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+              <h3 className="font-bold text-slate-700 text-sm">Câu hỏi độc lập</h3>
+              <span className="text-xs font-semibold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-lg">
+                {sectionTree.rootQuestions.length} câu
+              </span>
+            </div>
+            <div className="space-y-4">
+              {sectionTree.rootQuestions.map((q) => {
+                const globalIdx = questions.findIndex((item) => item.id === q.id);
+                return (
+                  <QuestionDetailCard
+                    key={q.id}
+                    question={q}
+                    index={globalIdx !== -1 ? globalIdx + 1 : 1}
+                  />
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

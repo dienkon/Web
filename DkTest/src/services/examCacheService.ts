@@ -8,6 +8,7 @@ export function invalidateHomeTopCache(): void {
     FirestoreCache.invalidate("home:top:attempted");
     FirestoreCache.invalidate("home:top:newest");
     FirestoreCache.invalidatePrefix("home:filter:");
+    FirestoreCache.invalidatePrefix("query:exams");
   } catch (err) {
     console.warn("[examCacheService] Error invalidating home cache:", err);
   }

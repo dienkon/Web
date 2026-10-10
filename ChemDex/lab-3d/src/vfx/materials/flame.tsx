@@ -174,8 +174,8 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
         castShadow={false}
       />
 
-      {/* High-tier Heat-Haze Distortion Quad above flame */}
-      {effectiveTier === 'high' && (
+      {/* High-tier & Ultra-tier Heat-Haze Distortion Quad above flame */}
+      {(effectiveTier === 'high' || effectiveTier === 'ultra') && (
         <mesh position={[0, 0.85 * scale, 0]}>
           <planeGeometry args={[0.35 * scale, 0.45 * scale]} />
           <MeshTransmissionMaterial

@@ -1,5 +1,5 @@
 import { collection, doc, getDoc, getDocs, setDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
-import { db } from "./firebase/config";
+import { db, auth } from "./firebase/config";
 import type { Question, Submission, Exam, Section } from "../types";
 import { evaluateQuestionAnswer } from "../utils/attemptAnalytics";
 import { clearActiveExamSession } from "./examSessionService";
@@ -131,14 +131,22 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
   // Retrieve student identifier and display name
   let studentIdentifier = "student";
   let studentDisplayName = "";
+  let studentUid = "";
   try {
     const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
     if (sInfo) {
       const parsed = JSON.parse(sInfo);
-      studentIdentifier = parsed.username || parsed.displayName || "student";
+      studentIdentifier = parsed.username || parsed.code || parsed.displayName || "student";
       studentDisplayName = parsed.displayName || parsed.name || "";
+      studentUid = parsed.uid || "";
     }
   } catch {}
+  if (!studentUid && auth.currentUser) {
+    studentUid = auth.currentUser.uid;
+  }
+  if (!studentDisplayName && auth.currentUser?.displayName) {
+    studentDisplayName = auth.currentUser.displayName;
+  }
 
   // 1. Fetch master exam document to guarantee inheritance of all authentic configurations and rules
   let masterExamData: any = originalExam || {};
@@ -172,6 +180,24 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
         }
       } catch (secErr) {
         console.warn("Could not fetch sections subcollection:", secErr);
+      }
+    }
+
+    // Verify paid entitlement for retake
+    if (masterExamData.accessMode === "paid") {
+      try {
+        const { checkExamAccess } = await import("./walletClientService");
+        const access = await checkExamAccess(examId);
+        if (!access.hasAccess) {
+          throw new Error(
+            `Bài thi gốc [${masterExamData.title || examId}] là đề thi trả phí (${(masterExamData.priceVnd || 0).toLocaleString(
+              "vi-VN"
+            )}đ) và bạn chưa mở khóa. Vui lòng mở khóa trước khi làm lại!`
+          );
+        }
+      } catch (e: any) {
+        if (e.message?.includes("trả phí")) throw e;
+        console.warn("Retake access check warning:", e);
       }
     }
   }
@@ -288,6 +314,10 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     ? options.customDuration
     : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
 
+  const isOriginalPaid = masterExamData.accessMode === "paid" || (masterExamData.priceVnd && masterExamData.priceVnd > 0);
+  const examAccessMode = isOriginalPaid ? "paid" : "free";
+  const examPriceVnd = isOriginalPaid ? (masterExamData.priceVnd || 0) : 0;
+
   const newExamData = {
     title: `[${modeLabel}] ${originalExam.title || submission.examTitleSnapshot || "Đề thi"}`,
     code: `RETAKE_${Date.now().toString().slice(-4)}`,
@@ -307,9 +337,16 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     isPublic: false,
     isPractice: true,
     isRetake: true,
+    isPersonalRetake: true,
+    creatorUid: studentUid,
+    allowedUid: studentUid,
     creatorUsername: studentIdentifier,
     creatorRole: "student",
     originalExamId: examId,
+    requiredOriginalExamId: isOriginalPaid ? examId : null,
+    accessMode: examAccessMode as "free" | "paid",
+    priceVnd: examPriceVnd,
+    isDerivedFromPaidExam: isOriginalPaid,
     shuffleQuestions: inheritShuffleQuestions,
     shuffleOptions: inheritShuffleOptions,
     shuffleSections: inheritShuffleSections,
@@ -369,6 +406,25 @@ export async function createAggregatedReviewExam(
   for (let itemIdx = 0; itemIdx < items.length; itemIdx++) {
     const item = items[itemIdx];
     const itemExamId = item.exam?.id || `exam_${itemIdx + 1}`;
+
+    // Verify paid exam entitlement before reading questions
+    if (item.exam?.accessMode === "paid" && item.exam.id) {
+      try {
+        const { checkExamAccess } = await import("./walletClientService");
+        const access = await checkExamAccess(item.exam.id);
+        if (!access.hasAccess) {
+          throw new Error(
+            `Bài thi [${item.exam.title || item.exam.id}] là đề thi trả phí (${(item.exam.priceVnd || 0).toLocaleString(
+              "vi-VN"
+            )}đ) và bạn chưa mở khóa. Vui lòng mở khóa trước khi ôn tập!`
+          );
+        }
+      } catch (e: any) {
+        if (e.message?.includes("trả phí")) throw e;
+        console.warn("Aggregated review access check warning:", e);
+      }
+    }
+
     const rawQuestions = await getExamQuestionsSafe(
       item.exam.id,
       item.questions || item.submission?.shuffledQuestionsSnapshot || item.exam.questions
@@ -442,17 +498,25 @@ export async function createAggregatedReviewExam(
     ? customDuration
     : Math.max(5, Math.min(180, Math.round(finalQuestions.length * 1.5)));
 
-  // Retrieve student identifier and display name
+  // Retrieve student identifier, UID and display name
   let studentIdentifier = "student";
   let studentDisplayName = "";
+  let studentUid = "";
   try {
     const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
     if (sInfo) {
       const parsed = JSON.parse(sInfo);
-      studentIdentifier = parsed.username || parsed.displayName || "student";
+      studentIdentifier = parsed.username || parsed.code || parsed.displayName || "student";
       studentDisplayName = parsed.displayName || parsed.name || "";
+      studentUid = parsed.uid || "";
     }
   } catch {}
+  if (!studentUid && auth.currentUser) {
+    studentUid = auth.currentUser.uid;
+  }
+  if (!studentDisplayName && auth.currentUser?.displayName) {
+    studentDisplayName = auth.currentUser.displayName;
+  }
 
   // Find or create Drive/Học sinh/<Tên học sinh> folder
   let studentFolderId: string | null = null;
@@ -461,6 +525,14 @@ export async function createAggregatedReviewExam(
   } catch (fErr) {
     console.warn("Could not get or create student folder:", fErr);
   }
+
+  const hasPaidSource = items.some(
+    (item) => item.exam?.accessMode === "paid" || ((item.exam?.priceVnd || 0) > 0)
+  );
+  const sourceExamIds = items.map((i) => i.exam?.id).filter(Boolean) as string[];
+  const maxPriceVnd = hasPaidSource
+    ? Math.max(...items.map((i) => i.exam?.priceVnd || 0))
+    : 0;
 
   const docRef = doc(collection(db, EXAMS_COLLECTION));
   const newExamData = {
@@ -482,10 +554,17 @@ export async function createAggregatedReviewExam(
     isPublic: false,
     isPractice: true,
     isRetake: true,
+    isPersonalRetake: true,
     isAggregatedReview: true,
     sourceExamCount: items.length,
+    sourceExamIds,
+    creatorUid: studentUid,
+    allowedUid: studentUid,
     creatorUsername: studentIdentifier,
     creatorRole: "student",
+    accessMode: (hasPaidSource ? "paid" : "free") as "free" | "paid",
+    priceVnd: maxPriceVnd,
+    isDerivedFromPaidExam: hasPaidSource,
     shuffleQuestions: Boolean(shuffleQuestions),
     shuffleOptions: true,
     shuffleStatements: true,

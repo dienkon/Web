@@ -156,28 +156,37 @@ export async function getCodeExam(id: string): Promise<CodeExam | null> {
  * Get all CodeExams
  */
 export async function getAllCodeExams(): Promise<CodeExam[]> {
-  const list: CodeExam[] = [];
-
   try {
     const q = query(collection(db, CODE_EXAMS_COLLECTION), orderBy("updatedAt", "desc"));
     const snap = await getDocs(q);
+    const list: CodeExam[] = [];
+    const validIds = new Set<string>();
     snap.forEach((d) => {
       list.push({ id: d.id, ...d.data() } as CodeExam);
+      validIds.add(d.id);
     });
+
+    // Prune stale items from localStorage so deleted exams never resurrect
+    try {
+      const localMap = getLocalCodeExams();
+      let changed = false;
+      for (const id of Object.keys(localMap)) {
+        if (!validIds.has(id)) {
+          delete localMap[id];
+          changed = true;
+        }
+      }
+      if (changed) {
+        localStorage.setItem(LOCAL_STORAGE_CODE_EXAMS_KEY, JSON.stringify(localMap));
+      }
+    } catch (_) {}
+
+    return list;
   } catch (err) {
     console.warn("[CodeExamService] Firestore read all error, fallback to localStorage:", err);
+    const localMap = getLocalCodeExams();
+    return Object.values(localMap);
   }
-
-  // Merge with localStorage
-  const localMap = getLocalCodeExams();
-  const existingIds = new Set(list.map((it) => it.id));
-  Object.values(localMap).forEach((item) => {
-    if (!existingIds.has(item.id)) {
-      list.push(item);
-    }
-  });
-
-  return list;
 }
 
 /**
@@ -191,9 +200,11 @@ export async function deleteCodeExam(id: string): Promise<void> {
   } catch (err) {
     console.warn("[CodeExamService] Firestore delete error:", err);
   }
-  const local = getLocalCodeExams();
-  delete local[id];
-  localStorage.setItem(LOCAL_STORAGE_CODE_EXAMS_KEY, JSON.stringify(local));
+  try {
+    const local = getLocalCodeExams();
+    delete local[id];
+    localStorage.setItem(LOCAL_STORAGE_CODE_EXAMS_KEY, JSON.stringify(local));
+  } catch (_) {}
 }
 
 /**

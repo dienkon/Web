@@ -215,6 +215,18 @@ function getFirebaseApiKey(): string {
   return process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || "AIzaSyDp9p5hkQ6fVEou4znk5YZu81VhgZtM7h4";
 }
 
+const UNCACHED_COLLECTIONS = new Set([
+  "wallets",
+  "deposit_requests",
+  "wallet_transactions",
+  "debt_records",
+  "exam_entitlements",
+  "system_stats",
+  "exams",
+  "users",
+  "notifications",
+]);
+
 export async function getFirestoreRestDocs(
   collectionName: string,
   pageSize = 50,
@@ -224,8 +236,9 @@ export async function getFirestoreRestDocs(
   const safePageSize = Math.min(pageSize, 100);
   const cacheKey = `docs_${collectionName}_${safePageSize}`;
   const now = Date.now();
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
 
-  if (useCache) {
+  if (shouldCache) {
     const cached = serverRestCache.get(cacheKey);
     if (cached && cached.expiresAt > now) {
       console.log(`[Server Firestore CACHE_HIT: 0 reads] Collection: "${collectionName}" | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1000)}s`);
@@ -251,7 +264,7 @@ export async function getFirestoreRestDocs(
 
     console.log(`[Server Firestore READ: ${docs.length} docs] Collection: "${collectionName}" (limit: ${safePageSize}) | Elapsed: ${elapsed}ms`);
 
-    if (useCache) {
+    if (shouldCache) {
       serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
     }
 
@@ -270,8 +283,9 @@ export async function getFirestoreRestDoc(
 ): Promise<any | null> {
   const cacheKey = `doc_${collectionName}_${docId}`;
   const now = Date.now();
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
 
-  if (useCache) {
+  if (shouldCache) {
     const cached = serverRestCache.get(cacheKey);
     if (cached && cached.expiresAt > now) {
       console.log(`[Server Firestore CACHE_HIT: 0 reads] Doc: "${collectionName}/${docId}" | TTL: ${Math.round((cached.expiresAt - now) / 1000)}s`);

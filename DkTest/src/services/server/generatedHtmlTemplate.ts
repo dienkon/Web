@@ -398,15 +398,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-C8YoELZf.js"></script>
+    <script type="module" crossorigin src="/assets/index-b2JomZCv.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DkJUajiB.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-gUCkgdYI.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BvmnIVAj.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-B4TmykXm.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BVAmNezf.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-mathlive-ChYs3Gtv.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-CPaHX8eD.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-BWt9MBNn.css">
   </head>
 
   <body>

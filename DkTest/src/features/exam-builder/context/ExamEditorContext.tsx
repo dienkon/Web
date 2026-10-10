@@ -33,7 +33,7 @@ interface ExamEditorActions {
   setExamMeta: (updates: Partial<Exam>) => void;
   
   // Sections
-  addSection: () => void;
+  addSection: (parentSectionId?: string | null) => void;
   updateSection: (id: string, updates: Partial<Section>) => void;
   deleteSection: (id: string) => void;
   reorderSections: (newSections: Section[]) => void;
@@ -334,6 +334,18 @@ function sanitizeForFirestore(obj: any): any {
       const { setDoc } = await import("firebase/firestore");
       console.log("[Firestore] WRITE: exams/" + examRef.id); await setDoc(examRef, cleanExamDoc, { merge: true });
       
+      // Immediately invalidate cache & sync catalog summary
+      try {
+        const { FirestoreCache } = await import("../../../services/firebase/firestoreCache");
+        const { syncExamToCatalogSummary } = await import("../../../services/statsAggregatorService");
+        FirestoreCache.invalidate("doc:system_stats:exams_summary");
+        FirestoreCache.invalidate(`doc:exams:${examId}`);
+        FirestoreCache.invalidatePrefix("query:exams");
+        await syncExamToCatalogSummary({ ...cleanExamDoc, id: examId } as any, "upsert");
+      } catch (catErr) {
+        console.warn("Failed to sync catalog in ExamEditorContext:", catErr);
+      }
+      
       setState(s => ({
         ...s,
         examId,
@@ -373,22 +385,31 @@ function sanitizeForFirestore(obj: any): any {
       markDirty();
     },
     
-    addSection: () => {
+    addSection: (parentSectionId?: string | null) => {
+      const parent = parentSectionId ? stateRef.current.sections.find((s) => s.id === parentSectionId) : null;
+      const childCount = parentSectionId
+        ? stateRef.current.sections.filter((s) => s.parentSectionId === parentSectionId).length
+        : 0;
+      const title = parent
+        ? `${parent.title} - Phần con ${childCount + 1}`
+        : `Phần ${stateRef.current.sections.filter((s) => !s.parentSectionId).length + 1}`;
       const newSection: Section = {
         id: `sec_${uuidv4()}`,
         examId: stateRef.current.examId || "",
-        title: `Phần ${stateRef.current.sections.length + 1}`,
+        parentSectionId: parentSectionId || null,
+        depth: parent ? 1 : 0,
+        title,
         order: stateRef.current.sections.length,
         questionCount: 0,
-        enabled: true
+        enabled: true,
       };
-      setState(s => ({ ...s, sections: [...s.sections, newSection] }));
+      setState((s) => ({ ...s, sections: [...s.sections, newSection] }));
       markDirty();
     },
     updateSection: (id, updates) => {
-      setState(s => ({
+      setState((s) => ({
         ...s,
-        sections: s.sections.map(sec => sec.id === id ? { ...sec, ...updates } : sec)
+        sections: s.sections.map((sec) => (sec.id === id ? { ...sec, ...updates } : sec)),
       }));
       markDirty();
     },
@@ -399,10 +420,12 @@ function sanitizeForFirestore(obj: any): any {
           console.warn("Could not delete section doc immediately", err)
         );
       }
-      setState(s => ({
+      setState((s) => ({
         ...s,
-        sections: s.sections.filter(sec => sec.id !== id),
-        questions: s.questions.map(q => q.sectionId === id ? { ...q, sectionId: null } : q),
+        sections: s.sections
+          .filter((sec) => sec.id !== id)
+          .map((sec) => (sec.parentSectionId === id ? { ...sec, parentSectionId: null, depth: 0 } : sec)),
+        questions: s.questions.map((q) => (q.sectionId === id ? { ...q, sectionId: null } : q)),
         deletedSectionIds: [...s.deletedSectionIds, id],
         activeSectionId: s.activeSectionId === id ? null : s.activeSectionId,
       }));

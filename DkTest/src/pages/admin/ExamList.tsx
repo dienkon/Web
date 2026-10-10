@@ -28,9 +28,15 @@ import {
   RotateCw,
   Loader2,
   Code2,
+  Layers,
+  FileSpreadsheet,
+  Globe,
+  Lock,
+  LayoutGrid,
+  List as ListIcon,
 } from "lucide-react";
 import { getExamList, deleteExam } from "../../services/examService";
-import { getAllCodeExams } from "../../services/codeExamService";
+import { getAllCodeExams, deleteCodeExam } from "../../services/codeExamService";
 import {
   getFolders,
   createFolder,
@@ -39,13 +45,28 @@ import {
   bulkMoveExamsToFolder,
   bulkDeleteExams,
   toggleExamFeatured,
+  toggleFolderPublic,
+  moveFolder,
+  renameFolder,
+  updateFolderColor,
 } from "../../services/folderService";
+import { exportExamsAndFoldersToExcel } from "../../services/excelExportService";
 import type { Exam, Folder } from "../../types";
 import JsonImportModal from "../../components/exam/JsonImportModal";
+import ExamMergeModal from "../../components/exam/ExamMergeModal";
+import ExcelExportModal from "../../components/exam/ExcelExportModal";
 import { importJsonToFirestore } from "../../services/jsonImportService";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import { useToast } from "../../components/ui/ToastNotification";
 import { formatDate } from "../../utils/date";
+import MoveToModal from "../../components/folder/MoveToModal";
+import RenameFolderModal from "../../components/folder/RenameFolderModal";
+import FolderCard from "../../components/folder/FolderCard";
+import ExamGridCard from "../../components/folder/ExamGridCard";
+import {
+  GOOGLE_DRIVE_FOLDER_COLORS,
+  getFolderColorStyle,
+} from "../../components/folder/folderConstants";
 
 const SUBJECTS = [
   "Toán",
@@ -134,14 +155,35 @@ export default function ExamList() {
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null); // null = Root
   const [viewFolderMode, setViewFolderMode] = useState<"current" | "all">("current"); // "current" folder or "all" exams
 
+  // Google Drive Layout View Mode: "list" (Bảng) or "grid" (Lưới)
+  const [displayMode, setDisplayMode] = useState<"list" | "grid">(
+    (localStorage.getItem("dktest_drive_display_mode") as "list" | "grid") || "list"
+  );
+
+  // Drag and drop highlights
+  const [dragOverFolderId, setDragOverFolderId] = useState<string | null>(null);
+  const [dragOverBreadcrumbId, setDragOverBreadcrumbId] = useState<string | null>(null);
+
+  // Google Drive Move To Modal state
+  const [showMoveToModal, setShowMoveToModal] = useState(false);
+  const [moveToConfig, setMoveToConfig] = useState<{
+    itemType: "exam" | "exams" | "folder";
+    targetTitle: string;
+    itemIds: string[];
+    currentParentId: string | null;
+  } | null>(null);
+
+  // Rename folder modal state
+  const [showRenameFolderModal, setShowRenameFolderModal] = useState(false);
+  const [folderToRename, setFolderToRename] = useState<Folder | null>(null);
+
   const [selectedSubject, setSelectedSubject] = useState<string>("all");
   const [selectedGrade, setSelectedGrade] = useState<string>("all");
 
   // Bulk selection state
   const [selectedExamIds, setSelectedExamIds] = useState<string[]>([]);
-  const [showBulkMoveModal, setShowBulkMoveModal] = useState(false);
   const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
-  const [bulkTargetFolderId, setBulkTargetFolderId] = useState<string>("root");
+  const [showMergeModal, setShowMergeModal] = useState(false);
   const [isBulkProcessing, setIsBulkProcessing] = useState(false);
 
   // Create folder state
@@ -149,13 +191,13 @@ export default function ExamList() {
   const [newFolderName, setNewFolderName] = useState("");
   const [newFolderDesc, setNewFolderDesc] = useState("");
   const [newFolderColor, setNewFolderColor] = useState("blue");
+  const [newFolderIsPublic, setNewFolderIsPublic] = useState(false);
   const [isCreatingFolder, setIsCreatingFolder] = useState(false);
+  const [showExcelExportModal, setShowExcelExportModal] = useState(false);
+  const [excelExportTargetFolderId, setExcelExportTargetFolderId] = useState<string | null>(null);
 
-  // Single Move exam state
-  const [movingExam, setMovingExam] = useState<Exam | null>(null);
   const [folderToDelete, setFolderToDelete] = useState<Folder | null>(null);
   const [isDeletingFolder, setIsDeletingFolder] = useState(false);
-  const [targetFolderId, setTargetFolderId] = useState<string>("");
 
   const [copiedExamId, setCopiedExamId] = useState<string | null>(null);
   const [deletingExam, setDeletingExam] = useState<Exam | null>(null);
@@ -164,16 +206,19 @@ export default function ExamList() {
   // In-memory cache for folder content: key is (currentFolderId || "root") or "__all__"
   // Avoids re-reading Firebase when switching back and forth between folders
   const folderCacheRef = React.useRef<
-    Map<string, { subfolders: Folder[]; exams: Exam[]; cursor: any; hasMore: boolean }>
+    Map<string, { subfolders: Folder[]; exams: Exam[]; cursor: any; hasMore: boolean; timestamp: number }>
   >(new Map());
   const [folderLoading, setFolderLoading] = useState(false);
 
   // Lazy-load subfolders & exams only when entering/clicking into that folder
   const loadFolderData = async (folderId: string | null, forceReload = false) => {
     const cacheKey = viewFolderMode === "all" ? "__all__" : (folderId || "root");
+    const cached = folderCacheRef.current.get(cacheKey);
+    const isCacheFresh = Boolean(cached && Date.now() - cached.timestamp < 15000);
 
-    if (!forceReload && folderCacheRef.current.has(cacheKey)) {
-      const cached = folderCacheRef.current.get(cacheKey)!;
+    if (forceReload) {
+      folderCacheRef.current.clear();
+    } else if (isCacheFresh && cached) {
       setExams(cached.exams);
       setCursor(cached.cursor);
       setHasMore(cached.hasMore);
@@ -193,8 +238,9 @@ export default function ExamList() {
     try {
       if (viewFolderMode === "all") {
         const res = await getExamList({
-          pageSize: 5,
+          pageSize: 25,
           ownerId: isParentMode ? userId : null,
+          forceRefresh: forceReload,
         });
 
         // Merge code exams for root/all view
@@ -230,6 +276,7 @@ export default function ExamList() {
           exams: mergedAllItems,
           cursor: res.nextCursor,
           hasMore: res.hasMore,
+          timestamp: Date.now(),
         });
         setExams(mergedAllItems);
         setCursor(res.nextCursor);
@@ -240,9 +287,10 @@ export default function ExamList() {
 
         // 2. Lazy load exams inside folderId
         const examRes = await getExamList({
-          pageSize: 5,
+          pageSize: 25,
           folderId: folderId,
           ownerId: isParentMode ? userId : null,
+          forceRefresh: forceReload,
         });
 
         let mergedFolderItems = [...examRes.items];
@@ -279,6 +327,7 @@ export default function ExamList() {
           exams: mergedFolderItems,
           cursor: examRes.nextCursor,
           hasMore: examRes.hasMore,
+          timestamp: Date.now(),
         });
 
         setFolders((prev) => {
@@ -301,7 +350,8 @@ export default function ExamList() {
   };
 
   useEffect(() => {
-    loadFolderData(currentFolderId);
+    // Always force fresh reload when mounting ExamList or switching folder mode
+    loadFolderData(currentFolderId, true);
   }, [currentFolderId, viewFolderMode]);
 
   // Pre-load all folders on demand when user opens Move Exam or Create Folder modals
@@ -335,6 +385,7 @@ export default function ExamList() {
         cached.exams = nextExams;
         cached.cursor = res.nextCursor;
         cached.hasMore = res.hasMore;
+        cached.timestamp = Date.now();
       }
     } catch (err) {
       console.error("Error loading more exams", err);
@@ -354,6 +405,7 @@ export default function ExamList() {
         color: newFolderColor,
         parentId: currentFolderId || null,
         ownerId: isParentMode ? (userId || null) : null,
+        isPublic: newFolderIsPublic,
       });
       setFolders((prev) => [created, ...prev]);
       const cacheKey = currentFolderId || "root";
@@ -363,14 +415,49 @@ export default function ExamList() {
       }
       setNewFolderName("");
       setNewFolderDesc("");
+      setNewFolderIsPublic(false);
       setShowCreateFolderModal(false);
-      toast.success(`Đã tạo thư mục "${created.name}" thành công!`);
+      toast.success(
+        `Đã tạo thư mục "${created.name}" ${created.isPublic ? "(Công khai cho học sinh)" : "(Riêng tư)"} thành công!`
+      );
     } catch (e) {
       console.error("Error creating folder:", e);
       toast.error("Không thể tạo thư mục. Vui lòng thử lại!");
     } finally {
       setIsCreatingFolder(false);
     }
+  };
+
+  const handleToggleFolderPublic = async (folder: Folder, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const nextPublic = !folder.isPublic;
+    try {
+      await toggleFolderPublic(folder.id, nextPublic);
+      setFolders((prev) =>
+        prev.map((f) => (f.id === folder.id ? { ...f, isPublic: nextPublic } : f))
+      );
+      const cacheKey = currentFolderId || "root";
+      const cached = folderCacheRef.current.get(cacheKey);
+      if (cached) {
+        cached.subfolders = cached.subfolders.map((f) =>
+          f.id === folder.id ? { ...f, isPublic: nextPublic } : f
+        );
+      }
+      toast.success(
+        nextPublic
+          ? `Đã công khai thư mục "${folder.name}" cho học sinh trong Kho đề!`
+          : `Đã chuyển thư mục "${folder.name}" về chế độ riêng tư!`
+      );
+    } catch (err) {
+      console.error("Lỗi khi đổi quyền công khai thư mục:", err);
+      toast.error("Không thể thay đổi trạng thái công khai của thư mục.");
+    }
+  };
+
+  const handleOpenExcelExport = (folderId: string | null = null) => {
+    ensureAllFoldersLoaded();
+    setExcelExportTargetFolderId(folderId ?? currentFolderId);
+    setShowExcelExportModal(true);
   };
 
   const handleDeleteFolderAction = (folder: Folder) => {
@@ -404,49 +491,178 @@ export default function ExamList() {
     }
   };
 
-  const handleConfirmMoveExam = async () => {
-    if (!movingExam) return;
+  // Drag and Drop: Drag Start
+  const handleDragStartExam = (e: React.DragEvent, exam: Exam) => {
+    const isSelected = selectedExamIds.includes(exam.id);
+    const idsToMove = isSelected && selectedExamIds.length > 1 ? selectedExamIds : [exam.id];
+    e.dataTransfer.setData(
+      "application/dktest-item",
+      JSON.stringify({
+        type: "exam",
+        examId: exam.id,
+        examTitle: exam.title,
+        isBulk: isSelected && selectedExamIds.length > 1,
+        examIds: idsToMove,
+      })
+    );
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragStartFolder = (e: React.DragEvent, folder: Folder) => {
+    e.dataTransfer.setData(
+      "application/dktest-item",
+      JSON.stringify({
+        type: "folder",
+        folderId: folder.id,
+        folderName: folder.name,
+        ids: [folder.id],
+      })
+    );
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  // Drag and Drop: Drop Target Handler
+  const handleItemDropped = async (
+    e: React.DragEvent,
+    targetDestinationFolderId: string | null
+  ) => {
+    e.preventDefault();
+    setDragOverFolderId(null);
+    setDragOverBreadcrumbId(null);
+
+    const raw = e.dataTransfer.getData("application/dktest-item");
+    if (!raw) return;
+
     try {
-      const destFolder = targetFolderId === "root" ? null : targetFolderId;
-      await moveExamToFolder(movingExam.id, destFolder);
-      // Invalidate target cache and remove from current cache
-      folderCacheRef.current.delete(destFolder || "root");
-      const currentKey = currentFolderId || "root";
-      const currentCached = folderCacheRef.current.get(currentKey);
-      if (currentCached) {
-        currentCached.exams = currentCached.exams.filter((ex) => ex.id !== movingExam.id);
+      const data = JSON.parse(raw);
+      const targetFolderObj = targetDestinationFolderId
+        ? folders.find((f) => f.id === targetDestinationFolderId)
+        : null;
+      const destName = targetFolderObj ? targetFolderObj.name : "Drive của tôi (Gốc)";
+
+      if (data.type === "exam") {
+        const ids: string[] = data.examIds || [data.examId];
+        if (ids.length === 0) return;
+
+        // If dropped onto current folder
+        if (targetDestinationFolderId === currentFolderId && viewFolderMode === "current") {
+          toast.info("Bài thi đã ở trong thư mục này rồi.");
+          return;
+        }
+
+        await bulkMoveExamsToFolder(ids, targetDestinationFolderId);
+        folderCacheRef.current.clear();
+        setExams((prev) => prev.filter((ex) => !ids.includes(ex.id)));
+        setSelectedExamIds((prev) => prev.filter((id) => !ids.includes(id)));
+
+        if (ids.length === 1) {
+          toast.success(`Đã kéo thả di chuyển bài thi "${data.examTitle}" vào "${destName}"!`);
+        } else {
+          toast.success(`Đã kéo thả di chuyển ${ids.length} bài thi vào "${destName}"!`);
+        }
+        loadFolderData(currentFolderId, true);
+      } else if (data.type === "folder") {
+        const folderId = data.folderId;
+        if (folderId === targetDestinationFolderId) {
+          toast.error("Không thể di chuyển thư mục vào chính nó.");
+          return;
+        }
+        await moveFolder(folderId, targetDestinationFolderId, folders);
+        setFolders((prev) =>
+          prev.map((f) => (f.id === folderId ? { ...f, parentId: targetDestinationFolderId } : f))
+        );
+        folderCacheRef.current.clear();
+        toast.success(`Đã kéo thả di chuyển thư mục "${data.folderName}" vào "${destName}"!`);
+        loadFolderData(currentFolderId, true);
       }
-      setExams((prev) => prev.filter((ex) => ex.id !== movingExam.id));
-      toast.success("Đã chuyển thư mục bài thi!");
-      setMovingExam(null);
-    } catch (e) {
-      console.error(e);
-      toast.error("Chuyển thư mục thất bại.");
+    } catch (err: any) {
+      console.error("Drop error:", err);
+      toast.error(err?.message || "Không thể di chuyển mục.");
     }
   };
 
-  // Bulk Action Handlers
-  const handleBulkMoveSubmit = async () => {
-    if (selectedExamIds.length === 0) return;
-    setIsBulkProcessing(true);
+  // Move To Modal Confirmation Handler
+  const handleExecuteMoveInModal = async (destinationFolderId: string | null) => {
+    if (!moveToConfig) return;
     try {
-      const destFolder = bulkTargetFolderId === "root" ? null : bulkTargetFolderId;
-      await bulkMoveExamsToFolder(selectedExamIds, destFolder);
-      folderCacheRef.current.delete(destFolder || "root");
-      const currentKey = currentFolderId || "root";
-      const currentCached = folderCacheRef.current.get(currentKey);
-      if (currentCached) {
-        currentCached.exams = currentCached.exams.filter((ex) => !selectedExamIds.includes(ex.id));
+      const targetFolderObj = destinationFolderId
+        ? folders.find((f) => f.id === destinationFolderId)
+        : null;
+      const destName = targetFolderObj ? targetFolderObj.name : "Drive của tôi (Gốc)";
+
+      if (moveToConfig.itemType === "folder") {
+        const folderId = moveToConfig.itemIds[0];
+        await moveFolder(folderId, destinationFolderId, folders);
+        setFolders((prev) =>
+          prev.map((f) => (f.id === folderId ? { ...f, parentId: destinationFolderId } : f))
+        );
+        folderCacheRef.current.clear();
+        toast.success(`Đã di chuyển thư mục "${moveToConfig.targetTitle}" vào "${destName}"!`);
+        loadFolderData(currentFolderId, true);
+      } else {
+        // Exams
+        await bulkMoveExamsToFolder(moveToConfig.itemIds, destinationFolderId);
+        folderCacheRef.current.clear();
+        setExams((prev) => prev.filter((ex) => !moveToConfig.itemIds.includes(ex.id)));
+        if (moveToConfig.itemType === "exams") {
+          setSelectedExamIds([]);
+        }
+        toast.success(
+          `Đã di chuyển ${moveToConfig.itemIds.length} bài thi vào "${destName}"!`
+        );
+        loadFolderData(currentFolderId, true);
       }
-      setExams((prev) => prev.filter((ex) => !selectedExamIds.includes(ex.id)));
-      toast.success(`Đã di chuyển ${selectedExamIds.length} bài thi vào thư mục!`);
-      setSelectedExamIds([]);
-      setShowBulkMoveModal(false);
-    } catch (e) {
-      console.error("Error bulk moving:", e);
-      toast.error("Lỗi khi di chuyển bài thi hàng loạt.");
-    } finally {
-      setIsBulkProcessing(false);
+    } catch (err: any) {
+      console.error("Move modal error:", err);
+      toast.error(err?.message || "Lỗi khi di chuyển.");
+      throw err;
+    }
+  };
+
+  const handleCreateFolderInMoveModal = async (
+    name: string,
+    parentId: string | null,
+    color?: string
+  ): Promise<Folder> => {
+    const created = await createFolder({
+      name,
+      parentId,
+      color: color || "blue",
+      description: "",
+      isPublic: false,
+      ownerId: isParentMode ? (userId || null) : null,
+    });
+    setFolders((prev) => [created, ...prev]);
+    folderCacheRef.current.clear();
+    return created;
+  };
+
+  const handleRenameFolderSubmit = async (folderId: string, newName: string) => {
+    try {
+      await renameFolder(folderId, newName);
+      setFolders((prev) =>
+        prev.map((f) => (f.id === folderId ? { ...f, name: newName } : f))
+      );
+      folderCacheRef.current.clear();
+      toast.success(`Đã đổi tên thư mục thành "${newName}"!`);
+    } catch (err: any) {
+      console.error("Rename folder error:", err);
+      toast.error(err?.message || "Lỗi khi đổi tên thư mục.");
+      throw err;
+    }
+  };
+
+  const handleChangeFolderColor = async (folderId: string, newColor: string) => {
+    try {
+      await updateFolderColor(folderId, newColor);
+      setFolders((prev) =>
+        prev.map((f) => (f.id === folderId ? { ...f, color: newColor } : f))
+      );
+      folderCacheRef.current.clear();
+      toast.success("Đã cập nhật màu sắc thư mục!");
+    } catch (err: any) {
+      console.error("Change color error:", err);
+      toast.error("Lỗi khi đổi màu thư mục.");
     }
   };
 
@@ -454,7 +670,13 @@ export default function ExamList() {
     if (selectedExamIds.length === 0) return;
     setIsBulkProcessing(true);
     try {
+      for (const id of selectedExamIds) {
+        try {
+          await deleteCodeExam(id);
+        } catch (_) {}
+      }
       await bulkDeleteExams(selectedExamIds);
+      folderCacheRef.current.clear();
       setExams((prev) => prev.filter((ex) => !selectedExamIds.includes(ex.id)));
       toast.success(`Đã xóa vĩnh viễn ${selectedExamIds.length} bài thi đã chọn!`);
       setSelectedExamIds([]);
@@ -471,6 +693,7 @@ export default function ExamList() {
     try {
       const nextVal = !exam.isFeatured;
       await toggleExamFeatured(exam.id, nextVal);
+      folderCacheRef.current.clear();
       setExams((prev) =>
         prev.map((e) => (e.id === exam.id ? { ...e, isFeatured: nextVal } : e))
       );
@@ -482,6 +705,7 @@ export default function ExamList() {
   };
 
   const handleImport = async (data: any, mode: any) => {
+    folderCacheRef.current.clear();
     const newExamId = await importJsonToFirestore(data, mode);
     setShowImportModal(false);
     navigate(`/admin/exams/${newExamId}/edit`);
@@ -491,7 +715,12 @@ export default function ExamList() {
     if (!deletingExam) return;
     setIsDeleting(true);
     try {
+      const isCode = (deletingExam as any).examType === "code" || (deletingExam as any).type === "code";
+      if (isCode) {
+        await deleteCodeExam(deletingExam.id);
+      }
       await deleteExam(deletingExam.id);
+      folderCacheRef.current.clear();
       setExams((prev) => prev.filter((e) => e.id !== deletingExam.id));
       setSelectedExamIds((prev) => prev.filter((id) => id !== deletingExam.id));
       toast.success(`Đã xóa vĩnh viễn bài thi "${deletingExam.title}" thành công!`);
@@ -586,6 +815,18 @@ export default function ExamList() {
             + Thư mục mới
           </button>
           <button
+            onClick={() => {
+              loadFolderData(currentFolderId, true);
+              toast.success("Đã làm mới danh sách đề thi từ hệ thống!");
+            }}
+            disabled={folderLoading || loading}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-100 transition-colors text-sm font-bold shadow-2xs cursor-pointer"
+            title="Làm mới danh sách đề thi (bỏ qua cache)"
+          >
+            <RotateCw className={`w-4 h-4 text-slate-600 ${folderLoading ? "animate-spin" : ""}`} />
+            Làm mới
+          </button>
+          <button
             onClick={() => setShowImportModal(true)}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors text-sm font-semibold shadow-2xs cursor-pointer"
           >
@@ -593,11 +834,27 @@ export default function ExamList() {
             Nhập JSON
           </button>
           <button
+            onClick={() => handleOpenExcelExport(currentFolderId)}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-green-50 border border-green-200 text-green-800 rounded-xl hover:bg-green-100 transition-colors text-sm font-bold shadow-2xs cursor-pointer"
+            title="Xuất bảng Excel tổng hợp (Tùy chọn thư mục & dạng link làm bài)"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-green-700" />
+            Xuất Excel
+          </button>
+          <button
             onClick={() => navigate("/admin/exams/import-prompt")}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-purple-50 border border-purple-200 text-purple-700 rounded-xl hover:bg-purple-100 transition-colors text-sm font-bold shadow-2xs cursor-pointer"
           >
             <Sparkles className="w-4 h-4 text-purple-500" />
             AI tạo đề
+          </button>
+          <button
+            onClick={() => navigate("/admin/exams/web-importer")}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 bg-blue-50 border border-blue-200 text-blue-800 rounded-xl hover:bg-blue-100 transition-colors text-sm font-bold shadow-2xs cursor-pointer"
+            title="Trích xuất đề thi tự động từ link Web (SieuGioi, forum, tài liệu)"
+          >
+            <Globe className="w-4 h-4 text-blue-600" />
+            Web Importer
           </button>
           <Link
             to="/admin/code-exam/new"
@@ -620,41 +877,69 @@ export default function ExamList() {
       {/* Google Drive Breadcrumbs & Folder Tree Bar */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
-          {/* Breadcrumb path */}
+          {/* Breadcrumb path with DnD Drop Targets */}
           <div className="flex items-center gap-1.5 overflow-x-auto text-xs font-extrabold scrollbar-none py-1">
             <button
               onClick={() => {
                 setCurrentFolderId(null);
                 setViewFolderMode("current");
               }}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 text-slate-800 hover:bg-slate-200 transition-colors cursor-pointer shrink-0"
+              onDragOver={(e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = "move";
+                setDragOverBreadcrumbId("root");
+              }}
+              onDragLeave={() => setDragOverBreadcrumbId(null)}
+              onDrop={(e) => handleItemDropped(e, null)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer shrink-0 ${
+                dragOverBreadcrumbId === "root"
+                  ? "bg-blue-600 text-white ring-2 ring-blue-300 scale-105 shadow-md"
+                  : currentFolderId === null && viewFolderMode === "current"
+                  ? "bg-blue-600 text-white shadow-2xs"
+                  : "bg-slate-100 text-slate-800 hover:bg-slate-200"
+              }`}
+              title="Drive của tôi (Kéo thả bài thi hoặc thư mục vào đây để chuyển ra thư mục gốc)"
             >
-              <Home className="w-3.5 h-3.5 text-blue-600" />
-              <span>Drive Gốc</span>
+              <Home className={`w-3.5 h-3.5 ${currentFolderId === null && viewFolderMode === "current" ? "text-white" : "text-blue-600"}`} />
+              <span>Drive của tôi</span>
             </button>
 
-            {breadcrumbs.slice(1).map((crumb, idx) => (
-              <React.Fragment key={crumb.id || idx}>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                <button
-                  onClick={() => {
-                    setCurrentFolderId(crumb.id);
-                    setViewFolderMode("current");
-                  }}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shrink-0 ${
-                    currentFolderId === crumb.id
-                      ? "bg-blue-600 text-white shadow-2xs"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  📁 {crumb.name}
-                </button>
-              </React.Fragment>
-            ))}
+            {breadcrumbs.slice(1).map((crumb, idx) => {
+              const isCurrent = currentFolderId === crumb.id;
+              const isDragOver = dragOverBreadcrumbId === crumb.id;
+              return (
+                <React.Fragment key={crumb.id || idx}>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  <button
+                    onClick={() => {
+                      setCurrentFolderId(crumb.id);
+                      setViewFolderMode("current");
+                    }}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      e.dataTransfer.dropEffect = "move";
+                      setDragOverBreadcrumbId(crumb.id);
+                    }}
+                    onDragLeave={() => setDragOverBreadcrumbId(null)}
+                    onDrop={(e) => handleItemDropped(e, crumb.id)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1 ${
+                      isDragOver
+                        ? "bg-blue-600 text-white ring-2 ring-blue-300 scale-105 shadow-md"
+                        : isCurrent
+                        ? "bg-blue-600 text-white shadow-2xs"
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    }`}
+                    title={`📁 ${crumb.name} (Kéo thả bài thi hoặc thư mục vào đây)`}
+                  >
+                    <span>📁 {crumb.name}</span>
+                  </button>
+                </React.Fragment>
+              );
+            })}
           </div>
 
-          {/* Mode Switcher: Current folder vs All exams & Refresh */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          {/* Mode Switcher: Current folder vs All exams & Grid / List View & Refresh */}
+          <div className="flex items-center gap-2 shrink-0 flex-wrap">
             <button
               type="button"
               onClick={() => loadFolderData(currentFolderId, true)}
@@ -674,7 +959,7 @@ export default function ExamList() {
                     : "text-slate-600"
                 }`}
               >
-                Xem theo thư mục đang mở
+                Xem theo thư mục
               </button>
               <button
                 onClick={() => setViewFolderMode("all")}
@@ -684,7 +969,41 @@ export default function ExamList() {
                     : "text-slate-600"
                 }`}
               >
-                Tất cả đề thi ({exams.length})
+                Tất cả ({exams.length})
+              </button>
+            </div>
+
+            {/* Grid vs List View toggle */}
+            <div className="flex items-center gap-0.5 bg-slate-100 p-1 rounded-xl">
+              <button
+                type="button"
+                onClick={() => {
+                  setDisplayMode("list");
+                  localStorage.setItem("dktest_drive_display_mode", "list");
+                }}
+                className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                  displayMode === "list"
+                    ? "bg-white text-blue-600 shadow-2xs font-bold"
+                    : "text-slate-500 hover:text-slate-800"
+                }`}
+                title="Chế độ xem danh sách (List view)"
+              >
+                <ListIcon className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setDisplayMode("grid");
+                  localStorage.setItem("dktest_drive_display_mode", "grid");
+                }}
+                className={`p-1.5 rounded-lg transition-all cursor-pointer ${
+                  displayMode === "grid"
+                    ? "bg-white text-blue-600 shadow-2xs font-bold"
+                    : "text-slate-500 hover:text-slate-800"
+                }`}
+                title="Chế độ xem lưới (Grid view)"
+              >
+                <LayoutGrid className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -695,7 +1014,7 @@ export default function ExamList() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                <span>Thư mục con ({currentSubfolders.length})</span>
+                <span>Thư mục ({currentSubfolders.length})</span>
                 {folderLoading && (
                   <span className="flex items-center gap-1 text-[11px] text-blue-600 font-semibold lowercase">
                     <Loader2 className="w-3 h-3 animate-spin" /> đang tải...
@@ -710,7 +1029,7 @@ export default function ExamList() {
                 className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
               >
                 <FolderPlus className="w-3.5 h-3.5" />
-                + Tạo thư mục con tại đây
+                + Tạo thư mục mới tại đây
               </button>
             </div>
 
@@ -721,51 +1040,46 @@ export default function ExamList() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {currentSubfolders.map((f) => {
-                  const colorObj =
-                    FOLDER_COLORS.find((c) => c.value === f.color) || FOLDER_COLORS[0];
                   const childFolderCount = folders.filter((child) => child.parentId === f.id).length;
+                  const examCount = folderCacheRef.current.has(f.id)
+                    ? folderCacheRef.current.get(f.id)!.exams.length
+                    : undefined;
 
                   return (
-                    <div
+                    <FolderCard
                       key={f.id}
-                      onClick={() => setCurrentFolderId(f.id)}
-                      className={`group p-3.5 rounded-2xl border transition-all cursor-pointer hover:shadow-md flex flex-col justify-between space-y-2 ${
-                        colorObj.bg
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 line-clamp-1 font-extrabold text-xs">
-                          <FolderIcon className="w-4 h-4 shrink-0 fill-current" />
-                          <span className="truncate">{f.name}</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteFolderAction(f);
-                          }}
-                          className="p-1 text-slate-500 hover:text-red-600 rounded-lg bg-white/80 border border-slate-200/50 shadow-2xs hover:bg-red-50 transition-colors"
-                          title="Xóa thư mục này"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-
-                      {f.description && (
-                        <p className="text-[11px] text-slate-600 line-clamp-1 font-medium">
-                          {f.description}
-                        </p>
-                      )}
-
-                      <div className="flex items-center justify-between text-[10px] font-bold text-slate-700 pt-1 border-t border-black/5">
-                        <span>{childFolderCount > 0 ? `${childFolderCount} thư mục con` : "Thư mục"}</span>
-                        <span>
-                          {folderCacheRef.current.has(f.id)
-                            ? `${folderCacheRef.current.get(f.id)!.exams.length} đề thi`
-                            : "Nhấn để mở"}
-                        </span>
-                      </div>
-                    </div>
+                      folder={f}
+                      childFolderCount={childFolderCount}
+                      examCount={examCount}
+                      isDragOver={dragOverFolderId === f.id}
+                      onOpen={() => setCurrentFolderId(f.id)}
+                      onRename={() => {
+                        setFolderToRename(f);
+                        setShowRenameFolderModal(true);
+                      }}
+                      onMove={() => {
+                        ensureAllFoldersLoaded();
+                        setMoveToConfig({
+                          itemType: "folder",
+                          targetTitle: f.name,
+                          itemIds: [f.id],
+                          currentParentId: f.parentId || null,
+                        });
+                        setShowMoveToModal(true);
+                      }}
+                      onChangeColor={(newColor) => handleChangeFolderColor(f.id, newColor)}
+                      onTogglePublic={(e) => handleToggleFolderPublic(f, e)}
+                      onExportExcel={() => handleOpenExcelExport(f.id)}
+                      onDelete={() => handleDeleteFolderAction(f)}
+                      onDragStart={(e) => handleDragStartFolder(e, f)}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = "move";
+                        setDragOverFolderId(f.id);
+                      }}
+                      onDragLeave={() => setDragOverFolderId(null)}
+                      onDrop={(e) => handleItemDropped(e, f.id)}
+                    />
                   );
                 })}
               </div>
@@ -856,15 +1170,32 @@ export default function ExamList() {
 
           <div className="h-4 w-px bg-slate-700" />
 
+          {selectedExamIds.length >= 2 && (
+            <button
+              onClick={() => setShowMergeModal(true)}
+              className="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+              title="Gộp các bài thi đã chọn thành một bài thi mới hoàn toàn"
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Gộp đề mới ({selectedExamIds.length})</span>
+            </button>
+          )}
+
           <button
             onClick={() => {
-              setBulkTargetFolderId(currentFolderId || "root");
-              setShowBulkMoveModal(true);
+              ensureAllFoldersLoaded();
+              setMoveToConfig({
+                itemType: "exams",
+                targetTitle: `${selectedExamIds.length} bài thi đã chọn`,
+                itemIds: selectedExamIds,
+                currentParentId: currentFolderId,
+              });
+              setShowMoveToModal(true);
             }}
             className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
             <Move className="w-3.5 h-3.5" />
-            <span>Di chuyển hàng loạt</span>
+            <span>Di chuyển hàng loạt ({selectedExamIds.length})</span>
           </button>
 
           <button
@@ -884,7 +1215,7 @@ export default function ExamList() {
         </div>
       )}
 
-      {/* Exam Table */}
+      {/* Exam Items (Grid or List View) */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
         {loading && exams.length === 0 ? (
           <div className="p-12 text-center text-slate-500 text-sm font-medium">
@@ -909,7 +1240,43 @@ export default function ExamList() {
               Tạo bài thi ngay
             </Link>
           </div>
+        ) : displayMode === "grid" ? (
+          /* Google Drive Grid View */
+          <div className="p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+              {filteredExams.map((exam) => {
+                const folder = folders.find((f) => f.id === exam.folderId);
+                const isSelected = selectedExamIds.includes(exam.id);
+                return (
+                  <ExamGridCard
+                    key={exam.id}
+                    exam={exam}
+                    folder={folder}
+                    isSelected={isSelected}
+                    copiedExamId={copiedExamId}
+                    isParentMode={isParentMode}
+                    onSelect={() => toggleSelectExam(exam.id)}
+                    onToggleFeatured={() => handleToggleFeaturedAction(exam)}
+                    onMoveClick={() => {
+                      ensureAllFoldersLoaded();
+                      setMoveToConfig({
+                        itemType: "exam",
+                        targetTitle: exam.title,
+                        itemIds: [exam.id],
+                        currentParentId: exam.folderId || null,
+                      });
+                      setShowMoveToModal(true);
+                    }}
+                    onCopyLink={() => handleCopyStudentLink(exam.id)}
+                    onDeleteClick={() => setDeletingExam(exam)}
+                    onDragStart={(e) => handleDragStartExam(e, exam)}
+                  />
+                );
+              })}
+            </div>
+          </div>
         ) : (
+          /* Google Drive Table / List View */
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
@@ -940,7 +1307,9 @@ export default function ExamList() {
                   return (
                     <tr
                       key={exam.id}
-                      className={`transition-colors ${
+                      draggable
+                      onDragStart={(e) => handleDragStartExam(e, exam)}
+                      className={`transition-colors cursor-grab active:cursor-grabbing ${
                         isSelected ? "bg-blue-50/60" : "hover:bg-slate-50/70"
                       }`}
                     >
@@ -992,11 +1361,17 @@ export default function ExamList() {
                             <button
                               type="button"
                               onClick={() => {
-                                setMovingExam(exam);
-                                setTargetFolderId(exam.folderId || "root");
+                                ensureAllFoldersLoaded();
+                                setMoveToConfig({
+                                  itemType: "exam",
+                                  targetTitle: exam.title,
+                                  itemIds: [exam.id],
+                                  currentParentId: exam.folderId || null,
+                                });
+                                setShowMoveToModal(true);
                               }}
                               className="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded-md text-slate-700 font-bold text-[11px] transition-colors cursor-pointer"
-                              title="Thay đổi thư mục chứa"
+                              title="Thay đổi thư mục chứa (hoặc kéo thả dòng này vào thư mục)"
                             >
                               <span>📁 {folder ? folder.name : "Thư mục gốc"}</span>
                               <Move className="w-3 h-3 text-slate-400" />
@@ -1046,6 +1421,15 @@ export default function ExamList() {
                                 ? "Không công khai"
                                 : "Bản nháp"}
                             </span>
+                            {exam.accessMode === "paid" ? (
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black bg-amber-50 text-amber-800 border border-amber-200">
+                                💰 {(exam.priceVnd || 0).toLocaleString("vi-VN")}đ
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-400 bg-slate-50">
+                                Miễn phí
+                              </span>
+                            )}
                           </div>
                         </div>
                       </td>
@@ -1186,21 +1570,43 @@ export default function ExamList() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Thẻ màu nhận diện</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Màu sắc thư mục (Google Drive)</label>
               <div className="flex items-center gap-2 flex-wrap">
-                {FOLDER_COLORS.map((col) => (
+                {GOOGLE_DRIVE_FOLDER_COLORS.map((col) => (
                   <button
                     key={col.value}
                     type="button"
                     onClick={() => setNewFolderColor(col.value)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      col.bg
-                    } ${newFolderColor === col.value ? "ring-2 ring-slate-900 scale-105" : "opacity-70"}`}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                      col.cardClass
+                    } ${newFolderColor === col.value ? "ring-2 ring-slate-900 scale-105 shadow-xs" : "opacity-75"}`}
                   >
-                    {col.label}
+                    <span className={`w-3 h-3 rounded-full ${col.dotClass}`} />
+                    <span>{col.label}</span>
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Tùy chọn công khai cho học sinh */}
+            <div className="pt-2 border-t border-slate-100">
+              <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={newFolderIsPublic}
+                  onChange={(e) => setNewFolderIsPublic(e.target.checked)}
+                  className="mt-0.5 rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer"
+                />
+                <div className="space-y-0.5">
+                  <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <Globe className="w-3.5 h-3.5 text-emerald-600" />
+                    Công khai thư mục ra Kho đề cho học sinh
+                  </span>
+                  <p className="text-[11px] text-slate-500 leading-normal">
+                    Khi bật, học sinh có thể thấy thư mục này và xem các đề thi đã xuất bản bên trong khi duyệt Kho đề.
+                  </p>
+                </div>
+              </label>
             </div>
 
             <div className="flex items-center justify-end gap-2 pt-2">
@@ -1223,116 +1629,44 @@ export default function ExamList() {
         </div>
       )}
 
-      {/* Modal Single Move Exam */}
-      {movingExam && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                <Move className="w-5 h-5 text-blue-600" />
-                <span>Chuyển thư mục bài thi</span>
-              </h3>
-              <button
-                type="button"
-                onClick={() => setMovingExam(null)}
-                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+      {/* Google Drive Move To Modal */}
+      <MoveToModal
+        isOpen={showMoveToModal}
+        onClose={() => {
+          setShowMoveToModal(false);
+          setMoveToConfig(null);
+        }}
+        itemType={moveToConfig?.itemType || "exam"}
+        targetTitle={moveToConfig?.targetTitle || ""}
+        itemIds={moveToConfig?.itemIds || []}
+        currentParentId={moveToConfig?.currentParentId || null}
+        allFolders={folders}
+        onConfirmMove={handleExecuteMoveInModal}
+        onCreateNewFolder={handleCreateFolderInMoveModal}
+      />
 
-            <p className="text-xs text-slate-600 font-medium">
-              Chuyển bài thi <strong className="text-slate-900">{movingExam.title}</strong> vào thư mục:
-            </p>
+      {/* Rename Folder Modal */}
+      <RenameFolderModal
+        folder={folderToRename}
+        isOpen={showRenameFolderModal}
+        onClose={() => {
+          setShowRenameFolderModal(false);
+          setFolderToRename(null);
+        }}
+        onRename={handleRenameFolderSubmit}
+      />
 
-            <select
-              value={targetFolderId}
-              onChange={(e) => setTargetFolderId(e.target.value)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-            >
-              <option value="root">📁 Drive Gốc (Không thuộc thư mục nào)</option>
-              {folderTreeOptions.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {"\u00A0".repeat(f.depth * 4)}📁 {f.name}
-                </option>
-              ))}
-            </select>
-
-            <div className="flex items-center justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setMovingExam(null)}
-                className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                onClick={handleConfirmMoveExam}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
-              >
-                Lưu thư mục
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Modal Bulk Move Exams */}
-      {showBulkMoveModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                <Move className="w-5 h-5 text-blue-600" />
-                <span>Di chuyển hàng loạt ({selectedExamIds.length} đề)</span>
-              </h3>
-              <button
-                type="button"
-                onClick={() => setShowBulkMoveModal(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <p className="text-xs text-slate-600 font-medium">
-              Chọn thư mục đích để di chuyển toàn bộ {selectedExamIds.length} bài thi đã chọn:
-            </p>
-
-            <select
-              value={bulkTargetFolderId}
-              onChange={(e) => setBulkTargetFolderId(e.target.value)}
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-            >
-              <option value="root">📁 Drive Gốc (Không thuộc thư mục nào)</option>
-              {folderTreeOptions.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {"\u00A0".repeat(f.depth * 4)}📁 {f.name}
-                </option>
-              ))}
-            </select>
-
-            <div className="flex items-center justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setShowBulkMoveModal(false)}
-                className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
-              >
-                Hủy
-              </button>
-              <button
-                type="button"
-                disabled={isBulkProcessing}
-                onClick={handleBulkMoveSubmit}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
-              >
-                {isBulkProcessing ? "Đang di chuyển..." : "Lưu di chuyển"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Modal Multi-Select Exam Merger */}
+      <ExamMergeModal
+        isOpen={showMergeModal}
+        onClose={() => setShowMergeModal(false)}
+        selectedExamIds={selectedExamIds}
+        exams={exams}
+        onMergeSuccess={() => {
+          setSelectedExamIds([]);
+          loadFolderData(currentFolderId, true);
+        }}
+      />
 
       {/* Modal Bulk Delete Confirmation */}
       <ConfirmModal
@@ -1401,6 +1735,16 @@ export default function ExamList() {
         confirmText="Xóa thư mục"
         cancelText="Hủy bỏ"
         variant="danger"
+      />
+
+      {/* Excel Export Modal with Scope, Recursive Subfolders & Quick Links */}
+      <ExcelExportModal
+        isOpen={showExcelExportModal}
+        onClose={() => setShowExcelExportModal(false)}
+        folders={folders}
+        currentFolderId={excelExportTargetFolderId}
+        ownerId={isParentMode ? userId : null}
+        cachedExams={exams}
       />
     </div>
   );

@@ -136,6 +136,47 @@ export default function ExamStructureEditor({ examId }: { examId: string }) {
     }
   };
 
+  const buildSectionTree = (secs: Section[]): Section[] => {
+    const result: Section[] = [];
+    const getChildren = (parentId: string | null, depth = 0) => {
+      const children = secs.filter((s) => (s.parentSectionId || null) === parentId);
+      children.sort((a, b) => (a.order || 0) - (b.order || 0));
+      for (const child of children) {
+        result.push({ ...child, depth });
+        getChildren(child.id, depth + 1);
+      }
+    };
+    getChildren(null, 0);
+    const addedIds = new Set(result.map((s) => s.id));
+    for (const s of secs) {
+      if (!addedIds.has(s.id)) {
+        result.push({ ...s, depth: 0 });
+      }
+    }
+    return result;
+  };
+
+  const handleAddChildSection = async (parentSection: Section) => {
+    const title = prompt(`Tạo phần con trực thuộc "${parentSection.title}":`);
+    if (!title || !title.trim()) return;
+    try {
+      const childSec = await createSection(examId, {
+        examId,
+        title: title.trim(),
+        order: sections.length,
+        parentSectionId: parentSection.id,
+        depth: Math.min(3, (parentSection.depth || 0) + 1),
+        questionCount: 0,
+        enabled: true,
+      });
+      setSections((prev) => [...prev, childSec]);
+      setExpandedSections((prev) => ({ ...prev, [childSec.id]: true, [parentSection.id]: true }));
+      setQuestions((prev) => ({ ...prev, [childSec.id]: [] }));
+    } catch (err) {
+      console.error("Error creating subsection:", err);
+    }
+  };
+
   const handleExportExam = async () => {
     if (!exam) return;
     // We need all questions, if they are not loaded, load them
@@ -146,7 +187,7 @@ export default function ExamStructureEditor({ examId }: { examId: string }) {
       } else {
         const qs = await getQuestionsBySection(examId, sec.id);
         allQs.push(...qs);
-        setQuestions(prev => ({ ...prev, [sec.id]: qs }));
+        setQuestions((prev) => ({ ...prev, [sec.id]: qs }));
       }
     }
 
@@ -160,18 +201,20 @@ export default function ExamStructureEditor({ examId }: { examId: string }) {
         timeLimit: exam.timeLimit,
         shuffleQuestions: exam.shuffleQuestions,
         showResults: exam.showResults,
-        description: exam.description
+        description: exam.description,
       },
-      sections: sections.map(s => ({
+      sections: sections.map((s) => ({
         id: s.id,
         title: s.title,
         description: s.description,
-        order: s.order
+        order: s.order,
+        parentSectionId: s.parentSectionId || null,
+        depth: s.depth ?? 0,
       })),
-      questions: allQs as any
+      questions: allQs as any,
     };
 
-    exportJson(payload, `${exam.code || 'EXAM'}`);
+    exportJson(payload, `${exam.code || "EXAM"}`);
   };
 
   const handleExportSelected = () => {
@@ -254,12 +297,21 @@ export default function ExamStructureEditor({ examId }: { examId: string }) {
       </div>
 
       <div className="space-y-4 max-h-[650px] overflow-y-auto pr-1.5 scrollbar-thin">
-        {sections.map((section) => {
+        {buildSectionTree(sections).map((section) => {
           const isExpanded = expandedSections[section.id];
           const sectionQs = questions[section.id] || [];
+          const depth = section.depth || 0;
 
           return (
-            <div key={section.id} className="border border-slate-200 rounded-xl overflow-hidden bg-white">
+            <div
+              key={section.id}
+              style={{ marginLeft: `${Math.min(3, depth) * 24}px` }}
+              className={`border rounded-xl overflow-hidden bg-white transition-all ${
+                depth > 0
+                  ? "border-purple-200 border-l-4 border-l-purple-500 shadow-2xs"
+                  : "border-slate-200 shadow-2xs"
+              }`}
+            >
               <div 
                 className="flex items-center p-4 bg-slate-50 hover:bg-slate-100 cursor-pointer transition-colors"
                 onClick={() => toggleSection(section.id)}
@@ -270,11 +322,28 @@ export default function ExamStructureEditor({ examId }: { examId: string }) {
                 ) : (
                   <ChevronRight className="w-5 h-5 text-slate-500 mr-2" />
                 )}
-                <div className="flex-1">
+                <div className="flex-1 flex items-center gap-2 flex-wrap">
                   <h4 className="font-semibold text-slate-900">{section.title}</h4>
-                  <p className="text-xs text-slate-500">{sectionQs.length} câu hỏi</p>
+                  {depth > 0 && (
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-purple-50 text-purple-700 font-extrabold border border-purple-200">
+                      Phần con (Cấp {depth})
+                    </span>
+                  )}
+                  <span className="text-xs text-slate-400">• {sectionQs.length} câu hỏi</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddChildSection(section);
+                    }}
+                    className="px-2.5 py-1 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer"
+                    title="Tạo phần con trực thuộc phần này"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>+ Phần con</span>
+                  </button>
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
