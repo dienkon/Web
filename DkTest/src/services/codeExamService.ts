@@ -43,6 +43,8 @@ function saveLocalCodeExam(exam: CodeExam) {
   }
 }
 
+import { syncExamToCatalogSummary } from "./statsAggregatorService";
+
 /**
  * Save or update a CodeExam document
  */
@@ -55,7 +57,7 @@ export async function saveCodeExam(examData: Partial<CodeExam> & { id: string })
     title: examData.title || "Đề thi CODE tùy biến",
     code: examData.code || `CODE-${Date.now().toString().slice(-4)}`,
     description: examData.description || "",
-    timeLimit: examData.timeLimit || 45,
+    timeLimit: typeof examData.timeLimit === "number" ? examData.timeLimit : 0,
     htmlContent: examData.htmlContent || "",
     cssContent: examData.cssContent || "",
     jsContent: examData.jsContent || "",
@@ -93,16 +95,40 @@ export async function saveCodeExam(examData: Partial<CodeExam> & { id: string })
       code: fullExam.code,
       description: fullExam.description,
       duration: fullExam.timeLimit,
+      subject: "Tin Học",
+      gradeCategory: "Khác",
+      totalQuestions: 1,
       isPublished: fullExam.status === "published",
       isPublic: fullExam.isPublic,
       accessMode: fullExam.isPublic ? "public" : "private",
       accessPassword: fullExam.accessCode || "",
       examType: "code",
+      folderId: null,
+      ownerId: fullExam.authorId || null,
       shareUrl: fullExam.shareUrl,
+      createdAt: fullExam.createdAt,
       updatedAt: serverTimestamp(),
     }, { merge: true });
+
+    // Sync to 1-read catalog summary for admin dashboard & exam list
+    await syncExamToCatalogSummary({
+      id: fullExam.id,
+      title: fullExam.title,
+      code: fullExam.code,
+      description: fullExam.description,
+      subject: "Tin Học",
+      gradeCategory: "Khác",
+      timeLimit: fullExam.timeLimit,
+      totalQuestions: 1,
+      status: fullExam.status,
+      folderId: null,
+      ownerId: fullExam.authorId || null,
+      createdAt: fullExam.createdAt,
+      updatedAt: fullExam.updatedAt,
+      examType: "code",
+    } as any, "upsert");
   } catch (err) {
-    // optional sync
+    console.warn("[CodeExamService] Warning syncing code exam to catalog summary:", err);
   }
 
   return fullExam;
@@ -160,6 +186,8 @@ export async function getAllCodeExams(): Promise<CodeExam[]> {
 export async function deleteCodeExam(id: string): Promise<void> {
   try {
     await deleteDoc(doc(db, CODE_EXAMS_COLLECTION, id));
+    await deleteDoc(doc(db, "exams", id));
+    await syncExamToCatalogSummary({ id }, "delete");
   } catch (err) {
     console.warn("[CodeExamService] Firestore delete error:", err);
   }

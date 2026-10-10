@@ -27,17 +27,21 @@ export interface SimulationStepResult {
 /**
  * Per-vessel physical simulation manager instance
  */
+import { QualityTier } from '../../vfx/quality';
+
 export class VesselSimulationManager {
   public vesselId: string;
   public boilingSystem: BoilingSystem;
   public evaporationSystem: EvaporationSystem;
   public precipitationSystem: PrecipitationSystem;
 
-  constructor(vesselId: string, qualityTier: 'high' | 'medium' | 'low' = 'high') {
+  constructor(vesselId: string, qualityTier: QualityTier | 'high' | 'medium' | 'low' = 'high') {
     this.vesselId = vesselId;
-    const maxB = qualityTier === 'high' ? 90 : qualityTier === 'medium' ? 45 : 20;
-    const maxP = qualityTier === 'high' ? 140 : qualityTier === 'medium' ? 70 : 30;
-    const maxE = qualityTier === 'high' ? 50 : qualityTier === 'medium' ? 25 : 15;
+    const isHigh = qualityTier === 'high' || qualityTier === 'ultra';
+    const isMed = qualityTier === 'medium';
+    const maxB = isHigh ? 90 : isMed ? 45 : 20;
+    const maxP = isHigh ? 140 : isMed ? 70 : 30;
+    const maxE = isHigh ? 50 : isMed ? 25 : 15;
 
     this.boilingSystem = new BoilingSystem(maxB);
     this.evaporationSystem = new EvaporationSystem(maxE);
@@ -245,7 +249,7 @@ export class VesselSimulationManager {
 class SimulationEngineClass {
   private managers: Map<string, VesselSimulationManager> = new Map();
 
-  public getManager(vesselId: string, qualityTier: 'high' | 'medium' | 'low' = 'high'): VesselSimulationManager {
+  public getManager(vesselId: string, qualityTier: QualityTier | 'high' | 'medium' | 'low' = 'high'): VesselSimulationManager {
     if (!this.managers.has(vesselId)) {
       this.managers.set(vesselId, new VesselSimulationManager(vesselId, qualityTier));
     }

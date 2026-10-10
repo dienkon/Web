@@ -46,6 +46,7 @@ function StudentLayoutContent() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false);
 
   // Synchronize active account: Prioritize Firebase Auth userProfile, fallback to localStorage
   const effectiveAvatar = liveAvatar || userProfile?.photoURL || studentInfo?.avatarUrl || "";
@@ -115,9 +116,10 @@ function StudentLayoutContent() {
     }
   }, [location.pathname]);
 
-  // Close mobile drawer on route change
+  // Close mobile drawer and bottom menu on route change
   useEffect(() => {
     setIsMobileDrawerOpen(false);
+    setIsBottomMenuOpen(false);
   }, [location.pathname]);
 
   // Check for active in-progress exam session and redirect student back immediately
@@ -473,33 +475,312 @@ function StudentLayoutContent() {
         </main>
       </div>
 
-      {/* Modern Mobile Bottom Navigation Bar */}
+      {/* Modern Compact Mobile Bottom Navigation Bar & 3-Gạch Drawer */}
       {!hideStudentNav && (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] flex items-center justify-around shadow-lg z-30">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = location.pathname === item.to;
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                data-tour-id={item.tourId}
-                onClick={() => {
-                  if (item.actionKey) triggerAction(item.actionKey);
-                }}
-                title={item.label}
-                aria-label={item.label}
-                className={`p-2.5 rounded-2xl transition-all flex items-center justify-center cursor-pointer ${
-                  isActive
-                    ? "bg-blue-50 text-blue-600 shadow-2xs border border-blue-100 scale-105"
-                    : "text-slate-400 hover:text-slate-700 hover:bg-slate-50"
-                }`}
-              >
-                <Icon className={`w-5 h-5 ${isActive && item.iconColor ? item.iconColor : ""}`} />
-              </Link>
-            );
-          })}
-        </nav>
+        <>
+          {/* Bottom Sheet Menu for 3-gạch button */}
+          {isBottomMenuOpen && (
+            <div className="fixed inset-0 z-50 md:hidden animate-in fade-in duration-200">
+              {/* Backdrop */}
+              <div
+                className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity"
+                onClick={() => setIsBottomMenuOpen(false)}
+              />
+
+              {/* Bottom Sheet Modal */}
+              <div className="fixed inset-x-0 bottom-0 bg-white dark:bg-slate-900 rounded-t-[28px] shadow-2xl z-10 p-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] border-t border-slate-200 dark:border-slate-800 animate-in slide-in-from-bottom duration-300 max-h-[85vh] overflow-y-auto">
+                {/* Pull handle indicator */}
+                <div className="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mb-4" />
+
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                      <Menu className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-white">Danh mục tính năng</h3>
+                      <p className="text-[11px] text-slate-400">Chọn tiện ích bạn muốn truy cập</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <ThemeToggle variant="icon" />
+                    <button
+                      type="button"
+                      onClick={() => setIsBottomMenuOpen(false)}
+                      className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Profile snippet if logged in */}
+                {currentAccount && (
+                  <Link
+                    to="/student/profile"
+                    onClick={() => setIsBottomMenuOpen(false)}
+                    className="p-3 mb-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl flex items-center gap-3 border border-slate-200/70 dark:border-slate-700/60 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <UserAvatar
+                      src={currentAccount.avatarUrl}
+                      name={currentAccount.displayName || currentAccount.username}
+                      size="md"
+                      shape="rounded"
+                    />
+                    <div className="truncate flex-1">
+                      <div className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                        {currentAccount.displayName || "Thí sinh"}
+                      </div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                        @{currentAccount.username || "student"}
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                  </Link>
+                )}
+
+                {/* Grid of Requested Categories */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+                  {/* 1. Hành trình */}
+                  <Link
+                    to="/journey"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_journey");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname === "/journey"
+                        ? "bg-emerald-50/80 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-emerald-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Hành trình</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 font-bold">3D Map</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Chặng đường chinh phục & bản đồ học tập
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 2. Phòng mật mã */}
+                  <Link
+                    to="/student/escape-room"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_escape_room");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname === "/student/escape-room"
+                        ? "bg-purple-50/80 border-purple-300 dark:bg-purple-950/40 dark:border-purple-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-purple-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <KeyRound className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Phòng mật mã</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold">Game</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Giải mật thư & thử thách thoát hiểm
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 3. Hồ sơ */}
+                  <Link
+                    to="/student/profile"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_profile");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname === "/student/profile"
+                        ? "bg-blue-50/80 border-blue-300 dark:bg-blue-950/40 dark:border-blue-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-blue-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <User className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        Hồ sơ & Avatar
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Quản lý tài khoản & thành tích cá nhân
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 4. Chính sách */}
+                  <Link
+                    to="/legal-policy"
+                    onClick={() => setIsBottomMenuOpen(false)}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname === "/legal-policy"
+                        ? "bg-slate-100 border-slate-300 dark:bg-slate-800 dark:border-slate-700 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-slate-100/60"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        Chính sách & Điều khoản
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Bản quyền nội dung & bảo mật người dùng
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 5. Lịch sử bài làm */}
+                  <Link
+                    to="/student/history"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_history");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all sm:col-span-2 ${
+                      location.pathname === "/student/history"
+                        ? "bg-cyan-50/80 border-cyan-300 dark:bg-cyan-950/40 dark:border-cyan-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-cyan-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600 dark:text-cyan-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <History className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        Lịch sử bài làm
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Xem lại các đề thi đã nộp & chi tiết kết quả
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+
+                {isAdmin && (
+                  <Link
+                    to="/admin/exams"
+                    onClick={() => setIsBottomMenuOpen(false)}
+                    className="flex items-center gap-3 p-3 rounded-2xl text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 mb-3"
+                  >
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Trang Quản Trị Viên</span>
+                  </Link>
+                )}
+
+                {studentInfo && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      setShowLogoutModal(true);
+                    }}
+                    className="w-full py-2.5 px-4 bg-red-50 hover:bg-red-100 text-red-700 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Đăng xuất tài khoản</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Compact Bottom Navigation Bar */}
+          <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-2 pt-1.5 pb-[max(0.4rem,env(safe-area-inset-bottom))] flex items-center justify-around shadow-lg z-30">
+            {/* 1. Đề thi */}
+            <Link
+              to="/"
+              data-tour-id={TOUR_DATA_IDS.NAV_EXAMS}
+              onClick={() => triggerAction("click_exams")}
+              className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
+                location.pathname === "/" || location.pathname === "/exams"
+                  ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
+                  : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              }`}
+            >
+              <BookOpen className="w-5 h-5" />
+              <span className="text-[10px]">Đề thi</span>
+            </Link>
+
+            {/* 2. Luyện tập */}
+            <Link
+              to="/student/practice"
+              data-tour-id={TOUR_DATA_IDS.NAV_PRACTICE}
+              onClick={() => triggerAction("click_practice")}
+              className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
+                location.pathname.startsWith("/student/practice") || location.pathname.startsWith("/practice")
+                  ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
+                  : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              }`}
+            >
+              <BrainCircuit className="w-5 h-5" />
+              <span className="text-[10px]">Luyện tập</span>
+            </Link>
+
+            {/* 3. Gia sư AI */}
+            <Link
+              to="/student/ai-tutor"
+              data-tour-id={TOUR_DATA_IDS.NAV_AI}
+              onClick={() => triggerAction("click_ai")}
+              className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
+                location.pathname.startsWith("/student/ai-tutor")
+                  ? "text-indigo-600 dark:text-indigo-400 font-bold scale-105"
+                  : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              }`}
+            >
+              <Sparkles className="w-5 h-5" />
+              <span className="text-[10px]">Gia sư AI</span>
+            </Link>
+
+            {/* 4. Cộng đồng */}
+            <Link
+              to="/student/community"
+              data-tour-id={TOUR_DATA_IDS.NAV_COMMUNITY}
+              onClick={() => triggerAction("click_community")}
+              className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
+                location.pathname.startsWith("/student/community")
+                  ? "text-amber-600 dark:text-amber-400 font-bold scale-105"
+                  : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              }`}
+            >
+              <Flame className="w-5 h-5" />
+              <span className="text-[10px]">Cộng đồng</span>
+            </Link>
+
+            {/* 5. Menu 3 gạch (Danh mục: Hành trình, Mật mã, Hồ sơ, Chính sách) */}
+            <button
+              type="button"
+              onClick={() => setIsBottomMenuOpen(true)}
+              className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer relative ${
+                isBottomMenuOpen || ["/journey", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p)
+                  ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
+                  : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              }`}
+            >
+              <div className="relative">
+                <Menu className="w-5 h-5" />
+                {["/journey", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p) && (
+                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                )}
+              </div>
+              <span className="text-[10px]">Danh mục</span>
+            </button>
+          </nav>
+        </>
       )}
 
       <ConfirmModal

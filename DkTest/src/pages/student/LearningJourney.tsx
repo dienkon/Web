@@ -54,7 +54,7 @@ import {
   Share2,
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import { collection, doc, getDocs, limit, orderBy, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, getDocs, limit, orderBy, query, setDoc, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -527,47 +527,59 @@ export default function LearningJourney() {
     return () => clearInterval(interval);
   }, [showSuccessToast, showInfoToast]);
 
-  // Real Leaderboard from Firestore
+  // Real Leaderboard from Firestore (Realtime Listener with In-Memory Sort to prevent missing composite index)
   useEffect(() => {
     let isCancelled = false;
-    const fetchLeaderboard = async () => {
-      setLoadingLeaderboard(true);
-      try {
-        const q = query(
-          collection(db, "journey_progress"),
-          where("subject", "==", activeSubject),
-          orderBy("level", "desc"),
-          limit(10)
-        );
-        const snap = await getDocs(q);
+    setLoadingLeaderboard(true);
+
+    // Query by subject only (no orderBy in query to avoid requiring composite index on Firestore)
+    const q = query(
+      collection(db, "journey_progress"),
+      where("subject", "==", activeSubject)
+    );
+
+    const unsub = onSnapshot(
+      q,
+      (snap) => {
         if (isCancelled) return;
         const list: LeaderboardUser[] = [];
+        let hasCurrentUser = false;
+
         snap.forEach((docSnap) => {
           const data = docSnap.data();
+          const uname = data.username || docSnap.id;
+          const isMe = uname === currentUserInfo.username;
+          if (isMe) hasCurrentUser = true;
+
           list.push({
-            username: data.username || docSnap.id,
+            username: uname,
             displayName: data.displayName || data.username || "Thí sinh",
-            level: data.level || 1,
-            avatar: data.avatar || "B",
+            level: isMe ? Math.max(data.level || 1, currentLevel) : data.level || 1,
+            avatar: data.avatar || (data.displayName?.[0] || data.username?.[0] || "B").toUpperCase(),
           });
         });
 
-        if (list.length === 0) {
+        // Ensure current user is always included even before first sync
+        if (!hasCurrentUser && currentUserInfo.username) {
           list.push({
             username: currentUserInfo.username,
             displayName: currentUserInfo.displayName,
             level: currentLevel,
-            avatar: currentUserInfo.displayName[0]?.toUpperCase() || "B",
+            avatar: currentUserInfo.displayName?.[0]?.toUpperCase() || "B",
           });
         }
 
+        // Sort descending by level in memory
         const sorted = list
           .sort((a, b) => b.level - a.level)
           .slice(0, 10)
           .map((u, idx) => ({ ...u, rank: idx + 1 }));
 
         setLeaderboard(sorted);
-      } catch (err) {
+        setLoadingLeaderboard(false);
+      },
+      (err) => {
+        console.warn("[Leaderboard] Snapshot error, falling back to local:", err);
         if (isCancelled) return;
         setLeaderboard([
           {
@@ -575,19 +587,16 @@ export default function LearningJourney() {
             username: currentUserInfo.username,
             displayName: currentUserInfo.displayName,
             level: currentLevel,
-            avatar: currentUserInfo.displayName[0]?.toUpperCase() || "B",
+            avatar: currentUserInfo.displayName?.[0]?.toUpperCase() || "B",
           },
         ]);
-      } finally {
-        if (!isCancelled) {
-          setLoadingLeaderboard(false);
-        }
+        setLoadingLeaderboard(false);
       }
-    };
+    );
 
-    fetchLeaderboard();
     return () => {
       isCancelled = true;
+      unsub();
     };
   }, [activeSubject, currentLevel, currentUserInfo]);
 

@@ -237,7 +237,7 @@ export default function CodeExamBuilder() {
   const [activeCodeTab, setActiveCodeTab] = useState<"html" | "css" | "js" | "settings">("html");
   const [examTitle, setExamTitle] = useState("Đề thi Lập trình Web & HTML/CSS/JS");
   const [examCode, setExamCode] = useState("CODE-WEB-01");
-  const [timeLimit, setTimeLimit] = useState(45);
+  const [timeLimit, setTimeLimit] = useState(0); // 0 = Vô hạn (mặc định vô hạn)
   const [description, setDescription] = useState("Đề thi tương tác đặc biệt được lập trình hoàn toàn bằng HTML, CSS và JavaScript.");
 
   // Public / Private Settings
@@ -262,7 +262,7 @@ export default function CodeExamBuilder() {
         if (item) {
           setExamTitle(item.title);
           setExamCode(item.code);
-          setTimeLimit(item.timeLimit);
+          setTimeLimit(typeof item.timeLimit === "number" ? item.timeLimit : 0);
           setDescription(item.description || "");
           setIsPublic(item.isPublic ?? true);
           setAccessCode(item.accessCode || "");
@@ -311,7 +311,7 @@ export default function CodeExamBuilder() {
         title: examTitle.trim(),
         code: examCode.trim() || `CODE-${Date.now().toString().slice(-4)}`,
         description,
-        timeLimit: Number(timeLimit) || 45,
+        timeLimit: Number(timeLimit) >= 0 ? Number(timeLimit) : 0,
         htmlContent,
         cssContent,
         jsContent,
@@ -619,13 +619,38 @@ export default function CodeExamBuilder() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-slate-300">Thời gian làm bài (phút):</label>
-                  <input
-                    type="number"
-                    value={timeLimit}
-                    onChange={(e) => setTimeLimit(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-slate-200"
-                  />
+                  <div className="flex items-center justify-between">
+                    <label className="font-bold text-slate-300">Thời gian làm bài (phút):</label>
+                    <button
+                      type="button"
+                      onClick={() => setTimeLimit(timeLimit === 0 ? 45 : 0)}
+                      className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                        timeLimit === 0
+                          ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                          : "bg-slate-800 text-slate-400 hover:text-slate-200"
+                      }`}
+                    >
+                      {timeLimit === 0 ? "∞ Đang đặt Vô hạn" : "Đặt Vô hạn"}
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min="0"
+                      value={timeLimit}
+                      onChange={(e) => setTimeLimit(Math.max(0, Number(e.target.value) || 0))}
+                      className="flex-1 px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-slate-200"
+                      placeholder="0 = Vô hạn thời gian"
+                    />
+                    {timeLimit === 0 && (
+                      <span className="text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-2.5 py-2 rounded-xl shrink-0">
+                        ∞ Vô hạn thời gian
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Nhập 0 hoặc bấm nút "Đặt Vô hạn" để không giới hạn thời gian làm bài của thí sinh.
+                  </p>
                 </div>
 
                 <div className="space-y-1.5">

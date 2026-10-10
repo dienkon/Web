@@ -39,7 +39,10 @@ export default function SubExamSettings() {
   };
 
   const generateSample = () => {
-    const attempt = buildSubExamAttempt(state.examMeta, state.questions, state.sections, config);
+    const attempt = buildSubExamAttempt(state.examMeta, state.questions, state.sections, {
+      ...config,
+      enabled: true,
+    });
     setSampleQuestions(attempt.questions);
   };
 
@@ -90,12 +93,36 @@ export default function SubExamSettings() {
             onChange={(e) => updateConfig({ selectionMode: e.target.value as any })}
           >
             <option value="by_type">Ngẫu nhiên theo loại câu hỏi (Toàn đề)</option>
+            <option value="random_total">Bốc ngẫu nhiên N câu (Toàn đề)</option>
             {state.sections.length > 0 && <option value="by_section">Ngẫu nhiên theo từng phần</option>}
             {state.sections.length > 0 && <option value="by_section_and_type">Ngẫu nhiên theo phần & loại câu hỏi</option>}
           </select>
         </div>
 
-        {config.selectionMode === "by_type" && (
+        <div className="bg-purple-50/70 border border-purple-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <label className="block text-xs font-bold text-purple-950">Tổng số câu hỏi đề con (Tùy chọn)</label>
+            <p className="text-[11px] text-purple-700">Ngân hàng có {qPool.length} câu. Nhập số câu muốn trích xuất (Bỏ trống hoặc -1: Lấy tất cả hoặc theo từng loại)</p>
+          </div>
+          <input
+            type="number"
+            min="-1"
+            max={qPool.length}
+            className="w-32 px-3 py-1.5 bg-white border border-purple-300 rounded-lg text-xs font-bold text-center text-purple-950 focus:ring-2 focus:ring-purple-500"
+            value={config.totalQuestionCount ?? config.numberOfQuestions ?? config.questionCount ?? ""}
+            onChange={(e) => {
+              const count = e.target.value === "" ? undefined : parseInt(e.target.value);
+              updateConfig({
+                totalQuestionCount: count,
+                numberOfQuestions: count,
+                questionCount: count,
+              });
+            }}
+            placeholder={`Tất cả (${qPool.length})`}
+          />
+        </div>
+
+        {(config.selectionMode === "by_type" || config.selectionMode === "random_total") && (
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4">
             <h4 className="text-xs font-bold text-slate-800 border-b border-slate-200 pb-2">Cấu hình số lượng</h4>
             <div className="grid grid-cols-2 gap-4">

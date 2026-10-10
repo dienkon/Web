@@ -86,17 +86,42 @@ export function organizeAndShuffleExam(
   // Sort blocks initially by their order
   initialBlocks.sort((a, b) => a.order - b.order);
 
-  // 3. Shuffle Top-Level Blocks if shuffleSections OR shuffleQuestions is enabled
+  // 3. Shuffle Top-Level Blocks
   let finalBlocks = [...initialBlocks];
-  const shouldShuffleTopLevel = !!(exam.shuffleSections || exam.shuffleQuestions);
+  const hasSections = finalBlocks.some((b) => b.type === "section");
 
-  if (shouldShuffleTopLevel && finalBlocks.length > 1) {
-    const unpinnedBlocks = finalBlocks.filter((b) => !b.isPinned);
-    const shuffledUnpinned = shuffleArray(unpinnedBlocks);
-    let unpinnedIdx = 0;
-    finalBlocks = finalBlocks.map((b) =>
-      b.isPinned ? b : shuffledUnpinned[unpinnedIdx++]
-    );
+  if (!hasSections) {
+    // Pure standalone questions: shuffle if shuffleQuestions is enabled
+    if (exam.shuffleQuestions && finalBlocks.length > 1) {
+      const unpinnedBlocks = finalBlocks.filter((b) => !b.isPinned);
+      const shuffledUnpinned = shuffleArray(unpinnedBlocks);
+      let unpinnedIdx = 0;
+      finalBlocks = finalBlocks.map((b) =>
+        b.isPinned ? b : shuffledUnpinned[unpinnedIdx++]
+      );
+    }
+  } else {
+    // Exam contains sections:
+    // Only shuffle section block positions if exam.shuffleSections is explicitly enabled
+    if (exam.shuffleSections && finalBlocks.length > 1) {
+      const unpinnedBlocks = finalBlocks.filter((b) => !b.isPinned);
+      const shuffledUnpinned = shuffleArray(unpinnedBlocks);
+      let unpinnedIdx = 0;
+      finalBlocks = finalBlocks.map((b) =>
+        b.isPinned ? b : shuffledUnpinned[unpinnedIdx++]
+      );
+    } else if (exam.shuffleQuestions) {
+      // If shuffleSections is false, sections stay in their fixed order.
+      // Any standalone questions (if present alongside sections) can be shuffled among themselves.
+      const unpinnedStandalone = finalBlocks.filter((b) => b.type === "question" && !b.isPinned);
+      if (unpinnedStandalone.length > 1) {
+        const shuffledStandalone = shuffleArray(unpinnedStandalone);
+        let sIdx = 0;
+        finalBlocks = finalBlocks.map((b) =>
+          b.type === "question" && !b.isPinned ? shuffledStandalone[sIdx++] : b
+        );
+      }
+    }
   }
 
   // 4. Shuffle questions INSIDE each section block (if enabled for that section)

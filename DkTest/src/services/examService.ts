@@ -230,6 +230,13 @@ export const deleteExam = async (examId: string): Promise<void> => {
       console.warn("Could not delete active_sessions from RTDB", sessErr);
     }
 
+    // 5.1 If it's a code exam, clean up from code_exams collection
+    try {
+      await deleteDoc(doc(db, "code_exams", examId));
+    } catch (codeErr) {
+      // non-blocking
+    }
+
     // 6. Sync deletion to 1-read catalog summary
     syncExamToCatalogSummary({ id: examId }, "delete").catch((e) =>
       console.warn("[examService] Warning syncing exam deletion to catalog:", e)

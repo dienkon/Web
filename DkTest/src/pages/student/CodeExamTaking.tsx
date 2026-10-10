@@ -29,9 +29,12 @@ export default function CodeExamTaking() {
   const [exam, setExam] = useState<CodeExam | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState<number>(45 * 60);
+  const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionResult, setSubmissionResult] = useState<CodeSubmission | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const isUnlimitedTime = !exam?.timeLimit || exam.timeLimit <= 0;
 
   // Private exam password lock
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
@@ -49,7 +52,9 @@ export default function CodeExamTaking() {
         const item = await getCodeExam(id);
         if (item) {
           setExam(item);
-          setTimeLeft(item.timeLimit * 60);
+          if (item.timeLimit && item.timeLimit > 0) {
+            setTimeLeft(item.timeLimit * 60);
+          }
           // If public or no password, automatically unlocked
           if (item.isPublic !== false || !item.accessCode) {
             setIsUnlocked(true);
@@ -83,9 +88,18 @@ export default function CodeExamTaking() {
     }
   };
 
-  // Timer countdown
+  // Timer: count down if limited, count up if unlimited
   useEffect(() => {
-    if (!isUnlocked || isSubmitted || timeLeft <= 0 || loading) return;
+    if (!isUnlocked || isSubmitted || loading) return;
+
+    if (isUnlimitedTime) {
+      const interval = setInterval(() => {
+        setElapsedSeconds((prev) => prev + 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+
+    if (timeLeft <= 0) return;
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -97,7 +111,7 @@ export default function CodeExamTaking() {
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [isSubmitted, timeLeft, loading]);
+  }, [isUnlocked, isSubmitted, timeLeft, loading, isUnlimitedTime]);
 
   // Listen to postMessage from iframe
   useEffect(() => {
@@ -297,10 +311,21 @@ export default function CodeExamTaking() {
         <div className="flex items-center gap-3">
           {/* Timer Badge */}
           <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-white font-mono font-bold text-sm shadow-2xs">
-            <Clock className="w-4 h-4 text-amber-400" />
-            <span>
-              {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
-            </span>
+            <Clock className={`w-4 h-4 ${isUnlimitedTime ? "text-emerald-400" : "text-amber-400"}`} />
+            {isUnlimitedTime ? (
+              <div className="flex items-center gap-1.5">
+                <span>
+                  {String(Math.floor(elapsedSeconds / 60)).padStart(2, "0")}:{String(elapsedSeconds % 60).padStart(2, "0")}
+                </span>
+                <span className="text-[10px] font-sans px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                  ∞ Vô hạn
+                </span>
+              </div>
+            ) : (
+              <span>
+                {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+              </span>
+            )}
           </div>
 
           <button

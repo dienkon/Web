@@ -30,6 +30,7 @@ import {
   Code2,
 } from "lucide-react";
 import { getExamList, deleteExam } from "../../services/examService";
+import { getAllCodeExams } from "../../services/codeExamService";
 import {
   getFolders,
   createFolder,
@@ -195,13 +196,42 @@ export default function ExamList() {
           pageSize: 5,
           ownerId: isParentMode ? userId : null,
         });
+
+        // Merge code exams for root/all view
+        let mergedAllItems = [...res.items];
+        try {
+          const codeExams = await getAllCodeExams();
+          const existingIds = new Set(mergedAllItems.map((e) => e.id));
+          const codeItems = codeExams
+            .filter((c) => !existingIds.has(c.id))
+            .map((c) => ({
+              id: c.id,
+              title: c.title,
+              code: c.code,
+              description: c.description || "",
+              duration: c.timeLimit || 0,
+              subject: "Tin Học",
+              gradeCategory: "Khác",
+              totalQuestions: 1,
+              status: c.status || "published",
+              isPublished: c.status === "published",
+              examType: "code",
+              folderId: null,
+              ownerId: c.authorId || null,
+              shareUrl: c.shareUrl,
+              createdAt: c.createdAt,
+              updatedAt: c.updatedAt,
+            } as unknown as Exam));
+          mergedAllItems = [...codeItems, ...mergedAllItems];
+        } catch {}
+
         folderCacheRef.current.set("__all__", {
           subfolders: [],
-          exams: res.items,
+          exams: mergedAllItems,
           cursor: res.nextCursor,
           hasMore: res.hasMore,
         });
-        setExams(res.items);
+        setExams(mergedAllItems);
         setCursor(res.nextCursor);
         setHasMore(res.hasMore);
       } else {
@@ -215,9 +245,38 @@ export default function ExamList() {
           ownerId: isParentMode ? userId : null,
         });
 
+        let mergedFolderItems = [...examRes.items];
+        if (folderId === null) {
+          try {
+            const codeExams = await getAllCodeExams();
+            const existingIds = new Set(mergedFolderItems.map((e) => e.id));
+            const codeItems = codeExams
+              .filter((c) => !existingIds.has(c.id))
+              .map((c) => ({
+                id: c.id,
+                title: c.title,
+                code: c.code,
+                description: c.description || "",
+                duration: c.timeLimit || 0,
+                subject: "Tin Học",
+                gradeCategory: "Khác",
+                totalQuestions: 1,
+                status: c.status || "published",
+                isPublished: c.status === "published",
+                examType: "code",
+                folderId: null,
+                ownerId: c.authorId || null,
+                shareUrl: c.shareUrl,
+                createdAt: c.createdAt,
+                updatedAt: c.updatedAt,
+              } as unknown as Exam));
+            mergedFolderItems = [...codeItems, ...mergedFolderItems];
+          } catch {}
+        }
+
         folderCacheRef.current.set(cacheKey, {
           subfolders: childFolders,
-          exams: examRes.items,
+          exams: mergedFolderItems,
           cursor: examRes.nextCursor,
           hasMore: examRes.hasMore,
         });
@@ -228,7 +287,7 @@ export default function ExamList() {
           return toAdd.length > 0 ? [...prev, ...toAdd] : prev;
         });
 
-        setExams(examRes.items);
+        setExams(mergedFolderItems);
         setCursor(examRes.nextCursor);
         setHasMore(examRes.hasMore);
       }

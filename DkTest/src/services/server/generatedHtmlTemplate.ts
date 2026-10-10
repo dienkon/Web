@@ -398,7 +398,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-DDsdSKwJ.js"></script>
+    <script type="module" crossorigin src="/assets/index-D5mVTjEz.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DkJUajiB.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-icons-gUCkgdYI.js">
@@ -406,7 +406,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-mathlive-ChYs3Gtv.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-RwYivQGY.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-CPaHX8eD.css">
   </head>
 
   <body>

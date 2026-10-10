@@ -20,14 +20,17 @@ export default function StudentSubExamConfig({
   questions,
   sections,
 }: Props) {
-  if (!config) return null;
+  const currentConfig: SubExamConfig = config || {
+    enabled: useSubExam,
+    selectionMode: "by_type",
+  };
 
   const updateConfig = (updates: Partial<SubExamConfig>) => {
-    setConfig({ ...config, ...updates });
+    setConfig({ ...currentConfig, ...updates });
   };
 
   const updateSectionSubExam = (sectionId: string, updates: any) => {
-    const newSections = [...(config.sections || [])];
+    const newSections = [...(currentConfig.sections || [])];
     const idx = newSections.findIndex((s) => s.sectionId === sectionId);
     if (idx >= 0) {
       newSections[idx] = { ...newSections[idx], ...updates };
@@ -67,7 +70,11 @@ export default function StudentSubExamConfig({
             type="checkbox"
             className="sr-only peer"
             checked={useSubExam}
-            onChange={(e) => setUseSubExam(e.target.checked)}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              setUseSubExam(checked);
+              setConfig({ ...currentConfig, enabled: checked });
+            }}
           />
           <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600 shadow-2xs"></div>
         </label>
@@ -82,13 +89,48 @@ export default function StudentSubExamConfig({
             </label>
             <select
               className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              value={config.selectionMode}
+              value={currentConfig.selectionMode}
               onChange={(e) => updateConfig({ selectionMode: e.target.value as any })}
             >
               <option value="by_type">Ngẫu nhiên theo loại câu hỏi (Toàn bộ đề)</option>
+              <option value="random_total">Bốc ngẫu nhiên N câu (Toàn ngân hàng đề)</option>
               {sections.length > 0 && <option value="by_section">Ngẫu nhiên theo từng phần (Section)</option>}
               {sections.length > 0 && <option value="by_section_and_type">Ngẫu nhiên theo Phần & Loại câu hỏi</option>}
             </select>
+          </div>
+
+          {/* Overall Total Question Count */}
+          <div className="bg-white/90 border border-purple-200/80 rounded-2xl p-4 sm:p-5 space-y-2 shadow-2xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <label className="block text-xs font-bold text-purple-950">
+                  Tổng số câu hỏi đề con muốn làm
+                </label>
+                <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                  Ngân hàng hiện có <strong>{questions.length} câu</strong>. Nhập số lượng câu muốn làm (Ví dụ: <strong>20</strong> để hệ thống bốc ngẫu nhiên 20 câu).
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <input
+                  type="number"
+                  min="1"
+                  max={questions.length}
+                  className="w-32 px-3.5 py-2 bg-purple-50/50 border border-purple-300 rounded-xl text-xs font-bold text-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center"
+                  value={currentConfig.totalQuestionCount ?? currentConfig.numberOfQuestions ?? currentConfig.questionCount ?? ""}
+                  onChange={(e) => {
+                    const count = e.target.value === "" ? undefined : parseInt(e.target.value);
+                    updateConfig({
+                      totalQuestionCount: count,
+                      numberOfQuestions: count,
+                      questionCount: count,
+                    });
+                  }}
+                  placeholder={`Tất cả (${questions.length})`}
+                />
+                <span className="text-xs font-bold text-slate-600">/ {questions.length} câu</span>
+              </div>
+            </div>
           </div>
 
           {/* Section Random Count if exam has sections */}
@@ -111,7 +153,7 @@ export default function StudentSubExamConfig({
                     min="-1"
                     max={sections.length}
                     className="w-32 px-3.5 py-2 bg-purple-50/50 border border-purple-300 rounded-xl text-xs font-bold text-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-500 text-center"
-                    value={config.randomSectionsCount ?? ""}
+                    value={currentConfig.randomSectionsCount ?? ""}
                     onChange={(e) =>
                       updateConfig({
                         randomSectionsCount:
@@ -127,7 +169,7 @@ export default function StudentSubExamConfig({
           )}
 
           {/* Question Count by Type */}
-          {config.selectionMode === "by_type" && (
+          {(currentConfig.selectionMode === "by_type" || currentConfig.selectionMode === "random_total") && (
             <div className="bg-white border border-purple-100 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-2xs">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
                 <h4 className="text-xs font-bold text-slate-900">
@@ -149,7 +191,7 @@ export default function StudentSubExamConfig({
                     min="-1"
                     max={singleChoiceTotal}
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                    value={config.singleChoiceCount ?? ""}
+                    value={currentConfig.singleChoiceCount ?? ""}
                     onChange={(e) =>
                       updateConfig({ singleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
@@ -167,7 +209,7 @@ export default function StudentSubExamConfig({
                     min="-1"
                     max={multipleChoiceTotal}
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                    value={config.multipleChoiceCount ?? ""}
+                    value={currentConfig.multipleChoiceCount ?? ""}
                     onChange={(e) =>
                       updateConfig({ multipleChoiceCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
@@ -185,7 +227,7 @@ export default function StudentSubExamConfig({
                     min="-1"
                     max={trueFalseTotal}
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                    value={config.trueFalseCount ?? ""}
+                    value={currentConfig.trueFalseCount ?? ""}
                     onChange={(e) =>
                       updateConfig({ trueFalseCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
@@ -203,7 +245,7 @@ export default function StudentSubExamConfig({
                     min="-1"
                     max={shortAnswerTotal}
                     className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                    value={config.shortAnswerCount ?? ""}
+                    value={currentConfig.shortAnswerCount ?? ""}
                     onChange={(e) =>
                       updateConfig({ shortAnswerCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                     }
@@ -222,7 +264,7 @@ export default function StudentSubExamConfig({
                       min="-1"
                       max={orderingTotal}
                       className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                      value={config.orderingCount ?? ""}
+                      value={currentConfig.orderingCount ?? ""}
                       onChange={(e) =>
                         updateConfig({ orderingCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                       }
@@ -242,7 +284,7 @@ export default function StudentSubExamConfig({
                       min="-1"
                       max={fillBlankTotal}
                       className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                      value={config.fillBlankCount ?? ""}
+                      value={currentConfig.fillBlankCount ?? ""}
                       onChange={(e) =>
                         updateConfig({ fillBlankCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                       }
@@ -262,7 +304,7 @@ export default function StudentSubExamConfig({
                       min="-1"
                       max={matchingTotal}
                       className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-800 focus:ring-2 focus:ring-purple-500"
-                      value={config.matchingCount ?? ""}
+                      value={currentConfig.matchingCount ?? ""}
                       onChange={(e) =>
                         updateConfig({ matchingCount: e.target.value === "" ? undefined : parseInt(e.target.value) })
                       }
@@ -279,7 +321,7 @@ export default function StudentSubExamConfig({
           )}
 
           {/* Section details if by_section / by_section_and_type */}
-          {(config.selectionMode === "by_section" || config.selectionMode === "by_section_and_type") && sections.length > 0 && (
+          {(currentConfig.selectionMode === "by_section" || currentConfig.selectionMode === "by_section_and_type") && sections.length > 0 && (
             <div className="bg-white border border-purple-100 rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
               <h4 className="text-xs font-bold text-slate-900 border-b border-slate-100 pb-2">
                 Cấu hình số câu theo từng phần
@@ -287,7 +329,7 @@ export default function StudentSubExamConfig({
               <div className="space-y-2.5">
                 {sections.map((sec, secIdx) => {
                   const secQs = questions.filter((q) => q.sectionId === sec.id);
-                  const secConf = config.sections?.find((s) => s.sectionId === sec.id) || {
+                  const secConf = currentConfig.sections?.find((s) => s.sectionId === sec.id) || {
                     sectionId: sec.id,
                     enabled: true,
                     questionCount: -1,

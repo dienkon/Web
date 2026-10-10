@@ -716,7 +716,13 @@ export default function TakingExam() {
           } catch (e) {}
         }
 
-        const isSubExamAttempt = !!(activeSnapshot?.configSnapshot?.enabled || (examData.allowSubExam && examData.subExamConfig?.enabled));
+        const isSubExamAttempt = Boolean(
+          activeSnapshot?.configSnapshot ||
+          (activeSnapshot as any)?.isSubExam ||
+          (activeSnapshot?.shuffledQuestions && activeSnapshot.shuffledQuestions.length !== rawQuestions.length) ||
+          examData.allowSubExam ||
+          examData.subExamConfig?.enabled
+        );
         
         // Verify that snapshot questions match current exam questions, otherwise refresh
         const isSnapshotValid =
@@ -772,27 +778,47 @@ export default function TakingExam() {
         } else {
           // Check for student's custom sub-exam config
           let studentSubExamConfig = null;
-          let useSubExam = examData.allowSubExam && examData.subExamConfig?.enabled;
+          let useSubExam = Boolean(
+            (examData.allowSubExam && examData.subExamConfig?.enabled !== false) ||
+            examData.subExamConfig?.enabled
+          );
           try {
             const storedConfigStr = localStorage.getItem(`custom_sub_exam_config_${examId}`);
             if (storedConfigStr) {
               const storedConfig = JSON.parse(storedConfigStr);
               if (storedConfig.useSubExam !== undefined) {
-                useSubExam = storedConfig.useSubExam;
-                if (useSubExam && storedConfig.config) {
-                   studentSubExamConfig = storedConfig.config;
-                }
+                useSubExam = Boolean(storedConfig.useSubExam);
+              }
+              if (storedConfig.config) {
+                studentSubExamConfig = {
+                  ...storedConfig.config,
+                  enabled: useSubExam,
+                };
               }
             }
           } catch(e) {}
 
           // Normal load or build sub-exam
-          if (useSubExam && (studentSubExamConfig || examData.subExamConfig)) {
-            const finalConfig = studentSubExamConfig || examData.subExamConfig;
-            const attempt = buildSubExamAttempt(examData, rawQuestions, rawSections, finalConfig);
-            allQuestions = attempt.questions;
-            isSubExamUsedRef.current = true;
-            subExamConfigUsedRef.current = attempt.config || null;
+          if (useSubExam) {
+            const baseConfig = studentSubExamConfig || examData.subExamConfig || {
+              enabled: true,
+              selectionMode: "by_type",
+            };
+            const finalConfig = {
+              ...baseConfig,
+              enabled: true,
+            };
+            const attempt = buildSubExamAttempt(examData, rawQuestions, rawSections, finalConfig as any);
+            if (attempt.questions && attempt.questions.length > 0) {
+              allQuestions = attempt.questions;
+              isSubExamUsedRef.current = true;
+              subExamConfigUsedRef.current = attempt.config || finalConfig;
+            } else {
+              const organized = organizeAndShuffleExam(examData, rawQuestions, rawSections);
+              allQuestions = organized.orderedQuestions;
+              isSubExamUsedRef.current = false;
+              subExamConfigUsedRef.current = null;
+            }
           } else {
             isSubExamUsedRef.current = false;
             subExamConfigUsedRef.current = null;

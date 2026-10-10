@@ -1,6 +1,9 @@
 export type SubExamConfig = {
   enabled: boolean;
-  selectionMode: "by_type" | "by_section" | "by_section_and_type";
+  selectionMode: "by_type" | "by_section" | "by_section_and_type" | "random_total";
+  totalQuestionCount?: number;
+  questionCount?: number;
+  numberOfQuestions?: number;
   randomSectionsCount?: number; // -1 or undefined for all enabled sections, N > 0 to pick N random sections
   singleChoiceCount?: number;
   multipleChoiceCount?: number;

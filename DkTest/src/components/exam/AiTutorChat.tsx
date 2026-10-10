@@ -300,7 +300,7 @@ export default function AiTutorChat({
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-tr from-indigo-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-xl hover:shadow-indigo-500/30 hover:scale-105 transition-all z-50 group cursor-pointer"
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-tr from-indigo-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-xl hover:shadow-indigo-500/30 hover:scale-105 transition-all z-40 group cursor-pointer"
           title="Hỏi Gia sư AI (Hỗ trợ ảnh bài tập)"
         >
           <Sparkles className="w-6 h-6 group-hover:hidden" />
@@ -309,7 +309,7 @@ export default function AiTutorChat({
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-80 sm:w-96 h-[540px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-indigo-100 flex flex-col z-50 overflow-hidden animate-in fade-in slide-in-from-bottom-5">
+        <div className="fixed bottom-6 right-6 w-80 sm:w-96 h-[540px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-indigo-100 flex flex-col z-40 overflow-hidden animate-in fade-in slide-in-from-bottom-5">
           {/* Header */}
           <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-blue-600 px-4 py-3 flex items-center justify-between text-white shrink-0 shadow-xs">
             <div className="flex items-center gap-2">

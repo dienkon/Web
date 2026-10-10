@@ -1,6 +1,6 @@
-import { collection, doc, getDoc, getDocs, setDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { db } from "./firebase/config";
-import type { Question, Submission, Exam } from "../types";
+import type { Question, Submission, Exam, Section } from "../types";
 import { evaluateQuestionAnswer } from "../utils/attemptAnalytics";
 import { clearActiveExamSession } from "./examSessionService";
 import { getOrCreateStudentFolder } from "./folderService";
@@ -111,14 +111,18 @@ export interface CreateRetakeOptions {
   submission: Submission;
   mode: "all" | "correct" | "wrong";
   questions?: Question[];
+  sections?: Section[];
   durationMode?: "unlimited" | "auto" | "custom";
   customDuration?: number;
 }
 
 /**
  * Prepares and launches a retake exam session.
- * For 'all', can reset the attempt snapshot and session.
- * For 'correct' or 'wrong', generates a focused practice exam in Firestore.
+ * Fully inherits all authentic configuration from the original exam:
+ * - Questions shuffling (`shuffleQuestions`), options shuffling (`shuffleOptions`),
+ *   statements shuffling (`shuffleStatements`), and sections shuffling (`shuffleSections`).
+ * - Preserves question-level constraints: `pinQuestion`, `shuffleOptions`, and `sectionId`.
+ * - Preserves section-level constraints: `pinOrder`, `disableQuestionShuffle`, instructions, and titles.
  */
 export async function createRetakeExam(options: CreateRetakeOptions): Promise<string> {
   const { originalExam, submission, mode } = options;
@@ -136,26 +140,91 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     }
   } catch {}
 
-  // 1. If mode === 'all' and no durationMode or customDuration specified:
-  if (mode === "all" && !options.durationMode && options.customDuration === undefined) {
-    // Clear in-progress session and snapshot
-    clearActiveExamSession(examId);
+  // 1. Fetch master exam document to guarantee inheritance of all authentic configurations and rules
+  let masterExamData: any = originalExam || {};
+  let masterSections: Section[] = Array.isArray(options.sections) && options.sections.length > 0
+    ? options.sections
+    : Array.isArray((originalExam as any)?.sections) && (originalExam as any).sections.length > 0
+    ? (originalExam as any).sections
+    : [];
+
+  if (examId) {
     try {
-      localStorage.removeItem(`attemptSnapshot_${examId}_${studentIdentifier}`);
-    } catch {}
-    return examId;
+      const eDoc = await getDoc(doc(db, EXAMS_COLLECTION, examId));
+      if (eDoc.exists()) {
+        const eData = eDoc.data();
+        masterExamData = { ...eData, ...originalExam, id: examId };
+        if (masterSections.length === 0 && Array.isArray(eData.sections) && eData.sections.length > 0) {
+          masterSections = eData.sections;
+        }
+      }
+    } catch (e) {
+      console.warn("Could not fetch master exam doc:", e);
+    }
+
+    if (masterSections.length === 0) {
+      try {
+        const secSnap = await getDocs(
+          query(collection(db, `${EXAMS_COLLECTION}/${examId}/sections`), orderBy("order", "asc"))
+        );
+        if (!secSnap.empty) {
+          masterSections = secSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Section));
+        }
+      } catch (secErr) {
+        console.warn("Could not fetch sections subcollection:", secErr);
+      }
+    }
   }
 
-  // 2. Load questions
-  const rawQuestions = await getExamQuestionsSafe(
+  // Inherit original shuffle rules
+  const inheritShuffleQuestions = masterExamData.shuffleQuestions !== undefined
+    ? Boolean(masterExamData.shuffleQuestions)
+    : true;
+  const inheritShuffleOptions = masterExamData.shuffleOptions !== undefined
+    ? Boolean(masterExamData.shuffleOptions)
+    : true;
+  const inheritShuffleSections = masterExamData.shuffleSections !== undefined
+    ? Boolean(masterExamData.shuffleSections)
+    : false;
+  const inheritShuffleStatements = masterExamData.shuffleStatements !== undefined
+    ? Boolean(masterExamData.shuffleStatements)
+    : inheritShuffleOptions;
+
+  // 2. Load pristine master questions
+  const masterQuestions = await getExamQuestionsSafe(
     examId,
     submission.shuffledQuestionsSnapshot || options.questions
   );
 
+  const masterQuestionMap = new Map<string, Question>();
+  masterQuestions.forEach((mq) => {
+    if (mq.id) masterQuestionMap.set(mq.id, mq);
+  });
+
+  // Determine question pool for this submission attempt:
+  // If the submission had a specific snapshot of questions (e.g. sub-exam or shuffled set),
+  // we restrict to those questions, restoring clean master data (unshuffled options & statements) where possible.
+  let attemptQuestions: Question[] = [];
+  if (Array.isArray(submission.shuffledQuestionsSnapshot) && submission.shuffledQuestionsSnapshot.length > 0) {
+    attemptQuestions = submission.shuffledQuestionsSnapshot.map((sq) => {
+      const origKey = (sq as any).originalQuestionId || sq.id;
+      const cleanMaster = masterQuestionMap.get(origKey) || masterQuestionMap.get(sq.id);
+      return cleanMaster ? { ...cleanMaster, id: sq.id } : { ...sq };
+    });
+  } else if (Array.isArray(options.questions) && options.questions.length > 0) {
+    attemptQuestions = options.questions.map((oq) => {
+      const cleanMaster = masterQuestionMap.get(oq.id) || oq;
+      return cleanMaster ? { ...cleanMaster, id: oq.id } : { ...oq };
+    });
+  } else {
+    attemptQuestions = masterQuestions;
+  }
+
+  // 3. Filter by submission mode: 'all' | 'correct' | 'wrong'
   const filteredQuestions =
     mode === "all"
-      ? rawQuestions
-      : filterQuestionsBySubmission(rawQuestions, submission, mode);
+      ? attemptQuestions
+      : filterQuestionsBySubmission(attemptQuestions, submission, mode);
 
   if (filteredQuestions.length === 0) {
     throw new Error(
@@ -173,7 +242,20 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     console.warn("Could not get or create student folder:", fErr);
   }
 
-  // Re-index question orders and assign distinct unique IDs
+  const docRef = doc(collection(db, EXAMS_COLLECTION));
+
+  // Reconstruct relevant sections for the retake exam
+  const activeSectionIds = new Set(filteredQuestions.map((q) => q.sectionId).filter(Boolean));
+  const relevantSections: Section[] = masterSections
+    .filter((sec) => activeSectionIds.has(sec.id))
+    .map((sec, idx) => ({
+      ...sec,
+      order: idx,
+      examId: docRef.id,
+      questionCount: filteredQuestions.filter((q) => q.sectionId === sec.id).length,
+    }));
+
+  // Re-index question orders and assign distinct unique IDs while preserving individual constraints
   const cleanExam = String(examId).replace(/[^a-zA-Z0-9_-]/g, "_");
   const preparedQuestions: Question[] = filteredQuestions.map((q, idx) => {
     const origId = (q as any).originalQuestionId || q.id || `q_${idx + 1}`;
@@ -182,9 +264,13 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     return {
       ...q,
       id: uniqueId,
-      order: idx,
+      order: q.order !== undefined ? q.order : idx,
+      sectionId: q.sectionId && activeSectionIds.has(q.sectionId) ? q.sectionId : null,
       originalExamId: examId,
       originalQuestionId: origId,
+      pinQuestion: q.pinQuestion ?? false,
+      shuffleOptions: q.shuffleOptions !== false,
+      shuffleStatements: q.shuffleStatements !== false,
     };
   });
 
@@ -202,7 +288,6 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     ? options.customDuration
     : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
 
-  const docRef = doc(collection(db, EXAMS_COLLECTION));
   const newExamData = {
     title: `[${modeLabel}] ${originalExam.title || submission.examTitleSnapshot || "Đề thi"}`,
     code: `RETAKE_${Date.now().toString().slice(-4)}`,
@@ -216,7 +301,7 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     totalQuestions: preparedQuestions.length,
     maxScore: originalExam.maxScore || 10,
     questions: preparedQuestions,
-    sections: [],
+    sections: relevantSections,
     status: "unlisted" as const,
     visibility: "unlisted" as const,
     isPublic: false,
@@ -225,8 +310,10 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
     creatorUsername: studentIdentifier,
     creatorRole: "student",
     originalExamId: examId,
-    shuffleQuestions: false,
-    shuffleOptions: originalExam.shuffleOptions ?? false,
+    shuffleQuestions: inheritShuffleQuestions,
+    shuffleOptions: inheritShuffleOptions,
+    shuffleSections: inheritShuffleSections,
+    shuffleStatements: inheritShuffleStatements,
     showResults: true,
     showDetails: true,
     allowSubExam: false,
@@ -399,8 +486,9 @@ export async function createAggregatedReviewExam(
     sourceExamCount: items.length,
     creatorUsername: studentIdentifier,
     creatorRole: "student",
-    shuffleQuestions: false,
-    shuffleOptions: false,
+    shuffleQuestions: Boolean(shuffleQuestions),
+    shuffleOptions: true,
+    shuffleStatements: true,
     showResults: true,
     showDetails: true,
     allowSubExam: false,

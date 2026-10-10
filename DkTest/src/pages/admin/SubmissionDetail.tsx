@@ -34,6 +34,7 @@ import {
   regradeExamSubmissions,
   RegradeResult,
 } from "../../services/regradeService";
+import QuestionMapNavigator from "../../components/exam/QuestionMapNavigator";
 
 export default function SubmissionDetail() {
   const location = useLocation();
@@ -226,8 +227,8 @@ export default function SubmissionDetail() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto pb-12">
-      {/* Top navigation & Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+      {/* Top navigation & Action Bar - Sticky Layer */}
+      <div className="sticky top-2 z-40 bg-white/95 backdrop-blur-md border border-slate-200/80 p-3 rounded-2xl shadow-sm transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
         <Link
           to={examId ? `/admin/exams/${examId}/submissions` : "/admin/submissions"}
           className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
@@ -442,6 +443,22 @@ export default function SubmissionDetail() {
 
         return (
           <div className="space-y-4">
+            {/* Sơ đồ câu hỏi trực quan (Question Map Navigator) */}
+            {rawActiveQuestions.length > 0 && (
+              <div className="no-print">
+                <QuestionMapNavigator
+                  questions={rawActiveQuestions}
+                  answers={submission.answers || {}}
+                  timing={submission.questionTiming}
+                  targetPrefix="admin-q-card-"
+                  onSelectQuestion={(_idx, _q) => {
+                    setFilterStatus("all");
+                    setSearchQuery("");
+                  }}
+                />
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <h2 className="text-lg font-bold text-slate-900">Chi tiết từng câu hỏi trong bài làm</h2>
               <span className="text-xs text-slate-500 font-medium">Hiển thị {filteredQuestions.length} / {rawActiveQuestions.length} câu</span>
@@ -537,24 +554,29 @@ export default function SubmissionDetail() {
                   isCorrect = !!(studentAns && accepted.includes(String(studentAns).trim().toLowerCase()));
                 }
 
-            return (
-              <div
-                key={q.id}
-                className={`p-5 rounded-2xl border transition-all ${
-                  isCorrect
-                    ? "bg-white border-emerald-200"
-                    : "bg-white border-red-200"
-                }`}
-              >
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`w-7 h-7 rounded-xl font-bold text-xs flex items-center justify-center text-white ${
-                        isCorrect ? "bg-emerald-600" : "bg-red-500"
-                      }`}
-                    >
-                      {idx + 1}
-                    </span>
+                const actualIdx = rawActiveQuestions.findIndex((item) => item.id === q.id);
+                const displayIdx = actualIdx >= 0 ? actualIdx : idx;
+
+                return (
+                  <div
+                    id={`admin-q-card-${q.id}`}
+                    data-card-idx={`admin-q-card-${displayIdx}`}
+                    key={q.id}
+                    className={`p-5 rounded-2xl border transition-all scroll-mt-24 ${
+                      isCorrect
+                        ? "bg-white border-emerald-200"
+                        : "bg-white border-red-200"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`w-7 h-7 rounded-xl font-bold text-xs flex items-center justify-center text-white ${
+                            isCorrect ? "bg-emerald-600" : "bg-red-500"
+                          }`}
+                        >
+                          {displayIdx + 1}
+                        </span>
                     <span className="font-bold text-xs uppercase tracking-wider text-slate-500">
                       {q.type === "single_choice" && "Trắc nghiệm 1 đáp án"}
                       {q.type === "multiple_choice" && "Nhiều đáp án"}

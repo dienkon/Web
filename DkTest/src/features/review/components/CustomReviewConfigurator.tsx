@@ -286,9 +286,9 @@ export default function CustomReviewConfigurator({
   const hasSubmissions = sources.some((s) => s.hasAttempt && s.submission);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div
-        className="bg-white border border-slate-200/90 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[92vh] flex flex-col overflow-hidden transition-all transform animate-in zoom-in-95 duration-200"
+        className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90dvh] sm:max-h-[85vh] flex flex-col overflow-hidden transition-all transform animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

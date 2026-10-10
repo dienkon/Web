@@ -245,11 +245,47 @@ export default function ExamEditor({ isNew }: { isNew?: boolean }) {
               <input 
                 type="checkbox" 
                 checked={exam.allowSubExam || false}
-                onChange={(e) => handleChange("allowSubExam", e.target.checked)}
+                onChange={(e) => {
+                  const val = e.target.checked;
+                  handleChange("allowSubExam", val);
+                  if (val && (!exam.subExamConfig || !exam.subExamConfig.enabled)) {
+                    handleChange("subExamConfig", {
+                      ...(exam.subExamConfig || {}),
+                      enabled: true,
+                      selectionMode: "by_type"
+                    });
+                  }
+                }}
                 className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
               />
-              <span className="text-slate-700 font-medium">Cho phép làm đề con</span>
+              <span className="text-slate-700 font-medium">Cho phép làm đề con (Sub-Exam)</span>
             </label>
+
+            {exam.allowSubExam && (
+              <div className="mt-3 p-3 bg-purple-50/70 border border-purple-200 rounded-xl space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-purple-900">Số lượng câu hỏi đề con:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    value={exam.subExamConfig?.totalQuestionCount || exam.subExamConfig?.numberOfQuestions || exam.subExamConfig?.questionCount || ""}
+                    onChange={(e) => {
+                      const count = e.target.value ? parseInt(e.target.value) : undefined;
+                      handleChange("subExamConfig", {
+                        ...(exam.subExamConfig || { selectionMode: "by_type" }),
+                        enabled: true,
+                        totalQuestionCount: count,
+                        numberOfQuestions: count,
+                        questionCount: count,
+                      });
+                    }}
+                    placeholder="Bỏ trống: Tất cả"
+                    className="w-32 px-2.5 py-1.5 bg-white border border-purple-300 rounded-lg text-xs font-bold text-center"
+                  />
+                </div>
+                <p className="text-[11px] text-purple-700">Hệ thống sẽ tự động bốc ngẫu nhiên số lượng câu hỏi này cho mỗi lượt làm bài của thí sinh.</p>
+              </div>
+            )}
             
             <div className="mt-4">
               <label className="block text-sm font-medium text-slate-700 mb-1">Số lần làm tối đa (0 = vô hạn)</label>

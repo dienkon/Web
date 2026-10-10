@@ -1,25 +1,26 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * World3DViewport: Immersive 3D Floating-Island Expedition Canvas for DkTEST
- * Supports interactive camera (pan, zoom, reset), 3D perspective pitch,
- * subject atmospheres adapting to Light & Dark modes, quality profiles,
- * and multi-layered floating island archetypes.
+ * World3DViewport: Immersive Gamified Learning Journey World for DkTEST
+ * Features:
+ * - Natural vertical scrolling (standard mouse wheel, trackpad, and touch swipe)
+ * - Progressive road/line reveal following scroll progress
+ * - 3D bouncy / juicy pop "úng ính" spring animations on nodes as you reach them
+ * - Colorful, vibrant world decorations: Tropical Beach, Floating Islands, Vibrant Town
+ * - 3D isometric perspective pitch & camera zoom controls
  */
 
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import React, { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import {
   ZoomIn,
   ZoomOut,
   RotateCcw,
   Compass,
-  Sparkles,
   Play,
   Check,
   Lock,
   Award,
   ShieldCheck,
-  ChevronRight,
   Sliders,
 } from "lucide-react";
 import type {
@@ -28,6 +29,7 @@ import type {
   QualityProfile,
   SubjectThemeType,
 } from "../types/journey3D";
+import { JourneyWorldDecorations } from "./JourneyWorldDecorations";
 
 interface Props {
   nodes: Journey3DNode[];
@@ -52,21 +54,19 @@ export default function World3DViewport({
   reducedMotion = false,
   ambientParticles = true,
 }: Props) {
-  // Camera state: zoom, pan offset (x, y), pitch angle
+  // Camera state: zoom scale and pitch angle
   const [camera, setCamera] = useState<CameraState>({
     x: 0,
     y: 0,
     zoom: 1,
-    pitch: 20, // 20-degree isometric tilt for depth
+    pitch: quality === "fallback" ? 0 : 18,
   });
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const isDraggingRef = useRef<boolean>(false);
-  const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const touchOriginRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const touchDecidedRef = useRef<boolean>(false);
+  const [scrollTop, setScrollTop] = useState<number>(0);
+  const [containerHeight, setContainerHeight] = useState<number>(680);
 
-  // Subject Atmospheric theme (both light and dark compatible)
+  // Subject atmospheric styling
   const theme = useMemo(() => {
     switch (activeSubject) {
       case "physics":
@@ -103,114 +103,104 @@ export default function World3DViewport({
     }
   }, [activeSubject]);
 
-  // Handle Pan Dragging (Mouse & Touch)
-  const handleMouseDown = (e: React.MouseEvent) => {
-    isDraggingRef.current = true;
-    dragStartRef.current = { x: e.clientX - camera.x, y: e.clientY - camera.y };
+  const totalWorldHeight = useMemo(() => {
+    if (nodes.length === 0) return 1200;
+    return nodes[nodes.length - 1].y + 400;
+  }, [nodes]);
+
+  // Track natural container scroll
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    setScrollTop(e.currentTarget.scrollTop);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDraggingRef.current) return;
-    setCamera((prev) => ({
-      ...prev,
-      x: e.clientX - dragStartRef.current.x,
-      y: e.clientY - dragStartRef.current.y,
-    }));
-  };
-
-  const handleMouseUp = () => {
-    isDraggingRef.current = false;
-  };
-
-  // Touch Support for mobile with vertical scroll preservation
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchOriginRef.current = {
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-      };
-      touchDecidedRef.current = false;
-      dragStartRef.current = {
-        x: e.touches[0].clientX - camera.x,
-        y: e.touches[0].clientY - camera.y,
-      };
+  useEffect(() => {
+    if (containerRef.current) {
+      setContainerHeight(containerRef.current.clientHeight);
     }
-  };
+  }, []);
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (e.touches.length !== 1) return;
-
-    if (!touchDecidedRef.current) {
-      const dx = Math.abs(e.touches[0].clientX - touchOriginRef.current.x);
-      const dy = Math.abs(e.touches[0].clientY - touchOriginRef.current.y);
-
-      // If predominantly vertical gesture, allow native page scroll
-      if (dy > dx && dy > 8) {
-        isDraggingRef.current = false;
-        touchDecidedRef.current = true;
-        return;
-      } else if (dx > 8 || dy > 8) {
-        isDraggingRef.current = true;
-        touchDecidedRef.current = true;
-      }
+  // Jump / Focus to current level
+  const handleFocusCurrent = useCallback(() => {
+    const currentNode = nodes.find((n) => n.level === currentLevel);
+    if (currentNode && containerRef.current) {
+      const targetY = Math.max(0, currentNode.y - containerRef.current.clientHeight / 2 + 50);
+      containerRef.current.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+      onSelectNode(currentNode);
     }
+  }, [nodes, currentLevel, onSelectNode]);
 
-    if (!isDraggingRef.current) return;
-
-    setCamera((prev) => ({
-      ...prev,
-      x: e.touches[0].clientX - dragStartRef.current.x,
-      y: e.touches[0].clientY - dragStartRef.current.y,
-    }));
-  };
-
-  const handleTouchEnd = () => {
-    isDraggingRef.current = false;
-    touchDecidedRef.current = false;
-  };
+  // Auto smooth scroll to current level on load or subject change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleFocusCurrent();
+    }, 180);
+    return () => clearTimeout(timer);
+  }, [activeSubject, currentLevel, handleFocusCurrent]);
 
   // Zoom controls
   const handleZoom = (delta: number) => {
     setCamera((prev) => ({
       ...prev,
-      zoom: Math.min(1.4, Math.max(0.65, prev.zoom + delta)),
+      zoom: Math.min(1.35, Math.max(0.75, Number((prev.zoom + delta).toFixed(2)))),
     }));
   };
 
   const handleResetCamera = () => {
-    setCamera({ x: 0, y: 0, zoom: 1, pitch: quality === "fallback" ? 0 : 20 });
-  };
-
-  const handleFocusCurrent = () => {
-    const currentNode = nodes.find((n) => n.level === currentLevel);
-    if (currentNode) {
-      setCamera({
-        x: 0,
-        y: -(currentNode.y - 250),
-        zoom: 1.05,
-        pitch: quality === "fallback" ? 0 : 20,
-      });
-      onSelectNode(currentNode);
+    setCamera({
+      x: 0,
+      y: 0,
+      zoom: 1,
+      pitch: quality === "fallback" ? 0 : 18,
+    });
+    if (containerRef.current) {
+      containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  // Focus on current level when subject changes
-  useEffect(() => {
-    handleFocusCurrent();
-  }, [activeSubject]);
-
-  const totalWorldHeight = useMemo(() => {
-    if (nodes.length === 0) return 1000;
-    return nodes[nodes.length - 1].y + 350;
-  }, [nodes]);
+  // Dynamic progressive line reveal threshold
+  // As the user scrolls downwards, any element above visibleLead gets progressively drawn and activated
+  const visibleLead = scrollTop + containerHeight * 0.88;
 
   return (
-    <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 select-none transition-colors">
+    <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 select-none transition-colors">
+      {/* 3D Juicy Bouncy Pop Spring Physics CSS */}
+      <style>{`
+        @keyframes pop3dJelly {
+          0% {
+            transform: perspective(600px) scale3d(0.65, 0.65, 1) translateY(24px) rotateX(25deg);
+            opacity: 0.3;
+          }
+          55% {
+            transform: perspective(600px) scale3d(1.22, 1.18, 1) translateY(-14px) rotateX(-12deg);
+            opacity: 1;
+          }
+          75% {
+            transform: perspective(600px) scale3d(0.92, 0.95, 1) translateY(4px) rotateX(6deg);
+          }
+          90% {
+            transform: perspective(600px) scale3d(1.06, 1.04, 1) translateY(-2px) rotateX(-2deg);
+          }
+          100% {
+            transform: perspective(600px) scale3d(1, 1, 1) translateY(0) rotateX(0deg);
+            opacity: 1;
+          }
+        }
+        .node-pop-active {
+          animation: pop3dJelly 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .road-path-draw {
+          transition: stroke-dashoffset 0.35s ease-out;
+        }
+      `}</style>
+
       {/* 1. HUD Floating Controls Bar */}
-      <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 z-30 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
-        {/* Left: Quality Switcher */}
-        <div className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-md text-xs">
-          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 px-1 sm:px-2 flex items-center gap-1">
+      <div className="sticky top-3 sm:top-4 z-40 px-3 sm:px-4 flex items-center justify-between gap-2 pointer-events-none mb-[-52px]">
+        {/* Left: Quality Profile Switcher */}
+        <div className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-md text-xs">
+          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 px-1 sm:px-1.5 flex items-center gap-1">
             <Sliders className="w-3 h-3 text-indigo-500" />
             <span className="hidden sm:inline">Đồ họa:</span>
           </span>
@@ -223,7 +213,6 @@ export default function World3DViewport({
                   ? "bg-indigo-600 text-white shadow-xs"
                   : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
               }`}
-              aria-label={`Chọn cấu hình đồ họa ${q}`}
             >
               {q === "fallback" ? "2D" : q}
             </button>
@@ -231,22 +220,20 @@ export default function World3DViewport({
         </div>
 
         {/* Right: Camera Tools */}
-        <div className="pointer-events-auto flex items-center gap-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-md">
+        <div className="pointer-events-auto flex items-center gap-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-md">
           <button
             type="button"
             onClick={() => handleZoom(0.15)}
-            className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
             title="Phóng to"
-            aria-label="Phóng to bản đồ"
           >
             <ZoomIn className="w-4 h-4" />
           </button>
           <button
             type="button"
             onClick={() => handleZoom(-0.15)}
-            className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
             title="Thu nhỏ"
-            aria-label="Thu nhỏ bản đồ"
           >
             <ZoomOut className="w-4 h-4" />
           </button>
@@ -254,9 +241,8 @@ export default function World3DViewport({
           <button
             type="button"
             onClick={handleFocusCurrent}
-            className="h-9 sm:h-10 px-2.5 sm:px-3 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 rounded-xl transition-all flex items-center gap-1 cursor-pointer"
-            title="Chuyển tới Màn hiện tại"
-            aria-label={`Chuyển tới Màn ${currentLevel}`}
+            className="h-8 sm:h-9 px-2.5 sm:px-3 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 rounded-xl transition-all flex items-center gap-1 cursor-pointer"
+            title="Cuộn tới Màn hiện tại"
           >
             <Compass className="w-3.5 h-3.5" />
             <span>Màn {currentLevel}</span>
@@ -264,57 +250,52 @@ export default function World3DViewport({
           <button
             type="button"
             onClick={handleResetCamera}
-            className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
-            title="Đặt lại góc nhìn"
-            aria-label="Đặt lại góc nhìn ban đầu"
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+            title="Về đầu trang"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* 2. Interactive World Viewport */}
+      {/* 2. Natural Vertical Scroll Container */}
       <div
         ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        className="relative w-full h-[52vh] min-h-[380px] max-h-[620px] md:h-[620px] overflow-hidden cursor-grab active:cursor-grabbing bg-gradient-to-b from-slate-100 via-slate-50 to-white dark:from-slate-900 dark:via-slate-950 dark:to-black"
-        style={{ perspective: quality === "fallback" ? "none" : "1100px" }}
+        onScroll={handleScroll}
+        className="relative w-full h-[68vh] min-h-[460px] max-h-[760px] md:h-[740px] overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700 bg-gradient-to-b from-slate-100 via-slate-50 to-white dark:from-slate-900 dark:via-slate-950 dark:to-black"
+        style={{
+          perspective: quality === "fallback" ? "none" : "1200px",
+        }}
       >
-        {/* Background Depth Atmosphere */}
-        <div className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-40 transition-opacity">
-          {/* Light sky gradient */}
-          <div className={`w-full h-full bg-gradient-to-b ${theme.skyLight} dark:hidden`} />
-          {/* Dark sky gradient */}
-          <div className={`w-full h-full bg-gradient-to-b ${theme.skyDark} hidden dark:block`} />
+        {/* Background Depth Sky & Perspective Grid Floor */}
+        <div className="sticky top-0 h-0 pointer-events-none z-0">
+          <div className="h-[740px] w-full relative">
+            <div className={`w-full h-full bg-gradient-to-b ${theme.skyLight} dark:hidden opacity-70`} />
+            <div className={`w-full h-full bg-gradient-to-b ${theme.skyDark} hidden dark:block opacity-50`} />
 
-          {/* Perspective Grid Floor */}
-          <div
-            className="absolute inset-0 opacity-20 dark:opacity-15"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
-            }}
-          />
+            {/* Depth perspective grid */}
+            <div
+              className="absolute inset-0 opacity-20 dark:opacity-15 pointer-events-none"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+                backgroundSize: "60px 60px",
+              }}
+            />
+          </div>
         </div>
 
-        {/* Floating Formulas / Atmospheric Depth Objects */}
+        {/* Floating Science Formulas in atmosphere */}
         {!reducedMotion && ambientParticles && quality !== "low" && quality !== "fallback" && (
-          <div className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-20 select-none overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-20 select-none overflow-hidden" style={{ height: `${totalWorldHeight}px` }}>
             {theme.formulas.map((f, idx) => (
               <div
                 key={idx}
-                className="absolute font-serif text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wider animate-float-slow"
+                className="absolute font-serif text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wider animate-pulse"
                 style={{
-                  left: `${(idx * 28 + 10) % 85}%`,
-                  top: `${(idx * 160 + 50) % 600}px`,
-                  animationDelay: `${idx * 1.5}s`,
+                  left: `${(idx * 28 + 12) % 85}%`,
+                  top: `${(idx * 340 + 100) % totalWorldHeight}px`,
+                  animationDuration: `${3 + idx * 0.5}s`,
                 }}
               >
                 {f}
@@ -323,22 +304,33 @@ export default function World3DViewport({
           </div>
         )}
 
-        {/* 3D Transform Layer: holds islands & roads */}
+        {/* 3D World Transform Stage */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 w-full max-w-lg transition-transform duration-100 ease-out origin-center"
+          className="relative left-1/2 -translate-x-1/2 w-full max-w-xl transition-transform duration-200 ease-out origin-top"
           style={{
-            transform: `translate3d(${camera.x}px, ${camera.y}px, 0) scale(${camera.zoom}) rotateX(${
+            transform: `scale(${camera.zoom}) rotateX(${
               quality === "fallback" || reducedMotion ? 0 : camera.pitch
             }deg)`,
             transformStyle: quality === "fallback" || reducedMotion ? "flat" : "preserve-3d",
             height: `${totalWorldHeight}px`,
           }}
         >
-          {/* SVG Connecting Road / Ribbon */}
+          {/* THEMATIC WORLD DECORATIONS: Beach, Island, Village */}
+          <JourneyWorldDecorations totalHeight={totalWorldHeight} />
+
+          {/* SVG Connecting Roads with Progressive Scroll Drawing */}
           <svg
-            className="absolute top-0 left-0 w-full pointer-events-none"
+            className="absolute top-0 left-0 w-full pointer-events-none z-10"
             style={{ height: `${totalWorldHeight}px` }}
           >
+            <defs>
+              <linearGradient id="roadGradientPassed" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#38bdf8" />
+                <stop offset="50%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#a855f7" />
+              </linearGradient>
+            </defs>
+
             {nodes.slice(0, nodes.length - 1).map((nodeA, idx) => {
               const nodeB = nodes[idx + 1];
               const x1 = (nodeA.x / 100) * 440 + 40;
@@ -350,34 +342,69 @@ export default function World3DViewport({
               const cy2 = y2 - 55;
               const isPassed = nodeB.level <= currentLevel;
 
+              // Progressive scroll reveal calculation
+              let revealRatio = 1;
+              if (!reducedMotion) {
+                if (visibleLead < y1) {
+                  revealRatio = 0;
+                } else if (visibleLead >= y2) {
+                  revealRatio = 1;
+                } else {
+                  revealRatio = Math.max(0, Math.min(1, (visibleLead - y1) / (y2 - y1)));
+                }
+              }
+
+              // Path string
+              const pathD = `M ${x1} ${y1} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${y2}`;
+              const shadowD = `M ${x1} ${y1 + 12} C ${x1} ${cy1 + 12}, ${x2} ${cy2 + 12}, ${x2} ${y2 + 12}`;
+              const strokeOffset = Math.round(100 - revealRatio * 100);
+
               return (
                 <g key={nodeA.id}>
                   {/* Road Shadow */}
                   {quality !== "low" && quality !== "fallback" && (
                     <path
-                      d={`M ${x1} ${y1 + 12} C ${x1} ${cy1 + 12}, ${x2} ${cy2 + 12}, ${x2} ${y2 + 12}`}
+                      d={shadowD}
                       fill="none"
                       className="stroke-slate-300/60 dark:stroke-slate-950"
                       strokeWidth="12"
                       strokeOpacity="0.4"
+                      pathLength={100}
+                      strokeDasharray="100"
+                      strokeDashoffset={strokeOffset}
                     />
                   )}
-                  {/* Main Road Ribbon */}
+
+                  {/* Underlay Guide Track */}
                   <path
-                    d={`M ${x1} ${y1} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${y2}`}
+                    d={pathD}
                     fill="none"
-                    stroke={isPassed ? theme.pathColor : "#94a3b8"}
-                    className={isPassed ? "" : "stroke-slate-400 dark:stroke-slate-700"}
+                    stroke="#cbd5e1"
+                    className="dark:stroke-slate-800"
                     strokeWidth="8"
                     strokeLinecap="round"
-                    strokeDasharray={isPassed ? "none" : "8,8"}
+                    strokeDasharray="6,6"
+                    opacity={0.6}
+                  />
+
+                  {/* Main Animated Ribbon Road (Reveals as user scrolls down) */}
+                  <path
+                    d={pathD}
+                    fill="none"
+                    stroke={isPassed ? "url(#roadGradientPassed)" : theme.pathColor}
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    className="road-path-draw"
+                    pathLength={100}
+                    strokeDasharray="100"
+                    strokeDashoffset={strokeOffset}
                   />
                 </g>
               );
             })}
           </svg>
 
-          {/* 3D Floating Island Nodes */}
+          {/* 3D Floating Island Nodes with Bouncy Pop Effect */}
           {nodes.map((node) => {
             const isCompleted = node.level < currentLevel;
             const isCurrent = node.level === currentLevel;
@@ -387,6 +414,9 @@ export default function World3DViewport({
             const posX = (node.x / 100) * 440 + 40;
             const posY = node.y;
 
+            // Trigger 3D bouncy pop when scrolled near the node
+            const isPopActivated = visibleLead >= posY - 80;
+
             return (
               <div
                 key={node.id}
@@ -394,25 +424,27 @@ export default function World3DViewport({
                   e.stopPropagation();
                   onSelectNode(node);
                 }}
-                className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95 group"
+                className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 hover:scale-115 active:scale-95 group z-20 ${
+                  isPopActivated ? "node-pop-active" : "opacity-30 scale-75"
+                }`}
                 style={{
                   left: `${posX}px`,
                   top: `${posY}px`,
                   transformStyle: "preserve-3d",
                 }}
               >
-                {/* 1. Ground Shadow */}
+                {/* 1. Ground Shadow with depth blur */}
                 {quality !== "low" && quality !== "fallback" && (
                   <div
-                    className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-20 h-8 rounded-full bg-slate-400/30 dark:bg-black/60 blur-md pointer-events-none"
+                    className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-20 h-8 rounded-full bg-slate-400/35 dark:bg-black/60 blur-md pointer-events-none transition-transform group-hover:scale-120"
                     style={{ transform: "rotateX(60deg)" }}
                   />
                 )}
 
-                {/* 2. Underside 3D Layer Bevel for physical depth */}
+                {/* 2. Underside 3D Layer Bevel for physical pop depth */}
                 {quality !== "fallback" && (
                   <div
-                    className={`absolute inset-x-1 -bottom-2 h-4 rounded-b-3xl pointer-events-none transition-all ${
+                    className={`absolute inset-x-1 -bottom-2.5 h-5 rounded-b-3xl pointer-events-none transition-all shadow-md ${
                       node.isBoss
                         ? "bg-amber-800 dark:bg-amber-950"
                         : node.isCheckpoint
@@ -426,47 +458,50 @@ export default function World3DViewport({
                   />
                 )}
 
-                {/* 3. Recommendation Beacon (For current active level) */}
+                {/* 3. Recommendation Beacon for current active level */}
                 {isCurrent && (
-                  <div className="absolute -top-14 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none animate-bounce-short z-20">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white shadow-lg tracking-wider uppercase whitespace-nowrap">
+                  <div className="absolute -top-14 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none animate-bounce z-30">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white shadow-xl tracking-wider uppercase whitespace-nowrap ring-2 ring-white/60">
                       Đích đến tiếp theo
                     </span>
-                    <div className="w-2 h-2 rotate-45 bg-indigo-600 -mt-1" />
+                    <div className="w-2.5 h-2.5 rotate-45 bg-indigo-600 -mt-1 shadow-xs" />
                   </div>
                 )}
 
-                {/* 4. Island Landmark Platform (Archetypes: Boss, Checkpoint, Completed, Current, Locked) */}
+                {/* 4. Island Landmark Platform (Juicy 3D Pop & Glossy Sheen) */}
                 <div
-                  className={`relative flex flex-col items-center justify-center transition-all duration-300 rounded-3xl p-3 border ${
+                  className={`relative flex flex-col items-center justify-center transition-all duration-300 rounded-3xl p-3 border overflow-hidden ${
                     node.isBoss
-                      ? "w-24 h-24 bg-gradient-to-tr from-amber-600 via-orange-500 to-yellow-400 border-amber-300 shadow-amber-500/40 shadow-xl ring-4 ring-amber-400/30 text-white"
+                      ? "w-24 h-24 bg-gradient-to-tr from-amber-600 via-orange-500 to-yellow-400 border-amber-300 shadow-amber-500/50 shadow-2xl ring-4 ring-amber-400/40 text-white"
                       : node.isCheckpoint
-                      ? "w-22 h-22 bg-gradient-to-tr from-indigo-700 via-purple-600 to-pink-500 border-indigo-300 shadow-indigo-500/40 shadow-xl ring-2 ring-indigo-400/30 text-white"
+                      ? "w-22 h-22 bg-gradient-to-tr from-indigo-700 via-purple-600 to-pink-500 border-indigo-300 shadow-indigo-500/50 shadow-2xl ring-2 ring-indigo-400/40 text-white"
                       : isCompleted
-                      ? "w-18 h-18 bg-gradient-to-tr from-emerald-600 to-teal-500 border-emerald-300 shadow-emerald-500/30 shadow-lg text-white"
+                      ? "w-18 h-18 bg-gradient-to-tr from-emerald-600 to-teal-500 border-emerald-300 shadow-emerald-500/40 shadow-xl text-white"
                       : isCurrent
-                      ? "w-20 h-20 bg-gradient-to-tr from-indigo-600 via-blue-500 to-cyan-400 border-white shadow-cyan-500/40 shadow-xl ring-4 ring-indigo-400/40 text-white"
-                      : "w-16 h-16 bg-white/95 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-sm opacity-85"
-                  } ${isSelected ? "ring-4 ring-cyan-400 scale-105" : ""}`}
+                      ? "w-20 h-20 bg-gradient-to-tr from-indigo-600 via-blue-500 to-cyan-400 border-white shadow-cyan-500/50 shadow-2xl ring-4 ring-indigo-400/50 text-white"
+                      : "w-16 h-16 bg-white/95 dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-md opacity-90"
+                  } ${isSelected ? "ring-4 ring-cyan-400 scale-110 shadow-cyan-400/50" : ""}`}
                 >
+                  {/* Glossy 3D Reflection overlay for "úng ính" shine */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/35 via-transparent to-black/10 pointer-events-none rounded-3xl" />
+
                   {/* Floating Icon inside Podium */}
                   {node.isBoss ? (
-                    <Award className="w-10 h-10 text-white drop-shadow-md animate-pulse" />
+                    <Award className="w-10 h-10 text-white drop-shadow-md animate-pulse relative z-10" />
                   ) : node.isCheckpoint ? (
-                    <ShieldCheck className="w-8 h-8 text-white drop-shadow-md" />
+                    <ShieldCheck className="w-8 h-8 text-white drop-shadow-md relative z-10" />
                   ) : isCompleted ? (
-                    <Check className="w-7 h-7 text-white stroke-[3]" />
+                    <Check className="w-7 h-7 text-white stroke-[3] drop-shadow-xs relative z-10" />
                   ) : isCurrent ? (
-                    <Play className="w-8 h-8 text-white fill-white ml-0.5 animate-pulse" />
+                    <Play className="w-8 h-8 text-white fill-white ml-0.5 animate-pulse relative z-10" />
                   ) : (
-                    <Lock className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                    <Lock className="w-5 h-5 text-slate-400 dark:text-slate-500 relative z-10" />
                   )}
 
                   {/* Level Number */}
                   <span
-                    className={`text-[10px] font-black mt-0.5 tracking-wider font-mono ${
-                      isLocked ? "text-slate-600 dark:text-slate-400" : "text-white"
+                    className={`text-[10px] font-black mt-0.5 tracking-wider font-mono relative z-10 ${
+                      isLocked ? "text-slate-600 dark:text-slate-400" : "text-white drop-shadow-xs"
                     }`}
                   >
                     Màn {node.level}
@@ -474,13 +509,13 @@ export default function World3DViewport({
                 </div>
 
                 {/* 5. Island Floating Label */}
-                <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 pointer-events-none text-center z-10">
+                <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 pointer-events-none text-center z-20">
                   <span
-                    className={`text-[10px] font-bold px-2 sm:px-2.5 py-0.5 rounded-full border shadow-xs transition-colors max-w-[110px] sm:max-w-[150px] truncate block ${
+                    className={`text-[10px] font-bold px-2 sm:px-2.5 py-0.5 rounded-full border shadow-md transition-colors max-w-[110px] sm:max-w-[150px] truncate block ${
                       isCurrent
                         ? "bg-indigo-600 text-white border-indigo-500"
                         : isCompleted
-                        ? "bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                        ? "bg-emerald-50 dark:bg-emerald-950/90 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
                         : "bg-white/95 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800"
                     }`}
                   >

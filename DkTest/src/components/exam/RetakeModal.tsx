@@ -12,7 +12,7 @@ import {
   HelpCircle,
   Clock,
 } from "lucide-react";
-import type { Exam, Submission, Question } from "../../types";
+import type { Exam, Submission, Question, Section } from "../../types";
 import { createRetakeExam } from "../../services/reviewExamService";
 import { useToast } from "../ui/ToastNotification";
 import CustomReviewConfigurator from "../../features/review/components/CustomReviewConfigurator";
@@ -24,6 +24,7 @@ export interface RetakeModalProps {
   exam: Exam | null;
   submission: Submission | null;
   questions?: Question[];
+  sections?: Section[];
 }
 
 export default function RetakeModal({
@@ -32,6 +33,7 @@ export default function RetakeModal({
   exam,
   submission,
   questions,
+  sections,
 }: RetakeModalProps) {
   const navigate = useNavigate();
   const { error: showErrorToast, success: showSuccessToast } = useToast();
@@ -129,6 +131,7 @@ export default function RetakeModal({
         submission,
         mode: selectedMode,
         questions,
+        sections,
         durationMode,
       });
 
@@ -151,22 +154,22 @@ export default function RetakeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div
-        className="bg-white border border-slate-200/90 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden transition-all transform animate-in zoom-in-95 duration-200"
+        className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-2xl max-w-lg w-full max-h-[90dvh] sm:max-h-[85vh] flex flex-col overflow-hidden transition-all transform animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between p-5 sm:p-6 pb-4 border-b border-slate-100 bg-linear-to-b from-slate-50/70 to-white">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200/60 flex items-center justify-center text-blue-600 shrink-0 shadow-2xs">
-              <RotateCcw className="w-5 h-5" />
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-linear-to-b from-slate-50/70 to-white shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-blue-50 border border-blue-200/60 flex items-center justify-center text-blue-600 shrink-0 shadow-2xs">
+              <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">
                 Làm lại bài thi
               </h3>
-              <p className="text-xs text-slate-500 font-medium truncate max-w-[280px] sm:max-w-sm">
+              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate max-w-[200px] xs:max-w-[260px] sm:max-w-sm">
                 {submission?.examTitleSnapshot || exam?.title || "Bài kiểm tra"}
               </p>
             </div>
@@ -176,15 +179,15 @@ export default function RetakeModal({
             type="button"
             onClick={onClose}
             disabled={isStarting}
-            className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all cursor-pointer disabled:opacity-50"
+            className="p-1.5 sm:p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all cursor-pointer disabled:opacity-50 shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Options Body */}
-        <div className="p-5 sm:p-6 space-y-3">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+        {/* Options Body - Scrollable */}
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-2.5 sm:space-y-3 overscroll-contain">
+          <p className="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mb-0.5">
             Chọn chế độ làm lại:
           </p>
 
@@ -193,15 +196,15 @@ export default function RetakeModal({
             type="button"
             onClick={() => setSelectedMode("all")}
             disabled={isStarting}
-            className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-3 ${
+            className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-2.5 ${
               selectedMode === "all"
                 ? "bg-blue-50/70 border-blue-500 ring-2 ring-blue-500/20 shadow-2xs"
                 : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/60"
             }`}
           >
-            <div className="flex items-start gap-3 min-w-0">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
               <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
                   selectedMode === "all"
                     ? "bg-blue-600 text-white shadow-2xs"
                     : "bg-slate-100 text-slate-600"
@@ -209,16 +212,16 @@ export default function RetakeModal({
               >
                 <RotateCcw className="w-4 h-4" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-slate-900">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900">
                     Làm lại toàn bộ bài
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
                     {totalQuestions} câu
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 line-clamp-2 sm:line-clamp-none">
                   Làm lại từ đầu toàn bộ các câu hỏi trong đề thi như một lượt thi mới.
                 </p>
               </div>
@@ -241,7 +244,7 @@ export default function RetakeModal({
               if (correctCount > 0) setSelectedMode("correct");
             }}
             disabled={correctCount === 0 || isStarting}
-            className={`w-full text-left p-4 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
+            className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-2.5 ${
               correctCount === 0
                 ? "bg-slate-50/50 border-slate-200/60 opacity-50 cursor-not-allowed"
                 : selectedMode === "correct"
@@ -249,9 +252,9 @@ export default function RetakeModal({
                 : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/60 cursor-pointer"
             }`}
           >
-            <div className="flex items-start gap-3 min-w-0">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
               <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
                   selectedMode === "correct"
                     ? "bg-emerald-600 text-white shadow-2xs"
                     : "bg-emerald-50 text-emerald-600"
@@ -259,13 +262,13 @@ export default function RetakeModal({
               >
                 <CheckCircle2 className="w-4 h-4" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-slate-900">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900">
                     Làm lại các câu đúng
                   </span>
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
                       correctCount > 0
                         ? "bg-emerald-100 text-emerald-800"
                         : "bg-slate-100 text-slate-400"
@@ -274,7 +277,7 @@ export default function RetakeModal({
                     {correctCount} câu đúng
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 line-clamp-2 sm:line-clamp-none">
                   {correctCount > 0
                     ? "Củng cố kiến thức và rèn luyện tốc độ với các câu bạn đã trả lời đúng."
                     : "Bạn chưa có câu trả lời đúng nào trong lượt thi này."}
@@ -299,7 +302,7 @@ export default function RetakeModal({
               if (wrongCount > 0) setSelectedMode("wrong");
             }}
             disabled={wrongCount === 0 || isStarting}
-            className={`w-full text-left p-4 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
+            className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-2.5 ${
               wrongCount === 0
                 ? "bg-slate-50/50 border-slate-200/60 opacity-50 cursor-not-allowed"
                 : selectedMode === "wrong"
@@ -307,9 +310,9 @@ export default function RetakeModal({
                 : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/60 cursor-pointer"
             }`}
           >
-            <div className="flex items-start gap-3 min-w-0">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
               <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
                   selectedMode === "wrong"
                     ? "bg-rose-600 text-white shadow-2xs"
                     : "bg-rose-50 text-rose-600"
@@ -317,13 +320,13 @@ export default function RetakeModal({
               >
                 <XCircle className="w-4 h-4" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-slate-900">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900">
                     Làm lại câu sai
                   </span>
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
                       wrongCount > 0
                         ? "bg-rose-100 text-rose-800 font-extrabold"
                         : "bg-slate-100 text-slate-400"
@@ -332,7 +335,7 @@ export default function RetakeModal({
                     {wrongCount} câu sai
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 line-clamp-2 sm:line-clamp-none">
                   {wrongCount > 0
                     ? "Tập trung giải quyết các câu bạn từng làm sai hoặc chưa hoàn thành."
                     : "Tuyệt vời! Bạn đã làm đúng tuyệt đối 100% trong bài thi này."}
@@ -355,15 +358,15 @@ export default function RetakeModal({
             type="button"
             onClick={() => setSelectedMode("custom")}
             disabled={isStarting}
-            className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-3 ${
+            className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-2.5 ${
               selectedMode === "custom"
                 ? "bg-linear-to-r from-indigo-50/90 to-purple-50/70 border-indigo-500 ring-2 ring-indigo-500/20 shadow-2xs"
                 : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/60"
             }`}
           >
-            <div className="flex items-start gap-3 min-w-0">
+            <div className="flex items-start gap-2.5 sm:gap-3 min-w-0">
               <div
-                className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
                   selectedMode === "custom"
                     ? "bg-linear-to-tr from-indigo-600 to-purple-600 text-white shadow-2xs"
                     : "bg-indigo-50 text-indigo-600"
@@ -371,16 +374,16 @@ export default function RetakeModal({
               >
                 <Sparkles className="w-4 h-4" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-slate-900">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900">
                     Làm lại với yêu cầu riêng
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-linear-to-r from-indigo-100 to-purple-100 text-indigo-800">
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-linear-to-r from-indigo-100 to-purple-100 text-indigo-800">
                     ✨ AI & Tùy biến
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 line-clamp-2 sm:line-clamp-none">
                   Chọn dạng câu hỏi, độ khó, hoặc nhập yêu cầu tự nhiên để Gemini tuyển chọn đề thi riêng cho bạn.
                 </p>
               </div>
@@ -398,13 +401,13 @@ export default function RetakeModal({
 
           {/* Quick Duration Selector (Unlimited vs 1.5 min/question) */}
           {selectedMode !== "custom" && (
-            <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl space-y-2 mt-2">
+            <div className="p-3 sm:p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl space-y-2 mt-1">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-blue-600" />
                   Thời gian làm bài:
                 </span>
-                <span className={`text-xs font-extrabold ${durationMode === "unlimited" ? "text-emerald-600" : "text-blue-600"}`}>
+                <span className={`text-[11px] sm:text-xs font-extrabold ${durationMode === "unlimited" ? "text-emerald-600" : "text-blue-600"}`}>
                   {durationMode === "unlimited"
                     ? "Vô hạn (Không giới hạn)"
                     : `${Math.round(totalQuestions * 1.5)} phút (1.5p/câu)`}
@@ -414,7 +417,7 @@ export default function RetakeModal({
                 <button
                   type="button"
                   onClick={() => setDurationMode("unlimited")}
-                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                  className={`py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     durationMode === "unlimited"
                       ? "bg-emerald-600 text-white border-emerald-600 shadow-2xs"
                       : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
@@ -425,7 +428,7 @@ export default function RetakeModal({
                 <button
                   type="button"
                   onClick={() => setDurationMode("auto")}
-                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                  className={`py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     durationMode === "auto"
                       ? "bg-blue-600 text-white border-blue-600 shadow-2xs"
                       : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
@@ -439,12 +442,12 @@ export default function RetakeModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-end gap-2.5 p-4 sm:p-5 border-t border-slate-100 bg-slate-50/60">
+        <div className="flex items-center justify-end gap-2.5 p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
           <button
             type="button"
             onClick={onClose}
             disabled={isStarting}
-            className="px-4 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl transition-all cursor-pointer disabled:opacity-50"
+            className="px-4 py-2 sm:py-2.5 text-xs font-bold text-slate-600 hover:text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl transition-all cursor-pointer disabled:opacity-50"
           >
             Hủy
           </button>
@@ -453,7 +456,7 @@ export default function RetakeModal({
             type="button"
             onClick={handleStart}
             disabled={isStarting}
-            className="px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-xs flex items-center gap-2 cursor-pointer disabled:opacity-60"
+            className="px-4 sm:px-5 py-2 sm:py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-xs flex items-center gap-2 cursor-pointer disabled:opacity-60"
           >
             {isStarting ? (
               <>

@@ -8,7 +8,19 @@ export function buildSubExamAttempt(
   sections: Section[],
   config: SubExamConfig
 ) {
-  if (!config.enabled) {
+  if (!questions || questions.length === 0) {
+    return {
+      questions: [],
+      selectedQuestionIds: [],
+      questionOrder: [],
+      config: config || { enabled: false, selectionMode: "by_type" },
+      isSubExam: false,
+      stats: { available: 0, selected: 0 },
+    };
+  }
+
+  // If sub-exam is explicitly disabled
+  if (config && config.enabled === false) {
     return {
       questions,
       selectedQuestionIds: questions.map((q) => q.id),
@@ -19,8 +31,23 @@ export function buildSubExamAttempt(
     };
   }
 
-  const getCount = (count: number | undefined, available: number) => {
-    if (count === undefined) return 0;
+  const effectiveConfig: SubExamConfig = {
+    selectionMode: "by_type",
+    ...config,
+    enabled: true,
+  };
+
+  const targetTotal =
+    effectiveConfig.totalQuestionCount !== undefined && effectiveConfig.totalQuestionCount > 0
+      ? effectiveConfig.totalQuestionCount
+      : effectiveConfig.questionCount !== undefined && effectiveConfig.questionCount > 0
+      ? effectiveConfig.questionCount
+      : effectiveConfig.numberOfQuestions !== undefined && effectiveConfig.numberOfQuestions > 0
+      ? effectiveConfig.numberOfQuestions
+      : undefined;
+
+  const getCount = (count: number | undefined, available: number, defaultAll = true) => {
+    if (count === undefined) return defaultAll ? available : 0;
     if (count === -1) return available;
     if (count <= 0) return 0;
     return Math.min(count, available);
@@ -46,14 +73,28 @@ export function buildSubExamAttempt(
     const fillBlanks = pool.filter((q) => q.type === "fill_blank");
     const matchings = pool.filter((q) => q.type === "matching");
 
+    const hasAnyExplicitCount =
+      typeConfig.singleChoiceCount !== undefined ||
+      typeConfig.multipleChoiceCount !== undefined ||
+      typeConfig.trueFalseCount !== undefined ||
+      typeConfig.shortAnswerCount !== undefined ||
+      typeConfig.orderingCount !== undefined ||
+      typeConfig.fillBlankCount !== undefined ||
+      typeConfig.matchingCount !== undefined;
+
+    // If no type-specific count is defined and targetTotal is provided:
+    if (!hasAnyExplicitCount && targetTotal && targetTotal > 0) {
+      return pickRandom(pool, Math.min(targetTotal, pool.length));
+    }
+
     return [
       ...pickRandom(singles, getCount(typeConfig.singleChoiceCount, singles.length)),
       ...pickRandom(multiples, getCount(typeConfig.multipleChoiceCount, multiples.length)),
       ...pickRandom(tfs, getCount(typeConfig.trueFalseCount, tfs.length)),
       ...pickRandom(shorts, getCount(typeConfig.shortAnswerCount, shorts.length)),
-      ...pickRandom(orderings, getCount(typeConfig.orderingCount ?? -1, orderings.length)),
-      ...pickRandom(fillBlanks, getCount(typeConfig.fillBlankCount ?? -1, fillBlanks.length)),
-      ...pickRandom(matchings, getCount(typeConfig.matchingCount ?? -1, matchings.length)),
+      ...pickRandom(orderings, getCount(typeConfig.orderingCount, orderings.length)),
+      ...pickRandom(fillBlanks, getCount(typeConfig.fillBlankCount, fillBlanks.length)),
+      ...pickRandom(matchings, getCount(typeConfig.matchingCount, matchings.length)),
     ];
   };
 
@@ -74,27 +115,71 @@ export function buildSubExamAttempt(
 
   // Determine enabled sections
   const disabledSectionIds = new Set(
-    config.sections?.filter((s) => !s.enabled).map((s) => s.sectionId) || []
+    effectiveConfig.sections?.filter((s) => !s.enabled).map((s) => s.sectionId) || []
   );
   const candidateSections = sections.filter((s) => !disabledSectionIds.has(s.id));
 
   // If randomSectionsCount is set (e.g. pick 1 out of 3 sections)
   let chosenSections = candidateSections;
   if (
-    config.randomSectionsCount !== undefined &&
-    config.randomSectionsCount > 0 &&
-    config.randomSectionsCount < candidateSections.length
+    effectiveConfig.randomSectionsCount !== undefined &&
+    effectiveConfig.randomSectionsCount > 0 &&
+    effectiveConfig.randomSectionsCount < candidateSections.length
   ) {
-    chosenSections = pickRandom(candidateSections, config.randomSectionsCount);
+    chosenSections = pickRandom(candidateSections, effectiveConfig.randomSectionsCount);
   }
   const chosenSectionIds = new Set(chosenSections.map((s) => s.id));
 
-  if (config.selectionMode === "by_type") {
+  const isRandomTotalMode =
+    effectiveConfig.selectionMode === "random_total" ||
+    (targetTotal !== undefined &&
+      !effectiveConfig.sections?.length &&
+      effectiveConfig.singleChoiceCount === undefined &&
+      effectiveConfig.multipleChoiceCount === undefined &&
+      effectiveConfig.trueFalseCount === undefined &&
+      effectiveConfig.shortAnswerCount === undefined);
+
+  if (isRandomTotalMode) {
+    const eligiblePool = questions.filter(
+      (q) => !q.sectionId || chosenSectionIds.has(q.sectionId)
+    );
+    const countToPick = targetTotal ? Math.min(targetTotal, eligiblePool.length) : eligiblePool.length;
+    const pickedPool = pickRandom(eligiblePool, countToPick);
+
+    const outsideQs = pickedPool.filter((q) => !q.sectionId);
+    outsideQs.forEach((q) => {
+      candidateBlocks.push({
+        type: "question",
+        id: q.id,
+        order: q.order ?? 0,
+        isPinned: !!q.pinQuestion,
+        question: q,
+      });
+    });
+
+    chosenSections.forEach((sec) => {
+      const secQs = pickedPool.filter((q) => q.sectionId === sec.id);
+      if (secQs.length > 0) {
+        candidateBlocks.push({
+          type: "section",
+          id: sec.id,
+          order: sec.order ?? 0,
+          isPinned: !!sec.pinOrder,
+          section: sec,
+          questions: secQs,
+        });
+      }
+    });
+  } else if (effectiveConfig.selectionMode === "by_type") {
     // Only pool questions from outside OR from chosen sections
     const eligiblePool = questions.filter(
       (q) => !q.sectionId || chosenSectionIds.has(q.sectionId)
     );
-    const pickedPool = getQuestionsByType(eligiblePool, config);
+    let pickedPool = getQuestionsByType(eligiblePool, effectiveConfig);
+
+    if (targetTotal && targetTotal > 0 && pickedPool.length > targetTotal) {
+      pickedPool = pickRandom(pickedPool, targetTotal);
+    }
 
     // Build blocks from picked pool
     const outsideQs = pickedPool.filter((q) => !q.sectionId);
@@ -137,17 +222,17 @@ export function buildSubExamAttempt(
 
     // 2. Pick questions from each chosen section
     chosenSections.forEach((section) => {
-      const sectionConfig = config.sections?.find((s) => s.sectionId === section.id);
+      const sectionConfig = effectiveConfig.sections?.find((s) => s.sectionId === section.id);
       const sectionQuestions = questions.filter((q) => q.sectionId === section.id);
       let pickedSectionQuestions: Question[] = [];
 
-      if (config.selectionMode === "by_section") {
+      if (effectiveConfig.selectionMode === "by_section") {
         const countToPick =
-          sectionConfig?.questionCount !== undefined
+          sectionConfig?.questionCount !== undefined && sectionConfig.questionCount >= 0
             ? getCount(sectionConfig.questionCount, sectionQuestions.length)
             : sectionQuestions.length;
         pickedSectionQuestions = pickRandom(sectionQuestions, countToPick);
-      } else if (config.selectionMode === "by_section_and_type") {
+      } else if (effectiveConfig.selectionMode === "by_section_and_type") {
         if (sectionConfig) {
           pickedSectionQuestions = getQuestionsByType(sectionQuestions, sectionConfig);
         } else {
@@ -209,11 +294,18 @@ export function buildSubExamAttempt(
   finalQuestions.forEach((q) => uniqueQuestionsMap.set(q.id, q));
   finalQuestions = Array.from(uniqueQuestionsMap.values());
 
+  // ULTIMATE SAFETY GUARD: If for any reason zero questions were selected,
+  // fallback to pickRandom(questions, targetTotal || questions.length) instead of an empty exam!
+  if (finalQuestions.length === 0 && questions.length > 0) {
+    const fallbackCount = targetTotal && targetTotal > 0 ? Math.min(targetTotal, questions.length) : questions.length;
+    finalQuestions = pickRandom(questions, fallbackCount);
+  }
+
   return {
     questions: finalQuestions,
     selectedQuestionIds: finalQuestions.map((q) => q.id),
     questionOrder: finalQuestions.map((q) => q.id),
-    config,
+    config: effectiveConfig,
     isSubExam: true,
     stats: { available: questions.length, selected: finalQuestions.length },
   };

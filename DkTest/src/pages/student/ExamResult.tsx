@@ -60,6 +60,7 @@ import {
   computeProgressAccumulation,
 } from "../../utils/attemptAnalytics";
 import { useToast } from "../../components/ui/ToastNotification";
+import QuestionMapNavigator from "../../components/exam/QuestionMapNavigator";
 
 export default function ExamResult() {
   const { examId, submissionId } = useParams<{ examId: string; submissionId: string }>();
@@ -444,8 +445,8 @@ export default function ExamResult() {
     <div className="min-h-screen bg-slate-50/70 py-8 px-4 font-sans print:bg-white print:p-0">
       <div className="max-w-4xl w-full mx-auto space-y-6">
 
-        {/* Top Navigation Bar with Back & Word Export */}
-        <div className="flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/70 border border-slate-200/60 p-2.5 rounded-2xl shadow-2xs">
+        {/* Top Navigation Bar with Back & Word Export - Sticky for easy access */}
+        <div className="sticky top-2 z-40 flex items-center justify-between print:hidden flex-wrap gap-2 bg-white/95 backdrop-blur-md border border-slate-200/80 p-2.5 rounded-2xl shadow-sm transition-all">
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center gap-2 mr-1.5 group" title="Về trang chủ DkTEST">
               <img
@@ -988,6 +989,21 @@ export default function ExamResult() {
               examId={exam?.id || submission.examId}
               currentSubmissionId={submission.id}
               maxItems={10}
+            />
+          </div>
+        )}
+
+        {/* Sơ đồ câu hỏi trực quan (Question Map Navigator) */}
+        {allowShowDetails && rawActiveQuestions.length > 0 && (
+          <div className="print:hidden">
+            <QuestionMapNavigator
+              questions={rawActiveQuestions}
+              answers={submission.answers || {}}
+              timing={submission.questionTiming}
+              targetPrefix="q-result-card-"
+              onSelectQuestion={(_idx, _q) => {
+                setShowDetails(true);
+              }}
             />
           </div>
         )}
@@ -1875,6 +1891,7 @@ export default function ExamResult() {
         exam={exam}
         submission={submission}
         questions={originalQuestions}
+        sections={sections}
       />
 
       {/* Student Review Text Selection Floating Action Toolbar (Phát âm, Dịch & Phiên âm, Hỏi AI Tutor) */}

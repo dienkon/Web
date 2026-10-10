@@ -167,34 +167,44 @@ export default function ExamIntro() {
           document.title = t.toLowerCase().includes("dktest") ? t : `${t} | DkTEST`;
         }
 
-        if (foundExam?.allowSubExam && foundExam?.subExamConfig?.enabled) {
-          // If questions/sections are embedded in the exam doc
-          if (Array.isArray((foundExam as any).questions) && Array.isArray((foundExam as any).sections)) {
-            let qs = (foundExam as any).questions as Question[];
-            let ss = (foundExam as any).sections as Section[];
-            qs.sort((a,b) => (a.order || 0) - (b.order || 0));
-            ss.sort((a,b) => (a.order || 0) - (b.order || 0));
-            setSections(ss);
-            setQuestions(qs);
-          } else {
-             // Fallback for legacy
-            const [secs, qs] = await Promise.all([
-              FirestoreRepository.getQuery<Section>(
-                `exams/${foundExam.id}/sections`,
-                query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc")),
-                { ttlMs: 180000, caller: "ExamIntro:sections" }
-              ),
-              FirestoreRepository.getQuery<Question>(
+        const isSubExamAllowed = Boolean(foundExam?.allowSubExam || foundExam?.subExamConfig?.enabled);
+        if (isSubExamAllowed) {
+          let qs: Question[] = Array.isArray((foundExam as any).questions) ? (foundExam as any).questions : [];
+          let ss: Section[] = Array.isArray((foundExam as any).sections) ? (foundExam as any).sections : [];
+
+          if (qs.length === 0) {
+            try {
+              qs = await FirestoreRepository.getQuery<Question>(
                 `exams/${foundExam.id}/questions`,
                 query(collection(db, `exams/${foundExam.id}/questions`), orderBy("order", "asc")),
                 { ttlMs: 180000, caller: "ExamIntro:questions" }
-              ),
-            ]);
-            setSections(secs);
-            setQuestions(qs);
+              );
+            } catch (e) {}
           }
-          setSubExamConfig(foundExam.subExamConfig);
-          setUseSubExam(true);
+
+          if (ss.length === 0) {
+            try {
+              ss = await FirestoreRepository.getQuery<Section>(
+                `exams/${foundExam.id}/sections`,
+                query(collection(db, `exams/${foundExam.id}/sections`), orderBy("order", "asc")),
+                { ttlMs: 180000, caller: "ExamIntro:sections" }
+              );
+            } catch (e) {}
+          }
+
+          qs.sort((a, b) => (a.order || 0) - (b.order || 0));
+          ss.sort((a, b) => (a.order || 0) - (b.order || 0));
+          setSections(ss);
+          setQuestions(qs);
+
+          const initialConfig: SubExamConfig = {
+            selectionMode: "by_type",
+            ...(foundExam.subExamConfig || {}),
+            enabled: foundExam.subExamConfig?.enabled !== false,
+          };
+
+          setSubExamConfig(initialConfig);
+          setUseSubExam(initialConfig.enabled);
         }
       } catch (err) {
         console.error("Lỗi khi tải bài thi:", err);
@@ -333,10 +343,14 @@ export default function ExamIntro() {
     );
 
     // Save sub-exam preference
-    if (exam.allowSubExam) {
+    if (exam.allowSubExam || exam.subExamConfig?.enabled || useSubExam) {
+      const activeCfg = {
+        ...(subExamConfig || exam.subExamConfig || { selectionMode: "by_type" }),
+        enabled: useSubExam,
+      };
       localStorage.setItem(`custom_sub_exam_config_${exam.id}`, JSON.stringify({
         useSubExam,
-        config: subExamConfig
+        config: activeCfg,
       }));
     }
 
@@ -497,7 +511,7 @@ export default function ExamIntro() {
             )}
 
             {/* Student Custom Sub-Exam */}
-            {exam.allowSubExam && (
+            {(exam.allowSubExam || exam.subExamConfig?.enabled) && (
               <StudentSubExamConfig
                 useSubExam={useSubExam}
                 setUseSubExam={setUseSubExam}

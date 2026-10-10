@@ -13,7 +13,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { getChemicalHazardsAndPpe } from './engine/safetyEngine';
 const VfxGallery = React.lazy(() => import('./vfx/dev/VfxGallery').then(m => ({ default: m.VfxGallery })));
 const SimulationDebugPanel = React.lazy(() => import('./simulation/ui/SimulationDebugPanel').then(m => ({ default: m.SimulationDebugPanel })));
-const isDev = Boolean((import.meta as any).env?.DEV) || (typeof window !== 'undefined' && window.location.search.includes('dev=1'));
+const isDev = Boolean((import.meta as any).env?.DEV) || (typeof window !== 'undefined' && (window.location.search.includes('dev=1') || window.location.search.includes('vfx=1')));
 import { PourHUD } from './pour/hud/PourHUD';
 import { PourInput } from './pour/input/PourInput';
 import { ControlRing } from './ui/ControlRing';
