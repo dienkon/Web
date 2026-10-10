@@ -50,6 +50,10 @@ export default function ExamDetail() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const sectionTree = useMemo(() => {
+    return buildSectionTree(sections, questions);
+  }, [sections, questions]);
+
   useEffect(() => {
     if (!examId) return;
 
@@ -136,10 +140,6 @@ export default function ExamDetail() {
   }
 
   const studentLink = `${window.location.origin}/student/exam/${exam.id}`;
-
-  const sectionTree = useMemo(() => {
-    return buildSectionTree(sections, questions);
-  }, [sections, questions]);
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-12">

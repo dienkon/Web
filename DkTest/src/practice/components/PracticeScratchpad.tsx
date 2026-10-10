@@ -203,8 +203,6 @@ export default function PracticeScratchpad({ isOpen, onClose, title = "Bảng nh
     }
   }, [strokes]);
 
-  if (!isOpen) return null;
-
   const getCanvasCoords = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>): StrokePoint => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
@@ -579,6 +577,8 @@ export default function PracticeScratchpad({ isOpen, onClose, title = "Bảng nh
     currentStrokesRef.current = [];
     redrawCanvas();
   };
+
+  if (!isOpen) return null;
 
   const content = (
     <div
