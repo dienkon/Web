@@ -127,7 +127,7 @@ export function Community({
   // COMMUNITY GEMINI API
   // All Community AI features use one Vercel endpoint.
   // =========================================================
-  const COMMUNITY_API = "/api/gemini/community";
+  const COMMUNITY_API = "/api/gemini/community/";
 
   type CommunityChatResponse = {
     text?: string;

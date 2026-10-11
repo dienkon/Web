@@ -27,7 +27,7 @@ import LoadingState from "./components/LoadingState";
 import HistoryDrawer from "./components/HistoryDrawer";
 import Toast, { ToastMessage } from "./components/Toast";
 
-const API_URL = "/api/gemini/chain";
+const API_URL = "/api/gemini/chain/";
 
 const TAB_1_EXAMPLES = [
   "Fe -> FeCl2 -> Fe(OH)2 -> Fe(OH)3 -> Fe2O3",

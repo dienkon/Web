@@ -137,7 +137,7 @@ export default function App() {
     try {
       const geminiPromises = localResults.map(async (localRes) => {
         try {
-          const response = await fetch("/api/gemini/verify", {
+          const response = await fetch("/api/gemini/verify/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -235,7 +235,7 @@ export default function App() {
     const targetRes = currentResults[index];
 
     try {
-      const response = await fetch("/api/gemini/verify", {
+      const response = await fetch("/api/gemini/verify/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

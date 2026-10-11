@@ -1,27 +1,9 @@
-import { GoogleGenAI, Type } from "@google/genai";
-
-let ai: GoogleGenAI | null = null;
-
-function getAI() {
-  if (ai) return ai;
-
-  const apiKey = process.env.GEMINI_API_KEY?.trim();
-
-  if (!apiKey) {
-    throw new Error("Thiếu GEMINI_API_KEY trên Vercel.");
-  }
-
-  ai = new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        "User-Agent": "aistudio-build",
-      },
-    },
-  });
-
-  return ai;
-}
+import { Type } from "@google/genai";
+import {
+  callWithGeminiFallback,
+  generateContentWithModelFallback,
+  safeParseJson,
+} from "./client";
 
 const schema = {
   type: Type.OBJECT,
@@ -53,37 +35,29 @@ const schema = {
 };
 
 const MAIN_MODEL = "gemini-3.5-flash-lite";
-const FALLBACK_MODEL = "gemini-3.1-flash-lite";
 
 async function generate(prompt: string, systemInstruction: string) {
-  const client = getAI();
-
-  try {
-    return await client.models.generateContent({
-      model: MAIN_MODEL,
-      contents: prompt,
-      config: {
-        systemInstruction,
-        responseMimeType: "application/json",
-        responseSchema: schema,
-      },
-    });
-  } catch (error: any) {
-    console.warn(`${MAIN_MODEL} failed:`, error?.message);
-
-    return await client.models.generateContent({
-      model: FALLBACK_MODEL,
-      contents: prompt,
-      config: {
-        systemInstruction,
-        responseMimeType: "application/json",
-        responseSchema: schema,
-      },
-    });
-  }
+  return await callWithGeminiFallback(async (ai) => {
+    return await generateContentWithModelFallback(
+      ai,
+      MAIN_MODEL,
+      () => ({
+        contents: prompt,
+        config: {
+          systemInstruction,
+          responseMimeType: "application/json",
+          responseSchema: schema,
+        },
+      })
+    );
+  });
 }
 
 export default async function handler(req: any, res: any) {
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method Not Allowed",
@@ -91,7 +65,16 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const { action, chain, start, end, minSteps } = req.body ?? {};
+    let body = req.body;
+    if (typeof body === "string") {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        body = {};
+      }
+    }
+
+    const { action, chain, start, end, minSteps } = body ?? {};
 
     // =========================
     // ANALYZE
@@ -121,15 +104,20 @@ YÊU CẦU QUAN TRỌNG VỀ HÓA HỌC:
    - Ví dụ: "Fe + 2HCl \\xrightarrow{\\text{loãng}} FeCl_2 + H_2\\uparrow".
 6. Nếu chuỗi phản ứng đầu vào không hợp lệ hoặc chứa các phản ứng không thể thực hiện được trong thực tế, hãy trả về thông báo lỗi chi tiết ở trường "error" và không trả về mảng "steps".`;
 
-    const prompt = `Hãy phân tích chuỗi phản ứng hóa học sau đây: "${chain}"`;
+      const prompt = `Hãy phân tích chuỗi phản ứng hóa học sau đây: "${chain}"`;
 
       const response = await generate(prompt, systemInstruction);
 
-      if (!response.text) {
+      if (!response?.text) {
         throw new Error("Gemini không trả về dữ liệu.");
       }
 
-      return res.status(200).json(JSON.parse(response.text));
+      const parsed = safeParseJson(response.text);
+      if (!parsed) {
+        throw new Error("Không thể phân tích dữ liệu chuỗi phản ứng từ Gemini.");
+      }
+
+      return res.status(200).json(parsed);
     }
 
     // =========================
@@ -157,7 +145,7 @@ YÊU CẦU QUAN TRỌNG VỀ HÓA HỌC:
         });
       }
 
-     const systemInstruction = `Bạn là một Giáo sư Hóa học xuất sắc chuyên thiết kế chuỗi phản ứng hóa học.
+      const systemInstruction = `Bạn là một Giáo sư Hóa học xuất sắc chuyên thiết kế chuỗi phản ứng hóa học.
 Nhiệm vụ của bạn là tạo ra một chuỗi phản ứng hóa học hoàn chỉnh, liên tục và hợp lý xuất phát từ "Chất đầu" và kết thúc ở "Chất cuối".
 
 YÊU CẦU QUAN TRỌNG:
@@ -173,14 +161,19 @@ YÊU CẦU QUAN TRỌNG:
    - Ví dụ: "Fe + 2HCl \\xrightarrow{\\text{loãng}} FeCl_2 + H_2\\uparrow".
 6. Nếu không thể tạo ra bất kỳ chuỗi phản ứng hợp lệ nào từ Chất đầu đến Chất cuối, hãy trả về thông báo lỗi chi tiết ở trường "error" giải thích lý do hóa học cụ thể, và không trả về mảng "steps".`;
 
-     const prompt = `Hãy tạo chuỗi phản ứng hóa học từ chất đầu "${start}" đến chất cuối "${end}" với số phương trình phản ứng trung gian ít nhất là ${stepsCount}.`;
+      const prompt = `Hãy tạo chuỗi phản ứng hóa học từ chất đầu "${start}" đến chất cuối "${end}" với số phương trình phản ứng trung gian ít nhất là ${stepsCount}.`;
       const response = await generate(prompt, systemInstruction);
 
-      if (!response.text) {
+      if (!response?.text) {
         throw new Error("Gemini không trả về dữ liệu.");
       }
 
-      return res.status(200).json(JSON.parse(response.text));
+      const parsed = safeParseJson(response.text);
+      if (!parsed) {
+        throw new Error("Không thể phân tích dữ liệu tạo chuỗi phản ứng từ Gemini.");
+      }
+
+      return res.status(200).json(parsed);
     }
 
     return res.status(400).json({
