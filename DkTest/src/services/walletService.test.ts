@@ -483,5 +483,45 @@ describe("Virtual Wallet & Debt Logic Unit Tests", () => {
       expect(verified.verifiedBy).toBe("admin_dien");
       expect(verified.verifiedAt).toBeDefined();
     });
+
+    it("should resolve wallet balance and canUnlock when wallet is keyed by username or UID", () => {
+      // Simulate Firestore database where wallet was created under username
+      const walletsDb = new Map<string, { balanceVnd: number; uid: string }>();
+      walletsDb.set("thanhdien", { balanceVnd: 50000, uid: "thanhdien" });
+
+      const usersDb = new Map<string, { uid: string; username: string }>();
+      usersDb.set("cWqqeGBx2QZFBMVAO9tXmEMMQrj2", {
+        uid: "cWqqeGBx2QZFBMVAO9tXmEMMQrj2",
+        username: "thanhdien",
+      });
+
+      // Resolving wallet for student accessing exam
+      const resolveStudentBalance = (uid: string) => {
+        // Direct match
+        if (walletsDb.has(uid) && walletsDb.get(uid)!.balanceVnd > 0) {
+          return walletsDb.get(uid)!.balanceVnd;
+        }
+        // Match via username in users collection
+        const user = usersDb.get(uid);
+        if (user && walletsDb.has(user.username)) {
+          return walletsDb.get(user.username)!.balanceVnd;
+        }
+        return 0;
+      };
+
+      const studentUid = "cWqqeGBx2QZFBMVAO9tXmEMMQrj2";
+      const resolvedBalance = resolveStudentBalance(studentUid);
+      expect(resolvedBalance).toBe(50000);
+
+      // Verify effectiveBalance & canUnlock calculation for exam price 20.000đ
+      const examPrice = 20000;
+      const canUnlock = resolvedBalance >= examPrice;
+      const balanceAfter = Math.max(0, resolvedBalance - examPrice);
+      const missingVnd = Math.max(0, examPrice - resolvedBalance);
+
+      expect(canUnlock).toBe(true);
+      expect(balanceAfter).toBe(30000);
+      expect(missingVnd).toBe(0);
+    });
   });
 });

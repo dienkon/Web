@@ -61,6 +61,50 @@ walletRouter.get("/exams/:examId/access", async (req: AuthenticatedRequest, res:
       }
     }
 
+    // Fallback to student identity headers or query params if Bearer token was not present or didn't resolve UID
+    if (!uid) {
+      const headerUid = (req.headers["x-student-uid"] as string)?.trim();
+      const queryUid = (req.query.studentUid as string)?.trim();
+      const headerUsername = (req.headers["x-student-username"] as string)?.trim();
+      const queryUsername = (req.query.studentUsername as string)?.trim();
+
+      if (headerUid || queryUid) {
+        uid = headerUid || queryUid;
+        role = role || "student";
+      } else if (headerUsername || queryUsername) {
+        const uName = (headerUsername || queryUsername).toLowerCase();
+        if (adminDb) {
+          try {
+            const uSnap = await adminDb.collection("usernames").doc(uName).get();
+            if (uSnap.exists && uSnap.data()?.uid) {
+              uid = uSnap.data()!.uid;
+            } else {
+              const uQuery = await adminDb.collection("users").where("usernameNormalized", "==", uName).limit(1).get();
+              if (!uQuery.empty) {
+                uid = uQuery.docs[0].id;
+              } else {
+                uid = uName;
+              }
+            }
+          } catch (_) {
+            uid = uName;
+          }
+        } else {
+          try {
+            const uDoc = await getFirestoreRestDoc("usernames", uName);
+            if (uDoc?.uid) {
+              uid = uDoc.uid;
+            } else {
+              uid = uName;
+            }
+          } catch (_) {
+            uid = uName;
+          }
+        }
+        role = role || "student";
+      }
+    }
+
     const result = await checkExamAccess(uid, examId, role);
     return res.json({ success: true, ...result });
   } catch (err: any) {

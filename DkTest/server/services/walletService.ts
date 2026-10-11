@@ -44,32 +44,91 @@ export async function getOrCreateWallet(
 
     if (snap.exists) {
       const data = snap.data() as StudentWallet;
-      return {
+      const bal = sanitizeVnd(data.balanceVnd);
+      if (bal > 0) {
+        return await autoApprovePendingRequestsForUser(cleanUid, {
+          uid: cleanUid,
+          balanceVnd: bal,
+          totalCreditedVnd: sanitizeVnd(data.totalCreditedVnd),
+          totalSpentVnd: sanitizeVnd(data.totalSpentVnd),
+          profileCompleted: Boolean(data.profileCompleted),
+          fullName: data.fullName || "",
+          currentClass: data.currentClass || "",
+          verifiedName: data.verifiedName,
+          isVerified: data.isVerified,
+          createdAt: data.createdAt || new Date().toISOString(),
+          updatedAt: data.updatedAt || new Date().toISOString(),
+        });
+      }
+    }
+
+    // Secondary search: check if user has another wallet ID (e.g. cleanUid is Auth UID -> look up by username, or cleanUid is username -> look up by Auth UID)
+    let altDocId: string | null = null;
+    let defaultName = initialData?.fullName || "";
+    let defaultClass = initialData?.currentClass || "";
+
+    try {
+      // If cleanUid is Auth UID, check user doc to get username
+      const uDoc = await adminDb.collection("users").doc(cleanUid).get();
+      if (uDoc.exists) {
+        const uData = uDoc.data();
+        defaultName = defaultName || uData?.fullName || uData?.displayName || "";
+        defaultClass = defaultClass || uData?.studentClass || "";
+        if (uData?.username) altDocId = uData.username;
+      } else {
+        // If cleanUid might be username, check usernames doc
+        const unSnap = await adminDb.collection("usernames").doc(cleanUid.toLowerCase()).get();
+        if (unSnap.exists && unSnap.data()?.uid) {
+          altDocId = unSnap.data()!.uid;
+        }
+      }
+    } catch (_) {}
+
+    if (altDocId && altDocId !== cleanUid) {
+      try {
+        const altSnap = await adminDb.collection("wallets").doc(altDocId).get();
+        if (altSnap.exists) {
+          const altData = altSnap.data() as StudentWallet;
+          const altBal = sanitizeVnd(altData.balanceVnd);
+          if (altBal > 0) {
+            // Found wallet under alternative ID with positive balance! Sync it to primary cleanUid so both resolve properly
+            const now = new Date().toISOString();
+            const syncedWallet: StudentWallet = {
+              uid: cleanUid,
+              balanceVnd: altBal,
+              totalCreditedVnd: sanitizeVnd(altData.totalCreditedVnd),
+              totalSpentVnd: sanitizeVnd(altData.totalSpentVnd),
+              profileCompleted: Boolean(altData.profileCompleted || (defaultName && defaultClass)),
+              fullName: altData.fullName || defaultName,
+              currentClass: altData.currentClass || defaultClass,
+              verifiedName: altData.verifiedName,
+              isVerified: altData.isVerified,
+              createdAt: altData.createdAt || now,
+              updatedAt: now,
+            };
+            await walletRef.set(syncedWallet, { merge: true });
+            return await autoApprovePendingRequestsForUser(cleanUid, syncedWallet);
+          }
+        }
+      } catch (_) {}
+    }
+
+    // If cleanUid was found initially with 0 balance
+    if (snap.exists) {
+      const data = snap.data() as StudentWallet;
+      return await autoApprovePendingRequestsForUser(cleanUid, {
         uid: cleanUid,
         balanceVnd: sanitizeVnd(data.balanceVnd),
         totalCreditedVnd: sanitizeVnd(data.totalCreditedVnd),
         totalSpentVnd: sanitizeVnd(data.totalSpentVnd),
         profileCompleted: Boolean(data.profileCompleted),
-        fullName: data.fullName || "",
-        currentClass: data.currentClass || "",
+        fullName: data.fullName || defaultName,
+        currentClass: data.currentClass || defaultClass,
+        verifiedName: data.verifiedName,
+        isVerified: data.isVerified,
         createdAt: data.createdAt || new Date().toISOString(),
         updatedAt: data.updatedAt || new Date().toISOString(),
-      };
-    }
-
-    // Try finding student name from users or students collection
-    let defaultName = initialData?.fullName || "";
-    let defaultClass = initialData?.currentClass || "";
-
-    if (!defaultName) {
-      try {
-        const uDoc = await adminDb.collection("users").doc(cleanUid).get();
-        if (uDoc.exists) {
-          const uData = uDoc.data();
-          defaultName = uData?.fullName || uData?.displayName || "";
-          defaultClass = defaultClass || uData?.studentClass || "";
-        }
-      } catch (e) {}
+      });
     }
 
     const now = new Date().toISOString();
@@ -92,14 +151,77 @@ export async function getOrCreateWallet(
   // REST fallback
   const existing = await getFirestoreRestDoc("wallets", cleanUid);
   if (existing) {
+    const existingBal = sanitizeVnd(existing.balanceVnd);
+    if (existingBal > 0) {
+      const w: StudentWallet = {
+        uid: cleanUid,
+        balanceVnd: existingBal,
+        totalCreditedVnd: sanitizeVnd(existing.totalCreditedVnd),
+        totalSpentVnd: sanitizeVnd(existing.totalSpentVnd),
+        profileCompleted: Boolean(existing.profileCompleted),
+        fullName: existing.fullName || "",
+        currentClass: existing.currentClass || "",
+        verifiedName: existing.verifiedName,
+        isVerified: existing.isVerified,
+        createdAt: existing.createdAt || new Date().toISOString(),
+        updatedAt: existing.updatedAt || new Date().toISOString(),
+      };
+      return await autoApprovePendingRequestsForUser(cleanUid, w);
+    }
+  }
+
+  // REST alternative ID check
+  let altDocIdRest: string | null = null;
+  let restDefaultName = initialData?.fullName || "";
+  let restDefaultClass = initialData?.currentClass || "";
+  try {
+    const uDoc = await getFirestoreRestDoc("users", cleanUid);
+    if (uDoc) {
+      restDefaultName = restDefaultName || uDoc.fullName || uDoc.displayName || "";
+      restDefaultClass = restDefaultClass || uDoc.studentClass || "";
+      if (uDoc.username) altDocIdRest = uDoc.username;
+    } else {
+      const unDoc = await getFirestoreRestDoc("usernames", cleanUid.toLowerCase());
+      if (unDoc?.uid) altDocIdRest = unDoc.uid;
+    }
+  } catch (_) {}
+
+  if (altDocIdRest && altDocIdRest !== cleanUid) {
+    try {
+      const altExisting = await getFirestoreRestDoc("wallets", altDocIdRest);
+      if (altExisting && sanitizeVnd(altExisting.balanceVnd) > 0) {
+        const altBal = sanitizeVnd(altExisting.balanceVnd);
+        const now = new Date().toISOString();
+        const syncedWallet: StudentWallet = {
+          uid: cleanUid,
+          balanceVnd: altBal,
+          totalCreditedVnd: sanitizeVnd(altExisting.totalCreditedVnd),
+          totalSpentVnd: sanitizeVnd(altExisting.totalSpentVnd),
+          profileCompleted: Boolean(altExisting.profileCompleted || (restDefaultName && restDefaultClass)),
+          fullName: altExisting.fullName || restDefaultName,
+          currentClass: altExisting.currentClass || restDefaultClass,
+          verifiedName: altExisting.verifiedName,
+          isVerified: altExisting.isVerified,
+          createdAt: altExisting.createdAt || now,
+          updatedAt: now,
+        };
+        await setFirestoreRestDoc("wallets", cleanUid, syncedWallet);
+        return await autoApprovePendingRequestsForUser(cleanUid, syncedWallet);
+      }
+    } catch (_) {}
+  }
+
+  if (existing) {
     const w: StudentWallet = {
       uid: cleanUid,
       balanceVnd: sanitizeVnd(existing.balanceVnd),
       totalCreditedVnd: sanitizeVnd(existing.totalCreditedVnd),
       totalSpentVnd: sanitizeVnd(existing.totalSpentVnd),
       profileCompleted: Boolean(existing.profileCompleted),
-      fullName: existing.fullName || "",
-      currentClass: existing.currentClass || "",
+      fullName: existing.fullName || restDefaultName,
+      currentClass: existing.currentClass || restDefaultClass,
+      verifiedName: existing.verifiedName,
+      isVerified: existing.isVerified,
       createdAt: existing.createdAt || new Date().toISOString(),
       updatedAt: existing.updatedAt || new Date().toISOString(),
     };
@@ -112,9 +234,9 @@ export async function getOrCreateWallet(
     balanceVnd: 0,
     totalCreditedVnd: 0,
     totalSpentVnd: 0,
-    profileCompleted: Boolean(initialData?.fullName && initialData?.currentClass),
-    fullName: initialData?.fullName || "",
-    currentClass: initialData?.currentClass || "",
+    profileCompleted: Boolean(restDefaultName && restDefaultClass),
+    fullName: restDefaultName,
+    currentClass: restDefaultClass,
     createdAt: now,
     updatedAt: now,
   };

@@ -36,11 +36,20 @@ import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
 import StudentSubExamConfig from "../../features/sub-exam/components/StudentSubExamConfig";
 import { getLinkedChildrenForParent, type LinkedChildInfo } from "../../services/parentService";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
-import { checkExamAccess, unlockExam, type ExamAccessInfo } from "../../services/walletClientService";
+import {
+  checkExamAccess,
+  unlockExam,
+  getMyWallet,
+  subscribeMyWallet,
+  type ExamAccessInfo,
+} from "../../services/walletClientService";
+import type { StudentWallet } from "../../types";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ExamIntro() {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
+  const { user, userProfile } = useAuth();
 
   const [exam, setExam] = useState<Exam | null>(null);
   const [loading, setLoading] = useState(true);
@@ -60,13 +69,14 @@ export default function ExamIntro() {
 
   // Exam Access & Paid Unlock states
   const [accessInfo, setAccessInfo] = useState<ExamAccessInfo | null>(null);
+  const [studentWallet, setStudentWallet] = useState<StudentWallet | null>(null);
   const [checkingAccess, setCheckingAccess] = useState<boolean>(false);
   const [showUnlockModal, setShowUnlockModal] = useState<boolean>(false);
   const [unlocking, setUnlocking] = useState<boolean>(false);
   const [unlockSuccessMsg, setUnlockSuccessMsg] = useState<string>("");
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState<{ username?: string; displayName?: string; role?: string } | null>(null);
+  const [currentUser, setCurrentUser] = useState<{ username?: string; displayName?: string; role?: string; uid?: string } | null>(null);
   const [parentInfo, setParentInfo] = useState<{ username: string; displayName: string } | null>(null);
   const [linkedChildren, setLinkedChildren] = useState<LinkedChildInfo[]>([]);
   const [selectedChild, setSelectedChild] = useState<string>("");
@@ -74,10 +84,68 @@ export default function ExamIntro() {
   const [checkingAttempts, setCheckingAttempts] = useState<boolean>(false);
   const [hasActiveExam, setHasActiveExam] = useState<boolean>(false);
 
+  // Real-time wallet sync to guarantee student never sees 0 VND when they have balance
+  useEffect(() => {
+    let resolvedUid = user?.uid || currentUser?.uid;
+    if (!resolvedUid) {
+      try {
+        const sInfo = localStorage.getItem("student_info") || localStorage.getItem("current_student_session");
+        if (sInfo) {
+          const parsed = JSON.parse(sInfo);
+          resolvedUid = parsed.uid || parsed.username;
+        }
+      } catch (_) {}
+    }
+
+    if (!resolvedUid) return;
+
+    getMyWallet()
+      .then((w) => {
+        if (w) setStudentWallet(w);
+      })
+      .catch(() => {});
+
+    const unsub = subscribeMyWallet(resolvedUid, (liveWallet) => {
+      if (liveWallet) setStudentWallet(liveWallet);
+    });
+
+    return () => unsub();
+  }, [user?.uid, currentUser?.uid]);
+
+  // Synchronize live wallet balance into accessInfo state immediately
+  useEffect(() => {
+    if (!studentWallet || !exam) return;
+    const realBal = Math.max(0, Math.round(Number(studentWallet.balanceVnd) || 0));
+    setAccessInfo((prev) => {
+      const price = exam.priceVnd || prev?.priceVnd || 0;
+      if (prev && prev.userBalance === realBal && prev.canUnlock === (realBal >= price)) {
+        return prev;
+      }
+      return {
+        hasAccess: prev?.hasAccess || false,
+        isFree: prev?.isFree ?? (price <= 0),
+        unlocked: prev?.unlocked || false,
+        priceVnd: price,
+        accessMode: (exam.accessMode as any) || prev?.accessMode || "paid",
+        salesEnabled: exam.salesEnabled !== false,
+        userBalance: realBal,
+        missingVnd: Math.max(0, price - realBal),
+        canUnlock: realBal >= price,
+        examTitle: exam.title || prev?.examTitle || "Bài thi",
+        parentExamId: prev?.parentExamId,
+        parentExamTitle: prev?.parentExamTitle,
+        rejectionReason: prev?.rejectionReason,
+        message: prev?.message,
+      };
+    });
+  }, [studentWallet, exam]);
+
   const loadExamAccess = async (targetExamId: string) => {
     try {
       setCheckingAccess(true);
-      const res = await checkExamAccess(targetExamId);
+      const activeUid = user?.uid || currentUser?.uid;
+      const activeUsername = userProfile?.username || studentCode;
+      const res = await checkExamAccess(targetExamId, activeUid, activeUsername);
       setAccessInfo(res);
       return res;
     } catch (e) {
@@ -96,6 +164,10 @@ export default function ExamIntro() {
       const res = await unlockExam(exam.id);
       setShowUnlockModal(false);
       setUnlockSuccessMsg("Chúc mừng! Bạn đã mở khóa vĩnh viễn đề thi này thành công.");
+      try {
+        const freshWallet = await getMyWallet();
+        if (freshWallet) setStudentWallet(freshWallet);
+      } catch (_) {}
       const updatedAccess = await loadExamAccess(exam.id);
       if (updatedAccess?.hasAccess) {
         // Load questions now that student is entitled
@@ -278,6 +350,13 @@ export default function ExamIntro() {
 
     fetchExam();
   }, [examId]);
+
+  // Refresh exam access whenever user or profile finishes initializing
+  useEffect(() => {
+    if ((user?.uid || currentUser?.uid) && exam?.id) {
+      loadExamAccess(exam.id);
+    }
+  }, [user?.uid, currentUser?.uid]);
 
   // Check candidate's existing attempt count for this exam
   useEffect(() => {
@@ -472,6 +551,19 @@ export default function ExamIntro() {
     );
   }
 
+  const effectiveBalance = Math.max(
+    0,
+    studentWallet?.balanceVnd ?? accessInfo?.userBalance ?? 0
+  );
+  const effectiveCanUnlock = Boolean(
+    accessInfo?.canUnlock ||
+      (exam && effectiveBalance >= (exam.priceVnd || 0) && (exam.priceVnd || 0) > 0)
+  );
+  const effectiveMissingVnd = Math.max(
+    0,
+    (exam?.priceVnd || 0) - effectiveBalance
+  );
+
   return (
     <div className="min-h-screen bg-slate-50/70 py-10 px-4 flex flex-col items-center justify-center">
       <div className="max-w-2xl w-full space-y-6">
@@ -631,7 +723,7 @@ export default function ExamIntro() {
                       <p className="text-xs text-slate-600 mt-0.5">
                         {accessInfo?.hasAccess
                           ? "Bạn có toàn quyền truy cập làm bài, xem đáp án và ôn tập không giới hạn thời gian."
-                          : `Số dư ví DkTEST hiện tại: ${(accessInfo?.userBalance || 0).toLocaleString(
+                          : `Số dư ví DkTEST hiện tại: ${effectiveBalance.toLocaleString(
                               "vi-VN"
                             )}đ`}
                       </p>
@@ -643,7 +735,7 @@ export default function ExamIntro() {
 
                   {!accessInfo?.hasAccess && (
                     <div className="flex items-center gap-2 w-full sm:w-auto">
-                      {accessInfo?.canUnlock ? (
+                      {effectiveCanUnlock ? (
                         <button
                           type="button"
                           onClick={() => setShowUnlockModal(true)}
@@ -666,7 +758,7 @@ export default function ExamIntro() {
                         >
                           <Wallet className="w-3.5 h-3.5" />
                           <span>
-                            Nạp thêm {(accessInfo?.missingVnd || 0).toLocaleString("vi-VN")}đ
+                            Nạp thêm {effectiveMissingVnd.toLocaleString("vi-VN")}đ
                           </span>
                         </Link>
                       )}
@@ -708,7 +800,7 @@ export default function ExamIntro() {
                     <div className="flex justify-between">
                       <span className="text-slate-500">Số dư hiện tại:</span>
                       <span className="font-bold text-emerald-700">
-                        {(accessInfo?.userBalance || 0).toLocaleString("vi-VN")}đ
+                        {effectiveBalance.toLocaleString("vi-VN")}đ
                       </span>
                     </div>
                     <div className="flex justify-between border-t border-slate-200 pt-2">
@@ -716,7 +808,7 @@ export default function ExamIntro() {
                       <strong className="text-slate-900">
                         {Math.max(
                           0,
-                          (accessInfo?.userBalance || 0) - (exam.priceVnd || 0)
+                          effectiveBalance - (exam.priceVnd || 0)
                         ).toLocaleString("vi-VN")}
                         đ
                       </strong>

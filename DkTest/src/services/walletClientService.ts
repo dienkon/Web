@@ -175,11 +175,141 @@ export async function getMyTransactions(): Promise<WalletTransaction[]> {
   return [];
 }
 
-export async function checkExamAccess(examId: string): Promise<ExamAccessInfo> {
-  const res = await api.get<{ success: boolean } & ExamAccessInfo>(`/api/exams/${examId}/access`, {
-    requiresAuth: true,
-  });
-  return res;
+export async function checkExamAccess(
+  examId: string,
+  providedUid?: string,
+  providedUsername?: string
+): Promise<ExamAccessInfo> {
+  let resolvedUid = providedUid || auth.currentUser?.uid || "";
+  let resolvedUsername = providedUsername || "";
+
+  if (!resolvedUid || !resolvedUsername) {
+    try {
+      const sInfoStr =
+        localStorage.getItem("student_info") ||
+        localStorage.getItem("current_student_session");
+      if (sInfoStr) {
+        const sInfo = JSON.parse(sInfoStr);
+        if (!resolvedUid && sInfo.uid) resolvedUid = sInfo.uid;
+        if (!resolvedUsername && sInfo.username) resolvedUsername = sInfo.username;
+      }
+    } catch (_) {}
+  }
+
+  const queryParts: string[] = [];
+  if (resolvedUid) queryParts.push(`studentUid=${encodeURIComponent(resolvedUid)}`);
+  if (resolvedUsername) queryParts.push(`studentUsername=${encodeURIComponent(resolvedUsername)}`);
+  const queryStr = queryParts.length > 0 ? `?${queryParts.join("&")}` : "";
+
+  const headers: Record<string, string> = {};
+  if (resolvedUid) headers["X-Student-Uid"] = resolvedUid;
+  if (resolvedUsername) headers["X-Student-Username"] = resolvedUsername;
+
+  let apiResult: ExamAccessInfo | null = null;
+  try {
+    const res = await api.get<{ success: boolean } & ExamAccessInfo>(
+      `/api/exams/${examId}/access${queryStr}`,
+      {
+        requiresAuth: true,
+        headers,
+      }
+    );
+    apiResult = res;
+  } catch (err) {
+    console.warn("[walletClientService] API checkExamAccess failed, checking direct Firestore:", err);
+  }
+
+  // If API succeeded and found positive balance or access granted, return it
+  if (apiResult && (apiResult.hasAccess || apiResult.userBalance > 0)) {
+    return apiResult;
+  }
+
+  // Dual verification: If API returned userBalance === 0 or threw error, check direct Firestore wallet
+  const targetUid = resolvedUid || resolvedUsername;
+  if (targetUid) {
+    try {
+      // 1. Try wallet by UID
+      let wSnap = resolvedUid ? await getDoc(doc(db, "wallets", resolvedUid)) : null;
+      let wData = wSnap?.exists() ? (wSnap.data() as StudentWallet) : null;
+
+      // 2. Try wallet by Username if UID wallet doesn't have balance
+      if ((!wData || (wData.balanceVnd || 0) <= 0) && resolvedUsername && resolvedUsername !== resolvedUid) {
+        const altSnap = await getDoc(doc(db, "wallets", resolvedUsername));
+        if (altSnap.exists()) {
+          wData = altSnap.data() as StudentWallet;
+        }
+      }
+
+      if (wData && (wData.balanceVnd || 0) > 0) {
+        const realBal = Math.max(0, Math.round(Number(wData.balanceVnd) || 0));
+        const price = apiResult?.priceVnd || 0;
+        if (apiResult) {
+          return {
+            ...apiResult,
+            userBalance: realBal,
+            missingVnd: Math.max(0, price - realBal),
+            canUnlock: realBal >= price,
+          };
+        }
+      }
+    } catch (fsErr) {
+      console.warn("[walletClientService] Direct Firestore wallet verification warning:", fsErr);
+    }
+  }
+
+  if (apiResult) return apiResult;
+
+  // Ultimate fallback: direct Firestore exam access check
+  try {
+    const examSnap = await getDoc(doc(db, "exams", examId));
+    if (examSnap.exists()) {
+      const eData = examSnap.data() as any;
+      const price = Math.max(0, Math.round(Number(eData.priceVnd) || 0));
+      const isFree = (eData.accessMode || "free") === "free" || price <= 0;
+      let hasEntitlement = false;
+
+      if (resolvedUid) {
+        const entSnap = await getDoc(doc(db, "exam_entitlements", `${resolvedUid}_${examId}`));
+        if (entSnap.exists() && entSnap.data().status === "active") {
+          hasEntitlement = true;
+        }
+      }
+
+      let userBal = 0;
+      if (resolvedUid) {
+        const wSnap = await getDoc(doc(db, "wallets", resolvedUid));
+        if (wSnap.exists()) {
+          userBal = Math.max(0, Math.round(Number(wSnap.data().balanceVnd) || 0));
+        }
+      }
+
+      return {
+        hasAccess: isFree || hasEntitlement,
+        isFree,
+        unlocked: hasEntitlement,
+        priceVnd: price,
+        accessMode: (eData.accessMode as any) || "free",
+        salesEnabled: eData.salesEnabled !== false,
+        userBalance: userBal,
+        missingVnd: Math.max(0, price - userBal),
+        canUnlock: userBal >= price,
+        examTitle: eData.title || "Bài thi",
+      };
+    }
+  } catch (_) {}
+
+  return {
+    hasAccess: false,
+    isFree: false,
+    unlocked: false,
+    priceVnd: 0,
+    accessMode: "paid",
+    salesEnabled: false,
+    userBalance: 0,
+    missingVnd: 0,
+    canUnlock: false,
+    examTitle: "Bài thi",
+  };
 }
 
 export async function unlockExam(examId: string, idempotencyKey?: string): Promise<UnlockExamResponse> {

@@ -501,30 +501,84 @@ async function getOrCreateWallet(uid, initialData) {
     const snap = await walletRef.get();
     if (snap.exists) {
       const data = snap.data();
-      return {
+      const bal = sanitizeVnd(data.balanceVnd);
+      if (bal > 0) {
+        return await autoApprovePendingRequestsForUser(cleanUid, {
+          uid: cleanUid,
+          balanceVnd: bal,
+          totalCreditedVnd: sanitizeVnd(data.totalCreditedVnd),
+          totalSpentVnd: sanitizeVnd(data.totalSpentVnd),
+          profileCompleted: Boolean(data.profileCompleted),
+          fullName: data.fullName || "",
+          currentClass: data.currentClass || "",
+          verifiedName: data.verifiedName,
+          isVerified: data.isVerified,
+          createdAt: data.createdAt || (/* @__PURE__ */ new Date()).toISOString(),
+          updatedAt: data.updatedAt || (/* @__PURE__ */ new Date()).toISOString()
+        });
+      }
+    }
+    let altDocId = null;
+    let defaultName = initialData?.fullName || "";
+    let defaultClass = initialData?.currentClass || "";
+    try {
+      const uDoc = await adminDb.collection("users").doc(cleanUid).get();
+      if (uDoc.exists) {
+        const uData = uDoc.data();
+        defaultName = defaultName || uData?.fullName || uData?.displayName || "";
+        defaultClass = defaultClass || uData?.studentClass || "";
+        if (uData?.username) altDocId = uData.username;
+      } else {
+        const unSnap = await adminDb.collection("usernames").doc(cleanUid.toLowerCase()).get();
+        if (unSnap.exists && unSnap.data()?.uid) {
+          altDocId = unSnap.data().uid;
+        }
+      }
+    } catch (_) {
+    }
+    if (altDocId && altDocId !== cleanUid) {
+      try {
+        const altSnap = await adminDb.collection("wallets").doc(altDocId).get();
+        if (altSnap.exists) {
+          const altData = altSnap.data();
+          const altBal = sanitizeVnd(altData.balanceVnd);
+          if (altBal > 0) {
+            const now3 = (/* @__PURE__ */ new Date()).toISOString();
+            const syncedWallet = {
+              uid: cleanUid,
+              balanceVnd: altBal,
+              totalCreditedVnd: sanitizeVnd(altData.totalCreditedVnd),
+              totalSpentVnd: sanitizeVnd(altData.totalSpentVnd),
+              profileCompleted: Boolean(altData.profileCompleted || defaultName && defaultClass),
+              fullName: altData.fullName || defaultName,
+              currentClass: altData.currentClass || defaultClass,
+              verifiedName: altData.verifiedName,
+              isVerified: altData.isVerified,
+              createdAt: altData.createdAt || now3,
+              updatedAt: now3
+            };
+            await walletRef.set(syncedWallet, { merge: true });
+            return await autoApprovePendingRequestsForUser(cleanUid, syncedWallet);
+          }
+        }
+      } catch (_) {
+      }
+    }
+    if (snap.exists) {
+      const data = snap.data();
+      return await autoApprovePendingRequestsForUser(cleanUid, {
         uid: cleanUid,
         balanceVnd: sanitizeVnd(data.balanceVnd),
         totalCreditedVnd: sanitizeVnd(data.totalCreditedVnd),
         totalSpentVnd: sanitizeVnd(data.totalSpentVnd),
         profileCompleted: Boolean(data.profileCompleted),
-        fullName: data.fullName || "",
-        currentClass: data.currentClass || "",
+        fullName: data.fullName || defaultName,
+        currentClass: data.currentClass || defaultClass,
+        verifiedName: data.verifiedName,
+        isVerified: data.isVerified,
         createdAt: data.createdAt || (/* @__PURE__ */ new Date()).toISOString(),
         updatedAt: data.updatedAt || (/* @__PURE__ */ new Date()).toISOString()
-      };
-    }
-    let defaultName = initialData?.fullName || "";
-    let defaultClass = initialData?.currentClass || "";
-    if (!defaultName) {
-      try {
-        const uDoc = await adminDb.collection("users").doc(cleanUid).get();
-        if (uDoc.exists) {
-          const uData = uDoc.data();
-          defaultName = uData?.fullName || uData?.displayName || "";
-          defaultClass = defaultClass || uData?.studentClass || "";
-        }
-      } catch (e) {
-      }
+      });
     }
     const now2 = (/* @__PURE__ */ new Date()).toISOString();
     const newWallet2 = {
@@ -543,14 +597,75 @@ async function getOrCreateWallet(uid, initialData) {
   }
   const existing = await getFirestoreRestDoc("wallets", cleanUid);
   if (existing) {
+    const existingBal = sanitizeVnd(existing.balanceVnd);
+    if (existingBal > 0) {
+      const w = {
+        uid: cleanUid,
+        balanceVnd: existingBal,
+        totalCreditedVnd: sanitizeVnd(existing.totalCreditedVnd),
+        totalSpentVnd: sanitizeVnd(existing.totalSpentVnd),
+        profileCompleted: Boolean(existing.profileCompleted),
+        fullName: existing.fullName || "",
+        currentClass: existing.currentClass || "",
+        verifiedName: existing.verifiedName,
+        isVerified: existing.isVerified,
+        createdAt: existing.createdAt || (/* @__PURE__ */ new Date()).toISOString(),
+        updatedAt: existing.updatedAt || (/* @__PURE__ */ new Date()).toISOString()
+      };
+      return await autoApprovePendingRequestsForUser(cleanUid, w);
+    }
+  }
+  let altDocIdRest = null;
+  let restDefaultName = initialData?.fullName || "";
+  let restDefaultClass = initialData?.currentClass || "";
+  try {
+    const uDoc = await getFirestoreRestDoc("users", cleanUid);
+    if (uDoc) {
+      restDefaultName = restDefaultName || uDoc.fullName || uDoc.displayName || "";
+      restDefaultClass = restDefaultClass || uDoc.studentClass || "";
+      if (uDoc.username) altDocIdRest = uDoc.username;
+    } else {
+      const unDoc = await getFirestoreRestDoc("usernames", cleanUid.toLowerCase());
+      if (unDoc?.uid) altDocIdRest = unDoc.uid;
+    }
+  } catch (_) {
+  }
+  if (altDocIdRest && altDocIdRest !== cleanUid) {
+    try {
+      const altExisting = await getFirestoreRestDoc("wallets", altDocIdRest);
+      if (altExisting && sanitizeVnd(altExisting.balanceVnd) > 0) {
+        const altBal = sanitizeVnd(altExisting.balanceVnd);
+        const now2 = (/* @__PURE__ */ new Date()).toISOString();
+        const syncedWallet = {
+          uid: cleanUid,
+          balanceVnd: altBal,
+          totalCreditedVnd: sanitizeVnd(altExisting.totalCreditedVnd),
+          totalSpentVnd: sanitizeVnd(altExisting.totalSpentVnd),
+          profileCompleted: Boolean(altExisting.profileCompleted || restDefaultName && restDefaultClass),
+          fullName: altExisting.fullName || restDefaultName,
+          currentClass: altExisting.currentClass || restDefaultClass,
+          verifiedName: altExisting.verifiedName,
+          isVerified: altExisting.isVerified,
+          createdAt: altExisting.createdAt || now2,
+          updatedAt: now2
+        };
+        await setFirestoreRestDoc("wallets", cleanUid, syncedWallet);
+        return await autoApprovePendingRequestsForUser(cleanUid, syncedWallet);
+      }
+    } catch (_) {
+    }
+  }
+  if (existing) {
     const w = {
       uid: cleanUid,
       balanceVnd: sanitizeVnd(existing.balanceVnd),
       totalCreditedVnd: sanitizeVnd(existing.totalCreditedVnd),
       totalSpentVnd: sanitizeVnd(existing.totalSpentVnd),
       profileCompleted: Boolean(existing.profileCompleted),
-      fullName: existing.fullName || "",
-      currentClass: existing.currentClass || "",
+      fullName: existing.fullName || restDefaultName,
+      currentClass: existing.currentClass || restDefaultClass,
+      verifiedName: existing.verifiedName,
+      isVerified: existing.isVerified,
       createdAt: existing.createdAt || (/* @__PURE__ */ new Date()).toISOString(),
       updatedAt: existing.updatedAt || (/* @__PURE__ */ new Date()).toISOString()
     };
@@ -562,9 +677,9 @@ async function getOrCreateWallet(uid, initialData) {
     balanceVnd: 0,
     totalCreditedVnd: 0,
     totalSpentVnd: 0,
-    profileCompleted: Boolean(initialData?.fullName && initialData?.currentClass),
-    fullName: initialData?.fullName || "",
-    currentClass: initialData?.currentClass || "",
+    profileCompleted: Boolean(restDefaultName && restDefaultClass),
+    fullName: restDefaultName,
+    currentClass: restDefaultClass,
     createdAt: now,
     updatedAt: now
   };

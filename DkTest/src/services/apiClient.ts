@@ -91,6 +91,22 @@ export async function apiClient<T = any>(
         requestHeaders["Authorization"] = `Bearer ${adminToken}`;
       }
 
+      // Attach student identity if available from local session (crucial for wallet / exam access when token is loading or in saved session)
+      try {
+        const sInfoStr =
+          localStorage.getItem("student_info") ||
+          localStorage.getItem("current_student_session");
+        if (sInfoStr) {
+          const sInfo = JSON.parse(sInfoStr);
+          if (sInfo.uid && !requestHeaders["X-Student-Uid"]) {
+            requestHeaders["X-Student-Uid"] = sInfo.uid;
+          }
+          if (sInfo.username && !requestHeaders["X-Student-Username"]) {
+            requestHeaders["X-Student-Username"] = sInfo.username;
+          }
+        }
+      } catch (_) {}
+
       // STRICT ISOLATION: Never leak X-Admin-Token or force admin role on student/general endpoints!
       const authRole = localStorage.getItem("auth_role") || localStorage.getItem("dktest:auth_role");
       if (authRole && authRole !== "admin") {
