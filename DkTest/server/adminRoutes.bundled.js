@@ -521,26 +521,37 @@ function normalizeCode(code) {
   return String(code || "").trim().toUpperCase();
 }
 async function getVouchersList() {
-  if (!adminDb) return [];
-  try {
-    const snap = await adminDb.collection("vouchers").orderBy("createdAt", "desc").get();
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-  } catch (err) {
-    const snap = await adminDb.collection("vouchers").get();
-    const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-    return list;
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection("vouchers").orderBy("createdAt", "desc").get();
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } catch (err) {
+      const snap = await adminDb.collection("vouchers").get();
+      const list2 = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      list2.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      return list2;
+    }
   }
+  const docs = await getFirestoreRestDocs("vouchers", 100, false);
+  const list = (docs || []).map((d) => ({ id: d.id, ...d }));
+  list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  return list;
 }
 async function createVoucher(data) {
-  if (!adminDb) throw new Error("Database not connected");
   const code = normalizeCode(data.code || "");
   if (!code || code.length < 3) {
     throw new Error("M\xE3 voucher ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 3 k\xFD t\u1EF1 (ch\u1EEF ho\u1EB7c s\u1ED1).");
   }
-  const existing = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-  if (!existing.empty) {
-    throw new Error(`M\xE3 voucher "${code}" \u0111\xE3 t\u1ED3n t\u1EA1i tr\xEAn h\u1EC7 th\u1ED1ng.`);
+  if (adminDb) {
+    const existing = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
+    if (!existing.empty) {
+      throw new Error(`M\xE3 voucher "${code}" \u0111\xE3 t\u1ED3n t\u1EA1i tr\xEAn h\u1EC7 th\u1ED1ng.`);
+    }
+  } else {
+    const existingList = await getFirestoreRestDocs("vouchers", 100, false);
+    if ((existingList || []).some((v) => normalizeCode(v.code) === code)) {
+      throw new Error(`M\xE3 voucher "${code}" \u0111\xE3 t\u1ED3n t\u1EA1i tr\xEAn h\u1EC7 th\u1ED1ng.`);
+    }
   }
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const id = `vouch_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
@@ -558,34 +569,51 @@ async function createVoucher(data) {
     perUserLimit: data.perUserLimit !== void 0 ? Math.max(1, Number(data.perUserLimit)) : 1,
     expiresAt: data.expiresAt || null,
     isActive: data.isActive !== void 0 ? Boolean(data.isActive) : true,
+    description: data.description?.trim() || void 0,
     createdAt: now,
     updatedAt: now
   };
-  await adminDb.collection("vouchers").doc(id).set(voucher);
+  if (adminDb) {
+    await adminDb.collection("vouchers").doc(id).set(voucher);
+  } else {
+    await setFirestoreRestDoc("vouchers", id, voucher);
+  }
   return voucher;
 }
 async function updateVoucher(id, data) {
-  if (!adminDb) throw new Error("Database not connected");
-  const docRef = adminDb.collection("vouchers").doc(id);
-  const snap = await docRef.get();
-  if (!snap.exists) {
-    throw new Error("Kh\xF4ng t\xECm th\u1EA5y voucher y\xEAu c\u1EA7u.");
-  }
-  const current = snap.data();
+  const now = (/* @__PURE__ */ new Date()).toISOString();
   const updates = {
     ...data,
-    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+    updatedAt: now
   };
   if (data.code) {
     updates.code = normalizeCode(data.code);
   }
-  await docRef.set(updates, { merge: true });
-  const updatedSnap = await docRef.get();
-  return { id, ...updatedSnap.data() };
+  if (adminDb) {
+    const docRef = adminDb.collection("vouchers").doc(id);
+    const snap = await docRef.get();
+    if (!snap.exists) {
+      throw new Error("Kh\xF4ng t\xECm th\u1EA5y voucher y\xEAu c\u1EA7u.");
+    }
+    await docRef.set(updates, { merge: true });
+    const updatedSnap = await docRef.get();
+    return { id, ...updatedSnap.data() };
+  } else {
+    const current = await getFirestoreRestDoc("vouchers", id, false);
+    if (!current) {
+      throw new Error("Kh\xF4ng t\xECm th\u1EA5y voucher y\xEAu c\u1EA7u.");
+    }
+    const merged = { ...current, ...updates };
+    await setFirestoreRestDoc("vouchers", id, merged);
+    return merged;
+  }
 }
 async function deleteVoucher(id) {
-  if (!adminDb) throw new Error("Database not connected");
-  await adminDb.collection("vouchers").doc(id).delete();
+  if (adminDb) {
+    await adminDb.collection("vouchers").doc(id).delete();
+  } else {
+    await deleteFirestoreRestDoc("vouchers", id);
+  }
 }
 
 // server/services/walletService.ts
@@ -3826,4 +3854,8 @@ export {
  * 3. discount_fixed: Giảm giá mở khóa đề theo số tiền cố định (VNĐ)
  * 4. deposit_bonus_percent: Thưởng nạp tiền theo %
  * 5. deposit_bonus_fixed: Thưởng nạp tiền cố định (VNĐ)
+ * 
+ * Fully supports dual modes:
+ * - Admin SDK mode (when service account is available)
+ * - REST API fallback mode (when running without service account private key)
  */

@@ -8,9 +8,19 @@
  * 3. discount_fixed: Giảm giá mở khóa đề theo số tiền cố định (VNĐ)
  * 4. deposit_bonus_percent: Thưởng nạp tiền theo %
  * 5. deposit_bonus_fixed: Thưởng nạp tiền cố định (VNĐ)
+ * 
+ * Fully supports dual modes:
+ * - Admin SDK mode (when service account is available)
+ * - REST API fallback mode (when running without service account private key)
  */
 
-import { adminDb } from "../firebaseAdmin.js";
+import {
+  adminDb,
+  getFirestoreRestDocs,
+  getFirestoreRestDoc,
+  setFirestoreRestDoc,
+  deleteFirestoreRestDoc,
+} from "../firebaseAdmin.js";
 import type { Voucher, VoucherType, VoucherUsage, StudentWallet, WalletTransaction } from "../../src/types/index.js";
 
 function normalizeCode(code: string): string {
@@ -18,30 +28,43 @@ function normalizeCode(code: string): string {
 }
 
 export async function getVouchersList(): Promise<Voucher[]> {
-  if (!adminDb) return [];
-  try {
-    const snap = await adminDb.collection("vouchers").orderBy("createdAt", "desc").get();
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
-  } catch (err) {
-    // If index is missing, fallback without orderBy
-    const snap = await adminDb.collection("vouchers").get();
-    const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
-    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-    return list;
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection("vouchers").orderBy("createdAt", "desc").get();
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
+    } catch (err) {
+      // If index is missing, fallback without orderBy
+      const snap = await adminDb.collection("vouchers").get();
+      const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
+      list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      return list;
+    }
   }
+
+  // REST fallback mode
+  const docs = await getFirestoreRestDocs("vouchers", 100, false);
+  const list = (docs || []).map((d) => ({ id: d.id, ...d } as Voucher));
+  list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  return list;
 }
 
 export async function createVoucher(data: Partial<Voucher>): Promise<Voucher> {
-  if (!adminDb) throw new Error("Database not connected");
   const code = normalizeCode(data.code || "");
   if (!code || code.length < 3) {
     throw new Error("Mã voucher phải có ít nhất 3 ký tự (chữ hoặc số).");
   }
 
   // Check code uniqueness
-  const existing = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-  if (!existing.empty) {
-    throw new Error(`Mã voucher "${code}" đã tồn tại trên hệ thống.`);
+  if (adminDb) {
+    const existing = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
+    if (!existing.empty) {
+      throw new Error(`Mã voucher "${code}" đã tồn tại trên hệ thống.`);
+    }
+  } else {
+    const existingList = await getFirestoreRestDocs("vouchers", 100, false);
+    if ((existingList || []).some((v: any) => normalizeCode(v.code) === code)) {
+      throw new Error(`Mã voucher "${code}" đã tồn tại trên hệ thống.`);
+    }
   }
 
   const now = new Date().toISOString();
@@ -60,40 +83,57 @@ export async function createVoucher(data: Partial<Voucher>): Promise<Voucher> {
     perUserLimit: data.perUserLimit !== undefined ? Math.max(1, Number(data.perUserLimit)) : 1,
     expiresAt: data.expiresAt || null,
     isActive: data.isActive !== undefined ? Boolean(data.isActive) : true,
+    description: data.description?.trim() || undefined,
     createdAt: now,
     updatedAt: now,
   };
 
-  await adminDb.collection("vouchers").doc(id).set(voucher);
+  if (adminDb) {
+    await adminDb.collection("vouchers").doc(id).set(voucher);
+  } else {
+    await setFirestoreRestDoc("vouchers", id, voucher);
+  }
+
   return voucher;
 }
 
 export async function updateVoucher(id: string, data: Partial<Voucher>): Promise<Voucher> {
-  if (!adminDb) throw new Error("Database not connected");
-  const docRef = adminDb.collection("vouchers").doc(id);
-  const snap = await docRef.get();
-  if (!snap.exists) {
-    throw new Error("Không tìm thấy voucher yêu cầu.");
-  }
-
-  const current = snap.data() as Voucher;
+  const now = new Date().toISOString();
   const updates: Partial<Voucher> = {
     ...data,
-    updatedAt: new Date().toISOString(),
+    updatedAt: now,
   };
 
   if (data.code) {
     updates.code = normalizeCode(data.code);
   }
 
-  await docRef.set(updates, { merge: true });
-  const updatedSnap = await docRef.get();
-  return { id, ...updatedSnap.data() } as Voucher;
+  if (adminDb) {
+    const docRef = adminDb.collection("vouchers").doc(id);
+    const snap = await docRef.get();
+    if (!snap.exists) {
+      throw new Error("Không tìm thấy voucher yêu cầu.");
+    }
+    await docRef.set(updates, { merge: true });
+    const updatedSnap = await docRef.get();
+    return { id, ...updatedSnap.data() } as Voucher;
+  } else {
+    const current = await getFirestoreRestDoc("vouchers", id, false);
+    if (!current) {
+      throw new Error("Không tìm thấy voucher yêu cầu.");
+    }
+    const merged = { ...current, ...updates };
+    await setFirestoreRestDoc("vouchers", id, merged);
+    return merged as Voucher;
+  }
 }
 
 export async function deleteVoucher(id: string): Promise<void> {
-  if (!adminDb) throw new Error("Database not connected");
-  await adminDb.collection("vouchers").doc(id).delete();
+  if (adminDb) {
+    await adminDb.collection("vouchers").doc(id).delete();
+  } else {
+    await deleteFirestoreRestDoc("vouchers", id);
+  }
 }
 
 export interface ValidateVoucherResult {
@@ -112,18 +152,28 @@ export async function validateVoucher(params: {
   amountVnd?: number;
   examId?: string;
 }): Promise<ValidateVoucherResult> {
-  if (!adminDb) throw new Error("Database not connected");
   const code = normalizeCode(params.code);
   if (!code) {
     return { valid: false, message: "Vui lòng nhập mã voucher." };
   }
 
-  const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
-  if (snap.empty) {
-    return { valid: false, message: `Mã voucher "${code}" không tồn tại hoặc đã hết hạn.` };
+  let voucher: Voucher | null = null;
+  if (adminDb) {
+    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
+    if (!snap.empty) {
+      voucher = { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
+    }
+  } else {
+    const all = await getFirestoreRestDocs("vouchers", 100, false);
+    const found = (all || []).find((v: any) => normalizeCode(v.code) === code);
+    if (found) {
+      voucher = found as Voucher;
+    }
   }
 
-  const voucher = { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
+  if (!voucher) {
+    return { valid: false, message: `Mã voucher "${code}" không tồn tại hoặc đã hết hạn.` };
+  }
 
   // 1. Check isActive
   if (!voucher.isActive) {
@@ -139,18 +189,25 @@ export async function validateVoucher(params: {
   }
 
   // 3. Check System Usage Limit
-  if (voucher.usageLimit && voucher.usageLimit > 0 && voucher.usedCount >= voucher.usageLimit) {
+  if (voucher.usageLimit && voucher.usageLimit > 0 && (voucher.usedCount || 0) >= voucher.usageLimit) {
     return { valid: false, message: "Mã voucher này đã hết lượt sử dụng." };
   }
 
   // 4. Check Per-User Usage Limit
   if (params.uid) {
-    const usagesSnap = await adminDb
-      .collection("voucher_usages")
-      .where("voucherId", "==", voucher.id)
-      .where("uid", "==", params.uid)
-      .get();
-    const userUsedCount = usagesSnap.size;
+    let userUsedCount = 0;
+    if (adminDb) {
+      const usagesSnap = await adminDb
+        .collection("voucher_usages")
+        .where("voucherId", "==", voucher.id)
+        .where("uid", "==", params.uid)
+        .get();
+      userUsedCount = usagesSnap.size;
+    } else {
+      const allUsages = await getFirestoreRestDocs("voucher_usages", 100, false);
+      userUsedCount = (allUsages || []).filter((u: any) => u.voucherId === voucher!.id && u.uid === params.uid).length;
+    }
+
     const perUserLimit = voucher.perUserLimit || 1;
     if (userUsedCount >= perUserLimit) {
       return { valid: false, message: `Bạn đã sử dụng mã này ${userUsedCount}/${perUserLimit} lần tối đa.` };
@@ -241,7 +298,6 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
   newBalanceVnd: number;
   voucher: Voucher;
 }> {
-  if (!adminDb) throw new Error("Database not connected");
   const validation = await validateVoucher({ code, uid, context: "gift_money" });
   if (!validation.valid || !validation.voucher || !validation.bonusVnd) {
     throw new Error(validation.message || "Mã quà tặng không hợp lệ.");
@@ -255,52 +311,108 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
 
   let finalBalance = 0;
 
-  await adminDb.runTransaction(async (transaction) => {
-    // 1. Re-check voucher in transaction
-    const vRef = adminDb.collection("vouchers").doc(voucher.id);
-    const vSnap = await transaction.get(vRef);
-    if (!vSnap.exists) throw new Error("Voucher không tồn tại.");
-    const vData = vSnap.data() as Voucher;
-    if (vData.usageLimit && vData.usageLimit > 0 && vData.usedCount >= vData.usageLimit) {
-      throw new Error("Mã quà tặng đã hết lượt sử dụng.");
-    }
+  if (adminDb) {
+    await adminDb.runTransaction(async (transaction) => {
+      // 1. Re-check voucher in transaction
+      const vRef = adminDb.collection("vouchers").doc(voucher.id);
+      const vSnap = await transaction.get(vRef);
+      if (!vSnap.exists) throw new Error("Voucher không tồn tại.");
+      const vData = vSnap.data() as Voucher;
+      if (vData.usageLimit && vData.usageLimit > 0 && (vData.usedCount || 0) >= vData.usageLimit) {
+        throw new Error("Mã quà tặng đã hết lượt sử dụng.");
+      }
 
-    // 2. Read student wallet
-    const wRef = adminDb.collection("wallets").doc(uid);
-    const wSnap = await transaction.get(wRef);
-    let prevBalance = 0;
-    let fullName = "";
-    let currentClass = "";
+      // 2. Read student wallet
+      const wRef = adminDb.collection("wallets").doc(uid);
+      const wSnap = await transaction.get(wRef);
+      let prevBalance = 0;
+      let fullName = "";
+      let currentClass = "";
 
-    if (wSnap.exists) {
-      const wData = wSnap.data() as StudentWallet;
-      prevBalance = wData.balanceVnd || 0;
-      fullName = wData.fullName || "";
-      currentClass = wData.currentClass || "";
-    }
+      if (wSnap.exists) {
+        const wData = wSnap.data() as StudentWallet;
+        prevBalance = wData.balanceVnd || 0;
+        fullName = wData.fullName || "";
+        currentClass = wData.currentClass || "";
+      }
 
-    finalBalance = prevBalance + addedVnd;
+      finalBalance = prevBalance + addedVnd;
 
-    // 3. Update wallet
-    transaction.set(
-      wRef,
-      {
-        uid,
-        balanceVnd: finalBalance,
-        totalCreditedVnd: (wSnap.exists ? wSnap.data()?.totalCreditedVnd || 0 : 0) + addedVnd,
+      // 3. Update wallet
+      transaction.set(
+        wRef,
+        {
+          uid,
+          balanceVnd: finalBalance,
+          totalCreditedVnd: (wSnap.exists ? wSnap.data()?.totalCreditedVnd || 0 : 0) + addedVnd,
+          updatedAt: now,
+        },
+        { merge: true }
+      );
+
+      // 4. Update voucher usedCount
+      transaction.update(vRef, {
+        usedCount: (vData.usedCount || 0) + 1,
         updatedAt: now,
-      },
-      { merge: true }
-    );
+      });
 
-    // 4. Update voucher usedCount
-    transaction.update(vRef, {
-      usedCount: (vData.usedCount || 0) + 1,
+      // 5. Record voucher usage
+      const usageRef = adminDb.collection("voucher_usages").doc(usageId);
+      const usageDoc: VoucherUsage = {
+        id: usageId,
+        voucherId: voucher.id,
+        voucherCode: voucher.code,
+        uid,
+        studentName: fullName,
+        studentClass: currentClass,
+        type: "gift_money",
+        bonusVnd: addedVnd,
+        usedAt: now,
+        context: "gift_money",
+      };
+      transaction.set(usageRef, usageDoc);
+
+      // 6. Record wallet transaction
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
+      const txDoc: WalletTransaction = {
+        id: txId,
+        uid,
+        type: "deposit_credit",
+        amountVnd: addedVnd,
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: finalBalance,
+        actorUid: "system",
+        actorName: `Voucher: ${voucher.code}`,
+        note: `Nhập mã quà tặng "${voucher.code}": +${addedVnd.toLocaleString("vi-VN")}đ`,
+        createdAt: now,
+      };
+      transaction.set(txRef, txDoc);
+    });
+  } else {
+    // REST API fallback mode
+    const wData = await getFirestoreRestDoc("wallets", uid, false);
+    const prevBalance = wData?.balanceVnd || 0;
+    finalBalance = prevBalance + addedVnd;
+    const fullName = wData?.fullName || "";
+    const currentClass = wData?.currentClass || "";
+
+    // 1. Update wallet
+    await setFirestoreRestDoc("wallets", uid, {
+      ...wData,
+      uid,
+      balanceVnd: finalBalance,
+      totalCreditedVnd: (wData?.totalCreditedVnd || 0) + addedVnd,
       updatedAt: now,
     });
 
-    // 5. Record voucher usage
-    const usageRef = adminDb.collection("voucher_usages").doc(usageId);
+    // 2. Update voucher usedCount
+    await setFirestoreRestDoc("vouchers", voucher.id, {
+      ...voucher,
+      usedCount: (voucher.usedCount || 0) + 1,
+      updatedAt: now,
+    });
+
+    // 3. Record voucher usage
     const usageDoc: VoucherUsage = {
       id: usageId,
       voucherId: voucher.id,
@@ -313,10 +425,9 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
       usedAt: now,
       context: "gift_money",
     };
-    transaction.set(usageRef, usageDoc);
+    await setFirestoreRestDoc("voucher_usages", usageId, usageDoc);
 
-    // 6. Record wallet transaction
-    const txRef = adminDb.collection("wallet_transactions").doc(txId);
+    // 4. Record wallet transaction
     const txDoc: WalletTransaction = {
       id: txId,
       uid,
@@ -329,8 +440,8 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
       note: `Nhập mã quà tặng "${voucher.code}": +${addedVnd.toLocaleString("vi-VN")}đ`,
       createdAt: now,
     };
-    transaction.set(txRef, txDoc);
-  });
+    await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
+  }
 
   return {
     success: true,

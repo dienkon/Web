@@ -3,6 +3,9 @@ import {
   doc,
   getDoc,
   getDocs,
+  setDoc,
+  updateDoc,
+  deleteDoc,
   onSnapshot,
   collection,
   query,
@@ -761,12 +764,11 @@ export async function mergeExamsApi(payload: {
 // VOUCHER & PROMO CODE API CALLS
 // -------------------------------------------------------------
 
-export async function validateVoucherApi(params: {
-  code: string;
-  context: "exam_unlock" | "deposit" | "gift_money";
-  amountVnd?: number;
-  examId?: string;
-}): Promise<{
+export async function validateVoucherApi(
+  codeOrParams: string | { code: string; context: "exam_unlock" | "deposit" | "gift_money"; amountVnd?: number; examId?: string },
+  contextArg?: "exam_unlock" | "deposit" | "gift_money",
+  amountVndArg?: number
+): Promise<{
   success: boolean;
   valid: boolean;
   message?: string;
@@ -774,8 +776,113 @@ export async function validateVoucherApi(params: {
   discountVnd?: number;
   bonusVnd?: number;
   finalPriceVnd?: number;
+  code?: string;
+  name?: string;
 }> {
-  return await api.post("/api/vouchers/validate", params);
+  const code = typeof codeOrParams === "string" ? codeOrParams : codeOrParams.code;
+  const context = typeof codeOrParams === "string" ? (contextArg || "exam_unlock") : codeOrParams.context;
+  const amountVnd = typeof codeOrParams === "string" ? (amountVndArg || 0) : (codeOrParams.amountVnd || 0);
+  const examId = typeof codeOrParams === "string" ? undefined : codeOrParams.examId;
+
+  try {
+    const res = await api.post<any>("/api/vouchers/validate", { code, context, amountVnd, examId });
+    if (res) return res;
+  } catch (err: any) {
+    console.warn("[walletClientService] API validateVoucherApi failed, trying direct Firestore check:", err);
+  }
+
+  // Direct Firestore fallback
+  try {
+    const cleanCode = String(code || "").trim().toUpperCase();
+    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      return { success: false, valid: false, message: `Mã voucher "${cleanCode}" không tồn tại hoặc đã hết hạn.` };
+    }
+    const voucher = { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
+    if (!voucher.isActive) {
+      return { success: false, valid: false, message: "Mã voucher này hiện đang bị tạm khóa." };
+    }
+    if (voucher.expiresAt && new Date(voucher.expiresAt).getTime() < Date.now()) {
+      return { success: false, valid: false, message: "Mã voucher này đã hết hạn sử dụng." };
+    }
+    if (voucher.usageLimit && voucher.usageLimit > 0 && (voucher.usedCount || 0) >= voucher.usageLimit) {
+      return { success: false, valid: false, message: "Mã voucher này đã hết lượt sử dụng." };
+    }
+
+    const baseAmount = Math.max(0, amountVnd || 0);
+
+    if (context === "gift_money") {
+      if (voucher.type !== "gift_money") {
+        return { success: false, valid: false, message: "Mã này không phải mã quà tặng nạp tiền." };
+      }
+      return {
+        success: true,
+        valid: true,
+        voucher,
+        code: voucher.code,
+        name: voucher.name,
+        bonusVnd: voucher.value,
+        message: `Mã hợp lệ! Nhận ngay +${voucher.value.toLocaleString("vi-VN")}đ vào ví.`,
+      };
+    }
+
+    if (context === "exam_unlock") {
+      if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
+        return { success: false, valid: false, message: "Mã này không áp dụng để giảm giá bài thi." };
+      }
+      if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
+        return { success: false, valid: false, message: `Mã này chỉ áp dụng cho bài thi từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ.` };
+      }
+      let discountVnd = 0;
+      if (voucher.type === "discount_percent") {
+        discountVnd = Math.round((baseAmount * voucher.value) / 100);
+        if (voucher.maxDiscountVnd && discountVnd > voucher.maxDiscountVnd) {
+          discountVnd = voucher.maxDiscountVnd;
+        }
+      } else {
+        discountVnd = voucher.value;
+      }
+      discountVnd = Math.min(baseAmount, Math.max(0, discountVnd));
+      const finalPriceVnd = Math.max(0, baseAmount - discountVnd);
+      return {
+        success: true,
+        valid: true,
+        voucher,
+        discountVnd,
+        finalPriceVnd,
+        code: voucher.code,
+        name: voucher.name,
+        message: `Áp dụng thành công! Giảm ${discountVnd.toLocaleString("vi-VN")}đ (còn ${finalPriceVnd.toLocaleString("vi-VN")}đ).`,
+      };
+    }
+
+    if (context === "deposit") {
+      if (voucher.type !== "deposit_bonus_percent" && voucher.type !== "deposit_bonus_fixed") {
+        return { success: false, valid: false, message: "Mã này không áp dụng khi nạp tiền." };
+      }
+      if (voucher.minDepositVnd && baseAmount < voucher.minDepositVnd) {
+        return { success: false, valid: false, message: `Mã này chỉ áp dụng khi nạp từ ${voucher.minDepositVnd.toLocaleString("vi-VN")}đ.` };
+      }
+      let bonusVnd = 0;
+      if (voucher.type === "deposit_bonus_percent") {
+        bonusVnd = Math.round((baseAmount * voucher.value) / 100);
+      } else {
+        bonusVnd = voucher.value;
+      }
+      return {
+        success: true,
+        valid: true,
+        voucher,
+        bonusVnd,
+        code: voucher.code,
+        name: voucher.name,
+        message: `Mã nạp hợp lệ! Tặng thêm +${bonusVnd.toLocaleString("vi-VN")}đ vào ví.`,
+      };
+    }
+  } catch (_) {}
+
+  return { success: false, valid: false, message: "Không thể kiểm tra mã voucher." };
 }
 
 export async function redeemGiftVoucherApi(code: string): Promise<{
@@ -785,7 +892,12 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
   newBalanceVnd: number;
   voucher: Voucher;
 }> {
-  return await api.post("/api/vouchers/redeem-gift", { code });
+  try {
+    return await api.post("/api/vouchers/redeem-gift", { code });
+  } catch (err: any) {
+    console.warn("[walletClientService] API redeemGiftVoucher failed:", err);
+    throw err;
+  }
 }
 
 export async function getAdminVouchersApi(): Promise<Voucher[]> {
@@ -807,28 +919,148 @@ export async function getAdminVouchersApi(): Promise<Voucher[]> {
 }
 
 export async function createAdminVoucherApi(data: Partial<Voucher>): Promise<Voucher> {
-  const res = await api.post<{ success: boolean; voucher: Voucher; message: string }>(
-    "/api/admin/vouchers",
-    data
-  );
-  return res.voucher;
+  try {
+    const res = await api.post<{ success: boolean; voucher: Voucher; message: string }>(
+      "/api/admin/vouchers",
+      data
+    );
+    if (res?.voucher) return res.voucher;
+  } catch (err: any) {
+    console.warn("[walletClientService] API createAdminVoucherApi failed, trying direct Firestore write:", err);
+  }
+
+  // Direct Firestore fallback
+  const code = String(data.code || "").trim().toUpperCase();
+  const id = `vouch_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+  const now = new Date().toISOString();
+  const voucher: Voucher = {
+    id,
+    code,
+    name: data.name?.trim() || `Voucher ${code}`,
+    type: data.type || "discount_fixed",
+    value: Math.max(0, Number(data.value) || 0),
+    maxDiscountVnd: data.maxDiscountVnd ? Math.max(0, Number(data.maxDiscountVnd)) : undefined,
+    minOrderVnd: data.minOrderVnd ? Math.max(0, Number(data.minOrderVnd)) : 0,
+    minDepositVnd: data.minDepositVnd ? Math.max(0, Number(data.minDepositVnd)) : 0,
+    usageLimit: data.usageLimit !== undefined ? Math.max(0, Number(data.usageLimit)) : 0,
+    usedCount: 0,
+    perUserLimit: data.perUserLimit !== undefined ? Math.max(1, Number(data.perUserLimit)) : 1,
+    expiresAt: data.expiresAt || null,
+    isActive: data.isActive !== undefined ? Boolean(data.isActive) : true,
+    description: data.description?.trim() || undefined,
+    createdAt: now,
+    updatedAt: now,
+  };
+  await setDoc(doc(db, "vouchers", id), voucher);
+  return voucher;
 }
 
 export async function updateAdminVoucherApi(id: string, data: Partial<Voucher>): Promise<Voucher> {
-  const res = await api.patch<{ success: boolean; voucher: Voucher; message: string }>(
-    `/api/admin/vouchers/${id}`,
-    data
-  );
-  return res.voucher;
+  try {
+    const res = await api.patch<{ success: boolean; voucher: Voucher; message: string }>(
+      `/api/admin/vouchers/${id}`,
+      data
+    );
+    if (res?.voucher) return res.voucher;
+  } catch (err: any) {
+    console.warn("[walletClientService] API updateAdminVoucherApi failed, trying direct Firestore write:", err);
+  }
+
+  // Direct Firestore fallback
+  const now = new Date().toISOString();
+  const updates: any = { ...data, updatedAt: now };
+  if (data.code) updates.code = String(data.code).trim().toUpperCase();
+  await updateDoc(doc(db, "vouchers", id), updates);
+  const snap = await getDoc(doc(db, "vouchers", id));
+  return { id, ...(snap.data() as any) } as Voucher;
 }
 
 export async function deleteAdminVoucherApi(id: string): Promise<void> {
-  await api.delete(`/api/admin/vouchers/${id}`);
+  try {
+    await api.delete(`/api/admin/vouchers/${id}`);
+    return;
+  } catch (err: any) {
+    console.warn("[walletClientService] API deleteAdminVoucherApi failed, trying direct Firestore delete:", err);
+  }
+
+  // Direct Firestore fallback
+  await deleteDoc(doc(db, "vouchers", id));
 }
 
 export async function adminDirectEditWalletApi(
   studentUid: string,
   payload: AdminWalletEditPayload
 ): Promise<{ success: boolean; wallet: StudentWallet; message: string }> {
-  return await api.post(`/api/admin/wallets/${studentUid}/direct-edit`, payload);
+  try {
+    return await api.post(`/api/admin/wallets/${studentUid}/direct-edit`, payload);
+  } catch (err: any) {
+    console.warn("[walletClientService] API adminDirectEditWalletApi failed, trying direct Firestore fallback:", err);
+  }
+
+  // Direct Firestore fallback
+  const cleanUid = studentUid.trim();
+  const wRef = doc(db, "wallets", cleanUid);
+  const wSnap = await getDoc(wRef);
+  const currentWallet = wSnap.exists()
+    ? (wSnap.data() as StudentWallet)
+    : {
+        uid: cleanUid,
+        fullName: "",
+        balanceVnd: 0,
+        totalCreditedVnd: 0,
+        totalSpentVnd: 0,
+        currentClass: "",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+  const now = new Date().toISOString();
+  const updates: Partial<StudentWallet> = { updatedAt: now };
+  if (payload.fullName !== undefined) updates.fullName = String(payload.fullName).trim();
+  if (payload.currentClass !== undefined) updates.currentClass = String(payload.currentClass).trim().toUpperCase();
+  if (payload.verifiedName !== undefined) (updates as any).verifiedName = String(payload.verifiedName).trim();
+  if (payload.isVerified !== undefined) {
+    (updates as any).isVerified = Boolean(payload.isVerified);
+    if (payload.isVerified) {
+      (updates as any).verifiedAt = now;
+      (updates as any).verifiedBy = "admin";
+    }
+  }
+  if (payload.totalCreditedVnd !== undefined) {
+    updates.totalCreditedVnd = Math.max(0, Math.round(Number(payload.totalCreditedVnd) || 0));
+  }
+  if (payload.totalSpentVnd !== undefined) {
+    updates.totalSpentVnd = Math.max(0, Math.round(Number(payload.totalSpentVnd) || 0));
+  }
+
+  const prevBal = Math.max(0, Math.round(Number(currentWallet.balanceVnd) || 0));
+  const newBal =
+    payload.balanceVnd !== undefined ? Math.max(0, Math.round(Number(payload.balanceVnd) || 0)) : prevBal;
+  updates.balanceVnd = newBal;
+
+  await setDoc(wRef, { ...currentWallet, ...updates }, { merge: true });
+
+  if (newBal !== prevBal) {
+    const diff = newBal - prevBal;
+    const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const txDoc: WalletTransaction = {
+      id: txId,
+      uid: cleanUid,
+      type: "admin_adjustment",
+      amountVnd: Math.abs(diff),
+      balanceBeforeVnd: prevBal,
+      balanceAfterVnd: newBal,
+      actorUid: "admin",
+      actorName: "Quản trị viên",
+      note: payload.note || `Admin điều chỉnh số dư trực tiếp (${diff >= 0 ? "+" : ""}${diff.toLocaleString("vi-VN")}đ)`,
+      createdAt: now,
+    };
+    await setDoc(doc(db, "wallet_transactions", txId), txDoc);
+  }
+
+  return {
+    success: true,
+    wallet: { ...currentWallet, ...updates } as StudentWallet,
+    message: "Đã cập nhật ví học sinh trực tiếp!",
+  };
 }
