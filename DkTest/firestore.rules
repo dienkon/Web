@@ -280,6 +280,14 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // 18. Vouchers & Voucher Usages
+    match /vouchers/{voucherId} {
+      allow read, write: if true;
+    }
+    match /voucher_usages/{usageId} {
+      allow read, write: if true;
+    }
+
     // Default deny for anything else
     match /{document=**} {
       allow read, write: if false;

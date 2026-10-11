@@ -102,6 +102,14 @@
       "destination": "/api/wallet"
     },
     {
+      "source": "/api/vouchers/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/vouchers",
+      "destination": "/api/wallet"
+    },
+    {
       "source": "/api/exams/:match*",
       "destination": "/api/wallet"
     },

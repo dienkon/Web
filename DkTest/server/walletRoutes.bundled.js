@@ -1998,7 +1998,7 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req, res) => {
     return res.status(400).json({ error: "unlock_error", message: msg });
   }
 });
-walletRouter.post("/vouchers/validate", requireAuth, async (req, res) => {
+walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/validate-voucher"], requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
     const { code, context, amountVnd, examId } = req.body || {};
@@ -2014,7 +2014,7 @@ walletRouter.post("/vouchers/validate", requireAuth, async (req, res) => {
     return res.status(400).json({ error: "voucher_validate_error", message: err.message || String(err) });
   }
 });
-walletRouter.post("/vouchers/redeem-gift", requireAuth, async (req, res) => {
+walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift"], requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
     const { code } = req.body || {};

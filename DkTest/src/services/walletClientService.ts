@@ -788,7 +788,11 @@ export async function validateVoucherApi(
     const res = await api.post<any>("/api/vouchers/validate", { code, context, amountVnd, examId });
     if (res) return res;
   } catch (err: any) {
-    console.warn("[walletClientService] API validateVoucherApi failed, trying direct Firestore check:", err);
+    console.warn("[walletClientService] API validateVoucherApi failed, trying alias endpoint:", err);
+    try {
+      const res2 = await api.post<any>("/api/wallet/vouchers/validate", { code, context, amountVnd, examId });
+      if (res2) return res2;
+    } catch (_) {}
   }
 
   // Direct Firestore fallback
@@ -892,11 +896,153 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
   newBalanceVnd: number;
   voucher: Voucher;
 }> {
+  // 1. Try primary endpoint /api/vouchers/redeem-gift
   try {
-    return await api.post("/api/vouchers/redeem-gift", { code });
+    const res = await api.post<{
+      success: boolean;
+      message: string;
+      addedVnd: number;
+      newBalanceVnd: number;
+      voucher: Voucher;
+    }>("/api/vouchers/redeem-gift", { code });
+    if (res?.success) return res;
   } catch (err: any) {
-    console.warn("[walletClientService] API redeemGiftVoucher failed:", err);
-    throw err;
+    console.warn("[walletClientService] API /api/vouchers/redeem-gift failed, trying alias endpoint:", err);
+    // 2. Try alias endpoint /api/wallet/vouchers/redeem-gift
+    try {
+      const res2 = await api.post<{
+        success: boolean;
+        message: string;
+        addedVnd: number;
+        newBalanceVnd: number;
+        voucher: Voucher;
+      }>("/api/wallet/vouchers/redeem-gift", { code });
+      if (res2?.success) return res2;
+    } catch (err2: any) {
+      console.warn("[walletClientService] API /api/wallet/vouchers/redeem-gift failed, attempting direct Firestore fallback:", err2);
+    }
+  }
+
+  // 3. Direct Firestore Fallback
+  const studentUid = getResolvedStudentUid();
+  if (!studentUid) {
+    throw new Error("Yêu cầu đăng nhập để tiếp tục sử dụng mã quà tặng.");
+  }
+
+  const cleanCode = String(code || "").trim().toUpperCase();
+  if (!cleanCode) {
+    throw new Error("Mã quà tặng không hợp lệ.");
+  }
+
+  try {
+    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      throw new Error(`Mã quà tặng "${cleanCode}" không tồn tại hoặc đã hết hạn.`);
+    }
+
+    const voucherDoc = snap.docs[0];
+    const voucher = { id: voucherDoc.id, ...voucherDoc.data() } as Voucher;
+
+    if (voucher.type !== "gift_money") {
+      throw new Error("Mã này không phải mã quà tặng nạp tiền vào ví.");
+    }
+    if (!voucher.isActive) {
+      throw new Error("Mã quà tặng này hiện đang bị tạm khóa.");
+    }
+    if (voucher.expiresAt && new Date(voucher.expiresAt).getTime() < Date.now()) {
+      throw new Error("Mã quà tặng này đã hết hạn sử dụng.");
+    }
+    if (voucher.usageLimit && voucher.usageLimit > 0 && (voucher.usedCount || 0) >= voucher.usageLimit) {
+      throw new Error("Mã quà tặng này đã hết lượt sử dụng.");
+    }
+
+    // Check per-user limit
+    const perUserLimit = voucher.perUserLimit || 1;
+    const usagesQ = query(
+      collection(db, "voucher_usages"),
+      where("voucherId", "==", voucher.id),
+      where("uid", "==", studentUid)
+    );
+    const usagesSnap = await getDocs(usagesQ);
+    if (usagesSnap.size >= perUserLimit) {
+      throw new Error("Bạn đã sử dụng hết lượt cho mã quà tặng này.");
+    }
+
+    const addedVnd = Math.max(0, Math.round(voucher.value || 0));
+    if (addedVnd <= 0) {
+      throw new Error("Giá trị mã quà tặng không hợp lệ.");
+    }
+
+    // Read current wallet
+    const wRef = doc(db, "wallets", studentUid);
+    const wSnap = await getDoc(wRef);
+    const currentWallet = wSnap.exists() ? (wSnap.data() as StudentWallet) : null;
+    const currentBal = Math.max(0, Number(currentWallet?.balanceVnd) || 0);
+    const currentCredited = Math.max(0, Number(currentWallet?.totalCreditedVnd) || 0);
+    const newBal = currentBal + addedVnd;
+    const now = new Date().toISOString();
+
+    // Update wallet
+    await setDoc(
+      wRef,
+      {
+        uid: studentUid,
+        balanceVnd: newBal,
+        totalCreditedVnd: currentCredited + addedVnd,
+        updatedAt: now,
+      },
+      { merge: true }
+    );
+
+    // Update voucher usedCount
+    await updateDoc(doc(db, "vouchers", voucher.id), {
+      usedCount: (voucher.usedCount || 0) + 1,
+      updatedAt: now,
+    });
+
+    // Record voucher usage
+    const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const usageDoc: VoucherUsage = {
+      id: usageId,
+      voucherId: voucher.id,
+      code: voucher.code,
+      uid: studentUid,
+      context: "gift_money",
+      benefitVnd: addedVnd,
+      createdAt: now,
+    };
+    await setDoc(doc(db, "voucher_usages", usageId), usageDoc);
+
+    // Record wallet transaction
+    const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const txDoc: WalletTransaction = {
+      id: txId,
+      uid: studentUid,
+      type: "gift_code",
+      amountVnd: addedVnd,
+      balanceBeforeVnd: currentBal,
+      balanceAfterVnd: newBal,
+      actorUid: studentUid,
+      actorName: currentWallet?.fullName || "Học sinh",
+      note: `Nhập mã quà tặng ${voucher.code}: +${addedVnd.toLocaleString("vi-VN")}đ`,
+      createdAt: now,
+    };
+    await setDoc(doc(db, "wallet_transactions", txId), txDoc);
+
+    return {
+      success: true,
+      addedVnd,
+      newBalanceVnd: newBal,
+      voucher: {
+        ...voucher,
+        usedCount: (voucher.usedCount || 0) + 1,
+      },
+      message: `Đổi mã thành công! Bạn nhận được +${addedVnd.toLocaleString("vi-VN")}đ vào ví.`,
+    };
+  } catch (err: any) {
+    console.error("[walletClientService] Fallback redeemGiftVoucher error:", err);
+    throw new Error(err.message || "Không thể sử dụng mã quà tặng.");
   }
 }
 

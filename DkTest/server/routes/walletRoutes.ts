@@ -223,8 +223,8 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req: Authenticate
   }
 });
 
-// POST /api/vouchers/validate
-walletRouter.post("/vouchers/validate", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+// POST /api/vouchers/validate & /api/wallet/vouchers/validate
+walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/validate-voucher"], requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
     const { code, context, amountVnd, examId } = req.body || {};
@@ -241,8 +241,8 @@ walletRouter.post("/vouchers/validate", requireAuth, async (req: AuthenticatedRe
   }
 });
 
-// POST /api/vouchers/redeem-gift
-walletRouter.post("/vouchers/redeem-gift", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+// POST /api/vouchers/redeem-gift & /api/wallet/vouchers/redeem-gift
+walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift"], requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
     const { code } = req.body || {};
