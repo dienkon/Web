@@ -659,7 +659,7 @@ function sanitizeVnd(val) {
   if (isNaN(val) || !isFinite(val) || val < 0) return 0;
   return Math.floor(val);
 }
-async function getOrCreateWallet(uid, initialData) {
+async function getOrCreateWallet2(uid, initialData) {
   if (!uid || typeof uid !== "string") {
     throw new Error("UID kh\xF4ng h\u1EE3p l\u1EC7.");
   }
@@ -1023,14 +1023,14 @@ async function approveDepositRequest(requestId, adminUid, adminName, externalCol
   const reqData = await getFirestoreRestDoc("deposit_requests", requestId);
   if (!reqData) throw new Error("Kh\xF4ng t\xECm th\u1EA5y y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.");
   if (reqData.status === "approved") {
-    const w = await getOrCreateWallet(reqData.uid);
+    const w = await getOrCreateWallet2(reqData.uid);
     return { success: true, newBalanceVnd: w.balanceVnd, transactionId: "" };
   }
   if (reqData.status !== "pending") {
     throw new Error(`Y\xEAu c\u1EA7u n\u1EA1p kh\xF4ng th\u1EC3 duy\u1EC7t (tr\u1EA1ng th\xE1i: ${reqData.status}).`);
   }
   const amount = sanitizeVnd(reqData.amountVnd);
-  const wallet = await getOrCreateWallet(reqData.uid);
+  const wallet = await getOrCreateWallet2(reqData.uid);
   const newBalance = wallet.balanceVnd + amount;
   await setFirestoreRestDoc("wallets", reqData.uid, {
     ...wallet,
@@ -1109,7 +1109,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
   const collDate = data.collectionDate || now;
   const paymentMethod = data.paymentMethod || "Ti\u1EC1n m\u1EB7t";
   const note = String(data.note || "").trim();
-  const wallet = await getOrCreateWallet(studentUid);
+  const wallet = await getOrCreateWallet2(studentUid);
   const recordId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   if (adminDb) {
@@ -1289,7 +1289,7 @@ async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
   if (amount <= 0) throw new Error("S\u1ED1 ti\u1EC1n \u0111i\u1EC1u ch\u1EC9nh ph\u1EA3i l\u1EDBn h\u01A1n 0\u0111.");
   const reason = String(data.reason || "").trim();
   if (!reason) throw new Error("Vui l\xF2ng nh\u1EADp l\xFD do \u0111i\u1EC1u ch\u1EC9nh c\xF4ng n\u1EE3.");
-  const wallet = await getOrCreateWallet(studentUid);
+  const wallet = await getOrCreateWallet2(studentUid);
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const recordId = `adj_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
@@ -1392,7 +1392,7 @@ async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, exa
     await adminDb.collection("exam_entitlements").doc(entitlementId).set(entitlement, { merge: true });
     const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     const txRef = adminDb.collection("wallet_transactions").doc(txId);
-    const wallet = await getOrCreateWallet(studentUid);
+    const wallet = await getOrCreateWallet2(studentUid);
     const txDoc = {
       id: txId,
       uid: studentUid,
@@ -1639,7 +1639,7 @@ async function getStudentDebtSummaries(options) {
 }
 async function getStudentWalletDetails(studentUid) {
   if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
-  const wallet = await getOrCreateWallet(studentUid);
+  const wallet = await getOrCreateWallet2(studentUid);
   let transactions = [];
   let depositRequests = [];
   let entitlements = [];
@@ -1752,7 +1752,7 @@ async function getStudentDepositRequests(uid, limitCount = 30) {
 }
 async function updateStudentWalletProfile(studentUid, data) {
   if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
-  const wallet = await getOrCreateWallet(studentUid);
+  const wallet = await getOrCreateWallet2(studentUid);
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const updateFields = {
     updatedAt: now
@@ -1958,7 +1958,7 @@ async function syncStudentsToWallets() {
 async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
   if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
   const cleanUid = studentUid.trim();
-  const currentWallet = await getOrCreateWallet(cleanUid);
+  const currentWallet = await getOrCreateWallet2(cleanUid);
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const updates = {

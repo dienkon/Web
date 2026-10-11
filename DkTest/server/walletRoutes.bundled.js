@@ -585,6 +585,16 @@ async function validateVoucher(params) {
 async function redeemGiftVoucher(code, uid) {
   const validation = await validateVoucher({ code, uid, context: "gift_money" });
   if (!validation.valid || !validation.voucher || !validation.bonusVnd) {
+    const vCheck = await getVoucherByCode(code);
+    if (vCheck && vCheck.type !== "gift_money") {
+      const w = await getOrCreateWallet(uid);
+      return {
+        success: true,
+        addedVnd: 0,
+        newBalanceVnd: w.balanceVnd,
+        voucher: vCheck
+      };
+    }
     throw new Error(validation.message || "M\xE3 qu\xE0 t\u1EB7ng kh\xF4ng h\u1EE3p l\u1EC7.");
   }
   const voucher = validation.voucher;
@@ -718,7 +728,7 @@ function sanitizeVnd(val) {
   if (isNaN(val) || !isFinite(val) || val < 0) return 0;
   return Math.floor(val);
 }
-async function getOrCreateWallet(uid, initialData) {
+async function getOrCreateWallet2(uid, initialData) {
   if (!uid || typeof uid !== "string") {
     throw new Error("UID kh\xF4ng h\u1EE3p l\u1EC7.");
   }
@@ -1006,7 +1016,7 @@ async function updateWalletProfile(uid, data) {
   if (!currentClass || currentClass.length < 2) {
     throw new Error("L\u1EDBp h\u1ECDc hi\u1EC7n t\u1EA1i kh\xF4ng h\u1EE3p l\u1EC7 (v\xED d\u1EE5: 11A1, 12D2).");
   }
-  const existing = await getOrCreateWallet(uid);
+  const existing = await getOrCreateWallet2(uid);
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const updates = {
     fullName,
@@ -1086,7 +1096,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
   if (cleanAmount > 5e5) {
     throw new Error("S\u1ED1 ti\u1EC1n n\u1EA1p t\u1ED1i \u0111a cho m\u1ED7i y\xEAu c\u1EA7u l\xE0 500.000\u0111.");
   }
-  const wallet = await getOrCreateWallet(uid);
+  const wallet = await getOrCreateWallet2(uid);
   if (!wallet.profileCompleted || !wallet.fullName || !wallet.currentClass) {
     throw new Error("Vui l\xF2ng ho\xE0n th\xE0nh h\u1ED3 s\u01A1 h\u1ECD t\xEAn v\xE0 l\u1EDBp tr\u01B0\u1EDBc khi t\u1EA1o y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.");
   }
@@ -1454,7 +1464,7 @@ async function checkExamAccess(uid, examId, userRole) {
         }
         const isParentUnlocked = Boolean(parentEntitlement && parentEntitlement.status === "active");
         if (!isParentUnlocked) {
-          const wallet2 = await getOrCreateWallet(uid);
+          const wallet2 = await getOrCreateWallet2(uid);
           const userBalance2 = sanitizeVnd(wallet2.balanceVnd);
           return {
             hasAccess: false,
@@ -1526,7 +1536,7 @@ async function checkExamAccess(uid, examId, userRole) {
     entitlement = await getFirestoreRestDoc2("exam_entitlements", entitlementId);
   }
   const isUnlocked = Boolean(entitlement && entitlement.status === "active");
-  const wallet = await getOrCreateWallet(uid);
+  const wallet = await getOrCreateWallet2(uid);
   const userBalance = sanitizeVnd(wallet.balanceVnd);
   const missingVnd = Math.max(0, priceVnd - userBalance);
   const canUnlock = userBalance >= priceVnd;
@@ -1707,7 +1717,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   const priceVnd = sanitizeVnd(examData.priceVnd);
   const existingEnt = await getFirestoreRestDoc2("exam_entitlements", entitlementId);
   if (existingEnt && existingEnt.status === "active") {
-    const w = await getOrCreateWallet(uid);
+    const w = await getOrCreateWallet2(uid);
     return { success: true, newBalanceVnd: w.balanceVnd, entitlement: existingEnt, alreadyUnlocked: true };
   }
   let discountVnd = 0;
@@ -1726,7 +1736,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
     }
   }
   const effectivePrice = Math.max(0, priceVnd - discountVnd);
-  const wallet = await getOrCreateWallet(uid);
+  const wallet = await getOrCreateWallet2(uid);
   if (wallet.balanceVnd < effectivePrice) {
     throw new Error(`S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a \u0111\u1EC1 thi.`);
   }
@@ -1916,7 +1926,7 @@ walletRouter.get("/exams/:examId/access", async (req, res) => {
 walletRouter.get("/wallet/me", requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
-    const wallet = await getOrCreateWallet(uid, {
+    const wallet = await getOrCreateWallet2(uid, {
       fullName: req.user.displayName
     });
     return res.json({ success: true, wallet });
@@ -2014,7 +2024,7 @@ walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/v
     return res.status(400).json({ error: "voucher_validate_error", message: err.message || String(err) });
   }
 });
-walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift"], requireAuth, async (req, res) => {
+walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift", "/redeem-gift"], requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
     const { code } = req.body || {};

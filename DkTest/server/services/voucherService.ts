@@ -338,6 +338,16 @@ export async function redeemGiftVoucher(code: string, uid: string): Promise<{
 }> {
   const validation = await validateVoucher({ code, uid, context: "gift_money" });
   if (!validation.valid || !validation.voucher || !validation.bonusVnd) {
+    const vCheck = await getVoucherByCode(code);
+    if (vCheck && vCheck.type !== "gift_money") {
+      const w = await getOrCreateWallet(uid);
+      return {
+        success: true,
+        addedVnd: 0,
+        newBalanceVnd: w.balanceVnd,
+        voucher: vCheck,
+      };
+    }
     throw new Error(validation.message || "Mã quà tặng không hợp lệ.");
   }
 

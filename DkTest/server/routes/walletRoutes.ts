@@ -242,7 +242,7 @@ walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/v
 });
 
 // POST /api/vouchers/redeem-gift & /api/wallet/vouchers/redeem-gift
-walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift"], requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift", "/redeem-gift"], requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
     const { code } = req.body || {};

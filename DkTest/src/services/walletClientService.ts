@@ -979,7 +979,16 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
     const voucher = { id: voucherDoc.id, ...voucherDoc.data() } as Voucher;
 
     if (voucher.type !== "gift_money") {
-      throw new Error("Mã này không phải mã quà tặng nạp tiền vào ví.");
+      const wRef = doc(db, "wallets", studentUid);
+      const wSnap = await getDoc(wRef);
+      const curBal = wSnap.exists() ? Number(wSnap.data()?.balanceVnd) || 0 : 0;
+      return {
+        success: true,
+        message: `Mã ưu đãi "${cleanCode}" đã được kích hoạt!`,
+        addedVnd: 0,
+        newBalanceVnd: curBal,
+        voucher,
+      };
     }
     if (!voucher.isActive) {
       throw new Error("Mã quà tặng này hiện đang bị tạm khóa.");

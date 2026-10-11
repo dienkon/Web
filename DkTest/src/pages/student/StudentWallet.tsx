@@ -35,6 +35,7 @@ import {
   getMyTransactions,
   getMyDebtSummary,
   redeemGiftVoucherApi,
+  getResolvedStudentUid,
 } from "../../services/walletClientService";
 import type { StudentWallet as WalletType, DepositRequest, WalletTransaction, DebtRecord } from "../../types";
 import { useAuth } from "../../context/AuthContext";
@@ -43,7 +44,7 @@ import { formatDate } from "../../utils/date";
 
 export default function StudentWalletPage() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, authInitialized, loading: authLoading } = useAuth();
   const { error: showErrorToast, success: showSuccessToast, info: showInfoToast } = useToast();
 
   const [wallet, setWallet] = useState<WalletType | null>(null);
@@ -77,11 +78,22 @@ export default function StudentWalletPage() {
     newBalanceVnd: number;
     name?: string;
     description?: string;
+    type?: string;
+    value?: number;
     message?: string;
   } | null>(null);
 
+  const [alreadyRedeemedNotice, setAlreadyRedeemedNotice] = useState<{
+    code: string;
+    message: string;
+    balanceVnd: number;
+  } | null>(null);
+
+  const [autoRedeemProcessing, setAutoRedeemProcessing] = useState<string | null>(null);
+  const [unauthenticatedVoucherPrompt, setUnauthenticatedVoucherPrompt] = useState<string | null>(null);
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const autoRedeemAttemptedRef = useRef(false);
+  const autoRedeemTriggeredRef = useRef<string | null>(null);
 
   // 3-Step Confirmation Modal State (Phần B - Section 7)
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -268,57 +280,110 @@ export default function StudentWalletPage() {
     }, 550);
   };
 
-  const executeRedeemVoucher = async (codeToRedeem: string) => {
+  const executeRedeemVoucher = async (codeToRedeem: string, isAuto = false) => {
     const code = codeToRedeem.trim().toUpperCase();
     if (!code) {
       showErrorToast("Vui lòng nhập mã voucher quà tặng.");
       return;
     }
     setRedeemingGift(true);
+    if (isAuto) setAutoRedeemProcessing(code);
+
     try {
       const res = await redeemGiftVoucherApi(code);
       fireGrandCelebration();
       setCelebrationReward({
         code,
-        addedVnd: res.addedVnd,
+        addedVnd: res.addedVnd || 0,
         newBalanceVnd: res.newBalanceVnd,
         name: res.voucher?.name,
         description: res.voucher?.description,
+        type: res.voucher?.type,
+        value: res.voucher?.value,
         message: res.message,
       });
-      showSuccessToast(res.message || `Đã nhận quà thành công! +${res.addedVnd.toLocaleString("vi-VN")}đ vào ví.`);
+      showSuccessToast(
+        res.message ||
+          (res.addedVnd > 0
+            ? `Đã nhận quà thành công! +${res.addedVnd.toLocaleString("vi-VN")}đ vào ví.`
+            : `Đã kích hoạt mã ưu đãi ${code}!`)
+      );
       setGiftVoucherCode("");
       await loadWalletData();
     } catch (err: any) {
-      showErrorToast(err.message || "Không thể sử dụng mã quà tặng này.");
+      console.warn("[StudentWallet] Redeem voucher error:", err);
+      const errMsg = String(err?.message || "");
+      if (
+        errMsg.toLowerCase().includes("bạn đã sử dụng") ||
+        errMsg.toLowerCase().includes("đã dùng") ||
+        errMsg.toLowerCase().includes("already used")
+      ) {
+        setAlreadyRedeemedNotice({
+          code,
+          message: "Mã quà tặng này đã được bạn nhận vào ví trước đó (mỗi tài khoản chỉ được nhận 1 lần).",
+          balanceVnd: wallet?.balanceVnd || 0,
+        });
+      } else if (errMsg.toLowerCase().includes("hết lượt")) {
+        setAlreadyRedeemedNotice({
+          code,
+          message: "Rất tiếc! Mã quà tặng này đã đạt tối đa số lượt nhận và hiện tại đã hết.",
+          balanceVnd: wallet?.balanceVnd || 0,
+        });
+      } else {
+        showErrorToast(err.message || "Không thể sử dụng mã quà tặng này.");
+      }
     } finally {
       setRedeemingGift(false);
+      setAutoRedeemProcessing(null);
     }
   };
 
   const handleRedeemGift = async (e: React.FormEvent) => {
     e.preventDefault();
-    await executeRedeemVoucher(giftVoucherCode);
+    await executeRedeemVoucher(giftVoucherCode, false);
   };
 
-  // Auto-redeem from URL query (?voucher=CODE or ?code=CODE or ?redeem=CODE)
+  // Auto-redeem from URL query (?voucher=CODE or ?code=CODE or ?redeem=CODE) or sessionStorage
   useEffect(() => {
-    const paramCode = (searchParams.get("voucher") || searchParams.get("code") || searchParams.get("redeem") || "").trim().toUpperCase();
+    const paramCode = (
+      searchParams.get("voucher") ||
+      searchParams.get("code") ||
+      searchParams.get("redeem") ||
+      sessionStorage.getItem("dktest_pending_voucher") ||
+      ""
+    ).trim().toUpperCase();
+
     if (!paramCode) return;
 
     setGiftVoucherCode(paramCode);
 
-    // When student is authenticated and wallet loaded, auto-redeem once
-    if (user?.uid && !autoRedeemAttemptedRef.current && !loading) {
-      autoRedeemAttemptedRef.current = true;
-      executeRedeemVoucher(paramCode);
-      const newParams = new URLSearchParams(searchParams);
-      newParams.delete("voucher");
-      newParams.delete("code");
-      newParams.delete("redeem");
-      setSearchParams(newParams, { replace: true });
+    // Resolve student identity (Firebase Auth user OR stored student session)
+    const currentUid = user?.uid || getResolvedStudentUid();
+
+    if (currentUid) {
+      if (autoRedeemTriggeredRef.current !== paramCode) {
+        autoRedeemTriggeredRef.current = paramCode;
+        sessionStorage.removeItem("dktest_pending_voucher");
+        setUnauthenticatedVoucherPrompt(null);
+
+        // Clear query parameters from URL quietly
+        try {
+          const newParams = new URLSearchParams(searchParams);
+          newParams.delete("voucher");
+          newParams.delete("code");
+          newParams.delete("redeem");
+          setSearchParams(newParams, { replace: true });
+        } catch (_) {}
+
+        // Execute immediately without waiting!
+        executeRedeemVoucher(paramCode, true);
+      }
+    } else if (authInitialized && !authLoading && !currentUid) {
+      // Prompt unauthenticated user
+      sessionStorage.setItem("dktest_pending_voucher", paramCode);
+      setUnauthenticatedVoucherPrompt(paramCode);
     }
-  }, [searchParams, user?.uid, loading]);
+  }, [searchParams, user?.uid, authInitialized, authLoading]);
 
   const unlockedExams = transactions
     .filter((tx) => tx.type === "exam_unlock_debit" && tx.examId)
@@ -1074,9 +1139,33 @@ export default function StudentWalletPage() {
         </div>
       )}
 
+      {/* AUTO-REDEEM IN PROGRESS OVERLAY */}
+      {autoRedeemProcessing && (
+        <div className="fixed inset-0 z-[65] bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-slate-900 border border-emerald-500/40 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
+            <div className="relative inline-flex items-center justify-center">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                <Gift className="w-8 h-8 animate-bounce" />
+              </div>
+              <div className="absolute -inset-1 rounded-2xl border-2 border-emerald-400/40 animate-ping pointer-events-none" />
+            </div>
+            <div>
+              <h4 className="text-base font-black text-white">Đang tự động nhận quà...</h4>
+              <p className="text-xs text-slate-400 mt-1">
+                Hệ thống đang kích hoạt mã quà tặng <span className="text-amber-400 font-mono font-bold">#{autoRedeemProcessing}</span> vào ví DkTEST của bạn.
+              </p>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-xs font-bold text-emerald-400">
+              <RotateCw className="w-4 h-4 animate-spin" />
+              <span>Vui lòng chờ trong giây lát...</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* GRAND CELEBRATION REWARD MODAL */}
       {celebrationReward && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
           <div className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 rounded-3xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-amber-500/30 text-center overflow-hidden">
             {/* Background radiant glow */}
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
@@ -1113,14 +1202,28 @@ export default function StudentWalletPage() {
             {/* Big Reward Amount */}
             <div className="my-5 py-4 px-6 bg-slate-800/80 rounded-2xl border border-amber-400/20 shadow-inner">
               <span className="text-xs font-bold text-slate-400 block mb-1 uppercase tracking-wider">
-                Số tiền được cộng
+                {celebrationReward.addedVnd > 0 ? "Số tiền được cộng" : "Giá trị ưu đãi"}
               </span>
-              <span className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-tight">
-                +{celebrationReward.addedVnd.toLocaleString("vi-VN")}đ
-              </span>
+              {celebrationReward.addedVnd > 0 ? (
+                <span className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-tight">
+                  +{celebrationReward.addedVnd.toLocaleString("vi-VN")}đ
+                </span>
+              ) : (
+                <span className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-tight">
+                  {celebrationReward.type === "percent_discount"
+                    ? `Giảm ${celebrationReward.value}%`
+                    : celebrationReward.type === "deposit_bonus"
+                    ? `Tặng +${celebrationReward.value}% khi nạp`
+                    : celebrationReward.name || "Ưu đãi đặc biệt"}
+                </span>
+              )}
               <div className="mt-2 text-xs text-emerald-400 font-bold flex items-center justify-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Đã nạp trực tiếp vào Ví DkTEST!</span>
+                <span>
+                  {celebrationReward.addedVnd > 0
+                    ? "Đã nạp trực tiếp vào Ví DkTEST!"
+                    : "Đã kích hoạt thành công cho tài khoản của bạn!"}
+                </span>
               </div>
             </div>
 
@@ -1174,6 +1277,109 @@ export default function StudentWalletPage() {
                   Đóng & xem ví
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ALREADY REDEEMED / USAGE LIMIT NOTICE MODAL */}
+      {alreadyRedeemedNotice && (
+        <div className="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="relative bg-slate-900 border border-amber-500/40 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl space-y-4 overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setAlreadyRedeemedNotice(null)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="inline-flex p-3 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+              <CheckCircle2 className="w-8 h-8" />
+            </div>
+
+            <div className="space-y-1">
+              <div className="inline-block px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-[10px] font-black uppercase tracking-wider">
+                Mã quà tặng: {alreadyRedeemedNotice.code}
+              </div>
+              <h3 className="text-lg sm:text-xl font-black text-white">
+                Bạn đã nhận mã này rồi! 🎉
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed max-w-xs mx-auto">
+                {alreadyRedeemedNotice.message}
+              </p>
+            </div>
+
+            <div className="bg-slate-800/60 rounded-2xl p-3.5 border border-slate-700/60 flex items-center justify-between text-xs">
+              <span className="text-slate-400 font-medium">Số dư khả dụng hiện tại:</span>
+              <span className="text-base font-black text-emerald-400">
+                {(wallet?.balanceVnd ?? alreadyRedeemedNotice.balanceVnd).toLocaleString("vi-VN")}đ
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2">
+              <Link
+                to="/student"
+                onClick={() => setAlreadyRedeemedNotice(null)}
+                className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Làm bài thi ngay</span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => setAlreadyRedeemedNotice(null)}
+                className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl border border-slate-700 transition-colors cursor-pointer"
+              >
+                Đóng thông báo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* UNAUTHENTICATED VISITOR PROMPT MODAL */}
+      {unauthenticatedVoucherPrompt && (
+        <div className="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="relative bg-slate-900 border border-emerald-500/40 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl space-y-4">
+            <button
+              type="button"
+              onClick={() => setUnauthenticatedVoucherPrompt(null)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="inline-flex p-3 rounded-2xl bg-gradient-to-tr from-amber-500 to-emerald-500 text-white shadow-lg shadow-emerald-500/20 animate-bounce">
+              <Gift className="w-8 h-8" />
+            </div>
+
+            <div className="space-y-1">
+              <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+                Mã quà tặng #{unauthenticatedVoucherPrompt}
+              </span>
+              <h3 className="text-lg sm:text-xl font-black text-white">
+                Bạn nhận được quà tặng DkTEST!
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Đăng nhập vào tài khoản học sinh để hệ thống tự động cộng phần thưởng voucher này vào ví của bạn.
+              </p>
+            </div>
+
+            <div className="pt-2 flex flex-col gap-2">
+              <Link
+                to={`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl shadow-lg shadow-emerald-600/25 transition-all text-center cursor-pointer"
+              >
+                Đăng nhập nhận quà ngay
+              </Link>
+              <button
+                type="button"
+                onClick={() => setUnauthenticatedVoucherPrompt(null)}
+                className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl border border-slate-700 transition-colors cursor-pointer"
+              >
+                Để sau
+              </button>
             </div>
           </div>
         </div>
