@@ -18,6 +18,9 @@ import type {
   StudentDebtSummary,
   DebtRecord,
   StudentWalletProfileDetail,
+  Voucher,
+  VoucherUsage,
+  AdminWalletEditPayload,
 } from "../types";
 
 export interface ExamAccessInfo {
@@ -49,6 +52,21 @@ export interface UnlockExamResponse {
 // STUDENT CLIENT API CALLS
 // -------------------------------------------------------------
 
+export function getResolvedStudentUid(): string {
+  if (auth.currentUser?.uid) return auth.currentUser.uid;
+  try {
+    const sInfoStr =
+      localStorage.getItem("student_info") ||
+      localStorage.getItem("dktest:auth:student_info") ||
+      localStorage.getItem("current_student_session");
+    if (sInfoStr) {
+      const sInfo = JSON.parse(sInfoStr);
+      return sInfo.uid || sInfo.id || sInfo.studentId || "";
+    }
+  } catch (_) {}
+  return "";
+}
+
 export async function getMyWallet(): Promise<StudentWallet> {
   try {
     const res = await api.get<{ success: boolean; wallet: StudentWallet }>("/api/wallet/me");
@@ -58,7 +76,7 @@ export async function getMyWallet(): Promise<StudentWallet> {
   }
 
   // Direct Firestore fallback (supported by firestore.rules for wallet owner)
-  const currentUid = auth.currentUser?.uid;
+  const currentUid = getResolvedStudentUid();
   if (currentUid) {
     try {
       const snap = await getDoc(doc(db, "wallets", currentUid));
@@ -123,10 +141,14 @@ export async function updateMyWalletProfile(fullName: string, currentClass: stri
   return res.wallet;
 }
 
-export async function createDepositRequest(amountVnd: number, idempotencyKey?: string): Promise<DepositRequest> {
+export async function createDepositRequest(
+  amountVnd: number,
+  idempotencyKey?: string,
+  voucherCode?: string
+): Promise<DepositRequest> {
   const res = await api.post<{ success: boolean; depositRequest: DepositRequest }>(
     "/api/wallet/deposit-requests",
-    { amountVnd, idempotencyKey }
+    { amountVnd, idempotencyKey, voucherCode }
   );
   return res.depositRequest;
 }
@@ -139,7 +161,7 @@ export async function getMyDepositRequests(): Promise<DepositRequest[]> {
     console.warn("[walletClientService] API getMyDepositRequests failed, trying direct Firestore query:", err);
   }
 
-  const currentUid = auth.currentUser?.uid;
+  const currentUid = getResolvedStudentUid();
   if (currentUid) {
     try {
       const q = query(collection(db, "deposit_requests"), where("uid", "==", currentUid));
@@ -161,7 +183,7 @@ export async function getMyTransactions(): Promise<WalletTransaction[]> {
     console.warn("[walletClientService] API getMyTransactions failed, trying direct Firestore query:", err);
   }
 
-  const currentUid = auth.currentUser?.uid;
+  const currentUid = getResolvedStudentUid();
   if (currentUid) {
     try {
       const q = query(collection(db, "wallet_transactions"), where("uid", "==", currentUid));
@@ -173,6 +195,44 @@ export async function getMyTransactions(): Promise<WalletTransaction[]> {
   }
 
   return [];
+}
+
+export async function getMyDebtSummary(): Promise<{
+  totalDebtVnd: number;
+  unpaidCount: number;
+  records: DebtRecord[];
+}> {
+  try {
+    const res = await api.get<{ success: boolean; totalDebtVnd: number; unpaidCount: number; records: DebtRecord[] }>(
+      "/api/wallet/debt"
+    );
+    if (res?.records) {
+      return {
+        totalDebtVnd: res.totalDebtVnd || 0,
+        unpaidCount: res.unpaidCount || 0,
+        records: res.records || [],
+      };
+    }
+  } catch (err) {
+    console.warn("[walletClientService] API getMyDebtSummary failed, trying direct Firestore query:", err);
+  }
+
+  const currentUid = getResolvedStudentUid();
+  if (currentUid) {
+    try {
+      const q = query(collection(db, "debt_records"), where("uid", "==", currentUid));
+      const snap = await getDocs(q);
+      const allDebts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
+      const unpaid = allDebts.filter(
+        (d) => d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0)
+      );
+      unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      const totalDebtVnd = unpaid.reduce((sum, d) => sum + (d.remainingVnd ?? d.amountVnd ?? 0), 0);
+      return { totalDebtVnd, unpaidCount: unpaid.length, records: unpaid };
+    } catch (_) {}
+  }
+
+  return { totalDebtVnd: 0, unpaidCount: 0, records: [] };
 }
 
 export async function checkExamAccess(
@@ -312,9 +372,14 @@ export async function checkExamAccess(
   };
 }
 
-export async function unlockExam(examId: string, idempotencyKey?: string): Promise<UnlockExamResponse> {
+export async function unlockExam(
+  examId: string,
+  idempotencyKey?: string,
+  voucherCode?: string
+): Promise<UnlockExamResponse> {
   const res = await api.post<UnlockExamResponse>(`/api/exams/${examId}/unlock`, {
     idempotencyKey,
+    voucherCode,
   });
   return res;
 }
@@ -690,4 +755,80 @@ export async function mergeExamsApi(payload: {
     totalPoints: number;
   }>("/api/admin/exams/merge", payload);
   return res;
+}
+
+// -------------------------------------------------------------
+// VOUCHER & PROMO CODE API CALLS
+// -------------------------------------------------------------
+
+export async function validateVoucherApi(params: {
+  code: string;
+  context: "exam_unlock" | "deposit" | "gift_money";
+  amountVnd?: number;
+  examId?: string;
+}): Promise<{
+  success: boolean;
+  valid: boolean;
+  message?: string;
+  voucher?: Voucher;
+  discountVnd?: number;
+  bonusVnd?: number;
+  finalPriceVnd?: number;
+}> {
+  return await api.post("/api/vouchers/validate", params);
+}
+
+export async function redeemGiftVoucherApi(code: string): Promise<{
+  success: boolean;
+  message: string;
+  addedVnd: number;
+  newBalanceVnd: number;
+  voucher: Voucher;
+}> {
+  return await api.post("/api/vouchers/redeem-gift", { code });
+}
+
+export async function getAdminVouchersApi(): Promise<Voucher[]> {
+  try {
+    const res = await api.get<{ success: boolean; items: Voucher[] }>("/api/admin/vouchers");
+    if (Array.isArray(res?.items)) return res.items;
+  } catch (err) {
+    console.warn("[walletClientService] API getAdminVouchersApi failed, trying direct Firestore query:", err);
+  }
+
+  try {
+    const snap = await getDocs(collection(db, "vouchers"));
+    const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as Voucher));
+    list.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    return list;
+  } catch (_) {}
+
+  return [];
+}
+
+export async function createAdminVoucherApi(data: Partial<Voucher>): Promise<Voucher> {
+  const res = await api.post<{ success: boolean; voucher: Voucher; message: string }>(
+    "/api/admin/vouchers",
+    data
+  );
+  return res.voucher;
+}
+
+export async function updateAdminVoucherApi(id: string, data: Partial<Voucher>): Promise<Voucher> {
+  const res = await api.patch<{ success: boolean; voucher: Voucher; message: string }>(
+    `/api/admin/vouchers/${id}`,
+    data
+  );
+  return res.voucher;
+}
+
+export async function deleteAdminVoucherApi(id: string): Promise<void> {
+  await api.delete(`/api/admin/vouchers/${id}`);
+}
+
+export async function adminDirectEditWalletApi(
+  studentUid: string,
+  payload: AdminWalletEditPayload
+): Promise<{ success: boolean; wallet: StudentWallet; message: string }> {
+  return await api.post(`/api/admin/wallets/${studentUid}/direct-edit`, payload);
 }

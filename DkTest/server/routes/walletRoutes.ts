@@ -8,7 +8,9 @@ import {
   getStudentTransactions,
   checkExamAccess,
   unlockExam,
+  getStudentUnpaidDebt,
 } from "../services/walletService.js";
+import { validateVoucher, redeemGiftVoucher } from "../services/voucherService.js";
 
 export const walletRouter = Router();
 
@@ -149,13 +151,24 @@ walletRouter.patch("/wallet/me/profile", requireAuth, async (req: AuthenticatedR
   }
 });
 
+// GET /api/wallet/debt
+walletRouter.get("/wallet/debt", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.user!.uid;
+    const debtSummary = await getStudentUnpaidDebt(uid);
+    return res.json({ success: true, ...debtSummary });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
 // POST /api/wallet/deposit-requests
 walletRouter.post("/wallet/deposit-requests", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
-    const { amountVnd, idempotencyKey } = req.body || {};
+    const { amountVnd, idempotencyKey, voucherCode } = req.body || {};
 
-    const depositRequest = await createDepositRequest(uid, Number(amountVnd), idempotencyKey);
+    const depositRequest = await createDepositRequest(uid, Number(amountVnd), idempotencyKey, voucherCode);
     return res.status(201).json({ success: true, depositRequest });
   } catch (err: any) {
     return res.status(400).json({ error: "deposit_request_error", message: err.message || String(err) });
@@ -189,9 +202,9 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req: Authenticate
   try {
     const uid = req.user!.uid;
     const examId = req.params.examId;
-    const { idempotencyKey } = req.body || {};
+    const { idempotencyKey, voucherCode } = req.body || {};
 
-    const result = await unlockExam(uid, examId, idempotencyKey);
+    const result = await unlockExam(uid, examId, idempotencyKey, voucherCode);
     return res.json({
       success: true,
       newBalanceVnd: result.newBalanceVnd,
@@ -207,5 +220,42 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req: Authenticate
       return res.status(402).json({ error: "insufficient_balance", message: msg });
     }
     return res.status(400).json({ error: "unlock_error", message: msg });
+  }
+});
+
+// POST /api/vouchers/validate
+walletRouter.post("/vouchers/validate", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.user!.uid;
+    const { code, context, amountVnd, examId } = req.body || {};
+    const result = await validateVoucher({
+      code: String(code || "").trim(),
+      uid,
+      context: context || "exam_unlock",
+      amountVnd: Number(amountVnd || 0),
+      examId,
+    });
+    return res.json({ success: true, ...result });
+  } catch (err: any) {
+    return res.status(400).json({ error: "voucher_validate_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/vouchers/redeem-gift
+walletRouter.post("/vouchers/redeem-gift", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.user!.uid;
+    const { code } = req.body || {};
+    if (!code) {
+      return res.status(400).json({ error: "missing_code", message: "Vui lòng nhập mã voucher quà tặng." });
+    }
+    const result = await redeemGiftVoucher(String(code).trim(), uid);
+    return res.json({
+      success: true,
+      message: `Nhập mã quà tặng thành công! Bạn nhận được +${result.addedVnd.toLocaleString("vi-VN")}đ vào ví.`,
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "redeem_error", message: err.message || String(err) });
   }
 });

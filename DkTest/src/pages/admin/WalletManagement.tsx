@@ -34,6 +34,12 @@ import {
   Check,
   BadgeCheck,
   Sparkles,
+  Edit3,
+  Ticket,
+  Trash2,
+  Gift,
+  Percent,
+  Tag,
 } from "lucide-react";
 import {
   getAdminWalletOverview,
@@ -47,6 +53,11 @@ import {
   grantOrRevokeExamEntitlement,
   syncStudentsToWalletsApi,
   updateAdminStudentWalletProfileApi,
+  adminDirectEditWalletApi,
+  getAdminVouchersApi,
+  createAdminVoucherApi,
+  updateAdminVoucherApi,
+  deleteAdminVoucherApi,
   type AdminWalletOverview,
 } from "../../services/walletClientService";
 import type {
@@ -57,6 +68,9 @@ import type {
   ExamEntitlement,
   DebtRecord,
   StudentWalletProfileDetail,
+  Voucher,
+  VoucherType,
+  AdminWalletEditPayload,
 } from "../../types";
 import { useToast } from "../../components/ui/ToastNotification";
 import { formatDate } from "../../utils/date";
@@ -64,7 +78,7 @@ import { formatDate } from "../../utils/date";
 export default function WalletManagement() {
   const { error: showErrorToast, success: showSuccessToast, info: showInfoToast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<"overview" | "requests" | "debts">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "requests" | "debts" | "vouchers">("overview");
   const [overview, setOverview] = useState<AdminWalletOverview | null>(null);
   const [overviewLoading, setOverviewLoading] = useState(true);
 
@@ -126,6 +140,55 @@ export default function WalletManagement() {
   const [editIsVerified, setEditIsVerified] = useState<boolean>(false);
   const [savingWalletProfile, setSavingWalletProfile] = useState<boolean>(false);
 
+  // Admin Direct Wallet Edit Modal State
+  const [editingWalletStudent, setEditingWalletStudent] = useState<{
+    uid: string;
+    fullName: string;
+    currentClass?: string;
+    verifiedName?: string;
+    isVerified?: boolean;
+    balanceVnd: number;
+    totalCreditedVnd?: number;
+    totalSpentVnd?: number;
+  } | null>(null);
+
+  const [editBalanceVnd, setEditBalanceVnd] = useState<number>(0);
+  const [editFullName, setEditFullName] = useState<string>("");
+  const [editCurrentClass, setEditCurrentClass] = useState<string>("");
+  const [editWalletVerifiedName, setEditWalletVerifiedName] = useState<string>("");
+  const [editWalletIsVerified, setEditWalletIsVerified] = useState<boolean>(false);
+  const [editTotalCreditedVnd, setEditTotalCreditedVnd] = useState<number>(0);
+  const [editTotalSpentVnd, setEditTotalSpentVnd] = useState<number>(0);
+  const [editReason, setEditReason] = useState<string>("");
+  const [savingDirectEdit, setSavingDirectEdit] = useState<boolean>(false);
+
+  // Vouchers Tab State
+  const [vouchers, setVouchers] = useState<Voucher[]>([]);
+  const [vouchersLoading, setVouchersLoading] = useState<boolean>(false);
+  const [voucherSearch, setVoucherSearch] = useState<string>("");
+  const [voucherTypeFilter, setVoucherTypeFilter] = useState<string>("all");
+
+  // Create / Edit Voucher Modal
+  const [isVoucherModalOpen, setIsVoucherModalOpen] = useState<boolean>(false);
+  const [editingVoucher, setEditingVoucher] = useState<Voucher | null>(null);
+  const [vCode, setVCode] = useState<string>("");
+  const [vName, setVName] = useState<string>("");
+  const [vDescription, setVDescription] = useState<string>("");
+  const [vType, setVType] = useState<VoucherType>("gift_money");
+  const [vValue, setVValue] = useState<number>(10000);
+  const [vMaxDiscount, setVMaxDiscount] = useState<number | undefined>(undefined);
+  const [vMinOrder, setVMinOrder] = useState<number | undefined>(undefined);
+  const [vMinDeposit, setVMinDeposit] = useState<number | undefined>(undefined);
+  const [vUsageLimit, setVUsageLimit] = useState<number | undefined>(undefined);
+  const [vPerUserLimit, setVPerUserLimit] = useState<number>(1);
+  const [vExpiresAt, setVExpiresAt] = useState<string>("");
+  const [vIsActive, setVIsActive] = useState<boolean>(true);
+  const [savingVoucher, setSavingVoucher] = useState<boolean>(false);
+
+  // Delete Voucher Modal
+  const [deletingVoucher, setDeletingVoucher] = useState<Voucher | null>(null);
+  const [processingDeleteVoucher, setProcessingDeleteVoucher] = useState<boolean>(false);
+
   // Manual Grant/Revoke Entitlement Modal
   const [entitlementExamId, setEntitlementExamId] = useState<string>("");
   const [entitlementAction, setEntitlementAction] = useState<"grant" | "revoke">("grant");
@@ -181,6 +244,214 @@ export default function WalletManagement() {
     }
   };
 
+  // Load Vouchers Data
+  const loadVouchers = async () => {
+    try {
+      setVouchersLoading(true);
+      const list = await getAdminVouchersApi();
+      setVouchers(list);
+    } catch (err: any) {
+      console.error("Load vouchers error:", err);
+      showErrorToast(err.message || "Không thể tải danh sách voucher");
+    } finally {
+      setVouchersLoading(false);
+    }
+  };
+
+  const filteredVouchers = useMemo(() => {
+    return vouchers.filter((v) => {
+      const matchSearch =
+        !voucherSearch ||
+        v.code.toLowerCase().includes(voucherSearch.toLowerCase()) ||
+        v.name.toLowerCase().includes(voucherSearch.toLowerCase()) ||
+        (v.description && v.description.toLowerCase().includes(voucherSearch.toLowerCase()));
+      const matchType = voucherTypeFilter === "all" || v.type === voucherTypeFilter;
+      return matchSearch && matchType;
+    });
+  }, [vouchers, voucherSearch, voucherTypeFilter]);
+
+  // Open direct wallet edit modal from debts list
+  const openEditWalletModal = (student: StudentDebtSummary) => {
+    setEditingWalletStudent({
+      uid: student.uid,
+      fullName: student.fullName,
+      currentClass: student.studentClass || student.currentClass,
+      verifiedName: student.verifiedName,
+      isVerified: student.isVerified,
+      balanceVnd: student.balanceVnd,
+      totalCreditedVnd: 0,
+      totalSpentVnd: 0,
+    });
+    setEditBalanceVnd(student.balanceVnd || 0);
+    setEditFullName(student.fullName || "");
+    setEditCurrentClass(student.studentClass || student.currentClass || "");
+    setEditWalletVerifiedName(student.verifiedName || student.fullName || "");
+    setEditWalletIsVerified(Boolean(student.isVerified));
+    setEditTotalCreditedVnd(0);
+    setEditTotalSpentVnd(0);
+    setEditReason("");
+  };
+
+  // Open direct wallet edit modal from student details drawer
+  const openEditWalletModalFromDetails = () => {
+    if (!studentDetails) return;
+    const w = studentDetails.wallet;
+    setEditingWalletStudent({
+      uid: w.uid,
+      fullName: w.fullName,
+      currentClass: w.currentClass,
+      verifiedName: w.verifiedName,
+      isVerified: w.isVerified,
+      balanceVnd: w.balanceVnd,
+      totalCreditedVnd: w.totalCreditedVnd || 0,
+      totalSpentVnd: w.totalSpentVnd || 0,
+    });
+    setEditBalanceVnd(w.balanceVnd || 0);
+    setEditFullName(w.fullName || "");
+    setEditCurrentClass(w.currentClass || "");
+    setEditWalletVerifiedName(w.verifiedName || w.fullName || "");
+    setEditWalletIsVerified(Boolean(w.isVerified));
+    setEditTotalCreditedVnd(w.totalCreditedVnd || 0);
+    setEditTotalSpentVnd(w.totalSpentVnd || 0);
+    setEditReason("");
+  };
+
+  const handleConfirmDirectEditWallet = async () => {
+    if (!editingWalletStudent) return;
+    try {
+      setSavingDirectEdit(true);
+      const res = await adminDirectEditWalletApi(editingWalletStudent.uid, {
+        balanceVnd: Number(editBalanceVnd),
+        fullName: editFullName.trim(),
+        currentClass: editCurrentClass.trim(),
+        verifiedName: editWalletVerifiedName.trim(),
+        isVerified: editWalletIsVerified,
+        totalCreditedVnd: Number(editTotalCreditedVnd),
+        totalSpentVnd: Number(editTotalSpentVnd),
+        reason: editReason.trim() || "Admin cập nhật ví trực tiếp",
+      });
+      showSuccessToast(res.message || "Đã cập nhật toàn diện ví học sinh thành công!");
+      setEditingWalletStudent(null);
+      loadDebts();
+      loadOverview();
+      if (selectedStudentUid === editingWalletStudent.uid) {
+        const refreshed = await getAdminStudentWalletDetails(editingWalletStudent.uid);
+        setStudentDetails(refreshed);
+      }
+    } catch (err: any) {
+      console.error("Direct edit wallet error:", err);
+      showErrorToast(err.message || "Không thể cập nhật ví học sinh");
+    } finally {
+      setSavingDirectEdit(false);
+    }
+  };
+
+  const handleOpenCreateVoucher = () => {
+    setEditingVoucher(null);
+    setVCode("");
+    setVName("");
+    setVDescription("");
+    setVType("gift_money");
+    setVValue(10000);
+    setVMaxDiscount(undefined);
+    setVMinOrder(undefined);
+    setVMinDeposit(undefined);
+    setVUsageLimit(undefined);
+    setVPerUserLimit(1);
+    setVExpiresAt("");
+    setVIsActive(true);
+    setIsVoucherModalOpen(true);
+  };
+
+  const handleOpenEditVoucher = (v: Voucher) => {
+    setEditingVoucher(v);
+    setVCode(v.code);
+    setVName(v.name);
+    setVDescription(v.description || "");
+    setVType(v.type);
+    setVValue(v.value);
+    setVMaxDiscount(v.maxDiscountVnd);
+    setVMinOrder(v.minOrderVnd);
+    setVMinDeposit(v.minDepositVnd);
+    setVUsageLimit(v.usageLimit);
+    setVPerUserLimit(v.perUserLimit || 1);
+    setVExpiresAt(v.expiresAt ? new Date(v.expiresAt).toISOString().slice(0, 16) : "");
+    setVIsActive(v.isActive);
+    setIsVoucherModalOpen(true);
+  };
+
+  const handleSaveVoucher = async () => {
+    if (!vCode.trim()) {
+      showErrorToast("Vui lòng nhập mã voucher");
+      return;
+    }
+    if (!vName.trim()) {
+      showErrorToast("Vui lòng nhập tên chương trình voucher");
+      return;
+    }
+    if (vValue <= 0) {
+      showErrorToast("Giá trị ưu đãi phải lớn hơn 0");
+      return;
+    }
+    try {
+      setSavingVoucher(true);
+      const payload: Partial<Voucher> = {
+        code: vCode.trim().toUpperCase(),
+        name: vName.trim(),
+        description: vDescription.trim() || undefined,
+        type: vType,
+        value: Number(vValue),
+        maxDiscountVnd: vMaxDiscount ? Number(vMaxDiscount) : undefined,
+        minOrderVnd: vMinOrder ? Number(vMinOrder) : undefined,
+        minDepositVnd: vMinDeposit ? Number(vMinDeposit) : undefined,
+        usageLimit: vUsageLimit ? Number(vUsageLimit) : undefined,
+        perUserLimit: Number(vPerUserLimit || 1),
+        expiresAt: vExpiresAt ? new Date(vExpiresAt).toISOString() : (null as any),
+        isActive: vIsActive,
+      };
+
+      if (editingVoucher) {
+        await updateAdminVoucherApi(editingVoucher.id, payload);
+        showSuccessToast(`Đã cập nhật mã ${payload.code} thành công!`);
+      } else {
+        await createAdminVoucherApi(payload);
+        showSuccessToast(`Đã tạo mã ${payload.code} thành công!`);
+      }
+      setIsVoucherModalOpen(false);
+      loadVouchers();
+    } catch (err: any) {
+      console.error("Save voucher error:", err);
+      showErrorToast(err.message || "Không thể lưu voucher");
+    } finally {
+      setSavingVoucher(false);
+    }
+  };
+
+  const handleToggleVoucherActive = async (v: Voucher) => {
+    try {
+      await updateAdminVoucherApi(v.id, { isActive: !v.isActive });
+      showSuccessToast(`Đã ${!v.isActive ? "kích hoạt" : "tạm khóa"} voucher ${v.code}`);
+      loadVouchers();
+    } catch (err: any) {
+      showErrorToast(err.message || "Không thể thay đổi trạng thái voucher");
+    }
+  };
+
+  const handleConfirmDeleteVoucher = async () => {
+    if (!deletingVoucher) return;
+    try {
+      setProcessingDeleteVoucher(true);
+      await deleteAdminVoucherApi(deletingVoucher.id);
+      showSuccessToast(`Đã xóa voucher ${deletingVoucher.code}`);
+      setDeletingVoucher(null);
+      loadVouchers();
+    } catch (err: any) {
+      showErrorToast(err.message || "Không thể xóa voucher");
+    } finally {
+      setProcessingDeleteVoucher(false);
+    }
+  };
+
   useEffect(() => {
     loadOverview();
   }, []);
@@ -190,6 +461,8 @@ export default function WalletManagement() {
       loadRequests();
     } else if (activeTab === "debts") {
       loadDebts();
+    } else if (activeTab === "vouchers") {
+      loadVouchers();
     }
   }, [activeTab, requestFilter]);
 
@@ -439,6 +712,7 @@ export default function WalletManagement() {
               loadOverview();
               if (activeTab === "requests") loadRequests();
               if (activeTab === "debts") loadDebts();
+              if (activeTab === "vouchers") loadVouchers();
             }}
             className="flex items-center gap-2 px-3.5 py-2 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold shadow-2xs transition-colors cursor-pointer"
           >
@@ -449,10 +723,10 @@ export default function WalletManagement() {
       </div>
 
       {/* Tabs Switcher */}
-      <div className="flex items-center gap-2 border-b border-slate-200 pb-px">
+      <div className="flex items-center gap-2 border-b border-slate-200 pb-px overflow-x-auto">
         <button
           onClick={() => setActiveTab("overview")}
-          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px ${
+          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px shrink-0 ${
             activeTab === "overview"
               ? "border-emerald-600 text-emerald-700 bg-white shadow-2xs"
               : "border-transparent text-slate-500 hover:text-slate-800"
@@ -464,7 +738,7 @@ export default function WalletManagement() {
 
         <button
           onClick={() => setActiveTab("requests")}
-          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px ${
+          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px shrink-0 ${
             activeTab === "requests"
               ? "border-emerald-600 text-emerald-700 bg-white shadow-2xs"
               : "border-transparent text-slate-500 hover:text-slate-800"
@@ -481,7 +755,7 @@ export default function WalletManagement() {
 
         <button
           onClick={() => setActiveTab("debts")}
-          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px ${
+          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px shrink-0 ${
             activeTab === "debts"
               ? "border-emerald-600 text-emerald-700 bg-white shadow-2xs"
               : "border-transparent text-slate-500 hover:text-slate-800"
@@ -494,6 +768,18 @@ export default function WalletManagement() {
               {overview.studentsInDebtCount} nợ
             </span>
           )}
+        </button>
+
+        <button
+          onClick={() => setActiveTab("vouchers")}
+          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px shrink-0 ${
+            activeTab === "vouchers"
+              ? "border-emerald-600 text-emerald-700 bg-white shadow-2xs"
+              : "border-transparent text-slate-500 hover:text-slate-800"
+          }`}
+        >
+          <Ticket className="w-4 h-4" />
+          <span>Mã Voucher & Ưu Đãi</span>
         </button>
       </div>
 
@@ -1072,6 +1358,13 @@ export default function WalletManagement() {
                               Điều chỉnh
                             </button>
                             <button
+                              onClick={() => openEditWalletModal(s)}
+                              className="p-1 text-slate-400 hover:text-emerald-700 hover:bg-emerald-50 rounded transition-colors cursor-pointer"
+                              title="Chỉnh sửa toàn diện số dư & hồ sơ ví"
+                            >
+                              <Edit3 className="w-4 h-4" />
+                            </button>
+                            <button
                               onClick={() => openStudentDetails(s.uid)}
                               className="p-1 text-slate-400 hover:text-blue-600 rounded transition-colors cursor-pointer"
                               title="Xem sổ cái chi tiết"
@@ -1082,6 +1375,175 @@ export default function WalletManagement() {
                         </td>
                       </tr>
                     ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: VOUCHERS & PROMOTIONS */}
+      {activeTab === "vouchers" && (
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+            <div className="flex flex-1 flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={voucherSearch}
+                  onChange={(e) => setVoucherSearch(e.target.value)}
+                  placeholder="Tìm mã hoặc tên voucher..."
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+
+              <select
+                value={voucherTypeFilter}
+                onChange={(e) => setVoucherTypeFilter(e.target.value)}
+                className="p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700"
+              >
+                <option value="all">Tất cả loại ưu đãi</option>
+                <option value="gift_money">🎁 Nhận tiền ví (Gift Code)</option>
+                <option value="discount_percent">% Giảm giá mở đề thi</option>
+                <option value="discount_fixed">Giảm tiền cố định mở đề</option>
+                <option value="deposit_bonus_percent">% Thưởng nạp ví</option>
+                <option value="deposit_bonus_fixed">Thưởng tiền cố định khi nạp</option>
+              </select>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleOpenCreateVoucher}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black shadow-xs transition-colors cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Tạo Voucher Mới</span>
+            </button>
+          </div>
+
+          {/* Vouchers Table */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+            {vouchersLoading ? (
+              <div className="p-12 text-center text-xs text-slate-400">Đang tải danh sách mã ưu đãi...</div>
+            ) : filteredVouchers.length === 0 ? (
+              <div className="p-12 text-center text-xs text-slate-400 italic">
+                Chưa có mã voucher nào. Bấm "Tạo Voucher Mới" để thêm mã khuyến mãi đầu tiên!
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+                      <th className="px-4 py-3">Mã Voucher</th>
+                      <th className="px-4 py-3">Tên & Mô tả</th>
+                      <th className="px-4 py-3">Loại ưu đãi</th>
+                      <th className="px-4 py-3">Giá trị</th>
+                      <th className="px-4 py-3">Điều kiện áp dụng</th>
+                      <th className="px-4 py-3">Đã dùng / Giới hạn</th>
+                      <th className="px-4 py-3">Hạn sử dụng</th>
+                      <th className="px-4 py-3">Trạng thái</th>
+                      <th className="px-4 py-3 text-right">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 font-medium">
+                    {filteredVouchers.map((v) => {
+                      const isExpired = v.expiresAt && new Date(v.expiresAt) < new Date();
+                      return (
+                        <tr key={v.id} className="hover:bg-slate-50/70 transition-colors">
+                          <td className="px-4 py-3">
+                            <span className="font-mono font-black text-sm text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-lg">
+                              {v.code}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="font-bold text-slate-900">{v.name}</div>
+                            {v.description && (
+                              <div className="text-[11px] text-slate-500 line-clamp-1">{v.description}</div>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
+                              {v.type === "gift_money" && "🎁 Nhận tiền ví"}
+                              {v.type === "discount_percent" && "🏷️ Giảm % mở đề"}
+                              {v.type === "discount_fixed" && "🏷️ Giảm tiền mở đề"}
+                              {v.type === "deposit_bonus_percent" && "⚡ Thưởng % khi nạp"}
+                              {v.type === "deposit_bonus_fixed" && "⚡ Thưởng tiền khi nạp"}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 font-black text-slate-900">
+                            {v.type.includes("percent")
+                              ? `${v.value}%`
+                              : `${v.value.toLocaleString("vi-VN")}đ`}
+                          </td>
+                          <td className="px-4 py-3 text-[11px] text-slate-500 space-y-0.5">
+                            {v.maxDiscountVnd && (
+                              <div>Tối đa: {v.maxDiscountVnd.toLocaleString("vi-VN")}đ</div>
+                            )}
+                            {v.minOrderVnd && (
+                              <div>Đơn tối thiểu: {v.minOrderVnd.toLocaleString("vi-VN")}đ</div>
+                            )}
+                            {v.minDepositVnd && (
+                              <div>Nạp tối thiểu: {v.minDepositVnd.toLocaleString("vi-VN")}đ</div>
+                            )}
+                            {!v.maxDiscountVnd && !v.minOrderVnd && !v.minDepositVnd && (
+                              <span className="text-slate-400">Không yêu cầu</span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-[11px]">
+                            <span className="font-bold text-slate-800">{v.usedCount || 0}</span>
+                            <span className="text-slate-400"> / {v.usageLimit ? v.usageLimit : "∞"}</span>
+                            <div className="text-[10px] text-slate-400">
+                              (Tối đa {v.perUserLimit || 1} lần/hs)
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-[11px]">
+                            {v.expiresAt ? (
+                              <span className={isExpired ? "text-rose-600 font-bold" : "text-slate-600"}>
+                                {new Date(v.expiresAt).toLocaleDateString("vi-VN")}
+                                {isExpired && " (Hết hạn)"}
+                              </span>
+                            ) : (
+                              <span className="text-emerald-700 font-bold">Vĩnh viễn</span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            <button
+                              type="button"
+                              onClick={() => handleToggleVoucherActive(v)}
+                              className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black cursor-pointer transition-colors ${
+                                v.isActive && !isExpired
+                                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100"
+                                  : "bg-slate-100 text-slate-500 border border-slate-200 hover:bg-slate-200"
+                              }`}
+                            >
+                              {v.isActive && !isExpired ? "Đang bật" : "Tạm khóa"}
+                            </button>
+                          </td>
+                          <td className="px-4 py-3 text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handleOpenEditVoucher(v)}
+                                className="p-1 text-slate-400 hover:text-indigo-600 rounded transition-colors cursor-pointer"
+                                title="Chỉnh sửa voucher"
+                              >
+                                <Edit3 className="w-4 h-4" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setDeletingVoucher(v)}
+                                className="p-1 text-slate-400 hover:text-rose-600 rounded transition-colors cursor-pointer"
+                                title="Xóa voucher"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -1498,11 +1960,19 @@ export default function WalletManagement() {
                         </div>
                       </div>
 
-                      <div className="text-left sm:text-right bg-white sm:bg-transparent p-2 sm:p-0 rounded-xl sm:rounded-none border sm:border-0 border-indigo-50 w-full sm:w-auto">
+                      <div className="text-left sm:text-right bg-white sm:bg-transparent p-2 sm:p-0 rounded-xl sm:rounded-none border sm:border-0 border-indigo-50 w-full sm:w-auto flex flex-col items-start sm:items-end gap-1">
                         <span className="text-[11px] font-bold text-slate-400 block">Số dư ví DkTEST</span>
                         <span className="font-black text-xl text-emerald-700">
                           {studentDetails.wallet.balanceVnd.toLocaleString("vi-VN")}đ
                         </span>
+                        <button
+                          type="button"
+                          onClick={openEditWalletModalFromDetails}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold shadow-2xs transition-colors cursor-pointer"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                          <span>Chỉnh sửa ví</span>
+                        </button>
                       </div>
                     </div>
 
@@ -1727,6 +2197,422 @@ export default function WalletManagement() {
                   </div>
                 </>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: DIRECT EDIT WALLET (BALANCE & KYC PROFILE) */}
+      {editingWalletStudent && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 space-y-4 border border-slate-200">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                <Edit3 className="w-5 h-5 text-emerald-600" />
+                <span>Chỉnh Sửa Toàn Diện Hồ Sơ & Số Dư Ví</span>
+              </h3>
+              <button
+                type="button"
+                onClick={() => setEditingWalletStudent(null)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="bg-slate-50 p-3 rounded-xl text-xs space-y-1">
+              <div>Học sinh: <strong>{editingWalletStudent.fullName}</strong></div>
+              <div>UID: <span className="font-mono text-slate-500">{editingWalletStudent.uid}</span></div>
+            </div>
+
+            <div className="space-y-3">
+              {/* Balance edit */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Số dư ví hiện tại (VNĐ) *
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editBalanceVnd}
+                    onChange={(e) => setEditBalanceVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base font-black text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <div className="text-[11px] font-bold text-slate-400 mt-0.5">
+                    Hiển thị: {Number(editBalanceVnd || 0).toLocaleString("vi-VN")} VNĐ
+                  </div>
+                </div>
+              </div>
+
+              {/* Verified Name and Verification Checkbox */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Tên xác thực của ví (KYC)
+                  </label>
+                  <input
+                    type="text"
+                    value={editWalletVerifiedName}
+                    onChange={(e) => setEditWalletVerifiedName(e.target.value)}
+                    placeholder="Tên thật ví..."
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+                <div className="flex items-center pt-6">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={editWalletIsVerified}
+                      onChange={(e) => setEditWalletIsVerified(e.target.checked)}
+                      className="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                    />
+                    <span>Xác thực danh tính ví (KYC)</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Full name and class */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Họ và tên học sinh
+                  </label>
+                  <input
+                    type="text"
+                    value={editFullName}
+                    onChange={(e) => setEditFullName(e.target.value)}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Lớp học
+                  </label>
+                  <input
+                    type="text"
+                    value={editCurrentClass}
+                    onChange={(e) => setEditCurrentClass(e.target.value)}
+                    placeholder="VD: 12A1"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+              </div>
+
+              {/* Total credited and spent */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Tổng tiền đã nạp lũy kế
+                  </label>
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editTotalCreditedVnd}
+                    onChange={(e) => setEditTotalCreditedVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Tổng tiền đã tiêu lũy kế
+                  </label>
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    value={editTotalSpentVnd}
+                    onChange={(e) => setEditTotalSpentVnd(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                </div>
+              </div>
+
+              {/* Note / reason */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Lý do điều chỉnh / Ghi chú đối soát
+                </label>
+                <input
+                  type="text"
+                  value={editReason}
+                  onChange={(e) => setEditReason(e.target.value)}
+                  placeholder="VD: Cập nhật số dư theo thỏa thuận ngoại tuyến..."
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setEditingWalletStudent(null)}
+                className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                disabled={savingDirectEdit}
+                onClick={handleConfirmDirectEditWallet}
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              >
+                {savingDirectEdit ? "Đang lưu..." : "Lưu thay đổi ví"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: CREATE / EDIT VOUCHER */}
+      {isVoucherModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 space-y-4 border border-slate-200 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                <Ticket className="w-5 h-5 text-indigo-600" />
+                <span>{editingVoucher ? "Chỉnh Sửa Voucher" : "Tạo Mã Voucher Mới"}</span>
+              </h3>
+              <button
+                type="button"
+                onClick={() => setIsVoucherModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Mã Voucher *</label>
+                  <input
+                    type="text"
+                    value={vCode}
+                    onChange={(e) => setVCode(e.target.value.toUpperCase())}
+                    placeholder="VD: GIAM50, TET2025..."
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-mono font-bold uppercase text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Tên chương trình *</label>
+                  <input
+                    type="text"
+                    value={vName}
+                    onChange={(e) => setVName(e.target.value)}
+                    placeholder="VD: Tặng tiền mừng năm mới"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Loại voucher *</label>
+                <select
+                  value={vType}
+                  onChange={(e) => setVType(e.target.value as VoucherType)}
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="gift_money">🎁 Nhận tiền trực tiếp vào ví (Gift Code)</option>
+                  <option value="discount_percent">🏷️ Giảm giá theo % khi mở khóa đề thi</option>
+                  <option value="discount_fixed">🏷️ Giảm số tiền cố định khi mở khóa đề thi</option>
+                  <option value="deposit_bonus_percent">⚡ Thưởng thêm % số tiền khi nạp ví</option>
+                  <option value="deposit_bonus_fixed">⚡ Thưởng số tiền cố định khi nạp ví</option>
+                </select>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    Giá trị ưu đãi ({vType.includes("percent") ? "%" : "VNĐ"}) *
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={vValue}
+                    onChange={(e) => setVValue(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-black text-emerald-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                {vType === "discount_percent" && (
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Giảm tối đa (VNĐ, để trống = không giới hạn)
+                    </label>
+                    <input
+                      type="number"
+                      step="1000"
+                      min="0"
+                      value={vMaxDiscount || ""}
+                      onChange={(e) => setVMaxDiscount(e.target.value ? parseInt(e.target.value, 10) : undefined)}
+                      placeholder="VD: 50000"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {vType.startsWith("discount") && (
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Giá trị đề thi tối thiểu (VNĐ)
+                    </label>
+                    <input
+                      type="number"
+                      step="1000"
+                      min="0"
+                      value={vMinOrder || ""}
+                      onChange={(e) => setVMinOrder(e.target.value ? parseInt(e.target.value, 10) : undefined)}
+                      placeholder="VD: 20000"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+                )}
+                {vType.startsWith("deposit") && (
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Số tiền nạp tối thiểu (VNĐ)
+                    </label>
+                    <input
+                      type="number"
+                      step="1000"
+                      min="0"
+                      value={vMinDeposit || ""}
+                      onChange={(e) => setVMinDeposit(e.target.value ? parseInt(e.target.value, 10) : undefined)}
+                      placeholder="VD: 50000"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    Tổng lượt dùng tối đa (để trống = vô hạn)
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={vUsageLimit || ""}
+                    onChange={(e) => setVUsageLimit(e.target.value ? parseInt(e.target.value, 10) : undefined)}
+                    placeholder="VD: 100"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">
+                    Lượt dùng tối đa mỗi học sinh
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={vPerUserLimit}
+                    onChange={(e) => setVPerUserLimit(Math.max(1, parseInt(e.target.value || "1", 10)))}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Hạn sử dụng (để trống = vĩnh viễn)
+                </label>
+                <input
+                  type="datetime-local"
+                  value={vExpiresAt}
+                  onChange={(e) => setVExpiresAt(e.target.value)}
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Mô tả / Thể lệ</label>
+                <textarea
+                  rows={2}
+                  value={vDescription}
+                  onChange={(e) => setVDescription(e.target.value)}
+                  placeholder="Ghi chú thể lệ chương trình khuyến mãi..."
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div className="pt-1">
+                <label className="flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={vIsActive}
+                    onChange={(e) => setVIsActive(e.target.checked)}
+                    className="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                  />
+                  <span>Kích hoạt voucher ngay</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setIsVoucherModalOpen(false)}
+                className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                disabled={savingVoucher}
+                onClick={handleSaveVoucher}
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              >
+                {savingVoucher ? "Đang lưu..." : editingVoucher ? "Cập nhật Voucher" : "Tạo Voucher"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: DELETE VOUCHER */}
+      {deletingVoucher && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 space-y-4 border border-slate-200 text-xs">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+              <h3 className="text-base font-black text-rose-600 flex items-center gap-2">
+                <Trash2 className="w-5 h-5" />
+                <span>Xóa Voucher</span>
+              </h3>
+              <button
+                type="button"
+                onClick={() => setDeletingVoucher(null)}
+                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-slate-600">
+              Bạn có chắc chắn muốn xóa vĩnh viễn voucher <strong>{deletingVoucher.code}</strong> (
+              {deletingVoucher.name}) không?
+            </p>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeletingVoucher(null)}
+                className="px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="button"
+                disabled={processingDeleteVoucher}
+                onClick={handleConfirmDeleteVoucher}
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
+              >
+                {processingDeleteVoucher ? "Đang xóa..." : "Xác nhận xóa"}
+              </button>
             </div>
           </div>
         </div>

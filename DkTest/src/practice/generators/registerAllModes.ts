@@ -72,6 +72,7 @@ import { englishScrambledSentencesMode } from "./english/scrambledSentences";
 import { codeTraceLoopMode } from "./cs/codeTraceLoop";
 import { csDatabaseSqlMode } from "./cs/csDatabaseSqlMode";
 import { csNetworkSecurityMode } from "./cs/csNetworkSecurityMode";
+import { csAiConceptsMode } from "./cs/csAiConceptsMode";
 
 // Group K: Physics / Vật lý THPTQG
 import { physicsThermalGasMode } from "./physics/physicsThermalGasMode";
@@ -88,12 +89,14 @@ import { chemistryElectrochemMetalsMode } from "./chemistry/chemistryElectrochem
 import { mathCalculusAnalysisMode } from "./math/mathCalculusAnalysisMode";
 import { mathOxyzGeometryMode } from "./math/mathOxyzGeometryMode";
 import { mathStatisticsDispersionMode } from "./math/mathStatisticsDispersionMode";
+import { mathIntegralsMode } from "./math/mathIntegralsMode";
 
 export const ALL_PRACTICE_MODES: PracticeMode[] = [
   // Grade 12 Math THPTQG
   mathCalculusAnalysisMode,
   mathOxyzGeometryMode,
   mathStatisticsDispersionMode,
+  mathIntegralsMode,
 
   // Grade 12 Physics THPTQG
   physicsThermalGasMode,
@@ -110,6 +113,7 @@ export const ALL_PRACTICE_MODES: PracticeMode[] = [
   codeTraceLoopMode,
   csDatabaseSqlMode,
   csNetworkSecurityMode,
+  csAiConceptsMode,
 
   // English Learning
   englishVocabTopicMode,

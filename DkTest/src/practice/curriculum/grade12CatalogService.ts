@@ -46,65 +46,104 @@ const MODE_TO_TOPIC_MAPPING: Record<string, string[]> = {
   // Math modes
   math_calculus_analysis: [
     "math_t1_monotonicity",
+    "math_t2_extremum",
+    "math_t3_minmax",
+    "math_t4_asymptote",
+    "math_t5_graph_optimize",
     "math_t2_extrema",
     "math_t3_max_min",
     "math_t4_asymptotes",
     "math_t5_graph_sketching",
   ],
   math_oxyz_geometry: [
+    "math_t6_vector_space",
+    "math_t7_oxyz_coords",
+    "math_t11_plane_sphere",
+    "math_t12_line_relative_pos",
     "math_t7_vector_coords_space",
     "math_t8_plane_line_sphere_equations",
   ],
   math_statistics_dispersion: [
+    "math_t8_grouped_dispersion",
+    "math_t13_conditional_prob",
+    "math_t14_bayes_formula",
     "math_t9_grouped_data_variance",
     "math_t10_conditional_prob_bayes",
+  ],
+  math_integrals_calculus: [
+    "math_t9_antiderivative",
+    "math_t10_integral_apps",
   ],
 
   // Physics modes
   physics_thermal_gas: [
+    "phys_t1_matter_temp",
+    "phys_t2_first_law",
+    "phys_t3_heat_capacity",
+    "phys_t4_phase_change",
     "phys_t1_internal_energy_heat",
     "phys_t2_phase_change_temp",
     "phys_t3_ideal_gas_isoprocesses",
     "phys_t4_gas_state_equation",
   ],
   "physics-thermal-gas": [
-    "phys_t1_internal_energy_heat",
-    "phys_t2_phase_change_temp",
-    "phys_t3_ideal_gas_isoprocesses",
-    "phys_t4_gas_state_equation",
+    "phys_t1_matter_temp",
+    "phys_t2_first_law",
+    "phys_t3_heat_capacity",
+    "phys_t4_phase_change",
   ],
   physics_thermal_thermodynamics: [
-    "phys_t1_internal_energy_heat",
-    "phys_t2_phase_change_temp",
+    "phys_t1_matter_temp",
+    "phys_t2_first_law",
+    "phys_t3_heat_capacity",
   ],
   physics_ideal_gas_laws: [
+    "phys_t5_ideal_gas_laws",
+    "phys_t6_kinetic_theory",
     "phys_t3_ideal_gas_isoprocesses",
     "phys_t4_gas_state_equation",
   ],
   physics_nuclear_physics: [
+    "phys_t7_magnetic_force",
+    "phys_t8_induction_emf",
+    "phys_t9_nuclear_binding",
+    "phys_t10_radioactivity",
     "phys_t7_atomic_nucleus_binding_energy",
     "phys_t8_radioactivity_nuclear_reaction",
   ],
 
   // Chemistry modes
   chem_ester_lipid: [
+    "chem_t1_ester_intro",
+    "chem_t2_lipid_fat",
+    "chem_t3_soap_detergent",
     "chem_t1_ester_structure_hydrolysis",
     "chem_t2_lipid_fatty_acids_soap",
   ],
   "chemistry-ester-lipid": [
-    "chem_t1_ester_structure_hydrolysis",
-    "chem_t2_lipid_fatty_acids_soap",
+    "chem_t1_ester_intro",
+    "chem_t2_lipid_fat",
+    "chem_t3_soap_detergent",
   ],
   chem_carbohydrate: [
+    "chem_t4_monosaccharides",
+    "chem_t5_polysaccharides",
     "chem_t3_glucose_fructose_structure",
     "chem_t4_saccharide_starch_cellulose",
   ],
   chem_nitrogen_polymers: [
+    "chem_t6_amines",
+    "chem_t7_amino_acids_protein",
+    "chem_t8_polymer_materials",
     "chem_t5_amine_amino_acid_peptide",
     "chem_t6_protein_enzymes",
     "chem_t7_polymer_classification_synthesis",
   ],
   chem_electrochem_metals: [
+    "chem_t9_galvanic_cell",
+    "chem_t10_electrolysis_corrosion",
+    "chem_t11_metal_reactivity",
+    "chem_t12_complexes",
     "chem_t8_redox_galvanic_cells",
     "chem_t9_electrolysis_applications",
     "chem_t10_metal_properties_alloys",
@@ -113,19 +152,28 @@ const MODE_TO_TOPIC_MAPPING: Record<string, string[]> = {
   // Computer Science modes
   code_trace_loop: [
     "cs_t6_code_trace_loops",
+    "cs_t7_algorithms_recursion",
     "cs_t7_recursion_algorithms",
   ],
   "cs-code-trace-loops": [
     "cs_t6_code_trace_loops",
+    "cs_t7_algorithms_recursion",
     "cs_t7_recursion_algorithms",
   ],
   cs_database_sql: [
+    "cs_t4_relational_database",
+    "cs_t5_sql_queries",
     "cs_t1_relational_database_concept",
     "cs_t2_sql_queries_dml",
   ],
   cs_network_security: [
+    "cs_t2_network_protocols",
+    "cs_t3_security_ethics",
     "cs_t3_computer_network_ip_dns",
     "cs_t4_cybersecurity_ethics",
+  ],
+  cs_ai_concepts: [
+    "cs_t1_ai_concepts",
   ],
 };
 

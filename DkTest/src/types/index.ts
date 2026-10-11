@@ -709,6 +709,53 @@ export interface StudentWalletProfileDetail {
   lastActive?: any;
 }
 
+export type VoucherType =
+  | "gift_money"            // Nhập mã tặng tiền trực tiếp vào ví
+  | "discount_percent"      // Giảm giá mở khóa đề theo %
+  | "discount_fixed"        // Giảm giá mở khóa đề theo số tiền cố định (VNĐ)
+  | "deposit_bonus_percent" // Thưởng nạp tiền theo %
+  | "deposit_bonus_fixed";  // Thưởng nạp tiền cố định (VNĐ)
 
+export interface Voucher {
+  id: string;
+  code: string;               // Mã voucher (e.g. "GIAM50", "TANG2K", "CHAOBANMOI")
+  name: string;               // Tên voucher / mô tả ngắn
+  type: VoucherType;
+  value: number;              // Giá trị (% hoặc số tiền VNĐ)
+  maxDiscountVnd?: number;    // Giới hạn giảm tối đa (cho loại %)
+  minOrderVnd?: number;       // Giá đề thi tối thiểu để áp dụng
+  minDepositVnd?: number;     // Số tiền nạp tối thiểu để áp dụng
+  usageLimit?: number;        // Giới hạn lượt dùng toàn hệ thống (0 = không giới hạn)
+  usedCount: number;          // Số lượt đã sử dụng
+  perUserLimit?: number;      // Số lượt mỗi học sinh được dùng (mặc định 1)
+  expiresAt?: string | null;  // Thời gian hết hạn (ISO string)
+  isActive: boolean;          // Đang hoạt động / tạm khóa
+  createdAt: string;
+  updatedAt: string;
+}
 
+export interface VoucherUsage {
+  id: string;
+  voucherId: string;
+  voucherCode: string;
+  uid: string;
+  studentName?: string;
+  studentClass?: string;
+  type: VoucherType;
+  discountVnd?: number;
+  bonusVnd?: number;
+  usedAt: string;
+  context: "exam_unlock" | "deposit" | "gift_money";
+  referenceId?: string;
+}
 
+export interface AdminWalletEditPayload {
+  balanceVnd?: number;
+  fullName?: string;
+  currentClass?: string;
+  verifiedName?: string;
+  isVerified?: boolean;
+  totalCreditedVnd?: number;
+  totalSpentVnd?: number;
+  note?: string;
+}

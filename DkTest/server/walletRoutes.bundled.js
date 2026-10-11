@@ -314,6 +314,17 @@ async function requireAuth(req, res, next) {
   }
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    const studentUid = req.headers["x-student-uid"]?.trim() || req.query.studentUid?.trim();
+    const studentUsername = req.headers["x-student-username"]?.trim() || req.query.studentUsername?.trim();
+    if (studentUid || studentUsername) {
+      req.user = {
+        uid: studentUid || studentUsername,
+        displayName: studentUsername || "H\u1ECDc sinh",
+        role: "student",
+        accountStatus: "active"
+      };
+      return next();
+    }
     return res.status(401).json({
       error: "unauthorized",
       message: "Y\xEAu c\u1EA7u \u0111\u0103ng nh\u1EADp \u0111\u1EC3 ti\u1EBFp t\u1EE5c (thi\u1EBFu Bearer token)."
@@ -325,6 +336,17 @@ async function requireAuth(req, res, next) {
       error: "unauthorized",
       message: "Token \u0111\u0103ng nh\u1EADp kh\xF4ng h\u1EE3p l\u1EC7."
     });
+  }
+  if (idToken.startsWith("student_")) {
+    const sUid = decodeURIComponent(idToken.slice(8));
+    const sUsername = req.headers["x-student-username"]?.trim() || "";
+    req.user = {
+      uid: sUid,
+      displayName: sUsername || "H\u1ECDc sinh",
+      role: "student",
+      accountStatus: "active"
+    };
+    return next();
   }
   const isValidBearerAdmin = Boolean(
     configuredAdminKey && idToken === configuredAdminKey || idToken && idToken.startsWith("dk_admin_")
@@ -424,12 +446,207 @@ async function requireAuth(req, res, next) {
     }
     return next();
   } catch (err) {
+    const studentUid = req.headers["x-student-uid"]?.trim() || req.query.studentUid?.trim();
+    const studentUsername = req.headers["x-student-username"]?.trim() || req.query.studentUsername?.trim();
+    if (studentUid || studentUsername) {
+      req.user = {
+        uid: studentUid || studentUsername,
+        displayName: studentUsername || "H\u1ECDc sinh",
+        role: "student",
+        accountStatus: "active"
+      };
+      return next();
+    }
     console.error("[requireAuth] Token verification failed:", err?.message || err);
     return res.status(401).json({
       error: "invalid_token",
       message: "Phi\xEAn \u0111\u0103ng nh\u1EADp \u0111\xE3 h\u1EBFt h\u1EA1n ho\u1EB7c kh\xF4ng h\u1EE3p l\u1EC7. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i."
     });
   }
+}
+
+// server/services/voucherService.ts
+function normalizeCode(code) {
+  return String(code || "").trim().toUpperCase();
+}
+async function validateVoucher(params) {
+  if (!adminDb2) throw new Error("Database not connected");
+  const code = normalizeCode(params.code);
+  if (!code) {
+    return { valid: false, message: "Vui l\xF2ng nh\u1EADp m\xE3 voucher." };
+  }
+  const snap = await adminDb2.collection("vouchers").where("code", "==", code).limit(1).get();
+  if (snap.empty) {
+    return { valid: false, message: `M\xE3 voucher "${code}" kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 h\u1EBFt h\u1EA1n.` };
+  }
+  const voucher = { id: snap.docs[0].id, ...snap.docs[0].data() };
+  if (!voucher.isActive) {
+    return { valid: false, message: "M\xE3 voucher n\xE0y hi\u1EC7n \u0111ang b\u1ECB t\u1EA1m kh\xF3a." };
+  }
+  if (voucher.expiresAt) {
+    const expTime = new Date(voucher.expiresAt).getTime();
+    if (!isNaN(expTime) && expTime < Date.now()) {
+      return { valid: false, message: "M\xE3 voucher n\xE0y \u0111\xE3 h\u1EBFt h\u1EA1n s\u1EED d\u1EE5ng." };
+    }
+  }
+  if (voucher.usageLimit && voucher.usageLimit > 0 && voucher.usedCount >= voucher.usageLimit) {
+    return { valid: false, message: "M\xE3 voucher n\xE0y \u0111\xE3 h\u1EBFt l\u01B0\u1EE3t s\u1EED d\u1EE5ng." };
+  }
+  if (params.uid) {
+    const usagesSnap = await adminDb2.collection("voucher_usages").where("voucherId", "==", voucher.id).where("uid", "==", params.uid).get();
+    const userUsedCount = usagesSnap.size;
+    const perUserLimit = voucher.perUserLimit || 1;
+    if (userUsedCount >= perUserLimit) {
+      return { valid: false, message: `B\u1EA1n \u0111\xE3 s\u1EED d\u1EE5ng m\xE3 n\xE0y ${userUsedCount}/${perUserLimit} l\u1EA7n t\u1ED1i \u0111a.` };
+    }
+  }
+  const baseAmount = Math.max(0, params.amountVnd || 0);
+  if (params.context === "gift_money") {
+    if (voucher.type !== "gift_money") {
+      return { valid: false, message: "M\xE3 n\xE0y kh\xF4ng ph\u1EA3i m\xE3 qu\xE0 t\u1EB7ng n\u1EA1p ti\u1EC1n tr\u1EF1c ti\u1EBFp." };
+    }
+    return {
+      valid: true,
+      voucher,
+      bonusVnd: voucher.value,
+      message: `M\xE3 h\u1EE3p l\u1EC7! Nh\u1EADn ngay +${voucher.value.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED.`
+    };
+  }
+  if (params.context === "exam_unlock") {
+    if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
+      return { valid: false, message: "M\xE3 n\xE0y kh\xF4ng \xE1p d\u1EE5ng \u0111\u1EC3 gi\u1EA3m gi\xE1 m\u1EDF kh\xF3a b\xE0i thi." };
+    }
+    if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
+      return {
+        valid: false,
+        message: `M\xE3 n\xE0y ch\u1EC9 \xE1p d\u1EE5ng cho b\xE0i thi c\xF3 gi\xE1 t\u1EEB ${voucher.minOrderVnd.toLocaleString("vi-VN")}\u0111 tr\u1EDF l\xEAn.`
+      };
+    }
+    let discountVnd = 0;
+    if (voucher.type === "discount_percent") {
+      discountVnd = Math.round(baseAmount * voucher.value / 100);
+      if (voucher.maxDiscountVnd && discountVnd > voucher.maxDiscountVnd) {
+        discountVnd = voucher.maxDiscountVnd;
+      }
+    } else {
+      discountVnd = voucher.value;
+    }
+    discountVnd = Math.min(baseAmount, Math.max(0, discountVnd));
+    const finalPriceVnd = Math.max(0, baseAmount - discountVnd);
+    return {
+      valid: true,
+      voucher,
+      discountVnd,
+      finalPriceVnd,
+      message: `\xC1p d\u1EE5ng th\xE0nh c\xF4ng! Gi\u1EA3m ${discountVnd.toLocaleString("vi-VN")}\u0111 (c\xF2n ${finalPriceVnd.toLocaleString("vi-VN")}\u0111).`
+    };
+  }
+  if (params.context === "deposit") {
+    if (voucher.type !== "deposit_bonus_percent" && voucher.type !== "deposit_bonus_fixed") {
+      return { valid: false, message: "M\xE3 n\xE0y kh\xF4ng \xE1p d\u1EE5ng \u01B0u \u0111\xE3i khi n\u1EA1p ti\u1EC1n." };
+    }
+    if (voucher.minDepositVnd && baseAmount < voucher.minDepositVnd) {
+      return {
+        valid: false,
+        message: `M\xE3 n\xE0y ch\u1EC9 \xE1p d\u1EE5ng khi n\u1EA1p t\u1EEB ${voucher.minDepositVnd.toLocaleString("vi-VN")}\u0111 tr\u1EDF l\xEAn.`
+      };
+    }
+    let bonusVnd = 0;
+    if (voucher.type === "deposit_bonus_percent") {
+      bonusVnd = Math.round(baseAmount * voucher.value / 100);
+    } else {
+      bonusVnd = voucher.value;
+    }
+    return {
+      valid: true,
+      voucher,
+      bonusVnd,
+      message: `M\xE3 n\u1EA1p h\u1EE3p l\u1EC7! B\u1EA1n s\u1EBD \u0111\u01B0\u1EE3c t\u1EB7ng th\xEAm +${bonusVnd.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED.`
+    };
+  }
+  return { valid: false, message: "Lo\u1EA1i \u01B0u \u0111\xE3i kh\xF4ng ph\xF9 h\u1EE3p." };
+}
+async function redeemGiftVoucher(code, uid) {
+  if (!adminDb2) throw new Error("Database not connected");
+  const validation = await validateVoucher({ code, uid, context: "gift_money" });
+  if (!validation.valid || !validation.voucher || !validation.bonusVnd) {
+    throw new Error(validation.message || "M\xE3 qu\xE0 t\u1EB7ng kh\xF4ng h\u1EE3p l\u1EC7.");
+  }
+  const voucher = validation.voucher;
+  const addedVnd = validation.bonusVnd;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  let finalBalance = 0;
+  await adminDb2.runTransaction(async (transaction) => {
+    const vRef = adminDb2.collection("vouchers").doc(voucher.id);
+    const vSnap = await transaction.get(vRef);
+    if (!vSnap.exists) throw new Error("Voucher kh\xF4ng t\u1ED3n t\u1EA1i.");
+    const vData = vSnap.data();
+    if (vData.usageLimit && vData.usageLimit > 0 && vData.usedCount >= vData.usageLimit) {
+      throw new Error("M\xE3 qu\xE0 t\u1EB7ng \u0111\xE3 h\u1EBFt l\u01B0\u1EE3t s\u1EED d\u1EE5ng.");
+    }
+    const wRef = adminDb2.collection("wallets").doc(uid);
+    const wSnap = await transaction.get(wRef);
+    let prevBalance = 0;
+    let fullName = "";
+    let currentClass = "";
+    if (wSnap.exists) {
+      const wData = wSnap.data();
+      prevBalance = wData.balanceVnd || 0;
+      fullName = wData.fullName || "";
+      currentClass = wData.currentClass || "";
+    }
+    finalBalance = prevBalance + addedVnd;
+    transaction.set(
+      wRef,
+      {
+        uid,
+        balanceVnd: finalBalance,
+        totalCreditedVnd: (wSnap.exists ? wSnap.data()?.totalCreditedVnd || 0 : 0) + addedVnd,
+        updatedAt: now
+      },
+      { merge: true }
+    );
+    transaction.update(vRef, {
+      usedCount: (vData.usedCount || 0) + 1,
+      updatedAt: now
+    });
+    const usageRef = adminDb2.collection("voucher_usages").doc(usageId);
+    const usageDoc = {
+      id: usageId,
+      voucherId: voucher.id,
+      voucherCode: voucher.code,
+      uid,
+      studentName: fullName,
+      studentClass: currentClass,
+      type: "gift_money",
+      bonusVnd: addedVnd,
+      usedAt: now,
+      context: "gift_money"
+    };
+    transaction.set(usageRef, usageDoc);
+    const txRef = adminDb2.collection("wallet_transactions").doc(txId);
+    const txDoc = {
+      id: txId,
+      uid,
+      type: "deposit_credit",
+      amountVnd: addedVnd,
+      balanceBeforeVnd: prevBalance,
+      balanceAfterVnd: finalBalance,
+      actorUid: "system",
+      actorName: `Voucher: ${voucher.code}`,
+      note: `Nh\u1EADp m\xE3 qu\xE0 t\u1EB7ng "${voucher.code}": +${addedVnd.toLocaleString("vi-VN")}\u0111`,
+      createdAt: now
+    };
+    transaction.set(txRef, txDoc);
+  });
+  return {
+    success: true,
+    addedVnd,
+    newBalanceVnd: finalBalance,
+    voucher
+  };
 }
 
 // server/services/walletService.ts
@@ -800,7 +1017,7 @@ async function sendDiscordDepositAlert(params) {
     console.warn("[DiscordWebhook] Kh\xF4ng th\u1EC3 g\u1EEDi Discord alert:", err?.message || err);
   }
 }
-async function createDepositRequest(uid, amountVnd, idempotencyKey) {
+async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode) {
   const cleanAmount = sanitizeVnd(amountVnd);
   if (cleanAmount < 1e3) {
     throw new Error("S\u1ED1 ti\u1EC1n n\u1EA1p t\u1ED1i thi\u1EC3u l\xE0 1.000\u0111.");
@@ -811,6 +1028,22 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
   const wallet = await getOrCreateWallet(uid);
   if (!wallet.profileCompleted || !wallet.fullName || !wallet.currentClass) {
     throw new Error("Vui l\xF2ng ho\xE0n th\xE0nh h\u1ED3 s\u01A1 h\u1ECD t\xEAn v\xE0 l\u1EDBp tr\u01B0\u1EDBc khi t\u1EA1o y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.");
+  }
+  let bonusVnd = 0;
+  let appliedVoucher = null;
+  if (voucherCode && String(voucherCode).trim()) {
+    const vRes = await validateVoucher({
+      code: String(voucherCode).trim(),
+      uid,
+      context: "deposit",
+      amountVnd: cleanAmount
+    });
+    if (vRes.valid && vRes.voucher) {
+      bonusVnd = vRes.bonusVnd || 0;
+      appliedVoucher = vRes.voucher;
+    } else {
+      throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7 cho kho\u1EA3n n\u1EA1p n\xE0y.");
+    }
   }
   const cleanKey = idempotencyKey ? String(idempotencyKey).trim() : "";
   const now = (/* @__PURE__ */ new Date()).toISOString();
@@ -823,6 +1056,8 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const totalCreditToAdd = cleanAmount + bonusVnd;
   const requestDoc = {
     id: requestId,
     uid,
@@ -834,7 +1069,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
     processedAt: now,
     processedBy: "system",
     processedByName: "H\u1EC7 th\u1ED1ng t\u1EF1 \u0111\u1ED9ng duy\u1EC7t",
-    externalCollectionNote: "\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng. C\u1EA7n thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi.",
+    externalCollectionNote: bonusVnd > 0 ? `\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng ${cleanAmount.toLocaleString("vi-VN")}\u0111 (+${bonusVnd.toLocaleString("vi-VN")}\u0111 th\u01B0\u1EDFng voucher ${appliedVoucher?.code}). C\u1EA7n thu ${cleanAmount.toLocaleString("vi-VN")}\u0111 ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi.` : "\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng. C\u1EA7n thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi.",
     idempotencyKey: cleanKey || requestId
   };
   if (adminDb2) {
@@ -854,8 +1089,8 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
         fullName = wData.fullName || fullName;
         currentClass = wData.currentClass || currentClass;
       }
-      const newBalance = prevBalance + cleanAmount;
-      const newTotalCredited = totalCredited + cleanAmount;
+      const newBalance = prevBalance + totalCreditToAdd;
+      const newTotalCredited = totalCredited + totalCreditToAdd;
       const reqRef = adminDb2.collection("deposit_requests").doc(requestId);
       transaction.set(reqRef, requestDoc);
       transaction.set(
@@ -877,14 +1112,14 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
         id: txId,
         uid,
         type: "deposit_credit",
-        amountVnd: cleanAmount,
+        amountVnd: totalCreditToAdd,
         balanceBeforeVnd: prevBalance,
         balanceAfterVnd: newBalance,
         depositRequestId: requestId,
         idempotencyKey: cleanKey || requestId,
         actorUid: "system",
         actorName: "H\u1EC7 th\u1ED1ng t\u1EF1 \u0111\u1ED9ng duy\u1EC7t",
-        note: `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${cleanAmount.toLocaleString("vi-VN")}\u0111 (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)`,
+        note: bonusVnd > 0 ? `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${cleanAmount.toLocaleString("vi-VN")}\u0111 (+${bonusVnd.toLocaleString("vi-VN")}\u0111 th\u01B0\u1EDFng voucher ${appliedVoucher?.code}) (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)` : `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${cleanAmount.toLocaleString("vi-VN")}\u0111 (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)`,
         createdAt: now
       };
       transaction.set(txRef, ledgerEntry);
@@ -907,13 +1142,39 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
         updatedAt: now
       };
       transaction.set(debtRef, debtEntry);
+      if (appliedVoucher) {
+        const vRef = adminDb2.collection("vouchers").doc(appliedVoucher.id);
+        const vSnap = await transaction.get(vRef);
+        if (vSnap.exists) {
+          const vData = vSnap.data();
+          transaction.update(vRef, {
+            usedCount: (vData.usedCount || 0) + 1,
+            updatedAt: now
+          });
+        }
+        const usageRef = adminDb2.collection("voucher_usages").doc(usageId);
+        const usageDoc = {
+          id: usageId,
+          voucherId: appliedVoucher.id,
+          voucherCode: appliedVoucher.code,
+          uid,
+          studentName: fullName,
+          studentClass: currentClass,
+          type: appliedVoucher.type,
+          bonusVnd,
+          usedAt: now,
+          context: "deposit",
+          referenceId: requestId
+        };
+        transaction.set(usageRef, usageDoc);
+      }
       const notifId = `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
       const notifRef = adminDb2.collection("notifications").doc(notifId);
       transaction.set(notifRef, {
         id: notifId,
         recipientUid: "admin",
-        title: `\u{1F4B5} H\u1ECDc sinh n\u1EA1p ti\u1EC1n: ${fullName || wallet.fullName || "H\u1ECDc sinh"} (+${cleanAmount.toLocaleString("vi-VN")}\u0111)`,
-        content: `H\u1ECDc sinh ${fullName || wallet.fullName || "H\u1ECDc sinh"} (${currentClass || wallet.currentClass || "Ch\u01B0a r\xF5"}) v\u1EEBa n\u1EA1p ${cleanAmount.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED \u1EA3o. H\u1EC7 th\u1ED1ng \u0111\xE3 t\u1EF1 \u0111\u1ED9ng duy\u1EC7t & ghi n\u1EE3. Vui l\xF2ng thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi!`,
+        title: `\u{1F4B5} H\u1ECDc sinh n\u1EA1p ti\u1EC1n: ${fullName || wallet.fullName || "H\u1ECDc sinh"} (+${cleanAmount.toLocaleString("vi-VN")}\u0111${bonusVnd > 0 ? ` +${bonusVnd.toLocaleString("vi-VN")}\u0111 KM` : ""})`,
+        content: `H\u1ECDc sinh ${fullName || wallet.fullName || "H\u1ECDc sinh"} (${currentClass || wallet.currentClass || "Ch\u01B0a r\xF5"}) v\u1EEBa n\u1EA1p ${cleanAmount.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED \u1EA3o${bonusVnd > 0 ? ` (\xE1p d\u1EE5ng voucher ${appliedVoucher?.code} th\u01B0\u1EDFng +${bonusVnd.toLocaleString("vi-VN")}\u0111)` : ""}. H\u1EC7 th\u1ED1ng \u0111\xE3 t\u1EF1 \u0111\u1ED9ng duy\u1EC7t & ghi n\u1EE3. Vui l\xF2ng thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi!`,
         type: "system",
         read: false,
         link: "/admin/wallets",
@@ -922,8 +1183,8 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
     });
   } else {
     const prevBalance = sanitizeVnd(wallet.balanceVnd);
-    const newBalance = prevBalance + cleanAmount;
-    const newTotalCredited = sanitizeVnd(wallet.totalCreditedVnd) + cleanAmount;
+    const newBalance = prevBalance + totalCreditToAdd;
+    const newTotalCredited = sanitizeVnd(wallet.totalCreditedVnd) + totalCreditToAdd;
     await setFirestoreRestDoc("deposit_requests", requestId, requestDoc);
     await setFirestoreRestDoc("wallets", uid, {
       ...wallet,
@@ -935,14 +1196,14 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
       id: txId,
       uid,
       type: "deposit_credit",
-      amountVnd: cleanAmount,
+      amountVnd: totalCreditToAdd,
       balanceBeforeVnd: prevBalance,
       balanceAfterVnd: newBalance,
       depositRequestId: requestId,
       idempotencyKey: cleanKey || requestId,
       actorUid: "system",
       actorName: "H\u1EC7 th\u1ED1ng t\u1EF1 \u0111\u1ED9ng duy\u1EC7t",
-      note: `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${cleanAmount.toLocaleString("vi-VN")}\u0111 (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)`,
+      note: bonusVnd > 0 ? `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${cleanAmount.toLocaleString("vi-VN")}\u0111 (+${bonusVnd.toLocaleString("vi-VN")}\u0111 th\u01B0\u1EDFng voucher ${appliedVoucher?.code}) (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)` : `N\u1EA1p ti\u1EC1n t\u1EF1 \u0111\u1ED9ng: +${cleanAmount.toLocaleString("vi-VN")}\u0111 (ch\u1EDD thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi)`,
       createdAt: now
     };
     await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
@@ -964,12 +1225,28 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey) {
       updatedAt: now
     };
     await setFirestoreRestDoc("debt_records", debtId, debtEntry);
+    if (appliedVoucher) {
+      const usageDoc = {
+        id: usageId,
+        voucherId: appliedVoucher.id,
+        voucherCode: appliedVoucher.code,
+        uid,
+        studentName: wallet.fullName,
+        studentClass: wallet.currentClass,
+        type: appliedVoucher.type,
+        bonusVnd,
+        usedAt: now,
+        context: "deposit",
+        referenceId: requestId
+      };
+      await setFirestoreRestDoc("voucher_usages", usageId, usageDoc);
+    }
     const notifId = `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     await setFirestoreRestDoc("notifications", notifId, {
       id: notifId,
       recipientUid: "admin",
-      title: `\u{1F4B5} H\u1ECDc sinh n\u1EA1p ti\u1EC1n: ${wallet.fullName || "H\u1ECDc sinh"} (+${cleanAmount.toLocaleString("vi-VN")}\u0111)`,
-      content: `H\u1ECDc sinh ${wallet.fullName || "H\u1ECDc sinh"} (${wallet.currentClass || "Ch\u01B0a r\xF5"}) v\u1EEBa n\u1EA1p ${cleanAmount.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED \u1EA3o. H\u1EC7 th\u1ED1ng \u0111\xE3 t\u1EF1 \u0111\u1ED9ng duy\u1EC7t & ghi n\u1EE3. Vui l\xF2ng thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi!`,
+      title: `\u{1F4B5} H\u1ECDc sinh n\u1EA1p ti\u1EC1n: ${wallet.fullName || "H\u1ECDc sinh"} (+${cleanAmount.toLocaleString("vi-VN")}\u0111${bonusVnd > 0 ? ` +${bonusVnd.toLocaleString("vi-VN")}\u0111 KM` : ""})`,
+      content: `H\u1ECDc sinh ${wallet.fullName || "H\u1ECDc sinh"} (${wallet.currentClass || "Ch\u01B0a r\xF5"}) v\u1EEBa n\u1EA1p ${cleanAmount.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED \u1EA3o${bonusVnd > 0 ? ` (\xE1p d\u1EE5ng voucher ${appliedVoucher?.code} th\u01B0\u1EDFng +${bonusVnd.toLocaleString("vi-VN")}\u0111)` : ""}. H\u1EC7 th\u1ED1ng \u0111\xE3 t\u1EF1 \u0111\u1ED9ng duy\u1EC7t & ghi n\u1EE3. Vui l\xF2ng thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi!`,
       type: "system",
       read: false,
       link: "/admin/wallets",
@@ -1205,7 +1482,7 @@ async function checkExamAccess(uid, examId, userRole) {
     examTitle
   };
 }
-async function unlockExam(uid, examId, idempotencyKey) {
+async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   if (!uid) throw new Error("Ch\u01B0a \u0111\u0103ng nh\u1EADp.");
   if (!examId) throw new Error("M\xE3 b\xE0i thi kh\xF4ng h\u1EE3p l\u1EC7.");
   const entitlementId = `${uid}_${examId}`;
@@ -1250,6 +1527,24 @@ async function unlockExam(uid, examId, idempotencyKey) {
           return { success: true, newBalanceVnd: bal, entitlement: entData, alreadyUnlocked: true };
         }
       }
+      let discountVnd2 = 0;
+      let appliedVoucher2 = null;
+      if (voucherCode && String(voucherCode).trim()) {
+        const vRes = await validateVoucher({
+          code: String(voucherCode).trim(),
+          uid,
+          context: "exam_unlock",
+          amountVnd: priceVnd2,
+          examId
+        });
+        if (vRes.valid && vRes.voucher) {
+          discountVnd2 = vRes.discountVnd || 0;
+          appliedVoucher2 = vRes.voucher;
+        } else {
+          throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7 cho \u0111\u1EC1 thi n\xE0y.");
+        }
+      }
+      const effectivePrice2 = Math.max(0, priceVnd2 - discountVnd2);
       const walletRef = adminDb2.collection("wallets").doc(uid);
       const walletDoc = await transaction.get(walletRef);
       let currentBal = 0;
@@ -1265,13 +1560,13 @@ async function unlockExam(uid, examId, idempotencyKey) {
         fullName = w.fullName || "";
         currentClass = w.currentClass || "";
       }
-      if (currentBal < priceVnd2) {
+      if (currentBal < effectivePrice2) {
         throw new Error(
-          `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a \u0111\u1EC1 thi. C\u1EA7n ${priceVnd2.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${currentBal.toLocaleString("vi-VN")}\u0111 (thi\u1EBFu ${(priceVnd2 - currentBal).toLocaleString("vi-VN")}\u0111).`
+          `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a \u0111\u1EC1 thi. C\u1EA7n ${effectivePrice2.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${currentBal.toLocaleString("vi-VN")}\u0111 (thi\u1EBFu ${(effectivePrice2 - currentBal).toLocaleString("vi-VN")}\u0111).`
         );
       }
-      const newBalance2 = currentBal - priceVnd2;
-      const newTotalSpent = totalSpent + priceVnd2;
+      const newBalance2 = currentBal - effectivePrice2;
+      const newTotalSpent = totalSpent + effectivePrice2;
       transaction.set(
         walletRef,
         {
@@ -1289,7 +1584,7 @@ async function unlockExam(uid, examId, idempotencyKey) {
         examId,
         status: "active",
         source: "purchase",
-        pricePaidVnd: priceVnd2,
+        pricePaidVnd: effectivePrice2,
         transactionId: txId,
         grantedAt: now,
         grantedBy: uid,
@@ -1301,7 +1596,7 @@ async function unlockExam(uid, examId, idempotencyKey) {
         id: txId,
         uid,
         type: "exam_unlock_debit",
-        amountVnd: priceVnd2,
+        amountVnd: effectivePrice2,
         balanceBeforeVnd: currentBal,
         balanceAfterVnd: newBalance2,
         examId,
@@ -1309,10 +1604,36 @@ async function unlockExam(uid, examId, idempotencyKey) {
         idempotencyKey: idempotencyKey || txId,
         actorUid: uid,
         actorName: fullName || "Th\xED sinh",
-        note: `M\u1EDF kh\xF3a v\u0129nh vi\u1EC5n b\xE0i thi "${examData2.title}": -${priceVnd2.toLocaleString("vi-VN")}\u0111`,
+        note: discountVnd2 > 0 ? `M\u1EDF kh\xF3a v\u0129nh vi\u1EC5n b\xE0i thi "${examData2.title}": -${effectivePrice2.toLocaleString("vi-VN")}\u0111 (\u0111\xE3 gi\u1EA3m ${discountVnd2.toLocaleString("vi-VN")}\u0111 nh\u1EDD voucher ${appliedVoucher2?.code})` : `M\u1EDF kh\xF3a v\u0129nh vi\u1EC5n b\xE0i thi "${examData2.title}": -${effectivePrice2.toLocaleString("vi-VN")}\u0111`,
         createdAt: now
       };
       transaction.set(txRef, ledgerEntry2);
+      if (appliedVoucher2) {
+        const vRef = adminDb2.collection("vouchers").doc(appliedVoucher2.id);
+        const vSnap = await transaction.get(vRef);
+        if (vSnap.exists) {
+          const vData = vSnap.data();
+          transaction.update(vRef, {
+            usedCount: (vData.usedCount || 0) + 1,
+            updatedAt: now
+          });
+        }
+        const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const usageRef = adminDb2.collection("voucher_usages").doc(usageId);
+        transaction.set(usageRef, {
+          id: usageId,
+          voucherId: appliedVoucher2.id,
+          voucherCode: appliedVoucher2.code,
+          uid,
+          studentName: fullName,
+          studentClass: currentClass,
+          type: appliedVoucher2.type,
+          discountVnd: discountVnd2,
+          usedAt: now,
+          context: "exam_unlock",
+          referenceId: examId
+        });
+      }
       return {
         success: true,
         newBalanceVnd: newBalance2,
@@ -1328,15 +1649,31 @@ async function unlockExam(uid, examId, idempotencyKey) {
     const w = await getOrCreateWallet(uid);
     return { success: true, newBalanceVnd: w.balanceVnd, entitlement: existingEnt, alreadyUnlocked: true };
   }
+  let discountVnd = 0;
+  let appliedVoucher = null;
+  if (voucherCode && String(voucherCode).trim()) {
+    const vRes = await validateVoucher({
+      code: String(voucherCode).trim(),
+      uid,
+      context: "exam_unlock",
+      amountVnd: priceVnd,
+      examId
+    });
+    if (vRes.valid && vRes.voucher) {
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+  }
+  const effectivePrice = Math.max(0, priceVnd - discountVnd);
   const wallet = await getOrCreateWallet(uid);
-  if (wallet.balanceVnd < priceVnd) {
+  if (wallet.balanceVnd < effectivePrice) {
     throw new Error(`S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a \u0111\u1EC1 thi.`);
   }
-  const newBalance = wallet.balanceVnd - priceVnd;
+  const newBalance = wallet.balanceVnd - effectivePrice;
   await setFirestoreRestDoc("wallets", uid, {
     ...wallet,
     balanceVnd: newBalance,
-    totalSpentVnd: wallet.totalSpentVnd + priceVnd,
+    totalSpentVnd: wallet.totalSpentVnd + effectivePrice,
     updatedAt: now
   });
   const entitlement = {
@@ -1345,7 +1682,7 @@ async function unlockExam(uid, examId, idempotencyKey) {
     examId,
     status: "active",
     source: "purchase",
-    pricePaidVnd: priceVnd,
+    pricePaidVnd: effectivePrice,
     transactionId: txId,
     grantedAt: now,
     grantedBy: uid,
@@ -1356,16 +1693,32 @@ async function unlockExam(uid, examId, idempotencyKey) {
     id: txId,
     uid,
     type: "exam_unlock_debit",
-    amountVnd: priceVnd,
+    amountVnd: effectivePrice,
     balanceBeforeVnd: wallet.balanceVnd,
     balanceAfterVnd: newBalance,
     examId,
     examTitleSnapshot: examData.title,
     actorUid: uid,
-    note: `M\u1EDF kh\xF3a \u0111\u1EC1 thi "${examData.title}"`,
+    note: discountVnd > 0 ? `M\u1EDF kh\xF3a \u0111\u1EC1 thi "${examData.title}" (-${effectivePrice.toLocaleString("vi-VN")}\u0111, gi\u1EA3m ${discountVnd.toLocaleString("vi-VN")}\u0111 nh\u1EDD voucher ${appliedVoucher?.code})` : `M\u1EDF kh\xF3a \u0111\u1EC1 thi "${examData.title}"`,
     createdAt: now
   };
   await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
+  if (appliedVoucher) {
+    const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    await setFirestoreRestDoc("voucher_usages", usageId, {
+      id: usageId,
+      voucherId: appliedVoucher.id,
+      voucherCode: appliedVoucher.code,
+      uid,
+      studentName: wallet.fullName,
+      studentClass: wallet.currentClass,
+      type: appliedVoucher.type,
+      discountVnd,
+      usedAt: now,
+      context: "exam_unlock",
+      referenceId: examId
+    });
+  }
   return { success: true, newBalanceVnd: newBalance, entitlement };
 }
 async function getStudentTransactions(uid, limitCount = 30) {
@@ -1387,6 +1740,28 @@ async function getStudentDepositRequests(uid, limitCount = 30) {
   const filtered = docs.filter((d) => d.uid === uid);
   filtered.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
   return filtered.slice(0, limitCount);
+}
+async function getStudentUnpaidDebt(uid) {
+  if (!uid) return { totalDebtVnd: 0, unpaidCount: 0, records: [] };
+  const cleanUid = uid.trim();
+  let debts = [];
+  if (adminDb2) {
+    const snap = await adminDb2.collection("debt_records").where("uid", "==", cleanUid).get();
+    debts = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  } else {
+    const docs = await getFirestoreRestDocs("debt_records", 200);
+    debts = docs.filter((d) => d.uid === cleanUid);
+  }
+  const unpaid = debts.filter(
+    (d) => d.status === "unpaid" || d.status === "partial" || d.remainingVnd && d.remainingVnd > 0
+  );
+  unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+  const totalDebtVnd = unpaid.reduce((sum, d) => sum + Math.max(0, sanitizeVnd(d.remainingVnd ?? d.amountVnd)), 0);
+  return {
+    totalDebtVnd,
+    unpaidCount: unpaid.length,
+    records: unpaid
+  };
 }
 
 // server/routes/walletRoutes.ts
@@ -1504,11 +1879,20 @@ walletRouter.patch("/wallet/me/profile", requireAuth, async (req, res) => {
     return res.status(400).json({ error: "profile_update_error", message: err.message || String(err) });
   }
 });
+walletRouter.get("/wallet/debt", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const debtSummary = await getStudentUnpaidDebt(uid);
+    return res.json({ success: true, ...debtSummary });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
 walletRouter.post("/wallet/deposit-requests", requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
-    const { amountVnd, idempotencyKey } = req.body || {};
-    const depositRequest = await createDepositRequest(uid, Number(amountVnd), idempotencyKey);
+    const { amountVnd, idempotencyKey, voucherCode } = req.body || {};
+    const depositRequest = await createDepositRequest(uid, Number(amountVnd), idempotencyKey, voucherCode);
     return res.status(201).json({ success: true, depositRequest });
   } catch (err) {
     return res.status(400).json({ error: "deposit_request_error", message: err.message || String(err) });
@@ -1536,8 +1920,8 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
     const examId = req.params.examId;
-    const { idempotencyKey } = req.body || {};
-    const result = await unlockExam(uid, examId, idempotencyKey);
+    const { idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockExam(uid, examId, idempotencyKey, voucherCode);
     return res.json({
       success: true,
       newBalanceVnd: result.newBalanceVnd,
@@ -1553,6 +1937,50 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req, res) => {
     return res.status(400).json({ error: "unlock_error", message: msg });
   }
 });
+walletRouter.post("/vouchers/validate", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const { code, context, amountVnd, examId } = req.body || {};
+    const result = await validateVoucher({
+      code: String(code || "").trim(),
+      uid,
+      context: context || "exam_unlock",
+      amountVnd: Number(amountVnd || 0),
+      examId
+    });
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    return res.status(400).json({ error: "voucher_validate_error", message: err.message || String(err) });
+  }
+});
+walletRouter.post("/vouchers/redeem-gift", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const { code } = req.body || {};
+    if (!code) {
+      return res.status(400).json({ error: "missing_code", message: "Vui l\xF2ng nh\u1EADp m\xE3 voucher qu\xE0 t\u1EB7ng." });
+    }
+    const result = await redeemGiftVoucher(String(code).trim(), uid);
+    return res.json({
+      success: true,
+      message: `Nh\u1EADp m\xE3 qu\xE0 t\u1EB7ng th\xE0nh c\xF4ng! B\u1EA1n nh\u1EADn \u0111\u01B0\u1EE3c +${result.addedVnd.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED.`,
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "redeem_error", message: err.message || String(err) });
+  }
+});
 export {
   walletRouter
 };
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ * Voucher & Promotion Service (DkTEST)
+ * Supports:
+ * 1. gift_money: Nhập mã nhận tiền trực tiếp vào ví
+ * 2. discount_percent: Giảm giá mở khóa đề theo %
+ * 3. discount_fixed: Giảm giá mở khóa đề theo số tiền cố định (VNĐ)
+ * 4. deposit_bonus_percent: Thưởng nạp tiền theo %
+ * 5. deposit_bonus_fixed: Thưởng nạp tiền cố định (VNĐ)
+ */

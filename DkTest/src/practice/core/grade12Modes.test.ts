@@ -6,6 +6,7 @@ const GRADE_12_MODE_IDS = [
   "math_calculus_analysis",
   "math_oxyz_geometry",
   "math_statistics_dispersion",
+  "math_integrals_calculus",
   "physics-thermal-gas",
   "physics_ideal_gas_laws",
   "physics_nuclear_physics",
@@ -16,10 +17,11 @@ const GRADE_12_MODE_IDS = [
   "cs-code-trace-loops",
   "cs_database_sql",
   "cs_network_security",
+  "cs_ai_concepts",
 ];
 
 describe("Grade 12 Practice Modes Registration and Generation", () => {
-  it("registers all 13 Grade 12 practice modes across Math, Physics, Chemistry, and CS", () => {
+  it("registers all 15 Grade 12 practice modes across Math, Physics, Chemistry, and CS", () => {
     GRADE_12_MODE_IDS.forEach((id) => {
       const mode = PracticeRegistry.get(id);
       expect(mode, `Mode ${id} should be registered in PracticeRegistry`).toBeDefined();

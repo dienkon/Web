@@ -13,7 +13,11 @@ import type {
   DebtRecord,
   StudentDebtSummary,
   Exam,
+  AdminWalletEditPayload,
+  Voucher,
+  VoucherUsage,
 } from "../../src/types/index.js";
+import { validateVoucher } from "./voucherService.js";
 
 // Helper to sanitize positive integer VND
 export function sanitizeVnd(val: any): number {
@@ -448,7 +452,8 @@ async function sendDiscordDepositAlert(params: {
 export async function createDepositRequest(
   uid: string,
   amountVnd: number,
-  idempotencyKey?: string
+  idempotencyKey?: string,
+  voucherCode?: string
 ): Promise<DepositRequest> {
   const cleanAmount = sanitizeVnd(amountVnd);
 
@@ -462,6 +467,23 @@ export async function createDepositRequest(
   const wallet = await getOrCreateWallet(uid);
   if (!wallet.profileCompleted || !wallet.fullName || !wallet.currentClass) {
     throw new Error("Vui lòng hoàn thành hồ sơ họ tên và lớp trước khi tạo yêu cầu nạp tiền.");
+  }
+
+  let bonusVnd = 0;
+  let appliedVoucher: Voucher | null = null;
+  if (voucherCode && String(voucherCode).trim()) {
+    const vRes = await validateVoucher({
+      code: String(voucherCode).trim(),
+      uid,
+      context: "deposit",
+      amountVnd: cleanAmount,
+    });
+    if (vRes.valid && vRes.voucher) {
+      bonusVnd = vRes.bonusVnd || 0;
+      appliedVoucher = vRes.voucher;
+    } else {
+      throw new Error(vRes.message || "Mã voucher không hợp lệ cho khoản nạp này.");
+    }
   }
 
   const cleanKey = idempotencyKey ? String(idempotencyKey).trim() : "";
@@ -484,6 +506,8 @@ export async function createDepositRequest(
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const debtId = `debt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const totalCreditToAdd = cleanAmount + bonusVnd;
 
   // Yêu cầu nạp được hệ thống tự động duyệt ngay lập tức (Auto-Approved)
   const requestDoc: DepositRequest = {
@@ -497,7 +521,9 @@ export async function createDepositRequest(
     processedAt: now,
     processedBy: "system",
     processedByName: "Hệ thống tự động duyệt",
-    externalCollectionNote: "Đã cộng ví ảo tự động. Cần thu tiền mặt ngoài đời.",
+    externalCollectionNote: bonusVnd > 0
+      ? `Đã cộng ví ảo tự động ${cleanAmount.toLocaleString("vi-VN")}đ (+${bonusVnd.toLocaleString("vi-VN")}đ thưởng voucher ${appliedVoucher?.code}). Cần thu ${cleanAmount.toLocaleString("vi-VN")}đ tiền mặt ngoài đời.`
+      : "Đã cộng ví ảo tự động. Cần thu tiền mặt ngoài đời.",
     idempotencyKey: cleanKey || requestId,
   };
 
@@ -522,8 +548,8 @@ export async function createDepositRequest(
         currentClass = wData.currentClass || currentClass;
       }
 
-      const newBalance = prevBalance + cleanAmount;
-      const newTotalCredited = totalCredited + cleanAmount;
+      const newBalance = prevBalance + totalCreditToAdd;
+      const newTotalCredited = totalCredited + totalCreditToAdd;
 
       // 2. Lưu yêu cầu nạp với trạng thái đã duyệt
       const reqRef = adminDb.collection("deposit_requests").doc(requestId);
@@ -551,14 +577,16 @@ export async function createDepositRequest(
         id: txId,
         uid,
         type: "deposit_credit",
-        amountVnd: cleanAmount,
+        amountVnd: totalCreditToAdd,
         balanceBeforeVnd: prevBalance,
         balanceAfterVnd: newBalance,
         depositRequestId: requestId,
         idempotencyKey: cleanKey || requestId,
         actorUid: "system",
         actorName: "Hệ thống tự động duyệt",
-        note: `Nạp tiền tự động: +${cleanAmount.toLocaleString("vi-VN")}đ (chờ thu tiền mặt ngoài đời)`,
+        note: bonusVnd > 0
+          ? `Nạp tiền tự động: +${cleanAmount.toLocaleString("vi-VN")}đ (+${bonusVnd.toLocaleString("vi-VN")}đ thưởng voucher ${appliedVoucher?.code}) (chờ thu tiền mặt ngoài đời)`
+          : `Nạp tiền tự động: +${cleanAmount.toLocaleString("vi-VN")}đ (chờ thu tiền mặt ngoài đời)`,
         createdAt: now,
       };
       transaction.set(txRef, ledgerEntry);
@@ -584,14 +612,42 @@ export async function createDepositRequest(
       };
       transaction.set(debtRef, debtEntry);
 
-      // 6. Gửi thông báo hệ thống cho Admin
+      // 6. Ghi nhận sử dụng voucher nếu có
+      if (appliedVoucher) {
+        const vRef = adminDb.collection("vouchers").doc(appliedVoucher.id);
+        const vSnap = await transaction.get(vRef);
+        if (vSnap.exists) {
+          const vData = vSnap.data() as Voucher;
+          transaction.update(vRef, {
+            usedCount: (vData.usedCount || 0) + 1,
+            updatedAt: now,
+          });
+        }
+        const usageRef = adminDb.collection("voucher_usages").doc(usageId);
+        const usageDoc: VoucherUsage = {
+          id: usageId,
+          voucherId: appliedVoucher.id,
+          voucherCode: appliedVoucher.code,
+          uid,
+          studentName: fullName,
+          studentClass: currentClass,
+          type: appliedVoucher.type,
+          bonusVnd,
+          usedAt: now,
+          context: "deposit",
+          referenceId: requestId,
+        };
+        transaction.set(usageRef, usageDoc);
+      }
+
+      // 7. Gửi thông báo hệ thống cho Admin
       const notifId = `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
       const notifRef = adminDb.collection("notifications").doc(notifId);
       transaction.set(notifRef, {
         id: notifId,
         recipientUid: "admin",
-        title: `💵 Học sinh nạp tiền: ${fullName || wallet.fullName || "Học sinh"} (+${cleanAmount.toLocaleString("vi-VN")}đ)`,
-        content: `Học sinh ${fullName || wallet.fullName || "Học sinh"} (${currentClass || wallet.currentClass || "Chưa rõ"}) vừa nạp ${cleanAmount.toLocaleString("vi-VN")}đ vào ví ảo. Hệ thống đã tự động duyệt & ghi nợ. Vui lòng thu tiền mặt ngoài đời!`,
+        title: `💵 Học sinh nạp tiền: ${fullName || wallet.fullName || "Học sinh"} (+${cleanAmount.toLocaleString("vi-VN")}đ${bonusVnd > 0 ? ` +${bonusVnd.toLocaleString("vi-VN")}đ KM` : ""})`,
+        content: `Học sinh ${fullName || wallet.fullName || "Học sinh"} (${currentClass || wallet.currentClass || "Chưa rõ"}) vừa nạp ${cleanAmount.toLocaleString("vi-VN")}đ vào ví ảo${bonusVnd > 0 ? ` (áp dụng voucher ${appliedVoucher?.code} thưởng +${bonusVnd.toLocaleString("vi-VN")}đ)` : ""}. Hệ thống đã tự động duyệt & ghi nợ. Vui lòng thu tiền mặt ngoài đời!`,
         type: "system",
         read: false,
         link: "/admin/wallets",
@@ -601,8 +657,8 @@ export async function createDepositRequest(
   } else {
     // REST fallback mode
     const prevBalance = sanitizeVnd(wallet.balanceVnd);
-    const newBalance = prevBalance + cleanAmount;
-    const newTotalCredited = sanitizeVnd(wallet.totalCreditedVnd) + cleanAmount;
+    const newBalance = prevBalance + totalCreditToAdd;
+    const newTotalCredited = sanitizeVnd(wallet.totalCreditedVnd) + totalCreditToAdd;
 
     await setFirestoreRestDoc("deposit_requests", requestId, requestDoc);
 
@@ -617,14 +673,16 @@ export async function createDepositRequest(
       id: txId,
       uid,
       type: "deposit_credit",
-      amountVnd: cleanAmount,
+      amountVnd: totalCreditToAdd,
       balanceBeforeVnd: prevBalance,
       balanceAfterVnd: newBalance,
       depositRequestId: requestId,
       idempotencyKey: cleanKey || requestId,
       actorUid: "system",
       actorName: "Hệ thống tự động duyệt",
-      note: `Nạp tiền tự động: +${cleanAmount.toLocaleString("vi-VN")}đ (chờ thu tiền mặt ngoài đời)`,
+      note: bonusVnd > 0
+        ? `Nạp tiền tự động: +${cleanAmount.toLocaleString("vi-VN")}đ (+${bonusVnd.toLocaleString("vi-VN")}đ thưởng voucher ${appliedVoucher?.code}) (chờ thu tiền mặt ngoài đời)`
+        : `Nạp tiền tự động: +${cleanAmount.toLocaleString("vi-VN")}đ (chờ thu tiền mặt ngoài đời)`,
       createdAt: now,
     };
     await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
@@ -648,13 +706,31 @@ export async function createDepositRequest(
     };
     await setFirestoreRestDoc("debt_records", debtId, debtEntry);
 
+    // Ghi nhận voucher trong REST mode
+    if (appliedVoucher) {
+      const usageDoc: VoucherUsage = {
+        id: usageId,
+        voucherId: appliedVoucher.id,
+        voucherCode: appliedVoucher.code,
+        uid,
+        studentName: wallet.fullName,
+        studentClass: wallet.currentClass,
+        type: appliedVoucher.type,
+        bonusVnd,
+        usedAt: now,
+        context: "deposit",
+        referenceId: requestId,
+      };
+      await setFirestoreRestDoc("voucher_usages", usageId, usageDoc);
+    }
+
     // Gửi thông báo hệ thống cho Admin trong REST fallback
     const notifId = `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     await setFirestoreRestDoc("notifications", notifId, {
       id: notifId,
       recipientUid: "admin",
-      title: `💵 Học sinh nạp tiền: ${wallet.fullName || "Học sinh"} (+${cleanAmount.toLocaleString("vi-VN")}đ)`,
-      content: `Học sinh ${wallet.fullName || "Học sinh"} (${wallet.currentClass || "Chưa rõ"}) vừa nạp ${cleanAmount.toLocaleString("vi-VN")}đ vào ví ảo. Hệ thống đã tự động duyệt & ghi nợ. Vui lòng thu tiền mặt ngoài đời!`,
+      title: `💵 Học sinh nạp tiền: ${wallet.fullName || "Học sinh"} (+${cleanAmount.toLocaleString("vi-VN")}đ${bonusVnd > 0 ? ` +${bonusVnd.toLocaleString("vi-VN")}đ KM` : ""})`,
+      content: `Học sinh ${wallet.fullName || "Học sinh"} (${wallet.currentClass || "Chưa rõ"}) vừa nạp ${cleanAmount.toLocaleString("vi-VN")}đ vào ví ảo${bonusVnd > 0 ? ` (áp dụng voucher ${appliedVoucher?.code} thưởng +${bonusVnd.toLocaleString("vi-VN")}đ)` : ""}. Hệ thống đã tự động duyệt & ghi nợ. Vui lòng thu tiền mặt ngoài đời!`,
       type: "system",
       read: false,
       link: "/admin/wallets",
@@ -1170,7 +1246,8 @@ export async function checkExamAccess(
 export async function unlockExam(
   uid: string,
   examId: string,
-  idempotencyKey?: string
+  idempotencyKey?: string,
+  voucherCode?: string
 ): Promise<{
   success: boolean;
   newBalanceVnd: number;
@@ -1232,7 +1309,28 @@ export async function unlockExam(
         }
       }
 
-      // 3. Check wallet balance
+      // 3. Voucher calculation
+      let discountVnd = 0;
+      let appliedVoucher: Voucher | null = null;
+      if (voucherCode && String(voucherCode).trim()) {
+        const vRes = await validateVoucher({
+          code: String(voucherCode).trim(),
+          uid,
+          context: "exam_unlock",
+          amountVnd: priceVnd,
+          examId,
+        });
+        if (vRes.valid && vRes.voucher) {
+          discountVnd = vRes.discountVnd || 0;
+          appliedVoucher = vRes.voucher;
+        } else {
+          throw new Error(vRes.message || "Mã voucher không hợp lệ cho đề thi này.");
+        }
+      }
+
+      const effectivePrice = Math.max(0, priceVnd - discountVnd);
+
+      // 4. Check wallet balance
       const walletRef = adminDb.collection("wallets").doc(uid);
       const walletDoc = await transaction.get(walletRef);
       let currentBal = 0;
@@ -1250,16 +1348,16 @@ export async function unlockExam(
         currentClass = w.currentClass || "";
       }
 
-      if (currentBal < priceVnd) {
+      if (currentBal < effectivePrice) {
         throw new Error(
-          `Số dư không đủ để mở khóa đề thi. Cần ${priceVnd.toLocaleString("vi-VN")}đ, hiện có ${currentBal.toLocaleString("vi-VN")}đ (thiếu ${(priceVnd - currentBal).toLocaleString("vi-VN")}đ).`
+          `Số dư không đủ để mở khóa đề thi. Cần ${effectivePrice.toLocaleString("vi-VN")}đ, hiện có ${currentBal.toLocaleString("vi-VN")}đ (thiếu ${(effectivePrice - currentBal).toLocaleString("vi-VN")}đ).`
         );
       }
 
-      const newBalance = currentBal - priceVnd;
-      const newTotalSpent = totalSpent + priceVnd;
+      const newBalance = currentBal - effectivePrice;
+      const newTotalSpent = totalSpent + effectivePrice;
 
-      // 4. Deduct wallet
+      // 5. Deduct wallet
       transaction.set(
         walletRef,
         {
@@ -1272,14 +1370,14 @@ export async function unlockExam(
         { merge: true }
       );
 
-      // 5. Create entitlement
+      // 6. Create entitlement
       const entitlement: ExamEntitlement = {
         id: entitlementId,
         uid,
         examId,
         status: "active",
         source: "purchase",
-        pricePaidVnd: priceVnd,
+        pricePaidVnd: effectivePrice,
         transactionId: txId,
         grantedAt: now,
         grantedBy: uid,
@@ -1287,13 +1385,13 @@ export async function unlockExam(
       };
       transaction.set(entRef, entitlement);
 
-      // 6. Record transaction ledger
+      // 7. Record transaction ledger
       const txRef = adminDb.collection("wallet_transactions").doc(txId);
       const ledgerEntry: WalletTransaction = {
         id: txId,
         uid,
         type: "exam_unlock_debit",
-        amountVnd: priceVnd,
+        amountVnd: effectivePrice,
         balanceBeforeVnd: currentBal,
         balanceAfterVnd: newBalance,
         examId,
@@ -1301,10 +1399,40 @@ export async function unlockExam(
         idempotencyKey: idempotencyKey || txId,
         actorUid: uid,
         actorName: fullName || "Thí sinh",
-        note: `Mở khóa vĩnh viễn bài thi "${examData.title}": -${priceVnd.toLocaleString("vi-VN")}đ`,
+        note: discountVnd > 0
+          ? `Mở khóa vĩnh viễn bài thi "${examData.title}": -${effectivePrice.toLocaleString("vi-VN")}đ (đã giảm ${discountVnd.toLocaleString("vi-VN")}đ nhờ voucher ${appliedVoucher?.code})`
+          : `Mở khóa vĩnh viễn bài thi "${examData.title}": -${effectivePrice.toLocaleString("vi-VN")}đ`,
         createdAt: now,
       };
       transaction.set(txRef, ledgerEntry);
+
+      // 8. Record voucher usage if voucher applied
+      if (appliedVoucher) {
+        const vRef = adminDb.collection("vouchers").doc(appliedVoucher.id);
+        const vSnap = await transaction.get(vRef);
+        if (vSnap.exists) {
+          const vData = vSnap.data() as Voucher;
+          transaction.update(vRef, {
+            usedCount: (vData.usedCount || 0) + 1,
+            updatedAt: now,
+          });
+        }
+        const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        const usageRef = adminDb.collection("voucher_usages").doc(usageId);
+        transaction.set(usageRef, {
+          id: usageId,
+          voucherId: appliedVoucher.id,
+          voucherCode: appliedVoucher.code,
+          uid,
+          studentName: fullName,
+          studentClass: currentClass,
+          type: appliedVoucher.type,
+          discountVnd,
+          usedAt: now,
+          context: "exam_unlock",
+          referenceId: examId,
+        });
+      }
 
       return {
         success: true,
@@ -1325,16 +1453,33 @@ export async function unlockExam(
     return { success: true, newBalanceVnd: w.balanceVnd, entitlement: existingEnt, alreadyUnlocked: true };
   }
 
+  let discountVnd = 0;
+  let appliedVoucher: Voucher | null = null;
+  if (voucherCode && String(voucherCode).trim()) {
+    const vRes = await validateVoucher({
+      code: String(voucherCode).trim(),
+      uid,
+      context: "exam_unlock",
+      amountVnd: priceVnd,
+      examId,
+    });
+    if (vRes.valid && vRes.voucher) {
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+  }
+
+  const effectivePrice = Math.max(0, priceVnd - discountVnd);
   const wallet = await getOrCreateWallet(uid);
-  if (wallet.balanceVnd < priceVnd) {
+  if (wallet.balanceVnd < effectivePrice) {
     throw new Error(`Số dư không đủ để mở khóa đề thi.`);
   }
 
-  const newBalance = wallet.balanceVnd - priceVnd;
+  const newBalance = wallet.balanceVnd - effectivePrice;
   await setFirestoreRestDoc("wallets", uid, {
     ...wallet,
     balanceVnd: newBalance,
-    totalSpentVnd: wallet.totalSpentVnd + priceVnd,
+    totalSpentVnd: wallet.totalSpentVnd + effectivePrice,
     updatedAt: now,
   });
 
@@ -1344,7 +1489,7 @@ export async function unlockExam(
     examId,
     status: "active",
     source: "purchase",
-    pricePaidVnd: priceVnd,
+    pricePaidVnd: effectivePrice,
     transactionId: txId,
     grantedAt: now,
     grantedBy: uid,
@@ -1356,16 +1501,35 @@ export async function unlockExam(
     id: txId,
     uid,
     type: "exam_unlock_debit",
-    amountVnd: priceVnd,
+    amountVnd: effectivePrice,
     balanceBeforeVnd: wallet.balanceVnd,
     balanceAfterVnd: newBalance,
     examId,
     examTitleSnapshot: examData.title,
     actorUid: uid,
-    note: `Mở khóa đề thi "${examData.title}"`,
+    note: discountVnd > 0
+      ? `Mở khóa đề thi "${examData.title}" (-${effectivePrice.toLocaleString("vi-VN")}đ, giảm ${discountVnd.toLocaleString("vi-VN")}đ nhờ voucher ${appliedVoucher?.code})`
+      : `Mở khóa đề thi "${examData.title}"`,
     createdAt: now,
   };
   await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
+
+  if (appliedVoucher) {
+    const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    await setFirestoreRestDoc("voucher_usages", usageId, {
+      id: usageId,
+      voucherId: appliedVoucher.id,
+      voucherCode: appliedVoucher.code,
+      uid,
+      studentName: wallet.fullName,
+      studentClass: wallet.currentClass,
+      type: appliedVoucher.type,
+      discountVnd,
+      usedAt: now,
+      context: "exam_unlock",
+      referenceId: examId,
+    });
+  }
 
   return { success: true, newBalanceVnd: newBalance, entitlement };
 }
@@ -2482,5 +2646,136 @@ export async function syncStudentsToWallets(): Promise<{
     totalStudents: studentsMap.size,
     createdCount,
     updatedCount,
+  };
+}
+
+// -------------------------------------------------------------
+// 12. STUDENT UNPAID DEBT & ADMIN DIRECT WALLET EDIT
+// -------------------------------------------------------------
+
+export async function getStudentUnpaidDebt(uid: string): Promise<{
+  totalDebtVnd: number;
+  unpaidCount: number;
+  records: DebtRecord[];
+}> {
+  if (!uid) return { totalDebtVnd: 0, unpaidCount: 0, records: [] };
+  const cleanUid = uid.trim();
+  let debts: DebtRecord[] = [];
+
+  if (adminDb) {
+    const snap = await adminDb
+      .collection("debt_records")
+      .where("uid", "==", cleanUid)
+      .get();
+    debts = snap.docs.map((d) => ({ id: d.id, ...d.data() } as DebtRecord));
+  } else {
+    const docs = await getFirestoreRestDocs("debt_records", 200);
+    debts = (docs as DebtRecord[]).filter((d) => d.uid === cleanUid);
+  }
+
+  const unpaid = debts.filter(
+    (d) => d.status === "unpaid" || d.status === "partial" || (d.remainingVnd && d.remainingVnd > 0)
+  );
+  unpaid.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+
+  const totalDebtVnd = unpaid.reduce((sum, d) => sum + Math.max(0, sanitizeVnd(d.remainingVnd ?? d.amountVnd)), 0);
+
+  return {
+    totalDebtVnd,
+    unpaidCount: unpaid.length,
+    records: unpaid,
+  };
+}
+
+export async function adminDirectEditWallet(
+  adminUid: string,
+  adminName: string,
+  studentUid: string,
+  payload: AdminWalletEditPayload
+): Promise<{ success: boolean; wallet: StudentWallet; message: string }> {
+  if (!studentUid) throw new Error("Chưa chỉ định học sinh.");
+  const cleanUid = studentUid.trim();
+  const currentWallet = await getOrCreateWallet(cleanUid);
+  const now = new Date().toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+  const updates: Partial<StudentWallet> = {
+    updatedAt: now,
+  };
+
+  if (payload.fullName !== undefined) updates.fullName = String(payload.fullName).trim();
+  if (payload.currentClass !== undefined) updates.currentClass = String(payload.currentClass).trim().toUpperCase();
+  if (payload.verifiedName !== undefined) (updates as any).verifiedName = String(payload.verifiedName).trim();
+  if (payload.isVerified !== undefined) {
+    (updates as any).isVerified = Boolean(payload.isVerified);
+    if (payload.isVerified) {
+      (updates as any).verifiedAt = now;
+      (updates as any).verifiedBy = adminUid;
+    }
+  }
+  if (payload.totalCreditedVnd !== undefined) updates.totalCreditedVnd = sanitizeVnd(payload.totalCreditedVnd);
+  if (payload.totalSpentVnd !== undefined) updates.totalSpentVnd = sanitizeVnd(payload.totalSpentVnd);
+
+  const prevBalance = sanitizeVnd(currentWallet.balanceVnd);
+  const newBalance = payload.balanceVnd !== undefined ? sanitizeVnd(payload.balanceVnd) : prevBalance;
+  updates.balanceVnd = newBalance;
+
+  const balanceChanged = newBalance !== prevBalance;
+
+  if (adminDb) {
+    const batch = adminDb.batch();
+    const wRef = adminDb.collection("wallets").doc(cleanUid);
+    batch.set(wRef, updates, { merge: true });
+
+    if (balanceChanged) {
+      const diff = newBalance - prevBalance;
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
+      const txDoc: WalletTransaction = {
+        id: txId,
+        uid: cleanUid,
+        type: "admin_adjustment",
+        amountVnd: Math.abs(diff),
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: payload.note || `Admin điều chỉnh số dư trực tiếp (${diff >= 0 ? "+" : ""}${diff.toLocaleString("vi-VN")}đ)`,
+        createdAt: now,
+      };
+      batch.set(txRef, txDoc);
+    }
+
+    await batch.commit();
+  } else {
+    const mergedWallet: StudentWallet = { ...currentWallet, ...updates };
+    await setFirestoreRestDoc("wallets", cleanUid, mergedWallet);
+
+    if (balanceChanged) {
+      const diff = newBalance - prevBalance;
+      const txDoc: WalletTransaction = {
+        id: txId,
+        uid: cleanUid,
+        type: "admin_adjustment",
+        amountVnd: Math.abs(diff),
+        balanceBeforeVnd: prevBalance,
+        balanceAfterVnd: newBalance,
+        actorUid: adminUid,
+        actorName: adminName,
+        note: payload.note || `Admin điều chỉnh số dư trực tiếp (${diff >= 0 ? "+" : ""}${diff.toLocaleString("vi-VN")}đ)`,
+        createdAt: now,
+      };
+      await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
+    }
+  }
+
+  const updatedWallet: StudentWallet = {
+    ...currentWallet,
+    ...updates,
+  };
+
+  return {
+    success: true,
+    wallet: updatedWallet,
+    message: "Đã cập nhật thông tin ví và số dư thành công!",
   };
 }

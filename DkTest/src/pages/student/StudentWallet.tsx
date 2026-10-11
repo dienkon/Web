@@ -18,6 +18,10 @@ import {
   ArrowRight,
   ExternalLink,
   Info,
+  Gift,
+  Tag,
+  CreditCard,
+  Receipt,
 } from "lucide-react";
 import {
   getMyWallet,
@@ -26,8 +30,10 @@ import {
   createDepositRequest,
   getMyDepositRequests,
   getMyTransactions,
+  getMyDebtSummary,
+  redeemGiftVoucherApi,
 } from "../../services/walletClientService";
-import type { StudentWallet as WalletType, DepositRequest, WalletTransaction } from "../../types";
+import type { StudentWallet as WalletType, DepositRequest, WalletTransaction, DebtRecord } from "../../types";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../components/ui/ToastNotification";
 import { formatDate } from "../../utils/date";
@@ -40,8 +46,13 @@ export default function StudentWalletPage() {
   const [wallet, setWallet] = useState<WalletType | null>(null);
   const [requests, setRequests] = useState<DepositRequest[]>([]);
   const [transactions, setTransactions] = useState<WalletTransaction[]>([]);
+  const [debtSummary, setDebtSummary] = useState<{ totalDebtVnd: number; unpaidCount: number; records: DebtRecord[] }>({
+    totalDebtVnd: 0,
+    unpaidCount: 0,
+    records: [],
+  });
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"deposit" | "requests" | "history">("deposit");
+  const [activeTab, setActiveTab] = useState<"deposit" | "debt" | "requests" | "history">("deposit");
 
   // Profile completion modal state
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -49,9 +60,14 @@ export default function StudentWalletPage() {
   const [profileClass, setProfileClass] = useState("");
   const [savingProfile, setSavingProfile] = useState(false);
 
-  // Deposit input state
-  const [depositAmount, setDepositAmount] = useState<number>(5000);
-  const [customInputStr, setCustomInputStr] = useState<string>("5000");
+  // Deposit input state (Default 2k VND as requested)
+  const [depositAmount, setDepositAmount] = useState<number>(2000);
+  const [customInputStr, setCustomInputStr] = useState<string>("2.000");
+  const [depositVoucherCode, setDepositVoucherCode] = useState<string>("");
+
+  // Gift money voucher redemption state
+  const [giftVoucherCode, setGiftVoucherCode] = useState("");
+  const [redeemingGift, setRedeemingGift] = useState(false);
 
   // 3-Step Confirmation Modal State (Phần B - Section 7)
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -72,14 +88,16 @@ export default function StudentWalletPage() {
   const loadWalletData = async () => {
     setLoading(true);
     try {
-      const [w, reqs, txs] = await Promise.all([
+      const [w, reqs, txs, debt] = await Promise.all([
         getMyWallet(),
         getMyDepositRequests().catch(() => []),
         getMyTransactions().catch(() => []),
+        getMyDebtSummary().catch(() => ({ totalDebtVnd: 0, unpaidCount: 0, records: [] })),
       ]);
       setWallet(w);
       setRequests(reqs);
       setTransactions(txs);
+      setDebtSummary(debt);
 
       if (!w.profileCompleted || !w.fullName || !w.currentClass) {
         setProfileName(w.fullName || "");
@@ -143,11 +161,12 @@ export default function StudentWalletPage() {
     setSubmittingDeposit(true);
     try {
       const idempotencyKey = `dep_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-      await createDepositRequest(depositAmount, idempotencyKey);
+      await createDepositRequest(depositAmount, idempotencyKey, depositVoucherCode.trim() || undefined);
       setShowConfirmModal(false);
       showSuccessToast(
-        `Nạp tiền thành công! Đã cộng +${depositAmount.toLocaleString("vi-VN")}đ vào ví của bạn. Vui lòng nộp tiền mặt cho giáo viên để hoàn tất công nợ.`
+        `Nạp tiền thành công! Đã cộng số dư vào ví của bạn. Vui lòng nộp tiền mặt cho giáo viên để hoàn tất công nợ.`
       );
+      setDepositVoucherCode("");
       // Cập nhật lại số dư và lịch sử ngay lập tức
       await loadWalletData();
       setActiveTab("requests");
@@ -155,6 +174,26 @@ export default function StudentWalletPage() {
       showErrorToast(err.message || "Gửi yêu cầu nạp thất bại.");
     } finally {
       setSubmittingDeposit(false);
+    }
+  };
+
+  const handleRedeemGift = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = giftVoucherCode.trim();
+    if (!code) {
+      showErrorToast("Vui lòng nhập mã voucher quà tặng.");
+      return;
+    }
+    setRedeemingGift(true);
+    try {
+      const res = await redeemGiftVoucherApi(code);
+      showSuccessToast(res.message || `Nhập mã quà tặng thành công! Đã cộng +${res.addedVnd.toLocaleString("vi-VN")}đ vào ví.`);
+      setGiftVoucherCode("");
+      await loadWalletData();
+    } catch (err: any) {
+      showErrorToast(err.message || "Không thể sử dụng mã quà tặng này.");
+    } finally {
+      setRedeemingGift(false);
     }
   };
 
@@ -196,7 +235,7 @@ export default function StudentWalletPage() {
       </div>
 
       {/* Main Balance Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {/* Available Balance */}
         <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-lg shadow-emerald-500/10 space-y-3 relative overflow-hidden">
           <div className="flex items-center justify-between">
@@ -226,6 +265,34 @@ export default function StudentWalletPage() {
           </div>
         </div>
 
+        {/* Unpaid Debt (Công nợ cần trả) */}
+        <div
+          onClick={() => setActiveTab("debt")}
+          className={`p-5 rounded-2xl border shadow-2xs space-y-3 cursor-pointer transition-all hover:scale-[1.01] ${
+            debtSummary.totalDebtVnd > 0
+              ? "bg-amber-50/60 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800"
+              : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <span className={`text-xs font-bold uppercase tracking-wider ${debtSummary.totalDebtVnd > 0 ? "text-amber-800 dark:text-amber-400" : "text-slate-500 dark:text-slate-400"}`}>
+              Chưa trả tiền (Công nợ)
+            </span>
+            <span className={`p-1.5 rounded-lg ${debtSummary.totalDebtVnd > 0 ? "bg-amber-100 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300" : "bg-slate-100 text-slate-500 dark:bg-slate-700"}`}>
+              <Receipt className="w-4 h-4" />
+            </span>
+          </div>
+          <div>
+            <div className={`text-2xl font-black ${debtSummary.totalDebtVnd > 0 ? "text-amber-700 dark:text-amber-300" : "text-slate-900 dark:text-white"}`}>
+              {debtSummary.totalDebtVnd.toLocaleString("vi-VN")}
+              <span className="text-sm font-bold ml-1 opacity-70">đ</span>
+            </div>
+            <p className={`text-[11px] mt-1 ${debtSummary.totalDebtVnd > 0 ? "text-amber-700/90 dark:text-amber-400/90 font-medium" : "text-slate-400"}`}>
+              {debtSummary.unpaidCount > 0 ? `${debtSummary.unpaidCount} khoản cần nộp tiền mặt ngoài đời` : "Không có khoản nợ nào"}
+            </p>
+          </div>
+        </div>
+
         {/* Total Credited */}
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs space-y-3">
           <div className="flex items-center justify-between">
@@ -241,7 +308,7 @@ export default function StudentWalletPage() {
               {(wallet?.totalCreditedVnd || 0).toLocaleString("vi-VN")}
               <span className="text-sm font-bold ml-1 text-slate-400">đ</span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">Đã được Admin xác nhận thu tiền thực tế</p>
+            <p className="text-[11px] text-slate-400 mt-1">Đã được cộng vào ví ảo</p>
           </div>
         </div>
 
@@ -279,10 +346,10 @@ export default function StudentWalletPage() {
       </div>
 
       {/* Tabs Control */}
-      <div className="flex items-center border-b border-slate-200 dark:border-slate-700 gap-2">
+      <div className="flex items-center border-b border-slate-200 dark:border-slate-700 gap-2 overflow-x-auto">
         <button
           onClick={() => setActiveTab("deposit")}
-          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 ${
+          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 shrink-0 ${
             activeTab === "deposit"
               ? "border-emerald-600 text-emerald-600 dark:text-emerald-400"
               : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
@@ -293,8 +360,23 @@ export default function StudentWalletPage() {
         </button>
 
         <button
+          onClick={() => setActiveTab("debt")}
+          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 shrink-0 ${
+            activeTab === "debt"
+              ? "border-amber-600 text-amber-600 dark:text-amber-400"
+              : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+          }`}
+        >
+          <Receipt className="w-4 h-4" />
+          Khoản chưa trả ({debtSummary.unpaidCount})
+          {debtSummary.totalDebtVnd > 0 && (
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+          )}
+        </button>
+
+        <button
           onClick={() => setActiveTab("requests")}
-          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 ${
+          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 shrink-0 ${
             activeTab === "requests"
               ? "border-emerald-600 text-emerald-600 dark:text-emerald-400"
               : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
@@ -306,7 +388,7 @@ export default function StudentWalletPage() {
 
         <button
           onClick={() => setActiveTab("history")}
-          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 ${
+          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 shrink-0 ${
             activeTab === "history"
               ? "border-emerald-600 text-emerald-600 dark:text-emerald-400"
               : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
@@ -319,96 +401,212 @@ export default function StudentWalletPage() {
 
       {/* TAB 1: FORM TẠO YÊU CẦU NẠP */}
       {activeTab === "deposit" && (
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-6">
-          <div>
-            <h2 className="text-base font-bold text-slate-900 dark:text-white mb-1">
-              Tạo yêu cầu nạp số dư ví
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Nhập số tiền muốn nạp từ 1.000đ đến 500.000đ.
-            </p>
+        <div className="space-y-6">
+          {/* GIFT CODE BOX (NHẬN TIỀN TRỰC TIẾP) */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-200 dark:border-amber-800/80 shadow-2xs space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="p-2 bg-amber-500 text-white rounded-xl shadow-xs">
+                <Gift className="w-4 h-4" />
+              </span>
+              <div>
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                  Nhập mã Voucher quà tặng (Cộng tiền ngay vào ví)
+                </h3>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Nhận mã quà tặng từ giáo viên hoặc sự kiện trường? Nhập mã vào đây để nhận tiền lập tức.
+                </p>
+              </div>
+            </div>
+
+            <form onSubmit={handleRedeemGift} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 max-w-md">
+              <input
+                type="text"
+                value={giftVoucherCode}
+                onChange={(e) => setGiftVoucherCode(e.target.value.toUpperCase())}
+                placeholder="Ví dụ: TANG2K, CHAOBANMOI"
+                className="flex-1 px-3.5 py-2.5 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 uppercase tracking-wider"
+              />
+              <button
+                type="submit"
+                disabled={redeemingGift || !giftVoucherCode.trim()}
+                className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white text-xs font-bold rounded-xl transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+              >
+                <Gift className="w-3.5 h-3.5" />
+                {redeemingGift ? "Đang nhận..." : "Nhận quà"}
+              </button>
+            </form>
           </div>
 
-          <div className="space-y-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-6">
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">
-                Nhập số tiền muốn nạp (VNĐ):
-              </label>
-              <div className="relative max-w-sm">
-                <input
-                  type="text"
-                  value={customInputStr}
-                  onChange={(e) => {
-                    const raw = e.target.value.replace(/\D/g, "");
-                    const num = raw ? parseInt(raw, 10) : 0;
-                    setCustomInputStr(num > 0 ? num.toLocaleString("vi-VN") : "");
-                    setDepositAmount(num);
-                  }}
-                  placeholder="Ví dụ: 10.000"
-                  className="w-full pl-4 pr-14 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-base font-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
-                  VNĐ
-                </span>
-              </div>
+              <h2 className="text-base font-bold text-slate-900 dark:text-white mb-1">
+                Tạo yêu cầu nạp số dư ví
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Nhập số tiền muốn nạp từ 1.000đ đến 500.000đ.
+              </p>
             </div>
 
-            {/* Quick Suggestions */}
-            <div>
-              <span className="text-[11px] font-bold text-slate-500 block mb-2 uppercase">
-                Gợi ý nhanh số tiền:
-              </span>
-              <div className="flex items-center gap-2 flex-wrap">
-                {[5000, 10000, 20000, 50000, 100000].map((quick) => (
-                  <button
-                    key={quick}
-                    type="button"
-                    onClick={() => {
-                      setDepositAmount(quick);
-                      setCustomInputStr(quick.toLocaleString("vi-VN"));
-                    }}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
-                      depositAmount === quick
-                        ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
-                        : "bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100"
-                    }`}
-                  >
-                    +{quick.toLocaleString("vi-VN")}đ
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Student Snapshot Info */}
-            <div className="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200/80 dark:border-slate-700/80 text-xs flex items-center justify-between">
+            <div className="space-y-4">
               <div>
-                <span className="text-slate-500 block">Thông tin học sinh xác nhận:</span>
-                <span className="font-bold text-slate-900 dark:text-white">
-                  {wallet?.fullName || "Chưa có"} — Lớp: {wallet?.currentClass || "Chưa có"}
-                </span>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">
+                  Nhập số tiền muốn nạp (VNĐ):
+                </label>
+                <div className="relative max-w-sm">
+                  <input
+                    type="text"
+                    value={customInputStr}
+                    onChange={(e) => {
+                      const raw = e.target.value.replace(/\D/g, "");
+                      const num = raw ? parseInt(raw, 10) : 0;
+                      setCustomInputStr(num > 0 ? num.toLocaleString("vi-VN") : "");
+                      setDepositAmount(num);
+                    }}
+                    placeholder="Ví dụ: 2.000"
+                    className="w-full pl-4 pr-14 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-base font-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
+                    VNĐ
+                  </span>
+                </div>
               </div>
+
+              {/* Quick Suggestions: ONLY 1k, 2k, 5k, 10k */}
+              <div>
+                <span className="text-[11px] font-bold text-slate-500 block mb-2 uppercase">
+                  Gợi ý nhanh số tiền:
+                </span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {[1000, 2000, 5000, 10000].map((quick) => (
+                    <button
+                      key={quick}
+                      type="button"
+                      onClick={() => {
+                        setDepositAmount(quick);
+                        setCustomInputStr(quick.toLocaleString("vi-VN"));
+                      }}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                        depositAmount === quick
+                          ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
+                          : "bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100"
+                      }`}
+                    >
+                      +{quick.toLocaleString("vi-VN")}đ
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Deposit Promo Voucher Input */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Mã khuyến mãi nạp tiền (nếu có):
+                </label>
+                <div className="relative max-w-sm">
+                  <input
+                    type="text"
+                    value={depositVoucherCode}
+                    onChange={(e) => setDepositVoucherCode(e.target.value.toUpperCase())}
+                    placeholder="Ví dụ: NAPTHUONG20"
+                    className="w-full pl-4 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 uppercase tracking-wider"
+                  />
+                  <Tag className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
+                </div>
+              </div>
+
+              {/* Student Snapshot Info */}
+              <div className="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200/80 dark:border-slate-700/80 text-xs flex items-center justify-between">
+                <div>
+                  <span className="text-slate-500 block">Thông tin học sinh xác nhận:</span>
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {wallet?.fullName || "Chưa có"} — Lớp: {wallet?.currentClass || "Chưa có"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowProfileModal(true)}
+                  className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
+                >
+                  Chỉnh sửa
+                </button>
+              </div>
+
               <button
                 type="button"
-                onClick={() => setShowProfileModal(true)}
-                className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
+                onClick={handleStartDeposit}
+                className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-emerald-600/20 cursor-pointer flex items-center justify-center gap-2"
               >
-                Chỉnh sửa
+                Tiến hành xác nhận nạp tiền
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
-
-            <button
-              type="button"
-              onClick={handleStartDeposit}
-              className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-emerald-600/20 cursor-pointer flex items-center justify-center gap-2"
-            >
-              Tiến hành xác nhận nạp tiền
-              <ChevronRight className="w-4 h-4" />
-            </button>
           </div>
         </div>
       )}
 
-      {/* TAB 2: DANH SÁCH YÊU CẦU NẠP */}
+      {/* TAB 2: DANH SÁCH KHOẢN CHƯA TRẢ (CÔNG NỢ) */}
+      {activeTab === "debt" && (
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Receipt className="w-5 h-5 text-amber-600" />
+                Khoản chưa thanh toán (Công nợ ngoài đời)
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Các khoản nạp ví ảo đã được tự động duyệt trước. Bạn cần hoàn trả tiền mặt cho giáo viên.
+              </p>
+            </div>
+            <div className="text-right">
+              <span className="text-xs text-slate-400 block">Tổng nợ cần nộp</span>
+              <span className="text-lg font-black text-amber-700 dark:text-amber-400">
+                {debtSummary.totalDebtVnd.toLocaleString("vi-VN")}đ
+              </span>
+            </div>
+          </div>
+
+          {debtSummary.records.length === 0 ? (
+            <div className="py-12 text-center text-slate-400 text-xs space-y-2">
+              <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto" />
+              <p className="font-bold text-slate-700 dark:text-slate-300">
+                Tuyệt vời! Bạn không có khoản công nợ nào chưa trả.
+              </p>
+              <p className="text-slate-400">Tất cả các khoản nạp ví của bạn đều đã được thanh toán đầy đủ.</p>
+            </div>
+          ) : (
+            <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
+              {debtSummary.records.map((debt) => (
+                <div key={debt.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white">
+                        {debt.note || `Khoản nạp ví #${debt.id.slice(-6)}`}
+                      </span>
+                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                        {debt.status === "partial" ? "Đã trả một phần" : "Chưa trả"}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-slate-500 flex items-center gap-3">
+                      <span>Ngày tạo: {debt.createdAt ? formatDate(debt.createdAt) : "N/A"}</span>
+                      {debt.collectedVnd ? (
+                        <span>Đã thu: {debt.collectedVnd.toLocaleString("vi-VN")}đ</span>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="text-left sm:text-right">
+                    <div className="text-sm font-black text-amber-700 dark:text-amber-400">
+                      {(debt.remainingVnd ?? debt.amountVnd).toLocaleString("vi-VN")}đ
+                    </div>
+                    <span className="text-[10px] text-slate-400">cần nộp tiền mặt</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* TAB 3: DANH SÁCH YÊU CẦU NẠP */}
       {activeTab === "requests" && (
         <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-4">
           <div className="flex items-center justify-between">
@@ -626,6 +824,12 @@ export default function StudentWalletPage() {
                       {wallet?.currentClass}
                     </span>
                   </div>
+                  {depositVoucherCode.trim() && (
+                    <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-bold pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
+                      <span>Mã ưu đãi nạp:</span>
+                      <span>{depositVoucherCode.trim()}</span>
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-xs text-slate-500 leading-relaxed text-center">

@@ -22,7 +22,14 @@ import {
   grantOrRevokeExamEntitlement,
   syncStudentsToWallets,
   updateStudentWalletProfile,
+  adminDirectEditWallet,
 } from "../services/walletService.js";
+import {
+  getVouchersList,
+  createVoucher,
+  updateVoucher,
+  deleteVoucher,
+} from "../services/voucherService.js";
 import { mergeExams } from "../services/examMergeService.js";
 
 export const adminRouter = Router();
@@ -1818,6 +1825,100 @@ adminRouter.post("/exams/merge", async (req: AuthenticatedRequest, res: Response
     });
   } catch (err: any) {
     return res.status(400).json({ error: "merge_error", message: err.message || String(err) });
+  }
+});
+
+// -------------------------------------------------------------
+// ADMIN WALLET DIRECT EDIT & VOUCHER MANAGEMENT
+// -------------------------------------------------------------
+
+// POST /api/admin/wallets/:uid/direct-edit
+adminRouter.post("/wallets/:uid/direct-edit", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const studentUid = req.params.uid;
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+    const payload = req.body || {};
+
+    const result = await adminDirectEditWallet(adminUid, adminName, studentUid, payload);
+    await recordAuditLog(
+      req.user,
+      "DIRECT_EDIT_WALLET",
+      studentUid,
+      "student_wallet",
+      payload,
+      req
+    );
+
+    return res.json(result);
+  } catch (err: any) {
+    return res.status(400).json({ error: "wallet_edit_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/vouchers
+adminRouter.get("/vouchers", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const items = await getVouchersList();
+    return res.json({ success: true, items });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/vouchers
+adminRouter.post("/vouchers", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const voucher = await createVoucher(req.body || {});
+    await recordAuditLog(
+      req.user,
+      "CREATE_VOUCHER",
+      voucher.id,
+      "voucher",
+      voucher,
+      req
+    );
+    return res.status(201).json({ success: true, voucher, message: "Tạo voucher mới thành công!" });
+  } catch (err: any) {
+    return res.status(400).json({ error: "create_voucher_error", message: err.message || String(err) });
+  }
+});
+
+// PATCH /api/admin/vouchers/:id
+adminRouter.patch("/vouchers/:id", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const id = req.params.id;
+    const voucher = await updateVoucher(id, req.body || {});
+    await recordAuditLog(
+      req.user,
+      "UPDATE_VOUCHER",
+      id,
+      "voucher",
+      req.body,
+      req
+    );
+    return res.json({ success: true, voucher, message: "Cập nhật voucher thành công!" });
+  } catch (err: any) {
+    return res.status(400).json({ error: "update_voucher_error", message: err.message || String(err) });
+  }
+});
+
+// DELETE /api/admin/vouchers/:id
+adminRouter.delete("/vouchers/:id", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const id = req.params.id;
+    await deleteVoucher(id);
+    await recordAuditLog(
+      req.user,
+      "DELETE_VOUCHER",
+      id,
+      "voucher",
+      { id },
+      req
+    );
+    return res.json({ success: true, message: "Đã xóa voucher thành công!" });
+  } catch (err: any) {
+    return res.status(400).json({ error: "delete_voucher_error", message: err.message || String(err) });
   }
 });
 

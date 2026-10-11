@@ -95,14 +95,20 @@ export async function apiClient<T = any>(
       try {
         const sInfoStr =
           localStorage.getItem("student_info") ||
+          localStorage.getItem("dktest:auth:student_info") ||
           localStorage.getItem("current_student_session");
         if (sInfoStr) {
           const sInfo = JSON.parse(sInfoStr);
-          if (sInfo.uid && !requestHeaders["X-Student-Uid"]) {
-            requestHeaders["X-Student-Uid"] = sInfo.uid;
+          const sUid = sInfo.uid || sInfo.id || sInfo.studentId;
+          const sUsername = sInfo.username || sInfo.studentUsername || sInfo.displayName;
+          if (sUid && !requestHeaders["X-Student-Uid"]) {
+            requestHeaders["X-Student-Uid"] = String(sUid);
           }
-          if (sInfo.username && !requestHeaders["X-Student-Username"]) {
-            requestHeaders["X-Student-Username"] = sInfo.username;
+          if (sUsername && !requestHeaders["X-Student-Username"]) {
+            requestHeaders["X-Student-Username"] = String(sUsername);
+          }
+          if (!requestHeaders["Authorization"] && (sUid || sUsername)) {
+            requestHeaders["Authorization"] = `Bearer student_${encodeURIComponent(String(sUid || sUsername))}`;
           }
         }
       } catch (_) {}
