@@ -737,16 +737,22 @@ export interface Voucher {
 export interface VoucherUsage {
   id: string;
   voucherId: string;
-  voucherCode: string;
+  voucherCode?: string;
+  code?: string;
   uid: string;
   studentName?: string;
+  studentUsername?: string;
   studentClass?: string;
-  type: VoucherType;
+  type?: VoucherType;
   discountVnd?: number;
   bonusVnd?: number;
-  usedAt: string;
+  benefitVnd?: number;
+  usedAt?: string;
+  createdAt?: string;
   context: "exam_unlock" | "deposit" | "gift_money";
   referenceId?: string;
+  examTitle?: string;
+  note?: string;
 }
 
 export interface AdminWalletEditPayload {

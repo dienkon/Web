@@ -1006,10 +1006,16 @@ export async function redeemGiftVoucherApi(code: string): Promise<{
     const usageDoc: VoucherUsage = {
       id: usageId,
       voucherId: voucher.id,
+      voucherCode: voucher.code,
       code: voucher.code,
       uid: studentUid,
-      context: "gift_money",
+      studentName: currentWallet?.fullName || "Học sinh",
+      studentClass: currentWallet?.currentClass || "",
+      type: "gift_money",
+      bonusVnd: addedVnd,
       benefitVnd: addedVnd,
+      context: "gift_money",
+      usedAt: now,
       createdAt: now,
     };
     await setDoc(doc(db, "voucher_usages", usageId), usageDoc);
@@ -1062,6 +1068,37 @@ export async function getAdminVouchersApi(): Promise<Voucher[]> {
   } catch (_) {}
 
   return [];
+}
+
+export async function getAdminVoucherUsagesApi(voucherId?: string): Promise<VoucherUsage[]> {
+  try {
+    const url = voucherId ? `/api/admin/vouchers/${voucherId}/usages` : "/api/admin/vouchers/usages";
+    const res = await api.get<{ success: boolean; items: VoucherUsage[]; total: number }>(url);
+    if (Array.isArray(res?.items)) return res.items;
+  } catch (err) {
+    console.warn("[walletClientService] API getAdminVoucherUsagesApi failed, trying direct Firestore query:", err);
+  }
+
+  // Direct Firestore Fallback
+  try {
+    let q;
+    if (voucherId) {
+      q = query(collection(db, "voucher_usages"), where("voucherId", "==", voucherId));
+    } else {
+      q = query(collection(db, "voucher_usages"));
+    }
+    const snap = await getDocs(q);
+    const list = snap.docs.map((d) => ({ id: d.id, ...d.data() } as VoucherUsage));
+    list.sort((a, b) => {
+      const timeA = new Date(a.usedAt || a.createdAt || 0).getTime();
+      const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();
+      return timeB - timeA;
+    });
+    return list;
+  } catch (err: any) {
+    console.error("[walletClientService] Direct Firestore voucher_usages failed:", err);
+    return [];
+  }
 }
 
 export async function createAdminVoucherApi(data: Partial<Voucher>): Promise<Voucher> {

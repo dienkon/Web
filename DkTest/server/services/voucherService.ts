@@ -136,6 +136,44 @@ export async function deleteVoucher(id: string): Promise<void> {
   }
 }
 
+export async function getVoucherUsagesList(voucherId?: string): Promise<VoucherUsage[]> {
+  let list: VoucherUsage[] = [];
+  if (adminDb) {
+    try {
+      let queryRef: any = adminDb.collection("voucher_usages");
+      if (voucherId) {
+        queryRef = queryRef.where("voucherId", "==", voucherId);
+      }
+      const snap = await queryRef.limit(500).get();
+      list = snap.docs.map((d: any) => ({ id: d.id, ...d.data() } as VoucherUsage));
+    } catch (err) {
+      console.warn("[voucherService] adminDb getVoucherUsagesList query error, fallback without where:", err);
+      try {
+        const snap = await adminDb.collection("voucher_usages").limit(500).get();
+        list = snap.docs.map((d: any) => ({ id: d.id, ...d.data() } as VoucherUsage));
+        if (voucherId) {
+          list = list.filter((u) => u.voucherId === voucherId || (u as any).code === voucherId);
+        }
+      } catch (_) {}
+    }
+  } else {
+    const docs = await getFirestoreRestDocs("voucher_usages", 500, false);
+    list = (docs || []).map((d: any) => ({ id: d.id, ...d } as VoucherUsage));
+    if (voucherId) {
+      list = list.filter((u) => u.voucherId === voucherId || (u as any).code === voucherId);
+    }
+  }
+
+  // Sort newest first
+  list.sort((a, b) => {
+    const timeA = new Date(a.usedAt || a.createdAt || 0).getTime();
+    const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();
+    return timeB - timeA;
+  });
+
+  return list;
+}
+
 export interface ValidateVoucherResult {
   valid: boolean;
   message?: string;

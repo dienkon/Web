@@ -29,6 +29,7 @@ import {
   createVoucher,
   updateVoucher,
   deleteVoucher,
+  getVoucherUsagesList,
 } from "../services/voucherService.js";
 import { mergeExams } from "../services/examMergeService.js";
 
@@ -1861,6 +1862,28 @@ adminRouter.get("/vouchers", async (req: AuthenticatedRequest, res: Response) =>
   try {
     const items = await getVouchersList();
     return res.json({ success: true, items });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/vouchers/usages
+adminRouter.get("/vouchers/usages", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const voucherId = (req.query.voucherId as string) || undefined;
+    const items = await getVoucherUsagesList(voucherId);
+    return res.json({ success: true, items, total: items.length });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/vouchers/:id/usages
+adminRouter.get("/vouchers/:id/usages", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const id = req.params.id;
+    const items = await getVoucherUsagesList(id);
+    return res.json({ success: true, items, total: items.length });
   } catch (err: any) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
   }

@@ -615,6 +615,41 @@ async function deleteVoucher(id) {
     await deleteFirestoreRestDoc("vouchers", id);
   }
 }
+async function getVoucherUsagesList(voucherId) {
+  let list = [];
+  if (adminDb) {
+    try {
+      let queryRef = adminDb.collection("voucher_usages");
+      if (voucherId) {
+        queryRef = queryRef.where("voucherId", "==", voucherId);
+      }
+      const snap = await queryRef.limit(500).get();
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } catch (err) {
+      console.warn("[voucherService] adminDb getVoucherUsagesList query error, fallback without where:", err);
+      try {
+        const snap = await adminDb.collection("voucher_usages").limit(500).get();
+        list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        if (voucherId) {
+          list = list.filter((u) => u.voucherId === voucherId || u.code === voucherId);
+        }
+      } catch (_) {
+      }
+    }
+  } else {
+    const docs = await getFirestoreRestDocs("voucher_usages", 500, false);
+    list = (docs || []).map((d) => ({ id: d.id, ...d }));
+    if (voucherId) {
+      list = list.filter((u) => u.voucherId === voucherId || u.code === voucherId);
+    }
+  }
+  list.sort((a, b) => {
+    const timeA = new Date(a.usedAt || a.createdAt || 0).getTime();
+    const timeB = new Date(b.usedAt || b.createdAt || 0).getTime();
+    return timeB - timeA;
+  });
+  return list;
+}
 
 // server/services/walletService.ts
 function sanitizeVnd(val) {
@@ -3786,6 +3821,24 @@ adminRouter.get("/vouchers", async (req, res) => {
   try {
     const items = await getVouchersList();
     return res.json({ success: true, items });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/vouchers/usages", async (req, res) => {
+  try {
+    const voucherId = req.query.voucherId || void 0;
+    const items = await getVoucherUsagesList(voucherId);
+    return res.json({ success: true, items, total: items.length });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/vouchers/:id/usages", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const items = await getVoucherUsagesList(id);
+    return res.json({ success: true, items, total: items.length });
   } catch (err) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
   }
