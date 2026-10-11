@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import confetti from "canvas-confetti";
 import {
   Wallet,
   ArrowDownLeft,
@@ -22,6 +23,8 @@ import {
   Tag,
   CreditCard,
   Receipt,
+  PartyPopper,
+  X,
 } from "lucide-react";
 import {
   getMyWallet,
@@ -68,6 +71,17 @@ export default function StudentWalletPage() {
   // Gift money voucher redemption state
   const [giftVoucherCode, setGiftVoucherCode] = useState("");
   const [redeemingGift, setRedeemingGift] = useState(false);
+  const [celebrationReward, setCelebrationReward] = useState<{
+    code: string;
+    addedVnd: number;
+    newBalanceVnd: number;
+    name?: string;
+    description?: string;
+    message?: string;
+  } | null>(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const autoRedeemAttemptedRef = useRef(false);
 
   // 3-Step Confirmation Modal State (Phần B - Section 7)
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -177,9 +191,85 @@ export default function StudentWalletPage() {
     }
   };
 
-  const handleRedeemGift = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const code = giftVoucherCode.trim();
+  const playFanfareSound = () => {
+    try {
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) return;
+      const ctx = new AudioContextClass();
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+      // Cheerful 5-note fanfare arpeggio (C5 -> E5 -> G5 -> B5 -> C6)
+      const notes = [523.25, 659.25, 783.99, 987.77, 1046.5];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        const startTime = ctx.currentTime + idx * 0.1;
+        osc.frequency.setValueAtTime(freq, startTime);
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.35, startTime + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + (idx === notes.length - 1 ? 0.8 : 0.4));
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(startTime);
+        osc.stop(startTime + (idx === notes.length - 1 ? 0.9 : 0.5));
+      });
+    } catch (_) {}
+  };
+
+  const fireGrandCelebration = () => {
+    playFanfareSound();
+
+    // Central fireworks burst
+    const count = 220;
+    const defaults = { origin: { y: 0.65 } };
+    const fire = (particleRatio: number, opts: confetti.Options) => {
+      confetti({
+        ...defaults,
+        ...opts,
+        particleCount: Math.floor(count * particleRatio),
+      });
+    };
+
+    fire(0.25, { spread: 26, startVelocity: 55 });
+    fire(0.2, { spread: 60 });
+    fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+    fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+    fire(0.1, { spread: 120, startVelocity: 45 });
+
+    // Side cannons after 280ms
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        angle: 60,
+        spread: 65,
+        origin: { x: 0, y: 0.65 },
+        colors: ["#10B981", "#F59E0B", "#3B82F6", "#EC4899", "#8B5CF6", "#FBBF24"],
+      });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 65,
+        origin: { x: 1, y: 0.65 },
+        colors: ["#10B981", "#F59E0B", "#3B82F6", "#EC4899", "#8B5CF6", "#FBBF24"],
+      });
+    }, 280);
+
+    // Extra glitter burst after 550ms
+    setTimeout(() => {
+      confetti({
+        particleCount: 60,
+        spread: 100,
+        origin: { y: 0.5 },
+        shapes: ["circle", "star"],
+        colors: ["#FFD700", "#FFA500", "#FFFFFF"],
+      });
+    }, 550);
+  };
+
+  const executeRedeemVoucher = async (codeToRedeem: string) => {
+    const code = codeToRedeem.trim().toUpperCase();
     if (!code) {
       showErrorToast("Vui lòng nhập mã voucher quà tặng.");
       return;
@@ -187,7 +277,16 @@ export default function StudentWalletPage() {
     setRedeemingGift(true);
     try {
       const res = await redeemGiftVoucherApi(code);
-      showSuccessToast(res.message || `Nhập mã quà tặng thành công! Đã cộng +${res.addedVnd.toLocaleString("vi-VN")}đ vào ví.`);
+      fireGrandCelebration();
+      setCelebrationReward({
+        code,
+        addedVnd: res.addedVnd,
+        newBalanceVnd: res.newBalanceVnd,
+        name: res.voucher?.name,
+        description: res.voucher?.description,
+        message: res.message,
+      });
+      showSuccessToast(res.message || `Đã nhận quà thành công! +${res.addedVnd.toLocaleString("vi-VN")}đ vào ví.`);
       setGiftVoucherCode("");
       await loadWalletData();
     } catch (err: any) {
@@ -196,6 +295,30 @@ export default function StudentWalletPage() {
       setRedeemingGift(false);
     }
   };
+
+  const handleRedeemGift = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await executeRedeemVoucher(giftVoucherCode);
+  };
+
+  // Auto-redeem from URL query (?voucher=CODE or ?code=CODE or ?redeem=CODE)
+  useEffect(() => {
+    const paramCode = (searchParams.get("voucher") || searchParams.get("code") || searchParams.get("redeem") || "").trim().toUpperCase();
+    if (!paramCode) return;
+
+    setGiftVoucherCode(paramCode);
+
+    // When student is authenticated and wallet loaded, auto-redeem once
+    if (user?.uid && !autoRedeemAttemptedRef.current && !loading) {
+      autoRedeemAttemptedRef.current = true;
+      executeRedeemVoucher(paramCode);
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete("voucher");
+      newParams.delete("code");
+      newParams.delete("redeem");
+      setSearchParams(newParams, { replace: true });
+    }
+  }, [searchParams, user?.uid, loading]);
 
   const unlockedExams = transactions
     .filter((tx) => tx.type === "exam_unlock_debit" && tx.examId)
@@ -233,6 +356,29 @@ export default function StudentWalletPage() {
           Làm mới
         </button>
       </div>
+
+      {/* Banner when unauthenticated visitor opens a voucher link */}
+      {!user && !loading && (
+        <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-emerald-600 rounded-2xl p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-white/20 rounded-xl">
+              <Gift className="w-6 h-6 text-white animate-bounce" />
+            </div>
+            <div>
+              <p className="font-black text-sm">Bạn đã nhận được mã quà tặng DkTEST!</p>
+              <p className="text-xs text-amber-100">
+                Đăng nhập tài khoản học sinh để nhận quà ngay vào số dư ví ảo.
+              </p>
+            </div>
+          </div>
+          <Link
+            to={`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+            className="px-4 py-2 bg-white text-slate-900 font-black text-xs rounded-xl hover:bg-amber-50 transition-colors shadow-sm whitespace-nowrap cursor-pointer"
+          >
+            Đăng nhập để nhận quà ngay
+          </Link>
+        </div>
+      )}
 
       {/* Main Balance Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
@@ -924,6 +1070,111 @@ export default function StudentWalletPage() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* GRAND CELEBRATION REWARD MODAL */}
+      {celebrationReward && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 rounded-3xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-amber-500/30 text-center overflow-hidden">
+            {/* Background radiant glow */}
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setCelebrationReward(null)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800/60 transition-colors cursor-pointer z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Glowing Trophy / Gift Animation */}
+            <div className="relative inline-flex items-center justify-center mb-4">
+              <div className="absolute inset-0 bg-amber-400/30 rounded-full blur-xl animate-pulse" />
+              <div className="relative w-20 h-20 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 rounded-3xl flex items-center justify-center shadow-lg shadow-amber-500/30 ring-4 ring-amber-400/20 animate-bounce">
+                <Gift className="w-10 h-10 text-slate-950" />
+              </div>
+            </div>
+
+            {/* Celebration Title */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-[11px] font-black text-amber-300 uppercase tracking-widest mb-2">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Chúc mừng nhận thưởng</span>
+              <Sparkles className="w-3.5 h-3.5" />
+            </div>
+
+            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              NHẬN QUÀ THÀNH CÔNG! 🎉
+            </h3>
+
+            {/* Big Reward Amount */}
+            <div className="my-5 py-4 px-6 bg-slate-800/80 rounded-2xl border border-amber-400/20 shadow-inner">
+              <span className="text-xs font-bold text-slate-400 block mb-1 uppercase tracking-wider">
+                Số tiền được cộng
+              </span>
+              <span className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-emerald-300 tracking-tight">
+                +{celebrationReward.addedVnd.toLocaleString("vi-VN")}đ
+              </span>
+              <div className="mt-2 text-xs text-emerald-400 font-bold flex items-center justify-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Đã nạp trực tiếp vào Ví DkTEST!</span>
+              </div>
+            </div>
+
+            {/* Voucher info snippet */}
+            <div className="bg-slate-800/40 rounded-xl p-3 border border-slate-700/50 text-xs text-left space-y-1.5 mb-5">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-400">Mã voucher:</span>
+                <span className="font-mono font-black text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                  {celebrationReward.code}
+                </span>
+              </div>
+              {celebrationReward.name && (
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400">Tên quà tặng:</span>
+                  <span className="font-bold text-white text-right">{celebrationReward.name}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between pt-1 border-t border-slate-700/40">
+                <span className="text-slate-400">Số dư ví hiện tại:</span>
+                <span className="font-black text-emerald-300">
+                  {celebrationReward.newBalanceVnd.toLocaleString("vi-VN")}đ
+                </span>
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div className="space-y-2">
+              <button
+                type="button"
+                onClick={fireGrandCelebration}
+                className="w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-amber-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              >
+                <PartyPopper className="w-4 h-4" />
+                <span>Bắn pháo hoa ăn mừng lại 🎆</span>
+              </button>
+
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/student"
+                  onClick={() => setCelebrationReward(null)}
+                  className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl border border-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Mở đề thi ngay</span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setCelebrationReward(null)}
+                  className="flex-1 py-2.5 bg-slate-800/50 hover:bg-slate-800 text-slate-300 font-bold text-xs rounded-xl border border-slate-700/60 transition-colors cursor-pointer"
+                >
+                  Đóng & xem ví
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -465,6 +465,17 @@ export async function getAdminWalletOverview(): Promise<AdminWalletOverview> {
   }
 }
 
+let adminDebtFallbackCache: {
+  walletsSnap: any;
+  debtsSnap: any;
+  entsSnap: any;
+  timestamp: number;
+} | null = null;
+
+export function invalidateAdminDebtFallbackCache() {
+  adminDebtFallbackCache = null;
+}
+
 export async function getAdminStudentDebtList(params?: {
   search?: string;
   filterStatus?: "all" | "in_debt" | "paid" | "has_credit";
@@ -477,8 +488,9 @@ export async function getAdminStudentDebtList(params?: {
     if (params?.search) query.set("search", params.search);
     if (params?.filterStatus) query.set("filterStatus", params.filterStatus);
     if (params?.className) query.set("className", params.className);
-    if (params?.limit) query.set("limit", String(params.limit));
-    if (params?.offset) query.set("offset", String(params.offset));
+    const limit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
+    query.set("limit", String(limit));
+    if (params?.offset !== undefined) query.set("offset", String(params.offset));
 
     const qs = query.toString();
     const endpoint = `/api/admin/wallet/students${qs ? `?${qs}` : ""}`;
@@ -488,29 +500,49 @@ export async function getAdminStudentDebtList(params?: {
     console.warn("[walletClientService] API getAdminStudentDebtList error, attempting direct Firestore query:", err);
   }
 
-  // Direct Firestore fallback
+  // Direct Firestore fallback with 30s cache
   try {
-    const [walletsSnap, debtsSnap, entsSnap] = await Promise.all([
-      getDocs(collection(db, "wallets")),
-      getDocs(collection(db, "debt_records")),
-      getDocs(collection(db, "exam_entitlements")),
-    ]);
+    const now = Date.now();
+    let walletsSnap: any;
+    let debtsSnap: any;
+    let entsSnap: any;
+
+    if (adminDebtFallbackCache && now - adminDebtFallbackCache.timestamp < 30000) {
+      walletsSnap = adminDebtFallbackCache.walletsSnap;
+      debtsSnap = adminDebtFallbackCache.debtsSnap;
+      entsSnap = adminDebtFallbackCache.entsSnap;
+    } else {
+      [walletsSnap, debtsSnap, entsSnap] = await Promise.all([
+        getDocs(collection(db, "wallets")),
+        getDocs(collection(db, "debt_records")),
+        getDocs(collection(db, "exam_entitlements")),
+      ]);
+      adminDebtFallbackCache = {
+        walletsSnap,
+        debtsSnap,
+        entsSnap,
+        timestamp: now,
+      };
+    }
 
     const debtByUid = new Map<string, { totalReceivable: number; totalCollected: number; remainingDebt: number }>();
-    debtsSnap.docs.forEach((d) => {
+    debtsSnap.docs.forEach((d: any) => {
       const rec = d.data() as DebtRecord;
       const uid = rec.uid;
       if (!debtByUid.has(uid)) {
         debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 });
       }
       const curr = debtByUid.get(uid)!;
-      curr.totalReceivable += rec.amountVnd || 0;
-      curr.totalCollected += rec.collectedVnd || 0;
-      curr.remainingDebt += Math.max(0, rec.remainingVnd || 0);
+      // CRITICAL: Cash collection receipts are payment proofs, NOT receivables!
+      if ((rec as any).type !== "cash_collection") {
+        curr.totalReceivable += rec.amountVnd || 0;
+        curr.totalCollected += rec.collectedVnd || 0;
+        curr.remainingDebt += Math.max(0, rec.remainingVnd || 0);
+      }
     });
 
     const unlocksByUid = new Map<string, number>();
-    entsSnap.docs.forEach((d) => {
+    entsSnap.docs.forEach((d: any) => {
       const data = d.data();
       if (data.status === "active") {
         unlocksByUid.set(data.uid, (unlocksByUid.get(data.uid) || 0) + 1);
@@ -518,7 +550,7 @@ export async function getAdminStudentDebtList(params?: {
     });
 
     let summaries: StudentDebtSummary[] = [];
-    walletsSnap.docs.forEach((d) => {
+    walletsSnap.docs.forEach((d: any) => {
       const w = d.data() as StudentWallet;
       const debtInfo = debtByUid.get(w.uid) || { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 };
       let debtStatus: "in_debt" | "paid" | "has_credit" = "paid";
@@ -557,7 +589,7 @@ export async function getAdminStudentDebtList(params?: {
 
     const total = summaries.length;
     const offset = params?.offset || 0;
-    const limit = params?.limit || 50;
+    const limit = params?.limit !== undefined ? Math.max(1, Number(params.limit)) : 10;
     return { items: summaries.slice(offset, offset + limit), total };
   } catch (fsErr) {
     console.error("[walletClientService] Direct Firestore fallback for debt list failed:", fsErr);
@@ -700,6 +732,7 @@ export async function recordManualCashCollection(
     `/api/admin/wallet/students/${studentUid}/collections`,
     data
   );
+  invalidateAdminDebtFallbackCache();
   return res;
 }
 
@@ -715,6 +748,7 @@ export async function adjustStudentDebt(
     `/api/admin/wallet/students/${studentUid}/debt-adjustments`,
     data
   );
+  invalidateAdminDebtFallbackCache();
   return res;
 }
 
@@ -1241,6 +1275,7 @@ export async function adminDirectEditWalletApi(
     await setDoc(doc(db, "wallet_transactions", txId), txDoc);
   }
 
+  invalidateAdminDebtFallbackCache();
   return {
     success: true,
     wallet: { ...currentWallet, ...updates } as StudentWallet,

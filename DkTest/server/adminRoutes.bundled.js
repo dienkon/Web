@@ -1186,8 +1186,8 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
       uid: studentUid,
       studentNameSnapshot: wallet.fullName || "",
       studentClassSnapshot: wallet.currentClass || "",
-      type: "manual_receivable",
-      amountVnd: amount,
+      type: "cash_collection",
+      amountVnd: 0,
       collectedVnd: amount,
       allocatedVnd: amount - remainingToAllocate2,
       remainingVnd: 0,
@@ -1200,6 +1200,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
     };
     batch.set(debtRef, debtEntry2);
     await batch.commit();
+    invalidateDebtSummariesCache();
     return { success: true, debtRecordId: recordId, newBalanceVnd: newBal2 };
   }
   const allDebts = await getFirestoreRestDocs("debt_records", 100);
@@ -1267,8 +1268,8 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
     uid: studentUid,
     studentNameSnapshot: wallet.fullName || "",
     studentClassSnapshot: wallet.currentClass || "",
-    type: "manual_receivable",
-    amountVnd: amount,
+    type: "cash_collection",
+    amountVnd: 0,
     collectedVnd: amount,
     allocatedVnd: amount - remainingToAllocate,
     remainingVnd: 0,
@@ -1280,6 +1281,7 @@ async function recordManualCashCollection(adminUid, adminName, studentUid, data)
     updatedAt: now
   };
   await setFirestoreRestDoc("debt_records", recordId, debtEntry);
+  invalidateDebtSummariesCache();
   return { success: true, debtRecordId: recordId, newBalanceVnd: newBal };
 }
 async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
@@ -1360,6 +1362,7 @@ async function adjustStudentDebt(adminUid, adminName, studentUid, data) {
     };
     await setFirestoreRestDoc("wallet_transactions", txId, txDoc);
   }
+  invalidateDebtSummariesCache();
   return { success: true, recordId };
 }
 async function grantOrRevokeExamEntitlement(adminUid, adminName, studentUid, examId, action, reason) {
@@ -1492,49 +1495,68 @@ async function getWalletOverview() {
     recentRequests
   };
 }
+var debtSummariesCache = null;
+function invalidateDebtSummariesCache() {
+  debtSummariesCache = null;
+}
 async function getStudentDebtSummaries(options) {
+  const now = Date.now();
   let walletsList = [];
   let debtsList = [];
   let entsList = [];
-  const userMap = /* @__PURE__ */ new Map();
-  if (adminDb) {
-    const [walletsSnap, debtsSnap, entsSnap, usersSnap] = await Promise.all([
-      adminDb.collection("wallets").get(),
-      adminDb.collection("debt_records").get(),
-      adminDb.collection("exam_entitlements").where("status", "==", "active").get(),
-      adminDb.collection("users").get()
-    ]);
-    walletsList = walletsSnap.docs.map((d) => d.data());
-    debtsList = debtsSnap.docs.map((d) => d.data());
-    entsList = entsSnap.docs.map((d) => d.data());
-    usersSnap.docs.forEach((d) => {
-      const u = d.data();
-      userMap.set(d.id, {
-        username: u.username || "",
-        email: u.email || "",
-        displayName: u.displayName || u.fullName || ""
-      });
-    });
+  let userMap = /* @__PURE__ */ new Map();
+  if (debtSummariesCache && now - debtSummariesCache.timestamp < 3e4) {
+    walletsList = debtSummariesCache.walletsList;
+    debtsList = debtSummariesCache.debtsList;
+    entsList = debtSummariesCache.entsList;
+    userMap = debtSummariesCache.userMap;
   } else {
-    const [wallets, debts, ents, users] = await Promise.all([
-      getFirestoreRestDocs("wallets", 100),
-      getFirestoreRestDocs("debt_records", 100),
-      getFirestoreRestDocs("exam_entitlements", 100),
-      getFirestoreRestDocs("users", 100)
-    ]);
-    walletsList = wallets;
-    debtsList = debts;
-    entsList = ents.filter((e) => e.status === "active");
-    users.forEach((u) => {
-      const uid = u.id || u.uid;
-      if (uid) {
-        userMap.set(uid, {
+    if (adminDb) {
+      const [walletsSnap, debtsSnap, entsSnap, usersSnap] = await Promise.all([
+        adminDb.collection("wallets").get(),
+        adminDb.collection("debt_records").get(),
+        adminDb.collection("exam_entitlements").where("status", "==", "active").get(),
+        adminDb.collection("users").get()
+      ]);
+      walletsList = walletsSnap.docs.map((d) => d.data());
+      debtsList = debtsSnap.docs.map((d) => d.data());
+      entsList = entsSnap.docs.map((d) => d.data());
+      usersSnap.docs.forEach((d) => {
+        const u = d.data();
+        userMap.set(d.id, {
           username: u.username || "",
           email: u.email || "",
           displayName: u.displayName || u.fullName || ""
         });
-      }
-    });
+      });
+    } else {
+      const [wallets, debts, ents, users] = await Promise.all([
+        getFirestoreRestDocs("wallets", 100),
+        getFirestoreRestDocs("debt_records", 100),
+        getFirestoreRestDocs("exam_entitlements", 100),
+        getFirestoreRestDocs("users", 100)
+      ]);
+      walletsList = wallets;
+      debtsList = debts;
+      entsList = ents.filter((e) => e.status === "active");
+      users.forEach((u) => {
+        const uid = u.id || u.uid;
+        if (uid) {
+          userMap.set(uid, {
+            username: u.username || "",
+            email: u.email || "",
+            displayName: u.displayName || u.fullName || ""
+          });
+        }
+      });
+    }
+    debtSummariesCache = {
+      walletsList,
+      debtsList,
+      entsList,
+      userMap,
+      timestamp: now
+    };
   }
   const debtByUid = /* @__PURE__ */ new Map();
   debtsList.forEach((rec) => {
@@ -1543,9 +1565,11 @@ async function getStudentDebtSummaries(options) {
       debtByUid.set(uid, { totalReceivable: 0, totalCollected: 0, remainingDebt: 0 });
     }
     const curr = debtByUid.get(uid);
-    curr.totalReceivable += sanitizeVnd(rec.amountVnd);
-    curr.totalCollected += sanitizeVnd(rec.collectedVnd);
-    curr.remainingDebt += Math.max(0, sanitizeVnd(rec.remainingVnd));
+    if (rec.type !== "cash_collection") {
+      curr.totalReceivable += sanitizeVnd(rec.amountVnd);
+      curr.totalCollected += sanitizeVnd(rec.collectedVnd);
+      curr.remainingDebt += Math.max(0, sanitizeVnd(rec.remainingVnd));
+    }
   });
   const unlocksByUid = /* @__PURE__ */ new Map();
   entsList.forEach((d) => {
@@ -1609,7 +1633,7 @@ async function getStudentDebtSummaries(options) {
   });
   const total = summaries.length;
   const offset = options?.offset || 0;
-  const limitCount = options?.limit || 50;
+  const limitCount = options?.limit !== void 0 ? Math.max(1, Number(options.limit)) : 10;
   const paged = summaries.slice(offset, offset + limitCount);
   return { items: paged, total };
 }
@@ -2002,6 +2026,7 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
     ...currentWallet,
     ...updates
   };
+  invalidateDebtSummariesCache();
   return {
     success: true,
     wallet: updatedWallet,
