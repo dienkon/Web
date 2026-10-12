@@ -1,0 +1,1453 @@
+{
+  "meta": {
+    "title": "Đề 4. Bộ 20 Câu Hỏi Trắc Nghiệm Vectơ Trong Không Gian Toán 12",
+    "slug": "de-4-bo-20-cau-hoi-trac-nghiem-vecto-trong-khong-gian-toan-12",
+    "id": "1765",
+    "url": "https://sieugioi.com/docs/threads/de-4-bo-20-cau-hoi-trac-nghiem-vecto-trong-khong-gian-toan-12.1765/",
+    "numId": 1765,
+    "bai": 6,
+    "topicId": "math_t6_vector_space",
+    "baiTitle": "Vectơ trong không gian",
+    "chapter": "Chương 2"
+  },
+  "extracted": {
+    "title": "Đề 4. Bộ 20 Câu Hỏi Trắc Nghiệm Vectơ Trong Không Gian Toán 12",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-4-bo-20-cau-hoi-trac-nghiem-vecto-trong-khong-gian-toan-12.1765/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 20,
+    "questionsWithOptions": 20,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 9,
+    "manualReviewCount": 20,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 13: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 14: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 15: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 16: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 17: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 18: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 19: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 20: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1765_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có độ dài cạnh bằng 1. Độ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng",
+        "promptHtml": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có độ dài cạnh bằng 1. Độ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\sqrt{2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2\\sqrt{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\sqrt{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "3."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": ""
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Trong hình lập phương cạnh 1, ba vectơ $\\overrightarrow{AB},\\overrightarrow{AD},\\overrightarrow{A{A}'}$ đôi một vuông góc và đều có độ dài 1. Do đó: $\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$. Chọn"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Trong hình lập phương cạnh 1, ba vectơ $\\overrightarrow{AB},\\overrightarrow{AD},\\overrightarrow{A{A}'}$ đôi một vuông góc và đều có độ dài 1. Do đó: $\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$. Chọn"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Trong hình lập phương cạnh 1, ba vectơ $\\overrightarrow{AB},\\overrightarrow{AD},\\overrightarrow{A{A}'}$ đôi một vuông góc và đều có độ dài 1. Do đó: $\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$. Chọn"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Trong hình lập phương cạnh 1, ba vectơ $\\overrightarrow{AB},\\overrightarrow{AD},\\overrightarrow{A{A}'}$ đôi một vuông góc và đều có độ dài 1.\nDo đó: $\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$.\nChọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian, cho hình lăng trụ $ABC.{A}'{B}'{C}'$.Khẳng định nàodưới đây đúng?",
+        "promptHtml": "Trong không gian, cho hình lăng trụ $ABC.{A}'{B}'{C}'$.Khẳng định nàodưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{A}'C}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{A}'{C}'}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{B{C}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{B}'{C}'}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Góc giữa hai đường thẳng trong không gian là góc giữa hai vectơ chỉ phương của chúng (lấy góc nhọn). Kết quả góc bằng $45^\\circ$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong một tam giác $ABC$ bất kì, có bao nhiêu vectơ khác vectơ không được tạo thành từ các đỉnh của tam giác?",
+        "promptHtml": "Trong một tam giác $ABC$ bất kì, có bao nhiêu vectơ khác vectơ không được tạo thành từ các đỉnh của tam giác?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Một vectơ khác vectơ $\\vec{0}$ được xác định bởi điểm đầu và điểm cuối phân biệt chọn từ 3 đỉnh $A, B, C$ của tam giác. Số vectơ thỏa mãn là số chỉnh hợp chập 2 của 3 phần tử: $A_3^2 = \\frac{3!}{(3-2)!} = 6$ vectơ (cụ thể là $\\vec{AB}, \\vec{BA}, \\vec{AC}, \\vec{CA}, \\vec{BC}, \\vec{CB}$). Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "[MĐ1] Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Phát biểu nào sau đây sai?",
+        "promptHtml": "[MĐ1] Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Phát biểu nào sau đây sai?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{{A}'{C}'}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{A{A}'}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{B{B}'}+\\overrightarrow{BA}+\\overrightarrow{BC}=\\overrightarrow{B{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{DA}+\\overrightarrow{DC}=\\overrightarrow{{B}'{D}'}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Áp dụng định nghĩa tích vô hướng cho hai vectơ vuông góc: $\\vec{a}\\cdot\\vec{b} = 0$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Khẳng định nào đúng?",
+        "promptHtml": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Khẳng định nào đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{AC}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{B}'}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Áp dụng quy tắc hình hộp trong hình hộp $ABCD.{A}'{B}'{C}'{D}'$ ta có ngay $\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh $a$. Khẳng định nào sau đây sai?\n\n![hình minh họa](/images/practice/sieugioi/q6_img1.9483.png)",
+        "promptHtml": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh $a$. Khẳng định nào sau đây sai?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q6_img1.9483.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9483.png\" class=\"bbImage\" style=\"width: 256px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"450\" height=\"350\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$|\\overrightarrow{B{D}'}|=a\\sqrt{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{BA}+\\overrightarrow{BC}+\\overrightarrow{B{B}'}=\\overrightarrow{B{D}'}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{AC}+\\overrightarrow{{A}'{C}'}=\\vec{0}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$|\\overrightarrow{BD}|=a\\sqrt{2}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Trong hình lập phương $ABCD.A'B'C'$, hai đáy $ABCD$ và $A'B'C'D'$ bằng nhau và song song, do đó hai vectơ $\\vec{AC}$ và $\\vec{A'C'}$ cùng phương, cùng hướng và cùng độ dài, tức là $\\vec{AC} = \\vec{A'C'}$. Vì $a > 0$ nên $\\vec{AC} \\ne \\vec{0}$, do đó $\\vec{AC} + \\vec{A'C'} = 2\\vec{AC} \\ne \\vec{0}$. Khẳng định $\\vec{AC} + \\vec{A'C'} = \\vec{0}$ là sai. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9483.png",
+        "images": [
+          "/images/practice/sieugioi/q6_img1.9483.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho tứ diện $ABCD$ có $G$ là trọng tâm tam giác $BCD$. Vectơ $\\vec{u}=\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{AD}$ bằng",
+        "promptHtml": "Cho tứ diện $ABCD$ có $G$ là trọng tâm tam giác $BCD$. Vectơ $\\vec{u}=\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{AD}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{AG}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3\\overrightarrow{AG}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2\\overrightarrow{AG}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3\\overrightarrow{DG}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $G$ là trọng tâm của tam giác $BCD$.\nTheo tính chất của trọng tâm, với một điểm $A$ bất kì, ta có: $\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{AD}=3\\overrightarrow{AG}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Cho hình lăng trụ tam giác $ABC.{A}'{B}'{C}'$. Đặt $\\overrightarrow{A{A}'}=\\overrightarrow{a}$, $\\overrightarrow{AB}=\\overrightarrow{b}$, $\\overrightarrow{AC}=\\overrightarrow{c}$, $\\overrightarrow{BC}=\\overrightarrow{d}$. Trong các biểu thức vectơ sau đây thì biểu thức nào là đúng?\n\n![hình minh họa](/images/practice/sieugioi/q8_img1.9484.png)",
+        "promptHtml": "Cho hình lăng trụ tam giác $ABC.{A}'{B}'{C}'$. Đặt $\\overrightarrow{A{A}'}=\\overrightarrow{a}$, $\\overrightarrow{AB}=\\overrightarrow{b}$, $\\overrightarrow{AC}=\\overrightarrow{c}$, $\\overrightarrow{BC}=\\overrightarrow{d}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lăng trụ tam giác\" data-src=\"/images/practice/sieugioi/q8_img1.9484.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9484.png\" class=\"bbImage\" style=\"width: 223px\" alt=\" Cho hình lăng trụ tam giác\" title=\" Cho hình lăng trụ tam giác\" width=\"698\" height=\"645\" loading=\"lazy\">\n\t</div><br>\nTrong các biểu thức vectơ sau đây thì biểu thức nào là đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{a}=\\overrightarrow{b}+\\overrightarrow{c}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{a}+\\overrightarrow{b}+\\overrightarrow{c}+\\overrightarrow{d}=\\overrightarrow{0}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{b}-\\overrightarrow{c}+\\overrightarrow{d}=\\overrightarrow{0}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{a}+\\overrightarrow{b}+\\overrightarrow{c}=\\overrightarrow{d}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Phân tích vectơ chỉ phương của hai đường thẳng chéo nhau, tính tích vô hướng bằng 0 chứng minh hai đường thẳng vuông góc với nhau. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9484.png",
+        "images": [
+          "/images/practice/sieugioi/q8_img1.9484.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Mệnh đề nào sau đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q9_img1.9485.png)",
+        "promptHtml": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.\" data-src=\"/images/practice/sieugioi/q9_img1.9485.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9485.png\" class=\"bbImage\" style=\"width: 250px\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.\" width=\"451\" height=\"309\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{A{A}'}=\\overrightarrow{AD}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{C}'}=\\overrightarrow{AC}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Theo quy tắc hình hộp ta có: $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$.",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9485.png",
+        "images": [
+          "/images/practice/sieugioi/q9_img1.9485.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Cho hình lăng trụ $ABC.{A}'{B}'{C}'$, $M$ là trung điểm của $B{B}'$. Đặt $\\overrightarrow{CA}=\\overrightarrow{a}$, $\\overrightarrow{CB}=\\overrightarrow{b}$, $\\overrightarrow{A{A}'}=\\overrightarrow{c}$. Khẳng định nào sau đây đúng?",
+        "promptHtml": "Cho hình lăng trụ $ABC.{A}'{B}'{C}'$, $M$ là trung điểm của $B{B}'$. Đặt $\\overrightarrow{CA}=\\overrightarrow{a}$, $\\overrightarrow{CB}=\\overrightarrow{b}$, $\\overrightarrow{A{A}'}=\\overrightarrow{c}$. Khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{b}-\\overrightarrow{a}+\\frac{1}{2}\\overrightarrow{c}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{a}+\\overrightarrow{c}-\\frac{1}{2}\\overrightarrow{b}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{b}+\\overrightarrow{c}-\\frac{1}{2}\\overrightarrow{a}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{a}-\\overrightarrow{c}+\\frac{1}{2}\\overrightarrow{b}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $\\vec{AM} = \\vec{AB} + \\vec{BM} = (\\vec{CB} - \\vec{CA}) + \\frac{1}{2}\\vec{BB'} = \\vec{CB} - \\vec{CA} + \\frac{1}{2}\\vec{AA'}$. Thay $\\vec{CA} = \\vec{a}$, $\\vec{CB} = \\vec{b}$, $\\vec{AA'} = \\vec{c}$, ta được $\\vec{AM} = \\vec{b} - \\vec{a} + \\frac{1}{2}\\vec{c}$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ tâm $O$. Gọi $I$, ${I}'$ lần lượt là tâm của hình bình hành $ABCD,{A}'{B}'{C}'{D}'$ (hình vẽ). Khẳng định nào sau đây sai?",
+        "promptHtml": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ tâm $O$. Gọi $I$, ${I}'$ lần lượt là tâm của hình bình hành $ABCD,{A}'{B}'{C}'{D}'$ (hình vẽ). Khẳng định nào sau đây sai?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{A{C}'}=\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{OI}+\\overrightarrow{O{I}'}=\\overrightarrow{0}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{A{A}'}=\\overrightarrow{AD}+\\overrightarrow{D{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{C{C}'}=\\overrightarrow{A{D}'}+\\overrightarrow{{D}'O}+\\overrightarrow{O{C}'}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{OI}+\\overrightarrow{O{I}'}=\\overrightarrow{0}$ đúng do $I$ là trung điểm của $I{I}'$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{A{A}'}=\\overrightarrow{AD}+\\overrightarrow{D{D}'}$ là sai do $\\overrightarrow{AB}+\\overrightarrow{A{A}'}=\\overrightarrow{A{B}'}$ $\\overrightarrow{AD}+\\overrightarrow{D{D}'}=\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{C{C}'}=\\overrightarrow{A{D}'}+\\overrightarrow{{D}'O}+\\overrightarrow{O{C}'}=\\overrightarrow{A{C}'}$. đúng"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Tính cosin góc giữa hai vectơ: $\\cos \\varphi = \\frac{|\\vec{u}\\cdot\\vec{v}|}{|\\vec{u}|\\cdot|\\vec{v}|} = \\frac{\\sqrt{2}}{2} \\Rightarrow \\varphi = 45^\\circ$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $O$ là tâm của hình bình hành $ABCD$. Mệnh đề nào sau đây đúng?",
+        "promptHtml": "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $O$ là tâm của hình bình hành $ABCD$. Mệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=\\overrightarrow{SO}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=2\\overrightarrow{SO}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=4\\overrightarrow{SO}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=\\overrightarrow{0}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Trong tam giác $SAC$ ta có: $\\overrightarrow{SA}+\\overrightarrow{SC}=2\\overrightarrow{SO}$.\nTrong tam giác $SBD$ ta có: $\\overrightarrow{SB}+\\overrightarrow{SD}=2\\overrightarrow{SO}$.\nVậy $\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=4\\overrightarrow{SO}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có $AB=4$. Tính $\\left| \\overrightarrow{AB}+\\overrightarrow{{B}'{C}'}+\\overrightarrow{A{A}'} \\right|$?",
+        "promptHtml": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có $AB=4$. Tính $\\left| \\overrightarrow{AB}+\\overrightarrow{{B}'{C}'}+\\overrightarrow{A{A}'} \\right|$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$4\\sqrt{2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\sqrt{10}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$4\\sqrt{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2\\sqrt{10}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $\\left| \\overrightarrow{AB}+\\overrightarrow{{B}'{C}'}+\\overrightarrow{A{A}'} \\right|=\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\left| \\overrightarrow{A{C}'} \\right|=AC=4\\sqrt{3}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\n\n![hình minh họa](/images/practice/sieugioi/q14_img1.9490.png)",
+        "promptHtml": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\" data-src=\"/images/practice/sieugioi/q14_img1.9490.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9490.png\" class=\"bbImage\" style=\"width: 230px\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\" width=\"443\" height=\"296\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{{A}'{C}'}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{A{A}'}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{B{B}'}+\\overrightarrow{BA}+\\overrightarrow{BC}=\\overrightarrow{B{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{DA}+\\overrightarrow{DC}=\\overrightarrow{{B}'{D}'}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Độ dài đoạn thẳng $MN$ tính theo quy tắc vectơ bằng $\\frac{a\\sqrt{3}}{2}$. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9490.png",
+        "images": [
+          "/images/practice/sieugioi/q14_img1.9490.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q15_img1.9491.png)",
+        "promptHtml": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\" data-src=\"/images/practice/sieugioi/q15_img1.9491.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9491.png\" class=\"bbImage\" style=\"\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\" width=\"351\" height=\"250\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{A{A}'}=\\overrightarrow{{B}'B}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{AB}=\\overrightarrow{CD}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{BD}=\\overrightarrow{{B}'{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{BD}=\\overrightarrow{{A}'{D}'}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hai vec tơ $\\overrightarrow{BD}$ và $\\overrightarrow{{B}'{D}'}$ có cùng hướng và cùng độ dài nên $\\overrightarrow{BD}=\\overrightarrow{{B}'{D}'}$.",
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9491.png",
+        "images": [
+          "/images/practice/sieugioi/q15_img1.9491.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh bằng 4. Tính tích vô hướng $\\overrightarrow{A{C}'}.\\overrightarrow{BC}$.\n\n![hình minh họa](/images/practice/sieugioi/q16_img1.9492.png)",
+        "promptHtml": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh bằng 4. Tính tích vô hướng $\\overrightarrow{A{C}'}.\\overrightarrow{BC}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q16_img1.9492.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q16_img1.9492.png\" class=\"bbImage\" style=\"width: 193px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"435\" height=\"363\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$8\\sqrt{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$16\\sqrt{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$16$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Sử dụng hệ thức lượng trong tam giác và quy tắc chèn điểm cho vectơ, khẳng định đúng là A. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q16_img1.9492.png",
+        "images": [
+          "/images/practice/sieugioi/q16_img1.9492.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh bằng 4. Tính tích vô hướng $\\overrightarrow{A{C}'}.\\overrightarrow{BC}$.\n\n![hình minh họa](/images/practice/sieugioi/q17_img1.9494.png)",
+        "promptHtml": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh bằng 4. Tính tích vô hướng $\\overrightarrow{A{C}'}.\\overrightarrow{BC}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q17_img1.9494.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9494.png\" class=\"bbImage\" style=\"width: 216px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"435\" height=\"363\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$8\\sqrt{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$16\\sqrt{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$16$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{A{C}'}.\\overrightarrow{BC}=\\overrightarrow{A{C}'}.\\overrightarrow{{B}'{C}'}=\\left| \\overrightarrow{A{C}'} \\right|.\\left| \\overrightarrow{{B}'{C}'} \\right|.\\cos \\left( \\overrightarrow{A{C}'},\\overrightarrow{{B}'{C}'} \\right)=A{C}'.{B}'{C}'.\\cos \\widehat{A{C}'{B}'}$.\nXét tam giác $A{B}'{C}'$ có: $\\cos \\widehat{A{C}'{B}'}=\\frac{A{{{{C}'}}^{2}}+{B}'{{{{C}'}}^{2}}-A{{{{B}'}}^{2}}}{2.A{C}'.{B}'{C}'}=\\frac{{{\\left( 4\\sqrt{3} \\right)}^{2}}+{{4}^{2}}-{{\\left( 4\\sqrt{2} \\right)}^{2}}}{2.4\\sqrt{3}.4}=\\frac{\\sqrt{3}}{3}$.\n$\\Rightarrow \\overrightarrow{A{C}'}.\\overrightarrow{BC}=4\\sqrt{3}.4.\\frac{\\sqrt{3}}{3}=16$.",
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9494.png",
+        "images": [
+          "/images/practice/sieugioi/q17_img1.9494.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Cho lăng trụ đều $ABC.A'B'C'$ có $AA'=3a,AB=a$. Khi đó cosin của góc giữa hai véc tơ $\\overrightarrow{AB'}$ và $\\overrightarrow{A'C}$ bằng\n\n![hình minh họa](/images/practice/sieugioi/q18_img1.9496.png)",
+        "promptHtml": "Cho lăng trụ đều $ABC.A'B'C'$ có $AA'=3a,AB=a$. Khi đó cosin của góc giữa hai véc tơ $\\overrightarrow{AB'}$ và $\\overrightarrow{A'C}$ bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho lăng trụ đều\" data-src=\"/images/practice/sieugioi/q18_img1.9496.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9496.png\" class=\"bbImage\" style=\"width: 326px\" alt=\" Cho lăng trụ đều\" title=\" Cho lăng trụ đều\" width=\"1119\" height=\"711\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{7}{20}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-\\frac{7}{20}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-\\frac{17}{20}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{17}{20}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn hệ trục tọa độ sao cho: $A\\left(0; -\\frac{a}{2}; 0\\right)$, $B'\\left(0; \\frac{a}{2}; 3a\\right)$, $A'\\left(0; -\\frac{a}{2}; 3a\\right)$, $C\\left(\\frac{a\\sqrt{3}}{2}; 0; 0\\right)$. Khi đó $\\vec{AB'} = (0; a; 3a)$ và $\\vec{A'C} = \\left(\\frac{a\\sqrt{3}}{2}; \\frac{a}{2}; -3a\\right)$. Ta có $\\cos(\\vec{AB'}, \\vec{A'C}) = \\frac{\\vec{AB'}\\cdot\\vec{A'C}}{|\\vec{AB'}|\\cdot|\\vec{A'C}|} = \\frac{0 + a\\cdot\\frac{a}{2} + 3a(-3a)}{\\sqrt{a^2+9a^2}\\cdot\\sqrt{\\frac{3a^2}{4}+\\frac{a^2}{4}+9a^2}} = \\frac{\\frac{a^2}{2} - 9a^2}{a\\sqrt{10}\\cdot a\\sqrt{10}} = \\frac{-8,5 a^2}{10 a^2} = -\\frac{17}{20}$. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9496.png",
+        "images": [
+          "/images/practice/sieugioi/q18_img1.9496.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.{{A}_{1}}{{B}_{1}}{{C}_{1}}{{D}_{1}}$ (tham khảo hình vẽ dưới). Phát biểu nào sau đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q19_img1.9497.png)",
+        "promptHtml": "Cho hình lập phương $ABCD.{{A}_{1}}{{B}_{1}}{{C}_{1}}{{D}_{1}}$ (tham khảo hình vẽ dưới).<br>\nPhát biểu nào sau đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q19_img1.9497.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q19_img1.9497.png\" class=\"bbImage\" style=\"\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"322\" height=\"262\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{AB}+\\overrightarrow{AD}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{AB}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{C{{A}_{1}}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{{{A}_{1}}C}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Góc giữa hai đường thẳng $AB$ và $CD$ bằng $90^\\circ$ do tích vô hướng $\\vec{AB}\\cdot\\vec{CD} = 0$. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q19_img1.9497.png",
+        "images": [
+          "/images/practice/sieugioi/q19_img1.9497.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1765_q20",
+        "order": 20,
+        "type": "single_choice",
+        "promptText": "Cho hình lâp phương $ABCD.{A}'{B}'{C}'{D}'$ có độ dài cạnh bằng 1. Độ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng",
+        "promptHtml": "Cho hình lâp phương $ABCD.{A}'{B}'{C}'{D}'$ có độ dài cạnh bằng 1. Độ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\sqrt{2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\sqrt{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2\\sqrt{3}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Áp dụng quy tắc hình hộp: $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$\n$\\Rightarrow \\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\left| \\overrightarrow{A{C}'} \\right|=A{C}'=\\sqrt{A{{B}^{2}}+A{{D}^{2}}+A{{{{A}'}}^{2}}}=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$\nĐộ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng $\\sqrt{3}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:43.332Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 4. Bộ 20 Câu Hỏi Trắc Nghiệm Vectơ Trong Không Gian Toán 12",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-4-bo-20-cau-hoi-trac-nghiem-vecto-trong-khong-gian-toan-12.1765/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 20",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có độ dài cạnh bằng 1. Độ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\sqrt{2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2\\sqrt{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\sqrt{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "3.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Trong hình lập phương cạnh 1, ba vectơ $\\overrightarrow{AB},\\overrightarrow{AD},\\overrightarrow{A{A}'}$ đôi một vuông góc và đều có độ dài 1.<br>\nDo đó: $\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian, cho hình lăng trụ $ABC.{A}'{B}'{C}'$.Khẳng định nàodưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{A}'C}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{A}'{C}'}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{B{C}'}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{B}'{C}'}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Trong không gian, cho hình lăng trụ\" data-src=\"https://sieugioi.com/docs/attachments/q2_img1-png.9481/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q2_img1-png.9481/\" class=\"bbImage\" style=\"width: 245px\" alt=\" Trong không gian, cho hình lăng trụ\" title=\" Trong không gian, cho hình lăng trụ\" width=\"780\" height=\"902\" loading=\"lazy\">\n\t</div><br>\n$\\overrightarrow{{A}'B}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{A}'A}+\\overrightarrow{{A}'{B}'}+\\overrightarrow{{B}'{C}'}=\\overrightarrow{{A}'A}+\\overrightarrow{{A}'{C}'}=\\overrightarrow{{A}'C}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong một tam giác $ABC$ bất kì, có bao nhiêu vectơ khác vectơ không được tạo thành từ các đỉnh của tam giác?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có số vectơ được tạo thành từ các đỉnh của tam giác là: $A_{3}^{2}=6$ vectơ.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "[MĐ1] Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Phát biểu nào sau đây sai?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{{A}'{C}'}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{A{A}'}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{B{B}'}+\\overrightarrow{BA}+\\overrightarrow{BC}=\\overrightarrow{B{D}'}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{DA}+\\overrightarrow{DC}=\\overrightarrow{{B}'{D}'}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{DA}+\\overrightarrow{DC}=\\overrightarrow{DB}=\\overrightarrow{{D}'{B}'}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [MĐ1] Cho hình hộp\" data-src=\"https://sieugioi.com/docs/attachments/q4_img1-png.9482/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q4_img1-png.9482/\" class=\"bbImage\" style=\"width: 230px\" alt=\" [MĐ1] Cho hình hộp\" title=\" [MĐ1] Cho hình hộp\" width=\"476\" height=\"266\" loading=\"lazy\">\n\t</div></div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$. Khẳng định nào đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{AC}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{B}'}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{D}'}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Áp dụng quy tắc hình hộp trong hình hộp $ABCD.{A}'{B}'{C}'{D}'$ ta có ngay $\\overrightarrow{AB}+\\,\\overrightarrow{AD}+\\,\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh $a$. Khẳng định nào sau đây sai?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q6_img1.9483.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9483.png\" class=\"bbImage\" style=\"width: 256px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"450\" height=\"350\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$|\\overrightarrow{B{D}'}|=a\\sqrt{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{BA}+\\overrightarrow{BC}+\\overrightarrow{B{B}'}=\\overrightarrow{B{D}'}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{AC}+\\overrightarrow{{A}'{C}'}=\\vec{0}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$|\\overrightarrow{BD}|=a\\sqrt{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta xét các khẳng định:</div></div></div></div>"
+          },
+          {
+            "id": "opt_a",
+            "text": "$|\\overrightarrow{B{D}'}|$ là độ dài đường chéo của hình lập phương cạnh $a$. Ta có:<br>\n$B{{{D}'}^{2}}=A{{B}^{2}}+B{{C}^{2}}+C{{{C}'}^{2}}={{a}^{2}}+{{a}^{2}}+{{a}^{2}}=3{{a}^{2}}$$\\Rightarrow |\\overrightarrow{B{D}'}|=\\sqrt{3{{a}^{2}}}=a\\sqrt{3}$. Khẳng định A đúng."
+          },
+          {
+            "id": "opt_b",
+            "text": "Ta có $\\overrightarrow{BA}+\\overrightarrow{BC}+\\overrightarrow{B{B}'}=\\overrightarrow{B{D}'}$ (quy tắc hình hộp). Khẳng định B đúng."
+          },
+          {
+            "id": "opt_c",
+            "text": "Vectơ $\\overrightarrow{AC}$ là đường chéo của mặt phẳng đáy $ABCD$.<br>\nVectơ $\\overrightarrow{{A}'{C}'}$ là đường chéo của mặt phẳng trên ${A}'{B}'{C}'{D}'$.<br>\nHai vectơ này song song và cùng hướng, nên $\\overrightarrow{AC}=\\overrightarrow{{A}'{C}'}$.<br>\nDo đó, $\\overrightarrow{AC}+\\overrightarrow{{A}'{C}'}=\\overrightarrow{AC}+\\overrightarrow{AC}=2\\overrightarrow{AC}$.<br>\nVì $a&gt;0$, nên $\\overrightarrow{AC}\\ne \\vec{0}$. Vậy $2\\overrightarrow{AC}\\ne \\vec{0}$. Khẳng định $\\overrightarrow{AC}+\\overrightarrow{{A}'{C}'}=\\vec{0}$ là sai."
+          },
+          {
+            "id": "opt_d",
+            "text": "$|\\overrightarrow{BD}|$ là độ dài đường chéo của hình vuông $ABCD$ cạnh $a$.<br>\n$B{{D}^{2}}=A{{B}^{2}}+A{{D}^{2}}={{a}^{2}}+{{a}^{2}}=2{{a}^{2}}$<br>\n$|\\overrightarrow{BD}|=\\sqrt{2{{a}^{2}}}=a\\sqrt{2}$. Khẳng định D đúng."
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9483.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho tứ diện $ABCD$ có $G$ là trọng tâm tam giác $BCD$. Vectơ $\\vec{u}=\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{AD}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{AG}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3\\overrightarrow{AG}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2\\overrightarrow{AG}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$3\\overrightarrow{DG}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $G$ là trọng tâm của tam giác $BCD$.<br>\nTheo tính chất của trọng tâm, với một điểm $A$ bất kì, ta có: $\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{AD}=3\\overrightarrow{AG}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Cho hình lăng trụ tam giác $ABC.{A}'{B}'{C}'$. Đặt $\\overrightarrow{A{A}'}=\\overrightarrow{a}$, $\\overrightarrow{AB}=\\overrightarrow{b}$, $\\overrightarrow{AC}=\\overrightarrow{c}$, $\\overrightarrow{BC}=\\overrightarrow{d}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lăng trụ tam giác\" data-src=\"/images/practice/sieugioi/q8_img1.9484.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9484.png\" class=\"bbImage\" style=\"width: 223px\" alt=\" Cho hình lăng trụ tam giác\" title=\" Cho hình lăng trụ tam giác\" width=\"698\" height=\"645\" loading=\"lazy\">\n\t</div><br>\nTrong các biểu thức vectơ sau đây thì biểu thức nào là đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{a}=\\overrightarrow{b}+\\overrightarrow{c}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{a}+\\overrightarrow{b}+\\overrightarrow{c}+\\overrightarrow{d}=\\overrightarrow{0}$. C. $\\overrightarrow{b}-\\overrightarrow{c}+\\overrightarrow{d}=\\overrightarrow{0}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{a}+\\overrightarrow{b}+\\overrightarrow{c}=\\overrightarrow{d}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\overrightarrow{b}-\\overrightarrow{c}+\\overrightarrow{d}=\\overrightarrow{AB}-\\overrightarrow{AC}+\\overrightarrow{BC}=\\overrightarrow{CB}+\\overrightarrow{BC}=\\overrightarrow{CC}=\\overrightarrow{0}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9484.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.\" data-src=\"/images/practice/sieugioi/q9_img1.9485.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9485.png\" class=\"bbImage\" style=\"width: 250px\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$.\" width=\"451\" height=\"309\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AC}+\\overrightarrow{A{A}'}=\\overrightarrow{AD}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{C}'}=\\overrightarrow{AC}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Theo quy tắc hình hộp ta có: $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9485.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Cho hình lăng trụ $ABC.{A}'{B}'{C}'$, $M$ là trung điểm của $B{B}'$. Đặt $\\overrightarrow{CA}=\\overrightarrow{a}$, $\\overrightarrow{CB}=\\overrightarrow{b}$, $\\overrightarrow{A{A}'}=\\overrightarrow{c}$. Khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{b}-\\overrightarrow{a}+\\frac{1}{2}\\overrightarrow{c}$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{a}+\\overrightarrow{c}-\\frac{1}{2}\\overrightarrow{b}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{b}+\\overrightarrow{c}-\\frac{1}{2}\\overrightarrow{a}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{AM}=\\overrightarrow{a}-\\overrightarrow{c}+\\frac{1}{2}\\overrightarrow{b}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><span style=\"color: rgb(20, 20, 20)\"><div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lăng trụ\" data-src=\"https://sieugioi.com/docs/attachments/q10_img1-png.9486/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q10_img1-png.9486/\" class=\"bbImage\" style=\"width: 248px\" alt=\" Cho hình lăng trụ\" title=\" Cho hình lăng trụ\" width=\"672\" height=\"673\" loading=\"lazy\">\n\t</div></span><br>\nTa có: $\\overrightarrow{AM}=\\overrightarrow{AB}+\\overrightarrow{BM}=\\overrightarrow{CB}-\\overrightarrow{CA}+\\frac{1}{2}\\overrightarrow{B{B}'}=\\overrightarrow{CB}-\\overrightarrow{CA}+\\frac{1}{2}\\overrightarrow{A{A}'}=\\overrightarrow{b}-\\overrightarrow{a}+\\frac{1}{2}\\overrightarrow{c}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ tâm $O$. Gọi $I$, ${I}'$ lần lượt là tâm của hình bình hành $ABCD,{A}'{B}'{C}'{D}'$ (hình vẽ). Khẳng định nào sau đây sai?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{A{C}'}=\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{OI}+\\overrightarrow{O{I}'}=\\overrightarrow{0}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{A{A}'}=\\overrightarrow{AD}+\\overrightarrow{D{D}'}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{C{C}'}=\\overrightarrow{A{D}'}+\\overrightarrow{{D}'O}+\\overrightarrow{O{C}'}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ tâm $O$. Gọi $I$, ${I}'$ lần lượt là tâm của hình bình hàn\" data-src=\"https://sieugioi.com/docs/attachments/q11_img1-png.9487/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q11_img1-png.9487/\" class=\"bbImage\" style=\"\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ tâm $O$. Gọi $I$, ${I}'$ lần lượt là tâm của hình bình hàn\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ tâm $O$. Gọi $I$, ${I}'$ lần lượt là tâm của hình bình hàn\" width=\"313\" height=\"223\" loading=\"lazy\">\n\t</div><br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">A. $\\overrightarrow{A{C}'}=\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ đúng do quy tắc hình hộp</div></div></div></div>"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{OI}+\\overrightarrow{O{I}'}=\\overrightarrow{0}$ đúng do $I$ là trung điểm của $I{I}'$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{A{A}'}=\\overrightarrow{AD}+\\overrightarrow{D{D}'}$ là sai do<br>\n$\\overrightarrow{AB}+\\overrightarrow{A{A}'}=\\overrightarrow{A{B}'}$<br>\n$\\overrightarrow{AD}+\\overrightarrow{D{D}'}=\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{D}'}$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{BC}+\\overrightarrow{C{C}'}=\\overrightarrow{A{D}'}+\\overrightarrow{{D}'O}+\\overrightarrow{O{C}'}=\\overrightarrow{A{C}'}$. đúng"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $O$ là tâm của hình bình hành $ABCD$. Mệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=\\overrightarrow{SO}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=2\\overrightarrow{SO}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=4\\overrightarrow{SO}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=\\overrightarrow{0}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $O$ là tâm của hình bình hành $ABCD$\" data-src=\"https://sieugioi.com/docs/attachments/q12_img1-png.9488/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q12_img1-png.9488/\" class=\"bbImage\" style=\"width: 278px\" alt=\" Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $O$ là tâm của hình bình hành $ABCD$\" title=\" Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $O$ là tâm của hình bình hành $ABCD$\" width=\"587\" height=\"391\" loading=\"lazy\">\n\t</div><br>\nTrong tam giác $SAC$ ta có: $\\overrightarrow{SA}+\\overrightarrow{SC}=2\\overrightarrow{SO}$.<br>\nTrong tam giác $SBD$ ta có: $\\overrightarrow{SB}+\\overrightarrow{SD}=2\\overrightarrow{SO}$.<br>\nVậy $\\overrightarrow{SA}+\\overrightarrow{SB}+\\overrightarrow{SC}+\\overrightarrow{SD}=4\\overrightarrow{SO}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có $AB=4$. Tính $\\left| \\overrightarrow{AB}+\\overrightarrow{{B}'{C}'}+\\overrightarrow{A{A}'} \\right|$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$4\\sqrt{2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\sqrt{10}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$4\\sqrt{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2\\sqrt{10}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có $AB=4$.\" data-src=\"https://sieugioi.com/docs/attachments/1790182116487-png.9498/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/1790182116487-png.9498/\" class=\"bbImage\" style=\"\" alt=\"Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có $AB=4$.\" title=\"Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ có $AB=4$.\" width=\"253\" height=\"217\" loading=\"lazy\">\n\t</div><br>\nTa có $\\left| \\overrightarrow{AB}+\\overrightarrow{{B}'{C}'}+\\overrightarrow{A{A}'} \\right|=\\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\left| \\overrightarrow{A{C}'} \\right|=AC=4\\sqrt{3}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\" data-src=\"/images/practice/sieugioi/q14_img1.9490.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9490.png\" class=\"bbImage\" style=\"width: 230px\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ (minh họa như hình bên). Phát biểu nào sau đây là sai?\" width=\"443\" height=\"296\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{{A}'{C}'}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{A{A}'}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{B{B}'}+\\overrightarrow{BA}+\\overrightarrow{BC}=\\overrightarrow{B{D}'}$. D. $\\overrightarrow{DA}+\\overrightarrow{DC}=\\overrightarrow{{B}'{D}'}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có:<br>\n+ $\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{AC}=\\overrightarrow{{A}'{C}'}$.<br>\n+ $\\overrightarrow{A{A}'}+\\overrightarrow{AC}=\\overrightarrow{A{C}'}$.<br>\n+ $\\overrightarrow{B{B}'}+\\overrightarrow{BA}+\\overrightarrow{BC}=\\overrightarrow{B{D}'}$.<br>\n+ $\\overrightarrow{DA}+\\overrightarrow{DC}=\\overrightarrow{DB}=\\overrightarrow{{D}'{B}'}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9490.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\" data-src=\"/images/practice/sieugioi/q15_img1.9491.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9491.png\" class=\"bbImage\" style=\"\" alt=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\" title=\" Cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$(minh họa hình bên). Đẳng thức nào dưới đây đúng?\" width=\"351\" height=\"250\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{A{A}'}=\\overrightarrow{{B}'B}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{AB}=\\overrightarrow{CD}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{BD}=\\overrightarrow{{B}'{D}'}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{BD}=\\overrightarrow{{A}'{D}'}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hai vec tơ $\\overrightarrow{BD}$ và $\\overrightarrow{{B}'{D}'}$ có cùng hướng và cùng độ dài nên $\\overrightarrow{BD}=\\overrightarrow{{B}'{D}'}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9491.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh bằng 4. Tính tích vô hướng $\\overrightarrow{A{C}'}.\\overrightarrow{BC}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q16_img1.9492.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q16_img1.9492.png\" class=\"bbImage\" style=\"width: 193px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"435\" height=\"363\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$8\\sqrt{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$16\\sqrt{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$16$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"https://sieugioi.com/docs/attachments/q16_img2-png.9493/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q16_img2-png.9493/\" class=\"bbImage\" style=\"width: 260px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"435\" height=\"363\" loading=\"lazy\">\n\t</div><br>\nTa có: $\\overrightarrow{A{C}'}.\\overrightarrow{BC}=\\overrightarrow{A{C}'}.\\overrightarrow{{B}'{C}'}=\\left| \\overrightarrow{A{C}'} \\right|.\\left| \\overrightarrow{{B}'{C}'} \\right|.\\cos \\left( \\overrightarrow{A{C}'},\\overrightarrow{{B}'{C}'} \\right)=A{C}'.{B}'{C}'.\\cos \\widehat{A{C}'{B}'}$.<br>\nXét tam giác $A{B}'{C}'$ có: $\\cos \\widehat{A{C}'{B}'}=\\frac{A{{{{C}'}}^{2}}+{B}'{{{{C}'}}^{2}}-A{{{{B}'}}^{2}}}{2.A{C}'.{B}'{C}'}=\\frac{{{\\left( 4\\sqrt{3} \\right)}^{2}}+{{4}^{2}}-{{\\left( 4\\sqrt{2} \\right)}^{2}}}{2.4\\sqrt{3}.4}=\\frac{\\sqrt{3}}{3}$.<br>\n$\\Rightarrow \\overrightarrow{A{C}'}.\\overrightarrow{BC}=4\\sqrt{3}.4.\\frac{\\sqrt{3}}{3}=16$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q16_img1.9492.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.{A}'{B}'{C}'{D}'$ cạnh bằng 4. Tính tích vô hướng $\\overrightarrow{A{C}'}.\\overrightarrow{BC}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q17_img1.9494.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9494.png\" class=\"bbImage\" style=\"width: 216px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"435\" height=\"363\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$8\\sqrt{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$16\\sqrt{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$16$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"https://sieugioi.com/docs/attachments/q17_img2-png.9495/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q17_img2-png.9495/\" class=\"bbImage\" style=\"width: 217px\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"435\" height=\"363\" loading=\"lazy\">\n\t</div><br>\nTa có: $\\overrightarrow{A{C}'}.\\overrightarrow{BC}=\\overrightarrow{A{C}'}.\\overrightarrow{{B}'{C}'}=\\left| \\overrightarrow{A{C}'} \\right|.\\left| \\overrightarrow{{B}'{C}'} \\right|.\\cos \\left( \\overrightarrow{A{C}'},\\overrightarrow{{B}'{C}'} \\right)=A{C}'.{B}'{C}'.\\cos \\widehat{A{C}'{B}'}$.<br>\nXét tam giác $A{B}'{C}'$ có: $\\cos \\widehat{A{C}'{B}'}=\\frac{A{{{{C}'}}^{2}}+{B}'{{{{C}'}}^{2}}-A{{{{B}'}}^{2}}}{2.A{C}'.{B}'{C}'}=\\frac{{{\\left( 4\\sqrt{3} \\right)}^{2}}+{{4}^{2}}-{{\\left( 4\\sqrt{2} \\right)}^{2}}}{2.4\\sqrt{3}.4}=\\frac{\\sqrt{3}}{3}$.<br>\n$\\Rightarrow \\overrightarrow{A{C}'}.\\overrightarrow{BC}=4\\sqrt{3}.4.\\frac{\\sqrt{3}}{3}=16$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9494.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Cho lăng trụ đều $ABC.A'B'C'$ có $AA'=3a,AB=a$. Khi đó cosin của góc giữa hai véc tơ $\\overrightarrow{AB'}$ và $\\overrightarrow{A'C}$ bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho lăng trụ đều\" data-src=\"/images/practice/sieugioi/q18_img1.9496.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9496.png\" class=\"bbImage\" style=\"width: 326px\" alt=\" Cho lăng trụ đều\" title=\" Cho lăng trụ đều\" width=\"1119\" height=\"711\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{7}{20}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-\\frac{7}{20}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-\\frac{17}{20}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{17}{20}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn hệ trục tọa độ như hình vẽ.<br>\nTa có: $A\\left( 0;-\\frac{a}{2};0 \\right),\\,\\,B'\\left( 0;\\frac{a}{2};3a \\right),\\,\\,A'\\left( 0;-\\frac{a}{2};3a \\right),\\,\\,C\\left( \\frac{a\\sqrt{3}}{2};0;0 \\right)$<br>\n$\\overrightarrow{AB'}=\\left( 0;a;3a \\right),\\,\\,\\overrightarrow{A'C}=\\left( \\frac{a\\sqrt{3}}{2};\\frac{a}{2};-3a \\right)$<br>\n$\\operatorname{Cos}\\left( \\overrightarrow{AB'},\\overrightarrow{A'C} \\right)=\\frac{a.\\frac{a}{2}-3a.3a}{\\sqrt{{{a}^{2}}+9{{a}^{2}}}.\\sqrt{\\frac{{{a}^{2}}.3}{4}+\\frac{{{a}^{2}}}{4}+9{{a}^{2}}}}=\\frac{-17}{20}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9496.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.{{A}_{1}}{{B}_{1}}{{C}_{1}}{{D}_{1}}$ (tham khảo hình vẽ dưới).<br>\nPhát biểu nào sau đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hình lập phương\" data-src=\"/images/practice/sieugioi/q19_img1.9497.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q19_img1.9497.png\" class=\"bbImage\" style=\"\" alt=\" Cho hình lập phương\" title=\" Cho hình lập phương\" width=\"322\" height=\"262\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{AB}+\\overrightarrow{AD}$. B. $\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{AB}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{C{{A}_{1}}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{A{{C}_{1}}}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{{{A}_{1}}C}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{AB}+\\overrightarrow{AD}=\\overrightarrow{A{{A}_{1}}}+\\overrightarrow{AC}=\\overrightarrow{A{{C}_{1}}}$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q19_img1.9497.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      },
+      {
+        "id": "q-20",
+        "type": "single_choice",
+        "text": "Cho hình lâp phương $ABCD.{A}'{B}'{C}'{D}'$ có độ dài cạnh bằng 1. Độ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\sqrt{2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\sqrt{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2\\sqrt{3}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Áp dụng quy tắc hình hộp: $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}=\\overrightarrow{A{C}'}$<br>\n$\\Rightarrow \\left| \\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'} \\right|=\\left| \\overrightarrow{A{C}'} \\right|=A{C}'=\\sqrt{A{{B}^{2}}+A{{D}^{2}}+A{{{{A}'}}^{2}}}=\\sqrt{{{1}^{2}}+{{1}^{2}}+{{1}^{2}}}=\\sqrt{3}$<br>\nĐộ dài của vectơ $\\overrightarrow{AB}+\\overrightarrow{AD}+\\overrightarrow{A{A}'}$ bằng $\\sqrt{3}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 20
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:43.332Z"
+}

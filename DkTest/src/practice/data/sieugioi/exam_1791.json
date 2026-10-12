@@ -1,0 +1,1091 @@
+{
+  "meta": {
+    "title": "Tổng Hợp 15 Bài Tập Trắc Nghiệm Tích Phân Có Đáp Án",
+    "slug": "tong-hop-15-bai-tap-trac-nghiem-tich-phan-co-dap-an",
+    "id": "1791",
+    "url": "https://sieugioi.com/docs/threads/tong-hop-15-bai-tap-trac-nghiem-tich-phan-co-dap-an.1791/",
+    "numId": 1791,
+    "bai": 13,
+    "topicId": "math_t10_integral_apps",
+    "baiTitle": "Ứng dụng hình học của tích phân",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "Tổng Hợp 15 Bài Tập Trắc Nghiệm Tích Phân Có Đáp Án",
+    "sourceUrl": "https://sieugioi.com/docs/threads/tong-hop-15-bai-tap-trac-nghiem-tich-phan-co-dap-an.1791/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 15,
+    "questionsWithOptions": 15,
+    "questionsWithAnswers": 11,
+    "questionsWithExplanation": 15,
+    "questionsWithImages": 0,
+    "manualReviewCount": 4,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 6: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 8: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1791_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{0}^{3}{f\\left( x \\right)\\text{d}x}=2026$.Tính giá trị của tích phân $L=\\int\\limits_{0}^{3}{\\left[ f\\left( x \\right)-6x \\right]\\text{d}x}$",
+        "promptHtml": "Cho $\\int\\limits_{0}^{3}{f\\left( x \\right)\\text{d}x}=2026$.Tính giá trị của tích phân $L=\\int\\limits_{0}^{3}{\\left[ f\\left( x \\right)-6x \\right]\\text{d}x}$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$L=2008$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$L=2053$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$L=2027$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$L=1999$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Áp dụng tính chất tuyến tính của tích phân: $L = \\int_0^3 [f(x) - 6x] dx = \\int_0^3 f(x) dx - \\int_0^3 6x dx$. Ta có $\\int_0^3 6x dx = [3x^2]_0^3 = 3\\cdot 3^2 = 27$. Do đó $L = 2026 - 27 = 1999$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x=5$ và $\\int_{3}^{5}{f}\\left( x \\right)\\text{d}x=-2$ thì $\\int_{1}^{5}{f}\\left( x \\right)\\text{d}x$ bằng",
+        "promptHtml": "Nếu $\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x=5$ và $\\int_{3}^{5}{f}\\left( x \\right)\\text{d}x=-2$ thì $\\int_{1}^{5}{f}\\left( x \\right)\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$\\int_{1}^{5}{f}\\left( x \\right)\\text{d}x=\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x+\\int_{3}^{5}{f}\\left( x \\right)\\text{d}x=5-2=3$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Biết $\\int_{1}^{3}{\\frac{x-3}{x}\\text{d}x}=a-b\\ln c$, với $a,b,c\\in \\mathbb{Z}$, $c<27$. Tính tổng $S=a+b+c$.",
+        "promptHtml": "Biết $\\int_{1}^{3}{\\frac{x-3}{x}\\text{d}x}=a-b\\ln c$, với $a,b,c\\in \\mathbb{Z}$, $c&lt;27$. Tính tổng $S=a+b+c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=8$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=6$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$I=\\int_{1}^{3}{\\frac{x-3}{x}\\text{d}x}=\\int_{1}^{3}{\\left( 1-\\frac{3}{x} \\right)\\text{d}x}=\\left. \\left( x-3\\ln x \\right) \\right|_{1}^{3}$$=3-3\\ln 3-\\left( 1-3\\ln 1 \\right)=2-3\\ln 3$. Vậy $a=2;\\,b=3;c=3$ và $a+b+c=8$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho $\\int_{1}^{2}{f}(x)dx=-3$ và $\\int_{1}^{2}{g}(x)dx=4$. Giá trị của tích phân $\\int\\limits_{1}^{2}{\\left( 2f(x)+g(x) \\right)dx}$ bằng",
+        "promptHtml": "Cho $\\int_{1}^{2}{f}(x)dx=-3$ và $\\int_{1}^{2}{g}(x)dx=4$. Giá trị của tích phân $\\int\\limits_{1}^{2}{\\left( 2f(x)+g(x) \\right)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Dùng tính chất của tích phân: $\\int_{1}^{2}{\\left[ 2f(x)+g(x) \\right]}dx=2\\int_{1}^{2}{f(x)}dx+\\int_{1}^{2}{g(x)}dx$$=2.(-3)+4=-6+4=-2$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{2}^{5}{f}\\left( x \\right)\\text{d}x=2$ và $\\int\\limits_{2}^{5}{g}\\left( x \\right)\\text{d}x=5$. Giá trị của tích phân $\\int\\limits_{2}^{5}{\\left[ f\\left( x \\right)-2g\\left( x \\right) \\right]}\\text{d}x$ bằng",
+        "promptHtml": "Cho $\\int\\limits_{2}^{5}{f}\\left( x \\right)\\text{d}x=2$ và $\\int\\limits_{2}^{5}{g}\\left( x \\right)\\text{d}x=5$. Giá trị của tích phân $\\int\\limits_{2}^{5}{\\left[ f\\left( x \\right)-2g\\left( x \\right) \\right]}\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-8.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$12.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-3.$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Theo tính chất của tích phân: $\\int\\limits_{2}^{5}{\\left[ f\\left( x \\right)-2g\\left( x \\right) \\right]}\\text{d}x=\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x-2\\int\\limits_{2}^{5}{g\\left( x \\right)}}\\text{d}x=2-2.5=-8.$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)}dx=5$ thì $\\int\\limits_{-1}^{2}{2f\\left( x \\right)}dx=5$ bằng",
+        "promptHtml": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)}dx=5$ thì $\\int\\limits_{-1}^{2}{2f\\left( x \\right)}dx=5$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{5}{4}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$20$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$10$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\int\\limits_{-1}^{2}{2f\\left( x \\right)}dx=2\\int\\limits_{-1}^{2}{f\\left( x \\right)}dx=2.5=10$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là ${f}'\\left( x \\right)$ liên tục trên $\\left[ -2;3 \\right]$. Hàm số $y={f}'\\left( x \\right)$ có đồ thị như hình vẽ: Biết $\\int\\limits_{-2}^{1}{{f}'\\left( x \\right)dx=3}$ và diện tích $S=\\frac{5}{3}$. Giá trị $f\\left( 3 \\right)-f\\left( -2 \\right)$ bằng:",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là ${f}'\\left( x \\right)$ liên tục trên $\\left[ -2;3 \\right]$. Hàm số $y={f}'\\left( x \\right)$ có đồ thị như hình vẽ:<br>\nBiết $\\int\\limits_{-2}^{1}{{f}'\\left( x \\right)dx=3}$ và diện tích $S=\\frac{5}{3}$. Giá trị $f\\left( 3 \\right)-f\\left( -2 \\right)$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{4}{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-\\frac{14}{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{14}{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-\\frac{4}{3}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $\\int\\limits_{ - 2}^3 {f'\\left( x \\right)dx} $ $ = \\int\\limits_{ - 2}^1 {f'\\left( x \\right)dx} + \\int\\limits_1^3 {f'\\left( x \\right)dx} $ $ \\Leftrightarrow f\\left( 3 \\right) - f\\left( { - 2} \\right) = \\int\\limits_{ - 2}^1 {f'\\left( x \\right)dx} + \\left( { - S} \\right)$ $\\Leftrightarrow f\\left( 3 \\right)-f\\left( -2 \\right)=3-\\frac{5}{3}=\\frac{4}{3}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{1}^{2}{f\\left( x \\right)dx=3}$ và $\\int\\limits_{1}^{5}{f\\left( x \\right)dx=-2}$ thì $\\int\\limits_{2}^{5}{f\\left( x \\right)dx}$ bằng",
+        "promptHtml": "Nếu $\\int\\limits_{1}^{2}{f\\left( x \\right)dx=3}$ và $\\int\\limits_{1}^{5}{f\\left( x \\right)dx=-2}$ thì $\\int\\limits_{2}^{5}{f\\left( x \\right)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-5$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Vì $\\int\\limits_{1}^{5}{f\\left( x \\right)dx=}\\int\\limits_{1}^{2}{f\\left( x \\right)dx+\\int\\limits_{2}^{5}{f\\left( x \\right)dx}}$ Nên $\\int\\limits_{2}^{5}{f\\left( x \\right)dx=}\\int\\limits_{1}^{5}{f\\left( x \\right)dx-\\int\\limits_{1}^{2}{f\\left( x \\right)dx}}=-2-3=-5$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Biết $\\int\\limits_{-1}^{1}{f\\left( x \\right)dx}=3$, khi đó $\\int\\limits_{-1}^{1}{\\left[ 2f\\left( x \\right)+1 \\right]}\\,\\text{d}x$ bằng",
+        "promptHtml": "Biết $\\int\\limits_{-1}^{1}{f\\left( x \\right)dx}=3$, khi đó $\\int\\limits_{-1}^{1}{\\left[ 2f\\left( x \\right)+1 \\right]}\\,\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$8$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$7$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$\\int\\limits_{ - 1}^1 {\\left[ {2f\\left( x \\right) + 1} \\right]} {\\mkern 1mu} {\\rm{d}}x$ $ = \\int\\limits_{ - 1}^1 {2f\\left( x \\right)} {\\rm{d}}x + \\int\\limits_{ - 1}^1 {dx} $ $ = 2.3 + 2 = 8$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)\\text{d}x}=5$ thì $\\int\\limits_{-1}^{2}{4f\\left( x \\right)\\text{d}x}$ bằng:",
+        "promptHtml": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)\\text{d}x}=5$ thì $\\int\\limits_{-1}^{2}{4f\\left( x \\right)\\text{d}x}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$20$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{5}{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{5}{4}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A. $20$. Chọn A. $20$. Chọn A. $20$. Chọn A. $20$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}=-3\\,$ và $\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x}=5\\,$thì $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}\\,$bằng",
+        "promptHtml": "Nếu $\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}=-3\\,$ và $\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x}=5\\,$thì $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}\\,$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-8$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$8$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B Ta có $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}=\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}+\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x}\\,=-3+5=2$. Vậy $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}=2$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{1}^{3}{f}\\left( x \\right)dx=5$ và$\\int\\limits_{1}^{3}{g}\\left( x \\right)dx=2$. Tính $I=\\int\\limits_{1}^{3}{\\left[ f\\left( x \\right)-g\\left( x \\right) \\right]dx}$.",
+        "promptHtml": "Cho $\\int\\limits_{1}^{3}{f}\\left( x \\right)dx=5$ và$\\int\\limits_{1}^{3}{g}\\left( x \\right)dx=2$. Tính $I=\\int\\limits_{1}^{3}{\\left[ f\\left( x \\right)-g\\left( x \\right) \\right]dx}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I=9$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I=7$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I=3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I=10$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Đáp án C Ta có: $\\int_{1}^{3}{f}(x),dx=5$, $\\int_{1}^{3}{g}(x),dx=2$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{-3}^{1}{f\\left( x \\right)}\\,\\text{d}x=-2$ thì $\\int\\limits_{-3}^{1}{\\left[ 2-5f\\left( x \\right) \\right]}\\,\\text{d}x$ bằng",
+        "promptHtml": "Nếu $\\int\\limits_{-3}^{1}{f\\left( x \\right)}\\,\\text{d}x=-2$ thì $\\int\\limits_{-3}^{1}{\\left[ 2-5f\\left( x \\right) \\right]}\\,\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$18$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$12$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-4$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A. $18$. Chọn A. $18$. Chọn A. $18$. Chọn A. $18$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f\\left( x \\right)$ thỏa mãn $\\int\\limits_{-2}^{1}{f}\\left( x \\right)dx=2$. Tính $\\int\\limits_{-2}^{1}{\\left( 1+f\\left( x \\right) \\right)}dx$.",
+        "promptHtml": "Cho hàm số $f\\left( x \\right)$ thỏa mãn $\\int\\limits_{-2}^{1}{f}\\left( x \\right)dx=2$. Tính $\\int\\limits_{-2}^{1}{\\left( 1+f\\left( x \\right) \\right)}dx$.<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$5$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$\\int\\limits_{ - 2}^1 {\\left( {1 + f\\left( x \\right)} \\right)} dx$ $ = \\int\\limits_{ - 2}^1 1 dx + \\int\\limits_{ - 2}^1 f \\left( x \\right)dx$ $ = \\left. x \\right|_{ - 2}^1 + 2$ $ = 1 - \\left( { - 2} \\right) + 2 = 5$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1791_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Ta có $\\int_{-1}^{1}{|{{e}^{x}}-1|dx}=ae+b{{e}^{-1}}+c$ với $a,b,c\\in \\mathbb{Z}$. Tính giá trị của biểu thức $a+b+c$.",
+        "promptHtml": "Ta có $\\int_{-1}^{1}{|{{e}^{x}}-1|dx}=ae+b{{e}^{-1}}+c$ với $a,b,c\\in \\mathbb{Z}$. Tính giá trị của biểu thức $a+b+c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "0."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "2."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "-2."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "3."
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $I = \\int_{ - 1}^0 {(1 - {e^x})dx} + \\int_0^1 {({e^x} - 1)dx} $ $ = \\left( {x - {e^x}} \\right)|_{ - 1}^0 + \\left( {{e^x} - x} \\right)|_0^1$ $ = 1.e + 1.{e^{ - 1}} - 2$ Vậy $a+b+c=1+1-2=0$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:49.518Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Tổng Hợp 15 Bài Tập Trắc Nghiệm Tích Phân Có Đáp Án",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/tong-hop-15-bai-tap-trac-nghiem-tich-phan-co-dap-an.1791/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 15",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{0}^{3}{f\\left( x \\right)\\text{d}x}=2026$.Tính giá trị của tích phân $L=\\int\\limits_{0}^{3}{\\left[ f\\left( x \\right)-6x \\right]\\text{d}x}$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$L=2008$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$L=2053$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$L=2027$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$L=1999$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Có: $L=\\int\\limits_{0}^{3}{\\left[ f\\left( x \\right)-6x \\right]\\text{d}x}$$=\\int\\limits_{0}^{3}{f\\left( x \\right)\\text{d}x}-\\int\\limits_{0}^{3}{\\text{6xd}x}=2026-27=1999$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Nếu $\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x=5$ và $\\int_{3}^{5}{f}\\left( x \\right)\\text{d}x=-2$ thì $\\int_{1}^{5}{f}\\left( x \\right)\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int_{1}^{5}{f}\\left( x \\right)\\text{d}x=\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x+\\int_{3}^{5}{f}\\left( x \\right)\\text{d}x=5-2=3$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Biết $\\int_{1}^{3}{\\frac{x-3}{x}\\text{d}x}=a-b\\ln c$, với $a,b,c\\in \\mathbb{Z}$, $c&lt;27$. Tính tổng $S=a+b+c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=8$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$I=\\int_{1}^{3}{\\frac{x-3}{x}\\text{d}x}=\\int_{1}^{3}{\\left( 1-\\frac{3}{x} \\right)\\text{d}x}=\\left. \\left( x-3\\ln x \\right) \\right|_{1}^{3}$$=3-3\\ln 3-\\left( 1-3\\ln 1 \\right)=2-3\\ln 3$.<br>\nVậy $a=2;\\,b=3;c=3$ và $a+b+c=8$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho $\\int_{1}^{2}{f}(x)dx=-3$ và $\\int_{1}^{2}{g}(x)dx=4$. Giá trị của tích phân $\\int\\limits_{1}^{2}{\\left( 2f(x)+g(x) \\right)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dùng tính chất của tích phân: $\\int_{1}^{2}{\\left[ 2f(x)+g(x) \\right]}dx=2\\int_{1}^{2}{f(x)}dx+\\int_{1}^{2}{g(x)}dx$$=2.(-3)+4=-6+4=-2$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{2}^{5}{f}\\left( x \\right)\\text{d}x=2$ và $\\int\\limits_{2}^{5}{g}\\left( x \\right)\\text{d}x=5$. Giá trị của tích phân $\\int\\limits_{2}^{5}{\\left[ f\\left( x \\right)-2g\\left( x \\right) \\right]}\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-8.$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$12.$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$1.$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$-3.$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Theo tính chất của tích phân:  $\\int\\limits_{2}^{5}{\\left[ f\\left( x \\right)-2g\\left( x \\right) \\right]}\\text{d}x=\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x-2\\int\\limits_{2}^{5}{g\\left( x \\right)}}\\text{d}x=2-2.5=-8.$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)}dx=5$ thì $\\int\\limits_{-1}^{2}{2f\\left( x \\right)}dx=5$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{5}{4}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$20$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$10$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{-1}^{2}{2f\\left( x \\right)}dx=2\\int\\limits_{-1}^{2}{f\\left( x \\right)}dx=2.5=10$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là ${f}'\\left( x \\right)$ liên tục trên $\\left[ -2;3 \\right]$. Hàm số $y={f}'\\left( x \\right)$ có đồ thị như hình vẽ:<br>\nBiết $\\int\\limits_{-2}^{1}{{f}'\\left( x \\right)dx=3}$ và diện tích $S=\\frac{5}{3}$. Giá trị $f\\left( 3 \\right)-f\\left( -2 \\right)$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{4}{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-\\frac{14}{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{14}{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-\\frac{4}{3}$.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là ${f}'\\left( x \\right)$ liên tục \" data-src=\"https://sieugioi.com/docs/attachments/q7_img1-png.9577/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q7_img1-png.9577/\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là ${f}'\\left( x \\right)$ liên tục \" title=\"Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là ${f}'\\left( x \\right)$ liên tục \" width=\"350\" height=\"245\" loading=\"lazy\">\n\t</div><br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int\\limits_{ - 2}^3 {f'\\left( x \\right)dx} $ $ = \\int\\limits_{ - 2}^1 {f'\\left( x \\right)dx}  + \\int\\limits_1^3 {f'\\left( x \\right)dx} $ $ \\Leftrightarrow f\\left( 3 \\right) - f\\left( { - 2} \\right) = \\int\\limits_{ - 2}^1 {f'\\left( x \\right)dx}  + \\left( { - S} \\right)$<br>\n$\\Leftrightarrow f\\left( 3 \\right)-f\\left( -2 \\right)=3-\\frac{5}{3}=\\frac{4}{3}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{1}^{2}{f\\left( x \\right)dx=3}$ và $\\int\\limits_{1}^{5}{f\\left( x \\right)dx=-2}$ thì $\\int\\limits_{2}^{5}{f\\left( x \\right)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì $\\int\\limits_{1}^{5}{f\\left( x \\right)dx=}\\int\\limits_{1}^{2}{f\\left( x \\right)dx+\\int\\limits_{2}^{5}{f\\left( x \\right)dx}}$<br>\nNên $\\int\\limits_{2}^{5}{f\\left( x \\right)dx=}\\int\\limits_{1}^{5}{f\\left( x \\right)dx-\\int\\limits_{1}^{2}{f\\left( x \\right)dx}}=-2-3=-5$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Biết $\\int\\limits_{-1}^{1}{f\\left( x \\right)dx}=3$, khi đó $\\int\\limits_{-1}^{1}{\\left[ 2f\\left( x \\right)+1 \\right]}\\,\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$8$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$7$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int\\limits_{ - 1}^1 {\\left[ {2f\\left( x \\right) + 1} \\right]} {\\mkern 1mu} {\\rm{d}}x$ $ = \\int\\limits_{ - 1}^1 {2f\\left( x \\right)} {\\rm{d}}x + \\int\\limits_{ - 1}^1 {dx} $ $ = 2.3 + 2 = 8$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)\\text{d}x}=5$ thì $\\int\\limits_{-1}^{2}{4f\\left( x \\right)\\text{d}x}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$20$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{5}{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{5}{4}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn A. $20$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}=-3\\,$ và $\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x}=5\\,$thì $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}\\,$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-8$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$8$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn B<br>\nTa có $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}=\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}+\\int\\limits_{2}^{5}{f\\left( x \\right)\\text{d}x}\\,=-3+5=2$.<br>\nVậy $\\int\\limits_{1}^{5}{f\\left( x \\right)\\text{d}x}=2$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{1}^{3}{f}\\left( x \\right)dx=5$ và$\\int\\limits_{1}^{3}{g}\\left( x \\right)dx=2$. Tính $I=\\int\\limits_{1}^{3}{\\left[ f\\left( x \\right)-g\\left( x \\right) \\right]dx}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I=9$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I=7$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I=3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I=10$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đáp án C<br>\nTa có: $\\int_{1}^{3}{f}(x),dx=5$, $\\int_{1}^{3}{g}(x),dx=2$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{-3}^{1}{f\\left( x \\right)}\\,\\text{d}x=-2$ thì $\\int\\limits_{-3}^{1}{\\left[ 2-5f\\left( x \\right) \\right]}\\,\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$18$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$12$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-4$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn A. $18$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Cho hàm số $f\\left( x \\right)$ thỏa mãn $\\int\\limits_{-2}^{1}{f}\\left( x \\right)dx=2$. Tính $\\int\\limits_{-2}^{1}{\\left( 1+f\\left( x \\right) \\right)}dx$.<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int\\limits_{ - 2}^1 {\\left( {1 + f\\left( x \\right)} \\right)} dx$ $ = \\int\\limits_{ - 2}^1 1 dx + \\int\\limits_{ - 2}^1 f \\left( x \\right)dx$ $ = \\left. x \\right|_{ - 2}^1 + 2$ $ = 1 - \\left( { - 2} \\right) + 2 = 5$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Ta có $\\int_{-1}^{1}{|{{e}^{x}}-1|dx}=ae+b{{e}^{-1}}+c$ với $a,b,c\\in \\mathbb{Z}$. Tính giá trị của biểu thức $a+b+c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "0."
+          },
+          {
+            "id": "opt_b",
+            "text": "2."
+          },
+          {
+            "id": "opt_c",
+            "text": "-2."
+          },
+          {
+            "id": "opt_d",
+            "text": "3.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có:<br>\n$I = \\int_{ - 1}^0 {(1 - {e^x})dx}  + \\int_0^1 {({e^x} - 1)dx} $ $ = \\left( {x - {e^x}} \\right)|_{ - 1}^0 + \\left( {{e^x} - x} \\right)|_0^1$ $ = 1.e + 1.{e^{ - 1}} - 2$<br>\nVậy $a+b+c=1+1-2=0$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:49.518Z"
+}

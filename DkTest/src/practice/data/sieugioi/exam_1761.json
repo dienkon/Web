@@ -1,0 +1,418 @@
+{
+  "meta": {
+    "title": "Giải 5 bải trắc nghiệm ứng dụng đạo hàm để giải quyết một số vấn đề liên quan đến thực tiễn cực hay",
+    "slug": "giai-5-bai-trac-nghiem-ung-dung-dao-ham-de-giai-quyet-mot-so-van-de-lien-quan-den-thuc-tien-cuc-hay",
+    "id": "1761",
+    "url": "https://sieugioi.com/docs/threads/giai-5-bai-trac-nghiem-ung-dung-dao-ham-de-giai-quyet-mot-so-van-de-lien-quan-den-thuc-tien-cuc-hay.1761/",
+    "numId": 1761,
+    "bai": 5,
+    "topicId": "math_t5_graph_optimize",
+    "baiTitle": "Ứng dụng đạo hàm giải quyết vấn đề thực tiễn",
+    "chapter": "Chương 1"
+  },
+  "extracted": {
+    "title": "Giải 5 bải trắc nghiệm ứng dụng đạo hàm để giải quyết một số vấn đề liên quan đến thực tiễn cực hay",
+    "sourceUrl": "https://sieugioi.com/docs/threads/giai-5-bai-trac-nghiem-ung-dung-dao-ham-de-giai-quyet-mot-so-van-de-lien-quan-den-thuc-tien-cuc-hay.1761/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 5,
+    "questionsWithOptions": 5,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 2,
+    "manualReviewCount": 5,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1761_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Một vật chuyển động theo quy luật $s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$ với $t$ là khoảng thời gian tính từ lúc bắt đầu chuyển động và $s$ là quãng đường vật đi được trong khoảng thời gian đó. Hỏi trong khoảng thời gian 10 giây, kể từ lúc bắt đầu chuyển động, vận tốc lớn nhất của vật đạt được bằng bao nhiêu?",
+        "promptHtml": "Một vật chuyển động theo quy luật $s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$ với $t$ là khoảng thời gian tính từ lúc bắt đầu chuyển động và $s$ là quãng đường vật đi được trong khoảng thời gian đó. Hỏi trong khoảng thời gian 10 giây, kể từ lúc bắt đầu chuyển động, vận tốc lớn nhất của vật đạt được bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$32$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$50$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$56$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": ""
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$nên $v(t)={s}'(t)=-\\frac{3}{2}{{t}^{2}}+18t+2$. Đây là tam thức bậc hai quay xuống, nên đạt giá trị lớn nhất tại $t=\\frac{-18}{2\\cdot (-3/2)}=6$. Khi đó $v(6)=-\\frac{3}{2}\\cdot 36+18\\cdot 6+2=-54+108+2=56$. Chọn"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$nên $v(t)={s}'(t)=-\\frac{3}{2}{{t}^{2}}+18t+2$. Đây là tam thức bậc hai quay xuống, nên đạt giá trị lớn nhất tại $t=\\frac{-18}{2\\cdot (-3/2)}=6$. Khi đó $v(6)=-\\frac{3}{2}\\cdot 36+18\\cdot 6+2=-54+108+2=56$. Chọn"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$nên $v(t)={s}'(t)=-\\frac{3}{2}{{t}^{2}}+18t+2$. Đây là tam thức bậc hai quay xuống, nên đạt giá trị lớn nhất tại $t=\\frac{-18}{2\\cdot (-3/2)}=6$. Khi đó $v(6)=-\\frac{3}{2}\\cdot 36+18\\cdot 6+2=-54+108+2=56$. Chọn"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$nên $v(t)={s}'(t)=-\\frac{3}{2}{{t}^{2}}+18t+2$.\nĐây là tam thức bậc hai quay xuống, nên đạt giá trị lớn nhất tại $t=\\frac{-18}{2\\cdot (-3/2)}=6$.\nKhi đó $v(6)=-\\frac{3}{2}\\cdot 36+18\\cdot 6+2=-54+108+2=56$.\nChọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1761_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình vuông nhỏ để gấp và dán lại thành một cái hộp đựng đồ dùng học tập không có nắp (mép dán không đáng kể). Để cái hộp có thể tích lớn nhất thì hình vuông nhỏ cắt đi có độ dài cạnh là\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9449.png)",
+        "promptHtml": "Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình<br>\nvuông nhỏ để gấp và dán lại thành một cái hộp đựng đồ dùng học tập không có nắp (mép dán không đáng kể).<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình\" data-src=\"/images/practice/sieugioi/q2_img1.9449.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9449.png\" class=\"bbImage\" style=\"\" alt=\" Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình\" title=\" Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình\" width=\"328\" height=\"163\" loading=\"lazy\">\n\t</div><br>\nĐể cái hộp có thể tích lớn nhất thì hình vuông nhỏ cắt đi có độ dài cạnh là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$20\\text{ cm}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{10}{3}\\text{ cm}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{20}{3}\\text{ cm}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$10\\text{ cm}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Gọi độ dài cạnh của mỗi hình vuông nhỏ bị cắt đi là $x$ (cm), với điều kiện $0 < x < 10$. Khi gấp lại thành hộp không có nắp, đáy hộp là hình vuông có cạnh bằng $20 - 2x$ (cm) và chiều cao của hộp là $x$ (cm). Thể tích của khối hộp là: $V(x) = x(20 - 2x)^2 = 4x(10 - x)^2 = 4x(x^2 - 20x + 100) = 4(x^3 - 20x^2 + 100x)$. Đạo hàm: $V'(x) = 4(3x^2 - 40x + 100) = 4(3x - 10)(x - 10)$. Với $0 < x < 10$, ta có $V'(x) = 0 \\Leftrightarrow x = \\frac{10}{3}$ cm. Lập bảng biến thiên thấy $V(x)$ đạt giá trị lớn nhất tại $x = \\frac{10}{3}$ cm. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9449.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9449.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1761_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho một chất điểm chuyển động có phương trình $s=2{{t}^{2}}+3t$ ($t$ tính bằng giây,$s$ tính bằng mét) . Vận tốc của chất điểm tại thời điểm ${{t}_{0}}=2$( giây) bằng",
+        "promptHtml": "Cho một chất điểm chuyển động có phương trình $s=2{{t}^{2}}+3t$ ($t$ tính bằng giây,$s$ tính bằng mét) . Vận tốc của chất điểm tại thời điểm ${{t}_{0}}=2$( giây) bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$19(m/s)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$22(m/s)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$11(m/s)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$9(m/s)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $v(t)=s'(t)=4t+3$.\nVận tốc của chất điểm tại thời điểm ${{t}_{0}}=2$ bằng $v(2)=4.2+3=11$ (m/s).",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1761_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Bạn Hải có một tấm bìa hình vuông cạnh $40\\text{ }\\left( cm \\right)$. Bạn muốn cắt bỏ ở bốn góc bốn hình vuông nhỏ bằng nhau để gấp và dán lại thành một hình hộp chữ nhật không có nắp (tham khảo hình vẽ). Để hộp có thể tích lớn nhất thì độ dài cạnh của hình vuông nhỏ bị cắt là\n\n![hình minh họa](/images/practice/sieugioi/q4_img1.9450.png)",
+        "promptHtml": "Bạn Hải có một tấm bìa hình vuông cạnh $40\\text{ }\\left( cm \\right)$. Bạn muốn cắt bỏ ở bốn góc bốn hình vuông nhỏ bằng nhau để gấp và dán lại thành một hình hộp chữ nhật không có nắp (tham khảo hình vẽ).<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Bạn Hải có một tấm bìa hình vuông cạnh\" data-src=\"/images/practice/sieugioi/q4_img1.9450.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9450.png\" class=\"bbImage\" style=\"\" alt=\" Bạn Hải có một tấm bìa hình vuông cạnh\" title=\" Bạn Hải có một tấm bìa hình vuông cạnh\" width=\"437\" height=\"171\" loading=\"lazy\">\n\t</div><br>\nĐể hộp có thể tích lớn nhất thì độ dài cạnh của hình vuông nhỏ bị cắt là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$6\\text{ }\\left( cm \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$5\\text{ }\\left( cm \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{20}{3} cm$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{10}{3}\\left( cm \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Gọi cạnh hình vuông bị cắt ở bốn góc là $x$ (cm) với $0 < x < 20$. Khi gấp lại, hình hộp chữ nhật không nắp có đáy là hình vuông cạnh $40 - 2x$ (cm) và chiều cao là $x$ (cm). Thể tích hình hộp là $V(x) = x(40-2x)^2 = 4x(20-x)^2$. Đạo hàm $V'(x) = 4(20-x)^2 - 8x(20-x) = 4(20-x)(20-3x) = 0 \\Leftrightarrow x = \\frac{20}{3}$ (cm). Bảng biến thiên cho thấy $V(x)$ đạt giá trị lớn nhất tại $x = \\frac{20}{3}$ cm. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9450.png",
+        "images": [
+          "/images/practice/sieugioi/q4_img1.9450.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1761_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hóa bằng hàm số $N(t)=-{{t}^{3}}+12{{t}^{2}},\\,\\,0\\le t\\le 12$, trong đó $N$ là số người bị nhiễm bệnh (tính bằng trăm người) và $t$ là thời gian (tuần). Hỏi số người bị nhiễm bệnh tăng trong khoảng thời gian nào?",
+        "promptHtml": "Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hóa bằng hàm số $N(t)=-{{t}^{3}}+12{{t}^{2}},\\,\\,0\\le t\\le 12$, trong đó $N$ là số người bị nhiễm bệnh (tính bằng trăm người) và $t$ là thời gian (tuần). Hỏi số người bị nhiễm bệnh tăng trong khoảng thời gian nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(0;8)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(0;10)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(8;12)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(8;10)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Xét hàm số: $N(t)=-{{t}^{3}}+12{{t}^{2}},\\,\\,0\\le t\\le 12$\nTa có $N'(t)=-3{{t}^{2}}+24t=0\\Leftrightarrow \\left[ \\begin{align}\n& t=0 \\\\\n& t=8 \\\\\n\\end{align} \\right.$\nBảng biến thiên\n\n\t\t\n\t\nTừ bảng biến thiên ta thấy số người bị nhiễm bệnh tăng trong khoảng thời gian $t\\in (0;8)$.\n\t\t\n\tXét hàm số: $N(t)=-{{t}^{3}}+12{{t}^{2}},\\,\\,0\\le t\\le 12$\nTa có $N'(t)=-3{{t}^{2}}+24t=0\\Leftrightarrow \\left[ \\begin{align}\n& t=0 \\\\\n& t=8 \\\\\n\\end{align} \\right.$\nBảng biến thiên\n\n\t\t\n\t\nTừ bảng biến thiên ta thấy số người bị nhiễm bệnh tăng trong khoảng thời gian $t\\in (0;8)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:34.564Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Giải 5 bải trắc nghiệm ứng dụng đạo hàm để giải quyết một số vấn đề liên quan đến thực tiễn cực hay",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/giai-5-bai-trac-nghiem-ung-dung-dao-ham-de-giai-quyet-mot-so-van-de-lien-quan-den-thuc-tien-cuc-hay.1761/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 5",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Một vật chuyển động theo quy luật $s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$ với $t$ là khoảng thời gian tính từ lúc bắt đầu chuyển động và $s$ là quãng đường vật đi được trong khoảng thời gian đó. Hỏi trong khoảng thời gian 10 giây, kể từ lúc bắt đầu chuyển động, vận tốc lớn nhất của vật đạt được bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$32$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$50$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$56$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$s=-\\frac{1}{2}{{t}^{3}}+9{{t}^{2}}+2t$nên $v(t)={s}'(t)=-\\frac{3}{2}{{t}^{2}}+18t+2$.<br>\nĐây là tam thức bậc hai quay xuống, nên đạt giá trị lớn nhất tại $t=\\frac{-18}{2\\cdot (-3/2)}=6$.<br>\nKhi đó $v(6)=-\\frac{3}{2}\\cdot 36+18\\cdot 6+2=-54+108+2=56$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình<br>\nvuông nhỏ để gấp và dán lại thành một cái hộp đựng đồ dùng học tập không có nắp (mép dán không đáng kể).<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình\" data-src=\"/images/practice/sieugioi/q2_img1.9449.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9449.png\" class=\"bbImage\" style=\"\" alt=\" Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình\" title=\" Bạn Nga có một tấm bìa hình vuông cạnh 20 cm. Bạn muốn cắt ở mỗi góc một hình\" width=\"328\" height=\"163\" loading=\"lazy\">\n\t</div><br>\nĐể cái hộp có thể tích lớn nhất thì hình vuông nhỏ cắt đi có độ dài cạnh là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "20 cm."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{10}{3}~cm$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{20}{3}~cm$."
+          },
+          {
+            "id": "opt_d",
+            "text": "10 cm.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn B.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9449.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho một chất điểm chuyển động có phương trình $s=2{{t}^{2}}+3t$ ($t$ tính bằng giây,$s$ tính bằng mét) . Vận tốc của chất điểm tại thời điểm ${{t}_{0}}=2$( giây) bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$19(m/s)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$22(m/s)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$11(m/s)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$9(m/s)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $v(t)=s'(t)=4t+3$.<br>\nVận tốc của chất điểm tại thời điểm ${{t}_{0}}=2$ bằng $v(2)=4.2+3=11$ (m/s).</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Bạn Hải có một tấm bìa hình vuông cạnh $40\\text{ }\\left( cm \\right)$. Bạn muốn cắt bỏ ở bốn góc bốn hình vuông nhỏ bằng nhau để gấp và dán lại thành một hình hộp chữ nhật không có nắp (tham khảo hình vẽ).<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Bạn Hải có một tấm bìa hình vuông cạnh\" data-src=\"/images/practice/sieugioi/q4_img1.9450.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9450.png\" class=\"bbImage\" style=\"\" alt=\" Bạn Hải có một tấm bìa hình vuông cạnh\" title=\" Bạn Hải có một tấm bìa hình vuông cạnh\" width=\"437\" height=\"171\" loading=\"lazy\">\n\t</div><br>\nĐể hộp có thể tích lớn nhất thì độ dài cạnh của hình vuông nhỏ bị cắt là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$6\\text{ }\\left( cm \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$5\\text{ }\\left( cm \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{20}{3} cm$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{10}{3}\\left( cm \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Cạnh hình vuông nhỏ có độ dài là $x\\left( cm \\right)$, với $0&lt;x&lt;20$.<br>\nHình hộp chữ nhật có cạnh đáy là: $\\left( 40-2x \\right)\\text{ }\\left( cm \\right)$và chiều cao là $x\\left( cm \\right)$<br>\nThể tích của khối hộp là: $V\\left( x \\right)=x{{\\left( 40-2x \\right)}^{2}}=4{{x}^{3}}-160{{x}^{2}}+1600x$.<br>\nTa có: ${V}'\\left( x \\right)=12{{x}^{2}}-320x+1600$<br>\n${V}'\\left( x \\right)=0\\Leftrightarrow \\left[ \\begin{align}<br>\n&amp; {{x}_{1}}=20 \\\\<br>\n&amp; {{x}_{2}}=\\frac{20}{3} \\\\<br>\n\\end{align} \\right.$.<br>\nTa có bảng biến thiên sau đây:<br>\nVậy: $\\underset{\\left( 0;20 \\right)}{\\mathop{MaxV\\left( x \\right)}}\\,={{V}_{\\left( \\frac{20}{3} \\right)}}=\\frac{128000}{27}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Bạn Hải có một tấm bìa hình vuông cạnh\" data-src=\"https://sieugioi.com/docs/attachments/q4_img2-png.9451/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q4_img2-png.9451/\" class=\"bbImage\" style=\"width: 525px\" alt=\" Bạn Hải có một tấm bìa hình vuông cạnh\" title=\" Bạn Hải có một tấm bìa hình vuông cạnh\" width=\"635\" height=\"228\" loading=\"lazy\">\n\t</div></div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9450.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hóa bằng hàm số $N(t)=-{{t}^{3}}+12{{t}^{2}},\\,\\,0\\le t\\le 12$, trong đó $N$ là số người bị nhiễm bệnh (tính bằng trăm người) và $t$ là thời gian (tuần). Hỏi số người bị nhiễm bệnh tăng trong khoảng thời gian nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(0;8)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(0;10)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(8;12)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(8;10)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Xét hàm số: $N(t)=-{{t}^{3}}+12{{t}^{2}},\\,\\,0\\le t\\le 12$<br>\nTa có $N'(t)=-3{{t}^{2}}+24t=0\\Leftrightarrow \\left[ \\begin{align}<br>\n&amp; t=0 \\\\<br>\n&amp; t=8 \\\\<br>\n\\end{align} \\right.$<br>\nBảng biến thiên<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hóa bằng hàm số\" data-src=\"https://sieugioi.com/docs/attachments/q5_img1-png.9452/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q5_img1-png.9452/\" class=\"bbImage\" style=\"width: 450px\" alt=\" Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hóa bằng hàm số\" title=\" Giả sử sự lây lan của một loại virus ở một địa phương có thể được mô hình hóa bằng hàm số\" width=\"750\" height=\"270\" loading=\"lazy\">\n\t</div><br>\nTừ bảng biến thiên ta thấy số người bị nhiễm bệnh tăng trong khoảng thời gian $t\\in (0;8)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:34.564Z"
+}

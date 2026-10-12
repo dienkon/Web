@@ -1,0 +1,963 @@
+{
+  "meta": {
+    "title": "Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân 13 Bài Tập Từ Cơ Bản Đến Nâng Cao",
+    "slug": "trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-13-bai-tap-tu-co-ban-den-nang-cao",
+    "id": "1793",
+    "url": "https://sieugioi.com/docs/threads/trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-13-bai-tap-tu-co-ban-den-nang-cao.1793/",
+    "numId": 1793,
+    "bai": 13,
+    "topicId": "math_t10_integral_apps",
+    "baiTitle": "Ứng dụng hình học của tích phân",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân 13 Bài Tập Từ Cơ Bản Đến Nâng Cao",
+    "sourceUrl": "https://sieugioi.com/docs/threads/trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-13-bai-tap-tu-co-ban-den-nang-cao.1793/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 13,
+    "questionsWithOptions": 13,
+    "questionsWithAnswers": 11,
+    "questionsWithExplanation": 13,
+    "questionsWithImages": 3,
+    "manualReviewCount": 2,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 7: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1793_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong mặt phẳng với hệ tọa độ $Oxy$, diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=3x-1$, trục hoành và hai đường thẳng $x=1,x=3$ được xác định bằng công thức nào sau đây?",
+        "promptHtml": "Trong mặt phẳng với hệ tọa độ $Oxy$, diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm<br>\nsố $y=3x-1$, trục hoành và hai đường thẳng $x=1,x=3$ được xác định bằng công thức nào sau<br>\nđây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=\\int_{1}^{3}{{{(3x-1)}^{2}}}dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\pi \\int_{1}^{3}{|}3x-1|dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\int_{1}^{3}{(3x-1)}dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\pi \\int_{1}^{3}{{{(3x-1)}^{2}}}dx$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành và hai đường thẳng $x = 1, x = 3$ là $S = \\int_1^3 |3x - 1| dx$. Trên đoạn $[1; 3]$, ta thấy $3x - 1 \\ge 3(1) - 1 = 2 > 0$, do đó $|3x - 1| = 3x - 1$. Vậy $S = \\int_1^3 (3x - 1) dx$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Xét hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$. Tính thể tích khối tròn xoay khi quay hình phẳng $\\left( H \\right)$ quanh trục $Ox$.",
+        "promptHtml": "Xét hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$. Tính thể tích khối tròn xoay khi quay hình phẳng $\\left( H \\right)$ quanh trục $Ox$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$33$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{33}{5}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{33\\pi }{5}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$33\\pi $"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hình phẳng $\\left( H \\right):\\left\\{ \\begin{align} & y={{x}^{2}}-4x+4 \\\\ & Ox:y=0 \\\\ & x=0,\\ x=3 \\\\ \\end{align} \\right.$. Hàm số $y={{x}^{2}}-4x+4$ nhận giá trị dương và liên tục trên $\\left[ 0;\\ 3 \\right]$ Suy ra ${{V}_{H}}=\\pi \\int\\limits_{0}^{3}{{{\\left( {{x}^{2}}-4x+4 \\right)}^{2}}\\text{d}x}=\\frac{33\\pi }{5}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục và không âm trên đoạn $[0;2]$. Thể tích khối tròn xoay sinh ra khi quay quanh trục $Ox$ hình phẳng giới hạn bởi đồ thị hàm số $y=f(x)$, trục hoành và hai đường thẳng $x=0,x=2$ là",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục và không âm trên đoạn $[0;2]$. Thể tích khối tròn xoay sinh ra khi quay quanh trục $Ox$ hình phẳng giới hạn bởi đồ thị hàm số $y=f(x)$, trục hoành và hai đường thẳng $x=0,x=2$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int_{0}^{2}{f}(x)dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\pi \\int\\limits_{0}^{2}{{{\\left[ f\\left( x \\right) \\right]}^{2}}dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int\\limits_{0}^{2}{{{\\left[ f\\left( x \\right) \\right]}^{2}}dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\pi \\int_{0}^{2}{f}(x)dx$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B Chọn B Chọn B Chọn B",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong mặt phẳng với hệ tọa độ Oxy, diện tích S của hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{2}}-2x$, trục hoành và hai đường thẳng $x=-1,x=3$ được xác định bằng công thức",
+        "promptHtml": "Trong mặt phẳng với hệ tọa độ Oxy, diện tích S của hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{2}}-2x$, trục hoành và hai đường thẳng $x=-1,x=3$ được xác định bằng công thức",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=\\pi \\int _{-1}^{3}\\left| {{x}^{2}}-2x \\right|dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\pi \\int _{-1}^{3}{{\\left( {{x}^{2}}-2x \\right)}^{2}}dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\int _{-1}^{3}\\left| {{x}^{2}}-2x \\right|dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\left| \\int _{-1}^{3}\\left( {{x}^{2}}-2x \\right)dx \\right|$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $S=\\int _{-1}^{3}\\left| {{x}^{2}}-2x \\right|dx$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hình phẳng $(H)$ giới hạn bởi các đường $y={{x}^{2}}+3$, $y=0$, $x=0$, $x=5$. Gọi $V$ là thể tích của khối tròn xoay sinh ra khi quay $(H)$ xung quanh trục $Ox$. Mệnh đề nào dưới đây đúng?",
+        "promptHtml": "Cho hình phẳng $(H)$ giới hạn bởi các đường $y={{x}^{2}}+3$, $y=0$, $x=0$, $x=5$. Gọi $V$ là thể tích của khối tròn xoay sinh ra khi quay $(H)$ xung quanh trục $Ox$. Mệnh đề nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$V=\\pi \\int\\limits_{0}^{5}{({{x}^{2}}+3)}dx.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$V=\\pi \\int\\limits_{0}^{5}{{{({{x}^{2}}+3)}^{2}}}dx.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$V=\\int\\limits_{0}^{5}{{{({{x}^{2}}+3)}^{2}}}dx.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$V=\\int\\limits_{0}^{5}{({{x}^{2}}+3)}dx.$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $V=\\pi \\int\\limits_{0}^{5}{{{({{x}^{2}}+3)}^{2}}}dx.$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Khi cắt một vật thể bởi mặt phẳng vuông góc với trục $Ox$ tại điểm có hoành độ $x$ với mặt cắt là hình vuông có độ dài cạnh là $\\sqrt{3-{{x}^{2}}}\\,\\,\\left( -\\sqrt{3}\\le x\\le \\sqrt{3} \\right)$. Thể tích của vật thể đã cho bằng",
+        "promptHtml": "Khi cắt một vật thể bởi mặt phẳng vuông góc với trục $Ox$ tại điểm có hoành độ $x$ với mặt cắt là hình vuông có độ dài cạnh là $\\sqrt{3-{{x}^{2}}}\\,\\,\\left( -\\sqrt{3}\\le x\\le \\sqrt{3} \\right)$. Thể tích của vật thể đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\sqrt{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4\\sqrt{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$4\\pi \\sqrt{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\pi \\sqrt{3}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Thể tích của vật thể đã cho là $V={{\\int\\limits_{-\\sqrt{3}}^{\\sqrt{3}}{\\left( \\sqrt{3-{{x}^{2}}} \\right)}}^{2}}dx=\\left. \\left( 3x-\\frac{{{x}^{3}}}{3} \\right) \\right|_{-\\sqrt{3}}^{\\sqrt{3}}=4\\sqrt{3}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Một hoạ tiết hình cánh bướm như hình vẽ. Phần tô đậm được đính đá với giá thành $500.000\\text{d}/{{m}^{2}}$. Phần còn lại được tô màu với giá thành $300.000\\text{d}/{{m}^{2}}$. Cho biết $AB=4dm$, $BC=8dm$. Hỏi để trang trí 1000 hoạ tiết như vậy cần số tiền gần nhất với số nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/q7_img1.9584.png)",
+        "promptHtml": "Một hoạ tiết hình cánh bướm như hình vẽ.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Một hoạ tiết hình cánh bướm như hình vẽ.\" data-src=\"/images/practice/sieugioi/q7_img1.9584.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9584.png\" class=\"bbImage\" style=\"width: 190px\" alt=\"Một hoạ tiết hình cánh bướm như hình vẽ.\" title=\"Một hoạ tiết hình cánh bướm như hình vẽ.\" width=\"293\" height=\"342\" loading=\"lazy\">\n\t</div><br>\nPhần tô đậm được đính đá với giá thành $500.000\\text{d}/{{m}^{2}}$. Phần còn lại được tô màu với giá thành $300.000\\text{d}/{{m}^{2}}$. Cho biết $AB=4dm$, $BC=8dm$. Hỏi để trang trí 1000 hoạ tiết như vậy cần số tiền gần nhất với số nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$138.666.667\\text{ đồng}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$152.000.000\\text{ đồng}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$117.333.334\\text{ đồng}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$117.433.334\\text{ đồng}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đặt hệ trục tọa độ với gốc tại tâm hình chữ nhật. Hình chữ nhật có kích thước $AB = 4\\text{ dm}$, $BC = 8\\text{ dm}$ nên diện tích là $S_{HCN} = 4\\cdot 8 = 32\\text{ dm}^2$. Hai parabol giới hạn phần trắng có phương trình $y = x^2$ và $y = -x^2$ trên đoạn $[-2; 2]$. Diện tích phần màu trắng là $S_{trắng} = \\int_{-2}^2 (x^2 - (-x^2)) dx = 2\\int_{-2}^2 x^2 dx = 2\\cdot\\frac{16}{3} = \\frac{32}{3}\\text{ dm}^2$. Diện tích phần đính đá (phần đậm) là $S_{đậm} = 32 - \\frac{32}{3} = \\frac{64}{3}\\text{ dm}^2$. Đổi sang m$^2$: $S_{đậm} = \\frac{64}{300}\\text{ m}^2$, $S_{trắng} = \\frac{32}{300}\\text{ m}^2$. Chi phí cho 1 họa tiết là: $T_1 = 500.000\\cdot\\frac{64}{300} + 300.000\\cdot\\frac{32}{300} = \\frac{320.000 + 96.000}{3} = \\frac{416.000}{3} \\approx 138.666,67\\text{ đồng}$. Vậy 1000 họa tiết cần số tiền là: $T = 1000\\cdot T_1 \\approx 138.666.667\\text{ đồng}$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9584.png",
+        "images": [
+          "/images/practice/sieugioi/q7_img1.9584.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong mặt phẳng với hệ tọa độ $Oxy$, diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=-3{{x}^{2}}-2x+8$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$ được xác định bởi công thức",
+        "promptHtml": "Trong mặt phẳng với hệ tọa độ $Oxy$, diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=-3{{x}^{2}}-2x+8$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$ được xác định bởi công thức",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{{{\\left( -3{{x}^{2}}-2x+8 \\right)}^{2}}}dx.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{\\left| -3{{x}^{2}}-2x+8 \\right|}dx.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\left| \\int\\limits_{0}^{2}{\\left( -3{{x}^{2}}-2x+8 \\right)dx} \\right|.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\int\\limits_{0}^{2}{\\left| -3{{x}^{2}}-2x+8 \\right|}dx.$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Diện tích hình phẳng giới hạn bởi đồ thị $y=-3{{x}^{2}}-2x+8$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$ là: $S=\\int\\limits_{0}^{2}{\\left| -3{{x}^{2}}-2x+8 \\right|dx}$. Vì diện tích luôn lấy giá trị dương nên phải có dấu giá trị tuyệt đối đối với hàm số. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đường $y=f(x),y=0,x=-1$ và $x=5$ (hình minh họa). Mệnh đề nào sau đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q9_img1.9585.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đường $y=f(x),y=0,x=-1$ và $x=5$ (hình minh họa). Mệnh đề nào sau đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đườ\" data-src=\"/images/practice/sieugioi/q9_img1.9585.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9585.png\" class=\"bbImage\" style=\"width: 273px\" alt=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đườ\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đườ\" width=\"413\" height=\"281\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=-\\int\\limits_{-1}^{1}{f(x)dx}-\\int\\limits_{1}^{5}{f(x)dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=-\\int\\limits_{-1}^{1}{f(x)dx}+\\int\\limits_{1}^{5}{f(x)dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\int\\limits_{-1}^{1}{f(x)dx}-\\int\\limits_{1}^{5}{f(x)dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\int\\limits_{-1}^{1}{f(x)dx}+\\int\\limits_{1}^{5}{f(x)dx}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Quan sát hình vẽ, trên đoạn $[-1;1]$ thì đồ thị nằm phía trên trục hoành nên $f(x)\\ge 0$. Trên đoạn $[1;5]$ thì đồ thị nằm phía dưới trục hoành nên $f(x)\\le 0$. Diện tích hình phẳng là: $S=\\int\\limits_{-1}^{1}{f(x)dx}-\\int\\limits_{1}^{5}{f(x)dx}$ Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9585.png",
+        "images": [
+          "/images/practice/sieugioi/q9_img1.9585.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Diện tích phần gạch sọc trong hình vẽ bằng\n\n![hình minh họa](/images/practice/sieugioi/q10_img1.9586.png)",
+        "promptHtml": "Diện tích phần gạch sọc trong hình vẽ bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần gạch sọc trong hình vẽ bằng\" data-src=\"/images/practice/sieugioi/q10_img1.9586.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9586.png\" class=\"bbImage\" style=\"width: 250px\" alt=\"Diện tích phần gạch sọc trong hình vẽ bằng\" title=\"Diện tích phần gạch sọc trong hình vẽ bằng\" width=\"419\" height=\"313\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int\\limits_{-3}^{1}{\\left| -{{x}^{2}}-2x-3 \\right|dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int\\limits_{-3}^{1}{\\left( {{x}^{2}}-2x-3 \\right)dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int\\limits_{-3}^{1}{\\left( -{{x}^{2}}-2x+3 \\right)dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int\\limits_{-3}^{1}{\\left( {{x}^{2}}+2x-3 \\right)dx}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ hình vẽ, ta thấy phần gạch sọc được giới hạn bởi: $y={{x}^{2}}+x-2$ Và $y=-x+1$. Hai đồ thị cắt nhau khi: ${{x}^{2}}+x-2=-x+1$ $\\Leftrightarrow {{x}^{2}}+2x-3=0$$\\Leftrightarrow (x+3)(x-1)=0$ $\\Leftrightarrow x=-3$ hoặc $x=1$. Trên đoạn $[-3;1]$, đường thẳng nằm phía trên parabol. Diện tích là: $S=\\int\\limits_{-3}^{1}{\\left[ \\left( -x+1 \\right)-\\left( {{x}^{2}}+x-2 \\right) \\right]dx}$$=\\int\\limits_{-3}^{1}{\\left( -{{x}^{2}}-2x+3 \\right)dx}$. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9586.png",
+        "images": [
+          "/images/practice/sieugioi/q10_img1.9586.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Diện tích hình phẳng giới hạn bởi đường thẳng $y=x$ và đồ thị của hàm số $y={{x}^{2}}-2x$ bằng",
+        "promptHtml": "Diện tích hình phẳng giới hạn bởi đường thẳng $y=x$ và đồ thị của hàm số $y={{x}^{2}}-2x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{7}{2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{9}{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $x={{x}^{2}}-2x\\Leftrightarrow {{x}^{2}}-3x=0\\Leftrightarrow \\left[ \\begin{align} & x=0 \\\\ & x=3 \\\\ \\end{align} \\right.$. Diện tích hình phẳng: $S=\\int\\limits_{0}^{3}{\\left| {{x}^{2}}-3x \\right|dx}=\\int\\limits_{0}^{3}{\\left( 3x-{{x}^{2}} \\right)}dx=\\left. \\left( \\frac{3}{2}{{x}^{2}}-\\frac{1}{3}{{x}^{3}} \\right) \\right|_{0}^{3}=\\frac{9}{2}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Gọi $V$ là thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị hàm số $y={{\\text{e}}^{x}}$, trục hoành và hai đường thẳng $x=0$, $x=3$ quanh trục Ox. Khi đó $V$ bằng",
+        "promptHtml": "Gọi $V$ là thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị hàm số $y={{\\text{e}}^{x}}$, trục hoành và hai đường thẳng $x=0$, $x=3$ quanh trục Ox. Khi đó $V$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int\\limits_{0}^{3}{{{\\text{e}}^{2x}}}\\text{d}x$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int\\limits_{0}^{3}{{{\\text{e}}^{x}}}\\text{d}x$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\pi \\int\\limits_{0}^{3}{{{\\text{e}}^{x}}}\\text{d}x$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\pi \\int\\limits_{0}^{3}{{{\\text{e}}^{2x}}}\\text{d}x$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$V=\\pi \\int\\limits_{0}^{3}{{{\\left( {{\\text{e}}^{x}} \\right)}^{2}}}\\text{d}x=\\pi \\int\\limits_{0}^{3}{{{\\text{e}}^{2x}}}\\text{d}x$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1793_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y=3{{x}^{2}}+1$, trục hoành và hai đường thẳng $x=0,x=2$ là",
+        "promptHtml": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y=3{{x}^{2}}+1$, trục hoành và hai đường thẳng $x=0,x=2$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$8$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$12$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y=3{{x}^{2}}+1$, trục hoành và hai đường thẳng $x=0,x=2$ là $\\int\\limits_{0}^{2}{\\left( 3{{x}^{2}}+1 \\right)\\text{d}x}=\\left. \\left( {{x}^{3}}+x \\right) \\right|_{0}^{2}=10$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:50.636Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân 13 Bài Tập Từ Cơ Bản Đến Nâng Cao",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-13-bai-tap-tu-co-ban-den-nang-cao.1793/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 13",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong mặt phẳng với hệ tọa độ $Oxy$, diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm<br>\nsố $y=3x-1$, trục hoành và hai đường thẳng $x=1,x=3$ được xác định bằng công thức nào sau<br>\nđây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=\\int_{1}^{3}{{{(3x-1)}^{2}}}dx$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\pi \\int_{1}^{3}{|}3x-1|dx$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\int_{1}^{3}{(3x-1)}dx$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\pi \\int_{1}^{3}{{{(3x-1)}^{2}}}dx$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Diện tích $S$ của hình phẳng là:  $S=\\int_{1}^{3}{|}3x-1|dx$.<br>\nVới $x\\in [1;3]$, biểu thức $3x-1$ luôn dương ($3x-1&gt;0$ khi $x&gt;1/3$).<br>\nDo đó: $S=\\int_{1}^{3}{|}3x-1|dx=\\int_{1}^{3}{(3x-1)}dx$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Xét hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$. Tính thể tích khối tròn xoay khi quay hình phẳng $\\left( H \\right)$ quanh trục $Ox$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$33$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{33}{5}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{33\\pi }{5}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$33\\pi $.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình phẳng $\\left( H \\right):\\left\\{ \\begin{align}<br>\n&amp; y={{x}^{2}}-4x+4 \\\\<br>\n&amp; Ox:y=0 \\\\<br>\n&amp; x=0,\\ x=3 \\\\<br>\n\\end{align} \\right.$. Hàm số $y={{x}^{2}}-4x+4$ nhận giá trị dương và liên tục trên $\\left[ 0;\\ 3 \\right]$<br>\nSuy ra ${{V}_{H}}=\\pi \\int\\limits_{0}^{3}{{{\\left( {{x}^{2}}-4x+4 \\right)}^{2}}\\text{d}x}=\\frac{33\\pi }{5}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục và không âm trên đoạn $[0;2]$. Thể tích khối tròn xoay sinh ra khi quay quanh trục $Ox$ hình phẳng giới hạn bởi đồ thị hàm số $y=f(x)$, trục hoành và hai đường thẳng $x=0,x=2$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int_{0}^{2}{f}(x)dx$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\pi \\int\\limits_{0}^{2}{{{\\left[ f\\left( x \\right) \\right]}^{2}}dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int\\limits_{0}^{2}{{{\\left[ f\\left( x \\right) \\right]}^{2}}dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\pi \\int_{0}^{2}{f}(x)dx$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn B</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong mặt phẳng với hệ tọa độ Oxy, diện tích S của hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{2}}-2x$, trục hoành và hai đường thẳng $x=-1,x=3$ được xác định bằng công thức",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=\\pi \\int _{-1}^{3}\\left| {{x}^{2}}-2x \\right|dx$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\pi \\int _{-1}^{3}{{\\left( {{x}^{2}}-2x \\right)}^{2}}dx$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\int _{-1}^{3}\\left| {{x}^{2}}-2x \\right|dx$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\left| \\int _{-1}^{3}\\left( {{x}^{2}}-2x \\right)dx \\right|$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $S=\\int _{-1}^{3}\\left| {{x}^{2}}-2x \\right|dx$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hình phẳng $(H)$ giới hạn bởi các đường $y={{x}^{2}}+3$, $y=0$, $x=0$, $x=5$. Gọi $V$ là thể tích của khối tròn xoay sinh ra khi quay $(H)$ xung quanh trục $Ox$. Mệnh đề nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$V=\\pi \\int\\limits_{0}^{5}{({{x}^{2}}+3)}dx.$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$V=\\pi \\int\\limits_{0}^{5}{{{({{x}^{2}}+3)}^{2}}}dx.$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$V=\\int\\limits_{0}^{5}{{{({{x}^{2}}+3)}^{2}}}dx.$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$V=\\int\\limits_{0}^{5}{({{x}^{2}}+3)}dx.$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $V=\\pi \\int\\limits_{0}^{5}{{{({{x}^{2}}+3)}^{2}}}dx.$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Khi cắt một vật thể bởi mặt phẳng vuông góc với trục $Ox$ tại điểm có hoành độ $x$ với mặt cắt là hình vuông có độ dài cạnh là $\\sqrt{3-{{x}^{2}}}\\,\\,\\left( -\\sqrt{3}\\le x\\le \\sqrt{3} \\right)$. Thể tích của vật thể đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\sqrt{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4\\sqrt{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$4\\pi \\sqrt{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\pi \\sqrt{3}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Thể tích của vật thể đã cho là $V={{\\int\\limits_{-\\sqrt{3}}^{\\sqrt{3}}{\\left( \\sqrt{3-{{x}^{2}}} \\right)}}^{2}}dx=\\left. \\left( 3x-\\frac{{{x}^{3}}}{3} \\right) \\right|_{-\\sqrt{3}}^{\\sqrt{3}}=4\\sqrt{3}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Một hoạ tiết hình cánh bướm như hình vẽ.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Một hoạ tiết hình cánh bướm như hình vẽ.\" data-src=\"/images/practice/sieugioi/q7_img1.9584.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9584.png\" class=\"bbImage\" style=\"width: 190px\" alt=\"Một hoạ tiết hình cánh bướm như hình vẽ.\" title=\"Một hoạ tiết hình cánh bướm như hình vẽ.\" width=\"293\" height=\"342\" loading=\"lazy\">\n\t</div><br>\nPhần tô đậm được đính đá với giá thành $500.000\\text{d}/{{m}^{2}}$. Phần còn lại được tô màu với giá thành $300.000\\text{d}/{{m}^{2}}$. Cho biết $AB=4dm$, $BC=8dm$. Hỏi để trang trí 1000 hoạ tiết như vậy cần số tiền gần nhất với số nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$138.666.667\\text{d}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$138.666.667\\text{d}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$117.333.334\\text{d}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$117.433.334\\text{d}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đặt hệ trục với tâm hình chữ nhật là gốc tọa độ. Khi đó $AB=4dm$ nên nửa chiều rộng là $2$, còn $BC=8dm$ nên nửa chiều cao là $4$.<br>\nHai đường cong đi qua $(-2,4)$, $(0,0)$, $(2,4)$ và $(-2,-4)$, $(0,0)$, $(2,-4)$ nên có phương trình lần lượt là $y={{x}^{2}}$ và $y=-{{x}^{2}}$.<br>\nDiện tích hình chữ nhật là ${{S}_{HCN}}=4\\cdot 8=32\\ d{{m}^{2}}$.<br>\nDiện tích phần trắng ở giữa là ${{S}_{tr?ng}}=\\int_{-2}^{2}{\\left( {{x}^{2}}-(-{{x}^{2}}) \\right)}dx=2\\int_{-2}^{2}{{{x}^{2}}}dx=2\\cdot \\frac{16}{3}=\\frac{32}{3}\\ d{{m}^{2}}$.<br>\nDiện tích phần tô đậm là ${{S}_{d?m}}=32-\\frac{32}{3}=\\frac{64}{3}\\ d{{m}^{2}}$.<br>\nĐổi ra ${{m}^{2}}$: $\\frac{64}{3}\\ d{{m}^{2}}=\\frac{64}{300}\\ {{m}^{2}}$,<br>\n$\\frac{32}{3}\\ d{{m}^{2}}=\\frac{32}{300}\\ {{m}^{2}}$.<br>\nTiền cho 1 họa tiết là ${{T}_{1}}=500000\\cdot \\frac{64}{300}+300000\\cdot \\frac{32}{300}=106666,67+32000=138666,67\\ \\text{d?ng}$.<br>\nVậy 1000 họa tiết cần<br>\n$T=138666,67\\cdot 1000\\approx 138666667\\ \\text{d?ng}$.<br>\nKết quả là $138666667$ đồng. Trong đề, giá trị này bị in trùng ở A và B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9584.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong mặt phẳng với hệ tọa độ $Oxy$, diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=-3{{x}^{2}}-2x+8$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$ được xác định bởi công thức",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{{{\\left( -3{{x}^{2}}-2x+8 \\right)}^{2}}}dx.$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{\\left| -3{{x}^{2}}-2x+8 \\right|}dx.$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\left| \\int\\limits_{0}^{2}{\\left( -3{{x}^{2}}-2x+8 \\right)dx} \\right|.$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\int\\limits_{0}^{2}{\\left| -3{{x}^{2}}-2x+8 \\right|}dx.$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Diện tích hình phẳng giới hạn bởi đồ thị $y=-3{{x}^{2}}-2x+8$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$ là: $S=\\int\\limits_{0}^{2}{\\left| -3{{x}^{2}}-2x+8 \\right|dx}$.<br>\nVì diện tích luôn lấy giá trị dương nên phải có dấu giá trị tuyệt đối đối với hàm số.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đường $y=f(x),y=0,x=-1$ và $x=5$ (hình minh họa). Mệnh đề nào sau đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đườ\" data-src=\"/images/practice/sieugioi/q9_img1.9585.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9585.png\" class=\"bbImage\" style=\"width: 273px\" alt=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đườ\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$. Gọi $S$ là diện tích hình phẳng giới hạn bởi các đườ\" width=\"413\" height=\"281\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=-\\int\\limits_{-1}^{1}{f(x)dx}-\\int\\limits_{1}^{5}{f(x)dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=-\\int\\limits_{-1}^{1}{f(x)dx}+\\int\\limits_{1}^{5}{f(x)dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\int\\limits_{-1}^{1}{f(x)dx}-\\int\\limits_{1}^{5}{f(x)dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\int\\limits_{-1}^{1}{f(x)dx}+\\int\\limits_{1}^{5}{f(x)dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Quan sát hình vẽ, trên đoạn $[-1;1]$ thì đồ thị nằm phía trên trục hoành nên $f(x)\\ge 0$.<br>\nTrên đoạn $[1;5]$ thì đồ thị nằm phía dưới trục hoành nên $f(x)\\le 0$.<br>\nDiện tích hình phẳng là: $S=\\int\\limits_{-1}^{1}{f(x)dx}-\\int\\limits_{1}^{5}{f(x)dx}$<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9585.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Diện tích phần gạch sọc trong hình vẽ bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần gạch sọc trong hình vẽ bằng\" data-src=\"/images/practice/sieugioi/q10_img1.9586.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9586.png\" class=\"bbImage\" style=\"width: 250px\" alt=\"Diện tích phần gạch sọc trong hình vẽ bằng\" title=\"Diện tích phần gạch sọc trong hình vẽ bằng\" width=\"419\" height=\"313\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int\\limits_{-3}^{1}{\\left| -{{x}^{2}}-2x-3 \\right|dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int\\limits_{-3}^{1}{\\left( {{x}^{2}}-2x-3 \\right)dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int\\limits_{-3}^{1}{\\left( -{{x}^{2}}-2x+3 \\right)dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int\\limits_{-3}^{1}{\\left( {{x}^{2}}+2x-3 \\right)dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Từ hình vẽ, ta thấy phần gạch sọc được giới hạn bởi: $y={{x}^{2}}+x-2$<br>\nVà $y=-x+1$.<br>\nHai đồ thị cắt nhau khi: ${{x}^{2}}+x-2=-x+1$<br>\n$\\Leftrightarrow {{x}^{2}}+2x-3=0$$\\Leftrightarrow (x+3)(x-1)=0$<br>\n$\\Leftrightarrow x=-3$ hoặc $x=1$.<br>\nTrên đoạn $[-3;1]$, đường thẳng nằm phía trên parabol.<br>\nDiện tích là: $S=\\int\\limits_{-3}^{1}{\\left[ \\left( -x+1 \\right)-\\left( {{x}^{2}}+x-2 \\right) \\right]dx}$$=\\int\\limits_{-3}^{1}{\\left( -{{x}^{2}}-2x+3 \\right)dx}$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9586.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Diện tích hình phẳng giới hạn bởi đường thẳng $y=x$ và đồ thị của hàm số $y={{x}^{2}}-2x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{7}{2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{9}{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $x={{x}^{2}}-2x\\Leftrightarrow {{x}^{2}}-3x=0\\Leftrightarrow \\left[ \\begin{align}<br>\n&amp; x=0 \\\\<br>\n&amp; x=3 \\\\<br>\n\\end{align} \\right.$.<br>\nDiện tích hình phẳng: $S=\\int\\limits_{0}^{3}{\\left| {{x}^{2}}-3x \\right|dx}=\\int\\limits_{0}^{3}{\\left( 3x-{{x}^{2}} \\right)}dx=\\left. \\left( \\frac{3}{2}{{x}^{2}}-\\frac{1}{3}{{x}^{3}} \\right) \\right|_{0}^{3}=\\frac{9}{2}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Gọi $V$ là thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị hàm số $y={{\\text{e}}^{x}}$, trục hoành và hai đường thẳng $x=0$, $x=3$ quanh trục Ox. Khi đó $V$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int\\limits_{0}^{3}{{{\\text{e}}^{2x}}}\\text{d}x$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int\\limits_{0}^{3}{{{\\text{e}}^{x}}}\\text{d}x$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\pi \\int\\limits_{0}^{3}{{{\\text{e}}^{x}}}\\text{d}x$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\pi \\int\\limits_{0}^{3}{{{\\text{e}}^{2x}}}\\text{d}x$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$V=\\pi \\int\\limits_{0}^{3}{{{\\left( {{\\text{e}}^{x}} \\right)}^{2}}}\\text{d}x=\\pi \\int\\limits_{0}^{3}{{{\\text{e}}^{2x}}}\\text{d}x$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y=3{{x}^{2}}+1$, trục hoành và hai đường thẳng $x=0,x=2$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$8$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$12$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y=3{{x}^{2}}+1$, trục hoành và hai đường thẳng $x=0,x=2$ là $\\int\\limits_{0}^{2}{\\left( 3{{x}^{2}}+1 \\right)\\text{d}x}=\\left. \\left( {{x}^{3}}+x \\right) \\right|_{0}^{2}=10$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:50.636Z"
+}

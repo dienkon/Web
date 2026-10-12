@@ -1,0 +1,1070 @@
+{
+  "meta": {
+    "title": "Đề 2. 15 Bài Tập Vectơ Trong Không Gian Giúp Bạn Nắm Chắc Kiến Thức",
+    "slug": "de-2-15-bai-tap-vecto-trong-khong-gian-giup-ban-nam-chac-kien-thuc",
+    "id": "1770",
+    "url": "https://sieugioi.com/docs/threads/de-2-15-bai-tap-vecto-trong-khong-gian-giup-ban-nam-chac-kien-thuc.1770/",
+    "numId": 1770,
+    "bai": 8,
+    "topicId": "math_t7_oxyz_coords",
+    "baiTitle": "Biểu thức tọa độ của các phép toán vectơ",
+    "chapter": "Chương 2"
+  },
+  "extracted": {
+    "title": "Đề 2. 15 Bài Tập Vectơ Trong Không Gian Giúp Bạn Nắm Chắc Kiến Thức",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-2-15-bai-tap-vecto-trong-khong-gian-giup-ban-nam-chac-kien-thuc.1770/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 15,
+    "questionsWithOptions": 15,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 0,
+    "manualReviewCount": 15,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 13: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 14: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 15: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1770_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong không giang $Oxyz$, cho hai điểm $A(1;1;-2),\\text{ }B(2;2;1)$. Vectơ $\\overrightarrow{AB}$ có tọa độ là",
+        "promptHtml": "Trong không giang $Oxyz$, cho hai điểm $A(1;1;-2),\\text{ }B(2;2;1)$. Vectơ $\\overrightarrow{AB}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(3;1;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(3;1;-1)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-1;-1;-3)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(1;1;3)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$\\overrightarrow{AB}=(1;1;3)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho $A\\left( 2;-2;1 \\right),\\,B\\left( 0;1;2 \\right)$. Tọa độ điểm M thuộc mặt phẳng $\\left( Oxy \\right)$sao cho ba điểm $A,\\,B,\\,M$thẳng hàng là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho $A\\left( 2;-2;1 \\right),\\,B\\left( 0;1;2 \\right)$. Tọa độ điểm M thuộc mặt phẳng $\\left( Oxy \\right)$sao cho ba điểm $A,\\,B,\\,M$thẳng hàng là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$M\\left( 4;-5;0 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$M\\left( 2;-3;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$M\\left( 4;5;0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$M\\left( 0;0;1 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Gọi $M\\left( x;y;0 \\right)\\in \\left( Oxy \\right)$\nTa có: $\\overrightarrow{AB}\\left( -2;3;1 \\right)$và $\\overrightarrow{AM}\\left( x-2;y+2;-1 \\right)$\nĐể $A,\\,B,\\,M$thẳng hàng thì $\\overrightarrow{AB}$và $\\overrightarrow{AM}$ cùng phương, khi đó: $\\frac{x-2}{-2}=\\frac{y+2}{3}=\\frac{-1}{1}\\Leftrightarrow \\left\\{ \\begin{matrix} x=4 \\\\ y=-5 \\\\ \\end{matrix} \\right.$\nVậy $M\\left( 4;-5;0 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ Oxyz , cho $\\overrightarrow{a}=(1;2;3);\\overrightarrow{b}=(2;2;-1).$ Tọa độ $\\overrightarrow{a}-2\\overrightarrow{b}$ là:",
+        "promptHtml": "Trong không gian với hệ tọa độ Oxyz , cho $\\overrightarrow{a}=(1;2;3);\\overrightarrow{b}=(2;2;-1).$ Tọa độ $\\overrightarrow{a}-2\\overrightarrow{b}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-3;-2;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(3;2;5)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-3;-2;5)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(-1;0;4)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $\\begin{align} & \\overrightarrow{a}=(1;2;3) \\\\ & 2\\overrightarrow{b}=(4;4;-2) \\\\ & \\Rightarrow \\overrightarrow{a}-2\\overrightarrow{b}=(-3;-2;5) \\\\ \\end{align}$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hai vecto $\\vec{a}=(1;-2;1)$, $\\vec{b}=(-2;1;1)$. Góc giữa hai vecto $\\vec{a}$ và $\\vec{b}$ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hai vecto $\\vec{a}=(1;-2;1)$, $\\vec{b}=(-2;1;1)$. Góc giữa hai vecto $\\vec{a}$ và $\\vec{b}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{30}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{120}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{60}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{150}^{{}^\\circ }}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\cos(\\vec{a}, \\vec{b}) = \\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{a}|\\cdot|\\vec{b}|} = \\frac{1(-1) + (-2)(1) + 1(-2)}{\\sqrt{1^2+(-2)^2+1^2}\\cdot\\sqrt{(-1)^2+1^2+(-2)^2}} = \\frac{-1-2-2}{\\sqrt{6}\\cdot\\sqrt{6}} = \\frac{-3}{6} = -\\frac{1}{2}$. Do đó góc giữa hai vectơ là $120^\\circ$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$ cho hai vectơ $\\vec{a}=\\left( 2;1;3 \\right)$và $\\vec{b}=\\left( 1;5;2 \\right)$. Tích vô hướng $\\vec{a}.\\vec{b}$bằng",
+        "promptHtml": "Trong không gian $Oxyz$ cho hai vectơ $\\vec{a}=\\left( 2;1;3 \\right)$và $\\vec{b}=\\left( 1;5;2 \\right)$. Tích vô hướng $\\vec{a}.\\vec{b}$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$42$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-13$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$14$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$13$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{a}.\\overrightarrow{b}=2.1+1.5+3.2=13$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai điểm $A\\left( 1;2;3 \\right)$ và $B\\left( 2;1;1 \\right)$. Tọa độ của vectơ $\\overrightarrow{AB}$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai điểm $A\\left( 1;2;3 \\right)$ và $B\\left( 2;1;1 \\right)$. Tọa độ của vectơ $\\overrightarrow{AB}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 1;-1;2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 3;5;4 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -1;1;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;-1;-2 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Tọa độ vectơ $\\overrightarrow{AB}=\\left( 1;-1;-2 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ Oxyz, cho các điểm $A\\left( 2;2;3 \\right)$, $B\\left( 2;-2;-1 \\right)$. Tọa độ của điểm $M$ thỏa mãn hệ thức $\\overrightarrow{MA}+3.\\overrightarrow{MB}=\\vec{0}$ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ Oxyz, cho các điểm $A\\left( 2;2;3 \\right)$, $B\\left( 2;-2;-1 \\right)$. Tọa độ của điểm $M$ thỏa mãn hệ thức $\\overrightarrow{MA}+3.\\overrightarrow{MB}=\\vec{0}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;-1;0 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -2;-1;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 2;1;0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 2;-1;1 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "${{x}_{M}}=\\frac{{{x}_{A}}+3.{{x}_{B}}}{1+3}=\\frac{2+3.2}{4}=\\frac{8}{4}=2$\n${{y}_{M}}=\\frac{{{y}_{A}}+3.{{y}_{B}}}{1+3}=\\frac{2+3.\\left( -2 \\right)}{4}=\\frac{-4}{4}=-1$\n${{z}_{M}}=\\frac{{{z}_{A}}+3.{{z}_{B}}}{1+3}=\\frac{3+3.\\left( -1 \\right)}{4}=\\frac{0}{4}=0$\nVậy tọa độ điểm $M\\left( 2;-1;0 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai vecto $\\vec{u}=\\left( 1;3;-2 \\right)$ và $\\vec{v}=(2;1;-1)$. Tọa độ của vectơ $\\vec{u}-\\vec{v}$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai vecto $\\vec{u}=\\left( 1;3;-2 \\right)$ và $\\vec{v}=(2;1;-1)$. Tọa độ của vectơ $\\vec{u}-\\vec{v}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 3;4;-3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -1;2;-3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -1;2;-1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;-2;1 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Tọa độ của vectơ $\\vec{u}-\\vec{v}$ là $\\vec{u}-\\vec{v}=\\left( -1;2;-1 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Trong không gian, chọn hệ trục tọa độ cho trước, đơn vị đo lấy kilômét, ra đa phát hiện một máy bay di chuyển với vận tốc và hướng không đổi từ điểm $A\\left( 100;50;5 \\right)$đến điểm $B\\left( 200;100;10 \\right)$ trong 10 phút. Nếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì tọa độ của máy bay sau 10 phút tiếp theo là điểm nào?",
+        "promptHtml": "Trong không gian, chọn hệ trục tọa độ cho trước, đơn vị đo lấy kilômét, ra đa phát hiện một máy bay di chuyển với vận tốc và hướng không đổi từ điểm $A\\left( 100;50;5 \\right)$đến điểm $B\\left( 200;100;10 \\right)$ trong 10 phút. Nếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì tọa độ của máy bay sau 10 phút tiếp theo là điểm nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$M\\left( 100;50;5 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$N\\left( 200;150;-15 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$D\\left( -300;150;15 \\right)$ ."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$C\\left( 300;150;15 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Nếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì sau 10 phút tiếp theo máy bay sẽ bay đến một vị trí mới $\\left( x;y;z \\right)$ sao cho $B\\left( 200;100;10 \\right)$ là trung điểm của đoạn nối $A\\left( 100;50;5 \\right)$ với vị trí đó. Nên ta có:\n$\\left\\{ \\begin{array}{l} 100 + x = 400\\\\ 50 + y = 200\\\\ 5 + z = 20 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 300\\\\ y = 150\\\\ z = 15 \\end{array} \\right.$\n Vậy chọn đáp án D\n\t\t\n\tNếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì sau 10 phút tiếp theo máy bay sẽ bay đến một vị trí mới $\\left( x;y;z \\right)$ sao cho $B\\left( 200;100;10 \\right)$ là trung điểm của đoạn nối $A\\left( 100;50;5 \\right)$ với vị trí đó. Nên ta có:\n$\\left\\{ \\begin{array}{l} 100 + x = 400\\\\ 50 + y = 200\\\\ 5 + z = 20 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 300\\\\ y = 150\\\\ z = 15 \\end{array} \\right.$\n Vậy chọn đáp án D",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho các điểm $A\\left( 1;1;2 \\right),B\\left( 3;1;0 \\right)$. Trung điểm của đoạn thẳng $AB$ có tọa độ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho các điểm $A\\left( 1;1;2 \\right),B\\left( 3;1;0 \\right)$. Trung điểm của đoạn thẳng $AB$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;1;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 4;2;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 2;0;-2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;0;-1 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Trung điểm của đoạn thẳng $AB$ có tọa độ là $\\left( 2;1;1 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho hình bình hành $ABCD$ có $A\\left( 2;1;-3 \\right),$$B(0;-2;2),C\\left( 4;-3;0 \\right)$. Toạ độ điểm D là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho hình bình hành $ABCD$ có $A\\left( 2;1;-3 \\right),$$B(0;-2;2),C\\left( 4;-3;0 \\right)$. Toạ độ điểm D là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;0;-5 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 6;0;-5 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 2;0;5 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 6;0;5 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Gọi $D\\left( x;y;z \\right)$, vì $ABCD$ là hình bình hành nên ta có $\\overrightarrow{BA}=\\overrightarrow{CD}$, tức là\n$\\left\\{ \\begin{align} & x-4=2 \\\\ & y+3=3 \\\\ & z=-5 \\\\ \\end{align} \\right.$, suy ra $\\left\\{ \\begin{align} & x=6 \\\\ & y=0 \\\\ & z=-5 \\\\ \\end{align} \\right.$.\nVậy $D\\left( 6;0;-5 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, gọi $M'$ là hình chiếu vuông góc của điểm $M\\left( 2;3;-1 \\right)$ trên trục $Oy$. Khi đó $\\overrightarrow{MM'}$ có tọa độ là",
+        "promptHtml": "Trong không gian $Oxyz$, gọi $M'$ là hình chiếu vuông góc của điểm $M\\left( 2;3;-1 \\right)$ trên trục $Oy$. Khi đó $\\overrightarrow{MM'}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 0;2;3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 3;0;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -2;0;1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 0;2;3 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có hình chiếu vuông góc của điểm $M\\left( 2;3;-1 \\right)$ trên trục $Oy$ là: $M'\\left( 0;3;0 \\right)$.\nVậy: $\\overrightarrow{MM'}=\\left( -2;0;1 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai vectơ $\\vec{a}=(1;2;3),\\ \\vec{b}=(2;2;-1)$. Tọa độ của vectơ $\\vec{a}-2\\vec{b}$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai vectơ $\\vec{a}=(1;2;3),\\ \\vec{b}=(2;2;-1)$. Tọa độ của vectơ $\\vec{a}-2\\vec{b}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-3;-2;5)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(-1;0;4)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(3;2;5)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(-3;-2;1)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $\\vec{a}-2\\vec{b}=(1;2;3)-2(2;2;-1)=(1;2;3)-(4;4;-2)=(-3;-2;5)$.\nChọn câu A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$ cho hình bình hành $ABCD$ và tọa độ các điểm $A(3;1;2)$, $B(1;0;1)$, $C(2;3;0)$. Tọa độ đỉnh $D$ là:",
+        "promptHtml": "Trong không gian $Oxyz$ cho hình bình hành $ABCD$ và tọa độ các điểm $A(3;1;2)$, $B(1;0;1)$, $C(2;3;0)$. Tọa độ đỉnh $D$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$D(4;4;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$D(1;1;0)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$D(0;2;-1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$D(1;3;-1)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Với hình bình hành $ABCD$, ta có $\\overrightarrow{AD}=\\overrightarrow{BC}$ nên $D=A+C-B$.\nSuy ra $D(3,1,2)+(2,3,0)-(1,0,1)=(4,4,1)$.\nChọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1770_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ có $A(1;2;-1)$, $B(3;1;-2)$, $C(4;-2;1)$ và ${D}'(2;1;5)$. Tọa độ của điểm ${A}'$ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ có $A(1;2;-1)$, $B(3;1;-2)$, $C(4;-2;1)$ và ${D}'(2;1;5)$. Tọa độ của điểm ${A}'$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(1;0;-4)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(1;4;2)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-3;6;4)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(4;0;4)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": ""
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Với hình hộp $ABCD.{A}'{B}'{C}'{D}'$, ta có: $\\overrightarrow{A{A}'}=\\overrightarrow{D{D}'}$. Trước hết tìm tọa độ $D$ của hình bình hành $ABCD$: $D=A+C-B$. Với: $A(1;2;-1),\\ B(3;1;-2),\\ C(4;-2;1)$, suy ra: $D=(1+4-3;\\ 2+(-2)-1;\\ -1+1-(-2))=(2;-1;2)$. Khi đó: $\\overrightarrow{D{D}'}={D}'-D=(2;1;5)-(2;-1;2)=(0;2;3)$. Suy ra: ${A}'=A+\\overrightarrow{D{D}'}=(1;2;-1)+(0;2;3)=(1;4;2)$. Chọn"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Với hình hộp $ABCD.{A}'{B}'{C}'{D}'$, ta có: $\\overrightarrow{A{A}'}=\\overrightarrow{D{D}'}$. Trước hết tìm tọa độ $D$ của hình bình hành $ABCD$: $D=A+C-B$. Với: $A(1;2;-1),\\ B(3;1;-2),\\ C(4;-2;1)$, suy ra: $D=(1+4-3;\\ 2+(-2)-1;\\ -1+1-(-2))=(2;-1;2)$. Khi đó: $\\overrightarrow{D{D}'}={D}'-D=(2;1;5)-(2;-1;2)=(0;2;3)$. Suy ra: ${A}'=A+\\overrightarrow{D{D}'}=(1;2;-1)+(0;2;3)=(1;4;2)$. Chọn"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Với hình hộp $ABCD.{A}'{B}'{C}'{D}'$, ta có: $\\overrightarrow{A{A}'}=\\overrightarrow{D{D}'}$. Trước hết tìm tọa độ $D$ của hình bình hành $ABCD$: $D=A+C-B$. Với: $A(1;2;-1),\\ B(3;1;-2),\\ C(4;-2;1)$, suy ra: $D=(1+4-3;\\ 2+(-2)-1;\\ -1+1-(-2))=(2;-1;2)$. Khi đó: $\\overrightarrow{D{D}'}={D}'-D=(2;1;5)-(2;-1;2)=(0;2;3)$. Suy ra: ${A}'=A+\\overrightarrow{D{D}'}=(1;2;-1)+(0;2;3)=(1;4;2)$. Chọn"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Với hình hộp $ABCD.{A}'{B}'{C}'{D}'$, ta có: $\\overrightarrow{A{A}'}=\\overrightarrow{D{D}'}$.\nTrước hết tìm tọa độ $D$ của hình bình hành $ABCD$: $D=A+C-B$.\nVới: $A(1;2;-1),\\ B(3;1;-2),\\ C(4;-2;1)$,\nsuy ra: $D=(1+4-3;\\ 2+(-2)-1;\\ -1+1-(-2))=(2;-1;2)$.\nKhi đó: $\\overrightarrow{D{D}'}={D}'-D=(2;1;5)-(2;-1;2)=(0;2;3)$.\nSuy ra: ${A}'=A+\\overrightarrow{D{D}'}=(1;2;-1)+(0;2;3)=(1;4;2)$.\nChọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:42.158Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 2. 15 Bài Tập Vectơ Trong Không Gian Giúp Bạn Nắm Chắc Kiến Thức",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-2-15-bai-tap-vecto-trong-khong-gian-giup-ban-nam-chac-kien-thuc.1770/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 15",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong không giang $Oxyz$, cho hai điểm $A(1;1;-2),\\text{ }B(2;2;1)$. Vectơ $\\overrightarrow{AB}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(3;1;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(3;1;-1)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-1;-1;-3)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(1;1;3)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\overrightarrow{AB}=(1;1;3)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho $A\\left( 2;-2;1 \\right),\\,B\\left( 0;1;2 \\right)$. Tọa độ điểm M thuộc mặt phẳng $\\left( Oxy \\right)$sao cho ba điểm $A,\\,B,\\,M$thẳng hàng là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$M\\left( 4;-5;0 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$M\\left( 2;-3;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$M\\left( 4;5;0 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$M\\left( 0;0;1 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Gọi $M\\left( x;y;0 \\right)\\in \\left( Oxy \\right)$<br>\nTa có: $\\overrightarrow{AB}\\left( -2;3;1 \\right)$và $\\overrightarrow{AM}\\left( x-2;y+2;-1 \\right)$<br>\nĐể $A,\\,B,\\,M$thẳng hàng thì $\\overrightarrow{AB}$và $\\overrightarrow{AM}$ cùng phương, khi đó: $\\frac{x-2}{-2}=\\frac{y+2}{3}=\\frac{-1}{1}\\Leftrightarrow \\left\\{ \\begin{matrix} x=4 \\\\ y=-5 \\\\ \\end{matrix} \\right.$<br>\nVậy $M\\left( 4;-5;0 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ Oxyz , cho $\\overrightarrow{a}=(1;2;3);\\overrightarrow{b}=(2;2;-1).$ Tọa độ $\\overrightarrow{a}-2\\overrightarrow{b}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-3;-2;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(3;2;5)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-3;-2;5)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(-1;0;4)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\begin{align} &amp; \\overrightarrow{a}=(1;2;3) \\\\ &amp; 2\\overrightarrow{b}=(4;4;-2) \\\\ &amp; \\Rightarrow \\overrightarrow{a}-2\\overrightarrow{b}=(-3;-2;5) \\\\ \\end{align}$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hai vecto $\\vec{a}=(1;-2;1)$, $\\vec{b}=(-2;1;1)$. Góc giữa hai vecto $\\vec{a}$ và $\\vec{b}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{30}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{120}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{60}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{150}^{{}^\\circ }}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\cos \\left( \\overrightarrow{a},\\overrightarrow{b} \\right)=\\frac{\\overrightarrow{a}.\\overrightarrow{b}}{\\left| \\overrightarrow{a} \\right|.\\left| \\overrightarrow{b} \\right|}$$=\\frac{1.\\left( -2 \\right)+\\left( -2 \\right).1+1.1}{\\sqrt{{{1}^{2}}+{{\\left( -2 \\right)}^{2}}+{{1}^{2}}}.\\sqrt{{{\\left( -2 \\right)}^{2}}+{{1}^{2}}+{{1}^{2}}}}$$=-\\frac{1}{2}$$\\Rightarrow \\left( \\overrightarrow{a},\\overrightarrow{b} \\right)={{120}^{0}}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ cho hai vectơ $\\vec{a}=\\left( 2;1;3 \\right)$và $\\vec{b}=\\left( 1;5;2 \\right)$. Tích vô hướng $\\vec{a}.\\vec{b}$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$42$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-13$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$14$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$13$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{a}.\\overrightarrow{b}=2.1+1.5+3.2=13$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai điểm $A\\left( 1;2;3 \\right)$ và $B\\left( 2;1;1 \\right)$. Tọa độ của vectơ $\\overrightarrow{AB}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 1;-1;2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 3;5;4 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -1;1;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;-1;-2 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tọa độ vectơ $\\overrightarrow{AB}=\\left( 1;-1;-2 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ Oxyz, cho các điểm $A\\left( 2;2;3 \\right)$, $B\\left( 2;-2;-1 \\right)$. Tọa độ của điểm $M$ thỏa mãn hệ thức $\\overrightarrow{MA}+3.\\overrightarrow{MB}=\\vec{0}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;-1;0 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -2;-1;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 2;1;0 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 2;-1;1 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">${{x}_{M}}=\\frac{{{x}_{A}}+3.{{x}_{B}}}{1+3}=\\frac{2+3.2}{4}=\\frac{8}{4}=2$<br>\n${{y}_{M}}=\\frac{{{y}_{A}}+3.{{y}_{B}}}{1+3}=\\frac{2+3.\\left( -2 \\right)}{4}=\\frac{-4}{4}=-1$<br>\n${{z}_{M}}=\\frac{{{z}_{A}}+3.{{z}_{B}}}{1+3}=\\frac{3+3.\\left( -1 \\right)}{4}=\\frac{0}{4}=0$<br>\nVậy tọa độ điểm $M\\left( 2;-1;0 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai vecto $\\vec{u}=\\left( 1;3;-2 \\right)$ và $\\vec{v}=(2;1;-1)$. Tọa độ của vectơ $\\vec{u}-\\vec{v}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 3;4;-3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -1;2;-3 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -1;2;-1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;-2;1 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tọa độ của vectơ $\\vec{u}-\\vec{v}$ là $\\vec{u}-\\vec{v}=\\left( -1;2;-1 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Trong không gian, chọn hệ trục tọa độ cho trước, đơn vị đo lấy kilômét, ra đa phát hiện một máy bay di chuyển với vận tốc và hướng không đổi từ điểm $A\\left( 100;50;5 \\right)$đến điểm $B\\left( 200;100;10 \\right)$ trong 10 phút. Nếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì tọa độ của máy bay sau 10 phút tiếp theo là điểm nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$M\\left( 100;50;5 \\right)$. B. $N\\left( 200;150;-15 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$D\\left( -300;150;15 \\right)$ ."
+          },
+          {
+            "id": "opt_d",
+            "text": "$C\\left( 300;150;15 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Nếu máy bay tiếp tục giữ nguyên vận tốc và hướng bay thì sau 10 phút tiếp theo máy bay sẽ bay đến một vị trí mới $\\left( x;y;z \\right)$ sao cho $B\\left( 200;100;10 \\right)$ là trung điểm của đoạn nối $A\\left( 100;50;5 \\right)$ với vị trí đó. Nên ta có:<br>\n$\\left\\{ \\begin{array}{l} 100 + x = 400\\\\ 50 + y = 200\\\\ 5 + z = 20 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 300\\\\ y = 150\\\\ z = 15 \\end{array} \\right.$<br>\n Vậy chọn đáp án D</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho các điểm $A\\left( 1;1;2 \\right),B\\left( 3;1;0 \\right)$. Trung điểm của đoạn thẳng $AB$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;1;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 4;2;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 2;0;-2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;0;-1 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Trung điểm của đoạn thẳng $AB$ có tọa độ là $\\left( 2;1;1 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho hình bình hành $ABCD$ có $A\\left( 2;1;-3 \\right),$$B(0;-2;2),C\\left( 4;-3;0 \\right)$. Toạ độ điểm D là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;0;-5 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 6;0;-5 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 2;0;5 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 6;0;5 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Gọi $D\\left( x;y;z \\right)$, vì $ABCD$ là hình bình hành nên ta có $\\overrightarrow{BA}=\\overrightarrow{CD}$, tức là<br>\n$\\left\\{ \\begin{align} &amp; x-4=2 \\\\ &amp; y+3=3 \\\\ &amp; z=-5 \\\\ \\end{align} \\right.$, suy ra $\\left\\{ \\begin{align} &amp; x=6 \\\\ &amp; y=0 \\\\ &amp; z=-5 \\\\ \\end{align} \\right.$.<br>\nVậy $D\\left( 6;0;-5 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, gọi $M'$ là hình chiếu vuông góc của điểm $M\\left( 2;3;-1 \\right)$ trên trục $Oy$. Khi đó $\\overrightarrow{MM'}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 0;2;3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 3;0;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -2;0;1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 0;2;3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có hình chiếu vuông góc của điểm $M\\left( 2;3;-1 \\right)$ trên trục $Oy$ là: $M'\\left( 0;3;0 \\right)$.<br>\nVậy: $\\overrightarrow{MM'}=\\left( -2;0;1 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai vectơ $\\vec{a}=(1;2;3),\\ \\vec{b}=(2;2;-1)$. Tọa độ của vectơ $\\vec{a}-2\\vec{b}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-3;-2;5)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(-1;0;4)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(3;2;5)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(-3;-2;1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\vec{a}-2\\vec{b}=(1;2;3)-2(2;2;-1)=(1;2;3)-(4;4;-2)=(-3;-2;5)$.<br>\nChọn câu A.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ cho hình bình hành $ABCD$ và tọa độ các điểm $A(3;1;2)$, $B(1;0;1)$, $C(2;3;0)$. Tọa độ đỉnh $D$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$D(4;4;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$D(1;1;0)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$D(0;2;-1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$D(1;3;-1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Với hình bình hành $ABCD$, ta có $\\overrightarrow{AD}=\\overrightarrow{BC}$ nên $D=A+C-B$.<br>\nSuy ra $D(3,1,2)+(2,3,0)-(1,0,1)=(4,4,1)$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hình hộp $ABCD.{A}'{B}'{C}'{D}'$ có $A(1;2;-1)$, $B(3;1;-2)$, $C(4;-2;1)$ và ${D}'(2;1;5)$. Tọa độ của điểm ${A}'$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(1;0;-4)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(1;4;2)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-3;6;4)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(4;0;4)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Với hình hộp $ABCD.{A}'{B}'{C}'{D}'$, ta có: $\\overrightarrow{A{A}'}=\\overrightarrow{D{D}'}$.<br>\nTrước hết tìm tọa độ $D$ của hình bình hành $ABCD$: $D=A+C-B$.<br>\nVới: $A(1;2;-1),\\ B(3;1;-2),\\ C(4;-2;1)$,<br>\nsuy ra: $D=(1+4-3;\\ 2+(-2)-1;\\ -1+1-(-2))=(2;-1;2)$.<br>\nKhi đó: $\\overrightarrow{D{D}'}={D}'-D=(2;1;5)-(2;-1;2)=(0;2;3)$.<br>\nSuy ra: ${A}'=A+\\overrightarrow{D{D}'}=(1;2;-1)+(0;2;3)=(1;4;2)$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:42.158Z"
+}

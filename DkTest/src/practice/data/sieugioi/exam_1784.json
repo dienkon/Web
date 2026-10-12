@@ -1,0 +1,884 @@
+{
+  "meta": {
+    "title": "12 Câu Trắc Nghiệm Nguyên Hàm Có Đáp Án Chi Tiết – Toán 12",
+    "slug": "12-cau-trac-nghiem-nguyen-ham-co-dap-an-chi-tiet-toan-12",
+    "id": "1784",
+    "url": "https://sieugioi.com/docs/threads/12-cau-trac-nghiem-nguyen-ham-co-dap-an-chi-tiet-toan-12.1784/",
+    "numId": 1784,
+    "bai": 11,
+    "topicId": "math_t9_antiderivative",
+    "baiTitle": "Nguyên hàm",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "12 Câu Trắc Nghiệm Nguyên Hàm Có Đáp Án Chi Tiết – Toán 12",
+    "sourceUrl": "https://sieugioi.com/docs/threads/12-cau-trac-nghiem-nguyen-ham-co-dap-an-chi-tiet-toan-12.1784/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 12,
+    "questionsWithOptions": 12,
+    "questionsWithAnswers": 10,
+    "questionsWithExplanation": 12,
+    "questionsWithImages": 0,
+    "manualReviewCount": 2,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 12: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1784_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Nguyên hàm của hàm số $y={{5}^{x}}$ là",
+        "promptHtml": "Nguyên hàm của hàm số $y={{5}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{5}^{x}}\\cdot \\ln 5+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{{{5}^{x+1}}}{x+1}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x\\cdot {{5}^{x-1}}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{{{5}^{x}}}{\\ln 5}+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có $\\int{{{5}^{x}}\\text{d}x=}\\frac{{{5}^{x}}}{\\ln 5}+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f\\left( x \\right)=6{{x}^{2}}+\\sin x$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f\\left( x \\right)=6{{x}^{2}}+\\sin x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2{{x}^{3}}-\\cos x+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2{{x}^{3}}+\\cos x+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3{{x}^{2}}-\\cos x+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$12x+\\cos x+C$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có họ nguyên hàm của hàm số $f\\left( x \\right)=6{{x}^{2}}+\\sin x$là $F\\left( x \\right)=\\int{f\\left( x \\right)dx}=\\int{\\left( 6{{x}^{2}}+\\sin x \\right)}dx=2{{x}^{3}}-\\cos x+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Nguyên hàm $F(x)$ của hàm số $f(x)={{e}^{x}}+2\\sin x$ thỏa mãn $F(0)=20$ là",
+        "promptHtml": "Nguyên hàm $F(x)$ của hàm số $f(x)={{e}^{x}}+2\\sin x$ thỏa mãn $F(0)=20$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$F(x)=-{{e}^{x}}-2\\cos x+23$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$F(x)={{e}^{x}}+2\\sin x+19$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$F(x)={{e}^{x}}-2\\cos x+21$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$F(x)={{e}^{x}}+2\\cos x+17$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $f(x)={{e}^{x}}+2\\sin x$. Nguyên hàm của $f(x)$ là $F(x)={{e}^{x}}-2\\cos x+C$. Do $F(0)=20$ nên $1-2+C=20\\Rightarrow C=21$. Vậy $F(x)={{e}^{x}}-2\\cos x+21$. Đáp án: C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho $y=F(x)$ là một nguyên hàm của hàm số $f(x)=-3{{x}^{2}}+4x+2$ và $F(1)=2$. Tính $F(-1)$.",
+        "promptHtml": "Cho $y=F(x)$ là một nguyên hàm của hàm số $f(x)=-3{{x}^{2}}+4x+2$ và $F(1)=2$. Tính $F(-1)$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$F(-1)=4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$F(-1)=-{{x}^{3}}+2{{x}^{2}}+2x+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$F(-1)=-{{x}^{3}}+2{{x}^{2}}+2x-1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$F(-1)=0$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có ${F}'(x)=-3{{x}^{2}}+4x+2$. Suy ra $F(x)=-{{x}^{3}}+2{{x}^{2}}+2x+C$. Do $F(1)=2$ nên $-1+2+2+C=2\\Rightarrow 3+C=2\\Rightarrow C=-1$. Vậy $F(x)=-{{x}^{3}}+2{{x}^{2}}+2x-1$. Khi đó $F(-1)=-{{(-1)}^{3}}+2{{(-1)}^{2}}+2(-1)-1=1+2-2-1=0$. Đáp án: D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f(x)={{x}^{2}}+\\frac{2}{{{x}^{2}}}$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f(x)={{x}^{2}}+\\frac{2}{{{x}^{2}}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}+\\frac{1}{x}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}+\\frac{2}{x}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}-\\frac{1}{x}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}-\\frac{2}{x}+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$\\int{\\left( {{x}^{2}}+\\frac{2}{{{x}^{2}}} \\right)}dx=\\int{{{x}^{2}}}dx+2\\int{{{x}^{-2}}}dx=\\frac{{{x}^{3}}}{3}-\\frac{2}{x}+C$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Biết rằng $F(x)$ là một nguyên hàm của hàm số $f(x)=\\sin x$ trên $\\mathbb{R}$ và thỏa mãn $F(0)=6$. Phát biểu nào dưới đây đúng?",
+        "promptHtml": "Biết rằng $F(x)$ là một nguyên hàm của hàm số $f(x)=\\sin x$ trên $\\mathbb{R}$ và thỏa mãn $F(0)=6$. Phát biểu nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$F(x)=-\\cos x+7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$F(x)=-\\cos x+6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$F(x)=-\\cos x+5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$F(x)=-\\cos x$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Vì $F(x)$ là một nguyên hàm của $f(x)=\\sin x$ nên: $F(x)=-\\cos x+C$. Theo giả thiết $F(0)=6$: $-\\cos 0+C=6$ ⇔$-1+C=6$ ⇔ $C=7$. Vậy: $F(x)=-\\cos x+7$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Họ tất cả các nguyên hàm của hàm số $f(x)={{x}^{2026}}$ trên $\\mathbb{R}$ là",
+        "promptHtml": "Họ tất cả các nguyên hàm của hàm số $f(x)={{x}^{2026}}$ trên $\\mathbb{R}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2027{{x}^{2027}}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{{{x}^{2027}}}{2026}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2026{{x}^{2027}}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{{{x}^{2027}}}{2027}+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\int{{{x}^{2026}}}dx=\\frac{{{x}^{2027}}}{2027}+C$. Vậy họ nguyên hàm là: $\\frac{{{x}^{2027}}}{2027}+C$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f(x)={{e}^{x}}$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f(x)={{e}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{{{e}^{x+1}}}{x+1}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{e}^{x}}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{1}{{{e}^{x}}}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{1}{x}+C$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $\\int{{{e}^{x}}dx}={{e}^{x}}+C$ Vậy họ nguyên hàm của $f(x)={{e}^{x}}$ là: ${{e}^{x}}+C$ Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Họ tất cả các nguyên hàm của hàm số $y=\\sin x$ là",
+        "promptHtml": "Họ tất cả các nguyên hàm của hàm số $y=\\sin x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\cos x+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-\\sin x+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\sin x+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-\\cos x+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\int{\\sin }xdx=-\\cos x+C$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Biết $F(x)$ là một nguyên hàm của hàm số $f(x)=\\sin x+\\cos x$ thỏa mãn $F(0)=1$. Hàm số $F(x)$ là",
+        "promptHtml": "Biết $F(x)$ là một nguyên hàm của hàm số $f(x)=\\sin x+\\cos x$ thỏa mãn $F(0)=1$. Hàm số $F(x)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\cos x-\\sin x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-\\cos x+\\sin x+2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-\\cos x+\\sin x+1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-\\cos x+\\sin x-2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $f(x)=\\sin x+\\cos x$. Một nguyên hàm là: $F(x)=-\\cos x+\\sin x+C$. Vì $F(0)=1$ nên: $-\\cos 0+\\sin 0+C=1$$\\Rightarrow -1+0+C=1$$\\Rightarrow C=2$. Vậy: $F(x)=-\\cos x+\\sin x+2$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Nguyên hàm của hàm số $y={{5}^{x}}$ là",
+        "promptHtml": "Nguyên hàm của hàm số $y={{5}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int{{{5}^{x}}}dx={{5}^{x}}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int{{{5}^{x}}}dx=\\frac{{{5}^{x}}}{5\\ln 5}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int{{{5}^{x}}}dx=\\frac{{{5}^{x}}}{\\ln 5}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int{{{5}^{x}}}dx={{5}^{x}}\\ln 5+C$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có công thức: $\\int{{{a}^{x}}}dx=\\frac{{{a}^{x}}}{\\ln a}+C,\\quad a>0,\\ a\\ne 1$. Suy ra: $\\int{{{5}^{x}}}dx=\\frac{{{5}^{x}}}{\\ln 5}+C$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1784_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f\\left( x \\right)={{4}^{x}}$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f\\left( x \\right)={{4}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$F(x) = 4^x + C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$F(x) = \\frac{4^x}{2\\ln 2} + C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$F(x) = 4^x \\ln 4 + C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$F(x) = \\frac{4^x}{x+1} + C$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Áp dụng công thức nguyên hàm của hàm số mũ: $\\int a^x dx = \\frac{a^x}{\\ln a} + C$. Ta có $\\int 4^x dx = \\frac{4^x}{\\ln 4} + C = \\frac{4^x}{\\ln(2^2)} + C = \\frac{4^x}{2\\ln 2} + C$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:48.343Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "12 Câu Trắc Nghiệm Nguyên Hàm Có Đáp Án Chi Tiết – Toán 12",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/12-cau-trac-nghiem-nguyen-ham-co-dap-an-chi-tiet-toan-12.1784/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 12",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Nguyên hàm của hàm số $y={{5}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{5}^{x}}\\cdot \\ln 5+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{{{5}^{x+1}}}{x+1}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x\\cdot {{5}^{x-1}}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{{{5}^{x}}}{\\ln 5}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int{{{5}^{x}}\\text{d}x=}\\frac{{{5}^{x}}}{\\ln 5}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f\\left( x \\right)=6{{x}^{2}}+\\sin x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2{{x}^{3}}-\\cos x+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2{{x}^{3}}+\\cos x+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3{{x}^{2}}-\\cos x+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$12x+\\cos x+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có họ nguyên hàm của hàm số $f\\left( x \\right)=6{{x}^{2}}+\\sin x$là<br>\n$F\\left( x \\right)=\\int{f\\left( x \\right)dx}=\\int{\\left( 6{{x}^{2}}+\\sin x \\right)}dx=2{{x}^{3}}-\\cos x+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Nguyên hàm $F(x)$ của hàm số $f(x)={{e}^{x}}+2\\sin x$ thỏa mãn $F(0)=20$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$F(x)=-{{e}^{x}}-2\\cos x+23$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$F(x)={{e}^{x}}+2\\sin x+19$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$F(x)={{e}^{x}}-2\\cos x+21$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$F(x)={{e}^{x}}+2\\cos x+17$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $f(x)={{e}^{x}}+2\\sin x$.<br>\nNguyên hàm của $f(x)$ là $F(x)={{e}^{x}}-2\\cos x+C$.<br>\nDo $F(0)=20$ nên $1-2+C=20\\Rightarrow C=21$.<br>\nVậy $F(x)={{e}^{x}}-2\\cos x+21$.<br>\nĐáp án: C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho $y=F(x)$ là một nguyên hàm của hàm số $f(x)=-3{{x}^{2}}+4x+2$ và $F(1)=2$. Tính $F(-1)$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$F(-1)=4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$F(-1)=-{{x}^{3}}+2{{x}^{2}}+2x+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$F(-1)=-{{x}^{3}}+2{{x}^{2}}+2x-1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$F(-1)=0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có ${F}'(x)=-3{{x}^{2}}+4x+2$.<br>\nSuy ra $F(x)=-{{x}^{3}}+2{{x}^{2}}+2x+C$.<br>\nDo $F(1)=2$ nên $-1+2+2+C=2\\Rightarrow 3+C=2\\Rightarrow C=-1$.<br>\nVậy $F(x)=-{{x}^{3}}+2{{x}^{2}}+2x-1$.<br>\nKhi đó $F(-1)=-{{(-1)}^{3}}+2{{(-1)}^{2}}+2(-1)-1=1+2-2-1=0$.<br>\nĐáp án: D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f(x)={{x}^{2}}+\\frac{2}{{{x}^{2}}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}+\\frac{1}{x}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}+\\frac{2}{x}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}-\\frac{1}{x}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int{f}(x),dx=\\frac{{{x}^{3}}}{3}-\\frac{2}{x}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int{\\left( {{x}^{2}}+\\frac{2}{{{x}^{2}}} \\right)}dx=\\int{{{x}^{2}}}dx+2\\int{{{x}^{-2}}}dx=\\frac{{{x}^{3}}}{3}-\\frac{2}{x}+C$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Biết rằng $F(x)$ là một nguyên hàm của hàm số $f(x)=\\sin x$ trên $\\mathbb{R}$ và thỏa mãn $F(0)=6$. Phát biểu nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$F(x)=-\\cos x+7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$F(x)=-\\cos x+6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$F(x)=-\\cos x+5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$F(x)=-\\cos x$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì $F(x)$ là một nguyên hàm của $f(x)=\\sin x$ nên: $F(x)=-\\cos x+C$.<br>\nTheo giả thiết $F(0)=6$: $-\\cos 0+C=6$ ⇔$-1+C=6$ ⇔ $C=7$.<br>\nVậy: $F(x)=-\\cos x+7$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Họ tất cả các nguyên hàm của hàm số $f(x)={{x}^{2026}}$ trên $\\mathbb{R}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2027{{x}^{2027}}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{{{x}^{2027}}}{2026}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2026{{x}^{2027}}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{{{x}^{2027}}}{2027}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int{{{x}^{2026}}}dx=\\frac{{{x}^{2027}}}{2027}+C$.<br>\nVậy họ nguyên hàm là: $\\frac{{{x}^{2027}}}{2027}+C$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f(x)={{e}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{{{e}^{x+1}}}{x+1}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{e}^{x}}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{1}{{{e}^{x}}}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{1}{x}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int{{{e}^{x}}dx}={{e}^{x}}+C$<br>\nVậy họ nguyên hàm của $f(x)={{e}^{x}}$ là: ${{e}^{x}}+C$<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Họ tất cả các nguyên hàm của hàm số $y=\\sin x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\cos x+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-\\sin x+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\sin x+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-\\cos x+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int{\\sin }xdx=-\\cos x+C$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Biết $F(x)$ là một nguyên hàm của hàm số $f(x)=\\sin x+\\cos x$ thỏa mãn $F(0)=1$. Hàm số $F(x)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\cos x-\\sin x+1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-\\cos x+\\sin x+2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-\\cos x+\\sin x+1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-\\cos x+\\sin x-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $f(x)=\\sin x+\\cos x$.<br>\nMột nguyên hàm là: $F(x)=-\\cos x+\\sin x+C$.<br>\nVì $F(0)=1$ nên: $-\\cos 0+\\sin 0+C=1$$\\Rightarrow -1+0+C=1$$\\Rightarrow C=2$.<br>\nVậy: $F(x)=-\\cos x+\\sin x+2$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Nguyên hàm của hàm số $y={{5}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int{{{5}^{x}}}dx={{5}^{x}}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int{{{5}^{x}}}dx=\\frac{{{5}^{x}}}{5\\ln 5}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int{{{5}^{x}}}dx=\\frac{{{5}^{x}}}{\\ln 5}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int{{{5}^{x}}}dx={{5}^{x}}\\ln 5+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có công thức: $\\int{{{a}^{x}}}dx=\\frac{{{a}^{x}}}{\\ln a}+C,\\quad a&gt;0,\\ a\\ne 1$.<br>\nSuy ra: $\\int{{{5}^{x}}}dx=\\frac{{{5}^{x}}}{\\ln 5}+C$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f\\left( x \\right)={{4}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$F\\left( x \\right)={{4}^{x}}+C$.\tB. $F\\left( x \\right)=\\frac{{{4}^{x}}}{2\\ln 2}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$F\\left( x \\right)={{4}^{x}}\\ln 4+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$F\\left( x \\right)=\\frac{{{4}^{x}}}{x+1}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $F\\left( x \\right)=\\int{{{4}^{x}}\\text{d}x}=\\frac{{{4}^{x}}}{\\ln 4}+C=\\frac{{{4}^{x}}}{2\\ln 2}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:48.343Z"
+}

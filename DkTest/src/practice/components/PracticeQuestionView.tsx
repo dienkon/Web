@@ -354,7 +354,7 @@ export default function PracticeQuestionView({
                       }}
                       className="px-3 py-2 text-sm font-semibold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 active:scale-95 transition-all flex items-center justify-center"
                     >
-                      {opt.latex ? <LatexPreview content={`$${opt.latex}$`} /> : opt.text}
+                      {opt.latex ? <LatexPreview content={`$${opt.latex}$`} /> : <LatexPreview content={opt.text} />}
                     </button>
                   ))}
                 </div>
@@ -400,7 +400,7 @@ export default function PracticeQuestionView({
                       {String.fromCharCode(65 + idx)}
                     </span>
                     <div className="flex-1 text-sm sm:text-base">
-                      {opt.latex ? <LatexPreview content={`$${opt.latex}$`} /> : opt.text}
+                      {opt.latex ? <LatexPreview content={`$${opt.latex}$`} /> : <LatexPreview content={opt.text} />}
                     </div>
                   </button>
                 );

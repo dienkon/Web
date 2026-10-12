@@ -1,0 +1,890 @@
+{
+  "meta": {
+    "title": "Luyện Trắc Nghiệm Phương trình mặt cầu",
+    "slug": "luyen-trac-nghiem-phuong-trinh-mat-cau",
+    "id": "1805",
+    "url": "https://sieugioi.com/docs/threads/luyen-trac-nghiem-phuong-trinh-mat-cau.1805/",
+    "numId": 1805,
+    "bai": 0,
+    "topicId": "math_general",
+    "baiTitle": "Toán 12",
+    "chapter": "Toán 12"
+  },
+  "extracted": {
+    "title": "Luyện Trắc Nghiệm Phương trình mặt cầu",
+    "sourceUrl": "https://sieugioi.com/docs/threads/luyen-trac-nghiem-phuong-trinh-mat-cau.1805/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 12,
+    "questionsWithOptions": 12,
+    "questionsWithAnswers": 11,
+    "questionsWithExplanation": 12,
+    "questionsWithImages": 0,
+    "manualReviewCount": 1,
+    "warnings": [
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1805_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong không gian tọa độ $Oxyz$, mặt cầu $\\left( S \\right)$ có tâm $I\\left( 2\\,;\\,1;-1 \\right)$ và đường kính bằng $6$ có phương trình là",
+        "promptHtml": "Trong không gian tọa độ $Oxyz$, mặt cầu $\\left( S \\right)$ có tâm $I\\left( 2\\,;\\,1;-1 \\right)$ và đường kính bằng $6$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{\\left( x-2 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{\\left( z+1 \\right)}^{2}}=36$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{\\left( x-2 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{\\left( z+1 \\right)}^{2}}=9$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{\\left( x+2 \\right)}^{2}}+{{\\left( y+1 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=9$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{\\left( x+2 \\right)}^{2}}+{{\\left( y+1 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=36$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B. ${{\\left( x-2 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{\\left( z+1 \\right)}^{2}}=9$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho mặt cầu $\\left( S \\right)$ có tâm $I\\left( 1;1;0 \\right)$ và bán kính bằng $5$. Phương trình của $\\left( S \\right)$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho mặt cầu $\\left( S \\right)$ có tâm $I\\left( 1;1;0 \\right)$ và bán kính bằng $5$. Phương trình của $\\left( S \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{\\left( x+1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=25$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{\\left( x+1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{\\left( x-1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=25$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{\\left( x-1 \\right)}^{2}}+{{\\left( y+1 \\right)}^{2}}+{{z}^{2}}=5$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn C Phương trình mặt cầu $\\left( S \\right)$ có tâm $I\\left( 1;1;0 \\right)$ và bán kính bằng $5$:${{\\left( x-1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=25$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho mặt cầu $\\left( S \\right):{{\\left( x+1 \\right)}^{2}}+{{\\left( y-2 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=9$. Tọa độ tâm $I$ và bán kính $R$ của $\\left( S \\right)$ là",
+        "promptHtml": "Cho mặt cầu $\\left( S \\right):{{\\left( x+1 \\right)}^{2}}+{{\\left( y-2 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=9$. Tọa độ tâm $I$ và bán kính $R$ của $\\left( S \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I\\left( -1;2;1 \\right)$ và $R=3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I\\left( 1;-2;-1 \\right)$ và $R=3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I\\left( -1;2;1 \\right)$ và $R=9$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I\\left( 1;-2;-1 \\right)$ và $R=9$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Mặt cầu $(S): (x+1)^2 + (y-2)^2 + (z-1)^2 = 9$ có dạng chuẩn $(x-a)^2 + (y-b)^2 + (z-c)^2 = R^2$. Suy ra tâm $I(-1; 2; 1)$ và bán kính $R = \\sqrt{9} = 3$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho mặt cầu $\\left( S \\right):{{\\left( x-1 \\right)}^{2}}+{{\\left( y+4 \\right)}^{2}}+{{z}^{2}}=9$. Toạ độ tâm $I$ và bán kính $r$ của mặt cầu $\\left( S \\right)$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho mặt cầu $\\left( S \\right):{{\\left( x-1 \\right)}^{2}}+{{\\left( y+4 \\right)}^{2}}+{{z}^{2}}=9$. Toạ độ tâm $I$ và bán kính $r$ của mặt cầu $\\left( S \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I\\left( 1;-4;0 \\right),\\,\\,r=9$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I\\left( 1;4;0 \\right),\\,\\,r=3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I\\left( -1;4;0 \\right),\\,\\,r=9$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I\\left( 1;-4;0 \\right),\\,\\,r=3$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D Chọn D Chọn D Chọn D",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai điểm $I(2;0;-2)$ và $A(2;3;2)$. Mặt cầu $(S)$ có tâm $I$ và đi qua điểm $A$ có phương trình là",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai điểm $I(2;0;-2)$ và $A(2;3;2)$. Mặt cầu $(S)$ có tâm $I$ và đi qua điểm $A$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}=5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{(x+2)}^{2}}+{{y}^{2}}+{{(z-2)}^{2}}=25$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{(x-2)}^{2}}+{{(y-3)}^{2}}+{{(z-2)}^{2}}=25$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}=25$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Mặt cầu có tâm $I(2;0;-2)$ nên phương trình có dạng: ${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}={{R}^{2}}$. Vì mặt cầu đi qua $A(2;3;2)$ nên: ${{R}^{2}}=I{{A}^{2}}={{(2-2)}^{2}}+{{(3-0)}^{2}}+{{\\left( 2-(-2) \\right)}^{2}}=0+9+16=25$. Vậy phương trình mặt cầu là: ${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}=25$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt cầu $(S):{{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$. Tâm $I$ của mặt cầu $(S)$ có tọa độ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt cầu $(S):{{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$. Tâm $I$ của mặt cầu $(S)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I(1;-2;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I(-1;2;1)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I(1;-2;-1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I(1;2;-1)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Mặt cầu có dạng: ${{(x-a)}^{2}}+{{(y-b)}^{2}}+{{(z-c)}^{2}}={{R}^{2}}$ Với phương trình: ${{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$ Suy ra tâm mặt cầu là: $I(1;-2;-1)$ Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, tâm của mặt cầu $(S):{{x}^{2}}+{{y}^{2}}+{{z}^{2}}-2x+4y+2z-3=0$ có tọa độ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, tâm của mặt cầu<br>\n$(S):{{x}^{2}}+{{y}^{2}}+{{z}^{2}}-2x+4y+2z-3=0$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-2;4;2)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(1;-2;-1)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-1;2;1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(2;-4;-2)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Mặt cầu: ${{x}^{2}}+{{y}^{2}}+{{z}^{2}}-2x+4y+2z-3=0$. Ta biến đổi: ${{x}^{2}}-2x+{{y}^{2}}+4y+{{z}^{2}}+2z-3=0$ ${{(x-1)}^{2}}-1+{{(y+2)}^{2}}-4+{{(z+1)}^{2}}-1-3=0$ ${{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$. Vậy tâm mặt cầu là: $I(1;-2;-1)$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$ (đơn vị trên các trục là cm), mặt sàn nhà đa năng thuộc mặt phẳng $Oxy$. Một quả cầu bằng nhựa nằm trên mặt sàn nhà đa năng và có tâm $I(12;20;35)$. Khi đó, mặt ngoài của quả cầu nhựa (S) có phương trình là",
+        "promptHtml": "Trong không gian $Oxyz$ (đơn vị trên các trục là cm), mặt sàn nhà đa năng thuộc mặt phẳng $Oxy$. Một quả cầu bằng nhựa nằm trên mặt sàn nhà đa năng và có tâm $I(12;20;35)$. Khi đó, mặt ngoài của quả cầu nhựa (S) có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{(x+12)}^{2}}+{{(y+20)}^{2}}+{{(z+35)}^{2}}={{12}^{2}}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{12}^{2}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{35}^{2}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{20}^{2}}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Quả cầu có tâm $I(12;20;35)$ và nằm trên mặt phẳng sàn $Oxy$, tức mặt phẳng $z=0$. Bán kính quả cầu bằng khoảng cách từ tâm đến mặt phẳng $Oxy$: $R=35$. Phương trình mặt cầu: ${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{35}^{2}}$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, phương trình của mặt cầu tâm $I(-3;2;-4)$ và đường kính bằng $6$",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, phương trình của mặt cầu tâm $I(-3;2;-4)$ và đường kính bằng $6$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=36$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{(x-3)}^{2}}+{{(y+2)}^{2}}+{{(z-4)}^{2}}=9$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=9$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Mặt cầu có tâm $I(-3;2;-4)$ và đường kính bằng $6$ nên bán kính là $R=3$. Phương trình mặt cầu: ${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}={{3}^{2}}$. Hay: ${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=9$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$ cho điểm $I(4;-2;-3)$. Phương trình nào sau đây là phương trình của mặt cầu tâm $I$ và tiếp xúc với trục $Oy$?",
+        "promptHtml": "Trong không gian $Oxyz$ cho điểm $I(4;-2;-3)$. Phương trình nào sau đây là phương trình của mặt cầu tâm $I$ và tiếp xúc với trục $Oy$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{(x-4)}^{2}}+{{(y+2)}^{2}}+{{(z+3)}^{2}}=25$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{(x-4)}^{2}}+{{(y+2)}^{2}}+{{(z+3)}^{2}}=5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{(x-4)}^{2}}+{{(y-2)}^{2}}+{{(z-3)}^{2}}=4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{(x+4)}^{2}}+{{(y-2)}^{2}}+{{(z-3)}^{2}}=16$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Mặt cầu tâm $I(4;-2;-3)$ tiếp xúc với trục $Oy$ nên bán kính bằng khoảng cách từ $I$ đến trục $Oy$. Một điểm trên trục $Oy$ có dạng $(0;t;0)$. Khoảng cách ngắn nhất từ $I$ đến trục $Oy$ là: $r=\\sqrt{{{4}^{2}}+{{(-3)}^{2}}}=5$. Vậy phương trình mặt cầu là: ${{(x-4)}^{2}}+{{(y+2)}^{2}}+{{(z+3)}^{2}}=25$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, mặt cầu tâm $I(1;0;-3)$, bán kính $R=\\sqrt{10}$ có phương trình là",
+        "promptHtml": "Trong không gian $Oxyz$, mặt cầu tâm $I(1;0;-3)$, bán kính $R=\\sqrt{10}$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=40$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=10$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{(x+1)}^{2}}+{{y}^{2}}+{{(z-3)}^{2}}=10$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=\\sqrt{10}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Mặt cầu tâm $I(1;0;-3)$, bán kính $R=\\sqrt{10}$ có phương trình: ${{(x-1)}^{2}}+{{(y-0)}^{2}}+{{(z+3)}^{2}}={{R}^{2}}$ Suy ra: ${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=10$ Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1805_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Bán kính của mặt cầu tâm $I\\left( 1;-2;3 \\right)$, tiếp xúc với trục tung bằng",
+        "promptHtml": "Bán kính của mặt cầu tâm $I\\left( 1;-2;3 \\right)$, tiếp xúc với trục tung bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "10."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "14."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\sqrt{14}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\sqrt{10}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Mặt cầu tâm $I(1;-2;3)$ tiếp xúc với trục tung $Oy$. Bán kính mặt cầu bằng khoảng cách từ $I$ đến trục $Oy$. Một điểm trên trục $Oy$ có dạng $M(0;t;0)$. Khoảng cách từ $I(1;-2;3)$ đến trục $Oy$ là: $R=\\sqrt{{{1}^{2}}+{{3}^{2}}}=\\sqrt{10}$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:52.994Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Luyện Trắc Nghiệm Phương trình mặt cầu",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/luyen-trac-nghiem-phuong-trinh-mat-cau.1805/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 12",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong không gian tọa độ $Oxyz$, mặt cầu $\\left( S \\right)$ có tâm $I\\left( 2\\,;\\,1;-1 \\right)$ và đường kính bằng $6$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{\\left( x-2 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{\\left( z+1 \\right)}^{2}}=36$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{\\left( x-2 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{\\left( z+1 \\right)}^{2}}=9$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{\\left( x+2 \\right)}^{2}}+{{\\left( y+1 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=9$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{\\left( x+2 \\right)}^{2}}+{{\\left( y+1 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=36$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn <b><u>B</u>. ${{\\left( x-2 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{\\left( z+1 \\right)}^{2}}=9$</b>.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho mặt cầu $\\left( S \\right)$ có tâm $I\\left( 1;1;0 \\right)$ và bán kính bằng $5$. Phương trình của $\\left( S \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{\\left( x+1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=25$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{\\left( x+1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{\\left( x-1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=25$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{\\left( x-1 \\right)}^{2}}+{{\\left( y+1 \\right)}^{2}}+{{z}^{2}}=5$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn C<br>\nPhương trình mặt cầu $\\left( S \\right)$ có tâm $I\\left( 1;1;0 \\right)$ và bán kính bằng $5$:${{\\left( x-1 \\right)}^{2}}+{{\\left( y-1 \\right)}^{2}}+{{z}^{2}}=25$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho mặt cầu $\\left( S \\right):{{\\left( x+1 \\right)}^{2}}+{{\\left( y-2 \\right)}^{2}}+{{\\left( z-1 \\right)}^{2}}=9$. Tọa độ tâm $I$ và bán kính $R$ của $\\left( S \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I\\left( -1;2;1 \\right)$ và $R=3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I\\left( 1;-2;-1 \\right)$ và $R=3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I\\left( -1;2;1 \\right)$ và $R=9$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I\\left( 1;-2;-1 \\right)$ và $R=9$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu có tọa độ tâm$I\\left( -1;2;1 \\right)$ và bán kính $R=3$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho mặt cầu $\\left( S \\right):{{\\left( x-1 \\right)}^{2}}+{{\\left( y+4 \\right)}^{2}}+{{z}^{2}}=9$. Toạ độ tâm $I$ và bán kính $r$ của mặt cầu $\\left( S \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I\\left( 1;-4;0 \\right),\\,\\,r=9$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I\\left( 1;4;0 \\right),\\,\\,r=3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I\\left( -1;4;0 \\right),\\,\\,r=9$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I\\left( 1;-4;0 \\right),\\,\\,r=3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai điểm $I(2;0;-2)$ và $A(2;3;2)$. Mặt cầu $(S)$ có tâm $I$ và đi qua điểm $A$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}=5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{(x+2)}^{2}}+{{y}^{2}}+{{(z-2)}^{2}}=25$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{(x-2)}^{2}}+{{(y-3)}^{2}}+{{(z-2)}^{2}}=25$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}=25$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu có tâm $I(2;0;-2)$ nên phương trình có dạng: ${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}={{R}^{2}}$.<br>\nVì mặt cầu đi qua $A(2;3;2)$ nên: ${{R}^{2}}=I{{A}^{2}}={{(2-2)}^{2}}+{{(3-0)}^{2}}+{{\\left( 2-(-2) \\right)}^{2}}=0+9+16=25$.<br>\nVậy phương trình mặt cầu là: ${{(x-2)}^{2}}+{{y}^{2}}+{{(z+2)}^{2}}=25$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt cầu $(S):{{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$. Tâm $I$ của mặt cầu $(S)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I(1;-2;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I(-1;2;1)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I(1;-2;-1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I(1;2;-1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu có dạng: ${{(x-a)}^{2}}+{{(y-b)}^{2}}+{{(z-c)}^{2}}={{R}^{2}}$<br>\nVới phương trình: ${{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$<br>\nSuy ra tâm mặt cầu là: $I(1;-2;-1)$<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, tâm của mặt cầu<br>\n$(S):{{x}^{2}}+{{y}^{2}}+{{z}^{2}}-2x+4y+2z-3=0$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-2;4;2)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(1;-2;-1)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-1;2;1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(2;-4;-2)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu: ${{x}^{2}}+{{y}^{2}}+{{z}^{2}}-2x+4y+2z-3=0$.<br>\nTa biến đổi: ${{x}^{2}}-2x+{{y}^{2}}+4y+{{z}^{2}}+2z-3=0$<br>\n${{(x-1)}^{2}}-1+{{(y+2)}^{2}}-4+{{(z+1)}^{2}}-1-3=0$<br>\n${{(x-1)}^{2}}+{{(y+2)}^{2}}+{{(z+1)}^{2}}=9$.<br>\nVậy tâm mặt cầu là: $I(1;-2;-1)$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ (đơn vị trên các trục là cm), mặt sàn nhà đa năng thuộc mặt phẳng $Oxy$. Một quả cầu bằng nhựa nằm trên mặt sàn nhà đa năng và có tâm $I(12;20;35)$. Khi đó, mặt ngoài của quả cầu nhựa (S) có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{(x+12)}^{2}}+{{(y+20)}^{2}}+{{(z+35)}^{2}}={{12}^{2}}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{12}^{2}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{35}^{2}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{20}^{2}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Quả cầu có tâm $I(12;20;35)$ và nằm trên mặt phẳng sàn $Oxy$, tức mặt phẳng $z=0$.<br>\nBán kính quả cầu bằng khoảng cách từ tâm đến mặt phẳng $Oxy$: $R=35$.<br>\nPhương trình mặt cầu: ${{(x-12)}^{2}}+{{(y-20)}^{2}}+{{(z-35)}^{2}}={{35}^{2}}$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, phương trình của mặt cầu tâm $I(-3;2;-4)$ và đường kính bằng $6$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=36$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{(x-3)}^{2}}+{{(y+2)}^{2}}+{{(z-4)}^{2}}=9$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=9$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu có tâm $I(-3;2;-4)$ và đường kính bằng $6$ nên bán kính là $R=3$.<br>\nPhương trình mặt cầu: ${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}={{3}^{2}}$.<br>\nHay: ${{(x+3)}^{2}}+{{(y-2)}^{2}}+{{(z+4)}^{2}}=9$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ cho điểm $I(4;-2;-3)$. Phương trình nào sau đây là phương trình của mặt cầu tâm $I$ và tiếp xúc với trục $Oy$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{(x-4)}^{2}}+{{(y+2)}^{2}}+{{(z+3)}^{2}}=25$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{(x-4)}^{2}}+{{(y+2)}^{2}}+{{(z+3)}^{2}}=5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{(x-4)}^{2}}+{{(y-2)}^{2}}+{{(z-3)}^{2}}=4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{(x+4)}^{2}}+{{(y-2)}^{2}}+{{(z-3)}^{2}}=16$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu tâm $I(4;-2;-3)$ tiếp xúc với trục $Oy$ nên bán kính bằng khoảng cách từ $I$ đến trục $Oy$.<br>\nMột điểm trên trục $Oy$ có dạng $(0;t;0)$. Khoảng cách ngắn nhất từ $I$ đến trục $Oy$ là: $r=\\sqrt{{{4}^{2}}+{{(-3)}^{2}}}=5$.<br>\nVậy phương trình mặt cầu là: ${{(x-4)}^{2}}+{{(y+2)}^{2}}+{{(z+3)}^{2}}=25$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, mặt cầu tâm $I(1;0;-3)$, bán kính $R=\\sqrt{10}$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=40$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=10$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{(x+1)}^{2}}+{{y}^{2}}+{{(z-3)}^{2}}=10$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=\\sqrt{10}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu tâm $I(1;0;-3)$, bán kính $R=\\sqrt{10}$ có phương trình: ${{(x-1)}^{2}}+{{(y-0)}^{2}}+{{(z+3)}^{2}}={{R}^{2}}$<br>\nSuy ra: ${{(x-1)}^{2}}+{{y}^{2}}+{{(z+3)}^{2}}=10$<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Bán kính của mặt cầu tâm $I\\left( 1;-2;3 \\right)$, tiếp xúc với trục tung bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "10."
+          },
+          {
+            "id": "opt_b",
+            "text": "14."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\sqrt{14}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\sqrt{10}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt cầu tâm $I(1;-2;3)$ tiếp xúc với trục tung $Oy$.<br>\nBán kính mặt cầu bằng khoảng cách từ $I$ đến trục $Oy$.<br>\nMột điểm trên trục $Oy$ có dạng $M(0;t;0)$.<br>\nKhoảng cách từ $I(1;-2;3)$ đến trục $Oy$ là: $R=\\sqrt{{{1}^{2}}+{{3}^{2}}}=\\sqrt{10}$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:52.994Z"
+}

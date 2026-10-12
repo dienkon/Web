@@ -90,13 +90,23 @@ import { mathCalculusAnalysisMode } from "./math/mathCalculusAnalysisMode";
 import { mathOxyzGeometryMode } from "./math/mathOxyzGeometryMode";
 import { mathStatisticsDispersionMode } from "./math/mathStatisticsDispersionMode";
 import { mathIntegralsMode } from "./math/mathIntegralsMode";
+import {
+  sieugioiAllMathMode,
+  sieugioiChapterModes,
+  ALL_SIEUGIOI_BAI_MODES,
+  ALL_SIEUGIOI_EXAM_MODES,
+} from "./math/sieugioiMathModes";
 
 export const ALL_PRACTICE_MODES: PracticeMode[] = [
-  // Grade 12 Math THPTQG
+  // Grade 12 Math THPTQG (Standard & SieuGioi 5000+ Series)
   mathCalculusAnalysisMode,
   mathOxyzGeometryMode,
   mathStatisticsDispersionMode,
   mathIntegralsMode,
+  sieugioiAllMathMode,
+  ...sieugioiChapterModes,
+  ...ALL_SIEUGIOI_BAI_MODES,
+  ...ALL_SIEUGIOI_EXAM_MODES,
 
   // Grade 12 Physics THPTQG
   physicsThermalGasMode,

@@ -1,0 +1,1029 @@
+{
+  "meta": {
+    "title": "Đề 1. Chinh Phục 14 Câu Trắc Nghiệm Phương Sai và Độ Lệch Chuẩn",
+    "slug": "de-1-chinh-phuc-14-cau-trac-nghiem-phuong-sai-va-do-lech-chuan",
+    "id": "1782",
+    "url": "https://sieugioi.com/docs/threads/de-1-chinh-phuc-14-cau-trac-nghiem-phuong-sai-va-do-lech-chuan.1782/",
+    "numId": 1782,
+    "bai": 11,
+    "topicId": "math_t9_antiderivative",
+    "baiTitle": "Nguyên hàm",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "Đề 1. Chinh Phục 14 Câu Trắc Nghiệm Phương Sai và Độ Lệch Chuẩn",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-1-chinh-phuc-14-cau-trac-nghiem-phuong-sai-va-do-lech-chuan.1782/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 14,
+    "questionsWithOptions": 14,
+    "questionsWithAnswers": 10,
+    "questionsWithExplanation": 14,
+    "questionsWithImages": 3,
+    "manualReviewCount": 5,
+    "warnings": [
+      "Câu 9: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 10: Nhiều phương án (A, B) có độ khớp ngang nhau trong lời giải.",
+      "Câu 11: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 12: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 14: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1782_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Hương trong 20 ngày được ghi lại bằng bảng sau: Phương sai của mẫu số liệu ghép nhóm (làm tròn đến hàng phần trăm) là\n\n![hình minh họa](/images/practice/sieugioi/q1_img1.9566.png)",
+        "promptHtml": "Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Hương trong 20 ngày được ghi lại bằng bảng sau:<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác \" data-src=\"/images/practice/sieugioi/q1_img1.9566.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9566.png\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác \" title=\"Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác \" width=\"634\" height=\"56\" loading=\"lazy\">\n\t</div><br>\nPhương sai của mẫu số liệu ghép nhóm (làm tròn đến hàng phần trăm) là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0,13$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0,36$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3,39$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$11,62$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có cỡ mẫu $n=20$ Giá trị trung bình $\\overline{x}\\,=\\frac{3.2,85+6.3,15+5.3,45+4.3,75+2.4,05}{20}=3,39$ Suy ra phương sai ${{s}^{2}}=\\frac{{{\\left( {{x}_{1}}-x \\right)}^{2}}+{{\\left( {{x}_{2}}-x \\right)}^{2}}+...+{{\\left( {{x}_{n}}-x \\right)}^{2}}}{20}\\approx 0,13$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9566.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img1.9566.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Cho hai mẫu số liệu ghép nhóm $A$ và $B$ có bảng tần số ghép nhóm như sau: Nhóm $A$$[1,6;1,8)$$[1,8;2,0)$$[2,0;2,2)$$[2,2;2,4)$$[2,4;2,6)$Tần số122518102Nhóm $B$$[2,0;2,2)$$[2,2;2,4)$$[2,4;2,6)$$[2,6;2,8)$$[2,8;3,0)$Tần số245036204 Gọi $S_{A}^{2}$ và $S_{B}^{2}$ lần lượt là phương sai của mẫu số liệu ghép nhóm $A$ và $B$. Khẳng định nào sau đây đúng? Nhóm $A$$[1,6;1,8)$$[1,8;2,0)$$[2,0;2,2)$$[2,2;2,4)$$[2,4;2,6)$Tần số122518102Nhóm $B$$[2,0;2,2)$$[2,2;2,4)$$[2,4;2,6)$$[2,6;2,8)$$[2,8;3,0)$Tần số245036204",
+        "promptHtml": "Cho hai mẫu số liệu ghép nhóm $A$ và $B$ có bảng tần số ghép nhóm như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm $A$</td><td>$[1,6;1,8)$</td><td>$[1,8;2,0)$</td><td>$[2,0;2,2)$</td><td>$[2,2;2,4)$</td><td>$[2,4;2,6)$</td></tr><tr><td>Tần số</td><td>12</td><td>25</td><td>18</td><td>10</td><td>2</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Nhóm $B$</td><td>$[2,0;2,2)$</td><td>$[2,2;2,4)$</td><td>$[2,4;2,6)$</td><td>$[2,6;2,8)$</td><td>$[2,8;3,0)$</td></tr><tr><td>Tần số</td><td>24</td><td>50</td><td>36</td><td>20</td><td>4</td></tr></tbody></table>\n</div>Gọi $S_{A}^{2}$ và $S_{B}^{2}$ lần lượt là phương sai của mẫu số liệu ghép nhóm $A$ và $B$. Khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S_{B}^{2}=4S_{A}^{2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S_{A}^{2}=S_{B}^{2}-0,16$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S_{A}^{2}=S_{B}^{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S_{B}^{2}=2S_{A}^{2}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có ${{\\overline{x}}_{A}}=\\frac{12.1,7+25.1,9+18.2,1+10.2,3+2.2,5}{12+25+18+10+2}\\approx 1,996$ Suy ra $\\begin{align} & S_{A}^{2}=\\frac{12{{\\left( 1,7-1,996 \\right)}^{2}}+25{{\\left( 1,9-1,996 \\right)}^{2}}+18{{\\left( 2,1-1,996 \\right)}^{2}}+10{{\\left( 2,3-1,996 \\right)}^{2}}+2{{\\left( 2,5-1,996 \\right)}^{2}}}{12+25+18+10+2} \\\\ & \\approx 0,0434 \\\\ \\end{align}$ Ta có ${{\\overline{x}}_{B}}=\\frac{24.2,1+50.2,3+36.2,5+20.2,7+4.2,9}{24+50+36+20+4}\\approx 2,396$ Suy ra $\\begin{align} & S_{B}^{2}=\\frac{24{{\\left( 2,1-2,396 \\right)}^{2}}+50{{\\left( 2,3-2,396 \\right)}^{2}}+36{{\\left( 2,5-2,396 \\right)}^{2}}+20{{\\left( 2,7-2,396 \\right)}^{2}}+4{{\\left( 2,9-2,396 \\right)}^{2}}}{24+50+36+20+4} \\\\ & \\approx 0,0434 \\\\ \\end{align}$ Vậy $S_{A}^{2}=S_{B}^{2}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Một mẫu số liệu ghép nhóm có độ lệch chuẩn bằng $3$ thì có phương sai bằng",
+        "promptHtml": "Một mẫu số liệu ghép nhóm có độ lệch chuẩn bằng $3$ thì có phương sai bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{s}^{2}}=6$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{s}^{2}}=3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{s}^{2}}=9$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{s}^{2}}=\\sqrt{3}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Phương sai của mẫu số liệu ghép nhóm có độ lệch chuẩn bằng $3$ là ${{s}^{2}}=9$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Khảo sát thời gian tự học bài ở nhà của học sinh khối 9 ở trường X, ta thu được bảng sau: Thời gian ( phút)[0; 30)[30; 60)[60; 90)[90; 120)[120; 150)Số học sinh9109157 Phương sai của mẫu số liệu ghép nhóm là Thời gian ( phút)[0; 30)[30; 60)[60; 90)[90; 120)[120; 150)Số học sinh9109157",
+        "promptHtml": "Khảo sát thời gian tự học bài ở nhà của học sinh khối 9 ở trường X, ta thu được bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Thời gian ( phút)</td><td>[0; 30)</td><td>[30; 60)</td><td>[60; 90)</td><td>[90; 120)</td><td>[120; 150)</td></tr><tr><td>Số học sinh</td><td>9</td><td>10</td><td>9</td><td>15</td><td>7</td></tr></tbody></table>\n</div>Phương sai của mẫu số liệu ghép nhóm là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "1603."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "1601,9."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "1601,64."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "1602."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Tính giá trị đại diện ${{x}_{i}}$ của từng nhóm: 15, 45, 75, 105, 135. Tổng số học sinh $n=9+10+9+15+7=50.$ Số trung bình $\\overline{x}=\\frac{9.15+10.45+9.75+15.105+7.135}{50}=75,6.$ Phương sai ${{s}^{2}}=\\frac{9.{{\\left( 15-\\overline{x} \\right)}^{2}}+10.{{\\left( 45-\\overline{x} \\right)}^{2}}+9.{{\\left( 75-\\overline{x} \\right)}^{2}}+15.{{\\left( 105-\\overline{x} \\right)}^{2}}+7.{{\\left( 135-\\overline{x} \\right)}^{2}}}{50}=1601,64.$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Mỗi ngày bác Hùng đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Hùng trong 20 ngày được thống kê lại ở bảng sau: Độ lệch chuẩn của mẫu số liệu ghép nhóm có giá trị gần nhất với giá trị nào dưới đây?",
+        "promptHtml": "Mỗi ngày bác Hùng đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Hùng trong 20 ngày được thống kê lại ở bảng sau:<br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm có giá trị gần nhất với giá trị nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${0,77}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${0,45}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${3,14}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${1,02}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Lấy các giá trị đại diện của các lớp: ${2,5;{\\text{ }}3,5;{\\text{ }}4,5;{\\text{ }}5,5}$. Trung bình mẫu là $\\overline{x}=\\dfrac{2\\cdot 2,5+10\\cdot 3,5+6\\cdot 4,5+2\\cdot 5,5}{20}=\\dfrac{78}{20}=3,9$. Phương sai ghép nhóm: $s^2=\\dfrac{1}{20}\\left[2(2,5-3,9)^2+10(3,5-3,9)^2+6(4,5-3,9)^2+2(5,5-3,9)^2\\right]$ $=\\dfrac{1}{20}(3,92+1,6+2,16+5,12)=\\dfrac{12,8}{20}=0,64$. Suy ra $s=\\sqrt{0,64}=0,8$, gần nhất với ${0,77}$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Một bác tài xế thống kê độ dài quãng đường (đơn vị: km) bác đã lái xe mỗi ngày trong một tháng ${(30}$ ngày) ở bảng số liệu ghép nhóm sau: Độ lệch chuẩn của mẫu số liệu ghép nhóm trên (kết quả làm tròn đến hàng phần trăm) bằng",
+        "promptHtml": "Một bác tài xế thống kê độ dài quãng đường (đơn vị: km) bác đã lái xe mỗi ngày trong một tháng ${(30}$ ngày) ở bảng số liệu ghép nhóm sau:<br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm trên (kết quả làm tròn đến hàng phần trăm) bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${3206,90}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${56,63}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${55,68}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${55,67}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Bảng số liệu ghép nhóm: Giá trị đại diện của các lớp là: $75,\\ 125,\\ 175,\\ 225,\\ 275$. Số ngày là: $n=30$. Trung bình mẫu: $\\overline{x}=\\dfrac{75.5+125.10+175.9+225.4+275.2}{30}$$=\\dfrac{4650}{30}=155$. Phương sai mẫu ghép nhóm: $s^2=\\dfrac{5(75-155)^2+10(125-155)^2+9(175-155)^2+4(225-155)^2+2(275-155)^2}{30}$. Tính được: $s^2=3100$. Độ lệch chuẩn: $s=\\sqrt{3100}\\approx 55,68$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cân nặng của một số quả mít trong một khu vườn được thống kê ở bảng sau: Phương sai của mẫu số liệu ghép nhóm trên gần nhất với giá trị nào dưới đây?",
+        "promptHtml": "Cân nặng của một số quả mít trong một khu vườn được thống kê ở bảng sau:<br>\nPhương sai của mẫu số liệu ghép nhóm trên gần nhất với giá trị nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "4,9."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "4,8."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "4,7."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "4,6."
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Bảng tần số ghép nhóm có các giá trị đại diện: Tổng số quả mít: $n=6+12+19+9+4=50$. Trung bình mẫu: $\\overline{x}=\\dfrac{5.6+7.12+9.19+11.9+13.4}{50}=8,72$. Phương sai: $s^2=\\dfrac{6(5-8,72)^2+12(7-8,72)^2+19(9-8,72)^2+9(11-8,72)^2+4(13-8,72)^2}{50}$. Tính được: $s^2=4,8016\\approx 4,8$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Lan trong 20 ngày được thống kê lại ở bảng sau: Độ lệch chuẩn của mẫu số liệu ghép nhóm có giá trị gần nhất với giá trị nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q8_img1.9567.png)",
+        "promptHtml": "Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Lan trong 20 ngày được thống kê lại ở bảng sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" data-src=\"/images/practice/sieugioi/q8_img1.9567.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9567.png\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" title=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" width=\"758\" height=\"88\" loading=\"lazy\">\n\t</div><br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm có giá trị gần nhất với giá trị nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$3,41$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0,36$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0,13$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0,017$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Giá trị trung bình của mẫu số liệu ghép nhóm trên là: $\\overline{x}=\\frac{2,85.3+3,15.6+3,45.5+3,75.4+4,05.2}{20}=3,39$ Độ lệch chuẩn của mẫu số liệu ghép nhóm trên: $s=\\sqrt{\\frac{1}{20}\\left( {{3.2,85}^{2}}+{{6.3,15}^{2}}+{{5.3,45}^{2}}+{{4.3,75}^{2}}+{{2.4,05}^{2}} \\right)-{{3,39}^{2}}}\\approx 0,36$",
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9567.png",
+        "images": [
+          "/images/practice/sieugioi/q8_img1.9567.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Cho mẫu số liệu ghép nhóm về điểm thi và số người dự thi như sau: Điểm thi$\\left[ 0;\\,2 \\right)$$\\left[ 2;\\,4 \\right)$$\\left[ 4;\\,6 \\right)$$\\left[ 6;\\,8 \\right)$$\\left[ 8;\\,10 \\right)$Số người dự thi199561 Tính độ lệch chuẩn của mẫu số liệu ghép nhóm trên (làm tròn đến hàng phần trăm). Điểm thi$\\left[ 0;\\,2 \\right)$$\\left[ 2;\\,4 \\right)$$\\left[ 4;\\,6 \\right)$$\\left[ 6;\\,8 \\right)$$\\left[ 8;\\,10 \\right)$Số người dự thi199561",
+        "promptHtml": "Cho mẫu số liệu ghép nhóm về điểm thi và số người dự thi như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Điểm thi</td><td>$\\left[ 0;\\,2 \\right)$</td><td>$\\left[ 2;\\,4 \\right)$</td><td>$\\left[ 4;\\,6 \\right)$</td><td>$\\left[ 6;\\,8 \\right)$</td><td>$\\left[ 8;\\,10 \\right)$</td></tr><tr><td>Số người   dự thi</td><td>19</td><td>9</td><td>5</td><td>6</td><td>1</td></tr></tbody></table>\n</div>Tính độ lệch chuẩn của mẫu số liệu ghép nhóm trên (làm tròn đến hàng phần trăm).",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2.77$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2,55$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1,44$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2,39$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $n=19+9+5+6+1=40$. Số trung bình của mẫu số liệu ghép nhóm trên là: $\\overline{x}=\\frac{1.19+3.9+5.5+7.6+9.1}{40}=3,05$. Phương sai: ${{s}^{2}}=\\frac{1}{40}\\left( {{19.1}^{2}}+{{9.3}^{2}}+{{5.5}^{2}}+{{6.7}^{2}}+{{1.9}^{2}} \\right)-{{\\left( 3,05 \\right)}^{2}}=\\frac{2279}{400}$. Độ lệch chuẩn: $s=\\sqrt{{{s}^{2}}}=\\sqrt{\\frac{2279}{400}}\\approx 2,39$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Xét mẫu số liệu ghép nhóm có phương sai bằng $9$. Độ lệch chuẩn của mẫu số liệu đó bằng",
+        "promptHtml": "Xét mẫu số liệu ghép nhóm có phương sai bằng $9$. Độ lệch chuẩn của mẫu số liệu đó bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$9$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\sqrt{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Vì mẫu số liệu có phương sai bằng $9$ nên độ lệch chuẩn của mẫu số liệu đó bằng $3$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.5,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Hướng tới kỳ thi tốt nghiệp THPT, học sinh hai lớp 12A và 12B tham gia thi thử. Điểm trung bình lớp 12A là $\\overline{x}_A = 7,325$, lớp 12B là $\\overline{x}_B = 7,675$. Độ lệch chuẩn của hai lớp đều xấp xỉ $s_A \\approx s_B \\approx 1,12$. Nhận định nào sau đây đúng?",
+        "promptHtml": "Hướng tới kỳ thi tốt nghiệp THPT, học sinh hai lớp chất lượng cao 12A và 12B của trường NQH tham gia một kỳ thi thử môn Toán. Kết quả (số học sinh) theo các khoảng điểm như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Điểm</td><td>[5 ; 6)</td><td>[6 ; 7)</td><td>[7 ; 8)</td><td>[8 ; 9)</td><td>[9 ; 10]</td></tr><tr><td>Lớp 12A</td><td>5</td><td>11</td><td>13</td><td>8</td><td>3</td></tr><tr><td>Lớp 12B</td><td>3</td><td>5</td><td>22</td><td>2</td><td>8</td></tr></tbody></table>\n</div>Khi so sánh, các giá trị điểm trung bình và độ phân tán điểm đo bằng độ lệch chuẩn (được ước lượng theo công thức cho mẫu số liệu ghép nhóm) của hai lớp. Nhận định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Lớp 12B có điểm trung bình cao hơn và độ phân tán điểm cao hơn lớp 12A."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Lớp 12B có điểm trung bình cao hơn và độ phân tán điểm thấp hơn lớp 12A."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Lớp 12B có điểm trung bình cao hơn lớp 12A, và độ phân tán điểm của hai lớp bằng nhau."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Lớp 12A có điểm trung bình cao hơn lớp 12B, và độ phân tán điểm của hai lớp bằng nhau."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $\\overline{x}_B = 7,675 > 7,325 = \\overline{x}_A$, do đó điểm trung bình của lớp 12B cao hơn lớp 12A. Về độ phân tán điểm đo bằng độ lệch chuẩn, cả hai lớp đều có $s_A \\approx s_B \\approx 1,12$, tức là độ phân tán điểm của hai lớp bằng nhau. Vậy: Lớp 12B có điểm trung bình cao hơn lớp 12A, và độ phân tán điểm của hai lớp bằng nhau. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Cho mẫu số liệu ghép nhóm có phương sai bằng 32. Độ lệch chuẩn của mẫu số liệu trên là",
+        "promptHtml": "Cho mẫu số liệu ghép nhóm có phương sai bằng 32. Độ lệch chuẩn của mẫu số liệu trên là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1024$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4\\sqrt{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$16$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$4\\sqrt{2}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Độ lệch chuẩn của mẫu số liệu là $\\sqrt{32}=4\\sqrt{2}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Thống kê độ tuổi tập thể dục thể thao hằng ngày trong một cụm dân cư có bảng số liệu sau: Độ tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Số người106151925 Phương sai của mẫu số liệu trên bảng bao nhiêu (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm)? Độ tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Số người106151925",
+        "promptHtml": "Thống kê độ tuổi tập thể dục thể thao hằng ngày trong một cụm dân cư có bảng số liệu sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Độ tuổi</td><td>${[10;20)}$</td><td>${[20;30)}$</td><td>${[30;40)}$</td><td>${[40;50)}$</td><td>${[50;60)}$</td></tr><tr><td>Số người</td><td>10</td><td>6</td><td>15</td><td>19</td><td>25</td></tr></tbody></table>\n</div>Phương sai của mẫu số liệu trên bảng bao nhiêu (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm)?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${187,03}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${189,66}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${187,13}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${13,68}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Lấy giá trị đại diện của các lớp tuổi là trung điểm: Lớp tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Trung điểm1525354555Số người106151925 Tổng số người là $n=10+6+15+19+25=75$. Số trung bình là $\\overline{x}=\\dfrac{10.15+6.25+15.35+19.45+25.55}{75}=\\dfrac{3055}{75}$. Phương sai là $S^2=\\dfrac{10(15-\\overline{x})^2+6(25-\\overline{x})^2+15(35-\\overline{x})^2+19(45-\\overline{x})^2+25(55-\\overline{x})^2}{75}$. Tính được $S^2 \\approx 187,1289$. Làm tròn đến hàng phần trăm được ${187,13}$. Lấy giá trị đại diện của các lớp tuổi là trung điểm: Lớp tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Trung điểm1525354555Số người106151925 Tổng số người là $n=10+6+15+19+25=75$. Số trung bình là $\\overline{x}=\\dfrac{10.15+6.25+15.35+19.45+25.55}{75}=\\dfrac{3055}{75}$. Phương sai là $S^2=\\dfrac{10(15-\\overline{x})^2+6(25-\\overline{x})^2+15(35-\\overline{x})^2+19(45-\\overline{x})^2+25(55-\\overline{x})^2}{75}$. Tính được $S^2 \\approx 187,1289$. Làm tròn đến hàng phần trăm được ${187,13}$. Lấy giá trị đại diện của các lớp tuổi là trung điểm: Lớp tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Trung điểm1525354555Số người106151925 Tổng số người là $n=10+6+15+19+25=75$. Số trung bình là $\\overline{x}=\\dfrac{10.15+6.25+15.35+19.45+25.55}{75}=\\dfrac{3055}{75}$. Phương sai là $S^2=\\dfrac{10(15-\\overline{x})^2+6(25-\\overline{x})^2+15(35-\\overline{x})^2+19(45-\\overline{x})^2+25(55-\\overline{x})^2}{75}$. Tính được $S^2 \\approx 187,1289$. Làm tròn đến hàng phần trăm được ${187,13}$. Lấy giá trị đại diện của các lớp tuổi là trung điểm: Lớp tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Trung điểm1525354555Số người106151925 Tổng số người là $n=10+6+15+19+25=75$. Số trung bình là $\\overline{x}=\\dfrac{10.15+6.25+15.35+19.45+25.55}{75}=\\dfrac{3055}{75}$. Phương sai là $S^2=\\dfrac{10(15-\\overline{x})^2+6(25-\\overline{x})^2+15(35-\\overline{x})^2+19(45-\\overline{x})^2+25(55-\\overline{x})^2}{75}$. Tính được $S^2 \\approx 187,1289$. Làm tròn đến hàng phần trăm được ${187,13}$. Lớp tuổi${[10;20)}$${[20;30)}$${[30;40)}$${[40;50)}$${[50;60)}$Trung điểm1525354555Số người106151925",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1782_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Bảng dưới đây thống kê cự li ném tạ của một vận động viên. Phương sai của mẫu số liệu ghép nhóm trên (làm tròn đến hàng phần trăm) là\n\n![hình minh họa](/images/practice/sieugioi/q14_img1.9569.png)",
+        "promptHtml": "Bảng dưới đây thống kê cự li ném tạ của một vận động viên.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" data-src=\"/images/practice/sieugioi/q14_img1.9569.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9569.png\" class=\"bbImage\" style=\"\" alt=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" title=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" width=\"881\" height=\"85\" loading=\"lazy\">\n\t</div><br>\nPhương sai của mẫu số liệu ghép nhóm trên (làm tròn đến hàng phần trăm) là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0,26$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0,27$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0,29$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0,28$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "+) Cỡ mẫu: $n=100$. +) Số trung bình của mẫu số liệu ghép nhóm là $\\bar{x}=\\frac{19,25.13+19,75.45+20,25.24+20,75.12+21,25.6}{100}=20,015$. +) Phương sai của mẫu số liệu ghép nhóm là ${{S}^{2}}=\\frac{1}{100}\\left( {{19,25}^{2}}.13+{{19,75}^{2}}.45+{{20,25}^{2}}.24+{{20,75}^{2}}.12+{{21,25}^{2}}.6 \\right)-{{20,015}^{2}}\\approx 0,28$.",
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9569.png",
+        "images": [
+          "/images/practice/sieugioi/q14_img1.9569.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:49.598Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 1. Chinh Phục 14 Câu Trắc Nghiệm Phương Sai và Độ Lệch Chuẩn",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-1-chinh-phuc-14-cau-trac-nghiem-phuong-sai-va-do-lech-chuan.1782/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 14",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Hương trong 20 ngày được ghi lại bằng bảng sau:<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác \" data-src=\"/images/practice/sieugioi/q1_img1.9566.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9566.png\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác \" title=\"Mỗi ngày bác Hương đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác \" width=\"634\" height=\"56\" loading=\"lazy\">\n\t</div><br>\nPhương sai của mẫu số liệu ghép nhóm (làm tròn đến hàng phần trăm) là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0,13$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0,36$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3,39$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$11,62$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có cỡ mẫu $n=20$<br>\nGiá trị trung bình $\\overline{x}\\,=\\frac{3.2,85+6.3,15+5.3,45+4.3,75+2.4,05}{20}=3,39$<br>\nSuy ra phương sai ${{s}^{2}}=\\frac{{{\\left( {{x}_{1}}-x \\right)}^{2}}+{{\\left( {{x}_{2}}-x \\right)}^{2}}+...+{{\\left( {{x}_{n}}-x \\right)}^{2}}}{20}\\approx 0,13$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9566.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Cho hai mẫu số liệu ghép nhóm $A$ và $B$ có bảng tần số ghép nhóm như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm $A$</td><td>$[1,6;1,8)$</td><td>$[1,8;2,0)$</td><td>$[2,0;2,2)$</td><td>$[2,2;2,4)$</td><td>$[2,4;2,6)$</td></tr><tr><td>Tần số</td><td>12</td><td>25</td><td>18</td><td>10</td><td>2</td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Nhóm $B$</td><td>$[2,0;2,2)$</td><td>$[2,2;2,4)$</td><td>$[2,4;2,6)$</td><td>$[2,6;2,8)$</td><td>$[2,8;3,0)$</td></tr><tr><td>Tần số</td><td>24</td><td>50</td><td>36</td><td>20</td><td>4</td></tr></tbody></table>\n</div>Gọi $S_{A}^{2}$ và $S_{B}^{2}$ lần lượt là phương sai của mẫu số liệu ghép nhóm $A$ và $B$. Khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S_{B}^{2}=4S_{A}^{2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S_{A}^{2}=S_{B}^{2}-0,16$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S_{A}^{2}=S_{B}^{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S_{B}^{2}=2S_{A}^{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có<br>\n${{\\overline{x}}_{A}}=\\frac{12.1,7+25.1,9+18.2,1+10.2,3+2.2,5}{12+25+18+10+2}\\approx 1,996$<br>\nSuy ra $\\begin{align}<br>\n&amp; S_{A}^{2}=\\frac{12{{\\left( 1,7-1,996 \\right)}^{2}}+25{{\\left( 1,9-1,996 \\right)}^{2}}+18{{\\left( 2,1-1,996 \\right)}^{2}}+10{{\\left( 2,3-1,996 \\right)}^{2}}+2{{\\left( 2,5-1,996 \\right)}^{2}}}{12+25+18+10+2} \\\\<br>\n&amp; \\approx 0,0434 \\\\<br>\n\\end{align}$<br>\nTa có<br>\n${{\\overline{x}}_{B}}=\\frac{24.2,1+50.2,3+36.2,5+20.2,7+4.2,9}{24+50+36+20+4}\\approx 2,396$<br>\nSuy ra $\\begin{align}<br>\n&amp; S_{B}^{2}=\\frac{24{{\\left( 2,1-2,396 \\right)}^{2}}+50{{\\left( 2,3-2,396 \\right)}^{2}}+36{{\\left( 2,5-2,396 \\right)}^{2}}+20{{\\left( 2,7-2,396 \\right)}^{2}}+4{{\\left( 2,9-2,396 \\right)}^{2}}}{24+50+36+20+4} \\\\<br>\n&amp; \\approx 0,0434 \\\\<br>\n\\end{align}$<br>\nVậy $S_{A}^{2}=S_{B}^{2}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Một mẫu số liệu ghép nhóm có độ lệch chuẩn bằng $3$ thì có phương sai bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{s}^{2}}=6$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{s}^{2}}=3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{s}^{2}}=9$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{s}^{2}}=\\sqrt{3}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Phương sai của mẫu số liệu ghép nhóm có độ lệch chuẩn bằng $3$ là ${{s}^{2}}=9$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Khảo sát thời gian tự học bài ở nhà của học sinh khối 9 ở trường X, ta thu được bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Thời gian ( phút)</td><td>[0; 30)</td><td>[30; 60)</td><td>[60; 90)</td><td>[90; 120)</td><td>[120; 150)</td></tr><tr><td>Số học sinh</td><td>9</td><td>10</td><td>9</td><td>15</td><td>7</td></tr></tbody></table>\n</div>Phương sai của mẫu số liệu ghép nhóm là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "1603."
+          },
+          {
+            "id": "opt_b",
+            "text": "1601,9."
+          },
+          {
+            "id": "opt_c",
+            "text": "1601,64."
+          },
+          {
+            "id": "opt_d",
+            "text": "1602.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tính giá trị đại diện ${{x}_{i}}$ của từng nhóm: 15, 45, 75, 105, 135.<br>\nTổng số học sinh $n=9+10+9+15+7=50.$<br>\nSố trung bình $\\overline{x}=\\frac{9.15+10.45+9.75+15.105+7.135}{50}=75,6.$<br>\nPhương sai ${{s}^{2}}=\\frac{9.{{\\left( 15-\\overline{x} \\right)}^{2}}+10.{{\\left( 45-\\overline{x} \\right)}^{2}}+9.{{\\left( 75-\\overline{x} \\right)}^{2}}+15.{{\\left( 105-\\overline{x} \\right)}^{2}}+7.{{\\left( 135-\\overline{x} \\right)}^{2}}}{50}=1601,64.$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Mỗi ngày bác Hùng đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Hùng trong 20 ngày được thống kê lại ở bảng sau:<br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm có giá trị gần nhất với giá trị nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${0,77}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${0,45}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${3,14}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${1,02}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Lấy các giá trị đại diện của các lớp: ${2,5;{\\text{ }}3,5;{\\text{ }}4,5;{\\text{ }}5,5}$.<br>\nTrung bình mẫu là<br>\n$\\overline{x}=\\dfrac{2\\cdot 2,5+10\\cdot 3,5+6\\cdot 4,5+2\\cdot 5,5}{20}=\\dfrac{78}{20}=3,9$.<br>\nPhương sai ghép nhóm:<br>\n$s^2=\\dfrac{1}{20}\\left[2(2,5-3,9)^2+10(3,5-3,9)^2+6(4,5-3,9)^2+2(5,5-3,9)^2\\right]$<br>\n$=\\dfrac{1}{20}(3,92+1,6+2,16+5,12)=\\dfrac{12,8}{20}=0,64$.<br>\nSuy ra $s=\\sqrt{0,64}=0,8$, gần nhất với ${0,77}$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Một bác tài xế thống kê độ dài quãng đường (đơn vị: km) bác đã lái xe mỗi ngày trong một tháng ${(30}$ ngày) ở bảng số liệu ghép nhóm sau:<br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm trên (kết quả làm tròn đến hàng phần trăm) bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${3206,90}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${56,63}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${55,68}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${55,67}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Bảng số liệu ghép nhóm:<br>\nGiá trị đại diện của các lớp là: $75,\\ 125,\\ 175,\\ 225,\\ 275$.<br>\nSố ngày là: $n=30$.<br>\nTrung bình mẫu: $\\overline{x}=\\dfrac{75.5+125.10+175.9+225.4+275.2}{30}$$=\\dfrac{4650}{30}=155$.<br>\nPhương sai mẫu ghép nhóm: $s^2=\\dfrac{5(75-155)^2+10(125-155)^2+9(175-155)^2+4(225-155)^2+2(275-155)^2}{30}$.<br>\nTính được: $s^2=3100$.<br>\nĐộ lệch chuẩn: $s=\\sqrt{3100}\\approx 55,68$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cân nặng của một số quả mít trong một khu vườn được thống kê ở bảng sau:<br>\nPhương sai của mẫu số liệu ghép nhóm trên gần nhất với giá trị nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "4,9."
+          },
+          {
+            "id": "opt_b",
+            "text": "4,8."
+          },
+          {
+            "id": "opt_c",
+            "text": "4,7."
+          },
+          {
+            "id": "opt_d",
+            "text": "4,6.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Bảng tần số ghép nhóm có các giá trị đại diện:<br>\nTổng số quả mít: $n=6+12+19+9+4=50$.<br>\nTrung bình mẫu: $\\overline{x}=\\dfrac{5.6+7.12+9.19+11.9+13.4}{50}=8,72$.<br>\nPhương sai: $s^2=\\dfrac{6(5-8,72)^2+12(7-8,72)^2+19(9-8,72)^2+9(11-8,72)^2+4(13-8,72)^2}{50}$.<br>\nTính được: $s^2=4,8016\\approx 4,8$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Lan trong 20 ngày được thống kê lại ở bảng sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" data-src=\"/images/practice/sieugioi/q8_img1.9567.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9567.png\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" title=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" width=\"758\" height=\"88\" loading=\"lazy\">\n\t</div><br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm có giá trị gần nhất với giá trị nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$3,41$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0,36$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$0,13$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0,017$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" data-src=\"https://sieugioi.com/docs/attachments/q8_sol1-png.9568/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q8_sol1-png.9568/\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" title=\"Mỗi ngày bác Lan đều đi bộ để rèn luyện sức khoẻ. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác La\" width=\"782\" height=\"132\" loading=\"lazy\">\n\t</div><br>\nGiá trị trung bình của mẫu số liệu ghép nhóm trên là:<br>\n$\\overline{x}=\\frac{2,85.3+3,15.6+3,45.5+3,75.4+4,05.2}{20}=3,39$<br>\nĐộ lệch chuẩn của mẫu số liệu ghép nhóm trên:<br>\n$s=\\sqrt{\\frac{1}{20}\\left( {{3.2,85}^{2}}+{{6.3,15}^{2}}+{{5.3,45}^{2}}+{{4.3,75}^{2}}+{{2.4,05}^{2}} \\right)-{{3,39}^{2}}}\\approx 0,36$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9567.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Cho mẫu số liệu ghép nhóm về điểm thi và số người dự thi như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Điểm thi</td><td>$\\left[ 0;\\,2 \\right)$</td><td>$\\left[ 2;\\,4 \\right)$</td><td>$\\left[ 4;\\,6 \\right)$</td><td>$\\left[ 6;\\,8 \\right)$</td><td>$\\left[ 8;\\,10 \\right)$</td></tr><tr><td>Số người   dự thi</td><td>19</td><td>9</td><td>5</td><td>6</td><td>1</td></tr></tbody></table>\n</div>Tính độ lệch chuẩn của mẫu số liệu ghép nhóm trên (làm tròn đến hàng phần trăm).",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2.77$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2,55$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1,44$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2,39$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $n=19+9+5+6+1=40$.<br>\nSố trung bình của mẫu số liệu ghép nhóm trên là: $\\overline{x}=\\frac{1.19+3.9+5.5+7.6+9.1}{40}=3,05$.<br>\nPhương sai: ${{s}^{2}}=\\frac{1}{40}\\left( {{19.1}^{2}}+{{9.3}^{2}}+{{5.5}^{2}}+{{6.7}^{2}}+{{1.9}^{2}} \\right)-{{\\left( 3,05 \\right)}^{2}}=\\frac{2279}{400}$.<br>\nĐộ lệch chuẩn: $s=\\sqrt{{{s}^{2}}}=\\sqrt{\\frac{2279}{400}}\\approx 2,39$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Xét mẫu số liệu ghép nhóm có phương sai bằng $9$. Độ lệch chuẩn của mẫu số liệu đó bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$9$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\sqrt{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì mẫu số liệu có phương sai bằng $9$ nên độ lệch chuẩn của mẫu số liệu đó bằng $3$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Hướng tới kỳ thi tốt nghiệp THPT, học sinh hai lớp chất lượng cao 12A và 12B của trường NQH tham gia một kỳ thi thử môn Toán. Kết quả (số học sinh) theo các khoảng điểm như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Điểm</td><td>[5 ; 6)</td><td>[6 ; 7)</td><td>[7 ; 8)</td><td>[8 ; 9)</td><td>[9 ; 10]</td></tr><tr><td>Lớp 12A</td><td>5</td><td>11</td><td>13</td><td>8</td><td>3</td></tr><tr><td>Lớp 12B</td><td>3</td><td>5</td><td>22</td><td>2</td><td>8</td></tr></tbody></table>\n</div>Khi so sánh, các giá trị điểm trung bình và độ phân tán điểm đo bằng độ lệch chuẩn (được ước lượng theo công thức cho mẫu số liệu ghép nhóm) của hai lớp. Nhận định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Lớp 12B có điểm trung bình cao hơn và độ phân tán điểm cao hơn lớp 12A."
+          },
+          {
+            "id": "opt_b",
+            "text": "Lớp 12B có điểm trung bình cao hơn và độ phân tán điểm thấp hơn lớp 12A."
+          },
+          {
+            "id": "opt_c",
+            "text": "Lớp 12B có điểm trung bình cao hơn lớp 12A, và độ phân tán điểm của hai lớp bằng nhau."
+          },
+          {
+            "id": "opt_d",
+            "text": "Lớp 12A có điểm trung bình cao hơn lớp 12B, và độ phân tán điểm của hai lớp bằng nhau.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Điểm trung bình lớp $12A$ là $\\overline{{{x}_{A}}}=7,325$<br>\nĐiểm trung bình lớp $12B$ là $\\overline{{{x}_{B}}}=7,675$<br>\nKhi $\\overline{{{x}_{A}}}&lt;\\overline{{{x}_{B}}}$ và ${{s}_{A}}\\approx 1,12={{s}_{B}}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Cho mẫu số liệu ghép nhóm có phương sai bằng 32. Độ lệch chuẩn của mẫu số liệu trên là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1024$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4\\sqrt{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$16$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$4\\sqrt{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Độ lệch chuẩn của mẫu số liệu là $\\sqrt{32}=4\\sqrt{2}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Thống kê độ tuổi tập thể dục thể thao hằng ngày trong một cụm dân cư có bảng số liệu sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Độ tuổi</td><td>${[10;20)}$</td><td>${[20;30)}$</td><td>${[30;40)}$</td><td>${[40;50)}$</td><td>${[50;60)}$</td></tr><tr><td>Số người</td><td>10</td><td>6</td><td>15</td><td>19</td><td>25</td></tr></tbody></table>\n</div>Phương sai của mẫu số liệu trên bảng bao nhiêu (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần trăm)?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${187,03}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${189,66}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${187,13}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${13,68}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Lấy giá trị đại diện của các lớp tuổi là trung điểm:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Lớp tuổi</td><td>${[10;20)}$</td><td>${[20;30)}$</td><td>${[30;40)}$</td><td>${[40;50)}$</td><td>${[50;60)}$</td></tr><tr><td>Trung điểm</td><td>15</td><td>25</td><td>35</td><td>45</td><td>55</td></tr><tr><td>Số người</td><td>10</td><td>6</td><td>15</td><td>19</td><td>25</td></tr></tbody></table>\n</div>Tổng số người là $n=10+6+15+19+25=75$.<br>\nSố trung bình là<br>\n$\\overline{x}=\\dfrac{10.15+6.25+15.35+19.45+25.55}{75}=\\dfrac{3055}{75}$.<br>\nPhương sai là<br>\n$S^2=\\dfrac{10(15-\\overline{x})^2+6(25-\\overline{x})^2+15(35-\\overline{x})^2+19(45-\\overline{x})^2+25(55-\\overline{x})^2}{75}$.<br>\nTính được $S^2 \\approx 187,1289$.<br>\nLàm tròn đến hàng phần trăm được ${187,13}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Bảng dưới đây thống kê cự li ném tạ của một vận động viên.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" data-src=\"/images/practice/sieugioi/q14_img1.9569.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9569.png\" class=\"bbImage\" style=\"\" alt=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" title=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" width=\"881\" height=\"85\" loading=\"lazy\">\n\t</div><br>\nPhương sai của mẫu số liệu ghép nhóm trên (làm tròn đến hàng phần trăm) là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0,26$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0,27$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$0,29$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0,28$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" data-src=\"https://sieugioi.com/docs/attachments/q14_sol1-png.9570/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q14_sol1-png.9570/\" class=\"bbImage\" style=\"\" alt=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" title=\"Bảng dưới đây thống kê cự li ném tạ của một vận động viên.\" width=\"882\" height=\"110\" loading=\"lazy\">\n\t</div><br>\n+) Cỡ mẫu: $n=100$.<br>\n+) Số trung bình của mẫu số liệu ghép nhóm là<br>\n$\\bar{x}=\\frac{19,25.13+19,75.45+20,25.24+20,75.12+21,25.6}{100}=20,015$.<br>\n+) Phương sai của mẫu số liệu ghép nhóm là<br>\n${{S}^{2}}=\\frac{1}{100}\\left( {{19,25}^{2}}.13+{{19,75}^{2}}.45+{{20,25}^{2}}.24+{{20,75}^{2}}.12+{{21,25}^{2}}.6 \\right)-{{20,015}^{2}}\\approx 0,28$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9569.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:49.598Z"
+}

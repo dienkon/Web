@@ -40,6 +40,7 @@ import { PracticeRegistry } from "../core/PracticeRegistry";
 import { PracticeHistoryService } from "../core/PracticeHistoryService";
 import { PracticeCategory, PracticeMode, UserQuestionAttempt } from "../core/types";
 import OldExamsReviewTab from "../components/OldExamsReviewTab";
+import SieuGioiPracticeTab from "../components/SieuGioiPracticeTab";
 import { grade12CatalogService, TopicCatalogSummary } from "../curriculum/grade12CatalogService";
 import { ALL_GRADE_12_TAXONOMIES, Grade12Subject } from "../curriculum/grade12Taxonomy";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
@@ -69,15 +70,17 @@ export default function PracticeLobbyPage() {
 
   // Main Workflow Tabs
   // drill: Topic Drill (GDPT 2018 tree)
+  // sieugioi: SieuGioi 5000+ Exam Bank (17 Lessons, 61 Exams)
   // catalog: Mode Catalog (continuous question generators)
   // exam_sim: 2025 Ministry Exam Simulation (QĐ 764)
   // mistakes: Mistake Review (questions answered wrongly)
   // review: Old exams & retakes
-  type PracticeTab = "drill" | "catalog" | "exam_sim" | "mistakes" | "review";
+  type PracticeTab = "drill" | "sieugioi" | "catalog" | "exam_sim" | "mistakes" | "review";
 
   const [activeTab, setActiveTab] = useState<PracticeTab>(() => {
     const tabParam = searchParams.get("tab");
     if (tabParam === "review") return "review";
+    if (tabParam === "sieugioi") return "sieugioi";
     if (tabParam === "drill") return "drill";
     if (tabParam === "exam_sim") return "exam_sim";
     if (tabParam === "mistakes") return "mistakes";
@@ -87,6 +90,7 @@ export default function PracticeLobbyPage() {
   useEffect(() => {
     const tabParam = searchParams.get("tab");
     if (tabParam === "review" && activeTab !== "review") setActiveTab("review");
+    else if (tabParam === "sieugioi" && activeTab !== "sieugioi") setActiveTab("sieugioi");
     else if (tabParam === "catalog" && activeTab !== "catalog") setActiveTab("catalog");
     else if (tabParam === "exam_sim" && activeTab !== "exam_sim") setActiveTab("exam_sim");
     else if (tabParam === "mistakes" && activeTab !== "mistakes") setActiveTab("mistakes");
@@ -324,6 +328,27 @@ export default function PracticeLobbyPage() {
               activeTab === "drill" ? "bg-white/20 text-white" : "bg-blue-50 text-blue-600"
             }`}>
               Cốt lõi
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab("sieugioi");
+              setSearchParams({ tab: "sieugioi" });
+            }}
+            className={`min-h-[44px] px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              activeTab === "sieugioi"
+                ? "bg-blue-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            <Calculator className="w-4 h-4 text-emerald-400" />
+            <span>Kho 61 Đề Toán 12 (SieuGioi)</span>
+            <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-full ${
+              activeTab === "sieugioi" ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-700"
+            }`}>
+              996 câu • 17 bài
             </span>
           </button>
 
@@ -642,6 +667,11 @@ export default function PracticeLobbyPage() {
               </div>
             </div>
           </div>
+        )}
+
+        {/* TAB: SIEUGIOI EXAM BANK */}
+        {activeTab === "sieugioi" && (
+          <SieuGioiPracticeTab onOpenLaunchModal={handleOpenLaunchModal} />
         )}
 
         {/* TAB 2: MODE CATALOG */}

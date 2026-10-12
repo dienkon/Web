@@ -1,0 +1,605 @@
+{
+  "totalExams": 61,
+  "totalQuestions": 992,
+  "totalImages": 372,
+  "generatedAt": "2026-10-12T14:45:11.310Z",
+  "lessons": {
+    "1": {
+      "bai": 1,
+      "baiTitle": "Tính đơn điệu và cực trị của hàm số",
+      "chapter": "Chương 1. Ứng dụng đạo hàm",
+      "topicId": "math_t1_monotonicity",
+      "examCount": 6,
+      "questionCount": 149,
+      "exams": [
+        {
+          "id": "1743",
+          "title": "Đề số 1. Giải 15 bài tập tính đơn điệu và cực trị của hàm số",
+          "url": "https://sieugioi.com/docs/threads/de-so-1-giai-15-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1743/",
+          "totalQuestions": 15,
+          "questionsWithImages": 11
+        },
+        {
+          "id": "1744",
+          "title": "Đề số 2. 20 Bài Tập Tính Đơn Điệu và Cực Trị Của Hàm Số Cơ Bản Kèm Lời Giải",
+          "url": "https://sieugioi.com/docs/threads/de-so-2-20-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so-co-ban-kem-loi-giai.1744/",
+          "totalQuestions": 20,
+          "questionsWithImages": 15
+        },
+        {
+          "id": "1745",
+          "title": "Đề số 3. Giải Chi Tiết 28 Bài Tập Tính Đơn Điệu và Cực Trị Của Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-so-3-giai-chi-tiet-28-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1745/",
+          "totalQuestions": 28,
+          "questionsWithImages": 21
+        },
+        {
+          "id": "1746",
+          "title": "Đề số 4. Tổng Hợp 25 Bài Tập Tính Đơn Điệu và Cực Trị Hàm Số Hay Gặp",
+          "url": "https://sieugioi.com/docs/threads/de-so-4-tong-hop-25-bai-tap-tinh-don-dieu-va-cuc-tri-ham-so-hay-gap.1746/",
+          "totalQuestions": 25,
+          "questionsWithImages": 16
+        },
+        {
+          "id": "1747",
+          "title": "Đề số 5. Luyện Tập Tính Đơn Điệu và Cực Trị Hàm Số Qua 29 Bài Tập",
+          "url": "https://sieugioi.com/docs/threads/de-so-5-luyen-tap-tinh-don-dieu-va-cuc-tri-ham-so-qua-29-bai-tap.1747/",
+          "totalQuestions": 29,
+          "questionsWithImages": 20
+        },
+        {
+          "id": "1748",
+          "title": "Đề số 6. Chinh Phục 32 Bài Tập Tính Đơn Điệu và Cực Trị Hàm Số Từ Dễ Đến Khó",
+          "url": "https://sieugioi.com/docs/threads/de-so-6-chinh-phuc-32-bai-tap-tinh-don-dieu-va-cuc-tri-ham-so-tu-de-den-kho.1748/",
+          "totalQuestions": 32,
+          "questionsWithImages": 27
+        }
+      ]
+    },
+    "2": {
+      "bai": 2,
+      "baiTitle": "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số",
+      "chapter": "Chương 1. Ứng dụng đạo hàm",
+      "topicId": "math_t3_minmax",
+      "examCount": 4,
+      "questionCount": 70,
+      "exams": [
+        {
+          "id": "1749",
+          "title": "Đề 1. Tổng Hợp 15 Bài Tập Trắc Nghiệm GTLN, GTNN Của Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-1-tong-hop-15-bai-tap-trac-nghiem-gtln-gtnn-cua-ham-so.1749/",
+          "totalQuestions": 15,
+          "questionsWithImages": 7
+        },
+        {
+          "id": "1750",
+          "title": "Đề 2 – Giải 17 Bài Tập Trắc Nghiệm GTLN, GTNN Của Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-2-giai-17-bai-tap-trac-nghiem-gtln-gtnn-cua-ham-so.1750/",
+          "totalQuestions": 17,
+          "questionsWithImages": 5
+        },
+        {
+          "id": "1751",
+          "title": "Đề 3. 18 Bài Trắc Nghiệm GTLN, GTNN Hàm Số Có Lời Giải",
+          "url": "https://sieugioi.com/docs/threads/de-3-18-bai-trac-nghiem-gtln-gtnn-ham-so-co-loi-giai.1751/",
+          "totalQuestions": 18,
+          "questionsWithImages": 5
+        },
+        {
+          "id": "1752",
+          "title": "Đề 4. 20 Câu Trắc Nghiệm GTLN, GTNN Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-4-20-cau-trac-nghiem-gtln-gtnn-ham-so.1752/",
+          "totalQuestions": 20,
+          "questionsWithImages": 11
+        }
+      ]
+    },
+    "3": {
+      "bai": 3,
+      "baiTitle": "Đường tiệm cận của đồ thị hàm số",
+      "chapter": "Chương 1. Ứng dụng đạo hàm",
+      "topicId": "math_t4_asymptote",
+      "examCount": 5,
+      "questionCount": 95,
+      "exams": [
+        {
+          "id": "1753",
+          "title": "Đề 1. 12 Câu Trắc Nghiệm Đường Tiệm Cận Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-1-12-cau-trac-nghiem-duong-tiem-can-ham-so.1753/",
+          "totalQuestions": 12,
+          "questionsWithImages": 7
+        },
+        {
+          "id": "1754",
+          "title": "Đề 2. Giải 15 Câu Trắc Nghiệm Đường Tiệm Cận Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-2-giai-15-cau-trac-nghiem-duong-tiem-can-ham-so.1754/",
+          "totalQuestions": 15,
+          "questionsWithImages": 6
+        },
+        {
+          "id": "1755",
+          "title": "Đề 3. Giải 20 Bài Tập Trắc Nghiệm Đường Tiệm Cận Của Đồ Thị Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-3-giai-20-bai-tap-trac-nghiem-duong-tiem-can-cua-do-thi-ham-so.1755/",
+          "totalQuestions": 20,
+          "questionsWithImages": 8
+        },
+        {
+          "id": "1756",
+          "title": "Đề 4. Luyện Tập 22 Câu Trắc Nghiệm Về Đường Tiệm Cận Của Đồ Thị Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-4-luyen-tap-22-cau-trac-nghiem-ve-duong-tiem-can-cua-do-thi-ham-so.1756/",
+          "totalQuestions": 22,
+          "questionsWithImages": 11
+        },
+        {
+          "id": "1757",
+          "title": "Đề 5. Giải Chi Tiết 26 Câu Trắc Nghiệm Đường Tiệm Cận Của Đồ Thị Hàm Số",
+          "url": "https://sieugioi.com/docs/threads/de-5-giai-chi-tiet-26-cau-trac-nghiem-duong-tiem-can-cua-do-thi-ham-so.1757/",
+          "totalQuestions": 26,
+          "questionsWithImages": 10
+        }
+      ]
+    },
+    "4": {
+      "bai": 4,
+      "baiTitle": "Khảo sát sự biến thiên và vẽ đồ thị của hàm số",
+      "chapter": "Chương 1. Ứng dụng đạo hàm",
+      "topicId": "math_t5_graph_optimize",
+      "examCount": 2,
+      "questionCount": 40,
+      "exams": [
+        {
+          "id": "1759",
+          "title": "Đề 1. Giải chi tiết 15 bài trắc nghiệm khảo sát sự biến thiên và vẽ đồ thị hàm số hay và khó",
+          "url": "https://sieugioi.com/docs/threads/de-1-giai-chi-tiet-15-bai-trac-nghiem-khao-sat-su-bien-thien-va-ve-do-thi-ham-so-hay-va-kho.1759/",
+          "totalQuestions": 15,
+          "questionsWithImages": 12
+        },
+        {
+          "id": "1760",
+          "title": "Đề 2. Giải đáp 25 câu trắc nghiệm khảo sát sự biến thiên và vẽ đồ thị hàm số từ A–Z",
+          "url": "https://sieugioi.com/docs/threads/de-2-giai-dap-25-cau-trac-nghiem-khao-sat-su-bien-thien-va-ve-do-thi-ham-so-tu-a-z.1760/",
+          "totalQuestions": 25,
+          "questionsWithImages": 22
+        }
+      ]
+    },
+    "5": {
+      "bai": 5,
+      "baiTitle": "Ứng dụng đạo hàm giải quyết vấn đề thực tiễn",
+      "chapter": "Chương 1. Ứng dụng đạo hàm",
+      "topicId": "math_t5_graph_optimize",
+      "examCount": 1,
+      "questionCount": 5,
+      "exams": [
+        {
+          "id": "1761",
+          "title": "Giải 5 bải trắc nghiệm ứng dụng đạo hàm để giải quyết một số vấn đề liên quan đến thực tiễn cực hay",
+          "url": "https://sieugioi.com/docs/threads/giai-5-bai-trac-nghiem-ung-dung-dao-ham-de-giai-quyet-mot-so-van-de-lien-quan-den-thuc-tien-cuc-hay.1761/",
+          "totalQuestions": 5,
+          "questionsWithImages": 2
+        }
+      ]
+    },
+    "6": {
+      "bai": 6,
+      "baiTitle": "Vectơ trong không gian",
+      "chapter": "Chương 2. Vectơ và hệ tọa độ không gian",
+      "topicId": "math_t6_vector_space",
+      "examCount": 5,
+      "questionCount": 95,
+      "exams": [
+        {
+          "id": "1762",
+          "title": "Đề 1. 12 Câu Trắc Nghiệm bài 6 Vectơ Trong Không Gian – Toán 12 (Có Đáp Án)",
+          "url": "https://sieugioi.com/docs/threads/de-1-12-cau-trac-nghiem-bai-6-vecto-trong-khong-gian-toan-12-co-dap-an.1762/",
+          "totalQuestions": 12,
+          "questionsWithImages": 6
+        },
+        {
+          "id": "1763",
+          "title": "Đề 2. Trắc Nghiệm Toán 15 Bài 6 Vectơ Trong Không Gian 12 Câu Chọn Lọc",
+          "url": "https://sieugioi.com/docs/threads/de-2-trac-nghiem-toan-15-bai-6-vecto-trong-khong-gian-12-cau-chon-loc.1763/",
+          "totalQuestions": 15,
+          "questionsWithImages": 8
+        },
+        {
+          "id": "1764",
+          "title": "Đề 3. 18 Bài Tập trắc nghiệm Vectơ Trong Không Gian Có Lời Giải Chi Tiết",
+          "url": "https://sieugioi.com/docs/threads/de-3-18-bai-tap-trac-nghiem-vecto-trong-khong-gian-co-loi-giai-chi-tiet.1764/",
+          "totalQuestions": 18,
+          "questionsWithImages": 7
+        },
+        {
+          "id": "1765",
+          "title": "Đề 4. Bộ 20 Câu Hỏi Trắc Nghiệm Vectơ Trong Không Gian Toán 12",
+          "url": "https://sieugioi.com/docs/threads/de-4-bo-20-cau-hoi-trac-nghiem-vecto-trong-khong-gian-toan-12.1765/",
+          "totalQuestions": 20,
+          "questionsWithImages": 9
+        },
+        {
+          "id": "1766",
+          "title": "Để 5. Luyện Tập Vectơ Trong Không Gian Lớp 12 – 30 Câu Trắc Nghiệm",
+          "url": "https://sieugioi.com/docs/threads/de-5-luyen-tap-vecto-trong-khong-gian-lop-12-30-cau-trac-nghiem.1766/",
+          "totalQuestions": 30,
+          "questionsWithImages": 18
+        }
+      ]
+    },
+    "7": {
+      "bai": 7,
+      "baiTitle": "Hệ trục tọa độ trong không gian",
+      "chapter": "Chương 2. Vectơ và hệ tọa độ không gian",
+      "topicId": "math_t7_oxyz_coords",
+      "examCount": 2,
+      "questionCount": 30,
+      "exams": [
+        {
+          "id": "1767",
+          "title": "Đề 1. 12 Bài tập trắc nghiệm Hệ trục tọa độ trong không gian",
+          "url": "https://sieugioi.com/docs/threads/de-1-12-bai-tap-trac-nghiem-he-truc-toa-do-trong-khong-gian.1767/",
+          "totalQuestions": 12,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1768",
+          "title": "Đề 2. Giải chi tiết 18 bài tập trắc nghiệm Hệ trục tọa độ trong không gian",
+          "url": "https://sieugioi.com/docs/threads/de-2-giai-chi-tiet-18-bai-tap-trac-nghiem-he-truc-toa-do-trong-khong-gian.1768/",
+          "totalQuestions": 18,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "8": {
+      "bai": 8,
+      "baiTitle": "Biểu thức tọa độ của các phép toán vectơ",
+      "chapter": "Chương 2. Vectơ và hệ tọa độ không gian",
+      "topicId": "math_t7_oxyz_coords",
+      "examCount": 5,
+      "questionCount": 82,
+      "exams": [
+        {
+          "id": "1769",
+          "title": "Đề 1. 12 bài tập trắc nghiệm biểu thức tọa độ của các phép toán vectơ",
+          "url": "https://sieugioi.com/docs/threads/de-1-12-bai-tap-trac-nghiem-bieu-thuc-toa-do-cua-cac-phep-toan-vecto.1769/",
+          "totalQuestions": 12,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1770",
+          "title": "Đề 2. 15 Bài Tập Vectơ Trong Không Gian Giúp Bạn Nắm Chắc Kiến Thức",
+          "url": "https://sieugioi.com/docs/threads/de-2-15-bai-tap-vecto-trong-khong-gian-giup-ban-nam-chac-kien-thuc.1770/",
+          "totalQuestions": 15,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1771",
+          "title": "Đề 3. Thử sức với 18 câu trắc nghiệm Biểu thức tọa độ của các phép toán vectơ",
+          "url": "https://sieugioi.com/docs/threads/de-3-thu-suc-voi-18-cau-trac-nghiem-bieu-thuc-toa-do-cua-cac-phep-toan-vecto.1771/",
+          "totalQuestions": 18,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1772",
+          "title": "Đề 4. Ôn luyện Biểu thức tọa độ của các phép toán vectơ – 16 câu trắc nghiệm",
+          "url": "https://sieugioi.com/docs/threads/de-4-on-luyen-bieu-thuc-toa-do-cua-cac-phep-toan-vecto-16-cau-trac-nghiem.1772/",
+          "totalQuestions": 19,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1773",
+          "title": "Đề 5. Hệ thống 18 câu trắc nghiệm Biểu thức tọa độ của các phép toán vectơ",
+          "url": "https://sieugioi.com/docs/threads/de-5-he-thong-18-cau-trac-nghiem-bieu-thuc-toa-do-cua-cac-phep-toan-vecto.1773/",
+          "totalQuestions": 18,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "9": {
+      "bai": 9,
+      "baiTitle": "Khoảng biến thiên và khoảng tứ phân vị",
+      "chapter": "Chương 3. Số đặc trưng đo độ phân tán",
+      "topicId": "math_t8_grouped_dispersion",
+      "examCount": 6,
+      "questionCount": 62,
+      "exams": [
+        {
+          "id": "1774",
+          "title": "Đề 1. Giải 7 bài tập trắc nghiệm về khoảng biến thiên và khoảng tứ phân vị",
+          "url": "https://sieugioi.com/docs/threads/de-1-giai-7-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1774/",
+          "totalQuestions": 7,
+          "questionsWithImages": 7
+        },
+        {
+          "id": "1775",
+          "title": "Đề 2. Cùng luyện 8 câu trắc nghiệm Khoảng biến thiên và khoảng tứ phân vị",
+          "url": "https://sieugioi.com/docs/threads/de-2-cung-luyen-8-cau-trac-nghiem-khoang-bien-thien-va-khoang-tu-phan-vi.1775/",
+          "totalQuestions": 8,
+          "questionsWithImages": 3
+        },
+        {
+          "id": "1776",
+          "title": "Đề 3. 15 Bài Trắc Nghiệm Khoảng Biến Thiên và Khoảng Tứ Phân Vị – Có Lời Giải Chi Tiết",
+          "url": "https://sieugioi.com/docs/threads/de-3-15-bai-trac-nghiem-khoang-bien-thien-va-khoang-tu-phan-vi-co-loi-giai-chi-tiet.1776/",
+          "totalQuestions": 15,
+          "questionsWithImages": 5
+        },
+        {
+          "id": "1777",
+          "title": "Đề 4. Luyện Tập 14 Câu Trắc Nghiệm Khoảng Biến Thiên và Khoảng Tứ Phân Vị – Toán 12",
+          "url": "https://sieugioi.com/docs/threads/de-3-luyen-tap-14-cau-trac-nghiem-khoang-bien-thien-va-khoang-tu-phan-vi-toan-12.1777/",
+          "totalQuestions": 14,
+          "questionsWithImages": 8
+        },
+        {
+          "id": "1778",
+          "title": "Đề 5. Thực Hành 12 Bài Tập Trắc Nghiệm Về Khoảng Biến Thiên và Khoảng Tứ Phân Vị",
+          "url": "https://sieugioi.com/docs/threads/de-4-thuc-hanh-12-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1778/",
+          "totalQuestions": 12,
+          "questionsWithImages": 4
+        },
+        {
+          "id": "1779",
+          "title": "Đề 6. Ôn Tập Khoảng Biến Thiên và Khoảng Tứ Phân Vị Qua 6 Câu Trắc Nghiệm",
+          "url": "https://sieugioi.com/docs/threads/de-5-on-tap-khoang-bien-thien-va-khoang-tu-phan-vi-qua-6-cau-trac-nghiem.1779/",
+          "totalQuestions": 6,
+          "questionsWithImages": 3
+        }
+      ]
+    },
+    "10": {
+      "bai": 10,
+      "baiTitle": "Phương sai và độ lệch chuẩn",
+      "chapter": "Chương 3. Số đặc trưng đo độ phân tán",
+      "topicId": "math_t8_grouped_dispersion",
+      "examCount": 2,
+      "questionCount": 30,
+      "exams": [
+        {
+          "id": "1782",
+          "title": "Đề 1. Chinh Phục 14 Câu Trắc Nghiệm Phương Sai và Độ Lệch Chuẩn",
+          "url": "https://sieugioi.com/docs/threads/de-1-chinh-phuc-14-cau-trac-nghiem-phuong-sai-va-do-lech-chuan.1782/",
+          "totalQuestions": 14,
+          "questionsWithImages": 3
+        },
+        {
+          "id": "1783",
+          "title": "Đề 2. Luyện Tập 16 Câu Trắc Nghiệm Phương Sai và Độ Lệch Chuẩn",
+          "url": "https://sieugioi.com/docs/threads/de-2-luyen-tap-16-cau-trac-nghiem-phuong-sai-va-do-lech-chuan.1783/",
+          "totalQuestions": 16,
+          "questionsWithImages": 2
+        }
+      ]
+    },
+    "11": {
+      "bai": 11,
+      "baiTitle": "Nguyên hàm",
+      "chapter": "Chương 4. Nguyên hàm và tích phân",
+      "topicId": "math_t9_antiderivative",
+      "examCount": 5,
+      "questionCount": 85,
+      "exams": [
+        {
+          "id": "1784",
+          "title": "12 Câu Trắc Nghiệm Nguyên Hàm Có Đáp Án Chi Tiết – Toán 12",
+          "url": "https://sieugioi.com/docs/threads/12-cau-trac-nghiem-nguyen-ham-co-dap-an-chi-tiet-toan-12.1784/",
+          "totalQuestions": 12,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1785",
+          "title": "15 Bài Tập Trắc Nghiệm Nguyên Hàm Từ Cơ Bản Đến Nâng Cao Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/15-bai-tap-trac-nghiem-nguyen-ham-tu-co-ban-den-nang-cao-co-dap-an.1785/",
+          "totalQuestions": 15,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1786",
+          "title": "10 bài Trắc Nghiệm Nguyên Hàm Có Đáp Án – Toán 12",
+          "url": "https://sieugioi.com/docs/threads/10-bai-trac-nghiem-nguyen-ham-co-dap-an-toan-12.1786/",
+          "totalQuestions": 10,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1787",
+          "title": "Trắc Nghiệm Nguyên Hàm Toán 12 – Tổng Hợp 18 Câu Hỏi Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/trac-nghiem-nguyen-ham-toan-12-tong-hop-18-cau-hoi-co-dap-an.1787/",
+          "totalQuestions": 18,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1788",
+          "title": "Tổng Hợp 30 Bài Tập Trắc Nghiệm Nguyên Hàm Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/tong-hop-30-bai-tap-trac-nghiem-nguyen-ham-co-dap-an.1788/",
+          "totalQuestions": 30,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "12": {
+      "bai": 12,
+      "baiTitle": "Tích phân",
+      "chapter": "Chương 4. Nguyên hàm và tích phân",
+      "topicId": "math_t10_integral_apps",
+      "examCount": 3,
+      "questionCount": 47,
+      "exams": [
+        {
+          "id": "1789",
+          "title": "Ôn Tập Tích Phân Qua 21 Câu Hỏi Trắc Nghiệm Có Đáp Án Chi Tiết",
+          "url": "https://sieugioi.com/docs/threads/on-tap-tich-phan-qua-21-cau-hoi-trac-nghiem-co-dap-an-chi-tiet.1789/",
+          "totalQuestions": 21,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1790",
+          "title": "Tuyển Tập 11 Câu Hỏi Trắc Nghiệm Tích Phân Toán 12 Giúp Ôn Thi Hiệu Quả",
+          "url": "https://sieugioi.com/docs/threads/tuyen-tap-11-cau-hoi-trac-nghiem-tich-phan-toan-12-giup-on-thi-hieu-qua.1790/",
+          "totalQuestions": 11,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1791",
+          "title": "Tổng Hợp 15 Bài Tập Trắc Nghiệm Tích Phân Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/tong-hop-15-bai-tap-trac-nghiem-tich-phan-co-dap-an.1791/",
+          "totalQuestions": 15,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "13": {
+      "bai": 13,
+      "baiTitle": "Ứng dụng hình học của tích phân",
+      "chapter": "Chương 4. Nguyên hàm và tích phân",
+      "topicId": "math_t10_integral_apps",
+      "examCount": 4,
+      "questionCount": 48,
+      "exams": [
+        {
+          "id": "1792",
+          "title": "10+ Câu Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/10-cau-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1792/",
+          "totalQuestions": 12,
+          "questionsWithImages": 5
+        },
+        {
+          "id": "1793",
+          "title": "Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân 13 Bài Tập Từ Cơ Bản Đến Nâng Cao",
+          "url": "https://sieugioi.com/docs/threads/trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-13-bai-tap-tu-co-ban-den-nang-cao.1793/",
+          "totalQuestions": 13,
+          "questionsWithImages": 3
+        },
+        {
+          "id": "1794",
+          "title": "Bộ 12 Câu Hỏi Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/bo-12-cau-hoi-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1794/",
+          "totalQuestions": 12,
+          "questionsWithImages": 2
+        },
+        {
+          "id": "1795",
+          "title": "Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân – Tổng Hợp 11 Câu Hỏi Hay",
+          "url": "https://sieugioi.com/docs/threads/trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-tong-hop-11-cau-hoi-hay.1795/",
+          "totalQuestions": 11,
+          "questionsWithImages": 3
+        }
+      ]
+    },
+    "14": {
+      "bai": 14,
+      "baiTitle": "Phương trình mặt phẳng",
+      "chapter": "Chương 5. Phương pháp tọa độ không gian",
+      "topicId": "math_t11_plane_sphere",
+      "examCount": 5,
+      "questionCount": 80,
+      "exams": [
+        {
+          "id": "1796",
+          "title": "Chuyên Đề Trắc Nghiệm Phương Trình Mặt Phẳng – Lời Giải Chi Tiết",
+          "url": "https://sieugioi.com/docs/threads/chuyen-de-trac-nghiem-phuong-trinh-mat-phang-loi-giai-chi-tiet.1796/",
+          "totalQuestions": 13,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1797",
+          "title": "14 bài tập Trắc Nghiệm Viết Phương Trình Mặt Phẳng Có Lời Giải",
+          "url": "https://sieugioi.com/docs/threads/14-bai-tap-trac-nghiem-viet-phuong-trinh-mat-phang-co-loi-giai.1797/",
+          "totalQuestions": 14,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1798",
+          "title": "11 bài tập Trắc Nghiệm Phương Trình Mặt Phẳng Từ Cơ Bản Đến Nâng Cao",
+          "url": "https://sieugioi.com/docs/threads/11-bai-tap-trac-nghiem-phuong-trinh-mat-phang-tu-co-ban-den-nang-cao.1798/",
+          "totalQuestions": 11,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1799",
+          "title": "Tổng Hợp Câu Hỏi Trắc Nghiệm Phương Trình Mặt Phẳng",
+          "url": "https://sieugioi.com/docs/threads/tong-hop-cau-hoi-trac-nghiem-phuong-trinh-mat-phang.1799/",
+          "totalQuestions": 15,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1800",
+          "title": "Giải 27 Bài Tập Trắc Nghiệm Phương Trình Mặt Phẳng Lớp 12",
+          "url": "https://sieugioi.com/docs/threads/giai-27-bai-tap-trac-nghiem-phuong-trinh-mat-phang-lop-12.1800/",
+          "totalQuestions": 27,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "15": {
+      "bai": 15,
+      "baiTitle": "Phương trình đường thẳng trong không gian",
+      "chapter": "Chương 5. Phương pháp tọa độ không gian",
+      "topicId": "math_t12_line_relative_pos",
+      "examCount": 3,
+      "questionCount": 36,
+      "exams": [
+        {
+          "id": "1801",
+          "title": "Ôn Tập Trắc Nghiệm Phương Trình Đường Thẳng Trong Không Gian Oxyz",
+          "url": "https://sieugioi.com/docs/threads/on-tap-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-oxyz.1801/",
+          "totalQuestions": 11,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1802",
+          "title": "Giải 15 Bài Tập Trắc Nghiệm Phương Trình Đường Thẳng Trong Không Gian Kèm Đáp Án Chi Tiết",
+          "url": "https://sieugioi.com/docs/threads/giai-15-bai-tap-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-kem-dap-an-chi-tiet.1802/",
+          "totalQuestions": 15,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1803",
+          "title": "Luyện Trắc Nghiệm Phương Trình Đường Thẳng Trong Không Gian Từ Cơ Bản Đến Nâng Cao",
+          "url": "https://sieugioi.com/docs/threads/luyen-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-tu-co-ban-den-nang-cao.1803/",
+          "totalQuestions": 10,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "16": {
+      "bai": 16,
+      "baiTitle": "Công thức tính góc trong không gian",
+      "chapter": "Chương 5. Phương pháp tọa độ không gian",
+      "topicId": "math_t12_line_relative_pos",
+      "examCount": 1,
+      "questionCount": 5,
+      "exams": [
+        {
+          "id": "1804",
+          "title": "Bài tập trắc nghiệm Công thức tính góc trong không gian",
+          "url": "https://sieugioi.com/docs/threads/bai-tap-trac-nghiem-cong-thuc-tinh-goc-trong-khong-gian.1804/",
+          "totalQuestions": 5,
+          "questionsWithImages": 0
+        }
+      ]
+    },
+    "17": {
+      "bai": 17,
+      "baiTitle": "Phương trình mặt cầu & bài tập tổng hợp",
+      "chapter": "Chương 5. Phương pháp tọa độ không gian",
+      "topicId": "math_t11_plane_sphere",
+      "examCount": 2,
+      "questionCount": 33,
+      "exams": [
+        {
+          "id": "1805",
+          "title": "Luyện Trắc Nghiệm Phương trình mặt cầu",
+          "url": "https://sieugioi.com/docs/threads/luyen-trac-nghiem-phuong-trinh-mat-cau.1805/",
+          "totalQuestions": 12,
+          "questionsWithImages": 0
+        },
+        {
+          "id": "1806",
+          "title": "Giải 20 Bài tập Trắc Nghiệm Đường Thẳng Không Gian Có Đáp Án",
+          "url": "https://sieugioi.com/docs/threads/giai-20-bai-tap-trac-nghiem-duong-thang-khong-gian-co-dap-an.1806/",
+          "totalQuestions": 21,
+          "questionsWithImages": 0
+        }
+      ]
+    }
+  }
+}

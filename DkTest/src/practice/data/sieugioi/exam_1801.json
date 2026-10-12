@@ -1,0 +1,813 @@
+{
+  "meta": {
+    "title": "Ôn Tập Trắc Nghiệm Phương Trình Đường Thẳng Trong Không Gian Oxyz",
+    "slug": "on-tap-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-oxyz",
+    "id": "1801",
+    "url": "https://sieugioi.com/docs/threads/on-tap-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-oxyz.1801/",
+    "numId": 1801,
+    "bai": 15,
+    "topicId": "math_t12_line_relative_pos",
+    "baiTitle": "Phương trình đường thẳng trong không gian",
+    "chapter": "Chương 5"
+  },
+  "extracted": {
+    "title": "Ôn Tập Trắc Nghiệm Phương Trình Đường Thẳng Trong Không Gian Oxyz",
+    "sourceUrl": "https://sieugioi.com/docs/threads/on-tap-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-oxyz.1801/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 11,
+    "questionsWithOptions": 11,
+    "questionsWithAnswers": 10,
+    "questionsWithExplanation": 11,
+    "questionsWithImages": 0,
+    "manualReviewCount": 1,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1801_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, cho ba điểm $A\\left( 2;1;3 \\right)$, $B\\left( 1;0;1 \\right)$, $C\\left( -1;1;2 \\right).$Phương trình nào dưới đây là phương trình chính tắc của đường thẳng đi qua $A$ và song song với đường thẳng $BC$.",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, cho ba điểm $A\\left( 2;1;3 \\right)$, $B\\left( 1;0;1 \\right)$, $C\\left( -1;1;2 \\right).$Phương trình nào dưới đây là phương trình chính tắc của đường thẳng đi qua $A$ và song song với đường thẳng $BC$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left\\{ \\begin{align} & x=-2t \\\\ & y=-1+t \\\\ & z=3+t \\\\ \\end{align} \\right.."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x-2y+z=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{x-2}{-2}=\\frac{y-1}{1}=\\frac{z-3}{1}."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{x-1}{-2}=\\frac{y}{1}=\\frac{z-1}{1}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Vì đường thẳng đi qua $A$ và song song với đường thẳng $BC$nên nhận $\\overrightarrow{BC}=\\left( -2;1;1 \\right)$ là vectơ chỉ phương. Phương trình chính tắc của đường thẳng là: $\\frac{x-2}{-2}=\\frac{y-1}{1}=\\frac{z-3}{1}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, một vectơ chỉ phương của đường thẳng $d:\\left\\{ \\begin{array}{*{35}{l}} x=-t+2 \\\\ y=2t \\\\ z=3t \\\\ \\end{array} \\right.$ là:",
+        "promptHtml": "Trong không gian $Oxyz$, một vectơ chỉ phương của đường thẳng $d:\\left\\{ \\begin{array}{*{35}{l}}<br>\nx=-t+2  \\\\<br>\ny=2t  \\\\<br>\nz=3t  \\\\<br>\n\\end{array} \\right.$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;2;3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 1;2;3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 1;-2;-3 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 2;-2;-3 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Một vectơ chỉ phương của đường thẳng $d$ là: $\\overrightarrow{{{u}_{d}}}=\\left( -1\\,;\\,2\\,;\\,3 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$ cho đường thẳng $d:\\,\\frac{x-1}{2}=\\frac{y+3}{-1}=\\frac{z}{4}$. Vectơ nào sau đây là một vecto chỉ phương của đường thẳng $d$?",
+        "promptHtml": "Trong không gian $Oxyz$ cho đường thẳng $d:\\,\\frac{x-1}{2}=\\frac{y+3}{-1}=\\frac{z}{4}$. Vectơ nào sau đây là một vecto chỉ phương của đường thẳng $d$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{{{u}_{1}}}\\left( 2;-1;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{{{u}_{2}}}\\left( 2;1;4 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{{{u}_{3}}}\\left( 1;-3;0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{{{u}_{4}}}\\left( -1;3;0 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đường thẳng có dạng: $d:\\frac{x-1}{2}=\\frac{y+3}{-1}=\\frac{z}{4}$ Với phương trình chính tắc: $\\frac{x-{{x}_{0}}}{a}=\\frac{y-{{y}_{0}}}{b}=\\frac{z-{{z}_{0}}}{c}$ thì một vectơ chỉ phương là: $\\vec{u}=(a;b;c)$ Vậy vectơ chỉ phương của $d$ là: $\\vec{u}=(2;-1;4)$ Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A\\left( 0;-1;3 \\right)$, $B\\left( 1;3;1 \\right)$, $C\\left( -1;1;5 \\right)$. Phương trình nào dưới đây là phương trình chính tắc của đường thẳng đi qua $A$ và song song với đường thẳng $BC$?",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A\\left( 0;-1;3 \\right)$, $B\\left( 1;3;1 \\right)$, $C\\left( -1;1;5 \\right)$. Phương trình nào dưới đây là phương trình chính tắc của đường thẳng đi qua $A$ và song song với đường thẳng $BC$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left\\{ \\begin{align} & x=-2t \\\\ & y=-1+t \\\\ & z=3+t \\\\ \\end{align} \\right.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x-2y+z=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{x}{1}=\\frac{y+1}{1}=\\frac{z-3}{-2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{x-1}{-2}=\\frac{y}{1}=\\frac{z-1}{1}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn C Đường thẳng đi qua $A$ và song song $BC$ nhận $\\overrightarrow{BC}=\\left( -2;-2;4 \\right)$ làm vecto chỉ phương, suy ra $\\overrightarrow{u\\,}=\\left( 1;1;-2 \\right)$cũng là véc tơ chỉ phương. Phương trình đường thẳng cần tìm: $\\frac{x}{1}=\\frac{y+1}{1}=\\frac{z-3}{-2}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, một vectơ chỉ phương của đường thẳng $d:\\frac{x-1}{2}=\\frac{y+2}{1}=\\frac{z-3}{-1}$là:",
+        "promptHtml": "Trong không gian $Oxyz$, một vectơ chỉ phương của đường thẳng $d:\\frac{x-1}{2}=\\frac{y+2}{1}=\\frac{z-3}{-1}$là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{{{u}_{3}}}=\\left( 2;1;-1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{{{u}_{2}}}=\\left( -1;2;-3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{{{u}_{4}}}=\\left( 2;1;1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{{{u}_{1}}}=\\left( 1;-2;3 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đáp án A Với phương trình đường thẳng ở dạng chính tắc, một vectơ chỉ phương được lấy theo các mẫu số. Từ phương trình đã cho, ta lấy được một vectơ chỉ phương của $d$, rồi so sánh với các phương án thì vectơ tương ứng là phương án A. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho đường thẳng $\\Delta :\\frac{x+1}{-2}=\\frac{y-3}{3}=\\frac{z-2}{-2}$. Vectơ nào dưới đây là một vectơ chỉ phương của đường thẳng $\\Delta $?",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho đường thẳng $\\Delta :\\frac{x+1}{-2}=\\frac{y-3}{3}=\\frac{z-2}{-2}$.<br>\nVectơ nào dưới đây là một vectơ chỉ phương của đường thẳng $\\Delta $?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\vec{u}=(2;-3;-2)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\vec{u}=(-2;3;-2)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\vec{u}=(-1;3;2)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\vec{u}=(-1;-3;-2)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đường thẳng $\\Delta :\\frac{x+1}{-2}=\\frac{y-3}{3}=\\frac{z-2}{-2}$ có một vectơ chỉ phương là vectơ lấy từ các mẫu số: $\\vec{u}=(-2;3;-2)$. Vậy chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(-1;1;0)$ và $B(0;1;-2)$. Vectơ nào dưới đây là một vectơ chỉ phương của đường thẳng $AB$?",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(-1;1;0)$ và $B(0;1;-2)$. Vectơ nào dưới đây là một vectơ chỉ phương của đường thẳng $AB$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\vec{u}=(1;0;-2)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\vec{u}=(1;2;-2)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\vec{u}=(-1;1;0)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\vec{u}=(-1;0;-2)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{AB}=(0+1;1-1;-2-0)=(1;0;-2)$ Vậy một vectơ chỉ phương của đường thẳng $AB$ là: $\\vec{u}=(1;0;-2)$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai điểm $M(-1;2;1)$ và $N(3;1;-2)$. Đường thẳng $MN$ có phương trình là",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai điểm $M(-1;2;1)$ và $N(3;1;-2)$. Đường thẳng $MN$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{x+1}{4}=\\frac{y-2}{3}=\\frac{z-1}{-1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{x+1}{4}=\\frac{y-2}{-1}=\\frac{z-1}{-3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{x-1}{4}=\\frac{y+2}{-1}=\\frac{z+1}{-3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{x-1}{2}=\\frac{y-2}{-1}=\\frac{z-1}{-3}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Hai điểm: $M(-1;2;1),\\quad N(3;1;-2)$. Vectơ chỉ phương của đường thẳng $MN$ là: $\\overrightarrow{MN}=(3-(-1);1-2;-2-1)=(4;-1;-3)$. Đường thẳng đi qua $M(-1;2;1)$ và có vectơ chỉ phương $(4;-1;-3)$ nên có phương trình: $\\frac{x+1}{4}=\\frac{y-2}{-1}=\\frac{z-1}{-3}$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, đường thẳng đi qua điểm $A(1;2;-1)$ và vuông góc với mặt phẳng $(P):x-3y+2z-5=0$ có phương trình tham số là",
+        "promptHtml": "Trong không gian $Oxyz$, đường thẳng đi qua điểm $A(1;2;-1)$ và vuông góc với mặt phẳng $(P):x-3y+2z-5=0$ có phương trình tham số là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t \\\\ y=2-3t \\\\ z=1+2t \\\\ \\end{array} \\right.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t \\\\ y=-3+2t \\\\ z=2-t \\\\ \\end{array} \\right.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t \\\\ y=2+2t \\\\ z=-1-t \\\\ \\end{array} \\right.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t \\\\ y=2-3t \\\\ z=-1+2t \\\\ \\end{array} \\right.$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Mặt phẳng $(P):x-3y+2z-5=0$ có vectơ pháp tuyến: $\\vec{n}=(1;-3;2)$. Đường thẳng vuông góc với mặt phẳng sẽ nhận $\\vec{n}$ làm vectơ chỉ phương. Đi qua $A(1;2;-1)$ nên phương trình tham số là: $x=1+t,\\ y=2-3t,\\ z=-1+2t$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hai đường thẳng ${{\\Delta }_{1}}:\\frac{x-1}{1}=\\frac{y-1}{-1}=\\frac{z-2}{-4}$ và ${{\\Delta }_{2}}:\\left\\{ \\begin{array}{*{35}{l}} x=2t \\\\ y=1-2t \\\\ z=-1-8t \\\\ \\end{array} \\right.$. Trong các mệnh đề sau, mệnh đề nào đúng?",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hai đường thẳng ${{\\Delta }_{1}}:\\frac{x-1}{1}=\\frac{y-1}{-1}=\\frac{z-2}{-4}$ và ${{\\Delta }_{2}}:\\left\\{ \\begin{array}{*{35}{l}}<br>\nx=2t  \\\\<br>\ny=1-2t  \\\\<br>\nz=-1-8t  \\\\<br>\n\\end{array} \\right.$.<br>\nTrong các mệnh đề sau, mệnh đề nào đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{\\Delta }_{1}}$và ${{\\Delta }_{2}}$ chéo nhau."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{\\Delta }_{1}}//{{\\Delta }_{2}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{\\Delta }_{1}}\\equiv {{\\Delta }_{2}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{\\Delta }_{1}}\\bot {{\\Delta }_{2}}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đường thẳng ${{\\Delta }_{1}}$ có dạng: $\\frac{x-1}{1}=\\frac{y-1}{-1}=\\frac{z-2}{-4}$ Suy ra vectơ chỉ phương của ${{\\Delta }_{1}}$ là: ${{\\vec{u}}_{1}}=(1;-1;-4)$ Đường thẳng ${{\\Delta }_{2}}$ có dạng: ${{\\Delta }_{2}}:\\left\\{ \\begin{array}{*{35}{l}} x=2t \\\\ y=1-2t \\\\ z=-1-8t \\\\ \\end{array} \\right.$ Suy ra vectơ chỉ phương của ${{\\Delta }_{2}}$ là: ${{\\vec{u}}_{2}}=(2;-2;-8)=2(1;-1;-4)$ Do đó ${{\\Delta }_{1}}$ và ${{\\Delta }_{2}}$ song song hoặc trùng nhau. Lấy điểm $A(0;1;-1)$ thuộc ${{\\Delta }_{2}}$ khi $t=0$. Kiểm tra $A$ có thuộc ${{\\Delta }_{1}}$ không: Nếu $A(0;1;-1)\\in {{\\Delta }_{1}}$ thì: $\\frac{0-1}{1}=\\frac{1-1}{-1}=\\frac{-1-2}{-4}$ Tức là: $-1=0=\\frac{3}{4}$ Điều này sai. Vậy hai đường thẳng không trùng nhau, chỉ song song với nhau. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1801_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai điểm $A(1;2;3)$ và $B(2;0;1)$. Đường thẳng $AB$ có phương trình là:",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai điểm $A(1;2;3)$ và $B(2;0;1)$. Đường thẳng $AB$ có phương trình là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{x-1}{1}=\\frac{y-2}{2}=\\frac{z-3}{-2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{x+1}{1}=\\frac{y+2}{-2}=\\frac{z+3}{-2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{x-1}{1}=\\frac{y-2}{-2}=\\frac{z-3}{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{x-1}{1}=\\frac{y-2}{-2}=\\frac{z-3}{-2}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $A(1;2;3)$, $B(2;0;1)$. Vectơ chỉ phương của đường thẳng $AB$ là: $\\overrightarrow{AB}=(2-1;0-2;1-3)=(1;-2;-2)$. Phương trình đường thẳng $AB$ là: $\\frac{x-1}{1}=\\frac{y-2}{-2}=\\frac{z-3}{-2}$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:52.295Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Ôn Tập Trắc Nghiệm Phương Trình Đường Thẳng Trong Không Gian Oxyz",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/on-tap-trac-nghiem-phuong-trinh-duong-thang-trong-khong-gian-oxyz.1801/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 11",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho ba điểm $A\\left( 2;1;3 \\right)$, $B\\left( 1;0;1 \\right)$, $C\\left( -1;1;2 \\right).$Phương trình nào dưới đây là phương trình chính tắc của đường thẳng đi qua $A$ và song song với đường thẳng $BC$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left\\{ \\begin{align}<br>\n&amp; x=-2t \\\\<br>\n&amp; y=-1+t \\\\<br>\n&amp; z=3+t \\\\<br>\n\\end{align} \\right..$B. $x-2y+z=0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{x-2}{-2}=\\frac{y-1}{1}=\\frac{z-3}{1}.$D. $\\frac{x-1}{-2}=\\frac{y}{1}=\\frac{z-1}{1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì đường thẳng đi qua $A$ và song song với đường thẳng $BC$nên nhận $\\overrightarrow{BC}=\\left( -2;1;1 \\right)$ là vectơ chỉ phương.<br>\nPhương trình chính tắc của đường thẳng là: $\\frac{x-2}{-2}=\\frac{y-1}{1}=\\frac{z-3}{1}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, một vectơ chỉ phương của đường thẳng $d:\\left\\{ \\begin{array}{*{35}{l}}<br>\nx=-t+2  \\\\<br>\ny=2t  \\\\<br>\nz=3t  \\\\<br>\n\\end{array} \\right.$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;2;3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 1;2;3 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 1;-2;-3 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 2;-2;-3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Một vectơ chỉ phương của đường thẳng $d$ là: $\\overrightarrow{{{u}_{d}}}=\\left( -1\\,;\\,2\\,;\\,3 \\right)$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ cho đường thẳng $d:\\,\\frac{x-1}{2}=\\frac{y+3}{-1}=\\frac{z}{4}$. Vectơ nào sau đây là một vecto chỉ phương của đường thẳng $d$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{{{u}_{1}}}\\left( 2;-1;4 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{{{u}_{2}}}\\left( 2;1;4 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{{{u}_{3}}}\\left( 1;-3;0 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{{{u}_{4}}}\\left( -1;3;0 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đường thẳng có dạng: $d:\\frac{x-1}{2}=\\frac{y+3}{-1}=\\frac{z}{4}$<br>\nVới phương trình chính tắc: $\\frac{x-{{x}_{0}}}{a}=\\frac{y-{{y}_{0}}}{b}=\\frac{z-{{z}_{0}}}{c}$<br>\nthì một vectơ chỉ phương là: $\\vec{u}=(a;b;c)$<br>\nVậy vectơ chỉ phương của $d$ là: $\\vec{u}=(2;-1;4)$<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A\\left( 0;-1;3 \\right)$, $B\\left( 1;3;1 \\right)$, $C\\left( -1;1;5 \\right)$. Phương trình nào dưới đây là phương trình chính tắc của đường thẳng đi qua $A$ và song song với đường thẳng $BC$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left\\{ \\begin{align}<br>\n&amp; x=-2t \\\\<br>\n&amp; y=-1+t \\\\<br>\n&amp; z=3+t \\\\<br>\n\\end{align} \\right.$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x-2y+z=0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{x}{1}=\\frac{y+1}{1}=\\frac{z-3}{-2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{x-1}{-2}=\\frac{y}{1}=\\frac{z-1}{1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn C<br>\nĐường thẳng đi qua $A$ và song song $BC$ nhận $\\overrightarrow{BC}=\\left( -2;-2;4 \\right)$ làm vecto chỉ phương, suy ra $\\overrightarrow{u\\,}=\\left( 1;1;-2 \\right)$cũng là véc tơ chỉ phương.<br>\nPhương trình đường thẳng cần tìm: $\\frac{x}{1}=\\frac{y+1}{1}=\\frac{z-3}{-2}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, một vectơ chỉ phương của đường thẳng $d:\\frac{x-1}{2}=\\frac{y+2}{1}=\\frac{z-3}{-1}$là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{{{u}_{3}}}=\\left( 2;1;-1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{{{u}_{2}}}=\\left( -1;2;-3 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{{{u}_{4}}}=\\left( 2;1;1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{{{u}_{1}}}=\\left( 1;-2;3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đáp án A<br>\nVới phương trình đường thẳng ở dạng chính tắc, một vectơ chỉ phương được lấy theo các mẫu số.<br>\nTừ phương trình đã cho, ta lấy được một vectơ chỉ phương của $d$, rồi so sánh với các phương án thì vectơ tương ứng là phương án A.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho đường thẳng $\\Delta :\\frac{x+1}{-2}=\\frac{y-3}{3}=\\frac{z-2}{-2}$.<br>\nVectơ nào dưới đây là một vectơ chỉ phương của đường thẳng $\\Delta $?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\vec{u}=(2;-3;-2)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\vec{u}=(-2;3;-2)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\vec{u}=(-1;3;2)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\vec{u}=(-1;-3;-2)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đường thẳng $\\Delta :\\frac{x+1}{-2}=\\frac{y-3}{3}=\\frac{z-2}{-2}$<br>\ncó một vectơ chỉ phương là vectơ lấy từ các mẫu số: $\\vec{u}=(-2;3;-2)$.<br>\nVậy chọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(-1;1;0)$ và $B(0;1;-2)$. Vectơ nào dưới đây là một vectơ chỉ phương của đường thẳng $AB$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\vec{u}=(1;0;-2)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\vec{u}=(1;2;-2)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\vec{u}=(-1;1;0)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\vec{u}=(-1;0;-2)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{AB}=(0+1;1-1;-2-0)=(1;0;-2)$<br>\nVậy một vectơ chỉ phương của đường thẳng $AB$ là: $\\vec{u}=(1;0;-2)$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai điểm $M(-1;2;1)$ và $N(3;1;-2)$. Đường thẳng $MN$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{x+1}{4}=\\frac{y-2}{3}=\\frac{z-1}{-1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{x+1}{4}=\\frac{y-2}{-1}=\\frac{z-1}{-3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{x-1}{4}=\\frac{y+2}{-1}=\\frac{z+1}{-3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{x-1}{2}=\\frac{y-2}{-1}=\\frac{z-1}{-3}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hai điểm: $M(-1;2;1),\\quad N(3;1;-2)$.<br>\nVectơ chỉ phương của đường thẳng $MN$ là: $\\overrightarrow{MN}=(3-(-1);1-2;-2-1)=(4;-1;-3)$.<br>\nĐường thẳng đi qua $M(-1;2;1)$ và có vectơ chỉ phương $(4;-1;-3)$ nên có phương trình: $\\frac{x+1}{4}=\\frac{y-2}{-1}=\\frac{z-1}{-3}$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, đường thẳng đi qua điểm $A(1;2;-1)$ và vuông góc với mặt phẳng $(P):x-3y+2z-5=0$ có phương trình tham số là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t  \\\\ y=2-3t  \\\\ z=1+2t  \\\\ \\end{array} \\right.$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t  \\\\ y=-3+2t  \\\\ z=2-t  \\\\ \\end{array} \\right.$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t  \\\\ y=2+2t  \\\\ z=-1-t  \\\\ \\end{array} \\right.$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left\\{ \\begin{array}{*{35}{l}} x=1+t  \\\\ y=2-3t  \\\\ z=-1+2t  \\\\ \\end{array} \\right.$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt phẳng $(P):x-3y+2z-5=0$ có vectơ pháp tuyến: $\\vec{n}=(1;-3;2)$.<br>\nĐường thẳng vuông góc với mặt phẳng sẽ nhận $\\vec{n}$ làm vectơ chỉ phương.<br>\nĐi qua $A(1;2;-1)$ nên phương trình tham số là: $x=1+t,\\ y=2-3t,\\ z=-1+2t$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho hai đường thẳng ${{\\Delta }_{1}}:\\frac{x-1}{1}=\\frac{y-1}{-1}=\\frac{z-2}{-4}$ và ${{\\Delta }_{2}}:\\left\\{ \\begin{array}{*{35}{l}}<br>\nx=2t  \\\\<br>\ny=1-2t  \\\\<br>\nz=-1-8t  \\\\<br>\n\\end{array} \\right.$.<br>\nTrong các mệnh đề sau, mệnh đề nào đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{\\Delta }_{1}}$và ${{\\Delta }_{2}}$ chéo nhau."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{\\Delta }_{1}}//{{\\Delta }_{2}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{\\Delta }_{1}}\\equiv {{\\Delta }_{2}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{\\Delta }_{1}}\\bot {{\\Delta }_{2}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đường thẳng ${{\\Delta }_{1}}$ có dạng: $\\frac{x-1}{1}=\\frac{y-1}{-1}=\\frac{z-2}{-4}$<br>\nSuy ra vectơ chỉ phương của ${{\\Delta }_{1}}$ là: ${{\\vec{u}}_{1}}=(1;-1;-4)$<br>\nĐường thẳng ${{\\Delta }_{2}}$ có dạng: ${{\\Delta }_{2}}:\\left\\{ \\begin{array}{*{35}{l}}<br>\nx=2t  \\\\<br>\ny=1-2t  \\\\<br>\nz=-1-8t  \\\\<br>\n\\end{array} \\right.$<br>\nSuy ra vectơ chỉ phương của ${{\\Delta }_{2}}$ là: ${{\\vec{u}}_{2}}=(2;-2;-8)=2(1;-1;-4)$<br>\nDo đó ${{\\Delta }_{1}}$ và ${{\\Delta }_{2}}$ song song hoặc trùng nhau.<br>\nLấy điểm $A(0;1;-1)$ thuộc ${{\\Delta }_{2}}$ khi $t=0$.<br>\nKiểm tra $A$ có thuộc ${{\\Delta }_{1}}$ không:<br>\nNếu $A(0;1;-1)\\in {{\\Delta }_{1}}$ thì: $\\frac{0-1}{1}=\\frac{1-1}{-1}=\\frac{-1-2}{-4}$<br>\nTức là: $-1=0=\\frac{3}{4}$<br>\nĐiều này sai.<br>\nVậy hai đường thẳng không trùng nhau, chỉ song song với nhau.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai điểm $A(1;2;3)$ và $B(2;0;1)$. Đường thẳng $AB$ có phương trình là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{x-1}{1}=\\frac{y-2}{2}=\\frac{z-3}{-2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{x+1}{1}=\\frac{y+2}{-2}=\\frac{z+3}{-2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{x-1}{1}=\\frac{y-2}{-2}=\\frac{z-3}{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{x-1}{1}=\\frac{y-2}{-2}=\\frac{z-3}{-2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $A(1;2;3)$, $B(2;0;1)$.<br>\nVectơ chỉ phương của đường thẳng $AB$ là: $\\overrightarrow{AB}=(2-1;0-2;1-3)=(1;-2;-2)$.<br>\nPhương trình đường thẳng $AB$ là: $\\frac{x-1}{1}=\\frac{y-2}{-2}=\\frac{z-3}{-2}$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:52.295Z"
+}

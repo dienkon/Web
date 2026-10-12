@@ -1,0 +1,1314 @@
+{
+  "meta": {
+    "title": "Đề 4. Ôn luyện Biểu thức tọa độ của các phép toán vectơ – 16 câu trắc nghiệm",
+    "slug": "de-4-on-luyen-bieu-thuc-toa-do-cua-cac-phep-toan-vecto-16-cau-trac-nghiem",
+    "id": "1772",
+    "url": "https://sieugioi.com/docs/threads/de-4-on-luyen-bieu-thuc-toa-do-cua-cac-phep-toan-vecto-16-cau-trac-nghiem.1772/",
+    "numId": 1772,
+    "bai": 8,
+    "topicId": "math_t7_oxyz_coords",
+    "baiTitle": "Biểu thức tọa độ của các phép toán vectơ",
+    "chapter": "Chương 2"
+  },
+  "extracted": {
+    "title": "Đề 4. Ôn luyện Biểu thức tọa độ của các phép toán vectơ – 16 câu trắc nghiệm",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-4-on-luyen-bieu-thuc-toa-do-cua-cac-phep-toan-vecto-16-cau-trac-nghiem.1772/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 19,
+    "questionsWithOptions": 19,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 0,
+    "manualReviewCount": 19,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 13: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 14: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 15: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 16: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 17: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 18: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 19: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1772_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A\\left( 4;-2;2 \\right)$ và $B\\left( 5;-1;4 \\right)$. Tọa độ trọng tâm $G$ của tam giác $OAB$ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A\\left( 4;-2;2 \\right)$ và $B\\left( 5;-1;4 \\right)$. Tọa độ trọng tâm $G$ của tam giác $OAB$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$G\\left( \\frac{9}{2};-\\frac{3}{2};3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$G\\left( 3;-1;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$G\\left( 1;1;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$G\\left( 9;-3;6 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Tọa độ trọng tâm $G$ của tam giác $OAB$: $\\left\\{ \\begin{align}\n& {{x}_{G}}=\\frac{4+5}{3}=3 \\\\\n& {{y}_{G}}=\\frac{-2-1}{3}=-1 \\\\\n& {{z}_{G}}=\\frac{2+4}{3}=2 \\\\\n\\end{align} \\right.\\Rightarrow G\\left( 3;-1;2 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho điểm $A\\left( -5;\\,2;\\,3 \\right)$ và điểm $B$ là điểm đối xứng với $A$ qua $Oy$. Độ dài đoạn thẳng $AB$ bằng",
+        "promptHtml": "Trong không gian $Oxyz$, cho điểm $A\\left( -5;\\,2;\\,3 \\right)$ và điểm $B$ là điểm đối xứng với $A$ qua $Oy$. Độ dài đoạn thẳng $AB$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2\\sqrt{38}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2\\sqrt{34}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\sqrt{34}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\sqrt{38}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Theo bài ra ta có: $B\\left( 5;\\,2;\\,-3 \\right)$.\nKhi đó: $AB=\\sqrt{{{10}^{2}}+{{\\left( -6 \\right)}^{2}}}=2\\sqrt{34}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm không thẳng hàng $A(-12;10;-2)$, $B(-4;6;9)$ và $E(6;-6;4)$. Để tứ giác $ABEF$ là hình bình hành thì toạ độ điểm $F$ là:",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm không thẳng hàng $A(-12;10;-2)$, $B(-4;6;9)$ và $E(6;-6;4)$. Để tứ giác $ABEF$ là hình bình hành thì toạ độ điểm $F$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-14;10;-15)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(-10;10;11)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-22;22;3)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(-2;-2;-7)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$\\overrightarrow{AB}=(-4-(-12);6-10;9-(-2))=(8;-4;11)$.\nGọi tọa độ điểm $F$ là $(x;y;z)$. Khi đó vectơ $\\overrightarrow{FE}$ là $\\overrightarrow{FE}=(6-x;-6-y;4-z)$.\nĐể tứ giác $ABEF$ là hình bình hành thì ta phải có $\\overrightarrow{AB}=\\overrightarrow{FE}$.\n$\\left\\{ \\begin{array}{*{35}{l}} 8=6-x \\\\ -4=-6-y \\\\ 11=4-z \\\\ \\end{array} \\right.\\Leftrightarrow \\left\\{ \\begin{array}{*{35}{l}} x=6-8 \\\\ y=-6+4 \\\\ z=4-11 \\\\ \\end{array} \\right.\\Leftrightarrow \\left\\{ \\begin{array}{*{35}{l}} x=-2 \\\\ y=-2 \\\\ z=-7 \\\\ \\end{array} \\right.$\nVậy tọa độ điểm $F$ là $(-2;-2;-7)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho điểm $A(1;0;1)$. Tìm tọa độ điểm $C$ thỏa mãn $\\overrightarrow{AC}=(3;3;0)$?",
+        "promptHtml": "Trong không gian $Oxyz$, cho điểm $A(1;0;1)$. Tìm tọa độ điểm $C$ thỏa mãn $\\overrightarrow{AC}=(3;3;0)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$C(2;3;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$C(3;3;0)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$C(-3;-3;-1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$C(4;3;1)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Giả sử $C(x;y;z)$ $\\Rightarrow \\overrightarrow{AC}=(x-1;y;z-1)$.\nDo đó: $\\overrightarrow {AC} = (3;3;0)$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x - 1 = 3\\\\ y = 3\\\\ z - 1 = 0 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 4\\\\ y = 3\\\\ z = 1 \\end{array} \\right.$\nVậy $C(4;3;1)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho các điểm $A\\left( 1;\\,3;\\,2 \\right)$, $B\\left( 1;\\,0;\\,1 \\right)$,$C\\left( 5;\\,-3;\\,2 \\right)$. Biết rằng $\\overrightarrow{AB}.\\overrightarrow{AC}=2m$. Giá trị của $m$ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho các điểm $A\\left( 1;\\,3;\\,2 \\right)$, $B\\left( 1;\\,0;\\,1 \\right)$,$C\\left( 5;\\,-3;\\,2 \\right)$. Biết rằng $\\overrightarrow{AB}.\\overrightarrow{AC}=2m$. Giá trị của $m$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$m=-9$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$m=-18$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$m=18$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$m=9$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{AB}=\\left( 0;\\,-3;\\,-1 \\right);\\,\\,\\overrightarrow{AC}=\\left( 4;\\,-6;0 \\right)$.\nKhi đó: $\\overrightarrow{AB}.\\overrightarrow{AC}=2m\\Leftrightarrow 0.4+\\left( -3 \\right).\\left( -6 \\right)+\\left( -1 \\right).0=m$.\n$\\Leftrightarrow m=18$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz,$ cho hai điểm $\\overrightarrow{a}\\left( 1;2;3 \\right)$ và $\\overrightarrow{b}\\left( 0;-1;2 \\right)$. Véc tơ $\\overrightarrow{c}=\\overrightarrow{a}-\\overrightarrow{b}$ có tọa độ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz,$ cho hai điểm $\\overrightarrow{a}\\left( 1;2;3 \\right)$ và $\\overrightarrow{b}\\left( 0;-1;2 \\right)$. Véc tơ $\\overrightarrow{c}=\\overrightarrow{a}-\\overrightarrow{b}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -0;2;6 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 1;3;1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 1;1;5 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -1;-3;-1 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Tọa độ vectơ được xác định bởi hiệu tọa độ điểm cuối trừ điểm đầu: $\\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A) = (1; 1; 5)$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ toạ độ $Oxyz$, cho vectơ $\\overrightarrow{u}=\\left( 3;-1;2 \\right)$ và điểm $A\\left( 0;-1;1 \\right)$. Toạ độ điểm $B$ thoả mãn $\\overrightarrow{AB}=\\overrightarrow{u}$ là",
+        "promptHtml": "Trong không gian với hệ toạ độ $Oxyz$, cho vectơ $\\overrightarrow{u}=\\left( 3;-1;2 \\right)$ và điểm $A\\left( 0;-1;1 \\right)$. Toạ độ điểm $B$ thoả mãn $\\overrightarrow{AB}=\\overrightarrow{u}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 6;-1;3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -3;2;-3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -3;0;-1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 3;-2;3 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Gọi $B\\left( x;y;z \\right)$. Khi đó $\\overrightarrow {AB} = \\vec u$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x - 0 = 3\\\\ y + 1 = - 1\\\\ z - 1 = 2 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 3\\\\ y = - 2\\\\ z = 3 \\end{array} \\right.$\nVậy $B\\left( 3;-2;3 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho ba vectơ $\\overrightarrow{a}=\\left( 3;0;1 \\right)$, $\\overrightarrow{b}=\\left( 1;-1;-2 \\right)$ và $\\overrightarrow{c}=\\left( 2;1;-1 \\right)$. Tích vô hướng $\\overrightarrow{a}\\cdot \\left( \\overrightarrow{b}+\\overrightarrow{c} \\right)$ bằng",
+        "promptHtml": "Trong không gian $Oxyz$, cho ba vectơ $\\overrightarrow{a}=\\left( 3;0;1 \\right)$, $\\overrightarrow{b}=\\left( 1;-1;-2 \\right)$ và $\\overrightarrow{c}=\\left( 2;1;-1 \\right)$. Tích vô hướng $\\overrightarrow{a}\\cdot \\left( \\overrightarrow{b}+\\overrightarrow{c} \\right)$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$9$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $\\overrightarrow{b}+\\overrightarrow{c}=\\left( 3;0;-3 \\right)$.\nSuy ra $\\overrightarrow{a}\\cdot \\left( \\overrightarrow{b}+\\overrightarrow{c} \\right)=3\\cdot 3+0\\cdot 0+1\\cdot \\left( -3 \\right)=6$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\overrightarrow{m}=\\left( 1;1;4 \\right),\\overrightarrow{n}=\\left( 4;1;1 \\right)$. Vectơ nào dưới đây vuông góc với cả hai vectơ $\\overrightarrow{m}$ và $\\overrightarrow{n}$?",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\overrightarrow{m}=\\left( 1;1;4 \\right),\\overrightarrow{n}=\\left( 4;1;1 \\right)$. Vectơ nào dưới đây vuông góc với cả hai vectơ $\\overrightarrow{m}$ và $\\overrightarrow{n}$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{a}=\\left( 1;5;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{b}=\\left( 1;-5;1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{c}=\\left( 1;5;-1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{d}=\\left( -1;5;1 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Vectơ vuông góc với cả $\\vec{m}=(1; 1; 4)$ và $\\vec{n}=(4; 1; 1)$ cùng phương với tích có hướng $[\\vec{m}, \\vec{n}] = (1-4; 16-1; 1-4) = (-3; 15; -3) = -3(1; -5; 1)$. Do đó vectơ $\\vec{b}=(1; -5; 1)$ vuông góc với cả hai vectơ đã cho. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho vecto $\\overrightarrow{a}=\\left( 3;-1;2 \\right)$. Độ dài của vecto $\\overrightarrow{a}$ bằng:",
+        "promptHtml": "Trong không gian $Oxyz$, cho vecto $\\overrightarrow{a}=\\left( 3;-1;2 \\right)$. Độ dài của vecto $\\overrightarrow{a}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\sqrt{6}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\sqrt{14}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$4$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\left| \\overrightarrow{a} \\right|=\\sqrt{{{3}^{2}}+{{\\left( -1 \\right)}^{2}}+{{2}^{2}}}=\\sqrt{14}$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M\\left( 2;3;4 \\right)$, $N\\left( -1;2;3 \\right)$ và $P\\left( 3;2;-3 \\right)$, $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}$ có toạ độ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M\\left( 2;3;4 \\right)$, $N\\left( -1;2;3 \\right)$ và $P\\left( 3;2;-3 \\right)$, $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}$ có toạ độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -10;-2;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -2;-2;-4 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 10;2;-4 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 5;1;-2 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{MN}=\\left( -3;-1;-1 \\right)\\Rightarrow 2\\overrightarrow{MN}=\\left( -6;-2;-2 \\right)$; $\\overrightarrow{NP}=\\left( 4;0;-6 \\right)$\nSuy ra $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}=\\left( -10;-2;4 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho vectơ $\\overrightarrow{a}=\\left( 3;-1;2 \\right)$. Độ dài của vectơ $\\overrightarrow{a}$ bằng",
+        "promptHtml": "Trong không gian $Oxyz$, cho vectơ $\\overrightarrow{a}=\\left( 3;-1;2 \\right)$. Độ dài của vectơ $\\overrightarrow{a}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\sqrt{6}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\sqrt{14}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$4$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{a}=\\left( 3;-1;2 \\right)\\Rightarrow \\left| \\overrightarrow{a} \\right|=\\sqrt{{{3}^{2}}+{{\\left( -1 \\right)}^{2}}+{{2}^{2}}}=\\sqrt{14}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M\\left( 2;3;4 \\right),\\,\\,N\\left( -1;2;3 \\right)$ và $P\\left( 3;2;-3 \\right)$, $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}$ có tọa độ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M\\left( 2;3;4 \\right),\\,\\,N\\left( -1;2;3 \\right)$ và $P\\left( 3;2;-3 \\right)$, $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -10;-2;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -2;-2;-4 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 10;2;-4 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 5;1;-2 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$M\\left( 2;3;4 \\right),\\,\\,N\\left( -1;2;3 \\right)$.\nTa có $\\overrightarrow{MN}=\\left( -3;-1;-1 \\right);\\,\\overrightarrow{NP}=\\left( 4;0;-6 \\right)\\Rightarrow \\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}=\\left( -10;-2;4 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{u}=\\left( -3;4;5 \\right)$, $\\overrightarrow{v}=\\left( -1;0;1 \\right)$. Chọn khẳng định đúng.",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{u}=\\left( -3;4;5 \\right)$, $\\overrightarrow{v}=\\left( -1;0;1 \\right)$. Chọn khẳng định đúng.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{u}+\\overrightarrow{v}=\\left( -4;4;6 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3\\overrightarrow{v}=\\left( -3;0;-3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{u}.\\overrightarrow{v}=2.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{u}-\\overrightarrow{v}=\\left( 2;4;4 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $\\vec{u} = (-3; 4; 5)$ và $\\vec{v} = (-1; 0; 1)$. Khi đó $\\vec{u} + \\vec{v} = (-3-1; 4+0; 5+1) = (-4; 4; 6)$. Khẳng định A đúng. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz,$ cho $\\overrightarrow{a}=\\left( 1;0;2 \\right),$$\\overrightarrow{b}=\\left( -3;0;-6 \\right)$ và $\\overrightarrow{c}=\\left( 2;-5;-1 \\right).$ Chọn khẳng định sai trong các khẳng định sau",
+        "promptHtml": "Trong không gian $Oxyz,$ cho $\\overrightarrow{a}=\\left( 1;0;2 \\right),$$\\overrightarrow{b}=\\left( -3;0;-6 \\right)$ và $\\overrightarrow{c}=\\left( 2;-5;-1 \\right).$ Chọn khẳng định sai trong các khẳng định sau",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{b}\\bot \\overrightarrow{c}."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{a}$ ngược hướng với $\\overrightarrow{c}.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{b}=-3\\overrightarrow{a}.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{a}+\\overrightarrow{b}-\\overrightarrow{c}=\\left( -4;5;-3 \\right).$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Tính toán trực tiếp: $\\vec{a} + \\vec{b} - \\vec{c} = (1; 0; 2) + (-3; 1; 1) - (2; -4; 6) = (-4; 5; -3)$. Khẳng định D đúng. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz,$ cho hai điểm $A\\left( 3;-2;-1 \\right)$ và $B\\left( -1;5;0 \\right).$ Tìm tọa độ trung điểm $I$của đoạn thẳng $AB.$",
+        "promptHtml": "Trong không gian $Oxyz,$ cho hai điểm $A\\left( 3;-2;-1 \\right)$ và $B\\left( -1;5;0 \\right).$ Tìm tọa độ trung điểm $I$của đoạn thẳng $AB.$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I\\left( 2;3;-1 \\right).$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I\\left( \\frac{2}{3};1;-\\frac{1}{3} \\right).$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I\\left( -2;\\frac{7}{2};\\frac{1}{2} \\right).$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I\\left( 1;\\frac{3}{2};-\\frac{1}{2} \\right).$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$I$là trung điểm của đoạn thẳng $AB\\Rightarrow $ $\\left\\{ \\begin{align}\n& {{x}_{I}}=\\frac{{{x}_{A}}+{{x}_{B}}}{2}=\\frac{3+\\left( -1 \\right)}{2}=1 \\\\\n& {{y}_{I}}=\\frac{{{y}_{A}}+{{y}_{B}}}{2}=\\frac{-2+5}{2}=\\frac{3}{2} \\\\\n& {{z}_{I}}=\\frac{{{z}_{A}}+{{z}_{B}}}{2}=\\frac{-1+0}{2}=\\frac{-1}{2} \\\\\n\\end{align} \\right.$$\\Rightarrow I\\left( 1;\\frac{3}{2};-\\frac{1}{2} \\right).$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{a}=\\left( 2;3;3 \\right),\\overrightarrow{b}=\\left( 0;-2;-1 \\right),\\overrightarrow{c}=\\left( 1;-2;1 \\right)$. Khi đó tọa độ của vec – tơ $\\overrightarrow{u}=2\\overrightarrow{a}+\\overrightarrow{b}-\\overrightarrow{c}$ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{a}=\\left( 2;3;3 \\right),\\overrightarrow{b}=\\left( 0;-2;-1 \\right),\\overrightarrow{c}=\\left( 1;-2;1 \\right)$. Khi đó tọa độ của vec – tơ $\\overrightarrow{u}=2\\overrightarrow{a}+\\overrightarrow{b}-\\overrightarrow{c}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{u}=\\left( 1;2;3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{u}=\\left( 3;6;4 \\right)$ ."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{u}=\\left( 1;3;3 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{u}=\\left( 3;-1;5 \\right)$ ."
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\vec{u} = 2\\vec{a} + \\vec{b} - \\vec{c} = 2(2; 3; 3) + (1; -1; 0) - (2; -1; 2) = (4+1-2; 6-1-(-1); 6+0-2) = (3; 6; 4)$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho vectơ $\\vec{a} = (2; -2; 6)$. Khi đó độ dài của vectơ $\\vec{a}$ là",
+        "promptHtml": "Trong không gian $Oxyz$ cho $=\\left( 2;-2;6 \\right)$ . Khi đó độ dài của vec tơ $$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left| \\overrightarrow{a} \\right|=44$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left| \\overrightarrow{a} \\right|=\\sqrt{11}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left| \\overrightarrow{a} \\right|=6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left| \\overrightarrow{a} \\right|=2\\sqrt{11}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Độ dài của vectơ $\\vec{a} = (2; -2; 6)$ được tính theo công thức: $|\\vec{a}| = \\sqrt{2^2 + (-2)^2 + 6^2} = \\sqrt{4 + 4 + 36} = \\sqrt{44} = 2\\sqrt{11}$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1772_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz,$ cho hai vectơ $\\overrightarrow{a}=\\left( 2;3;3 \\right)\\overrightarrow{,b}=\\left( 3;2;-1 \\right)$. Khi đó tích vô hướng $\\overrightarrow{a}.\\overrightarrow{b}$ bằng",
+        "promptHtml": "Trong không gian $Oxyz,$ cho hai vectơ $\\overrightarrow{a}=\\left( 2;3;3 \\right)\\overrightarrow{,b}=\\left( 3;2;-1 \\right)$. Khi đó tích vô hướng $\\overrightarrow{a}.\\overrightarrow{b}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=9$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=7$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=15$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Tích vô hướng của hai vectơ $\\vec{a} = (2; 3; 3)$ và $\\vec{b} = (3; 2; -1)$ là: $\\vec{a}\\cdot\\vec{b} = 2\\cdot 3 + 3\\cdot 2 + 3\\cdot(-1) = 6 + 6 - 3 = 9$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:43.329Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 4. Ôn luyện Biểu thức tọa độ của các phép toán vectơ – 16 câu trắc nghiệm",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-4-on-luyen-bieu-thuc-toa-do-cua-cac-phep-toan-vecto-16-cau-trac-nghiem.1772/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 19",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A\\left( 4;-2;2 \\right)$ và $B\\left( 5;-1;4 \\right)$. Tọa độ trọng tâm $G$ của tam giác $OAB$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$G\\left( \\frac{9}{2};-\\frac{3}{2};3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$G\\left( 3;-1;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$G\\left( 1;1;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$G\\left( 9;-3;6 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tọa độ trọng tâm $G$ của tam giác $OAB$: $\\left\\{ \\begin{align}<br>\n&amp; {{x}_{G}}=\\frac{4+5}{3}=3 \\\\<br>\n&amp; {{y}_{G}}=\\frac{-2-1}{3}=-1 \\\\<br>\n&amp; {{z}_{G}}=\\frac{2+4}{3}=2 \\\\<br>\n\\end{align} \\right.\\Rightarrow G\\left( 3;-1;2 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho điểm $A\\left( -5;\\,2;\\,3 \\right)$ và điểm $B$ là điểm đối xứng với $A$ qua $Oy$. Độ dài đoạn thẳng $AB$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2\\sqrt{38}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2\\sqrt{34}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\sqrt{34}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\sqrt{38}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Theo bài ra ta có: $B\\left( 5;\\,2;\\,-3 \\right)$.<br>\nKhi đó: $AB=\\sqrt{{{10}^{2}}+{{\\left( -6 \\right)}^{2}}}=2\\sqrt{34}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm không thẳng hàng $A(-12;10;-2)$, $B(-4;6;9)$ và $E(6;-6;4)$. Để tứ giác $ABEF$ là hình bình hành thì toạ độ điểm $F$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-14;10;-15)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(-10;10;11)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-22;22;3)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(-2;-2;-7)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\overrightarrow{AB}=(-4-(-12);6-10;9-(-2))=(8;-4;11)$.<br>\nGọi tọa độ điểm $F$ là $(x;y;z)$. Khi đó vectơ $\\overrightarrow{FE}$ là $\\overrightarrow{FE}=(6-x;-6-y;4-z)$.<br>\nĐể tứ giác $ABEF$ là hình bình hành thì ta phải có $\\overrightarrow{AB}=\\overrightarrow{FE}$.<br>\n$\\left\\{ \\begin{array}{*{35}{l}} 8=6-x \\\\ -4=-6-y \\\\ 11=4-z \\\\ \\end{array} \\right.\\Leftrightarrow \\left\\{ \\begin{array}{*{35}{l}} x=6-8 \\\\ y=-6+4 \\\\ z=4-11 \\\\ \\end{array} \\right.\\Leftrightarrow \\left\\{ \\begin{array}{*{35}{l}} x=-2 \\\\ y=-2 \\\\ z=-7 \\\\ \\end{array} \\right.$<br>\nVậy tọa độ điểm $F$ là $(-2;-2;-7)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho điểm $A(1;0;1)$. Tìm tọa độ điểm $C$ thỏa mãn $\\overrightarrow{AC}=(3;3;0)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$C(2;3;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$C(3;3;0)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$C(-3;-3;-1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$C(4;3;1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Giả sử $C(x;y;z)$ $\\Rightarrow \\overrightarrow{AC}=(x-1;y;z-1)$.<br>\nDo đó: $\\overrightarrow {AC} = (3;3;0)$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x - 1 = 3\\\\ y = 3\\\\ z - 1 = 0 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 4\\\\ y = 3\\\\ z = 1 \\end{array} \\right.$<br>\nVậy $C(4;3;1)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho các điểm $A\\left( 1;\\,3;\\,2 \\right)$, $B\\left( 1;\\,0;\\,1 \\right)$,$C\\left( 5;\\,-3;\\,2 \\right)$. Biết rằng $\\overrightarrow{AB}.\\overrightarrow{AC}=2m$. Giá trị của $m$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$m=-9$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$m=-18$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$m=18$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$m=9$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{AB}=\\left( 0;\\,-3;\\,-1 \\right);\\,\\,\\overrightarrow{AC}=\\left( 4;\\,-6;0 \\right)$.<br>\nKhi đó: $\\overrightarrow{AB}.\\overrightarrow{AC}=2m\\Leftrightarrow 0.4+\\left( -3 \\right).\\left( -6 \\right)+\\left( -1 \\right).0=m$.<br>\n$\\Leftrightarrow m=18$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz,$ cho hai điểm $\\overrightarrow{a}\\left( 1;2;3 \\right)$ và $\\overrightarrow{b}\\left( 0;-1;2 \\right)$. Véc tơ $\\overrightarrow{c}=\\overrightarrow{a}-\\overrightarrow{b}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -0;2;6 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 1;3;1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 1;1;5 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -1;-3;-1 \\right)$.<br>\n[/SPOILER]"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ toạ độ $Oxyz$, cho vectơ $\\overrightarrow{u}=\\left( 3;-1;2 \\right)$ và điểm $A\\left( 0;-1;1 \\right)$. Toạ độ điểm $B$ thoả mãn $\\overrightarrow{AB}=\\overrightarrow{u}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 6;-1;3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -3;2;-3 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -3;0;-1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 3;-2;3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Gọi $B\\left( x;y;z \\right)$. Khi đó $\\overrightarrow {AB} = \\vec u$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x - 0 = 3\\\\ y + 1 = - 1\\\\ z - 1 = 2 \\end{array} \\right.$ $ \\Leftrightarrow \\left\\{ \\begin{array}{l} x = 3\\\\ y = - 2\\\\ z = 3 \\end{array} \\right.$<br>\nVậy $B\\left( 3;-2;3 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho ba vectơ $\\overrightarrow{a}=\\left( 3;0;1 \\right)$, $\\overrightarrow{b}=\\left( 1;-1;-2 \\right)$ và $\\overrightarrow{c}=\\left( 2;1;-1 \\right)$. Tích vô hướng $\\overrightarrow{a}\\cdot \\left( \\overrightarrow{b}+\\overrightarrow{c} \\right)$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$9$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\overrightarrow{b}+\\overrightarrow{c}=\\left( 3;0;-3 \\right)$.<br>\nSuy ra $\\overrightarrow{a}\\cdot \\left( \\overrightarrow{b}+\\overrightarrow{c} \\right)=3\\cdot 3+0\\cdot 0+1\\cdot \\left( -3 \\right)=6$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho hai vectơ $\\overrightarrow{m}=\\left( 1;1;4 \\right),\\overrightarrow{n}=\\left( 4;1;1 \\right)$. Vectơ nào dưới đây vuông góc với cả hai vectơ $\\overrightarrow{m}$ và $\\overrightarrow{n}$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{a}=\\left( 1;5;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{b}=\\left( 1;-5;1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{c}=\\left( 1;5;-1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{d}=\\left( -1;5;1 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dễ thấy $\\overrightarrow{m}.\\overrightarrow{b}=1.1+1.\\left( -5 \\right)+4.1=0$ và $\\overrightarrow{n}.\\overrightarrow{b}=1.4+1.\\left( -5 \\right)+1.1=0$ nên $\\overrightarrow{b}$ vuông góc với cả hai vectơ $\\overrightarrow{m}$ và $\\overrightarrow{n}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho vecto $\\overrightarrow{a}=\\left( 3;-1;2 \\right)$. Độ dài của vecto $\\overrightarrow{a}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\sqrt{6}$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\sqrt{14}$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$4$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\left| \\overrightarrow{a} \\right|=\\sqrt{{{3}^{2}}+{{\\left( -1 \\right)}^{2}}+{{2}^{2}}}=\\sqrt{14}$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M\\left( 2;3;4 \\right)$, $N\\left( -1;2;3 \\right)$ và $P\\left( 3;2;-3 \\right)$, $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}$ có toạ độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -10;-2;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -2;-2;-4 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 10;2;-4 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 5;1;-2 \\right)$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{MN}=\\left( -3;-1;-1 \\right)\\Rightarrow 2\\overrightarrow{MN}=\\left( -6;-2;-2 \\right)$; $\\overrightarrow{NP}=\\left( 4;0;-6 \\right)$<br>\nSuy ra $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}=\\left( -10;-2;4 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho vectơ $\\overrightarrow{a}=\\left( 3;-1;2 \\right)$. Độ dài của vectơ $\\overrightarrow{a}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\sqrt{6}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\sqrt{14}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$4$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{a}=\\left( 3;-1;2 \\right)\\Rightarrow \\left| \\overrightarrow{a} \\right|=\\sqrt{{{3}^{2}}+{{\\left( -1 \\right)}^{2}}+{{2}^{2}}}=\\sqrt{14}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho tam giác $MNP$ có $M\\left( 2;3;4 \\right),\\,\\,N\\left( -1;2;3 \\right)$ và $P\\left( 3;2;-3 \\right)$, $\\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -10;-2;4 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -2;-2;-4 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 10;2;-4 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 5;1;-2 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$M\\left( 2;3;4 \\right),\\,\\,N\\left( -1;2;3 \\right)$.<br>\nTa có $\\overrightarrow{MN}=\\left( -3;-1;-1 \\right);\\,\\overrightarrow{NP}=\\left( 4;0;-6 \\right)\\Rightarrow \\overrightarrow{u}=2\\overrightarrow{MN}-\\overrightarrow{NP}=\\left( -10;-2;4 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{u}=\\left( -3;4;5 \\right)$, $\\overrightarrow{v}=\\left( -1;0;1 \\right)$. Chọn khẳng định đúng.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{u}+\\overrightarrow{v}=\\left( -4;4;6 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3\\overrightarrow{v}=\\left( -3;0;-3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{u}.\\overrightarrow{v}=2.$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{u}-\\overrightarrow{v}=\\left( 2;4;4 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{u}+\\overrightarrow{v}=\\left( -3;4;5 \\right)+\\left( -1;01 \\right)=\\left( -4;4;6 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz,$ cho $\\overrightarrow{a}=\\left( 1;0;2 \\right),$$\\overrightarrow{b}=\\left( -3;0;-6 \\right)$ và $\\overrightarrow{c}=\\left( 2;-5;-1 \\right).$ Chọn khẳng định sai trong các khẳng định sau",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{b}\\bot \\overrightarrow{c}.$ B. $\\overrightarrow{a}$ ngược hướng với $\\overrightarrow{c}.$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{b}=-3\\overrightarrow{a}.$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{a}+\\overrightarrow{b}-\\overrightarrow{c}=\\left( -4;5;-3 \\right).$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\frac{1}{2}\\ne \\frac{0}{-5}$ nên hai vec tơ không cùng phương suy ra không ngược hướng.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz,$ cho hai điểm $A\\left( 3;-2;-1 \\right)$ và $B\\left( -1;5;0 \\right).$ Tìm tọa độ trung điểm $I$của đoạn thẳng $AB.$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I\\left( 2;3;-1 \\right).$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$I\\left( \\frac{2}{3};1;-\\frac{1}{3} \\right).$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$I\\left( -2;\\frac{7}{2};\\frac{1}{2} \\right).$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$I\\left( 1;\\frac{3}{2};-\\frac{1}{2} \\right).$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$I$là trung điểm của đoạn thẳng $AB\\Rightarrow $ $\\left\\{ \\begin{align}<br>\n&amp; {{x}_{I}}=\\frac{{{x}_{A}}+{{x}_{B}}}{2}=\\frac{3+\\left( -1 \\right)}{2}=1 \\\\<br>\n&amp; {{y}_{I}}=\\frac{{{y}_{A}}+{{y}_{B}}}{2}=\\frac{-2+5}{2}=\\frac{3}{2} \\\\<br>\n&amp; {{z}_{I}}=\\frac{{{z}_{A}}+{{z}_{B}}}{2}=\\frac{-1+0}{2}=\\frac{-1}{2} \\\\<br>\n\\end{align} \\right.$$\\Rightarrow I\\left( 1;\\frac{3}{2};-\\frac{1}{2} \\right).$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{a}=\\left( 2;3;3 \\right),\\overrightarrow{b}=\\left( 0;-2;-1 \\right),\\overrightarrow{c}=\\left( 1;-2;1 \\right)$. Khi đó tọa độ của vec – tơ $\\overrightarrow{u}=2\\overrightarrow{a}+\\overrightarrow{b}-\\overrightarrow{c}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{u}=\\left( 1;2;3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{u}=\\left( 3;6;4 \\right)$ ."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{u}=\\left( 1;3;3 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{u}=\\left( 3;-1;5 \\right)$ .<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\overrightarrow{u}=2\\overrightarrow{a}+\\overrightarrow{b}-\\overrightarrow{c}=\\left( 3;6;4 \\right)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ cho $=\\left( 2;-2;6 \\right)$ . Khi đó độ dài của vec tơ $$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left| \\overrightarrow{a} \\right|=44$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left| \\overrightarrow{a} \\right|=\\sqrt{11}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left| \\overrightarrow{a} \\right|=6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left| \\overrightarrow{a} \\right|=2\\sqrt{11}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $=\\left( 2;-2;6 \\right)\\Rightarrow \\left| \\overrightarrow{a} \\right|=\\sqrt{{{2}^{2}}+{{\\left( -2 \\right)}^{2}}+{{6}^{2}}}=2\\sqrt{11}$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz,$ cho hai vectơ $\\overrightarrow{a}=\\left( 2;3;3 \\right)\\overrightarrow{,b}=\\left( 3;2;-1 \\right)$. Khi đó tích vô hướng $\\overrightarrow{a}.\\overrightarrow{b}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=9$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=7$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{a}.\\overrightarrow{b}=15$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tích vô hướng $\\overrightarrow{a}.\\overrightarrow{b}=2.3+3.2+3.\\left( -1 \\right)=9$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:43.329Z"
+}

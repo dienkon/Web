@@ -1,0 +1,407 @@
+{
+  "meta": {
+    "title": "Bài tập trắc nghiệm Công thức tính góc trong không gian",
+    "slug": "bai-tap-trac-nghiem-cong-thuc-tinh-goc-trong-khong-gian",
+    "id": "1804",
+    "url": "https://sieugioi.com/docs/threads/bai-tap-trac-nghiem-cong-thuc-tinh-goc-trong-khong-gian.1804/",
+    "numId": 1804,
+    "bai": 17,
+    "topicId": "math_t11_plane_sphere",
+    "baiTitle": "Phương trình mặt cầu",
+    "chapter": "Chương 5"
+  },
+  "extracted": {
+    "title": "Bài tập trắc nghiệm Công thức tính góc trong không gian",
+    "sourceUrl": "https://sieugioi.com/docs/threads/bai-tap-trac-nghiem-cong-thuc-tinh-goc-trong-khong-gian.1804/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 5,
+    "questionsWithOptions": 5,
+    "questionsWithAnswers": 4,
+    "questionsWithExplanation": 5,
+    "questionsWithImages": 0,
+    "manualReviewCount": 1,
+    "warnings": [
+      "Câu 5: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1804_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Cho hai mặt phẳng $\\left( P \\right):2x-y-z-3=0$ và $\\left( Q \\right):x-z-2=0$. Góc giữa hai mặt phẳng $\\left( P \\right)$ và $\\left( Q \\right)$bằng",
+        "promptHtml": "Cho hai mặt phẳng $\\left( P \\right):2x-y-z-3=0$ và $\\left( Q \\right):x-z-2=0$. Góc giữa hai mặt phẳng $\\left( P \\right)$ và $\\left( Q \\right)$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{30}^{o}}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{45}^{o}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{60}^{o}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{90}^{o}}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A Véctơ pháp tuyến của mặt phẳng $\\left( P \\right)$ và $\\left( Q \\right)$ lần lượt là $\\overrightarrow{{{n}_{P}}}=\\left( 2;-1;-1 \\right);\\overrightarrow{{{n}_{Q}}}=\\left( 1;0;-1 \\right)$ $\\cos \\left( \\left( P \\right);\\left( Q \\right) \\right)=\\frac{\\left| \\overrightarrow{{{n}_{P}}}.\\overrightarrow{{{n}_{Q}}} \\right|}{\\left| \\overrightarrow{{{n}_{P}}} \\right|\\left| \\overrightarrow{{{n}_{Q}}} \\right|}=\\frac{\\sqrt{3}}{2}\\Rightarrow \\left( \\left( P \\right);\\left( Q \\right) \\right)={{30}^{o}}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1804_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho hai điểm $A(1;3;2)$ và $B(4;5;6)$. Gọi $\\alpha $ là góc giữa đường thẳng $AB$ và mặt phẳng $(Oxy)$. Giá trị của $\\cos \\alpha $ bằng",
+        "promptHtml": "Trong không gian $Oxyz$, cho hai điểm $A(1;3;2)$ và $B(4;5;6)$. Gọi $\\alpha $ là góc giữa đường thẳng $AB$ và mặt phẳng $(Oxy)$. Giá trị của $\\cos \\alpha $ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{13}{29}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{16}{29}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{\\sqrt{377}}{29}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{4\\sqrt{29}}{29}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $\\overrightarrow{AB}=(4-1;5-3;6-2)=(3;2;4)$. Độ dài $AB$ là $|\\overrightarrow{AB}|=\\sqrt{{{3}^{2}}+{{2}^{2}}+{{4}^{2}}}=\\sqrt{29}$. Gọi $\\alpha $ là góc giữa đường thẳng $AB$ và mặt phẳng $(Oxy)$. Khi đó $\\cos \\alpha $ bằng tỉ số giữa độ dài hình chiếu của $\\overrightarrow{AB}$ lên mặt phẳng $(Oxy)$ và độ dài $\\overrightarrow{AB}$. Hình chiếu của $\\overrightarrow{AB}$ lên $(Oxy)$ là $(3;2;0)$, có độ dài $\\sqrt{{{3}^{2}}+{{2}^{2}}}=\\sqrt{13}$. Vậy $\\cos \\alpha =\\frac{\\sqrt{13}}{\\sqrt{29}}=\\frac{\\sqrt{377}}{29}$. Đáp án: C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1804_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$ cho 2 đường thẳng ${{\\Delta }_{1}}:\\left\\{ \\begin{align} & x=-2t \\\\ & y=2+3t \\\\ & z=1+2t \\\\ \\end{align} \\right.$, ${{\\Delta }_{2}}:\\frac{x-3}{1}=\\frac{y-1}{-2}=\\frac{z+2}{4}$. Góc giữa 2 đường thẳng ${{\\Delta }_{1}}$ và ${{\\Delta }_{2}}$ bằng:",
+        "promptHtml": "Trong không gian $Oxyz$ cho 2 đường thẳng<br>\n${{\\Delta }_{1}}:\\left\\{ \\begin{align}<br>\n&amp; x=-2t \\\\<br>\n&amp; y=2+3t \\\\<br>\n&amp; z=1+2t \\\\<br>\n\\end{align} \\right.$, ${{\\Delta }_{2}}:\\frac{x-3}{1}=\\frac{y-1}{-2}=\\frac{z+2}{4}$.<br>\nGóc giữa 2 đường thẳng ${{\\Delta }_{1}}$ và ${{\\Delta }_{2}}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{60}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{45}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{90}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{30}^{{}^\\circ }}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Vectơ chỉ phương của ${{\\Delta }_{1}}$ là ${{\\vec{u}}_{1}}=(-2,3,2)$, của ${{\\Delta }_{2}}$ là ${{\\vec{u}}_{2}}=(1,-2,4)$. Ta có ${{\\vec{u}}_{1}}\\cdot {{\\vec{u}}_{2}}=-2\\cdot 1+3\\cdot (-2)+2\\cdot 4=-2-6+8=0$. Suy ra hai đường thẳng vuông góc, nên góc giữa chúng là ${{90}^{{}^\\circ }}$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1804_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho hình lập phương $ABCD.EFGH$. Hãy xác định số đo góc giữa hai vectơ $\\overrightarrow{FH}$ và $\\overrightarrow{CA}$.",
+        "promptHtml": "Cho hình lập phương $ABCD.EFGH$. Hãy xác định số đo góc giữa hai vectơ $\\overrightarrow{FH}$ và $\\overrightarrow{CA}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{90}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{60}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{120}^{{}^\\circ }}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{45}^{{}^\\circ }}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đặt hình lập phương cạnh bằng 1 với tọa độ: $A(0;0;1),\\ B(0;1;1),\\ C(1;1;1),\\ D(1;0;1)$, $E(0;0;0),\\ F(0;1;0),\\ G(1;1;0),\\ H(1;0;0)$. Khi đó: $\\overrightarrow{FH}=(1;-1;0)$; $\\overrightarrow{CA}=A-C=(-1;-1;0)$. Tích vô hướng: $\\overrightarrow{FH}.\\overrightarrow{CA}=1.(-1)+(-1).(-1)+0.0=0$. Vậy hai vectơ vuông góc nhau. Góc giữa hai vectơ bằng ${{90}^{{}^\\circ }}$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1804_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho mặt phẳng $\\left( P \\right):3x+4y+5z+8=0$. Đường thẳng $d$ là giao tuyến của hai mặt phẳng $\\left( \\alpha \\right):x-2y+1=0$ và $\\left( \\beta \\right):x-2z-3=0$. Góc $\\varphi $ là góc giữa $d$ và $\\left( P \\right)$, tính $\\varphi $.",
+        "promptHtml": "Trong không gian $Oxyz$, cho mặt phẳng $\\left( P \\right):3x+4y+5z+8=0$. Đường thẳng $d$ là giao tuyến của hai mặt phẳng $\\left( \\alpha  \\right):x-2y+1=0$ và $\\left( \\beta  \\right):x-2z-3=0$. Góc $\\varphi $ là góc giữa $d$ và $\\left( P \\right)$, tính $\\varphi $.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\varphi ={{45}^{0}}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\varphi ={{30}^{0}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\varphi ={{90}^{0}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\varphi ={{60}^{0}}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{{{n}_{P}}}=\\left( 3;4;5 \\right)$, $\\overrightarrow{{{n}_{\\alpha }}}=\\left( 1;-2;0 \\right)$ và $\\overrightarrow{{{n}_{\\beta }}}=\\left( 1;0;-2 \\right)$. Vì $d$ là giao tuyến của hai mặt phẳng $\\left( \\alpha \\right)$ và $\\left( \\beta \\right)$ nên $\\overrightarrow{{{u}_{d}}}=\\left[ \\overrightarrow{{{n}_{\\alpha }}};\\overrightarrow{{{n}_{\\beta }}} \\right]=\\left( 4;2;2 \\right)$. Do Góc $\\varphi $ là góc giữa $d$ và $\\left( P \\right)$ nên $\\sin \\varphi =\\frac{|\\overrightarrow{{{u}_{d}}}.\\overrightarrow{{{n}_{P}}}|}{|\\overrightarrow{{{n}_{P}}}|.|\\overrightarrow{{{u}_{d}}}|}=\\frac{|3.4+4.2+5.2|}{\\sqrt{{{3}^{2}}+{{4}^{2}}+{{5}^{2}}}.\\sqrt{{{4}^{2}}+{{2}^{2}}+{{2}^{2}}}}=\\frac{\\sqrt{3}}{2}$ $\\Rightarrow \\varphi ={{60}^{0}}$, chọn $D$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:52.950Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Bài tập trắc nghiệm Công thức tính góc trong không gian",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/bai-tap-trac-nghiem-cong-thuc-tinh-goc-trong-khong-gian.1804/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 5",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Cho hai mặt phẳng $\\left( P \\right):2x-y-z-3=0$ và $\\left( Q \\right):x-z-2=0$. Góc giữa hai mặt phẳng $\\left( P \\right)$ và $\\left( Q \\right)$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{30}^{o}}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{45}^{o}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{60}^{o}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{90}^{o}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn A<br>\nVéctơ pháp tuyến của mặt phẳng $\\left( P \\right)$ và $\\left( Q \\right)$ lần lượt là $\\overrightarrow{{{n}_{P}}}=\\left( 2;-1;-1 \\right);\\overrightarrow{{{n}_{Q}}}=\\left( 1;0;-1 \\right)$<br>\n$\\cos \\left( \\left( P \\right);\\left( Q \\right) \\right)=\\frac{\\left| \\overrightarrow{{{n}_{P}}}.\\overrightarrow{{{n}_{Q}}} \\right|}{\\left| \\overrightarrow{{{n}_{P}}} \\right|\\left| \\overrightarrow{{{n}_{Q}}} \\right|}=\\frac{\\sqrt{3}}{2}\\Rightarrow \\left( \\left( P \\right);\\left( Q \\right) \\right)={{30}^{o}}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho hai điểm $A(1;3;2)$ và $B(4;5;6)$. Gọi $\\alpha $ là góc giữa đường thẳng $AB$ và mặt phẳng $(Oxy)$. Giá trị của $\\cos \\alpha $ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{13}{29}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{16}{29}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{\\sqrt{377}}{29}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{4\\sqrt{29}}{29}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\overrightarrow{AB}=(4-1;5-3;6-2)=(3;2;4)$.<br>\nĐộ dài $AB$ là<br>\n$|\\overrightarrow{AB}|=\\sqrt{{{3}^{2}}+{{2}^{2}}+{{4}^{2}}}=\\sqrt{29}$.<br>\nGọi $\\alpha $ là góc giữa đường thẳng $AB$ và mặt phẳng $(Oxy)$. Khi đó $\\cos \\alpha $ bằng tỉ số giữa độ dài hình chiếu của $\\overrightarrow{AB}$ lên mặt phẳng $(Oxy)$ và độ dài $\\overrightarrow{AB}$.<br>\nHình chiếu của $\\overrightarrow{AB}$ lên $(Oxy)$ là $(3;2;0)$, có độ dài $\\sqrt{{{3}^{2}}+{{2}^{2}}}=\\sqrt{13}$.<br>\nVậy $\\cos \\alpha =\\frac{\\sqrt{13}}{\\sqrt{29}}=\\frac{\\sqrt{377}}{29}$.<br>\nĐáp án: C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$ cho 2 đường thẳng<br>\n${{\\Delta }_{1}}:\\left\\{ \\begin{align}<br>\n&amp; x=-2t \\\\<br>\n&amp; y=2+3t \\\\<br>\n&amp; z=1+2t \\\\<br>\n\\end{align} \\right.$, ${{\\Delta }_{2}}:\\frac{x-3}{1}=\\frac{y-1}{-2}=\\frac{z+2}{4}$.<br>\nGóc giữa 2 đường thẳng ${{\\Delta }_{1}}$ và ${{\\Delta }_{2}}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{60}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{45}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{90}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{30}^{{}^\\circ }}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vectơ chỉ phương của ${{\\Delta }_{1}}$ là ${{\\vec{u}}_{1}}=(-2,3,2)$, của ${{\\Delta }_{2}}$ là ${{\\vec{u}}_{2}}=(1,-2,4)$.<br>\nTa có ${{\\vec{u}}_{1}}\\cdot {{\\vec{u}}_{2}}=-2\\cdot 1+3\\cdot (-2)+2\\cdot 4=-2-6+8=0$.<br>\nSuy ra hai đường thẳng vuông góc, nên góc giữa chúng là ${{90}^{{}^\\circ }}$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho hình lập phương $ABCD.EFGH$. Hãy xác định số đo góc giữa hai vectơ $\\overrightarrow{FH}$ và $\\overrightarrow{CA}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{90}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{60}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{120}^{{}^\\circ }}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{45}^{{}^\\circ }}$.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hình lập phương $ABCD.EFGH$. Hãy xác định số đo góc giữa hai vectơ $\\overrightarrow{FH}$ và $\\ov\" data-src=\"https://sieugioi.com/docs/attachments/q4_img1-png.9592/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q4_img1-png.9592/\" class=\"bbImage\" style=\"\" alt=\"Cho hình lập phương $ABCD.EFGH$. Hãy xác định số đo góc giữa hai vectơ $\\overrightarrow{FH}$ và $\\ov\" title=\"Cho hình lập phương $ABCD.EFGH$. Hãy xác định số đo góc giữa hai vectơ $\\overrightarrow{FH}$ và $\\ov\" width=\"295\" height=\"292\" loading=\"lazy\">\n\t</div><br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đặt hình lập phương cạnh bằng 1 với tọa độ: $A(0;0;1),\\ B(0;1;1),\\ C(1;1;1),\\ D(1;0;1)$,<br>\n$E(0;0;0),\\ F(0;1;0),\\ G(1;1;0),\\ H(1;0;0)$.<br>\nKhi đó: $\\overrightarrow{FH}=(1;-1;0)$; $\\overrightarrow{CA}=A-C=(-1;-1;0)$.<br>\nTích vô hướng: $\\overrightarrow{FH}.\\overrightarrow{CA}=1.(-1)+(-1).(-1)+0.0=0$.<br>\nVậy hai vectơ vuông góc nhau.<br>\nGóc giữa hai vectơ bằng ${{90}^{{}^\\circ }}$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho mặt phẳng $\\left( P \\right):3x+4y+5z+8=0$. Đường thẳng $d$ là giao tuyến của hai mặt phẳng $\\left( \\alpha  \\right):x-2y+1=0$ và $\\left( \\beta  \\right):x-2z-3=0$. Góc $\\varphi $ là góc giữa $d$ và $\\left( P \\right)$, tính $\\varphi $.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\varphi ={{45}^{0}}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\varphi ={{30}^{0}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\varphi ={{90}^{0}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\varphi ={{60}^{0}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{{{n}_{P}}}=\\left( 3;4;5 \\right)$, $\\overrightarrow{{{n}_{\\alpha }}}=\\left( 1;-2;0 \\right)$ và $\\overrightarrow{{{n}_{\\beta }}}=\\left( 1;0;-2 \\right)$.<br>\nVì $d$ là giao tuyến của hai mặt phẳng $\\left( \\alpha  \\right)$ và $\\left( \\beta  \\right)$ nên $\\overrightarrow{{{u}_{d}}}=\\left[ \\overrightarrow{{{n}_{\\alpha }}};\\overrightarrow{{{n}_{\\beta }}} \\right]=\\left( 4;2;2 \\right)$.<br>\nDo Góc $\\varphi $ là góc giữa $d$ và $\\left( P \\right)$ nên $\\sin \\varphi =\\frac{|\\overrightarrow{{{u}_{d}}}.\\overrightarrow{{{n}_{P}}}|}{|\\overrightarrow{{{n}_{P}}}|.|\\overrightarrow{{{u}_{d}}}|}=\\frac{|3.4+4.2+5.2|}{\\sqrt{{{3}^{2}}+{{4}^{2}}+{{5}^{2}}}.\\sqrt{{{4}^{2}}+{{2}^{2}}+{{2}^{2}}}}=\\frac{\\sqrt{3}}{2}$<br>\n$\\Rightarrow \\varphi ={{60}^{0}}$, chọn $D$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:52.950Z"
+}

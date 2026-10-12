@@ -1,0 +1,479 @@
+{
+  "meta": {
+    "title": "Đề 6. Ôn Tập Khoảng Biến Thiên và Khoảng Tứ Phân Vị Qua 6 Câu Trắc Nghiệm",
+    "slug": "de-5-on-tap-khoang-bien-thien-va-khoang-tu-phan-vi-qua-6-cau-trac-nghiem",
+    "id": "1779",
+    "url": "https://sieugioi.com/docs/threads/de-5-on-tap-khoang-bien-thien-va-khoang-tu-phan-vi-qua-6-cau-trac-nghiem.1779/",
+    "numId": 1779,
+    "bai": 9,
+    "topicId": "math_t8_grouped_dispersion",
+    "baiTitle": "Khoảng biến thiên và khoảng tứ phân vị",
+    "chapter": "Chương 3"
+  },
+  "extracted": {
+    "title": "Đề 5. Ôn Tập Khoảng Biến Thiên và Khoảng Tứ Phân Vị Qua 6 Câu Trắc Nghiệm",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-5-on-tap-khoang-bien-thien-va-khoang-tu-phan-vi-qua-6-cau-trac-nghiem.1779/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 6,
+    "questionsWithOptions": 6,
+    "questionsWithAnswers": 3,
+    "questionsWithExplanation": 6,
+    "questionsWithImages": 3,
+    "manualReviewCount": 4,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 5: Nhiều phương án (A, B) có độ khớp ngang nhau trong lời giải.",
+      "Câu 6: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1779_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơn được cho bởi bảng sau: Khoảng tứ phân vị của mẫu số liệu ghép nhóm là\n\n![hình minh họa](/images/practice/sieugioi/q1_img1.9553.png)",
+        "promptHtml": "Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơn được cho bởi bảng sau:<br>\n<span style=\"color: rgb(20, 20, 20)\">\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơ\" data-src=\"/images/practice/sieugioi/q1_img1.9553.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9553.png\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơ\" title=\"Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơ\" width=\"1271\" height=\"147\" loading=\"lazy\">\n\t</div></span><br>\nKhoảng tứ phân vị của mẫu số liệu ghép nhóm là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0,975$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0,5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0,9$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0,575$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đáp án đúng: C Ta có $n=20$. ${{Q}_{1}}=3+\\frac{5-3}{6}.0,3=3,1$. ${{Q}_{3}}=3,6+\\frac{15-14}{4}.0,3=3,675$. Do đó khoảng tứ phân vị là $\\Delta Q=3,675-3,1=0,575$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9553.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img1.9553.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1779_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng sau: Dựa vào bảng số liệu trên, giáo viên toán có thể nhận định $75\\%$ học sinh trong khối có điểm kiểm tra toán cuối học kỳ I từ bao nhiêu trở lên?\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9554.png)",
+        "promptHtml": "Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng sau:<br>\n<span style=\"color: rgb(20, 20, 20)\"><div class=\"bbImageWrapper  js-lbImage\" title=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" data-src=\"/images/practice/sieugioi/q2_img1.9554.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9554.png\" class=\"bbImage\" style=\"width: 417px\" alt=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" title=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" width=\"1032\" height=\"374\" loading=\"lazy\">\n\t</div></span><br>\nDựa vào bảng số liệu trên, giáo viên toán có thể nhận định $75\\%$ học sinh trong khối có điểm kiểm tra toán cuối học kỳ I từ bao nhiêu trở lên?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "4,0."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "5,0."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "4,5."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "5,5."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Đáp án đúng: B Câu hỏi \"$75\\%$ học sinh có điểm từ bao nhiêu trở lên\" tương ứng với việc tìm tứ phân vị thứ nhất $Q_1$ (giá trị mà có $25\\%$ số liệu thấp hơn nó). Ta có tổng số học sinh: $\\frac{n}{4}=125$. Nhóm $[4;6)$ có tần số tích luỹ $227 > 125$, nên áp dụng công thức ta được: ${{Q}_{1}}=4+\\frac{125-91}{136}\\cdot \\left( 6-4 \\right)=4,5$.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9554.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9554.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1779_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho bảng số liệu khảo sát về tuổi thọ (đơn vị: nghìn giờ) của một loại bóng đèn: Giá trị của tứ phân vị thứ nhất là\n\n![hình minh họa](/images/practice/sieugioi/1790236741648.9561.png)",
+        "promptHtml": "Cho bảng số liệu khảo sát về tuổi thọ (đơn vị: nghìn giờ) của một loại bóng đèn:<br>\nGiá trị của tứ phân vị thứ nhất là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"1790236741648.png\" data-src=\"/images/practice/sieugioi/1790236741648.9561.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790236741648.9561.png\" class=\"bbImage\" style=\"\" alt=\"1790236741648.png\" title=\"1790236741648.png\" width=\"558\" height=\"59\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{Q}_{1}}=\\frac{206}{29}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{Q}_{1}}=\\frac{37}{4}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{Q}_{1}}=\\frac{87}{8}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{Q}_{1}}=\\frac{875}{232}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Cỡ mẫu $n = 130$. Vị trí của $Q_1$ là $\\frac{n}{4} = \\frac{130}{4} = 32,5$. Tần số tích lũy đến trước nhóm $[7; 9)$ là $20 + 11 = 31 < 32,5$. Tần số nhóm $[7; 9)$ là 29. Do đó nhóm chứa $Q_1$ là $[7; 9)$. Áp dụng công thức: $Q_1 = 7 + \\frac{32,5 - 31}{29}\\cdot(9 - 7) = 7 + \\frac{1,5\\cdot 2}{29} = 7 + \\frac{3}{29} = \\frac{206}{29}$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/1790236741648.9561.png",
+        "images": [
+          "/images/practice/sieugioi/1790236741648.9561.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1779_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho bảng thống kê đường kính thân gỗ của một số cây xoan đào 6 năm tuổi được trồng ở một lâm trường ở bảng sau. Đường kính (cm)$\\left[ 40\\,;45 \\right)$$\\left[ 45\\,;50 \\right)$$\\left[ 50\\,;55 \\right)$$\\left[ 55\\,;60 \\right)$$\\left[ 60\\,;65 \\right)$Tần số$5$$20$$18$$7$$3$ Hãy tìm khoảng biến thiên của mẫu số liệu ghép nhóm trên. Đường kính (cm)$\\left[ 40\\,;45 \\right)$$\\left[ 45\\,;50 \\right)$$\\left[ 50\\,;55 \\right)$$\\left[ 55\\,;60 \\right)$$\\left[ 60\\,;65 \\right)$Tần số$5$$20$$18$$7$$3$",
+        "promptHtml": "Cho bảng thống kê đường kính thân gỗ của một số cây xoan đào 6 năm tuổi được trồng ở một lâm trường ở bảng sau.<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Đường kính (cm)</td><td>$\\left[ 40\\,;45 \\right)$</td><td>$\\left[ 45\\,;50 \\right)$</td><td>$\\left[ 50\\,;55 \\right)$</td><td>$\\left[ 55\\,;60 \\right)$</td><td>$\\left[ 60\\,;65 \\right)$</td></tr><tr><td>Tần số</td><td>$5$</td><td>$20$</td><td>$18$</td><td>$7$</td><td>$3$</td></tr></tbody></table>\n</div>Hãy tìm khoảng biến thiên của mẫu số liệu ghép nhóm trên.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$25$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$30$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$69,8$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Khoảng biến thiên của mẫu số liệu ghép nhóm trên là $R=65-40=25$. thí sinh chỉ chọn một phương án.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1779_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Thời gian truy cập Internet mỗi buổi tối của một nhóm học sinh được thống kê trong bảng sau: Thời gian (phút)$\\left[ 10,5;12,5 \\right)$$\\left[ 12,5;14,5 \\right)$$\\left[ 14,5;16,5 \\right)$$\\left[ 16,5;18,5 \\right)$$\\left[ 18,5;20,5 \\right)$Số học sinh1020251815 Khoảng tứ phân vị của mẫu số liệu đã cho bằng Thời gian (phút)$\\left[ 10,5;12,5 \\right)$$\\left[ 12,5;14,5 \\right)$$\\left[ 14,5;16,5 \\right)$$\\left[ 16,5;18,5 \\right)$$\\left[ 18,5;20,5 \\right)$Số học sinh1020251815",
+        "promptHtml": "Thời gian truy cập Internet mỗi buổi tối của một nhóm học sinh được thống kê trong bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Thời gian (phút)</td><td>$\\left[ 10,5;12,5 \\right)$</td><td>$\\left[ 12,5;14,5 \\right)$</td><td>$\\left[ 14,5;16,5 \\right)$</td><td>$\\left[ 16,5;18,5 \\right)$</td><td>$\\left[ 18,5;20,5 \\right)$</td></tr><tr><td>Số học sinh</td><td>10</td><td>20</td><td>25</td><td>18</td><td>15</td></tr></tbody></table>\n</div>Khoảng tứ phân vị của mẫu số liệu đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{19}{6}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{35}{2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{43}{3}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{83}{6}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Thời gian (phút)$\\left[ 10,5;12,5 \\right)$$\\left[ 12,5;14,5 \\right)$$\\left[ 14,5;16,5 \\right)$$\\left[ 16,5;18,5 \\right)$$\\left[ 18,5;20,5 \\right)$Số học sinh31215242Tần số tích lũy315305456 ${{Q}_{1}}=12,5+\\frac{14-3}{12}.2=\\frac{43}{3}$, ${{Q}_{3}}=16,5+\\frac{42-30}{24}.2=\\frac{35}{2}$ Khoảng tứ phân vị của mẫu số liệu đã cho bằng ${{Q}_{3}}-{{Q}_{1}}=\\frac{35}{2}-\\frac{43}{3}=\\frac{19}{6}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.5,
+        "warnings": []
+      },
+      {
+        "id": "sg_1779_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Xét mẫu số liệu ghép nhóm có tứ phân vị thứ nhất, tứ phân vị thứ hai, tứ phân vị thứ ba lần lượt là ${{Q}_{1}}$, ${{Q}_{2}}$ và ${{Q}_{3}}$. Khoảng tứ phân vị của mẫu số liệu ghép nhóm đó bằng",
+        "promptHtml": "Xét mẫu số liệu ghép nhóm có tứ phân vị thứ nhất, tứ phân vị thứ hai, tứ phân vị thứ ba lần lượt là ${{Q}_{1}}$, ${{Q}_{2}}$ và ${{Q}_{3}}$. Khoảng tứ phân vị của mẫu số liệu ghép nhóm đó bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{Q}_{3}}-2{{Q}_{2}}+{{Q}_{1}}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{Q}_{2}}-{{Q}_{1}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{Q}_{3}}-{{Q}_{2}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{Q}_{3}}-{{Q}_{1}}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đáp án đúng: C Khoảng tứ phân vị của mẫu số liệu ghép nhóm đã cho bằng ${{Q}_{3}}-{{Q}_{1}}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:48.824Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 5. Ôn Tập Khoảng Biến Thiên và Khoảng Tứ Phân Vị Qua 6 Câu Trắc Nghiệm",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-5-on-tap-khoang-bien-thien-va-khoang-tu-phan-vi-qua-6-cau-trac-nghiem.1779/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 6",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơn được cho bởi bảng sau:<br>\n<span style=\"color: rgb(20, 20, 20)\">\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơ\" data-src=\"/images/practice/sieugioi/q1_img1.9553.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9553.png\" class=\"bbImage\" style=\"\" alt=\"Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơ\" title=\"Mỗi ngày bác Sơn đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Sơ\" width=\"1271\" height=\"147\" loading=\"lazy\">\n\t</div></span><br>\nKhoảng tứ phân vị của mẫu số liệu ghép nhóm là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0,975$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0,5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$0,9$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0,575$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: C</b><br>\nTa có  $n=20$.<br>\n${{Q}_{1}}=3+\\frac{5-3}{6}.0,3=3,1$.<br>\n${{Q}_{3}}=3,6+\\frac{15-14}{4}.0,3=3,675$.<br>\nDo đó khoảng tứ phân vị là $\\Delta Q=3,675-3,1=0,575$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9553.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng sau:<br>\n<span style=\"color: rgb(20, 20, 20)\"><div class=\"bbImageWrapper  js-lbImage\" title=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" data-src=\"/images/practice/sieugioi/q2_img1.9554.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9554.png\" class=\"bbImage\" style=\"width: 417px\" alt=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" title=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" width=\"1032\" height=\"374\" loading=\"lazy\">\n\t</div></span><br>\nDựa vào bảng số liệu trên, giáo viên toán có thể nhận định $75\\%$ học sinh trong khối có điểm kiểm tra toán cuối học kỳ I từ bao nhiêu trở lên?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "4,0."
+          },
+          {
+            "id": "opt_b",
+            "text": "5,0."
+          },
+          {
+            "id": "opt_c",
+            "text": "4,5."
+          },
+          {
+            "id": "opt_d",
+            "text": "5,5.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: B</b><br>\nCâu hỏi \"$75\\%$ học sinh có điểm từ bao nhiêu trở lên\" tương ứng với việc tìm tứ phân vị thứ nhất $Q_1$ (giá trị mà có $25\\%$ số liệu thấp hơn nó).<br>\nTa có tổng số học sinh: $\\frac{n}{4}=125$.<br>\nNhóm $[4;6)$ có tần số tích luỹ $227 &gt; 125$, nên áp dụng công thức ta được: ${{Q}_{1}}=4+\\frac{125-91}{136}\\cdot \\left( 6-4 \\right)=4,5$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" data-src=\"https://sieugioi.com/docs/attachments/q2_sol1-png.9555/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q2_sol1-png.9555/\" class=\"bbImage\" style=\"width: 333px\" alt=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" title=\"Kết quả bài kiểm tra môn toán cuối học kỳ I của học sinh khối 12 một trường THPT được ghi lại ở bảng\" width=\"863\" height=\"309\" loading=\"lazy\">\n\t</div></div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9554.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho bảng số liệu khảo sát về tuổi thọ (đơn vị: nghìn giờ) của một loại bóng đèn:<br>\nGiá trị của tứ phân vị thứ nhất là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"1790236741648.png\" data-src=\"/images/practice/sieugioi/1790236741648.9561.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790236741648.9561.png\" class=\"bbImage\" style=\"\" alt=\"1790236741648.png\" title=\"1790236741648.png\" width=\"558\" height=\"59\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{Q}_{1}}=\\frac{206}{29}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{Q}_{1}}=\\frac{37}{4}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{Q}_{1}}=\\frac{87}{8}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{Q}_{1}}=\\frac{875}{232}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: Cỡ mẫu là $n=130$.<br>\n$\\frac{n}{4}=32,5$.<br>\nNhóm $\\left[ 7;9 \\right)$ là nhóm đầu tiên có tần số tích luỹ lớn hơn hoặc bằng $32,5$.<br>\n$\\Rightarrow {{Q}_{1}}=7+\\frac{32,5-(20+11)}{29}.\\left( 9-7 \\right)=\\frac{206}{29}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/1790236741648.9561.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho bảng thống kê đường kính thân gỗ của một số cây xoan đào 6 năm tuổi được trồng ở một lâm trường ở bảng sau.<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Đường kính (cm)</td><td>$\\left[ 40\\,;45 \\right)$</td><td>$\\left[ 45\\,;50 \\right)$</td><td>$\\left[ 50\\,;55 \\right)$</td><td>$\\left[ 55\\,;60 \\right)$</td><td>$\\left[ 60\\,;65 \\right)$</td></tr><tr><td>Tần số</td><td>$5$</td><td>$20$</td><td>$18$</td><td>$7$</td><td>$3$</td></tr></tbody></table>\n</div>Hãy tìm khoảng biến thiên của mẫu số liệu ghép nhóm trên.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$25$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$30$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$69,8$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Khoảng biến thiên của mẫu số liệu ghép nhóm trên là $R=65-40=25$.<br>\nthí sinh chỉ chọn một phương án.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Thời gian truy cập Internet mỗi buổi tối của một nhóm học sinh được thống kê trong bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Thời gian (phút)</td><td>$\\left[ 10,5;12,5 \\right)$</td><td>$\\left[ 12,5;14,5 \\right)$</td><td>$\\left[ 14,5;16,5 \\right)$</td><td>$\\left[ 16,5;18,5 \\right)$</td><td>$\\left[ 18,5;20,5 \\right)$</td></tr><tr><td>Số học sinh</td><td>10</td><td>20</td><td>25</td><td>18</td><td>15</td></tr></tbody></table>\n</div>Khoảng tứ phân vị của mẫu số liệu đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{19}{6}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{35}{2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{43}{3}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{83}{6}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Thời gian (phút)</td><td>$\\left[ 10,5;12,5 \\right)$</td><td>$\\left[ 12,5;14,5 \\right)$</td><td>$\\left[ 14,5;16,5 \\right)$</td><td>$\\left[ 16,5;18,5 \\right)$</td><td>$\\left[ 18,5;20,5 \\right)$</td></tr><tr><td>Số học sinh</td><td>3</td><td>12</td><td>15</td><td>24</td><td>2</td></tr><tr><td>Tần số tích lũy</td><td>3</td><td>15</td><td>30</td><td>54</td><td>56</td></tr></tbody></table>\n</div>${{Q}_{1}}=12,5+\\frac{14-3}{12}.2=\\frac{43}{3}$, ${{Q}_{3}}=16,5+\\frac{42-30}{24}.2=\\frac{35}{2}$<br>\nKhoảng tứ phân vị của mẫu số liệu đã cho bằng ${{Q}_{3}}-{{Q}_{1}}=\\frac{35}{2}-\\frac{43}{3}=\\frac{19}{6}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Xét mẫu số liệu ghép nhóm có tứ phân vị thứ nhất, tứ phân vị thứ hai, tứ phân vị thứ ba lần lượt là ${{Q}_{1}}$, ${{Q}_{2}}$ và ${{Q}_{3}}$. Khoảng tứ phân vị của mẫu số liệu ghép nhóm đó bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{Q}_{3}}-2{{Q}_{2}}+{{Q}_{1}}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{Q}_{2}}-{{Q}_{1}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{Q}_{3}}-{{Q}_{2}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{Q}_{3}}-{{Q}_{1}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: C</b><br>\nKhoảng tứ phân vị của mẫu số liệu ghép nhóm đã cho bằng ${{Q}_{3}}-{{Q}_{1}}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:48.824Z"
+}

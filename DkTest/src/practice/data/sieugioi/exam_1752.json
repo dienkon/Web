@@ -1,0 +1,1402 @@
+{
+  "meta": {
+    "title": "Đề 4. 20 Câu Trắc Nghiệm GTLN, GTNN Hàm Số",
+    "slug": "de-4-20-cau-trac-nghiem-gtln-gtnn-ham-so",
+    "id": "1752",
+    "url": "https://sieugioi.com/docs/threads/de-4-20-cau-trac-nghiem-gtln-gtnn-ham-so.1752/",
+    "numId": 1752,
+    "bai": 2,
+    "topicId": "math_t3_minmax",
+    "baiTitle": "Giá trị lớn nhất và giá trị nhỏ nhất của hàm số",
+    "chapter": "Chương 1"
+  },
+  "extracted": {
+    "title": "Đề 4. 20 Câu Trắc Nghiệm GTLN, GTNN Hàm Số",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-4-20-cau-trac-nghiem-gtln-gtnn-ham-so.1752/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 20,
+    "questionsWithOptions": 20,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 11,
+    "manualReviewCount": 20,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 13: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 14: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 15: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 16: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 17: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 18: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 19: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 20: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1752_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=2026+2x-2{{e}^{x}}$ trên đoạn $\\left[ 0;2 \\right]$ bằng:",
+        "promptHtml": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=2026+2x-2{{e}^{x}}$ trên đoạn $\\left[ 0;2 \\right]$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2026$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2024$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2028-2e$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2030-2{{e}^{2}}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có ${f}'\\left( x \\right)=2-2{{e}^{x}}=0\\Leftrightarrow x=0$.\nCó $f\\left( 0 \\right)=2024;\\,\\,f\\left( 2 \\right)=2030-2{{e}^{2}}$.\nVậy $\\underset{\\left[ 0;2 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=2024$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hình vẽ. Giá trị nhỏ nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $\\left[ 0;3 \\right]$ là\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9344.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hình vẽ.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hì\" data-src=\"/images/practice/sieugioi/q2_img1.9344.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9344.png\" class=\"bbImage\" style=\"width: 283px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hì\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hì\" width=\"672\" height=\"505\" loading=\"lazy\">\n\t</div><br>\nGiá trị nhỏ nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $\\left[ 0;3 \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-3$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Dựa vào đồ thị ta thấy: Giá trị nhỏ nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $\\left[ 0;3 \\right]$ là $-2$.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9344.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9344.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Giá trị nhỏ nhất $m$ của hàm số $y={{x}^{4}}-2{{x}^{2}}+3$ trên đoạn $\\left[ 0;\\sqrt{3} \\right]$ là",
+        "promptHtml": "Giá trị nhỏ nhất $m$ của hàm số $y={{x}^{4}}-2{{x}^{2}}+3$ trên đoạn $\\left[ 0;\\sqrt{3} \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $y={{x}^{4}}-2{{x}^{2}}+3\\,\\,\\Rightarrow y'=4{{x}^{3}}-4x$\n$y'=0\\Leftrightarrow 4{{x}^{3}}-4x=0\\Leftrightarrow \\left[ \\begin{align} & x=0\\, \\\\ & x=1 \\\\ \\end{align} \\right.$ (vì $x\\in \\left[ 0;\\sqrt{3} \\right]$\n$y\\left( 0 \\right)=3;\\,\\,y\\left( 1 \\right)=2;\\,\\,y\\left( \\sqrt{3} \\right)=6$\nDo đó: $m=\\underset{\\left[ 0;\\,\\sqrt{3} \\right]}{\\mathop{\\min }}\\,y=y\\left( 1 \\right)=2$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ. Tìm giá trị nhỏ nhất của hàm số trên đoạn $[-1;3]$.\n\n![hình minh họa](/images/practice/sieugioi/q4_img1.9345.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.\" data-src=\"/images/practice/sieugioi/q4_img1.9345.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9345.png\" class=\"bbImage\" style=\"width: 418px\" alt=\" Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.\" title=\" Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.\" width=\"836\" height=\"284\" loading=\"lazy\">\n\t</div><br>\nTìm giá trị nhỏ nhất của hàm số trên đoạn $[-1;3]$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-1$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ BBT, ta có $\\underset{\\left[ -1;3 \\right]}{\\mathop{\\min }}\\,f(x)=0=f(-1)$",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9345.png",
+        "images": [
+          "/images/practice/sieugioi/q4_img1.9345.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ tại\n\n![hình minh họa](/images/practice/sieugioi/q5_img1.9346.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ tại<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ n\" data-src=\"/images/practice/sieugioi/q5_img1.9346.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9346.png\" class=\"bbImage\" style=\"width: 222px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ n\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ n\" width=\"442\" height=\"443\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=-4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=1$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số$y=f\\left( x \\right)$, ta thấy hàm số $y=f\\left( x \\right)$ đồng biến trên đoạn $\\left[ -1;1 \\right]$ nên hàm số đạt giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ tại $x=-1$.",
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9346.png",
+        "images": [
+          "/images/practice/sieugioi/q5_img1.9346.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau. Trên đoạn $[1;5]$, hàm số đã cho đạt giá trị lớn nhất tại điểm.\n\n![hình minh họa](/images/practice/sieugioi/q6_img1.9347.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.\" data-src=\"/images/practice/sieugioi/q6_img1.9347.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9347.png\" class=\"bbImage\" style=\"width: 221px\" alt=\" Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.\" title=\" Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.\" width=\"405\" height=\"357\" loading=\"lazy\">\n\t</div><br>\nTrên đoạn $[1;5]$, hàm số đã cho đạt giá trị lớn nhất tại điểm.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Hàm số đạt giá trị lớn nhất bằng 4 tại điểm $x=2$",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9347.png",
+        "images": [
+          "/images/practice/sieugioi/q6_img1.9347.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Giá trị lớn nhất của hàm số $y={{x}^{3}}-3x$ trên đoạn $\\left[ 0;3 \\right]$bằng",
+        "promptHtml": "Giá trị lớn nhất của hàm số $y={{x}^{3}}-3x$ trên đoạn $\\left[ 0;3 \\right]$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$18$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-2$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có $y={{x}^{3}}-3x$\nSuy ra ${y}'=3{{x}^{2}}-3$\n${y}'=0\\Leftrightarrow \\left[ \\begin{align} & x=1 \\\\ & x=-1\\,\\,\\notin \\left[ 0;3 \\right] \\\\ \\end{align} \\right.$\n$y\\left( 0 \\right)=0;\\,y\\left( 1 \\right)=-2;\\,y\\left( 3 \\right)=18$\nVậy giá trị lớn nhất của hàm số $y={{x}^{3}}-3x$ trên đoạn $\\left[ 0;3 \\right]$bằng $18$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có đạo hàm ${f}'\\left( x \\right)=\\left( 2x-1 \\right)\\left( x+1 \\right)$. Hàm số $y=f\\left( x \\right)$ có giá trị lớn nhất trên $\\left[ -2;\\,0 \\right]$ bằng",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có đạo hàm ${f}'\\left( x \\right)=\\left( 2x-1 \\right)\\left( x+1 \\right)$. Hàm số $y=f\\left( x \\right)$ có giá trị lớn nhất trên $\\left[ -2;\\,0 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$f\\left( -\\frac{1}{2} \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( -1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( 0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$f\\left( -2 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: ${f}'\\left( x \\right)=\\left( 2x-1 \\right)\\left( x+1 \\right)=0\\Rightarrow \\left[ \\begin{matrix} x=\\frac{1}{2} \\\\ x=-1 \\\\ \\end{matrix} \\right.$\nBảng biến thiên:\n\n\t\t\n\t\nTừ bảng biến thiên ta thấy: $\\underset{\\left[ -2;\\,0 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=f\\left( -1 \\right)$\n\t\t\n\tTa có: ${f}'\\left( x \\right)=\\left( 2x-1 \\right)\\left( x+1 \\right)=0\\Rightarrow \\left[ \\begin{matrix} x=\\frac{1}{2} \\\\ x=-1 \\\\ \\end{matrix} \\right.$\nBảng biến thiên:\n\n\t\t\n\t\nTừ bảng biến thiên ta thấy: $\\underset{\\left[ -2;\\,0 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=f\\left( -1 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Giá trị lớn nhất của hàm số $y={{x}^{3}}-7{{x}^{2}}+11x-2$ trên đoạn $\\left[ 0;3 \\right]$ là",
+        "promptHtml": "Giá trị lớn nhất của hàm số $y={{x}^{3}}-7{{x}^{2}}+11x-2$ trên đoạn $\\left[ 0;3 \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "3."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "5."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$y' = 3{x^2} - 14x + 11.$ $y' = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 1 \\in \\left[ {0;3} \\right]\\\\ x = \\frac{{11}}{3} \\notin \\left[ {0;3} \\right] \\end{array} \\right.$\n$y\\left( 0 \\right) = - 2;{\\mkern 1mu} {\\mkern 1mu} y\\left( 1 \\right) = 3;{\\mkern 1mu} {\\mkern 1mu} y\\left( 3 \\right) = - 5.$\n$ \\Rightarrow \\mathop {\\max }\\limits_{\\left[ {0;3} \\right]} {\\mkern 1mu} y = y\\left( 1 \\right) = 3.$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=\\frac{2x-5}{x-1}$ trên đoạn $\\left[ 2;5 \\right]$ là",
+        "promptHtml": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=\\frac{2x-5}{x-1}$ trên đoạn $\\left[ 2;5 \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{1}{2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{5}{4}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$1$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Vì ${f}'\\left( x \\right)=\\frac{3}{{{\\left( x-1 \\right)}^{2}}}>0,\\,\\forall x\\in \\left[ 2;\\,5 \\right]$ nên hàm số $f\\left( x \\right)$ đồng biến trên đoạn $\\left[ 2;5 \\right]$.\nVậy $\\underset{\\left[ 2;5 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=f\\left( 5 \\right)=\\frac{5}{4}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=2026+2x-2{{e}^{x}}$ trên đoạn $\\left[ 0;2 \\right]$ bằng",
+        "promptHtml": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=2026+2x-2{{e}^{x}}$ trên đoạn $\\left[ 0;2 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2026$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2024$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2028-2e$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2030-2{{e}^{2}}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có ${f}'\\left( x \\right)=-2{{e}^{x}}+2=0\\Leftrightarrow {{e}^{x}}=1\\Leftrightarrow x=0$.\n$f\\left( 0 \\right)=2024;f\\left( 2 \\right)=2030-2{{e}^{2}}$.\nVậy giá trị lớn nhất của hàm số trên đoạn $\\left[ 0;2 \\right]$là $f\\left( 0 \\right)=2024$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau. Gọi $M$, $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $\\left[ 0;5 \\right]$. Tính $P=M+m$\n\n![hình minh họa](/images/practice/sieugioi/q12_img1.9349.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.\" data-src=\"/images/practice/sieugioi/q12_img1.9349.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9349.png\" class=\"bbImage\" style=\"width: 288px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.\" width=\"577\" height=\"419\" loading=\"lazy\">\n\t</div><br>\nGọi $M$, $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $\\left[ 0;5 \\right]$. Tính $P=M+m$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$P=5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$P=3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$P=4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$P=2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Quan sát đồ thị hàm số trên đoạn $[0; 5]$: giá trị lớn nhất là tung độ cao nhất $M = 4$ (tại $x = 0$), giá trị nhỏ nhất là tung độ thấp nhất $m = -1$ (tại $x = 2$). Vậy $P = M + m = 4 + (-1) = 3$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9349.png",
+        "images": [
+          "/images/practice/sieugioi/q12_img1.9349.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây: Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x)$ trên đoạn $[-2;2]$. Khi đó, giá trị của biểu thức $M-m$ bằng:\n\n![hình minh họa](/images/practice/sieugioi/q13_img1.9350.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:\" data-src=\"/images/practice/sieugioi/q13_img1.9350.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9350.png\" class=\"bbImage\" style=\"width: 236px\" alt=\" Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:\" title=\" Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:\" width=\"550\" height=\"478\" loading=\"lazy\">\n\t</div><br>\nGọi $M$ và $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x)$ trên đoạn $[-2;2]$. Khi đó, giá trị của biểu thức $M-m$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Tập xác định: $x\\in [-2;2]$.\nGiá trị lớn nhất: Điểm cao nhất của đồ thị có tung độ là $1$. Vậy $M=1$.\nGiá trị nhỏ nhất: Điểm thấp nhất của đồ thị có tung độ là $-4$ (tại $x=-2$). Vậy $m=-4$.\nYêu cầu: Tính $M-m=1-(-4)=5$.",
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9350.png",
+        "images": [
+          "/images/practice/sieugioi/q13_img1.9350.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $\\left[ -2;2 \\right]$ bằng\n\n![hình minh họa](/images/practice/sieugioi/q14_img1.9351.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng gi\" data-src=\"/images/practice/sieugioi/q14_img1.9351.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9351.png\" class=\"bbImage\" style=\"width: 154px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng gi\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng gi\" width=\"200\" height=\"232\" loading=\"lazy\">\n\t</div><br>\nTổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $\\left[ -2;2 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-6$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào đồ thị ta có $\\underset{\\left[ -2;2 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)+\\underset{\\left[ -2;2 \\right]}{\\mathop{\\min }}\\,f\\left( x \\right)=-1+\\left( -5 \\right)=-6$.",
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9351.png",
+        "images": [
+          "/images/practice/sieugioi/q14_img1.9351.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên. Giá trị lớn nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $[-2;3]$ bằng bao nhiêu?\n\n![hình minh họa](/images/practice/sieugioi/q15_img1.9352.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.\" data-src=\"/images/practice/sieugioi/q15_img1.9352.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9352.png\" class=\"bbImage\" style=\"width: 213px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.\" width=\"408\" height=\"405\" loading=\"lazy\">\n\t</div><br>\nGiá trị lớn nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $[-2;3]$ bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Quan sát đồ thị hàm số $y = f(x)$ trên đoạn $[-2; 3]$, điểm cao nhất của đồ thị có tọa độ $(3; 2)$. Do đó giá trị lớn nhất của hàm số trên đoạn $[-2; 3]$ bằng $\\max_{[-2; 3]} f(x) = 2$. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9352.png",
+        "images": [
+          "/images/practice/sieugioi/q15_img1.9352.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Giá trị nhỏ nhất của hàm số $f\\left( x \\right)={{x}^{3}}-30x$ trên đoạn $\\left[ 2;19 \\right]$ bằng:",
+        "promptHtml": "Giá trị nhỏ nhất của hàm số $f\\left( x \\right)={{x}^{3}}-30x$ trên đoạn $\\left[ 2;19 \\right]$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-52$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$20\\sqrt{10}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-63$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-20\\sqrt{10}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $f\\left( x \\right)={{x}^{3}}-30x\\Rightarrow f'\\left( x \\right)=3{{x}^{2}}-30$\n$f'\\left( x \\right) = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = \\sqrt {10} \\\\ x = - \\sqrt {10} {\\mkern 1mu} {\\mkern 1mu} \\left( {\\rm{L}} \\right) \\end{array} \\right.$\n$\\begin{array}{l} f\\left( 2 \\right) = - 52\\\\ f\\left( {19} \\right) = 6289\\\\ f\\left( {\\sqrt {10} } \\right) = - 20\\sqrt {10} \\end{array}$\nVậy $\\underset{\\left[ 2;19 \\right]}{\\mathop{\\min }}\\,f\\left( x \\right)=-20\\sqrt{10}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Xác định giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ của hàm số $y=f\\left( x \\right)$ có đồ thị như hình dưới.\n\n![hình minh họa](/images/practice/sieugioi/q17_img1.9353.png)",
+        "promptHtml": "Xác định giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ của hàm số $y=f\\left( x \\right)$ có đồ thị như hình dưới.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Xác định giá trị nhỏ nhất trên đoạn\" data-src=\"/images/practice/sieugioi/q17_img1.9353.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9353.png\" class=\"bbImage\" style=\"\" alt=\" Xác định giá trị nhỏ nhất trên đoạn\" title=\" Xác định giá trị nhỏ nhất trên đoạn\" width=\"214\" height=\"279\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-2$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Quan sát đồ thị trên đoạn $\\left[ -1;1 \\right]$, ta thấy điểm thấp nhất của đồ thị có tọa độ là $\\left( -1;-4 \\right)$. Vậy $\\text{mi}{{\\text{n}}_{\\left[ -1;1 \\right]}}f\\left( x \\right)=-4$ tại $x=-1$.",
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9353.png",
+        "images": [
+          "/images/practice/sieugioi/q17_img1.9353.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị lớn nhất của hàm số $y=f(x)$ trên $\\left[ 1;4 \\right]$.\n\n![hình minh họa](/images/practice/sieugioi/q18_img1.9354.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị lớn nhất của hàm số $y=f(x)$ trên $\\left[ 1;4 \\right]$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị\" data-src=\"/images/practice/sieugioi/q18_img1.9354.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9354.png\" class=\"bbImage\" style=\"width: 292px\" alt=\"Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị\" width=\"487\" height=\"327\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$4$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Quan sát đồ thị hàm số trên đoạn $[1; 4]$, điểm cao nhất của đường cong tương ứng với hoành độ $x = 4$ và có tung độ bằng 3. Do đó giá trị lớn nhất của hàm số trên đoạn $[1; 4]$ bằng 3. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9354.png",
+        "images": [
+          "/images/practice/sieugioi/q18_img1.9354.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọi $M$ và $m$lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên $\\left[ -1;5 \\right]$. Giá trị của $M-m$ bằng\n\n![hình minh họa](/images/practice/sieugioi/q19_img1.9355.png)",
+        "promptHtml": "Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọ\" data-src=\"/images/practice/sieugioi/q19_img1.9355.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q19_img1.9355.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọ\" title=\" Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọ\" width=\"265\" height=\"214\" loading=\"lazy\">\n\t</div><br>\nGọi $M$ và $m$lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên $\\left[ -1;5 \\right]$. Giá trị của $M-m$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$5$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ BBT của hàm số ta thấy trên đoạn $\\left[ -1;5 \\right]$thì $M=3;\\,m=-2\\Rightarrow M-m=5.$",
+        "imageUrl": "/images/practice/sieugioi/q19_img1.9355.png",
+        "images": [
+          "/images/practice/sieugioi/q19_img1.9355.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1752_q20",
+        "order": 20,
+        "type": "single_choice",
+        "promptText": "Giá trị nhỏ nhất của hàm số $y={{x}^{3}}-24\\text{x}$trên đoạn $\\left[ 2;25 \\right]$ bằng",
+        "promptHtml": "Giá trị nhỏ nhất của hàm số $y={{x}^{3}}-24\\text{x}$trên đoạn $\\left[ 2;25 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-45$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-32\\sqrt{2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-40$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$32\\sqrt{2}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $y' = 3{x^2} - 24;$ $y' = 0 \\Leftrightarrow \\left[ {\\begin{array}{*{20}{c}} {x = 2\\sqrt 2 \\in \\left[ {2;25} \\right]}\\\\ {x = - 2\\sqrt 2 \\notin \\left[ {2;25} \\right]} \\end{array}} \\right.$\n$f\\left( 2 \\right)=-40;f\\left( 25 \\right)=15025;f\\left( 2\\sqrt{2} \\right)=-32\\sqrt{2}$;.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:25.446Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 4. 20 Câu Trắc Nghiệm GTLN, GTNN Hàm Số",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-4-20-cau-trac-nghiem-gtln-gtnn-ham-so.1752/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 20",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=2026+2x-2{{e}^{x}}$ trên đoạn $\\left[ 0;2 \\right]$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2026$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$2024$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$2028-2e$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$2030-2{{e}^{2}}$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có ${f}'\\left( x \\right)=2-2{{e}^{x}}=0\\Leftrightarrow x=0$.<br>\nCó $f\\left( 0 \\right)=2024;\\,\\,f\\left( 2 \\right)=2030-2{{e}^{2}}$.<br>\nVậy $\\underset{\\left[ 0;2 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=2024$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hình vẽ.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hì\" data-src=\"/images/practice/sieugioi/q2_img1.9344.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9344.png\" class=\"bbImage\" style=\"width: 283px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hì\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục và có đồ thị trên đoạn $\\left[ -4;3 \\right]$ như hì\" width=\"672\" height=\"505\" loading=\"lazy\">\n\t</div><br>\nGiá trị nhỏ nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $\\left[ 0;3 \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị ta thấy: Giá trị nhỏ nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $\\left[ 0;3 \\right]$ là $-2$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9344.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Giá trị nhỏ nhất $m$ của hàm số $y={{x}^{4}}-2{{x}^{2}}+3$ trên đoạn $\\left[ 0;\\sqrt{3} \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-3$. B. $-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $y={{x}^{4}}-2{{x}^{2}}+3\\,\\,\\Rightarrow y'=4{{x}^{3}}-4x$<br>\n$y'=0\\Leftrightarrow 4{{x}^{3}}-4x=0\\Leftrightarrow \\left[ \\begin{align} &amp; x=0\\, \\\\ &amp; x=1 \\\\ \\end{align} \\right.$ (vì $x\\in \\left[ 0;\\sqrt{3} \\right]$<br>\n$y\\left( 0 \\right)=3;\\,\\,y\\left( 1 \\right)=2;\\,\\,y\\left( \\sqrt{3} \\right)=6$<br>\nDo đó: $m=\\underset{\\left[ 0;\\,\\sqrt{3} \\right]}{\\mathop{\\min }}\\,y=y\\left( 1 \\right)=2$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.\" data-src=\"/images/practice/sieugioi/q4_img1.9345.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9345.png\" class=\"bbImage\" style=\"width: 418px\" alt=\" Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.\" title=\" Cho hàm số $y=f(x)$ liên tục và có bảng biến thiên trên đoạn $[-1;3]$ như hình vẽ.\" width=\"836\" height=\"284\" loading=\"lazy\">\n\t</div><br>\nTìm giá trị nhỏ nhất của hàm số trên đoạn $[-1;3]$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Từ BBT, ta có $\\underset{\\left[ -1;3 \\right]}{\\mathop{\\min }}\\,f(x)=0=f(-1)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9345.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ tại<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ n\" data-src=\"/images/practice/sieugioi/q5_img1.9346.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9346.png\" class=\"bbImage\" style=\"width: 222px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ n\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho đạt giá trị nhỏ n\" width=\"442\" height=\"443\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=-4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị hàm số$y=f\\left( x \\right)$, ta thấy hàm số $y=f\\left( x \\right)$ đồng biến trên đoạn $\\left[ -1;1 \\right]$ nên hàm số đạt giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ tại $x=-1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9346.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.\" data-src=\"/images/practice/sieugioi/q6_img1.9347.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9347.png\" class=\"bbImage\" style=\"width: 221px\" alt=\" Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.\" title=\" Cho hàm số $y=f(x)$ liên tục trên đoạn $[1;5]$ và có đồ thị như hình vẽ sau.\" width=\"405\" height=\"357\" loading=\"lazy\">\n\t</div><br>\nTrên đoạn $[1;5]$, hàm số đã cho đạt giá trị lớn nhất tại điểm.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hàm số đạt giá trị lớn nhất bằng 4 tại điểm $x=2$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9347.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Giá trị lớn nhất của hàm số $y={{x}^{3}}-3x$ trên đoạn $\\left[ 0;3 \\right]$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$18$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $y={{x}^{3}}-3x$<br>\nSuy ra ${y}'=3{{x}^{2}}-3$<br>\n${y}'=0\\Leftrightarrow \\left[ \\begin{align} &amp; x=1 \\\\ &amp; x=-1\\,\\,\\notin \\left[ 0;3 \\right] \\\\ \\end{align} \\right.$<br>\n$y\\left( 0 \\right)=0;\\,y\\left( 1 \\right)=-2;\\,y\\left( 3 \\right)=18$<br>\nVậy giá trị lớn nhất của hàm số $y={{x}^{3}}-3x$ trên đoạn $\\left[ 0;3 \\right]$bằng $18$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có đạo hàm ${f}'\\left( x \\right)=\\left( 2x-1 \\right)\\left( x+1 \\right)$. Hàm số $y=f\\left( x \\right)$ có giá trị lớn nhất trên $\\left[ -2;\\,0 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$f\\left( -\\frac{1}{2} \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$f\\left( -1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$f\\left( 0 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$f\\left( -2 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: ${f}'\\left( x \\right)=\\left( 2x-1 \\right)\\left( x+1 \\right)=0\\Rightarrow \\left[ \\begin{matrix} x=\\frac{1}{2} \\\\ x=-1 \\\\ \\end{matrix} \\right.$<br>\nBảng biến thiên:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f\\left( x \\right)$ có đạo hàm \" data-src=\"https://sieugioi.com/docs/attachments/q8_img1-png.9348/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q8_img1-png.9348/\" class=\"bbImage\" style=\"width: 405px\" alt=\"Cho hàm số $y=f\\left( x \\right)$ có đạo hàm \" title=\"Cho hàm số $y=f\\left( x \\right)$ có đạo hàm \" width=\"596\" height=\"184\" loading=\"lazy\">\n\t</div><br>\nTừ bảng biến thiên ta thấy: $\\underset{\\left[ -2;\\,0 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=f\\left( -1 \\right)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Giá trị lớn nhất của hàm số $y={{x}^{3}}-7{{x}^{2}}+11x-2$ trên đoạn $\\left[ 0;3 \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "3."
+          },
+          {
+            "id": "opt_d",
+            "text": "5.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$y' = 3{x^2} - 14x + 11.$ $y' = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = 1 \\in \\left[ {0;3} \\right]\\\\ x = \\frac{{11}}{3} \\notin \\left[ {0;3} \\right] \\end{array} \\right.$<br>\n$y\\left( 0 \\right) = - 2;{\\mkern 1mu} {\\mkern 1mu} y\\left( 1 \\right) = 3;{\\mkern 1mu} {\\mkern 1mu} y\\left( 3 \\right) = - 5.$<br>\n$ \\Rightarrow \\mathop {\\max }\\limits_{\\left[ {0;3} \\right]} {\\mkern 1mu} y = y\\left( 1 \\right) = 3.$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=\\frac{2x-5}{x-1}$ trên đoạn $\\left[ 2;5 \\right]$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{1}{2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{5}{4}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì ${f}'\\left( x \\right)=\\frac{3}{{{\\left( x-1 \\right)}^{2}}}&gt;0,\\,\\forall x\\in \\left[ 2;\\,5 \\right]$ nên hàm số $f\\left( x \\right)$ đồng biến trên đoạn $\\left[ 2;5 \\right]$.<br>\nVậy $\\underset{\\left[ 2;5 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)=f\\left( 5 \\right)=\\frac{5}{4}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Giá trị lớn nhất của hàm số $f\\left( x \\right)=2026+2x-2{{e}^{x}}$ trên đoạn $\\left[ 0;2 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2026$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$2024$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$2028-2e$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$2030-2{{e}^{2}}$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có ${f}'\\left( x \\right)=-2{{e}^{x}}+2=0\\Leftrightarrow {{e}^{x}}=1\\Leftrightarrow x=0$.<br>\n$f\\left( 0 \\right)=2024;f\\left( 2 \\right)=2030-2{{e}^{2}}$.<br>\nVậy giá trị lớn nhất của hàm số trên đoạn $\\left[ 0;2 \\right]$là $f\\left( 0 \\right)=2024$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.\" data-src=\"/images/practice/sieugioi/q12_img1.9349.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9349.png\" class=\"bbImage\" style=\"width: 288px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ sau.\" width=\"577\" height=\"419\" loading=\"lazy\">\n\t</div><br>\nGọi $M$, $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $\\left[ 0;5 \\right]$. Tính $P=M+m$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$P=5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$P=3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$P=4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$P=2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Nhìn vào đồ thị ta thấy:$M=4$, $m=-1$. Vậy $P=M+m=4+\\left( -1 \\right)=3$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9349.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:\" data-src=\"/images/practice/sieugioi/q13_img1.9350.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9350.png\" class=\"bbImage\" style=\"width: 236px\" alt=\" Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:\" title=\" Cho hàm số $y=f(x)$ liên tục và có đồ thị trên đoạn $[-2;2]$ như hình vẽ dưới đây:\" width=\"550\" height=\"478\" loading=\"lazy\">\n\t</div><br>\nGọi $M$ và $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x)$ trên đoạn $[-2;2]$. Khi đó, giá trị của biểu thức $M-m$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$3$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tập xác định: $x\\in [-2;2]$.<br>\nGiá trị lớn nhất: Điểm cao nhất của đồ thị có tung độ là $1$. Vậy $M=1$.<br>\nGiá trị nhỏ nhất: Điểm thấp nhất của đồ thị có tung độ là $-4$ (tại $x=-2$). Vậy $m=-4$.<br>\nYêu cầu: Tính $M-m=1-(-4)=5$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9350.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng gi\" data-src=\"/images/practice/sieugioi/q14_img1.9351.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9351.png\" class=\"bbImage\" style=\"width: 154px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng gi\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị trên đoạn $\\left[ -2;2 \\right]$ như hình vẽ. Tổng gi\" width=\"200\" height=\"232\" loading=\"lazy\">\n\t</div><br>\nTổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $\\left[ -2;2 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị ta có $\\underset{\\left[ -2;2 \\right]}{\\mathop{\\max }}\\,f\\left( x \\right)+\\underset{\\left[ -2;2 \\right]}{\\mathop{\\min }}\\,f\\left( x \\right)=-1+\\left( -5 \\right)=-6$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9351.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.\" data-src=\"/images/practice/sieugioi/q15_img1.9352.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9352.png\" class=\"bbImage\" style=\"width: 213px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.\" title=\" Cho hàm số $y=f\\left( x \\right)$ liên tục trên đoạn $[-2;3]$ và có đồ thị trong hình bên.\" width=\"408\" height=\"405\" loading=\"lazy\">\n\t</div><br>\nGiá trị lớn nhất của hàm số $y=f\\left( x \\right)$ trên đoạn $[-2;3]$ bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9352.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Giá trị nhỏ nhất của hàm số $f\\left( x \\right)={{x}^{3}}-30x$ trên đoạn $\\left[ 2;19 \\right]$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-52$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$20\\sqrt{10}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-63$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-20\\sqrt{10}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $f\\left( x \\right)={{x}^{3}}-30x\\Rightarrow f'\\left( x \\right)=3{{x}^{2}}-30$<br>\n$f'\\left( x \\right) = 0 \\Leftrightarrow \\left[ \\begin{array}{l} x = \\sqrt {10} \\\\ x = - \\sqrt {10} {\\mkern 1mu} {\\mkern 1mu} \\left( {\\rm{L}} \\right) \\end{array} \\right.$<br>\n$\\begin{array}{l} f\\left( 2 \\right) = - 52\\\\ f\\left( {19} \\right) = 6289\\\\ f\\left( {\\sqrt {10} } \\right) = - 20\\sqrt {10} \\end{array}$<br>\nVậy $\\underset{\\left[ 2;19 \\right]}{\\mathop{\\min }}\\,f\\left( x \\right)=-20\\sqrt{10}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Xác định giá trị nhỏ nhất trên đoạn $\\left[ -1;1 \\right]$ của hàm số $y=f\\left( x \\right)$ có đồ thị như hình dưới.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Xác định giá trị nhỏ nhất trên đoạn\" data-src=\"/images/practice/sieugioi/q17_img1.9353.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9353.png\" class=\"bbImage\" style=\"\" alt=\" Xác định giá trị nhỏ nhất trên đoạn\" title=\" Xác định giá trị nhỏ nhất trên đoạn\" width=\"214\" height=\"279\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Quan sát đồ thị trên đoạn $\\left[ -1;1 \\right]$, ta thấy điểm thấp nhất của đồ thị có tọa độ là $\\left( -1;-4 \\right)$. Vậy $\\text{mi}{{\\text{n}}_{\\left[ -1;1 \\right]}}f\\left( x \\right)=-4$ tại $x=-1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9353.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị lớn nhất của hàm số $y=f(x)$ trên $\\left[ 1;4 \\right]$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị\" data-src=\"/images/practice/sieugioi/q18_img1.9354.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9354.png\" class=\"bbImage\" style=\"width: 292px\" alt=\"Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\left[ -1;+\\infty \\right)$ và có đồ thị như hình vẽ. Tìm giá trị\" width=\"487\" height=\"327\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$4$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn C</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9354.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọ\" data-src=\"/images/practice/sieugioi/q19_img1.9355.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q19_img1.9355.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọ\" title=\" Cho hàm số $f(x)$ liên tục trên đoạn $\\left[ -1;5 \\right]$ và có bảng biến thiên như hình vẽ. Gọ\" width=\"265\" height=\"214\" loading=\"lazy\">\n\t</div><br>\nGọi $M$ và $m$lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên $\\left[ -1;5 \\right]$. Giá trị của $M-m$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Từ BBT của hàm số ta thấy trên đoạn $\\left[ -1;5 \\right]$thì $M=3;\\,m=-2\\Rightarrow M-m=5.$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q19_img1.9355.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      },
+      {
+        "id": "q-20",
+        "type": "single_choice",
+        "text": "Giá trị nhỏ nhất của hàm số $y={{x}^{3}}-24\\text{x}$trên đoạn $\\left[ 2;25 \\right]$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-45$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-32\\sqrt{2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-40$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$32\\sqrt{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $y' = 3{x^2} - 24;$ $y' = 0 \\Leftrightarrow \\left[ {\\begin{array}{*{20}{c}} {x = 2\\sqrt 2 \\in \\left[ {2;25} \\right]}\\\\ {x = - 2\\sqrt 2 \\notin \\left[ {2;25} \\right]} \\end{array}} \\right.$<br>\n$f\\left( 2 \\right)=-40;f\\left( 25 \\right)=15025;f\\left( 2\\sqrt{2} \\right)=-32\\sqrt{2}$;.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 20
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:25.447Z"
+}

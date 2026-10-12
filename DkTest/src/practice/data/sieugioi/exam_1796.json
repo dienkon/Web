@@ -1,0 +1,953 @@
+{
+  "meta": {
+    "title": "Chuyên Đề Trắc Nghiệm Phương Trình Mặt Phẳng – Lời Giải Chi Tiết",
+    "slug": "chuyen-de-trac-nghiem-phuong-trinh-mat-phang-loi-giai-chi-tiet",
+    "id": "1796",
+    "url": "https://sieugioi.com/docs/threads/chuyen-de-trac-nghiem-phuong-trinh-mat-phang-loi-giai-chi-tiet.1796/",
+    "numId": 1796,
+    "bai": 14,
+    "topicId": "math_t11_plane_sphere",
+    "baiTitle": "Phương trình mặt phẳng",
+    "chapter": "Chương 5"
+  },
+  "extracted": {
+    "title": "Chuyên Đề Trắc Nghiệm Phương Trình Mặt Phẳng – Lời Giải Chi Tiết",
+    "sourceUrl": "https://sieugioi.com/docs/threads/chuyen-de-trac-nghiem-phuong-trinh-mat-phang-loi-giai-chi-tiet.1796/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 13,
+    "questionsWithOptions": 13,
+    "questionsWithAnswers": 9,
+    "questionsWithExplanation": 13,
+    "questionsWithImages": 0,
+    "manualReviewCount": 4,
+    "warnings": [
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 5: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 7: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 8: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1796_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, mặt phẳng đi qua gốc tọa độ và nhận $\\vec{n}=(-4;3;0)$ làm một véctơ pháp tuyến có phương trình tổng quát là:",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, mặt phẳng đi qua gốc tọa độ và nhận $\\vec{n}=(-4;3;0)$ làm một véctơ pháp tuyến có phương trình tổng quát là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$4x-3z=0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-4x+3y=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-4y+3z=0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-4x+3z=0$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Phương trình tổng quát của mặt phẳng đi qua gốc tọa độ và nhận $\\vec{n}=(-4;3;0)$ làm véctơ pháp tuyến là: $-4(x-0)+3(y-0)=0\\Leftrightarrow -4x+3y=0$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ $Oxyz$, cho mặt phẳng $\\left( P \\right):2x-3z-5=0$ . Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ ?",
+        "promptHtml": "Trong không gian với hệ $Oxyz$, cho mặt phẳng $\\left( P \\right):2x-3z-5=0$ . Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ ?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{u}=\\left( 2;0;-3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{a}=\\left( 2;-3;-5 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{v}=\\left( 2;-3;0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{b}=\\left( -2;3;0 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Mặt phẳng $\\left( P \\right):2x-3z-5=0$ có một vectơ pháp tuyến là$\\overrightarrow{u}=\\left( 2;0;-3 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ, vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right):2x-y+z+3=0$?",
+        "promptHtml": "Trong không gian với hệ trục tọa độ, vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right):2x-y+z+3=0$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{{{n}_{1}}}=\\left( 2;-1;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{{{n}_{2}}}=\\left( 2;1;1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{{{n}_{3}}}=\\left( 2;-1;3 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{{{n}_{4}}}=\\left( -1;1;3 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Mặt phẳng $(P): 2x - y + z + 3 = 0$ có các hệ số tương ứng trước $x, y, z$ là $2, -1, 1$. Do đó một vectơ pháp tuyến của $(P)$ là $\\vec{n}_1 = (2; -1; 1)$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxy$, cho mặt phẳng $\\left( P \\right):x-2y+2z-1=0$. Một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ có tọa độ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxy$, cho mặt phẳng $\\left( P \\right):x-2y+2z-1=0$. Một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 1;-2;2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -1;1;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -1;-2;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;2;2 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ có tọa độ là $\\left( 1;-2;2 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ Oxyz , cho mặt phẳng $\\left( \\alpha \\right):3x+2y-4z+1=0$. Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( \\alpha \\right)$?",
+        "promptHtml": "Trong không gian với hệ tọa độ Oxyz , cho mặt phẳng $\\left( \\alpha  \\right):3x+2y-4z+1=0$. Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( \\alpha  \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{{{n}_{3}}}=\\left( -3;2;-4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{{{n}_{2}}}=\\left( 3;2;4 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{{{n}_{1}}}=\\left( 3;-2;-4 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{{{n}_{4}}}=\\left( 3;2;-4 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$\\overrightarrow{{{n}_{4}}}=\\left( 3;2;-4 \\right)$ là một vectơ pháp tuyến của $\\left( \\alpha \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $\\left( \\alpha \\right):3x+2y-4z+1=0$. Vecto nào sau đây là một vecto pháp tuyến của mặt phẳng $\\left( \\alpha \\right)$?",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $\\left( \\alpha  \\right):3x+2y-4z+1=0$. Vecto nào sau đây là một vecto pháp tuyến của mặt phẳng $\\left( \\alpha  \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{\\vec{n}}_{2}}=(2;-4;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{\\vec{n}}_{4}}=(-4;2;3)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{\\vec{n}}_{1}}=(3;2;-4)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{\\vec{n}}_{3}}=(3;-4;1)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có một vecto pháp tuyến của mặt phẳng $\\left( \\alpha \\right)$ là ${{\\vec{n}}_{1}}=(3;2;-4)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $\\left( \\alpha \\right):x+y+z-4=0$. Điểm nào sau đây thuộc mặt phẳng $\\left( \\alpha \\right)$?",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $\\left( \\alpha  \\right):x+y+z-4=0$. Điểm nào sau đây thuộc mặt phẳng $\\left( \\alpha  \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$N(2;3;0)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$P(4;1;1)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$Q(2;2;1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$M(1;2;1)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có điểm thuộc mặt phẳng $\\left( \\alpha \\right)$ là $M(1;2;1)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $(P):2x+3y+z-1=0$. Một vectơ pháp tuyến của mặt phẳng $(P)$ có tọa độ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $(P):2x+3y+z-1=0$. Một vectơ pháp tuyến của mặt phẳng $(P)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 1;-2;3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 1;2;3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 1;-3;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 2;3;1 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Một vectơ pháp tuyến của mặt phẳng $(P)$ là $\\overrightarrow{n}=\\left( 2;3;1 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Cho mặt phẳng $\\left( P \\right):\\,3x-y+z-2=0$. Vectơ nào trong các vectơ dưới đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$?",
+        "promptHtml": "Cho mặt phẳng $\\left( P \\right):\\,3x-y+z-2=0$. Vectơ nào trong các vectơ dưới đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;-2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;0 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Mặt phẳng $\\left( P \\right):\\,3x-y+z-2=0$có một vectơ pháp tuyến là $\\overrightarrow{n}=\\left( 3;-1;1 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Mặt phẳng đi qua ba điểm $A\\left( 0\\,;\\,0\\,;\\,2 \\right)$, $B\\left( 1\\,;\\,0\\,;\\,0 \\right)$ và $C\\left( 0\\,;\\,3\\,;\\,0 \\right)$ có phương trình là",
+        "promptHtml": "Mặt phẳng đi qua ba điểm $A\\left( 0\\,;\\,0\\,;\\,2 \\right)$, $B\\left( 1\\,;\\,0\\,;\\,0 \\right)$ và $C\\left( 0\\,;\\,3\\,;\\,0 \\right)$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{x}{1}+\\frac{y}{3}+\\frac{z}{2}=1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{x}{1}+\\frac{y}{3}+\\frac{z}{2}=-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{x}{2}+\\frac{y}{1}+\\frac{z}{3}=1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{x}{2}+\\frac{y}{1}+\\frac{z}{3}=-1$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A. $\\frac{x}{1}+\\frac{y}{3}+\\frac{z}{2}=1$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho điểm $M\\left( 2\\,;\\,-1\\,;\\,4 \\right)$ và mặt phẳng $\\left( P \\right):\\,3x-2y+z+1=0$. Phương trình của mặt phẳng đi qua $M$ và song song với mặt phẳng $\\left( P \\right)$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho điểm $M\\left( 2\\,;\\,-1\\,;\\,4 \\right)$ và mặt phẳng $\\left( P \\right):\\,3x-2y+z+1=0$. Phương trình của mặt phẳng đi qua $M$ và song song với mặt phẳng $\\left( P \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2x-2y+4z-21=0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x-2z+1=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3x-2y+z-12=0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3x-2y+z+12=0$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Phương trình của mặt phẳng đi qua $M$ và song song với mặt phẳng $\\left( P \\right)$ là $3\\left( x-2 \\right)-2\\left( y+1 \\right)+\\left( z-4 \\right)=0$$\\Leftrightarrow 3x-2y+z-12=0$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, cho mặt phẳng $\\left( P \\right)$ có phương trình $x~-~2y~-3~z~+~5~=~0.$ Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$?",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, cho mặt phẳng $\\left( P \\right)$ có phương trình $x~-~2y~-3~z~+~5~=~0.$ Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{\\vec{n}}_{1}}\\left( 1;-3;-2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{\\vec{n}}_{2}}\\left( 1;-2;-3 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{\\vec{n}}_{3}}\\left( 1;2;3 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{\\vec{n}}_{4}}\\left( -1;2;-3 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B Chọn B Chọn B Chọn B",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1796_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, mặt phẳng đi qua điểm $A(1;2;3)$ và có vectơ pháp tuyến $\\vec{n}=(2;-1;1)$ có phương trình là:",
+        "promptHtml": "Trong không gian $Oxyz$, mặt phẳng đi qua điểm $A(1;2;3)$ và có vectơ pháp tuyến $\\vec{n}=(2;-1;1)$ có phương trình là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x+2y+3z-3=0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2x-y+z-1=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2x-y+z+3=0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2x-y+z-3=0$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đáp án D Mặt phẳng đi qua $A(1;2;3)$ và có vectơ pháp tuyến $\\vec{n}=(2;-1;1)$ nên có phương trình: $2(x-1)-(y-2)+(z-3)=0$$\\Leftrightarrow 2x-2-y+2+z-3=0$$\\Leftrightarrow 2x-y+z-3=0$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:51.114Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Chuyên Đề Trắc Nghiệm Phương Trình Mặt Phẳng – Lời Giải Chi Tiết",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/chuyen-de-trac-nghiem-phuong-trinh-mat-phang-loi-giai-chi-tiet.1796/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 13",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, mặt phẳng đi qua gốc tọa độ và nhận $\\vec{n}=(-4;3;0)$ làm một véctơ pháp tuyến có phương trình tổng quát là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$4x-3z=0$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$-4x+3y=0$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$-4y+3z=0$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$-4x+3z=0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Phương trình tổng quát của mặt phẳng đi qua gốc tọa độ và nhận $\\vec{n}=(-4;3;0)$ làm véctơ pháp tuyến là:  $-4(x-0)+3(y-0)=0\\Leftrightarrow -4x+3y=0$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ $Oxyz$, cho mặt phẳng $\\left( P \\right):2x-3z-5=0$ . Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ ?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{u}=\\left( 2;0;-3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{a}=\\left( 2;-3;-5 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{v}=\\left( 2;-3;0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{b}=\\left( -2;3;0 \\right)$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt phẳng $\\left( P \\right):2x-3z-5=0$ có một vectơ pháp tuyến là$\\overrightarrow{u}=\\left( 2;0;-3 \\right)$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ, vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right):2x-y+z+3=0$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{{{n}_{1}}}=\\left( 2;-1;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{{{n}_{2}}}=\\left( 2;1;1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{{{n}_{3}}}=\\left( 2;-1;3 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{{{n}_{4}}}=\\left( -1;1;3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt phẳng $\\left( P \\right):2x-y+z+3=0$ có nhận vectơ có tọa độ $\\left( 2;-1;1 \\right)$ làm vectơ pháp tuyến.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxy$, cho mặt phẳng $\\left( P \\right):x-2y+2z-1=0$. Một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 1;-2;2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -1;1;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -1;-2;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;2;2 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$ có tọa độ là $\\left( 1;-2;2 \\right)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ Oxyz , cho mặt phẳng $\\left( \\alpha  \\right):3x+2y-4z+1=0$. Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( \\alpha  \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{{{n}_{3}}}=\\left( -3;2;-4 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{{{n}_{2}}}=\\left( 3;2;4 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{{{n}_{1}}}=\\left( 3;-2;-4 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{{{n}_{4}}}=\\left( 3;2;-4 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\overrightarrow{{{n}_{4}}}=\\left( 3;2;-4 \\right)$ là một vectơ pháp tuyến của $\\left( \\alpha  \\right)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $\\left( \\alpha  \\right):3x+2y-4z+1=0$. Vecto nào sau đây là một vecto pháp tuyến của mặt phẳng $\\left( \\alpha  \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{\\vec{n}}_{2}}=(2;-4;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{\\vec{n}}_{4}}=(-4;2;3)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{\\vec{n}}_{1}}=(3;2;-4)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{\\vec{n}}_{3}}=(3;-4;1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có một vecto pháp tuyến của mặt phẳng $\\left( \\alpha  \\right)$ là ${{\\vec{n}}_{1}}=(3;2;-4)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $\\left( \\alpha  \\right):x+y+z-4=0$. Điểm nào sau đây thuộc mặt phẳng $\\left( \\alpha  \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$N(2;3;0)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$P(4;1;1)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$Q(2;2;1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$M(1;2;1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có điểm thuộc mặt phẳng $\\left( \\alpha  \\right)$ là $M(1;2;1)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho mặt phẳng $(P):2x+3y+z-1=0$. Một vectơ pháp tuyến của mặt phẳng $(P)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 1;-2;3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 1;2;3 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 1;-3;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 2;3;1 \\right)$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Một vectơ pháp tuyến của mặt phẳng $(P)$ là $\\overrightarrow{n}=\\left( 2;3;1 \\right)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Cho mặt phẳng $\\left( P \\right):\\,3x-y+z-2=0$. Vectơ nào trong các vectơ dưới đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;-2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\overrightarrow{n}=\\left( 3;-1;0 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Mặt phẳng $\\left( P \\right):\\,3x-y+z-2=0$có một vectơ pháp tuyến là $\\overrightarrow{n}=\\left( 3;-1;1 \\right)$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Mặt phẳng đi qua ba điểm $A\\left( 0\\,;\\,0\\,;\\,2 \\right)$, $B\\left( 1\\,;\\,0\\,;\\,0 \\right)$ và $C\\left( 0\\,;\\,3\\,;\\,0 \\right)$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{x}{1}+\\frac{y}{3}+\\frac{z}{2}=1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{x}{1}+\\frac{y}{3}+\\frac{z}{2}=-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{x}{2}+\\frac{y}{1}+\\frac{z}{3}=1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{x}{2}+\\frac{y}{1}+\\frac{z}{3}=-1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn A. $\\frac{x}{1}+\\frac{y}{3}+\\frac{z}{2}=1$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho điểm $M\\left( 2\\,;\\,-1\\,;\\,4 \\right)$ và mặt phẳng $\\left( P \\right):\\,3x-2y+z+1=0$. Phương trình của mặt phẳng đi qua $M$ và song song với mặt phẳng $\\left( P \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2x-2y+4z-21=0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x-2z+1=0$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$3x-2y+z-12=0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$3x-2y+z+12=0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Phương trình của mặt phẳng đi qua $M$ và song song với mặt phẳng $\\left( P \\right)$ là<br>\n$3\\left( x-2 \\right)-2\\left( y+1 \\right)+\\left( z-4 \\right)=0$$\\Leftrightarrow 3x-2y+z-12=0$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho mặt phẳng $\\left( P \\right)$ có phương trình $x~-~2y~-3~z~+~5~=~0.$ Vectơ nào sau đây là một vectơ pháp tuyến của mặt phẳng $\\left( P \\right)$?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{\\vec{n}}_{1}}\\left( 1;-3;-2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{\\vec{n}}_{2}}\\left( 1;-2;-3 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{\\vec{n}}_{3}}\\left( 1;2;3 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{\\vec{n}}_{4}}\\left( -1;2;-3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><span style=\"color: rgb(20, 20, 20)\">Chọn B</span></div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, mặt phẳng đi qua điểm $A(1;2;3)$ và có vectơ pháp tuyến $\\vec{n}=(2;-1;1)$ có phương trình là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x+2y+3z-3=0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2x-y+z-1=0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2x-y+z+3=0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2x-y+z-3=0$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đáp án D<br>\nMặt phẳng đi qua $A(1;2;3)$ và có vectơ pháp tuyến $\\vec{n}=(2;-1;1)$ nên có phương trình:<br>\n$2(x-1)-(y-2)+(z-3)=0$$\\Leftrightarrow 2x-2-y+2+z-3=0$$\\Leftrightarrow 2x-y+z-3=0$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:51.115Z"
+}

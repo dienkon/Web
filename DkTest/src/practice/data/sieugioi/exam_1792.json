@@ -1,0 +1,898 @@
+{
+  "meta": {
+    "title": "10+ Câu Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+    "slug": "10-cau-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an",
+    "id": "1792",
+    "url": "https://sieugioi.com/docs/threads/10-cau-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1792/",
+    "numId": 1792,
+    "bai": 13,
+    "topicId": "math_t10_integral_apps",
+    "baiTitle": "Ứng dụng hình học của tích phân",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "10+ Câu Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+    "sourceUrl": "https://sieugioi.com/docs/threads/10-cau-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1792/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 12,
+    "questionsWithOptions": 12,
+    "questionsWithAnswers": 10,
+    "questionsWithExplanation": 12,
+    "questionsWithImages": 5,
+    "manualReviewCount": 2,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 2: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1792_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong mặt phẳng với hệ tọa độ $Oxy$, cho hình phẳng $\\left( H \\right)$ giới hạn bởi các đường $y={{x}^{2}}+3,y=0,x=0,x=2$. Gọi $V$ là thể tích khối tròn xoay được tạo thành khi quay $\\left( H \\right)$ xung quanh trục $Ox$. Mệnh đề nào sau đây đúng?",
+        "promptHtml": "Trong mặt phẳng với hệ tọa độ $Oxy$, cho hình phẳng $\\left( H \\right)$ giới hạn bởi các đường $y={{x}^{2}}+3,y=0,x=0,x=2$. Gọi $V$ là thể tích khối tròn xoay được tạo thành khi quay $\\left( H \\right)$ xung quanh trục $Ox$. Mệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$V=\\underset{0}{\\overset{2}{\\mathop \\int }}\\,{{\\left( {{x}^{2}}+3 \\right)}^{2}}\\text{d}x$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$V=\\pi \\underset{0}{\\overset{2}{\\mathop \\int }}\\,{{\\left( {{x}^{2}}+3 \\right)}^{2}}\\text{d}x$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$V=\\pi \\underset{0}{\\overset{2}{\\mathop \\int }}\\,\\left( {{x}^{2}}+3 \\right)\\text{d}x$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$V=\\underset{0}{\\overset{2}{\\mathop \\int }}\\,\\left( {{x}^{2}}+3 \\right)\\text{d}x$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị $y = f(x)$, trục hoành $y = 0$ và hai đường thẳng $x = a, x = b$ xung quanh trục $Ox$ là: $V = \\pi \\int_a^b [f(x)]^2 dx$. Với $f(x) = x^2 + 3$, $a = 0, b = 2$, ta có: $V = \\pi \\int_0^2 (x^2 + 3)^2 dx$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9578.png)",
+        "promptHtml": "Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" data-src=\"/images/practice/sieugioi/q2_img1.9578.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9578.png\" class=\"bbImage\" style=\"width: 251px\" alt=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" width=\"468\" height=\"301\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( -2{{x}^{2}}+2x+4 \\right)\\,dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( -2x+2 \\right)\\,dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( 2x-2 \\right)\\,dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( 2{{x}^{2}}-2x-4 \\right)\\,dx}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số, khi $x\\in \\left[ -1;2 \\right]$ thì $-{{x}^{2}}+3\\ge {{x}^{2}}-2x-1$ nên diện tích $S = \\int\\limits_{ - 1}^2 {\\left| {\\left( { - {x^2} + 3} \\right) - \\left( {{x^2} - 2x - 1} \\right)} \\right|{\\mkern 1mu} dx} $ $ = \\int\\limits_{ - 1}^2 {\\left[ {\\left( { - {x^2} + 3} \\right) - \\left( {{x^2} - 2x - 1} \\right)} \\right]{\\mkern 1mu} dx} $ $ = \\int\\limits_{ - 1}^2 {\\left( { - 2{x^2} + 2x + 4} \\right){\\mkern 1mu} dx} $",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9578.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9578.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng ${AB}$, ${BC}$, ${CD}$ và một đường parabol đi qua hai điểm ${A}$, ${D}$ (như hình vẽ bên dưới). Biết ${ABCD}$ là hình vuông có cạnh bằng ${4m}$. Đỉnh ${I}$ của parabol nằm trên đường trung trực của ${BC}$ và cách cạnh ${BC}$ một khoảng bằng ${5m}$. Chi phí để xây dựng mỗi mét vuông mặt sàn của chuồng bò là 350000 đồng. Tính tổng số tiền ông An cần chi phí để xây dựng chuồng bò đó? (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng nghìn)\n\n![hình minh họa](/images/practice/sieugioi/q3_img1.9579.png)",
+        "promptHtml": "Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng ${AB}$, ${BC}$, ${CD}$ và một đường parabol đi qua hai điểm ${A}$, ${D}$ (như hình vẽ bên dưới). Biết ${ABCD}$ là hình vuông có cạnh bằng ${4m}$. Đỉnh ${I}$ của parabol nằm trên đường trung trực của ${BC}$ và cách cạnh ${BC}$ một khoảng bằng ${5m}$. Chi phí để xây dựng mỗi mét vuông mặt sàn của chuồng bò là 350000 đồng. Tính tổng số tiền ông An cần chi phí để xây dựng chuồng bò đó? (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng nghìn)<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng\" data-src=\"/images/practice/sieugioi/q3_img1.9579.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q3_img1.9579.png\" class=\"bbImage\" style=\"width: 172px\" alt=\"Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng\" title=\"Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng\" width=\"233\" height=\"285\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "7333000 đồng."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "6333000 đồng."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "6533000 đồng."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "7533000 đồng."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Đặt hệ trục sao cho ${BC}$ nằm ngang, trung điểm ${BC}$ là gốc theo phương ngang. Khi đó ${A,D}$ có hoành độ lần lượt là ${2}$ và $-2$, cạnh ${BC}$ cách ${AD}$ 4 m, đỉnh parabol ${I}$ cách ${BC}$ 5 m. Gọi chiều dương hướng xuống dưới, parabol có đỉnh $I(0;5)$ và đi qua $A(2;4), D(-2;4)$. Phương trình parabol: $y=5-\\dfrac{x^2}{4}$. Diện tích chuồng bò: $S=\\int_{-2}^{2}\\left(5-\\dfrac{x^2}{4}\\right)dx=\\dfrac{56}{3}$ m². Chi phí: $\\dfrac{56}{3}\\cdot350000=\\dfrac{19600000}{3}\\approx6533333$ đồng. Làm tròn đến hàng nghìn: ${6533000}$ đồng. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q3_img1.9579.png",
+        "images": [
+          "/images/practice/sieugioi/q3_img1.9579.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q4_img1.9580.png)",
+        "promptHtml": "Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" data-src=\"/images/practice/sieugioi/q4_img1.9580.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9580.png\" class=\"bbImage\" style=\"width: 180px\" alt=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" width=\"319\" height=\"411\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\displaystyle \\int_1^3 \\left( -x^2+4x-3 \\right)dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\displaystyle \\int_1^3 \\left( x^2-2x-11 \\right)dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\displaystyle \\int_1^3 \\left( x^2-4x+3 \\right)dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\displaystyle \\int_1^3 \\left( -x^2+2x+11 \\right)dx$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Hình phẳng giới hạn bởi hai đồ thị: $y=-x^2+3x+4$ và $y=7-x$. Hoành độ giao điểm thỏa mãn: $-x^2+3x+4=7-x$$\\Leftrightarrow -x^2+4x-3=0$$\\Leftrightarrow x=1$ hoặc $x=3$. Trên khoảng ${(1;3)}$, lấy $x=2$: Parabol có tung độ $y=-4+6+4=6$. Đường thẳng có tung độ $y=7-2=5$. Vậy parabol nằm phía trên đường thẳng. Diện tích cần tìm là: $\\displaystyle \\int_1^3 \\left[ \\left( -x^2+3x+4 \\right)-\\left( 7-x \\right) \\right]dx$$=\\displaystyle \\int_1^3 \\left( -x^2+4x-3 \\right)dx$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9580.png",
+        "images": [
+          "/images/practice/sieugioi/q4_img1.9580.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Diện tích phần gạch chéo trong hình bên bằng\n\n![hình minh họa](/images/practice/sieugioi/q5_img1.9581.png)",
+        "promptHtml": "Diện tích phần gạch chéo trong hình bên bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần gạch chéo trong hình bên bằng\" data-src=\"/images/practice/sieugioi/q5_img1.9581.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9581.png\" class=\"bbImage\" style=\"width: 135px\" alt=\"Diện tích phần gạch chéo trong hình bên bằng\" title=\"Diện tích phần gạch chéo trong hình bên bằng\" width=\"302\" height=\"434\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int\\limits_0^2 {\\left( {3^x-3} \\right)dx}$(đvdt)."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int\\limits_1^2 {\\left( {3-3^x} \\right)dx}$(đvdt)."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int\\limits_1^2 {\\left( {3^x-3} \\right)dx}$(đvdt)."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int\\limits_1^2 {3^x dx}$(đvdt)."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Phần gạch chéo nằm giữa đồ thị $y=3^x$ và đường thẳng $y=3$, từ $x=1$ đến $x=2$. Trên đoạn ${[1;2]}$, ta có: $3^x\\ge 3$ Diện tích cần tìm là: $\\int\\limits_1^2 {\\left( {3^x-3} \\right)dx}$ Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9581.png",
+        "images": [
+          "/images/practice/sieugioi/q5_img1.9581.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Thể tích của khối tròn xoay được tạo bởi phép quay quanh trục ${Ox}$ hình phẳng giới hạn bởi các đường $y=\\sqrt{x}$, trục hoành, $x=0$ và $x=4$ là",
+        "promptHtml": "Thể tích của khối tròn xoay được tạo bởi phép quay quanh trục ${Ox}$ hình phẳng giới hạn bởi các đường $y=\\sqrt{x}$, trục hoành, $x=0$ và $x=4$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$8\\pi$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4\\pi$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "4."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "8."
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A. Khi quay quanh trục ${Ox}$, thể tích khối tròn xoay là: $V=\\pi{\\int\\limits_0^4 y^2dx}$. Vì $y=\\sqrt{x}$ nên $y^2=x$. Do đó: $V=\\pi{\\int\\limits_0^4 xdx}=\\pi\\cdot \\dfrac{x^2}{2}\\bigg|_0^4=8\\pi$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho hình phẳng ${(H)}$ giới hạn bởi đồ thị hàm số $y=e^x$, các đường thẳng $x=0$, $x=\\ln3$ và trục hoành. Thể tích khối tròn xoay sinh bởi ${(H)}$ khi quay quanh trục hoành là",
+        "promptHtml": "Cho hình phẳng ${(H)}$ giới hạn bởi đồ thị hàm số $y=e^x$, các đường thẳng $x=0$, $x=\\ln3$ và trục hoành. Thể tích khối tròn xoay sinh bởi ${(H)}$ khi quay quanh trục hoành là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\pi$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2\\pi$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$4\\pi$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "4."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hình phẳng giới hạn bởi $y=e^x$, $x=0$, $x=\\ln3$ và trục hoành. Khi quay quanh trục hoành, thể tích là: $V=\\pi\\int_0^{\\ln3}\\left(e^x\\right)^2dx$$=\\pi\\int_0^{\\ln3}e^{2x}dx$$=\\pi\\cdot\\left.\\dfrac{e^{2x}}{2}\\right|_0^{\\ln3}$$=\\dfrac{\\pi}{2}\\left(e^{2\\ln3}-1\\right)$$=\\dfrac{\\pi}{2}(9-1)=4\\pi$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong mặt phẳng với hệ tọa độ ${Oxy}$, diện tích ${S}$ của hình phẳng giới hạn bởi đồ thị hàm số $y=2x+1$, trục hoành và hai đường thẳng $x=1,\\ x=2$ được xác định bằng công thức.",
+        "promptHtml": "Trong mặt phẳng với hệ tọa độ ${Oxy}$, diện tích ${S}$ của hình phẳng giới hạn bởi đồ thị hàm số $y=2x+1$, trục hoành và hai đường thẳng $x=1,\\ x=2$ được xác định bằng công thức.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S={\\int\\limits_1^2 {\\left( {2x+1} \\right)^2}dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\pi{\\int\\limits_1^2 {\\left( {2x+1} \\right)}dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\pi{\\int\\limits_1^2 {\\left( {2x+1} \\right)^2}dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S={\\int\\limits_1^2 {\\left( {2x+1} \\right)}dx}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Trên đoạn ${[1;2]}$, ta có $y=2x+1>0$. Diện tích hình phẳng giới hạn bởi đồ thị $y=2x+1$, trục hoành và hai đường thẳng $x=1,\\ x=2$ là $S={{\\int\\limits_1^2 {\\left( {2x+1} \\right)dx}}}$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Hình phẳng $D$giới hạn bởi đồ thị hàm số $y={{e}^{x}}$, trục hoành và 2 đường thẳng $x=1;x=2$. Thể tích khối tròn xoay sinh ra khi cho hình phẳng $D$quay quanh trục hoành là:",
+        "promptHtml": "Hình phẳng $D$giới hạn bởi đồ thị hàm số $y={{e}^{x}}$, trục hoành và 2 đường thẳng $x=1;x=2$. Thể tích khối tròn xoay sinh ra khi cho hình phẳng $D$quay quanh trục hoành là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$V=\\int\\limits_{1}^{2}{{{e}^{2x}}}dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$V=\\int\\limits_{1}^{2}{{{e}^{x}}}dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{{{e}^{x}}}dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{{{e}^{2x}}}dx$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D Hình phẳng giới hạn bởi $y=e^x$, trục hoành, $x=1$, $x=2$. Quay quanh trục hoành, thể tích là: $V=\\pi {\\int\\limits_1^2 {\\left( {e^x} \\right)} ^2 dx}$$=\\pi {\\int\\limits_1^2 {e^{2x}dx}}$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right)=-\\frac{1}{2}x+\\frac{5}{2}$ có đồ thị như hình vẽ bên dưới. Diện tích phần gạch chéo trong hình bằng bao nhiêu?\n\n![hình minh họa](/images/practice/sieugioi/q10_img1.9582.png)",
+        "promptHtml": "Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right)=-\\frac{1}{2}x+\\frac{5}{2}$ có đồ thị như hình vẽ bên dưới. Diện tích phần gạch chéo trong hình bằng bao nhiêu?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right\" data-src=\"/images/practice/sieugioi/q10_img1.9582.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9582.png\" class=\"bbImage\" style=\"width: 330px\" alt=\"Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right\" title=\"Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right\" width=\"627\" height=\"462\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$8.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$4.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2.$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Dựa vào đồ thị, miền gạch chéo được giới hạn bởi hai đường $f\\left( x \\right)$ và $g\\left( x \\right)$ từ hoành độ giao điểm $x=-1$ đến $x=1.$ Diện tích $S$ được tính bởi công thức $S=\\int_{-1}^{1}{\\left| f\\left( x \\right)-g\\left( x \\right) \\right|\\text{d}x}$ Xét hiệu hàm số: $f\\left( x \\right) - g\\left( x \\right)$$ = \\left( { - \\frac{1}{2}{x^3} + \\frac{3}{2}{x^2} + 1} \\right) - \\left( { - \\frac{1}{2}x + \\frac{5}{2}} \\right)$ $ = - \\frac{1}{2}{x^3} + \\frac{3}{2}{x^2} + \\frac{1}{2}x - \\frac{3}{2}$ Tính tích phân xác định $I = \\int\\limits_{ - 1}^1 {\\left( { - \\frac{1}{2}{x^3} + \\frac{3}{2}{x^2} + \\frac{1}{2}x - \\frac{3}{2}} \\right){\\rm{d}}x} $ $ = \\left[ { - \\frac{1}{8}{x^4} + \\frac{1}{2}{x^3} + \\frac{1}{4}{x^2} - \\frac{3}{2}x} \\right]\\left| \\begin{array}{l} 1\\\\ - 1 \\end{array} \\right.$ $ = - 0,875 - 1,125 = - 2$ Vậy $S=\\left| -2 \\right|=2.$",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9582.png",
+        "images": [
+          "/images/practice/sieugioi/q10_img1.9582.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Xét hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị các hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$. Tính thể tích khối tròn xoay khi quay hình $\\left( H \\right)$ quanh trục $Ox$.",
+        "promptHtml": "Xét hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị các hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$. Tính thể tích khối tròn xoay khi quay hình $\\left( H \\right)$ quanh trục $Ox$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$33$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{33}{5}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{33\\pi }{5}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$33\\pi $"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị các hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$ khi quay quanh trục $Ox$ có thể tích bằng $V=\\pi \\int\\limits_{0}^{3}{{{\\left( {{x}^{2}}-4x+4 \\right)}^{2}}dx}=\\frac{33}{5}\\pi $.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1792_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-3x$, trục hoành $Ox$ và hai đường thẳng $x=-2,x=2$ bằng",
+        "promptHtml": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-3x$, trục hoành $Ox$ và hai đường thẳng $x=-2,x=2$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{16}{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{14}{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-3x$, trục hoành $Ox$ và hai đường thẳng $x=-2,$$x=2$ là $S=\\int\\limits_{-2}^{2}{\\left| {{x}^{3}}-3x \\right|}\\,\\text{d}x$. Xét phương trình ${{x}^{3}}-3x=0$$\\Leftrightarrow x\\left( {{x}^{2}}-3 \\right)=0$$\\Leftrightarrow x=0$ hoặc $x=-\\sqrt{3}$ hoặc $x=\\sqrt{3}$. Bảng xét dấu: Từ bảng xét dấu, ta có $S=-\\int\\limits_{-2}^{-\\sqrt{3}}{\\left( {{x}^{3}}-3x \\right)}\\,\\text{d}x+\\int\\limits_{-\\sqrt{3}}^{0}{\\left( {{x}^{3}}-3x \\right)}\\,\\text{d}x-\\int\\limits_{0}^{\\sqrt{3}}{\\left( {{x}^{3}}-3x \\right)}\\,\\text{d}x+\\int\\limits_{\\sqrt{3}}^{2}{\\left( {{x}^{3}}-3x \\right)\\,\\text{d}x}$ $S=\\left. -\\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{-2}^{-\\sqrt{3}}+\\left. \\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{-\\sqrt{3}}^{0}-\\left. \\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{0}^{\\sqrt{3}}+\\left. \\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{\\sqrt{3}}^{2}$ $S=-\\left( -\\frac{1}{4} \\right)+\\frac{9}{4}-\\left( -\\frac{9}{4} \\right)+\\frac{1}{4}=5$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:52.828Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "10+ Câu Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/10-cau-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1792/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 12",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong mặt phẳng với hệ tọa độ $Oxy$, cho hình phẳng $\\left( H \\right)$ giới hạn bởi các đường $y={{x}^{2}}+3,y=0,x=0,x=2$. Gọi $V$ là thể tích khối tròn xoay được tạo thành khi quay $\\left( H \\right)$ xung quanh trục $Ox$. Mệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$V=\\underset{0}{\\overset{2}{\\mathop \\int }}\\,{{\\left( {{x}^{2}}+3 \\right)}^{2}}\\text{d}x$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$V=\\pi \\underset{0}{\\overset{2}{\\mathop \\int }}\\,{{\\left( {{x}^{2}}+3 \\right)}^{2}}\\text{d}x$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$V=\\pi \\underset{0}{\\overset{2}{\\mathop \\int }}\\,\\left( {{x}^{2}}+3 \\right)\\text{d}x$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$V=\\underset{0}{\\overset{2}{\\mathop \\int }}\\,\\left( {{x}^{2}}+3 \\right)\\text{d}x$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Thể tích khối tròn xoay được tạo thành khi quay hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, $y=0$, $x=a$, $x=b$ xung quanh trục $Ox$ được tính bằng công thức: $V=\\pi \\underset{a}{\\overset{b}{\\mathop \\int }}\\,{{\\left[ f\\left( x \\right) \\right]}^{2}}\\text{d}x$=$\\pi \\underset{0}{\\overset{2}{\\mathop \\int }}\\,{{\\left( {{x}^{2}}+3 \\right)}^{2}}\\text{d}x$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" data-src=\"/images/practice/sieugioi/q2_img1.9578.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9578.png\" class=\"bbImage\" style=\"width: 251px\" alt=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" width=\"468\" height=\"301\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( -2{{x}^{2}}+2x+4 \\right)\\,dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( -2x+2 \\right)\\,dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( 2x-2 \\right)\\,dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int\\limits_{-1}^{2}{\\left( 2{{x}^{2}}-2x-4 \\right)\\,dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị hàm số, khi $x\\in \\left[ -1;2 \\right]$ thì $-{{x}^{2}}+3\\ge {{x}^{2}}-2x-1$ nên diện tích<br>\n$S = \\int\\limits_{ - 1}^2 {\\left| {\\left( { - {x^2} + 3} \\right) - \\left( {{x^2} - 2x - 1} \\right)} \\right|{\\mkern 1mu} dx} $ $ = \\int\\limits_{ - 1}^2 {\\left[ {\\left( { - {x^2} + 3} \\right) - \\left( {{x^2} - 2x - 1} \\right)} \\right]{\\mkern 1mu} dx} $ $ = \\int\\limits_{ - 1}^2 {\\left( { - 2{x^2} + 2x + 4} \\right){\\mkern 1mu} dx} $</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9578.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng ${AB}$, ${BC}$, ${CD}$ và một đường parabol đi qua hai điểm ${A}$, ${D}$ (như hình vẽ bên dưới). Biết ${ABCD}$ là hình vuông có cạnh bằng ${4m}$. Đỉnh ${I}$ của parabol nằm trên đường trung trực của ${BC}$ và cách cạnh ${BC}$ một khoảng bằng ${5m}$. Chi phí để xây dựng mỗi mét vuông mặt sàn của chuồng bò là 350000 đồng. Tính tổng số tiền ông An cần chi phí để xây dựng chuồng bò đó? (không làm tròn kết quả các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng nghìn)<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng\" data-src=\"/images/practice/sieugioi/q3_img1.9579.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q3_img1.9579.png\" class=\"bbImage\" style=\"width: 172px\" alt=\"Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng\" title=\"Ông An muốn xây dựng một chuồng nuôi bò trên một khu đất phẳng được giới hạn bởi các đoạn thẳng\" width=\"233\" height=\"285\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "7333000 đồng."
+          },
+          {
+            "id": "opt_b",
+            "text": "6333000 đồng."
+          },
+          {
+            "id": "opt_c",
+            "text": "6533000 đồng."
+          },
+          {
+            "id": "opt_d",
+            "text": "7533000 đồng.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đặt hệ trục sao cho ${BC}$ nằm ngang, trung điểm ${BC}$ là gốc theo phương ngang.<br>\nKhi đó ${A,D}$ có hoành độ lần lượt là ${2}$ và $-2$, cạnh ${BC}$ cách ${AD}$ 4 m, đỉnh parabol ${I}$ cách ${BC}$ 5 m.<br>\nGọi chiều dương hướng xuống dưới, parabol có đỉnh $I(0;5)$ và đi qua $A(2;4), D(-2;4)$.<br>\nPhương trình parabol: $y=5-\\dfrac{x^2}{4}$.<br>\nDiện tích chuồng bò: $S=\\int_{-2}^{2}\\left(5-\\dfrac{x^2}{4}\\right)dx=\\dfrac{56}{3}$ m².<br>\nChi phí: $\\dfrac{56}{3}\\cdot350000=\\dfrac{19600000}{3}\\approx6533333$ đồng.<br>\nLàm tròn đến hàng nghìn: ${6533000}$ đồng.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q3_img1.9579.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" data-src=\"/images/practice/sieugioi/q4_img1.9580.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9580.png\" class=\"bbImage\" style=\"width: 180px\" alt=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" title=\"Diện tích phần hình phẳng gạch chéo trong hình vẽ bên được tính theo công thức nào dưới đây?\" width=\"319\" height=\"411\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\displaystyle \\int_1^3 \\left( -x^2+4x-3 \\right)dx$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\displaystyle \\int_1^3 \\left( x^2-2x-11 \\right)dx$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\displaystyle \\int_1^3 \\left( x^2-4x+3 \\right)dx$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\displaystyle \\int_1^3 \\left( -x^2+2x+11 \\right)dx$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình phẳng giới hạn bởi hai đồ thị: $y=-x^2+3x+4$ và $y=7-x$.<br>\nHoành độ giao điểm thỏa mãn: $-x^2+3x+4=7-x$$\\Leftrightarrow -x^2+4x-3=0$$\\Leftrightarrow x=1$ hoặc $x=3$.<br>\nTrên khoảng ${(1;3)}$, lấy $x=2$:<br>\nParabol có tung độ $y=-4+6+4=6$.<br>\nĐường thẳng có tung độ $y=7-2=5$.<br>\nVậy parabol nằm phía trên đường thẳng.<br>\nDiện tích cần tìm là: $\\displaystyle \\int_1^3 \\left[ \\left( -x^2+3x+4 \\right)-\\left( 7-x \\right) \\right]dx$$=\\displaystyle \\int_1^3 \\left( -x^2+4x-3 \\right)dx$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9580.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Diện tích phần gạch chéo trong hình bên bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích phần gạch chéo trong hình bên bằng\" data-src=\"/images/practice/sieugioi/q5_img1.9581.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9581.png\" class=\"bbImage\" style=\"width: 135px\" alt=\"Diện tích phần gạch chéo trong hình bên bằng\" title=\"Diện tích phần gạch chéo trong hình bên bằng\" width=\"302\" height=\"434\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int\\limits_0^2 {\\left( {3^x-3} \\right)dx}$(đvdt)."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int\\limits_1^2 {\\left( {3-3^x} \\right)dx}$(đvdt)."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int\\limits_1^2 {\\left( {3^x-3} \\right)dx}$(đvdt)."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int\\limits_1^2 {3^x dx}$(đvdt).<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Phần gạch chéo nằm giữa đồ thị $y=3^x$ và đường thẳng $y=3$, từ $x=1$ đến $x=2$.<br>\nTrên đoạn ${[1;2]}$, ta có: $3^x\\ge 3$<br>\nDiện tích cần tìm là: $\\int\\limits_1^2 {\\left( {3^x-3} \\right)dx}$<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9581.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Thể tích của khối tròn xoay được tạo bởi phép quay quanh trục ${Ox}$ hình phẳng giới hạn bởi các đường $y=\\sqrt{x}$, trục hoành, $x=0$ và $x=4$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$8\\pi$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4\\pi$."
+          },
+          {
+            "id": "opt_c",
+            "text": "4."
+          },
+          {
+            "id": "opt_d",
+            "text": "8.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn A.<br>\nKhi quay quanh trục ${Ox}$, thể tích khối tròn xoay là: $V=\\pi{\\int\\limits_0^4 y^2dx}$.<br>\nVì $y=\\sqrt{x}$ nên $y^2=x$.<br>\nDo đó: $V=\\pi{\\int\\limits_0^4 xdx}=\\pi\\cdot \\dfrac{x^2}{2}\\bigg|_0^4=8\\pi$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho hình phẳng ${(H)}$ giới hạn bởi đồ thị hàm số $y=e^x$, các đường thẳng $x=0$, $x=\\ln3$ và trục hoành. Thể tích khối tròn xoay sinh bởi ${(H)}$ khi quay quanh trục hoành là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\pi$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2\\pi$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$4\\pi$."
+          },
+          {
+            "id": "opt_d",
+            "text": "4.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình phẳng giới hạn bởi $y=e^x$, $x=0$, $x=\\ln3$ và trục hoành.<br>\nKhi quay quanh trục hoành, thể tích là: $V=\\pi\\int_0^{\\ln3}\\left(e^x\\right)^2dx$$=\\pi\\int_0^{\\ln3}e^{2x}dx$$=\\pi\\cdot\\left.\\dfrac{e^{2x}}{2}\\right|_0^{\\ln3}$$=\\dfrac{\\pi}{2}\\left(e^{2\\ln3}-1\\right)$$=\\dfrac{\\pi}{2}(9-1)=4\\pi$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong mặt phẳng với hệ tọa độ ${Oxy}$, diện tích ${S}$ của hình phẳng giới hạn bởi đồ thị hàm số $y=2x+1$, trục hoành và hai đường thẳng $x=1,\\ x=2$ được xác định bằng công thức.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S={\\int\\limits_1^2 {\\left( {2x+1} \\right)^2}dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\pi{\\int\\limits_1^2 {\\left( {2x+1} \\right)}dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\pi{\\int\\limits_1^2 {\\left( {2x+1} \\right)^2}dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S={\\int\\limits_1^2 {\\left( {2x+1} \\right)}dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Trên đoạn ${[1;2]}$, ta có $y=2x+1&gt;0$.<br>\nDiện tích hình phẳng giới hạn bởi đồ thị $y=2x+1$, trục hoành và hai đường thẳng $x=1,\\ x=2$ là<br>\n$S={{\\int\\limits_1^2 {\\left( {2x+1} \\right)dx}}}$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Hình phẳng $D$giới hạn bởi đồ thị hàm số $y={{e}^{x}}$, trục hoành và 2 đường thẳng $x=1;x=2$. Thể tích khối tròn xoay sinh ra khi cho hình phẳng $D$quay quanh trục hoành là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$V=\\int\\limits_{1}^{2}{{{e}^{2x}}}dx$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$V=\\int\\limits_{1}^{2}{{{e}^{x}}}dx$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{{{e}^{x}}}dx$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{{{e}^{2x}}}dx$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D<br>\nHình phẳng giới hạn bởi $y=e^x$, trục hoành, $x=1$, $x=2$.<br>\nQuay quanh trục hoành, thể tích là: $V=\\pi {\\int\\limits_1^2 {\\left( {e^x} \\right)} ^2 dx}$$=\\pi {\\int\\limits_1^2 {e^{2x}dx}}$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right)=-\\frac{1}{2}x+\\frac{5}{2}$ có đồ thị như hình vẽ bên dưới. Diện tích phần gạch chéo trong hình bằng bao nhiêu?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right\" data-src=\"/images/practice/sieugioi/q10_img1.9582.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9582.png\" class=\"bbImage\" style=\"width: 330px\" alt=\"Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right\" title=\"Cho hai hàm số $f\\left( x \\right)=-\\frac{1}{2}{{x}^{3}}+\\frac{3}{2}{{x}^{2}}+1$ và $g\\left( x \\right\" width=\"627\" height=\"462\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$8.$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$1.$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$4.$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$2.$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị, miền gạch chéo được giới hạn bởi hai đường $f\\left( x \\right)$ và $g\\left( x \\right)$ từ hoành độ giao điểm $x=-1$ đến $x=1.$<br>\nDiện tích $S$ được tính bởi công thức  $S=\\int_{-1}^{1}{\\left| f\\left( x \\right)-g\\left( x \\right) \\right|\\text{d}x}$<br>\nXét hiệu hàm số:<br>\n$f\\left( x \\right) - g\\left( x \\right)$$ = \\left( { - \\frac{1}{2}{x^3} + \\frac{3}{2}{x^2} + 1} \\right) - \\left( { - \\frac{1}{2}x + \\frac{5}{2}} \\right)$ $ =  - \\frac{1}{2}{x^3} + \\frac{3}{2}{x^2} + \\frac{1}{2}x - \\frac{3}{2}$<br>\nTính tích phân xác định $I = \\int\\limits_{ - 1}^1 {\\left( { - \\frac{1}{2}{x^3} + \\frac{3}{2}{x^2} + \\frac{1}{2}x - \\frac{3}{2}} \\right){\\rm{d}}x} $ $ = \\left[ { - \\frac{1}{8}{x^4} + \\frac{1}{2}{x^3} + \\frac{1}{4}{x^2} - \\frac{3}{2}x} \\right]\\left| \\begin{array}{l} 1\\\\ - 1 \\end{array} \\right.$ $ =  - 0,875 - 1,125 =  - 2$<br>\nVậy $S=\\left| -2 \\right|=2.$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9582.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Xét hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị các hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$. Tính thể tích khối tròn xoay khi quay hình $\\left( H \\right)$ quanh trục $Ox$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$33$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{33}{5}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{33\\pi }{5}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$33\\pi $.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình phẳng $\\left( H \\right)$ giới hạn bởi đồ thị các hàm số $y={{x}^{2}}-4x+4$, trục tung, trục hoành và đường thẳng $x=3$ khi quay quanh trục $Ox$ có thể tích bằng $V=\\pi \\int\\limits_{0}^{3}{{{\\left( {{x}^{2}}-4x+4 \\right)}^{2}}dx}=\\frac{33}{5}\\pi $.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-3x$, trục hoành $Ox$ và hai đường thẳng $x=-2,x=2$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{16}{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{14}{3}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-3x$, trục hoành $Ox$ và hai đường thẳng $x=-2,$$x=2$ là $S=\\int\\limits_{-2}^{2}{\\left| {{x}^{3}}-3x \\right|}\\,\\text{d}x$.<br>\nXét phương trình ${{x}^{3}}-3x=0$$\\Leftrightarrow x\\left( {{x}^{2}}-3 \\right)=0$$\\Leftrightarrow x=0$ hoặc $x=-\\sqrt{3}$ hoặc $x=\\sqrt{3}$.<br>\nBảng xét dấu:<br>\nTừ bảng xét dấu, ta có<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Diện tích hình phẳng giới hạn bởi đồ thị hàm số\" data-src=\"https://sieugioi.com/docs/attachments/q12_sol1-png.9583/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q12_sol1-png.9583/\" class=\"bbImage\" style=\"width: 636px\" alt=\"Diện tích hình phẳng giới hạn bởi đồ thị hàm số\" title=\"Diện tích hình phẳng giới hạn bởi đồ thị hàm số\" width=\"911\" height=\"117\" loading=\"lazy\">\n\t</div><br>\n$S=-\\int\\limits_{-2}^{-\\sqrt{3}}{\\left( {{x}^{3}}-3x \\right)}\\,\\text{d}x+\\int\\limits_{-\\sqrt{3}}^{0}{\\left( {{x}^{3}}-3x \\right)}\\,\\text{d}x-\\int\\limits_{0}^{\\sqrt{3}}{\\left( {{x}^{3}}-3x \\right)}\\,\\text{d}x+\\int\\limits_{\\sqrt{3}}^{2}{\\left( {{x}^{3}}-3x \\right)\\,\\text{d}x}$<br>\n$S=\\left. -\\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{-2}^{-\\sqrt{3}}+\\left. \\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{-\\sqrt{3}}^{0}-\\left. \\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{0}^{\\sqrt{3}}+\\left. \\left( \\frac{{{x}^{4}}}{4}-\\frac{3}{2}{{x}^{2}} \\right) \\right|_{\\sqrt{3}}^{2}$<br>\n$S=-\\left( -\\frac{1}{4} \\right)+\\frac{9}{4}-\\left( -\\frac{9}{4} \\right)+\\frac{1}{4}=5$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:52.828Z"
+}

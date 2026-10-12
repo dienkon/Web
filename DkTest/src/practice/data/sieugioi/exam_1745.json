@@ -1,0 +1,2025 @@
+{
+  "meta": {
+    "title": "Đề số 3. Giải Chi Tiết 28 Bài Tập Tính Đơn Điệu và Cực Trị Của Hàm Số",
+    "slug": "de-so-3-giai-chi-tiet-28-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so",
+    "id": "1745",
+    "url": "https://sieugioi.com/docs/threads/de-so-3-giai-chi-tiet-28-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1745/",
+    "numId": 1745,
+    "bai": 1,
+    "topicId": "math_t1_monotonicity",
+    "baiTitle": "Tính đơn điệu và cực trị của hàm số",
+    "chapter": "Chương 1"
+  },
+  "extracted": {
+    "title": "Đề số 3. Giải Chi Tiết 28 Bài Tập Tính Đơn Điệu và Cực Trị Của Hàm Số",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-so-3-giai-chi-tiet-28-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1745/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 28,
+    "questionsWithOptions": 28,
+    "questionsWithAnswers": 23,
+    "questionsWithExplanation": 28,
+    "questionsWithImages": 21,
+    "manualReviewCount": 6,
+    "warnings": [
+      "Câu 14: Nhiều phương án (A, B) có độ khớp ngang nhau trong lời giải.",
+      "Câu 18: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 21: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 23: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 25: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 26: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1745_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Giá trị cực tiểu của hàm số $y={{x}^{3}}-3x+2$ là:",
+        "promptHtml": "Giá trị cực tiểu của hàm số $y={{x}^{3}}-3x+2$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "4."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "0."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "1."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$y={{x}^{3}}-3x+2$. Ta có ${y}'=3{{x}^{2}}-3=3\\left( {{x}^{2}}-1 \\right)$. ${y}'=0\\Leftrightarrow x=\\pm 1$. ${y}''=6x$. Tại $x=1$, ${y}''=6>0$ nên hàm đạt cực tiểu. Giá trị cực tiểu: $y\\left( 1 \\right)=1-3+2=0$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9222.png)",
+        "promptHtml": "Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.\" data-src=\"/images/practice/sieugioi/q2_img1.9222.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9222.png\" class=\"bbImage\" style=\"width: 183px\" alt=\"Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.\" title=\"Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.\" width=\"298\" height=\"314\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-\\infty ;0)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(2;+\\infty )$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-3;1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(0;2)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ đồ thị, hàm số có cực đại tại $x=0$ và cực tiểu tại $x=2$. Hàm số bậc ba nghịch biến trên khoảng giữa hai điểm cực trị, tức là $(0;2)$. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9222.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9222.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ: Điểm cực đại của đồ thị hàm số là:\n\n![hình minh họa](/images/practice/sieugioi/q3_img1.9223.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:\" data-src=\"/images/practice/sieugioi/q3_img1.9223.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q3_img1.9223.png\" class=\"bbImage\" style=\"width: 273px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:\" width=\"393\" height=\"323\" loading=\"lazy\">\n\t</div><br>\nĐiểm cực đại của đồ thị hàm số là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -1;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;0 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A Từ đồ thị, điểm cực đại là điểm có tọa độ $(-1;4)$. Vậy chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q3_img1.9223.png",
+        "images": [
+          "/images/practice/sieugioi/q3_img1.9223.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau: Tổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số là\n\n![hình minh họa](/images/practice/sieugioi/q4_img1.9224.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q4_img1.9224.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9224.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" width=\"509\" height=\"153\" loading=\"lazy\">\n\t</div><br>\nTổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "3"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "2"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "1"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "4"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B Từ bảng biến thiên: Khi $x\\to -\\infty $, $f(x)\\to -5$. Khi $x\\to +\\infty $, $f(x)\\to -5$. Vậy có một tiệm cận ngang là $y=-5$. Khi $x\\to {{2}^{-}}$, $f(x)\\to -\\infty $, nên $x=2$ là tiệm cận đứng. Tổng số tiệm cận ngang và đứng là: $1+1=2$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9224.png",
+        "images": [
+          "/images/practice/sieugioi/q4_img1.9224.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Tiệm cận xiên của đồ thị hàm số $y=\\frac{-{{x}^{2}}-2x+5}{x+2}$ là:",
+        "promptHtml": "Tiệm cận xiên của đồ thị hàm số $y=\\frac{-{{x}^{2}}-2x+5}{x+2}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=-x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-x$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=x+2$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn C Hàm số: $y=\\frac{-{{x}^{2}}-2x+5}{x+2}$. Chia đa thức: $-{{x}^{2}}-2x+5=-x(x+2)+5$. Do đó: $y=-x+\\frac{5}{x+2}$. Khi $x\\to \\pm \\infty $, $\\frac{5}{x+2}\\to 0$. Tiệm cận xiên là: $y=-x$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q6_img1.9225.jpg)",
+        "promptHtml": "Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.\" data-src=\"/images/practice/sieugioi/q6_img1.9225.jpg\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9225.jpg\" class=\"bbImage\" style=\"width: 270px\" alt=\"Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.\" title=\"Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.\" width=\"565\" height=\"567\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -2;0 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 0;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "(-1;1)."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;+\\infty \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D Hàm số đã cho nghịch biến trên khoảng $\\left( 1;+\\infty \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9225.jpg",
+        "images": [
+          "/images/practice/sieugioi/q6_img1.9225.jpg"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\right)$ có đồ thị như hình vẽ sau đây Mệnh đề nào sau đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q7_img1.9226.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\right)$ có đồ thị như hình vẽ sau đây<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\ri\" data-src=\"/images/practice/sieugioi/q7_img1.9226.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9226.png\" class=\"bbImage\" style=\"width: 303px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\ri\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\ri\" width=\"560\" height=\"360\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\frac{5}{2};-2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( -\\frac{1}{2};0 \\right)$.."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -2;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( -\\infty ;-3 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ đồ thị của hàm số đạo hàm $y = f'(x)$, ta thấy trên khoảng $(-2; +\\infty)$, toàn bộ đồ thị $f'(x)$ nằm phía dưới trục hoành, nghĩa là $f'(x) \\le 0$ với mọi $x \\in (-2; +\\infty)$. Do đó hàm số $y = f(x)$ nghịch biến trên khoảng $(-2; +\\infty)$. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9226.png",
+        "images": [
+          "/images/practice/sieugioi/q7_img1.9226.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q8_img1.9227.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. <br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến\" data-src=\"/images/practice/sieugioi/q8_img1.9227.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9227.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến\" title=\" Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến\" width=\"219\" height=\"251\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến<br>\ntrên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 0;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -\\infty ;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -2;2 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số đã cho, trên khoảng $(0; 2)$, đường cong đi lên từ trái sang phải. Do đó hàm số đồng biến trên khoảng $(0; 2)$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9227.png",
+        "images": [
+          "/images/practice/sieugioi/q8_img1.9227.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có $f'\\left( x \\right)=\\left( {{e}^{x}}-1 \\right)\\left( {{x}^{2}}-x \\right),\\,\\,\\forall x\\in \\mathbb{R}$. Số điểm cực trị của hàm số $y=f\\left( x \\right)$ là",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có $f'\\left( x \\right)=\\left( {{e}^{x}}-1 \\right)\\left( {{x}^{2}}-x \\right),\\,\\,\\forall x\\in \\mathbb{R}$. Số điểm cực trị của hàm số $y=f\\left( x \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Phương trình $f'(x) = 0 \\Leftrightarrow (e^x - 1)(x^2 - x) = 0 \\Leftrightarrow (e^x - 1)\\cdot x(x - 1) = 0$. Ta có $e^x - 1 = 0 \\Leftrightarrow x = 0$. Như vậy tại $x = 0$, cả hai nhân tử $(e^x - 1)$ và $x$ đều triệt tiêu và cùng đổi dấu từ âm sang dương khi $x$ qua 0, nên tích $(e^x - 1)x > 0$ với mọi $x \\ne 0$. Do đó $x = 0$ là nghiệm bội chẵn, đạo hàm $f'(x)$ không đổi dấu khi qua $x = 0$. Chỉ có $x = 1$ là nghiệm bội lẻ khiến $f'(x)$ đổi dấu từ âm sang dương. Vậy hàm số $y = f(x)$ có đúng 1 điểm cực trị (tại $x = 1$). Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q10_img1.9228.png)",
+        "promptHtml": "Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây<br>\nđúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây\" data-src=\"/images/practice/sieugioi/q10_img1.9228.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9228.png\" class=\"bbImage\" style=\"width: 200px\" alt=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây\" width=\"288\" height=\"285\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số đã cho có hai điểm cực trị."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$a>0,d<0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$a<0,\\,\\,d>0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( -\\infty ;+\\infty \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Quan sát đồ thị hàm số bậc ba, đồ thị có 1 điểm uốn đổi chiều tại cực đại và 1 điểm uốn đổi chiều tại cực tiểu. Do đó hàm số có hai điểm cực trị. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9228.png",
+        "images": [
+          "/images/practice/sieugioi/q10_img1.9228.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\right)$ có đồ thị như hình vẽ Mệnh đề nào sau đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q11_img1.9229.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\right)$ có đồ thị như hình vẽ<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" data-src=\"/images/practice/sieugioi/q11_img1.9229.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q11_img1.9229.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" width=\"342\" height=\"273\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -2;+\\infty \\right)$ ."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( -\\frac{1}{2};0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\frac{5}{2};-2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\infty ;-3 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào đồ thị $f'\\left( x \\right)$ cắt trục hoành tại $x=-3;x=-2;x=0$ (nghiệm kép) Nên ta có bảng xét dấu như sau Dựa vào bảng xét dấu hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\infty ;-3 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q11_img1.9229.png",
+        "images": [
+          "/images/practice/sieugioi/q11_img1.9229.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau: Giá trị cực đại của hàm số $y=f\\left( x \\right)$ là:\n\n![hình minh họa](/images/practice/sieugioi/q12_img1.9231.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:\" data-src=\"/images/practice/sieugioi/q12_img1.9231.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9231.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:\" width=\"732\" height=\"193\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực đại của hàm số $y=f\\left( x \\right)$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào bảng biến thiên, giá trị cực đại của hàm số $y=f\\left( x \\right)$ là $0$",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9231.png",
+        "images": [
+          "/images/practice/sieugioi/q12_img1.9231.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ có bảng biến thiên như sau: Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q13_img1.9232.png)",
+        "promptHtml": "Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q13_img1.9232.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9232.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:\" title=\" Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:\" width=\"427\" height=\"122\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-1;0)$ ."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -\\infty ;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 1;+\\infty \\right)$ ."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 0;1 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào bảng biến thiên của hàm số $y = f(x)$, trên khoảng $(0; 1)$, đạo hàm $f'(x) < 0$ và mũi tên biểu diễn chiều biến thiên đi xuống. Do đó hàm số nghịch biến trên khoảng $(0; 1)$. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9232.png",
+        "images": [
+          "/images/practice/sieugioi/q13_img1.9232.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Giá trị cực đại của hàm số $f\\left( x \\right)=2{{x}^{3}}-9{{x}^{2}}-24x+1$ là",
+        "promptHtml": "Giá trị cực đại của hàm số $f\\left( x \\right)=2{{x}^{3}}-9{{x}^{2}}-24x+1$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$14$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$111$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Tập xác định: $D=\\mathbb{R}$. Đạo hàm: ${f}'\\left( x \\right)=6{{x}^{2}}-18x-24$, ${f}'\\left( x \\right)=0\\Rightarrow \\left[ \\begin{align} & x=-1 \\\\ & x=4 \\\\ \\end{align} \\right.$. Giới hạn: $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty ,\\,\\,\\,\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,y=-\\infty $. Bảng biến thiên: Dựa vào bảng biến thiên, ta thấy giá trị cực đại của hàm số là $14$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.5,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình vẽ. Hàm số đã cho nghịch biến trên khoảng nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/q15_img1.9234.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình v\" data-src=\"/images/practice/sieugioi/q15_img1.9234.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9234.png\" class=\"bbImage\" style=\"width: 397px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình v\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình v\" width=\"524\" height=\"350\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -1;2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 0;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 2;6 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -2;0 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Quan sát đồ thị ta thấy hàm số đã cho nghịch biến trên khoảng $\\left( 0;2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9234.png",
+        "images": [
+          "/images/practice/sieugioi/q15_img1.9234.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau Hàm số đã cho đồng biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q16_img1.9235.png)",
+        "promptHtml": "Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"     Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau\" data-src=\"/images/practice/sieugioi/q16_img1.9235.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q16_img1.9235.png\" class=\"bbImage\" style=\"width: 446px\" alt=\"     Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau\" title=\"     Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau\" width=\"740\" height=\"247\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -1;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -1;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 0;1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -1;0 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ bảng biến thiên ta thấy hàm số đã cho đồng biến trên khoảng $\\left( 0;1 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q16_img1.9235.png",
+        "images": [
+          "/images/practice/sieugioi/q16_img1.9235.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau Điểm cực đại của hàm số $y=f\\left( x \\right)$ là\n\n![hình minh họa](/images/practice/sieugioi/q17_img1.9236.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau<br>\nĐiểm cực đại của hàm số $y=f\\left( x \\right)$ là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau\" data-src=\"/images/practice/sieugioi/q17_img1.9236.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9236.png\" class=\"bbImage\" style=\"width: 398px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau\" width=\"626\" height=\"251\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=-7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=-6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=-4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=-3$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào bảng biến thiên ta thấy điểm cực đại của hàm số là $x=-4$.",
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9236.png",
+        "images": [
+          "/images/practice/sieugioi/q17_img1.9236.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau Khẳng định nào sau đây là đúng ?\n\n![hình minh họa](/images/practice/sieugioi/q18_img1.9237.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau\" data-src=\"/images/practice/sieugioi/q18_img1.9237.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9237.png\" class=\"bbImage\" style=\"width: 433px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau\" width=\"668\" height=\"256\" loading=\"lazy\">\n\t</div><br>\nKhẳng định nào sau đây là đúng ?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số đồng biến trên khoảng $\\left( -1;0 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số đồng biến trên khoảng $\\left( 0;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -1;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -\\infty ;0 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Dựa vào bảng biến thiên của hàm số $y=f(x)$, ta thấy $f'(x) > 0$ trên khoảng $(-1; 0)$ nên hàm số đồng biến trên khoảng $(-1; 0)$. Các khẳng định khác đều sai vì $f'(x) < 0$ trên $(0; 2)$ và trên $(-infty; -1)$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9237.png",
+        "images": [
+          "/images/practice/sieugioi/q18_img1.9237.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Hàm số $y={{x}^{4}}-8{{x}^{2}}$đồng biến trên khoảng nào sau đây",
+        "promptHtml": "Hàm số  $y={{x}^{4}}-8{{x}^{2}}$đồng biến trên khoảng nào sau đây",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -2;0 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -\\infty ;-2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -\\infty ;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 0;+\\infty \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$y={{x}^{4}}-8{{x}^{2}}\\Rightarrow {y}'=4{{x}^{3}}-16x\\Rightarrow {y}'=0\\Leftrightarrow 4{{x}^{3}}-16x=0\\Leftrightarrow \\left[ \\begin{align} & x=0 \\\\ & x=2 \\\\ & x=-2 \\\\ \\end{align} \\right.$. Bảng biến thiên . Hàm số đồng biến trên khoảng $\\left( -2;0 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q20",
+        "order": 20,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q20_img1.9239.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng\" data-src=\"/images/practice/sieugioi/q20_img1.9239.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q20_img1.9239.png\" class=\"bbImage\" style=\"width: 460px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng\" width=\"747\" height=\"200\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\underset{R}{\\mathop{Min}}\\,y=4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{y}_{CT}}=0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\underset{R}{\\mathop{Max}}\\,y=5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{y}_{CD}}=5$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào bảng biến thiên giá trị cực đại của hàm số là ${{y}_{CD}}=5$.",
+        "imageUrl": "/images/practice/sieugioi/q20_img1.9239.png",
+        "images": [
+          "/images/practice/sieugioi/q20_img1.9239.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q21",
+        "order": 21,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty \\right)$, có bảng biến thiên như hình sau: Mệnh đề nào sau đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q21_img1.9240.png)",
+        "promptHtml": "Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\right)$, có bảng biến thiên như hình sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\rig\" data-src=\"/images/practice/sieugioi/q21_img1.9240.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q21_img1.9240.png\" class=\"bbImage\" style=\"width: 486px\" alt=\" Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\rig\" title=\" Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\rig\" width=\"750\" height=\"209\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -\\infty ;-1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -\\infty ;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số đồng biến trên khoảng $\\left( 1;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số đồng biến trên khoảng $\\left( -1;+\\infty \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào BBT ta có hàm số đồng biến trên khoảng $\\left( -\\infty ;-1 \\right)$ và $\\left( 1;+\\infty \\right)$. Vậy C đúng.",
+        "imageUrl": "/images/practice/sieugioi/q21_img1.9240.png",
+        "images": [
+          "/images/practice/sieugioi/q21_img1.9240.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q22",
+        "order": 22,
+        "type": "single_choice",
+        "promptText": "Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\n\n![hình minh họa](/images/practice/sieugioi/q22_img1.9241.png)",
+        "promptHtml": "Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\" data-src=\"/images/practice/sieugioi/q22_img1.9241.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q22_img1.9241.png\" class=\"bbImage\" style=\"\" alt=\" Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\" title=\" Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\" width=\"418\" height=\"183\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-5$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Giá trị cực đại của hàm số đã cho bằng $2$.",
+        "imageUrl": "/images/practice/sieugioi/q22_img1.9241.png",
+        "images": [
+          "/images/practice/sieugioi/q22_img1.9241.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q23",
+        "order": 23,
+        "type": "single_choice",
+        "promptText": "Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q23_img1.9242.png)",
+        "promptHtml": "Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. <br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào d\" data-src=\"/images/practice/sieugioi/q23_img1.9242.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q23_img1.9242.png\" class=\"bbImage\" style=\"width: 265px\" alt=\" Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào d\" title=\" Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào d\" width=\"431\" height=\"415\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -\\infty ;2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -2;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 0;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 2;+\\infty \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Trên khoảng $\\left( 0;2 \\right)$, đồ thị là một đường đi lên từ trái sang phải.",
+        "imageUrl": "/images/practice/sieugioi/q23_img1.9242.png",
+        "images": [
+          "/images/practice/sieugioi/q23_img1.9242.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q24",
+        "order": 24,
+        "type": "single_choice",
+        "promptText": "Giá trị cực tiểu của hàm số $f(x)=\\frac{2{{x}^{2}}-3x+6}{x-2}$ là?",
+        "promptHtml": "Giá trị cực tiểu của hàm số $f(x)=\\frac{2{{x}^{2}}-3x+6}{x-2}$ là?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$13$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$f'(x)=\\frac{2{{x}^{2}}-8x}{{{\\left( x-2 \\right)}^{2}}};f'(x)=0\\Leftrightarrow \\left[ \\begin{align} & x=0 \\\\ & x=4 \\\\ \\end{align} \\right.$ Điểm cực tiểu của hàm số là $x=4$ nên giá trị cực tiểu $y=13$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q25",
+        "order": 25,
+        "type": "single_choice",
+        "promptText": "Cho $f\\left( x \\right)$ là hàm số bậc ba có $f'(x)=3(x+2)(x-3)$ khẳng định nào dưới đây sai?",
+        "promptHtml": "Cho $f\\left( x \\right)$ là hàm số bậc ba có $f'(x)=3(x+2)(x-3)$ khẳng định nào dưới đây sai?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số $f\\left( x \\right)$ có hai điểm cực trị."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số $f\\left( x \\right)$ đạt cực đại tại điểm ${{x}_{0}}=-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số $f\\left( x \\right)$ đạt cực tiểu tại điểm ${{x}_{0}}=3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số $f\\left( x \\right)$ đạt cực tiểu tại điểm ${{x}_{0}}=-2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có $f'(x) = 3(x+2)(x-3) = 0 \\Leftrightarrow x = -2$ hoặc $x = 3$. Lập bảng xét dấu đạo hàm: $f'(x) > 0$ trên $(-\\infty; -2)$ và $(3; +\\infty)$, $f'(x) < 0$ trên $(-2; 3)$. Khi qua $x = -2$, đạo hàm đổi dấu từ dương sang âm nên $x = -2$ là điểm cực đại. Do đó khẳng định 'Hàm số đạt cực tiểu tại điểm $x_0 = -2$' là khẳng định sai. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q26",
+        "order": 26,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau: Mệnh đề nào dưới đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/1790110942001.9248.png)",
+        "promptHtml": "Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau\" data-src=\"/images/practice/sieugioi/1790110942001.9248.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790110942001.9248.png\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau\" title=\"Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau\" width=\"502\" height=\"59\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( 1;5 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số đã cho nghịch biến trên khoảng $\\left( -\\infty ;1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( 5;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số đã cho nghịch biến trên khoảng $\\left( 0;5 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Căn cứ bảng xét dấu đạo hàm suy ra chỉ có đáp án $C$ đúng.",
+        "imageUrl": "/images/practice/sieugioi/1790110942001.9248.png",
+        "images": [
+          "/images/practice/sieugioi/1790110942001.9248.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q27",
+        "order": 27,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\n\n![hình minh họa](/images/practice/sieugioi/q27_img1.9246.png)",
+        "promptHtml": "Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\" data-src=\"/images/practice/sieugioi/q27_img1.9246.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q27_img1.9246.png\" class=\"bbImage\" style=\"width: 239px\" alt=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\" width=\"560\" height=\"526\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( 0;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( -\\infty ;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số đã cho có một điểm cực đại và một điểm cực tiểu."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số đã cho không có điểm cực đại."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ đồ thị suy ra hàm số đã cho có một điểm cực đại và một điểm cực tiểu.",
+        "imageUrl": "/images/practice/sieugioi/q27_img1.9246.png",
+        "images": [
+          "/images/practice/sieugioi/q27_img1.9246.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1745_q28",
+        "order": 28,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f(x)$ có bảng biến thiên như sau: Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q28_img1.9247.png)",
+        "promptHtml": "Cho hàm số $f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q28_img1.9247.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q28_img1.9247.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $f(x)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $f(x)$ có bảng biến thiên như sau:\" width=\"487\" height=\"194\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -2;0 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -1;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -\\infty ;-1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 2;+\\infty \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ BBT suy ra hàm số $f(x)$ nghịch biến trên khoảng $\\left( -1;2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q28_img1.9247.png",
+        "images": [
+          "/images/practice/sieugioi/q28_img1.9247.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:16.822Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề số 3. Giải Chi Tiết 28 Bài Tập Tính Đơn Điệu và Cực Trị Của Hàm Số",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-so-3-giai-chi-tiet-28-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1745/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 28",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Giá trị cực tiểu của hàm số $y={{x}^{3}}-3x+2$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "4."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "0."
+          },
+          {
+            "id": "opt_d",
+            "text": "1."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$y={{x}^{3}}-3x+2$.<br>\nTa có ${y}'=3{{x}^{2}}-3=3\\left( {{x}^{2}}-1 \\right)$.<br>\n${y}'=0\\Leftrightarrow x=\\pm 1$.<br>\n${y}''=6x$.<br>\nTại $x=1$, ${y}''=6&gt;0$ nên hàm đạt cực tiểu.<br>\nGiá trị cực tiểu: $y\\left( 1 \\right)=1-3+2=0$.<br>\nChọn C.<br>\n<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.\" data-src=\"/images/practice/sieugioi/q2_img1.9222.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9222.png\" class=\"bbImage\" style=\"width: 183px\" alt=\"Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.\" title=\"Cho hàm số bậc ba $y=f(x)$ có đồ thị là đường cong hình sau.\" width=\"298\" height=\"314\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-\\infty ;0)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(2;+\\infty )$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-3;1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(0;2)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ đồ thị, hàm số có cực đại tại $x=0$ và cực tiểu tại $x=2$.<br>\nHàm số bậc ba nghịch biến trên khoảng giữa hai điểm cực trị, tức là $(0;2)$.<br>\nChọn D.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9222.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:\" data-src=\"/images/practice/sieugioi/q3_img1.9223.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q3_img1.9223.png\" class=\"bbImage\" style=\"width: 273px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có đồ thị như hình vẽ:\" width=\"393\" height=\"323\" loading=\"lazy\">\n\t</div><br>\nĐiểm cực đại của đồ thị hàm số là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -1;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=-1$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=4$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;0 \\right)$"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A<br>\nTừ đồ thị, điểm cực đại là điểm có tọa độ $(-1;4)$.<br>\nVậy chọn A.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q3_img1.9223.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q4_img1.9224.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9224.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" width=\"509\" height=\"153\" loading=\"lazy\">\n\t</div><br>\nTổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "3"
+          },
+          {
+            "id": "opt_b",
+            "text": "2"
+          },
+          {
+            "id": "opt_c",
+            "text": "1"
+          },
+          {
+            "id": "opt_d",
+            "text": "4"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B<br>\nTừ bảng biến thiên:<br>\nKhi $x\\to -\\infty $, $f(x)\\to -5$.<br>\nKhi $x\\to +\\infty $, $f(x)\\to -5$.<br>\nVậy có một tiệm cận ngang là $y=-5$.<br>\nKhi $x\\to {{2}^{-}}$, $f(x)\\to -\\infty $, nên $x=2$ là tiệm cận đứng.<br>\nTổng số tiệm cận ngang và đứng là:<br>\n$1+1=2$.<br>\nChọn B.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9224.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Tiệm cận xiên của đồ thị hàm số $y=\\frac{-{{x}^{2}}-2x+5}{x+2}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=-x+1$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=-2$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-x$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=x+2$"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn C<br>\nHàm số: $y=\\frac{-{{x}^{2}}-2x+5}{x+2}$.<br>\nChia đa thức: $-{{x}^{2}}-2x+5=-x(x+2)+5$.<br>\nDo đó: $y=-x+\\frac{5}{x+2}$.<br>\nKhi $x\\to \\pm \\infty $, $\\frac{5}{x+2}\\to 0$.<br>\nTiệm cận xiên là: $y=-x$.<br>\nChọn C.<br>\n<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.\" data-src=\"/images/practice/sieugioi/q6_img1.9225.jpg\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9225.jpg\" class=\"bbImage\" style=\"width: 270px\" alt=\"Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.\" title=\"Cho hàm số đa thức bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\left( a\\ne 0 \\right)$ có đồ thị như hình vẽ.\" width=\"565\" height=\"567\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -2;0 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 0;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "(-1;1)."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;+\\infty  \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D<br>\nHàm số đã cho nghịch biến trên khoảng $\\left( 1;+\\infty  \\right)$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9225.jpg",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\right)$ có đồ thị như hình vẽ sau đây<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\ri\" data-src=\"/images/practice/sieugioi/q7_img1.9226.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9226.png\" class=\"bbImage\" style=\"width: 303px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\ri\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$và ${f}'\\left( x \\ri\" width=\"560\" height=\"360\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\frac{5}{2};-2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( -\\frac{1}{2};0 \\right)$.."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -2;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( -\\infty ;-3 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn đáp án C<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9226.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. <br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến\" data-src=\"/images/practice/sieugioi/q8_img1.9227.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9227.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến\" title=\" Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên. Hàm số đã cho đồng biến\" width=\"219\" height=\"251\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến<br>\ntrên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;+\\infty  \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 0;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -\\infty ;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -2;2 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9227.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có $f'\\left( x \\right)=\\left( {{e}^{x}}-1 \\right)\\left( {{x}^{2}}-x \\right),\\,\\,\\forall x\\in \\mathbb{R}$. Số điểm cực trị của hàm số $y=f\\left( x \\right)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$3$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây<br>\nđúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây\" data-src=\"/images/practice/sieugioi/q10_img1.9228.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9228.png\" class=\"bbImage\" style=\"width: 200px\" alt=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ. Khẳng định nào dưới đây\" width=\"288\" height=\"285\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số đã cho có hai điểm cực trị."
+          },
+          {
+            "id": "opt_b",
+            "text": "$a&gt;0,d&lt;0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$a&lt;0,\\,\\,d&gt;0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( -\\infty ;+\\infty  \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9228.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\right)$ có đồ thị như hình vẽ<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" data-src=\"/images/practice/sieugioi/q11_img1.9229.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q11_img1.9229.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" width=\"342\" height=\"273\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -2;+\\infty  \\right)$ ."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( -\\frac{1}{2};0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\frac{5}{2};-2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\infty ;-3 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào đồ thị $f'\\left( x \\right)$ cắt trục hoành tại $x=-3;x=-2;x=0$ (nghiệm kép)<br>\nNên ta có bảng xét dấu như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" data-src=\"https://sieugioi.com/docs/attachments/q11_img2-png.9230/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q11_img2-png.9230/\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định, có đạo hàm trên $\\mathbb{R}$ và ${f}'\\left( x \\r\" width=\"748\" height=\"83\" loading=\"lazy\">\n\t</div><br>\nDựa vào bảng xét dấu hàm số $y=f\\left( x \\right)$ nghịch biến trên khoảng $\\left( -\\infty ;-3 \\right)$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q11_img1.9229.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:\" data-src=\"/images/practice/sieugioi/q12_img1.9231.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9231.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên sau:\" width=\"732\" height=\"193\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực đại của hàm số $y=f\\left( x \\right)$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào bảng biến thiên, giá trị cực đại của hàm số $y=f\\left( x \\right)$ là $0$<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9231.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q13_img1.9232.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9232.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:\" title=\" Cho hàm số  $y=f(x)$ có bảng biến thiên như sau:\" width=\"427\" height=\"122\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-1;0)$ ."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -\\infty ;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 1;+\\infty  \\right)$ ."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 0;1 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9232.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Giá trị cực đại của hàm số $f\\left( x \\right)=2{{x}^{3}}-9{{x}^{2}}-24x+1$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$14$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$111$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Tập xác định: $D=\\mathbb{R}$.<br>\nĐạo hàm: ${f}'\\left( x \\right)=6{{x}^{2}}-18x-24$, ${f}'\\left( x \\right)=0\\Rightarrow \\left[ \\begin{align}<br>\n&amp; x=-1 \\\\<br>\n&amp; x=4 \\\\<br>\n\\end{align} \\right.$.<br>\nGiới hạn: $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty ,\\,\\,\\,\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,y=-\\infty $.<br>\nBảng biến thiên:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Giá trị cực đại của hàm số $f\\left( x \\right)=2{{x}^{3}}-9{{x}^{2}}-24x+1$ là\" data-src=\"https://sieugioi.com/docs/attachments/q14_img1-png.9233/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q14_img1-png.9233/\" class=\"bbImage\" style=\"\" alt=\" Giá trị cực đại của hàm số $f\\left( x \\right)=2{{x}^{3}}-9{{x}^{2}}-24x+1$ là\" title=\" Giá trị cực đại của hàm số $f\\left( x \\right)=2{{x}^{3}}-9{{x}^{2}}-24x+1$ là\" width=\"1311\" height=\"357\" loading=\"lazy\">\n\t</div><br>\nDựa vào bảng biến thiên, ta thấy giá trị cực đại của hàm số là $14$.<br>\n<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình v\" data-src=\"/images/practice/sieugioi/q15_img1.9234.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9234.png\" class=\"bbImage\" style=\"width: 397px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình v\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\left[ -1;6 \\right]$ và có đồ thị như hình v\" width=\"524\" height=\"350\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -1;2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 0;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 2;6 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -2;0 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Quan sát đồ thị ta thấy hàm số đã cho nghịch biến trên khoảng $\\left( 0;2 \\right)$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9234.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"     Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau\" data-src=\"/images/practice/sieugioi/q16_img1.9235.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q16_img1.9235.png\" class=\"bbImage\" style=\"width: 446px\" alt=\"     Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau\" title=\"     Cho hàm số$y=f\\left( x \\right)$ có bảng biến thiên như sau\" width=\"740\" height=\"247\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -1;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -1;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 0;1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -1;0 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ bảng biến thiên ta thấy hàm số đã cho đồng biến trên khoảng $\\left( 0;1 \\right)$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q16_img1.9235.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau<br>\nĐiểm cực đại của hàm số $y=f\\left( x \\right)$ là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau\" data-src=\"/images/practice/sieugioi/q17_img1.9236.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9236.png\" class=\"bbImage\" style=\"width: 398px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau\" title=\" Cho hàm số $y=f\\left( x \\right)$ xác định trên $\\mathbb{R}$ và có bảng biến thiên như sau\" width=\"626\" height=\"251\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=-7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=-6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=-4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=-3$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào bảng biến thiên ta thấy điểm cực đại của hàm số là $x=-4$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9236.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau\" data-src=\"/images/practice/sieugioi/q18_img1.9237.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9237.png\" class=\"bbImage\" style=\"width: 433px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau\" width=\"668\" height=\"256\" loading=\"lazy\">\n\t</div><br>\nKhẳng định nào sau đây là đúng ?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số đồng biến trên khoảng $\\left( -1;0 \\right)$.B. Hàm số đồng biến trên khoảng $\\left( 0;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -1;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -\\infty ;0 \\right)$"
+          }
+        ],
+        "explanation": "Từ BBT suy ra hàm số đồng biến trên $\\left( -1;0 \\right)$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9237.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Hàm số  $y={{x}^{4}}-8{{x}^{2}}$đồng biến trên khoảng nào sau đây",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -2;0 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -\\infty ;-2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -\\infty ;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 0;+\\infty  \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$y={{x}^{4}}-8{{x}^{2}}\\Rightarrow {y}'=4{{x}^{3}}-16x\\Rightarrow {y}'=0\\Leftrightarrow 4{{x}^{3}}-16x=0\\Leftrightarrow \\left[ \\begin{align}<br>\n&amp; x=0 \\\\<br>\n&amp; x=2 \\\\<br>\n&amp; x=-2 \\\\<br>\n\\end{align} \\right.$.<br>\nBảng biến thiên .<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số  $y={{x}^{4}}-8{{x}^{2}}$đồng biến trên khoảng nào sau đây\" data-src=\"https://sieugioi.com/docs/attachments/q19_img1-png.9238/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q19_img1-png.9238/\" class=\"bbImage\" style=\"width: 474px\" alt=\" Hàm số  $y={{x}^{4}}-8{{x}^{2}}$đồng biến trên khoảng nào sau đây\" title=\" Hàm số  $y={{x}^{4}}-8{{x}^{2}}$đồng biến trên khoảng nào sau đây\" width=\"812\" height=\"226\" loading=\"lazy\">\n\t</div><br>\nHàm số đồng biến trên khoảng $\\left( -2;0 \\right)$.<br>\n<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      },
+      {
+        "id": "q-20",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng\" data-src=\"/images/practice/sieugioi/q20_img1.9239.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q20_img1.9239.png\" class=\"bbImage\" style=\"width: 460px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như hình vẽ bên. Mệnh đề nào dưới đây đúng\" width=\"747\" height=\"200\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\underset{R}{\\mathop{Min}}\\,y=4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{y}_{CT}}=0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\underset{R}{\\mathop{Max}}\\,y=5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{y}_{CD}}=5$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Dựa vào bảng biến thiên giá trị cực đại của hàm số là ${{y}_{CD}}=5$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q20_img1.9239.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 20
+      },
+      {
+        "id": "q-21",
+        "type": "single_choice",
+        "text": "Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\right)$, có bảng biến thiên như hình sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\rig\" data-src=\"/images/practice/sieugioi/q21_img1.9240.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q21_img1.9240.png\" class=\"bbImage\" style=\"width: 486px\" alt=\" Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\rig\" title=\" Cho hàm số  $y=f\\left( x \\right)$xác định và liên tục trên khoảng $\\left( -\\infty ;+\\infty  \\rig\" width=\"750\" height=\"209\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -\\infty ;-1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số nghịch biến trên khoảng $\\left( -\\infty ;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số đồng biến trên khoảng $\\left( 1;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số đồng biến trên khoảng $\\left( -1;+\\infty  \\right)$."
+          }
+        ],
+        "explanation": "Dựa vào BBT ta có hàm số đồng biến trên khoảng $\\left( -\\infty ;-1 \\right)$ và $\\left( 1;+\\infty  \\right)$.<br>\nVậy C  đúng.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q21_img1.9240.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 21
+      },
+      {
+        "id": "q-22",
+        "type": "single_choice",
+        "text": "Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\" data-src=\"/images/practice/sieugioi/q22_img1.9241.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q22_img1.9241.png\" class=\"bbImage\" style=\"\" alt=\" Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\" title=\" Hàm số có bảng biến thiên sau. Giá trị cực đại của hàm số đã cho bằng\" width=\"418\" height=\"183\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-5$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Giá trị cực đại của hàm số đã cho bằng $2$.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q22_img1.9241.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 22
+      },
+      {
+        "id": "q-23",
+        "type": "single_choice",
+        "text": "Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. <br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào d\" data-src=\"/images/practice/sieugioi/q23_img1.9242.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q23_img1.9242.png\" class=\"bbImage\" style=\"width: 265px\" alt=\" Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào d\" title=\" Hàm số $y=f(x)$ có đồ thị là đường cong trong hình vẽ. Hàm số đã cho đồng biến trên khoảng nào d\" width=\"431\" height=\"415\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -\\infty ;2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -2;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 0;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 2;+\\infty  \\right)$."
+          }
+        ],
+        "explanation": "Trên khoảng $\\left( 0;2 \\right)$, đồ thị là một đường đi lên từ trái sang phải.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q23_img1.9242.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 23
+      },
+      {
+        "id": "q-24",
+        "type": "single_choice",
+        "text": "Giá trị cực tiểu của hàm số $f(x)=\\frac{2{{x}^{2}}-3x+6}{x-2}$ là?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$13$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "$f'(x)=\\frac{2{{x}^{2}}-8x}{{{\\left( x-2 \\right)}^{2}}};f'(x)=0\\Leftrightarrow \\left[ \\begin{align}<br>\n&amp; x=0 \\\\<br>\n&amp; x=4 \\\\<br>\n\\end{align} \\right.$<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Giá trị cực tiểu của hàm số\" data-src=\"https://sieugioi.com/docs/attachments/q24_img1-png.9243/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q24_img1-png.9243/\" class=\"bbImage\" style=\"\" alt=\" Giá trị cực tiểu của hàm số\" title=\" Giá trị cực tiểu của hàm số\" width=\"690\" height=\"151\" loading=\"lazy\">\n\t</div><br>\nĐiểm cực tiểu của hàm số là $x=4$ nên giá trị cực tiểu $y=13$<br>\n<br>\n<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 24
+      },
+      {
+        "id": "q-25",
+        "type": "single_choice",
+        "text": "Cho $f\\left( x \\right)$ là hàm số bậc ba có $f'(x)=3(x+2)(x-3)$ khẳng định nào dưới đây sai?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số $f\\left( x \\right)$ có hai điểm cực trị."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số $f\\left( x \\right)$ đạt cực đại tại điểm ${{x}_{0}}=-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số $f\\left( x \\right)$ đạt cực tiểu tại điểm ${{x}_{0}}=3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số $f\\left( x \\right)$ đạt cực tiểu tại điểm ${{x}_{0}}=-2$."
+          }
+        ],
+        "explanation": "Từ giả thiết ta có $f'(x)=3(x+2)(x-3)=0\\Leftrightarrow \\left[ \\begin{align}<br>\n&amp; x=-2 \\\\<br>\n&amp; x=3 \\\\<br>\n\\end{align} \\right.$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho $f\\left( x \\right)$ là hàm số bậc ba có $f'(x)=3(x+2)(x-3)$ khẳng định nào dưới đây sai?\" data-src=\"https://sieugioi.com/docs/attachments/q25_img1-png.9244/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q25_img1-png.9244/\" class=\"bbImage\" style=\"\" alt=\" Cho $f\\left( x \\right)$ là hàm số bậc ba có $f'(x)=3(x+2)(x-3)$ khẳng định nào dưới đây sai?\" title=\" Cho $f\\left( x \\right)$ là hàm số bậc ba có $f'(x)=3(x+2)(x-3)$ khẳng định nào dưới đây sai?\" width=\"692\" height=\"146\" loading=\"lazy\">\n\t</div><br>\nHàm số đạt cực đại tại $x=-2$<br>\n<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 25
+      },
+      {
+        "id": "q-26",
+        "type": "single_choice",
+        "text": "Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau\" data-src=\"/images/practice/sieugioi/1790110942001.9248.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790110942001.9248.png\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau\" title=\"Cho hàm số $f\\left( x \\right)$ có tập xác định $D=\\mathbb{R}\\backslash \\left\\{ 1 \\right\\}$ và có bảng xét dấu đạo hàm như sau\" width=\"502\" height=\"59\" loading=\"lazy\">\n\t</div><br>\nMệnh đề nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( 1;5 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số đã cho nghịch biến trên khoảng $\\left( -\\infty ;1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( 5;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số đã cho nghịch biến trên khoảng $\\left( 0;5 \\right)$."
+          }
+        ],
+        "explanation": "Căn cứ bảng xét dấu đạo hàm suy ra chỉ có đáp án $C$ đúng.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/1790110942001.9248.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 26
+      },
+      {
+        "id": "q-27",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\" data-src=\"/images/practice/sieugioi/q27_img1.9246.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q27_img1.9246.png\" class=\"bbImage\" style=\"width: 239px\" alt=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\" title=\" Cho hàm số $y=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình vẽ\" width=\"560\" height=\"526\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( 0;+\\infty  \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số đã cho đồng biến trên khoảng $\\left( -\\infty ;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số đã cho có một điểm cực đại và một điểm cực tiểu."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số đã cho không có điểm cực đại."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ đồ thị suy ra hàm số đã cho có một điểm cực đại và một điểm cực tiểu.<br>\n<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q27_img1.9246.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 27
+      },
+      {
+        "id": "q-28",
+        "type": "single_choice",
+        "text": "Cho hàm số $f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q28_img1.9247.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q28_img1.9247.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $f(x)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $f(x)$ có bảng biến thiên như sau:\" width=\"487\" height=\"194\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -2;0 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -1;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -\\infty ;-1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 2;+\\infty  \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ BBT suy ra hàm số $f(x)$ nghịch biến trên khoảng $\\left( -1;2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q28_img1.9247.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 28
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:16.823Z"
+}

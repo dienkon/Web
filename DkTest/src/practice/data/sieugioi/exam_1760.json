@@ -1,0 +1,2017 @@
+{
+  "meta": {
+    "title": "Đề 2. Giải đáp 25 câu trắc nghiệm khảo sát sự biến thiên và vẽ đồ thị hàm số từ A–Z",
+    "slug": "de-2-giai-dap-25-cau-trac-nghiem-khao-sat-su-bien-thien-va-ve-do-thi-ham-so-tu-a-z",
+    "id": "1760",
+    "url": "https://sieugioi.com/docs/threads/de-2-giai-dap-25-cau-trac-nghiem-khao-sat-su-bien-thien-va-ve-do-thi-ham-so-tu-a-z.1760/",
+    "numId": 1760,
+    "bai": 4,
+    "topicId": "math_t5_graph_optimize",
+    "baiTitle": "Khảo sát sự biến thiên và vẽ đồ thị của hàm số",
+    "chapter": "Chương 1"
+  },
+  "extracted": {
+    "title": "Đề 2. Giải đáp 25 câu trắc nghiệm khảo sát sự biến thiên và vẽ đồ thị hàm số từ A–Z",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-2-giai-dap-25-cau-trac-nghiem-khao-sat-su-bien-thien-va-ve-do-thi-ham-so-tu-a-z.1760/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 25,
+    "questionsWithOptions": 25,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 22,
+    "manualReviewCount": 25,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 13: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 14: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 15: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 16: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 17: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 18: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 19: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 20: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 21: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 22: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 23: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 24: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 25: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1760_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q1_img1.9425.png)",
+        "promptHtml": "Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\" data-src=\"/images/practice/sieugioi/q1_img1.9425.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9425.png\" class=\"bbImage\" style=\"width: 229px\" alt=\" Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\" title=\" Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\" width=\"390\" height=\"420\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{x+2}{x-1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{x-2}{x+1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{x-2}{x-1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{x+2}{x+1}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Hàm số có tiệm cận ngang là $y=1$\nTiệm cận đứng là $x=-1$\nĐi qua điểm $\\left( 0;2 \\right)$,$\\left( -2;0 \\right)$ nên đồ thị trên ứng với hàm số $y=\\frac{x+2}{x+1}$",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9425.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img1.9425.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9426.png)",
+        "promptHtml": "Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" data-src=\"/images/practice/sieugioi/q2_img1.9426.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9426.png\" class=\"bbImage\" style=\"\" alt=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" width=\"380\" height=\"279\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{2x-1}{2x+1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{x+1}{x-1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{2x+1}{2x-1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{2x+1}{x-1}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đồ thị có tiệm cận đứng là $x=1$.\nĐồ thị có tiệm cận ngang là $y=1$ nên đồ thị trên là đồ thị của hàm số $y=\\frac{x+1}{x-1}$.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9426.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9426.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\n\n![hình minh họa](/images/practice/sieugioi/q3_img1.9427.png)",
+        "promptHtml": "Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\" data-src=\"/images/practice/sieugioi/q3_img1.9427.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q3_img1.9427.png\" class=\"bbImage\" style=\"width: 269px\" alt=\" Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\" title=\" Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\" width=\"411\" height=\"431\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=x-\\frac{1}{x-1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-x+\\frac{1}{x-1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-x-\\frac{1}{x-1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=x+\\frac{1}{x-1}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đồ thị hàm số đi qua điểm $(0; -1)$ và $(2; 3)$. Thử các phương án: với $x = 0$, $y = 0 + \\frac{1}{-1} = -1$; với $x = 2$, $y = 2 + \\frac{1}{1} = 3$. Đồ thị có tiệm cận xiên $y = x$ và tiệm cận đứng $x = 1$. Vậy hàm số đúng là $y = x + \\frac{1}{x-1}$. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q3_img1.9427.png",
+        "images": [
+          "/images/practice/sieugioi/q3_img1.9427.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\n\n![hình minh họa](/images/practice/sieugioi/q4_img1.9428.png)",
+        "promptHtml": "Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\" data-src=\"/images/practice/sieugioi/q4_img1.9428.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9428.png\" class=\"bbImage\" style=\"width: 292px\" alt=\" Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\" title=\" Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\" width=\"919\" height=\"1024\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{-x+2}{x+1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{-x}{x+1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{-x+1}{x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{-2x+1}{2x+1}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số: tiệm cận đứng là $x = -1$, tiệm cận ngang là $y = -1$. Đồ thị cắt trục tung tại $(0; 1)$ và cắt trục hoành tại $(1; 0)$. Xét phương án C: $y = \\frac{-x+1}{x+1}$ có TCĐ $x = -1$, TCN $y = -1$, đi qua $(0; 1)$ và $(1; 0)$. Phù hợp hoàn toàn. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9428.png",
+        "images": [
+          "/images/practice/sieugioi/q4_img1.9428.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây Số nghiệm dương của phương trình $2f\\left( x \\right)-3=0$là\n\n![hình minh họa](/images/practice/sieugioi/q5_img1.9429.png)",
+        "promptHtml": "Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" data-src=\"/images/practice/sieugioi/q5_img1.9429.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9429.png\" class=\"bbImage\" style=\"width: 252px\" alt=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" width=\"453\" height=\"491\" loading=\"lazy\">\n\t</div><br>\nSố nghiệm dương của phương trình $2f\\left( x \\right)-3=0$là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Phương trình $2f(x) - 3 = 0 \\Leftrightarrow f(x) = \\frac{3}{2}$. Số nghiệm của phương trình bằng số giao điểm của đồ thị $y = f(x)$ với đường thẳng nằm ngang $y = \\frac{3}{2}$. Đường thẳng $y = \\frac{3}{2}$ cắt đồ thị tại 3 điểm, trong đó có 2 giao điểm có hoành độ dương $x > 0$ và 1 giao điểm có hoành độ âm. Vậy phương trình có 2 nghiệm dương. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9429.png",
+        "images": [
+          "/images/practice/sieugioi/q5_img1.9429.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án $A,\\text{ }B,\\text{ }C,\\text{ }D$ dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q6_img1.9431.png)",
+        "promptHtml": "Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án $A,\\text{ }B,\\text{ }C,\\text{ }D$ dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án\" data-src=\"/images/practice/sieugioi/q6_img1.9431.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9431.png\" class=\"bbImage\" style=\"width: 267px\" alt=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án\" width=\"731\" height=\"682\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{2x-1}{x-1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{x+1}{x-1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{2x-2}{2x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{-x+1}{x+1}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đồ thị có tiệm cận đứng $x = 1$ và tiệm cận ngang $y = 1$. Xét các phương án: $y = \\frac{x+1}{x-1}$ có TCĐ $x = 1$, TCN $y = \\frac{1}{1} = 1$, cắt $Oy$ tại $(0; -1)$, cắt $Ox$ tại $(-1; 0)$. Khớp hoàn toàn với hình vẽ. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9431.png",
+        "images": [
+          "/images/practice/sieugioi/q6_img1.9431.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây Số nghiệm dương của phương trình $2f\\left( x \\right)-3=0$là\n\n![hình minh họa](/images/practice/sieugioi/q7_img1.9432.png)",
+        "promptHtml": "Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây<br>\nSố nghiệm dương của phương trình $2f\\left( x \\right)-3=0$là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" data-src=\"/images/practice/sieugioi/q7_img1.9432.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9432.png\" class=\"bbImage\" style=\"width: 207px\" alt=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" width=\"453\" height=\"491\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Phương trình $2f(x) - 3 = 0 \\Leftrightarrow f(x) = 1,5$. Đường thẳng $y = 1,5$ cắt nhánh bên phải trục tung $Oy$ tại 2 điểm phân biệt có hoành độ dương. Vậy số nghiệm dương là 2. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9432.png",
+        "images": [
+          "/images/practice/sieugioi/q7_img1.9432.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Bảng biến thiên sau đây của hàm số nào?\n\n![hình minh họa](/images/practice/sieugioi/q8_img1.9434.png)",
+        "promptHtml": "Bảng biến thiên sau đây của hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Bảng biến thiên sau đây của hàm số nào?\" data-src=\"/images/practice/sieugioi/q8_img1.9434.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9434.png\" class=\"bbImage\" style=\"\" alt=\" Bảng biến thiên sau đây của hàm số nào?\" title=\" Bảng biến thiên sau đây của hàm số nào?\" width=\"353\" height=\"165\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{2x+3}{x+1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{2x-1}{x-1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{2x-1}{x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{x+1}{2x-1}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hàm số có tiệm cận đứng là $x=-1$, tiệm cận ngang là $y=2$ và đồng biến trên các khoảng $\\left( -\\infty ;-1 \\right)$ và $\\left( -1;+\\infty \\right)$ nên $y=\\frac{2x-1}{x+1}$.",
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9434.png",
+        "images": [
+          "/images/practice/sieugioi/q8_img1.9434.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q9_img1.9435.png)",
+        "promptHtml": "Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\" data-src=\"/images/practice/sieugioi/q9_img1.9435.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9435.png\" class=\"bbImage\" style=\"width: 307px\" alt=\" Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\" title=\" Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\" width=\"457\" height=\"368\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=-{{x}^{3}}-3{{x}^{2}}-2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y={{x}^{3}}-3{{x}^{2}}-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=2{{x}^{3}}+6{{x}^{2}}-2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y={{x}^{3}}+3{{x}^{2}}-2$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có nhánh cuối đồ thị hướng lên trên nên loại đáp án A.\nĐồ thị hàm số đi qua các điểm $\\left( -2;2 \\right),\\,\\,\\left( 0;-2 \\right),\\,\\,\\left( 1;2 \\right)$ nên hàm số $y={{x}^{3}}+3{{x}^{2}}-2$ thỏa mãn.",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9435.png",
+        "images": [
+          "/images/practice/sieugioi/q9_img1.9435.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên (các điểm cực trị của đồ thị thể hiện rõ trên hình). Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên $\\left[ -1;5 \\right]$ Giá trị của $M-m$ bằng\n\n![hình minh họa](/images/practice/sieugioi/q10_img1.9436.png)",
+        "promptHtml": "Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên (các điểm cực trị của đồ thị thể hiện rõ trên hình). Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên $\\left[ -1;5 \\right]$ Giá trị của $M-m$ bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên\" data-src=\"/images/practice/sieugioi/q10_img1.9436.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9436.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên\" title=\" Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên\" width=\"317\" height=\"217\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Trên $\\left[ -1;5 \\right]$, ta có $M=3,m=-2$. Giá trị của $M-m=5$.",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9436.png",
+        "images": [
+          "/images/practice/sieugioi/q10_img1.9436.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q11_img1.9437.png)",
+        "promptHtml": "Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\" data-src=\"/images/practice/sieugioi/q11_img1.9437.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q11_img1.9437.png\" class=\"bbImage\" style=\"width: 223px\" alt=\" Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\" title=\" Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\" width=\"954\" height=\"782\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y={{x}^{3}}-3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=2{{x}^{3}}-6x+1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=-{{x}^{3}}+2x-1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Vì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Vì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A. Đường cong trong hình vẽ là đồ thị của hàm số bậc 3. Vì $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty $ nên loại phương án C và"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Vì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A. Đường cong trong hình vẽ là đồ thị của hàm số bậc 3. Vì $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty $ nên loại phương án C và"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Vì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A. Đường cong trong hình vẽ là đồ thị của hàm số bậc 3. Vì $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty $ nên loại phương án C và"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Vì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Đường cong trong hình vẽ là đồ thị của hàm số bậc 3. Vì $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty $ nên loại phương án C và D.\nVì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án B.\nĐồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q11_img1.9437.png",
+        "images": [
+          "/images/practice/sieugioi/q11_img1.9437.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Hình vẽ bên là đồ thị của hàm số nào?\n\n![hình minh họa](/images/practice/sieugioi/q12_img1.9438.png)",
+        "promptHtml": "Hình vẽ bên là đồ thị của hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hình vẽ bên là đồ thị của hàm số nào?\" data-src=\"/images/practice/sieugioi/q12_img1.9438.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9438.png\" class=\"bbImage\" style=\"width: 277px\" alt=\" Hình vẽ bên là đồ thị của hàm số nào?\" title=\" Hình vẽ bên là đồ thị của hàm số nào?\" width=\"529\" height=\"457\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{3\\left( x+1 \\right)}{x-2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{2\\left( x+1 \\right)}{x-2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{2\\left( x-1 \\right)}{x-2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{3\\left( x-1 \\right)}{x-2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$ Dựa vào đồ thị + Đồ thị có TCN là đường thẳng $y=3$ nên loại B,"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$ Dựa vào đồ thị + Đồ thị có TCN là đường thẳng $y=3$ nên loại B,"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$Dựa vào đồ thị + Đồ thị có TCN là đường thẳng $y=3$ nên loại B,"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$"
+          },
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{3\\left( x+1 \\right)}{x-2}$. Thay toạ độ điểm $\\left( 1;0 \\right)$ vào $y=\\frac{3\\left( x+1 \\right)}{x-2}$, được $0=\\frac{3\\left( 1+1 \\right)}{1-2}$, sai."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{3\\left( x-1 \\right)}{x-2}$. Thay toạ độ điểm $\\left( 1;0 \\right)$ vào $y=\\frac{3\\left( x-1 \\right)}{x-2}$, được $0=\\frac{3\\left( 1-1 \\right)}{1-2}$, đúng."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào đồ thị\n+ Đồ thị có TCN là đường thẳng $y=3$ nên loại B, C.\n+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9438.png",
+        "images": [
+          "/images/practice/sieugioi/q12_img1.9438.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Đồ thị sau đây là của hàm số nào?\n\n![hình minh họa](/images/practice/sieugioi/q13_img1.9439.png)",
+        "promptHtml": "Đồ thị sau đây là của hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị sau đây là của hàm số nào?\" data-src=\"/images/practice/sieugioi/q13_img1.9439.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9439.png\" class=\"bbImage\" style=\"width: 252px\" alt=\" Đồ thị sau đây là của hàm số nào?\" title=\" Đồ thị sau đây là của hàm số nào?\" width=\"421\" height=\"309\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=-x^3+2.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=x^3-3x-2.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-x^3+3x+2.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=-x^3+3x-2.$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ đồ thị suy ra đáp án D",
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9439.png",
+        "images": [
+          "/images/practice/sieugioi/q13_img1.9439.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án ${A, B, C, D}$. Hỏi đó là hàm số nào?\n\n![hình minh họa](/images/practice/sieugioi/q14_img1.9440.png)",
+        "promptHtml": "Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án ${A, B, C, D}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án\" data-src=\"/images/practice/sieugioi/q14_img1.9440.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9440.png\" class=\"bbImage\" style=\"\" alt=\" Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án\" title=\" Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án\" width=\"334\" height=\"277\" loading=\"lazy\">\n\t</div><br>\nHỏi đó là hàm số nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${y=x^3+2x+1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${y=x^3-3x}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${y=-x^3+3x}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${y=x^3+3x^2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": ". Chọn B"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": ". Chọn B Từ đồ thị ta có $a>0$nên loại đáp án C Đồ thị đi qua gốc tọa độ ${O(0;0)}$nên $c=0$( loại đáp án A) Đồ thị có hai điểm cực trị nên pt ${y}'=0$ có 2 nghiệm phân biệt (loại đáp án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": ". Chọn B Từ đồ thị ta có $a>0$nên loại đáp án C Đồ thị đi qua gốc tọa độ ${O(0;0)}$nên $c=0$( loại đáp án A) Đồ thị có hai điểm cực trị nên pt ${y}'=0$ có 2 nghiệm phân biệt (loại đáp án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": ". Chọn B Từ đồ thị ta có $a>0$nên loại đáp án C Đồ thị đi qua gốc tọa độ ${O(0;0)}$nên $c=0$( loại đáp án A) Đồ thị có hai điểm cực trị nên pt ${y}'=0$ có 2 nghiệm phân biệt (loại đáp án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": ". Chọn B"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ đồ thị ta có $a>0$nên loại đáp án C\nĐồ thị đi qua gốc tọa độ ${O(0;0)}$nên $c=0$( loại đáp án A)\nĐồ thị có hai điểm cực trị nên pt ${y}'=0$ có 2 nghiệm phân biệt (loại đáp án D). Chọn B",
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9440.png",
+        "images": [
+          "/images/practice/sieugioi/q14_img1.9440.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?",
+        "promptHtml": "Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y={{x}^{3}}-3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=2{{x}^{3}}-6x+1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=-{{x}^{3}}+2x-1$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đồ thị hàm số đi qua các điểm $\\left( 0;1 \\right),\\,\\,\\left( 1;-1 \\right),\\left( 2;3 \\right)$ nên đồ thị hàm số là $y={{x}^{3}}-3x+1$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A, B, C, D dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q16_img1.9441.png)",
+        "promptHtml": "Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A, B, C, D dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A\" data-src=\"/images/practice/sieugioi/q16_img1.9441.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q16_img1.9441.png\" class=\"bbImage\" style=\"width: 305px\" alt=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A\" width=\"705\" height=\"559\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{2x-1}{x-1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{x+1}{x-1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{2x-2}{2x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{-x+1}{x+1}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đồ thị có tiệm cận đứng $x = 1$, tiệm cận ngang $y = 1$ và đi qua điểm $(0; -1)$. Hàm số thỏa mãn là $y = \\frac{x+1}{x-1}$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q16_img1.9441.png",
+        "images": [
+          "/images/practice/sieugioi/q16_img1.9441.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Đường cong ở hình sau là đồ thị hàm số nào?\n\n![hình minh họa](/images/practice/sieugioi/q17_img1.9442.png)",
+        "promptHtml": "Đường cong ở hình sau là đồ thị hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong ở hình sau là đồ thị hàm số nào?\" data-src=\"/images/practice/sieugioi/q17_img1.9442.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9442.png\" class=\"bbImage\" style=\"\" alt=\" Đường cong ở hình sau là đồ thị hàm số nào?\" title=\" Đường cong ở hình sau là đồ thị hàm số nào?\" width=\"340\" height=\"270\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y={{x}^{2}}-4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{2}}-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y={{x}^{3}}-4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đường cong là đồ thị hàm số bậc ba $y = ax^3 + bx^2 + cx + d$. Nhánh ngoài cùng bên phải đi xuống nên $a < 0$. Đồ thị cắt trục tung tại điểm $(0; -4)$ nên $d = -4$. Điểm cực đại tại $x = 2$, $y = 0$. Xét $y = -x^3 + 3x^2 - 4$: có $y' = -3x^2 + 6x = 0 \\Leftrightarrow x = 0$ hoặc $x = 2$; $y(2) = -8 + 12 - 4 = 0$. Khớp với hình vẽ. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9442.png",
+        "images": [
+          "/images/practice/sieugioi/q17_img1.9442.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Hình vẽ sau đây là đồ thị của hàm số nào trong các hàm số dưới đây ?",
+        "promptHtml": "Hình vẽ sau đây là đồ thị của hàm số nào trong các hàm số dưới đây ?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y={{x}^{3}}+2x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y={{x}^{3}}-2x+1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-{{x}^{3}}+2x+1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y={{x}^{3}}-2{{x}^{2}}+1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2>0,\\forall x\\in \\mathbb{R}$) Hàm số không có điểm cực trị $x=0$nên loại phương án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$) Vậy đáp án là phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": ""
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2>0,\\forall x\\in \\mathbb{R}$) Hàm số không có điểm cực trị $x=0$nên loại phương án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$) Vậy đáp án là phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Từ đồ thị suy ra: Hệ số của ${{x}^{3}}$ phải là số dương. Suy ra loại phương án"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2>0,\\forall x\\in \\mathbb{R}$) Hàm số không có điểm cực trị $x=0$nên loại phương án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$) Vậy đáp án là phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Từ đồ thị suy ra: Hệ số của ${{x}^{3}}$ phải là số dương. Suy ra loại phương án"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2>0,\\forall x\\in \\mathbb{R}$) Hàm số không có điểm cực trị $x=0$nên loại phương án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$) Vậy đáp án là phương án"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Từ đồ thị suy ra: Hệ số của ${{x}^{3}}$ phải là số dương. Suy ra loại phương án"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2>0,\\forall x\\in \\mathbb{R}$) Hàm số không có điểm cực trị $x=0$nên loại phương án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$) Vậy đáp án là phương án"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ đồ thị suy ra:\nHệ số của ${{x}^{3}}$ phải là số dương. Suy ra loại phương án C.\nHàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2>0,\\forall x\\in \\mathbb{R}$)\nHàm số không có điểm cực trị $x=0$nên loại phương án D. ( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$)\nVậy đáp án là phương án B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/q19_img1.9443.png)",
+        "promptHtml": "Đường cong trong hình bên là đồ thị của hàm số nào sau đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\" data-src=\"/images/practice/sieugioi/q19_img1.9443.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q19_img1.9443.png\" class=\"bbImage\" style=\"\" alt=\" Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\" title=\" Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\" width=\"160\" height=\"142\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{2x+3}{x-1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{x+1}{x-1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{x-1}{x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{x+1}{3x-3}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đồ thị có tiệm cận đứng $x = 1$, tiệm cận ngang $y = 1$, và nghịch biến trên từng khoảng xác định. Hàm số $y = \\frac{x+1}{x-1}$ có $y' = \\frac{-2}{(x-1)^2} < 0,\\, \\forall x \\ne 1$. Do đó hàm số nghịch biến trên $(-\\infty; 1)$ và $(1; +\\infty)$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q19_img1.9443.png",
+        "images": [
+          "/images/practice/sieugioi/q19_img1.9443.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q20",
+        "order": 20,
+        "type": "single_choice",
+        "promptText": "Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\n\n![hình minh họa](/images/practice/sieugioi/q20_img1.9444.png)",
+        "promptHtml": "Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" data-src=\"/images/practice/sieugioi/q20_img1.9444.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q20_img1.9444.png\" class=\"bbImage\" style=\"\" alt=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" width=\"214\" height=\"192\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{2x-1}{x+2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y={{x}^{3}}-3x+1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{{{x}^{2}}-1}{x-2}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đồ thị hàm số bậc 3, có hệ số $a>0$. Do đó chọn đáp án B",
+        "imageUrl": "/images/practice/sieugioi/q20_img1.9444.png",
+        "images": [
+          "/images/practice/sieugioi/q20_img1.9444.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q21",
+        "order": 21,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/q21_img1.9445.png)",
+        "promptHtml": "Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\" data-src=\"/images/practice/sieugioi/q21_img1.9445.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q21_img1.9445.png\" class=\"bbImage\" style=\"width: 205px\" alt=\" Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\" title=\" Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\" width=\"486\" height=\"472\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{{{x}^{2}}+2x+2}{x+1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{{{x}^{2}}-2x}{x+1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{{{x}^{2}}+3x}{x-2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{{{x}^{2}}-2x-3}{x-2}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số ta có: Đồ thị hàm số đi qua điểm $\\left( 0;\\,2 \\right)$, đồ thị hàm số có đường tiệm cận đứng là $x=-1$và đường tiệm cận xiên $y=x+1$ nên đồ thị đã cho là đồ thị của hàm số $y=\\frac{{{x}^{2}}+2x+2}{x+1}$.",
+        "imageUrl": "/images/practice/sieugioi/q21_img1.9445.png",
+        "images": [
+          "/images/practice/sieugioi/q21_img1.9445.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q22",
+        "order": 22,
+        "type": "single_choice",
+        "promptText": "Cho hàm số bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\,\\,\\left( a,b,c,d\\in \\mathbb{R} \\right)$ có đồ thị như hình bên. Mệnh đề nào dưới đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q22_img1.9446.png)",
+        "promptHtml": "Cho hàm số bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\,\\,\\left( a,b,c,d\\in \\mathbb{R} \\right)$ có đồ thị như hình bên. Mệnh đề nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số bậc ba\" data-src=\"/images/practice/sieugioi/q22_img1.9446.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q22_img1.9446.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số bậc ba\" title=\" Cho hàm số bậc ba\" width=\"301\" height=\"257\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$a<0,\\,\\,d>0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$a>0,\\,\\,d>0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$a>0,\\,\\,d<0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$a<0,\\,\\,d<0$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Quan sát đồ thị hàm số bậc ba: nhánh ngoài cùng bên phải đi xuống nên hệ số $a < 0$. Giao điểm của đồ thị với trục tung $Oy$ nằm phía trên gốc tọa độ $O$ (tung độ dương) nên khi $x = 0 \\Rightarrow y = d > 0$. Vậy $a < 0,\\, d > 0$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q22_img1.9446.png",
+        "images": [
+          "/images/practice/sieugioi/q22_img1.9446.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q23",
+        "order": 23,
+        "type": "single_choice",
+        "promptText": "Hàm số nào dưới đây có đồ thị như hình vẽ?\n\n![hình minh họa](/images/practice/sieugioi/q23_img1.9447.png)",
+        "promptHtml": "Hàm số nào dưới đây có đồ thị như hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số nào dưới đây có đồ thị như hình vẽ?\" data-src=\"/images/practice/sieugioi/q23_img1.9447.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q23_img1.9447.png\" class=\"bbImage\" style=\"\" alt=\" Hàm số nào dưới đây có đồ thị như hình vẽ?\" title=\" Hàm số nào dưới đây có đồ thị như hình vẽ?\" width=\"196\" height=\"224\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$f\\left( x \\right)={{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$f\\left( x \\right)={{x}^{3}}-3x-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "B. $f\\left( x \\right)=-{{x}^{3}}+3x-1$ C. $f\\left( x \\right)=-{{x}^{3}}+3x+1$.",
+        "imageUrl": "/images/practice/sieugioi/q23_img1.9447.png",
+        "images": [
+          "/images/practice/sieugioi/q23_img1.9447.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q24",
+        "order": 24,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\n\n![hình minh họa](/images/practice/sieugioi/q24_img1.9448.png)",
+        "promptHtml": "Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\" data-src=\"/images/practice/sieugioi/q24_img1.9448.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q24_img1.9448.png\" class=\"bbImage\" style=\"width: 174px\" alt=\" Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\" title=\" Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\" width=\"392\" height=\"518\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$J\\left( 0;-2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$O\\left( 0;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I\\left( -2;0 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$K\\left( 0;2 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Chọn A. $J\\left( 0;-2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q24_img1.9448.png",
+        "images": [
+          "/images/practice/sieugioi/q24_img1.9448.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1760_q25",
+        "order": 25,
+        "type": "single_choice",
+        "promptText": "Đường cong trong hình bên là đồ thị của hàm số nào dưới đây?",
+        "promptHtml": "Đường cong trong hình bên là đồ thị của hàm số nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=-{{x}^{3}}+3x-4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y={{x}^{3}}+3{{x}^{2}}-4$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}+4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$. Chọn"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$. Chọn"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$. Chọn"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B. $y=-{{x}^{3}}+3{{x}^{2}}-4$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:39.856Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 2. Giải đáp 25 câu trắc nghiệm khảo sát sự biến thiên và vẽ đồ thị hàm số từ A–Z",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-2-giai-dap-25-cau-trac-nghiem-khao-sat-su-bien-thien-va-ve-do-thi-ham-so-tu-a-z.1760/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 25",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\" data-src=\"/images/practice/sieugioi/q1_img1.9425.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9425.png\" class=\"bbImage\" style=\"width: 229px\" alt=\" Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\" title=\" Đường cong trong hình vẽ bên là đồ thị của hàm số nào dưới đây?\" width=\"390\" height=\"420\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{x+2}{x-1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{x-2}{x+1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{x-2}{x-1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{x+2}{x+1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hàm số có tiệm cận ngang là $y=1$<br>\nTiệm cận đứng là $x=-1$<br>\nĐi qua điểm $\\left( 0;2 \\right)$,$\\left( -2;0 \\right)$ nên đồ thị trên ứng với hàm số $y=\\frac{x+2}{x+1}$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9425.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" data-src=\"/images/practice/sieugioi/q2_img1.9426.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9426.png\" class=\"bbImage\" style=\"\" alt=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" width=\"380\" height=\"279\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{2x-1}{2x+1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{x+1}{x-1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{2x+1}{2x-1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{2x+1}{x-1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị có tiệm cận đứng là $x=1$.<br>\nĐồ thị có tiệm cận ngang là $y=1$ nên đồ thị trên là đồ thị của hàm số $y=\\frac{x+1}{x-1}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9426.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\" data-src=\"/images/practice/sieugioi/q3_img1.9427.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q3_img1.9427.png\" class=\"bbImage\" style=\"width: 269px\" alt=\" Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\" title=\" Hàm số nào sau đây có đồ thị là đường cong như hình vẽ?\" width=\"411\" height=\"431\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=x-\\frac{1}{x-1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=-x+\\frac{1}{x-1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-x-\\frac{1}{x-1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=x+\\frac{1}{x-1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị hàm số đi qua điểm $\\left( 0;-1 \\right)$ (Loại A, C) và điểm $\\left( 2;3 \\right)$ (Loại B).</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q3_img1.9427.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\" data-src=\"/images/practice/sieugioi/q4_img1.9428.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9428.png\" class=\"bbImage\" style=\"width: 292px\" alt=\" Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\" title=\" Đồ thị có hình vẽ dưới đây là của đồ thị hàm số nào?\" width=\"919\" height=\"1024\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{-x+2}{x+1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{-x}{x+1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{-x+1}{x+1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{-2x+1}{2x+1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị hàm số, ta phân tích các đặc điểm sau:<br>\nTiệm cận đứng: Đồ thị nhận đường thẳng $x=-1$ làm tiệm cận đứng và đường thẳng $y=-1$<br>\nlàm tiệm cận ngang, cắt $Ox,Oy$ lần lượt tại $\\left( 1;0 \\right)$ và $\\left( 0;1 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9428.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" data-src=\"/images/practice/sieugioi/q5_img1.9429.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9429.png\" class=\"bbImage\" style=\"width: 252px\" alt=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" width=\"453\" height=\"491\" loading=\"lazy\">\n\t</div><br>\nSố nghiệm dương của phương trình $2f\\left( x \\right)-3=0$là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" data-src=\"https://sieugioi.com/docs/attachments/q5_img2-png.9430/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q5_img2-png.9430/\" class=\"bbImage\" style=\"width: 238px\" alt=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" width=\"324\" height=\"346\" loading=\"lazy\">\n\t</div><br>\nPhương trình $2f\\left( x \\right)-3=0\\Leftrightarrow f\\left( x \\right)=\\frac{3}{2}$.<br>\nĐường thẳng $y=\\frac{3}{2}$ cắt đồ thị hàm số đã cho tại 2 điểm có hoành độ dương.<br>\nVậy phương trình $2f\\left( x \\right)-3=0$ có 2 nghiệm dương phân biệt.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9429.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án $A,\\text{ }B,\\text{ }C,\\text{ }D$ dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án\" data-src=\"/images/practice/sieugioi/q6_img1.9431.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9431.png\" class=\"bbImage\" style=\"width: 267px\" alt=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án\" width=\"731\" height=\"682\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{2x-1}{x-1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{x+1}{x-1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{2x-2}{2x+1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{-x+1}{x+1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị có tiệm cận đứng $x=1$, tiệm cận ngang $y=1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9431.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây<br>\nSố nghiệm dương của phương trình $2f\\left( x \\right)-3=0$là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" data-src=\"/images/practice/sieugioi/q7_img1.9432.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9432.png\" class=\"bbImage\" style=\"width: 207px\" alt=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" width=\"453\" height=\"491\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" data-src=\"https://sieugioi.com/docs/attachments/q7_img2-png.9433/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q7_img2-png.9433/\" class=\"bbImage\" style=\"width: 222px\" alt=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" title=\" Cho hàm số $f\\left( x \\right)=a{{x}^{3}}+b{{x}^{2}}+cx+d$ có đồ thị như hình sau đây\" width=\"324\" height=\"346\" loading=\"lazy\">\n\t</div><br>\nPhương trình $2f\\left( x \\right)-3=0\\Leftrightarrow f\\left( x \\right)=\\frac{3}{2}$.<br>\nĐường thẳng $y=\\frac{3}{2}$ cắt đồ thị hàm số đã cho tại 2 điểm có hoành độ dương.<br>\nVậy phương trình $2f\\left( x \\right)-3=0$ có 2 nghiệm dương phân biệt.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9432.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Bảng biến thiên sau đây của hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Bảng biến thiên sau đây của hàm số nào?\" data-src=\"/images/practice/sieugioi/q8_img1.9434.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q8_img1.9434.png\" class=\"bbImage\" style=\"\" alt=\" Bảng biến thiên sau đây của hàm số nào?\" title=\" Bảng biến thiên sau đây của hàm số nào?\" width=\"353\" height=\"165\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{2x+3}{x+1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{2x-1}{x-1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{2x-1}{x+1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{x+1}{2x-1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hàm số có tiệm cận đứng là $x=-1$, tiệm cận ngang là $y=2$ và đồng biến trên các khoảng $\\left( -\\infty ;-1 \\right)$ và $\\left( -1;+\\infty \\right)$ nên $y=\\frac{2x-1}{x+1}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q8_img1.9434.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\" data-src=\"/images/practice/sieugioi/q9_img1.9435.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9435.png\" class=\"bbImage\" style=\"width: 307px\" alt=\" Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\" title=\" Đường cong trong hình sau là đồ thị của hàm số nào dưới đây?\" width=\"457\" height=\"368\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=-{{x}^{3}}-3{{x}^{2}}-2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y={{x}^{3}}-3{{x}^{2}}-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=2{{x}^{3}}+6{{x}^{2}}-2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y={{x}^{3}}+3{{x}^{2}}-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có nhánh cuối đồ thị hướng lên trên nên loại đáp án A.<br>\nĐồ thị hàm số đi qua các điểm $\\left( -2;2 \\right),\\,\\,\\left( 0;-2 \\right),\\,\\,\\left( 1;2 \\right)$ nên hàm số $y={{x}^{3}}+3{{x}^{2}}-2$ thỏa mãn.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9435.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên (các điểm cực trị của đồ thị thể hiện rõ trên hình). Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên $\\left[ -1;5 \\right]$ Giá trị của $M-m$ bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên\" data-src=\"/images/practice/sieugioi/q10_img1.9436.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9436.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên\" title=\" Cho hàm số $f\\left( x \\right)$ liên tục trên $\\left[ -1;5 \\right]$ và có đồ thị như hình vẽ bên\" width=\"317\" height=\"217\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Trên $\\left[ -1;5 \\right]$, ta có $M=3,m=-2$. Giá trị của $M-m=5$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9436.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\" data-src=\"/images/practice/sieugioi/q11_img1.9437.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q11_img1.9437.png\" class=\"bbImage\" style=\"width: 223px\" alt=\" Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\" title=\" Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?\" width=\"954\" height=\"782\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y={{x}^{3}}-3x+1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=2{{x}^{3}}-6x+1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=-{{x}^{3}}+2x-1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đường cong trong hình vẽ là đồ thị của hàm số bậc 3. Vì $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,y=+\\infty $ nên loại phương án C và D.<br>\nVì đồ thị hàm số đi qua điểm $\\left( 1;-1 \\right)$ nên loại phương án B.<br>\nĐồ thị hàm số $y={{x}^{3}}-3x+1$ có điểm cực tiểu $\\left( 1;-1 \\right)$, điểm cực đại $\\left( -1;\\,3 \\right)$ nên chọn A.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q11_img1.9437.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Hình vẽ bên là đồ thị của hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hình vẽ bên là đồ thị của hàm số nào?\" data-src=\"/images/practice/sieugioi/q12_img1.9438.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9438.png\" class=\"bbImage\" style=\"width: 277px\" alt=\" Hình vẽ bên là đồ thị của hàm số nào?\" title=\" Hình vẽ bên là đồ thị của hàm số nào?\" width=\"529\" height=\"457\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{3\\left( x+1 \\right)}{x-2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{2\\left( x+1 \\right)}{x-2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{2\\left( x-1 \\right)}{x-2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{3\\left( x-1 \\right)}{x-2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị<br>\n+ Đồ thị có TCN là đường thẳng $y=3$ nên loại B, C.<br>\n+ Đồ thị đi qua điểm $\\left( 1;0 \\right)$</div></div></div></div>"
+          },
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{3\\left( x+1 \\right)}{x-2}$. Thay toạ độ điểm $\\left( 1;0 \\right)$ vào $y=\\frac{3\\left( x+1 \\right)}{x-2}$, được $0=\\frac{3\\left( 1+1 \\right)}{1-2}$, sai."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{3\\left( x-1 \\right)}{x-2}$. Thay toạ độ điểm $\\left( 1;0 \\right)$ vào $y=\\frac{3\\left( x-1 \\right)}{x-2}$, được $0=\\frac{3\\left( 1-1 \\right)}{1-2}$, đúng."
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9438.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Đồ thị sau đây là của hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị sau đây là của hàm số nào?\" data-src=\"/images/practice/sieugioi/q13_img1.9439.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9439.png\" class=\"bbImage\" style=\"width: 252px\" alt=\" Đồ thị sau đây là của hàm số nào?\" title=\" Đồ thị sau đây là của hàm số nào?\" width=\"421\" height=\"309\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=-x^3+2.$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=x^3-3x-2.$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-x^3+3x+2.$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=-x^3+3x-2.$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Từ đồ thị suy ra đáp án D</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9439.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án ${A, B, C, D}$.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án\" data-src=\"/images/practice/sieugioi/q14_img1.9440.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9440.png\" class=\"bbImage\" style=\"\" alt=\" Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án\" title=\" Hình vẽ sau đây là đồ thị của một trong bốn hàm số cho ở các đáp án\" width=\"334\" height=\"277\" loading=\"lazy\">\n\t</div><br>\nHỏi đó là hàm số nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${y=x^3+2x+1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${y=x^3-3x}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${y=-x^3+3x}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${y=x^3+3x^2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Từ đồ thị ta có $a&gt;0$nên loại đáp án C<br>\nĐồ thị đi qua gốc tọa độ ${O(0;0)}$nên $c=0$( loại đáp án A)<br>\nĐồ thị có hai điểm cực trị nên pt ${y}'=0$ có 2 nghiệm phân biệt (loại đáp án D). Chọn B</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9440.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Đường cong cho trong hình vẽ sau là đồ thị của hàm số nào trong các hàm số dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y={{x}^{3}}-3x+1$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=2{{x}^{3}}-6x+1$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-{{x}^{3}}+3x+1$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=-{{x}^{3}}+2x-1$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị hàm số đi qua các điểm $\\left( 0;1 \\right),\\,\\,\\left( 1;-1 \\right),\\left( 2;3 \\right)$ nên đồ thị hàm số là $y={{x}^{3}}-3x+1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A, B, C, D dưới đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A\" data-src=\"/images/practice/sieugioi/q16_img1.9441.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q16_img1.9441.png\" class=\"bbImage\" style=\"width: 305px\" alt=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A\" title=\" Đường cong trong hình vẽ bên là đồ thị hàm số nào trong các hàm số được cho bởi các phương án A\" width=\"705\" height=\"559\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{2x-1}{x-1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{x+1}{x-1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{2x-2}{2x+1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{-x+1}{x+1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị có tiệm cận đứng $x=1$, tiệm cận ngang $y=1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q16_img1.9441.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Đường cong ở hình sau là đồ thị hàm số nào?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong ở hình sau là đồ thị hàm số nào?\" data-src=\"/images/practice/sieugioi/q17_img1.9442.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9442.png\" class=\"bbImage\" style=\"\" alt=\" Đường cong ở hình sau là đồ thị hàm số nào?\" title=\" Đường cong ở hình sau là đồ thị hàm số nào?\" width=\"340\" height=\"270\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y={{x}^{2}}-4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=-{{x}^{2}}-4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y={{x}^{3}}-4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị đã cho là đồ thị của hàm số bậc 3 có hệ số $a&lt;0$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9442.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Hình vẽ sau đây là đồ thị của hàm số nào trong các hàm số dưới đây ?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y={{x}^{3}}+2x+1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y={{x}^{3}}-2x+1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-{{x}^{3}}+2x+1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y={{x}^{3}}-2{{x}^{2}}+1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Từ đồ thị suy ra:<br>\nHệ số của ${{x}^{3}}$ phải là số dương. Suy ra loại phương án C.<br>\nHàm số có hai điểm cực trị nên loại phương án A. (Phương án A hàm số đồng biến trên $\\mathbb{R}$ do có ${y}'=3{{x}^{2}}+2&gt;0,\\forall x\\in \\mathbb{R}$)<br>\nHàm số không có điểm cực trị $x=0$nên loại phương án D. ( Phương án D hàm số có điểm cực trị $x=0$ do có ${y}'=3{{x}^{2}}-4x=x\\left( 3x-4 \\right)$)<br>\nVậy đáp án là phương án B.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Đường cong trong hình bên là đồ thị của hàm số nào sau đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\" data-src=\"/images/practice/sieugioi/q19_img1.9443.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q19_img1.9443.png\" class=\"bbImage\" style=\"\" alt=\" Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\" title=\" Đường cong trong hình bên là đồ thị của hàm số nào sau đây?\" width=\"160\" height=\"142\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{2x+3}{x-1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{x+1}{x-1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{x-1}{x+1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{x+1}{3x-3}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có đồ thị hàm số có đường tiệm cận đứng là $x=1$; tiệm cận ngang $y=1$ và nghịch biến trên các khoảng xác định.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q19_img1.9443.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      },
+      {
+        "id": "q-20",
+        "type": "single_choice",
+        "text": "Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" data-src=\"/images/practice/sieugioi/q20_img1.9444.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q20_img1.9444.png\" class=\"bbImage\" style=\"\" alt=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" title=\" Đồ thị của hàm số nào dưới đây có dạng như đường cong trong hình vẽ?\" width=\"214\" height=\"192\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{2x-1}{x+2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y={{x}^{3}}-3x+1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=-{{x}^{3}}+3x+1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{{{x}^{2}}-1}{x-2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị hàm số bậc 3, có hệ số $a&gt;0$. Do đó chọn đáp án B</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q20_img1.9444.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 20
+      },
+      {
+        "id": "q-21",
+        "type": "single_choice",
+        "text": "Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\" data-src=\"/images/practice/sieugioi/q21_img1.9445.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q21_img1.9445.png\" class=\"bbImage\" style=\"width: 205px\" alt=\" Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\" title=\" Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào sau đây?\" width=\"486\" height=\"472\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{{{x}^{2}}+2x+2}{x+1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{{{x}^{2}}-2x}{x+1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{{{x}^{2}}+3x}{x-2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{{{x}^{2}}-2x-3}{x-2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị hàm số ta có: Đồ thị hàm số đi qua điểm $\\left( 0;\\,2 \\right)$, đồ thị hàm số có đường tiệm cận đứng là $x=-1$và đường tiệm cận xiên $y=x+1$ nên đồ thị đã cho là đồ thị của hàm số $y=\\frac{{{x}^{2}}+2x+2}{x+1}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q21_img1.9445.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 21
+      },
+      {
+        "id": "q-22",
+        "type": "single_choice",
+        "text": "Cho hàm số bậc ba $y=a{{x}^{3}}+b{{x}^{2}}+cx+d\\,\\,\\left( a,b,c,d\\in \\mathbb{R} \\right)$ có đồ thị như hình bên. Mệnh đề nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số bậc ba\" data-src=\"/images/practice/sieugioi/q22_img1.9446.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q22_img1.9446.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số bậc ba\" title=\" Cho hàm số bậc ba\" width=\"301\" height=\"257\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$a&lt;0,\\,\\,d&gt;0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$a&gt;0,\\,\\,d&gt;0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$a&gt;0,\\,\\,d&lt;0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$a&lt;0,\\,\\,d&lt;0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị:<br>\nĐồ thị bắt đầu giảm từ bên trái: $a&lt;0$ Giao điểm của đồ thị với trục $Oy$: $x=0\\Rightarrow y=d&gt;0$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q22_img1.9446.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 22
+      },
+      {
+        "id": "q-23",
+        "type": "single_choice",
+        "text": "Hàm số nào dưới đây có đồ thị như hình vẽ?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Hàm số nào dưới đây có đồ thị như hình vẽ?\" data-src=\"/images/practice/sieugioi/q23_img1.9447.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q23_img1.9447.png\" class=\"bbImage\" style=\"\" alt=\" Hàm số nào dưới đây có đồ thị như hình vẽ?\" title=\" Hàm số nào dưới đây có đồ thị như hình vẽ?\" width=\"196\" height=\"224\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$f\\left( x \\right)={{x}^{3}}+3x+1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x-1$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$f\\left( x \\right)=-{{x}^{3}}+3x+1$. D. $f\\left( x \\right)={{x}^{3}}-3x-1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">B. $f\\left( x \\right)=-{{x}^{3}}+3x-1$ C. $f\\left( x \\right)=-{{x}^{3}}+3x+1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q23_img1.9447.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 23
+      },
+      {
+        "id": "q-24",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\" data-src=\"/images/practice/sieugioi/q24_img1.9448.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q24_img1.9448.png\" class=\"bbImage\" style=\"width: 174px\" alt=\" Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\" title=\" Cho hàm số $y=-{{x}^{3}}+3x-2$ có đồ thị như hình vẽ.Tâm đối xứng của đồ thị hàm số đã cho là\" width=\"392\" height=\"518\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$J\\left( 0;-2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$O\\left( 0;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I\\left( -2;0 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$K\\left( 0;2 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn A. $J\\left( 0;-2 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q24_img1.9448.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 24
+      },
+      {
+        "id": "q-25",
+        "type": "single_choice",
+        "text": "Đường cong trong hình bên là đồ thị của hàm số nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=-{{x}^{3}}+3x-4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}-4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y={{x}^{3}}+3{{x}^{2}}-4$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=-{{x}^{3}}+3{{x}^{2}}+4$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn B. $y=-{{x}^{3}}+3{{x}^{2}}-4$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 25
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:39.856Z"
+}

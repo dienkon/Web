@@ -17,6 +17,7 @@ import {
 } from "./grade12Taxonomy";
 import { practiceRegistry } from "../core/PracticeRegistry";
 import { JOURNEY_QUESTIONS_100 } from "../../features/journey/data/journeyQuestions12";
+import { getSieuGioiQuestionsByTopic } from "../data/sieugioi/sieugioiQuestions";
 
 export interface TopicCatalogSummary {
   topic: TaxonomyTopic;
@@ -74,6 +75,30 @@ const MODE_TO_TOPIC_MAPPING: Record<string, string[]> = {
     "math_t9_antiderivative",
     "math_t10_integral_apps",
   ],
+
+  // SieuGioi Math 12 Modes (GDPT 2018 - 996 questions)
+  math_sieugioi_all: [
+    "math_t1_monotonicity", "math_t2_extremum", "math_t3_minmax", "math_t4_asymptote", "math_t5_graph_optimize",
+    "math_t6_vector_space", "math_t7_oxyz_coords", "math_t8_grouped_dispersion",
+    "math_t9_antiderivative", "math_t10_integral_apps", "math_t11_plane_sphere", "math_t12_line_relative_pos"
+  ],
+  math_sieugioi_bai_1: ["math_t1_monotonicity", "math_t2_extremum", "math_t2_extrema"],
+  math_sieugioi_bai_2: ["math_t3_minmax", "math_t3_max_min"],
+  math_sieugioi_bai_3: ["math_t4_asymptote", "math_t4_asymptotes"],
+  math_sieugioi_bai_4: ["math_t5_graph_optimize", "math_t5_graph_sketching"],
+  math_sieugioi_bai_5: ["math_t5_graph_optimize"],
+  math_sieugioi_bai_6: ["math_t6_vector_space"],
+  math_sieugioi_bai_7: ["math_t7_oxyz_coords", "math_t7_vector_coords_space"],
+  math_sieugioi_bai_8: ["math_t7_oxyz_coords", "math_t7_vector_coords_space"],
+  math_sieugioi_bai_9: ["math_t8_grouped_dispersion"],
+  math_sieugioi_bai_10: ["math_t8_grouped_dispersion"],
+  math_sieugioi_bai_11: ["math_t9_antiderivative"],
+  math_sieugioi_bai_12: ["math_t10_integral_apps"],
+  math_sieugioi_bai_13: ["math_t10_integral_apps"],
+  math_sieugioi_bai_14: ["math_t11_plane_sphere"],
+  math_sieugioi_bai_15: ["math_t12_line_relative_pos"],
+  math_sieugioi_bai_16: ["math_t12_line_relative_pos"],
+  math_sieugioi_bai_17: ["math_t11_plane_sphere", "math_t8_plane_line_sphere_equations"],
 
   // Physics modes
   physics_thermal_gas: [
@@ -217,9 +242,13 @@ export class Grade12CatalogService {
       }
     });
 
+    // Count authentic SieuGioi questions for this topic
+    const sieuGioiQuestions = getSieuGioiQuestionsByTopic(topicId);
+    const sieuGioiCount = sieuGioiQuestions.length;
+
     // Each active registered practice mode provides continuous algorithmic generation (min 15 per session)
     const modeGeneratedCount = matchedModeIds.length > 0 ? matchedModeIds.length * 15 : 0;
-    const totalCount = modeGeneratedCount + journeyCount;
+    const totalCount = modeGeneratedCount + journeyCount + sieuGioiCount;
 
     let status: "available" | "in_progress" | "planned" = "planned";
     let statusText = "Đang biên soạn nội dung";

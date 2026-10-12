@@ -1,0 +1,891 @@
+{
+  "meta": {
+    "title": "Đề 5. Thực Hành 12 Bài Tập Trắc Nghiệm Về Khoảng Biến Thiên và Khoảng Tứ Phân Vị",
+    "slug": "de-4-thuc-hanh-12-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi",
+    "id": "1778",
+    "url": "https://sieugioi.com/docs/threads/de-4-thuc-hanh-12-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1778/",
+    "numId": 1778,
+    "bai": 9,
+    "topicId": "math_t8_grouped_dispersion",
+    "baiTitle": "Khoảng biến thiên và khoảng tứ phân vị",
+    "chapter": "Chương 3"
+  },
+  "extracted": {
+    "title": "Đề 4. Thực Hành 12 Bài Tập Trắc Nghiệm Về Khoảng Biến Thiên và Khoảng Tứ Phân Vị",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-4-thuc-hanh-12-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1778/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 12,
+    "questionsWithOptions": 12,
+    "questionsWithAnswers": 7,
+    "questionsWithExplanation": 12,
+    "questionsWithImages": 4,
+    "manualReviewCount": 6,
+    "warnings": [
+      "Câu 2: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 5: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 7: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 8: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 11: Nhiều phương án (B, C) có độ khớp ngang nhau trong lời giải."
+    ],
+    "questions": [
+      {
+        "id": "sg_1778_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Cho mẫu số liệu ghép nhóm cho bởi bảng sau Nhóm$\\left[ 0;10 \\right)$$\\left[ 10;20 \\right)$$\\left[ 20;30 \\right)$$\\left[ 30;40 \\right)$Tần số3729 Khoảng biến thiên của mẫu số liệu ghép nhóm này là Nhóm$\\left[ 0;10 \\right)$$\\left[ 10;20 \\right)$$\\left[ 20;30 \\right)$$\\left[ 30;40 \\right)$Tần số3729",
+        "promptHtml": "Cho mẫu số liệu ghép nhóm cho bởi bảng sau<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>$\\left[ 0;10 \\right)$</td><td>$\\left[ 10;20 \\right)$</td><td>$\\left[ 20;30 \\right)$</td><td>$\\left[ 30;40 \\right)$</td></tr><tr><td>Tần số</td><td>3</td><td>7</td><td>2</td><td>9</td></tr></tbody></table>\n</div>Khoảng biến thiên của mẫu số liệu ghép nhóm này là<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$40$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$50$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$70$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$60$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Khoảng biến thiên của mẫu số liệu ghép nhóm là: $R=40-0=40$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Bảng dưới đây biểu diễn mẫu số liệu ghép nhóm về chiều cao (đơn vị: cm) của 40 cây cà chua trong vườn ươm: Nhóm[20;25)[25;30)[30;35)[35;40)Tần số216202 Tứ phân vị thứ ba ${{Q}_{3}}$ (đơn vị: cm) của mẫu số liệu ghép nhóm trên bằng: Nhóm[20;25)[25;30)[30;35)[35;40)Tần số216202",
+        "promptHtml": "Bảng dưới đây biểu diễn mẫu số liệu ghép nhóm về chiều cao (đơn vị: cm) của 40 cây cà chua trong vườn ươm:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>[20;25)</td><td>[25;30)</td><td>[30;35)</td><td>[35;40)</td></tr><tr><td>Tần số</td><td>2</td><td>16</td><td>20</td><td>2</td></tr></tbody></table>\n</div>Tứ phân vị thứ ba ${{Q}_{3}}$ (đơn vị: cm) của mẫu số liệu ghép nhóm trên bằng:<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$34$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$33$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$35$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$36$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Cỡ mẫu: $n = 2 + 16 + 20 + 2 = 40$. Vị trí của $Q_3$ là $\\frac{3n}{4} = \\frac{3\\cdot 40}{4} = 30$. Tần số tích lũy nhóm 1 là 2; nhóm 2 là $2 + 16 = 18$; nhóm 3 là $18 + 20 = 38$. Vì $18 < 30 \\le 38$ nên nhóm chứa $Q_3$ là nhóm $[30; 35)$. Áp dụng công thức: $Q_3 = 30 + \\frac{30 - 18}{20}\\cdot(35 - 30) = 30 + \\frac{12}{20}\\cdot 5 = 30 + 3 = 33$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho mẫu số liệu ghép nhóm có bảng tần số như sau Nhóm$[16;21)$$[21;26)$$[26;31)$$[31;36)$$[36;41)$Tần số$4$$6$$8$$18$$4$ Tính khoảng biến thiên của mẫu số liệu trên. Nhóm$[16;21)$$[21;26)$$[26;31)$$[31;36)$$[36;41)$Tần số$4$$6$$8$$18$$4$",
+        "promptHtml": "Cho mẫu số liệu ghép nhóm có bảng tần số như sau<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>$[16;21)$</td><td>$[21;26)$</td><td>$[26;31)$</td><td>$[31;36)$</td><td>$[36;41)$</td></tr><tr><td>Tần số</td><td>$4$</td><td>$6$</td><td>$8$</td><td>$18$</td><td>$4$</td></tr></tbody></table>\n</div>Tính khoảng biến thiên của mẫu số liệu trên.<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$18$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$40$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$25$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đáp án đúng: C Khoảng biến thiên của mẫu số liệu trên là $41-16=25$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong bảng sau: Nhóm chứa tứ phân vị thứ ba là\n\n![hình minh họa](/images/practice/sieugioi/q4_img1.9549.png)",
+        "promptHtml": "Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong bảng sau:<br>\nNhóm chứa tứ phân vị thứ ba là<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong\" data-src=\"/images/practice/sieugioi/q4_img1.9549.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9549.png\" class=\"bbImage\" style=\"\" alt=\"Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong\" title=\"Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong\" width=\"720\" height=\"104\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left[ 35;45 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left[ 25;35 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left[ 15;25 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left[ 45;55 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đáp án đúng: B Cỡ mẫu $n=24$. Tứ phân vị thứ ba là số ở vị thứ $18,\\,19$. Nhóm chứa tứ phân vị thứ ba là $\\left[ 25;35 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9549.png",
+        "images": [
+          "/images/practice/sieugioi/q4_img1.9549.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Số điểm một cầu thủ bóng rổ ghi được trong 20 trận đấu được cho ở bảng sau: Điểm số$[5,5;10,5)$$[10,5;15,5)$$[15,5;20,5)$$[20,5;25,5)$Số trận3926 Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm trên (Làm tròn đến hàng phần mười) Điểm số$[5,5;10,5)$$[10,5;15,5)$$[15,5;20,5)$$[20,5;25,5)$Số trận3926",
+        "promptHtml": "Số điểm một cầu thủ bóng rổ ghi được trong 20 trận đấu được cho ở bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Điểm số</td><td>$[5,5;10,5)$</td><td>$[10,5;15,5)$</td><td>$[15,5;20,5)$</td><td>$[20,5;25,5)$</td></tr><tr><td>Số trận</td><td>3</td><td>9</td><td>2</td><td>6</td></tr></tbody></table>\n</div>Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm trên (Làm tròn đến hàng phần mười)<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$9,7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$9,5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$8,7$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$8,9$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đáp án đúng: A Gọi ${{x}_{1}};{{x}_{2}};{{x}_{3}};\\ldots ;{{x}_{20}}$ lần lượt là số trận theo thứ tự không gian Do ${{x}_{1}},\\ldots ,{{x}_{3}}\\in [5,5;10,5);{{x}_{4}},\\ldots ,{{x}_{12}}\\in [10,5;15,5);{{x}_{13}},{{x}_{14}}\\in [15,5;20,5)$; ${{x}_{15}},\\ldots ,{{x}_{20}}\\in [20,5;25,5)$ Tứ phân vị thứ nhất của dãy số liệu là $\\frac{1}{2}\\left( {{x}_{5}}+{{x}_{6}} \\right)$ thuộc nhóm $[10,5;15,5)$ nên tứ phân vị thứ nhất của mẫu số liệu là ${{Q}_{1}}=10,5+\\frac{\\frac{20}{4}-3}{9}(15,5-10,5)=\\frac{209}{18}$ Tứ phân vị thứ ba của dãy số liệu là $\\frac{1}{2}\\left( {{x}_{15}}+{{x}_{16}} \\right)$ thuộc nhóm $[20,5;25,5)$ nên tứ phân vị thứ ba của mẫu số liệu là ${{Q}_{3}}=20,5+\\frac{\\frac{3.20}{4}-14}{6}(25,5-20,5)=\\frac{64}{3}$ Khoảng tứ phân vị của mẫu số liệu ghép nhóm là: ${{\\Delta }_{Q}}=\\frac{175}{18}\\approx 9,7$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau: Tứ phân vị thứ nhất ${{Q}_{1}}$ của mẫu số liệu ghép nhóm trên bằng (kết quả quy tròn đến hàng phần chục)\n\n![hình minh họa](/images/practice/sieugioi/q6_img1.9550.png)",
+        "promptHtml": "Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:<br>\nTứ phân vị thứ nhất ${{Q}_{1}}$ của mẫu số liệu ghép nhóm trên bằng (kết quả quy tròn đến hàng phần chục)<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:\" data-src=\"/images/practice/sieugioi/q6_img1.9550.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9550.png\" class=\"bbImage\" style=\"\" alt=\"Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:\" title=\"Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:\" width=\"728\" height=\"108\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$157,5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$155,8$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$163,3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$154,3$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đáp án đúng: B Ta có: $\\frac{40}{4}=10$ nên nhóm chứa tứ phân vị thứ nhất là nhóm thứ hai $\\text{ }\\!\\![\\!\\!\\text{ }155;160)$. Tứ phân vị thứ nhất là: ${{Q}_{1}}=155+\\frac{\\frac{40}{4}-8}{12}.(160-155)\\approx 155,8$ (cm).",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9550.png",
+        "images": [
+          "/images/practice/sieugioi/q6_img1.9550.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Một học sinh tiến hành thống kê nhiệt độ trung bình tại nơi mình sống trong vòng $40$ngày thu được kết quả bằng bảng số liệu như sau Tứ phân vị thứ nhất của bảng số liệu trên bằng",
+        "promptHtml": "Một học sinh tiến hành thống kê nhiệt độ trung bình tại nơi mình sống trong vòng $40$ngày thu được kết quả bằng bảng số liệu như sau<br>\nTứ phân vị thứ nhất của bảng số liệu trên bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$23,5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$27$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$26,5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$22,6$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đáp án đúng: C Vị trí của tứ phân vị thứ nhất là $\\frac{n}{4}=\\frac{40}{4}=10$, suy ra ${{Q}_{1}}\\in \\left[ 22;25 \\right)$ Vậy ${{Q}_{1}}=22+\\frac{10-7}{15}.3=22,6$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Mỗi ngày bác Bình đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Bình trong 20 ngày được thống kê ở bảng sau: Quãng đường$\\left[ 2\\,;\\,3 \\right)$$\\left[ 3\\,;\\,4 \\right)$$\\left[ 4;\\,5 \\right)$$\\left[ 5\\,;6 \\right)$$\\left[ 6\\,;\\,7 \\right)$Số ngày$3$$6$$5$$4$$2$ Khoảng biến thiên của mẫu số liệu ghép nhóm trên bằng Quãng đường$\\left[ 2\\,;\\,3 \\right)$$\\left[ 3\\,;\\,4 \\right)$$\\left[ 4;\\,5 \\right)$$\\left[ 5\\,;6 \\right)$$\\left[ 6\\,;\\,7 \\right)$Số ngày$3$$6$$5$$4$$2$",
+        "promptHtml": "Mỗi ngày bác Bình đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Bình trong 20 ngày được thống kê ở bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Quãng đường</td><td>$\\left[ 2\\,;\\,3 \\right)$</td><td>$\\left[ 3\\,;\\,4 \\right)$</td><td>$\\left[ 4;\\,5 \\right)$</td><td>$\\left[ 5\\,;6 \\right)$</td><td>$\\left[ 6\\,;\\,7 \\right)$</td></tr><tr><td>Số ngày</td><td>$3$</td><td>$6$</td><td>$5$</td><td>$4$</td><td>$2$</td></tr></tbody></table>\n</div>Khoảng biến thiên của mẫu số liệu ghép nhóm trên bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$5$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đáp án đúng: C Khoảng biến thiên của mẫu số liệu là $R=7-2=5$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau: Nhóm chứa tứ phân vị thứ ba của mẫu số liệu ghép nhóm trên là\n\n![hình minh họa](/images/practice/sieugioi/q9_img1.9551.png)",
+        "promptHtml": "Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:<br>\nNhóm chứa tứ phân vị thứ ba của mẫu số liệu ghép nhóm trên là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:\" data-src=\"/images/practice/sieugioi/q9_img1.9551.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9551.png\" class=\"bbImage\" style=\"\" alt=\"Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:\" title=\"Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:\" width=\"707\" height=\"57\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left[ 40;60 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left[ 60;80 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left[ 80;100 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left[ 20;40 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đáp án đúng: A Tổng số học sinh là $N=5+9+12+10+6=42$. Vị trí của tứ phân vị thứ ba (${{Q}_{3}}$) là $\\frac{3N}{4}=\\frac{3\\times 42}{4}=\\frac{126}{4}=31.5$. Ta tính tần số tích lũy: - Nhóm $\\left[ 0;20 \\right)$: 5 học sinh - Nhóm $\\left[ 20;40 \\right)$: $5+9=14$ học sinh - Nhóm $\\left[ 40;60 \\right)$: $14+12=26$ học sinh - Nhóm $\\left[ 60;80 \\right)$: $26+10=36$ học sinh - Nhóm $\\left[ 80;100 \\right)$: $36+6=42$ học sinh Vì $31.5$ thuộc khoảng từ $26$ đến $36$, nên nhóm chứa tứ phân vị thứ ba ${{Q}_{3}}$ là nhóm $\\left[ 60;80 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9551.png",
+        "images": [
+          "/images/practice/sieugioi/q9_img1.9551.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Thống kê điểm thi tốt nghiệp môn Toán THPT năm $2024$ của lớp 12D tại một trường THPT thu được kết quả như sau: Khoảng biến thiên của mẫu số liệu thống kê trên bằng\n\n![hình minh họa](/images/practice/sieugioi/q10_img1.9552.png)",
+        "promptHtml": "Thống kê điểm thi tốt nghiệp môn Toán THPT năm $2024$ của lớp 12D tại một trường THPT thu được kết quả như sau:<br>\nKhoảng biến thiên của mẫu số liệu thống kê trên bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Thống kê điểm thi tốt nghiệp môn Toán THPT năm\" data-src=\"/images/practice/sieugioi/q10_img1.9552.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9552.png\" class=\"bbImage\" style=\"\" alt=\"Thống kê điểm thi tốt nghiệp môn Toán THPT năm\" title=\"Thống kê điểm thi tốt nghiệp môn Toán THPT năm\" width=\"2262\" height=\"235\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$7$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$8$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đáp án đúng: A Khoảng biến thiên $R=10-3=7$",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9552.png",
+        "images": [
+          "/images/practice/sieugioi/q10_img1.9552.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Thống kê điểm thi tốt nghiệp môn Toán THPT năm 2024 của một lớp 12 thu được kết quả như sau: Nhóm$\\left[ 3;4 \\right)$$\\left[ 4;5 \\right)$$\\left[ 5;6 \\right)$$\\left[ 6;7 \\right)$$\\left[ 7;8 \\right)$$\\left[ 8;9 \\right)$$\\left[ 9;10 \\right)$Tần số$3$$4$$5$$10$$15$$10$$0$ Khoảng biến thiên của mẫu số liệu thống kê trên bằng Nhóm$\\left[ 3;4 \\right)$$\\left[ 4;5 \\right)$$\\left[ 5;6 \\right)$$\\left[ 6;7 \\right)$$\\left[ 7;8 \\right)$$\\left[ 8;9 \\right)$$\\left[ 9;10 \\right)$Tần số$3$$4$$5$$10$$15$$10$$0$",
+        "promptHtml": "Thống kê điểm thi tốt nghiệp môn Toán THPT năm 2024 của một lớp 12 thu được kết quả như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>$\\left[ 3;4 \\right)$</td><td>$\\left[ 4;5 \\right)$</td><td>$\\left[ 5;6 \\right)$</td><td>$\\left[ 6;7 \\right)$</td><td>$\\left[ 7;8 \\right)$</td><td>$\\left[ 8;9 \\right)$</td><td>$\\left[ 9;10 \\right)$</td></tr><tr><td>Tần số</td><td>$3$</td><td>$4$</td><td>$5$</td><td>$10$</td><td>$15$</td><td>$10$</td><td>$0$</td></tr></tbody></table>\n</div>Khoảng biến thiên của mẫu số liệu thống kê trên bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$8$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đáp án đúng: B Vì tần số của nhóm cuối cùng $\\left[ 9;10 \\right)$ là $0$ và tần số của nhóm $\\left[ 8;9 \\right)$là $10$ (khác $0$) nên khoảng biến thiên của mẫu số liệu bằng $9-3=6$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.5,
+        "warnings": []
+      },
+      {
+        "id": "sg_1778_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Mỗi ngày bạn Nam đều làm bài tập môn Toán có bảng thống kê ghép nhóm về thời gian làm bài tập mỗi ngày của bạn Nam (đơn vị: phút) trong 60 ngày như sau: Khoảng biến thiên của mẫu số liệu ghép nhóm là",
+        "promptHtml": "Mỗi ngày bạn Nam đều làm bài tập môn Toán có bảng thống kê ghép nhóm về thời gian làm bài tập mỗi ngày của bạn Nam (đơn vị: phút) trong 60 ngày như sau:<br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm là<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "25."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "120."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "24."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "50."
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Bảng ghép nhóm có khoảng nhỏ nhất bắt đầu từ 70, khoảng lớn nhất kết thúc ở 120. Khoảng biến thiên: $R=120-70=50$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:47.179Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 4. Thực Hành 12 Bài Tập Trắc Nghiệm Về Khoảng Biến Thiên và Khoảng Tứ Phân Vị",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-4-thuc-hanh-12-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1778/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 12",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Cho mẫu số liệu ghép nhóm cho bởi bảng sau<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>$\\left[ 0;10 \\right)$</td><td>$\\left[ 10;20 \\right)$</td><td>$\\left[ 20;30 \\right)$</td><td>$\\left[ 30;40 \\right)$</td></tr><tr><td>Tần số</td><td>3</td><td>7</td><td>2</td><td>9</td></tr></tbody></table>\n</div>Khoảng biến thiên của mẫu số liệu ghép nhóm này là<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$40$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$50$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$70$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$60$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Khoảng biến thiên của mẫu số liệu ghép nhóm là: $R=40-0=40$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Bảng dưới đây biểu diễn mẫu số liệu ghép nhóm về chiều cao (đơn vị: cm) của 40 cây cà chua trong vườn ươm:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>[20;25)</td><td>[25;30)</td><td>[30;35)</td><td>[35;40)</td></tr><tr><td>Tần số</td><td>2</td><td>16</td><td>20</td><td>2</td></tr></tbody></table>\n</div>Tứ phân vị thứ ba ${{Q}_{3}}$ (đơn vị: cm) của mẫu số liệu ghép nhóm trên bằng:<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$34$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$35$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$35$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$36$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: B</b><br>\n<br>\nCỡ mẫu: $n=2+16+20+2=40$.<br>\nVị trí của ${{Q}_{3}}$: $\\frac{3n}{4}=\\frac{3\\times 40}{4}=30$.<br>\nTần số tích lũy nhóm 1: 2.<br>\nTần số tích lũy nhóm 2: $2+16=18$.<br>\nTần số tích lũy nhóm 3: $18+20=38$.<br>\nVì $18&lt;30&lt;38$ nên ${{Q}_{3}}$ thuộc nhóm $[30;35)$.<br>\n${{Q}_{3}}=L+\\left( \\frac{\\frac{3n}{4}-c{{f}_{k-1}}}{{{f}_{k}}} \\right)\\times h$<br>\nTrong đó: $L=30$ (đầu mút trái), $c{{f}_{k-1}}=18$ (tần số tích lũy trước đó), ${{f}_{k}}=20$ (tần số nhóm chứa ${{Q}_{3}}$), $h=5$ (độ rộng nhóm).<br>\n${{Q}_{3}}=30+\\left( \\frac{30-18}{20} \\right)\\times 5=30+\\left( \\frac{12}{20} \\right)\\times 5=30+3=33$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho mẫu số liệu ghép nhóm có bảng tần số như sau<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>$[16;21)$</td><td>$[21;26)$</td><td>$[26;31)$</td><td>$[31;36)$</td><td>$[36;41)$</td></tr><tr><td>Tần số</td><td>$4$</td><td>$6$</td><td>$8$</td><td>$18$</td><td>$4$</td></tr></tbody></table>\n</div>Tính khoảng biến thiên của mẫu số liệu trên.<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$18$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$40$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$25$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: C</b><br>\n<br>\nKhoảng biến thiên của mẫu số liệu trên là $41-16=25$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong bảng sau:<br>\nNhóm chứa tứ phân vị thứ ba là<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong\" data-src=\"/images/practice/sieugioi/q4_img1.9549.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q4_img1.9549.png\" class=\"bbImage\" style=\"\" alt=\"Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong\" title=\"Lợi nhuận hàng tháng (đơn vị: triệu đồng) trong 24 tháng của một nhà đầu tư tài chính được cho trong\" width=\"720\" height=\"104\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left[ 35;45 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left[ 25;35 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left[ 15;25 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left[ 45;55 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: B</b><br>\n<br>\nCỡ mẫu $n=24$.<br>\nTứ phân vị thứ ba là số ở vị thứ $18,\\,19$.<br>\nNhóm chứa tứ phân vị thứ ba là $\\left[ 25;35 \\right)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q4_img1.9549.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Số điểm một cầu thủ bóng rổ ghi được trong 20 trận đấu được cho ở bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Điểm số</td><td>$[5,5;10,5)$</td><td>$[10,5;15,5)$</td><td>$[15,5;20,5)$</td><td>$[20,5;25,5)$</td></tr><tr><td>Số trận</td><td>3</td><td>9</td><td>2</td><td>6</td></tr></tbody></table>\n</div>Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm trên (Làm tròn đến hàng phần mười)<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$9,7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$9,5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$8,7$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$8,9$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: A</b><br>\n<br>\nGọi ${{x}_{1}};{{x}_{2}};{{x}_{3}};\\ldots ;{{x}_{20}}$ lần lượt là số trận theo thứ tự không gian<br>\nDo ${{x}_{1}},\\ldots ,{{x}_{3}}\\in [5,5;10,5);{{x}_{4}},\\ldots ,{{x}_{12}}\\in [10,5;15,5);{{x}_{13}},{{x}_{14}}\\in [15,5;20,5)$; ${{x}_{15}},\\ldots ,{{x}_{20}}\\in [20,5;25,5)$<br>\nTứ phân vị thứ nhất của dãy số liệu là $\\frac{1}{2}\\left( {{x}_{5}}+{{x}_{6}} \\right)$ thuộc nhóm $[10,5;15,5)$ nên tứ phân vị thứ nhất của mẫu số liệu là ${{Q}_{1}}=10,5+\\frac{\\frac{20}{4}-3}{9}(15,5-10,5)=\\frac{209}{18}$<br>\nTứ phân vị thứ ba của dãy số liệu là $\\frac{1}{2}\\left( {{x}_{15}}+{{x}_{16}} \\right)$ thuộc nhóm $[20,5;25,5)$ nên tứ phân vị thứ ba của mẫu số liệu là ${{Q}_{3}}=20,5+\\frac{\\frac{3.20}{4}-14}{6}(25,5-20,5)=\\frac{64}{3}$<br>\nKhoảng tứ phân vị của mẫu số liệu ghép nhóm là: ${{\\Delta }_{Q}}=\\frac{175}{18}\\approx 9,7$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:<br>\nTứ phân vị thứ nhất ${{Q}_{1}}$ của mẫu số liệu ghép nhóm trên bằng (kết quả quy tròn đến hàng phần chục)<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:\" data-src=\"/images/practice/sieugioi/q6_img1.9550.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9550.png\" class=\"bbImage\" style=\"\" alt=\"Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:\" title=\"Cho bảng số liệu ghép nhóm về chiều cao (cm) của 40 cây giống trong vườn ươm như sau:\" width=\"728\" height=\"108\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$157,5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$155,8$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$163,3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$154,3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: B</b><br>\n<br>\nTa có: $\\frac{40}{4}=10$ nên nhóm chứa tứ phân vị thứ nhất là nhóm thứ hai $\\text{ }\\!\\![\\!\\!\\text{ }155;160)$.<br>\nTứ phân vị thứ nhất là:<br>\n${{Q}_{1}}=155+\\frac{\\frac{40}{4}-8}{12}.(160-155)\\approx 155,8$ (cm).</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9550.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Một học sinh tiến hành thống kê nhiệt độ trung bình tại nơi mình sống trong vòng $40$ngày thu được kết quả bằng bảng số liệu như sau<br>\nTứ phân vị thứ nhất của bảng số liệu trên bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$23,5$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$27$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$26,5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$22,6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: C</b><br>\n<br>\nVị trí của tứ phân vị thứ nhất là $\\frac{n}{4}=\\frac{40}{4}=10$, suy ra ${{Q}_{1}}\\in \\left[ 22;25 \\right)$<br>\nVậy ${{Q}_{1}}=22+\\frac{10-7}{15}.3=22,6$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Mỗi ngày bác Bình đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của bác Bình trong 20 ngày được thống kê ở bảng sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Quãng đường</td><td>$\\left[ 2\\,;\\,3 \\right)$</td><td>$\\left[ 3\\,;\\,4 \\right)$</td><td>$\\left[ 4;\\,5 \\right)$</td><td>$\\left[ 5\\,;6 \\right)$</td><td>$\\left[ 6\\,;\\,7 \\right)$</td></tr><tr><td>Số ngày</td><td>$3$</td><td>$6$</td><td>$5$</td><td>$4$</td><td>$2$</td></tr></tbody></table>\n</div>Khoảng biến thiên của mẫu số liệu ghép nhóm trên bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: C</b><br>\n<br>\nKhoảng biến thiên của mẫu số liệu là $R=7-2=5$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:<br>\nNhóm chứa tứ phân vị thứ ba của mẫu số liệu ghép nhóm trên là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:\" data-src=\"/images/practice/sieugioi/q9_img1.9551.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9551.png\" class=\"bbImage\" style=\"\" alt=\"Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:\" title=\"Khảo sát thời gian tập thể dục của một số học sinh khối 11 thu được mẫu số liệu ghép nhóm sau:\" width=\"707\" height=\"57\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left[ 40;60 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left[ 60;80 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left[ 80;100 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left[ 20;40 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: A</b><br>\n<br>\nTổng số học sinh là $N=5+9+12+10+6=42$.<br>\nVị trí của tứ phân vị thứ ba (${{Q}_{3}}$) là $\\frac{3N}{4}=\\frac{3\\times 42}{4}=\\frac{126}{4}=31.5$.<br>\nTa tính tần số tích lũy:<br>\n- Nhóm $\\left[ 0;20 \\right)$: 5 học sinh<br>\n- Nhóm $\\left[ 20;40 \\right)$: $5+9=14$ học sinh<br>\n- Nhóm $\\left[ 40;60 \\right)$: $14+12=26$ học sinh<br>\n- Nhóm $\\left[ 60;80 \\right)$: $26+10=36$ học sinh<br>\n- Nhóm $\\left[ 80;100 \\right)$: $36+6=42$ học sinh<br>\nVì $31.5$ thuộc khoảng từ $26$ đến $36$, nên nhóm chứa tứ phân vị thứ ba ${{Q}_{3}}$ là nhóm $\\left[ 60;80 \\right)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9551.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Thống kê điểm thi tốt nghiệp môn Toán THPT năm $2024$ của lớp 12D tại một trường THPT thu được kết quả như sau:<br>\nKhoảng biến thiên của mẫu số liệu thống kê trên bằng<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Thống kê điểm thi tốt nghiệp môn Toán THPT năm\" data-src=\"/images/practice/sieugioi/q10_img1.9552.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q10_img1.9552.png\" class=\"bbImage\" style=\"\" alt=\"Thống kê điểm thi tốt nghiệp môn Toán THPT năm\" title=\"Thống kê điểm thi tốt nghiệp môn Toán THPT năm\" width=\"2262\" height=\"235\" loading=\"lazy\">\n\t</div><br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$7$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$8$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: A</b><br>\n<br>\nKhoảng biến thiên $R=10-3=7$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q10_img1.9552.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Thống kê điểm thi tốt nghiệp môn Toán THPT năm 2024 của một lớp 12 thu được kết quả như sau:<br>\n<div class=\"bbTable\">\n<table style=\"width: 100%\"><tbody><tr><td>Nhóm</td><td>$\\left[ 3;4 \\right)$</td><td>$\\left[ 4;5 \\right)$</td><td>$\\left[ 5;6 \\right)$</td><td>$\\left[ 6;7 \\right)$</td><td>$\\left[ 7;8 \\right)$</td><td>$\\left[ 8;9 \\right)$</td><td>$\\left[ 9;10 \\right)$</td></tr><tr><td>Tần số</td><td>$3$</td><td>$4$</td><td>$5$</td><td>$10$</td><td>$15$</td><td>$10$</td><td>$0$</td></tr></tbody></table>\n</div>Khoảng biến thiên của mẫu số liệu thống kê trên bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$8$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\"><b>Đáp án đúng: B</b><br>\n<br>\nVì tần số của nhóm cuối cùng $\\left[ 9;10 \\right)$ là $0$ và tần số của nhóm $\\left[ 8;9 \\right)$là $10$ (khác $0$) nên khoảng biến thiên của mẫu số liệu bằng $9-3=6$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Mỗi ngày bạn Nam đều làm bài tập môn Toán có bảng thống kê ghép nhóm về thời gian làm bài tập mỗi ngày của bạn Nam (đơn vị: phút) trong 60 ngày như sau:<br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm là<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "25."
+          },
+          {
+            "id": "opt_b",
+            "text": "120."
+          },
+          {
+            "id": "opt_c",
+            "text": "24."
+          },
+          {
+            "id": "opt_d",
+            "text": "50.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Bảng ghép nhóm có khoảng nhỏ nhất bắt đầu từ 70, khoảng lớn nhất kết thúc ở 120.<br>\nKhoảng biến thiên: $R=120-70=50$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:47.180Z"
+}

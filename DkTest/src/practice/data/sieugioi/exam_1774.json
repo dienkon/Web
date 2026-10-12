@@ -1,0 +1,540 @@
+{
+  "meta": {
+    "title": "Đề 1. Giải 7 bài tập trắc nghiệm về khoảng biến thiên và khoảng tứ phân vị",
+    "slug": "de-1-giai-7-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi",
+    "id": "1774",
+    "url": "https://sieugioi.com/docs/threads/de-1-giai-7-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1774/",
+    "numId": 1774,
+    "bai": 9,
+    "topicId": "math_t8_grouped_dispersion",
+    "baiTitle": "Khoảng biến thiên và khoảng tứ phân vị",
+    "chapter": "Chương 3"
+  },
+  "extracted": {
+    "title": "Đề 1. Giải 7 bài tập trắc nghiệm về khoảng biến thiên và khoảng tứ phân vị",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-1-giai-7-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1774/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 7,
+    "questionsWithOptions": 7,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 7,
+    "manualReviewCount": 7,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1774_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "[Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số học sinh được cho trong bảng sau: Tứ phân vị thứ ba ${{Q}_{3}}$ của mẫu số liệu ghép nhóm trên bằng\n\n![hình minh họa](/images/practice/sieugioi/q1_img1.9525.png)",
+        "promptHtml": "[Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số học sinh được cho trong bảng sau:<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" [Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số\" data-src=\"/images/practice/sieugioi/q1_img1.9525.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9525.png\" class=\"bbImage\" style=\"\" alt=\" [Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số\" title=\" [Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số\" width=\"1111\" height=\"166\" loading=\"lazy\">\n\t</div><br>\nTứ phân vị thứ ba ${{Q}_{3}}$ của mẫu số liệu ghép nhóm trên bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$20$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$21$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$18,1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$15,25$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Cỡ mẫu $n=3+12+15+24+2=56$\n$\\frac{3}{4}.56=42$, suy ra tứ phân vị thứ ba thuộc nhóm $\\left[ 18,5\\,;\\,21,5 \\right)$.\nTứ phân vị thứ ba ${{Q}_{3}}$ của mẫu số liệu ghép nhóm trên là\n${{Q}_{3}}=18,5+\\frac{\\frac{3.56}{4}-\\left( 3+12+15 \\right)}{24}.\\left( 21,5-18,5 \\right)=20$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9525.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img1.9525.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1774_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "[Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu được mẫu số liệu ghép nhóm sau: Nhóm chứa tứ phân vị thứ nhất của mẫu số liệu là\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9526.png)",
+        "promptHtml": "[Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu được mẫu số liệu ghép nhóm sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu \" data-src=\"/images/practice/sieugioi/q2_img1.9526.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9526.png\" class=\"bbImage\" style=\"\" alt=\" [Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu \" title=\" [Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu \" width=\"599\" height=\"86\" loading=\"lazy\">\n\t</div><br>\nNhóm chứa tứ phân vị thứ nhất của mẫu số liệu là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left[ 20;\\,40 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left[ 40;\\,60 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left[ 60;\\,80 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left[ 80;\\,100 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $n=42$\nVậy nhóm chứa tứ phân vị thứ nhất là $\\left[ 20;\\,40 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9526.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9526.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1774_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "[Phan Bội Châu sở Khánh Hoà] Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau: Khoảng biến thiên của mẫu số liệu ghép nhóm trên là\n\n![hình minh họa](/images/practice/sieugioi/1790226347774.9529.png)",
+        "promptHtml": "[Phan Bội Châu sở Khánh Hoà] Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:\" data-src=\"/images/practice/sieugioi/1790226347774.9529.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790226347774.9529.png\" class=\"bbImage\" style=\"\" alt=\"Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:\" title=\"Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:\" width=\"763\" height=\"62\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$3,25$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3,5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2,5$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có khoảng biến thiên của mẫu số liệu là : $R=10-6,5=3,5$.",
+        "imageUrl": "/images/practice/sieugioi/1790226347774.9529.png",
+        "images": [
+          "/images/practice/sieugioi/1790226347774.9529.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1774_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "[Nguyễn Trãi Hà Nội] Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau: Khoảng biến thiên của mẫu số liệu ghép nhóm trên bằng bao nhiêu?\n\n![hình minh họa](/images/practice/sieugioi/1790226388621.9530.png)",
+        "promptHtml": "[Nguyễn Trãi Hà Nội] Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:\" data-src=\"/images/practice/sieugioi/1790226388621.9530.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790226388621.9530.png\" class=\"bbImage\" style=\"\" alt=\"Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:\" title=\"Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:\" width=\"431\" height=\"64\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "16"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "4"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "20"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "15"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Khoảng biến thiên của mẫu số liệu ghép nhóm: $R=200=20$.",
+        "imageUrl": "/images/practice/sieugioi/1790226388621.9530.png",
+        "images": [
+          "/images/practice/sieugioi/1790226388621.9530.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1774_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "[Sở Tuyên Quang] Thống kê điểm thi đánh giá năng lực của 120 học sinh một trường THPT được cho ở bảng sau. Tứ phân vị thứ nhất của mẫu số liệu ghép nhóm trên thuộc nửa khoảng nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/1790226595889.9531.png)",
+        "promptHtml": "[Sở Tuyên Quang] Thống kê điểm thi đánh giá năng lực của 120 học sinh một trường THPT được cho ở bảng sau.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"1790226595889.png\" data-src=\"/images/practice/sieugioi/1790226595889.9531.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790226595889.9531.png\" class=\"bbImage\" style=\"\" alt=\"1790226595889.png\" title=\"1790226595889.png\" width=\"548\" height=\"68\" loading=\"lazy\">\n\t</div><br>\nTứ phân vị thứ nhất của mẫu số liệu ghép nhóm trên thuộc nửa khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left[ 40;60 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left[ 20;40 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left[ 60;80 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left[ 0;20 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\frac{120}{4}=30$. Mà $25<30<25+35$ nên tứ phân vị thứ nhất của mẫu số liệu ghép nhóm trên thuộc nửa khoảng [20;40).",
+        "imageUrl": "/images/practice/sieugioi/1790226595889.9531.png",
+        "images": [
+          "/images/practice/sieugioi/1790226595889.9531.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1774_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "[Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị: kilogam) của 40 học sinh lớp 10A trong một trường trung học phổ thông Khoảng biến thiên của mẫu số liệu ghép nhóm trên bẳng\n\n![hình minh họa](/images/practice/sieugioi/q6_img1.9527.png)",
+        "promptHtml": "[Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị: kilogam) của 40 học sinh lớp 10A trong một trường trung học phổ thông<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị:\" data-src=\"/images/practice/sieugioi/q6_img1.9527.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9527.png\" class=\"bbImage\" style=\"\" alt=\" [Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị:\" title=\" [Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị:\" width=\"405\" height=\"77\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên bẳng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$40$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$30$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$70$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $R=70-30=40$.\n\t\t\n\tTa có $R=70-30=40$.",
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9527.png",
+        "images": [
+          "/images/practice/sieugioi/q6_img1.9527.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1774_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "[Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đình trong một khu vực tiêu thụ trong một tháng ở bảng sau: Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:\n\n![hình minh họa](/images/practice/sieugioi/q7_img1.9528.png)",
+        "promptHtml": "[Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đình trong một khu vực tiêu thụ trong một tháng ở bảng sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đì\" data-src=\"/images/practice/sieugioi/q7_img1.9528.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9528.png\" class=\"bbImage\" style=\"\" alt=\" [Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đì\" title=\" [Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đì\" width=\"843\" height=\"114\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$18{{m}^{3}}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$15{{m}^{3}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$20{{m}^{3}}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3{{m}^{3}}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Khoảng biến thiên của mẫu số liệu ghép nhóm là $R=18-3=15$(${{m}^{3}}$).",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9528.png",
+        "images": [
+          "/images/practice/sieugioi/q7_img1.9528.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:45.642Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 1. Giải 7 bài tập trắc nghiệm về khoảng biến thiên và khoảng tứ phân vị",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-1-giai-7-bai-tap-trac-nghiem-ve-khoang-bien-thien-va-khoang-tu-phan-vi.1774/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 7",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "[Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số học sinh được cho trong bảng sau:<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" [Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số\" data-src=\"/images/practice/sieugioi/q1_img1.9525.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9525.png\" class=\"bbImage\" style=\"\" alt=\" [Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số\" title=\" [Chuyên Lê Thánh Tông Đà Nẵng] Thời gian truy cập Internet mỗi buổi tối của một số\" width=\"1111\" height=\"166\" loading=\"lazy\">\n\t</div><br>\nTứ phân vị thứ ba ${{Q}_{3}}$ của mẫu số liệu ghép nhóm trên bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$20$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$21$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$18,1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$15,25$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Cỡ mẫu $n=3+12+15+24+2=56$<br>\n$\\frac{3}{4}.56=42$, suy ra tứ phân vị thứ ba thuộc nhóm $\\left[ 18,5\\,;\\,21,5 \\right)$.<br>\nTứ phân vị thứ ba ${{Q}_{3}}$ của mẫu số liệu ghép nhóm trên là<br>\n${{Q}_{3}}=18,5+\\frac{\\frac{3.56}{4}-\\left( 3+12+15 \\right)}{24}.\\left( 21,5-18,5 \\right)=20$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9525.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "[Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu được mẫu số liệu ghép nhóm sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu \" data-src=\"/images/practice/sieugioi/q2_img1.9526.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9526.png\" class=\"bbImage\" style=\"\" alt=\" [Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu \" title=\" [Mai Anh Tuấn] Khảo sát thời gian tập thể dục của một số học sinh khối 11, ta thu \" width=\"599\" height=\"86\" loading=\"lazy\">\n\t</div><br>\nNhóm chứa tứ phân vị thứ nhất của mẫu số liệu là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left[ 20;\\,40 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left[ 40;\\,60 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left[ 60;\\,80 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left[ 80;\\,100 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $n=42$<br>\nVậy nhóm chứa tứ phân vị thứ nhất là $\\left[ 20;\\,40 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9526.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "[Phan Bội Châu sở Khánh Hoà] Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:\" data-src=\"/images/practice/sieugioi/1790226347774.9529.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790226347774.9529.png\" class=\"bbImage\" style=\"\" alt=\"Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:\" title=\"Mẫu số liệu thống kê điểm trung bình cuối học kì I môn Toán cuả một số học sinh lớp $12$ được cho ở bảng sau:\" width=\"763\" height=\"62\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$3,25$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3,5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2,5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có khoảng biến thiên của mẫu số liệu là : $R=10-6,5=3,5$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/1790226347774.9529.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "[Nguyễn Trãi Hà Nội] Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:\" data-src=\"/images/practice/sieugioi/1790226388621.9530.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790226388621.9530.png\" class=\"bbImage\" style=\"\" alt=\"Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:\" title=\"Tìm hiểu thời gian hoàn thành một bài tập (đơn vị: phút) của một số học sinh thu được kết quả sau:\" width=\"431\" height=\"64\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "16"
+          },
+          {
+            "id": "opt_b",
+            "text": "4"
+          },
+          {
+            "id": "opt_c",
+            "text": "20"
+          },
+          {
+            "id": "opt_d",
+            "text": "15<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Khoảng biến thiên của mẫu số liệu ghép nhóm: $R=200=20$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/1790226388621.9530.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "[Sở Tuyên Quang] Thống kê điểm thi đánh giá năng lực của 120 học sinh một trường THPT được cho ở bảng sau.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"1790226595889.png\" data-src=\"/images/practice/sieugioi/1790226595889.9531.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790226595889.9531.png\" class=\"bbImage\" style=\"\" alt=\"1790226595889.png\" title=\"1790226595889.png\" width=\"548\" height=\"68\" loading=\"lazy\">\n\t</div><br>\nTứ phân vị thứ nhất của mẫu số liệu ghép nhóm trên thuộc nửa khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left[ 40;60 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left[ 20;40 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left[ 60;80 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left[ 0;20 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\frac{120}{4}=30$. Mà $25&lt;30&lt;25+35$ nên tứ phân vị thứ nhất của mẫu số liệu ghép nhóm trên thuộc nửa khoảng [20;40).</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/1790226595889.9531.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "[Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị: kilogam) của 40 học sinh lớp 10A trong một trường trung học phổ thông<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị:\" data-src=\"/images/practice/sieugioi/q6_img1.9527.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q6_img1.9527.png\" class=\"bbImage\" style=\"\" alt=\" [Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị:\" title=\" [Sở Ninh Bình L2] Bảng sau đây biểu diễn mẫu số liệu ghép nhóm về cân nặng (đơn vị:\" width=\"405\" height=\"77\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên bẳng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$40$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$30$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$70$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $R=70-30=40$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q6_img1.9527.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "[Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đình trong một khu vực tiêu thụ trong một tháng ở bảng sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" [Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đì\" data-src=\"/images/practice/sieugioi/q7_img1.9528.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9528.png\" class=\"bbImage\" style=\"\" alt=\" [Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đì\" title=\" [Chuyên Vĩnh Phúc] Một công ty cung cấp nước sạch thống kê lượng nước các hộ gia đì\" width=\"843\" height=\"114\" loading=\"lazy\">\n\t</div><br>\nKhoảng biến thiên của mẫu số liệu ghép nhóm trên là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$18{{m}^{3}}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$15{{m}^{3}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$20{{m}^{3}}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$3{{m}^{3}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Khoảng biến thiên của mẫu số liệu ghép nhóm là $R=18-3=15$(${{m}^{3}}$).</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9528.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:45.642Z"
+}

@@ -1,0 +1,1508 @@
+{
+  "meta": {
+    "title": "Ôn Tập Tích Phân Qua 21 Câu Hỏi Trắc Nghiệm Có Đáp Án Chi Tiết",
+    "slug": "on-tap-tich-phan-qua-21-cau-hoi-trac-nghiem-co-dap-an-chi-tiet",
+    "id": "1789",
+    "url": "https://sieugioi.com/docs/threads/on-tap-tich-phan-qua-21-cau-hoi-trac-nghiem-co-dap-an-chi-tiet.1789/",
+    "numId": 1789,
+    "bai": 12,
+    "topicId": "math_t10_integral_apps",
+    "baiTitle": "Tích phân",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "Ôn Tập Tích Phân Qua 21 Câu Hỏi Trắc Nghiệm Có Đáp Án Chi Tiết",
+    "sourceUrl": "https://sieugioi.com/docs/threads/on-tap-tich-phan-qua-21-cau-hoi-trac-nghiem-co-dap-an-chi-tiet.1789/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 21,
+    "questionsWithOptions": 21,
+    "questionsWithAnswers": 18,
+    "questionsWithExplanation": 21,
+    "questionsWithImages": 0,
+    "manualReviewCount": 4,
+    "warnings": [
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 6: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 10: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 19: Nhiều phương án (B, C) có độ khớp ngang nhau trong lời giải."
+    ],
+    "questions": [
+      {
+        "id": "sg_1789_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\left[ a;b \\right]$. Biết $\\int\\limits_{a}^{b}{f\\left( x \\right)\\,}\\text{d}x=2026,\\,$giá trị của $2\\int\\limits_{b}^{a}{f\\left( x \\right)\\,}\\text{d}x$ là",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\left[ a;b \\right]$. Biết $\\int\\limits_{a}^{b}{f\\left( x \\right)\\,}\\text{d}x=2026,\\,$giá trị của $2\\int\\limits_{b}^{a}{f\\left( x \\right)\\,}\\text{d}x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-4052$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4052$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1013$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-1013$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$2\\int\\limits_{b}^{a}{f\\left( x \\right)\\,}\\text{d}x=-2\\int\\limits_{a}^{b}{f\\left( x \\right)\\,}\\text{d}x=\\left( -2 \\right).2026=-4052.$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Biết $F\\left( x \\right)=\\frac{1}{x}$ là một nguyên hàm của hàm số $f\\left( x \\right)$ trên $\\left( 0;+\\infty \\right)$. Giá trị của$\\int\\limits_{1}^{2}{2}\\left[ f\\left( x \\right)+x \\right]\\text{d}x$ bằng",
+        "promptHtml": "Biết $F\\left( x \\right)=\\frac{1}{x}$ là một nguyên hàm của hàm số $f\\left( x \\right)$ trên $\\left( 0;+\\infty  \\right)$. Giá trị của$\\int\\limits_{1}^{2}{2}\\left[ f\\left( x \\right)+x \\right]\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\ln 2+3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2\\ln 2+3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$4$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $\\int\\limits_{1}^{2}{2}\\left[ f\\left( x \\right)+x \\right]\\text{d}x=\\int\\limits_{1}^{2}{2f\\left( x \\right)dx+}\\int\\limits_{1}^{2}{2x}\\text{d}x=\\left. \\left( 2F\\left( x \\right)+{{x}^{2}} \\right) \\right|_{1}^{2}=\\left. \\left( \\frac{2}{x}+{{x}^{2}} \\right) \\right|_{1}^{2}=2$ Cách 2 : $f\\left( x \\right)={F}'\\left( x \\right)=\\frac{-1}{{{x}^{2}}}$ rồi thay vào chỗ tích phân sau đó bấm máy cũng ra kết quả",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{0}^{2}{f}(x)dx=3$. Tính $I=\\int\\limits_{0}^{2}{\\left( 1+2f(x) \\right)}dx$.",
+        "promptHtml": "Cho $\\int\\limits_{0}^{2}{f}(x)dx=3$. Tính $I=\\int\\limits_{0}^{2}{\\left( 1+2f(x) \\right)}dx$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I=7$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I=4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I=8$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I=6$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Áp dụng tính chất tuyến tính của tích phân: $I = \\int_0^2 (1 + 2f(x)) dx = \\int_0^2 1 dx + 2\\int_0^2 f(x) dx = [x]_0^2 + 2(3) = 2 + 6 = 8$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục trên R và có một nguyên hàm là $F(x)$. Biết rằng $F(1)=9$, $F(2)=5$. Giá trị của biểu thức $\\int\\limits_{1}^{2}{f(x)dx}$ bằng",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục trên R và có một nguyên hàm là $F(x)$. Biết rằng $F(1)=9$, $F(2)=5$. Giá trị của biểu thức $\\int\\limits_{1}^{2}{f(x)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "14."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "45."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "4."
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $F(x)$ là một nguyên hàm của $f(x)$ nên: $\\int\\limits_{1}^{2}{f(x)dx}=F(2)-F(1)=5-9=-4$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hàm số ${y = f(x)}$ liên tục trên ${\\mathbb{R}}$, thỏa mãn ${\\int_{17}^{2026} f(x)dx = 4}$ và ${\\int_{89}^{2026} f(x)dx = 3}$. Giá trị của biểu thức ${\\int_{17}^{89} f(x)dx}$ bằng:",
+        "promptHtml": "Cho hàm số ${y = f(x)}$ liên tục trên ${\\mathbb{R}}$, thỏa mãn ${\\int_{17}^{2026} f(x)dx = 4}$ và ${\\int_{89}^{2026} f(x)dx = 3}$. Giá trị của biểu thức ${\\int_{17}^{89} f(x)dx}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "7."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "2026."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "1."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "-1."
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Theo tính chất tích phân: ${\\int_{17}^{2026} f(x)dx = \\int_{17}^{89} f(x)dx + \\int_{89}^{2026} f(x)dx}$ Thay các giá trị đã biết: ${4 = \\int_{17}^{89} f(x)dx + 3}$ ${\\int_{17}^{89} f(x)dx = 4 - 3 = 1}$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{0}^{9}{f\\left( x \\right)}dx=37$và $\\int\\limits_{0}^{9}{g\\left( x \\right)}dx=16$. Khi đó $I=\\int\\limits_{0}^{9}{\\left[ 2f\\left( x \\right)+3g\\left( x \\right) \\right]}dx$bằng",
+        "promptHtml": "Cho $\\int\\limits_{0}^{9}{f\\left( x \\right)}dx=37$và $\\int\\limits_{0}^{9}{g\\left( x \\right)}dx=16$. Khi đó $I=\\int\\limits_{0}^{9}{\\left[ 2f\\left( x \\right)+3g\\left( x \\right) \\right]}dx$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I=122$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I=26$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I=143$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I=58$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Áp dụng tính chất tuyến tính của tích phân: $I = \\int_0^9 [2f(x) + 3g(x)] dx = 2\\int_0^9 f(x) dx + 3\\int_0^9 g(x) dx = 2(37) + 3(16) = 74 + 48 = 122$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{1}^{2}{f\\left( x \\right)}\\,dx=3$ và $\\int\\limits_{1}^{2}{g\\left( x \\right)\\,}dx=-2$. Giá trị $\\int\\limits_{1}^{2}{\\left[ f\\left( x \\right)+g\\left( x \\right) \\right]}\\,dx$ bằng",
+        "promptHtml": "Cho $\\int\\limits_{1}^{2}{f\\left( x \\right)}\\,dx=3$ và $\\int\\limits_{1}^{2}{g\\left( x \\right)\\,}dx=-2$. Giá trị $\\int\\limits_{1}^{2}{\\left[ f\\left( x \\right)+g\\left( x \\right) \\right]}\\,dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$5$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $\\int\\limits_{1}^{2}{\\left[ f\\left( x \\right)+g\\left( x \\right) \\right]}\\,dx=\\int\\limits_{1}^{2}{f\\left( x \\right)}\\,dx+\\int\\limits_{1}^{2}{g\\left( x \\right)\\,}dx=1$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f(x)$ liên tục trên $\\mathbb{R}$thỏa mãn $\\int\\limits_{0}^{4}{f(x)\\text{d}x}=-3$ và $\\int\\limits_{4}^{3}{f(x)\\text{d}x}=2$. Khi đó $\\int\\limits_{0}^{3}{f(x)\\text{d}x}$ bằng",
+        "promptHtml": "Cho hàm số  $f(x)$ liên tục trên $\\mathbb{R}$thỏa mãn $\\int\\limits_{0}^{4}{f(x)\\text{d}x}=-3$ và $\\int\\limits_{4}^{3}{f(x)\\text{d}x}=2$. Khi đó $\\int\\limits_{0}^{3}{f(x)\\text{d}x}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-5$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$5$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $\\int\\limits_{4}^{3}{f(x)\\text{d}x}=2\\Rightarrow \\int\\limits_{3}^{4}{f(x)\\text{d}x}=-2$. Vậy $\\int\\limits_{0}^{3}{f(x)\\text{d}x}=\\int\\limits_{0}^{4}{f(x)\\text{d}x}-\\int\\limits_{3}^{4}{f(x)\\text{d}x}=-3-(-2)=-1$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Biết $\\int\\limits_{1}^{2}{\\frac{1}{2{{x}^{2}}+5x+3}\\text{d}x=\\ln \\frac{a}{b}}$ với $a$, $b$ là các số nguyên lớn hơn 1, phân số $\\frac{a}{b}$ tối giản. Giá trị $T=a+b$ bằng",
+        "promptHtml": "Biết $\\int\\limits_{1}^{2}{\\frac{1}{2{{x}^{2}}+5x+3}\\text{d}x=\\ln \\frac{a}{b}}$ với $a$, $b$ là các số nguyên lớn hơn 1, phân số $\\frac{a}{b}$ tối giản. Giá trị $T=a+b$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$28$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$29$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$12$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$10$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\int\\limits_{1}^{2}{\\frac{1}{2{{x}^{2}}+5x+3}\\text{d}x}=\\int\\limits_{1}^{2}{\\frac{1}{\\left( x+1 \\right)\\left( 2x+3 \\right)}\\text{d}x}$$=\\int\\limits_{1}^{2}{\\left( \\frac{1}{x+1}-\\frac{2}{2x+3} \\right)\\text{d}x}$ $=\\left. \\left( \\ln \\left| x+1 \\right|-\\ln \\left| 2x+3 \\right| \\right) \\right|\\begin{matrix} 2 \\\\ 1 \\\\ \\end{matrix}=\\left. \\ln \\left| \\frac{x+1}{2x+3} \\right| \\right|\\begin{matrix} 2 \\\\ 1 \\\\ \\end{matrix}=\\ln \\frac{3}{7}-\\ln \\frac{2}{5}=\\ln \\frac{15}{14}$. Do đó $a=15$, $b=14$. Vậy $T=a+b=15+14=29$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$liên tục trên đoạn$\\left[ 1;5 \\right]$. Biết $\\int\\limits_{1}^{3}{f\\left( x \\right)}dx=4;\\int\\limits_{3}^{5}{f\\left( x \\right)}dx=-2$ . Giá trị của $I=\\int\\limits_{1}^{5}{f\\left( x \\right)}dx$ bằng",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$liên tục trên đoạn$\\left[ 1;5 \\right]$. Biết $\\int\\limits_{1}^{3}{f\\left( x \\right)}dx=4;\\int\\limits_{3}^{5}{f\\left( x \\right)}dx=-2$ . Giá trị của $I=\\int\\limits_{1}^{5}{f\\left( x \\right)}dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I=6.$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I=2.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I=-2.$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I=-8.$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Áp dụng tính chất chèn cận của tích phân: $I = \\int_1^5 f(x) dx = \\int_1^3 f(x) dx + \\int_3^5 f(x) dx = 4 + (-2) = 2$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{1}^{2}{{{e}^{3x-1}}}dx=m\\left( {{e}^{p}}-{{e}^{q}} \\right)$ với $m,n,p\\in \\mathbb{Q}$ và là các phân số tối giản. Giá trị của $m+p+q$.",
+        "promptHtml": "Cho $\\int\\limits_{1}^{2}{{{e}^{3x-1}}}dx=m\\left( {{e}^{p}}-{{e}^{q}} \\right)$ với $m,n,p\\in \\mathbb{Q}$ và là các phân số tối giản. Giá trị của $m+p+q$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{22}{3}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$6$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$8$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$10$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $\\int\\limits_{1}^{2}{{{e}^{3x-1}}}dx=\\frac{1}{3}{{e}^{3x-1}}\\left| _{1}^{2} \\right.=\\frac{1}{3}\\left( {{e}^{5}}-{{e}^{2}} \\right)$. Do đó, $\\left\\{ \\begin{align} & m=\\frac{1}{3} \\\\ & p=5 \\\\ & q=2 \\\\ \\end{align} \\right.$. Vậy $m+p+q=\\frac{1}{3}+5+2=\\frac{22}{3}$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Nếu ${{\\int\\limits_0^2 {\\left( {2f(x)+3x} \\right)dx}}}=5$ thì ${{\\int\\limits_0^2 {f(x)dx}}}$ bằng",
+        "promptHtml": "Nếu ${{\\int\\limits_0^2 {\\left( {2f(x)+3x} \\right)dx}}}=5$ thì ${{\\int\\limits_0^2 {f(x)dx}}}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-\\dfrac{5}{2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-\\dfrac{1}{2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-\\dfrac{7}{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\dfrac{1}{2}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: ${{\\int\\limits_0^2 {\\left( {2f(x)+3x} \\right)dx}}}=5$ Suy ra: $2{{\\int\\limits_0^2 {f(x)dx}}}+3{{\\int\\limits_0^2 {xdx}}}=5$ Tính: ${{\\int\\limits_0^2 {xdx}}}=\\left. \\dfrac{x^2}{2}\\right|_0^2=2$ Do đó: $2{{\\int\\limits_0^2 {f(x)dx}}}+3\\cdot 2=5$⇔$2{{\\int\\limits_0^2 {f(x)dx}}}+6=5$⇔$2{{\\int\\limits_0^2 {f(x)dx}}}=-1$⇔${{\\int\\limits_0^2 {f(x)dx}}}=-\\dfrac{1}{2}$ Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Cho $I={{\\int\\limits_0^2 {f(x)dx}}}=3$. Khi đó $J={{\\int\\limits_0^2 {\\left( {4f(x)-3} \\right)dx}}}$ bằng:",
+        "promptHtml": "Cho $I={{\\int\\limits_0^2 {f(x)dx}}}=3$. Khi đó $J={{\\int\\limits_0^2 {\\left( {4f(x)-3} \\right)dx}}}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${4}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${6}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${8}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $I={{\\int\\limits_0^2 {f(x)dx}}}=3$. Khi đó: $J={{\\int\\limits_0^2 {\\left( {4f(x)-3} \\right)dx}}}$$=4{{\\int\\limits_0^2 {f(x)dx}}}-{{\\int\\limits_0^2 {3dx}}}$$=4\\cdot3-3\\cdot2=12-6=6$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Tích phân $I={{\\int\\limits_1^3 {\\left( {1+\\dfrac{2}{x}} \\right)dx}}}=a+b\\ln c$ với $a,b,c\\in\\mathbb{Z}, c<9$. Tổng $a+b+c$ bằng:",
+        "promptHtml": "Tích phân $I={{\\int\\limits_1^3 {\\left( {1+\\dfrac{2}{x}} \\right)dx}}}=a+b\\ln c$ với $a,b,c\\in\\mathbb{Z}, c&lt;9$. Tổng $a+b+c$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${5}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${6}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${8}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${7}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $I={{\\int\\limits_1^3 {\\left( {1+\\dfrac{2}{x}} \\right)dx}}}$$={{\\int\\limits_1^3 {1dx}}}+2{{\\int\\limits_1^3 {\\dfrac{1}{x}dx}}}$$=2+2\\ln3$. Suy ra $a=2$, $b=2$, $c=3$. Vậy: $a+b+c=2+2+3=7$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Một đất nước tiêu thụ dầu theo tốc độ xác định bởi $r(t)=20e^{0,2t}$ tỉ thùng mỗi năm, trong đó ${t}$ là thời gian tính theo năm, $0\\le t\\le 10$. Trong khoảng 10 năm kể trên, nước đó đã tiêu thụ lượng dầu là:",
+        "promptHtml": "Một đất nước tiêu thụ dầu theo tốc độ xác định bởi $r(t)=20e^{0,2t}$ tỉ thùng mỗi năm, trong đó ${t}$ là thời gian tính theo năm, $0\\le t\\le 10$. Trong khoảng 10 năm kể trên, nước đó đã tiêu thụ lượng dầu là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$r(10)-r(0)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{\\int\\limits_0^{10} {r(t)dt}}}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$r(10)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{\\int\\limits_0^{10} {r'(t)dt}}}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "$r(t)$ là tốc độ tiêu thụ dầu, đơn vị tỉ thùng mỗi năm. Lượng dầu tiêu thụ trong 10 năm bằng tích phân của tốc độ theo thời gian: ${{\\int\\limits_0^{10} {r(t)dt}}}$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f\\left( x \\right)=x^2-\\dfrac{4}{x}$. Giá trị của ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}$ bằng",
+        "promptHtml": "Cho hàm số $f\\left( x \\right)=x^2-\\dfrac{4}{x}$. Giá trị của ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "5."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "3."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\dfrac{7}{3}-\\ln 2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\dfrac{7}{3}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $f(x)=x^2-\\dfrac{4}{x}$. Theo định lí Newton - Leibniz: ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}=f(2)-f(1)$. Tính: $f(2)=2^2-\\dfrac{4}{2}=4-2=2$. $f(1)=1^2-\\dfrac{4}{1}=1-4=-3$. Vậy: ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}=2-\\left( -3 \\right)=5$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Cho $f(x)$ là một hàm số liên tục trên đoạn ${[a;b]}$. Khẳng định nào sau đây đúng?",
+        "promptHtml": "Cho $f(x)$ là một hàm số liên tục trên đoạn ${[a;b]}$. Khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2{\\int\\limits_a^b f(x)dx}={\\int\\limits_{2a}^{2b} f(x)dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${\\int\\limits_a^b f(x)dx}={\\int\\limits_c^a f(x)dx}+{\\int\\limits_c^b f(x)dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${\\int\\limits_a^b f(x)dx}=-{\\int\\limits_b^a f(x)dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${\\int\\limits_a^b f(x)dx}=-{\\int\\limits_{-a}^{b} f(x)dx}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Chọn C. Tính chất đổi cận của tích phân: ${\\int\\limits_a^b f(x)dx}=-{\\int\\limits_b^a f(x)dx}$. Vậy chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Nếu ${\\int\\limits_0^2 {f\\left( x \\right)dx}}=5$ thì ${\\int\\limits_0^2 {\\left( 2f\\left( x \\right)-1 \\right)dx}}$ bằng",
+        "promptHtml": "Nếu ${\\int\\limits_0^2 {f\\left( x \\right)dx}}=5$ thì ${\\int\\limits_0^2 {\\left( 2f\\left( x \\right)-1 \\right)dx}}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "10."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "8."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "12."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "9."
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có ${\\int\\limits_0^2 {f\\left( x \\right)dx}}=5$. Khi đó: ${\\int\\limits_0^2 {\\left( 2f\\left( x \\right)-1 \\right)dx}}=2{\\int\\limits_0^2 {f\\left( x \\right)dx}}-{\\int\\limits_0^2 {1dx}}=2\\cdot 5-2=8$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{-1}^{4}{f\\left( x \\right)dx=2}$ thì $\\int\\limits_{4}^{-1}{2f\\left( x \\right)dx}$ bằng?",
+        "promptHtml": "Nếu $\\int\\limits_{-1}^{4}{f\\left( x \\right)dx=2}$ thì $\\int\\limits_{4}^{-1}{2f\\left( x \\right)dx}$ bằng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\int\\limits_{4}^{-1}{2f\\left( x \\right)dx}=-2\\int\\limits_{-1}^{4}{f\\left( x \\right)dx}=-2.2=-4$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.5,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q20",
+        "order": 20,
+        "type": "single_choice",
+        "promptText": "Cho $f\\left( x \\right)$ là hàm số liên tục trên đoạn $\\left[ 0;1 \\right]$, $F\\left( x \\right)$ là một nguyên hàm của hàm số $f\\left( x \\right)$ trên đoạn $\\left[ 0;1 \\right]$. Khi đó, hiệu số $F\\left( 0 \\right)-F\\left( 1 \\right)$ bằng?",
+        "promptHtml": "Cho $f\\left( x \\right)$ là hàm số liên tục trên đoạn $\\left[ 0;1 \\right]$, $F\\left( x \\right)$ là một nguyên hàm của hàm số $f\\left( x \\right)$ trên đoạn $\\left[ 0;1 \\right]$. Khi đó, hiệu số $F\\left( 0 \\right)-F\\left( 1 \\right)$ bằng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-\\int\\limits_{0}^{1}{F\\left( x \\right)dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int\\limits_{0}^{1}{f\\left( x \\right)dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int\\limits_{0}^{1}{F\\left( x \\right)dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int\\limits_{1}^{0}{f\\left( x \\right)dx}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $\\int\\limits_{1}^{0}{f\\left( x \\right)dx}=-\\int\\limits_{0}^{1}{f\\left( x \\right)dx}=-F\\left( x \\right)\\left| _{0}^{1} \\right.=F\\left( 0 \\right)-F\\left( 1 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1789_q21",
+        "order": 21,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)dx=5}$ thì $\\int\\limits_{-1}^{2}{4f\\left( x \\right)dx}$ bằng",
+        "promptHtml": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)dx=5}$ thì $\\int\\limits_{-1}^{2}{4f\\left( x \\right)dx}$ bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$20$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{5}{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{5}{4}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$\\int\\limits_{-1}^{2}{4f\\left( x \\right)dx}=4\\int\\limits_{-1}^{2}{f\\left( x \\right)dx}=4.5=20$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:49.300Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Ôn Tập Tích Phân Qua 21 Câu Hỏi Trắc Nghiệm Có Đáp Án Chi Tiết",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/on-tap-tich-phan-qua-21-cau-hoi-trac-nghiem-co-dap-an-chi-tiet.1789/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 21",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ liên tục trên $\\left[ a;b \\right]$. Biết $\\int\\limits_{a}^{b}{f\\left( x \\right)\\,}\\text{d}x=2026,\\,$giá trị của $2\\int\\limits_{b}^{a}{f\\left( x \\right)\\,}\\text{d}x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-4052$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4052$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1013$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-1013$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$2\\int\\limits_{b}^{a}{f\\left( x \\right)\\,}\\text{d}x=-2\\int\\limits_{a}^{b}{f\\left( x \\right)\\,}\\text{d}x=\\left( -2 \\right).2026=-4052.$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Biết $F\\left( x \\right)=\\frac{1}{x}$ là một nguyên hàm của hàm số $f\\left( x \\right)$ trên $\\left( 0;+\\infty  \\right)$. Giá trị của$\\int\\limits_{1}^{2}{2}\\left[ f\\left( x \\right)+x \\right]\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\ln 2+3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2\\ln 2+3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$4$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{1}^{2}{2}\\left[ f\\left( x \\right)+x \\right]\\text{d}x=\\int\\limits_{1}^{2}{2f\\left( x \\right)dx+}\\int\\limits_{1}^{2}{2x}\\text{d}x=\\left. \\left( 2F\\left( x \\right)+{{x}^{2}} \\right) \\right|_{1}^{2}=\\left. \\left( \\frac{2}{x}+{{x}^{2}} \\right) \\right|_{1}^{2}=2$<br>\nCách 2 : $f\\left( x \\right)={F}'\\left( x \\right)=\\frac{-1}{{{x}^{2}}}$ rồi thay vào chỗ tích phân sau đó bấm máy cũng ra kết quả</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{0}^{2}{f}(x)dx=3$. Tính $I=\\int\\limits_{0}^{2}{\\left( 1+2f(x) \\right)}dx$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I=7$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I=4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I=8$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I=6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{0}^{2}{f}(x)dx=3$.<br>\nSuy ra: $I=\\int\\limits_{0}^{2}{\\left( 1+2f(x) \\right)}dx$$=\\int\\limits_{0}^{2}{1}dx+2\\int\\limits_{0}^{2}{f}(x)dx$$=2+2.3=8$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục trên R và có một nguyên hàm là $F(x)$. Biết rằng $F(1)=9$, $F(2)=5$. Giá trị của biểu thức $\\int\\limits_{1}^{2}{f(x)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "14."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "45."
+          },
+          {
+            "id": "opt_d",
+            "text": "4.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $F(x)$ là một nguyên hàm của $f(x)$ nên: $\\int\\limits_{1}^{2}{f(x)dx}=F(2)-F(1)=5-9=-4$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hàm số ${y = f(x)}$ liên tục trên ${\\mathbb{R}}$, thỏa mãn ${\\int_{17}^{2026} f(x)dx = 4}$ và ${\\int_{89}^{2026} f(x)dx = 3}$. Giá trị của biểu thức ${\\int_{17}^{89} f(x)dx}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "7."
+          },
+          {
+            "id": "opt_b",
+            "text": "2026."
+          },
+          {
+            "id": "opt_c",
+            "text": "1."
+          },
+          {
+            "id": "opt_d",
+            "text": "-1.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Theo tính chất tích phân: ${\\int_{17}^{2026} f(x)dx = \\int_{17}^{89} f(x)dx + \\int_{89}^{2026} f(x)dx}$<br>\nThay các giá trị đã biết: ${4 = \\int_{17}^{89} f(x)dx + 3}$<br>\n${\\int_{17}^{89} f(x)dx = 4 - 3 = 1}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{0}^{9}{f\\left( x \\right)}dx=37$và $\\int\\limits_{0}^{9}{g\\left( x \\right)}dx=16$. Khi đó $I=\\int\\limits_{0}^{9}{\\left[ 2f\\left( x \\right)+3g\\left( x \\right) \\right]}dx$bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I=122$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I=26$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I=143$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I=58$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$I=\\int\\limits_{0}^{9}{\\left[ 2f\\left( x \\right)+3g\\left( x \\right) \\right]}dx=\\int\\limits_{0}^{9}{2f\\left( x \\right)}dx+\\int\\limits_{0}^{9}{3g\\left( x \\right)dx=}2\\int\\limits_{0}^{9}{f\\left( x \\right)}dx+3\\int\\limits_{0}^{9}{g\\left( x \\right)dx=2.37+3.16=122.}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{1}^{2}{f\\left( x \\right)}\\,dx=3$ và $\\int\\limits_{1}^{2}{g\\left( x \\right)\\,}dx=-2$. Giá trị $\\int\\limits_{1}^{2}{\\left[ f\\left( x \\right)+g\\left( x \\right) \\right]}\\,dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$5$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int\\limits_{1}^{2}{\\left[ f\\left( x \\right)+g\\left( x \\right) \\right]}\\,dx=\\int\\limits_{1}^{2}{f\\left( x \\right)}\\,dx+\\int\\limits_{1}^{2}{g\\left( x \\right)\\,}dx=1$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Cho hàm số  $f(x)$ liên tục trên $\\mathbb{R}$thỏa mãn $\\int\\limits_{0}^{4}{f(x)\\text{d}x}=-3$ và $\\int\\limits_{4}^{3}{f(x)\\text{d}x}=2$. Khi đó $\\int\\limits_{0}^{3}{f(x)\\text{d}x}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-5$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$5$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{4}^{3}{f(x)\\text{d}x}=2\\Rightarrow \\int\\limits_{3}^{4}{f(x)\\text{d}x}=-2$.<br>\nVậy $\\int\\limits_{0}^{3}{f(x)\\text{d}x}=\\int\\limits_{0}^{4}{f(x)\\text{d}x}-\\int\\limits_{3}^{4}{f(x)\\text{d}x}=-3-(-2)=-1$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Biết $\\int\\limits_{1}^{2}{\\frac{1}{2{{x}^{2}}+5x+3}\\text{d}x=\\ln \\frac{a}{b}}$ với $a$, $b$ là các số nguyên lớn hơn 1, phân số $\\frac{a}{b}$ tối giản. Giá trị $T=a+b$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$28$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$29$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$12$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$10$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int\\limits_{1}^{2}{\\frac{1}{2{{x}^{2}}+5x+3}\\text{d}x}=\\int\\limits_{1}^{2}{\\frac{1}{\\left( x+1 \\right)\\left( 2x+3 \\right)}\\text{d}x}$$=\\int\\limits_{1}^{2}{\\left( \\frac{1}{x+1}-\\frac{2}{2x+3} \\right)\\text{d}x}$<br>\n$=\\left. \\left( \\ln \\left| x+1 \\right|-\\ln \\left| 2x+3 \\right| \\right) \\right|\\begin{matrix}<br>\n2  \\\\<br>\n1  \\\\<br>\n\\end{matrix}=\\left. \\ln \\left| \\frac{x+1}{2x+3} \\right| \\right|\\begin{matrix}<br>\n2  \\\\<br>\n1  \\\\<br>\n\\end{matrix}=\\ln \\frac{3}{7}-\\ln \\frac{2}{5}=\\ln \\frac{15}{14}$.<br>\nDo đó $a=15$, $b=14$. Vậy $T=a+b=15+14=29$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$liên tục trên đoạn$\\left[ 1;5 \\right]$. Biết $\\int\\limits_{1}^{3}{f\\left( x \\right)}dx=4;\\int\\limits_{3}^{5}{f\\left( x \\right)}dx=-2$ . Giá trị của $I=\\int\\limits_{1}^{5}{f\\left( x \\right)}dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I=6.$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$I=2.$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$I=-2.$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$I=-8.$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$I=\\int\\limits_{1}^{5}{f\\left( x \\right)}dx=\\int\\limits_{1}^{3}{f\\left( x \\right)}dx+\\int\\limits_{3}^{5}{f\\left( x \\right)}dx=2$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{1}^{2}{{{e}^{3x-1}}}dx=m\\left( {{e}^{p}}-{{e}^{q}} \\right)$ với $m,n,p\\in \\mathbb{Q}$ và là các phân số tối giản. Giá trị của $m+p+q$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{22}{3}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$6$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$8$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$10$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{1}^{2}{{{e}^{3x-1}}}dx=\\frac{1}{3}{{e}^{3x-1}}\\left| _{1}^{2} \\right.=\\frac{1}{3}\\left( {{e}^{5}}-{{e}^{2}} \\right)$. Do đó, $\\left\\{ \\begin{align}<br>\n&amp; m=\\frac{1}{3} \\\\<br>\n&amp; p=5 \\\\<br>\n&amp; q=2 \\\\<br>\n\\end{align} \\right.$.<br>\nVậy $m+p+q=\\frac{1}{3}+5+2=\\frac{22}{3}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Nếu ${{\\int\\limits_0^2 {\\left( {2f(x)+3x} \\right)dx}}}=5$ thì ${{\\int\\limits_0^2 {f(x)dx}}}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-\\dfrac{5}{2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-\\dfrac{1}{2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-\\dfrac{7}{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\dfrac{1}{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: ${{\\int\\limits_0^2 {\\left( {2f(x)+3x} \\right)dx}}}=5$<br>\nSuy ra: $2{{\\int\\limits_0^2 {f(x)dx}}}+3{{\\int\\limits_0^2 {xdx}}}=5$<br>\nTính: ${{\\int\\limits_0^2 {xdx}}}=\\left. \\dfrac{x^2}{2}\\right|_0^2=2$<br>\nDo đó: $2{{\\int\\limits_0^2 {f(x)dx}}}+3\\cdot 2=5$⇔$2{{\\int\\limits_0^2 {f(x)dx}}}+6=5$⇔$2{{\\int\\limits_0^2 {f(x)dx}}}=-1$⇔${{\\int\\limits_0^2 {f(x)dx}}}=-\\dfrac{1}{2}$<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Cho $I={{\\int\\limits_0^2 {f(x)dx}}}=3$. Khi đó $J={{\\int\\limits_0^2 {\\left( {4f(x)-3} \\right)dx}}}$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${4}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${6}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${8}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $I={{\\int\\limits_0^2 {f(x)dx}}}=3$.<br>\nKhi đó: $J={{\\int\\limits_0^2 {\\left( {4f(x)-3} \\right)dx}}}$$=4{{\\int\\limits_0^2 {f(x)dx}}}-{{\\int\\limits_0^2 {3dx}}}$$=4\\cdot3-3\\cdot2=12-6=6$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Tích phân $I={{\\int\\limits_1^3 {\\left( {1+\\dfrac{2}{x}} \\right)dx}}}=a+b\\ln c$ với $a,b,c\\in\\mathbb{Z}, c&lt;9$. Tổng $a+b+c$ bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${5}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${6}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${8}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${7}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $I={{\\int\\limits_1^3 {\\left( {1+\\dfrac{2}{x}} \\right)dx}}}$$={{\\int\\limits_1^3 {1dx}}}+2{{\\int\\limits_1^3 {\\dfrac{1}{x}dx}}}$$=2+2\\ln3$.<br>\nSuy ra $a=2$, $b=2$, $c=3$.<br>\nVậy: $a+b+c=2+2+3=7$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Một đất nước tiêu thụ dầu theo tốc độ xác định bởi $r(t)=20e^{0,2t}$ tỉ thùng mỗi năm, trong đó ${t}$ là thời gian tính theo năm, $0\\le t\\le 10$. Trong khoảng 10 năm kể trên, nước đó đã tiêu thụ lượng dầu là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$r(10)-r(0)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{\\int\\limits_0^{10} {r(t)dt}}}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$r(10)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{\\int\\limits_0^{10} {r'(t)dt}}}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$r(t)$ là tốc độ tiêu thụ dầu, đơn vị tỉ thùng mỗi năm.<br>\nLượng dầu tiêu thụ trong 10 năm bằng tích phân của tốc độ theo thời gian: ${{\\int\\limits_0^{10} {r(t)dt}}}$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Cho hàm số $f\\left( x \\right)=x^2-\\dfrac{4}{x}$. Giá trị của ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "5."
+          },
+          {
+            "id": "opt_b",
+            "text": "3."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\dfrac{7}{3}-\\ln 2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\dfrac{7}{3}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $f(x)=x^2-\\dfrac{4}{x}$.<br>\nTheo định lí Newton - Leibniz: ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}=f(2)-f(1)$.<br>\nTính: $f(2)=2^2-\\dfrac{4}{2}=4-2=2$.<br>\n$f(1)=1^2-\\dfrac{4}{1}=1-4=-3$.<br>\nVậy: ${{\\int\\limits_1^2 {f'\\left( x \\right)dx}}}=2-\\left( -3 \\right)=5$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Cho $f(x)$ là một hàm số liên tục trên đoạn ${[a;b]}$. Khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2{\\int\\limits_a^b f(x)dx}={\\int\\limits_{2a}^{2b} f(x)dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${\\int\\limits_a^b f(x)dx}={\\int\\limits_c^a f(x)dx}+{\\int\\limits_c^b f(x)dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${\\int\\limits_a^b f(x)dx}=-{\\int\\limits_b^a f(x)dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${\\int\\limits_a^b f(x)dx}=-{\\int\\limits_{-a}^{b} f(x)dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn C.<br>\nTính chất đổi cận của tích phân: ${\\int\\limits_a^b f(x)dx}=-{\\int\\limits_b^a f(x)dx}$.<br>\nVậy chọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Nếu ${\\int\\limits_0^2 {f\\left( x \\right)dx}}=5$ thì ${\\int\\limits_0^2 {\\left( 2f\\left( x \\right)-1 \\right)dx}}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "10."
+          },
+          {
+            "id": "opt_b",
+            "text": "8."
+          },
+          {
+            "id": "opt_c",
+            "text": "12."
+          },
+          {
+            "id": "opt_d",
+            "text": "9.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có ${\\int\\limits_0^2 {f\\left( x \\right)dx}}=5$.<br>\nKhi đó: ${\\int\\limits_0^2 {\\left( 2f\\left( x \\right)-1 \\right)dx}}=2{\\int\\limits_0^2 {f\\left( x \\right)dx}}-{\\int\\limits_0^2 {1dx}}=2\\cdot 5-2=8$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{-1}^{4}{f\\left( x \\right)dx=2}$ thì $\\int\\limits_{4}^{-1}{2f\\left( x \\right)dx}$ bằng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int\\limits_{4}^{-1}{2f\\left( x \\right)dx}=-2\\int\\limits_{-1}^{4}{f\\left( x \\right)dx}=-2.2=-4$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      },
+      {
+        "id": "q-20",
+        "type": "single_choice",
+        "text": "Cho $f\\left( x \\right)$ là hàm số liên tục trên đoạn $\\left[ 0;1 \\right]$, $F\\left( x \\right)$ là một nguyên hàm của hàm số $f\\left( x \\right)$ trên đoạn $\\left[ 0;1 \\right]$. Khi đó, hiệu số $F\\left( 0 \\right)-F\\left( 1 \\right)$ bằng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-\\int\\limits_{0}^{1}{F\\left( x \\right)dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int\\limits_{0}^{1}{f\\left( x \\right)dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int\\limits_{0}^{1}{F\\left( x \\right)dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int\\limits_{1}^{0}{f\\left( x \\right)dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int\\limits_{1}^{0}{f\\left( x \\right)dx}=-\\int\\limits_{0}^{1}{f\\left( x \\right)dx}=-F\\left( x \\right)\\left| _{0}^{1} \\right.=F\\left( 0 \\right)-F\\left( 1 \\right)$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 20
+      },
+      {
+        "id": "q-21",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{-1}^{2}{f\\left( x \\right)dx=5}$ thì $\\int\\limits_{-1}^{2}{4f\\left( x \\right)dx}$ bằng<br>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$20$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{5}{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{5}{4}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int\\limits_{-1}^{2}{4f\\left( x \\right)dx}=4\\int\\limits_{-1}^{2}{f\\left( x \\right)dx}=4.5=20$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 21
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:49.301Z"
+}

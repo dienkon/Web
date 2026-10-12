@@ -1,0 +1,750 @@
+{
+  "meta": {
+    "title": "10 bài Trắc Nghiệm Nguyên Hàm Có Đáp Án – Toán 12",
+    "slug": "10-bai-trac-nghiem-nguyen-ham-co-dap-an-toan-12",
+    "id": "1786",
+    "url": "https://sieugioi.com/docs/threads/10-bai-trac-nghiem-nguyen-ham-co-dap-an-toan-12.1786/",
+    "numId": 1786,
+    "bai": 11,
+    "topicId": "math_t9_antiderivative",
+    "baiTitle": "Nguyên hàm",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "10 bài Trắc Nghiệm Nguyên Hàm Có Đáp Án – Toán 12",
+    "sourceUrl": "https://sieugioi.com/docs/threads/10-bai-trac-nghiem-nguyen-ham-co-dap-an-toan-12.1786/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 10,
+    "questionsWithOptions": 10,
+    "questionsWithAnswers": 8,
+    "questionsWithExplanation": 10,
+    "questionsWithImages": 0,
+    "manualReviewCount": 2,
+    "warnings": [
+      "Câu 3: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 9: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1786_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f(x)=\\sin 2x+\\cos 2x$ là:",
+        "promptHtml": "Họ nguyên hàm của hàm số $f(x)=\\sin 2x+\\cos 2x$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2(-\\cos 2x+\\sin 2x)+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{1}{2}(\\cos 2x-\\sin 2x)+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{1}{2}(\\sin 2x-\\cos 2x)+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2(\\cos 2x-\\sin 2x)+C$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Họ nguyên hàm của hàm số $f(x)=\\sin 2x+\\cos 2x$ là: $\\frac{1}{2}(-\\cos 2x+\\sin 2x)+C$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Nguyên hàm của hàm số $f\\left( x \\right)={{4}^{x}}$ là",
+        "promptHtml": "Nguyên hàm của hàm số $f\\left( x \\right)={{4}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{{{4}^{x+1}}}{x+1}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{{{4}^{x}}}{2\\ln 2}+C.$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{{{4}^{x}}}{x}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x{{.4}^{x-1}}+C$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\int{f\\left( x \\right)}\\text{d}x=\\int{{{4}^{x}}\\text{d}x}=\\frac{{{4}^{x}}}{\\ln 4}+C=\\frac{{{4}^{x}}}{2\\ln 2}+C.$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Họ tất cả các nguyên hàm của hàm số $f\\left( x \\right)=2x+6$ là",
+        "promptHtml": "Họ tất cả các nguyên hàm của hàm số $f\\left( x \\right)=2x+6$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2{{x}^{2}}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2{{x}^{2}}+6x+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{x}^{2}}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{x}^{2}}+6x+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\int{f\\left( x \\right)\\text{d}x}=\\int{\\left( 2x+6 \\right)}\\text{d}x={{x}^{2}}+6x+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f(x)={{x}^{7}}$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f(x)={{x}^{7}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$8{{x}^{8}}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$7{{x}^{6}}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{{{x}^{7}}}{7}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{{{x}^{8}}}{8}+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D. $\\frac{{{x}^{8}}}{8}+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f\\left( x \\right)={{2}^{x}}-x$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f\\left( x \\right)={{2}^{x}}-x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{{{2}^{x+1}}}{x+1}-\\frac{{{x}^{2}}}{2}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{{{2}^{x}}}{\\text{ln}2}-\\frac{{{x}^{2}}}{2}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x{{.2}^{x-1}}-\\frac{{{x}^{2}}}{2}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{{{2}^{x}}}{x}-\\frac{{{x}^{2}}}{2}+C$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "$\\int f\\left( x \\right)dx=\\int \\left( {{2}^{x}}-x \\right)dx=\\frac{{{2}^{x}}}{\\text{ln}2}-\\frac{{{x}^{2}}}{2}+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Khẳng định nào sau đây đúng?.",
+        "promptHtml": "Khẳng định nào sau đây đúng?.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x=\\frac{{{6}^{x+1}}}{x+1}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x={{6}^{x}}\\cdot \\ln 6+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x={{6}^{x}}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x=\\frac{{{6}^{x}}}{\\ln 6}+C$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Chọn D. $\\int{{{6}^{x}}}\\text{d}x=\\frac{{{6}^{x}}}{\\ln 6}+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Biết $\\int{f\\left( x \\right)\\text{d}x}={{x}^{2}}+\\cos x+C$, khẳng định nào sau đây đúng?",
+        "promptHtml": "Biết $\\int{f\\left( x \\right)\\text{d}x}={{x}^{2}}+\\cos x+C$, khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$f\\left( x \\right)=2x-\\sin x$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$f\\left( x \\right)=2x+\\sin x$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f\\left( x \\right)=\\frac{{{x}^{3}}}{3}+\\sin x+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$f\\left( x \\right)=\\frac{{{x}^{3}}}{3}-\\sin x+C$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có ${{\\left( \\int{f(x)\\text{d}x} \\right)}^{\\prime }}=f(x)$. Từ $\\int{f(x)\\text{d}x}={{x}^{2}}+\\cos x+C$$\\Rightarrow f(x)=2x-\\sin x$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Họ nguyên hàm của hàm số $f\\left( x \\right)=\\sin x+4{{x}^{3}}$ là",
+        "promptHtml": "Họ nguyên hàm của hàm số $f\\left( x \\right)=\\sin x+4{{x}^{3}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\cos x+{{x}^{4}}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\cos x+4{{x}^{4}}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-\\cos x+{{x}^{4}}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-\\cos x+4{{x}^{4}}+C$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $\\int{\\left( \\sin \\,x+4{{x}^{3}} \\right)\\text{d}x}=-\\cos x+{{x}^{4}}+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Họ tất cả các nguyên hàm của hàm số $y=\\operatorname{s}\\text{in }x\\,+\\text{cos }x$là",
+        "promptHtml": "Họ tất cả các nguyên hàm của hàm số $y=\\operatorname{s}\\text{in }x\\,+\\text{cos }x$là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in }x\\,+\\text{cos }x \\right)}\\text{d}x=\\operatorname{s}\\text{in }x\\,+\\text{cos }x+c$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in}x\\,+\\text{cos }x \\right)}\\text{d}x=-\\operatorname{s}\\text{in }x-\\text{cos }x+c$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in }x+\\text{cos }x \\right)}\\text{d}x=-\\operatorname{s}\\text{in }x\\,+\\text{cos }x+c$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in }x\\,+\\text{cos }x \\right)}\\text{d}x=\\operatorname{s}\\text{in }x-\\text{cos }x+c$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có $\\int{\\left( \\operatorname{s}\\text{in }x\\,+\\text{cos }x \\right)}\\text{d}x=\\operatorname{s}\\text{in }x-\\text{cos }x+c$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1786_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Nguyên hàm của hàm số $f(x)={{2}^{x}}+x$ là:",
+        "promptHtml": "Nguyên hàm của hàm số $f(x)={{2}^{x}}+x$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{{{2}^{x}}}{\\ln 2}+{{x}^{2}}+C$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{{{2}^{x}}}{\\ln 2}+\\frac{{{x}^{2}}}{2}+C$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{2}^{x}}+\\frac{{{x}^{2}}}{2}+C$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{2}^{x}}+{{x}^{2}}+C$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $\\int{({{2}^{x}}+x)}dx=\\frac{{{2}^{x}}}{\\ln 2}+\\frac{{{x}^{2}}}{2}+C$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:48.780Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "10 bài Trắc Nghiệm Nguyên Hàm Có Đáp Án – Toán 12",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/10-bai-trac-nghiem-nguyen-ham-co-dap-an-toan-12.1786/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 10",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f(x)=\\sin 2x+\\cos 2x$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2(-\\cos 2x+\\sin 2x)+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{1}{2}(\\cos 2x-\\sin 2x)+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{1}{2}(\\sin 2x-\\cos 2x)+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2(\\cos 2x-\\sin 2x)+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Họ nguyên hàm của hàm số $f(x)=\\sin 2x+\\cos 2x$ là: $\\frac{1}{2}(-\\cos 2x+\\sin 2x)+C$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Nguyên hàm của hàm số $f\\left( x \\right)={{4}^{x}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{{{4}^{x+1}}}{x+1}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{{{4}^{x}}}{2\\ln 2}+C.$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{{{4}^{x}}}{x}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x{{.4}^{x-1}}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int{f\\left( x \\right)}\\text{d}x=\\int{{{4}^{x}}\\text{d}x}=\\frac{{{4}^{x}}}{\\ln 4}+C=\\frac{{{4}^{x}}}{2\\ln 2}+C.$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Họ tất cả các nguyên hàm của hàm số $f\\left( x \\right)=2x+6$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2{{x}^{2}}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2{{x}^{2}}+6x+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{x}^{2}}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{x}^{2}}+6x+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int{f\\left( x \\right)\\text{d}x}=\\int{\\left( 2x+6 \\right)}\\text{d}x={{x}^{2}}+6x+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f(x)={{x}^{7}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$8{{x}^{8}}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$7{{x}^{6}}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{{{x}^{7}}}{7}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{{{x}^{8}}}{8}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D. $\\frac{{{x}^{8}}}{8}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f\\left( x \\right)={{2}^{x}}-x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{{{2}^{x+1}}}{x+1}-\\frac{{{x}^{2}}}{2}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{{{2}^{x}}}{\\text{ln}2}-\\frac{{{x}^{2}}}{2}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x{{.2}^{x-1}}-\\frac{{{x}^{2}}}{2}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{{{2}^{x}}}{x}-\\frac{{{x}^{2}}}{2}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int f\\left( x \\right)dx=\\int \\left( {{2}^{x}}-x \\right)dx=\\frac{{{2}^{x}}}{\\text{ln}2}-\\frac{{{x}^{2}}}{2}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Khẳng định nào sau đây đúng?.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x=\\frac{{{6}^{x+1}}}{x+1}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x={{6}^{x}}\\cdot \\ln 6+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x={{6}^{x}}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int{{{6}^{x}}}\\text{d}x=\\frac{{{6}^{x}}}{\\ln 6}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D. $\\int{{{6}^{x}}}\\text{d}x=\\frac{{{6}^{x}}}{\\ln 6}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Biết $\\int{f\\left( x \\right)\\text{d}x}={{x}^{2}}+\\cos x+C$, khẳng định nào sau đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$f\\left( x \\right)=2x-\\sin x$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$f\\left( x \\right)=2x+\\sin x$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$f\\left( x \\right)=\\frac{{{x}^{3}}}{3}+\\sin x+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$f\\left( x \\right)=\\frac{{{x}^{3}}}{3}-\\sin x+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có ${{\\left( \\int{f(x)\\text{d}x} \\right)}^{\\prime }}=f(x)$.<br>\nTừ $\\int{f(x)\\text{d}x}={{x}^{2}}+\\cos x+C$$\\Rightarrow f(x)=2x-\\sin x$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Họ nguyên hàm của hàm số $f\\left( x \\right)=\\sin x+4{{x}^{3}}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\cos x+{{x}^{4}}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\cos x+4{{x}^{4}}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-\\cos x+{{x}^{4}}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-\\cos x+4{{x}^{4}}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int{\\left( \\sin \\,x+4{{x}^{3}} \\right)\\text{d}x}=-\\cos x+{{x}^{4}}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Họ tất cả các nguyên hàm của hàm số $y=\\operatorname{s}\\text{in }x\\,+\\text{cos }x$là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in }x\\,+\\text{cos }x \\right)}\\text{d}x=\\operatorname{s}\\text{in }x\\,+\\text{cos }x+c$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in}x\\,+\\text{cos }x \\right)}\\text{d}x=-\\operatorname{s}\\text{in }x-\\text{cos }x+c$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in }x+\\text{cos }x \\right)}\\text{d}x=-\\operatorname{s}\\text{in }x\\,+\\text{cos }x+c$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int{\\left( \\operatorname{s}\\text{in }x\\,+\\text{cos }x \\right)}\\text{d}x=\\operatorname{s}\\text{in }x-\\text{cos }x+c$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int{\\left( \\operatorname{s}\\text{in }x\\,+\\text{cos }x \\right)}\\text{d}x=\\operatorname{s}\\text{in }x-\\text{cos }x+c$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Nguyên hàm của hàm số $f(x)={{2}^{x}}+x$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{{{2}^{x}}}{\\ln 2}+{{x}^{2}}+C$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{{{2}^{x}}}{\\ln 2}+\\frac{{{x}^{2}}}{2}+C$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{2}^{x}}+\\frac{{{x}^{2}}}{2}+C$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{2}^{x}}+{{x}^{2}}+C$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int{({{2}^{x}}+x)}dx=\\frac{{{2}^{x}}}{\\ln 2}+\\frac{{{x}^{2}}}{2}+C$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:48.780Z"
+}

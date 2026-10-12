@@ -1,0 +1,1122 @@
+{
+  "meta": {
+    "title": "Đề số 1. Giải 15 bài tập tính đơn điệu và cực trị của hàm số",
+    "slug": "de-so-1-giai-15-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so",
+    "id": "1743",
+    "url": "https://sieugioi.com/docs/threads/de-so-1-giai-15-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1743/",
+    "numId": 1743,
+    "bai": 1,
+    "topicId": "math_t1_monotonicity",
+    "baiTitle": "Tính đơn điệu và cực trị của hàm số",
+    "chapter": "Chương 1"
+  },
+  "extracted": {
+    "title": "Đề số 1. Giải 15 bài tập tính đơn điệu và cực trị của hàm số",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-so-1-giai-15-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1743/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 15,
+    "questionsWithOptions": 15,
+    "questionsWithAnswers": 15,
+    "questionsWithExplanation": 15,
+    "questionsWithImages": 11,
+    "manualReviewCount": 1,
+    "warnings": [
+      "Câu 5: Phát hiện mâu thuẫn trong lời giải nguồn: nguồn ghi '3 nghiệm bội lẻ / 3 cực trị' (tương ứng C) nhưng phương trình f'(x)=x(x-2)^3 về mặt toán học chỉ có 2 nghiệm lẻ x=0 và x=2 (tương ứng A). Hệ thống giữ A theo chuẩn nghiệm toán học và gắn cảnh báo kiểm tra."
+    ],
+    "questions": [
+      {
+        "id": "sg_1743_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "[Cụm Hải Phòng ]Cho hàm số $y=f(x)$ có bảng biến thiên như sau: Hàm số $y=f(x)$ đồng biến trên khoảng nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/q1_img1.9192.png)",
+        "promptHtml": "[Cụm Hải Phòng  ]Cho hàm số $y=f(x)$ có bảng biến thiên như sau:<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q1_img1.9192.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9192.png\" class=\"bbImage\" style=\"width: 392px\" alt=\"Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" title=\"Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" width=\"781\" height=\"249\" loading=\"lazy\">\n\t</div><br>\nHàm số $y=f(x)$ đồng biến trên khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;4 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 3;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 1;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 0;1 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào bảng biên thiên, ta có hàm số đã cho đồng biến trên khoảng $\\left( 1;2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9192.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img1.9192.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "[Sở Hải Phòng Lần 1]Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\n\n![hình minh họa](/images/practice/sieugioi/q1_img2.9193.png)",
+        "promptHtml": "[Sở Hải Phòng Lần 1]Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\" data-src=\"/images/practice/sieugioi/q1_img2.9193.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img2.9193.png\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\" title=\"Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\" width=\"179\" height=\"135\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số $f\\left( x \\right)$nghịch biến trên khoảng $\\left( 0;2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số $f\\left( x \\right)$nghịch biến trên khoảng $\\left( -1;1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số $f\\left( x \\right)$đồng biến trên khoảng $\\left( 1;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số $f\\left( x \\right)$đồng biến trên khoảng $\\left( -2;1 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Trên khoảng $\\left( 0;2 \\right)$, đồ thị hàm số ${f}'\\left( x \\right)$ nằm dưới trục hoành nên ${f}'\\left( x \\right)<0$ với mọi $x\\in \\left( 0;2 \\right)$. Vậy hàm số $f\\left( x \\right)$nghịch biến trên khoảng $\\left( 0;2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img2.9193.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img2.9193.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "[HOÀNG DIỆU SÀO NAM - ĐÀ NẴNG ]Cho hàm số: $y=f(x)$có đạo hàm ${f}'(x)=\\left( x-1 \\right)\\left( x+2 \\right),\\forall x\\in \\mathbb{R}$. Hàm số $y=f(x)$có bao nhiêu điểm cực trị?",
+        "promptHtml": "[HOÀNG DIỆU SÀO NAM - ĐÀ NẴNG ]Cho hàm số: $y=f(x)$có đạo hàm ${f}'(x)=\\left( x-1 \\right)\\left( x+2 \\right),\\forall x\\in \\mathbb{R}$.<br>\nHàm số $y=f(x)$có bao nhiêu điểm cực trị?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$1$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có : $f'(x)=0$có hai nghiệm bội đơn nên hàm số $y=f(x)$có hai điểm cực trị",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "[Sở Hải Phòng L1]Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau: Giá trị cực đại của hàm số đã cho bằng\n\n![hình minh họa](/images/practice/sieugioi/q1_img3.9194.png)",
+        "promptHtml": "[Sở Hải Phòng L1]Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q1_img3.9194.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img3.9194.png\" class=\"bbImage\" style=\"width: 405px\" alt=\"Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:\" title=\"Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:\" width=\"568\" height=\"191\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực đại của hàm số đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "2."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "3."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-1$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Giá trị cực đại của hàm số đã cho bằng 3.",
+        "imageUrl": "/images/practice/sieugioi/q1_img3.9194.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img3.9194.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "[Sở Quảng Trị ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm ${f}'\\left( x \\right)=x{{\\left( x-2 \\right)}^{3}}$. Số điểm cực trị của hàm số đã cho là",
+        "promptHtml": "[Sở Quảng Trị ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm ${f}'\\left( x \\right)=x{{\\left( x-2 \\right)}^{3}}$. Số điểm cực trị của hàm số đã cho là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "${f}'\\left( x \\right)=x{{\\left( x-2 \\right)}^{3}}$ có 3 nghiệm bội lẻ nên hàm số $y=f\\left( x \\right)$ có 3 điểm cực trị.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.85,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "[Sở Cà Mau ]Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau Hàm số đã cho đồng biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/1790108587667.9202.png)",
+        "promptHtml": "[Sở Cà Mau ]Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau\" data-src=\"/images/practice/sieugioi/1790108587667.9202.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790108587667.9202.png\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau\" title=\"Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau\" width=\"482\" height=\"75\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 0;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 2;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -1;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -\\infty ;0 \\right)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ bảng xét dấu đạo hàm ta thấy hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( 2;+\\infty \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/1790108587667.9202.png",
+        "images": [
+          "/images/practice/sieugioi/1790108587667.9202.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "[Sở Tuyên Quang Lần 2]Cho hàm số $y=f(x)$ có bảng biến thiên như sau: Giá trị cực tiểu của hàm số đã cho bằng\n\n![hình minh họa](/images/practice/sieugioi/q1_img3.9194.png)",
+        "promptHtml": "[Sở Tuyên Quang Lần 2]Cho hàm số $y=f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Giá trị cực tiểu của hàm số đã cho bằng\" data-src=\"/images/practice/sieugioi/q1_img3.9194.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img3.9194.png\" class=\"bbImage\" style=\"width: 373px\" alt=\"Giá trị cực tiểu của hàm số đã cho bằng\" title=\"Giá trị cực tiểu của hàm số đã cho bằng\" width=\"568\" height=\"191\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực tiểu của hàm số đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-1$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ bảng biến thiên: Hàm số giảm trên $(-\\infty ;-2)$. Hàm số tăng trên $(-2;2)$. Do đó tại $x=-2$, hàm số đạt cực tiểu. Giá trị cực tiểu là $f(-2)=-1$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img3.9194.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img3.9194.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "[Chuyên Lương Văn Chánh ]Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau Hàm số có bao nhiêu điểm cực trị?\n\n![hình minh họa](/images/practice/sieugioi/q1_img6.9196.png)",
+        "promptHtml": "[Chuyên Lương Văn Chánh ]Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Hàm số có bao nhiêu điểm cực trị?\" data-src=\"/images/practice/sieugioi/q1_img6.9196.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img6.9196.png\" class=\"bbImage\" style=\"\" alt=\"Hàm số có bao nhiêu điểm cực trị?\" title=\"Hàm số có bao nhiêu điểm cực trị?\" width=\"624\" height=\"136\" loading=\"lazy\">\n\t</div><br>\nHàm số có bao nhiêu điểm cực trị?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$3$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ bảng biến thiên suy ra được hàm số có hai điểm cực trị.",
+        "imageUrl": "/images/practice/sieugioi/q1_img6.9196.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img6.9196.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "[Mường Lát sở Thanh Hoá ]Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên dưới. Trong các khẳng định sau, khẳng định nào đúng?\n\n![hình minh họa](/images/practice/sieugioi/q1_img7.9197.png)",
+        "promptHtml": "[Mường Lát sở Thanh Hoá ]Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên dưới.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Trong các khẳng định sau, khẳng định nào đúng?\" data-src=\"/images/practice/sieugioi/q1_img7.9197.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img7.9197.png\" class=\"bbImage\" style=\"width: 205px\" alt=\"Trong các khẳng định sau, khẳng định nào đúng?\" title=\"Trong các khẳng định sau, khẳng định nào đúng?\" width=\"579\" height=\"647\" loading=\"lazy\">\n\t</div><br>\nTrong các khẳng định sau, khẳng định nào đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Hàm số đạt cực tiểu tại $x=0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Hàm số đạt cực tiểu tại $x=2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Hàm số đạt cực đại tại $x=6$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Hàm số đạt cực đại tại $x=2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ đồ thị hàm số suy ra hàm số đạt cực đại tại $x=0$ và đạt cực tiểu tại $x=2$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img7.9197.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img7.9197.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "[Sở Phú Thọ ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là $f\\prime \\left( x \\right)=\\left( x-1 \\right){{\\left( x-2 \\right)}^{2}}\\left( x+3 \\right),\\forall x\\in \\mathbb{R}$. Số điểm cực trị của hàm số đã cho là:",
+        "promptHtml": "[Sở Phú Thọ ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là $f\\prime \\left( x \\right)=\\left( x-1 \\right){{\\left( x-2 \\right)}^{2}}\\left( x+3 \\right),\\forall x\\in \\mathbb{R}$. Số điểm cực trị của hàm số đã cho là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Số điểm cực trị của hàm số bằng số nghiệm bội lẻ của phương trình $f\\prime \\left( x \\right)=0$. Ta có: $f\\prime \\left( x \\right)=0\\Leftrightarrow \\left[ \\begin{align} & x=1 \\\\ & x=2 \\\\ & x=-3 \\\\ \\end{align} \\right.$. Ta thấy $x=2$ là nghiệm bội chẵn và $x=1$,$x=-3$ nên $f\\prime \\left( x \\right)$ chỉ đổi dấu khi qua $x=1$ và $x=-3$ Do đó hàm số có $2$ điểm cực trị.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "[Sở Quảng Ninh ]Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có bảng xét dấu của ${f}'(x)$ như sau: Số điểm cực đại của hàm số $y=f(x)$ là\n\n![hình minh họa](/images/practice/sieugioi/q1_img8.9198.png)",
+        "promptHtml": "[Sở Quảng Ninh ]Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có bảng xét dấu của ${f}'(x)$ như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Số điểm cực đại của hàm số $y=f(x)$ là\" data-src=\"/images/practice/sieugioi/q1_img8.9198.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img8.9198.png\" class=\"bbImage\" style=\"\" alt=\"Số điểm cực đại của hàm số $y=f(x)$ là\" title=\"Số điểm cực đại của hàm số $y=f(x)$ là\" width=\"949\" height=\"101\" loading=\"lazy\">\n\t</div><br>\nSố điểm cực đại của hàm số $y=f(x)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$4$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Qua bảng xét dấu của hàm số $y=f(x)$ ta thấy số điểm cực đại của hàm số $y=f(x)$ là 2.",
+        "imageUrl": "/images/practice/sieugioi/q1_img8.9198.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img8.9198.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "[Phụ Dực sở Hưng Yên ]Hàm số $y=\\frac{2x+3}{x+1}$ có bao nhiêu điểm cực trị?",
+        "promptHtml": "[Phụ Dực sở Hưng Yên ]Hàm số $y=\\frac{2x+3}{x+1}$ có bao nhiêu điểm cực trị?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$1$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Có $y'=-\\frac{1}{{{(x+1)}^{2}}}<0\\,\\,\\forall x\\ne -1$ suy ra hàm số nghịch biến trên các khoảng xác định do đó hàm số không có cực trị.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "[Phụ Dực sở Hưng Yên ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm trên $\\mathbb{R}$ và hàm số $y=f'\\left( x \\right)$ là hàm số bậc ba có đồ thị là đường cong trong hình vẽ dưới đây. Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\n\n![hình minh họa](/images/practice/sieugioi/q1_img9.9199.png)",
+        "promptHtml": "[Phụ Dực sở Hưng Yên ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm trên $\\mathbb{R}$ và hàm số $y=f'\\left( x \\right)$ là hàm số bậc ba có đồ thị là đường cong trong hình vẽ dưới đây.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\" data-src=\"/images/practice/sieugioi/q1_img9.9199.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img9.9199.png\" class=\"bbImage\" style=\"\" alt=\"Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\" title=\"Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\" width=\"171\" height=\"167\" loading=\"lazy\">\n\t</div><br>\nHàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -\\infty ;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -2;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -1;2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -1;1 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hàm số $y=f\\left( x \\right)$ không nghịch biến khi $y=f'\\left( x \\right)\\ge 0$ ứng với đoạn đồ thị nằm trên $\\text{O}x$ là khoảng từ $\\left( 1;+\\infty \\right)$ nên không nghịch biến trên $\\left( -1;2 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img9.9199.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img9.9199.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "[Hàm Rồng Thanh Hoá L2]Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau: Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\n\n![hình minh họa](/images/practice/sieugioi/q1_img10.9200.png)",
+        "promptHtml": "[Hàm Rồng Thanh Hoá L2]Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\" data-src=\"/images/practice/sieugioi/q1_img10.9200.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img10.9200.png\" class=\"bbImage\" style=\"width: 421px\" alt=\"Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\" title=\"Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\" width=\"763\" height=\"341\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -1;1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -2;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -1;+\\infty \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( -2;1 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Từ BBT ta thấy, hàm số nghịch biến trên khoảng $\\left( -1;1 \\right)$.",
+        "imageUrl": "/images/practice/sieugioi/q1_img10.9200.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img10.9200.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1743_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "[Sở Gia Lai ]Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Giá trị cực đại của hàm số đã cho bằng\n\n![hình minh họa](/images/practice/sieugioi/q1_img11.9201.png)",
+        "promptHtml": "[Sở Gia Lai ]Cho hàm số $y=f(x)$ có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Giá trị cực đại của hàm số đã cho bằng\" data-src=\"/images/practice/sieugioi/q1_img11.9201.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img11.9201.png\" class=\"bbImage\" style=\"width: 208px\" alt=\"Giá trị cực đại của hàm số đã cho bằng\" title=\"Giá trị cực đại của hàm số đã cho bằng\" width=\"306\" height=\"303\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực đại của hàm số đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "4."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "2."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "1."
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ đồ thị, điểm cực đại của hàm số có tung độ bằng $2$. Đề hỏi giá trị cực đại, tức là giá trị $y$ tại điểm cực đại. Vậy giá trị cực đại là $2$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q1_img11.9201.png",
+        "images": [
+          "/images/practice/sieugioi/q1_img11.9201.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:12.875Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề số 1. Giải 15 bài tập tính đơn điệu và cực trị của hàm số",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-so-1-giai-15-bai-tap-tinh-don-dieu-va-cuc-tri-cua-ham-so.1743/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 15",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "[Cụm Hải Phòng  ]Cho hàm số $y=f(x)$ có bảng biến thiên như sau:<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q1_img1.9192.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img1.9192.png\" class=\"bbImage\" style=\"width: 392px\" alt=\"Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" title=\"Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" width=\"781\" height=\"249\" loading=\"lazy\">\n\t</div><br>\nHàm số $y=f(x)$ đồng biến trên khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;4 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 3;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 1;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 0;1 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào bảng biên thiên, ta có hàm số đã cho đồng biến trên khoảng $\\left( 1;2 \\right)$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img1.9192.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "[Sở Hải Phòng Lần 1]Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\" data-src=\"/images/practice/sieugioi/q1_img2.9193.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img2.9193.png\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\" title=\"Cho hàm số $f\\left( x \\right)$ có đạo hàm liên tục trên $\\mathbb{R}$ và có đồ thị hàm số ${f}'\\left( x \\right)$ là đường cong trong hình bên. Mệnh đề nào dưới đây đúng?\" width=\"179\" height=\"135\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số $f\\left( x \\right)$nghịch biến trên khoảng $\\left( 0;2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số $f\\left( x \\right)$nghịch biến trên khoảng $\\left( -1;1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số $f\\left( x \\right)$đồng biến trên khoảng $\\left( 1;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số $f\\left( x \\right)$đồng biến trên khoảng $\\left( -2;1 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Trên khoảng $\\left( 0;2 \\right)$, đồ thị hàm số ${f}'\\left( x \\right)$ nằm dưới trục hoành nên ${f}'\\left( x \\right)&lt;0$ với mọi<br>\n$x\\in \\left( 0;2 \\right)$. Vậy hàm số $f\\left( x \\right)$nghịch biến trên khoảng $\\left( 0;2 \\right)$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img2.9193.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "[HOÀNG DIỆU SÀO NAM - ĐÀ NẴNG ]Cho hàm số: $y=f(x)$có đạo hàm ${f}'(x)=\\left( x-1 \\right)\\left( x+2 \\right),\\forall x\\in \\mathbb{R}$.<br>\nHàm số $y=f(x)$có bao nhiêu điểm cực trị?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$1$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có : $f'(x)=0$có hai nghiệm bội đơn nên hàm số $y=f(x)$có hai điểm cực trị<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "[Sở Hải Phòng L1]Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q1_img3.9194.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img3.9194.png\" class=\"bbImage\" style=\"width: 405px\" alt=\"Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:\" title=\"Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau:\" width=\"568\" height=\"191\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực đại của hàm số đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "2."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "3."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-1$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Giá trị cực đại của hàm số đã cho bằng 3.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img3.9194.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "[Sở Quảng Trị ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm ${f}'\\left( x \\right)=x{{\\left( x-2 \\right)}^{3}}$. Số điểm cực trị của hàm số đã cho là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "${f}'\\left( x \\right)=x{{\\left( x-2 \\right)}^{3}}$ có 3 nghiệm bội lẻ nên hàm số $y=f\\left( x \\right)$ có 3 điểm cực trị.<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "[Sở Cà Mau ]Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau\" data-src=\"/images/practice/sieugioi/1790108587667.9202.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/1790108587667.9202.png\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau\" title=\"Cho hàm số $y=f\\left( x \\right)$ có bảng xét dấu đạo hàm như sau\" width=\"482\" height=\"75\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho đồng biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 0;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 2;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -1;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -\\infty ;0 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ bảng xét dấu đạo hàm ta thấy hàm số $y=f\\left( x \\right)$ đồng biến trên khoảng $\\left( 2;+\\infty  \\right)$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/1790108587667.9202.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "[Sở Tuyên Quang Lần 2]Cho hàm số $y=f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Giá trị cực tiểu của hàm số đã cho bằng\" data-src=\"/images/practice/sieugioi/q1_img3.9194.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img3.9194.png\" class=\"bbImage\" style=\"width: 373px\" alt=\"Giá trị cực tiểu của hàm số đã cho bằng\" title=\"Giá trị cực tiểu của hàm số đã cho bằng\" width=\"568\" height=\"191\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực tiểu của hàm số đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-1$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ bảng biến thiên:<br>\nHàm số giảm trên $(-\\infty ;-2)$.<br>\nHàm số tăng trên $(-2;2)$.<br>\nDo đó tại $x=-2$, hàm số đạt cực tiểu.<br>\nGiá trị cực tiểu là $f(-2)=-1$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img3.9194.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "[Chuyên Lương Văn Chánh ]Cho hàm số $f\\left( x \\right)$ có bảng biến thiên như sau<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Hàm số có bao nhiêu điểm cực trị?\" data-src=\"/images/practice/sieugioi/q1_img6.9196.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img6.9196.png\" class=\"bbImage\" style=\"\" alt=\"Hàm số có bao nhiêu điểm cực trị?\" title=\"Hàm số có bao nhiêu điểm cực trị?\" width=\"624\" height=\"136\" loading=\"lazy\">\n\t</div><br>\nHàm số có bao nhiêu điểm cực trị?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$3$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Từ bảng biến thiên suy ra được hàm số có hai điểm cực trị.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img6.9196.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "[Mường Lát sở Thanh Hoá ]Cho hàm số $y=f(x)$ có đồ thị là đường cong trong hình bên dưới.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Trong các khẳng định sau, khẳng định nào đúng?\" data-src=\"/images/practice/sieugioi/q1_img7.9197.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img7.9197.png\" class=\"bbImage\" style=\"width: 205px\" alt=\"Trong các khẳng định sau, khẳng định nào đúng?\" title=\"Trong các khẳng định sau, khẳng định nào đúng?\" width=\"579\" height=\"647\" loading=\"lazy\">\n\t</div><br>\nTrong các khẳng định sau, khẳng định nào đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Hàm số đạt cực tiểu tại $x=0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "Hàm số đạt cực tiểu tại $x=2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Hàm số đạt cực đại tại $x=6$."
+          },
+          {
+            "id": "opt_d",
+            "text": "Hàm số đạt cực đại tại $x=2$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ đồ thị hàm số suy ra hàm số đạt cực đại tại $x=0$ và đạt cực tiểu tại $x=2$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img7.9197.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "[Sở Phú Thọ ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm là $f\\prime \\left( x \\right)=\\left( x-1 \\right){{\\left( x-2 \\right)}^{2}}\\left( x+3 \\right),\\forall x\\in \\mathbb{R}$. Số điểm cực trị của hàm số đã cho là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Số điểm cực trị của hàm số bằng số nghiệm bội lẻ của phương trình $f\\prime \\left( x \\right)=0$.<br>\nTa có: $f\\prime \\left( x \\right)=0\\Leftrightarrow \\left[ \\begin{align} &amp; x=1 \\\\ &amp; x=2 \\\\ &amp; x=-3 \\\\ \\end{align} \\right.$.<br>\nTa thấy $x=2$ là nghiệm bội chẵn và $x=1$,$x=-3$ nên $f\\prime \\left( x \\right)$ chỉ đổi dấu khi qua $x=1$ và $x=-3$<br>\nDo đó hàm số có $2$ điểm cực trị.<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "[Sở Quảng Ninh ]Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có bảng xét dấu của ${f}'(x)$ như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Số điểm cực đại của hàm số $y=f(x)$ là\" data-src=\"/images/practice/sieugioi/q1_img8.9198.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img8.9198.png\" class=\"bbImage\" style=\"\" alt=\"Số điểm cực đại của hàm số $y=f(x)$ là\" title=\"Số điểm cực đại của hàm số $y=f(x)$ là\" width=\"949\" height=\"101\" loading=\"lazy\">\n\t</div><br>\nSố điểm cực đại của hàm số $y=f(x)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$4$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Qua bảng xét dấu của hàm số $y=f(x)$ ta thấy số điểm cực đại của hàm số $y=f(x)$ là 2.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img8.9198.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "[Phụ Dực sở Hưng Yên ]Hàm số $y=\\frac{2x+3}{x+1}$ có bao nhiêu điểm cực trị?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$1$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Có $y'=-\\frac{1}{{{(x+1)}^{2}}}&lt;0\\,\\,\\forall x\\ne -1$ suy ra hàm số nghịch biến trên các khoảng xác định do đó hàm số không có cực trị.<br>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "[Phụ Dực sở Hưng Yên ]Cho hàm số $y=f\\left( x \\right)$ có đạo hàm trên $\\mathbb{R}$ và hàm số $y=f'\\left( x \\right)$ là hàm số bậc ba có đồ thị là đường cong trong hình vẽ dưới đây.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\" data-src=\"/images/practice/sieugioi/q1_img9.9199.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img9.9199.png\" class=\"bbImage\" style=\"\" alt=\"Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\" title=\"Hàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?\" width=\"171\" height=\"167\" loading=\"lazy\">\n\t</div><br>\nHàm số $y=f\\left( x \\right)$ không nghịch biến trên khoảng nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -\\infty ;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -2;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -1;2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -1;1 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hàm số $y=f\\left( x \\right)$ không nghịch biến khi $y=f'\\left( x \\right)\\ge 0$ ứng với đoạn đồ thị nằm trên $\\text{O}x$ là khoảng từ $\\left( 1;+\\infty  \\right)$ nên không nghịch biến trên $\\left( -1;2 \\right)$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img9.9199.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "[Hàm Rồng Thanh Hoá L2]Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\" data-src=\"/images/practice/sieugioi/q1_img10.9200.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img10.9200.png\" class=\"bbImage\" style=\"width: 421px\" alt=\"Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\" title=\"Hàm số đã cho nghịch biến trên khoảng nào dưới đây?\" width=\"763\" height=\"341\" loading=\"lazy\">\n\t</div><br>\nHàm số đã cho nghịch biến trên khoảng nào dưới đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -1;1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -2;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -1;+\\infty  \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( -2;1 \\right)$."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Từ BBT ta thấy, hàm số nghịch biến trên khoảng $\\left( -1;1 \\right)$.<br>\n",
+        "imageUrl": "/images/practice/sieugioi/q1_img10.9200.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "[Sở Gia Lai ]Cho hàm số $y=f(x)$ có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Giá trị cực đại của hàm số đã cho bằng\" data-src=\"/images/practice/sieugioi/q1_img11.9201.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q1_img11.9201.png\" class=\"bbImage\" style=\"width: 208px\" alt=\"Giá trị cực đại của hàm số đã cho bằng\" title=\"Giá trị cực đại của hàm số đã cho bằng\" width=\"306\" height=\"303\" loading=\"lazy\">\n\t</div><br>\nGiá trị cực đại của hàm số đã cho bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "4."
+          },
+          {
+            "id": "opt_b",
+            "text": "2."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "1."
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Từ đồ thị, điểm cực đại của hàm số có tung độ bằng $2$.<br>\nĐề hỏi giá trị cực đại, tức là giá trị $y$ tại điểm cực đại.<br>\nVậy giá trị cực đại là $2$.<br>\nChọn B.",
+        "imageUrl": "/images/practice/sieugioi/q1_img11.9201.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:12.880Z"
+}

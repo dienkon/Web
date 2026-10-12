@@ -1,0 +1,1583 @@
+{
+  "meta": {
+    "title": "Đề 4. Luyện Tập 22 Câu Trắc Nghiệm Về Đường Tiệm Cận Của Đồ Thị Hàm Số",
+    "slug": "de-4-luyen-tap-22-cau-trac-nghiem-ve-duong-tiem-can-cua-do-thi-ham-so",
+    "id": "1756",
+    "url": "https://sieugioi.com/docs/threads/de-4-luyen-tap-22-cau-trac-nghiem-ve-duong-tiem-can-cua-do-thi-ham-so.1756/",
+    "numId": 1756,
+    "bai": 3,
+    "topicId": "math_t4_asymptote",
+    "baiTitle": "Đường tiệm cận của đồ thị hàm số",
+    "chapter": "Chương 1"
+  },
+  "extracted": {
+    "title": "Đề 4. Luyện Tập 22 Câu Trắc Nghiệm Về Đường Tiệm Cận Của Đồ Thị Hàm Số",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-4-luyen-tap-22-cau-trac-nghiem-ve-duong-tiem-can-cua-do-thi-ham-so.1756/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 22,
+    "questionsWithOptions": 22,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 11,
+    "manualReviewCount": 22,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 13: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 14: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 15: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 16: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 17: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 18: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 19: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 20: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 21: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 22: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1756_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Đường thẳng nào dưới đây là đường tiệm cận xiên của đồ thị hàm số $y=2x-5+\\frac{10}{x+3}$",
+        "promptHtml": "Đường thẳng nào dưới đây là đường tiệm cận xiên của đồ thị hàm số $y=2x-5+\\frac{10}{x+3}$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=x+3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=2x+3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=2x+3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=2x-5$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( 2x-5+\\frac{10}{x+3}-\\left( 2x-5 \\right) \\right)=0$ nên đồ thị hàm số có tiệm cận xiên: $y=2x-5$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ Đồ thị hàm số đã cho có đường tiệm cận ngang là\n\n![hình minh họa](/images/practice/sieugioi/q2_img1.9378.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ có đồ thị như hình vẽ\" data-src=\"/images/practice/sieugioi/q2_img1.9378.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9378.png\" class=\"bbImage\" style=\"width: 191px\" alt=\" Cho hàm số $y=f(x)$ có đồ thị như hình vẽ\" title=\" Cho hàm số $y=f(x)$ có đồ thị như hình vẽ\" width=\"1650\" height=\"1779\" loading=\"lazy\">\n\t</div><br>\nĐồ thị hàm số đã cho có đường tiệm cận ngang là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=3$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Nhìn đồ thị hàm số ta có đường tiệm cận ngang là $y=2$.",
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9378.png",
+        "images": [
+          "/images/practice/sieugioi/q2_img1.9378.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Tiệm cận xiên của đồ thị hàm số $y=\\frac{2{{x}^{2}}+x}{x+1}$ là",
+        "promptHtml": "Tiệm cận xiên của đồ thị hàm số $y=\\frac{2{{x}^{2}}+x}{x+1}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=2x+1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=2x-3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=2x$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=2x-1$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $a=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{y}{x}=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{2{{x}^{2}}+x}{x\\left( x+1 \\right)}=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{2{{x}^{2}}+x}{{{x}^{2}}+x}=2$.\n$b=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( y-2x \\right)=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( \\frac{2{{x}^{2}}+x}{x+1}-2x \\right)=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{-x}{x+1}=-1$\n(Tương tự: $\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,\\frac{y}{x}=2$; $b=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( y-2x \\right)=-1$).\nVậy đồ thị hàm số có tiệm cận xiên: $y=2x-1$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Tiệm cận ngang của đồ thị hàm số $y=\\frac{2x-4}{x+2}$ là đường thẳng có phương trình",
+        "promptHtml": "Tiệm cận ngang của đồ thị hàm số $y=\\frac{2x-4}{x+2}$ là đường thẳng có phương trình",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=2$ ."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=-2$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đồ thị hàm số có tiệm cận đứng $x = 1$ và tiệm cận ngang $y = 2$. Do đó tổng số đường tiệm cận là 2. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau: Đường tiệm cận đứng, tiệm cận ngang của đồ thị hàm số $y=f\\left( x \\right)$ lần lượt là\n\n![hình minh họa](/images/practice/sieugioi/q5_img1.9379.png)",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q5_img1.9379.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9379.png\" class=\"bbImage\" style=\"width: 410px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" width=\"1070\" height=\"371\" loading=\"lazy\">\n\t</div><br>\nĐường tiệm cận đứng, tiệm cận ngang của đồ thị hàm số $y=f\\left( x \\right)$ lần lượt là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=1;y=2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=2;y=1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=2;~y=2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=1;~y=1$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Đường tiệm cận đứng, tiệm cận ngang của đồ thị hàm số $y=f\\left( x \\right)$ lần lượt là $x=2;y=1$.",
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9379.png",
+        "images": [
+          "/images/practice/sieugioi/q5_img1.9379.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Đường tiệm cận ngang của đồ thị hàm số $y=\\frac{3x-1}{1-x}$ có phương trình là",
+        "promptHtml": "Đường tiệm cận ngang của đồ thị hàm số $y=\\frac{3x-1}{1-x}$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=-3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=-3$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\lim_{x \\to \\pm\\infty} y = \\lim_{x \\to \\pm\\infty} \\frac{3x-1}{1-x} = -3$. Do đó đường tiệm cận ngang của đồ thị hàm số là đường thẳng $y = -3$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Tìm số tiệm cận đứng của đồ thị hàm số $y=\\frac{{{x}^{2}}-3x-4}{{{x}^{2}}-16}$.",
+        "promptHtml": "Tìm số tiệm cận đứng của đồ thị hàm số $y=\\frac{{{x}^{2}}-3x-4}{{{x}^{2}}-16}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào đồ thị và công thức hàm số, đường tiệm cận đứng là $x = -1$ và tiệm cận ngang là $y = 1$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Hàm số $y = f(x)$ có $\\lim_{x \\to +\\infty} f(x) = 1$ và $\\lim_{x \\to -\\infty} f(x) = -1$. Chọn khẳng định đúng.",
+        "promptHtml": "Hàm số $y = f(x)$ có $\\lim_{x \\to +\\infty} f(x) = 1$ và $\\lim_{x \\to -\\infty} f(x) = -1$. Chọn khẳng định đúng.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "Đồ thị hàm số đã cho không có tiệm cận ngang."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số đã cho có 2 tiệm cận ngang là các đường thẳng $x = 1$ và $x = -1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "Đồ thị hàm số đã cho có đúng một tiệm cận ngang."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Đồ thị hàm số đã cho có 2 tiệm cận ngang là các đường thẳng $y = 1$ và $y = -1$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Vì $\\lim_{x \\to +\\infty} f(x) = 1$ nên đường thẳng $y = 1$ là một tiệm cận ngang của đồ thị hàm số. Vì $\\lim_{x \\to -\\infty} f(x) = -1$ nên đường thẳng $y = -1$ là một tiệm cận ngang khác của đồ thị hàm số. Vậy đồ thị hàm số có 2 tiệm cận ngang là $y = 1$ và $y = -1$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Đồ thị có hình vẽ dưới đây là của hàm số nào\n\n![hình minh họa](/images/practice/sieugioi/q9_img1.9380.png)",
+        "promptHtml": "Đồ thị có hình vẽ dưới đây là của hàm số nào<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị có hình vẽ dưới đây là của hàm số nào\" data-src=\"/images/practice/sieugioi/q9_img1.9380.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9380.png\" class=\"bbImage\" style=\"\" alt=\" Đồ thị có hình vẽ dưới đây là của hàm số nào\" title=\" Đồ thị có hình vẽ dưới đây là của hàm số nào\" width=\"305\" height=\"258\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{-x+2}{x+1}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=\\frac{-x}{x+1}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=\\frac{-x+1}{x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{-2x+1}{2x+1}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Đồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": ""
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Đồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số đã cho có tiệm cận đứng là: $x=-1$; tiệm cân ngang là:$y=-1$. Loại đáp án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Đồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số đã cho có tiệm cận đứng là: $x=-1$; tiệm cân ngang là:$y=-1$. Loại đáp án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Đồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "Đồ thị hàm số đã cho có tiệm cận đứng là: $x=-1$; tiệm cân ngang là:$y=-1$. Loại đáp án"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "Đồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Đồ thị hàm số đã cho có tiệm cận đứng là: $x=-1$; tiệm cân ngang là:$y=-1$. Loại đáp án D.\nĐồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và B.",
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9380.png",
+        "images": [
+          "/images/practice/sieugioi/q9_img1.9380.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Tiệm cận ngang của đồ thị hàm số $y=\\frac{2x-3}{x+1}$ là đường thẳng có phương trình:",
+        "promptHtml": "Tiệm cận ngang của đồ thị hàm số $y=\\frac{2x-3}{x+1}$ là đường thẳng có phương trình:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=2$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đường tiệm cận xiên của đồ thị hàm số có dạng $y = ax + b$ với $a = \\lim_{x \\to +\\infty} \\frac{f(x)}{x}$ và $b = \\lim_{x \\to +\\infty} (f(x) - ax)$. Tính toán cho kết quả phương trình tiệm cận xiên ở phương án A. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Số đường tiệm cận của đồ thị hàm số $y=2x+3+\\frac{1}{x-1}$ là",
+        "promptHtml": "Số đường tiệm cận của đồ thị hàm số $y=2x+3+\\frac{1}{x-1}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$0$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$2$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có $\\lim_{x \\to \\pm\\infty} [y - (2x+3)] = \\lim_{x \\to \\pm\\infty} \\frac{1}{x-1} = 0$, suy ra $y = 2x+3$ là đường tiệm cận xiên của đồ thị hàm số. Lại có $\\lim_{x \\to 1^+} y = +\\infty$ nên $x = 1$ là đường tiệm cận đứng của đồ thị hàm số. Vậy đồ thị hàm số có tất cả 2 đường tiệm cận. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã cho là\n\n![hình minh họa](/images/practice/sieugioi/q12_img1.9381.png)",
+        "promptHtml": "Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã cho là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã c\" data-src=\"/images/practice/sieugioi/q12_img1.9381.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9381.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã c\" title=\" Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã c\" width=\"237\" height=\"107\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "3."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "1."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "2."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "0."
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Xét điều kiện xác định và các giới hạn tại vô cực, đồ thị có 2 đường tiệm cận ngang và 1 đường tiệm cận đứng. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9381.png",
+        "images": [
+          "/images/practice/sieugioi/q12_img1.9381.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q13",
+        "order": 13,
+        "type": "single_choice",
+        "promptText": "Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\n\n![hình minh họa](/images/practice/sieugioi/q13_img1.9382.png)",
+        "promptHtml": "Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\" data-src=\"/images/practice/sieugioi/q13_img1.9382.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9382.png\" class=\"bbImage\" style=\"\" alt=\" Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\" title=\" Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\" width=\"203\" height=\"138\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$a=2, b=2, c=-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$a=1, b=2, c=1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$a=1, b=1, c=-1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$a=1, b=-2, c=1$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Từ đồ thị hàm số ta có: Đồ thị cắt trục tung tại $(0; -1)$, thay vào hàm số ta được $\\frac{2}{b} = -1 \\Rightarrow b = -2$. Đồ thị cắt trục hoành tại $(-2; 0)$, thay vào ta được $\\frac{-2a+2}{-2c+b} = 0 \\Rightarrow -2a+2 = 0 \\Rightarrow a = 1$. Đường tiệm cận đứng là $x = 2$, suy ra nghiệm mẫu $cx+b = 0 \\Leftrightarrow x = -\\frac{b}{c} = 2 \\Rightarrow c = -\\frac{-2}{2} = 1$. Vậy $a = 1, b = -2, c = 1$. Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9382.png",
+        "images": [
+          "/images/practice/sieugioi/q13_img1.9382.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q14",
+        "order": 14,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới đây. Trong các hệ số $a,b,c,d$ có bao nhiêu số dương?\n\n![hình minh họa](/images/practice/sieugioi/q14_img1.9383.png)",
+        "promptHtml": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới đây. Trong các hệ số $a,b,c,d$ có bao nhiêu số dương?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới\" data-src=\"/images/practice/sieugioi/q14_img1.9383.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9383.png\" class=\"bbImage\" style=\"width: 337px\" alt=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới\" width=\"2664\" height=\"2268\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Khoảng cách giữa hai đường tiệm cận hoặc giao điểm hai đường tiệm cận được xác định bởi tọa độ tâm đối xứng $I(x_0; y_0)$. Chọn B.",
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9383.png",
+        "images": [
+          "/images/practice/sieugioi/q14_img1.9383.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q15",
+        "order": 15,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường tiệm cận ngang của đồ thị hàm số đã cho có phương trình là:\n\n![hình minh họa](/images/practice/sieugioi/q15_img1.9384.png)",
+        "promptHtml": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường tiệm cận ngang của đồ thị hàm số đã cho có phương trình là:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường \" data-src=\"/images/practice/sieugioi/q15_img1.9384.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9384.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường \" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường \" width=\"158\" height=\"155\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=-1$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Phương trình đường tiệm cận xiên $y = 2x - 1$ nhận được bằng cách chia đa thức tử số cho mẫu số. Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9384.png",
+        "images": [
+          "/images/practice/sieugioi/q15_img1.9384.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q16",
+        "order": 16,
+        "type": "single_choice",
+        "promptText": "Phương trình đường tiệm cận ngang của đồ thị hàm số $y=\\frac{x-3}{5x-16}$ là",
+        "promptHtml": "Phương trình đường tiệm cận ngang của đồ thị hàm số $y=\\frac{x-3}{5x-16}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$y=\\frac{16}{5}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=\\frac{16}{5}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=\\frac{1}{5}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=\\frac{1}{5}$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,\\frac{x-3}{5x-16}=\\frac{1}{5}$ và $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{x-3}{5x-16}=\\frac{1}{5}$.\nPhương trình đường tiệm cận ngang của đồ thị hàm số $y=\\frac{x-3}{5x-16}$ là $y=\\frac{1}{5}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q17",
+        "order": 17,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ có bảng biến thiên như sau: Tổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số đã cho là:\n\n![hình minh họa](/images/practice/sieugioi/q17_img1.9385.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q17_img1.9385.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9385.png\" class=\"bbImage\" style=\"width: 359px\" alt=\" Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" width=\"998\" height=\"492\" loading=\"lazy\">\n\t</div><br>\nTổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số đã cho là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "4."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "2."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "3."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "1."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Dựa vào bảng biến thiên của hàm số $y=f(x)$, ta thấy: $\\lim_{x \\to -\\infty} f(x) = 0$ và $\\lim_{x \\to +\\infty} f(x) = 5$, nên đồ thị hàm số có hai tiệm cận ngang là $y=0$ và $y=5$. Mặt khác: $\\lim_{x \\to 1^-} f(x) = -\\infty$ nên đồ thị hàm số có đúng 1 tiệm cận đứng $x=1$. Vậy đồ thị hàm số đã cho có tổng cộng 3 tiệm cận (đứng và ngang). Chọn C.",
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9385.png",
+        "images": [
+          "/images/practice/sieugioi/q17_img1.9385.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q18",
+        "order": 18,
+        "type": "single_choice",
+        "promptText": "Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\n\n![hình minh họa](/images/practice/sieugioi/q18_img1.9386.png)",
+        "promptHtml": "Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\" data-src=\"/images/practice/sieugioi/q18_img1.9386.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9386.png\" class=\"bbImage\" style=\"width: 208px\" alt=\" Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\" title=\" Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\" width=\"1662\" height=\"1782\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$y=1$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Đồ thị có tiệm cận đứng $x = -2$ và tiệm cận ngang $y = 3$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9386.png",
+        "images": [
+          "/images/practice/sieugioi/q18_img1.9386.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q19",
+        "order": 19,
+        "type": "single_choice",
+        "promptText": "Tiệm cận đứng của đồ thị hàm số $y=\\frac{2x-2}{x+1}$ là:",
+        "promptHtml": "Tiệm cận đứng của đồ thị hàm số $y=\\frac{2x-2}{x+1}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$x=1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$x=-2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=2$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có nghiệm của mẫu số: $x+1=0\\Leftrightarrow x=-1$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q20",
+        "order": 20,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây. Tính giá trị của biểu thức $P=2a-c$.\n\n![hình minh họa](/images/practice/sieugioi/q20_img1.9387.png)",
+        "promptHtml": "Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.\" data-src=\"/images/practice/sieugioi/q20_img1.9387.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q20_img1.9387.png\" class=\"bbImage\" style=\"width: 294px\" alt=\" Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.\" title=\" Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.\" width=\"870\" height=\"730\" loading=\"lazy\">\n\t</div><br>\nTính giá trị của biểu thức $P=2a-c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-5$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$5$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Số đường tiệm cận của đồ thị hàm số đã cho là 3 (gồm 1 tiệm cận đứng và 2 tiệm cận ngang). Chọn D.",
+        "imageUrl": "/images/practice/sieugioi/q20_img1.9387.png",
+        "images": [
+          "/images/practice/sieugioi/q20_img1.9387.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q21",
+        "order": 21,
+        "type": "single_choice",
+        "promptText": "Đường tiệm cận đứng của đồ thị hàm số $y=\\frac{2x+3}{x-1}$ là",
+        "promptHtml": "Đường tiệm cận đứng của đồ thị hàm số $y=\\frac{2x+3}{x-1}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$x=2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$y=1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$y=2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$x=1$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Giao điểm của hai đường tiệm cận là tâm đối xứng của đồ thị hàm số nhất biến. Tọa độ tâm đối xứng là $I(1; 2)$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1756_q22",
+        "order": 22,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a,b,c,d$ có bao nhiêu số dương?\n\n![hình minh họa](/images/practice/sieugioi/q22_img1.9388.png)",
+        "promptHtml": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a\" data-src=\"/images/practice/sieugioi/q22_img1.9388.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q22_img1.9388.png\" class=\"bbImage\" style=\"width: 350px\" alt=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a\" width=\"794\" height=\"546\" loading=\"lazy\">\n\t</div><br>\nTrong các hệ số $a,b,c,d$ có bao nhiêu số dương?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$0$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số, ta xác định:\nTiệm cận đứng: Đường thẳng $x=1$ hay $x=-\\frac{d}{c}=1\\Leftrightarrow c=-d.$\nTiệm cận ngang: Đường thẳng $y=-1$ hay $y=\\frac{a}{c}=-1\\Leftrightarrow c=-a$.\nGiao điểm với trục hoành ($Ox$): Đồ thị cắt trục hoành tại điểm $(2;0)$.\nThay $y=0$ vào ta có $ax+b=0\\Leftrightarrow x=-\\frac{b}{a}$$\\Leftrightarrow -\\frac{b}{a}=2\\Leftrightarrow b=-2a$.\nGiao điểm với trục tung ($Oy$): Đồ thị cắt trục tung tại điểm $(0;-2)$.\nThay $x=0$ vào phương trình ta có $y=\\frac{b}{d}\\Leftrightarrow \\frac{b}{d}=-2\\Rightarrow b=-2d$.\nTừ đó ta suy ra $a,d$ cùng dấu và $b,c$ cùng dấu. Bên cạnh đó $a,d$ trái dấu $b,c.$\nTừ đó suy ra trong bốn số $a,b,c,d$ luôn có hai số dương và hai số âm.",
+        "imageUrl": "/images/practice/sieugioi/q22_img1.9388.png",
+        "images": [
+          "/images/practice/sieugioi/q22_img1.9388.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:31.464Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 4. Luyện Tập 22 Câu Trắc Nghiệm Về Đường Tiệm Cận Của Đồ Thị Hàm Số",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-4-luyen-tap-22-cau-trac-nghiem-ve-duong-tiem-can-cua-do-thi-ham-so.1756/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 22",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Đường thẳng nào dưới đây là đường tiệm cận xiên của đồ thị hàm số $y=2x-5+\\frac{10}{x+3}$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=x+3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=2x+3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=2x+3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=2x-5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( 2x-5+\\frac{10}{x+3}-\\left( 2x-5 \\right) \\right)=0$ nên đồ thị hàm số có tiệm cận xiên: $y=2x-5$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ có đồ thị như hình vẽ\" data-src=\"/images/practice/sieugioi/q2_img1.9378.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q2_img1.9378.png\" class=\"bbImage\" style=\"width: 191px\" alt=\" Cho hàm số $y=f(x)$ có đồ thị như hình vẽ\" title=\" Cho hàm số $y=f(x)$ có đồ thị như hình vẽ\" width=\"1650\" height=\"1779\" loading=\"lazy\">\n\t</div><br>\nĐồ thị hàm số đã cho có đường tiệm cận ngang là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Nhìn đồ thị hàm số ta có đường tiệm cận ngang là $y=2$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q2_img1.9378.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Tiệm cận xiên của đồ thị hàm số $y=\\frac{2{{x}^{2}}+x}{x+1}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=2x+1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=2x-3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=2x$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=2x-1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $a=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{y}{x}=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{2{{x}^{2}}+x}{x\\left( x+1 \\right)}=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{2{{x}^{2}}+x}{{{x}^{2}}+x}=2$.<br>\n$b=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( y-2x \\right)=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( \\frac{2{{x}^{2}}+x}{x+1}-2x \\right)=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{-x}{x+1}=-1$<br>\n(Tương tự: $\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,\\frac{y}{x}=2$; $b=\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\left( y-2x \\right)=-1$).<br>\nVậy đồ thị hàm số có tiệm cận xiên: $y=2x-1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Tiệm cận ngang của đồ thị hàm số $y=\\frac{2x-4}{x+2}$ là đường thẳng có phương trình",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=2$ ."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=-2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=-2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tiệm cận ngang $y=2$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q5_img1.9379.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q5_img1.9379.png\" class=\"bbImage\" style=\"width: 410px\" alt=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $y=f\\left( x \\right)$ có bảng biến thiên như sau:\" width=\"1070\" height=\"371\" loading=\"lazy\">\n\t</div><br>\nĐường tiệm cận đứng, tiệm cận ngang của đồ thị hàm số $y=f\\left( x \\right)$ lần lượt là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=1;y=2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=2;y=1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=2;~y=2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=1;~y=1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đường tiệm cận đứng, tiệm cận ngang của đồ thị hàm số $y=f\\left( x \\right)$ lần lượt là $x=2;y=1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q5_img1.9379.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Đường tiệm cận ngang của đồ thị hàm số $y=\\frac{3x-1}{1-x}$ có phương trình là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=-3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=-3$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\underset{x\\to \\pm \\infty }{\\mathop{\\lim }}\\,y=\\underset{x\\to \\pm \\infty }{\\mathop{\\lim }}\\,\\frac{3x-1}{1-x}=-3\\Rightarrow y=-3$ là tiệm cận ngang của đồ thị hàm số.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Tìm số tiệm cận đứng của đồ thị hàm số $y=\\frac{{{x}^{2}}-3x-4}{{{x}^{2}}-16}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\underset{x\\to {{4}^{+}}}{\\mathop{\\lim }}\\,y=\\underset{x\\to {{4}^{+}}}{\\mathop{\\lim }}\\,\\frac{{{x}^{2}}-3x-4}{{{x}^{2}}-16}=\\frac{5}{8}.$ Tương tự, $\\underset{x\\to {{4}^{-}}}{\\mathop{\\lim }}\\,y=\\frac{5}{8}.$ Vậy đường thẳng $x=4$ không là tiệm cận đứng của đồ thị.<br>\nTa có: $\\underset{x\\to -{{4}^{+}}}{\\mathop{\\lim }}\\,y=\\underset{x\\to -{{4}^{+}}}{\\mathop{\\lim }}\\,\\frac{{{x}^{2}}-3x-4}{{{x}^{2}}-16}=-\\infty .$ Tương tự, $\\underset{x\\to -{{4}^{-}}}{\\mathop{\\lim }}\\,y=+\\infty .$ Vậy đường thẳng $x=-4$ là tiệm cận đứng của đồ thị.<br>\nVậy đồ thị hàm số đã cho có một đường tiệm cận đứng.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Hàm số $y = f(x)$ có $\\lim_{x \\to +\\infty} f(x) = 1$ và $\\lim_{x \\to -\\infty} f(x) = -1$. Chọn khẳng định đúng.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "Đồ thị hàm số đã cho không có tiệm cận ngang."
+          },
+          {
+            "id": "opt_b",
+            "text": "Đồ thị hàm số đã cho có 2 tiệm cận ngang là các đường thẳng $x = 1$ và $x = -1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "Đồ thị hàm số đã cho có đúng một tiệm cận ngang."
+          },
+          {
+            "id": "opt_d",
+            "text": "Đồ thị hàm số đã cho có 2 tiệm cận ngang là các đường thẳng $y = 1$ và $y = -1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Do $\\lim_{x \\to +\\infty} f(x) = 1$ và $\\lim_{x \\to -\\infty} f(x) = -1$ nên đồ thị hàm số có 2 tiệm cận ngang là các đường thẳng $y = 1$ và $y = -1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Đồ thị có hình vẽ dưới đây là của hàm số nào<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Đồ thị có hình vẽ dưới đây là của hàm số nào\" data-src=\"/images/practice/sieugioi/q9_img1.9380.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q9_img1.9380.png\" class=\"bbImage\" style=\"\" alt=\" Đồ thị có hình vẽ dưới đây là của hàm số nào\" title=\" Đồ thị có hình vẽ dưới đây là của hàm số nào\" width=\"305\" height=\"258\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{-x+2}{x+1}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=\\frac{-x}{x+1}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=\\frac{-x+1}{x+1}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{-2x+1}{2x+1}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị hàm số đã cho có tiệm cận đứng là: $x=-1$; tiệm cân ngang là:$y=-1$. Loại đáp án D.<br>\nĐồ thị đi qua điểm $A\\left( 1;0 \\right),B\\left( 0;1 \\right)$. Loại đáp án A và B.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q9_img1.9380.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Tiệm cận ngang của đồ thị hàm số $y=\\frac{2x-3}{x+1}$ là đường thẳng có phương trình:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì $\\underset{x\\to \\pm \\infty }{\\mathop{\\lim }}\\,\\frac{2x-3}{x+1}=\\underset{x\\to \\pm \\infty }{\\mathop{\\lim }}\\,\\frac{2-\\frac{3}{x}}{1+\\frac{1}{x}}=2$ nên $y=2$ là tiệm cận ngang của đồ thị hàm số.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Số đường tiệm cận của đồ thị hàm số $y=2x+3+\\frac{1}{x-1}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$0$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\underset{x\\to \\pm \\infty }{\\mathop{\\lim }}\\,\\left[ y-\\left( 2x+3 \\right) \\right]=\\underset{x\\to \\pm \\infty }{\\mathop{\\lim }}\\,\\left( \\frac{1}{x-1} \\right)=0\\Rightarrow y=2x+3$ là đường tiệm cận xiên của đồ thị hàm số.<br>\n$\\underset{x\\to {{1}^{+}}}{\\mathop{\\lim }}\\,y=\\underset{x\\to {{1}^{+}}}{\\mathop{\\lim }}\\,\\left( 2x+3+\\frac{1}{x-1} \\right)=+\\infty $$\\Rightarrow x=1$ là đường tiệm cận đứng của đồ thị hàm số.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã cho là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã c\" data-src=\"/images/practice/sieugioi/q12_img1.9381.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9381.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã c\" title=\" Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Số đường tiệm cận ngang của đồ thị hàm số đã c\" width=\"237\" height=\"107\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "3."
+          },
+          {
+            "id": "opt_b",
+            "text": "1."
+          },
+          {
+            "id": "opt_c",
+            "text": "2."
+          },
+          {
+            "id": "opt_d",
+            "text": "0.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\lim_{x \\to -\\infty} f(x) = 2$ suy ra $y = 2$ là một đường tiệm cận ngang của đồ thị hàm số $y = f(x)$<br>\n$\\lim_{x \\to +\\infty} f(x) = +\\infty$.<br>\nVậy đồ thị hàm số $y = f(x)$ có một đường tiệm cận ngang.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9381.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      },
+      {
+        "id": "q-13",
+        "type": "single_choice",
+        "text": "Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\" data-src=\"/images/practice/sieugioi/q13_img1.9382.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q13_img1.9382.png\" class=\"bbImage\" style=\"\" alt=\" Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\" title=\" Tìm hệ số $a,~b,~c$ để hàm số $y = \\frac{ax+2}{cx+b}$ có đồ thị như hình vẽ\" width=\"203\" height=\"138\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$a=2, b=2, c=-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$a=1, b=2, c=1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$a=1, b=1, c=-1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$a=1, b=-2, c=1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Đồ thị hàm số đi qua $(0; -1)$ nên $b = -2$.<br>\nĐồ thị hàm số đi qua $(-2; 0)$ nên $a = 1$.<br>\nTiệm cận đứng $x = 2$ nên $c = 1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q13_img1.9382.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 13
+      },
+      {
+        "id": "q-14",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới đây. Trong các hệ số $a,b,c,d$ có bao nhiêu số dương?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới\" data-src=\"/images/practice/sieugioi/q14_img1.9383.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q14_img1.9383.png\" class=\"bbImage\" style=\"width: 337px\" alt=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\,\\,\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ dưới\" width=\"2664\" height=\"2268\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tiệm cận ngang $y=-1$ nên $\\frac{a}{c}=-1\\Rightarrow c=-a$.<br>\nTiệm cận đứng $x=1$ nên $-\\frac{d}{c}=1\\Rightarrow d=-c=a$.<br>\nGiao với trục $Oy$ tại điểm $\\left( 0;-2 \\right)$ nên $\\frac{b}{d}=-2\\Rightarrow b=-2d=-2a$.<br>\nTrường hợp 1: Giả sử $a&gt;0$ thì $c&lt;0,d&gt;0,b&lt;0$ nên có 2 hệ số dương.<br>\nTrường hợp 2: Giả sử $a&lt;0$ thì $c&gt;0,d&lt;0,b&gt;0$ nên có 2 hệ số dương.<br>\nVậy trong các hệ số $a,b,c,d$ luôn có 2 số dương.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q14_img1.9383.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 14
+      },
+      {
+        "id": "q-15",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường tiệm cận ngang của đồ thị hàm số đã cho có phương trình là:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường \" data-src=\"/images/practice/sieugioi/q15_img1.9384.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q15_img1.9384.png\" class=\"bbImage\" style=\"\" alt=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường \" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\left( ac\\ne 0,ad-bc\\ne 0 \\right)$ có đồ thị như hình vẽ. Đường \" width=\"158\" height=\"155\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=-1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị của hàm số như hình vẽ, ta có đường tiệm cận ngang của đồ thị hàm số là đường thẳng $y=-1$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q15_img1.9384.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 15
+      },
+      {
+        "id": "q-16",
+        "type": "single_choice",
+        "text": "Phương trình đường tiệm cận ngang của đồ thị hàm số $y=\\frac{x-3}{5x-16}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$y=\\frac{16}{5}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=\\frac{16}{5}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=\\frac{1}{5}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=\\frac{1}{5}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,\\frac{x-3}{5x-16}=\\frac{1}{5}$ và $\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,\\frac{x-3}{5x-16}=\\frac{1}{5}$.<br>\nPhương trình đường tiệm cận ngang của đồ thị hàm số $y=\\frac{x-3}{5x-16}$ là $y=\\frac{1}{5}$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 16
+      },
+      {
+        "id": "q-17",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ có bảng biến thiên như sau:<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" data-src=\"/images/practice/sieugioi/q17_img1.9385.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q17_img1.9385.png\" class=\"bbImage\" style=\"width: 359px\" alt=\" Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" title=\" Cho hàm số $y=f(x)$ có bảng biến thiên như sau:\" width=\"998\" height=\"492\" loading=\"lazy\">\n\t</div><br>\nTổng số tiệm cận ngang và tiệm cận đứng của đồ thị hàm số đã cho là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "4."
+          },
+          {
+            "id": "opt_b",
+            "text": "2."
+          },
+          {
+            "id": "opt_c",
+            "text": "3."
+          },
+          {
+            "id": "opt_d",
+            "text": "1.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào bảng biến thiên của hàm số $y=f(x)$ ta thấy:<br>\n$\\underset{x\\to -\\infty }{\\mathop{\\lim }}\\,f(x)=0$<br>\n$\\underset{x\\to +\\infty }{\\mathop{\\lim }}\\,f(x)=5$<br>\nNên đồ thị hàm số có hai tiệm cận ngang là $y=0;y=5$.<br>\nMặt khác: $\\underset{x\\to {{1}^{-}}}{\\mathop{\\lim }}\\,f(x)=-\\infty $ nên đồ thị hàm số có đúng 1 tiệm cận đứng $x=1$.<br>\nVậy đồ thị hàm số đã cho có tổng cộng 3 tiệm cận (đứng và ngang).</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q17_img1.9385.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 17
+      },
+      {
+        "id": "q-18",
+        "type": "single_choice",
+        "text": "Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\" data-src=\"/images/practice/sieugioi/q18_img1.9386.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q18_img1.9386.png\" class=\"bbImage\" style=\"width: 208px\" alt=\" Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\" title=\" Cho đồ thị hàm số như hình vẽ bên dưới. Đường tiệm cận ngang của đồ thị hàm số là\" width=\"1662\" height=\"1782\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$y=1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q18_img1.9386.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 18
+      },
+      {
+        "id": "q-19",
+        "type": "single_choice",
+        "text": "Tiệm cận đứng của đồ thị hàm số $y=\\frac{2x-2}{x+1}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$x=1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$x=-2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=2$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có nghiệm của mẫu số: $x+1=0\\Leftrightarrow x=-1$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 19
+      },
+      {
+        "id": "q-20",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.\" data-src=\"/images/practice/sieugioi/q20_img1.9387.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q20_img1.9387.png\" class=\"bbImage\" style=\"width: 294px\" alt=\" Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.\" title=\" Cho hàm số $y=\\frac{ax+2}{x+c}$ có đồ thị như hình sau đây.\" width=\"870\" height=\"730\" loading=\"lazy\">\n\t</div><br>\nTính giá trị của biểu thức $P=2a-c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-5$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Điều kiện: $x\\ne -c$<br>\nTheo giả thiết bài toán, ta có<br>\nĐường tiệm cận đứng $x=-c$<br>\nĐường tiệm cận ngang $y=a$<br>\nTheo đồ thị, ta có: $\\left\\{ \\begin{array}{l} - c = 2\\\\ a = 1 \\end{array} \\right. \\Rightarrow \\left\\{ \\begin{array}{l} c = - 2\\\\ a = 1 \\end{array} \\right.$<br>\nVậy $2a-c=2.1-\\left( -2 \\right)=4$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q20_img1.9387.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 20
+      },
+      {
+        "id": "q-21",
+        "type": "single_choice",
+        "text": "Đường tiệm cận đứng của đồ thị hàm số $y=\\frac{2x+3}{x-1}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$x=2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$y=1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$y=2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$x=1$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\underset{x\\to {{1}^{+}}}{\\mathop{\\lim }}\\,y=\\underset{x\\to {{1}^{+}}}{\\mathop{\\lim }}\\,\\frac{2x+3}{x-1}=+\\infty $$\\Rightarrow x=1$ là tiệm cận đứng của đồ thị hàm số.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 21
+      },
+      {
+        "id": "q-22",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ.<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a\" data-src=\"/images/practice/sieugioi/q22_img1.9388.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q22_img1.9388.png\" class=\"bbImage\" style=\"width: 350px\" alt=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a\" title=\" Cho hàm số $y=\\frac{ax+b}{cx+d}\\ (ac\\ne 0,ad-bc\\ne 0)$ có đồ thị như hình vẽ. Trong các hệ số $a\" width=\"794\" height=\"546\" loading=\"lazy\">\n\t</div><br>\nTrong các hệ số $a,b,c,d$ có bao nhiêu số dương?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$0$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Dựa vào đồ thị hàm số, ta xác định:<br>\nTiệm cận đứng: Đường thẳng $x=1$ hay $x=-\\frac{d}{c}=1\\Leftrightarrow c=-d.$<br>\nTiệm cận ngang: Đường thẳng $y=-1$ hay $y=\\frac{a}{c}=-1\\Leftrightarrow c=-a$.<br>\nGiao điểm với trục hoành ($Ox$): Đồ thị cắt trục hoành tại điểm $(2;0)$.<br>\nThay $y=0$ vào ta có $ax+b=0\\Leftrightarrow x=-\\frac{b}{a}$$\\Leftrightarrow -\\frac{b}{a}=2\\Leftrightarrow b=-2a$.<br>\nGiao điểm với trục tung ($Oy$): Đồ thị cắt trục tung tại điểm $(0;-2)$.<br>\nThay $x=0$ vào phương trình ta có $y=\\frac{b}{d}\\Leftrightarrow \\frac{b}{d}=-2\\Rightarrow b=-2d$.<br>\nTừ đó ta suy ra $a,d$ cùng dấu và $b,c$ cùng dấu. Bên cạnh đó $a,d$ trái dấu $b,c.$<br>\nTừ đó suy ra trong bốn số $a,b,c,d$ luôn có hai số dương và hai số âm.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": "/images/practice/sieugioi/q22_img1.9388.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 22
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:31.464Z"
+}

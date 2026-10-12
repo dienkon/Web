@@ -1,0 +1,888 @@
+{
+  "meta": {
+    "title": "Bộ 12 Câu Hỏi Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+    "slug": "bo-12-cau-hoi-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an",
+    "id": "1794",
+    "url": "https://sieugioi.com/docs/threads/bo-12-cau-hoi-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1794/",
+    "numId": 1794,
+    "bai": 14,
+    "topicId": "math_t11_plane_sphere",
+    "baiTitle": "Phương trình mặt phẳng",
+    "chapter": "Chương 5"
+  },
+  "extracted": {
+    "title": "Bộ 12 Câu Hỏi Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+    "sourceUrl": "https://sieugioi.com/docs/threads/bo-12-cau-hoi-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1794/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 12,
+    "questionsWithOptions": 12,
+    "questionsWithAnswers": 8,
+    "questionsWithExplanation": 12,
+    "questionsWithImages": 2,
+    "manualReviewCount": 4,
+    "warnings": [
+      "Câu 4: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 6: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 10: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 12: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1794_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Gọi $V$ là thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị hàm số $y={{e}^{x}}$, trục hoành và hai đường thẳng $x=0$, $x=2$ quanh trục $Ox$.Khi đó $V$ bằng",
+        "promptHtml": "Gọi $V$ là thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị hàm số $y={{e}^{x}}$, trục hoành và hai đường thẳng $x=0$, $x=2$ quanh trục $Ox$.Khi đó $V$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\pi \\int_{0}^{2}{{{e}^{x}}}dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\int_{0}^{2}{|}{{e}^{x}}|dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\pi \\int_{0}^{2}{{{e}^{2x}}}dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int_{0}^{2}{{{e}^{2x}}}dx$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Khi quay hình phẳng giới hạn bởi $y={{e}^{x}}$, trục hoành, $x=0$, $x=2$ quanh trục $Ox$, thể tích khối tròn xoay là: $V=\\pi \\int_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}}dx$ Với $f(x)={{e}^{x}}$, ta có: $V=\\pi \\int_{0}^{2}{{{\\left( {{e}^{x}} \\right)}^{2}}}dx=\\pi \\int_{0}^{2}{{{e}^{2x}}}dx$ Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Thể tich khối tròn xoay tạo thành khi cho hình phẳng giới hạn bởi đồ thị hàm số $f\\left( x \\right)=\\sqrt{x}$, trục hoành và hai đường thẳng $x=0$, $x=2$ quay quanh trục $Ox$ là",
+        "promptHtml": "Thể tich khối tròn xoay tạo thành khi cho hình phẳng giới hạn bởi đồ thị hàm số $f\\left( x \\right)=\\sqrt{x}$, trục hoành và hai đường thẳng $x=0$, $x=2$ quay quanh trục $Ox$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\pi \\int\\limits_{0}^{2}{\\sqrt{x}\\,\\text{d}x}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\pi \\int\\limits_{0}^{2}{x\\,\\text{d}x}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\int\\limits_{0}^{2}{\\sqrt{x}\\,\\text{d}x}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int\\limits_{0}^{2}{x\\,\\text{d}x}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B. $\\pi \\int\\limits_{0}^{2}{x\\,\\text{d}x}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Gọi $S$ là diện tích hình phẳng giới hạn bởi các đường $y={{e}^{x}};y=0;x=0;x=2$. Mệnh đề nào dưới đây đúng?",
+        "promptHtml": "Gọi $S$ là diện tích hình phẳng giới hạn bởi các đường $y={{e}^{x}};y=0;x=0;x=2$. Mệnh đề nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{{{e}^{2x}}dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\int\\limits_{0}^{2}{{{e}^{x}}dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{{{e}^{x}}dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\int\\limits_{0}^{2}{{{e}^{2x}}dx}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chọn B.$S=\\int\\limits_{0}^{2}{{{e}^{x}}dx}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho vật thể giới hạn bởi hai mặt phẳng có phương trình $x=0$ và $x=2$. Cắt vật thể này bởi mặt phẳng vuông góc với trục $Ox$tại điểm có hoành độ $x$ $\\left( 0\\le x\\le 2 \\right)$ thì phần chung của mặt phẳng và vật thể là một tam giác đều có độ dài cạnh là ${{x}^{2}}.\\sqrt{2-x}$. Tính thể tích của vật thể này.",
+        "promptHtml": "Trong không gian $Oxyz$, cho vật thể giới hạn bởi hai mặt phẳng có phương trình $x=0$ và $x=2$. Cắt vật thể này bởi mặt phẳng vuông góc với trục $Ox$tại điểm có hoành độ $x$ $\\left( 0\\le x\\le 2 \\right)$ thì phần chung của mặt phẳng và vật thể là một tam giác đều có độ dài cạnh là ${{x}^{2}}.\\sqrt{2-x}$. Tính thể tích của vật thể này.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$V=\\frac{8\\sqrt{3}}{15}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$V=\\frac{4\\sqrt{3}}{15}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$V=\\frac{16}{15}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$V=\\frac{32}{15}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Thiết diện của vật thể cắt bởi mặt phẳng vuông góc với $Ox$ tại điểm có hoành độ $x$ là một tam giác đều có cạnh $a = x^2\\sqrt{2-x}$. Diện tích thiết diện là: $S(x) = a^2\\frac{\\sqrt{3}}{4} = (x^2\\sqrt{2-x})^2\\frac{\\sqrt{3}}{4} = x^4(2-x)\\frac{\\sqrt{3}}{4}$. Thể tích của vật thể là: $V = \\int_0^2 S(x) dx = \\frac{\\sqrt{3}}{4}\\int_0^2 (2x^4 - x^5) dx = \\frac{\\sqrt{3}}{4}\\left[ \\frac{2x^5}{5} - \\frac{x^6}{6} \\right]_0^2 = \\frac{\\sqrt{3}}{4}\\left( \\frac{64}{5} - \\frac{64}{6} \\right) = \\frac{\\sqrt{3}}{4}\\cdot\\frac{64}{30} = \\frac{8\\sqrt{3}}{15}$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=f(x)$ liên tục trên $[a;b]$, trục hoành và hai đường thẳng $x=a,x=b$ $(a<b)$ được cho bởi công thức nào sau đây?",
+        "promptHtml": "Diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=f(x)$ liên tục trên $[a;b]$, trục hoành và hai đường thẳng $x=a,x=b$ $(a&lt;b)$ được cho bởi công thức nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=\\pi \\int\\limits_{a}^{b}{{{f}^{2}}(x)}dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\int\\limits_{a}^{b}{\\left| f(x) \\right|}dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\int\\limits_{a}^{b}{f}(x)dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\pi \\int\\limits_{a}^{b}{\\left| f(x) \\right|}dx$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Diện tích hình phẳng giới hạn bởi đồ thị $y=f(x)$, trục hoành và hai đường thẳng $x=a,x=b$ là: $S=\\int\\limits_{a}^{b}{\\left| f(x) \\right|}dx$. Vì nếu $f(x)$ âm thì phần diện tích vẫn phải lấy dương.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Tính thể tích vật thể tròn xoay khi quay hình phẳng giới hạn bởi các đường cong $y=\\sqrt{{{e}^{x}}-x}$, $y=0$, $x=1$, $x=2$ xung quanh trục $Ox$ là:",
+        "promptHtml": "Tính thể tích vật thể tròn xoay khi quay hình phẳng giới hạn bởi các đường cong $y=\\sqrt{{{e}^{x}}-x}$, $y=0$, $x=1$, $x=2$ xung quanh trục $Ox$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{e}^{2}}-e-\\frac{5}{2}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\pi \\left( {{e}^{2}}-e-\\frac{3}{2} \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\pi \\left( {{e}^{2}}-e-\\frac{5}{2} \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{e}^{2}}-e-\\frac{3}{2}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "$V = \\pi \\mathop {\\mathop \\smallint \\limits^2 }\\limits_1 {\\mkern 1mu} {\\left( {\\sqrt {{e^x} - x} } \\right)^2}{\\rm{d}}x$$ = \\pi \\mathop {\\mathop \\smallint \\limits^2 }\\limits_1 {\\mkern 1mu} \\left( {{e^x} - x} \\right){\\rm{d}}x$ $ = \\pi \\left( {{e^x} - \\frac{{{x^2}}}{2}} \\right)\\left| \\begin{array}{l} 2\\\\ 1 \\end{array} \\right.$ $ = \\pi \\left[ {\\left( {{e^2} - 2} \\right) - \\left( {e - \\frac{1}{2}} \\right)} \\right]$ $ = \\pi \\left( {{e^2} - e - \\frac{3}{2}} \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khối tròn xoay được tạo thành khi quay hình phẳng $(H)$ quanh trục $Ox$ là\n\n![hình minh họa](/images/practice/sieugioi/q7_img1.9587.png)",
+        "promptHtml": "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khối tròn xoay được tạo thành khi quay hình phẳng $(H)$ quanh trục $Ox$ là<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khố\" data-src=\"/images/practice/sieugioi/q7_img1.9587.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9587.png\" class=\"bbImage\" style=\"width: 268px\" alt=\"Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khố\" title=\"Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khố\" width=\"399\" height=\"271\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$V=\\int\\limits_{2}^{0}{{{\\left[ f(x) \\right]}^{2}}dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$V=\\pi \\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$V=\\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$V=\\pi \\int\\limits_{2}^{0}{{{\\left[ f(x) \\right]}^{2}}dx}$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Hình phẳng $(H)$ được giới hạn bởi đồ thị $y=f(x)$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$. Khi quay hình phẳng đó quanh trục $Ox$, thể tích khối tròn xoay là: $V=\\pi \\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx}$",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9587.png",
+        "images": [
+          "/images/practice/sieugioi/q7_img1.9587.png"
+        ],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Thể tích vật thể tròn xoay sinh ra khi quay hình phẳng giới hạn bởi đồ thị $y={{x}^{2}}$, trục hoành và hai đường thẳng $x=0,x=2$ quanh trục hoành là",
+        "promptHtml": "Thể tích vật thể tròn xoay sinh ra khi quay hình phẳng giới hạn bởi đồ thị $y={{x}^{2}}$, trục hoành và hai đường thẳng $x=0,x=2$ quanh trục hoành là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\frac{32\\pi }{5}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{8\\pi }{3}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\frac{32}{5}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{16\\pi }{5}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Áp dụng công thức thể tích khối tròn xoay: $V=\\pi \\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx=}\\pi \\int\\limits_{0}^{2}{{{x}^{4}}dx=\\frac{32\\pi }{5}}$. Chuyên Lê Khiết sở Quảng Ngãi 2026",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-4x$, trục hoành và hai đường thẳng $x=0$, $x=3$bằng:",
+        "promptHtml": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-4x$, trục hoành và hai đường thẳng $x=0$, $x=3$bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\int\\limits_{0}^{3}{\\left| {{x}^{3}}-4x \\right|}dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\pi \\int\\limits_{0}^{3}{\\left| {{x}^{3}}-4x \\right|}dx$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\pi \\int\\limits_{0}^{3}{{{\\left( {{x}^{3}}-4x \\right)}^{2}}}dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\int\\limits_{0}^{3}{\\left( {{x}^{3}}-4x \\right)}dx$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "A.$\\int\\limits_{0}^{3}{\\left| {{x}^{3}}-4x \\right|}dx$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Diện tích $S$ của hình phẳng giới hạn bởi các đường $y=3{{x}^{2}}$, $y=-2$, $x=0$ và $x=1$ được tính bởi công thức nào sau đây?",
+        "promptHtml": "Diện tích $S$ của hình phẳng giới hạn bởi các đường $y=3{{x}^{2}}$, $y=-2$, $x=0$ và $x=1$ được tính bởi công thức nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=\\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}+2 \\right)dx}$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=\\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}-2 \\right)dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=\\pi \\int\\limits_{0}^{1}{{{\\left( 3{{x}^{2}}+2 \\right)}^{2}}dx}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=\\pi \\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}+2 \\right)dx}$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Diện tích hình phẳng giới hạn bởi đồ thị $y = 3x^2$, $y = -2$ và hai đường thẳng $x = 0, x = 1$ được tính theo công thức: $S = \\int_0^1 |3x^2 - (-2)| dx = \\int_0^1 |3x^2 + 2| dx$. Vì $3x^2 + 2 > 0$ với mọi $x \\in [0; 1]$ nên $|3x^2 + 2| = 3x^2 + 2$. Do đó $S = \\int_0^1 (3x^2 + 2) dx$. Chọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong mặt phẳng $\\text{Oxy}$, cho hình phẳng $\\left( H \\right)$giới hạn bởi đồ thị hàm số $y=2x-3$, trục hoành và đường thẳng $x=1$và $x=2$. Thể tích $V$khối tròn xoay tạo thành khi quay hình $\\left( H \\right)$xung quanh trục $\\text{Ox}$được tính bởi công thức sau đây?",
+        "promptHtml": "Trong mặt phẳng $\\text{Oxy}$, cho hình phẳng $\\left( H \\right)$giới hạn bởi đồ thị hàm số $y=2x-3$, trục hoành và đường thẳng $x=1$và $x=2$. Thể tích $V$khối tròn xoay tạo thành khi quay hình $\\left( H \\right)$xung quanh trục $\\text{Ox}$được tính bởi công thức sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{\\left| 2x-3 \\right|}dx$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{{{\\left( 2x-3 \\right)}^{2}}dx}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$V=\\int\\limits_{1}^{2}{\\left| 2x-3 \\right|}dx$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$V=\\int\\limits_{1}^{2}{\\left( 2x-3 \\right)}dx$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Áp dụng công thức thể tích khối tròn xoay ta được $V=\\pi \\int\\limits_{1}^{2}{{{\\left( 2x-3 \\right)}^{2}}dx}$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1794_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường thẳng $x=-3,\\,$$x=2$, như hình vẽ bên dưới. Đặt $a=\\int\\limits_{-3}^{1}{f\\left( x \\right)\\text{d}x}$, $b=\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}$. Mệnh đề nào sau đây là đúng?\n\n![hình minh họa](/images/practice/sieugioi/q12_img1.9588.png)",
+        "promptHtml": "Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường thẳng $x=-3,\\,$$x=2$, như hình vẽ bên dưới. Đặt $a=\\int\\limits_{-3}^{1}{f\\left( x \\right)\\text{d}x}$, $b=\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}$. Mệnh đề nào sau đây là đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường\" data-src=\"/images/practice/sieugioi/q12_img1.9588.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9588.png\" class=\"bbImage\" style=\"width: 361px\" alt=\"Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường\" title=\"Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường\" width=\"666\" height=\"385\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=b-a$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=-a-b$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=a-b$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=a+b$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Dựa vào đồ thị hàm số, trên đoạn $[-3; 1]$ đồ thị nằm phía dưới trục hoành ($f(x) \\le 0$), do đó $|f(x)| = -f(x)$. Trên đoạn $[1; 2]$ đồ thị nằm phía trên trục hoành ($f(x) \\ge 0$), do đó $|f(x)| = f(x)$. Khi đó diện tích là: $S = \\int_{-3}^1 |f(x)| dx + \\int_1^2 |f(x)| dx = -\\int_{-3}^1 f(x) dx + \\int_1^2 f(x) dx = -a + b = b - a$. Chọn A.",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9588.png",
+        "images": [
+          "/images/practice/sieugioi/q12_img1.9588.png"
+        ],
+        "confidence": 1,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:50.897Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Bộ 12 Câu Hỏi Trắc Nghiệm Ứng Dụng Hình Học Của Tích Phân Có Đáp Án",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/bo-12-cau-hoi-trac-nghiem-ung-dung-hinh-hoc-cua-tich-phan-co-dap-an.1794/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 12",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Gọi $V$ là thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi đồ thị hàm số $y={{e}^{x}}$, trục hoành và hai đường thẳng $x=0$, $x=2$ quanh trục $Ox$.Khi đó $V$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\pi \\int_{0}^{2}{{{e}^{x}}}dx$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\int_{0}^{2}{|}{{e}^{x}}|dx$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\pi \\int_{0}^{2}{{{e}^{2x}}}dx$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int_{0}^{2}{{{e}^{2x}}}dx$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Khi quay hình phẳng giới hạn bởi $y={{e}^{x}}$, trục hoành, $x=0$, $x=2$ quanh trục $Ox$, thể tích khối tròn xoay là: $V=\\pi \\int_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}}dx$<br>\nVới $f(x)={{e}^{x}}$, ta có: $V=\\pi \\int_{0}^{2}{{{\\left( {{e}^{x}} \\right)}^{2}}}dx=\\pi \\int_{0}^{2}{{{e}^{2x}}}dx$<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Thể tich khối tròn xoay tạo thành khi cho hình phẳng giới hạn bởi đồ thị hàm số $f\\left( x \\right)=\\sqrt{x}$, trục hoành và hai đường thẳng $x=0$, $x=2$ quay quanh trục $Ox$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\pi \\int\\limits_{0}^{2}{\\sqrt{x}\\,\\text{d}x}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\pi \\int\\limits_{0}^{2}{x\\,\\text{d}x}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\int\\limits_{0}^{2}{\\sqrt{x}\\,\\text{d}x}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int\\limits_{0}^{2}{x\\,\\text{d}x}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn B. $\\pi \\int\\limits_{0}^{2}{x\\,\\text{d}x}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Gọi $S$ là diện tích hình phẳng giới hạn bởi các đường $y={{e}^{x}};y=0;x=0;x=2$. Mệnh đề nào dưới đây đúng?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{{{e}^{2x}}dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\int\\limits_{0}^{2}{{{e}^{x}}dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\pi \\int\\limits_{0}^{2}{{{e}^{x}}dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\int\\limits_{0}^{2}{{{e}^{2x}}dx}$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn <b><u>B</u>.$S=\\int\\limits_{0}^{2}{{{e}^{x}}dx}$</b>.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho vật thể giới hạn bởi hai mặt phẳng có phương trình $x=0$ và $x=2$. Cắt vật thể này bởi mặt phẳng vuông góc với trục $Ox$tại điểm có hoành độ $x$ $\\left( 0\\le x\\le 2 \\right)$ thì phần chung của mặt phẳng và vật thể là một tam giác đều có độ dài cạnh là ${{x}^{2}}.\\sqrt{2-x}$. Tính thể tích của vật thể này.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$V=\\frac{8\\sqrt{3}}{15}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$V=\\frac{4\\sqrt{3}}{15}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$V=\\frac{16}{15}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$V=\\frac{32}{15}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">+) ta có diện tích tam giác đều là $S(x)={{\\left( {{x}^{2}}.\\sqrt{2-x} \\right)}^{2}}\\frac{\\sqrt{3}}{4}={{x}^{4}}.(2-x)\\frac{\\sqrt{3}}{4}$<br>\n+) Áp dụng công thức $V(x)=\\int\\limits_{a}^{b}{S(x)}dx\\text{   }\\Rightarrow \\text{ }V(x)=\\int\\limits_{0}^{2}{{{x}^{4}}.(2-x).\\frac{\\sqrt{3}}{4}}dx=\\frac{8\\sqrt{3}}{15}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Diện tích $S$ của hình phẳng giới hạn bởi đồ thị hàm số $y=f(x)$ liên tục trên $[a;b]$, trục hoành và hai đường thẳng $x=a,x=b$ $(a&lt;b)$ được cho bởi công thức nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=\\pi \\int\\limits_{a}^{b}{{{f}^{2}}(x)}dx$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\int\\limits_{a}^{b}{\\left| f(x) \\right|}dx$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\int\\limits_{a}^{b}{f}(x)dx$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\pi \\int\\limits_{a}^{b}{\\left| f(x) \\right|}dx$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Diện tích hình phẳng giới hạn bởi đồ thị $y=f(x)$, trục hoành và hai đường thẳng $x=a,x=b$ là: $S=\\int\\limits_{a}^{b}{\\left| f(x) \\right|}dx$.<br>\nVì nếu $f(x)$ âm thì phần diện tích vẫn phải lấy dương.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Tính thể tích vật thể tròn xoay khi quay hình phẳng giới hạn bởi các đường cong $y=\\sqrt{{{e}^{x}}-x}$, $y=0$, $x=1$, $x=2$ xung quanh trục $Ox$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{e}^{2}}-e-\\frac{5}{2}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\pi \\left( {{e}^{2}}-e-\\frac{3}{2} \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\pi \\left( {{e}^{2}}-e-\\frac{5}{2} \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{e}^{2}}-e-\\frac{3}{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$V = \\pi \\mathop {\\mathop \\smallint \\limits^2 }\\limits_1 {\\mkern 1mu} {\\left( {\\sqrt {{e^x} - x} } \\right)^2}{\\rm{d}}x$$ = \\pi \\mathop {\\mathop \\smallint \\limits^2 }\\limits_1 {\\mkern 1mu} \\left( {{e^x} - x} \\right){\\rm{d}}x$ $ = \\pi \\left( {{e^x} - \\frac{{{x^2}}}{2}} \\right)\\left| \\begin{array}{l} 2\\\\ 1 \\end{array} \\right.$ $ = \\pi \\left[ {\\left( {{e^2} - 2} \\right) - \\left( {e - \\frac{1}{2}} \\right)} \\right]$ $ = \\pi \\left( {{e^2} - e - \\frac{3}{2}} \\right)$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khối tròn xoay được tạo thành khi quay hình phẳng $(H)$ quanh trục $Ox$ là<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khố\" data-src=\"/images/practice/sieugioi/q7_img1.9587.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q7_img1.9587.png\" class=\"bbImage\" style=\"width: 268px\" alt=\"Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khố\" title=\"Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Gọi $(H)$ là hình phẳng được tô màu. Thể tích $V$ của khố\" width=\"399\" height=\"271\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$V=\\int\\limits_{2}^{0}{{{\\left[ f(x) \\right]}^{2}}dx}$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$V=\\pi \\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$V=\\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$V=\\pi \\int\\limits_{2}^{0}{{{\\left[ f(x) \\right]}^{2}}dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình phẳng $(H)$ được giới hạn bởi đồ thị $y=f(x)$, trục $Ox$ và hai đường thẳng $x=0$, $x=2$.<br>\nKhi quay hình phẳng đó quanh trục $Ox$, thể tích khối tròn xoay là: $V=\\pi \\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q7_img1.9587.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Thể tích vật thể tròn xoay sinh ra khi quay hình phẳng giới hạn bởi đồ thị $y={{x}^{2}}$, trục hoành và hai đường thẳng $x=0,x=2$ quanh trục hoành là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\frac{32\\pi }{5}$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{8\\pi }{3}$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\frac{32}{5}$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{16\\pi }{5}$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Áp dụng công thức thể tích khối tròn xoay:<br>\n$V=\\pi \\int\\limits_{0}^{2}{{{\\left[ f(x) \\right]}^{2}}dx=}\\pi \\int\\limits_{0}^{2}{{{x}^{4}}dx=\\frac{32\\pi }{5}}$.<br>\nChuyên Lê Khiết sở Quảng Ngãi 2026</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Diện tích hình phẳng giới hạn bởi đồ thị hàm số $y={{x}^{3}}-4x$, trục hoành và hai đường thẳng $x=0$, $x=3$bằng:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\int\\limits_{0}^{3}{\\left| {{x}^{3}}-4x \\right|}dx$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\pi \\int\\limits_{0}^{3}{\\left| {{x}^{3}}-4x \\right|}dx$"
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\pi \\int\\limits_{0}^{3}{{{\\left( {{x}^{3}}-4x \\right)}^{2}}}dx$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\int\\limits_{0}^{3}{\\left( {{x}^{3}}-4x \\right)}dx$<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">A.$\\int\\limits_{0}^{3}{\\left| {{x}^{3}}-4x \\right|}dx$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Diện tích $S$ của hình phẳng giới hạn bởi các đường $y=3{{x}^{2}}$, $y=-2$, $x=0$ và $x=1$ được tính bởi công thức nào sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=\\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}+2 \\right)dx}$"
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=\\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}-2 \\right)dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=\\pi \\int\\limits_{0}^{1}{{{\\left( 3{{x}^{2}}+2 \\right)}^{2}}dx}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=\\pi \\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}+2 \\right)dx}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có diện tích $S$ của hình phẳng giới hạn bởi các đường $y=3{{x}^{2}}$, $y=-2$, $x=0$ và $x=1$<br>\nlà $S=\\int\\limits_{0}^{1}{\\left| 3{{x}^{2}}+2 \\right|dx}$$=\\int\\limits_{0}^{1}{\\left( 3{{x}^{2}}+2 \\right)dx}$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong mặt phẳng $\\text{Oxy}$, cho hình phẳng $\\left( H \\right)$giới hạn bởi đồ thị hàm số $y=2x-3$, trục hoành và đường thẳng $x=1$và $x=2$. Thể tích $V$khối tròn xoay tạo thành khi quay hình $\\left( H \\right)$xung quanh trục $\\text{Ox}$được tính bởi công thức sau đây?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{\\left| 2x-3 \\right|}dx$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$V=\\pi \\int\\limits_{1}^{2}{{{\\left( 2x-3 \\right)}^{2}}dx}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$V=\\int\\limits_{1}^{2}{\\left| 2x-3 \\right|}dx$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$V=\\int\\limits_{1}^{2}{\\left( 2x-3 \\right)}dx$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Áp dụng công thức thể tích khối tròn xoay ta được $V=\\pi \\int\\limits_{1}^{2}{{{\\left( 2x-3 \\right)}^{2}}dx}$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường thẳng $x=-3,\\,$$x=2$, như hình vẽ bên dưới. Đặt $a=\\int\\limits_{-3}^{1}{f\\left( x \\right)\\text{d}x}$, $b=\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}$. Mệnh đề nào sau đây là đúng?<br>\n<div class=\"bbImageWrapper  js-lbImage\" title=\"Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường\" data-src=\"/images/practice/sieugioi/q12_img1.9588.png\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"/images/practice/sieugioi/q12_img1.9588.png\" class=\"bbImage\" style=\"width: 361px\" alt=\"Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường\" title=\"Gọi $S$là diện tích hình phẳng giới hạn bởi các đường $y=f\\left( x \\right)$, trục hoành và hai đường\" width=\"666\" height=\"385\" loading=\"lazy\">\n\t</div>",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=b-a$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=-a-b$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=a-b$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=a+b$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$S=\\int\\limits_{-3}^{1}{\\left| f\\left( x \\right) \\right|\\text{d}x}+\\int\\limits_{1}^{2}{\\left| f\\left( x \\right) \\right|\\text{d}x}=-\\int\\limits_{-3}^{1}{f\\left( x \\right)\\text{d}x}+\\int\\limits_{1}^{2}{f\\left( x \\right)\\text{d}x}=b-a$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": "/images/practice/sieugioi/q12_img1.9588.png",
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:50.897Z"
+}

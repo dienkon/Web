@@ -1,0 +1,815 @@
+{
+  "meta": {
+    "title": "Tuyển Tập 11 Câu Hỏi Trắc Nghiệm Tích Phân Toán 12 Giúp Ôn Thi Hiệu Quả",
+    "slug": "tuyen-tap-11-cau-hoi-trac-nghiem-tich-phan-toan-12-giup-on-thi-hieu-qua",
+    "id": "1790",
+    "url": "https://sieugioi.com/docs/threads/tuyen-tap-11-cau-hoi-trac-nghiem-tich-phan-toan-12-giup-on-thi-hieu-qua.1790/",
+    "numId": 1790,
+    "bai": 13,
+    "topicId": "math_t10_integral_apps",
+    "baiTitle": "Ứng dụng hình học của tích phân",
+    "chapter": "Chương 4"
+  },
+  "extracted": {
+    "title": "Tuyển Tập 11 Câu Hỏi Trắc Nghiệm Tích Phân Toán 12 Giúp Ôn Thi Hiệu Quả",
+    "sourceUrl": "https://sieugioi.com/docs/threads/tuyen-tap-11-cau-hoi-trac-nghiem-tich-phan-toan-12-giup-on-thi-hieu-qua.1790/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 11,
+    "questionsWithOptions": 11,
+    "questionsWithAnswers": 7,
+    "questionsWithExplanation": 11,
+    "questionsWithImages": 0,
+    "manualReviewCount": 4,
+    "warnings": [
+      "Câu 1: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 2: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 4: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải",
+      "Câu 9: Không tìm thấy dấu hiệu kết luận đáp án rõ ràng trong lời giải"
+    ],
+    "questions": [
+      {
+        "id": "sg_1790_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Biết $\\int\\limits_{1}^{3}{\\frac{x+2}{x}}dx=a+b\\ln c$ với $a,b,c\\in \\mathbb{Z},\\,c<9$. Tính tổng $S=a+b+c$.",
+        "promptHtml": "Biết $\\int\\limits_{1}^{3}{\\frac{x+2}{x}}dx=a+b\\ln c$ với $a,b,c\\in \\mathbb{Z},\\,c&lt;9$. Tính tổng $S=a+b+c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$S=9$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$S=8$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$S=7$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$S=6$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "$\\int_1^3 \\frac{x+2}{x} dx $ $= a + b\\ln c$ $= \\int_1^3 \\left(1 + \\frac{2}{x}\\right) dx$ $= (x + 2\\ln|x|) \\Big|_1^3$ $= (3 + 2\\ln 3) - (1 + 2\\ln 1)$ $= 2 + 2\\ln 3$ Vậy $a=2,\\,b=2,\\,c=3$. $S=a+b+c=7$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Khảo Cho hàm số bậc hai $f\\left( x \\right)$. Biết đồ thị hàm số $y=f\\left( x \\right)$ cắt đường thẳng $y=9x+8$ tại hai điểm $A$, $B$ phân biệt có hoành độ lần lượt là ${{x}_{A}}=-1,{{x}_{B}}=4$. Tính $I=\\int_{-1}^{4}{{{f}'}}\\left( x \\right)\\text{d}x$",
+        "promptHtml": "Khảo Cho hàm số bậc hai $f\\left( x \\right)$. Biết đồ thị hàm số $y=f\\left( x \\right)$ cắt đường thẳng $y=9x+8$ tại hai điểm $A$, $B$ phân biệt có hoành độ lần lượt là ${{x}_{A}}=-1,{{x}_{B}}=4$. Tính $I=\\int_{-1}^{4}{{{f}'}}\\left( x \\right)\\text{d}x$",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I=43$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I=30$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I=45$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I=5$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Theo định nghĩa tích phân của đạo hàm, ta có $I = \\int_{-1}^4 f'(x) dx = f(4) - f(-1)$. Vì hai điểm $A, B$ là giao điểm của đồ thị hàm số $y = f(x)$ với đường thẳng $y = 9x+8$, nên: $f(4) = 9(4) + 8 = 44$, và $f(-1) = 9(-1) + 8 = -1$. Do đó: $I = f(4) - f(-1) = 44 - (-1) = 45$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int_{0}^{1}{f}\\left( x \\right)\\text{d}x=2$ và $\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x=8$ thì $\\int_{0}^{3}{f}\\left( x \\right)\\text{d}x$ bằng",
+        "promptHtml": "Nếu $\\int_{0}^{1}{f}\\left( x \\right)\\text{d}x=2$ và $\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x=8$ thì $\\int_{0}^{3}{f}\\left( x \\right)\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$16$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$4$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$10$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$6$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$\\int_{0}^{3}{f}\\left( x \\right)\\text{d}x=\\int\\limits_{0}^{1}{f\\left( x \\right)\\text{d}x}+\\int\\limits_{1}^{3}{f\\left( x \\right)\\text{d}x}=2+8=10$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f\\left( x \\right)$ thỏa mãn $f\\left( 1 \\right)=-2;\\,f\\left( 2 \\right)=1$ và có đạo hàm liên tục trên đoạn $\\left[ 1;2 \\right]$. Giá trị của tích phân $I=\\int\\limits_{1}^{2}{{f}'\\left( x \\right)}\\text{d}x$ là",
+        "promptHtml": "Cho hàm số $y=f\\left( x \\right)$ thỏa mãn $f\\left( 1 \\right)=-2;\\,f\\left( 2 \\right)=1$ và có đạo hàm liên tục trên đoạn $\\left[ 1;2 \\right]$. Giá trị của tích phân $I=\\int\\limits_{1}^{2}{{f}'\\left( x \\right)}\\text{d}x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$I=-1$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$I=2$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$I=-3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$I=3$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Theo định lí cơ bản của giải tích, ta có: $I = \\int_1^2 f'(x) dx = [f(x)]_1^2 = f(2) - f(1)$. Thay số: $I = 1 - (-2) = 3$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $f(x)$ liên tục trên đoạn $[2;5]$. Nếu $F(x)$ là một nguyên hàm của hàm số $f(x)$ trên đoạn $[2;5]$ thì $\\int\\limits_{2}^{5}{f(x)dx}$ bằng",
+        "promptHtml": "Cho hàm số $f(x)$ liên tục trên đoạn $[2;5]$. Nếu $F(x)$ là một nguyên hàm của hàm số $f(x)$ trên đoạn $[2;5]$ thì $\\int\\limits_{2}^{5}{f(x)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$F(2)-F(5)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$F(5)-F(2)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$f(5)-f(2)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$F(2)+F(5)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Vì $F(x)$ là một nguyên hàm của $f(x)$ trên đoạn $[2;5]$ nên theo công thức Newton-Leibniz: $\\int\\limits_{2}^{5}{f(x)dx}=F(5)-F(2)$. Chọn B.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Nếu $\\int\\limits_{0}^{3}{f(x)dx}=6$ thì $\\int\\limits_{0}^{3}{\\left( \\frac{1}{3}f(x)+2 \\right)dx}$ bằng",
+        "promptHtml": "Nếu $\\int\\limits_{0}^{3}{f(x)dx}=6$ thì $\\int\\limits_{0}^{3}{\\left( \\frac{1}{3}f(x)+2 \\right)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "5."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "4."
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "8."
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "6."
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Ta có: $\\int\\limits_{0}^{3}{\\left( \\frac{1}{3}f(x)+2 \\right)dx}=\\frac{1}{3}\\int\\limits_{0}^{3}{f(x)dx}+\\int\\limits_{0}^{3}{2dx}$$=\\frac{1}{3}.6+2.3=2+6=8$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ bên dưới. Biết rằng các diện tích ${{S}_{1}},\\ {{S}_{2}}$ thỏa mãn ${{S}_{1}}=2{{S}_{2}}=3$. Tính $\\int\\limits_{0}^{4}{f(x)dx}$.",
+        "promptHtml": "Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.<br>\nBiết rằng các diện tích ${{S}_{1}},\\ {{S}_{2}}$ thỏa mãn ${{S}_{1}}=2{{S}_{2}}=3$. Tính $\\int\\limits_{0}^{4}{f(x)dx}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "3."
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\frac{3}{2}$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-\\frac{3}{2}$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{9}{2}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Theo hình vẽ, phần diện tích ${{S}_{1}}$ nằm dưới trục hoành, còn ${{S}_{2}}$ nằm trên trục hoành. Đề bài cho: ${{S}_{1}}=2{{S}_{2}}=3$ Suy ra: ${{S}_{1}}=3,\\quad {{S}_{2}}=\\frac{3}{2}$ Do đó: $\\int\\limits_{0}^{4}{f(x)dx}=-{{S}_{1}}+{{S}_{2}}$$=-3+\\frac{3}{2}=-\\frac{3}{2}$. Chọn C.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Biết $\\int\\limits_{-1}^{3}{f}(x)dx=-2$ và $\\int\\limits_{-1}^{3}{g}(x)dx=1$. Khi đó $\\int\\limits_{-1}^{3}{\\left( f(x)-g(x) \\right)}dx$ bằng",
+        "promptHtml": "Biết $\\int\\limits_{-1}^{3}{f}(x)dx=-2$ và $\\int\\limits_{-1}^{3}{g}(x)dx=1$. Khi đó $\\int\\limits_{-1}^{3}{\\left( f(x)-g(x) \\right)}dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$3$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$1$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$-3$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có: $\\int\\limits_{-1}^{3}{f}(x)dx=-2$,$\\int\\limits_{-1}^{3}{g}(x)dx=1$. Do đó: $\\int\\limits_{-1}^{3}{\\left( f(x)-g(x) \\right)}dx=\\int\\limits_{-1}^{3}{f}(x)dx-\\int\\limits_{-1}^{3}{g}(x)dx$$=-2-1=-3$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{0}^{1}{f\\left( x \\right)\\text{d}x}=2$ và $\\int\\limits_{0}^{1}{g\\left( x \\right)\\text{d}x}=5$ khi đó $\\int\\limits_{0}^{1}{\\left[ 3f\\left( x \\right)-2g\\left( x \\right) \\right]\\text{d}x}$ bằng",
+        "promptHtml": "Cho $\\int\\limits_{0}^{1}{f\\left( x \\right)\\text{d}x}=2$ và $\\int\\limits_{0}^{1}{g\\left( x \\right)\\text{d}x}=5$ khi đó $\\int\\limits_{0}^{1}{\\left[ 3f\\left( x \\right)-2g\\left( x \\right) \\right]\\text{d}x}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$-4$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$16$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$-3$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$11$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $\\int\\limits_0^1 {\\left[ {3f\\left( x \\right) - 2g\\left( x \\right)} \\right]{\\rm{d}}x} $ $ = 3\\int\\limits_0^1 {f\\left( x \\right){\\rm{d}}x} - 2\\int\\limits_0^1 {g\\left( x \\right){\\rm{d}}x} $ $ = 3 \\cdot 2 - 2 \\cdot 5 = - 4$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Cho $\\int\\limits_{\\frac{\\pi }{4}}^{\\frac{\\pi }{3}}{{{\\left( 3\\tan x+2\\cot x \\right)}^{2}}\\text{d}x}=a+b\\frac{\\sqrt{3}}{3}+c\\frac{\\pi }{12}$ (*). Biết rằng tồn tại duy nhất bộ ba số nguyên $a$, $b$, $c$ thoả mãn (*). Tổng $T=a+b+c$ có giá trị bằng bao nhiêu?",
+        "promptHtml": "Cho $\\int\\limits_{\\frac{\\pi }{4}}^{\\frac{\\pi }{3}}{{{\\left( 3\\tan x+2\\cot x \\right)}^{2}}\\text{d}x}=a+b\\frac{\\sqrt{3}}{3}+c\\frac{\\pi }{12}$ (*). Biết rằng tồn tại duy nhất bộ ba số nguyên $a$, $b$, $c$ thoả mãn (*). Tổng $T=a+b+c$ có giá trị bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$19$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$17$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$15$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$21$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có $\\int_{\\pi/4}^{\\pi/3} (3\\tan x + 2\\cot x)^2 dx$ $= \\int_{\\pi/4}^{\\pi/3} (9\\tan^2 x + 4\\cot^2 x + 12)\\, dx$ $= \\int_{\\pi/4}^{\\pi/3} \\left[9(\\tan^2 x + 1) + 4(\\cot^2 x + 1) - 1\\right] dx$ $= \\int_{\\pi/4}^{\\pi/3} \\left(\\frac{9}{\\cos^2 x} + \\frac{4}{\\sin^2 x} - 1\\right) dx$ $9\\int_{\\pi/4}^{\\pi/3} \\frac{1}{\\cos^2 x}\\, dx + 4\\int_{\\pi/4}^{\\pi/3} \\frac{1}{\\sin^2 x}\\, dx - \\int_{\\pi/4}^{\\pi/3} dx =$ $(9\\tan x - 4\\cot x - x)\\Big|_{\\pi/4}^{\\pi/3}$ $= \\left(9\\sqrt{3} - \\frac{4\\sqrt{3}}{3} - \\frac{\\pi}{3}\\right) - \\left(9 - 4 - \\frac{\\pi}{4}\\right)$ $= -5 + \\frac{23\\sqrt{3}}{3} - \\frac{\\pi}{12}.$ Đồng nhất với (*), ta có $a=-5$, $b=23$, $c=-1$, do đó $T=\\left( -5 \\right)+23+\\left( -1 \\right)=17$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1790_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Tích phân $\\int\\limits_{0}^{1}{\\frac{1}{x+1}}dx$ bằng",
+        "promptHtml": "Tích phân $\\int\\limits_{0}^{1}{\\frac{1}{x+1}}dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$2\\left( \\sqrt{2}-1 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\sqrt{2}-1$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\ln 2$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\frac{\\sqrt{2}-1}{2}$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$\\int\\limits_{0}^{1}{\\frac{1}{x+1}}dx=\\ln \\left| x+1 \\right|\\left| _{0}^{1} \\right.=\\ln 2$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:49.801Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Tuyển Tập 11 Câu Hỏi Trắc Nghiệm Tích Phân Toán 12 Giúp Ôn Thi Hiệu Quả",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/tuyen-tap-11-cau-hoi-trac-nghiem-tich-phan-toan-12-giup-on-thi-hieu-qua.1790/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 11",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Biết $\\int\\limits_{1}^{3}{\\frac{x+2}{x}}dx=a+b\\ln c$ với $a,b,c\\in \\mathbb{Z},\\,c&lt;9$. Tính tổng $S=a+b+c$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$S=9$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$S=8$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$S=7$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$S=6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int_1^3 \\frac{x+2}{x} dx $ $= a + b\\ln c$ $= \\int_1^3 \\left(1 + \\frac{2}{x}\\right) dx$ $= (x + 2\\ln|x|) \\Big|_1^3$ $= (3 + 2\\ln 3) - (1 + 2\\ln 1)$ $= 2 + 2\\ln 3$<br>\nVậy $a=2,\\,b=2,\\,c=3$. $S=a+b+c=7$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Khảo Cho hàm số bậc hai $f\\left( x \\right)$. Biết đồ thị hàm số $y=f\\left( x \\right)$ cắt đường thẳng $y=9x+8$ tại hai điểm $A$, $B$ phân biệt có hoành độ lần lượt là ${{x}_{A}}=-1,{{x}_{B}}=4$. Tính $I=\\int_{-1}^{4}{{{f}'}}\\left( x \\right)\\text{d}x$",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I=43$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I=30$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I=45$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I=5$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$I=\\int_{-1}^{4}{{{f}'}}\\left( x \\right)\\text{d}x=f\\left( 4 \\right)-f\\left( -1 \\right)$<br>\nĐề bài cho biết đồ thị hàm số $y=f\\left( x \\right)$ cắt đường thẳng $d:y=9x+8$ tại hai điểm $A$ và $B$. Điều này có nghĩa là tọa độ của $A$ và $B$ thỏa mãn cả phương trình của hàm số $f\\left( x \\right)$ và phương trình đường thẳng $d$.<br>\nVới điểm $A$ (${{x}_{A}}=-1$):<br>\nVì $A$ nằm trên đường thẳng $y=9x+8$ nên: ${{y}_{A}}=9.\\left( -1 \\right)+8=-1$<br>\nMà $A$ cũng thuộc đồ thị $f(x)$ nên $f\\left( -1 \\right)=-1$.<br>\n- Với điểm $B$ (${{x}_{B}}=4$):<br>\nVì $B$ nằm trên đường thẳng $y=9x+8$ nên: ${{y}_{B}}=9.4+8=36+8=44$<br>\nMà $B$ cũng thuộc đồ thị $f(x)$ nên $f(4)=44$.<br>\n$I=f\\left( 4 \\right)-f\\left( -1 \\right)=44-\\left( -1 \\right)=44+1=45$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Nếu $\\int_{0}^{1}{f}\\left( x \\right)\\text{d}x=2$ và $\\int_{1}^{3}{f}\\left( x \\right)\\text{d}x=8$ thì $\\int_{0}^{3}{f}\\left( x \\right)\\text{d}x$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$16$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$4$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$10$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$6$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int_{0}^{3}{f}\\left( x \\right)\\text{d}x=\\int\\limits_{0}^{1}{f\\left( x \\right)\\text{d}x}+\\int\\limits_{1}^{3}{f\\left( x \\right)\\text{d}x}=2+8=10$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f\\left( x \\right)$ thỏa mãn $f\\left( 1 \\right)=-2;\\,f\\left( 2 \\right)=1$ và có đạo hàm liên tục trên đoạn $\\left[ 1;2 \\right]$. Giá trị của tích phân $I=\\int\\limits_{1}^{2}{{f}'\\left( x \\right)}\\text{d}x$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$I=-1$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$I=2$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$I=-3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$I=3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $I=\\int\\limits_{1}^{2}{{f}'\\left( x \\right)}\\text{d}x=\\left. f\\left( x \\right) \\right|_{1}^{2}=f\\left( 2 \\right)-f\\left( 1 \\right)=1-\\left( -2 \\right)=3$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Cho hàm số $f(x)$ liên tục trên đoạn $[2;5]$. Nếu $F(x)$ là một nguyên hàm của hàm số $f(x)$ trên đoạn $[2;5]$ thì $\\int\\limits_{2}^{5}{f(x)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$F(2)-F(5)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$F(5)-F(2)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$f(5)-f(2)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$F(2)+F(5)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Vì $F(x)$ là một nguyên hàm của $f(x)$ trên đoạn $[2;5]$ nên theo công thức Newton-Leibniz:<br>\n$\\int\\limits_{2}^{5}{f(x)dx}=F(5)-F(2)$.<br>\nChọn B.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Nếu $\\int\\limits_{0}^{3}{f(x)dx}=6$ thì $\\int\\limits_{0}^{3}{\\left( \\frac{1}{3}f(x)+2 \\right)dx}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "5."
+          },
+          {
+            "id": "opt_b",
+            "text": "4."
+          },
+          {
+            "id": "opt_c",
+            "text": "8."
+          },
+          {
+            "id": "opt_d",
+            "text": "6.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{0}^{3}{\\left( \\frac{1}{3}f(x)+2 \\right)dx}=\\frac{1}{3}\\int\\limits_{0}^{3}{f(x)dx}+\\int\\limits_{0}^{3}{2dx}$$=\\frac{1}{3}.6+2.3=2+6=8$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.<br>\nBiết rằng các diện tích ${{S}_{1}},\\ {{S}_{2}}$ thỏa mãn ${{S}_{1}}=2{{S}_{2}}=3$. Tính $\\int\\limits_{0}^{4}{f(x)dx}$.",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "3."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\frac{3}{2}$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-\\frac{3}{2}$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{9}{2}$.<br>\n\n\t\t\n\t\t\n\t\n\n\n\t<div class=\"bbImageWrapper  js-lbImage\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.\" data-src=\"https://sieugioi.com/docs/attachments/q7_img1-png.9576/\" data-type=\"image\" data-lb-sidebar-href=\"\" data-lb-caption-extra-html=\"\" data-single-image=\"1\">\n\t\t<img src=\"https://sieugioi.com/docs/attachments/q7_img1-png.9576/\" class=\"bbImage\" style=\"\" alt=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.\" title=\"Cho hàm số $y=f(x)$ liên tục trên $\\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.\" width=\"372\" height=\"273\" loading=\"lazy\">\n\t</div><br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Theo hình vẽ, phần diện tích ${{S}_{1}}$ nằm dưới trục hoành, còn ${{S}_{2}}$ nằm trên trục hoành.<br>\nĐề bài cho: ${{S}_{1}}=2{{S}_{2}}=3$<br>\nSuy ra: ${{S}_{1}}=3,\\quad {{S}_{2}}=\\frac{3}{2}$<br>\nDo đó: $\\int\\limits_{0}^{4}{f(x)dx}=-{{S}_{1}}+{{S}_{2}}$$=-3+\\frac{3}{2}=-\\frac{3}{2}$.<br>\nChọn C.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Biết $\\int\\limits_{-1}^{3}{f}(x)dx=-2$ và $\\int\\limits_{-1}^{3}{g}(x)dx=1$. Khi đó $\\int\\limits_{-1}^{3}{\\left( f(x)-g(x) \\right)}dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$3$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$1$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$-3$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\int\\limits_{-1}^{3}{f}(x)dx=-2$,$\\int\\limits_{-1}^{3}{g}(x)dx=1$.<br>\nDo đó: $\\int\\limits_{-1}^{3}{\\left( f(x)-g(x) \\right)}dx=\\int\\limits_{-1}^{3}{f}(x)dx-\\int\\limits_{-1}^{3}{g}(x)dx$$=-2-1=-3$.<br>\nChọn D.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{0}^{1}{f\\left( x \\right)\\text{d}x}=2$ và $\\int\\limits_{0}^{1}{g\\left( x \\right)\\text{d}x}=5$ khi đó $\\int\\limits_{0}^{1}{\\left[ 3f\\left( x \\right)-2g\\left( x \\right) \\right]\\text{d}x}$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$-4$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$16$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$-3$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$11$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\int\\limits_0^1 {\\left[ {3f\\left( x \\right) - 2g\\left( x \\right)} \\right]{\\rm{d}}x} $ $ = 3\\int\\limits_0^1 {f\\left( x \\right){\\rm{d}}x}  - 2\\int\\limits_0^1 {g\\left( x \\right){\\rm{d}}x} $ $ = 3 \\cdot 2 - 2 \\cdot 5 =  - 4$</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Cho $\\int\\limits_{\\frac{\\pi }{4}}^{\\frac{\\pi }{3}}{{{\\left( 3\\tan x+2\\cot x \\right)}^{2}}\\text{d}x}=a+b\\frac{\\sqrt{3}}{3}+c\\frac{\\pi }{12}$ (*). Biết rằng tồn tại duy nhất bộ ba số nguyên $a$, $b$, $c$ thoả mãn (*). Tổng $T=a+b+c$ có giá trị bằng bao nhiêu?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$19$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$17$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$15$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$21$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có<br>\n$\\int_{\\pi/4}^{\\pi/3} (3\\tan x + 2\\cot x)^2 dx$ $= \\int_{\\pi/4}^{\\pi/3} (9\\tan^2 x + 4\\cot^2 x + 12)\\, dx$ $= \\int_{\\pi/4}^{\\pi/3} \\left[9(\\tan^2 x + 1) + 4(\\cot^2 x + 1) - 1\\right] dx$ $= \\int_{\\pi/4}^{\\pi/3} \\left(\\frac{9}{\\cos^2 x} + \\frac{4}{\\sin^2 x} - 1\\right) dx$ $9\\int_{\\pi/4}^{\\pi/3} \\frac{1}{\\cos^2 x}\\, dx + 4\\int_{\\pi/4}^{\\pi/3} \\frac{1}{\\sin^2 x}\\, dx - \\int_{\\pi/4}^{\\pi/3} dx =$ $(9\\tan x - 4\\cot x - x)\\Big|_{\\pi/4}^{\\pi/3}$ $= \\left(9\\sqrt{3} - \\frac{4\\sqrt{3}}{3} - \\frac{\\pi}{3}\\right) - \\left(9 - 4 - \\frac{\\pi}{4}\\right)$ $= -5 + \\frac{23\\sqrt{3}}{3} - \\frac{\\pi}{12}.$<br>\nĐồng nhất với (*), ta có $a=-5$, $b=23$, $c=-1$, do đó $T=\\left( -5 \\right)+23+\\left( -1 \\right)=17$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Tích phân $\\int\\limits_{0}^{1}{\\frac{1}{x+1}}dx$ bằng",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$2\\left( \\sqrt{2}-1 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\sqrt{2}-1$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\ln 2$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\frac{\\sqrt{2}-1}{2}$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t</div>"
+          }
+        ],
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\int\\limits_{0}^{1}{\\frac{1}{x+1}}dx=\\ln \\left| x+1 \\right|\\left| _{0}^{1} \\right.=\\ln 2$.</div>\n\t\t</div>\n\t</div>\n",
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:49.801Z"
+}

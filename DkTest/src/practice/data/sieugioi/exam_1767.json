@@ -1,0 +1,856 @@
+{
+  "meta": {
+    "title": "Đề 1. 12 Bài tập trắc nghiệm Hệ trục tọa độ trong không gian",
+    "slug": "de-1-12-bai-tap-trac-nghiem-he-truc-toa-do-trong-khong-gian",
+    "id": "1767",
+    "url": "https://sieugioi.com/docs/threads/de-1-12-bai-tap-trac-nghiem-he-truc-toa-do-trong-khong-gian.1767/",
+    "numId": 1767,
+    "bai": 7,
+    "topicId": "math_t7_oxyz_coords",
+    "baiTitle": "Hệ trục tọa độ trong không gian",
+    "chapter": "Chương 2"
+  },
+  "extracted": {
+    "title": "Đề 1. 12 Bài tập trắc nghiệm Hệ trục tọa độ trong không gian",
+    "sourceUrl": "https://sieugioi.com/docs/threads/de-1-12-bai-tap-trac-nghiem-he-truc-toa-do-trong-khong-gian.1767/",
+    "domain": "sieugioi.com",
+    "adapterName": "SieuGioiAdapter",
+    "totalQuestions": 12,
+    "questionsWithOptions": 12,
+    "questionsWithAnswers": 0,
+    "questionsWithExplanation": 0,
+    "questionsWithImages": 0,
+    "manualReviewCount": 12,
+    "warnings": [
+      "Câu 1: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 2: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 3: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 4: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 5: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 6: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 7: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 8: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 9: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 10: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 11: Không tìm thấy lời giải trên trang nguồn",
+      "Câu 12: Không tìm thấy lời giải trên trang nguồn"
+    ],
+    "questions": [
+      {
+        "id": "sg_1767_q1",
+        "order": 1,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{a}=2\\overrightarrow{i}+3\\overrightarrow{j}-\\overrightarrow{k}$. Tọa độ của vectơ $\\overrightarrow{a}$ là:",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{a}=2\\overrightarrow{i}+3\\overrightarrow{j}-\\overrightarrow{k}$. Tọa độ của vectơ $\\overrightarrow{a}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( -1;2;3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 3;2;-1 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 2;-1;3 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 2;3;-1 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Ta có $\\overrightarrow{a}=2\\overrightarrow{i}+3\\overrightarrow{j}-\\overrightarrow{k}\\Rightarrow \\overrightarrow{a}=\\left( 2;3;-1 \\right)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q2",
+        "order": 2,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ trục tọa độ $Oxyz$, cho vectơ $\\overrightarrow{u}=-3\\overrightarrow{i}+5\\overrightarrow{j}+2\\overrightarrow{k}$. Tọa độ của vectơ $\\overrightarrow{u}$ là",
+        "promptHtml": "Trong không gian với hệ trục tọa độ $Oxyz$, cho vectơ $\\overrightarrow{u}=-3\\overrightarrow{i}+5\\overrightarrow{j}+2\\overrightarrow{k}$. Tọa độ của vectơ $\\overrightarrow{u}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-3;5;2)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(3;5;2)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(5;-3;2)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(-3;5;-2)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Tọa độ của vectơ $\\overrightarrow{u}=(-3;5;2)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q3",
+        "order": 3,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{u}=-3\\vec{i}+4\\vec{k}+\\vec{j}$. Tọa độ của vectơ $\\vec{u}$ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{u}=-3\\vec{i}+4\\vec{k}+\\vec{j}$. Tọa độ của vectơ $\\vec{u}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(3;4;1)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(-3;1;4)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(-3;4;1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(1;4;-3)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Ta có: $\\vec{u}=-3\\vec{i}+4\\vec{k}+\\vec{j}=-3\\vec{i}+\\vec{j}+4\\vec{k}\\Rightarrow \\vec{u}\\,(-3;1;4)$\nVậy tọa độ của vectơ $\\vec{u}$ là $(-3;1;4)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q4",
+        "order": 4,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $A\\left( 1;2;5 \\right)$ trên mặt phẳng $\\left( Oxz \\right)$ có tọa độ là",
+        "promptHtml": "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $A\\left( 1;2;5 \\right)$ trên mặt phẳng $\\left( Oxz \\right)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 0;2;5 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 0;2;0 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 1;0;5 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 0;0;5 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hình chiếu vuông góc của điểm $A\\left( 1;2;5 \\right)$ trên mặt phẳng $\\left( Oxz \\right)$ có tọa độ là $\\left( 1;0;5 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q5",
+        "order": 5,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz,$hình chiếu vuông góc của điểm $M(-2;3;4)$ lên trục $Oy$ là điểm nào?",
+        "promptHtml": "Trong không gian $Oxyz,$hình chiếu vuông góc của điểm $M(-2;3;4)$ lên trục $Oy$ là điểm nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "${{M}_{1}}(-2;0;0)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "${{M}_{2}}(0;3;0)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "${{M}_{3}}(0;0;4)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "${{M}_{4}}(-2;0;4)$"
+          }
+        ],
+        "correctKey": "B",
+        "correctOptionIds": [
+          "opt_b"
+        ],
+        "explanation": "Chú ý: Hình chiếu vuông góc của điểm $M({{x}_{0}};{{y}_{0}};{{z}_{0}})$ trên trục $Ox,\\,\\,Oy,\\,\\,Oz$ lần lượt là ${{M}_{1}}({{x}_{0}};0;0),\\,\\,{{M}_{2}}(0;{{y}_{0}};0),\\,\\,{{M}_{3}}(0;0;{{z}_{0}})$\nÁp dụng: Hình chiếu vuông góc của điểm $M(-2;3;4)$ lên trục $Oy$ là ${{M}_{2}}(0;3;0)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q6",
+        "order": 6,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho vectơ $\\vec{a}=7\\overrightarrow{i}+4\\overrightarrow{j}+2\\overrightarrow{k}.$ Tọa độ của $\\overrightarrow{a}$ là",
+        "promptHtml": "Trong không gian $Oxyz$, cho vectơ $\\vec{a}=7\\overrightarrow{i}+4\\overrightarrow{j}+2\\overrightarrow{k}.$ Tọa độ của $\\overrightarrow{a}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 7;\\,\\,4;\\,\\,2 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( -7;4;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( -7;-4;-2 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 7;-4;-2 \\right)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có $\\vec{i}=\\left( 1;0;0 \\right)\\Rightarrow 7\\vec{i}=\\left( 7;0;0 \\right)$\n$\\vec{j}=\\left( 0;1;0 \\right)\\Rightarrow 4\\vec{j}=\\left( 0;4;0 \\right)$\n$\\vec{k}=\\left( 0;0;1 \\right)\\Rightarrow 2\\vec{k}=\\left( 0;0;2 \\right)$\n$\\Rightarrow \\overrightarrow{a}=7\\vec{i}+4\\vec{j}+2\\vec{k}=\\left( 7;4;2 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q7",
+        "order": 7,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $K(4;-1;3)$ trên mặt phẳng $(Oxz)$ là",
+        "promptHtml": "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $K(4;-1;3)$ trên mặt phẳng $(Oxz)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(0;-1;3)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(4;0;-3)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(0;-1;0)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(4;0;3)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Hình chiếu vuông góc của điểm $K(4;-1;3)$ trên mặt phẳng $(Oxz)$ là $(4;0;3)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q8",
+        "order": 8,
+        "type": "single_choice",
+        "promptText": "Trong không giang $Oxyz$, hình chiếu vuông góc của điểm $M(2;1;-1)$ lên mặt phẳng ($Ozx)$ có tọa độ là",
+        "promptHtml": "Trong không giang $Oxyz$, hình chiếu vuông góc của điểm $M(2;1;-1)$ lên mặt phẳng ($Ozx)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(0;1;0)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(0;1;-1)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(2;0;-1)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(2;1;0)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "Hình chiếu vuông góc của điểm $M(2;1;-1)$ lên mặt phẳng ($Ozx)$ có tọa độ là $(2;0;-1)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q9",
+        "order": 9,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$có hình chiếu vuông góc lên mặt phẳng $\\left( Oxy \\right)$ và $\\left( Oxz \\right)$ lần lượt là ${{M}_{1}}\\left( -2;3;0 \\right)$ và ${{M}_{2}}\\left( -2;0;5 \\right)$. Tọa độ điểm $M$ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$có hình chiếu vuông góc lên mặt phẳng $\\left( Oxy \\right)$ và $\\left( Oxz \\right)$ lần lượt là ${{M}_{1}}\\left( -2;3;0 \\right)$ và ${{M}_{2}}\\left( -2;0;5 \\right)$. Tọa độ điểm $M$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$M\\left( -2;-3;5 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$M\\left( 2;-3;5 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$M\\left( 2;-5;3 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$M\\left( -2;3;5 \\right)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Gọi tọa độ điểm $M(x; y; z)$. Hình chiếu vuông góc của $M$ lên mặt phẳng $(Oxy)$ là điểm $M_1(x; y; 0) = (-2; 3; 0) \\Rightarrow x = -2, y = 3$. Hình chiếu vuông góc của $M$ lên mặt phẳng $(Oxz)$ là điểm $M_2(x; 0; z) = (-2; 0; 5) \\Rightarrow z = 5$. Vậy tọa độ điểm $M$ là $(-2; 3; 5)$. Chọn D.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 1,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q10",
+        "order": 10,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, hình chiếu vuông góc của điểm $M(2;1;-1)$ trên trục $Oz$ có tọa độ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, hình chiếu vuông góc của điểm $M(2;1;-1)$ trên trục $Oz$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(2;1;0)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(2;0;0)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(0;1;0)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(0;0;-1)$"
+          }
+        ],
+        "correctKey": "D",
+        "correctOptionIds": [
+          "opt_d"
+        ],
+        "explanation": "Hình chiếu vuông góc của điểm $M(2;1;-1)$ trên trục $Oz$ thì hoành độ và tung độ bằng $0$, cao độ giữ nguyên.\nVậy hình chiếu là $(0;0;-1)$.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q11",
+        "order": 11,
+        "type": "single_choice",
+        "promptText": "Trong không gian $Oxyz$, cho biểu diễn của $\\overrightarrow{a}$ qua các vecto đơn vị là $\\overrightarrow{a}=2\\overrightarrow{i}+\\overrightarrow{k}-3\\overrightarrow{j}$. Tọa độ của $\\overrightarrow{a}$ là:",
+        "promptHtml": "Trong không gian $Oxyz$, cho biểu diễn của $\\overrightarrow{a}$ qua các vecto đơn vị là $\\overrightarrow{a}=2\\overrightarrow{i}+\\overrightarrow{k}-3\\overrightarrow{j}$. Tọa độ của $\\overrightarrow{a}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$\\left( 2;1;-3 \\right)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$\\left( 1;-3;2 \\right)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$\\left( 2;-3;1 \\right)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$\\left( 1;2;-3 \\right)$"
+          }
+        ],
+        "correctKey": "C",
+        "correctOptionIds": [
+          "opt_c"
+        ],
+        "explanation": "$\\overrightarrow{a}=2\\overrightarrow{i}+\\overrightarrow{k}-3\\overrightarrow{j}\\Leftrightarrow \\overrightarrow{a}\\left( 2;-3;1 \\right)$",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      },
+      {
+        "id": "sg_1767_q12",
+        "order": 12,
+        "type": "single_choice",
+        "promptText": "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$ thỏa mãn $\\overrightarrow{OM}=-2\\vec{i}+\\vec{j}+3\\vec{k}$. Tọa độ của điểm $M$ là",
+        "promptHtml": "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$ thỏa mãn<br>\n$\\overrightarrow{OM}=-2\\vec{i}+\\vec{j}+3\\vec{k}$. Tọa độ của điểm $M$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "key": "A",
+            "text": "$(-2;1;3)$"
+          },
+          {
+            "id": "opt_b",
+            "key": "B",
+            "text": "$(2;1;3)$"
+          },
+          {
+            "id": "opt_c",
+            "key": "C",
+            "text": "$(1;-2;3)$"
+          },
+          {
+            "id": "opt_d",
+            "key": "D",
+            "text": "$(1;2;3)$"
+          }
+        ],
+        "correctKey": "A",
+        "correctOptionIds": [
+          "opt_a"
+        ],
+        "explanation": "Ta có: $\\overrightarrow{OM}=-2\\vec{i}+\\vec{j}+3\\vec{k}$.\nSuy ra tọa độ điểm $M$ là: $M(-2;1;3)$.\nChọn A.",
+        "imageUrl": null,
+        "images": [],
+        "confidence": 0.9,
+        "warnings": []
+      }
+    ],
+    "suggestedSubject": "Toán",
+    "suggestedGrade": "12",
+    "suggestedTimeLimit": 90
+  },
+  "dktestJson": {
+    "version": 3,
+    "source": "DkTEST",
+    "exportedAt": "2026-10-12T13:51:41.303Z",
+    "exportType": "exam",
+    "exam": {
+      "title": "Đề 1. 12 Bài tập trắc nghiệm Hệ trục tọa độ trong không gian",
+      "timeLimit": 90,
+      "shuffleQuestions": false,
+      "showResults": true,
+      "showScore": true,
+      "showDetails": true,
+      "description": "Đề thi trích xuất từ https://sieugioi.com/docs/threads/de-1-12-bai-tap-trac-nghiem-he-truc-toa-do-trong-khong-gian.1767/ (sieugioi.com) qua Web-to-DkTEST Importer.",
+      "subject": "Toán",
+      "gradeCategory": "12",
+      "accessMode": "free",
+      "priceVnd": 0,
+      "salesEnabled": true
+    },
+    "sections": [
+      {
+        "id": "sec-1",
+        "title": "Phần I. Câu hỏi trắc nghiệm nhiều phương án lựa chọn",
+        "description": "Thí sinh trả lời từ câu 1 đến câu 12",
+        "order": 0,
+        "enabled": true
+      }
+    ],
+    "questions": [
+      {
+        "id": "q-1",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho $\\overrightarrow{a}=2\\overrightarrow{i}+3\\overrightarrow{j}-\\overrightarrow{k}$. Tọa độ của vectơ $\\overrightarrow{a}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( -1;2;3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 3;2;-1 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 2;-1;3 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 2;3;-1 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\overrightarrow{a}=2\\overrightarrow{i}+3\\overrightarrow{j}-\\overrightarrow{k}\\Rightarrow \\overrightarrow{a}=\\left( 2;3;-1 \\right)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 1
+      },
+      {
+        "id": "q-2",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ trục tọa độ $Oxyz$, cho vectơ $\\overrightarrow{u}=-3\\overrightarrow{i}+5\\overrightarrow{j}+2\\overrightarrow{k}$. Tọa độ của vectơ $\\overrightarrow{u}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-3;5;2)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(3;5;2)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(5;-3;2)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(-3;5;-2)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Tọa độ của vectơ $\\overrightarrow{u}=(-3;5;2)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 2
+      },
+      {
+        "id": "q-3",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho vectơ $\\vec{u}=-3\\vec{i}+4\\vec{k}+\\vec{j}$. Tọa độ của vectơ $\\vec{u}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(3;4;1)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(-3;1;4)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(-3;4;1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(1;4;-3)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\vec{u}=-3\\vec{i}+4\\vec{k}+\\vec{j}=-3\\vec{i}+\\vec{j}+4\\vec{k}\\Rightarrow \\vec{u}\\,(-3;1;4)$<br>\nVậy tọa độ của vectơ $\\vec{u}$ là $(-3;1;4)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 3
+      },
+      {
+        "id": "q-4",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $A\\left( 1;2;5 \\right)$ trên mặt phẳng $\\left( Oxz \\right)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 0;2;5 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 0;2;0 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 1;0;5 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 0;0;5 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình chiếu vuông góc của điểm $A\\left( 1;2;5 \\right)$ trên mặt phẳng $\\left( Oxz \\right)$ có tọa độ là $\\left( 1;0;5 \\right)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 4
+      },
+      {
+        "id": "q-5",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz,$hình chiếu vuông góc của điểm $M(-2;3;4)$ lên trục $Oy$ là điểm nào?",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "${{M}_{1}}(-2;0;0)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "${{M}_{2}}(0;3;0)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "${{M}_{3}}(0;0;4)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "${{M}_{4}}(-2;0;4)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chú ý: Hình chiếu vuông góc của điểm $M({{x}_{0}};{{y}_{0}};{{z}_{0}})$ trên trục $Ox,\\,\\,Oy,\\,\\,Oz$ lần lượt là ${{M}_{1}}({{x}_{0}};0;0),\\,\\,{{M}_{2}}(0;{{y}_{0}};0),\\,\\,{{M}_{3}}(0;0;{{z}_{0}})$<br>\nÁp dụng: Hình chiếu vuông góc của điểm $M(-2;3;4)$ lên trục $Oy$ là ${{M}_{2}}(0;3;0)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 5
+      },
+      {
+        "id": "q-6",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho vectơ $\\vec{a}=7\\overrightarrow{i}+4\\overrightarrow{j}+2\\overrightarrow{k}.$ Tọa độ của $\\overrightarrow{a}$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 7;\\,\\,4;\\,\\,2 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( -7;4;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( -7;-4;-2 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 7;-4;-2 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có $\\vec{i}=\\left( 1;0;0 \\right)\\Rightarrow 7\\vec{i}=\\left( 7;0;0 \\right)$<br>\n$\\vec{j}=\\left( 0;1;0 \\right)\\Rightarrow 4\\vec{j}=\\left( 0;4;0 \\right)$<br>\n$\\vec{k}=\\left( 0;0;1 \\right)\\Rightarrow 2\\vec{k}=\\left( 0;0;2 \\right)$<br>\n$\\Rightarrow \\overrightarrow{a}=7\\vec{i}+4\\vec{j}+2\\vec{k}=\\left( 7;4;2 \\right)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 6
+      },
+      {
+        "id": "q-7",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $K(4;-1;3)$ trên mặt phẳng $(Oxz)$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(0;-1;3)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(4;0;-3)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(0;-1;0)$"
+          },
+          {
+            "id": "opt_d",
+            "text": "$(4;0;3)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình chiếu vuông góc của điểm $K(4;-1;3)$ trên mặt phẳng $(Oxz)$ là $(4;0;3)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 7
+      },
+      {
+        "id": "q-8",
+        "type": "single_choice",
+        "text": "Trong không giang $Oxyz$, hình chiếu vuông góc của điểm $M(2;1;-1)$ lên mặt phẳng ($Ozx)$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(0;1;0)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(0;1;-1)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(2;0;-1)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(2;1;0)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình chiếu vuông góc của điểm $M(2;1;-1)$ lên mặt phẳng ($Ozx)$ có tọa độ là $(2;0;-1)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 8
+      },
+      {
+        "id": "q-9",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$có hình chiếu vuông góc lên mặt phẳng $\\left( Oxy \\right)$ và $\\left( Oxz \\right)$ lần lượt là ${{M}_{1}}\\left( -2;3;0 \\right)$ và ${{M}_{2}}\\left( -2;0;5 \\right)$. Tọa độ điểm $M$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$M\\left( -2;-3;5 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$M\\left( 2;-3;5 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$M\\left( 2;-5;3 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$M\\left( -2;3;5 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Chọn D</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 9
+      },
+      {
+        "id": "q-10",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, hình chiếu vuông góc của điểm $M(2;1;-1)$ trên trục $Oz$ có tọa độ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(2;1;0)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(2;0;0)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(0;1;0)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(0;0;-1)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Hình chiếu vuông góc của điểm $M(2;1;-1)$ trên trục $Oz$ thì hoành độ và tung độ bằng $0$, cao độ giữ nguyên.<br>\nVậy hình chiếu là $(0;0;-1)$.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 10
+      },
+      {
+        "id": "q-11",
+        "type": "single_choice",
+        "text": "Trong không gian $Oxyz$, cho biểu diễn của $\\overrightarrow{a}$ qua các vecto đơn vị là $\\overrightarrow{a}=2\\overrightarrow{i}+\\overrightarrow{k}-3\\overrightarrow{j}$. Tọa độ của $\\overrightarrow{a}$ là:",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$\\left( 2;1;-3 \\right)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$\\left( 1;-3;2 \\right)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$\\left( 2;-3;1 \\right)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$\\left( 1;2;-3 \\right)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">$\\overrightarrow{a}=2\\overrightarrow{i}+\\overrightarrow{k}-3\\overrightarrow{j}\\Leftrightarrow \\overrightarrow{a}\\left( 2;-3;1 \\right)$</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 11
+      },
+      {
+        "id": "q-12",
+        "type": "single_choice",
+        "text": "Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$ thỏa mãn<br>\n$\\overrightarrow{OM}=-2\\vec{i}+\\vec{j}+3\\vec{k}$. Tọa độ của điểm $M$ là",
+        "options": [
+          {
+            "id": "opt_a",
+            "text": "$(-2;1;3)$."
+          },
+          {
+            "id": "opt_b",
+            "text": "$(2;1;3)$."
+          },
+          {
+            "id": "opt_c",
+            "text": "$(1;-2;3)$."
+          },
+          {
+            "id": "opt_d",
+            "text": "$(1;2;3)$.<br>\n\n\n<div class=\"bbCodeSpoiler\">\n\t\n\t<div class=\"bbCodeSpoiler-content\">\n\t\t<div class=\"bbCodeBlock bbCodeBlock--spoiler\">\n\t\t\t<div class=\"bbCodeBlock-content\">Ta có: $\\overrightarrow{OM}=-2\\vec{i}+\\vec{j}+3\\vec{k}$.<br>\nSuy ra tọa độ điểm $M$ là: $M(-2;1;3)$.<br>\nChọn A.</div>\n\t\t</div>\n\t</div>\n</div>"
+          }
+        ],
+        "imageUrl": null,
+        "points": 1,
+        "sectionId": "sec-1",
+        "order": 12
+      }
+    ]
+  },
+  "scrapedAt": "2026-10-12T13:51:41.303Z"
+}
