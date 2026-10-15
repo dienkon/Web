@@ -21,14 +21,7 @@ export const PerformanceHUD: React.FC = () => {
         frameCount = 0;
         lastTime = now;
 
-        // Auto quality adjustment logic
-        if (settings.graphicsQuality === 'auto') {
-           if (currentFps < 30) {
-              updateSettings({ graphicsQuality: 'low' });
-           } else if (currentFps < 45) {
-              updateSettings({ graphicsQuality: 'medium' });
-           }
-        }
+
       }
       animId = requestAnimationFrame(tick);
     };

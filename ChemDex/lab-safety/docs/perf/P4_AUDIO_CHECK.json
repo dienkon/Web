@@ -1,0 +1,258 @@
+{
+  "menu": {
+    "state": "uninitialized",
+    "worldBlocked": true,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 0,
+    "starts": {}
+  },
+  "ready": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 0,
+    "starts": {}
+  },
+  "dedup": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [
+      "stress-loop"
+    ],
+    "activeVoices": 1,
+    "worldVoices": 1,
+    "bufferCount": 1,
+    "starts": {
+      "stress-loop": 1
+    }
+  },
+  "race": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [
+      "stress-loop"
+    ],
+    "activeVoices": 1,
+    "worldVoices": 1,
+    "bufferCount": 1,
+    "starts": {
+      "stress-loop": 2
+    }
+  },
+  "released": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 1,
+    "starts": {
+      "stress-loop": 2
+    }
+  },
+  "rewards": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 1,
+    "worldVoices": 0,
+    "bufferCount": 1,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 1
+    }
+  },
+  "repeated": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 1,
+    "worldVoices": 0,
+    "bufferCount": 1,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 2
+    }
+  },
+  "spraying": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [
+      "fire-crackle",
+      "co2-hiss"
+    ],
+    "activeVoices": 2,
+    "worldVoices": 2,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 2,
+      "snap": 1,
+      "fire-crackle": 1,
+      "physical-snap": 1,
+      "co2-hiss": 1
+    }
+  },
+  "modal": {
+    "state": "running",
+    "worldBlocked": true,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 2,
+      "snap": 1,
+      "fire-crackle": 1,
+      "physical-snap": 1,
+      "co2-hiss": 1
+    }
+  },
+  "pause": {
+    "state": "running",
+    "worldBlocked": true,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 2,
+      "snap": 1,
+      "fire-crackle": 2,
+      "physical-snap": 1,
+      "co2-hiss": 1
+    }
+  },
+  "mute": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 2,
+      "snap": 1,
+      "fire-crackle": 3,
+      "physical-snap": 1,
+      "co2-hiss": 2
+    }
+  },
+  "blur": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": true,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 2,
+      "snap": 1,
+      "fire-crackle": 4,
+      "physical-snap": 1,
+      "co2-hiss": 2
+    }
+  },
+  "completed": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 3,
+      "snap": 1,
+      "fire-crackle": 4,
+      "physical-snap": 1,
+      "co2-hiss": 2
+    }
+  },
+  "restart": {
+    "state": "running",
+    "worldBlocked": false,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 3,
+      "snap": 1,
+      "fire-crackle": 4,
+      "physical-snap": 1,
+      "co2-hiss": 2
+    }
+  },
+  "quit": {
+    "state": "running",
+    "worldBlocked": true,
+    "inactive": false,
+    "sfxVolume": 0.8,
+    "ambientVolume": 0.6,
+    "loops": [],
+    "activeVoices": 0,
+    "worldVoices": 0,
+    "bufferCount": 2,
+    "starts": {
+      "stress-loop": 2,
+      "reward": 3,
+      "snap": 1,
+      "fire-crackle": 4,
+      "physical-snap": 1,
+      "co2-hiss": 2
+    }
+  },
+  "errors": []
+}

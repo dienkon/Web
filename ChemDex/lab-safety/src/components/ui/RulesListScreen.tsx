@@ -54,7 +54,7 @@ export const RulesListScreen: React.FC<Props> = ({ onClose }) => {
       <div className="space-y-4">
         {/* Search Input */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+          <Search className="w-4 h-4 text-slate-600 absolute left-3.5 top-3.5" />
           <input
             type="text"
             value={search}
@@ -66,7 +66,7 @@ export const RulesListScreen: React.FC<Props> = ({ onClose }) => {
 
         {/* Category Filter Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <Filter className="w-3.5 h-3.5 text-slate-400 shrink-0 ml-1 mr-0.5" />
+          <Filter className="w-3.5 h-3.5 text-slate-600 shrink-0 ml-1 mr-0.5" />
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -115,7 +115,7 @@ export const RulesListScreen: React.FC<Props> = ({ onClose }) => {
           ))}
 
           {filteredRules.length === 0 && (
-            <div className="col-span-full py-12 text-center text-slate-400 text-sm">
+            <div className="col-span-full py-12 text-center text-slate-600 text-sm">
               Không tìm thấy quy tắc an toàn phù hợp với từ khóa.
             </div>
           )}

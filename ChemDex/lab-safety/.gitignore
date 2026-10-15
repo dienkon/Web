@@ -1,8 +1,11 @@
 node_modules/
 build/
 dist/
+assets/
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
+.browser-review/
+.browser-review-safety/

@@ -4,7 +4,7 @@ export const SafetyWall: React.FC = () => {
   return (
     <group>
       {/* ================= 1. EMERGENCY BODY SHOWER & EYEWASH (-9.2, 0, -4.0) ================= */}
-      <group position={[-9.2, 0, -4.0]}>
+      <group userData={{labItem:{title:'Vòi tắm khẩn cấp',kind:'shower'}}} position={[-9.2, 0, -4.0]}>
         {/* High-visibility yellow safety floor boundary & drainage grate */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]}>
           <circleGeometry args={[0.9, 32]} />
@@ -22,7 +22,7 @@ export const SafetyWall: React.FC = () => {
         </mesh>
 
         {/* Overhead Drench Shower Head at Y = 2.4m */}
-        <group position={[0, 2.4, 0.4]}>
+        <group userData={{labItem:{title:'Vòi tắm trên cao',kind:'shower'}}} position={[0, 2.4, 0.4]}>
           <mesh rotation={[0, 0, Math.PI / 2]}>
             <cylinderGeometry args={[0.03, 0.03, 0.8]} />
             <meshStandardMaterial color="#16A34A" metalness={0.7} />
@@ -35,7 +35,7 @@ export const SafetyWall: React.FC = () => {
         </group>
 
         {/* Dual Aerated Eyewash Bowl & Spray Heads at Y = 1.05m */}
-        <group position={[0, 1.05, 0.35]}>
+        <group userData={{labItem:{title:'Bồn rửa mắt khẩn cấp',kind:'shower'}}} position={[0, 1.05, 0.35]}>
           {/* Stainless steel catch bowl */}
           <mesh>
             <cylinderGeometry args={[0.18, 0.14, 0.1, 24]} />
@@ -59,7 +59,7 @@ export const SafetyWall: React.FC = () => {
       </group>
 
       {/* ================= 2. FIRE EXTINGUISHERS CABINET (-9.85, 1.1, -1.5) ================= */}
-      <group position={[-9.85, 1.1, -1.5]}>
+      <group userData={{labItem:{title:'Tủ bình cứu hỏa',kind:'extinguisher'}}} position={[-9.85, 1.1, -1.5]}>
         {/* Red Heavy Steel Cabinet Body */}
         <mesh castShadow receiveShadow>
           <boxGeometry args={[0.26, 0.95, 0.55]} />
@@ -71,7 +71,7 @@ export const SafetyWall: React.FC = () => {
           <meshPhysicalMaterial transparent opacity={0.35} color="#BAE6FD" roughness={0.1} />
         </mesh>
         {/* ABC Dry Powder Extinguisher Inside */}
-        <group position={[0, -0.15, -0.12]}>
+        <group userData={{labItem:{title:'Bình chữa cháy bột',kind:'extinguisher'}}} position={[0, -0.15, -0.12]}>
           <mesh>
             <cylinderGeometry args={[0.075, 0.075, 0.44]} />
             <meshStandardMaterial color="#DC2626" roughness={0.3} />
@@ -83,7 +83,7 @@ export const SafetyWall: React.FC = () => {
           </mesh>
         </group>
         {/* CO2 Cylinder Extinguisher Inside (with black horn) */}
-        <group position={[0, -0.15, 0.12]}>
+        <group userData={{labItem:{title:'Bình chữa cháy CO₂',kind:'extinguisher'}}} position={[0, -0.15, 0.12]}>
           <mesh>
             <cylinderGeometry args={[0.07, 0.07, 0.48]} />
             <meshStandardMaterial color="#B91C1C" roughness={0.3} />
@@ -97,7 +97,7 @@ export const SafetyWall: React.FC = () => {
       </group>
 
       {/* ================= 3. FIRE BLANKET QUICK-PULL BOX (-9.85, 1.4, -0.4) ================= */}
-      <group position={[-9.85, 1.4, -0.4]}>
+      <group userData={{labItem:{title:'Chăn chữa cháy',kind:'blanket'}}} position={[-9.85, 1.4, -0.4]}>
         <mesh castShadow>
           <boxGeometry args={[0.14, 0.35, 0.38]} />
           <meshStandardMaterial color="#DC2626" roughness={0.4} />
@@ -116,7 +116,7 @@ export const SafetyWall: React.FC = () => {
       {/* First Aid Station is now dynamically mounted via Interactive FirstAidTreatmentStation */}
 
       {/* ================= 5. MOBILE CHEMICAL SPILL KIT CART (-9.3, 0, 3.0) ================= */}
-      <group position={[-9.3, 0, 3.0]}>
+      <group userData={{labItem:{title:'Bộ dụng cụ xử lý tràn',kind:'spillKit'}}} position={[-9.3, 0, 3.0]}>
         {/* High-visibility Yellow Wheeled Drum/Cart */}
         <mesh position={[0, 0.38, 0]} castShadow receiveShadow>
           <cylinderGeometry args={[0.3, 0.28, 0.75, 24]} />
@@ -140,7 +140,7 @@ export const SafetyWall: React.FC = () => {
       </group>
 
       {/* ================= 6. EMERGENCY EVACUATION FLOOR PLAN (-9.85, 1.8, 5.0) ================= */}
-      <group position={[-9.85, 1.8, 5.0]} rotation={[0, Math.PI / 2, 0]}>
+      <group userData={{labItem:{title:'Bảng nội quy và sơ đồ thoát nạn',kind:'board'}}} position={[-9.85, 1.8, 5.0]} rotation={[0, Math.PI / 2, 0]}>
         <mesh>
           <boxGeometry args={[1.2, 0.85, 0.03]} />
           <meshStandardMaterial color="#F8FAFC" roughness={0.2} />

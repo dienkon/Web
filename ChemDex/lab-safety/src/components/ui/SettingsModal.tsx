@@ -95,6 +95,21 @@ export const SettingsModal: React.FC = () => {
             <Eye className="w-4 h-4 text-[var(--primary)]" />
             <span>Tương tác & Trợ năng</span>
           </div>
+          <Slider
+            label={vi.settings.sensitivity}
+            value={settings.cameraSensitivity}
+            min={0.5}
+            max={2}
+            step={0.05}
+            onChange={(value) => updateSettings({ cameraSensitivity: value })}
+          />
+          <div className="flex items-center justify-between py-1">
+            <span className="text-sm font-semibold text-[var(--ink)]">{vi.settings.invertY}</span>
+            <Switch
+              checked={settings.invertY}
+              onChange={(value) => updateSettings({ invertY: value })}
+            />
+          </div>
           <div className="flex items-center justify-between py-1">
             <span className="text-sm font-semibold text-[var(--ink)]">{vi.settings.vibration}</span>
             <Switch

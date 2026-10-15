@@ -2,9 +2,9 @@ import React from 'react';
 
 export const StorageCabinets: React.FC = () => {
   return (
-    <group>
+    <group userData={{labItem:{title:'Tủ lưu trữ hóa chất',kind:'storage'}}}>
       {/* 1. Flammable Liquid Storage Cabinet (Safety Yellow) at (+9.4, 0, -0.6) */}
-      <group position={[9.4, 0, -0.6]} rotation={[0, -Math.PI / 2, 0]}>
+      <group userData={{labItem:{title:'Tủ dung môi dễ cháy',kind:'storage'}}} position={[9.4, 0, -0.6]} rotation={[0, -Math.PI / 2, 0]}>
         <mesh position={[0, 0.9, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.1, 1.8, 0.65]} />
           <meshStandardMaterial color="#EAB308" roughness={0.3} metalness={0.3} />
@@ -22,7 +22,7 @@ export const StorageCabinets: React.FC = () => {
       </group>
 
       {/* 2. Acid & Corrosives Storage Cabinet (Safety Blue) at (+9.4, 0, 0.6) */}
-      <group position={[9.4, 0, 0.6]} rotation={[0, -Math.PI / 2, 0]}>
+      <group userData={{labItem:{title:'Tủ axit ăn mòn',kind:'storage'}}} position={[9.4, 0, 0.6]} rotation={[0, -Math.PI / 2, 0]}>
         <mesh position={[0, 0.9, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.1, 1.8, 0.65]} />
           <meshStandardMaterial color="#0284C7" roughness={0.35} metalness={0.2} />
@@ -35,7 +35,7 @@ export const StorageCabinets: React.FC = () => {
       </group>
 
       {/* 3. Base & Alkali Storage Cabinet (Segregated Unit, Teal) at (+9.4, 0, 1.8) */}
-      <group position={[9.4, 0, 1.8]} rotation={[0, -Math.PI / 2, 0]}>
+      <group userData={{labItem:{title:'Tủ bazơ ăn mòn',kind:'storage'}}} position={[9.4, 0, 1.8]} rotation={[0, -Math.PI / 2, 0]}>
         <mesh position={[0, 0.9, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.1, 1.8, 0.65]} />
           <meshStandardMaterial color="#0D9488" roughness={0.35} metalness={0.2} />
@@ -43,7 +43,7 @@ export const StorageCabinets: React.FC = () => {
       </group>
 
       {/* 4. Heavy-Duty Reagent & Glassware Shelving Rack at (+9.5, 0, 3.2) */}
-      <group position={[9.5, 0, 3.2]} rotation={[0, -Math.PI / 2, 0]}>
+      <group userData={{labItem:{title:'Giá dụng cụ thủy tinh',kind:'glass'}}} position={[9.5, 0, 3.2]} rotation={[0, -Math.PI / 2, 0]}>
         <mesh position={[0, 1.1, 0]}>
           <boxGeometry args={[1.2, 2.2, 0.45]} />
           <meshStandardMaterial color="#94A3B8" roughness={0.5} metalness={0.6} wireframe />

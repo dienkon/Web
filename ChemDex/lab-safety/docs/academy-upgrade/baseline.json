@@ -1,0 +1,442 @@
+{
+  "src/App.tsx": {
+    "sha256": "df921e6a8e4a40f6d4874d6434067670c7a981fd501d5ff2239a7f0ec99a99d2",
+    "lines": 99
+  },
+  "src/index.css": {
+    "sha256": "c3a6fbae5834f2c762cb871e76b0f4a2c269fd1346eafa6bac240997c9f1fbf1",
+    "lines": 334
+  },
+  "src/main.tsx": {
+    "sha256": "5580d48b0fec68698a113d45a640b88d479dc35eb1f4b87c51f67c6cc81cee9b",
+    "lines": 10
+  },
+  "src/types.ts": {
+    "sha256": "39f3d96c32b79a5b82c9ae2f3a7d7338d939c37d278acc14eb7bc91939722124",
+    "lines": 220
+  },
+  "src/audio/AudioGraph.ts": {
+    "sha256": "2d41bc7619db81bc565d10be2c0d8766e73245e63809c6eeb4c48ae43ee80f91",
+    "lines": 100
+  },
+  "src/audio/AudioLifecycle.tsx": {
+    "sha256": "130707fc8e8ec912669feaf3e8789f4810c73b072dda04d044e9eafc4a6cf0ce",
+    "lines": 20
+  },
+  "src/audio/soundManager.ts": {
+    "sha256": "2d72ef1aa1587934f9c1f7a303e9dbf1656c7d47e85102ff47bf4b41b0367bce",
+    "lines": 27
+  },
+  "src/audio/SpatialSoundEngine.ts": {
+    "sha256": "e44dbfb500186707284cb17d344e835e996e7973942da927d822a3963a37c8e1",
+    "lines": 39
+  },
+  "src/core/InteractionSystem.ts": {
+    "sha256": "5309d234a4cc9c5d4d2b4a162072f4c5b63c9e50e13e2c7c8b324a6df0ff9aee",
+    "lines": 29
+  },
+  "src/core/MistakeRegistry.ts": {
+    "sha256": "88bbc0de54ffc73cab4a77410f9a01f865fab01be18cc5daf4e61357aedd0289",
+    "lines": 19
+  },
+  "src/core/PhaseEngine.ts": {
+    "sha256": "ac190cc3f07c7104162b8c2847f2c0e8fa8a8a559a0ac2d9bc8aaf563e667d48",
+    "lines": 213
+  },
+  "src/core/PhaseRegistry.ts": {
+    "sha256": "db5860d55c0abe1d59ec4918d4a7223068f3dd8da916ef7bcb1407291d33ec08",
+    "lines": 7
+  },
+  "src/core/TaskRegistry.ts": {
+    "sha256": "488cab8c3d153a8040a39d6984c40c87a8ad05cc5904f2734779ba9ff67ac86f",
+    "lines": 22
+  },
+  "src/data/rules.ts": {
+    "sha256": "be013751d199607b22f3d0d64772faf3bc6c544ab123804fb4e6b82c6b821507",
+    "lines": 304
+  },
+  "src/data/tasks.ts": {
+    "sha256": "fec50b14eec730a26ad17f995b8205cae743a3bf52083aa101ae1e830de5598f",
+    "lines": 22
+  },
+  "src/data/wasteSamples.ts": {
+    "sha256": "9d452849000776ba5693942d4b79eb7fd82ed3e6da7067c584ca2bc490e3eaee",
+    "lines": 5
+  },
+  "src/i18n/vi.ts": {
+    "sha256": "f820d6916c25949b4a9a23792480d7bc90deb7af3f71e2b93eb109d745646f5c",
+    "lines": 179
+  },
+  "src/store/useLabEquipment.ts": {
+    "sha256": "c659e8e8493c2e738762d6590f56f2f079bc5bf73d6e5689b3190748eafd39f7",
+    "lines": 21
+  },
+  "src/store/useStore.ts": {
+    "sha256": "bd46284c4002d10f43a41c6c18ef50a189fe75b5e5facd0b15412944a9fd8501",
+    "lines": 369
+  },
+  "src/ui/Badge.tsx": {
+    "sha256": "38afb51e8e53dbbc5ab90be50949c0201ff94e614234a16777efc37fdf878536",
+    "lines": 48
+  },
+  "src/ui/Button.tsx": {
+    "sha256": "2d1fdc4bb224c9f3453ab82a818fd1ec0fe1f45cd06b81e192e4c7347021d27a",
+    "lines": 50
+  },
+  "src/ui/Card.tsx": {
+    "sha256": "b8d856616a97f2d5164a2462e26af57149efdd77f4f2b5f626b214a3e4e5a073",
+    "lines": 21
+  },
+  "src/ui/Controls.tsx": {
+    "sha256": "0cebc0dd0d1606ba43f5a21ca0f31a047e928179c2515caa451996825e9e9ea0",
+    "lines": 84
+  },
+  "src/ui/PPEIcons.tsx": {
+    "sha256": "2548e17a8f126ed1c1f87db2f33c60d442feddc0087357dec0f0a8df7759ec00",
+    "lines": 64
+  },
+  "src/ui/ProgressRing.tsx": {
+    "sha256": "07eb9477f38db3ab342392ca259094bf4002cf4a7026f2bc243b42901b2a805d",
+    "lines": 71
+  },
+  "src/ui/Sheet.tsx": {
+    "sha256": "0f10d9788fda3a2e3d644d685e3d682be9265f983dcda3acd49de5e86426540c",
+    "lines": 92
+  },
+  "src/components/3d/InteractableItem.tsx": {
+    "sha256": "e879bfa20ebde02ab7156e19c52e720313784645f24c1b1841250492de36c384",
+    "lines": 210
+  },
+  "src/components/3d/InteractionManager.tsx": {
+    "sha256": "d3f394fcd3ff66273874667b07d1c55376c3f11302a2c641820b092d2504ef2f",
+    "lines": 39
+  },
+  "src/components/3d/LabScene.tsx": {
+    "sha256": "e68f22e56f40e75bf129f6d6cde3dcb177c6689b3f3f2dafc8cea985aa7b7775",
+    "lines": 142
+  },
+  "src/components/3d/PlayerModel.tsx": {
+    "sha256": "90ffb0ec1c229218b4e37b7ae35b2782ec36f4ca1fcc10ac6ac71efee66bd0ad",
+    "lines": 98
+  },
+  "src/components/3d/SceneHtml.tsx": {
+    "sha256": "6741542e663d4ca8bd3a8508a68f61cd0dfd59ee42bd13e7742c57717708cf0e",
+    "lines": 46
+  },
+  "src/components/ui/AcidPourGame.tsx": {
+    "sha256": "0d34c643e9245ad07ce72c42aee0237debe8ceb5ddbdf679b494a003bab360d5",
+    "lines": 91
+  },
+  "src/components/ui/BandageWrappingQuiz.tsx": {
+    "sha256": "24388c4fd8405510f7abdb86c2a77318a336a5727fcabc4686e989f81f5dc3cf",
+    "lines": 381
+  },
+  "src/components/ui/CertificateScreen.tsx": {
+    "sha256": "b3590b91a79aea757afdaa829de2701183cc208cbc1e230e0de482b01b20906c",
+    "lines": 471
+  },
+  "src/components/ui/CharacterCreatorModal.tsx": {
+    "sha256": "e74abee0fc99668d121d2ba847b5d04742ff093c801a8d73f8d86dfc83977f71",
+    "lines": 254
+  },
+  "src/components/ui/ChemicalSymbolsQuiz.tsx": {
+    "sha256": "871415b8fe43d05d3edc6e7e219de7a89ff5c7cc773dab707eab8e7f79adcaa2",
+    "lines": 179
+  },
+  "src/components/ui/FireExtinguisherQuiz.tsx": {
+    "sha256": "96bf5ac16dacaa59148fa645528242ef45d94944875e5d8a3c780dcbb07622e7",
+    "lines": 362
+  },
+  "src/components/ui/HUD.tsx": {
+    "sha256": "0bcb53faa50915271c410b78742bb1516ef9ae2bedd7d02309245d6a884ffba5",
+    "lines": 521
+  },
+  "src/components/ui/LabInstrumentGame.tsx": {
+    "sha256": "a96c507e7df99a5607d94dc1a9ff2d66f4ffaa6dd0e4e5d5a21220c77217914f",
+    "lines": 109
+  },
+  "src/components/ui/RuleDialog.tsx": {
+    "sha256": "86df11737a927488ef92e770a7f3f4dafcce90393c763705f5669d089c3e1639",
+    "lines": 185
+  },
+  "src/components/ui/RulesListScreen.tsx": {
+    "sha256": "31dae1864c7b4531a1acb9ac80d35c8a20c749973099711f5e70979d79a641bd",
+    "lines": 126
+  },
+  "src/components/ui/SafetyPractice.tsx": {
+    "sha256": "330ea5c5a1094e415af78e199d9101b837552db13cadda89f4e8cb9fcc449206",
+    "lines": 53
+  },
+  "src/components/ui/SettingsModal.tsx": {
+    "sha256": "e883afd6bc5f1bd5ba2656d46cc1e72df4704c86c54607bd6389d128b20ad000",
+    "lines": 183
+  },
+  "src/components/ui/StartScreen.tsx": {
+    "sha256": "e65744f724e51a86a60dc9a2231f8e6b3bbb572eb5fb9b5b422f12adabe31417",
+    "lines": 161
+  },
+  "src/components/ui/TeacherDialog.tsx": {
+    "sha256": "7abd41133b82cf46f65c17dd3743951e206d92cf3805b17180392d1e5a532695",
+    "lines": 165
+  },
+  "src/components/3d/fps/FirstPersonController.tsx": {
+    "sha256": "e7e50f01877d18f9ff41a521039d847f51c85c626b70d2c42f8fe231fabe9efc",
+    "lines": 425
+  },
+  "src/components/3d/fps/FPSHands.tsx": {
+    "sha256": "6f1de22a362b5754e755f9dd24e1a4309971c3293f7e530580ac12ceaedea398",
+    "lines": 351
+  },
+  "src/components/3d/fps/Viewmodel.tsx": {
+    "sha256": "d7a3a58315fb3662f09b179f1bd9c3b273f3ea0a6d6409422873e0fab47bc8b7",
+    "lines": 23
+  },
+  "src/components/3d/fx/ExtinguisherStream.tsx": {
+    "sha256": "4edb21ca1499c89866e8baaccf3bc7e757e3f87f7ad410ba6a2f4e6aa7a1cb4e",
+    "lines": 129
+  },
+  "src/components/3d/fx/FireFX.tsx": {
+    "sha256": "585989464ab9137a88bd118f7b466eb2f8638a72787d7df7732d5a01cb3b6d0c",
+    "lines": 76
+  },
+  "src/components/3d/fx/LabAtmosphere.tsx": {
+    "sha256": "de5c29a1396a5c86d5b33d7f6d1a2ee99ad549fda8684c40cb4a44297cfe3f25",
+    "lines": 52
+  },
+  "src/components/3d/fx/ParticleTexture.ts": {
+    "sha256": "d42ccff3a2f1e6e5f0dfc553c9d78c08d9ae50910f9e7c693a1b1b92d5542b03",
+    "lines": 10
+  },
+  "src/components/3d/fx/SmokeFX.tsx": {
+    "sha256": "559fedc70f2eefad0ee667eafef106bcd3cf92484fd7e5e506220767470af4d9",
+    "lines": 35
+  },
+  "src/components/3d/lab/AcidDilutionStation.tsx": {
+    "sha256": "1fd13d7de7e770c833bc7aa2b4652f16a2e563bc900b81caf443ae1545809791",
+    "lines": 114
+  },
+  "src/components/3d/lab/Architecture.tsx": {
+    "sha256": "36084a92274f58c1223776052e7b80d7783ebb9c37af0b25451603f682c6e074",
+    "lines": 180
+  },
+  "src/components/3d/lab/Benches.tsx": {
+    "sha256": "1602b3e53e8be984be32a80f9ba323b906b6f2ebfb35569fe1871ea4921a8105",
+    "lines": 378
+  },
+  "src/components/3d/lab/BunsenBurnerStation.tsx": {
+    "sha256": "6dc4662066f8b33d8b4052f174770e540b33d63c9a5429bc1b1a40db124aff6d",
+    "lines": 316
+  },
+  "src/components/3d/lab/ChemicalSpillSimulation.tsx": {
+    "sha256": "14c00382dfeee89b15c19bbbdcd719f098198034227dd9271f6c07435cb888a5",
+    "lines": 333
+  },
+  "src/components/3d/lab/ChemicalStorageStation.tsx": {
+    "sha256": "8304af7e68d2d0020c105bdf6b9d7bb4b9076aae601a32f533cc0bf96923f57e",
+    "lines": 288
+  },
+  "src/components/3d/lab/Decor.tsx": {
+    "sha256": "d332b760394ecc893ed0dd1f273a7d119088a398eb2194d54a3c671252ab2933",
+    "lines": 120
+  },
+  "src/components/3d/lab/EmergencyShowerStation.tsx": {
+    "sha256": "f7bb5efb0cb84dee86b5232be69a3cd8e92b19c8986e08a9b144f8742dafb908",
+    "lines": 203
+  },
+  "src/components/3d/lab/FireEmergencyScenario.tsx": {
+    "sha256": "ab6f603285fbe7e6e5175f60670e06996d192bcc61d3fedd8f0ac5f19dd3378e",
+    "lines": 98
+  },
+  "src/components/3d/lab/FirstAidTreatmentStation.tsx": {
+    "sha256": "d6f3c49ffe88ed8c9dd3822145cc805811ccfd5ec14a1e4e91ac24b22f2a5a1e",
+    "lines": 363
+  },
+  "src/components/3d/lab/FumeHood.tsx": {
+    "sha256": "1f0f64d3de171dde7001ef040fb573a44daa49144fee08dc81d641361b27ce33",
+    "lines": 56
+  },
+  "src/components/3d/lab/HazardHuntManager.tsx": {
+    "sha256": "51547a102b357866b8617a543e03fd6a7fd50ae69253b101c329ab55d0043296",
+    "lines": 298
+  },
+  "src/components/3d/lab/InteractiveFumeHood.tsx": {
+    "sha256": "9cc1706c582a0fdb381bfddf16b32f1d89380f7bbbb67fc7952592160fb65b35",
+    "lines": 172
+  },
+  "src/components/3d/lab/InteractiveTasks.tsx": {
+    "sha256": "4df11a3b987b6c080818ff688b0304ed98791c374fd21873f55412782e5f224b",
+    "lines": 312
+  },
+  "src/components/3d/lab/LabEquipmentController.tsx": {
+    "sha256": "78bbe071d04cbe4de97e07c506f53f3e52ff8fcdb53e05597597ae66e3db28fd",
+    "lines": 96
+  },
+  "src/components/3d/lab/LabStandardRoom.tsx": {
+    "sha256": "0216831b5492b815ead382d8c86093c7f05a45b77f9f2b34f4c4e47c257fcce2",
+    "lines": 85
+  },
+  "src/components/3d/lab/LooseWaste.tsx": {
+    "sha256": "bff9e34b4d966ee78f5537755b9cc3b57ef6dd80132dbb0ece09a197bf9a07be",
+    "lines": 49
+  },
+  "src/components/3d/lab/ObjectiveMarker.tsx": {
+    "sha256": "2ed54fc605f370633881f12d81e589209c8b4d34aa217207949078e330f04a1e",
+    "lines": 233
+  },
+  "src/components/3d/lab/PHTestingMinigame.tsx": {
+    "sha256": "cd3abe84f3cfd1bc57cd29c142cafb59a27bd932a45c7b70d7421230f81b1c3e",
+    "lines": 239
+  },
+  "src/components/3d/lab/PlayerMirror.tsx": {
+    "sha256": "8b3f9c9276b6fd32465dd7f8c57b258f084c885e69cf1d087c2ca104bdd698d1",
+    "lines": 48
+  },
+  "src/components/3d/lab/PPEStation.tsx": {
+    "sha256": "9a0ffcd0fca9fd3ca4634a1ddb484ad10be244e526b98c5f6166e8fafb7d553a",
+    "lines": 91
+  },
+  "src/components/3d/lab/SafetyWall.tsx": {
+    "sha256": "a96b235e3de9f9635cc62016cde941730dd779c3002ef92cace91e0afca9e4fa",
+    "lines": 161
+  },
+  "src/components/3d/lab/Sinks.tsx": {
+    "sha256": "c72cbbd6892e9e315e03bd02457c6e8f666bdfba39ce2a7662fbe6e16e9ab71d",
+    "lines": 49
+  },
+  "src/components/3d/lab/StorageCabinets.tsx": {
+    "sha256": "5216d733ff92c6af9059458a14a744e1848f5d5771035f00a2ac4d9eb279d829",
+    "lines": 60
+  },
+  "src/components/3d/lab/TeacherNPC.tsx": {
+    "sha256": "23d5a4401a753ac5a754ca9c0c137d152e960b19b730f3605e1fb39c5de8ae6c",
+    "lines": 21
+  },
+  "src/components/3d/lab/useTaskProximity.ts": {
+    "sha256": "24612ffaedf8f58560484e05e22a2eb115c5bde5beb2ff63ff8c48529e641915",
+    "lines": 21
+  },
+  "src/components/3d/lab/WasteStation.tsx": {
+    "sha256": "63a3fda642cfd8a9adc825a9065cd2f4e5d3b5b202e7aeb1cb7aab3240c96ed6",
+    "lines": 74
+  },
+  "src/components/ui/hud/ExtinguisherHUD.tsx": {
+    "sha256": "fe6cc51a6ef2ec437a038ace75c56b0fad9a22968a781aa9aa74fca4a769a815",
+    "lines": 29
+  },
+  "src/components/ui/hud/FPSCrosshair.tsx": {
+    "sha256": "e84084e848670bfe72c2f98f08ab567c349421857375111d0af2dec7d86401ea",
+    "lines": 59
+  },
+  "src/components/ui/hud/LabMinimapHUD.tsx": {
+    "sha256": "5eed0fd50ebbde378a0e3b69fe1d8787310e1c51369e42dd3823816688de0bd3",
+    "lines": 291
+  },
+  "src/components/ui/hud/PPEOverlay.tsx": {
+    "sha256": "78b8bfebf036f1d702de09a683b763221168f0734f6661dc5d68502dee07fa48",
+    "lines": 35
+  },
+  "src/components/ui/hud/ToolBar.tsx": {
+    "sha256": "c53a23c1e649d9cda0b8d7e51dc83239b3a1c87af4c80849dcb757a6400056e8",
+    "lines": 18
+  },
+  "src/components/ui/hud/WaterDropletsOverlay.tsx": {
+    "sha256": "335720f5973985fb3ae160c9270e8b3b6cc68a9ab6cf28e90523e9f3d3561baa",
+    "lines": 77
+  },
+  "src/core/fire/ExtinguisherModel.ts": {
+    "sha256": "b789329443deab9c65d1634c186cf19f5acce3c37ed2928499e9e52fe6bcf7d2",
+    "lines": 52
+  },
+  "src/core/fire/FireClasses.ts": {
+    "sha256": "80d6f2fe9daa060cf4d141d5d6510ef9f78f1b6bd54dd96c25542f459e9cf210",
+    "lines": 39
+  },
+  "src/core/fire/FireSim.ts": {
+    "sha256": "244d58f979db4a5cb04a5219e2d49bc517715a0ec5859edda513ed386511816d",
+    "lines": 194
+  },
+  "src/core/fire/SmokeModel.ts": {
+    "sha256": "66f711643c344e18db0c4685d6acabd83e985dbaf8e660ba3a92d0884c5a72bd",
+    "lines": 27
+  },
+  "src/core/incident/IncidentDirector.ts": {
+    "sha256": "fb8f8597ee6484d08f527368717019d7a3e714ce4d1d603ae3bce11a83b94f4b",
+    "lines": 73
+  },
+  "src/core/simulation/CollisionSystem.ts": {
+    "sha256": "96dd59255c58c62735c0750695eb532e28ec9f53714d8c7f8256775d581893f8",
+    "lines": 135
+  },
+  "src/core/simulation/FeedbackBus.ts": {
+    "sha256": "fc9137ac6d10fba9a12356c4110a11dca5e71747a9382a7cc4b1a87480fe522f",
+    "lines": 33
+  },
+  "src/core/simulation/NavigationPath.ts": {
+    "sha256": "36fc8af42fb122f70b0085d5871aeb844f28aa9ce0937fa67f06cbf62fda1924",
+    "lines": 55
+  },
+  "src/core/simulation/ReactionProgram.ts": {
+    "sha256": "74cefa8c0d19bb47fd13c00b09a4c46e147997df45ac34aa2fd53b68c283304b",
+    "lines": 17
+  },
+  "src/core/simulation/SimulationClock.ts": {
+    "sha256": "1b821e32c76f3220adf08c63bc98a65b1bec51a7f9be137818c49aab2e591be3",
+    "lines": 27
+  },
+  "src/core/spill/SpillSim.ts": {
+    "sha256": "a383a2ef147b5e4f433b6570355bddd8b368fc3820fc36695031786f14fc89b4",
+    "lines": 44
+  },
+  "src/data/scene/lab-standard.ts": {
+    "sha256": "9cac3eb38fe9000165706bc4e32b669509452dc2784350ed005b1b97d308dc26",
+    "lines": 404
+  },
+  "src/systems/analytics/AnalyticsService.ts": {
+    "sha256": "4aef1d5203d37b9c3eba1e68f27aab9273a8c725841393628d2ac2949381538d",
+    "lines": 9
+  },
+  "src/systems/device/useOrientationGate.ts": {
+    "sha256": "47bb7e55a254251202c790111fd80fda7d4197666927da693468ab6572d8017e",
+    "lines": 114
+  },
+  "src/systems/input/InputManager.ts": {
+    "sha256": "16ea17b3450ad4f4b36651670a30ff4f18b037643a376a5a28ef6c540be80483",
+    "lines": 295
+  },
+  "src/systems/input/InteractionBus.ts": {
+    "sha256": "8d4d9831d86a00f88928331bf23549be451279f7fd03f770dde7a31db18cc38f",
+    "lines": 75
+  },
+  "src/systems/input/QuizInteractionGuard.tsx": {
+    "sha256": "178d0c7b689f709f51b5c9a16924e42b4b514e19e111f4c503ad1251ab24a60a",
+    "lines": 21
+  },
+  "src/systems/input/sceneInput.ts": {
+    "sha256": "9d6fe1e25c32a14ba5a8c5be5cfb5eca82eb3b116448c5b8f7685d907ffc22dd",
+    "lines": 7
+  },
+  "src/systems/input/toolControls.ts": {
+    "sha256": "c064b5521acf9b5d4b9cd4ae5da650e24b790353d66fe6d8bc9d7f3f2b00f325",
+    "lines": 2
+  },
+  "src/systems/performance/AdaptivePerformance.tsx": {
+    "sha256": "8163d71e4fe68c9bba39a4f88f3e708916d4792d06f56151c5f3cef8f3acb8ce",
+    "lines": 22
+  },
+  "src/systems/performance/PerformanceHUD.tsx": {
+    "sha256": "686525a1192a883928f2f6866ecbfd63606e99c88afe6f5410fad0c11d3aebee",
+    "lines": 37
+  },
+  "src/systems/performance/RendererInfoProbe.tsx": {
+    "sha256": "f09407408d571b5dcf4bd51d1d3ef00bec938f65ab7cd8d13c586065ba16893f",
+    "lines": 122
+  },
+  "src/systems/texture/ProceduralTextures.ts": {
+    "sha256": "1d9189af2caecf204c711b321d9e71c13053af1823ed3784d39deda14fb7b800",
+    "lines": 161
+  },
+  "package.json": {
+    "sha256": "4775afadc7b1a173347113ce566214cf98080c9866c22761476dab85e0b2dba6",
+    "lines": 42
+  }
+}

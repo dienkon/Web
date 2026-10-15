@@ -189,7 +189,7 @@ export const BandageWrappingQuiz: React.FC = () => {
       // Completed all 5 steps!
       playSound('complete');
       completeTask('task_bandage');
-      
+
       if (setShowBandageQuiz) {
         setShowBandageQuiz(false);
       } else {
@@ -205,13 +205,13 @@ export const BandageWrappingQuiz: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-900/40 backdrop-blur-md p-4 animate-fade-in">
-      <div className="w-full max-w-2xl bg-white/95 backdrop-blur-xl border border-slate-200/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-        
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-100/80 backdrop-blur-none p-4 animate-fade-in">
+      <div className="w-full max-w-2xl bg-white/95 backdrop-blur-none border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 border-b border-emerald-100 flex items-center justify-between">
+        <div className="bg-white from-emerald-50 to-teal-50 px-6 py-4 border-b border-emerald-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-600 animate-pulse">
+            <div className="p-2 bg-emerald-100/10 rounded-lg text-emerald-600 animate-pulse">
               <Plus size={24} />
             </div>
             <div>
@@ -234,18 +234,18 @@ export const BandageWrappingQuiz: React.FC = () => {
           {BANDAGE_QUESTIONS.map((q, idx) => (
             <div key={q.step} className="flex flex-col gap-1">
               <div className="flex items-center justify-between text-[10px] font-mono">
-                <span className={idx <= currentStepIndex ? "text-emerald-600 font-bold" : "text-slate-400"}>
+                <span className={idx <= currentStepIndex ? "text-emerald-600 font-bold" : "text-slate-600"}>
                   {q.step}
                 </span>
-                <span className={idx <= currentStepIndex ? "text-slate-800 font-bold" : "text-slate-400"}>
+                <span className={idx <= currentStepIndex ? "text-slate-800 font-bold" : "text-slate-600"}>
                   {q.letter}
                 </span>
               </div>
               <div className={`h-1.5 rounded-full transition-all duration-300 ${
-                idx < currentStepIndex 
-                  ? "bg-emerald-500" 
-                  : idx === currentStepIndex 
-                  ? "bg-amber-500" 
+                idx < currentStepIndex
+                  ? "bg-emerald-100"
+                  : idx === currentStepIndex
+                  ? "bg-amber-500"
                   : "bg-slate-200"
               }`} />
             </div>
@@ -254,7 +254,7 @@ export const BandageWrappingQuiz: React.FC = () => {
 
         {/* Content Area */}
         <div className="p-6 flex-1 overflow-y-auto flex flex-col justify-center">
-          
+
           <div className="mb-2">
             <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-black rounded border border-emerald-200 uppercase tracking-wider">
               {currentQuestion.letter}
@@ -273,18 +273,18 @@ export const BandageWrappingQuiz: React.FC = () => {
             {currentQuestion.options.map((opt) => {
               const isSelected = selectedOption === opt.key;
               let optionClass = "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm";
-              
+
               if (isSelected) {
                 optionClass = "border-sky-500 bg-sky-50 text-sky-900 ring-2 ring-sky-500/20 shadow-sm";
               }
-              
+
               if (isAnswered) {
                 if (opt.isCorrect) {
                   optionClass = "border-emerald-500 bg-emerald-50 text-emerald-950 shadow-sm";
                 } else if (isSelected) {
                   optionClass = "border-rose-500 bg-rose-50 text-rose-950 shadow-sm";
                 } else {
-                  optionClass = "border-slate-100 bg-slate-50/50 text-slate-400 opacity-60 pointer-events-none";
+                  optionClass = "border-slate-100 bg-slate-50/50 text-slate-600 opacity-60 pointer-events-none";
                 }
               }
 
@@ -296,12 +296,12 @@ export const BandageWrappingQuiz: React.FC = () => {
                   className={`w-full text-left p-3.5 rounded-xl border transition-all duration-200 flex items-start gap-3 outline-none ${optionClass}`}
                 >
                   <div className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold font-mono text-xs shrink-0 border ${
-                    isSelected 
-                      ? "bg-sky-600 text-white border-sky-600" 
-                      : isAnswered && opt.isCorrect 
-                      ? "bg-emerald-600 text-white border-emerald-600" 
-                      : isAnswered && isSelected 
-                      ? "bg-rose-600 text-white border-rose-600"
+                    isSelected
+                      ? "bg-sky-100 text-slate-800 border-sky-600"
+                      : isAnswered && opt.isCorrect
+                      ? "bg-emerald-100 text-slate-800 border-emerald-600"
+                      : isAnswered && isSelected
+                      ? "bg-rose-100 text-slate-800 border-rose-600"
                       : "bg-slate-100 border-slate-200 text-slate-600"
                   }`}>
                     {opt.key}
@@ -315,8 +315,8 @@ export const BandageWrappingQuiz: React.FC = () => {
           {/* Feedback Section */}
           {isAnswered && (
             <div className={`mt-5 p-4 rounded-xl border animate-fade-in flex items-start gap-3 ${
-              isCorrect 
-                ? "bg-emerald-50 border-emerald-200 text-emerald-900" 
+              isCorrect
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
                 : "bg-rose-50 border-rose-200 text-rose-900"
             }`}>
               <div className="mt-0.5 shrink-0">
@@ -348,8 +348,8 @@ export const BandageWrappingQuiz: React.FC = () => {
               onClick={handleSubmit}
               className={`px-5 py-2.5 rounded-lg font-bold text-xs md:text-sm shadow-md transition-all duration-200 flex items-center gap-2 ${
                 selectedOption
-                  ? "bg-emerald-600 hover:bg-emerald-500 text-white active:scale-95"
-                  : "bg-slate-200 text-slate-400 cursor-not-allowed shadow-none"
+                  ? "bg-emerald-100 hover:bg-emerald-100 text-slate-800 active:scale-95"
+                  : "bg-slate-200 text-slate-600 cursor-not-allowed shadow-none"
               }`}
             >
               Xác Nhận Thao Tác
@@ -362,14 +362,14 @@ export const BandageWrappingQuiz: React.FC = () => {
                 setIsAnswered(false);
                 setIsCorrect(false);
               }}
-              className={`px-5 py-2.5 rounded-lg font-bold text-xs md:text-sm shadow-md transition-all duration-200 flex items-center gap-2 text-white active:scale-95 ${
-                isCorrect 
-                  ? "bg-emerald-600 hover:bg-emerald-500" 
-                  : "bg-rose-600 hover:bg-rose-500"
+              className={`px-5 py-2.5 rounded-lg font-bold text-xs md:text-sm shadow-md transition-all duration-200 flex items-center gap-2 text-slate-800 active:scale-95 ${
+                isCorrect
+                  ? "bg-emerald-100 hover:bg-emerald-100"
+                  : "bg-rose-100 hover:bg-rose-100"
               }`}
             >
-              {isCorrect 
-                ? (currentStepIndex === BANDAGE_QUESTIONS.length - 1 ? "Hoàn Thành Huấn Luyện" : "Bước Tiếp Theo") 
+              {isCorrect
+                ? (currentStepIndex === BANDAGE_QUESTIONS.length - 1 ? "Hoàn Thành Huấn Luyện" : "Bước Tiếp Theo")
                 : "Thử Lại Bước Này"}
             </button>
           )}

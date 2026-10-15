@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useStore } from '../../store/useStore';
 import { vi } from '../../i18n/vi';
 import { GraduationCap, Volume2, FastForward } from 'lucide-react';
+import { interactionBus, INTERACTION_PRIORITY } from '../../systems/input/InteractionBus';
 
 export const TeacherDialog: React.FC = () => {
   const isDialogActive = useStore((s) => s.isDialogActive);
@@ -14,6 +15,7 @@ export const TeacherDialog: React.FC = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
+  const typingTimer = React.useRef<ReturnType<typeof setInterval> | null>(null);
   const currentMessage = dialogMessages[currentDialogIndex] || '';
 
   useEffect(() => {
@@ -34,36 +36,46 @@ export const TeacherDialog: React.FC = () => {
         setIsTyping(false);
         clearInterval(interval);
       }
-    }, 33); // ~30 chars/second
+    }, 33);
+    typingTimer.current = interval; // ~30 chars/second
 
     return () => clearInterval(interval);
   }, [isDialogActive, currentDialogIndex, currentMessage]);
 
   useEffect(() => {
     if (!isDialogActive) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space' || e.code === 'Enter' || e.code === 'KeyE') {
-        e.preventDefault();
+    return interactionBus.subscribe({
+      priority: INTERACTION_PRIORITY.DIALOG,
+      onInteract: () => {
         if (isTyping) {
+          if (typingTimer.current) clearInterval(typingTimer.current);
           setDisplayedText(currentMessage);
           setIsTyping(false);
         } else {
           nextDialog();
         }
-      } else if (e.code === 'Backspace' || e.code === 'Escape') {
+      },
+    });
+  }, [isDialogActive, isTyping, currentMessage, nextDialog]);
+
+  useEffect(() => {
+    if (!isDialogActive) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Backspace' || e.code === 'Escape') {
         e.preventDefault();
         closeDialog();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isDialogActive, isTyping, currentMessage, nextDialog, closeDialog]);
+  }, [isDialogActive, closeDialog]);
 
   if (!isDialogActive || dialogMessages.length === 0) return null;
 
   const handleCardClick = () => {
     if (isTyping) {
       // Tap reveals all text
+      if (typingTimer.current) clearInterval(typingTimer.current);
       setDisplayedText(currentMessage);
       setIsTyping(false);
     } else {
@@ -73,19 +85,19 @@ export const TeacherDialog: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 p-4 sm:p-6 flex justify-center pointer-events-none select-none">
+    <div data-ui className="teacher-dialog fixed inset-x-0 bottom-0 z-40 p-4 sm:p-6 flex justify-center pointer-events-none select-none">
       <motion.div
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 80, opacity: 0 }}
         onClick={handleCardClick}
-        className="w-full max-w-2xl white-glass-elevated rounded-[24px] p-5 sm:p-6 border border-[var(--line)] shadow-2xl pointer-events-auto cursor-pointer relative overflow-hidden group"
+        className="w-full max-w-2xl white-glass-elevated rounded-[24px] p-5 sm:p-6 border border-[var(--line)] shadow-sm pointer-events-auto cursor-pointer relative overflow-hidden group"
       >
         {/* Top bar with avatar, name tag, skip button */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             {/* Teacher Avatar */}
-            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 border-2 border-white shadow-md flex items-center justify-center text-white shrink-0">
+            <div className="w-11 h-11 rounded-full bg-white from-cyan-600 to-blue-500 border-2 border-white shadow-md flex items-center justify-center text-slate-800 shrink-0">
               <GraduationCap className="w-6 h-6" />
             </div>
             <div>
@@ -120,7 +132,7 @@ export const TeacherDialog: React.FC = () => {
                 e.stopPropagation();
                 closeDialog();
               }}
-              className="px-2.5 py-1 text-xs font-semibold text-slate-400 hover:text-slate-700 transition-colors rounded-lg hover:bg-black/5"
+              className="px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-slate-700 transition-colors rounded-lg hover:bg-black/5"
             >
               {vi.dialog.skip}
             </button>
@@ -128,7 +140,7 @@ export const TeacherDialog: React.FC = () => {
         </div>
 
         {/* Dialog Content */}
-        <div className="min-h-[56px] text-sm sm:text-base text-[var(--ink)] font-medium leading-relaxed my-2 pr-4">
+        <div className="dialog-content min-h-[56px] text-sm sm:text-base text-[var(--ink)] font-medium leading-relaxed my-2 pr-4">
           <span>{displayedText}</span>
           {isTyping && (
             <span className="inline-block w-1.5 h-4 ml-1 bg-[var(--primary)] animate-pulse align-middle" />
@@ -136,7 +148,7 @@ export const TeacherDialog: React.FC = () => {
         </div>
 
         {/* Footer Hint */}
-        <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+        <div className="dialog-footer mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
           <span className="flex items-center gap-2">
             <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] font-bold">Space / E</span>
             <span>{isTyping ? 'Hiện hết' : 'Tiếp tục'}</span>

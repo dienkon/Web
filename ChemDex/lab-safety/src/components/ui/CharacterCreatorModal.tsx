@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { Canvas, useThree } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { useEffect } from 'react';
+import * as THREE from 'three';
 import { Sheet } from '../../ui/Sheet';
 import { Button } from '../../ui/Button';
 import { useStore } from '../../store/useStore';
 import { vi } from '../../i18n/vi';
-import { User, Sparkles, Check } from 'lucide-react';
+import { Sparkles, Check, Rotate3D } from 'lucide-react';
+import { PlayerModel } from '../3d/PlayerModel';
+import type { CharacterProfile, PlayerState } from '../../types';
 
 const SKIN_TONES = ['#fde5d2', '#f7d3ba', '#e0ac83', '#b8794c', '#834c2b', '#4a2b19'];
 const HAIR_COLORS = ['#1a110a', '#3d2314', '#70411b', '#d49b55', '#a53225', '#7a7a7a'];
@@ -17,6 +23,17 @@ const HAIR_STYLES = [
   { id: 'braided', label: 'Tóc tết' },
 ] as const;
 
+function PreviewCamera() {
+  const { camera, size } = useThree();
+  useEffect(() => {
+    const c = camera as THREE.PerspectiveCamera;
+    const halfFov = THREE.MathUtils.degToRad(c.fov / 2);
+    const distance = Math.max(1.05 / Math.tan(halfFov), 0.65 / (Math.tan(halfFov) * size.width / size.height));
+    c.position.set(0, 0.85, distance); c.lookAt(0, 0.85, 0); c.updateProjectionMatrix();
+  }, [camera, size.width, size.height]);
+  return <OrbitControls target={[0, 0.85, 0]} enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 2.8} maxPolarAngle={Math.PI / 1.7} />;
+}
+
 export const CharacterCreatorModal: React.FC = () => {
   const show = useStore((s) => s.showCharacterCreator);
   const setShow = useStore((s) => s.setShowCharacterCreator);
@@ -29,6 +46,14 @@ export const CharacterCreatorModal: React.FC = () => {
   const [hairStyle, setHairStyle] = useState(character.hairStyle);
   const [hairColor, setHairColor] = useState(character.hairColor);
   const [shirtColor, setShirtColor] = useState(character.shirtColor);
+  const draftCharacter = useMemo<CharacterProfile>(() => ({
+    name: name.trim() || 'Học Sinh', gender, skinTone, hairStyle, hairColor, shirtColor,
+  }), [name, gender, skinTone, hairStyle, hairColor, shirtColor]);
+  const previewPlayer = useMemo<PlayerState>(() => ({
+    equipment: { hasGoggles: true, hasLabCoat: true, hasGloves: true, hasMask: false, hairTied: true, hasClosedShoes: true },
+    inventory: { hasFireExtinguisher: false, isHoldingTrash: false, heldTrashType: null, hasSweeper: false },
+    flags: { fireExtinguished: false, trashCount: 0, trash1Picked: false, trash2Picked: false, trash3Picked: false },
+  }), []);
 
   const handleSave = () => {
     updateCharacter({
@@ -42,6 +67,8 @@ export const CharacterCreatorModal: React.FC = () => {
     setShow(false);
   };
 
+  if (!show) return null;
+
   return (
     <Sheet
       isOpen={show}
@@ -52,30 +79,20 @@ export const CharacterCreatorModal: React.FC = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         {/* Live Character Preview Card */}
-        <div className="md:col-span-5 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-sky-50 to-white rounded-3xl border border-[var(--line)] shadow-inner text-center">
-          <div className="relative w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden flex items-center justify-center mb-3" style={{ backgroundColor: skinTone }}>
-            {/* Simple stylised 2D avatar representation */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {/* Hair preview */}
-              <div
-                className="w-24 h-16 rounded-t-full -mt-10 transition-colors"
-                style={{ backgroundColor: hairColor }}
-              />
-              {/* Eyes */}
-              <div className="flex gap-4 my-2">
-                <span className="w-2.5 h-2.5 bg-slate-800 rounded-full" />
-                <span className="w-2.5 h-2.5 bg-slate-800 rounded-full" />
-              </div>
-              {/* Smile */}
-              <div className="w-5 h-2 border-b-2 border-slate-700 rounded-full" />
-              {/* Shirt preview */}
-              <div
-                className="w-24 h-10 mt-3 rounded-t-2xl transition-colors flex items-center justify-center text-white text-[9px] font-bold"
-                style={{ backgroundColor: shirtColor }}
-              >
-                BLOUSE
-              </div>
+        <div className="md:col-span-5 flex flex-col items-center justify-center p-4 bg-[radial-gradient(circle_at_50%_20%,#cffafe_0%,#ecfeff_28%,#f8fafc_72%)] rounded-3xl border border-cyan-100 shadow-inner text-center overflow-hidden">
+          <div className="relative w-full h-64 mb-2 rounded-2xl overflow-hidden">
+            <div className="absolute left-3 bottom-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-cyan-200 bg-white/70 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-cyan-800 backdrop-blur-none">
+              <Rotate3D className="h-3 w-3" /> Xem trước 3D
             </div>
+            <Canvas camera={{ position: [0, 0.85, 4.8], fov: 30 }} dpr={1} gl={{ antialias: true }}>
+              <ambientLight intensity={1.7} />
+              <directionalLight position={[3, 5, 4]} intensity={2.2} color="#ffffff" />
+              <directionalLight position={[-3, 2, 2]} intensity={0.9} color="#67e8f9" />
+              <PreviewCamera />
+              <group>
+                <PlayerModel position={[0, 0, 0]} rotationY={0} isMoving={false} player={previewPlayer} character={draftCharacter} />
+              </group>
+            </Canvas>
           </div>
           <h4 className="font-extrabold text-[var(--ink)] text-base">{name || 'Học Sinh'}</h4>
           <span className="text-xs text-[var(--ink-2)] mt-0.5">
@@ -99,7 +116,7 @@ export const CharacterCreatorModal: React.FC = () => {
                 placeholder={vi.character.namePlaceholder}
                 className="w-full px-4 py-2.5 bg-white border border-[var(--line)] rounded-xl text-sm font-semibold text-[var(--ink)] focus:border-[var(--primary)] focus:outline-none transition-colors"
               />
-              <span className="absolute right-3 top-2.5 text-xs text-slate-400 font-mono">
+              <span className="absolute right-3 top-2.5 text-xs text-slate-600 font-mono">
                 {name.length}/30
               </span>
             </div>
@@ -197,7 +214,7 @@ export const CharacterCreatorModal: React.FC = () => {
                   }`}
                   style={{ backgroundColor: color }}
                 >
-                  {hairColor === color && <Check className="w-3.5 h-3.5 text-white" />}
+                  {hairColor === color && <Check className="w-3.5 h-3.5 text-slate-800" />}
                 </button>
               ))}
             </div>
@@ -219,7 +236,7 @@ export const CharacterCreatorModal: React.FC = () => {
                   }`}
                   style={{ backgroundColor: color }}
                 >
-                  {shirtColor === color && <Check className="w-3.5 h-3.5 text-white" />}
+                  {shirtColor === color && <Check className="w-3.5 h-3.5 text-slate-800" />}
                 </button>
               ))}
             </div>

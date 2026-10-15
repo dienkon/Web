@@ -1,0 +1,63 @@
+{
+  "firePerformance": {
+    "fps": 78.59060842233184,
+    "p95Ms": 20.899999999999636,
+    "renderer": {
+      "timestamp": 8054.20000000298,
+      "render": {
+        "calls": 168,
+        "triangles": 17448,
+        "points": 72,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 447,
+        "textures": 3
+      },
+      "mirrorUpdates": 0,
+      "shadowEnabled": false,
+      "pixelRatio": 1,
+      "visibleFlames": 3,
+      "heldTool": "extinguisher"
+    }
+  },
+  "pickup": {
+    "tool": "extinguisher",
+    "has": true,
+    "taskDone": false,
+    "flames": 3
+  },
+  "noPinBlocked": true,
+  "fire": {
+    "done": true,
+    "extinguished": true,
+    "flag": true,
+    "gas": 0.7347119999995826
+  },
+  "kit": {
+    "tool": "spillKit",
+    "held": "spillKit",
+    "has": true
+  },
+  "neutralized": {
+    "stage": "neutralized",
+    "progress": 100,
+    "done": true
+  },
+  "waste": {
+    "holding": true,
+    "tool": "waste",
+    "stage": "cleaned"
+  },
+  "disposed": {
+    "holding": false,
+    "task": true,
+    "phaseComplete": true
+  },
+  "reset": {
+    "fires": 0,
+    "tool": null,
+    "spill": "hazard"
+  },
+  "errors": []
+}

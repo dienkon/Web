@@ -32,14 +32,14 @@ export const Sheet: React.FC<SheetProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 pointer-events-auto">
+        <div data-ui className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 pointer-events-auto">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0F2233]/40 backdrop-blur-xs"
+            className="fixed inset-0 bg-slate-100/90"
           />
 
           {/* Modal / Bottom Sheet */}
@@ -81,7 +81,7 @@ export const Sheet: React.FC<SheetProps> = ({
             )}
 
             {/* Content Body */}
-            <div className="p-5 sm:p-6 overflow-y-auto overscroll-contain flex-1">
+            <div className="touch-scroll p-5 sm:p-6 overflow-y-auto overscroll-contain flex-1">
               {children}
             </div>
           </motion.div>

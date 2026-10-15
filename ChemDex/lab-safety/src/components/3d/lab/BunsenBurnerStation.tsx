@@ -1,6 +1,7 @@
+import { useTaskProximity } from './useTaskProximity';
 import React, { useState, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
@@ -24,7 +25,7 @@ export const BunsenBurnerStation: React.FC = () => {
   // Check distance
   const dx = BURNER_POS[0] - playerCoords.position[0];
   const dz = BURNER_POS[2] - playerCoords.position[2];
-  const isNear = Math.hypot(dx, dz) < 2.2;
+  const isNear = useTaskProximity(BURNER_POS, 2.2, []);
 
   useFrame((_, delta) => {
     // Flickering flame animation
@@ -145,7 +146,7 @@ export const BunsenBurnerStation: React.FC = () => {
   };
 
   return (
-    <group position={BURNER_POS}>
+    <group userData={{labItem:{title:'Bộ đèn Bunsen thực hành',kind:'heat'}}} position={BURNER_POS}>
       {/* 1. Bunsen Burner Hardware Assembly */}
       {/* Heavy Cast Iron Round Base */}
       <mesh position={[0, 0.015, 0]} castShadow receiveShadow>
@@ -241,20 +242,20 @@ export const BunsenBurnerStation: React.FC = () => {
       {/* 3. Proximity Interactive HUD Menu */}
       {isNear && (
         <Html position={[0, 0.45, 0]} center distanceFactor={7}>
-          <div className="flex flex-col items-center gap-1.5 pointer-events-auto select-none font-sans whitespace-nowrap bg-slate-950/90 p-2.5 rounded-2xl border border-amber-500/40 shadow-2xl backdrop-blur-md">
-            <div className="text-[11px] font-bold text-white flex items-center gap-2 mb-1">
+          <div className="flex flex-col items-center gap-1.5 pointer-events-auto select-none font-sans whitespace-nowrap bg-slate-100/80 p-2.5 rounded-2xl border border-amber-500/40 shadow-sm backdrop-blur-none">
+            <div className="text-[11px] font-bold text-slate-800 flex items-center gap-2 mb-1">
               <span>🔥 Đèn Khí Bunsen & Van An Toàn</span>
               <span
                 className={`text-[9px] px-2 py-0.5 rounded-full font-mono ${
                   !isGasValveOpen
-                    ? 'bg-slate-800 text-slate-400'
+                    ? 'bg-slate-50 text-slate-600'
                     : isStrikeBack
-                    ? 'bg-rose-900 text-rose-300 animate-ping'
+                    ? 'bg-rose-100 text-rose-700 animate-ping'
                     : isLit
                     ? airCollarOpen
-                    ? 'bg-cyan-900 text-cyan-300'
-                    : 'bg-amber-900 text-amber-300'
-                    : 'bg-amber-950 text-amber-400'
+                    ? 'bg-cyan-100 text-cyan-700'
+                    : 'bg-amber-900 text-amber-700'
+                    : 'bg-amber-950 text-amber-700'
                 }`}
               >
                 {!isGasValveOpen
@@ -274,8 +275,8 @@ export const BunsenBurnerStation: React.FC = () => {
                 onClick={toggleGas}
                 className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
                   isGasValveOpen
-                    ? 'bg-rose-950/80 border-rose-400 text-rose-200'
-                    : 'bg-emerald-950/80 border-emerald-400 text-emerald-200'
+                    ? 'bg-rose-100/80 border-rose-400 text-rose-700'
+                    : 'bg-emerald-100/80 border-emerald-400 text-emerald-700'
                 }`}
               >
                 {isGasValveOpen ? 'Khóa Van Gas' : 'Mở Van Gas'}
@@ -284,7 +285,7 @@ export const BunsenBurnerStation: React.FC = () => {
               <button
                 onClick={handleStrike}
                 disabled={!isGasValveOpen}
-                className="px-3 py-1 rounded-lg text-xs font-bold border border-amber-400 bg-amber-950/80 text-amber-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                className="px-3 py-1 rounded-lg text-xs font-bold border border-amber-400 bg-amber-950/80 text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:scale-105 active:scale-95 transition-all"
               >
                 ⚡ Đánh Lửa Mồi
               </button>
@@ -292,7 +293,7 @@ export const BunsenBurnerStation: React.FC = () => {
               <button
                 onClick={toggleAirCollar}
                 disabled={!isLit}
-                className="px-3 py-1 rounded-lg text-xs font-bold border border-cyan-400 bg-slate-900 text-cyan-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                className="px-3 py-1 rounded-lg text-xs font-bold border border-cyan-400 bg-white text-cyan-700 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:scale-105 active:scale-95 transition-all"
               >
                 🌀 {airCollarOpen ? 'Đóng Lỗ Gió (Lửa Vàng)' : 'Mở Lỗ Gió (Lửa Xanh)'}
               </button>
@@ -300,7 +301,7 @@ export const BunsenBurnerStation: React.FC = () => {
               {isLit && !isStrikeBack && (
                 <button
                   onClick={triggerStrikeBack}
-                  className="px-2 py-1 rounded-lg text-[10px] font-bold border border-rose-500/50 bg-rose-950/60 text-rose-300 cursor-pointer hover:bg-rose-900"
+                  className="px-2 py-1 rounded-lg text-[10px] font-bold border border-rose-500/50 bg-rose-100/60 text-rose-700 cursor-pointer hover:bg-rose-100"
                   title="Thực nghiệm tình huống cháy ngược vào ống"
                 >
                   ⚠️ Mô phỏng Cháy Ngược

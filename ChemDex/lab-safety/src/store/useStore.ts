@@ -1,3 +1,7 @@
+import { useScenarioSession } from '../scenarios/store';
+import { fireSimulation } from '../core/fire/FireSim';
+import { SimulationClock } from '../core/simulation/SimulationClock';
+import { toolControls } from '../systems/input/toolControls';
 import { AnalyticsService } from '../systems/analytics/AnalyticsService';
 import { create } from 'zustand';
 import { GameState, ViewState, GameMode, PlayerState, Rule, CharacterProfile, SettingsState, MistakeRecord, ErrorBannerData, MistakeId } from '../types';
@@ -24,7 +28,7 @@ const DEFAULT_CHARACTER: CharacterProfile = {
 };
 
 const DEFAULT_SETTINGS: SettingsState = {
-  graphicsQuality: 'high',
+  graphicsQuality: 'auto',
   musicVolume: 0.6,
   sfxVolume: 0.8,
   voiceVolume: 0.8,
@@ -33,6 +37,7 @@ const DEFAULT_SETTINGS: SettingsState = {
   largeText: false,
   leftHanded: false,
   cameraSensitivity: 1.0,
+  invertY: false,
   safeEffects: false,
 };
 
@@ -53,6 +58,26 @@ function loadStoredSettings(): SettingsState {
 }
 
 export const useStore = create<GameState>((set, get) => ({
+  cinematic: null,
+  startCinematic: (cinematic) => {
+    if (get().cinematic || get().view !== 'game') return;
+    toolControls.spraying = false;
+    set({ cinematic, activeInteraction: null, joystickVec: { x: 0, y: 0 } });
+  },
+  finishCinematic: () => {
+    const cinematic = get().cinematic;
+    set(s => ({ cinematic: null, player: cinematic === 'fire'
+      ? { ...s.player, flags: { ...s.player.flags, fireIntroSeen: true } } : s.player }));
+    get().saveGame();
+  },
+  activeTool: null,
+  selectTool: (tool) => {
+    const inv = get().player.inventory;
+    if (tool === 'extinguisher' && !get().player.flags.passTrained) { set({ showFireExtinguisherQuiz: true }); return; }
+    if (tool && !(tool === 'extinguisher' ? inv.hasFireExtinguisher : tool === 'spillKit' ? inv.hasSweeper : inv.isHoldingTrash)) return;
+    toolControls.spraying = false;
+    set({ activeTool: tool });
+  },
   view: 'start',
   gameMode: 'learn',
   score: 100,
@@ -63,6 +88,7 @@ export const useStore = create<GameState>((set, get) => ({
   tasks: INITIAL_TASKS,
   achievements: [],
   currentPhase: 1,
+  sceneModalCount: 0,
   runState: 'PAUSED',
   activeRuleDialog: null,
   activeInteraction: null,
@@ -92,15 +118,22 @@ export const useStore = create<GameState>((set, get) => ({
   joystickVec: { x: 0, y: 0 },
 
   setJoystickVec: (vec) => set({ joystickVec: vec }),
-  setView: (view: ViewState) => set({ view }),
+  setView: (view: ViewState) => set({ view, cinematic: null }),
   setGameMode: (gameMode: GameMode) => set({ gameMode }),
 
   startGame: () => {
+    useScenarioSession.getState().reset();
+    fireSimulation.reset(); SimulationClock.reset(); toolControls.spraying = false;
     playerCoords.position = [-4.0, 0, 3.2];
     playerCoords.rotationY = Math.PI;
     playerCoords.isMoving = false;
 
     set({
+      cinematic: null,
+      activeTool: null,
+      activeRuleDialog: null,
+      isDialogActive: false,
+      dialogCallback: null,
       view: 'game',
       runState: 'RUNNING',
       startTime: Date.now(),
@@ -134,7 +167,10 @@ export const useStore = create<GameState>((set, get) => ({
       const saved = localStorage.getItem('labSafetySave');
       if (saved) {
         const parsed = JSON.parse(saved);
-        set({ ...parsed, view: 'game', runState: 'RUNNING' });
+        useScenarioSession.getState().restore(parsed.scenarioRuns);
+        fireSimulation.reset(); SimulationClock.reset(); toolControls.spraying = false;
+        const tasks = INITIAL_TASKS.map(task => ({ ...task, completed: !!parsed.tasks?.find((saved: { id: string; completed: boolean }) => saved.id === task.id)?.completed }));
+        set({ ...parsed, tasks, cinematic: null, activeTool: null, sceneModalCount: 0, isDialogActive: false, activeRuleDialog: null, showSettings: false, showRulesList: false, showFireExtinguisherQuiz: false, showBandageQuiz: false, showChemicalSymbolsQuiz: false, view: 'game', runState: 'RUNNING' });
         // Spawn player near entrance or checkpoint
         playerCoords.position = [-6.0, 0, 5.8];
         playerCoords.rotationY = Math.PI;
@@ -151,6 +187,7 @@ export const useStore = create<GameState>((set, get) => ({
     const state = get();
     if (state.view !== 'game') return; // only save if in game
     const stateToSave = {
+      scenarioRuns: useScenarioSession.getState().exportRuns(),
       gameMode: state.gameMode,
       score: state.score,
       errors: state.errors,
@@ -181,6 +218,7 @@ export const useStore = create<GameState>((set, get) => ({
   },
 
   completeTask: (taskId: string) => {
+    if (get().tasks.find(t => t.id === taskId)?.completed) return;
     soundManager.play('success');
     set((state) => {
       const newTasks = state.tasks.map(t => t.id === taskId ? { ...t, completed: true } : t);
@@ -228,6 +266,7 @@ export const useStore = create<GameState>((set, get) => ({
   dismissErrorBanner: () => set({ activeErrorBanner: null }),
 
   equipItem: (item: string) => {
+    if (item === 'hasFireExtinguisher' && !get().player.flags.passTrained) { set({ showFireExtinguisherQuiz: true }); return; }
     soundManager.play('snap');
     set((state) => {
       const newPlayer = JSON.parse(JSON.stringify(state.player));
@@ -238,7 +277,9 @@ export const useStore = create<GameState>((set, get) => ({
       } else if (item in newPlayer.flags) {
         newPlayer.flags[item] = true;
       }
-      return { player: newPlayer };
+      if (item === 'hasFireExtinguisher') newPlayer.flags.extinguisherReady = true;
+      const tool = item === 'hasFireExtinguisher' ? 'extinguisher' : item === 'hasSweeper' ? 'spillKit' : get().activeTool;
+      return { player: newPlayer, activeTool: tool };
     });
   },
 

@@ -1,0 +1,359 @@
+{
+  "method": "Nonblank added source lines compared with the snapshot at the start of this request; excludes unchanged code, documentation and build output.",
+  "applicationSourceLines": 6098,
+  "testAndToolLines": 386,
+  "files": [
+    {
+      "path": "src/App.tsx",
+      "addedNonblankLines": 7
+    },
+    {
+      "path": "src/main.tsx",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/types.ts",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "src/academy/academy.css",
+      "addedNonblankLines": 64
+    },
+    {
+      "path": "src/academy/AcademyGate.tsx",
+      "addedNonblankLines": 3
+    },
+    {
+      "path": "src/core/InteractionSystem.ts",
+      "addedNonblankLines": 15
+    },
+    {
+      "path": "src/core/PhaseEngine.ts",
+      "addedNonblankLines": 24
+    },
+    {
+      "path": "src/core/PhaseRegistry.ts",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/data/cinematics.ts",
+      "addedNonblankLines": 17
+    },
+    {
+      "path": "src/data/tasks.ts",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "src/scenarios/catalog.ts",
+      "addedNonblankLines": 32
+    },
+    {
+      "path": "src/scenarios/engine.ts",
+      "addedNonblankLines": 178
+    },
+    {
+      "path": "src/scenarios/ScenarioIllustration.tsx",
+      "addedNonblankLines": 132
+    },
+    {
+      "path": "src/scenarios/ScenarioPanel.tsx",
+      "addedNonblankLines": 238
+    },
+    {
+      "path": "src/scenarios/ScenarioWorld.tsx",
+      "addedNonblankLines": 31
+    },
+    {
+      "path": "src/scenarios/store.ts",
+      "addedNonblankLines": 65
+    },
+    {
+      "path": "src/scenarios/types.ts",
+      "addedNonblankLines": 85
+    },
+    {
+      "path": "src/scenarios/useScenarioModal.ts",
+      "addedNonblankLines": 17
+    },
+    {
+      "path": "src/store/useLabEquipment.ts",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/store/useStore.ts",
+      "addedNonblankLines": 4
+    },
+    {
+      "path": "src/styles/bright-lab.css",
+      "addedNonblankLines": 916
+    },
+    {
+      "path": "src/ui/Sheet.tsx",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/components/3d/FocusMarker.tsx",
+      "addedNonblankLines": 27
+    },
+    {
+      "path": "src/components/3d/InteractableItem.tsx",
+      "addedNonblankLines": 17
+    },
+    {
+      "path": "src/components/3d/InteractionManager.tsx",
+      "addedNonblankLines": 97
+    },
+    {
+      "path": "src/components/3d/LabScene.tsx",
+      "addedNonblankLines": 6
+    },
+    {
+      "path": "src/components/3d/SceneHtml.tsx",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/components/ui/AcidPourGame.tsx",
+      "addedNonblankLines": 11
+    },
+    {
+      "path": "src/components/ui/BandageWrappingQuiz.tsx",
+      "addedNonblankLines": 27
+    },
+    {
+      "path": "src/components/ui/CertificateScreen.tsx",
+      "addedNonblankLines": 11
+    },
+    {
+      "path": "src/components/ui/CharacterCreatorModal.tsx",
+      "addedNonblankLines": 4
+    },
+    {
+      "path": "src/components/ui/ChemicalSymbolsQuiz.tsx",
+      "addedNonblankLines": 7
+    },
+    {
+      "path": "src/components/ui/CinematicOverlay.tsx",
+      "addedNonblankLines": 5
+    },
+    {
+      "path": "src/components/ui/FireExtinguisherQuiz.tsx",
+      "addedNonblankLines": 27
+    },
+    {
+      "path": "src/components/ui/HUD.tsx",
+      "addedNonblankLines": 138
+    },
+    {
+      "path": "src/components/ui/LabInstrumentGame.tsx",
+      "addedNonblankLines": 30
+    },
+    {
+      "path": "src/components/ui/RuleDialog.tsx",
+      "addedNonblankLines": 4
+    },
+    {
+      "path": "src/components/ui/RulesListScreen.tsx",
+      "addedNonblankLines": 3
+    },
+    {
+      "path": "src/components/ui/SafetyPractice.tsx",
+      "addedNonblankLines": 8
+    },
+    {
+      "path": "src/components/ui/StartScreen.tsx",
+      "addedNonblankLines": 15
+    },
+    {
+      "path": "src/components/ui/TeacherDialog.tsx",
+      "addedNonblankLines": 4
+    },
+    {
+      "path": "src/components/3d/lab/AdvancedSafetyRounds.tsx",
+      "addedNonblankLines": 5
+    },
+    {
+      "path": "src/components/3d/lab/ApparatusDetails.tsx",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/components/3d/lab/BunsenBurnerStation.tsx",
+      "addedNonblankLines": 12
+    },
+    {
+      "path": "src/components/3d/lab/ChemicalSpillSimulation.tsx",
+      "addedNonblankLines": 11
+    },
+    {
+      "path": "src/components/3d/lab/ChemicalStorageStation.tsx",
+      "addedNonblankLines": 23
+    },
+    {
+      "path": "src/components/3d/lab/EmergencyShowerStation.tsx",
+      "addedNonblankLines": 6
+    },
+    {
+      "path": "src/components/3d/lab/FirstAidTreatmentStation.tsx",
+      "addedNonblankLines": 23
+    },
+    {
+      "path": "src/components/3d/lab/HazardHuntManager.tsx",
+      "addedNonblankLines": 15
+    },
+    {
+      "path": "src/components/3d/lab/InteractiveFumeHood.tsx",
+      "addedNonblankLines": 7
+    },
+    {
+      "path": "src/components/3d/lab/LabCinematic.tsx",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "src/components/3d/lab/LabEquipmentController.tsx",
+      "addedNonblankLines": 25
+    },
+    {
+      "path": "src/components/3d/lab/LabStandardRoom.tsx",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "src/components/3d/lab/LooseWaste.tsx",
+      "addedNonblankLines": 5
+    },
+    {
+      "path": "src/components/3d/lab/ObjectiveMarker.tsx",
+      "addedNonblankLines": 9
+    },
+    {
+      "path": "src/components/3d/lab/PHTestingMinigame.tsx",
+      "addedNonblankLines": 24
+    },
+    {
+      "path": "src/components/3d/lab/useTaskProximity.ts",
+      "addedNonblankLines": 5
+    },
+    {
+      "path": "src/components/ui/hud/ExtinguisherHUD.tsx",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "src/components/ui/hud/FPSCrosshair.tsx",
+      "addedNonblankLines": 14
+    },
+    {
+      "path": "src/components/ui/hud/LabMinimapHUD.tsx",
+      "addedNonblankLines": 22
+    },
+    {
+      "path": "src/components/ui/hud/PPEOverlay.tsx",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/components/ui/hud/ToolBar.tsx",
+      "addedNonblankLines": 1
+    },
+    {
+      "path": "src/components/ui/hud/WaterDropletsOverlay.tsx",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "src/core/focus/FocusResolver.ts",
+      "addedNonblankLines": 119
+    },
+    {
+      "path": "src/scenarios/data/blocked-exit.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/centrifuge-balance.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/cracked-glass.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/crowded-bench.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/dirty-gloves.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/eye-protection.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/gas-hose.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/hot-glass.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/incompatible-storage.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/pipette-bulb.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/reagent-return.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/shutdown-check.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/unknown-bottle.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/vacuum-check.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/data/waste-mixing.ts",
+      "addedNonblankLines": 207
+    },
+    {
+      "path": "src/scenarios/models/ScenarioProps.tsx",
+      "addedNonblankLines": 279
+    },
+    {
+      "path": "src/systems/performance/AdaptivePerformance.tsx",
+      "addedNonblankLines": 49
+    },
+    {
+      "path": "src/systems/performance/FrameScheduler.tsx",
+      "addedNonblankLines": 41
+    },
+    {
+      "path": "src/systems/performance/RendererInfoProbe.tsx",
+      "addedNonblankLines": 10
+    },
+    {
+      "path": "scripts/bright-lab-core-checks.ts",
+      "addedNonblankLines": 146
+    },
+    {
+      "path": "scripts/check-fire-after-cinematic.mjs",
+      "addedNonblankLines": 2
+    },
+    {
+      "path": "scripts/test-bright-lab-browser.mjs",
+      "addedNonblankLines": 208
+    },
+    {
+      "path": "scripts/test-bright-lab-core.mjs",
+      "addedNonblankLines": 18
+    },
+    {
+      "path": "scripts/test-lab-cinematics.mjs",
+      "addedNonblankLines": 12
+    }
+  ]
+}

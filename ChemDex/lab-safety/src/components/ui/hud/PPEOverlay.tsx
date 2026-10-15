@@ -28,7 +28,7 @@ export const PPEOverlay: React.FC = () => {
 
       {/* 2. Mask breathing border at the bottom */}
       {player.equipment.hasMask && (
-        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-900/40 via-sky-950/20 to-transparent backdrop-blur-[0.5px]" />
+        <div className="absolute bottom-0 inset-x-0 h-3 border-b-2 border-slate-200/40" />
       )}
     </div>
   );

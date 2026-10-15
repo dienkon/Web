@@ -1,0 +1,281 @@
+{
+  "capturedAt": "2026-10-13T13:21:03.671Z",
+  "sourceUrl": "http://127.0.0.1:3000/?debug=1",
+  "cdpOrigin": "http://127.0.0.1:9222",
+  "browser": "Chrome/155.0.8059.40",
+  "protocolVersion": "1.3",
+  "cpuThrottleRate": 4,
+  "sampleDurationMs": 20000,
+  "results": [
+    {
+      "viewport": {
+        "id": "desktop-1366x768",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false,
+        "touch": false
+      },
+      "browserVersion": "Chrome/155.0.8059.40",
+      "cpuThrottleRate": 4,
+      "sampleDurationMs": 20000,
+      "samples": [
+        {
+          "scene": "start",
+          "sceneNote": "Start screen",
+          "screenshot": "docs/screens/p0-desktop-1366x768-start.png",
+          "durationMs": 20017.9,
+          "frameCount": 296,
+          "averageFps": 14.786765844569109,
+          "onePercentLowFps": 6.447453255963892,
+          "intervalCount": 296,
+          "intervalAverageMs": 67.62804054054054,
+          "intervalP99Ms": 131.89999999999964,
+          "renderer": {
+            "timestamp": 25169.099999997765,
+            "render": {
+              "calls": 664,
+              "triangles": 932452,
+              "points": 145,
+              "lines": 72
+            },
+            "memory": {
+              "geometries": 347,
+              "textures": 24
+            }
+          }
+        },
+        {
+          "scene": "lobby",
+          "sceneNote": "Lab lobby at the default new-game spawn",
+          "screenshot": "docs/screens/p0-desktop-1366x768-lobby.png",
+          "durationMs": 20038.800000000003,
+          "frameCount": 256,
+          "averageFps": 12.77521608080324,
+          "onePercentLowFps": 4.234895539243313,
+          "intervalCount": 256,
+          "intervalAverageMs": 78.27656250000001,
+          "intervalP99Ms": 222.40000000000146,
+          "renderer": {
+            "timestamp": 51699.39999999851,
+            "render": {
+              "calls": 108,
+              "triangles": 290430,
+              "points": 70,
+              "lines": 0
+            },
+            "memory": {
+              "geometries": 306,
+              "textures": 24
+            }
+          }
+        },
+        {
+          "scene": "phase2-fire",
+          "sceneNote": "Phase 2 fire spawned; sampled 3.2 m from the fire origin using the DEV-only pose bridge",
+          "screenshot": "docs/screens/p0-desktop-1366x768-phase2-fire.png",
+          "durationMs": 20016.9,
+          "frameCount": 198,
+          "averageFps": 9.891641562879366,
+          "onePercentLowFps": 4.055150040551524,
+          "intervalCount": 198,
+          "intervalAverageMs": 101.09545454545456,
+          "intervalP99Ms": 236.1999999999971,
+          "renderer": {
+            "timestamp": 29618.79999999702,
+            "render": {
+              "calls": 291,
+              "triangles": 303334,
+              "points": 70,
+              "lines": 0
+            },
+            "memory": {
+              "geometries": 177,
+              "textures": 21
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "id": "mobile-812x375-3x",
+        "width": 812,
+        "height": 375,
+        "deviceScaleFactor": 3,
+        "mobile": true,
+        "touch": true
+      },
+      "browserVersion": "Chrome/155.0.8059.40",
+      "cpuThrottleRate": 4,
+      "sampleDurationMs": 20000,
+      "samples": [
+        {
+          "scene": "start",
+          "sceneNote": "Start screen",
+          "screenshot": "docs/screens/p0-mobile-812x375-3x-start.png",
+          "durationMs": 20080.5,
+          "frameCount": 279,
+          "averageFps": 13.894076342720549,
+          "onePercentLowFps": 6.551648831622566,
+          "intervalCount": 279,
+          "intervalAverageMs": 71.97311827956989,
+          "intervalP99Ms": 145.3000000000011,
+          "renderer": {
+            "timestamp": 24622.800000000745,
+            "render": {
+              "calls": 703,
+              "triangles": 936420,
+              "points": 145,
+              "lines": 72
+            },
+            "memory": {
+              "geometries": 355,
+              "textures": 24
+            }
+          }
+        },
+        {
+          "scene": "lobby",
+          "sceneNote": "Lab lobby at the default new-game spawn",
+          "screenshot": "docs/screens/p0-mobile-812x375-3x-lobby.png",
+          "durationMs": 20024.8,
+          "frameCount": 281,
+          "averageFps": 14.03259957652511,
+          "onePercentLowFps": 4.694835680751227,
+          "intervalCount": 281,
+          "intervalAverageMs": 71.2626334519573,
+          "intervalP99Ms": 194.5,
+          "renderer": {
+            "timestamp": 51342.599999997765,
+            "render": {
+              "calls": 109,
+              "triangles": 290358,
+              "points": 70,
+              "lines": 0
+            },
+            "memory": {
+              "geometries": 317,
+              "textures": 24
+            }
+          }
+        },
+        {
+          "scene": "phase2-fire",
+          "sceneNote": "Phase 2 fire spawned; sampled 3.2 m from the fire origin using the DEV-only pose bridge",
+          "screenshot": "docs/screens/p0-mobile-812x375-3x-phase2-fire.png",
+          "durationMs": 20010.800000000003,
+          "frameCount": 205,
+          "averageFps": 10.244467987286864,
+          "onePercentLowFps": 4.594884362076877,
+          "intervalCount": 205,
+          "intervalAverageMs": 97.61365853658538,
+          "intervalP99Ms": 208.29999999999927,
+          "renderer": {
+            "timestamp": 30895.699999999255,
+            "render": {
+              "calls": 322,
+              "triangles": 303902,
+              "points": 70,
+              "lines": 72
+            },
+            "memory": {
+              "geometries": 183,
+              "textures": 21
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "id": "mobile-740x360-2x",
+        "width": 740,
+        "height": 360,
+        "deviceScaleFactor": 2,
+        "mobile": true,
+        "touch": true
+      },
+      "browserVersion": "Chrome/155.0.8059.40",
+      "cpuThrottleRate": 4,
+      "sampleDurationMs": 20000,
+      "samples": [
+        {
+          "scene": "start",
+          "sceneNote": "Start screen",
+          "screenshot": "docs/screens/p0-mobile-740x360-2x-start.png",
+          "durationMs": 20094.6,
+          "frameCount": 246,
+          "averageFps": 12.242094891164792,
+          "onePercentLowFps": 3.2981530343007903,
+          "intervalCount": 246,
+          "intervalAverageMs": 81.68536585365852,
+          "intervalP99Ms": 270.5,
+          "renderer": {
+            "timestamp": 25294.5,
+            "render": {
+              "calls": 693,
+              "triangles": 934940,
+              "points": 145,
+              "lines": 72
+            },
+            "memory": {
+              "geometries": 354,
+              "textures": 24
+            }
+          }
+        },
+        {
+          "scene": "lobby",
+          "sceneNote": "Lab lobby at the default new-game spawn",
+          "screenshot": "docs/screens/p0-mobile-740x360-2x-lobby.png",
+          "durationMs": 20038.799999999996,
+          "frameCount": 180,
+          "averageFps": 8.98257380681478,
+          "onePercentLowFps": 2.6434047052603806,
+          "intervalCount": 180,
+          "intervalAverageMs": 111.32666666666664,
+          "intervalP99Ms": 354.1999999999971,
+          "renderer": {
+            "timestamp": 53167,
+            "render": {
+              "calls": 109,
+              "triangles": 290358,
+              "points": 70,
+              "lines": 0
+            },
+            "memory": {
+              "geometries": 316,
+              "textures": 24
+            }
+          }
+        },
+        {
+          "scene": "phase2-fire",
+          "sceneNote": "Phase 2 fire spawned; sampled 3.2 m from the fire origin using the DEV-only pose bridge",
+          "screenshot": "docs/screens/p0-mobile-740x360-2x-phase2-fire.png",
+          "durationMs": 20004.1,
+          "frameCount": 180,
+          "averageFps": 8.99815537814748,
+          "onePercentLowFps": 2.546797402266652,
+          "intervalCount": 180,
+          "intervalAverageMs": 111.13388888888888,
+          "intervalP99Ms": 389,
+          "renderer": {
+            "timestamp": 31128.099999997765,
+            "render": {
+              "calls": 319,
+              "triangles": 304026,
+              "points": 70,
+              "lines": 0
+            },
+            "memory": {
+              "geometries": 182,
+              "textures": 21
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

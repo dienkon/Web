@@ -1,0 +1,128 @@
+{
+  "ordered": {
+    "objective": "task_talk",
+    "active": [
+      "teacher_talk"
+    ],
+    "labels": 1
+  },
+  "navigation": [
+    {
+      "path": [
+        [
+          -6,
+          5.6000000000000005
+        ],
+        [
+          -0.8,
+          5.6000000000000005
+        ],
+        [
+          -0.8,
+          -3.2
+        ]
+      ],
+      "safe": true
+    },
+    {
+      "path": [
+        [
+          0,
+          -4.4
+        ],
+        [
+          -8.4,
+          -4.4
+        ],
+        [
+          -8.4,
+          4
+        ]
+      ],
+      "safe": true
+    },
+    {
+      "path": [
+        [
+          -2.8000000000000003,
+          5.6000000000000005
+        ],
+        [
+          3.6,
+          5.6000000000000005
+        ],
+        [
+          3.6,
+          3.6
+        ]
+      ],
+      "safe": true
+    },
+    {
+      "path": [
+        [
+          -0.8,
+          5.2
+        ],
+        [
+          -3.2,
+          5.2
+        ],
+        [
+          -3.2,
+          5.6000000000000005
+        ]
+      ],
+      "safe": true
+    }
+  ],
+  "performanceResult": {
+    "fps": 65.76543660942637,
+    "medianMs": 13.899999999999636,
+    "p95Ms": 27.700000000000728,
+    "renderer": {
+      "timestamp": 10733.900000002235,
+      "render": {
+        "calls": 310,
+        "triangles": 39194,
+        "points": 40,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 433,
+        "textures": 2
+      },
+      "mirrorUpdates": 3,
+      "shadowEnabled": false,
+      "pixelRatio": 1,
+      "visibleFlames": 0,
+      "heldTool": null
+    }
+  },
+  "mirror": {
+    "timestamp": 12744.300000000745,
+    "render": {
+      "calls": 45,
+      "triangles": 5390,
+      "points": 0,
+      "lines": 0
+    },
+    "memory": {
+      "geometries": 447,
+      "textures": 2
+    },
+    "mirrorUpdates": 24,
+    "shadowEnabled": false,
+    "pixelRatio": 1,
+    "visibleFlames": 0,
+    "heldTool": null
+  },
+  "labelsBlocked": 0,
+  "modal": {
+    "count": 1,
+    "taskComplete": false,
+    "modalVisible": true,
+    "labels": 0
+  },
+  "errors": []
+}

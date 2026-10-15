@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checks": [
+    "catalog references and configuration are valid",
+    "every case is reachable from a playable decision game",
+    "glossary references resolve and names are unique",
+    "randomization is reproducible and preserves all objects",
+    "score rewards completion and never depends on speed",
+    "replay XP is bounded below first-completion XP",
+    "results are recorded once and best values survive weaker replay",
+    "Vietnam study-day boundaries and streaks are consistent",
+    "profile import rejects unsupported data and sanitizes nested content",
+    "wrong cases return soon and correct reviews expand intervals",
+    "daily challenges are deterministic and cover six skills",
+    "study plans respect focus, duration, uniqueness and unseen filtering",
+    "search works without Vietnamese accents and with combined filters",
+    "mastery, achievements and coaching use recorded evidence",
+    "CSV export quotes values and neutralizes formula-like names"
+  ],
+  "games": 44,
+  "cases": 72,
+  "glossary": 57
+}

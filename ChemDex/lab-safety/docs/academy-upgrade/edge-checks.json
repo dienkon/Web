@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "wrong bin preserved",
+    "touch drag",
+    "wrong order guarded",
+    "memory pause",
+    "flow unsafe direction",
+    "keyboard pouring",
+    "pause flow",
+    "abandon no reward",
+    "world modal cleanup"
+  ],
+  "errors": []
+}

@@ -7,7 +7,27 @@ export const LabBaseRoom: React.FC = () => {
       {/* Light grey non-slip epoxy terrazzo floor with realistic grid lines */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
         <planeGeometry args={[20, 15]} />
-        <meshStandardMaterial color="#D3D7DC" roughness={0.25} metalness={0.08} />
+        <meshStandardMaterial color="#DCE4E8" roughness={0.34} metalness={0.06} />
+      </mesh>
+
+      {/* Functional floor zoning: subtle cyan routes guide learners without adding UI clutter. */}
+      {[-5, 0, 5].map((x) => (
+        <mesh key={`floor-line-x-${x}`} rotation={[-Math.PI / 2, 0, 0]} position={[x, 0.006, 0]}>
+          <planeGeometry args={[0.025, 14.5]} />
+          <meshBasicMaterial color="#0891B2" transparent opacity={0.2} />
+        </mesh>
+      ))}
+      {[-3.5, 0, 3.5].map((z) => (
+        <mesh key={`floor-line-z-${z}`} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.006, z]}>
+          <planeGeometry args={[19.5, 0.025]} />
+          <meshBasicMaterial color="#0891B2" transparent opacity={0.16} />
+        </mesh>
+      ))}
+
+      {/* Illuminated circulation strip from the entrance into the central lab. */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-6, 0.009, 4.1]}>
+        <planeGeometry args={[0.055, 6.2]} />
+        <meshStandardMaterial color="#67E8F9" emissive="#22D3EE" emissiveIntensity={1.1} transparent opacity={0.58} />
       </mesh>
 
       {/* Decorative Floor Perimeter Border (Darker slate trim) */}
@@ -42,7 +62,7 @@ export const LabBaseRoom: React.FC = () => {
         [-6, 0], [0, 0], [6, 0],
         [-6, 4], [0, 4], [6, 4],
       ].map(([x, z], i) => (
-        <group key={i} position={[x, 3.77, z]}>
+        <group userData={{labItem:{title:'Đầu báo khói và vòi chữa cháy',kind:'smokeAlarm'}}} key={i} position={[x, 3.77, z]}>
           {/* Smoke detector disc */}
           <mesh>
             <cylinderGeometry args={[0.12, 0.12, 0.04, 16]} />
@@ -92,7 +112,7 @@ export const LabBaseRoom: React.FC = () => {
       </mesh>
       {/* 4 Panoramic High Windows at Z = -7.4 */}
       {[-6.5, -2.2, 2.2, 6.5].map((winX, i) => (
-        <group key={i} position={[winX, 2.4, -7.4]}>
+        <group userData={{labItem:{title:'Cửa sổ và thông gió',kind:'ventilation'}}} key={i} position={[winX, 2.4, -7.4]}>
           {/* Aluminum Window Frame */}
           <mesh>
             <boxGeometry args={[2.8, 1.6, 0.08]} />
@@ -141,79 +161,20 @@ export const LabBaseRoom: React.FC = () => {
         <meshStandardMaterial color="#E2E8F0" roughness={0.2} metalness={0.05} />
       </mesh>
 
-      {/* ================= 8. MAIN ENTRANCE DOUBLE DOORS (X = -6.0, Z = 7.42) ================= */}
-      <group position={[-6.0, 0, 7.42]}>
-        {/* Door Frame */}
-        <mesh position={[0, 1.2, 0]}>
-          <boxGeometry args={[2.1, 2.4, 0.08]} />
-          <meshStandardMaterial color="#334155" roughness={0.4} />
-        </mesh>
-        {/* Left Door Leaf */}
-        <mesh position={[-0.5, 1.18, 0]}>
-          <boxGeometry args={[0.96, 2.32, 0.05]} />
-          <meshStandardMaterial color="#F8FAFC" roughness={0.5} />
-        </mesh>
-        {/* Right Door Leaf */}
-        <mesh position={[0.5, 1.18, 0]}>
-          <boxGeometry args={[0.96, 2.32, 0.05]} />
-          <meshStandardMaterial color="#F8FAFC" roughness={0.5} />
-        </mesh>
-        {/* Wire-reinforced glass vision panels */}
-        <mesh position={[-0.5, 1.45, 0.01]}>
-          <boxGeometry args={[0.3, 0.75, 0.06]} />
-          <meshPhysicalMaterial transparent opacity={0.4} roughness={0.1} color="#BAE6FD" />
-        </mesh>
-        <mesh position={[0.5, 1.45, 0.01]}>
-          <boxGeometry args={[0.3, 0.75, 0.06]} />
-          <meshPhysicalMaterial transparent opacity={0.4} roughness={0.1} color="#BAE6FD" />
-        </mesh>
-        {/* Stainless Steel Panic Push Bars */}
-        <mesh position={[-0.5, 1.0, -0.05]}>
-          <boxGeometry args={[0.75, 0.06, 0.04]} />
-          <meshStandardMaterial color="#CBD5E1" metalness={0.9} roughness={0.1} />
-        </mesh>
-        <mesh position={[0.5, 1.0, -0.05]}>
-          <boxGeometry args={[0.75, 0.06, 0.04]} />
-          <meshStandardMaterial color="#CBD5E1" metalness={0.9} roughness={0.1} />
-        </mesh>
-        {/* Illuminated Green EXIT Sign above door */}
-        <group position={[0, 2.5, -0.06]}>
-          <mesh>
-            <boxGeometry args={[0.65, 0.22, 0.06]} />
-            <meshStandardMaterial color="#14532D" />
-          </mesh>
-          <mesh position={[0, 0, 0.032]}>
-            <planeGeometry args={[0.58, 0.16]} />
-            <meshBasicMaterial color="#22C55E" />
-          </mesh>
-        </group>
-      </group>
-
-      {/* ================= 9. SECONDARY EXIT DOOR (X = +6.0, Z = 7.42) ================= */}
-      <group position={[6.0, 0, 7.42]}>
-        <mesh position={[0, 1.2, 0]}>
-          <boxGeometry args={[2.1, 2.4, 0.08]} />
-          <meshStandardMaterial color="#334155" roughness={0.4} />
-        </mesh>
-        <mesh position={[-0.5, 1.18, 0]}>
-          <boxGeometry args={[0.96, 2.32, 0.05]} />
-          <meshStandardMaterial color="#F8FAFC" roughness={0.5} />
-        </mesh>
-        <mesh position={[0.5, 1.18, 0]}>
-          <boxGeometry args={[0.96, 2.32, 0.05]} />
-          <meshStandardMaterial color="#F8FAFC" roughness={0.5} />
-        </mesh>
-        <group position={[0, 2.5, -0.06]}>
-          <mesh>
-            <boxGeometry args={[0.65, 0.22, 0.06]} />
-            <meshStandardMaterial color="#14532D" />
-          </mesh>
-          <mesh position={[0, 0, 0.032]}>
-            <planeGeometry args={[0.58, 0.16]} />
-            <meshBasicMaterial color="#22C55E" />
-          </mesh>
-        </group>
-      </group>
+      <LabDoor position={[-6,0,7.42]} title="Cửa vào và lối thoát Tây"/>
+      <LabDoor position={[6,0,7.42]} title="Cửa thoát Đông"/>
     </group>
   );
 };
+function LabDoor({position,title}:{position:[number,number,number];title:string}) {
+  return <group position={position} userData={{labItem:{title,kind:'door'}}}>
+    {[-1,1].map(side=><mesh key={side} position={[side*1.04,1.2,0]}><boxGeometry args={[.08,2.4,.1]}/><meshStandardMaterial color="#334155"/></mesh>)}
+    <mesh position={[0,2.38,0]}><boxGeometry args={[2.16,.08,.1]}/><meshStandardMaterial color="#334155"/></mesh>
+    {[-1,1].map(side=><group key={side} name={side===-1?'door-leaf-left':'door-leaf-right'} position={[side,0,0]}>
+      <mesh position={[-side*.5,1.18,0]}><boxGeometry args={[.96,2.32,.05]}/><meshStandardMaterial color="#e2e8f0" roughness={.5}/></mesh>
+      <mesh position={[-side*.5,1.5,-.035]}><boxGeometry args={[.32,.75,.035]}/><meshStandardMaterial color="#7dd3fc" transparent opacity={.6}/></mesh>
+      <mesh position={[-side*.5,1,-.065]}><boxGeometry args={[.75,.06,.04]}/><meshStandardMaterial color="#94a3b8" metalness={.8}/></mesh>
+    </group>)}
+    <mesh position={[0,2.57,-.06]}><boxGeometry args={[.68,.22,.06]}/><meshStandardMaterial color="#16a34a" emissive="#22c55e" emissiveIntensity={.4}/></mesh>
+  </group>;
+}

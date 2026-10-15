@@ -37,7 +37,7 @@ export const WaterDropletsOverlay: React.FC<WaterDropletsOverlayProps> = ({
 
       {/* Screen Splatter Banner */}
       <div className="absolute top-20 inset-x-0 flex justify-center">
-        <div className="px-4 py-2 rounded-full bg-slate-950/85 backdrop-blur-md border border-cyan-400/50 shadow-2xl flex items-center gap-2.5 text-xs font-bold text-white">
+        <div className="px-4 py-2 rounded-full bg-slate-100/80 backdrop-blur-none border border-cyan-400/50 shadow-sm flex items-center gap-2.5 text-xs font-bold text-slate-800">
           <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
           <span>
             {type === 'shower'
@@ -68,7 +68,7 @@ export const WaterDropletsOverlay: React.FC<WaterDropletsOverlayProps> = ({
               width: `${drop.size}px`,
               height: `${drop.size * 1.5}px`,
             }}
-            className="absolute rounded-full bg-gradient-to-b from-white/70 via-cyan-200/50 to-transparent shadow-sm border border-white/40 filter blur-[0.4px]"
+            className="absolute rounded-full bg-white from-white/70 via-cyan-200/50 to-transparent shadow-sm border border-white/40 filter blur-[0.4px]"
           />
         ))}
       </AnimatePresence>

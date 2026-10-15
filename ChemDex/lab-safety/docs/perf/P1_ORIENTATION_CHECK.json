@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-10-13T13:31:09.638Z",
+  "portrait": {
+    "screenshot": "docs/screens/p1-orientation-portrait.png",
+    "state": {
+      "text": "Xoay ngang màn hình để chơiTrò chơi sẽ tiếp tục tại đúng vị trí khi màn hình chuyển sang ngang.",
+      "runState": "PAUSED",
+      "appHeight": "844px",
+      "rootHeight": 844,
+      "visualHeight": 844
+    }
+  },
+  "landscape": {
+    "screenshot": "docs/screens/p1-orientation-landscape.png",
+    "state": {
+      "gatePresent": false,
+      "runState": "RUNNING",
+      "appHeight": "390px",
+      "rootHeight": 390,
+      "visualHeight": 390
+    }
+  }
+}

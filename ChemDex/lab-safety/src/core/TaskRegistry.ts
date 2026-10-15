@@ -1,6 +1,9 @@
 import { TaskId, TaskDefinition } from '../types';
 
 export const TaskRegistry: Record<TaskId, TaskDefinition> = {
+  task_electrical_safety: { id: 'task_electrical_safety', titleKey: 'An toàn điện khi có nước', prerequisites: ['task_trash_disposal'], target: { type: 'scenario', value: 'electrical' }, completion: { condition: 'verified_steps', auto: false } },
+  task_fume_safety: { id: 'task_fume_safety', titleKey: 'Hơi hóa chất và tủ hút', prerequisites: ['task_electrical_safety'], target: { type: 'scenario', value: 'fume' }, completion: { condition: 'verified_steps', auto: false } },
+  task_evacuation: { id: 'task_evacuation', titleKey: 'Báo động và sơ tán', prerequisites: ['task_fume_safety'], target: { type: 'scenario', value: 'exit' }, completion: { condition: 'verified_steps', auto: false } },
   task_talk: { id: 'task_talk', titleKey: 'Nói chuyện với thầy giáo', prerequisites: [], target: { type: 'npc', value: 'teacher' }, completion: { condition: 'talked', auto: true } },
   task_rules: { id: 'task_rules', titleKey: 'Đọc bảng nội quy (100 điều)', prerequisites: ['task_talk'], target: { type: 'board', value: 'rules' }, completion: { condition: 'read', auto: true } },
   task_goggles: { id: 'task_goggles', titleKey: 'Trang bị kính bảo hộ', prerequisites: ['task_rules'], target: { type: 'equip', value: 'goggles' }, completion: { condition: 'equipped', auto: true } },

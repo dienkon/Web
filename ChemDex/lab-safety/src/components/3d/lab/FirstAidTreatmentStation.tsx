@@ -1,6 +1,7 @@
+import { useTaskProximity } from './useTaskProximity';
 import React, { useState, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
@@ -108,7 +109,7 @@ export const FirstAidTreatmentStation: React.FC = () => {
   // Distance check
   const dx = FIRST_AID_POS[0] - playerCoords.position[0];
   const dz = FIRST_AID_POS[2] - playerCoords.position[2];
-  const isNear = Math.hypot(dx, dz) < 2.4;
+  const isNear = useTaskProximity(FIRST_AID_POS, 2.4, []);
 
   // Door swing animation
   useFrame((_, delta) => {
@@ -158,7 +159,7 @@ export const FirstAidTreatmentStation: React.FC = () => {
   };
 
   return (
-    <group position={FIRST_AID_POS}>
+    <group userData={{labItem:{title:'Bàn thực hành sơ cứu',kind:'firstAid'}}} position={FIRST_AID_POS}>
       {/* 1. Cabinet Base Shell */}
       <mesh castShadow receiveShadow>
         <boxGeometry args={[0.16, 0.55, 0.45]} />
@@ -235,11 +236,11 @@ export const FirstAidTreatmentStation: React.FC = () => {
                 setIsOpen(!isOpen);
                 soundManager.play('click');
               }}
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold border border-emerald-400 bg-slate-950/90 text-emerald-300 shadow-xl flex items-center gap-2 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95 transition-all"
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold border border-emerald-400 bg-slate-100/80 text-emerald-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all"
             >
               <span>🏥</span>
               <span>{isOpen ? 'Đóng tủ Sơ Cứu' : 'Mở tủ Sơ Cứu Y Tế Khẩn Cấp'}</span>
-              <span className="text-[10px] font-mono text-slate-400">[Click]</span>
+              <span className="text-[10px] font-mono text-slate-600">[Click]</span>
             </button>
           </div>
         </Html>
@@ -248,14 +249,14 @@ export const FirstAidTreatmentStation: React.FC = () => {
       {/* 4. Interactive 4-Step First Aid Minigame Modal */}
       {isOpen && (
         <Html position={[0.4, 0, 0]} center distanceFactor={6}>
-          <div className="w-96 p-4 rounded-2xl bg-slate-950/95 border border-emerald-500/50 shadow-2xl backdrop-blur-xl text-white font-sans pointer-events-auto select-none">
+          <div className="w-96 p-4 rounded-2xl bg-slate-100/80 border border-emerald-500/50 shadow-sm backdrop-blur-none text-slate-800 font-sans pointer-events-auto select-none">
             {/* Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🩺</span>
                 <div>
-                  <h3 className="text-sm font-bold text-emerald-400">Quy Trình Sơ Cứu Bỏng Hóa Chất</h3>
-                  <p className="text-[10px] text-slate-400">Tiêu chuẩn quốc tế OSHA / Hội Chữ Thập Đỏ</p>
+                  <h3 className="text-sm font-bold text-emerald-700">Quy Trình Sơ Cứu Bỏng Hóa Chất</h3>
+                  <p className="text-[10px] text-slate-600">Tiêu chuẩn quốc tế OSHA / Hội Chữ Thập Đỏ</p>
                 </div>
               </div>
               <button
@@ -263,21 +264,21 @@ export const FirstAidTreatmentStation: React.FC = () => {
                   setIsOpen(false);
                   soundManager.play('click');
                 }}
-                className="w-6 h-6 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs text-slate-300 cursor-pointer"
+                className="w-6 h-6 rounded-full bg-slate-50 hover:bg-slate-50 flex items-center justify-center text-xs text-slate-600 cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             {/* Wound Status Indicator */}
-            <div className="my-3 p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+            <div className="my-3 p-2.5 rounded-xl bg-slate-100/80 border border-slate-200 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-lg">
                   {isCompleted ? '✨' : currentStepIndex === 0 ? '🔴' : currentStepIndex === 1 ? '🟠' : currentStepIndex === 2 ? '🟡' : '🟢'}
                 </span>
                 <div>
-                  <div className="text-[11px] font-semibold text-slate-300">Tình trạng vết thương trên da:</div>
-                  <div className="text-[10px] text-slate-400">
+                  <div className="text-[11px] font-semibold text-slate-600">Tình trạng vết thương trên da:</div>
+                  <div className="text-[10px] text-slate-600">
                     {isCompleted
                       ? 'Đã xử lý đúng 4 bước! Băng gạc vô trùng che chắn an toàn.'
                       : currentStepIndex === 0
@@ -291,7 +292,7 @@ export const FirstAidTreatmentStation: React.FC = () => {
                 </div>
               </div>
               <div className="text-right">
-                <span className="text-xs font-mono font-bold text-emerald-400">
+                <span className="text-xs font-mono font-bold text-emerald-700">
                   {isCompleted ? '4/4' : `${currentStepIndex}/4`}
                 </span>
                 <span className="text-[9px] block text-slate-500">Bước</span>
@@ -301,7 +302,7 @@ export const FirstAidTreatmentStation: React.FC = () => {
             {/* Step Content */}
             {!isCompleted ? (
               <div>
-                <div className="text-xs font-bold text-cyan-300 mb-2">
+                <div className="text-xs font-bold text-cyan-700 mb-2">
                   Bước {currentStepIndex + 1}: Bạn sẽ làm gì tiếp theo?
                 </div>
 
@@ -310,12 +311,12 @@ export const FirstAidTreatmentStation: React.FC = () => {
                     <button
                       key={option.id}
                       onClick={() => handleSelectOption(option)}
-                      className="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-700/80 hover:border-emerald-400 text-left transition-all cursor-pointer flex items-start gap-2.5 active:scale-[0.98]"
+                      className="p-2.5 rounded-xl bg-slate-100/80 hover:bg-slate-50 border border-slate-200/80 hover:border-emerald-400 text-left transition-all cursor-pointer flex items-start gap-2.5 active:scale-[0.98]"
                     >
-                      <span className="text-lg p-1 rounded-lg bg-slate-800/80">{option.icon}</span>
+                      <span className="text-lg p-1 rounded-lg bg-slate-50">{option.icon}</span>
                       <div className="flex-1">
-                        <div className="text-xs font-bold text-white">{option.name}</div>
-                        <div className="text-[10px] text-slate-400 leading-tight mt-0.5">{option.desc}</div>
+                        <div className="text-xs font-bold text-slate-800">{option.name}</div>
+                        <div className="text-[10px] text-slate-600 leading-tight mt-0.5">{option.desc}</div>
                       </div>
                     </button>
                   ))}
@@ -326,8 +327,8 @@ export const FirstAidTreatmentStation: React.FC = () => {
                   <div
                     className={`mt-3 p-2 rounded-xl text-[11px] font-medium border ${
                       feedback.isError
-                        ? 'bg-rose-950/80 border-rose-500/80 text-rose-300'
-                        : 'bg-emerald-950/80 border-emerald-500/80 text-emerald-300'
+                        ? 'bg-rose-100/80 border-rose-500/80 text-rose-700'
+                        : 'bg-emerald-100/80 border-emerald-500/80 text-emerald-700'
                     }`}
                   >
                     {feedback.text}
@@ -336,19 +337,19 @@ export const FirstAidTreatmentStation: React.FC = () => {
               </div>
             ) : (
               <div className="text-center py-4 flex flex-col items-center gap-2">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-2xl animate-bounce">
+                <div className="w-12 h-12 rounded-full bg-emerald-100/20 border border-emerald-400 flex items-center justify-center text-2xl animate-bounce">
                   🎉
                 </div>
-                <div className="text-sm font-bold text-emerald-400">Sơ Cứu Hoàn Tất Xuất Sắc!</div>
-                <p className="text-[11px] text-slate-300 leading-relaxed px-2">
+                <div className="text-sm font-bold text-emerald-700">Sơ Cứu Hoàn Tất Xuất Sắc!</div>
+                <p className="text-[11px] text-slate-600 leading-relaxed px-2">
                   Bạn đã thực hiện chuẩn chỉ 4 bước: <strong>Xả nước 15p → Sát trùng Povidone → Đặt gạc vô trùng → Băng cuộn số 8</strong>.
                 </p>
-                <div className="text-[10px] text-amber-300/90 bg-amber-950/40 p-2 rounded-lg border border-amber-600/30">
+                <div className="text-[10px] text-amber-700/90 bg-amber-950/40 p-2 rounded-lg border border-amber-600/30">
                   ⚠ <strong>Lưu ý:</strong> Luôn báo ngay cho giáo viên quản nhiệm và đưa nạn nhân tới cơ sở y tế gần nhất để bác sĩ chuyên khoa kiểm tra sâu!
                 </div>
                 <button
                   onClick={resetMinigame}
-                  className="mt-2 px-3 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                  className="mt-2 px-3 py-1 text-xs rounded-lg bg-slate-50 hover:bg-slate-50 text-slate-600 cursor-pointer"
                 >
                   Luyện tập lại
                 </button>

@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { ScenarioPanel } from './scenarios/ScenarioPanel';
+import { AcademyGate } from './academy/AcademyGate';
+import { AudioLifecycle } from './audio/AudioLifecycle';
+import React, { useEffect } from 'react';
 import { useStore } from './store/useStore';
 import { StartScreen } from './components/ui/StartScreen';
 import { lazy, Suspense } from 'react';
@@ -14,42 +17,46 @@ import { TeacherDialog } from './components/ui/TeacherDialog';
 const FireExtinguisherQuiz = lazy(() => import('./components/ui/FireExtinguisherQuiz').then(m => ({ default: m.FireExtinguisherQuiz })));
 const BandageWrappingQuiz = lazy(() => import('./components/ui/BandageWrappingQuiz').then(m => ({ default: m.BandageWrappingQuiz })));
 const ChemicalSymbolsQuiz = lazy(() => import('./components/ui/ChemicalSymbolsQuiz').then(m => ({ default: m.ChemicalSymbolsQuiz })));
-import { motion, AnimatePresence } from 'framer-motion';
-import { Smartphone, X } from 'lucide-react';
+import { Smartphone } from 'lucide-react';
+import { useOrientationGate } from './systems/device/useOrientationGate';
+import { vi } from './i18n/vi';
+import { QuizInteractionGuard } from './systems/input/QuizInteractionGuard';
+import { CinematicOverlay } from './components/ui/CinematicOverlay';
 
 export default function App() {
   const view = useStore((state) => state.view);
+  const cinematic = useStore(s => s.cinematic);
   const showRulesList = useStore((state) => state.showRulesList);
   const setShowRulesList = useStore((state) => state.setShowRulesList);
 
-  const [isPortrait, setIsPortrait] = useState(false);
-  const [dismissRotateHint, setDismissRotateHint] = useState(false);
+  const reduceMotion = useStore((state) => state.settings.reduceMotion);
+  const { isBlocked: isOrientationBlocked } = useOrientationGate();
 
   useEffect(() => {
-    const checkOrientation = () => {
-      const portrait = window.innerHeight > window.innerWidth && window.innerWidth < 1024;
-      setIsPortrait(portrait);
-    };
-
-    checkOrientation();
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
+    document.documentElement.classList.toggle('game-active', view === 'game');
     return () => {
-      window.removeEventListener('resize', checkOrientation);
-      window.removeEventListener('orientationchange', checkOrientation);
+      document.documentElement.classList.remove('game-active');
     };
-  }, []);
+  }, [view]);
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-[#F7FAFD] relative font-sans select-none">
+    <div
+      className="app-shell w-full overflow-hidden bg-[#F7FAFD] relative font-sans select-none"
+      onContextMenu={(event) => {
+        if (view === 'game') event.preventDefault();
+      }}
+    >
+      <AudioLifecycle />
+      {!cinematic && <AcademyGate />}
       {/* Live 3D Scene */}
       <LabScene />
 
       {/* In-Game UI Layer */}
-      {view === 'game' && (
+      {view === 'game' && !cinematic && (
         <>
           <HUD />
-          {import.meta.env.DEV && <PerformanceHUD />}
+          <QuizInteractionGuard />
+          {import.meta.env.DEV && new URLSearchParams(window.location.search).get('perf') === '1' && <PerformanceHUD />}
           <TeacherDialog />
           {showRulesList && <RulesListScreen onClose={() => setShowRulesList(false)} />}
           <Suspense fallback={null}><FireExtinguisherQuiz /></Suspense>
@@ -71,34 +78,29 @@ export default function App() {
       <RuleDialog />
       <CharacterCreatorModal />
       <SettingsModal />
+      <CinematicOverlay />
+      <ScenarioPanel />
 
-      {/* Non-blocking, dismissible Landscape Suggestion Toast on Mobile Portrait */}
-      <AnimatePresence>
-        {isPortrait && !dismissRotateHint && view === 'game' && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-24 inset-x-4 z-40 flex justify-center pointer-events-auto"
-          >
-            <div className="white-glass-elevated rounded-2xl p-3.5 max-w-sm flex items-center justify-between gap-3 border border-[var(--line)] shadow-xl">
-              <div className="w-8 h-8 rounded-full bg-[var(--primary-50)] text-[var(--primary-600)] flex items-center justify-center shrink-0">
-                <Smartphone className="w-4 h-4 rotate-90" />
-              </div>
-              <div className="text-xs text-[var(--ink)] font-medium leading-tight">
-                Xoay ngang màn hình để có góc nhìn quan sát phòng lab rộng nhất!
-              </div>
-              <button
-                onClick={() => setDismissRotateHint(true)}
-                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center shrink-0 active:scale-95"
-                aria-label="Bỏ qua"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
+      {isOrientationBlocked && (
+        <div
+          className="orientation-gate safe-pad fixed inset-0 z-[100] grid place-items-center bg-white text-slate-800 pointer-events-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="orientation-gate-title"
+        >
+          <div className="max-w-sm text-center px-6">
+            <div className={`orientation-phone mx-auto mb-6 grid h-28 w-16 place-items-center rounded-[22px] border-4 border-cyan-200 bg-white shadow-sm ${reduceMotion ? 'motion-reduce' : ''}`}>
+              <Smartphone className="h-9 w-9 text-cyan-700" aria-hidden="true" />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <h2 id="orientation-gate-title" className="text-2xl font-black tracking-tight">
+              {vi.device.rotateToLandscape}
+            </h2>
+            <p className="mt-3 text-sm font-medium leading-6 text-slate-600">
+              {vi.device.rotateDescription}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

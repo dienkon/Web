@@ -1,3 +1,4 @@
+import { LAB_SCENARIOS } from '../scenarios/catalog';
 import { Task } from '../types';
 
 export const INITIAL_TASKS: Task[] = [
@@ -17,6 +18,10 @@ export const INITIAL_TASKS: Task[] = [
   { id: 'task_spill_neutralize', title: 'Trung hòa vũng hóa chất', completed: false, type: 'action' },
   { id: 'task_spill_wipe', title: 'Lau dọn sạch vũng hóa chất', completed: false, type: 'action' },
   { id: 'task_trash_disposal', title: 'Thu gom rác thải hóa chất nguy hại (0/3)', completed: false, type: 'action' },
+  { id: 'task_electrical_safety', title: 'Vòng 4 · An toàn điện khi có nước', completed: false, type: 'action', phase: 4 },
+  { id: 'task_fume_safety', title: 'Vòng 5 · Hơi hóa chất và tủ hút', completed: false, type: 'action', phase: 4 },
+  { id: 'task_evacuation', title: 'Vòng 6 · Báo động và sơ tán', completed: false, type: 'action', phase: 4 },
+  ...LAB_SCENARIOS.map(s => ({ id: s.taskId, title: `Vòng ${s.number} · ${s.title}`, completed: false, type: 'action' as const, phase: 5 })),
 ];
 
 

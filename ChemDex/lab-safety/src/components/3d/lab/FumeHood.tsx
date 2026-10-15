@@ -2,7 +2,7 @@ import React from 'react';
 
 export const FumeHood: React.FC = () => {
   return (
-    <group position={[8.8, 0, -3.5]}>
+    <group userData={{labItem:{title:'Tủ hút khí độc',kind:'hood'}}} position={[8.8, 0, -3.5]}>
       {/* Heavy Steel Dual-Chamber Industrial Chemical Fume Hood (2.4m W x 1.1m D x 2.6m H) */}
       <mesh position={[0, 1.3, 0]} castShadow receiveShadow>
         <boxGeometry args={[2.4, 2.6, 1.1]} />

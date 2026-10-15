@@ -29,6 +29,11 @@ export const vi = {
     swipe: 'Vuốt tay',
     cancel: 'Hủy thao tác',
   },
+  device: {
+    rotateToLandscape: 'Xoay ngang màn hình để chơi',
+    rotateDescription: 'Trò chơi sẽ tiếp tục tại đúng vị trí khi màn hình chuyển sang ngang.',
+    fullscreenLandscape: 'Toàn màn hình & khoá ngang',
+  },
   hud: {
     phase1: 'Màn 1 · Bảo hộ & Nội quy',
     phase2: 'Màn 2 · Thao tác an toàn',
@@ -128,6 +133,7 @@ export const vi = {
     largeText: 'Cỡ chữ lớn',
     leftHanded: 'Chế độ tay trái',
     sensitivity: 'Độ nhạy góc nhìn',
+    invertY: 'Đảo trục nhìn dọc',
     resume: 'Tiếp tục chơi',
     handbook: 'Sổ tay nội quy',
     restart: 'Làm lại màn này',

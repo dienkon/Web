@@ -1,6 +1,14 @@
+import { LAB_SCENARIOS } from '../../../scenarios/catalog';
+import { useInteractionStore } from '../../../core/InteractionSystem';
+import { useLabEquipment } from '../../../store/useLabEquipment';
+import { WASTE_SAMPLES } from '../../../data/wasteSamples';
+import { SAFETY_ROUNDS } from '../../../data/safetyRounds';
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { Line } from '@react-three/drei';
+import { findNavigationPath, FloorPoint } from '../../../core/simulation/NavigationPath';
+import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
+import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
 import { useStore, playerCoords } from '../../../store/useStore';
 import { PhaseEngine } from '../../../core/PhaseEngine';
@@ -36,7 +44,7 @@ export const OBJECTIVE_LOCATIONS: Record<string, ObjectiveData> = {
   task_hair: {
     id: 'task_hair',
     title: 'Buộc tóc gọn gàng trước gương',
-    position: [-3.0, 1.5, 7.0],
+    position: [-0.95, 1.5, 6.82],
     color: '#ec4899', // Pink
   },
   task_goggles: {
@@ -123,8 +131,20 @@ export const OBJECTIVE_LOCATIONS: Record<string, ObjectiveData> = {
 export function getActiveObjective(
   currentPhase: number,
   tasks: Array<{ id: string; completed: boolean }>,
-  playerFlags: { trashCount?: number }
+  playerFlags: { trashCount?: number; extinguisherReady?: boolean; wasteDisposed?: string[] }
 ): ObjectiveData | null {
+  if (currentPhase === 5) {
+    const scenario = LAB_SCENARIOS.find(s => !tasks.find(t => t.id === s.taskId)?.completed);
+    return scenario ? { id: scenario.taskId, title: scenario.title, position: scenario.position, color: '#3f8c6e' }
+      : { ...OBJECTIVE_LOCATIONS.task_talk, title: 'Báo cáo với Thầy để nhận chứng chỉ' };
+  }
+  if (currentPhase === 4) {
+    const round = SAFETY_ROUNDS.find(r => !tasks.find(t => t.id === r.id)?.completed);
+    return round ? { id: round.id, title: round.title, position: round.position, color: round.color }
+      : { ...OBJECTIVE_LOCATIONS.task_talk, title: 'Báo cáo với Thầy để nhận Chứng chỉ!' };
+  }
+  const destination = useLabEquipment.getState().destination;
+  if(destination)return {...destination,color:'#22d3ee'};
   const isDone = (id: string) => !!tasks.find((t) => t.id === id)?.completed;
 
   if (currentPhase === 1) {
@@ -144,7 +164,7 @@ export function getActiveObjective(
   }
 
   if (currentPhase === 2) {
-    if (!isDone('task_fire_extinguisher')) return OBJECTIVE_LOCATIONS.task_fire_extinguisher;
+    if (!isDone('task_fire_extinguisher')) return playerFlags.extinguisherReady ? { ...OBJECTIVE_LOCATIONS.task_fire_extinguisher, title: 'Dập đám cháy: ngắm gốc và quét vòi phun', position: [4.2, 0.95, -2.2] } : OBJECTIVE_LOCATIONS.task_fire_extinguisher;
     if (!isDone('task_chemical_symbols')) return OBJECTIVE_LOCATIONS.task_chemical_symbols;
     if (!isDone('task_inspect_acid')) return OBJECTIVE_LOCATIONS.task_inspect_acid;
     if (!isDone('task_bandage')) return OBJECTIVE_LOCATIONS.task_bandage;
@@ -159,7 +179,13 @@ export function getActiveObjective(
     if (!isDone('task_spill_kit')) return OBJECTIVE_LOCATIONS.task_spill_kit;
     if (!isDone('task_spill_neutralize')) return OBJECTIVE_LOCATIONS.task_spill_neutralize;
     if (!isDone('task_spill_wipe')) return OBJECTIVE_LOCATIONS.task_spill_wipe;
-    if (!isDone('task_trash_disposal') && (playerFlags.trashCount || 0) < 3) {
+    if (!isDone('task_trash_disposal')) {
+      const inventory = useStore.getState().player.inventory;
+      if (!inventory.isHoldingTrash) {
+        const remaining = WASTE_SAMPLES.filter(sample=>!playerFlags.wasteDisposed?.includes(sample.id));
+        remaining.sort((a,b)=>Math.hypot(a.position[0]-playerCoords.position[0],a.position[2]-playerCoords.position[2])-Math.hypot(b.position[0]-playerCoords.position[0],b.position[2]-playerCoords.position[2]));
+        if (remaining[0]) return {id:'task_trash_disposal',title:`Thu gom: ${remaining[0].title}`,position:[...remaining[0].position],color:'#facc15'};
+      }
       return OBJECTIVE_LOCATIONS.task_trash_disposal;
     }
     // All Phase 3 tasks finished -> return to Teacher for Certificate!
@@ -173,156 +199,49 @@ export function getActiveObjective(
 }
 
 export const ObjectiveMarker: React.FC = () => {
-  const currentPhase = useStore((s) => s.currentPhase);
-  const tasks = useStore((s) => s.tasks);
-  const player = useStore((s) => s.player);
-  const view = useStore((s) => s.view);
-
-  const markerRef = useRef<THREE.Group>(null);
-  const ringRef1 = useRef<THREE.Mesh>(null);
-  const ringRef2 = useRef<THREE.Mesh>(null);
-  const arrowRef = useRef<THREE.Group>(null);
-  const [distance, setDistance] = React.useState<number>(0);
-
-  const activeObjective = useMemo(() => {
-    if (view !== 'game') return null;
-    return getActiveObjective(currentPhase, tasks, player.flags);
-  }, [currentPhase, tasks, player.flags, view]);
-
-  // Frame animations (Floating bob, slow rotation, and sonar ring pulse)
+  const focused = useInteractionStore(s => s.nearestId);
+  const destination = useLabEquipment(s=>s.destination);
+  const phase = useStore(s => s.currentPhase);
+  const tasks = useStore(s => s.tasks);
+  const flags = useStore(s => s.player.flags);
+  const blocked = useStore(isSceneInputBlocked);
+  const arrow = useRef<THREE.Group>(null);
+  const [route, setRoute] = React.useState<FloorPoint[]>([]);
+  const objective = useMemo(() => getActiveObjective(phase, tasks, flags), [destination, phase, tasks, flags]);
+  React.useEffect(() => {
+    if (!objective || blocked) { setRoute([]); return; }
+    let lastX = Infinity, lastZ = Infinity;
+    const update = () => {
+      const [x, , z] = playerCoords.position;
+      if (Math.hypot(x - lastX, z - lastZ) < 0.3) return;
+      lastX = x; lastZ = z;
+      setRoute(findNavigationPath([x, z], [objective.position[0], objective.position[2]]));
+    };
+    update(); const timer = setInterval(update, 250);
+    return () => clearInterval(timer);
+  }, [objective, blocked]);
   useFrame(({ clock }) => {
-    if (!activeObjective) return;
-    const time = clock.getElapsedTime();
-
-    // Bobbing & Rotating Arrow
-    if (arrowRef.current) {
-      arrowRef.current.position.y = activeObjective.position[1] + 1.25 + Math.sin(time * 3.5) * 0.12;
-      arrowRef.current.rotation.y = time * 1.8;
-    }
-
-    // Concentric Sonar Rings Pulsing on the floor
-    if (ringRef1.current) {
-      const progress1 = (time * 0.8) % 1.0;
-      const scale1 = 0.3 + progress1 * 1.2;
-      ringRef1.current.scale.set(scale1, scale1, scale1);
-      const mat = ringRef1.current.material as THREE.MeshBasicMaterial;
-      if (mat) mat.opacity = Math.max(0, 0.75 * (1 - progress1));
-    }
-
-    if (ringRef2.current) {
-      const progress2 = ((time * 0.8) + 0.5) % 1.0;
-      const scale2 = 0.3 + progress2 * 1.2;
-      ringRef2.current.scale.set(scale2, scale2, scale2);
-      const mat = ringRef2.current.material as THREE.MeshBasicMaterial;
-      if (mat) mat.opacity = Math.max(0, 0.75 * (1 - progress2));
-    }
-
-    // Distance computation for 3D label
-    const dx = activeObjective.position[0] - playerCoords.position[0];
-    const dz = activeObjective.position[2] - playerCoords.position[2];
-    const dist = Math.sqrt(dx * dx + dz * dz);
-    setDistance(parseFloat(dist.toFixed(1)));
+    if (arrow.current && objective) arrow.current.position.y = objective.position[1] + 0.75 + Math.sin(clock.elapsedTime * 3) * 0.06;
   });
-
-  if (!activeObjective) return null;
-
-  const [posX, posY, posZ] = activeObjective.position;
-  const isClose = distance < 1.6;
-
-  return (
-    <group ref={markerRef} position={[posX, 0, posZ]}>
-      {/* 1. Floor Sonar Beacon Rings */}
-      <group position={[0, Math.max(0.04, posY + 0.02), 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <mesh ref={ringRef1}>
-          <ringGeometry args={[0.35, 0.45, 32]} />
-          <meshBasicMaterial
-            color={activeObjective.color}
-            transparent
-            opacity={0.6}
-            side={THREE.DoubleSide}
-            depthWrite={false}
-          />
-        </mesh>
-        <mesh ref={ringRef2}>
-          <ringGeometry args={[0.35, 0.45, 32]} />
-          <meshBasicMaterial
-            color={activeObjective.color}
-            transparent
-            opacity={0.6}
-            side={THREE.DoubleSide}
-            depthWrite={false}
-          />
-        </mesh>
-        {/* Floor center glowing target dot */}
-        <mesh>
-          <circleGeometry args={[0.18, 32]} />
-          <meshBasicMaterial
-            color={activeObjective.color}
-            transparent
-            opacity={0.8}
-            side={THREE.DoubleSide}
-            depthWrite={false}
-          />
-        </mesh>
+  if (!objective || blocked || focused) return null;
+  const [x, y, z] = objective.position;
+  return <group name="active-objective">
+    {route.length > 1 && <group name="navigation-route" userData={{ points: route }} renderOrder={20}>
+      <Line points={route.map(([px,pz])=>[px,.065,pz])} color="#083344" lineWidth={14} depthWrite={false} toneMapped={false} raycast={()=>null} />
+      <Line points={route.map(([px,pz])=>[px,.075,pz])} color="#22d3ee" lineWidth={8} depthWrite={false} toneMapped={false} raycast={()=>null} />
+      <Line points={route.map(([px,pz])=>[px,.08,pz])} color="#ecfeff" lineWidth={2} dashed dashSize={.5} gapSize={.25} depthWrite={false} toneMapped={false} raycast={()=>null} />
+      {route.slice(1).map(([px,pz],i)=><mesh key={i} position={[px,.085,pz]} rotation={[-Math.PI/2,0,0]}><ringGeometry args={[.11,.17,20]}/><meshBasicMaterial color="#fef08a" toneMapped={false} depthWrite={false}/></mesh>)}
+    </group>}
+    <group position={[x, 0, z]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}>
+        <ringGeometry args={[0.28, 0.34, 24]} /><meshBasicMaterial color={objective.color} transparent opacity={0.75} depthWrite={false} />
+      </mesh>
+      <group ref={arrow} position={[0, y + 0.75, 0]}>
+        <mesh rotation={[Math.PI, 0, 0]}><coneGeometry args={[0.12, 0.28, 12]} /><meshBasicMaterial color={objective.color} /></mesh>
       </group>
-
-      {/* 2. Floating 3D Navigation Arrow & Crystal */}
-      <group ref={arrowRef} position={[0, posY + 1.25, 0]}>
-        {/* Downward Pointer Cone */}
-        <mesh position={[0, -0.22, 0]} rotation={[Math.PI, 0, 0]}>
-          <coneGeometry args={[0.22, 0.45, 16]} />
-          <meshStandardMaterial
-            color={activeObjective.color}
-            emissive={activeObjective.color}
-            emissiveIntensity={1.8}
-            roughness={0.2}
-            metalness={0.8}
-          />
-        </mesh>
-
-        {/* Hovering Crystal Diamond */}
-        <mesh position={[0, 0.22, 0]} rotation={[0, 0, 0]}>
-          <octahedronGeometry args={[0.24, 0]} />
-          <meshStandardMaterial
-            color={activeObjective.color}
-            emissive={activeObjective.color}
-            emissiveIntensity={2.2}
-            roughness={0.1}
-            metalness={0.9}
-          />
-        </mesh>
-
-        {/* Soft glowing beacon light */}
-        <pointLight
-          color={activeObjective.color}
-          intensity={1.2}
-          distance={4.0}
-          decay={2}
-        />
-      </group>
-
-      {/* 3. Floating 3D HTML Pill Label with Distance */}
-      {!isClose && (
-        <Html
-          position={[0, posY + 1.85, 0]}
-          center
-          distanceFactor={10}
-          zIndexRange={[100, 0]}
-          className="pointer-events-none select-none transition-opacity duration-300"
-        >
-          <div className="flex flex-col items-center gap-1">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-cyan-400/50 shadow-xl text-white text-xs font-bold whitespace-nowrap animate-pulse">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-sm" />
-              <span>{activeObjective.title}</span>
-              <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/80 px-1.5 py-0.5 rounded-md border border-cyan-500/40">
-                {distance}m
-              </span>
-            </div>
-            {/* Small downward triangle pointer */}
-            <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-cyan-400/70" />
-          </div>
-        </Html>
-      )}
+      <Html center position={[0, y + 1.05, 0]} className="pointer-events-none">
+        <div data-objective-label className="max-w-[220px] rounded-xl border border-cyan-200 bg-white/95 px-3 py-1.5 text-center text-[11px] font-bold text-slate-700 shadow-sm">{objective.title}</div>
+      </Html>
     </group>
-  );
+  </group>;
 };

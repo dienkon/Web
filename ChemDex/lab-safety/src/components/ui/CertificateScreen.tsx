@@ -239,17 +239,17 @@ export const CertificateScreen: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-40 bg-[#F7FAFD]/95 backdrop-blur-md overflow-y-auto p-4 sm:p-8 flex flex-col items-center select-none font-sans">
+    <div className="fixed inset-0 z-40 bg-[#F7FAFD]/95 backdrop-blur-none overflow-y-auto p-4 sm:p-8 flex flex-col items-center select-none font-sans">
       
       <div className="w-full max-w-4xl space-y-6 my-auto">
         
         {/* ================= CERTIFICATE CARD (A4 Landscape aspect) ================= */}
         <div
           ref={certRef}
-          className="relative bg-white rounded-3xl p-6 sm:p-10 border-4 border-slate-100 shadow-2xl overflow-hidden card-highlight"
+          className="relative bg-white rounded-3xl p-6 sm:p-10 border-4 border-slate-100 shadow-sm overflow-hidden card-highlight"
         >
           {/* Top Cyan-to-Blue Rule Header */}
-          <div className="absolute top-0 inset-x-0 h-3.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500" />
+          <div className="absolute top-0 inset-x-0 h-3.5 bg-white from-cyan-500 via-blue-500 to-indigo-500" />
 
           {/* Guilloche border watermark effect */}
           <div className="absolute inset-2 sm:inset-4 border-2 border-dashed border-cyan-500/20 rounded-2xl pointer-events-none" />
@@ -272,7 +272,7 @@ export const CertificateScreen: React.FC = () => {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-slate-50/80 border border-[var(--line)]">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                     {vi.certificate.studentName}
                   </span>
                   <strong className="text-sm sm:text-base font-extrabold text-[var(--ink)]">
@@ -281,7 +281,7 @@ export const CertificateScreen: React.FC = () => {
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                     {vi.certificate.date}
                   </span>
                   <span className="text-sm font-bold text-[var(--ink)]">
@@ -290,7 +290,7 @@ export const CertificateScreen: React.FC = () => {
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                     Thời gian hoàn thành
                   </span>
                   <span className="text-sm font-mono font-bold text-cyan-700">
@@ -299,7 +299,7 @@ export const CertificateScreen: React.FC = () => {
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                     {vi.certificate.score}
                   </span>
                   <span className="text-base font-mono font-black text-amber-600">
@@ -308,7 +308,7 @@ export const CertificateScreen: React.FC = () => {
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                     {vi.certificate.grade}
                   </span>
                   <span className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-black border ${grade.color}`}>
@@ -317,7 +317,7 @@ export const CertificateScreen: React.FC = () => {
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                     {vi.certificate.id}
                   </span>
                   <span className="text-xs font-mono font-bold text-slate-500">
@@ -387,7 +387,7 @@ export const CertificateScreen: React.FC = () => {
                   })}
                 </svg>
               </div>
-              <span className="text-[10px] font-bold text-slate-400 mt-2">
+              <span className="text-[10px] font-bold text-slate-600 mt-2">
                 Đánh giá năng lực thực hành 6 trục
               </span>
             </div>
@@ -416,7 +416,7 @@ export const CertificateScreen: React.FC = () => {
                     <span className="text-[10px] font-mono font-bold text-[var(--primary)] bg-[var(--primary-50)] px-2 py-0.5 rounded">
                       #{rule.id}
                     </span>
-                    <span className="text-[10px] font-bold text-slate-400">Xem lại</span>
+                    <span className="text-[10px] font-bold text-slate-600">Xem lại</span>
                   </div>
                   <h4 className="text-xs font-bold text-[var(--ink)] group-hover:text-[var(--primary-600)] transition-colors">
                     {rule.title}

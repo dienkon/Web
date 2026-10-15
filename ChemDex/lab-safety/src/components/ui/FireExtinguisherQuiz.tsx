@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '../../store/useStore';
 import { Shield, Check, X, Flame } from 'lucide-react';
 import { playSound } from '../../audio/soundManager';
@@ -125,6 +125,11 @@ export const FireExtinguisherQuiz: React.FC = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
+  useEffect(() => {
+    if (showFireExtinguisherQuiz) {
+      setCurrentStepIndex(0); setSelectedOption(null); setIsAnswered(false); setIsCorrect(false);
+    }
+  }, [showFireExtinguisherQuiz]);
   if (!showFireExtinguisherQuiz) return null;
 
   const currentQuestion = QUIZ_QUESTIONS[currentStepIndex];
@@ -154,6 +159,7 @@ export const FireExtinguisherQuiz: React.FC = () => {
   };
 
   const handleNext = () => {
+    if (!isAnswered || !isCorrect) return;
     playSound('click');
     if (currentStepIndex < QUIZ_QUESTIONS.length - 1) {
       setCurrentStepIndex(prev => prev + 1);
@@ -163,31 +169,28 @@ export const FireExtinguisherQuiz: React.FC = () => {
     } else {
       // Completed all 4 steps!
       playSound('complete');
-      // Update player state to have the fire extinguisher ready!
-      useStore.setState((state) => ({
-        player: { ...state.player, inventory: { ...state.player.inventory, hasFireExtinguisher: true } }
-      }));
-      
+      useStore.setState(s => ({ player: { ...s.player, flags: { ...s.player.flags, passTrained: true } } }));
+      useStore.getState().equipItem('hasFireExtinguisher');
+      useStore.getState().selectTool('extinguisher');
+
       // Close the modal and show instruction
       setShowFireExtinguisherQuiz(false);
-      
-      // Trigger a teacher-styled or system dialog
-      useStore.getState().startDialog([
-        "Tuyệt vời! Bạn đã hoàn thành khóa huấn luyện P.A.S.S chữa cháy an toàn xuất sắc!",
-        "Hiện tại bạn đang cầm Bình cứu hỏa CO2 đã rút chốt an toàn cực kỳ chuyên nghiệp.",
-        "Nhiệm vụ tiếp theo: Hãy đi đến góc phòng học bên trái (nơi có đám cháy hóa chất màu cam bùng phát), sau đó click trực tiếp vào đám cháy để tiến hành phun khí CO2 dập tắt nó an toàn!"
-      ]);
+
+      useStore.getState().saveGame();
+      if (useStore.getState().currentPhase === 2 && !useStore.getState().player.flags.fireIntroSeen) {
+        useStore.getState().startCinematic('fire');
+      }
     }
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-900/40 backdrop-blur-md p-4 animate-fade-in">
-      <div className="w-full max-w-2xl bg-white/95 backdrop-blur-xl border border-slate-200/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-        
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-slate-100/80 backdrop-blur-none p-4 animate-fade-in">
+      <div className="w-full max-w-2xl max-h-[92dvh] bg-white/95 backdrop-blur-none border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-50 to-orange-50 px-6 py-4 border-b border-red-100 flex items-center justify-between">
+        <div className="bg-white from-red-50 to-orange-50 px-6 py-4 border-b border-red-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-red-500/10 rounded-lg text-red-600 animate-pulse">
+            <div className="p-2 bg-red-100/10 rounded-lg text-red-600 animate-pulse">
               <Flame size={24} />
             </div>
             <div>
@@ -210,18 +213,18 @@ export const FireExtinguisherQuiz: React.FC = () => {
           {QUIZ_QUESTIONS.map((q, idx) => (
             <div key={q.step} className="flex flex-col gap-1">
               <div className="flex items-center justify-between text-[10px] font-mono">
-                <span className={idx <= currentStepIndex ? "text-red-600 font-bold" : "text-slate-400"}>
+                <span className={idx <= currentStepIndex ? "text-red-600 font-bold" : "text-slate-600"}>
                   {q.step}
                 </span>
-                <span className={idx <= currentStepIndex ? "text-slate-800 font-bold" : "text-slate-400"}>
+                <span className={idx <= currentStepIndex ? "text-slate-800 font-bold" : "text-slate-600"}>
                   {q.letter.split(' - ')[0]}
                 </span>
               </div>
               <div className={`h-1.5 rounded-full transition-all duration-300 ${
-                idx < currentStepIndex 
-                  ? "bg-emerald-500" 
-                  : idx === currentStepIndex 
-                  ? "bg-red-500" 
+                idx < currentStepIndex
+                  ? "bg-emerald-100"
+                  : idx === currentStepIndex
+                  ? "bg-red-100"
                   : "bg-slate-200"
               }`} />
             </div>
@@ -230,7 +233,7 @@ export const FireExtinguisherQuiz: React.FC = () => {
 
         {/* Content Area */}
         <div className="p-6 flex-1 overflow-y-auto flex flex-col justify-center">
-          
+
           <div className="mb-2">
             <span className="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-black rounded border border-red-200 uppercase tracking-wider">
               {currentQuestion.letter}
@@ -249,18 +252,18 @@ export const FireExtinguisherQuiz: React.FC = () => {
             {currentQuestion.options.map((opt) => {
               const isSelected = selectedOption === opt.key;
               let optionClass = "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm";
-              
+
               if (isSelected) {
                 optionClass = "border-sky-500 bg-sky-50 text-sky-900 ring-2 ring-sky-500/20 shadow-sm";
               }
-              
+
               if (isAnswered) {
                 if (opt.isCorrect) {
                   optionClass = "border-emerald-500 bg-emerald-50 text-emerald-950 shadow-sm";
                 } else if (isSelected) {
                   optionClass = "border-rose-500 bg-rose-50 text-rose-950 shadow-sm";
                 } else {
-                  optionClass = "border-slate-100 bg-slate-50/50 text-slate-400 opacity-60 pointer-events-none";
+                  optionClass = "border-slate-100 bg-slate-50/50 text-slate-600 opacity-60 pointer-events-none";
                 }
               }
 
@@ -272,12 +275,12 @@ export const FireExtinguisherQuiz: React.FC = () => {
                   className={`w-full text-left p-3.5 rounded-xl border transition-all duration-200 flex items-start gap-3 outline-none ${optionClass}`}
                 >
                   <div className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold font-mono text-xs shrink-0 border ${
-                    isSelected 
-                      ? "bg-sky-600 text-white border-sky-600" 
-                      : isAnswered && opt.isCorrect 
-                      ? "bg-emerald-600 text-white border-emerald-600" 
-                      : isAnswered && isSelected 
-                      ? "bg-rose-600 text-white border-rose-600"
+                    isSelected
+                      ? "bg-sky-100 text-slate-800 border-sky-600"
+                      : isAnswered && opt.isCorrect
+                      ? "bg-emerald-100 text-slate-800 border-emerald-600"
+                      : isAnswered && isSelected
+                      ? "bg-rose-100 text-slate-800 border-rose-600"
                       : "bg-slate-100 border-slate-200 text-slate-600"
                   }`}>
                     {opt.key}
@@ -291,8 +294,8 @@ export const FireExtinguisherQuiz: React.FC = () => {
           {/* Feedback Section */}
           {isAnswered && (
             <div className={`mt-5 p-4 rounded-xl border animate-fade-in flex items-start gap-3 ${
-              isCorrect 
-                ? "bg-emerald-50 border-emerald-200 text-emerald-900" 
+              isCorrect
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
                 : "bg-rose-50 border-rose-200 text-rose-900"
             }`}>
               <div className="mt-0.5 shrink-0">
@@ -324,8 +327,8 @@ export const FireExtinguisherQuiz: React.FC = () => {
               onClick={handleSubmit}
               className={`px-5 py-2.5 rounded-lg font-bold text-xs md:text-sm shadow-md transition-all duration-200 flex items-center gap-2 ${
                 selectedOption
-                  ? "bg-red-600 hover:bg-red-500 text-white active:scale-95"
-                  : "bg-slate-200 text-slate-400 cursor-not-allowed shadow-none"
+                  ? "bg-red-100 hover:bg-red-100 text-slate-800 active:scale-95"
+                  : "bg-slate-200 text-slate-600 cursor-not-allowed shadow-none"
               }`}
             >
               Xác Nhận Lựa Chọn
@@ -338,14 +341,14 @@ export const FireExtinguisherQuiz: React.FC = () => {
                 setIsAnswered(false);
                 setIsCorrect(false);
               }}
-              className={`px-5 py-2.5 rounded-lg font-bold text-xs md:text-sm shadow-md transition-all duration-200 flex items-center gap-2 text-white active:scale-95 ${
-                isCorrect 
-                  ? "bg-emerald-600 hover:bg-emerald-500" 
-                  : "bg-rose-600 hover:bg-rose-500"
+              className={`px-5 py-2.5 rounded-lg font-bold text-xs md:text-sm shadow-md transition-all duration-200 flex items-center gap-2 text-slate-800 active:scale-95 ${
+                isCorrect
+                  ? "bg-emerald-100 hover:bg-emerald-100"
+                  : "bg-rose-100 hover:bg-rose-100"
               }`}
             >
-              {isCorrect 
-                ? (currentStepIndex === QUIZ_QUESTIONS.length - 1 ? "Hoàn Thành Huấn Luyện" : "Bước Tiếp Theo") 
+              {isCorrect
+                ? (currentStepIndex === QUIZ_QUESTIONS.length - 1 ? "Hoàn Thành Huấn Luyện" : "Bước Tiếp Theo")
                 : "Thử Lại Câu Hỏi"}
             </button>
           )}

@@ -1,5 +1,6 @@
+import { useTaskProximity } from './useTaskProximity';
 import React, { useState } from 'react';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
 
@@ -68,10 +69,10 @@ const CHEMICALS_TO_SORT: ChemicalItem[] = [
 ];
 
 const COMPARTMENTS: { id: CompartmentId; name: string; color: string; icon: string }[] = [
-  { id: 'acids', name: 'Ngăn Axit', color: 'border-amber-500 bg-amber-950/40 text-amber-300', icon: '🧪' },
-  { id: 'bases', name: 'Ngăn Kiềm / Bazơ', color: 'border-blue-500 bg-blue-950/40 text-blue-300', icon: '🧴' },
-  { id: 'flammables', name: 'Ngăn Dung Môi Dễ Cháy', color: 'border-rose-500 bg-rose-950/40 text-rose-300', icon: '🔥' },
-  { id: 'oxidizers', name: 'Ngăn Chất Oxy Hóa Mạnh', color: 'border-yellow-400 bg-yellow-950/40 text-yellow-300', icon: '💥' },
+  { id: 'acids', name: 'Ngăn Axit', color: 'border-amber-500 bg-amber-950/40 text-amber-700', icon: '🧪' },
+  { id: 'bases', name: 'Ngăn Kiềm / Bazơ', color: 'border-blue-500 bg-blue-100/40 text-blue-700', icon: '🧴' },
+  { id: 'flammables', name: 'Ngăn Dung Môi Dễ Cháy', color: 'border-rose-500 bg-rose-100/40 text-rose-700', icon: '🔥' },
+  { id: 'oxidizers', name: 'Ngăn Chất Oxy Hóa Mạnh', color: 'border-yellow-400 bg-yellow-950/40 text-yellow-700', icon: '💥' },
 ];
 
 export const ChemicalStorageStation: React.FC = () => {
@@ -84,7 +85,7 @@ export const ChemicalStorageStation: React.FC = () => {
   // Distance check
   const dx = CABINET_POS[0] - playerCoords.position[0];
   const dz = CABINET_POS[2] - playerCoords.position[2];
-  const isNear = Math.hypot(dx, dz) < 2.5;
+  const isNear = useTaskProximity(CABINET_POS, 2.5, []);
 
   // Unplaced items
   const unplacedList = CHEMICALS_TO_SORT.filter((c) => !placedItems[c.id]);
@@ -140,7 +141,7 @@ export const ChemicalStorageStation: React.FC = () => {
   };
 
   return (
-    <group position={CABINET_POS}>
+    <group userData={{labItem:{title:'Bộ phân loại hóa chất',kind:'storage'}}} position={CABINET_POS}>
       {/* 1. Proximity Floating Prompt */}
       {isNear && (
         <Html position={[0, 0.4, 0]} center distanceFactor={7}>
@@ -150,11 +151,11 @@ export const ChemicalStorageStation: React.FC = () => {
                 setIsOpen(!isOpen);
                 soundManager.play('click');
               }}
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold border border-yellow-400 bg-slate-950/90 text-yellow-300 shadow-xl flex items-center gap-2 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95 transition-all"
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold border border-yellow-400 bg-slate-100/80 text-yellow-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all"
             >
               <span>🗄️</span>
               <span>{isOpen ? 'Đóng Tủ Hóa Chất' : 'Kiểm Tra Phân Loại Hóa Chất Tương Thích (GHS)'}</span>
-              <span className="text-[10px] font-mono text-slate-400">[Click]</span>
+              <span className="text-[10px] font-mono text-slate-600">[Click]</span>
             </button>
           </div>
         </Html>
@@ -163,14 +164,14 @@ export const ChemicalStorageStation: React.FC = () => {
       {/* 2. Interactive Chemical Storage Sorter Modal */}
       {isOpen && (
         <Html position={[-0.5, 0, 0]} center distanceFactor={6}>
-          <div className="w-[420px] p-4 rounded-2xl bg-slate-950/95 border border-yellow-500/50 shadow-2xl backdrop-blur-xl text-white font-sans pointer-events-auto select-none">
+          <div className="w-[420px] p-4 rounded-2xl bg-slate-100/80 border border-yellow-500/50 shadow-sm backdrop-blur-none text-slate-800 font-sans pointer-events-auto select-none">
             {/* Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🗄️</span>
                 <div>
-                  <h3 className="text-sm font-bold text-yellow-400">Tủ Lưu Trữ Hóa Chất Cách Ly An Toàn</h3>
-                  <p className="text-[10px] text-slate-400">Quy tắc tương thích hóa chất quốc tế (GHS & OSHA)</p>
+                  <h3 className="text-sm font-bold text-yellow-700">Tủ Lưu Trữ Hóa Chất Cách Ly An Toàn</h3>
+                  <p className="text-[10px] text-slate-600">Quy tắc tương thích hóa chất quốc tế (GHS & OSHA)</p>
                 </div>
               </div>
               <button
@@ -178,7 +179,7 @@ export const ChemicalStorageStation: React.FC = () => {
                   setIsOpen(false);
                   soundManager.play('click');
                 }}
-                className="w-6 h-6 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs text-slate-300 cursor-pointer"
+                className="w-6 h-6 rounded-full bg-slate-50 hover:bg-slate-50 flex items-center justify-center text-xs text-slate-600 cursor-pointer"
               >
                 ✕
               </button>
@@ -205,7 +206,7 @@ export const ChemicalStorageStation: React.FC = () => {
                         storedInThis.map((item) => (
                           <span
                             key={item.id}
-                            className="px-1.5 py-0.5 rounded bg-slate-900/80 border border-slate-700 text-[9px] font-mono"
+                            className="px-1.5 py-0.5 rounded bg-slate-100/80 border border-slate-200 text-[9px] font-mono"
                           >
                             ✓ {item.formula}
                           </span>
@@ -219,18 +220,18 @@ export const ChemicalStorageStation: React.FC = () => {
 
             {/* Current Item to Sort */}
             {!isAllSorted ? (
-              <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[11px] text-slate-400 mb-1">
+              <div className="p-3 rounded-xl bg-slate-100/80 border border-slate-200">
+                <div className="text-[11px] text-slate-600 mb-1">
                   Chọn ngăn tủ phù hợp cho hóa chất sau: ({6 - unplacedList.length}/6 đã phân loại)
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-xs font-bold text-white flex items-center gap-2">
+                    <div className="text-xs font-bold text-slate-800 flex items-center gap-2">
                       <span>🧪</span>
                       <span>{unplacedList[0].name}</span>
-                      <span className="text-[10px] font-mono text-cyan-300">({unplacedList[0].formula})</span>
+                      <span className="text-[10px] font-mono text-cyan-700">({unplacedList[0].formula})</span>
                     </div>
-                    <div className="text-[10px] text-amber-300/80 mt-0.5">
+                    <div className="text-[10px] text-amber-700/80 mt-0.5">
                       ⚠️ Đặc tính GHS: {unplacedList[0].ghsSymbol}
                     </div>
                   </div>
@@ -242,7 +243,7 @@ export const ChemicalStorageStation: React.FC = () => {
                     <button
                       key={comp.id}
                       onClick={() => handlePlace(unplacedList[0], comp.id)}
-                      className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-[11px] font-bold text-slate-200 cursor-pointer flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                      className="px-2.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-50 border border-slate-200 text-[11px] font-bold text-slate-600 cursor-pointer flex items-center justify-center gap-1.5 transition-all active:scale-95"
                     >
                       <span>{comp.icon}</span>
                       <span>Cất vào {comp.name}</span>
@@ -253,14 +254,14 @@ export const ChemicalStorageStation: React.FC = () => {
             ) : (
               <div className="text-center py-3 flex flex-col items-center gap-1.5">
                 <div className="text-2xl animate-bounce">🏆</div>
-                <div className="text-sm font-bold text-emerald-400">Toàn Bộ Hóa Chất Đã Được Cách Ly An Toàn!</div>
-                <p className="text-[11px] text-slate-300">
+                <div className="text-sm font-bold text-emerald-700">Toàn Bộ Hóa Chất Đã Được Cách Ly An Toàn!</div>
+                <p className="text-[11px] text-slate-600">
                   Bạn đã nắm vững quy tắc bất di bất dịch: <strong>Không để Oxy hóa gần Dễ cháy</strong> và{' '}
                   <strong>Không để Axit chung với Kiềm</strong>.
                 </p>
                 <button
                   onClick={handleReset}
-                  className="mt-1 px-3 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                  className="mt-1 px-3 py-1 text-xs rounded-lg bg-slate-50 hover:bg-slate-50 text-slate-600 cursor-pointer"
                 >
                   Sắp xếp lại từ đầu
                 </button>
@@ -272,8 +273,8 @@ export const ChemicalStorageStation: React.FC = () => {
               <div
                 className={`mt-2.5 p-2 rounded-xl text-[10px] font-medium border leading-tight ${
                   feedback.isError
-                    ? 'bg-rose-950/80 border-rose-500/80 text-rose-300'
-                    : 'bg-emerald-950/80 border-emerald-500/80 text-emerald-300'
+                    ? 'bg-rose-100/80 border-rose-500/80 text-rose-700'
+                    : 'bg-emerald-100/80 border-emerald-500/80 text-emerald-700'
                 }`}
               >
                 {feedback.text}

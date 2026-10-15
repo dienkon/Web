@@ -1,0 +1,32 @@
+{
+  "capturedAt": "2026-10-14T11:41:49.679Z",
+  "viewport": {
+    "width": 812,
+    "height": 375,
+    "deviceScaleFactor": 3
+  },
+  "unitResult": {
+    "calls": [
+      "dialog",
+      "quiz",
+      "target"
+    ],
+    "dialogHandled": true,
+    "quizHandled": true,
+    "targetHandled": true,
+    "duplicateHandled": false
+  },
+  "dialogResult": {
+    "targetCount": 0,
+    "dialogOpen": true,
+    "dialogIndex": 1
+  },
+  "quizResult": {
+    "targetCount": 0,
+    "quizOpen": true
+  },
+  "targetResult": {
+    "afterDuplicate": 1,
+    "afterDebounce": 2
+  }
+}

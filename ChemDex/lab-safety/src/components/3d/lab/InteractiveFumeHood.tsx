@@ -1,6 +1,7 @@
+import { useTaskProximity } from './useTaskProximity';
 import React, { useState, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
@@ -18,7 +19,7 @@ export const InteractiveFumeHood: React.FC = () => {
   // Check distance
   const dx = FUME_HOOD_POS[0] - playerCoords.position[0];
   const dz = FUME_HOOD_POS[2] - playerCoords.position[2];
-  const isNear = Math.hypot(dx, dz) < 2.5;
+  const isNear = useTaskProximity(FUME_HOOD_POS, 2.5, []);
 
   const isAlarm = sashHeight > 0.55;
   const faceVelocity = isAlarm ? 42 : 100;
@@ -74,7 +75,7 @@ export const InteractiveFumeHood: React.FC = () => {
   };
 
   return (
-    <group position={FUME_HOOD_POS}>
+    <group userData={{labItem:{title:'Cửa kính và buồng tủ hút',kind:'hood'}}} position={FUME_HOOD_POS}>
       {/* 1. Safety Glass Sash (Vertical Sliding Panel) */}
       <group ref={sashRef} position={[0, 1.45, 0.52]}>
         {/* Laminated Glass Pane */}
@@ -140,23 +141,23 @@ export const InteractiveFumeHood: React.FC = () => {
       {isNear && (
         <Html position={[0, 1.85, 0.6]} center distanceFactor={8}>
           <div className="flex flex-col items-center gap-1.5 pointer-events-auto select-none font-sans whitespace-nowrap">
-            <div className="px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-slate-700 shadow-xl flex items-center gap-2 text-xs font-bold text-white">
-              <span className={`w-2 h-2 rounded-full ${isAlarm ? 'bg-rose-500 animate-ping' : 'bg-emerald-400'}`} />
+            <div className="px-3 py-1 rounded-full bg-slate-100/80 backdrop-blur-none border border-slate-200 shadow-sm flex items-center gap-2 text-xs font-bold text-slate-800">
+              <span className={`w-2 h-2 rounded-full ${isAlarm ? 'bg-rose-100 animate-ping' : 'bg-emerald-400'}`} />
               <span>Vận tốc hút gió: </span>
-              <span className={`font-mono ${isAlarm ? 'text-rose-400' : 'text-emerald-400'}`}>
+              <span className={`font-mono ${isAlarm ? 'text-rose-700' : 'text-emerald-700'}`}>
                 {faceVelocity} FPM
               </span>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600">
                 {isAlarm ? '(NGUY HIỂM: DƯỚI 100 FPM)' : '(ĐẠT CHUẨN)'}
               </span>
             </div>
 
             <button
               onClick={toggleSash}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-xl flex items-center gap-2 backdrop-blur-md cursor-pointer transition-all active:scale-95 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer transition-all active:scale-95 ${
                 isAlarm
-                  ? 'bg-rose-950/90 border-rose-400 text-rose-200 animate-pulse'
-                  : 'bg-slate-900/90 border-cyan-400 text-cyan-200 hover:scale-105'
+                  ? 'bg-rose-100/90 border-rose-400 text-rose-700 animate-pulse'
+                  : 'bg-slate-100/80 border-cyan-400 text-cyan-700 hover:scale-105'
               }`}
             >
               <span>🚪</span>

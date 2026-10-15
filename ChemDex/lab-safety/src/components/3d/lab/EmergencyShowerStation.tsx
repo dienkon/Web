@@ -1,6 +1,7 @@
+import { useTaskProximity } from './useTaskProximity';
 import React, { useState, useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
@@ -21,7 +22,7 @@ export const EmergencyShowerStation: React.FC = () => {
   // Check distance to station
   const dx = SHOWER_POS[0] - playerCoords.position[0];
   const dz = SHOWER_POS[2] - playerCoords.position[2];
-  const isNear = Math.hypot(dx, dz) < 2.2;
+  const isNear = useTaskProximity(SHOWER_POS, 2.2, []);
 
   // Particle buffers for overhead shower
   const showerParticles = useMemo(() => {
@@ -113,7 +114,7 @@ export const EmergencyShowerStation: React.FC = () => {
   };
 
   return (
-    <group position={SHOWER_POS}>
+    <group userData={{labItem:{title:'Vòi tắm và rửa mắt khẩn cấp',kind:'shower'}}} position={SHOWER_POS}>
       {/* Overhead Animated Shower Stream */}
       {isShowerActive && (
           <group>
@@ -171,10 +172,10 @@ export const EmergencyShowerStation: React.FC = () => {
             <div className="flex flex-col items-center gap-2 pointer-events-auto select-none font-sans whitespace-nowrap">
               <button
                 onClick={toggleShower}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-xl flex items-center gap-2 backdrop-blur-md cursor-pointer transition-all active:scale-95 ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer transition-all active:scale-95 ${
                   isShowerActive
-                    ? 'bg-rose-950/80 border-rose-400 text-rose-200'
-                    : 'bg-emerald-950/80 border-emerald-400 text-emerald-200 hover:scale-105'
+                    ? 'bg-rose-100/80 border-rose-400 text-rose-700'
+                    : 'bg-emerald-100/80 border-emerald-400 text-emerald-700 hover:scale-105'
                 }`}
               >
                 <span>🚿</span>
@@ -184,10 +185,10 @@ export const EmergencyShowerStation: React.FC = () => {
 
               <button
                 onClick={toggleEyewash}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-xl flex items-center gap-2 backdrop-blur-md cursor-pointer transition-all active:scale-95 ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer transition-all active:scale-95 ${
                   isEyewashActive
-                    ? 'bg-rose-950/80 border-rose-400 text-rose-200'
-                    : 'bg-cyan-950/80 border-cyan-400 text-cyan-200 hover:scale-105'
+                    ? 'bg-rose-100/80 border-rose-400 text-rose-700'
+                    : 'bg-cyan-100/80 border-cyan-400 text-cyan-700 hover:scale-105'
                 }`}
               >
                 <span>👁</span>

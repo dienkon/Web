@@ -1,0 +1,46 @@
+{
+  "capturedAt": "2026-10-14T11:41:44.106Z",
+  "viewport": {
+    "width": 812,
+    "height": 375,
+    "deviceScaleFactor": 3,
+    "touch": true
+  },
+  "simultaneous": {
+    "move": [
+      0,
+      1
+    ],
+    "joystickPointerId": 2,
+    "lookPointerId": 3,
+    "run": true
+  },
+  "lookMoved": {
+    "move": [
+      0,
+      1
+    ],
+    "joystickPointerId": 2,
+    "lookPointerId": 3,
+    "run": true
+  },
+  "afterTouchEnd": {
+    "move": [
+      0,
+      0
+    ],
+    "joystickPointerId": null,
+    "lookPointerId": null,
+    "run": false
+  },
+  "afterBlur": {
+    "move": [
+      0,
+      0
+    ],
+    "joystickPointerId": null,
+    "lookPointerId": null,
+    "run": false
+  },
+  "screenshot": "docs/screens/p1-input-multitouch.png"
+}

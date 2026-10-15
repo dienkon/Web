@@ -1,3 +1,4 @@
+import { LAB_SCENARIOS } from '../scenarios/catalog';
 import { Task, PlayerState } from '../types';
 import { TaskRegistry } from './TaskRegistry';
 
@@ -9,6 +10,15 @@ export interface Phase {
 }
 
 export const PhaseRegistry: Record<number, Phase> = {
+  5: {
+    id: 5,
+    name: 'Thực hành tình huống trong phòng lab',
+    requiredTasks: LAB_SCENARIOS.map(s => s.taskId),
+    teacherDialogComplete: [
+      'Em đã hoàn thành 15 tình huống thực hành bổ sung: từ nhận diện mẫu đến kiểm tra kết thúc buổi học.',
+      'Hãy mang thói quen quan sát, dừng nguy cơ và báo người phụ trách vào mỗi lần thực hành. Thầy sẽ ghi nhận kết quả của em.'
+    ]
+  },
   1: {
     id: 1,
     name: 'Trang bị bảo hộ',
@@ -55,10 +65,19 @@ export const PhaseRegistry: Record<number, Phase> = {
       'task_trash_disposal'
     ],
     teacherDialogComplete: [
-      "Thầy Giáo Hóa Học: Ôi tuyệt vời quá! Em đã thu gom và vứt sạch sẽ toàn bộ 3 mẩu rác hóa chất rò rỉ vào thùng rác chuyên dụng rồi.",
+      "Thầy Giáo Hóa Học: Ôi tuyệt vời quá! Em đã thu gom và vứt sạch sẽ túi chất thải hóa chất vào thùng rác chuyên dụng rồi.",
       "Thầy thực sự rất tự hào về tinh thần tự giác bảo vệ môi trường, ý thức giữ gìn vệ sinh và tuân thủ kỷ luật an toàn phòng thí nghiệm của em!",
-      "Tất cả các bài kiểm tra thực hành an toàn đều đạt điểm tối đa 100/100! Em hoàn toàn xứng đáng nhận chứng chỉ tốt nghiệp xuất sắc ngày hôm nay.",
-      "Hãy nhận tấm chứng chỉ danh giá này, ghi danh bảng vàng và sẵn sàng chuyển tiếp tới Phòng Thí Nghiệm Nghiên Cứu cấp cao nhé!"
+      "Tiếp theo là GIAI ĐOẠN 4: Ba vòng an toàn nâng cao ngay trong phòng lab này.",
+      "Đến bàn điện phía Tây Bắc, tủ hút phía Đông Bắc rồi lối thoát ở cửa vào. Quan sát tình huống và chọn đúng trình tự xử lý."
+    ]
+  },
+  4: {
+    id: 4,
+    name: 'An toàn nâng cao',
+    requiredTasks: ['task_electrical_safety', 'task_fume_safety', 'task_evacuation'],
+    teacherDialogComplete: [
+      'Em đã hoàn thành các vòng an toàn điện, hơi hóa chất và sơ tán trong phòng lab.',
+      'Hãy luôn báo người phụ trách khi gặp nguy cơ chưa rõ và tuân thủ hướng dẫn của phòng thí nghiệm. Thầy sẽ ghi nhận kết quả trên chứng chỉ của em.'
     ]
   }
 };
@@ -72,7 +91,7 @@ export class PhaseEngine {
     // If we have specific logic, we handle it
     return phase.requiredTasks.every(taskId => {
       if (taskId === 'task_trash_disposal') {
-        return (playerState.flags.trashCount || 0) >= 3;
+        return !!tasksState.find(t => t.id === taskId)?.completed && !playerState.inventory.isHoldingTrash;
       }
       const t = tasksState.find(t => t.id === taskId);
       return t ? t.completed : false;
@@ -193,21 +212,42 @@ export class PhaseEngine {
         ] };
       }
       
-      if ((playerState.flags.trashCount || 0) < 3) {
+      if (!this.isPhaseComplete(3, tasksState, playerState)) {
         return { seq: [
           "Rất giỏi! Vũng hóa chất tràn nguy hại đã được em dọn dẹp sạch sẽ hoàn toàn bằng Spill Kit.",
-          "Tuy nhiên, trên sàn phòng học hiện tại đang sót lại 3 mẩu rác hóa chất nguy hại phát sáng màu tím rực rỡ.",
-          "Nhiệm vụ cuối cùng của em là: Hãy đi thu gom toàn bộ 3 mẩu rác này (nhặt từng mẩu một) mang đến bỏ vào Thùng Rác Hóa Chất BIOHAZARD màu vàng ở góc phòng nhé!",
+          "Bây giờ có ba mẫu huấn luyện trên sàn: giấy, mảnh thủy tinh và vật liệu thấm hóa chất.",
+          "Dùng chổi và hốt rác thu gom từng mẫu, rồi phân loại vào đúng thùng: sinh hoạt, vật sắc nhọn hoặc chất thải hóa chất. Hoàn tất cả túi chất thải từ sự cố tràn.",
           "Hãy giữ an toàn tuyệt đối và hoàn thành xuất sắc nhiệm vụ giữ vệ sinh môi trường phòng thí nghiệm!"
         ] };
       }
 
       return {
         seq: PhaseRegistry[3].teacherDialogComplete,
-        onComplete: () => endGame()
+        onComplete: () => setCurrentPhase(4)
       };
     }
 
+    if (currentPhase === 4) {
+      if (!this.isPhaseComplete(4, tasksState, playerState)) return { seq: [
+        'Hãy hoàn thành lần lượt ba vòng: nước cạnh thiết bị điện, hơi hóa chất trong tủ hút và báo động sơ tán.',
+        'Đi theo đường chỉ dẫn, tương tác tại vị trí đánh dấu để xem tình huống và thực hành quyết định an toàn.'
+      ] };
+      return { seq: [
+        'Em đã hoàn thành ba vòng an toàn nâng cao.',
+        'Chặng tiếp theo có 15 tình huống trong chính phòng lab này. Mỗi vòng cần quan sát dấu hiệu, chọn cách xử lý và thực hiện đúng thứ tự.',
+        'Đi theo chỉ dẫn, đến gần mô hình và hướng nhìn vào vật. Khi có vòng xanh, bấm E để bắt đầu.'
+      ], onComplete: () => setCurrentPhase(5) };
+    }
+
+    if (currentPhase === 5) {
+      const next = LAB_SCENARIOS.find(s => !isCompleted(s.taskId));
+      if (next) return { seq: [
+        `Tình huống tiếp theo: ${next.title}.`,
+        next.summary,
+        'Theo chỉ dẫn đến hiện trường, quan sát đủ dấu hiệu và xử lý đúng trình tự. Tiến trình được lưu sau từng bước.'
+      ] };
+      return { seq: PhaseRegistry[5].teacherDialogComplete, onComplete: endGame };
+    }
     return { seq: ["Chúc em luôn giữ an toàn trong mọi phòng thực hành hóa học!"] };
   }
 }

@@ -5,13 +5,12 @@ import { Badge } from '../../ui/Badge';
 import { Button } from '../../ui/Button';
 import { vi } from '../../i18n/vi';
 import { Check, X, RotateCw, AlertTriangle, ShieldCheck, Sparkles } from 'lucide-react';
+import { interactionBus, INTERACTION_PRIORITY } from '../../systems/input/InteractionBus';
 
 export const RuleDialog: React.FC = () => {
   const activeRule = useStore((s) => s.activeRuleDialog);
   const setActiveRule = useStore((s) => s.setActiveRuleDialog);
   const [isFlipped, setIsFlipped] = useState(false);
-
-  if (!activeRule) return null;
 
   const handleClose = () => {
     setIsFlipped(false);
@@ -20,8 +19,16 @@ export const RuleDialog: React.FC = () => {
 
   React.useEffect(() => {
     if (!activeRule) return;
+    return interactionBus.subscribe({
+      priority: INTERACTION_PRIORITY.DIALOG,
+      onInteract: handleClose,
+    });
+  }, [activeRule]);
+
+  React.useEffect(() => {
+    if (!activeRule) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Backspace' || e.code === 'Escape' || e.code === 'KeyE' || e.code === 'Space') {
+      if (e.code === 'Backspace' || e.code === 'Escape') {
         e.preventDefault();
         handleClose();
       }
@@ -29,6 +36,8 @@ export const RuleDialog: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeRule]);
+
+  if (!activeRule) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F2233]/50 backdrop-blur-xs select-none">
@@ -55,12 +64,12 @@ export const RuleDialog: React.FC = () => {
               </div>
 
               {/* Big Pictogram Scene */}
-              <div className="w-full aspect-square max-h-48 rounded-2xl bg-gradient-to-tr from-sky-50 via-cyan-50 to-white flex items-center justify-center border border-cyan-100 shadow-inner my-4">
+              <div className="w-full aspect-square max-h-48 rounded-2xl bg-white from-sky-50 via-cyan-50 to-white flex items-center justify-center border border-cyan-100 shadow-inner my-4">
                 <div className="relative flex items-center justify-center">
                   <div className="w-24 h-24 rounded-full bg-cyan-100/50 flex items-center justify-center animate-pulse">
                     <ShieldCheck className="w-14 h-14 text-[var(--primary)]" />
                   </div>
-                  <Sparkles className="absolute -top-1 -right-1 w-6 h-6 text-amber-400" />
+                  <Sparkles className="absolute -top-1 -right-1 w-6 h-6 text-amber-700" />
                 </div>
               </div>
 
@@ -131,7 +140,7 @@ export const RuleDialog: React.FC = () => {
               <div className="space-y-2">
                 {activeRule.correct && (
                   <div className="flex items-start gap-2.5 p-3 rounded-xl bg-emerald-50 border border-emerald-100 text-xs">
-                    <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-5 h-5 rounded-full bg-emerald-100 text-slate-800 flex items-center justify-center shrink-0 mt-0.5">
                       <Check className="w-3.5 h-3.5" />
                     </div>
                     <div>
@@ -143,7 +152,7 @@ export const RuleDialog: React.FC = () => {
 
                 {activeRule.wrong && (
                   <div className="flex items-start gap-2.5 p-3 rounded-xl bg-rose-50 border border-rose-100 text-xs">
-                    <div className="w-5 h-5 rounded-full bg-rose-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-5 h-5 rounded-full bg-rose-100 text-slate-800 flex items-center justify-center shrink-0 mt-0.5">
                       <X className="w-3.5 h-3.5" />
                     </div>
                     <div>

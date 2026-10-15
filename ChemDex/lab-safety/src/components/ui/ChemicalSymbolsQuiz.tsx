@@ -87,18 +87,18 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
   if (!showChemicalSymbolsQuiz || !currentSymbol) return null;
 
   return (
-    <div className="absolute inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-md pointer-events-auto p-4">
+    <div className="absolute inset-0 z-[100] flex items-center justify-center bg-slate-100/80 backdrop-blur-none pointer-events-auto p-4">
       <motion.div 
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        className="bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl p-5 sm:p-6 md:p-8 max-w-lg w-full text-center border border-slate-200/80 relative"
+        className="bg-white/95 backdrop-blur-none rounded-[2rem] shadow-sm p-5 sm:p-6 md:p-8 max-w-lg w-full text-center border border-slate-200/80 relative"
       >
         <button
           onClick={() => {
             playSound('click');
             setShowChemicalSymbolsQuiz(false);
           }}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors"
+          className="absolute top-4 right-4 p-2 text-slate-600 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors"
           title="Đóng bài tập"
         >
           <X size={20} />
@@ -109,7 +109,7 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
         </div>
 
         <div className="mb-4 md:mb-4 md:mb-8">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
+          <p className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-4">
             Câu {currentIndex + 1} / {SYMBOLS.length}
           </p>
           
@@ -127,13 +127,13 @@ export const ChemicalSymbolsQuiz: React.FC = () => {
             
             if (showResult) {
               if (isSelected && isCorrect) {
-                btnClass = "bg-emerald-500 border-emerald-600 text-white shadow-lg shadow-emerald-200";
+                btnClass = "bg-emerald-100 border-emerald-600 text-slate-800 shadow-lg shadow-emerald-200";
               } else if (isSelected && !isCorrect) {
-                btnClass = "bg-rose-500 border-rose-600 text-white shadow-lg shadow-rose-200";
+                btnClass = "bg-rose-100 border-rose-600 text-slate-800 shadow-lg shadow-rose-200";
               } else if (isCorrect) {
                 btnClass = "bg-emerald-100 border-emerald-300 text-emerald-800";
               } else {
-                btnClass = "bg-slate-50 border-slate-200 text-slate-400 opacity-50";
+                btnClass = "bg-slate-50 border-slate-200 text-slate-600 opacity-50";
               }
             }
 

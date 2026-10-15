@@ -1,9 +1,11 @@
+export type ToolSlot = 'extinguisher' | 'spillKit' | 'waste';
 export type ViewState = 'start' | 'game' | 'certificate';
 export type GameMode = 'learn' | 'challenge' | 'exam';
 export type GameRunState = 'RUNNING' | 'PAUSED';
+export type CinematicId = 'fire' | 'electrical' | 'fume' | 'evacuation' | `scenario:${string}`;
 
-export type TaskId = 'task_talk' | 'task_rules' | 'task_goggles' | 'task_coat' | 'task_gloves' | 'task_mask' | 'task_hair' | 'task_shoes' | 'task_fire_extinguisher' | 'task_chemical_symbols' | 'task_inspect_acid' | 'task_bandage' | 'task_spill_kit' | 'task_spill_neutralize' | 'task_spill_wipe' | 'task_trash_disposal';
-export type PhaseId = 'phase_1' | 'phase_2' | 'phase_3';
+export type TaskId = 'task_talk' | 'task_rules' | 'task_goggles' | 'task_coat' | 'task_gloves' | 'task_mask' | 'task_hair' | 'task_shoes' | 'task_fire_extinguisher' | 'task_chemical_symbols' | 'task_inspect_acid' | 'task_bandage' | 'task_spill_kit' | 'task_spill_neutralize' | 'task_spill_wipe' | 'task_trash_disposal' | 'task_electrical_safety' | 'task_fume_safety' | 'task_evacuation';
+export type PhaseId = 'phase_1' | 'phase_2' | 'phase_3' | 'phase_4' | 'phase_5';
 export type MistakeId =
   | 'ppe_missing'
   | 'wrong_trash'
@@ -77,12 +79,20 @@ export interface PlayerState {
   inventory: {
     hasFireExtinguisher?: boolean;
     isHoldingTrash?: boolean;
+    heldWasteId?: string | null;
     heldTrashType?: 'domestic' | 'chemical' | 'sharps' | null;
     hasSweeper?: boolean;
   };
   flags: {
     fireExtinguished?: boolean;
+    extinguisherReady?: boolean;
+    passTrained?: boolean;
+    fireIntroSeen?: boolean;
+    spillStage?: 'hazard' | 'cones_placed' | 'neutralized' | 'cleaned';
+    spillProgress?: number;
     trashCount?: number;
+    wastePicked?: string[];
+    wasteDisposed?: string[];
     trash1Picked?: boolean;
     trash2Picked?: boolean;
     trash3Picked?: boolean;
@@ -124,10 +134,17 @@ export interface SettingsState {
   largeText: boolean;
   leftHanded: boolean;
   cameraSensitivity: number;
+  invertY: boolean;
   safeEffects: boolean;
 }
 
 export interface GameState {
+  cinematic: CinematicId | null;
+  startCinematic: (id: CinematicId) => void;
+  finishCinematic: () => void;
+  activeTool: ToolSlot | null;
+  selectTool: (tool: ToolSlot | null) => void;
+  sceneModalCount: number;
   view: ViewState;
   gameMode: GameMode;
   score: number;

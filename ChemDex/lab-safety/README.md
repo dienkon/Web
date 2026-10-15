@@ -6,9 +6,12 @@ Mô phỏng an toàn phòng thí nghiệm tương tác 3D.
 
 ## Getting Started
 \`\`\`bash
+nvm use
 npm install
 npm run dev
 \`\`\`
+
+Yêu cầu Node.js 22 LTS (xem `.nvmrc`). Không dùng nội dung trong `dist/` hoặc `assets/` làm mã nguồn; bản build luôn được tạo vào `dist/`.
 
 ## Scripts
 - \`npm run dev\`: Khởi chạy môi trường phát triển
@@ -25,6 +28,13 @@ npm run dev
 - Sử dụng dynamic \`graphicsQuality\` scale tự động từ đo đạc FPS thật.
 - Các vật thể nhỏ không tham gia \`castShadow\`.
 - Bloom / PostProcessing tự động vô hiệu hóa trên mobile hoặc preset \`low\`.
+- Tách bundle React Three Fiber, Drei, post-processing, motion và icon để tải/cache độc lập.
+
+## Hệ thống hình ảnh
+- Màn chào dạng mission briefing đặt trên cảnh 3D chạy thật, có responsive mobile/desktop.
+- HUD kính tối tương phản cao, waypoint, trạng thái an toàn và phản hồi điểm theo thời gian thực.
+- Nhân vật procedural nhận trực tiếp hồ sơ đã lưu (màu da, tóc, áo, 5 kiểu tóc) và có preview 3D trong trình tạo nhân vật.
+- Bụi sáng, halo, bloom, vignette và chỉ dẫn sàn tự giảm/tắt theo cấu hình hiệu năng và Reduce Motion.
 
 ## Hạn chế Nội dung
 Các nội dung an toàn trong mô phỏng (quấn băng, trung hòa, chữa cháy) chỉ mang tính minh họa học tập. **KHÔNG** dùng làm quy trình đào tạo chính thức cho cơ sở thực tế (Cần đối chiếu nội quy nhà trường và phiếu an toàn SDS của hóa chất).

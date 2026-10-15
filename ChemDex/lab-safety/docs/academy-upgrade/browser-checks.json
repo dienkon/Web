@@ -1,0 +1,274 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "sort-waste",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "sort-storage",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "sort-equipment",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "sort-readiness",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "sort-emergency",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "sort-workspace",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "sequence-ppe",
+      "score": 100,
+      "correct": 5,
+      "mistakes": 0
+    },
+    {
+      "id": "sequence-balance",
+      "score": 100,
+      "correct": 5,
+      "mistakes": 0
+    },
+    {
+      "id": "sequence-volume",
+      "score": 100,
+      "correct": 5,
+      "mistakes": 0
+    },
+    {
+      "id": "sequence-handwash",
+      "score": 100,
+      "correct": 5,
+      "mistakes": 0
+    },
+    {
+      "id": "sequence-glass",
+      "score": 100,
+      "correct": 5,
+      "mistakes": 0
+    },
+    {
+      "id": "sequence-evacuate",
+      "score": 100,
+      "correct": 5,
+      "mistakes": 0
+    },
+    {
+      "id": "memory-tools",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "memory-pass",
+      "score": 100,
+      "correct": 4,
+      "mistakes": 0
+    },
+    {
+      "id": "memory-units",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "memory-risks",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "hazard-bench",
+      "score": 100,
+      "correct": 4,
+      "mistakes": 0
+    },
+    {
+      "id": "hazard-storage",
+      "score": 100,
+      "correct": 4,
+      "mistakes": 0
+    },
+    {
+      "id": "hazard-exit",
+      "score": 100,
+      "correct": 4,
+      "mistakes": 0
+    },
+    {
+      "id": "hazard-cleanup",
+      "score": 100,
+      "correct": 4,
+      "mistakes": 0
+    },
+    {
+      "id": "volume-25",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "volume-40",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "balance-5",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "balance-12",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "pipette-2",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "pipette-7",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "temperature-40",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "temperature-55",
+      "score": 100,
+      "correct": 1,
+      "mistakes": 0
+    },
+    {
+      "id": "flow-first",
+      "score": 100,
+      "correct": 3,
+      "mistakes": 0
+    },
+    {
+      "id": "flow-steady",
+      "score": 100,
+      "correct": 3,
+      "mistakes": 0
+    },
+    {
+      "id": "flow-patience",
+      "score": 95,
+      "correct": 3,
+      "mistakes": 1
+    },
+    {
+      "id": "flow-master",
+      "score": 95,
+      "correct": 3,
+      "mistakes": 1
+    },
+    {
+      "id": "decision-preparation-1",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-preparation-2",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-identification-1",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-identification-2",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-measurement-1",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-measurement-2",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-handling-1",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-handling-2",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-cleanup-1",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-cleanup-2",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-emergency-1",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    },
+    {
+      "id": "decision-emergency-2",
+      "score": 100,
+      "correct": 6,
+      "mistakes": 0
+    }
+  ],
+  "errors": [],
+  "persisted": {
+    "xp": 5274,
+    "history": 44
+  }
+}

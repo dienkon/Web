@@ -1,0 +1,280 @@
+{
+  "baseline": "Source snapshot at the start of this upgrade, not Git HEAD.",
+  "changedFiles": 45,
+  "added": 10690,
+  "deleted": 1,
+  "changedNonblankLines": 10485,
+  "runtimeContentLines": 6245,
+  "files": [
+    {
+      "path": "src/App.tsx",
+      "added": 2,
+      "deleted": 0,
+      "changedNonblankLines": 2
+    },
+    {
+      "path": "src/academy/academy.css",
+      "added": 580,
+      "deleted": 0,
+      "changedNonblankLines": 580
+    },
+    {
+      "path": "src/academy/AcademyGate.tsx",
+      "added": 44,
+      "deleted": 0,
+      "changedNonblankLines": 42
+    },
+    {
+      "path": "src/academy/AcademyHub.tsx",
+      "added": 178,
+      "deleted": 0,
+      "changedNonblankLines": 168
+    },
+    {
+      "path": "src/academy/components/GameUI.tsx",
+      "added": 67,
+      "deleted": 0,
+      "changedNonblankLines": 61
+    },
+    {
+      "path": "src/academy/core/achievements.ts",
+      "added": 34,
+      "deleted": 0,
+      "changedNonblankLines": 32
+    },
+    {
+      "path": "src/academy/core/catalog.ts",
+      "added": 124,
+      "deleted": 0,
+      "changedNonblankLines": 116
+    },
+    {
+      "path": "src/academy/core/coaching.ts",
+      "added": 69,
+      "deleted": 0,
+      "changedNonblankLines": 67
+    },
+    {
+      "path": "src/academy/core/export.ts",
+      "added": 49,
+      "deleted": 0,
+      "changedNonblankLines": 45
+    },
+    {
+      "path": "src/academy/core/planner.ts",
+      "added": 65,
+      "deleted": 0,
+      "changedNonblankLines": 62
+    },
+    {
+      "path": "src/academy/core/profile.ts",
+      "added": 215,
+      "deleted": 0,
+      "changedNonblankLines": 205
+    },
+    {
+      "path": "src/academy/core/random.ts",
+      "added": 40,
+      "deleted": 0,
+      "changedNonblankLines": 36
+    },
+    {
+      "path": "src/academy/core/review.ts",
+      "added": 41,
+      "deleted": 0,
+      "changedNonblankLines": 38
+    },
+    {
+      "path": "src/academy/core/scoring.ts",
+      "added": 119,
+      "deleted": 0,
+      "changedNonblankLines": 107
+    },
+    {
+      "path": "src/academy/core/store.ts",
+      "added": 108,
+      "deleted": 0,
+      "changedNonblankLines": 106
+    },
+    {
+      "path": "src/academy/core/types.ts",
+      "added": 278,
+      "deleted": 0,
+      "changedNonblankLines": 252
+    },
+    {
+      "path": "src/academy/data/badges.ts",
+      "added": 204,
+      "deleted": 0,
+      "changedNonblankLines": 203
+    },
+    {
+      "path": "src/academy/data/cases.ts",
+      "added": 2668,
+      "deleted": 0,
+      "changedNonblankLines": 2667
+    },
+    {
+      "path": "src/academy/data/chapters.ts",
+      "added": 210,
+      "deleted": 0,
+      "changedNonblankLines": 209
+    },
+    {
+      "path": "src/academy/data/games.ts",
+      "added": 2361,
+      "deleted": 0,
+      "changedNonblankLines": 2360
+    },
+    {
+      "path": "src/academy/data/glossary.ts",
+      "added": 802,
+      "deleted": 0,
+      "changedNonblankLines": 801
+    },
+    {
+      "path": "src/academy/games/DecisionGame.tsx",
+      "added": 105,
+      "deleted": 0,
+      "changedNonblankLines": 100
+    },
+    {
+      "path": "src/academy/games/FlowGame.tsx",
+      "added": 222,
+      "deleted": 0,
+      "changedNonblankLines": 215
+    },
+    {
+      "path": "src/academy/games/HazardGame.tsx",
+      "added": 123,
+      "deleted": 0,
+      "changedNonblankLines": 118
+    },
+    {
+      "path": "src/academy/games/MemoryGame.tsx",
+      "added": 132,
+      "deleted": 0,
+      "changedNonblankLines": 126
+    },
+    {
+      "path": "src/academy/games/PrecisionGame.tsx",
+      "added": 158,
+      "deleted": 0,
+      "changedNonblankLines": 153
+    },
+    {
+      "path": "src/academy/games/SequenceGame.tsx",
+      "added": 128,
+      "deleted": 0,
+      "changedNonblankLines": 124
+    },
+    {
+      "path": "src/academy/games/SortingGame.tsx",
+      "added": 131,
+      "deleted": 0,
+      "changedNonblankLines": 127
+    },
+    {
+      "path": "src/academy/hooks/useDialogFocus.ts",
+      "added": 45,
+      "deleted": 0,
+      "changedNonblankLines": 43
+    },
+    {
+      "path": "src/academy/hooks/useRound.ts",
+      "added": 86,
+      "deleted": 0,
+      "changedNonblankLines": 81
+    },
+    {
+      "path": "src/academy/screens/CoachingScreen.tsx",
+      "added": 72,
+      "deleted": 0,
+      "changedNonblankLines": 71
+    },
+    {
+      "path": "src/academy/screens/GamePlayer.tsx",
+      "added": 212,
+      "deleted": 0,
+      "changedNonblankLines": 206
+    },
+    {
+      "path": "src/academy/screens/GlossaryScreen.tsx",
+      "added": 69,
+      "deleted": 0,
+      "changedNonblankLines": 67
+    },
+    {
+      "path": "src/academy/screens/NotebookScreen.tsx",
+      "added": 81,
+      "deleted": 0,
+      "changedNonblankLines": 77
+    },
+    {
+      "path": "src/academy/screens/ProgressScreen.tsx",
+      "added": 93,
+      "deleted": 0,
+      "changedNonblankLines": 91
+    },
+    {
+      "path": "src/academy/screens/ResultScreen.tsx",
+      "added": 86,
+      "deleted": 0,
+      "changedNonblankLines": 83
+    },
+    {
+      "path": "src/academy/screens/SettingsScreen.tsx",
+      "added": 78,
+      "deleted": 0,
+      "changedNonblankLines": 75
+    },
+    {
+      "path": "src/academy/screens/StudyPlanScreen.tsx",
+      "added": 72,
+      "deleted": 0,
+      "changedNonblankLines": 71
+    },
+    {
+      "path": "src/components/ui/LabInstrumentGame.tsx",
+      "added": 5,
+      "deleted": 0,
+      "changedNonblankLines": 5
+    },
+    {
+      "path": "package.json",
+      "added": 2,
+      "deleted": 1,
+      "changedNonblankLines": 3
+    },
+    {
+      "path": "scripts/academy-core-checks.ts",
+      "added": 192,
+      "deleted": 0,
+      "changedNonblankLines": 174
+    },
+    {
+      "path": "scripts/test-academy-core.mjs",
+      "added": 19,
+      "deleted": 0,
+      "changedNonblankLines": 18
+    },
+    {
+      "path": "scripts/test-academy-browser.mjs",
+      "added": 156,
+      "deleted": 0,
+      "changedNonblankLines": 145
+    },
+    {
+      "path": "scripts/test-academy-edges.mjs",
+      "added": 108,
+      "deleted": 0,
+      "changedNonblankLines": 97
+    },
+    {
+      "path": "scripts/measure-academy-upgrade.py",
+      "added": 57,
+      "deleted": 0,
+      "changedNonblankLines": 56
+    }
+  ]
+}

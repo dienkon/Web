@@ -1,8 +1,12 @@
-import React, { useState, useRef, useMemo } from 'react';
+import { useTaskProximity } from './useTaskProximity';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import * as THREE from 'three';
 import { playerCoords, useStore } from '../../../store/useStore';
+import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
+import { useInteractionStore } from '../../../core/InteractionSystem';
+import { interactionBus, INTERACTION_PRIORITY } from '../../../systems/input/InteractionBus';
 import { soundManager } from '../../../audio/soundManager';
 
 const SPILL_POS: [number, number, number] = [2.5, 0.015, 1.0];
@@ -10,8 +14,11 @@ const SPILL_POS: [number, number, number] = [2.5, 0.015, 1.0];
 type SpillState = 'hazard' | 'cones_placed' | 'neutralized' | 'cleaned';
 
 export const ChemicalSpillSimulation: React.FC = () => {
-  const [spillState, setSpillState] = useState<SpillState>('hazard');
-  const [neutralizeProgress, setNeutralizeProgress] = useState(0); // 0 to 100%
+  const spillState = useStore(s => s.player.flags.spillStage ?? 'hazard');
+  const neutralizeProgress = useStore(s => s.player.flags.spillProgress ?? 0);
+  const activeTool = useStore(s => s.activeTool);
+  const setSpillState = (spillStage: SpillState) => useStore.setState(s => ({ player: { ...s.player, flags: { ...s.player.flags, spillStage } } }));
+  const setNeutralizeProgress = (spillProgress: number) => useStore.setState(s => ({ player: { ...s.player, flags: { ...s.player.flags, spillProgress } } }));
 
   const vaporPointsRef = useRef<THREE.Points>(null);
   const foamRef = useRef<THREE.Group>(null);
@@ -27,7 +34,8 @@ export const ChemicalSpillSimulation: React.FC = () => {
   const dx = SPILL_POS[0] - playerCoords.position[0];
   const dz = SPILL_POS[2] - playerCoords.position[2];
   const distance = Math.hypot(dx, dz);
-  const isNear = distance < 2.4;
+  const isNear = useTaskProximity(SPILL_POS, 2.4, ['task_spill_neutralize', 'task_spill_wipe'], false);
+  const focusedSpill = useInteractionStore(s => s.nearestId === 'spill_simulation');
 
   // Acid vapor particles
   const vaporCount = 35;
@@ -42,6 +50,7 @@ export const ChemicalSpillSimulation: React.FC = () => {
   }, []);
 
   useFrame((_, delta) => {
+    if (currentPhase !== 3 || isSceneInputBlocked()) return;
     // Animate rising toxic vapors if still active hazard
     if (vaporPointsRef.current && (spillState === 'hazard' || spillState === 'cones_placed')) {
       const posAttr = vaporPointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
@@ -70,7 +79,9 @@ export const ChemicalSpillSimulation: React.FC = () => {
   });
 
   // Action 1: Place Safety Warning Cones
+  const canAct = () => !isSceneInputBlocked() && isNear && useStore.getState().activeTool === 'spillKit' && !!useStore.getState().player.inventory.hasSweeper;
   const handlePlaceCones = () => {
+    if (!canAct()) return;
     setSpillState('cones_placed');
     soundManager.play('snap');
     startDialog([
@@ -82,6 +93,7 @@ export const ChemicalSpillSimulation: React.FC = () => {
 
   // Action 2: Sprinkle Neutralizing Powder (NaHCO3)
   const handleSprinklePowder = () => {
+    if (!canAct() || spillState !== 'cones_placed') return;
     if (!player.equipment.hasGloves) {
       addError('ppe_missing', {
         penalty: 10,
@@ -109,6 +121,8 @@ export const ChemicalSpillSimulation: React.FC = () => {
 
   // Action 3: Wipe & Scoop up into Hazmat Bag
   const handleWipeAndCollect = () => {
+    if (!canAct() || spillState !== 'neutralized') return;
+    useStore.setState(s => ({ activeTool: 'waste', player: { ...s.player, inventory: { ...s.player.inventory, isHoldingTrash: true, heldTrashType: 'chemical', heldWasteId: 'spill' } } }));
     setSpillState('cleaned');
     soundManager.play('complete');
     completeTask('task_spill_wipe');
@@ -119,8 +133,21 @@ export const ChemicalSpillSimulation: React.FC = () => {
     ]);
   };
 
+  const actionLabel = spillState === 'hazard' ? 'Đặt cọc tiêu cô lập vũng tràn' : spillState === 'cones_placed' ? `Rải bột trung hòa (${neutralizeProgress}%)` : 'Thu gom chất thải';
+  const active = isNear && activeTool === 'spillKit' && spillState !== 'cleaned';
+  useEffect(() => {
+    useInteractionStore.getState().register({ id: 'spill_simulation', position: SPILL_POS, label: actionLabel, isActive: active });
+    return () => useInteractionStore.getState().unregister('spill_simulation');
+  }, [active, actionLabel]);
+  useEffect(() => interactionBus.subscribe({ priority: INTERACTION_PRIORITY.TARGET, isActive: () => active && !isSceneInputBlocked() && useInteractionStore.getState().nearestId === 'spill_simulation', onInteract: () => {
+    if (spillState === 'hazard') handlePlaceCones();
+    else if (spillState === 'cones_placed') handleSprinklePowder();
+    else if (spillState === 'neutralized') handleWipeAndCollect();
+    useStore.getState().saveGame();
+  } }), [active, spillState, neutralizeProgress]);
+
   // Only active in Phase 3 or when relevant
-  if (currentPhase < 3 && spillState === 'cleaned') return null;
+  if (currentPhase !== 3) return null;
 
   return (
     <group position={SPILL_POS}>
@@ -256,17 +283,17 @@ export const ChemicalSpillSimulation: React.FC = () => {
       )}
 
       {/* 3. Proximity Interactive HUD Overlay */}
-      {isNear && spillState !== 'cleaned' && (
+      {isNear && focusedSpill && activeTool === 'spillKit' && spillState !== 'cleaned' && (
         <Html position={[0, 0.6, 0]} center distanceFactor={7}>
           <div className="flex flex-col items-center gap-2 pointer-events-auto select-none font-sans whitespace-nowrap">
             {spillState === 'hazard' && (
               <button
                 onClick={handlePlaceCones}
-                className="px-4 py-2 rounded-full text-xs font-bold border border-amber-400 bg-amber-950/90 text-amber-200 shadow-2xl flex items-center gap-2 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95 transition-all animate-pulse"
+                className="px-4 py-2 rounded-full text-xs font-bold border border-amber-400 bg-amber-950/90 text-amber-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all animate-pulse"
               >
                 <span>⚠️</span>
                 <span>Đặt cọc tiêu cảnh báo cô lập vũng tràn</span>
-                <span className="text-[10px] font-mono text-amber-400">[Click]</span>
+                <span className="text-[10px] font-mono text-amber-700">[Click]</span>
               </button>
             )}
 
@@ -274,15 +301,15 @@ export const ChemicalSpillSimulation: React.FC = () => {
               <div className="flex flex-col items-center gap-1.5">
                 <button
                   onClick={handleSprinklePowder}
-                  className="px-4 py-2 rounded-full text-xs font-bold border border-cyan-400 bg-slate-950/90 text-cyan-200 shadow-2xl flex items-center gap-2 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                  className="px-4 py-2 rounded-full text-xs font-bold border border-cyan-400 bg-slate-100/80 text-cyan-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all"
                 >
                   <span>🧪</span>
                   <span>Rải bột trung hòa NaHCO3 ({neutralizeProgress}%)</span>
-                  <span className="text-[10px] font-mono text-cyan-400">[Click liên tục]</span>
+                  <span className="text-[10px] font-mono text-cyan-700">[Click liên tục]</span>
                 </button>
-                <div className="w-48 h-1.5 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
+                <div className="w-48 h-1.5 rounded-full bg-slate-50 overflow-hidden border border-slate-200">
                   <div
-                    className="h-full bg-gradient-to-r from-amber-400 to-emerald-400 transition-all duration-300"
+                    className="h-full bg-white from-amber-400 to-emerald-400 transition-all duration-300"
                     style={{ width: `${neutralizeProgress}%` }}
                   />
                 </div>
@@ -292,11 +319,11 @@ export const ChemicalSpillSimulation: React.FC = () => {
             {spillState === 'neutralized' && (
               <button
                 onClick={handleWipeAndCollect}
-                className="px-4 py-2 rounded-full text-xs font-bold border border-emerald-400 bg-emerald-950/90 text-emerald-200 shadow-2xl flex items-center gap-2 backdrop-blur-md cursor-pointer hover:scale-105 active:scale-95 transition-all animate-bounce"
+                className="px-4 py-2 rounded-full text-xs font-bold border border-emerald-400 bg-emerald-100/90 text-emerald-700 shadow-sm flex items-center gap-2 backdrop-blur-none cursor-pointer hover:scale-105 active:scale-95 transition-all animate-bounce"
               >
                 <span>🧹</span>
                 <span>Lau dọn & Thu gom vào túi rác nguy hại</span>
-                <span className="text-[10px] font-mono text-emerald-400">[Click]</span>
+                <span className="text-[10px] font-mono text-emerald-700">[Click]</span>
               </button>
             )}
           </div>

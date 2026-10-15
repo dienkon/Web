@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "errors": [],
+  "checked": [
+    "PASS unlock and wrong answer",
+    "acid drag and reversed pour",
+    "three pour-stir-cool cycles",
+    "waste sample and classification",
+    "three safety scenarios",
+    "modal cleanup"
+  ]
+}

@@ -93,7 +93,7 @@ export const InteractiveTasks: React.FC = () => {
       {/* Task: Buộc tóc gọn gàng trước gương */}
       <InteractableItem
         id="mirror_hair"
-        position={[-3.0, 1.5, 7.1]}
+        position={[-0.95, 1.5, 6.82]}
         label="Buộc tóc gọn gàng trước gương (Phím E)"
         type="action"
         taskId="task_hair"
@@ -193,9 +193,11 @@ export const InteractiveTasks: React.FC = () => {
         label="Lấy Bình chữa cháy & Học quy trình P.A.S.S (Phím E)"
         type="learn"
         taskId="task_fire_extinguisher"
+        disabled={!!player.inventory.hasFireExtinguisher}
         equipKey="hasFireExtinguisher"
         dialogCallback={() => {
-          setShowFireExtinguisherQuiz(true);
+          const state = useStore.getState();
+          state.setShowFireExtinguisherQuiz(true);
         }}
         isGlowing={currentPhase === 2 && !isTaskDone('task_fire_extinguisher')}
       >
@@ -233,12 +235,8 @@ export const InteractiveTasks: React.FC = () => {
         position={[4.2, 0.95, 2.2]}
         label="Tìm hiểu Quy tắc pha loãng Axit (Phím E)"
         type="learn"
-        ruleId={3}
         taskId="task_inspect_acid"
-        dialogSequence={[
-          'QUY TẮC VÀNG PHA LOÃNG AXIT: Luôn luôn rót từ từ Axit vào Nước và khuấy đều!',
-          'TUYỆT ĐỐI KHÔNG làm ngược lại (rót Nước vào Axit đậm đặc) vì phản ứng tỏa nhiệt cực mạnh sẽ làm sôi nước tức thì và bắn axit tung tóe gây bỏng nặng!',
-        ]}
+        dialogCallback={() => window.dispatchEvent(new Event('lab-open-acid'))}
         isGlowing={currentPhase === 2 && !isTaskDone('task_inspect_acid')}
       >
         <group>
@@ -296,9 +294,10 @@ export const InteractiveTasks: React.FC = () => {
         id="waste_bins"
         position={[8.8, 0.3, 5.0]}
         label="Phân loại & Thu gom rác thải nguy hại (Phím E)"
-        type="action"
+        type="learn"
         taskId="task_trash_disposal"
-        successMessage="Đã phân loại và vứt toàn bộ chất thải hóa học vào đúng thùng chuyên dụng!"
+        requiredEquipment={['isHoldingTrash']}
+        dialogCallback={() => window.dispatchEvent(new Event('lab-open-waste'))}
         isGlowing={currentPhase === 3 && isTaskDone('task_spill_wipe') && !isTaskDone('task_trash_disposal')}
       >
         <group>

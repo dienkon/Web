@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "equipmentCount": 144,
+  "kinds": [
+    "smokeAlarm",
+    "ventilation",
+    "door",
+    "ppe",
+    "mirror",
+    "wash",
+    "shower",
+    "extinguisher",
+    "blanket",
+    "spillKit",
+    "board",
+    "firstAid",
+    "workspace",
+    "drawer",
+    "storage",
+    "electrical",
+    "gas",
+    "seat",
+    "balance",
+    "heat",
+    "ph",
+    "titration",
+    "glass",
+    "volume",
+    "acid",
+    "hood",
+    "waste",
+    "clock",
+    "locker"
+  ],
+  "usedCount": 144,
+  "navigation": {
+    "routes": 24,
+    "maxTurns": 4
+  },
+  "waste": [
+    "paper",
+    "glass",
+    "absorbent"
+  ],
+  "errors": []
+}

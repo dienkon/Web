@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text, Html } from '@react-three/drei';
+import { isSceneInputBlocked } from '../../systems/input/sceneInput';
+import { getActiveObjective } from './lab/ObjectiveMarker';
 import { useSpring, a } from '@react-spring/three';
 import * as THREE from 'three';
 import { useStore, playerCoords } from '../../store/useStore';
 import { useInteractionStore } from '../../core/InteractionSystem';
 import { PlayerState } from '../../types';
 import { SAFETY_RULES } from '../../data/rules';
+import { interactionBus, INTERACTION_PRIORITY } from '../../systems/input/InteractionBus';
 
 interface Props {
   id: string;
@@ -47,26 +49,46 @@ export const InteractableItem: React.FC<Props> = ({
   const setActiveRuleDialog = useStore((s) => s.setActiveRuleDialog);
   const addError = useStore((s) => s.addError);
   const startDialog = useStore((s) => s.startDialog);
-  const isDialogActive = useStore((s) => s.isDialogActive);
 
   const nearestId = useInteractionStore((s) => s.nearestId);
   const register = useInteractionStore((s) => s.register);
   const unregister = useInteractionStore((s) => s.unregister);
 
-  const isActive = visible && !disabled && !(type === 'equip' && isCompleted);
+  const inputBlocked = useStore(isSceneInputBlocked);
+  const worldPosition = useRef(new THREE.Vector3());
+  const currentPhase = useStore(s => s.currentPhase);
+  const tasks = useStore(s => s.tasks);
+  const objective = getActiveObjective(currentPhase, tasks, player.flags);
+  const isCurrentTask = !taskId || objective?.id === taskId;
+  const isActive = isCurrentTask && !inputBlocked && !animating && visible && !disabled && !(type === 'equip' && (isCompleted || (equipKey && (player.equipment as any)[equipKey])));
   const showPrompt = nearestId === id && isActive;
 
   useEffect(() => {
-    register({ id, position, label, isActive });
+    group.current?.updateWorldMatrix(true, false);
+    group.current?.getWorldPosition(worldPosition.current);
+    const bounds = new THREE.Box3().setFromObject(group.current!);
+    const center = bounds.isEmpty() ? worldPosition.current.clone() : bounds.getCenter(new THREE.Vector3());
+    if (id === 'teacher_talk') center.y = 1.2;
+    const size = bounds.isEmpty() ? new THREE.Vector3(.4, .4, .4) : bounds.getSize(new THREE.Vector3());
+    register({
+      id,
+      position: worldPosition.current.toArray() as [number, number, number],
+      aimPosition: center.toArray() as [number, number, number],
+      label,
+      isActive,
+      radius: Math.max(.16, Math.min(.42, Math.max(size.x, size.y) * .3)),
+      reach: id === 'teacher_talk' ? 2.4 : 2.15,
+      object: group.current ?? undefined,
+    });
     return () => unregister(id);
   }, [id, position, label, isActive, register, unregister]);
 
   useFrame((state) => {
     if (group.current && !animating && !disabled) {
       if (hovered) {
-        group.current.scale.lerp(new THREE.Vector3(1.08, 1.08, 1.08), 0.1);
+        group.current.scale.setScalar(1.015);
       } else {
-        group.current.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
+        group.current.scale.setScalar(1);
       }
     }
     
@@ -97,14 +119,14 @@ export const InteractableItem: React.FC<Props> = ({
 
   const handleClick = (e?: any) => {
     if (e && e.stopPropagation) e.stopPropagation();
-    if (disabled) return;
+    if (!isActive || isSceneInputBlocked() || useInteractionStore.getState().nearestId !== id) return;
 
     const now = Date.now();
     if (now - lastInteractionTime < GLOBAL_COOLDOWN_MS) return;
     lastInteractionTime = now;
     
-    const dx = playerCoords.position[0] - position[0];
-    const dz = playerCoords.position[2] - position[2];
+    const dx = playerCoords.position[0] - worldPosition.current.x;
+    const dz = playerCoords.position[2] - worldPosition.current.z;
     const dist = Math.sqrt(dx * dx + dz * dz);
 
     if (dist > 2.5) {
@@ -149,7 +171,7 @@ export const InteractableItem: React.FC<Props> = ({
         const rule = SAFETY_RULES.find(r => r.id === ruleId);
         if (rule) setActiveRuleDialog(rule);
       }
-      if (taskId) completeTask(taskId);
+      if (taskId && !dialogCallback) completeTask(taskId);
     }
   };
 
@@ -159,22 +181,12 @@ export const InteractableItem: React.FC<Props> = ({
   }, [handleClick]);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'KeyE' || e.code === 'Enter' || e.code === 'Space') {
-        if (disabled) return;
-        if (type === 'equip' && isCompleted) return;
-        if (isDialogActive) return;
-        
-        if (showPrompt) {
-          e.preventDefault();
-          handleClickRef.current();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showPrompt, disabled, isCompleted, isDialogActive]);
+    return interactionBus.subscribe({
+      priority: INTERACTION_PRIORITY.TARGET,
+      isActive: () => showPrompt && !disabled && !(type === 'equip' && isCompleted),
+      onInteract: () => handleClickRef.current(),
+    });
+  }, [showPrompt, disabled, type, isCompleted]);
 
   if (!visible) return null;
 
@@ -183,7 +195,7 @@ export const InteractableItem: React.FC<Props> = ({
       ref={group} 
       position={position} 
       rotation={rotation}
-      onPointerOver={(e) => { e.stopPropagation(); setHovered(true); }}
+      onPointerOver={(e) => { e.stopPropagation(); if (isActive) setHovered(true); }}
       onPointerOut={() => setHovered(false)}
       onClick={handleClick}
     >
@@ -191,33 +203,7 @@ export const InteractableItem: React.FC<Props> = ({
         {children}
       </a.group>
 
-      {showPrompt && !disabled && !(type === 'equip' && isCompleted) && (
-        <Html position={[0, 1.8, 0]} center distanceFactor={8} zIndexRange={[100, 0]}>
-          <div 
-            onClick={handleClick}
-            className="flex items-center gap-2 px-3 py-1.5 white-glass rounded-xl shadow-lg border border-[var(--primary)] text-xs font-bold text-[var(--ink)] cursor-pointer whitespace-nowrap active:scale-95 transition-transform"
-          >
-            <kbd className="px-1.5 py-0.5 rounded bg-cyan-100 text-[var(--primary-600)] font-mono text-[10px] border border-cyan-200">
-              E
-            </kbd>
-            <span>{label}</span>
-          </div>
-        </Html>
-      )}
 
-      {isGlowing && !isCompleted && (
-        <mesh ref={glowRef} position={[0, 0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.5, 0.7, 32]} />
-          <meshBasicMaterial color="#0ea5b7" transparent opacity={0.6} side={THREE.DoubleSide} />
-        </mesh>
-      )}
-
-      {isGlowing && !isCompleted && (
-        <mesh ref={hintRef} position={[0, 1.2, 0]}>
-          <coneGeometry args={[0.15, 0.35, 16]} />
-          <meshStandardMaterial color="#0ea5b7" emissive="#0ea5b7" emissiveIntensity={0.6} />
-        </mesh>
-      )}
     </group>
   );
 };

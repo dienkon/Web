@@ -1,0 +1,13 @@
+{
+  "gasBefore": 1,
+  "gasAfter": 0.9501439999991654,
+  "modalStoppedSpray": true,
+  "layout": {
+    "slots": 3,
+    "left": 297,
+    "right": 515,
+    "bottom": 367
+  },
+  "held": "spillKit",
+  "errors": []
+}

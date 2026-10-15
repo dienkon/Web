@@ -44,6 +44,7 @@ export const INITIAL_COLLIDER_BOXES: ColliderBox[] = [
 ];
 
 export const INITIAL_COLLIDER_CYLINDERS: ColliderCylinder[] = [
+  ...([-4.2, 4.2].flatMap(bx => [-2.2,2.2].flatMap(bz => [-1,1].flatMap(dx => [-1,1].map(dz => ({id:`stool_${bx}_${bz}_${dx}_${dz}`,x:bx+dx,z:bz+dz,radius:.22})))))),
   // Emergency Shower & Eyewash Station (-9.2, -4.0)
   { id: 'shower_emergency', x: -9.2, z: -4.0, radius: 0.35 },
   // Chemical Spill Kit Drum / Cart (-9.3, 3.0)

@@ -1,3 +1,4 @@
+import { useLabEquipment } from '../../../store/useLabEquipment';
 import React, { useState, useEffect } from 'react';
 import { playerCoords, useStore } from '../../../store/useStore';
 import { getActiveObjective } from '../../3d/lab/ObjectiveMarker';
@@ -12,6 +13,7 @@ export const LabMinimapHUD: React.FC = () => {
   const [playerAngle, setPlayerAngle] = useState(0);
   const [activeObjectivePos, setActiveObjectivePos] = useState<[number, number] | null>(null);
 
+  const destination = useLabEquipment(s=>s.destination);
   const currentPhase = useStore((s) => s.currentPhase);
   const tasks = useStore((s) => s.tasks);
   const playerFlags = useStore((s) => s.player.flags);
@@ -32,7 +34,7 @@ export const LabMinimapHUD: React.FC = () => {
     }, 60);
 
     return () => clearInterval(interval);
-  }, [currentPhase, tasks, playerFlags]);
+  }, [destination, currentPhase, tasks, playerFlags]);
 
   // Keyboard shortcut M to toggle expanded map
   useEffect(() => {
@@ -64,33 +66,33 @@ export const LabMinimapHUD: React.FC = () => {
 
   return (
     <div
-      className={`fixed transition-all duration-300 pointer-events-auto select-none z-40 ${
+      data-ui className={`lab-minimap fixed transition-all duration-300 pointer-events-auto select-none z-40 ${
         isExpanded
-          ? 'inset-6 md:inset-16 flex items-center justify-center bg-slate-950/80 backdrop-blur-md rounded-3xl p-6 border border-cyan-500/40 shadow-2xl'
+          ? 'inset-6 md:inset-16 flex items-center justify-center bg-slate-100/80 backdrop-blur-none rounded-3xl p-6 border border-cyan-500/40 shadow-sm'
           : 'bottom-4 left-4'
       }`}
     >
       <div
-        className={`relative rounded-2xl bg-slate-950/90 border border-cyan-500/50 shadow-2xl overflow-hidden flex flex-col ${
-          isExpanded ? 'w-full max-w-4xl h-full max-h-[85vh]' : 'w-56 h-44'
+        className={`relative rounded-2xl bg-slate-100/80 border border-cyan-500/50 shadow-sm overflow-hidden flex flex-col ${
+          isExpanded ? 'w-full max-w-4xl h-full max-h-[85vh]' : 'w-32 h-24 lg:w-56 lg:h-44'
         }`}
       >
         {/* Header Bar */}
-        <div className="flex items-center justify-between px-3 py-1.5 bg-slate-900/90 border-b border-cyan-500/30 text-white">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100/80 border-b border-cyan-500/30 text-slate-800">
           <div className="flex items-center gap-1.5">
-            <Map className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-xs font-bold tracking-wider text-cyan-300 font-mono">
+            <Map className="w-3.5 h-3.5 text-cyan-700" />
+            <span className="text-xs font-bold tracking-wider text-cyan-700 font-mono">
               LAB RADAR {isExpanded ? '[BẢN ĐỒ MẶT BẰNG 20m x 15m]' : ''}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+            <span className="text-[10px] text-slate-600 font-mono hidden sm:inline">
               X:{playerPos[0].toFixed(1)}m | Z:{playerPos[1].toFixed(1)}m
             </span>
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 cursor-pointer transition-colors"
+              className="p-1 rounded bg-slate-50 hover:bg-slate-50 text-cyan-700 cursor-pointer transition-colors"
               title={isExpanded ? 'Thu nhỏ [M]' : 'Phóng to [M]'}
             >
               {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
@@ -99,7 +101,7 @@ export const LabMinimapHUD: React.FC = () => {
         </div>
 
         {/* 2D Architectural Vector Canvas */}
-        <div className="relative flex-1 bg-slate-950/95 overflow-hidden">
+        <div className="relative flex-1 bg-slate-100/80 overflow-hidden">
           {/* Blueprint Grid Lines */}
           <div
             className="absolute inset-0 opacity-15"
@@ -187,35 +189,35 @@ export const LabMinimapHUD: React.FC = () => {
 
           {/* Icon Overlays & Tooltips */}
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-yellow-400"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-yellow-700"
             style={{ left: '3%', top: '21%' }}
             title="Trạm Tắm & Rửa Mắt Khẩn Cấp"
           >
             🚿
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-rose-400"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-rose-700"
             style={{ left: '1%', top: '38%' }}
             title="Tủ Bình Chữa Cháy"
           >
             🧯
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-400"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-700"
             style={{ left: '1%', top: '53%' }}
             title="Tủ Sơ Cứu Y Tế"
           >
             🩹
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-cyan-300"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-cyan-700"
             style={{ right: '5%', top: '25%' }}
             title="Tủ Hút Khí Độc Fume Hood"
           >
             💨
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-amber-400"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-amber-700"
             style={{ left: '67.5%', top: '33.3%' }}
             title="Đèn Khí Bunsen & Van Gas Bàn 2"
           >
@@ -229,21 +231,21 @@ export const LabMinimapHUD: React.FC = () => {
             ⚠️
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-yellow-300"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-yellow-700"
             style={{ right: '1%', top: '50%' }}
             title="Tủ Lưu Trữ Hóa Chất Cách Ly (GHS)"
           >
             🗄️
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-400"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-700"
             style={{ left: '29%', bottom: '2%' }}
             title="Cửa Thoát Hiểm A"
           >
             🚪
           </div>
           <div
-            className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-400"
+            className="absolute text-[8px] sm:text-[10px] font-bold text-emerald-700"
             style={{ right: '28%', bottom: '2%' }}
             title="Cửa Thoát Hiểm B"
           >
@@ -253,7 +255,7 @@ export const LabMinimapHUD: React.FC = () => {
 
         {/* Legend for Expanded Mode */}
         {isExpanded && (
-          <div className="p-3 bg-slate-900/95 border-t border-cyan-500/30 flex flex-wrap items-center justify-between text-xs text-slate-300 gap-3">
+          <div className="p-3 bg-slate-100/80 border-t border-cyan-500/30 flex flex-wrap items-center justify-between text-xs text-slate-600 gap-3">
             <div className="flex items-center gap-4 flex-wrap">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" /> Vị trí người chơi (FPS)
@@ -262,22 +264,22 @@ export const LabMinimapHUD: React.FC = () => {
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-ping" /> Mục tiêu nhiệm vụ
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="text-yellow-400">🚿</span> Tắm & Rửa mắt khẩn cấp (-9.2m)
+                <span className="text-yellow-700">🚿</span> Tắm & Rửa mắt khẩn cấp (-9.2m)
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="text-emerald-400">🩹</span> Tủ sơ cứu y tế (-9.8m)
+                <span className="text-emerald-700">🩹</span> Tủ sơ cứu y tế (-9.8m)
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="text-rose-400">🧯</span> Bình chữa cháy CO2/ABC
+                <span className="text-rose-700">🧯</span> Bình chữa cháy CO2/ABC
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="text-cyan-400">💨</span> Tủ hút Fume Hood (+8.8m)
+                <span className="text-cyan-700">💨</span> Tủ hút Fume Hood (+8.8m)
               </span>
             </div>
 
             <button
               onClick={() => setIsExpanded(false)}
-              className="px-3 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold cursor-pointer"
+              className="px-3 py-1 rounded-lg bg-cyan-100 hover:bg-cyan-100 text-slate-800 font-bold cursor-pointer"
             >
               Đóng Bản Đồ [M]
             </button>

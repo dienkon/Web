@@ -40,13 +40,25 @@ export default defineConfig(() => {
         input: {
           main: path.resolve(__dirname, 'index.source.html'),
         },
+        output: {
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return undefined;
+            if (id.includes('/node_modules/three/')) return 'vendor-three';
+            if (id.includes('@react-three/fiber')) return 'vendor-r3f-core';
+            if (id.includes('@react-three/drei')) return 'vendor-r3f-drei';
+            if (id.includes('@react-three/postprocessing') || id.includes('/postprocessing/')) return 'vendor-postfx';
+            if (id.includes('framer-motion') || id.includes('/motion/')) return 'vendor-motion';
+            if (id.includes('lucide-react')) return 'vendor-icons';
+            return undefined;
+          },
+        },
       },
     },
     server: {
       port: 3000,
       host: '0.0.0.0',
       hmr: process.env.DISABLE_HMR !== 'true',
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
+      watch: process.env.DISABLE_HMR === 'true' ? null : { ignored: ['**/.browser-review/**', '**/.browser-review-safety/**', '**/docs/**', '**/dist/**', '**/scripts/**'] },
     },
   };
 });

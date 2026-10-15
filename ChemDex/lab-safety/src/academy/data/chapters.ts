@@ -1,0 +1,210 @@
+import { Chapter } from '../core/types';
+
+export const CHAPTERS: Chapter[] = [
+  {
+    "id": "preparation",
+    "number": 1,
+    "title": "Sẵn sàng vào lab",
+    "subtitle": "Bảo hộ · trang phục · không gian",
+    "icon": "🥽",
+    "color": "#38bdf8",
+    "skill": "preparation",
+    "introduction": "Một buổi thực hành tốt bắt đầu trước khi chạm vào dụng cụ.",
+    "takeaway": "Kiểm tra điều kiện trước, thao tác sau.",
+    "gameIds": [
+      "sort-readiness",
+      "sort-workspace",
+      "sequence-ppe",
+      "memory-risks",
+      "hazard-bench",
+      "decision-preparation-1",
+      "decision-preparation-2"
+    ],
+    "caseIds": [
+      "case-001",
+      "case-002",
+      "case-003",
+      "case-004",
+      "case-005",
+      "case-006",
+      "case-007",
+      "case-008",
+      "case-009",
+      "case-010",
+      "case-011",
+      "case-012"
+    ]
+  },
+  {
+    "id": "identification",
+    "number": 2,
+    "title": "Đọc đúng, chọn đúng",
+    "subtitle": "Nhãn · dụng cụ · thông tin",
+    "icon": "🔎",
+    "color": "#a78bfa",
+    "skill": "identification",
+    "introduction": "Quan sát và đọc thông tin giúp tránh đoán sai danh tính hoặc công dụng.",
+    "takeaway": "Không dùng màu sắc hay giác quan để đoán hóa chất.",
+    "gameIds": [
+      "sort-equipment",
+      "memory-tools",
+      "decision-identification-1",
+      "decision-identification-2"
+    ],
+    "caseIds": [
+      "case-013",
+      "case-014",
+      "case-015",
+      "case-016",
+      "case-017",
+      "case-018",
+      "case-019",
+      "case-020",
+      "case-021",
+      "case-022",
+      "case-023",
+      "case-024"
+    ]
+  },
+  {
+    "id": "measurement",
+    "number": 3,
+    "title": "Tay vững, số đúng",
+    "subtitle": "Cân · thể tích · ghi kết quả",
+    "icon": "⚖️",
+    "color": "#22d3ee",
+    "skill": "measurement",
+    "introduction": "Số đo có ý nghĩa khi công cụ, thao tác và đơn vị đều đúng.",
+    "takeaway": "Chọn dụng cụ phù hợp, đọc đúng, ghi đủ đơn vị.",
+    "gameIds": [
+      "sequence-balance",
+      "sequence-volume",
+      "memory-units",
+      "volume-25",
+      "volume-40",
+      "balance-5",
+      "balance-12",
+      "pipette-2",
+      "pipette-7",
+      "temperature-40",
+      "temperature-55",
+      "decision-measurement-1",
+      "decision-measurement-2"
+    ],
+    "caseIds": [
+      "case-025",
+      "case-026",
+      "case-027",
+      "case-028",
+      "case-029",
+      "case-030",
+      "case-031",
+      "case-032",
+      "case-033",
+      "case-034",
+      "case-035",
+      "case-036"
+    ]
+  },
+  {
+    "id": "handling",
+    "number": 4,
+    "title": "Kiểm soát thao tác",
+    "subtitle": "Dòng rót · nhiệt · tủ hút",
+    "icon": "💧",
+    "color": "#fb923c",
+    "skill": "handling",
+    "introduction": "Thực hành điều khiển chậm, có quan sát và biết lúc phải dừng.",
+    "takeaway": "Không đánh đổi kiểm soát và an toàn để làm nhanh.",
+    "gameIds": [
+      "sort-storage",
+      "hazard-storage",
+      "flow-first",
+      "flow-steady",
+      "flow-patience",
+      "flow-master",
+      "decision-handling-1",
+      "decision-handling-2"
+    ],
+    "caseIds": [
+      "case-037",
+      "case-038",
+      "case-039",
+      "case-040",
+      "case-041",
+      "case-042",
+      "case-043",
+      "case-044",
+      "case-045",
+      "case-046",
+      "case-047",
+      "case-048"
+    ]
+  },
+  {
+    "id": "cleanup",
+    "number": 5,
+    "title": "Kết thúc có trách nhiệm",
+    "subtitle": "Thu gom · phân loại · vệ sinh",
+    "icon": "♻️",
+    "color": "#4ade80",
+    "skill": "cleanup",
+    "introduction": "Bài học chỉ kết thúc khi mẫu và dụng cụ được quản lý đúng.",
+    "takeaway": "Không coi mọi rác hoặc chất thải là giống nhau.",
+    "gameIds": [
+      "sort-waste",
+      "sequence-handwash",
+      "sequence-glass",
+      "hazard-cleanup",
+      "decision-cleanup-1",
+      "decision-cleanup-2"
+    ],
+    "caseIds": [
+      "case-049",
+      "case-050",
+      "case-051",
+      "case-052",
+      "case-053",
+      "case-054",
+      "case-055",
+      "case-056",
+      "case-057",
+      "case-058",
+      "case-059",
+      "case-060"
+    ]
+  },
+  {
+    "id": "emergency",
+    "number": 6,
+    "title": "Biết phản ứng đúng",
+    "subtitle": "Báo động · PASS · thoát nạn",
+    "icon": "🚨",
+    "color": "#fb7185",
+    "skill": "emergency",
+    "introduction": "Biết gọi hỗ trợ và thoát nạn là kỹ năng quan trọng.",
+    "takeaway": "Không xử lý vượt phạm vi được huấn luyện.",
+    "gameIds": [
+      "sort-emergency",
+      "sequence-evacuate",
+      "memory-pass",
+      "hazard-exit",
+      "decision-emergency-1",
+      "decision-emergency-2"
+    ],
+    "caseIds": [
+      "case-061",
+      "case-062",
+      "case-063",
+      "case-064",
+      "case-065",
+      "case-066",
+      "case-067",
+      "case-068",
+      "case-069",
+      "case-070",
+      "case-071",
+      "case-072"
+    ]
+  }
+];

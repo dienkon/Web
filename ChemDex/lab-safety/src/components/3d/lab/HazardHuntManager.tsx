@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Html } from '@react-three/drei';
+import { SceneHtml as Html } from '../SceneHtml';
 import { useStore, playerCoords } from '../../../store/useStore';
 import { soundManager } from '../../../audio/soundManager';
 
@@ -136,11 +136,16 @@ const HAZARDS: HazardDefinition[] = [
 ];
 
 export const HazardHuntManager: React.FC = () => {
+  const tasks = useStore(s => s.tasks);
+  const missionFinished = tasks.every(t => t.completed);
+  const view = useStore((s) => s.view);
+  const blocked = useStore((s) => s.isDialogActive || s.showSettings || s.showRulesList || !!s.activeRuleDialog || s.showFireExtinguisherQuiz || s.showBandageQuiz || s.showChemicalSymbolsQuiz);
   const [solvedIds, setSolvedIds] = useState<string[]>([]);
   const [activeHazard, setActiveHazard] = useState<HazardDefinition | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const handleOpenHazard = (h: HazardDefinition) => {
+    if (blocked || view !== 'game') return;
     setActiveHazard(h);
     setFeedback(null);
   };
@@ -158,6 +163,8 @@ export const HazardHuntManager: React.FC = () => {
       setFeedback(`SAI RỒI! ${explanation}`);
     }
   };
+
+  if (view !== 'game' || !missionFinished) return null;
 
   return (
     <group>
@@ -197,7 +204,7 @@ export const HazardHuntManager: React.FC = () => {
                     emissiveIntensity={1.8}
                   />
                 </mesh>
-                <pointLight color={h.flagColor} intensity={0.8} distance={2.5} />
+
               </group>
             )}
 
@@ -206,10 +213,10 @@ export const HazardHuntManager: React.FC = () => {
               <Html position={[0, 0.45, 0]} center distanceFactor={8}>
                 <button
                   onClick={() => handleOpenHazard(h)}
-                  className={`pointer-events-auto px-3 py-1.5 rounded-full text-xs font-bold border shadow-xl flex items-center gap-1.5 backdrop-blur-md whitespace-nowrap cursor-pointer hover:scale-105 active:scale-95 transition-all ${
+                  className={`pointer-events-auto px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm flex items-center gap-1.5 backdrop-blur-none whitespace-nowrap cursor-pointer hover:scale-105 active:scale-95 transition-all ${
                     isSolved
-                      ? 'bg-emerald-950/80 border-emerald-400 text-emerald-200'
-                      : 'bg-rose-950/85 border-rose-400 text-rose-200 animate-pulse'
+                      ? 'bg-emerald-100/80 border-emerald-400 text-emerald-700'
+                      : 'bg-rose-100/85 border-rose-400 text-rose-700 animate-pulse'
                   }`}
                 >
                   <span>{isSolved ? '✓ Đã xử lý' : '⚠ Rà soát vi phạm'}</span>
@@ -224,9 +231,9 @@ export const HazardHuntManager: React.FC = () => {
       {/* Floating HUD Tracker (Top Right) */}
       <Html fullscreen>
         <div className="fixed top-18 right-4 z-20 pointer-events-none">
-          <div className="px-3.5 py-1.5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-slate-700/80 shadow-lg flex items-center gap-2.5 text-xs text-white">
-            <span className="text-amber-400 font-bold">🔍 Rà soát mối nguy:</span>
-            <span className="font-mono font-black text-amber-300">
+          <div className="px-3.5 py-1.5 rounded-2xl bg-slate-100/80 backdrop-blur-none border border-slate-200/80 shadow-lg flex items-center gap-2.5 text-xs text-slate-800">
+            <span className="text-amber-700 font-bold">🔍 Rà soát mối nguy:</span>
+            <span className="font-mono font-black text-amber-700">
               {solvedIds.length}/{HAZARDS.length}
             </span>
           </div>
@@ -236,24 +243,24 @@ export const HazardHuntManager: React.FC = () => {
       {/* Hazard Question Modal */}
       {activeHazard && (
         <Html center zIndexRange={[1000, 0]}>
-          <div className="fixed inset-0 flex items-center justify-center bg-slate-950/75 backdrop-blur-md p-4 pointer-events-auto select-none font-sans">
-            <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl flex flex-col gap-4 text-white">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="fixed inset-0 flex items-center justify-center bg-slate-100/80 backdrop-blur-none p-4 pointer-events-auto select-none font-sans">
+            <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-sm flex flex-col gap-4 text-slate-800">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">⚠️</span>
-                  <h3 className="text-sm font-black uppercase text-amber-400">
+                  <h3 className="text-sm font-black uppercase text-amber-700">
                     {activeHazard.title}
                   </h3>
                 </div>
                 <button
                   onClick={() => setActiveHazard(null)}
-                  className="w-7 h-7 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs font-bold cursor-pointer"
+                  className="w-7 h-7 rounded-full bg-slate-50 text-slate-600 hover:text-slate-800 flex items-center justify-center text-xs font-bold cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
 
-              <p className="text-xs text-slate-200 leading-relaxed font-medium">
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 {activeHazard.question}
               </p>
 
@@ -263,7 +270,7 @@ export const HazardHuntManager: React.FC = () => {
                   <button
                     key={idx}
                     onClick={() => handleSelectOption(opt.correct, opt.explanation)}
-                    className="p-3 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 hover:bg-slate-750 text-left text-xs text-slate-200 transition-all cursor-pointer"
+                    className="p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-cyan-400 hover:bg-slate-750 text-left text-xs text-slate-600 transition-all cursor-pointer"
                   >
                     {opt.text}
                   </button>
@@ -275,8 +282,8 @@ export const HazardHuntManager: React.FC = () => {
                 <div
                   className={`p-3 rounded-xl text-xs font-semibold leading-relaxed border ${
                     feedback.startsWith('ĐÚNG')
-                      ? 'bg-emerald-950/70 border-emerald-500/50 text-emerald-300'
-                      : 'bg-rose-950/70 border-rose-500/50 text-rose-300'
+                      ? 'bg-emerald-100/70 border-emerald-500/50 text-emerald-700'
+                      : 'bg-rose-100/70 border-rose-500/50 text-rose-700'
                   }`}
                 >
                   {feedback}

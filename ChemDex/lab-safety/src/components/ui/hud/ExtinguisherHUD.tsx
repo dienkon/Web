@@ -1,107 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from '../../../store/useStore';
 import { fireSimulation } from '../../../core/fire/FireSim';
-
-export const ExtinguisherHUD: React.FC = () => {
-  const view = useStore((s) => s.view);
-  const player = useStore((s) => s.player);
-  const ext = fireSimulation.currentExtinguisher;
-
-  if (view !== 'game' || !player.inventory.hasFireExtinguisher || !ext) {
-    return null;
-  }
-
-  return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-none">
-      {/* PASS Steps Tracker Card */}
-      <div className="bg-slate-900/85 backdrop-blur-md p-4 rounded-2xl border border-slate-700/60 shadow-xl flex flex-col gap-2.5 w-64">
-        <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
-          <span>Quy trình P.A.S.S</span>
-          <span className="text-[10px] text-amber-400 font-mono">BÌNH {ext.agent.toUpperCase()}</span>
-        </div>
-
-        {/* P - Pull Pin */}
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <span
-              className={`w-6 h-6 rounded-lg flex items-center justify-center font-black ${
-                ext.pinPulled ? 'bg-emerald-500 text-slate-950' : 'bg-rose-500/30 text-rose-300'
-              }`}
-            >
-              P
-            </span>
-            <span className={ext.pinPulled ? 'text-emerald-300 line-through' : 'text-white'}>
-              Pull (Rút chốt chì)
-            </span>
-          </div>
-          {!ext.pinPulled && <span className="text-[10px] text-amber-300 font-mono">[Giữ E]</span>}
-        </div>
-
-        {/* A - Aim at base */}
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-lg bg-sky-500/30 text-sky-300 flex items-center justify-center font-black">
-              A
-            </span>
-            <span className="text-white">Aim (Ngắm GỐC lửa)</span>
-          </div>
-          <span className="text-[10px] text-slate-400">Tâm ngắm</span>
-        </div>
-
-        {/* S - Squeeze trigger */}
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <span
-              className={`w-6 h-6 rounded-lg flex items-center justify-center font-black ${
-                ext.isDischarging ? 'bg-amber-400 text-slate-950 animate-pulse' : 'bg-slate-700 text-slate-300'
-              }`}
-            >
-              S
-            </span>
-            <span className="text-white">Squeeze (Bóp cò)</span>
-          </div>
-          <span className="text-[10px] text-amber-300 font-mono">[Chuột Trái]</span>
-        </div>
-
-        {/* S - Sweep side to side */}
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-lg bg-indigo-500/30 text-indigo-300 flex items-center justify-center font-black">
-              S
-            </span>
-            <span className="text-white">Sweep (Quét qua lại)</span>
-          </div>
-          <span className="text-[10px] text-slate-400">Lắc chuột</span>
-        </div>
-
-        {/* Pressure Manometer Needle Indicator */}
-        <div className="mt-2 pt-2 border-t border-slate-700/60 flex flex-col gap-1">
-          <div className="flex justify-between text-[11px] font-semibold text-slate-300">
-            <span>Áp suất bình</span>
-            <span className="font-mono text-emerald-400">{(ext.pressure * 100).toFixed(0)}% (Vùng Xanh)</span>
-          </div>
-          <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden flex">
-            <div
-              className="bg-emerald-500 h-full transition-all duration-150"
-              style={{ width: `${Math.max(0, Math.min(100, ext.pressure * 100))}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Remaining Agent Gauge */}
-        <div className="flex flex-col gap-1">
-          <div className="flex justify-between text-[11px] font-semibold text-slate-300">
-            <span>Lượng khí còn lại</span>
-            <span className="font-mono text-sky-400">{(ext.agentLeft * 100).toFixed(0)}%</span>
-          </div>
-          <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden flex">
-            <div
-              className="bg-sky-500 h-full transition-all duration-150"
-              style={{ width: `${Math.max(0, Math.min(100, ext.agentLeft * 100))}%` }}
-            />
-          </div>
-        </div>
-      </div>
+import { pullTrainingPin } from '../../3d/lab/FireEmergencyScenario';
+import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
+import { toolControls } from '../../../systems/input/toolControls';
+export const ExtinguisherHUD = () => {
+  const practicing = useStore(s => s.currentPhase === 2 && !s.tasks.find(t => t.id === 'task_fire_extinguisher')?.completed);
+  const tool = useStore(s => s.activeTool), blocked = useStore(isSceneInputBlocked);
+  const [status, setStatus] = useState({ pin: false, agent: 1 });
+  useEffect(() => {
+    if (tool !== 'extinguisher') { toolControls.spraying = false; return; }
+    const update = () => setStatus({ pin: !!fireSimulation.currentExtinguisher?.pinPulled, agent: fireSimulation.currentExtinguisher?.agentLeft ?? 1 });
+    update(); const timer = setInterval(update, 100); return () => clearInterval(timer);
+  }, [tool]);
+  useEffect(() => { if (blocked) toolControls.spraying = false; }, [blocked]);
+  if (tool !== 'extinguisher' || blocked || !practicing) return null;
+  const empty = status.agent <= 0;
+  return <div data-ui className="fire-controls fixed right-4 bottom-48 z-30 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-md text-xs text-slate-700 w-52">
+    <strong>Rút chốt → Ngắm gốc → Quét</strong>
+    <div className="mt-2 h-1.5 rounded bg-slate-100"><div className="h-full rounded bg-cyan-100" style={{width: `${status.agent*100}%`}} /></div>
+    <span className="mt-1 block text-[10px]">Khí CO₂ còn {Math.round(status.agent*100)}%</span>
+    <div className="mt-2 flex gap-2">
+      {!status.pin && <button aria-label="Rút chốt bình" onClick={pullTrainingPin} className="min-h-10 flex-1 rounded-xl bg-amber-100 px-2 font-bold">Rút chốt · R</button>}
+      <button aria-label="Giữ để phun CO2" disabled={!status.pin || empty} onPointerDown={e=>{if(isSceneInputBlocked())return;try { e.currentTarget.setPointerCapture(e.pointerId); } catch {} toolControls.spraying=true;}} onPointerUp={()=>{toolControls.spraying=false;}} onPointerCancel={()=>{toolControls.spraying=false;}} onLostPointerCapture={()=>{toolControls.spraying=false;}} className="min-h-10 flex-1 rounded-xl bg-cyan-100 px-2 font-bold text-slate-800 disabled:bg-slate-200 disabled:text-slate-500 touch-none">{empty ? 'Hết khí' : 'Giữ để phun'}</button>
     </div>
-  );
+    {empty && <button onClick={()=>{fireSimulation.equipExtinguisher('co2');toolControls.spraying=false;}} className="mt-2 min-h-10 w-full rounded-xl border border-slate-200 font-bold">Đổi bình mới</button>}
+  </div>;
 };

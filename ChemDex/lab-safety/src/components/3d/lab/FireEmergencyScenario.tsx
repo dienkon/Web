@@ -1,182 +1,110 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
 import * as THREE from 'three';
-import { useStore, playerCoords } from '../../../store/useStore';
+import { SceneHtml as Html } from '../SceneHtml';
+import { playerCoords, useStore } from '../../../store/useStore';
 import { fireSimulation } from '../../../core/fire/FireSim';
 import { ExtinguisherStream } from '../fx/ExtinguisherStream';
-import { soundManager } from '../../../audio/soundManager';
+import { toolControls } from '../../../systems/input/toolControls';
+import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
+import { interactionBus, INTERACTION_PRIORITY } from '../../../systems/input/InteractionBus';
 import { spatialSound } from '../../../audio/SpatialSoundEngine';
 
-const FIRE_ORIGIN: [number, number, number] = [4.2, 0.95, -2.2];
-
-export const FireEmergencyScenario: React.FC = () => {
-  const { camera } = useThree();
-  const currentPhase = useStore((s) => s.currentPhase);
-  const tasks = useStore((s) => s.tasks);
-  const player = useStore((s) => s.player);
-  const completeTask = useStore((s) => s.completeTask);
-  const startDialog = useStore((s) => s.startDialog);
-
-  const [fireIntensity, setFireIntensity] = useState(1.0);
-  const [isExtinguished, setIsExtinguished] = useState(false);
-  const [isDischarging, setIsDischarging] = useState(false);
-  const prevYawRef = useRef(0);
-  const sweepAccumulator = useRef(0);
-  const hasTriggeredComplete = useRef(false);
-
-  const isFireTaskDone = !!tasks.find((t) => t.id === 'task_fire_extinguisher')?.completed;
-
-  // Initialize fire in simulation when Phase 2 starts
+export const FIRE_ORIGIN: [number, number, number] = [4.2, 0.95, -2.2];
+export function pullTrainingPin() {
+  const s = useStore.getState();
+  if (isSceneInputBlocked(s) || s.activeTool !== 'extinguisher' || !s.player.inventory.hasFireExtinguisher || !s.player.flags.passTrained) return false;
+  const pulled=fireSimulation.pullPin();
+  if(pulled)spatialSound.playAt('snap',[...playerCoords.position]);
+  return pulled;
+}
+export const FireEmergencyScenario = () => {
+  const { camera, gl } = useThree();
+  const phase = useStore(s => s.currentPhase);
+  const tasks = useStore(s => s.tasks);
+  const view = useStore(s => s.view);
+  const cinematic = useStore(s => s.cinematic);
+  const trained = useStore(s => !!s.player.flags.passTrained);
+  const introSeen = useStore(s => !!s.player.flags.fireIntroSeen);
+  const done = !!tasks.find(t => t.id === 'task_fire_extinguisher')?.completed;
+  const [status, setStatus] = useState({ intensity: 0.8, spraying: false });
+  const sample = useRef(0);
+  const sweep = useRef(0);
+  const lastDirection = useRef(new THREE.Vector3());
+  const direction = useRef(new THREE.Vector3());
+  const target = useRef(new THREE.Vector3());
+  const ray = useRef(new THREE.Ray());
+  const base = useRef(new THREE.Plane(new THREE.Vector3(0, 1, 0), -FIRE_ORIGIN[1]));
   useEffect(() => {
-    if (currentPhase >= 2 && !isFireTaskDone && fireSimulation.sources.length === 0) {
-      fireSimulation.spawnFire('bench_fire_b', 'B', FIRE_ORIGIN);
-      fireSimulation.equipExtinguisher('co2');
-      setIsExtinguished(false);
-      setFireIntensity(1.0);
+    if (view !== 'game' || phase !== 2 || done || !trained) return;
+    if (!introSeen) {
+      if (!isSceneInputBlocked()) useStore.getState().startCinematic('fire');
+      return;
     }
-  }, [currentPhase, isFireTaskDone]);
-
-  // Keyboard shortcut 'R' to pull safety pin
+    if (!fireSimulation.sources.some(s => s.id === 'bench_fire_b')) fireSimulation.spawnFire('bench_fire_b', 'B', FIRE_ORIGIN);
+    if (!fireSimulation.currentExtinguisher) fireSimulation.equipExtinguisher('co2');
+    sweep.current = 0;
+  }, [phase, done, view, trained, introSeen, cinematic]);
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.code === 'KeyR' || e.code === 'KeyP') && player.inventory.hasFireExtinguisher) {
-        if (fireSimulation.currentExtinguisher && !fireSimulation.currentExtinguisher.pinPulled) {
-          fireSimulation.pullPin();
-          soundManager.play('snap');
-        }
-      }
+    const key = (e: KeyboardEvent) => { if (e.code === 'KeyR' && !(e.target instanceof Element && e.target.closest('input,textarea'))) pullTrainingPin(); };
+    const down = (e: PointerEvent) => {
+      if (e.button === 0 && !isSceneInputBlocked() && useStore.getState().activeTool === 'extinguisher') toolControls.spraying = true;
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [player.inventory.hasFireExtinguisher]);
-
-  // Frame update: handle discharge, raycast aiming, and sweep
+    const release = () => { toolControls.spraying = false; };
+    window.addEventListener('keydown', key); gl.domElement.addEventListener('pointerdown', down);
+    window.addEventListener('pointerup', release); window.addEventListener('pointercancel', release); window.addEventListener('blur', release);
+    const off = interactionBus.subscribe({ priority: INTERACTION_PRIORITY.TARGET + 10, isActive: () => {
+      const state = useStore.getState();
+      return state.currentPhase === 2 && !state.tasks.find(t => t.id === 'task_fire_extinguisher')?.completed
+        && !isSceneInputBlocked(state) && state.activeTool === 'extinguisher'
+        && !!fireSimulation.currentExtinguisher && !fireSimulation.currentExtinguisher.pinPulled;
+    }, onInteract: pullTrainingPin });
+    return () => { window.removeEventListener('keydown', key); gl.domElement.removeEventListener('pointerdown', down); window.removeEventListener('pointerup', release); window.removeEventListener('pointercancel', release); window.removeEventListener('blur', release); off(); release(); spatialSound.stopExtinguisherHiss(); spatialSound.setFire(false,0,FIRE_ORIGIN); };
+  }, [gl]);
   useFrame((_, delta) => {
-    if (currentPhase < 2 || isFireTaskDone || isExtinguished) return;
-
-    const ext = fireSimulation.currentExtinguisher;
-    if (!ext) return;
-
-    // Detect if mouse left click is held while holding extinguisher
-    const isMouseDown = (window as any).__mouseLeftDown || false;
-    const canDischarge = Boolean(player.inventory.hasFireExtinguisher && ext.pinPulled && isMouseDown);
-    setIsDischarging(canDischarge);
-    ext.isDischarging = canDischarge;
-
-    if (canDischarge) {
+    const s = useStore.getState(), ext = fireSimulation.currentExtinguisher;
+    const source = fireSimulation.sources.find(f => f.id === 'bench_fire_b');
+    const activeFire = s.view === 'game' && !isSceneInputBlocked(s) && phase === 2 && !done && !!source;
+    spatialSound.setFire(activeFire, source?.cells[0]?.intensity ?? 0, FIRE_ORIGIN);
+    if (!activeFire) { toolControls.spraying = false; if(ext)ext.isDischarging=false; spatialSound.stopExtinguisherHiss(); return; }
+    if (!ext || !source) return;
+    const dt = Math.min(delta, 0.05);
+    for (const cell of source.cells) cell.fuelLeft = Math.max(0.1, cell.fuelLeft);
+    const spraying = !!s.player.flags.passTrained && !!s.player.inventory.hasFireExtinguisher && !isSceneInputBlocked(s) && s.activeTool === 'extinguisher' && toolControls.spraying && ext.pinPulled && ext.agentLeft > 0;
+    ext.isDischarging = spraying;
+    if (isSceneInputBlocked(s)) toolControls.spraying = false;
+    camera.getWorldDirection(direction.current);
+    if (spraying) {
       spatialSound.startExtinguisherHiss();
-    } else {
-      spatialSound.stopExtinguisherHiss();
-    }
-
-    // Track horizontal sweeping (yaw changes)
-    const currentYaw = playerCoords.rotationY;
-    const dYaw = Math.abs(currentYaw - prevYawRef.current);
-    prevYawRef.current = currentYaw;
-    sweepAccumulator.current = THREE.MathUtils.lerp(sweepAccumulator.current, dYaw * 20, delta * 5);
-
-    if (canDischarge) {
-      // Raycast from camera center forward (Aim vector)
-      const raycaster = new THREE.Raycaster();
-      raycaster.set(camera.position, camera.getWorldDirection(new THREE.Vector3()));
-
-      // Target point 3.5m forward along aim vector
-      const targetPoint = camera.position
-        .clone()
-        .add(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(3.5));
-
-      // Check if aiming at base of flame (Y close to bench surface)
-      const isAimingAtBase = targetPoint.y <= FIRE_ORIGIN[1] + 0.45;
-
-      // Discharge extinguisher onto fire simulation
-      fireSimulation.dischargeAtTarget(
-        [targetPoint.x, targetPoint.y, targetPoint.z],
-        isAimingAtBase,
-        sweepAccumulator.current,
-        delta
-      );
-    }
-
-    // Update overall fire intensity for UI
-    const source = fireSimulation.sources.find((s) => s.id === 'bench_fire_b');
-    if (source && source.cells.length > 0) {
-      const currentCell = source.cells[0];
-      setFireIntensity(currentCell.intensity);
-
-      if (currentCell.intensity <= 0.05 && !hasTriggeredComplete.current) {
-        hasTriggeredComplete.current = true;
-        setIsExtinguished(true);
-        completeTask('task_fire_extinguisher');
-        soundManager.play('complete');
-        startDialog([
-          'ĐÁM CHÁY ĐÃ ĐƯỢC DẬP TẮT HOÀN TOÀN!',
-          'Xuất sắc! Em đã thực hiện chuẩn xác 4 bước P.A.S.S:',
-          '1. Pull: Rút chốt an toàn.',
-          '2. Aim: Ngắm chuẩn xác vào GỐC đám cháy.',
-          '3. Squeeze: Bóp cò phụt khí CO2 dập lửa.',
-          '4. Sweep: Quét vòi phun đều sang hai bên dập tắt triệt để.',
-        ]);
-      }
+      const angle = lastDirection.current.lengthSq() ? lastDirection.current.angleTo(direction.current) : 0;
+      sweep.current += Math.min(angle, 0.1);
+      ray.current.set(camera.position, direction.current);
+      const hit = ray.current.intersectPlane(base.current, target.current);
+      const inRange = hit && camera.position.distanceTo(hit) <= 4.5 && Math.hypot(hit.x - FIRE_ORIGIN[0], hit.z - FIRE_ORIGIN[2]) < 0.8;
+      const point = inRange ? target.current : target.current.set(100, 100, 100);
+      fireSimulation.dischargeAtTarget([point.x, point.y, point.z], !!inRange, Math.min(1, sweep.current / 0.18), dt);
+      if (sweep.current < 0.04) for (const cell of source.cells) cell.intensity = Math.max(0.06, cell.intensity);
+    } else spatialSound.stopExtinguisherHiss();
+    lastDirection.current.copy(direction.current);
+    const intensity = Math.max(...source.cells.map(c => c.intensity));
+    sample.current += dt;
+    if (sample.current >= 0.1) { sample.current = 0; setStatus({ intensity: Math.round(intensity * 100) / 100, spraying }); }
+    if (intensity <= 0.05 && sweep.current >= 0.04 && !s.tasks.find(t => t.id === 'task_fire_extinguisher')?.completed) {
+      toolControls.spraying = false; ext.isDischarging = false;
+      spatialSound.stopExtinguisherHiss(); spatialSound.setFire(false,0,FIRE_ORIGIN);
+      useStore.setState({ player: { ...s.player, flags: { ...s.player.flags, fireExtinguished: true } } });
+      s.completeTask('task_fire_extinguisher'); s.selectTool(null);
+      s.startDialog(['Đám cháy đã được dập tắt bằng thao tác thực hành. Tiếp tục nhiệm vụ nhận diện nhãn hóa chất.']);
     }
   });
-
-  // Track global mousedown state
-  useEffect(() => {
-    const onDown = (e: MouseEvent) => {
-      if (e.button === 0) (window as any).__mouseLeftDown = true;
-    };
-    const onUp = (e: MouseEvent) => {
-      if (e.button === 0) (window as any).__mouseLeftDown = false;
-    };
-    window.addEventListener('mousedown', onDown);
-    window.addEventListener('mouseup', onUp);
-    return () => {
-      window.removeEventListener('mousedown', onDown);
-      window.removeEventListener('mouseup', onUp);
-    };
-  }, []);
-
-  if (currentPhase < 2 || isFireTaskDone) return null;
-
-  return (
-    <group>
-      {/* 1. Active Extinguisher Particle Stream */}
-      <ExtinguisherStream isDischarging={isDischarging} />
-
-      {/* 2. Floating Fire Status Bar above Bench 2 */}
-      {!isExtinguished && fireIntensity > 0.05 && (
-        <Html position={[FIRE_ORIGIN[0], FIRE_ORIGIN[1] + 1.2, FIRE_ORIGIN[2]]} center distanceFactor={8}>
-          <div className="flex flex-col items-center gap-1 pointer-events-none select-none">
-            <div className="px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-rose-500/60 shadow-xl flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
-              <span className="text-xs font-black uppercase tracking-wider text-rose-300">
-                Đám cháy hóa chất Loại B
-              </span>
-              <span className="text-xs font-mono font-bold text-amber-400">
-                {(fireIntensity * 100).toFixed(0)}%
-              </span>
-            </div>
-
-            {/* Health Bar */}
-            <div className="w-36 h-2 bg-slate-900/90 rounded-full overflow-hidden border border-slate-700/80 p-0.5">
-              <div
-                className="h-full bg-gradient-to-r from-amber-500 to-rose-600 rounded-full transition-all duration-100"
-                style={{ width: `${Math.max(0, Math.min(100, fireIntensity * 100))}%` }}
-              />
-            </div>
-
-            {/* PASS Tip */}
-            {player.inventory.hasFireExtinguisher && (
-              <div className="text-[10px] text-slate-300 bg-slate-900/90 px-2 py-0.5 rounded-md border border-slate-700 font-mono">
-                {!fireSimulation.currentExtinguisher?.pinPulled
-                  ? 'Bấm [R] để Rút chốt an toàn!'
-                  : 'Giữ [Chuột Trái] ngắm GỐC lửa & quét qua lại!'}
-              </div>
-            )}
-          </div>
-        </Html>
-      )}
-    </group>
-  );
+  if (view !== 'game' || phase !== 2 || done) return null;
+  return <group>
+    <ExtinguisherStream isDischarging={status.spraying && !isSceneInputBlocked()} />
+    <Html position={[4.2, 1.65, -2.2]} center>
+      <div className="rounded-xl bg-white/95 border border-orange-200 px-3 py-2 text-xs text-slate-800 shadow-sm">
+        <strong>Đám cháy · {Math.round(status.intensity * 100)}%</strong>
+        <div className="mt-1 h-1.5 rounded bg-orange-100"><div className="h-full rounded bg-orange-500" style={{ width: `${status.intensity * 100}%` }} /></div>
+      </div>
+    </Html>
+  </group>;
 };

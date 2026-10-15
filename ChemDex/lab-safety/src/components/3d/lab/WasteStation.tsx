@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { SceneHtml } from '../SceneHtml';
+import { SafetyPractice } from '../../ui/SafetyPractice';
+import { useStore } from '../../../store/useStore';
+import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
 
 export const WasteStation: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const show = () => { if (!isSceneInputBlocked() && useStore.getState().player.inventory.isHoldingTrash) setOpen(true); };
+    window.addEventListener('lab-open-waste', show);
+    return () => window.removeEventListener('lab-open-waste', show);
+  }, []);
   return (
-    <group position={[8.8, 0, 5.0]}>
+    <group userData={{labItem:{title:'Trạm phân loại chất thải',kind:'waste'}}} position={[8.8, 0, 5.0]}>
+      {open && <SceneHtml zIndexRange={[1000, 0]}><SafetyPractice waste onClose={() => setOpen(false)} /></SceneHtml>}
       {/* 1. Yellow Biohazard & Chemical Contaminated Solid Waste Can (with foot pedal) */}
       <group position={[0, 0, 0]}>
         <mesh position={[0, 0.35, 0]} castShadow receiveShadow>

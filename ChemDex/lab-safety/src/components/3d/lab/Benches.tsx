@@ -9,7 +9,7 @@ interface BenchProps {
 
 const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
   return (
-    <group position={position}>
+    <group userData={{labItem:{title:'Bàn thực hành và ngăn dụng cụ',kind:'workspace'}}} position={position}>
       {/* Heavy Black Chemical-Resistant Epoxy Resin Countertop (3.2m x 1.4m x 0.05m) */}
       <mesh position={[0, 0.875, 0]} castShadow receiveShadow>
         <boxGeometry args={[3.2, 0.05, 1.4]} />
@@ -41,12 +41,13 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       </mesh>
       {/* Brushed Aluminum Handles for Drawers */}
       {[-1.0, 0, 1.0].map((hx, i) => (
-        <group key={i}>
-          <mesh position={[hx, 0.65, 0.605]}>
+        <group userData={{labItem:{title:'Ngăn kéo dụng cụ',kind:'drawer'}}} key={i} position={[hx,0,0]}>
+          <mesh position={[0,.43,.62]}><boxGeometry args={[.96,.8,.025]}/><meshStandardMaterial color="#cbd5e1" roughness={.5}/></mesh>
+          <mesh position={[0, 0.65, 0.635]}>
             <boxGeometry args={[0.3, 0.03, 0.02]} />
             <meshStandardMaterial color="#94A3B8" metalness={0.9} />
           </mesh>
-          <mesh position={[hx, 0.35, 0.605]}>
+          <mesh position={[0, 0.35, 0.635]}>
             <boxGeometry args={[0.3, 0.03, 0.02]} />
             <meshStandardMaterial color="#94A3B8" metalness={0.9} />
           </mesh>
@@ -54,7 +55,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       ))}
 
       {/* Central 2-Tier Chemical Reagent Rack (2.4m W x 0.28m D x 0.55m H) */}
-      <group position={[0, 0.9, 0]}>
+      <group userData={{labItem:{title:'Giá hóa chất trên bàn',kind:'storage'}}} position={[0, 0.9, 0]}>
         {/* Stainless Steel Upright Support Columns */}
         {[-1.1, 0, 1.1].map((cx, i) => (
           <mesh key={i} position={[cx, 0.28, 0]}>
@@ -74,7 +75,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
         </mesh>
         {/* Electrical Service Raceways (Double GPO sockets) */}
         {[-0.6, 0.6].map((ex, i) => (
-          <mesh key={i} position={[ex, 0.1, 0.12]}>
+          <mesh userData={{labItem:{title:'Ổ cấp nguồn trên bàn',kind:'electrical'}}} key={i} position={[ex, 0.1, 0.12]}>
             <boxGeometry args={[0.16, 0.08, 0.04]} />
             <meshStandardMaterial color="#F8FAFC" roughness={0.4} />
           </mesh>
@@ -82,7 +83,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       </group>
 
       {/* Integral End-Bench Sink (Polypropylene acid-resistant basin & Gooseneck faucet) */}
-      <group position={[-1.35, 0.9, 0.38]}>
+      <group userData={{labItem:{title:'Bồn rửa dụng cụ trên bàn',kind:'wash'}}} position={[-1.35, 0.9, 0.38]}>
         <mesh position={[0, -0.06, 0]}>
           <boxGeometry args={[0.35, 0.14, 0.35]} />
           <meshStandardMaterial color="#475569" roughness={0.4} />
@@ -95,7 +96,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       </group>
 
       {/* Gas Turrets with Dual Valves */}
-      <group position={[0.7, 0.92, 0.4]}>
+      <group userData={{labItem:{title:'Van cấp khí trên bàn',kind:'gas'}}} position={[0.7, 0.92, 0.4]}>
         <mesh>
           <cylinderGeometry args={[0.016, 0.018, 0.07]} />
           <meshStandardMaterial color="#94A3B8" metalness={0.8} />
@@ -111,7 +112,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
         [-1.0, -1.0], [1.0, -1.0],
         [-1.0, 1.0], [1.0, 1.0],
       ].map(([sx, sz], i) => (
-        <group key={i} position={[sx, 0, sz]}>
+        <group userData={{labItem:{title:'Ghế thực hành',kind:'seat'}}} key={i} position={[sx, 0, sz]}>
           {/* Black PU Seat */}
           <mesh position={[0, 0.6, 0]}>
             <cylinderGeometry args={[0.17, 0.17, 0.045, 24]} />
@@ -135,7 +136,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       {scenarioType === 'analytical' && (
         <group position={[0, 0.9, 0]}>
           {/* Analytical Balance with Glass Draft Shield (0.1mg precision) */}
-          <group position={[-0.5, 0, 0.4]}>
+          <group userData={{labItem:{title:'Cân phân tích',kind:'balance'}}} position={[-0.5, 0, 0.4]}>
             {/* White Body Base */}
             <mesh position={[0, 0.04, 0]} castShadow>
               <boxGeometry args={[0.32, 0.08, 0.36]} />
@@ -159,7 +160,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
           </group>
 
           {/* Magnetic Hotplate Stirrer with Active Vortex Erlenmeyer Flask */}
-          <group position={[0.4, 0, 0.4]}>
+          <group userData={{labItem:{title:'Bếp gia nhiệt và bình tam giác',kind:'heat'}}} position={[0.4, 0, 0.4]}>
             {/* White Ceramic Hotplate Body */}
             <mesh position={[0, 0.04, 0]} castShadow>
               <boxGeometry args={[0.24, 0.08, 0.26]} />
@@ -183,7 +184,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
           </group>
 
           {/* Precision Digital pH Meter with Articulated Electrode Arm */}
-          <group position={[1.0, 0, 0.35]}>
+          <group userData={{labItem:{title:'Máy đo pH và điện cực',kind:'ph'}}} position={[1.0, 0, 0.35]}>
             <mesh position={[0, 0.03, 0]}>
               <boxGeometry args={[0.18, 0.06, 0.18]} />
               <meshStandardMaterial color="#1E293B" roughness={0.4} />
@@ -206,7 +207,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       {scenarioType === 'heating' && (
         <group position={[0, 0.9, 0]}>
           {/* Bunsen Burner with Realistic Dual Blue Flame Core */}
-          <group position={[-0.5, 0, 0.4]}>
+          <group userData={{labItem:{title:'Đèn Bunsen',kind:'heat'}}} position={[-0.5, 0, 0.4]}>
             {/* Hexagonal Brass Base */}
             <mesh position={[0, 0.015, 0]} castShadow>
               <cylinderGeometry args={[0.06, 0.065, 0.03, 6]} />
@@ -235,7 +236,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
           </group>
 
           {/* Titration Retort Stand & Precision Graduated Burette */}
-          <group position={[0.4, 0, 0.38]}>
+          <group userData={{labItem:{title:'Giá kẹp, buret và bình chuẩn độ',kind:'titration'}}} position={[0.4, 0, 0.38]}>
             {/* Cast Iron Heavy Retort Base */}
             <mesh position={[0, 0.01, 0]} castShadow>
               <boxGeometry args={[0.22, 0.02, 0.3]} />
@@ -274,7 +275,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       {scenarioType === 'reagents' && (
         <group position={[0, 0.9, 0]}>
           {/* Test Tube Rack with 6 Colorful Solution Tubes */}
-          <group position={[-0.5, 0, 0.35]}>
+          <group userData={{labItem:{title:'Giá đỡ ống nghiệm',kind:'glass'}}} position={[-0.5, 0, 0.35]}>
             {/* Wooden / Polycarbonate Rack Frame */}
             <mesh position={[0, 0.05, 0]}>
               <boxGeometry args={[0.32, 0.1, 0.1]} />
@@ -284,7 +285,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
             {[-0.12, -0.07, -0.02, 0.03, 0.08, 0.13].map((tx, idx) => {
               const colors = ['#38BDF8', '#818CF8', '#A855F7', '#F59E0B', '#10B981', '#EF4444'];
               return (
-                <group key={idx} position={[tx, 0.06, 0]}>
+                <group userData={{labItem:{title:'Ống nghiệm mẫu',kind:'ph'}}} key={idx} position={[tx, 0.06, 0]}>
                   {/* Glass tube */}
                   <mesh>
                     <cylinderGeometry args={[0.011, 0.011, 0.12, 12]} />
@@ -301,7 +302,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
           </group>
 
           {/* Graduated Glass Cylinders (100ml & 250ml) */}
-          <group position={[0.3, 0, 0.38]}>
+          <group userData={{labItem:{title:'Ống đong chia vạch',kind:'volume'}}} position={[0.3, 0, 0.38]}>
             <mesh position={[0, 0.14, 0]}>
               <cylinderGeometry args={[0.022, 0.022, 0.28, 16]} />
               <meshPhysicalMaterial transparent opacity={0.35} roughness={0.05} color="#BAE6FD" />
@@ -319,7 +320,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
       {scenarioType === 'acid_spill' && (
         <group position={[0, 0.9, 0]}>
           {/* Concentrated H2SO4 Beaker with Safety Warning Label */}
-          <group position={[-0.4, 0, 0.35]}>
+          <group userData={{labItem:{title:'Cốc axit và đũa thủy tinh',kind:'acid'}}} position={[-0.4, 0, 0.35]}>
             <mesh position={[0, 0.08, 0]}>
               <cylinderGeometry args={[0.06, 0.06, 0.16, 20]} />
               <meshPhysicalMaterial transparent opacity={0.4} roughness={0.08} color="#BAE6FD" />
@@ -342,7 +343,7 @@ const IslandBench: React.FC<BenchProps> = ({ id, position, scenarioType }) => {
           </group>
 
           {/* Water Beaker for Dilution Rule (Acid into Water, never water into acid) */}
-          <group position={[0.3, 0, 0.35]}>
+          <group userData={{labItem:{title:'Cốc nước pha loãng',kind:'acid'}}} position={[0.3, 0, 0.35]}>
             <mesh position={[0, 0.09, 0]}>
               <cylinderGeometry args={[0.07, 0.07, 0.18, 20]} />
               <meshPhysicalMaterial transparent opacity={0.35} roughness={0.05} color="#BAE6FD" />

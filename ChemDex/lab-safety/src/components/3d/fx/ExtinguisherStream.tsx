@@ -1,17 +1,26 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
+import { createParticleTexture } from './ParticleTexture';
+import { isSceneInputBlocked } from '../../../systems/input/sceneInput';
+import { fireSimulation } from '../../../core/fire/FireSim';
 import * as THREE from 'three';
 
 interface Props {
   isDischarging: boolean;
 }
 
-const PARTICLE_COUNT = 120;
+const PARTICLE_COUNT = 48;
 
 export const ExtinguisherStream: React.FC<Props> = ({ isDischarging }) => {
-  const { camera } = useThree();
+  const { camera, size, gl, scene } = useThree();
+  const texture=useMemo(createParticleTexture,[]);
+  const uniforms=useMemo(()=>({uSprite:{value:texture},uScale:{value:300}}),[texture]);
+  useEffect(()=>()=>texture.dispose(),[texture]);
+  const alpha=useMemo(()=>new Float32Array(PARTICLE_COUNT),[]);
+  const particleSize=useMemo(()=>new Float32Array(PARTICLE_COUNT),[]);
   const pointsRef = useRef<THREE.Points>(null);
 
+  const vectors = useMemo(() => ({ fwd: new THREE.Vector3(), right: new THREE.Vector3(), up: new THREE.Vector3(), muzzle: new THREE.Vector3(), velocity: new THREE.Vector3() }), []);
   // Particle data arrays
   const { positions, velocities, lifetimes, maxLifetimes, sizes } = useMemo(() => {
     const pos = new Float32Array(PARTICLE_COUNT * 3);
@@ -42,27 +51,30 @@ export const ExtinguisherStream: React.FC<Props> = ({ isDischarging }) => {
   // Frame update: spawn and advance particles
   useFrame((_, delta) => {
     if (!pointsRef.current) return;
+    delta=Math.min(delta,.05);
+    const emitting=isDischarging && !isSceneInputBlocked() && !!fireSimulation.currentExtinguisher?.isDischarging;
+    uniforms.uScale.value=size.height*gl.getPixelRatio()*camera.projectionMatrix.elements[5]/2;
 
     const geo = pointsRef.current.geometry;
     const posAttr = geo.attributes.position as THREE.BufferAttribute;
 
     // Camera forward and right vectors
-    const fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
-    const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
-    const up = new THREE.Vector3(0, 1, 0).applyQuaternion(camera.quaternion);
-
-    // Muzzle origin in front-right of camera (where extinguisher horn is)
-    const muzzlePos = camera.position
-      .clone()
-      .add(fwd.clone().multiplyScalar(0.45))
-      .add(right.clone().multiplyScalar(0.12))
-      .add(up.clone().multiplyScalar(-0.14));
+    const { fwd, right, up, muzzle: muzzlePos, velocity } = vectors;
+    fwd.set(0,0,-1).applyQuaternion(camera.quaternion);
+    right.set(1,0,0).applyQuaternion(camera.quaternion);
+    up.set(0,1,0).applyQuaternion(camera.quaternion);
+    muzzlePos.copy(camera.position).addScaledVector(fwd,.6).addScaledVector(right,-.22).addScaledVector(up,-.16);
+    const nozzle = emitting ? scene.getObjectByName('extinguisher-muzzle') : undefined;
+    if (nozzle) { nozzle.updateWorldMatrix(true, false); nozzle.getWorldPosition(muzzlePos); }
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       lifetimes[i] += delta;
+      const progress=Math.min(1,lifetimes[i]/maxLifetimes[i]);
+      alpha[i]=(1-progress)*.48;
+      particleSize[i]=sizes[i]*(1+progress*1.5);
 
       if (lifetimes[i] >= maxLifetimes[i]) {
-        if (isDischarging) {
+        if (emitting) {
           // Re-spawn particle from muzzle
           lifetimes[i] = 0;
           positions[i * 3] = muzzlePos.x + (Math.random() - 0.5) * 0.04;
@@ -74,11 +86,7 @@ export const ExtinguisherStream: React.FC<Props> = ({ isDischarging }) => {
           const spreadY = (Math.random() - 0.5) * 0.35;
           const speed = 7.5 + Math.random() * 3.5;
 
-          const pVel = fwd
-            .clone()
-            .multiplyScalar(speed)
-            .add(right.clone().multiplyScalar(spreadX * speed * 0.3))
-            .add(up.clone().multiplyScalar(spreadY * speed * 0.3));
+          const pVel = velocity.copy(fwd).multiplyScalar(speed).addScaledVector(right,spreadX*speed*.3).addScaledVector(up,spreadY*speed*.3);
 
           velocities[i * 3] = pVel.x;
           velocities[i * 3 + 1] = pVel.y;
@@ -96,10 +104,12 @@ export const ExtinguisherStream: React.FC<Props> = ({ isDischarging }) => {
     }
 
     posAttr.needsUpdate = true;
+    (geo.attributes.aOpacity as THREE.BufferAttribute).needsUpdate=true;
+    (geo.attributes.aSize as THREE.BufferAttribute).needsUpdate=true;
   });
 
   return (
-    <points ref={pointsRef}>
+    <points name="extinguisher-stream" ref={pointsRef} frustumCulled={false}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -107,15 +117,13 @@ export const ExtinguisherStream: React.FC<Props> = ({ isDischarging }) => {
           array={positions}
           itemSize={3}
         />
+        <bufferAttribute attach="attributes-aOpacity" args={[alpha,1]} />
+        <bufferAttribute attach="attributes-aSize" args={[particleSize,1]} />
       </bufferGeometry>
-      <pointsMaterial
-        size={0.22}
-        color="#F8FAFC"
-        transparent
-        opacity={0.7}
-        depthWrite={false}
-        blending={THREE.AdditiveBlending}
-      />
+      <shaderMaterial uniforms={uniforms} transparent depthWrite={false}
+        vertexShader={`attribute float aOpacity;attribute float aSize;uniform float uScale;varying float vOpacity;
+          void main(){vOpacity=aOpacity;vec4 p=modelViewMatrix*vec4(position,1.0);gl_Position=projectionMatrix*p;gl_PointSize=clamp(aSize*uScale/max(.1,-p.z),1.0,48.0);}`}
+        fragmentShader={`uniform sampler2D uSprite;varying float vOpacity;void main(){float a=texture2D(uSprite,gl_PointCoord).a*vOpacity;if(a<.005)discard;gl_FragColor=vec4(.93,.97,1.0,a);}`}/>
     </points>
   );
 };

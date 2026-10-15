@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    "15 unique scenarios, task IDs, detailed clues and valid safe choices",
+    "every scenario requires observations, three decisions and ordered actions",
+    "invalid event IDs cannot alter scenario progress",
+    "save restoration rejects foreign clues and incomplete claimed completion",
+    "focus accepts a reachable object in front of the player",
+    "focus rejects ceiling fixtures, far equipment and objects behind",
+    "focus ranks the aimed object ahead of a closer off-axis object",
+    "focus acquisition waits and losing aim clears immediately",
+    "adjacent targets do not flicker while the old target remains valid"
+  ],
+  "scenarios": 15,
+  "decisions": 45,
+  "observations": 45
+}

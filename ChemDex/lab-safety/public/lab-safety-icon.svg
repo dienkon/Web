@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Lab Safety</title>
+  <rect width="512" height="512" rx="112" fill="#07131e"/>
+  <path d="M256 72 416 132v118c0 101-64 164-160 202C160 414 96 351 96 250V132l160-60Z" fill="#0ea5b7"/>
+  <path d="M220 142h72v32l-14 22v54l68 104a28 28 0 0 1-24 43H190a28 28 0 0 1-24-43l68-104v-54l-14-22v-32Zm36 72v50l-58 93h116l-58-93v-50Z" fill="#f7fafd"/>
+  <path d="M214 321h84l16 36H198l16-36Z" fill="#67e8f9"/>
+</svg>

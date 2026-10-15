@@ -3,9 +3,9 @@ import { TeacherNPC } from './TeacherNPC';
 
 export const LabDecor: React.FC = () => {
   return (
-    <group>
+    <group userData={{labItem:{title:'Khu học tập và hướng dẫn',kind:'board'}}}>
       {/* 1. Large Ceramic Whiteboard on North Wall at (0, 2.0, -7.42) */}
-      <group position={[0, 2.0, -7.42]}>
+      <group userData={{labItem:{title:'Bảng hướng dẫn trên lớp',kind:'board'}}} position={[0, 2.0, -7.42]}>
         {/* Aluminum Frame */}
         <mesh>
           <boxGeometry args={[5.2, 1.8, 0.04]} />
@@ -24,7 +24,7 @@ export const LabDecor: React.FC = () => {
       </group>
 
       {/* 2. Teacher Demonstration Bench at (0, 0, -5.5) */}
-      <group position={[0, 0, -5.5]}>
+      <group userData={{labItem:{title:'Bàn giáo viên',kind:'workspace'}}} position={[0, 0, -5.5]}>
         <mesh position={[0, 0.875, 0]} castShadow receiveShadow>
           <boxGeometry args={[3.0, 0.05, 1.1]} />
           <meshStandardMaterial color="#1E2124" roughness={0.2} />
@@ -39,7 +39,7 @@ export const LabDecor: React.FC = () => {
       <TeacherNPC position={[0, 0, -4.5]} rotationY={0} scale={0.88} />
 
       {/* 4. Chemical Safety GHS Pictogram Board on North Wall (+5.5, 2.0, -7.42) */}
-      <group position={[5.5, 2.0, -7.42]}>
+      <group userData={{labItem:{title:'Bảng ký hiệu GHS',kind:'board'}}} position={[5.5, 2.0, -7.42]}>
         <mesh>
           <boxGeometry args={[2.8, 1.6, 0.03]} />
           <meshStandardMaterial color="#1E293B" />
@@ -56,7 +56,7 @@ export const LabDecor: React.FC = () => {
       </group>
 
       {/* 5. Periodic Table of Elements on North Wall (-5.5, 2.0, -7.42) */}
-      <group position={[-5.5, 2.0, -7.42]}>
+      <group userData={{labItem:{title:'Bảng tuần hoàn',kind:'board'}}} position={[-5.5, 2.0, -7.42]}>
         <mesh>
           <boxGeometry args={[2.8, 1.6, 0.03]} />
           <meshStandardMaterial color="#1E293B" />
@@ -73,7 +73,7 @@ export const LabDecor: React.FC = () => {
       </group>
 
       {/* 6. Analog Wall Clock at (0, 3.2, -7.42) */}
-      <group position={[0, 3.2, -7.42]}>
+      <group userData={{labItem:{title:'Đồng hồ phòng thực hành',kind:'clock'}}} position={[0, 3.2, -7.42]}>
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <cylinderGeometry args={[0.22, 0.22, 0.03, 32]} />
           <meshStandardMaterial color="#FFFFFF" roughness={0.2} />
@@ -85,7 +85,7 @@ export const LabDecor: React.FC = () => {
       </group>
 
       {/* 7. Student Bag & Locker Rack at Entrance (-8.2, 0, 6.8) */}
-      <group position={[-8.2, 0, 6.8]}>
+      <group userData={{labItem:{title:'Giá cất ba lô',kind:'locker'}}} position={[-8.2, 0, 6.8]}>
         <mesh position={[0, 0.45, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.6, 0.9, 0.45]} />
           <meshStandardMaterial color="#64748B" roughness={0.6} />
@@ -108,7 +108,7 @@ export const LabDecor: React.FC = () => {
         [-6.0, 1.8], [-2.0, 1.8], [2.0, 1.8], [6.0, 1.8],
         [-6.0, 5.0], [-2.0, 5.0], [2.0, 5.0], [6.0, 5.0],
       ].map(([panelX, panelZ], i) => (
-        <group key={i} position={[panelX, 3.78, panelZ]}>
+        <group userData={{labItem:{title:'Đèn chiếu sáng phòng',kind:'electrical'}}} key={i} position={[panelX, 3.78, panelZ]}>
           <mesh>
             <boxGeometry args={[1.4, 0.04, 0.4]} />
             <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={0.9} />

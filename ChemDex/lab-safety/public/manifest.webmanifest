@@ -1,0 +1,17 @@
+{
+  "name": "Laboratory Safety 3D",
+  "short_name": "Lab Safety",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#F7FAFD",
+  "theme_color": "#07131e",
+  "icons": [
+    {
+      "src": "./lab-safety-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

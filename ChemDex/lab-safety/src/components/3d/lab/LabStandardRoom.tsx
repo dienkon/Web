@@ -1,4 +1,8 @@
+import { ScenarioWorld } from '../../../scenarios/ScenarioWorld';
+import { LabEquipmentController, handleLabItemClick } from './LabEquipmentController';
 import React from 'react';
+import { LooseWaste } from './LooseWaste';
+import { PlayerMirror } from './PlayerMirror';
 import { LabBaseRoom } from './Architecture';
 import { PPEStation } from './PPEStation';
 import { SafetyWall } from './SafetyWall';
@@ -20,15 +24,19 @@ import { FirstAidTreatmentStation } from './FirstAidTreatmentStation';
 import { ChemicalSpillSimulation } from './ChemicalSpillSimulation';
 import { BunsenBurnerStation } from './BunsenBurnerStation';
 import { ChemicalStorageStation } from './ChemicalStorageStation';
+import { AdvancedSafetyRounds } from './AdvancedSafetyRounds';
+import { ApparatusDetails } from './ApparatusDetails';
 
 export const LabStandardRoom: React.FC = () => {
   return (
-    <group>
+    <group name="lab-room" onClick={handleLabItemClick}>
       {/* 1. Core Architecture (Walls, floor, ceiling, doors A & B) */}
       <LabBaseRoom />
+      <LabEquipmentController />
 
       {/* 2. Entrance & Preparation (PPE Station, Handwash Sink) */}
       <PPEStation />
+      <PlayerMirror />
       <HandwashSink />
 
       {/* 3. West Wall (Emergency Safety Wall + Interactive Shower & First Aid) */}
@@ -38,6 +46,7 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 4. Island Benches (4 benches with Bunsen Burner & Lab Equipment) */}
       <IslandBenches />
+      <ApparatusDetails />
       <BunsenBurnerStation />
 
       {/* 5. Northeast Fume Hood (Base Shell + Interactive Sliding Sash & Vapors) */}
@@ -50,6 +59,9 @@ export const LabStandardRoom: React.FC = () => {
 
       {/* 7. Southeast Waste Segregation Station */}
       <WasteStation />
+      <LooseWaste />
+      <AdvancedSafetyRounds />
+      <ScenarioWorld />
 
       {/* 8. North Teaching Wall & Ambient Decor */}
       <LabDecor />
