@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
+import { solidInventoryFraction } from '../../engine/solidInventory';
 import { PourController } from '../../pour/controller/PourController';
 
 // Shared scratch objects for zero-allocation per-frame transforms
@@ -38,8 +39,8 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   const vessel = useAppStore(state => state.vessels[vesselId]);
   const dissolvingMap = useAppStore(state => state.dissolvingSubstances[vesselId]);
   const dissolving = dissolvingMap || EMPTY_DISSOLVING;
-  const activeTool = useAppStore(state => state.activeTool);
-  const isStirring = activeTool === 'stirring_rod';
+  const stirringVesselId = useAppStore(state => state.stirringVesselId);
+  const isStirring = stirringVesselId === vesselId;
 
   if (!vessel || !vessel.substances || vessel.substances.length === 0) {
     return null;
@@ -47,8 +48,11 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 
   // Filter only solid substances present in the vessel
   const solidSubstances = vessel.substances.filter(sub => {
+    if (sub === vessel.precipitateSubstance && vessel.hasPrecipitate && vessel.volume_ml > 0.05) return false;
+    const entries = vessel.contents.filter(item => item.formula === sub);
+    if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.moles > 1e-12);
     const chem = getChemical(sub);
-    return chem && chem.type === 'solid';
+    return chem && chem.type === 'solid' && vessel.volume_ml <= 0.05;
   });
 
   if (solidSubstances.length === 0) {
@@ -139,11 +143,12 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
     kinetics.reactionId.includes('alkali_metal_water')
   );
   const reactionProgress = isAlkaliReaction ? kinetics.progress : 0;
-  const effectiveProgress = Math.max(dissolveProgress, reactionProgress);
+  const inventoryFraction = solidInventoryFraction(vessel?.contents ?? [], substance);
+  const effectiveProgress = inventoryFraction === null ? Math.max(dissolveProgress, reactionProgress) : 1 - inventoryFraction;
   const isConsumed = effectiveProgress >= 0.99;
 
   // Molten metal droplet scale (shrinks from ~1.0 down to 0)
-  const currentScale = Math.max(0.001, 1.0 - effectiveProgress);
+  const currentScale = Math.cbrt(Math.max(0, 1 - effectiveProgress));
 
   useFrame((state, delta) => {
     if (!groupRef.current || !vessel || isConsumed) return;
@@ -155,9 +160,9 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
     const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
     const cd = simRuntime?.customData;
 
-    const isReacting = hasLiquid && (effectiveProgress > 0.01 && effectiveProgress < 0.98);
-    const isMolten = hasLiquid && (cd?.isMolten ?? (effectiveProgress >= (isPotassium ? 0.12 : 0.28)));
-    const isIgnited = hasLiquid && (cd?.isIgnited ?? (effectiveProgress >= (isPotassium ? 0.08 : 0.45) && effectiveProgress <= 0.94));
+    const isReacting = hasLiquid && !!isAlkaliReaction && reactionProgress > 0 && reactionProgress < 1;
+    const isMolten = isReacting && (cd?.isMolten ?? (effectiveProgress >= (isPotassium ? 0.12 : 0.28)));
+    const isIgnited = isReacting && (cd?.isIgnited ?? (effectiveProgress >= (isPotassium ? 0.08 : 0.45) && effectiveProgress <= 0.94));
 
     const outerFlameColor = isPotassium ? '#c084fc' : '#fbbf24';
     const innerFlameColor = isPotassium ? '#f3e8ff' : '#fffbeb';
@@ -272,7 +277,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
 
       // Update Micro-Steam puff
       if (steamRef.current) {
-        const isSteaming = hasLiquid && effectiveProgress > 0.05 && effectiveProgress < 0.95;
+        const isSteaming = isReacting && effectiveProgress > 0.05 && effectiveProgress < 0.95;
         steamRef.current.visible = isSteaming;
         if (isSteaming) {
           const puff = 1.0 + Math.sin(now * 16.0) * 0.22;
@@ -282,7 +287,7 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
 
       // Thermal glow during vigorous reaction
       if (lightRef.current) {
-        const isHot = effectiveProgress > 0.35 && effectiveProgress < 0.95;
+        const isHot = isReacting && effectiveProgress > 0.35 && effectiveProgress < 0.95;
         lightRef.current.intensity = isHot ? (isIgnited ? 3.6 : 2.0 + Math.random() * 0.8) : 0;
       }
 
@@ -497,14 +502,7 @@ const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     });
   }, [substance, count, effectiveRadius, isRibbon, isTurnings, isFilings, isGranules, isChips, isCubic, isPrismatic, isTabular, isHydrate, isPowder, vesselScale]);
 
-  const content = vessel?.contents?.find(c => 
-    c.formula.toLowerCase() === substance.toLowerCase() || 
-    c.formula.replace(/\s*\(.*\)/g, '').toLowerCase() === substance.replace(/\s*\(.*\)/g, '').toLowerCase()
-  );
-  const initMoles = content?.initialMoles || content?.moles;
-  const remainingMoleFraction = content 
-    ? (content.moles <= 1e-6 ? 0 : (initMoles && initMoles > 1e-6 ? Math.min(1.0, content.moles / initMoles) : 1.0))
-    : 1.0;
+  const remainingMoleFraction = solidInventoryFraction(vessel?.contents ?? [], substance) ?? 1;
   // Visual scale follows remaining moles via cubic root (volume ~ r^3), never disappears prematurely
   const currentScale = Math.max(0, Math.min(1.0, Math.cbrt(remainingMoleFraction)));
 

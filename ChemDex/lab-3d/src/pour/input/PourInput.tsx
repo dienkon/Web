@@ -208,6 +208,7 @@ export const PourInput = React.memo(function PourInput() {
         onPointerDown={handleHoldStart}
         onPointerUp={handleHoldEnd}
         onPointerLeave={handleHoldEnd}
+        title={lang === 'vi' ? 'Rót dịch phía trên; cặn lắng được giữ trong bình nguồn.' : 'Decant the liquid; settled solids remain in the source.'}
         className={`px-5 py-3 rounded-2xl font-semibold text-sm shadow-xl flex items-center gap-2 transition-all active:scale-95 touch-none ${
           session && session.flow_ml_s > 0
             ? 'bg-amber-500 text-slate-950 ring-4 ring-amber-400/40'

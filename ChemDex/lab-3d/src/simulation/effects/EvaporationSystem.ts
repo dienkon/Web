@@ -10,6 +10,7 @@ export interface EvaporationSimulationParams {
   mouthY: number;
   mouthRadius: number;
   isBoiling: boolean;
+  actualRate_ml_s?: number;
   airflowVector?: [number, number, number];
 }
 
@@ -49,8 +50,8 @@ export class EvaporationSystem {
     // 1. CALCULATE EVAPORATION REGIME AND PHYSICAL VAPORIZATION RATE
     const { regime, rate_ml_s } = determineEvaporationRegime(temp_c, surfaceArea_cm2, isBoiling);
     this.regime = regime;
-    this.currentRate_ml_s = rate_ml_s;
-    const evaporated_ml = rate_ml_s * dt;
+    this.currentRate_ml_s = Math.max(0, params.actualRate_ml_s ?? rate_ml_s);
+    const evaporated_ml = this.currentRate_ml_s * dt;
 
     // 2. DETERMINE VISUAL VAPOR PUFF SPAWN RATE
     let visualSpawnRate = 0;
@@ -58,7 +59,7 @@ export class EvaporationSystem {
 
     switch (regime) {
       case 'AMBIENT_DORMANT':
-        visualSpawnRate = temp_c >= 25 ? 0.8 : 0; // Very sparse wisps at room temp
+        visualSpawnRate = 0; // Water vapor is invisible; no room-temperature fog.
         baseParticleSize = 0.025;
         break;
       case 'LOW_EVAPORATION':
@@ -79,6 +80,9 @@ export class EvaporationSystem {
         break;
     }
 
+    if (params.actualRate_ml_s !== undefined) {
+      visualSpawnRate = isBoiling ? Math.min(32, this.currentRate_ml_s * 180) : 0;
+    }
     // 3. SPAWN PARTICLES AT MENISCUS SURFACE OR MOUTH
     if (visualSpawnRate > 0 && this.particles.length < this.maxParticles) {
       this.spawnTimer += dt * visualSpawnRate;

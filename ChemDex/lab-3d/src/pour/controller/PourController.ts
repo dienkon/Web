@@ -5,7 +5,7 @@ import { vfxBus } from '../../vfx/bus';
 import { useAppStore } from '../../store/useAppStore';
 import { getVesselProfile } from '../physics/profiles';
 import { findPouringTilt } from '../physics/retained';
-import { kineticsEngine } from '../../simulation/chemistry/KineticsEngine';
+import { decantLiquid, canReceivePour } from '../../engine/decantTransfer';
 import { clampTilt } from '../../handling/limits';
 
 let pourSessionCounter = 0;
@@ -52,7 +52,13 @@ class PourControllerClass {
   }): void {
     const store = useAppStore.getState();
     const sourceVessel = store.vessels[opts.sourceId];
-    if (!sourceVessel) return;
+    if (!sourceVessel || this.activeSession) return;
+    const finiteVesselMode = !['STOCK_BOTTLE', 'DROPPER', 'SOLID'].includes(opts.mode);
+    const recipient = opts.targetId ? store.vessels[opts.targetId] : null;
+    if (finiteVesselMode && ((sourceVessel.volume_ml > 0 && !decantLiquid(sourceVessel, recipient ?? null, 0.001))
+      || (opts.targetId && (!recipient || !canReceivePour(recipient))))) return;
+    if (opts.requestedVolume_ml !== undefined && (!Number.isFinite(opts.requestedVolume_ml) || opts.requestedVolume_ml <= 0)) return;
+    this.timeAccumulator = 0;
 
     const id = `pour_${++pourSessionCounter}`;
     const initialPos: [number, number, number] = [...sourceVessel.position];
@@ -136,9 +142,9 @@ class PourControllerClass {
 
     const store = useAppStore.getState();
     const liveVessels = store.vessels;
-    const effectiveVesselsMap = vesselsMap || (liveVessels as any);
-    const sourceVessel = liveVessels[this.activeSession.sourceId];
-    const targetVessel = this.activeSession.targetId ? liveVessels[this.activeSession.targetId] : null;
+    let effectiveVesselsMap: Record<string, SimVessel> = {};
+    let sourceVessel = liveVessels[this.activeSession.sourceId];
+    let targetVessel = this.activeSession.targetId ? liveVessels[this.activeSession.targetId] : null;
 
     if (!sourceVessel) {
       this.cancelPour();
@@ -175,9 +181,23 @@ class PourControllerClass {
 
     const initPos = this.activeSession.initialSourcePos || sourceVessel.position;
 
-    while (this.timeAccumulator >= FIXED_STEP && steps < 5) {
+    while (this.activeSession && this.timeAccumulator >= FIXED_STEP && steps < 5) {
       this.timeAccumulator -= FIXED_STEP;
       steps++;
+      const current = useAppStore.getState().vessels;
+      sourceVessel = current[this.activeSession.sourceId];
+      targetVessel = this.activeSession.targetId ? current[this.activeSession.targetId] : null;
+      if (!sourceVessel || sourceVessel.isSealed || sourceVessel.isShattered
+        || (this.activeSession.targetId && (!targetVessel || !canReceivePour(targetVessel)))) {
+        void this.commitCurrentPour();
+        break;
+      }
+      effectiveVesselsMap = Object.fromEntries([sourceVessel, ...(targetVessel ? [targetVessel] : [])].map(v => [v.id, {
+        ...v, rotationZ: v.rotationZ ?? 0, density_g_ml: v.density_g_ml ?? 1,
+        colorHex: v.liquidColor ?? '#f8fafc', ...(vesselsMap?.[v.id] ? {
+          position: vesselsMap[v.id].position,
+        } : {}),
+      }]));
 
       // ========================================================
       // PIPELINE STATE MACHINE
@@ -255,7 +275,9 @@ class PourControllerClass {
             assist: this.activeSession.assist || 'high'
           };
 
-          const result = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime);
+          const result = stepPourSimulation(physSession, effectiveVesselsMap, FIXED_STEP, this.simTime,
+            this.activeSession.requestedVolume_ml === undefined ? Infinity
+              : Math.max(0, this.activeSession.requestedVolume_ml - this.activeSession.transferred_ml - this.activeSession.spilled_ml));
 
           this.activeSession.transferred_ml = result.nextSession.totalTransferred_ml;
           this.activeSession.spilled_ml = result.nextSession.totalSpilled_ml;
@@ -270,12 +292,6 @@ class PourControllerClass {
                 flowRate: event.flowRate_ml_s
               });
             } else if (event.type === 'spill') {
-              storeBridge.recordSpill(
-                event.position,
-                event.volume_ml,
-                sourceVessel.substances || [],
-                event.color
-              );
               // Realistic parabolic droplet splatter eruption
               const isAcid = (sourceVessel.ph !== undefined && sourceVessel.ph < 5.5) ||
                 (sourceVessel.substances || []).some(s => {
@@ -293,60 +309,29 @@ class PourControllerClass {
             }
           }
 
-          // Real-time live vessel volume transfer
-          if (result.updatedSource) {
-            sourceVessel.volume_ml = result.updatedSource.volume_ml;
-            sourceVessel.mass_g = result.updatedSource.mass_g;
-            sourceVessel.volume = Math.min(1.0, sourceVessel.volume_ml / sourceVessel.capacity_ml);
+          // The geometry solver proposes volumes; the inventory transaction moves
+          // each aliquot once. No direct mutation and no synthetic 0.8 M kinetics.
+          const finiteVesselMode = !['STOCK_BOTTLE', 'DROPPER', 'SOLID'].includes(this.activeSession.mode);
+          if (finiteVesselMode) {
+            const accepted = result.nextSession.totalTransferred_ml - physSession.totalTransferred_ml;
+            const spilled = result.nextSession.totalSpilled_ml - physSession.totalSpilled_ml;
+            if (accepted > 0 && this.activeSession.targetId) {
+              useAppStore.getState().transferLiquidContinuous(sourceVessel.id, this.activeSession.targetId, accepted);
+            }
+            if (spilled > 0) {
+              const contact = result.events.find(e => e.type === 'spill')?.position ?? sourceVessel.position;
+              useAppStore.getState().transferLiquidContinuous(sourceVessel.id, null, spilled, contact);
+            }
+            sourceVessel = useAppStore.getState().vessels[sourceVessel.id];
           }
-
-          if (result.updatedTarget && targetVessel) {
-            targetVessel.volume_ml = result.updatedTarget.volume_ml;
-            targetVessel.mass_g = result.updatedTarget.mass_g;
-            targetVessel.volume = Math.min(1.0, targetVessel.volume_ml / targetVessel.capacity_ml);
-            targetVessel.substances = result.updatedTarget.substances;
-            targetVessel.density_g_ml = result.updatedTarget.density_g_ml;
-
-            // Step Real-Time Chemical Reaction Kinetics in Recipient!
-            const impactEvent = result.events.find(e => e.type === 'flow:impact');
-            const impactPos = impactEvent ? impactEvent.position : targetVessel.position;
-
-            const kineticsResult = kineticsEngine.step(targetVessel, FIXED_STEP, {
-              inflowRate_ml_s: this.activeSession.flow_ml_s,
-              impactPoint: impactPos,
-              incomingColor: sourceVessel.liquidColor
-            });
-
-            if (kineticsResult.hasPrecipitate) {
-              targetVessel.hasPrecipitate = true;
-              targetVessel.precipitateAmount_g = kineticsResult.precipitateTotal_g;
-              targetVessel.precipitateColor = kineticsResult.precipitateColor || '#ffffff';
-            }
-
-            if (kineticsResult.hasGas) {
-              targetVessel.hasGas = true;
-              targetVessel.gasColor = kineticsResult.gasColor || '#ffffff';
-            }
-
-            if (kineticsResult.targetLiquidColor) {
-              targetVessel.liquidColor = kineticsResult.targetLiquidColor;
-            }
-
-            targetVessel.temperature_c += kineticsResult.tempChange_c;
-
-            // Update local mixing zone
-            this.activeSession.mixingZone = {
-              active: true,
-              point: impactPos,
-              radius: kineticsResult.mixingRadius,
-              intensity: kineticsResult.mixingIntensity,
-              color: sourceVessel.liquidColor || '#38bdf8'
-            };
-          }
+          const impact = result.events.find(e => e.type === 'flow:impact');
+          this.activeSession.mixingZone = { active: !!impact, point: impact?.position ?? sourceVessel.position,
+            radius: 0.08, intensity: impact ? Math.min(1, this.activeSession.flow_ml_s / 40) : 0,
+            color: sourceVessel.liquidColor ?? '#f8fafc' };
 
           // Check if pour should transition to dripping
           const isDepleted = sourceVessel.volume_ml <= 0.05;
-          const isRequestedReached = this.activeSession.requestedVolume_ml && this.activeSession.transferred_ml >= this.activeSession.requestedVolume_ml;
+          const isRequestedReached = this.activeSession.requestedVolume_ml && this.activeSession.transferred_ml + this.activeSession.spilled_ml >= this.activeSession.requestedVolume_ml - 1e-9;
           const isTiltingBack = this.activeSession.targetTilt <= 0.08;
 
           if (isDepleted || isRequestedReached || isTiltingBack) {
@@ -439,14 +424,8 @@ class PourControllerClass {
           : (session.requestedVolume_ml || 20);
         await storeBridge.commitAddChemical(session.targetId, session.chemical, amount);
       }
-    } else if (session.targetId) {
-      await storeBridge.commitVesselPour(
-        session.sourceId,
-        session.targetId,
-        session.transferred_ml,
-        session.initialFromVolume_ml,
-        session.initialToVolume_ml
-      );
+    } else {
+      await storeBridge.completeLivePour(session.sourceId, session.targetId);
     }
 
     vfxBus.emit('pour:end', {
@@ -455,7 +434,7 @@ class PourControllerClass {
       transferred_ml: session.transferred_ml
     });
 
-    useAppStore.getState().setIsPouring(false);
+    if (!this.activeSession) useAppStore.getState().setIsPouring(false);
 
     this.notify();
   }

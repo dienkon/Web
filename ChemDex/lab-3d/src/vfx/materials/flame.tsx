@@ -4,9 +4,11 @@ import * as THREE from 'three';
 import { MeshTransmissionMaterial } from '@react-three/drei';
 import { NOISE_GLSL } from '../glsl/noise.glsl';
 import { useQualityStore } from '../quality';
-import { vfxBus } from '../bus';
+import { useAppStore } from '../../store/useAppStore';
+import { sampleFlameEmission } from '../../engine/flameEmission';
 
 interface ProceduralFlameProps {
+  burnerId: string;
   intensity?: number; // 1 to 5
   position?: [number, number, number];
   scale?: number;
@@ -49,7 +51,7 @@ void main() {
   vec3 defaultCol = mix(vec3(0.22, 0.55, 1.0), vec3(1.0, 0.88, 0.35), smoothstep(0.04, 0.42, h));
   defaultCol = mix(defaultCol, vec3(1.0, 0.42, 0.08), smoothstep(0.55, 0.95, h));
 
-  // Atomic emission spectral override (Cu 510nm, Na 589nm, K 766nm, Li 670nm, Ca 622nm, Ba 524nm)
+  // Qualitative observed emission colors; RGB is not a single spectral line.
   vec3 emissionCol = mix(vec3(0.18, 0.45, 0.95), uFlameColor, smoothstep(0.08, 0.38, h));
   emissionCol = mix(emissionCol, uFlameColor * 1.25 + vec3(0.15), smoothstep(0.45, 0.88, h));
   vec3 col = mix(defaultCol, emissionCol, uColorOverride);
@@ -65,6 +67,7 @@ void main() {
 `;
 
 export const ProceduralFlame = React.memo(function ProceduralFlame({
+  burnerId,
   intensity = 3,
   position = [0, 0, 0],
   scale = 1.0,
@@ -74,7 +77,7 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   const lightRef = useRef<THREE.PointLight>(null);
   const effectiveTier = useQualityStore(s => s.effectiveTier);
 
-  const overrideTimerRef = useRef(0);
+  const emission = useAppStore(state => state.burners[burnerId]?.flameEmission);
   const targetEmissionColorRef = useRef(new THREE.Color('#fb923c'));
   const defaultLightColor = useMemo(() => new THREE.Color('#fb923c'), []);
 
@@ -84,18 +87,7 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
     uIntensity: { value: intensity },
     uFlameColor: { value: new THREE.Color('#fb923c') },
     uColorOverride: { value: 0.0 },
-  }), [intensity]);
-
-  useEffect(() => {
-    const unsub = vfxBus.on('flame:test', (e) => {
-      if (e.color) {
-        targetEmissionColorRef.current.set(e.color);
-        uniforms.uFlameColor.value.set(e.color);
-        overrideTimerRef.current = 7.5; // Hold atomic emission flame color for 7.5 seconds
-      }
-    });
-    return unsub;
-  }, [uniforms]);
+  }), []);
 
   const flameMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
@@ -113,31 +105,25 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   // Pre-allocated cross plane geometry
   const planeGeom = useMemo(() => {
     // 0.45 width x 0.85 height, origin anchored at base
-    const geom = new THREE.PlaneGeometry(0.48 * scale, 0.85 * scale, 12, 16);
-    geom.translate(0, (0.85 * scale) / 2, 0);
+    const geom = new THREE.PlaneGeometry(0.48, 0.85, 12, 16);
+    geom.translate(0, 0.85 / 2, 0);
     return geom;
-  }, [scale]);
+  }, []);
 
-  useFrame((state, delta) => {
-    const dt = Math.min(delta, 0.05);
+  // Both planes share component-owned resources. Keep intensity/scale changes
+  // on uniforms/transforms and release the GPU resources once on unmount.
+  useEffect(() => () => { flameMaterial.dispose(); planeGeom.dispose(); }, [flameMaterial, planeGeom]);
+
+  useFrame((state) => {
     const t = state.clock.elapsedTime;
     flameMaterial.uniforms.uTime.value = t;
     flameMaterial.uniforms.uIntensity.value = intensity;
 
-    if (overrideTimerRef.current > 0) {
-      overrideTimerRef.current = Math.max(0, overrideTimerRef.current - dt);
-      const targetMix = overrideTimerRef.current > 1.0 ? 1.0 : overrideTimerRef.current;
-      flameMaterial.uniforms.uColorOverride.value = THREE.MathUtils.lerp(
-        flameMaterial.uniforms.uColorOverride.value,
-        targetMix,
-        0.15
-      );
-    } else {
-      flameMaterial.uniforms.uColorOverride.value = THREE.MathUtils.lerp(
-        flameMaterial.uniforms.uColorOverride.value,
-        0.0,
-        0.08
-      );
+    const mix = sampleFlameEmission(emission, performance.now());
+    flameMaterial.uniforms.uColorOverride.value = mix;
+    if (emission && mix > 0) {
+      targetEmissionColorRef.current.set(emission.color);
+      flameMaterial.uniforms.uFlameColor.value.copy(targetEmissionColorRef.current);
     }
 
     // Organic light flicker + spectral color shift
@@ -158,15 +144,15 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
   });
 
   return (
-    <group position={position}>
+    <group position={position} scale={scale}>
       {/* Primary Cross-Plane Procedural Flame */}
-      <mesh ref={meshRef1} geometry={planeGeom} material={flameMaterial} />
-      <mesh ref={meshRef2} geometry={planeGeom} material={flameMaterial} />
+      <mesh ref={meshRef1} geometry={planeGeom} material={flameMaterial} dispose={null} />
+      <mesh ref={meshRef2} geometry={planeGeom} material={flameMaterial} dispose={null} />
 
       {/* Illuminating Flame Point Light */}
       <pointLight
         ref={lightRef}
-        position={[0, 0.35 * scale, 0]}
+        position={[0, 0.35, 0]}
         color="#fb923c"
         intensity={2.4 * (intensity / 3)}
         distance={4.5}
@@ -176,8 +162,8 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
 
       {/* High-tier & Ultra-tier Heat-Haze Distortion Quad above flame */}
       {(effectiveTier === 'high' || effectiveTier === 'ultra') && (
-        <mesh position={[0, 0.85 * scale, 0]}>
-          <planeGeometry args={[0.35 * scale, 0.45 * scale]} />
+        <mesh position={[0, 0.85, 0]}>
+          <planeGeometry args={[0.35 * scale, 0.45]} />
           <MeshTransmissionMaterial
             distortion={0.18}
             distortionScale={0.55}

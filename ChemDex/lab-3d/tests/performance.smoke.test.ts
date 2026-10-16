@@ -7,6 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { getProgramById } from '../src/vfx/programs/library/index';
 import { VesselSimulationManager } from '../src/simulation/core/SimulationEngine';
 import { applyProgramToLedger, computeMolarMass } from '../src/engine/ledger';
@@ -163,6 +164,17 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
     const maxFrameTime = Math.max(...frameTimes);
     frameTimes.sort((a, b) => a - b);
     const p95FrameTime = frameTimes[Math.floor(frameTimes.length * 0.95)];
+    mkdirSync('artifacts/science-audit', { recursive: true });
+    writeFileSync('artifacts/science-audit/headless-performance.json', JSON.stringify({
+      checkedAt: new Date().toISOString(),
+      scenario: 'Three vessel logic/physics, high tier, 120 steps at dt=1/60',
+      webglRenderingIncluded: false,
+      browserFpsVerified: false,
+      averageStep_ms: avgFrameTime,
+      p95Step_ms: p95FrameTime,
+      maximumStep_ms: maxFrameTime,
+      heapDelta_MB: memDeltaMB,
+    }, null, 2) + '\n');
 
     // Headless logic budget: 60 FPS corresponds to 16.67ms total frame time.
     // Pure physics/chemistry step should take < 5ms average to leave >= 11ms for WebGL rendering.
@@ -173,7 +185,9 @@ describe('Performance Smoke Benchmark (§11.1)', () => {
     expect(memDeltaMB).toBeLessThan(25.0);
 
     // Physical sanity: all 3 vessels progressed correctly
-    expect(vesselGas.hasGas).toBe(true);
+    // Exhausted reagents stop gas production; the finite escaped amount remains.
+    expect(vesselGas.hasGas).toBe(false);
+    expect(vesselGas.escapedGas_g?.CO2).toBeGreaterThan(0);
     expect(vesselPrecip.hasPrecipitate).toBe(true);
     expect(vesselPrecip.precipitateAmount_g).toBeGreaterThan(0);
     expect(vesselRedox.contents?.some(c => c.formula.toLowerCase() === 'cu')).toBe(true);

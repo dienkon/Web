@@ -82,7 +82,7 @@ register(new AgClCurdyPrecipitationController(), [
   'agcl_precipitate', 'agcl_curdy_precipitation', 'AgNO3+NaCl', 'agno3_nacl_precipitate'
 ]);
 register(new PbI2GoldenRainController(), [
-  'golden_rain', 'pbi2_precipitation', 'golden_rain_synthesis', 'golden_rain_pbi2', 'Pb(NO3)2+KI'
+  'golden_rain', 'pbi2_precipitation', 'golden_rain_synthesis', 'golden_rain_pbi2', 'pbno32_ki', 'Pb(NO3)2+KI'
 ]);
 register(new CuOH2GelPrecipitationController(), [
   'cuoh2_precipitate', 'cuso4_naoh', 'CuSO4+NaOH', 'cuso4_naoh_precipitate'

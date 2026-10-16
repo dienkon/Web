@@ -18,6 +18,8 @@ import { INORGANIC_ANALYSIS_PROGRAMS } from './inorganicAnalysisPrograms';
 import { REDOX_TITRATION_PROGRAMS } from './redoxTitrationPrograms';
 import { GAS_GENERATION_PROGRAMS } from './gasGenerationPrograms';
 import { PHYSICAL_SOLUTION_PROGRAMS } from './physicalSolutionPrograms';
+import { LESSON_PROGRAMS } from '../../../lesson/programCompiler';
+import { THIOSULFATE_ACID_PROGRAM } from './thiosulfateProgram';
 
 export const ALL_HANDCRAFTED_PROGRAMS: ReactionProgram[] = [
   ...ACID_BASE_PROGRAMS,
@@ -31,7 +33,9 @@ export const ALL_HANDCRAFTED_PROGRAMS: ReactionProgram[] = [
   ...INORGANIC_ANALYSIS_PROGRAMS,
   ...REDOX_TITRATION_PROGRAMS,
   ...GAS_GENERATION_PROGRAMS,
-  ...PHYSICAL_SOLUTION_PROGRAMS
+  ...PHYSICAL_SOLUTION_PROGRAMS,
+  ...LESSON_PROGRAMS,
+  THIOSULFATE_ACID_PROGRAM
 ];
 
 export const PROGRAMS_BY_ID = new Map<string, ReactionProgram>();

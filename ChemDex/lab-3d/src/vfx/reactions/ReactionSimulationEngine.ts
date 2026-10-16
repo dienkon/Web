@@ -48,7 +48,7 @@ export class ReactionSimulationEngine {
       progress: 0.0,
       reactionRate: 1.0,
       temperature: vessel.temperature_c || 25.0,
-      reactantAvailability: {},
+      reactantAvailability: Object.fromEntries((vessel.contents ?? []).map(content => [content.formula, content.moles])),
       productFormation: {},
       surfaceActivity: 0.0,
       gasGenerationRate: 0.0,
@@ -69,6 +69,14 @@ export class ReactionSimulationEngine {
       const context = this.createContext(runtime, vessel, this.fixedDt);
       controller.initialize(context);
     }
+    if (initialData.targetColor) runtime.targetColor = initialData.targetColor;
+    // An externally supplied chemistry duration takes priority over a generic
+    // controller preset; otherwise the controller can finish and restart early.
+    if (initialData.duration !== undefined && Number.isFinite(initialData.duration) && initialData.duration > 0) {
+      runtime.duration = initialData.duration;
+      runtime.progress = Math.max(0, Math.min(1, initialData.progress ?? 0));
+      runtime.elapsed = runtime.progress * runtime.duration;
+    }
 
     this.activeRuntimes.set(vesselId, runtime);
     return runtime;
@@ -78,8 +86,8 @@ export class ReactionSimulationEngine {
    * Advances the simulation using a fixed-timestep accumulator.
    */
   public update(frameDelta: number, timeScale: number = 1.0): void {
-    if (frameDelta <= 0) return;
-    const clampedDelta = Math.min(frameDelta, 0.1) * timeScale;
+    if (!Number.isFinite(frameDelta) || !Number.isFinite(timeScale) || frameDelta <= 0 || timeScale <= 0) return;
+    const clampedDelta = Math.min(frameDelta, 0.1) * Math.min(timeScale, 8);
     this.accumulator += clampedDelta;
 
     const maxSubSteps = 5;
@@ -90,6 +98,9 @@ export class ReactionSimulationEngine {
       this.accumulator -= this.fixedDt;
       stepCount++;
     }
+    // Discard whole overdue steps instead of carrying an ever-growing backlog
+    // after a tab resumes or the user enables accelerated simulation time.
+    if (stepCount === maxSubSteps) this.accumulator %= this.fixedDt;
   }
 
   /**
@@ -107,7 +118,7 @@ export class ReactionSimulationEngine {
       }
 
       const controller = getReactionController(runtime.reactionId);
-      runtime.agitation = activeTool === 'stirring_rod' ? 0.85 : 0.0;
+      runtime.agitation = activeTool === 'stirring_rod' && useAppStore.getState().selectedVesselId === vesselId ? 0.85 : 0.0;
 
       const context = this.createContext(runtime, vessel, dt, timeScale);
 
@@ -156,7 +167,24 @@ export class ReactionSimulationEngine {
     return this.activeRuntimes.get(vesselId);
   }
 
+  /** Chemistry owns the lifetime; a visual controller cannot outlive its run. */
+  public retainVessels(vesselIds: ReadonlySet<string>): void {
+    for (const id of this.activeRuntimes.keys()) {
+      if (!vesselIds.has(id)) this.stopReaction(id);
+    }
+  }
+
   public stopReaction(vesselId: string): void {
+    const runtime = this.activeRuntimes.get(vesselId);
+    const vessel = useAppStore.getState().vessels[vesselId];
+    if (runtime) {
+      const controller = getReactionController(runtime.reactionId);
+      if (controller && vessel) controller.finalize(this.createContext(runtime, vessel, 0));
+      runtime.gasGenerationRate = 0;
+      runtime.precipitateRate = 0;
+      runtime.reactionRate = 0;
+      runtime.heatReleaseRate = 0;
+    }
     this.activeRuntimes.delete(vesselId);
   }
 

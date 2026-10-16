@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
-import { GasPlume } from '../../vfx/particles';
+import type { SpillState } from '../../types/chemistry';
+import { SpilledSolids } from './SpilledSolids';
 
 export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   const spills = useAppStore(state => state.spills);
@@ -19,14 +20,14 @@ export const WorkbenchSpills = React.memo(function WorkbenchSpills() {
   );
 });
 
-function SpillPuddle({ spill }: { spill: any }) {
+function SpillPuddle({ spill }: { spill: SpillState }) {
   const { position, color, radius, isHazard } = spill;
   const groupRef = React.useRef<THREE.Group>(null);
   const currentRadiusRef = React.useRef(0.04);
 
   // Smooth expanding puddle animation directly on 3D transform (zero React re-renders)
   useFrame((_, delta) => {
-    if (groupRef.current && currentRadiusRef.current < radius) {
+    if (spill.volume_ml > 0 && groupRef.current && currentRadiusRef.current < radius) {
       currentRadiusRef.current = Math.min(radius, currentRadiusRef.current + delta * 0.9);
       const scale = currentRadiusRef.current / Math.max(0.06, radius);
       groupRef.current.scale.set(scale, 1, scale);
@@ -50,6 +51,8 @@ function SpillPuddle({ spill }: { spill: any }) {
 
   return (
     <group ref={groupRef} position={[position[0], puddleY, position[2]]}>
+      <SpilledSolids spill={spill} />
+      {spill.volume_ml > 0 && <>
       {/* Main Fluid Puddle on Table Surface */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <circleGeometry args={[Math.max(0.06, radius), 32]} />
@@ -98,16 +101,7 @@ function SpillPuddle({ spill }: { spill: any }) {
         </mesh>
       ))}
 
-      {/* Fuming smoke/effervescence if hazardous acid/corrosive chemical spilled */}
-      {isHazard && (
-        <GasPlume
-          origin={[0, 0.05, 0]}
-          color="#f8fafc"
-          density="light"
-          rate={8}
-          turbidity={0.35}
-        />
-      )}
+      </>}
     </group>
   );
 }

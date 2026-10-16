@@ -100,11 +100,11 @@ export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
     morphology: 'crystalline',
     color: '#eab308',
     particleDensity_g_cm3: 6.16,
-    baseParticleRadius_mm: 0.22,
+    baseParticleRadius_mm: 0.08,
     aggregationRate: 0.35,
-    cloudinessFactor: 0.70,
+    cloudinessFactor: 0.25,
     specularReflectivity: 0.95, // Golden glittering glint
-    roughness: 0.35,
+    roughness: 0.18,
   },
   // Cu(OH)2: Azure sky-blue gelatinous fluffy curdy flocs
   'Cu(OH)2': {

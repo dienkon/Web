@@ -1,5 +1,6 @@
 import React, { useRef, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
 import { ProceduralFlame } from '../../vfx/materials/flame';
@@ -48,30 +49,25 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
   const setDraggingVesselId = useAppStore(state => state.setDraggingVesselId);
   const toggleBurner = useAppStore(state => state.toggleBurner);
   const setBurnerIntensity = useAppStore(state => state.setBurnerIntensity);
-  const burner = useAppStore(state => state.burners[id]);
+  const active = useAppStore(state => state.burners[id]?.isOn ?? isOn);
 
   const [isHovered, setIsHovered] = useState(false);
 
   const gauzeRef = useRef<THREE.Mesh>(null);
   const liquidRef = useRef<THREE.Mesh>(null);
 
-  // Fuel level calculations
-  const fuelLevel = burner?.fuelLevel_ml ?? 120;
-  const maxFuel = burner?.maxFuel_ml ?? 150;
-  const fuelFraction = Math.max(0.05, Math.min(1.0, fuelLevel / maxFuel));
-
-  // Determine physical flame state
-  const flameState = burner?.flameState || (isOn ? (intensity === 1 ? 'LOW_FLAME' : (intensity >= 4 ? 'HIGH_FLAME' : 'MEDIUM_FLAME')) : 'UNLIT');
-  const isFlameActive = isOn && fuelLevel > 0;
-
-  // Real-time reservoir update
+  const isFlameActive = active;
+  // Read the changing reservoir directly for a transform update. Fuel changes
+  // do not rerender all lamp geometry at the store publication cadence.
   useFrame(() => {
-    // Dynamic liquid fuel reservoir level in glass lamp
+    const burner = useAppStore.getState().burners[id];
+    const fuel = burner?.fuelLevel_ml ?? 120;
+    const maximum = burner?.maxFuel_ml ?? 150;
+    const fuelFraction = maximum > 0 ? Math.max(0, Math.min(1, fuel / maximum)) : 0;
     if (liquidRef.current) {
-      const targetY = 0.12 + 0.28 * fuelFraction;
-      const targetScaleY = fuelFraction;
-      liquidRef.current.position.y = targetY;
-      liquidRef.current.scale.y = Math.max(0.05, targetScaleY);
+      liquidRef.current.visible = fuelFraction > 0;
+      liquidRef.current.position.y = 0.12 + 0.21 * fuelFraction;
+      liquidRef.current.scale.y = fuelFraction;
     }
   });
 
@@ -97,6 +93,11 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
           setDraggingVesselId(id);
         }
       }}
+      onWheel={(e) => {
+        if (moveMode) return;
+        e.stopPropagation();
+        setBurnerIntensity(id, intensity + (e.deltaY < 0 ? 1 : -1));
+      }}
       onClick={(e) => {
         e.stopPropagation();
         if (!moveMode) {
@@ -105,6 +106,7 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
         }
       }}
     >
+      {isHovered && <BurnerStatus id={id} />}
       {/* Subtle hover highlight ring on table without blocking UI */}
       {isHovered && (
         <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -138,9 +140,8 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
         <mesh ref={gauzeRef} position={[0, 1.49, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <circleGeometry args={[0.42, 32]} />
           <meshStandardMaterial
-            color={isFlameActive ? '#ffedd5' : '#f8fafc'}
-            emissive={isFlameActive ? '#ea580c' : '#000000'}
-            emissiveIntensity={isFlameActive ? 0.45 * (intensity / 3) : 0}
+            color="#f8fafc"
+            emissiveIntensity={0}
             roughness={0.9}
           />
         </mesh>
@@ -283,11 +284,23 @@ export const AlcoholBurner = React.memo(function AlcoholBurner({
         {/* 4. MULTI-LAYER REALISTIC ALCOHOL FLAME                   */}
         {/* ======================================================== */}
         {isFlameActive && (
-          <ProceduralFlame intensity={intensity} position={[0, 0.88, 0]} />
+          <ProceduralFlame burnerId={id} intensity={intensity} position={[0, 0.88, 0]} />
         )}
       </group>
     </group>
   );
 });
+
+function BurnerStatus({ id }: { id: string }) {
+  const burner = useAppStore(state => state.burners[id]);
+  const vi = useAppStore(state => state.language === 'vi');
+  if (!burner) return null;
+  return <Html position={[0, 1.8, 0]} center style={{ pointerEvents: 'none' }}>
+    <div className="rounded bg-slate-950/90 px-2 py-1 text-[11px] text-white whitespace-nowrap">
+      <div>{vi ? 'Cồn còn' : 'Fuel'}: {(burner.fuelLevel_ml ?? 120).toFixed(1)} mL · {vi ? 'Mức bấc' : 'Wick'} {burner.intensity}/5</div>
+      <div className="text-[10px] text-slate-300">{vi ? 'Bấm bật/tắt · Cuộn chỉnh bấc' : 'Click on/off · Scroll to adjust wick'}</div>
+    </div>
+  </Html>;
+}
 
 export default AlcoholBurner;

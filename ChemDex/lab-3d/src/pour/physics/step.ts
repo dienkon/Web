@@ -48,7 +48,8 @@ export function stepPourSimulation(
   session: PourPhysicsSession,
   vessels: Record<string, SimVessel>,
   dt: number,
-  simTime: number
+  simTime: number,
+  maxOutflow_ml: number = Infinity
 ): {
   nextSession: PourPhysicsSession;
   updatedSource: SimVessel;
@@ -120,7 +121,8 @@ export function stepPourSimulation(
     assistMode
   );
 
-  const dV = flow.flowRate_ml_s * dt;
+  const dV = Number.isFinite(dt) && dt > 0 && maxOutflow_ml > 0
+    ? Math.min(flow.flowRate_ml_s * dt, maxOutflow_ml) : 0;
   let accepted_ml = 0;
   let spilled_ml = 0;
 

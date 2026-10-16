@@ -134,7 +134,7 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
       volume_ml: 50,
       mass_g: 50,
       substances: ['HCl'],
-      contents: [{ formula: 'HCl', moles: 0.05, mass_g: 0.05 * 36.46, concentration_M: 1.0, volume_ml: 50 }]
+      contents: [{ formula: 'HCl', phase: 'aq', moles: 0.05, mass_g: 0.05 * 36.46, concentration_M: 1.0 }, { formula: 'H2O', phase: 'l', mass_g: 50 - 0.05 * 36.46, moles: (50 - 0.05 * 36.46) / 18.015 }]
     });
 
     // Create Beaker B: contains 50 mL 1.0 M NaOH (0.05 mol)
@@ -144,7 +144,7 @@ describe('Multi-Step Stoichiometric Reactions & Physical Realism', () => {
       volume_ml: 50,
       mass_g: 50,
       substances: ['NaOH'],
-      contents: [{ formula: 'NaOH', moles: 0.05, mass_g: 0.05 * 40.00, concentration_M: 1.0, volume_ml: 50 }]
+      contents: [{ formula: 'NaOH', phase: 'aq', moles: 0.05, mass_g: 0.05 * 40.00, concentration_M: 1.0 }, { formula: 'H2O', phase: 'l', mass_g: 48, moles: 48 / 18.015 }]
     });
 
     // Pour all 50 mL of Acid Beaker into Base Beaker

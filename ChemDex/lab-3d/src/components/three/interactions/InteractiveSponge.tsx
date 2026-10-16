@@ -70,11 +70,15 @@ export const InteractiveSponge = React.memo(function InteractiveSponge() {
     canvas.addEventListener('pointermove', handlePointerMove);
     canvas.addEventListener('pointerdown', handlePointerDown);
     window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerUp);
+    window.addEventListener('blur', handlePointerUp);
 
     return () => {
       canvas.removeEventListener('pointermove', handlePointerMove);
       canvas.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
+      window.removeEventListener('blur', handlePointerUp);
     };
   }, [activeTool, camera, gl, raycaster, tablePlane, intersectPoint, wipeSpillAt]);
 
@@ -82,7 +86,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge() {
     if (!groupRef.current) return;
 
     // Smoothly track target position on workbench
-    groupRef.current.position.lerp(targetWorldPos.current, delta * 14.0);
+    groupRef.current.position.lerp(targetWorldPos.current, 1 - Math.exp(-delta * 14));
 
     // Dynamic wiping wiggle animation
     if (isWiping) {

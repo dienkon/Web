@@ -21,6 +21,8 @@ interface LiquidProps {
   baseY: number;
   maxHeight: number;
   capacity_ml?: number;
+  volumeOverride_ml?: number;
+  colorOverride?: string;
 }
 
 // Reusable scratch objects to guarantee ZERO allocation during animation frames
@@ -38,6 +40,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   baseY,
   maxHeight,
   capacity_ml = 250,
+  volumeOverride_ml,
+  colorOverride,
 }: LiquidProps) {
   const meshGroupRef = useRef<THREE.Group>(null);
   const liquidMeshRef = useRef<THREE.Mesh>(null);
@@ -320,12 +324,12 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     dynamicRippleRef.current = Math.max(0, dynamicRippleRef.current - dt * 3.0);
     uniforms.uDynamicRipple.value = dynamicRippleRef.current;
 
-    const volume = vessel.volume_ml ?? 0;
+    const volume = volumeOverride_ml ?? vessel.volume_ml ?? 0;
     const capacity = vessel.capacity_ml ?? capacity_ml;
     const targetFillFraction = Math.max(0, Math.min(1.0, volume / capacity));
 
     // Smooth fluid rise dynamics: liquid level rises gradually when poured into vessel
-    if (!isFillInitialized.current) {
+    if (!isFillInitialized.current || volumeOverride_ml !== undefined) {
       displayedFillFraction.current = targetFillFraction;
       isFillInitialized.current = true;
     } else {
@@ -369,7 +373,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uniforms.uSurfaceRadius.value = surfaceR;
 
     // Update liquid color and turbidity
-    const liquidColorHex = vessel.liquidColor || '#38bdf8';
+    const liquidColorHex = colorOverride || vessel.liquidColor || '#38bdf8';
     _scratchTargetColor.set(liquidColorHex);
     uniforms.uLiquidColor.value.lerp(_scratchTargetColor, 0.1);
     liquidMaterial.color.copy(uniforms.uLiquidColor.value);

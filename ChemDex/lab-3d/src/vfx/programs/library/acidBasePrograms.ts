@@ -29,9 +29,7 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 4.0,
       timeline: [
-        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.0, params: { speed: 1.5, color: '#e0f2fe' } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0.2, 0.8], intensity: 0.6, params: { steamDensity: 0.5, temperature_c: 42 } },
-        { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0, 0.2], intensity: 0.5, params: { soundProfile: 'fizz_effervescence', volume: 0.4 } }
+        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.0, params: { speed: 1.5, color: '#e0f2fe' } }
       ],
       after: { liquidColor: '#f8fafc', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [] }
     },
@@ -66,14 +64,13 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 5.0,
       timeline: [
-        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.5], intensity: 1.2, params: { speed: 1.8, color: '#e0f2fe' } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0.1, 0.9], intensity: 1.0, params: { steamDensity: 0.9, temperature_c: 58 } }
+        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.5], intensity: 1.2, params: { speed: 1.8, color: '#e0f2fe' } }
       ],
       after: { liquidColor: '#f8fafc', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [] }
     },
     explain: {
-      observation_vi: 'Cốc nóng lên rõ rệt, bốc hơi nước nhẹ, dung dịch vẫn trong suốt.',
-      observation_en: 'Beaker warms noticeably, gentle water vapor, liquid remains clear.',
+      observation_vi: 'Dung dịch vẫn trong; nhiệt độ tăng tùy nồng độ và lượng chất. Không mặc định có sương trắng hay sủi khí.',
+      observation_en: 'Solution remains clear; warming depends on concentration and amount. No automatic white mist or gas bubbles.',
       why_vi: 'Phản ứng trung hòa bậc hai tỏa nhiệt mạnh.',
       why_en: 'Diprotic acid neutralization releases significant enthalpy.'
     },
@@ -101,8 +98,7 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 4.0,
       timeline: [
-        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.0, params: { speed: 1.4, color: '#ffffff' } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0.2, 0.7], intensity: 0.5, params: { steamDensity: 0.4, temperature_c: 40 } }
+        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.0, params: { speed: 1.4, color: '#ffffff' } }
       ],
       after: { liquidColor: '#ffffff', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [] }
     },
@@ -141,10 +137,10 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
       after: { liquidColor: '#f8fafc', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [] }
     },
     explain: {
-      observation_vi: 'Mùi giấm chua biến mất, dung dịch hơi ấm.',
-      observation_en: 'Vinegar odor neutralizes, solution turns mildly warm.',
-      why_vi: 'Axit axetic bị bazơ mạnh trung hòa hoàn toàn.',
-      why_en: 'Acetic acid completely neutralizes into sodium acetate.'
+      observation_vi: 'Dung dịch vẫn trong, có thể ấm lên; pH tăng theo lượng kiềm. Nếu có chỉ thị phù hợp, màu đổi gần điểm kết thúc.',
+      observation_en: 'The solution remains clear and may warm; pH increases with base addition and a suitable indicator changes near the endpoint.',
+      why_vi: 'OH− chuyển axit axetic thành axetat và nước. Lượng kiềm quyết định vùng đệm, điểm tương đương hoặc kiềm dư; muối axetat thủy phân làm điểm tương đương có pH lớn hơn 7.',
+      why_en: 'Hydroxide converts acetic acid to acetate and water. Base dose determines the buffer region, equivalence or base excess; acetate hydrolysis makes equivalence basic.'
     },
     confidence: 1.0
   },
@@ -169,8 +165,7 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 6.0,
       timeline: [
-        { id: 'fumes', atom: 'headspaceFog', anchor: 'headspace', window: [0, 0.9], intensity: 1.5, params: { fogColor: '#ffffff', density: 0.95 } },
-        { id: 'sound', atom: 'proceduralAcoustics', anchor: 'rim', window: [0, 0.2], intensity: 0.4, params: { soundProfile: 'fizz_effervescence', volume: 0.3 } }
+        { id: 'fumes', atom: 'headspaceFog', anchor: 'headspace', window: [0, 0.9], intensity: 1.5, params: { fogColor: '#ffffff', density: 0.95 } }
       ],
       after: { liquidColor: '#ffffff', liquidOpacity: 0.9, turbidity: 0.5, gasesOffgassed: [] }
     },
@@ -202,8 +197,7 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 4.5,
       timeline: [
-        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.0, params: { speed: 1.3, color: '#f8fafc' } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0.2, 0.8], intensity: 0.7, params: { steamDensity: 0.6, temperature_c: 50 } }
+        { id: 'swirl', atom: 'liquidSwirl', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.0, params: { speed: 1.3, color: '#f8fafc' } }
       ],
       after: { liquidColor: '#ffffff', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [] }
     },
@@ -363,11 +357,12 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     id: 'phenolphthalein_naoh',
     provenance: 'handcrafted',
     chemistry: {
+      representation: 'indicator',
       equation: 'HIn(colorless) + OH-(aq) -> In-(magenta) + H2O(l)',
       species: [
-        { formula: 'Phenolphthalein', role: 'reactant', coeff: 1, phase: 'aq', colorHex: '#ffffff' },
-        { formula: 'NaOH', role: 'reactant', coeff: 1, phase: 'aq', hazards: ['GHS05_corrosive'] },
-        { formula: 'In_basic', role: 'product', coeff: 1, phase: 'aq', colorHex: '#f43f5e' }
+        { formula: 'Phenolphthalein', role: 'spectator', coeff: 1, phase: 'aq', colorHex: '#ffffff' },
+        { formula: 'NaOH', role: 'spectator', coeff: 1, phase: 'aq', hazards: ['GHS05_corrosive'] },
+        { formula: 'In_basic', role: 'spectator', coeff: 1, phase: 'aq', colorHex: '#f43f5e' }
       ],
       kinetics: { model: 'instant', halfTime_s: 0.05 },
       hazards: []
@@ -395,11 +390,12 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     id: 'methyl_orange_hcl',
     provenance: 'handcrafted',
     chemistry: {
+      representation: 'indicator',
       equation: 'In-(yellow) + H+(aq) -> HIn(red)',
       species: [
-        { formula: 'Methyl_Orange', role: 'reactant', coeff: 1, phase: 'aq', colorHex: '#facc15' },
-        { formula: 'HCl', role: 'reactant', coeff: 1, phase: 'aq', hazards: ['GHS05_corrosive'] },
-        { formula: 'HIn_acidic', role: 'product', coeff: 1, phase: 'aq', colorHex: '#ef4444' }
+        { formula: 'Methyl_Orange', role: 'spectator', coeff: 1, phase: 'aq', colorHex: '#facc15' },
+        { formula: 'HCl', role: 'spectator', coeff: 1, phase: 'aq', hazards: ['GHS05_corrosive'] },
+        { formula: 'HIn_acidic', role: 'spectator', coeff: 1, phase: 'aq', colorHex: '#ef4444' }
       ],
       kinetics: { model: 'instant', halfTime_s: 0.05 },
       hazards: []
@@ -426,11 +422,12 @@ export const ACID_BASE_PROGRAMS: ReactionProgram[] = [
     id: 'bromothymol_blue_base',
     provenance: 'handcrafted',
     chemistry: {
+      representation: 'indicator',
       equation: 'HIn(yellow/green) + OH-(aq) -> In-(deep blue) + H2O(l)',
       species: [
-        { formula: 'Bromothymol_Blue', role: 'reactant', coeff: 1, phase: 'aq', colorHex: '#22c55e' },
-        { formula: 'NaOH', role: 'reactant', coeff: 1, phase: 'aq' },
-        { formula: 'In_blue', role: 'product', coeff: 1, phase: 'aq', colorHex: '#1d4ed8' }
+        { formula: 'Bromothymol_Blue', role: 'spectator', coeff: 1, phase: 'aq', colorHex: '#22c55e' },
+        { formula: 'NaOH', role: 'spectator', coeff: 1, phase: 'aq' },
+        { formula: 'In_blue', role: 'spectator', coeff: 1, phase: 'aq', colorHex: '#1d4ed8' }
       ],
       kinetics: { model: 'instant', halfTime_s: 0.05 },
       hazards: []

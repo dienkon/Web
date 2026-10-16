@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { stepVesselThermal, aqueousBoilingPoint } from '../../engine/thermalState';
+import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { VesselState } from '../../types/chemistry';
 import { VESSEL_PROFILES } from '../../pour/physics/profiles';
 import { BoilingSystem } from '../effects/BoilingSystem';
@@ -9,6 +11,8 @@ import { checkSaturation } from '../chemistry/SolubilityEngine';
 import { getPrecipitateProfile } from './SimulationConfig';
 
 export interface SimulationStepResult {
+  contents: VesselState['contents'];
+  evaporationRate_g_s: number;
   temperature_c: number;
   isBoiling: boolean;
   boilingIntensity: number;
@@ -40,7 +44,7 @@ export class VesselSimulationManager {
     const isHigh = qualityTier === 'high' || qualityTier === 'ultra';
     const isMed = qualityTier === 'medium';
     const maxB = isHigh ? 90 : isMed ? 45 : 20;
-    const maxP = isHigh ? 140 : isMed ? 70 : 30;
+    const maxP = isHigh ? 900 : isMed ? 550 : qualityTier === 'low' ? 260 : 120;
     const maxE = isHigh ? 50 : isMed ? 25 : 15;
 
     this.boilingSystem = new BoilingSystem(maxB);
@@ -65,6 +69,7 @@ export class VesselSimulationManager {
       agitation?: number;
       airflowVector?: [number, number, number];
       ambientTemp_c?: number;
+      thermalStateAuthoritative?: boolean;
       reactionGasRate?: number;
       reactionPrecipitateActive?: boolean;
       reactionPrecipitateSubstance?: string;
@@ -82,52 +87,18 @@ export class VesselSimulationManager {
 
     const profile = VESSEL_PROFILES[vessel.type] || VESSEL_PROFILES.beaker;
 
-    // 1. THERMAL CONDUCTION & COOLING (P1.1-lite)
-    const glassHeatCapacity = 33.2; // 40g * 0.83 J/(g·K)
-    const liquidMass = vessel.mass_g || (vessel.volume_ml * (vessel.density_g_ml || 1.0));
-    const liquidHeatCapacity = vessel.volume_ml > 0.05 ? liquidMass * 4.184 : 0;
-    const totalHeatCapacity = Math.max(10.0, liquidHeatCapacity + glassHeatCapacity);
-
-    const coolingPower_W = 0.35 * (vessel.temperature_c - ambientTemp_c);
-    const dT = ((heatPower_W * 8.5 - coolingPower_W) / totalHeatCapacity) * dt;
-
-    // Colligative boiling point elevation: Tb = 100 + i * Kb * m (P1.5-lite)
-    let boilingElevation_K = 0;
-    if (vessel.contents && vessel.contents.length > 0 && vessel.volume_ml > 0.5) {
-      let totalDissolvedIonMoles = 0;
-      for (const item of vessel.contents) {
-        if (item.formula === 'H2O') continue;
-        const f = item.formula.toUpperCase();
-        let vanthoff_i = 1.0;
-        if (f.includes('NACL') || f.includes('KI') || f.includes('NAOH') || f.includes('HCL')) {
-          vanthoff_i = 1.8;
-        } else if (f.includes('BACL2') || f.includes('NA2SO4') || f.includes('CACL2') || f.includes('H2SO4') || f.includes('PB(NO3)2')) {
-          vanthoff_i = 2.5;
-        } else if (f.includes('FECL3') || f.includes('AL2(SO4)3')) {
-          vanthoff_i = 3.2;
-        }
-        totalDissolvedIonMoles += (item.moles || 0) * vanthoff_i;
-      }
-      const solventKg = Math.max(0.001, (vessel.volume_ml * 0.95) / 1000.0);
-      const molality = totalDissolvedIonMoles / solventKg;
-      boilingElevation_K = Math.min(18.0, 0.512 * molality);
-    }
-
-    const boilingPoint_c = 100.0 + boilingElevation_K;
-    const maxTempPossible = (vessel.volume_ml > 0.5) ? boilingPoint_c : 450.0;
-    const newTemp = Math.max(ambientTemp_c, Math.min(maxTempPossible, vessel.temperature_c + dT));
-
-    // 2. THERMODYNAMIC PHASE DETERMINATION
-    const { stage: boilingStage, intensity: rawBoilingIntensity } = determineBoilingStage(
-      newTemp,
-      boilingPoint_c,
-      heatPower_W
-    );
-    const isBoiling = boilingStage === 'ACTIVE_BOIL' || boilingStage === 'INTENSE_ROLLING_BOIL' || vessel.isBoiling;
-    const boilingIntensity = isBoiling ? Math.max(rawBoilingIntensity, vessel.boilingIntensity || 0.6) : 0;
+    const thermal = options.thermalStateAuthoritative ? null : stepVesselThermal(vessel, dt, heatPower_W * 8.5, ambientTemp_c);
+    const newTemp = thermal?.temperature_c ?? vessel.temperature_c;
+    const boilingPoint_c = thermal?.boilingPoint_c ?? aqueousBoilingPoint(vessel);
+    const isBoiling = thermal ? thermal.isBoiling === true : vessel.isBoiling === true;
+    const boilingIntensity = isBoiling ? (thermal?.boilingIntensity ?? vessel.boilingIntensity ?? 0) : 0;
+    const boilingStage = isBoiling ? 'ACTIVE_BOIL' : determineBoilingStage(Math.min(newTemp, boilingPoint_c - 0.01), boilingPoint_c, heatPower_W).stage;
+    const evaporated_ml = thermal?.evaporatedStep_g ?? 0;
+    const vaporRate = thermal ? evaporated_ml / Math.max(1e-9, dt) : (vessel.evaporationRate_g_s ?? 0);
 
     // 3. FLUID PROPERTIES
-    const soluteMass = (vessel.contents || []).reduce((acc, c) => acc + (c.mass_g || 0), 0);
+    const soluteMass = (vessel.contents || []).filter(item => item.phase !== 's' && item.phase !== 'g'
+      && !sameMolecularFormula(item.formula, 'H2O')).reduce((acc, c) => acc + (c.mass_g || 0), 0);
     const viscosity_mPa_s = computeFluidViscosity(newTemp, soluteMass / Math.max(0.01, vessel.volume_ml));
     const density_g_ml = computeFluidDensity(newTemp, soluteMass, vessel.volume_ml);
 
@@ -139,7 +110,8 @@ export class VesselSimulationManager {
     const surfaceArea_cm2 = Math.PI * Math.pow(currentRadius * profile.sceneScale, 2);
 
     // 4. EVAPORATION STEP (Mass loss & solute concentration)
-    const { evaporated_ml } = this.evaporationSystem.update(dt, {
+    this.evaporationSystem.update(dt, {
+      actualRate_ml_s: vaporRate,
       temp_c: newTemp,
       surfaceArea_cm2,
       radius: currentRadius,
@@ -150,73 +122,45 @@ export class VesselSimulationManager {
       airflowVector
     });
 
-    const newVolume_ml = Math.max(0, vessel.volume_ml - evaporated_ml);
-    const newMass_g = Math.max(0, vessel.mass_g - evaporated_ml * density_g_ml);
+    const newVolume_ml = thermal?.volume_ml ?? vessel.volume_ml;
+    const newMass_g = thermal?.mass_g ?? vessel.mass_g;
 
-    // 5. SUPERSATURATION & PRECIPITATION CHECK
-    // If solvent evaporated significantly, solutes may exceed solubility limit!
-    let totalPrecipitate_g = vessel.precipitateAmount_g || 0;
-    let precipitateColor = vessel.precipitateColor || '#f8fafc';
-    let hasPrecipitate = vessel.hasPrecipitate;
-
-    if (vessel.contents && vessel.contents.length > 0 && newVolume_ml > 0) {
-      for (const item of vessel.contents) {
-        const sat = checkSaturation(item.formula, item.mass_g, newVolume_ml, newTemp);
-        if (sat.isSupersaturated && sat.excessPrecipitate_g > 0.005) {
-          hasPrecipitate = true;
-          totalPrecipitate_g = Math.max(totalPrecipitate_g, sat.excessPrecipitate_g);
-          const pProf = getPrecipitateProfile(item.formula);
-          precipitateColor = pProf.color;
-        }
-      }
-    }
-
-    // Reaction precipitate override from stoichiometry (P4.2)
-    let activeSubstance = reactionPrecipitateSubstance || 
-      (vessel.precipitateSubstance || 
-      (vessel.substances?.find(s => s.includes('Pb') || s.includes('I')) ? 'PbI2' : 
-      (vessel.substances?.find(s => s.includes('Cu')) ? 'Cu(OH)2' : 
-      (vessel.substances?.find(s => s.includes('Ag')) ? 'AgCl' : 'BaSO4'))));
-
-    if (reactionPrecipitateActive || vessel.hasPrecipitate) {
-      hasPrecipitate = true;
-      if (vessel.precipitateAmount_g && vessel.precipitateAmount_g > 0) {
-        totalPrecipitate_g = Math.max(totalPrecipitate_g, vessel.precipitateAmount_g);
-      }
-      if (activeSubstance) {
-        const pProf = getPrecipitateProfile(activeSubstance);
-        precipitateColor = pProf.color;
-      }
-    }
-
-    // 6. PRECIPITATION SIMULATION STEP
-    if (hasPrecipitate || totalPrecipitate_g > 0.001) {
-      this.precipitationSystem.update(dt, {
-        temp_c: newTemp,
-        viscosity_mPa_s,
-        density_g_ml,
-        radius: currentRadius,
-        liquidBottomY: profile.baseY,
-        surfaceY: fillY,
-        precipitateAmount_g: totalPrecipitate_g,
-        substance: activeSubstance,
-        agitation,
-        heatPower_W
-      });
-    }
+    // Chemistry/phase partition owns the amount. Persistent solids do not
+    // authorize extra production, and KI/Pb salts are not assumed to be PbI2.
+    const activeSubstance = reactionPrecipitateSubstance || vessel.precipitateSubstance;
+    const solidEntries = activeSubstance ? vessel.contents.filter(item => item.formula === activeSubstance && item.phase === 's') : [];
+    const totalPrecipitate_g = Math.max(0, vessel.precipitateAmount_g
+      ?? solidEntries.reduce((sum, item) => sum + item.mass_g, 0));
+    const hasPrecipitate = totalPrecipitate_g > 1e-12;
+    const precipitateColor = activeSubstance
+      ? getPrecipitateProfile(activeSubstance).color : vessel.precipitateColor || '#ffffff';
+    // Always step, including zero mass, so dissolution clears suspended and
+    // settled geometry instead of leaving the previous frame frozen in place.
+    this.precipitationSystem.update(dt, {
+      temp_c: newTemp,
+      viscosity_mPa_s,
+      density_g_ml,
+      radius: currentRadius,
+      liquidBottomY: profile.baseY,
+      surfaceY: fillY,
+      precipitateAmount_g: totalPrecipitate_g,
+      substance: activeSubstance,
+      agitation,
+      heatPower_W,
+    });
 
     // 7. BOILING / GAS BUBBLE SIMULATION STEP
     const hasGasGeneration = reactionGasRate > 0;
     if ((boilingStage !== 'COLD_STABLE' || hasGasGeneration) && newVolume_ml > 0.5) {
       this.boilingSystem.update(dt, {
         temp_c: newTemp,
-        boilingPoint_c: 100.0,
+        boilingPoint_c,
         heatPower_W,
         viscosity_mPa_s,
         radius: currentRadius,
         liquidBottomY: profile.baseY,
         surfaceY: fillY,
-        boilingStage: hasGasGeneration && boilingStage === 'COLD_STABLE' ? 'BOILING_ONSET' : boilingStage,
+        boilingStage,
         boilingIntensity: hasGasGeneration ? Math.max(boilingIntensity, Math.min(1.0, reactionGasRate / 30)) : boilingIntensity,
         agitation,
         reactionGasRate
@@ -226,11 +170,13 @@ export class VesselSimulationManager {
     }
 
     return {
-      temperature_c: Math.round(newTemp * 10) / 10,
+      temperature_c: newTemp,
+      contents: thermal?.contents ?? vessel.contents,
+      evaporationRate_g_s: vaporRate,
       isBoiling,
       boilingIntensity,
-      volume_ml: Math.round(newVolume_ml * 100) / 100,
-      mass_g: Math.round(newMass_g * 100) / 100,
+      volume_ml: newVolume_ml,
+      mass_g: newMass_g,
       evaporated_ml,
       hasPrecipitate,
       precipitateAmount_g: totalPrecipitate_g,

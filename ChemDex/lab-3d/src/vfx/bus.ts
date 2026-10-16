@@ -51,6 +51,7 @@ export interface VfxEventMap {
     speed?: number;
   };
   'flame:test': {
+    burnerId: string;
     element: string;
     color: string;
     cobaltFilter: boolean;

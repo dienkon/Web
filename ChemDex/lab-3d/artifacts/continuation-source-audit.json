@@ -1,0 +1,266 @@
+{
+  "basis": "Source snapshot captured at start of current continuation. src TS/TSX only; excludes JSON, tests, docs, blank lines and comment-only lines. Added code token lines, not total repository lines.",
+  "added": 5085,
+  "removed": 70,
+  "files": [
+    {
+      "file": "components/InstrumentPanel.tsx",
+      "added": 230,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "components/ReactionLibraryPanel.tsx",
+      "added": 5,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveBuretteApparatus.tsx",
+      "added": 1,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveDigitalBalance.tsx",
+      "added": 5,
+      "removed": 3,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractivePipette.tsx",
+      "added": 26,
+      "removed": 55,
+      "newFile": false
+    },
+    {
+      "file": "components/three/interactions/InteractiveSpatula.tsx",
+      "added": 1,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "components/three/LabScene.tsx",
+      "added": 3,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "components/WorkbenchToolbar.tsx",
+      "added": 12,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "engine/interactionEngine.ts",
+      "added": 2,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "handling/instrumentCatalog.ts",
+      "added": 154,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentOperations.ts",
+      "added": 224,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentReadings.ts",
+      "added": 110,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "handling/instrumentState.ts",
+      "added": 44,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/alcohols.ts",
+      "added": 182,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/amines.ts",
+      "added": 113,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/builders.ts",
+      "added": 89,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/carbohydrates.ts",
+      "added": 152,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/esters.ts",
+      "added": 147,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/hydrocarbons.ts",
+      "added": 250,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/index.ts",
+      "added": 43,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/inorganic.ts",
+      "added": 184,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/species.ts",
+      "added": 411,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/catalog/validate.ts",
+      "added": 115,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/conditions.ts",
+      "added": 131,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/formula.ts",
+      "added": 132,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/inventory.ts",
+      "added": 152,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/kinetics.ts",
+      "added": 108,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/chemistry/optics.ts",
+      "added": 155,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/diagnostics.ts",
+      "added": 164,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/history.ts",
+      "added": 175,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/labBridge.ts",
+      "added": 183,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonChart.tsx",
+      "added": 51,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonDiagnostics.tsx",
+      "added": 131,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonPanel.tsx",
+      "added": 247,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/LessonScene.tsx",
+      "added": 231,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/programCompiler.ts",
+      "added": 159,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/report.ts",
+      "added": 67,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/runtime.ts",
+      "added": 252,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "lesson/types.ts",
+      "added": 231,
+      "removed": 0,
+      "newFile": true
+    },
+    {
+      "file": "store/useAppStore.ts",
+      "added": 4,
+      "removed": 2,
+      "newFile": false
+    },
+    {
+      "file": "vfx/director.tsx",
+      "added": 1,
+      "removed": 0,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/library/index.ts",
+      "added": 3,
+      "removed": 1,
+      "newFile": false
+    },
+    {
+      "file": "vfx/programs/resolver.ts",
+      "added": 5,
+      "removed": 1,
+      "newFile": false
+    }
+  ],
+  "net": 5015
+}

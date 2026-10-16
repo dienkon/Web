@@ -15,6 +15,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   const targetVessel = useAppStore(state => state.vessels[pendingDispense.targetVesselId]);
   const triggerPour = useAppStore(state => state.triggerPour);
   const language = useAppStore(state => state.language);
+  const activeTool = useAppStore(state => state.activeTool);
 
   const { chemical, targetVesselId } = pendingDispense;
   const chemDef = React.useMemo(() => getChemical(chemical), [chemical]);
@@ -29,6 +30,13 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   const handleConfirm = React.useCallback(() => {
+    if (!Number.isFinite(amount) || amount <= 0) return;
+    if (isSolid && activeTool === 'spatula') {
+      useAppStore.getState().setSpatulaScoop(chemical, amount, chemDef.color);
+      useAppStore.getState().touchToolChemical('spatula', chemical);
+      setPendingDispense(null);
+      return;
+    }
     // Play realistic procedural audio
     if (isSolid) {
       labSound.playSolidDrop();
@@ -39,7 +47,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
     // Trigger pour animation and store amount with appropriate scale
     triggerPour(chemical, targetVesselId, isIndicator ? amount * 0.1 : amount);
     setPendingDispense(null);
-  }, [isSolid, chemical, targetVesselId, isIndicator, amount, triggerPour, setPendingDispense]);
+  }, [isSolid, chemical, targetVesselId, isIndicator, amount, triggerPour, setPendingDispense, activeTool, chemDef.color]);
 
   const confirmRef = React.useRef(handleConfirm);
   confirmRef.current = handleConfirm;
@@ -312,7 +320,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
               <Check size={16} />
               <span>
                 {isSolid 
-                  ? t(`Add ${amount.toFixed(1)}g to Vessel`, `Cân & Thêm ${amount.toFixed(1)}g`) 
+                    ? (activeTool === 'spatula' ? t(`Load ${amount.toFixed(1)}g on spatula`, `Lấy ${amount.toFixed(1)}g lên thìa`) : t(`Add ${amount.toFixed(1)}g to Vessel`, `Cân & Thêm ${amount.toFixed(1)}g`))
                   : isIndicator
                   ? t(`Add ${amount} Drops`, `Nhỏ ${amount} giọt`)
                   : t(`Pour ${amount} mL to Vessel`, `Đong & Rót ${amount} mL`)}

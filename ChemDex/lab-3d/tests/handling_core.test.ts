@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { evaluateGripSafety, getVesselGripSpec } from '../src/handling/gripPoints';
 import { evaluateSnapTarget } from '../src/handling/snapping';
+import { LAB_PHYSICS } from '../src/engine/interactionEngine';
 import { PPEState } from '../src/safety/Ppe';
 
 describe('Handling Core: Grip Anchors, Thermal Rules & Smart Snapping (K1.2 - K1.4)', () => {
@@ -63,7 +64,7 @@ describe('Handling Core: Grip Anchors, Thermal Rules & Smart Snapping (K1.2 - K1
     expect(snap.isSnapped).toBe(true);
     expect(snap.targetType).toBe('balance');
     expect(snap.position[0]).toBeCloseTo(7.5, 2);
-    expect(snap.position[1]).toBeCloseTo(-0.02, 2);
+    expect(snap.position[1]).toBeCloseTo(LAB_PHYSICS.BALANCE_POSITION[1] + 1.35, 2);
     expect(snap.position[2]).toBeCloseTo(-2.5, 2);
   });
 

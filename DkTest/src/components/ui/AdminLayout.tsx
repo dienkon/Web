@@ -31,6 +31,7 @@ import { subscribeToActiveSessions, type ActiveSession } from "../../services/re
 import { isAdminAuthenticated, clearAdminSession } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 import ThemeToggle from "./ThemeToggle";
+import AdminAIAssistant from "../admin/AdminAIAssistant";
 
 const navItems = [
   { name: "Tổng quan", path: "/admin/dashboard", icon: LayoutDashboard },
@@ -240,6 +241,18 @@ export default function AdminLayout() {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Admin AI Assistant Quick Trigger */}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("admin-open-ai-assistant"))}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 border border-blue-200/80 font-bold text-xs shadow-2xs transition-all active:scale-95 cursor-pointer"
+              title="Mở Trợ lý Quản trị Admin AI (gemini-3.5-flash-lite) - Ctrl + /"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+              <span className="hidden md:inline">Trợ lý AI</span>
+              <span className="text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded-md font-mono font-medium">3.5</span>
+            </button>
+
             {/* Notification Center */}
             <NotificationCenter />
 
@@ -293,6 +306,9 @@ export default function AdminLayout() {
           confirmVariant="danger"
         />
       )}
+
+      {/* Admin AI Virtual Assistant (Gemini 3.5 Flash Lite) */}
+      <AdminAIAssistant />
     </div>
   );
 }

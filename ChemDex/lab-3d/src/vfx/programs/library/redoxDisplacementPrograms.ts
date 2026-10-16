@@ -300,7 +300,10 @@ export const REDOX_DISPLACEMENT_PROGRAMS: ReactionProgram[] = [
         { formula: 'KIO3', role: 'reactant', coeff: 1, phase: 'aq' },
         { formula: 'NaHSO3', role: 'reactant', coeff: 3, phase: 'aq' },
         { formula: 'Starch', role: 'spectator', coeff: 1, phase: 'aq' },
-        { formula: 'I_starch', role: 'product', coeff: 1, phase: 'aq', colorHex: '#1e1b4b' } // Deep midnight blue-black
+        { formula: 'KI', role: 'product', coeff: 1, phase: 'aq' },
+        { formula: 'Na2SO4', role: 'product', coeff: 1, phase: 'aq' },
+        { formula: 'NaHSO4', role: 'product', coeff: 1, phase: 'aq' },
+        { formula: 'H2SO4', role: 'product', coeff: 1, phase: 'aq' },
       ],
       kinetics: { model: 'induction_then_fast', halfTime_s: 0.2, induction_s: 4.5 },
       hazards: []
@@ -308,20 +311,18 @@ export const REDOX_DISPLACEMENT_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 7.0,
       timeline: [
-        // Induction silence for 4.5s then sudden dramatic snap to dark blue-black!
-        { id: 'fade', atom: 'beerLambertFade', anchor: 'bulk', window: [0.65, 0.72], intensity: 2.0, params: { startColor: '#ffffff', endColor: '#0f172a', opticalPath_cm: 5.0 } },
-        { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0.65, 0.75], intensity: 0.8, params: { soundProfile: 'pop_ignition', volume: 0.6 } }
+          { id: 'mix', atom: 'liquidSwirl', anchor: 'bulk', window: [0, 0.6], intensity: 0.4, params: { speed: 0.4 } }
       ],
       after: {
-        liquidColor: '#0f172a',
-        liquidOpacity: 0.99,
-        turbidity: 0.2,
+          liquidColor: '#f8fafc',
+          liquidOpacity: 0.95,
+          turbidity: 0,
         gasesOffgassed: []
       }
     },
     explain: {
-      observation_vi: 'Dung dịch hoàn toàn trong suốt không đổi màu trong vài giây (thời gian trễ), sau đó đột ngột chớp nhoáng hóa đen tuyền / xanh đen mực trong tích tắc!',
-      observation_en: 'Solution stays clear for several seconds, then suddenly flashes to deep ink-black blue in an instant!',
+        observation_vi: 'Giai đoạn khử iodat tạo iodua chưa tạo xanh đen. Khi bisulfit hết và iodat còn dư, iot có thể tích tụ; cần tinh bột để xuất hiện xanh đen. Thời gian trễ chưa hiệu chuẩn.',
+        observation_en: 'The initial iodate reduction forms iodide. Excess iodate can then produce iodine after bisulfite exhaustion; a blue-black response requires starch. Delay is not calibrated.',
       why_vi: 'Khi bisulfit bị tiêu thụ hết, iot tự do tích tụ lập tức tạo phức hợp màu xanh đen với tinh bột.',
       why_en: 'Once bisulfite is exhausted, unconsumed iodine accumulates and binds into starch-iodine blue complex.'
     },

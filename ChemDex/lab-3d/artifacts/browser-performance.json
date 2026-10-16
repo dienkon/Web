@@ -1,0 +1,552 @@
+{
+  "scenario": "default_scene_after_reload",
+  "seconds": 60,
+  "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000468B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "resolution": [
+    612,
+    680
+  ],
+  "vesselCount": 3,
+  "readings": [
+    {
+      "fps": 45,
+      "ms": 22.1,
+      "p95_ms": 33.6,
+      "drawCalls": 1,
+      "triangles": 2,
+      "samples": 46,
+      "quality": "low"
+    },
+    {
+      "fps": 42,
+      "ms": 23.8,
+      "p95_ms": 30.9,
+      "drawCalls": 1,
+      "triangles": 2,
+      "samples": 43,
+      "quality": "potato"
+    },
+    {
+      "fps": 39,
+      "ms": 25.8,
+      "p95_ms": 100.7,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 39,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 19.4,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 22.3,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 65,
+      "quality": "low"
+    },
+    {
+      "fps": 40,
+      "ms": 25.1,
+      "p95_ms": 34.8,
+      "drawCalls": 194,
+      "triangles": 24744,
+      "samples": 40,
+      "quality": "low"
+    },
+    {
+      "fps": 38,
+      "ms": 26.3,
+      "p95_ms": 34.1,
+      "drawCalls": 194,
+      "triangles": 24744,
+      "samples": 39,
+      "quality": "low"
+    },
+    {
+      "fps": 39,
+      "ms": 25.9,
+      "p95_ms": 32.7,
+      "drawCalls": 194,
+      "triangles": 24744,
+      "samples": 39,
+      "quality": "potato"
+    },
+    {
+      "fps": 60,
+      "ms": 16.8,
+      "p95_ms": 19.8,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 60,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 19.4,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 60,
+      "ms": 16.6,
+      "p95_ms": 24.1,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 61,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 21,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 20.7,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.5,
+      "p95_ms": 21.1,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 19.5,
+      "drawCalls": 152,
+      "triangles": 17522,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 63,
+      "ms": 16,
+      "p95_ms": 20.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 63,
+      "quality": "potato"
+    },
+    {
+      "fps": 63,
+      "ms": 15.8,
+      "p95_ms": 20,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 64,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 18.9,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.5,
+      "p95_ms": 20.2,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 18.1,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.5,
+      "p95_ms": 20.5,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.6,
+      "p95_ms": 21.6,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 18.6,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.5,
+      "p95_ms": 20.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.1,
+      "p95_ms": 19.7,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 67,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 20.3,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 63,
+      "ms": 15.9,
+      "p95_ms": 20.6,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 63,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 20,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.7,
+      "p95_ms": 21.3,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 64,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 20.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 63,
+      "ms": 15.8,
+      "p95_ms": 21.9,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 64,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.5,
+      "p95_ms": 21.9,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.3,
+      "p95_ms": 20,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 20.5,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 63,
+      "ms": 15.8,
+      "p95_ms": 22.2,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 64,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 20.9,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 20.8,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 21.1,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 63,
+      "ms": 15.9,
+      "p95_ms": 21.7,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 64,
+      "quality": "potato"
+    },
+    {
+      "fps": 67,
+      "ms": 15,
+      "p95_ms": 20.3,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 67,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 20.6,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 67,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 21.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.5,
+      "p95_ms": 22,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 21.5,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 67,
+      "ms": 15,
+      "p95_ms": 20.6,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 67,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.5,
+      "p95_ms": 21.2,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.5,
+      "p95_ms": 20.7,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.1,
+      "p95_ms": 20.7,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 67,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 21.6,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 20.3,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.7,
+      "p95_ms": 20.5,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 20.8,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 21.9,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 67,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 21.2,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 20.2,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 64,
+      "ms": 15.7,
+      "p95_ms": 21.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 64,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.3,
+      "p95_ms": 20.2,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 66,
+      "ms": 15.2,
+      "p95_ms": 20.5,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 66,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 20.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    },
+    {
+      "fps": 65,
+      "ms": 15.4,
+      "p95_ms": 20.4,
+      "drawCalls": 149,
+      "triangles": 17496,
+      "samples": 65,
+      "quality": "potato"
+    }
+  ]
+}

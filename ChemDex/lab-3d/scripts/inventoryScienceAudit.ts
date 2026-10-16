@@ -1,0 +1,10 @@
+import {writeFileSync,mkdirSync} from 'node:fs';
+import {ALL_HANDCRAFTED_PROGRAMS} from '../src/vfx/programs/library/index';
+import {DETERMINISTIC_REACTIONS} from '../src/engine/chemistryEngine';
+import {LESSON_DEFINITIONS} from '../src/lesson/catalog';
+const rows=ALL_HANDCRAFTED_PROGRAMS.map(p=>({id:p.id,eq:p.chemistry.equation,ionic:p.chemistry.ionic,conditions:p.chemistry.conditions,heat:p.chemistry.deltaH_kJ_per_mol,sp:p.chemistry.species.map(s=>`${s.coeff}${s.formula}(${s.phase}):${s.role}`).join(' | '),gas:p.visual.after.gasesOffgassed,precip:p.visual.after.precipitate?.substance,obs:p.explain.observation_vi}));
+mkdirSync('artifacts/science-audit',{recursive:true});
+writeFileSync('artifacts/science-audit/inventory.json',JSON.stringify({programs:rows,deterministic:DETERMINISTIC_REACTIONS,lessons:LESSON_DEFINITIONS},null,2));
+for(const row of rows)console.log(`${row.id} | ${row.eq} | cond=${JSON.stringify(row.conditions??{})} | gas=${row.gas.map(g=>g.species).join(',')} | solid=${row.precip??''}`);
+console.log('DETERMINISTIC '+DETERMINISTIC_REACTIONS.length);
+for(const r of DETERMINISTIC_REACTIONS)console.log(`${r.id} | ${r.equation} | ${JSON.stringify(r.stoichiometry)} => ${JSON.stringify(r.products)} | heat=${r.minTemp_c??''}`);

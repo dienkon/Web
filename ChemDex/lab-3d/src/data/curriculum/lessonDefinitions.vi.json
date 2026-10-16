@@ -1,0 +1,4285 @@
+{
+  "schema": "chemdex.lesson-catalog/1",
+  "amountBasis": "mol_or_polymer_repeat_unit",
+  "timeBasis": "illustrative_not_measured",
+  "species": [
+    {
+      "id": "water",
+      "formula": "H2O",
+      "name_vi": "Nước",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 18.015
+    },
+    {
+      "id": "hydrogen",
+      "formula": "H2",
+      "name_vi": "Hiđro",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 2.016
+    },
+    {
+      "id": "oxygen",
+      "formula": "O2",
+      "name_vi": "Oxi",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 31.998
+    },
+    {
+      "id": "carbon_dioxide",
+      "formula": "CO2",
+      "name_vi": "Cacbon đioxit",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 44.009
+    },
+    {
+      "id": "ethene",
+      "formula": "C2H4",
+      "name_vi": "Etilen",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 28.054
+    },
+    {
+      "id": "ethane",
+      "formula": "C2H6",
+      "name_vi": "Etan",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 30.07
+    },
+    {
+      "id": "methane",
+      "formula": "CH4",
+      "name_vi": "Metan",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 16.043
+    },
+    {
+      "id": "ethyne",
+      "formula": "C2H2",
+      "name_vi": "Axetilen",
+      "phase": "g",
+      "color": "#f8fafc",
+      "molarMass": 26.037999999999997
+    },
+    {
+      "id": "bromine_water",
+      "formula": "Br2",
+      "name_vi": "Brom trong nước",
+      "phase": "aq",
+      "color": "#b86b24",
+      "molarMass": 159.808
+    },
+    {
+      "id": "dibromoethane",
+      "formula": "C2H4Br2",
+      "name_vi": "1,2-đibromoetan",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 187.862
+    },
+    {
+      "id": "tetrabromoethane",
+      "formula": "C2H2Br4",
+      "name_vi": "Tetrabromoetan",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 345.654
+    },
+    {
+      "id": "ethanol",
+      "formula": "C2H5OH",
+      "name_vi": "Etanol",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 46.069
+    },
+    {
+      "id": "methanol",
+      "formula": "CH3OH",
+      "name_vi": "Metanol",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 32.042
+    },
+    {
+      "id": "sodium",
+      "formula": "Na",
+      "name_vi": "Natri",
+      "phase": "s",
+      "color": "#b9c5cf",
+      "molarMass": 22.989769
+    },
+    {
+      "id": "sodium_ethoxide",
+      "formula": "C2H5ONa",
+      "name_vi": "Natri etoxit",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 68.050769
+    },
+    {
+      "id": "copper_oxide",
+      "formula": "CuO",
+      "name_vi": "Đồng(II) oxit",
+      "phase": "s",
+      "color": "#1f2328",
+      "molarMass": 79.545
+    },
+    {
+      "id": "copper",
+      "formula": "Cu",
+      "name_vi": "Đồng kim loại",
+      "phase": "s",
+      "color": "#b85d37",
+      "molarMass": 63.546
+    },
+    {
+      "id": "ethanal",
+      "formula": "CH3CHO",
+      "name_vi": "Etanal",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 44.053
+    },
+    {
+      "id": "glycerol",
+      "formula": "C3H8O3",
+      "name_vi": "Glycerol",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 92.094
+    },
+    {
+      "id": "copper_hydroxide",
+      "formula": "Cu(OH)2",
+      "name_vi": "Đồng(II) hiđroxit",
+      "phase": "s",
+      "color": "#79c8e3",
+      "molarMass": 97.56
+    },
+    {
+      "id": "copper_glycerolate",
+      "formula": "Cu(C3H7O3)2",
+      "name_vi": "Phức đồng–glycerol (công thức giản lược)",
+      "phase": "aq",
+      "color": "#184ba6",
+      "molarMass": 245.718
+    },
+    {
+      "id": "phenol",
+      "formula": "C6H5OH",
+      "name_vi": "Phenol",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "acid": {
+        "kind": "weak_acid",
+        "equivalents": 1,
+        "pKa": 9.95
+      },
+      "molarMass": 94.113
+    },
+    {
+      "id": "sodium_hydroxide",
+      "formula": "NaOH",
+      "name_vi": "Natri hiđroxit",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "acid": {
+        "kind": "strong_base",
+        "equivalents": 1
+      },
+      "molarMass": 39.996769
+    },
+    {
+      "id": "sodium_phenoxide",
+      "formula": "C6H5ONa",
+      "name_vi": "Natri phenolat",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 116.094769
+    },
+    {
+      "id": "tribromophenol",
+      "formula": "C6H2Br3OH",
+      "name_vi": "2,4,6-tribromophenol",
+      "phase": "s",
+      "color": "#ffffff",
+      "molarMass": 330.80100000000004
+    },
+    {
+      "id": "hydrogen_bromide",
+      "formula": "HBr",
+      "name_vi": "Hiđro bromua trong nước",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "acid": {
+        "kind": "strong_acid",
+        "equivalents": 1
+      },
+      "molarMass": 80.91199999999999
+    },
+    {
+      "id": "acetic_acid",
+      "formula": "CH3COOH",
+      "name_vi": "Axit axetic",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "acid": {
+        "kind": "weak_acid",
+        "equivalents": 1,
+        "pKa": 4.76
+      },
+      "molarMass": 60.052
+    },
+    {
+      "id": "sodium_carbonate",
+      "formula": "Na2CO3",
+      "name_vi": "Natri cacbonat",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 105.987538
+    },
+    {
+      "id": "sodium_bicarbonate",
+      "formula": "NaHCO3",
+      "name_vi": "Natri hiđrocacbonat",
+      "phase": "s",
+      "color": "#ffffff",
+      "molarMass": 84.005769
+    },
+    {
+      "id": "sodium_acetate",
+      "formula": "CH3COONa",
+      "name_vi": "Natri axetat",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 82.03376899999999
+    },
+    {
+      "id": "ethyl_acetate",
+      "formula": "CH3COOC2H5",
+      "name_vi": "Etyl axetat",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 88.106
+    },
+    {
+      "id": "methyl_acetate",
+      "formula": "CH3COOCH3",
+      "name_vi": "Metyl axetat",
+      "phase": "l",
+      "color": "#f8fafc",
+      "molarMass": 74.07900000000001
+    },
+    {
+      "id": "glucose",
+      "formula": "C6H12O6",
+      "name_vi": "Glucose",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 180.156
+    },
+    {
+      "id": "fructose",
+      "formula": "C6H12O6",
+      "name_vi": "Fructose",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 180.156
+    },
+    {
+      "id": "copper_glucose_complex",
+      "formula": "Cu(C6H11O6)2",
+      "name_vi": "Phức đồng–glucose (giản lược)",
+      "phase": "aq",
+      "color": "#164ba5",
+      "molarMass": 421.842
+    },
+    {
+      "id": "sodium_gluconate",
+      "formula": "C6H11O7Na",
+      "name_vi": "Natri gluconat",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 218.136769
+    },
+    {
+      "id": "copper_one_oxide",
+      "formula": "Cu2O",
+      "name_vi": "Đồng(I) oxit",
+      "phase": "s",
+      "color": "#ba482b",
+      "molarMass": 143.091
+    },
+    {
+      "id": "sucrose",
+      "formula": "C12H22O11",
+      "name_vi": "Saccarozơ",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 342.297
+    },
+    {
+      "id": "starch_unit",
+      "formula": "C6H10O5",
+      "name_vi": "Mắt xích tinh bột",
+      "phase": "aq",
+      "color": "#f5f1e8",
+      "amountBasis": "repeat_unit",
+      "molarMass": 162.14100000000002
+    },
+    {
+      "id": "methylamine",
+      "formula": "CH3NH2",
+      "name_vi": "Metylamin",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "acid": {
+        "kind": "weak_base",
+        "equivalents": 1,
+        "pKa": 10.64
+      },
+      "molarMass": 31.058
+    },
+    {
+      "id": "hydrochloric_acid",
+      "formula": "HCl",
+      "name_vi": "Axit clohiđric",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "acid": {
+        "kind": "strong_acid",
+        "equivalents": 1
+      },
+      "molarMass": 36.458000000000006
+    },
+    {
+      "id": "methylammonium_chloride",
+      "formula": "CH3NH3Cl",
+      "name_vi": "Metylamoni clorua",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 67.51599999999999
+    },
+    {
+      "id": "aniline",
+      "formula": "C6H5NH2",
+      "name_vi": "Anilin",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 93.129
+    },
+    {
+      "id": "tribromoaniline",
+      "formula": "C6H2Br3NH2",
+      "name_vi": "2,4,6-tribromoanilin",
+      "phase": "s",
+      "color": "#ffffff",
+      "molarMass": 329.817
+    },
+    {
+      "id": "glycine",
+      "formula": "NH2CH2COOH",
+      "name_vi": "Glycine",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 75.06700000000001
+    },
+    {
+      "id": "glycinium_chloride",
+      "formula": "ClH3NCH2COOH",
+      "name_vi": "Muối glycine với HCl",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 111.525
+    },
+    {
+      "id": "sodium_glycinate",
+      "formula": "NH2CH2COONa",
+      "name_vi": "Natri glycinat",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 97.048769
+    },
+    {
+      "id": "copper_chloride",
+      "formula": "CuCl2",
+      "name_vi": "Đồng(II) clorua",
+      "phase": "aq",
+      "color": "#398b9d",
+      "molarMass": 134.446
+    },
+    {
+      "id": "iron_three_oxide",
+      "formula": "Fe2O3",
+      "name_vi": "Sắt(III) oxit",
+      "phase": "s",
+      "color": "#994d34",
+      "molarMass": 159.687
+    },
+    {
+      "id": "iron_three_chloride",
+      "formula": "FeCl3",
+      "name_vi": "Sắt(III) clorua",
+      "phase": "aq",
+      "color": "#d9b44c",
+      "molarMass": 162.195
+    },
+    {
+      "id": "calcium_oxide",
+      "formula": "CaO",
+      "name_vi": "Vôi sống",
+      "phase": "s",
+      "color": "#eeeeea",
+      "molarMass": 56.077000000000005
+    },
+    {
+      "id": "calcium_hydroxide",
+      "formula": "Ca(OH)2",
+      "name_vi": "Canxi hiđroxit",
+      "phase": "s",
+      "color": "#ffffff",
+      "molarMass": 74.09200000000001
+    },
+    {
+      "id": "calcium_carbonate",
+      "formula": "CaCO3",
+      "name_vi": "Canxi cacbonat",
+      "phase": "s",
+      "color": "#f1f0e7",
+      "molarMass": 100.086
+    },
+    {
+      "id": "aluminium_hydroxide",
+      "formula": "Al(OH)3",
+      "name_vi": "Nhôm hiđroxit",
+      "phase": "s",
+      "color": "#ffffff",
+      "molarMass": 78.002538
+    },
+    {
+      "id": "aluminium_chloride",
+      "formula": "AlCl3",
+      "name_vi": "Nhôm clorua",
+      "phase": "aq",
+      "color": "#f8fafc",
+      "molarMass": 133.33153800000002
+    }
+  ],
+  "lessons": [
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#b86b24",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethene_bromine",
+      "title_vi": "Etilen làm mất màu nước brom",
+      "family": "addition",
+      "grades": [
+        11
+      ],
+      "equation": "C2H4 + Br2 -> C2H4Br2",
+      "reactants": [
+        {
+          "species": "ethene",
+          "coefficient": 1
+        },
+        {
+          "species": "bromine_water",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "dibromoethane",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "color",
+          "color": "#f8fafc",
+          "explanation_vi": "Brom hòa tan bị tiêu thụ, sắc vàng nâu giảm theo chuyển hóa.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "bromine_water"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "So sánh mẫu nước brom vàng nâu với mẫu etilen không màu.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho hai pha tiếp xúc và khuấy nhẹ trong mô hình.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Theo dõi màu nước brom nhạt dần từ vùng tiếp xúc.",
+          "observation_vi": "Theo dõi màu nước brom nhạt dần từ vùng tiếp xúc.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Khi etilen đủ, brom hết; nếu brom dư, phải còn sắc vàng nâu.",
+          "observation_vi": "Khi etilen đủ, brom hết; nếu brom dư, phải còn sắc vàng nâu.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Nước brom nhạt màu khi liên kết đôi tham gia cộng.",
+      "explanation_vi": "Liên kết pi của C=C được thay bằng các liên kết sigma với brom.",
+      "misconception_vi": "Mất màu brom không đồng nghĩa mọi chất đầu đều đã hết.",
+      "question": {
+        "prompt_vi": "Nếu giảm lượng etilen còn một nửa, nước brom có luôn mất màu hoàn toàn không?",
+        "choices_vi": [
+          "Không, brom có thể dư",
+          "Luôn luôn mất màu",
+          "Phải sinh kết tủa",
+          "Phải có lửa"
+        ],
+        "correct": 0,
+        "explanation_vi": "Chuyển hóa bị giới hạn bởi chất thiếu; brom dư vẫn góp màu."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethene_hydrogen",
+      "title_vi": "Hiđro hóa etilen",
+      "family": "addition",
+      "grades": [
+        11
+      ],
+      "equation": "C2H4 + H2 -> C2H6",
+      "reactants": [
+        {
+          "species": "ethene",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrogen",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "ethane",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "catalyst",
+          "value": "Ni",
+          "label_vi": "Cần xúc tác Ni."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Đạt ít nhất 100 °C trong mô hình.",
+          "minimum": 100
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Các khí đầu và khí sản phẩm không màu; theo dõi bảng lượng chất.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Nhận diện etilen và hiđro trong mẫu ảo, chưa bật xúc tác.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Chọn Ni và điều kiện đun nóng giản lược trước khi trộn.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Theo dõi etilen, hiđro giảm đồng thời; etan tăng theo tỉ lệ 1:1.",
+          "observation_vi": "Theo dõi etilen, hiđro giảm đồng thời; etan tăng theo tỉ lệ 1:1.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Không thêm ngọn lửa vào phản ứng cộng chỉ vì có H2.",
+          "observation_vi": "Không thêm ngọn lửa vào phản ứng cộng chỉ vì có H2.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có biến đổi màu đặc trưng; bảng số mol thể hiện sự cộng H2.",
+      "explanation_vi": "Xúc tác cho phép phản ứng hiđro hóa diễn ra với điều kiện thích hợp.",
+      "misconception_vi": "Trộn hai khí ở nhiệt độ thường không đủ để giả định phản ứng đã hoàn tất.",
+      "question": {
+        "prompt_vi": "Vai trò chính của Ni trong kịch bản là gì?",
+        "choices_vi": [
+          "Chất xúc tác",
+          "Chất chỉ thị màu",
+          "Sản phẩm chính",
+          "Nguồn O2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Ni hỗ trợ phản ứng cộng H2, không được tiêu thụ theo phương trình tổng."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethene_water",
+      "title_vi": "Hiđrat hóa etilen tạo etanol",
+      "family": "hydration",
+      "grades": [
+        11
+      ],
+      "equation": "C2H4 + H2O -> C2H5OH",
+      "reactants": [
+        {
+          "species": "ethene",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "ethanol",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "acidic",
+          "maximum": 4,
+          "label_vi": "Cần môi trường axit."
+        },
+        {
+          "kind": "catalyst",
+          "value": "H3PO4",
+          "label_vi": "Cần xúc tác H3PO4."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 280–320 °C trong mô hình.",
+          "minimum": 280,
+          "maximum": 320
+        },
+        {
+          "kind": "pressure",
+          "minimum": 60,
+          "maximum": 70,
+          "label_vi": "Áp suất công nghiệp điển hình khoảng 60–70 bar; kịch bản giản lược."
+        },
+        {
+          "kind": "industrial",
+          "label_vi": "Chọn kịch bản điều kiện công nghiệp giản lược."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Không có màu hay kết tủa đặc trưng để xác nhận sản phẩm.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị mô hình etilen và nước, nhận diện điều kiện chưa đạt.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập xúc tác axit và chế độ công nghiệp giản lược.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Quan sát bảng lượng etanol tăng, etilen và nước giảm.",
+          "observation_vi": "Quan sát bảng lượng etanol tăng, etilen và nước giảm.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Ghi rằng đây không phải việc chỉ sục etilen vào nước lạnh.",
+          "observation_vi": "Ghi rằng đây không phải việc chỉ sục etilen vào nước lạnh.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Hệ không đổi màu; mô hình theo dõi sự tạo etanol bằng lượng chất.",
+      "explanation_vi": "Nước cộng vào liên kết đôi khi có xúc tác và điều kiện thích hợp.",
+      "misconception_vi": "Không dùng sự trong suốt của mẫu làm bằng chứng nhận diện etanol.",
+      "question": {
+        "prompt_vi": "Sục etilen vào nước lạnh có đảm bảo thu ngay etanol không?",
+        "choices_vi": [
+          "Không",
+          "Có, luôn hoàn toàn",
+          "Có nếu không khuấy",
+          "Chỉ cần ánh sáng"
+        ],
+        "correct": 0,
+        "explanation_vi": "Phản ứng cần xúc tác và điều kiện; mẫu trong không chứng minh có chuyển hóa."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#b86b24",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethyne_bromine",
+      "title_vi": "Axetilen cộng brom dư",
+      "family": "addition",
+      "grades": [
+        11
+      ],
+      "equation": "C2H2 + 2Br2 -> C2H2Br4",
+      "reactants": [
+        {
+          "species": "ethyne",
+          "coefficient": 1
+        },
+        {
+          "species": "bromine_water",
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "species": "tetrabromoethane",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "color",
+          "color": "#f8fafc",
+          "explanation_vi": "Hai đương lượng Br2 có thể cộng vào một liên kết ba.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "bromine_water"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "So sánh mẫu axetilen và nước brom, đặt lượng brom theo hệ số hai.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho các pha tiếp xúc trong mô phỏng, theo dõi chất giới hạn.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Màu brom giảm khi lượng brom bị tiêu thụ tăng.",
+          "observation_vi": "Màu brom giảm khi lượng brom bị tiêu thụ tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Phương trình tổng mô tả cộng hoàn toàn; trung gian cộng một mol không được hiển thị như sản phẩm cuối.",
+          "observation_vi": "Phương trình tổng mô tả cộng hoàn toàn; trung gian cộng một mol không được hiển thị như sản phẩm cuối.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Brom mất màu khi được tiêu thụ bởi phản ứng cộng.",
+      "explanation_vi": "Liên kết ba chứa hai liên kết pi có thể tham gia các giai đoạn cộng.",
+      "misconception_vi": "Một mol axetilen không chỉ cộng tối đa một mol Br2.",
+      "question": {
+        "prompt_vi": "Theo phương trình cộng hoàn toàn, 1 mol C2H2 cần bao nhiêu mol Br2?",
+        "choices_vi": [
+          "2 mol",
+          "1 mol",
+          "3 mol",
+          "Không cần Br2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Hệ số Br2 trong phương trình tổng bằng 2."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethene_combustion",
+      "title_vi": "Etilen cháy hoàn toàn",
+      "family": "combustion",
+      "grades": [
+        11
+      ],
+      "equation": "C2H4 + 3O2 -> 2CO2 + 2H2O",
+      "reactants": [
+        {
+          "species": "ethene",
+          "coefficient": 1
+        },
+        {
+          "species": "oxygen",
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 2
+        },
+        {
+          "species": "water",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "ignition",
+          "label_vi": "Cần nguồn mồi ảo."
+        },
+        {
+          "kind": "oxygen",
+          "label_vi": "Cần nguồn O2 cho cháy hoàn toàn."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "flame",
+          "color": "#ffc76a",
+          "explanation_vi": "Ngọn lửa sáng khi có nguồn mồi và chất cháy.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        },
+        {
+          "kind": "condensation",
+          "color": "#e2e8f0",
+          "explanation_vi": "Nước tạo thành có thể ngưng tụ ở vùng nguội.",
+          "location": "headspace",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị lượng etilen và O2 theo phương trình cháy hoàn toàn.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Bật nguồn mồi ảo; khi chưa có mồi, mô hình không tự cháy.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Ngọn lửa xuất hiện khi lượng chất đang phản ứng tăng.",
+          "observation_vi": "Ngọn lửa xuất hiện khi lượng chất đang phản ứng tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Khi hết chất giới hạn, lửa tắt; sản phẩm theo phương trình là CO2 và nước.",
+          "observation_vi": "Khi hết chất giới hạn, lửa tắt; sản phẩm theo phương trình là CO2 và nước.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Lửa sáng, không mặc định có khói muội trong mô hình cháy hoàn toàn.",
+      "explanation_vi": "Oxi hóa các nguyên tử C thành CO2 và H thành H2O.",
+      "misconception_vi": "Muội của cháy thiếu oxi không nằm trong phương trình cháy hoàn toàn này.",
+      "question": {
+        "prompt_vi": "Trong mô hình cháy hoàn toàn, chất nào chứa toàn bộ cacbon sản phẩm?",
+        "choices_vi": [
+          "CO2",
+          "CuO",
+          "H2",
+          "NaCl"
+        ],
+        "correct": 0,
+        "explanation_vi": "Hai nguyên tử C trong etilen tạo hai phân tử CO2."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "methane_combustion",
+      "title_vi": "Metan cháy trong oxi",
+      "family": "combustion",
+      "grades": [
+        11
+      ],
+      "equation": "CH4 + 2O2 -> CO2 + 2H2O",
+      "reactants": [
+        {
+          "species": "methane",
+          "coefficient": 1
+        },
+        {
+          "species": "oxygen",
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "ignition",
+          "label_vi": "Cần nguồn mồi ảo."
+        },
+        {
+          "kind": "oxygen",
+          "label_vi": "Cần nguồn O2 cho cháy hoàn toàn."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "flame",
+          "color": "#65aaff",
+          "explanation_vi": "Lửa xanh là biểu hiện giản lược của đốt metan với không khí trộn tốt.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        },
+        {
+          "kind": "condensation",
+          "color": "#e2e8f0",
+          "explanation_vi": "Nước ngưng tụ trên phần thành nguội.",
+          "location": "headspace",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Nhận diện metan và O2 là hai khí không màu.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập nguồn oxi và mồi cháy trong mô phỏng.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Theo dõi lửa xanh, đồng thời đọc số mol CO2 và H2O tạo thành.",
+          "observation_vi": "Theo dõi lửa xanh, đồng thời đọc số mol CO2 và H2O tạo thành.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Tắt khi chất giới hạn hết; không giữ lửa sau khi không còn tốc độ phản ứng.",
+          "observation_vi": "Tắt khi chất giới hạn hết; không giữ lửa sau khi không còn tốc độ phản ứng.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Lửa xanh trong kịch bản cháy hoàn toàn, sản phẩm khí không tự có màu.",
+      "explanation_vi": "Mỗi mol metan cần hai mol O2 và tạo một mol CO2.",
+      "misconception_vi": "Màu lửa không phải màu của khí CO2.",
+      "question": {
+        "prompt_vi": "Hệ số O2 khi đốt hoàn toàn CH4 là bao nhiêu?",
+        "choices_vi": [
+          "2",
+          "1",
+          "3",
+          "4"
+        ],
+        "correct": 0,
+        "explanation_vi": "Cân bằng bốn nguyên tử O ở phía sản phẩm cần hai O2."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethyne_combustion",
+      "title_vi": "Axetilen cháy hoàn toàn",
+      "family": "combustion",
+      "grades": [
+        11
+      ],
+      "equation": "2C2H2 + 5O2 -> 4CO2 + 2H2O",
+      "reactants": [
+        {
+          "species": "ethyne",
+          "coefficient": 2
+        },
+        {
+          "species": "oxygen",
+          "coefficient": 5
+        }
+      ],
+      "products": [
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 4
+        },
+        {
+          "species": "water",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "ignition",
+          "label_vi": "Cần nguồn mồi ảo."
+        },
+        {
+          "kind": "oxygen",
+          "label_vi": "Cần nguồn O2 cho cháy hoàn toàn."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "flame",
+          "color": "#fff1bd",
+          "explanation_vi": "Ngọn lửa sáng; độ sáng hiển thị được giới hạn để không gây chói.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        },
+        {
+          "kind": "condensation",
+          "color": "#e2e8f0",
+          "explanation_vi": "Hơi nước có thể ngưng tụ ở thành nguội.",
+          "location": "headspace",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị hệ số hai axetilen và năm O2 trên bảng lượng chất.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Bật mồi cháy và chọn điều kiện đủ oxi của bài học.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Ngọn lửa sáng đi cùng tốc độ tiêu thụ chất đầu.",
+          "observation_vi": "Ngọn lửa sáng đi cùng tốc độ tiêu thụ chất đầu.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Không sinh thêm muội khi chưa chọn một mô hình cháy thiếu oxi khác.",
+          "observation_vi": "Không sinh thêm muội khi chưa chọn một mô hình cháy thiếu oxi khác.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Cháy sáng; mô hình không trộn sản phẩm cháy hoàn toàn với thiếu oxi.",
+      "explanation_vi": "Tỉ lệ số mol CO2:H2O bằng 2:1 cho axetilen.",
+      "misconception_vi": "Thấy muội trong không khí không có nghĩa mọi cách đốt axetilen đều tạo muội.",
+      "question": {
+        "prompt_vi": "Tỉ lệ mol CO2:H2O trong phương trình này là gì?",
+        "choices_vi": [
+          "2:1",
+          "1:2",
+          "1:1",
+          "5:2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Hệ số sản phẩm là 4 và 2."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethanol_combustion",
+      "title_vi": "Etanol cháy",
+      "family": "combustion",
+      "grades": [
+        11
+      ],
+      "equation": "C2H5OH + 3O2 -> 2CO2 + 3H2O",
+      "reactants": [
+        {
+          "species": "ethanol",
+          "coefficient": 1
+        },
+        {
+          "species": "oxygen",
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 2
+        },
+        {
+          "species": "water",
+          "coefficient": 3
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "ignition",
+          "label_vi": "Cần nguồn mồi ảo."
+        },
+        {
+          "kind": "oxygen",
+          "label_vi": "Cần nguồn O2 cho cháy hoàn toàn."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "flame",
+          "color": "#86b9ff",
+          "explanation_vi": "Lửa etanol xanh nhạt, không phải cột lửa cam đậm mặc định.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        },
+        {
+          "kind": "condensation",
+          "color": "#e2e8f0",
+          "explanation_vi": "Nước tạo ra được ghi trong bảng chất và thể hiện giọt ở vùng nguội.",
+          "location": "headspace",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "So sánh mẫu etanol không màu với trạng thái chưa mồi cháy.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Chọn O2 và bật nguồn mồi ảo.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Quan sát lửa xanh nhạt và lượng sản phẩm tăng.",
+          "observation_vi": "Quan sát lửa xanh nhạt và lượng sản phẩm tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Lửa giảm rồi tắt khi chất giới hạn hết; không dùng độ sáng làm phép đo nhiệt lượng.",
+          "observation_vi": "Lửa giảm rồi tắt khi chất giới hạn hết; không dùng độ sáng làm phép đo nhiệt lượng.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Lửa xanh nhạt; màu và kích thước chỉ là mô hình quan sát.",
+      "explanation_vi": "Oxi có sẵn trong phân tử etanol cũng tham gia cân bằng nguyên tố.",
+      "misconception_vi": "Không tính nhu cầu O2 của etanol như hiđrocacbon không chứa oxi.",
+      "question": {
+        "prompt_vi": "Đốt hoàn toàn một mol etanol tạo bao nhiêu mol nước?",
+        "choices_vi": [
+          "3 mol",
+          "1 mol",
+          "2 mol",
+          "6 mol"
+        ],
+        "correct": 0,
+        "explanation_vi": "Sáu nguyên tử H tạo ba phân tử H2O."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "surface_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethanol_sodium",
+      "title_vi": "Etanol khan phản ứng với natri",
+      "family": "substitution",
+      "grades": [
+        11
+      ],
+      "equation": "2C2H5OH + 2Na -> 2C2H5ONa + H2",
+      "reactants": [
+        {
+          "species": "ethanol",
+          "coefficient": 2
+        },
+        {
+          "species": "sodium",
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_ethoxide",
+          "coefficient": 2
+        },
+        {
+          "species": "hydrogen",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "bubbles",
+          "color": "#f8fafc",
+          "explanation_vi": "Bọt H2 tách khỏi bề mặt Na.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false,
+          "species": "hydrogen"
+        },
+        {
+          "kind": "dissolution",
+          "color": "#b9c5cf",
+          "explanation_vi": "Mẫu Na nhỏ dần khi bị tiêu thụ.",
+          "location": "metal",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "sodium"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn mẫu etanol khan và Na ảo; không thêm nước vào hệ mẫu này.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho etanol tiếp xúc Na, quan sát bề mặt kim loại.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Bọt H2 tăng và Na giảm; không tự mồi cháy khí.",
+          "observation_vi": "Bọt H2 tăng và Na giảm; không tự mồi cháy khí.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Tỉ lệ hai mol etanol tạo một mol H2 theo phương trình.",
+          "observation_vi": "Tỉ lệ hai mol etanol tạo một mol H2 theo phương trình.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Bọt khí không màu hình thành tại mặt kim loại, Na mòn dần.",
+      "explanation_vi": "H của nhóm OH được thay bằng Na, tạo natri etoxit.",
+      "misconception_vi": "Mẫu lẫn nước có phản ứng khác; mô hình này giả sử etanol khan.",
+      "question": {
+        "prompt_vi": "Nguyên tử H nào của etanol được thay trong mô hình này?",
+        "choices_vi": [
+          "H của nhóm OH",
+          "Mọi H cùng lúc",
+          "Chỉ H của nhóm CH3",
+          "Không có H bị thay"
+        ],
+        "correct": 0,
+        "explanation_vi": "Phản ứng thể hiện tính chất của nhóm hydroxyl."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethanol_cuo",
+      "title_vi": "Etanol khử CuO khi đun nóng",
+      "family": "oxidation",
+      "grades": [
+        11
+      ],
+      "equation": "C2H5OH + CuO -> CH3CHO + Cu + H2O",
+      "reactants": [
+        {
+          "species": "ethanol",
+          "coefficient": 1
+        },
+        {
+          "species": "copper_oxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "ethanal",
+          "coefficient": 1
+        },
+        {
+          "species": "copper",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Đạt ít nhất 150 °C trong mô hình.",
+          "minimum": 150
+        }
+      ],
+      "effects": [
+        {
+          "kind": "deposition",
+          "color": "#b85d37",
+          "explanation_vi": "Lớp CuO đen chuyển thành đồng đỏ.",
+          "location": "metal",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "copper"
+        },
+        {
+          "kind": "dissolution",
+          "color": "#1f2328",
+          "explanation_vi": "Phần CuO còn lại giảm theo lượng phản ứng.",
+          "location": "metal",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "copper_oxide"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Quan sát CuO đen và mẫu etanol riêng trước khi gia nhiệt.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập nhiệt độ ảo đủ cho kịch bản và cho tiếp xúc.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Đồng đỏ hình thành ở nơi CuO đang bị khử.",
+          "observation_vi": "Đồng đỏ hình thành ở nơi CuO đang bị khử.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Etanal là sản phẩm hữu cơ theo phương trình; không dùng mùi làm phép nhận biết.",
+          "observation_vi": "Etanal là sản phẩm hữu cơ theo phương trình; không dùng mùi làm phép nhận biết.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Màu chất rắn chuyển từ đen sang đỏ đồng.",
+      "explanation_vi": "Etanol bị oxi hóa thành etanal; Cu(II) bị khử thành Cu.",
+      "misconception_vi": "Đây không phải phản ứng tự tạo kết tủa Cu2O đỏ gạch.",
+      "question": {
+        "prompt_vi": "Chất rắn đỏ trong phản ứng này là gì?",
+        "choices_vi": [
+          "Cu",
+          "Cu2O",
+          "Fe2O3",
+          "Br2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Sản phẩm kim loại được viết là Cu trong phương trình."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethanol_dehydration",
+      "title_vi": "Tách nước etanol tạo etilen",
+      "family": "decomposition",
+      "grades": [
+        11
+      ],
+      "equation": "C2H5OH -> C2H4 + H2O",
+      "reactants": [
+        {
+          "species": "ethanol",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "ethene",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 165–180 °C trong mô hình.",
+          "minimum": 165,
+          "maximum": 180
+        },
+        {
+          "kind": "catalyst",
+          "value": "H2SO4 đặc",
+          "label_vi": "Chọn H2SO4 đặc làm xúc tác trong kịch bản ảo."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "bubbles",
+          "color": "#f8fafc",
+          "explanation_vi": "Etilen không màu thoát ra khi phản ứng tiến triển.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false,
+          "species": "ethene"
+        },
+        {
+          "kind": "condensation",
+          "color": "#e2e8f0",
+          "explanation_vi": "Nước có thể ngưng tụ tại vùng thành nguội.",
+          "location": "headspace",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn mẫu etanol ảo, giữ kịch bản chưa gia nhiệt để so sánh.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Chọn xúc tác và khoảng nhiệt của bài tách nước tạo etilen.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Etilen tăng trong bảng chất và có bọt khí không màu.",
+          "observation_vi": "Etilen tăng trong bảng chất và có bọt khí không màu.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Không coi mọi nhiệt độ với H2SO4 đều cho cùng sản phẩm hữu cơ.",
+          "observation_vi": "Không coi mọi nhiệt độ với H2SO4 đều cho cùng sản phẩm hữu cơ.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Khí etilen không màu hình thành, không có màu đặc trưng trong dung dịch.",
+      "explanation_vi": "Loại một phân tử nước khỏi etanol tạo liên kết đôi.",
+      "misconception_vi": "Điều kiện tạo ete khác điều kiện được chọn trong bài này.",
+      "question": {
+        "prompt_vi": "Liên kết đặc trưng mới xuất hiện ở sản phẩm hữu cơ là gì?",
+        "choices_vi": [
+          "C=C",
+          "C≡C",
+          "Liên kết ion Na–Cl",
+          "Không còn liên kết C–C"
+        ],
+        "correct": 0,
+        "explanation_vi": "Etilen có liên kết đôi C=C."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#d8eef6",
+      "finalColor": "#184ba6",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "glycerol_cuoh2",
+      "title_vi": "Glycerol hòa tan Cu(OH)2",
+      "family": "complexation",
+      "grades": [
+        11
+      ],
+      "equation": "2C3H8O3 + Cu(OH)2 -> Cu(C3H7O3)2 + 2H2O",
+      "reactants": [
+        {
+          "species": "glycerol",
+          "coefficient": 2
+        },
+        {
+          "species": "copper_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "copper_glycerolate",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#79c8e3",
+          "explanation_vi": "Bông Cu(OH)2 tan khi tạo phức.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "copper_hydroxide"
+        },
+        {
+          "kind": "color",
+          "color": "#184ba6",
+          "explanation_vi": "Phức đồng–glycerol làm dung dịch xanh lam đậm.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị Cu(OH)2 mới tạo màu xanh nhạt và glycerol riêng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho glycerol tiếp xúc kết tủa ở nhiệt độ thường, khuấy nhẹ.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Hạt xanh nhạt giảm và màu xanh lam đậm lan khắp dung dịch.",
+          "observation_vi": "Hạt xanh nhạt giảm và màu xanh lam đậm lan khắp dung dịch.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Công thức phức dùng ở đây là biểu diễn giản lược để học tập.",
+          "observation_vi": "Công thức phức dùng ở đây là biểu diễn giản lược để học tập.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Kết tủa xanh nhạt tan, dung dịch chuyển xanh đậm.",
+      "explanation_vi": "Các nhóm OH kề nhau phối trí với Cu(II).",
+      "misconception_vi": "Không gọi dung dịch phức xanh đậm là một kết tủa mới.",
+      "question": {
+        "prompt_vi": "Đặc điểm cấu tạo nào giúp glycerol tham gia phép thử?",
+        "choices_vi": [
+          "Các nhóm OH kề nhau",
+          "Chỉ có một OH",
+          "Có liên kết ba",
+          "Có Cl−"
+        ],
+        "correct": 0,
+        "explanation_vi": "Các nhóm hydroxyl kề nhau tạo điều kiện phối trí với Cu(II)."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "phenol_naoh",
+      "title_vi": "Phenol phản ứng với NaOH",
+      "family": "neutralization",
+      "grades": [
+        11
+      ],
+      "equation": "C6H5OH + NaOH -> C6H5ONa + H2O",
+      "reactants": [
+        {
+          "species": "phenol",
+          "coefficient": 1
+        },
+        {
+          "species": "sodium_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_phenoxide",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Không có khí hoặc màu đặc trưng; theo dõi chuyển hóa và lượng chất.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn mẫu phenol và dung dịch NaOH riêng trong mô phỏng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho tiếp xúc, ghi rõ đây là kiềm mạnh chứ không chỉ nước.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Natri phenolat tăng khi phenol bị tiêu thụ.",
+          "observation_vi": "Natri phenolat tăng khi phenol bị tiêu thụ.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Độ tan có thể thay đổi nhưng không tạo màu hồng nếu chưa có chỉ thị.",
+          "observation_vi": "Độ tan có thể thay đổi nhưng không tạo màu hồng nếu chưa có chỉ thị.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có màu đặc trưng; phenol có thể tan tốt hơn khi tạo muối.",
+      "explanation_vi": "Phenol thể hiện tính axit yếu khi phản ứng với kiềm mạnh.",
+      "misconception_vi": "Không suy ra phenol có tính axit mạnh như HCl.",
+      "question": {
+        "prompt_vi": "Nhóm OH của phenol thể hiện tính chất gì trong phản ứng này?",
+        "choices_vi": [
+          "Tính axit yếu",
+          "Chỉ tính oxi hóa",
+          "Tính bazơ mạnh",
+          "Tính chất của kim loại"
+        ],
+        "correct": 0,
+        "explanation_vi": "Phenol nhường proton để tạo ion phenolat."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#b86b24",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0.7,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "phenol_bromine",
+      "title_vi": "Phenol với nước brom",
+      "family": "substitution",
+      "grades": [
+        11
+      ],
+      "equation": "C6H5OH + 3Br2 -> C6H2Br3OH + 3HBr",
+      "reactants": [
+        {
+          "species": "phenol",
+          "coefficient": 1
+        },
+        {
+          "species": "bromine_water",
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "species": "tribromophenol",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrogen_bromide",
+          "coefficient": 3
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "color",
+          "color": "#f8fafc",
+          "explanation_vi": "Brom bị tiêu thụ trong phản ứng thế.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "bromine_water"
+        },
+        {
+          "kind": "precipitation",
+          "color": "#ffffff",
+          "explanation_vi": "2,4,6-tribromophenol tạo pha rắn trắng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "tribromophenol"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "So sánh mẫu phenol với nước brom vàng nâu trước khi trộn.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho hai mẫu tiếp xúc trong mô hình, không cần mồi lửa.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Brom nhạt màu đồng thời có hạt trắng hình thành.",
+          "observation_vi": "Brom nhạt màu đồng thời có hạt trắng hình thành.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Phân biệt phản ứng thế ở vòng với phản ứng cộng của etilen.",
+          "observation_vi": "Phân biệt phản ứng thế ở vòng với phản ứng cộng của etilen.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Nước brom mất màu và xuất hiện kết tủa trắng.",
+      "explanation_vi": "Nhóm OH hoạt hóa vòng thơm, ưu tiên các vị trí 2,4,6.",
+      "misconception_vi": "Cùng làm mất màu brom nhưng không có nghĩa cùng cơ chế với anken.",
+      "question": {
+        "prompt_vi": "Hiện tượng nào giúp phân biệt bài này với etilen cộng brom?",
+        "choices_vi": [
+          "Có kết tủa trắng",
+          "Brom có màu ban đầu",
+          "Mẫu trong bình",
+          "Không có NaCl"
+        ],
+        "correct": 0,
+        "explanation_vi": "Tribromophenol tạo kết tủa trắng trong phép thử này."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "acetic_carbonate",
+      "title_vi": "Giấm và natri cacbonat",
+      "family": "neutralization",
+      "grades": [
+        11
+      ],
+      "equation": "2CH3COOH + Na2CO3 -> 2CH3COONa + CO2 + H2O",
+      "reactants": [
+        {
+          "species": "acetic_acid",
+          "coefficient": 2
+        },
+        {
+          "species": "sodium_carbonate",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_acetate",
+          "coefficient": 2
+        },
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "bubbles",
+          "color": "#f8fafc",
+          "explanation_vi": "CO2 không màu rời pha lỏng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false,
+          "species": "carbon_dioxide"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn mẫu axit axetic và natri cacbonat riêng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho mẫu tiếp xúc trong bình ảo có đường thoát khí.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Bọt CO2 xuất hiện khi axit tiêu thụ cacbonat.",
+          "observation_vi": "Bọt CO2 xuất hiện khi axit tiêu thụ cacbonat.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Hai mol axit trên một mol cacbonat theo phương trình tổng.",
+          "observation_vi": "Hai mol axit trên một mol cacbonat theo phương trình tổng.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Sủi bọt CO2 không màu, không tự có lớp bọt xà phòng dày.",
+      "explanation_vi": "Axit chuyển cacbonat thành CO2 và nước.",
+      "misconception_vi": "Bọt khí trong chất lỏng không có nghĩa bản thân CO2 màu trắng.",
+      "question": {
+        "prompt_vi": "Khí được tạo ra là gì?",
+        "choices_vi": [
+          "CO2",
+          "H2",
+          "O2",
+          "NO2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Ion cacbonat cung cấp nguyên tử C cho CO2."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "surface_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "acetic_bicarbonate",
+      "title_vi": "Giấm và muối nở",
+      "family": "neutralization",
+      "grades": [
+        11
+      ],
+      "equation": "CH3COOH + NaHCO3 -> CH3COONa + CO2 + H2O",
+      "reactants": [
+        {
+          "species": "acetic_acid",
+          "coefficient": 1
+        },
+        {
+          "species": "sodium_bicarbonate",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_acetate",
+          "coefficient": 1
+        },
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "bubbles",
+          "color": "#f8fafc",
+          "explanation_vi": "CO2 hình thành khi axit tiếp xúc hạt bột.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false,
+          "species": "carbon_dioxide"
+        },
+        {
+          "kind": "dissolution",
+          "color": "#ffffff",
+          "explanation_vi": "Hạt NaHCO3 giảm theo lượng chất thực sự bị tiêu thụ.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "sodium_bicarbonate"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Quan sát bột NaHCO3 trắng và mẫu giấm ảo.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho giấm tiếp xúc bột, chưa thêm chất hoạt động bề mặt.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Bọt khí thoát và hạt bột giảm; nếu giấm thiếu, bột phải còn.",
+          "observation_vi": "Bọt khí thoát và hạt bột giảm; nếu giấm thiếu, bột phải còn.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Đối chiếu tỉ lệ axit:bicarbonat bằng 1:1.",
+          "observation_vi": "Đối chiếu tỉ lệ axit:bicarbonat bằng 1:1.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Sủi khí CO2, bột muối nở tan và phản ứng dần.",
+      "explanation_vi": "HCO3− nhận proton rồi chuyển thành CO2 và nước.",
+      "misconception_vi": "Bọt trào lớn không phải phép đo định lượng CO2 nếu có phụ gia.",
+      "question": {
+        "prompt_vi": "Khi axit đã hết mà bột vẫn còn, phản ứng có tiếp tục mãi không?",
+        "choices_vi": [
+          "Không, bị giới hạn bởi axit",
+          "Có, không cần axit",
+          "Chỉ cần thêm màu",
+          "Phải tạo H2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Mô hình bảo toàn lượng chất, không sinh khí sau khi hết chất giới hạn."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethyl_acetate_synthesis",
+      "title_vi": "Este hóa axit axetic và etanol",
+      "family": "esterification",
+      "grades": [
+        12
+      ],
+      "equation": "CH3COOH + C2H5OH <-> CH3COOC2H5 + H2O",
+      "reactants": [
+        {
+          "species": "acetic_acid",
+          "coefficient": 1
+        },
+        {
+          "species": "ethanol",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "ethyl_acetate",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 55–85 °C trong mô hình.",
+          "minimum": 55,
+          "maximum": 85
+        },
+        {
+          "kind": "acidic",
+          "maximum": 4,
+          "label_vi": "Cần môi trường axit."
+        },
+        {
+          "kind": "catalyst",
+          "value": "H2SO4",
+          "label_vi": "Cần xúc tác H2SO4."
+        }
+      ],
+      "reversible": {
+        "targetConversion": 0.65,
+        "basis": "illustrative"
+      },
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Không tự kết luận phân lớp khi chưa tính thành phần, độ tan và bước chiết thực tế.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị hai mẫu trong, nhận diện đây là phản ứng thuận nghịch.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Chọn xúc tác axit và làm ấm trong mô hình bể nước.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Theo dõi sản phẩm tăng, chất đầu không tự biến mất hoàn toàn.",
+          "observation_vi": "Theo dõi sản phẩm tăng, chất đầu không tự biến mất hoàn toàn.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Mức chuyển hóa 65% chỉ dùng minh họa cân bằng, không phải hằng số cân bằng đã đo.",
+          "observation_vi": "Mức chuyển hóa 65% chỉ dùng minh họa cân bằng, không phải hằng số cân bằng đã đo.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có màu đặc trưng; mô hình có thể hiện lớp este sau xử lý giản lược.",
+      "explanation_vi": "Axit cacboxylic phản ứng với alcohol tạo este và nước.",
+      "misconception_vi": "Không dùng mùi làm thao tác kiểm tra và không mặc định chuyển hóa đạt 100%.",
+      "question": {
+        "prompt_vi": "Vì sao trong mô hình vẫn còn chất đầu sau khi đạt trạng thái cuối?",
+        "choices_vi": [
+          "Phản ứng thuận nghịch được minh họa",
+          "Do mất nguyên tố C",
+          "Do không có phản ứng",
+          "Vì luôn thiếu O2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Bài học dùng mức chuyển hóa minh họa cho phản ứng este hóa thuận nghịch."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "ethyl_acetate_saponification",
+      "title_vi": "Thủy phân etyl axetat trong kiềm",
+      "family": "hydrolysis",
+      "grades": [
+        12
+      ],
+      "equation": "CH3COOC2H5 + NaOH -> CH3COONa + C2H5OH",
+      "reactants": [
+        {
+          "species": "ethyl_acetate",
+          "coefficient": 1
+        },
+        {
+          "species": "sodium_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_acetate",
+          "coefficient": 1
+        },
+        {
+          "species": "ethanol",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "alkaline",
+          "minimum": 10,
+          "label_vi": "Cần môi trường kiềm."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 55–95 °C trong mô hình.",
+          "minimum": 55,
+          "maximum": 95
+        }
+      ],
+      "effects": [
+        {
+          "kind": "phase_separation",
+          "color": "#eee9d8",
+          "explanation_vi": "Lượng lớp este còn lại giảm khi este bị tiêu thụ.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.05,
+          "end": 1,
+          "persists": false,
+          "species": "ethyl_acetate"
+        },
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Muối và alcohol tạo thành không có màu đặc trưng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Quan sát mẫu este và dung dịch NaOH tách biệt.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập kiềm và làm ấm, sau đó cho các pha tiếp xúc.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Lượng este giảm khi số mol muối và etanol tăng.",
+          "observation_vi": "Lượng este giảm khi số mol muối và etanol tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Đối chiếu một mol este cần một mol NaOH; chất dư phải còn.",
+          "observation_vi": "Đối chiếu một mol este cần một mol NaOH; chất dư phải còn.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Lớp este giảm trong kịch bản; không tạo kết tủa màu đặc trưng.",
+      "explanation_vi": "Thủy phân trong kiềm tạo muối cacboxylat, kéo phản ứng về phía sản phẩm.",
+      "misconception_vi": "Mẫu trong hơn chưa đủ để khẳng định este đã hết.",
+      "question": {
+        "prompt_vi": "Alcohol tạo thành khi thủy phân etyl axetat là gì?",
+        "choices_vi": [
+          "Etanol",
+          "Metanol",
+          "Glycerol",
+          "Phenol"
+        ],
+        "correct": 0,
+        "explanation_vi": "Nhóm etoxy tạo etanol khi liên kết este bị thủy phân."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "methyl_acetate_saponification",
+      "title_vi": "Thủy phân metyl axetat trong kiềm",
+      "family": "hydrolysis",
+      "grades": [
+        12
+      ],
+      "equation": "CH3COOCH3 + NaOH -> CH3COONa + CH3OH",
+      "reactants": [
+        {
+          "species": "methyl_acetate",
+          "coefficient": 1
+        },
+        {
+          "species": "sodium_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_acetate",
+          "coefficient": 1
+        },
+        {
+          "species": "methanol",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "alkaline",
+          "minimum": 10,
+          "label_vi": "Cần môi trường kiềm."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 50–90 °C trong mô hình.",
+          "minimum": 50,
+          "maximum": 90
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Các chất trong hệ không có màu hay khí đặc trưng để nhận biết bằng mắt.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn đúng metyl axetat, không thay bằng etyl axetat.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho tiếp xúc NaOH trong điều kiện làm ấm của mô hình.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Đọc bảng lượng chất để theo dõi metanol và natri axetat tăng.",
+          "observation_vi": "Đọc bảng lượng chất để theo dõi metanol và natri axetat tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Không tự thêm bọt khí hoặc màu để biểu diễn một phản ứng không có dấu hiệu thị giác đặc trưng.",
+          "observation_vi": "Không tự thêm bọt khí hoặc màu để biểu diễn một phản ứng không có dấu hiệu thị giác đặc trưng.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có biến đổi màu đặc trưng.",
+      "explanation_vi": "Nhóm metoxy của este cho metanol trong phản ứng thủy phân.",
+      "misconception_vi": "Metanol độc; bài này chỉ là mô phỏng và không đề nghị thử mùi.",
+      "question": {
+        "prompt_vi": "Sản phẩm alcohol khác bài etyl axetat ở điểm nào?",
+        "choices_vi": [
+          "Tạo metanol",
+          "Tạo etanol",
+          "Tạo axetilen",
+          "Không bảo toàn C"
+        ],
+        "correct": 0,
+        "explanation_vi": "Phần alcohol của este quyết định alcohol sau thủy phân."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#d8eef6",
+      "finalColor": "#164ba5",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "glucose_cuoh2_cold",
+      "title_vi": "Glucose và Cu(OH)2 ở nhiệt độ thường",
+      "family": "complexation",
+      "grades": [
+        12
+      ],
+      "equation": "2C6H12O6 + Cu(OH)2 -> Cu(C6H11O6)2 + 2H2O",
+      "reactants": [
+        {
+          "species": "glucose",
+          "coefficient": 2
+        },
+        {
+          "species": "copper_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "copper_glucose_complex",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "temperature",
+          "maximum": 40,
+          "label_vi": "Giữ mẫu ở nhiệt độ thường của kịch bản."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#79c8e3",
+          "explanation_vi": "Bông Cu(OH)2 tan khi tạo phức với glucose.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "copper_hydroxide"
+        },
+        {
+          "kind": "color",
+          "color": "#164ba5",
+          "explanation_vi": "Dung dịch chuyển xanh đậm, chưa phải phản ứng tạo Cu2O.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị glucose và Cu(OH)2 mới tạo xanh nhạt.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho tiếp xúc ở nhiệt độ thường, chưa bật đun nóng.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Kết tủa tan, dung dịch xanh lam đậm xuất hiện.",
+          "observation_vi": "Kết tủa tan, dung dịch xanh lam đậm xuất hiện.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Phân biệt tạo phức do các OH kề nhau với phản ứng khử khi đun.",
+          "observation_vi": "Phân biệt tạo phức do các OH kề nhau với phản ứng khử khi đun.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Dung dịch xanh đậm tạo thành khi kết tủa xanh nhạt tan.",
+      "explanation_vi": "Glucose có các nhóm OH kề nhau tham gia phối trí với Cu(II).",
+      "misconception_vi": "Không hiển thị Cu2O đỏ gạch chỉ vì đã trộn glucose ở nhiệt độ thường.",
+      "question": {
+        "prompt_vi": "Hiện tượng trong bài này chủ yếu chứng minh đặc điểm nào?",
+        "choices_vi": [
+          "Các nhóm OH kề nhau",
+          "Có N trong glucose",
+          "Glucose là kim loại",
+          "Glucose chứa Br"
+        ],
+        "correct": 0,
+        "explanation_vi": "Các OH kề nhau tạo phức xanh đậm với Cu(II)."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#79c8e3",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0.65,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "glucose_cuoh2_hot",
+      "title_vi": "Glucose khử Cu(II) khi đun trong kiềm",
+      "family": "oxidation",
+      "grades": [
+        12
+      ],
+      "equation": "C6H12O6 + 2Cu(OH)2 + NaOH -> C6H11O7Na + Cu2O + 3H2O",
+      "reactants": [
+        {
+          "species": "glucose",
+          "coefficient": 1
+        },
+        {
+          "species": "copper_hydroxide",
+          "coefficient": 2
+        },
+        {
+          "species": "sodium_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_gluconate",
+          "coefficient": 1
+        },
+        {
+          "species": "copper_one_oxide",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 3
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "alkaline",
+          "minimum": 10,
+          "label_vi": "Cần môi trường kiềm."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 65–98 °C trong mô hình.",
+          "minimum": 65,
+          "maximum": 98
+        }
+      ],
+      "effects": [
+        {
+          "kind": "precipitation",
+          "color": "#ba482b",
+          "explanation_vi": "Cu2O đỏ gạch xuất hiện khi Cu(II) bị khử.",
+          "location": "bottom",
+          "onset": 0.05,
+          "peak": 0.9,
+          "end": 1,
+          "persists": true,
+          "species": "copper_one_oxide"
+        },
+        {
+          "kind": "color",
+          "color": "#f8fafc",
+          "explanation_vi": "Màu xanh của hợp chất Cu(II) giảm theo chuyển hóa.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị glucose, hợp chất Cu(II) và kiềm theo mô hình.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập môi trường kiềm và làm ấm; mẫu lạnh không tự sinh Cu2O.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Các hạt đỏ gạch hình thành, màu xanh giảm.",
+          "observation_vi": "Các hạt đỏ gạch hình thành, màu xanh giảm.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Cặn đỏ là Cu2O, không phải đồng kim loại của bài etanol–CuO.",
+          "observation_vi": "Cặn đỏ là Cu2O, không phải đồng kim loại của bài etanol–CuO.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Kết tủa Cu2O đỏ gạch hình thành khi đủ điều kiện.",
+      "explanation_vi": "Nhóm chức khử của glucose bị oxi hóa thành gluconat trong kiềm.",
+      "misconception_vi": "Màu đỏ của hai phản ứng khác nhau không đủ để kết luận sản phẩm giống nhau.",
+      "question": {
+        "prompt_vi": "Số oxi hóa của Cu trong cặn Cu2O là bao nhiêu?",
+        "choices_vi": [
+          "+1",
+          "+2",
+          "0",
+          "+3"
+        ],
+        "correct": 0,
+        "explanation_vi": "Hai nguyên tử Cu cân bằng một O(−2), nên mỗi Cu có số oxi hóa +1."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "sucrose_hydrolysis",
+      "title_vi": "Thủy phân saccarozơ",
+      "family": "hydrolysis",
+      "grades": [
+        12
+      ],
+      "equation": "C12H22O11 + H2O -> C6H12O6 + C6H12O6",
+      "reactants": [
+        {
+          "species": "sucrose",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "glucose",
+          "coefficient": 1
+        },
+        {
+          "species": "fructose",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "acidic",
+          "maximum": 4,
+          "label_vi": "Cần môi trường axit."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 55–95 °C trong mô hình.",
+          "minimum": 55,
+          "maximum": 95
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Glucose và fructose không được gộp thành một chất chỉ vì cùng công thức phân tử.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị dung dịch saccarozơ và nước trong mô hình.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Chọn môi trường axit và điều kiện làm ấm.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Theo dõi hai dòng sản phẩm glucose và fructose tăng bằng nhau.",
+          "observation_vi": "Theo dõi hai dòng sản phẩm glucose và fructose tăng bằng nhau.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Dung dịch vẫn trong; cần phép thử riêng để nhận diện sản phẩm ngoài mô hình lượng chất.",
+          "observation_vi": "Dung dịch vẫn trong; cần phép thử riêng để nhận diện sản phẩm ngoài mô hình lượng chất.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có màu đặc trưng; tạo hai monosaccarit khác nhau.",
+      "explanation_vi": "Một mol saccarozơ thủy phân tạo một mol glucose và một mol fructose.",
+      "misconception_vi": "Cùng công thức C6H12O6 không làm glucose và fructose trở thành cùng một chất.",
+      "question": {
+        "prompt_vi": "Hai chất sản phẩm có công thức phân tử giống nhau thì có nhất thiết cùng cấu tạo không?",
+        "choices_vi": [
+          "Không",
+          "Có",
+          "Chỉ khi không màu",
+          "Chỉ khi cùng lượng mol"
+        ],
+        "correct": 0,
+        "explanation_vi": "Glucose và fructose là các đồng phân có tính chất cấu tạo khác nhau."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f5f1e8",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "starch_hydrolysis",
+      "title_vi": "Thủy phân tinh bột theo mắt xích",
+      "family": "hydrolysis",
+      "grades": [
+        12
+      ],
+      "equation": "(C6H10O5)n + nH2O -> nC6H12O6",
+      "reactants": [
+        {
+          "species": "starch_unit",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "glucose",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "acidic",
+          "maximum": 4,
+          "label_vi": "Cần môi trường axit."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 65–98 °C trong mô hình.",
+          "minimum": 65,
+          "maximum": 98
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Bảng lượng tinh bột dùng mol mắt xích; không nhập n như một nguyên tố.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Lượng mẫu được tính theo mắt xích C6H10O5, không phải mol cả chuỗi chưa biết n.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập axit và làm ấm trong mô hình.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Mol mắt xích giảm, mol glucose tăng; mô hình tổng không mô tả chi tiết các dextrin trung gian.",
+          "observation_vi": "Mol mắt xích giảm, mol glucose tăng; mô hình tổng không mô tả chi tiết các dextrin trung gian.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Nếu thử iot, cần lấy mẫu riêng và để nguội; bài này không tự thêm iot vào phương trình.",
+          "observation_vi": "Nếu thử iot, cần lấy mẫu riêng và để nguội; bài này không tự thêm iot vào phương trình.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Mô hình tổng thể hiện chuyển mắt xích thành glucose, không tạo khí.",
+      "explanation_vi": "Mỗi mắt xích dùng một phân tử nước khi thủy phân hoàn toàn.",
+      "misconception_vi": "n biểu diễn số mắt xích, không phải ký hiệu một nguyên tố hóa học.",
+      "question": {
+        "prompt_vi": "Một mol mắt xích C6H10O5 tạo bao nhiêu mol glucose khi thủy phân hoàn toàn?",
+        "choices_vi": [
+          "1 mol",
+          "n² mol",
+          "0 mol",
+          "2 mol O2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Tỉ lệ theo mắt xích là 1:1, được bảo toàn trong bộ mô phỏng."
+      }
+    },
+    {
+      "duration_s": 35,
+      "model": "enzyme_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Lên men thật diễn ra trong nhiều giờ hoặc lâu hơn; mô hình rút ngắn để theo dõi lượng chất.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "glucose_fermentation",
+      "title_vi": "Lên men glucose tạo etanol",
+      "family": "fermentation",
+      "grades": [
+        12
+      ],
+      "equation": "C6H12O6 -> 2C2H5OH + 2CO2",
+      "reactants": [
+        {
+          "species": "glucose",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "ethanol",
+          "coefficient": 2
+        },
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Giữ trong khoảng 30–35 °C trong mô hình.",
+          "minimum": 30,
+          "maximum": 35
+        },
+        {
+          "kind": "enzyme",
+          "value": "men rượu",
+          "label_vi": "Chọn enzym của men rượu trong mô hình."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "bubbles",
+          "color": "#f8fafc",
+          "explanation_vi": "CO2 không màu thoát từ dung dịch khi phản ứng tiến triển.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false,
+          "species": "carbon_dioxide",
+          "maximumParticles": 32
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn mẫu glucose và men, chưa giả định phản ứng đã bắt đầu.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Giữ khoảng 30–35 °C trong kịch bản và chọn men rượu.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Bọt CO2 tăng chậm trong mô hình, etanol tăng trong bảng chất.",
+          "observation_vi": "Bọt CO2 tăng chậm trong mô hình, etanol tăng trong bảng chất.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Không coi 35 giây mô phỏng là thời gian lên men thật.",
+          "observation_vi": "Không coi 35 giây mô phỏng là thời gian lên men thật.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Khí CO2 xuất hiện; dung dịch không tự chuyển sang màu đặc trưng.",
+      "explanation_vi": "Enzym xúc tác phân giải glucose tạo etanol và CO2.",
+      "misconception_vi": "Đun càng nóng không phải lúc nào cũng làm lên men tốt hơn; enzym có giới hạn hoạt động.",
+      "question": {
+        "prompt_vi": "Có nên đọc thời gian trên mô hình như tốc độ lên men thực nghiệm không?",
+        "choices_vi": [
+          "Không",
+          "Có, chính xác tuyệt đối",
+          "Có nếu mẫu không màu",
+          "Có nếu không khuấy"
+        ],
+        "correct": 0,
+        "explanation_vi": "Thời gian đã được rút gọn để phục vụ quan sát bài học."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "methylamine_hcl",
+      "title_vi": "Metylamin nhận proton từ HCl",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "CH3NH2 + HCl -> CH3NH3Cl",
+      "reactants": [
+        {
+          "species": "methylamine",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrochloric_acid",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "methylammonium_chloride",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Tạo muối tan không có màu hoặc kết tủa đặc trưng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn dung dịch metylamin và HCl riêng; không dùng mùi để nhận biết.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho các mẫu tiếp xúc theo lượng đã chọn.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Muối metylamoni tăng, metylamin và HCl giảm theo tỉ lệ 1:1.",
+          "observation_vi": "Muối metylamoni tăng, metylamin và HCl giảm theo tỉ lệ 1:1.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Đối chiếu tính bazơ của amin, không tự gán khói trắng cho hai dung dịch loãng.",
+          "observation_vi": "Đối chiếu tính bazơ của amin, không tự gán khói trắng cho hai dung dịch loãng.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có hiện tượng màu đặc trưng trong dung dịch.",
+      "explanation_vi": "Cặp electron tự do trên N giúp amin nhận proton.",
+      "misconception_vi": "Tạo muối trong nước không đồng nghĩa tạo một đám khói NH4Cl.",
+      "question": {
+        "prompt_vi": "Phần nào của metylamin trực tiếp nhận proton?",
+        "choices_vi": [
+          "Nguyên tử N",
+          "Mọi C cùng lúc",
+          "Một nguyên tử Br",
+          "Không có vị trí nhận"
+        ],
+        "correct": 0,
+        "explanation_vi": "N của nhóm amino nhận proton tạo ion metylamoni."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#b86b24",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0.7,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "aniline_bromine",
+      "title_vi": "Anilin và nước brom",
+      "family": "substitution",
+      "grades": [
+        12
+      ],
+      "equation": "C6H5NH2 + 3Br2 -> C6H2Br3NH2 + 3HBr",
+      "reactants": [
+        {
+          "species": "aniline",
+          "coefficient": 1
+        },
+        {
+          "species": "bromine_water",
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "species": "tribromoaniline",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrogen_bromide",
+          "coefficient": 3
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "color",
+          "color": "#f8fafc",
+          "explanation_vi": "Brom hòa tan bị tiêu thụ.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "bromine_water"
+        },
+        {
+          "kind": "precipitation",
+          "color": "#ffffff",
+          "explanation_vi": "Tribromoanilin tạo pha rắn trắng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "tribromoaniline"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn mẫu anilin và nước brom trong bài mô phỏng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho các mẫu tiếp xúc, không cần tự bổ sung một nguồn mồi lửa.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Màu brom giảm, hạt trắng hình thành.",
+          "observation_vi": "Màu brom giảm, hạt trắng hình thành.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Gắn hiện tượng với phản ứng thế ở vòng thơm được nhóm NH2 hoạt hóa.",
+          "observation_vi": "Gắn hiện tượng với phản ứng thế ở vòng thơm được nhóm NH2 hoạt hóa.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Mất màu nước brom và xuất hiện kết tủa trắng.",
+      "explanation_vi": "Nhóm NH2 hoạt hóa vòng thơm, phản ứng tạo 2,4,6-tribromoanilin.",
+      "misconception_vi": "Mất màu brom ở đây không chứng minh anilin là anken.",
+      "question": {
+        "prompt_vi": "Vì sao không thể dùng riêng sự mất màu brom để kết luận có liên kết đôi anken?",
+        "choices_vi": [
+          "Anilin cũng phản ứng thế với brom",
+          "Brom luôn không màu",
+          "Mọi muối đều là anken",
+          "Không có phản ứng nào"
+        ],
+        "correct": 0,
+        "explanation_vi": "Nhiều cơ chế có thể tiêu thụ brom; cần thêm thông tin cấu tạo và sản phẩm."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "glycine_hcl",
+      "title_vi": "Glycine phản ứng với axit",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "NH2CH2COOH + HCl -> ClH3NCH2COOH",
+      "reactants": [
+        {
+          "species": "glycine",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrochloric_acid",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "glycinium_chloride",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Muối tan không có màu đặc trưng; bảng lượng theo dõi chuyển hóa.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị mẫu glycine và HCl riêng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho tiếp xúc và theo dõi lượng proton được biểu diễn trong phương trình.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Muối của nhóm amino đã nhận proton tăng lên.",
+          "observation_vi": "Muối của nhóm amino đã nhận proton tăng lên.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "So sánh với bài glycine–NaOH để thấy tính lưỡng tính.",
+          "observation_vi": "So sánh với bài glycine–NaOH để thấy tính lưỡng tính.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có khí hoặc kết tủa đặc trưng.",
+      "explanation_vi": "Nhóm amino của glycine nhận proton từ axit.",
+      "misconception_vi": "Amino acid không chỉ phản ứng với bazơ nhờ nhóm COOH.",
+      "question": {
+        "prompt_vi": "Nhóm chức nào chủ yếu phản ứng với HCl trong phương trình này?",
+        "choices_vi": [
+          "Nhóm amino",
+          "Nhóm metyl không có trong glycine",
+          "Một liên kết ba",
+          "Không nhóm nào"
+        ],
+        "correct": 0,
+        "explanation_vi": "Nhóm NH2 nhận proton, tạo dạng NH3+."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "glycine_naoh",
+      "title_vi": "Glycine phản ứng với kiềm",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "NH2CH2COOH + NaOH -> NH2CH2COONa + H2O",
+      "reactants": [
+        {
+          "species": "glycine",
+          "coefficient": 1
+        },
+        {
+          "species": "sodium_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "sodium_glycinate",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "invisible",
+          "color": "#f8fafc",
+          "explanation_vi": "Muối glycinat tan; không tự thêm màu hoặc khí.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị glycine và NaOH trong mô phỏng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho tiếp xúc theo tỉ lệ lượng chất đã chọn.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Nhóm COOH được trung hòa, muối glycinat tăng.",
+          "observation_vi": "Nhóm COOH được trung hòa, muối glycinat tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Đối chiếu khả năng phản ứng cả với axit lẫn bazơ của glycine.",
+          "observation_vi": "Đối chiếu khả năng phản ứng cả với axit lẫn bazơ của glycine.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Không có biến đổi màu đặc trưng.",
+      "explanation_vi": "Nhóm cacboxyl của glycine thể hiện tính axit với kiềm.",
+      "misconception_vi": "Không dùng pH 7 làm giá trị cố định cho mọi dung dịch amino acid.",
+      "question": {
+        "prompt_vi": "Hai bài glycine–HCl và glycine–NaOH cùng minh họa tính gì?",
+        "choices_vi": [
+          "Tính lưỡng tính",
+          "Tính kim loại",
+          "Tính cháy tự phát",
+          "Tính phóng xạ"
+        ],
+        "correct": 0,
+        "explanation_vi": "Glycine có thể phản ứng với cả axit và bazơ nhờ các nhóm chức khác nhau."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "surface_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#398b9d",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "cuo_hcl",
+      "title_vi": "CuO tan trong HCl",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "CuO + 2HCl -> CuCl2 + H2O",
+      "reactants": [
+        {
+          "species": "copper_oxide",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrochloric_acid",
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "species": "copper_chloride",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#1f2328",
+          "explanation_vi": "Chất rắn CuO đen giảm theo lượng đã phản ứng.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "copper_oxide"
+        },
+        {
+          "kind": "color",
+          "color": "#398b9d",
+          "explanation_vi": "Cu(II) đi vào pha lỏng; sắc thực phụ thuộc nồng độ và clorua.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Quan sát chất rắn CuO đen và HCl loãng riêng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho axit tiếp xúc bề mặt CuO trong mô phỏng.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Chất rắn tan dần, màu xanh trong dung dịch tăng.",
+          "observation_vi": "Chất rắn tan dần, màu xanh trong dung dịch tăng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Không tạo H2 vì đây là oxit bazơ phản ứng với axit, không phải kim loại Cu.",
+          "observation_vi": "Không tạo H2 vì đây là oxit bazơ phản ứng với axit, không phải kim loại Cu.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "CuO đen tan dần; dung dịch Cu(II) chuyển xanh.",
+      "explanation_vi": "Oxit bazơ phản ứng với axit tạo muối và nước.",
+      "misconception_vi": "Không gán khí H2 cho mọi phản ứng có axit.",
+      "question": {
+        "prompt_vi": "Sản phẩm khí nào bắt buộc có trong phương trình này?",
+        "choices_vi": [
+          "Không có khí",
+          "H2",
+          "O2",
+          "CO2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Phương trình chỉ tạo CuCl2 và H2O."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "surface_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#d9b44c",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "fe2o3_hcl",
+      "title_vi": "Fe2O3 tan trong HCl",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "Fe2O3 + 6HCl -> 2FeCl3 + 3H2O",
+      "reactants": [
+        {
+          "species": "iron_three_oxide",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrochloric_acid",
+          "coefficient": 6
+        }
+      ],
+      "products": [
+        {
+          "species": "iron_three_chloride",
+          "coefficient": 2
+        },
+        {
+          "species": "water",
+          "coefficient": 3
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#994d34",
+          "explanation_vi": "Hạt oxit nâu đỏ tan dần.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "iron_three_oxide"
+        },
+        {
+          "kind": "color",
+          "color": "#d9b44c",
+          "explanation_vi": "Màu vàng của dung dịch Fe(III) tăng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Dùng Fe2O3 nâu đỏ, không dùng Fe kim loại thay thế.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho axit tiếp xúc bề mặt oxit và khuấy nhẹ.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Màu rắn giảm, dung dịch Fe(III) ngả vàng.",
+          "observation_vi": "Màu rắn giảm, dung dịch Fe(III) ngả vàng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Fe giữ số oxi hóa +3; không phải phản ứng thế tạo Fe(II) và H2.",
+          "observation_vi": "Fe giữ số oxi hóa +3; không phải phản ứng thế tạo Fe(II) và H2.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Chất rắn nâu đỏ tan, dung dịch vàng xuất hiện.",
+      "explanation_vi": "Axit tiêu thụ oxit, tạo muối Fe(III) tan.",
+      "misconception_vi": "Gỉ sắt và kim loại sắt không cho cùng sản phẩm với HCl.",
+      "question": {
+        "prompt_vi": "Số oxi hóa của Fe có đổi trong phản ứng này không?",
+        "choices_vi": [
+          "Không, vẫn +3",
+          "Có, từ 0 lên +2",
+          "Có, từ +3 xuống 0",
+          "Fe biến mất"
+        ],
+        "correct": 0,
+        "explanation_vi": "Fe trong Fe2O3 và FeCl3 đều có số oxi hóa +3."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "surface_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0.7,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "cao_water",
+      "title_vi": "Vôi sống phản ứng với nước",
+      "family": "hydration",
+      "grades": [
+        12
+      ],
+      "equation": "CaO + H2O -> Ca(OH)2",
+      "reactants": [
+        {
+          "species": "calcium_oxide",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "calcium_hydroxide",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#eeeeea",
+          "explanation_vi": "Phần CaO còn lại giảm khi hydrat hóa.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "calcium_oxide"
+        },
+        {
+          "kind": "precipitation",
+          "color": "#ffffff",
+          "explanation_vi": "Ca(OH)2 dư độ tan được minh họa như huyền phù trắng.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "calcium_hydroxide"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Nhận diện vôi sống CaO, khác nước vôi trong Ca(OH)2.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho nước tiếp xúc mẫu vôi ảo.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Sản phẩm trắng tạo thành; phản ứng thực tỏa nhiệt nhưng bài này không giả số đo nhiệt lượng.",
+          "observation_vi": "Sản phẩm trắng tạo thành; phản ứng thực tỏa nhiệt nhưng bài này không giả số đo nhiệt lượng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Mức đục phụ thuộc lượng Ca(OH)2 vượt độ tan; hình ảnh là giản lược.",
+          "observation_vi": "Mức đục phụ thuộc lượng Ca(OH)2 vượt độ tan; hình ảnh là giản lược.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Tạo sản phẩm trắng; có thể thấy huyền phù khi vượt độ tan.",
+      "explanation_vi": "CaO hydrat hóa tạo Ca(OH)2.",
+      "misconception_vi": "Không coi mọi sản phẩm Ca(OH)2 đều hòa tan hoàn toàn.",
+      "question": {
+        "prompt_vi": "Tên thường gọi của sản phẩm Ca(OH)2 là gì?",
+        "choices_vi": [
+          "Vôi tôi",
+          "Vôi sống",
+          "Đá vôi",
+          "Muối ăn"
+        ],
+        "correct": 0,
+        "explanation_vi": "Vôi sống là CaO, vôi tôi là Ca(OH)2."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "heat_activated",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "caco3_heat",
+      "title_vi": "Nung đá vôi",
+      "family": "decomposition",
+      "grades": [
+        12
+      ],
+      "equation": "CaCO3 -> CaO + CO2",
+      "reactants": [
+        {
+          "species": "calcium_carbonate",
+          "coefficient": 1
+        }
+      ],
+      "products": [
+        {
+          "species": "calcium_oxide",
+          "coefficient": 1
+        },
+        {
+          "species": "carbon_dioxide",
+          "coefficient": 1
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        },
+        {
+          "kind": "temperature",
+          "label_vi": "Đạt ít nhất 850 °C trong mô hình.",
+          "minimum": 850
+        }
+      ],
+      "effects": [
+        {
+          "kind": "bubbles",
+          "color": "#f8fafc",
+          "explanation_vi": "CO2 thoát khỏi chất rắn nóng, được minh họa bằng dòng khí định tính.",
+          "location": "surface",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": false,
+          "species": "carbon_dioxide"
+        },
+        {
+          "kind": "dissolution",
+          "color": "#f1f0e7",
+          "explanation_vi": "Khối lượng CaCO3 giảm, CaO rắn vẫn còn.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "calcium_carbonate"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chọn CaCO3 rắn, ghi rõ đây là kịch bản lò nung.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Thiết lập nhiệt độ cao ảo; đun nhẹ không được xem là đủ điều kiện.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "CO2 tăng, CaO rắn được tạo thành và vẫn có màu trắng.",
+          "observation_vi": "CO2 tăng, CaO rắn được tạo thành và vẫn có màu trắng.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Tính cả khối lượng CO2 thoát ra khi kiểm tra bảo toàn khối lượng.",
+          "observation_vi": "Tính cả khối lượng CO2 thoát ra khi kiểm tra bảo toàn khối lượng.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "CO2 không màu thoát ra, chất rắn trắng còn lại.",
+      "explanation_vi": "CaCO3 phân hủy nhiệt tạo CaO và CO2.",
+      "misconception_vi": "Khối lượng chất rắn giảm không có nghĩa khối lượng toàn hệ không bảo toàn.",
+      "question": {
+        "prompt_vi": "Vì sao khối lượng chất rắn sau nung có thể giảm?",
+        "choices_vi": [
+          "CO2 rời pha rắn",
+          "Nguyên tố C bị hủy",
+          "Ca biến mất",
+          "Không có sản phẩm"
+        ],
+        "correct": 0,
+        "explanation_vi": "CO2 mang một phần khối lượng ra khỏi chất rắn; hệ mở cần cộng khối lượng khí."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#d8eef6",
+      "finalColor": "#398b9d",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "cuoh2_hcl",
+      "title_vi": "Cu(OH)2 tan trong axit",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "Cu(OH)2 + 2HCl -> CuCl2 + 2H2O",
+      "reactants": [
+        {
+          "species": "copper_hydroxide",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrochloric_acid",
+          "coefficient": 2
+        }
+      ],
+      "products": [
+        {
+          "species": "copper_chloride",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 2
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#79c8e3",
+          "explanation_vi": "Bông Cu(OH)2 xanh nhạt giảm.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "copper_hydroxide"
+        },
+        {
+          "kind": "color",
+          "color": "#398b9d",
+          "explanation_vi": "Cu(II) tồn tại trong pha lỏng sau khi kết tủa tan.",
+          "location": "bulk",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Bắt đầu bằng kết tủa Cu(OH)2 đã có, không chỉ dung dịch CuSO4.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho HCl tiếp xúc và khuấy nhẹ.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Kết tủa xanh nhạt tan, pha lỏng trong hơn.",
+          "observation_vi": "Kết tủa xanh nhạt tan, pha lỏng trong hơn.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "Nếu axit thiếu, chất rắn còn lại phải được giữ trong mô hình.",
+          "observation_vi": "Nếu axit thiếu, chất rắn còn lại phải được giữ trong mô hình.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Kết tủa tan, dung dịch Cu(II) còn màu xanh.",
+      "explanation_vi": "Axit tiêu thụ OH, kéo cân bằng hòa tan hydroxide.",
+      "misconception_vi": "Không đồng nhất hết kết tủa với hết nguyên tố Cu.",
+      "question": {
+        "prompt_vi": "Sau khi kết tủa tan, Cu có còn trong hệ không?",
+        "choices_vi": [
+          "Có, ở dạng hòa tan",
+          "Không, bị hủy",
+          "Chỉ còn nếu có lửa",
+          "Biến thành H2"
+        ],
+        "correct": 0,
+        "explanation_vi": "Cu được chuyển từ Cu(OH)2 rắn sang ion/phức trong dung dịch."
+      }
+    },
+    {
+      "duration_s": 18,
+      "model": "mixing_limited",
+      "initialColor": "#f8fafc",
+      "finalColor": "#f8fafc",
+      "finalTurbidity": 0,
+      "physicalTime_vi": "Thời gian diễn biến được rút gọn để học tập, chưa hiệu chuẩn thực nghiệm.",
+      "sources": [
+        "https://edu.rsc.org/resources/practical/experiments"
+      ],
+      "safety_vi": "Mẫu và điều kiện trong bài này chỉ dùng cho mô phỏng; không thay thế quy trình thực hành do giáo viên thẩm định.",
+      "id": "aloh3_hcl",
+      "title_vi": "Al(OH)3 tan trong axit",
+      "family": "neutralization",
+      "grades": [
+        12
+      ],
+      "equation": "Al(OH)3 + 3HCl -> AlCl3 + 3H2O",
+      "reactants": [
+        {
+          "species": "aluminium_hydroxide",
+          "coefficient": 1
+        },
+        {
+          "species": "hydrochloric_acid",
+          "coefficient": 3
+        }
+      ],
+      "products": [
+        {
+          "species": "aluminium_chloride",
+          "coefficient": 1
+        },
+        {
+          "species": "water",
+          "coefficient": 3
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "mixed",
+          "label_vi": "Cho các chất đầu tiếp xúc."
+        }
+      ],
+      "effects": [
+        {
+          "kind": "dissolution",
+          "color": "#ffffff",
+          "explanation_vi": "Keo trắng tan theo lượng axit đã phản ứng.",
+          "location": "bottom",
+          "onset": 0,
+          "peak": 0.5,
+          "end": 1,
+          "persists": true,
+          "species": "aluminium_hydroxide"
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "prepare",
+          "title_vi": "Chuẩn bị mẫu ảo",
+          "instruction_vi": "Chuẩn bị keo Al(OH)3 trắng và HCl riêng trong bài mô phỏng.",
+          "observation_vi": "Các mẫu chưa tiếp xúc.",
+          "progress": 0
+        },
+        {
+          "id": "contact",
+          "title_vi": "Thiết lập điều kiện",
+          "instruction_vi": "Cho axit tiếp xúc từng phần với kết tủa.",
+          "observation_vi": "Kiểm tra đủ điều kiện trước khi phản ứng tiến triển.",
+          "progress": 0.02
+        },
+        {
+          "id": "observe",
+          "title_vi": "Theo dõi diễn biến",
+          "instruction_vi": "Lượng keo trắng giảm, pha lỏng trở lại trong.",
+          "observation_vi": "Lượng keo trắng giảm, pha lỏng trở lại trong.",
+          "progress": 0.3
+        },
+        {
+          "id": "conclude",
+          "title_vi": "Đối chiếu sản phẩm",
+          "instruction_vi": "So sánh với tính tan trong kiềm dư để nhận ra tính lưỡng tính.",
+          "observation_vi": "So sánh với tính tan trong kiềm dư để nhận ra tính lưỡng tính.",
+          "progress": 0.95
+        }
+      ],
+      "observation_vi": "Keo trắng tan thành dung dịch không màu.",
+      "explanation_vi": "Al(OH)3 phản ứng được với axit nhờ các nhóm hydroxide.",
+      "misconception_vi": "Tính lưỡng tính không có nghĩa đồng thời cần cả axit lẫn kiềm để làm tan.",
+      "question": {
+        "prompt_vi": "Al(OH)3 cần bao nhiêu mol HCl cho mỗi mol theo phương trình?",
+        "choices_vi": [
+          "3 mol",
+          "1 mol",
+          "2 mol",
+          "6 mol"
+        ],
+        "correct": 0,
+        "explanation_vi": "Ba nhóm OH được trung hòa bởi ba mol HCl."
+      }
+    }
+  ]
+}

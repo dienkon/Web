@@ -4,6 +4,7 @@ import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { updateThermalResponse } from '../../../engine/interactionEngine';
+import { useToolDock } from '../../../handling/toolDock';
 
 const stemGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.08,
@@ -15,21 +16,23 @@ const stemGlassMaterial = new THREE.MeshPhysicalMaterial({
 });
 
 export const InteractiveThermometer = React.memo(function InteractiveThermometer({
-  position = [-7.8, 0.4, 2.0],
+  position: initialPosition = [-7.8, 0.4, 2.0],
 }: {
   position?: [number, number, number];
 }) {
+  const dock = useToolDock('thermometer', initialPosition);
+  const position = dock.position;
+  const animationTarget = useRef(new THREE.Vector3());
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const vessels = useAppStore(state => state.vessels);
+  const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
 
   const groupRef = useRef<THREE.Group>(null);
   const textRef = useRef<any>(null);
   const fluidColumnRef = useRef<THREE.Mesh>(null);
   const currentTempRef = useRef(25.0);
 
-  const targetVessel = selectedVesselId ? vessels[selectedVesselId] : null;
   const isActive = activeTool === 'thermometer';
 
   useFrame((_, delta) => {
@@ -38,12 +41,12 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
     if (isActive && targetVessel) {
       // Immerse thermometer bulb into the vessel's liquid
       const immersionY = targetVessel.position[1] + 0.35;
-      const targetPos = new THREE.Vector3(
+      const targetPos = animationTarget.current.set(
         targetVessel.position[0] + 0.2,
         immersionY + 0.8,
         targetVessel.position[2] + 0.1
       );
-      groupRef.current.position.lerp(targetPos, delta * 8.0);
+      groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
       groupRef.current.rotation.set(0.12, 0, -0.15);
 
       // Newton cooling / heating curve
@@ -55,8 +58,8 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
       );
     } else {
       // Resting on rack
-      const restPos = new THREE.Vector3(...position);
-      groupRef.current.position.lerp(restPos, delta * 8.0);
+      const restPos = animationTarget.current.set(...position);
+      groupRef.current.position.lerp(restPos, 1 - Math.exp(-delta * 8));
       groupRef.current.rotation.set(0, 0, 0);
 
       // Cool back down to room ambient temperature (25°C)
@@ -70,7 +73,8 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
 
     const t = currentTempRef.current;
     if (textRef.current) {
-      textRef.current.text = `${t.toFixed(1)}°C`;
+      const label = `${t.toFixed(1)}°C`;
+      if (textRef.current.text !== label) textRef.current.text = label;
     }
 
     // Update red alcohol column height (scaled from -10°C to 110°C)
@@ -82,11 +86,16 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
     }
   });
 
+  if (!dock.visible) return null;
+
   return (
     <group
       ref={groupRef}
+      name="tool-thermometer" visible={dock.visible}
+      onPointerDown={dock.onPointerDown}
       onClick={(e) => {
         e.stopPropagation();
+        if (dock.moveMode) return;
         setActiveTool(isActive ? 'none' : 'thermometer');
       }}
       onPointerOver={() => { document.body.style.cursor = 'pointer'; }}

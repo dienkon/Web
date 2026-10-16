@@ -3,7 +3,9 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { ContinuousLiquidStream } from './ContinuousLiquidStream';
-import { labSound } from '../../../utils/audio';
+import { useToolDock } from '../../../handling/toolDock';
+import { useInstrumentStore } from '../../../handling/instrumentState';
+import { aspiratePipette, dispensePipette } from '../../../handling/instrumentOperations';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -16,26 +18,30 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
 
 export const InteractivePipette = React.memo(function InteractivePipette({
   targetVesselId,
-  position = [-6.5, 0.4, 2.0],
+  position: initialPosition = [-6.5, 0.4, 2.0],
 }: {
   targetVesselId?: string | null;
   position?: [number, number, number];
 }) {
+  const dock = useToolDock('pipette', initialPosition);
+  const position = dock.position;
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
-  const vessels = useAppStore(state => state.vessels);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const mixSubstances = useAppStore(state => state.mixSubstances);
-  const setVesselState = useAppStore(state => state.setVesselState);
 
-  const [pipetteVolume, setPipetteVolume] = useState(0); // 0 to 10 mL
-  const [pipetteColor, setPipetteColor] = useState('#38bdf8');
-  const [pipetteSubstances, setPipetteSubstances] = useState<string[]>([]);
+  const sample = useInstrumentStore(state => state.pipetteSample);
+  const pulse = useInstrumentStore(state => state.pipettePulse);
+  const dispensing = useInstrumentStore(state => state.pipetteDispensing);
+  const pipetteVolume = sample?.volume_ml ?? 0;
+  const pipetteColor = sample?.color ?? '#38bdf8';
+  const pulseTime = useRef(0);
+  const lastPulse = useRef(pulse);
   const [isBulbSqueezed, setIsBulbSqueezed] = useState(false);
   const [isDispensing, setIsDispensing] = useState(false);
 
   const pipetteGroupRef = useRef<THREE.Group>(null);
-  const targetVessel = selectedVesselId ? vessels[selectedVesselId] : null;
+  const targetId = targetVesselId ?? selectedVesselId;
+  const targetVessel = useAppStore(state => targetId ? state.vessels[targetId] : undefined);
 
   // Active if selected in toolbar or clicked
   const isActive = activeTool === 'pipette';
@@ -49,68 +55,32 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   }, [isActive, targetVessel, position]);
 
   useFrame((_, delta) => {
-    if (!pipetteGroupRef.current) return;
-    pipetteGroupRef.current.position.lerp(targetWorldPos, delta * 8.0);
-  });
-
-  // Aspirate liquid from target vessel
-  const handleAspirate = (e: any) => {
-    e.stopPropagation();
-    if (!targetVessel || targetVessel.volume_ml <= 0) return;
-    
-    setIsBulbSqueezed(true);
-    setTimeout(() => {
-      setIsBulbSqueezed(false);
-      const drawAmount = Math.min(10, targetVessel.volume_ml);
-      setPipetteVolume(drawAmount);
-      setPipetteColor(targetVessel.liquidColor || '#38bdf8');
-      setPipetteSubstances([...targetVessel.substances]);
-
-      // Deduct from vessel
-      const remainingVol = Math.max(0, targetVessel.volume_ml - drawAmount);
-      setVesselState(targetVessel.id, {
-        volume_ml: remainingVol,
-        volume: remainingVol / targetVessel.capacity_ml,
-      });
-      if (targetVessel.substances.length > 0) {
-        useAppStore.getState().touchToolChemical('pipette', targetVessel.substances[0]);
-      }
-      labSound.playDrop();
-    }, 200);
-  };
-
-  // Dispense liquid from pipette into target vessel
-  const handleDispense = (e: any) => {
-    e.stopPropagation();
-    if (pipetteVolume <= 0 || !targetVessel) return;
-
-    setIsBulbSqueezed(true);
-    setIsDispensing(true);
-    labSound.playDrop();
-
-    const dispenseAmount = Math.min(2.5, pipetteVolume);
-    const remainingInPipette = pipetteVolume - dispenseAmount;
-    setPipetteVolume(remainingInPipette);
-
-    // Transfer chemical
-    if (pipetteSubstances.length > 0) {
-      pipetteSubstances.forEach(sub => {
-        mixSubstances(targetVessel.id, sub, dispenseAmount);
-      });
+    if (lastPulse.current !== pulse) {
+      lastPulse.current = pulse;
+      pulseTime.current = 0.3;
+      setIsBulbSqueezed(true);
+      setIsDispensing(dispensing);
     }
-
-    setTimeout(() => {
-      setIsBulbSqueezed(false);
-      setIsDispensing(false);
-    }, 300);
-  };
+    if (pulseTime.current > 0) {
+      pulseTime.current -= delta;
+      if (pulseTime.current <= 0) {
+        setIsBulbSqueezed(false);
+        setIsDispensing(false);
+      }
+    }
+    if (!pipetteGroupRef.current) return;
+    pipetteGroupRef.current.position.lerp(targetWorldPos, 1 - Math.exp(-delta * 8));
+  });
 
   const handleBulbClick = (e: any) => {
     e.stopPropagation();
-    if (pipetteVolume <= 0.1) {
-      handleAspirate(e);
+    if (dock.moveMode) return;
+    if (!isActive) { setActiveTool('pipette'); return; }
+    if (targetVesselId) useAppStore.getState().setSelectedVesselId(targetVesselId);
+    if (pipetteVolume <= 0.000001) {
+      aspiratePipette(10);
     } else {
-      handleDispense(e);
+      dispensePipette(2.5);
     }
   };
 
@@ -123,11 +93,16 @@ export const InteractivePipette = React.memo(function InteractivePipette({
 
   const fillRatio = pipetteVolume / 10;
 
+  if (!dock.visible) return null;
+
   return (
     <group
       ref={pipetteGroupRef}
+      name="tool-pipette" visible={dock.visible}
+      onPointerDown={dock.onPointerDown}
       onClick={(e) => {
         e.stopPropagation();
+        if (dock.moveMode) return;
         setActiveTool(isActive ? 'none' : 'pipette');
       }}
       onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
@@ -170,7 +145,11 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       {/* Compressible Rubber Suction Bulb */}
       <group
         position={[0, 0.85, 0]}
-        onClick={handleBulbClick}
+        onPointerDown={(event) => {
+          if (dock.moveMode) dock.onPointerDown(event);
+          else handleBulbClick(event);
+        }}
+        onClick={(event) => event.stopPropagation()}
         scale={[1, isBulbSqueezed ? 0.65 : 1, 1]}
       >
         <mesh castShadow>

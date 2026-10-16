@@ -93,12 +93,14 @@ export const COMPLEXATION_EQUILIBRIA_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'cr2o7_cro4',
     chemistry: {
-      equation: 'K2Cr2O7(aq) + 2NaOH(aq) <-> 2KNaCrO4(aq) + H2O(l)',
+      representation: 'equilibrium',
+      equation: 'K2Cr2O7(aq) + 2NaOH(aq) <-> K2CrO4(aq) + Na2CrO4(aq) + H2O(l)',
       ionic: 'Cr2O7(2-)(orange) + 2OH-(aq) <-> 2CrO4(2-)(yellow) + H2O(l)',
       species: [
         { formula: 'K2Cr2O7', role: 'reactant', coeff: 1, phase: 'aq', colorHex: '#ea580c' },
         { formula: 'NaOH', role: 'reactant', coeff: 2, phase: 'aq' },
-        { formula: 'KNaCrO4', role: 'product', coeff: 2, phase: 'aq', colorHex: '#facc15' },
+        { formula: 'K2CrO4', role: 'product', coeff: 1, phase: 'aq', colorHex: '#facc15' },
+        { formula: 'Na2CrO4', role: 'product', coeff: 1, phase: 'aq', colorHex: '#facc15' },
         { formula: 'H2O', role: 'product', coeff: 1, phase: 'l' }
       ],
       deltaH_kJ_per_mol: -14.0,

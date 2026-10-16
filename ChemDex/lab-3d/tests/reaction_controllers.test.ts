@@ -324,6 +324,9 @@ describe('Reaction Controllers: Physical Chemistry & VFX Master Suite', () => {
     it('Reaction 23: Landolt Iodine Clock remains colorless then triggers sudden midnight blue flip', () => {
       const ctrl = getReactionController('iodine_clock')!;
       ctrl.initialize(mockContext);
+      // The chemistry inventory supplies an endpoint only when iodine and
+      // starch are present; the visual controller must not invent it.
+      mockRuntime.targetColor = '#0f172a';
 
       // Before induction threshold (0.65): colorless
       mockRuntime.elapsed = 0.5 * mockRuntime.duration;

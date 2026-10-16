@@ -231,7 +231,13 @@ export class CuSo4Nh3MultiStageController implements ReactionVisualController {
     runtime.currentColor = '#38bdf8';
     runtime.targetColor = '#1d4ed8'; // Deep royal blue
     runtime.turbidity = 0.0;
-    runtime.customData = { stage: 1 };
+    const copper = runtime.reactantAvailability.CuSO4;
+    const ammonia = runtime.reactantAvailability.NH3;
+    runtime.customData = { stage: 1,
+      // Missing amounts are permitted for the development gallery. With a
+      // quantitative ledger, time alone must never invent excess reagent.
+      excessAmmonia: copper === undefined || ammonia === undefined || copper <= 1e-12 ? null : ammonia >= 4 * copper,
+    };
   }
 
   public update(context: ReactionContext): void {
@@ -239,7 +245,7 @@ export class CuSo4Nh3MultiStageController implements ReactionVisualController {
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
-    if (runtime.progress < 0.4) {
+    if (runtime.progress < 0.4 || runtime.customData.excessAmmonia === false) {
       // STAGE 1: Pale blue Cu(OH)2 gel precipitates
       runtime.customData.stage = 1;
       runtime.precipitateRate = 2.0;
@@ -261,8 +267,9 @@ export class CuSo4Nh3MultiStageController implements ReactionVisualController {
 
   public finalize(context: ReactionContext): void {
     const { runtime } = context;
-    runtime.turbidity = 0.0;
-    runtime.currentColor = '#1d4ed8';
+    runtime.precipitateRate = 0;
+    runtime.turbidity = runtime.customData.excessAmmonia === false ? 0.75 : 0;
+    runtime.currentColor = runtime.customData.excessAmmonia === false ? '#bae6fd' : '#1d4ed8';
   }
 }
 
@@ -279,6 +286,12 @@ export class Al2So43NaOhAmphotericController implements ReactionVisualController
     runtime.currentColor = '#f8fafc';
     runtime.targetColor = '#f8fafc';
     runtime.turbidity = 0.0;
+    const sulfate = runtime.reactantAvailability['Al2(SO4)3'];
+    const chloride = runtime.reactantAvailability.AlCl3;
+    const aluminium = sulfate !== undefined ? 2 * sulfate : chloride;
+    const hydroxide = runtime.reactantAvailability.NaOH;
+    runtime.customData.excessHydroxide = aluminium === undefined || hydroxide === undefined || aluminium <= 1e-12
+      ? null : hydroxide >= 4 * aluminium;
   }
 
   public update(context: ReactionContext): void {
@@ -286,7 +299,7 @@ export class Al2So43NaOhAmphotericController implements ReactionVisualController
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
-    if (runtime.progress < 0.45) {
+    if (runtime.progress < 0.45 || runtime.customData.excessHydroxide === false) {
       // Stage 1: Gelatinous white Al(OH)3 precipitate forms
       runtime.precipitateRate = 2.4;
       runtime.turbidity = Math.min(0.82, (runtime.progress / 0.45) * 0.82);
@@ -304,6 +317,7 @@ export class Al2So43NaOhAmphotericController implements ReactionVisualController
 
   public finalize(context: ReactionContext): void {
     const { runtime } = context;
-    runtime.turbidity = 0.0;
+    runtime.precipitateRate = 0;
+    runtime.turbidity = runtime.customData.excessHydroxide === false ? 0.82 : 0;
   }
 }

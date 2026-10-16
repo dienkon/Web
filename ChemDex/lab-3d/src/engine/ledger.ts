@@ -2,14 +2,18 @@
  * ledger.ts — Physical Conservation Ledger & Stoichiometric Accounting Engine
  * 
  * "Bảo toàn, Mất đi, Còn lại"
- * Tracks exact mass, element atom counts, charge neutrality, enthalpy balance,
- * non-ideal volume contraction, Henry's law gas dissolution, and Beer-Lambert optics.
- * All visual effects are truthful projections of the ledger state.
+ * Tracks modeled species amounts, product phases and mass transferred to sinks.
+ * Reaction enthalpy, solution activities and optical parameters are approximate;
+ * conserving formula atoms does not establish experimental calibration.
  */
 
 import { VesselState, SubstanceContent } from '../types/chemistry';
 import { ReactionProgram } from '../shared/programSchema';
 import { Phase, PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../vfx/catalog/vocab';
+import { assessProgramConditions } from '../science/conditions';
+import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
+import { solveAqueousEquilibrium } from '../science/aqueousEquilibrium';
+import { indicatorColor, solutionIndicatorColor } from '../science/indicatorAppearance';
 
 // Standard Atomic Weights (IUPAC)
 export const ATOMIC_WEIGHTS: Record<string, number> = {
@@ -60,6 +64,7 @@ export const ATOMIC_WEIGHTS: Record<string, number> = {
   Au: 196.967,
   Hg: 200.592,
   Pb: 207.2,
+  Bi: 208.9804,
 };
 
 /**
@@ -460,30 +465,31 @@ export function applyProgramToLedger(
   vessel: VesselState,
   consumedExtent: number = 1.0 // 0.0 to 1.0 (fraction of limiting reagent reacted)
 ): Partial<VesselState> {
+  const assessment = assessProgramConditions(program, vessel.contents ?? [], {
+    temperature_c: vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
+    isHeated: vessel.temperature_c > 100,
+  });
+  if (!assessment.ready) return {
+    contents: vessel.contents.map(item => ({ ...item })),
+    hasGas: false,
+    hasPrecipitate: vessel.hasPrecipitate,
+    precipitateAmount_g: vessel.precipitateAmount_g ?? 0,
+    liquidColor: vessel.liquidColor,
+    temperature_c: vessel.temperature_c,
+    mass_g: vessel.mass_g,
+  };
   const reactants = program.chemistry.species.filter(s => s.role === 'reactant');
   const products = program.chemistry.species.filter(s => s.role === 'product');
 
   // Identify available moles of reactants in vessel contents
-  const currentContents = vessel.contents ? vessel.contents.map(c => ({ ...c })) : [];
-  if (currentContents.length === 0 && vessel.substances) {
-    const estVol = (vessel.volume_ml || 50) / 1000;
-    for (const sub of vessel.substances) {
-      const mm = computeMolarMass(sub);
-      currentContents.push({
-        formula: sub,
-        moles: estVol * 0.5,
-        mass_g: estVol * 0.5 * mm,
-        volume_ml: (vessel.volume_ml || 50) / vessel.substances.length,
-        concentration_M: 0.5
-      });
-    }
-  }
+  const currentContents = vessel.contents ? vessel.contents.map(content => ({ ...content })) : [];
+  // Empty quantitative inventory means no reactant amount. Do not manufacture
+  // a 0.5 M solution from labels merely to make an animation run.
 
   // Find limiting reagent and maximal reaction extent (moles of reaction)
   let maxReactionMoles = Infinity;
   for (const r of reactants) {
-    const found = currentContents.find(c => c.formula.toLowerCase() === r.formula.toLowerCase() ||
-      c.formula.replace(/\s*\(.*\)/g, '').toLowerCase() === r.formula.replace(/\s*\(.*\)/g, '').toLowerCase());
+    const found = currentContents.find(c => sameMolecularFormula(c.formula, r.formula) && (!c.phase || c.phase === r.phase));
     const available = found ? found.moles : 0;
     const possible = available / r.coeff;
     if (possible < maxReactionMoles) {
@@ -501,8 +507,7 @@ export function applyProgramToLedger(
   if (molesOfReaction > 0) {
     for (const r of reactants) {
       const consumeMoles = molesOfReaction * r.coeff;
-      const found = currentContents.find(c => c.formula.toLowerCase() === r.formula.toLowerCase() ||
-        c.formula.replace(/\s*\(.*\)/g, '').toLowerCase() === r.formula.replace(/\s*\(.*\)/g, '').toLowerCase());
+      const found = currentContents.find(c => sameMolecularFormula(c.formula, r.formula) && (!c.phase || c.phase === r.phase));
       if (found) {
         found.moles = Math.max(0, found.moles - consumeMoles);
         const mm = computeMolarMass(found.formula);
@@ -519,6 +524,7 @@ export function applyProgramToLedger(
   let precipitateSubstance = vessel.precipitateSubstance;
   let precipitateMorphology = vessel.precipitateMorphology;
   let escapedGas_g = 0;
+  const escapedByFormula = { ...vessel.escapedGas_g };
   let totalGasMolesProduced = 0;
 
   if (molesOfReaction > 0) {
@@ -543,20 +549,22 @@ export function applyProgramToLedger(
         }
         if (!vessel.isSealed) {
           escapedGas_g += produceMass;
+          escapedByFormula[p.formula] = (escapedByFormula[p.formula] ?? 0) + produceMass;
+          continue;
         }
       }
 
-      const existing = currentContents.find(c => c.formula.toLowerCase() === p.formula.toLowerCase());
+      const existing = currentContents.find(c => sameMolecularFormula(c.formula, p.formula) && c.phase === p.phase);
       if (existing) {
         existing.moles += produceMoles;
         existing.mass_g = existing.moles * mm;
-      } else if (produceMoles > 1e-6) {
+      } else if (produceMoles > 1e-12) {
         currentContents.push({
           formula: p.formula,
           moles: produceMoles,
           mass_g: produceMass,
-          volume_ml: p.phase === 'aq' ? (produceMoles / 1.0) * 1000 : 0,
-          concentration_M: p.phase === 'aq' ? 1.0 : undefined,
+          volume_ml: undefined,
+          concentration_M: p.phase === 'aq' && vessel.volume_ml > 0 ? produceMoles / (vessel.volume_ml / 1000) : undefined,
           state: p.phase,
           phase: p.phase
         });
@@ -582,7 +590,7 @@ export function applyProgramToLedger(
     const mass_solution_g = vessel.volume_ml ? vessel.volume_ml * 1.0 : 50.0;
     const heatCapacity_kJ_per_K = Math.max(0.01, (mass_solution_g * 4.184) / 1000.0);
     const deltaT = q_kJ / heatCapacity_kJ_per_K;
-    currentTemp = Math.max(-20, Math.min(100, currentTemp + deltaT));
+    currentTemp = Math.max(-273.15, currentTemp + deltaT);
   }
 
   // 4. Update mass and headspace pressure
@@ -600,20 +608,27 @@ export function applyProgramToLedger(
 
   // 5. Update liquid color via Beer-Lambert
   const afterColor = program.visual.after.liquidColor;
-  const newColor = calculateBeerLambertColor(currentContents, vessel.volume_ml || 50, afterColor);
+  const equilibrium = solveAqueousEquilibrium(currentContents, vessel.volume_ml);
+  const ph = equilibrium?.ph ?? vessel.ph;
+  const dyeColor = equilibrium ? solutionIndicatorColor(currentContents, ph) : null;
+  const observedIndicator = program.chemistry.representation === 'indicator' ? indicatorColor(program.id, ph) : null;
+  const newColor = dyeColor ?? observedIndicator ?? calculateBeerLambertColor(currentContents, vessel.volume_ml || 50, afterColor);
 
   return {
     contents: currentContents,
-    hasPrecipitate: totalPrecipitateG > 1e-5 || vessel.hasPrecipitate || false,
+    escapedGas_g: escapedByFormula,
+    hasPrecipitate: currentContents.some(item => item.phase === 's' && item.formula === precipitateSubstance && item.moles > 1e-12),
     precipitateColor: precipitateColor || program.visual.after.precipitate?.color,
     precipitateSubstance: precipitateSubstance || program.visual.after.precipitate?.substance,
     precipitateMorphology: precipitateMorphology || (program.visual.after.precipitate?.morphology as any),
-    precipitateAmount_g: totalPrecipitateG,
+    precipitateAmount_g: currentContents.filter(item => item.phase === 's' && item.formula === precipitateSubstance).reduce((sum, item) => sum + item.mass_g, 0),
     hasGas: hasGas || (molesOfReaction > 0 && products.some(p => p.phase === 'g')),
     gasColor: gasColor || (program.visual.after.gasesOffgassed[0] ? GAS_SPECIES_TABLE[program.visual.after.gasesOffgassed[0].species as GasSpecies]?.colorHex : undefined),
     liquidColor: newColor,
+    ph,
+    phModel: equilibrium ? 'ideal_aqueous_25c' : undefined,
     temperature_c: currentTemp,
-    isBoiling: currentTemp >= 98.0,
+    isBoiling: currentTemp >= 100.0 && vessel.volume_ml > 0,
     mass_g: newMass_g,
     internalPressure_atm
   };

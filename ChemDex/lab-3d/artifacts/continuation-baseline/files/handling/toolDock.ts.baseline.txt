@@ -1,0 +1,85 @@
+import { useEffect, useRef } from 'react';
+import { useThree, type ThreeEvent } from '@react-three/fiber';
+import { create } from 'zustand';
+import * as THREE from 'three';
+import { useAppStore } from '../store/useAppStore';
+
+export type ToolPosition = [number, number, number];
+interface DockState {
+  positions: Record<string, ToolPosition>;
+  dragging: string | null;
+}
+export const useToolDockStore = create<DockState>(() => ({ positions: {}, dragging: null }));
+
+export function constrainToolPosition(x: number, y: number, z: number): ToolPosition {
+  return [Math.max(-10, Math.min(10, x)), y, Math.max(-4.5, Math.min(4.5, z))];
+}
+
+/** Move the resting position without coupling independent tools to vessel IDs.
+ * Native pointer capture keeps movement/release working outside the canvas.
+ */
+export function useToolDock(id: string, initial: ToolPosition, onMove?: (position: ToolPosition) => void) {
+  const { camera, gl } = useThree();
+  const savedPosition = useToolDockStore(state => state.positions[id]);
+  const moveMode = useAppStore(state => state.moveMode);
+  const position = savedPosition ?? initial;
+  const options = useRef({ position, onMove });
+  options.current = { position, onMove };
+  const cleanup = useRef<(() => void) | null>(null);
+  useEffect(() => () => cleanup.current?.(), []);
+
+  const onPointerDown = (event: ThreeEvent<PointerEvent>) => {
+    if (!moveMode || event.button !== 0) return;
+    event.stopPropagation();
+    cleanup.current?.();
+    useAppStore.getState().setActiveTool('none');
+    const canvas = gl.domElement;
+    const pointerId = event.pointerId;
+    const origin = options.current.position;
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -origin[1]);
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const intersection = new THREE.Vector3();
+    const offset = new THREE.Vector3();
+    const project = (clientX: number, clientY: number) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer.set((clientX - rect.left) / rect.width * 2 - 1, -(clientY - rect.top) / rect.height * 2 + 1);
+      raycaster.setFromCamera(pointer, camera);
+      return raycaster.ray.intersectPlane(plane, intersection);
+    };
+    if (project(event.clientX, event.clientY)) offset.set(origin[0] - intersection.x, 0, origin[2] - intersection.z);
+    useToolDockStore.setState({ dragging: id });
+    let frame = 0;
+    let pending: ToolPosition | null = null;
+    const flush = () => {
+      frame = 0;
+      if (!pending) return;
+      useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: pending! } }));
+      options.current.onMove?.(pending);
+      pending = null;
+    };
+    const move = (native: PointerEvent) => {
+      if (native.pointerId !== pointerId || !project(native.clientX, native.clientY)) return;
+      pending = constrainToolPosition(intersection.x + offset.x, origin[1], intersection.z + offset.z);
+      if (!frame) frame = requestAnimationFrame(flush);
+    };
+    const stop = () => {
+      if (frame) cancelAnimationFrame(frame);
+      flush();
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', stop);
+      window.removeEventListener('pointercancel', stop);
+      window.removeEventListener('blur', stop);
+      if (canvas.hasPointerCapture(pointerId)) canvas.releasePointerCapture(pointerId);
+      if (useToolDockStore.getState().dragging === id) useToolDockStore.setState({ dragging: null });
+      cleanup.current = null;
+    };
+    canvas.setPointerCapture(pointerId);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', stop);
+    window.addEventListener('pointercancel', stop);
+    window.addEventListener('blur', stop);
+    cleanup.current = stop;
+  };
+  return { position, moveMode, onPointerDown };
+}

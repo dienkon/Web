@@ -45,6 +45,8 @@ export interface ChemicalDefinition {
 }
 
 export interface SubstanceContent {
+  liquidLayer?: 'aqueous' | 'organic';
+  location?: 'bulk' | 'filter';
   formula: string;
   moles: number;
   mass_g: number;
@@ -81,6 +83,7 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  escapedGas_g?: Record<string, number>;
   id: string;
   name: string;
   type: VesselType;
@@ -100,6 +103,11 @@ export interface VesselState {
   
   temperature_c: number; // in Celsius (ambient ~25°C)
   ph: number; // 0 to 14
+    phModel?: 'ideal_aqueous_25c'; // Concentration equilibrium, constants at 25 °C.
+    evaporationRate_g_s?: number;
+    vaporSourceId?: string;
+    condensedTransfer_g?: number;
+    condensationHeatRemoved_J?: number;
   
   liquidColor?: string;
   liquidOpacity?: number;
@@ -137,6 +145,12 @@ export interface VesselState {
   immiscibleOrganicVolume_ml?: number; // Organic layer in separatory funnel
   immiscibleOrganicColor?: string;
   stopcockOpen?: boolean; // Separatory funnel stopcock valve position
+  flowReceiverId?: string;
+  washTargetId?: string | null;
+  studioProgramId?: string;
+  washDose_ml?: number;
+  residueReceiverId?: string;
+  flowStatus?: string;
   fumingIntensity?: number; // Acid/base fuming aerosol smoke intensity (0 to 1)
   fumingColor?: string;
   solidMorphology?: SolidMorphology;
@@ -161,19 +175,33 @@ export type BurnerFlameState =
   | 'OUT_OF_FUEL' 
   | 'EXTINGUISHED';
 
+export interface FlameEmissionState {
+  element: string;
+  color: string;
+  startedAt_ms: number;
+  duration_s: number;
+}
+
 export interface BurnerState {
+  flameEmission?: FlameEmissionState;
   id: string;
   position: [number, number, number];
   isOn: boolean;
   intensity: number; // 1 to 5
   flameState?: BurnerFlameState;
   fuelLevel_ml?: number; // ethanol fuel remaining in reservoir (mL)
+  ethanolVolumeFraction?: number; // Approximate blend volume fraction, default 0.96
+  burnedFuel_ml?: number;
+  releasedHeat_J?: number;
+  deliveredHeat_J?: number;
+  heatLost_J?: number;
   maxFuel_ml?: number; // max fuel capacity (e.g. 150 mL)
   heatRadius?: number; // effective thermal radius in meters
   tempOutput_c?: number; // current flame core temperature in °C
 }
 
 export interface SpillState {
+  contents?: SubstanceContent[];
   id: string;
   position: [number, number, number]; // [x, y, z] on workbench
   substances: string[];

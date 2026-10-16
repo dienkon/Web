@@ -4,6 +4,8 @@
  * test-tube rack, retort clamp, and receiver vessels.
  */
 
+import { LAB_PHYSICS } from '../engine/interactionEngine';
+
 export interface SnapTargetResult {
   isSnapped: boolean;
   position: [number, number, number];
@@ -24,13 +26,12 @@ export function evaluateSnapTarget(
   const [x, y, z] = currentPos;
 
   // 1. Check Analytical Balance Pan
-  const balanceX = 7.5;
-  const balanceZ = -2.5;
+  const [balanceX, balanceY, balanceZ] = LAB_PHYSICS.BALANCE_POSITION;
   const distToBalance = Math.hypot(x - balanceX, z - balanceZ);
   if (distToBalance < 0.85) {
     return {
       isSnapped: true,
-      position: [balanceX, -0.02, balanceZ],
+      position: [balanceX, balanceY + 1.35, balanceZ],
       targetType: 'balance',
       isValid: true,
       hint_en: 'Placed on Analytical Balance Pan',

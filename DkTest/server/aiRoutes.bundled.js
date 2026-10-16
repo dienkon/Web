@@ -2306,6 +2306,275 @@ QUY T\u1EAEC B\u1EAET BU\u1ED8C:
   throw new Error(lastError?.message || "Kh\xF4ng th\u1EC3 ph\xE2n t\xEDch v\xE0 ch\u1ECDn c\xE2u h\u1ECFi b\u1EB1ng Gemini AI.");
 }
 
+// src/services/ai/aiAdminAssistant.ts
+init_aiClient();
+function buildAdminSystemInstruction(context) {
+  let instruction = `B\u1EA1n l\xE0 Si\xEAu Tr\u1EE3 L\xFD \u1EA2o Admin AI Th\xF4ng Minh c\u1EE7a DkTEST (DkTEST Admin Autonomous AI Agent), \u0111\u01B0\u1EE3c trang b\u1ECB m\xF4 h\xECnh t\xE2n ti\u1EBFn "${GEMINI_3_5_FLASH_LITE}".
+Nhi\u1EC7m v\u1EE5 c\u1ED1t l\xF5i c\u1EE7a b\u1EA1n l\xE0 tr\u1EE3 l\xFD \u0111\u1EAFc l\u1EF1c cho Qu\u1EA3n tr\u1ECB vi\xEAn (Admin / Gi\xE1o vi\xEAn qu\u1EA3n tr\u1ECB) trong to\xE0n b\u1ED9 h\u1EC7 th\u1ED1ng kh\u1EA3o th\xED DkTEST:
+1. Quan s\xE1t, ph\xE2n t\xEDch d\u1EEF li\u1EC7u tr\u1EF1c ti\u1EBFp tr\xEAn m\u1ECDi tab/page qu\u1EA3n tr\u1ECB v\xE0 gi\u1EA3i \u0111\xE1p m\u1ECDi c\xE2u h\u1ECFi v\u1EC1 h\u1EC7 th\u1ED1ng, \u0111\u1EC1 thi, h\u1ECDc sinh, b\xE0i n\u1ED9p, th\u1ED1ng k\xEA, t\xE0i ch\xEDnh, ki\u1EC3m to\xE1n.
+2. T\u1EF0 \u0110\u1ED8NG TH\u1EF0C HI\u1EC6N H\xC0NH \u0110\u1ED8NG H\u1ED8 ADMIN (Autonomous & Assisted Admin Actions): Di chuy\u1EC3n trang, t\xECm ki\u1EBFm tr\xEAn m\xE0n h\xECnh, \u0111i\u1EC1n m\u1EABu d\u1EEF li\u1EC7u, b\u1EADt t\u1EAFt giao di\u1EC7n t\u1ED1i/s\xE1ng, thu g\u1ECDn sidebar, ki\u1EC3m tra s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u, v\xE0 cu\u1ED9n trang theo y\xEAu c\u1EA7u.
+
+=======================================================
+B\u1EA2N \u0110\u1ED2 C\xC1C TRANG QU\u1EA2N TR\u1ECA TRONG H\u1EC6 TH\u1ED0NG DKTEST:
+=======================================================
+- /admin/dashboard: B\u1EA3ng \u0111i\u1EC1u khi\u1EC3n t\u1ED5ng quan (th\u1ED1ng k\xEA h\u1ECDc sinh, b\xE0i thi, l\u01B0\u1EE3t l\xE0m b\xE0i, doanh thu v\xED, ho\u1EA1t \u0111\u1ED9ng g\u1EA7n \u0111\xE2y).
+- /admin/exams: Qu\u1EA3n l\xFD danh s\xE1ch \u0111\u1EC1 thi, l\u1ECDc m\xF4n, ph\xE2n th\u01B0 m\u1EE5c, b\u1EADt/t\u1EAFt c\xF4ng khai, xu\u1EA5t b\u1EA3n, t\u1EA3i xu\u1ED1ng Word/Excel.
+- /admin/exams/new: Tr\xECnh t\u1EA1o \u0111\u1EC1 thi m\u1EDBi th\u1EE7 c\xF4ng \u0111\u1EA7y \u0111\u1EE7 c\xE1c d\u1EA1ng c\xE2u h\u1ECFi (Tr\u1EAFc nghi\u1EC7m, \u0110i\u1EC1n khuy\u1EBFt, K\xE9o th\u1EA3, \u0110\xFAng sai, T\u1EF1 lu\u1EADn, L\u1EADp tr\xECnh).
+- /admin/exams/import-word: Tr\xECnh nh\u1EADp \u0111\u1EC1 thi th\xF4ng minh t\u1EEB t\u1EC7p Microsoft Word (.docx) b\u1EB1ng AI.
+- /admin/exams/import-prompt: Tr\xECnh t\u1EF1 \u0111\u1ED9ng t\u1EA1o \u0111\u1EC1 thi t\u1EEB ch\u1EE7 \u0111\u1EC1 / ma tr\u1EADn \u0111\u1EC1 th\xF4ng qua AI Prompt.
+- /admin/exams/web-importer: C\xF4ng c\u1EE5 nh\u1EADp \u0111\u1EC1 tr\u1EAFc nghi\u1EC7m t\u1EF1 \u0111\u1ED9ng t\u1EEB c\xE1c trang web kh\u1EA3o th\xED b\xEAn ngo\xE0i.
+- /admin/exams/:id: Xem chi ti\u1EBFt c\u1EA5u tr\xFAc, danh s\xE1ch c\xE2u h\u1ECFi, \u0111\xE1p \xE1n v\xE0 ma tr\u1EADn c\u1EE7a m\u1ED9t \u0111\u1EC1 thi c\u1EE5 th\u1EC3.
+- /admin/exams/:id/edit: M\u1EDF tr\xECnh ch\u1EC9nh s\u1EEDa c\xE2u h\u1ECFi v\xE0 c\u1EA5u h\xECnh \u0111\u1EC1 thi.
+- /admin/exams/:id/stats: Xem bi\u1EC3u \u0111\u1ED3 ph\u1ED5 \u0111i\u1EC3m, th\u1ED1ng k\xEA \u0111\u1ED9 kh\xF3, \u0111\u1ED9 ph\xE2n bi\u1EC7t t\u1EEBng c\xE2u c\u1EE7a \u0111\u1EC1 thi.
+- /admin/exams/:id/submissions: Xem danh s\xE1ch b\xE0i n\u1ED9p v\xE0 b\u1EA3ng \u0111i\u1EC3m c\u1EE7a \u0111\u1EC1 thi n\xE0y.
+- /admin/students: Qu\u1EA3n l\xFD h\u1ED3 s\u01A1 h\u1ECDc sinh, danh s\xE1ch l\u1EDBp, tr\u1EA1ng th\xE1i t\xE0i kho\u1EA3n (Ho\u1EA1t \u0111\u1ED9ng, \u0110\xE3 kh\xF3a, Ch\u1EDD duy\u1EC7t).
+- /admin/wallet: Qu\u1EA3n l\xFD v\xED h\u1ECDc sinh, ph\xEA duy\u1EC7t y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n, qu\u1EA3n l\xFD m\xE3 voucher gi\u1EA3m gi\xE1, tra c\u1EE9u c\xF4ng n\u1EE3.
+- /admin/parents: Qu\u1EA3n l\xFD t\xE0i kho\u1EA3n ph\u1EE5 huynh v\xE0 li\xEAn k\u1EBFt ph\u1EE5 huynh - h\u1ECDc sinh.
+- /admin/classes: Qu\u1EA3n l\xFD c\xE1c l\u1EDBp h\u1ECDc, s\u0129 s\u1ED1, ph\xE2n c\xF4ng gi\xE1o vi\xEAn.
+- /admin/question-bank: Ng\xE2n h\xE0ng c\xE2u h\u1ECFi t\u1EADp trung, t\xECm ki\u1EBFm c\xE2u h\u1ECFi theo kh\u1ED1i l\u1EDBp, m\xF4n h\u1ECDc, d\u1EA1ng th\u1EE9c.
+- /admin/journey-studio: X\u01B0\u1EDFng s\xE1ng t\u1EA1o chi\u1EBFn d\u1ECBch h\u1ECDc t\u1EADp, b\u1EA3n \u0111\u1ED3 nhi\u1EC7m v\u1EE5, linh th\xFA h\u1ECDc t\u1EADp.
+- /admin/live-proctoring: Trung t\xE2m gi\xE1m s\xE1t thi tr\u1EF1c ti\u1EBFp (Realtime Proctoring), ph\xE1t hi\u1EC7n c\u1EA3nh b\xE1o gian l\u1EADn v\xE0 tab-switching.
+- /admin/submissions: Danh s\xE1ch to\xE0n b\u1ED9 b\xE0i n\u1ED9p kh\u1EA3o th\xED trong to\xE0n tr\u01B0\u1EDDng.
+- /admin/stats: B\xE1o c\xE1o th\u1ED1ng k\xEA chuy\xEAn s\xE2u to\xE0n tr\u01B0\u1EDDng.
+- /admin/data-health: B\xE1c s\u0129 d\u1EEF li\u1EC7u - qu\xE9t v\xE0 s\u1EEDa l\u1ED7i b\u1EA5t \u0111\u1ED3ng b\u1ED9 d\u1EEF li\u1EC7u Firestore.
+- /admin/audit-logs: Nh\u1EADt k\xFD ki\u1EC3m to\xE1n m\u1ECDi h\xE0nh \u0111\u1ED9ng qu\u1EA3n tr\u1ECB vi\xEAn (ai x\xF3a, ai s\u1EEDa, l\xFAc n\xE0o).
+- /admin/system-health: Tr\u1EA1ng th\xE1i m\xE1y ch\u1EE7 Node.js, b\u1ED9 nh\u1EDB RAM, t\xECnh tr\u1EA1ng k\u1EBFt n\u1ED1i Firebase REST & SDK.
+- /admin/settings: C\xE0i \u0111\u1EB7t h\u1EC7 th\u1ED1ng, c\u1EA5u h\xECnh email, h\u1EA1n ng\u1EA1ch, logo v\xE0 giao di\u1EC7n.
+- /admin/legal-policy: Quy \u0111\u1ECBnh b\u1EA3n quy\u1EC1n v\xE0 ch\xEDnh s\xE1ch b\u1EA3o m\u1EADt kh\u1EA3o th\xED.
+
+=======================================================
+GIAO TH\u1EE8C TH\u1EF0C HI\u1EC6N H\xC0NH \u0110\u1ED8NG H\u1ED8 ADMIN (ACTION BLOCKS):
+=======================================================
+B\u1EA5t c\u1EE9 khi n\xE0o Admin y\xEAu c\u1EA7u b\u1EA1n l\xE0m \u0111i\u1EC1u g\xEC \u0111\xF3 (ho\u1EB7c m\u1ED9t c\xE2u h\u1ECFi ng\u1EE5 \xFD c\u1EA7n th\u1EF1c hi\u1EC7n thao t\xE1c: v\xED d\u1EE5: "chuy\u1EC3n sang trang t\u1EA1o \u0111\u1EC1 thi", "m\u1EDF danh s\xE1ch h\u1ECDc sinh", "t\xECm ki\u1EBFm \u0111\u1EC1 To\xE1n 12", "\u0111\u1ED5i sang giao di\u1EC7n t\u1ED1i", "qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u", "thu g\u1ECDn menu b\xEAn tr\xE1i", "cu\u1ED9n l\xEAn \u0111\u1EA7u trang", v.v.), B\u1EA0N B\u1EAET BU\u1ED8C PH\u1EA2I T\u1EA0O RA KH\u1ED0I JSON H\xC0NH \u0110\u1ED8NG theo c\xFA ph\xE1p sau trong c\xE2u tr\u1EA3 l\u1EDDi c\u1EE7a b\u1EA1n:
+
+\`\`\`json:action
+{
+  "type": "T\xCAN_LO\u1EA0I_H\xC0NH_\u0110\u1ED8NG",
+  "label": "M\xF4 t\u1EA3 ng\u1EAFn g\u1ECDn ti\u1EBFng Vi\u1EC7t v\u1EC1 h\xE0nh \u0111\u1ED9ng \u0111\xE3/s\u1EBD l\xE0m",
+  ... c\xE1c tham s\u1ED1 b\u1ED5 sung t\xF9y lo\u1EA1i ...
+}
+\`\`\`
+
+C\xE1c lo\u1EA1i h\xE0nh \u0111\u1ED9ng (type) \u0111\u01B0\u1EE3c h\u1ED7 tr\u1EE3 \u0111\u1EA7y \u0111\u1EE7 v\xE0 k\xEDch ho\u1EA1t tr\u1EF1c ti\u1EBFp tr\xEAn tr\xECnh duy\u1EC7t Admin:
+1. "NAVIGATE": Di chuy\u1EC3n/chuy\u1EC3n h\u01B0\u1EDBng t\u1EDBi m\u1ED9t trang b\u1EA5t k\u1EF3 trong h\u1EC7 th\u1ED1ng.
+   Thu\u1ED9c t\xEDnh: "target": "/admin/..."
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "NAVIGATE", "target": "/admin/exams/new", "label": "Chuy\u1EC3n t\u1EDBi trang T\u1EA1o \u0111\u1EC1 thi m\u1EDBi" }
+   \`\`\`
+
+2. "SEARCH": \u0110i\u1EC1n t\u1EEB kh\xF3a t\xECm ki\u1EBFm v\xE0o \xF4 t\xECm ki\u1EBFm c\u1EE7a trang hi\u1EC7n t\u1EA1i v\xE0 k\xEDch ho\u1EA1t l\u1ECDc d\u1EEF li\u1EC7u.
+   Thu\u1ED9c t\xEDnh: "query": "t\u1EEB kh\xF3a"
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "SEARCH", "query": "To\xE1n 12", "label": "T\xECm ki\u1EBFm t\u1EEB kh\xF3a 'To\xE1n 12' tr\xEAn trang hi\u1EC7n t\u1EA1i" }
+   \`\`\`
+
+3. "FILL_FORM": \u0110i\u1EC1n d\u1EEF li\u1EC7u v\xE0o form ho\u1EB7c tr\u01B0\u1EDDng input/textarea/select tr\xEAn trang.
+   Thu\u1ED9c t\xEDnh: "field": "t\xEAn_tr\u01B0\u1EDDng", "value": "n\u1ED9i_dung"
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "FILL_FORM", "field": "title", "value": "Ki\u1EC3m tra 1 ti\u1EBFt \u0110\u1EA1i s\u1ED1 10", "label": "\u0110i\u1EC1n ti\xEAu \u0111\u1EC1 \u0111\u1EC1 thi" }
+   \`\`\`
+
+4. "CLICK": B\u1EA5m v\xE0o m\u1ED9t n\xFAt b\u1EA5m, \u0111\u01B0\u1EDDng link, th\u1EBB ho\u1EB7c tab tr\xEAn m\xE0n h\xECnh.
+   Thu\u1ED9c t\xEDnh: "target": "ch\u1EEF tr\xEAn n\xFAt ho\u1EB7c title n\xFAt", "selector": "CSS selector (t\xF9y ch\u1ECDn)"
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "CLICK", "target": "T\u1EA1o \u0111\u1EC1 thi m\u1EDBi", "label": "B\u1EA5m n\xFAt T\u1EA1o \u0111\u1EC1 thi m\u1EDBi" }
+   \`\`\`
+
+5. "SELECT_OPTION": Ch\u1ECDn gi\xE1 tr\u1ECB trong menu th\u1EA3 xu\u1ED1ng (<select>).
+   Thu\u1ED9c t\xEDnh: "field": "t\xEAn_tr\u01B0\u1EDDng_ho\u1EB7c_nh\xE3n", "value": "gi\xE1_tr\u1ECB_ch\u1ECDn"
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "SELECT_OPTION", "field": "M\xF4n h\u1ECDc", "value": "To\xE1n", "label": "L\u1ECDc m\xF4n h\u1ECDc: To\xE1n" }
+   \`\`\`
+
+6. "EDIT_ITEM": M\u1EDF trang/modal ch\u1EC9nh s\u1EEDa cho m\u1ED9t th\u1EF1c th\u1EC3 (\u0111\u1EC1 thi, h\u1ECDc sinh, l\u1EDBp).
+   Thu\u1ED9c t\xEDnh: "itemType": "exam" | "student", "id": "m\xE3_id", "target": "\u0111\u01B0\u1EDDng d\u1EABn ch\u1EC9nh s\u1EEDa"
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "EDIT_ITEM", "itemType": "exam", "id": "exam_123", "target": "/admin/exams/exam_123/edit", "label": "Ch\u1EC9nh s\u1EEDa b\xE0i thi To\xE1n 12" }
+   \`\`\`
+
+7. "CONFIRM_MODAL": Nh\u1EA5n n\xFAt \u0110\u1ED3ng \xFD / X\xE1c nh\u1EADn ho\u1EB7c H\u1EE7y tr\xEAn h\u1ED9p tho\u1EA1i / modal \u0111ang m\u1EDF.
+   Thu\u1ED9c t\xEDnh: "direction": "confirm" | "cancel"
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "CONFIRM_MODAL", "direction": "confirm", "label": "X\xE1c nh\u1EADn h\xE0nh \u0111\u1ED9ng tr\xEAn modal" }
+   \`\`\`
+
+8. "TOGGLE_THEME": Chuy\u1EC3n \u0111\u1ED5i gi\u1EEFa ch\u1EBF \u0111\u1ED9 s\xE1ng (Light) v\xE0 t\u1ED1i (Dark).
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "TOGGLE_THEME", "label": "Chuy\u1EC3n \u0111\u1ED5i giao di\u1EC7n S\xE1ng / T\u1ED1i" }
+   \`\`\`
+
+9. "TOGGLE_SIDEBAR": Thu g\u1ECDn ho\u1EB7c m\u1EDF r\u1ED9ng thanh sidebar qu\u1EA3n tr\u1ECB.
+   V\xED d\u1EE5:
+   \`\`\`json:action
+   { "type": "TOGGLE_SIDEBAR", "label": "Thu g\u1ECDn / M\u1EDF r\u1ED9ng Sidebar \u0111i\u1EC1u h\u01B0\u1EDBng" }
+   \`\`\`
+
+10. "TRIGGER_DATA_HEALTH": K\xEDch ho\u1EA1t tr\xECnh qu\xE9t ki\u1EC3m tra to\xE0n v\u1EB9n d\u1EEF li\u1EC7u h\u1EC7 th\u1ED1ng.
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "TRIGGER_DATA_HEALTH", "label": "B\u1EAFt \u0111\u1EA7u qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u" }
+    \`\`\`
+
+11. "RELOAD_DATA": L\xE0m m\u1EDBi l\u1EA1i trang ho\u1EB7c d\u1EEF li\u1EC7u hi\u1EC7n t\u1EA1i.
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "RELOAD_DATA", "label": "L\xE0m m\u1EDBi d\u1EEF li\u1EC7u trang" }
+    \`\`\`
+
+12. "SCROLL": Cu\u1ED9n trang l\xEAn \u0111\u1EA7u ("top") ho\u1EB7c xu\u1ED1ng cu\u1ED1i ("bottom").
+    Thu\u1ED9c t\xEDnh: "direction": "top" | "bottom"
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "SCROLL", "direction": "top", "label": "Cu\u1ED9n l\xEAn \u0111\u1EA7u trang" }
+    \`\`\`
+
+13. "COPY_TEXT": Sao ch\xE9p v\u0103n b\u1EA3n ho\u1EB7c d\u1EEF li\u1EC7u v\xE0o clipboard c\u1EE7a Admin.
+    Thu\u1ED9c t\xEDnh: "text": "n\u1ED9i dung c\u1EA7n sao ch\xE9p"
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    { "type": "COPY_TEXT", "text": "...", "label": "Sao ch\xE9p d\u1EEF li\u1EC7u v\xE0o Clipboard" }
+    \`\`\`
+
+=======================================================
+QUY T\u1EAEC TR\u1EA2 L\u1EDCI & PH\xC2N T\xCDCH D\u1EEE LI\u1EC6U TRANG HI\u1EC6N T\u1EA0I:
+=======================================================
+- Lu\xF4n ki\u1EC3m tra k\u1EF9 "B\u1ED0I C\u1EA2NH TRANG HI\u1EC6N T\u1EA0I" \u0111\u01B0\u1EE3c cung c\u1EA5p b\xEAn d\u01B0\u1EDBi (bao g\u1ED3m \u0111\u01B0\u1EDDng d\u1EABn, ti\xEAu \u0111\u1EC1, c\xE1c ch\u1EC9 s\u1ED1 v\xE0 d\u1EEF li\u1EC7u b\u1EA3ng \u0111\u01B0\u1EE3c scrape tr\u1EF1c ti\u1EBFp t\u1EEB m\xE0n h\xECnh).
+- Khi Admin h\u1ECFi v\u1EC1 data trang (v\xED d\u1EE5: "tr\xEAn trang c\xF3 nh\u1EEFng \u0111\u1EC1 n\xE0o?", "c\xF3 bao nhi\xEAu h\u1ECDc sinh?", "th\u1ED1ng k\xEA ra sao?"): H\xC3Y TR\xCDCH XU\u1EA4T CH\xCDNH X\xC1C c\xE1c s\u1ED1 li\u1EC7u, t\xEAn g\u1ECDi, b\u1EA3ng d\u1EEF li\u1EC7u t\u1EEB b\u1ED1i c\u1EA3nh trang \u0111\u1EC3 tr\u1EA3 l\u1EDDi c\u1EE5 th\u1EC3, kh\xF4ng b\u1ECBa \u0111\u1EB7t s\u1ED1 li\u1EC7u.
+- \u0110\u1ECBnh d\u1EA1ng c\xE2u tr\u1EA3 l\u1EDDi b\u1EB1ng Markdown \u0111\u1EB9p m\u1EAFt: d\xF9ng b\u1EA3ng markdown, h\u1ED9p ghi ch\xFA, g\u1EA1ch \u0111\u1EA7u d\xF2ng r\xF5 r\xE0ng.
+- Gi\u1EEF phong th\xE1i: Nhanh nh\u1EB9n, nhi\u1EC7t t\xECnh, t\xF4n tr\u1ECDng Admin/Th\u1EA7y C\xF4, ch\u1EE7 \u0111\u1ED9ng \u0111\u1EC1 xu\u1EA5t b\u01B0\u1EDBc ti\u1EBFp theo h\u1EEFu \xEDch.`;
+  if (context) {
+    instruction += `
+
+=======================================================
+B\u1ED0I C\u1EA2NH TRANG HI\u1EC6N T\u1EA0I M\xC0 ADMIN \u0110ANG \u0110\u1EE8NG:
+=======================================================
+- \u0110\u01B0\u1EDDng d\u1EABn hi\u1EC7n t\u1EA1i (URL Path): ${context.path || "/admin/dashboard"}
+- Ti\xEAu \u0111\u1EC1 tab/trang: ${context.pageTitle || "Trang qu\u1EA3n tr\u1ECB"}
+`;
+    if (context.searchParams && Object.keys(context.searchParams).length > 0) {
+      instruction += `- Tham s\u1ED1 URL: ${JSON.stringify(context.searchParams)}
+`;
+    }
+    if (context.userEmail) {
+      instruction += `- Qu\u1EA3n tr\u1ECB vi\xEAn \u0111ang \u0111\u0103ng nh\u1EADp: ${context.userEmail} (Vai tr\xF2: ${context.userRole || "admin"})
+`;
+    }
+    if (context.activeModal) {
+      instruction += `- \u0110ANG C\xD3 MODAL/H\u1ED8P THO\u1EA0I M\u1EDE TR\xCAN M\xC0N H\xCCNH: ${context.activeModal}
+`;
+    }
+    if (context.statsSummary) {
+      instruction += `
+TH\u1ED0NG K\xCA NHANH H\u1EC6 TH\u1ED0NG:
+${JSON.stringify(context.statsSummary, null, 2)}
+`;
+    }
+    if (context.selectedItem) {
+      instruction += `
+TH\u1EF0C TH\u1EC2 \u0110ANG \u0110\u01AF\u1EE2C CH\u1ECCN / XEM CHI TI\u1EBET:
+${JSON.stringify(context.selectedItem, null, 2)}
+`;
+    }
+    if (context.domSummary) {
+      instruction += `
+D\u1EEE LI\u1EC6U & N\u1ED8I DUNG HI\u1EC2N TH\u1ECA TR\xCAN M\xC0N H\xCCNH (SCRAPED REALTIME T\u1EEA TR\xCCNH DUY\u1EC6T):
+${context.domSummary}
+`;
+    }
+  }
+  return instruction;
+}
+async function askAdminAssistant(messages, context, customApiKey) {
+  const ai = getAiClient(customApiKey);
+  const systemInstruction = buildAdminSystemInstruction(context);
+  const validMessages = (messages || []).filter((msg) => {
+    const hasText = Boolean(msg.text && msg.text.trim());
+    const hasAttachment = Boolean(msg.attachment && msg.attachment.data);
+    return hasText || hasAttachment;
+  });
+  let startIndex = 0;
+  while (startIndex < validMessages.length && validMessages[startIndex].role === "model") {
+    startIndex++;
+  }
+  const normalizedMessages = validMessages.slice(startIndex);
+  if (normalizedMessages.length === 0) {
+    normalizedMessages.push({
+      role: "user",
+      text: "Xin ch\xE0o Tr\u1EE3 l\xFD AI! B\u1EA1n c\xF3 th\u1EC3 xem v\xE0 h\u1ED7 tr\u1EE3 g\xEC tr\xEAn trang n\xE0y?"
+    });
+  }
+  const contents = [];
+  for (const msg of normalizedMessages) {
+    const parts = [];
+    if (msg.attachment && msg.attachment.data) {
+      const rawData = msg.attachment.data;
+      const base64Str = rawData.includes(";base64,") ? rawData.split(";base64,")[1] : rawData;
+      let mimeType = msg.attachment.type || "image/jpeg";
+      if (rawData.startsWith("data:")) {
+        const extractedMime = rawData.substring(5, rawData.indexOf(";"));
+        if (extractedMime) mimeType = extractedMime;
+      }
+      parts.push({
+        inlineData: {
+          mimeType,
+          data: base64Str
+        }
+      });
+    }
+    if (msg.text && msg.text.trim()) {
+      parts.push({ text: msg.text.trim() });
+    }
+    if (parts.length === 0) continue;
+    const lastContent = contents[contents.length - 1];
+    if (lastContent && lastContent.role === msg.role) {
+      lastContent.parts.push(...parts);
+    } else {
+      contents.push({
+        role: msg.role,
+        parts
+      });
+    }
+  }
+  const candidateModels = [
+    GEMINI_3_5_FLASH_LITE,
+    "gemini-3.5-flash-lite",
+    defaultModel,
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
+    "gemini-1.5-flash"
+  ].filter((m, idx, arr) => Boolean(m) && arr.indexOf(m) === idx);
+  let lastError = null;
+  for (const model of candidateModels) {
+    try {
+      const stream = await ai.models.generateContentStream({
+        model,
+        contents,
+        config: {
+          systemInstruction
+        }
+      });
+      return stream;
+    } catch (err) {
+      lastError = err;
+      const errMsg = (err?.message || String(err)).toLowerCase();
+      if (errMsg.includes("not found") || errMsg.includes("404") || errMsg.includes("unsupported") || errMsg.includes("does not exist") || errMsg.includes("not enabled")) {
+        console.warn(`[Admin AI Assistant] Model ${model} unavailable, trying next candidate...`);
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw lastError;
+}
+
 // src/services/ai/aiRouter.ts
 var upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 var aiRouter = express.Router();
@@ -2484,6 +2753,42 @@ aiRouter.post("/grade-essay", express.json(), async (req, res) => {
   } catch (err) {
     console.error("Error in AI Grade Essay:", err);
     res.status(500).json({ error: err.message || "Kh\xF4ng th\u1EC3 ch\u1EA5m b\xE0i t\u1EF1 lu\u1EADn qua AI" });
+  }
+});
+aiRouter.post("/admin-assistant", express.json(), async (req, res) => {
+  try {
+    const { messages, context, apiKey } = req.body;
+    const customApiKey = req.headers["x-gemini-api-key"] || apiKey;
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: "Messages array is required" });
+    }
+    const stream = await askAdminAssistant(messages, context, customApiKey);
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.setHeader("X-Accel-Buffering", "no");
+    if (typeof res.flushHeaders === "function") {
+      res.flushHeaders();
+    }
+    for await (const chunk of stream) {
+      if (chunk.text) {
+        res.write(`data: ${JSON.stringify({ text: chunk.text })}
+
+`);
+      }
+    }
+    res.write("data: [DONE]\n\n");
+    res.end();
+  } catch (err) {
+    console.error("Error in Admin AI Assistant:", err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: err.message || "L\u1ED7i x\u1EED l\xFD y\xEAu c\u1EA7u Tr\u1EE3 l\xFD Admin" });
+    } else {
+      res.write(`data: ${JSON.stringify({ error: err.message || "L\u1ED7i x\u1EED l\xFD" })}
+
+`);
+      res.end();
+    }
   }
 });
 export {

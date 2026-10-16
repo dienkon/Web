@@ -25,7 +25,7 @@ export const SedimentMesh = React.memo(function SedimentMesh({
     const thickness = sedimentBed?.thickness || 0;
     const amount = sedimentBed?.amount_g || 0;
 
-    if (amount <= 0.001 || thickness <= 0.001) {
+    if (amount <= 1e-9 || thickness <= 0) {
       meshRef.current.visible = false;
       return;
     }

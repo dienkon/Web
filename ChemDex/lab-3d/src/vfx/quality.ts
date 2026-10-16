@@ -122,13 +122,13 @@ interface QualityStoreState {
 
 export const useQualityStore = create<QualityStoreState>((set, get) => ({
   preference: getInitialPreference(),
-  effectiveTier: 'high',
+  effectiveTier: getInitialPreference() === 'auto' ? 'medium' : getInitialPreference() as QualityTier,
   setPreference: (preference: QualityPreference) => {
     try {
       localStorage.setItem(STORAGE_KEY, preference);
     } catch {}
     if (preference === 'auto') {
-      set({ preference, effectiveTier: 'high' });
+      set({ preference, effectiveTier: 'medium' });
     } else {
       set({ preference, effectiveTier: preference });
     }

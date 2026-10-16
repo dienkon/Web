@@ -1,4 +1,5 @@
 import { useAppStore } from '../../store/useAppStore';
+import { debounceSaveLocalState, pushHistorySnapshot, canUndo, canRedo } from '../../store/persistence';
 import { PourSessionState } from './modes';
 
 /**
@@ -18,20 +19,18 @@ export const storeBridge = {
     initialToVol?: number
   ): Promise<void> => {
     const store = useAppStore.getState();
-    const from = store.vessels[fromId];
-    const to = store.vessels[toId];
-    if (from && initialFromVol !== undefined) {
-      from.volume_ml = initialFromVol;
-    }
-    if (to && initialToVol !== undefined) {
-      to.volume_ml = initialToVol;
-    }
     await store.pourVessel(fromId, toId, poured_ml);
   },
 
-  /**
-   * Commits reagent chemical addition (stock bottle, dropper, solid spatula).
-   */
+  /** Finalize material already moved, including a pour entirely onto the table. */
+  completeLivePour: async (fromId: string, toId: string | null): Promise<void> => {
+    if (toId) await useAppStore.getState().settleVesselMixture(toId);
+    const store = useAppStore.getState();
+    pushHistorySnapshot('POUR', store.vessels, store.burners, 'Poured sample', 'Rót mẫu định lượng');
+    debounceSaveLocalState(store.vessels, store.burners);
+    useAppStore.setState({ canUndo: canUndo(), canRedo: canRedo() });
+  },
+
   commitAddChemical: async (targetId: string, chemical: string, amount: number): Promise<void> => {
     const store = useAppStore.getState();
     await store.mixSubstances(targetId, chemical, amount);

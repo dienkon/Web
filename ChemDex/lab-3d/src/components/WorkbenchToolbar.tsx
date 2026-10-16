@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense, useCallback, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { 
   Undo2, Redo2, Move, Pause, Play, 
   RotateCcw, Globe, Presentation, BookOpen, Compass, Volume2, VolumeX,
-  Lock, Unlock, FileText
+  Lock, Unlock, FileText, Wrench
 } from 'lucide-react';
 
+const InstrumentPanel = lazy(() => import('./InstrumentPanel'));
+
 export function WorkbenchToolbar() {
+  const [instrumentsOpen, setInstrumentsOpen] = useState(false);
+  const closeInstruments = useCallback(() => setInstrumentsOpen(false), []);
   const { 
     language, 
     setLanguage, 
@@ -91,6 +95,13 @@ export function WorkbenchToolbar() {
 
       {/* Center: Interactive Workbench Controls (Icon-prioritized, VIP Design) */}
       <div className="flex items-center gap-1.5">
+        <button onClick={() => setInstrumentsOpen(open => !open)}
+          aria-label="Điều khiển dụng cụ" aria-expanded={instrumentsOpen}
+          className="rounded-lg border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-100"
+          title="Điều khiển dụng cụ bằng nút và tọa độ">
+          <Wrench size={16} />
+        </button>
+        {instrumentsOpen && <Suspense fallback={null}><InstrumentPanel onClose={closeInstruments} /></Suspense>}
         {/* History: Undo / Redo */}
         <div className="flex items-center bg-slate-100/90 rounded-lg p-0.5 border border-slate-200/60">
           <button

@@ -9,17 +9,17 @@ export function determineBoilingStage(
   boilingPoint_c: number = DEFAULT_SIMULATION_CONFIG.waterBoilingPoint_c,
   heatPower_W: number = 0
 ): { stage: BoilingStage; intensity: number } {
-  const onset = boilingPoint_c - 5.5; // ~94.5°C
+  const onset = boilingPoint_c;
   const microbubble = boilingPoint_c - 20.0; // ~80.0°C
-  const rolling = boilingPoint_c - 1.8; // ~98.2°C
+  const rolling = boilingPoint_c;
 
-  if (temp_c >= rolling || (temp_c >= onset && heatPower_W > 15)) {
+  if (temp_c >= rolling && heatPower_W > 150) {
     const intensity = Math.min(1.0, 0.65 + Math.min(0.35, (temp_c - rolling) / 2.0));
     return { stage: 'INTENSE_ROLLING_BOIL', intensity };
   }
 
   if (temp_c >= onset) {
-    const intensity = Math.min(0.65, 0.25 + ((temp_c - onset) / (rolling - onset)) * 0.4);
+    const intensity = Math.min(0.65, Math.max(0, heatPower_W / 300));
     return { stage: 'ACTIVE_BOIL', intensity };
   }
 

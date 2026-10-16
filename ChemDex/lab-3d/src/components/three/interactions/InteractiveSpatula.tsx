@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore, getSolidMorphology } from '../../../store/useAppStore';
 import { labSound } from '../../../utils/audio';
+import { useToolDock } from '../../../handling/toolDock';
 
 const stainlessSteelMaterial = new THREE.MeshStandardMaterial({
   color: '#e2e8f0',
@@ -23,21 +24,21 @@ interface InteractiveSpatulaProps {
 }
 
 export const InteractiveSpatula = React.memo(function InteractiveSpatula({
-  position = [-3.8, 0.4, 2.0],
+  position: initialPosition = [-3.8, 0.4, 2.0],
 }: InteractiveSpatulaProps) {
+  const dock = useToolDock('spatula', initialPosition);
+  const position = dock.position;
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const vessels = useAppStore(state => state.vessels);
+  const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
   const mixSubstances = useAppStore(state => state.mixSubstances);
   const spatulaState = useAppStore(state => state.spatulaState);
   const setSpatulaScoop = useAppStore(state => state.setSpatulaScoop);
 
   const groupRef = useRef<THREE.Group>(null);
-  const targetVessel = selectedVesselId ? vessels[selectedVesselId] : null;
   const isActive = activeTool === 'spatula';
 
-  const [tiltAngle, setTiltAngle] = useState(0);
   const [isDumping, setIsDumping] = useState(false);
   const [fallingGrains, setFallingGrains] = useState<Array<{ x: number; y: number; z: number; vy: number; key: number }>>([]);
 
@@ -57,14 +58,7 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   useFrame((_, delta) => {
     if (!groupRef.current) return;
 
-    groupRef.current.position.lerp(targetPos, delta * 8.0);
-
-    // Tilt animation when dumping solid
-    if (isDumping) {
-      setTiltAngle(prev => Math.min(1.1, prev + delta * 5.0));
-    } else {
-      setTiltAngle(prev => Math.max(0, prev - delta * 4.0));
-    }
+    groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
 
     const currentRotationZ = isActive ? (isDumping ? -0.85 : -0.2) : 0.12;
     const currentRotationX = isActive ? (isDumping ? 0.35 : 0.0) : 0.08;
@@ -88,8 +82,10 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   // Handle action: either dump into target vessel or scoop default reagent if empty
   const handleSpatulaAction = (e: any) => {
     e.stopPropagation();
+    if (dock.moveMode || isDumping) return;
+    if (!isActive) { setActiveTool('spatula'); return; }
 
-    if (spatulaState.chemical && targetVessel) {
+    if (spatulaState.chemical && targetVessel && !targetVessel.id.startsWith('lesson_vessel_')) {
       // Dump solid into vessel
       setIsDumping(true);
       const scoopedChem = spatulaState.chemical;
@@ -132,11 +128,6 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
         setSpatulaScoop(null);
         setIsDumping(false);
       }, 350);
-    } else if (!spatulaState.chemical) {
-      // Quick scoop sodium or salt if empty
-      labSound.playGlassClink();
-      setSpatulaScoop('Na', 0.5, '#cbd5e1');
-      useAppStore.getState().touchToolChemical('spatula', 'Na');
     }
   };
 
@@ -144,9 +135,13 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   const solidColor = spatulaState.color || '#cbd5e1';
   const morphology = getSolidMorphology(spatulaState.chemical || '');
 
+  if (!dock.visible) return null;
+
   return (
     <group
       ref={groupRef}
+      name="tool-spatula" visible={dock.visible}
+      onPointerDown={dock.onPointerDown}
       onClick={handleSpatulaAction}
       onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}

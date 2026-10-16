@@ -338,19 +338,11 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
   // 16. H2O into Conc H2SO4 (CRITICAL SAFETY EXPLOSION)
   'water_into_conc_h2so4_explosion': {
     id: 'water_into_conc_h2so4_explosion',
-    name: 'Violent Acid Splattering Explosion',
+    name: 'Exothermic Acid Dilution',
     duration: 2.2,
     layers: [
-      { kind: 'burst', at: 0.08, droplets: 140, speed: 4.5, steam: 1.0, shockwave: true },
-      { kind: 'flash', at: 0.08, color: '#fca5a5', intensity: 3.5, duration: 0.4 },
-      { kind: 'shake', t: [0.08, 0.55], trauma: 0.85 },
-      { kind: 'slowmo', t: [0.08, 0.65], scale: 0.3 },
-      { kind: 'steam', t: [0.08, 0.95], density: 0.95 },
-      { kind: 'sound', at: 0.08, id: 'alarm' }
+      { kind: 'colorFront', t: [0.08, 0.9], to: '#ffffff', origin: 'pourPoint', speed: 0.3 }
     ],
-    steam: { active: true, rate: 45 },
-    specialEffect: 'explosion_burst',
-    soundEffect: 'alarm'
   },
 
   // 17. 2Na + 2H2O -> 2NaOH + H2(g) (Sodium Fire Dart & Miniature Pop)
@@ -392,6 +384,17 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     gasPlume: { color: '#f3e8ff', density: 'light', rate: 35, turbidity: 0.75 },
     sparks: { active: true, rate: 45, burstCount: 22, color: '#c084fc' },
     soundEffect: 'pop'
+  },
+
+  'cu_hno3_dilute': {
+    id: 'cu_hno3_dilute',
+    name: 'Copper in Dilute Nitric Acid (Colorless NO)',
+    duration: 6.0,
+    layers: [
+      { kind: 'bubbles', t: [0, 0.9], rate: 20, emitter: 'solid', color: '#ffffff', gasType: 'NO' },
+      { kind: 'colorFront', t: [0, 0.8], to: '#38bdf8', origin: 'solidSurface', speed: 0.5 }
+    ],
+    bubbles: { rate: 20, gasType: 'NO', color: '#ffffff', emitter: 'solid' }
   },
 
   // 18. Cu + 4HNO3(conc) -> Cu(NO3)2 + 2NO2 + 2H2O (Fuming Red-Brown NO2)
@@ -467,8 +470,7 @@ export const REACTION_VFX_RECIPES: Record<string, ReactionVfxRecipe> = {
     name: 'Iodine Clock Sudden Blue-Black Transition',
     duration: 5.0,
     layers: [
-      { kind: 'flash', at: 0.6, color: '#1e1b4b', intensity: 1.5, duration: 0.15 },
-      { kind: 'colorFront', t: [0.6, 0.72], from: '#f8fafc', to: '#0f172a', origin: 'uniform', speed: 5.0 }
+      // Optical endpoint comes from actual iodine and starch inventory.
     ]
   },
 
@@ -759,6 +761,7 @@ export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | n
   if (normalized.includes('sodium_water') || normalized.includes('na_h2o') || normalized.includes('sodium_dart') || normalized.includes('alkali_metal_water_na')) return REACTION_VFX_RECIPES['sodium_water_reaction'];
   if (normalized.includes('zn_hcl')) return REACTION_VFX_RECIPES['zn_hcl_gas'];
   if (normalized.includes('mg_hcl')) return REACTION_VFX_RECIPES['mg_hcl_gas'];
+  if (normalized.includes('nh3_hcl_aqueous')) return null;
   if (normalized.includes('nh3_hcl') || normalized.includes('fumes')) return REACTION_VFX_RECIPES['nh3_hcl_fumes'];
   if (normalized.includes('nahco3_hcl') || normalized.includes('hcl_nahco3')) return REACTION_VFX_RECIPES['nahco3_hcl_gas'];
   if (normalized.includes('na2co3_hcl') || normalized.includes('hcl_na2co3')) return REACTION_VFX_RECIPES['na2co3_hcl_gas'];
@@ -770,6 +773,7 @@ export function getReactionVfxRecipe(reactionId?: string): ReactionVfxRecipe | n
   if (normalized.includes('cuoh2') || normalized.includes('thermal_decomp')) return REACTION_VFX_RECIPES['cuoh2_thermal_decomposition'];
   if (normalized.includes('iodine_sub') || normalized.includes('i2_sub')) return REACTION_VFX_RECIPES['iodine_sublimation'];
   if (normalized.includes('water_into') || normalized.includes('explosion') || normalized.includes('hazard')) return REACTION_VFX_RECIPES['water_into_conc_h2so4_explosion'];
+  if (normalized.includes('cu_hno3_dil')) return REACTION_VFX_RECIPES['cu_hno3_dilute'];
   if (normalized.includes('cu_hno3') || normalized.includes('no2')) return REACTION_VFX_RECIPES['cu_hno3_conc'];
   if (normalized.includes('cu_conc_h2so4') || normalized.includes('cu_h2so4')) return REACTION_VFX_RECIPES['cu_conc_h2so4_heated'];
   if (normalized.includes('bacl2') || normalized.includes('baso4')) return REACTION_VFX_RECIPES['bacl2_h2so4_precipitate'];

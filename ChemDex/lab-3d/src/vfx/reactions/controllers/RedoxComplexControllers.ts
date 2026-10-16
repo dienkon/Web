@@ -122,8 +122,8 @@ export class WaterIntoConcH2so4ExplosionController implements ReactionVisualCont
   public initialize(context: ReactionContext): void {
     const { runtime } = context;
     runtime.duration = 4.0;
-    runtime.heatReleaseRate = 120.0;
-    context.playSound('alarm');
+    // The thermal solver owns heat. Mixing order alone does not prove boiling.
+    runtime.heatReleaseRate = 0;
   }
 
   public update(context: ReactionContext): void {
@@ -131,9 +131,9 @@ export class WaterIntoConcH2so4ExplosionController implements ReactionVisualCont
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
-    // Sharp thermal flash and violent ballistic acid splatter eruption
-    if (runtime.elapsed < 0.8) {
-      runtime.reactionRate = 3.0;
+    const boiling = context.vessel.isBoiling && context.vessel.temperature_c >= 98;
+    if (boiling && runtime.elapsed < 0.8) {
+      runtime.reactionRate = 1.0;
       addSurfaceImpulse(0, 0, 0.008, 0.25);
       if (Math.random() < 0.35) {
         emitBurst([0, 0.2, 0], 25, '#fee2e2', 2.8);
@@ -143,15 +143,15 @@ export class WaterIntoConcH2so4ExplosionController implements ReactionVisualCont
         vfxBus.emit('acid:splatter', {
           vesselId: context.vessel.id,
           position: [context.vessel.position[0], context.vessel.position[1] + 0.85, context.vessel.position[2]],
-          count: 90,
-          speed: 5.4,
+          count: 12,
+          speed: 1.2,
           color: '#fca5a5',
           isAcid: true,
           substances: ['H2SO4']
         });
       }
     } else {
-      runtime.reactionRate = Math.max(0, 1.0 - (runtime.elapsed - 0.8) / 3.2);
+      runtime.reactionRate = Math.max(0, 1 - runtime.progress) * 0.25;
     }
   }
 
@@ -281,12 +281,12 @@ export class IodineClockController implements ReactionVisualController {
     const { runtime } = context;
     runtime.duration = 7.0;
     runtime.currentColor = '#f8fafc';
-    runtime.targetColor = '#0f172a'; // Deep blue-black
+    runtime.targetColor = '#f8fafc'; // Chemistry supplies the actual optical endpoint.
     runtime.customData = { hasFlipped: false };
   }
 
   public update(context: ReactionContext): void {
-    const { runtime, dt, playSound } = context;
+    const { runtime, dt } = context;
     runtime.elapsed += dt;
     runtime.progress = Math.min(1.0, runtime.elapsed / runtime.duration);
 
@@ -297,11 +297,10 @@ export class IodineClockController implements ReactionVisualController {
     } else {
       if (!runtime.customData.hasFlipped) {
         runtime.customData.hasFlipped = true;
-        playSound('pop');
       }
       // Instantaneous flash into dark blue-black
       runtime.reactionRate = 3.0;
-      runtime.currentColor = '#0f172a';
+      runtime.currentColor = runtime.targetColor;
     }
   }
 
@@ -311,6 +310,7 @@ export class IodineClockController implements ReactionVisualController {
 
   public finalize(context: ReactionContext): void {
     const { runtime } = context;
-    runtime.currentColor = '#0f172a';
+    runtime.currentColor = runtime.targetColor;
+    runtime.reactionRate = 0;
   }
 }

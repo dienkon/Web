@@ -137,9 +137,10 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'flame_test_copper',
     chemistry: {
+      representation: 'emission',
       equation: 'Cu(2+) + heat -> Cu* -> Cu(2+) + hv (510 nm)',
       species: [
-        { formula: 'CuCl2', role: 'reactant', coeff: 1, phase: 's' }
+        { formula: 'CuCl2', role: 'spectator', coeff: 1, phase: 's' }
       ],
       kinetics: { model: 'instant', halfTime_s: 0.1 },
       hazards: []
@@ -167,9 +168,10 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'flame_test_sodium',
     chemistry: {
+      representation: 'emission',
       equation: 'Na+ + heat -> Na* -> Na+ + hv (589 nm)',
       species: [
-        { formula: 'NaCl', role: 'reactant', coeff: 1, phase: 's' }
+        { formula: 'NaCl', role: 'spectator', coeff: 1, phase: 's' }
       ],
       kinetics: { model: 'instant', halfTime_s: 0.1 },
       hazards: []
@@ -197,9 +199,10 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'flame_test_potassium',
     chemistry: {
-      equation: 'K+ + heat -> K* -> K+ + hv (766 nm)',
+      representation: 'emission',
+      equation: 'K+ + heat -> K* -> K+ + hv (404 nm (visible); 766/770 nm (near infrared))',
       species: [
-        { formula: 'KCl', role: 'reactant', coeff: 1, phase: 's' }
+        { formula: 'KCl', role: 'spectator', coeff: 1, phase: 's' }
       ],
       kinetics: { model: 'instant', halfTime_s: 0.1 },
       hazards: []
@@ -215,7 +218,7 @@ export const COMBUSTION_PYROTECHNIC_PROGRAMS: ReactionProgram[] = [
       observation_vi: 'Ngọn lửa có màu tím hoa cà (lilac) thanh tao; nhìn qua kính coban để lọc bỏ ánh vàng của tạp chất natri.',
       observation_en: 'Flame exhibits a delicate lilac-violet tint; viewed through cobalt blue glass to filter sodium yellow.',
       why_vi: 'Kali phát xạ các vạch phổ màu tím (404.4 nm) và đỏ xa (766.5 nm).',
-      why_en: 'Potassium atomic emission doublet at 766 nm produces a distinct lilac appearance.'
+      why_en: 'Potassium atomic emission doublet at 404 nm (visible); 766/770 nm (near infrared) produces a distinct lilac appearance.'
     },
     confidence: 1.0
   }

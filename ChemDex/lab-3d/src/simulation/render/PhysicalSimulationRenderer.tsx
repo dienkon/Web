@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SimulationEngine } from '../core/SimulationEngine';
+import { getPrecipitateProfile } from '../core/SimulationConfig';
 import { SedimentMesh } from './SedimentMesh';
 import { getBubbleSpriteTexture, getSoftParticleTexture } from '../../vfx/textures';
 import { useQualityStore } from '../../vfx/quality';
@@ -30,6 +31,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   reactionPrecipitateActive = false,
   reactionPrecipitateSubstance
 }: PhysicalSimulationRendererProps) {
+  const substance = useAppStore(state => state.vessels[vesselId]?.precipitateSubstance);
+  const morphology = getPrecipitateProfile(reactionPrecipitateSubstance || substance || 'BaSO4').morphology;
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
   const mgr = useMemo(() => SimulationEngine.getManager(vesselId, effectiveTier), [vesselId, effectiveTier]);
 
@@ -72,7 +75,9 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   }, [mgr, vesselId]);
 
   useFrame((state, delta) => {
-    const dt = Math.min(delta, 0.05);
+    const app = useAppStore.getState();
+    if (app.isSimulationPaused) return;
+    const dt = Math.min(delta, 0.05) * app.timeScale;
     const vessel = useAppStore.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
       if (vessel?.isShattered) {
@@ -98,11 +103,12 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
 
     // Check stirring rod agitation
     const activeTool = useAppStore.getState().activeTool;
-    const isStirringThisVessel = activeTool === 'stirring_rod';
+    const isStirringThisVessel = activeTool === 'stirring_rod' && useAppStore.getState().selectedVesselId === vesselId;
     const agitation = isStirringThisVessel ? 0.85 : 0;
 
     // Step physical simulation
     mgr.step(vessel, dt, {
+      thermalStateAuthoritative: true,
       heatPower_W,
       agitation,
       ambientTemp_c: 25.0,
@@ -124,7 +130,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         }
       } else {
         bubbleMeshRef.current.visible = true;
-        for (let i = 0; i < maxB; i++) {
+        bubbleMeshRef.current.count = bList.length;
+        for (let i = 0; i < bList.length; i++) {
           if (i < bList.length) {
             const b = bList[i];
             scratchPos.set(b.x, b.y, b.z);
@@ -165,17 +172,18 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         if (pMat) {
           pMat.color.copy(scratchColor);
           pMat.roughness = mgr.precipitationSystem.profile.roughness;
-          pMat.metalness = mgr.precipitationSystem.profile.specularReflectivity;
+          pMat.metalness = morphology === 'crystalline' ? 0.12 : mgr.precipitationSystem.profile.specularReflectivity;
         }
 
-        for (let i = 0; i < maxP; i++) {
+        precipitateMeshRef.current.count = pList.length;
+        for (let i = 0; i < pList.length; i++) {
           if (i < pList.length) {
             const p = pList[i];
             scratchPos.set(p.x, p.y, p.z);
 
             if (mgr.precipitationSystem.profile.morphology === 'crystalline') {
               // Crystalline flakes tumble with specular glint
-              scratchEuler.set(p.age * 3.5 + p.brownianSeed, p.age * 4.0, p.brownianSeed);
+              scratchEuler.set(p.age * 0.65 + p.brownianSeed, p.age * 0.85, Math.sin(p.age * 1.1 + p.brownianSeed) * 0.6);
               scratchQuat.setFromEuler(scratchEuler);
             } else {
               scratchQuat.copy(cam.quaternion);
@@ -215,7 +223,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         }
       } else {
         evaporationMeshRef.current.visible = true;
-        for (let i = 0; i < maxE; i++) {
+        evaporationMeshRef.current.count = eList.length;
+        for (let i = 0; i < eList.length; i++) {
           if (i < eList.length) {
             const e = eList[i];
             scratchPos.set(e.x, e.y, e.z);
@@ -265,19 +274,21 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         renderOrder={4}
         visible={false}
       >
-        {mgr.precipitationSystem.profile.morphology === 'crystalline' ? (
+        {morphology === 'crystalline' ? (
           <cylinderGeometry args={[1, 1, 0.12, 6]} />
-        ) : mgr.precipitationSystem.profile.morphology === 'flocculent' ? (
+        ) : morphology === 'flocculent' ? (
           <icosahedronGeometry args={[0.7, 0]} />
-        ) : mgr.precipitationSystem.profile.morphology === 'granular' ? (
+        ) : morphology === 'granular' ? (
           <octahedronGeometry args={[0.6, 0]} />
         ) : (
           <dodecahedronGeometry args={[0.45, 0]} />
         )}
-        <meshStandardMaterial
+        <meshPhysicalMaterial
+          clearcoat={morphology === 'crystalline' ? 1 : 0}
+          clearcoatRoughness={0.08}
           color={mgr.precipitationSystem.profile.color}
-          roughness={mgr.precipitationSystem.profile.roughness}
-          metalness={mgr.precipitationSystem.profile.specularReflectivity}
+          roughness={morphology === 'crystalline' ? 0.18 : mgr.precipitationSystem.profile.roughness}
+          metalness={morphology === 'crystalline' ? 0.12 : mgr.precipitationSystem.profile.specularReflectivity}
           transparent
           opacity={0.92}
           depthWrite={false}

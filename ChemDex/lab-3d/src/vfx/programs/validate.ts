@@ -17,6 +17,7 @@ import { GAS_FUME_TABLE } from '../catalog/gasTable';
 import { PRECIPITATES_DATABASE } from '../../data/precipitates';
 import { parseChemicalFormula, computeMolarMass, applyProgramToLedger } from '../../engine/ledger';
 import { VesselState } from '../../types/chemistry';
+import { auditEquation, readComposition } from '../../science/balance';
 
 const CATALOG_ATOM_NAMES = new Set(EFFECT_ATOM_CATALOG.map(a => a.name));
 const VALID_ANCHORS = new Set(ANCHORS);
@@ -94,9 +95,11 @@ export function validateProgram(raw: any, options: { strict?: boolean } = {}): P
   // 2. Table Precedence: Override/enrich molar masses from IUPAC standard data (§7.4 Rule 6)
   for (const sp of copy.chemistry.species) {
     if (sp.formula && typeof sp.formula === 'string') {
-      const knownMM = computeMolarMass(sp.formula);
-      if (knownMM > 0) {
-        sp.molarMass_g_mol = knownMM;
+      try {
+        readComposition(sp.formula);
+        sp.molarMass_g_mol = computeMolarMass(sp.formula);
+      } catch {
+        if (sp.role !== 'spectator') errors.push(`Unrecognized quantitative species: ${sp.formula}`);
       }
     }
     if (typeof sp.coeff !== 'number' || sp.coeff <= 0) {
@@ -110,32 +113,19 @@ export function validateProgram(raw: any, options: { strict?: boolean } = {}): P
   const reactants = copy.chemistry.species.filter((s: any) => s.role === 'reactant');
   const products = copy.chemistry.species.filter((s: any) => s.role === 'product');
 
-  if (reactants.length > 0 && products.length > 0) {
-    const reactantAtoms: Record<string, number> = {};
-    const productAtoms: Record<string, number> = {};
-
-    for (const r of reactants) {
-      const atoms = parseChemicalFormula(r.formula);
-      const coeff = r.coeff || 1;
-      for (const [el, count] of Object.entries(atoms)) {
-        reactantAtoms[el] = (reactantAtoms[el] || 0) + count * coeff;
-      }
+  const optical = ['indicator', 'emission'].includes(copy.chemistry.representation);
+  if (optical && (reactants.length || products.length)) {
+    errors.push('Optical observations must not invent quantitative reactants or products.');
+  } else if (!optical && (reactants.length || products.length)) {
+    const balance = auditEquation(
+      reactants.map((term: any) => ({ formula: term.formula, coefficient: term.coeff })),
+      products.map((term: any) => ({ formula: term.formula, coefficient: term.coeff })),
+    );
+    errors.push(...balance.errors);
+    for (const [element, amount] of Object.entries(balance.atomDifference)) {
+      errors.push(`Unbalanced equation for element ${element}: product-minus-reactant count ${amount}`);
     }
-
-    for (const p of products) {
-      const atoms = parseChemicalFormula(p.formula);
-      const coeff = p.coeff || 1;
-      for (const [el, count] of Object.entries(atoms)) {
-        productAtoms[el] = (productAtoms[el] || 0) + count * coeff;
-      }
-    }
-
-    // Compare element counts for elements present on both sides (allowing spectator/indicator omissions)
-    for (const [el, rCount] of Object.entries(reactantAtoms)) {
-      if (productAtoms[el] !== undefined && Math.abs(productAtoms[el] - rCount) > 0.05) {
-        errors.push(`Unbalanced equation for element ${el}: reactant count ${rCount} != product count ${productAtoms[el]}`);
-      }
-    }
+    if (Math.abs(balance.chargeDifference) > 1e-9) errors.push(`Unbalanced charge: ${balance.chargeDifference}`);
   }
 
   // 4. Visual Sanity & Color Normalization (§7.4 Rule 3)

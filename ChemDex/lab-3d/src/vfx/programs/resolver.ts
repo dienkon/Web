@@ -13,6 +13,9 @@
 import { ReactionProgram, validateProgram } from '../../shared/programSchema';
 import { SubstanceContent } from '../../types/chemistry';
 import { ALL_HANDCRAFTED_PROGRAMS, getProgramById } from './library/index';
+import { assessProgramConditions } from '../../science/conditions';
+import { identifySpecies } from '../../science/speciesIdentity';
+import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
 import { PrecipMorphology, GasSpecies, GAS_SPECIES_TABLE } from '../catalog/vocab';
 
 export interface ResolveEnv {
@@ -21,6 +24,9 @@ export interface ResolveEnv {
   isSealed?: boolean;
   lang?: string;
   volume_ml?: number;
+  pH?: number;
+  pressure_bar?: number;
+  light?: boolean;
 }
 
 export interface ResolveResult {
@@ -34,7 +40,7 @@ export interface ResolveResult {
  */
 export function canonicalProgramKey(substances: string[]): string {
   return substances
-    .map(s => s.replace(/\s*\([a-z0-9%]+\)/gi, '').trim().toLowerCase())
+    .map(s => { const identity = identifySpecies(s); return `${identity.formula}${identity.concentration ? ':' + identity.concentration : ''}${identity.phase ? ':' + identity.phase : ''}`.toLowerCase(); })
     .filter(Boolean)
     .sort()
     .join('+');
@@ -44,85 +50,62 @@ export function canonicalProgramKey(substances: string[]): string {
  * Tier 2: Rule-Derived Program Generator
  * Deterministically analyzes ionic species to produce fully parameterized ReactionPrograms.
  */
-function deriveProgramFromRules(substances: string[], env: ResolveEnv): ReactionProgram | null {
-  const normSubs = substances.map(s => s.replace(/\s*\([a-z0-9%]+\)/gi, '').trim().toLowerCase());
+export function deriveProgramFromRules(substances: string[], env: ResolveEnv): ReactionProgram | null {
+  const normSubs = substances.map(s => identifySpecies(s).formula.toLowerCase());
   const has = (sub: string) => normSubs.some(s => s === sub.toLowerCase());
 
-  // 1. Carbonate / Bicarbonate + Acid -> CO2 Gas
-  const hasCarbonate = normSubs.some(s => s.includes('co3') || s === 'caco3' || s === 'na2co3' || s === 'nahco3' || s === 'k2co3');
-  const hasAcid = normSubs.some(s => s === 'hcl' || s === 'h2so4' || s === 'hno3' || s === 'ch3cooh');
-  if (hasCarbonate && hasAcid) {
-    const carbSub = substances.find(s => s.toLowerCase().includes('co3')) || 'Carbonate';
-    const acidSub = substances.find(s => ['hcl', 'h2so4', 'hno3', 'ch3cooh'].includes(s.toLowerCase())) || 'Acid';
-    const id = canonicalProgramKey([carbSub, acidSub]);
+  // Only produce a quantitative program when every counterion is known.
+  const carbonates: Record<string, { formula: string; cation: string; charge: number; hydrogen: boolean; phase: 's' | 'aq' }> = {
+    na2co3: { formula: 'Na2CO3', cation: 'Na', charge: 1, hydrogen: false, phase: 'aq' },
+    k2co3: { formula: 'K2CO3', cation: 'K', charge: 1, hydrogen: false, phase: 'aq' },
+    nahco3: { formula: 'NaHCO3', cation: 'Na', charge: 1, hydrogen: true, phase: 'aq' },
+    khco3: { formula: 'KHCO3', cation: 'K', charge: 1, hydrogen: true, phase: 'aq' },
+    caco3: { formula: 'CaCO3', cation: 'Ca', charge: 2, hydrogen: false, phase: 's' },
+    mgco3: { formula: 'MgCO3', cation: 'Mg', charge: 2, hydrogen: false, phase: 's' },
+  };
+  const acids: Record<string, { formula: string; anion: string }> = {
+    hcl: { formula: 'HCl', anion: 'Cl' },
+    hno3: { formula: 'HNO3', anion: 'NO3' },
+    ch3cooh: { formula: 'CH3COOH', anion: 'CH3COO' },
+  };
+  const carbonate = normSubs.map(name => carbonates[name]).find(Boolean);
+  const acid = normSubs.map(name => acids[name]).find(Boolean);
+  if (carbonate && acid) {
+    const acidCoeff = carbonate.hydrogen ? 1 : 2;
+    const saltCoeff = acidCoeff / carbonate.charge;
+    const salt = carbonate.charge === 1
+      ? (acid.anion === 'CH3COO' ? acid.anion + carbonate.cation : carbonate.cation + acid.anion)
+      : carbonate.cation + (acid.anion.length > 2 ? '(' + acid.anion + ')' : acid.anion) + carbonate.charge;
+    const coeff = (value: number) => value === 1 ? '' : String(value);
+    const id = canonicalProgramKey([carbonate.formula, acid.formula]);
     return {
-      schema: 'chemdex.program/1',
-      id,
-      provenance: 'rule-derived',
+      schema: 'chemdex.program/1', id, provenance: 'rule-derived',
       chemistry: {
-        equation: `${carbSub} + ${acidSub} -> Salt + H2O + CO2(g)`,
+        equation: carbonate.formula + ' + ' + coeff(acidCoeff) + acid.formula + ' -> ' + coeff(saltCoeff) + salt + ' + H2O + CO2(g)',
         species: [
-          { formula: carbSub, role: 'reactant', coeff: 1, phase: 's' },
-          { formula: acidSub, role: 'reactant', coeff: 2, phase: 'aq' },
-          { formula: 'CO2', role: 'product', coeff: 1, phase: 'g' }
+          { formula: carbonate.formula, role: 'reactant', coeff: 1, phase: carbonate.phase },
+          { formula: acid.formula, role: 'reactant', coeff: acidCoeff, phase: 'aq' },
+          { formula: salt, role: 'product', coeff: saltCoeff, phase: 'aq' },
+          { formula: 'H2O', role: 'product', coeff: 1, phase: 'l' },
+          { formula: 'CO2', role: 'product', coeff: 1, phase: 'g' },
         ],
-        kinetics: { model: 'instant', halfTime_s: 1.0 },
-        hazards: []
+        kinetics: { model: 'instant', halfTime_s: 1 }, hazards: [],
       },
       visual: {
-        duration_s: 6.0,
-        timeline: [
-          { id: 'eff', atom: 'effervescenceBurst', anchor: 'bottom', window: [0, 0.7], intensity: 1.2, params: { intensity: 2.5, churnRadius: 0.45, gasSpecies: 'CO2' } },
-          { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0, 0.7], intensity: 0.9, params: { soundProfile: 'fizz_effervescence', volume: 0.75 } }
-        ],
-        after: { liquidColor: '#ffffff', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [{ species: 'CO2', mol: 'fromLedger', escaped: true }] }
+        duration_s: 6,
+        timeline: [{ id: 'bubbles', atom: 'nucleateBubbles', anchor: 'bulk', window: [0, 0.8], intensity: 0.7, params: { gasSpecies: 'CO2', bubbleRate: 20 } }],
+        after: { liquidColor: '#f8fafc', liquidOpacity: 0.95, turbidity: 0, gasesOffgassed: [{ species: 'CO2', mol: 'fromLedger', escaped: true }] },
       },
       explain: {
-        observation_vi: 'Sủi bọt khí không màu CO2 do axit phản ứng với muối cacbonat.',
-        observation_en: 'Effervescence evolving colorless CO2 gas from acid-carbonate reaction.',
-        why_vi: 'Axit đẩy axit cacbonic H2CO3 kém bền ra khỏi muối, sinh CO2 bay lên.',
-        why_en: 'Acid displaces carbonic acid, which decomposes spontaneously to CO2 and water.'
-      },
-      confidence: 1.0
+        observation_vi: 'Sủi bọt CO2 không màu; lượng sinh ra theo chất giới hạn.',
+        observation_en: 'Colorless carbon dioxide evolves according to the limiting reagent.',
+        why_vi: 'Axit tiêu thụ cacbonat hoặc hiđrocacbonat; muối tan và nước được giữ trong sổ lượng chất.',
+        why_en: 'Acid consumes carbonate or bicarbonate; counterions and water remain in the inventory.',
+      }, confidence: 1,
     };
   }
-
-  // 2. Active Metal + Acid -> H2 Gas
-  const metals = ['zn', 'mg', 'fe', 'al', 'ca'];
-  const hasMetal = normSubs.find(s => metals.includes(s));
-  if (hasMetal && hasAcid) {
-    const metalName = substances.find(s => s.toLowerCase() === hasMetal) || hasMetal.toUpperCase();
-    const id = canonicalProgramKey([metalName, 'acid']);
-    return {
-      schema: 'chemdex.program/1',
-      id,
-      provenance: 'rule-derived',
-      chemistry: {
-        equation: `${metalName} + Acid -> Salt + H2(g)`,
-        species: [
-          { formula: metalName, role: 'reactant', coeff: 1, phase: 's' },
-          { formula: 'H2', role: 'product', coeff: 1, phase: 'g', hazards: ['GHS02_flammable'] }
-        ],
-        kinetics: { model: 'surface_limited', halfTime_s: 2.0 },
-        hazards: ['GHS02_flammable']
-      },
-      visual: {
-        duration_s: 7.0,
-        timeline: [
-          { id: 'bubbles', atom: 'nucleateBubbles', anchor: 'bottom', window: [0, 0.8], intensity: 1.1, params: { bubbleRate: 35, meanRadius_mm: 1.8, gasSpecies: 'H2' } },
-          { id: 'erosion', atom: 'solidErosion', anchor: 'bottom', window: [0, 1.0], intensity: 1.0, params: { initialShape: 'granule', erosionRate: 0.15 } }
-        ],
-        after: { liquidColor: '#ffffff', liquidOpacity: 0.95, turbidity: 0.0, gasesOffgassed: [{ species: 'H2', mol: 'fromLedger', escaped: true }] }
-      },
-      explain: {
-        observation_vi: `Kim loại ${metalName} sủi bọt khí H2 không màu và mòn dần.`,
-        observation_en: `Metal ${metalName} steadily evolves H2 bubbles and slowly dissolves.`,
-        why_vi: 'Kim loại hoạt động đứng trước hiđro khử ion H+ giải phóng khí H2.',
-        why_en: 'Active metal reduces hydronium ions into gaseous hydrogen.'
-      },
-      confidence: 1.0
-    };
-  }
+  // No universal metal + acid template: oxidizing acids and passivation need
+  // their own reaction and conditions, rather than an invented H2 equation.
 
   // 3. Soluble Barium + Sulfate -> BaSO4 precipitate
   if ((has('bacl2') || has('ba(no3)2') || has('ba(oh)2')) && (has('na2so4') || has('k2so4') || has('h2so4') || has('cuso4') || has('feso4'))) {
@@ -188,10 +171,10 @@ function createFallbackProgram(substances: string[], env: ResolveEnv): ReactionP
       }
     },
     explain: {
-      observation_vi: 'Các chất trộn lẫn vào nhau tạo hỗn hợp đồng nhất, không có hiện tượng phản ứng hóa học đột biến.',
-      observation_en: 'Substances physically mix into a homogeneous solution without spontaneous reaction.',
-      why_vi: 'Không có ion kết hợp tạo kết tủa, chất khí hay chất điện ly yếu.',
-      why_en: 'No driving force for precipitation, gas evolution, or redox electron transfer.'
+      observation_vi: 'Chưa xác định được phản ứng có đủ dữ liệu kiểm chứng cho tổ hợp này; hiện chỉ hiển thị thao tác trộn.',
+      observation_en: 'No verified reaction is available for this combination; only mixing is shown.',
+      why_vi: 'Thiếu phương trình hoặc điều kiện phù hợp không có nghĩa là chứng minh các chất không phản ứng.',
+      why_en: 'Missing reaction data does not establish chemical inertness.'
     },
     confidence: 0.85
   };
@@ -262,16 +245,19 @@ export async function resolveReactionProgram(
 
   // 1. Handcrafted exact match
   const exact = getProgramById(key);
-  if (exact) {
+  if (exact && !LESSON_PROGRAM_IDS.has(exact.id) && assessProgramConditions(exact, contents, env).ready) {
     return { program: exact, provenance: 'handcrafted' };
   }
 
   // Check any pairwise combinations with exact normalized formulas
-  const normInput = substances.map(s => s.replace(/\s*\([a-z0-9%]+\)/gi, '').replace(/\..*$/, '').trim().toLowerCase());
+  const normInput = substances.map(s => identifySpecies(s).formula.toLowerCase());
   for (const prog of ALL_HANDCRAFTED_PROGRAMS) {
+    // These programs require explicit lesson conditions (catalyst, ignition,
+    // enzyme, etc.); a free-mixing lookup must not bypass those gates.
+    if (LESSON_PROGRAM_IDS.has(prog.id) || !assessProgramConditions(prog, contents, env).ready) continue;
     const progSubs = prog.chemistry.species
       .filter(s => s.role === 'reactant')
-      .map(s => s.formula.replace(/\s*\([a-z0-9%]+\)/gi, '').replace(/\..*$/, '').trim().toLowerCase());
+      .map(s => identifySpecies(s.formula).formula.toLowerCase());
     if (progSubs.length > 0 && progSubs.length === normInput.length && progSubs.every(ps => normInput.includes(ps))) {
       return { program: prog, provenance: 'handcrafted' };
     }
@@ -279,13 +265,15 @@ export async function resolveReactionProgram(
 
   // 2. Rule-derived program
   const ruleDerived = deriveProgramFromRules(substances, env);
-  if (ruleDerived) {
+  const ruleMatchesInputs = ruleDerived?.chemistry.species.filter(item => item.role === 'reactant')
+    .every(item => normInput.includes(identifySpecies(item.formula).formula.toLowerCase()));
+  if (ruleDerived && ruleMatchesInputs && validateProgram(ruleDerived).valid && assessProgramConditions(ruleDerived, contents, env).ready) {
     return { program: ruleDerived, provenance: 'rule-derived' };
   }
 
   // 3. Cache lookup
   const cached = getCachedProgram(key, env.lang);
-  if (cached) {
+  if (cached && validateProgram(cached).valid && assessProgramConditions(cached, contents, env).ready) {
     return { program: cached, provenance: 'cache' };
   }
 
@@ -306,7 +294,7 @@ export async function resolveReactionProgram(
         const data = await res.json();
         if (data.program) {
           const val = validateProgram(data.program);
-          if (val.success && val.program) {
+          if (val.success && val.program && assessProgramConditions(val.program, contents, env).ready) {
             setCachedProgram(key, val.program, env.lang);
             return { program: val.program, provenance: 'ai' };
           }

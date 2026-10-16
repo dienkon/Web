@@ -66,11 +66,12 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
     expect(caco3Left!.moles).toBeCloseTo(0.025, 2);
 
     // CO2 produced = 0.025 mol => 1.10 g
-    const co2Produced = openRes.contents?.find(c => c.formula.toLowerCase() === 'co2');
-    expect(co2Produced).toBeDefined();
-    expect(co2Produced!.moles).toBeCloseTo(0.025, 2);
-    expect(co2Produced!.mass_g).toBeCloseTo(1.10, 2);
-    const co2Volume_L = co2Produced!.moles * MOLAR_VOLUME_25C_L;
+    expect(openRes.contents?.some(c => c.formula === 'CO2')).toBe(false);
+    const escapedCO2 = openRes.escapedGas_g?.CO2 ?? 0;
+    expect(escapedCO2).toBeCloseTo(1.10, 2);
+    const producedCO2_moles = escapedCO2 / computeMolarMass('CO2');
+    expect(producedCO2_moles).toBeCloseTo(0.025, 2);
+    const co2Volume_L = producedCO2_moles * MOLAR_VOLUME_25C_L;
     expect(co2Volume_L).toBeCloseTo(0.612, 2);
 
     // Open vessel balance reading falls by escaped CO2 mass
@@ -85,6 +86,7 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
     };
     const sealedRes = applyProgramToLedger(prog!, sealedVessel, 1.0);
     expect(sealedRes.mass_g).toBe(100.0);
+    expect(sealedRes.contents?.find(c => c.formula === 'CO2')?.moles).toBeCloseTo(0.025, 2);
     expect(sealedRes.internalPressure_atm).toBeGreaterThan(2.5); // Stopper pop hazard
   });
 
@@ -127,10 +129,12 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
     expect(znLeft?.moles).toBeCloseTo(0.0, 4);
 
     // H2 produced: 0.0153 mol = 0.0308 g = 0.374 L
-    const h2Produced = res.contents?.find(c => c.formula.toLowerCase() === 'h2');
-    expect(h2Produced?.moles).toBeCloseTo(0.0153, 3);
-    expect(h2Produced?.mass_g).toBeCloseTo(0.0308, 3);
-    const v_h2_L = (h2Produced?.moles || 0) * MOLAR_VOLUME_25C_L;
+    const escapedH2 = res.escapedGas_g?.H2 ?? 0;
+    const producedH2_moles = escapedH2 / computeMolarMass('H2');
+    expect(producedH2_moles).toBeCloseTo(0.0153, 3);
+    expect(escapedH2).toBeCloseTo(0.0308, 3);
+    expect(res.contents?.some(c => c.formula === 'H2')).toBe(false);
+    const v_h2_L = producedH2_moles * MOLAR_VOLUME_25C_L;
     expect(v_h2_L).toBeCloseTo(0.374, 2);
 
     // Remaining HCl: 0.050 - 2 * 0.0153 = 0.0194 mol
@@ -318,11 +322,12 @@ describe('Stoichiometry Worked Examples via Conservation Ledger (§5.4 & §11.1)
     };
 
     const res = applyProgramToLedger(prog!, vessel, 1.0);
-    const h2Gas = res.contents?.find(c => c.formula.toLowerCase() === 'h2');
-    expect(h2Gas).toBeDefined();
-    expect(h2Gas!.moles).toBeCloseTo(0.00500, 3);
-    expect(h2Gas!.mass_g).toBeCloseTo(0.0101, 3);
-    const v_h2_mL = h2Gas!.moles * MOLAR_VOLUME_25C_L * 1000;
+    const escapedH2 = res.escapedGas_g?.H2 ?? 0;
+    const producedH2_moles = escapedH2 / computeMolarMass('H2');
+    expect(producedH2_moles).toBeCloseTo(0.00500, 3);
+    expect(escapedH2).toBeCloseTo(0.0101, 3);
+    expect(res.contents?.some(c => c.formula === 'H2')).toBe(false);
+    const v_h2_mL = producedH2_moles * MOLAR_VOLUME_25C_L * 1000;
     expect(v_h2_mL).toBeCloseTo(122, 0);
 
     // Exothermic warming

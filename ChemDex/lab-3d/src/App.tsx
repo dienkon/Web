@@ -38,8 +38,6 @@ function LeftSidebar() {
   const [equipSearch, setEquipSearch] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'liquid' | 'solid' | 'indicator'>('all');
   
-  if (!leftSidebarOpen) return null;
-
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   // Filter chemicals (memoized to eliminate lag during drag and typing)
@@ -53,6 +51,8 @@ function LeftSidebar() {
       return c.type === filterType;
     });
   }, [search, filterType, language]);
+
+  if (!leftSidebarOpen) return null;
 
   // Current active chemicals on workbench for safety tab
   const allWorkbenchSubstances = Array.from(new Set(

@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { formatTemperature, formatPH, formatVolume } from '../utils/units';
 import { AIReactionQueryModal } from './AIReactionQueryModal';
+import { WashBottleControls } from './WashBottleControls';
+import { FunnelFlowControls } from './FunnelFlowControls';
 
 export function VesselInspector() {
   const { 
@@ -410,6 +412,7 @@ export function VesselInspector() {
         </div>
       )}
 
+      {['filter_funnel', 'separatory_funnel'].includes(vessel.type) && <FunnelFlowControls vessel={vessel} />}
       {/* Separatory Funnel Stopcock Control */}
       {vessel.type === 'separatory_funnel' && (
         <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
@@ -425,12 +428,12 @@ export function VesselInspector() {
           {((vessel.immiscibleOrganicVolume_ml || 0) > 0) && (
             <div className="bg-white/90 p-2 rounded-lg border border-slate-200 text-[11px] space-y-1">
               <div className="flex justify-between items-center">
-                <span className="text-slate-600">{t('Upper Organic Layer', 'Pha hữu cơ phía trên')}:</span>
+                <span className="text-slate-600">{t('Organic Layer', 'Pha hữu cơ')}:</span>
                 <span className="font-mono font-bold text-slate-800">{vessel.immiscibleOrganicVolume_ml?.toFixed(1)} mL</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-slate-600">{t('Lower Aqueous Layer', 'Pha nước phía dưới')}:</span>
-                <span className="font-mono font-bold text-slate-800">{vessel.volume_ml.toFixed(1)} mL</span>
+                <span className="text-slate-600">{t('Aqueous Layer', 'Pha nước')}:</span>
+                <span className="font-mono font-bold text-slate-800">{Math.max(0, vessel.volume_ml - (vessel.immiscibleOrganicVolume_ml ?? 0)).toFixed(1)} mL</span>
               </div>
             </div>
           )}
@@ -475,14 +478,7 @@ export function VesselInspector() {
             </div>
           )}
 
-          <button
-            onClick={() => setVesselState(vessel.id, { filterPaperResidue_g: 0, filterPaperResidueSubstance: undefined, hasPrecipitate: false, precipitateAmount_g: 0 })}
-            disabled={(vessel.filterPaperResidue_g || 0) === 0 && !vessel.hasPrecipitate}
-            className="w-full py-1.5 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs disabled:opacity-40"
-          >
-            <Sparkles size={13} />
-            <span>{t('Replace / Scrape Filter Paper', 'Thay giấy lọc / Thu hồi cặn')}</span>
-          </button>
+
         </div>
       )}
 
@@ -498,12 +494,14 @@ export function VesselInspector() {
 
           <button
             onClick={() => invertVolumetricFlask(vessel.id)}
+            disabled={!vessel.isSealed || vessel.isShattered || vessel.volume_ml <= 0}
             className="w-full py-1.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
-            title={t('Invert flask repeatedly to homogenize and dissolve solutes', 'Dốc ngược bình nhiều lần để hòa tan hoàn toàn chất tan')}
+            title={t('Stopper the flask before mixing; excess solid can remain at saturation', 'Đậy nút trước khi dốc trộn; chất rắn dư vẫn còn khi dung dịch bão hòa')}
           >
             <RotateCw size={13} />
-            <span>{t('Stopper & Invert Mix (Dissolve All)', 'Đậy nút & Dốc ngược trộn đều')}</span>
+            <span>{t('Invert stoppered flask to mix', 'Dốc bình đã đậy nút để trộn')}</span>
           </button>
+          <p className="text-[10px] text-slate-600">{t('Close the stopper below before mixing. Mixing does not guarantee full dissolution.', 'Đậy nút ở mục bên dưới trước khi trộn. Trộn không bảo đảm mọi chất rắn tan hết.')}</p>
         </div>
       )}
 
@@ -519,8 +517,18 @@ export function VesselInspector() {
             </span>
           </div>
 
-          <button
-            onClick={() => toggleCondenserWater(vessel.id)}
+            <label className="block text-xs text-cyan-900">
+              {t('Connected vapor source', 'Bình cấp hơi được nối')}
+              <select aria-label="Bình cấp hơi cho sinh hàn" className="mt-1 w-full rounded border bg-white p-1.5"
+                value={vessel.vaporSourceId ?? ''} onChange={event => setVesselState(vessel.id, { vaporSourceId: event.target.value || undefined })}>
+                <option value="">{t('Not connected', 'Chưa nối bình cấp hơi')}</option>
+                {vesselIds.filter(id => id !== vessel.id && ['beaker', 'flask', 'test_tube'].includes(vessels[id]?.type)).map(id =>
+                  <option key={id} value={id}>{vessels[id].name}</option>)}
+              </select>
+            </label>
+            <p className="text-[10px] text-cyan-800">{t('Water only; ideal cooling. Collection is limited by vapor supply and capacity.', 'Mô hình hơi nước, làm mát lý tưởng. Chỉ thu lượng hơi thực có, trong giới hạn dung tích.')}</p>
+            <button
+              onClick={() => toggleCondenserWater(vessel.id)}
             className={`w-full py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs ${
               vessel.coolingWaterActive 
                 ? 'bg-slate-600 hover:bg-slate-700 text-white' 
@@ -533,26 +541,7 @@ export function VesselInspector() {
         </div>
       )}
 
-      {/* Squeeze Wash Bottle Control */}
-      {vessel.type === 'wash_bottle' && (
-        <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-800">{t('Distilled Water Wash Bottle', 'Bình Tia Nước Cất')}</span>
-            <span className="text-[10px] font-mono text-slate-600 font-bold">
-              {vessel.volume_ml.toFixed(0)} / {vessel.capacity_ml || 250} mL
-            </span>
-          </div>
-
-          <button
-            onClick={() => squirtWashBottle(vessel.id)}
-            disabled={vessel.volume_ml <= 0}
-            className="w-full py-1.5 px-3 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-2xs disabled:opacity-40"
-          >
-            <Droplets size={13} />
-            <span>{t('Squirt 15 mL Distilled Water', 'Tia 15 mL nước cất')}</span>
-          </button>
-        </div>
-      )}
+      {vessel.type === 'wash_bottle' && <WashBottleControls vessel={vessel} />}
 
       {/* Test Tube Rack Slot Management */}
       {vessel.type === 'test_tube_rack' && (

@@ -24,17 +24,17 @@ export function TitrationPanel() {
             {t('Titration Station (Burette)', 'Trạm Chuẩn Độ (Buret)')}
           </h3>
           <p className="text-[11px] text-slate-500">
-            {t('Reagent:', 'Thuốc thử:')} <span className="font-semibold text-slate-700">{burette.reagentFormula} (0.1M)</span>
+            {t('Reagent:', 'Thuốc thử:')} <span className="font-semibold text-slate-700">{burette.reagentFormula} ({burette.concentration_M} M)</span>
           </p>
         </div>
         <div className="flex items-center gap-1.5">
           <button 
             onClick={() => targetId && dispenseDrop(targetId)}
             className="flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded text-xs font-semibold transition-colors"
-            title={t('Dispense 1 drop (0.5 mL)', 'Nhỏ 1 giọt (0.5 mL)')}
+            title={t('Dispense 1 virtual drop (0.05 mL)', 'Nhỏ 1 giọt mô phỏng (0.05 mL)')}
           >
             <Droplet size={14} />
-            <span>+0.5 mL</span>
+            <span>+0.05 mL</span>
           </button>
           <button 
             onClick={toggleStopcock}

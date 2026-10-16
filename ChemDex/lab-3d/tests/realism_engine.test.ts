@@ -241,7 +241,10 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
     // Boiling point elevation: Tb = 100 + 0.512 * (0.285 * 1.8 / 0.095) = 100 + 0.512 * 5.4 = 102.76 °C
     // Temperature must exceed standard 100.0 °C and cap at ~102.8 °C
     expect(currentVessel.temperature_c).toBeGreaterThan(101.5);
-    expect(currentVessel.temperature_c).toBeLessThanOrEqual(102.8);
+    const remainingWaterKg = currentVessel.contents.find(item => item.formula === 'H2O')!.mass_g / 1000;
+    // Evaporation concentrates the sample; its boiling point is no longer fixed.
+    expect(currentVessel.temperature_c).toBeLessThanOrEqual(100 + 0.512 * 0.285 * 1.8 / remainingWaterKg);
+    expect(currentVessel.temperature_c).toBeGreaterThan(102.7);
   });
 
   // Test 6: Stoichiometric precipitate mass (P4.2)
@@ -298,7 +301,7 @@ describe('Realism Engine: Physical & Chemical Invariants', () => {
     expect(stage1!.new_vessel_state.precipitate_color).toBe('#ffffff');
 
     // Stage 2: Excess CO2 bubbling into milky CaCO3 suspension dissolves the precipitate back to clear Ca(HCO3)2
-    const stage2 = evaluateLocalChemistry(['CaCO3', 'CO2'], 50, 25.0, false, 'en');
+    const stage2 = evaluateLocalChemistry(['CaCO3', 'CO2', 'H2O'], 50, 25.0, false, 'en');
     expect(stage2).not.toBeNull();
     expect(stage2!.reaction_id).toBe('caco3_co2_excess_clearing');
     expect(stage2!.new_vessel_state.has_precipitate).toBe(false);

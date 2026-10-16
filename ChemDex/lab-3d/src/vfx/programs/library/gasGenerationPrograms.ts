@@ -96,6 +96,7 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
     id: 'cu_conc_h2so4',
     provenance: 'handcrafted',
     chemistry: {
+        conditions: { minTemp_c: 65 },
       equation: 'Cu(s) + 2H2SO4(aq) -> CuSO4(aq) + 2H2O(l) + SO2(g)',
       ionic: 'Cu(s) + 4H+(aq) + 2SO4(2-)(aq) -> Cu(2+)(aq) + SO4(2-)(aq) + 2H2O(l) + SO2(g)',
       species: [
@@ -303,6 +304,7 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
     id: 'nano2_nh4cl',
     provenance: 'handcrafted',
     chemistry: {
+        conditions: { minTemp_c: 50 },
       equation: 'NaNO2(aq) + NH4Cl(aq) -> NaCl(aq) + 2H2O(l) + N2(g)',
       ionic: 'NO2-(aq) + NH4+(aq) -> N2(g) + 2H2O(l)',
       species: [
@@ -362,7 +364,6 @@ export const GAS_GENERATION_PROGRAMS: ReactionProgram[] = [
       timeline: [
         { id: 'bubbles', atom: 'nucleateBubbles', anchor: 'bottom', window: [0, 0.75], intensity: 1.1, params: { bubbleRate: 40, meanRadius_mm: 1.7, gasSpecies: 'NO' } },
         { id: 'chroma', atom: 'beerLambertFade', anchor: 'bulk', window: [0.1, 0.85], intensity: 1.15, params: { startColor: '#f8fafc', endColor: '#0284c7', opticalPath_cm: 4.5 } },
-        { id: 'fume', atom: 'heavyVaporPour', anchor: 'rim', window: [0.3, 0.95], intensity: 1.0, params: { color: '#9a3412', densityMultiplier: 1.58, spillRate: 25 } }
       ],
       after: {
         liquidColor: '#0284c7',

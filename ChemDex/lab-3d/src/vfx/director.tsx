@@ -5,12 +5,15 @@ import { useAppStore } from '../store/useAppStore';
 import { vfxBus } from './bus';
 import { getReactionVfxRecipe, sampleRecipeProgress, ReactionVfxRecipe } from './recipes/reactionVfx';
 import { getGenericVfxRecipe } from './recipes/generic';
-import { Bubbles, GasPlume, Steam, Precipitate, Sparks, Foam, Splash, AcidSplatter } from './particles';
+import { GasPlume, Sparks, Foam, Splash, AcidSplatter } from './particles';
 import { PhysicalSimulationRenderer } from '../simulation/render/PhysicalSimulationRenderer';
 import { labSound } from '../utils/audio';
 import { reactionSimulationEngine } from './reactions/ReactionSimulationEngine';
 import { programPlayer } from './programs/player/ProgramPlayer';
+import { GAS_FUME_TABLE } from './catalog/gasTable';
 import { LedgerView } from './catalog/types';
+import { resolveReactionEmission, reactionIsEmitting } from './reactionActivity';
+import { projectAqueousSolution } from '../engine/aqueousProjection';
 
 // Expanding shockwave ripple on table surface
 interface ShockwaveSlot {
@@ -26,6 +29,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
   const vessels = useAppStore((state) => state.vessels);
   const activeKinetics = useAppStore((state) => state.activeKinetics);
   const addSpill = useAppStore((state) => state.addSpill);
+  const startedRuns = useRef(new Map<string, string>());
 
   // Flash flare light for intense reactions (Mg burning, explosions)
   const flashLightRef = useRef<THREE.PointLight>(null);
@@ -90,13 +94,23 @@ export const VfxDirector = React.memo(function VfxDirector() {
   }, [addSpill]);
 
   useFrame((_, delta) => {
-    const dt = Math.min(delta, 0.05);
+    const live = useAppStore.getState();
+    const activeKinetics = live.activeKinetics;
+    const vessels = live.vessels;
+    const dt = live.isSimulationPaused ? 0 : Math.min(delta, 0.05) * live.timeScale;
+    reactionSimulationEngine.retainVessels(new Set(Object.entries(activeKinetics)
+      .filter(([, kinetics]) => reactionIsEmitting(kinetics)).map(([id]) => id)));
+    for (const id of startedRuns.current.keys()) {
+      if (!reactionIsEmitting(activeKinetics[id])) startedRuns.current.delete(id);
+    }
 
     // 1. Sync active kinetics with dedicated ReactionSimulationEngine controllers
     for (const [vesselId, kinetics] of Object.entries(activeKinetics)) {
-      if (kinetics && kinetics.reactionId) {
+      if (reactionIsEmitting(kinetics) && kinetics.reactionId) {
         let runtime = reactionSimulationEngine.getRuntime(vesselId);
-        if (!runtime || runtime.reactionId !== kinetics.reactionId) {
+        const runKey = `${kinetics.reactionId}:${kinetics.startTime}`;
+        if ((!runtime || runtime.reactionId !== kinetics.reactionId) && startedRuns.current.get(vesselId) !== runKey) {
+          startedRuns.current.set(vesselId, runKey);
           runtime = reactionSimulationEngine.startReaction(vesselId, kinetics.reactionId, {
             duration: kinetics.duration || 5.0,
             progress: kinetics.progress || 0.0,
@@ -117,7 +131,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
     // 2b. Sync active ReactionProgram timelines with ProgramPlayer
     const ledgerViews: Record<string, LedgerView> = {};
     for (const [vesselId, kinetics] of Object.entries(activeKinetics)) {
-      if (kinetics && kinetics.program) {
+      if (reactionIsEmitting(kinetics) && kinetics.program) {
         let session = programPlayer.getSession(vesselId);
         if (!session || session.program.id !== kinetics.program.id) {
           const v = vessels[vesselId];
@@ -136,7 +150,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
           time_s: session ? session.elapsed_s : 0,
           temperature_c: v?.temperature_c || 25,
           pressure_atm: 1.0,
-          pH: v?.ph || 7.0,
+          pH: v?.ph ?? 7.0,
           turbidity: v?.turbidity || 0,
           liquidColor: v?.liquidColor || '#38bdf8',
           gasHoldup: v?.hasGas ? 0.2 : 0,
@@ -148,7 +162,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
       }
     }
     for (const session of programPlayer.getAllSessions()) {
-      if (!activeKinetics[session.vesselId]) {
+      if (!reactionIsEmitting(activeKinetics[session.vesselId])) {
         programPlayer.stopProgram(session.vesselId);
       }
     }
@@ -163,6 +177,8 @@ export const VfxDirector = React.memo(function VfxDirector() {
       if (patch.foam_ml !== undefined) v.foam_ml = patch.foam_ml;
       if (patch.temperature_c !== undefined) v.temperature_c = patch.temperature_c;
       if (patch.residues !== undefined) v.residues = patch.residues;
+      const aqueous = projectAqueousSolution(v);
+      if (aqueous) Object.assign(v, aqueous);
     }
 
     // 3. Decay flash flare without React state dispatch
@@ -245,12 +261,14 @@ export const VfxDirector = React.memo(function VfxDirector() {
 
       {/* Render active reaction VFX per vessel */}
       {Object.entries(vessels).map(([vesselId, vessel]) => {
+        if (vesselId.startsWith('lesson_vessel_')) return null;
         // If vessel is shattered, completely suppress all ongoing and active reaction effects
         if (vessel.isShattered) {
           return null;
         }
 
         const kinetics = activeKinetics[vesselId];
+        const emission = resolveReactionEmission(vessel, kinetics, useAppStore.getState().isSimulationPaused);
         const hasLiquid = (vessel.volume_ml ?? 0) > 0.5;
         const isHotOrActive = (hasLiquid && vessel.isBoiling) || (hasLiquid && vessel.hasGas) || (hasLiquid && vessel.hasPrecipitate) || vessel.isExplosion || (hasLiquid && vessel.temperature_c >= 48);
         const rawRecipe: ReactionVfxRecipe | null = kinetics?.reactionId 
@@ -272,11 +290,11 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const mouthY = pos[1] + (vessel.type === 'cylinder' ? 1.7 : vessel.type === 'flask' ? 1.45 : 1.0);
         const vesselRadius = vessel.type === 'test_tube' ? 0.18 : 0.6;
 
-        const effectiveBubbleRate = hasLiquid ? (simRuntime && simRuntime.gasGenerationRate > 0
+        const effectiveBubbleRate = hasLiquid && emission.gas ? (simRuntime && simRuntime.gasGenerationRate > 0
           ? simRuntime.gasGenerationRate * 45
           : (sampled.bubblesRate > 0 ? sampled.bubblesRate : (activeRecipe.bubbles?.rate || 0))) : 0;
 
-        const effectiveGasDensity = hasLiquid ? (simRuntime && simRuntime.gasGenerationRate > 0
+        const effectiveGasDensity = hasLiquid && emission.gas ? (simRuntime && simRuntime.gasGenerationRate > 0
           ? Math.min(1.0, simRuntime.gasGenerationRate * 0.75)
           : (sampled.gasDensity > 0 ? sampled.gasDensity : (activeRecipe.gasPlume ? 0.5 : 0))) : 0;
 
@@ -285,13 +303,13 @@ export const VfxDirector = React.memo(function VfxDirector() {
           || activeRecipe.gasPlume?.color
           || '#ffffff';
 
-        const effectivePrecipitate = hasLiquid && ((simRuntime && (simRuntime.precipitateRate > 0 || simRuntime.turbidity > 0.05))
+        const effectivePrecipitate = hasLiquid && emission.precipitating && ((simRuntime && (simRuntime.precipitateRate > 0 || simRuntime.turbidity > 0.05))
           || sampled.precipitateActive
           || !!activeRecipe.precipitate);
 
-        const effectiveFoamRate = hasLiquid ? (sampled.foamRate > 0 ? sampled.foamRate : (activeRecipe.foam?.active ? 20 : 0)) : 0;
-        const effectiveSteamActive = hasLiquid && (sampled.steamDensity > 0 || !!activeRecipe.steam?.active || vessel.isBoiling || (vessel.temperature_c ?? 25) >= 48);
-        const effectiveGasSpecies = (simRuntime?.customData?.gasSpecies as string) || activeRecipe.bubbles?.gasType || 'gas';
+        const effectiveFoamRate = hasLiquid && emission.running ? (sampled.foamRate > 0 ? sampled.foamRate : (activeRecipe.foam?.active ? 20 : 0)) : 0;
+        const effectiveGasSpecies = (simRuntime?.customData?.gasSpecies as string) || kinetics?.program?.visual.after.gasesOffgassed[0]?.species || activeRecipe.bubbles?.gasType || 'gas';
+        const visibleGas = GAS_FUME_TABLE[effectiveGasSpecies]?.visible === true;
 
         return (
           <group key={vesselId} position={pos}>
@@ -309,48 +327,16 @@ export const VfxDirector = React.memo(function VfxDirector() {
             />
 
             {/* 8-Morphology Precipitate Particle Cascades (PbI2 Golden Rain, AgCl Curd, Fe(OH)3 Floc, Cu(OH)2 Gel, etc.) */}
-            {effectivePrecipitate && (
-              <Precipitate
-                vesselId={vesselId}
-                substance={vessel.precipitateSubstance || sampled.precipitateSubstance || activeRecipe.precipitate?.substance || 'BaSO4'}
-                morphology={vessel.precipitateMorphology}
-                color={vessel.precipitateColor || sampled.precipitateColor || activeRecipe.precipitate?.color}
-                radius={vesselRadius * 0.8}
-                liquidTopY={liquidTopY - pos[1]}
-                liquidBottomY={-0.85}
-                rate={activeRecipe.precipitate?.rate || (simRuntime && simRuntime.precipitateRate > 0 ? simRuntime.precipitateRate * 35 : 25)}
-                active={true}
-              />
-            )}
+            {/* Finite-mass suspended solids are rendered once by PhysicalSimulationRenderer. */}
 
             {/* Gas-Specific Effervescence Bubbles with Worthington Micro-Jets & Minnaert Pops */}
-            {effectiveBubbleRate > 0 && (
-              <Bubbles
-                vesselId={vesselId}
-                rate={Math.min(60, effectiveBubbleRate * 0.7)}
-                liquidBottomY={-0.85}
-                surfaceY={liquidTopY - pos[1]}
-                radius={vesselRadius * 0.78}
-                gasType={effectiveGasSpecies}
-                color={sampled.bubblesColor || activeRecipe.bubbles?.color || '#e0f2fe'}
-                active={true}
-              />
-            )}
+            {/* Thermal and chemical bubbles share the physical renderer. */}
 
-            {/* Thermal Steam & Exothermic Water Vapor Plume */}
-            {effectiveSteamActive && (
-              <Steam
-                vesselId={vesselId}
-                origin={[0, 0, 0]}
-                surfaceY={liquidTopY - pos[1]}
-                radius={vesselRadius * 0.75}
-                temperature_c={Math.max(vessel.temperature_c || 25, sampled.steamDensity > 0 ? 78 : 25)}
-                active={true}
-              />
-            )}
+            {/* Water-vapor visuals are emitted once by the physical renderer,
+                using the authoritative finite evaporation rate. */}
 
             {/* Supplementary Reaction Gas Plume (Heavy colored fumes, e.g. NO2 brown gas) */}
-            {effectiveGasDensity > 0 && (
+            {effectiveGasDensity > 0 && visibleGas && (
               <GasPlume
                 vesselId={vesselId}
                 origin={[0, 0, 0]}
@@ -365,7 +351,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
             )}
 
             {/* Declarative Sparks & Energetic Micro-Flashes */}
-            {(activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks) && (
+            {(emission.running && (activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks)) && (
               <Sparks
                 origin={[0, liquidTopY - pos[1], 0]}
                 rate={activeRecipe.sparks?.rate || 30}
@@ -388,7 +374,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
             )}
 
             {/* 7. Special Effect: Endothermic Frost */}
-            {activeRecipe.specialEffect === 'frost' && (
+            {activeRecipe.specialEffect === 'frost' && vessel.temperature_c <= 0 && (
               <mesh position={[0, 0, 0]} renderOrder={5}>
                 <cylinderGeometry args={[0.99, 0.99, 1.8, 24, 1, true]} />
                 <meshStandardMaterial

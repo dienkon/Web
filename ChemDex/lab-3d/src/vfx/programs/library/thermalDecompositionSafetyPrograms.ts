@@ -99,7 +99,7 @@ export const THERMAL_SAFETY_PROGRAMS: ReactionProgram[] = [
       conditions: { minTemp_c: 50.0 },
       species: [
         { formula: 'I2', role: 'reactant', coeff: 1, phase: 's', colorHex: '#18181b' },
-        { formula: 'I2_gas', role: 'product', coeff: 1, phase: 'g', colorHex: '#7e22ce' } // Deep purple/violet vapor
+        { formula: 'I2', role: 'product', coeff: 1, phase: 'g', colorHex: '#7e22ce' } // Deep purple/violet vapor
       ],
       deltaH_kJ_per_mol: 62.4, // Endothermic sublimation
       kinetics: { model: 'heat_activated', halfTime_s: 2.0 },
@@ -134,11 +134,13 @@ export const THERMAL_SAFETY_PROGRAMS: ReactionProgram[] = [
     provenance: 'handcrafted',
     controller: 'water_into_conc_h2so4_explosion',
     chemistry: {
-      equation: 'H2SO4(conc) + H2O(l) -> H2SO4·H2O(aq) + HEAT!',
+      representation: 'dilution',
+      equation: 'H2SO4(conc) + H2O(l) -> H2SO4(aq) + H2O(l)',
       species: [
-        { formula: 'H2SO4_conc', role: 'reactant', coeff: 1, phase: 'l', hazards: ['GHS05_corrosive'] },
+        { formula: 'H2SO4 (conc)', role: 'reactant', coeff: 1, phase: 'l', hazards: ['GHS05_corrosive'] },
         { formula: 'H2O', role: 'reactant', coeff: 1, phase: 'l' },
-        { formula: 'H2SO4·H2O', role: 'product', coeff: 1, phase: 'aq' }
+        { formula: 'H2SO4 (dil)', role: 'product', coeff: 1, phase: 'aq' },
+        { formula: 'H2O', role: 'product', coeff: 1, phase: 'l' }
       ],
       deltaH_kJ_per_mol: -95.0,
       kinetics: { model: 'instant', halfTime_s: 0.05 },
@@ -149,10 +151,7 @@ export const THERMAL_SAFETY_PROGRAMS: ReactionProgram[] = [
     visual: {
       duration_s: 5.5,
       timeline: [
-        { id: 'boil', atom: 'boilingBumping', anchor: 'surface', window: [0, 0.7], intensity: 2.5, params: { intensity: 3.5, bumpingShockwave: true } },
-        { id: 'steam', atom: 'thermalSteam', anchor: 'rim', window: [0, 0.8], intensity: 2.0, params: { steamDensity: 2.0, temperature_c: 110 } },
-        { id: 'shake', atom: 'cameraShake', anchor: 'outside', window: [0.05, 0.4], intensity: 1.2, params: { intensity: 1.0, decay_s: 0.6 } },
-        { id: 'sound', atom: 'proceduralAcoustics', anchor: 'bulk', window: [0, 0.5], intensity: 1.0, params: { soundProfile: 'explosion', volume: 0.95 } }
+        { id: 'mix', atom: 'liquidSwirl', anchor: 'bulk', window: [0, 0.5], intensity: 0.5, params: { speed: 0.6 } }
       ],
       after: {
         liquidColor: '#f8fafc',
@@ -162,10 +161,10 @@ export const THERMAL_SAFETY_PROGRAMS: ReactionProgram[] = [
       }
     },
     explain: {
-      observation_vi: 'Nước lập tức sôi bùng lên dữ dội tại mặt tiếp xúc, bắn tung tóe các giọt axit đặc nguy hiểm kèm theo khói hơi axit bốc mù mịt.',
-      observation_en: 'Water flashes violently into steam at the boundary layer, explosively splattering boiling concentrated acid.',
-      why_vi: 'Nước nhẹ hơn nằm trên mặt axit đặc; nhiệt hiđrat hóa tỏa ra cực lớn (> 100 °C) làm nước sôi tức thì gây nổ cơ học.',
-      why_en: 'Low-density water floats atop dense acid; massive hydration enthalpy boils boundary water into explosive steam.'
+      observation_vi: 'Pha loãng axit tỏa nhiệt. Đổ nước vào axit đặc có nguy cơ nóng cục bộ và bắn axit; mức độ phụ thuộc lượng, nồng độ, tốc độ trộn và tản nhiệt, không mặc định nổ.',
+      observation_en: 'Dilution releases heat. Adding water to concentrated acid risks local overheating and splashing; severity depends on amounts, concentration, mixing and heat transfer.',
+      why_vi: 'Nhiệt hiđrat hóa và trộn dung dịch làm tăng nhiệt độ; chỉ phát hiệu ứng sôi khi trạng thái nhiệt trong mô hình đạt điều kiện. Luôn theo quy trình rót axit vào nước.',
+      why_en: 'Hydration and mixing release heat; boiling effects require a hot enough modeled state. Follow the acid-into-water procedure.'
     },
     confidence: 1.0
   },

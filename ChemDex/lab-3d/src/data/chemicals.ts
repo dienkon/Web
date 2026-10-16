@@ -1,3 +1,4 @@
+import { identifySpecies } from '../science/speciesIdentity';
 import { ChemicalDefinition, SolidMorphology } from '../types/chemistry';
 
 export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
@@ -78,7 +79,8 @@ export const CHEMICAL_DATABASE: ChemicalDefinition[] = [
     name_en: 'Phenolphthalein Indicator',
     name_vi: 'Chỉ thị Phenolphtalein',
     type: 'liquid',
-    color: '#fce7f3',
+    category: 'indicator',
+    color: '#f8fafc',
     molarMass: 318.32,
     density: 0.95,
     defaultConcentration: 0.05,
@@ -1295,6 +1297,45 @@ export function isImmiscibleOrganic(substance: string): boolean {
   );
 }
 
+// Explicit hydrate identity retains all five waters in molar-mass accounting.
+CHEMICAL_DATABASE.push({
+  formula: 'CuSO4·5H2O', name_en: 'Copper(II) sulfate pentahydrate',
+  name_vi: 'Đồng(II) sunfat ngậm 5 nước', type: 'solid', color: '#2589c5',
+  molarMass: 249.677, density: 2.286, hazards: ['irritant', 'toxic'],
+  ppe: ['lab_coat', 'goggles', 'gloves'], solidMorphology: 'HYDRATE_CRYSTAL',
+});
+
+// Explicit dilute stocks make the new buffer systems available from the
+// chemical shelf. Density is approximated as water; pH is the 25 °C model.
+CHEMICAL_DATABASE.push(
+  { formula: 'CH3COOH', name_en: 'Acetic acid solution (0.1 M)', name_vi: 'Axit axetic (0,1 M)',
+    type: 'liquid', category: 'acid', color: '#f8fafc', molarMass: 60.052,
+    density: 1, defaultConcentration: 0.1, ph: 2.875, hazards: ['irritant'], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Dung dịch loãng; pH từ cân bằng axit yếu, không dùng thông số của axit axetic băng.',
+    safetyNotes_en: 'Dilute aqueous stock; weak-acid equilibrium, not glacial acetic acid.' },
+  { formula: 'CH3COONa', name_en: 'Sodium acetate solution (0.1 M)', name_vi: 'Natri axetat (0,1 M)',
+    type: 'liquid', category: 'salt', color: '#f8fafc', molarMass: 82.034,
+    density: 1, defaultConcentration: 0.1, ph: 8.87, hazards: [], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Muối của axit yếu; tạo vùng đệm khi phối hợp axit axetic. Đây là dung dịch, không phải tinh thể ngậm nước.' },
+  { formula: 'CH3COOK', name_en: 'Potassium acetate solution (0.1 M)', name_vi: 'Kali axetat (0,1 M)',
+    type: 'liquid', category: 'salt', color: '#f8fafc', molarMass: 98.142,
+    density: 1, defaultConcentration: 0.1, ph: 8.87, hazards: [], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Dung dịch muối axetat; pH thay đổi theo lượng axit/kiềm thêm vào.' },
+  { formula: 'NH4Cl(aq)', name_en: 'Ammonium chloride solution (0.1 M)', name_vi: 'Amoni clorua dung dịch (0,1 M)',
+    type: 'liquid', category: 'salt', color: '#f8fafc', molarMass: 53.491,
+    density: 1, defaultConcentration: 0.1, ph: 5.13, hazards: ['irritant'], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Dạng dung dịch được tách riêng với bột NH4Cl; ion amoni làm dung dịch có tính axit yếu.' },
+  // PubChem CID 23673835 (methyl orange sodium salt), CID 6450 (BTB).
+  { formula: 'Methyl_Orange', name_en: 'Methyl orange indicator (0.0001 M)', name_vi: 'Chỉ thị metyl da cam (0,0001 M)',
+    type: 'liquid', category: 'indicator', color: '#facc15', molarMass: 327.34,
+    density: 1, defaultConcentration: 0.0001, hazards: ['irritant'], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Đỏ trong axit, vàng khi pH tăng; vùng chuyển màu khoảng 3,1–4,4. Mô hình dùng chỉ thị lượng vết, bỏ qua ảnh hưởng của thuốc nhuộm lên pH.' },
+  { formula: 'Bromothymol_Blue', name_en: 'Bromothymol blue indicator (0.0001 M)', name_vi: 'Chỉ thị bromothymol xanh (0,0001 M)',
+    type: 'liquid', category: 'indicator', color: '#22a65a', molarMass: 624.4,
+    density: 1, defaultConcentration: 0.0001, hazards: ['irritant'], ppe: ['goggles', 'lab_coat'],
+    safetyNotes_vi: 'Vàng trong axit, lục gần trung tính, lam trong kiềm. Mô hình lượng vết; RGB chưa phải phổ hấp thụ đo thực nghiệm.' },
+);
+
 export function findChemical(formula: string): ChemicalDefinition {
   if (!formula) {
     return {
@@ -1314,9 +1355,9 @@ export function findChemical(formula: string): ChemicalDefinition {
   if (chem) return chem;
 
   // 2. Base formula match (e.g. 'HCl' matching 'HCl (dil)', 'H2O2' matching 'H2O2 (30%)')
-  const baseNorm = norm.replace(/\s*\([^)]*\)/gi, '').trim();
+  const baseNorm = identifySpecies(formula).formula.toLowerCase();
   chem = CHEMICAL_DATABASE.find(c => {
-    const cBase = c.formula.toLowerCase().replace(/\s*\([^)]*\)/gi, '').trim();
+    const cBase = identifySpecies(c.formula).formula.toLowerCase();
     return cBase === baseNorm;
   });
   if (chem) return chem;

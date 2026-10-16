@@ -5,6 +5,7 @@ import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
 import { vfxBus } from '../../vfx/bus';
+import { useToolDockStore } from '../../handling/toolDock';
 
 export interface CameraControlsProps {
   /** Enable or disable orbit rotation */
@@ -49,6 +50,7 @@ export const CameraControls = React.memo(function CameraControls({
   const cameraPreset = useAppStore(state => state.cameraPreset);
   const cameraFocusPosition = useAppStore(state => state.cameraFocusPosition);
   const isDraggingVessel = useAppStore(state => !!state.draggingVesselId);
+  const isDraggingTool = useToolDockStore(state => state.dragging !== null);
   const cameraPanMode = useAppStore(state => state.cameraPanMode);
   const isScreenLocked = useAppStore(state => state.isScreenLocked);
   const isPouring = useAppStore(state => state.isPouring);
@@ -167,7 +169,7 @@ export const CameraControls = React.memo(function CameraControls({
   });
 
   // Auto-lock controls while actively pouring, dragging a vessel in 3D space, or when screen is locked
-  const isCameraFrozen = isDraggingVessel || isScreenLocked || isPourTiltLocked || isPouring;
+  const isCameraFrozen = isDraggingTool || isDraggingVessel || isScreenLocked || isPourTiltLocked || isPouring;
   const controlsActive = !isCameraFrozen;
 
   return (

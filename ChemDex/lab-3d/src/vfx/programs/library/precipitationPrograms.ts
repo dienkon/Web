@@ -242,13 +242,13 @@ export const PRECIPITATION_PROGRAMS: ReactionProgram[] = [
       duration_s: 8.5,
       timeline: [
         { id: 'precip', atom: 'precipitateNucleation', anchor: 'pourPoint', window: [0, 0.4], intensity: 1.2, params: { morphology: 'crystal_plate', color: '#facc15', nucleationRate: 90 } },
-        { id: 'glitter', atom: 'crystalGlitter', anchor: 'bulk', window: [0.1, 0.9], intensity: 1.5, params: { glintFrequency: 12, glintColor: '#fef08a', facetSize_mm: 1.2 } },
+        { id: 'glitter', atom: 'crystalGlitter', anchor: 'bulk', window: [0.1, 0.9], intensity: 1.5, params: { glintFrequency: 12, glintColor: '#fef08a', facetSize_mm: 0.15 } },
         { id: 'stokes', atom: 'stokesSedimentation', anchor: 'bottom', window: [0.35, 1.0], intensity: 1.3, params: { stokesRadius_um: 12.0, sedimentColor: '#eab308', bedHeight_mm: 7.5 } }
       ],
       after: {
-        liquidColor: '#fef08a',
-        liquidOpacity: 0.92,
-        turbidity: 0.5,
+        liquidColor: '#f8fafc',
+        liquidOpacity: 0.18,
+        turbidity: 0.15,
         precipitate: { substance: 'PbI2', morphology: 'crystal_plate', color: '#facc15', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }

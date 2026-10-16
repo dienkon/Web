@@ -2,6 +2,11 @@ import { MixResult } from '../shared/schemas';
 import { ChemicalDefinition, VesselState } from '../types/chemistry';
 import { findChemical } from '../data/chemicals';
 import { chemistryCache, getCanonicalReactionKey } from './chemistryCache';
+import { identifySpecies, matchesReagent, sameMolecularFormula } from '../science/speciesIdentity';
+import { computeMolarMass } from './ledger';
+import { solveAqueousEquilibrium } from '../science/aqueousEquilibrium';
+import { solutionIndicatorColor } from '../science/indicatorAppearance';
+import { aqueousBoilingPoint, relaxGeneratedWater } from './thermalState';
 
 export interface DeterministicReaction {
   id: string;
@@ -47,44 +52,18 @@ export interface DeterministicReaction {
 }
 
 // Canonical matching helper with exact token equality to prevent false positives (e.g. NaOH matching Na + H2O)
-function normalizeFormulaToken(f: string): string {
-  return f.replace(/\s*\([a-z]+\)/gi, '').replace(/[·\.]\d*H2O/gi, '').trim().toLowerCase();
+function normalizeFormulaToken(formula: string): string {
+  return identifySpecies(formula).formula.toLowerCase();
 }
 
 export function chemicalFormulaMatches(substance: string, required: string): boolean {
-  const normSub = normalizeFormulaToken(substance);
-  const normReq = normalizeFormulaToken(required);
-
-  if (normSub === normReq) return true;
-
-  // Handle concentration qualifiers like 'h2so4 (conc)' vs 'h2so4'
-  const baseSub = normSub.replace(/\s*\(conc\)/gi, '').trim();
-  const baseReq = normReq.replace(/\s*\(conc\)/gi, '').trim();
-  if (baseSub === baseReq) return true;
-
-  // Handle chemical catalog IDs like 'chemical-na' or 'reagent_na'
-  if (normSub === `chemical-${normReq}` || normSub === `chemical_${normReq}`) {
-    return true;
-  }
-
-  return false;
+  return matchesReagent(substance, required);
 }
 
 function matchesReactants(substances: string[], required: string[]): boolean {
   // Special case for solid CuSO4 dehydration: must not have excess bulk water
   if (required.length === 1 && required[0] === 'CuSO4') {
     if (substances.some(s => normalizeFormulaToken(s) === 'h2o')) return false;
-  }
-
-  // Special case for Cu(OH)2: matches either direct Cu(OH)2 or mixture of CuSO4 + NaOH
-  if (required.includes('Cu(OH)2') || (required.length === 1 && required[0] === 'Cu(OH)2')) {
-    const hasDirect = substances.some(s => chemicalFormulaMatches(s, 'Cu(OH)2'));
-    const hasPrecipitatePrecursor = substances.some(s => chemicalFormulaMatches(s, 'CuSO4')) && substances.some(s => chemicalFormulaMatches(s, 'NaOH'));
-    if (hasDirect || hasPrecipitatePrecursor) {
-      const otherRequired = required.filter(r => r !== 'Cu(OH)2');
-      if (otherRequired.length === 0) return true;
-      return otherRequired.every(req => substances.some(sub => chemicalFormulaMatches(sub, req)));
-    }
   }
 
   return required.every(req => substances.some(sub => chemicalFormulaMatches(sub, req)));
@@ -213,9 +192,9 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     reactionType_en: 'Precipitation ("Golden Rain")',
     reactionType_vi: 'Phản ứng tạo kết tủa ("Mưa Vàng")',
     summary_en: 'Formation of brilliant golden-yellow crystalline lead(II) iodide precipitate.',
-    summary_vi: 'Tạo kết tủa chì(II) iotua màu vàng kim rực rỡ lấp lánh như mưa vàng.',
+    summary_vi: 'Tạo PbI2 vàng; hòa tan đủ trong nước nóng rồi làm nguội để quan sát tinh thể mưa vàng.',
     observable_en: 'Spectacular bright yellow precipitate fills the solution instantly and glistens.',
-    observable_vi: 'Dung dịch lập tức chuyển sang màu vàng tươi rực rỡ với kết tủa vàng lấp lánh.',
+    observable_vi: 'Trộn lạnh tạo kết tủa vàng mịn. Mưa phiến tinh thể nhỏ xuất hiện khi dung dịch nóng đủ bão hòa nguội dần.',
     stoichiometry: { 'KI': 2, 'Pb(NO3)2': 1 },
     products: { 'PbI2': { coeff: 1, state: 's' }, 'KNO3': { coeff: 2, state: 'aq' } },
     deltaH_kJ: -62.8,
@@ -223,7 +202,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     hasPrecipitate: true,
     precipitateColor: '#facc15',
     precipitateFormula: 'PbI2',
-    resultingLiquidColor: '#fef08a',
+    resultingLiquidColor: '#f8fafc',
     hasGas: false,
     isDangerous: true,
     safetyNotes_en: 'Lead compounds are toxic. Collect waste in heavy metal disposal container.',
@@ -382,7 +361,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 12. NH3 + HCl -> NH4Cl (Dense White Smoke)
   {
     id: 'nh3_hcl_fumes',
-    reactants: ['NH3', 'HCl'],
+    reactants: ['NH3(g)', 'HCl(g)'],
     equation: 'NH₃(g) + HCl(g) → NH₄Cl(s)',
     reactionType_en: 'Combination / Gas Fumes',
     reactionType_vi: 'Phản ứng hóa hợp tạo khói trắng',
@@ -450,7 +429,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 15. Iodine Sublimation upon Heating
   {
     id: 'iodine_sublimation',
-    reactants: ['I2'],
+    reactants: ['I2(s)'],
     requiresHeating: true,
     minTemp_c: 50,
     equation: 'I₂(s) ⎯⎯t°⎯→ I₂(g) (Thăng hoa)',
@@ -472,9 +451,9 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 15b. Thermal Dehydration: CuSO4·5H2O -> CuSO4 + 5H2O (Requires Heating)
   {
     id: 'cuso4_thermal_dehydration',
-    reactants: ['CuSO4'],
+    reactants: ['CuSO4·5H2O(s)'],
     requiresHeating: true,
-    minTemp_c: 90,
+    minTemp_c: 200,
     equation: 'CuSO₄·5H₂O(s) ⎯⎯t°⎯→ CuSO₄(s) + 5H₂O↑',
     reactionType_en: 'Thermal Dehydration',
     reactionType_vi: 'Phản ứng mất nước kết tinh muối ngậm nước',
@@ -482,8 +461,8 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     summary_vi: 'Khi đun nóng trong chén nung sứ, tinh thể CuSO4 màu xanh lam mất nước kết tinh chuyển thành bột CuSO4 khan màu trắng đục.',
     observable_en: 'Vibrant blue crystals lose color and convert into a chalky-white anhydrous powder as steam escapes.',
     observable_vi: 'Màu xanh lam chuyển dần sang màu trắng ngà của muối đồng sunfat khan khi hơi nước bay lên.',
-    stoichiometry: { 'CuSO4': 1 },
-    products: { 'CuSO4': { coeff: 1, state: 's' } },
+    stoichiometry: { 'CuSO4·5H2O': 1 },
+    products: { 'CuSO4': { coeff: 1, state: 's' }, 'H2O': { coeff: 5, state: 'g' } },
     deltaH_kJ: 78.0,
     hasGas: true,
     gasColor: '#f1f5f9',
@@ -500,19 +479,19 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     id: 'water_into_conc_h2so4_explosion',
     reactants: ['H2SO4 (conc)', 'H2O'],
     equation: 'H₂SO₄(conc) + H₂O → H₃O⁺ + HSO₄⁻ + Q (CựC KỲ NGUY HIỂM)',
-    reactionType_en: 'Violent Hydration / Safety Violation',
-    reactionType_vi: 'Hiện tượng sôi nổ do hòa tan axit đặc vào nước sai quy cách',
-    summary_en: 'CRITICAL SAFETY VIOLATION: Water dropped into dense sulfuric acid floats on top and instantly flashes into steam, causing boiling acid to splatter violently!',
-    summary_vi: 'VI PHẠM QUY TẮC AN TOÀN PHÒNG THÍ NGHIỆM: Nước nhẹ hơn nổi lên trên bề mặt axit đặc và bị đun sôi tức thì tạo áp suất hơi nước làm axit đặc bắn tung tóe!',
-    observable_en: 'Loud popping sounds, violent steam erupts, dangerous splashing of corrosive acid. NEVER ADD WATER TO ACID! Always add acid slowly down glass rod into water!',
-    observable_vi: 'Tiếng nổ lách tách dữ dội, hơi nước bốc lên mù mịt và dung dịch bắn tung tóe. NGUYÊN TẮC VÀNG: Tuyệt đối chỉ được rót từ từ axit vào nước, KHÔNG BAO GIỜ làm ngược lại!',
+    reactionType_en: 'Exothermic Dilution / Mixing Hazard',
+    reactionType_vi: 'Pha loãng tỏa nhiệt, có nguy cơ nóng cục bộ',
+    summary_en: 'Dilution releases heat; local boiling and acid splashes depend on concentration, amounts, mixing and heat transfer.',
+    summary_vi: 'Pha loãng H2SO4 tỏa nhiệt; mức tăng nhiệt và nguy cơ bắn axit phụ thuộc điều kiện trộn và tản nhiệt.',
+    observable_en: 'Warming; boiling is conditional. Follow the acid-into-water procedure.',
+    observable_vi: 'Pha loãng tỏa nhiệt; sôi cục bộ và bắn tóe phụ thuộc lượng, thứ tự thêm và truyền nhiệt, không mặc định xảy ra. NGUYÊN TẮC VÀNG: Tuyệt đối chỉ được rót từ từ axit vào nước, KHÔNG BAO GIỜ làm ngược lại!',
     stoichiometry: { 'H2SO4 (conc)': 1, 'H2O': 1 },
-    products: { 'H2SO4 (dil)': { coeff: 1, state: 'aq' } },
+    products: { 'H2SO4 (dil)': { coeff: 1, state: 'aq' }, 'H2O': { coeff: 1, state: 'l' } },
     deltaH_kJ: -95.0,
     resultingPh: 0.2,
-    hasGas: true,
+    hasGas: false,
     gasColor: '#fecaca',
-    isBoiling: true,
+    isBoiling: false,
     isDangerous: true,
     safetyNotes_en: 'SEVERE THERMAL HAZARD: Can cause catastrophic chemical burns and shatter glassware. Rule: "Add Acid to Water" (AAW / Always Add Water is WRONG).',
     safetyNotes_vi: 'NGUY CƠ BỎNG HÓA CHẤT CỰC NẶNG: Luôn nhớ câu thần chú: "Rót từ từ axit vào nước dọc theo đũa thủy tinh, không bao giờ đổ nước vào axit".'
@@ -545,7 +524,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 18. Cu + 4HNO3 (conc) -> Cu(NO3)2 + 2NO2 + 2H2O (Dense Brown NO2 Gas)
   {
     id: 'cu_hno3_conc',
-    reactants: ['Cu', 'HNO3'],
+    reactants: ['Cu', 'HNO3 (conc)'],
     equation: 'Cu + 4HNO₃(đặc) → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O',
     ionic_equation: 'Cu(s) + 4H⁺(aq) + 2NO₃⁻(aq) → Cu²⁺(aq) + 2NO₂(g)↑ + 2H₂O(l)',
     reactionType_en: 'Redox with Oxidizing Acid (Brown NO2 Gas)',
@@ -554,7 +533,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     summary_vi: 'Đồng tác dụng với axit nitric đặc giải phóng khí nitơ đioxit màu nâu đỏ đậm và dung dịch xanh lục ngọc.',
     observable_en: 'The solution foams vigorously, turning deep green then blue. A dense cloud of pungent reddish-brown NO2 gas billows out and spills over the beaker rim.',
     observable_vi: 'Dung dịch sủi bọt mạnh, chuyển từ xanh ngọc sang xanh lam. Khí NO2 màu nâu đỏ đậm cuộn trào bốc lên, nặng hơn không khí tràn qua miệng cốc rồi chìm xuống mặt bàn.',
-    stoichiometry: { 'Cu': 1, 'HNO3': 4 },
+    stoichiometry: { 'Cu': 1, 'HNO3 (conc)': 4 },
     products: { 'Cu(NO3)2': { coeff: 1, state: 'aq' }, 'NO2': { coeff: 2, state: 'g' }, 'H2O': { coeff: 2, state: 'l' } },
     deltaH_kJ: -136.0,
     resultingPh: 0.5,
@@ -621,7 +600,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 21. Excess CO2 with Milky Limewater (Precipitate Re-dissolution / Clarification)
   {
     id: 'caco3_co2_excess_clearing',
-    reactants: ['CaCO3', 'CO2'],
+    reactants: ['CaCO3', 'CO2', 'H2O'],
     equation: 'CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (Tan trong nước)',
     ionic_equation: 'CaCO₃(s) + CO₂(aq) + H₂O(l) → Ca²⁺(aq) + 2HCO₃⁻(aq)',
     reactionType_en: 'Precipitate Dissolution in Excess CO2',
@@ -630,7 +609,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     summary_vi: 'Sục khí CO2 liên tục đến dư làm kết tủa CaCO3 tan hoàn toàn tạo canxi hiđrocacbonat, dung dịch từ đục hóa trong suốt trở lại!',
     observable_en: 'The milky-white suspension gradually clears up from top to bottom, becoming crystal-clear transparent once again.',
     observable_vi: 'Hiện tượng kỳ thú: Nước vôi đang đục bỗng trong dần từ trên xuống dưới rồi trở lại trong veo hoàn toàn.',
-    stoichiometry: { 'CaCO3': 1, 'CO2': 1 },
+    stoichiometry: { 'CaCO3': 1, 'CO2': 1, 'H2O': 1 },
     products: { 'Ca(HCO3)2': { coeff: 1, state: 'aq' } },
     deltaH_kJ: -32.0,
     resultingPh: 7.2,
@@ -668,7 +647,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   {
     id: 'cuso4_nh3_complex',
     reactants: ['CuSO4', 'NH3'],
-    equation: 'CuSO₄ + 4NH₃ + H₂O → [Cu(NH₃)₄]SO₄ (Xanh thẫm)',
+    equation: 'CuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄ (Xanh thẫm)',
     ionic_equation: 'Cu²⁺ + 4NH₃ → [Cu(NH₃)₄]²⁺',
     reactionType_en: 'Coordination Complex Formation',
     reactionType_vi: 'Phản ứng tạo phức chất tetraammin đồng(II)',
@@ -690,7 +669,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   {
     id: 'fecl3_kscn_complex',
     reactants: ['FeCl3', 'KSCN'],
-    equation: 'FeCl₃ + 3KSCN ⇌ Fe(SCN)₃ + 3KCl',
+    equation: 'FeCl₃ + KSCN ⇌ [Fe(SCN)]Cl₂ + KCl',
     ionic_equation: 'Fe³⁺(aq) + SCN⁻(aq) ⇌ [Fe(SCN)]²⁺(aq)',
     reactionType_en: 'Complex Ion Equilibrium (Blood-Red Test)',
     reactionType_vi: 'Phản ứng tạo phức chất màu đỏ máu',
@@ -698,8 +677,8 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     summary_vi: 'Thuốc thử siêu nhạy tạo phức chất sắt(III) thioxianat màu đỏ máu kinh điển trong phân tích hóa học.',
     observable_en: 'Upon contact, amber-yellow solution instantly turns dramatic deep blood-red like crimson wine.',
     observable_vi: 'Vừa tiếp xúc, dung dịch màu vàng nâu lập tức bùng nổ chuyển sang màu đỏ máu thẫm tuyệt đẹp.',
-    stoichiometry: { 'FeCl3': 1, 'KSCN': 3 },
-    products: { 'Fe(SCN)3': { coeff: 1, state: 'aq' }, 'KCl': { coeff: 3, state: 'aq' } },
+    stoichiometry: { 'FeCl3': 1, 'KSCN': 1 },
+    products: { '[Fe(SCN)]Cl2': { coeff: 1, state: 'aq' }, 'KCl': { coeff: 1, state: 'aq' } },
     deltaH_kJ: -31.0,
     resultingPh: 2.5,
     hasPrecipitate: false,
@@ -711,7 +690,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   // 25. KMnO4 + H2C2O4 + H2SO4 (Autocatalytic Decolorization)
   {
     id: 'kmno4_oxalic_redox',
-    reactants: ['KMnO4', 'H2C2O4'],
+    reactants: ['KMnO4', 'H2C2O4', 'H2SO4'],
     equation: '2KMnO₄ + 5H₂C₂O₄ + 3H₂SO₄ → K₂SO₄ + 2MnSO₄ + 10CO₂↑ + 8H₂O',
     reactionType_en: 'Autocatalytic Redox Reaction',
     reactionType_vi: 'Phản ứng oxi hóa khử tự xúc tác',
@@ -719,8 +698,8 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     summary_vi: 'Kali pemanganat bị axit oxalic khử làm mất màu tím; ion Mn2+ sinh ra tự làm xúc tác thúc đẩy phản ứng tăng tốc.',
     observable_en: 'Deep royal purple solution slowly warms up, then rapidly discharges color to completely clear with gentle CO2 effervescence.',
     observable_vi: 'Màu tím đậm của thuốc tím ban đầu nhạt chậm, sau đó tăng tốc mất màu hoàn toàn trở nên không màu trong suốt.',
-    stoichiometry: { 'KMnO4': 2, 'H2C2O4': 5 },
-    products: { 'MnSO4': { coeff: 2, state: 'aq' }, 'CO2': { coeff: 10, state: 'g' }, 'H2O': { coeff: 8, state: 'l' } },
+    stoichiometry: { 'KMnO4': 2, 'H2C2O4': 5, 'H2SO4': 3 },
+    products: { 'K2SO4': { coeff: 1, state: 'aq' }, 'MnSO4': { coeff: 2, state: 'aq' }, 'CO2': { coeff: 10, state: 'g' }, 'H2O': { coeff: 8, state: 'l' } },
     deltaH_kJ: -280.0,
     resultingPh: 2.0,
     hasPrecipitate: false,
@@ -743,7 +722,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     observable_en: 'Clear solution stays clear for an induction period, then turns opalescent pale-yellow and increasingly opaque.',
     observable_vi: 'Dung dịch trong suốt vài giây đầu, sau đó chuyển sang màu trắng đục ánh vàng sữa che mờ dần đáy cốc.',
     stoichiometry: { 'Na2S2O3': 1, 'HCl': 2 },
-    products: { 'S': { coeff: 1, state: 's' }, 'SO2': { coeff: 1, state: 'g' }, 'NaCl': { coeff: 2, state: 'aq' } },
+    products: { 'S': { coeff: 1, state: 's' }, 'SO2': { coeff: 1, state: 'g' }, 'NaCl': { coeff: 2, state: 'aq' }, 'H2O': { coeff: 1, state: 'l' } },
     deltaH_kJ: -42.0,
     resultingPh: 3.5,
     hasPrecipitate: true,
@@ -752,7 +731,7 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     hasGas: true,
     gasColor: '#f1f5f9',
     gasFormula: 'SO2',
-    isDangerous: false
+    isDangerous: true
   },
 
   // 27. Landolt Iodine Clock (Sudden Blue-Black Color Switch)
@@ -768,10 +747,10 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
     observable_en: 'Dramatic instantaneous color switch: completely clear liquid flashes into deep midnight blue-black in less than 0.1 seconds!',
     observable_vi: 'Chuyển màu kỳ diệu trong chớp mắt: Dung dịch đang trong suốt bỗng đen sẫm lại tức thì như mực chỉ trong một phần mười giây!',
     stoichiometry: { 'KIO3': 1, 'NaHSO3': 3 },
-    products: { 'I2': { coeff: 1, state: 'aq' }, 'Na2SO4': { coeff: 3, state: 'aq' } },
+    products: { 'KI': { coeff: 1, state: 'aq' }, 'Na2SO4': { coeff: 1, state: 'aq' }, 'NaHSO4': { coeff: 1, state: 'aq' }, 'H2SO4': { coeff: 1, state: 'aq' } },
     deltaH_kJ: -120.0,
     resultingPh: 4.0,
-    resultingLiquidColor: '#0f172a', // Midnight blue-black
+    resultingLiquidColor: '#f8fafc', // Midnight blue-black
     hasPrecipitate: false,
     hasGas: false,
     isDangerous: false
@@ -913,6 +892,111 @@ export const DETERMINISTIC_REACTIONS: DeterministicReaction[] = [
   }
 ];
 
+const copperAmmonia = DETERMINISTIC_REACTIONS.find(reaction => reaction.id === 'cuso4_nh3_complex')!;
+DETERMINISTIC_REACTIONS.splice(DETERMINISTIC_REACTIONS.indexOf(copperAmmonia), 0, {
+  ...copperAmmonia,
+  id: 'cuso4_nh3_hydroxide',
+  reactants: ['CuSO4', 'NH3', 'H2O'],
+  equation: 'CuSO4 + 2NH3 + 2H2O -> Cu(OH)2 + (NH4)2SO4',
+  stoichiometry: { CuSO4: 1, NH3: 2, H2O: 2 },
+  products: { 'Cu(OH)2': { coeff: 1, state: 's' }, '(NH4)2SO4': { coeff: 1, state: 'aq' } },
+  resultingLiquidColor: '#f8fafc', hasPrecipitate: true,
+  precipitateFormula: 'Cu(OH)2', precipitateColor: '#38bdf8',
+  summary_vi: 'NH3 chưa dư tạo Cu(OH)2 xanh nhạt trong nước; thêm NH3 dư có thể hòa tan kết tủa.',
+  summary_en: 'Substoichiometric aqueous ammonia precipitates pale blue copper hydroxide.',
+});
+
+// Separate phases and oxidizing-acid grades are distinct experimental cases.
+const nitricConcentrated = DETERMINISTIC_REACTIONS.find(reaction => reaction.id === 'cu_hno3_conc')!;
+const ammoniaGas = DETERMINISTIC_REACTIONS.find(reaction => reaction.id === 'nh3_hcl_fumes')!;
+DETERMINISTIC_REACTIONS.push({
+  ...nitricConcentrated,
+  id: 'cu_hno3_dilute',
+  reactants: ['Cu', 'HNO3 (dil)'],
+  equation: '3Cu + 8HNO3(dil) -> 3Cu(NO3)2 + 2NO + 4H2O',
+  stoichiometry: { Cu: 3, 'HNO3 (dil)': 8 },
+  products: { 'Cu(NO3)2': { coeff: 3, state: 'aq' }, NO: { coeff: 2, state: 'g' }, H2O: { coeff: 4, state: 'l' } },
+  gasFormula: 'NO', gasColor: '#ffffff',
+  summary_vi: 'Axit nitric loãng oxi hóa đồng tạo NO ban đầu không màu; NO hóa nâu khi gặp oxi không khí.',
+  summary_en: 'Dilute nitric acid produces colorless NO; oxidation in air can subsequently form brown NO2.',
+  observable_vi: 'Đồng tan, dung dịch chứa Cu(II); khí tại bề mặt ban đầu không màu.',
+  observable_en: 'Copper dissolves; the primary gas at the liquid surface is colorless.',
+});
+DETERMINISTIC_REACTIONS.push({
+  ...ammoniaGas,
+  id: 'nh3_hcl_aqueous',
+  reactants: ['NH3(aq)', 'HCl(aq)'],
+  equation: 'NH3(aq) + HCl(aq) -> NH4Cl(aq)',
+  products: { NH4Cl: { coeff: 1, state: 'aq' } },
+  hasGas: false, gasFormula: undefined, gasColor: undefined,
+  deltaH_kJ: -51.5,
+  reactionType_vi: 'Trung hòa trong dung dịch', reactionType_en: 'Aqueous proton transfer',
+  observable_vi: 'Dung dịch không màu, không có khói muối hoặc kết tủa.',
+  observable_en: 'A colorless solution without salt smoke or precipitate.',
+  hasPrecipitate: false, precipitateFormula: undefined, precipitateColor: undefined,
+  resultingLiquidColor: '#f8fafc',
+  summary_vi: 'Trung hòa NH3 trong nước bằng HCl tạo dung dịch NH4Cl, không tạo khói muối như hai pha khí.',
+  summary_en: 'Aqueous ammonia is protonated to dissolved ammonium; no gas-phase smoke is implied.',
+});
+DETERMINISTIC_REACTIONS.push({
+  ...nitricConcentrated,
+  id: 'iodate_iodide_acid',
+  reactants: ['KIO3', 'KI', 'H2SO4'],
+  equation: 'KIO3 + 5KI + 3H2SO4 -> 3I2 + 3K2SO4 + 3H2O',
+  stoichiometry: { KIO3: 1, KI: 5, H2SO4: 3 },
+  products: { I2: { coeff: 3, state: 'aq' }, K2SO4: { coeff: 3, state: 'aq' }, H2O: { coeff: 3, state: 'l' } },
+  hasGas: false, gasFormula: undefined, gasColor: undefined,
+  deltaH_kJ: 0, // No calibrated calorimetry for this model; do not reuse nitric-acid heat.
+  safetyNotes_vi: 'Iot gây kích ứng; đây là mô hình định tính của hệ đồng hồ iot.',
+  safetyNotes_en: 'Iodine is irritating; this is a qualitative clock-system model.',
+  observable_vi: 'Iot tích tụ có màu nâu; xanh đen chỉ khi có tinh bột.',
+  observable_en: 'Accumulating iodine is brown; blue-black requires starch.',
+  resultingLiquidColor: '#99621d',
+  summary_vi: 'Iodat dư oxi hóa iodua trong môi trường axit; iot chỉ tạo xanh đen khi có tinh bột.',
+  summary_en: 'Excess iodate oxidizes iodide in acid; starch is required for a blue-black response.',
+});
+
+// Formula-unit bookkeeping for proton transfers. Dissolved equilibrium is
+// solved afterwards, so the product salt is not assigned a constant pH.
+const aqueousTransfers: {
+  id: string; left: string[]; products: Record<string, number>; ionic: string;
+  summary_vi: string; deltaH: number;
+}[] = [
+  { id: 'ch3cooh_naoh_aqueous', left: ['CH3COOH', 'NaOH'], products: { CH3COONa: 1, H2O: 1 },
+    ionic: 'CH3COOH + OH- -> CH3COO- + H2O', deltaH: -55.8,
+    summary_vi: 'Axit axetic trung hòa kiềm; vùng đệm và pH điểm tương đương được tính từ cân bằng dung dịch.' },
+  { id: 'ch3cooh_koh_aqueous', left: ['CH3COOH', 'KOH'], products: { CH3COOK: 1, H2O: 1 },
+    ionic: 'CH3COOH + OH- -> CH3COO- + H2O', deltaH: -55.8,
+    summary_vi: 'Axit axetic tạo kali axetat và nước; pH phụ thuộc tỷ lệ axit/kiềm.' },
+  { id: 'sodium_acetate_hcl', left: ['CH3COONa', 'HCl'], products: { CH3COOH: 1, NaCl: 1 },
+    ionic: 'CH3COO- + H+ -> CH3COOH', deltaH: 0,
+    summary_vi: 'Axit mạnh proton hóa axetat; thêm từng phần đi qua vùng đệm, không sinh khí.' },
+  { id: 'potassium_acetate_hcl', left: ['CH3COOK', 'HCl'], products: { CH3COOH: 1, KCl: 1 },
+    ionic: 'CH3COO- + H+ -> CH3COOH', deltaH: 0,
+    summary_vi: 'Kali axetat bị axit hóa tạo axit axetic; các ion K+ và Cl− ở trong dung dịch.' },
+  { id: 'nh4cl_naoh_aqueous', left: ['NH4Cl', 'NaOH'], products: { NH3: 1, NaCl: 1, H2O: 1 },
+    ionic: 'NH4+ + OH- -> NH3 + H2O', deltaH: 0,
+    summary_vi: 'Kiềm chuyển amoni thành NH3 hòa tan. Thoát NH3 sang không khí cần mô hình trao đổi khí riêng.' },
+];
+for (const transfer of aqueousTransfers) {
+  const productNames = Object.keys(transfer.products);
+  DETERMINISTIC_REACTIONS.push({
+    id: transfer.id, reactants: transfer.left.map(formula => `${formula}(aq)`),
+    equation: transfer.left.join(' + ') + ' -> ' + productNames.join(' + '),
+    ionic_equation: transfer.ionic,
+    reactionType_en: 'Aqueous Proton Transfer', reactionType_vi: 'Chuyển proton trong dung dịch',
+    summary_vi: transfer.summary_vi, summary_en: 'Proton transfer with equilibrium-derived solution pH.',
+    observable_vi: 'Dung dịch không có màu đặc trưng; chỉ thị đổi màu theo pH và lượng chất dư.',
+    observable_en: 'No intrinsic color; an indicator responds to current pH and reagent excess.',
+    stoichiometry: Object.fromEntries(transfer.left.map(formula => [formula, 1])),
+    products: Object.fromEntries(productNames.map(formula => [formula, { coeff: transfer.products[formula], state: formula === 'H2O' ? 'l' : 'aq' }])),
+    deltaH_kJ: transfer.deltaH, resultingLiquidColor: '#f8fafc', hasGas: false,
+    hasPrecipitate: false, isDangerous: false,
+    // Zero enthalpy marks an unparameterized heat contribution; -55.8 uses
+    // the existing illustrative acetate program, not concentration calorimetry.
+  });
+}
+
 export function findPendingReaction(
   substances: string[],
   temperature_c: number,
@@ -922,7 +1006,7 @@ export function findPendingReaction(
   if (!substances || substances.length === 0) return null;
   const match = DETERMINISTIC_REACTIONS.find(r => {
     if (!matchesReactants(substances, r.reactants)) return false;
-    if (r.requiresHeating && !isHeated && temperature_c < (r.minTemp_c || 60)) {
+    if (r.requiresHeating && temperature_c < (r.minTemp_c || 60)) {
       return true;
     }
     return false;
@@ -952,8 +1036,9 @@ export interface MultiStepReactionResult {
     deltaH_kJ: number;
     match: DeterministicReaction;
   }[];
-  updatedContents: {
+    updatedContents: {
     formula: string;
+    phase?: string;
     moles: number;
     mass_g: number;
     concentration_M?: number;
@@ -961,7 +1046,9 @@ export interface MultiStepReactionResult {
   }[];
   updatedSubstances: string[];
   finalTemperature_c: number;
+  finalVolume_ml: number;
   finalPh: number;
+  phModel?: 'ideal_aqueous_25c';
   finalLiquidColor: string;
   hasPrecipitate: boolean;
   precipitateColor?: string;
@@ -981,7 +1068,8 @@ export interface MultiStepReactionResult {
  * - Deducts consumed reactant moles cleanly down to 0
  * - Synthesizes products with their exact stoichiometric moles and masses
  * - Cascades through multi-stage reactions (e.g. Al(OH)3 formation then excess base dissolution)
- * - Computes accurate thermodynamics (heat release), colligative properties, and exact solution pH
+ * - Estimates heat and strong-electrolyte pH; weak-electrolyte activities,
+ *   equilibrium constants and concentration-dependent calorimetry remain simplified.
  */
 export function executeMultiStepReactions(
   initialContents: { formula: string; moles: number; mass_g: number; concentration_M?: number; volume_ml?: number }[],
@@ -989,21 +1077,28 @@ export function executeMultiStepReactions(
   volume_ml: number,
   initialTemperature_c: number,
   isHeated: boolean,
-  lang: 'en' | 'vi' = 'vi'
+  lang: 'en' | 'vi' = 'vi',
+  options: { preserveQuantities?: boolean } = {}
 ): MultiStepReactionResult {
+  // Metered tools must retain sub-drop quantities. Legacy callers keep their
+  // display-oriented rounding until separately migrated and verified.
+  const precise = options.preserveQuantities === true || initialContents.length > 0;
+  const moleThreshold = precise ? 1e-12 : 1e-6;
+  const reactionThreshold = precise ? 1e-12 : 1e-5;
   // 1. Create working copy of contents with reliable moles
-  const workingContents: { formula: string; moles: number; mass_g: number; concentration_M?: number; volume_ml?: number }[] = [];
+  const workingContents: import('../types/chemistry').SubstanceContent[] = [];
   
   for (const item of (initialContents || [])) {
-    workingContents.push({ ...item });
+    const labeled = identifySpecies(item.formula);
+    workingContents.push({ ...item, phase: (item as import('../types/chemistry').SubstanceContent).phase ?? labeled.phase ?? (findChemical(item.formula).type === 'solid' ? 's' : 'aq') });
   }
 
   // Ensure any substance in initialSubstances exists in workingContents
   const firstRx = DETERMINISTIC_REACTIONS.find(r => matchesReactants(initialSubstances, r.reactants));
   for (const sub of initialSubstances) {
-    if (normalizeFormulaToken(sub) === 'h2o') continue;
-    const exists = workingContents.some(c => chemicalFormulaMatches(c.formula, sub) && c.moles > 1e-6);
-    if (!exists) {
+    if (normalizeFormulaToken(sub) === 'h2o' && initialContents.length > 0) continue;
+    const exists = workingContents.some(c => chemicalFormulaMatches(c.formula, sub) && (precise || c.moles > 1e-6));
+    if (!exists && initialContents.length === 0 && !precise) {
       const chem = findChemical(sub);
       const isSolid = chem.type === 'solid';
       let moles = isSolid 
@@ -1021,6 +1116,7 @@ export function executeMultiStepReactions(
 
       workingContents.push({
         formula: chem.formula || sub,
+        phase: normalizeFormulaToken(sub) === 'h2o' ? 'l' : isSolid ? 's' : 'aq',
         moles,
         mass_g: moles * (chem.molarMass || 100),
         concentration_M: !isSolid && volume_ml > 0 ? moles / (volume_ml / 1000.0) : undefined
@@ -1045,24 +1141,39 @@ export function executeMultiStepReactions(
 
   // Maximum 10 reaction iterations to allow multi-stage cascades without runaway loops
   for (let step = 0; step < 10; step++) {
-    const activeSubstances = workingContents.filter(c => c.moles > 1e-5).map(c => c.formula);
+    const activeSubstances = workingContents.filter(c => c.moles > reactionThreshold).map(c => c.formula);
     if (activeSubstances.length === 0) break;
 
     // Find candidate deterministic reaction
     const candidate = DETERMINISTIC_REACTIONS.find(r => {
       if (!matchesReactants(activeSubstances, r.reactants)) return false;
-      if (r.requiresHeating && !isHeated && currentTemp < (r.minTemp_c || 50)) return false;
+      if (r.id === 'cuso4_nh3_hydroxide') {
+        const copper = workingContents.find(item => sameMolecularFormula(item.formula, 'CuSO4'))?.moles ?? 0;
+        const ammonia = workingContents.find(item => sameMolecularFormula(item.formula, 'NH3'))?.moles ?? 0;
+        if (ammonia >= 4 * copper) return false;
+      }
+      if (!r.reactants.every(required => workingContents.some(item => item.moles > reactionThreshold && matchesReagent(item.formula, required) && (!identifySpecies(required).phase || item.phase === identifySpecies(required).phase)))) return false;
+      if (r.requiresHeating && currentTemp < (r.minTemp_c || 50)) return false;
       return true;
     });
 
     if (!candidate) break;
+
+    // Use the same physical reagent for eligibility, limiting extent and
+    // consumption, even if a vessel contains both gas and aqueous forms.
+    const reagentItem = (formula: string) => workingContents.find(item => {
+      if (item.moles <= reactionThreshold || !matchesReagent(item.formula, formula)) return false;
+      const required = candidate.reactants.find(required => sameMolecularFormula(required, formula));
+      const phase = required ? identifySpecies(required).phase : null;
+      return !phase || item.phase === phase;
+    });
 
     // Calculate limiting reagent extent xi based on stoichiometry
     let minXi = Infinity;
 
     for (const [reactantFormula, coeff] of Object.entries(candidate.stoichiometry)) {
       if (coeff <= 0) continue;
-      const found = workingContents.find(c => chemicalFormulaMatches(c.formula, reactantFormula) && c.moles > 1e-5);
+      const found = reagentItem(reactantFormula);
       if (!found) {
         minXi = 0;
         break;
@@ -1073,7 +1184,7 @@ export function executeMultiStepReactions(
       }
     }
 
-    if (minXi <= 1e-6 || minXi === Infinity) {
+    if (minXi <= moleThreshold || minXi === Infinity) {
       break;
     }
 
@@ -1082,12 +1193,12 @@ export function executeMultiStepReactions(
     // Deduct reactants cleanly
     for (const [reactantFormula, coeff] of Object.entries(candidate.stoichiometry)) {
       if (coeff <= 0) continue;
-      const item = workingContents.find(c => chemicalFormulaMatches(c.formula, reactantFormula));
+      const item = reagentItem(reactantFormula);
       if (item) {
         item.moles = Math.max(0, item.moles - xi * coeff);
         const chem = findChemical(item.formula);
-        item.mass_g = Math.max(0, item.moles * (chem.molarMass || 100));
-        if (item.moles <= 1e-6) {
+        item.mass_g = Math.max(0, item.moles * computeMolarMass(item.formula));
+        if (item.moles <= moleThreshold) {
           item.moles = 0;
           item.mass_g = 0;
         }
@@ -1098,15 +1209,16 @@ export function executeMultiStepReactions(
     for (const [productFormula, prodInfo] of Object.entries(candidate.products)) {
       const addedMoles = xi * prodInfo.coeff;
       const chem = findChemical(productFormula);
-      const existing = workingContents.find(c => chemicalFormulaMatches(c.formula, productFormula));
+      const existing = workingContents.find(c => matchesReagent(c.formula, productFormula) && c.phase === prodInfo.state);
       if (existing) {
         existing.moles += addedMoles;
-        existing.mass_g = existing.moles * (chem.molarMass || 100);
+        existing.mass_g = existing.moles * computeMolarMass(productFormula);
       } else {
         workingContents.push({
           formula: productFormula,
           moles: addedMoles,
-          mass_g: addedMoles * (chem.molarMass || 100),
+          mass_g: addedMoles * computeMolarMass(productFormula),
+          phase: prodInfo.state,
           concentration_M: prodInfo.state === 'aq' && volume_ml > 0 ? addedMoles / (volume_ml / 1000.0) : undefined
         });
       }
@@ -1117,16 +1229,16 @@ export function executeMultiStepReactions(
     const totalHeatCap = solnMass_g * 4.184 + 33.2; // J/K
     const heatReleased_J = -candidate.deltaH_kJ * 1000.0 * xi;
     const deltaT = heatReleased_J / totalHeatCap;
-    currentTemp = Math.min(102.5, Math.max(25.0, currentTemp + deltaT));
+    // Phase/thermal simulation handles boiling and cooling. A hot solid must
+    // not jump down to an aqueous boiling cap after an unrelated reaction.
+    currentTemp = Math.max(-273.15, currentTemp + deltaT);
 
     if (candidate.hasGas) {
       hasGasOccurred = true;
       gasColorFinal = candidate.gasColor || '#ffffff';
       gasFormulaFinal = candidate.gasFormula || 'gas';
     }
-    if (candidate.isDangerous && candidate.deltaH_kJ < -300) {
-      isExplosionOccurred = true;
-    }
+    // Toxicity or a negative reaction enthalpy does not imply an explosion.
 
     reactionsOccurred.push({
       reactionId: candidate.id,
@@ -1139,20 +1251,31 @@ export function executeMultiStepReactions(
   }
 
   // 3. Finalize updated contents and concentrations
-  const updatedContents = workingContents
-    .filter(c => c.moles > 1e-6 || normalizeFormulaToken(c.formula) === 'h2o')
+  let updatedContents: import('../types/chemistry').SubstanceContent[] = workingContents
+    .filter(c => c.moles > moleThreshold || normalizeFormulaToken(c.formula) === 'h2o')
     .map(c => {
       const concentration_M = volume_ml > 0 ? (c.moles / (volume_ml / 1000.0)) : c.concentration_M;
       return {
         ...c,
-        moles: Math.round(c.moles * 10000) / 10000,
-        mass_g: Math.round(c.mass_g * 100) / 100,
-        concentration_M: concentration_M ? Math.round(concentration_M * 100) / 100 : undefined
+        moles: precise ? c.moles : Math.round(c.moles * 10000) / 10000,
+        mass_g: precise ? c.mass_g : Math.round(c.mass_g * 100) / 100,
+        concentration_M: precise ? concentration_M : concentration_M ? Math.round(concentration_M * 100) / 100 : undefined
       };
     });
 
+  const initiallyDry = volume_ml <= 1e-9 && !initialContents.some(item => item.moles > 0
+    && (sameMolecularFormula(item.formula, 'H2O') || (item as import('../types/chemistry').SubstanceContent).phase === 'aq'));
+  if (initiallyDry && reactionsOccurred.length) {
+    const phase = relaxGeneratedWater(updatedContents, currentTemp);
+    if (phase) {
+      updatedContents = phase.contents;
+      volume_ml = phase.volume_ml;
+      currentTemp = phase.temperature_c;
+      if (phase.vaporMass_g > 0) { hasGasOccurred = true; gasFormulaFinal = 'H2O'; gasColorFinal = '#ffffff'; }
+    }
+  }
   const updatedSubstances = updatedContents
-    .filter(c => c.moles > 1e-6 && normalizeFormulaToken(c.formula) !== 'h2o')
+    .filter(c => c.moles > moleThreshold && normalizeFormulaToken(c.formula) !== 'h2o')
     .map(c => c.formula);
 
   if (updatedSubstances.length === 0 && updatedContents.some(c => normalizeFormulaToken(c.formula) === 'h2o')) {
@@ -1164,7 +1287,7 @@ export function executeMultiStepReactions(
   let strongBaseOH_moles = 0;
 
   for (const item of updatedContents) {
-    if (item.moles <= 1e-6) continue;
+    if (item.moles <= moleThreshold) continue;
     const f = item.formula.toUpperCase();
     if (f === 'HCL' || f.includes('HNO3')) {
       strongAcidH_moles += item.moles;
@@ -1194,8 +1317,20 @@ export function executeMultiStepReactions(
     finalPh = typeof lastRx.resultingPh === 'function' ? lastRx.resultingPh(false, 1) : (lastRx.resultingPh ?? 7.0);
   }
 
-  finalPh = Math.round(finalPh * 10) / 10;
+  if (precise && (strongAcidH_moles > 0 || strongBaseOH_moles > 0)) {
+    const net = (strongAcidH_moles - strongBaseOH_moles) / Math.max(1e-9, volume_ml / 1000);
+    const discriminant = Math.sqrt(net * net + 4e-14);
+    const hydrogen = net >= 0 ? (net + discriminant) / 2 : 2e-14 / (discriminant - net);
+    finalPh = Math.max(0, Math.min(14, -Math.log10(hydrogen)));
+  } else if (!precise) finalPh = Math.round(finalPh * 10) / 10;
 
+  const aqueousEquilibrium = solveAqueousEquilibrium(updatedContents, volume_ml);
+  if (aqueousEquilibrium) finalPh = aqueousEquilibrium.ph;
+
+  const iodinePresent = updatedContents.some(item => sameMolecularFormula(item.formula, 'I2') && item.moles > moleThreshold);
+  if (iodinePresent) {
+    // Starch binding is an optical equilibrium, not a fabricated I_starch molecule.
+  }
   // 5. Check precipitate presence from insoluble products currently present
   const INSOLUBLE_FORMULAS = [
     'BaSO4', 'AgCl', 'PbI2', 'Cu(OH)2', 'Fe(OH)3', 'Fe(OH)2', 'CaCO3', 'Al(OH)3', 'Cu', 'S', 'CuO'
@@ -1207,8 +1342,8 @@ export function executeMultiStepReactions(
   let precipitateAmount_g = 0;
 
   for (const ins of INSOLUBLE_FORMULAS) {
-    const found = updatedContents.find(c => chemicalFormulaMatches(c.formula, ins) && c.moles > 1e-6);
-    if (found && found.mass_g > 0.005) {
+    const found = updatedContents.find(c => chemicalFormulaMatches(c.formula, ins) && c.phase === 's' && c.moles > moleThreshold);
+    if (found && found.mass_g > (precise ? 1e-9 : 0.005)) {
       hasPrecipitate = true;
       precipitateSubstance = found.formula;
       precipitateAmount_g += found.mass_g;
@@ -1238,14 +1373,18 @@ export function executeMultiStepReactions(
   }
 
   // 6. Liquid color
-  const hasPhenol = initialSubstances.some(s => s.toLowerCase().includes('phenolphthalein'));
+  const hasPhenol = initialContents.length
+    ? updatedContents.some(item => item.moles > 0 && item.formula.toLowerCase().includes('phenolphthalein'))
+    : initialSubstances.some(s => s.toLowerCase().includes('phenolphthalein'));
   let finalLiquidColor = '#f8fafc';
 
-  if (hasPhenol) {
+  if (iodinePresent) {
+    finalLiquidColor = initialSubstances.some(formula => /^(starch|tinh bột)$/i.test(formula)) ? '#0f172a' : '#99621d';
+  } else if (hasPhenol) {
     finalLiquidColor = finalPh >= 8.2 ? '#ec4899' : '#f8fafc';
   } else if (updatedContents.some(c => c.formula.includes('[Cu(NH3)4]') && c.moles > 1e-5)) {
     finalLiquidColor = '#1d4ed8'; // Royal blue
-  } else if (updatedContents.some(c => c.formula.includes('Fe(SCN)3') && c.moles > 1e-5)) {
+  } else if (updatedContents.some(c => (c.formula.includes('Fe(SCN)3') || c.formula.includes('[Fe(SCN)]Cl2')) && c.moles > 1e-5)) {
     finalLiquidColor = '#881337'; // Blood red
   } else if (updatedContents.some(c => chemicalFormulaMatches(c.formula, 'CuSO4') && c.moles > 1e-5)) {
     finalLiquidColor = '#38bdf8'; // Blue
@@ -1259,6 +1398,10 @@ export function executeMultiStepReactions(
     const lastRx = reactionsOccurred[reactionsOccurred.length - 1].match;
     finalLiquidColor = lastRx.resultingLiquidColor || '#f8fafc';
   }
+
+  const indicatorTint = aqueousEquilibrium ? solutionIndicatorColor(updatedContents, finalPh) : null;
+  if (indicatorTint) finalLiquidColor = indicatorTint;
+  const thermallyBoiling = volume_ml > 0.5 && currentTemp >= aqueousBoilingPoint({ contents: updatedContents, volume_ml });
 
   // 7. Combined MixResult for UI display and history
   let combinedMixResult: MixResult | null = null;
@@ -1287,8 +1430,8 @@ export function executeMultiStepReactions(
         has_precipitate: hasPrecipitate,
         precipitate_color: precipitateColor,
         precipitate_substance: precipitateSubstance,
-        precipitate_amount_g: precipitateAmount_g > 0 ? Math.round(precipitateAmount_g * 100) / 100 : undefined,
-        is_boiling: currentTemp >= 98 || reactionsOccurred.some(r => r.match.isBoiling),
+        precipitate_amount_g: precipitateAmount_g > 0 ? (precise ? precipitateAmount_g : Math.round(precipitateAmount_g * 100) / 100) : undefined,
+        is_boiling: thermallyBoiling,
         has_gas: hasGasOccurred,
         gas_color: gasColorFinal,
         is_explosion: isExplosionOccurred
@@ -1296,7 +1439,7 @@ export function executeMultiStepReactions(
       effects: [
         ...(hasPrecipitate ? [{ type: 'PRECIPITATE' as const, duration: 3, color: precipitateColor }] : []),
         ...(hasGasOccurred ? [{ type: 'GAS' as const, duration: 4, color: gasColorFinal }] : []),
-        ...(currentTemp >= 98 ? [{ type: 'BOIL' as const, duration: 5 }] : []),
+        ...(thermallyBoiling ? [{ type: 'BOIL' as const, duration: 5 }] : []),
         { type: 'COLOR_CHANGE' as const, duration: 2, color: finalLiquidColor }
       ],
       confidence: 1.0,
@@ -1309,17 +1452,19 @@ export function executeMultiStepReactions(
     reactionsOccurred,
     updatedContents,
     updatedSubstances,
-    finalTemperature_c: Math.round(currentTemp * 10) / 10,
+    finalTemperature_c: precise ? currentTemp : Math.round(currentTemp * 10) / 10,
+    finalVolume_ml: volume_ml,
     finalPh,
+    phModel: aqueousEquilibrium ? 'ideal_aqueous_25c' : undefined,
     finalLiquidColor,
     hasPrecipitate,
     precipitateColor,
     precipitateSubstance,
-    precipitateAmount_g: precipitateAmount_g > 0 ? Math.round(precipitateAmount_g * 100) / 100 : undefined,
+    precipitateAmount_g: precipitateAmount_g > 0 ? (precise ? precipitateAmount_g : Math.round(precipitateAmount_g * 100) / 100) : undefined,
     hasGas: hasGasOccurred,
     gasColor: gasColorFinal,
     gasFormula: gasFormulaFinal,
-    isBoiling: currentTemp >= 98 || reactionsOccurred.some(r => r.match.isBoiling),
+    isBoiling: thermallyBoiling,
     isExplosion: isExplosionOccurred,
     combinedMixResult
   };
@@ -1338,7 +1483,7 @@ export function evaluateLocalChemistry(
   // Quantity-aware canonical key (P2.10)
   const volBucket = Math.round(currentVolume_ml / 10) * 10;
   const canonicalKey = `${getCanonicalReactionKey(substances, isHeated, temperature_c, lang)}_v${volBucket}`;
-  const cached = chemistryCache.get(canonicalKey);
+  const cached = contents?.length ? undefined : chemistryCache.get(canonicalKey);
   if (cached) {
     return cached;
   }
@@ -1356,7 +1501,7 @@ export function evaluateLocalChemistry(
     if (multiStep.reactionsOccurred.length === 1) {
       multiStep.combinedMixResult.reaction_id = multiStep.reactionsOccurred[0].reactionId;
     }
-    chemistryCache.set(canonicalKey, multiStep.combinedMixResult);
+    if (!contents?.length) chemistryCache.set(canonicalKey, multiStep.combinedMixResult);
     return multiStep.combinedMixResult;
   }
 

@@ -5,15 +5,20 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { LAB_PHYSICS, calculateVesselMass, getBalanceDisplayValue } from '../../../engine/interactionEngine';
 import { labSound } from '../../../utils/audio';
+import { useToolDock } from '../../../handling/toolDock';
+import { useInstrumentStore } from '../../../handling/instrumentState';
 
 export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalBalance({
-  position = LAB_PHYSICS.BALANCE_POSITION,
+  position: initialPosition = LAB_PHYSICS.BALANCE_POSITION,
 }: {
   position?: [number, number, number];
 }) {
+  const dock = useToolDock('balance', initialPosition, next => { LAB_PHYSICS.BALANCE_POSITION = next; });
+  const position = dock.position;
   const vessels = useAppStore(state => state.vessels);
   const language = useAppStore(state => state.language);
-  const [tareMass, setTareMass] = useState(0);
+  const tareMass = useInstrumentStore(state => state.balanceTare_g);
+  const setTareMass = useInstrumentStore(state => state.setTare);
   const [isHovered, setIsHovered] = useState(false);
 
   // Measure which vessel is currently resting on the balance pan
@@ -22,7 +27,7 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
     for (const v of Object.values(vessels)) {
       const dx = v.position[0] - bx;
       const dz = v.position[2] - bz;
-      if (Math.hypot(dx, dz) < LAB_PHYSICS.BALANCE_PAN_RADIUS) {
+      if (!v.isShattered && v.capacity_ml > 0 && Math.hypot(dx, dz) < LAB_PHYSICS.BALANCE_PAN_RADIUS) {
         return v;
       }
     }
@@ -30,7 +35,7 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
   }, [vessels, position]);
 
   const rawMass = placedVessel ? calculateVesselMass(placedVessel) : 0.0;
-  const netMass = Math.max(0, rawMass - tareMass);
+  const netMass = rawMass - tareMass;
 
   const displayRef = useRef<any>(null);
   const settledMassRef = useRef(netMass);
@@ -50,19 +55,20 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
 
     if (displayRef.current) {
       const text = getBalanceDisplayValue(settledMassRef.current, state.clock.elapsedTime, isSettled);
-      displayRef.current.text = text;
+      if (displayRef.current.text !== text) displayRef.current.text = text;
     }
   });
 
   const handleTare = (e: any) => {
     e.stopPropagation();
+    if (dock.moveMode) return;
     labSound.playTap();
     setTareMass(rawMass);
     settleProgressRef.current = 0;
   };
 
   return (
-    <group position={position}>
+    <group name="tool-balance" position={position} onPointerDown={dock.onPointerDown}>
       {/* Precision Balance Cast Alloy Base Housing */}
       <mesh position={[0, 0.14, 0]} receiveShadow castShadow>
         <boxGeometry args={[2.2, 0.28, 2.0]} />
@@ -112,9 +118,11 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
 
       {/* Tare / Zero Precision Button */}
       <group
+        name="balance-tare"
         position={[-0.68, 0.16, 0.98]}
         rotation={[-0.22, 0, 0]}
-        onClick={handleTare}
+        onPointerDown={event => { if (dock.moveMode) dock.onPointerDown(event); else handleTare(event); }}
+        onClick={event => event.stopPropagation()}
         onPointerOver={(e) => {
           e.stopPropagation();
           setIsHovered(true);

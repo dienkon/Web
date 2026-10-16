@@ -10,6 +10,10 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "catalog:digest": "tsx scripts/generateCatalogDigest.ts",
+    "curriculum:export": "tsx scripts/generateVietnameseCurriculum.ts",
+    "science:audit": "tsx scripts/auditScientificCatalog.ts",
+    "presets:audit": "tsx scripts/auditPresetInventories.ts",
+    "studio:audit": "tsx scripts/auditStudioSamples.ts",
     "lint": "tsc --noEmit",
     "test": "vitest run"
   },

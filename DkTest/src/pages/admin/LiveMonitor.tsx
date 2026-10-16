@@ -30,6 +30,7 @@ import {
   Send,
 } from "lucide-react";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+import AdminAIAssistant from "../../components/admin/AdminAIAssistant";
 
 function formatSeconds(s: number) {
   if (isNaN(s) || s < 0) return "00:00";
@@ -546,6 +547,18 @@ export default function LiveMonitor() {
                   <XCircle className="w-3.5 h-3.5" />
                   <span>Đình chỉ</span>
                 </button>
+                {isAdmin && (
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new CustomEvent("admin-open-ai-assistant"))}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 border border-blue-200/80 font-bold text-xs shadow-2xs transition-all active:scale-95 cursor-pointer"
+                    title="Mở Trợ lý Quản trị Admin AI (gemini-3.5-flash-lite) - Ctrl + /"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+                    <span className="hidden sm:inline">Trợ lý AI</span>
+                    <span className="text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded-md font-mono font-medium">3.5</span>
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -1546,6 +1559,9 @@ export default function LiveMonitor() {
           </div>
         </div>
       )}
+
+      {/* Admin AI Virtual Assistant for Admin */}
+      {isAdmin && <AdminAIAssistant />}
     </div>
   );
 }

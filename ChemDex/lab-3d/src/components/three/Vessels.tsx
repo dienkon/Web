@@ -8,11 +8,12 @@ import { getReagentBottleLabelTexture, getVesselGraduationTexture } from '../../
 import { useQualityStore } from '../../vfx/quality';
 import { getGlassMaterials, getCeramicMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
 import { RealisticLiquid } from '../../vfx/materials/liquid';
-import { Bubbles, GasPlume, Precipitate } from '../../vfx/particles';
+import { Bubbles, GasPlume } from '../../vfx/particles';
 import { PourController } from '../../pour/controller/PourController';
 import { SolidContentsRenderer } from './SolidContentsRenderer';
 import { VesselState } from '../../types/chemistry';
 import { openRadialMenu } from '../../ui/RadialMenu';
+import { separatedLayers } from '../../engine/funnelFlow';
 
 // Glassware material reference matching active high-tier physical glass
 export const glassMaterial = getGlassMaterials('high').front as MeshPhysicalMaterial;
@@ -604,44 +605,10 @@ export const Beaker = React.memo(function Beaker({ position, id }: { position: [
           )}
 
           {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2, Fe(OH)3, CaCO3, Cu) */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={
-                vessel.precipitateSubstance ||
-                (vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.substances?.some(s => s.includes('Pb') || s.includes('KI'))
-                  ? 'PbI2'
-                  : vessel.substances?.some(s => s.includes('Ag'))
-                  ? 'AgCl'
-                  : vessel.substances?.some(s => s.includes('Cu')) && vessel.substances?.some(s => s.includes('Fe'))
-                  ? 'Cu'
-                  : vessel.substances?.some(s => s.includes('Cu'))
-                  ? 'Cu(OH)2'
-                  : vessel.substances?.some(s => s.includes('FeCl3'))
-                  ? 'Fe(OH)3'
-                  : 'BaSO4')
-              }
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor}
-              radius={0.78}
-              liquidTopY={-0.96 + 1.88 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 250))) - 0.04}
-              liquidBottomY={-0.88}
-              rate={vessel.substances?.some(s => s.includes('Pb') || s.includes('I')) ? 46 : 28}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           {/* Precipitate Mound / Sediment Bed Layer */}
-          {vessel.hasPrecipitate && (
-            <mesh position={[0, -0.92, 0]} renderOrder={4}>
-              <cylinderGeometry args={[0.92, 0.95, 0.12, 32]} />
-              <meshStandardMaterial 
-                color={vessel.precipitateColor || '#ffffff'} 
-                roughness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.precipitateMorphology === 'METALLIC_DEPOSIT') ? 0.22 : 0.92}
-                metalness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.precipitateMorphology === 'METALLIC_DEPOSIT') ? 0.88 : 0.05}
-              />
-            </mesh>
-          )}
+          {/* Sediment height and color come from the finite mass simulation. */}
 
           {/* Real-World Mechanisms: Condensation, Stain, Fume, Boiling Bumping */}
           <VesselPhysicalEffects 
@@ -775,44 +742,10 @@ export const Flask = React.memo(function Flask({ position, id }: { position: [nu
           )}
 
           {/* Dynamic Falling Precipitate Particles (e.g. Golden Rain PbI2, BaSO4, AgCl, Cu(OH)2) */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={
-                vessel.precipitateSubstance ||
-                (vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.substances?.some(s => s.includes('Pb') || s.includes('KI'))
-                  ? 'PbI2'
-                  : vessel.substances?.some(s => s.includes('Ag'))
-                  ? 'AgCl'
-                  : vessel.substances?.some(s => s.includes('Cu')) && vessel.substances?.some(s => s.includes('Fe'))
-                  ? 'Cu'
-                  : vessel.substances?.some(s => s.includes('Cu'))
-                  ? 'Cu(OH)2'
-                  : vessel.substances?.some(s => s.includes('FeCl3'))
-                  ? 'Fe(OH)3'
-                  : 'BaSO4')
-              }
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor}
-              radius={0.88}
-              liquidTopY={-0.96 + 1.8 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 250))) - 0.04}
-              liquidBottomY={-0.88}
-              rate={vessel.substances?.some(s => s.includes('Pb') || s.includes('I')) ? 46 : 28}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           {/* Precipitate Mound / Sediment Bed Layer */}
-          {vessel.hasPrecipitate && (
-            <mesh position={[0, -0.92, 0]} renderOrder={4}>
-              <cylinderGeometry args={[1.15, 1.2, 0.12, 32]} />
-              <meshStandardMaterial 
-                color={vessel.precipitateColor || '#ffffff'} 
-                roughness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.precipitateMorphology === 'METALLIC_DEPOSIT') ? 0.22 : 0.92}
-                metalness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.precipitateMorphology === 'METALLIC_DEPOSIT') ? 0.88 : 0.05}
-              />
-            </mesh>
-          )}
+          {/* Sediment height and color come from the finite mass simulation. */}
 
           {/* Real-World Mechanisms: Condensation, Stain, Fume, Boiling Bumping */}
           <VesselPhysicalEffects 
@@ -956,44 +889,10 @@ export const TestTube = React.memo(function TestTube({ position, id }: { positio
           )}
 
           {/* Dynamic Falling Precipitate Particles */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={
-                vessel.precipitateSubstance ||
-                (vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.substances?.some(s => s.includes('Pb') || s.includes('KI'))
-                  ? 'PbI2'
-                  : vessel.substances?.some(s => s.includes('Ag'))
-                  ? 'AgCl'
-                  : vessel.substances?.some(s => s.includes('Cu')) && vessel.substances?.some(s => s.includes('Fe'))
-                  ? 'Cu'
-                  : vessel.substances?.some(s => s.includes('Cu'))
-                  ? 'Cu(OH)2'
-                  : vessel.substances?.some(s => s.includes('FeCl3'))
-                  ? 'Fe(OH)3'
-                  : 'BaSO4')
-              }
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor}
-              radius={0.16}
-              liquidTopY={-0.6 + 1.6 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 50))) - 0.03}
-              liquidBottomY={-0.54}
-              rate={vessel.substances?.some(s => s.includes('Pb') || s.includes('I')) ? 24 : 14}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           {/* Precipitate */}
-          {vessel.hasPrecipitate && (
-            <mesh position={[0, -0.55, 0]} renderOrder={4}>
-              <cylinderGeometry args={[0.2, 0.2, 0.15, 16]} />
-              <meshStandardMaterial 
-                color={vessel.precipitateColor || '#ffffff'} 
-                roughness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.precipitateMorphology === 'METALLIC_DEPOSIT') ? 0.22 : 0.8}
-                metalness={(vessel.precipitateColor === '#facc15' || vessel.precipitateColor === '#fbbf24' || vessel.precipitateMorphology === 'METALLIC_DEPOSIT') ? 0.88 : 0.05}
-              />
-            </mesh>
-          )}
+          {/* Sediment height and color come from the finite mass simulation. */}
 
           {/* Real-World Mechanisms: Condensation, Stain, Fume, Boiling Bumping */}
           <VesselPhysicalEffects 
@@ -1131,19 +1030,7 @@ export const GraduatedCylinder = React.memo(function GraduatedCylinder({ positio
           )}
 
           {/* Solid Reactant / Precipitate Particles */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={vessel.precipitateSubstance || 'BaSO4'}
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor || '#cbd5e1'}
-              radius={0.22}
-              liquidTopY={-0.87 + 2.4 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 100))) - 0.04}
-              liquidBottomY={-0.85}
-              rate={20}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           {/* Realistic 3D Solid Contents: Powder Mounds, Metal Chunks, Crystal Facets */}
           <SolidContentsRenderer vesselId={id} radius={0.24} baseY={-0.92} />
@@ -1269,19 +1156,7 @@ export const WatchGlass = React.memo(function WatchGlass({ position, id }: { pos
           <mesh geometry={latheGeom.outer} material={glassMats.front} renderOrder={6} castShadow receiveShadow />
 
           {/* 4. Precipitate & Solid crystals */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={vessel.precipitateSubstance || 'BaSO4'}
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor || '#cbd5e1'}
-              radius={0.85}
-              liquidTopY={0.02}
-              liquidBottomY={-0.12}
-              rate={15}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           <SolidContentsRenderer vesselId={id} radius={0.75} baseY={-0.14} />
 
@@ -1409,19 +1284,7 @@ export const EvaporatingDish = React.memo(function EvaporatingDish({ position, i
           )}
 
           {/* Precipitate & Solid Residue / Crystals */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={vessel.precipitateSubstance || 'NaCl'}
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor || '#cbd5e1'}
-              radius={0.7}
-              liquidTopY={-0.38 + 0.68 * Math.max(0.1, Math.min(1.0, (vessel.volume_ml || 0) / (vessel.capacity_ml || 100)))}
-              liquidBottomY={-0.38}
-              rate={20}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           <SolidContentsRenderer vesselId={id} radius={0.75} baseY={-0.38} />
 
@@ -1683,19 +1546,7 @@ export const PetriDish = React.memo(function PetriDish({ position, id }: { posit
           </mesh>
 
           {/* Precipitate & Solid crystals */}
-          {vessel.hasPrecipitate && (
-            <Precipitate
-              vesselId={id}
-              substance={vessel.precipitateSubstance || 'AgCl'}
-              morphology={vessel.precipitateMorphology as any}
-              color={vessel.precipitateColor || '#ffffff'}
-              radius={0.9}
-              liquidTopY={0.08}
-              liquidBottomY={-0.18}
-              rate={15}
-              active={true}
-            />
-          )}
+          {/* Suspended particles are owned by the single physical renderer. */}
 
           <SolidContentsRenderer vesselId={id} radius={0.85} baseY={-0.18} />
 
@@ -2135,9 +1986,14 @@ export const VolumetricFlask = React.memo(function VolumetricFlask({ position, i
 
           {/* Frosted Hexagonal Glass Ground Stopper */}
           <group 
-            position={[0, vessel.isSealed ? 1.96 : 2.06, 0]}
+            position={vessel.isSealed ? [0, 1.96, 0] : [0.65, -0.85, 0]}
             onClick={(e) => { 
               e.stopPropagation(); 
+              if (!vessel.isSealed) {
+                useAppStore.getState().setVesselState(id, { isSealed: true });
+                return;
+              }
+              if (vessel.isShattered || vessel.volume_ml <= 0) return;
               setInvertTimer(1.4);
               invertVolumetricFlask(id); 
             }}
@@ -2217,6 +2073,12 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
   });
 
   if (!vessel) return null;
+  const layers = separatedLayers(vessel);
+  const capacity = vessel.capacity_ml || 150;
+  const lowerHeight = 1.9 * layers.lowerVolume_ml / capacity;
+  const upperHeight = 1.9 * layers.upperVolume_ml / capacity;
+  const lowerColor = layers.lower === 'organic' ? vessel.immiscibleOrganicColor : vessel.liquidColor;
+  const upperColor = layers.lower === 'organic' ? vessel.liquidColor : vessel.immiscibleOrganicColor;
 
   return (
     <group 
@@ -2245,25 +2107,22 @@ export const SeparatoryFunnel = React.memo(function SeparatoryFunnel({ position,
             vesselType="separatory_funnel" 
             baseY={-0.45} 
             maxHeight={1.9} 
+            volumeOverride_ml={layers.lowerVolume_ml}
+            colorOverride={lowerColor}
             capacity_ml={vessel.capacity_ml || 150} 
           />
 
-          {/* Immiscible Organic Upper Phase (e.g. Hexane / Oil layer) */}
-          {(vessel.immiscibleOrganicVolume_ml || 0) > 0 && (
-            <group position={[0, -0.45 + 1.9 * Math.min(0.75, (vessel.volume_ml || 0) / (vessel.capacity_ml || 150)) + 0.16, 0]}>
+          {/* Finite upper layer; its height follows its actual remaining volume. */}
+          {layers.upperVolume_ml > 0.01 && (
+            <group position={[0, -0.45 + lowerHeight + upperHeight / 2, 0]}>
               <mesh>
-                <cylinderGeometry args={[0.82, 0.78, 0.32, 32]} />
-                <meshPhysicalMaterial 
-                  color={vessel.immiscibleOrganicColor || '#fef08a'} 
-                  roughness={0.08} 
-                  transmission={0.88} 
-                  transparent 
-                  opacity={0.85} 
-                />
+                <cylinderGeometry args={[0.78, 0.78, Math.max(0.002, upperHeight), 24]} />
+                <meshPhysicalMaterial color={upperColor || '#f8fafc'} roughness={0.08}
+                  transmission={0.88} transparent opacity={0.8} />
               </mesh>
-              <mesh position={[0, -0.16, 0]} rotation={[Math.PI / 2, 0, 0]}>
-                <ringGeometry args={[0.01, 0.78, 32]} />
-                <meshBasicMaterial color="#38bdf8" transparent opacity={0.6} side={DoubleSide} />
+              <mesh position={[0, -upperHeight / 2, 0]} rotation={[Math.PI / 2, 0, 0]}>
+                <ringGeometry args={[0.01, 0.78, 24]} />
+                <meshBasicMaterial color={lowerColor || '#f8fafc'} transparent opacity={0.35} side={DoubleSide} />
               </mesh>
             </group>
           )}
@@ -2492,9 +2351,9 @@ export const FilterFunnel = React.memo(function FilterFunnel({ position, id }: {
           {/* Retained Precipitate Cake on Filter Paper Cone */}
           {((vessel.filterPaperResidue_g || 0) > 0 || (vessel.hasPrecipitate && (vessel.precipitateAmount_g || 0) > 0)) && (
             <mesh position={[0, 0.28, 0]}>
-              <coneGeometry args={[0.82, 0.62, 32, 1, true]} />
+              <cylinderGeometry args={[0.48, 0.42, Math.max(0.006, Math.min(0.16, (vessel.filterPaperResidue_g || 0) * 0.015)), 24]} />
               <meshStandardMaterial 
-                color={vessel.precipitateColor || '#fef08a'} 
+                color={vessel.precipitateColor || getChemical(vessel.filterPaperResidueSubstance || '').color || '#f8fafc'}
                 roughness={0.96} 
                 side={DoubleSide} 
               />
@@ -2511,7 +2370,7 @@ export const FilterFunnel = React.memo(function FilterFunnel({ position, id }: {
           />
 
           {/* Filtrate droplets dripping from stem tip */}
-          {(vessel.volume_ml > 0 || vessel.isFiltrating) && (
+          {vessel.isFiltrating && (
             <group position={[0, -1.35, 0]}>
               <mesh position={[0, -0.08, 0]}>
                 <sphereGeometry args={[0.045, 12, 12]} />

@@ -10,6 +10,7 @@
 import { ReactionProgram } from '../../../shared/programSchema';
 import { EffectAtom, AtomHandle, AtomCtx, LedgerView, VesselPatch } from '../../catalog/types';
 import { getEffectAtom } from '../../catalog/index';
+import { indicatorColor } from '../../../science/indicatorAppearance';
 
 export interface ActiveAtomInstance {
   handle: AtomHandle;
@@ -101,7 +102,9 @@ export class ProgramPlayer {
 
       for (const item of timeline) {
         const [wStart, wEnd] = item.window;
-        const inWindow = session.progress >= wStart && session.progress <= wEnd;
+        const thermalAllowed = item.atom === 'endothermicFrost' ? sView.temperature_c <= 0
+          : ['thermalSteam', 'boilingBumping'].includes(item.atom) ? sView.temperature_c >= 90 : true;
+        const inWindow = thermalAllowed && session.progress >= wStart && session.progress <= wEnd;
 
         if (inWindow) {
           // Atom should be active
@@ -136,6 +139,10 @@ export class ProgramPlayer {
         }
       }
 
+      if (session.program.chemistry.representation === 'indicator') {
+        const color = indicatorColor(session.program.id, sView.pH);
+        if (color) patch.liquidColor = color;
+      }
       patches[vesselId] = patch;
 
       // Completion check

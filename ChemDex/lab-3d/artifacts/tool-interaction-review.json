@@ -1,0 +1,107 @@
+[
+  {
+    "tool": "pipette",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0.4,
+      3
+    ],
+    "after": [
+      0.5238856783118668,
+      0.4,
+      3.4882906773642937
+    ]
+  },
+  {
+    "tool": "thermometer",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0.4,
+      3
+    ],
+    "after": [
+      0.481695301462683,
+      0.4,
+      3.3809261131047155
+    ]
+  },
+  {
+    "tool": "stirring_rod",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0.4,
+      3
+    ],
+    "after": [
+      0.48165200722422513,
+      0.4,
+      3.3854319361604936
+    ]
+  },
+  {
+    "tool": "spatula",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0.4,
+      3
+    ],
+    "after": [
+      0.4811627670282708,
+      0.4,
+      3.3848137744713567
+    ]
+  },
+  {
+    "tool": "balance",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0.4,
+      3
+    ],
+    "after": [
+      0.5420949439289744,
+      0.4,
+      3.4865623719297023
+    ]
+  },
+  {
+    "tool": "burette",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0,
+      3
+    ],
+    "after": [
+      0.4853158614259348,
+      0,
+      3.326957535897999
+    ]
+  },
+  {
+    "tool": "ph_meter",
+    "moved": true,
+    "released": true,
+    "before": [
+      0,
+      0.4,
+      3
+    ],
+    "after": [
+      0.5743181003895894,
+      0.4,
+      3.547202863477766
+    ]
+  }
+]

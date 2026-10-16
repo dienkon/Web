@@ -8,7 +8,7 @@ export const LAB_PHYSICS = {
   TABLE_SURFACE_Y: -0.135,
   BURNER_SURFACE_Y: -0.975,
   BALANCE_PAN_Y: 0.15,
-  BALANCE_POSITION: [7.5, -0.3, -2.5] as [number, number, number],
+  BALANCE_POSITION: [7.5, -1.175, -2.5] as [number, number, number],
   BALANCE_PAN_RADIUS: 0.85,
   BURETTE_STAND_POSITION: [5.0, 0.0, 1.5] as [number, number, number],
   BURETTE_NOZZLE_Y: 0.1,
@@ -32,14 +32,9 @@ export const LAB_PHYSICS = {
  * Calculate the exact mass of a container on the balance (Tare + Liquids + Dissolved Solids)
  */
 export function calculateVesselMass(vessel: VesselState): number {
-  const tare = LAB_PHYSICS.CONTAINER_TARE_MASS[vessel.type] || 80.0;
-  // Liquid density approx 1.0 g/mL, plus solids
-  const liquidMass = vessel.volume_ml * 1.02; // Average aqueous solution density
-  let solidMass = 0;
-  if (vessel.contents && vessel.contents.length > 0) {
-    solidMass = vessel.contents.reduce((sum, c) => sum + (c.mass_g || 0), 0);
-  }
-  return tare + liquidMass + solidMass;
+  const tare = vessel.tare_g ?? LAB_PHYSICS.CONTAINER_TARE_MASS[vessel.type] ?? 80;
+  // mass_g includes solvent and solutes; summing contents again double-counts.
+  return tare + Math.max(0, vessel.mass_g);
 }
 
 /**
@@ -157,11 +152,11 @@ export function getBalanceDisplayValue(
   timeSec: number,
   isSettled: boolean
 ): string {
-  if (targetMass <= 0.01) return '0.00 g';
+  if (Math.abs(targetMass) <= 0.01) return '0.00 g';
   if (isSettled) return `${targetMass.toFixed(2)} g`;
   
   // Subtle fluctuating noise in the last decimal digit
   const microJitter = (Math.sin(timeSec * 16) * 0.03 + Math.cos(timeSec * 23) * 0.02);
-  const displayVal = Math.max(0, targetMass + microJitter);
+  const displayVal = targetMass + microJitter;
   return `${displayVal.toFixed(2)} g`;
 }

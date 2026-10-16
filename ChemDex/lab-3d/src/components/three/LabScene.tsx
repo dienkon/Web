@@ -18,6 +18,7 @@ import { CameraControls } from './CameraControls';
 import { InteractivePipette } from './interactions/InteractivePipette';
 import { InteractiveStirringRod } from './interactions/InteractiveStirringRod';
 import { InteractiveThermometer } from './interactions/InteractiveThermometer';
+import { InteractivePhMeter } from './interactions/InteractivePhMeter';
 import { InteractiveSpatula } from './interactions/InteractiveSpatula';
 import { InteractiveSponge } from './interactions/InteractiveSponge';
 import { WorkbenchSpills } from './WorkbenchSpills';
@@ -39,6 +40,9 @@ import { TouchGestureRecognizer } from '../../input/TouchGestures';
 import { getVesselGripSpec } from '../../handling/gripPoints';
 import { clampLift } from '../../handling/limits';
 import { VesselFloorRing } from './Vessels';
+import { LAB_PHYSICS } from '../../engine/interactionEngine';
+import { FrameTelemetry } from '../../render/FrameTelemetry';
+import { LessonScene } from '../../lesson/LessonScene';
 
 function DragDropRaycaster() {
   const { camera, gl } = useThree();
@@ -231,7 +235,7 @@ const SceneVessel = React.memo(function SceneVessel({ id }: { id: string }) {
   const type = useAppStore(state => state.vessels[id]?.type);
   const position = useAppStore(state => state.vessels[id]?.position);
 
-  if (isCurrentlyPouring || !type || !position) return null;
+  if (isCurrentlyPouring || !type || !position || id.startsWith('lesson_vessel_')) return null;
 
   if (type === 'flask') {
     return <Flask position={position} id={id} />;
@@ -338,7 +342,7 @@ export function LabScene() {
   const setNearestPourTargetId = useAppStore(state => state.setNearestPourTargetId);
   const activeTool = useAppStore(state => state.activeTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const vessels = useAppStore(state => state.vessels);
+  const draggedVessel = useAppStore(state => state.draggingVesselId ? state.vessels[state.draggingVesselId] : undefined);
 
   const handlePointerMove = (e: any) => {
     if (!draggingVesselId) return;
@@ -364,13 +368,12 @@ export function LabScene() {
     }
 
     // Physical snapping logic
-    let targetX = e.point.x;
-    let targetZ = e.point.z;
+    let targetX = Math.max(-14.5, Math.min(14.5, e.point.x));
+    let targetZ = Math.max(-5.5, Math.min(5.5, e.point.z));
     let targetY = -0.135;
 
     // Check snapping to analytical balance pan
-    const balanceX = 7.5;
-    const balanceZ = -2.5;
+    const [balanceX, , balanceZ] = LAB_PHYSICS.BALANCE_POSITION;
     const distToBalance = Math.hypot(e.point.x - balanceX, e.point.z - balanceZ);
 
     if (distToBalance < 0.85) {
@@ -449,6 +452,7 @@ export function LabScene() {
   };
 
   const handlePointerUp = () => {
+    const draggingVesselId = useAppStore.getState().draggingVesselId;
     if (!draggingVesselId) return;
     
     if (draggingVesselId.startsWith('burner')) {
@@ -486,7 +490,8 @@ export function LabScene() {
       }
     }
 
-    if (nearestTarget && draggedVessel && state.vessels[nearestTarget]) {
+    if (!state.moveMode && nearestTarget && draggedVessel && state.vessels[nearestTarget]
+      && draggedVessel.volume_ml > 0 && draggedVessel.capacity_ml > 0) {
       // Trigger real-time physical pouring pipeline with zero script delay
       PourController.beginPour({
         mode: 'ASSIST',
@@ -498,8 +503,25 @@ export function LabScene() {
     setNearestPourTargetId(null);
     setDraggingVesselId(null);
   };
+
+  const releaseDragRef = useRef(handlePointerUp);
+  releaseDragRef.current = handlePointerUp;
+  useEffect(() => {
+    const release = () => releaseDragRef.current();
+    const cancel = () => {
+      useAppStore.getState().setDraggingVesselId(null);
+      useAppStore.getState().setNearestPourTargetId(null);
+    };
+    window.addEventListener('pointerup', release);
+    window.addEventListener('pointercancel', cancel);
+    window.addEventListener('blur', cancel);
+    return () => {
+      window.removeEventListener('pointerup', release);
+      window.removeEventListener('pointercancel', cancel);
+      window.removeEventListener('blur', cancel);
+    };
+  }, []);
   
-  const selectedVessel = selectedVesselId ? vessels[selectedVesselId] : null;
 
   const effectiveTier = useQualityStore(state => state.effectiveTier);
   const handlePerformanceDecline = useQualityStore(state => state.handlePerformanceDecline);
@@ -629,8 +651,8 @@ export function LabScene() {
       <PerformanceHUD />
 
       <Canvas 
-        shadows="percentage"
-        dpr={[1, qualitySettings.dprMax]}
+        shadows={qualitySettings.shadowBudget > 0 ? 'percentage' : false}
+        dpr={[Math.min(1, qualitySettings.dprMax), qualitySettings.dprMax]}
         camera={{ position: [0, 5.2, 12], fov: 45, near: 0.1, far: 120 }}
         gl={{
           antialias: false,
@@ -649,6 +671,9 @@ export function LabScene() {
         onContextMenu={(e) => e.preventDefault()}
       >
         <PerformanceMonitor
+          bounds={() => [55, 65]}
+          flipflops={3}
+          onFallback={() => { if (useQualityStore.getState().preference === 'auto') useQualityStore.getState().setEffectiveTier('potato'); }}
           onDecline={handlePerformanceDecline}
           onIncline={handlePerformanceIncline}
         />
@@ -730,10 +755,9 @@ export function LabScene() {
             position={[0, -0.135, 0]} 
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
-            visible={false}
           >
             <planeGeometry args={[100, 100]} />
-            <meshBasicMaterial />
+            <meshBasicMaterial transparent opacity={0} depthWrite={false} colorWrite={false} />
           </mesh>
         )}
 
@@ -880,7 +904,7 @@ export function LabScene() {
         <Bottle position={[-5.5, 2.9, -6.0]} color="#fef3c7" formula="HNO3" name="Nitric Acid Conc" hazard="oxidizer" isAmber />
 
         {/* Digital Analytical Balance */}
-        <DigitalBalance position={[7.5, -0.3, -2.5]} />
+        <DigitalBalance position={[7.5, -1.175, -2.5]} />
 
         {/* Burette Apparatus */}
         <BuretteApparatus position={[5.0, 0.0, 1.5]} />
@@ -913,40 +937,21 @@ export function LabScene() {
         ))}
 
         {/* Stylized Hand Rig & Grip Pivot Indicator */}
-        {draggingVesselId && vessels[draggingVesselId] && (
+        {draggingVesselId && draggedVessel && (
           <HandRig
-            position={vessels[draggingVesselId].position}
+            position={draggedVessel.position}
             visible={true}
-            gripKind={getVesselGripSpec(vessels[draggingVesselId].type).preferred}
+            gripKind={getVesselGripSpec(draggedVessel.type).preferred}
             tiltAngle={PourController.getSession()?.sourceId === draggingVesselId ? (PourController.getSession()?.tilt || 0) : 0}
           />
         )}
 
         {/* Handheld Interactive Physical Laboratory Tools */}
-        {activeTool === 'pipette' && (
-          <InteractivePipette 
-            targetVesselId={selectedVesselId || undefined}
-            position={selectedVessel ? [selectedVessel.position[0], selectedVessel.position[1] + 1.8, selectedVessel.position[2]] : [0, 1.2, 0]}
-          />
-        )}
-
-        {activeTool === 'stirring_rod' && (
-          <InteractiveStirringRod 
-            position={selectedVessel ? [selectedVessel.position[0], selectedVessel.position[1] + 1.4, selectedVessel.position[2]] : [0, 1.2, 0]}
-          />
-        )}
-
-        {activeTool === 'thermometer' && (
-          <InteractiveThermometer 
-            position={selectedVessel ? [selectedVessel.position[0], selectedVessel.position[1] + 1.6, selectedVessel.position[2]] : [-2.5, 1.2, 0]}
-          />
-        )}
-
-        {activeTool === 'spatula' && (
-          <InteractiveSpatula 
-            position={selectedVessel ? [selectedVessel.position[0], selectedVessel.position[1] + 1.45, selectedVessel.position[2]] : [-3.8, 1.2, 0]}
-          />
-        )}
+        <InteractivePipette targetVesselId={selectedVesselId || undefined} />
+        <InteractiveStirringRod />
+        <InteractiveThermometer />
+        <InteractivePhMeter />
+        <InteractiveSpatula />
 
         {activeTool === 'sponge' && (
           <InteractiveSponge />
@@ -979,6 +984,8 @@ export function LabScene() {
         />
         <DragDropRaycaster />
         <SimulationTicker />
+        <LessonScene />
+        <FrameTelemetry />
         <PhysicalStreamRenderer />
         <SimulationDebugGizmos />
         <VfxDirector />

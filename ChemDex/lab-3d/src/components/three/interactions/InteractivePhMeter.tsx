@@ -1,0 +1,77 @@
+import React, { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Text } from '@react-three/drei';
+import * as THREE from 'three';
+import { useAppStore } from '../../../store/useAppStore';
+import { useToolDock } from '../../../handling/toolDock';
+
+/** Aqueous pH probe: the displayed value approaches the solution's chemistry
+ * state. A dry probe has no valid pH measurement, rather than reading pH 7. */
+export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
+  const dock = useToolDock('ph_meter', [-2.5, 0.4, 2]);
+  const active = useAppStore(state => state.activeTool === 'ph_meter');
+  const vessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
+  const group = useRef<THREE.Group>(null);
+  const label = useRef<any>(null);
+  const target = useRef(new THREE.Vector3());
+  const reading = useRef<number | null>(null);
+  const immersed = active && vessel && vessel.volume_ml > 0.05 && vessel.capacity_ml > 0;
+
+  useFrame((_, delta) => {
+    if (!group.current) return;
+    if (immersed) {
+      target.current.set(vessel.position[0] - 0.18, vessel.position[1] + 0.9, vessel.position[2] + 0.1);
+      const equilibrium = Math.max(0, Math.min(14, vessel.ph));
+      reading.current = reading.current === null ? equilibrium
+        : reading.current + (equilibrium - reading.current) * (1 - Math.exp(-delta / 1.2));
+    } else {
+      target.current.set(...dock.position);
+      reading.current = null;
+    }
+    group.current.position.lerp(target.current, 1 - Math.exp(-delta * 8));
+    group.current.rotation.z = immersed ? 0.08 : 0;
+    if (label.current) {
+      const text = reading.current === null ? 'pH ---' : `pH ${reading.current.toFixed(2)}`;
+      if (label.current.text !== text) label.current.text = text;
+    }
+  });
+
+  if (!dock.visible) return null;
+
+  return <group ref={group} name="tool-ph_meter" visible={dock.visible} onPointerDown={dock.onPointerDown}
+    onClick={event => {
+      event.stopPropagation();
+      if (!dock.moveMode) useAppStore.getState().setActiveTool(active ? 'none' : 'ph_meter');
+    }}
+    onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
+    onPointerOut={() => { document.body.style.cursor = 'auto'; }}>
+    <mesh position={[0, 0.45, 0]}>
+      <boxGeometry args={[0.38, 0.7, 0.18]} />
+      <meshStandardMaterial color="#fbbf24" roughness={0.55} />
+    </mesh>
+    <mesh position={[0, 0.55, 0.095]}>
+      <planeGeometry args={[0.31, 0.22]} />
+      <meshBasicMaterial color="#d9edce" />
+    </mesh>
+    <Text ref={label} position={[0, 0.55, 0.1]} fontSize={0.065} color="#18362c" anchorX="center" anchorY="middle">pH ---</Text>
+    {immersed && <Text position={[0, 0.47, 0.1]} fontSize={0.026} color="#36523a" anchorX="center" anchorY="middle">
+      {vessel.phModel === 'ideal_aqueous_25c' ? 'Mô hình 25 °C' : 'Mô phỏng giản lược'}
+    </Text>}
+    <mesh position={[0, 0.13, 0.095]}>
+      <circleGeometry args={[0.045, 12]} />
+      <meshStandardMaterial color={active ? '#22c55e' : '#64748b'} roughness={0.7} />
+    </mesh>
+    <mesh position={[0, -0.25, 0]}>
+      <cylinderGeometry args={[0.045, 0.045, 0.8, 12]} />
+      <meshStandardMaterial color="#d6e4e9" transparent opacity={0.65} roughness={0.2} />
+    </mesh>
+    <mesh position={[0, -0.68, 0]}>
+      <sphereGeometry args={[0.065, 12, 8]} />
+      <meshStandardMaterial color="#bfdbfe" transparent opacity={0.7} roughness={0.12} />
+    </mesh>
+    {!active && <mesh position={[0, -0.8, 0]}>
+      <boxGeometry args={[0.35, 0.16, 0.35]} />
+      <meshStandardMaterial color="#94a3b8" roughness={0.8} />
+    </mesh>}
+  </group>;
+});

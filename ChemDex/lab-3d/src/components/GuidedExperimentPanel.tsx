@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
 import { labSound } from '../utils/audio';
+const ReactionLibraryPanel = React.lazy(() => import('./ReactionLibraryPanel'));
 
 export function GuidedExperimentPanel() {
   const { 
@@ -45,12 +46,14 @@ export function GuidedExperimentPanel() {
   // Timer for Exam mode
   useEffect(() => {
     if (experimentDifficulty !== 'exam' || !activeExperimentId) return;
-    setExamStartTime(Date.now());
+    const startedAt = Date.now();
+    setExamStartTime(startedAt);
+    setElapsedSeconds(0);
     const interval = setInterval(() => {
-      setElapsedSeconds(Math.floor((Date.now() - examStartTime) / 1000));
+      setElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
     }, 1000);
     return () => clearInterval(interval);
-  }, [experimentDifficulty, activeExperimentId, examStartTime]);
+  }, [experimentDifficulty, activeExperimentId]);
 
   // Validation state prepared for engine
   const validationState = useMemo(() => ({
@@ -104,6 +107,9 @@ export function GuidedExperimentPanel() {
   if (!currentExperiment) {
     return (
       <div className="space-y-4">
+        <React.Suspense fallback={<p className="text-xs">Đang tải thư viện phản ứng…</p>}>
+          <ReactionLibraryPanel />
+        </React.Suspense>
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-3.5">
           <div className="flex items-center gap-2 text-blue-800 font-bold text-xs uppercase tracking-wider mb-1">
             <BookOpen size={15} />

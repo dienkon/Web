@@ -62,7 +62,8 @@ describe('Reaction Programs Formal Validation Suite (§7.4 & §11.1)', () => {
         species: [
           { formula: 'HCl', role: 'reactant', coeff: 1, phase: 'aq' },
           { formula: 'NaOH', role: 'reactant', coeff: 1, phase: 'aq' },
-          { formula: 'NaCl', role: 'product', coeff: 1, phase: 'aq' }
+          { formula: 'NaCl', role: 'product', coeff: 1, phase: 'aq' },
+          { formula: 'H2O', role: 'product', coeff: 1, phase: 'l' }
         ]
       },
       visual: {

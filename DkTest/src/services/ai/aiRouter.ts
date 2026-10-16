@@ -5,6 +5,7 @@ import { askTutor } from "./aiTutor.js";
 import { analyzeExamPerformance, analyzeStructuredExamPerformance } from "./aiAnalytics.js";
 import { lookupAndTranslate } from "./aiLookup.js";
 import { selectReviewQuestionsWithAi } from "./aiReviewSelector.js";
+import { askAdminAssistant } from "./aiAdminAssistant.js";
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } }); // 10MB limit
 
@@ -209,3 +210,42 @@ aiRouter.post("/grade-essay", express.json(), async (req, res) => {
     res.status(500).json({ error: err.message || "Không thể chấm bài tự luận qua AI" });
   }
 });
+
+// 8. Admin AI Virtual Assistant (Streaming SSE) using gemini-3.5-flash-lite
+aiRouter.post("/admin-assistant", express.json(), async (req, res) => {
+  try {
+    const { messages, context, apiKey } = req.body;
+    const customApiKey = (req.headers["x-gemini-api-key"] as string) || apiKey;
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: "Messages array is required" });
+    }
+
+    const stream = await askAdminAssistant(messages, context, customApiKey);
+
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.setHeader("X-Accel-Buffering", "no");
+    if (typeof (res as any).flushHeaders === "function") {
+      (res as any).flushHeaders();
+    }
+
+    for await (const chunk of stream) {
+      if (chunk.text) {
+        res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
+      }
+    }
+    res.write("data: [DONE]\n\n");
+    res.end();
+  } catch (err: any) {
+    console.error("Error in Admin AI Assistant:", err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: err.message || "Lỗi xử lý yêu cầu Trợ lý Admin" });
+    } else {
+      res.write(`data: ${JSON.stringify({ error: err.message || "Lỗi xử lý" })}\n\n`);
+      res.end();
+    }
+  }
+});
+

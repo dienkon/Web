@@ -194,21 +194,21 @@ export const INORGANIC_ANALYSIS_PROGRAMS: ReactionProgram[] = [
       duration_s: 7.5,
       timeline: [
         { id: 'precip', atom: 'precipitateNucleation', anchor: 'bulk', window: [0, 0.35], intensity: 1.15, params: { morphology: 'floc', color: '#fef3c7', nucleationRate: 75 } },
-        { id: 'chroma', atom: 'beerLambertFade', anchor: 'bulk', window: [0.35, 0.95], intensity: 1.2, params: { startColor: '#fef3c7', endColor: '#78350f', opticalPath_cm: 4.5 } }
+        { id: 'chroma', atom: 'beerLambertFade', anchor: 'bulk', window: [0.35, 0.95], intensity: 1.2, params: { startColor: '#fef3c7', endColor: '#f5ead6', opticalPath_cm: 4.5 } }
       ],
       after: {
-        liquidColor: '#78350f',
+        liquidColor: '#f8fafc',
         liquidOpacity: 0.95,
         turbidity: 0.85,
-        precipitate: { substance: 'MnO(OH)2', morphology: 'floc', color: '#78350f', mass_g: 'fromLedger' },
+        precipitate: { substance: 'Mn(OH)2', morphology: 'floc', color: '#f5ead6', mass_g: 'fromLedger' },
         gasesOffgassed: []
       }
     },
     explain: {
-      observation_vi: 'Kết tủa trắng ngà Mn(OH)2 mới sinh nhanh chóng bị oxy hóa bởi không khí thành màu nâu đen MnO(OH)2.',
-      observation_en: 'Initial off-white Mn(OH)2 rapidly oxidizes at surface with aerial oxygen to dark brown MnO(OH)2.',
-      why_vi: 'Mn(II) có thế khử thấp trong môi trường kiềm, dễ bị oxi hòa tan oxy hóa lên Mn(IV).',
-      why_en: 'Mn(II) is readily oxidized by dissolved atmospheric O2 under alkaline conditions to brown Mn(IV) oxyhydroxide.'
+      observation_vi: 'Mn(OH)2 mới kết tủa có màu rất nhạt. Trong không khí, kết tủa có thể sẫm nâu dần do quá trình oxy hóa tiếp theo; mô hình hiện chỉ ghi nhận giai đoạn kết tủa ban đầu.',
+      observation_en: 'Fresh manganese hydroxide is pale; subsequent aerial oxidation can darken it. This equation models the initial precipitation stage.',
+      why_vi: 'OH− kết tủa Mn(II). Sự sẫm màu do O2 cần một bước oxy hóa riêng, không tự đổi công thức sản phẩm của phương trình này.',
+      why_en: 'Hydroxide precipitates Mn(II). Oxygen-driven darkening is a separate reaction, not an automatic product substitution.'
     },
     confidence: 1.0
   },

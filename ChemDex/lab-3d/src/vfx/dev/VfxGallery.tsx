@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useAppStore, interpolateColorHex } from '../../store/useAppStore';
+import { useAppStore } from '../../store/useAppStore';
 import { useQualityStore, QualityTier } from '../quality';
-import { REACTION_VFX_RECIPES, getReactionVfxRecipe, ReactionVfxRecipe } from '../recipes/reactionVfx';
 import { REACTION_DATABASE } from '../../chem/reactions';
 import { SUBSTANCE_DATABASE } from '../../chem/substances';
-import { calculateMixtureColorRGB } from '../../chem/optics';
 import { vfxBus } from '../bus';
 import { labSound } from '../../utils/audio';
 import { proceduralAudio } from '../../audio/procedural';
@@ -15,7 +13,10 @@ import { ALL_HANDCRAFTED_PROGRAMS, getProgramById } from '../programs/library';
 import { EFFECT_ATOM_CATALOG, getEffectAtom } from '../catalog';
 import { ReactionProgram } from '../../shared/programSchema';
 import { EffectAtom } from '../catalog/types';
-import { applyProgramToLedger } from '../../engine/ledger';
+import { useFrameStats } from '../../render/FrameTelemetry';
+import { studioProgramForReaction } from '../../engine/studioProgram';
+import { LESSON_PROGRAM_IDS } from '../../lesson/programCompiler';
+import { useLessonLabStore } from '../../lesson/labBridge';
 import { 
   Sparkles, Play, Pause, RotateCcw, AlertTriangle, Flame, Droplets,
   Layers, Gauge, CheckCircle2, ChevronDown, ChevronUp, X, Thermometer,
@@ -148,9 +149,9 @@ export const VfxGallery: React.FC = () => {
     timeScale,
     setTimeScale,
     language
-  } = useAppStore();
+  } = useAppStore(state => isVisible ? state : null) ?? useAppStore.getState();
 
-  const { preference, setPreference, effectiveTier } = useQualityStore();
+  const { preference, setPreference, effectiveTier } = useQualityStore(state => isVisible ? state : null) ?? useQualityStore.getState();
 
   // Auto-detect ?vfx=1 in URL or maintain open state
   useEffect(() => {
@@ -180,90 +181,13 @@ export const VfxGallery: React.FC = () => {
     return updated.length > 0 ? updated[0].id : 'beaker_1';
   };
 
-  // Real-time FPS Monitor
-  const [fps, setFps] = useState<number>(60);
-  useEffect(() => {
-    let frameCount = 0;
-    let lastTime = performance.now();
-    let animId: number;
+  // Read the renderer telemetry; no second window RAF loop or assumed 60 FPS.
+  const frameStats = useFrameStats(state => isVisible ? state : null) ?? useFrameStats.getState();
+  const fps = frameStats.fps;
 
-    const loop = (now: number) => {
-      frameCount++;
-      if (now - lastTime >= 500) {
-        setFps(Math.round((frameCount * 1000) / (now - lastTime)));
-        frameCount = 0;
-        lastTime = now;
-      }
-      animId = requestAnimationFrame(loop);
-    };
-    animId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
-  // Timeline Scrubber Handler (0..1)
-  const handleScrubReaction = (targetId: string, scrubProgress: number) => {
-    const clamped = Math.max(0, Math.min(1.0, scrubProgress));
-    reactionSimulationEngine.scrubReaction(targetId, clamped);
-
-    const kinetics = activeKinetics[targetId];
-    if (!kinetics) return;
-
-    const rxId = (kinetics.reactionId || '').toLowerCase();
-    let blendedColor = interpolateColorHex(kinetics.initialLiquidColor, kinetics.targetLiquidColor, clamped);
-    let curPrecipAmount_g = kinetics.hasPrecipitate ? 0.85 * Math.pow(clamped, 1.5) : 0;
-    let activeHasPrecip = kinetics.hasPrecipitate && curPrecipAmount_g > 0.01;
-
-    if (rxId.includes('iodine_clock') || rxId.includes('kio3+nahso3')) {
-      blendedColor = clamped < 0.70
-        ? (kinetics.initialLiquidColor || '#f8fafc')
-        : interpolateColorHex(kinetics.initialLiquidColor || '#f8fafc', kinetics.targetLiquidColor || '#0f172a', Math.min(1.0, (clamped - 0.70) / 0.06));
-    } else if (rxId.includes('kmno4_oxalic') || rxId.includes('kmno4+h2c2o4')) {
-      const sigmoidT = 1.0 / (1.0 + Math.exp(-12.0 * (clamped - 0.52)));
-      blendedColor = sigmoidT < 0.55
-        ? interpolateColorHex(kinetics.initialLiquidColor || '#7e22ce', '#f472b6', sigmoidT / 0.55)
-        : interpolateColorHex('#f472b6', kinetics.targetLiquidColor || '#f8fafc', (sigmoidT - 0.55) / 0.45);
-    } else if (rxId.includes('cuso4_nh3') || rxId === 'cuso4+nh3') {
-      blendedColor = clamped < 0.40
-        ? interpolateColorHex(kinetics.initialLiquidColor || '#38bdf8', '#0284c7', clamped / 0.40)
-        : interpolateColorHex('#0284c7', kinetics.targetLiquidColor || '#1d4ed8', (clamped - 0.40) / 0.60);
-      curPrecipAmount_g = clamped < 0.45 ? 0.75 * Math.min(1.0, clamped / 0.35) : 0.75 * Math.max(0, 1.0 - (clamped - 0.45) / 0.35);
-      activeHasPrecip = curPrecipAmount_g > 0.02;
-    } else if (rxId === 'al_naoh' || rxId.includes('al2so4_naoh')) {
-      curPrecipAmount_g = clamped < 0.45 ? 0.70 * Math.min(1.0, clamped / 0.35) : 0.70 * Math.max(0, 1.0 - (clamped - 0.45) / 0.35);
-      activeHasPrecip = curPrecipAmount_g > 0.02;
-    }
-
-    const updatedDissolving: Record<string, number> = {};
-    for (const sub of kinetics.dissolvingReactants || []) {
-      updatedDissolving[sub] = clamped;
-    }
-
-    useAppStore.setState(s => ({
-      dissolvingSubstances: {
-        ...s.dissolvingSubstances,
-        [targetId]: {
-          ...(s.dissolvingSubstances[targetId] || {}),
-          ...updatedDissolving
-        }
-      },
-      activeKinetics: {
-        ...s.activeKinetics,
-        [targetId]: {
-          ...kinetics,
-          progress: clamped,
-        }
-      },
-      vessels: {
-        ...s.vessels,
-        [targetId]: {
-          ...s.vessels[targetId],
-          liquidColor: blendedColor,
-          hasGas: kinetics.hasGas && clamped > 0.02 && clamped < 0.95,
-          hasPrecipitate: activeHasPrecip,
-          precipitateAmount_g: curPrecipAmount_g,
-        }
-      }
-    }));
+  // Seeking forward changes the quantitative ledger; it never recreates used reagent.
+  const handleScrubReaction = (targetId: string, progress: number) => {
+    useAppStore.getState().seekStudioProgram(targetId, progress);
   };
 
   // Toggle Procedural Audio Mute
@@ -282,500 +206,30 @@ export const VfxGallery: React.FC = () => {
   // -------------------------------------------------------------
   // REACTION STUDIO PRESETS (Exact mapping to REACTION_DATABASE, 3D solids, colors & morphologies)
   // -------------------------------------------------------------
-  const REACTION_STUDIO_PRESETS: Record<string, {
-    physKey: string;
-    substances: string[];
-    dissolvingReactants?: string[];
-    initialColor: string;
-    targetColor: string;
-    hasPrecip?: boolean;
-    precipColor?: string;
-    precipSubstance?: string;
-    precipMorphology?: string;
-    hasGas?: boolean;
-    gasColor?: string;
-    foam_ml?: number;
-    ph?: number;
-    flameEmission?: { element: string; color: string };
-  }> = {
-    'AgNO3+NaCl': {
-      physKey: 'AgNO3+NaCl',
-      substances: ['AgNO3', 'NaCl'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasPrecip: true,
-      precipColor: '#f8fafc',
-      precipSubstance: 'AgCl',
-      precipMorphology: 'CURD',
-      ph: 7.0
-    },
-    'golden_rain_pbi2': {
-      physKey: 'Pb(NO3)2+KI',
-      substances: ['Pb(NO3)2', 'KI'],
-      initialColor: '#f8fafc',
-      targetColor: '#fef08a',
-      hasPrecip: true,
-      precipColor: '#facc15',
-      precipSubstance: 'PbI2',
-      precipMorphology: 'CRYSTAL_PLATE',
-      ph: 6.5
-    },
-    'BaCl2+Na2SO4': {
-      physKey: 'BaCl2+Na2SO4',
-      substances: ['BaCl2', 'Na2SO4'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasPrecip: true,
-      precipColor: '#ffffff',
-      precipSubstance: 'BaSO4',
-      precipMorphology: 'FINE_POWDER',
-      ph: 7.0
-    },
-    'cuso4_naoh_precipitate': {
-      physKey: 'CuSO4+NaOH',
-      substances: ['CuSO4', 'NaOH'],
-      initialColor: '#38bdf8',
-      targetColor: '#0284c7',
-      hasPrecip: true,
-      precipColor: '#0284c7',
-      precipSubstance: 'Cu(OH)2',
-      precipMorphology: 'GEL',
-      ph: 9.5
-    },
-    'fecl3_naoh_precipitate': {
-      physKey: 'FeCl3+NaOH',
-      substances: ['FeCl3', 'NaOH'],
-      initialColor: '#f59e0b',
-      targetColor: '#b45309',
-      hasPrecip: true,
-      precipColor: '#9a3412',
-      precipSubstance: 'Fe(OH)3',
-      precipMorphology: 'FLOC',
-      ph: 8.5
-    },
-    'cacl2_na2co3_precipitate': {
-      physKey: 'CaCl2+Na2CO3',
-      substances: ['CaCl2', 'Na2CO3'],
-      initialColor: '#f8fafc',
-      targetColor: '#f1f5f9',
-      hasPrecip: true,
-      precipColor: '#e2e8f0',
-      precipSubstance: 'CaCO3',
-      precipMorphology: 'IRREGULAR_GRAIN',
-      ph: 8.2
-    },
-    'cuso4_nh3_complex': {
-      physKey: 'CuSO4+NH3',
-      substances: ['CuSO4', 'NH3'],
-      initialColor: '#38bdf8',
-      targetColor: '#1d4ed8',
-      hasPrecip: true,
-      precipColor: '#38bdf8',
-      precipSubstance: 'Cu(OH)2',
-      precipMorphology: 'GEL',
-      ph: 10.8
-    },
-    'al_naoh': {
-      physKey: 'Al2(SO4)3+NaOH',
-      substances: ['Al2(SO4)3', 'NaOH'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasPrecip: true,
-      precipColor: '#f8fafc',
-      precipSubstance: 'Al(OH)3',
-      precipMorphology: 'GEL',
-      ph: 11.5
-    },
-    'na2s2o3_hcl_turbidity': {
-      physKey: 'Na2S2O3+HCl',
-      substances: ['Na2S2O3', 'HCl'],
-      initialColor: '#f8fafc',
-      targetColor: '#fef9c3',
-      hasPrecip: true,
-      precipColor: '#fef08a',
-      precipSubstance: 'BaSO4',
-      precipMorphology: 'FINE_POWDER',
-      hasGas: true,
-      gasColor: '#f8fafc',
-      ph: 2.5
-    },
-    'caco3_hcl_gas': {
-      physKey: 'CaCO3+HCl',
-      substances: ['CaCO3', 'HCl'],
-      dissolvingReactants: ['CaCO3'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasGas: true,
-      gasColor: '#ffffff',
-      foam_ml: 14,
-      ph: 4.5
-    },
-    'zn_hcl_gas': {
-      physKey: 'Zn+HCl',
-      substances: ['Zn', 'HCl'],
-      dissolvingReactants: ['Zn'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasGas: true,
-      gasColor: '#e0f2fe',
-      ph: 3.0
-    },
-    'mg_hcl_gas': {
-      physKey: 'Mg+HCl',
-      substances: ['Mg', 'HCl'],
-      dissolvingReactants: ['Mg'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasGas: true,
-      gasColor: '#e0f2fe',
-      foam_ml: 15,
-      ph: 3.5
-    },
-    'h2o2_mno2_decomposition': {
-      physKey: 'H2O2+MnO2',
-      substances: ['H2O2', 'MnO2'],
-      initialColor: '#e2e8f0',
-      targetColor: '#334155',
-      hasPrecip: true,
-      precipColor: '#1e293b',
-      precipSubstance: 'MnO2',
-      precipMorphology: 'IRREGULAR_GRAIN',
-      hasGas: true,
-      gasColor: '#ffffff',
-      foam_ml: 32,
-      ph: 6.8
-    },
-    'nh3_hcl_fumes': {
-      physKey: 'NH3+HCl',
-      substances: ['NH3', 'HCl'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasGas: true,
-      gasColor: '#f8fafc',
-      ph: 5.5
-    },
-    'na2co3_hcl_gas': {
-      physKey: 'Na2CO3+HCl',
-      substances: ['Na2CO3', 'HCl'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      hasGas: true,
-      gasColor: '#ffffff',
-      foam_ml: 10,
-      ph: 6.5
-    },
-    'cu_hno3_conc': {
-      physKey: 'Cu+HNO3',
-      substances: ['Cu', 'HNO3'],
-      dissolvingReactants: ['Cu'],
-      initialColor: '#f8fafc',
-      targetColor: '#0d9488',
-      hasGas: true,
-      gasColor: '#9a3412',
-      ph: 1.0
-    },
-    'cu_conc_h2so4_heated': {
-      physKey: 'Cu+H2SO4',
-      substances: ['Cu', 'H2SO4 (conc)'],
-      dissolvingReactants: ['Cu'],
-      initialColor: '#f8fafc',
-      targetColor: '#0284c7',
-      hasGas: true,
-      gasColor: '#e2e8f0',
-      ph: 0.8
-    },
-    'hcl_naoh_neutralization': {
-      physKey: 'HCl+NaOH',
-      substances: ['HCl', 'NaOH', 'Phenolphthalein'],
-      initialColor: '#f8fafc',
-      targetColor: '#ec4899',
-      ph: 9.2
-    },
-    'h2so4_naoh_neutralization': {
-      physKey: 'H2SO4+NaOH',
-      substances: ['H2SO4', 'NaOH'],
-      initialColor: '#f8fafc',
-      targetColor: '#f8fafc',
-      ph: 7.0
-    },
-    'k2cr2o7_naoh_equilibrium': {
-      physKey: 'K2Cr2O7+NaOH',
-      substances: ['K2Cr2O7', 'NaOH'],
-      initialColor: '#ea580c',
-      targetColor: '#facc15',
-      ph: 11.5
-    },
-    'fe_cuso4_displacement': {
-      physKey: 'Fe+CuSO4',
-      substances: ['Fe', 'CuSO4'],
-      dissolvingReactants: ['Fe'],
-      initialColor: '#0284c7',
-      targetColor: '#86efac',
-      hasPrecip: true,
-      precipColor: '#b45309',
-      precipSubstance: 'Cu',
-      precipMorphology: 'METALLIC_DEPOSIT',
-      ph: 5.5
-    },
-    'fecl3_kscn_complex': {
-      physKey: 'FeCl3+KSCN',
-      substances: ['FeCl3', 'KSCN'],
-      initialColor: '#fde047',
-      targetColor: '#7f1d1d',
-      ph: 4.5
-    },
-    'kmno4_oxalic_redox': {
-      physKey: 'KMnO4+H2C2O4',
-      substances: ['KMnO4', 'H2C2O4', 'H2SO4'],
-      initialColor: '#7e22ce',
-      targetColor: '#f8fafc',
-      hasGas: true,
-      gasColor: '#ffffff',
-      ph: 2.0
-    },
-    'iodine_clock': {
-      physKey: 'KIO3+NaHSO3',
-      substances: ['KIO3', 'NaHSO3', 'Starch'],
-      initialColor: '#f8fafc',
-      targetColor: '#0f172a',
-      ph: 5.0
-    },
-    'cuoh2_thermal_decomposition': {
-      physKey: 'Cu(OH)2_heat',
-      substances: ['Cu(OH)2', 'H2O'],
-      dissolvingReactants: ['Cu(OH)2'],
-      initialColor: '#0284c7',
-      targetColor: '#1e293b',
-      hasPrecip: true,
-      precipColor: '#18181b',
-      precipSubstance: 'CuO',
-      precipMorphology: 'FINE_POWDER',
-      ph: 7.5
-    },
-    'iodine_sublimation': {
-      physKey: 'I2_sublimation',
-      substances: ['I2', 'H2O'],
-      dissolvingReactants: ['I2'],
-      initialColor: '#581c87',
-      targetColor: '#9333ea',
-      hasGas: true,
-      gasColor: '#a855f7',
-      ph: 7.0
-    },
-    'water_into_conc_h2so4_explosion': {
-      physKey: 'H2O+H2SO4_conc',
-      substances: ['H2SO4 (conc)', 'H2O'],
-      initialColor: '#fef3c7',
-      targetColor: '#fca5a5',
-      hasGas: true,
-      gasColor: '#ffffff',
-      ph: 0.5
-    },
-    'sodium_water_reaction': {
-      physKey: 'Na+H2O',
-      substances: ['Na', 'H2O', 'Phenolphthalein'],
-      dissolvingReactants: ['Na'],
-      initialColor: '#f8fafc',
-      targetColor: '#ec4899',
-      hasGas: true,
-      gasColor: '#ffffff',
-      ph: 13.2
-    },
-    'burn_magnesium': {
-      physKey: 'Mg+O2',
-      substances: ['Mg', 'H2O'],
-      dissolvingReactants: ['Mg'],
-      initialColor: '#f8fafc',
-      targetColor: '#ffffff',
-      hasPrecip: true,
-      precipColor: '#ffffff',
-      precipSubstance: 'BaSO4',
-      precipMorphology: 'FINE_POWDER',
-      hasGas: true,
-      gasColor: '#ffffff',
-      ph: 9.0
-    },
-    'flame_cu': {
-      physKey: 'flame_cu',
-      substances: ['CuSO4'],
-      initialColor: '#0ea5e9',
-      targetColor: '#10b981',
-      hasGas: true,
-      gasColor: '#10b981',
-      flameEmission: { element: 'Cu', color: '#10b981' }
-    },
-    'flame_na': {
-      physKey: 'flame_na',
-      substances: ['NaCl'],
-      initialColor: '#f8fafc',
-      targetColor: '#f59e0b',
-      hasGas: true,
-      gasColor: '#f59e0b',
-      flameEmission: { element: 'Na', color: '#f59e0b' }
-    },
-    'flame_k': {
-      physKey: 'flame_k',
-      substances: ['KI'],
-      initialColor: '#f8fafc',
-      targetColor: '#a855f7',
-      hasGas: true,
-      gasColor: '#c084fc',
-      flameEmission: { element: 'K', color: '#a855f7' }
+  const previewFlame = (element: string) => {
+    const store = useAppStore.getState();
+    const lamp = Object.values(store.burners).find(b => Number.isFinite(b.fuelLevel_ml ?? 120) && (b.fuelLevel_ml ?? 120) > 0);
+    if (!lamp) {
+      useAppStore.setState({ globalWarning: 'Cần đèn còn cồn để xem màu ngọn lửa.' });
+      return;
+    }
+    if (!lamp.isOn) store.toggleBurner(lamp.id);
+    store.setBurnerIntensity(lamp.id, 4);
+    if (store.startFlameTest(lamp.id, element)) {
+      setSelectedFlameElement(element);
+      setBurnerState('blue');
     }
   };
 
-  // -------------------------------------------------------------
-  // REACTION EXECUTION PIPELINE
-  // -------------------------------------------------------------
   const executeReaction = (reactionKey: string) => {
-    setActiveTestId(reactionKey);
-    const targetId = getOrCreateTargetVesselId();
-    const currentVessel = useAppStore.getState().vessels[targetId];
-    if (!currentVessel) return;
-
-    // Initialize procedural audio on gesture
-    proceduralAudio.init();
-    proceduralAudio.resume();
-
-    // 1. Resolve reaction preset, physical reaction database, and VFX recipe
-    const preset = REACTION_STUDIO_PRESETS[reactionKey];
-    const physReaction = REACTION_DATABASE[preset?.physKey || reactionKey];
-    const vfxRecipe = getReactionVfxRecipe(reactionKey) || REACTION_VFX_RECIPES['hcl_naoh_neutralization'];
-
-    const duration = vfxRecipe.duration || 5.0;
-    const isExothermic = physReaction
-      ? physReaction.dH < -20000
-      : reactionKey.includes('explosion') || reactionKey.includes('neutralization') || reactionKey.includes('sodium') || reactionKey.includes('mg');
-    const targetTemp = isExothermic 
-      ? Math.min(99.5, 25 + Math.abs(physReaction ? physReaction.dH / 6500 : 38))
-      : (reactionKey.includes('heat') || reactionKey.includes('sublimation') ? 88 : 25);
-
-    // 2. Determine colors, precipitates, gases, solids, and foam
-    const initialColor = preset?.initialColor || currentVessel.liquidColor || '#f8fafc';
-    const targetColor = preset?.targetColor || '#38bdf8';
-    const hasPrecip = preset?.hasPrecip ?? !!vfxRecipe.precipitate;
-    const precipColor = preset?.precipColor || vfxRecipe.precipitate?.color || '#ffffff';
-    const precipSubstance = preset?.precipSubstance || vfxRecipe.precipitate?.substance || 'BaSO4';
-    const precipMorphology = preset?.precipMorphology;
-    const hasGas = preset?.hasGas ?? (!!vfxRecipe.bubbles || !!vfxRecipe.gasPlume);
-    const gasColor = preset?.gasColor || vfxRecipe.gasPlume?.color || '#ffffff';
-    const substances = preset?.substances || ['H2O'];
-    const dissolvingReactants = preset?.dissolvingReactants || [];
-    const initialFoam = preset?.foam_ml || 0;
-
-    // 3. Direct reaction kinetics simulation injection
-    const kineticsItem = {
-      vesselId: targetId,
-      reactionId: reactionKey,
-      startTime: Date.now(),
-      duration,
-      progress: 0,
-      reactionName: physReaction ? (language === 'vi' ? physReaction.name_vi : physReaction.name) : vfxRecipe.name,
-      equation: physReaction ? physReaction.equation : vfxRecipe.name,
-      initialLiquidColor: initialColor,
-      targetLiquidColor: targetColor,
-      hasGas,
-      gasColor,
-      hasPrecipitate: hasPrecip,
-      precipitateColor: precipColor,
-      precipitateSubstance: precipSubstance,
-      precipMorphology,
-      dissolvingReactants,
-      targetTemp
-    };
-
-    // 4. Start dedicated ReactionSimulationEngine controller
-    reactionSimulationEngine.startReaction(targetId, reactionKey, {
-      duration,
-      progress: 0,
-      targetColor,
-      temperature: targetTemp
-    });
-
-    // 5. Reset dissolving progress for solid reactants so 3D Na pellet / Fe nail / Zn / CaCO3 appear fresh
-    const resetDissolving: Record<string, number> = {};
-    for (const sub of dissolvingReactants) {
-      resetDissolving[sub] = 0;
+    const element = ({ flame_cu: 'Cu', flame_na: 'Na', flame_k: 'K' } as Record<string, string>)[reactionKey];
+    if (element) { previewFlame(element); return; }
+    const program = studioProgramForReaction(reactionKey);
+    if (!program) {
+      useAppStore.setState({ mixError: 'Chưa có chương trình định lượng cho ' + reactionKey });
+      return;
     }
-
-    // 6. Auto-ignite Bunsen burner & emit flame:test if executing a flame test reaction
-    const updatedBurners = { ...useAppStore.getState().burners };
-    if (preset?.flameEmission) {
-      setSelectedFlameElement(preset.flameEmission.element);
-      setBurnerState('blue');
-      const burnerIds = Object.keys(updatedBurners);
-      if (burnerIds.length > 0) {
-        const bId = burnerIds[0];
-        updatedBurners[bId] = {
-          ...updatedBurners[bId],
-          isOn: true,
-          intensity: 4,
-          flameState: 'HIGH_FLAME'
-        };
-      }
-      vfxBus.emit('flame:test', {
-        element: preset.flameEmission.element,
-        color: preset.flameEmission.color,
-        cobaltFilter: useCobaltGlass
-      });
-    }
-
-    useAppStore.setState(s => ({
-      burners: updatedBurners,
-      dissolvingSubstances: {
-        ...s.dissolvingSubstances,
-        [targetId]: resetDissolving
-      },
-      vessels: {
-        ...s.vessels,
-        [targetId]: {
-          ...s.vessels[targetId],
-          substances,
-          contents: substances.map(formula => ({ formula, moles: 0.05, mass_g: 2.0 })),
-          volume_ml: Math.max(65, s.vessels[targetId].volume_ml || 80),
-          volume: Math.min(1.0, Math.max(65, s.vessels[targetId].volume_ml || 80) / s.vessels[targetId].capacity_ml),
-          liquidColor: initialColor,
-          temperature_c: targetTemp,
-          ph: preset?.ph ?? 7.0,
-          foam_ml: initialFoam,
-          hasPrecipitate: hasPrecip,
-          precipitateColor: precipColor,
-          precipitateSubstance: precipSubstance,
-          precipitateMorphology: precipMorphology,
-          precipitateAmount_g: hasPrecip ? 0.45 : 0,
-          isBoiling: reactionKey.includes('explosion') || targetTemp >= 95,
-          hasGas,
-          gasColor,
-          isExplosion: reactionKey.includes('explosion')
-        }
-      },
-      activeKinetics: {
-        ...s.activeKinetics,
-        [targetId]: kineticsItem
-      }
-    }));
-
-    // 7. Trigger procedural audio profiles
-    if (reactionKey.includes('sodium')) {
-      labSound.playFizz(2.0);
-      proceduralAudio.updateFizzState(0.035);
-      setTimeout(() => proceduralAudio.updateFizzState(0), duration * 1000);
-    } else if (hasGas) {
-      proceduralAudio.updateFizzState(0.02);
-      setTimeout(() => proceduralAudio.updateFizzState(0), duration * 1000);
-      labSound.playFizz();
-    } else if (reactionKey.includes('explosion')) {
-      labSound.playExplosion();
-      labSound.playAlarm();
-      vfxBus.emit('explosion', {
-        vesselId: targetId,
-        position: currentVessel.position,
-        intensity: 1.5,
-        isDangerous: true
-      });
-    } else {
-      proceduralAudio.playGlassClink(0.4);
-    }
+    executeProgram(program);
   };
 
   // -------------------------------------------------------------
@@ -824,97 +278,34 @@ export const VfxGallery: React.FC = () => {
             ...s.burners[bId],
             isOn: nextMode !== 'off',
             intensity: nextMode === 'blue' ? 4 : 2,
-            flameState: nextMode === 'blue' ? 'HIGH_FLAME' : 'MEDIUM_FLAME'
+            flameState: nextMode === 'blue' ? 'HIGH_FLAME' : 'MEDIUM_FLAME',
+            flameEmission: undefined
           }
         }
       }));
     }
   };
 
-  const executeProgram = (prog: ReactionProgram) => {
-    setActiveTestId(prog.id);
-    const targetId = getOrCreateTargetVesselId();
-    const currentVessel = useAppStore.getState().vessels[targetId];
-    if (!currentVessel) return;
-
-    proceduralAudio.init();
-    proceduralAudio.resume();
-
-    const reactants = prog.chemistry.species.filter(s => s.role === 'reactant');
-    const reactantSubstances = reactants.map(r => r.formula);
-    const baseContents = reactants.map(r => ({
-      formula: r.formula,
-      moles: r.coeff * 0.05,
-      mass_g: r.coeff * 0.05 * 58.4,
-      volume_ml: r.phase === 'aq' || r.phase === 'l' ? 30 : 0
-    }));
-
-    const baseVessel: any = {
-      ...currentVessel,
-      substances: reactantSubstances,
-      contents: baseContents,
-      volume_ml: 65,
-      volume: 0.65,
-      liquidColor: '#f8fafc',
-      temperature_c: 25
-    };
-
-    const ledgerResult = applyProgramToLedger(prog, baseVessel, 1.0);
-    const duration = prog.visual.duration_s || 5.0;
-
-    const kineticsItem: any = {
-      vesselId: targetId,
-      reactionId: prog.id,
-      startTime: Date.now(),
-      duration,
-      progress: 0,
-      reactionName: language === 'vi' ? prog.explain.observation_vi : prog.explain.observation_en,
-      equation: prog.chemistry.equation,
-      initialLiquidColor: '#f8fafc',
-      targetLiquidColor: ledgerResult.liquidColor || '#f8fafc',
-      hasGas: ledgerResult.hasGas,
-      gasColor: ledgerResult.gasColor,
-      hasPrecipitate: ledgerResult.hasPrecipitate,
-      precipitateColor: ledgerResult.precipitateColor,
-      precipitateSubstance: ledgerResult.precipitateSubstance,
-      precipitateMorphology: ledgerResult.precipitateMorphology,
-      targetTemp: ledgerResult.temperature_c,
-      timeWarp: prog.visual.timeWarp,
-      program: prog
-    };
-
-    useAppStore.setState(s => ({
-      vessels: {
-        ...s.vessels,
-        [targetId]: {
-          ...s.vessels[targetId],
-          substances: reactantSubstances,
-          contents: baseContents,
-          volume_ml: 65,
-          volume: 0.65,
-          liquidColor: '#f8fafc',
-          temperature_c: 25,
-          hasGas: false,
-          hasPrecipitate: false,
-          precipitateAmount_g: 0
-        }
-      },
-      activeKinetics: {
-        ...s.activeKinetics,
-        [targetId]: kineticsItem
-      }
-    }));
-
-    reactionSimulationEngine.startReaction(targetId, prog.id, {
-      duration,
-      currentColor: '#f8fafc',
-      targetColor: ledgerResult.liquidColor || '#f8fafc',
-      temperature: ledgerResult.temperature_c || 25
-    });
-
-    if (ledgerResult.hasGas) {
-      labSound.playFizz();
+  const executeProgram = (program: ReactionProgram, fresh = false) => {
+    setActiveTestId(program.id);
+    if (program.chemistry.representation === 'emission') {
+      const element = ({ flame_cu: 'Cu', flame_na: 'Na', flame_k: 'K' } as Record<string, string>)[program.id];
+      if (element) previewFlame(element);
+      return;
     }
+    if (LESSON_PROGRAM_IDS.has(program.id)) {
+      if (useLessonLabStore.getState().start(program.id)) {
+        setSelectedVesselId(useAppStore.getState().selectedVesselId);
+      }
+      return;
+    }
+    const store = useAppStore.getState();
+    const current = selectedVesselId ? store.vessels[selectedVesselId] : undefined;
+    const id = !fresh && current?.studioProgramId === program.id ? current.id : store.prepareStudioProgram(program.id);
+    if (!id) return;
+    setSelectedVesselId(id);
+    store.setSelectedVesselId(id);
+    store.runStudioProgram(id);
   };
 
   const executeAtomPreset = (atom: EffectAtom, presetIndex: number) => {
@@ -1026,43 +417,7 @@ export const VfxGallery: React.FC = () => {
     });
   };
 
-  const handleFlameTest = () => {
-    const colors: Record<string, string> = {
-      Li: '#ef4444', // Crimson
-      Na: '#f59e0b', // Yellow
-      K:  useCobaltGlass ? '#a855f7' : '#c084fc', // Lilac
-      Ca: '#ea580c', // Brick Red
-      Cu: '#10b981', // Blue-Green
-      Ba: '#84cc16', // Apple Green
-    };
-
-    labSound.playFizz(1.5);
-    const targetColor = colors[selectedFlameElement] || '#f59e0b';
-
-    // Ensure workbench Bunsen burner is lit so the 3D flame emission is immediately visible
-    setBurnerState('blue');
-    const burnerIds = Object.keys(burners);
-    if (burnerIds.length > 0) {
-      const bId = burnerIds[0];
-      useAppStore.setState(s => ({
-        burners: {
-          ...s.burners,
-          [bId]: {
-            ...s.burners[bId],
-            isOn: true,
-            intensity: 4,
-            flameState: 'HIGH_FLAME'
-          }
-        }
-      }));
-    }
-
-    vfxBus.emit('flame:test', {
-      element: selectedFlameElement,
-      color: targetColor,
-      cobaltFilter: useCobaltGlass
-    });
-  };
+  const handleFlameTest = () => previewFlame(selectedFlameElement);
 
   // Reaction Categories
   const categories = [
@@ -1125,7 +480,7 @@ export const VfxGallery: React.FC = () => {
       items: [
         { id: 'cuoh2_thermal_decomposition', name: 'Cu(OH)2 Blue -> Black CuO Thermal', name_vi: 'Cu(OH)2 xanh phân hủy thành CuO đen' },
         { id: 'iodine_sublimation', name: 'Iodine Sublimation Rich Purple Gas', name_vi: 'Thăng hoa Iot hơi tím biếc' },
-        { id: 'water_into_conc_h2so4_explosion', name: 'Water Into Acid Splatter Explosion', name_vi: 'Nước đổ vào axit đặc nổ tung tóe' }
+        { id: 'water_into_conc_h2so4_explosion', name: 'Concentrated Acid Dilution', name_vi: 'Pha loãng axit đặc tỏa nhiệt' }
       ]
     },
     {
@@ -1134,10 +489,10 @@ export const VfxGallery: React.FC = () => {
       icon: <Flame size={13} className="text-red-500" />,
       items: [
         { id: 'sodium_water_reaction', name: 'Sodium Metal Skating Water Dart', name_vi: 'Natri chạy trên nước nổ tanh tách' },
-        { id: 'burn_magnesium', name: 'Magnesium Blinding White Flare (3100 K)', name_vi: 'Đốt dây Magie lóa mắt khói trắng' },
-        { id: 'flame_cu', name: 'Copper Blue-Green Flame Emission (510 nm)', name_vi: 'Ngọn lửa Đồng xanh lam - lục' },
+        { id: 'burn_magnesium', name: 'Magnesium White Combustion', name_vi: 'Đốt dây Magie lóa mắt khói trắng' },
+        { id: 'flame_cu', name: 'Copper Blue-Green Flame Emission', name_vi: 'Ngọn lửa Đồng xanh lam - lục' },
         { id: 'flame_na', name: 'Sodium Golden Yellow Flame Emission (589 nm)', name_vi: 'Ngọn lửa Natri vàng rực' },
-        { id: 'flame_k', name: 'Potassium Lilac Flame Emission (766 nm)', name_vi: 'Ngọn lửa Kali tím nhạt' }
+        { id: 'flame_k', name: 'Potassium Lilac Flame Emission', name_vi: 'Ngọn lửa Kali tím nhạt' }
       ]
     }
   ];
@@ -1156,7 +511,7 @@ export const VfxGallery: React.FC = () => {
     );
   }
 
-  const currentActiveKinetics = Object.values(activeKinetics)[0];
+  const currentActiveKinetics = targetVessel ? activeKinetics[targetVessel.id] : undefined;
   const vesselHazards = (targetVessel?.contents || []).flatMap(c => SUBSTANCE_DATABASE[c.formula]?.hazards || []);
   const hazard = vesselHazards.length > 0 
     ? formatHazardBadge(vesselHazards) 
@@ -1180,7 +535,7 @@ export const VfxGallery: React.FC = () => {
                 PBR v2.0
               </span>
               <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                {fps} FPS
+                {frameStats.samples > 0 ? fps : '—'} FPS
               </span>
             </div>
             <div className="text-[10px] text-slate-400">Emergent Physics Simulation Harness</div>
@@ -1310,6 +665,16 @@ export const VfxGallery: React.FC = () => {
             </div>
           </div>
 
+          {targetVessel?.studioProgramId && <div className="mx-3 my-2 rounded border border-indigo-700 bg-indigo-950/50 p-2 space-y-2 text-[10px]">
+            <p>Mẫu định lượng mô phỏng riêng; không phải quy trình định lượng thực hành. Giữ nguyên mẫu trước đó. Tua tiến không thu hồi khí đã thoát.</p>
+            <div className="flex gap-2">
+              <button className="rounded bg-indigo-700 px-2 py-1" onClick={() => useAppStore.getState().runStudioProgram(targetVessel.id)}>Kiểm tra điều kiện / Chạy mẫu</button>
+              <button className="rounded bg-slate-700 px-2 py-1" onClick={() => {
+                const program = getProgramById(targetVessel.studioProgramId!);
+                if (program) executeProgram(program, true);
+              }}>Tạo mẫu mới</button>
+            </div>
+          </div>}
           {/* 3. Navigation Tabs */}
           <div className="flex border-b border-slate-800 bg-slate-900/40 text-[11px] font-bold select-none overflow-x-auto">
             <button
@@ -1436,18 +801,13 @@ export const VfxGallery: React.FC = () => {
                     {/* Scrubbing Quick Controls */}
                     <div className="flex items-center justify-between text-[9px] text-slate-400 font-mono">
                       <button
-                        onClick={() => handleScrubReaction(currentActiveKinetics.vesselId, 0)}
+                        onClick={() => { if (currentActiveKinetics.program) executeProgram(currentActiveKinetics.program, true); }}
                         className="hover:text-indigo-300 px-1.5 py-0.5 rounded bg-slate-800/80 transition-colors"
                       >
-                        0%
+                        Mẫu mới
                       </button>
                       <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => handleScrubReaction(currentActiveKinetics.vesselId, Math.max(0, currentActiveKinetics.progress - 0.1))}
-                          className="hover:text-indigo-300 px-1.5 py-0.5 rounded bg-slate-800/80 font-bold transition-colors"
-                        >
-                          -10%
-                        </button>
+
                         <button
                           onClick={() => setSimulationPaused(!isSimulationPaused)}
                           className="hover:text-white px-2 py-0.5 rounded bg-indigo-600/60 text-indigo-200 font-bold transition-colors"
@@ -1497,8 +857,7 @@ export const VfxGallery: React.FC = () => {
                 <div className="space-y-1.5">
                   {categories[selectedCategory].items.map(item => {
                     const isCurrent = activeTestId === item.id;
-                    const preset = REACTION_STUDIO_PRESETS[item.id];
-                    const phys = REACTION_DATABASE[preset?.physKey || item.id];
+                    const program = studioProgramForReaction(item.id);
 
                     return (
                       <div
@@ -1521,11 +880,11 @@ export const VfxGallery: React.FC = () => {
                           </button>
                         </div>
 
-                        {phys && (
+                        {program && (
                           <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
-                            <span className="truncate max-w-[240px] text-indigo-300">{phys.equation}</span>
-                            <span className={phys.dH < 0 ? 'text-amber-400 font-bold' : 'text-cyan-400'}>
-                              {phys.dH < 0 ? `ΔH: ${Math.round(phys.dH / 1000)} kJ` : 'Endo'}
+                            <span className="truncate max-w-[240px] text-indigo-300">{program.chemistry.equation}</span>
+                            <span className={(program.chemistry.deltaH_kJ_per_mol ?? 0) < 0 ? 'text-amber-400 font-bold' : 'text-cyan-400'}>
+                              {program.chemistry.deltaH_kJ_per_mol != null ? 'ΔH: ' + program.chemistry.deltaH_kJ_per_mol + ' kJ/mol' : 'ΔH: —'}
                             </span>
                           </div>
                         )}
@@ -2142,7 +1501,7 @@ export const VfxGallery: React.FC = () => {
                   <div className="flex items-center justify-between text-[11px] font-bold text-slate-200">
                     <span className="flex items-center gap-1.5 text-amber-400">
                       <Flame size={14} />
-                      Atomic Emission Flame Tests
+                      Flame Color Reference Preview
                     </span>
                     <button
                       onClick={() => setUseCobaltGlass(!useCobaltGlass)}
@@ -2153,19 +1512,20 @@ export const VfxGallery: React.FC = () => {
                       }`}
                     >
                       <Filter size={10} />
-                      <span>Cobalt Filter: {useCobaltGlass ? 'ON' : 'OFF'}</span>
+                      <span>Cobalt Glass Notes: {useCobaltGlass ? 'ON' : 'OFF'}</span>
                     </button>
                   </div>
 
-                  {/* Element Selector */}
+                  {useCobaltGlass && <p className="text-[10px] text-slate-300">Kính coban lọc ánh sáng tới mắt, làm giảm màu vàng của Na; không làm đổi ngọn lửa. Mục này giải thích kính lọc, chưa mô phỏng phổ truyền qua kính.</p>}
+                {/* Element Selector */}
                   <div className="grid grid-cols-3 gap-1.5">
                     {[
-                      { sym: 'Cu', name: 'Copper (Azure 510nm)', color: '#10b981' },
-                      { sym: 'Na', name: 'Sodium (Yellow 589nm)', color: '#f59e0b' },
-                      { sym: 'K',  name: 'Potassium (Lilac 766nm)', color: '#c084fc' },
-                      { sym: 'Li', name: 'Lithium (Crimson 670nm)', color: '#ef4444' },
-                      { sym: 'Ca', name: 'Calcium (Brick 622nm)', color: '#ea580c' },
-                      { sym: 'Ba', name: 'Barium (Green 524nm)', color: '#84cc16' }
+                      { sym: 'Cu', name: 'Copper (Blue-green)', color: '#10b981' },
+                      { sym: 'Na', name: 'Sodium (Yellow)', color: '#f59e0b' },
+                      { sym: 'K',  name: 'Potassium (Lilac)', color: '#c084fc' },
+                      { sym: 'Li', name: 'Lithium (Crimson)', color: '#ef4444' },
+                      { sym: 'Ca', name: 'Calcium (Orange-red)', color: '#ea580c' },
+                      { sym: 'Ba', name: 'Barium (Green)', color: '#84cc16' }
                     ].map(el => (
                       <button
                         key={el.sym}
@@ -2190,7 +1550,7 @@ export const VfxGallery: React.FC = () => {
                     className="w-full py-2 rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-[11px] shadow transition-all flex items-center justify-center gap-1.5"
                   >
                     <Flame size={14} />
-                    <span>Dip Wire Loop into Flame</span>
+                    <span>Preview Reference Color (7.5 s)</span>
                   </button>
                 </div>
 
@@ -2266,7 +1626,7 @@ export const VfxGallery: React.FC = () => {
                       {kinetics && (
                         <div className="space-y-1 bg-slate-950/60 p-2 rounded-lg border border-slate-800/80">
                           <div className="flex justify-between items-center text-[9px] font-mono text-slate-300">
-                            <span>Scrubber:</span>
+                            <span>Tua tiến:</span>
                             <span className="text-amber-300 font-bold">{Math.round(kinetics.progress * 100)}%</span>
                           </div>
                           <input
@@ -2295,7 +1655,7 @@ export const VfxGallery: React.FC = () => {
                         <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
                           <div className="text-[9px] text-slate-400">Gas Evolution Rate</div>
                           <div className="text-amber-300 font-bold">
-                            {((simRuntime?.gasGenerationRate || (kinetics?.hasGas ? 0.75 : 0)) * 25).toFixed(1)} mL/s
+                            {simRuntime?.gasGenerationRate !== undefined ? (simRuntime.gasGenerationRate * 25).toFixed(1) + ' mL/s' : '—'}
                           </div>
                         </div>
 
@@ -2326,7 +1686,7 @@ export const VfxGallery: React.FC = () => {
                         <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800/80 space-y-0.5">
                           <div className="text-[9px] text-slate-400">Frame Budget / FPS</div>
                           <div className="text-emerald-400 font-bold">
-                            {fps} FPS <span className="text-slate-400 font-normal">({(1000 / Math.max(1, fps)).toFixed(1)} ms)</span>
+                            {fps} FPS <span className="text-slate-400 font-normal">({frameStats.samples > 0 ? frameStats.ms.toFixed(1) : '—'} ms)</span>
                           </div>
                         </div>
                       </div>

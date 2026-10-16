@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { labSound } from '../../../utils/audio';
+import { useToolDock } from '../../../handling/toolDock';
 
 const rodGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.1,
@@ -14,18 +15,20 @@ const rodGlassMaterial = new THREE.MeshPhysicalMaterial({
 });
 
 export const InteractiveStirringRod = React.memo(function InteractiveStirringRod({
-  position = [-5.2, 0.4, 2.0],
+  position: initialPosition = [-5.2, 0.4, 2.0],
 }: {
   position?: [number, number, number];
 }) {
+  const dock = useToolDock('stirring_rod', initialPosition);
+  const position = dock.position;
+  const animationTarget = useRef(new THREE.Vector3());
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const vessels = useAppStore(state => state.vessels);
+  const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
   const stirVessel = useAppStore(state => state.stirVessel);
 
   const groupRef = useRef<THREE.Group>(null);
-  const targetVessel = selectedVesselId ? vessels[selectedVesselId] : null;
   const isActive = activeTool === 'stirring_rod';
 
   const [stirAngle, setStirAngle] = useState(0);
@@ -69,13 +72,13 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
       const angle = time * speed * Math.PI;
       const radius = 0.28;
 
-      const targetPos = new THREE.Vector3(
+      const targetPos = animationTarget.current.set(
         targetVessel.position[0] + Math.cos(angle) * radius,
         targetVessel.position[1] + 0.8,
         targetVessel.position[2] + Math.sin(angle) * radius
       );
 
-      groupRef.current.position.lerp(targetPos, delta * 12.0);
+      groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 12));
       groupRef.current.rotation.z = Math.sin(angle) * 0.18;
       groupRef.current.rotation.x = Math.cos(angle) * 0.18;
 
@@ -86,17 +89,22 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
       stirSpeedRef.current = Math.max(0, stirSpeedRef.current - delta * 0.6);
     } else {
       // Resting position in rack
-      const restPos = new THREE.Vector3(...position);
-      groupRef.current.position.lerp(restPos, delta * 8.0);
+      const restPos = animationTarget.current.set(...position);
+      groupRef.current.position.lerp(restPos, 1 - Math.exp(-delta * 8));
       groupRef.current.rotation.set(0.1, 0, 0.1);
     }
   });
 
+  if (!dock.visible) return null;
+
   return (
     <group
       ref={groupRef}
+      name="tool-stirring_rod" visible={dock.visible}
+      onPointerDown={dock.onPointerDown}
       onClick={(e) => {
         e.stopPropagation();
+        if (dock.moveMode) return;
         setActiveTool(isActive ? 'none' : 'stirring_rod');
       }}
       onPointerOver={() => { document.body.style.cursor = 'pointer'; }}

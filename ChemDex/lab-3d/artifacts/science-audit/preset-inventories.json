@@ -1,0 +1,1086 @@
+{
+  "checkedAt": "2026-10-16T14:31:19.785Z",
+  "scope": "Every authored preset identifier, including aliases; not a real-lab dosing protocol.",
+  "solventBasis": "Residual already-declared sample mass is materialized as water only for the authored aqueous presets.",
+  "counts": {
+    "presetIds": 21,
+    "vesselDefinitions": 41,
+    "massFailures": 0
+  },
+  "failures": [],
+  "presets": [
+    {
+      "id": "acid_base_titration",
+      "vessels": [
+        {
+          "id": "flask_1",
+          "name": "Flask 1 (HCl)",
+          "volume_ml": 20,
+          "mass_g": 20,
+          "trackedMass_g": 20,
+          "waterMass_g": 19.27,
+          "contents": [
+            {
+              "formula": "HCl (dil)",
+              "moles": 0.02002304021065335,
+              "mass_g": 0.73,
+              "phase": "aq",
+              "concentration_M": 1.0011520105326674,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 19.27,
+              "moles": 1.0696641687482653,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (NaOH)",
+          "volume_ml": 50,
+          "mass_g": 50,
+          "trackedMass_g": 50,
+          "waterMass_g": 48,
+          "contents": [
+            {
+              "formula": "NaOH",
+              "moles": 0.050003750281271096,
+              "mass_g": 2,
+              "phase": "aq",
+              "concentration_M": 1.000075005625422,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 48,
+              "moles": 2.6644462947543714,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "golden_rain_synthesis",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (Pb(NO3)2)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 39,
+          "contents": [
+            {
+              "formula": "Pb(NO3)2",
+              "moles": 0.003019250742735683,
+              "mass_g": 1,
+              "phase": "aq",
+              "concentration_M": 0.07548126856839207,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 39,
+              "moles": 2.1648626144879266,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (KI)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 39,
+          "contents": [
+            {
+              "formula": "KI",
+              "moles": 0.006024023806942085,
+              "mass_g": 1,
+              "phase": "aq",
+              "concentration_M": 0.15060059517355212,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 39,
+              "moles": 2.1648626144879266,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "co2_gas_evolution",
+      "vessels": [
+        {
+          "id": "flask_1",
+          "name": "Flask 1 (CaCO3)",
+          "volume_ml": 0,
+          "mass_g": 10,
+          "trackedMass_g": 10,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "CaCO3",
+              "moles": 0.09991407389644906,
+              "mass_g": 10,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (HCl)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 38.2,
+          "contents": [
+            {
+              "formula": "HCl (dil)",
+              "moles": 0.04937187997147402,
+              "mass_g": 1.8,
+              "phase": "aq",
+              "concentration_M": 1.2342969992868504,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 38.2,
+              "moles": 2.1204551762420207,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "co2_gas_production",
+      "vessels": [
+        {
+          "id": "flask_1",
+          "name": "Flask 1 (CaCO3)",
+          "volume_ml": 0,
+          "mass_g": 10,
+          "trackedMass_g": 10,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "CaCO3",
+              "moles": 0.09991407389644906,
+              "mass_g": 10,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (HCl)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 38.2,
+          "contents": [
+            {
+              "formula": "HCl (dil)",
+              "moles": 0.04937187997147402,
+              "mass_g": 1.8,
+              "phase": "aq",
+              "concentration_M": 1.2342969992868504,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 38.2,
+              "moles": 2.1204551762420207,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iron_copper_redox",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (CuSO4)",
+          "volume_ml": 50,
+          "mass_g": 50,
+          "trackedMass_g": 50,
+          "waterMass_g": 43.6,
+          "contents": [
+            {
+              "formula": "CuSO4",
+              "moles": 0.0400997481234571,
+              "mass_g": 6.4,
+              "phase": "aq",
+              "concentration_M": 0.801994962469142,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 43.6,
+              "moles": 2.4202053844018874,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (Fe metal)",
+          "volume_ml": 0,
+          "mass_g": 5.6,
+          "trackedMass_g": 5.6,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "Fe",
+              "moles": 0.100277553943952,
+              "mass_g": 5.6,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "single_displacement_copper",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (CuSO4)",
+          "volume_ml": 50,
+          "mass_g": 50,
+          "trackedMass_g": 50,
+          "waterMass_g": 43.6,
+          "contents": [
+            {
+              "formula": "CuSO4",
+              "moles": 0.0400997481234571,
+              "mass_g": 6.4,
+              "phase": "aq",
+              "concentration_M": 0.801994962469142,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 43.6,
+              "moles": 2.4202053844018874,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (Fe metal)",
+          "volume_ml": 0,
+          "mass_g": 5.6,
+          "trackedMass_g": 5.6,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "Fe",
+              "moles": 0.100277553943952,
+              "mass_g": 5.6,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mass_conservation_bacl2_na2so4",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (BaCl2 on Balance)",
+          "volume_ml": 25,
+          "mass_g": 25.8,
+          "trackedMass_g": 25.8,
+          "waterMass_g": 24.76,
+          "contents": [
+            {
+              "formula": "BaCl2",
+              "moles": 0.004994549217920827,
+              "mass_g": 1.04,
+              "phase": "aq",
+              "concentration_M": 0.19978196871683307,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 24.76,
+              "moles": 1.3744102137107965,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (Na2SO4)",
+          "volume_ml": 25,
+          "mass_g": 25.8,
+          "trackedMass_g": 25.8,
+          "waterMass_g": 25.09,
+          "contents": [
+            {
+              "formula": "Na2SO4",
+              "moles": 0.004998732715649553,
+              "mass_g": 0.71,
+              "phase": "aq",
+              "concentration_M": 0.19994930862598212,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 25.09,
+              "moles": 1.3927282819872329,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "catalytic_oxygen_prep",
+      "vessels": [
+        {
+          "id": "flask_1",
+          "name": "Flask 1 (H2O2)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 27.3,
+          "contents": [
+            {
+              "formula": "H2O2",
+              "moles": 0.07937907920268125,
+              "mass_g": 2.7,
+              "phase": "aq",
+              "concentration_M": 2.645969306756042,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 27.3,
+              "moles": 1.5154038301415487,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (MnO2 Catalyst)",
+          "volume_ml": 0,
+          "mass_g": 1.74,
+          "trackedMass_g": 1.74,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "MnO2",
+              "moles": 0.020014723474740037,
+              "mass_g": 1.74,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thermal_decomp_cuoh2",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker (Cu(OH)2 on Burner)",
+          "volume_ml": 35,
+          "mass_g": 35,
+          "trackedMass_g": 35,
+          "waterMass_g": 32.1,
+          "contents": [
+            {
+              "formula": "Cu(OH)2",
+              "moles": 0.02972529725297253,
+              "mass_g": 2.9,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 32.1,
+              "moles": 1.781848459616986,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "redox_gas_cu_hno3",
+      "vessels": [
+        {
+          "id": "flask_1",
+          "name": "Flask 1 (Copper turnings)",
+          "volume_ml": 0,
+          "mass_g": 3.2,
+          "trackedMass_g": 3.2,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "Cu",
+              "moles": 0.05035722154030152,
+              "mass_g": 3.2,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (HNO3 conc)",
+          "volume_ml": 25,
+          "mass_g": 35.25,
+          "trackedMass_g": 35.25,
+          "waterMass_g": 11.279999999999998,
+          "contents": [
+            {
+              "formula": "HNO3 (conc)",
+              "moles": 0.38040373262235766,
+              "mass_g": 23.970000000000002,
+              "phase": "aq",
+              "concentration_M": 15.216149304894305,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 11.279999999999998,
+              "moles": 0.6261448792672771,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alkali_metal_water_na",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (H2O + Indicator)",
+          "volume_ml": 50,
+          "mass_g": 50,
+          "trackedMass_g": 50,
+          "waterMass_g": 49.99968168,
+          "contents": [
+            {
+              "formula": "H2O",
+              "moles": 2.775447220649459,
+              "mass_g": 49.99968168,
+              "phase": "l",
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "Phenolphthalein",
+              "phase": "aq",
+              "moles": 0.000001,
+              "mass_g": 0.00031832,
+              "concentration_M": 0.000019999999999999998,
+              "amountBasis": "authored_optical_tracer"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (Sodium Na)",
+          "volume_ml": 0,
+          "mass_g": 1,
+          "trackedMass_g": 1,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "Na",
+              "moles": 0.04349717268377556,
+              "mass_g": 1,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acid_safety_dilution",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (Distilled Water)",
+          "volume_ml": 50,
+          "mass_g": 50,
+          "trackedMass_g": 50,
+          "waterMass_g": 50,
+          "contents": [
+            {
+              "formula": "H2O",
+              "moles": 2.7754648903691366,
+              "mass_g": 50,
+              "phase": "l",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (H2SO4 conc)",
+          "volume_ml": 20,
+          "mass_g": 36.8,
+          "trackedMass_g": 36.8,
+          "waterMass_g": 0.7359999999999971,
+          "contents": [
+            {
+              "formula": "H2SO4 (conc)",
+              "moles": 0.3677298311444653,
+              "mass_g": 36.064,
+              "phase": "aq",
+              "concentration_M": 18.386491557223263,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.7359999999999971,
+              "moles": 0.04085484318623353,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agcl_curdy_precipitation",
+      "vessels": [
+        {
+          "id": "cylinder_1",
+          "name": "Graduated Cylinder (AgNO3)",
+          "volume_ml": 25,
+          "mass_g": 25,
+          "trackedMass_g": 25,
+          "waterMass_g": 20.75,
+          "contents": [
+            {
+              "formula": "AgNO3",
+              "moles": 0.02501883771310163,
+              "mass_g": 4.25,
+              "phase": "aq",
+              "concentration_M": 1.000753508524065,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 20.75,
+              "moles": 1.1518179295031918,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (NaCl)",
+          "volume_ml": 25,
+          "mass_g": 25,
+          "trackedMass_g": 25,
+          "waterMass_g": 23.54,
+          "contents": [
+            {
+              "formula": "NaCl",
+              "moles": 0.024982888432580425,
+              "mass_g": 1.46,
+              "phase": "aq",
+              "concentration_M": 0.999315537303217,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 23.54,
+              "moles": 1.3066888703857895,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exothermic_neutralization",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (HCl 2M)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 37.08,
+          "contents": [
+            {
+              "formula": "HCl (dil)",
+              "moles": 0.0800921608426134,
+              "mass_g": 2.92,
+              "phase": "aq",
+              "concentration_M": 2.002304021065335,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 37.08,
+              "moles": 2.0582847626977516,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (NaOH 2M)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 36.8,
+          "contents": [
+            {
+              "formula": "NaOH",
+              "moles": 0.08000600045003375,
+              "mass_g": 3.2,
+              "phase": "aq",
+              "concentration_M": 2.000150011250844,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 36.8,
+              "moles": 2.0427421593116843,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zn_hcl_hydrogen_production",
+      "vessels": [
+        {
+          "id": "test_tube_1",
+          "name": "Test Tube 1 (Zinc Granules)",
+          "volume_ml": 0,
+          "mass_g": 2,
+          "trackedMass_g": 2,
+          "waterMass_g": 0,
+          "contents": [
+            {
+              "formula": "Zn",
+              "moles": 0.03059039461609055,
+              "mass_g": 2,
+              "phase": "s",
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (HCl dil)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 28.9,
+          "contents": [
+            {
+              "formula": "HCl (dil)",
+              "moles": 0.030171704427011902,
+              "mass_g": 1.1,
+              "phase": "aq",
+              "concentration_M": 1.0057234809003968,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 28.9,
+              "moles": 1.6042187066333609,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "landolt_iodine_clock",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (KIO3 + Starch)",
+          "volume_ml": 35,
+          "mass_g": 35,
+          "trackedMass_g": 35,
+          "waterMass_g": 34.47,
+          "contents": [
+            {
+              "formula": "KIO3",
+              "moles": 0.002009355183902728,
+              "mass_g": 0.43,
+              "phase": "aq",
+              "concentration_M": 0.057410148111506513,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "Starch",
+              "moles": 0.0006167509559639818,
+              "mass_g": 0.1,
+              "phase": "aq",
+              "concentration_M": 0.017621455884685194,
+              "amountBasis": "authored_optical_tracer"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 34.47,
+              "moles": 1.9134054954204829,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (NaHSO3)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 29.79,
+          "contents": [
+            {
+              "formula": "NaHSO3",
+              "moles": 0.00201816347124117,
+              "mass_g": 0.21,
+              "phase": "aq",
+              "concentration_M": 0.06727211570803901,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.79,
+              "moles": 1.6536219816819315,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fe_kscn_chemical_equilibrium",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (FeCl3)",
+          "volume_ml": 25,
+          "mass_g": 25,
+          "trackedMass_g": 25,
+          "waterMass_g": 24.51,
+          "contents": [
+            {
+              "formula": "FeCl3",
+              "moles": 0.0030210549030487994,
+              "mass_g": 0.49,
+              "phase": "aq",
+              "concentration_M": 0.12084219612195198,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 24.51,
+              "moles": 1.360532889258951,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (KSCN)",
+          "volume_ml": 25,
+          "mass_g": 25,
+          "trackedMass_g": 25,
+          "waterMass_g": 24.71,
+          "contents": [
+            {
+              "formula": "KSCN",
+              "moles": 0.0029842759529101833,
+              "mass_g": 0.29,
+              "phase": "aq",
+              "concentration_M": 0.11937103811640733,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 24.71,
+              "moles": 1.3716347488204275,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "copper_ammonia_deep_blue",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (CuSO4)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 27.6,
+          "contents": [
+            {
+              "formula": "CuSO4",
+              "moles": 0.015037405546296411,
+              "mass_g": 2.4,
+              "phase": "aq",
+              "concentration_M": 0.5012468515432137,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 27.6,
+              "moles": 1.5320566194837635,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (NH3 2M)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 28.98,
+          "contents": [
+            {
+              "formula": "NH3",
+              "moles": 0.05989078738770478,
+              "mass_g": 1.02,
+              "phase": "aq",
+              "concentration_M": 1.9963595795901594,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 28.98,
+              "moles": 1.6086594504579517,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "al_amphoteric_hydroxide",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (Al2(SO4)3)",
+          "volume_ml": 25,
+          "mass_g": 25,
+          "trackedMass_g": 25,
+          "waterMass_g": 24,
+          "contents": [
+            {
+              "formula": "Al2(SO4)3",
+              "moles": 0.002922848491225609,
+              "mass_g": 1,
+              "phase": "aq",
+              "concentration_M": 0.11691393964902434,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 24,
+              "moles": 1.3322231473771857,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (NaOH 1M)",
+          "volume_ml": 40,
+          "mass_g": 40,
+          "trackedMass_g": 40,
+          "waterMass_g": 38.4,
+          "contents": [
+            {
+              "formula": "NaOH",
+              "moles": 0.04000300022501688,
+              "mass_g": 1.6,
+              "phase": "aq",
+              "concentration_M": 1.000075005625422,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 38.4,
+              "moles": 2.131557035803497,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thiosulfate_acid_clock",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (Na2S2O3)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 29.53,
+          "contents": [
+            {
+              "formula": "Na2S2O3",
+              "moles": 0.002972858435011417,
+              "mass_g": 0.47,
+              "phase": "aq",
+              "concentration_M": 0.09909528116704724,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.53,
+              "moles": 1.6391895642520122,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (HCl dil)",
+          "volume_ml": 20,
+          "mass_g": 20,
+          "trackedMass_g": 20,
+          "waterMass_g": 19.27,
+          "contents": [
+            {
+              "formula": "HCl (dil)",
+              "moles": 0.02002304021065335,
+              "mass_g": 0.73,
+              "phase": "aq",
+              "concentration_M": 1.0011520105326674,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 19.27,
+              "moles": 1.0696641687482653,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "permanganate_oxalate_redox",
+      "vessels": [
+        {
+          "id": "beaker_1",
+          "name": "Beaker 1 (KMnO4 + H2SO4)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 29.27,
+          "contents": [
+            {
+              "formula": "KMnO4",
+              "moles": 0.0015186797610610508,
+              "mass_g": 0.24,
+              "phase": "aq",
+              "concentration_M": 0.05062265870203503,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2SO4 (dil)",
+              "moles": 0.004996329227506322,
+              "mass_g": 0.49,
+              "phase": "aq",
+              "concentration_M": 0.16654430758354408,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.27,
+              "moles": 1.6247571468220927,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        },
+        {
+          "id": "beaker_2",
+          "name": "Beaker 2 (H2C2O4)",
+          "volume_ml": 30,
+          "mass_g": 30,
+          "trackedMass_g": 30,
+          "waterMass_g": 29.73,
+          "contents": [
+            {
+              "formula": "H2C2O4",
+              "moles": 0.0029988670946531314,
+              "mass_g": 0.27,
+              "phase": "aq",
+              "concentration_M": 0.09996223648843772,
+              "amountBasis": "formula_unit"
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.73,
+              "moles": 1.6502914238134887,
+              "amountBasis": "formula_unit"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "typescript": "passed",
+  "tests": {
+    "passed": 382,
+    "files": 42
+  },
+  "productionBuild": "passed",
+  "newRegressionFile": "tests/reaction_lifecycle_regressions.test.ts",
+  "checks": [
+    "six precipitate morphologies stop emitting after settling",
+    "represented mass conserved through growth and dissolution",
+    "PbI2 tiny platelet instance limits",
+    "no emission from retained products alone",
+    "controller cleanup and externally supplied duration",
+    "PbI2 hot dissolution / cold recrystallization",
+    "excess PbI2 remains solid in hot water",
+    "actual temperature required even with burner enabled",
+    "no repeated reaction after limiting reagent depletion"
+  ],
+  "visualVerification": "not performed in this turn",
+  "fps": "not measured in this turn",
+  "modelLimits": [
+    "illustrative sedimentation rates and particle sizes",
+    "approximate pre-existing solubility curve",
+    "formula-unit aqueous PbI2; no full ion-activity model",
+    "main bundle remains large"
+  ]
+}

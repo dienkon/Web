@@ -1,0 +1,27 @@
+{
+  "source": {
+    "added": 5085,
+    "removed": 70,
+    "net": 5015,
+    "files": 43
+  },
+  "curriculum": {
+    "total": 126,
+    "existing": 92,
+    "interactive": 34,
+    "definitions": 34
+  },
+  "validation": {
+    "typescript": "passed",
+    "tests": 369,
+    "testFiles": 41,
+    "productionBuild": "passed",
+    "browserUI": "blocked by automatic policy review",
+    "fpsForNewVersion": "not measured"
+  },
+  "limitations": [
+    "Illustrative kinetics and temperatures; not experimentally calibrated",
+    "Main production chunk 3457.51 kB, Vite large-chunk warning",
+    "Prior FPS benchmark predates this continuation"
+  ]
+}

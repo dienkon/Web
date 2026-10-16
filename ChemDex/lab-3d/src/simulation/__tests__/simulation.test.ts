@@ -22,9 +22,9 @@ describe('Phase & Thermodynamics Engine', () => {
     const micro = determineBoilingStage(88.0, 100.0, 100);
     expect(micro.stage).toBe('MICROBUBBLE_NUCLEATION');
 
-    // 93.5°C - Boiling onset
+    // Degassing below saturation is not sustained boiling.
     const onset = determineBoilingStage(93.5, 100.0, 0);
-    expect(onset.stage).toBe('BOILING_ONSET');
+    expect(onset.stage).toBe('MICROBUBBLE_NUCLEATION');
 
     // 100°C - Active boil
     const boil = determineBoilingStage(100.0, 100.0, 400);

@@ -104,6 +104,7 @@ describe('Physical Mechanisms & Store Actions', () => {
 
     expect(useAppStore.getState().vessels[vesselId].isPulverized).toBeFalsy();
 
+    store.setVesselState(vesselId, { substances: ['NaCl'], contents: [{ formula: 'NaCl', phase: 's', mass_g: 1, moles: 1 / 58.44 }] });
     store.grindMortar(vesselId);
     const pulverized = useAppStore.getState().vessels[vesselId];
     expect(pulverized.isPulverized).toBe(true);
@@ -172,7 +173,7 @@ describe('Physical Mechanisms & Store Actions', () => {
     const vesselId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
 
     store.setVesselState(vesselId, {
-      volume_ml: 50,
+      volume_ml: 50, mass_g: 50, contents: [{ formula: 'H2O', phase: 'l', mass_g: 50, moles: 50 / 18.015 }],
       temperature_c: 25,
       substances: ['H2O'],
       stopcockOpen: true
@@ -190,147 +191,47 @@ describe('Physical Mechanisms & Store Actions', () => {
     store.removeVessel(vesselId);
   });
 
-  it('two-phase immiscible liquid extraction drains aqueous phase first while retaining organic phase', () => {
-    const store = useAppStore.getState();
-    store.addVessel('separatory_funnel', 'Two Phase Funnel');
-    const funnelId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    // Set funnel at [0, 0, 0] with 20mL aqueous and 15mL organic
-    store.setVesselState(funnelId, {
-      position: [0, 0, 0],
-      volume_ml: 20,
-      immiscibleOrganicVolume_ml: 15,
-      substances: ['H2O', 'Hexane (C6H14)'],
-      stopcockOpen: true
-    });
-
-    // Add receiving beaker directly below funnel at [0, -1.0, 0]
-    store.addVessel('beaker', 'Receiver Beaker');
-    const receiverId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-    store.setVesselState(receiverId, {
-      position: [0, -1.0, 0],
-      volume_ml: 0,
-      substances: []
-    });
-
-    // Tick: drains lower aqueous layer
-    store.tickSimulation(0.5);
-
-    let funnel = useAppStore.getState().vessels[funnelId];
-    expect(funnel.volume_ml).toBeLessThan(20);
-    // Upper organic phase is fully retained!
-    expect(funnel.immiscibleOrganicVolume_ml).toBe(15);
-
-    // Drain all remaining aqueous phase
-    store.setVesselState(funnelId, {
-      volume_ml: 0.1,
-      immiscibleOrganicVolume_ml: 15
-    });
-
-    store.tickSimulation(0.5);
-    funnel = useAppStore.getState().vessels[funnelId];
-    expect(funnel.volume_ml).toBe(0);
-
-    // Once aqueous phase is 0, subsequent draining drains the organic phase
-    store.tickSimulation(0.5);
-    funnel = useAppStore.getState().vessels[funnelId];
-    expect(funnel.immiscibleOrganicVolume_ml).toBeLessThan(15);
-
-    // Clean up
-    store.removeVessel(funnelId);
-    store.removeVessel(receiverId);
+  it('drains the finite aqueous lower layer before a lighter organic layer', () => {
+    const store=useAppStore.getState();store.addVessel('separatory_funnel','Two phases');
+    const id=useAppStore.getState().vesselIds.at(-1)!;
+    store.addVessel('beaker','Receiver');const target=useAppStore.getState().vesselIds.at(-1)!;
+    store.setVesselState(id,{position:[0,1,0],volume_ml:35,mass_g:29.9,immiscibleOrganicVolume_ml:15,stopcockOpen:true,
+      contents:[{formula:'H2O',phase:'l',moles:20/18.015,mass_g:20},{formula:'C6H14',phase:'l',liquidLayer:'organic',moles:9.9/86.178,mass_g:9.9}],
+      substances:['H2O','C6H14'],flowReceiverId:target});
+    store.setVesselState(target,{position:[0,0,0],volume_ml:0,mass_g:0,contents:[],substances:[]});
+    store.tickSimulation(0.1);
+    expect(useAppStore.getState().vessels[id].volume_ml).toBeLessThan(35);
+    expect(useAppStore.getState().vessels[id].immiscibleOrganicVolume_ml).toBe(15);
+    store.setVesselState(id,{volume_ml:15.1,mass_g:10,contents:[{formula:'H2O',phase:'l',mass_g:0.1,moles:0.1/18.015},
+      {formula:'C6H14',phase:'l',liquidLayer:'organic',moles:9.9/86.178,mass_g:9.9}]});
+    store.tickSimulation(0.1);
+    expect(useAppStore.getState().vessels[id].volume_ml).toBeCloseTo(15,10);
+    store.tickSimulation(0.1);
+    expect(useAppStore.getState().vessels[id].immiscibleOrganicVolume_ml).toBeLessThan(15);
+    store.removeVessel(id);store.removeVessel(target);
   });
 
-  it('fuming activates for HCl (dil) and NH3 (aq), producing max intensity white fuming when mixed', () => {
+  it('does not generate dense fumes merely from aqueous acid/ammonia labels', () => {
     const store = useAppStore.getState();
-    store.addVessel('beaker', 'Acid Beaker');
-    const vesselId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    // Single volatile acid
-    store.setVesselState(vesselId, {
-      volume_ml: 20,
-      substances: ['HCl (dil)']
-    });
-
+    store.addVessel('beaker', 'Aqueous Acid');
+    const id = useAppStore.getState().vesselIds.at(-1)!;
+    store.setVesselState(id, { volume_ml: 20, substances: ['HCl (dil)'], fumingIntensity: 0.85 });
     store.tickSimulation(0.1);
-    let v = useAppStore.getState().vessels[vesselId];
-    expect(v.fumingIntensity).toBeGreaterThan(0.5);
-
-    // Both HCl and NH3 present: forms dense white NH4Cl ammonium chloride smoke!
-    store.setVesselState(vesselId, {
-      volume_ml: 20,
-      substances: ['HCl (dil)', 'NH3 (aq)']
-    });
-
+    expect(useAppStore.getState().vessels[id].fumingIntensity).toBe(0);
+    store.setVesselState(id, { substances: ['HCl (dil)', 'NH3(aq)'] });
     store.tickSimulation(0.1);
-    v = useAppStore.getState().vessels[vesselId];
-    expect(v.fumingIntensity).toBe(1.0);
-    expect(v.fumingColor).toBe('#ffffff');
-
-    // Clean up
-    store.removeVessel(vesselId);
+    expect(useAppStore.getState().vessels[id].fumingIntensity).toBe(0);
+    store.removeVessel(id);
   });
 
-  it('pulverizes solid chunks in mortar and pestle to dissolve 5x faster', () => {
+  it('does not pulverize an empty mortar or generate solid inventory', () => {
     const store = useAppStore.getState();
-    store.addVessel('beaker', 'Chunk Beaker');
-    const ungroundId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    store.addVessel('mortar_pestle', 'Pulverized Mortar');
-    const pulverizedId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    // Grind mortar
-    store.grindMortar(pulverizedId);
-
-    // Set active kinetics with dissolving reactants
-    const duration = 10.0;
-    useAppStore.setState(s => ({
-      activeKinetics: {
-        [ungroundId]: {
-          vesselId: ungroundId,
-          duration,
-          progress: 0,
-          reactionName: 'Test Dissolution',
-          equation: 'CuSO4 -> Cu2+ + SO42-',
-          initialLiquidColor: '#ffffff',
-          targetLiquidColor: '#38bdf8',
-          hasGas: false,
-          hasPrecipitate: false,
-          dissolvingReactants: ['CuSO4'],
-          targetTemp: 25,
-          startTime: Date.now()
-        },
-        [pulverizedId]: {
-          vesselId: pulverizedId,
-          duration,
-          progress: 0,
-          reactionName: 'Test Dissolution',
-          equation: 'CuSO4 -> Cu2+ + SO42-',
-          initialLiquidColor: '#ffffff',
-          targetLiquidColor: '#38bdf8',
-          hasGas: false,
-          hasPrecipitate: false,
-          dissolvingReactants: ['CuSO4'],
-          targetTemp: 25,
-          startTime: Date.now()
-        }
-      }
-    }));
-
-    // Tick simulation for 0.1s
-    store.tickSimulation(0.1);
-
-    const dissolvingMap = useAppStore.getState().dissolvingSubstances;
-    const ungroundRate = dissolvingMap[ungroundId]?.['CuSO4'] || 0;
-    const pulverizedRate = dissolvingMap[pulverizedId]?.['CuSO4'] || 0;
-
-    expect(pulverizedRate).toBeGreaterThan(0);
-    expect(ungroundRate).toBeGreaterThan(0);
-    expect(pulverizedRate / ungroundRate).toBeCloseTo(5.0, 1);
-
-    // Clean up
-    store.removeVessel(ungroundId);
-    store.removeVessel(pulverizedId);
+    store.addVessel('mortar_pestle', 'Empty Mortar');
+    const id = useAppStore.getState().vesselIds.at(-1)!;
+    const before = useAppStore.getState().vessels[id];
+    store.grindMortar(id);
+    expect(useAppStore.getState().vessels[id]).toEqual(before);
+    store.removeVessel(id);
   });
 
   it('triggers thermal shock glass shattering in pourVessel when cold liquid is poured into hot dry glassware (>= 180°C)', async () => {
@@ -407,7 +308,7 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     // Place receiver directly under funnel away from default workbench vessels
     store.setVesselState(funnelId, {
       position: [4.0, 1.0, 4.0],
-      volume_ml: 30,
+      volume_ml: 30, mass_g: 32.5, contents: [{ formula: 'H2O', phase: 'l', mass_g: 30, moles: 30/18.015 }, { formula: 'BaSO4', phase: 's', mass_g: 2.5, moles: 2.5/233.383 }],
       substances: ['H2O', 'BaSO4'],
       hasPrecipitate: true,
       precipitateAmount_g: 2.5,
@@ -443,37 +344,23 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     store.removeVessel(receiverId);
   });
 
-  it('builds internal pressure in sealed container during gas evolution and triggers overpressure explosion at > 2.5 atm', () => {
+  it('does not generate pressure or rupture from a hasGas flag alone', () => {
     const store = useAppStore.getState();
-    store.addVessel('flask', 'Sealed Reaction Flask');
-    const flaskId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    // Seal container with active gas evolution
-    store.sealVessel(flaskId);
-    expect(useAppStore.getState().vessels[flaskId].isSealed).toBe(true);
-
-    store.setVesselState(flaskId, {
-      hasGas: true,
-      volume_ml: 40,
-      substances: ['HCl (dil)', 'Zn'],
-      internalPressure_atm: 2.48 // Near critical burst limit
-    });
-
-    // Run simulation tick: pressure exceeds 2.5 atm and triggers explosive shatter
-    store.tickSimulation(0.5);
-
-    const flask = useAppStore.getState().vessels[flaskId];
-    expect(flask.internalPressure_atm).toBeGreaterThan(2.5);
-    expect(flask.isExplosion).toBe(true);
-    expect(flask.isShattered).toBe(true);
-    expect(flask.shatterReason).toContain('Overpressure Gas Explosion');
-    expect(flask.volume_ml).toBe(0);
-
-    // Clean up
-    store.removeVessel(flaskId);
+    store.addVessel('flask', 'Sealed Flask');
+    const id = useAppStore.getState().vesselIds.at(-1)!;
+    store.setVesselState(id, { isSealed: true, hasGas: true, volume_ml: 40,
+      contents: [{ formula: 'H2O', phase: 'l', mass_g: 40, moles: 40/18.015 }],
+      mass_g: 40, temperature_c: 25, internalPressure_atm: 1 });
+    for (let i=0;i<10;i++) store.tickSimulation(0.1);
+    const flask = useAppStore.getState().vessels[id];
+    expect(flask.internalPressure_atm).toBe(1);
+    expect(flask.isExplosion).toBeFalsy();
+    expect(flask.isShattered).toBeFalsy();
+    expect(flask.volume_ml).toBe(40);
+    store.removeVessel(id);
   });
 
-  it('washes residue stains and dispenses distilled water using wash bottle', () => {
+  it('dispenses actual wash-bottle water without claiming an insoluble stain disappeared', () => {
     const store = useAppStore.getState();
     store.addVessel('wash_bottle', 'PE Wash Bottle');
     const bottleId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
@@ -489,6 +376,9 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
 
     store.setVesselState(beakerId, {
       volume_ml: 10,
+      mass_g: 10,
+      substances: ['H2O'],
+      contents: [{ formula: 'H2O', phase: 'l', mass_g: 10, moles: 10 / 18.015 }],
       stainIntensity: 0.8,
       condensationMist: 0.5
     });
@@ -500,8 +390,9 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     const beaker = useAppStore.getState().vessels[beakerId];
 
     expect(bottle.volume_ml).toBeLessThan(200);
-    expect(beaker.stainIntensity).toBeLessThan(0.8);
-    expect(beaker.condensationMist).toBe(0);
+    expect(beaker.stainIntensity).toBe(0.8);
+    expect(beaker.mass_g + bottle.mass_g).toBeCloseTo(210, 10);
+    expect(beaker.contents.find(item => item.formula === 'H2O')?.mass_g).toBeCloseTo(15, 10);
     expect(beaker.substances).toContain('H2O');
 
     // Clean up
@@ -509,13 +400,15 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     store.removeVessel(beakerId);
   });
 
-  it('inverts volumetric flask to completely dissolve and homogenize standard solutions', () => {
+  it('inverts a stoppered volumetric flask without deleting excess solute', () => {
     const store = useAppStore.getState();
     store.addVessel('volumetric_flask', 'Standard 100mL Flask');
     const flaskId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
 
     store.setVesselState(flaskId, {
       volume_ml: 95,
+      isSealed: true,
+      contents: [{ formula: 'H2O', phase: 'l', mass_g: 95, moles: 95 / 18.015 }, { formula: 'NaCl', phase: 's', mass_g: 50, moles: 50 / 58.44 }],
       capacity_ml: 100,
       substances: ['H2O', 'NaCl'],
       hasPrecipitate: true,
@@ -525,11 +418,12 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     store.invertVolumetricFlask(flaskId);
 
     const flask = useAppStore.getState().vessels[flaskId];
-    expect(flask.isPulverized).toBe(true);
-    expect(flask.hasPrecipitate).toBe(false);
+    expect(flask.isPulverized).toBe(false);
+    expect(flask.hasPrecipitate).toBe(true);
+    expect(flask.contents.find(x => x.formula === 'NaCl')?.mass_g).toBe(50);
 
     const dissolving = useAppStore.getState().dissolvingSubstances[flaskId];
-    expect(dissolving?.['NaCl']).toBe(1.0);
+    expect(dissolving?.['NaCl'] ?? 0).toBe(0);
 
     // Clean up
     store.removeVessel(flaskId);
@@ -610,40 +504,19 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     store.removeVessel(crucibleId);
   });
 
-  it('Liebig condenser condenses vapor from boiling flask when cooling water is running', () => {
-    const store = useAppStore.getState();
-    store.addVessel('condenser', 'Liebig Condenser Unit');
-    const condenserId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    store.addVessel('flask', 'Boiling Distillation Flask');
-    const boilingFlaskId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    // Condenser positioned adjacent to boiling flask
-    store.setVesselState(condenserId, {
-      position: [0.5, 0, 0],
-      coolingWaterActive: true,
-      volume_ml: 0,
-      substances: []
-    });
-
-    store.setVesselState(boilingFlaskId, {
-      position: [0, 0, 0],
-      isBoiling: true,
-      temperature_c: 100,
-      volume_ml: 50,
-      substances: ['H2O']
-    });
-
-    // Run simulation tick
-    store.tickSimulation(1.0);
-
-    const condenser = useAppStore.getState().vessels[condenserId];
-    expect(condenser.volume_ml).toBeGreaterThan(0);
-    expect(condenser.substances).toContain('H2O');
-
-    // Clean up
-    store.removeVessel(condenserId);
-    store.removeVessel(boilingFlaskId);
+  it('collects only finite vapor from an explicitly connected water source', () => {
+    const store=useAppStore.getState();
+    store.addVessel('condenser','Condenser');const receiver=useAppStore.getState().vesselIds.at(-1)!;
+    store.addVessel('flask','Water source');const source=useAppStore.getState().vesselIds.at(-1)!;
+    store.setVesselState(receiver,{ coolingWaterActive:true,vaporSourceId:source,volume_ml:0,mass_g:0,contents:[],substances:[] });
+    store.setVesselState(source,{ temperature_c:105,volume_ml:50,mass_g:50,substances:['H2O'],
+      contents:[{formula:'H2O',phase:'l',moles:50/18.015,mass_g:50}] });
+    store.tickSimulation(0.1);
+    const state=useAppStore.getState();
+    expect(state.vessels[receiver].volume_ml).toBeGreaterThan(0);
+    expect(state.vessels[receiver].mass_g+state.vessels[source].mass_g).toBeCloseTo(50,10);
+    expect(state.vessels[receiver].contents[0].moles*18.015).toBeCloseTo(state.vessels[receiver].mass_g,10);
+    store.removeVessel(receiver);store.removeVessel(source);
   });
 
   it('synchronizes 3D spatial dragging in updateVesselPosition for slotted tubes and gripped vessels, with auto-unslot and auto-release', () => {
@@ -698,47 +571,22 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     store.removeVessel(crucibleId);
   });
 
-  it('accumulates internal pressure across realistic small time steps (dt = 0.016s) without resetting and explodes above 2.5 atm', () => {
-    const store = useAppStore.getState();
-    store.addVessel('flask', 'Accumulating Pressure Flask');
-    const flaskId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
-
-    store.sealVessel(flaskId);
-    store.setVesselState(flaskId, {
-      hasGas: true,
-      volume_ml: 50,
-      substances: ['HCl (dil)', 'Zn'],
-      internalPressure_atm: 1.0
-    });
-
-    // Run small realistic time steps (0.016s each, as in requestAnimationFrame)
-    // 0.45 atm/s * 0.016s = 0.0072 atm per tick
-    for (let i = 0; i < 20; i++) {
-      store.tickSimulation(0.016);
-    }
-
-    let flask = useAppStore.getState().vessels[flaskId];
-    // Pressure must have smoothly accumulated, NOT stayed stuck at 1.0
-    expect(flask.internalPressure_atm).toBeGreaterThan(1.1);
-    expect(flask.isExplosion).toBeFalsy();
-
-    // Now set pressure near burst threshold and step with dt = 0.016s until burst
-    store.setVesselState(flaskId, {
-      internalPressure_atm: 2.495
-    });
-
+  it('holds pressure constant for a finite gas inventory and changes when actual gas is added', () => {
+    const store=useAppStore.getState();store.addVessel('flask','Finite gas');
+    const id=useAppStore.getState().vesselIds.at(-1)!;
+    store.setVesselState(id,{isSealed:true,hasGas:true,temperature_c:25,volume_ml:50,mass_g:50,
+      contents:[{formula:'H2O',phase:'l',moles:50/18.015,mass_g:50},{formula:'H2',phase:'g',moles:0.002,mass_g:0.004032}] });
+    store.tickSimulation(0.016);const first=useAppStore.getState().vessels[id].internalPressure_atm!;
+    for(let i=0;i<20;i++)store.tickSimulation(0.016);
+    expect(useAppStore.getState().vessels[id].internalPressure_atm).toBeCloseTo(first,10);
+    store.setVesselState(id,{contents:[{formula:'H2O',phase:'l',moles:50/18.015,mass_g:50},{formula:'H2',phase:'g',moles:0.004,mass_g:0.008064}]});
     store.tickSimulation(0.016);
-    flask = useAppStore.getState().vessels[flaskId];
-    expect(flask.internalPressure_atm).toBeGreaterThan(2.5);
-    expect(flask.isExplosion).toBe(true);
-    expect(flask.isShattered).toBe(true);
-    expect(flask.shatterReason).toContain('Overpressure Gas Explosion');
-
-    // Clean up
-    store.removeVessel(flaskId);
+    expect(useAppStore.getState().vessels[id].internalPressure_atm).toBeGreaterThan(first);
+    expect(useAppStore.getState().vessels[id].isExplosion).toBeFalsy();
+    store.removeVessel(id);
   });
 
-  it('transfers and preserves precipitate amount, substance, and color in pourVessel', async () => {
+  it('decants supernatant while preserving the settled precipitate in its source', async () => {
     const store = useAppStore.getState();
     store.addVessel('beaker', 'Precipitate Source');
     const sourceId = useAppStore.getState().vesselIds[useAppStore.getState().vesselIds.length - 1];
@@ -748,6 +596,8 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
 
     store.setVesselState(sourceId, {
       volume_ml: 40,
+      mass_g: 43.2,
+      contents: [{ formula: 'H2O', phase: 'l', mass_g: 40, moles: 40 / 18.015 }, { formula: 'PbI2', phase: 's', mass_g: 3.2, moles: 3.2 / 461.01 }],
       substances: ['H2O', 'PbI2'],
       hasPrecipitate: true,
       precipitateAmount_g: 3.2,
@@ -765,14 +615,15 @@ describe('Authentic Solid Chemical Morphologies & Interactive Apparatus Usabilit
     await store.pourVessel(sourceId, receiverId, 40);
 
     const receiver = useAppStore.getState().vessels[receiverId];
-    expect(receiver.hasPrecipitate).toBe(true);
-    expect(receiver.precipitateAmount_g).toBe(3.2);
-    expect(receiver.precipitateSubstance).toBe('PbI2');
-    expect(receiver.precipitateColor).toBe('#facc15');
+    expect(receiver.hasPrecipitate).toBe(false);
+    expect(receiver.contents.some(x => x.formula === 'PbI2')).toBe(false);
+    expect(receiver.mass_g).toBeCloseTo(40, 8);
 
     const source = useAppStore.getState().vessels[sourceId];
-    expect(source.hasPrecipitate).toBe(false);
-    expect(source.precipitateAmount_g).toBe(0);
+    expect(source.hasPrecipitate).toBe(true);
+    expect(source.precipitateAmount_g).toBe(3.2);
+    expect(source.contents.find(x => x.formula === 'PbI2')?.mass_g).toBe(3.2);
+    expect(source.mass_g).toBeCloseTo(3.2, 8);
 
     // Clean up
     store.removeVessel(sourceId);

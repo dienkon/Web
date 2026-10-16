@@ -5,6 +5,7 @@ import { useAppStore } from '../../../store/useAppStore';
 import { LAB_PHYSICS } from '../../../engine/interactionEngine';
 import { ContinuousLiquidStream } from './ContinuousLiquidStream';
 import { labSound } from '../../../utils/audio';
+import { useToolDock } from '../../../handling/toolDock';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -25,7 +26,8 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
   const vessels = useAppStore(state => state.vessels);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const standPos = burette.position || position;
+  const dock = useToolDock('burette', burette.position || position, next => useAppStore.getState().updateBurette({ position: next }));
+  const standPos = dock.position;
 
   const [valveAngle, setValveAngle] = useState(burette.isDispensing ? Math.PI / 2 : 0);
   const [isValveHovered, setIsValveHovered] = useState(false);
@@ -42,15 +44,12 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
     const tipWorldX = standPos[0];
     const tipWorldZ = standPos[2];
     for (const v of Object.values(vessels)) {
+      if (v.id.startsWith('lesson_vessel_') || v.isLocked || v.isShattered || v.volume_ml >= v.capacity_ml || v.capacity_ml <= 0 || ['retort_stand', 'retort_clamp', 'stopper', 'test_tube_rack', 'tongs'].includes(v.type)) continue;
       const dx = v.position[0] - tipWorldX;
       const dz = v.position[2] - tipWorldZ;
-      if (Math.hypot(dx, dz) < 1.2) {
+      if (Math.hypot(dx, dz) < 0.6) {
         return v;
       }
-    }
-    // Fallback to selected vessel
-    if (selectedVesselId && vessels[selectedVesselId]) {
-      return vessels[selectedVesselId];
     }
     return null;
   }, [vessels, standPos, selectedVesselId]);
@@ -65,25 +64,27 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
     : [standPos[0], standPos[1] - 0.9, standPos[2]];
 
   useFrame((_, delta) => {
-    if (isDispensing && targetVessel) {
+    if (isDispensing && targetVessel && burette.flowRate_ml_s > 0) {
       dropTimerRef.current += delta;
-      // Dispense continuous drops or stream
-      if (dropTimerRef.current > 0.28) {
-        dropTimerRef.current = 0;
+      const interval = 0.05 / burette.flowRate_ml_s;
+      let emitted = 0;
+      while (dropTimerRef.current >= interval && emitted++ < 4) {
+        dropTimerRef.current -= interval;
         dispenseDrop(targetVessel.id);
         labSound.playDrop();
       }
-    }
+    } else dropTimerRef.current = 0;
   });
 
   const handleStopcockClick = (e: any) => {
     e.stopPropagation();
+    if (dock.moveMode) return;
     labSound.playTap();
     toggleStopcock();
   };
 
   return (
-    <group position={standPos}>
+    <group name="tool-burette" position={standPos} onPointerDown={dock.onPointerDown}>
       {/* Heavy Cast Iron Retort Base */}
       <mesh position={[-0.7, -1.05, 0]} receiveShadow castShadow>
         <boxGeometry args={[1.5, 0.16, 1.1]} />
@@ -163,8 +164,10 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
 
       {/* Precision PTFE / Glass Stopcock Valve */}
       <group
+        name="burette-stopcock"
         position={[0, 0.35, 0]}
-        onClick={handleStopcockClick}
+        onPointerDown={event => { if (dock.moveMode) dock.onPointerDown(event); else handleStopcockClick(event); }}
+        onClick={event => event.stopPropagation()}
         onPointerOver={(e) => {
           e.stopPropagation();
           setIsValveHovered(true);

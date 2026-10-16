@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { useQualityStore } from '../../vfx/quality';
 import { Activity } from 'lucide-react';
+import { useFrameStats } from '../../render/FrameTelemetry';
 
 export const PerformanceHUD = React.memo(function PerformanceHUD() {
-  const [stats, setStats] = useState({ fps: 60, ms: 16.6 });
+  const stats = useFrameStats();
   const [isActive, setIsActive] = useState(false);
   const lastActiveTimestamp = useRef(Date.now());
 
@@ -15,28 +16,6 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
   const buretteDispensing = useAppStore(state => state.burette.isDispensing);
   const vesselCount = useAppStore(state => state.vesselIds.length);
 
-  // Smooth RAF loop to measure real UI and WebGL frame performance
-  useEffect(() => {
-    let animId: number;
-    let frames = 0;
-    let lastTime = performance.now();
-
-    const updateLoop = (now: number) => {
-      frames++;
-      const elapsed = now - lastTime;
-      if (elapsed >= 500) {
-        const measuredFps = Math.min(60, Math.max(1, Math.round((frames * 1000) / elapsed)));
-        const frameTimeMs = Number((elapsed / frames).toFixed(1));
-        setStats({ fps: measuredFps, ms: frameTimeMs });
-        frames = 0;
-        lastTime = now;
-      }
-      animId = requestAnimationFrame(updateLoop);
-    };
-
-    animId = requestAnimationFrame(updateLoop);
-    return () => cancelAnimationFrame(animId);
-  }, []);
 
   // Trigger activity on any lab interaction
   const triggerActive = () => {
@@ -79,35 +58,9 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
   const preference = useQualityStore(state => state.preference);
   const effectiveTier = useQualityStore(state => state.effectiveTier);
   const setPreference = useQualityStore(state => state.setPreference);
-  const handlePerformanceDecline = useQualityStore(state => state.handlePerformanceDecline);
-  const handlePerformanceIncline = useQualityStore(state => state.handlePerformanceIncline);
 
-  // Dynamic Resolution / Quality Scaling based on FPS
-  const lowFpsFramesRef = useRef(0);
-  const highFpsFramesRef = useRef(0);
-
-  useEffect(() => {
-    if (preference !== 'auto') return;
-    
-    if (stats.fps < 45) {
-      lowFpsFramesRef.current++;
-      highFpsFramesRef.current = 0;
-      if (lowFpsFramesRef.current > 3) {
-        handlePerformanceDecline();
-        lowFpsFramesRef.current = 0;
-      }
-    } else if (stats.fps >= 58) {
-      highFpsFramesRef.current++;
-      lowFpsFramesRef.current = 0;
-      if (highFpsFramesRef.current > 5) {
-        handlePerformanceIncline();
-        highFpsFramesRef.current = 0;
-      }
-    } else {
-      lowFpsFramesRef.current = 0;
-      highFpsFramesRef.current = 0;
-    }
-  }, [stats.fps, preference, handlePerformanceDecline, handlePerformanceIncline]);
+  // Quality has a single owner: the renderer's PerformanceMonitor. A second
+  // window RAF feedback loop used to fight it and oscillate between tiers.
 
   const cycleQuality = () => {
     if (preference === 'auto') setPreference('ultra');
@@ -130,13 +83,13 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
         <div className="flex items-center gap-1.5">
           <span className={`w-2 h-2 rounded-full animate-pulse ${stats.fps >= 50 ? 'bg-emerald-400 shadow-emerald-400/50' : stats.fps >= 30 ? 'bg-amber-400' : 'bg-red-400'} shadow-sm`} />
           <span className="text-[11px] font-mono font-bold tracking-tight">
-            {stats.fps} <span className="text-[9px] font-normal text-slate-400">FPS</span>
+            {stats.samples ? stats.fps : '…'} <span className="text-[9px] font-normal text-slate-400">FPS</span>
           </span>
         </div>
         
         <span className="w-px h-3 bg-slate-700/80" />
 
-        <span className="text-[10px] font-mono text-slate-300">
+        <span className="text-[10px] font-mono text-slate-300" title={`P95: ${stats.p95_ms} ms · ${stats.drawCalls} draw calls · ${stats.triangles} triangles`}>
           {stats.ms} <span className="text-[8px] text-slate-400">ms</span>
         </span>
 

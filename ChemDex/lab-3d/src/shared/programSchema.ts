@@ -108,6 +108,7 @@ export interface ReactionProgram {
   provenance: 'handcrafted' | 'rule-derived' | 'ai' | 'fallback';
   controller?: string;
   chemistry: {
+    representation?: 'reaction' | 'equilibrium' | 'phase_change' | 'indicator' | 'emission' | 'dilution';
     equation: string;
     ionic?: string;
     species: SpeciesRole[];
@@ -236,6 +237,7 @@ export const ReactionProgramSchema = z.object({
   provenance: z.enum(['handcrafted', 'rule-derived', 'ai', 'fallback']),
   controller: z.string().optional(),
   chemistry: z.object({
+    representation: z.enum(['reaction', 'equilibrium', 'phase_change', 'indicator', 'emission', 'dilution']).optional(),
     equation: z.string(),
     ionic: z.string().optional(),
     species: z.array(SpeciesRoleSchema),
