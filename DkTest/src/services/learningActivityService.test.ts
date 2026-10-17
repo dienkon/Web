@@ -5,6 +5,9 @@ import {
   calculateHonestDuration,
   getLocalCachedActivities,
   saveLocalCachedActivities,
+  sanitizeFirestoreData,
+  syncFromSubmission,
+  syncFromPracticeResult,
 } from "./learningActivityService";
 import type { ActivityLifecycleEvent, LearningActivity } from "../types/learningActivity";
 
@@ -108,4 +111,129 @@ describe("learningActivityService", () => {
       expect(retrieved[0].accuracy).toBe(90);
     });
   });
+
+  describe("sanitizeFirestoreData", () => {
+    it("strips top-level and nested undefined fields without altering defined values", () => {
+      const input = {
+        id: "test_doc",
+        gradeCategory: undefined,
+        subject: "Toán",
+        count: 0,
+        isActive: false,
+        nested: {
+          emptyField: undefined,
+          validField: "hello",
+          deeper: {
+            undef: undefined,
+            val: 42,
+          },
+        },
+        items: [1, undefined, "three", { subUndef: undefined, subVal: true }],
+      };
+
+      const result = sanitizeFirestoreData(input);
+
+      expect(result).toEqual({
+        id: "test_doc",
+        subject: "Toán",
+        count: 0,
+        isActive: false,
+        nested: {
+          validField: "hello",
+          deeper: {
+            val: 42,
+          },
+        },
+        items: [1, "three", { subVal: true }],
+      });
+      expect("gradeCategory" in result).toBe(false);
+      expect("emptyField" in (result as any).nested).toBe(false);
+    });
+
+    it("handles primitives, null, and dates safely", () => {
+      const date = new Date();
+      expect(sanitizeFirestoreData(null)).toBe(null);
+      expect(sanitizeFirestoreData(undefined)).toBe(null);
+      expect(sanitizeFirestoreData("string")).toBe("string");
+      expect(sanitizeFirestoreData(123)).toBe(123);
+      expect(sanitizeFirestoreData(date)).toBe(date);
+    });
+
+    it("preserves Firestore FieldValues and Timestamps without stripping or corrupting them", () => {
+      const mockServerTimestamp = { _methodName: "serverTimestamp" };
+      const mockDelegateFieldValue = { _delegate: { type: "serverTimestamp" } };
+      const mockTimestamp = { toDate: () => new Date() };
+
+      const input = {
+        title: "Test",
+        createdAt: mockServerTimestamp,
+        updatedAt: mockDelegateFieldValue,
+        submittedAt: mockTimestamp,
+        strayUndefined: undefined,
+      };
+
+      const sanitized = sanitizeFirestoreData(input);
+      expect(sanitized.createdAt).toBe(mockServerTimestamp);
+      expect(sanitized.updatedAt).toBe(mockDelegateFieldValue);
+      expect(sanitized.submittedAt).toBe(mockTimestamp);
+      expect("strayUndefined" in sanitized).toBe(false);
+    });
+  });
+
+  describe("syncFromSubmission and syncFromPracticeResult undefined resilience", () => {
+    it("syncs from minimal submission and exam without any undefined fields crashing Firestore", async () => {
+      const mockSub: any = {
+        id: "sub_test_minimal_01",
+        examId: "exam_test_01",
+        score: 8,
+        maxScore: 10,
+        correctCount: 8,
+        totalCount: 10,
+        answers: {},
+        // gradeCategory, studentDisplayName, etc. are omitted / undefined
+      };
+
+      const mockExam: any = {
+        id: "exam_test_01",
+        title: "Test Exam",
+        // gradeCategory is undefined
+      };
+
+      const activity = await syncFromSubmission(mockSub, mockExam, "student_123");
+      expect(activity.id).toBeDefined();
+      expect(activity.gradeCategory).toBe(null);
+      expect(activity.studentDisplayName).toBe(null);
+
+      const sanitized = sanitizeFirestoreData(activity);
+      expect(sanitized.gradeCategory).toBe(null);
+      // Ensure no undefined values remain anywhere in sanitized object
+      const jsonStr = JSON.stringify(sanitized);
+      expect(jsonStr).not.toContain("undefined");
+    });
+
+    it("syncs from practice result without gradeCategory or displayName being undefined", async () => {
+      const mockPracticeResult: any = {
+        sessionId: "session_001",
+        modeTitle: "Luyện đề Toán 12",
+        category: "math",
+        score: 10,
+        totalQuestions: 10,
+        answeredCount: 10,
+        correctCount: 10,
+        accuracy: 100,
+        durationSeconds: 300,
+      };
+
+      const activity = await syncFromPracticeResult(mockPracticeResult, "student_456", "hocsinh_gioi");
+      expect(activity.id).toBeDefined();
+      expect(activity.gradeCategory).toBe(null);
+      expect(activity.studentDisplayName).toBe("hocsinh_gioi");
+
+      const sanitized = sanitizeFirestoreData(activity);
+      expect(sanitized.gradeCategory).toBe(null);
+      const jsonStr = JSON.stringify(sanitized);
+      expect(jsonStr).not.toContain("undefined");
+    });
+  });
 });
+

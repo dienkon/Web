@@ -1,8 +1,8 @@
 import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../../services/firebase/config";
-import type { Question } from "../../types";
 import { clearActiveExamSession } from "../../services/examSessionService";
 import { getOrCreateStudentFolder } from "../../services/folderService";
+import { sanitizeFirestoreData } from "../../services/learningActivityService";
 import type { ReviewQuestionCandidate } from "./types";
 
 export interface BuildReviewExamOptions {
@@ -117,7 +117,7 @@ export async function buildReviewExam(
     ? 0
     : durationMode === "custom" && customDuration && customDuration > 0
     ? customDuration
-    : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
+    : Math.max(1, Math.min(300, Math.round(preparedQuestions.length * 1.5)));
 
   const defaultTitle =
     sourceExamCount > 1
@@ -154,7 +154,7 @@ export async function buildReviewExam(
     isAggregatedReview: sourceExamCount > 1 || sourceExamIds.length > 1,
     sourceExamCount,
     sourceExamIds,
-    originalExamId: sourceExamIds[0] || undefined,
+    originalExamId: sourceExamIds[0] || null,
     creatorUid: studentUid,
     allowedUid: studentUid,
     creatorUsername: studentIdentifier,
@@ -177,7 +177,7 @@ export async function buildReviewExam(
   console.warn(
     `[Firestore] WRITE (1 doc): exams/${docRef.id} (custom review exam, folder: ${studentFolderId}, unlisted)`
   );
-  await setDoc(docRef, newExamData);
+  await setDoc(docRef, sanitizeFirestoreData(newExamData));
 
   // Clear in-progress session and snapshots for this generated exam ID
   clearActiveExamSession(docRef.id);

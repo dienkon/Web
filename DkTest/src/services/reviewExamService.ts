@@ -4,6 +4,7 @@ import type { Question, Submission, Exam, Section } from "../types";
 import { evaluateQuestionAnswer } from "../utils/attemptAnalytics";
 import { clearActiveExamSession } from "./examSessionService";
 import { getOrCreateStudentFolder } from "./folderService";
+import { sanitizeFirestoreData } from "./learningActivityService";
 
 const EXAMS_COLLECTION = "exams";
 
@@ -167,7 +168,7 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
       const eDoc = await getDoc(doc(db, EXAMS_COLLECTION, examId));
       if (eDoc.exists()) {
         const eData = eDoc.data();
-        masterExamData = { ...eData, ...originalExam, id: examId };
+        masterExamData = { ...originalExam, ...eData, id: examId };
         if (masterSections.length === 0 && Array.isArray(eData.sections) && eData.sections.length > 0) {
           masterSections = eData.sections;
         }
@@ -313,12 +314,31 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
       ? "Làm lại câu đúng"
       : "Làm lại câu sai";
 
-  const isUnlimited = options.durationMode === "unlimited" || options.customDuration === 0;
-  const scaledDuration = isUnlimited
+  // Strict inheritance of original exam time settings for standard retake modes ("all", "wrong", "correct"):
+  const origIsUnlimited = Boolean(
+    masterExamData.isUnlimitedTime ||
+    masterExamData.unlimitedTime ||
+    masterExamData.timeLimit === 0 ||
+    masterExamData.duration === 0 ||
+    (masterExamData as any).timeLimit === -1
+  );
+  const origDuration = origIsUnlimited
     ? 0
-    : options.durationMode === "custom" && options.customDuration && options.customDuration > 0
-    ? options.customDuration
-    : Math.max(5, Math.min(180, Math.round(preparedQuestions.length * 1.5)));
+    : Number(masterExamData.timeLimit || masterExamData.duration || 45);
+
+  let isUnlimited = origIsUnlimited;
+  let scaledDuration = origDuration;
+
+  if (options.durationMode === "custom" && typeof options.customDuration === "number") {
+    isUnlimited = options.customDuration === 0;
+    scaledDuration = isUnlimited ? 0 : Math.max(1, options.customDuration);
+  } else if (options.durationMode === "unlimited") {
+    isUnlimited = true;
+    scaledDuration = 0;
+  } else if (options.durationMode === "auto") {
+    isUnlimited = false;
+    scaledDuration = Math.max(1, Math.min(300, Math.round(preparedQuestions.length * 1.5)));
+  }
 
   const isOriginalPaid = masterExamData.accessMode === "paid" || (masterExamData.priceVnd && masterExamData.priceVnd > 0);
   const examAccessMode = isOriginalPaid ? "paid" : "free";
@@ -368,7 +388,7 @@ export async function createRetakeExam(options: CreateRetakeOptions): Promise<st
   };
 
   console.warn(`[Firestore] WRITE (1 doc): ${EXAMS_COLLECTION}/${docRef.id} (retake exam, folder: ${studentFolderId}, unlisted)`);
-  await setDoc(docRef, newExamData);
+  await setDoc(docRef, sanitizeFirestoreData(newExamData));
 
   // Clear any existing session for the new exam ID
   clearActiveExamSession(docRef.id);
@@ -502,7 +522,7 @@ export async function createAggregatedReviewExam(
     ? 0
     : options.durationMode === "custom" && customDuration && customDuration > 0
     ? customDuration
-    : Math.max(5, Math.min(180, Math.round(finalQuestions.length * 1.5)));
+    : Math.max(1, Math.min(300, Math.round(finalQuestions.length * 1.5)));
 
   // Retrieve student identifier, UID and display name
   let studentIdentifier = "student";
@@ -590,7 +610,7 @@ export async function createAggregatedReviewExam(
   };
 
   console.warn(`[Firestore] WRITE (1 doc): ${EXAMS_COLLECTION}/${docRef.id} (aggregated review exam, folder: ${studentFolderId}, unlisted)`);
-  await setDoc(docRef, newExamData);
+  await setDoc(docRef, sanitizeFirestoreData(newExamData));
 
   // Clear any existing session for the new exam ID
   clearActiveExamSession(docRef.id);

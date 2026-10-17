@@ -122,6 +122,47 @@ export function saveLocalCachedActivities(studentUid: string, activities: Learni
 }
 
 /**
+ * Recursively sanitizes data for Firestore:
+ * - Strips undefined fields from objects
+ * - Strips undefined items from arrays
+ * - Preserves Date, Timestamps, and primitives
+ * Ensures Firestore setDoc/addDoc/updateDoc never fails with
+ * "Unsupported field value: undefined".
+ */
+export function sanitizeFirestoreData<T>(val: T): T {
+  if (val === undefined) {
+    return null as any;
+  }
+  if (val === null || typeof val !== "object") {
+    return val;
+  }
+  if (val instanceof Date) {
+    return val;
+  }
+  if (
+    (val as any)._delegate ||
+    (val as any)._methodName ||
+    typeof (val as any).toDate === "function" ||
+    (val as any).constructor?.name === "FieldValue" ||
+    (val as any).constructor?.name === "Timestamp"
+  ) {
+    return val;
+  }
+  if (Array.isArray(val)) {
+    return val
+      .filter((item) => item !== undefined)
+      .map((item) => sanitizeFirestoreData(item)) as any;
+  }
+  const result: Record<string, any> = {};
+  for (const [key, value] of Object.entries(val)) {
+    if (value !== undefined) {
+      result[key] = sanitizeFirestoreData(value);
+    }
+  }
+  return result as T;
+}
+
+/**
  * Idempotently saves or merges a learning activity into Firestore and local cache.
  */
 export async function saveLearningActivity(activity: LearningActivity): Promise<void> {
@@ -142,7 +183,14 @@ export async function saveLearningActivity(activity: LearningActivity): Promise<
   // 2. Persist to Firestore asynchronously
   try {
     const docRef = doc(db, ACTIVITIES_COLLECTION, activity.id);
-    await setDoc(docRef, { ...activity, updatedAt: new Date().toISOString() }, { merge: true });
+    const sanitized = sanitizeFirestoreData({
+      ...activity,
+      gradeCategory: activity.gradeCategory || null,
+      subject: activity.subject || "Tổng hợp",
+      classId: (activity as any).classId || null,
+      updatedAt: new Date().toISOString(),
+    });
+    await setDoc(docRef, sanitized, { merge: true });
   } catch (err) {
     console.warn(`[LearningActivityService] Could not persist activity ${activity.id} to Firestore:`, err);
   }
@@ -291,16 +339,16 @@ export async function getStudentLearningStats(
  */
 export async function syncFromSubmission(
   submission: Submission,
-  exam: Exam,
+  exam: Partial<Exam> = {},
   studentUid: string
 ): Promise<LearningActivity> {
-  const isRetake = Boolean(submission.isRetake || exam.isRetake || submission.originalExamId);
+  const isRetake = Boolean(submission.isRetake || exam?.isRetake || submission.originalExamId);
   const origin: LearningActivityOrigin = isRetake ? "old_exam_review" : "formal_exam";
   const activityId = buildActivityId(studentUid, origin, submission.id);
 
   const answeredCount = submission.answers ? Object.keys(submission.answers).length : 0;
   const correctCount = submission.correctCount || 0;
-  const totalCount = submission.totalCount || exam.questionCount || answeredCount;
+  const totalCount = submission.totalCount || exam?.questionCount || answeredCount;
   const activeSeconds = Math.max(0, submission.timeSpent || 0);
 
   const submittedAtIso = submission.submittedAt?.toDate
@@ -311,20 +359,20 @@ export async function syncFromSubmission(
     id: activityId,
     studentUid,
     studentUsername: submission.studentUsername || submission.studentNameSnapshot || "hoc_sinh",
-    studentDisplayName: submission.studentNameSnapshot,
+    studentDisplayName: submission.studentNameSnapshot || null as any,
     origin,
-    sourceExamId: submission.examId,
-    sourceSubmissionId: submission.id,
-    title: submission.examTitleSnapshot || exam.title || "Bài thi",
-    subject: exam.subject || "Tổng hợp",
-    gradeCategory: exam.gradeCategory,
+    sourceExamId: submission.examId || exam?.id || null as any,
+    sourceSubmissionId: submission.id || null as any,
+    title: submission.examTitleSnapshot || exam?.title || "Bài thi",
+    subject: exam?.subject || "Tổng hợp",
+    gradeCategory: exam?.gradeCategory || (exam as any)?.grade || null as any,
     status: "completed",
     startedAt: submittedAtIso,
     submittedAt: submittedAtIso,
     completedAt: submittedAtIso,
     activeDurationSeconds: activeSeconds,
     totalDurationSeconds: activeSeconds,
-    score: submission.score,
+    score: typeof submission.score === "number" ? submission.score : 0,
     maxScore: submission.maxScore || 10,
     scorePercentage: submission.maxScore ? Math.round((submission.score / submission.maxScore) * 100) : 0,
     totalQuestions: totalCount,
@@ -374,8 +422,10 @@ export async function syncFromPracticeResult(
     id: activityId,
     studentUid,
     studentUsername: username,
+    studentDisplayName: username || null as any,
     origin,
     title: `Luyện tập: ${result.modeTitle}`,
+    gradeCategory: null as any,
     subject:
       result.category === "physics"
         ? "Vật Lý"

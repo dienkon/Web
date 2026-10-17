@@ -15,6 +15,7 @@ import {
 import type { Exam, Submission, Question, Section } from "../../types";
 import { createRetakeExam } from "../../services/reviewExamService";
 import { clearActiveExamSession, getStudentIdentifier } from "../../services/examSessionService";
+import { getExam } from "../../services/examService";
 import { useToast } from "../ui/ToastNotification";
 import CustomReviewConfigurator from "../../features/review/components/CustomReviewConfigurator";
 import type { ReviewSourceExam } from "../../features/review/types";
@@ -39,7 +40,45 @@ export default function RetakeModal({
   const navigate = useNavigate();
   const { error: showErrorToast, success: showSuccessToast } = useToast();
 
-  const totalQuestions = submission?.totalCount || exam?.totalQuestions || exam?.questionCount || questions?.length || 0;
+  const [fetchedExam, setFetchedExam] = useState<Exam | null>(null);
+  const [isLoadingExam, setIsLoadingExam] = useState(false);
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      setFetchedExam(null);
+      setIsLoadingExam(false);
+      return;
+    }
+    if (!exam && submission?.examId) {
+      setIsLoadingExam(true);
+      getExam(submission.examId)
+        .then((ex) => {
+          if (ex) setFetchedExam(ex);
+        })
+        .catch((err) => {
+          console.warn("[RetakeModal] Could not fetch original exam:", err);
+        })
+        .finally(() => {
+          setIsLoadingExam(false);
+        });
+    }
+  }, [exam, submission?.examId, isOpen]);
+
+  const activeExam = exam || fetchedExam;
+
+  const originalIsUnlimited = Boolean(
+    activeExam?.isUnlimitedTime ||
+    activeExam?.unlimitedTime ||
+    activeExam?.timeLimit === 0 ||
+    activeExam?.duration === 0 ||
+    (activeExam as any)?.timeLimit === -1
+  );
+
+  const originalTimeLimit = originalIsUnlimited
+    ? 0
+    : Number(activeExam?.timeLimit || activeExam?.duration || 45);
+
+  const totalQuestions = submission?.totalCount || activeExam?.totalQuestions || activeExam?.questionCount || questions?.length || 0;
   const correctCount = submission?.correctCount ?? 0;
   const wrongCount = Math.max(0, totalQuestions - correctCount);
 
@@ -47,7 +86,6 @@ export default function RetakeModal({
   const [selectedMode, setSelectedMode] = useState<"all" | "correct" | "wrong" | "custom">(() => {
     return wrongCount > 0 ? "wrong" : "all";
   });
-  const [durationMode, setDurationMode] = useState<"unlimited" | "auto">("unlimited");
   const [isStarting, setIsStarting] = useState(false);
   const [isCustomConfigOpen, setIsCustomConfigOpen] = useState(false);
 
@@ -67,23 +105,25 @@ export default function RetakeModal({
   const sourceExam: ReviewSourceExam = useMemo(() => {
     const candidateQuestions =
       (questions && questions.length > 0 ? questions : undefined) ||
-      (exam?.questions && exam.questions.length > 0 ? exam.questions : undefined) ||
+      (activeExam?.questions && activeExam.questions.length > 0 ? activeExam.questions : undefined) ||
       submission?.shuffledQuestionsSnapshot;
 
     const realTotal =
-      exam?.totalQuestions ||
-      exam?.questionCount ||
+      activeExam?.totalQuestions ||
+      activeExam?.questionCount ||
       candidateQuestions?.length ||
       totalQuestions ||
       10;
 
     const targetExam =
-      exam ||
+      activeExam ||
       ({
         id: submission?.examId || "",
         title: submission?.examTitleSnapshot || "Đề thi",
-        timeLimit: 45,
-        duration: 45,
+        timeLimit: originalTimeLimit,
+        duration: originalTimeLimit,
+        isUnlimitedTime: originalIsUnlimited,
+        unlimitedTime: originalIsUnlimited,
         questionCount: realTotal,
         totalQuestions: realTotal,
         questions: candidateQuestions || [],
@@ -107,7 +147,17 @@ export default function RetakeModal({
       exam: targetExam,
       questions: candidateQuestions,
     };
-  }, [exam, submission, questions, totalQuestions, correctCount, wrongCount]);
+  }, [
+    activeExam,
+    exam,
+    submission,
+    questions,
+    totalQuestions,
+    correctCount,
+    wrongCount,
+    originalTimeLimit,
+    originalIsUnlimited,
+  ]);
 
   if (!isOpen) return null;
 
@@ -121,7 +171,17 @@ export default function RetakeModal({
 
     setIsStarting(true);
     try {
-      const targetExam = sourceExam.exam;
+      let resolvedExam = activeExam;
+      if (!resolvedExam && submission?.examId) {
+        try {
+          resolvedExam = await getExam(submission.examId);
+          if (resolvedExam) {
+            setFetchedExam(resolvedExam);
+          }
+        } catch {}
+      }
+
+      const targetExam = resolvedExam || sourceExam.exam;
 
       // When retaking the whole exam, use original exam data directly so submission records under original exam ID and ranks on its leaderboard!
       if (selectedMode === "all") {
@@ -169,9 +229,6 @@ export default function RetakeModal({
 
         const queryParams = new URLSearchParams();
         queryParams.set("retake", "true");
-        if (durationMode === "unlimited") {
-          queryParams.set("unlimited", "true");
-        }
 
         navigate(`/student/exam/${originalExamId}/take?${queryParams.toString()}`);
         return;
@@ -187,7 +244,6 @@ export default function RetakeModal({
         mode: selectedMode,
         questions,
         sections,
-        durationMode,
       });
 
       showSuccessToast(
@@ -452,44 +508,25 @@ export default function RetakeModal({
             </div>
           </button>
 
-          {/* Quick Duration Selector (Unlimited vs 1.5 min/question) */}
+          {/* Duration info - Strictly follows original exam setting */}
           {selectedMode !== "custom" && (
-            <div className="p-3 sm:p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl space-y-2 mt-1">
+            <div className="p-3 sm:p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl space-y-1.5 mt-1">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] sm:text-xs font-bold text-slate-700 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-blue-600" />
                   Thời gian làm bài:
                 </span>
-                <span className={`text-[11px] sm:text-xs font-extrabold ${durationMode === "unlimited" ? "text-emerald-600" : "text-blue-600"}`}>
-                  {durationMode === "unlimited"
-                    ? "Vô hạn (Không giới hạn)"
-                    : `${Math.round(totalQuestions * 1.5)} phút (1.5p/câu)`}
+                <span className="text-[11px] sm:text-xs font-extrabold text-blue-700">
+                  {isLoadingExam
+                    ? "Đang tải cài đặt gốc..."
+                    : originalIsUnlimited
+                    ? "Vô hạn (Theo đề thi gốc)"
+                    : `${originalTimeLimit} phút (Theo đề thi gốc)`}
                 </span>
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setDurationMode("unlimited")}
-                  className={`py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-                    durationMode === "unlimited"
-                      ? "bg-emerald-600 text-white border-emerald-600 shadow-2xs"
-                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
-                  }`}
-                >
-                  <span>♾️ Vô hạn thời gian</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDurationMode("auto")}
-                  className={`py-1.5 sm:py-2 px-2.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-                    durationMode === "auto"
-                      ? "bg-blue-600 text-white border-blue-600 shadow-2xs"
-                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
-                  }`}
-                >
-                  <span>⏱️ 1,5 phút / câu</span>
-                </button>
-              </div>
+              <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                Áp dụng thời gian làm bài theo cài đặt gốc của đề thi. Để tùy chỉnh thời gian (vô hạn, 1 phút,...), vui lòng chọn chế độ <strong>"Làm lại với yêu cầu riêng"</strong>.
+              </p>
             </div>
           )}
         </div>

@@ -404,7 +404,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-Dlyw4xoX.js"></script>
+    <script type="module" crossorigin src="/assets/index-B2I9lhi-.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-icons-QDK-w5Yn.js">

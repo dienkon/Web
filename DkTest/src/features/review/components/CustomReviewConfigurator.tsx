@@ -179,7 +179,7 @@ export default function CustomReviewConfigurator({
   const estimatedDurationMinutes = useMemo(() => {
     if (durationMode === "unlimited") return 0;
     if (durationMode === "custom") return customDuration;
-    return Math.max(5, Math.min(180, Math.round(finalCandidates.length * 1.5)));
+    return Math.max(1, Math.min(300, Math.round(finalCandidates.length * 1.5)));
   }, [durationMode, customDuration, finalCandidates.length]);
 
   if (!isOpen) return null;
@@ -816,13 +816,13 @@ export default function CustomReviewConfigurator({
                     <div className="flex items-center gap-2 pt-1">
                       <input
                         type="number"
-                        min={5}
-                        max={180}
+                        min={1}
+                        max={300}
                         value={customDuration}
-                        onChange={(e) => setCustomDuration(Math.max(5, Number(e.target.value)))}
+                        onChange={(e) => setCustomDuration(Math.max(1, Number(e.target.value)))}
                         className="w-20 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-800 text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
-                      <span className="text-xs font-medium text-slate-500">phút (5 - 180 phút)</span>
+                      <span className="text-xs font-medium text-slate-500">phút (1 - 300 phút)</span>
                     </div>
                   )}
 
