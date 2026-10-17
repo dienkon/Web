@@ -35,3 +35,19 @@ export const PRODUCTION_HTML_TEMPLATE = \`${escapedHtml}\`;
     err,
   );
 }
+
+// Ensure public/images/subjects banners are present in dist/images/subjects
+try {
+  const publicSubjectsDir = path.join(process.cwd(), "public", "images", "subjects");
+  const distSubjectsDir = path.join(process.cwd(), "dist", "images", "subjects");
+  if (fs.existsSync(publicSubjectsDir) && fs.existsSync(path.join(process.cwd(), "dist"))) {
+    fs.mkdirSync(distSubjectsDir, { recursive: true });
+    const files = fs.readdirSync(publicSubjectsDir);
+    for (const f of files) {
+      fs.copyFileSync(path.join(publicSubjectsDir, f), path.join(distSubjectsDir, f));
+    }
+    console.log(`[generate-html-template] Verified and synced ${files.length} subject banners to dist/images/subjects`);
+  }
+} catch (e) {
+  console.warn("[generate-html-template] Could not sync subject banners:", e);
+}

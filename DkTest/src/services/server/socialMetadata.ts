@@ -2,6 +2,16 @@ import fs from "fs";
 import path from "path";
 import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmlTemplate.js";
 import { adminDb } from "../../../server/firebaseAdmin.js";
+export * from "./subjectBannerHelper.js";
+import {
+  resolveExamSubjectBanner,
+  detectExamSubject,
+  standardizeExamSubject,
+  getSubjectBannerKey,
+  getSubjectBannerUrl,
+  getSubjectBannerAlt,
+  SUBJECT_BANNER_MAP,
+} from "./subjectBannerHelper.js";
 
 export type SocialContentType = "voucher" | "exam" | "submission" | "code_exam" | "page";
 
@@ -925,7 +935,15 @@ export async function resolveSocialMetadataForUrl({
     const codeExamId = safeDecodeURIComponent(codeExamMatch[1]);
     const { found, codeExam } = await fetchCodeExamMetadata(codeExamId);
     const canonicalUrl = `${cleanBaseUrl}/code-exam/${encodeURIComponent(codeExamId)}`;
-    const imageUrl = `${cleanBaseUrl}/logo.png`;
+    const bannerInfo = resolveExamSubjectBanner({
+      exam: {
+        id: codeExamId,
+        title: found && codeExam?.title ? codeExam.title : "Phòng Thi Lập Trình Sandbox",
+        subject: "Tin học",
+      },
+      examId: codeExamId,
+      baseUrl: cleanBaseUrl,
+    });
 
     if (found && codeExam) {
       const title = `💻 ${codeExam.title} - Phòng Thi Lập Trình | DkTEST`;
@@ -939,10 +957,10 @@ export async function resolveSocialMetadataForUrl({
         title,
         description: desc,
         canonicalUrl,
-        imageUrl,
-        imageAlt: codeExam.title,
-        imageWidth: 600,
-        imageHeight: 600,
+        imageUrl: bannerInfo.imageUrl,
+        imageAlt: `${codeExam.title} — Môn Tin học / Lập trình | DkTEST`,
+        imageWidth: 1200,
+        imageHeight: 630,
         siteName: "DkTEST",
       };
     } else {
@@ -951,20 +969,20 @@ export async function resolveSocialMetadataForUrl({
         title: `💻 Phòng Thi Lập Trình & Sandbox Trực Tuyến | DkTEST`,
         description: `Tham gia làm bài thi lập trình trực tuyến trên DkTEST. Hỗ trợ đa ngôn ngữ, chấm điểm tự động theo test case chuẩn.`,
         canonicalUrl,
-        imageUrl,
+        imageUrl: bannerInfo.imageUrl,
         imageAlt: "Phòng thi lập trình DkTEST",
-        imageWidth: 600,
-        imageHeight: 600,
+        imageWidth: 1200,
+        imageHeight: 630,
         siteName: "DkTEST",
       };
     }
   }
 
   // Case 4: Exam Links
-  // Matches /student/exam/:examId, /exam/:examId, /parent/exams/:examId, /admin/exams/:examId
+  // Matches /student/exam/:examId, /student/exams/:examId, /exam/:examId, /exams/:examId, /parent/exams/:examId, /admin/exams/:examId
   const isTakeMode = /\/take\/?$/i.test(pathname);
   const examMatch = pathname.match(
-    /^\/(?:student\/exam|exam|(?:parent|admin)\/exams)\/([^/?#]+)/i
+    /^\/(?:student\/exams?|exams?|(?:parent|admin)\/exams?)\/([^/?#]+)/i
   );
   if (
     examMatch &&
@@ -1022,7 +1040,16 @@ export async function resolveSocialMetadataForUrl({
           title = `📝 ${rawExamTitle} | DkTEST`;
         }
 
-        const imageUrl = exam.imageUrl || `${cleanBaseUrl}/logo.png`;
+        const subjectBanner = resolveExamSubjectBanner({
+          exam,
+          examId: rawExamId,
+          baseUrl: cleanBaseUrl,
+        });
+
+        const imageUrl = exam.imageUrl || subjectBanner.imageUrl;
+        const imageAlt = exam.imageUrl
+          ? (exam.title || "DkTEST Bài kiểm tra")
+          : subjectBanner.imageAlt;
 
         return {
           contentType: "exam",
@@ -1030,21 +1057,27 @@ export async function resolveSocialMetadataForUrl({
           description: desc,
           canonicalUrl,
           imageUrl,
-          imageAlt: exam.title,
+          imageAlt,
           imageWidth: 1200,
           imageHeight: 630,
           siteName: "DkTEST",
         };
       } else {
+        const fallbackBanner = resolveExamSubjectBanner({
+          exam: { id: rawExamId, title: rawExamId },
+          examId: rawExamId,
+          baseUrl: cleanBaseUrl,
+        });
+
         return {
           contentType: "exam",
           title: "📝 DkTEST - Bài Kiểm Tra Trực Tuyến",
           description: "Tham gia bài kiểm tra và luyện thi trực tuyến thông minh trên DkTEST.",
           canonicalUrl,
-          imageUrl: `${cleanBaseUrl}/logo.png`,
-          imageAlt: "DkTEST Bài kiểm tra",
-          imageWidth: 600,
-          imageHeight: 600,
+          imageUrl: fallbackBanner.imageUrl,
+          imageAlt: fallbackBanner.imageAlt,
+          imageWidth: 1200,
+          imageHeight: 630,
           siteName: "DkTEST",
         };
       }
@@ -1212,10 +1245,10 @@ export async function resolveSocialMetadataForUrl({
       title: "📚 Ngân Hàng Đề Thi & Khảo Thí Trực Tuyến - DkTEST",
       description: "Khám phá kho đề thi trắc nghiệm các môn Toán, Lý, Hóa, Sinh, Sử, Địa, GDCD, Tiếng Anh, Tin học từ lớp 1 đến lớp 12 chuẩn Bộ GD&ĐT.",
       canonicalUrl: `${cleanBaseUrl}/exams`,
-      imageUrl: `${cleanBaseUrl}/logo.png`,
+      imageUrl: `${cleanBaseUrl}/images/subjects/default.jpg`,
       imageAlt: "Ngân hàng đề thi DkTEST",
-      imageWidth: 600,
-      imageHeight: 600,
+      imageWidth: 1200,
+      imageHeight: 630,
       siteName: "DkTEST",
     };
   }
@@ -1333,9 +1366,10 @@ export function buildSocialMetaTags(meta: SocialMeta): {
     tags.push(`<meta property="og:image:secure_url" content="${escapedImage}">`);
   }
 
-  if (meta.imageUrl.endsWith(".jpg") || meta.imageUrl.endsWith(".jpeg")) {
+  const cleanImage = (meta.imageUrl || "").split(/[?#]/)[0].toLowerCase();
+  if (cleanImage.endsWith(".jpg") || cleanImage.endsWith(".jpeg")) {
     tags.push(`<meta property="og:image:type" content="image/jpeg">`);
-  } else if (meta.imageUrl.endsWith(".png")) {
+  } else if (cleanImage.endsWith(".png")) {
     tags.push(`<meta property="og:image:type" content="image/png">`);
   }
 

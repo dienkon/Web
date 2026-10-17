@@ -5,6 +5,7 @@ import {
   renderSocialPageHtml,
   escapeHtml,
   type ExamMeta,
+  resolveExamSubjectBanner,
 } from "./socialMetadata.js";
 
 export { fetchExamMetadata };
@@ -89,8 +90,16 @@ export function buildExamMetaTags({
     `<link rel="canonical" href="${escapedUrl}">`,
   ];
 
-  const imageUrl = (found && exam?.imageUrl) ? exam.imageUrl : `${cleanBaseUrl}/logo.png`;
+  const bannerInfo = resolveExamSubjectBanner({
+    exam: (found && exam) ? exam : { id: examId, title: exam?.title || examId },
+    examId,
+    baseUrl: cleanBaseUrl,
+  });
+
+  const imageUrl = (found && exam?.imageUrl) ? exam.imageUrl : bannerInfo.imageUrl;
+  const imageAlt = (found && exam?.imageUrl) ? (exam.title || titleRaw) : bannerInfo.imageAlt;
   const escapedImage = escapeHtml(imageUrl);
+  const escapedAlt = escapeHtml(imageAlt);
   tags.push(
     `<meta property="og:image" content="${escapedImage}">`
   );
@@ -99,14 +108,15 @@ export function buildExamMetaTags({
     tags.push(`<meta property="og:image:secure_url" content="${escapedImage}">`);
   }
 
-  if (imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg")) {
+  const cleanImage = (imageUrl || "").split(/[?#]/)[0].toLowerCase();
+  if (cleanImage.endsWith(".jpg") || cleanImage.endsWith(".jpeg")) {
     tags.push(`<meta property="og:image:type" content="image/jpeg">`);
-  } else if (imageUrl.endsWith(".png")) {
+  } else if (cleanImage.endsWith(".png")) {
     tags.push(`<meta property="og:image:type" content="image/png">`);
   }
 
   tags.push(
-    `<meta property="og:image:alt" content="${escapedTitle}">`,
+    `<meta property="og:image:alt" content="${escapedAlt}">`,
     `<meta name="twitter:image" content="${escapedImage}">`
   );
 
