@@ -10,9 +10,13 @@ export const BottomTray: React.FC = () => {
     { type: 'erlenmeyer_flask', label_vi: 'Bình tam giác', label_en: 'Flask', icon: '⚗️' },
     { type: 'test_tube', label_vi: 'Ống nghiệm', label_en: 'Test Tube', icon: '🧪' },
     { type: 'graduated_cylinder', label_vi: 'Ống đong', label_en: 'Cylinder', icon: '📏' },
+    { type: 'burette', label_vi: 'Buret', label_en: 'Burette', icon: '🔬' },
     { type: 'analytical_balance', label_vi: 'Cân điện tử', label_en: 'Balance', icon: '⚖️' },
     { type: 'bunsen_burner', label_vi: 'Đèn Bunsen', label_en: 'Burner', icon: '🔥' },
-    { type: 'burette', label_vi: 'Buret', label_en: 'Burette', icon: '🔬' },
+    { type: 'hot_plate', label_vi: 'Bếp điện', label_en: 'Hot Plate', icon: '♨️' },
+    { type: 'evaporating_dish', label_vi: 'Bát sứ', label_en: 'Dish', icon: '🥣' },
+    { type: 'ph_meter', label_vi: 'Bút pH', label_en: 'pH Meter', icon: '📟' },
+    { type: 'thermometer', label_vi: 'Nhiệt kế', label_en: 'Thermo', icon: '🌡️' },
     { type: 'wash_bottle', label_vi: 'Bình tia H2O', label_en: 'Wash Bottle', icon: '🧴' },
   ];
 

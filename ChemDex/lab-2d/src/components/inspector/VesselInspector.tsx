@@ -182,6 +182,34 @@ export const VesselInspector: React.FC = () => {
           </div>
         )}
 
+        {selectedItem.hasPhaseSeparation && (
+          <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-xs">
+            <span className="font-bold text-amber-900">
+              {language === 'vi' ? 'Tách lớp pha hữu cơ (Este):' : 'Immiscible Organic Layer:'}
+            </span>
+            <p className="text-amber-800 mt-0.5">
+              {language === 'vi'
+                ? `Lớp este không tan trong nước, nhẹ hơn nổi lên trên bề mặt (~${selectedItem.organicLayerVolume_ml?.toFixed(1) || 5} mL).`
+                : `Organic ester layer separates and floats on aqueous phase (~${selectedItem.organicLayerVolume_ml?.toFixed(1) || 5} mL).`}
+            </p>
+          </div>
+        )}
+
+        {selectedItem.hasFumes && (
+          <div className="p-2.5 rounded-xl bg-purple-50 border border-purple-200 text-xs">
+            <span className="font-bold text-purple-900">
+              {language === 'vi' ? 'Khói / Hơi hóa chất:' : 'Chemical Fumes / Vapor:'}
+            </span>
+            <p className="text-purple-800 mt-0.5">
+              {selectedItem.fumeType === 'no2'
+                ? (language === 'vi' ? 'Khí NO₂ màu nâu đỏ độc hại bốc lên cuồn cuộn.' : 'Reddish-brown toxic NO₂ gas fumes evolving.')
+                : selectedItem.fumeType === 'nh4cl'
+                ? (language === 'vi' ? 'Khói trắng NH₄Cl hình thành từ hơi NH₃ và HCl.' : 'Dense white NH₄Cl smoke forming.')
+                : (language === 'vi' ? 'Hơi nước sôi bốc lên liên tục.' : 'Steam vapor evolving from boiling liquid.')}
+            </p>
+          </div>
+        )}
+
         {/* Gemini AI Dynamic Prediction Trigger */}
         {selectedItem.isContainer && selectedItem.contents.length >= 2 && (
           <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-white border border-indigo-200/80 shadow-2xs">

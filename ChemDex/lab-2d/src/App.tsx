@@ -9,9 +9,24 @@ import { BottomTray } from './components/layout/BottomTray';
 import { TransferModal } from './components/workspace/TransferModal';
 import { LabNotebookModal } from './components/reports/LabNotebookModal';
 import { GeminiAssistantModal } from './components/ai/GeminiAssistantModal';
+import { ApiKeyModal } from './components/ai/ApiKeyModal';
+import { PeriodicTableModal } from './components/inventory/PeriodicTableModal';
+import { TitrationCurveModal } from './components/experiments/TitrationCurveModal';
 
 export const App: React.FC = () => {
-  const { undo, redo, isAIAssistantOpen, toggleAIAssistant } = useLabStore();
+  const {
+    undo,
+    redo,
+    isAIAssistantOpen,
+    toggleAIAssistant,
+    isApiKeyModalOpen,
+    toggleApiKeyModal,
+    isPeriodicTableOpen,
+    togglePeriodicTable,
+    isTitrationCurveOpen,
+    toggleTitrationCurve,
+    language,
+  } = useLabStore();
 
   // Global Keyboard Shortcuts (Undo/Redo)
   useEffect(() => {
@@ -58,6 +73,19 @@ export const App: React.FC = () => {
       <GeminiAssistantModal
         isOpen={isAIAssistantOpen}
         onClose={() => toggleAIAssistant(false)}
+      />
+      <ApiKeyModal
+        isOpen={isApiKeyModalOpen}
+        onClose={() => toggleApiKeyModal(false)}
+        language={language}
+      />
+      <PeriodicTableModal
+        isOpen={isPeriodicTableOpen}
+        onClose={() => togglePeriodicTable(false)}
+      />
+      <TitrationCurveModal
+        isOpen={isTitrationCurveOpen}
+        onClose={() => toggleTitrationCurve(false)}
       />
     </div>
   );

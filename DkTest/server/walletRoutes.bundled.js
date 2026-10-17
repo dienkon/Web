@@ -104,7 +104,7 @@ function initFirebaseAdmin() {
     isConfigured: isConfiguredState
   };
 }
-var { adminApp, adminAuth: adminAuth2, adminDb: adminDb2, isConfigured } = initFirebaseAdmin();
+var { adminApp, adminAuth, adminDb, isConfigured } = initFirebaseAdmin();
 function decodeFirestoreValue(val) {
   if (!val || typeof val !== "object") return val;
   if ("stringValue" in val) return val.stringValue;
@@ -233,7 +233,7 @@ async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = tr
     return [];
   }
 }
-async function getFirestoreRestDoc2(collectionName, docId, useCache = true, cacheTtlMs = 3e4) {
+async function getFirestoreRestDoc(collectionName, docId, useCache = true, cacheTtlMs = 3e4) {
   const cacheKey = `doc_${collectionName}_${docId}`;
   const now = Date.now();
   const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
@@ -367,8 +367,8 @@ async function requireAuth(req, res, next) {
     let displayName = "";
     let role = "";
     let accountStatus = "active";
-    if (adminAuth2) {
-      const decodedToken = await adminAuth2.verifyIdToken(idToken);
+    if (adminAuth) {
+      const decodedToken = await adminAuth.verifyIdToken(idToken);
       uid = decodedToken.uid;
       email = decodedToken.email || "";
       displayName = decodedToken.name || "";
@@ -390,9 +390,9 @@ async function requireAuth(req, res, next) {
       }
     }
     if (!role && uid) {
-      if (adminDb2) {
+      if (adminDb) {
         try {
-          const userDoc = await adminDb2.collection("users").doc(uid).get();
+          const userDoc = await adminDb.collection("users").doc(uid).get();
           if (userDoc.exists) {
             const data = userDoc.data();
             role = data?.role || "";
@@ -404,7 +404,7 @@ async function requireAuth(req, res, next) {
         }
       } else {
         try {
-          const userData = await getFirestoreRestDoc2("users", uid);
+          const userData = await getFirestoreRestDoc("users", uid);
           if (userData) {
             role = userData.role || "";
             accountStatus = userData.accountStatus || "active";
@@ -469,14 +469,29 @@ async function requireAuth(req, res, next) {
 function normalizeCode(code) {
   return String(code || "").trim().toUpperCase();
 }
+async function getVoucherByCode(rawCode) {
+  const code = normalizeCode(rawCode);
+  if (!code) return null;
+  if (adminDb) {
+    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
+    if (!snap.empty) {
+      return { id: snap.docs[0].id, ...snap.docs[0].data() };
+    }
+  } else {
+    const all = await getFirestoreRestDocs("vouchers", 100, false);
+    const found = (all || []).find((v) => normalizeCode(v.code) === code);
+    if (found) return found;
+  }
+  return null;
+}
 async function validateVoucher(params) {
   const code = normalizeCode(params.code);
   if (!code) {
     return { valid: false, message: "Vui l\xF2ng nh\u1EADp m\xE3 voucher." };
   }
   let voucher = null;
-  if (adminDb2) {
-    const snap = await adminDb2.collection("vouchers").where("code", "==", code).limit(1).get();
+  if (adminDb) {
+    const snap = await adminDb.collection("vouchers").where("code", "==", code).limit(1).get();
     if (!snap.empty) {
       voucher = { id: snap.docs[0].id, ...snap.docs[0].data() };
     }
@@ -504,8 +519,8 @@ async function validateVoucher(params) {
   }
   if (params.uid) {
     let userUsedCount = 0;
-    if (adminDb2) {
-      const usagesSnap = await adminDb2.collection("voucher_usages").where("voucherId", "==", voucher.id).where("uid", "==", params.uid).get();
+    if (adminDb) {
+      const usagesSnap = await adminDb.collection("voucher_usages").where("voucherId", "==", voucher.id).where("uid", "==", params.uid).get();
       userUsedCount = usagesSnap.size;
     } else {
       const allUsages = await getFirestoreRestDocs("voucher_usages", 100, false);
@@ -603,16 +618,16 @@ async function redeemGiftVoucher(code, uid) {
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   let finalBalance = 0;
-  if (adminDb2) {
-    await adminDb2.runTransaction(async (transaction) => {
-      const vRef = adminDb2.collection("vouchers").doc(voucher.id);
+  if (adminDb) {
+    await adminDb.runTransaction(async (transaction) => {
+      const vRef = adminDb.collection("vouchers").doc(voucher.id);
       const vSnap = await transaction.get(vRef);
       if (!vSnap.exists) throw new Error("Voucher kh\xF4ng t\u1ED3n t\u1EA1i.");
       const vData = vSnap.data();
       if (vData.usageLimit && vData.usageLimit > 0 && (vData.usedCount || 0) >= vData.usageLimit) {
         throw new Error("M\xE3 qu\xE0 t\u1EB7ng \u0111\xE3 h\u1EBFt l\u01B0\u1EE3t s\u1EED d\u1EE5ng.");
       }
-      const wRef = adminDb2.collection("wallets").doc(uid);
+      const wRef = adminDb.collection("wallets").doc(uid);
       const wSnap = await transaction.get(wRef);
       let prevBalance = 0;
       let fullName = "";
@@ -638,7 +653,7 @@ async function redeemGiftVoucher(code, uid) {
         usedCount: (vData.usedCount || 0) + 1,
         updatedAt: now
       });
-      const usageRef = adminDb2.collection("voucher_usages").doc(usageId);
+      const usageRef = adminDb.collection("voucher_usages").doc(usageId);
       const usageDoc = {
         id: usageId,
         voucherId: voucher.id,
@@ -652,7 +667,7 @@ async function redeemGiftVoucher(code, uid) {
         context: "gift_money"
       };
       transaction.set(usageRef, usageDoc);
-      const txRef = adminDb2.collection("wallet_transactions").doc(txId);
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
       const txDoc = {
         id: txId,
         uid,
@@ -668,7 +683,7 @@ async function redeemGiftVoucher(code, uid) {
       transaction.set(txRef, txDoc);
     });
   } else {
-    const wData = await getFirestoreRestDoc2("wallets", uid, false);
+    const wData = await getFirestoreRestDoc("wallets", uid, false);
     const prevBalance = wData?.balanceVnd || 0;
     finalBalance = prevBalance + addedVnd;
     const fullName = wData?.fullName || "";
@@ -728,13 +743,13 @@ function sanitizeVnd(val) {
   if (isNaN(val) || !isFinite(val) || val < 0) return 0;
   return Math.floor(val);
 }
-async function getOrCreateWallet2(uid, initialData) {
+async function getOrCreateWallet(uid, initialData) {
   if (!uid || typeof uid !== "string") {
     throw new Error("UID kh\xF4ng h\u1EE3p l\u1EC7.");
   }
   const cleanUid = uid.trim();
-  if (adminDb2) {
-    const walletRef = adminDb2.collection("wallets").doc(cleanUid);
+  if (adminDb) {
+    const walletRef = adminDb.collection("wallets").doc(cleanUid);
     const snap = await walletRef.get();
     if (snap.exists) {
       const data = snap.data();
@@ -759,14 +774,14 @@ async function getOrCreateWallet2(uid, initialData) {
     let defaultName = initialData?.fullName || "";
     let defaultClass = initialData?.currentClass || "";
     try {
-      const uDoc = await adminDb2.collection("users").doc(cleanUid).get();
+      const uDoc = await adminDb.collection("users").doc(cleanUid).get();
       if (uDoc.exists) {
         const uData = uDoc.data();
         defaultName = defaultName || uData?.fullName || uData?.displayName || "";
         defaultClass = defaultClass || uData?.studentClass || "";
         if (uData?.username) altDocId = uData.username;
       } else {
-        const unSnap = await adminDb2.collection("usernames").doc(cleanUid.toLowerCase()).get();
+        const unSnap = await adminDb.collection("usernames").doc(cleanUid.toLowerCase()).get();
         if (unSnap.exists && unSnap.data()?.uid) {
           altDocId = unSnap.data().uid;
         }
@@ -775,7 +790,7 @@ async function getOrCreateWallet2(uid, initialData) {
     }
     if (altDocId && altDocId !== cleanUid) {
       try {
-        const altSnap = await adminDb2.collection("wallets").doc(altDocId).get();
+        const altSnap = await adminDb.collection("wallets").doc(altDocId).get();
         if (altSnap.exists) {
           const altData = altSnap.data();
           const altBal = sanitizeVnd(altData.balanceVnd);
@@ -832,7 +847,7 @@ async function getOrCreateWallet2(uid, initialData) {
     await walletRef.set(newWallet2);
     return await autoApprovePendingRequestsForUser(cleanUid, newWallet2);
   }
-  const existing = await getFirestoreRestDoc2("wallets", cleanUid);
+  const existing = await getFirestoreRestDoc("wallets", cleanUid);
   if (existing) {
     const existingBal = sanitizeVnd(existing.balanceVnd);
     if (existingBal > 0) {
@@ -856,20 +871,20 @@ async function getOrCreateWallet2(uid, initialData) {
   let restDefaultName = initialData?.fullName || "";
   let restDefaultClass = initialData?.currentClass || "";
   try {
-    const uDoc = await getFirestoreRestDoc2("users", cleanUid);
+    const uDoc = await getFirestoreRestDoc("users", cleanUid);
     if (uDoc) {
       restDefaultName = restDefaultName || uDoc.fullName || uDoc.displayName || "";
       restDefaultClass = restDefaultClass || uDoc.studentClass || "";
       if (uDoc.username) altDocIdRest = uDoc.username;
     } else {
-      const unDoc = await getFirestoreRestDoc2("usernames", cleanUid.toLowerCase());
+      const unDoc = await getFirestoreRestDoc("usernames", cleanUid.toLowerCase());
       if (unDoc?.uid) altDocIdRest = unDoc.uid;
     }
   } catch (_) {
   }
   if (altDocIdRest && altDocIdRest !== cleanUid) {
     try {
-      const altExisting = await getFirestoreRestDoc2("wallets", altDocIdRest);
+      const altExisting = await getFirestoreRestDoc("wallets", altDocIdRest);
       if (altExisting && sanitizeVnd(altExisting.balanceVnd) > 0) {
         const altBal = sanitizeVnd(altExisting.balanceVnd);
         const now2 = (/* @__PURE__ */ new Date()).toISOString();
@@ -942,8 +957,8 @@ async function autoApprovePendingRequestsForUser(uid, wallet) {
         processedByName: "H\u1EC7 th\u1ED1ng t\u1EF1 \u0111\u1ED9ng duy\u1EC7t",
         externalCollectionNote: "\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng. C\u1EA7n thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi."
       };
-      if (adminDb2) {
-        await adminDb2.collection("deposit_requests").doc(req.id).set(approvedReq, { merge: true });
+      if (adminDb) {
+        await adminDb.collection("deposit_requests").doc(req.id).set(approvedReq, { merge: true });
       } else {
         await setFirestoreRestDoc("deposit_requests", req.id, approvedReq);
       }
@@ -980,9 +995,9 @@ async function autoApprovePendingRequestsForUser(uid, wallet) {
         createdAt: now,
         updatedAt: now
       };
-      if (adminDb2) {
-        await adminDb2.collection("wallet_transactions").doc(txId).set(ledgerEntry);
-        await adminDb2.collection("debt_records").doc(debtId).set(debtEntry);
+      if (adminDb) {
+        await adminDb.collection("wallet_transactions").doc(txId).set(ledgerEntry);
+        await adminDb.collection("debt_records").doc(debtId).set(debtEntry);
       } else {
         await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
         await setFirestoreRestDoc("debt_records", debtId, debtEntry);
@@ -995,8 +1010,8 @@ async function autoApprovePendingRequestsForUser(uid, wallet) {
         totalCreditedVnd: sanitizeVnd(wallet.totalCreditedVnd) + balanceAdd,
         updatedAt: now
       };
-      if (adminDb2) {
-        await adminDb2.collection("wallets").doc(uid).set(updatedWallet, { merge: true });
+      if (adminDb) {
+        await adminDb.collection("wallets").doc(uid).set(updatedWallet, { merge: true });
       } else {
         await setFirestoreRestDoc("wallets", uid, updatedWallet);
       }
@@ -1016,7 +1031,7 @@ async function updateWalletProfile(uid, data) {
   if (!currentClass || currentClass.length < 2) {
     throw new Error("L\u1EDBp h\u1ECDc hi\u1EC7n t\u1EA1i kh\xF4ng h\u1EE3p l\u1EC7 (v\xED d\u1EE5: 11A1, 12D2).");
   }
-  const existing = await getOrCreateWallet2(uid);
+  const existing = await getOrCreateWallet(uid);
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const updates = {
     fullName,
@@ -1024,8 +1039,8 @@ async function updateWalletProfile(uid, data) {
     profileCompleted: true,
     updatedAt: now
   };
-  if (adminDb2) {
-    await adminDb2.collection("wallets").doc(uid).update(updates);
+  if (adminDb) {
+    await adminDb.collection("wallets").doc(uid).update(updates);
   } else {
     await setFirestoreRestDoc("wallets", uid, { ...existing, ...updates });
   }
@@ -1096,7 +1111,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
   if (cleanAmount > 5e5) {
     throw new Error("S\u1ED1 ti\u1EC1n n\u1EA1p t\u1ED1i \u0111a cho m\u1ED7i y\xEAu c\u1EA7u l\xE0 500.000\u0111.");
   }
-  const wallet = await getOrCreateWallet2(uid);
+  const wallet = await getOrCreateWallet(uid);
   if (!wallet.profileCompleted || !wallet.fullName || !wallet.currentClass) {
     throw new Error("Vui l\xF2ng ho\xE0n th\xE0nh h\u1ED3 s\u01A1 h\u1ECD t\xEAn v\xE0 l\u1EDBp tr\u01B0\u1EDBc khi t\u1EA1o y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n.");
   }
@@ -1118,8 +1133,8 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
   }
   const cleanKey = idempotencyKey ? String(idempotencyKey).trim() : "";
   const now = (/* @__PURE__ */ new Date()).toISOString();
-  if (cleanKey && adminDb2) {
-    const existingSnap = await adminDb2.collection("deposit_requests").where("idempotencyKey", "==", cleanKey).where("uid", "==", uid).limit(1).get();
+  if (cleanKey && adminDb) {
+    const existingSnap = await adminDb.collection("deposit_requests").where("idempotencyKey", "==", cleanKey).where("uid", "==", uid).limit(1).get();
     if (!existingSnap.empty) {
       return existingSnap.docs[0].data();
     }
@@ -1143,9 +1158,9 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
     externalCollectionNote: bonusVnd > 0 ? `\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng ${cleanAmount.toLocaleString("vi-VN")}\u0111 (+${bonusVnd.toLocaleString("vi-VN")}\u0111 th\u01B0\u1EDFng voucher ${appliedVoucher?.code}). C\u1EA7n thu ${cleanAmount.toLocaleString("vi-VN")}\u0111 ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi.` : "\u0110\xE3 c\u1ED9ng v\xED \u1EA3o t\u1EF1 \u0111\u1ED9ng. C\u1EA7n thu ti\u1EC1n m\u1EB7t ngo\xE0i \u0111\u1EDDi.",
     idempotencyKey: cleanKey || requestId
   };
-  if (adminDb2) {
-    await adminDb2.runTransaction(async (transaction) => {
-      const walletRef = adminDb2.collection("wallets").doc(uid);
+  if (adminDb) {
+    await adminDb.runTransaction(async (transaction) => {
+      const walletRef = adminDb.collection("wallets").doc(uid);
       const walletSnap = await transaction.get(walletRef);
       let prevBalance = 0;
       let totalCredited = 0;
@@ -1162,7 +1177,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
       }
       const newBalance = prevBalance + totalCreditToAdd;
       const newTotalCredited = totalCredited + totalCreditToAdd;
-      const reqRef = adminDb2.collection("deposit_requests").doc(requestId);
+      const reqRef = adminDb.collection("deposit_requests").doc(requestId);
       transaction.set(reqRef, requestDoc);
       transaction.set(
         walletRef,
@@ -1178,7 +1193,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
         },
         { merge: true }
       );
-      const txRef = adminDb2.collection("wallet_transactions").doc(txId);
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
       const ledgerEntry = {
         id: txId,
         uid,
@@ -1194,7 +1209,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
         createdAt: now
       };
       transaction.set(txRef, ledgerEntry);
-      const debtRef = adminDb2.collection("debt_records").doc(debtId);
+      const debtRef = adminDb.collection("debt_records").doc(debtId);
       const debtEntry = {
         id: debtId,
         uid,
@@ -1214,7 +1229,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
       };
       transaction.set(debtRef, debtEntry);
       if (appliedVoucher) {
-        const vRef = adminDb2.collection("vouchers").doc(appliedVoucher.id);
+        const vRef = adminDb.collection("vouchers").doc(appliedVoucher.id);
         const vSnap = await transaction.get(vRef);
         if (vSnap.exists) {
           const vData = vSnap.data();
@@ -1223,7 +1238,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
             updatedAt: now
           });
         }
-        const usageRef = adminDb2.collection("voucher_usages").doc(usageId);
+        const usageRef = adminDb.collection("voucher_usages").doc(usageId);
         const usageDoc = {
           id: usageId,
           voucherId: appliedVoucher.id,
@@ -1240,7 +1255,7 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
         transaction.set(usageRef, usageDoc);
       }
       const notifId = `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-      const notifRef = adminDb2.collection("notifications").doc(notifId);
+      const notifRef = adminDb.collection("notifications").doc(notifId);
       transaction.set(notifRef, {
         id: notifId,
         recipientUid: "admin",
@@ -1338,11 +1353,11 @@ async function createDepositRequest(uid, amountVnd, idempotencyKey, voucherCode)
 async function checkExamAccess(uid, examId, userRole) {
   if (!examId) throw new Error("M\xE3 b\xE0i thi kh\xF4ng h\u1EE3p l\u1EC7.");
   let examData = null;
-  if (adminDb2) {
-    const snap = await adminDb2.collection("exams").doc(examId).get();
+  if (adminDb) {
+    const snap = await adminDb.collection("exams").doc(examId).get();
     if (snap.exists) examData = snap.data();
   } else {
-    examData = await getFirestoreRestDoc2("exams", examId);
+    examData = await getFirestoreRestDoc("exams", examId);
   }
   if (!examData) {
     throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi.");
@@ -1383,11 +1398,11 @@ async function checkExamAccess(uid, examId, userRole) {
     const paidSources = [];
     for (const pId of parentExamIds) {
       let pData = null;
-      if (adminDb2) {
-        const snap = await adminDb2.collection("exams").doc(pId).get();
+      if (adminDb) {
+        const snap = await adminDb.collection("exams").doc(pId).get();
         if (snap.exists) pData = snap.data();
       } else {
-        pData = await getFirestoreRestDoc2("exams", pId);
+        pData = await getFirestoreRestDoc("exams", pId);
       }
       if (pData) {
         const pPrice = sanitizeVnd(pData.priceVnd);
@@ -1424,11 +1439,11 @@ async function checkExamAccess(uid, examId, userRole) {
       let usernameMatches = false;
       if (creatorUsername) {
         let currentUsername = "";
-        if (adminDb2) {
-          const uSnap = await adminDb2.collection("users").doc(uid).get();
+        if (adminDb) {
+          const uSnap = await adminDb.collection("users").doc(uid).get();
           if (uSnap.exists) currentUsername = uSnap.data()?.username || "";
         } else {
-          const uDoc = await getFirestoreRestDoc2("users", uid);
+          const uDoc = await getFirestoreRestDoc("users", uid);
           if (uDoc) currentUsername = uDoc.username || "";
         }
         if (currentUsername && currentUsername.trim().toLowerCase() === creatorUsername.trim().toLowerCase()) {
@@ -1456,15 +1471,15 @@ async function checkExamAccess(uid, examId, userRole) {
       for (const p of paidSources) {
         const parentEntitlementId = `${uid}_${p.id}`;
         let parentEntitlement = null;
-        if (adminDb2) {
-          const peSnap = await adminDb2.collection("exam_entitlements").doc(parentEntitlementId).get();
+        if (adminDb) {
+          const peSnap = await adminDb.collection("exam_entitlements").doc(parentEntitlementId).get();
           if (peSnap.exists) parentEntitlement = peSnap.data();
         } else {
-          parentEntitlement = await getFirestoreRestDoc2("exam_entitlements", parentEntitlementId);
+          parentEntitlement = await getFirestoreRestDoc("exam_entitlements", parentEntitlementId);
         }
         const isParentUnlocked = Boolean(parentEntitlement && parentEntitlement.status === "active");
         if (!isParentUnlocked) {
-          const wallet2 = await getOrCreateWallet2(uid);
+          const wallet2 = await getOrCreateWallet(uid);
           const userBalance2 = sanitizeVnd(wallet2.balanceVnd);
           return {
             hasAccess: false,
@@ -1529,14 +1544,14 @@ async function checkExamAccess(uid, examId, userRole) {
   }
   const entitlementId = `${uid}_${examId}`;
   let entitlement = null;
-  if (adminDb2) {
-    const entSnap = await adminDb2.collection("exam_entitlements").doc(entitlementId).get();
+  if (adminDb) {
+    const entSnap = await adminDb.collection("exam_entitlements").doc(entitlementId).get();
     if (entSnap.exists) entitlement = entSnap.data();
   } else {
-    entitlement = await getFirestoreRestDoc2("exam_entitlements", entitlementId);
+    entitlement = await getFirestoreRestDoc("exam_entitlements", entitlementId);
   }
   const isUnlocked = Boolean(entitlement && entitlement.status === "active");
-  const wallet = await getOrCreateWallet2(uid);
+  const wallet = await getOrCreateWallet(uid);
   const userBalance = sanitizeVnd(wallet.balanceVnd);
   const missingVnd = Math.max(0, priceVnd - userBalance);
   const canUnlock = userBalance >= priceVnd;
@@ -1559,9 +1574,9 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   const entitlementId = `${uid}_${examId}`;
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-  if (adminDb2) {
-    return await adminDb2.runTransaction(async (transaction) => {
-      const examRef = adminDb2.collection("exams").doc(examId);
+  if (adminDb) {
+    return await adminDb.runTransaction(async (transaction) => {
+      const examRef = adminDb.collection("exams").doc(examId);
       const examDoc = await transaction.get(examRef);
       if (!examDoc.exists) throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi.");
       const examData2 = examDoc.data();
@@ -1569,7 +1584,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       const priceVnd2 = sanitizeVnd(examData2.priceVnd);
       const salesEnabled = examData2.salesEnabled !== false;
       if (accessMode === "free" || priceVnd2 <= 0) {
-        const entRef2 = adminDb2.collection("exam_entitlements").doc(entitlementId);
+        const entRef2 = adminDb.collection("exam_entitlements").doc(entitlementId);
         const freeEnt = {
           id: entitlementId,
           uid,
@@ -1581,19 +1596,19 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
           examTitleSnapshot: examData2.title
         };
         transaction.set(entRef2, freeEnt, { merge: true });
-        const wDoc = await transaction.get(adminDb2.collection("wallets").doc(uid));
+        const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
         const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
         return { success: true, newBalanceVnd: bal, entitlement: freeEnt, alreadyUnlocked: true };
       }
       if (!salesEnabled) {
         throw new Error("B\xE0i thi hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng b\xE1n quy\u1EC1n truy c\u1EADp.");
       }
-      const entRef = adminDb2.collection("exam_entitlements").doc(entitlementId);
+      const entRef = adminDb.collection("exam_entitlements").doc(entitlementId);
       const entDoc = await transaction.get(entRef);
       if (entDoc.exists) {
         const entData = entDoc.data();
         if (entData.status === "active") {
-          const wDoc = await transaction.get(adminDb2.collection("wallets").doc(uid));
+          const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
           const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
           return { success: true, newBalanceVnd: bal, entitlement: entData, alreadyUnlocked: true };
         }
@@ -1616,7 +1631,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
         }
       }
       const effectivePrice2 = Math.max(0, priceVnd2 - discountVnd2);
-      const walletRef = adminDb2.collection("wallets").doc(uid);
+      const walletRef = adminDb.collection("wallets").doc(uid);
       const walletDoc = await transaction.get(walletRef);
       let currentBal = 0;
       let totalSpent = 0;
@@ -1662,7 +1677,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
         examTitleSnapshot: examData2.title || "B\xE0i thi"
       };
       transaction.set(entRef, entitlement2);
-      const txRef = adminDb2.collection("wallet_transactions").doc(txId);
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
       const ledgerEntry2 = {
         id: txId,
         uid,
@@ -1680,7 +1695,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       };
       transaction.set(txRef, ledgerEntry2);
       if (appliedVoucher2) {
-        const vRef = adminDb2.collection("vouchers").doc(appliedVoucher2.id);
+        const vRef = adminDb.collection("vouchers").doc(appliedVoucher2.id);
         const vSnap = await transaction.get(vRef);
         if (vSnap.exists) {
           const vData = vSnap.data();
@@ -1690,7 +1705,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
           });
         }
         const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-        const usageRef = adminDb2.collection("voucher_usages").doc(usageId);
+        const usageRef = adminDb.collection("voucher_usages").doc(usageId);
         transaction.set(usageRef, {
           id: usageId,
           voucherId: appliedVoucher2.id,
@@ -1712,12 +1727,12 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       };
     });
   }
-  const examData = await getFirestoreRestDoc2("exams", examId);
+  const examData = await getFirestoreRestDoc("exams", examId);
   if (!examData) throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i thi.");
   const priceVnd = sanitizeVnd(examData.priceVnd);
-  const existingEnt = await getFirestoreRestDoc2("exam_entitlements", entitlementId);
+  const existingEnt = await getFirestoreRestDoc("exam_entitlements", entitlementId);
   if (existingEnt && existingEnt.status === "active") {
-    const w = await getOrCreateWallet2(uid);
+    const w = await getOrCreateWallet(uid);
     return { success: true, newBalanceVnd: w.balanceVnd, entitlement: existingEnt, alreadyUnlocked: true };
   }
   let discountVnd = 0;
@@ -1736,7 +1751,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
     }
   }
   const effectivePrice = Math.max(0, priceVnd - discountVnd);
-  const wallet = await getOrCreateWallet2(uid);
+  const wallet = await getOrCreateWallet(uid);
   if (wallet.balanceVnd < effectivePrice) {
     throw new Error(`S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a \u0111\u1EC1 thi.`);
   }
@@ -1793,8 +1808,8 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
   return { success: true, newBalanceVnd: newBalance, entitlement };
 }
 async function getStudentTransactions(uid, limitCount = 30) {
-  if (adminDb2) {
-    const snap = await adminDb2.collection("wallet_transactions").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
+  if (adminDb) {
+    const snap = await adminDb.collection("wallet_transactions").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
   }
   const docs = await getFirestoreRestDocs("wallet_transactions", 100);
@@ -1803,8 +1818,8 @@ async function getStudentTransactions(uid, limitCount = 30) {
   return filtered.slice(0, limitCount);
 }
 async function getStudentDepositRequests(uid, limitCount = 30) {
-  if (adminDb2) {
-    const snap = await adminDb2.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
+  if (adminDb) {
+    const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
   }
   const docs = await getFirestoreRestDocs("deposit_requests", 100);
@@ -1816,8 +1831,8 @@ async function getStudentUnpaidDebt(uid) {
   if (!uid) return { totalDebtVnd: 0, unpaidCount: 0, records: [] };
   const cleanUid = uid.trim();
   let debts = [];
-  if (adminDb2) {
-    const snap = await adminDb2.collection("debt_records").where("uid", "==", cleanUid).get();
+  if (adminDb) {
+    const snap = await adminDb.collection("debt_records").where("uid", "==", cleanUid).get();
     debts = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
   } else {
     const docs = await getFirestoreRestDocs("debt_records", 200);
@@ -1926,7 +1941,7 @@ walletRouter.get("/exams/:examId/access", async (req, res) => {
 walletRouter.get("/wallet/me", requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
-    const wallet = await getOrCreateWallet2(uid, {
+    const wallet = await getOrCreateWallet(uid, {
       fullName: req.user.displayName
     });
     return res.json({ success: true, wallet });

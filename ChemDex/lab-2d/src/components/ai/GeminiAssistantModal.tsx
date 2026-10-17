@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { queryGeminiChemistryTutor } from '../../services/geminiService';
-import { Sparkles, Send, X, Bot, Beaker, MessageSquare, Flame } from 'lucide-react';
+import { Sparkles, Send, X, Bot, Beaker, MessageSquare, Flame, Key } from 'lucide-react';
 
 interface GeminiAssistantModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface GeminiAssistantModalProps {
 }
 
 export const GeminiAssistantModal: React.FC<GeminiAssistantModalProps> = ({ isOpen, onClose }) => {
-  const { equipment, selectedEquipmentId, language } = useLabStore();
+  const { equipment, selectedEquipmentId, language, toggleApiKeyModal } = useLabStore();
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'ai'; text: string; time: string }>>([
     {
       sender: 'ai',
@@ -85,12 +85,21 @@ export const GeminiAssistantModal: React.FC<GeminiAssistantModalProps> = ({ isOp
             </div>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 rounded-lg transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => toggleApiKeyModal(true)}
+              className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+              title={language === 'vi' ? 'Cấu hình Gemini API Key' : 'Configure Gemini API Key'}
+            >
+              <Key className="w-4 h-4" />
+            </button>
+            <button
+              onClick={onClose}
+              className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 rounded-lg transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Selected Vessel Context Banner */}

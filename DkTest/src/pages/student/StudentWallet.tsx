@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams, useParams } from "react-router-dom";
 import confetti from "canvas-confetti";
 import {
   Wallet,
@@ -25,6 +25,7 @@ import {
   Receipt,
   PartyPopper,
   X,
+  Share2,
 } from "lucide-react";
 import {
   getMyWallet,
@@ -41,9 +42,11 @@ import type { StudentWallet as WalletType, DepositRequest, WalletTransaction, De
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../components/ui/ToastNotification";
 import { formatDate } from "../../utils/date";
+import { safeShare } from "../../utils/mobileCompat";
 
 export default function StudentWalletPage() {
   const navigate = useNavigate();
+  const { code: routeVoucherCode } = useParams<{ code?: string }>();
   const { user, authInitialized, loading: authLoading } = useAuth();
   const { error: showErrorToast, success: showSuccessToast, info: showInfoToast } = useToast();
 
@@ -343,9 +346,31 @@ export default function StudentWalletPage() {
     await executeRedeemVoucher(giftVoucherCode, false);
   };
 
-  // Auto-redeem from URL query (?voucher=CODE or ?code=CODE or ?redeem=CODE) or sessionStorage
+  const handleShareVoucher = async () => {
+    const code = giftVoucherCode.trim().toUpperCase();
+    if (!code) return;
+    const url = `${window.location.origin}/voucher/${encodeURIComponent(code)}`;
+    const shared = await safeShare({
+      title: `Voucher Quà Tặng ${code} - DkTEST`,
+      text: `Nhận ngay ưu đãi voucher ${code} trên DkTEST!`,
+      url,
+    });
+    if (!shared) {
+      try {
+        await navigator.clipboard.writeText(url);
+        showSuccessToast(
+          `Đã sao chép link voucher "${code}"! Khi gửi qua Zalo, link sẽ tự động hiển thị thẻ xem trước có tên, giá trị ưu đãi và ảnh banner riêng.`
+        );
+      } catch (_) {
+        prompt("Sao chép link voucher gửi qua Zalo:", url);
+      }
+    }
+  };
+
+  // Auto-redeem from URL route (/voucher/:code), query (?voucher=CODE or ?code=CODE or ?redeem=CODE) or sessionStorage
   useEffect(() => {
     const paramCode = (
+      routeVoucherCode ||
       searchParams.get("voucher") ||
       searchParams.get("code") ||
       searchParams.get("redeem") ||
@@ -383,7 +408,7 @@ export default function StudentWalletPage() {
       sessionStorage.setItem("dktest_pending_voucher", paramCode);
       setUnauthenticatedVoucherPrompt(paramCode);
     }
-  }, [searchParams, user?.uid, authInitialized, authLoading]);
+  }, [routeVoucherCode, searchParams, user?.uid, authInitialized, authLoading]);
 
   const unlockedExams = transactions
     .filter((tx) => tx.type === "exam_unlock_debit" && tx.examId)
@@ -629,7 +654,7 @@ export default function StudentWalletPage() {
               </div>
             </div>
 
-            <form onSubmit={handleRedeemGift} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 max-w-md">
+            <form onSubmit={handleRedeemGift} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 max-w-lg">
               <input
                 type="text"
                 value={giftVoucherCode}
@@ -645,6 +670,17 @@ export default function StudentWalletPage() {
                 <Gift className="w-3.5 h-3.5" />
                 {redeemingGift ? "Đang nhận..." : "Nhận quà"}
               </button>
+              {giftVoucherCode.trim() && (
+                <button
+                  type="button"
+                  onClick={handleShareVoucher}
+                  className="px-3.5 py-2.5 bg-white hover:bg-amber-50 dark:bg-slate-900 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300 text-xs font-bold rounded-xl transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+                  title="Chia sẻ link voucher qua Zalo"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Chia sẻ Zalo</span>
+                </button>
+              )}
             </form>
           </div>
 

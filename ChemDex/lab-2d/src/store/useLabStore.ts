@@ -15,6 +15,7 @@ import { computeMolarMass } from '../chemistry/core/formula';
 import { soundEngine } from '../services/soundEngine';
 import { generateReactionFromGemini } from '../services/geminiService';
 import { REACTION_DATABASE } from '../chemistry/reactions/reactionDatabase';
+import { stepVesselThermal, burnerHeatToVessel, hotPlateHeatToVessel } from '../engine/simulationTick';
 
 interface LabStoreState {
   equipment: Record<string, EquipmentState>;
@@ -34,6 +35,9 @@ interface LabStoreState {
   transferTargetId: string | null;
   isNotebookOpen: boolean;
   isAIAssistantOpen: boolean;
+  isApiKeyModalOpen: boolean;
+  isPeriodicTableOpen: boolean;
+  isTitrationCurveOpen: boolean;
   isMuted: boolean;
   activeSidebarTab: 'chemicals' | 'equipment' | 'experiments' | 'safety';
   draggedChemicalId: string | null;
@@ -56,13 +60,18 @@ interface LabStoreState {
   closeTransferModal: () => void;
   toggleNotebook: (open?: boolean) => void;
   toggleAIAssistant: (open?: boolean) => void;
+  toggleApiKeyModal: (open?: boolean) => void;
+  togglePeriodicTable: (open?: boolean) => void;
+  toggleTitrationCurve: (open?: boolean) => void;
   toggleMute: () => void;
   setDraggedChemicalId: (id: string | null) => void;
   triggerDirectPour: (sourceId: string, targetId: string) => void;
   triggerGeminiReactionCheck: (vesselId: string) => Promise<boolean>;
+  tickSimulation: (dt: number) => void;
 
   addEquipment: (type: EquipmentType, x?: number, y?: number) => string;
   removeEquipment: (id: string) => void;
+
   updatePosition: (id: string, x: number, y: number) => void;
 
   addChemicalToEquipment: (
@@ -145,6 +154,9 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   transferTargetId: null,
   isNotebookOpen: false,
   isAIAssistantOpen: false,
+  isApiKeyModalOpen: false,
+  isPeriodicTableOpen: false,
+  isTitrationCurveOpen: false,
   isMuted: false,
   activeSidebarTab: 'chemicals',
   draggedChemicalId: null,
@@ -167,12 +179,16 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   }),
   toggleNotebook: (open) => set(s => ({ isNotebookOpen: open !== undefined ? open : !s.isNotebookOpen })),
   toggleAIAssistant: (open) => set(s => ({ isAIAssistantOpen: open !== undefined ? open : !s.isAIAssistantOpen })),
+  toggleApiKeyModal: (open) => set(s => ({ isApiKeyModalOpen: open !== undefined ? open : !s.isApiKeyModalOpen })),
+  togglePeriodicTable: (open) => set(s => ({ isPeriodicTableOpen: open !== undefined ? open : !s.isPeriodicTableOpen })),
+  toggleTitrationCurve: (open) => set(s => ({ isTitrationCurveOpen: open !== undefined ? open : !s.isTitrationCurveOpen })),
   toggleMute: () => {
     const nextMuted = !get().isMuted;
     soundEngine.setMuted(nextMuted);
     set({ isMuted: nextMuted });
   },
   setDraggedChemicalId: (id) => set({ draggedChemicalId: id }),
+
 
   triggerDirectPour: (sourceId: string, targetId: string) => {
     const src = get().equipment[sourceId];
@@ -405,6 +421,31 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     const totalContentMass = simResult.updatedContents.reduce((sum, c) => sum + c.mass_g, 0);
     const newTotalMass = (eq.tare_g || 0) + totalContentMass;
 
+    // Trigger instant procedural audio feedback
+    if (simResult.reactionsOccurred.length > 0) {
+      if (simResult.hasGas) {
+        soundEngine.fizz(1.3);
+      } else {
+        soundEngine.success();
+      }
+    } else {
+      soundEngine.pour(0.4);
+    }
+
+    const rxLogs: LabLogEntry[] = simResult.reactionsOccurred.map(rx => ({
+      id: `log_rx_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+      timestamp: Date.now(),
+      actionType: 'REACTION' as const,
+      details_en: `Reaction: ${rx.name_en || rx.observable_en || rx.equation} (${rx.equation})`,
+      details_vi: `Phản ứng: ${rx.name_vi || rx.observable_vi || rx.equation} (${rx.equation})`,
+      vesselId: equipmentId,
+      measurements: {
+        volume_ml: newVolume,
+        temperature_c: simResult.finalTemperature_c,
+        ph: simResult.finalPh,
+      },
+    }));
+
     set(state => ({
       ...pushSnapshot(state),
       equipment: {
@@ -426,10 +467,17 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           gasColorHex: '#ffffff',
           effervescenceSpeed: simResult.gasInfo?.effervescenceSpeed,
           isBoiling: simResult.isBoiling,
+          hasPhaseSeparation: simResult.hasPhaseSeparation,
+          organicLayerVolume_ml: simResult.organicLayerVolume_ml,
+          organicLayerColorHex: simResult.organicLayerColorHex,
+          hasFumes: simResult.hasFumes,
+          fumeType: simResult.fumeType,
+          fumeColorHex: simResult.fumeColorHex,
         },
       },
       history: [
         ...state.history,
+        ...rxLogs,
         {
           id: `log_${Date.now()}`,
           timestamp: Date.now(),
@@ -515,6 +563,31 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     const tgtSim = runSimulationCycle(mergedTgtContents, newTgtVol, tgt.temperature_c, tgt.isOn || false);
     const tgtMass = (tgt.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
 
+    // Audio feedback
+    if (tgtSim.reactionsOccurred.length > 0) {
+      if (tgtSim.hasGas) {
+        soundEngine.fizz(1.3);
+      } else {
+        soundEngine.success();
+      }
+    } else {
+      soundEngine.pour(0.5);
+    }
+
+    const rxLogs: LabLogEntry[] = tgtSim.reactionsOccurred.map(rx => ({
+      id: `log_rx_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+      timestamp: Date.now(),
+      actionType: 'REACTION' as const,
+      details_en: `Reaction: ${rx.name_en || rx.observable_en || rx.equation} (${rx.equation})`,
+      details_vi: `Phản ứng: ${rx.name_vi || rx.observable_vi || rx.equation} (${rx.equation})`,
+      vesselId: targetId,
+      measurements: {
+        volume_ml: newTgtVol,
+        temperature_c: tgtSim.finalTemperature_c,
+        ph: tgtSim.finalPh,
+      },
+    }));
+
     set(state => ({
       ...pushSnapshot(state),
       equipment: {
@@ -542,11 +615,18 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           hasGas: tgtSim.hasGas,
           effervescenceSpeed: tgtSim.gasInfo?.effervescenceSpeed,
           isBoiling: tgtSim.isBoiling,
+          hasPhaseSeparation: tgtSim.hasPhaseSeparation,
+          organicLayerVolume_ml: tgtSim.organicLayerVolume_ml,
+          organicLayerColorHex: tgtSim.organicLayerColorHex,
+          hasFumes: tgtSim.hasFumes,
+          fumeType: tgtSim.fumeType,
+          fumeColorHex: tgtSim.fumeColorHex,
         },
       },
       isTransferModalOpen: false,
       history: [
         ...state.history,
+        ...rxLogs,
         {
           id: `log_${Date.now()}`,
           timestamp: Date.now(),
@@ -576,8 +656,51 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
     if (!eq) return;
     const nextIsOn = !eq.isOn;
 
-    // If heating turned on and vessel contains reagents that decompose (e.g. Cu(OH)2)
-    let newTemp = nextIsOn ? Math.max(eq.temperature_c, 80.0) : 25.0;
+    if (eq.type === 'bunsen_burner') {
+      if (nextIsOn) soundEngine.ignite();
+      set(state => ({
+        equipment: {
+          ...state.equipment,
+          [id]: { ...eq, isOn: nextIsOn },
+        },
+        history: [
+          ...state.history,
+          {
+            id: `log_${Date.now()}`,
+            timestamp: Date.now(),
+            actionType: 'HEAT',
+            details_en: nextIsOn ? `Lit Bunsen Burner flame` : `Turned off Bunsen Burner`,
+            details_vi: nextIsOn ? `Châm lửa đèn Bunsen` : `Tắt đèn Bunsen`,
+            vesselId: id,
+          },
+        ],
+      }));
+      return;
+    }
+
+    if (eq.type === 'hot_plate') {
+      set(state => ({
+        equipment: {
+          ...state.equipment,
+          [id]: { ...eq, isOn: nextIsOn, setPoint_c: 120.0 },
+        },
+        history: [
+          ...state.history,
+          {
+            id: `log_${Date.now()}`,
+            timestamp: Date.now(),
+            actionType: 'HEAT',
+            details_en: nextIsOn ? `Switched on Hot Plate heater` : `Switched off Hot Plate`,
+            details_vi: nextIsOn ? `Bật bếp gia nhiệt` : `Tắt bếp gia nhiệt`,
+            vesselId: id,
+          },
+        ],
+      }));
+      return;
+    }
+
+    // Direct heating toggle on container vessel
+    const newTemp = nextIsOn ? Math.max(eq.temperature_c, 85.0) : 25.0;
     const sim = runSimulationCycle(eq.contents, eq.volume_ml, newTemp, nextIsOn);
 
     set(state => ({
@@ -594,6 +717,12 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
           precipitateSubstance: sim.precipitateInfo?.formula,
           precipitateMass_g: sim.precipitateInfo?.mass_g,
           precipitateMorphology: sim.precipitateInfo?.morphology,
+          hasPhaseSeparation: sim.hasPhaseSeparation,
+          organicLayerVolume_ml: sim.organicLayerVolume_ml,
+          organicLayerColorHex: sim.organicLayerColorHex,
+          hasFumes: sim.hasFumes,
+          fumeType: sim.fumeType,
+          fumeColorHex: sim.fumeColorHex,
         },
       },
       history: [
@@ -616,30 +745,298 @@ export const useLabStore = create<LabStoreState>((set, get) => ({
   tareEquipment: (id) => {
     const eq = get().equipment[id];
     if (!eq) return;
-    set(state => ({
-      equipment: {
-        ...state.equipment,
-        [id]: {
-          ...eq,
-          tare_g: eq.mass_g,
+
+    if (eq.type === 'analytical_balance') {
+      const allEq = Object.values(get().equipment);
+      const panVessel = allEq.find(
+        v => v.id !== id && v.isContainer && Math.abs((v.x + v.width / 2) - (eq.x + eq.width / 2)) < eq.width * 0.45 && Math.abs((v.y + v.height) - (eq.y + 40)) < 45
+      );
+      set(state => ({
+        equipment: {
+          ...state.equipment,
+          [id]: {
+            ...eq,
+            tare_g: panVessel ? panVessel.mass_g : 0,
+          },
         },
-      },
-    }));
+      }));
+    } else {
+      set(state => ({
+        equipment: {
+          ...state.equipment,
+          [id]: {
+            ...eq,
+            tare_g: eq.mass_g,
+          },
+        },
+      }));
+    }
   },
 
   toggleBuretteStopcock: (id) => {
     const burette = get().equipment[id];
     if (!burette || burette.type !== 'burette') return;
 
-    // Find vessel placed underneath burette
+    const nextOpen = !burette.stopcockOpen;
+    if (nextOpen) soundEngine.drip();
+
+    // Find receiving vessel placed underneath burette
     const allEq = Object.values(get().equipment);
     const target = allEq.find(
       e => e.id !== id && e.isContainer && Math.abs(e.x - burette.x) < 80 && e.y > burette.y
     );
 
     if (target && burette.volume_ml > 0) {
-      // Dispense 1 drop (0.05 mL) or standard drop aliquot (1.0 mL)
+      // Dispense standard initial aliquot (1.0 mL)
       get().transferMaterial(id, target.id, 1.0, undefined, false);
+    }
+
+    set(state => ({
+      equipment: {
+        ...state.equipment,
+        [id]: {
+          ...state.equipment[id],
+          stopcockOpen: nextOpen,
+        },
+      },
+    }));
+  },
+
+  tickSimulation: (dt: number) => {
+    const currentEquipment = get().equipment;
+    if (Object.keys(currentEquipment).length === 0) return;
+
+    let hasChanged = false;
+    const nextEquipment: Record<string, EquipmentState> = { ...currentEquipment };
+
+    const allEqList = Object.values(currentEquipment);
+    const activeBurners = allEqList.filter(e => e.type === 'bunsen_burner' && e.isOn);
+    const activeHotPlates = allEqList.filter(e => e.type === 'hot_plate' && e.isOn);
+    const openBurettes = allEqList.filter(e => e.type === 'burette' && e.stopcockOpen && e.volume_ml > 0);
+
+    // 1. Process continuous Burette dropwise titration
+    for (const burette of openBurettes) {
+      const dropRate = burette.dispenseRate_ml_s || 0.35; // mL per second
+      const dropAmount = Math.min(burette.volume_ml, dropRate * dt);
+      if (dropAmount > 1e-4) {
+        hasChanged = true;
+        const newBurVol = Math.max(0, burette.volume_ml - dropAmount);
+        const frac = dropAmount / burette.volume_ml;
+        const transferred: SubstanceQuantity[] = [];
+        const remBurContents: SubstanceQuantity[] = [];
+
+        for (const item of burette.contents) {
+          const mMove = item.moles * frac;
+          const gMove = item.mass_g * frac;
+          if (mMove > 0) transferred.push({ ...item, moles: mMove, mass_g: gMove });
+          const remMoles = item.moles - mMove;
+          if (remMoles > 1e-6) {
+            remBurContents.push({ ...item, moles: remMoles, mass_g: item.mass_g - gMove });
+          }
+        }
+
+        const burMass = (burette.tare_g || 0) + remBurContents.reduce((s, c) => s + c.mass_g, 0);
+        nextEquipment[burette.id] = {
+          ...burette,
+          volume_ml: Math.round(newBurVol * 10) / 10,
+          mass_g: Math.round(burMass * 100) / 100,
+          contents: remBurContents,
+        };
+
+        // Find receiving vessel placed underneath burette
+        const target = allEqList.find(
+          e => e.id !== burette.id && e.isContainer && Math.abs((e.x + e.width / 2) - (burette.x + burette.width / 2)) < 70 && e.y > burette.y
+        );
+
+        if (target) {
+          const tgtEq = nextEquipment[target.id] || target;
+          const newTgtVol = Math.min(tgtEq.capacity_ml, tgtEq.volume_ml + dropAmount);
+          const mergedTgt = [...tgtEq.contents];
+
+          for (const item of transferred) {
+            const ex = mergedTgt.find(c => c.formula.toUpperCase() === item.formula.toUpperCase());
+            if (ex) {
+              ex.moles += item.moles;
+              ex.mass_g += item.mass_g;
+            } else {
+              mergedTgt.push({ ...item });
+            }
+          }
+
+          const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgtEq.temperature_c, tgtEq.isOn || false);
+          const tgtMass = (tgtEq.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+
+          nextEquipment[target.id] = {
+            ...tgtEq,
+            volume_ml: Math.round(newTgtVol * 10) / 10,
+            mass_g: Math.round(tgtMass * 100) / 100,
+            contents: tgtSim.updatedContents,
+            temperature_c: tgtSim.finalTemperature_c,
+            ph: tgtSim.finalPh,
+            liquidColorHex: tgtSim.finalLiquidColorHex,
+            hasPrecipitate: tgtSim.hasPrecipitate,
+            precipitateColorHex: tgtSim.precipitateInfo?.colorHex,
+            precipitateSubstance: tgtSim.precipitateInfo?.formula,
+            precipitateMass_g: tgtSim.precipitateInfo?.mass_g,
+            precipitateMorphology: tgtSim.precipitateInfo?.morphology,
+            hasGas: tgtSim.hasGas,
+            effervescenceSpeed: tgtSim.gasInfo?.effervescenceSpeed,
+            isBoiling: tgtSim.isBoiling,
+            hasPhaseSeparation: tgtSim.hasPhaseSeparation,
+            organicLayerVolume_ml: tgtSim.organicLayerVolume_ml,
+            organicLayerColorHex: tgtSim.organicLayerColorHex,
+            hasFumes: tgtSim.hasFumes,
+            fumeType: tgtSim.fumeType,
+            fumeColorHex: tgtSim.fumeColorHex,
+          };
+        }
+      }
+    }
+
+    // 2. Process thermal physics: continuous Heating & Cooling
+    for (const eq of allEqList) {
+      if (!eq.isContainer) continue;
+      const currentEq = nextEquipment[eq.id] || eq;
+
+      let heatPower_W = 0;
+      for (const burner of activeBurners) {
+        heatPower_W += burnerHeatToVessel(burner, currentEq);
+      }
+      for (const plate of activeHotPlates) {
+        heatPower_W += hotPlateHeatToVessel(plate, currentEq);
+      }
+
+      if (heatPower_W > 0 || Math.abs(currentEq.temperature_c - 25.0) > 0.3) {
+        const therm = stepVesselThermal(currentEq, dt, heatPower_W);
+        const tempDiff = Math.abs(therm.temperature_c - currentEq.temperature_c);
+        const boilChanged = therm.isBoiling !== currentEq.isBoiling;
+        const evap = therm.evaporatedStep_g > 0;
+
+        if (tempDiff > 0.1 || boilChanged || evap) {
+          hasChanged = true;
+          const sim = runSimulationCycle(therm.contents, therm.volume_ml, therm.temperature_c, currentEq.isOn || heatPower_W > 10);
+          nextEquipment[eq.id] = {
+            ...currentEq,
+            temperature_c: Math.round(therm.temperature_c * 10) / 10,
+            volume_ml: Math.round(therm.volume_ml * 10) / 10,
+            mass_g: Math.round(therm.mass_g * 100) / 100,
+            contents: sim.updatedContents,
+            ph: sim.finalPh,
+            liquidColorHex: sim.finalLiquidColorHex,
+            isBoiling: therm.isBoiling,
+            boilingIntensity: therm.boilingIntensity,
+            hasPrecipitate: sim.hasPrecipitate,
+            precipitateColorHex: sim.precipitateInfo?.colorHex,
+            precipitateSubstance: sim.precipitateInfo?.formula,
+            precipitateMass_g: sim.precipitateInfo?.mass_g,
+            precipitateMorphology: sim.precipitateInfo?.morphology,
+            hasGas: sim.hasGas,
+            effervescenceSpeed: sim.gasInfo?.effervescenceSpeed,
+            hasPhaseSeparation: sim.hasPhaseSeparation,
+            organicLayerVolume_ml: sim.organicLayerVolume_ml,
+            organicLayerColorHex: sim.organicLayerColorHex,
+            hasFumes: sim.hasFumes || (therm.isBoiling ? true : false),
+            fumeType: sim.fumeType || (therm.isBoiling ? 'steam' : undefined),
+            fumeColorHex: sim.fumeColorHex || '#ffffff',
+          };
+        }
+      }
+    }
+
+    // 3. Process hot plate magnetic stirring & acceleration
+    for (const eq of allEqList) {
+      if (!eq.isContainer) continue;
+      const currentEq = nextEquipment[eq.id] || eq;
+      let onHotPlate = false;
+      for (const plate of activeHotPlates) {
+        const dx = Math.abs((currentEq.x + currentEq.width / 2) - (plate.x + plate.width / 2));
+        const dy = Math.abs((currentEq.y + currentEq.height) - plate.y);
+        if (dx <= plate.width * 0.55 && dy <= 30) {
+          onHotPlate = true;
+          break;
+        }
+      }
+
+      if (currentEq.isStirred !== onHotPlate) {
+        hasChanged = true;
+        nextEquipment[eq.id] = {
+          ...currentEq,
+          isStirred: onHotPlate,
+          stirringSpeed: onHotPlate ? 0.85 : 0,
+        };
+      }
+    }
+
+    // 4. Process Funnel Filtration (retains precipitate, passes filtrate)
+    const activeFunnels = allEqList.filter(e => e.type === 'funnel' && e.volume_ml > 0);
+    for (const funnel of activeFunnels) {
+      const currentFunnel = nextEquipment[funnel.id] || funnel;
+      const filterRate = 0.35; // mL per second
+      const dripAmount = Math.min(currentFunnel.volume_ml, filterRate * dt);
+      if (dripAmount > 1e-4) {
+        hasChanged = true;
+        const newFunnelVol = Math.max(0, currentFunnel.volume_ml - dripAmount);
+
+        // Find container placed underneath funnel
+        const receiver = allEqList.find(
+          e => e.id !== funnel.id && e.isContainer && Math.abs((e.x + e.width / 2) - (funnel.x + funnel.width / 2)) < 60 && e.y > funnel.y
+        );
+
+        const solids = currentFunnel.contents.filter(c => c.state === 's');
+        const aqueous = currentFunnel.contents.filter(c => c.state !== 's');
+        const frac = currentFunnel.volume_ml > 0 ? dripAmount / currentFunnel.volume_ml : 1.0;
+
+        const filtratePassed: SubstanceQuantity[] = [];
+        const remAqueous: SubstanceQuantity[] = [];
+        for (const item of aqueous) {
+          const mPass = item.moles * frac;
+          const gPass = item.mass_g * frac;
+          if (mPass > 0) filtratePassed.push({ ...item, moles: mPass, mass_g: gPass });
+          const remM = item.moles - mPass;
+          if (remM > 1e-6) remAqueous.push({ ...item, moles: remM, mass_g: item.mass_g - gPass });
+        }
+
+        const primarySolid = solids[0];
+        nextEquipment[funnel.id] = {
+          ...currentFunnel,
+          volume_ml: Math.round(newFunnelVol * 10) / 10,
+          contents: [...solids, ...remAqueous],
+          filterResidueFormula: primarySolid ? primarySolid.formula : currentFunnel.filterResidueFormula,
+          filterResidue_g: solids.reduce((sum, s) => sum + s.mass_g, 0),
+          filtrate_ml: (currentFunnel.filtrate_ml || 0) + dripAmount,
+        };
+
+        if (receiver) {
+          const tgt = nextEquipment[receiver.id] || receiver;
+          const newTgtVol = Math.min(tgt.capacity_ml, tgt.volume_ml + dripAmount);
+          const mergedTgt = [...tgt.contents];
+          for (const item of filtratePassed) {
+            const ex = mergedTgt.find(c => c.formula.toUpperCase() === item.formula.toUpperCase());
+            if (ex) {
+              ex.moles += item.moles;
+              ex.mass_g += item.mass_g;
+            } else {
+              mergedTgt.push({ ...item });
+            }
+          }
+          const tgtSim = runSimulationCycle(mergedTgt, newTgtVol, tgt.temperature_c, tgt.isOn || false);
+          const tgtMass = (tgt.tare_g || 0) + tgtSim.updatedContents.reduce((s, c) => s + c.mass_g, 0);
+
+          nextEquipment[receiver.id] = {
+            ...tgt,
+            volume_ml: Math.round(newTgtVol * 10) / 10,
+            mass_g: Math.round(tgtMass * 100) / 100,
+            contents: tgtSim.updatedContents,
+            ph: tgtSim.finalPh,
+            liquidColorHex: tgtSim.finalLiquidColorHex,
+          };
+        }
+      }
+    }
+
+    if (hasChanged) {
+      set({ equipment: nextEquipment });
+      get().checkStepProgress();
     }
   },
 

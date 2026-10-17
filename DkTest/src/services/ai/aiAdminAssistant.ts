@@ -40,7 +40,13 @@ export type AdminActionType =
   | "ASSIGN_HOMEWORK"
   | "MANAGE_STUDENT"
   | "SYSTEM_OPERATION"
-  | "WORKFLOW";
+  | "WORKFLOW"
+  // Folder Management & Exam Organization:
+  | "CREATE_FOLDER"
+  | "MOVE_EXAM"
+  | "MOVE_EXAMS_TO_FOLDER"
+  | "ORGANIZE_EXAMS_INTO_FOLDERS"
+  | "organize_exams_into_folders";
 
 export interface AdminAssistantAction {
   id?: string;
@@ -323,10 +329,70 @@ BẠN LÀ MỘT AUTONOMOUS WORKFLOW AGENT (như Agent của Make.com / Zapier Ce
       "examId"?: "mã_đề_thi" (khi cấp quyền làm bài)
     }
 
-26. "SYSTEM_OPERATION": Tác vụ hệ thống (quét sức khỏe dữ liệu, sửa lỗi dữ liệu, tính toán lại thống kê, cập nhật cấu hình, đổi theme, toggle sidebar).
-    Thuộc tính: "params": { "operation": "scan_health" | "repair_health" | "rebuild_stats" | "update_settings" | "toggle_theme" | "toggle_sidebar" | "reload", "settings"?: { ... } }
+26. "SYSTEM_OPERATION": Tác vụ hệ thống (quét sức khỏe dữ liệu, sửa lỗi dữ liệu, tính toán lại thống kê, tự động tổ chức đề thi vào thư mục chuyên môn, cập nhật cấu hình, đổi theme, toggle sidebar).
+    Các lệnh (operation / command):
+    - "organize_exams_into_folders" (hoặc "organize_exams"): TỰ ĐỘNG GOM BÀI THI VÀO THƯ MỤC CHUYÊN MÔN THEO MÔN HỌC.
+      Tự động quét toàn bộ bài thi đang nằm ngoài Drive chính (root: folderId là null/rỗng), lọc bỏ các bài thi loại trừ (theo excludePatterns: ví dụ ["json mẫu", "teswallet"]), tự động gom nhóm theo môn học (Toán học, Tiếng Anh, Vật lý, Hóa học, Sinh học, Ngữ văn, Tin học, Lịch sử, Địa lý, GDCD,...), tìm kiếm thư mục môn đã có hoặc tạo mới thư mục môn tương ứng và chuyển đề thi vào thư mục.
+      Thuộc tính: "params": {
+        "operation": "organize_exams_into_folders",
+        "excludePatterns"?: ["json mẫu", "teswallet"],
+        "groupBy"?: "subject",
+        "targetSubject"?: "Toán học" (tùy chọn nếu chỉ muốn gom riêng 1 môn)
+      }
+      Ví dụ:
+      \`\`\`json:action
+      {
+        "type": "SYSTEM_OPERATION",
+        "label": "Di chuyển bài thi vào thư mục chuyên môn",
+        "params": {
+          "operation": "organize_exams_into_folders",
+          "excludePatterns": ["json mẫu", "teswallet"],
+          "groupBy": "subject"
+        }
+      }
+      \`\`\`
+    - "scan_health": Quét sức khỏe dữ liệu
+    - "repair_health": Sửa lỗi dữ liệu
+    - "rebuild_stats": Tái tạo thống kê hệ thống
+    - "update_settings": Cập nhật cài đặt
+    - "toggle_theme": Đổi theme sáng/tối
+    - "toggle_sidebar": Thu gọn/mở rộng sidebar
+    - "reload": Tải lại trang
 
-27. "WORKFLOW": KỊCH BẢN MAKE.COM ĐA BƯỚC (Multi-step Automation Workflow).
+27. "CREATE_FOLDER": Tạo thư mục mới để phân loại và quản lý bài thi trong Drive.
+    Thuộc tính: "params": { "name": "Tên thư mục", "parentId"?: string | null, "color"?: "blue" | "emerald" | "amber" | "rose" | "purple" | "indigo", "description"?: "Mô tả", "isPublic"?: false }
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "CREATE_FOLDER",
+      "label": "Tạo thư mục Đề thi Toán học",
+      "params": { "name": "Toán học", "color": "blue" }
+    }
+    \`\`\`
+
+28. "MOVE_EXAM": Di chuyển 1 bài thi vào thư mục (hoặc đưa ra ngoài Drive chính nếu folderId là null).
+    Thuộc tính: "params": { "examId": "id_bài_thi", "folderId"?: "id_thư_mục" | null, "targetFolderName"?: "Tên thư mục" }
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "MOVE_EXAM",
+      "label": "Chuyển bài thi vào thư mục Toán học",
+      "params": { "examId": "exam_123", "targetFolderName": "Toán học" }
+    }
+    \`\`\`
+
+29. "MOVE_EXAMS_TO_FOLDER": Di chuyển danh sách nhiều bài thi vào một thư mục xác định.
+    Thuộc tính: "params": { "examIds": ["id_1", "id_2"], "folderId"?: "id_thư_mục" | null, "targetFolderName"?: "Tên thư mục" }
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "MOVE_EXAMS_TO_FOLDER",
+      "label": "Di chuyển bài thi vào thư mục Tiếng Anh",
+      "params": { "examIds": ["ex_1", "ex_2"], "targetFolderName": "Tiếng Anh" }
+    }
+    \`\`\`
+
+30. "WORKFLOW": KỊCH BẢN MAKE.COM ĐA BƯỚC (Multi-step Automation Workflow).
     Khi Admin đưa ra yêu cầu phức tạp gồm nhiều bước (ví dụ: "Tạo voucher giảm 20K rồi tạo đề thi Toán 15 phút sau đó giao bài cho lớp 12A1 và chuyển sang danh sách đề"): BẠN PHẢI GOM THÀNH MỘT WORKFLOW DUY NHẤT chứa danh sách các bước "steps".
     Quy tắc truyền biến kiểu Make.com (Variable Chaining):
     - Các bước sau có thể tham chiếu kết quả bước trước bằng cú pháp {{step_id.thuộc_tính}} hoặc {{examId}}, {{voucherCode}}, {{prev.examId}}.
@@ -543,11 +609,16 @@ export function interpolateWorkflowParams(
   } else if (
     cloned.type === "UPDATE_EXAM" ||
     cloned.type === "DELETE_EXAM" ||
-    cloned.type === "DUPLICATE_EXAM"
+    cloned.type === "DUPLICATE_EXAM" ||
+    cloned.type === "MOVE_EXAM"
   ) {
     if (!cloned.params.examId || cloned.params.examId.startsWith("{{")) {
       if (context.lastExamId) cloned.params.examId = context.lastExamId;
       else if (context.prev?.examId) cloned.params.examId = context.prev.examId;
+    }
+  } else if (cloned.type === "MOVE_EXAMS_TO_FOLDER") {
+    if ((!cloned.params.examIds || cloned.params.examIds.length === 0) && context.lastExamId) {
+      cloned.params.examIds = [context.lastExamId];
     }
   } else if (cloned.type === "UPDATE_VOUCHER" || cloned.type === "DELETE_VOUCHER") {
     if (!cloned.params.id || cloned.params.id.startsWith("{{")) {

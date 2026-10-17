@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useLabStore } from '../../store/useLabStore';
 import { EquipmentRenderer } from '../equipment/EquipmentRenderer';
 import { PourStreamVfx } from '../vfx/PourStreamVfx';
@@ -13,6 +13,7 @@ export const Workbench: React.FC = () => {
     toggleHeat,
     tareEquipment,
     toggleBuretteStopcock,
+    tickSimulation,
     language,
     activePourVfx,
     draggedChemicalId,
@@ -21,6 +22,14 @@ export const Workbench: React.FC = () => {
     addEquipment,
     triggerDirectPour,
   } = useLabStore();
+
+  // Continuous simulation loop (thermal heat transfer, burette dropwise titration, boiling)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      tickSimulation(0.25);
+    }, 250);
+    return () => clearInterval(timer);
+  }, [tickSimulation]);
 
   const workbenchRef = useRef<HTMLDivElement>(null);
   const [draggingId, setDraggingId] = useState<string | null>(null);
@@ -184,6 +193,12 @@ export const Workbench: React.FC = () => {
         const isHoverTarget = hoverTargetId === item.id;
         const isPouring = activePourVfx?.sourceId === item.id;
 
+        const balanceVessel = item.type === 'analytical_balance'
+          ? allEquipmentList.find(
+              v => v.id !== item.id && v.isContainer && Math.abs((v.x + v.width / 2) - (item.x + item.width / 2)) < item.width * 0.45 && Math.abs((v.y + v.height) - (item.y + 40)) < 45
+            )
+          : null;
+
         return (
           <div
             key={item.id}
@@ -211,6 +226,7 @@ export const Workbench: React.FC = () => {
               onToggleHeat={() => toggleHeat(item.id)}
               onTare={() => tareEquipment(item.id)}
               onToggleBurette={() => toggleBuretteStopcock(item.id)}
+              targetVesselForBalance={balanceVessel}
               language={language}
             />
           </div>

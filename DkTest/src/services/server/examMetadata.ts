@@ -1,206 +1,17 @@
-import fs from "fs";
-import path from "path";
-import { PRODUCTION_HTML_TEMPLATE } from "./generatedHtmlTemplate.js";
+export * from "./socialMetadata.js";
 
-export interface ExamMeta {
-  id: string;
-  title: string;
-  description: string;
-  code?: string;
-  imageUrl?: string | null;
-  timeLimit?: number | null;
-  questionCount?: number | null;
-}
+import {
+  fetchExamMetadata,
+  renderSocialPageHtml,
+  escapeHtml,
+  type ExamMeta,
+} from "./socialMetadata.js";
 
-/**
- * Escapes characters that have special meaning in HTML attributes and text nodes
- * to prevent XSS and broken meta tags.
- */
-export function escapeHtml(str: unknown): string {
-  if (str === null || str === undefined) return "";
-  const s = String(str);
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-/**
- * Detects common social media and search engine crawlers by User-Agent header.
- */
-export function isSocialCrawler(userAgent: string = ""): boolean {
-  if (!userAgent) return false;
-  const crawlerPatterns = [
-    /facebookexternalhit/i,
-    /Facebot/i,
-    /Twitterbot/i,
-    /WhatsApp/i,
-    /LinkedInBot/i,
-    /Discordbot/i,
-    /TelegramBot/i,
-    /Zalo/i,
-    /Googlebot/i,
-    /bingbot/i,
-    /Baiduspider/i,
-    /YandexBot/i,
-    /Sogou/i,
-    /DuckDuckBot/i,
-    /Applebot/i,
-    /Slackbot/i,
-    /vkShare/i,
-    /W3C_Validator/i,
-    /SkypeUriPreview/i,
-    /MetaInspector/i,
-    /redditbot/i,
-    /Pinterest/i,
-    /Embedly/i,
-    /Quora Link Preview/i,
-    /outbrain/i,
-  ];
-  return crawlerPatterns.some((pattern) => pattern.test(userAgent));
-}
-
-function getFirestoreString(field: any): string | null {
-  if (!field) return null;
-  if (typeof field.stringValue === "string") return field.stringValue;
-  return null;
-}
-
-function getFirestoreNumber(field: any): number | null {
-  if (!field) return null;
-  if (field.integerValue !== undefined) return parseInt(field.integerValue, 10);
-  if (field.doubleValue !== undefined) return Number(field.doubleValue);
-  return null;
-}
-
-function parseFirestoreExamFields(docId: string, fields: any): ExamMeta {
-  const rawTitle = getFirestoreString(fields.title) || "";
-  const rawDesc = getFirestoreString(fields.description) || "";
-  const code = getFirestoreString(fields.code) || "";
-
-  // Check for any potential thumbnail / image field
-  const candidateImage =
-    getFirestoreString(fields.coverImage) ||
-    getFirestoreString(fields.thumbnail) ||
-    getFirestoreString(fields.imageUrl) ||
-    getFirestoreString(fields.image) ||
-    getFirestoreString(fields.banner) ||
-    getFirestoreString(fields.ogImage) ||
-    null;
-
-  let validImageUrl: string | null = null;
-  if (
-    candidateImage &&
-    typeof candidateImage === "string" &&
-    (candidateImage.startsWith("http://") ||
-      candidateImage.startsWith("https://") ||
-      candidateImage.startsWith("data:image/"))
-  ) {
-    validImageUrl = candidateImage;
-  }
-
-  const timeLimit =
-    getFirestoreNumber(fields.timeLimit) ||
-    getFirestoreNumber(fields.durationMinutes) ||
-    null;
-  const questionCount = getFirestoreNumber(fields.questionCount) || null;
-
-  return {
-    id: docId,
-    title: rawTitle.trim() || "DkTEST - Bài kiểm tra",
-    description:
-      rawDesc.trim() || "Tham gia bài kiểm tra trên DkTEST",
-    code,
-    imageUrl: validImageUrl,
-    timeLimit,
-    questionCount,
-  };
-}
-
-/**
- * Fetches exam metadata from Firestore using Firestore REST API.
- * This runs securely in any server or serverless environment without requiring
- * private credentials or heavy SDK initialization.
- */
-export async function fetchExamMetadata(
-  examId: string
-): Promise<{ found: boolean; exam: ExamMeta | null }> {
-  if (!examId || typeof examId !== "string") {
-    return { found: false, exam: null };
-  }
-
-  const cleanId = examId.trim();
-  const projectId =
-    process.env.VITE_FIREBASE_PROJECT_ID ||
-    process.env.FIREBASE_PROJECT_ID ||
-    "exam-fd7a1";
-
-  try {
-    // 1. Direct document get by ID
-    const docUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/exams/${encodeURIComponent(
-      cleanId
-    )}`;
-    const res = await fetch(docUrl, {
-      headers: { Accept: "application/json" },
-    });
-
-    if (res.ok) {
-      const doc = await res.json();
-      if (doc && doc.fields) {
-        return {
-          found: true,
-          exam: parseFirestoreExamFields(cleanId, doc.fields),
-        };
-      }
-    }
-
-    // 2. Query by code (e.g. if code was provided in the URL instead of docId)
-    const queryUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery`;
-    const queryBody = {
-      structuredQuery: {
-        from: [{ collectionId: "exams" }],
-        where: {
-          fieldFilter: {
-            field: { fieldPath: "code" },
-            op: "EQUAL",
-            value: { stringValue: cleanId.toUpperCase() },
-          },
-        },
-        limit: 1,
-      },
-    };
-
-    const queryRes = await fetch(queryUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(queryBody),
-    });
-
-    if (queryRes.ok) {
-      const results = await queryRes.json();
-      const firstDoc = results?.[0]?.document;
-      if (firstDoc && firstDoc.fields) {
-        const foundId = firstDoc.name ? firstDoc.name.split("/").pop() : cleanId;
-        return {
-          found: true,
-          exam: parseFirestoreExamFields(foundId || cleanId, firstDoc.fields),
-        };
-      }
-    }
-  } catch (err) {
-    console.error(`[ExamMetadata] Error fetching exam ${cleanId}:`, err);
-  }
-
-  return { found: false, exam: null };
-}
+export { fetchExamMetadata };
 
 /**
  * Builds HTML meta tags string for Open Graph, Twitter/X, and Canonical URL.
+ * Backwards compatible helper for exam pages.
  */
 export function buildExamMetaTags({
   exam,
@@ -230,11 +41,32 @@ export function buildExamMetaTags({
     if (rawExamTitle.toLowerCase().includes("dktest")) {
       titleRaw = rawExamTitle;
     } else {
-      titleRaw = `${rawExamTitle} | DkTEST`;
+      titleRaw = `📝 ${rawExamTitle} | DkTEST`;
     }
-    descRaw = exam.description || "Tham gia bài kiểm tra trên DkTEST";
+
+    const parts: string[] = [];
+    if (exam.subject) parts.push(`📚 Môn: ${exam.subject}`);
+    if (exam.gradeCategory) parts.push(`🎓 ${exam.gradeCategory}`);
+    if (exam.isUnlimitedTime) {
+      parts.push("⏱️ Không giới hạn thời gian");
+    } else if (exam.timeLimit) {
+      parts.push(`⏱️ Thời gian: ${exam.timeLimit} phút`);
+    }
+    if (exam.questionCount) parts.push(`❓ Số lượng: ${exam.questionCount} câu`);
+    if (exam.code) parts.push(`🏷️ Mã đề: ${exam.code}`);
+    if (exam.accessMode === "paid" && exam.priceVnd && exam.priceVnd > 0) {
+      parts.push(`💰 Phí: ${exam.priceVnd.toLocaleString("vi-VN")}đ`);
+    } else if (exam.accessMode === "free") {
+      parts.push("🎁 Miễn phí");
+    }
+
+    let structured = parts.join(" • ");
+    if (exam.description && exam.description.trim()) {
+      structured = structured ? `${structured} — ${exam.description.trim()}` : exam.description.trim();
+    }
+    descRaw = structured || "Tham gia bài kiểm tra trực tuyến trên DkTEST";
   } else {
-    titleRaw = "DkTEST - Bài kiểm tra";
+    titleRaw = "📝 DkTEST - Bài Kiểm Tra";
     descRaw = "Tham gia bài kiểm tra trực tuyến trên DkTEST";
   }
 
@@ -245,10 +77,12 @@ export function buildExamMetaTags({
   const tags: string[] = [
     `<meta name="description" content="${escapedDescription}">`,
     `<meta property="og:type" content="website">`,
+    `<meta property="og:site_name" content="DkTEST">`,
     `<meta property="og:title" content="${escapedTitle}">`,
     `<meta property="og:description" content="${escapedDescription}">`,
     `<meta property="og:url" content="${escapedUrl}">`,
-    `<meta property="og:site_name" content="DkTEST">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
     `<meta name="twitter:card" content="summary_large_image">`,
     `<meta name="twitter:title" content="${escapedTitle}">`,
     `<meta name="twitter:description" content="${escapedDescription}">`,
@@ -258,9 +92,22 @@ export function buildExamMetaTags({
   const imageUrl = (found && exam?.imageUrl) ? exam.imageUrl : `${cleanBaseUrl}/logo.png`;
   const escapedImage = escapeHtml(imageUrl);
   tags.push(
-    `<meta property="og:image" content="${escapedImage}">`,
-    `<meta name="twitter:image" content="${escapedImage}">`,
-    `<meta property="og:image:alt" content="${escapedTitle}">`
+    `<meta property="og:image" content="${escapedImage}">`
+  );
+
+  if (imageUrl.startsWith("https://")) {
+    tags.push(`<meta property="og:image:secure_url" content="${escapedImage}">`);
+  }
+
+  if (imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg")) {
+    tags.push(`<meta property="og:image:type" content="image/jpeg">`);
+  } else if (imageUrl.endsWith(".png")) {
+    tags.push(`<meta property="og:image:type" content="image/png">`);
+  }
+
+  tags.push(
+    `<meta property="og:image:alt" content="${escapedTitle}">`,
+    `<meta name="twitter:image" content="${escapedImage}">`
   );
 
   return {
@@ -273,8 +120,7 @@ export function buildExamMetaTags({
 }
 
 /**
- * Replaces static title and Open Graph / Twitter tags in the HTML template
- * with the generated dynamic metadata tags.
+ * Replaces static title and Open Graph / Twitter tags in the HTML template.
  */
 export function injectExamMetaIntoHtml(
   templateHtml: string,
@@ -286,25 +132,19 @@ export function injectExamMetaIntoHtml(
 ): string {
   let html = templateHtml;
 
-  // Replace <title>...</title>
   html = html.replace(
     /<title>.*?<\/title>/is,
     `<title>${metaInfo.escapedTitle}</title>`
   );
 
-  // Remove existing static meta description, og:*, twitter:*, canonical tags to prevent duplicates
   html = html.replace(/<meta\s+name=["']description["'][^>]*>/gi, "");
   html = html.replace(/<meta\s+property=["']og:[^"']+["'][^>]*>/gi, "");
   html = html.replace(/<meta\s+name=["']twitter:[^"']+["'][^>]*>/gi, "");
   html = html.replace(/<meta\s+property=["']twitter:[^"']+["'][^>]*>/gi, "");
   html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/gi, "");
 
-  // Inject dynamic tags right after <title>...</title> or before </head>
   if (html.includes("</title>")) {
-    html = html.replace(
-      "</title>",
-      `</title>\n    ${metaInfo.metaTagsHtml}`
-    );
+    html = html.replace("</title>", `</title>\n    ${metaInfo.metaTagsHtml}`);
   } else if (html.includes("</head>")) {
     html = html.replace(
       "</head>",
@@ -316,32 +156,7 @@ export function injectExamMetaIntoHtml(
 }
 
 /**
- * Fallback standalone base HTML template.
- * In production, it ALWAYS returns PRODUCTION_HTML_TEMPLATE with compiled /assets/*.js.
- * In development, it uses the development entry /src/main.tsx.
- */
-export function getFallbackBaseHtml(isDev: boolean = false): string {
-  if (!isDev && PRODUCTION_HTML_TEMPLATE) {
-    return PRODUCTION_HTML_TEMPLATE;
-  }
-  return `<!doctype html>
-<html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0f172a" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>`;
-}
-
-/**
- * Complete helper to render the dynamic HTML for an exam.
+ * Backwards compatible helper to render the dynamic HTML for an exam.
  */
 export async function renderExamPageHtml({
   examId,
@@ -360,48 +175,17 @@ export async function renderExamPageHtml({
   found: boolean;
 }> {
   const { found, exam } = await fetchExamMetadata(examId);
-  const metaInfo = buildExamMetaTags({ exam, examId, baseUrl, found });
 
-  let rawTemplate = customTemplate || "";
-
-  if (!rawTemplate) {
-    if (!isDev) {
-      // Production mode (Vercel serverless function or Express production)
-      const distIndexPath = path.join(process.cwd(), "dist", "index.html");
-      if (fs.existsSync(distIndexPath)) {
-        try {
-          rawTemplate = fs.readFileSync(distIndexPath, "utf-8");
-        } catch (e) {
-          rawTemplate = PRODUCTION_HTML_TEMPLATE;
-        }
-      } else {
-        rawTemplate = PRODUCTION_HTML_TEMPLATE;
-      }
-    } else {
-      // Development mode
-      const rootIndexPath = path.join(process.cwd(), "index.html");
-      if (fs.existsSync(rootIndexPath)) {
-        try {
-          rawTemplate = fs.readFileSync(rootIndexPath, "utf-8");
-        } catch (e) {}
-      }
-      if (!rawTemplate) {
-        rawTemplate = getFallbackBaseHtml(true);
-      }
-    }
-  }
-
-  // Final safety check: if production and somehow empty, ensure PRODUCTION_HTML_TEMPLATE is used
-  if (!rawTemplate) {
-    rawTemplate = getFallbackBaseHtml(isDev);
-  }
-
-  const finalHtml = injectExamMetaIntoHtml(rawTemplate, metaInfo);
-  const status = found ? 200 : 404;
+  const { html } = await renderSocialPageHtml({
+    url: `/student/exam/${encodeURIComponent(examId)}`,
+    baseUrl,
+    isDev,
+    customTemplate,
+  });
 
   return {
-    html: finalHtml,
-    status,
+    html,
+    status: 200,
     exam,
     found,
   };

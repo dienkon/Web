@@ -6,6 +6,7 @@ import {
   interpolateWorkflowParams,
   WorkflowExecutionContext,
 } from "../src/services/ai/aiAdminAssistant";
+import { extractExcludePatternsFromText } from "../src/services/folderService";
 import { GEMINI_3_5_FLASH_LITE } from "../src/services/ai/aiClient";
 
 // Mock @google/genai
@@ -62,6 +63,10 @@ describe("Admin AI Virtual Assistant (gemini-3.5-flash-lite)", () => {
       expect(instruction).toContain("CREATE_VOUCHER");
       expect(instruction).toContain("CREATE_EXAM_AI");
       expect(instruction).toContain("WORKFLOW");
+      expect(instruction).toContain("CREATE_FOLDER");
+      expect(instruction).toContain("MOVE_EXAM");
+      expect(instruction).toContain("MOVE_EXAMS_TO_FOLDER");
+      expect(instruction).toContain("organize_exams_into_folders");
     });
 
     it("embeds live page context and DOM summary when provided", () => {
@@ -343,6 +348,71 @@ Mã voucher đã sẵn sàng được kích hoạt!`;
       expect(actions[0].type).toBe("NAVIGATE");
       expect(actions[0].target).toBe("https://dktest.edu.vn/admin/docs?ref=ai,assistant");
       expect(actions[0].text).toBe("Kiểm tra tại https://google.com, chúc bạn thành công!");
+    });
+
+    it("parses SYSTEM_OPERATION organize_exams_into_folders with excludePatterns", () => {
+      const aiResponse = `Dạ, tôi sẽ quét toàn bộ bài thi ngoài Drive chính và tự động chuyển vào các thư mục môn tương ứng:
+\`\`\`json:action
+{
+  "type": "SYSTEM_OPERATION",
+  "label": "Di chuyển bài thi vào thư mục chuyên môn",
+  "params": {
+    "operation": "organize_exams_into_folders",
+    "excludePatterns": ["json mẫu", "teswallet"],
+    "groupBy": "subject"
+  }
+}
+\`\`\`
+Đã thiết lập hành động xong!`;
+
+      const { actions, cleanText } = parseActionsFromAiText(aiResponse);
+      expect(actions).toHaveLength(1);
+      expect(actions[0].type).toBe("SYSTEM_OPERATION");
+      expect(actions[0].label).toBe("Di chuyển bài thi vào thư mục chuyên môn");
+      expect(actions[0].params?.operation).toBe("organize_exams_into_folders");
+      expect(actions[0].params?.excludePatterns).toEqual(["json mẫu", "teswallet"]);
+      expect(cleanText).not.toContain("```json:action");
+      expect(cleanText).toContain("Dạ, tôi sẽ quét");
+    });
+
+    it("parses CREATE_FOLDER, MOVE_EXAM, and MOVE_EXAMS_TO_FOLDER actions", () => {
+      const aiResponse = `\`\`\`json:action
+{
+  "type": "CREATE_FOLDER",
+  "label": "Tạo thư mục Toán học",
+  "params": { "name": "Toán học", "color": "blue" }
+}
+\`\`\`
+\`\`\`json:action
+{
+  "type": "MOVE_EXAM",
+  "label": "Chuyển đề thi vào thư mục Toán",
+  "params": { "examId": "exam_toan_1", "targetFolderName": "Toán học" }
+}
+\`\`\`
+\`\`\`json:action
+{
+  "type": "MOVE_EXAMS_TO_FOLDER",
+  "label": "Chuyển nhiều đề thi vào thư mục Văn",
+  "params": { "examIds": ["ex_v1", "ex_v2"], "targetFolderName": "Ngữ văn" }
+}
+\`\`\``;
+
+      const { actions } = parseActionsFromAiText(aiResponse);
+      expect(actions).toHaveLength(3);
+      expect(actions[0].type).toBe("CREATE_FOLDER");
+      expect(actions[0].params?.name).toBe("Toán học");
+      expect(actions[1].type).toBe("MOVE_EXAM");
+      expect(actions[1].params?.examId).toBe("exam_toan_1");
+      expect(actions[2].type).toBe("MOVE_EXAMS_TO_FOLDER");
+      expect(actions[2].params?.examIds).toEqual(["ex_v1", "ex_v2"]);
+    });
+
+    it("extracts exclude patterns preserving phrases like 'json mẫu' and 'teswallet' from user query", () => {
+      const userPrompt =
+        "Hãy di chuyển các bài thi nằm ngoài drive chính (trừ json mẫu và teswallet) vô các folder riêng theo đúng tên môn bài...";
+      const extracted = extractExcludePatternsFromText(userPrompt);
+      expect(extracted).toEqual(["json mẫu", "teswallet"]);
     });
   });
 
@@ -646,6 +716,40 @@ Hệ thống đang chuyển trang.`;
 
       const resolved = interpolateWorkflowParams(action, context);
       expect(resolved.text).toBe("Mã ưu đãi là SALE20 áp dụng cho đề thi ex_888!");
+    });
+
+    it("interpolates lastExamId into MOVE_EXAM and MOVE_EXAMS_TO_FOLDER params", () => {
+      const context: WorkflowExecutionContext = {
+        steps: {},
+        lastExamId: "ex_flow_123",
+      };
+
+      const moveOne = {
+        id: "step_move",
+        type: "MOVE_EXAM" as const,
+        label: "Chuyển bài thi",
+        status: "pending" as const,
+        params: {
+          examId: "{{examId}}",
+          targetFolderName: "Toán học",
+        },
+      };
+
+      const moveMany = {
+        id: "step_bulk_move",
+        type: "MOVE_EXAMS_TO_FOLDER" as const,
+        label: "Chuyển danh sách bài thi",
+        status: "pending" as const,
+        params: {
+          targetFolderName: "Toán học",
+        },
+      };
+
+      const resolvedOne = interpolateWorkflowParams(moveOne, context);
+      expect(resolvedOne.params.examId).toBe("ex_flow_123");
+
+      const resolvedMany = interpolateWorkflowParams(moveMany, context);
+      expect(resolvedMany.params.examIds).toEqual(["ex_flow_123"]);
     });
   });
 });

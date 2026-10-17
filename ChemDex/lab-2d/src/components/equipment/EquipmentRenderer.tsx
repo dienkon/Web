@@ -10,6 +10,13 @@ import { BurnerSvg } from './BurnerSvg';
 import { FunnelSvg } from './FunnelSvg';
 import { PipetteSvg } from './PipetteSvg';
 import { WashBottleSvg } from './WashBottleSvg';
+import { HotPlateSvg } from './HotPlateSvg';
+import { ThermometerSvg } from './ThermometerSvg';
+import { PhMeterSvg } from './PhMeterSvg';
+import { EvaporatingDishSvg } from './EvaporatingDishSvg';
+import { WatchGlassSvg } from './WatchGlassSvg';
+import { StirringRodSvg } from './StirringRodSvg';
+import { TestTubeRackSvg } from './TestTubeRackSvg';
 
 interface EquipmentRendererProps {
   equipment: EquipmentState;
@@ -69,6 +76,26 @@ export const EquipmentRenderer: React.FC<EquipmentRendererProps> = ({
             onToggleFlame={onToggleHeat}
           />
         );
+      case 'hot_plate':
+        return (
+          <HotPlateSvg
+            equipment={equipment}
+            isSelected={isSelected}
+            onToggleHeat={onToggleHeat}
+          />
+        );
+      case 'thermometer':
+        return <ThermometerSvg equipment={equipment} isSelected={isSelected} />;
+      case 'ph_meter':
+        return <PhMeterSvg equipment={equipment} isSelected={isSelected} />;
+      case 'evaporating_dish':
+        return <EvaporatingDishSvg equipment={equipment} isSelected={isSelected} />;
+      case 'watch_glass':
+        return <WatchGlassSvg equipment={equipment} isSelected={isSelected} />;
+      case 'stirring_rod':
+        return <StirringRodSvg equipment={equipment} isSelected={isSelected} />;
+      case 'test_tube_rack':
+        return <TestTubeRackSvg equipment={equipment} isSelected={isSelected} />;
       case 'funnel':
         return <FunnelSvg equipment={equipment} isSelected={isSelected} />;
       case 'pipette':

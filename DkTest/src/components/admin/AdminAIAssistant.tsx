@@ -42,6 +42,10 @@ import {
   Shield,
   Coins,
   FileText,
+  Folder,
+  FolderKanban,
+  FolderInput,
+  FolderPlus,
 } from "lucide-react";
 import clsx from "clsx";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
@@ -70,6 +74,17 @@ import {
   mergeExamsApi,
 } from "../../services/walletClientService";
 import { createExam, updateExam, deleteExam, getExam } from "../../services/examService";
+import {
+  createFolder,
+  moveExamToFolder,
+  bulkMoveExamsToFolder,
+  getFolders,
+  organizeExamsIntoFolders,
+  getSubjectFolderColor,
+  standardizeSubject,
+  extractExcludePatternsFromText,
+  type OrganizeExamsResult,
+} from "../../services/folderService";
 import { importJsonToFirestore } from "../../services/jsonImportService";
 import { createAssignment } from "../../services/assignmentService";
 import { api } from "../../services/apiClient";
@@ -429,6 +444,38 @@ export default function AdminAIAssistant() {
       };
     }
   }, [location.pathname, location.search, currentTabName, user?.email, userProfile?.displayName, role]);
+
+
+  // Helper to find or create matching target folder by name / subject
+  const resolveOrCreateTargetFolder = useCallback(async (folderName: string): Promise<{ id: string; name: string }> => {
+    const trimmed = folderName.trim();
+    const lower = trimmed.toLowerCase();
+    const std = standardizeSubject(trimmed).toLowerCase();
+    const allFolders = await getFolders(null, "all");
+
+    const matched = allFolders.find((f) => {
+      if (f.parentId) return false;
+      const fLower = f.name.trim().toLowerCase();
+      const fStd = standardizeSubject(f.name).toLowerCase();
+      if (fLower === lower || fStd === std) return true;
+      if (lower.startsWith(fLower) || fLower.startsWith(lower)) return true;
+      return false;
+    });
+
+    if (matched) {
+      return { id: matched.id, name: matched.name };
+    }
+
+    const created = await createFolder({
+      name: trimmed,
+      parentId: null,
+      color: getSubjectFolderColor(trimmed),
+      description: `Thư mục ${trimmed}`,
+      isPublic: false,
+      ownerId: null,
+    });
+    return { id: created.id, name: created.name };
+  }, []);
 
   // Execute Autonomous Client Action & Make.com Workflows
   const executeAction = useCallback(
@@ -880,8 +927,87 @@ export default function AdminAIAssistant() {
           // 13. SYSTEM_OPERATION
           case "SYSTEM_OPERATION": {
             const p = act.params || act.payload || {};
-            const op = p.operation || "scan_health";
-            if (op === "scan_health") {
+            const rawOp =
+              (act as any).operation ||
+              (act as any).command ||
+              (act as any).lệnh ||
+              (act as any).lenh ||
+              p.operation ||
+              p.command ||
+              p.lệnh ||
+              p.lenh ||
+              p.action ||
+              act.target ||
+              "scan_health";
+            const op = String(rawOp).trim().toLowerCase();
+
+            if (
+              op === "organize_exams_into_folders" ||
+              op === "organize_exams" ||
+              op === "organize_exams_by_subject" ||
+              op === "move_exams_to_folders"
+            ) {
+              toastSuccess("Đang quét và gom bài thi ngoài Drive chính vào thư mục môn học...");
+              setActionResults((prev) => ({
+                ...prev,
+                [actionKey]: {
+                  status: "running",
+                  progressMsg: "Đang phân loại đề thi theo môn học...",
+                  progressPercent: 30,
+                },
+              }));
+
+              let excludePatterns: string[] = [
+                ...(Array.isArray(p.excludePatterns) ? p.excludePatterns : []),
+                ...(Array.isArray(p.excludeNames) ? p.excludeNames : []),
+                ...(Array.isArray(p.excludeKeywords) ? p.excludeKeywords : []),
+                ...(Array.isArray(p.excludeIds) ? p.excludeIds : []),
+                ...(Array.isArray(p.exclude) ? p.exclude : typeof p.exclude === "string" ? p.exclude.split(/[,;\n]+/) : []),
+                ...(Array.isArray(p.excludes) ? p.excludes : typeof p.excludes === "string" ? p.excludes.split(/[,;\n]+/) : []),
+                ...(Array.isArray((act as any).excludePatterns) ? (act as any).excludePatterns : []),
+              ];
+
+              if (excludePatterns.length === 0) {
+                const searchTexts = [
+                  act.label,
+                  act.text,
+                  [...messages].reverse().find((m) => m.role === "user")?.text || "",
+                ].join(" ");
+
+                const extracted = extractExcludePatternsFromText(searchTexts);
+                if (extracted.length > 0) {
+                  excludePatterns = extracted;
+                  if (!p.excludePatterns) p.excludePatterns = extracted;
+                }
+              }
+
+              const organizeRes = await organizeExamsIntoFolders({
+                excludePatterns,
+                targetSubject: p.targetSubject || p.subject || (act as any).targetSubject,
+                ownerId: p.ownerId || null,
+                examIds: Array.isArray(p.examIds) ? p.examIds : undefined,
+              });
+
+              window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
+              window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+
+              let summaryMsg = "";
+              if (organizeRes.totalRootExams === 0) {
+                summaryMsg = "Không có bài thi nào nằm ngoài Drive chính cần phân loại (tất cả đã ở trong thư mục hoặc Drive đang trống).";
+              } else if (organizeRes.movedCount === 0 && organizeRes.excludedCount > 0) {
+                summaryMsg = `Tất cả ${organizeRes.excludedCount} bài thi ngoài Drive chính đều thuộc danh sách loại trừ (${organizeRes.excludedItems.map((e) => e.title).join(", ")}) nên được giữ nguyên.`;
+              } else {
+                summaryMsg = `Đã di chuyển ${organizeRes.movedCount} bài thi vào ${organizeRes.foldersUsedCount} thư mục chuyên môn (${organizeRes.foldersCreatedCount} thư mục mới tạo). Đã giữ nguyên ${organizeRes.excludedCount} bài thi ngoài Drive chính.`;
+              }
+
+              toastSuccess(summaryMsg);
+
+              result = {
+                success: true,
+                message: summaryMsg,
+                data: organizeRes,
+              };
+            } else if (op === "scan_health") {
               toastSuccess("Đang quét toàn vẹn dữ liệu hệ thống...");
               const report = await scanDataHealth();
               result = { success: true, message: `Quét hoàn tất: ${report?.issues?.length || 0} vấn đề`, data: report };
@@ -910,6 +1036,155 @@ export default function AdminAIAssistant() {
               window.location.reload();
               result = { success: true, message: `Đang tải lại trang...` };
             }
+            break;
+          }
+
+          // 13b. ORGANIZE_EXAMS_INTO_FOLDERS (Direct Action Type)
+          case "ORGANIZE_EXAMS_INTO_FOLDERS":
+          case "organize_exams_into_folders" as any: {
+            const p = act.params || act.payload || {};
+            toastSuccess("Đang quét và gom bài thi ngoài Drive chính vào thư mục môn học...");
+            setActionResults((prev) => ({
+              ...prev,
+              [actionKey]: {
+                status: "running",
+                progressMsg: "Đang phân loại đề thi theo môn học...",
+                progressPercent: 30,
+              },
+            }));
+
+            let excludePatterns: string[] = [
+              ...(Array.isArray(p.excludePatterns) ? p.excludePatterns : []),
+              ...(Array.isArray(p.excludeNames) ? p.excludeNames : []),
+              ...(Array.isArray(p.excludeKeywords) ? p.excludeKeywords : []),
+              ...(Array.isArray(p.excludeIds) ? p.excludeIds : []),
+              ...(Array.isArray(p.exclude) ? p.exclude : typeof p.exclude === "string" ? p.exclude.split(/[,;\n]+/) : []),
+              ...(Array.isArray(p.excludes) ? p.excludes : typeof p.excludes === "string" ? p.excludes.split(/[,;\n]+/) : []),
+              ...(Array.isArray((act as any).excludePatterns) ? (act as any).excludePatterns : []),
+            ];
+
+            if (excludePatterns.length === 0) {
+              const searchTexts = [
+                act.label,
+                act.text,
+                [...messages].reverse().find((m) => m.role === "user")?.text || "",
+              ].join(" ");
+
+              const extracted = extractExcludePatternsFromText(searchTexts);
+              if (extracted.length > 0) {
+                excludePatterns = extracted;
+                if (!p.excludePatterns) p.excludePatterns = extracted;
+              }
+            }
+
+            const organizeRes = await organizeExamsIntoFolders({
+              excludePatterns,
+              targetSubject: p.targetSubject || p.subject || (act as any).targetSubject,
+              ownerId: p.ownerId || null,
+              examIds: Array.isArray(p.examIds) ? p.examIds : undefined,
+            });
+
+            window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
+            window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+
+            let summaryMsg = "";
+            if (organizeRes.totalRootExams === 0) {
+              summaryMsg = "Không có bài thi nào nằm ngoài Drive chính cần phân loại (tất cả đã ở trong thư mục hoặc Drive đang trống).";
+            } else if (organizeRes.movedCount === 0 && organizeRes.excludedCount > 0) {
+              summaryMsg = `Tất cả ${organizeRes.excludedCount} bài thi ngoài Drive chính đều thuộc danh sách loại trừ (${organizeRes.excludedItems.map((e) => e.title).join(", ")}) nên được giữ nguyên.`;
+            } else {
+              summaryMsg = `Đã di chuyển ${organizeRes.movedCount} bài thi vào ${organizeRes.foldersUsedCount} thư mục chuyên môn (${organizeRes.foldersCreatedCount} thư mục mới tạo). Đã giữ nguyên ${organizeRes.excludedCount} bài thi ngoài Drive chính.`;
+            }
+
+            toastSuccess(summaryMsg);
+
+            result = {
+              success: true,
+              message: summaryMsg,
+              data: organizeRes,
+            };
+            break;
+          }
+
+          // 13c. CREATE_FOLDER
+          case "CREATE_FOLDER": {
+            const p = act.params || act.payload || {};
+            const name = String(p.name || p.title || "Thư mục mới").trim();
+            const color = p.color || getSubjectFolderColor(name);
+            const created = await createFolder({
+              name,
+              parentId: p.parentId || null,
+              color,
+              description: p.description || `Thư mục ${name}`,
+              isPublic: Boolean(p.isPublic),
+              ownerId: null,
+            });
+            window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+            toastSuccess(`Đã tạo thư mục: "${created.name}"`);
+            result = {
+              success: true,
+              message: `Đã tạo thư mục "${created.name}"`,
+              data: created,
+            };
+            break;
+          }
+
+          // 13d. MOVE_EXAM
+          case "MOVE_EXAM": {
+            const p = act.params || act.payload || {};
+            const examId = p.examId || act.id || workflowContext?.lastExamId;
+            if (!examId) throw new Error("Thiếu mã bài thi examId để di chuyển");
+
+            let targetFolderId: string | null = p.folderId ?? null;
+            let targetFolderName = p.targetFolderName || p.folderName || "";
+
+            if (!targetFolderId && targetFolderName) {
+              const res = await resolveOrCreateTargetFolder(targetFolderName);
+              targetFolderId = res.id;
+              targetFolderName = res.name;
+            }
+
+            await moveExamToFolder(examId, targetFolderId);
+            window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
+            window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+
+            const destLabel = targetFolderName || (targetFolderId ? `thư mục ${targetFolderId}` : "Drive chính (Gốc)");
+            toastSuccess(`Đã di chuyển bài thi vào ${destLabel}`);
+            result = {
+              success: true,
+              message: `Đã chuyển bài thi vào ${destLabel}`,
+              data: { examId, folderId: targetFolderId, folderName: destLabel },
+            };
+            break;
+          }
+
+          // 13e. MOVE_EXAMS_TO_FOLDER
+          case "MOVE_EXAMS_TO_FOLDER": {
+            const p = act.params || act.payload || {};
+            const rawIds = p.examIds || (p.examId ? [p.examId] : []) || (workflowContext?.lastExamId ? [workflowContext.lastExamId] : []);
+            const examIds = Array.isArray(rawIds) ? rawIds : [rawIds];
+            if (examIds.length === 0) throw new Error("Chưa chỉ định danh sách bài thi (examIds) để di chuyển");
+
+            let targetFolderId: string | null = p.folderId ?? null;
+            let targetFolderName = p.targetFolderName || p.folderName || "";
+
+            if (!targetFolderId && targetFolderName) {
+              const res = await resolveOrCreateTargetFolder(targetFolderName);
+              targetFolderId = res.id;
+              targetFolderName = res.name;
+            }
+
+            await bulkMoveExamsToFolder(examIds, targetFolderId);
+            window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
+            window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+
+            const destLabel = targetFolderName || (targetFolderId ? `thư mục ${targetFolderId}` : "Drive chính (Gốc)");
+            toastSuccess(`Đã di chuyển ${examIds.length} bài thi vào ${destLabel}`);
+            result = {
+              success: true,
+              message: `Đã di chuyển ${examIds.length} bài thi vào ${destLabel}`,
+              data: { examIds, folderId: targetFolderId, folderName: destLabel, count: examIds.length },
+            };
             break;
           }
 
@@ -1552,6 +1827,7 @@ export default function AdminAIAssistant() {
     const path = location.pathname;
     if (path.startsWith("/admin/exams")) {
       return [
+        { label: "📁 Gom đề vào thư mục môn", prompt: "Hãy di chuyển các bài thi nằm ngoài drive chính (trừ json mẫu và teswallet) vô các folder riêng theo đúng tên môn bài..." },
         { label: "📝 Tạo đề Toán 15p (AI)", prompt: "Hãy tạo đề thi trắc nghiệm môn Toán 10 câu về Hàm số bậc hai, thời gian 15 phút, khối 10 và lưu vào hệ thống" },
         { label: "⚡ Workflow: Đề thi + Giao bài", prompt: "Chạy quy trình tự động: Bước 1 tạo đề thi trắc nghiệm Vật lý 10 câu về Động học chất điểm, Bước 2 giao bài tập này cho Lớp 10A1" },
         { label: "📋 Đề thi nào đang có?", prompt: "Trên trang này hiện có những đề thi nào và trạng thái của chúng ra sao?" },
@@ -1651,8 +1927,26 @@ export default function AdminAIAssistant() {
   };
 
   // Icon helper for action types
-  const getActionIcon = (type: string) => {
+  const getActionIcon = (type: string, action?: AdminAssistantAction) => {
+    const p = action?.params || action?.payload || {};
+    const op = p.operation || p.command || action?.target || "";
+    if (
+      type === "ORGANIZE_EXAMS_INTO_FOLDERS" ||
+      (type as any) === "organize_exams_into_folders" ||
+      (type === "SYSTEM_OPERATION" && (op === "organize_exams_into_folders" || op === "organize_exams"))
+    ) {
+      return <FolderKanban className="w-3.5 h-3.5 text-indigo-500 shrink-0" />;
+    }
+
     switch (type) {
+      case "CREATE_FOLDER":
+        return <FolderPlus className="w-3.5 h-3.5 text-amber-500 shrink-0" />;
+      case "MOVE_EXAM":
+      case "MOVE_EXAMS_TO_FOLDER":
+        return <FolderInput className="w-3.5 h-3.5 text-blue-500 shrink-0" />;
+      case "ORGANIZE_EXAMS_INTO_FOLDERS":
+      case "organize_exams_into_folders":
+        return <FolderKanban className="w-3.5 h-3.5 text-indigo-500 shrink-0" />;
       case "LIST_VOUCHERS":
       case "CREATE_VOUCHER":
       case "UPDATE_VOUCHER":
@@ -1736,8 +2030,44 @@ export default function AdminAIAssistant() {
       if (p.targetClass) chips.push({ label: "Lớp", val: String(p.targetClass) });
       if (p.dueDate) chips.push({ label: "Hạn", val: String(p.dueDate) });
       if (p.examId) chips.push({ label: "Mã đề", val: String(p.examId).slice(0, 8) });
+    } else if (action.type === "CREATE_FOLDER") {
+      if (p.name) chips.push({ label: "Thư mục", val: String(p.name) });
+      if (p.color) chips.push({ label: "Màu", val: String(p.color) });
+    } else if (action.type === "MOVE_EXAM") {
+      if (p.examId || action.id) chips.push({ label: "ID đề", val: String(p.examId || action.id).slice(0, 8) });
+      if (p.targetFolderName || p.folderId) chips.push({ label: "Đích", val: String(p.targetFolderName || p.folderId) });
+    } else if (action.type === "MOVE_EXAMS_TO_FOLDER") {
+      const ids = p.examIds || [];
+      chips.push({ label: "Số lượng", val: `${ids.length} đề` });
+      if (p.targetFolderName || p.folderId) chips.push({ label: "Đích", val: String(p.targetFolderName || p.folderId) });
+    } else if (
+      action.type === "ORGANIZE_EXAMS_INTO_FOLDERS" ||
+      (action.type as any) === "organize_exams_into_folders" ||
+      (action.type === "SYSTEM_OPERATION" &&
+        (p.operation === "organize_exams_into_folders" ||
+          p.command === "organize_exams_into_folders" ||
+          p.operation === "organize_exams" ||
+          p.command === "organize_exams" ||
+          p.lệnh === "organize_exams_into_folders" ||
+          p.action === "organize_exams_into_folders" ||
+          (action as any).operation === "organize_exams_into_folders" ||
+          (action as any).command === "organize_exams_into_folders" ||
+          action.target === "organize_exams_into_folders"))
+    ) {
+      chips.push({ label: "Lệnh", val: "organize_exams_into_folders" });
+      let exc = p.excludePatterns || p.excludeNames || p.excludeKeywords || p.exclude || (action as any).excludePatterns;
+      if (!exc || (Array.isArray(exc) && exc.length === 0)) {
+        const extracted = extractExcludePatternsFromText([action.label, action.text].join(" "));
+        if (extracted.length > 0) exc = extracted;
+      }
+      if (exc) {
+        const excStr = Array.isArray(exc) ? exc.join(", ") : String(exc);
+        chips.push({ label: "Loại trừ", val: excStr });
+      }
+      if (p.groupBy) chips.push({ label: "Gom theo", val: String(p.groupBy) });
+      if (p.targetSubject || p.subject) chips.push({ label: "Môn đích", val: String(p.targetSubject || p.subject) });
     } else if (action.type === "SYSTEM_OPERATION") {
-      if (p.operation || action.target) chips.push({ label: "Lệnh", val: String(p.operation || action.target) });
+      if (p.operation || p.command || action.target) chips.push({ label: "Lệnh", val: String(p.operation || p.command || action.target) });
     }
 
     if (chips.length === 0) return null;
@@ -1977,7 +2307,188 @@ export default function AdminAIAssistant() {
       );
     }
 
-    // 4. System Health Result Preview
+    // 4. Organize Exams Into Folders Result Preview
+    const p = action.params || action.payload || {};
+    const rawOp =
+      (action as any).operation ||
+      (action as any).command ||
+      p.operation ||
+      p.command ||
+      action.target ||
+      "";
+    const op = String(rawOp).trim().toLowerCase();
+    const isOrganizeAction =
+      action.type === "ORGANIZE_EXAMS_INTO_FOLDERS" ||
+      (action.type as any) === "organize_exams_into_folders" ||
+      (action.type === "SYSTEM_OPERATION" &&
+        (op === "organize_exams_into_folders" ||
+          op === "organize_exams" ||
+          op === "organize_exams_by_subject" ||
+          op === "move_exams_to_folders"));
+
+    if (isOrganizeAction && (isSuccess || data)) {
+      const orgData = (data || {}) as OrganizeExamsResult;
+      const movedCount = orgData.movedCount ?? 0;
+      const foldersUsed = orgData.foldersUsed || [];
+      const excludedItems = orgData.excludedItems || [];
+      const movedDetails = orgData.movedDetails || [];
+
+      return (
+        <div className="mt-2 p-3 rounded-xl bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-purple-50/80 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-purple-950/30 border border-indigo-200 dark:border-indigo-800/80 space-y-2.5 shadow-2xs">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 overflow-hidden">
+              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <FolderKanban className="w-4 h-4" />
+              </div>
+              <div className="overflow-hidden">
+                <h4 className="font-bold text-xs text-slate-900 dark:text-slate-100 truncate">
+                  Phân loại bài thi vào thư mục chuyên môn
+                </h4>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                  {orgData.totalRootExams !== undefined
+                    ? `Đã quét ${orgData.totalRootExams} bài thi tại Drive chính`
+                    : "Đã hoàn tất phân loại đề thi"}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate("/admin/exams")}
+              className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-2xs shrink-0"
+            >
+              <ExternalLink className="w-3 h-3" />
+              <span>Xem Drive Đề thi</span>
+            </button>
+          </div>
+
+          {/* Quick Metrics */}
+          <div className="grid grid-cols-3 gap-1.5 text-center">
+            <div className="p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/80 dark:border-emerald-800/60">
+              <span className="block text-xs font-bold text-emerald-700 dark:text-emerald-300">
+                {movedCount}
+              </span>
+              <span className="block text-[9px] text-emerald-600/80 dark:text-emerald-400/80">
+                Đã di chuyển
+              </span>
+            </div>
+            <div className="p-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-800/60">
+              <span className="block text-xs font-bold text-blue-700 dark:text-blue-300">
+                {orgData.foldersUsedCount ?? foldersUsed.length}
+              </span>
+              <span className="block text-[9px] text-blue-600/80 dark:text-blue-400/80">
+                Thư mục ({orgData.foldersCreatedCount ?? 0} mới)
+              </span>
+            </div>
+            <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/50 border border-amber-200/80 dark:border-amber-800/60">
+              <span className="block text-xs font-bold text-amber-700 dark:text-amber-300">
+                {orgData.excludedCount ?? excludedItems.length}
+              </span>
+              <span className="block text-[9px] text-amber-600/80 dark:text-amber-400/80">
+                Giữ nguyên gốc
+              </span>
+            </div>
+          </div>
+
+          {/* Folders List breakdown */}
+          {foldersUsed.length > 0 && (
+            <div className="space-y-1">
+              <span className="text-[10px] font-semibold text-slate-600 dark:text-slate-300">
+                Thư mục môn học đích:
+              </span>
+              <div className="flex flex-wrap gap-1">
+                {foldersUsed.map((f, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 border border-indigo-200/80 dark:border-indigo-800/80 text-[10px] text-slate-800 dark:text-slate-200 shadow-2xs"
+                  >
+                    <Folder className="w-3 h-3 text-indigo-500" />
+                    <span className="font-medium">{f.name}</span>
+                    <span className="text-[9px] px-1 rounded-full bg-indigo-50 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-300 font-bold">
+                      {f.examCount} đề
+                    </span>
+                    {f.isNew && (
+                      <span className="text-[8px] px-1 rounded bg-emerald-100 dark:bg-emerald-900/70 text-emerald-700 dark:text-emerald-300 font-bold">
+                        Mới
+                      </span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Moved details breakdown (preview of moved exams) */}
+          {movedDetails.length > 0 && (
+            <div className="space-y-1 pt-1 border-t border-indigo-200/60 dark:border-indigo-800/60">
+              <span className="text-[10px] font-semibold text-slate-600 dark:text-slate-300">
+                Bài thi đã phân loại:
+              </span>
+              <div className="space-y-1 max-h-32 overflow-y-auto pr-1">
+                {movedDetails.slice(0, 5).map((m, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between text-[10px] px-2 py-1 rounded bg-white/80 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-2xs"
+                  >
+                    <span className="font-medium text-slate-800 dark:text-slate-200 truncate max-w-[65%]" title={m.examTitle}>
+                      {m.examTitle}
+                    </span>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded font-semibold bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-300 truncate max-w-[32%]">
+                      📁 {m.folderName}
+                    </span>
+                  </div>
+                ))}
+                {movedDetails.length > 5 && (
+                  <div className="text-[9px] text-center text-slate-500 dark:text-slate-400 italic">
+                    + và {movedDetails.length - 5} bài thi khác
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Excluded items note */}
+          {excludedItems.length > 0 && (
+            <div className="pt-1.5 border-t border-indigo-200/60 dark:border-indigo-800/60 text-[10px] text-amber-800 dark:text-amber-300">
+              <span className="font-semibold">⚠️ Giữ ngoài Drive chính (loại trừ): </span>
+              <span>{excludedItems.map((item) => item.title).join(", ")}</span>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // 4b. Single Folder or Move Exam preview
+    if (
+      (action.type === "CREATE_FOLDER" ||
+        action.type === "MOVE_EXAM" ||
+        action.type === "MOVE_EXAMS_TO_FOLDER") &&
+      (isSuccess || data)
+    ) {
+      return (
+        <div className="mt-2 p-2.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/30 border border-indigo-200 dark:border-indigo-800/80 flex items-center justify-between gap-2 shadow-2xs">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <Folder className="w-4 h-4" />
+            </div>
+            <div className="overflow-hidden">
+              <span className="font-bold text-xs text-slate-900 dark:text-slate-100 truncate block">
+                {actionRes?.message || "Thao tác thư mục hoàn tất"}
+              </span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate("/admin/exams")}
+            className="px-2 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-2xs shrink-0"
+          >
+            <ExternalLink className="w-3 h-3" />
+            <span>Mở Drive</span>
+          </button>
+        </div>
+      );
+    }
+
+    // 5. System Health Result Preview
     if ((action.type === "SYSTEM_OPERATION" || action.type === "TRIGGER_DATA_HEALTH") && (isSuccess || data)) {
       return (
         <div className="mt-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2 text-xs text-slate-800 dark:text-slate-200">
@@ -2129,7 +2640,7 @@ export default function AdminAIAssistant() {
                 <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 shadow-2xs space-y-1.5">
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5 overflow-hidden">
-                      {getActionIcon(step.type)}
+                      {getActionIcon(step.type, step)}
                       <span className="font-semibold text-xs text-slate-800 dark:text-slate-200 truncate">
                         {step.label}
                       </span>
@@ -2238,13 +2749,17 @@ export default function AdminAIAssistant() {
               ) : isError ? (
                 <AlertCircle className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
               ) : (
-                getActionIcon(act.type)
+                getActionIcon(act.type, act)
               )}
             </div>
             <div className="overflow-hidden">
               <p className="font-bold text-[11px] truncate">{act.label}</p>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono truncate">
-                {act.type} {act.target ? `-> ${act.target}` : ""} {act.query ? `("${act.query}")` : ""}
+                {act.type}
+                {act.params?.operation ? ` (${act.params.operation})` : ""}
+                {act.params?.command && !act.params?.operation ? ` (${act.params.command})` : ""}
+                {act.target ? ` -> ${act.target}` : ""}
+                {act.query ? ` ("${act.query}")` : ""}
               </p>
             </div>
           </div>

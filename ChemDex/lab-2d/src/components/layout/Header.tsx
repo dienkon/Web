@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLabStore } from '../../store/useLabStore';
-import { RotateCcw, Undo2, Redo2, BookOpen, Globe, Beaker, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { RotateCcw, Undo2, Redo2, BookOpen, Globe, Beaker, Sparkles, Volume2, VolumeX, Key, Atom, Activity } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const {
@@ -13,6 +13,9 @@ export const Header: React.FC = () => {
     resetWorkbench,
     toggleNotebook,
     toggleAIAssistant,
+    toggleApiKeyModal,
+    togglePeriodicTable,
+    toggleTitrationCurve,
     isMuted,
     toggleMute,
     activeMode,
@@ -94,6 +97,39 @@ export const Header: React.FC = () => {
             {language === 'vi' ? 'Trợ lý AI' : 'AI Tutor'}
           </span>
           <span className="text-[10px] bg-indigo-600 text-white font-mono px-1 rounded-sm">3.5</span>
+        </button>
+
+        {/* Gemini API Key Settings */}
+        <button
+          onClick={() => toggleApiKeyModal(true)}
+          className="p-2 rounded-xl text-slate-600 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+          title={language === 'vi' ? 'Cấu hình Gemini API Key' : 'Configure Gemini API Key'}
+        >
+          <Key className="w-4 h-4" />
+        </button>
+
+        {/* Periodic Table Button */}
+        <button
+          onClick={() => togglePeriodicTable(true)}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-indigo-200 bg-white hover:bg-indigo-50 text-indigo-700 text-xs font-semibold transition-colors shadow-2xs"
+          title={language === 'vi' ? 'Bảng tuần hoàn các nguyên tố hóa học' : 'Periodic Table of Elements'}
+        >
+          <Atom className="w-3.5 h-3.5 text-indigo-600" />
+          <span className="hidden lg:inline">
+            {language === 'vi' ? 'Bảng tuần hoàn' : 'Periodic Table'}
+          </span>
+        </button>
+
+        {/* Live Titration Curve HUD */}
+        <button
+          onClick={() => toggleTitrationCurve(true)}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50 text-emerald-700 text-xs font-semibold transition-colors shadow-2xs"
+          title={language === 'vi' ? 'Đồ thị chuẩn độ pH trực tiếp' : 'Live Titration Curve'}
+        >
+          <Activity className="w-3.5 h-3.5 text-emerald-600" />
+          <span className="hidden lg:inline">
+            {language === 'vi' ? 'Đồ thị pH' : 'Titration'}
+          </span>
         </button>
 
         {/* Audio Mute / Unmute */}

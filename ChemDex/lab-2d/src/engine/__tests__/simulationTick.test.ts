@@ -96,6 +96,23 @@ describe('stepVesselThermal', () => {
     expect(r.isBoiling).toBe(false);
     expect(r.evaporatedStep_g).toBe(0);
   });
+
+  it('crystallizes dissolved solute into solid crust when boiled to dryness', () => {
+    const solution = baseEq({
+      volume_ml: 1.0,
+      contents: [
+        { formula: 'H2O', moles: 1.0 / 18.015, mass_g: 1.0, state: 'l' as const },
+        { formula: 'NaCl', moles: 0.05, mass_g: 2.92, state: 'aq' as const, concentration_M: 1.0 },
+      ],
+    });
+    solution.temperature_c = 100;
+    // Deliver enough latent heat to evaporate the full 1.0 mL water
+    const r = stepVesselThermal(solution, 2, 3000);
+    expect(r.volume_ml).toBeLessThanOrEqual(0.05);
+    const nacl = r.contents.find(c => c.formula === 'NaCl');
+    expect(nacl).toBeDefined();
+    expect(nacl?.state).toBe('s');
+  });
 });
 
 describe('burnerHeatToVessel', () => {

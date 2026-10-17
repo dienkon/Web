@@ -118,6 +118,8 @@ export interface ReactionDefinition {
 
 export interface ReactionExecutionRecord {
   reactionId: string;
+  name_en?: string;
+  name_vi?: string;
   equation: string;
   extent_moles: number; // xi
   heatReleased_J: number;
@@ -151,4 +153,11 @@ export interface SimulationResult {
   isDangerous: boolean;
   warning_en?: string;
   warning_vi?: string;
+  hasPhaseSeparation?: boolean;
+  organicLayerVolume_ml?: number;
+  organicLayerColorHex?: string;
+  hasFumes?: boolean;
+  fumeType?: 'steam' | 'no2' | 'nh4cl' | 'iodine';
+  fumeColorHex?: string;
 }
+

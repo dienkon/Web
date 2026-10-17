@@ -177,6 +177,34 @@ class SoundEngine {
   }
 
   /**
+   * Procedural liquid droplet plink sound for dropwise burette/dropper titration
+   */
+  public drip(): void {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1600, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(700, ctx.currentTime + 0.05);
+
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.05);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.05);
+    } catch {
+      // Silent catch
+    }
+  }
+
+  /**
    * Harmonious success chime
    */
   public success(): void {

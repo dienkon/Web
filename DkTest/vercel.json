@@ -66,8 +66,91 @@
   ],
   "rewrites": [
     {
+      "source": "/((?!api/|assets/|images/|favicon|logo).*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(zalo|facebookexternalhit|facebot|twitterbot|whatsapp|telegrambot|linkedinbot|discordbot|googlebot|bingbot|applebot).*"
+        }
+      ],
+      "destination": "/api/social-meta?path=/$1"
+    },
+    {
+      "source": "/voucher/:code",
+      "destination": "/api/social-meta?path=/voucher/:code&voucher=:code"
+    },
+    {
+      "source": "/vouchers/:code",
+      "destination": "/api/social-meta?path=/voucher/:code&voucher=:code"
+    },
+    {
+      "source": "/student/voucher/:code",
+      "destination": "/api/social-meta?path=/voucher/:code&voucher=:code"
+    },
+    {
+      "source": "/student/wallet",
+      "destination": "/api/social-meta?path=/student/wallet"
+    },
+    {
+      "source": "/wallet",
+      "destination": "/api/social-meta?path=/student/wallet"
+    },
+    {
+      "source": "/student/exam/:examId/result/:submissionId",
+      "destination": "/api/social-meta?path=/student/exam/:examId/result/:submissionId&examId=:examId&submissionId=:submissionId"
+    },
+    {
+      "source": "/parent/exams/:examId/submissions/:submissionId",
+      "destination": "/api/social-meta?path=/parent/exams/:examId/submissions/:submissionId&examId=:examId&submissionId=:submissionId"
+    },
+    {
       "source": "/student/exam/:examId",
       "destination": "/api/exam-meta?examId=:examId"
+    },
+    {
+      "source": "/exam/:examId",
+      "destination": "/api/exam-meta?examId=:examId"
+    },
+    {
+      "source": "/code-exam/:id",
+      "destination": "/api/social-meta?path=/code-exam/:id&codeExamId=:id"
+    },
+    {
+      "source": "/student/journey",
+      "destination": "/api/social-meta?path=/student/journey"
+    },
+    {
+      "source": "/journey",
+      "destination": "/api/social-meta?path=/student/journey"
+    },
+    {
+      "source": "/student/escape-room",
+      "destination": "/api/social-meta?path=/student/escape-room"
+    },
+    {
+      "source": "/escape-room",
+      "destination": "/api/social-meta?path=/student/escape-room"
+    },
+    {
+      "source": "/student/practice",
+      "destination": "/api/social-meta?path=/student/practice"
+    },
+    {
+      "source": "/practice",
+      "destination": "/api/social-meta?path=/student/practice"
+    },
+    {
+      "source": "/student/community",
+      "destination": "/api/social-meta?path=/student/community"
+    },
+    {
+      "source": "/student/ai-tutor",
+      "destination": "/api/social-meta?path=/student/ai-tutor"
+    },
+    {
+      "source": "/exams",
+      "destination": "/api/social-meta?path=/exams"
     },
     {
       "source": "/api/admin/:match*",

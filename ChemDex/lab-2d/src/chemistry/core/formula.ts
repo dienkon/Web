@@ -91,7 +91,7 @@ export function computeMolarMass(formula: string): number {
 export function normalizeFormula(formula: string): string {
   if (!formula) return '';
   return formula
-    .replace(/\s*\([a-z]+\)/gi, '')
+    .replace(/\s*\((?:s|l|g|aq|conc|dil)\)/gi, '')
     .replace(/[·\.]\d*H2O/gi, '')
     .replace(/\s+/g, '')
     .toUpperCase();

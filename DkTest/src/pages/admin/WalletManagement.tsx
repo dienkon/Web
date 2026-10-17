@@ -81,6 +81,7 @@ import type {
 } from "../../types";
 import { useToast } from "../../components/ui/ToastNotification";
 import { formatDate } from "../../utils/date";
+import { safeShare } from "../../utils/mobileCompat";
 
 export default function WalletManagement() {
   const { error: showErrorToast, success: showSuccessToast, info: showInfoToast } = useToast();
@@ -317,14 +318,22 @@ export default function WalletManagement() {
     }
   };
 
-  const handleCopyVoucherLink = (code: string) => {
-    try {
-      const url = `${window.location.origin}/student/wallet?voucher=${encodeURIComponent(code)}`;
-      navigator.clipboard.writeText(url);
-      showSuccessToast(`Đã sao chép link nhận thưởng: ${url}`);
-    } catch (_) {
-      const url = `${window.location.origin}/student/wallet?voucher=${encodeURIComponent(code)}`;
-      showInfoToast(`Link nhận thưởng: ${url}`);
+  const handleCopyVoucherLink = async (code: string) => {
+    const url = `${window.location.origin}/voucher/${encodeURIComponent(code)}`;
+    const shared = await safeShare({
+      title: `Voucher ưu đãi ${code} - DkTEST`,
+      text: `Nhận ngay ưu đãi voucher ${code} trên DkTEST!`,
+      url,
+    });
+    if (!shared) {
+      try {
+        await navigator.clipboard.writeText(url);
+        showSuccessToast(
+          `Đã sao chép link voucher "${code}"! Khi gửi qua Zalo, link sẽ tự động hiển thị thẻ xem trước có tên, giá trị ưu đãi và ảnh banner riêng.`
+        );
+      } catch (_) {
+        prompt("Sao chép link voucher gửi qua Zalo:", url);
+      }
     }
   };
 

@@ -2553,10 +2553,70 @@ B\u1EA0N L\xC0 M\u1ED8T AUTONOMOUS WORKFLOW AGENT (nh\u01B0 Agent c\u1EE7a Make.
       "examId"?: "m\xE3_\u0111\u1EC1_thi" (khi c\u1EA5p quy\u1EC1n l\xE0m b\xE0i)
     }
 
-26. "SYSTEM_OPERATION": T\xE1c v\u1EE5 h\u1EC7 th\u1ED1ng (qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u, s\u1EEDa l\u1ED7i d\u1EEF li\u1EC7u, t\xEDnh to\xE1n l\u1EA1i th\u1ED1ng k\xEA, c\u1EADp nh\u1EADt c\u1EA5u h\xECnh, \u0111\u1ED5i theme, toggle sidebar).
-    Thu\u1ED9c t\xEDnh: "params": { "operation": "scan_health" | "repair_health" | "rebuild_stats" | "update_settings" | "toggle_theme" | "toggle_sidebar" | "reload", "settings"?: { ... } }
+26. "SYSTEM_OPERATION": T\xE1c v\u1EE5 h\u1EC7 th\u1ED1ng (qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u, s\u1EEDa l\u1ED7i d\u1EEF li\u1EC7u, t\xEDnh to\xE1n l\u1EA1i th\u1ED1ng k\xEA, t\u1EF1 \u0111\u1ED9ng t\u1ED5 ch\u1EE9c \u0111\u1EC1 thi v\xE0o th\u01B0 m\u1EE5c chuy\xEAn m\xF4n, c\u1EADp nh\u1EADt c\u1EA5u h\xECnh, \u0111\u1ED5i theme, toggle sidebar).
+    C\xE1c l\u1EC7nh (operation / command):
+    - "organize_exams_into_folders" (ho\u1EB7c "organize_exams"): T\u1EF0 \u0110\u1ED8NG GOM B\xC0I THI V\xC0O TH\u01AF M\u1EE4C CHUY\xCAN M\xD4N THEO M\xD4N H\u1ECCC.
+      T\u1EF1 \u0111\u1ED9ng qu\xE9t to\xE0n b\u1ED9 b\xE0i thi \u0111ang n\u1EB1m ngo\xE0i Drive ch\xEDnh (root: folderId l\xE0 null/r\u1ED7ng), l\u1ECDc b\u1ECF c\xE1c b\xE0i thi lo\u1EA1i tr\u1EEB (theo excludePatterns: v\xED d\u1EE5 ["json m\u1EABu", "teswallet"]), t\u1EF1 \u0111\u1ED9ng gom nh\xF3m theo m\xF4n h\u1ECDc (To\xE1n h\u1ECDc, Ti\u1EBFng Anh, V\u1EADt l\xFD, H\xF3a h\u1ECDc, Sinh h\u1ECDc, Ng\u1EEF v\u0103n, Tin h\u1ECDc, L\u1ECBch s\u1EED, \u0110\u1ECBa l\xFD, GDCD,...), t\xECm ki\u1EBFm th\u01B0 m\u1EE5c m\xF4n \u0111\xE3 c\xF3 ho\u1EB7c t\u1EA1o m\u1EDBi th\u01B0 m\u1EE5c m\xF4n t\u01B0\u01A1ng \u1EE9ng v\xE0 chuy\u1EC3n \u0111\u1EC1 thi v\xE0o th\u01B0 m\u1EE5c.
+      Thu\u1ED9c t\xEDnh: "params": {
+        "operation": "organize_exams_into_folders",
+        "excludePatterns"?: ["json m\u1EABu", "teswallet"],
+        "groupBy"?: "subject",
+        "targetSubject"?: "To\xE1n h\u1ECDc" (t\xF9y ch\u1ECDn n\u1EBFu ch\u1EC9 mu\u1ED1n gom ri\xEAng 1 m\xF4n)
+      }
+      V\xED d\u1EE5:
+      \`\`\`json:action
+      {
+        "type": "SYSTEM_OPERATION",
+        "label": "Di chuy\u1EC3n b\xE0i thi v\xE0o th\u01B0 m\u1EE5c chuy\xEAn m\xF4n",
+        "params": {
+          "operation": "organize_exams_into_folders",
+          "excludePatterns": ["json m\u1EABu", "teswallet"],
+          "groupBy": "subject"
+        }
+      }
+      \`\`\`
+    - "scan_health": Qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u
+    - "repair_health": S\u1EEDa l\u1ED7i d\u1EEF li\u1EC7u
+    - "rebuild_stats": T\xE1i t\u1EA1o th\u1ED1ng k\xEA h\u1EC7 th\u1ED1ng
+    - "update_settings": C\u1EADp nh\u1EADt c\xE0i \u0111\u1EB7t
+    - "toggle_theme": \u0110\u1ED5i theme s\xE1ng/t\u1ED1i
+    - "toggle_sidebar": Thu g\u1ECDn/m\u1EDF r\u1ED9ng sidebar
+    - "reload": T\u1EA3i l\u1EA1i trang
 
-27. "WORKFLOW": K\u1ECACH B\u1EA2N MAKE.COM \u0110A B\u01AF\u1EDAC (Multi-step Automation Workflow).
+27. "CREATE_FOLDER": T\u1EA1o th\u01B0 m\u1EE5c m\u1EDBi \u0111\u1EC3 ph\xE2n lo\u1EA1i v\xE0 qu\u1EA3n l\xFD b\xE0i thi trong Drive.
+    Thu\u1ED9c t\xEDnh: "params": { "name": "T\xEAn th\u01B0 m\u1EE5c", "parentId"?: string | null, "color"?: "blue" | "emerald" | "amber" | "rose" | "purple" | "indigo", "description"?: "M\xF4 t\u1EA3", "isPublic"?: false }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "CREATE_FOLDER",
+      "label": "T\u1EA1o th\u01B0 m\u1EE5c \u0110\u1EC1 thi To\xE1n h\u1ECDc",
+      "params": { "name": "To\xE1n h\u1ECDc", "color": "blue" }
+    }
+    \`\`\`
+
+28. "MOVE_EXAM": Di chuy\u1EC3n 1 b\xE0i thi v\xE0o th\u01B0 m\u1EE5c (ho\u1EB7c \u0111\u01B0a ra ngo\xE0i Drive ch\xEDnh n\u1EBFu folderId l\xE0 null).
+    Thu\u1ED9c t\xEDnh: "params": { "examId": "id_b\xE0i_thi", "folderId"?: "id_th\u01B0_m\u1EE5c" | null, "targetFolderName"?: "T\xEAn th\u01B0 m\u1EE5c" }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "MOVE_EXAM",
+      "label": "Chuy\u1EC3n b\xE0i thi v\xE0o th\u01B0 m\u1EE5c To\xE1n h\u1ECDc",
+      "params": { "examId": "exam_123", "targetFolderName": "To\xE1n h\u1ECDc" }
+    }
+    \`\`\`
+
+29. "MOVE_EXAMS_TO_FOLDER": Di chuy\u1EC3n danh s\xE1ch nhi\u1EC1u b\xE0i thi v\xE0o m\u1ED9t th\u01B0 m\u1EE5c x\xE1c \u0111\u1ECBnh.
+    Thu\u1ED9c t\xEDnh: "params": { "examIds": ["id_1", "id_2"], "folderId"?: "id_th\u01B0_m\u1EE5c" | null, "targetFolderName"?: "T\xEAn th\u01B0 m\u1EE5c" }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "MOVE_EXAMS_TO_FOLDER",
+      "label": "Di chuy\u1EC3n b\xE0i thi v\xE0o th\u01B0 m\u1EE5c Ti\u1EBFng Anh",
+      "params": { "examIds": ["ex_1", "ex_2"], "targetFolderName": "Ti\u1EBFng Anh" }
+    }
+    \`\`\`
+
+30. "WORKFLOW": K\u1ECACH B\u1EA2N MAKE.COM \u0110A B\u01AF\u1EDAC (Multi-step Automation Workflow).
     Khi Admin \u0111\u01B0a ra y\xEAu c\u1EA7u ph\u1EE9c t\u1EA1p g\u1ED3m nhi\u1EC1u b\u01B0\u1EDBc (v\xED d\u1EE5: "T\u1EA1o voucher gi\u1EA3m 20K r\u1ED3i t\u1EA1o \u0111\u1EC1 thi To\xE1n 15 ph\xFAt sau \u0111\xF3 giao b\xE0i cho l\u1EDBp 12A1 v\xE0 chuy\u1EC3n sang danh s\xE1ch \u0111\u1EC1"): B\u1EA0N PH\u1EA2I GOM TH\xC0NH M\u1ED8T WORKFLOW DUY NH\u1EA4T ch\u1EE9a danh s\xE1ch c\xE1c b\u01B0\u1EDBc "steps".
     Quy t\u1EAFc truy\u1EC1n bi\u1EBFn ki\u1EC3u Make.com (Variable Chaining):
     - C\xE1c b\u01B0\u1EDBc sau c\xF3 th\u1EC3 tham chi\u1EBFu k\u1EBFt qu\u1EA3 b\u01B0\u1EDBc tr\u01B0\u1EDBc b\u1EB1ng c\xFA ph\xE1p {{step_id.thu\u1ED9c_t\xEDnh}} ho\u1EB7c {{examId}}, {{voucherCode}}, {{prev.examId}}.

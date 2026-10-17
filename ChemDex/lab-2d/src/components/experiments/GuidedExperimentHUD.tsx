@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLabStore } from '../../store/useLabStore';
-import { CheckCircle2, Circle, ChevronRight, ChevronLeft, HelpCircle, Lightbulb, BookOpen } from 'lucide-react';
+import { CheckCircle2, Circle, ChevronRight, ChevronLeft, HelpCircle, Lightbulb, BookOpen, Activity } from 'lucide-react';
 
 export const GuidedExperimentHUD: React.FC = () => {
   const {
@@ -11,6 +11,7 @@ export const GuidedExperimentHUD: React.FC = () => {
     prevStep,
     language,
     selectExperiment,
+    toggleTitrationCurve,
   } = useLabStore();
 
   const [showTheory, setShowTheory] = useState(false);
@@ -83,6 +84,16 @@ export const GuidedExperimentHUD: React.FC = () => {
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{language === 'vi' ? (showTheory ? 'Ẩn lý thuyết' : 'Xem lý thuyết hóa học') : (showTheory ? 'Hide theory' : 'View chemistry theory')}</span>
+              </button>
+            )}
+            {activeExperiment.id === 'exp-titration' && (
+              <button
+                onClick={() => toggleTitrationCurve(true)}
+                className="flex items-center gap-1 text-[11px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 hover:bg-emerald-100 transition-colors"
+                title={language === 'vi' ? 'Mở biểu đồ đường cong chuẩn độ trực tiếp' : 'Open live titration curve graph'}
+              >
+                <Activity className="w-3.5 h-3.5" />
+                <span>{language === 'vi' ? 'Đồ thị chuẩn độ' : 'Titration Curve'}</span>
               </button>
             )}
           </div>

@@ -7,119 +7,451 @@ interface BeakerSvgProps {
 }
 
 export const BeakerSvg: React.FC<BeakerSvgProps> = ({ equipment, isSelected }) => {
-  const { volume_ml, capacity_ml, liquidColorHex = '#f8fafc', hasPrecipitate, precipitateColorHex = '#ffffff', hasGas, isBoiling } = equipment;
-  
+  const {
+    id,
+    volume_ml,
+    capacity_ml = 250,
+    liquidColorHex = '#f8fafc',
+    hasPrecipitate,
+    precipitateColorHex = '#ffffff',
+    precipitateMorphology = 'powder',
+    precipitateMass_g = 0.5,
+    hasGas,
+    effervescenceSpeed = 'vigorous',
+    isBoiling,
+    hasPhaseSeparation,
+    organicLayerVolume_ml = 0,
+    organicLayerColorHex = '#f8fafc',
+    hasFumes,
+    fumeType = 'steam',
+    fumeColorHex = '#cbd5e1',
+  } = equipment;
+
   const fillRatio = Math.min(1.0, Math.max(0, volume_ml / capacity_ml));
-  const liquidHeight = fillRatio * 110; // Max liquid height in beaker body
-  const liquidY = 140 - liquidHeight;
+  const maxLiquidHeight = 112; // Max liquid height inside beaker
+  const totalLiquidHeight = fillRatio * maxLiquidHeight;
+  const liquidY = 138 - totalLiquidHeight;
+
+  // Organic layer calculation if immiscible
+  const organicRatio = hasPhaseSeparation && volume_ml > 0
+    ? Math.min(0.5, organicLayerVolume_ml / volume_ml)
+    : 0;
+  const organicHeight = organicRatio * totalLiquidHeight;
+  const aqueousHeight = totalLiquidHeight - organicHeight;
+  const aqueousY = 138 - aqueousHeight;
+
+  // Precipitate sediment thickness based on mass
+  const sedimentHeight = Math.min(18, Math.max(3, precipitateMass_g * 6));
 
   return (
-    <svg viewBox="0 0 140 160" width={equipment.width} height={equipment.height} className="overflow-visible select-none drop-shadow-sm">
+    <svg
+      viewBox="0 0 140 165"
+      width={equipment.width}
+      height={equipment.height}
+      className="overflow-visible select-none drop-shadow-md"
+    >
       <defs>
-        {/* Glass reflection gradient */}
-        <linearGradient id="beakerGlass" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
-          <stop offset="15%" stopColor="#e2e8f0" stopOpacity="0.4" />
-          <stop offset="85%" stopColor="#cbd5e1" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.7" />
+        {/* 3D Glass Cylindrical Gradient */}
+        <linearGradient id={`beakerGlass-${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+          <stop offset="12%" stopColor="#f1f5f9" stopOpacity="0.35" />
+          <stop offset="50%" stopColor="#e2e8f0" stopOpacity="0.12" />
+          <stop offset="88%" stopColor="#cbd5e1" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.75" />
         </linearGradient>
 
-        {/* Liquid depth gradient */}
-        <linearGradient id={`beakerLiquid-${equipment.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+        {/* Liquid Shading (Depth & Volume) */}
+        <linearGradient id={`beakerLiquidGrad-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor={liquidColorHex} stopOpacity="0.75" />
-          <stop offset="100%" stopColor={liquidColorHex} stopOpacity="0.95" />
+          <stop offset="65%" stopColor={liquidColorHex} stopOpacity="0.88" />
+          <stop offset="100%" stopColor={liquidColorHex} stopOpacity="0.96" />
         </linearGradient>
 
-        <clipPath id={`beakerClip-${equipment.id}`}>
-          <path d="M 22 25 L 22 135 Q 22 145 32 145 L 108 145 Q 118 145 118 135 L 118 25 Z" />
+        {/* Organic Upper Phase Layer */}
+        <linearGradient id={`beakerOrganicGrad-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={organicLayerColorHex} stopOpacity="0.8" />
+          <stop offset="100%" stopColor={organicLayerColorHex} stopOpacity="0.9" />
+        </linearGradient>
+
+        {/* Inner Glass Clip Path */}
+        <clipPath id={`beakerClip-${id}`}>
+          <path d="M 22 22 L 22 136 Q 22 144 32 144 L 108 144 Q 118 144 118 136 L 118 22 Z" />
         </clipPath>
+
+        {/* Steam / Fume Glow Filter */}
+        <filter id={`fumeBlur-${id}`} x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" />
+        </filter>
       </defs>
 
-      {/* Selection outline */}
+      {/* Selection Glow Indicator */}
       {isSelected && (
-        <rect x="12" y="15" width="116" height="136" rx="14" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeDasharray="5 3" className="animate-pulse" />
+        <rect
+          x="12"
+          y="12"
+          width="116"
+          height="140"
+          rx="14"
+          fill="none"
+          stroke="#3b82f6"
+          strokeWidth="2.5"
+          strokeDasharray="6 4"
+          className="animate-pulse"
+        />
       )}
 
-      {/* Liquid Body (Clipped inside beaker) */}
-      <g clipPath={`url(#beakerClip-${equipment.id})`}>
-        {liquidHeight > 0 && (
+      {/* Bench Shadow Beneath Beaker */}
+      <ellipse cx="70" cy="148" rx="50" ry="6" fill="#0f172a" fillOpacity="0.12" />
+
+      {/* Liquid Contents Clipped to Glass Interior */}
+      <g clipPath={`url(#beakerClip-${id})`}>
+        {totalLiquidHeight > 0 && (
           <g>
+            {/* Aqueous Phase Body */}
             <rect
               x="20"
-              y={liquidY}
+              y={aqueousY}
               width="100"
-              height={liquidHeight + 10}
-              fill={`url(#beakerLiquid-${equipment.id})`}
-            />
-            {/* Meniscus Curve */}
-            <path
-              d={`M 20 ${liquidY} Q 70 ${liquidY + 4} 120 ${liquidY} L 120 ${liquidY + 6} Q 70 ${liquidY + 8} 20 ${liquidY + 6} Z`}
-              fill="#ffffff"
-              fillOpacity="0.45"
+              height={aqueousHeight + 10}
+              fill={`url(#beakerLiquidGrad-${id})`}
             />
 
-            {/* Precipitate sediment particles at bottom */}
-            {hasPrecipitate && (
+            {/* Aqueous Meniscus */}
+            <ellipse
+              cx="70"
+              cy={aqueousY}
+              rx="48"
+              ry="4.5"
+              fill={liquidColorHex}
+              fillOpacity="0.9"
+            />
+            <path
+              d={`M 22 ${aqueousY} Q 70 ${aqueousY + 3.5} 118 ${aqueousY}`}
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="1.2"
+              strokeOpacity="0.6"
+            />
+
+            {/* Immiscible Organic Layer (if ester/oil present) */}
+            {hasPhaseSeparation && organicHeight > 0 && (
               <g>
-                <rect x="22" y="138" width="96" height="7" rx="3" fill={precipitateColorHex} fillOpacity="0.9" />
-                <circle cx="35" cy="136" r="3" fill={precipitateColorHex} />
-                <circle cx="50" cy="134" r="3.5" fill={precipitateColorHex} />
-                <circle cx="68" cy="135" r="4" fill={precipitateColorHex} />
-                <circle cx="85" cy="133" r="3" fill={precipitateColorHex} />
-                <circle cx="102" cy="136" r="3.5" fill={precipitateColorHex} />
+                <rect
+                  x="20"
+                  y={liquidY}
+                  width="100"
+                  height={organicHeight + 2}
+                  fill={`url(#beakerOrganicGrad-${id})`}
+                />
+                {/* Organic Upper Meniscus */}
+                <ellipse
+                  cx="70"
+                  cy={liquidY}
+                  rx="48"
+                  ry="4.5"
+                  fill="#ffffff"
+                  fillOpacity="0.4"
+                />
+                <path
+                  d={`M 22 ${liquidY} Q 70 ${liquidY + 3.5} 118 ${liquidY}`}
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth="1.5"
+                  strokeOpacity="0.75"
+                />
+                {/* Interface Boundary Line */}
+                <path
+                  d={`M 22 ${liquidY + organicHeight} Q 70 ${liquidY + organicHeight + 2.5} 118 ${liquidY + organicHeight}`}
+                  fill="none"
+                  stroke="#94a3b8"
+                  strokeWidth="1"
+                  strokeOpacity="0.5"
+                  strokeDasharray="2 1"
+                />
               </g>
             )}
 
-            {/* Rising Gas Bubbles */}
+            {/* Precipitate Sediment at Bottom */}
+            {hasPrecipitate && (
+              <g>
+                {/* Dense Bed */}
+                <path
+                  d={`M 22 ${144 - sedimentHeight} Q 70 ${144 - sedimentHeight + 2} 118 ${144 - sedimentHeight} L 118 144 L 22 144 Z`}
+                  fill={precipitateColorHex}
+                  fillOpacity="0.95"
+                />
+                {/* Textured clumps / crystals depending on morphology */}
+                {precipitateMorphology === 'curdy' ? (
+                  // Chunky curdy flakes (AgCl)
+                  <g fill={precipitateColorHex}>
+                    <circle cx="34" cy={142 - sedimentHeight} r="4.5" />
+                    <circle cx="48" cy={140 - sedimentHeight} r="5" />
+                    <circle cx="65" cy={141 - sedimentHeight} r="5.5" />
+                    <circle cx="82" cy={139 - sedimentHeight} r="4.5" />
+                    <circle cx="98" cy={141 - sedimentHeight} r="5" />
+                    <circle cx="106" cy={143 - sedimentHeight} r="3.5" />
+                  </g>
+                ) : precipitateMorphology === 'crystalline' ? (
+                  // Sparkling crystalline spangles (PbI2 golden flakes)
+                  <g fill="#fef08a" stroke="#d97706" strokeWidth="0.5">
+                    <polygon points={`38,${142 - sedimentHeight} 41,${145 - sedimentHeight} 35,${145 - sedimentHeight}`} />
+                    <polygon points={`55,${140 - sedimentHeight} 58,${143 - sedimentHeight} 52,${143 - sedimentHeight}`} />
+                    <polygon points={`72,${141 - sedimentHeight} 76,${144 - sedimentHeight} 69,${144 - sedimentHeight}`} />
+                    <polygon points={`90,${139 - sedimentHeight} 94,${142 - sedimentHeight} 87,${142 - sedimentHeight}`} />
+                    <polygon points={`104,${141 - sedimentHeight} 107,${144 - sedimentHeight} 101,${144 - sedimentHeight}`} />
+                  </g>
+                ) : precipitateMorphology === 'gel' ? (
+                  // Soft billowy gelatinous mounds (Al(OH)3, Cu(OH)2)
+                  <g fill={precipitateColorHex} fillOpacity="0.85">
+                    <ellipse cx="42" cy={143 - sedimentHeight} rx="12" ry="5" />
+                    <ellipse cx="68" cy={141 - sedimentHeight} rx="15" ry="6" />
+                    <ellipse cx="95" cy={142 - sedimentHeight} rx="13" ry="5" />
+                  </g>
+                ) : (
+                  // Smooth powder/fine grains (CuO, BaSO4)
+                  <g fill={precipitateColorHex}>
+                    <ellipse cx="45" cy={143 - sedimentHeight} rx="8" ry="2.5" />
+                    <ellipse cx="70" cy={142 - sedimentHeight} rx="10" ry="3" />
+                    <ellipse cx="94" cy={143 - sedimentHeight} rx="8" ry="2.5" />
+                  </g>
+                )}
+
+                {/* Floating suspension particles drifting down */}
+                <g fill={precipitateColorHex} fillOpacity="0.75" className="animate-pulse">
+                  <circle cx="36" cy={liquidY + 25} r="2" />
+                  <circle cx="58" cy={liquidY + 45} r="2.5" />
+                  <circle cx="78" cy={liquidY + 30} r="2" />
+                  <circle cx="96" cy={liquidY + 55} r="2.5" />
+                  <circle cx="48" cy={liquidY + 68} r="1.8" />
+                  <circle cx="84" cy={liquidY + 75} r="2.2" />
+                </g>
+              </g>
+            )}
+
+            {/* Rising Gas Bubbles (Multi-column particle stream) */}
             {hasGas && (
               <g className="animate-pulse">
-                <circle cx="40" cy={liquidY + 30} r="2.5" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="60" cy={liquidY + 15} r="3" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="75" cy={liquidY + 45} r="2" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="90" cy={liquidY + 25} r="3.5" fill="#ffffff" fillOpacity="0.8" />
-                <circle cx="55" cy={liquidY + 60} r="2.5" fill="#ffffff" fillOpacity="0.8" />
+                {/* Column 1 */}
+                <circle cx="35" cy={liquidY + 18} r="2" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="38" cy={liquidY + 42} r="2.5" fill="#ffffff" fillOpacity="0.8" />
+                <circle cx="33" cy={liquidY + 68} r="3" fill="#ffffff" fillOpacity="0.75" />
+                <circle cx="36" cy={liquidY + 92} r="2" fill="#ffffff" fillOpacity="0.7" />
+
+                {/* Column 2 */}
+                <circle cx="58" cy={liquidY + 12} r="2.8" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="54" cy={liquidY + 35} r="2.2" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="61" cy={liquidY + 58} r="3.2" fill="#ffffff" fillOpacity="0.8" />
+                <circle cx="56" cy={liquidY + 84} r="2.5" fill="#ffffff" fillOpacity="0.75" />
+
+                {/* Column 3 */}
+                <circle cx="82" cy={liquidY + 15} r="3.2" fill="#ffffff" fillOpacity="0.9" />
+                <circle cx="85" cy={liquidY + 38} r="2" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="79" cy={liquidY + 64} r="2.8" fill="#ffffff" fillOpacity="0.8" />
+                <circle cx="83" cy={liquidY + 88} r="3.5" fill="#ffffff" fillOpacity="0.75" />
+
+                {/* Column 4 */}
+                <circle cx="102" cy={liquidY + 22} r="2.5" fill="#ffffff" fillOpacity="0.85" />
+                <circle cx="98" cy={liquidY + 48} r="3" fill="#ffffff" fillOpacity="0.8" />
+                <circle cx="104" cy={liquidY + 72} r="2.2" fill="#ffffff" fillOpacity="0.75" />
+              </g>
+            )}
+
+            {/* Boiling Turbulent Agitation */}
+            {isBoiling && (
+              <g className="animate-bounce" opacity="0.8">
+                <circle cx="45" cy={liquidY + 6} r="4" fill="#ffffff" fillOpacity="0.7" />
+                <circle cx="72" cy={liquidY + 4} r="5" fill="#ffffff" fillOpacity="0.7" />
+                <circle cx="95" cy={liquidY + 7} r="4.5" fill="#ffffff" fillOpacity="0.7" />
+              </g>
+            )}
+
+            {/* Magnetic Stirring Vortex & Flea */}
+            {equipment.isStirred && (
+              <g>
+                <ellipse
+                  cx="70"
+                  cy={liquidY + 2}
+                  rx="14"
+                  ry="4"
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth="1.5"
+                  strokeOpacity="0.8"
+                />
+                <g className="animate-spin" style={{ transformOrigin: '70px 140px', animationDuration: '0.35s' }}>
+                  <rect
+                    x="56"
+                    y="138"
+                    width="28"
+                    height="5"
+                    rx="2.5"
+                    fill="#ffffff"
+                    stroke="#64748b"
+                    strokeWidth="1"
+                    className="drop-shadow-xs"
+                  />
+                  <rect x="68" y="138" width="4" height="5" fill="#94a3b8" />
+                </g>
               </g>
             )}
           </g>
         )}
       </g>
 
-      {/* Beaker Glass Body */}
+      {/* Beaker Glass Base (Thick Pyrex Bottom) */}
       <path
-        d="M 16 20 L 22 25 L 22 135 Q 22 145 32 145 L 108 145 Q 118 145 118 135 L 118 20"
-        fill="url(#beakerGlass)"
+        d="M 22 136 L 22 143 Q 22 145 32 145 L 108 145 Q 118 145 118 143 L 118 136 Z"
+        fill="#cbd5e1"
+        fillOpacity="0.4"
         stroke="#64748b"
+        strokeWidth="1.5"
+      />
+
+      {/* Main Beaker Glass Walls */}
+      <path
+        d="M 16 18 L 22 22 L 22 136 Q 22 144 32 144 L 108 144 Q 118 144 118 136 L 118 22 L 122 18"
+        fill={`url(#beakerGlass-${id})`}
+        stroke="#475569"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
 
-      {/* Beaker Lip / Spout */}
-      <path d="M 16 20 Q 22 22 26 21" stroke="#64748b" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      <path d="M 114 21 Q 118 22 122 20" stroke="#64748b" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      {/* Pouring Spout Detail */}
+      <path
+        d="M 14 18 Q 20 20 24 19"
+        stroke="#475569"
+        strokeWidth="2.5"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 116 19 Q 120 20 124 18"
+        stroke="#475569"
+        strokeWidth="2.5"
+        fill="none"
+        strokeLinecap="round"
+      />
 
-      {/* Graduated Scale Markings (50, 100, 150, 200 mL) */}
-      <line x1="22" y1="118" x2="38" y2="118" stroke="#64748b" strokeWidth="1.5" />
-      <text x="42" y="121" fontSize="9" fill="#64748b" fontFamily="sans-serif">50</text>
+      {/* Beaker Rim Highlight */}
+      <path
+        d="M 24 22 L 116 22"
+        stroke="#ffffff"
+        strokeWidth="2"
+        strokeOpacity="0.8"
+        strokeLinecap="round"
+      />
 
-      <line x1="22" y1="92" x2="42" y2="92" stroke="#64748b" strokeWidth="2" />
-      <text x="46" y="95" fontSize="9" fill="#64748b" fontFamily="sans-serif" fontWeight="bold">100</text>
+      {/* Frosted Marking Area Window */}
+      <rect
+        x="62"
+        y="60"
+        width="28"
+        height="22"
+        rx="2"
+        fill="#ffffff"
+        fillOpacity="0.35"
+        stroke="#cbd5e1"
+        strokeWidth="0.8"
+      />
+      <text
+        x="76"
+        y="72"
+        fontSize="6"
+        fill="#64748b"
+        fontFamily="sans-serif"
+        fontWeight="bold"
+        textAnchor="middle"
+      >
+        PYREX
+      </text>
+      <text
+        x="76"
+        y="79"
+        fontSize="5"
+        fill="#64748b"
+        fontFamily="sans-serif"
+        textAnchor="middle"
+      >
+        250 mL
+      </text>
 
-      <line x1="22" y1="66" x2="38" y2="66" stroke="#64748b" strokeWidth="1.5" />
-      <text x="42" y="69" fontSize="9" fill="#64748b" fontFamily="sans-serif">150</text>
+      {/* Laser-Etched Graduations (50, 100, 150, 200 mL) */}
+      <g stroke="#475569" fontFamily="monospace" fontSize="8" fontWeight="bold">
+        {/* 50 mL */}
+        <line x1="22" y1="116" x2="38" y2="116" strokeWidth="1.5" />
+        <text x="42" y="119" fill="#475569">50</text>
 
-      <line x1="22" y1="40" x2="42" y2="40" stroke="#64748b" strokeWidth="2" />
-      <text x="46" y="43" fontSize="9" fill="#64748b" fontFamily="sans-serif" fontWeight="bold">200</text>
+        {/* 100 mL */}
+        <line x1="22" y1="92" x2="44" y2="92" strokeWidth="2" />
+        <text x="48" y="95" fill="#334155">100</text>
 
-      {/* Glass Light Reflection Streak */}
-      <path d="M 108 30 L 108 130" stroke="#ffffff" strokeWidth="2.5" strokeOpacity="0.75" strokeLinecap="round" />
+        {/* 150 mL */}
+        <line x1="22" y1="68" x2="38" y2="68" strokeWidth="1.5" />
+        <text x="42" y="71" fill="#475569">150</text>
 
-      {/* Boiling Steam Wisps */}
-      {isBoiling && (
-        <g className="animate-bounce" opacity="0.6">
-          <path d="M 45 15 Q 50 5 45 -5" stroke="#94a3b8" strokeWidth="2" fill="none" strokeLinecap="round" />
-          <path d="M 70 12 Q 75 2 70 -8" stroke="#94a3b8" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-          <path d="M 95 15 Q 100 5 95 -5" stroke="#94a3b8" strokeWidth="2" fill="none" strokeLinecap="round" />
+        {/* 200 mL */}
+        <line x1="22" y1="44" x2="44" y2="44" strokeWidth="2" />
+        <text x="48" y="47" fill="#334155">200</text>
+      </g>
+
+      {/* Primary Specular Light Glint Streak (Right Wall) */}
+      <path
+        d="M 112 28 L 112 132"
+        stroke="#ffffff"
+        strokeWidth="3.5"
+        strokeOpacity="0.85"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 114 36 L 114 124"
+        stroke="#ffffff"
+        strokeWidth="1.2"
+        strokeOpacity="0.95"
+        strokeLinecap="round"
+      />
+
+      {/* Secondary Rim Glint Streak (Left Wall) */}
+      <path
+        d="M 25 32 L 25 130"
+        stroke="#ffffff"
+        strokeWidth="1.5"
+        strokeOpacity="0.5"
+        strokeLinecap="round"
+      />
+
+      {/* Curling Steam / Chemical Fumes Rising Above Vessel */}
+      {(hasFumes || isBoiling) && (
+        <g
+          filter={`url(#fumeBlur-${id})`}
+          className="animate-pulse"
+          opacity={fumeType === 'no2' ? 0.85 : 0.65}
+        >
+          {fumeType === 'no2' ? (
+            // Dense billowing reddish-brown NO2 gas clouds
+            <g fill={fumeColorHex}>
+              <ellipse cx="45" cy="5" rx="18" ry="10" />
+              <ellipse cx="70" cy="-2" rx="22" ry="12" />
+              <ellipse cx="95" cy="4" rx="19" ry="10" />
+              <ellipse cx="60" cy="-14" rx="20" ry="11" />
+              <ellipse cx="80" cy="-16" rx="22" ry="12" />
+            </g>
+          ) : fumeType === 'nh4cl' ? (
+            // Dense swirling white smoke
+            <g fill="#ffffff">
+              <ellipse cx="50" cy="8" rx="15" ry="8" />
+              <ellipse cx="72" cy="2" rx="18" ry="10" />
+              <ellipse cx="90" cy="7" rx="16" ry="8" />
+              <ellipse cx="65" cy="-8" rx="18" ry="9" />
+            </g>
+          ) : (
+            // Steam wisps
+            <g stroke={fumeColorHex} strokeWidth="3" fill="none" strokeLinecap="round">
+              <path d="M 45 14 Q 50 2 45 -12 Q 40 -26 50 -38" />
+              <path d="M 70 12 Q 78 -2 70 -16 Q 62 -30 72 -42" strokeWidth="4" />
+              <path d="M 95 14 Q 102 2 95 -12 Q 88 -26 96 -38" />
+            </g>
+          )}
         </g>
       )}
     </svg>

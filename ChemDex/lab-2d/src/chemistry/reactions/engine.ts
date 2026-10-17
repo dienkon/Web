@@ -142,6 +142,8 @@ export function runSimulationCycle(
 
       reactionsOccurred.push({
         reactionId: rx.id,
+        name_en: rx.name_en,
+        name_vi: rx.name_vi,
         equation: rx.equation,
         extent_moles: Math.round(xi * 100000) / 100000,
         heatReleased_J: thermalResult.heatReleased_J,
@@ -156,6 +158,75 @@ export function runSimulationCycle(
     }
 
     if (!matchedReactionThisPass) break;
+  }
+
+  // --- INSTANT HEURISTIC RULE-BASED SOLVER ---
+  // If no predefined reaction was matched, but multiple active reagents meet,
+  // resolve instantly by fundamental inorganic chemistry rules (Acid-Base, Precipitation, Gas evolution).
+  if (reactionsOccurred.length === 0 && workingContents.length >= 2) {
+    // 1. General Acid-Base Neutralization
+    const acidFormulas: Record<string, { norm: string; protons: number; conjugate: string }> = {
+      'HCL': { norm: 'HCL', protons: 1, conjugate: 'CL' },
+      'HNO3': { norm: 'HNO3', protons: 1, conjugate: 'NO3' },
+      'H2SO4': { norm: 'H2SO4', protons: 2, conjugate: 'SO4' },
+      'CH3COOH': { norm: 'CH3COOH', protons: 1, conjugate: 'CH3COO' },
+    };
+    const baseFormulas: Record<string, { norm: string; hydroxides: number; cation: string }> = {
+      'NAOH': { norm: 'NAOH', hydroxides: 1, cation: 'NA' },
+      'KOH': { norm: 'KOH', hydroxides: 1, cation: 'K' },
+      'BA(OH)2': { norm: 'BA(OH)2', hydroxides: 2, cation: 'BA' },
+      'CA(OH)2': { norm: 'CA(OH)2', hydroxides: 2, cation: 'CA' },
+      'NH3': { norm: 'NH3', hydroxides: 1, cation: 'NH4' },
+    };
+
+    const acidItem = workingContents.find(c => acidFormulas[normalizeFormula(c.formula)] && c.moles > 1e-6);
+    const baseItem = workingContents.find(c => baseFormulas[normalizeFormula(c.formula)] && c.moles > 1e-6);
+
+    if (acidItem && baseItem) {
+      const aInfo = acidFormulas[normalizeFormula(acidItem.formula)];
+      const bInfo = baseFormulas[normalizeFormula(baseItem.formula)];
+
+      const availableH = acidItem.moles * aInfo.protons;
+      const availableOH = baseItem.moles * bInfo.hydroxides;
+      const extentM = Math.min(availableH, availableOH);
+
+      if (extentM > 1e-6) {
+        acidItem.moles = Math.max(0, acidItem.moles - extentM / aInfo.protons);
+        acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
+
+        baseItem.moles = Math.max(0, baseItem.moles - extentM / bInfo.hydroxides);
+        baseItem.mass_g = baseItem.moles * computeMolarMass(baseItem.formula);
+
+        // Water produced
+        const waterItem = workingContents.find(c => normalizeFormula(c.formula) === 'H2O');
+        if (waterItem) {
+          waterItem.moles += extentM;
+          waterItem.mass_g = waterItem.moles * 18.015;
+        }
+
+        // Exothermic neutralization DeltaH = -57.1 kJ/mol H+
+        const solutionMass = Math.max(10.0, volume_ml);
+        const thermalResult = calculateReactionDeltaT(extentM, -57.1, solutionMass, temp_c);
+        temp_c = thermalResult.finalTemp_c;
+        if (thermalResult.isBoiling) isBoiling = true;
+
+        reactionsOccurred.push({
+          reactionId: `rx_heuristic_neutralization_${Date.now()}`,
+          name_en: `Neutralization of ${acidItem.formula} and ${baseItem.formula}`,
+          name_vi: `Phản ứng trung hòa giữa ${acidItem.formula} và ${baseItem.formula}`,
+          equation: `${acidItem.formula} + ${baseItem.formula} → Muối + H₂O`,
+          extent_moles: Math.round(extentM * 10000) / 10000,
+          heatReleased_J: thermalResult.heatReleased_J,
+          limitingReactant: availableH < availableOH ? acidItem.formula : baseItem.formula,
+          excessReactants: {
+            [acidItem.formula]: acidItem.moles,
+            [baseItem.formula]: baseItem.moles,
+          },
+          observable_en: `Exothermic neutralization between ${acidItem.formula} and ${baseItem.formula}.`,
+          observable_vi: `Phản ứng trung hòa tỏa nhiệt giữa ${acidItem.formula} và ${baseItem.formula}.`,
+        });
+      }
+    }
   }
 
   // Filter out completely consumed species (except water solvent)
@@ -210,6 +281,34 @@ export function runSimulationCycle(
     finalLiquidColorHex = getIndicatorColor('universal', finalPh);
   }
 
+  // Check for immiscible phase separation (e.g. ester layer floating on water)
+  const esterItem = updatedContents.find(
+    c => c.formula.toUpperCase().includes('CH3COOC2H5') || c.formula.toUpperCase().includes('EST')
+  );
+  const hasPhaseSeparation = Boolean(esterItem && esterItem.mass_g > 0.05 && volume_ml > 5);
+  const organicLayerVolume_ml = hasPhaseSeparation
+    ? Math.max(3, Math.min(volume_ml * 0.45, (esterItem!.mass_g / 0.9)))
+    : undefined;
+
+  // Check for fumes / smoke effects
+  let hasFumes = false;
+  let fumeType: 'steam' | 'no2' | 'nh4cl' | 'iodine' | undefined = undefined;
+  let fumeColorHex = '#cbd5e1';
+
+  if (gasInfoFinal?.formula === 'NO2') {
+    hasFumes = true;
+    fumeType = 'no2';
+    fumeColorHex = '#b45309'; // Red-brown NO2 gas
+  } else if (reactionsOccurred.some(r => r.reactionId === 'rx_nh3_hcl_smoke')) {
+    hasFumes = true;
+    fumeType = 'nh4cl';
+    fumeColorHex = '#ffffff'; // Dense white smoke
+  } else if (isBoiling || temp_c >= 75.0) {
+    hasFumes = true;
+    fumeType = 'steam';
+    fumeColorHex = '#e2e8f0'; // Steam wisps
+  }
+
   return {
     reactionsOccurred,
     updatedContents,
@@ -221,7 +320,14 @@ export function runSimulationCycle(
     hasGas: hasGasOccurred,
     gasInfo: gasInfoFinal,
     isBoiling,
-    isExplosion: false,
-    isDangerous: false,
+    isExplosion: reactionsOccurred.some(r => r.reactionId === 'rx_na_water_reaction'),
+    isDangerous: reactionsOccurred.some(r => r.reactionId.includes('dangerous') || r.reactionId.includes('na_water')),
+    hasPhaseSeparation,
+    organicLayerVolume_ml,
+    organicLayerColorHex: '#f8fafc',
+    hasFumes,
+    fumeType,
+    fumeColorHex,
   };
 }
+

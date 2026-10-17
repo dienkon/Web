@@ -7,6 +7,11 @@ import { createServer as createViteServer } from "vite";
 import fs from "fs";
 import { aiRouter } from "./src/services/ai/aiRouter.js";
 import { renderExamPageHtml } from "./src/services/server/examMetadata.js";
+import {
+  renderSocialPageHtml,
+  resolveSocialMetadataForUrl,
+  isSocialCrawler,
+} from "./src/services/server/socialMetadata.js";
 import { adminRouter } from "./server/routes/adminRoutes.js";
 import { authRouter } from "./server/routes/authRoutes.js";
 import { walletRouter } from "./server/routes/walletRoutes.js";
@@ -130,6 +135,73 @@ async function startServer() {
     }
   });
 
+  // Direct API handler for /api/meta (returns JSON or HTML metadata)
+  const directApiMetaHandler = async (
+    req: express.Request,
+    res: express.Response,
+  ) => {
+    const targetUrl = (req.query?.url || req.query?.path || "/") as string;
+    const proto = req.headers["x-forwarded-proto"] || req.protocol || "https";
+    const host =
+      req.headers["x-forwarded-host"] ||
+      req.headers["host"] ||
+      `localhost:${PORT}`;
+    const baseUrl = `${proto}://${host}`;
+
+    if (req.query?.format === "json") {
+      const meta = await resolveSocialMetadataForUrl({ url: targetUrl, baseUrl });
+      return res.json(meta);
+    }
+
+    const { html, status } = await renderSocialPageHtml({
+      url: targetUrl,
+      baseUrl,
+      isDev: process.env.NODE_ENV !== "production",
+    });
+
+    res.status(status);
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=60, stale-while-revalidate=300",
+    );
+    return res.send(html);
+  };
+
+  // Direct API handler for /api/voucher-meta
+  const directApiVoucherMetaHandler = async (
+    req: express.Request,
+    res: express.Response,
+  ) => {
+    const code = (req.query?.code || req.query?.voucher || "") as string;
+    const proto = req.headers["x-forwarded-proto"] || req.protocol || "https";
+    const host =
+      req.headers["x-forwarded-host"] ||
+      req.headers["host"] ||
+      `localhost:${PORT}`;
+    const baseUrl = `${proto}://${host}`;
+    const targetUrl = `/student/wallet?voucher=${encodeURIComponent(code)}`;
+
+    if (req.query?.format === "json") {
+      const meta = await resolveSocialMetadataForUrl({ url: targetUrl, baseUrl });
+      return res.json(meta);
+    }
+
+    const { html, status } = await renderSocialPageHtml({
+      url: targetUrl,
+      baseUrl,
+      isDev: process.env.NODE_ENV !== "production",
+    });
+
+    res.status(status);
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=60, stale-while-revalidate=300",
+    );
+    return res.send(html);
+  };
+
   // Direct API handler for /api/ai/exam-meta and /api/exam-meta
   const directApiExamMetaHandler = async (
     req: express.Request,
@@ -158,6 +230,8 @@ async function startServer() {
     return res.send(html);
   };
 
+  app.get("/api/meta", directApiMetaHandler);
+  app.get("/api/voucher-meta", directApiVoucherMetaHandler);
   app.get("/api/ai/exam-meta", directApiExamMetaHandler);
   app.get("/api/exam-meta", directApiExamMetaHandler);
 
@@ -166,13 +240,12 @@ async function startServer() {
     res.status(404).json({ error: "not_found", message: `API endpoint ${req.method} ${req.originalUrl} không tồn tại.` });
   });
 
-  // Dynamic Exam Open Graph & Social Preview Route handler
-  const handleExamMetaRoute = async (
+  // Dynamic Open Graph & Social Preview Route handler
+  const handleSocialMetaRoute = async (
     req: express.Request,
     res: express.Response,
     vite?: any,
   ) => {
-    const examId = req.params.examId;
     const proto = req.headers["x-forwarded-proto"] || req.protocol || "https";
     const host =
       req.headers["x-forwarded-host"] ||
@@ -193,8 +266,8 @@ async function startServer() {
         );
       }
 
-      const { html, status } = await renderExamPageHtml({
-        examId,
+      const { html, status } = await renderSocialPageHtml({
+        url: req.originalUrl || req.url,
         baseUrl,
         isDev: process.env.NODE_ENV !== "production",
         customTemplate,
@@ -208,7 +281,7 @@ async function startServer() {
       );
       return res.send(html);
     } catch (err) {
-      console.error("[server.ts] Error rendering dynamic exam page:", err);
+      console.error("[server.ts] Error rendering dynamic social page:", err);
       if (vite) {
         try {
           const raw = fs.readFileSync(
@@ -230,6 +303,40 @@ async function startServer() {
     }
   };
 
+  const socialPreviewRoutes = [
+    "/voucher/:code",
+    "/vouchers/:code",
+    "/student/voucher/:code",
+    "/student/wallet",
+    "/wallet",
+    "/student/exam/:examId/result/:submissionId",
+    "/parent/exams/:examId/submissions/:submissionId",
+    "/admin/exams/:examId/submissions/:submissionId",
+    "/student/exam/:examId/take",
+    "/student/exam/:examId",
+    "/exam/:examId",
+    "/parent/exams/:examId",
+    "/code-exam/:id",
+    "/student/journey",
+    "/journey",
+    "/student/escape-room",
+    "/escape-room",
+    "/student/practice",
+    "/practice",
+    "/student/community",
+    "/student/ai-tutor",
+    "/ai-tutor",
+    "/student/history",
+    "/student/profile",
+    "/student/tutorial/exam",
+    "/student/tutorial/result",
+    "/parent/dashboard",
+    "/exams",
+    "/login",
+    "/register",
+    "/legal-policy",
+  ];
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -240,22 +347,61 @@ async function startServer() {
       appType: "spa",
     });
 
-    // Dynamic Open Graph metadata route in dev mode
-    app.get("/student/exam/:examId", (req, res) =>
-      handleExamMetaRoute(req, res, vite),
-    );
+    // Explicit social routes in development
+    socialPreviewRoutes.forEach((route) => {
+      app.get(route, (req, res, next) => {
+        // If crawler or query includes voucher/code or specific link
+        const userAgent = req.headers["user-agent"] || "";
+        const hasVoucherQuery = Boolean(
+          req.query?.voucher || req.query?.code || req.query?.redeem
+        );
+        if (
+          isSocialCrawler(userAgent) ||
+          hasVoucherQuery ||
+          route.includes("/voucher") ||
+          route.includes("/result")
+        ) {
+          return handleSocialMetaRoute(req, res, vite);
+        }
+        next();
+      });
+    });
+
+    // Detect crawlers for any other path in dev mode
+    app.use((req, res, next) => {
+      const userAgent = req.headers["user-agent"] || "";
+      if (
+        req.method === "GET" &&
+        isSocialCrawler(userAgent) &&
+        !req.path.startsWith("/@") &&
+        !req.path.startsWith("/node_modules") &&
+        !req.path.startsWith("/src")
+      ) {
+        return handleSocialMetaRoute(req, res, vite);
+      }
+      next();
+    });
 
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
 
-    // Dynamic Open Graph metadata route in production
-    app.get("/student/exam/:examId", (req, res) =>
-      handleExamMetaRoute(req, res),
-    );
+    // Dynamic Open Graph metadata routes in production
+    socialPreviewRoutes.forEach((route) => {
+      app.get(route, (req, res) => handleSocialMetaRoute(req, res));
+    });
 
     app.use(express.static(distPath));
+
     app.get("*", (req, res) => {
+      const userAgent = req.headers["user-agent"] || "";
+      // If a social crawler requests ANY page or if query has voucher/code, render dynamic OG tags
+      const hasVoucherQuery = Boolean(
+        req.query?.voucher || req.query?.code || req.query?.redeem
+      );
+      if (isSocialCrawler(userAgent) || hasVoucherQuery) {
+        return handleSocialMetaRoute(req, res);
+      }
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

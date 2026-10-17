@@ -300,4 +300,951 @@ export const REACTION_DATABASE: ReactionDefinition[] = [
     observable_en: 'Upon heating above 65°C, the blue Cu(OH)2 precipitate turns into a dense black powder of CuO.',
     observable_vi: 'Khi đun nóng trên 65°C, kết tủa Cu(OH)₂ màu xanh lam nhanh chóng chuyển thành bột CuO màu đen lắng xuống.',
   },
+
+  // 12. HNO3 + NaOH -> NaNO3 + H2O
+  {
+    id: 'rx_hno3_naoh_neutralization',
+    name_en: 'Nitric Acid and Sodium Hydroxide Neutralization',
+    name_vi: 'Phản ứng trung hòa Axit nitric và Natri hiđroxit',
+    equation: 'HNO₃ + NaOH → NaNO₃ + H₂O',
+    ionic_equation: 'H⁺(aq) + OH⁻(aq) → H₂O(l)',
+    reactants: [
+      { formula: 'HNO3', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'NaNO3', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    deltaH_kJ_mol: -57.3,
+    visual: { colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true } },
+    observable_en: 'Clear solution warms up due to exothermic neutralization.',
+    observable_vi: 'Dung dịch trong suốt tỏa nhiệt ấm lên do phản ứng trung hòa.',
+  },
+
+  // 13. HCl + KOH -> KCl + H2O
+  {
+    id: 'rx_hcl_koh_neutralization',
+    name_en: 'Hydrochloric Acid and Potassium Hydroxide Neutralization',
+    name_vi: 'Phản ứng trung hòa Axit clohiđric và Kali hiđroxit',
+    equation: 'HCl + KOH → KCl + H₂O',
+    ionic_equation: 'H⁺(aq) + OH⁻(aq) → H₂O(l)',
+    reactants: [
+      { formula: 'HCl', coefficient: 1, state: 'aq' },
+      { formula: 'KOH', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'KCl', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    deltaH_kJ_mol: -57.1,
+    visual: { colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true } },
+    observable_en: 'Exothermic neutralization forming neutral KCl solution.',
+    observable_vi: 'Phản ứng tỏa nhiệt tạo dung dịch muối kali clorua trung tính.',
+  },
+
+  // 14. H2SO4 + 2KOH -> K2SO4 + 2H2O
+  {
+    id: 'rx_h2so4_koh_neutralization',
+    name_en: 'Sulfuric Acid and Potassium Hydroxide Neutralization',
+    name_vi: 'Phản ứng trung hòa Axit sunfuric và Kali hiđroxit',
+    equation: 'H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O',
+    ionic_equation: 'H⁺(aq) + OH⁻(aq) → H₂O(l)',
+    reactants: [
+      { formula: 'H2SO4', coefficient: 1, state: 'aq' },
+      { formula: 'KOH', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'K2SO4', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -114.2,
+    visual: { colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true } },
+    observable_en: 'Strongly exothermic neutralization.',
+    observable_vi: 'Phản ứng tỏa nhiệt mạnh tạo dung dịch K2SO4.',
+  },
+
+  // 15. Ba(OH)2 + H2SO4 -> BaSO4(s) + 2H2O
+  {
+    id: 'rx_baoh2_h2so4_precipitation',
+    name_en: 'Barium Hydroxide and Sulfuric Acid Simultaneous Neutralization and Precipitation',
+    name_vi: 'Phản ứng giữa Bari hiđroxit và Axit sunfuric vừa trung hòa vừa tạo kết tủa',
+    equation: 'Ba(OH)₂ + H₂SO₄ → BaSO₄↓ + 2H₂O',
+    ionic_equation: 'Ba²⁺(aq) + 2OH⁻(aq) + 2H⁺(aq) + SO₄²⁻(aq) → BaSO₄(s)↓ + 2H₂O(l)',
+    reactants: [
+      { formula: 'Ba(OH)2', coefficient: 1, state: 'aq' },
+      { formula: 'H2SO4', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'BaSO4', coefficient: 1, state: 's' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -130.0,
+    visual: {
+      precipitate: { formula: 'BaSO4', colorHex: '#ffffff', morphology: 'milky' },
+      colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true },
+    },
+    observable_en: 'Immediate dense milky white precipitate forms with release of heat. Conductivity drops sharply.',
+    observable_vi: 'Xuất hiện ngay kết tủa trắng sữa dày đặc BaSO4 và tỏa nhiệt mạnh.',
+  },
+
+  // 16. Ba(OH)2 + 2HCl -> BaCl2 + 2H2O
+  {
+    id: 'rx_baoh2_hcl_neutralization',
+    name_en: 'Barium Hydroxide and Hydrochloric Acid Neutralization',
+    name_vi: 'Phản ứng trung hòa Bari hiđroxit và Axit clohiđric',
+    equation: 'Ba(OH)₂ + 2HCl → BaCl₂ + 2H₂O',
+    ionic_equation: 'OH⁻(aq) + H⁺(aq) → H₂O(l)',
+    reactants: [
+      { formula: 'Ba(OH)2', coefficient: 1, state: 'aq' },
+      { formula: 'HCl', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'BaCl2', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -114.2,
+    visual: { colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true } },
+    observable_en: 'Neutralization forming clear barium chloride solution.',
+    observable_vi: 'Phản ứng trung hòa tỏa nhiệt tạo dung dịch muối bari clorua trong suốt.',
+  },
+
+  // 17. Ca(OH)2 + 2HCl -> CaCl2 + 2H2O
+  {
+    id: 'rx_caoh2_hcl_neutralization',
+    name_en: 'Calcium Hydroxide and Hydrochloric Acid Neutralization',
+    name_vi: 'Phản ứng trung hòa Nước vôi trong Ca(OH)2 và Axit clohiđric',
+    equation: 'Ca(OH)₂ + 2HCl → CaCl₂ + 2H₂O',
+    ionic_equation: 'OH⁻(aq) + H⁺(aq) → H₂O(l)',
+    reactants: [
+      { formula: 'Ca(OH)2', coefficient: 1, state: 'aq' },
+      { formula: 'HCl', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'CaCl2', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -114.2,
+    visual: { colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true } },
+    observable_en: 'Neutralization of limewater by HCl.',
+    observable_vi: 'Trung hòa nước vôi trong bằng axit clohiđric, pH giảm từ kiềm về trung tính.',
+  },
+
+  // 18. NH3 + HCl -> NH4Cl (Dense white smoke / Ammonium chloride)
+  {
+    id: 'rx_nh3_hcl_smoke',
+    name_en: 'Ammonia and Hydrochloric Acid Gas Reaction (White Smoke)',
+    name_vi: 'Khí Amoniac gặp Axit clohiđric tạo khói trắng Amoni clorua',
+    equation: 'NH₃ + HCl → NH₄Cl',
+    ionic_equation: 'NH₃(aq) + H⁺(aq) → NH₄⁺(aq)',
+    reactants: [
+      { formula: 'NH3', coefficient: 1, state: 'aq' },
+      { formula: 'HCl', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'NH4Cl', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -176.0,
+    visual: {
+      colorChange: { resultingColorHex: '#f8fafc', indicatorDriven: true },
+    },
+    observable_en: 'Dense white smoke of fine NH4Cl crystals forms above the solution with significant warmth.',
+    observable_vi: 'Tỏa nhiệt mạnh, bốc khói trắng dày đặc gồm các hạt vi tinh thể amoni clorua NH4Cl lơ lửng.',
+  },
+
+  // 19. AgNO3 + NaBr -> AgBr(s) + NaNO3
+  {
+    id: 'rx_agno3_nabr_precipitation',
+    name_en: 'Silver Nitrate and Sodium Bromide Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Bạc bromua màu vàng nhạt',
+    equation: 'AgNO₃ + NaBr → AgBr↓ + NaNO₃',
+    ionic_equation: 'Ag⁺(aq) + Br⁻(aq) → AgBr(s)↓',
+    reactants: [
+      { formula: 'AgNO3', coefficient: 1, state: 'aq' },
+      { formula: 'NaBr', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'AgBr', coefficient: 1, state: 's' },
+      { formula: 'NaNO3', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -84.4,
+    visual: {
+      precipitate: { formula: 'AgBr', colorHex: '#fef08a', morphology: 'curdy' },
+    },
+    observable_en: 'Pale cream-yellow curdy precipitate of AgBr forms immediately.',
+    observable_vi: 'Xuất hiện ngay kết tủa vón màu vàng nhạt (kem) của bạc bromua AgBr.',
+  },
+
+  // 20. AgNO3 + KI -> AgI(s) + KNO3
+  {
+    id: 'rx_agno3_ki_precipitation',
+    name_en: 'Silver Nitrate and Potassium Iodide Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Bạc iotua màu vàng đậm',
+    equation: 'AgNO₃ + KI → AgI↓ + KNO₃',
+    ionic_equation: 'Ag⁺(aq) + I⁻(aq) → AgI(s)↓',
+    reactants: [
+      { formula: 'AgNO3', coefficient: 1, state: 'aq' },
+      { formula: 'KI', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'AgI', coefficient: 1, state: 's' },
+      { formula: 'KNO3', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -112.2,
+    visual: {
+      precipitate: { formula: 'AgI', colorHex: '#eab308', morphology: 'curdy' },
+    },
+    observable_en: 'Bright yellow precipitate of AgI forms instantaneously.',
+    observable_vi: 'Tạo ngay kết tủa màu vàng đậm đặc trưng của bạc iotua AgI.',
+  },
+
+  // 21. Pb(NO3)2 + 2KI -> PbI2(s) + 2KNO3 (Golden Rain)
+  {
+    id: 'rx_pbno32_ki_precipitation',
+    name_en: 'Lead(II) Nitrate and Potassium Iodide Golden Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Chì(II) iotua màu vàng óng ánh (Mưa vàng)',
+    equation: 'Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃',
+    ionic_equation: 'Pb²⁺(aq) + 2I⁻(aq) → PbI₂(s)↓',
+    reactants: [
+      { formula: 'Pb(NO3)2', coefficient: 1, state: 'aq' },
+      { formula: 'KI', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'PbI2', coefficient: 1, state: 's' },
+      { formula: 'KNO3', coefficient: 2, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -63.5,
+    visual: {
+      precipitate: { formula: 'PbI2', colorHex: '#fbbf24', morphology: 'crystalline' },
+    },
+    observable_en: 'Brilliant golden-yellow crystalline flakes of PbI2 precipitate (Golden Rain phenomenon).',
+    observable_vi: 'Xuất hiện ngay kết tủa tinh thể màu vàng tươi lấp lánh như vảy vàng của PbI2.',
+  },
+
+  // 22. FeCl3 + 3NaOH -> Fe(OH)3(s) + 3NaCl
+  {
+    id: 'rx_fecl3_naoh_precipitation',
+    name_en: 'Iron(III) Chloride and Sodium Hydroxide Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Sắt(III) hiđroxit màu nâu đỏ',
+    equation: 'FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl',
+    ionic_equation: 'Fe³⁺(aq) + 3OH⁻(aq) → Fe(OH)₃(s)↓',
+    reactants: [
+      { formula: 'FeCl3', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 3, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Fe(OH)3', coefficient: 1, state: 's' },
+      { formula: 'NaCl', coefficient: 3, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -90.0,
+    visual: {
+      precipitate: { formula: 'Fe(OH)3', colorHex: '#7f1d1d', morphology: 'floc' },
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'Dense reddish-brown flocculent precipitate of Fe(OH)3 forms immediately.',
+    observable_vi: 'Xuất hiện ngay kết tủa màu nâu đỏ đặc trưng của sắt(III) hiđroxit Fe(OH)3.',
+  },
+
+  // 23. FeSO4 + 2NaOH -> Fe(OH)2(s) + Na2SO4
+  {
+    id: 'rx_feso4_naoh_precipitation',
+    name_en: 'Iron(II) Sulfate and Sodium Hydroxide Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Sắt(II) hiđroxit màu trắng xanh',
+    equation: 'FeSO₄ + 2NaOH → Fe(OH)₂↓ + Na₂SO₄',
+    ionic_equation: 'Fe²⁺(aq) + 2OH⁻(aq) → Fe(OH)₂(s)↓',
+    reactants: [
+      { formula: 'FeSO4', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Fe(OH)2', coefficient: 1, state: 's' },
+      { formula: 'Na2SO4', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -65.0,
+    visual: {
+      precipitate: { formula: 'Fe(OH)2', colorHex: '#86efac', morphology: 'gel' },
+    },
+    observable_en: 'Dirty white-green gelatinous precipitate of Fe(OH)2 forms, gradually turning reddish-brown in air.',
+    observable_vi: 'Xuất hiện kết tủa keo màu trắng xanh của Fe(OH)2, để ngoài không khí hóa nâu đỏ thành Fe(OH)3.',
+  },
+
+  // 24. AlCl3 + 3NaOH -> Al(OH)3(s) + 3NaCl
+  {
+    id: 'rx_alcl3_naoh_precipitation',
+    name_en: 'Aluminium Chloride and Sodium Hydroxide Gelatinous Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa keo trắng Nhôm hiđroxit',
+    equation: 'AlCl₃ + 3NaOH → Al(OH)₃↓ + 3NaCl',
+    ionic_equation: 'Al³⁺(aq) + 3OH⁻(aq) → Al(OH)₃(s)↓',
+    reactants: [
+      { formula: 'AlCl3', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 3, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Al(OH)3', coefficient: 1, state: 's' },
+      { formula: 'NaCl', coefficient: 3, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -85.0,
+    visual: {
+      precipitate: { formula: 'Al(OH)3', colorHex: '#f1f5f9', morphology: 'gel' },
+    },
+    observable_en: 'Translucent white gelatinous precipitate of Al(OH)3 forms instantly.',
+    observable_vi: 'Xuất hiện ngay kết tủa keo tụ màu trắng của nhôm hiđroxit Al(OH)3.',
+  },
+
+  // 25. Al(OH)3 + NaOH -> Na[Al(OH)4] (Amphoteric dissolution in excess base)
+  {
+    id: 'rx_aloh3_naoh_dissolution',
+    name_en: 'Dissolution of Amphoteric Aluminium Hydroxide in Excess Sodium Hydroxide',
+    name_vi: 'Phản ứng hòa tan kết tủa keo nhôm Al(OH)3 trong kiềm dư',
+    equation: 'Al(OH)₃ + NaOH → Na[Al(OH)₄]',
+    ionic_equation: 'Al(OH)₃(s) + OH⁻(aq) → [Al(OH)₄]⁻(aq)',
+    reactants: [
+      { formula: 'Al(OH)3', coefficient: 1, state: 's' },
+      { formula: 'NaOH', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Na[Al(OH)4]', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -35.0,
+    visual: {
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'The white gelatinous Al(OH)3 precipitate dissolves completely in excess NaOH to give a clear solution.',
+    observable_vi: 'Kết tủa keo trắng Al(OH)3 tan dần và biến mất hoàn toàn trong dung dịch NaOH dư, dung dịch trong suốt trở lại.',
+  },
+
+  // 26. ZnSO4 + 2NaOH -> Zn(OH)2(s) + Na2SO4
+  {
+    id: 'rx_znso4_naoh_precipitation',
+    name_en: 'Zinc Sulfate and Sodium Hydroxide Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Kẽm hiđroxit keo trắng',
+    equation: 'ZnSO₄ + 2NaOH → Zn(OH)₂↓ + Na₂SO₄',
+    ionic_equation: 'Zn²⁺(aq) + 2OH⁻(aq) → Zn(OH)₂(s)↓',
+    reactants: [
+      { formula: 'ZnSO4', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Zn(OH)2', coefficient: 1, state: 's' },
+      { formula: 'Na2SO4', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -62.0,
+    visual: {
+      precipitate: { formula: 'Zn(OH)2', colorHex: '#ffffff', morphology: 'gel' },
+    },
+    observable_en: 'White gelatinous precipitate of amphoteric Zn(OH)2 forms.',
+    observable_vi: 'Xuất hiện kết tủa keo màu trắng của Zn(OH)2.',
+  },
+
+  // 27. Zn(OH)2 + 2NaOH -> Na2[Zn(OH)4] (Amphoteric dissolution in excess base)
+  {
+    id: 'rx_znoh2_naoh_dissolution',
+    name_en: 'Dissolution of Amphoteric Zinc Hydroxide in Excess NaOH',
+    name_vi: 'Phản ứng hòa tan kết tủa Zn(OH)2 trong kiềm dư',
+    equation: 'Zn(OH)₂ + 2NaOH → Na₂[Zn(OH)₄]',
+    ionic_equation: 'Zn(OH)₂(s) + 2OH⁻(aq) → [Zn(OH)₄]²⁻(aq)',
+    reactants: [
+      { formula: 'Zn(OH)2', coefficient: 1, state: 's' },
+      { formula: 'NaOH', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Na2[Zn(OH)4]', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -40.0,
+    visual: { colorChange: { resultingColorHex: '#f8fafc' } },
+    observable_en: 'The white precipitate dissolves in excess NaOH yielding a clear zincate solution.',
+    observable_vi: 'Kết tủa Zn(OH)2 tan trong kiềm dư tạo dung dịch natri zincat trong suốt.',
+  },
+
+  // 28. CuSO4 + 2NH3 + 2H2O -> Cu(OH)2(s) + (NH4)2SO4
+  {
+    id: 'rx_cuso4_nh3_precipitation',
+    name_en: 'Copper(II) Sulfate and Dilute Ammonia Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Cu(OH)2 khi thêm dung dịch amoniac vào CuSO4',
+    equation: 'CuSO₄ + 2NH₃ + 2H₂O → Cu(OH)₂↓ + (NH₄)₂SO₄',
+    ionic_equation: 'Cu²⁺(aq) + 2NH₃(aq) + 2H₂O(l) → Cu(OH)₂(s)↓ + 2NH₄⁺(aq)',
+    reactants: [
+      { formula: 'CuSO4', coefficient: 1, state: 'aq' },
+      { formula: 'NH3', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Cu(OH)2', coefficient: 1, state: 's' },
+      { formula: '(NH4)2SO4', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -60.0,
+    visual: {
+      precipitate: { formula: 'Cu(OH)2', colorHex: '#38bdf8', morphology: 'gel' },
+    },
+    observable_en: 'Light blue gelatinous precipitate of Cu(OH)2 forms.',
+    observable_vi: 'Xuất hiện kết tủa keo màu xanh lam nhạt của Cu(OH)2.',
+  },
+
+  // 29. Cu(OH)2 + 4NH3 -> [Cu(NH3)4](OH)2 (Deep Royal Blue Tetraamminecopper Complex)
+  {
+    id: 'rx_cuoh2_nh3_complex',
+    name_en: 'Tetraamminecopper(II) Complex Formation in Excess Ammonia',
+    name_vi: 'Phản ứng hòa tan Cu(OH)2 trong Amoniac dư tạo phức màu xanh lam thẫm',
+    equation: 'Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂',
+    ionic_equation: 'Cu(OH)₂(s) + 4NH₃(aq) → [Cu(NH₃)₄]²⁺(aq) + 2OH⁻(aq)',
+    reactants: [
+      { formula: 'Cu(OH)2', coefficient: 1, state: 's' },
+      { formula: 'NH3', coefficient: 4, state: 'aq' },
+    ],
+    products: [
+      { formula: '[Cu(NH3)4](OH)2', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -72.0,
+    visual: {
+      colorChange: { resultingColorHex: '#1e3a8a' }, // Deep dark royal blue
+    },
+    observable_en: 'The light blue precipitate dissolves completely into an intense, glowing deep royal blue tetraamminecopper solution.',
+    observable_vi: 'Kết tủa xanh nhạt tan hoàn toàn, tạo dung dịch phức chất [Cu(NH3)4]²⁺ có màu xanh lam thẫm (xanh hoàng gia) cực kỳ lộng lẫy.',
+  },
+
+  // 30. Ca(OH)2 + CO2 -> CaCO3(s) + H2O (Limewater turning milky)
+  {
+    id: 'rx_caoh2_co2_turbidity',
+    name_en: 'Reaction of Limewater with Carbon Dioxide (Turbidity Formation)',
+    name_vi: 'Nước vôi trong phản ứng với khí CO2 làm vẩn đục trắng sữa',
+    equation: 'Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O',
+    ionic_equation: 'Ca²⁺(aq) + 2OH⁻(aq) + CO₂(g) → CaCO₃(s)↓ + H₂O(l)',
+    reactants: [
+      { formula: 'Ca(OH)2', coefficient: 1, state: 'aq' },
+      { formula: 'CO2', coefficient: 1, state: 'g' },
+    ],
+    products: [
+      { formula: 'CaCO3', coefficient: 1, state: 's' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    deltaH_kJ_mol: -113.0,
+    visual: {
+      precipitate: { formula: 'CaCO3', colorHex: '#ffffff', morphology: 'milky' },
+    },
+    observable_en: 'Clear limewater turns chalky milky white due to insoluble CaCO3 micro-crystals.',
+    observable_vi: 'Dung dịch nước vôi trong vẩn đục màu trắng sữa do xuất hiện các hạt kết tủa canxi cacbonat CaCO3.',
+  },
+
+  // 31. CaCO3 + CO2 + H2O -> Ca(HCO3)2 (Limewater clearing upon excess CO2)
+  {
+    id: 'rx_caco3_co2_clearing',
+    name_en: 'Dissolution of Calcium Carbonate in Excess CO2',
+    name_vi: 'Hòa tan kết tủa canxi cacbonat khi sục khí CO2 dư (nước vôi trong trở lại)',
+    equation: 'CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂',
+    ionic_equation: 'CaCO₃(s) + CO₂(g) + H₂O(l) → Ca²⁺(aq) + 2HCO₃⁻(aq)',
+    reactants: [
+      { formula: 'CaCO3', coefficient: 1, state: 's' },
+      { formula: 'CO2', coefficient: 1, state: 'g' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    products: [
+      { formula: 'Ca(HCO3)2', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -39.0,
+    visual: { colorChange: { resultingColorHex: '#f8fafc' } },
+    observable_en: 'Milky suspension clears up completely as soluble Ca(HCO3)2 forms in excess CO2.',
+    observable_vi: 'Nước vôi bị đục lại trong suốt trở lại do CaCO3 tan tạo muối canxi hiđrocacbonat tan Ca(HCO3)2.',
+  },
+
+  // 32. CuSO4 + Na2S -> CuS(s) + Na2SO4
+  {
+    id: 'rx_cuso4_na2s_precipitation',
+    name_en: 'Copper(II) Sulfate and Sodium Sulfide Precipitation',
+    name_vi: 'Phản ứng tạo kết tủa Đồng(II) sunfua màu đen',
+    equation: 'CuSO₄ + Na₂S → CuS↓ + Na₂SO₄',
+    ionic_equation: 'Cu²⁺(aq) + S²⁻(aq) → CuS(s)↓',
+    reactants: [
+      { formula: 'CuSO4', coefficient: 1, state: 'aq' },
+      { formula: 'Na2S', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'CuS', coefficient: 1, state: 's' },
+      { formula: 'Na2SO4', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -128.0,
+    visual: {
+      precipitate: { formula: 'CuS', colorHex: '#09090b', morphology: 'powder' },
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'Immediate jet-black precipitate of CuS forms. Solution blue color vanishes.',
+    observable_vi: 'Xuất hiện ngay kết tủa màu đen nhánh của CuS không tan trong axit loãng.',
+  },
+
+  // 33. Fe + CuSO4 -> FeSO4 + Cu(s) (Reddish copper coats iron)
+  {
+    id: 'rx_fe_cuso4_displacement',
+    name_en: 'Iron and Copper(II) Sulfate Metal Displacement',
+    name_vi: 'Phản ứng kim loại Sắt đẩy Đồng ra khỏi dung dịch Đồng(II) sunfat',
+    equation: 'Fe + CuSO₄ → FeSO₄ + Cu↓',
+    ionic_equation: 'Fe(s) + Cu²⁺(aq) → Fe²⁺(aq) + Cu(s)↓',
+    reactants: [
+      { formula: 'Fe', coefficient: 1, state: 's' },
+      { formula: 'CuSO4', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'FeSO4', coefficient: 1, state: 'aq' },
+      { formula: 'Cu', coefficient: 1, state: 's' },
+    ],
+    deltaH_kJ_mol: -152.0,
+    visual: {
+      precipitate: { formula: 'Cu', colorHex: '#b45309', morphology: 'plates' },
+      colorChange: { resultingColorHex: '#bbf7d0' }, // Pale green Fe2+
+    },
+    observable_en: 'Reddish-orange copper metal deposits on the iron surface. The blue CuSO4 solution turns pale green.',
+    observable_vi: 'Lớp kim loại đồng màu đỏ sáng bám dày bên ngoài đinh sắt, màu xanh lam của dung dịch nhạt dần chuyển sang lục nhạt của Fe²⁺.',
+  },
+
+  // 34. Zn + CuSO4 -> ZnSO4 + Cu(s)
+  {
+    id: 'rx_zn_cuso4_displacement',
+    name_en: 'Zinc and Copper(II) Sulfate Metal Displacement',
+    name_vi: 'Phản ứng Kẽm đẩy Đồng ra khỏi dung dịch Đồng(II) sunfat',
+    equation: 'Zn + CuSO₄ → ZnSO₄ + Cu↓',
+    ionic_equation: 'Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s)↓',
+    reactants: [
+      { formula: 'Zn', coefficient: 1, state: 's' },
+      { formula: 'CuSO4', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'ZnSO4', coefficient: 1, state: 'aq' },
+      { formula: 'Cu', coefficient: 1, state: 's' },
+    ],
+    deltaH_kJ_mol: -218.0,
+    visual: {
+      precipitate: { formula: 'Cu', colorHex: '#b45309', morphology: 'powder' },
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'Vigorous displacement depositing reddish copper powder; blue color completely discharges.',
+    observable_vi: 'Kẽm tan dần, đồng kim loại màu đỏ bám xốp bên ngoài hạt kẽm, dung dịch mất màu xanh.',
+  },
+
+  // 35. Cu + 2AgNO3 -> Cu(NO3)2 + 2Ag(s)
+  {
+    id: 'rx_cu_agno3_displacement',
+    name_en: 'Copper and Silver Nitrate Displacement (Silver Tree)',
+    name_vi: 'Phản ứng lá Đồng đẩy Bạc ra khỏi dung dịch Bạc nitrat (Cây bạc)',
+    equation: 'Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag↓',
+    ionic_equation: 'Cu(s) + 2Ag⁺(aq) → Cu²⁺(aq) + 2Ag(s)↓',
+    reactants: [
+      { formula: 'Cu', coefficient: 1, state: 's' },
+      { formula: 'AgNO3', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Cu(NO3)2', coefficient: 1, state: 'aq' },
+      { formula: 'Ag', coefficient: 2, state: 's' },
+    ],
+    deltaH_kJ_mol: -147.0,
+    visual: {
+      precipitate: { formula: 'Ag', colorHex: '#cbd5e1', morphology: 'plates' },
+      colorChange: { resultingColorHex: '#38bdf8' },
+    },
+    observable_en: 'Shimmering gray-white needle-like crystals of silver grow on the copper sheet; solution turns blue.',
+    observable_vi: 'Các tinh thể bạc màu trắng xám óng ánh mọc dần bám quanh lá đồng; dung dịch từ không màu chuyển sang màu xanh lam của ion Cu²⁺.',
+  },
+
+  // 36. Fe + 2HCl -> FeCl2 + H2(g)
+  {
+    id: 'rx_fe_hcl_gas',
+    name_en: 'Iron Metal and Hydrochloric Acid Reaction',
+    name_vi: 'Phản ứng đinh Sắt tác dụng với Axit clohiđric giải phóng Hiđro',
+    equation: 'Fe + 2HCl → FeCl₂ + H₂↑',
+    ionic_equation: 'Fe(s) + 2H⁺(aq) → Fe²⁺(aq) + H₂(g)↑',
+    reactants: [
+      { formula: 'Fe', coefficient: 1, state: 's' },
+      { formula: 'HCl', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'FeCl2', coefficient: 1, state: 'aq' },
+      { formula: 'H2', coefficient: 1, state: 'g' },
+    ],
+    deltaH_kJ_mol: -87.9,
+    visual: {
+      gas: { formula: 'H2', effervescenceSpeed: 'slow' },
+      colorChange: { resultingColorHex: '#bbf7d0' },
+    },
+    observable_en: 'Steady stream of fine H2 gas bubbles rises from the iron nail; solution turns pale green.',
+    observable_vi: 'Bọt khí hiđro (H2) không màu sủi đều đặn trên bề mặt đinh sắt, dung dịch chuyển sang màu lục rất nhạt của FeCl2.',
+  },
+
+  // 37. Al + 6HCl -> 2AlCl3 + 3H2(g)
+  {
+    id: 'rx_al_hcl_gas',
+    name_en: 'Aluminium Metal and Hydrochloric Acid Reaction',
+    name_vi: 'Phản ứng Nhôm tác dụng với Axit clohiđric giải phóng Hiđro',
+    equation: '2Al + 6HCl → 2AlCl₃ + 3H₂↑',
+    ionic_equation: '2Al(s) + 6H⁺(aq) → 2Al³⁺(aq) + 3H₂(g)↑',
+    reactants: [
+      { formula: 'Al', coefficient: 2, state: 's' },
+      { formula: 'HCl', coefficient: 6, state: 'aq' },
+    ],
+    products: [
+      { formula: 'AlCl3', coefficient: 2, state: 'aq' },
+      { formula: 'H2', coefficient: 3, state: 'g' },
+    ],
+    deltaH_kJ_mol: -530.0,
+    visual: {
+      gas: { formula: 'H2', effervescenceSpeed: 'vigorous' },
+    },
+    observable_en: 'Vigorous effervescence with heat generation. Aluminum foil dissolves rapidly.',
+    observable_vi: 'Lá nhôm sủi bọt khí H2 rất mạnh, tỏa nhiều nhiệt và tan dần.',
+  },
+
+  // 38. 2Al + 2NaOH + 6H2O -> 2Na[Al(OH)4] + 3H2(g)
+  {
+    id: 'rx_al_naoh_gas',
+    name_en: 'Aluminium Metal and Sodium Hydroxide Reaction',
+    name_vi: 'Phản ứng kim loại Nhôm tan trong dung dịch Kiềm NaOH',
+    equation: '2Al + 2NaOH + 6H₂O → 2Na[Al(OH)₄] + 3H₂↑',
+    ionic_equation: '2Al(s) + 2OH⁻(aq) + 6H₂O(l) → 2[Al(OH)₄]⁻(aq) + 3H₂(g)↑',
+    reactants: [
+      { formula: 'Al', coefficient: 2, state: 's' },
+      { formula: 'NaOH', coefficient: 2, state: 'aq' },
+      { formula: 'H2O', coefficient: 6, state: 'l' },
+    ],
+    products: [
+      { formula: 'Na[Al(OH)4]', coefficient: 2, state: 'aq' },
+      { formula: 'H2', coefficient: 3, state: 'g' },
+    ],
+    deltaH_kJ_mol: -415.0,
+    visual: {
+      gas: { formula: 'H2', effervescenceSpeed: 'vigorous' },
+    },
+    observable_en: 'Aluminum foil dissolves in NaOH solution with rapid bubbling of hydrogen gas.',
+    observable_vi: 'Nhôm tan nhanh trong dung dịch kiềm, sủi bọt khí H2 cuồn cuộn và tỏa nhiệt nóng bình.',
+  },
+
+  // 39. Mg + 2HCl -> MgCl2 + H2(g)
+  {
+    id: 'rx_mg_hcl_gas',
+    name_en: 'Magnesium Ribbon and Hydrochloric Acid Reaction',
+    name_vi: 'Phản ứng dải Magie tác dụng với Axit clohiđric',
+    equation: 'Mg + 2HCl → MgCl₂ + H₂↑',
+    ionic_equation: 'Mg(s) + 2H⁺(aq) → Mg²⁺(aq) + H₂(g)↑',
+    reactants: [
+      { formula: 'Mg', coefficient: 1, state: 's' },
+      { formula: 'HCl', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'MgCl2', coefficient: 1, state: 'aq' },
+      { formula: 'H2', coefficient: 1, state: 'g' },
+    ],
+    deltaH_kJ_mol: -462.0,
+    visual: {
+      gas: { formula: 'H2', effervescenceSpeed: 'instant' },
+    },
+    observable_en: 'Instant, violent effervescence. Magnesium ribbon zips across the surface and dissolves in seconds.',
+    observable_vi: 'Sủi bọt khí H2 cực kỳ mãnh liệt tức thì, dải magie tan biến trong vài giây và bình nóng ran.',
+  },
+
+  // 40. 2Na + 2H2O -> 2NaOH + H2(g)
+  {
+    id: 'rx_na_water_reaction',
+    name_en: 'Sodium Metal and Water Violent Reaction',
+    name_vi: 'Phản ứng mãnh liệt của Natri kim loại với Nước',
+    equation: '2Na + 2H₂O → 2NaOH + H₂↑',
+    ionic_equation: '2Na(s) + 2H₂O(l) → 2Na⁺(aq) + 2OH⁻(aq) + H₂(g)↑',
+    reactants: [
+      { formula: 'Na', coefficient: 2, state: 's' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    products: [
+      { formula: 'NaOH', coefficient: 2, state: 'aq' },
+      { formula: 'H2', coefficient: 1, state: 'g' },
+    ],
+    deltaH_kJ_mol: -368.0,
+    visual: {
+      gas: { formula: 'H2', effervescenceSpeed: 'instant' },
+    },
+    observable_en: 'Sodium melts into a silvery sphere, darts across the surface with vigorous hissing and H2 release, forming strong alkaline solution.',
+    observable_vi: 'Mẩu natri nóng chảy vo tròn thành giọt sáng lóng lánh chạy vòng quanh mặt nước, sủi bọt xèo xèo mãnh liệt tạo dung dịch kiềm.',
+    isDangerous: true,
+  },
+
+  // 41. Cu + 4HNO3 -> Cu(NO3)2 + 2NO2(g) + 2H2O (Red-brown NO2 gas)
+  {
+    id: 'rx_cu_hno3_gas',
+    name_en: 'Copper and Concentrated Nitric Acid Reaction (Red-Brown NO2 Fumes)',
+    name_vi: 'Phản ứng lá Đồng với Axit nitric đặc sinh khí màu nâu đỏ NO2',
+    equation: 'Cu + 4HNO₃ → Cu(NO₃)₂ + 2NO₂↑ + 2H₂O',
+    ionic_equation: 'Cu(s) + 4H⁺(aq) + 2NO₃⁻(aq) → Cu²⁺(aq) + 2NO₂(g)↑ + 2H₂O(l)',
+    reactants: [
+      { formula: 'Cu', coefficient: 1, state: 's' },
+      { formula: 'HNO3', coefficient: 4, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Cu(NO3)2', coefficient: 1, state: 'aq' },
+      { formula: 'NO2', coefficient: 2, state: 'g' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -136.0,
+    visual: {
+      gas: { formula: 'NO2', effervescenceSpeed: 'vigorous' },
+      colorChange: { resultingColorHex: '#0284c7' }, // Deep green-blue
+    },
+    observable_en: 'Dense, suffocating reddish-brown NO2 gas billows from the solution; the liquid turns deep blue-green.',
+    observable_vi: 'Khí NO2 màu nâu đỏ đậm bốc lên cuồn cuộn khỏi miệng bình, dung dịch sôi sùng sục chuyển sang màu xanh lam đậm.',
+    isDangerous: true,
+  },
+
+  // 42. Na2SO3 + 2HCl -> 2NaCl + SO2(g) + H2O (Choking SO2 gas)
+  {
+    id: 'rx_na2so3_hcl_gas',
+    name_en: 'Sodium Sulfite and Hydrochloric Acid Gas Evolution',
+    name_vi: 'Phản ứng Natri sunfit tác dụng với Axit sinh khí SO2 mùi hắc',
+    equation: 'Na₂SO₃ + 2HCl → 2NaCl + SO₂↑ + H₂O',
+    ionic_equation: 'SO₃²⁻(aq) + 2H⁺(aq) → SO₂(g)↑ + H₂O(l)',
+    reactants: [
+      { formula: 'Na2SO3', coefficient: 1, state: 'aq' },
+      { formula: 'HCl', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'NaCl', coefficient: 2, state: 'aq' },
+      { formula: 'SO2', coefficient: 1, state: 'g' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    deltaH_kJ_mol: -40.0,
+    visual: {
+      gas: { formula: 'SO2', effervescenceSpeed: 'vigorous' },
+    },
+    observable_en: 'Pungent, choking sulfur dioxide gas (SO2) bubbles vigorously out of the solution.',
+    observable_vi: 'Sủi bọt khí lưu huỳnh đioxit (SO2) không màu có mùi hắc đặc trưng làm ngạt thở.',
+  },
+
+  // 43. NH4Cl + NaOH -> NaCl + NH3(g) + H2O (Pungent ammonia gas)
+  {
+    id: 'rx_nh4cl_naoh_gas',
+    name_en: 'Ammonium Chloride and Sodium Hydroxide Reaction',
+    name_vi: 'Phản ứng muối Amoni với kiềm giải phóng khí Amoniac mùi khai',
+    equation: 'NH₄Cl + NaOH → NaCl + NH₃↑ + H₂O',
+    ionic_equation: 'NH₄⁺(aq) + OH⁻(aq) → NH₃(g)↑ + H₂O(l)',
+    reactants: [
+      { formula: 'NH4Cl', coefficient: 1, state: 'aq' },
+      { formula: 'NaOH', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'NaCl', coefficient: 1, state: 'aq' },
+      { formula: 'NH3', coefficient: 1, state: 'g' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    deltaH_kJ_mol: 3.5,
+    visual: {
+      gas: { formula: 'NH3', effervescenceSpeed: 'slow' },
+    },
+    observable_en: 'Sharp, pungent ammonia gas (NH3) evolves, turning moist red litmus paper blue.',
+    observable_vi: 'Thoát ra khí amoniac (NH3) có mùi khai nồng đặc trưng, làm xanh quỳ tím ẩm để trên miệng bình.',
+  },
+
+  // 44. FeCl3 + 3KSCN -> Fe(SCN)3 + 3KCl (Blood-red Thiocyanate Complex)
+  {
+    id: 'rx_fecl3_kscn_complex',
+    name_en: 'Iron(III) and Potassium Thiocyanate Blood-Red Complex',
+    name_vi: 'Phản ứng tạo phức chất Sắt(III) thioxianat màu đỏ máu',
+    equation: 'FeCl₃ + 3KSCN → Fe(SCN)₃ + 3KCl',
+    ionic_equation: 'Fe³⁺(aq) + 3SCN⁻(aq) → Fe(SCN)₃(aq)',
+    reactants: [
+      { formula: 'FeCl3', coefficient: 1, state: 'aq' },
+      { formula: 'KSCN', coefficient: 3, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Fe(SCN)3', coefficient: 1, state: 'aq' },
+      { formula: 'KCl', coefficient: 3, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -28.0,
+    visual: {
+      colorChange: { resultingColorHex: '#991b1b' }, // Intense blood red
+    },
+    observable_en: 'Instantaneous shift from pale yellow to a brilliant, deep blood-red solution.',
+    observable_vi: 'Dung dịch lập tức chuyển sang màu đỏ máu đậm rực rỡ đặc trưng của phức Fe(SCN)3.',
+  },
+
+  // 45. 2KMnO4 + 10FeSO4 + 8H2SO4 -> K2SO4 + 2MnSO4 + 5Fe2(SO4)3 + 8H2O (Permanganate Decolorization)
+  {
+    id: 'rx_kmno4_feso4_redox',
+    name_en: 'Permanganate Redox Titration with Iron(II) Sulfate',
+    name_vi: 'Phản ứng oxi hóa khử làm mất màu thuốc tím KMnO4 bằng Sắt(II) sunfat',
+    equation: '2KMnO₄ + 10FeSO₄ + 8H₂SO₄ → K₂SO₄ + 2MnSO₄ + 5Fe₂(SO₄)₃ + 8H₂O',
+    ionic_equation: 'MnO₄⁻(aq) + 5Fe²⁺(aq) + 8H⁺(aq) → Mn²⁺(aq) + 5Fe³⁺(aq) + 4H₂O(l)',
+    reactants: [
+      { formula: 'KMnO4', coefficient: 2, state: 'aq' },
+      { formula: 'FeSO4', coefficient: 10, state: 'aq' },
+      { formula: 'H2SO4', coefficient: 8, state: 'aq' },
+    ],
+    products: [
+      { formula: 'K2SO4', coefficient: 1, state: 'aq' },
+      { formula: 'MnSO4', coefficient: 2, state: 'aq' },
+      { formula: 'Fe2(SO4)3', coefficient: 5, state: 'aq' },
+      { formula: 'H2O', coefficient: 8, state: 'l' },
+    ],
+    deltaH_kJ_mol: -580.0,
+    visual: {
+      colorChange: { resultingColorHex: '#fef08a' }, // Faint yellow Fe3+
+    },
+    observable_en: 'The deep violet permanganate color discharges instantly, leaving a very faint yellowish solution.',
+    observable_vi: 'Màu tím đậm đặc trưng của thuốc tím KMnO4 bị mất màu ngay lập tức, chuyển sang màu vàng rơm rất nhạt của muối Fe³⁺.',
+  },
+
+  // 46. 2H2O2 -> 2H2O + O2(g) (Oxygen gas evolution)
+  {
+    id: 'rx_h2o2_decomposition',
+    name_en: 'Hydrogen Peroxide Catalytic Decomposition',
+    name_vi: 'Phản ứng phân hủy oxi già sinh khí Oxi sủi bọt',
+    equation: '2H₂O₂ → 2H₂O + O₂↑',
+    ionic_equation: '2H₂O₂(aq) → 2H₂O(l) + O₂(g)↑',
+    reactants: [
+      { formula: 'H2O2', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+      { formula: 'O2', coefficient: 1, state: 'g' },
+    ],
+    deltaH_kJ_mol: -98.0,
+    visual: {
+      gas: { formula: 'O2', effervescenceSpeed: 'vigorous' },
+    },
+    observable_en: 'Steady stream of pure oxygen (O2) gas bubbles evolved.',
+    observable_vi: 'Dung dịch sủi bọt khí oxi (O2) không màu làm que đóm còn tàn đỏ bùng cháy.',
+  },
+
+  // 47. CH3COOH + C2H5OH -> CH3COOC2H5 (Esterification, fragrant & phase separation)
+  {
+    id: 'rx_esterification_ethyl_acetate',
+    name_en: 'Fischer Esterification of Acetic Acid and Ethanol',
+    name_vi: 'Phản ứng este hóa Axit axetic và Rượu etylic tạo Etyl axetat',
+    equation: 'CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O',
+    ionic_equation: 'CH₃COOH(l) + C₂H₅OH(l) ⇌ CH₃COOC₂H₅(l) + H₂O(l)',
+    reactants: [
+      { formula: 'CH3COOH', coefficient: 1, state: 'aq' },
+      { formula: 'C2H5OH', coefficient: 1, state: 'l' },
+    ],
+    products: [
+      { formula: 'CH3COOC2H5', coefficient: 1, state: 'l' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    requiresHeating: true,
+    minTemp_c: 65.0,
+    deltaH_kJ_mol: 4.0,
+    visual: {
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'Pleasant fruity fragrance of ethyl acetate forms, floating as a distinct organic top layer above water.',
+    observable_vi: 'Xuất hiện mùi thơm hoa quả (táo/chuối chín) dễ chịu, chất lỏng etyl axetat nhẹ hơn nước nổi lên tạo thành lớp phân cách rõ rệt.',
+  },
+
+  // 48. C6H12O6 + 2Cu(OH)2 -> [C6H11O6]2Cu (Deep blue glucose-copper complex at room temperature)
+  {
+    id: 'rx_glucose_cuoh2_complex',
+    name_en: 'Glucose Polyalcohol Reaction with Copper(II) Hydroxide',
+    name_vi: 'Phản ứng của Glucozơ với Cu(OH)2 ở nhiệt độ thường tạo phức xanh lam thẫm',
+    equation: 'C₆H₁₂O₆ + 2Cu(OH)₂ → [C₆H₁₁O₆]₂Cu + 2H₂O',
+    ionic_equation: 'C₆H₁₂O₆ + Cu(OH)₂(s) → Phức đồng-glucozơ(aq)',
+    reactants: [
+      { formula: 'C6H12O6', coefficient: 1, state: 'aq' },
+      { formula: 'Cu(OH)2', coefficient: 2, state: 's' },
+    ],
+    products: [
+      { formula: '[C6H11O6]2Cu', coefficient: 1, state: 'aq' },
+      { formula: 'H2O', coefficient: 2, state: 'l' },
+    ],
+    deltaH_kJ_mol: -22.0,
+    visual: {
+      colorChange: { resultingColorHex: '#1d4ed8' }, // Brilliant royal deep blue
+    },
+    observable_en: 'The Cu(OH)2 precipitate dissolves completely into an intense royal deep blue polyol complex.',
+    observable_vi: 'Kết tủa Cu(OH)2 bị hòa tan hoàn toàn tạo dung dịch phức chất đồng - glucozơ có màu xanh lam thẫm đặc trưng của ancol đa chức có các nhóm OH liền kề.',
+  },
+
+  // 49. [C6H11O6]2Cu -> Cu2O(s) + oxidized sugars (Brick-red precipitate upon heating)
+  {
+    id: 'rx_glucose_cu2o_heating',
+    name_en: 'Thermal Reduction of Glucose-Copper Complex to Brick-Red Copper(I) Oxide',
+    name_vi: 'Nhiệt phân phức Glucozơ tạo kết tủa Đồng(I) oxit màu đỏ gạch',
+    equation: '[C₆H₁₁O₆]₂Cu → Cu₂O↓ + sản phẩm oxi hóa',
+    ionic_equation: 'Phức Cu²⁺ + đun nóng → Cu₂O(s)↓',
+    reactants: [
+      { formula: '[C6H11O6]2Cu', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Cu2O', coefficient: 1, state: 's' },
+    ],
+    requiresHeating: true,
+    minTemp_c: 65.0,
+    deltaH_kJ_mol: 18.0,
+    visual: {
+      precipitate: { formula: 'Cu2O', colorHex: '#b91c1c', morphology: 'powder' },
+      colorChange: { resultingColorHex: '#fef08a' },
+    },
+    observable_en: 'Upon heating above 65°C, the blue solution yields a dense brick-red precipitate of Cu2O.',
+    observable_vi: 'Khi đun nóng trên 65°C, màu xanh lam biến mất và xuất hiện kết tủa màu đỏ gạch Cu2O lắng xuống đáy ống nghiệm.',
+  },
+
+  // 50. TinhBot + I2 -> Blue-violet inclusion complex
+  {
+    id: 'rx_starch_iodine_complex',
+    name_en: 'Starch and Iodine Blue-Violet Inclusion Complex',
+    name_vi: 'Phản ứng hồ tinh bột với Iot tạo hợp chất màu xanh tím',
+    equation: 'TinhBot + I₂ ⇌ Hợp chất màu xanh tím',
+    ionic_equation: 'Amylose + I₂ ⇌ Phức bao màu xanh tím',
+    reactants: [
+      { formula: 'TinhBot', coefficient: 1, state: 'aq' },
+      { formula: 'I2', coefficient: 1, state: 'aq' },
+    ],
+    products: [
+      { formula: 'TinhBot-I2', coefficient: 1, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -18.0,
+    visual: {
+      colorChange: { resultingColorHex: '#1e1b4b' }, // Deep dark blue-violet
+    },
+    observable_en: 'Instant intense blue-violet coloration. Color disappears upon heating and reappears on cooling.',
+    observable_vi: 'Lập tức xuất hiện màu xanh tím đậm đặc trưng. Khi đun nóng màu xanh tím biến mất, để nguội lại hiện ra.',
+  },
+
+  // 51. C6H5OH + 3Br2 -> 2,4,6-tribromophenol(s) + 3HBr
+  {
+    id: 'rx_phenol_bromine_precipitation',
+    name_en: 'Phenol Bromination Forming White 2,4,6-Tribromophenol Precipitate',
+    name_vi: 'Phản ứng Phenol tác dụng với Nước Brom tạo kết tủa trắng 2,4,6-tribromphenol',
+    equation: 'C₆H₅OH + 3Br₂ → C₆H₂Br₃OH↓ + 3HBr',
+    ionic_equation: 'C₆H₅OH + 3Br₂ → C₆H₂Br₃OH(s)↓ + 3H⁺(aq) + 3Br⁻(aq)',
+    reactants: [
+      { formula: 'C6H5OH', coefficient: 1, state: 'aq' },
+      { formula: 'Br2', coefficient: 3, state: 'aq' },
+    ],
+    products: [
+      { formula: 'C6H2Br3OH', coefficient: 1, state: 's' },
+      { formula: 'HBr', coefficient: 3, state: 'aq' },
+    ],
+    deltaH_kJ_mol: -125.0,
+    visual: {
+      precipitate: { formula: 'C6H2Br3OH', colorHex: '#ffffff', morphology: 'curdy' },
+      colorChange: { resultingColorHex: '#f8fafc' },
+    },
+    observable_en: 'Bromine water is decolorized with immediate formation of a white precipitate of 2,4,6-tribromophenol.',
+    observable_vi: 'Nước brom bị mất màu da cam và xuất hiện ngay kết tủa màu trắng của 2,4,6-tribromphenol.',
+  },
+
+  // 52. 2NaHCO3 -> Na2CO3 + CO2(g) + H2O (Thermal decomposition of baking soda)
+  {
+    id: 'rx_nahco3_thermal_decomposition',
+    name_en: 'Thermal Decomposition of Sodium Bicarbonate',
+    name_vi: 'Nhiệt phân Natri hiđrocacbonat khi đun nóng',
+    equation: '2NaHCO₃ → Na₂CO₃ + CO₂↑ + H₂O',
+    ionic_equation: '2HCO₃⁻(aq) → CO₃²⁻(aq) + CO₂(g)↑ + H₂O(l)',
+    reactants: [
+      { formula: 'NaHCO3', coefficient: 2, state: 'aq' },
+    ],
+    products: [
+      { formula: 'Na2CO3', coefficient: 1, state: 'aq' },
+      { formula: 'CO2', coefficient: 1, state: 'g' },
+      { formula: 'H2O', coefficient: 1, state: 'l' },
+    ],
+    requiresHeating: true,
+    minTemp_c: 75.0,
+    deltaH_kJ_mol: 64.0,
+    visual: {
+      gas: { formula: 'CO2', effervescenceSpeed: 'vigorous' },
+    },
+    observable_en: 'Upon heating above 75°C, vigorous bubbling of CO2 gas occurs with steam condensation.',
+    observable_vi: 'Khi đun nóng dung dịch NaHCO3 trên 75°C, bọt khí CO2 thoát ra mạnh mẽ và dung dịch tăng tính kiềm.',
+  },
 ];
+

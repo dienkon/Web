@@ -173,4 +173,66 @@ describe('Scientific Chemistry Simulation Engine', () => {
       expect(getIndicatorColor('litmus', 12.0)).toBe('#3b82f6'); // Blue in base
     });
   });
+
+  describe('Verification Case G: Advanced 3D-Parity Realistic Mechanisms', () => {
+    it('detects immiscible organic phase separation in esterification', () => {
+      // CH3COOH + C2H5OH with H2SO4 catalyst under heating -> CH3COOC2H5
+      const initial: SubstanceQuantity[] = [
+        { formula: 'CH3COOH', moles: 0.05, mass_g: 3.0, state: 'l', volume_ml: 10 },
+        { formula: 'C2H5OH', moles: 0.05, mass_g: 2.3, state: 'l', volume_ml: 10 },
+        { formula: 'H2SO4', moles: 0.005, mass_g: 0.5, state: 'aq', volume_ml: 2 },
+      ];
+
+      const heated = runSimulationCycle(initial, 22.0, 75.0, true);
+      expect(heated.reactionsOccurred.length).toBeGreaterThan(0);
+      expect(heated.hasPhaseSeparation).toBe(true);
+      expect(heated.organicLayerVolume_ml).toBeGreaterThan(0);
+    });
+
+    it('handles amphoteric multi-stage dissolution of Al(OH)3 in excess strong base', () => {
+      // Stage 1: AlCl3 + 3 NaOH -> Al(OH)3 white gel precipitate
+      const stage1Initial: SubstanceQuantity[] = [
+        { formula: 'AlCl3', moles: 0.002, mass_g: 0.266, state: 'aq', volume_ml: 20 },
+        { formula: 'NaOH', moles: 0.006, mass_g: 0.24, state: 'aq', volume_ml: 20 },
+      ];
+      const stage1 = runSimulationCycle(stage1Initial, 40.0, 25.0);
+      expect(stage1.hasPrecipitate).toBe(true);
+      expect(stage1.precipitateInfo?.formula).toBe('Al(OH)3');
+
+      // Stage 2: Excess NaOH dissolves Al(OH)3 forming [Al(OH)4]-
+      const stage2Initial: SubstanceQuantity[] = [
+        ...stage1.updatedContents,
+        { formula: 'NaOH', moles: 0.010, mass_g: 0.40, state: 'aq', volume_ml: 20 },
+      ];
+      const stage2 = runSimulationCycle(stage2Initial, 60.0, 25.0);
+      const remainingAlOH3 = stage2.updatedContents.find(c => c.formula === 'Al(OH)3');
+      expect(!remainingAlOH3 || remainingAlOH3.moles < 1e-4).toBe(true);
+    });
+
+    it('generates reddish-brown NO2 fumes in Cu + HNO3 concentrated redox reaction', () => {
+      const initial: SubstanceQuantity[] = [
+        { formula: 'Cu', moles: 0.005, mass_g: 0.32, state: 's' },
+        { formula: 'HNO3', moles: 0.030, mass_g: 1.89, state: 'aq', volume_ml: 30 },
+      ];
+
+      const sim = runSimulationCycle(initial, 30.0, 35.0);
+      expect(sim.hasGas).toBe(true);
+      expect(sim.hasFumes).toBe(true);
+      expect(sim.fumeType).toBe('no2');
+      expect(sim.fumeColorHex).toBe('#b45309');
+    });
+
+    it('triggers instant heuristic rule-based solver when mixing uncataloged acid and base', () => {
+      // Uncataloged molar combination of Ba(OH)2 and HNO3
+      const initial: SubstanceQuantity[] = [
+        { formula: 'HNO3', moles: 0.004, mass_g: 0.252, state: 'aq', volume_ml: 25 },
+        { formula: 'Ba(OH)2', moles: 0.002, mass_g: 0.342, state: 'aq', volume_ml: 25 },
+      ];
+
+      const sim = runSimulationCycle(initial, 50.0, 25.0);
+      expect(sim.reactionsOccurred.length).toBeGreaterThan(0);
+      expect(sim.finalPh).toBeCloseTo(7.0, 1);
+      expect(sim.finalTemperature_c).toBeGreaterThan(25.0);
+    });
+  });
 });

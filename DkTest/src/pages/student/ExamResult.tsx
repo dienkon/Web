@@ -34,11 +34,14 @@ import {
   Eye,
   EyeOff,
   FileSignature,
+  Share2,
+  Check,
 } from "lucide-react";
 import { getSubmission } from "../../services/submissionService";
 import { getExam } from "../../services/examService";
 import { getExamSections } from "../../services/sectionService";
 import { exportExamToWordFile } from "../../services/wordExportService";
+import { safeShare } from "../../utils/mobileCompat";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
@@ -100,6 +103,29 @@ export default function ExamResult() {
   const [showProgressChart, setShowProgressChart] = useState(false);
   const [showResultCharts, setShowResultCharts] = useState(false);
   const [showAiAnalysis, setShowAiAnalysis] = useState(true);
+
+  const [copiedResultLink, setCopiedResultLink] = useState(false);
+
+  const handleShareResult = async () => {
+    const url = `${window.location.origin}/student/exam/${examId}/result/${submissionId}`;
+    const shared = await safeShare({
+      title: submission ? `Kết quả thi: ${submission.examTitleSnapshot || "DkTEST"}` : "Kết quả thi DkTEST",
+      text: submission ? `Xem kết quả thi đạt ${submission.score}/${submission.maxScore || 10} điểm trên DkTEST!` : "Xem kết quả thi trên DkTEST!",
+      url,
+    });
+    if (!shared) {
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopiedResultLink(true);
+        setTimeout(() => setCopiedResultLink(false), 2500);
+        showSuccessToast(
+          "Đã sao chép link kết quả bài thi! Khi gửi qua Zalo, link sẽ tự động hiển thị thẻ điểm số, số câu đúng và tên bài thi của bạn."
+        );
+      } catch (_) {
+        prompt("Sao chép link kết quả gửi qua Zalo:", url);
+      }
+    }
+  };
 
   const handleSendReport = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -501,6 +527,20 @@ export default function ExamResult() {
               <FileDown className="w-4 h-4 text-blue-600" />
             )}
             <span>Tải file Word</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleShareResult}
+            className="px-3.5 py-1.5 text-emerald-700 hover:text-emerald-900 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-xl transition-all shadow-2xs text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+            title="Chia sẻ kết quả bài thi qua Zalo (hiển thị thẻ xem trước có điểm số, số câu đúng và tên bài thi)"
+          >
+            {copiedResultLink ? (
+              <Check className="w-4 h-4 text-emerald-600" />
+            ) : (
+              <Share2 className="w-4 h-4 text-emerald-600" />
+            )}
+            <span>{copiedResultLink ? "Đã chép link!" : "Chia sẻ Zalo"}</span>
           </button>
         </div>
 

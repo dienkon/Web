@@ -25,7 +25,10 @@ import {
   X,
   Ticket,
   Check,
+  Share2,
 } from "lucide-react";
+import { useToast } from "../../components/ui/ToastNotification";
+import { safeShare } from "../../utils/mobileCompat";
 import { getExam } from "../../services/examService";
 import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
@@ -97,6 +100,27 @@ export default function ExamIntro() {
   const [attemptCount, setAttemptCount] = useState<number>(0);
   const [checkingAttempts, setCheckingAttempts] = useState<boolean>(false);
   const [hasActiveExam, setHasActiveExam] = useState<boolean>(false);
+  const [copiedLink, setCopiedLink] = useState<boolean>(false);
+  const { success: showToastSuccess } = useToast();
+
+  const handleShareExam = async () => {
+    const url = `${window.location.origin}/student/exam/${examId}`;
+    const shared = await safeShare({
+      title: exam ? `Đề thi: ${exam.title}` : "Đề thi DkTEST",
+      text: exam ? `Tham gia làm bài thi ${exam.title} trên DkTEST!` : "Tham gia làm bài thi trên DkTEST!",
+      url,
+    });
+    if (!shared) {
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+        showToastSuccess("Đã sao chép link đề thi! Khi gửi qua Zalo, link sẽ tự động hiển thị thẻ xem trước có tên, môn, thời gian và số câu hỏi.");
+      } catch (_) {
+        prompt("Sao chép link gửi qua Zalo:", url);
+      }
+    }
+  };
 
   // Real-time wallet sync to guarantee student never sees 0 VND when they have balance
   useEffect(() => {
@@ -617,13 +641,24 @@ export default function ExamIntro() {
         <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
           {/* Banner */}
           <div className="bg-gradient-to-r from-blue-700 to-indigo-800 p-6 lg:p-8 text-white">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[11px] font-mono font-bold bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-xs">
-                MÃ BÀI: {exam.code}
-              </span>
-              <span className="text-[11px] font-bold bg-emerald-500/30 text-emerald-100 px-2.5 py-0.5 rounded-full">
-                SẴN SÀNG THI
-              </span>
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono font-bold bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-xs">
+                  MÃ BÀI: {exam.code}
+                </span>
+                <span className="text-[11px] font-bold bg-emerald-500/30 text-emerald-100 px-2.5 py-0.5 rounded-full">
+                  SẴN SÀNG THI
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleShareExam}
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/15 hover:bg-white/25 active:scale-95 text-white rounded-full text-xs font-semibold backdrop-blur-xs transition-all cursor-pointer"
+                title="Chia sẻ đề thi qua Zalo (hiển thị thẻ xem trước có môn, thời gian, số câu)"
+              >
+                {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Share2 className="w-3.5 h-3.5" />}
+                <span>{copiedLink ? "Đã chép link!" : "Chia sẻ Zalo"}</span>
+              </button>
             </div>
             <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight leading-snug">
               {exam.title}

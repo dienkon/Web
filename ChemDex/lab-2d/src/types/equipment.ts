@@ -61,6 +61,13 @@ export interface EquipmentState {
   effervescenceSpeed?: 'slow' | 'vigorous' | 'instant';
   evaporationRate_g_s?: number; // Live evaporation rate display
   totalEvaporated_ml?: number; // Cumulative boil-off
+  hasPhaseSeparation?: boolean;
+  organicLayerVolume_ml?: number;
+  organicLayerColorHex?: string;
+  hasFumes?: boolean;
+  fumeType?: 'steam' | 'no2' | 'nh4cl' | 'iodine';
+  fumeColorHex?: string;
+
 
   // Mixing / stirring
   isStirred?: boolean;

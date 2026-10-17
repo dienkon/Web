@@ -352,6 +352,16 @@ export default function ExamList() {
   useEffect(() => {
     // Always force fresh reload when mounting ExamList or switching folder mode
     loadFolderData(currentFolderId, true);
+
+    const handleUpdate = () => {
+      loadFolderData(currentFolderId, true);
+    };
+    window.addEventListener("dktest-exams-updated", handleUpdate);
+    window.addEventListener("dktest-folders-updated", handleUpdate);
+    return () => {
+      window.removeEventListener("dktest-exams-updated", handleUpdate);
+      window.removeEventListener("dktest-folders-updated", handleUpdate);
+    };
   }, [currentFolderId, viewFolderMode]);
 
   // Pre-load all folders on demand when user opens Move Exam or Create Folder modals

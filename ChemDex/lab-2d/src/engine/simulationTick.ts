@@ -123,7 +123,10 @@ export function stepVesselThermal(
       if (normalizeFormula(item.formula) === 'H2O' && item.state !== 'g') {
         return { ...item, mass_g: item.mass_g * keep, moles: item.moles * keep };
       }
-      if (item.state === 'aq' && newVolume > 0) {
+      if (item.state === 'aq') {
+        if (newVolume <= 0.05) {
+          return { ...item, state: 's' as const, concentration_M: undefined };
+        }
         return { ...item, concentration_M: item.moles / (newVolume / 1000) };
       }
       return { ...item };
